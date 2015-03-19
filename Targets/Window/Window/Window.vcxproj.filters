@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="WinAPI.cpp" />
+    <ClCompile Include="..\..\..\Sources\Graphics.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Cross">
+      <UniqueIdentifier>{bf6605b8-4716-493a-9f60-06a01e42d503}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Sources\Graphics.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
