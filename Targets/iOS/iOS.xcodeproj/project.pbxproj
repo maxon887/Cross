@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D445C5A61ABAF5220077193B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D445C5A51ABAF5220077193B /* Entitlements.plist */; };
 		D4DD2B351AB9D024004563BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B341AB9D024004563BE /* main.m */; };
 		D4DD2B381AB9D024004563BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B371AB9D024004563BE /* AppDelegate.m */; };
 		D4DD2B3E1AB9D024004563BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4DD2B3C1AB9D024004563BE /* Main.storyboard */; };
@@ -29,7 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D4DD2B2F1AB9D024004563BE /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D445C5A51ABAF5220077193B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		D4DD2B2F1AB9D024004563BE /* Cross++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cross++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4DD2B331AB9D024004563BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4DD2B341AB9D024004563BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D4DD2B361AB9D024004563BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		D4DD2B261AB9D023004563BE = {
 			isa = PBXGroup;
 			children = (
+				D445C5A51ABAF5220077193B /* Entitlements.plist */,
 				D4DD2B5E1AB9D1BF004563BE /* Default-568h@2x.png */,
 				D4DD2B5A1AB9D083004563BE /* Cross */,
 				D4DD2B581AB9D07B004563BE /* OS */,
@@ -82,7 +85,7 @@
 		D4DD2B301AB9D024004563BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4DD2B2F1AB9D024004563BE /* iOS.app */,
+				D4DD2B2F1AB9D024004563BE /* Cross++.app */,
 				D4DD2B481AB9D024004563BE /* iOSTests.xctest */,
 			);
 			name = Products;
@@ -91,6 +94,7 @@
 		D4DD2B311AB9D024004563BE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D4DD2B331AB9D024004563BE /* Info.plist */,
 				D4DD2B361AB9D024004563BE /* AppDelegate.h */,
 				D4DD2B371AB9D024004563BE /* AppDelegate.m */,
 				D4DD2B5B1AB9D0F8004563BE /* GLRenderView.h */,
@@ -106,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				D4DD2B661AB9D867004563BE /* GLKit.framework */,
-				D4DD2B331AB9D024004563BE /* Info.plist */,
 				D4DD2B341AB9D024004563BE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -169,7 +172,7 @@
 			);
 			name = iOS;
 			productName = iOS;
-			productReference = D4DD2B2F1AB9D024004563BE /* iOS.app */;
+			productReference = D4DD2B2F1AB9D024004563BE /* Cross++.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D4DD2B471AB9D024004563BE /* iOSTests */ = {
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D445C5A61ABAF5220077193B /* Entitlements.plist in Resources */,
 				D4DD2B3E1AB9D024004563BE /* Main.storyboard in Resources */,
 				D4DD2B401AB9D024004563BE /* Images.xcassets in Resources */,
 				D4DD2B5F1AB9D1BF004563BE /* Default-568h@2x.png in Resources */,
@@ -306,7 +310,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -348,7 +354,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -371,9 +379,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Cross++";
 			};
 			name = Debug;
 		};
@@ -381,9 +391,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Cross++";
 			};
 			name = Release;
 		};

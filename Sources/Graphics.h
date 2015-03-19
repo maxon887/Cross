@@ -23,7 +23,7 @@
 #define glOrthof glOrtho
 #endif
 
-#ifdef _APPLE_
+#ifdef __APPLE__
 #include <OpenGLES/ES1/gl.h>
 #endif
 
