@@ -1,2 +1,2 @@
-# Cross
-Cross++ Game Engine is crossplatform 2D game engine
+# Cross++
+Lightweight cross-platform 2D game engine wrote mostly on C++. Game scripts runs also under C++.

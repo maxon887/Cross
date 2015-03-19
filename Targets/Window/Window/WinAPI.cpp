@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include <Windows.h>
+#include "LauncherWIN.h"
 #include "Graphics.h"
 
 void ShowLastError(){
@@ -52,7 +53,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	wc.hCursor = LoadCursor(instance, IDC_ARROW);
 	wc.lpszClassName = "Cross++";
 	RegisterClassEx(&wc);
-	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 300, 550, 900, NULL, NULL, instance, NULL);
+
+	LauncherWIN launcher;
+
+	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 300, launcher.GetTargetWidth(), launcher.GetTargetHeight(), NULL, NULL, instance, NULL);
 
 	PIXELFORMATDESCRIPTOR pfd;
 	ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
@@ -92,7 +96,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	ShowWindow(wnd, winShow);
 
 	Graphics gfx;
-	gfx.Init();
+	gfx.Init(&launcher);
 
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));

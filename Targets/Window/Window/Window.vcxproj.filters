@@ -5,15 +5,27 @@
     <ClCompile Include="..\..\..\Sources\Graphics.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\LauncherWIN.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
       <UniqueIdentifier>{bf6605b8-4716-493a-9f60-06a01e42d503}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{1eddf9d5-122b-4982-9508-f85e84670fcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Graphics.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Launcher.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\LauncherWIN.h">
+      <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

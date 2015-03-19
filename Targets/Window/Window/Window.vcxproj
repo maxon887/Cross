@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Windows/;../../../Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -66,9 +66,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="WinAPI.cpp" />
+    <ClCompile Include="Windows\LauncherWIN.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Graphics.h" />
+    <ClInclude Include="..\..\..\Sources\Launcher.h" />
+    <ClInclude Include="Windows\LauncherWIN.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
