@@ -17,8 +17,10 @@
 
 #import "GLRenderView.h"
 #import "Graphics.h"
+#import "LauncherOS.h"
 
 @implementation GLRenderView{
+    LauncherOS* launcher;
     Graphics* gfx;
 }
 
@@ -37,8 +39,9 @@
 - (void)render:(CADisplayLink*)displayLink{
     [self display];
     if(!gfx){
+        launcher = new LauncherOS();
         gfx = new Graphics();
-        gfx->Init();
+        gfx->Init(launcher);
     }
     gfx->Test();
 }

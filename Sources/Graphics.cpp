@@ -17,11 +17,17 @@
 	
 #include "Graphics.h"
 
-void Graphics::Init(){
+void Graphics::Init(Launcher* launcher){
 	glViewport(0, 0, 550, 900);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrthof(0, 550, 900, 0, 1, -1);
+	char buf[128];
+	launcher->LogIt("You have successfully initialized Graphics Class");
+	sprintf(buf, "Target width: %d", launcher->GetTargetWidth());
+	launcher->LogIt(buf);
+	sprintf(buf, "Target height: %d", launcher->GetTargetHeight());
+	launcher->LogIt(buf);
 }
 
 void Graphics::Test(){

@@ -17,26 +17,10 @@
 	
 #pragma once
 
-#ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#endif
-
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#endif
-
-#include <stdio.h>
-#include "Launcher.h"
-
-class Graphics{
+class Launcher{
 public:
-	void Init(Launcher* launcher);
-	void Test();
+	virtual int GetTargetWidth()=0;
+	virtual int GetTargetHeight()=0;
+	virtual void LogIt(const char* str)=0;
 private:
 };

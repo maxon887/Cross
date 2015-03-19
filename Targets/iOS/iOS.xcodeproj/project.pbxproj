@@ -17,6 +17,8 @@
 		D4DD2B5F1AB9D1BF004563BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4DD2B5E1AB9D1BF004563BE /* Default-568h@2x.png */; };
 		D4DD2B621AB9D28C004563BE /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B601AB9D28C004563BE /* Graphics.cpp */; };
 		D4DD2B671AB9D867004563BE /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DD2B661AB9D867004563BE /* GLKit.framework */; };
+		D4E1C2221ABAB7DE003F3A50 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */; };
+		D4E1C2251ABAB8D9003F3A50 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E1C2241ABAB8D9003F3A50 /* LauncherOS.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,10 @@
 		D4DD2B601AB9D28C004563BE /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Graphics.cpp; path = ../../Sources/Graphics.cpp; sourceTree = "<group>"; };
 		D4DD2B611AB9D28C004563BE /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Graphics.h; path = ../../Sources/Graphics.h; sourceTree = "<group>"; };
 		D4DD2B661AB9D867004563BE /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D4E1C2201ABAB750003F3A50 /* Launcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Launcher.h; path = ../../Sources/Launcher.h; sourceTree = "<group>"; };
+		D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D4E1C2231ABAB893003F3A50 /* LauncherOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LauncherOS.h; sourceTree = SOURCE_ROOT; };
+		D4E1C2241ABAB8D9003F3A50 /* LauncherOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LauncherOS.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E1C2221ABAB7DE003F3A50 /* OpenGLES.framework in Frameworks */,
 				D4DD2B671AB9D867004563BE /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +78,7 @@
 		D4DD2B261AB9D023004563BE = {
 			isa = PBXGroup;
 			children = (
+				D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */,
 				D445C5A51ABAF5220077193B /* Entitlements.plist */,
 				D4DD2B5E1AB9D1BF004563BE /* Default-568h@2x.png */,
 				D4DD2B5A1AB9D083004563BE /* Cross */,
@@ -135,6 +143,8 @@
 		D4DD2B581AB9D07B004563BE /* OS */ = {
 			isa = PBXGroup;
 			children = (
+				D4E1C2231ABAB893003F3A50 /* LauncherOS.h */,
+				D4E1C2241ABAB8D9003F3A50 /* LauncherOS.mm */,
 			);
 			path = OS;
 			sourceTree = "<group>";
@@ -151,6 +161,7 @@
 			children = (
 				D4DD2B611AB9D28C004563BE /* Graphics.h */,
 				D4DD2B601AB9D28C004563BE /* Graphics.cpp */,
+				D4E1C2201ABAB750003F3A50 /* Launcher.h */,
 			);
 			name = Cross;
 			sourceTree = "<group>";
@@ -260,6 +271,7 @@
 				D4DD2B351AB9D024004563BE /* main.m in Sources */,
 				D4DD2B621AB9D28C004563BE /* Graphics.cpp in Sources */,
 				D4DD2B5D1AB9D0F8004563BE /* GLRenderView.mm in Sources */,
+				D4E1C2251ABAB8D9003F3A50 /* LauncherOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
