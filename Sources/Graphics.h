@@ -16,11 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#ifdef WIN32
+
+#ifdef _WIN32
 #include <Windows.h>
 #include <gl/GL.h>
+#define glOrthof glOrtho
 #endif
+
+#ifdef _APPLE_
 #include <OpenGLES/ES1/gl.h>
+#endif
+
+#ifdef ANDROID
+#include <GLES/gl.h>
+#endif
 
 class Graphics{
 public:
