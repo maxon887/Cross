@@ -15,14 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-package com.cross.imp;
+package com.cross.android;
 
-public class Graphics {
+public class IMP {
 	
-	static {
+	public IMP(){
 		System.loadLibrary("cross");
 	}
 	
-	public native void Init();
-	public native void Test();
+	public native void Start();
+	public native void Update();
 }

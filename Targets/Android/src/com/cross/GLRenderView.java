@@ -20,7 +20,7 @@ package com.cross;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.cross.imp.Graphics;
+import com.cross.android.IMP;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -28,17 +28,17 @@ import android.opengl.GLSurfaceView;
 public class GLRenderView extends GLSurfaceView
 implements GLSurfaceView.Renderer {
 	
-	private Graphics gfx;
+	private IMP imp;
 	
 	public GLRenderView(Context context) {
 		super(context);
 		setRenderer(this);
-		gfx = new Graphics();
+		imp = new IMP();
 	}
 
 	@Override
 	public void onDrawFrame(GL10 gl) { 
-		gfx.Test();
+		imp.Update();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ implements GLSurfaceView.Renderer {
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		gfx.Init();
+		imp.Start();
 	}
 
 }

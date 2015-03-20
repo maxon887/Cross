@@ -1,4 +1,4 @@
-/*	Copyright Â© 2015 Lukyanau Maksim
+/*	Copyright © 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,23 +14,33 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
-#pragma once
 
-class Launcher{
-public:
+package com.cross.android;
+
+import com.cross.MainActivity;
+
+import android.view.Display;
+
+public class Launcher {
+	
+	private int width;
+	private int height;
+	
+	@SuppressWarnings("deprecation")
+	public Launcher() {
+		Display display = MainActivity.self.getWindowManager().getDefaultDisplay();
+		width = display.getWidth();
+		height = display.getHeight();
+	}
+	
+	public int GetTargetWidth() {
+		return width;
+	}
+	public int GetTargetHeight() {
+		return height;
+	}
 	/*
-	 * Returns phisycal screen width in pixels
-	 */
-	virtual int GetTargetWidth() = 0;
-	/*
-	 * Returns phisycal screen height in pixels
-	 */
-	virtual int GetTargetHeight() = 0;
-	/*
-	 * Log out message
-	 */
-	virtual void LogIt(const char* msg) = 0;
-	virtual ~Launcher() { }
-private:
-};
+	public void LogIt(String str) {
+		Log.d("Cross++", str);
+	}*/
+}

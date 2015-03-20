@@ -1,4 +1,4 @@
-/*	Copyright Â© 2015 Lukyanau Maksim
+/*	Copyright © 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,23 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #pragma once
 
-class Launcher{
+#include <jni.h>
+#include <android/log.h>
+#include "Launcher.h"
+
+class LauncherIMP : public Launcher{
 public:
-	/*
-	 * Returns phisycal screen width in pixels
-	 */
-	virtual int GetTargetWidth() = 0;
-	/*
-	 * Returns phisycal screen height in pixels
-	 */
-	virtual int GetTargetHeight() = 0;
-	/*
-	 * Log out message
-	 */
-	virtual void LogIt(const char* msg) = 0;
-	virtual ~Launcher() { }
+	LauncherIMP(JNIEnv* env);
+	int GetTargetWidth();
+	int GetTargetHeight();
+	void LogIt(const char* str);
 private:
+	int width;
+	int height;
 };
