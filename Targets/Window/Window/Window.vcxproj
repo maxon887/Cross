@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>Windows/;../../../Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Windows/;../../../Sources;../../../Games/Snaky/Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,13 +64,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Games\Snaky\Sources\MenuScreen.cpp" />
+    <ClCompile Include="..\..\..\Games\Snaky\Sources\SnakyGame.cpp" />
+    <ClCompile Include="..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
+    <ClCompile Include="..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="WinAPI.cpp" />
     <ClCompile Include="Windows\LauncherWIN.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Games\Snaky\Sources\MenuScreen.h" />
+    <ClInclude Include="..\..\..\Games\Snaky\Sources\SnakyGame.h" />
+    <ClInclude Include="..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\Sources\Graphics.h" />
     <ClInclude Include="..\..\..\Sources\Launcher.h" />
+    <ClInclude Include="..\..\..\Sources\Screen.h" />
     <ClInclude Include="Windows\LauncherWIN.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

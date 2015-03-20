@@ -17,32 +17,26 @@
 	
 #pragma once
 
-#ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#endif
+class Launcher;
+class Graphics;
+class Screen;
 
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#endif
-
-#include <stdio.h>
-#include "Game.h"
-#include "Launcher.h"
-
-class Graphics{
+class Game{
 public:
+	float scale_factor;
+	float width;
+	float height;
 
-	Graphics(Game* game);
-	void Clear(float r, float g, float b);
-	void Test();
-	//void Init(Launcher* launcher);
-	//void Test();
+	Launcher* launcher;
+	Graphics* graphics;
+
+	virtual Screen* GetStartScreen() = 0;
+
+	Game(Launcher* launcher, float width, float height);
+	void Start();
+	void SetScreen(Screen* screen);
+	Screen* GetCurrentScreen();
+	virtual ~Game();
 private:
-	Game* game;
+	Screen* current_screen;
 };

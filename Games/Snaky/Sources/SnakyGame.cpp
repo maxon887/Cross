@@ -15,34 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "SnakyGame.h"
 
-#ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#endif
+SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH, GAME_HEIGHT){
+	menu_screen = new MenuScreen(this);
+	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
+	height = width * aspect;
+}
 
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#endif
-
-#include <stdio.h>
-#include "Game.h"
-#include "Launcher.h"
-
-class Graphics{
-public:
-
-	Graphics(Game* game);
-	void Clear(float r, float g, float b);
-	void Test();
-	//void Init(Launcher* launcher);
-	//void Test();
-private:
-	Game* game;
-};
+Screen* SnakyGame::GetStartScreen(){
+	return menu_screen;
+}

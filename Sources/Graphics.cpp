@@ -17,6 +17,36 @@
 	
 #include "Graphics.h"
 
+Graphics::Graphics(Game* game){
+	this->game = game;
+	Launcher* launcher = game->launcher;
+	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrthof(0, launcher->GetTargetWidth(), launcher->GetTargetHeight(), 0, 1, -1);
+		
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void Graphics::Clear(float r, float g, float b){
+	glClearColor(r, g, b, 1);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+}
+
+void Graphics::Test(){
+	GLfloat width = game->launcher->GetTargetWidth();
+	GLfloat height = game->launcher->GetTargetHeight();
+
+		GLfloat verts[] = {	0.0f, 0.0f,
+						width - 1, 0.0f,
+						width/2, height - 1 };
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(2, GL_FLOAT, 0, verts);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+/*
 void Graphics::Init(Launcher* launcher){
 	glViewport(0, 0, 550, 900);
 	glMatrixMode(GL_PROJECTION);
@@ -40,3 +70,4 @@ void Graphics::Test(){
 	glVertexPointer(2, GL_FLOAT, 0, verts);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
+*/

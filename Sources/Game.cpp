@@ -15,34 +15,29 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
-
-#ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#endif
-
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#endif
-
-#include <stdio.h>
 #include "Game.h"
 #include "Launcher.h"
+#include "Graphics.h"
+#include "Screen.h"
 
-class Graphics{
-public:
+Game::Game(Launcher* launcher, float width, float height){
+	this->launcher = launcher;
+	this->width = width;
+	this->height = height;
+	scale_factor = (float)launcher->GetTargetWidth()/width;
+}
 
-	Graphics(Game* game);
-	void Clear(float r, float g, float b);
-	void Test();
-	//void Init(Launcher* launcher);
-	//void Test();
-private:
-	Game* game;
-};
+void Game::Start(){
+	SetScreen(GetStartScreen());
+}
+
+void Game::SetScreen(Screen* screen){
+	current_screen = screen;
+	current_screen->Start();
+}
+
+Screen* Game::GetCurrentScreen(){
+	return current_screen;
+}
+
+Game::~Game(){ }

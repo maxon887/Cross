@@ -17,32 +17,17 @@
 	
 #pragma once
 
-#ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#endif
+#define GAME_WIDTH 900
+#define GAME_HEIGHT 1600
 
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#endif
-
-#include <stdio.h>
 #include "Game.h"
+#include "MenuScreen.h"
 #include "Launcher.h"
 
-class Graphics{
+class SnakyGame : public Game{
 public:
-
-	Graphics(Game* game);
-	void Clear(float r, float g, float b);
-	void Test();
-	//void Init(Launcher* launcher);
-	//void Test();
+	SnakyGame(Launcher* launcher);
+	Screen* GetStartScreen();
 private:
-	Game* game;
+	Screen* menu_screen;
 };

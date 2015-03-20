@@ -18,6 +18,18 @@
 #include <Windows.h>
 #include "LauncherWIN.h"
 #include "Graphics.h"
+#include "SnakyGame.h"
+
+void ClientResize(HWND hWnd, int nWidth, int nHeight)
+{
+	RECT rcClient, rcWind;
+	POINT ptDiff;
+	GetClientRect(hWnd, &rcClient);
+	GetWindowRect(hWnd, &rcWind);
+	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
+	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
+	MoveWindow(hWnd,rcWind.left, rcWind.top, nWidth + ptDiff.x, nHeight + ptDiff.y, TRUE);
+}
 
 void ShowLastError(){
 		DWORD error = GetLastError();
@@ -54,9 +66,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	wc.lpszClassName = "Cross++";
 	RegisterClassEx(&wc);
 
-	LauncherWIN launcher;
+	LauncherWIN* launcher = new LauncherWIN();
 
-	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 300, launcher.GetTargetWidth(), launcher.GetTargetHeight(), NULL, NULL, instance, NULL);
+	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 300, 0, 0, NULL, NULL, instance, NULL);
+	ClientResize(wnd, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;
 	ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
@@ -95,8 +108,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	ShowWindow(wnd, winShow);
 
-	Graphics gfx;
-	gfx.Init(&launcher);
+	SnakyGame* game = new SnakyGame(launcher);
+	Graphics* graphics = new Graphics(game);
+	game->graphics = graphics;
+	game->Start();
 
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
@@ -105,7 +120,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		gfx.Test();
+		game->GetCurrentScreen()->Update(0);
 		SwapBuffers(dc);
 	}
 	return msg.wParam;

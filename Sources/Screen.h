@@ -17,32 +17,15 @@
 	
 #pragma once
 
-#ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#endif
-
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#endif
-
-#include <stdio.h>
 #include "Game.h"
-#include "Launcher.h"
 
-class Graphics{
+class Screen{
 public:
-
-	Graphics(Game* game);
-	void Clear(float r, float g, float b);
-	void Test();
-	//void Init(Launcher* launcher);
-	//void Test();
-private:
+	Screen(Game* game);
+	virtual void Start();
+	virtual void Update(float sec);
+protected:
 	Game* game;
+	Launcher* launcher;
+	Graphics* graphics;
 };

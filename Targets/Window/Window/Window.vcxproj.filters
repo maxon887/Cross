@@ -8,6 +8,18 @@
     <ClCompile Include="Windows\LauncherWIN.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Game.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Screen.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Games\Snaky\Sources\MenuScreen.cpp">
+      <Filter>Snaky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Games\Snaky\Sources\SnakyGame.cpp">
+      <Filter>Snaky</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
@@ -15,6 +27,9 @@
     </Filter>
     <Filter Include="Windows">
       <UniqueIdentifier>{1eddf9d5-122b-4982-9508-f85e84670fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Snaky">
+      <UniqueIdentifier>{068f575a-ea61-4481-be68-4e1337905f69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -26,6 +41,18 @@
     </ClInclude>
     <ClInclude Include="Windows\LauncherWIN.h">
       <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Game.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Screen.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Games\Snaky\Sources\MenuScreen.h">
+      <Filter>Snaky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Games\Snaky\Sources\SnakyGame.h">
+      <Filter>Snaky</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
