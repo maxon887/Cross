@@ -18,10 +18,12 @@
 #import "GLRenderView.h"
 #import "Graphics.h"
 #import "LauncherOS.h"
+#import "SnakyGame.h"
+#import "Screen.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
-    Graphics* gfx;
+    SnakyGame* game;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -38,12 +40,16 @@
 
 - (void)render:(CADisplayLink*)displayLink{
     [self display];
-    if(!gfx){
+    if(!launcher){
         launcher = new LauncherOS();
-        gfx = new Graphics();
-        gfx->Init(launcher);
+        game = new SnakyGame(launcher);
+        Graphics* graphics = new Graphics(game);
+        game->graphics = graphics;
+        game->Start();
+        //gfx = new Graphics();
+        //gfx->Init(launcher);
     }
-    gfx->Test();
+    game->GetCurrentScreen()->Update(0);
 }
 
 @end

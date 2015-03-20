@@ -15,25 +15,26 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <glkView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzO-gm-hL0" customClass="GLRenderView">
-                                <rect key="frame" x="0.0" y="-16" width="600" height="616"/>
+                                <rect key="frame" x="8" y="0.0" width="304" height="480"/>
                             </glkView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="FzO-gm-hL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="2JV-Jk-AEJ"/>
-                            <constraint firstItem="FzO-gm-hL0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-16" id="6i1-NC-ZI4"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FzO-gm-hL0" secondAttribute="bottom" id="KFs-Z0-9ls"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FzO-gm-hL0" secondAttribute="trailing" constant="-16" id="yg1-XB-hjH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FzO-gm-hL0" secondAttribute="trailing" constant="-8" id="1OO-lV-6tJ"/>
+                            <constraint firstItem="FzO-gm-hL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-8" id="1Sh-HK-GYF"/>
+                            <constraint firstItem="FzO-gm-hL0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Qku-QV-RLy"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FzO-gm-hL0" secondAttribute="bottom" id="ia3-Jg-URX"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

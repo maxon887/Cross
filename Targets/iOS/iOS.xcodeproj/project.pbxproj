@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		D445C5A61ABAF5220077193B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D445C5A51ABAF5220077193B /* Entitlements.plist */; };
+		D4B505D51ABC5980007A3F39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */; };
+		D4B505D61ABC598A007A3F39 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DD2B661AB9D867004563BE /* GLKit.framework */; };
+		D4D271DD1ABC51370056B8A1 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D271D91ABC51370056B8A1 /* MenuScreen.cpp */; };
+		D4D271DE1ABC51370056B8A1 /* SnakyGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D271DB1ABC51370056B8A1 /* SnakyGame.cpp */; };
+		D4D271E81ABC53640056B8A1 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D271E01ABC53640056B8A1 /* Game.cpp */; };
+		D4D271EA1ABC53640056B8A1 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4D271E51ABC53640056B8A1 /* Screen.cpp */; };
 		D4DD2B351AB9D024004563BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B341AB9D024004563BE /* main.m */; };
 		D4DD2B381AB9D024004563BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B371AB9D024004563BE /* AppDelegate.m */; };
 		D4DD2B3E1AB9D024004563BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4DD2B3C1AB9D024004563BE /* Main.storyboard */; };
@@ -16,8 +22,6 @@
 		D4DD2B5D1AB9D0F8004563BE /* GLRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B5C1AB9D0F8004563BE /* GLRenderView.mm */; };
 		D4DD2B5F1AB9D1BF004563BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4DD2B5E1AB9D1BF004563BE /* Default-568h@2x.png */; };
 		D4DD2B621AB9D28C004563BE /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DD2B601AB9D28C004563BE /* Graphics.cpp */; };
-		D4DD2B671AB9D867004563BE /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DD2B661AB9D867004563BE /* GLKit.framework */; };
-		D4E1C2221ABAB7DE003F3A50 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */; };
 		D4E1C2251ABAB8D9003F3A50 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4E1C2241ABAB8D9003F3A50 /* LauncherOS.mm */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +37,14 @@
 
 /* Begin PBXFileReference section */
 		D445C5A51ABAF5220077193B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		D4D271D91ABC51370056B8A1 /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
+		D4D271DA1ABC51370056B8A1 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
+		D4D271DB1ABC51370056B8A1 /* SnakyGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakyGame.cpp; sourceTree = "<group>"; };
+		D4D271DC1ABC51370056B8A1 /* SnakyGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakyGame.h; sourceTree = "<group>"; };
+		D4D271E01ABC53640056B8A1 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../../Sources/Game.cpp; sourceTree = "<group>"; };
+		D4D271E11ABC53640056B8A1 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = ../../Sources/Game.h; sourceTree = "<group>"; };
+		D4D271E51ABC53640056B8A1 /* Screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Screen.cpp; path = ../../Sources/Screen.cpp; sourceTree = "<group>"; };
+		D4D271E61ABC53640056B8A1 /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Screen.h; path = ../../Sources/Screen.h; sourceTree = "<group>"; };
 		D4DD2B2F1AB9D024004563BE /* Cross++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cross++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4DD2B331AB9D024004563BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4DD2B341AB9D024004563BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,8 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4E1C2221ABAB7DE003F3A50 /* OpenGLES.framework in Frameworks */,
-				D4DD2B671AB9D867004563BE /* GLKit.framework in Frameworks */,
+				D4B505D61ABC598A007A3F39 /* GLKit.framework in Frameworks */,
+				D4B505D51ABC5980007A3F39 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,9 +87,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4D271D81ABC51370056B8A1 /* Snaky */ = {
+			isa = PBXGroup;
+			children = (
+				D4D271D91ABC51370056B8A1 /* MenuScreen.cpp */,
+				D4D271DA1ABC51370056B8A1 /* MenuScreen.h */,
+				D4D271DB1ABC51370056B8A1 /* SnakyGame.cpp */,
+				D4D271DC1ABC51370056B8A1 /* SnakyGame.h */,
+			);
+			name = Snaky;
+			path = ../../Games/Snaky/Sources;
+			sourceTree = "<group>";
+		};
 		D4DD2B261AB9D023004563BE = {
 			isa = PBXGroup;
 			children = (
+				D4D271D81ABC51370056B8A1 /* Snaky */,
 				D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */,
 				D445C5A51ABAF5220077193B /* Entitlements.plist */,
 				D4DD2B5E1AB9D1BF004563BE /* Default-568h@2x.png */,
@@ -159,6 +184,10 @@
 		D4DD2B5A1AB9D083004563BE /* Cross */ = {
 			isa = PBXGroup;
 			children = (
+				D4D271E01ABC53640056B8A1 /* Game.cpp */,
+				D4D271E11ABC53640056B8A1 /* Game.h */,
+				D4D271E51ABC53640056B8A1 /* Screen.cpp */,
+				D4D271E61ABC53640056B8A1 /* Screen.h */,
 				D4DD2B611AB9D28C004563BE /* Graphics.h */,
 				D4DD2B601AB9D28C004563BE /* Graphics.cpp */,
 				D4E1C2201ABAB750003F3A50 /* Launcher.h */,
@@ -270,7 +299,11 @@
 				D4DD2B381AB9D024004563BE /* AppDelegate.m in Sources */,
 				D4DD2B351AB9D024004563BE /* main.m in Sources */,
 				D4DD2B621AB9D28C004563BE /* Graphics.cpp in Sources */,
+				D4D271E81ABC53640056B8A1 /* Game.cpp in Sources */,
+				D4D271EA1ABC53640056B8A1 /* Screen.cpp in Sources */,
 				D4DD2B5D1AB9D0F8004563BE /* GLRenderView.mm in Sources */,
+				D4D271DD1ABC51370056B8A1 /* MenuScreen.cpp in Sources */,
+				D4D271DE1ABC51370056B8A1 /* SnakyGame.cpp in Sources */,
 				D4E1C2251ABAB8D9003F3A50 /* LauncherOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,7 +459,7 @@
 				INFOPLIST_FILE = iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS.app/iOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cross++.app/Cross++";
 			};
 			name = Debug;
 		};
@@ -441,7 +474,7 @@
 				INFOPLIST_FILE = iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS.app/iOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cross++.app/Cross++";
 			};
 			name = Release;
 		};

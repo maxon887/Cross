@@ -38,9 +38,12 @@ void Graphics::Test(){
 	GLfloat width = game->launcher->GetTargetWidth();
 	GLfloat height = game->launcher->GetTargetHeight();
 
-		GLfloat verts[] = {	0.0f, 0.0f,
-						width - 1, 0.0f,
-						width/2, height - 1 };
+	//	GLfloat verts[] = {	0.0f, 0.0f,
+    //                        width - 1, 0.0f,
+    //                        width/2, height - 1 };
+    GLfloat verts[] = { width - 1, height - 1,
+        0, height - 1,
+        width / 2, 0 };
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, verts);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
