@@ -16,19 +16,22 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Graphics.h"
+#include "SnakyGame.h"
 #include "IMP/LauncherIMP.h"
 
-LauncherIMP* launcher;
-Graphics* gfx;
+SnakyGame* game;
 
 static void Start(JNIEnv* env){
-    launcher = new LauncherIMP(env);
-	gfx = new Graphics();
-	gfx->Init(launcher);
+    LauncherIMP* launcher = new LauncherIMP(env);
+    game = new SnakyGame(launcher);
+    Graphics* gfx = new Graphics(game);
+    game->graphics = gfx;
+
+    game->Start();
 }
 
 static void Update(){
-	gfx->Test();
+	game->GetCurrentScreen()->Update(0);
 }
 
 static JNINativeMethod methods[] = {

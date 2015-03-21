@@ -52,11 +52,20 @@
 			<type>2</type>
 			<locationURI>CROSS_SRC</locationURI>
 		</link>
+		<link>
+			<name>Snaky</name>
+			<type>2</type>
+			<locationURI>SNAKY_GAME</locationURI>
+		</link>
 	</linkedResources>
 	<variableList>
 		<variable>
 			<name>CROSS_SRC</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Sources</value>
+		</variable>
+		<variable>
+			<name>SNAKY_GAME</name>
+			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Snaky/Sources</value>
 		</variable>
 	</variableList>
 </projectDescription>
