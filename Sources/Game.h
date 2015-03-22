@@ -23,18 +23,25 @@ class Screen;
 
 class Game{
 public:
+	/* Reflect ratio between game and target device width.*/
 	float scale_factor;
+	/* Game width */
 	float width;
+	/* Game height; */
 	float height;
 
 	Launcher* launcher;
 	Graphics* graphics;
-
+	/* This method must return first game Screen */
 	virtual Screen* GetStartScreen() = 0;
-
+	/* Constructor gets virtual game width and height
+	   don't mess with target width and height. */
 	Game(Launcher* launcher, float width, float height);
+	/* Start the game. Calls automaticaly */
 	void Start();
+	/* Set up new game Screen. Previous creen data will be lost. */
 	void SetScreen(Screen* screen);
+	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
 	virtual ~Game();
 private:

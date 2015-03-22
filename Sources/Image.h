@@ -17,19 +17,27 @@
 	
 #pragma once
 
-#include "Game.h"
+#include "Rect.h"
+#include "Graphics.h"
 
-class Screen{
+class Image{
 public:
-	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
-	virtual void Start();
-	/* Calls every frame. */
-	virtual void Update(float sec);
-protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
+	Image(GLuint id, int texWidth, int texHeight, Rect region);
+	void Scale(float factor);
+
+	GLuint GetTextureID();
+	int GetWidth();
+	int GetHeight();
+
+	float* GetVertices();
+	static const short indices[6];
+private:
+
+	GLuint textureID;
+	float vertices[16];
+	Rect region;
+	float u1, v1;
+	float u2, v2;
+	int width;
+	int height;
 };

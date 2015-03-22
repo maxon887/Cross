@@ -16,20 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+#include "Point.h"
 
-#include "Game.h"
-
-class Screen{
+class Rect{
 public:
-	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
-	virtual void Start();
-	/* Calls every frame. */
-	virtual void Update(float sec);
-protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
+	float x;
+	float y;
+	float width;
+	float height;
+	Rect(float x, float y, float width, float height);
+private:
 };

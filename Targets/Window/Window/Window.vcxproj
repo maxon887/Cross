@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>Windows/;../../../Sources;../../../Games/Snaky/Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Games/Demo/Sources;../../../Sources/SOIL;Windows/;../../../Sources/Utils;../../../Sources;../../../Games/Snaky/Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,21 +64,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Games\Demo\Sources\Demo.cpp" />
+    <ClCompile Include="..\..\..\Games\Demo\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\..\Games\Snaky\Sources\MenuScreen.cpp" />
     <ClCompile Include="..\..\..\Games\Snaky\Sources\SnakyGame.cpp" />
     <ClCompile Include="..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
+    <ClCompile Include="..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\Sources\Screen.cpp" />
+    <ClCompile Include="..\..\..\Sources\SOIL\image_DXT.cpp" />
+    <ClCompile Include="..\..\..\Sources\SOIL\image_helper.cpp" />
+    <ClCompile Include="..\..\..\Sources\SOIL\SOIL.cpp" />
+    <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Point.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp" />
     <ClCompile Include="WinAPI.cpp" />
     <ClCompile Include="Windows\LauncherWIN.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Games\Demo\Sources\Demo.h" />
+    <ClInclude Include="..\..\..\Games\Demo\Sources\MainScreen.h" />
     <ClInclude Include="..\..\..\Games\Snaky\Sources\MenuScreen.h" />
     <ClInclude Include="..\..\..\Games\Snaky\Sources\SnakyGame.h" />
     <ClInclude Include="..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\Sources\Graphics.h" />
+    <ClInclude Include="..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\Sources\Screen.h" />
+    <ClInclude Include="..\..\..\Sources\SOIL\image_DXT.h" />
+    <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h" />
+    <ClInclude Include="..\..\..\Sources\SOIL\SOIL.h" />
+    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Point.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Rect.h" />
     <ClInclude Include="Windows\LauncherWIN.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

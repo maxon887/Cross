@@ -17,19 +17,15 @@
 	
 #pragma once
 
-#include "Game.h"
+#include "Graphics.h"
+#include "Screen.h"
 
-class Screen{
+class MainScreen : public Screen{
 public:
-	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
-	virtual void Start();
-	/* Calls every frame. */
-	virtual void Update(float sec);
-protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
+	MainScreen(Game* game);
+	void Start();
+	void Update(float sec);
+private:
+	Image* x_img;
+	Image* button_release;
 };

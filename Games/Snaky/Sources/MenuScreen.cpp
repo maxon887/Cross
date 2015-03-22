@@ -20,11 +20,13 @@
 MenuScreen::MenuScreen(Game* game):Screen(game) { }
 
 void MenuScreen::Start(){
-	Screen::Start();
+	test = graphics->LoadImage("h:/GameDev/X++.png");
 }
 
 void MenuScreen::Update(float sec){
 	//graphics->Test();
 	graphics->Clear(0.0f, 0.25f, 0.25f);
-	graphics->Test();
+	//graphics->Test();
+	Point p(launcher->GetTargetWidth()/2, launcher->GetTargetHeight()/2);
+	graphics->DrawTargetImage(p, test);
 }

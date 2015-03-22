@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#include "IMP/LauncherIMP.h"
+#include <LauncherAndroid.h>
 
-LauncherIMP::LauncherIMP(JNIEnv* env){
+LauncherAndroid::LauncherAndroid(JNIEnv* env){
 	jclass clazz = env->FindClass("com/cross/android/Launcher");
 	jmethodID constructor = env->GetMethodID(clazz, "<init>", "()V");
 	jobject jLauncher = env->NewObject(clazz, constructor);
@@ -31,14 +31,14 @@ LauncherIMP::LauncherIMP(JNIEnv* env){
 	env->DeleteLocalRef(jLauncher);
 }
 
-int LauncherIMP::GetTargetWidth(){
+int LauncherAndroid::GetTargetWidth(){
 	return width;
 }
 
-int LauncherIMP::GetTargetHeight(){
+int LauncherAndroid::GetTargetHeight(){
 	return height;
 }
 
-void LauncherIMP::LogIt(const char* str){
+void LauncherAndroid::LogIt(const char* str){
 	__android_log_print(ANDROID_LOG_DEBUG, "Cross++", "%s", str);
 }

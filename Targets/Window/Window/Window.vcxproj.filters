@@ -20,6 +20,33 @@
     <ClCompile Include="..\..\..\Games\Snaky\Sources\SnakyGame.cpp">
       <Filter>Snaky</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Image.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Point.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Games\Demo\Sources\Demo.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Games\Demo\Sources\MainScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\SOIL.cpp">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\image_helper.cpp">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\image_DXT.cpp">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.cpp">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
@@ -30,6 +57,15 @@
     </Filter>
     <Filter Include="Snaky">
       <UniqueIdentifier>{068f575a-ea61-4481-be68-4e1337905f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\SOIL">
+      <UniqueIdentifier>{80335f06-e4aa-4b53-bcf3-cf4ea37c8249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo">
+      <UniqueIdentifier>{30223344-ce79-4133-9271-cee9dfe1e6c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Utils">
+      <UniqueIdentifier>{28cf75a4-742c-46a4-87c4-fe09b37ab72b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,14 +81,47 @@
     <ClInclude Include="..\..\..\Sources\Game.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Screen.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Games\Snaky\Sources\MenuScreen.h">
       <Filter>Snaky</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Games\Snaky\Sources\SnakyGame.h">
       <Filter>Snaky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Screen.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Image.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Point.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Rect.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\SOIL\image_DXT.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\SOIL\SOIL.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug_c.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Games\Demo\Sources\Demo.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Games\Demo\Sources\MainScreen.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

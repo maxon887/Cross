@@ -15,15 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
+#include <LauncherAndroid.h>
 #include "Graphics.h"
 #include "SnakyGame.h"
-#include "IMP/LauncherIMP.h"
+#include "Demo.h"
 
-SnakyGame* game;
+
+Game* game;
 
 static void Start(JNIEnv* env){
-    LauncherIMP* launcher = new LauncherIMP(env);
-    game = new SnakyGame(launcher);
+	LauncherAndroid* launcher = new LauncherAndroid(env);
+    game = new Demo(launcher);
     Graphics* gfx = new Graphics(game);
     game->graphics = gfx;
 

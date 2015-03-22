@@ -26,4 +26,5 @@ public:
 	void Start();
 	void Update(float sec);
 private:
+	Image* test;
 };

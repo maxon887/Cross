@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Graphics.h"
+#include "Image.h"
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -33,6 +34,69 @@ void Graphics::Clear(float r, float g, float b){
 	glClearColor(r, g, b, 1);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
+
+Image* Graphics::LoadImage(const char* filename){
+	//if(strcmp(prev_tex_filename, filename)){
+		//create new Image
+	//}
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	//prev_tex_id = textureID;
+	//strcpy(prev_tex_filename, filename);
+	int width;
+	int height;
+
+	unsigned char* image = SOIL_load_image(filename, &width, &height, 0, SOIL_LOAD_RGBA);
+	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
+	SOIL_free_image_data(image);
+
+	//parameters
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	Rect region(0, 0, width, height);
+	return new Image(textureID, width, height, region);
+}
+
+void Graphics::DrawTargetImage(Point p, Image* img){
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(p.x, p.y, 0);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	float* verts = img->GetVertices(); 
+	glVertexPointer(2, GL_FLOAT, 16, verts);
+
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	verts += 2;
+	glTexCoordPointer(2, GL_FLOAT, 16, verts);
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, Image::indices);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Graphics::Test(){
 	GLfloat width = game->launcher->GetTargetWidth();

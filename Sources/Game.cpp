@@ -33,6 +33,7 @@ void Game::Start(){
 
 void Game::SetScreen(Screen* screen){
 	current_screen = screen;
+	current_screen->Init();
 	current_screen->Start();
 }
 

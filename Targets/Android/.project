@@ -53,15 +53,33 @@
 			<locationURI>CROSS_SRC</locationURI>
 		</link>
 		<link>
+			<name>Demo</name>
+			<type>2</type>
+			<locationURI>DEMO_GAME</locationURI>
+		</link>
+		<link>
 			<name>Snaky</name>
 			<type>2</type>
 			<locationURI>SNAKY_GAME</locationURI>
+		</link>
+		<link>
+			<name>assets</name>
+			<type>2</type>
+			<locationURI>DEMO_DATA</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>
 		<variable>
 			<name>CROSS_SRC</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Sources</value>
+		</variable>
+		<variable>
+			<name>DEMO_DATA</name>
+			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Demo/Data</value>
+		</variable>
+		<variable>
+			<name>DEMO_GAME</name>
+			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Demo/Sources</value>
 		</variable>
 		<variable>
 			<name>SNAKY_GAME</name>

@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,20 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
+	
 #pragma once
 
-#include <jni.h>
-#include <android/log.h>
-#include "Launcher.h"
-
-class LauncherIMP : public Launcher{
+class Point{
 public:
-	LauncherIMP(JNIEnv* env);
-	int GetTargetWidth();
-	int GetTargetHeight();
-	void LogIt(const char* str);
+	float x;
+	float y;
+	Point();
+	Point(float x, float y);
 private:
-	int width;
-	int height;
 };

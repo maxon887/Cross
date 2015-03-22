@@ -1,4 +1,4 @@
-/*	Copyright Â© 2015 Lukyanau Maksim
+/*	Copyright © 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,22 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #pragma once
 
-#include "Game.h"
+#include <jni.h>
+#include <android/log.h>
+#include "Launcher.h"
 
-class Screen{
+class LauncherAndroid : public Launcher{
 public:
-	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
-	virtual void Start();
-	/* Calls every frame. */
-	virtual void Update(float sec);
-protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
+	LauncherAndroid(JNIEnv* env);
+	int GetTargetWidth();
+	int GetTargetHeight();
+	void LogIt(const char* str);
+private:
+	int width;
+	int height;
 };

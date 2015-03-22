@@ -15,21 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "Rect.h"
 
-#include "Game.h"
-
-class Screen{
-public:
-	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
-	virtual void Start();
-	/* Calls every frame. */
-	virtual void Update(float sec);
-protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
-};
+Rect::Rect(float x, float y, float w, float h){
+	this->x = x;
+	this->y = y;
+	this->width = w;
+	this->height = h;
+}
+/*
+Rect::Rect(Rect &rect){
+	this->x = rect.x;
+	this->y = rect.y;
+	this->width = rect.width;
+	this->height = height;
+}*/

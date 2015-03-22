@@ -19,17 +19,11 @@
 
 class Launcher{
 public:
-	/*
-	 * Returns phisycal screen width in pixels
-	 */
+	/* Returns phisycal screen width in pixels */
 	virtual int GetTargetWidth() = 0;
-	/*
-	 * Returns phisycal screen height in pixels
-	 */
+	/* Returns phisycal screen height in pixels */
 	virtual int GetTargetHeight() = 0;
-	/*
-	 * Log out message
-	 */
+	/* Log out message */
 	virtual void LogIt(const char* msg) = 0;
 	virtual ~Launcher() { }
 private:

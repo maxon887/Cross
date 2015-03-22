@@ -21,6 +21,8 @@
 #include <Windows.h>
 #include <gl/GL.h>
 #define glOrthof glOrtho
+#define GL_CLAMP_TO_EDGE GL_CLAMP
+#undef LoadImage
 #endif
 
 #ifdef __APPLE__
@@ -32,17 +34,30 @@
 #endif
 
 #include <stdio.h>
+#include "SOIL.h"
 #include "Game.h"
 #include "Launcher.h"
+//#include "Image.h"
+#include "Point.h"
+
+class Image;
 
 class Graphics{
 public:
 
 	Graphics(Game* game);
+	/* Clear screen with particular color */
 	void Clear(float r, float g, float b);
+	Image* LoadImage(const char* filename);
 	void Test();
 	//void Init(Launcher* launcher);
 	//void Test();
+	void DrawTargetImage(Point p, Image* img); //temporary
 private:
 	Game* game;
+
+	char prev_tex_filename[128];;
+	int prev_tex_id;
+	int prev_tex_width;
+	int prev_tex_height;
 };

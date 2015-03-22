@@ -15,21 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "Demo.h"
 
-#include "Game.h"
+Demo::Demo(Launcher* launcher) : Game(launcher, 900, 1600) { 
+	main_screen = new MainScreen(this);
+}
 
-class Screen{
-public:
-	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
-	virtual void Start();
-	/* Calls every frame. */
-	virtual void Update(float sec);
-protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
-};
+Screen* Demo::GetStartScreen(){
+	return main_screen;
+}

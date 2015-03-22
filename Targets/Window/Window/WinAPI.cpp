@@ -19,6 +19,7 @@
 #include "LauncherWIN.h"
 #include "Graphics.h"
 #include "SnakyGame.h"
+#include "Demo.h"
 
 void ClientResize(HWND hWnd, int nWidth, int nHeight)
 {
@@ -68,7 +69,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	LauncherWIN* launcher = new LauncherWIN();
 
-	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 300, 0, 0, NULL, NULL, instance, NULL);
+	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
 	ClientResize(wnd, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;
@@ -108,7 +109,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	ShowWindow(wnd, winShow);
 
-	SnakyGame* game = new SnakyGame(launcher);
+	//SnakyGame* game = new SnakyGame(launcher);.
+	Demo* game = new Demo(launcher);
 	Graphics* graphics = new Graphics(game);
 	game->graphics = graphics;
 	game->Start();
