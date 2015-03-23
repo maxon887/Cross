@@ -39,6 +39,10 @@ int LauncherAndroid::GetTargetHeight(){
 	return height;
 }
 
+const char* LauncherAndroid::DataPath(){
+	return "/data/data/com.cross/files";
+}
+
 void LauncherAndroid::LogIt(const char* str){
 	__android_log_print(ANDROID_LOG_DEBUG, "Cross++", "%s", str);
 }

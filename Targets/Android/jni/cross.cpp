@@ -15,7 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#include <LauncherAndroid.h>
+#include <jni.h>
+#include "LauncherAndroid.h"
 #include "Graphics.h"
 #include "SnakyGame.h"
 #include "Demo.h"

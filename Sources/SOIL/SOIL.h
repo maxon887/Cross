@@ -92,6 +92,7 @@ enum
 	SOIL_FLAG_CoCg_Y: Google YCoCg; RGB=>CoYCg, RGBA=>CoCgAY
 	SOIL_FLAG_TEXTURE_RECTANGE: uses ARB_texture_rectangle ; pixel indexed & no repeat or MIPmaps or cubemaps
 **/
+/*
 enum
 {
 	SOIL_FLAG_POWER_OF_TWO = 1,
@@ -104,7 +105,19 @@ enum
 	SOIL_FLAG_NTSC_SAFE_RGB = 128,
 	SOIL_FLAG_CoCg_Y = 256,
 	SOIL_FLAG_TEXTURE_RECTANGLE = 512
-};
+};*/
+
+#define SOIL_FLAG_POWER_OF_TWO 1
+#define SOIL_FLAG_MIPMAPS 2
+#define SOIL_FLAG_TEXTURE_REPEATS 4
+#define SOIL_FLAG_MULTIPLY_ALPHA 8
+#define SOIL_FLAG_INVERT_Y 16
+#define SOIL_FLAG_COMPRESS_TO_DXT 32
+#define SOIL_FLAG_DDS_LOAD_DIRECT 64
+#define SOIL_FLAG_NTSC_SAFE_RGB 128
+#define SOIL_FLAG_CoCg_Y 256
+#define SOIL_FLAG_TEXTURE_RECTANGLE 512
+
 
 /**
 	The types of images that may be saved.

@@ -72,9 +72,9 @@
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\Sources\Screen.cpp" />
-    <ClCompile Include="..\..\..\Sources\SOIL\image_helper.cpp" />
-    <ClCompile Include="..\..\..\Sources\SOIL\SOIL.cpp" />
-    <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.cpp" />
+    <ClCompile Include="..\..\..\Sources\SOIL\image_helper.c" />
+    <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c" />
+    <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp" />
     <ClCompile Include="WinAPI.cpp" />

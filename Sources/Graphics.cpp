@@ -47,6 +47,8 @@ Image* Graphics::LoadImage(const char* filename){
     strcat(absPath, "/");
     strcat(absPath, filename);
     
+    launcher->LogIt(absPath);
+
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);

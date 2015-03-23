@@ -32,17 +32,17 @@
     <ClCompile Include="..\..\..\Games\Demo\Sources\MainScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\SOIL\SOIL.cpp">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\SOIL\image_helper.cpp">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.cpp">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp">
       <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\image_helper.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.c">
+      <Filter>Cross\SOIL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

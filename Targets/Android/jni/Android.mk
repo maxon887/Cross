@@ -20,12 +20,11 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					../../../Sources/Game.cpp \
 					../../../Sources/Screen.cpp \
 					../../../Sources/Image.cpp \
-					../../../Sources/Utils/Point.cpp \
+					../../../Sources/Utils/PointX.cpp \
 					../../../Sources/Utils/Rect.cpp \
-					../../../Sources/SOIL/SOIL.cpp \
-					../../../Sources/SOIL/image_DXT.cpp \
-					../../../Sources/SOIL/image_helper.cpp \
-					../../../Sources/SOIL/stb_image_aug.cpp
+					../../../Sources/SOIL/SOIL.c \
+					../../../Sources/SOIL/image_helper.c \
+					../../../Sources/SOIL/stb_image_aug.c
 					
 LOCAL_LDLIBS := -llog -lGLESv1_CM
 
