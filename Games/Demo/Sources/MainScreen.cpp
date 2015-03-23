@@ -25,7 +25,7 @@ void MainScreen::Start(){
 	//x_img = graphics->LoadImage("/data/data/com.cross/files/X256.png");
 	//button_release = graphics->LoadImage("/data/data/com.cross/files/ButtonRelease.png");
     x_img = graphics->LoadImage("X256.png");
-    button_release = graphics->LoadImage("ButtonReleas.png");
+    button_release = graphics->LoadImage("ButtonRelease.png");
 }
 
 void MainScreen::Update(float sec){

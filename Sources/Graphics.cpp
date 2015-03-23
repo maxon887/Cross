@@ -41,8 +41,6 @@ Image* Graphics::LoadImage(const char* filename){
 	//}
     
     Launcher* launcher = game->launcher;
-    launcher->LogIt(launcher->DataPath());
-    
     const char* platformPath = launcher->DataPath();
     char* absPath = (char*)malloc(strlen(platformPath) + strlen(filename) + 1);
     strcpy(absPath, platformPath);
