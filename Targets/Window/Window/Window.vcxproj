@@ -72,11 +72,10 @@
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\Sources\Screen.cpp" />
-    <ClCompile Include="..\..\..\Sources\SOIL\image_DXT.cpp" />
     <ClCompile Include="..\..\..\Sources\SOIL\image_helper.cpp" />
     <ClCompile Include="..\..\..\Sources\SOIL\SOIL.cpp" />
     <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\Point.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp" />
     <ClCompile Include="WinAPI.cpp" />
     <ClCompile Include="Windows\LauncherWIN.cpp" />
@@ -91,15 +90,22 @@
     <ClInclude Include="..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\Sources\Screen.h" />
-    <ClInclude Include="..\..\..\Sources\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\SOIL.h" />
-    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug.h" />
-    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug_c.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\Point.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\PointX.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Rect.h" />
     <ClInclude Include="Windows\LauncherWIN.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Games\Demo\Data\ButtonPressed.png" />
+    <Image Include="..\..\..\Games\Demo\Data\ButtonRelease.png" />
+    <Image Include="..\..\..\Games\Demo\Data\X128.png" />
+    <Image Include="..\..\..\Games\Demo\Data\X256.png" />
+    <Image Include="..\..\..\Games\Demo\Data\X512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Games\Demo\Data\X++.psd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

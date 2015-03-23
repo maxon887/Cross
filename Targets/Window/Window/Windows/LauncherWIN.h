@@ -28,6 +28,7 @@ class LauncherWIN : public Launcher{
 public:
 	int GetTargetWidth();
 	int GetTargetHeight();
+	const char* DataPath();
 	void LogIt(const char* str);
 private:
 	char str_buffer[256];

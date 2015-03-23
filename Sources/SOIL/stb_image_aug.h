@@ -276,39 +276,6 @@ extern int      stbi_bmp_test_file        (FILE *f);
 extern stbi_uc *stbi_bmp_load_from_file   (FILE *f,                  int *x, int *y, int *comp, int req_comp);
 #endif
 
-// is it a tga?
-extern int      stbi_tga_test_memory      (stbi_uc const *buffer, int len);
-
-extern stbi_uc *stbi_tga_load             (char const *filename,     int *x, int *y, int *comp, int req_comp);
-extern stbi_uc *stbi_tga_load_from_memory (stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
-#ifndef STBI_NO_STDIO
-extern int      stbi_tga_test_file        (FILE *f);
-extern stbi_uc *stbi_tga_load_from_file   (FILE *f,                  int *x, int *y, int *comp, int req_comp);
-#endif
-
-// is it a psd?
-extern int      stbi_psd_test_memory      (stbi_uc const *buffer, int len);
-
-extern stbi_uc *stbi_psd_load             (char const *filename,     int *x, int *y, int *comp, int req_comp);
-extern stbi_uc *stbi_psd_load_from_memory (stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
-#ifndef STBI_NO_STDIO
-extern int      stbi_psd_test_file        (FILE *f);
-extern stbi_uc *stbi_psd_load_from_file   (FILE *f,                  int *x, int *y, int *comp, int req_comp);
-#endif
-
-// is it an hdr?
-extern int      stbi_hdr_test_memory      (stbi_uc const *buffer, int len);
-
-extern float *  stbi_hdr_load             (char const *filename,     int *x, int *y, int *comp, int req_comp);
-extern float *  stbi_hdr_load_from_memory (stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
-extern stbi_uc *stbi_hdr_load_rgbe        (char const *filename,           int *x, int *y, int *comp, int req_comp);
-extern float *  stbi_hdr_load_from_memory (stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
-#ifndef STBI_NO_STDIO
-extern int      stbi_hdr_test_file        (FILE *f);
-extern float *  stbi_hdr_load_from_file   (FILE *f,                  int *x, int *y, int *comp, int req_comp);
-extern stbi_uc *stbi_hdr_load_rgbe_file   (FILE *f,                  int *x, int *y, int *comp, int req_comp);
-#endif
-
 // define new loaders
 typedef struct
 {

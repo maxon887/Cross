@@ -23,9 +23,6 @@
     <ClCompile Include="..\..\..\Sources\Image.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Point.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -41,11 +38,11 @@
     <ClCompile Include="..\..\..\Sources\SOIL\image_helper.cpp">
       <Filter>Cross\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\SOIL\image_DXT.cpp">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.cpp">
       <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp">
+      <Filter>Cross\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +63,9 @@
     </Filter>
     <Filter Include="Cross\Utils">
       <UniqueIdentifier>{28cf75a4-742c-46a4-87c4-fe09b37ab72b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Data">
+      <UniqueIdentifier>{1603c797-b4bd-4971-82db-403495a5ee53}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,14 +93,8 @@
     <ClInclude Include="..\..\..\Sources\Image.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Point.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Rect.h">
       <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\SOIL\image_DXT.h">
-      <Filter>Cross\SOIL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h">
       <Filter>Cross\SOIL</Filter>
@@ -111,17 +105,36 @@
     <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h">
       <Filter>Cross\SOIL</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\SOIL\stbi_DDS_aug_c.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Games\Demo\Sources\Demo.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Games\Demo\Sources\MainScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\PointX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Games\Demo\Data\ButtonPressed.png">
+      <Filter>Demo\Data</Filter>
+    </Image>
+    <Image Include="..\..\..\Games\Demo\Data\ButtonRelease.png">
+      <Filter>Demo\Data</Filter>
+    </Image>
+    <Image Include="..\..\..\Games\Demo\Data\X128.png">
+      <Filter>Demo\Data</Filter>
+    </Image>
+    <Image Include="..\..\..\Games\Demo\Data\X256.png">
+      <Filter>Demo\Data</Filter>
+    </Image>
+    <Image Include="..\..\..\Games\Demo\Data\X512.png">
+      <Filter>Demo\Data</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Games\Demo\Data\X++.psd">
+      <Filter>Demo\Data</Filter>
+    </None>
   </ItemGroup>
 </Project>

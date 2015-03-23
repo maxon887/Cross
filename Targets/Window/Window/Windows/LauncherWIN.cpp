@@ -25,6 +25,10 @@ int LauncherWIN::GetTargetHeight(){
 	return TARGET_HEIGHT;
 }
 
+const char* LauncherWIN::DataPath(){
+	return "../../../Games/Demo/Data";
+}
+
 void LauncherWIN::LogIt(const char* str){
 	sprintf(str_buffer, "%s\n", str);
     OutputDebugString(str_buffer);
