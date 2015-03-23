@@ -19,11 +19,12 @@
 #import "Graphics.h"
 #import "LauncherOS.h"
 #import "SnakyGame.h"
+#import "Demo.h"
 #import "Screen.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
-    SnakyGame* game;
+    Game* game;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -42,7 +43,7 @@
     [self display];
     if(!launcher){
         launcher = new LauncherOS();
-        game = new SnakyGame(launcher);
+        game = new Demo(launcher);
         Graphics* graphics = new Graphics(game);
         game->graphics = graphics;
         game->Start();

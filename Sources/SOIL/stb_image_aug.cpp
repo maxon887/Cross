@@ -2214,12 +2214,13 @@ static int parse_png_file(png *z, int scan, int req_comp)
    stbi *s = &z->s;
 
    if (!check_png_header(s)) return 0;
-
+	
    if (scan == SCAN_type) return 1;
 
    for(;;first=0) {
       chunk c = get_chunk_header(s);
-      if (first && c.type != PNG_TYPE('I','H','D','R'))
+      uint32 needed = PNG_TYPE('I','H','D','R');
+      if (first && c.type != needed)
          return e("first not IHDR","Corrupt PNG");
       switch (c.type) {
          case PNG_TYPE('I','H','D','R'): {
@@ -3322,9 +3323,10 @@ static float *hdr_load(stbi *s, int *x, int *y, int *comp, int req_comp)
 	int width, height;
    stbi_uc *scanline;
 	float *hdr_data;
-	int len;
+	//int len;
 	unsigned char count, value;
-	int i, j, k, c1,c2, z;
+	int i, j, k, z;
+    int c1, c2, len;
 
 
 	// Check identifier
@@ -3383,7 +3385,7 @@ static float *hdr_load(stbi *s, int *x, int *y, int *comp, int req_comp)
          if (c1 != 2 || c2 != 2 || (len & 0x80)) {
             // not run-length encoded, so we have to actually use THIS data as a decoded
             // pixel (note this can't be a valid pixel--one of RGB must be >= 128)
-            stbi_uc rgbe[4] = { c1,c2,len, get8(s) };
+             stbi_uc rgbe[4] = { static_cast<stbi_uc>(c1),static_cast<stbi_uc>(c2),static_cast<stbi_uc>(len), static_cast<stbi_uc>(get8(s)) };
             hdr_convert(hdr_data, rgbe, req_comp);
             i = 1;
             j = 0;

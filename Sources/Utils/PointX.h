@@ -15,14 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "Point.h"
+#pragma once
 
-Point::Point(){
-	x = -100;
-	y = -100;
-}
-
-Point::Point(float x, float y){
-	this->x = x;
-	this->y = y;
-}
+class PointX{
+public:
+	float x;
+	float y;
+	PointX();
+	PointX(float x, float y);
+private:
+};

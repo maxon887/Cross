@@ -22,15 +22,16 @@ MainScreen::MainScreen(Game* game):Screen(game) { }
 void MainScreen::Start(){ 
 	//x_img = graphics->LoadImage("h:/GameDev/Cross++/Games/Demo/Data/X256.png");
 	//button_release = graphics->LoadImage("h:/GameDev/Cross++/Games/Demo/Data/ButtonRelease.png");
-	//x_img = graphics->LoadImage("/storage/sdcard0/x256.png");
-	x_img = graphics->LoadImage("/data/data/com.cross/files/X256.png");
-	button_release = graphics->LoadImage("/data/data/com.cross/files/ButtonRelease.png");
+	//x_img = graphics->LoadImage("/data/data/com.cross/files/X256.png");
+	//button_release = graphics->LoadImage("/data/data/com.cross/files/ButtonRelease.png");
+    x_img = graphics->LoadImage("X256.png");
+    button_release = graphics->LoadImage("ButtonReleas.png");
 }
 
 void MainScreen::Update(float sec){
 	graphics->Clear(0, 0.25f, 0.25f);
-	Point pos(launcher->GetTargetWidth()/2, launcher->GetTargetHeight()/3);
+	PointX pos(launcher->GetTargetWidth()/2, launcher->GetTargetHeight()/3);
 	graphics->DrawTargetImage(pos, x_img);
-	Point butPoint(launcher->GetTargetWidth()/2, launcher->GetTargetHeight() / 4 * 3);
+	PointX butPoint(launcher->GetTargetWidth()/2, launcher->GetTargetHeight() / 4 * 3);
 	graphics->DrawTargetImage(butPoint, button_release);
 }

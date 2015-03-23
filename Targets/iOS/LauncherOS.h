@@ -24,6 +24,7 @@ public:
     LauncherOS();
     int GetTargetWidth();
     int GetTargetHeight();
+    const char* DataPath();
     void LogIt(const char* str);
 private:
     int width;

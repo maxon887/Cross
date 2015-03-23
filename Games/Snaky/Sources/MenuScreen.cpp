@@ -27,6 +27,6 @@ void MenuScreen::Update(float sec){
 	//graphics->Test();
 	graphics->Clear(0.0f, 0.25f, 0.25f);
 	//graphics->Test();
-	Point p(launcher->GetTargetWidth()/2, launcher->GetTargetHeight()/2);
+	PointX p(launcher->GetTargetWidth()/2, launcher->GetTargetHeight()/2);
 	graphics->DrawTargetImage(p, test);
 }

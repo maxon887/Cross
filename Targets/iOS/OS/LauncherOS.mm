@@ -34,6 +34,12 @@ int LauncherOS::GetTargetHeight(){
     return height;
 }
 
+const char* LauncherOS::DataPath(){
+    NSString* path = [[NSBundle mainBundle] resourcePath];
+    const char* cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    return cPath;
+}
+
 void LauncherOS::LogIt(const char* str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
 }

@@ -39,6 +39,16 @@ Image* Graphics::LoadImage(const char* filename){
 	//if(strcmp(prev_tex_filename, filename)){
 		//create new Image
 	//}
+    
+    Launcher* launcher = game->launcher;
+    launcher->LogIt(launcher->DataPath());
+    
+    const char* platformPath = launcher->DataPath();
+    char* absPath = (char*)malloc(strlen(platformPath) + strlen(filename) + 1);
+    strcpy(absPath, platformPath);
+    strcat(absPath, "/");
+    strcat(absPath, filename);
+    
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
@@ -47,7 +57,7 @@ Image* Graphics::LoadImage(const char* filename){
 	int width;
 	int height;
 
-	unsigned char* image = SOIL_load_image(filename, &width, &height, 0, SOIL_LOAD_RGBA);
+	unsigned char* image = SOIL_load_image(absPath, &width, &height, 0, SOIL_LOAD_RGBA);
 	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
 	SOIL_free_image_data(image);
 
@@ -61,7 +71,7 @@ Image* Graphics::LoadImage(const char* filename){
 	return new Image(textureID, width, height, region);
 }
 
-void Graphics::DrawTargetImage(Point p, Image* img){
+void Graphics::DrawTargetImage(PointX p, Image* img){
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
 
@@ -112,29 +122,3 @@ void Graphics::Test(){
 	glVertexPointer(2, GL_FLOAT, 0, verts);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
-
-/*
-void Graphics::Init(Launcher* launcher){
-	glViewport(0, 0, 550, 900);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrthof(0, 550, 900, 0, 1, -1);
-	char buf[128];
-	launcher->LogIt("You have successfully initialized Graphics Class");
-	sprintf(buf, "Target width: %d", launcher->GetTargetWidth());
-	launcher->LogIt(buf);
-	sprintf(buf, "Target height: %d", launcher->GetTargetHeight());
-	launcher->LogIt(buf);
-}
-
-void Graphics::Test(){
-    glClearColor(0, 0.25, 0.25, 0.5);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	GLfloat verts[] = {	0.0f, 0.0f,
-						319.0f, 0.0f,
-						160.0f, 479.0f };
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, verts);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-}
-*/

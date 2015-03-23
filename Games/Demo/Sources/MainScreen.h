@@ -19,6 +19,7 @@
 
 #include "Graphics.h"
 #include "Screen.h"
+#include "PointX.h"
 
 class MainScreen : public Screen{
 public:

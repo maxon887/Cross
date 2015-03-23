@@ -22,8 +22,8 @@
 	#include <GL/gl.h>
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
 	/*	I can't test this Apple stuff!	*/
-	#include <OpenGL/gl.h>
-	#include <Carbon/Carbon.h>
+    #include <OpenGLES/ES1/gl.h>
+	//#include <Carbon/Carbon.h>
 	#define APIENTRY
 #elif ANDROID
 	#include <GLES/gl.h>
@@ -1380,16 +1380,10 @@ int
 	return save_result;
 }
 
-unsigned char*
-	SOIL_load_image
-	(
-		const char *filename,
-		int *width, int *height, int *channels,
-		int force_channels
-	)
-{
-	unsigned char *result = stbi_load( filename,
-			width, height, channels, force_channels );
+unsigned char* SOIL_load_image (const char *filename,
+                                int *width, int *height, int *channels,
+                                int force_channels ) {
+	unsigned char *result = stbi_load( filename, width, height, channels, force_channels );
 	if( result == NULL )
 	{
 		result_string_pointer = stbi_failure_reason();

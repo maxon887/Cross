@@ -18,27 +18,25 @@
 #pragma once
 
 #ifdef _WIN32
-#include <Windows.h>
-#include <gl/GL.h>
-#define glOrthof glOrtho
-#define GL_CLAMP_TO_EDGE GL_CLAMP
-#undef LoadImage
-#endif
-
-#ifdef __APPLE__
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#ifdef ANDROID
-#include <GLES/gl.h>
+    #include <Windows.h>
+    #include <gl/GL.h>
+    #define glOrthof glOrtho
+    #define GL_CLAMP_TO_EDGE GL_CLAMP
+    #undef LoadImage
+#elif __APPLE__
+    #include <OpenGLES/ES1/gl.h>
+#elif ANDROID
+    #include <GLES/gl.h>
 #endif
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string>	
 #include "SOIL.h"
 #include "Game.h"
 #include "Launcher.h"
 //#include "Image.h"
-#include "Point.h"
+#include "PointX.h"
 
 class Image;
 
@@ -52,7 +50,7 @@ public:
 	void Test();
 	//void Init(Launcher* launcher);
 	//void Test();
-	void DrawTargetImage(Point p, Image* img); //temporary
+	void DrawTargetImage(PointX p, Image* img); //temporary
 private:
 	Game* game;
 
