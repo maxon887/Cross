@@ -25,7 +25,7 @@ public:
 	virtual int GetTargetHeight() = 0;
 	/* Log out message */
 	virtual void LogIt(const char* msg) = 0;
-    /* Return platform specific path */
+    /* Return platform specific data path */
     virtual const char* DataPath() = 0;
 	virtual ~Launcher() { }
 private:

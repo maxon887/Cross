@@ -20,7 +20,7 @@
 
 MainScreen::MainScreen(Game* game):Screen(game) { }
 
-void MainScreen::Start(){ 
+void MainScreen::Start(){
 	//x_img = graphics->LoadImage("h:/GameDev/Cross++/Games/Demo/Data/X256.png");
 	//button_release = graphics->LoadImage("h:/GameDev/Cross++/Games/Demo/Data/ButtonRelease.png");
 	//x_img = graphics->LoadImage("/data/data/com.cross/files/X256.png");
@@ -28,7 +28,7 @@ void MainScreen::Start(){
     x_img = graphics->LoadImage("X256.png");
 	graphics->ScaleImage(x_img, game->scale_factor * 1.5f);
     button_release = graphics->LoadImage("ButtonRelease.png");
-	background = graphics->LoadImage("Background.jpg");
+	//background = graphics->LoadImage("Background.jpg");
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 2.0f);
 }
 

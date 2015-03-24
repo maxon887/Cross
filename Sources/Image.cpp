@@ -30,7 +30,6 @@ Image::Image(GLuint id, int texWidth, int texHeight, RectX region)
 	this->u2 = this->u1 + region.width / texWidth;
 	this->v2 = this->v1 + region.height / texHeight;
 	angle = 0;
-	//Scale(1.0f);
 }
 
 void Image::Scale(float factor){
@@ -72,12 +71,4 @@ int Image::GetHeight(){
 
 float* Image::GetVertices(){
 	return vertices;
-}
-
-void Image::SetAngle(float angle){
-	this->angle = angle;
-}
-
-float Image::GetAngle(){
-	return angle;
 }

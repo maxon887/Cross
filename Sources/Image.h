@@ -21,15 +21,19 @@
 #include "Graphics.h"
 
 class Image{
+    //user module
 public:
+    int GetWidth();
+    int GetHeight();
+    //framework modul
+    //you don't need call any of this methods or modify variable
+public:
+    float angle;
+    
 	Image(GLuint id, int texWidth, int texHeight, RectX region);
 	void Scale(float factor);
 
 	GLuint GetTextureID();
-	int GetWidth();
-	int GetHeight();
-	void SetAngle(float angle);
-	float GetAngle();
 
 	float* GetVertices();
 	static const short indices[6];
@@ -40,7 +44,4 @@ private:
 	RectX region;
 	float u1, v1;
 	float u2, v2;
-	//int width;
-	//int height;
-	float angle;
 };
