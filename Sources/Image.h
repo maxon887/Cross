@@ -21,22 +21,22 @@
 #include "Graphics.h"
 
 class Image{
-    //user module
+//User module
 public:
-    int GetWidth();
-    int GetHeight();
-    //framework modul
-    //you don't need call any of this methods or modify variable
+	/* Return virtual image width */
+    float GetWidth();
+	/* Return virtual image height */
+    float GetHeight();
+//Framework module. You don't need call any of this methods or modify variable
 public:
     float angle;
     
 	Image(GLuint id, int texWidth, int texHeight, RectX region);
 	void Scale(float factor);
-
 	GLuint GetTextureID();
-
 	float* GetVertices();
 	static const short indices[6];
+	~Image();
 private:
 
 	GLuint textureID;

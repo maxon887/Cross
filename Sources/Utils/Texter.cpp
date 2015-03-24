@@ -46,9 +46,9 @@ void Texter::DrawText(float x, float y, const char* text){
 }
 
 float Texter::GetWidth(){
-	return width / game->scale_factor * scale_factor;
+	return width / game->GetScaleFactor() * scale_factor;
 }
 
 float Texter::GetHeight(){
-	return height / game->scale_factor * scale_factor;
+	return height / game->GetScaleFactor() * scale_factor;
 }

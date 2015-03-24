@@ -42,29 +42,22 @@ void Graphics::ScaleImage(Image* img, float factor){
 }
 
 void Graphics::Rotate(Image* img, float angle){
-	img->SetAngle(angle);
+	img->angle = angle;
 }
 
 Image* Graphics::CreateImage(Image* src, RectX reg){
-	return CreateImage(src, reg, game->scale_factor);
+	return CreateImage(src, reg, game->GetScaleFactor());
 } 
 
 Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
-	Image* img = new Image(src->GetTextureID(), src->GetWidth(), src->GetHeight(), region);
+	Image* img = new Image(src->GetTextureID(), (float)src->GetWidth(), (float)src->GetHeight(), region);
 	img->Scale(scaleFactor);
 	return img;
 }
 
 Image* Graphics::LoadImage(const char* filename){
-    
     Launcher* launcher = game->launcher;
-    const char* platformPath = launcher->DataPath();
-    char* absPath = (char*)malloc(strlen(platformPath) + strlen(filename) + 1);
-    strcpy(absPath, platformPath);
-    strcat(absPath, "/");
-    strcat(absPath, filename);
-    
-    launcher->LogIt(absPath);
+    sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
@@ -73,7 +66,11 @@ Image* Graphics::LoadImage(const char* filename){
 	int width;
 	int height;
 
-	unsigned char* image = SOIL_load_image(absPath, &width, &height, 0, SOIL_LOAD_RGBA);
+	unsigned char* image = SOIL_load_image(str_buffer, &width, &height, 0, SOIL_LOAD_RGBA);
+	if(image == NULL){
+		sprintf(str_buffer, "WARNING! Can't load file: %s", str_buffer);
+		launcher->LogIt(str_buffer);
+	}
 	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
 	SOIL_free_image_data(image);
 
@@ -85,19 +82,19 @@ Image* Graphics::LoadImage(const char* filename){
 
 	RectX region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, width, height, region);
-	img->Scale(game->scale_factor);
+	img->Scale(game->GetScaleFactor());
 	return img;
 }
 
 void Graphics::DrawImage(float x, float y, Image* img){
-	x = x * game->scale_factor;
-	y = y * game->scale_factor;
+	x = x * game->GetScaleFactor();
+	y = y * game->GetScaleFactor();
 	DrawTargetImage(x, y, img);
 }
 
 void Graphics::DrawImage(PointX p, Image* img){
-	p.x = p.x * game->scale_factor;
-	p.y = p.y * game->scale_factor;
+	p.x = p.x * game->GetScaleFactor();
+	p.y = p.y * game->GetScaleFactor();
 	DrawTargetImage(p.x, p.y, img);
 }
 
@@ -112,7 +109,7 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	glLoadIdentity();
 	glTranslatef(x, y, 0);
 
-	glRotatef(-img->GetAngle(), 0.0f, 0.0f, 1.0f);
+	glRotatef(-img->angle, 0.0f, 0.0f, 1.0f);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	float* verts = img->GetVertices(); 

@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include <Windows.h>
+#include <time.h>
 #include "LauncherWIN.h"
 #include "Graphics.h"
 #include "SnakyGame.h"
@@ -113,7 +114,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	Demo* game = new Demo(launcher);
 	Graphics* graphics = new Graphics(game);
 	game->graphics = graphics;
+	Debuger* debuger = new Debuger(game);
 	game->Start();
+
+	clock_t render_time = 0;
 
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
@@ -122,7 +126,13 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		game->GetCurrentScreen()->Update(0);
+		render_time = clock() - render_time;
+		clock_t rend = render_time;
+		render_time = clock();
+		game->GetCurrentScreen()->Update(rend / (float)CLOCKS_PER_SEC);
+		debuger->Display(rend / (float)CLOCKS_PER_SEC);
+		clock_t up = clock() - render_time;
+		debuger->SetUpdateTime(up / (float)CLOCKS_PER_SEC);
 		SwapBuffers(dc);
 	}
 	return msg.wParam;

@@ -16,25 +16,35 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include <jni.h>
+#include <time.h>
 #include "LauncherAndroid.h"
 #include "Graphics.h"
 #include "SnakyGame.h"
 #include "Demo.h"
-
+#include "Debuger.h"
 
 Game* game;
+Debuger* debuger;
+clock_t render_time = 0;
+
 
 static void Start(JNIEnv* env){
 	LauncherAndroid* launcher = new LauncherAndroid(env);
     game = new Demo(launcher);
     Graphics* gfx = new Graphics(game);
     game->graphics = gfx;
-
+    debuger = new Debuger(game);
     game->Start();
 }
 
 static void Update(){
-	game->GetCurrentScreen()->Update(0);
+	clock_t rend = clock() - render_time;
+	render_time = clock();
+	game->GetCurrentScreen()->Update(rend / (float)CLOCKS_PER_SEC);
+	//game->GetCurrentScreen()->Update(0);
+	debuger->Display(rend / (float)CLOCKS_PER_SEC);
+	clock_t up = clock() - render_time;
+	debuger->SetUpdateTime(up / (float)CLOCKS_PER_SEC);
 }
 
 static JNINativeMethod methods[] = {

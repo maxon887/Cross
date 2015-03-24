@@ -17,7 +17,7 @@
 	
 #include "SnakyGame.h"
 
-SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH, GAME_HEIGHT){
+SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
 	menu_screen = new MenuScreen(this);
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;

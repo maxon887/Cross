@@ -171,10 +171,10 @@ enum
 };
 
 typedef unsigned char stbi_uc;
-
+/*
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif*/
 
 // WRITING API
 
@@ -310,10 +310,10 @@ typedef void (*stbi_YCbCr_to_RGB_run)(uint8 *output, uint8 const *y, uint8 const
 extern void stbi_install_idct(stbi_idct_8x8 func);
 extern void stbi_install_YCbCr_to_RGB(stbi_YCbCr_to_RGB_run func);
 #endif // STBI_SIMD
-
+/*
 #ifdef __cplusplus
 }
-#endif
+#endif*/
 
 //
 //

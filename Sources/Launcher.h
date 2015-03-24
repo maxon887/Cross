@@ -18,6 +18,7 @@
 #pragma once
 
 class Launcher{
+//User module
 public:
 	/* Returns phisycal screen width in pixels */
 	virtual int GetTargetWidth() = 0;
@@ -25,8 +26,10 @@ public:
 	virtual int GetTargetHeight() = 0;
 	/* Log out message */
 	virtual void LogIt(const char* msg) = 0;
-    /* Return platform specific data path */
-    virtual const char* DataPath() = 0;
+
+//Framework module. You don't need call any of this methods or modify variable
+public:
 	virtual ~Launcher() { }
+	virtual const char* DataPath() = 0;
 private:
 };

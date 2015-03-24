@@ -38,12 +38,13 @@
 #include "RectX.h"
 #include "PointX.h"
 
+#define BUF_LEN 256
+
 class Image;
 
 class Graphics{
+//User module
 public:
-
-	Graphics(Game* game);
 	/* Clear screen with particular color */
 	void Clear(float r, float g, float b);
 	/* Scale Image */
@@ -52,16 +53,22 @@ public:
 	void Rotate(Image* img, float angle);
 	/* Create Image from source. data do not copy. */
 	Image* CreateImage(Image* src, RectX region);
+	/* Create Image from source. data do not copy. */
 	Image* CreateImage(Image* src, RectX region, float scaleFactor);
 	/* Load Image from file */
 	Image* LoadImage(const char* filename);
-
+	/* Draws particular image in game coordinates */
 	void DrawImage(float x, float y, Image* img);
+	/* Draws particular image in game coordinates */
 	void DrawImage(PointX p, Image* img);
 
 	void Test();
+//Framework module. You don't need call any of this methods or modify variable
+public:
+	Graphics(Game* game);
 private:
 	void DrawTargetImage(float x, float y, Image* img);
 	Game* game;
 	GLint prev_texID;
+	char str_buffer[BUF_LEN];
 };

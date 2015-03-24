@@ -21,6 +21,7 @@
 #include "Screen.h"
 #include "PointX.h"
 #include "Texter.h"
+#include "Debuger.h"
 
 class MainScreen : public Screen{
 public:
@@ -32,4 +33,5 @@ private:
 	Image* button_release;
 	Image* background;
 	Texter* texter;
+	Debuger* debuger;
 };

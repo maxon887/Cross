@@ -76,6 +76,7 @@
     <ClCompile Include="..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\RectX.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Texter.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PointX.h" />
     <ClInclude Include="..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Texter.h" />

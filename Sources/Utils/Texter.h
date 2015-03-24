@@ -23,6 +23,7 @@
 #undef DrawText
 
 class Texter{
+//User module
 public:
 	Texter(Game* game, const char* fontFilename,
 			float width, float height,
@@ -32,6 +33,7 @@ public:
 	void DrawText(float x, float y, const char* text);
 	float GetWidth();
 	float GetHeight();
+//Framework module. You don't need call any of this methods or modify variable
 private:
 	Game* game;
 	Graphics* graphics;

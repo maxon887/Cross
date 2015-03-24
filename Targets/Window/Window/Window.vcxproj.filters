@@ -47,6 +47,9 @@
     <ClCompile Include="..\..\..\Sources\Utils\Texter.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Debuger.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
@@ -118,6 +121,9 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Texter.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Debuger.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>

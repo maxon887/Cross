@@ -61,11 +61,11 @@ GLuint Image::GetTextureID(){
 	return textureID;
 }
 
-int Image::GetWidth(){
+float Image::GetWidth(){
 	return region.width;
 }
 
-int Image::GetHeight(){
+float Image::GetHeight(){
 	return region.height;
 }
 

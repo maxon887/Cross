@@ -28,7 +28,7 @@ void MenuScreen::Update(float sec){
 	graphics->Clear(0.0f, 0.25f, 0.25f);
 	//graphics->Test();
 	PointX p;
-	p.x = game->width / 2;
-	p.y = game->height / 2;
+	p.x = game->GetWidth() / 2;
+	p.y = game->GetHeight() / 2;
 	graphics->DrawImage(p, test);
 }

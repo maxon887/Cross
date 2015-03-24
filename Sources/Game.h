@@ -22,21 +22,23 @@ class Graphics;
 class Screen;
 
 class Game{
+//User module
 public:
-	/* Reflect ratio between game and target device width.*/
-	float scale_factor;
-	/* Game width */
-	float width;
-	/* Game height; */
-	float height;
-
 	Launcher* launcher;
 	Graphics* graphics;
 	/* This method must return first game Screen */
 	virtual Screen* GetStartScreen() = 0;
-	/* Constructor gets virtual game width and height
-	   don't mess with target width and height. */
-	Game(Launcher* launcher, float width, float height);
+	/* Constructor gets virtual game width
+	   don't mess with target width.
+	   Height will be set automatically depend on screen aspect ratio. */
+	Game(Launcher* launcher, float width);
+
+	/* Reflect ratio between game and target device width.*/
+	float GetScaleFactor();
+	/* Game width */
+	float GetWidth();
+	/* Game height; */
+	float GetHeight();
 	/* Start the game. Calls automaticaly */
 	void Start();
 	/* Set up new game Screen. Previous creen data will be lost. */
@@ -44,6 +46,11 @@ public:
 	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
 	virtual ~Game();
+protected:
+	float width;
+	float height;
+	float scale_factor;
+//Framework module. You don't need call any of this methods or modify variable
 private:
 	Screen* current_screen;
 };

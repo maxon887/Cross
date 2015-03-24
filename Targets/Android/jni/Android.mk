@@ -23,9 +23,10 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					../../../Sources/Utils/PointX.cpp \
 					../../../Sources/Utils/RectX.cpp \
 					../../../Sources/Utils/Texter.cpp \
+					../../../Sources/Utils/Debuger.cpp \
 					../../../Sources/SOIL/SOIL.c \
 					../../../Sources/SOIL/image_helper.c \
-					../../../Sources/SOIL/stb_image_aug.c
+					../../../Sources/SOIL/stb_image_aug.c 
 					
 LOCAL_LDLIBS := -llog -lGLESv1_CM
 

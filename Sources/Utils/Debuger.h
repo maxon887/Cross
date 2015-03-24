@@ -17,16 +17,27 @@
 	
 #pragma once
 
-#define GAME_WIDTH 900
-
 #include "Game.h"
-#include "MenuScreen.h"
-#include "Launcher.h"
+#include "Texter.h"
 
-class SnakyGame : public Game{
+#define BUF_LEN 256
+
+class Debuger{
+//User module
 public:
-	SnakyGame(Launcher* launcher);
-	Screen* GetStartScreen();
+	Debuger(Game* game);
+	void Display(float sec);
+	void SetUpdateTime(float sec);
 private:
-	Screen* menu_screen;
+	Texter* texter;
+	char buffer[BUF_LEN];
+
+	float update_time;
+	float update_sum;
+	int update_counter;
+
+	float render_time;
+	float render_sum;
+	int render_counter;
+//Framework module. You don't need call any of this methods or modify variable
 };

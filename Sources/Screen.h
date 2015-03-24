@@ -20,6 +20,7 @@
 #include "Game.h"
 
 class Screen{
+//User module
 public:
 	Screen(Game* game);
 	/* Initialize basic modules. Calls automaticaly */

@@ -20,11 +20,24 @@
 #include "Graphics.h"
 #include "Screen.h"
 
-Game::Game(Launcher* launcher, float width, float height){
+Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
 	this->width = width;
-	this->height = height;
-	scale_factor = (float)launcher->GetTargetWidth()/width;
+	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
+	height = width * aspect;
+	scale_factor = (float)launcher->GetTargetWidth() / width;
+}
+
+float Game::GetScaleFactor(){
+	return scale_factor;
+}
+
+float Game::GetWidth(){
+	return width;
+}
+
+float Game::GetHeight(){
+	return height;
 }
 
 void Game::Start(){
