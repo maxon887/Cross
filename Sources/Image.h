@@ -17,17 +17,19 @@
 	
 #pragma once
 
-#include "Rect.h"
+#include "RectX.h"
 #include "Graphics.h"
 
 class Image{
 public:
-	Image(GLuint id, int texWidth, int texHeight, Rect region);
+	Image(GLuint id, int texWidth, int texHeight, RectX region);
 	void Scale(float factor);
 
 	GLuint GetTextureID();
 	int GetWidth();
 	int GetHeight();
+	void SetAngle(float angle);
+	float GetAngle();
 
 	float* GetVertices();
 	static const short indices[6];
@@ -35,9 +37,10 @@ private:
 
 	GLuint textureID;
 	float vertices[16];
-	Rect region;
+	RectX region;
 	float u1, v1;
 	float u2, v2;
-	int width;
-	int height;
+	//int width;
+	//int height;
+	float angle;
 };

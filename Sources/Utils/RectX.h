@@ -15,20 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "MenuScreen.h"
+#pragma once
 
-MenuScreen::MenuScreen(Game* game):Screen(game) { }
-
-void MenuScreen::Start(){
-	test = graphics->LoadImage("h:/GameDev/X++.png");
-}
-
-void MenuScreen::Update(float sec){
-	//graphics->Test();
-	graphics->Clear(0.0f, 0.25f, 0.25f);
-	//graphics->Test();
-	PointX p;
-	p.x = game->width / 2;
-	p.y = game->height / 2;
-	graphics->DrawImage(p, test);
-}
+class RectX{
+public:
+	float x;
+	float y;
+	float width;
+	float height;
+	RectX(float x, float y, float width, float height);
+private:
+};

@@ -21,7 +21,8 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					../../../Sources/Screen.cpp \
 					../../../Sources/Image.cpp \
 					../../../Sources/Utils/PointX.cpp \
-					../../../Sources/Utils/Rect.cpp \
+					../../../Sources/Utils/RectX.cpp \
+					../../../Sources/Utils/Texter.cpp \
 					../../../Sources/SOIL/SOIL.c \
 					../../../Sources/SOIL/image_helper.c \
 					../../../Sources/SOIL/stb_image_aug.c

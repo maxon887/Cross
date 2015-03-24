@@ -15,18 +15,30 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "Rect.h"
+#pragma once
 
-Rect::Rect(float x, float y, float w, float h){
-	this->x = x;
-	this->y = y;
-	this->width = w;
-	this->height = h;
-}
-/*
-Rect::Rect(Rect &rect){
-	this->x = rect.x;
-	this->y = rect.y;
-	this->width = rect.width;
-	this->height = height;
-}*/
+#include "Game.h"
+#include "Image.h"
+
+#undef DrawText
+
+class Texter{
+public:
+	Texter(Game* game, const char* fontFilename,
+			float width, float height,
+			int columns, int rows,
+			int asciiOffset, float scaleFactor);
+
+	void DrawText(float x, float y, const char* text);
+	float GetWidth();
+	float GetHeight();
+private:
+	Game* game;
+	Graphics* graphics;
+	Image* font;
+	Image* letters[256];
+	float width;
+	float height;
+	int offset;
+	float scale_factor;
+};

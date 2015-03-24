@@ -11,14 +11,10 @@
 #include <math.h>
 
 /*	Upscaling the image uses simple bilinear interpolation	*/
-int
-	up_scale_image
-	(
-		const unsigned char* const orig,
-		int width, int height, int channels,
-		unsigned char* resampled,
-		int resampled_width, int resampled_height
-	)
+int	up_scale_image (const unsigned char* const orig,
+					int width, int height, int channels,
+					unsigned char* resampled,
+					int resampled_width, int resampled_height )
 {
 	float dx, dy;
 	int x, y, c;
@@ -81,14 +77,10 @@ int
     return 1;
 }
 
-int
-	mipmap_image
-	(
-		const unsigned char* const orig,
-		int width, int height, int channels,
-		unsigned char* resampled,
-		int block_size_x, int block_size_y
-	)
+int	mipmap_image(	const unsigned char* const orig,
+					int width, int height, int channels,
+					unsigned char* resampled,
+					int block_size_x, int block_size_y )
 {
 	int mip_width, mip_height;
 	int i, j, c;
@@ -153,12 +145,8 @@ int
 
 unsigned char clamp_byte( int x ) { return ( (x) < 0 ? (0) : ( (x) > 255 ? 255 : (x) ) ); }
 
-float
-find_max_RGBE
-(
-	unsigned char *image,
-    int width, int height
-)
+float find_max_RGBE (	unsigned char *image,
+						int width, int height )
 {
 	float max_val = 0.0f;
 	unsigned char *img = image;
@@ -166,7 +154,7 @@ find_max_RGBE
 	for( i = width * height; i > 0; --i )
 	{
 		/* float scale = powf( 2.0f, img[3] - 128.0f ) / 255.0f; */
-		float scale = ldexp( 1.0f / 255.0f, (int)(img[3]) - 128 );
+		float scale = (float)ldexp( 1.0f / 255.0f, (int)(img[3]) - 128 );
 		for( j = 0; j < 3; ++j )
 		{
 			if( img[j] * scale > max_val )

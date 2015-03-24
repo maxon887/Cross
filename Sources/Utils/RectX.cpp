@@ -15,14 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "RectX.h"
 
-class Rect{
-public:
-	float x;
-	float y;
-	float width;
-	float height;
-	Rect(float x, float y, float width, float height);
-private:
-};
+RectX::RectX(float x, float y, float w, float h){
+	this->x = x;
+	this->y = y;
+	this->width = w;
+	this->height = h;
+}

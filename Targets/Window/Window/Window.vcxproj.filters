@@ -23,9 +23,6 @@
     <ClCompile Include="..\..\..\Sources\Image.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Games\Demo\Sources\Demo.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
@@ -43,6 +40,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.c">
       <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\RectX.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Texter.cpp">
+      <Filter>Cross\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +96,6 @@
     <ClInclude Include="..\..\..\Sources\Image.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Rect.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h">
       <Filter>Cross\SOIL</Filter>
     </ClInclude>
@@ -112,6 +112,12 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\PointX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\RectX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Texter.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>

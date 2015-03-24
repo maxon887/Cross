@@ -28,6 +28,8 @@ Graphics::Graphics(Game* game){
 		
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	prev_texID = -1;
 }
 
 void Graphics::Clear(float r, float g, float b){
@@ -35,10 +37,25 @@ void Graphics::Clear(float r, float g, float b){
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
 
+void Graphics::ScaleImage(Image* img, float factor){
+	img->Scale(factor);
+}
+
+void Graphics::Rotate(Image* img, float angle){
+	img->SetAngle(angle);
+}
+
+Image* Graphics::CreateImage(Image* src, RectX reg){
+	return CreateImage(src, reg, game->scale_factor);
+} 
+
+Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
+	Image* img = new Image(src->GetTextureID(), src->GetWidth(), src->GetHeight(), region);
+	img->Scale(scaleFactor);
+	return img;
+}
+
 Image* Graphics::LoadImage(const char* filename){
-	//if(strcmp(prev_tex_filename, filename)){
-		//create new Image
-	//}
     
     Launcher* launcher = game->launcher;
     const char* platformPath = launcher->DataPath();
@@ -52,8 +69,7 @@ Image* Graphics::LoadImage(const char* filename){
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	//prev_tex_id = textureID;
-	//strcpy(prev_tex_filename, filename);
+
 	int width;
 	int height;
 
@@ -67,17 +83,36 @@ Image* Graphics::LoadImage(const char* filename){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	Rect region(0, 0, width, height);
-	return new Image(textureID, width, height, region);
+	RectX region(0, 0, (float)width, (float)height);
+	Image* img = new Image(textureID, width, height, region);
+	img->Scale(game->scale_factor);
+	return img;
 }
 
-void Graphics::DrawTargetImage(PointX p, Image* img){
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
+void Graphics::DrawImage(float x, float y, Image* img){
+	x = x * game->scale_factor;
+	y = y * game->scale_factor;
+	DrawTargetImage(x, y, img);
+}
+
+void Graphics::DrawImage(PointX p, Image* img){
+	p.x = p.x * game->scale_factor;
+	p.y = p.y * game->scale_factor;
+	DrawTargetImage(p.x, p.y, img);
+}
+
+void Graphics::DrawTargetImage(float x, float y, Image* img){
+	if(prev_texID != img->GetTextureID()){
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
+		prev_texID = img->GetTextureID();
+	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(p.x, p.y, 0);
+	glTranslatef(x, y, 0);
+
+	glRotatef(-img->GetAngle(), 0.0f, 0.0f, 1.0f);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	float* verts = img->GetVertices(); 
@@ -109,8 +144,8 @@ void Graphics::DrawTargetImage(PointX p, Image* img){
 
 
 void Graphics::Test(){
-	GLfloat width = game->launcher->GetTargetWidth();
-	GLfloat height = game->launcher->GetTargetHeight();
+	GLfloat width = (GLfloat)game->launcher->GetTargetWidth();
+	GLfloat height = (GLfloat)game->launcher->GetTargetHeight();
 
 	//	GLfloat verts[] = {	0.0f, 0.0f,
     //                        width - 1, 0.0f,

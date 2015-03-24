@@ -35,7 +35,7 @@
 #include "SOIL.h"
 #include "Game.h"
 #include "Launcher.h"
-//#include "Image.h"
+#include "RectX.h"
 #include "PointX.h"
 
 class Image;
@@ -46,16 +46,22 @@ public:
 	Graphics(Game* game);
 	/* Clear screen with particular color */
 	void Clear(float r, float g, float b);
+	/* Scale Image */
+	void ScaleImage(Image* img, float factor);
+	/* Rotate Image counterclockwise in angle degree */
+	void Rotate(Image* img, float angle);
+	/* Create Image from source. data do not copy. */
+	Image* CreateImage(Image* src, RectX region);
+	Image* CreateImage(Image* src, RectX region, float scaleFactor);
+	/* Load Image from file */
 	Image* LoadImage(const char* filename);
-	void Test();
-	//void Init(Launcher* launcher);
-	//void Test();
-	void DrawTargetImage(PointX p, Image* img); //temporary
-private:
-	Game* game;
 
-	char prev_tex_filename[128];;
-	int prev_tex_id;
-	int prev_tex_width;
-	int prev_tex_height;
+	void DrawImage(float x, float y, Image* img);
+	void DrawImage(PointX p, Image* img);
+
+	void Test();
+private:
+	void DrawTargetImage(float x, float y, Image* img);
+	Game* game;
+	GLint prev_texID;
 };

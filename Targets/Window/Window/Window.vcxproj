@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Games/Demo/Sources;../../../Sources/SOIL;Windows/;../../../Sources/Utils;../../../Sources;../../../Games/Snaky/Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -76,7 +77,8 @@
     <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\Rect.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\RectX.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="WinAPI.cpp" />
     <ClCompile Include="Windows\LauncherWIN.cpp" />
   </ItemGroup>
@@ -94,7 +96,8 @@
     <ClInclude Include="..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PointX.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\Rect.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\RectX.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="Windows\LauncherWIN.h" />
   </ItemGroup>
   <ItemGroup>

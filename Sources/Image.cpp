@@ -21,7 +21,7 @@
 const short Image::indices[] = { 0, 1, 2,
 								 0, 2, 3 };
 
-Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
+Image::Image(GLuint id, int texWidth, int texHeight, RectX region)
 	:region(region){
 	this->textureID = id;
 	this->region = region;
@@ -29,8 +29,8 @@ Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 	this->v1 = region.y / texHeight;
 	this->u2 = this->u1 + region.width / texWidth;
 	this->v2 = this->v1 + region.height / texHeight;
-
-	Scale(1.0f);
+	angle = 0;
+	//Scale(1.0f);
 }
 
 void Image::Scale(float factor){
@@ -63,13 +63,21 @@ GLuint Image::GetTextureID(){
 }
 
 int Image::GetWidth(){
-	return width;
+	return region.width;
 }
 
 int Image::GetHeight(){
-	return height;
+	return region.height;
 }
 
 float* Image::GetVertices(){
 	return vertices;
+}
+
+void Image::SetAngle(float angle){
+	this->angle = angle;
+}
+
+float Image::GetAngle(){
+	return angle;
 }

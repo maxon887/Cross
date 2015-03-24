@@ -184,7 +184,6 @@ unsigned char *stbi_load(char const *filename, int *x, int *y, int *comp, int re
 
 unsigned char *stbi_load_from_file(FILE *f, int *x, int *y, int *comp, int req_comp)
 {
-   int i;
    if (stbi_jpeg_test_file(f))
       return stbi_jpeg_load_from_file(f,x,y,comp,req_comp);
    if (stbi_png_test_file(f))
@@ -197,7 +196,6 @@ unsigned char *stbi_load_from_file(FILE *f, int *x, int *y, int *comp, int req_c
 
 unsigned char *stbi_load_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp)
 {
-   int i;
    if (stbi_jpeg_test_memory(buffer,len))
       return stbi_jpeg_load_from_memory(buffer,len,x,y,comp,req_comp);
    if (stbi_png_test_memory(buffer,len))

@@ -20,6 +20,7 @@
 #include "Graphics.h"
 #include "Screen.h"
 #include "PointX.h"
+#include "Texter.h"
 
 class MainScreen : public Screen{
 public:
@@ -29,4 +30,6 @@ public:
 private:
 	Image* x_img;
 	Image* button_release;
+	Image* background;
+	Texter* texter;
 };

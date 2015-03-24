@@ -52,6 +52,7 @@ extern "C" {
 	SOIL_LOAD_RGB forces the image to load as Red Green Blue
 	SOIL_LOAD_RGBA forces the image to load as Red Green Blue Alpha
 **/
+
 enum
 {
 	SOIL_LOAD_AUTO = 0,
@@ -92,45 +93,18 @@ enum
 	SOIL_FLAG_CoCg_Y: Google YCoCg; RGB=>CoYCg, RGBA=>CoCgAY
 	SOIL_FLAG_TEXTURE_RECTANGE: uses ARB_texture_rectangle ; pixel indexed & no repeat or MIPmaps or cubemaps
 **/
-/*
-enum
-{
-	SOIL_FLAG_POWER_OF_TWO = 1,
-	SOIL_FLAG_MIPMAPS = 2,
-	SOIL_FLAG_TEXTURE_REPEATS = 4,
-	SOIL_FLAG_MULTIPLY_ALPHA = 8,
-	SOIL_FLAG_INVERT_Y = 16,
-	SOIL_FLAG_COMPRESS_TO_DXT = 32,
-	SOIL_FLAG_DDS_LOAD_DIRECT = 64,
-	SOIL_FLAG_NTSC_SAFE_RGB = 128,
-	SOIL_FLAG_CoCg_Y = 256,
-	SOIL_FLAG_TEXTURE_RECTANGLE = 512
-};*/
 
-#define SOIL_FLAG_POWER_OF_TWO 1
-#define SOIL_FLAG_MIPMAPS 2
-#define SOIL_FLAG_TEXTURE_REPEATS 4
-#define SOIL_FLAG_MULTIPLY_ALPHA 8
-#define SOIL_FLAG_INVERT_Y 16
-#define SOIL_FLAG_COMPRESS_TO_DXT 32
-#define SOIL_FLAG_DDS_LOAD_DIRECT 64
-#define SOIL_FLAG_NTSC_SAFE_RGB 128
-#define SOIL_FLAG_CoCg_Y 256
+#define SOIL_FLAG_POWER_OF_TWO		1
+#define SOIL_FLAG_MIPMAPS			2
+#define SOIL_FLAG_TEXTURE_REPEATS	4
+#define SOIL_FLAG_MULTIPLY_ALPHA	8
+#define SOIL_FLAG_INVERT_Y			16
+#define SOIL_FLAG_COMPRESS_TO_DXT	32
+#define SOIL_FLAG_DDS_LOAD_DIRECT	64
+#define SOIL_FLAG_NTSC_SAFE_RGB		128
+#define SOIL_FLAG_CoCg_Y			256
 #define SOIL_FLAG_TEXTURE_RECTANGLE 512
 
-
-/**
-	The types of images that may be saved.
-	(TGA supports uncompressed RGB / RGBA)
-	(BMP supports uncompressed RGB)
-	(DDS supports DXT1 and DXT5)
-**/
-enum
-{
-	SOIL_SAVE_TYPE_TGA = 0,
-	SOIL_SAVE_TYPE_BMP = 1,
-	SOIL_SAVE_TYPE_DDS = 2
-};
 
 /**
 	Defines the order of faces in a DDS cubemap.
@@ -140,19 +114,6 @@ enum
 **/
 #define SOIL_DDS_CUBEMAP_FACE_ORDER "EWUDNS"
 
-/**
-	The types of internal fake HDR representations
-
-	SOIL_HDR_RGBE:		RGB * pow( 2.0, A - 128.0 )
-	SOIL_HDR_RGBdivA:	RGB / A
-	SOIL_HDR_RGBdivA2:	RGB / (A*A)
-**/
-enum
-{
-	SOIL_HDR_RGBE = 0,
-	SOIL_HDR_RGBdivA = 1,
-	SOIL_HDR_RGBdivA2 = 2
-};
 
 /**
 	Loads an image from disk into an OpenGL texture.
@@ -162,49 +123,10 @@ enum
 	\param flags can be any of SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS | SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_MULTIPLY_ALPHA | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_DDS_LOAD_DIRECT
 	\return 0-failed, otherwise returns the OpenGL texture handle
 **/
-unsigned int SOIL_load_OGL_texture
-	(
-		const char *filename,
-		int force_channels,
-		unsigned int reuse_texture_ID,
-		unsigned int flags
-	);
-
-/**
-	Loads an HDR image from disk into an OpenGL texture.
-	\param filename the name of the file to upload as a texture
-	\param fake_HDR_format SOIL_HDR_RGBE, SOIL_HDR_RGBdivA, SOIL_HDR_RGBdivA2
-	\param reuse_texture_ID 0-generate a new texture ID, otherwise reuse the texture ID (overwriting the old texture)
-	\param flags can be any of SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS | SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_MULTIPLY_ALPHA | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT
-	\return 0-failed, otherwise returns the OpenGL texture handle
-**/
-unsigned int SOIL_load_OGL_HDR_texture
-	(
-		const char *filename,
-		int fake_HDR_format,
-		int rescale_to_max,
-		unsigned int reuse_texture_ID,
-		unsigned int flags
-	);
-
-/**
-	Loads an image from RAM into an OpenGL texture.
-	\param buffer the image data in RAM just as if it were still in a file
-	\param buffer_length the size of the buffer in bytes
-	\param force_channels 0-image format, 1-luminous, 2-luminous/alpha, 3-RGB, 4-RGBA
-	\param reuse_texture_ID 0-generate a new texture ID, otherwise reuse the texture ID (overwriting the old texture)
-	\param flags can be any of SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS | SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_MULTIPLY_ALPHA | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_DDS_LOAD_DIRECT
-	\return 0-failed, otherwise returns the OpenGL texture handle
-**/
-unsigned int SOIL_load_OGL_texture_from_memory
-	(
-		const unsigned char *const buffer,
-		int buffer_length,
-		int force_channels,
-		unsigned int reuse_texture_ID,
-		unsigned int flags
-	);
-
+unsigned int SOIL_load_OGL_texture (const char *filename,
+									int force_channels,
+									unsigned int reuse_texture_ID,
+									unsigned int flags );
 
 /**
 	Creates a 2D OpenGL texture from raw image data.  Note that the raw data is
@@ -217,26 +139,10 @@ unsigned int SOIL_load_OGL_texture_from_memory
 	\param flags can be any of SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS | SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_MULTIPLY_ALPHA | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT
 	\return 0-failed, otherwise returns the OpenGL texture handle
 **/
-unsigned int SOIL_create_OGL_texture
-	(
-		const unsigned char *const data,
-		int width, int height, int channels,
-		unsigned int reuse_texture_ID,
-		unsigned int flags
-	);
-
-
-/**
-	Captures the OpenGL window (RGB) and saves it to disk
-	\return 0 if it failed, otherwise returns 1
-**/
-int SOIL_save_screenshot
-	(
-		const char *filename,
-		int image_type,
-		int x, int y,
-		int width, int height
-	);
+unsigned int SOIL_create_OGL_texture(	const unsigned char *const data,
+										int width, int height, int channels,
+										unsigned int reuse_texture_ID,
+										unsigned int flags );
 
 /**
 	Loads an image from disk into an array of unsigned chars.
@@ -247,49 +153,23 @@ int SOIL_save_screenshot
 	count).
 	\return 0 if failed, otherwise returns 1
 **/
-unsigned char* SOIL_load_image
-	(
-		const char *filename,
-		int *width, int *height, int *channels,
-		int force_channels
-	);
-
-/**
-	Loads an image from memory into an array of unsigned chars.
-	Note that *channels return the original channel count of the
-	image.  If force_channels was other than SOIL_LOAD_AUTO,
-	the resulting image has force_channels, but *channels may be
-	different (if the original image had a different channel
-	count).
-	\return 0 if failed, otherwise returns 1
-**/
-unsigned char* SOIL_load_image_from_memory
-	(
-		const unsigned char *const buffer,
-		int buffer_length,
-		int *width, int *height, int *channels,
-		int force_channels
-	);
+unsigned char* SOIL_load_image(	const char *filename,
+								int *width, int *height, int *channels,
+								int force_channels);
 
 /**
 	Frees the image data (note, this is just C's "free()"...this function is
 	present mostly so C++ programmers don't forget to use "free()" and call
 	"delete []" instead [8^)
 **/
-void SOIL_free_image_data
-	(
-		unsigned char *img_data
-	);
+void SOIL_free_image_data(unsigned char *img_data);
 
 /**
 	This function resturn a pointer to a string describing the last thing
 	that happened inside SOIL.  It can be used to determine why an image
 	failed to load.
 **/
-const char* SOIL_last_result
-	(
-		void
-	);
+const char* SOIL_last_result(void);
 
 
 #ifdef __cplusplus
