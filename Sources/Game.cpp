@@ -14,11 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #include "Game.h"
 #include "Launcher.h"
 #include "Graphics.h"
 #include "Screen.h"
+#include "Debuger.h"
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
@@ -41,6 +42,9 @@ float Game::GetHeight(){
 }
 
 void Game::Start(){
+#ifdef CROSSDEBUG
+    debuger = new Debuger(this);
+#endif
 	SetScreen(GetStartScreen());
 }
 
@@ -55,3 +59,15 @@ Screen* Game::GetCurrentScreen(){
 }
 
 Game::~Game(){ }
+
+
+void Game::Update(){
+    clock_t rend = clock() - render_time;
+    render_time = clock();
+    GetCurrentScreen()->Update(rend / (float)CLOCKS_PER_SEC);
+#ifdef CROSSDEBUG
+    debuger->Display(rend / (float)CLOCKS_PER_SEC);
+    clock_t up = clock() - render_time;
+    debuger->SetUpdateTime(up / (float)CLOCKS_PER_SEC);
+#endif
+}

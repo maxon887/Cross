@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D41CFDA51AC2B4A300EB4EA3 /* Debuger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D41CFDA31AC2B4A300EB4EA3 /* Debuger.cpp */; };
 		D445C5A61ABAF5220077193B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D445C5A51ABAF5220077193B /* Entitlements.plist */; };
 		D4B505D51ABC5980007A3F39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */; };
 		D4B505D61ABC598A007A3F39 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DD2B661AB9D867004563BE /* GLKit.framework */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D41CFDA31AC2B4A300EB4EA3 /* Debuger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debuger.cpp; sourceTree = "<group>"; };
+		D41CFDA41AC2B4A300EB4EA3 /* Debuger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debuger.h; sourceTree = "<group>"; };
 		D445C5A51ABAF5220077193B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D4CCCB741ABFE90300F90B6F /* Demo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Demo.cpp; path = ../../Games/Demo/Sources/Demo.cpp; sourceTree = "<group>"; };
 		D4CCCB751ABFE90300F90B6F /* Demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Demo.h; path = ../../Games/Demo/Sources/Demo.h; sourceTree = "<group>"; };
@@ -179,6 +182,8 @@
 		D4CCCB941ABFE95100F90B6F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D41CFDA31AC2B4A300EB4EA3 /* Debuger.cpp */,
+				D41CFDA41AC2B4A300EB4EA3 /* Debuger.h */,
 				D4D9D6B31AC1673F00DD836B /* PointX.cpp */,
 				D4D9D6B41AC1673F00DD836B /* PointX.h */,
 				D4D9D6B51AC1673F00DD836B /* RectX.cpp */,
@@ -415,6 +420,7 @@
 				D4D9D6BB1AC1673F00DD836B /* Texter.cpp in Sources */,
 				D4DD2B381AB9D024004563BE /* AppDelegate.m in Sources */,
 				D4CCCB791ABFE90300F90B6F /* MainScreen.cpp in Sources */,
+				D41CFDA51AC2B4A300EB4EA3 /* Debuger.cpp in Sources */,
 				D4DD2B351AB9D024004563BE /* main.m in Sources */,
 				D4DD2B621AB9D28C004563BE /* Graphics.cpp in Sources */,
 				D4D271E81ABC53640056B8A1 /* Game.cpp in Sources */,

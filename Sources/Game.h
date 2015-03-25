@@ -17,9 +17,14 @@
 	
 #pragma once
 
+#define CROSSDEBUG
+
+#include <time.h>
+
 class Launcher;
 class Graphics;
 class Screen;
+class Debuger;
 
 class Game{
 //User module
@@ -51,6 +56,12 @@ protected:
 	float height;
 	float scale_factor;
 //Framework module. You don't need call any of this methods or modify variable
+public:
+    void Update();
 private:
 	Screen* current_screen;
+    clock_t render_time;
+#ifdef CROSSDEBUG
+    Debuger* debuger;
+#endif
 };
