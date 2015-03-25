@@ -37,8 +37,8 @@ Texter::Texter(Game* game, const char* fontFilename,
 }
 
 void Texter::DrawText(float x, float y, const char* text){
-	x += width / 2;
-	y += height / 2;
+	x += GetWidth() / 2;
+	y += GetHeight() / 2;
 	int len = strlen(text);
 	for(int i = 0; i < len; i++){
 		graphics->DrawImage(x + i * GetWidth(), y, letters[text[i] - offset]);

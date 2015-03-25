@@ -15,31 +15,3 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
-
-#include "Game.h"
-#include "Input.h"
-#include "Texter.h"
-
-#define BUF_LEN 256
-
-class Debuger{
-//User module
-public:
-	Debuger(Game* game);
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-private:
-	Texter* texter;
-	Input* input;
-	char buffer[BUF_LEN];
-
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-//Framework module. You don't need call any of this methods or modify variable
-};

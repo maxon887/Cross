@@ -18,9 +18,12 @@
 #include <Windows.h>
 #include <time.h>
 #include "LauncherWIN.h"
+#include "InputWIN.h"
 #include "Graphics.h"
 #include "SnakyGame.h"
 #include "Demo.h"
+
+InputWIN* input;
 
 void ClientResize(HWND hWnd, int nWidth, int nHeight)
 {
@@ -50,6 +53,18 @@ void ShowLastError(){
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch (msg)
 	{
+	case WM_LBUTTONDOWN:
+		input->input_state = true;
+		input->input_point.x = (short)LOWORD(lParam);
+		input->input_point.y = (short)HIWORD(lParam);
+		break;
+	case WM_MOUSEMOVE:
+		input->input_point.x = LOWORD(lParam);
+		input->input_point.y = HIWORD(lParam);
+		break;
+	case WM_LBUTTONUP:
+		input->input_state = false;
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
@@ -113,11 +128,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	//SnakyGame* game = new SnakyGame(launcher);.
 	Demo* game = new Demo(launcher);
 	Graphics* graphics = new Graphics(game);
+	input = new InputWIN();
 	game->graphics = graphics;
-	Debuger* debuger = new Debuger(game);
+	game->input = input;
 	game->Start();
-
-	clock_t render_time = 0;
 
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
@@ -126,13 +140,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		render_time = clock() - render_time;
-		clock_t rend = render_time;
-		render_time = clock();
-		game->GetCurrentScreen()->Update(rend / (float)CLOCKS_PER_SEC);
-		debuger->Display(rend / (float)CLOCKS_PER_SEC);
-		clock_t up = clock() - render_time;
-		debuger->SetUpdateTime(up / (float)CLOCKS_PER_SEC);
+		game->Update();
 		SwapBuffers(dc);
 	}
 	return msg.wParam;

@@ -17,29 +17,19 @@
 	
 #pragma once
 
-#include "Game.h"
 #include "Input.h"
-#include "Texter.h"
 
-#define BUF_LEN 256
-
-class Debuger{
-//User module
+class InputWIN : public Input{
 public:
-	Debuger(Game* game);
-	void Display(float sec);
-	void SetUpdateTime(float sec);
+	bool input_state;
+	PointX input_point;
+	bool key_state;
+	int key_key;
+
+	InputWIN();
+	bool HaveInput();
+	PointX GetInput();
+	bool HaveKey();
+	int GetKey();
 private:
-	Texter* texter;
-	Input* input;
-	char buffer[BUF_LEN];
-
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-//Framework module. You don't need call any of this methods or modify variable
 };

@@ -72,6 +72,7 @@
     <ClCompile Include="..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\Sources\Image.cpp" />
+    <ClCompile Include="..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c" />
@@ -81,6 +82,7 @@
     <ClCompile Include="..\..\..\Sources\Utils\RectX.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="WinAPI.cpp" />
+    <ClCompile Include="Windows\InputWIN.cpp" />
     <ClCompile Include="Windows\LauncherWIN.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +93,7 @@
     <ClInclude Include="..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\Sources\Graphics.h" />
     <ClInclude Include="..\..\..\Sources\Image.h" />
+    <ClInclude Include="..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h" />
@@ -100,6 +103,7 @@
     <ClInclude Include="..\..\..\Sources\Utils\PointX.h" />
     <ClInclude Include="..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Texter.h" />
+    <ClInclude Include="Windows\InputWIN.h" />
     <ClInclude Include="Windows\LauncherWIN.h" />
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@
 #include "Debuger.h"
 
 Debuger::Debuger(Game* game){
+	input = game->input;
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	update_time = 0;
 	update_sum = 0;
@@ -54,6 +55,15 @@ void Debuger::Display(float sec){
 		memset(buffer, 0, BUF_LEN);
 		sprintf(buffer, "FPS: %f", 1000.0f/render_time);
 		texter->DrawText(0, texter->GetHeight() * 2, buffer);
+	}
+
+	if(input->HaveInput()){
+		memset(buffer, 0, BUF_LEN);
+		PointX in = input->GetInput();
+		sprintf(buffer, "Input: x=%f, y=%f", in.x, in.y);
+		texter->DrawText(0, texter->GetHeight() * 3, buffer);
+	}else{
+		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
 	}
 }
 

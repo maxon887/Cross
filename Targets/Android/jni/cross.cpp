@@ -24,27 +24,17 @@
 #include "Debuger.h"
 
 Game* game;
-Debuger* debuger;
-clock_t render_time = 0;
-
 
 static void Start(JNIEnv* env){
 	LauncherAndroid* launcher = new LauncherAndroid(env);
     game = new Demo(launcher);
     Graphics* gfx = new Graphics(game);
     game->graphics = gfx;
-    debuger = new Debuger(game);
     game->Start();
 }
 
 static void Update(){
-	clock_t rend = clock() - render_time;
-	render_time = clock();
-	game->GetCurrentScreen()->Update(rend / (float)CLOCKS_PER_SEC);
-	//game->GetCurrentScreen()->Update(0);
-	debuger->Display(rend / (float)CLOCKS_PER_SEC);
-	clock_t up = clock() - render_time;
-	debuger->SetUpdateTime(up / (float)CLOCKS_PER_SEC);
+	game->Update();
 }
 
 static JNINativeMethod methods[] = {
