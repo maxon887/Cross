@@ -17,7 +17,7 @@
 	
 #pragma once
 
-#define CROSSDEBUG
+//#define CROSSDEBUG
 
 #include <time.h>
 

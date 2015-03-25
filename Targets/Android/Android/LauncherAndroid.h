@@ -23,7 +23,7 @@
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(JNIEnv* env);
+	LauncherAndroid(int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	const char* DataPath();

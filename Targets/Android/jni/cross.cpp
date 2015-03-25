@@ -15,43 +15,101 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#include <jni.h>
-#include <time.h>
-#include "LauncherAndroid.h"
-#include "Graphics.h"
-#include "SnakyGame.h"
-#include "Demo.h"
-#include "Debuger.h"
+#include <EGL/egl.h>
+#include <android/log.h>
+#include <android_native_app_glue.h>
 
+#include "Demo.h"
+#include "LauncherAndroid.h"
+
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
+
+android_app* app;
+
+EGLDisplay display;
+EGLSurface surface;
+EGLContext context;
+
+LauncherAndroid* launcher;
 Game* game;
 
-static void Start(JNIEnv* env){
-	LauncherAndroid* launcher = new LauncherAndroid(env);
-    game = new Demo(launcher);
-    Graphics* gfx = new Graphics(game);
-    game->graphics = gfx;
-    game->Start();
+static void init_display(){
+    const EGLint attribs[] = {
+            EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+            EGL_BLUE_SIZE, 8,
+            EGL_GREEN_SIZE, 8,
+            EGL_RED_SIZE, 8,
+            EGL_NONE
+    };
+    EGLint w, h, dummy, format;
+    EGLint numConfigs;
+    EGLConfig config;
+
+    display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+
+    eglInitialize(display, 0, 0);
+
+    eglChooseConfig(display, attribs, &config, 1, &numConfigs);
+
+    eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
+
+    ANativeWindow_setBuffersGeometry(app->window, 0, 0, format);
+
+    surface = eglCreateWindowSurface(display, config, app->window, NULL);
+    context = eglCreateContext(display, config, NULL, NULL);
+
+    if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
+        LOGI("Unable to eglMakeCurrent");
+        return;
+    }
+
+    eglQuerySurface(display, surface, EGL_WIDTH, &w);
+    eglQuerySurface(display, surface, EGL_HEIGHT, &h);
+
+    launcher = new LauncherAndroid(w, h);
 }
 
-static void Update(){
-	game->Update();
+static void handle_cmd(struct android_app* app, int32_t cmd) {
+	switch(cmd){
+	case APP_CMD_SAVE_STATE:
+		break;
+	case APP_CMD_INIT_WINDOW:
+		if(app->window != NULL){
+			init_display();
+			game = new Demo(launcher);
+			game->graphics = new Graphics(game);
+			game->Start();
+		}
+		break;
+	case APP_CMD_TERM_WINDOW:
+		break;
+	}
 }
 
-static JNINativeMethod methods[] = {
-		{ "Start", 	"()V", (void*)Start },
-		{ "Update", "()V", (void*)Update }
-};
+static void terminate(){
 
-jint JNI_OnLoad(JavaVM* vm, void* reserved)
-{
-    JNIEnv* env;
-    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
-        return -1;
-    }
-    jclass clazz = env->FindClass("com/cross/android/IMP");
-    if(clazz){
-    	env->RegisterNatives(clazz, methods, sizeof(methods) / sizeof(JNINativeMethod));
-    	env->DeleteLocalRef(clazz);
-    }
-    return JNI_VERSION_1_6;
+}
+
+void android_main(android_app* application){
+	app = application;
+	app_dummy();
+	app->onAppCmd = handle_cmd;
+
+	while(true){
+		android_poll_source* source;
+		int events;
+		int eventID = ALooper_pollOnce(0, NULL, &events, (void**)&source);
+		if(eventID >= 0){
+			if(source != NULL)
+				source->process(app, source);
+			if(app->destroyRequested != 0){
+				terminate();
+				return;
+			}
+		}
+		if(game != NULL && launcher != NULL){
+			game->Update();
+		    eglSwapBuffers(display, surface);
+		}
+	}
 }

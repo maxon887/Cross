@@ -17,18 +17,9 @@
 
 #include <LauncherAndroid.h>
 
-LauncherAndroid::LauncherAndroid(JNIEnv* env){
-	jclass clazz = env->FindClass("com/cross/android/Launcher");
-	jmethodID constructor = env->GetMethodID(clazz, "<init>", "()V");
-	jobject jLauncher = env->NewObject(clazz, constructor);
-
-	jmethodID method = env->GetMethodID(clazz, "GetTargetWidth", "()I");
-	width = env->CallIntMethod(jLauncher, method);
-
-	method = env->GetMethodID(clazz, "GetTargetHeight", "()I");
-	height = env->CallIntMethod(jLauncher, method);
-
-	env->DeleteLocalRef(jLauncher);
+LauncherAndroid::LauncherAndroid(int width, int height){
+	this->width = width;
+	this->height = height;
 }
 
 int LauncherAndroid::GetTargetWidth(){

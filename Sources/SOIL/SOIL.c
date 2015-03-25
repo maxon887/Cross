@@ -25,7 +25,7 @@
     #include <OpenGLES/ES1/gl.h>
 	//#include <Carbon/Carbon.h>
 	#define APIENTRY
-#elif ANDROID
+#elif defined(ANDROID) || defined(__ANDROID__)
 	#include <GLES/gl.h>
 #else
 	#include <GL/gl.h>

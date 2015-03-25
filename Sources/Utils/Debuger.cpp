@@ -56,7 +56,7 @@ void Debuger::Display(float sec){
 		sprintf(buffer, "FPS: %f", 1000.0f/render_time);
 		texter->DrawText(0, texter->GetHeight() * 2, buffer);
 	}
-
+/*
 	if(input->HaveInput()){
 		memset(buffer, 0, BUF_LEN);
 		PointX in = input->GetInput();
@@ -64,7 +64,7 @@ void Debuger::Display(float sec){
 		texter->DrawText(0, texter->GetHeight() * 3, buffer);
 	}else{
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
-	}
+	}*/
 }
 
 void Debuger::SetUpdateTime(float sec) {

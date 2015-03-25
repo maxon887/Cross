@@ -23,9 +23,9 @@
     #define glOrthof glOrtho
     #define GL_CLAMP_TO_EDGE GL_CLAMP
     #undef LoadImage
-#elif __APPLE__
+#elif defined(__APPLE__) || defined(__APPLE_CC__)
     #include <OpenGLES/ES1/gl.h>
-#elif ANDROID
+#elif defined(ANDROID) || defined(__ANDROID__)
     #include <GLES/gl.h>
 #endif
 

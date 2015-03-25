@@ -33,5 +33,4 @@ private:
 	Image* button_release;
 	Image* background;
 	Texter* texter;
-	Debuger* debuger;
 };
