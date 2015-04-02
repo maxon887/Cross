@@ -17,18 +17,24 @@
 
 #pragma once
 
-#include <jni.h>
+#include <stdio.h>
 #include <android/log.h>
+#include <android/asset_manager.h>
 #include "Launcher.h"
+
+#define BUF_LEN 256
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(int width, int height);
+	LauncherAndroid(AAssetManager* asset_manager, int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	const char* DataPath();
 	void LogIt(const char* str);
+	void FileFromAssets(const char* file);
 private:
 	int width;
 	int height;
+	char str_buff[BUF_LEN];
+	AAssetManager* asset_manager;
 };

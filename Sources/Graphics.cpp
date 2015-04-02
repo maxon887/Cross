@@ -17,10 +17,16 @@
 	
 #include "Graphics.h"
 #include "Image.h"
+#include "SOIL.h"
+
+#ifdef ANDROID	//TEMPORARY
+    #include <GLES/gl.h>
+	#include "LauncherAndroid.h"
+#endif
 
 Graphics::Graphics(Game* game){
 	this->game = game;
-	Launcher* launcher = game->launcher;
+	launcher = game->launcher;
 	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -67,6 +73,11 @@ Image* Graphics::LoadImage(const char* filename){
 	int height;
 
 	unsigned char* image = SOIL_load_image(str_buffer, &width, &height, 0, SOIL_LOAD_RGBA);
+#ifdef ANDROID
+	LauncherAndroid * android = (LauncherAndroid*)launcher;
+	android->FileFromAssets(filename);
+	image = SOIL_load_image(str_buffer, &width, &height, 0, SOIL_LOAD_RGBA);
+#endif
 	if(image == NULL){
 		sprintf(str_buffer, "WARNING! Can't load file: %s", str_buffer);
 		launcher->LogIt(str_buffer);
@@ -122,12 +133,6 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, Image::indices);
 
 }
-
-
-
-
-
-
 
 
 

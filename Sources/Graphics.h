@@ -27,12 +27,12 @@
     #include <OpenGLES/ES1/gl.h>
 #elif defined(ANDROID) || defined(__ANDROID__)
     #include <GLES/gl.h>
+	#include "LauncherAndroid.h"
 #endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>	
-#include "SOIL.h"
 #include "Game.h"
 #include "Launcher.h"
 #include "RectX.h"
@@ -69,6 +69,7 @@ public:
 private:
 	void DrawTargetImage(float x, float y, Image* img);
 	Game* game;
+	Launcher* launcher;
 	GLint prev_texID;
 	char str_buffer[BUF_LEN];
 };

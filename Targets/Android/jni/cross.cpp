@@ -17,7 +17,10 @@
 
 #include <EGL/egl.h>
 #include <android/log.h>
+#include <android/asset_manager.h>
 #include <android_native_app_glue.h>
+
+#include <unistd.h>
 
 #include "Demo.h"
 #include "LauncherAndroid.h"
@@ -66,7 +69,7 @@ static void init_display(){
     eglQuerySurface(display, surface, EGL_WIDTH, &w);
     eglQuerySurface(display, surface, EGL_HEIGHT, &h);
 
-    launcher = new LauncherAndroid(w, h);
+    launcher = new LauncherAndroid(app->activity->assetManager, w, h);
 }
 
 static void handle_cmd(struct android_app* app, int32_t cmd) {
@@ -75,10 +78,10 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 		break;
 	case APP_CMD_INIT_WINDOW:
 		if(app->window != NULL){
-			init_display();
-			game = new Demo(launcher);
-			game->graphics = new Graphics(game);
-			game->Start();
+			//init_display();
+			//game = new Demo(launcher);
+			//game->graphics = new Graphics(game);
+			//game->Start();
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
@@ -95,6 +98,9 @@ void android_main(android_app* application){
 	app_dummy();
 	app->onAppCmd = handle_cmd;
 
+	LOGI("android_main");
+	//sleep(5000);
+
 	while(true){
 		android_poll_source* source;
 		int events;
@@ -108,8 +114,8 @@ void android_main(android_app* application){
 			}
 		}
 		if(game != NULL && launcher != NULL){
-			game->Update();
-		    eglSwapBuffers(display, surface);
+			//game->Update();
+		    //eglSwapBuffers(display, surface);
 		}
 	}
 }
