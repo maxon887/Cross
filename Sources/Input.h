@@ -19,8 +19,9 @@
 
 #include "PointX.h"
 
-enum Keys{
-	KEY_PAUSE = 0
+enum Key{
+	KEY_UNDEFINED,
+	KEY_PAUSE
 };
 
 class Input{
@@ -29,8 +30,8 @@ public:
 	virtual bool HaveInput() = 0;
 	virtual PointX GetInput() = 0;
 	virtual bool HaveKey() = 0;
-	virtual int GetKey() = 0;
-	virtual ~Input();
+	virtual Key GetKey() = 0;
+	virtual ~Input() { };
 private:
 //Framework module. You don't need call any of this methods or modify variable
 };

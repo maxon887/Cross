@@ -72,7 +72,6 @@ int query_tex_rectangle_capability( void );
 #define SOIL_TEXTURE_RECTANGLE_ARB				0x84F5
 #define SOIL_MAX_RECTANGLE_TEXTURE_SIZE_ARB		0x84F8
 /*	for using DXT compression	*/
-static int has_DXT_capability = SOIL_CAPABILITY_UNKNOWN;
 int query_DXT_capability( void );
 #define SOIL_RGB_S3TC_DXT1		0x83F0
 #define SOIL_RGBA_S3TC_DXT1		0x83F1

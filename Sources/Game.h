@@ -23,6 +23,9 @@
 #include <stdio.h>
 #include <time.h>
 
+#include "PointX.h"
+#include "RectX.h"
+
 class Launcher;
 class Graphics;
 class Input;

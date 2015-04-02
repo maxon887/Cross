@@ -9,9 +9,7 @@
 #ifndef HEADER_IMAGE_HELPER
 #define HEADER_IMAGE_HELPER
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 
 /**
 	This function upscales an image.
@@ -41,8 +39,5 @@ int	mipmap_image
 		int block_size_x, int block_size_y
 	);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* HEADER_IMAGE_HELPER	*/

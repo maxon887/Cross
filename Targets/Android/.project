@@ -53,11 +53,6 @@
 			<locationURI>CROSS_SRC</locationURI>
 		</link>
 		<link>
-			<name>Demo</name>
-			<type>2</type>
-			<locationURI>DEMO_GAME</locationURI>
-		</link>
-		<link>
 			<name>Snaky</name>
 			<type>2</type>
 			<locationURI>SNAKY_GAME</locationURI>

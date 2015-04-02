@@ -27,11 +27,7 @@
 								</outputEntries>
 							</builder>
 							<tool id="com.android.gcc.compiler.975887058" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
-								<option id="com.android.gcc.option.includePath.483037146" superClass="com.android.gcc.option.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;G:\Cross\Targets\Android\Android&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;G:\Cross\Sources\SOIL&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;G:\Cross\Sources&quot;"/>
-								</option>
+								<option id="com.android.gcc.option.includePath.483037146" superClass="com.android.gcc.option.includePath" valueType="includePath"/>
 								<inputType id="com.android.gcc.inputType.1658302548" superClass="com.android.gcc.inputType"/>
 							</tool>
 						</toolChain>
@@ -57,5 +53,9 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/Cross++"/>
+		</configuration>
+	</storageModule>
 </cproject>

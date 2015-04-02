@@ -24,7 +24,6 @@
 #define BUF_LEN 256
 
 class Debuger{
-//User module
 public:
 	Debuger(Game* game);
 	void Display(float sec);
@@ -41,5 +40,6 @@ private:
 	float render_time;
 	float render_sum;
 	int render_counter;
-//Framework module. You don't need call any of this methods or modify variable
+
+	float time;
 };

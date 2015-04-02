@@ -24,12 +24,12 @@ public:
 	bool input_state;
 	PointX input_point;
 	bool key_state;
-	int key_key;
+	Key key_key;
 
 	InputWIN();
 	bool HaveInput();
 	PointX GetInput();
 	bool HaveKey();
-	int GetKey();
+	Key GetKey();
 private:
 };

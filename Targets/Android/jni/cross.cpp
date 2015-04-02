@@ -25,6 +25,7 @@
 
 #include "Demo.h"
 #include "LauncherAndroid.h"
+#include "InputAndroid.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
 
@@ -36,6 +37,7 @@ EGLContext context;
 
 LauncherAndroid* launcher;
 Game* game;
+InputAndroid* input;
 
 static const char* GetPackageName(){
 	ANativeActivity* activity = app->activity;
@@ -85,6 +87,34 @@ static void init_display(){
     launcher = new LauncherAndroid(app->activity->assetManager, GetPackageName(), w, h);
 }
 
+static int32_t handle_input(android_app* appl, AInputEvent* event){
+    int32_t eventType = AInputEvent_getType(event);
+    switch(eventType){
+        case AINPUT_EVENT_TYPE_MOTION:
+            switch(AInputEvent_getSource(event)){
+                case AINPUT_SOURCE_TOUCHSCREEN:
+                    int action = AKeyEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
+                    switch(action){
+                        case AMOTION_EVENT_ACTION_DOWN:
+                        case AMOTION_EVENT_ACTION_MOVE:
+                        	input->input_state = true;
+                        	input->input_point.x = AMotionEvent_getX(event, 0);
+                        	input->input_point.y = AMotionEvent_getY(event, 0);
+                        break;
+                        case AMOTION_EVENT_ACTION_UP:
+                        	input->input_state = false;
+                        break;
+                    }
+                break;
+            } // end switch
+        break;
+        case AINPUT_EVENT_TYPE_KEY:
+            // handle key input...
+        break;
+    } // end switch
+	return 0;
+}
+
 static void handle_cmd(struct android_app* app, int32_t cmd) {
 	switch(cmd){
 	case APP_CMD_SAVE_STATE:
@@ -94,6 +124,8 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 			init_display();
 			game = new Demo(launcher);
 			game->graphics = new Graphics(game);
+			input = new InputAndroid();
+			game->input = input;
 			game->Start();
 		}
 		break;
@@ -110,6 +142,7 @@ void android_main(android_app* application){
 	app = application;
 	app_dummy();
 	app->onAppCmd = handle_cmd;
+	app->onInputEvent = handle_input;
 
 	LOGI("android_main");
 #ifdef CROSSDEBUG

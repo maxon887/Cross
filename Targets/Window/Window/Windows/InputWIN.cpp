@@ -32,6 +32,6 @@ PointX InputWIN::GetInput(){
 bool InputWIN::HaveKey(){
 	return key_state;
 }
-int InputWIN::GetKey(){
+Key InputWIN::GetKey(){
 	return key_key;
 }

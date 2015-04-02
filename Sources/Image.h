@@ -17,7 +17,6 @@
 	
 #pragma once
 
-#include "RectX.h"
 #include "Graphics.h"
 
 class Image{

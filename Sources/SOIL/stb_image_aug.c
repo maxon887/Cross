@@ -168,7 +168,6 @@ int stbi_register_loader(stbi_loader *loader)
 
 #ifndef STBI_NO_HDR
 static float   *ldr_to_hdr(stbi_uc *data, int x, int y, int comp);
-static stbi_uc *hdr_to_ldr(float   *data, int x, int y, int comp);
 #endif
 
 #ifndef STBI_NO_STDIO
@@ -265,13 +264,6 @@ extern int      stbi_is_hdr_from_file(FILE *f)
 }
 
 #endif
-
-// @TODO: get image dimensions & components without fully decoding
-#ifndef STBI_NO_STDIO
-extern int      stbi_info            (char const *filename,           int *x, int *y, int *comp);
-extern int      stbi_info_from_file  (FILE *f,                  int *x, int *y, int *comp);
-#endif
-extern int      stbi_info_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp);
 
 #ifndef STBI_NO_HDR
 static float h2l_gamma_i=1.0f/2.2f, h2l_scale_i=1.0f;
@@ -385,17 +377,6 @@ static uint32 get32le(stbi *s)
    return z + (get16le(s) << 16);
 }
 
-static void getn(stbi *s, stbi_uc *buffer, int n)
-{
-#ifndef STBI_NO_STDIO
-   if (s->img_file) {
-      fread(buffer, 1, n, s->img_file);
-      return;
-   }
-#endif
-   memcpy(buffer, s->img_buffer, n);
-   s->img_buffer += n;
-}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -457,7 +438,7 @@ static unsigned char *convert_format(unsigned char *data, int img_n, int req_com
    return good;
 }
 
-#ifndef STBI_NO_HDR
+//#ifndef STBI_NO_HDR
 static float   *ldr_to_hdr(stbi_uc *data, int x, int y, int comp)
 {
    int i,k,n;
@@ -474,33 +455,6 @@ static float   *ldr_to_hdr(stbi_uc *data, int x, int y, int comp)
    free(data);
    return output;
 }
-
-#define float2int(x)   ((int) (x))
-static stbi_uc *hdr_to_ldr(float   *data, int x, int y, int comp)
-{
-   int i,k,n;
-   stbi_uc *output = (stbi_uc *) malloc(x * y * comp);
-   if (output == NULL) { free(data); return epuc("outofmem", "Out of memory"); }
-   // compute number of non-alpha components
-   if (comp & 1) n = comp; else n = comp-1;
-   for (i=0; i < x*y; ++i) {
-      for (k=0; k < n; ++k) {
-         float z = (float) pow(data[i*comp+k]*h2l_scale_i, h2l_gamma_i) * 255 + 0.5f;
-         if (z < 0) z = 0;
-         if (z > 255) z = 255;
-         output[i*comp + k] = float2int(z);
-      }
-      if (k < comp) {
-         float z = data[i*comp+k] * 255 + 0.5f;
-         if (z < 0) z = 0;
-         if (z > 255) z = 255;
-         output[i*comp + k] = float2int(z);
-      }
-   }
-   free(data);
-   return output;
-}
-#endif
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1535,12 +1489,6 @@ int stbi_jpeg_test_memory(stbi_uc const *buffer, int len)
    return decode_jpeg_header(&j, SCAN_type);
 }
 
-// @TODO:
-#ifndef STBI_NO_STDIO
-extern int      stbi_jpeg_info            (char const *filename,           int *x, int *y, int *comp);
-extern int      stbi_jpeg_info_from_file  (FILE *f,                  int *x, int *y, int *comp);
-#endif
-extern int      stbi_jpeg_info_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp);
 
 // public domain zlib decode    v0.2  Sean Barrett 2006-11-18
 //    simple implementation
@@ -1756,6 +1704,7 @@ static int parse_huffman_block(zbuf *a)
             *a->zout++ = *p++;
       }
    }
+   return 0;
 }
 
 static int compute_huffman_codes(zbuf *a)
@@ -2372,14 +2321,6 @@ int stbi_png_test_memory(stbi_uc const *buffer, int len)
    start_mem(&p.s, buffer, len);
    return parse_png_file(&p, SCAN_type,STBI_default);
 }
-
-// TODO: load header from png
-#ifndef STBI_NO_STDIO
-extern int      stbi_png_info             (char const *filename,           int *x, int *y, int *comp);
-extern int      stbi_png_info_from_file   (FILE *f,                  int *x, int *y, int *comp);
-#endif
-extern int      stbi_png_info_from_memory (stbi_uc const *buffer, int len, int *x, int *y, int *comp);
-
 // Microsoft/Windows BMP image
 
 static int bmp_test(stbi *s)
@@ -2741,8 +2682,7 @@ static void write_pixels(FILE *f, int rgb_dir, int vdir, int x, int y, int comp,
                   for (k=0; k < 3; ++k)
                      px[k] = bg[k] + ((d[k] - bg[k]) * d[3])/255;
                   writef(f, "111", px[1-rgb_dir],px[1],px[1+rgb_dir]);
-                  break;
-               }
+               }break;
                /* FALLTHROUGH */
             case 3:
                writef(f, "111", d[1-rgb_dir],d[1],d[1+rgb_dir]);

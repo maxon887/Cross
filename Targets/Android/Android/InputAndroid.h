@@ -20,12 +20,17 @@
 #include "Input.h"
 
 class InputAndroid : public Input{
-//User module
 public:
+	bool input_state;
+	PointX input_point;
+	bool key_state;
+	Key key_key;
+
+	InputAndroid();
+
 	bool HaveInput();
 	PointX GetInput();
 	bool HaveKey();
-	int GetKey();
+	Key GetKey();
 private:
-//Framework module. You don't need call any of this methods or modify variable
 };

@@ -23,7 +23,7 @@ LauncherAndroid::LauncherAndroid(AAssetManager* asset_manager, const char* packa
 	this->asset_manager = asset_manager;
 	this->width = width;
 	this->height = height;
-	memset(data_path, 0, BUF_LEN);
+	//memset(data_path, 0, BUF_LEN);
 	sprintf(data_path, "/data/data/%s/files", packageName);
 }
 
@@ -46,7 +46,7 @@ void LauncherAndroid::LogIt(const char* str){
 void LauncherAndroid::FileFromAssets(const char* file){
 	LogIt("Try load file from assets");
 	AAsset* asset = AAssetManager_open(asset_manager, file, AASSET_MODE_STREAMING);
-	memset(str_buff, 0, BUF_LEN);
+	//memset(str_buff, 0, BUF_LEN);
 	sprintf(str_buff, "%s/%s", DataPath(), file);
 	char buf[1024];
  	int nb_read = 0;

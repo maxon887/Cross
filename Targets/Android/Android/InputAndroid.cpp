@@ -15,3 +15,25 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
+#include "InputAndroid.h"
+
+InputAndroid::InputAndroid(){
+	input_state = false;
+	key_state = false;
+	key_key = KEY_UNDEFINED;
+}
+
+bool InputAndroid::HaveInput(){
+	return input_state;
+}
+
+PointX InputAndroid::GetInput(){
+	return input_point;
+}
+
+bool InputAndroid::HaveKey(){
+	return key_state;
+}
+Key InputAndroid::GetKey(){
+	return key_key;
+}

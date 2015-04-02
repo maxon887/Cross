@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Graphics.h"
+#include "Image.h"
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -56,7 +57,7 @@ Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
 
 Image* Graphics::LoadImage(const char* filename){
     Launcher* launcher = game->launcher;
-    memset(str_buffer, 0, BUF_LEN);
+    //memset(str_buffer, 0, BUF_LEN);
     sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);
 
 	GLuint textureID;

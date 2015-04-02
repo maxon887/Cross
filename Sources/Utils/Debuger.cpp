@@ -18,7 +18,7 @@
 #include "Debuger.h"
 
 Debuger::Debuger(Game* game){
-	//input = game->input;
+	input = game->input;
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	update_time = 0;
 	update_sum = 0;
@@ -26,9 +26,11 @@ Debuger::Debuger(Game* game){
 	render_time = 0;
 	render_sum = 0;
 	render_counter = 0;
+	time = 0;
 }
 
 void Debuger::Display(float sec){
+	time += sec * 1000.0f;
 	if(render_counter == 20){
 		render_counter = 0;
 		render_time = render_sum / 20.0f * 1000.0f;
@@ -37,14 +39,12 @@ void Debuger::Display(float sec){
 		render_sum += sec;
 		render_counter++;
 	}
-	memset(buffer, 0, BUF_LEN);
 	sprintf(buffer, "Render Time: %fms", render_time);
 	texter->DrawText(0, 0, buffer);
 
 	if(update_time == 0){
 		texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
 	} else {
-		memset(buffer, 0, BUF_LEN);
 		sprintf(buffer, "Update Time: %fms", update_time);
 		texter->DrawText(0, texter->GetHeight(), buffer);
 	}
@@ -52,19 +52,20 @@ void Debuger::Display(float sec){
 	if(render_time == 0){
 		texter->DrawText(0, texter->GetHeight() * 2, "FPS: Infinitive");
 	} else {
-		memset(buffer, 0, BUF_LEN);
 		sprintf(buffer, "FPS: %f", 1000.0f/render_time);
 		texter->DrawText(0, texter->GetHeight() * 2, buffer);
 	}
-/*
+
 	if(input->HaveInput()){
-		memset(buffer, 0, BUF_LEN);
 		PointX in = input->GetInput();
 		sprintf(buffer, "Input: x=%f, y=%f", in.x, in.y);
 		texter->DrawText(0, texter->GetHeight() * 3, buffer);
 	}else{
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
-	}*/
+	}
+
+	sprintf(buffer, "Time: %f", time);
+	texter->DrawText(0, texter->GetHeight() * 4, buffer);
 }
 
 void Debuger::SetUpdateTime(float sec) {

@@ -65,14 +65,13 @@ Screen* Game::GetCurrentScreen(){
 
 Game::~Game(){ }
 
-
 void Game::Update(){
     clock_t rend = clock() - render_time;
     render_time = clock();
-    GetCurrentScreen()->Update(rend / (float)CLOCKS_PER_SEC);
+    GetCurrentScreen()->Update(rend / CLOCK_PER_MS);
 #ifdef CROSSDEBUG
-    debuger->Display(rend / (float)CLOCKS_PER_SEC);
+    debuger->Display(rend / CLOCK_PER_MS);
     clock_t up = clock() - render_time;
-    debuger->SetUpdateTime(up / (float)CLOCKS_PER_SEC);
+    debuger->SetUpdateTime(up / CLOCK_PER_MS);
 #endif
 }
