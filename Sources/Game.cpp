@@ -23,7 +23,12 @@
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
+	this->graphics = NULL;
+	this->current_screen = NULL;
 	this->width = width;
+	this->input = NULL;
+	this->debuger = NULL;
+	this->render_time = 0;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
 	scale_factor = (float)launcher->GetTargetWidth() / width;

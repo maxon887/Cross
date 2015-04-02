@@ -19,6 +19,8 @@
 
 Screen::Screen(Game* game){
 	this->game = game;
+	this->launcher = NULL;
+	this->graphics = NULL;
 }
 
 void Screen::Init(){
@@ -29,3 +31,5 @@ void Screen::Init(){
 void Screen::Start() { }
 
 void Screen::Update(float sec) { }
+
+Screen::~Screen() { }

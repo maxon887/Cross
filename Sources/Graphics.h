@@ -63,8 +63,6 @@ public:
 	void DrawImage(float x, float y, Image* img);
 	/* Draws particular image in game coordinates */
 	void DrawImage(PointX p, Image* img);
-
-	void Test();
 //Framework module. You don't need call any of this methods or modify variable
 public:
 	Graphics(Game* game);

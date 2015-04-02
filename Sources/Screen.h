@@ -29,6 +29,8 @@ public:
 	virtual void Start();
 	/* Calls every frame. */
 	virtual void Update(float sec);
+
+	virtual ~Screen();
 protected:
 	Game* game;
 	Launcher* launcher;

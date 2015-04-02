@@ -19,6 +19,8 @@
 
 #define CROSSDEBUG
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 class Launcher;
@@ -46,9 +48,9 @@ public:
 	float GetWidth();
 	/* Game height; */
 	float GetHeight();
-	/* Start the game. Calls automaticaly */
+	/* Start the game. Calls automatically */
 	void Start();
-	/* Set up new game Screen. Previous creen data will be lost. */
+	/* Set up new game Screen. Previous screen data will be lost. */
 	void SetScreen(Screen* screen);
 	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
@@ -63,7 +65,6 @@ public:
 private:
 	Screen* current_screen;
     clock_t render_time;
-#ifdef CROSSDEBUG
+
     Debuger* debuger;
-#endif
 };

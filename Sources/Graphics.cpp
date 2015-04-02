@@ -127,29 +127,3 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, Image::indices);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-void Graphics::Test(){
-	GLfloat width = (GLfloat)game->launcher->GetTargetWidth();
-	GLfloat height = (GLfloat)game->launcher->GetTargetHeight();
-
-	//	GLfloat verts[] = {	0.0f, 0.0f,
-    //                        width - 1, 0.0f,
-    //                        width/2, height - 1 };
-    GLfloat verts[] = { width - 1, height - 1,
-        0, height - 1,
-        width / 2, 0 };
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, verts);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-}
