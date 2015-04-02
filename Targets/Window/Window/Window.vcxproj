@@ -72,7 +72,6 @@
     <ClCompile Include="..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\Sources\Image.cpp" />
-    <ClCompile Include="..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c" />

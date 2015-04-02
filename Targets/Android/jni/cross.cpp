@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include <EGL/egl.h>
+#include <jni.h>
 #include <android/log.h>
 #include <android/asset_manager.h>
 #include <android_native_app_glue.h>
@@ -35,6 +36,18 @@ EGLContext context;
 
 LauncherAndroid* launcher;
 Game* game;
+
+static const char* GetPackageName(){
+	ANativeActivity* activity = app->activity;
+	JNIEnv *env;
+	activity->vm->AttachCurrentThread(&env, NULL);
+	jclass android_content_Context = env->GetObjectClass(activity->clazz);
+	jmethodID midGetPackageName = env->GetMethodID(android_content_Context, "getPackageName", "()Ljava/lang/String;");
+	jstring packageName= (jstring)env->CallObjectMethod(activity->clazz, midGetPackageName);
+	const char* appname = env->GetStringUTFChars(packageName, NULL);
+	activity->vm->DetachCurrentThread();
+	return appname;
+}
 
 static void init_display(){
     const EGLint attribs[] = {
@@ -69,7 +82,7 @@ static void init_display(){
     eglQuerySurface(display, surface, EGL_WIDTH, &w);
     eglQuerySurface(display, surface, EGL_HEIGHT, &h);
 
-    launcher = new LauncherAndroid(app->activity->assetManager, w, h);
+    launcher = new LauncherAndroid(app->activity->assetManager, GetPackageName(), w, h);
 }
 
 static void handle_cmd(struct android_app* app, int32_t cmd) {
@@ -78,10 +91,10 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 		break;
 	case APP_CMD_INIT_WINDOW:
 		if(app->window != NULL){
-			//init_display();
-			//game = new Demo(launcher);
-			//game->graphics = new Graphics(game);
-			//game->Start();
+			init_display();
+			game = new Demo(launcher);
+			game->graphics = new Graphics(game);
+			game->Start();
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
@@ -99,7 +112,9 @@ void android_main(android_app* application){
 	app->onAppCmd = handle_cmd;
 
 	LOGI("android_main");
-	//sleep(5000);
+#ifdef CROSSDEBUG
+	sleep(3);
+#endif
 
 	while(true){
 		android_poll_source* source;
@@ -114,8 +129,8 @@ void android_main(android_app* application){
 			}
 		}
 		if(game != NULL && launcher != NULL){
-			//game->Update();
-		    //eglSwapBuffers(display, surface);
+			game->Update();
+		    eglSwapBuffers(display, surface);
 		}
 	}
 }

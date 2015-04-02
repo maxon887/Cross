@@ -18,7 +18,7 @@
 #include "Debuger.h"
 
 Debuger::Debuger(Game* game){
-	input = game->input;
+	//input = game->input;
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	update_time = 0;
 	update_sum = 0;

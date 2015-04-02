@@ -21,19 +21,19 @@
 MainScreen::MainScreen(Game* game):Screen(game) { }
 
 void MainScreen::Start(){
-    //x_img = graphics->LoadImage("X256.png");
-	//graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
-   // button_release = graphics->LoadImage("ButtonRelease.png");
+    x_img = graphics->LoadImage("X256.png");
+	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
+    button_release = graphics->LoadImage("ButtonRelease.png");
 }
 
 void MainScreen::Update(float sec){
 	graphics->Clear(0, 0.25f, 0.25f);
-	/*
+
 	PointX pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 3;
 	graphics->Rotate(x_img, 15);
 	graphics->DrawImage(pos, x_img);
 	pos.y = game->GetHeight() / 4 * 3;
-	graphics->DrawImage(pos, button_release);*/
+	graphics->DrawImage(pos, button_release);
 }

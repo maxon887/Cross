@@ -17,10 +17,14 @@
 
 #include "LauncherAndroid.h"
 
-LauncherAndroid::LauncherAndroid(AAssetManager* asset_manager, int width, int height){
+#include <jni.h>
+
+LauncherAndroid::LauncherAndroid(AAssetManager* asset_manager, const char* packageName, int width, int height){
 	this->asset_manager = asset_manager;
 	this->width = width;
 	this->height = height;
+	memset(data_path, 0, BUF_LEN);
+	sprintf(data_path, "/data/data/%s/files", packageName);
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -32,7 +36,7 @@ int LauncherAndroid::GetTargetHeight(){
 }
 
 const char* LauncherAndroid::DataPath(){
-	return "/data/data/com.cross/files";
+	return data_path;
 }
 
 void LauncherAndroid::LogIt(const char* str){
@@ -42,26 +46,13 @@ void LauncherAndroid::LogIt(const char* str){
 void LauncherAndroid::FileFromAssets(const char* file){
 	LogIt("Try load file from assets");
 	AAsset* asset = AAssetManager_open(asset_manager, file, AASSET_MODE_STREAMING);
-	sprintf(str_buff, "%s%s", DataPath(), file);
+	memset(str_buff, 0, BUF_LEN);
+	sprintf(str_buff, "%s/%s", DataPath(), file);
 	char buf[1024];
-	int nb_read = 0;
-	FILE* out = fopen(str_buff, "rw");
+ 	int nb_read = 0;
+	FILE* out = fopen(str_buff, "w");
 	while((nb_read = AAsset_read(asset, buf, 1024)) > 0)
 			fwrite(buf, nb_read, 1, out);
 	fclose(out);
 	AAsset_close(asset);
-	/*
-	AAssetDir* assetDir = AAssetManager_openDir(asset_manager, "");
-	const char* filename = (const char*)NULL;
-	while ((filename = AAssetDir_getNextFileName(assetDir)) != NULL) {
-	    AAsset* asset = AAssetManager_open(asset_manager, filename, AASSET_MODE_STREAMING);
-	    char buf[256];
-	    int nb_read = 0;
-	    FILE* out = fopen(filename, "rw");
-	    while ((nb_read = AAsset_read(asset, buf, 256)) > 0)
-	        fwrite(buf, nb_read, 1, out);
-	    fclose(out);
-	    AAsset_close(asset);
-	}
-	AAssetDir_close(assetDir);*/
 }

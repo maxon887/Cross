@@ -50,9 +50,6 @@
     <ClCompile Include="..\..\..\Sources\Utils\Debuger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Input.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="Windows\InputWIN.cpp">
       <Filter>Windows</Filter>
     </ClCompile>

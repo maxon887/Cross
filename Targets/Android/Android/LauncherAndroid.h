@@ -18,6 +18,7 @@
 #pragma once
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <android/log.h>
 #include <android/asset_manager.h>
 #include "Launcher.h"
@@ -26,7 +27,7 @@
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(AAssetManager* asset_manager, int width, int height);
+	LauncherAndroid(AAssetManager* asset_manager, const char* packageName, int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	const char* DataPath();
@@ -36,5 +37,6 @@ private:
 	int width;
 	int height;
 	char str_buff[BUF_LEN];
+	char data_path[BUF_LEN];
 	AAssetManager* asset_manager;
 };

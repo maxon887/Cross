@@ -33,6 +33,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>	
+#include "Image.h"
+#include "SOIL.h"
 #include "Game.h"
 #include "Launcher.h"
 #include "RectX.h"
