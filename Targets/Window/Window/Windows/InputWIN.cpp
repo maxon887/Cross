@@ -20,7 +20,7 @@
 InputWIN::InputWIN(){
 	input_state = false;
 	key_state = false;
-    key_key = UNDEFINED;
+	key_key = KEY_UNDEFINED;
 }
 
 bool InputWIN::HaveInput(){
