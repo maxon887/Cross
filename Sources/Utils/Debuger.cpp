@@ -29,14 +29,14 @@ Debuger::Debuger(Game* game){
 	time = 0;
 }
 
-void Debuger::Display(float sec){
-	time += sec * 1000.0f;
+void Debuger::Display(float micro){
+	time += micro / 1000000.0f;
 	if(render_counter == 20){
 		render_counter = 0;
-		render_time = render_sum / 20.0f * 1000.0f;
+		render_time = render_sum / 20.0f / 1000.0f;
 		render_sum = 0;
 	} else {
-		render_sum += sec;
+		render_sum += micro;
 		render_counter++;
 	}
 	sprintf(buffer, "Render Time: %fms", render_time);
@@ -64,17 +64,17 @@ void Debuger::Display(float sec){
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
 	}
 
-	sprintf(buffer, "Time: %f", time);
+	sprintf(buffer, "Run time: %f", time);
 	texter->DrawText(0, texter->GetHeight() * 4, buffer);
 }
 
-void Debuger::SetUpdateTime(float sec) {
+void Debuger::SetUpdateTime(float micro) {
 	if(update_counter == 20){
 		update_counter = 0;
-		update_time = update_sum / 20.0f * 1000.0f;
+		update_time = update_sum / 20.0f / 1000.0f;
 		update_sum = 0;
 	} else {
-		update_sum += sec;
+		update_sum += micro;
 		update_counter++;
 	}
 }

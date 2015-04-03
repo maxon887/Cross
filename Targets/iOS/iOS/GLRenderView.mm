@@ -19,11 +19,13 @@
 #import "GLRenderView.h"
 #import "Graphics.h"
 #import "LauncherOS.h"
+#import "InputOS.h"
 #import "SnakyGame.h"
 #import "Demo.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
+    InputOS* input;
     Game* game;
 }
 
@@ -45,10 +47,16 @@
         launcher = new LauncherOS();
         game = new Demo(launcher);
         Graphics* graphics = new Graphics(game);
+        input = new InputOS();
         game->graphics = graphics;
+        game->input = input;
         game->Start();
     }
     game->Update();
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
 }
 
 @end

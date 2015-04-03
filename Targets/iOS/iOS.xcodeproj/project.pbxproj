@@ -11,6 +11,7 @@
 		D445C5A61ABAF5220077193B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D445C5A51ABAF5220077193B /* Entitlements.plist */; };
 		D4B505D51ABC5980007A3F39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */; };
 		D4B505D61ABC598A007A3F39 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DD2B661AB9D867004563BE /* GLKit.framework */; };
+		D4BA7A3F1ACE73C000F52C9C /* InputOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BA7A3E1ACE73C000F52C9C /* InputOS.cpp */; };
 		D4CCCB781ABFE90300F90B6F /* Demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CCCB741ABFE90300F90B6F /* Demo.cpp */; };
 		D4CCCB791ABFE90300F90B6F /* MainScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CCCB761ABFE90300F90B6F /* MainScreen.cpp */; };
 		D4CCCB801ABFE90E00F90B6F /* ButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D4CCCB7A1ABFE90E00F90B6F /* ButtonPressed.png */; };
@@ -56,6 +57,9 @@
 		D41CFDA31AC2B4A300EB4EA3 /* Debuger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debuger.cpp; sourceTree = "<group>"; };
 		D41CFDA41AC2B4A300EB4EA3 /* Debuger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debuger.h; sourceTree = "<group>"; };
 		D445C5A51ABAF5220077193B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		D4BA7A3C1ACE72BE00F52C9C /* Input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Input.h; path = ../../Sources/Input.h; sourceTree = "<group>"; };
+		D4BA7A3D1ACE73A200F52C9C /* InputOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputOS.h; sourceTree = "<group>"; };
+		D4BA7A3E1ACE73C000F52C9C /* InputOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputOS.cpp; sourceTree = "<group>"; };
 		D4CCCB741ABFE90300F90B6F /* Demo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Demo.cpp; path = ../../Games/Demo/Sources/Demo.cpp; sourceTree = "<group>"; };
 		D4CCCB751ABFE90300F90B6F /* Demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Demo.h; path = ../../Games/Demo/Sources/Demo.h; sourceTree = "<group>"; };
 		D4CCCB761ABFE90300F90B6F /* MainScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScreen.cpp; path = ../../Games/Demo/Sources/MainScreen.cpp; sourceTree = "<group>"; };
@@ -279,6 +283,8 @@
 			children = (
 				D4E1C2231ABAB893003F3A50 /* LauncherOS.h */,
 				D4E1C2241ABAB8D9003F3A50 /* LauncherOS.mm */,
+				D4BA7A3D1ACE73A200F52C9C /* InputOS.h */,
+				D4BA7A3E1ACE73C000F52C9C /* InputOS.cpp */,
 			);
 			path = OS;
 			sourceTree = "<group>";
@@ -304,6 +310,7 @@
 				D4DD2B611AB9D28C004563BE /* Graphics.h */,
 				D4DD2B601AB9D28C004563BE /* Graphics.cpp */,
 				D4E1C2201ABAB750003F3A50 /* Launcher.h */,
+				D4BA7A3C1ACE72BE00F52C9C /* Input.h */,
 			);
 			name = Cross;
 			sourceTree = "<group>";
@@ -434,6 +441,7 @@
 				D4D271DE1ABC51370056B8A1 /* SnakyGame.cpp in Sources */,
 				D4D9D6B91AC1673F00DD836B /* PointX.cpp in Sources */,
 				D4D9D6B11AC1672B00DD836B /* SOIL.c in Sources */,
+				D4BA7A3F1ACE73C000F52C9C /* InputOS.cpp in Sources */,
 				D4E1C2251ABAB8D9003F3A50 /* LauncherOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

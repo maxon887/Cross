@@ -23,14 +23,11 @@
     #define glOrthof glOrtho
     #define GL_CLAMP_TO_EDGE GL_CLAMP
     #undef LoadImage
-	#define CLOCK_PER_MS 1000000.0f
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
     #include <OpenGLES/ES1/gl.h>
-	#define CLOCK_PER_MS 1000000.0f
 #elif defined(ANDROID) || defined(__ANDROID__)
     #include <GLES/gl.h>
 	#include "LauncherAndroid.h"
-	#define CLOCK_PER_MS 1000000.0f
 #endif
 
 #include "SOIL.h"

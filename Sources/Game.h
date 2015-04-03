@@ -22,6 +22,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
+
+#include <chrono>
+using namespace std;
+using namespace chrono;
 
 #include "PointX.h"
 #include "RectX.h"
@@ -67,7 +72,8 @@ public:
     void Update();
 private:
 	Screen* current_screen;
-    clock_t render_time;
 
     Debuger* debuger;
+    
+    time_point<high_resolution_clock> render_time;
 };
