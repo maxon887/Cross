@@ -17,19 +17,29 @@
 	
 #pragma once
 
+#include "Game.h"
+#include "Graphics.h"
 #include "Input.h"
+#include "Image.h"
 
-class InputWIN : public Input{
+class Button{
+//User module
 public:
-	bool input_state;
-	PointX input_point;
-	bool key_state;
-	Key key_key;
+	Button(Game* game, PointX location, Image* release, Image* pressed);
+	void Update();
+	void RegisterCallback(function<void()> callback);
 
-	InputWIN();
-	bool HaveInput();
-	PointX GetInput();
-	bool HaveKey();
-	Key GetKey();
+protected:
+	Launcher* launcher;
+	Graphics* graphics;
+	Input* input;
+	PointX location;
+	Image* release;
+	Image* pressed;
+//Framework module. You don't need call any of this methods or modify variable
 private:
+	bool OnLocation(float x, float y);
+	PointX* press_loc;
+	function<void()> callback;
+	bool callback_registered;
 };

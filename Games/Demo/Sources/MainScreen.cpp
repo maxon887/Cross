@@ -23,7 +23,13 @@ MainScreen::MainScreen(Game* game):Screen(game) { }
 void MainScreen::Start(){
     x_img = graphics->LoadImage("X256.png");
 	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
-    button_release = graphics->LoadImage("ButtonRelease.png");
+    Image* release = graphics->LoadImage("ButtonRelease.png");
+	Image* pressed = graphics->LoadImage("ButtonPressed.png");
+	PointX pos;
+	pos.x = game->GetWidth() / 2;
+	pos.y = game->GetHeight() / 4 * 3;
+	btn = new Button(game, pos, release, pressed);
+	btn->RegisterCallback(bind(&MainScreen::OnClick, this));
 }
 
 void MainScreen::Update(float sec){
@@ -34,6 +40,11 @@ void MainScreen::Update(float sec){
 	pos.y = game->GetHeight() / 3;
 	graphics->Rotate(x_img, 15);
 	graphics->DrawImage(pos, x_img);
-	pos.y = game->GetHeight() / 4 * 3;
-	graphics->DrawImage(pos, button_release);
+	btn->Update();
+	//pos.y = game->GetHeight() / 4 * 3;
+	//graphics->DrawImage(pos, button_release);
+}
+
+void MainScreen::OnClick(){
+	launcher->LogIt("OnClick");
 }

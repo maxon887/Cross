@@ -23,15 +23,16 @@
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
+	this->input = new Input(this);
 	this->graphics = NULL;
 	this->current_screen = NULL;
 	this->width = width;
-	this->input = NULL;
 	this->debuger = NULL;
-	//this->render_time = 0;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
 	scale_factor = (float)launcher->GetTargetWidth() / width;
+
+
 }
 
 float Game::GetScaleFactor(){
@@ -71,11 +72,11 @@ void Game::Update(){
     auto rend = duration_cast<microseconds>(now - render_time).count();
     render_time = high_resolution_clock::now();
     
-    GetCurrentScreen()->Update(rend * 1000);
+    GetCurrentScreen()->Update((float)(rend * 1000));
 #ifdef CROSSDEBUG
-    debuger->Display(rend);
+    debuger->Display((float)rend);
     now = high_resolution_clock::now();
     auto up = duration_cast<microseconds>(now - render_time).count();
-    debuger->SetUpdateTime(up);
+    debuger->SetUpdateTime((float)up);
 #endif
 }

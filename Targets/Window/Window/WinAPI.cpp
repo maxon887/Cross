@@ -16,14 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include <Windows.h>
-#include <time.h>
 #include "LauncherWIN.h"
-#include "InputWIN.h"
 #include "Graphics.h"
 #include "SnakyGame.h"
 #include "Demo.h"
 
-InputWIN* input;
+Input* input;
 
 void ClientResize(HWND hWnd, int nWidth, int nHeight)
 {
@@ -55,22 +53,21 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	{
 	case WM_LBUTTONDOWN:
 		input->input_state = true;
-		input->input_point.x = (short)LOWORD(lParam);
-		input->input_point.y = (short)HIWORD(lParam);
+		input->input_loc.x = (short)LOWORD(lParam);
+		input->input_loc.y = (short)HIWORD(lParam);
 		break;
 	case WM_MOUSEMOVE:
-		input->input_point.x = LOWORD(lParam);
-		input->input_point.y = HIWORD(lParam);
+		input->input_loc.x = LOWORD(lParam);
+		input->input_loc.y = HIWORD(lParam);
 		break;
 	case WM_LBUTTONUP:
 		input->input_state = false;
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		return 0;
-	default:
-		return DefWindowProc(wnd, msg, wParam, lParam);
+		break;
 	}
+	return DefWindowProc(wnd, msg, wParam, lParam);
 }
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int winShow){
@@ -128,7 +125,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	//SnakyGame* game = new SnakyGame(launcher);.
 	Demo* game = new Demo(launcher);
 	Graphics* graphics = new Graphics(game);
-	input = new InputWIN();
+	input = game->input;
 	game->graphics = graphics;
 	game->input = input;
 	game->Start();

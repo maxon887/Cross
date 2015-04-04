@@ -22,15 +22,17 @@
 #include "PointX.h"
 #include "Texter.h"
 #include "Debuger.h"
+#include "Button.h"
 
 class MainScreen : public Screen{
 public:
 	MainScreen(Game* game);
 	void Start();
 	void Update(float sec);
+
+	void OnClick();
 private:
 	Image* x_img;
-	Image* button_release;
-	Image* background;
+	Button* btn;
 	Texter* texter;
 };

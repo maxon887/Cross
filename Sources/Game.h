@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <functional>
 
 #include <chrono>
 using namespace std;

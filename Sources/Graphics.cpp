@@ -50,7 +50,7 @@ Image* Graphics::CreateImage(Image* src, RectX reg){
 } 
 
 Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
-	Image* img = new Image(src->GetTextureID(), (float)src->GetWidth(), (float)src->GetHeight(), region);
+	Image* img = new Image(src->GetTextureID(), (int)src->GetWidth(), (int)src->GetHeight(), region);
 	img->Scale(scaleFactor);
 	return img;
 }

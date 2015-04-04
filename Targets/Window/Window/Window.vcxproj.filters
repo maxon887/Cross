@@ -50,8 +50,11 @@
     <ClCompile Include="..\..\..\Sources\Utils\Debuger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\InputWIN.cpp">
-      <Filter>Windows</Filter>
+    <ClCompile Include="..\..\..\Sources\Utils\Button.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Input.cpp">
+      <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,8 +135,8 @@
     <ClInclude Include="..\..\..\Sources\Input.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\InputWIN.h">
-      <Filter>Windows</Filter>
+    <ClInclude Include="..\..\..\Sources\Utils\Button.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,28 +17,9 @@
 	
 #pragma once
 
-#include "Game.h"
-#include "PointX.h"
-
-enum Key{
-	KEY_UNDEFINED,
-	KEY_PAUSE
-};
-
-class Input{
+class Template{
 //User module
 public:
-	Input(Game* game);
-	bool HaveInput();
-	PointX GetInput();
-	bool HaveKey();
-	Key GetKey();
-//Framework module. You don't need call any of this methods or modify variable
-public:
-	bool input_state;
-	PointX input_loc;
-	bool key_state;
-	Key key_key;
 private:
-	Game* game;
+//Framework module. You don't need call any of this methods or modify variable
 };

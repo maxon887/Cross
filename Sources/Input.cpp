@@ -15,24 +15,28 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "InputWIN.h"
+#include "Input.h"
 
-InputWIN::InputWIN(){
+Input::Input(Game* game){
+	this->game = game;
 	input_state = false;
 	key_state = false;
 	key_key = KEY_UNDEFINED;
 }
 
-bool InputWIN::HaveInput(){
+bool Input::HaveInput(){
 	return input_state;
 }
 
-PointX InputWIN::GetInput(){
-	return input_point;
+PointX Input::GetInput(){
+	PointX ret;
+	ret.x = input_loc.x / game->GetScaleFactor();
+	ret.y = input_loc.y / game->GetScaleFactor();
+	return ret;
 }
-bool InputWIN::HaveKey(){
+bool Input::HaveKey(){
 	return key_state;
 }
-Key InputWIN::GetKey(){
+Key Input::GetKey(){
 	return key_key;
 }
