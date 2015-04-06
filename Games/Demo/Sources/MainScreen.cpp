@@ -17,6 +17,8 @@
 	
 #include "MainScreen.h"
 
+#include "SecondScreen.h"
+
 
 MainScreen::MainScreen(Game* game):Screen(game) { }
 
@@ -47,4 +49,5 @@ void MainScreen::Update(float sec){
 
 void MainScreen::OnClick(){
 	launcher->LogIt("OnClick");
+    game->SetScreen(new SecondScreen(game));
 }

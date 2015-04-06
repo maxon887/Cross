@@ -17,10 +17,8 @@
 	
 #include "Demo.h"
 
-Demo::Demo(Launcher* launcher) : Game(launcher, 900) { 
-	main_screen = new MainScreen(this);
-}
+Demo::Demo(Launcher* launcher) : Game(launcher, 900) { }
 
 Screen* Demo::GetStartScreen(){
-	return main_screen;
+	return new MainScreen(this);
 }

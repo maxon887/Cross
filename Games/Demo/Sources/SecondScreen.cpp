@@ -15,3 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
+#include "SecondScreen.h"
+#include "MainScreen.h"
+
+SecondScreen::SecondScreen(Game* game):Screen(game){}
+
+void SecondScreen::Update(float sec){
+    graphics->Clear(0, 0, 0);
+    if(input->HaveInput()){
+        game->SetScreen(new MainScreen(game));
+    }
+}

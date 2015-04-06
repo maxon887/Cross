@@ -17,9 +17,13 @@
 	
 #pragma once
 
-class Template{
+#include "Screen.h"
+
+class SecondScreen : public Screen{
 //User module
 public:
+    SecondScreen(Game* game);
+    void Update(float sec);
 private:
 //Framework module. You don't need call any of this methods or modify variable
 };

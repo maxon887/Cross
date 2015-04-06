@@ -25,5 +25,5 @@ public:
 	Demo(Launcher* launcher);
 	Screen* GetStartScreen();
 private:
-	Screen* main_screen;
+	//Screen* main_screen;
 };

@@ -19,14 +19,15 @@
 #import "GLRenderView.h"
 #import "Graphics.h"
 #import "LauncherOS.h"
-#import "InputOS.h"
+#import "Input.h"
 #import "SnakyGame.h"
 #import "Demo.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
-    InputOS* input;
     Game* game;
+
+    CGFloat screenScale;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -38,6 +39,8 @@
     self.enableSetNeedsDisplay = NO;
     CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    
+    screenScale = [[UIScreen mainScreen] scale];
     return self;
 }
 
@@ -47,31 +50,29 @@
         launcher = new LauncherOS();
         game = new Demo(launcher);
         Graphics* graphics = new Graphics(game);
-        input = new InputOS();
         game->graphics = graphics;
-        game->input = input;
         game->Start();
     }
     game->Update();
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    input->input_state = true;
+    game->input->input_state = true;
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView:touch.view];
-    input->input_point.x = location.x;
-    input->input_point.y = location.y;
+    game->input->input_loc.x = location.x * screenScale;
+    game->input->input_loc.y = location.y * screenScale;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView:touch.view];
-    input->input_point.x = location.x;
-    input->input_point.y = location.y;
+    game->input->input_loc.x = location.x * screenScale;
+    game->input->input_loc.y = location.y * screenScale;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    input->input_state = false;
+    game->input->input_state = false;
 }
 
 @end

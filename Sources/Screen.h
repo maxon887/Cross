@@ -18,6 +18,9 @@
 #pragma once
 
 #include "Game.h"
+#include "Graphics.h"
+#include "Launcher.h"
+#include "Input.h"
 
 class Screen{
 //User module
@@ -35,4 +38,5 @@ protected:
 	Game* game;
 	Launcher* launcher;
 	Graphics* graphics;
+    Input* input;
 };

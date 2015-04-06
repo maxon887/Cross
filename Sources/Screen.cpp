@@ -26,6 +26,7 @@ Screen::Screen(Game* game){
 void Screen::Init(){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
+    this->input = game->input;
 }
 
 void Screen::Start() { }
