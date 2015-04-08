@@ -56,6 +56,12 @@
     <ClCompile Include="..\..\..\Sources\Input.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Games\Demo\Sources\SecondScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Animation.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
@@ -136,6 +142,12 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Button.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Games\Demo\Sources\SecondScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Animation.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>

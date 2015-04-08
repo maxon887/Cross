@@ -17,6 +17,10 @@
 	
 #include "LauncherWIN.h"
 
+LauncherWIN::LauncherWIN(HWND wnd){
+	this->wnd = wnd;
+}
+
 int LauncherWIN::GetTargetWidth(){
 	return TARGET_WIDTH;
 }
@@ -32,4 +36,12 @@ const char* LauncherWIN::DataPath(){
 void LauncherWIN::LogIt(const char* str){
 	sprintf(str_buffer, "%s\n", str);
     OutputDebugString(str_buffer);
+}
+
+void LauncherWIN::ShowMessage(const char* msg){
+	MessageBox(wnd, msg, "Exception", MB_OK);
+}
+
+void LauncherWIN::Exit(){
+	PostQuitMessage(-1);
 }

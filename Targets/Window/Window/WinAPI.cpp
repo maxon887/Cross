@@ -80,9 +80,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	wc.lpszClassName = "Cross++";
 	RegisterClassEx(&wc);
 
-	LauncherWIN* launcher = new LauncherWIN();
-
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
+	LauncherWIN* launcher = new LauncherWIN(wnd);
 	ClientResize(wnd, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;

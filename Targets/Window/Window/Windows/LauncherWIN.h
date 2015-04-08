@@ -26,10 +26,14 @@
 
 class LauncherWIN : public Launcher{
 public:
+	LauncherWIN(HWND wnd);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	const char* DataPath();
 	void LogIt(const char* str);
+	void ShowMessage(const char* msg);
+	void Exit();
 private:
+	HWND wnd;
 	char str_buffer[256];
 };

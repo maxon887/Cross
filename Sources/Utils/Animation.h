@@ -16,21 +16,23 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+#include "Image.h"
 
-#include "Input.h"
-
-class InputAndroid : public Input{
+class Animation{
+//User module
 public:
-	bool input_state;
-	PointX input_point;
-	bool key_state;
-	Key key_key;
-
-	InputAndroid();
-
-	bool HaveInput();
-	PointX GetInput();
-	bool HaveKey();
-	Key GetKey();
+	Animation(float rate, Image* frames, int frameCount);
+	Animation(float rate, Image* frames, int frameCount, bool looped);
+	void Start();
+	void Update(float sec);
+	Image* GetImage();
+	bool IsRunnig();
 private:
+	Image* frames;
+	int frame_count;
+	float rate;
+	float duration;
+	int frame_num;
+	bool looped;
+//Framework module. You don't need call any of this methods or modify variable
 };

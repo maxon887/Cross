@@ -50,14 +50,20 @@ Image* Graphics::CreateImage(Image* src, RectX reg){
 } 
 
 Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
+	if(src == NULL)
+		throw "Attempt to create image from NULL";
+
 	Image* img = new Image(src->GetTextureID(), (int)src->GetWidth(), (int)src->GetHeight(), region);
 	img->Scale(scaleFactor);
 	return img;
 }
 
 Image* Graphics::LoadImage(const char* filename){
-    Launcher* launcher = game->launcher;
-    //memset(str_buffer, 0, BUF_LEN);
+	return LoadImage(filename, game->GetScaleFactor());
+}
+
+Image* Graphics::LoadImage(const char* filename, float scaleFactor){
+	Launcher* launcher = game->launcher;
     sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);
 
 	GLuint textureID;
@@ -74,8 +80,8 @@ Image* Graphics::LoadImage(const char* filename){
 	image = SOIL_load_image(str_buffer, &width, &height, 0, SOIL_LOAD_RGBA);
 #endif
 	if(image == NULL){
-		sprintf(str_buffer, "WARNING! Can't load file: %s", str_buffer);
-		launcher->LogIt(str_buffer);
+		sprintf(str_buffer, "Can't load file: %s", filename);
+		throw str_buffer;
 	}
 	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
 	SOIL_free_image_data(image);
@@ -88,7 +94,7 @@ Image* Graphics::LoadImage(const char* filename){
 
 	RectX region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, width, height, region);
-	img->Scale(game->GetScaleFactor());
+	img->Scale(scaleFactor);
 	return img;
 }
 
@@ -105,6 +111,8 @@ void Graphics::DrawImage(PointX p, Image* img){
 }
 
 void Graphics::DrawTargetImage(float x, float y, Image* img){
+	if(img == NULL)
+		throw "Attempt to draw NULL image";
 	if(prev_texID != img->GetTextureID()){
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, img->GetTextureID());

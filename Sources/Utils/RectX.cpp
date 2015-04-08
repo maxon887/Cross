@@ -17,6 +17,13 @@
 	
 #include "RectX.h"
 
+RectX::RectX(){
+	x = 0;
+	y = 0;
+	width = 0;
+	height = 0;
+}
+
 RectX::RectX(float x, float y, float w, float h){
 	this->x = x;
 	this->y = y;

@@ -31,8 +31,6 @@ Game::Game(Launcher* launcher, float width){
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
 	scale_factor = (float)launcher->GetTargetWidth() / width;
-
-
 }
 
 float Game::GetScaleFactor(){
@@ -47,13 +45,6 @@ float Game::GetHeight(){
 	return height;
 }
 
-void Game::Start(){
-#ifdef CROSSDEBUG
-    debuger = new Debuger(this);
-#endif
-	SetScreen(GetStartScreen());
-}
-
 void Game::SetScreen(Screen* screen){
 	current_screen = screen;
 	current_screen->Init();
@@ -65,18 +56,35 @@ Screen* Game::GetCurrentScreen(){
 	return current_screen;
 }
 
-Game::~Game(){ }
+void Game::Start(){
+	try{
+#ifdef CROSSDEBUG
+		debuger = new Debuger(this);
+#endif
+		SetScreen(GetStartScreen());
+	}catch(const char* msg){
+		launcher->ShowMessage(msg);
+		launcher->Exit();
+	}
+}
 
 void Game::Update(){
-    time_point<high_resolution_clock> now = high_resolution_clock::now();
-    auto rend = duration_cast<microseconds>(now - render_time).count();
-    render_time = high_resolution_clock::now();
+	try{
+		time_point<high_resolution_clock> now = high_resolution_clock::now();
+		auto rend = duration_cast<microseconds>(now - render_time).count();
+		render_time = high_resolution_clock::now();
     
-    GetCurrentScreen()->Update((float)(rend * 1000));
+		GetCurrentScreen()->Update((float)(rend * 1000));
 #ifdef CROSSDEBUG
-    debuger->Display((float)rend);
-    now = high_resolution_clock::now();
-    auto up = duration_cast<microseconds>(now - render_time).count();
-    debuger->SetUpdateTime((float)up);
+		debuger->Display((float)rend);
+		now = high_resolution_clock::now();
+		auto up = duration_cast<microseconds>(now - render_time).count();
+		debuger->SetUpdateTime((float)up);
 #endif
+	}catch(const char* msg){
+		launcher->ShowMessage(msg);
+		launcher->Exit();
+	}
 }
+
+Game::~Game(){ }

@@ -18,7 +18,18 @@
 #include "SecondScreen.h"
 #include "MainScreen.h"
 
-SecondScreen::SecondScreen(Game* game):Screen(game){}
+SecondScreen::SecondScreen(Game* game):Screen(game){
+	bcg_scale = 2;
+	run_time = 2;
+	thinking_time = 0;
+	head_angle = 0;
+	turn_left = true;
+}
+
+void SecondScreen::Start(){
+	background = graphics->LoadImage("Game/Background.jpg", game->GetScaleFactor() * bcg_scale);
+	Image* image[8];
+}
 
 void SecondScreen::Update(float sec){
     graphics->Clear(0, 0, 0);

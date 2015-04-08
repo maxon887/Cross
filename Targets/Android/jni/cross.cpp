@@ -25,7 +25,6 @@
 
 #include "Demo.h"
 #include "LauncherAndroid.h"
-#include "InputAndroid.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
 
@@ -37,8 +36,7 @@ EGLContext context;
 
 LauncherAndroid* launcher;
 Game* game;
-InputAndroid* input;
-
+/*
 static const char* GetPackageName(){
 	ANativeActivity* activity = app->activity;
 	JNIEnv *env;
@@ -49,7 +47,7 @@ static const char* GetPackageName(){
 	const char* appname = env->GetStringUTFChars(packageName, NULL);
 	activity->vm->DetachCurrentThread();
 	return appname;
-}
+}*/
 
 static void init_display(){
     const EGLint attribs[] = {
@@ -84,7 +82,7 @@ static void init_display(){
     eglQuerySurface(display, surface, EGL_WIDTH, &w);
     eglQuerySurface(display, surface, EGL_HEIGHT, &h);
 
-    launcher = new LauncherAndroid(app->activity->assetManager, GetPackageName(), w, h);
+    launcher = new LauncherAndroid(app, w, h);
 }
 
 static int32_t handle_input(android_app* appl, AInputEvent* event){
@@ -97,12 +95,12 @@ static int32_t handle_input(android_app* appl, AInputEvent* event){
                     switch(action){
                         case AMOTION_EVENT_ACTION_DOWN:
                         case AMOTION_EVENT_ACTION_MOVE:
-                        	input->input_state = true;
-                        	input->input_point.x = AMotionEvent_getX(event, 0);
-                        	input->input_point.y = AMotionEvent_getY(event, 0);
+                        	game->input->input_state = true;
+                        	game->input->input_loc.x = AMotionEvent_getX(event, 0);
+                        	game->input->input_loc.y = AMotionEvent_getY(event, 0);
                         break;
                         case AMOTION_EVENT_ACTION_UP:
-                        	input->input_state = false;
+                        	game->input->input_state = false;
                         break;
                     }
                 break;
@@ -124,8 +122,6 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 			init_display();
 			game = new Demo(launcher);
 			game->graphics = new Graphics(game);
-			input = new InputAndroid();
-			game->input = input;
 			game->Start();
 		}
 		break;
@@ -133,10 +129,10 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 		break;
 	}
 }
-
+/*
 static void terminate(){
 
-}
+}*/
 
 void android_main(android_app* application){
 	app = application;
@@ -157,7 +153,7 @@ void android_main(android_app* application){
 			if(source != NULL)
 				source->process(app, source);
 			if(app->destroyRequested != 0){
-				terminate();
+				//terminate();
 				return;
 			}
 		}

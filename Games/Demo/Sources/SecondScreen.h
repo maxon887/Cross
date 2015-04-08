@@ -18,12 +18,24 @@
 #pragma once
 
 #include "Screen.h"
+#include "Animation.h"
+
 
 class SecondScreen : public Screen{
 //User module
 public:
     SecondScreen(Game* game);
+	void Start();
     void Update(float sec);
 private:
+	Animation* spider_run;
+	Image* spider_body;
+	Image* spider_head;
+	Image* background;
+	float bcg_scale;
+	float run_time;
+	float thinking_time;
+	float head_angle;
+	bool turn_left;
 //Framework module. You don't need call any of this methods or modify variable
 };

@@ -67,6 +67,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Games\Demo\Sources\Demo.cpp" />
     <ClCompile Include="..\..\..\Games\Demo\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\..\Games\Demo\Sources\SecondScreen.cpp" />
     <ClCompile Include="..\..\..\Games\Snaky\Sources\MenuScreen.cpp" />
     <ClCompile Include="..\..\..\Games\Snaky\Sources\SnakyGame.cpp" />
     <ClCompile Include="..\..\..\Sources\Game.cpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\Sources\SOIL\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PointX.cpp" />
@@ -88,6 +90,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Games\Demo\Sources\Demo.h" />
     <ClInclude Include="..\..\..\Games\Demo\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\..\Games\Demo\Sources\SecondScreen.h" />
     <ClInclude Include="..\..\..\Games\Snaky\Sources\MenuScreen.h" />
     <ClInclude Include="..\..\..\Games\Snaky\Sources\SnakyGame.h" />
     <ClInclude Include="..\..\..\Sources\Game.h" />
@@ -99,6 +102,7 @@
     <ClInclude Include="..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\Sources\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PointX.h" />

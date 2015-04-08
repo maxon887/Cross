@@ -3,6 +3,8 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := cross
 
+LOCAL_CPP_FEATURES += exceptions
+
 LOCAL_C_INCLUDES := Android \
 					../../Sources \
 					../../Sources/Utils \
@@ -12,19 +14,21 @@ LOCAL_C_INCLUDES := Android \
 
 LOCAL_SRC_FILES := 	cross.cpp \
 					../Android/LauncherAndroid.cpp \
-					../Android/InputAndroid.cpp \
 					../../../Games/Snaky/Sources/SnakyGame.cpp \
 					../../../Games/Snaky/Sources/MenuScreen.cpp \
 					../../../Games/Demo/Sources/Demo.cpp \
 					../../../Games/Demo/Sources/MainScreen.cpp \
+					../../../Games/Demo/Sources/SecondScreen.cpp \
 					../../../Sources/Graphics.cpp \
 					../../../Sources/Game.cpp \
 					../../../Sources/Screen.cpp \
 					../../../Sources/Image.cpp \
+					../../../Sources/Input.cpp \
 					../../../Sources/Utils/PointX.cpp \
 					../../../Sources/Utils/RectX.cpp \
 					../../../Sources/Utils/Texter.cpp \
 					../../../Sources/Utils/Debuger.cpp \
+					../../../Sources/Utils/Button.cpp \
 					../../../Sources/SOIL/SOIL.c \
 					../../../Sources/SOIL/image_helper.c \
 					../../../Sources/SOIL/stb_image_aug.c 

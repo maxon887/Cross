@@ -21,22 +21,26 @@
 #include <stdlib.h>
 #include <android/log.h>
 #include <android/asset_manager.h>
+#include <android_native_app_glue.h>
 #include "Launcher.h"
 
 #define BUF_LEN 256
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(AAssetManager* asset_manager, const char* packageName, int width, int height);
+	LauncherAndroid(android_app* app, int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	const char* DataPath();
 	void LogIt(const char* str);
 	void FileFromAssets(const char* file);
+	void ShowMessage(const char* msg);
+	void Exit();
 private:
 	int width;
 	int height;
 	char str_buff[BUF_LEN];
 	char data_path[BUF_LEN];
 	AAssetManager* asset_manager;
+	android_app* app;
 };

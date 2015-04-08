@@ -24,6 +24,7 @@ public:
 	float y;
 	float width;
 	float height;
+	RectX();
 	RectX(float x, float y, float width, float height);
 private:
 };

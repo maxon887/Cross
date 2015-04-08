@@ -53,6 +53,8 @@ public:
 	Image* CreateImage(Image* src, RectX region, float scaleFactor);
 	/* Load Image from file */
 	Image* LoadImage(const char* filename);
+	/* Load scaled image from file */
+	Image* LoadImage(const char* filename, float scaleFactor);
 	/* Draws particular image in game coordinates */
 	void DrawImage(float x, float y, Image* img);
 	/* Draws particular image in game coordinates */

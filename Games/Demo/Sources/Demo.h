@@ -19,6 +19,7 @@
 
 #include "Game.h"
 #include "MainScreen.h"
+#include "SecondScreen.h"
 
 class Demo : public Game{
 public:

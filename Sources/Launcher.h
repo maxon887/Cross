@@ -26,6 +26,10 @@ public:
 	virtual int GetTargetHeight() = 0;
 	/* Log out message */
 	virtual void LogIt(const char* msg) = 0;
+	/* Show message in modal view. Exception f.e */
+	virtual void ShowMessage(const char* msg) = 0;
+	/* Close application */
+	virtual void Exit() = 0;
 
 //Framework module. You don't need call any of this methods or modify variable
 public:
