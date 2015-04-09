@@ -26,6 +26,8 @@ public:
     int GetTargetHeight();
     const char* DataPath();
     void LogIt(const char* str);
+    void ShowMessage(const char* title, const char* msg);
+    void Exit();
 private:
     int width;
     int height;

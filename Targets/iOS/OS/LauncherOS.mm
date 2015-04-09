@@ -16,7 +16,6 @@
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #import <UIKit/UIKit.h>
-
 #include "LauncherOS.h"
 
 LauncherOS::LauncherOS(){
@@ -42,4 +41,25 @@ const char* LauncherOS::DataPath(){
 
 void LauncherOS::LogIt(const char* str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
+}
+
+UIAlertView *alert;
+void LauncherOS::ShowMessage(const char* title, const char *msg){
+    NSLog(@"Message\n%s: %s",title, msg);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString* titleNS = [NSString stringWithFormat:@"%s", title];
+        NSString* message = [NSString stringWithFormat:@"%s", msg];
+        alert = [[UIAlertView alloc] initWithTitle:titleNS
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:nil];
+        [alert show];
+    });
+    [NSThread sleepForTimeInterval:20];
+    [alert dismissWithClickedButtonIndex:0 animated:NO];
+}
+
+void LauncherOS::Exit(){
+    exit(0);
 }

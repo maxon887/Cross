@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+ /*	Copyright © 2015 Lukyanau Maksim
  
 	This file is part of Cross++ Game Engine.
  
@@ -53,7 +53,6 @@
         game->graphics = graphics;
         game->Start();
     }
-    game->Update();
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

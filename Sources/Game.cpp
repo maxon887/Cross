@@ -63,8 +63,8 @@ void Game::Start(){
 #endif
 		SetScreen(GetStartScreen());
 	}catch(const char* msg){
-		launcher->ShowMessage(msg);
-		launcher->Exit();
+        launcher->ShowMessage("Exception", msg);
+        launcher->Exit();
 	}
 }
 
@@ -73,7 +73,7 @@ void Game::Update(){
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
 		auto rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
-    
+
 		GetCurrentScreen()->Update((float)(rend * 1000));
 #ifdef CROSSDEBUG
 		debuger->Display((float)rend);
@@ -82,8 +82,8 @@ void Game::Update(){
 		debuger->SetUpdateTime((float)up);
 #endif
 	}catch(const char* msg){
-		launcher->ShowMessage(msg);
-		launcher->Exit();
+		launcher->ShowMessage("Exception", msg);
+        launcher->Exit();
 	}
 }
 
