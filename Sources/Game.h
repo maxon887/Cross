@@ -18,6 +18,16 @@
 #pragma once
 
 #define CROSSDEBUG
+#define BUF_LEN 256
+
+#ifdef _WIN32
+#define WIN
+#elif defined(__APPLE__) || defined(__APPLE_CC__)
+#define IOS
+//#elif defined(ANDROID) || defined(__ANDROID__)
+//#undef ANDROID
+//#define ANDROID
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -63,6 +73,8 @@ public:
 	void SetScreen(Screen* screen);
 	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
+	/* Exit from application */
+    virtual void Exit();
 	virtual ~Game();
 protected:
 	float width;
@@ -73,8 +85,7 @@ public:
     void Update();
 private:
 	Screen* current_screen;
-
     Debuger* debuger;
-    
+	char str_buffer[BUF_LEN];
     time_point<high_resolution_clock> render_time;
 };

@@ -76,7 +76,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.lpfnWndProc = WinProc;
 	wc.hInstance = instance;
-	wc.hCursor = LoadCursor(instance, IDC_ARROW);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.lpszClassName = "Cross++";
 	RegisterClassEx(&wc);
 

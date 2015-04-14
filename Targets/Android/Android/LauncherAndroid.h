@@ -34,8 +34,6 @@ public:
 	const char* DataPath();
 	void LogIt(const char* str);
 	void FileFromAssets(const char* file);
-	void ShowMessage(const char* msg);
-	void Exit();
 private:
 	int width;
 	int height;

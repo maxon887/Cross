@@ -37,11 +37,3 @@ void LauncherWIN::LogIt(const char* str){
 	sprintf(str_buffer, "%s\n", str);
     OutputDebugString(str_buffer);
 }
-
-void LauncherWIN::ShowMessage(const char* msg){
-	MessageBox(wnd, msg, "Exception", MB_OK);
-}
-
-void LauncherWIN::Exit(){
-	PostQuitMessage(-1);
-}

@@ -39,4 +39,5 @@ protected:
 	Launcher* launcher;
 	Graphics* graphics;
     Input* input;
+	char str_buffer[BUF_LEN];
 };

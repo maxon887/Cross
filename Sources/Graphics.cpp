@@ -89,8 +89,11 @@ Image* Graphics::LoadImage(const char* filename, float scaleFactor){
 	//parameters
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	RectX region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, width, height, region);
@@ -101,7 +104,7 @@ Image* Graphics::LoadImage(const char* filename, float scaleFactor){
 void Graphics::DrawImage(float x, float y, Image* img){
 	x = x * game->GetScaleFactor();
 	y = y * game->GetScaleFactor();
-	DrawTargetImage(x, y, img);
+	DrawTargetImage(x + .5, y + .5, img);
 }
 
 void Graphics::DrawImage(PointX p, Image* img){

@@ -69,31 +69,6 @@ void LauncherAndroid::FileFromAssets(const char* file){
 	AAsset_close(asset);
 }
 
-void LauncherAndroid::ShowMessage(const char* msg){
-	JNIEnv *env;
-	app->activity->vm->AttachCurrentThread(&env, NULL);
-	jclass activityClass = env->FindClass("android/app/NativeActivity");
-	jmethodID getClassLoader = env->GetMethodID(activityClass,"getClassLoader", "()Ljava/lang/ClassLoader;");
-	jobject cls = env->CallObjectMethod(app->activity->clazz, getClassLoader);
-	jclass classLoader = env->FindClass("java/lang/ClassLoader");
-	jmethodID findClass = env->GetMethodID(classLoader, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
-	jmethodID contextMethod = env->GetMethodID(activityClass, "getApplicationContext", "()Landroid/content/Context;");
-	jobject contextObj = env->CallObjectMethod(app->activity->clazz, contextMethod);
-
-	jstring jClassName = env->NewStringUTF("com/cross/MessageBox");
-	jclass messageBoxClass = (jclass)env->CallObjectMethod(cls, findClass, jClassName);
-	//jclass messageBoxClass = env->FindClass("com/cross/MessageBox");
-	//jmethodID showMessageMetod = env->GetMethodID(messageBoxClass, "ShowMessage", "(android/content/Context)V");
-	jmethodID showMessageMetod = env->GetStaticMethodID(messageBoxClass, "ShowMessage", "(Landroid/content/Context;Ljava/lang/String;)V");
-	jstring jmsg = env->NewStringUTF(msg);
-	env->CallStaticVoidMethod(messageBoxClass, showMessageMetod, contextObj, jmsg);
-}
-
-void LauncherAndroid::Exit(){
-
-}
-
-
 
 
 

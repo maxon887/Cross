@@ -53,6 +53,11 @@
 			<locationURI>CROSS_SRC</locationURI>
 		</link>
 		<link>
+			<name>Demo</name>
+			<type>2</type>
+			<locationURI>DEMO_GAME</locationURI>
+		</link>
+		<link>
 			<name>Snaky</name>
 			<type>2</type>
 			<locationURI>SNAKY_GAME</locationURI>
@@ -61,6 +66,11 @@
 			<name>assets</name>
 			<type>2</type>
 			<locationURI>DEMO_DATA</locationURI>
+		</link>
+		<link>
+			<name>include</name>
+			<type>2</type>
+			<location>H:/DIST/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include</location>
 		</link>
 	</linkedResources>
 	<variableList>

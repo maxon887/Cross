@@ -17,24 +17,22 @@
 	
 #pragma once
 
-#ifdef _WIN32
+#include "SOIL.h"
+#include "Game.h"
+#include "Launcher.h"
+
+#ifdef WIN
     #include <Windows.h>
     #include <gl/GL.h>
     #define glOrthof glOrtho
     #define GL_CLAMP_TO_EDGE GL_CLAMP
     #undef LoadImage
-#elif defined(__APPLE__) || defined(__APPLE_CC__)
+#elif IOS
     #include <OpenGLES/ES1/gl.h>
-#elif defined(ANDROID) || defined(__ANDROID__)
+#elif ANDROID
     #include <GLES/gl.h>
 	#include "LauncherAndroid.h"
 #endif
-
-#include "SOIL.h"
-#include "Game.h"
-#include "Launcher.h"
-
-#define BUF_LEN 256
 
 class Image;
 

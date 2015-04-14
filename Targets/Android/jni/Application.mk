@@ -1,5 +1,5 @@
 # use this to select gcc instead of clang
-#NDK_TOOLCHAIN_VERSION := 4.8
+NDK_TOOLCHAIN_VERSION := 4.8
 # OR use this to select the latest clang version:
 #NDK_TOOLCHAIN_VERSION := clang
 

@@ -37,5 +37,8 @@ private:
 	float thinking_time;
 	float head_angle;
 	bool turn_left;
+
+	void DrawBackground(float sec);
+	float deltaY;
 //Framework module. You don't need call any of this methods or modify variable
 };
