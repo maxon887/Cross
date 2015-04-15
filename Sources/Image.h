@@ -29,6 +29,8 @@ public:
 //Framework module. You don't need call any of this methods or modify variable
 public:
     float angle;
+	int texWidth;
+	int texHeight;
     
 	Image(GLuint id, int texWidth, int texHeight, RectX region);
 	void Scale(float factor);
@@ -37,10 +39,9 @@ public:
 	static const short indices[6];
 	~Image();
 private:
-
+	RectX region;
 	GLuint textureID;
 	float vertices[16];
-	RectX region;
 	float u1, v1;
 	float u2, v2;
 };

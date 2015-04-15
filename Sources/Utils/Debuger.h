@@ -21,17 +21,22 @@
 #include "Input.h"
 #include "Texter.h"
 
-#define BUF_LEN 256
+#include <chrono>
+using namespace std::chrono;
 
 class Debuger{
 public:
 	Debuger(Game* game);
 	void Display(float sec);
 	void SetUpdateTime(float sec);
+
+	static void StartCheckTime();
+	static void StopCheckTime(const char* label);
 private:
 	Texter* texter;
 	Input* input;
-	char buffer[BUF_LEN];
+	//char buffer[BUF_LEN];
+
 
 	float update_time;
 	float update_sum;

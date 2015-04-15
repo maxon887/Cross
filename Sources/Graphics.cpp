@@ -17,6 +17,7 @@
 	
 #include "Graphics.h"
 #include "Image.h"
+#include "Debuger.h"
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -25,7 +26,7 @@ Graphics::Graphics(Game* game){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrthof(0, launcher->GetTargetWidth(), launcher->GetTargetHeight(), 0, 1, -1);
-		
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -63,42 +64,93 @@ Image* Graphics::LoadImage(const char* filename){
 }
 
 Image* Graphics::LoadImage(const char* filename, float scaleFactor){
-	Launcher* launcher = game->launcher;
-    sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);
-
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
+	unsigned int textureID;
 	int width;
 	int height;
 
-	unsigned char* image = SOIL_load_image(str_buffer, &width, &height, 0, SOIL_LOAD_RGBA);
+	unsigned char* image = LoadImageInternal(filename, &textureID, &width, &height);
+
+	Debuger::StartCheckTime();
+	int new_width = 1;
+	int new_height = 1;
+	while( new_width < width ) {
+		new_width *= 2;
+	}
+	while( new_height < height ) {
+		new_height *= 2;
+	}
+	//Create power of two texture
+	if(new_width > width || new_height > height)
+	{
+		unsigned char* newImage = (unsigned char*)malloc(BYTES_PER_CHANNEL * new_width * new_height);
+		for(int i = 0; i < height; i++){
+			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL );
+			//Clamp to edge effect
+			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + (i + 1) * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
+		}
+		//Clamp to edge effect
+		if(new_height > height){
+			memcpy(newImage + height * BYTES_PER_CHANNEL * new_width, image + (height - 1) * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL);		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, new_width, new_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newImage);
+		free(newImage);
+	}else{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	}
+	SOIL_free_image_data(image);
+	Debuger::StopCheckTime("create_OGL");
+	//parameters
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	RectX region(0, 0, (float)width, (float)height);
+	Image* img = new Image(textureID, new_width, new_height, region);
+	img->Scale(scaleFactor);
+	return img;
+}
+
+Image* Graphics::LoadRepeatedImage(const char* filename, float scaleFactor, float w, float h){
+	unsigned int textureID;
+	int width;
+	int height;
+
+	unsigned char* image = LoadImageInternal(filename, &textureID, &width, &height);
+
+	Debuger::StartCheckTime();
+	//Create power of two texture
+	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
+
+	SOIL_free_image_data(image);
+	Debuger::StopCheckTime("create_OGL");
+
+	//parameters
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	RectX region(0, 0, (float)w, (float)h);
+	Image* img = new Image(textureID, width, height, region);
+	img->Scale(scaleFactor);
+	return img;
+}
+
+unsigned char* Graphics::LoadImageInternal(const char* filename, GLuint* textureID, int* width, int* height){
+	glGenTextures(1, textureID);
+	glBindTexture(GL_TEXTURE_2D, *textureID);
 #ifdef ANDROID
 	LauncherAndroid * android = (LauncherAndroid*)launcher;
-	android->FileFromAssets(filename);
-	image = SOIL_load_image(str_buffer, &width, &height, 0, SOIL_LOAD_RGBA);
+	unsigned char* image = android->ImageFromAssets(filename, width, height);
+#else
+	Launcher* launcher = game->launcher;
+    sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);
+	unsigned char* image = SOIL_load_image(str_buffer, width, height, 0, SOIL_LOAD_RGBA);
 #endif
 	if(image == NULL){
 		sprintf(str_buffer, "Can't load file: %s", filename);
 		throw str_buffer;
 	}
-	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
-	SOIL_free_image_data(image);
-
-	//parameters
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	RectX region(0, 0, (float)width, (float)height);
-	Image* img = new Image(textureID, width, height, region);
-	img->Scale(scaleFactor);
-	return img;
+	return image;
 }
 
 void Graphics::DrawImage(float x, float y, Image* img){

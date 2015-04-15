@@ -24,7 +24,8 @@
 #define WIN
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS
-//#elif defined(ANDROID) || defined(__ANDROID__)
+#elif defined(ANDROID) || defined(__ANDROID__)
+#define __cplusplus 201103L
 //#undef ANDROID
 //#define ANDROID
 #endif
@@ -83,9 +84,9 @@ protected:
 //Framework module. You don't need call any of this methods or modify variable
 public:
     void Update();
+    Debuger* debuger;
 private:
 	Screen* current_screen;
-    Debuger* debuger;
 	char str_buffer[BUF_LEN];
     time_point<high_resolution_clock> render_time;
 };

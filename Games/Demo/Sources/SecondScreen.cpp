@@ -28,18 +28,20 @@ SecondScreen::SecondScreen(Game* game):Screen(game){
 }
 
 void SecondScreen::Start(){
-	background = graphics->LoadImage("Background.jpg", game->GetScaleFactor() * bcg_scale);
-	//spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
-	//spider_head = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
+	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor());
+	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor());
+	background = graphics->LoadRepeatedImage("Background.jpg", game->GetScaleFactor() * bcg_scale, 900, 3000);
 	Image* image[8];
 }
 
 void SecondScreen::Update(float sec){
-    graphics->Clear(1, 1, 1);
+    graphics->Clear(0, 0, 0);
     if(input->HaveInput()){
         game->SetScreen(new MainScreen(game));
     }
 	DrawBackground(sec);
+	//graphics->DrawImage(0, 0, background);
+
 	if(run_time > 0) {
 		run_time -= sec;
 		//graphics->DrawImage(game->GetWidth() / 2, game->GetHeight() / 2, spider_run.GetImage());
@@ -66,21 +68,13 @@ void SecondScreen::Update(float sec){
 }
 
 void SecondScreen::DrawBackground(float sec) {
-	float x = background->GetWidth() / 2;
 	float y = background->GetHeight() / 2;
 	if(run_time > 0)
 		deltaY = deltaY + sec * 500.0f;
 	y -= deltaY;
-	//launcher->LogIt(itoa(y, str_buffer, 10));
-	if(deltaY > background->GetHeight()*bcg_scale){
-		deltaY -= background->GetHeight()*bcg_scale;
+	
+	if(deltaY > background->texHeight*bcg_scale){
+		deltaY -= background->texHeight*bcg_scale;
 	}
-	while(y - background->GetHeight()/2 < launcher->GetTargetHeight() / game->GetScaleFactor()*bcg_scale) {
-		while(x - background->GetWidth()/2 < game->GetWidth()*bcg_scale) {
-			graphics->DrawImage(x, y, background);
-			x += background->GetWidth() * bcg_scale;
-		}
-		x = background->GetWidth() / 2;
-		y += background->GetHeight() * bcg_scale;
-	}
+	graphics->DrawImage(0, y, background);
 }

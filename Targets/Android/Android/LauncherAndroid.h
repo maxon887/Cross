@@ -33,12 +33,11 @@ public:
 	int GetTargetHeight();
 	const char* DataPath();
 	void LogIt(const char* str);
-	void FileFromAssets(const char* file);
+	unsigned char* ImageFromAssets(const char* filename, int* width, int* height);
 private:
 	int width;
 	int height;
 	char str_buff[BUF_LEN];
-	char data_path[BUF_LEN];
 	AAssetManager* asset_manager;
 	android_app* app;
 };

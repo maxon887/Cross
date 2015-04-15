@@ -15,9 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "Debuger.h"
+#include "Utils/Debuger.h"
+
+static char buffer[BUF_LEN];
+static Launcher* launcher;
+static time_point<high_resolution_clock> check_time;
 
 Debuger::Debuger(Game* game){
+	launcher = game->launcher;
 	input = game->input;
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	update_time = 0;
@@ -78,3 +83,26 @@ void Debuger::SetUpdateTime(float micro) {
 		update_counter++;
 	}
 }
+
+void Debuger::StartCheckTime(){
+	check_time = high_resolution_clock::now();
+}
+
+void Debuger::StopCheckTime(const char* label){
+	time_point<high_resolution_clock> now = high_resolution_clock::now();
+	auto up = duration_cast<microseconds>(now - check_time).count();
+	double milis = up/1000.0;
+	sprintf(buffer, "%s: %fms", label, milis);
+	launcher->LogIt(buffer);
+}
+
+
+
+
+
+
+
+
+
+
+

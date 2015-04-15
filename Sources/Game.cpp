@@ -20,6 +20,9 @@
 #include "Graphics.h"
 #include "Screen.h"
 #include "Debuger.h"
+#ifdef WIN
+#include "LauncherWIN.h"
+#endif 
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
@@ -65,6 +68,10 @@ void Game::Start(){
 	}catch(const char* msg){
 		sprintf(str_buffer, "Exception: %s", msg);
 		launcher->LogIt(str_buffer);
+#ifdef WIN
+		LauncherWIN* win = (LauncherWIN*)launcher;
+		win->ShowMessage(msg);
+#endif 
 		Exit();
 	}
 }
@@ -85,6 +92,10 @@ void Game::Update(){
 	}catch(const char* msg){
 		sprintf(str_buffer, "Exception: %s", msg);
 		launcher->LogIt(str_buffer);
+#ifdef WIN
+		LauncherWIN* win = (LauncherWIN*)launcher;
+		win->ShowMessage(msg);
+#endif 
 		Exit();
 	}
 }

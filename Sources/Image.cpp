@@ -25,10 +25,12 @@ Image::Image(GLuint id, int texWidth, int texHeight, RectX region){
 	if(	region.x + region.width > texWidth ||
 		region.y + region.height > texHeight ||
 		region.x < 0 || region.y < 0 ){
-			throw "Region is out of bounds";
+		//	throw "Region is out of bounds";
 	}
 	this->textureID = id;
 	this->region = region;
+	this->texWidth = texWidth;
+	this->texHeight = texHeight;
 	this->u1 = region.x / texWidth;
 	this->v1 = region.y / texHeight;
 	this->u2 = this->u1 + region.width / texWidth;

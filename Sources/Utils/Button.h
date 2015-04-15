@@ -28,7 +28,7 @@ public:
 	Button(Game* game, PointX location, Image* release, Image* pressed);
 	void Update();
 	void RegisterCallback(function<void()> callback);
-
+//Framework module. You don't need call any of this methods or modify variable
 protected:
 	Launcher* launcher;
 	Graphics* graphics;
@@ -36,7 +36,6 @@ protected:
 	PointX location;
 	Image* release;
 	Image* pressed;
-//Framework module. You don't need call any of this methods or modify variable
 private:
 	bool OnLocation(float x, float y);
 	PointX* press_loc;

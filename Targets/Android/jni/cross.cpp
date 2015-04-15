@@ -36,18 +36,6 @@ EGLContext context;
 
 LauncherAndroid* launcher;
 Game* game;
-/*
-static const char* GetPackageName(){
-	ANativeActivity* activity = app->activity;
-	JNIEnv *env;
-	activity->vm->AttachCurrentThread(&env, NULL);
-	jclass android_content_Context = env->GetObjectClass(activity->clazz);
-	jmethodID midGetPackageName = env->GetMethodID(android_content_Context, "getPackageName", "()Ljava/lang/String;");
-	jstring packageName= (jstring)env->CallObjectMethod(activity->clazz, midGetPackageName);
-	const char* appname = env->GetStringUTFChars(packageName, NULL);
-	activity->vm->DetachCurrentThread();
-	return appname;
-}*/
 
 static void init_display(){
     const EGLint attribs[] = {

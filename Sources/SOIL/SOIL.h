@@ -158,6 +158,20 @@ unsigned char* SOIL_load_image(	const char *filename,
 								int force_channels);
 
 /**
+	Loads an image from memory into an array of unsigned chars.
+	Note that *channels return the original channel count of the
+	image.  If force_channels was other than SOIL_LOAD_AUTO,
+	the resulting image has force_channels, but *channels may be
+	different (if the original image had a different channel
+	count).
+	\return 0 if failed, otherwise returns 1
+**/
+unsigned char*	SOIL_load_image_from_memory( const unsigned char *const buffer,
+											 int buffer_length,
+											 int *width, int *height, int *channels,
+											 int force_channels);
+
+/**
 	Frees the image data (note, this is just C's "free()"...this function is
 	present mostly so C++ programmers don't forget to use "free()" and call
 	"delete []" instead [8^)

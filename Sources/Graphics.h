@@ -34,6 +34,8 @@
 	#include "LauncherAndroid.h"
 #endif
 
+#define BYTES_PER_CHANNEL 4
+
 class Image;
 
 class Graphics{
@@ -53,6 +55,8 @@ public:
 	Image* LoadImage(const char* filename);
 	/* Load scaled image from file */
 	Image* LoadImage(const char* filename, float scaleFactor);
+	/* Load scaled image filled repeated images*/
+	Image* LoadRepeatedImage(const char* filename, float scaleFactor, float width, float height);
 	/* Draws particular image in game coordinates */
 	void DrawImage(float x, float y, Image* img);
 	/* Draws particular image in game coordinates */
@@ -61,6 +65,7 @@ public:
 public:
 	Graphics(Game* game);
 private:
+	unsigned char* LoadImageInternal(const char* filename, GLuint* textureID, int* width, int* height);
 	void DrawTargetImage(float x, float y, Image* img);
 	Game* game;
 	Launcher* launcher;

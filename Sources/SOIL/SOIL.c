@@ -92,13 +92,10 @@ unsigned int
 	);
 
 /*	and the code magic begins here [8^)	*/
-unsigned int SOIL_load_OGL_texture
-	(
-		const char *filename,
-		int force_channels,
-		unsigned int reuse_texture_ID,
-		unsigned int flags
-	)
+unsigned int SOIL_load_OGL_texture(	const char *filename,
+									int force_channels,
+									unsigned int reuse_texture_ID,
+									unsigned int flags )
 {
 	/*	variables	*/
 	unsigned char* img;
@@ -130,15 +127,10 @@ unsigned int SOIL_load_OGL_texture
 	return tex_id;
 }
 
-unsigned int
-	SOIL_create_OGL_texture
-	(
-		const unsigned char *const data,
-		int width, int height, int channels,
-		unsigned int reuse_texture_ID,
-		unsigned int flags
-	)
-{
+unsigned int SOIL_create_OGL_texture(	const unsigned char *const data,
+										int width, int height, int channels,
+										unsigned int reuse_texture_ID,
+										unsigned int flags){
 	/*	wrapper function for 2D textures	*/
 	return SOIL_internal_create_OGL_texture(
 				data, width, height, channels,
@@ -165,17 +157,13 @@ void check_for_GL_errors( const char *calling_location )
 }
 #endif
 
-unsigned int
-	SOIL_internal_create_OGL_texture
-	(
-		const unsigned char *const data,
-		int width, int height, int channels,
-		unsigned int reuse_texture_ID,
-		unsigned int flags,
-		unsigned int opengl_texture_type,
-		unsigned int opengl_texture_target,
-		unsigned int texture_check_size_enum
-	)
+unsigned int SOIL_internal_create_OGL_texture(	const unsigned char *const data,
+												int width, int height, int channels,
+												unsigned int reuse_texture_ID,
+												unsigned int flags,
+												unsigned int opengl_texture_type,
+												unsigned int opengl_texture_target,
+												unsigned int texture_check_size_enum)
 {
 	/*	variables	*/
 	unsigned char* img;
@@ -479,6 +467,24 @@ unsigned char* SOIL_load_image (const char *filename,
 	} else
 	{
 		result_string_pointer = "Image loaded";
+	}
+	return result;
+}
+
+unsigned char* SOIL_load_image_from_memory(	const unsigned char *const buffer,
+											int buffer_length,
+											int *width, int *height, int *channels,
+											int force_channels)
+{
+	unsigned char *result = stbi_load_from_memory(	buffer, buffer_length,
+													width, height, channels,
+													force_channels );
+	if( result == NULL )
+	{
+		result_string_pointer = stbi_failure_reason();
+	} else
+	{
+		result_string_pointer = "Image loaded from memory";
 	}
 	return result;
 }
