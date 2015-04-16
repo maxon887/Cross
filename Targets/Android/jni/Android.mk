@@ -29,6 +29,7 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					../../../Sources/Utils/Texter.cpp \
 					../../../Sources/Utils/Debuger.cpp \
 					../../../Sources/Utils/Button.cpp \
+					../../../Sources/Utils/Animation.cpp \
 					../../../Sources/SOIL/SOIL.c \
 					../../../Sources/SOIL/image_helper.c \
 					../../../Sources/SOIL/stb_image_aug.c 

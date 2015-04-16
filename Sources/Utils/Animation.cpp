@@ -17,22 +17,26 @@
 	
 #include "Animation.h"
 
-Animation::Animation(float rate, Image* frames, int frameCount){
+Animation::Animation(float rate, Image* frames[], int frameCount){
 	this->duration = 0xFF;
 	this->frame_num = 0;
 	this->looped = false;
 	this->rate = rate;
-	this->frames = frames;
 	this->frame_count = frameCount;
+	for(int i = 0; i < frameCount; i++){
+		this->frames[i] = frames[i];
+	}
 }
 
-Animation::Animation(float rate, Image* frames, int frameCount, bool looped){
+Animation::Animation(float rate, Image* frames[], int frameCount, bool looped){
 	this->duration = 0xFF;
 	this->frame_num = 0;
 	this->looped = looped;
 	this->rate = rate;
-	this->frames = frames;
 	this->frame_count = frameCount;
+	for(int i = 0; i < frameCount; i++){
+		this->frames[i] = frames[i];
+	}
 }
 
 void Animation::Start(){
@@ -51,7 +55,7 @@ void Animation::Update(float sec){
 }
 
 Image* Animation::GetImage(){
-	return &frames[frame_num];
+	return frames[frame_num];
 }
 
 bool Animation::IsRunnig(){

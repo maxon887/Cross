@@ -18,17 +18,19 @@
 #pragma once
 #include "Image.h"
 
+#define MAX_FRAMES 128
+
 class Animation{
 //User module
 public:
-	Animation(float rate, Image* frames, int frameCount);
-	Animation(float rate, Image* frames, int frameCount, bool looped);
+	Animation(float rate, Image* frames[], int frameCount);
+	Animation(float rate, Image* frames[], int frameCount, bool looped);
 	void Start();
 	void Update(float sec);
 	Image* GetImage();
 	bool IsRunnig();
 private:
-	Image* frames;
+	Image* frames[128];
 	int frame_count;
 	float rate;
 	float duration;
