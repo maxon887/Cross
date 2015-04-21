@@ -17,9 +17,12 @@
 	
 #include "Utils/Debuger.h"
 
+#include <vector>
+
 static char buffer[BUF_LEN];
 static Launcher* launcher;
-static time_point<high_resolution_clock> check_time;
+
+static vector<time_point<high_resolution_clock>> times;
 
 Debuger::Debuger(Game* game){
 	launcher = game->launcher;
@@ -85,11 +88,14 @@ void Debuger::SetUpdateTime(float micro) {
 }
 
 void Debuger::StartCheckTime(){
-	check_time = high_resolution_clock::now();
+	time_point<high_resolution_clock> check_time = high_resolution_clock::now();
+	times.push_back(check_time);
 }
 
 void Debuger::StopCheckTime(const char* label){
 	time_point<high_resolution_clock> now = high_resolution_clock::now();
+	time_point<high_resolution_clock> check_time = times.back();
+	times.pop_back();
 	auto up = duration_cast<microseconds>(now - check_time).count();
 	double milis = up/1000.0;
 	sprintf(buffer, "%s: %fms", label, milis);

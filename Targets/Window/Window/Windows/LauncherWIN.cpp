@@ -38,6 +38,16 @@ void LauncherWIN::LogIt(const char* str){
     OutputDebugString(str_buffer);
 }
 
+Sound* LauncherWIN::CreateSound(const char* filename, bool loop){
+	sprintf(str_buffer, "%s/%s", DataPath(), filename);
+	return new AudioWIN(this, str_buffer, loop);
+}
+
+Music* LauncherWIN::CreateMusic(const char* filename, bool loop){
+	sprintf(str_buffer, "%s/%s", DataPath(), filename);
+	return new AudioWIN(this, str_buffer, loop);
+}
+
 void LauncherWIN::ShowMessage(const char* msg){
 	MessageBox(wnd, msg, "Exception", MB_OK);
 }

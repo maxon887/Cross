@@ -17,7 +17,8 @@
 	
 #include "Animation.h"
 
-Animation::Animation(float rate, Image* frames[], int frameCount){
+Animation::Animation(Graphics* gfx, float rate, Image* frames[], int frameCount){
+	this->graphics = gfx;
 	this->duration = 0xFF;
 	this->frame_num = 0;
 	this->looped = false;
@@ -28,7 +29,8 @@ Animation::Animation(float rate, Image* frames[], int frameCount){
 	}
 }
 
-Animation::Animation(float rate, Image* frames[], int frameCount, bool looped){
+Animation::Animation(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped){
+	this->graphics = gfx;
 	this->duration = 0xFF;
 	this->frame_num = 0;
 	this->looped = looped;
@@ -60,4 +62,10 @@ Image* Animation::GetImage(){
 
 bool Animation::IsRunnig(){
 	return duration != 0xFF;
+}
+
+Animation::~Animation(){
+	for(int i = 0; i < frame_count; i++){
+		graphics->ReleaseImage(frames[i]);
+	}
 }

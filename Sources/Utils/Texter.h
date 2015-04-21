@@ -25,16 +25,22 @@
 class Texter{
 //User module
 public:
+	Texter(Game* game);
 	Texter(Game* game, const char* fontFilename,
 			float width, float height,
 			int columns, int rows,
 			int asciiOffset, float scaleFactor);
 
 	void DrawText(float x, float y, const char* text);
+	void DrawText(PointX pos, const char* text);
 	float GetWidth();
 	float GetHeight();
 //Framework module. You don't need call any of this methods or modify variable
 private:
+	void Init(Game* game, const char* fontFilename,
+			float width, float height,
+			int columns, int rows,
+			int asciiOffset, float scaleFactor);
 	Game* game;
 	Graphics* graphics;
 	Image* font;

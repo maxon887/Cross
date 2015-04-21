@@ -42,7 +42,9 @@ void Button::Update(){
 	if(!input->HaveInput() && press_loc != NULL){
 		if(OnLocation(input->GetInput().x, input->GetInput().y)){
 			if(callback_registered){
+				delete press_loc;
 				callback();
+				return;
 			}else{
 				launcher->LogIt("Callback not registered");
 			}
@@ -52,6 +54,14 @@ void Button::Update(){
 		delete press_loc;
 		press_loc = NULL;
 	}
+}
+
+float Button::GetWidth(){
+	return release->GetWidth();
+}
+
+float Button::GetHeight(){
+	return release->GetHeight();
 }
 
 bool Button::OnLocation(float x, float y){
@@ -64,4 +74,9 @@ bool Button::OnLocation(float x, float y){
 void Button::RegisterCallback(function<void()> callback){
 	callback_registered = true;
 	this->callback = callback;
+}
+
+Button::~Button(){
+	graphics->ReleaseImage(pressed);
+	graphics->ReleaseImage(release);
 }

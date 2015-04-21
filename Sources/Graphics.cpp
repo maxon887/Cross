@@ -64,13 +64,13 @@ Image* Graphics::LoadImage(const char* filename){
 }
 
 Image* Graphics::LoadImage(const char* filename, float scaleFactor){
+	Debuger::StartCheckTime();
 	unsigned int textureID;
 	int width;
 	int height;
 
 	unsigned char* image = LoadImageInternal(filename, &textureID, &width, &height);
 
-	Debuger::StartCheckTime();
 	int new_width = 1;
 	int new_height = 1;
 	while( new_width < width ) {
@@ -98,7 +98,6 @@ Image* Graphics::LoadImage(const char* filename, float scaleFactor){
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	}
 	SOIL_free_image_data(image);
-	Debuger::StopCheckTime("create_OGL");
 	//parameters
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -108,22 +107,24 @@ Image* Graphics::LoadImage(const char* filename, float scaleFactor){
 	RectX region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, new_width, new_height, region);
 	img->Scale(scaleFactor);
+
+	sprintf(str_buffer, "Load image %s", filename);
+	Debuger::StopCheckTime(str_buffer);
 	return img;
 }
 
 Image* Graphics::LoadRepeatedImage(const char* filename, float scaleFactor, float w, float h){
+	Debuger::StartCheckTime();
 	unsigned int textureID;
 	int width;
 	int height;
 
 	unsigned char* image = LoadImageInternal(filename, &textureID, &width, &height);
 
-	Debuger::StartCheckTime();
 	//Create power of two texture
 	textureID = SOIL_create_OGL_texture(image, width, height, 4, 0, SOIL_FLAG_POWER_OF_TWO);
 
 	SOIL_free_image_data(image);
-	Debuger::StopCheckTime("create_OGL");
 
 	//parameters
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -132,7 +133,16 @@ Image* Graphics::LoadRepeatedImage(const char* filename, float scaleFactor, floa
 	RectX region(0, 0, (float)w, (float)h);
 	Image* img = new Image(textureID, width, height, region);
 	img->Scale(scaleFactor);
+
+	sprintf(str_buffer, "Load image %s", filename);
+	Debuger::StopCheckTime(str_buffer);
 	return img;
+}
+
+void Graphics::ReleaseImage(Image* img){
+	const GLuint texID = (const GLuint)img->GetTextureID();
+	glDeleteTextures(1, &texID);
+	delete img;
 }
 
 unsigned char* Graphics::LoadImageInternal(const char* filename, GLuint* textureID, int* width, int* height){
@@ -156,7 +166,7 @@ unsigned char* Graphics::LoadImageInternal(const char* filename, GLuint* texture
 void Graphics::DrawImage(float x, float y, Image* img){
 	x = x * game->GetScaleFactor();
 	y = y * game->GetScaleFactor();
-	DrawTargetImage(x + .5, y + .5, img);
+	DrawTargetImage(x + .5f, y + .5f, img);
 }
 
 void Graphics::DrawImage(PointX p, Image* img){

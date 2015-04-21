@@ -21,6 +21,7 @@
 #include "Graphics.h"
 #include "Launcher.h"
 #include "Input.h"
+#include "Saver.h"
 
 class Screen{
 //User module

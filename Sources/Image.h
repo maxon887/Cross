@@ -37,7 +37,6 @@ public:
 	GLuint GetTextureID();
 	float* GetVertices();
 	static const short indices[6];
-	~Image();
 private:
 	RectX region;
 	GLuint textureID;

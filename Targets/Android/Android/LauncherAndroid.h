@@ -37,6 +37,7 @@ public:
 private:
 	int width;
 	int height;
+	char data_path[BUF_LEN];
 	char str_buff[BUF_LEN];
 	AAssetManager* asset_manager;
 	android_app* app;

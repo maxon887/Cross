@@ -24,6 +24,7 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					../../../Sources/Screen.cpp \
 					../../../Sources/Image.cpp \
 					../../../Sources/Input.cpp \
+					../../../Sources/Saver.cpp \
 					../../../Sources/Utils/PointX.cpp \
 					../../../Sources/Utils/RectX.cpp \
 					../../../Sources/Utils/Texter.cpp \

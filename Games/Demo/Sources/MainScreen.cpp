@@ -16,14 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "MainScreen.h"
-
 #include "SecondScreen.h"
-
 
 MainScreen::MainScreen(Game* game):Screen(game) { }
 
 void MainScreen::Start(){
     x_img = graphics->LoadImage("X256.png");
+	texter = new Texter(game);
 	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
     Image* release = graphics->LoadImage("ButtonRelease.png");
 	Image* pressed = graphics->LoadImage("ButtonPressed.png");
@@ -32,22 +31,57 @@ void MainScreen::Start(){
 	pos.y = game->GetHeight() / 4 * 3;
 	btn = new Button(game, pos, release, pressed);
 	btn->RegisterCallback(bind(&MainScreen::OnClick, this));
+	Image* on = graphics->LoadImage("MusicOn.png");
+	Image* off = graphics->LoadImage("MusicOff.png");
+	pos.x = game->GetWidth() - on->GetWidth();
+	pos.y = on->GetHeight();
+	music_btn = new ToggleButton(game, pos, on, off);
+	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
+
+	const char* startLabel = game->saver->LoadString("START_LABEL");
+	sprintf(str_buffer, "Loaded property: %s", startLabel);
+	launcher->LogIt(str_buffer);
+	game->saver->SaveString("START_LABEL", "start_label");
+
+	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
+	startLaunches++;
+	game->saver->SaveInt("START_LAUNCHES", startLaunches);
+	start_count = startLaunches;
+
+	bck_music = launcher->CreateMusic("camtasia_raw.wav", true);
+	bck_music->Play();
 }
 
 void MainScreen::Update(float sec){
-	graphics->Clear(0, 0.25f, 0.25f);
+	graphics->Clear(0, 0.15f, 0.15f);
 
 	PointX pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 3;
 	graphics->Rotate(x_img, 15);
 	graphics->DrawImage(pos, x_img);
+	pos.x -= 200;
+	pos.y += 300;
+	sprintf(str_buffer, "Screen starts %d times", start_count);
+	texter->DrawText(pos, str_buffer);
+	music_btn->Update();
 	btn->Update();
-	//pos.y = game->GetHeight() / 4 * 3;
-	//graphics->DrawImage(pos, button_release);
 }
 
 void MainScreen::OnClick(){
 	launcher->LogIt("OnClick");
     game->SetScreen(new SecondScreen(game));
+}
+
+void MainScreen::MusicOnClick(){
+	if(music_btn->GetState())
+		bck_music->Play();
+	else
+		bck_music->Pause();
+}
+
+MainScreen::~MainScreen(){
+	graphics->ReleaseImage(x_img);
+	delete btn;
+	delete bck_music;
 }

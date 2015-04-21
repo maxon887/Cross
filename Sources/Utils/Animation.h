@@ -23,14 +23,16 @@
 class Animation{
 //User module
 public:
-	Animation(float rate, Image* frames[], int frameCount);
-	Animation(float rate, Image* frames[], int frameCount, bool looped);
+	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount);
+	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped);
 	void Start();
 	void Update(float sec);
 	Image* GetImage();
 	bool IsRunnig();
+	~Animation();
 private:
-	Image* frames[128];
+	Graphics* graphics;
+	Image* frames[MAX_FRAMES];
 	int frame_count;
 	float rate;
 	float duration;

@@ -17,23 +17,19 @@
 	
 #include "Texter.h"
 
+Texter::Texter(Game* game){
+	Init(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+}
+
 Texter::Texter(Game* game, const char* fontFilename,
 				float width, float height,
 				int columns, int rows,
 				int asciiOffset, float scaleFactor){
-	this->game = game;
-	this->graphics = game->graphics;
-	this->width = width;
-	this->height = height;
-	this->offset = asciiOffset;
-	this->scale_factor = scaleFactor;
-	font = graphics->LoadImage(fontFilename);
-	for(int i = 0; i < rows; i++){
-		for(int j = 0; j < columns; j++){
-			RectX reg(j * width, i * height, width, height);
-			letters[i * columns + j] = graphics->CreateImage(font, reg, scaleFactor);
-		}
-	}
+	Init(game, fontFilename, width, height, columns, rows, asciiOffset, scaleFactor);
+}
+
+void Texter::DrawText(PointX pos, const char* text){
+	DrawText(pos.x, pos.y, text);
 }
 
 void Texter::DrawText(float x, float y, const char* text){
@@ -51,4 +47,23 @@ float Texter::GetWidth(){
 
 float Texter::GetHeight(){
 	return height / game->GetScaleFactor() * scale_factor;
+}
+
+void Texter::Init(	Game* game, const char* fontFilename,
+					float width, float height,
+					int columns, int rows,
+					int asciiOffset, float scaleFactor){
+	this->game = game;
+	this->graphics = game->graphics;
+	this->width = width;
+	this->height = height;
+	this->offset = asciiOffset;
+	this->scale_factor = scaleFactor;
+	font = graphics->LoadImage(fontFilename);
+	for(int i = 0; i < rows; i++){
+		for(int j = 0; j < columns; j++){
+			RectX reg(j * width, i * height, width, height);
+			letters[i * columns + j] = graphics->CreateImage(font, reg, scaleFactor);
+		}
+	}
 }

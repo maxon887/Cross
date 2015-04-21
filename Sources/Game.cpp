@@ -19,6 +19,7 @@
 #include "Launcher.h"
 #include "Graphics.h"
 #include "Screen.h"
+#include "Saver.h"
 #include "Debuger.h"
 #ifdef WIN
 #include "LauncherWIN.h"
@@ -27,6 +28,7 @@
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
 	this->input = new Input(this);
+	this->saver = new Saver(this);
 	this->graphics = NULL;
 	this->current_screen = NULL;
 	this->width = width;
@@ -49,10 +51,13 @@ float Game::GetHeight(){
 }
 
 void Game::SetScreen(Screen* screen){
+	Debuger::StartCheckTime();
+	delete current_screen;
 	current_screen = screen;
 	current_screen->Init();
 	current_screen->Start();
     render_time = high_resolution_clock::now();
+	Debuger::StopCheckTime("Screen loaded");
 }
 
 Screen* Game::GetCurrentScreen(){

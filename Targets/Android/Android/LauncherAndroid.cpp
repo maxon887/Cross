@@ -24,14 +24,14 @@ LauncherAndroid::LauncherAndroid(android_app* app, int width, int height){
 	this->asset_manager = app->activity->assetManager;
 	this->width = width;
 	this->height = height;
-	//JNIEnv *env;
-	//app->activity->vm->AttachCurrentThread(&env, NULL);
-	//jclass android_content_Context = env->GetObjectClass(app->activity->clazz);
-	//jmethodID midGetPackageName = env->GetMethodID(android_content_Context, "getPackageName", "()Ljava/lang/String;");
-	//jstring packageName = (jstring)env->CallObjectMethod(app->activity->clazz, midGetPackageName);
-	//const char* appname = env->GetStringUTFChars(packageName, NULL);
-	//app->activity->vm->DetachCurrentThread();
-	//sprintf(data_path, "/data/data/%s/files", appname);
+	JNIEnv *env;
+	app->activity->vm->AttachCurrentThread(&env, NULL);
+	jclass android_content_Context = env->GetObjectClass(app->activity->clazz);
+	jmethodID midGetPackageName = env->GetMethodID(android_content_Context, "getPackageName", "()Ljava/lang/String;");
+	jstring packageName = (jstring)env->CallObjectMethod(app->activity->clazz, midGetPackageName);
+	const char* appname = env->GetStringUTFChars(packageName, NULL);
+	app->activity->vm->DetachCurrentThread();
+	sprintf(data_path, "/data/data/%s/files", appname);
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -43,8 +43,7 @@ int LauncherAndroid::GetTargetHeight(){
 }
 
 const char* LauncherAndroid::DataPath(){
-	//return data_path;
-	return "No data path specified for this launcher";
+	return data_path;
 }
 
 void LauncherAndroid::LogIt(const char* str){

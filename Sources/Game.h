@@ -48,6 +48,7 @@ class Graphics;
 class Input;
 class Screen;
 class Debuger;
+class Saver;
 
 class Game{
 //User module
@@ -55,6 +56,7 @@ public:
 	Launcher* launcher;
 	Graphics* graphics;
 	Input* input;
+	Saver* saver;
 	/* This method must return first game Screen */
 	virtual Screen* GetStartScreen() = 0;
 	/* Constructor gets virtual game width

@@ -17,25 +17,18 @@
 	
 #pragma once
 
-#include "Music.h"
-#include "Sound.h"
-
-class Launcher{
+class Music{
 //User module
 public:
-	/* Returns phisycal screen width in pixels */
-	virtual int GetTargetWidth() = 0;
-	/* Returns phisycal screen height in pixels */
-	virtual int GetTargetHeight() = 0;
-	/* Log out message */
-	virtual void LogIt(const char* msg) = 0;
-	/* returns avalibaile directory for writing reading */
-	virtual const char* DataPath() = 0;
+	/* Starts play stream music file */
+	virtual void Play() = 0;
+	/* Suspend play */
+	virtual void Pause() = 0;
+	/* Stop play and return track on start position
+	Track don't release and can be play again */
+	virtual void Stop() = 0;
 
-	virtual Sound* CreateSound(const char* filename, bool loop) = 0;
-	virtual Music* CreateMusic(const char* filename, bool loop) = 0;
-//Framework module. You don't need call any of this methods or modify variable
-public:
-	virtual ~Launcher() { }
+	virtual ~Music() { };
 private:
+//Framework module. You don't need call any of this methods or modify variable
 };

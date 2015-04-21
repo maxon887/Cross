@@ -19,7 +19,7 @@
 
 #include "Screen.h"
 #include "Animation.h"
-
+#include "Sound.h"
 
 class SecondScreen : public Screen{
 //User module
@@ -27,11 +27,13 @@ public:
     SecondScreen(Game* game);
 	void Start();
     void Update(float sec);
+	~SecondScreen();
 private:
-	Animation* spider_run;
+	Animation* spider_run_anim;
 	Image* spider_body;
 	Image* spider_head;
 	Image* background;
+	Sound* spider_run_snd;
 	float bcg_scale;
 	float run_time;
 	float thinking_time;

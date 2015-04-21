@@ -23,6 +23,8 @@
 #include <Windows.h>
 #include <stdio.h>
 #include "Launcher.h"
+#include "Music.h"
+#include "AudioWIN.h"
 
 class LauncherWIN : public Launcher{
 public:
@@ -31,6 +33,8 @@ public:
 	int GetTargetHeight();
 	const char* DataPath();
 	void LogIt(const char* str);
+	Sound* CreateSound(const char* filename, bool loop);
+	Music* CreateMusic(const char* filename, bool loop);
 	void ShowMessage(const char* msg);
 private:
 	HWND wnd;

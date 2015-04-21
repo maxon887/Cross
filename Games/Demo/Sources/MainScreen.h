@@ -23,6 +23,8 @@
 #include "Texter.h"
 #include "Debuger.h"
 #include "Button.h"
+#include "ToggleButton.h"
+#include "Music.h"
 
 class MainScreen : public Screen{
 public:
@@ -31,8 +33,13 @@ public:
 	void Update(float sec);
 
 	void OnClick();
+	void MusicOnClick();
+	~MainScreen();
 private:
 	Image* x_img;
 	Button* btn;
+	ToggleButton* music_btn;
 	Texter* texter;
+	Music* bck_music;
+	int start_count;
 };

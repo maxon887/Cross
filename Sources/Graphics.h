@@ -55,6 +55,8 @@ public:
 	Image* LoadImage(const char* filename);
 	/* Load scaled image from file */
 	Image* LoadImage(const char* filename, float scaleFactor);
+
+	void ReleaseImage(Image* img);
 	/* Load scaled image filled repeated images*/
 	Image* LoadRepeatedImage(const char* filename, float scaleFactor, float width, float height);
 	/* Draws particular image in game coordinates */

@@ -27,12 +27,11 @@ SecondScreen::SecondScreen(Game* game):Screen(game){
 	turn_left = true;
 }
 
-Image* images[8];
 void SecondScreen::Start(){
 	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
 	background = graphics->LoadRepeatedImage("Background.jpg", game->GetScaleFactor() * bcg_scale, 900, 3000);
-
+	Image* images[8];
 	images[0] = graphics->LoadImage("Spider/00.png", game->GetScaleFactor() * 0.8f);
 	images[1] = graphics->LoadImage("Spider/01.png", game->GetScaleFactor() * 0.8f);
 	images[2] = graphics->LoadImage("Spider/02.png", game->GetScaleFactor() * 0.8f);
@@ -41,23 +40,23 @@ void SecondScreen::Start(){
 	images[5] = graphics->LoadImage("Spider/05.png", game->GetScaleFactor() * 0.8f);
 	images[6] = graphics->LoadImage("Spider/06.png", game->GetScaleFactor() * 0.8f);
 	images[7] = graphics->LoadImage("Spider/07.png", game->GetScaleFactor() * 0.8f);
-	spider_run = new Animation(0.08f, images, 8, true);
+	spider_run_anim = new Animation(graphics, 0.08f, images, 8, true);
+	spider_run_snd = launcher->CreateSound("spider_run.wav", true);
+	//spider_run_snd->Play();
 }
 
 void SecondScreen::Update(float sec){
     graphics->Clear(0, 0, 0);
-    if(input->HaveInput()){
-        game->SetScreen(new MainScreen(game));
-    }
 	DrawBackground(sec);
-	spider_run->Update(sec);
-	//graphics->DrawImage(0, 0, background);
+	spider_run_anim->Update(sec);
 
 	if(run_time >= 0) {
 		run_time -= sec;
-		graphics->DrawImage(game->GetWidth() / 2, game->GetHeight() / 2, spider_run->GetImage());
-		if(run_time < 0)
+		graphics->DrawImage(game->GetWidth() / 2, game->GetHeight() / 2, spider_run_anim->GetImage());
+		if(run_time < 0){
 			thinking_time = 1.3f;
+			spider_run_snd->Stop();
+		}
 	}
 	if(thinking_time >= 0){
 		thinking_time -= sec;
@@ -76,8 +75,13 @@ void SecondScreen::Update(float sec){
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;
+			spider_run_snd->Play();
 		}
 	}
+
+	if(input->HaveInput()){
+        game->SetScreen(new MainScreen(game));
+    }
 }
 
 void SecondScreen::DrawBackground(float sec) {
@@ -90,4 +94,12 @@ void SecondScreen::DrawBackground(float sec) {
 		deltaY -= background->texHeight*bcg_scale;
 	}
 	graphics->DrawImage(0, y, background);
+}
+
+SecondScreen::~SecondScreen(){
+	delete spider_run_anim;
+	delete spider_run_snd;
+	graphics->ReleaseImage(background);
+	graphics->ReleaseImage(spider_body);
+	graphics->ReleaseImage(spider_head);
 }

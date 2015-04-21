@@ -17,25 +17,18 @@
 	
 #pragma once
 
-#include "Music.h"
-#include "Sound.h"
+#include "Button.h"
 
-class Launcher{
+class ToggleButton : public Button{
 //User module
 public:
-	/* Returns phisycal screen width in pixels */
-	virtual int GetTargetWidth() = 0;
-	/* Returns phisycal screen height in pixels */
-	virtual int GetTargetHeight() = 0;
-	/* Log out message */
-	virtual void LogIt(const char* msg) = 0;
-	/* returns avalibaile directory for writing reading */
-	virtual const char* DataPath() = 0;
-
-	virtual Sound* CreateSound(const char* filename, bool loop) = 0;
-	virtual Music* CreateMusic(const char* filename, bool loop) = 0;
-//Framework module. You don't need call any of this methods or modify variable
-public:
-	virtual ~Launcher() { }
+	ToggleButton(Game* game, PointX location, Image* on, Image* off);
+	void Update();
+	bool GetState();
+	void SetState(bool state);
 private:
+	Image* on;
+	Image* off;
+	bool state;
+//Framework module. You don't need call any of this methods or modify variable
 };
