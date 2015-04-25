@@ -150,7 +150,11 @@ unsigned char* Graphics::LoadImageInternal(const char* filename, GLuint* texture
 	glBindTexture(GL_TEXTURE_2D, *textureID);
 #ifdef ANDROID
 	LauncherAndroid * android = (LauncherAndroid*)launcher;
-	unsigned char* image = android->ImageFromAssets(filename, width, height);
+	unsigned char* file;
+	int length;
+	android->LoadFile(filename, &file, &length);
+	unsigned char* image = SOIL_load_image_from_memory(file, length, width, height, 0, SOIL_LOAD_RGBA);
+	free(file);
 #else
 	Launcher* launcher = game->launcher;
     sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);

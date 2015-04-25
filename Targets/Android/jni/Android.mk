@@ -14,6 +14,8 @@ LOCAL_C_INCLUDES := Android \
 
 LOCAL_SRC_FILES := 	cross.cpp \
 					../Android/LauncherAndroid.cpp \
+					../Android/AudioAndroid.cpp \
+					../Android/MusicAndroid.cpp \
 					../../../Games/Snaky/Sources/SnakyGame.cpp \
 					../../../Games/Snaky/Sources/MenuScreen.cpp \
 					../../../Games/Demo/Sources/Demo.cpp \
@@ -31,11 +33,12 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					../../../Sources/Utils/Debuger.cpp \
 					../../../Sources/Utils/Button.cpp \
 					../../../Sources/Utils/Animation.cpp \
+					../../../Sources/Utils/ToggleButton.cpp \
 					../../../Sources/SOIL/SOIL.c \
 					../../../Sources/SOIL/image_helper.c \
 					../../../Sources/SOIL/stb_image_aug.c 
 					
-LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM
+LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM -lOpenSLES
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 
 include $(BUILD_SHARED_LIBRARY)

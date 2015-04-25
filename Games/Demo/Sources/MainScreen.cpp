@@ -48,7 +48,7 @@ void MainScreen::Start(){
 	game->saver->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 
-	bck_music = launcher->CreateMusic("camtasia_raw.wav", true);
+	bck_music = launcher->CreateMusic("game_song.mp3", true);
 	bck_music->Play();
 }
 

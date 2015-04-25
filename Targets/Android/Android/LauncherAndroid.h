@@ -23,8 +23,8 @@
 #include <android/asset_manager.h>
 #include <android_native_app_glue.h>
 #include "Launcher.h"
-
-#define BUF_LEN 256
+#include "AudioAndroid.h"
+#include "MusicAndroid.h"
 
 class LauncherAndroid : public Launcher{
 public:
@@ -33,7 +33,11 @@ public:
 	int GetTargetHeight();
 	const char* DataPath();
 	void LogIt(const char* str);
-	unsigned char* ImageFromAssets(const char* filename, int* width, int* height);
+	Sound* CreateSound(const char* filename, bool loop);
+	Music* CreateMusic(const char* filename, bool loop);
+	void LoadFile(const char* filename, unsigned char** buffer, int* length);
+	int LoadDescriptor(const char* filename, off_t* start, off_t* length);
+	//unsigned char* ImageFromAssets(const char* filename, int* width, int* height);
 private:
 	int width;
 	int height;

@@ -37,6 +37,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Android"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Cross"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="jni"/>
 					</sourceEntries>
@@ -54,5 +55,10 @@
 		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1373066367;com.android.toolchain.gcc.1373066367.576564427;com.android.gcc.compiler.929089712;com.android.gcc.inputType.211096935">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
 		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/Cross++"/>
+		</configuration>
 	</storageModule>
 </cproject>
