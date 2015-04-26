@@ -33,13 +33,20 @@ public:
 	void Update(float sec);
 
 	void OnClick();
+	void OnYellowClick();
+	void OnBlueClick();
 	void MusicOnClick();
 	~MainScreen();
 private:
 	Image* x_img;
 	Button* btn;
+	Button* yellow_sound_btn;
+	Button* blue_sound_btn;
 	ToggleButton* music_btn;
 	Texter* texter;
 	Music* bck_music;
+	Sound* jaguar;
+	Sound* truck;
 	int start_count;
+	bool song_started;
 };

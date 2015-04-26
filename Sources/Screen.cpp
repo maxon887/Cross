@@ -21,12 +21,14 @@ Screen::Screen(Game* game){
 	this->game = game;
 	this->launcher = NULL;
 	this->graphics = NULL;
+	this->saver = NULL;
 }
 
 void Screen::Init(){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
     this->input = game->input;
+	this->saver = game->saver;
 }
 
 void Screen::Start() { }

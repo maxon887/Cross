@@ -16,32 +16,27 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+#include "Launcher.h"
+#include "fmod.hpp"
+#include "common.h"
 
-#include "Game.h"
-#include "LauncherWIN.h"
-#include "Sound.h"
-#include "Music.h"
-#include "portaudio.h"
-#include "sndfile.h"
-
-#define SAMPLE_RATE (44100)
-
-class AudioWIN : public Sound, public Music{
-//User module
+class AudioWIN : public Sound,
+				 public Music{
 public:
-	AudioWIN(Launcher* launcher, string filename, bool loop);
+	static void Init();
+	AudioWIN(string path, bool loop, bool isStream);
 	void Play();
-	void Stop();
 	void Pause();
-	void CheckPaError(PaError err);
+	void Resume();
+	void Stop();
+	bool IsPlaying();
 	~AudioWIN();
-	SNDFILE* file;
-	PaStream* stream;
-	bool loop;
 private:
-	Launcher* launcher;
-	string source;
-	//char source[BUF_LEN];
-	//char str_buf[BUF_LEN];
-//Framework module. You don't need call any of this methods or modify variable
+	static FMOD::System* system;
+	static FMOD_RESULT result;
+	static unsigned int version;
+	static void* extradriverdata;
+
+	FMOD::Sound* sound;
+	FMOD::Channel* channel;
 };

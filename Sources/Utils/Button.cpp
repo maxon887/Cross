@@ -17,22 +17,37 @@
 	
 #include "Button.h"
 
-Button::Button(Game* game, PointX location, Image* release, Image* pressed){
+Button::Button(Game* game, Image* up, Image* down){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
 	this->input = game->input;
-	this->location = location;
-	this->release = release;
-	this->pressed = pressed;
+	this->location = PointX();
+	this->up = up;
+	this->down = down;
 	this->press_loc = NULL;
 	this->callback_registered = false;
 }
 
+Button::Button(Game* game, PointX location, Image* up, Image* down){
+	this->launcher = game->launcher;
+	this->graphics = game->graphics;
+	this->input = game->input;
+	this->location = location;
+	this->up = up;
+	this->down = down;
+	this->press_loc = NULL;
+	this->callback_registered = false;
+}
+
+void Button::SetLocation(PointX location){
+	this->location = location;
+}
+
 void Button::Update(){
 	if(input->HaveInput() && press_loc != NULL && OnLocation(press_loc->x, press_loc->y)){
-		graphics->DrawImage(location, pressed);
+		graphics->DrawImage(location, down);
 	}else{
-		graphics->DrawImage(location, release);
+		graphics->DrawImage(location, up);
 	}
 	//first press
 	if(press_loc == NULL && input->HaveInput()){
@@ -43,6 +58,7 @@ void Button::Update(){
 		if(OnLocation(input->GetInput().x, input->GetInput().y)){
 			if(callback_registered){
 				delete press_loc;
+				press_loc = NULL;
 				callback();
 				return;
 			}else{
@@ -57,18 +73,18 @@ void Button::Update(){
 }
 
 float Button::GetWidth(){
-	return release->GetWidth();
+	return up->GetWidth();
 }
 
 float Button::GetHeight(){
-	return release->GetHeight();
+	return up->GetHeight();
 }
 
 bool Button::OnLocation(float x, float y){
-		return  x > (location.x - release->GetWidth() / 2) &&
-				x < (location.x + release->GetWidth() / 2) &&
-				y > (location.y - release->GetHeight() / 2) &&
-				y < (location.y + release->GetHeight() / 2);
+		return  x > (location.x - up->GetWidth() / 2) &&
+				x < (location.x + up->GetWidth() / 2) &&
+				y > (location.y - up->GetHeight() / 2) &&
+				y < (location.y + up->GetHeight() / 2);
 }
 
 void Button::RegisterCallback(function<void()> callback){
@@ -77,6 +93,6 @@ void Button::RegisterCallback(function<void()> callback){
 }
 
 Button::~Button(){
-	graphics->ReleaseImage(pressed);
-	graphics->ReleaseImage(release);
+	graphics->ReleaseImage(down);
+	graphics->ReleaseImage(up);
 }

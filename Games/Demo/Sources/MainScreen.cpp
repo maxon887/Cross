@@ -21,14 +21,14 @@
 MainScreen::MainScreen(Game* game):Screen(game) { }
 
 void MainScreen::Start(){
-    x_img = graphics->LoadImage("X256.png");
-	texter = new Texter(game);
-	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
-    Image* release = graphics->LoadImage("ButtonRelease.png");
-	Image* pressed = graphics->LoadImage("ButtonPressed.png");
 	PointX pos;
+	texter = new Texter(game);
+    x_img = graphics->LoadImage("X256.png");
+	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
+    Image* release = graphics->LoadImage("StartButtonUp.png");
+	Image* pressed = graphics->LoadImage("StartButtonDown.png");
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 * 3;
+	pos.y = game->GetHeight() / 4 * 2;
 	btn = new Button(game, pos, release, pressed);
 	btn->RegisterCallback(bind(&MainScreen::OnClick, this));
 	Image* on = graphics->LoadImage("MusicOn.png");
@@ -37,15 +37,38 @@ void MainScreen::Start(){
 	pos.y = on->GetHeight();
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
+	bck_music = launcher->CreateMusic("eskimo.mp3", true);
+	bool musicState = saver->LoadBool("MUSIC_STATE");
+	music_btn->SetState(musicState);
+	if(musicState){
+		bck_music->Play();
+		song_started = true;
+	}else{
+		song_started = false;
+	}
+
+	Image* yellow_img = graphics->LoadImage("SoundButtonYellow.png");
+	Image* blue_img = graphics->LoadImage("SoundButtonBlue.png");
+	Image* gray_img = graphics->LoadImage("SoundButtonGray.png");
+	yellow_sound_btn = new Button(game, yellow_img, gray_img);
+	pos.x = yellow_sound_btn->GetWidth() / 2;
+	pos.y = game->GetHeight() - yellow_sound_btn->GetHeight() / 2;
+	yellow_sound_btn->SetLocation(pos);
+	yellow_sound_btn->RegisterCallback(bind(&MainScreen::OnYellowClick, this));
+	blue_sound_btn = new Button(game, blue_img, gray_img);
+	pos.x = game->GetWidth() - blue_sound_btn->GetWidth() / 2;
+	pos.y = game->GetHeight() - blue_sound_btn->GetHeight() / 2;
+	blue_sound_btn->SetLocation(pos);
+	blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
+
+	jaguar = launcher->CreateSound("Jaguar.wav", false);
+	truck = launcher->CreateSound("Truck.wav", true);
 
 	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
 	startLaunches++;
 	game->saver->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 
-	bck_music = NULL;
-	bck_music = launcher->CreateMusic("game_song.mp3", true);
-	bck_music->Play();
 }
 
 void MainScreen::Update(float sec){
@@ -53,17 +76,16 @@ void MainScreen::Update(float sec){
 
 	PointX pos;
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 3;
+	pos.y = game->GetHeight() / 3 - 120;
 	graphics->Rotate(x_img, 15);
 	graphics->DrawImage(pos, x_img);
 	pos.x -= 200;
-	pos.y += 300;
-	toascii(start_count);
-	string msg = "Screen starts ";
-	msg += to_string(start_count);
-	msg += " times";
+	pos.y = game->GetHeight() / 5 * 3 + 50;
+	string msg = "Screen starts " + to_string(start_count) + " times";
 	texter->DrawText(pos, msg.c_str());
 	music_btn->Update();
+	yellow_sound_btn->Update();
+	blue_sound_btn->Update();
 	btn->Update();
 }
 
@@ -72,11 +94,28 @@ void MainScreen::OnClick(){
     game->SetScreen(new SecondScreen(game));
 }
 
+void MainScreen::OnYellowClick(){
+	jaguar->Play();
+}
+
+void MainScreen::OnBlueClick(){
+	if(truck->IsPlaying()){
+		truck->Stop();
+	}else{
+		truck->Play();
+	}
+}
+
 void MainScreen::MusicOnClick(){
-	if(music_btn->GetState())
-		bck_music->Play();
+	if(music_btn->GetState()){
+		if(song_started)
+			bck_music->Resume();
+		else
+			bck_music->Play();
+	}
 	else
 		bck_music->Pause();
+	saver->SaveBool("MUSIC_STATE", music_btn->GetState());
 }
 
 MainScreen::~MainScreen(){

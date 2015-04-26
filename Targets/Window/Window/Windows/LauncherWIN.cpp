@@ -19,6 +19,7 @@
 
 LauncherWIN::LauncherWIN(HWND wnd){
 	this->wnd = wnd;
+	AudioWIN::Init();
 }
 
 int LauncherWIN::GetTargetWidth(){
@@ -43,15 +44,13 @@ void LauncherWIN::LogIt(string msg){
 }
 
 Sound* LauncherWIN::CreateSound(string filename, bool loop){
-	sprintf(str_buffer, "%s/%s", AssetsPath(), filename);
-	return new AudioWIN(this, str_buffer, loop);
+	filename = AssetsPath() + filename;
+	return new AudioWIN(filename, loop, false);
 }
 
 Music* LauncherWIN::CreateMusic(string filename, bool loop){
-	//sprintf(str_buffer, "%s/%s", DataPath(), filename);
-	//return new AudioWIN(this, str_buffer, loop);
 	filename = AssetsPath() + filename;
-	return new MusicWIN(filename);
+	return new AudioWIN(filename, loop, true);
 }
 
 void LauncherWIN::ShowMessage(string msg){

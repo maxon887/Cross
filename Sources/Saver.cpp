@@ -60,6 +60,10 @@ void Saver::SaveFloat(string key, float value){
 	SaveString(key, buf);
 }
 
+void Saver::SaveBool(string key, bool value){
+	SaveInt(key, value);
+}
+
 string Saver::LoadString(string key){
 	ifstream prefs;
 	prefs.open(prefs_path);
@@ -90,4 +94,8 @@ float Saver::LoadFloat(string key){
 		return 0;
 	float ret = (float)atof(strValue.c_str());
 	return ret;
+}
+
+bool Saver::LoadBool(string key){
+	return LoadInt(key);
 }

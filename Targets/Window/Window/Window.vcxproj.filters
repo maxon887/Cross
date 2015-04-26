@@ -68,16 +68,13 @@
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\AudioWIN.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\MusicWIN.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
     <ClCompile Include="Windows\common.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Windows\common_platform.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\AudioWIN.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
   </ItemGroup>
@@ -177,16 +174,13 @@
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\AudioWIN.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\MusicWIN.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
     <ClInclude Include="Windows\common.h">
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Windows\common_platform.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\AudioWIN.h">
       <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>

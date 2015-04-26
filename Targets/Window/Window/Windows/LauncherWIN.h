@@ -22,7 +22,6 @@
 
 #include <Windows.h>
 #include "Launcher.h"
-#include "MusicWIN.h"
 #include "AudioWIN.h"
 
 class LauncherWIN : public Launcher{

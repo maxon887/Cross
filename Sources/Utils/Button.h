@@ -24,9 +24,11 @@
 
 class Button{
 public:
-	Button(Game* game, PointX location, Image* release, Image* pressed);
+	Button(Game* game, Image* up, Image* down);
+	Button(Game* game, PointX location, Image* up, Image* down);
 	void Update();
 	void RegisterCallback(function<void()> callback);
+	void SetLocation(PointX location);
 	float GetWidth();
 	float GetHeight();
 	~Button();
@@ -36,8 +38,8 @@ protected:
 	Graphics* graphics;
 	Input* input;
 	PointX location;
-	Image* release;
-	Image* pressed;
+	Image* up;
+	Image* down;
 	bool OnLocation(float x, float y);
 	PointX* press_loc;
 	function<void()> callback;

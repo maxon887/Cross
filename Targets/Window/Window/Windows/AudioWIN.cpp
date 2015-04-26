@@ -17,93 +17,70 @@
 	
 #include "AudioWIN.h"
 
-static int output_cb(	const void * input, void * output, 
-						unsigned long frames_per_buffer,
-						const PaStreamCallbackTimeInfo *time_info,
-						PaStreamCallbackFlags flags, void * data){
-	AudioWIN* sound = (AudioWIN*)data;
-	//SNDFILE* file = (SNDFILE*)data;
+FMOD::System*	AudioWIN::system;
+FMOD_RESULT		AudioWIN::result;
+unsigned int	AudioWIN::version;
+void*			AudioWIN::extradriverdata;
 
-    /* this should not actually be done inside of the stream callback
-     * but in an own working thread 
-     *
-     * Note although I haven't tested it for stereo I think you have
-     * to multiply frames_per_buffer with the channel count i.e. 2 for
-     * stereo */
-    //sf_read_short(file, (short*)output, frames_per_buffer);
-	int count = sf_readf_float(sound->file, (float*)output, frames_per_buffer);
-	if(count == 0){
-		if(sound->loop){
-			sf_seek(sound->file, 0, 0);
-		}else{
-			return paComplete;
-		}
-	}
-    return paContinue;
+void AudioWIN::Init(){
+	Common_Init(&extradriverdata);
+	result = FMOD::System_Create(&system);
+    ERRCHECK(result);
+
+    result = system->getVersion(&version);
+    ERRCHECK(result);
+
+	if (version < FMOD_VERSION)
+    {
+        Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
+    }
+
+    result = system->init(32, FMOD_INIT_NORMAL, extradriverdata);
+    ERRCHECK(result);
 }
 
-static void end_cb(void * data){
-	//SoundWIN* sound = (SoundWIN*)data;
-	//PaError err = Pa_CloseStream(sound->stream);
-	//sound->CheckPaError(err);
-}
+AudioWIN::AudioWIN(string path, bool loop, bool isStream){
+	FMOD_MODE mode = 0;
+	if(loop)
+		mode = FMOD_LOOP_NORMAL;
+	else
+		mode = FMOD_LOOP_OFF;
+	if(isStream)
+		mode |= FMOD_CREATESTREAM;
 
-AudioWIN::AudioWIN(Launcher* launcher, string filename, bool loop){
-	this->launcher = launcher;
-	//strcpy(source, filename);
-	source = filename;
-	this->loop = loop;
-	PaError err = Pa_Initialize();
-	CheckPaError(err);
-	PaStreamParameters outParams;
-	SF_INFO sfinfo;
-	file = sf_open(filename.c_str(), SFM_READ, &sfinfo);
-
-	outParams.device = Pa_GetDefaultOutputDevice();
-	outParams.channelCount = sfinfo.channels;
-	outParams.sampleFormat = paFloat32;
-	outParams.suggestedLatency = Pa_GetDeviceInfo(outParams.device)->defaultLowOutputLatency;
-	outParams.hostApiSpecificStreamInfo = NULL;
-
-	err = Pa_OpenStream(&stream, NULL, &outParams, sfinfo.samplerate,
-            paFramesPerBufferUnspecified, paClipOff,
-            output_cb, this);
-    CheckPaError(err);
-
-	err = Pa_SetStreamFinishedCallback(stream, &end_cb);
-    CheckPaError(err);
+	result = system->createSound(path.c_str(), mode, 0, &sound);
+    ERRCHECK(result);
 }
 
 void AudioWIN::Play(){
-	PaError err;
-	err = Pa_StartStream(stream);
-	CheckPaError(err);
-
-}
-
-void AudioWIN::Stop(){
-	PaError err = Pa_StopStream(stream);
-	CheckPaError(err);
-	sf_seek(file, 0, 0);
+	result = system->playSound(sound, 0, false, &channel);
+	ERRCHECK(result);
 }
 
 void AudioWIN::Pause(){
-	PaError err = Pa_StopStream(stream);
-	CheckPaError(err);
+	result = channel->setPaused(true);
+	ERRCHECK(result);
 }
 
-void AudioWIN::CheckPaError(PaError err){
-	if(err != paNoError){
-		//sprintf(str_buf, "PortAudio error: %s", Pa_GetErrorText(err));
-		string msg = "PortAudio error: " + string(Pa_GetErrorText(err));
-		throw msg;
-	}
+void AudioWIN::Resume(){
+	result = channel->setPaused(false);
+	ERRCHECK(result);
+}
+
+void AudioWIN::Stop(){
+	channel->stop();
+}
+
+bool AudioWIN::IsPlaying(){
+	bool playing;
+	result = channel->isPlaying(&playing);
+    if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
+        ERRCHECK(result);
+    }
+	return playing;
 }
 
 AudioWIN::~AudioWIN(){
-	PaError err = Pa_CloseStream(stream);
-	CheckPaError(err);
-	err = Pa_Terminate();
-	CheckPaError(err);
+	result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
+    ERRCHECK(result);
 }
-

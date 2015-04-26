@@ -31,6 +31,8 @@ public:
 	void SaveInt(string key, int value);
 	//Save float value for key
 	void SaveFloat(string key, float value);
+
+	void SaveBool(string key, bool value);
 	//Load string property from string key.
 	//Important! returned string must to be deleted.
 	//Return NULL if can't find key
@@ -41,13 +43,12 @@ public:
 	//Load float property from string key.
 	//Return 0 if can't find key
 	float LoadFloat(string key);
+
+	bool LoadBool(string key);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Saver(Game* game);
 private:
 	string prefs_path;
 	string copy_path;
-	//char prefs_path[BUF_LEN];
-	//char copy_path[BUF_LEN];
-	//char str_buf[BUF_LEN];
 };

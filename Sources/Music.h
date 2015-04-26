@@ -25,9 +25,8 @@ public:
 	virtual void Play() = 0;
 	/* Suspend play */
 	virtual void Pause() = 0;
-	/* Stop play and return track on start position
-	Track don't release and can be play again */
-	virtual void Stop() = 0;
+	virtual void Resume() = 0;
+	virtual bool IsPlaying() = 0;
 	/* Release all data related for Music class */
 	virtual ~Music() { };
 };
