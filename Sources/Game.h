@@ -18,7 +18,7 @@
 #pragma once
 
 #define CROSSDEBUG
-#define BUF_LEN 256
+//#define BUF_LEN 256
 
 #ifdef _WIN32
 #define WIN
@@ -32,8 +32,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
-#include <string.h>
+#include <string>
+#include <iostream>
+#include <fstream>
 #include <functional>
 
 #include <chrono>
@@ -50,45 +51,46 @@ class Screen;
 class Debuger;
 class Saver;
 
+/*	Core game class. Every game must inherit that class.
+	Also provide interfeces for all vitual mudus. Like graphics, input, sound etc. */
 class Game{
-//User module
 public:
 	Launcher* launcher;
 	Graphics* graphics;
 	Input* input;
 	Saver* saver;
-	/* This method must return first game Screen */
+	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
-	/* Constructor gets virtual game width
-	   don't mess with target width.
-	   Height will be set automatically depend on screen aspect ratio. */
+	/* Constructor gets virtual game width.
+	   Don't mess with target width.
+	   Game height will be set automatically depend on screen aspect ratio. */
 	Game(Launcher* launcher, float width);
 
 	/* Reflect ratio between game and target device width.*/
 	float GetScaleFactor();
-	/* Game width */
+	/* Return virtual game width */
 	float GetWidth();
-	/* Game height; */
+	/* Return virtual game height; */
 	float GetHeight();
-	/* Start the game. Calls automatically */
-	void Start();
-	/* Set up new game Screen. Previous screen data will be lost. */
+	/* Set up new Screen. Previous screen data will be deleted. */
 	void SetScreen(Screen* screen);
 	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
 	/* Exit from application */
-    virtual void Exit();
+    void Exit();
+
+//Internal data. You don't need call any of this methods or modify variable
+public:
+    void Update();
+    Debuger* debuger;
+	void Start();
 	virtual ~Game();
 protected:
 	float width;
 	float height;
 	float scale_factor;
-//Framework module. You don't need call any of this methods or modify variable
-public:
-    void Update();
-    Debuger* debuger;
 private:
 	Screen* current_screen;
-	char str_buffer[BUF_LEN];
+	//char str_buffer[BUF_LEN];
     time_point<high_resolution_clock> render_time;
 };

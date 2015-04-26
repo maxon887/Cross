@@ -25,16 +25,21 @@ enum Key{
 	KEY_PAUSE
 };
 
+/*	Class responsible for user input. 
+	Handle touches, clicks and some key events */
 class Input{
-//User module
+public:
+	/* Return true if user have made touch/click */
+	bool HaveInput();
+	/* Return last user touch/click position */
+	PointX GetInput();
+	/* Return true if user have pushed the key */
+	bool HaveKey();
+	/* Return last user pushed key */
+	Key GetKey();
+//Internal data. You don't need call any of this methods or modify variable
 public:
 	Input(Game* game);
-	bool HaveInput();
-	PointX GetInput();
-	bool HaveKey();
-	Key GetKey();
-//Framework module. You don't need call any of this methods or modify variable
-public:
 	bool input_state;
 	PointX input_loc;
 	bool key_state;

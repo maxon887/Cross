@@ -17,12 +17,11 @@
 
 #pragma once
 
+/*	Class responsible for playing buffer music.
+	shot multiple sound must be playing like Sounds */
 class Sound{
-//User module
 public:
 	virtual void Play() = 0;
 	virtual void Stop() = 0;
 	virtual ~Sound() { };
-private:
-//Framework module. You don't need call any of this methods or modify variable
 };

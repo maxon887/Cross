@@ -71,6 +71,15 @@
     <ClCompile Include="Windows\AudioWIN.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="Windows\MusicWIN.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\common.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\common_platform.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
@@ -90,9 +99,6 @@
     </Filter>
     <Filter Include="Cross\Utils">
       <UniqueIdentifier>{28cf75a4-742c-46a4-87c4-fe09b37ab72b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Demo\Data">
-      <UniqueIdentifier>{1603c797-b4bd-4971-82db-403495a5ee53}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,27 +180,14 @@
     <ClInclude Include="Windows\AudioWIN.h">
       <Filter>Windows</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Games\Demo\Data\ButtonPressed.png">
-      <Filter>Demo\Data</Filter>
-    </Image>
-    <Image Include="..\..\..\Games\Demo\Data\ButtonRelease.png">
-      <Filter>Demo\Data</Filter>
-    </Image>
-    <Image Include="..\..\..\Games\Demo\Data\X128.png">
-      <Filter>Demo\Data</Filter>
-    </Image>
-    <Image Include="..\..\..\Games\Demo\Data\X256.png">
-      <Filter>Demo\Data</Filter>
-    </Image>
-    <Image Include="..\..\..\Games\Demo\Data\X512.png">
-      <Filter>Demo\Data</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\Games\Demo\Data\X++.psd">
-      <Filter>Demo\Data</Filter>
-    </None>
+    <ClInclude Include="Windows\MusicWIN.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\common.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\common_platform.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,7 +29,7 @@
 class AudioWIN : public Sound, public Music{
 //User module
 public:
-	AudioWIN(Launcher* launcher, const char* filename, bool loop);
+	AudioWIN(Launcher* launcher, string filename, bool loop);
 	void Play();
 	void Stop();
 	void Pause();
@@ -40,7 +40,8 @@ public:
 	bool loop;
 private:
 	Launcher* launcher;
-	char source[BUF_LEN];
-	char str_buf[BUF_LEN];
+	string source;
+	//char source[BUF_LEN];
+	//char str_buf[BUF_LEN];
 //Framework module. You don't need call any of this methods or modify variable
 };

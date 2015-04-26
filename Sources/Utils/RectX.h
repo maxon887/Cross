@@ -18,7 +18,6 @@
 #pragma once
 
 class RectX{
-//User module
 public:
 	float x;
 	float y;

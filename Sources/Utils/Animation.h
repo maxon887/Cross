@@ -21,7 +21,6 @@
 #define MAX_FRAMES 128
 
 class Animation{
-//User module
 public:
 	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount);
 	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped);
@@ -38,5 +37,5 @@ private:
 	float duration;
 	int frame_num;
 	bool looped;
-//Framework module. You don't need call any of this methods or modify variable
+
 };

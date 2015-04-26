@@ -59,11 +59,11 @@ Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
 	return img;
 }
 
-Image* Graphics::LoadImage(const char* filename){
+Image* Graphics::LoadImage(string filename){
 	return LoadImage(filename, game->GetScaleFactor());
 }
 
-Image* Graphics::LoadImage(const char* filename, float scaleFactor){
+Image* Graphics::LoadImage(string filename, float scaleFactor){
 	Debuger::StartCheckTime();
 	unsigned int textureID;
 	int width;
@@ -108,12 +108,13 @@ Image* Graphics::LoadImage(const char* filename, float scaleFactor){
 	Image* img = new Image(textureID, new_width, new_height, region);
 	img->Scale(scaleFactor);
 
-	sprintf(str_buffer, "Load image %s", filename);
-	Debuger::StopCheckTime(str_buffer);
+	//sprintf(str_buffer, "Load image %s", filename);
+	string debugMsg = "Load image " + filename;
+	Debuger::StopCheckTime(debugMsg);
 	return img;
 }
 
-Image* Graphics::LoadRepeatedImage(const char* filename, float scaleFactor, float w, float h){
+Image* Graphics::LoadRepeatedImage(string filename, float scaleFactor, float w, float h){
 	Debuger::StartCheckTime();
 	unsigned int textureID;
 	int width;
@@ -134,8 +135,8 @@ Image* Graphics::LoadRepeatedImage(const char* filename, float scaleFactor, floa
 	Image* img = new Image(textureID, width, height, region);
 	img->Scale(scaleFactor);
 
-	sprintf(str_buffer, "Load image %s", filename);
-	Debuger::StopCheckTime(str_buffer);
+	string debugMsg = "Load image " + filename;
+	Debuger::StopCheckTime(debugMsg);
 	return img;
 }
 
@@ -145,7 +146,7 @@ void Graphics::ReleaseImage(Image* img){
 	delete img;
 }
 
-unsigned char* Graphics::LoadImageInternal(const char* filename, GLuint* textureID, int* width, int* height){
+unsigned char* Graphics::LoadImageInternal(string filename, GLuint* textureID, int* width, int* height){
 	glGenTextures(1, textureID);
 	glBindTexture(GL_TEXTURE_2D, *textureID);
 #ifdef ANDROID
@@ -157,12 +158,14 @@ unsigned char* Graphics::LoadImageInternal(const char* filename, GLuint* texture
 	free(file);
 #else
 	Launcher* launcher = game->launcher;
-    sprintf(str_buffer, "%s/%s", launcher->DataPath(), filename);
-	unsigned char* image = SOIL_load_image(str_buffer, width, height, 0, SOIL_LOAD_RGBA);
+    //sprintf(str_buffer, "%s/%s", launcher->AssetsPath(), filename);
+	string path = launcher->AssetsPath() + filename;
+	unsigned char* image = SOIL_load_image(path.c_str(), width, height, 0, SOIL_LOAD_RGBA);
 #endif
 	if(image == NULL){
-		sprintf(str_buffer, "Can't load file: %s", filename);
-		throw str_buffer;
+		//sprintf(str_buffer, "Can't load file: %s", filename);
+		string msg = "Can't load file: " + filename;
+		throw msg;
 	}
 	return image;
 }

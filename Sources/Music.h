@@ -17,18 +17,17 @@
 	
 #pragma once
 
+/*	Class responsible for playing stream music.
+	long background music files must become object of Music class */
 class Music{
-//User module
 public:
-	/* Starts play stream music file */
+	/* Start play music file */
 	virtual void Play() = 0;
 	/* Suspend play */
 	virtual void Pause() = 0;
 	/* Stop play and return track on start position
 	Track don't release and can be play again */
 	virtual void Stop() = 0;
-
+	/* Release all data related for Music class */
 	virtual ~Music() { };
-private:
-//Framework module. You don't need call any of this methods or modify variable
 };

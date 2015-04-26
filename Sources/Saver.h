@@ -20,31 +20,34 @@
 #include "Launcher.h"
 #undef LoadString
 
+/* Save and load information whith between game launches.
+   Like game state, score etc*/
 class Saver{
-//User module
 public:
-
-	Saver(Game* game);
-	//Save string value for key
+	//Save string value for key.
 	//Important! string key and value can't contain space character
-	void SaveString(const char* key, const char* value);
+	void SaveString(string key, string value);
 	//Save int value for key
-	void SaveInt(const char* key, int value);
+	void SaveInt(string key, int value);
 	//Save float value for key
-	void SaveFloat(const char* key, float value);
+	void SaveFloat(string key, float value);
 	//Load string property from string key.
 	//Important! returned string must to be deleted.
 	//Return NULL if can't find key
-	char* LoadString(const char* key);
+	string LoadString(string key);
 	//Load int property from string key.
 	//Return 0 if can't find key
-	int LoadInt(const char* key);
+	int LoadInt(string key);
 	//Load float property from string key.
 	//Return 0 if can't find key
-	float LoadFloat(const char* key);
+	float LoadFloat(string key);
+//Internal data. You don't need call any of this methods or modify variable
+public:
+	Saver(Game* game);
 private:
-//Framework module. You don't need call any of this methods or modify variable
-	char prefs_path[BUF_LEN];
-	char copy_path[BUF_LEN];
-	char str_buf[BUF_LEN];
+	string prefs_path;
+	string copy_path;
+	//char prefs_path[BUF_LEN];
+	//char copy_path[BUF_LEN];
+	//char str_buf[BUF_LEN];
 };

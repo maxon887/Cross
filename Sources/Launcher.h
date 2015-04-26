@@ -17,24 +17,28 @@
 	
 #pragma once
 
+#include "Game.h"
 #include "Music.h"
 #include "Sound.h"
 
+/* Class witch contains platform specific code */
 class Launcher{
-//User module
 public:
 	/* Returns phisycal screen width in pixels */
 	virtual int GetTargetWidth() = 0;
 	/* Returns phisycal screen height in pixels */
 	virtual int GetTargetHeight() = 0;
 	/* Log out message */
-	virtual void LogIt(const char* msg) = 0;
-	/* returns avalibaile directory for writing reading */
-	virtual const char* DataPath() = 0;
-
-	virtual Sound* CreateSound(const char* filename, bool loop) = 0;
-	virtual Music* CreateMusic(const char* filename, bool loop) = 0;
-//Framework module. You don't need call any of this methods or modify variable
+	virtual void LogIt(string msg) = 0;
+	/* return path to the application assets folder */
+	virtual string AssetsPath() = 0;
+	/* return path to the application data folder */
+	virtual string DataPath() = 0;
+	/* return object of Sound. Input file must be short and wav formated */
+	virtual Sound* CreateSound(string filename, bool loop) = 0;
+	/* return object of Music. Input file needs to be mp3 */
+	virtual Music* CreateMusic(string filename, bool loop) = 0;
+//Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }
 private:

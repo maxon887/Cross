@@ -18,92 +18,76 @@
 #include "Saver.h"
 
 Saver::Saver(Game* game){
-	sprintf(prefs_path, "%s/prefs", game->launcher->DataPath());
-	sprintf(copy_path, "%s/prefs.copy", game->launcher->DataPath());
+	prefs_path = game->launcher->DataPath() + "/prefs";
+	copy_path = game->launcher->DataPath() + "/prefs.copy";
 }
 
-void Saver::SaveString(const char* saveKey, const char* saveValue){
-	FILE* prefs = fopen(prefs_path, "r");
-	FILE* copy = fopen(copy_path, "w");
-	if(prefs == NULL || copy == NULL){
-		throw "Preferens file access exception";
-	}
-	char line[256];
+void Saver::SaveString(string key, string value){
+	ifstream prefs;
+	prefs.open(prefs_path);
+	ofstream prefs_copy;
+	prefs_copy.open(copy_path);
+	string locKey;
+	string locVal;
 	bool saved = false;
-	while (fgets(line, 256, prefs) != NULL)	{
-		char* key = strtok(line, " ");
-		char* value = strtok(NULL, " ");
-		if(strcmp(key, saveKey) != 0){
-			sprintf(str_buf, "%s %s", key, value);
-			fwrite(str_buf, strlen(str_buf), 1, copy);
+	while(prefs >> locKey){
+		prefs >> locVal;
+		if(locKey != key){
+			prefs_copy << locKey << " " << locVal << endl;
 		}else{
-			sprintf(str_buf, "%s %s\n", saveKey, saveValue);
-			fwrite(str_buf, strlen(str_buf), 1, copy);
+			prefs_copy << locKey << " " << value << endl;
 			saved = true;
 		}
 	}
 	if(!saved){
-		sprintf(str_buf, "%s %s\n", saveKey, saveValue);
-		fwrite(str_buf, strlen(str_buf), 1, copy);
+		prefs_copy << key << " " << value << endl;
 	}
-	fclose(prefs);
-	fclose(copy);
-	remove(prefs_path);
-	rename(copy_path, prefs_path);
+	prefs.close();
+	prefs_copy.close();
+	remove(prefs_path.c_str());
+	rename(copy_path.c_str(), prefs_path.c_str());
 }
 
-void Saver::SaveInt(const char* key, int value){
+void Saver::SaveInt(string key, int value){
 	char buf[128];
 	sprintf(buf, "%d", value);
 	SaveString(key, buf);
 }
 
-void Saver::SaveFloat(const char* key, float value){
+void Saver::SaveFloat(string key, float value){
 	char buf[128];
 	sprintf(buf, "%f", value);
 	SaveString(key, buf);
 }
 
-char* Saver::LoadString(const char* loadKey){
- 	FILE* prefs = fopen(prefs_path, "r");
-	if(prefs == NULL){
-		prefs = fopen(prefs_path, "w");
-		if(prefs == NULL){
-			sprintf(str_buf, "Can't create property file at path: %s", prefs_path);
-			throw str_buf;
-		}
-		fclose(prefs);
-		return NULL;
-	}
-	char line[256];
-	while(fgets(line, 256, prefs) != NULL){
-		char* key = strtok(line, " ");
-		char* value = strtok(NULL, " ");
-		if(strcmp(key, loadKey) == 0){
-			char* ret = new char[strlen(value) + 1];
-			strcpy(ret, value);
-			fclose(prefs);
-			return ret;
+string Saver::LoadString(string key){
+	ifstream prefs;
+	prefs.open(prefs_path);
+	string locKey;
+	string value;
+	while(prefs >> locKey){
+		prefs >> value;
+		if(locKey == key){
+			prefs.close();
+			return value;
 		}
 	}
-	fclose(prefs);
-	return NULL;
+	prefs.close();
+	return value;
 }
 
-int Saver::LoadInt(const char* key){
-	char* strValue = LoadString(key);
-	if(strValue == NULL)
+int Saver::LoadInt(string key){
+	string strValue = LoadString(key);
+	if(strValue.empty())
 		return 0;
-	int ret = atoi(strValue);
-	delete[] strValue;
+	int ret = atoi(strValue.c_str());
 	return ret;
 }
 
-float Saver::LoadFloat(const char* key){
-	const char* strValue = LoadString(key);
-	if(strValue == NULL)
+float Saver::LoadFloat(string key){
+	string strValue = LoadString(key);
+	if(strValue.empty())
 		return 0;
-	float ret = (float)atof(strValue);
-	delete[] strValue;
+	float ret = (float)atof(strValue.c_str());
 	return ret;
 }

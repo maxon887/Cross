@@ -38,16 +38,12 @@ void MainScreen::Start(){
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
 
-	const char* startLabel = game->saver->LoadString("START_LABEL");
-	sprintf(str_buffer, "Loaded property: %s", startLabel);
-	launcher->LogIt(str_buffer);
-	game->saver->SaveString("START_LABEL", "start_label");
-
 	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
 	startLaunches++;
 	game->saver->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 
+	bck_music = NULL;
 	bck_music = launcher->CreateMusic("game_song.mp3", true);
 	bck_music->Play();
 }
@@ -62,8 +58,11 @@ void MainScreen::Update(float sec){
 	graphics->DrawImage(pos, x_img);
 	pos.x -= 200;
 	pos.y += 300;
-	sprintf(str_buffer, "Screen starts %d times", start_count);
-	texter->DrawText(pos, str_buffer);
+	toascii(start_count);
+	string msg = "Screen starts ";
+	msg += to_string(start_count);
+	msg += " times";
+	texter->DrawText(pos, msg.c_str());
 	music_btn->Update();
 	btn->Update();
 }

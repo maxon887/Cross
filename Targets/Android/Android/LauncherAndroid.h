@@ -31,18 +31,18 @@ public:
 	LauncherAndroid(android_app* app, int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
-	const char* DataPath();
-	void LogIt(const char* str);
-	Sound* CreateSound(const char* filename, bool loop);
-	Music* CreateMusic(const char* filename, bool loop);
-	void LoadFile(const char* filename, unsigned char** buffer, int* length);
-	int LoadDescriptor(const char* filename, off_t* start, off_t* length);
+	string AssetsPath();
+	string DataPath();
+	void LogIt(string str);
+	Sound* CreateSound(string filename, bool loop);
+	Music* CreateMusic(string filename, bool loop);
+	void LoadFile(string filename, unsigned char** buffer, int* length);
+	int LoadDescriptor(string filename, off_t* start, off_t* length);
 	//unsigned char* ImageFromAssets(const char* filename, int* width, int* height);
 private:
 	int width;
 	int height;
-	char data_path[BUF_LEN];
-	char str_buff[BUF_LEN];
+	string data_path;
 	AAssetManager* asset_manager;
 	android_app* app;
 };

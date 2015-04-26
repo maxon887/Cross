@@ -19,14 +19,15 @@
 
 #include "Graphics.h"
 
+/* Class that reflected images loaded in to memory */
 class Image{
-//User module
 public:
 	/* Return virtual image width */
     float GetWidth();
 	/* Return virtual image height */
     float GetHeight();
-//Framework module. You don't need call any of this methods or modify variable
+
+//Internal data. You don't need call any of this methods or modify variable
 public:
     float angle;
 	int texWidth;

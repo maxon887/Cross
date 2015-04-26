@@ -29,9 +29,10 @@ LauncherAndroid::LauncherAndroid(android_app* app, int width, int height){
 	jclass android_content_Context = env->GetObjectClass(app->activity->clazz);
 	jmethodID midGetPackageName = env->GetMethodID(android_content_Context, "getPackageName", "()Ljava/lang/String;");
 	jstring packageName = (jstring)env->CallObjectMethod(app->activity->clazz, midGetPackageName);
-	const char* appname = env->GetStringUTFChars(packageName, NULL);
+	string appname = env->GetStringUTFChars(packageName, NULL);
 	app->activity->vm->DetachCurrentThread();
-	sprintf(data_path, "/data/data/%s/files", appname);
+	data_path = "/data/data/" + appname + "/files";
+	//sprintf(data_path, "/data/data/%s/files", appname);
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -42,37 +43,37 @@ int LauncherAndroid::GetTargetHeight(){
 	return height;
 }
 
-const char* LauncherAndroid::DataPath(){
+string LauncherAndroid::AssetsPath(){
+	return "This platform do not specify application assets folder.\nAll assets needs to be load through asset manager";
+}
+
+string LauncherAndroid::DataPath(){
 	return data_path;
 }
 
-void LauncherAndroid::LogIt(const char* str){
-	__android_log_print(ANDROID_LOG_DEBUG, "Cross++", "%s", str);
+void LauncherAndroid::LogIt(string str){
+	__android_log_print(ANDROID_LOG_DEBUG, "Cross++", "%s", str.c_str());
 }
 
-Sound* LauncherAndroid::CreateSound(const char* filename, bool loop){
+Sound* LauncherAndroid::CreateSound(string filename, bool loop){
 	unsigned char* data;
 	int length;
 	LoadFile(filename, &data, &length);
 	return new AudioAndroid(data, length, loop);
 }
 
-Music* LauncherAndroid::CreateMusic(const char* filename, bool loop){
-	//unsigned char* data;
-	//int length;
-	//LoadFile(filename, &data, &length);
-	//return new AudioAndroid(data, length, loop);
+Music* LauncherAndroid::CreateMusic(string filename, bool loop){
 	off_t start;
 	off_t length;
 	int desc = LoadDescriptor(filename, &start, &length);
 	return new MusicAndroid(desc, start, length);
 }
 
-void LauncherAndroid::LoadFile(const char* filename, unsigned char** buffer, int* length){
-	AAsset* asset = AAssetManager_open(asset_manager, filename, AASSET_MODE_STREAMING);
+void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* length){
+	AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
 	if(!asset){
-		sprintf(str_buff, "Can not load asset %s", filename);
-		throw str_buff;
+		string msg = "Can't load asset " + filename;
+		throw msg;
 	}
 	//long fileSize = AAsset_getLength(asset);
 	*length = AAsset_getLength(asset);
@@ -80,14 +81,10 @@ void LauncherAndroid::LoadFile(const char* filename, unsigned char** buffer, int
 	*buffer = (unsigned char*)malloc(*length);
 	int read = AAsset_read(asset, *buffer, *length);
 	AAsset_close(asset);
-	if(read != *length){
-		sprintf(str_buff, "File %s was particaly read", filename);
-		throw str_buff;
-	}
 }
 
-int LauncherAndroid::LoadDescriptor(const char* filename, off_t* start, off_t* length){
-	AAsset* asset = AAssetManager_open(asset_manager, filename, AASSET_MODE_STREAMING);
+int LauncherAndroid::LoadDescriptor(string filename, off_t* start, off_t* length){
+	AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
 	int desc = AAsset_openFileDescriptor(asset, start, length);
 	AAsset_close(asset);
 	return desc;

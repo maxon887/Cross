@@ -18,7 +18,6 @@
 #pragma once
 
 class PointX{
-//User module
 public:
 	float x;
 	float y;

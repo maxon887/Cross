@@ -23,7 +23,6 @@
 #include "Image.h"
 
 class Button{
-//User module
 public:
 	Button(Game* game, PointX location, Image* release, Image* pressed);
 	void Update();
@@ -31,7 +30,7 @@ public:
 	float GetWidth();
 	float GetHeight();
 	~Button();
-//Framework module. You don't need call any of this methods or modify variable
+//Internal data. You don't need call any of this methods or modify variable
 protected:
 	Launcher* launcher;
 	Graphics* graphics;

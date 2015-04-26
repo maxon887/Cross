@@ -65,7 +65,7 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<locationURI>DEMO_DATA</locationURI>
+			<locationURI>DEMO_ASSETS</locationURI>
 		</link>
 		<link>
 			<name>include</name>
@@ -77,6 +77,10 @@
 		<variable>
 			<name>CROSS_SRC</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Sources</value>
+		</variable>
+		<variable>
+			<name>DEMO_ASSETS</name>
+			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Demo/Assets</value>
 		</variable>
 		<variable>
 			<name>DEMO_DATA</name>

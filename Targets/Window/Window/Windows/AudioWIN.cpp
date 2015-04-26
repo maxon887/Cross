@@ -48,15 +48,16 @@ static void end_cb(void * data){
 	//sound->CheckPaError(err);
 }
 
-AudioWIN::AudioWIN(Launcher* launcher, const char* filename, bool loop){
+AudioWIN::AudioWIN(Launcher* launcher, string filename, bool loop){
 	this->launcher = launcher;
-	strcpy(source, filename);
+	//strcpy(source, filename);
+	source = filename;
 	this->loop = loop;
 	PaError err = Pa_Initialize();
 	CheckPaError(err);
 	PaStreamParameters outParams;
 	SF_INFO sfinfo;
-	file = sf_open(filename, SFM_READ, &sfinfo);
+	file = sf_open(filename.c_str(), SFM_READ, &sfinfo);
 
 	outParams.device = Pa_GetDefaultOutputDevice();
 	outParams.channelCount = sfinfo.channels;
@@ -93,8 +94,9 @@ void AudioWIN::Pause(){
 
 void AudioWIN::CheckPaError(PaError err){
 	if(err != paNoError){
-		sprintf(str_buf, "PortAudio error: %s", Pa_GetErrorText(err));
-		throw str_buf;
+		//sprintf(str_buf, "PortAudio error: %s", Pa_GetErrorText(err));
+		string msg = "PortAudio error: " + string(Pa_GetErrorText(err));
+		throw msg;
 	}
 }
 

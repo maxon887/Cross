@@ -29,16 +29,27 @@
 								</outputEntries>
 							</builder>
 							<tool id="com.android.gcc.compiler.929089712" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
-								<option id="com.android.gcc.option.includePath.494748079" superClass="com.android.gcc.option.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;H:\DIST\android-ndk\sources\cxx-stl\gnu-libstdc++\4.8\include&quot;"/>
-								</option>
+								<option id="com.android.gcc.option.includePath.494748079" superClass="com.android.gcc.option.includePath" valueType="includePath"/>
 								<inputType id="com.android.gcc.inputType.211096935" superClass="com.android.gcc.inputType"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<folderInfo id="com.android.toolchain.gcc.1373066367.1271628520" name="/" resourcePath="Demo">
+						<toolChain id="com.android.toolchain.gcc.1047685344" name="Android GCC" superClass="com.android.toolchain.gcc" unusedChildren="">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform" isAbstract="false" superClass="com.android.targetPlatform"/>
+							<tool id="com.android.gcc.compiler.896797964" name="Android GCC Compiler" superClass="com.android.gcc.compiler.929089712">
+								<option id="com.android.gcc.option.includePath.1160341867" superClass="com.android.gcc.option.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;H:\DIST\android-ndk\sources\cxx-stl\gnu-libstdc++\4.8\include\bits&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;H:\DIST\android-ndk\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include\bits&quot;"/>
+								</option>
+								<inputType id="com.android.gcc.inputType.2069798171" superClass="com.android.gcc.inputType"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Android"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Cross"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Demo"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="jni"/>
 					</sourceEntries>
 				</configuration>

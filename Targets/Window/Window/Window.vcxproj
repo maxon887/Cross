@@ -43,13 +43,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Games/Demo/Sources;../../../Sources/SOIL;Windows/;../../../Sources/Utils;../../../Sources;../../../Games/Snaky/Sources;portaudio_include/;sndfile_include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Games/Demo/Sources;../../../Sources/SOIL;Windows/;../../../Sources/Utils;../../../Sources;../../../Games/Snaky/Sources;portaudio_include/;sndfile_include/;fmod_include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;portaudio_x86.lib;libsndfile-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;portaudio_x86.lib;libsndfile-1.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,8 +88,11 @@
     <ClCompile Include="..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="WinAPI.cpp" />
+    <ClCompile Include="Windows\common.cpp" />
+    <ClCompile Include="Windows\common_platform.cpp" />
     <ClCompile Include="Windows\LauncherWIN.cpp" />
     <ClCompile Include="Windows\AudioWIN.cpp" />
+    <ClCompile Include="Windows\MusicWIN.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Games\Demo\Sources\Demo.h" />
@@ -116,18 +119,11 @@
     <ClInclude Include="..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h" />
+    <ClInclude Include="Windows\common.h" />
+    <ClInclude Include="Windows\common_platform.h" />
     <ClInclude Include="Windows\LauncherWIN.h" />
     <ClInclude Include="Windows\AudioWIN.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Games\Demo\Data\ButtonPressed.png" />
-    <Image Include="..\..\..\Games\Demo\Data\ButtonRelease.png" />
-    <Image Include="..\..\..\Games\Demo\Data\X128.png" />
-    <Image Include="..\..\..\Games\Demo\Data\X256.png" />
-    <Image Include="..\..\..\Games\Demo\Data\X512.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\Games\Demo\Data\X++.psd" />
+    <ClInclude Include="Windows\MusicWIN.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

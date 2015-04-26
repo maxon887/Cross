@@ -38,39 +38,40 @@
 
 class Image;
 
+/* Class responsible for drawing objects into the sceen */
 class Graphics{
-//User module
 public:
-	/* Clear screen with particular color */
+	/*	Clear screen with particular color.
+		Input color range from 0 to 1.*/
 	void Clear(float r, float g, float b);
 	/* Scale Image */
 	void ScaleImage(Image* img, float factor);
 	/* Rotate Image counterclockwise in angle degree */
 	void Rotate(Image* img, float angle);
-	/* Create Image from source. data do not copy. */
+	/* Create Image from source. Data do not copy. */
 	Image* CreateImage(Image* src, RectX region);
-	/* Create Image from source. data do not copy. */
+	/* Create Image from source with sacale factor. Data do not copy. */
 	Image* CreateImage(Image* src, RectX region, float scaleFactor);
 	/* Load Image from file */
-	Image* LoadImage(const char* filename);
+	Image* LoadImage(string filename);
 	/* Load scaled image from file */
-	Image* LoadImage(const char* filename, float scaleFactor);
-
+	Image* LoadImage(string filename, float scaleFactor);
+	/* Delete all data related with Image */
 	void ReleaseImage(Image* img);
-	/* Load scaled image filled repeated images*/
-	Image* LoadRepeatedImage(const char* filename, float scaleFactor, float width, float height);
-	/* Draws particular image in game coordinates */
+	/* Load scaled image filled with images*/
+	Image* LoadRepeatedImage(string filename, float scaleFactor, float width, float height);
+	/* Draws Iimage in game coordinates */
 	void DrawImage(float x, float y, Image* img);
-	/* Draws particular image in game coordinates */
+	/* Draws Image in game coordinates */
 	void DrawImage(PointX p, Image* img);
-//Framework module. You don't need call any of this methods or modify variable
+//Internal data. You don't need call any of this methods or modify variable
 public:
 	Graphics(Game* game);
 private:
-	unsigned char* LoadImageInternal(const char* filename, GLuint* textureID, int* width, int* height);
+	unsigned char* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
 	void DrawTargetImage(float x, float y, Image* img);
 	Game* game;
 	Launcher* launcher;
 	GLint prev_texID;
-	char str_buffer[BUF_LEN];
+	//char str_buffer[BUF_LEN];
 };

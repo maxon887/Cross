@@ -17,28 +17,35 @@
 	
 #pragma once
 
+#include "Launcher.h"
 #include "Game.h"
 #include "Graphics.h"
-#include "Launcher.h"
 #include "Input.h"
 #include "Saver.h"
+#include "Music.h"
+#include "Sound.h"
 
+/* Class reflect particular game scene. Like menu, level 1 etc.
+   Every game must implemnt at least one Screen class.
+   Whith will loaded through Game::GetStartScreen function */
 class Screen{
-//User module
 public:
+	/* Screen object need game class for internal purposes.
+	   Do not delete screen yourself */
 	Screen(Game* game);
-	/* Initialize basic modules. Calls automaticaly */
-	void Init();
-	/* Calls once before screen show. */
+	/* Calls once before screen show up. */
 	virtual void Start();
-	/* Calls every frame. */
+	/* Calls every frame update. Idealy 60 times per second(60fps)*/
 	virtual void Update(float sec);
-
-	virtual ~Screen();
 protected:
-	Game* game;
-	Launcher* launcher;
-	Graphics* graphics;
-    Input* input;
-	char str_buffer[BUF_LEN];
+	Game* game;				//
+	Launcher* launcher;		//
+	Graphics* graphics;		// Copy of vital game modules just for comfortability
+    Input* input;			//
+	Saver* saver;			//
+	//char str_buffer[BUF_LEN];
+//Internal data. You don't need call any of this methods or modify variable
+public:
+	void Init();
+	virtual ~Screen();
 };

@@ -21,9 +21,8 @@
 #define TARGET_HEIGHT 900;
 
 #include <Windows.h>
-#include <stdio.h>
 #include "Launcher.h"
-#include "Music.h"
+#include "MusicWIN.h"
 #include "AudioWIN.h"
 
 class LauncherWIN : public Launcher{
@@ -31,11 +30,12 @@ public:
 	LauncherWIN(HWND wnd);
 	int GetTargetWidth();
 	int GetTargetHeight();
-	const char* DataPath();
-	void LogIt(const char* str);
-	Sound* CreateSound(const char* filename, bool loop);
-	Music* CreateMusic(const char* filename, bool loop);
-	void ShowMessage(const char* msg);
+	string AssetsPath();
+	string DataPath();
+	void LogIt(string msg);
+	Sound* CreateSound(string filename, bool loop);
+	Music* CreateMusic(string filename, bool loop);
+	void ShowMessage(string msg);
 private:
 	HWND wnd;
 	char str_buffer[256];

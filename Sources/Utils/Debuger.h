@@ -21,9 +21,6 @@
 #include "Input.h"
 #include "Texter.h"
 
-#include <chrono>
-using namespace std::chrono;
-
 class Debuger{
 public:
 	Debuger(Game* game);
@@ -31,12 +28,10 @@ public:
 	void SetUpdateTime(float sec);
 
 	static void StartCheckTime();
-	static void StopCheckTime(const char* label);
+	static void StopCheckTime(string label);
 private:
 	Texter* texter;
 	Input* input;
-	//char buffer[BUF_LEN];
-
 
 	float update_time;
 	float update_sum;

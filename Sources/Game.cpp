@@ -19,7 +19,6 @@
 #include "Launcher.h"
 #include "Graphics.h"
 #include "Screen.h"
-#include "Saver.h"
 #include "Debuger.h"
 #ifdef WIN
 #include "LauncherWIN.h"
@@ -70,9 +69,8 @@ void Game::Start(){
 		debuger = new Debuger(this);
 #endif
 		SetScreen(GetStartScreen());
-	}catch(const char* msg){
-		sprintf(str_buffer, "Exception: %s", msg);
-		launcher->LogIt(str_buffer);
+	}catch(string msg){
+		msg = "Exception: " + msg;
 #ifdef WIN
 		LauncherWIN* win = (LauncherWIN*)launcher;
 		win->ShowMessage(msg);
@@ -94,9 +92,9 @@ void Game::Update(){
 		auto up = duration_cast<microseconds>(now - render_time).count();
 		debuger->SetUpdateTime((float)up);
 #endif
-	}catch(const char* msg){
-		sprintf(str_buffer, "Exception: %s", msg);
-		launcher->LogIt(str_buffer);
+	}catch(string msg){
+		msg = "Exception: " + msg;
+		launcher->LogIt(msg);
 #ifdef WIN
 		LauncherWIN* win = (LauncherWIN*)launcher;
 		win->ShowMessage(msg);

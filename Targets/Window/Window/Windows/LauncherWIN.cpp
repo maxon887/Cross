@@ -29,25 +29,31 @@ int LauncherWIN::GetTargetHeight(){
 	return TARGET_HEIGHT;
 }
 
-const char* LauncherWIN::DataPath(){
-	return "../../../Games/Demo/Data";
+string LauncherWIN::AssetsPath(){
+	return "../../../Games/Demo/Assets/";
 }
 
-void LauncherWIN::LogIt(const char* str){
-	sprintf(str_buffer, "%s\n", str);
-    OutputDebugString(str_buffer);
+string LauncherWIN::DataPath(){
+	return "../../../Games/Demo/Data/";
 }
 
-Sound* LauncherWIN::CreateSound(const char* filename, bool loop){
-	sprintf(str_buffer, "%s/%s", DataPath(), filename);
+void LauncherWIN::LogIt(string msg){
+	msg += "\n";
+	OutputDebugString(msg.c_str());
+}
+
+Sound* LauncherWIN::CreateSound(string filename, bool loop){
+	sprintf(str_buffer, "%s/%s", AssetsPath(), filename);
 	return new AudioWIN(this, str_buffer, loop);
 }
 
-Music* LauncherWIN::CreateMusic(const char* filename, bool loop){
-	sprintf(str_buffer, "%s/%s", DataPath(), filename);
-	return new AudioWIN(this, str_buffer, loop);
+Music* LauncherWIN::CreateMusic(string filename, bool loop){
+	//sprintf(str_buffer, "%s/%s", DataPath(), filename);
+	//return new AudioWIN(this, str_buffer, loop);
+	filename = AssetsPath() + filename;
+	return new MusicWIN(filename);
 }
 
-void LauncherWIN::ShowMessage(const char* msg){
-	MessageBox(wnd, msg, "Exception", MB_OK);
+void LauncherWIN::ShowMessage(string msg){
+	MessageBox(wnd, msg.c_str(), "Exception", MB_OK);
 }
