@@ -35,6 +35,7 @@ Game::Game(Launcher* launcher, float width){
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
 	scale_factor = (float)launcher->GetTargetWidth() / width;
+	launcher->LogIt("Game initialized");
 }
 
 float Game::GetScaleFactor(){
@@ -69,6 +70,7 @@ void Game::Start(){
 		debuger = new Debuger(this);
 #endif
 		SetScreen(GetStartScreen());
+		launcher->LogIt("Start screen load successfully");
 	}catch(string msg){
 		msg = "Exception: " + msg;
 #ifdef WIN

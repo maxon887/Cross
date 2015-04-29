@@ -25,7 +25,8 @@
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS
 #elif defined(ANDROID) || defined(__ANDROID__)
-#define __cplusplus 201103L
+void* bind(void* func, void* sender);
+//#define __cplusplus 201103L
 //#undef ANDROID
 //#define ANDROID
 #endif
@@ -35,8 +36,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <functional>
 
+#include <functional>
 #include <chrono>
 using namespace std;
 using namespace chrono;
@@ -52,7 +53,7 @@ class Debuger;
 class Saver;
 
 /*	Core game class. Every game must inherit that class.
-	Also provide interfeces for all vitual mudus. Like graphics, input, sound etc. */
+	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */
 class Game{
 public:
 	Launcher* launcher;

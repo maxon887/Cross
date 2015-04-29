@@ -17,17 +17,28 @@
 
 #pragma once
 
-#include <SLES/OpenSLES.h>
-#include <SLES/OpenSLES_Android.h>
 #include "Game.h"
 #include "Sound.h"
 #include "Music.h"
+#include "fmod.hpp"
+#include "common.h"
 
 class AudioAndroid : public Sound,
 					 public Music{
 public:
+	static void Init();
 	AudioAndroid(unsigned char* data, int length, bool loop);
 	void Play();
 	void Pause();
+	void Resume();
 	void Stop();
+	bool IsPlaying();
+private:
+	static FMOD::System* system;
+	static FMOD_RESULT result;
+	static unsigned int version;
+	static void* extradriverdata;
+
+	FMOD::Sound* sound;
+	FMOD::Channel* channel;
 };

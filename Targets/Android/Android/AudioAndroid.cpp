@@ -18,98 +18,30 @@
 
 #include "AudioAndroid.h"
 
-static SLObjectItf engine;
-static SLObjectItf player;
-const SLInterfaceID pIDs[1] = { SL_IID_ENGINE };
-const SLboolean pIDsRequired[1] = { SL_BOOLEAN_TRUE };
+FMOD::System*	AudioAndroid::system;
+FMOD_RESULT		AudioAndroid::result;
+unsigned int	AudioAndroid::version;
+void*			AudioAndroid::extradriverdata;
 
-struct WAVHeader{
-    char                RIFF[4];
-    unsigned long       ChunkSize;
-    char                WAVE[4];
-    char                fmt[4];
-    unsigned long       Subchunk1Size;
-    unsigned short      AudioFormat;
-    unsigned short      NumOfChan;
-    unsigned long       SamplesPerSec;
-    unsigned long       bytesPerSec;
-    unsigned short      blockAlign;
-    unsigned short      bitsPerSample;
-    char                Subchunk2ID[4];
-    unsigned long       Subchunk2Size;
-};
+void AudioAndroid::Init(){/*
+	Common_Init(&extradriverdata);
+	result = FMOD::System_Create(&system);
+    ERRCHECK(result);
 
-struct SoundBuffer{
-    WAVHeader* header;
-    unsigned char* buffer;
-    int length;
-};
+    result = system->getVersion(&version);
+    ERRCHECK(result);
 
-SoundBuffer* createSoundBuffer(unsigned char* data, int length){
-	SoundBuffer* result = new SoundBuffer();
-	WAVHeader* wavHeader = reinterpret_cast<WAVHeader*>(data);
-	result->header = wavHeader;
-	result->buffer = data + sizeof(WAVHeader);
-	result->length = length;
-    return result;
+	if (version < FMOD_VERSION)
+    {
+        Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
+    }
+
+    result = system->init(32, FMOD_INIT_NORMAL, extradriverdata);
+    ERRCHECK(result);*/
 }
 
 AudioAndroid::AudioAndroid(unsigned char* data, int length, bool loop){
-	SLresult res = slCreateEngine(&engine, 0, NULL, 1, pIDs, pIDsRequired);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at slCreateEngine";
-	res = (*engine)->Realize(engine, SL_BOOLEAN_FALSE);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at Realize engine";
-	SLEngineItf engineItf;
-	res = (*engine)->GetInterface(engine, SL_IID_ENGINE, &engineItf);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at GetInterface engine";
-	SLObjectItf outputMix;
-	const SLInterfaceID pOutputMixIDs[] = {};
-	const SLboolean pOutputMixRequired[] = {};
-	res = (*engineItf)->CreateOutputMix(engineItf, &outputMix, 0, pOutputMixIDs, pOutputMixRequired);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at CreateOutpuMix engineItf";
-	res = (*outputMix)->Realize(outputMix, SL_BOOLEAN_FALSE);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at Realize outputMix";
 
-	SLDataLocator_AndroidSimpleBufferQueue locatorBufferQueue = { SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 1 };
-	SLDataFormat_PCM formatPMC;
-	formatPMC.formatType = SL_DATAFORMAT_PCM;
-	formatPMC.numChannels = 1;
-	formatPMC.samplesPerSec = SL_SAMPLINGRATE_44_1;
-	formatPMC.bitsPerSample = SL_PCMSAMPLEFORMAT_FIXED_16;
-	formatPMC.containerSize = SL_PCMSAMPLEFORMAT_FIXED_16;
-	formatPMC.channelMask = SL_SPEAKER_FRONT_CENTER;
-	formatPMC.endianness = SL_BYTEORDER_LITTLEENDIAN;
-	SLDataSource audioSrc = { &locatorBufferQueue, &formatPMC };
-	SLDataLocator_OutputMix locatorOutputMix = { SL_DATALOCATOR_OUTPUTMIX, outputMix };
-	SLDataSink audioSnk = { &locatorOutputMix, NULL };
-	const SLInterfaceID pIDs[1] = {SL_IID_BUFFERQUEUE};
-	const SLboolean pIDsRequired[1] = {SL_BOOLEAN_TRUE};
-
-	res = (*engineItf)->CreateAudioPlayer(engineItf, &player, &audioSrc, &audioSnk, 1, pIDs, pIDsRequired);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at CreateAudioPlayer";
-	res = (*player)->Realize(player, SL_BOOLEAN_FALSE);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at Realize player";
-
-	SLPlayItf playItf;
-	res = (*player)->GetInterface(player, SL_IID_PLAY, &playItf);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at GetInterface player";
-	SLBufferQueueItf bufferQueueItf;
-	res = (*player)->GetInterface(player, SL_IID_BUFFERQUEUE, &bufferQueueItf);
-	if(res != SL_RESULT_SUCCESS)
-		throw "Error at GetInterface player";
-	res = (*playItf)->SetPlayState(playItf, SL_PLAYSTATE_PLAYING);
-
-	SoundBuffer* sound = createSoundBuffer(data, length);
-	(*bufferQueueItf)->Clear(bufferQueueItf);
-	(*bufferQueueItf)->Enqueue(bufferQueueItf, sound->buffer, sound->length);
 }
 
 void AudioAndroid::Play(){
@@ -122,4 +54,12 @@ void AudioAndroid::Pause(){
 
 void AudioAndroid::Stop(){
 
+}
+
+void AudioAndroid::Resume(){
+
+}
+
+bool AudioAndroid::IsPlaying(){
+	return false;
 }

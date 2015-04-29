@@ -1,8 +1,19 @@
 LOCAL_PATH := $(call my-dir)
+#
+# FMOD Shared Library
+# 
+include $(CLEAR_VARS)
+
+LOCAL_MODULE            := fmod
+LOCAL_SRC_FILES         := ../FMOD/libfmodL.so
+LOCAL_EXPORT_C_INCLUDES := FMOD
+
+include $(PREBUILT_SHARED_LIBRARY)
+
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := cross
-
 LOCAL_CPP_FEATURES += exceptions
 
 LOCAL_C_INCLUDES := Android \
@@ -13,6 +24,9 @@ LOCAL_C_INCLUDES := Android \
 					../../Games/Demo/Sources 
 
 LOCAL_SRC_FILES := 	cross.cpp \
+					../FMOD/common.cpp \
+					../FMOD/common_platform.cpp \
+					../FMOD/play.cpp \
 					../Android/LauncherAndroid.cpp \
 					../Android/AudioAndroid.cpp \
 					../Android/MusicAndroid.cpp \
@@ -40,6 +54,7 @@ LOCAL_SRC_FILES := 	cross.cpp \
 					
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM -lOpenSLES
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
+LOCAL_SHARED_LIBRARIES  := fmod
 
 include $(BUILD_SHARED_LIBRARY)
 

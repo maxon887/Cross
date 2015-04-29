@@ -31,6 +31,7 @@ Graphics::Graphics(Game* game){
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	prev_texID = -1;
+	launcher->LogIt("Graphics initialized");
 }
 
 void Graphics::Clear(float r, float g, float b){

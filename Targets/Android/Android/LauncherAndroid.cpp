@@ -32,6 +32,7 @@ LauncherAndroid::LauncherAndroid(android_app* app, int width, int height){
 	string appname = env->GetStringUTFChars(packageName, NULL);
 	app->activity->vm->DetachCurrentThread();
 	data_path = "/data/data/" + appname + "/files";
+	AudioAndroid::Init();
 	//sprintf(data_path, "/data/data/%s/files", appname);
 }
 
@@ -56,17 +57,21 @@ void LauncherAndroid::LogIt(string str){
 }
 
 Sound* LauncherAndroid::CreateSound(string filename, bool loop){
+	/*
 	unsigned char* data;
 	int length;
 	LoadFile(filename, &data, &length);
-	return new AudioAndroid(data, length, loop);
+	return new AudioAndroid(data, length, loop);*/
+	return NULL;
 }
 
 Music* LauncherAndroid::CreateMusic(string filename, bool loop){
+	/*
 	off_t start;
 	off_t length;
 	int desc = LoadDescriptor(filename, &start, &length);
-	return new MusicAndroid(desc, start, length);
+	return new MusicAndroid(desc, start, length);*/
+	return NULL;
 }
 
 void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* length){

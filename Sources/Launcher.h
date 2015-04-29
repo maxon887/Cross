@@ -24,9 +24,9 @@
 /* Class witch contains platform specific code */
 class Launcher{
 public:
-	/* Returns phisycal screen width in pixels */
+	/* Returns physical screen width in pixels */
 	virtual int GetTargetWidth() = 0;
-	/* Returns phisycal screen height in pixels */
+	/* Returns physical screen height in pixels */
 	virtual int GetTargetHeight() = 0;
 	/* Log out message */
 	virtual void LogIt(string msg) = 0;

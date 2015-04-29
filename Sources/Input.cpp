@@ -16,12 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Input.h"
+#include "Launcher.h"
 
 Input::Input(Game* game){
 	this->game = game;
 	input_state = false;
 	key_state = false;
 	key_key = KEY_UNDEFINED;
+	game->launcher->LogIt("Input initialized");
 }
 
 bool Input::HaveInput(){
