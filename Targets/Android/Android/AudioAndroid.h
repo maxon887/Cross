@@ -22,12 +22,13 @@
 #include "Music.h"
 #include "fmod.hpp"
 #include "common.h"
+#include <thread>
 
 class AudioAndroid : public Sound,
 					 public Music{
 public:
 	static void Init();
-	AudioAndroid(unsigned char* data, int length, bool loop);
+	AudioAndroid(string path, bool loop, bool isStream);
 	void Play();
 	void Pause();
 	void Resume();
@@ -38,6 +39,9 @@ private:
 	static FMOD_RESULT result;
 	static unsigned int version;
 	static void* extradriverdata;
+
+	static mutex audio_mutex;
+	static AudioAndroid* current_audio;
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;

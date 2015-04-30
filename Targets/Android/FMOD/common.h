@@ -41,6 +41,8 @@ enum Common_Button
     BTN_QUIT
 };
 
+
+int GetThreadID();
 /* Cross platform functions (common) */
 void Common_Fatal(const char *format, ...);
 void Common_Draw(const char *format, ...);

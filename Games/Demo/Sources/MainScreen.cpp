@@ -37,11 +37,11 @@ void MainScreen::Start(){
 	pos.y = on->GetHeight();
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
-	//bck_music = launcher->CreateMusic("eskimo.mp3", true);
+	bck_music = launcher->CreateMusic("eskimo.mp3", true);
 	bool musicState = saver->LoadBool("MUSIC_STATE");
 	music_btn->SetState(musicState);
 	if(musicState){
-		//bck_music->Play();
+		bck_music->Play();
 		song_started = true;
 	}else{
 		song_started = false;
