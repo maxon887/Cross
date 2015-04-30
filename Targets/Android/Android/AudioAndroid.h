@@ -22,12 +22,12 @@
 #include "Music.h"
 #include "fmod.hpp"
 #include "common.h"
-#include <thread>
 
 class AudioAndroid : public Sound,
 					 public Music{
 public:
 	static void Init();
+	static void Release();
 	AudioAndroid(string path, bool loop, bool isStream);
 	void Play();
 	void Pause();

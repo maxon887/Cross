@@ -37,7 +37,7 @@ void MainScreen::Start(){
 	pos.y = on->GetHeight();
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
-	bck_music = launcher->CreateMusic("eskimo.mp3", true);
+	bck_music = launcher->CreateMusic("Eskimo.mp3", true);
 	bool musicState = saver->LoadBool("MUSIC_STATE");
 	music_btn->SetState(musicState);
 	if(musicState){
@@ -61,8 +61,8 @@ void MainScreen::Start(){
 	blue_sound_btn->SetLocation(pos);
 	blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
 
-	//jaguar = launcher->CreateSound("Jaguar.wav", false);
-	//truck = launcher->CreateSound("Truck.wav", true);
+	jaguar = launcher->CreateSound("Jaguar.wav", false);
+	truck = launcher->CreateSound("Truck.wav", true);
 
 	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
 	startLaunches++;

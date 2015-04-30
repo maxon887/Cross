@@ -94,5 +94,9 @@
 			<name>SNAKY_GAME</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Snaky/Sources</value>
 		</variable>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-2-ECLIPSE_HOME%7D/Trash/FMOD%20Studio%20API%20Android/api</value>
+		</variable>
 	</variableList>
 </projectDescription>

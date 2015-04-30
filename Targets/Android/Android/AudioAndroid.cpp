@@ -24,12 +24,7 @@ FMOD_RESULT		AudioAndroid::result;
 unsigned int	AudioAndroid::version;
 void*			AudioAndroid::extradriverdata;
 
-mutex 			AudioAndroid::audio_mutex;
-AudioAndroid*	AudioAndroid::current_audio;
-
 void AudioAndroid::Init(){
-
-    Common_Init(&extradriverdata);
 
     result = FMOD::System_Create(&system);
     ERRCHECK(result);
@@ -48,31 +43,17 @@ void AudioAndroid::Init(){
     FMOD::Sound* sound;
     FMOD::Channel* channel;
 
-    __android_log_print(ANDROID_LOG_DEBUG, "Cross++", "Is about to play");
-    audio_mutex.lock();
-    audio_mutex.lock();
-	result = system->createSound(Common_MediaPath("Eskimo.mp3"), FMOD_CREATESTREAM | FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
-	ERRCHECK(result);
-
-
-	result = system->playSound(sound, 0, false, &channel);
-	ERRCHECK(result);
-    __android_log_print(ANDROID_LOG_DEBUG, "Cross++", "Is playing");
-/*
-    FMOD::Sound* sound;
-    FMOD::Channel* channel;
-
-	result = system->createSound(Common_MediaPath("Eskimo.mp3"), FMOD_CREATESTREAM | FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
-	ERRCHECK(result);
-
-
-	result = system->playSound(sound, 0, false, &channel);
-	ERRCHECK(result);*/
-
+    __android_log_print(ANDROID_LOG_DEBUG, "Cross++", "Audio Initialized");
 }
 
-AudioAndroid::AudioAndroid(string path, bool loop, bool isStream){/*
+void AudioAndroid::Release(){
+    result = system->close();
+    ERRCHECK(result);
+}
+
+AudioAndroid::AudioAndroid(string path, bool loop, bool isStream){
 	FMOD_MODE mode = 0;
+	channel = NULL;
 	if(loop)
 		mode = FMOD_LOOP_NORMAL;
 	else
@@ -80,30 +61,35 @@ AudioAndroid::AudioAndroid(string path, bool loop, bool isStream){/*
 	if(isStream)
 		mode |= FMOD_CREATESTREAM;
 
-	result = system->createSound(path.c_str(), mode, 0, &sound);
-    ERRCHECK(result);*/
+	result = system->createSound(Common_MediaPath(path.c_str()), mode, 0, &sound);
+    ERRCHECK(result);
 }
 
+
 void AudioAndroid::Play(){
-	//result = system->playSound(sound, 0, false, &channel);
-	//ERRCHECK(result);
-	//current_audio = this;
-	//audio_mutex.unlock();
-	audio_mutex.unlock();
+	result = system->playSound(sound, 0, false, &channel);
+	ERRCHECK(result);
 }
 
 void AudioAndroid::Pause(){
-
-}
-
-void AudioAndroid::Stop(){
-
+	result = channel->setPaused(true);
+	ERRCHECK(result);
 }
 
 void AudioAndroid::Resume(){
+	result = channel->setPaused(false);
+	ERRCHECK(result);
+}
 
+void AudioAndroid::Stop(){
+	channel->stop();
 }
 
 bool AudioAndroid::IsPlaying(){
-	return false;
+	bool playing;
+	result = channel->isPlaying(&playing);
+    if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
+        ERRCHECK(result);
+    }
+	return playing;
 }

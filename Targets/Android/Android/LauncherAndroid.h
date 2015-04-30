@@ -17,14 +17,12 @@
 
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "Game.h"
 #include <android/log.h>
 #include <android/asset_manager.h>
 #include <android_native_app_glue.h>
 #include "Launcher.h"
 #include "AudioAndroid.h"
-#include "MusicAndroid.h"
 
 class LauncherAndroid : public Launcher{
 public:
@@ -37,8 +35,6 @@ public:
 	Sound* CreateSound(string filename, bool loop);
 	Music* CreateMusic(string filename, bool loop);
 	void LoadFile(string filename, unsigned char** buffer, int* length);
-	int LoadDescriptor(string filename, off_t* start, off_t* length);
-	//unsigned char* ImageFromAssets(const char* filename, int* width, int* height);
 private:
 	int width;
 	int height;

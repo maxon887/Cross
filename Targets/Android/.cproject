@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="com.android.toolchain.gcc.1373066367">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.android.toolchain.gcc.1373066367" moduleId="org.eclipse.cdt.core.settings" name="Default">
+		<cconfiguration id="com.android.toolchain.gcc.828294374">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.android.toolchain.gcc.828294374" moduleId="org.eclipse.cdt.core.settings" name="Default">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
@@ -18,31 +18,21 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.android.toolchain.gcc.1373066367" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
-					<folderInfo id="com.android.toolchain.gcc.1373066367.576564427" name="/" resourcePath="">
-						<toolChain id="com.android.toolchain.gcc.1866816648" name="Android GCC" superClass="com.android.toolchain.gcc">
-							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform.258762898" isAbstract="false" superClass="com.android.targetPlatform"/>
-							<builder id="com.android.builder.671128747" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Android Builder" superClass="com.android.builder">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.android.toolchain.gcc.828294374" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+					<folderInfo id="com.android.toolchain.gcc.828294374.970841566" name="/" resourcePath="">
+						<toolChain id="com.android.toolchain.gcc.856906229" name="Android GCC" superClass="com.android.toolchain.gcc">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform.845875564" isAbstract="false" superClass="com.android.targetPlatform"/>
+							<builder id="com.android.builder.355815898" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Android Builder" superClass="com.android.builder">
 								<outputEntries>
 									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="obj"/>
 									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="libs"/>
 								</outputEntries>
 							</builder>
-							<tool id="com.android.gcc.compiler.929089712" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
-								<option id="com.android.gcc.option.includePath.494748079" superClass="com.android.gcc.option.includePath" valueType="includePath"/>
-								<inputType id="com.android.gcc.inputType.211096935" superClass="com.android.gcc.inputType"/>
-							</tool>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="com.android.toolchain.gcc.1373066367.1271628520" name="/" resourcePath="Demo">
-						<toolChain id="com.android.toolchain.gcc.1047685344" name="Android GCC" superClass="com.android.toolchain.gcc" unusedChildren="">
-							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform" isAbstract="false" superClass="com.android.targetPlatform"/>
-							<tool id="com.android.gcc.compiler.896797964" name="Android GCC Compiler" superClass="com.android.gcc.compiler.929089712">
-								<option id="com.android.gcc.option.includePath.1160341867" superClass="com.android.gcc.option.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;H:\DIST\android-ndk\sources\cxx-stl\gnu-libstdc++\4.8\include\bits&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;H:\DIST\android-ndk\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include\bits&quot;"/>
+							<tool id="com.android.gcc.compiler.745206282" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
+								<option id="com.android.gcc.option.includePath.574624362" superClass="com.android.gcc.option.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;h:\DIST\android-ndk\platforms\android-9\arch-arm\usr\include&quot;"/>
 								</option>
-								<inputType id="com.android.gcc.inputType.2069798171" superClass="com.android.gcc.inputType"/>
+								<inputType id="com.android.gcc.inputType.1649718440" superClass="com.android.gcc.inputType"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
@@ -50,6 +40,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Android"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Cross"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Demo"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="FMOD"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="jni"/>
 					</sourceEntries>
 				</configuration>
@@ -58,18 +49,14 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="Cross++.null.2028110416" name="Cross++"/>
+		<project id="Cross++.null.1987032800" name="Cross++"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1373066367;com.android.toolchain.gcc.1373066367.576564427;com.android.gcc.compiler.929089712;com.android.gcc.inputType.211096935">
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.828294374;com.android.toolchain.gcc.828294374.970841566;com.android.gcc.compiler.745206282;com.android.gcc.inputType.1649718440">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Default">
-			<resource resourceType="PROJECT" workspacePath="/Cross++"/>
-		</configuration>
-	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

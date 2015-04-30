@@ -26,10 +26,8 @@ LOCAL_C_INCLUDES := Android \
 LOCAL_SRC_FILES := 	cross.cpp \
 					../FMOD/common.cpp \
 					../FMOD/common_platform.cpp \
-					../FMOD/play.cpp \
 					../Android/LauncherAndroid.cpp \
 					../Android/AudioAndroid.cpp \
-					../Android/MusicAndroid.cpp \
 					../../../Games/Snaky/Sources/SnakyGame.cpp \
 					../../../Games/Snaky/Sources/MenuScreen.cpp \
 					../../../Games/Demo/Sources/Demo.cpp \

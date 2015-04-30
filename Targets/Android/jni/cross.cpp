@@ -25,6 +25,7 @@
 
 #include "Demo.h"
 #include "LauncherAndroid.h"
+#include "AudioAndroid.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
 
@@ -117,10 +118,10 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 		break;
 	}
 }
-/*
-static void terminate(){
 
-}*/
+static void on_exit(){
+	//AudioAndroid::Release();
+}
 
 void android_main(android_app* application){
 	app = application;
@@ -141,7 +142,7 @@ void android_main(android_app* application){
 			if(source != NULL)
 				source->process(app, source);
 			if(app->destroyRequested != 0){
-				//terminate();
+				on_exit();
 				return;
 			}
 		}

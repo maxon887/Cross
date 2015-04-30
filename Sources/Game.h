@@ -36,7 +36,7 @@ void* bind(void* func, void* sender);
 #include <string>
 #include <iostream>
 #include <fstream>
-
+#include <vector>
 #include <functional>
 #include <chrono>
 using namespace std;
