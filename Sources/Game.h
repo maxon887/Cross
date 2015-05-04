@@ -22,7 +22,7 @@
 #ifdef _WIN32
 #define WIN
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
-#define IOS true
+#define IOS
 #elif defined(ANDROID) || defined(__ANDROID__)
 void* bind(void* func, void* sender);
 //#define __cplusplus 201103L
@@ -38,7 +38,6 @@ void* bind(void* func, void* sender);
 #include <vector>
 #include <functional>
 #include <chrono>
-
 using namespace std;
 using namespace chrono;
 
