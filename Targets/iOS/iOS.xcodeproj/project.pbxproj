@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		D41CFDA51AC2B4A300EB4EA3 /* Debuger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D41CFDA31AC2B4A300EB4EA3 /* Debuger.cpp */; };
 		D445C5A61ABAF5220077193B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D445C5A51ABAF5220077193B /* Entitlements.plist */; };
+		D480F0271AF78D8F00C452D6 /* AudioOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D480F0261AF78D8F00C452D6 /* AudioOS.cpp */; };
+		D480F0311AF7926F00C452D6 /* libfmodL_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D480F02E1AF7926F00C452D6 /* libfmodL_iphoneos.a */; };
+		D480F05D1AF795C500C452D6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D480F05C1AF795C500C452D6 /* AudioToolbox.framework */; };
+		D480F06D1AF7965A00C452D6 /* common_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D480F0601AF7965A00C452D6 /* common_platform.mm */; };
+		D480F06E1AF7965A00C452D6 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D480F0611AF7965A00C452D6 /* common.cpp */; };
 		D4AB38A51AD64D8500237794 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4AB38A31AD64D8500237794 /* Animation.cpp */; };
 		D4B505D51ABC5980007A3F39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */; };
 		D4B505D61ABC598A007A3F39 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DD2B661AB9D867004563BE /* GLKit.framework */; };
@@ -79,6 +84,23 @@
 		D41CFDA31AC2B4A300EB4EA3 /* Debuger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debuger.cpp; sourceTree = "<group>"; };
 		D41CFDA41AC2B4A300EB4EA3 /* Debuger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debuger.h; sourceTree = "<group>"; };
 		D445C5A51ABAF5220077193B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		D480F0251AF78D6100C452D6 /* AudioOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioOS.h; sourceTree = "<group>"; };
+		D480F0261AF78D8F00C452D6 /* AudioOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioOS.cpp; sourceTree = "<group>"; };
+		D480F02E1AF7926F00C452D6 /* libfmodL_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphoneos.a; sourceTree = "<group>"; };
+		D480F05C1AF795C500C452D6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D480F05F1AF7965A00C452D6 /* common_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_platform.h; sourceTree = "<group>"; };
+		D480F0601AF7965A00C452D6 /* common_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = common_platform.mm; sourceTree = "<group>"; };
+		D480F0611AF7965A00C452D6 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
+		D480F0621AF7965A00C452D6 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		D480F0631AF7965A00C452D6 /* fmod_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_codec.h; sourceTree = "<group>"; };
+		D480F0641AF7965A00C452D6 /* fmod_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_common.h; sourceTree = "<group>"; };
+		D480F0651AF7965A00C452D6 /* fmod_dsp_effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_dsp_effects.h; sourceTree = "<group>"; };
+		D480F0661AF7965A00C452D6 /* fmod_dsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_dsp.h; sourceTree = "<group>"; };
+		D480F0671AF7965A00C452D6 /* fmod_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_errors.h; sourceTree = "<group>"; };
+		D480F0681AF7965A00C452D6 /* fmod_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_ios.h; sourceTree = "<group>"; };
+		D480F0691AF7965A00C452D6 /* fmod_output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_output.h; sourceTree = "<group>"; };
+		D480F06A1AF7965A00C452D6 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod.h; sourceTree = "<group>"; };
+		D480F06B1AF7965A00C452D6 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fmod.hpp; sourceTree = "<group>"; };
 		D4AB38A31AD64D8500237794 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		D4AB38A41AD64D8500237794 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		D4BA7A3C1ACE72BE00F52C9C /* Input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Input.h; path = ../../Sources/Input.h; sourceTree = "<group>"; };
@@ -170,7 +192,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D480F05D1AF795C500C452D6 /* AudioToolbox.framework in Frameworks */,
 				D4B505D61ABC598A007A3F39 /* GLKit.framework in Frameworks */,
+				D480F0311AF7926F00C452D6 /* libfmodL_iphoneos.a in Frameworks */,
 				D4B505D51ABC5980007A3F39 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +209,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D480F0151AF78C9400C452D6 /* FMOD */ = {
+			isa = PBXGroup;
+			children = (
+				D480F05F1AF7965A00C452D6 /* common_platform.h */,
+				D480F0601AF7965A00C452D6 /* common_platform.mm */,
+				D480F0611AF7965A00C452D6 /* common.cpp */,
+				D480F0621AF7965A00C452D6 /* common.h */,
+				D480F0631AF7965A00C452D6 /* fmod_codec.h */,
+				D480F0641AF7965A00C452D6 /* fmod_common.h */,
+				D480F0651AF7965A00C452D6 /* fmod_dsp_effects.h */,
+				D480F0661AF7965A00C452D6 /* fmod_dsp.h */,
+				D480F0671AF7965A00C452D6 /* fmod_errors.h */,
+				D480F0681AF7965A00C452D6 /* fmod_ios.h */,
+				D480F0691AF7965A00C452D6 /* fmod_output.h */,
+				D480F06A1AF7965A00C452D6 /* fmod.h */,
+				D480F06B1AF7965A00C452D6 /* fmod.hpp */,
+			);
+			path = FMOD;
+			sourceTree = "<group>";
+		};
 		D4CCCB711ABFE8DF00F90B6F /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +302,8 @@
 		D4DD2B261AB9D023004563BE = {
 			isa = PBXGroup;
 			children = (
+				D480F05C1AF795C500C452D6 /* AudioToolbox.framework */,
+				D480F0151AF78C9400C452D6 /* FMOD */,
 				D4CCCB711ABFE8DF00F90B6F /* Demo */,
 				D4D271D81ABC51370056B8A1 /* Snaky */,
 				D4E1C2211ABAB7DE003F3A50 /* OpenGLES.framework */,
@@ -269,6 +315,7 @@
 				D4DD2B311AB9D024004563BE /* iOS */,
 				D4DD2B4B1AB9D024004563BE /* iOSTests */,
 				D4DD2B301AB9D024004563BE /* Products */,
+				D480F02E1AF7926F00C452D6 /* libfmodL_iphoneos.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -327,6 +374,8 @@
 			children = (
 				D4DD6D431AF780340030054C /* LauncherOS.h */,
 				D4DD6D441AF780340030054C /* LauncherOS.mm */,
+				D480F0251AF78D6100C452D6 /* AudioOS.h */,
+				D480F0261AF78D8F00C452D6 /* AudioOS.cpp */,
 			);
 			path = OS;
 			sourceTree = "<group>";
@@ -535,9 +584,12 @@
 				D4D4106B1AD2D22D009738A3 /* Input.cpp in Sources */,
 				D41CFDA51AC2B4A300EB4EA3 /* Debuger.cpp in Sources */,
 				D4DD2B351AB9D024004563BE /* main.m in Sources */,
+				D480F06E1AF7965A00C452D6 /* common.cpp in Sources */,
 				D4D7DE6C1AF776C8003D044C /* ToggleButton.cpp in Sources */,
 				D4DD2B621AB9D28C004563BE /* Graphics.cpp in Sources */,
+				D480F06D1AF7965A00C452D6 /* common_platform.mm in Sources */,
 				D4DD6D451AF780340030054C /* LauncherOS.mm in Sources */,
+				D480F0271AF78D8F00C452D6 /* AudioOS.cpp in Sources */,
 				D4D271E81ABC53640056B8A1 /* Game.cpp in Sources */,
 				D4CCCB781ABFE90300F90B6F /* Demo.cpp in Sources */,
 				D4D271EA1ABC53640056B8A1 /* Screen.cpp in Sources */,
@@ -676,6 +728,11 @@
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "Cross++";
 			};
 			name = Debug;
@@ -689,6 +746,11 @@
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "Cross++";
 			};
 			name = Release;

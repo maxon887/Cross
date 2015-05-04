@@ -19,7 +19,7 @@
 
 #include "Launcher.h"
 #include "Game.h"
-#include "MusicOS.h"
+#include "AudioOS.h"
 
 class LauncherOS : public Launcher{
 public:

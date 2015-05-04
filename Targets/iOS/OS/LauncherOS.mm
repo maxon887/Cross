@@ -23,6 +23,7 @@ LauncherOS::LauncherOS(){
     CGFloat screenScale = [[UIScreen mainScreen] scale];
     width = screenRect.size.width * screenScale;
     height = screenRect.size.height * screenScale;
+    AudioOS::Init();
 }
 
 int LauncherOS::GetTargetWidth(){
@@ -46,11 +47,11 @@ string LauncherOS::DataPath(){
 }
 
 Music* LauncherOS::CreateMusic(string filename, bool loop){
-    return NULL;
+    return new AudioOS(filename, loop, true);
 }
 
 Sound* LauncherOS::CreateSound(string filename, bool loop){
-    return NULL;
+    return new AudioOS(filename, loop, true);
 }
 
 void LauncherOS::LogIt(string str){
