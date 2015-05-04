@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Cross">
+      <UniqueIdentifier>{6cfee1d6-7752-4871-bb8a-d3373bf0533c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\SOIL">
+      <UniqueIdentifier>{f0da043f-cca2-4c2b-bd21-44a4e4585a08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Utils">
+      <UniqueIdentifier>{b606314a-4719-4661-a7c6-1ca6a484708c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo">
+      <UniqueIdentifier>{19ace69f-e0fa-4b3e-ac10-3da008bf0e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Platform">
+      <UniqueIdentifier>{0055a5ef-90b5-49ea-a57c-ca37ef5b5e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Platform\Windows">
+      <UniqueIdentifier>{171b94f2-0c0c-4e31-ae57-bc67b70b4125}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\Sources\Demo.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\MainScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\SecondScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Game.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Graphics.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Image.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Input.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Saver.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\PointX.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common_platform.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Sources\Demo.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\MainScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\SecondScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Game.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Graphics.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Image.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Input.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Launcher.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Music.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Saver.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Screen.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Sound.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Button.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\PointX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common_platform.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

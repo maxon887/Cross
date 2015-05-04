@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Snaky+">
+      <UniqueIdentifier>{9e8a4a32-3a85-4c3f-b01c-ca34a66f38c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross">
+      <UniqueIdentifier>{b1ae3e14-ccbe-4c1e-94c7-2c56d5283fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Utils">
+      <UniqueIdentifier>{e1d62c0c-a393-488d-a1a4-2f5a8aab0e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\SOIL">
+      <UniqueIdentifier>{79f3c212-017a-4baf-a3d5-cef73708b082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Platform">
+      <UniqueIdentifier>{dbdb6aa6-4880-432d-9147-a08a5e0dec9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Platform\Windows">
+      <UniqueIdentifier>{45f8284a-eb69-4627-816c-72b5af39e25e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Platform\Windows\FMOD">
+      <UniqueIdentifier>{a736f662-d69d-4f2d-a047-f37b66623840}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Game.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Graphics.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Image.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Input.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Saver.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\PointX.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common_platform.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\MenuScreen.cpp">
+      <Filter>Snaky+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\SnakyGame.cpp">
+      <Filter>Snaky+</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\Game.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Graphics.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Image.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Input.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Launcher.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Music.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Saver.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Screen.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Sound.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Button.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\PointX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common_platform.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod.hpp">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod_codec.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod_common.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod_dsp.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod_dsp_effects.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod_errors.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\FMOD\fmod_output.h">
+      <Filter>Cross\Platform\Windows\FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\MenuScreen.h">
+      <Filter>Snaky+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\SnakyGame.h">
+      <Filter>Snaky+</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
