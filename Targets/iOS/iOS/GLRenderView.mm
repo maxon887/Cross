@@ -53,6 +53,7 @@
         game->graphics = graphics;
         game->Start();
     }
+    game->Update();
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

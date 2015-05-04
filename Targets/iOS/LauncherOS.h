@@ -24,9 +24,11 @@ public:
     LauncherOS();
     int GetTargetWidth();
     int GetTargetHeight();
-    const char* DataPath();
-    void LogIt(const char* str);
-    void ShowMessage(const char* title, const char* msg);
+    string AssetsPath();
+    string DataPath();
+    Music* CreateMusic(string filename, bool loop);
+    Sound* CreateSound(string filename, bool loop);
+    void LogIt(string str);
     void Exit();
 private:
     int width;

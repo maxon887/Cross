@@ -33,32 +33,30 @@ int LauncherOS::GetTargetHeight(){
     return height;
 }
 
-const char* LauncherOS::DataPath(){
+string LauncherOS::AssetsPath(){
+    NSString* path = [[NSBundle mainBundle] bundlePath];
+    string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    return cPath + "/";
+}
+
+string LauncherOS::DataPath(){
     NSString* path = [[NSBundle mainBundle] resourcePath];
-    const char* cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    return cPath;
+    string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    return cPath + "/";
 }
 
-void LauncherOS::LogIt(const char* str){
-    NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
+Music* LauncherOS::CreateMusic(string filename, bool loop){
+    return NULL;
 }
 
-UIAlertView *alert;
-void LauncherOS::ShowMessage(const char* title, const char *msg){
-    NSLog(@"Message\n%s: %s",title, msg);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString* titleNS = [NSString stringWithFormat:@"%s", title];
-        NSString* message = [NSString stringWithFormat:@"%s", msg];
-        alert = [[UIAlertView alloc] initWithTitle:titleNS
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:nil];
-        [alert show];
-    });
-    [NSThread sleepForTimeInterval:20];
-    [alert dismissWithClickedButtonIndex:0 animated:NO];
+Sound* LauncherOS::CreateSound(string filename, bool loop){
+    return NULL;
 }
+
+void LauncherOS::LogIt(string str){
+    NSLog(@"%@", [NSString stringWithFormat:@"%s", str.c_str()]);
+}
+
 
 void LauncherOS::Exit(){
     exit(0);
