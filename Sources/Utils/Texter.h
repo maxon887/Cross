@@ -31,10 +31,11 @@ public:
 			int columns, int rows,
 			int asciiOffset, float scaleFactor);
 
-	void DrawText(float x, float y, const char* text);
-	void DrawText(PointX pos, const char* text);
+	void DrawText(float x, float y, string text);
+	void DrawText(PointX pos, string text);
 	float GetWidth();
 	float GetHeight();
+	void SetScaleFactor(float scaleFactor);
 //Internal data. You don't need call any of this methods or modify variable
 private:
 	void Init(Game* game, const char* fontFilename,
@@ -48,5 +49,6 @@ private:
 	float width;
 	float height;
 	int offset;
+	int count;
 	float scale_factor;
 };

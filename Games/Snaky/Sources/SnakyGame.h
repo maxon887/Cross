@@ -22,10 +22,16 @@
 #include "Game.h"
 #include "MenuScreen.h"
 
+#define KEY_SCORE "SCORE"
+#define KEY_MUSIC "MUSIC"
+#define KEY_SOUND "SOUND"
+
 class SnakyGame : public Game{
 public:
 	SnakyGame(Launcher* launcher);
 	Screen* GetStartScreen();
+	void Start();
+	Texter* score_texter;
 private:
 	Screen* menu_screen;
 };

@@ -22,7 +22,7 @@
 #ifdef _WIN32
 #define WIN
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
-#define IOS
+#define IOS true
 #elif defined(ANDROID) || defined(__ANDROID__)
 void* bind(void* func, void* sender);
 //#define __cplusplus 201103L
@@ -65,7 +65,7 @@ public:
 	   Don't mess with target width.
 	   Game height will be set automatically depend on screen aspect ratio. */
 	Game(Launcher* launcher, float width);
-
+	virtual void Start();
 	/* Reflect ratio between game and target device width.*/
 	float GetScaleFactor();
 	/* Return virtual game width */
@@ -83,7 +83,6 @@ public:
 public:
     void Update();
     Debuger* debuger;
-	void Start();
 	virtual ~Game();
 protected:
 	float width;

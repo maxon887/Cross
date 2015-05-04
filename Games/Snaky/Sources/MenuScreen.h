@@ -20,6 +20,10 @@
 #include "Graphics.h"
 #include "Screen.h"
 #include "Image.h"
+#include "Texter.h"
+#include "Button.h"
+#include "ToggleButton.h"
+#include "SnakyGame.h"
 
 #include <math.h>
 
@@ -35,6 +39,21 @@ private:
 	PointX sun_pos;
 	float sun_angle;
 	float sun_w;
+	vector<RectX> dead_areas;
+	
+	Texter* score_texter;
+	int score;
+	Image* bestscore;
+	PointX bestscore_pos;
+	Image* snaky;
+	PointX snaky_pos;
+
+	Button* play_btn;
+	ToggleButton* music_btn;
+	ToggleButton* sound_btn;
 
 	void UpdateSun(float sec);
+	void OnPlayClick();
+	void OnMusicClick();
+	void OnSoundClick();
 };

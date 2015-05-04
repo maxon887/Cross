@@ -48,6 +48,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Cross</name>
+			<type>2</type>
+			<locationURI>CROSS_SRC</locationURI>
+		</link>
+		<link>
 			<name>Snaky</name>
 			<type>2</type>
 			<locationURI>SNAKY_SRC</locationURI>
@@ -59,6 +64,10 @@
 		</link>
 	</linkedResources>
 	<variableList>
+		<variable>
+			<name>CROSS_SRC</name>
+			<value>$%7BPARENT-4-PROJECT_LOC%7D/Sources</value>
+		</variable>
 		<variable>
 			<name>SNAKY_ASSETS</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Assets</value>

@@ -18,8 +18,12 @@
 #include "SnakyGame.h"
 
 SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
-	//float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
-	//height = width * aspect;
+
+}
+
+void SnakyGame::Start(){
+	score_texter = new Texter(this, "Numbers.png", 60.f, 76.f, 10, 1, 48, this->scale_factor);
+	Game::Start();
 }
 
 Screen* SnakyGame::GetStartScreen(){

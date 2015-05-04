@@ -26,7 +26,7 @@ MenuScreen::MenuScreen(Game* game):Screen(game) {
 	sun = NULL;
 	sun_w = 5.f;
 	sun_angle = 0;
-
+	score = 0;
 }
 
 void MenuScreen::Start(){
@@ -47,13 +47,52 @@ void MenuScreen::Start(){
 	sun = graphics->LoadImage("Menu/Sun.jpg", scaleFactor);
 	sun_pos.x = 400 * scaleFactor / game->GetScaleFactor();
 	sun_pos.y = 580 * scaleFactor / game->GetScaleFactor();
+	//Buttons
+	Image* playUp = graphics->LoadImage("Menu/PlayButtonUp.png");
+	Image* playDown = graphics->LoadImage("Menu/PlayButtonDown.png");
+	PointX playPos;
+	playPos.x = 270 * scaleFactor / game->GetScaleFactor();
+	playPos.y = 490 * scaleFactor / game->GetScaleFactor();
+	play_btn = new Button(game, playPos, playUp, playDown);
+	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
+	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png", game->GetScaleFactor() * 1.2f);
+	Image* soundDown = graphics->LoadImage("Menu/SoundDown.png", game->GetScaleFactor() * 1.2f);
+	PointX soundPos;
+	soundPos.x = soundUp->GetWidth() * 0.8;
+	soundPos.y = game->GetHeight() - soundUp->GetHeight() * 0.8;
+	sound_btn = new ToggleButton(game, soundPos, soundUp, soundDown);
+	sound_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
+	Image* musicUp = graphics->LoadImage("Menu/MusicUp.png", game->GetScaleFactor() * 1.2f);
+	Image* musicDown = graphics->LoadImage("Menu/MusicDown.png", game->GetScaleFactor() * 1.2f);
+	PointX musicPos;
+	musicPos.x = musicUp->GetWidth() * 2.2;
+	musicPos.y = game->GetHeight() - musicUp->GetHeight() * 0.8;
+	music_btn = new ToggleButton(game, musicPos, musicUp, musicDown);
+	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
 
+	score_texter = ((SnakyGame*)game)->score_texter;
+	score_texter->SetScaleFactor(game->GetScaleFactor());
+	score = saver->LoadInt(KEY_SCORE);
+	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
+	bestscore_pos.x = 300;
+	bestscore_pos.y = 520;
+	snaky = graphics->LoadImage("Menu/SnakyLabel.png", scaleFactor);
+	snaky_pos.x = 200 * scaleFactor / game->GetScaleFactor();
+	snaky_pos.y = 100 * scaleFactor / game->GetScaleFactor();
 }
 
 void MenuScreen::Update(float sec){
 	graphics->Clear(0.0f, 0.25f, 0.25f);
 	UpdateSun(sec);
-	//graphics->DrawImage(background_pos, background);
+	graphics->DrawImage(background_pos, background);
+
+	play_btn->Update();
+	music_btn->Update();
+	sound_btn->Update();
+
+	graphics->DrawImage(snaky_pos, snaky);
+	graphics->DrawImage(bestscore_pos, bestscore);
+	score_texter->DrawText(510, 490, to_string(score));
 }
 
 void MenuScreen::UpdateSun(float sec){
@@ -102,3 +141,14 @@ void MenuScreen::UpdateSun(float sec){
 	}
 }
 
+void MenuScreen::OnPlayClick(){
+
+}
+
+void MenuScreen::OnMusicClick(){
+
+}
+
+void MenuScreen::OnSoundClick(){
+
+}

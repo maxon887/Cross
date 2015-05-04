@@ -55,7 +55,7 @@ Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
 	if(src == NULL)
 		throw "Attempt to create image from NULL";
 
-	Image* img = new Image(src->GetTextureID(), (int)src->GetWidth(), (int)src->GetHeight(), region);
+	Image* img = new Image(src->GetTextureID(), (int)src->texWidth, (int)src->texHeight, region);
 	img->Scale(scaleFactor);
 	return img;
 }

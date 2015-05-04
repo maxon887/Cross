@@ -28,15 +28,14 @@ Texter::Texter(Game* game, const char* fontFilename,
 	Init(game, fontFilename, width, height, columns, rows, asciiOffset, scaleFactor);
 }
 
-void Texter::DrawText(PointX pos, const char* text){
+void Texter::DrawText(PointX pos, string text){
 	DrawText(pos.x, pos.y, text);
 }
 
-void Texter::DrawText(float x, float y, const char* text){
+void Texter::DrawText(float x, float y, string text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
-	int len = strlen(text);
-	for(int i = 0; i < len; i++){
+	for(int i = 0; i < text.length(); i++){
 		graphics->DrawImage(x + i * GetWidth(), y, letters[text[i] - offset]);
 	}
 }
@@ -59,11 +58,19 @@ void Texter::Init(	Game* game, const char* fontFilename,
 	this->height = height;
 	this->offset = asciiOffset;
 	this->scale_factor = scaleFactor;
+	this->count = 0;
 	font = graphics->LoadImage(fontFilename);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
 			RectX reg(j * width, i * height, width, height);
 			letters[i * columns + j] = graphics->CreateImage(font, reg, scaleFactor);
+			count++;
 		}
+	}
+}
+
+void Texter::SetScaleFactor(float scaleFactor){
+	for(int i = 0; i < count; i++){
+		graphics->ScaleImage(letters[i], scaleFactor);
 	}
 }

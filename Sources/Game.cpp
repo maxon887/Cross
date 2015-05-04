@@ -73,6 +73,7 @@ void Game::Start(){
 		launcher->LogIt("Start screen load successfully");
 	}catch(string msg){
 		msg = "Exception: " + msg;
+		launcher->LogIt(msg);
 #ifdef WIN
 		LauncherWIN* win = (LauncherWIN*)launcher;
 		win->ShowMessage(msg);

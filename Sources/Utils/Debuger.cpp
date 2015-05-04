@@ -98,9 +98,9 @@ void Debuger::StopCheckTime(string label){
 	times.pop_back();
 	auto up = duration_cast<microseconds>(now - check_time).count();
 	double milis = up/1000.0;
-	//sprintf(buffer, "%s: %fms", label, milis);
 	string msg = label + to_string(milis) + "ms";
-	launcher->LogIt(buffer);
+	if(launcher != NULL)
+		launcher->LogIt(msg);
 }
 
 
