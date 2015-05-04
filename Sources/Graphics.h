@@ -17,8 +17,8 @@
 	
 #pragma once
 
-#include "SOIL.h"
 #include "Game.h"
+#include "SOIL.h"
 #include "Launcher.h"
 
 #ifdef WIN

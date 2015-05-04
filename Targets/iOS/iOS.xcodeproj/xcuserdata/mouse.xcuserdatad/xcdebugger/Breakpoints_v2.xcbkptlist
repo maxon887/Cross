@@ -9,13 +9,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iOS/GLRenderView.mm"
-            timestampString = "450256570.19615"
+            filePath = "../../Sources/Game.cpp"
+            timestampString = "450973532.680424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "-render:"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "Game::GetCurrentScreen()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Games/Demo/Sources/SecondScreen.cpp"
+            timestampString = "450973596.295181"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "SecondScreen::Update(float sec)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

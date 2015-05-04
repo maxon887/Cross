@@ -18,17 +18,21 @@
 #pragma once
 
 #include "Launcher.h"
+#include "Game.h"
+#include "MusicOS.h"
 
 class LauncherOS : public Launcher{
 public:
     LauncherOS();
     int GetTargetWidth();
     int GetTargetHeight();
+    const char* AssetsPath();
     const char* DataPath();
     void LogIt(const char* str);
-    void ShowMessage(const char* title, const char* msg);
-    void Exit();
+    Sound* CreateSound(const char* filename, bool loop);
+    Music* CreateMusic(const char* filename, bool loop);
 private:
     int width;
     int height;
+    char str_buff[BUF_LEN];
 };

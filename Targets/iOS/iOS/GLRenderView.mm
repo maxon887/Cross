@@ -15,12 +15,10 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#import <time.h>
 #import "GLRenderView.h"
 #import "Graphics.h"
 #import "LauncherOS.h"
 #import "Input.h"
-#import "SnakyGame.h"
 #import "Demo.h"
 
 @implementation GLRenderView{
@@ -53,6 +51,7 @@
         game->graphics = graphics;
         game->Start();
     }
+    game->Update();
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
