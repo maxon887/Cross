@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="WinAPI.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics.cpp">
       <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\LauncherWIN.cpp">
-      <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Game.cpp">
       <Filter>Cross</Filter>
@@ -68,22 +64,16 @@
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\common.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\common_platform.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\AudioWIN.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\AudioWIN.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\common.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\common_platform.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\Cross.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cross">
       <UniqueIdentifier>{bf6605b8-4716-493a-9f60-06a01e42d503}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows">
-      <UniqueIdentifier>{1eddf9d5-122b-4982-9508-f85e84670fcf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Snaky">
       <UniqueIdentifier>{068f575a-ea61-4481-be68-4e1337905f69}</UniqueIdentifier>
@@ -104,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Launcher.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\LauncherWIN.h">
-      <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Game.h">
       <Filter>Cross</Filter>
@@ -174,14 +161,10 @@
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\common.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\common_platform.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\AudioWIN.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\AudioWIN.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\common.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\common_platform.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\Cross.h" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,9 @@
 
 #include "Graphics.h"
 #include "Screen.h"
+#include "Image.h"
+
+#include <math.h>
 
 class MenuScreen : public Screen{
 public:
@@ -26,5 +29,12 @@ public:
 	void Start();
 	void Update(float sec);
 private:
-	Image* test;
+	Image* background;
+	PointX background_pos;
+	Image* sun;
+	PointX sun_pos;
+	float sun_angle;
+	float sun_w;
+
+	void UpdateSun(float sec);
 };

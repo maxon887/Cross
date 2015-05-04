@@ -18,11 +18,10 @@
 #include "SnakyGame.h"
 
 SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
-	menu_screen = new MenuScreen(this);
-	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
-	height = width * aspect;
+	//float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
+	//height = width * aspect;
 }
 
 Screen* SnakyGame::GetStartScreen(){
-	return menu_screen;
+	return new MenuScreen(this);;
 }

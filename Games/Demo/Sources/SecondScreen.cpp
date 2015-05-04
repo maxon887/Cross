@@ -41,7 +41,7 @@ void SecondScreen::Start(){
 	images[6] = graphics->LoadImage("Spider/06.png", game->GetScaleFactor() * 0.8f);
 	images[7] = graphics->LoadImage("Spider/07.png", game->GetScaleFactor() * 0.8f);
 	spider_run_anim = new Animation(graphics, 0.08f, images, 8, true);
-	spider_run_snd = launcher->CreateSound("spider_run.wav", true);
+	spider_run_snd = launcher->CreateSound("SpiderRun.wav", true);
 	//spider_run_snd->Play();
 }
 
