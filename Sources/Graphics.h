@@ -27,7 +27,7 @@
     #define glOrthof glOrtho
     #define GL_CLAMP_TO_EDGE GL_CLAMP
     #undef LoadImage
-#elif IOS
+#elif IOS true
     #include <OpenGLES/ES1/gl.h>
 #elif ANDROID
     #include <GLES/gl.h>
