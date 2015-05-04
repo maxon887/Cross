@@ -18,7 +18,6 @@
 #pragma once
 
 #define CROSSDEBUG
-//#define BUF_LEN 256
 
 #ifdef _WIN32
 #define WIN
