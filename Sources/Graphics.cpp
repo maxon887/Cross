@@ -87,7 +87,9 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL );
 			//Clamp to edge effect
-			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + (i + 1) * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
+            if(new_width > width){
+                memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + (i + 1) * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
+            }
 		}
 		//Clamp to edge effect
 		if(new_height > height){
@@ -110,7 +112,7 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 	img->Scale(scaleFactor);
 
 	//sprintf(str_buffer, "Load image %s", filename);
-	string debugMsg = "Load image " + filename;
+    string debugMsg = "Load image " + filename + ": ";
 	Debuger::StopCheckTime(debugMsg);
 	return img;
 }

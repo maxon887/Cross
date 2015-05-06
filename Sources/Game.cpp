@@ -57,7 +57,7 @@ void Game::SetScreen(Screen* screen){
 	current_screen->Init();
 	current_screen->Start();
     render_time = high_resolution_clock::now();
-	Debuger::StopCheckTime("Screen loaded");
+	Debuger::StopCheckTime("Screen loaded: ");
 }
 
 Screen* Game::GetCurrentScreen(){
