@@ -24,6 +24,7 @@ unsigned int	AudioOS::version;
 void*			AudioOS::extradriverdata;
 
 void AudioOS::Init(){
+    Common_Init(&extradriverdata);
     
     result = FMOD::System_Create(&system);
     ERRCHECK(result);

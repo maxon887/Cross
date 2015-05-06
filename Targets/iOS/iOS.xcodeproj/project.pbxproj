@@ -311,7 +311,6 @@
 				D4DD2B5E1AB9D1BF004563BE /* Default-568h@2x.png */,
 				D4DD2B5A1AB9D083004563BE /* Cross */,
 				D4DD2B581AB9D07B004563BE /* OS */,
-				D4DD2B591AB9D07B004563BE /* OSIMP */,
 				D4DD2B311AB9D024004563BE /* iOS */,
 				D4DD2B4B1AB9D024004563BE /* iOSTests */,
 				D4DD2B301AB9D024004563BE /* Products */,
@@ -378,13 +377,6 @@
 				D480F0261AF78D8F00C452D6 /* AudioOS.cpp */,
 			);
 			path = OS;
-			sourceTree = "<group>";
-		};
-		D4DD2B591AB9D07B004563BE /* OSIMP */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = OSIMP;
 			sourceTree = "<group>";
 		};
 		D4DD2B5A1AB9D083004563BE /* Cross */ = {

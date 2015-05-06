@@ -37,7 +37,7 @@ void MainScreen::Start(){
     bool musicState = saver->LoadBool("MUSIC_STATE");
     music_btn->SetState(musicState);
     if(musicState){
-        //bck_music->Play();
+        bck_music->Play();
         song_started = true;
     }else{
         song_started = false;
@@ -106,8 +106,10 @@ void MainScreen::MusicOnClick(){
     if(music_btn->GetState()){
         if(song_started)
             bck_music->Resume();
-        else
+        else{
             bck_music->Play();
+            song_started = true;
+        }
     }
     else
         bck_music->Pause();
