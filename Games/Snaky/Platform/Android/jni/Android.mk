@@ -17,15 +17,15 @@ LOCAL_MODULE := cross
 LOCAL_CPP_FEATURES += exceptions
 
 LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
-					../../../../Sources/Platform/Android/FMOD \
+					../../../../Sources/FMOD \
 					../../../../Sources \
 					../../../../Sources/Utils \
 					../../../../Sources/SOIL \
 					../../Sources 
 
 LOCAL_SRC_FILES := 	main.cpp \
-					../../../../../Sources/Platform/Android/FMOD/common.cpp \
-					../../../../../Sources/Platform/Android/FMOD/common_platform.cpp \
+					../../../../../Sources/Platform/Android/common.cpp \
+					../../../../../Sources/Platform/Android/common_platform.cpp \
 					../../../../../Sources/Platform/Android/LauncherAndroid.cpp \
 					../../../../../Sources/Platform/Android/AudioAndroid.cpp \
 					../../../../../Sources/Platform/Android/Cross.cpp \

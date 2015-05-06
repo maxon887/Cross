@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Cross++</name>
+	<name>Cross_old</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -50,22 +50,22 @@
 		<link>
 			<name>Cross</name>
 			<type>2</type>
-			<locationURI>CROSS_SRC</locationURI>
+			<locationURI>CROSS_SRC1</locationURI>
 		</link>
 		<link>
 			<name>Demo</name>
 			<type>2</type>
-			<locationURI>DEMO_GAME</locationURI>
+			<locationURI>DEMO_GAME1</locationURI>
 		</link>
 		<link>
 			<name>Snaky</name>
 			<type>2</type>
-			<locationURI>SNAKY_GAME</locationURI>
+			<locationURI>SNAKY_GAME1</locationURI>
 		</link>
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<locationURI>DEMO_ASSETS</locationURI>
+			<locationURI>DEMO_ASSETS1</locationURI>
 		</link>
 		<link>
 			<name>include</name>
@@ -79,8 +79,16 @@
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Sources</value>
 		</variable>
 		<variable>
+			<name>CROSS_SRC1</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/Cross/Sources</value>
+		</variable>
+		<variable>
 			<name>DEMO_ASSETS</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Demo/Assets</value>
+		</variable>
+		<variable>
+			<name>DEMO_ASSETS1</name>
+			<value>$%7BPARENT-1-DEMO_GAME1%7D/Assets</value>
 		</variable>
 		<variable>
 			<name>DEMO_DATA</name>
@@ -91,8 +99,16 @@
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Demo/Sources</value>
 		</variable>
 		<variable>
+			<name>DEMO_GAME1</name>
+			<value>$%7BPARENT-1-CROSS_SRC1%7D/Games/Demo/Sources</value>
+		</variable>
+		<variable>
 			<name>SNAKY_GAME</name>
 			<value>$%7BPARENT-2-PROJECT_LOC%7D/Games/Snaky/Sources</value>
+		</variable>
+		<variable>
+			<name>SNAKY_GAME1</name>
+			<value>$%7BPARENT-2-DEMO_GAME1%7D/Snaky/Sources</value>
 		</variable>
 		<variable>
 			<name>copy_PARENT</name>
