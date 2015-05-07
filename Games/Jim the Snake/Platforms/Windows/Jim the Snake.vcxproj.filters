@@ -78,9 +78,6 @@
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
       <Filter>Cross\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.cpp">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp">
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
@@ -94,6 +91,9 @@
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Audio.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
@@ -183,9 +183,6 @@
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod_output.h">
       <Filter>Cross\FMOD</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.h">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h">
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
@@ -197,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Audio.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

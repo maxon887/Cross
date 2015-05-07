@@ -64,13 +64,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common_platform.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Saver.cpp" />
@@ -91,15 +89,12 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics.h" />
     <ClInclude Include="..\..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
-    <ClInclude Include="..\..\..\..\Sources\Music.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common_platform.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\Sources\Saver.h" />
@@ -107,7 +102,6 @@
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
-    <ClInclude Include="..\..\..\..\Sources\Sound.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />

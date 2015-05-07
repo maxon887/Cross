@@ -22,7 +22,7 @@
 
 #include <Windows.h>
 #include "Launcher.h"
-#include "AudioWIN.h"
+#include "Audio.h"
 
 class LauncherWIN : public Launcher{
 public:
@@ -32,11 +32,8 @@ public:
 	string AssetsPath();
 	string DataPath();
 	void LogIt(string msg);
-	Sound* CreateSound(string filename, bool loop);
-	Music* CreateMusic(string filename, bool loop);
 	void ShowMessage(string msg);
 	void SetHWND(HWND wnd);
 private:
 	HWND wnd;
-	char str_buffer[256];
 };

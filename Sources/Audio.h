@@ -18,24 +18,29 @@
 #pragma once
 #include "Launcher.h"
 #include "fmod.hpp"
-#include "common.h"
+#include "fmod_errors.h"
 
-class AudioWIN : public Sound,
-				 public Music{
+#ifndef Common_vsnprintf
+    #define Common_vsnprintf vsnprintf
+#endif
+
+class Audio{
 public:
-	static void Init();
-	AudioWIN(string path, bool loop, bool isStream);
+	static void Init(Launcher* launcher);
+	static void Release();
+	Audio(string path, bool loop, bool isStream);
 	void Play();
 	void Pause();
 	void Resume();
 	void Stop();
 	bool IsPlaying();
-	~AudioWIN();
+	~Audio();
 private:
 	static FMOD::System* system;
 	static FMOD_RESULT result;
 	static unsigned int version;
 	static void* extradriverdata;
+	static Launcher* launcher;
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;

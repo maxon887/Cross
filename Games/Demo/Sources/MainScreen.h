@@ -24,7 +24,6 @@
 #include "Debuger.h"
 #include "Button.h"
 #include "ToggleButton.h"
-#include "Music.h"
 
 class MainScreen : public Screen{
 public:
@@ -44,9 +43,9 @@ private:
 	Button* blue_sound_btn;
 	ToggleButton* music_btn;
 	Texter* texter;
-	Music* bck_music;
-	Sound* jaguar;
-	Sound* truck;
+	Audio* bck_music;
+	Audio* jaguar;
+	Audio* truck;
 	int start_count;
 	bool song_started;
 };

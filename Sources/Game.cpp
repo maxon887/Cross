@@ -71,7 +71,7 @@ void Game::Start(){
 #endif
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
-	}catch(string msg){
+	}catch(string& msg){
 		msg = "Exception: " + msg;
 		launcher->LogIt(msg);
 #ifdef WIN

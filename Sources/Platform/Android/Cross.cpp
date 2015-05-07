@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "Audio.h"
 #include "Input.h"
 
 #include <EGL/egl.h>
@@ -38,6 +39,16 @@ EGLContext context;
 
 LauncherAndroid* launcher;
 Game* mGame;
+
+extern "C"{
+	void Java_com_cross_CrossActivity_InitAudio(JNIEnv *env, jobject thiz)
+	{
+		Audio::Init(NULL);
+	}
+	void Java_com_cross_CrossActivity_ReleaseAudio(JNIEnv* env, jobject thiz){
+		Audio::Release();
+	}
+}
 
 static void init_display(){
     const EGLint attribs[] = {

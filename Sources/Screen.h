@@ -22,8 +22,7 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "Saver.h"
-#include "Music.h"
-#include "Sound.h"
+#include "Audio.h"
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implemnt at least one Screen class.

@@ -18,7 +18,7 @@
 #include "LauncherWIN.h"
 
 LauncherWIN::LauncherWIN(){
-	AudioWIN::Init();
+	Audio::Init(this);
 }
 
 int LauncherWIN::GetTargetWidth(){
@@ -40,16 +40,6 @@ string LauncherWIN::DataPath(){
 void LauncherWIN::LogIt(string msg){
 	msg += "\n";
 	OutputDebugString(msg.c_str());
-}
-
-Sound* LauncherWIN::CreateSound(string filename, bool loop){
-	filename = AssetsPath() + filename;
-	return new AudioWIN(filename, loop, false);
-}
-
-Music* LauncherWIN::CreateMusic(string filename, bool loop){
-	filename = AssetsPath() + filename;
-	return new AudioWIN(filename, loop, true);
 }
 
 void LauncherWIN::ShowMessage(string msg){

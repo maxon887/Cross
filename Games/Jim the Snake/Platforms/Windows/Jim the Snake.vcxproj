@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common_platform.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
@@ -37,6 +37,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod.h" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod.hpp" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod_codec.h" />
@@ -51,7 +52,6 @@
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\..\Sources\Music.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\AudioWIN.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common_platform.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />

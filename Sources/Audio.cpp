@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,44 +14,67 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	
+#include "Audio.h"
+
+FMOD::System*	Audio::system;
+FMOD_RESULT		Audio::result;
+unsigned int	Audio::version;
+void*			Audio::extradriverdata;
+Launcher*		Audio::launcher;
+
+#define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
+void (*Common_Private_Error)(FMOD_RESULT, const char *, int);
+
+void Common_Fatal(const char *format, ...)
+{
+    char error[1024];
+
+    va_list args;
+    va_start(args, format);
+    Common_vsnprintf(error, 1024, format, args);
+    va_end(args);
+    error[1023] = '\0';
+
+}
+
+void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
+{
+    if (result != FMOD_OK)
+    {
+        if (Common_Private_Error)
+        {
+            Common_Private_Error(result, file, line);
+        }
+        Common_Fatal("%s(%d): FMOD error %d - %s", file, line, result, FMOD_ErrorString(result));
+    }
+}
 
 
-#include "AudioAndroid.h"
-#include <android/log.h>
-
-FMOD::System*	AudioAndroid::system;
-FMOD_RESULT		AudioAndroid::result;
-unsigned int	AudioAndroid::version;
-void*			AudioAndroid::extradriverdata;
-
-void AudioAndroid::Init(){
-
-    result = FMOD::System_Create(&system);
+void Audio::Init(Launcher* launcher){
+	Audio::launcher = launcher;
+	//Common_Init(&extradriverdata);
+	result = FMOD::System_Create(&system);
     ERRCHECK(result);
 
     result = system->getVersion(&version);
     ERRCHECK(result);
 
-    if (version < FMOD_VERSION)
+	if (version < FMOD_VERSION)
     {
         Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
     }
 
     result = system->init(32, FMOD_INIT_NORMAL, extradriverdata);
     ERRCHECK(result);
-
-    FMOD::Sound* sound;
-    FMOD::Channel* channel;
-
-    __android_log_print(ANDROID_LOG_DEBUG, "Cross++", "Audio Initialized");
 }
 
-void AudioAndroid::Release(){
+void Audio::Release(){
     result = system->close();
     ERRCHECK(result);
 }
 
-AudioAndroid::AudioAndroid(string path, bool loop, bool isStream){
+Audio::Audio(string path, bool loop, bool isStream){
 	FMOD_MODE mode = 0;
 	channel = NULL;
 	if(loop)
@@ -60,36 +83,44 @@ AudioAndroid::AudioAndroid(string path, bool loop, bool isStream){
 		mode = FMOD_LOOP_OFF;
 	if(isStream)
 		mode |= FMOD_CREATESTREAM;
+	if(launcher != NULL)
+		path = launcher->AssetsPath() + path;
+	else
+		path = "file:///android_asset/" + path;
 
-	result = system->createSound(Common_MediaPath(path.c_str()), mode, 0, &sound);
+	result = system->createSound(path.c_str(), mode, 0, &sound);
     ERRCHECK(result);
 }
 
-
-void AudioAndroid::Play(){
+void Audio::Play(){
 	result = system->playSound(sound, 0, false, &channel);
 	ERRCHECK(result);
 }
 
-void AudioAndroid::Pause(){
+void Audio::Pause(){
 	result = channel->setPaused(true);
 	ERRCHECK(result);
 }
 
-void AudioAndroid::Resume(){
+void Audio::Resume(){
 	result = channel->setPaused(false);
 	ERRCHECK(result);
 }
 
-void AudioAndroid::Stop(){
+void Audio::Stop(){
 	channel->stop();
 }
 
-bool AudioAndroid::IsPlaying(){
+bool Audio::IsPlaying(){
 	bool playing;
 	result = channel->isPlaying(&playing);
     if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
         ERRCHECK(result);
     }
 	return playing;
+}
+
+Audio::~Audio(){
+	result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
+    ERRCHECK(result);
 }

@@ -16,8 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "LauncherAndroid.h"
-#include "SOIL.h"
-#include "Utils/Debuger.h"
+#include "Launcher.h"
 
 LauncherAndroid::LauncherAndroid(android_app* app, int width, int height){
 	this->app = app;
@@ -53,14 +52,6 @@ string LauncherAndroid::DataPath(){
 
 void LauncherAndroid::LogIt(string str){
 	__android_log_print(ANDROID_LOG_DEBUG, "Cross++", "%s", str.c_str());
-}
-
-Sound* LauncherAndroid::CreateSound(string filename, bool loop){
-	return new AudioAndroid(filename, loop, false);
-}
-
-Music* LauncherAndroid::CreateMusic(string filename, bool loop){
-	return new AudioAndroid(filename, loop, true);
 }
 
 void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* length){

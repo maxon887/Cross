@@ -16,10 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-
 #include "Game.h"
-#include "Music.h"
-#include "Sound.h"
+//#include "Screen.h"
 
 /* Class witch contains platform specific code */
 class Launcher{
@@ -34,10 +32,6 @@ public:
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
-	/* return object of Sound. Input file must be short and wav formated */
-	virtual Sound* CreateSound(string filename, bool loop) = 0;
-	/* return object of Music. Input file needs to be mp3 */
-	virtual Music* CreateMusic(string filename, bool loop) = 0;
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }

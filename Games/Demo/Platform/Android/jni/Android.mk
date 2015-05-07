@@ -24,15 +24,13 @@ LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 					../../Sources 
 
 LOCAL_SRC_FILES := 	main.cpp \
-					../../../../../Sources/Platform/Android/common.cpp \
-					../../../../../Sources/Platform/Android/common_platform.cpp \
 					../../../../../Sources/Platform/Android/LauncherAndroid.cpp \
-					../../../../../Sources/Platform/Android/AudioAndroid.cpp \
 					../../../../../Sources/Platform/Android/Cross.cpp \
 					../../../Sources/Demo.cpp \
 					../../../Sources/MainScreen.cpp \
 					../../../Sources/SecondScreen.cpp \
 					../../../../../Sources/Graphics.cpp \
+					../../../../../Sources/Audio.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Screen.cpp \
 					../../../../../Sources/Image.cpp \
