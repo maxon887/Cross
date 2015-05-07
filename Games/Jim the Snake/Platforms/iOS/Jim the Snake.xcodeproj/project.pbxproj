@@ -1,0 +1,499 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D438E1B61AFB61740015EC19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D438E1B51AFB61740015EC19 /* main.m */; };
+		D438E1C11AFB61740015EC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D438E1C01AFB61740015EC19 /* Images.xcassets */; };
+		D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */; };
+		D438E1DF1AFB61EA0015EC19 /* SnakyGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */; };
+		D438E2341AFB62030015EC19 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EA1AFB62030015EC19 /* Game.cpp */; };
+		D438E2351AFB62030015EC19 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EC1AFB62030015EC19 /* Graphics.cpp */; };
+		D438E2361AFB62030015EC19 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EE1AFB62030015EC19 /* Image.cpp */; };
+		D438E2371AFB62030015EC19 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1F01AFB62030015EC19 /* Input.cpp */; };
+		D438E23D1AFB62030015EC19 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D438E2011AFB62030015EC19 /* AppDelegate.m */; };
+		D438E23E1AFB62030015EC19 /* AudioOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2021AFB62030015EC19 /* AudioOS.cpp */; };
+		D438E23F1AFB62030015EC19 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2041AFB62030015EC19 /* common.cpp */; };
+		D438E2401AFB62030015EC19 /* common_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D438E2071AFB62030015EC19 /* common_platform.mm */; };
+		D438E2411AFB62030015EC19 /* GLRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D438E2091AFB62030015EC19 /* GLRenderView.mm */; };
+		D438E2421AFB62030015EC19 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D438E20B1AFB62030015EC19 /* LauncherOS.mm */; };
+		D438E2431AFB62030015EC19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D438E20C1AFB62030015EC19 /* Main.storyboard */; };
+		D438E2491AFB62030015EC19 /* Saver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2191AFB62030015EC19 /* Saver.cpp */; };
+		D438E24A1AFB62030015EC19 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E21B1AFB62030015EC19 /* Screen.cpp */; };
+		D438E24B1AFB62030015EC19 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = D438E21E1AFB62030015EC19 /* image_helper.c */; };
+		D438E24C1AFB62030015EC19 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = D438E2201AFB62030015EC19 /* SOIL.c */; };
+		D438E24D1AFB62030015EC19 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = D438E2221AFB62030015EC19 /* stb_image_aug.c */; };
+		D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2261AFB62030015EC19 /* Animation.cpp */; };
+		D438E24F1AFB62030015EC19 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2281AFB62030015EC19 /* Button.cpp */; };
+		D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E22A1AFB62030015EC19 /* Debuger.cpp */; };
+		D438E2511AFB62030015EC19 /* PointX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E22C1AFB62030015EC19 /* PointX.cpp */; };
+		D438E2521AFB62030015EC19 /* RectX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E22E1AFB62030015EC19 /* RectX.cpp */; };
+		D438E2531AFB62030015EC19 /* Texter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2301AFB62030015EC19 /* Texter.cpp */; };
+		D438E2541AFB62030015EC19 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2321AFB62030015EC19 /* ToggleButton.cpp */; };
+		D438E2561AFB626F0015EC19 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D438E2551AFB626F0015EC19 /* Assets */; };
+		D438E2581AFB628A0015EC19 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E2571AFB628A0015EC19 /* OpenGLES.framework */; };
+		D438E25A1AFB628F0015EC19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E2591AFB628F0015EC19 /* AudioToolbox.framework */; };
+		D438E25C1AFB630C0015EC19 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E25B1AFB630C0015EC19 /* GLKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D438E1B01AFB61740015EC19 /* Jim the Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jim the Snake.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D438E1B41AFB61740015EC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Jim the Snake/Info.plist"; sourceTree = "<group>"; };
+		D438E1B51AFB61740015EC19 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Jim the Snake/main.m"; sourceTree = "<group>"; };
+		D438E1C01AFB61740015EC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Jim the Snake/Images.xcassets"; sourceTree = "<group>"; };
+		D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
+		D438E1DB1AFB61EA0015EC19 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
+		D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakyGame.cpp; sourceTree = "<group>"; };
+		D438E1DD1AFB61EA0015EC19 /* SnakyGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakyGame.h; sourceTree = "<group>"; };
+		D438E1E21AFB62030015EC19 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod.h; sourceTree = "<group>"; };
+		D438E1E31AFB62030015EC19 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fmod.hpp; sourceTree = "<group>"; };
+		D438E1E41AFB62030015EC19 /* fmod_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_codec.h; sourceTree = "<group>"; };
+		D438E1E51AFB62030015EC19 /* fmod_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_common.h; sourceTree = "<group>"; };
+		D438E1E61AFB62030015EC19 /* fmod_dsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_dsp.h; sourceTree = "<group>"; };
+		D438E1E71AFB62030015EC19 /* fmod_dsp_effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_dsp_effects.h; sourceTree = "<group>"; };
+		D438E1E81AFB62030015EC19 /* fmod_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_errors.h; sourceTree = "<group>"; };
+		D438E1E91AFB62030015EC19 /* fmod_output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_output.h; sourceTree = "<group>"; };
+		D438E1EA1AFB62030015EC19 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		D438E1EB1AFB62030015EC19 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		D438E1EC1AFB62030015EC19 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
+		D438E1ED1AFB62030015EC19 /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
+		D438E1EE1AFB62030015EC19 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
+		D438E1EF1AFB62030015EC19 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		D438E1F01AFB62030015EC19 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
+		D438E1F11AFB62030015EC19 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
+		D438E1F21AFB62030015EC19 /* Launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Launcher.h; sourceTree = "<group>"; };
+		D438E1F31AFB62030015EC19 /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
+		D438E2001AFB62030015EC19 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D438E2011AFB62030015EC19 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D438E2021AFB62030015EC19 /* AudioOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioOS.cpp; sourceTree = "<group>"; };
+		D438E2031AFB62030015EC19 /* AudioOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioOS.h; sourceTree = "<group>"; };
+		D438E2041AFB62030015EC19 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
+		D438E2051AFB62030015EC19 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		D438E2061AFB62030015EC19 /* common_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_platform.h; sourceTree = "<group>"; };
+		D438E2071AFB62030015EC19 /* common_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = common_platform.mm; sourceTree = "<group>"; };
+		D438E2081AFB62030015EC19 /* GLRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLRenderView.h; sourceTree = "<group>"; };
+		D438E2091AFB62030015EC19 /* GLRenderView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLRenderView.mm; sourceTree = "<group>"; };
+		D438E20A1AFB62030015EC19 /* LauncherOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherOS.h; sourceTree = "<group>"; };
+		D438E20B1AFB62030015EC19 /* LauncherOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LauncherOS.mm; sourceTree = "<group>"; };
+		D438E20C1AFB62030015EC19 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		D438E2191AFB62030015EC19 /* Saver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Saver.cpp; sourceTree = "<group>"; };
+		D438E21A1AFB62030015EC19 /* Saver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Saver.h; sourceTree = "<group>"; };
+		D438E21B1AFB62030015EC19 /* Screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
+		D438E21C1AFB62030015EC19 /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Screen.h; sourceTree = "<group>"; };
+		D438E21E1AFB62030015EC19 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_helper.c; sourceTree = "<group>"; };
+		D438E21F1AFB62030015EC19 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
+		D438E2201AFB62030015EC19 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SOIL.c; sourceTree = "<group>"; };
+		D438E2211AFB62030015EC19 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOIL.h; sourceTree = "<group>"; };
+		D438E2221AFB62030015EC19 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
+		D438E2231AFB62030015EC19 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
+		D438E2241AFB62030015EC19 /* Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sound.h; sourceTree = "<group>"; };
+		D438E2261AFB62030015EC19 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		D438E2271AFB62030015EC19 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		D438E2281AFB62030015EC19 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		D438E2291AFB62030015EC19 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		D438E22A1AFB62030015EC19 /* Debuger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debuger.cpp; sourceTree = "<group>"; };
+		D438E22B1AFB62030015EC19 /* Debuger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debuger.h; sourceTree = "<group>"; };
+		D438E22C1AFB62030015EC19 /* PointX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointX.cpp; sourceTree = "<group>"; };
+		D438E22D1AFB62030015EC19 /* PointX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointX.h; sourceTree = "<group>"; };
+		D438E22E1AFB62030015EC19 /* RectX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectX.cpp; sourceTree = "<group>"; };
+		D438E22F1AFB62030015EC19 /* RectX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectX.h; sourceTree = "<group>"; };
+		D438E2301AFB62030015EC19 /* Texter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texter.cpp; sourceTree = "<group>"; };
+		D438E2311AFB62030015EC19 /* Texter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texter.h; sourceTree = "<group>"; };
+		D438E2321AFB62030015EC19 /* ToggleButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToggleButton.cpp; sourceTree = "<group>"; };
+		D438E2331AFB62030015EC19 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
+		D438E2551AFB626F0015EC19 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Assets; path = ../../Assets; sourceTree = "<group>"; };
+		D438E2571AFB628A0015EC19 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D438E2591AFB628F0015EC19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D438E25B1AFB630C0015EC19 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D438E1AD1AFB61740015EC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D438E25C1AFB630C0015EC19 /* GLKit.framework in Frameworks */,
+				D438E25A1AFB628F0015EC19 /* AudioToolbox.framework in Frameworks */,
+				D438E2581AFB628A0015EC19 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D438E1A71AFB61740015EC19 = {
+			isa = PBXGroup;
+			children = (
+				D438E25B1AFB630C0015EC19 /* GLKit.framework */,
+				D438E2591AFB628F0015EC19 /* AudioToolbox.framework */,
+				D438E2571AFB628A0015EC19 /* OpenGLES.framework */,
+				D438E2551AFB626F0015EC19 /* Assets */,
+				D438E1E01AFB62030015EC19 /* Cross */,
+				D438E1D91AFB61EA0015EC19 /* Jim the Snake */,
+				D438E1B11AFB61740015EC19 /* Products */,
+				D438E1B41AFB61740015EC19 /* Info.plist */,
+				D438E1B51AFB61740015EC19 /* main.m */,
+				D438E1C01AFB61740015EC19 /* Images.xcassets */,
+			);
+			sourceTree = "<group>";
+		};
+		D438E1B11AFB61740015EC19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D438E1B01AFB61740015EC19 /* Jim the Snake.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D438E1D91AFB61EA0015EC19 /* Jim the Snake */ = {
+			isa = PBXGroup;
+			children = (
+				D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */,
+				D438E1DB1AFB61EA0015EC19 /* MenuScreen.h */,
+				D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */,
+				D438E1DD1AFB61EA0015EC19 /* SnakyGame.h */,
+			);
+			name = "Jim the Snake";
+			path = ../../Sources;
+			sourceTree = "<group>";
+		};
+		D438E1E01AFB62030015EC19 /* Cross */ = {
+			isa = PBXGroup;
+			children = (
+				D438E1E11AFB62030015EC19 /* FMOD */,
+				D438E1F41AFB62030015EC19 /* Platform */,
+				D438E21D1AFB62030015EC19 /* SOIL */,
+				D438E2251AFB62030015EC19 /* Utils */,
+				D438E1EA1AFB62030015EC19 /* Game.cpp */,
+				D438E1EB1AFB62030015EC19 /* Game.h */,
+				D438E1EC1AFB62030015EC19 /* Graphics.cpp */,
+				D438E1ED1AFB62030015EC19 /* Graphics.h */,
+				D438E1EE1AFB62030015EC19 /* Image.cpp */,
+				D438E1EF1AFB62030015EC19 /* Image.h */,
+				D438E1F01AFB62030015EC19 /* Input.cpp */,
+				D438E1F11AFB62030015EC19 /* Input.h */,
+				D438E1F21AFB62030015EC19 /* Launcher.h */,
+				D438E1F31AFB62030015EC19 /* Music.h */,
+				D438E2191AFB62030015EC19 /* Saver.cpp */,
+				D438E21A1AFB62030015EC19 /* Saver.h */,
+				D438E21B1AFB62030015EC19 /* Screen.cpp */,
+				D438E21C1AFB62030015EC19 /* Screen.h */,
+				D438E2241AFB62030015EC19 /* Sound.h */,
+			);
+			name = Cross;
+			path = ../../../../Sources;
+			sourceTree = "<group>";
+		};
+		D438E1E11AFB62030015EC19 /* FMOD */ = {
+			isa = PBXGroup;
+			children = (
+				D438E1E21AFB62030015EC19 /* fmod.h */,
+				D438E1E31AFB62030015EC19 /* fmod.hpp */,
+				D438E1E41AFB62030015EC19 /* fmod_codec.h */,
+				D438E1E51AFB62030015EC19 /* fmod_common.h */,
+				D438E1E61AFB62030015EC19 /* fmod_dsp.h */,
+				D438E1E71AFB62030015EC19 /* fmod_dsp_effects.h */,
+				D438E1E81AFB62030015EC19 /* fmod_errors.h */,
+				D438E1E91AFB62030015EC19 /* fmod_output.h */,
+			);
+			path = FMOD;
+			sourceTree = "<group>";
+		};
+		D438E1F41AFB62030015EC19 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				D438E1FF1AFB62030015EC19 /* iOS */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		D438E1FF1AFB62030015EC19 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D438E2001AFB62030015EC19 /* AppDelegate.h */,
+				D438E2011AFB62030015EC19 /* AppDelegate.m */,
+				D438E2021AFB62030015EC19 /* AudioOS.cpp */,
+				D438E2031AFB62030015EC19 /* AudioOS.h */,
+				D438E2041AFB62030015EC19 /* common.cpp */,
+				D438E2051AFB62030015EC19 /* common.h */,
+				D438E2061AFB62030015EC19 /* common_platform.h */,
+				D438E2071AFB62030015EC19 /* common_platform.mm */,
+				D438E2081AFB62030015EC19 /* GLRenderView.h */,
+				D438E2091AFB62030015EC19 /* GLRenderView.mm */,
+				D438E20A1AFB62030015EC19 /* LauncherOS.h */,
+				D438E20B1AFB62030015EC19 /* LauncherOS.mm */,
+				D438E20C1AFB62030015EC19 /* Main.storyboard */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		D438E21D1AFB62030015EC19 /* SOIL */ = {
+			isa = PBXGroup;
+			children = (
+				D438E21E1AFB62030015EC19 /* image_helper.c */,
+				D438E21F1AFB62030015EC19 /* image_helper.h */,
+				D438E2201AFB62030015EC19 /* SOIL.c */,
+				D438E2211AFB62030015EC19 /* SOIL.h */,
+				D438E2221AFB62030015EC19 /* stb_image_aug.c */,
+				D438E2231AFB62030015EC19 /* stb_image_aug.h */,
+			);
+			path = SOIL;
+			sourceTree = "<group>";
+		};
+		D438E2251AFB62030015EC19 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D438E2261AFB62030015EC19 /* Animation.cpp */,
+				D438E2271AFB62030015EC19 /* Animation.h */,
+				D438E2281AFB62030015EC19 /* Button.cpp */,
+				D438E2291AFB62030015EC19 /* Button.h */,
+				D438E22A1AFB62030015EC19 /* Debuger.cpp */,
+				D438E22B1AFB62030015EC19 /* Debuger.h */,
+				D438E22C1AFB62030015EC19 /* PointX.cpp */,
+				D438E22D1AFB62030015EC19 /* PointX.h */,
+				D438E22E1AFB62030015EC19 /* RectX.cpp */,
+				D438E22F1AFB62030015EC19 /* RectX.h */,
+				D438E2301AFB62030015EC19 /* Texter.cpp */,
+				D438E2311AFB62030015EC19 /* Texter.h */,
+				D438E2321AFB62030015EC19 /* ToggleButton.cpp */,
+				D438E2331AFB62030015EC19 /* ToggleButton.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D438E1AF1AFB61740015EC19 /* Jim the Snake */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D438E1D31AFB61750015EC19 /* Build configuration list for PBXNativeTarget "Jim the Snake" */;
+			buildPhases = (
+				D438E1AC1AFB61740015EC19 /* Sources */,
+				D438E1AD1AFB61740015EC19 /* Frameworks */,
+				D438E1AE1AFB61740015EC19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Jim the Snake";
+			productName = "Jim the Snake";
+			productReference = D438E1B01AFB61740015EC19 /* Jim the Snake.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D438E1A81AFB61740015EC19 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Lukyanau Maksim";
+				TargetAttributes = {
+					D438E1AF1AFB61740015EC19 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = D438E1AB1AFB61740015EC19 /* Build configuration list for PBXProject "Jim the Snake" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D438E1A71AFB61740015EC19;
+			productRefGroup = D438E1B11AFB61740015EC19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D438E1AF1AFB61740015EC19 /* Jim the Snake */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D438E1AE1AFB61740015EC19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D438E1C11AFB61740015EC19 /* Images.xcassets in Resources */,
+				D438E2561AFB626F0015EC19 /* Assets in Resources */,
+				D438E2431AFB62030015EC19 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D438E1AC1AFB61740015EC19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */,
+				D438E1DF1AFB61EA0015EC19 /* SnakyGame.cpp in Sources */,
+				D438E24C1AFB62030015EC19 /* SOIL.c in Sources */,
+				D438E1B61AFB61740015EC19 /* main.m in Sources */,
+				D438E2491AFB62030015EC19 /* Saver.cpp in Sources */,
+				D438E24F1AFB62030015EC19 /* Button.cpp in Sources */,
+				D438E2371AFB62030015EC19 /* Input.cpp in Sources */,
+				D438E24A1AFB62030015EC19 /* Screen.cpp in Sources */,
+				D438E23F1AFB62030015EC19 /* common.cpp in Sources */,
+				D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */,
+				D438E2401AFB62030015EC19 /* common_platform.mm in Sources */,
+				D438E2541AFB62030015EC19 /* ToggleButton.cpp in Sources */,
+				D438E23D1AFB62030015EC19 /* AppDelegate.m in Sources */,
+				D438E2361AFB62030015EC19 /* Image.cpp in Sources */,
+				D438E2351AFB62030015EC19 /* Graphics.cpp in Sources */,
+				D438E2341AFB62030015EC19 /* Game.cpp in Sources */,
+				D438E24B1AFB62030015EC19 /* image_helper.c in Sources */,
+				D438E23E1AFB62030015EC19 /* AudioOS.cpp in Sources */,
+				D438E2531AFB62030015EC19 /* Texter.cpp in Sources */,
+				D438E24D1AFB62030015EC19 /* stb_image_aug.c in Sources */,
+				D438E2421AFB62030015EC19 /* LauncherOS.mm in Sources */,
+				D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */,
+				D438E2511AFB62030015EC19 /* PointX.cpp in Sources */,
+				D438E2411AFB62030015EC19 /* GLRenderView.mm in Sources */,
+				D438E2521AFB62030015EC19 /* RectX.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D438E1D11AFB61750015EC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D438E1D21AFB61750015EC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D438E1D41AFB61750015EC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMPRESS_PNG_FILES = NO;
+				INFOPLIST_FILE = "Jim the Snake/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
+				OTHER_LDFLAGS = "-lfmodL_$PLATFORM_NAME";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D438E1D51AFB61750015EC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMPRESS_PNG_FILES = NO;
+				INFOPLIST_FILE = "Jim the Snake/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
+				OTHER_LDFLAGS = "-lfmodL_$PLATFORM_NAME";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D438E1AB1AFB61740015EC19 /* Build configuration list for PBXProject "Jim the Snake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D438E1D11AFB61750015EC19 /* Debug */,
+				D438E1D21AFB61750015EC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D438E1D31AFB61750015EC19 /* Build configuration list for PBXNativeTarget "Jim the Snake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D438E1D41AFB61750015EC19 /* Debug */,
+				D438E1D51AFB61750015EC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D438E1A81AFB61740015EC19 /* Project object */;
+}
