@@ -14,7 +14,6 @@
 		D46A23DA1AF9F4B800B77AC8 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23761AF9F4B800B77AC8 /* Image.cpp */; };
 		D46A23DB1AF9F4B800B77AC8 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23781AF9F4B800B77AC8 /* Input.cpp */; };
 		D46A23E21AF9F4B800B77AC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A23931AF9F4B800B77AC8 /* AppDelegate.m */; };
-		D46A23E31AF9F4B800B77AC8 /* AudioOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23941AF9F4B800B77AC8 /* AudioOS.cpp */; };
 		D46A23E61AF9F4B800B77AC8 /* GLRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D46A23A51AF9F4B800B77AC8 /* GLRenderView.mm */; };
 		D46A23E71AF9F4B800B77AC8 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D46A23A71AF9F4B800B77AC8 /* LauncherOS.mm */; };
 		D46A23E81AF9F4B800B77AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46A23A81AF9F4B800B77AC8 /* Main.storyboard */; };
@@ -37,8 +36,7 @@
 		D46A24591AF9F8B900B77AC8 /* MainScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A24541AF9F8B900B77AC8 /* MainScreen.cpp */; };
 		D46A245A1AF9F8B900B77AC8 /* SecondScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A24561AF9F8B900B77AC8 /* SecondScreen.cpp */; };
 		D46A245C1AF9F8C600B77AC8 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D46A245B1AF9F8C600B77AC8 /* Assets */; };
-		D4A21A761AFA158200456BD1 /* common_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4A21A731AFA158200456BD1 /* common_platform.mm */; };
-		D4A21A771AFA158200456BD1 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4A21A741AFA158200456BD1 /* common.cpp */; };
+		D4F9D81F1AFC9EFC007B51E6 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4F9D81D1AFC9EFC007B51E6 /* Audio.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +56,6 @@
 		D46A237B1AF9F4B800B77AC8 /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
 		D46A23921AF9F4B800B77AC8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D46A23931AF9F4B800B77AC8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D46A23941AF9F4B800B77AC8 /* AudioOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioOS.cpp; sourceTree = "<group>"; };
-		D46A23951AF9F4B800B77AC8 /* AudioOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioOS.h; sourceTree = "<group>"; };
 		D46A23971AF9F4B800B77AC8 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
 		D46A23981AF9F4B800B77AC8 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		D46A23991AF9F4B800B77AC8 /* common_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_platform.h; sourceTree = "<group>"; };
@@ -121,10 +117,8 @@
 		D4A21A6F1AFA156200456BD1 /* fmod_dsp_effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_dsp_effects.h; sourceTree = "<group>"; };
 		D4A21A701AFA156200456BD1 /* fmod_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_errors.h; sourceTree = "<group>"; };
 		D4A21A711AFA156200456BD1 /* fmod_output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_output.h; sourceTree = "<group>"; };
-		D4A21A721AFA158200456BD1 /* common_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_platform.h; sourceTree = "<group>"; };
-		D4A21A731AFA158200456BD1 /* common_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = common_platform.mm; sourceTree = "<group>"; };
-		D4A21A741AFA158200456BD1 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
-		D4A21A751AFA158200456BD1 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		D4F9D81D1AFC9EFC007B51E6 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
+		D4F9D81E1AFC9EFC007B51E6 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +164,8 @@
 			children = (
 				D4A21A691AFA156200456BD1 /* FMOD */,
 				D46A237C1AF9F4B800B77AC8 /* Platform */,
+				D4F9D81D1AFC9EFC007B51E6 /* Audio.cpp */,
+				D4F9D81E1AFC9EFC007B51E6 /* Audio.h */,
 				D46A23721AF9F4B800B77AC8 /* Game.cpp */,
 				D46A23731AF9F4B800B77AC8 /* Game.h */,
 				D46A23741AF9F4B800B77AC8 /* Graphics.cpp */,
@@ -206,17 +202,11 @@
 				D46A23961AF9F4B800B77AC8 /* FMOD */,
 				D46A23921AF9F4B800B77AC8 /* AppDelegate.h */,
 				D46A23931AF9F4B800B77AC8 /* AppDelegate.m */,
-				D46A23941AF9F4B800B77AC8 /* AudioOS.cpp */,
-				D46A23951AF9F4B800B77AC8 /* AudioOS.h */,
 				D46A23A41AF9F4B800B77AC8 /* GLRenderView.h */,
 				D46A23A51AF9F4B800B77AC8 /* GLRenderView.mm */,
 				D46A23A61AF9F4B800B77AC8 /* LauncherOS.h */,
 				D46A23A71AF9F4B800B77AC8 /* LauncherOS.mm */,
 				D46A23A81AF9F4B800B77AC8 /* Main.storyboard */,
-				D4A21A721AFA158200456BD1 /* common_platform.h */,
-				D4A21A731AFA158200456BD1 /* common_platform.mm */,
-				D4A21A741AFA158200456BD1 /* common.cpp */,
-				D4A21A751AFA158200456BD1 /* common.h */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -377,14 +367,12 @@
 				D46A23F71AF9F4B800B77AC8 /* RectX.cpp in Sources */,
 				D46A23E61AF9F4B800B77AC8 /* GLRenderView.mm in Sources */,
 				D46A23F41AF9F4B800B77AC8 /* Button.cpp in Sources */,
-				D46A23E31AF9F4B800B77AC8 /* AudioOS.cpp in Sources */,
 				D46A23EF1AF9F4B800B77AC8 /* Screen.cpp in Sources */,
 				D46A24581AF9F8B900B77AC8 /* Demo.cpp in Sources */,
 				D46A23E21AF9F4B800B77AC8 /* AppDelegate.m in Sources */,
-				D4A21A771AFA158200456BD1 /* common.cpp in Sources */,
 				D46A23EE1AF9F4B800B77AC8 /* Saver.cpp in Sources */,
 				D46A23F01AF9F4B800B77AC8 /* image_helper.c in Sources */,
-				D4A21A761AFA158200456BD1 /* common_platform.mm in Sources */,
+				D4F9D81F1AFC9EFC007B51E6 /* Audio.cpp in Sources */,
 				D46A23F11AF9F4B800B77AC8 /* SOIL.c in Sources */,
 				D46A23F31AF9F4B800B77AC8 /* Animation.cpp in Sources */,
 				D46A23F61AF9F4B800B77AC8 /* PointX.cpp in Sources */,

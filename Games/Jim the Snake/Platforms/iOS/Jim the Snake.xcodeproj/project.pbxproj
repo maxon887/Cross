@@ -16,9 +16,6 @@
 		D438E2361AFB62030015EC19 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EE1AFB62030015EC19 /* Image.cpp */; };
 		D438E2371AFB62030015EC19 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1F01AFB62030015EC19 /* Input.cpp */; };
 		D438E23D1AFB62030015EC19 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D438E2011AFB62030015EC19 /* AppDelegate.m */; };
-		D438E23E1AFB62030015EC19 /* AudioOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2021AFB62030015EC19 /* AudioOS.cpp */; };
-		D438E23F1AFB62030015EC19 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2041AFB62030015EC19 /* common.cpp */; };
-		D438E2401AFB62030015EC19 /* common_platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = D438E2071AFB62030015EC19 /* common_platform.mm */; };
 		D438E2411AFB62030015EC19 /* GLRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D438E2091AFB62030015EC19 /* GLRenderView.mm */; };
 		D438E2421AFB62030015EC19 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D438E20B1AFB62030015EC19 /* LauncherOS.mm */; };
 		D438E2431AFB62030015EC19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D438E20C1AFB62030015EC19 /* Main.storyboard */; };
@@ -38,6 +35,7 @@
 		D438E2581AFB628A0015EC19 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E2571AFB628A0015EC19 /* OpenGLES.framework */; };
 		D438E25A1AFB628F0015EC19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E2591AFB628F0015EC19 /* AudioToolbox.framework */; };
 		D438E25C1AFB630C0015EC19 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E25B1AFB630C0015EC19 /* GLKit.framework */; };
+		D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4F9D81A1AFC9DE9007B51E6 /* Audio.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,12 +67,6 @@
 		D438E1F31AFB62030015EC19 /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
 		D438E2001AFB62030015EC19 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D438E2011AFB62030015EC19 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D438E2021AFB62030015EC19 /* AudioOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioOS.cpp; sourceTree = "<group>"; };
-		D438E2031AFB62030015EC19 /* AudioOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioOS.h; sourceTree = "<group>"; };
-		D438E2041AFB62030015EC19 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
-		D438E2051AFB62030015EC19 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		D438E2061AFB62030015EC19 /* common_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_platform.h; sourceTree = "<group>"; };
-		D438E2071AFB62030015EC19 /* common_platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = common_platform.mm; sourceTree = "<group>"; };
 		D438E2081AFB62030015EC19 /* GLRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLRenderView.h; sourceTree = "<group>"; };
 		D438E2091AFB62030015EC19 /* GLRenderView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLRenderView.mm; sourceTree = "<group>"; };
 		D438E20A1AFB62030015EC19 /* LauncherOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherOS.h; sourceTree = "<group>"; };
@@ -109,6 +101,8 @@
 		D438E2571AFB628A0015EC19 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D438E2591AFB628F0015EC19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D438E25B1AFB630C0015EC19 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D4F9D81A1AFC9DE9007B51E6 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
+		D4F9D81B1AFC9DE9007B51E6 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +162,8 @@
 				D438E1F41AFB62030015EC19 /* Platform */,
 				D438E21D1AFB62030015EC19 /* SOIL */,
 				D438E2251AFB62030015EC19 /* Utils */,
+				D4F9D81A1AFC9DE9007B51E6 /* Audio.cpp */,
+				D4F9D81B1AFC9DE9007B51E6 /* Audio.h */,
 				D438E1EA1AFB62030015EC19 /* Game.cpp */,
 				D438E1EB1AFB62030015EC19 /* Game.h */,
 				D438E1EC1AFB62030015EC19 /* Graphics.cpp */,
@@ -216,12 +212,6 @@
 			children = (
 				D438E2001AFB62030015EC19 /* AppDelegate.h */,
 				D438E2011AFB62030015EC19 /* AppDelegate.m */,
-				D438E2021AFB62030015EC19 /* AudioOS.cpp */,
-				D438E2031AFB62030015EC19 /* AudioOS.h */,
-				D438E2041AFB62030015EC19 /* common.cpp */,
-				D438E2051AFB62030015EC19 /* common.h */,
-				D438E2061AFB62030015EC19 /* common_platform.h */,
-				D438E2071AFB62030015EC19 /* common_platform.mm */,
 				D438E2081AFB62030015EC19 /* GLRenderView.h */,
 				D438E2091AFB62030015EC19 /* GLRenderView.mm */,
 				D438E20A1AFB62030015EC19 /* LauncherOS.h */,
@@ -343,18 +333,16 @@
 				D438E24F1AFB62030015EC19 /* Button.cpp in Sources */,
 				D438E2371AFB62030015EC19 /* Input.cpp in Sources */,
 				D438E24A1AFB62030015EC19 /* Screen.cpp in Sources */,
-				D438E23F1AFB62030015EC19 /* common.cpp in Sources */,
 				D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */,
-				D438E2401AFB62030015EC19 /* common_platform.mm in Sources */,
 				D438E2541AFB62030015EC19 /* ToggleButton.cpp in Sources */,
 				D438E23D1AFB62030015EC19 /* AppDelegate.m in Sources */,
 				D438E2361AFB62030015EC19 /* Image.cpp in Sources */,
 				D438E2351AFB62030015EC19 /* Graphics.cpp in Sources */,
 				D438E2341AFB62030015EC19 /* Game.cpp in Sources */,
 				D438E24B1AFB62030015EC19 /* image_helper.c in Sources */,
-				D438E23E1AFB62030015EC19 /* AudioOS.cpp in Sources */,
 				D438E2531AFB62030015EC19 /* Texter.cpp in Sources */,
 				D438E24D1AFB62030015EC19 /* stb_image_aug.c in Sources */,
+				D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */,
 				D438E2421AFB62030015EC19 /* LauncherOS.mm in Sources */,
 				D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */,
 				D438E2511AFB62030015EC19 /* PointX.cpp in Sources */,

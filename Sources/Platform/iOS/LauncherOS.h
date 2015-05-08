@@ -19,7 +19,7 @@
 
 #include "Launcher.h"
 #include "Game.h"
-#include "AudioOS.h"
+#include "Audio.h"
 
 class LauncherOS : public Launcher{
 public:
@@ -29,8 +29,6 @@ public:
     string AssetsPath();
     string DataPath();
     void LogIt(string str);
-    Sound* CreateSound(string filename, bool loop);
-    Music* CreateMusic(string filename, bool loop);
     void Exit();
 private:
     int width;

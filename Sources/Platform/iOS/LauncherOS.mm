@@ -23,7 +23,7 @@ LauncherOS::LauncherOS(){
     CGFloat screenScale = [[UIScreen mainScreen] scale];
     width = screenRect.size.width * screenScale;
     height = screenRect.size.height * screenScale;
-    AudioOS::Init();
+    Audio::Init(this);
 }
 
 int LauncherOS::GetTargetWidth(){
@@ -44,14 +44,6 @@ string LauncherOS::DataPath(){
     NSString* path = [[NSBundle mainBundle] resourcePath];
     string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
     return cPath + "/";
-}
-
-Music* LauncherOS::CreateMusic(string filename, bool loop){
-    return new AudioOS(filename, loop, true);
-}
-
-Sound* LauncherOS::CreateSound(string filename, bool loop){
-    return new AudioOS(filename, loop, false);
 }
 
 void LauncherOS::LogIt(string str){
