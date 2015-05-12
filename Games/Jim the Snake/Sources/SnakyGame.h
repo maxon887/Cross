@@ -20,6 +20,7 @@
 #define GAME_WIDTH 900
 
 #include "Game.h"
+#include "GameScreen.h"
 #include "MenuScreen.h"
 
 #define KEY_SCORE "SCORE"

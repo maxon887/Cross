@@ -58,8 +58,9 @@ public:
 	Image* LoadImage(string filename, float scaleFactor);
 	/* Delete all data related with Image */
 	void ReleaseImage(Image* img);
+	Image* LoadRepeatedImage(string filename, float width, float height);
 	/* Load scaled image filled with images*/
-	Image* LoadRepeatedImage(string filename, float scaleFactor, float width, float height);
+	Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor);
 	/* Draws Iimage in game coordinates */
 	void DrawImage(float x, float y, Image* img);
 	/* Draws Image in game coordinates */

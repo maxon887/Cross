@@ -16,8 +16,6 @@
     <ClCompile Include="..\..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common_platform.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Saver.cpp" />
@@ -32,6 +30,7 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
+    <ClCompile Include="..\..\Sources\GameScreen.cpp" />
     <ClCompile Include="..\..\Sources\MenuScreen.cpp" />
     <ClCompile Include="..\..\Sources\SnakyGame.cpp" />
     <ClCompile Include="main.cpp" />
@@ -52,8 +51,6 @@
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\..\Sources\Music.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common_platform.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\Sources\Saver.h" />
@@ -69,6 +66,7 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
+    <ClInclude Include="..\..\Sources\GameScreen.h" />
     <ClInclude Include="..\..\Sources\MenuScreen.h" />
     <ClInclude Include="..\..\Sources\SnakyGame.h" />
   </ItemGroup>

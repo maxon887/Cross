@@ -15,18 +15,23 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "SnakyGame.h"
+#pragma once
+#include "Screen.h"
 
-SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
+enum GameState{
+	RUNNING,
+	ONREADY,
+	PAUSED,
+	DEAT0,
+	DEAT1,
+	DEAT2
+};
 
-}
-
-void SnakyGame::Start(){
-	score_texter = new Texter(this, "Numbers.png", 60.f, 76.f, 10, 1, 48, this->scale_factor);
-	Game::Start();
-}
-
-Screen* SnakyGame::GetStartScreen(){
-	//return new MenuScreen(this);;
-	return new GameScreen(this);
-}
+class GameScreen : public Screen{
+public:
+	GameScreen(Game* game);
+	void Start();
+	void Update(float sec);
+private:
+	Image* background;
+};

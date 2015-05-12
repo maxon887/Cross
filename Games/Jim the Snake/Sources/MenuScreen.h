@@ -24,6 +24,7 @@
 #include "Button.h"
 #include "ToggleButton.h"
 #include "SnakyGame.h"
+#include "GameScreen.h"
 
 #include <math.h>
 

@@ -118,7 +118,11 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 	return img;
 }
 
-Image* Graphics::LoadRepeatedImage(string filename, float scaleFactor, float w, float h){
+Image* Graphics::LoadRepeatedImage(string filename, float w, float h){
+	return LoadRepeatedImage(filename, w, h, game->GetScaleFactor());
+}
+
+Image* Graphics::LoadRepeatedImage(string filename, float w, float h, float scaleFactor){
 	Debuger::StartCheckTime();
 	unsigned int textureID;
 	int width;

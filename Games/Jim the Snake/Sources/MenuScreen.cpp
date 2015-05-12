@@ -86,13 +86,13 @@ void MenuScreen::Update(float sec){
 	UpdateSun(sec);
 	graphics->DrawImage(background_pos, background);
 
-	play_btn->Update();
-	music_btn->Update();
-	sound_btn->Update();
-
 	graphics->DrawImage(snaky_pos, snaky);
 	graphics->DrawImage(bestscore_pos, bestscore);
 	score_texter->DrawText(510, 490, to_string(score));
+
+	music_btn->Update();
+	sound_btn->Update();
+	play_btn->Update();
 }
 
 void MenuScreen::UpdateSun(float sec){
@@ -142,7 +142,7 @@ void MenuScreen::UpdateSun(float sec){
 }
 
 void MenuScreen::OnPlayClick(){
-
+	game->SetScreen(new GameScreen(game));
 }
 
 void MenuScreen::OnMusicClick(){

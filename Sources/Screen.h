@@ -20,6 +20,7 @@
 #include "Launcher.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "Image.h"
 #include "Input.h"
 #include "Saver.h"
 #include "Audio.h"

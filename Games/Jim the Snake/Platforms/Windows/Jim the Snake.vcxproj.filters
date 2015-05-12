@@ -78,12 +78,6 @@
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
       <Filter>Cross\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common.cpp">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\common_platform.cpp">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp">
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
@@ -93,6 +87,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp">
       <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\GameScreen.cpp">
+      <Filter>Jim the Snake</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,12 +180,6 @@
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod_output.h">
       <Filter>Cross\FMOD</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common.h">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\common_platform.h">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h">
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
@@ -197,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Audio.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\GameScreen.h">
+      <Filter>Jim the Snake</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
