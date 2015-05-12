@@ -58,10 +58,15 @@ public:
 	Image* LoadImage(string filename, float scaleFactor);
 	/* Delete all data related with Image */
 	void ReleaseImage(Image* img);
+	/* Load image filled with images*/
 	Image* LoadRepeatedImage(string filename, float width, float height);
 	/* Load scaled image filled with images*/
 	Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor);
-	/* Draws Iimage in game coordinates */
+	void DrawPixel(PointX p, float r, float g, float b);
+	void DrawLine(PointX p1, PointX p2, float r, float g, float b);
+	void DrawCircle(PointX center, float radius, float r, float g, float b);
+	void DrawRect(RectX rect, float r, float g, float b);
+	/* Draws Image in game coordinates */
 	void DrawImage(float x, float y, Image* img);
 	/* Draws Image in game coordinates */
 	void DrawImage(PointX p, Image* img);
@@ -74,5 +79,4 @@ private:
 	Game* game;
 	Launcher* launcher;
 	GLint prev_texID;
-	//char str_buffer[BUF_LEN];
 };

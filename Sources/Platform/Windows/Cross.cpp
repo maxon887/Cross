@@ -18,10 +18,12 @@
 #include "Cross.h"
 #include "Graphics.h"
 #include "Input.h"
+#include "Screen.h"
 
-Input* input;
+static Game* mGame;
+static Input* input;
 
-void ClientResize(HWND hWnd, int nWidth, int nHeight)
+void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight)
 {
 	RECT rcClient, rcWind;
 	POINT ptDiff;
@@ -29,7 +31,14 @@ void ClientResize(HWND hWnd, int nWidth, int nHeight)
 	GetWindowRect(hWnd, &rcWind);
 	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
 	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
-	MoveWindow(hWnd,rcWind.left, rcWind.top, nWidth + ptDiff.x, nHeight + ptDiff.y, TRUE);
+	MoveWindow(hWnd,nX, nY, nWidth + ptDiff.x, nHeight + ptDiff.y, TRUE);
+}
+
+RECT GetLocalCoordinates(HWND hWnd){
+    RECT Rect;
+    GetWindowRect(hWnd, &Rect);
+    MapWindowPoints(HWND_DESKTOP, GetParent(hWnd), (LPPOINT) &Rect, 2);
+    return Rect;
 }
 
 void ShowLastError(){
@@ -47,6 +56,7 @@ void ShowLastError(){
 }
 
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
+	RECT winRect;
 	switch (msg)
 	{
 	case WM_LBUTTONDOWN:
@@ -61,6 +71,11 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_LBUTTONUP:
 		input->input_state = false;
 		break;
+	case WM_CLOSE:
+		winRect = GetLocalCoordinates(wnd);
+		mGame->saver->SaveInt("WIN_POS_X", winRect.left);
+		mGame->saver->SaveInt("WIN_POS_Y", winRect.top);
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -69,6 +84,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 }
 
 int CrossMain(Game* game, HINSTANCE instance, int winShow){
+	mGame = game;
 	WNDCLASSEX wc;
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -81,7 +97,9 @@ int CrossMain(Game* game, HINSTANCE instance, int winShow){
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
 	LauncherWIN* launcher = (LauncherWIN*)game->launcher;
 	launcher->SetHWND(wnd);
-	ClientResize(wnd, launcher->GetTargetWidth(), launcher->GetTargetHeight());
+	int winX = game->saver->LoadInt("WIN_POS_X");
+	int winY = game->saver->LoadInt("WIN_POS_Y");
+	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;
 	ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
@@ -120,8 +138,6 @@ int CrossMain(Game* game, HINSTANCE instance, int winShow){
 
 	ShowWindow(wnd, winShow);
 
-	//SnakyGame* game = new SnakyGame(launcher);.
-	//Demo* game = new Demo(launcher);
 	Graphics* graphics = new Graphics(game);
 	input = game->input;
 	game->graphics = graphics;

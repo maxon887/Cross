@@ -91,6 +91,5 @@ protected:
 	float scale_factor;
 private:
 	Screen* current_screen;
-	//char str_buffer[BUF_LEN];
     time_point<high_resolution_clock> render_time;
 };

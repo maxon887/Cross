@@ -50,15 +50,11 @@ void Saver::SaveString(string key, string value){
 }
 
 void Saver::SaveInt(string key, int value){
-	char buf[128];
-	sprintf(buf, "%d", value);
-	SaveString(key, buf);
+	SaveString(key, to_string(value));
 }
 
 void Saver::SaveFloat(string key, float value){
-	char buf[128];
-	sprintf(buf, "%f", value);
-	SaveString(key, buf);
+	SaveString(key, to_string(value));
 }
 
 void Saver::SaveBool(string key, bool value){
@@ -98,5 +94,5 @@ float Saver::LoadFloat(string key){
 }
 
 bool Saver::LoadBool(string key){
-	return LoadInt(key);
+	return LoadInt(key) != 0;
 }

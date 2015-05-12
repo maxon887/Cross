@@ -36,7 +36,8 @@ Graphics::Graphics(Game* game){
 
 void Graphics::Clear(float r, float g, float b){
 	glClearColor(r, g, b, 1);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Graphics::ScaleImage(Image* img, float factor){
@@ -112,7 +113,6 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 	Image* img = new Image(textureID, new_width, new_height, region);
 	img->Scale(scaleFactor);
 
-	//sprintf(str_buffer, "Load image %s", filename);
     string debugMsg = "Load image " + filename + ": ";
 	Debuger::StopCheckTime(debugMsg);
 	return img;
@@ -166,16 +166,71 @@ unsigned char* Graphics::LoadImageInternal(string filename, GLuint* textureID, i
 	free(file);
 #else
 	Launcher* launcher = game->launcher;
-    //sprintf(str_buffer, "%s/%s", launcher->AssetsPath(), filename);
 	string path = launcher->AssetsPath() + filename;
 	unsigned char* image = SOIL_load_image(path.c_str(), width, height, 0, SOIL_LOAD_RGBA);
 #endif
 	if(image == NULL){
-		//sprintf(str_buffer, "Can't load file: %s", filename);
 		string msg = "Can't load file: " + filename;
 		throw msg;
 	}
 	return image;
+}
+
+void Graphics::DrawPixel(PointX p, float r, float g, float b){
+	p.x *= game->GetScaleFactor();
+	p.y *= game->GetScaleFactor();
+	float vertices[] = { p.x, p.y };
+	float colors[] = { r, g, b, 1 };
+	static const unsigned int indices[] = { 0 };
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(2, GL_FLOAT, 0, vertices);
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colors);
+
+	glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, indices);
+
+	glDisableClientState(GL_COLOR_ARRAY);
+}
+
+void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
+	p1.x *= game->GetScaleFactor();
+	p1.y *= game->GetScaleFactor();
+	p2.x *= game->GetScaleFactor();
+	p2.y *= game->GetScaleFactor();
+	float vertices[] = { p1.x, p1.y, p2.x, p2.y };
+	float colors[] = { r, g, b, 1, r, g, b, 1 };
+	static const unsigned int indices[] = { 0, 1 };
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(2, GL_FLOAT, 0, vertices);
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colors);
+
+	glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, indices);
+
+	glDisableClientState(GL_COLOR_ARRAY);
+}
+
+void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
+	int sqrRad = radius * radius;
+	for ( int x = -radius * 0.7071068; x <= (radius * 0.7071068 + .5); x++ )
+	{
+		int y = sqrt( double( sqrRad ) - double ( x*x )) + .5;
+		DrawPixel(PointX(x + c.x,y + c.y),r,g,b);
+		DrawPixel(PointX(x + c.x,-y + c.y), r,g,b);
+		DrawPixel(PointX(c.x + y, c.y + x), r,g,b);
+		DrawPixel(PointX(c.x - y, c.y + x), r,g,b);
+	}
+}
+
+void Graphics::DrawRect(RectX rect, float r, float g, float b){
+	DrawLine(PointX(rect.x, rect.y), PointX(rect.x, rect.y + rect.height), r, g, b);
+	DrawLine(PointX(rect.x, rect.y), PointX(rect.x + rect.width, rect.y), r, g, b);
+	DrawLine(PointX(rect.x, rect.y + rect.height), PointX(rect.x + rect.width, rect.y + rect.height), r, g, b);
+	DrawLine(PointX(rect.x + rect.width, rect.y), PointX(rect.x + rect.width, rect.y + rect.height), r, g, b);
 }
 
 void Graphics::DrawImage(float x, float y, Image* img){
@@ -194,17 +249,20 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	if(img == NULL)
 		throw "Attempt to draw NULL image";
 	if(prev_texID != img->GetTextureID()){
-		glEnable(GL_TEXTURE_2D);
+		//glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
 		prev_texID = img->GetTextureID();
+		//glDisable(GL_TEXTURE_2D);
 	}
-
+	
+	glEnable(GL_TEXTURE_2D);
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(x, y, 0);
-
+	
 	glRotatef(-img->angle, 0.0f, 0.0f, 1.0f);
-
+	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	float* verts = img->GetVertices(); 
 	glVertexPointer(2, GL_FLOAT, 16, verts);
@@ -212,7 +270,8 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	verts += 2;
 	glTexCoordPointer(2, GL_FLOAT, 16, verts);
-
+	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, Image::indices);
-
+	glDisable(GL_TEXTURE_2D);
+	glTranslatef(-x, -y, 0);
 }
