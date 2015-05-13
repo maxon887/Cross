@@ -17,9 +17,6 @@
 	
 #include "MenuScreen.h"
 #define PI (3.141592653589793)
-float lerp(float v0, float v1, float t) {
-  return (1-t)*v0 + t*v1;
-}
 
 MenuScreen::MenuScreen(Game* game):Screen(game) { 
 	background = NULL;
@@ -41,32 +38,32 @@ void MenuScreen::Start(){
 	graphics->ScaleImage(background, scaleFactor);
 	//background_pos.x = launcher->GetTargetWidth() / 2.f / game->GetScaleFactor();
 	//background_pos.y = launcher->GetTargetHeight() / 2.f / game->GetScaleFactor();
-	background_pos.x = game->GetWidth() / 2;
-	background_pos.y = game->GetHeight() / 2;
+	background_pos.x = game->GetWidth() / 2.f;
+	background_pos.y = game->GetHeight() / 2.f;
 
 	sun = graphics->LoadImage("Menu/Sun.jpg", scaleFactor);
-	sun_pos.x = 400 * scaleFactor / game->GetScaleFactor();
-	sun_pos.y = 580 * scaleFactor / game->GetScaleFactor();
+	sun_pos.x = 400.f * scaleFactor / game->GetScaleFactor();
+	sun_pos.y = 580.f * scaleFactor / game->GetScaleFactor();
 	//Buttons
 	Image* playUp = graphics->LoadImage("Menu/PlayButtonUp.png");
 	Image* playDown = graphics->LoadImage("Menu/PlayButtonDown.png");
 	PointX playPos;
-	playPos.x = 270 * scaleFactor / game->GetScaleFactor();
-	playPos.y = 490 * scaleFactor / game->GetScaleFactor();
+	playPos.x = 270.f * scaleFactor / game->GetScaleFactor();
+	playPos.y = 490.f * scaleFactor / game->GetScaleFactor();
 	play_btn = new Button(game, playPos, playUp, playDown);
 	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
 	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png", game->GetScaleFactor() * 1.2f);
 	Image* soundDown = graphics->LoadImage("Menu/SoundDown.png", game->GetScaleFactor() * 1.2f);
 	PointX soundPos;
-	soundPos.x = soundUp->GetWidth() * 0.8;
-	soundPos.y = game->GetHeight() - soundUp->GetHeight() * 0.8;
+	soundPos.x = soundUp->GetWidth() * 0.8f;
+	soundPos.y = game->GetHeight() - soundUp->GetHeight() * 0.8f;
 	sound_btn = new ToggleButton(game, soundPos, soundUp, soundDown);
 	sound_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
 	Image* musicUp = graphics->LoadImage("Menu/MusicUp.png", game->GetScaleFactor() * 1.2f);
 	Image* musicDown = graphics->LoadImage("Menu/MusicDown.png", game->GetScaleFactor() * 1.2f);
 	PointX musicPos;
-	musicPos.x = musicUp->GetWidth() * 2.2;
-	musicPos.y = game->GetHeight() - musicUp->GetHeight() * 0.8;
+	musicPos.x = musicUp->GetWidth() * 2.2f;
+	musicPos.y = game->GetHeight() - musicUp->GetHeight() * 0.8f;
 	music_btn = new ToggleButton(game, musicPos, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
 
@@ -74,11 +71,13 @@ void MenuScreen::Start(){
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	score = saver->LoadInt(KEY_SCORE);
 	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
-	bestscore_pos.x = 300;
-	bestscore_pos.y = 520;
+	bestscore_pos.x = 300.f;
+	bestscore_pos.y = 520.f;
 	snaky = graphics->LoadImage("Menu/SnakyLabel.png", scaleFactor);
-	snaky_pos.x = 200 * scaleFactor / game->GetScaleFactor();
-	snaky_pos.y = 100 * scaleFactor / game->GetScaleFactor();
+	snaky_pos.x = 200.f * scaleFactor / game->GetScaleFactor();
+	snaky_pos.y = 100.f * scaleFactor / game->GetScaleFactor();
+
+	CreateDeadAreas();
 }
 
 void MenuScreen::Update(float sec){
@@ -90,9 +89,51 @@ void MenuScreen::Update(float sec){
 	graphics->DrawImage(bestscore_pos, bestscore);
 	score_texter->DrawText(510, 490, to_string(score));
 
+	ShowDeadAreas();
+
+
+
+
 	music_btn->Update();
 	sound_btn->Update();
 	play_btn->Update();
+}
+
+void MenuScreen::ShowDeadAreas(){/*
+	RectX r1 = play_btn->GetRect();
+	RectX r2;
+	r2.x = 0;
+	r2.y = play_btn->GetCenter().y;
+	r2.width = game->GetWidth();
+	r2.height = game->GetHeight() - r2.y;
+	RectX r3;
+	r3.x = 0;
+	r3.y = bestscore_pos.y + 50;
+	r3.width = 250;
+	r3.height = game->GetHeight() - r3.y;*/
+
+	/*
+	graphics->DrawRect(r1, ColorX::Red);
+	graphics->DrawRect(r2, ColorX::Red);
+	graphics->DrawRect(r3, ColorX::Red);*/
+	for(unsigned int i = 0; i < dead_areas.size(); i++){
+		graphics->DrawRect(dead_areas[i], ColorX::Red);
+	}
+}
+
+void MenuScreen::CreateDeadAreas(){
+	RectX r = play_btn->GetRect();
+	dead_areas.push_back(r);
+	r.x = 0;
+	r.y = play_btn->GetCenter().y;
+	r.width = game->GetWidth();
+	r.height = game->GetHeight() - r.y;
+	dead_areas.push_back(r);
+	r.x = 0;
+	r.y = bestscore_pos.y + 50;
+	r.width = 250;
+	r.height = game->GetHeight() - r.y;
+	dead_areas.push_back(r);
 }
 
 void MenuScreen::UpdateSun(float sec){
@@ -100,14 +141,23 @@ void MenuScreen::UpdateSun(float sec){
 	static float deltaAngle = 0;
 	static float deltaTime = 0;
 	static float lerpVal = 0;
+	bool touchInDeadArea = false;
 
 	if(input->HaveInput() && startAngle == 0){
+		for(unsigned int i = 0; i < dead_areas.size(); i++){
+			if(PointInRect(input->GetInput(), dead_areas[i])){
+				touchInDeadArea = true;
+			}
+		}
+	}
+
+	if(input->HaveInput() && startAngle == 0 && !touchInDeadArea){
 		float sun_tangens = (sun_pos.x - input->GetInput().x) / (sun_pos.y - input->GetInput().y);
 		startAngle = atan(sun_tangens);
 		startAngle = (float)(startAngle * 180.f / PI);
 	}
 
-	if(!input->HaveInput() && startAngle != 0){
+	if(!input->HaveInput() && startAngle != 0 && !touchInDeadArea){
 		sun_angle = sun_angle + deltaAngle;
 		if(deltaAngle < -90){
 			deltaAngle += 180.f;
@@ -121,7 +171,7 @@ void MenuScreen::UpdateSun(float sec){
 		lerpVal = 0;
 	}
 
-	if(input->HaveInput()){
+	if(input->HaveInput() && !touchInDeadArea){
 		float sun_tangens = (sun_pos.x - input->GetInput().x) / (sun_pos.y - input->GetInput().y);
 		deltaAngle = atan(sun_tangens);
 		deltaAngle = (float)(deltaAngle * 180.f / PI);
@@ -137,7 +187,7 @@ void MenuScreen::UpdateSun(float sec){
 			lerpVal += 0.05f * sec;
 		else 
 			lerpVal = 1;
-		sun_w = lerp(sun_w, 5.f, lerpVal);
+		sun_w = Lerp(sun_w, 5.f, lerpVal);
 	}
 }
 

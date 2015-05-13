@@ -15,35 +15,53 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "ColorX.h"
 
-#include "Game.h"
-#include "Graphics.h"
-#include "Input.h"
-#include "Image.h"
+ColorX ColorX::Red(RED);
+ColorX ColorX::Green(GREEN);
+ColorX ColorX::Blue(BLUE);
+ColorX ColorX::White(WHITE);
+ColorX ColorX::Black(BLACK);
 
-class Button{
-public:
-	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, PointX location, Image* up, Image* down);
-	void Update();
-	void RegisterCallback(function<void()> callback);
-	void SetLocation(PointX location);
-	float GetWidth();
-	float GetHeight();
-	RectX GetRect();
-	PointX GetCenter();
-	~Button();
-//Internal data. You don't need call any of this methods or modify variable
-protected:
-	Launcher* launcher;
-	Graphics* graphics;
-	Input* input;
-	PointX location;
-	Image* up;
-	Image* down;
-	bool OnLocation(float x, float y);
-	PointX* press_loc;
-	function<void()> callback;
-	bool callback_registered;
-};
+
+ColorX::ColorX(float r, float g, float b){
+	this->R = r;
+	this->G = g;
+	this->B = b;
+}
+
+ColorX::ColorX(COLORX c){
+	switch (c)
+	{
+	case RED:
+		R = 1.f;
+		G = 0.f;
+		B = 0.f;
+		break;
+	case GREEN:
+		R = 0.f;
+		G = 1.f;
+		B = 0.f;
+		break;
+	case BLUE:
+		R = 0.f;
+		G = 0.f;
+		B = 1.f;
+		break;
+	case WHITE:
+		R = 1.f;
+		G = 1.f;
+		B = 1.f;
+		break;
+	case BLACK:
+		R = 0.f;
+		G = 0.f;
+		B = 0.f;
+		break;
+	default:
+		R = 0.f;
+		G = 0.f;
+		B = 0.f;
+		break;
+	}
+}

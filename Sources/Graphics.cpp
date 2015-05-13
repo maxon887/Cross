@@ -34,6 +34,10 @@ Graphics::Graphics(Game* game){
 	launcher->LogIt("Graphics initialized");
 }
 
+void Graphics::Clear(ColorX c){
+	Clear(c.R, c.G, c.B);
+}
+
 void Graphics::Clear(float r, float g, float b){
 	glClearColor(r, g, b, 1);
 	//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -176,6 +180,10 @@ unsigned char* Graphics::LoadImageInternal(string filename, GLuint* textureID, i
 	return image;
 }
 
+void Graphics::DrawPixel(PointX p, ColorX c){
+	DrawPixel(p, c.R, c.G, c.B);
+}
+
 void Graphics::DrawPixel(PointX p, float r, float g, float b){
 	p.x *= game->GetScaleFactor();
 	p.y *= game->GetScaleFactor();
@@ -192,6 +200,10 @@ void Graphics::DrawPixel(PointX p, float r, float g, float b){
 	glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, indices);
 
 	glDisableClientState(GL_COLOR_ARRAY);
+}
+
+void Graphics::DrawLine(PointX p1, PointX p2, ColorX c){
+	DrawLine(p1, p2, c.R, c.G, c.B);
 }
 
 void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
@@ -214,6 +226,10 @@ void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
 	glDisableClientState(GL_COLOR_ARRAY);
 }
 
+void Graphics::DrawCircle(PointX center, float radius, ColorX c){
+	DrawCircle(center, radius, c.R, c.G, c.B);
+}
+
 void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
 	int sqrRad = radius * radius;
 	for ( int x = -radius * 0.7071068; x <= (radius * 0.7071068 + .5); x++ )
@@ -224,6 +240,10 @@ void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
 		DrawPixel(PointX(c.x + y, c.y + x), r,g,b);
 		DrawPixel(PointX(c.x - y, c.y + x), r,g,b);
 	}
+}
+
+void Graphics::DrawRect(RectX rect, ColorX c){
+	DrawRect(rect, c.R, c.G, c.B);
 }
 
 void Graphics::DrawRect(RectX rect, float r, float g, float b){

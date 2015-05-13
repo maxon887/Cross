@@ -44,6 +44,7 @@ using namespace chrono;
 
 #include "PointX.h"
 #include "RectX.h"
+#include "Misc.h"
 
 class Launcher;
 class Graphics;

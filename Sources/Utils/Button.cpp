@@ -80,6 +80,19 @@ float Button::GetHeight(){
 	return up->GetHeight();
 }
 
+RectX Button::GetRect(){
+	RectX rect;
+	rect.x = location.x - up->GetWidth() / 2;
+	rect.y = location.y - up->GetHeight() / 2;
+	rect.width = up->GetWidth();
+	rect.height = up->GetHeight();
+	return rect;
+}
+
+PointX Button::GetCenter(){
+	return location;
+}
+
 bool Button::OnLocation(float x, float y){
 		return  x > (location.x - up->GetWidth() / 2) &&
 				x < (location.x + up->GetWidth() / 2) &&

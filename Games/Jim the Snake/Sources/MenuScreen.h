@@ -53,6 +53,10 @@ private:
 	ToggleButton* music_btn;
 	ToggleButton* sound_btn;
 
+	//debug
+	void ShowDeadAreas();
+
+	void CreateDeadAreas();
 	void UpdateSun(float sec);
 	void OnPlayClick();
 	void OnMusicClick();

@@ -26,4 +26,9 @@ void GameScreen::Start(){
 void GameScreen::Update(float sec){
 	graphics->Clear(1,0,0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
+	graphics->DrawLine(PointX(50, 50), PointX(game->GetWidth() / 2, game->GetHeight() / 2), 0, 0, 1);
+	RectX rect(100,100, 200, 100);
+	graphics->DrawRect(rect, 1, 0, 0);
+	graphics->DrawPixel(PointX(200, 200), 0, 1, 0);
+	graphics->DrawCircle(PointX(500, 500), 50, 0, 1, 0);
 }

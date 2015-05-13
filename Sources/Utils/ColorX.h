@@ -18,32 +18,24 @@
 #pragma once
 
 #include "Game.h"
-#include "Graphics.h"
-#include "Input.h"
-#include "Image.h"
 
-class Button{
+enum COLORX{
+	RED,
+	GREEN,
+	BLUE,
+	WHITE,
+	BLACK
+};
+
+class ColorX{
 public:
-	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, PointX location, Image* up, Image* down);
-	void Update();
-	void RegisterCallback(function<void()> callback);
-	void SetLocation(PointX location);
-	float GetWidth();
-	float GetHeight();
-	RectX GetRect();
-	PointX GetCenter();
-	~Button();
-//Internal data. You don't need call any of this methods or modify variable
-protected:
-	Launcher* launcher;
-	Graphics* graphics;
-	Input* input;
-	PointX location;
-	Image* up;
-	Image* down;
-	bool OnLocation(float x, float y);
-	PointX* press_loc;
-	function<void()> callback;
-	bool callback_registered;
+	static ColorX Red;
+	static ColorX Green;
+	static ColorX Blue;
+	static ColorX White;
+	static ColorX Black;
+
+	float R,G,B;
+	ColorX(float r, float g, float b);
+	ColorX(COLORX c);
 };

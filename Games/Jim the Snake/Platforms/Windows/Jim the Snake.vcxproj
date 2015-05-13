@@ -25,7 +25,9 @@
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\ColorX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\PointX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
@@ -50,7 +52,6 @@
     <ClInclude Include="..\..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
-    <ClInclude Include="..\..\..\..\Sources\Music.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\Sources\Saver.h" />
@@ -58,10 +59,11 @@
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
-    <ClInclude Include="..\..\..\..\Sources\Sound.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\ColorX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\PointX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
@@ -104,6 +106,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

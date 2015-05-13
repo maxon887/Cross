@@ -15,35 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "Misc.h"
+#include "PointX.h"
+#include "RectX.h"
 
-#include "Game.h"
-#include "Graphics.h"
-#include "Input.h"
-#include "Image.h"
+bool PointInRect(PointX p, RectX rect){
+	return  p.x > rect.x &&
+			p.x < rect.x + rect.width &&
+			p.y > rect.y &&
+			p.y < rect.y + rect.height;
+}
 
-class Button{
-public:
-	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, PointX location, Image* up, Image* down);
-	void Update();
-	void RegisterCallback(function<void()> callback);
-	void SetLocation(PointX location);
-	float GetWidth();
-	float GetHeight();
-	RectX GetRect();
-	PointX GetCenter();
-	~Button();
-//Internal data. You don't need call any of this methods or modify variable
-protected:
-	Launcher* launcher;
-	Graphics* graphics;
-	Input* input;
-	PointX location;
-	Image* up;
-	Image* down;
-	bool OnLocation(float x, float y);
-	PointX* press_loc;
-	function<void()> callback;
-	bool callback_registered;
-};
+float Lerp(float v0, float v1, float t) {
+	return (1-t)*v0 + t*v1;
+}

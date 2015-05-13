@@ -17,33 +17,8 @@
 	
 #pragma once
 
-#include "Game.h"
-#include "Graphics.h"
-#include "Input.h"
-#include "Image.h"
+class PointX;
+class RectX;
 
-class Button{
-public:
-	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, PointX location, Image* up, Image* down);
-	void Update();
-	void RegisterCallback(function<void()> callback);
-	void SetLocation(PointX location);
-	float GetWidth();
-	float GetHeight();
-	RectX GetRect();
-	PointX GetCenter();
-	~Button();
-//Internal data. You don't need call any of this methods or modify variable
-protected:
-	Launcher* launcher;
-	Graphics* graphics;
-	Input* input;
-	PointX location;
-	Image* up;
-	Image* down;
-	bool OnLocation(float x, float y);
-	PointX* press_loc;
-	function<void()> callback;
-	bool callback_registered;
-};
+bool PointInRect(PointX p, RectX rect);
+float Lerp(float v0, float v1, float t);

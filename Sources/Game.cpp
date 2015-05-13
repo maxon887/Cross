@@ -88,12 +88,16 @@ void Game::Update(){
 		auto rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
 
-		GetCurrentScreen()->Update((float)(rend / 1000000.f));
+		GetCurrentScreen()->Update((float)(rend / 1000000.));
 #ifdef CROSSDEBUG
 		debuger->Display((float)rend);
 		now = high_resolution_clock::now();
 		auto up = duration_cast<microseconds>(now - render_time).count();
 		debuger->SetUpdateTime((float)up);
+		long long milis = up / 1000.;
+		if(milis < 16){
+			Sleep(16 - milis);
+		}
 #endif
 	}catch(string msg){
 		msg = "Exception: " + msg;

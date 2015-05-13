@@ -27,6 +27,6 @@ void SnakyGame::Start(){
 }
 
 Screen* SnakyGame::GetStartScreen(){
-	//return new MenuScreen(this);;
-	return new GameScreen(this);
+	return new MenuScreen(this);
+	//return new GameScreen(this);
 }

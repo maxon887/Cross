@@ -20,6 +20,7 @@
 #include "SOIL.h"
 #include "Game.h"
 #include "Launcher.h"
+#include "ColorX.h"
 
 #ifdef WIN
     #include <Windows.h>
@@ -43,6 +44,7 @@ class Graphics{
 public:
 	/*	Clear screen with particular color.
 		Input color range from 0 to 1.*/
+	void Clear(ColorX c);
 	void Clear(float r, float g, float b);
 	/* Scale Image */
 	void ScaleImage(Image* img, float factor);
@@ -62,9 +64,13 @@ public:
 	Image* LoadRepeatedImage(string filename, float width, float height);
 	/* Load scaled image filled with images*/
 	Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor);
+	void DrawPixel(PointX p, ColorX c);
 	void DrawPixel(PointX p, float r, float g, float b);
+	void DrawLine(PointX p1, PointX p2, ColorX c);
 	void DrawLine(PointX p1, PointX p2, float r, float g, float b);
+	void DrawCircle(PointX center, float radius, ColorX c);
 	void DrawCircle(PointX center, float radius, float r, float g, float b);
+	void DrawRect(RectX rect, ColorX c);
 	void DrawRect(RectX rect, float r, float g, float b);
 	/* Draws Image in game coordinates */
 	void DrawImage(float x, float y, Image* img);

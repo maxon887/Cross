@@ -91,6 +91,12 @@
     <ClCompile Include="..\..\Sources\GameScreen.cpp">
       <Filter>Jim the Snake</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\ColorX.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
@@ -114,16 +120,10 @@
     <ClInclude Include="..\..\..\..\Sources\Launcher.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Music.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Saver.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Screen.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Sound.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h">
@@ -191,6 +191,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\GameScreen.h">
       <Filter>Jim the Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\ColorX.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
