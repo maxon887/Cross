@@ -20,7 +20,7 @@
 #import "Graphics.h"
 #import "LauncherOS.h"
 #import "Input.h"
-#import "Demo.h"
+#import "SnakyGame.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
@@ -47,7 +47,7 @@
     [self display];
     if(!launcher){
         launcher = new LauncherOS();
-        game = new Demo(launcher);
+        game = new SnakyGame(launcher);
         Graphics* graphics = new Graphics(game);
         game->graphics = graphics;
         game->Start();

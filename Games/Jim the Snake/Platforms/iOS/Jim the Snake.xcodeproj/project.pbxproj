@@ -35,6 +35,9 @@
 		D438E2581AFB628A0015EC19 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E2571AFB628A0015EC19 /* OpenGLES.framework */; };
 		D438E25A1AFB628F0015EC19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E2591AFB628F0015EC19 /* AudioToolbox.framework */; };
 		D438E25C1AFB630C0015EC19 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D438E25B1AFB630C0015EC19 /* GLKit.framework */; };
+		D473AB6B1B0450C400D1213B /* ColorX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D473AB671B0450C400D1213B /* ColorX.cpp */; };
+		D473AB6C1B0450C400D1213B /* Misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D473AB691B0450C400D1213B /* Misc.cpp */; };
+		D473AB6F1B04510100D1213B /* GameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D473AB6D1B04510100D1213B /* GameScreen.cpp */; };
 		D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4F9D81A1AFC9DE9007B51E6 /* Audio.cpp */; };
 /* End PBXBuildFile section */
 
@@ -64,7 +67,6 @@
 		D438E1F01AFB62030015EC19 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
 		D438E1F11AFB62030015EC19 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
 		D438E1F21AFB62030015EC19 /* Launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Launcher.h; sourceTree = "<group>"; };
-		D438E1F31AFB62030015EC19 /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
 		D438E2001AFB62030015EC19 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D438E2011AFB62030015EC19 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D438E2081AFB62030015EC19 /* GLRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLRenderView.h; sourceTree = "<group>"; };
@@ -82,7 +84,6 @@
 		D438E2211AFB62030015EC19 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOIL.h; sourceTree = "<group>"; };
 		D438E2221AFB62030015EC19 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
 		D438E2231AFB62030015EC19 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
-		D438E2241AFB62030015EC19 /* Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sound.h; sourceTree = "<group>"; };
 		D438E2261AFB62030015EC19 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		D438E2271AFB62030015EC19 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		D438E2281AFB62030015EC19 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
@@ -101,6 +102,12 @@
 		D438E2571AFB628A0015EC19 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D438E2591AFB628F0015EC19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D438E25B1AFB630C0015EC19 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D473AB671B0450C400D1213B /* ColorX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorX.cpp; sourceTree = "<group>"; };
+		D473AB681B0450C400D1213B /* ColorX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorX.h; sourceTree = "<group>"; };
+		D473AB691B0450C400D1213B /* Misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Misc.cpp; sourceTree = "<group>"; };
+		D473AB6A1B0450C400D1213B /* Misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Misc.h; sourceTree = "<group>"; };
+		D473AB6D1B04510100D1213B /* GameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreen.cpp; sourceTree = "<group>"; };
+		D473AB6E1B04510100D1213B /* GameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreen.h; sourceTree = "<group>"; };
 		D4F9D81A1AFC9DE9007B51E6 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		D4F9D81B1AFC9DE9007B51E6 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +153,8 @@
 		D438E1D91AFB61EA0015EC19 /* Jim the Snake */ = {
 			isa = PBXGroup;
 			children = (
+				D473AB6D1B04510100D1213B /* GameScreen.cpp */,
+				D473AB6E1B04510100D1213B /* GameScreen.h */,
 				D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */,
 				D438E1DB1AFB61EA0015EC19 /* MenuScreen.h */,
 				D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */,
@@ -173,12 +182,10 @@
 				D438E1F01AFB62030015EC19 /* Input.cpp */,
 				D438E1F11AFB62030015EC19 /* Input.h */,
 				D438E1F21AFB62030015EC19 /* Launcher.h */,
-				D438E1F31AFB62030015EC19 /* Music.h */,
 				D438E2191AFB62030015EC19 /* Saver.cpp */,
 				D438E21A1AFB62030015EC19 /* Saver.h */,
 				D438E21B1AFB62030015EC19 /* Screen.cpp */,
 				D438E21C1AFB62030015EC19 /* Screen.h */,
-				D438E2241AFB62030015EC19 /* Sound.h */,
 			);
 			name = Cross;
 			path = ../../../../Sources;
@@ -237,6 +244,10 @@
 		D438E2251AFB62030015EC19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D473AB671B0450C400D1213B /* ColorX.cpp */,
+				D473AB681B0450C400D1213B /* ColorX.h */,
+				D473AB691B0450C400D1213B /* Misc.cpp */,
+				D473AB6A1B0450C400D1213B /* Misc.h */,
 				D438E2261AFB62030015EC19 /* Animation.cpp */,
 				D438E2271AFB62030015EC19 /* Animation.h */,
 				D438E2281AFB62030015EC19 /* Button.cpp */,
@@ -326,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */,
+				D473AB6F1B04510100D1213B /* GameScreen.cpp in Sources */,
 				D438E1DF1AFB61EA0015EC19 /* SnakyGame.cpp in Sources */,
 				D438E24C1AFB62030015EC19 /* SOIL.c in Sources */,
 				D438E1B61AFB61740015EC19 /* main.m in Sources */,
@@ -334,6 +346,7 @@
 				D438E2371AFB62030015EC19 /* Input.cpp in Sources */,
 				D438E24A1AFB62030015EC19 /* Screen.cpp in Sources */,
 				D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */,
+				D473AB6C1B0450C400D1213B /* Misc.cpp in Sources */,
 				D438E2541AFB62030015EC19 /* ToggleButton.cpp in Sources */,
 				D438E23D1AFB62030015EC19 /* AppDelegate.m in Sources */,
 				D438E2361AFB62030015EC19 /* Image.cpp in Sources */,
@@ -343,6 +356,7 @@
 				D438E2531AFB62030015EC19 /* Texter.cpp in Sources */,
 				D438E24D1AFB62030015EC19 /* stb_image_aug.c in Sources */,
 				D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */,
+				D473AB6B1B0450C400D1213B /* ColorX.cpp in Sources */,
 				D438E2421AFB62030015EC19 /* LauncherOS.mm in Sources */,
 				D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */,
 				D438E2511AFB62030015EC19 /* PointX.cpp in Sources */,
