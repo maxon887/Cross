@@ -292,6 +292,10 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	verts += 2;
 	glTexCoordPointer(2, GL_FLOAT, 16, verts);
 	
+	static const float colors[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colors);
+
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, Image::indices);
 	glDisable(GL_TEXTURE_2D);
 	glTranslatef(-x, -y, 0);

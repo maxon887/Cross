@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #include "MenuScreen.h"
 #define PI (3.141592653589793)
 
@@ -36,8 +36,6 @@ void MenuScreen::Start(){
 	else
 		scaleFactor = launcher->GetTargetHeight() / background->GetHeight();
 	graphics->ScaleImage(background, scaleFactor);
-	//background_pos.x = launcher->GetTargetWidth() / 2.f / game->GetScaleFactor();
-	//background_pos.y = launcher->GetTargetHeight() / 2.f / game->GetScaleFactor();
 	background_pos.x = game->GetWidth() / 2.f;
 	background_pos.y = game->GetHeight() / 2.f;
 
@@ -89,33 +87,14 @@ void MenuScreen::Update(float sec){
 	graphics->DrawImage(bestscore_pos, bestscore);
 	score_texter->DrawText(510, 490, to_string(score));
 
-	ShowDeadAreas();
-
-
-
+	//ShowDeadAreas();
 
 	music_btn->Update();
 	sound_btn->Update();
 	play_btn->Update();
 }
 
-void MenuScreen::ShowDeadAreas(){/*
-	RectX r1 = play_btn->GetRect();
-	RectX r2;
-	r2.x = 0;
-	r2.y = play_btn->GetCenter().y;
-	r2.width = game->GetWidth();
-	r2.height = game->GetHeight() - r2.y;
-	RectX r3;
-	r3.x = 0;
-	r3.y = bestscore_pos.y + 50;
-	r3.width = 250;
-	r3.height = game->GetHeight() - r3.y;*/
-
-	/*
-	graphics->DrawRect(r1, ColorX::Red);
-	graphics->DrawRect(r2, ColorX::Red);
-	graphics->DrawRect(r3, ColorX::Red);*/
+void MenuScreen::ShowDeadAreas(){
 	for(unsigned int i = 0; i < dead_areas.size(); i++){
 		graphics->DrawRect(dead_areas[i], ColorX::Red);
 	}
