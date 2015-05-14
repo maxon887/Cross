@@ -17,6 +17,7 @@
 	
 #pragma once
 #include "Launcher.h"
+#include "Game.h"
 #include "fmod.hpp"
 #include "fmod_errors.h"
 

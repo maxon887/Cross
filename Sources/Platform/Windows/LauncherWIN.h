@@ -32,6 +32,7 @@ public:
 	string AssetsPath();
 	string DataPath();
 	void LogIt(string msg);
+	void Sleep(float milis);
 	void ShowMessage(string msg);
 	void SetHWND(HWND wnd);
 private:

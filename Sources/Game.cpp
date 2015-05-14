@@ -85,19 +85,19 @@ void Game::Start(){
 void Game::Update(){
 	try{
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
-		auto rend = duration_cast<microseconds>(now - render_time).count();
+		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
 
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
+		now = high_resolution_clock::now();
+		long long up = duration_cast<microseconds>(now - render_time).count();
+		float milis = up / 1000.f;
+		if(milis < 10){
+			launcher->Sleep(10 - milis);
+		}
 #ifdef CROSSDEBUG
 		debuger->Display((float)rend);
-		now = high_resolution_clock::now();
-		auto up = duration_cast<microseconds>(now - render_time).count();
 		debuger->SetUpdateTime((float)up);
-		long long milis = up / 1000.;
-		if(milis < 16){
-			Sleep(16 - milis);
-		}
 #endif
 	}catch(string msg){
 		msg = "Exception: " + msg;

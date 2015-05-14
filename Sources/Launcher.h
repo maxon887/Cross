@@ -32,6 +32,7 @@ public:
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
+	virtual void Sleep(float milis) { };
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }

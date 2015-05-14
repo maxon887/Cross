@@ -17,6 +17,10 @@
 	
 #include "LauncherWIN.h"
 
+void IntSleep(int milis){
+	Sleep(milis);
+}
+
 LauncherWIN::LauncherWIN(){
 	Audio::Init(this);
 }
@@ -40,6 +44,10 @@ string LauncherWIN::DataPath(){
 void LauncherWIN::LogIt(string msg){
 	msg += "\n";
 	OutputDebugString(msg.c_str());
+}
+
+void LauncherWIN::Sleep(float milis){
+	IntSleep((int)(milis + .5));
 }
 
 void LauncherWIN::ShowMessage(string msg){

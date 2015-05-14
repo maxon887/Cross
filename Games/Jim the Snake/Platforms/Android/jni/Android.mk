@@ -24,19 +24,18 @@ LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 					../../Sources 
 
 LOCAL_SRC_FILES := 	main.cpp \
-					../../../../../Sources/Platform/Android/common.cpp \
-					../../../../../Sources/Platform/Android/common_platform.cpp \
 					../../../../../Sources/Platform/Android/LauncherAndroid.cpp \
-					../../../../../Sources/Platform/Android/AudioAndroid.cpp \
 					../../../../../Sources/Platform/Android/Cross.cpp \
 					../../../Sources/MenuScreen.cpp \
 					../../../Sources/SnakyGame.cpp \
+					../../../Sources/GameScreen.cpp \
 					../../../../../Sources/Graphics.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Screen.cpp \
 					../../../../../Sources/Image.cpp \
 					../../../../../Sources/Input.cpp \
 					../../../../../Sources/Saver.cpp \
+					../../../../../Sources/Audio.cpp \
 					../../../../../Sources/Utils/PointX.cpp \
 					../../../../../Sources/Utils/RectX.cpp \
 					../../../../../Sources/Utils/Texter.cpp \
@@ -44,6 +43,8 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Utils/Button.cpp \
 					../../../../../Sources/Utils/Animation.cpp \
 					../../../../../Sources/Utils/ToggleButton.cpp \
+					../../../../../Sources/Utils/ColorX.cpp \
+					../../../../../Sources/Utils/Misc.cpp \
 					../../../../../Sources/SOIL/SOIL.c \
 					../../../../../Sources/SOIL/image_helper.c \
 					../../../../../Sources/SOIL/stb_image_aug.c 

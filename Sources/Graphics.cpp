@@ -18,6 +18,7 @@
 #include "Graphics.h"
 #include "Image.h"
 #include "Debuger.h"
+#include "Game.h"
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -189,7 +190,7 @@ void Graphics::DrawPixel(PointX p, float r, float g, float b){
 	p.y *= game->GetScaleFactor();
 	float vertices[] = { p.x, p.y };
 	float colors[] = { r, g, b, 1 };
-	static const unsigned int indices[] = { 0 };
+	static const unsigned short indices[] = { 0 };
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, vertices);
@@ -197,7 +198,7 @@ void Graphics::DrawPixel(PointX p, float r, float g, float b){
 	glEnableClientState(GL_COLOR_ARRAY);
 	glColorPointer(4, GL_FLOAT, 0, colors);
 
-	glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, indices);
+	glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
 
 	glDisableClientState(GL_COLOR_ARRAY);
 }
@@ -213,7 +214,7 @@ void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
 	p2.y *= game->GetScaleFactor();
 	float vertices[] = { p1.x, p1.y, p2.x, p2.y };
 	float colors[] = { r, g, b, 1, r, g, b, 1 };
-	static const unsigned int indices[] = { 0, 1 };
+	static const unsigned short indices[] = { 0, 1 };
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, vertices);
@@ -221,7 +222,7 @@ void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
 	glEnableClientState(GL_COLOR_ARRAY);
 	glColorPointer(4, GL_FLOAT, 0, colors);
 
-	glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, indices);
+	glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, indices);
 
 	glDisableClientState(GL_COLOR_ARRAY);
 }
