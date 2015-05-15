@@ -15,18 +15,36 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
+#pragma once
 #include "SnakyGame.h"
 
-SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
+enum AppleState {
+	FRESH,
+	ROT,
+	DEAD,
+	EMPTY
+};
 
-}
+class Apple{
+public:
+	static void Init(Game* game);
+	Apple();
+	void Draw();
+	void SetPosition(PointX pos);
+	PointX GetPosition();
+	float GetRadius();
+	void Update(float sec);
+private:
+	static Image* fresh_img;
+	static Image* rot_img;
+	static Image* dead_img;
+	static Game* game;
+	static Graphics* graphics;
 
-void SnakyGame::Start(){
-	score_texter = new Texter(this, "Numbers.png", 60.f, 76.f, 10, 1, 48, this->scale_factor);
-	Game::Start();
-}
-
-Screen* SnakyGame::GetStartScreen(){
-	//return new MenuScreen(this);
-	return new GameScreen(this);
-}
+	const float radius = 12.f;
+	PointX pos;
+	float angle;
+	float life_time;
+	AppleState state;
+	Image* current_img;
+};

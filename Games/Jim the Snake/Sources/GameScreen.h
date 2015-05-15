@@ -17,14 +17,15 @@
 	
 #pragma once
 #include "Screen.h"
+#include "Apple.h"
 
 enum GameState{
 	RUNNING,
 	ONREADY,
 	PAUSED,
-	DEAT0,
-	DEAT1,
-	DEAT2
+	DEAD0,
+	DEAD1,
+	DEAD2
 };
 
 class GameScreen : public Screen{
@@ -33,5 +34,17 @@ public:
 	void Start();
 	void Update(float sec);
 private:
+	GameState state;
+	Audio* music;
 	Image* background;
+	Image* ready_img;
+	float onready_time;
+	//apple stuff
+	vector<Apple*> apples;
+	float next_apple;
+	void CalcApples(float sec);
+	void SetApple();
+	//ads
+	float centerW;
+	float centerH;
 };

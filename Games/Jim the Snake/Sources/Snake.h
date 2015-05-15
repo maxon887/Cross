@@ -15,18 +15,43 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
+#pragma once
 #include "SnakyGame.h"
+#include "Animation.h"
 
-SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
+enum SnakeState{
+	ALIVE,
+	DEAD0,
+	DEAD1
+};
 
-}
+class Snake{
+public:
+	const float face_radius = 26.f;
+	const float body_radius = 26.f;
+	const float speedV = 240.f;
+	const float speedW = speedV / 1.33f;
 
-void SnakyGame::Start(){
-	score_texter = new Texter(this, "Numbers.png", 60.f, 76.f, 10, 1, 48, this->scale_factor);
-	Game::Start();
-}
+	Snake(Game* game);
+private:
+	Graphics* graphics;
 
-Screen* SnakyGame::GetStartScreen(){
-	//return new MenuScreen(this);
-	return new GameScreen(this);
-}
+	SnakeState state;
+	Animation* face_bottom_anim;
+	Animation* face_top_anim;
+	Image* face_dead;
+	float face_angle;
+	PointX pos;
+	vector<PointX> body_path;
+	vector<PointX> body_nodes;
+	float body_length;
+	const float nod_length = 50.f;
+	Image* body_img;
+	vector<int> big_nodes;
+	float body_time_left;
+	float apple_time_left;
+	Audio* eat_snd;
+	Image* star_img;
+	const float star_speedW = 2.f;
+
+};
