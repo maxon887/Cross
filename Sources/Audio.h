@@ -21,10 +21,6 @@
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
-#ifndef Common_vsnprintf
-    #define Common_vsnprintf vsnprintf
-#endif
-
 class Audio{
 public:
 	static void Init(Launcher* launcher);

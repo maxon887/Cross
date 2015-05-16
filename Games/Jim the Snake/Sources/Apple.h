@@ -17,15 +17,17 @@
 	
 #pragma once
 #include "SnakyGame.h"
+#include "Screen.h"
+#include "Eatable.h"
 
-enum AppleState {
+enum class AppleState {
 	FRESH,
 	ROT,
 	DEAD,
 	EMPTY
 };
 
-class Apple{
+class Apple : public Eatable{
 public:
 	static void Init(Game* game);
 	Apple();
@@ -34,14 +36,16 @@ public:
 	PointX GetPosition();
 	float GetRadius();
 	void Update(float sec);
+	float GetLifeTime();
 private:
+	static Graphics* graphics;
+	static Game* game;
 	static Image* fresh_img;
 	static Image* rot_img;
 	static Image* dead_img;
-	static Game* game;
-	static Graphics* graphics;
 
-	const float radius = 12.f;
+	static const float radius;
+
 	PointX pos;
 	float angle;
 	float life_time;

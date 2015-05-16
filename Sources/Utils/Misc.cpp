@@ -18,12 +18,22 @@
 #include "Misc.h"
 #include "PointX.h"
 #include "RectX.h"
+#include <math.h>
 
 bool PointInRect(PointX p, RectX rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&
 			p.y > rect.y &&
 			p.y < rect.y + rect.height;
+}
+
+bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
+	//gfx.DrawCircle(p1, r1);		//debug
+	//gfx.DrawCircle(p2, r2);		//debug
+	double distance = sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+	if(distance < (r1 + r2))
+		return true;
+	else return false;
 }
 
 float Lerp(float v0, float v1, float t) {

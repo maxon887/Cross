@@ -18,27 +18,11 @@
 #include "Animation.h"
 
 Animation::Animation(Graphics* gfx, float rate, Image* frames[], int frameCount){
-	this->graphics = gfx;
-	this->duration = 0xFF;
-	this->frame_num = 0;
-	this->looped = false;
-	this->rate = rate;
-	this->frame_count = frameCount;
-	for(int i = 0; i < frameCount; i++){
-		this->frames[i] = frames[i];
-	}
+	Init(gfx, rate, frames, frameCount, false);
 }
 
 Animation::Animation(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped){
-	this->graphics = gfx;
-	this->duration = 0xFF;
-	this->frame_num = 0;
-	this->looped = looped;
-	this->rate = rate;
-	this->frame_count = frameCount;
-	for(int i = 0; i < frameCount; i++){
-		this->frames[i] = frames[i];
-	}
+	Init(gfx, rate, frames, frameCount, looped);
 }
 
 void Animation::Start(){
@@ -46,12 +30,12 @@ void Animation::Start(){
 }
 
 void Animation::Update(float sec){
-	if(duration > frame_count * rate && !looped){
+	if(duration > frames.size() * rate && !looped){
 		frame_num = 0;
 		duration = 0xFF;
 	}else{
 		frame_num = (int)(duration / rate);
-		frame_num = frame_num % frame_count;
+		frame_num = frame_num % frames.size();
 		duration += sec;
 	}
 }
@@ -60,12 +44,23 @@ Image* Animation::GetImage(){
 	return frames[frame_num];
 }
 
-bool Animation::IsRunnig(){
+bool Animation::IsRunning(){
 	return duration != 0xFF;
 }
 
 Animation::~Animation(){
-	for(int i = 0; i < frame_count; i++){
-		graphics->ReleaseImage(frames[i]);
+	for(Image* frame : frames){
+		graphics->ReleaseImage(frame);
+	}
+}
+
+void Animation::Init(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped){
+	this->graphics = gfx;
+	this->duration = 0xFF;
+	this->frame_num = 0;
+	this->looped = looped;
+	this->rate = rate;
+	for(int i = 0; i < frameCount; i++){
+		this->frames.push_back(frames[i]);
 	}
 }

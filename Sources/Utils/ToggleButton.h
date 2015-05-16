@@ -30,5 +30,4 @@ private:
 	Image* on;
 	Image* off;
 	bool state;
-//Framework module. You don't need call any of this methods or modify variable
 };

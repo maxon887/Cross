@@ -17,6 +17,13 @@
 	
 #include "Apple.h"
 
+const float Apple::radius = 12.f;
+Graphics*	Apple::graphics = NULL;
+Game*		Apple::game = NULL;
+Image*		Apple::fresh_img = NULL;
+Image*		Apple::rot_img = NULL;
+Image*		Apple::dead_img = NULL;
+
 void Apple::Init(Game* game){
 	Apple::game = game;
 	Apple::graphics = game->graphics;
@@ -52,15 +59,19 @@ float Apple::GetRadius(){
 void Apple::Update(float sec){
 	life_time -= sec;
 	if(life_time < 4) {
-		state = DEAD;
+		state = AppleState::DEAD;
 		current_img = dead_img;
 	}
 	if(life_time > 4 && life_time < 8) {
-		state = ROT;
+		state = AppleState::ROT;
 		current_img = rot_img;
 	}
 	if(life_time > 8) {
-		state = FRESH;
+		state = AppleState::FRESH;
 		current_img = fresh_img;
 	}
+}
+
+float Apple::GetLifeTime(){
+	return life_time;
 }

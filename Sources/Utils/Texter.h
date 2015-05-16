@@ -36,7 +36,6 @@ public:
 	float GetWidth();
 	float GetHeight();
 	void SetScaleFactor(float scaleFactor);
-//Internal data. You don't need call any of this methods or modify variable
 private:
 	void Init(Game* game, const char* fontFilename,
 			float width, float height,

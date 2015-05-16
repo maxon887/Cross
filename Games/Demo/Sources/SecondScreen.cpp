@@ -30,7 +30,7 @@ SecondScreen::SecondScreen(Game* game):Screen(game){
 void SecondScreen::Start(){
 	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
-	background = graphics->LoadRepeatedImage("Background.jpg", game->GetScaleFactor() * bcg_scale, 900, 3000);
+	background = graphics->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
 	Image* images[8];
 	images[0] = graphics->LoadImage("Spider/00.png", game->GetScaleFactor() * 0.8f);
 	images[1] = graphics->LoadImage("Spider/01.png", game->GetScaleFactor() * 0.8f);

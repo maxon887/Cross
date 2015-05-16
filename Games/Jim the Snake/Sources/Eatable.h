@@ -16,39 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "Screen.h"
-#include <list>
+#include "PointX.h"
 
-class Snake;
-class Apple;
-
-enum class GameState{
-	RUNNING,
-	ONREADY,
-	PAUSED,
-	DEAD0,
-	DEAD1,
-	DEAD2
-};
-
-class GameScreen : public Screen{
+class Eatable{
 public:
-	GameScreen(Game* game);
-	void Start();
-	void Update(float sec);
-private:
-	GameState state;
-	Snake* snake;
-	Audio* music;
-	Image* background;
-	Image* ready_img;
-	float onready_time;
-	//apple stuff
-	list<Apple*> apples;
-	float next_apple;
-	void CalcApples(float sec);
-	void SetApple();
-	//ads
-	float centerW;
-	float centerH;
+	virtual void Draw() = 0;
+	virtual PointX GetPosition() = 0;
+	virtual float GetRadius() = 0;
 };

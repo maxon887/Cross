@@ -17,7 +17,39 @@
 	
 #include "Snake.h"
 
+const float Snake::face_radius = 26.f;
+const float Snake::body_radius = 26.f;
+const float Snake::speedV = 240.f;
+const float Snake::speedW = speedV / 1.33f;
+const float Snake::nod_length = 50.f;
+const float Snake::star_speedW = 2.f;
+
 Snake::Snake(Game* game){
 	body_length = 150.f;
 	this->graphics = game->graphics;
+}
+
+bool Snake::OnCollision(PointX center, float radius){
+	for(PointX node : body_nodes){
+		if(CircleOnCollision(node, body_radius, center, radius))
+			return true;
+	}
+	if(CircleOnCollision(face_pos, face_radius, center, radius))
+		return true;
+	return false;
+}
+
+void Snake::EatableNear(Eatable* eatable){
+	if(CircleOnCollision(face_pos, face_radius, eatable->GetPosition(), eatable->GetRadius() + 60.f)) {
+		if(!face_bottom_anim->IsRunning()) {
+			face_bottom_anim->Start();
+			face_top_anim->Start();
+			if(eat_snd != NULL)
+				eat_snd->Play();
+		}
+		if(CircleOnCollision(face_pos, face_radius, eatable->GetPosition(), 1.f)) {
+			apple_time_left = 0.025f;
+			near_eatable = eatable;
+		}
+	}
 }

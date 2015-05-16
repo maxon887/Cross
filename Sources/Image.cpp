@@ -18,9 +18,6 @@
 #include "Image.h"
 #include "Graphics.h"
 
-const short Image::indices[] = { 0, 1, 2,
-								 0, 2, 3 };
-
 Image::Image(GLuint id, int texWidth, int texHeight, RectX region){
 	this->textureID = id;
 	this->region = region;

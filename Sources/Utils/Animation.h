@@ -17,8 +17,8 @@
 	
 #pragma once
 #include "Image.h"
-
-#define MAX_FRAMES 128
+#include <vector>
+using namespace std;
 
 class Animation{
 public:
@@ -27,12 +27,12 @@ public:
 	void Start();
 	void Update(float sec);
 	Image* GetImage();
-	bool IsRunnig();
+	bool IsRunning();
 	~Animation();
 private:
+	void Init(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped);
 	Graphics* graphics;
-	Image* frames[MAX_FRAMES];
-	int frame_count;
+	vector<Image*> frames;
 	float rate;
 	float duration;
 	int frame_num;

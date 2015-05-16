@@ -18,8 +18,9 @@
 #pragma once
 #include "SnakyGame.h"
 #include "Animation.h"
+#include "Eatable.h"
 
-enum SnakeState{
+enum class SnakeState{
 	ALIVE,
 	DEAD0,
 	DEAD1
@@ -27,31 +28,33 @@ enum SnakeState{
 
 class Snake{
 public:
-	const float face_radius = 26.f;
-	const float body_radius = 26.f;
-	const float speedV = 240.f;
-	const float speedW = speedV / 1.33f;
-
 	Snake(Game* game);
+	bool OnCollision(PointX center, float radius);
+	void EatableNear(Eatable* eatable);
 private:
 	Graphics* graphics;
+
+	static const float face_radius;
+	static const float body_radius;
+	static const float speedV;
+	static const float speedW;
+	static const float nod_length;
+	static const float star_speedW;
 
 	SnakeState state;
 	Animation* face_bottom_anim;
 	Animation* face_top_anim;
 	Image* face_dead;
 	float face_angle;
-	PointX pos;
+	PointX face_pos;
 	vector<PointX> body_path;
 	vector<PointX> body_nodes;
 	float body_length;
-	const float nod_length = 50.f;
 	Image* body_img;
 	vector<int> big_nodes;
 	float body_time_left;
 	float apple_time_left;
 	Audio* eat_snd;
 	Image* star_img;
-	const float star_speedW = 2.f;
-
+	Eatable* near_eatable;
 };

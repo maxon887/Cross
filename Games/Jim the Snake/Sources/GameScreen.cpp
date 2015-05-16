@@ -16,18 +16,22 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "GameScreen.h"
+#include "Apple.h"
+#include "Spider.h"
+#include "Snake.h"
 
 GameScreen::GameScreen(Game* game):Screen(game){ }
 
 void GameScreen::Start(){
-	state = ONREADY;
+	state = GameState::ONREADY;
 	centerW = game->GetWidth() / 2;
 	centerH = game->GetHeight() / 2;
 	onready_time = 4.3f;
 	music = new Audio("Game/GameMusic.mp3", true, true);
-	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50, game->GetHeight() + 50);
+	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img = graphics->LoadImage("Game/ReadyTapLabel.png");
 	Apple::Init(game);
+	Spider::Init(game);
 
 	music->Play();
 }
@@ -38,22 +42,22 @@ void GameScreen::Update(float sec){
 
 	switch (state)
 	{
-	case RUNNING:
+	case GameState::RUNNING:
 		break;
-	case ONREADY:
+	case GameState::ONREADY:
 		graphics->DrawImage(centerW, centerW, ready_img);
 		onready_time -= sec;
 		if(onready_time < 0 || input->HaveInput()){
-			state = RUNNING;
+			state = GameState::RUNNING;
 		}
 		break;
-	case PAUSED:
+	case GameState::PAUSED:
 		break;
-	case DEAD0:
+	case GameState::DEAD0:
 		break;
-	case DEAD1:
+	case GameState::DEAD1:
 		break;
-	case DEAD2:
+	case GameState::DEAD2:
 		break;
 	default:
 		break;
@@ -69,16 +73,26 @@ void GameScreen::CalcApples(float sec){
 	}
 	if(apples.size() == 0)
 		SetApple();
-		
+		/*
 	for(int i = 0; i < apples.size(); i++) {
-		Apple apple = apples.get(i);
-		if(apple.life_time > 0) {
+		Apple* apple = apples[i];
+		if(apple->GetLifeTime() > 0) {
 			snake.OnNear(apple);
-			apple.Update(sec);
+			apple->Update(sec);
 			//apple.Draw();
 		} else {
 			apples.remove(i);
+			apples.erase(
 			i--;
+		}
+	}*/
+
+	for(auto it = apples.begin(); it != apples.end(); it++){
+		if((*it)->GetLifeTime() > 0){
+			snake->EatableNear(*it);
+			(*it)->Update(sec);
+		} else {
+			apples.erase(it, it);
 		}
 	}
 }
@@ -98,15 +112,8 @@ void GameScreen::SetApple(){
 		int randY = ((int)(bottom - top)) + top;
 		apple_pos.x = rand() % randX;
 		apple_pos.y = rand() % randY;
-		//apple_pos = new Point(x, y);
-		//PointX
-		for(Point p : snake.body_nodes) {
-			if(Collisioner.CircleOnCollision(p, snake.body_radius, apple_pos, Apple.radius))
-				onSnake = true;
-		}
-		if(Collisioner.CircleOnCollision(snake.face_pos, snake.face_radius, apple_pos, Apple.radius))
-			onSnake = true;
+		onSnake = snake->OnCollision(apple_pos, apple->GetRadius());
 	}
-	Apple apple = new Apple(apple_pos);
-	apples.add(apple);
+	apple->SetPosition(apple_pos);
+	apples.push_back(apple);
 }

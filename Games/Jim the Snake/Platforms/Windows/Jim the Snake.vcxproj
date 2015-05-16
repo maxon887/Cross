@@ -37,6 +37,7 @@
     <ClCompile Include="..\..\Sources\MenuScreen.cpp" />
     <ClCompile Include="..\..\Sources\Snake.cpp" />
     <ClCompile Include="..\..\Sources\SnakyGame.cpp" />
+    <ClCompile Include="..\..\Sources\Spider.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -71,10 +72,12 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\Apple.h" />
+    <ClInclude Include="..\..\Sources\Eatable.h" />
     <ClInclude Include="..\..\Sources\GameScreen.h" />
     <ClInclude Include="..\..\Sources\MenuScreen.h" />
     <ClInclude Include="..\..\Sources\Snake.h" />
     <ClInclude Include="..\..\Sources\SnakyGame.h" />
+    <ClInclude Include="..\..\Sources\Spider.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{19659649-BADA-4E1A-8803-CF501F45C2AC}</ProjectGuid>

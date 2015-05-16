@@ -291,12 +291,13 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	verts += 2;
 	glTexCoordPointer(2, GL_FLOAT, 16, verts);
-	
+
 	static const float colors[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	glEnableClientState(GL_COLOR_ARRAY);
 	glColorPointer(4, GL_FLOAT, 0, colors);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, Image::indices);
+	static const short indices[] = { 0, 1, 2, 0, 2, 3 };
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 	glDisable(GL_TEXTURE_2D);
 	glTranslatef(-x, -y, 0);
 }

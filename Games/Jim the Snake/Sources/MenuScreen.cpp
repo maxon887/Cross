@@ -94,9 +94,12 @@ void MenuScreen::Update(float sec){
 	play_btn->Update();
 }
 
-void MenuScreen::ShowDeadAreas(){
+void MenuScreen::ShowDeadAreas(){/*
 	for(unsigned int i = 0; i < dead_areas.size(); i++){
 		graphics->DrawRect(dead_areas[i], ColorX::Red);
+	}*/
+	for(RectX area : dead_areas){
+		graphics->DrawRect(area, ColorX::Red);
 	}
 }
 

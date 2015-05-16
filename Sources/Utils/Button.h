@@ -34,7 +34,6 @@ public:
 	RectX GetRect();
 	PointX GetCenter();
 	~Button();
-//Internal data. You don't need call any of this methods or modify variable
 protected:
 	Launcher* launcher;
 	Graphics* graphics;

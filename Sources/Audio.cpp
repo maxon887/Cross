@@ -17,6 +17,10 @@
 	
 #include "Audio.h"
 
+#ifndef Common_vsnprintf
+    #define Common_vsnprintf vsnprintf
+#endif
+
 FMOD::System*	Audio::system;
 FMOD_RESULT		Audio::result;
 unsigned int	Audio::version;

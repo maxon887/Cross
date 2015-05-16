@@ -37,7 +37,6 @@ public:
 	void Scale(float factor);
 	GLuint GetTextureID();
 	float* GetVertices();
-	static const short indices[6];
 private:
 	RectX region;
 	GLuint textureID;
