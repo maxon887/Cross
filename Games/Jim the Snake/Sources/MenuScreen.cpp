@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "MenuScreen.h"
-#define PI (3.141592653589793)
 
 MenuScreen::MenuScreen(Game* game):Screen(game) { 
 	background = NULL;
@@ -87,7 +86,7 @@ void MenuScreen::Update(float sec){
 	graphics->DrawImage(bestscore_pos, bestscore);
 	score_texter->DrawText(510, 490, to_string(score));
 
-	//ShowDeadAreas();
+	ShowDeadAreas();
 
 	music_btn->Update();
 	sound_btn->Update();

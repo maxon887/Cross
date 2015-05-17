@@ -32,23 +32,28 @@ void GameScreen::Start(){
 	ready_img = graphics->LoadImage("Game/ReadyTapLabel.png");
 	Apple::Init(game);
 	Spider::Init(game);
-
+	snake = new Snake(game);
+	spider = new Spider();
 	music->Play();
 }
 
 void GameScreen::Update(float sec){
-	graphics->Clear(1,0,0);
+	graphics->Clear(0.25,0.25,0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
-
+	DrawApples();
+	spider->Draw();
 	switch (state)
 	{
 	case GameState::RUNNING:
+		spider->Update(sec, apples);
+		CalcApples(sec);
 		break;
 	case GameState::ONREADY:
 		graphics->DrawImage(centerW, centerW, ready_img);
 		onready_time -= sec;
 		if(onready_time < 0 || input->HaveInput()){
 			state = GameState::RUNNING;
+			spider->Start();
 		}
 		break;
 	case GameState::PAUSED:
@@ -92,7 +97,8 @@ void GameScreen::CalcApples(float sec){
 			snake->EatableNear(*it);
 			(*it)->Update(sec);
 		} else {
-			apples.erase(it, it);
+			delete *it;
+			apples.erase(it++);
 		}
 	}
 }
@@ -116,4 +122,10 @@ void GameScreen::SetApple(){
 	}
 	apple->SetPosition(apple_pos);
 	apples.push_back(apple);
+}
+
+void GameScreen::DrawApples(){
+	for(Apple* apple : apples) {
+		apple->Draw();
+	}
 }

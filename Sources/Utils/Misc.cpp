@@ -39,3 +39,21 @@ bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
 float Lerp(float v0, float v1, float t) {
 	return (1-t)*v0 + t*v1;
 }
+
+float sign(PointX p1, PointX p2, PointX p3){
+    return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+}
+
+bool PointInTriangle (PointX pt, PointX v1, PointX v2, PointX v3){
+	bool b1, b2, b3;
+
+    b1 = sign(pt, v1, v2) < 0.0f;
+    b2 = sign(pt, v2, v3) < 0.0f;
+    b3 = sign(pt, v3, v1) < 0.0f;
+
+    return ((b1 == b2) && (b2 == b3));
+}
+
+float Distance(PointX p1, PointX p2){
+	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+}

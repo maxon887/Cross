@@ -20,28 +20,47 @@
 #include "Game.h"
 #include "Screen.h"
 #include "Animation.h"
+#include "Apple.h"
 
 enum class SpiderState{
 	RUNNING,
 	THINKING,
-	ROTATE
+	ROTATE,
+	HIDING
 };
 
 class Spider{
 public:
 	static void Init(Game* game);
 	Spider();
+	void Start();
+	void Draw();
+	void Update(float sec, list<Apple*> &apples);
+	float GetRadius();
 private:
 	static Game* game;
 	static Graphics* graphics;
 	static Animation* anim;
+	static Image* head;
+	static Image* body;
+	static Audio* run_snd;
 
+	static const float radius;
 	static const float speedV;
 	static const float speedW;
 
+	SpiderState state;
 	PointX pos;
+	PointX end_point;
 	float angle;
-	float run_time;
-	float think_time;
-
+	float head_angle;
+	float thinking_time;
+	bool eaten;
+	//float run_time;
+	//float think_time;
+	bool OnScreen();
+	void ScanForApples(list<Apple*> &apples);
+	void SetNearestBorder();
+	void EatApple(list<Apple*> &apples);
+	Apple* target_apple;
 };

@@ -20,6 +20,7 @@
 #include <list>
 
 class Snake;
+class Spider;
 class Apple;
 
 enum class GameState{
@@ -46,9 +47,11 @@ private:
 	//apple stuff
 	list<Apple*> apples;
 	float next_apple;
+	void DrawApples();
 	void CalcApples(float sec);
 	void SetApple();
 	//ads
 	float centerW;
 	float centerH;
+	Spider* spider;
 };

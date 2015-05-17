@@ -21,5 +21,7 @@ class PointX;
 class RectX;
 
 bool PointInRect(PointX p, RectX rect);
+bool PointInTriangle(PointX pt, PointX v1, PointX v2, PointX v3);
 bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2);
 float Lerp(float v0, float v1, float t);
+float Distance(PointX p1, PointX p2);

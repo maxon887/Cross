@@ -191,7 +191,7 @@ void Graphics::DrawPixel(PointX p, float r, float g, float b){
 	float vertices[] = { p.x, p.y };
 	float colors[] = { r, g, b, 1 };
 	static const unsigned short indices[] = { 0 };
-
+	glLoadIdentity();
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, vertices);
 
@@ -215,7 +215,7 @@ void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
 	float vertices[] = { p1.x, p1.y, p2.x, p2.y };
 	float colors[] = { r, g, b, 1, r, g, b, 1 };
 	static const unsigned short indices[] = { 0, 1 };
-
+	glLoadIdentity();
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, vertices);
 
@@ -275,7 +275,6 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 		prev_texID = img->GetTextureID();
 		//glDisable(GL_TEXTURE_2D);
 	}
-	
 	glEnable(GL_TEXTURE_2D);
 	
 	glMatrixMode(GL_MODELVIEW);
