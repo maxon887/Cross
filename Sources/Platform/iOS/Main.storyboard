@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,15 +18,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <glkView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzO-gm-hL0" customClass="GLRenderView">
-                                <rect key="frame" x="8" y="0.0" width="304" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </glkView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="FzO-gm-hL0" secondAttribute="trailing" constant="-8" id="1OO-lV-6tJ"/>
-                            <constraint firstItem="FzO-gm-hL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-8" id="1Sh-HK-GYF"/>
-                            <constraint firstItem="FzO-gm-hL0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Qku-QV-RLy"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FzO-gm-hL0" secondAttribute="bottom" id="ia3-Jg-URX"/>
+                            <constraint firstAttribute="trailing" secondItem="FzO-gm-hL0" secondAttribute="trailing" id="3Mv-ku-K91"/>
+                            <constraint firstItem="FzO-gm-hL0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7yj-Ps-bLB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FzO-gm-hL0" secondAttribute="bottom" id="HJH-w5-ZoB"/>
+                            <constraint firstItem="FzO-gm-hL0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pTJ-uX-owU"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>

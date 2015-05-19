@@ -111,7 +111,7 @@ void GameScreen::SetApple(){
 	float left = 4 * apple->GetRadius();
 	float right = game->GetWidth() - 4 * apple->GetRadius();
 	PointX apple_pos;
-	boolean onSnake = true;
+	bool onSnake = true;
 	while(onSnake) {
 		onSnake = false;
 		int randX = ((int)(right - left)) + left;

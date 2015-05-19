@@ -20,6 +20,10 @@
 #include "RectX.h"
 #include <math.h>
 
+static float sign(PointX p1, PointX p2, PointX p3){
+    return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+}
+
 bool PointInRect(PointX p, RectX rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&
@@ -28,8 +32,6 @@ bool PointInRect(PointX p, RectX rect){
 }
 
 bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
-	//gfx.DrawCircle(p1, r1);		//debug
-	//gfx.DrawCircle(p2, r2);		//debug
 	double distance = sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
 	if(distance < (r1 + r2))
 		return true;
@@ -38,10 +40,6 @@ bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
 
 float Lerp(float v0, float v1, float t) {
 	return (1-t)*v0 + t*v1;
-}
-
-float sign(PointX p1, PointX p2, PointX p3){
-    return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 }
 
 bool PointInTriangle (PointX pt, PointX v1, PointX v2, PointX v3){
@@ -56,4 +54,8 @@ bool PointInTriangle (PointX pt, PointX v1, PointX v2, PointX v3){
 
 float Distance(PointX p1, PointX p2){
 	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+}
+
+float Angle360(PointX first, PointX second){
+    return 0;
 }
