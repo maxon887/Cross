@@ -63,9 +63,6 @@ void Spider::Update(float sec, list<Apple*> &apples){
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
-		
-	game->launcher->LogIt("X = : " + to_string(end_point.x));
-	game->launcher->LogIt("Y = : " + to_string(end_point.y));
 		float neededAngle;
 		float tangens = (pos.x - end_point.x) / (pos.y - end_point.y);
 		neededAngle = atan(tangens);
@@ -146,7 +143,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 void Spider::Start(){
 	if(state == SpiderState::HIDING){
 		//short side = rand() % 4;
-		short side = 0;
+		short side = 1;
 		float x, y;
 		switch (side){
 		case 0:		//left
@@ -175,7 +172,7 @@ void Spider::Start(){
 			break;
 		default:
 			break;
-		}
+		}/*
 		float tangens = (x - end_point.x) / (y - end_point.y);
 		angle = atan(tangens);
 		angle = (float)(angle * 180.f / PI + 90.f);
@@ -184,9 +181,10 @@ void Spider::Start(){
 		}
 		if(angle > 90){
 			angle -= 180.f;
-		}
+		}*/
 		pos.x = x;
 		pos.y = y;
+		angle = Angle(pos, end_point);
 		run_snd->Play();
 		state = SpiderState::RUNNING;
 	}

@@ -19,6 +19,7 @@
 #include "PointX.h"
 #include "RectX.h"
 #include <math.h>
+#define PI (3.141592653589793)
 
 static float sign(PointX p1, PointX p2, PointX p3){
     return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
@@ -32,7 +33,8 @@ bool PointInRect(PointX p, RectX rect){
 }
 
 bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
-	double distance = sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+	//double distance = sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+	float distance = Distance(p1, p2);
 	if(distance < (r1 + r2))
 		return true;
 	else return false;
@@ -56,6 +58,14 @@ float Distance(PointX p1, PointX p2){
 	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
 }
 
-float Angle360(PointX first, PointX second){
-    return 0;
+float Angle(PointX first, PointX second){
+	double tangens = (first.x - second.x) / (first.y - second.y);
+	double angle = atan(tangens);
+	angle = angle * 180. / PI;
+	if(first.y > second.y) {
+		angle += 90;
+	} else {
+		angle -= 90;
+	}
+	return (float)angle;
 }

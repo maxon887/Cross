@@ -67,6 +67,15 @@ void GameScreen::Update(float sec){
 	default:
 		break;
 	}
+
+	graphics->DrawCircle(PointX(centerW, centerH), 2, ColorX::Red);
+	graphics->DrawLine(PointX(centerW, 0), PointX(centerW, game->GetHeight()), ColorX::Red);
+	graphics->DrawLine(PointX(0, centerH), PointX(game->GetWidth(), centerH), ColorX::Red);
+	if(input->HaveInput()){
+		graphics->DrawCircle(input->GetInput(), 2, ColorX::Green);
+		graphics->DrawLine(PointX(centerW, centerH), input->GetInput(), ColorX::Green);
+		launcher->LogIt("Angle - " + to_string(Angle(PointX(centerW, centerH), input->GetInput())));
+	}
 }
 
 void GameScreen::CalcApples(float sec){
