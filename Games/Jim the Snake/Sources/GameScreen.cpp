@@ -87,19 +87,6 @@ void GameScreen::CalcApples(float sec){
 	}
 	if(apples.size() == 0)
 		SetApple();
-		/*
-	for(int i = 0; i < apples.size(); i++) {
-		Apple* apple = apples[i];
-		if(apple->GetLifeTime() > 0) {
-			snake.OnNear(apple);
-			apple->Update(sec);
-			//apple.Draw();
-		} else {
-			apples.remove(i);
-			apples.erase(
-			i--;
-		}
-	}*/
 
 	for(auto it = apples.begin(); it != apples.end(); it++){
 		if((*it)->GetLifeTime() > 0){

@@ -26,7 +26,7 @@ Audio* Spider::run_snd = NULL;
 
 const float Spider::radius = 24.f;
 const float Spider::speedV = 130.f;
-const float Spider::speedW = 120.f;
+const float Spider::speedW = 90.f;
 
 void Spider::Init(Game* game){
 	Spider::game = game;
@@ -60,34 +60,35 @@ Spider::Spider(){
 }
 
 void Spider::Update(float sec, list<Apple*> &apples){
+	graphics->DrawCircle(pos, speedV / (speedW / 360 * PI), ColorX::Red);
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
-		float neededAngle;
-		float tangens = (pos.x - end_point.x) / (pos.y - end_point.y);
-		neededAngle = atan(tangens);
-		neededAngle = (float)(neededAngle * 180.f / PI) + 90.f;
-		if(pos.x > end_point.x && pos.y < end_point.y){
-			neededAngle += 180.f;
+		float neededAngle = Angle(pos, end_point);
+		
+		//determine in witch direction we need to move
+		float clockwise;
+		if( neededAngle > angle )
+			clockwise = 360 + angle - neededAngle;
+		else 
+			clockwise = angle - neededAngle;
+		float counterclockwise = 360 - clockwise;
+		//rotate snake head
+		if(clockwise < speedW * sec || counterclockwise < speedW * sec) {
+			angle = neededAngle;
+		} else {
+			if(counterclockwise < clockwise) 
+				angle += speedW * sec;
+			else
+				angle -= speedW * sec;
+			if(angle >= 180.f)
+				angle -= 360.f;
+			if(angle <= -180.f)
+				angle += 360.f;
 		}
 
-		if(neededAngle != angle){
-			if(neededAngle > angle){
-				if(angle + 50 * sec > neededAngle){
-					angle = neededAngle;
-				}else{
-					angle += 50 * sec;
-				}
-			}else{
-				if(angle - 50 * sec < neededAngle){
-					angle = neededAngle;
-				}else{
-					angle -= 50 * sec;
-				}
-			}
-		}
-
-		graphics->DrawCircle(end_point, 5, ColorX::Red);
+		
+		graphics->DrawCircle(end_point, 30, ColorX::Red);
 		pos.y += -speedV * sin(angle / 180.0 * PI) * sec;
 		pos.x += speedV * cos(angle / 180.0 * PI) * sec;
 		anim->Update(sec);
@@ -123,8 +124,10 @@ void Spider::Update(float sec, list<Apple*> &apples){
 			if(!eaten){
 				ScanForApples(apples);
 				if(target_apple == NULL){
-					end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
-					end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
+					do{
+						end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
+						end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
+					}while(Distance(pos, end_point) <= speedV / (speedW / 360 * PI));
 				}
 			}else{
 				SetNearestBorder();
@@ -142,8 +145,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 
 void Spider::Start(){
 	if(state == SpiderState::HIDING){
-		//short side = rand() % 4;
-		short side = 1;
+		short side = 3;
 		float x, y;
 		switch (side){
 		case 0:		//left
@@ -168,20 +170,11 @@ void Spider::Start(){
 			x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
 			y = -GetRadius();
 			end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
-			end_point.y = game->GetHeight() / 2 + rand() % (int)(game->GetHeight() / 2);
+			end_point.y = GetRadius() + rand() % (int)(game->GetHeight() / 2);
 			break;
 		default:
 			break;
-		}/*
-		float tangens = (x - end_point.x) / (y - end_point.y);
-		angle = atan(tangens);
-		angle = (float)(angle * 180.f / PI + 90.f);
-		if(angle < -90){
-			angle += 180.f;
 		}
-		if(angle > 90){
-			angle -= 180.f;
-		}*/
 		pos.x = x;
 		pos.y = y;
 		angle = Angle(pos, end_point);
@@ -266,21 +259,21 @@ void Spider::SetNearestBorder(){
 	newPoint.y = pos.y;
 	distance = Distance(end_point, pos);
 	newDistance = Distance(newPoint, pos);
-	if(newDistance < distance)
+	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		end_point = newPoint;
 
 	newPoint.x = pos.x;
 	newPoint.y = game->GetHeight() + GetRadius();
 	distance = Distance(end_point, pos);
 	newDistance = Distance(newPoint, pos);
-	if(newDistance < distance)
+	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		end_point = newPoint;
 
 	newPoint.x = - GetRadius();
 	newPoint.y = pos.y;
 	distance = Distance(end_point, pos);
 	newDistance = Distance(newPoint, pos);
-	if(newDistance < distance)
+	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		end_point = newPoint;
 }
 

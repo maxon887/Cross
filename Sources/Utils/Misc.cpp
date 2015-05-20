@@ -33,7 +33,6 @@ bool PointInRect(PointX p, RectX rect){
 }
 
 bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
-	//double distance = sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
 	float distance = Distance(p1, p2);
 	if(distance < (r1 + r2))
 		return true;
