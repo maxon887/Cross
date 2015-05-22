@@ -23,10 +23,13 @@ const float Snake::speedV = 240.f;
 const float Snake::speedW = speedV / 1.33f;
 const float Snake::nod_length = 50.f;
 const float Snake::star_speedW = 2.f;
+Game* Snake::game = NULL;
+Graphics* Snake::graphics = NULL;
 
 Snake::Snake(Game* game){
 	body_length = 150.f;
-	this->graphics = game->graphics;
+	Snake::game = game;
+	Snake::graphics = game->graphics;
 }
 
 bool Snake::OnCollision(PointX center, float radius){
@@ -52,4 +55,48 @@ void Snake::EatableNear(Eatable* eatable){
 			near_eatable = eatable;
 		}
 	}
+}
+
+void Snake::DrawFace(float sec){
+	Image* face = face_bottom_anim->GetImage();
+	graphics->Rotate(face, face_angle + 90.f);
+	graphics->DrawImage(face_pos, face);
+	if(apple_time_left > 0){
+		near_eatable->Draw();
+		apple_time_left -= sec;
+		if(apple_time_left < 0){
+			big_nodes.push_back(1);
+			GameScreen* gameScr = (GameScreen*)game->GetCurrentScreen();
+			if(Apple* apple = dynamic_cast<Apple*>(near_eatable)){
+				switch (apple->GetState())
+				{
+				case AppleState::FRESH:
+					gameScr->AddScore(2);
+					break;
+				case AppleState::ROT:
+					gameScr->AddScore(1);
+					break;
+				default:
+					break;
+				}
+				apple->SetLifeTime(0);
+				int roll = rand() % 101;
+				if(roll > 25){
+					gameScr->StartSpider();
+				}
+				return;
+			}
+			if(Spider* spider = dynamic_cast<Spider*>(near_eatable)){
+				gameScr->AddScore(3);
+				spider->SetState(SpiderState::HIDING);
+			}
+		}
+	}
+	face = face_top_anim->GetImage();
+	graphics->Rotate(face, face_angle + 90.f);
+	graphics->DrawImage(face_pos, face);
+}
+
+void Snake::DrawBody(float sec){
+
 }

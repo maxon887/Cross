@@ -34,12 +34,26 @@ void GameScreen::Start(){
 	Spider::Init(game);
 	snake = new Snake(game);
 	spider = new Spider();
-	music->Play();
+	music_enable = saver->LoadBool(KEY_MUSIC);
+	sound_enable = saver->LoadBool(KEY_SOUND);
+	if(music_enable){
+		music->Play();
+	}
+	score_texter = ((SnakyGame*)game)->score_texter;
+	score_img = graphics->LoadImage("Game/ScoreLabel.png");
+	Restart();
+}
+
+void GameScreen::Restart(){
+	score = 0;
+	score_texter->SetScaleFactor(game->GetScaleFactor());
+	graphics->ScaleImage(score_img, game->GetScaleFactor());
 }
 
 void GameScreen::Update(float sec){
-	graphics->Clear(0.25,0.25,0);
+	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
+	DrawScore();
 	DrawApples();
 	spider->Draw();
 	switch (state)
@@ -67,7 +81,7 @@ void GameScreen::Update(float sec){
 	default:
 		break;
 	}
-
+	
 	graphics->DrawCircle(PointX(centerW, centerH), 2, ColorX::Red);
 	graphics->DrawLine(PointX(centerW, 0), PointX(centerW, game->GetHeight()), ColorX::Red);
 	graphics->DrawLine(PointX(0, centerH), PointX(game->GetWidth(), centerH), ColorX::Red);
@@ -76,11 +90,14 @@ void GameScreen::Update(float sec){
 		graphics->DrawLine(PointX(centerW, centerH), input->GetInput(), ColorX::Green);
 		launcher->LogIt("Angle - " + to_string(Angle(PointX(centerW, centerH), input->GetInput())));
 	}
+	if(input->HaveInput()){
+		game->SetScreen(new MenuScreen(game));
+	}
 }
 
 void GameScreen::CalcApples(float sec){
 	if(next_apple <= 0) {
-		next_apple = rand()%15;
+		next_apple = (float)(rand()%15);
 		SetApple();
 	} else {
 		next_apple -= sec;
@@ -101,8 +118,7 @@ void GameScreen::CalcApples(float sec){
 
 void GameScreen::SetApple(){
 	Apple* apple = new Apple();;
-	//float top = score_img.GetHeight() + 50;
-	float top = 50;
+	float top = score_img->GetHeight() + 50;
 	float bottom = game->GetHeight() - 4 * apple->GetRadius();
 	float left = 4 * apple->GetRadius();
 	float right = game->GetWidth() - 4 * apple->GetRadius();
@@ -110,10 +126,10 @@ void GameScreen::SetApple(){
 	bool onSnake = true;
 	while(onSnake) {
 		onSnake = false;
-		int randX = ((int)(right - left)) + left;
-		int randY = ((int)(bottom - top)) + top;
-		apple_pos.x = rand() % randX;
-		apple_pos.y = rand() % randY;
+		int randX = (int)((right - left) + left);
+		int randY = (int)((bottom - top) + top);
+		apple_pos.x = (float)(rand() % randX);
+		apple_pos.y = (float)(rand() % randY);
 		onSnake = snake->OnCollision(apple_pos, apple->GetRadius());
 	}
 	apple->SetPosition(apple_pos);
@@ -124,4 +140,34 @@ void GameScreen::DrawApples(){
 	for(Apple* apple : apples) {
 		apple->Draw();
 	}
+}
+
+void GameScreen::DrawScore(){
+	static const PointX pos(game->GetWidth() / 2 + 120, 50);
+	graphics->DrawImage(pos, score_img);
+	float offset = score_texter->GetWidth() / 2;
+	if(score > 9)
+		offset = score_texter->GetWidth();
+	if(score > 99)
+		offset = score_texter->GetWidth() * 2;
+	score_texter->DrawText(game->GetWidth() / 2 + 380 - offset, 20, to_string(score));
+}
+
+void GameScreen::AddScore(int gain){
+	score += gain;
+}
+
+void GameScreen::StartSpider(){
+	spider->Start();
+}
+
+GameScreen::~GameScreen(){
+	delete snake;
+	delete music;
+	for(Apple* apple : apples){
+		delete apple;
+	}
+	graphics->ReleaseImage(background);
+	graphics->ReleaseImage(ready_img);
+	Spider::Release();
 }

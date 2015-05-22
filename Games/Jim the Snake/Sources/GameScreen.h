@@ -17,6 +17,7 @@
 	
 #pragma once
 #include "Screen.h"
+#include "Texter.h"
 #include <list>
 
 class Snake;
@@ -37,17 +38,28 @@ public:
 	GameScreen(Game* game);
 	void Start();
 	void Update(float sec);
+	void AddScore(int gain);
+	void StartSpider();
+	~GameScreen();
 private:
 	GameState state;
 	Snake* snake;
 	Audio* music;
 	Image* background;
+	bool music_enable;
+	bool sound_enable;
 	Image* ready_img;
 	float onready_time;
+	int score;
+	Texter* score_texter;
+	Image* score_img;
+
 	//apple stuff
 	list<Apple*> apples;
 	float next_apple;
+	void Restart();
 	void DrawApples();
+	void DrawScore();
 	void CalcApples(float sec);
 	void SetApple();
 	//ads

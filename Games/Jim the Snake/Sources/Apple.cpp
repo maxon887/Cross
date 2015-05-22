@@ -35,7 +35,7 @@ void Apple::Init(Game* game){
 Apple::Apple(){
 	if(game == NULL)
 		throw "Class Apple needs to be initialized staticly";
-	this->angle = rand()%360;
+	this->angle = (float)(rand()%360);
 	life_time = 15;
 }
 
@@ -74,4 +74,12 @@ void Apple::Update(float sec){
 
 float Apple::GetLifeTime(){
 	return life_time;
+}
+
+AppleState Apple::GetState(){
+	return state;
+}
+
+void Apple::SetLifeTime(float lifeTime){
+	life_time = lifeTime;
 }

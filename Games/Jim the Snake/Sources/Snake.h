@@ -17,6 +17,8 @@
 	
 #pragma once
 #include "SnakyGame.h"
+#include "Apple.h"
+#include "Spider.h"
 #include "Animation.h"
 #include "Eatable.h"
 
@@ -31,8 +33,11 @@ public:
 	Snake(Game* game);
 	bool OnCollision(PointX center, float radius);
 	void EatableNear(Eatable* eatable);
+	void DrawFace(float sec);
+	void DrawBody(float sec);
 private:
-	Graphics* graphics;
+	static Game* game;
+	static Graphics* graphics;
 
 	static const float face_radius;
 	static const float body_radius;

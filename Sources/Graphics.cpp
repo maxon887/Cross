@@ -232,10 +232,10 @@ void Graphics::DrawCircle(PointX center, float radius, ColorX c){
 }
 
 void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
-	int sqrRad = radius * radius;
-	for ( int x = -radius * 0.7071068; x <= (radius * 0.7071068 + .5); x++ )
+	float sqrRad = radius * radius;
+	for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ )
 	{
-		int y = sqrt( double( sqrRad ) - double ( x*x )) + .5;
+		float y = sqrt(sqrRad - x*x) + .5f;
 		DrawPixel(PointX(x + c.x,y + c.y),r,g,b);
 		DrawPixel(PointX(x + c.x,-y + c.y), r,g,b);
 		DrawPixel(PointX(c.x + y, c.y + x), r,g,b);

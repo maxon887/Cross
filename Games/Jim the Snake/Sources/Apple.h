@@ -37,6 +37,8 @@ public:
 	float GetRadius();
 	void Update(float sec);
 	float GetLifeTime();
+	AppleState GetState();
+	void SetLifeTime(float lifeTime);
 private:
 	static Graphics* graphics;
 	static Game* game;

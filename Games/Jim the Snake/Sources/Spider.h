@@ -32,10 +32,12 @@ enum class SpiderState{
 class Spider{
 public:
 	static void Init(Game* game);
+	static void Release();
 	Spider();
 	void Start();
 	void Draw();
 	void Update(float sec, list<Apple*> &apples);
+	void SetState(SpiderState newState);
 	float GetRadius();
 private:
 	static Game* game;
@@ -56,8 +58,6 @@ private:
 	float head_angle;
 	float thinking_time;
 	bool eaten;
-	//float run_time;
-	//float think_time;
 	bool OnScreen();
 	void ScanForApples(list<Apple*> &apples);
 	void SetNearestBorder();

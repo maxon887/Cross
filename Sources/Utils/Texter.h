@@ -36,6 +36,7 @@ public:
 	float GetWidth();
 	float GetHeight();
 	void SetScaleFactor(float scaleFactor);
+	~Texter();
 private:
 	void Init(Game* game, const char* fontFilename,
 			float width, float height,
@@ -44,6 +45,7 @@ private:
 	Game* game;
 	Graphics* graphics;
 	Image* font;
+	//vector<Image*> letters;
 	Image* letters[256];
 	float width;
 	float height;

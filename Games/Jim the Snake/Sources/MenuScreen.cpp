@@ -74,11 +74,19 @@ void MenuScreen::Start(){
 	snaky_pos.x = 200.f * scaleFactor / game->GetScaleFactor();
 	snaky_pos.y = 100.f * scaleFactor / game->GetScaleFactor();
 
+	sound_btn->SetState(saver->LoadBool(KEY_SOUND));
+	bool musicState = saver->LoadBool(KEY_MUSIC);
+	menu_music = new Audio("Menu/MenuMusic.mp3", true, true);
+	music_btn->SetState(musicState);
+	if(musicState){
+		menu_music->Play();
+	}
+
 	CreateDeadAreas();
 }
 
 void MenuScreen::Update(float sec){
-	graphics->Clear(0.0f, 0.25f, 0.25f);
+ 	graphics->Clear(0.0f, 0.25f, 0.25f);
 	UpdateSun(sec);
 	graphics->DrawImage(background_pos, background);
 
@@ -86,17 +94,14 @@ void MenuScreen::Update(float sec){
 	graphics->DrawImage(bestscore_pos, bestscore);
 	score_texter->DrawText(510, 490, to_string(score));
 
-	ShowDeadAreas();
+	//ShowDeadAreas();
 
 	music_btn->Update();
 	sound_btn->Update();
 	play_btn->Update();
 }
 
-void MenuScreen::ShowDeadAreas(){/*
-	for(unsigned int i = 0; i < dead_areas.size(); i++){
-		graphics->DrawRect(dead_areas[i], ColorX::Red);
-	}*/
+void MenuScreen::ShowDeadAreas(){
 	for(RectX area : dead_areas){
 		graphics->DrawRect(area, ColorX::Red);
 	}
@@ -177,9 +182,25 @@ void MenuScreen::OnPlayClick(){
 }
 
 void MenuScreen::OnMusicClick(){
-
+	saver->SaveBool(KEY_MUSIC, music_btn->GetState());
+	if(music_btn->GetState()){
+		menu_music->Play();
+	}else{
+		menu_music->Stop();
+	}
 }
 
 void MenuScreen::OnSoundClick(){
+	saver->SaveBool(KEY_SOUND, sound_btn->GetState());
+}
 
+MenuScreen::~MenuScreen(){
+	graphics->ReleaseImage(background);
+	graphics->ReleaseImage(sun);
+	graphics->ReleaseImage(bestscore);
+	graphics->ReleaseImage(snaky);
+	delete play_btn;
+	delete music_btn;
+	delete sound_btn;
+	delete menu_music;
 }

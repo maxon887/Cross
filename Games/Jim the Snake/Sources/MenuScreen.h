@@ -33,6 +33,7 @@ public:
 	MenuScreen(Game* game);
 	void Start();
 	void Update(float sec);
+	~MenuScreen();
 private:
 	Image* background;
 	PointX background_pos;
@@ -52,6 +53,7 @@ private:
 	Button* play_btn;
 	ToggleButton* music_btn;
 	ToggleButton* sound_btn;
+	Audio* menu_music;
 
 	//debug
 	void ShowDeadAreas();

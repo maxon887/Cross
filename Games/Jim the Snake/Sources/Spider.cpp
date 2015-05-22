@@ -47,6 +47,13 @@ void Spider::Init(Game* game){
 	anim->Start();
 }
 
+void Spider::Release(){
+	delete anim;
+	delete run_snd;
+	graphics->ReleaseImage(head);
+	graphics->ReleaseImage(body);
+}
+
 Spider::Spider(){
 	if(game == NULL)
 		throw string("Class Spider needs to be initialized staticly");
@@ -89,8 +96,8 @@ void Spider::Update(float sec, list<Apple*> &apples){
 
 		
 		graphics->DrawCircle(end_point, 30, ColorX::Red);
-		pos.y += -speedV * sin(angle / 180.0 * PI) * sec;
-		pos.x += speedV * cos(angle / 180.0 * PI) * sec;
+		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
+		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
 		anim->Update(sec);
 		if(CircleOnCollision(pos, 2, end_point, 2)){
 			if(!eaten){
@@ -196,8 +203,8 @@ void Spider::Draw(){
 		graphics->Rotate(head, angle + head_angle + 90.f);
 		graphics->DrawImage(pos, body);
 		PointX headPos;
-		headPos.y = pos.y + -10 * sin(angle / 180.0 * PI);
-		headPos.x = pos.x + 10 * cos(angle / 180.0 * PI);
+		headPos.y = pos.y + (float)-10 * sin(angle / 180.f * PI);
+		headPos.x = pos.x + (float)10 * cos(angle / 180.f * PI);
 		graphics->DrawImage(headPos, head);
 		break;}
 	case SpiderState::ROTATE:
@@ -223,11 +230,11 @@ bool Spider::OnScreen(){
 
 void Spider::ScanForApples(list<Apple*> &apples){
 	PointX p1;
-	p1.y = pos.y + -2000 * sin((angle + 45.f) / 180.0 * PI);
-	p1.x = pos.x + 2000 * cos((angle + 45.f) / 180.0 * PI);
+	p1.y = pos.y + (float)-2000 * sin((angle + 45.f) / 180.f * PI);
+	p1.x = pos.x + (float)2000 * cos((angle + 45.f) / 180.f * PI);
 	PointX p2;
-	p2.y = pos.y + -2000 * sin((angle - 45.f) / 180.0 * PI);
-	p2.x = pos.x + 2000 * cos((angle - 45.f) / 180.0 * PI);
+	p2.y = pos.y + (float)-2000 * sin((angle - 45.f) / 180.f * PI);
+	p2.x = pos.x + (float)2000 * cos((angle - 45.f) / 180.f * PI);
 	graphics->DrawLine(pos, p1, ColorX::Red);
 	graphics->DrawLine(pos, p2, ColorX::Red);
 	target_apple = NULL;
@@ -288,4 +295,8 @@ void Spider::EatApple(list<Apple*> &apples){
 			return;
 		}
 	}
+}
+
+void Spider::SetState(SpiderState newState){
+	state = newState;
 }

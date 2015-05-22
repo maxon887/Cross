@@ -15,6 +15,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := cross
 LOCAL_CPP_FEATURES += exceptions
+LOCAL_CPP_FEATURES += rtti
 
 LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 					../../../../Sources/FMOD \
@@ -29,6 +30,9 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../Sources/MenuScreen.cpp \
 					../../../Sources/SnakyGame.cpp \
 					../../../Sources/GameScreen.cpp \
+					../../../Sources/Apple.cpp \
+					../../../Sources/Spider.cpp \
+					../../../Sources/Snake.cpp \
 					../../../../../Sources/Graphics.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Screen.cpp \

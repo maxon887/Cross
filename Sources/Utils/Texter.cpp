@@ -74,3 +74,7 @@ void Texter::SetScaleFactor(float scaleFactor){
 		graphics->ScaleImage(letters[i], scaleFactor);
 	}
 }
+
+Texter::~Texter(){
+	graphics->ReleaseImage(font);
+}

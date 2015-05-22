@@ -54,7 +54,7 @@ class Screen;
 class Debuger;
 class Saver;
 
-#define PI (3.141592653589793)
+#define PI (3.141592653589793f)
 
 /*	Core game class. Every game must inherit that class.
 	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */
