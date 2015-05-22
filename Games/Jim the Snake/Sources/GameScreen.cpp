@@ -90,9 +90,6 @@ void GameScreen::Update(float sec){
 		graphics->DrawLine(PointX(centerW, centerH), input->GetInput(), ColorX::Green);
 		launcher->LogIt("Angle - " + to_string(Angle(PointX(centerW, centerH), input->GetInput())));
 	}
-	if(input->HaveInput()){
-		game->SetScreen(new MenuScreen(game));
-	}
 }
 
 void GameScreen::CalcApples(float sec){

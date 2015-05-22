@@ -84,7 +84,6 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp">
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -106,6 +105,7 @@
     <ClCompile Include="..\..\Sources\Spider.cpp">
       <Filter>Jim the Snake</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
@@ -219,5 +219,9 @@
     <ClInclude Include="..\..\Sources\Eatable.h">
       <Filter>Jim the Snake</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Jim the Snake.rc" />
   </ItemGroup>
 </Project>

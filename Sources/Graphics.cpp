@@ -59,7 +59,7 @@ Image* Graphics::CreateImage(Image* src, RectX reg){
 
 Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
 	if(src == NULL)
-		throw "Attempt to create image from NULL";
+		throw string("Attempt to create image from NULL");
 
 	Image* img = new Image(src->GetTextureID(), (int)src->texWidth, (int)src->texHeight, region);
 	img->Scale(scaleFactor);
@@ -224,10 +224,23 @@ void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
     c.y *= game->GetScaleFactor();
     radius *= game->GetScaleFactor();
 	float sqrRad = radius * radius;
+#ifdef WIN
+	for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ ) {
+		float y = sqrt(sqrRad - x*x) + .5f;
+		DrawTargetPixel(PointX(x + c.x, y + c.y), r, g, b);
+		DrawTargetPixel(PointX(x + c.x,-y + c.y), r, g, b);
+		DrawTargetPixel(PointX(c.x + y, c.y + x), r, g, b);
+		DrawTargetPixel(PointX(c.x - y, c.y + x), r, g, b);
+	}
+#else
+	int capacity = abs((int)(-radius * 0.7071068f - radius * 0.7071068f)) + 1;
     vector<float> pixels;
+    pixels.reserve(capacity*2);
     vector<short> points;
+    pixels.reserve(capacity);
     vector<float> colors;
-    int i = 0;
+    pixels.reserve(capacity*4);
+    unsigned short i = 0;
 	for ( float x = -radius * 0.7071068f; x <= radius * 0.7071068f; x++ )
 	{
 		float y = sqrt(sqrRad - x*x);
@@ -254,11 +267,13 @@ void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
             colors.push_back(1);
         }
 	}
+	glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, pixels.data());
-    
+   	glEnableClientState(GL_COLOR_ARRAY);
     glColorPointer(4, GL_FLOAT, 0, colors.data());
     
-    glDrawElements(GL_POINTS, pixels.size() / 2, GL_UNSIGNED_SHORT, points.data());
+	glDrawElements(GL_POINTS, points.size(), GL_UNSIGNED_SHORT, points.data());
+#endif
 }
 
 void Graphics::DrawRect(RectX rect, ColorX c){
@@ -324,10 +339,10 @@ void Graphics::DrawTargetPixel(PointX p, float r, float g, float b){
     float vertices[] = { p.x, p.y };
     float colors[] = { r, g, b, 1 };
     static const unsigned short indices[] = { 0 };
-    //glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, vertices);
     
-    //glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
     glColorPointer(4, GL_FLOAT, 0, colors);
     
     glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);

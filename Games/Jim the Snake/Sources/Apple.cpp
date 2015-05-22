@@ -37,6 +37,7 @@ Apple::Apple(){
 		throw "Class Apple needs to be initialized staticly";
 	this->angle = (float)(rand()%360);
 	life_time = 15;
+	current_img = fresh_img;
 }
 
 void Apple::Draw(){
