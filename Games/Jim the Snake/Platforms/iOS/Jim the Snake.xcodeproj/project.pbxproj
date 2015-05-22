@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D41059511B0EFB3D00B4D0D7 /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41059501B0EFB3D00B4D0D7 /* icon.xcassets */; };
 		D438E1B61AFB61740015EC19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D438E1B51AFB61740015EC19 /* main.m */; };
-		D438E1C11AFB61740015EC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D438E1C01AFB61740015EC19 /* Images.xcassets */; };
 		D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */; };
 		D438E1DF1AFB61EA0015EC19 /* SnakyGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */; };
 		D438E2341AFB62030015EC19 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EA1AFB62030015EC19 /* Game.cpp */; };
@@ -46,10 +46,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D41059501B0EFB3D00B4D0D7 /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = icon.xcassets; path = "Jim the Snake/icon.xcassets"; sourceTree = SOURCE_ROOT; };
 		D438E1B01AFB61740015EC19 /* Jim the Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jim the Snake.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D438E1B41AFB61740015EC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Jim the Snake/Info.plist"; sourceTree = "<group>"; };
 		D438E1B51AFB61740015EC19 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Jim the Snake/main.m"; sourceTree = "<group>"; };
-		D438E1C01AFB61740015EC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Jim the Snake/Images.xcassets"; sourceTree = "<group>"; };
 		D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
 		D438E1DB1AFB61EA0015EC19 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
 		D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakyGame.cpp; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				D438E1B11AFB61740015EC19 /* Products */,
 				D438E1B41AFB61740015EC19 /* Info.plist */,
 				D438E1B51AFB61740015EC19 /* main.m */,
-				D438E1C01AFB61740015EC19 /* Images.xcassets */,
+				D41059501B0EFB3D00B4D0D7 /* icon.xcassets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -343,8 +343,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D438E1C11AFB61740015EC19 /* Images.xcassets in Resources */,
 				D438E2561AFB626F0015EC19 /* Assets in Resources */,
+				D41059511B0EFB3D00B4D0D7 /* icon.xcassets in Resources */,
 				D438E2431AFB62030015EC19 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

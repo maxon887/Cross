@@ -60,9 +60,9 @@ public:
 	Image* LoadImage(string filename, float scaleFactor);
 	/* Delete all data related with Image */
 	void ReleaseImage(Image* img);
-	/* Load image filled with images*/
+	/* Load image filled with images */
 	Image* LoadRepeatedImage(string filename, float width, float height);
-	/* Load scaled image filled with images*/
+	/* Load scaled image filled with images */
 	Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor);
 	void DrawPixel(PointX p, ColorX c);
 	void DrawPixel(PointX p, float r, float g, float b);
@@ -82,6 +82,7 @@ public:
 private:
 	unsigned char* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
 	void DrawTargetImage(float x, float y, Image* img);
+    void DrawTargetPixel(PointX p, float r, float g, float b);
 	Game* game;
 	Launcher* launcher;
 	GLint prev_texID;

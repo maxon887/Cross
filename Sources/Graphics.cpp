@@ -94,7 +94,7 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL );
 			//Clamp to edge effect
             if(new_width > width){
-                memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + (i + 1) * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
+                memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
             }
 		}
 		//Clamp to edge effect
@@ -188,19 +188,7 @@ void Graphics::DrawPixel(PointX p, ColorX c){
 void Graphics::DrawPixel(PointX p, float r, float g, float b){
 	p.x *= game->GetScaleFactor();
 	p.y *= game->GetScaleFactor();
-	float vertices[] = { p.x, p.y };
-	float colors[] = { r, g, b, 1 };
-	static const unsigned short indices[] = { 0 };
-	glLoadIdentity();
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, vertices);
-
-	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_FLOAT, 0, colors);
-
-	glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
-
-	glDisableClientState(GL_COLOR_ARRAY);
+    DrawTargetPixel(p, r, g, b);
 }
 
 void Graphics::DrawLine(PointX p1, PointX p2, ColorX c){
@@ -232,15 +220,45 @@ void Graphics::DrawCircle(PointX center, float radius, ColorX c){
 }
 
 void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
+    c.x *= game->GetScaleFactor();
+    c.y *= game->GetScaleFactor();
+    radius *= game->GetScaleFactor();
 	float sqrRad = radius * radius;
-	for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ )
+    vector<float> pixels;
+    vector<short> points;
+    vector<float> colors;
+    int i = 0;
+	for ( float x = -radius * 0.7071068f; x <= radius * 0.7071068f; x++ )
 	{
-		float y = sqrt(sqrRad - x*x) + .5f;
-		DrawPixel(PointX(x + c.x,y + c.y),r,g,b);
-		DrawPixel(PointX(x + c.x,-y + c.y), r,g,b);
-		DrawPixel(PointX(c.x + y, c.y + x), r,g,b);
-		DrawPixel(PointX(c.x - y, c.y + x), r,g,b);
+		float y = sqrt(sqrRad - x*x);
+        pixels.push_back(x + c.x);
+        pixels.push_back(y + c.y);
+        
+        pixels.push_back(x + c.x);
+        pixels.push_back(-y + c.y);
+        
+        pixels.push_back(c.x + y);
+        pixels.push_back(c.y + x);
+        
+        pixels.push_back(c.x - y);
+        pixels.push_back(c.y + x);
+        
+        points.push_back(i++);
+        points.push_back(i++);
+        points.push_back(i++);
+        points.push_back(i++);
+        for(int j = 0; j < 4; j++){
+            colors.push_back(r);
+            colors.push_back(g);
+            colors.push_back(b);
+            colors.push_back(1);
+        }
 	}
+    glVertexPointer(2, GL_FLOAT, 0, pixels.data());
+    
+    glColorPointer(4, GL_FLOAT, 0, colors.data());
+    
+    glDrawElements(GL_POINTS, pixels.size() / 2, GL_UNSIGNED_SHORT, points.data());
 }
 
 void Graphics::DrawRect(RectX rect, ColorX c){
@@ -299,4 +317,20 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 	glDisable(GL_TEXTURE_2D);
 	glTranslatef(-x, -y, 0);
+    glLoadIdentity();
+}
+
+void Graphics::DrawTargetPixel(PointX p, float r, float g, float b){
+    float vertices[] = { p.x, p.y };
+    float colors[] = { r, g, b, 1 };
+    static const unsigned short indices[] = { 0 };
+    //glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, vertices);
+    
+    //glEnableClientState(GL_COLOR_ARRAY);
+    glColorPointer(4, GL_FLOAT, 0, colors);
+    
+    glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
+    
+    //glDisableClientState(GL_COLOR_ARRAY);
 }
