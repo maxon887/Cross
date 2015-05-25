@@ -77,7 +77,13 @@ Snake::Snake(Game* game){
 
 	if(game->saver->LoadBool(KEY_SOUND)){
 		eat_snd = new Audio("Game/Eat.wav", false, false);
+	}else{
+		eat_snd = NULL;
 	}
+	
+	body_length = 150.f;
+	body_path.push_back(PointX(0, 400));
+	face_angle = 0;
 }
 
 bool Snake::OnCollision(PointX center, float radius){
@@ -164,13 +170,13 @@ void Snake::DrawFaceDeadST1(float sec){
 }
 
 void Snake::DrawBody(float sec){
-	body_path.push_back(face_pos);
+	body_path.insert(body_path.begin(), face_pos);
 	body_nodes.clear();
 	CalcBigNodes(sec);
 	//drawing body nodes
 	float pathLen = 0;
 	int nodIndex = 1;
-	for(int i = 0; i < body_path.size() - 1; i++){
+	for(unsigned int i = 0; i < body_path.size() - 1; i++){
 		PointX curr = body_path[i];
 		PointX next = body_path[i + 1];
 		//length between two path points
@@ -186,7 +192,7 @@ void Snake::DrawBody(float sec){
 				if(nodIndex <= body_length / nod_length){
 					body_nodes.push_back(PointX(x, y));
 					bool bigNode = false;
-					for(int j = 0; j < big_nodes.size(); i++){
+					for(unsigned int j = 0; j < big_nodes.size(); j++){
 						int appNode = big_nodes[j];
 						if(appNode == nodIndex){
 							graphics->ScaleImage(body_img, game->GetScaleFactor() * 1.2f);
@@ -215,8 +221,8 @@ void Snake::DrawBody(float sec){
 void Snake::CalcHead(float sec){
 	face_bottom_anim->Update(sec);
 	face_top_anim->Update(sec);
-	face_pos.x = speedV * cos(face_angle / 180.f * PI) * sec;
-	face_pos.y = -speedV * sin(face_angle / 180.f * PI) * sec;
+	face_pos.x += speedV * cos(face_angle / 180.f * PI) * sec;
+	face_pos.y += -speedV * sin(face_angle / 180.f * PI) * sec;
 }
 
 void Snake::CalcBigNodes(float sec){
@@ -238,7 +244,7 @@ void Snake::CalcBigNodes(float sec){
 }
 
 bool Snake::OnBiteYouself(){
-	for(int i = 1; i < body_nodes.size(); i++){
+	for(unsigned int i = 1; i < body_nodes.size(); i++){
 		PointX p = body_nodes[i];
 		if(CircleOnCollision(p, body_radius, face_pos, face_radius)){
 			return true;	

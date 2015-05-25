@@ -70,6 +70,7 @@ void GameScreen::Update(float sec){
 		CalcApples(sec);
 		DrawScore();
 		CalcInput(sec);
+		snake->CalcHead(sec);
 		break;
 	case GameState::ONREADY:
 		graphics->DrawImage(centerW, centerW, ready_img);

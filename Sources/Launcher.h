@@ -17,7 +17,6 @@
 	
 #pragma once
 #include "Game.h"
-//#include "Screen.h"
 
 /* Class witch contains platform specific code */
 class Launcher{
