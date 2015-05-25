@@ -29,7 +29,7 @@ enum class SpiderState{
 	HIDING
 };
 
-class Spider{
+class Spider : public Eatable{
 public:
 	static void Init(Game* game);
 	static void Release();
@@ -39,6 +39,7 @@ public:
 	void Update(float sec, list<Apple*> &apples);
 	void SetState(SpiderState newState);
 	float GetRadius();
+	PointX GetPosition();
 private:
 	static Game* game;
 	static Graphics* graphics;

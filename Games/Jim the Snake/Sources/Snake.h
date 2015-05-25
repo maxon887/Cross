@@ -30,12 +30,20 @@ enum class SnakeState{
 
 class Snake{
 public:
+	float face_angle;
 	Snake(Game* game);
 	bool OnCollision(PointX center, float radius);
 	void EatableNear(Eatable* eatable);
 	void DrawFace(float sec);
+	void DrawFaceDeadST0();
+	void DrawFaceDeadST1(float sec);
+	void CalcHead(float sec);
 	void DrawBody(float sec);
+	bool OnBiteYouself();
+	bool OnBorder();
+	float GetSpeedW();
 private:
+	void CalcBigNodes(float sec);
 	static Game* game;
 	static Graphics* graphics;
 
@@ -50,7 +58,6 @@ private:
 	Animation* face_bottom_anim;
 	Animation* face_top_anim;
 	Image* face_dead;
-	float face_angle;
 	PointX face_pos;
 	vector<PointX> body_path;
 	vector<PointX> body_nodes;
@@ -61,5 +68,6 @@ private:
 	float apple_time_left;
 	Audio* eat_snd;
 	Image* star_img;
+	float star_angle;
 	Eatable* near_eatable;
 };

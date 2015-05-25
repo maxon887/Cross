@@ -41,6 +41,9 @@ void GameScreen::Start(){
 	}
 	score_texter = ((SnakyGame*)game)->score_texter;
 	score_img = graphics->LoadImage("Game/ScoreLabel.png");
+	snake = NULL;
+	control_facepointer = graphics->LoadImage("Game/FacePointer.png");
+	control_base = graphics->LoadImage("Game/ControlBase.png");
 	Restart();
 }
 
@@ -48,19 +51,25 @@ void GameScreen::Restart(){
 	score = 0;
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
+	delete snake;
+	snake = new Snake(game);
 }
 
 void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
-	DrawScore();
 	DrawApples();
 	spider->Draw();
+	snake->DrawFace(sec);
+	snake->DrawBody(sec);
+	snake->EatableNear(spider);
 	switch (state)
 	{
 	case GameState::RUNNING:
 		spider->Update(sec, apples);
 		CalcApples(sec);
+		DrawScore();
+		CalcInput(sec);
 		break;
 	case GameState::ONREADY:
 		graphics->DrawImage(centerW, centerW, ready_img);
@@ -80,15 +89,6 @@ void GameScreen::Update(float sec){
 		break;
 	default:
 		break;
-	}
-	
-	graphics->DrawCircle(PointX(centerW, centerH), 2, ColorX::Red);
-	graphics->DrawLine(PointX(centerW, 0), PointX(centerW, game->GetHeight()), ColorX::Red);
-	graphics->DrawLine(PointX(0, centerH), PointX(game->GetWidth(), centerH), ColorX::Red);
-	if(input->HaveInput()){
-		graphics->DrawCircle(input->GetInput(), 2, ColorX::Green);
-		graphics->DrawLine(PointX(centerW, centerH), input->GetInput(), ColorX::Green);
-		launcher->LogIt("Angle - " + to_string(Angle(PointX(centerW, centerH), input->GetInput())));
 	}
 }
 
@@ -156,6 +156,44 @@ void GameScreen::AddScore(int gain){
 
 void GameScreen::StartSpider(){
 	spider->Start();
+}
+
+void GameScreen::CalcInput(float sec){
+	if(input->HaveInput()){
+		if(control_pos.x == 0 && control_pos.y == 0){
+			control_pos.x = input->GetInput().x;
+			control_pos.y = input->GetInput().y;
+			return;
+		}
+		float fingerAngle = Angle(control_pos, input->GetInput());
+		//determine in witch direction we need to move
+		float clockwise;
+		if( fingerAngle > snake->face_angle )
+			clockwise = 360 + snake->face_angle - fingerAngle;
+		else 
+			clockwise = snake->face_angle - fingerAngle;
+		float counterclockwise = 360 - clockwise;
+		//rotate snake head
+		if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
+			snake->face_angle = fingerAngle;
+		} else {
+			if(counterclockwise < clockwise) 
+				snake->face_angle += snake->GetSpeedW() * sec;
+			else
+				snake->face_angle -= snake->GetSpeedW() * sec;
+			if(snake->face_angle >= 180.f)
+				snake->face_angle -= 360.f;
+			if(snake->face_angle <= -180.f)
+				snake->face_angle += 360.f;
+		}
+		//draw control elements
+		graphics->Rotate(control_facepointer, snake->face_angle);
+		graphics->DrawImage(control_pos, control_base);
+		graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
+	}else{
+		control_pos.x = 0;
+		control_pos.y = 0;
+	}
 }
 
 GameScreen::~GameScreen(){

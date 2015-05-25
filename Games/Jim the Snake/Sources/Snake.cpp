@@ -30,6 +30,54 @@ Snake::Snake(Game* game){
 	body_length = 150.f;
 	Snake::game = game;
 	Snake::graphics = game->graphics;
+	body_img = graphics->LoadImage("Game/Body.png");
+	star_img = graphics->LoadImage("Game/Star.png");
+	face_dead = graphics->LoadImage("Game/Face/FaceDead.png");
+
+	face_pos.x = 200;
+	face_pos.y = 400;
+	Image* framesBottom[16];
+	framesBottom[0] = graphics->LoadImage("Game/Face/00Bottom.png");
+	framesBottom[1] = graphics->LoadImage("Game/Face/01Bottom.png");
+	framesBottom[2] = graphics->LoadImage("Game/Face/02Bottom.png");
+	framesBottom[3] = graphics->LoadImage("Game/Face/03Bottom.png");
+	framesBottom[4] = graphics->LoadImage("Game/Face/04Bottom.png");
+	framesBottom[5] = graphics->LoadImage("Game/Face/05Bottom.png");
+	framesBottom[6] = graphics->LoadImage("Game/Face/06Bottom.png");
+	framesBottom[7] = framesBottom[5];
+	framesBottom[8] = framesBottom[4];
+	framesBottom[9] = framesBottom[3];
+	framesBottom[10] = framesBottom[2];
+	framesBottom[11] = framesBottom[1];
+	framesBottom[12] = framesBottom[0];
+	framesBottom[13] = framesBottom[0];
+	framesBottom[14] = framesBottom[0];
+	framesBottom[15] = framesBottom[0];
+
+	Image* framesTop[16];
+	framesTop[0] = graphics->LoadImage("Game/Face/00Top.png");
+	framesTop[1] = graphics->LoadImage("Game/Face/01Top.png");
+	framesTop[2] = graphics->LoadImage("Game/Face/02Top.png");
+	framesTop[3] = graphics->LoadImage("Game/Face/03Top.png");
+	framesTop[4] = graphics->LoadImage("Game/Face/04Top.png");
+	framesTop[5] = graphics->LoadImage("Game/Face/05Top.png");
+	framesTop[6] = graphics->LoadImage("Game/Face/06Top.png");
+	framesTop[7] = framesTop[5];
+	framesTop[8] = framesTop[4];
+	framesTop[9] = framesTop[3];
+	framesTop[10] = framesTop[2];
+	framesTop[11] = framesTop[1];
+	framesTop[12] = framesTop[0];
+	framesTop[13] = framesTop[0];
+	framesTop[14] = framesTop[0];
+	framesTop[15] = framesTop[0];
+
+	face_bottom_anim = new Animation(graphics, 10.f / speedV, framesBottom, 16);
+	face_top_anim = new Animation(graphics, 10.f / speedV, framesTop, 16);
+
+	if(game->saver->LoadBool(KEY_SOUND)){
+		eat_snd = new Audio("Game/Eat.wav", false, false);
+	}
 }
 
 bool Snake::OnCollision(PointX center, float radius){
@@ -97,6 +145,128 @@ void Snake::DrawFace(float sec){
 	graphics->DrawImage(face_pos, face);
 }
 
-void Snake::DrawBody(float sec){
+void Snake::DrawFaceDeadST0(){
+	graphics->Rotate(face_dead, face_angle + 90.f);
+	graphics->DrawImage(face_pos, face_dead);
+}
 
+void Snake::DrawFaceDeadST1(float sec){
+	DrawFaceDeadST0();
+	PointX stPos;
+	for(int i = 0; i < 6; i++){
+		stPos.x = (float)(face_radius * cos(star_angle + i * 72.f / 180.f * PI));
+		stPos.y = (float)(face_radius * sin(star_angle + i * 72.f / 180.f * PI));
+		stPos.x = face_pos.x;
+		stPos.y = face_pos.y;
+		graphics->DrawImage(stPos, star_img);
+	}
+	star_angle += star_speedW * sec;
+}
+
+void Snake::DrawBody(float sec){
+	body_path.push_back(face_pos);
+	body_nodes.clear();
+	CalcBigNodes(sec);
+	//drawing body nodes
+	float pathLen = 0;
+	int nodIndex = 1;
+	for(int i = 0; i < body_path.size() - 1; i++){
+		PointX curr = body_path[i];
+		PointX next = body_path[i + 1];
+		//length between two path points
+		float len = Distance(curr, next);
+		pathLen += len;
+		//if need to draw node on this path line
+		if(pathLen > nod_length * nodIndex){
+			float l = abs(pathLen - len - nod_length * nodIndex);
+			float k = l/len;
+			while( k < 1 ){
+				float x = curr.x + (next.x - curr.x) * k;
+				float y = curr.y + (next.y - curr.y) * k;
+				if(nodIndex <= body_length / nod_length){
+					body_nodes.push_back(PointX(x, y));
+					bool bigNode = false;
+					for(int j = 0; j < big_nodes.size(); i++){
+						int appNode = big_nodes[j];
+						if(appNode == nodIndex){
+							graphics->ScaleImage(body_img, game->GetScaleFactor() * 1.2f);
+							graphics->DrawImage(x, y, body_img);
+							graphics->ScaleImage(body_img, game->GetScaleFactor());
+							bigNode = true;
+						}
+					}
+					if(!bigNode)
+						graphics->DrawImage(x, y, body_img);
+				}
+				nodIndex++;
+				l += nod_length;
+				k = l / len;
+			}
+		}
+		//remove unused path
+		if(pathLen > body_length){
+			while (body_path.size() - 2 > i){
+				body_path.erase(body_path.begin() + i + 2);
+			}
+		}
+	}
+}
+
+void Snake::CalcHead(float sec){
+	face_bottom_anim->Update(sec);
+	face_top_anim->Update(sec);
+	face_pos.x = speedV * cos(face_angle / 180.f * PI) * sec;
+	face_pos.y = -speedV * sin(face_angle / 180.f * PI) * sec;
+}
+
+void Snake::CalcBigNodes(float sec){
+	if(body_time_left <= 0){
+		for(auto it = big_nodes.begin(); it != big_nodes.end(); it++){
+			int bigNode = (*it);
+			if(bigNode < body_length / nod_length){
+				bigNode++;
+				(*it) = bigNode;
+			}else{
+				big_nodes.erase(it++);
+				body_length += nod_length;
+			}
+		}
+		body_time_left = 0.3f;
+	}else{
+		body_time_left -= sec;
+	}
+}
+
+bool Snake::OnBiteYouself(){
+	for(int i = 1; i < body_nodes.size(); i++){
+		PointX p = body_nodes[i];
+		if(CircleOnCollision(p, body_radius, face_pos, face_radius)){
+			return true;	
+		}
+	}
+	return false;
+}
+
+bool Snake::OnBorder(){
+	if( face_pos.x - face_radius < 0 ) {
+		face_pos.x = face_radius;
+		return true;
+	}
+	if( face_pos.x + face_radius > game->GetWidth()) {
+		face_pos.x = game->GetWidth() - face_radius;
+		return true;
+	}
+	if( face_pos.y - face_radius < 0 ) {
+		face_pos.y = face_radius;
+		return true;
+	}
+	if( face_pos.y + face_radius > game->GetHeight()) {
+		face_pos.y = game->GetHeight() - face_radius;
+		return true;
+	}
+	return false;
+}
+
+float Snake::GetSpeedW(){
+	return speedW;
 }

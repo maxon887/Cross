@@ -220,6 +220,10 @@ float Spider::GetRadius(){
 	return radius;
 }
 
+PointX Spider::GetPosition(){
+	return pos;
+}
+
 bool Spider::OnScreen(){
 	if(pos.x > game->GetWidth() || pos.x < 0)
 		return false;

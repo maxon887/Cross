@@ -62,6 +62,11 @@ private:
 	void DrawScore();
 	void CalcApples(float sec);
 	void SetApple();
+	//control stuff
+	Image* control_base;
+	Image* control_facepointer;
+	PointX control_pos;
+	void CalcInput(float delta);
 	//ads
 	float centerW;
 	float centerH;
