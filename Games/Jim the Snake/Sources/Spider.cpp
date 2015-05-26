@@ -43,7 +43,11 @@ void Spider::Init(Game* game){
 	anim = new Animation(graphics, 0.03f, frames, 8, true);
 	head = graphics->LoadImage("Game/Spider/Head.png");
 	body = graphics->LoadImage("Game/Spider/Body.png");
-	run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
+	if(game->saver->LoadBool(KEY_SOUND)){
+		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
+	}else{
+		run_snd = NULL;
+	}
 	anim->Start();
 }
 
@@ -293,7 +297,7 @@ void Spider::EatApple(list<Apple*> &apples){
 		if((*it) == target_apple){
 			delete *it;
 			*it = NULL;
-			apples.erase(it);
+			it = apples.erase(it);
 			target_apple = NULL;
 			eaten = true;
 			return;

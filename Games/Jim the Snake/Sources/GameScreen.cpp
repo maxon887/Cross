@@ -102,14 +102,15 @@ void GameScreen::CalcApples(float sec){
 	}
 	if(apples.size() == 0)
 		SetApple();
-
-	for(auto it = apples.begin(); it != apples.end(); it++){
+	auto it = apples.begin();
+	while(it != apples.end()){
 		if((*it)->GetLifeTime() > 0){
 			snake->EatableNear(*it);
 			(*it)->Update(sec);
+			it++;
 		} else {
 			delete *it;
-			apples.erase(it++);
+			it = apples.erase(it);
 		}
 	}
 }

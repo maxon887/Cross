@@ -101,8 +101,7 @@ void Snake::EatableNear(Eatable* eatable){
 		if(!face_bottom_anim->IsRunning()) {
 			face_bottom_anim->Start();
 			face_top_anim->Start();
-			if(eat_snd != NULL)
-				eat_snd->Play();
+			eat_snd->Play();
 		}
 		if(CircleOnCollision(face_pos, face_radius, eatable->GetPosition(), 1.f)) {
 			apple_time_left = 0.025f;
@@ -227,13 +226,15 @@ void Snake::CalcHead(float sec){
 
 void Snake::CalcBigNodes(float sec){
 	if(body_time_left <= 0){
-		for(auto it = big_nodes.begin(); it != big_nodes.end(); it++){
+		auto it = big_nodes.begin();
+		while(it != big_nodes.end()){
 			int bigNode = (*it);
 			if(bigNode < body_length / nod_length){
 				bigNode++;
 				(*it) = bigNode;
+				it++;
 			}else{
-				big_nodes.erase(it++);
+				it = big_nodes.erase(it);
 				body_length += nod_length;
 			}
 		}

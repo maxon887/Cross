@@ -97,31 +97,42 @@ Audio::Audio(string path, bool loop, bool isStream){
 }
 
 void Audio::Play(){
-	result = system->playSound(sound, 0, false, &channel);
-	ERRCHECK(result);
+	if(this != NULL){
+		result = system->playSound(sound, 0, false, &channel);
+		ERRCHECK(result);
+	}
 }
 
 void Audio::Pause(){
-	result = channel->setPaused(true);
-	ERRCHECK(result);
+	if(this != NULL){
+		result = channel->setPaused(true);
+		ERRCHECK(result);
+	}
 }
 
 void Audio::Resume(){
-	result = channel->setPaused(false);
-	ERRCHECK(result);
+	if(this != NULL){
+		result = channel->setPaused(false);
+		ERRCHECK(result);
+	}
 }
 
 void Audio::Stop(){
-	channel->stop();
+	if(this != NULL){
+		channel->stop();
+	}
 }
 
 bool Audio::IsPlaying(){
-	bool playing;
-	result = channel->isPlaying(&playing);
-    if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
-        ERRCHECK(result);
-    }
-	return playing;
+	if(this != NULL){
+		bool playing;
+		result = channel->isPlaying(&playing);
+		if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
+		    ERRCHECK(result);
+		}
+		return playing;
+	}
+	return false;
 }
 
 Audio::~Audio(){
