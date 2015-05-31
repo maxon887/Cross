@@ -113,11 +113,9 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
 	RectX region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, new_width, new_height, region);
 	img->Scale(scaleFactor);
-
     string debugMsg = "Load image " + filename + ": ";
 	Debuger::StopCheckTime(debugMsg);
 	return img;

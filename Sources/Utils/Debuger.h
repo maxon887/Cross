@@ -23,6 +23,7 @@
 
 class Debuger{
 public:
+	static void SetLauncher(Launcher* launcher);
 	Debuger(Game* game);
 	void Display(float sec);
 	void SetUpdateTime(float sec);

@@ -22,6 +22,7 @@ SnakyGame::SnakyGame(Launcher* launcher):Game(launcher, GAME_WIDTH){
 }
 
 void SnakyGame::Start(){
+	launcher->LogIt("SnakyGame->Start()");
 	score_texter = new Texter(this, "Numbers.png", 60.f, 76.f, 10, 1, 48, this->scale_factor);
 	Game::Start();
 }

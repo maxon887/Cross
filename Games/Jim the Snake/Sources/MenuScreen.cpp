@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "MenuScreen.h"
+#include "SnakyGame.h"
 
 MenuScreen::MenuScreen(Game* game):Screen(game) { 
 	background = NULL;
@@ -26,6 +27,7 @@ MenuScreen::MenuScreen(Game* game):Screen(game) {
 }
 
 void MenuScreen::Start(){
+	game->launcher->LogIt("There 1");
 	background = graphics->LoadImage("Menu/Background.png");
 	float scaleFactor = 0;
 	float imageAspect = background->GetWidth() / background->GetHeight();
@@ -63,7 +65,7 @@ void MenuScreen::Start(){
 	musicPos.y = game->GetHeight() - musicUp->GetHeight() * 0.8f;
 	music_btn = new ToggleButton(game, musicPos, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
-
+	game->launcher->LogIt("There 2");
 	score_texter = ((SnakyGame*)game)->score_texter;
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	score = saver->LoadInt(KEY_SCORE);
@@ -83,6 +85,7 @@ void MenuScreen::Start(){
 	}
 
 	CreateDeadAreas();
+	game->launcher->LogIt("There 3");
 }
 
 void MenuScreen::Update(float sec){

@@ -95,12 +95,10 @@ void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
 	DrawApples();
-	game->launcher->LogIt("There 1");
-	//spider->Draw();
-	//snake->DrawFace(sec);
+	spider->Draw();
+	snake->DrawFace(sec);
 	snake->DrawBody(sec);
-	//snake->EatableNear(spider);
-	game->launcher->LogIt("There 2");
+	snake->EatableNear(spider);
 	if(SpiderOnCollision()){
 		bool dir = rand() % 2;
 		if(dir){
@@ -139,7 +137,6 @@ void GameScreen::Update(float sec){
 			}
 		}break;
 	case GameState::ONREADY:
-		game->launcher->LogIt("There 3");
 		graphics->DrawImage(centerW, centerW, ready_img);
 		onready_time -= sec;
 		if(onready_time < 0 || input->HaveInput()){

@@ -86,6 +86,7 @@ Snake::Snake(Game* game){
 	body_path.push_back(PointX(0, 400));
 	face_angle = 0;
 	star_angle = 0;
+	near_eatable = NULL;
 }
 
 bool Snake::OnCollision(PointX center, float radius){
@@ -116,6 +117,7 @@ void Snake::DrawFace(float sec){
 	Image* face = face_bottom_anim->GetImage();
 	graphics->Rotate(face, face_angle + 90.f);
 	graphics->DrawImage(face_pos, face);
+
 	if(apple_time_left > 0 && near_eatable != NULL){
 		near_eatable->Draw();
 		apple_time_left -= sec;

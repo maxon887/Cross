@@ -31,7 +31,7 @@ LauncherAndroid::LauncherAndroid(android_app* app, int width, int height){
 	string appname = env->GetStringUTFChars(packageName, NULL);
 	app->activity->vm->DetachCurrentThread();
 	data_path = "/data/data/" + appname + "/files";
-	//sprintf(data_path, "/data/data/%s/files", appname);
+	LogIt("Android Launcher initialized");
 }
 
 int LauncherAndroid::GetTargetWidth(){

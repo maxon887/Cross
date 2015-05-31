@@ -16,12 +16,17 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Debuger.h"
+#include "Game.h"
 
 #include <vector>
 
 static Launcher* launcher;
 
 static vector<time_point<high_resolution_clock>> times;
+
+void Debuger::SetLauncher(Launcher* launc){
+	launcher = launc;
+}
 
 Debuger::Debuger(Game* game){
 	launcher = game->launcher;
@@ -98,8 +103,8 @@ void Debuger::StopCheckTime(string label){
 	auto up = duration_cast<microseconds>(now - check_time).count();
 	double milis = up/1000.0;
 	string msg = label + to_string(milis) + "ms";
-	if(launcher != NULL)
-		launcher->LogIt(msg);
+	//if(launcher != NULL)
+	//	launcher->LogIt(msg);
 }
 
 

@@ -26,6 +26,9 @@
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
+#ifdef CROSSDEBUG
+	Debuger::SetLauncher(launcher);
+#endif
 	this->input = new Input(this);
 	this->saver = new Saver(this);
 	this->graphics = NULL;
@@ -66,9 +69,11 @@ Screen* Game::GetCurrentScreen(){
 
 void Game::Start(){
 	try{
+		launcher->LogIt("There 0");
 #ifdef CROSSDEBUG
 		debuger = new Debuger(this);
 #endif
+		launcher->LogIt("There 0.5");
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
 	}catch(string& msg){

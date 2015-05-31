@@ -18,7 +18,10 @@
 #include "Cross.h"
 #include "SnakyGame.h"
 
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
+
 void android_main(android_app* application){
+	LOGI("android_main()");
 	LauncherAndroid* launcher = CrossInit(application);
 	SnakyGame* game = new SnakyGame(launcher);
 	CrossMain(game);
