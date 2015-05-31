@@ -140,7 +140,7 @@ LauncherAndroid* CrossInit(android_app* application){
 
 	LOGI("android_main");
 #ifdef CROSSDEBUG
-	sleep(3);
+	sleep(5);
 #endif
 	while(!launcher){
 		android_poll_source* source;

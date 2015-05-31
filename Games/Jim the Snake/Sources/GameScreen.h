@@ -19,6 +19,7 @@
 #include "Screen.h"
 #include "Texter.h"
 #include <list>
+#include "Button.h"
 
 class Snake;
 class Spider;
@@ -45,6 +46,8 @@ private:
 	GameState state;
 	Snake* snake;
 	Audio* music;
+	Audio* punch;
+	Audio* game_over;
 	Image* background;
 	bool music_enable;
 	bool sound_enable;
@@ -53,6 +56,15 @@ private:
 	int score;
 	Texter* score_texter;
 	Image* score_img;
+	Image* gameover_img;
+	//menu
+	Image* pause_img;
+	Button* resume_btn;
+	Button* menu_btn;
+	Button* restart_btn;
+	void OnResumeClick();
+	void OnMenuClick();
+	void OnRestartClick();
 
 	//apple stuff
 	list<Apple*> apples;
@@ -62,6 +74,7 @@ private:
 	void DrawScore();
 	void CalcApples(float sec);
 	void SetApple();
+	bool SpiderOnCollision();
 	//control stuff
 	Image* control_base;
 	Image* control_facepointer;
@@ -71,4 +84,6 @@ private:
 	float centerW;
 	float centerH;
 	Spider* spider;
+	float time_dead01;
+	float time_dead02;
 };

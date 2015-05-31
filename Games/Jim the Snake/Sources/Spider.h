@@ -14,10 +14,10 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #pragma once
 #include "Eatable.h"
-#include "Game.h"
+#include "SnakyGame.h"
 #include "Screen.h"
 #include "Animation.h"
 #include "Apple.h"
@@ -37,9 +37,12 @@ public:
 	void Start();
 	void Draw();
 	void Update(float sec, list<Apple*> &apples);
-	void SetState(SpiderState newState);
+	void Rotate(float deltaAngle);
+	void Die();
 	float GetRadius();
 	PointX GetPosition();
+	float GetAngle();
+	float GetSpeedV();
 private:
 	static Game* game;
 	static Graphics* graphics;
@@ -56,6 +59,7 @@ private:
 	PointX pos;
 	PointX end_point;
 	float angle;
+	float rotate_angle;
 	float head_angle;
 	float thinking_time;
 	bool eaten;

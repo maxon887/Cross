@@ -82,6 +82,10 @@ void Game::Start(){
 	}
 }
 
+void Game::Pause(){
+
+}
+
 void Game::Update(){
 	try{
 		time_point<high_resolution_clock> now = high_resolution_clock::now();

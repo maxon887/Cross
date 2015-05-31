@@ -22,7 +22,7 @@ Input::Input(Game* game){
 	this->game = game;
 	input_state = false;
 	key_state = false;
-	key_key = KEY_UNDEFINED;
+	key_key = Key::UNDEFINED;
 	game->launcher->LogIt("Input initialized");
 }
 

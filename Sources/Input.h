@@ -20,9 +20,9 @@
 #include "Game.h"
 #include "PointX.h"
 
-enum Key{
-	KEY_UNDEFINED,
-	KEY_PAUSE
+enum class Key{
+	UNDEFINED,
+	PAUSE
 };
 
 /*	Class responsible for user input. 

@@ -33,7 +33,7 @@ void* bind(void* func, void* sender);
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -70,7 +70,10 @@ public:
 	   Don't mess with target width.
 	   Game height will be set automatically depend on screen aspect ratio. */
 	Game(Launcher* launcher, float width);
+	// Cause when game is about to start
 	virtual void Start();
+	// Cause when game needs to be paused. Fo example input call or press mobile home button
+	virtual void Pause();
 	/* Reflect ratio between game and target device width.*/
 	float GetScaleFactor();
 	/* Return virtual game width */

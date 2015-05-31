@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Snake.h"
+#include "SnakyGame.h"
 
 const float Snake::face_radius = 26.f;
 const float Snake::body_radius = 26.f;
@@ -84,6 +85,7 @@ Snake::Snake(Game* game){
 	body_length = 150.f;
 	body_path.push_back(PointX(0, 400));
 	face_angle = 0;
+	star_angle = 0;
 }
 
 bool Snake::OnCollision(PointX center, float radius){
@@ -114,7 +116,7 @@ void Snake::DrawFace(float sec){
 	Image* face = face_bottom_anim->GetImage();
 	graphics->Rotate(face, face_angle + 90.f);
 	graphics->DrawImage(face_pos, face);
-	if(apple_time_left > 0){
+	if(apple_time_left > 0 && near_eatable != NULL){
 		near_eatable->Draw();
 		apple_time_left -= sec;
 		if(apple_time_left < 0){
@@ -141,7 +143,7 @@ void Snake::DrawFace(float sec){
 			}
 			if(Spider* spider = dynamic_cast<Spider*>(near_eatable)){
 				gameScr->AddScore(3);
-				spider->SetState(SpiderState::HIDING);
+				spider->Die();
 			}
 		}
 	}
@@ -159,10 +161,10 @@ void Snake::DrawFaceDeadST1(float sec){
 	DrawFaceDeadST0();
 	PointX stPos;
 	for(int i = 0; i < 6; i++){
-		stPos.x = (float)(face_radius * cos(star_angle + i * 72.f / 180.f * PI));
-		stPos.y = (float)(face_radius * sin(star_angle + i * 72.f / 180.f * PI));
-		stPos.x = face_pos.x;
-		stPos.y = face_pos.y;
+		stPos.x = (face_radius * cos(star_angle + i * 72.f / 180.f * PI));
+		stPos.y = (face_radius * sin(star_angle + i * 72.f / 180.f * PI));
+		stPos.x += face_pos.x;
+		stPos.y += face_pos.y;
 		graphics->DrawImage(stPos, star_img);
 	}
 	star_angle += star_speedW * sec;

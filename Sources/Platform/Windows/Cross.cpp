@@ -77,6 +77,19 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		mGame->saver->SaveInt("WIN_POS_X", winRect.left);
 		mGame->saver->SaveInt("WIN_POS_Y", winRect.top);
 		break;
+	case WM_KEYDOWN:
+		input->key_state = true;
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			input->key_key = Key::PAUSE;
+		default:
+			break;
+		}
+		break;
+	case WM_KEYUP:
+		input->key_state = false;
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

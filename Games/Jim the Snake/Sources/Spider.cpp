@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Spider.h"
+#include "SnakyGame.h"
 
 Game* Spider::game = NULL;
 Graphics* Spider::graphics = NULL;
@@ -65,16 +66,18 @@ Spider::Spider(){
 	pos.y = -100;
 	state = SpiderState::HIDING;
 	head_angle = 0;
+	rotate_angle = 0;
 	thinking_time = 1.3f;
 	target_apple = NULL;
 	eaten = false;
 }
 
 void Spider::Update(float sec, list<Apple*> &apples){
-	graphics->DrawCircle(pos, speedV / (speedW / 360 * PI), ColorX::Red);
+	//graphics->DrawCircle(pos, speedV / (speedW / 360 * PI), ColorX::Red);
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
+		anim->Update(sec);
 		float neededAngle = Angle(pos, end_point);
 		
 		//determine in witch direction we need to move
@@ -98,11 +101,9 @@ void Spider::Update(float sec, list<Apple*> &apples){
 				angle += 360.f;
 		}
 
-		
-		graphics->DrawCircle(end_point, 30, ColorX::Red);
+		//graphics->DrawCircle(end_point, 30, ColorX::Red);
 		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
 		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
-		anim->Update(sec);
 		if(CircleOnCollision(pos, 2, end_point, 2)){
 			if(!eaten){
 				if(target_apple != NULL){
@@ -146,6 +147,29 @@ void Spider::Update(float sec, list<Apple*> &apples){
 		}
 
 		break;}
+	case SpiderState::ROTATE:
+		anim->Update(sec);
+		if(angle < rotate_angle){
+			angle += speedW * sec;
+			if(angle > rotate_angle)
+				angle = rotate_angle;
+		}
+		if(angle > rotate_angle){
+			angle -= speedW * sec;
+			if(angle < rotate_angle)
+				angle = rotate_angle;
+		}
+		if(angle == rotate_angle){
+			ScanForApples(apples);
+			if(target_apple == NULL){
+				do{
+					end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
+					end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
+				}while(Distance(pos, end_point) <= speedV / (speedW / 360 * PI));
+			}
+			state = SpiderState::RUNNING;
+		}
+		break;
 	case SpiderState::HIDING:
 		break;
 	default:
@@ -156,7 +180,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 
 void Spider::Start(){
 	if(state == SpiderState::HIDING){
-		short side = 3;
+		short side = rand()%4;
 		float x, y;
 		switch (side){
 		case 0:		//left
@@ -190,6 +214,7 @@ void Spider::Start(){
 		pos.y = y;
 		angle = Angle(pos, end_point);
 		run_snd->Play();
+		eaten = false;
 		state = SpiderState::RUNNING;
 	}
 }
@@ -198,6 +223,7 @@ void Spider::Draw(){
 	switch (state)
 	{
 	case SpiderState::RUNNING:
+	case SpiderState::ROTATE:
 		graphics->Rotate(anim->GetImage(), angle + 90.f);
 		graphics->DrawImage(pos, anim->GetImage());
 		break;
@@ -211,8 +237,6 @@ void Spider::Draw(){
 		headPos.x = pos.x + (float)10 * cos(angle / 180.f * PI);
 		graphics->DrawImage(headPos, head);
 		break;}
-	case SpiderState::ROTATE:
-		break;
 	case SpiderState::HIDING:
 		break;
 	default:
@@ -243,8 +267,8 @@ void Spider::ScanForApples(list<Apple*> &apples){
 	PointX p2;
 	p2.y = pos.y + (float)-2000 * sin((angle - 45.f) / 180.f * PI);
 	p2.x = pos.x + (float)2000 * cos((angle - 45.f) / 180.f * PI);
-	graphics->DrawLine(pos, p1, ColorX::Red);
-	graphics->DrawLine(pos, p2, ColorX::Red);
+	//graphics->DrawLine(pos, p1, ColorX::Red);
+	//graphics->DrawLine(pos, p2, ColorX::Red);
 	target_apple = NULL;
 	for(Apple* apple : apples){
 		if(PointInTriangle(apple->GetPosition(), pos, p1, p2)){
@@ -305,6 +329,24 @@ void Spider::EatApple(list<Apple*> &apples){
 	}
 }
 
-void Spider::SetState(SpiderState newState){
-	state = newState;
+void Spider::Die(){
+	pos.x = -100;
+	pos.y = -100;
+	run_snd->Stop();
+	state = SpiderState::HIDING;
+}
+
+void Spider::Rotate(float deltaAngle){
+	if(state != SpiderState::ROTATE){
+		state = SpiderState::ROTATE;
+		rotate_angle = angle + deltaAngle;
+	}
+}
+
+float Spider::GetAngle(){
+	return angle;
+}
+
+float Spider::GetSpeedV(){
+	return speedV;
 }

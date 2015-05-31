@@ -15,6 +15,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := cross
 LOCAL_CPP_FEATURES += exceptions
+LOCAL_CPP_FEATURES += rtti
 
 LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 					../../../../Sources/FMOD \
