@@ -29,7 +29,6 @@ public:
     string AssetsPath();
     string DataPath();
     void LogIt(string str);
-    void Exit();
 private:
     int width;
     int height;

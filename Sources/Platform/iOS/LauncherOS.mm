@@ -49,8 +49,3 @@ string LauncherOS::DataPath(){
 void LauncherOS::LogIt(string str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str.c_str()]);
 }
-
-
-void LauncherOS::Exit(){
-    exit(0);
-}

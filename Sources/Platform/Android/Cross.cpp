@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+	/*	Copyright © 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -41,6 +41,7 @@ LauncherAndroid* launcher;
 Game* mGame;
 
 bool onPause = false;
+bool focusLost = true;
 
 extern "C"{
 	void Java_com_cross_CrossActivity_InitAudio(JNIEnv *env, jobject thiz)
@@ -149,21 +150,47 @@ static void on_exit(){
     surface = EGL_NO_SURFACE;
     delete launcher;
     launcher = NULL;
+    if(mGame != NULL){
+    	mGame->Exit();
+    }
 }
 
 static void handle_cmd(struct android_app* app, int32_t cmd) {
 	switch(cmd){
 	case APP_CMD_SAVE_STATE:
+		LOGI("APP_CMD_SAVE_STATE");
 		break;
 	case APP_CMD_INIT_WINDOW:
+		LOGI("APP_CMD_INIT_WINDOW");
 		if(app->window != NULL){
 			init_display();
 			onPause = false;
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
+		LOGI("APP_CMD_TERM_WINDOW");
 		onPause = true;
 		on_exit();
+		break;
+	case APP_CMD_START:
+		LOGI("APP_CMD_START");
+		break;
+	case APP_CMD_RESUME:
+		LOGI("APP_CMD_RESUME");
+		break;
+	case APP_CMD_PAUSE:
+		LOGI("APP_CMD_PAUSE");
+		break;
+	case APP_CMD_STOP:
+		LOGI("APP_CMD_STOP");
+		break;
+	case APP_CMD_GAINED_FOCUS:
+		LOGI("APP_CMD_GAINED_FOCUS");
+		focusLost = false;
+		break;
+	case APP_CMD_LOST_FOCUS:
+		LOGI("APP_CMD_LOST_FOCUS");
+		focusLost = true;
 		break;
 	}
 }
@@ -210,7 +237,7 @@ void CrossMain(Game* game){
 				return;
 			}
 		}
-		if(game != NULL && launcher != NULL){
+		if(game != NULL && launcher != NULL && !focusLost){
 			launcher->LogIt("Main Loop Update");
 			game->Update();
 		    eglSwapBuffers(display, surface);

@@ -2,6 +2,7 @@ package com.cross;
 import org.fmod.FMOD;
 
 import android.app.NativeActivity;
+import android.util.Log;
 
 public class CrossActivity extends NativeActivity 
 							implements Runnable{
@@ -19,6 +20,7 @@ public class CrossActivity extends NativeActivity
 	
 	@Override
 	protected void onResume() {
+		Log.d("Cross++", "Java onResume()");
 		FMOD.init(this);
         mThread = new Thread(this, "Audio thread");
         mThread.start();
@@ -27,6 +29,7 @@ public class CrossActivity extends NativeActivity
 	
 	@Override
 	protected void onPause() {
+		Log.d("Cross++", "Java onPause()");
 		ReleaseAudio();
 		FMOD.close();
 		super.onPause();
