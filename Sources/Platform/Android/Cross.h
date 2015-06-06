@@ -17,6 +17,7 @@
 #pragma once
 
 #include "LauncherAndroid.h"
+#include "Game.h"
 
 LauncherAndroid* CrossInit(android_app* application);
 

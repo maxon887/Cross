@@ -17,9 +17,12 @@
 	
 #pragma once
 
-#include "Game.h"
-#include "Input.h"
+#include "Launcher.h"
 #include "Texter.h"
+
+#define CROSSDEBUG
+
+class Game;
 
 class Debuger{
 public:

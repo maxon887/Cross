@@ -23,16 +23,13 @@
 #include "GameScreen.h"
 #include "MenuScreen.h"
 
-#define KEY_SCORE "SCORE"
-#define KEY_MUSIC "MUSIC"
-#define KEY_SOUND "SOUND"
+#define PROPERTY_SCORE "SCORE"
+#define PROPERTY_MUSIC "MUSIC"
+#define PROPERTY_SOUND "SOUND"
 
-class SnakyGame : public Game{
+class JimTheSnake : public Game{
 public:
-	SnakyGame(Launcher* launcher);
+	JimTheSnake(Launcher* launcher);
 	Screen* GetStartScreen();
 	void Start();
-	Texter* score_texter;
-private:
-	Screen* menu_screen;
 };

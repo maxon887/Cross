@@ -17,6 +17,10 @@
 	
 #include "Audio.h"
 
+#include "fmod_errors.h"
+
+#include <stdarg.h>
+
 #ifndef Common_vsnprintf
     #define Common_vsnprintf vsnprintf
 #endif

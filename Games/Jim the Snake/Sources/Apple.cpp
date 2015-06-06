@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Apple.h"
+#include <stdlib.h>
 
 const float Apple::radius = 12.f;
 Graphics*	Apple::graphics = NULL;
@@ -32,17 +33,61 @@ void Apple::Init(Game* game){
 	Apple::dead_img = graphics->LoadImage("Game/AppleDead.png");
 }
 
+void Apple::Release(){
+	graphics->ReleaseImage(fresh_img);
+	graphics->ReleaseImage(rot_img);
+	graphics->ReleaseImage(dead_img);
+}
+
 Apple::Apple(){
 	if(game == NULL)
 		throw "Class Apple needs to be initialized staticly";
 	this->angle = (float)(rand()%360);
 	life_time = 15;
-	current_img = fresh_img;
+}
+
+int Apple::Eat(){
+	switch (state)
+	{
+	case AppleState::FRESH:
+		state = AppleState::EMPTY;
+		return 2;
+	case AppleState::ROT:
+		state = AppleState::EMPTY;
+		return 1;
+	default:
+		state = AppleState::EMPTY;
+		return 0;
+	}
+}
+
+bool Apple::Eaten(){
+	if(state == AppleState::EMPTY)
+		return true;
+	else
+		return false;
 }
 
 void Apple::Draw(){
-	graphics->Rotate(current_img, angle);
-	graphics->DrawImage(pos, current_img);
+	Image* current = NULL;
+	switch (state)
+	{
+	case AppleState::FRESH:
+		current = fresh_img;
+		break;
+	case AppleState::ROT:
+		current = rot_img;
+		break;
+	case AppleState::DEAD:
+		current = dead_img;
+		break;
+	case AppleState::EMPTY:
+		return;
+	default:
+		throw string("Unexpected apple behavior");
+	}
+	graphics->Rotate(current, angle);
+	graphics->DrawImage(pos, current);
 }
 
 void Apple::SetPosition(PointX pos){
@@ -59,28 +104,17 @@ float Apple::GetRadius(){
 
 void Apple::Update(float sec){
 	life_time -= sec;
+	if(life_time < 0){
+		state = AppleState::EMPTY;
+		return;
+	}
 	if(life_time < 4) {
 		state = AppleState::DEAD;
-		current_img = dead_img;
+		return;
 	}
-	if(life_time > 4 && life_time < 8) {
+	if(life_time < 8) {
 		state = AppleState::ROT;
-		current_img = rot_img;
+		return;
 	}
-	if(life_time > 8) {
-		state = AppleState::FRESH;
-		current_img = fresh_img;
-	}
-}
-
-float Apple::GetLifeTime(){
-	return life_time;
-}
-
-AppleState Apple::GetState(){
-	return state;
-}
-
-void Apple::SetLifeTime(float lifeTime){
-	life_time = lifeTime;
+    state = AppleState::FRESH;
 }

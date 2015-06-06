@@ -14,11 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #include "Graphics.h"
-#include "Image.h"
-#include "Debuger.h"
 #include "Game.h"
+#include "Debuger.h"
+#ifdef ANDROID
+#include "LauncherAndroid.h"
+#endif
+
+#include "SOIL.h"
+
+#include <cmath>
+#include <vector>
+
+#define BYTES_PER_CHANNEL 4
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -72,7 +81,7 @@ Image* Graphics::LoadImage(string filename){
 
 Image* Graphics::LoadImage(string filename, float scaleFactor){
 	Debuger::StartCheckTime();
-	unsigned int textureID;
+	GLuint textureID;
 	int width;
 	int height;
 
@@ -127,7 +136,7 @@ Image* Graphics::LoadRepeatedImage(string filename, float w, float h){
 
 Image* Graphics::LoadRepeatedImage(string filename, float w, float h, float scaleFactor){
 	Debuger::StartCheckTime();
-	unsigned int textureID;
+	GLuint textureID;
 	int width;
 	int height;
 
@@ -231,7 +240,7 @@ void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
 		DrawTargetPixel(PointX(c.x - y, c.y + x), r, g, b);
 	}
 #else
-	int capacity = abs((int)(-radius * 0.7071068f - radius * 0.7071068f)) + 1;
+	int capacity = abs(-radius * 0.7071068f - radius * 0.7071068f) + 1;
     vector<float> pixels;
     pixels.reserve(capacity*2);
     vector<short> points;

@@ -18,8 +18,9 @@
 #pragma once
 #include "Screen.h"
 #include "Texter.h"
-#include <list>
 #include "Button.h"
+
+#include <list>
 
 class Snake;
 class Spider;
@@ -39,51 +40,48 @@ public:
 	GameScreen(Game* game);
 	void Start();
 	void Update(float sec);
-	void AddScore(int gain);
-	void StartSpider();
 	~GameScreen();
 private:
 	GameState state;
 	Snake* snake;
+	Spider* spider;
+	list<Apple*> apples;
+
+	Image* background;
+	Image* score_img;
+	Image* gameover_img;
+	Image* control_base;
+	Image* control_facepointer;
+	Image* pause_img;
+	Image* ready_img;
+
 	Audio* music;
 	Audio* punch;
 	Audio* game_over;
-	Image* background;
-	bool music_enable;
-	bool sound_enable;
-	Image* ready_img;
-	float onready_time;
-	int score;
-	Texter* score_texter;
-	Image* score_img;
-	Image* gameover_img;
-	//menu
-	Image* pause_img;
+
 	Button* resume_btn;
 	Button* menu_btn;
 	Button* restart_btn;
-	void OnResumeClick();
-	void OnMenuClick();
-	void OnRestartClick();
 
-	//apple stuff
-	list<Apple*> apples;
-	float next_apple;
+	Texter* score_texter;
+
+	bool music_enable;
+	bool sound_enable;
+	float onready_time;
+	float centerW;
+	float centerH;
+	float time_dead01;
+	float time_dead02;
+
 	void Restart();
 	void DrawApples();
 	void DrawScore();
 	void CalcApples(float sec);
 	void SetApple();
 	bool SpiderOnCollision();
-	//control stuff
-	Image* control_base;
-	Image* control_facepointer;
-	PointX control_pos;
 	void CalcInput(float delta);
-	//ads
-	float centerW;
-	float centerH;
-	Spider* spider;
-	float time_dead01;
-	float time_dead02;
+
+	void OnResumeClick();
+	void OnMenuClick();
+	void OnRestartClick();
 };

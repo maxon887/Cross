@@ -17,44 +17,11 @@
 	
 #pragma once
 
-#define CROSSDEBUG
+#include "Screen.h"
 
-#ifdef _WIN32
-#define WIN
-#elif defined(__APPLE__) || defined(__APPLE_CC__)
-#define IOS true
-#elif defined(ANDROID) || defined(__ANDROID__)
-void* bind(void* func, void* sender);
-//#define __cplusplus 201103L
-//#undef ANDROID
-//#define ANDROID
-#endif
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <cmath>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <functional>
 #include <chrono>
-using namespace std;
-using namespace chrono;
 
-#include "PointX.h"
-#include "RectX.h"
-#include "Misc.h"
-
-class Launcher;
-class Graphics;
-class Input;
-class Screen;
 class Debuger;
-class Saver;
-
-#define PI (3.141592653589793f)
 
 /*	Core game class. Every game must inherit that class.
 	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */
@@ -72,7 +39,7 @@ public:
 	Game(Launcher* launcher, float width);
 	// Cause when game is about to start
 	virtual void Start();
-	// Cause when game needs to be paused. Fo example input call or press mobile home button
+	// Cause when game needs to be paused. Fo example input call or window lost focus
 	virtual void Pause();
 	/* Reflect ratio between game and target device width.*/
 	float GetScaleFactor();
@@ -98,5 +65,5 @@ protected:
 	float scale_factor;
 private:
 	Screen* current_screen;
-    time_point<high_resolution_clock> render_time;
+    chrono::time_point<chrono::high_resolution_clock> render_time;
 };

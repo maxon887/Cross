@@ -16,10 +16,18 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Texter.h"
+#include "Graphics.h"
 #include "Game.h"
-
+/*
 Texter::Texter(Game* game){
 	Init(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+}*/
+
+Texter::Texter(Game* game, const char* fontFilename,
+				float width, float height,
+				int columns, int rows,
+				int asciiOffset){
+	Init(game, fontFilename, width, height, columns, rows, asciiOffset, game->GetScaleFactor());
 }
 
 Texter::Texter(Game* game, const char* fontFilename,

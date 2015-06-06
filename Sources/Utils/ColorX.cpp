@@ -17,51 +17,15 @@
 	
 #include "ColorX.h"
 
-ColorX ColorX::Red(RED);
-ColorX ColorX::Green(GREEN);
-ColorX ColorX::Blue(BLUE);
-ColorX ColorX::White(WHITE);
-ColorX ColorX::Black(BLACK);
+const ColorX ColorX::Red(1.f, 0.f, 0.f);
+const ColorX ColorX::Green(0.f, 1.f, 0.f);
+const ColorX ColorX::Blue(0.f, 0.f, 1.f);
+const ColorX ColorX::White(1.f, 1.f, 1.f);
+const ColorX ColorX::Black(0.f, 0.f, 0.f);
 
 
 ColorX::ColorX(float r, float g, float b){
 	this->R = r;
 	this->G = g;
 	this->B = b;
-}
-
-ColorX::ColorX(COLORX c){
-	switch (c)
-	{
-	case RED:
-		R = 1.f;
-		G = 0.f;
-		B = 0.f;
-		break;
-	case GREEN:
-		R = 0.f;
-		G = 1.f;
-		B = 0.f;
-		break;
-	case BLUE:
-		R = 0.f;
-		G = 0.f;
-		B = 1.f;
-		break;
-	case WHITE:
-		R = 1.f;
-		G = 1.f;
-		B = 1.f;
-		break;
-	case BLACK:
-		R = 0.f;
-		G = 0.f;
-		B = 0.f;
-		break;
-	default:
-		R = 0.f;
-		G = 0.f;
-		B = 0.f;
-		break;
-	}
 }

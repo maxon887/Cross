@@ -49,9 +49,29 @@ bool Animation::IsRunning(){
 }
 
 Animation::~Animation(){
-	for(Image* frame : frames){
-		graphics->ReleaseImage(frame);
+	for(int i = 0; i < frames.size(); i++){
+		if(frames[i] != NULL){
+			for(int j = i+1; j < frames.size(); j++){
+				if(frames[i] == frames[j]){
+					frames[j] = NULL;
+				}
+			}
+			graphics->ReleaseImage(frames[i]);
+			frames[i] = NULL;
+		}
 	}
+	/*
+	for(Image* frame : frames){
+		if(frame != NULL){
+			graphics->ReleaseImage(frame);
+			for(Image* zeroFrame : frames){
+				if(frame == zeroFrame){
+					zeroFrame = NULL;
+				}
+			}
+			frame = NULL;
+		}
+	}*/
 }
 
 void Animation::Init(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped){

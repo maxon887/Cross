@@ -17,7 +17,7 @@
 
 #pragma once
 #include "Eatable.h"
-#include "SnakyGame.h"
+#include "JimTheSnake.h"
 #include "Screen.h"
 #include "Animation.h"
 #include "Apple.h"
@@ -26,7 +26,7 @@ enum class SpiderState{
 	RUNNING,
 	THINKING,
 	ROTATE,
-	HIDING
+	DEAD
 };
 
 class Spider : public Eatable{
@@ -35,10 +35,11 @@ public:
 	static void Release();
 	Spider();
 	void Start();
+	int Eat();
+	bool Eaten();
 	void Draw();
 	void Update(float sec, list<Apple*> &apples);
 	void Rotate(float deltaAngle);
-	void Die();
 	float GetRadius();
 	PointX GetPosition();
 	float GetAngle();

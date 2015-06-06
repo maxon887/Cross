@@ -17,33 +17,22 @@
 	
 #pragma once
 
-#include "SOIL.h"
-#include "Game.h"
-#include "Launcher.h"
 #include "ColorX.h"
+#include "PointX.h"
+#include "Image.h"
 
 #ifdef WIN
-    #include <Windows.h>
-    #include <gl/GL.h>
     #define glOrthof glOrtho
     #define GL_CLAMP_TO_EDGE GL_CLAMP
     #undef LoadImage
-#elif IOS
-    #include <OpenGLES/ES1/gl.h>
-#elif ANDROID
-    #include <GLES/gl.h>
-	#include "LauncherAndroid.h"
 #endif
 
-#define BYTES_PER_CHANNEL 4
-
-class Image;
+class Game;
 
 /* Class responsible for drawing objects into the sceen */
 class Graphics{
 public:
-	/*	Clear screen with particular color.
-		Input color range from 0 to 1.*/
+	/*	Clear screen with particular color.*/
 	void Clear(ColorX c);
 	void Clear(float r, float g, float b);
 	/* Scale Image */

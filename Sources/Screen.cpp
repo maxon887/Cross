@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Screen.h"
+#include "Game.h"
 
 Screen::Screen(Game* game){
 	this->game = game;

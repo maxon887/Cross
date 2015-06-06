@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Image.h"
-#include "Graphics.h"
 
 Image::Image(GLuint id, int texWidth, int texHeight, RectX region){
 	this->textureID = id;

@@ -17,25 +17,14 @@
 	
 #pragma once
 
-#include "Game.h"
-
-enum COLORX{
-	RED,
-	GREEN,
-	BLUE,
-	WHITE,
-	BLACK
-};
-
 class ColorX{
 public:
-	static ColorX Red;
-	static ColorX Green;
-	static ColorX Blue;
-	static ColorX White;
-	static ColorX Black;
+	static const ColorX Red;
+	static const ColorX Green;
+	static const ColorX Blue;
+	static const ColorX White;
+	static const ColorX Black;
 
 	float R,G,B;
 	ColorX(float r, float g, float b);
-	ColorX(COLORX c);
 };

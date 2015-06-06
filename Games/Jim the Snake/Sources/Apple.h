@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "SnakyGame.h"
+#include "JimTheSnake.h"
 #include "Screen.h"
 #include "Eatable.h"
 
@@ -30,15 +30,15 @@ enum class AppleState {
 class Apple : public Eatable{
 public:
 	static void Init(Game* game);
+	static void Release();
 	Apple();
+	int Eat();
+	bool Eaten();
 	void Draw();
 	void SetPosition(PointX pos);
 	PointX GetPosition();
 	float GetRadius();
 	void Update(float sec);
-	float GetLifeTime();
-	AppleState GetState();
-	void SetLifeTime(float lifeTime);
 private:
 	static Graphics* graphics;
 	static Game* game;
@@ -48,9 +48,8 @@ private:
 
 	static const float radius;
 
+	AppleState state;
 	PointX pos;
 	float angle;
 	float life_time;
-	AppleState state;
-	Image* current_img;
 };

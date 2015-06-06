@@ -17,7 +17,17 @@
 	
 #pragma once
 
-#include "Graphics.h"
+#include "Launcher.h"
+#include "RectX.h"
+
+#ifdef WIN
+    #include <Windows.h>
+    #include <gl/GL.h>
+#elif IOS
+    #include <OpenGLES/ES1/gl.h>
+#elif ANDROID
+    #include <GLES/gl.h>
+#endif
 
 /* Class that reflected images loaded in to memory */
 class Image{

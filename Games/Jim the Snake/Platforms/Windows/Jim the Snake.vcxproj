@@ -36,7 +36,7 @@
     <ClCompile Include="..\..\Sources\GameScreen.cpp" />
     <ClCompile Include="..\..\Sources\MenuScreen.cpp" />
     <ClCompile Include="..\..\Sources\Snake.cpp" />
-    <ClCompile Include="..\..\Sources\SnakyGame.cpp" />
+    <ClCompile Include="..\..\Sources\JimTheSnake.cpp" />
     <ClCompile Include="..\..\Sources\Spider.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -76,7 +76,7 @@
     <ClInclude Include="..\..\Sources\GameScreen.h" />
     <ClInclude Include="..\..\Sources\MenuScreen.h" />
     <ClInclude Include="..\..\Sources\Snake.h" />
-    <ClInclude Include="..\..\Sources\SnakyGame.h" />
+    <ClInclude Include="..\..\Sources\JimTheSnake.h" />
     <ClInclude Include="..\..\Sources\Spider.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

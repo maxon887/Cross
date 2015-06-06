@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "SnakyGame.h"
+#include "JimTheSnake.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Animation.h"
@@ -30,8 +30,11 @@ enum class SnakeState{
 
 class Snake{
 public:
+	static void Init(Game* game);
+	static void Release();
 	float face_angle;
-	Snake(Game* game);
+	Snake();
+	int GetScore();
 	bool OnCollision(PointX center, float radius);
 	void EatableNear(Eatable* eatable);
 	void DrawFace(float sec);
@@ -43,7 +46,6 @@ public:
 	bool OnBorder();
 	float GetSpeedW();
 private:
-	void CalcBigNodes(float sec);
 	static Game* game;
 	static Graphics* graphics;
 
@@ -54,20 +56,25 @@ private:
 	static const float nod_length;
 	static const float star_speedW;
 
+	static Animation* face_bottom_anim;
+	static Animation* face_top_anim;
+	static Image* face_dead;
+	static Image* body_img;
+	static Image* star_img;
+
+	static Audio* eat_snd;
+
+	void CalcBigNodes(float sec);
+
 	SnakeState state;
-	Animation* face_bottom_anim;
-	Animation* face_top_anim;
-	Image* face_dead;
+	int score;
 	PointX face_pos;
 	vector<PointX> body_path;
 	vector<PointX> body_nodes;
 	float body_length;
-	Image* body_img;
 	vector<int> big_nodes;
 	float body_time_left;
-	float apple_time_left;
-	Audio* eat_snd;
-	Image* star_img;
+	float eatable_time_left;
 	float star_angle;
 	Eatable* near_eatable;
 };

@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\Sources\MenuScreen.cpp">
       <Filter>Jim the Snake</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\SnakyGame.cpp">
-      <Filter>Jim the Snake</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Game.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -106,12 +103,12 @@
       <Filter>Jim the Snake</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\Sources\JimTheSnake.cpp">
+      <Filter>Jim the Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
-      <Filter>Jim the Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\SnakyGame.h">
       <Filter>Jim the Snake</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Game.h">
@@ -220,6 +217,9 @@
       <Filter>Jim the Snake</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\Sources\JimTheSnake.h">
+      <Filter>Jim the Snake</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Jim the Snake.rc" />

@@ -16,6 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Saver.h"
+#include "Game.h"
+
+#include <fstream>
+
+#undef LoadString
 
 Saver::Saver(Game* game){
 	prefs_path = game->launcher->DataPath() + "/prefs";

@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Cross.h"
-#include "Game.h"
 #include "Graphics.h"
 #include "Audio.h"
 #include "Input.h"
@@ -117,16 +116,27 @@ static int32_t handle_input(android_app* appl, AInputEvent* event){
                         	mGame->input->input_state = true;
                         	mGame->input->input_loc.x = AMotionEvent_getX(event, 0);
                         	mGame->input->input_loc.y = AMotionEvent_getY(event, 0);
-                        break;
+                        return 1;
                         case AMOTION_EVENT_ACTION_UP:
                         	mGame->input->input_state = false;
-                        break;
+                        return 1;
                     }
                 break;
             } // end switch
         break;
         case AINPUT_EVENT_TYPE_KEY:
-            // handle key input...
+        	int action = AKeyEvent_getAction(event);
+				if(action == AKEY_EVENT_ACTION_DOWN){
+				mGame->input->key_state = true;
+				switch(AKeyEvent_getKeyCode(event)){
+				case AKEYCODE_BACK:
+					mGame->input->key_key = Key::PAUSE;
+					return 1;
+				case AKEYCODE_MENU:
+					mGame->input->key_key = Key::PAUSE;
+					return 1;
+				}
+        	}
         break;
     } // end switch
 	return 0;
@@ -238,8 +248,8 @@ void CrossMain(Game* game){
 			}
 		}
 		if(game != NULL && launcher != NULL && !focusLost){
-			launcher->LogIt("Main Loop Update");
 			game->Update();
+			mGame->input->key_state = false;
 		    eglSwapBuffers(display, surface);
 		}
 	}

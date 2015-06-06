@@ -16,7 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Spider.h"
-#include "SnakyGame.h"
+#include "Misc.h"
+#include "JimTheSnake.h"
+#include <stdlib.h>
 
 Game* Spider::game = NULL;
 Graphics* Spider::graphics = NULL;
@@ -44,7 +46,7 @@ void Spider::Init(Game* game){
 	anim = new Animation(graphics, 0.03f, frames, 8, true);
 	head = graphics->LoadImage("Game/Spider/Head.png");
 	body = graphics->LoadImage("Game/Spider/Body.png");
-	if(game->saver->LoadBool(KEY_SOUND)){
+	if(game->saver->LoadBool(PROPERTY_SOUND)){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
 	}else{
 		run_snd = NULL;
@@ -62,18 +64,17 @@ void Spider::Release(){
 Spider::Spider(){
 	if(game == NULL)
 		throw string("Class Spider needs to be initialized staticly");
-	pos.x = -100;
-	pos.y = -100;
-	state = SpiderState::HIDING;
+	state = SpiderState::DEAD;
 	head_angle = 0;
 	rotate_angle = 0;
 	thinking_time = 1.3f;
 	target_apple = NULL;
 	eaten = false;
+	pos.x = -100;
+	pos.y = -100;
 }
 
 void Spider::Update(float sec, list<Apple*> &apples){
-	//graphics->DrawCircle(pos, speedV / (speedW / 360 * PI), ColorX::Red);
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
@@ -112,7 +113,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 				state = SpiderState::THINKING;
 				thinking_time = 1.3f;
 			}else{
-				state = SpiderState::HIDING;
+				state = SpiderState::DEAD;
 			}
 			run_snd->Stop();
 		}
@@ -170,7 +171,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 			state = SpiderState::RUNNING;
 		}
 		break;
-	case SpiderState::HIDING:
+	case SpiderState::DEAD:
 		break;
 	default:
 		throw string("Unexpected spider state");
@@ -179,7 +180,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 }
 
 void Spider::Start(){
-	if(state == SpiderState::HIDING){
+	if(state == SpiderState::DEAD){
 		short side = rand()%4;
 		float x, y;
 		switch (side){
@@ -228,16 +229,15 @@ void Spider::Draw(){
 		graphics->DrawImage(pos, anim->GetImage());
 		break;
 	case SpiderState::THINKING:{
-
-		graphics->Rotate(body, angle + 90.f);
-		graphics->Rotate(head, angle + head_angle + 90.f);
-		graphics->DrawImage(pos, body);
-		PointX headPos;
-		headPos.y = pos.y + (float)-10 * sin(angle / 180.f * PI);
-		headPos.x = pos.x + (float)10 * cos(angle / 180.f * PI);
-		graphics->DrawImage(headPos, head);
-		break;}
-	case SpiderState::HIDING:
+			graphics->Rotate(body, angle + 90.f);
+			graphics->Rotate(head, angle + head_angle + 90.f);
+			graphics->DrawImage(pos, body);
+			PointX headPos;
+			headPos.y = pos.y + (float)-10 * sin(angle / 180.f * PI);
+			headPos.x = pos.x + (float)10 * cos(angle / 180.f * PI);
+			graphics->DrawImage(headPos, head);
+		}break;
+	case SpiderState::DEAD:
 		break;
 	default:
 		break;
@@ -329,11 +329,19 @@ void Spider::EatApple(list<Apple*> &apples){
 	}
 }
 
-void Spider::Die(){
+int Spider::Eat(){
 	pos.x = -100;
 	pos.y = -100;
 	run_snd->Stop();
-	state = SpiderState::HIDING;
+	state = SpiderState::DEAD;
+	return 3;
+}
+
+bool Spider::Eaten(){
+	if(state == SpiderState::DEAD)
+		return true;
+	else
+		return false;
 }
 
 void Spider::Rotate(float deltaAngle){

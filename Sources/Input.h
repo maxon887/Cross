@@ -17,8 +17,9 @@
 	
 #pragma once
 
-#include "Game.h"
 #include "PointX.h"
+
+class Game;
 
 enum class Key{
 	UNDEFINED,

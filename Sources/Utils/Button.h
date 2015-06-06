@@ -22,6 +22,8 @@
 #include "Input.h"
 #include "Image.h"
 
+#include <functional>
+
 class Button{
 public:
 	Button(Game* game, Image* up, Image* down);

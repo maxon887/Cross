@@ -16,13 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Game.h"
-#include "Launcher.h"
-#include "Graphics.h"
-#include "Screen.h"
 #include "Debuger.h"
 #ifdef WIN
 #include "LauncherWIN.h"
 #endif 
+
+#include <stdlib.h>
+
+using namespace chrono;
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
@@ -69,11 +70,9 @@ Screen* Game::GetCurrentScreen(){
 
 void Game::Start(){
 	try{
-		launcher->LogIt("There 0");
 #ifdef CROSSDEBUG
 		debuger = new Debuger(this);
 #endif
-		launcher->LogIt("There 0.5");
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
 	}catch(string& msg){
@@ -121,7 +120,15 @@ void Game::Update(){
 }
 
 void Game::Exit(){
+	delete this;
 	exit(0);
 }
 
-Game::~Game(){ }
+Game::~Game(){
+	delete current_screen;
+	delete input;
+	delete saver;
+#ifdef CROSSDEBUG
+	delete debuger;
+#endif
+}

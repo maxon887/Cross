@@ -20,6 +20,7 @@
 #include "Input.h"
 #include "Screen.h"
 #include "resource.h"
+#include "LauncherWIN.h"
 
 static Game* mGame;
 static Input* input;

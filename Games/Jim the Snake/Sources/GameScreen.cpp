@@ -19,14 +19,19 @@
 #include "Apple.h"
 #include "Spider.h"
 #include "Snake.h"
+#include "Misc.h"
+#include <Math.h>
+#include <stdlib.h>
 
 GameScreen::GameScreen(Game* game):Screen(game){ }
 
 void GameScreen::Start(){
-	state = GameState::ONREADY;
-	centerW = game->GetWidth() / 2;
-	centerH = game->GetHeight() / 2;
-	onready_time = 4.3f;
+	Snake::Init(game);
+	Spider::Init(game);
+	Apple::Init(game);
+	snake = NULL;
+	spider = NULL;
+	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img = graphics->LoadImage("Game/ReadyTapLabel.png");
 	score_img = graphics->LoadImage("Game/ScoreLabel.png");
@@ -34,12 +39,17 @@ void GameScreen::Start(){
 	control_base = graphics->LoadImage("Game/ControlBase.png");
 	pause_img = graphics->LoadImage("Game/PauseLabel.png");
 	gameover_img = graphics->LoadImage("Game/GameOverLabel.png");
-	Apple::Init(game);
-	Spider::Init(game);
-	snake = new Snake(game);
-	spider = new Spider();
-	music_enable = saver->LoadBool(KEY_MUSIC);
-	sound_enable = saver->LoadBool(KEY_SOUND);
+	Image* resumeup = graphics->LoadImage("Game/ResumeUp.png");
+	Image* resumedown = graphics->LoadImage("Game/ResumeDown.png");
+	Image* menuup = graphics->LoadImage("Game/MenuUp.png");
+	Image* menudown = graphics->LoadImage("Game/MenuDown.png");
+	Image* restartup = graphics->LoadImage("Game/RestartUp.png");
+	Image* restartdown = graphics->LoadImage("Game/RestartDown.png");
+	//positioning
+	centerW = game->GetWidth() / 2;
+	centerH = game->GetHeight() / 2;
+	music_enable = saver->LoadBool(PROPERTY_MUSIC);
+	sound_enable = saver->LoadBool(PROPERTY_SOUND);
 	if(music_enable){
 		music = new Audio("Game/GameMusic.mp3", true, true);
 		game_over = new Audio("Game/GameOver.wav", false, true);
@@ -53,29 +63,24 @@ void GameScreen::Start(){
 	}else{
 		punch = NULL;
 	}
-	score_texter = ((SnakyGame*)game)->score_texter;
+	score_texter = new Texter(game, "Numbers.png", 60.f, 76.f, 10, 1, 48);
 	snake = NULL;
 
-	Image* resumeup = graphics->LoadImage("Game/ResumeUp.png");
-	Image* resumedown = graphics->LoadImage("Game/ResumeDown.png");
 	resume_btn = new Button(game, resumeup, resumedown);
 	resume_btn->SetLocation(PointX(450, centerH - 40));
 	resume_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
-	Image* menuup = graphics->LoadImage("Game/MenuUp.png");
-	Image* menudown = graphics->LoadImage("Game/MenuDown.png");
 	menu_btn = new Button(game, menuup, menudown);
 	menu_btn->SetLocation(PointX(450, centerH + 180));
 	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
-	Image* restartup = graphics->LoadImage("Game/RestartUp.png");
-	Image* restartdown = graphics->LoadImage("Game/RestartDown.png");
 	restart_btn = new Button(game, restartup, restartdown);
 	restart_btn->SetLocation(PointX(450, centerH - 40));
 	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
-
+	state = GameState::ONREADY;
 	Restart();
 }
 
 void GameScreen::Restart(){
+	onready_time = 4.3f;
 	game_over->Stop();
 	music->Play();
 	for(Apple* apple : apples){
@@ -83,12 +88,12 @@ void GameScreen::Restart(){
 	}
 	apples.clear();
 	state = GameState::ONREADY;
-	score = 0;
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
 	delete snake;
-	snake = new Snake(game);
-	spider->Die();
+	snake = new Snake();
+	delete spider;
+	spider = new Spider();
 }
 
 void GameScreen::Update(float sec){
@@ -98,8 +103,7 @@ void GameScreen::Update(float sec){
 	spider->Draw();
 	snake->DrawFace(sec);
 	snake->DrawBody(sec);
-	snake->EatableNear(spider);
-	if(SpiderOnCollision()){
+	if(!spider->Eaten() && SpiderOnCollision()){
 		bool dir = rand() % 2;
 		if(dir){
 			spider->Rotate(180.f);
@@ -111,16 +115,18 @@ void GameScreen::Update(float sec){
 	{
 	case GameState::RUNNING:{
 			static bool down = false;
+			snake->EatableNear(spider);
 			spider->Update(sec, apples);
 			CalcApples(sec);
 			DrawScore();
 			CalcInput(sec);
 			snake->CalcHead(sec);
+			//Snake die
 			if(snake->OnBorder() || snake->OnBiteYouself()){
 				graphics->ScaleImage(score_img, game->GetScaleFactor() * 1.2f);
 				score_texter->SetScaleFactor(game->GetScaleFactor() * 1.2f);
-				if(score > saver->LoadInt(KEY_SCORE)){
-					saver->SaveInt(KEY_SCORE, score);
+				if(snake->GetScore() > saver->LoadInt(PROPERTY_SCORE)){
+					saver->SaveInt(PROPERTY_SCORE, snake->GetScore());
 				}
 				state = GameState::DEAD0;
 				time_dead01 = 1.f;
@@ -136,14 +142,13 @@ void GameScreen::Update(float sec){
 				down = false;
 			}
 		}break;
-	case GameState::ONREADY:
-		graphics->DrawImage(centerW, centerW, ready_img);
-		onready_time -= sec;
-		if(onready_time < 0 || input->HaveInput()){
-			state = GameState::RUNNING;
-			spider->Start();
-		}
-		break;
+	case GameState::ONREADY:{
+			graphics->DrawImage(centerW, centerW, ready_img);
+			onready_time -= sec;
+			if(onready_time < 0 || input->HaveInput()){
+				state = GameState::RUNNING;
+			}
+		}break;
 	case GameState::PAUSED:{
 			static bool down = false;
 			DrawScore();
@@ -185,7 +190,7 @@ void GameScreen::Update(float sec){
 		snake->DrawFaceDeadST1(sec);
 		graphics->DrawImage(450, centerH - 340, gameover_img);
 		graphics->DrawImage(300, centerH - 210, score_img);
-		score_texter->DrawText(520, centerH - 255, to_string(score));
+		score_texter->DrawText(520, centerH - 255, to_string(snake->GetScore()));
 		restart_btn->Update();
 		menu_btn->Update();
 		break;
@@ -195,6 +200,7 @@ void GameScreen::Update(float sec){
 }
 
 void GameScreen::CalcApples(float sec){
+	static float next_apple = 0; 
 	if(next_apple <= 0) {
 		next_apple = (float)(rand()%15);
 		SetApple();
@@ -205,7 +211,7 @@ void GameScreen::CalcApples(float sec){
 		SetApple();
 	auto it = apples.begin();
 	while(it != apples.end()){
-		if((*it)->GetLifeTime() > 0){
+		if(!(*it)->Eaten()){
 			snake->EatableNear(*it);
 			(*it)->Update(sec);
 			it++;
@@ -213,6 +219,10 @@ void GameScreen::CalcApples(float sec){
 			delete *it;
 			*it = NULL;
 			it = apples.erase(it);
+			int roll = rand() % 101;
+			if(roll > 20){
+				spider->Start();
+			}
 		}
 	}
 }
@@ -247,22 +257,15 @@ void GameScreen::DrawScore(){
 	static const PointX pos(game->GetWidth() / 2 + 120, 50);
 	graphics->DrawImage(pos, score_img);
 	float offset = score_texter->GetWidth() / 2;
-	if(score > 9)
+	if(snake->GetScore() > 9)
 		offset = score_texter->GetWidth();
-	if(score > 99)
+	if(snake->GetScore() > 99)
 		offset = score_texter->GetWidth() * 2;
-	score_texter->DrawText(game->GetWidth() / 2 + 380 - offset, 20, to_string(score));
-}
-
-void GameScreen::AddScore(int gain){
-	score += gain;
-}
-
-void GameScreen::StartSpider(){
-	spider->Start();
+	score_texter->DrawText(game->GetWidth() / 2 + 380 - offset, 20, to_string(snake->GetScore()));
 }
 
 void GameScreen::CalcInput(float sec){
+	static PointX control_pos;
 	if(input->HaveInput()){
 		if(control_pos.x == 0 && control_pos.y == 0){
 			control_pos.x = input->GetInput().x;
@@ -309,13 +312,17 @@ bool GameScreen::SpiderOnCollision(){
 
 GameScreen::~GameScreen(){
 	delete snake;
+	delete spider;
+	Snake::Release();
+	Spider::Release();
+	Apple::Release();
+
 	delete music;
 	for(Apple* apple : apples){
 		delete apple;
 	}
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(ready_img);
-	Spider::Release();
 }
 
 void GameScreen::OnMenuClick(){

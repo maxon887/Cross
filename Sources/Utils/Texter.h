@@ -16,16 +16,17 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-
 #include "Game.h"
-#include "Image.h"
-
 #undef DrawText
 
 /* Class responsible for drawing text in to screen */
 class Texter{
 public:
-	Texter(Game* game);
+	//Texter(Game* game);
+	Texter(Game* game, const char* fontFilename,
+		float width, float height,
+		int columns, int rows,
+		int asciiOffset);
 	Texter(Game* game, const char* fontFilename,
 			float width, float height,
 			int columns, int rows,
@@ -45,7 +46,6 @@ private:
 	Game* game;
 	Graphics* graphics;
 	Image* font;
-	//vector<Image*> letters;
 	Image* letters[256];
 	float width;
 	float height;

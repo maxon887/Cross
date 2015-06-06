@@ -20,6 +20,8 @@
 
 #include <vector>
 
+using namespace chrono;
+
 static Launcher* launcher;
 
 static vector<time_point<high_resolution_clock>> times;

@@ -17,8 +17,10 @@
 	
 #pragma once
 
-class PointX;
-class RectX;
+#include "PointX.h"
+#include "RectX.h"
+
+#define PI (3.141592653589793)
 
 bool PointInRect(PointX p, RectX rect);
 bool PointInTriangle(PointX pt, PointX v1, PointX v2, PointX v3);

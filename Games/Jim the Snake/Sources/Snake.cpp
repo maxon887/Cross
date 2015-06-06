@@ -16,7 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Snake.h"
-#include "SnakyGame.h"
+#include "Misc.h"
+#include <stdlib.h>
 
 const float Snake::face_radius = 26.f;
 const float Snake::body_radius = 26.f;
@@ -26,17 +27,20 @@ const float Snake::nod_length = 50.f;
 const float Snake::star_speedW = 2.f;
 Game* Snake::game = NULL;
 Graphics* Snake::graphics = NULL;
+Image* Snake::body_img = NULL;
+Image* Snake::star_img = NULL;
+Image* Snake::face_dead = NULL;
+Animation* Snake::face_bottom_anim = NULL;
+Animation* Snake::face_top_anim = NULL;
+Audio* Snake::eat_snd = NULL;
 
-Snake::Snake(Game* game){
-	body_length = 150.f;
+void Snake::Init(Game* game){
 	Snake::game = game;
 	Snake::graphics = game->graphics;
 	body_img = graphics->LoadImage("Game/Body.png");
 	star_img = graphics->LoadImage("Game/Star.png");
 	face_dead = graphics->LoadImage("Game/Face/FaceDead.png");
 
-	face_pos.x = 200;
-	face_pos.y = 400;
 	Image* framesBottom[16];
 	framesBottom[0] = graphics->LoadImage("Game/Face/00Bottom.png");
 	framesBottom[1] = graphics->LoadImage("Game/Face/01Bottom.png");
@@ -76,17 +80,36 @@ Snake::Snake(Game* game){
 	face_bottom_anim = new Animation(graphics, 10.f / speedV, framesBottom, 16);
 	face_top_anim = new Animation(graphics, 10.f / speedV, framesTop, 16);
 
-	if(game->saver->LoadBool(KEY_SOUND)){
+	if(game->saver->LoadBool(PROPERTY_SOUND)){
 		eat_snd = new Audio("Game/Eat.wav", false, false);
-	}else{
-		eat_snd = NULL;
 	}
+}
+
+void Snake::Release(){
+	graphics->ReleaseImage(body_img);
+	graphics->ReleaseImage(star_img);
+	graphics->ReleaseImage(face_dead);
+	delete face_bottom_anim;
+	delete face_top_anim;
+	delete eat_snd;
+}
+
+Snake::Snake(){
+	score = 0;
+	body_length = 150.f;
+
+	face_pos.x = 200;
+	face_pos.y = 400;
 	
 	body_length = 150.f;
 	body_path.push_back(PointX(0, 400));
 	face_angle = 0;
 	star_angle = 0;
 	near_eatable = NULL;
+}
+
+int Snake::GetScore(){
+	return score;
 }
 
 bool Snake::OnCollision(PointX center, float radius){
@@ -107,7 +130,7 @@ void Snake::EatableNear(Eatable* eatable){
 			eat_snd->Play();
 		}
 		if(CircleOnCollision(face_pos, face_radius, eatable->GetPosition(), 1.f)) {
-			apple_time_left = 0.025f;
+			eatable_time_left = 0.025f;
 			near_eatable = eatable;
 		}
 	}
@@ -118,35 +141,12 @@ void Snake::DrawFace(float sec){
 	graphics->Rotate(face, face_angle + 90.f);
 	graphics->DrawImage(face_pos, face);
 
-	if(apple_time_left > 0 && near_eatable != NULL){
+	if(eatable_time_left > 0 && near_eatable != NULL){
 		near_eatable->Draw();
-		apple_time_left -= sec;
-		if(apple_time_left < 0){
+		eatable_time_left -= sec;
+		if(eatable_time_left < 0){
 			big_nodes.push_back(1);
-			GameScreen* gameScr = (GameScreen*)game->GetCurrentScreen();
-			if(Apple* apple = dynamic_cast<Apple*>(near_eatable)){
-				switch (apple->GetState())
-				{
-				case AppleState::FRESH:
-					gameScr->AddScore(2);
-					break;
-				case AppleState::ROT:
-					gameScr->AddScore(1);
-					break;
-				default:
-					break;
-				}
-				apple->SetLifeTime(0);
-				int roll = rand() % 101;
-				if(roll > 25){
-					gameScr->StartSpider();
-				}
-				return;
-			}
-			if(Spider* spider = dynamic_cast<Spider*>(near_eatable)){
-				gameScr->AddScore(3);
-				spider->Die();
-			}
+			score += near_eatable->Eat();
 		}
 	}
 	face = face_top_anim->GetImage();

@@ -16,19 +16,27 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "MenuScreen.h"
-#include "SnakyGame.h"
+#include "JimTheSnake.h"
+#include "Misc.h"
 
-MenuScreen::MenuScreen(Game* game):Screen(game) { 
-	background = NULL;
-	sun = NULL;
+MenuScreen::MenuScreen(Game* game):Screen(game) { }
+
+void MenuScreen::Start(){
 	sun_w = 5.f;
 	sun_angle = 0;
 	score = 0;
-}
-
-void MenuScreen::Start(){
-	game->launcher->LogIt("There 1");
+	//image loading
 	background = graphics->LoadImage("Menu/Background.png");
+	sun = graphics->LoadImage("Menu/Sun.jpg");
+	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
+	snaky = graphics->LoadImage("Menu/SnakyLabel.png");
+	Image* playUp = graphics->LoadImage("Menu/PlayButtonUp.png");
+	Image* playDown = graphics->LoadImage("Menu/PlayButtonDown.png");
+	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png", game->GetScaleFactor() * 1.2f);
+	Image* soundDown = graphics->LoadImage("Menu/SoundDown.png", game->GetScaleFactor() * 1.2f);
+	Image* musicUp = graphics->LoadImage("Menu/MusicUp.png", game->GetScaleFactor() * 1.2f);
+	Image* musicDown = graphics->LoadImage("Menu/MusicDown.png", game->GetScaleFactor() * 1.2f);
+	//positioning
 	float scaleFactor = 0;
 	float imageAspect = background->GetWidth() / background->GetHeight();
 	float deviceAspect = (float)launcher->GetTargetWidth() / launcher->GetTargetHeight();
@@ -36,56 +44,45 @@ void MenuScreen::Start(){
 		scaleFactor = launcher->GetTargetWidth() / background->GetWidth();
 	else
 		scaleFactor = launcher->GetTargetHeight() / background->GetHeight();
-	graphics->ScaleImage(background, scaleFactor);
-	background_pos.x = game->GetWidth() / 2.f;
-	background_pos.y = game->GetHeight() / 2.f;
-
-	sun = graphics->LoadImage("Menu/Sun.jpg", scaleFactor);
 	sun_pos.x = 400.f * scaleFactor / game->GetScaleFactor();
 	sun_pos.y = 580.f * scaleFactor / game->GetScaleFactor();
-	//Buttons
-	Image* playUp = graphics->LoadImage("Menu/PlayButtonUp.png");
-	Image* playDown = graphics->LoadImage("Menu/PlayButtonDown.png");
+	snaky_pos.x = 200.f * scaleFactor / game->GetScaleFactor();
+	snaky_pos.y = 100.f * scaleFactor / game->GetScaleFactor();
+	background_pos.x = game->GetWidth() / 2.f;
+	background_pos.y = game->GetHeight() / 2.f;
 	PointX playPos;
 	playPos.x = 270.f * scaleFactor / game->GetScaleFactor();
 	playPos.y = 490.f * scaleFactor / game->GetScaleFactor();
-	play_btn = new Button(game, playPos, playUp, playDown);
-	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
-	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png", game->GetScaleFactor() * 1.2f);
-	Image* soundDown = graphics->LoadImage("Menu/SoundDown.png", game->GetScaleFactor() * 1.2f);
 	PointX soundPos;
 	soundPos.x = soundUp->GetWidth() * 0.8f;
 	soundPos.y = game->GetHeight() - soundUp->GetHeight() * 0.8f;
-	sound_btn = new ToggleButton(game, soundPos, soundUp, soundDown);
-	sound_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
-	Image* musicUp = graphics->LoadImage("Menu/MusicUp.png", game->GetScaleFactor() * 1.2f);
-	Image* musicDown = graphics->LoadImage("Menu/MusicDown.png", game->GetScaleFactor() * 1.2f);
 	PointX musicPos;
 	musicPos.x = musicUp->GetWidth() * 2.2f;
 	musicPos.y = game->GetHeight() - musicUp->GetHeight() * 0.8f;
+	//scaling
+	graphics->ScaleImage(background, scaleFactor);
+	graphics->ScaleImage(sun, scaleFactor);
+	graphics->ScaleImage(snaky, scaleFactor);
+	//buttons creation
+	play_btn = new Button(game, playPos, playUp, playDown);
+	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
+	sound_btn = new ToggleButton(game, soundPos, soundUp, soundDown);
+	sound_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
 	music_btn = new ToggleButton(game, musicPos, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
-	game->launcher->LogIt("There 2");
-	score_texter = ((SnakyGame*)game)->score_texter;
-	score_texter->SetScaleFactor(game->GetScaleFactor());
-	score = saver->LoadInt(KEY_SCORE);
-	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
-	bestscore_pos.x = 300.f;
-	bestscore_pos.y = 520.f;
-	snaky = graphics->LoadImage("Menu/SnakyLabel.png", scaleFactor);
-	snaky_pos.x = 200.f * scaleFactor / game->GetScaleFactor();
-	snaky_pos.y = 100.f * scaleFactor / game->GetScaleFactor();
-
-	sound_btn->SetState(saver->LoadBool(KEY_SOUND));
-	bool musicState = saver->LoadBool(KEY_MUSIC);
+	//misc
+	score_texter = new Texter(game, "Numbers.png", 60.f, 76.f, 10, 1, 48);
+	score = saver->LoadInt(PROPERTY_SCORE);
+	sound_btn->SetState(saver->LoadBool(PROPERTY_SOUND));
+	bool musicState = saver->LoadBool(PROPERTY_MUSIC);
+	menu_music = 0;
+	menu_music->Play();
 	menu_music = new Audio("Menu/MenuMusic.mp3", true, true);
 	music_btn->SetState(musicState);
 	if(musicState){
 		menu_music->Play();
 	}
-
 	CreateDeadAreas();
-	game->launcher->LogIt("There 3");
 }
 
 void MenuScreen::Update(float sec){
@@ -94,20 +91,16 @@ void MenuScreen::Update(float sec){
 	graphics->DrawImage(background_pos, background);
 
 	graphics->DrawImage(snaky_pos, snaky);
-	graphics->DrawImage(bestscore_pos, bestscore);
-	score_texter->DrawText(510, 490, to_string(score));
-
-	//ShowDeadAreas();
+	graphics->DrawImage(PointX(320.f, 520.f), bestscore);
+	score_texter->DrawText(PointX(510.f, 490.f), to_string(score));
+	/*
+	for(RectX area : dead_areas){
+		graphics->DrawRect(area, ColorX::Red);
+	}*/
 
 	music_btn->Update();
 	sound_btn->Update();
 	play_btn->Update();
-}
-
-void MenuScreen::ShowDeadAreas(){
-	for(RectX area : dead_areas){
-		graphics->DrawRect(area, ColorX::Red);
-	}
 }
 
 void MenuScreen::CreateDeadAreas(){
@@ -119,7 +112,7 @@ void MenuScreen::CreateDeadAreas(){
 	r.height = game->GetHeight() - r.y;
 	dead_areas.push_back(r);
 	r.x = 0;
-	r.y = bestscore_pos.y + 50;
+	r.y = 570;
 	r.width = 250;
 	r.height = game->GetHeight() - r.y;
 	dead_areas.push_back(r);
@@ -185,7 +178,7 @@ void MenuScreen::OnPlayClick(){
 }
 
 void MenuScreen::OnMusicClick(){
-	saver->SaveBool(KEY_MUSIC, music_btn->GetState());
+	saver->SaveBool(PROPERTY_MUSIC, music_btn->GetState());
 	if(music_btn->GetState()){
 		menu_music->Play();
 	}else{
@@ -194,7 +187,7 @@ void MenuScreen::OnMusicClick(){
 }
 
 void MenuScreen::OnSoundClick(){
-	saver->SaveBool(KEY_SOUND, sound_btn->GetState());
+	saver->SaveBool(PROPERTY_SOUND, sound_btn->GetState());
 }
 
 MenuScreen::~MenuScreen(){

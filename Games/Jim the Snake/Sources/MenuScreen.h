@@ -17,16 +17,12 @@
 	
 #pragma once
 
-#include "Graphics.h"
 #include "Screen.h"
-#include "Image.h"
 #include "Texter.h"
 #include "Button.h"
 #include "ToggleButton.h"
-#include "SnakyGame.h"
-#include "GameScreen.h"
 
-#include <math.h>
+#include <vector>
 
 class MenuScreen : public Screen{
 public:
@@ -37,6 +33,7 @@ public:
 private:
 	Image* background;
 	PointX background_pos;
+	//sun
 	Image* sun;
 	PointX sun_pos;
 	float sun_angle;
@@ -46,7 +43,6 @@ private:
 	Texter* score_texter;
 	int score;
 	Image* bestscore;
-	PointX bestscore_pos;
 	Image* snaky;
 	PointX snaky_pos;
 
@@ -54,9 +50,6 @@ private:
 	ToggleButton* music_btn;
 	ToggleButton* sound_btn;
 	Audio* menu_music;
-
-	//debug
-	void ShowDeadAreas();
 
 	void CreateDeadAreas();
 	void UpdateSun(float sec);

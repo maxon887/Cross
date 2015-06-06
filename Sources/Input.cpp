@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Input.h"
-#include "Launcher.h"
+#include "Game.h"
 
 Input::Input(Game* game){
 	this->game = game;

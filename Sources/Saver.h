@@ -16,9 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "Game.h"
-#include "Launcher.h"
-#undef LoadString
+
+#include <string>
+
+using namespace std;
+
+class Game;
 
 /* Save and load information whith between game launches.
    Like game state, score etc*/

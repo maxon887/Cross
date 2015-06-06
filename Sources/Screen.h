@@ -17,13 +17,12 @@
 	
 #pragma once
 
-#include "Launcher.h"
-#include "Game.h"
 #include "Graphics.h"
-#include "Image.h"
 #include "Input.h"
 #include "Saver.h"
 #include "Audio.h"
+
+class Game;
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implemnt at least one Screen class.
