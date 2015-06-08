@@ -60,18 +60,6 @@ Animation::~Animation(){
 			frames[i] = NULL;
 		}
 	}
-	/*
-	for(Image* frame : frames){
-		if(frame != NULL){
-			graphics->ReleaseImage(frame);
-			for(Image* zeroFrame : frames){
-				if(frame == zeroFrame){
-					zeroFrame = NULL;
-				}
-			}
-			frame = NULL;
-		}
-	}*/
 }
 
 void Animation::Init(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped){

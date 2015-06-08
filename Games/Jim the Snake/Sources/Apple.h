@@ -16,8 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "JimTheSnake.h"
-#include "Screen.h"
+#include "Game.h"
 #include "Eatable.h"
 
 enum class AppleState {

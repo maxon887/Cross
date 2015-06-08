@@ -41,7 +41,7 @@ void Apple::Release(){
 
 Apple::Apple(){
 	if(game == NULL)
-		throw "Class Apple needs to be initialized staticly";
+		throw string("Class Apple needs to be initialized staticly");
 	this->angle = (float)(rand()%360);
 	life_time = 15;
 }

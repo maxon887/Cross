@@ -25,4 +25,5 @@ public:
 	virtual void Draw() = 0;
 	virtual PointX GetPosition() = 0;
 	virtual float GetRadius() = 0;
+	virtual ~Eatable() { };
 };

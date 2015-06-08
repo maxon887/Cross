@@ -17,19 +17,22 @@
 	
 #pragma once
 
-#define GAME_WIDTH 900
-
 #include "Game.h"
-#include "GameScreen.h"
-#include "MenuScreen.h"
-
-#define PROPERTY_SCORE "SCORE"
-#define PROPERTY_MUSIC "MUSIC"
-#define PROPERTY_SOUND "SOUND"
 
 class JimTheSnake : public Game{
 public:
 	JimTheSnake(Launcher* launcher);
 	Screen* GetStartScreen();
 	void Start();
+
+	bool IsMusicEnabled();
+	bool IsSoundEnabled();
+	int BestScore();
+	void SetMusicEnabled(bool enabled);
+	void SetSoundEnabled(bool enabled);
+	void SetBestScore(int best);
+private:
+	bool music;
+	bool sound;
+	int score;
 };

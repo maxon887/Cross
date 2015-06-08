@@ -12,12 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\ColorX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\PointX.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\RectX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Saver.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
@@ -25,11 +28,8 @@
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\ColorX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\PointX.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\Apple.cpp" />
@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
+    <ClInclude Include="..\..\..\..\Sources\ColorX.h" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod.h" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod.hpp" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod_codec.h" />
@@ -57,6 +58,7 @@
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
+    <ClInclude Include="..\..\..\..\Sources\PointX.h" />
     <ClInclude Include="..\..\..\..\Sources\Saver.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
@@ -64,11 +66,8 @@
     <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\ColorX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\PointX.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\Apple.h" />
@@ -121,7 +120,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

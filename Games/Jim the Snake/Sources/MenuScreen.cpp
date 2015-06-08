@@ -16,10 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "MenuScreen.h"
+#include "GameScreen.h"
 #include "JimTheSnake.h"
 #include "Misc.h"
+#include <cmath>
 
-MenuScreen::MenuScreen(Game* game):Screen(game) { }
+MenuScreen::MenuScreen(JimTheSnake* game):Screen(game) {
+	this->game = game;
+}
 
 void MenuScreen::Start(){
 	sun_w = 5.f;
@@ -72,14 +76,13 @@ void MenuScreen::Start(){
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
 	//misc
 	score_texter = new Texter(game, "Numbers.png", 60.f, 76.f, 10, 1, 48);
-	score = saver->LoadInt(PROPERTY_SCORE);
-	sound_btn->SetState(saver->LoadBool(PROPERTY_SOUND));
-	bool musicState = saver->LoadBool(PROPERTY_MUSIC);
+	score = game->BestScore();
+	sound_btn->SetState(game->IsSoundEnabled());
 	menu_music = 0;
 	menu_music->Play();
 	menu_music = new Audio("Menu/MenuMusic.mp3", true, true);
-	music_btn->SetState(musicState);
-	if(musicState){
+	music_btn->SetState(game->IsMusicEnabled());
+	if(game->IsMusicEnabled()){
 		menu_music->Play();
 	}
 	CreateDeadAreas();
@@ -178,7 +181,7 @@ void MenuScreen::OnPlayClick(){
 }
 
 void MenuScreen::OnMusicClick(){
-	saver->SaveBool(PROPERTY_MUSIC, music_btn->GetState());
+	game->SetMusicEnabled(music_btn->GetState());
 	if(music_btn->GetState()){
 		menu_music->Play();
 	}else{
@@ -187,7 +190,7 @@ void MenuScreen::OnMusicClick(){
 }
 
 void MenuScreen::OnSoundClick(){
-	saver->SaveBool(PROPERTY_SOUND, sound_btn->GetState());
+	game->SetSoundEnabled(sound_btn->GetState());
 }
 
 MenuScreen::~MenuScreen(){

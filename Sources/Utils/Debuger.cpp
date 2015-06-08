@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Debuger.h"
-#include "Game.h"
 
 #include <vector>
 
@@ -53,32 +52,26 @@ void Debuger::Display(float micro){
 		render_sum += micro;
 		render_counter++;
 	}
-	//sprintf(buffer, "Render Time: %fms", render_time);
 	texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 
 	if(update_time == 0){
 		texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
 	} else {
-		//sprintf(buffer, "Update Time: %fms", update_time);
 		texter->DrawText(0, texter->GetHeight(), "Update Time: " + to_string(update_time) + "ms");
 	}
 
 	if(render_time == 0){
 		texter->DrawText(0, texter->GetHeight() * 2, "FPS: Infinitive");
 	} else {
-		//sprintf(buffer, "FPS: %f", 1000.0f/render_time);
 		texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
 	}
 
 	if(input->HaveInput()){
 		PointX in = input->GetInput();
-		//sprintf(buffer, "Input: x=%f, y=%f", in.x, in.y);
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: x=" + to_string(in.x) + "y=" + to_string(in.y));
 	}else{
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
 	}
-
-	//sprintf(buffer, "Run time: %f", time);
 	texter->DrawText(0, texter->GetHeight() * 4, "Run time: " + to_string(time));
 }
 

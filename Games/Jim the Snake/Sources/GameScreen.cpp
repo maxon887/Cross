@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "GameScreen.h"
+#include "MenuScreen.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Snake.h"
@@ -23,7 +24,9 @@
 #include <Math.h>
 #include <stdlib.h>
 
-GameScreen::GameScreen(Game* game):Screen(game){ }
+GameScreen::GameScreen(JimTheSnake* game):Screen(game){
+	this->game = game;
+}
 
 void GameScreen::Start(){
 	Snake::Init(game);
@@ -48,9 +51,7 @@ void GameScreen::Start(){
 	//positioning
 	centerW = game->GetWidth() / 2;
 	centerH = game->GetHeight() / 2;
-	music_enable = saver->LoadBool(PROPERTY_MUSIC);
-	sound_enable = saver->LoadBool(PROPERTY_SOUND);
-	if(music_enable){
+	if(game->IsMusicEnabled()){
 		music = new Audio("Game/GameMusic.mp3", true, true);
 		game_over = new Audio("Game/GameOver.wav", false, true);
 		music->Play();
@@ -58,7 +59,7 @@ void GameScreen::Start(){
 		music = NULL;
 		game_over = NULL;
 	}
-	if(sound_enable){
+	if(game->IsSoundEnabled()){
 		punch = new Audio("Game/Punch.wav", false, false);
 	}else{
 		punch = NULL;
@@ -125,8 +126,8 @@ void GameScreen::Update(float sec){
 			if(snake->OnBorder() || snake->OnBiteYouself()){
 				graphics->ScaleImage(score_img, game->GetScaleFactor() * 1.2f);
 				score_texter->SetScaleFactor(game->GetScaleFactor() * 1.2f);
-				if(snake->GetScore() > saver->LoadInt(PROPERTY_SCORE)){
-					saver->SaveInt(PROPERTY_SCORE, snake->GetScore());
+				if(snake->GetScore() > game->BestScore()){
+					game->SetBestScore(snake->GetScore());
 				}
 				state = GameState::DEAD0;
 				time_dead01 = 1.f;

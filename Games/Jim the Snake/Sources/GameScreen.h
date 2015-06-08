@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+#include "JimTheSnake.h"
 #include "Screen.h"
 #include "Texter.h"
 #include "Button.h"
@@ -37,11 +38,12 @@ enum class GameState{
 
 class GameScreen : public Screen{
 public:
-	GameScreen(Game* game);
+	GameScreen(JimTheSnake* game);
 	void Start();
 	void Update(float sec);
 	~GameScreen();
 private:
+	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
 	Spider* spider;

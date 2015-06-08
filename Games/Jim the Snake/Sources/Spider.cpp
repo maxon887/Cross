@@ -17,10 +17,10 @@
 	
 #include "Spider.h"
 #include "Misc.h"
-#include "JimTheSnake.h"
 #include <stdlib.h>
+#include <cmath>
 
-Game* Spider::game = NULL;
+JimTheSnake* Spider::game = NULL;
 Graphics* Spider::graphics = NULL;
 Animation* Spider::anim = NULL;
 Image* Spider::head = NULL;
@@ -31,7 +31,7 @@ const float Spider::radius = 24.f;
 const float Spider::speedV = 130.f;
 const float Spider::speedW = 90.f;
 
-void Spider::Init(Game* game){
+void Spider::Init(JimTheSnake* game){
 	Spider::game = game;
 	Spider::graphics = game->graphics;
 	Image* frames[8];
@@ -46,7 +46,7 @@ void Spider::Init(Game* game){
 	anim = new Animation(graphics, 0.03f, frames, 8, true);
 	head = graphics->LoadImage("Game/Spider/Head.png");
 	body = graphics->LoadImage("Game/Spider/Body.png");
-	if(game->saver->LoadBool(PROPERTY_SOUND)){
+	if(game->IsSoundEnabled()){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
 	}else{
 		run_snd = NULL;

@@ -54,12 +54,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\PointX.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -87,9 +81,6 @@
     <ClCompile Include="..\..\Sources\GameScreen.cpp">
       <Filter>Jim the Snake</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\ColorX.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -105,6 +96,15 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\..\Sources\JimTheSnake.cpp">
       <Filter>Jim the Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\ColorX.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\PointX.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\RectX.cpp">
+      <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,12 +139,6 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\PointX.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h">
@@ -198,9 +192,6 @@
     <ClInclude Include="..\..\Sources\GameScreen.h">
       <Filter>Jim the Snake</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\ColorX.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -219,6 +210,12 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\Sources\JimTheSnake.h">
       <Filter>Jim the Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\ColorX.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\PointX.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

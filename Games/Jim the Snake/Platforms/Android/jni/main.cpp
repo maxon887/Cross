@@ -16,13 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Cross.h"
-#include "SnakyGame.h"
+#include "JimTheSnake.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
 
 void android_main(android_app* application){
 	LOGI("android_main()");
 	LauncherAndroid* launcher = CrossInit(application);
-	SnakyGame* game = new SnakyGame(launcher);
+	JimTheSnake* game = new JimTheSnake(launcher);
 	CrossMain(game);
 }

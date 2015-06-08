@@ -17,12 +17,10 @@
 	
 #pragma once
 
-#include "Launcher.h"
+#include "Game.h"
 #include "Texter.h"
 
 #define CROSSDEBUG
-
-class Game;
 
 class Debuger{
 public:

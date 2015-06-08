@@ -1,7 +1,6 @@
 package com.cross;
 import org.fmod.FMOD;
 
-import android.app.Activity;
 import android.app.NativeActivity;
 import android.util.Log;
 

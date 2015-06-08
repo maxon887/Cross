@@ -17,7 +17,7 @@
 	
 #pragma once
 
-#include "Screen.h"
+#include "JimTheSnake.h"
 #include "Texter.h"
 #include "Button.h"
 #include "ToggleButton.h"
@@ -26,11 +26,12 @@
 
 class MenuScreen : public Screen{
 public:
-	MenuScreen(Game* game);
+	MenuScreen(JimTheSnake* game);
 	void Start();
 	void Update(float sec);
 	~MenuScreen();
 private:
+	JimTheSnake* game;
 	Image* background;
 	PointX background_pos;
 	//sun

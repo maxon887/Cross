@@ -61,7 +61,6 @@ void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 
 void Audio::Init(Launcher* launcher){
 	Audio::launcher = launcher;
-	//Common_Init(&extradriverdata);
 	result = FMOD::System_Create(&system);
     ERRCHECK(result);
 

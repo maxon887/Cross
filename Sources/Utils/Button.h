@@ -18,9 +18,6 @@
 #pragma once
 
 #include "Game.h"
-#include "Graphics.h"
-#include "Input.h"
-#include "Image.h"
 
 #include <functional>
 

@@ -16,8 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Misc.h"
-#include "PointX.h"
-#include "RectX.h"
 #include <math.h>
 
 static float sign(PointX p1, PointX p2, PointX p3){

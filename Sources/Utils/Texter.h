@@ -22,7 +22,6 @@
 /* Class responsible for drawing text in to screen */
 class Texter{
 public:
-	//Texter(Game* game);
 	Texter(Game* game, const char* fontFilename,
 		float width, float height,
 		int columns, int rows,

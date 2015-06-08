@@ -30,7 +30,7 @@ enum class SnakeState{
 
 class Snake{
 public:
-	static void Init(Game* game);
+	static void Init(JimTheSnake* game);
 	static void Release();
 	float face_angle;
 	Snake();
@@ -46,7 +46,7 @@ public:
 	bool OnBorder();
 	float GetSpeedW();
 private:
-	static Game* game;
+	static JimTheSnake* game;
 	static Graphics* graphics;
 
 	static const float face_radius;
@@ -72,7 +72,7 @@ private:
 	vector<PointX> body_path;
 	vector<PointX> body_nodes;
 	float body_length;
-	vector<int> big_nodes;
+	list<int> big_nodes;
 	float body_time_left;
 	float eatable_time_left;
 	float star_angle;

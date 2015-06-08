@@ -18,23 +18,25 @@
 #include "Snake.h"
 #include "Misc.h"
 #include <stdlib.h>
+#include <cmath>
+#include <JimTheSnake.h>
 
-const float Snake::face_radius = 26.f;
-const float Snake::body_radius = 26.f;
-const float Snake::speedV = 240.f;
-const float Snake::speedW = speedV / 1.33f;
-const float Snake::nod_length = 50.f;
-const float Snake::star_speedW = 2.f;
-Game* Snake::game = NULL;
-Graphics* Snake::graphics = NULL;
-Image* Snake::body_img = NULL;
-Image* Snake::star_img = NULL;
-Image* Snake::face_dead = NULL;
-Animation* Snake::face_bottom_anim = NULL;
-Animation* Snake::face_top_anim = NULL;
-Audio* Snake::eat_snd = NULL;
+const float		Snake::face_radius		= 26.f;
+const float		Snake::body_radius		= 26.f;
+const float		Snake::speedV			= 240.f;
+const float		Snake::speedW			= speedV / 1.33f;
+const float		Snake::nod_length		= 50.f;
+const float		Snake::star_speedW		= 2.f;
+JimTheSnake*	Snake::game				= NULL;
+Graphics*		Snake::graphics			= NULL;
+Image*			Snake::body_img			= NULL;
+Image*			Snake::star_img			= NULL;
+Image*			Snake::face_dead		= NULL;
+Animation*		Snake::face_bottom_anim	= NULL;
+Animation*		Snake::face_top_anim	= NULL;
+Audio*			Snake::eat_snd			= NULL;
 
-void Snake::Init(Game* game){
+void Snake::Init(JimTheSnake* game){
 	Snake::game = game;
 	Snake::graphics = game->graphics;
 	body_img = graphics->LoadImage("Game/Body.png");
@@ -80,7 +82,7 @@ void Snake::Init(Game* game){
 	face_bottom_anim = new Animation(graphics, 10.f / speedV, framesBottom, 16);
 	face_top_anim = new Animation(graphics, 10.f / speedV, framesTop, 16);
 
-	if(game->saver->LoadBool(PROPERTY_SOUND)){
+	if(game->IsSoundEnabled()){
 		eat_snd = new Audio("Game/Eat.wav", false, false);
 	}
 }
@@ -100,8 +102,9 @@ Snake::Snake(){
 
 	face_pos.x = 200;
 	face_pos.y = 400;
-	
+	body_time_left = 0.3f;
 	body_length = 150.f;
+	big_nodes.clear();
 	body_path.push_back(PointX(0, 400));
 	face_angle = 0;
 	star_angle = 0;
@@ -195,8 +198,7 @@ void Snake::DrawBody(float sec){
 				if(nodIndex <= body_length / nod_length){
 					body_nodes.push_back(PointX(x, y));
 					bool bigNode = false;
-					for(unsigned int j = 0; j < big_nodes.size(); j++){
-						int appNode = big_nodes[j];
+					for(int appNode : big_nodes){
 						if(appNode == nodIndex){
 							graphics->ScaleImage(body_img, game->GetScaleFactor() * 1.2f);
 							graphics->DrawImage(x, y, body_img);

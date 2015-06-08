@@ -16,11 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #pragma once
-#include "Eatable.h"
 #include "JimTheSnake.h"
-#include "Screen.h"
 #include "Animation.h"
 #include "Apple.h"
+
+#include <list>
 
 enum class SpiderState{
 	RUNNING,
@@ -31,7 +31,7 @@ enum class SpiderState{
 
 class Spider : public Eatable{
 public:
-	static void Init(Game* game);
+	static void Init(JimTheSnake* game);
 	static void Release();
 	Spider();
 	void Start();
@@ -45,7 +45,7 @@ public:
 	float GetAngle();
 	float GetSpeedV();
 private:
-	static Game* game;
+	static JimTheSnake* game;
 	static Graphics* graphics;
 	static Animation* anim;
 	static Image* head;

@@ -16,12 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Texter.h"
-#include "Graphics.h"
-#include "Game.h"
-/*
-Texter::Texter(Game* game){
-	Init(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
-}*/
 
 Texter::Texter(Game* game, const char* fontFilename,
 				float width, float height,
@@ -68,9 +62,7 @@ void Texter::Init(	Game* game, const char* fontFilename,
 	this->offset = asciiOffset;
 	this->scale_factor = scaleFactor;
 	this->count = 0;
-	game->launcher->LogIt("Texter::Init() 1");
 	font = graphics->LoadImage(fontFilename);
-	game->launcher->LogIt("Texter::Init() 2");
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
 			RectX reg(j * width, i * height, width, height);
