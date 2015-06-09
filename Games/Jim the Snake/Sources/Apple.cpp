@@ -90,11 +90,11 @@ void Apple::Draw(){
 	graphics->DrawImage(pos, current);
 }
 
-void Apple::SetPosition(PointX pos){
+void Apple::SetPosition(Point pos){
 	this->pos = pos;
 }
 
-PointX Apple::GetPosition(){
+Point Apple::GetPosition(){
 	return pos;
 }
 

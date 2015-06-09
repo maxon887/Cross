@@ -17,7 +17,9 @@
 	
 #include "ToggleButton.h"
 
-ToggleButton::ToggleButton(Game* game, PointX location, Image* on, Image* off)
+using namespace cross;
+
+ToggleButton::ToggleButton(Game* game, Point location, Image* on, Image* off)
 	:Button(game, location, on, off){
 	this->on = on;
 	this->off = off;
@@ -31,7 +33,7 @@ void ToggleButton::Update(){
 
 	//first press
 	if(input->HaveInput() && press_loc == NULL){
-		press_loc = new PointX(input->GetInput());
+		press_loc = new Point(input->GetInput());
 	}
 	//call listener
 	if(input->HaveInput() == false && press_loc != NULL){

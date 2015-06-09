@@ -36,7 +36,7 @@ public class CrossActivity extends NativeActivity
 	}
 	
 	@Override
-	public void run() {
+	private void run() {
 		InitAudio();
 	}
 }

@@ -24,8 +24,11 @@
 
 #include "SOIL.h"
 
+#include <stdlib.h>
 #include <cmath>
 #include <vector>
+
+using namespace cross;
 
 #define BYTES_PER_CHANNEL 4
 
@@ -44,7 +47,7 @@ Graphics::Graphics(Game* game){
 	launcher->LogIt("Graphics initialized");
 }
 
-void Graphics::Clear(ColorX c){
+void Graphics::Clear(Color c){
 	Clear(c.R, c.G, c.B);
 }
 
@@ -62,11 +65,11 @@ void Graphics::Rotate(Image* img, float angle){
 	img->angle = angle;
 }
 
-Image* Graphics::CreateImage(Image* src, RectX reg){
+Image* Graphics::CreateImage(Image* src, Rect reg){
 	return CreateImage(src, reg, game->GetScaleFactor());
 } 
 
-Image* Graphics::CreateImage(Image* src, RectX region, float scaleFactor){
+Image* Graphics::CreateImage(Image* src, Rect region, float scaleFactor){
 	if(src == NULL)
 		throw string("Attempt to create image from NULL");
 
@@ -122,7 +125,7 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	RectX region(0, 0, (float)width, (float)height);
+	Rect region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, new_width, new_height, region);
 	img->Scale(scaleFactor);
     string debugMsg = "Load image " + filename + ": ";
@@ -151,7 +154,7 @@ Image* Graphics::LoadRepeatedImage(string filename, float w, float h, float scal
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	RectX region(0, 0, (float)w, (float)h);
+	Rect region(0, 0, (float)w, (float)h);
 	Image* img = new Image(textureID, width, height, region);
 	img->Scale(scaleFactor);
 
@@ -188,21 +191,21 @@ unsigned char* Graphics::LoadImageInternal(string filename, GLuint* textureID, i
 	return image;
 }
 
-void Graphics::DrawPixel(PointX p, ColorX c){
+void Graphics::DrawPixel(Point p, Color c){
 	DrawPixel(p, c.R, c.G, c.B);
 }
 
-void Graphics::DrawPixel(PointX p, float r, float g, float b){
+void Graphics::DrawPixel(Point p, float r, float g, float b){
 	p.x *= game->GetScaleFactor();
 	p.y *= game->GetScaleFactor();
     DrawTargetPixel(p, r, g, b);
 }
 
-void Graphics::DrawLine(PointX p1, PointX p2, ColorX c){
+void Graphics::DrawLine(Point p1, Point p2, Color c){
 	DrawLine(p1, p2, c.R, c.G, c.B);
 }
 
-void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
+void Graphics::DrawLine(Point p1, Point p2, float r, float g, float b){
 	p1.x *= game->GetScaleFactor();
 	p1.y *= game->GetScaleFactor();
 	p2.x *= game->GetScaleFactor();
@@ -222,11 +225,11 @@ void Graphics::DrawLine(PointX p1, PointX p2, float r, float g, float b){
 	glDisableClientState(GL_COLOR_ARRAY);
 }
 
-void Graphics::DrawCircle(PointX center, float radius, ColorX c){
+void Graphics::DrawCircle(Point center, float radius, Color c){
 	DrawCircle(center, radius, c.R, c.G, c.B);
 }
 
-void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
+void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
     c.x *= game->GetScaleFactor();
     c.y *= game->GetScaleFactor();
     radius *= game->GetScaleFactor();
@@ -234,10 +237,10 @@ void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
 #ifdef WIN
 	for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ ) {
 		float y = sqrt(sqrRad - x*x) + .5f;
-		DrawTargetPixel(PointX(x + c.x, y + c.y), r, g, b);
-		DrawTargetPixel(PointX(x + c.x,-y + c.y), r, g, b);
-		DrawTargetPixel(PointX(c.x + y, c.y + x), r, g, b);
-		DrawTargetPixel(PointX(c.x - y, c.y + x), r, g, b);
+		DrawTargetPixel(Point(x + c.x, y + c.y), r, g, b);
+		DrawTargetPixel(Point(x + c.x,-y + c.y), r, g, b);
+		DrawTargetPixel(Point(c.x + y, c.y + x), r, g, b);
+		DrawTargetPixel(Point(c.x - y, c.y + x), r, g, b);
 	}
 #else
 	int capacity = abs(-radius * 0.7071068f - radius * 0.7071068f) + 1;
@@ -283,15 +286,15 @@ void Graphics::DrawCircle(PointX c, float radius, float r, float g, float b){
 #endif
 }
 
-void Graphics::DrawRect(RectX rect, ColorX c){
+void Graphics::DrawRect(Rect rect, Color c){
 	DrawRect(rect, c.R, c.G, c.B);
 }
 
-void Graphics::DrawRect(RectX rect, float r, float g, float b){
-	DrawLine(PointX(rect.x, rect.y), PointX(rect.x, rect.y + rect.height), r, g, b);
-	DrawLine(PointX(rect.x, rect.y), PointX(rect.x + rect.width, rect.y), r, g, b);
-	DrawLine(PointX(rect.x, rect.y + rect.height), PointX(rect.x + rect.width, rect.y + rect.height), r, g, b);
-	DrawLine(PointX(rect.x + rect.width, rect.y), PointX(rect.x + rect.width, rect.y + rect.height), r, g, b);
+void Graphics::DrawRect(Rect rect, float r, float g, float b){
+	DrawLine(Point(rect.x, rect.y), Point(rect.x, rect.y + rect.height), r, g, b);
+	DrawLine(Point(rect.x, rect.y), Point(rect.x + rect.width, rect.y), r, g, b);
+	DrawLine(Point(rect.x, rect.y + rect.height), Point(rect.x + rect.width, rect.y + rect.height), r, g, b);
+	DrawLine(Point(rect.x + rect.width, rect.y), Point(rect.x + rect.width, rect.y + rect.height), r, g, b);
 }
 
 void Graphics::DrawImage(float x, float y, Image* img){
@@ -300,7 +303,7 @@ void Graphics::DrawImage(float x, float y, Image* img){
 	DrawTargetImage(x + .5f, y + .5f, img);
 }
 
-void Graphics::DrawImage(PointX p, Image* img){
+void Graphics::DrawImage(Point p, Image* img){
 	p.x = p.x * game->GetScaleFactor();
 	p.y = p.y * game->GetScaleFactor();
 	DrawTargetImage(p.x, p.y, img);
@@ -342,7 +345,7 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
     glLoadIdentity();
 }
 
-void Graphics::DrawTargetPixel(PointX p, float r, float g, float b){
+void Graphics::DrawTargetPixel(Point p, float r, float g, float b){
     float vertices[] = { p.x, p.y };
     float colors[] = { r, g, b, 1 };
     static const unsigned short indices[] = { 0 };

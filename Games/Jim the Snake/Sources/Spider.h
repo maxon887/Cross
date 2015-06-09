@@ -41,7 +41,7 @@ public:
 	void Update(float sec, list<Apple*> &apples);
 	void Rotate(float deltaAngle);
 	float GetRadius();
-	PointX GetPosition();
+	Point GetPosition();
 	float GetAngle();
 	float GetSpeedV();
 private:
@@ -57,8 +57,8 @@ private:
 	static const float speedW;
 
 	SpiderState state;
-	PointX pos;
-	PointX end_point;
+	Point pos;
+	Point end_point;
 	float angle;
 	float rotate_angle;
 	float head_angle;

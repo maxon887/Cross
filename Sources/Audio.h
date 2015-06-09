@@ -20,6 +20,8 @@
 
 #include "fmod.hpp"
 
+namespace cross {
+
 class Audio{
 public:
 	static void Init(Launcher* launcher);
@@ -41,3 +43,5 @@ private:
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;
 };
+
+}

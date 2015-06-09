@@ -20,6 +20,8 @@
 
 #include <fstream>
 
+using namespace cross;
+
 #undef LoadString
 
 Saver::Saver(Game* game){

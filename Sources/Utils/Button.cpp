@@ -17,18 +17,20 @@
 	
 #include "Button.h"
 
+using namespace cross;
+
 Button::Button(Game* game, Image* up, Image* down){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
 	this->input = game->input;
-	this->location = PointX();
+	this->location = Point();
 	this->up = up;
 	this->down = down;
 	this->press_loc = NULL;
 	this->callback_registered = false;
 }
 
-Button::Button(Game* game, PointX location, Image* up, Image* down){
+Button::Button(Game* game, Point location, Image* up, Image* down){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
 	this->input = game->input;
@@ -39,7 +41,7 @@ Button::Button(Game* game, PointX location, Image* up, Image* down){
 	this->callback_registered = false;
 }
 
-void Button::SetLocation(PointX location){
+void Button::SetLocation(Point location){
 	this->location = location;
 }
 
@@ -51,7 +53,7 @@ void Button::Update(){
 	}
 	//first press
 	if(press_loc == NULL && input->HaveInput()){
-		press_loc = new PointX(input->GetInput().x, input->GetInput().y);
+		press_loc = new Point(input->GetInput().x, input->GetInput().y);
 	}
 	//callback
 	if(!input->HaveInput() && press_loc != NULL){
@@ -80,8 +82,8 @@ float Button::GetHeight(){
 	return up->GetHeight();
 }
 
-RectX Button::GetRect(){
-	RectX rect;
+Rect Button::GetRect(){
+	Rect rect;
 	rect.x = location.x - up->GetWidth() / 2;
 	rect.y = location.y - up->GetHeight() / 2;
 	rect.width = up->GetWidth();
@@ -89,7 +91,7 @@ RectX Button::GetRect(){
 	return rect;
 }
 
-PointX Button::GetCenter(){
+Point Button::GetCenter(){
 	return location;
 }
 

@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 
+using namespace cross;
 using namespace chrono;
 
 Game::Game(Launcher* launcher, float width){

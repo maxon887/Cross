@@ -17,11 +17,15 @@
 	
 #pragma once
 
-class PointX{
+namespace cross{
+
+class Point{
 public:
 	float x;
 	float y;
-	PointX();
-	PointX(float x, float y);
+	Point();
+	Point(float x, float y);
 private:
 };
+
+}

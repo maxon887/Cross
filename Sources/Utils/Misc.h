@@ -17,14 +17,18 @@
 	
 #pragma once
 
-#include "PointX.h"
-#include "RectX.h"
+#include "Point.h"
+#include "Rect.h"
+
+namespace cross {
 
 #define PI (3.141592653589793)
 
-bool PointInRect(PointX p, RectX rect);
-bool PointInTriangle(PointX pt, PointX v1, PointX v2, PointX v3);
-bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2);
+bool PointInRect(Point p, Rect rect);
+bool PointInTriangle(Point pt, Point v1, Point v2, Point v3);
+bool CircleOnCollision(Point p1, float r1, Point p2, float r2);
 float Lerp(float v0, float v1, float t);
-float Distance(PointX p1, PointX p2);
-float Angle(PointX first, PointX second);
+float Distance(Point p1, Point p2);
+float Angle(Point first, Point second);
+
+}

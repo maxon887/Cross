@@ -18,6 +18,8 @@
 #include "Screen.h"
 #include "Game.h"
 
+using namespace cross;
+
 Screen::Screen(Game* game){
 	this->game = game;
 	this->launcher = NULL;

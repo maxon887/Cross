@@ -15,17 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "ColorX.h"
+#include "Point.h"
 
-const ColorX ColorX::Red(1.f, 0.f, 0.f);
-const ColorX ColorX::Green(0.f, 1.f, 0.f);
-const ColorX ColorX::Blue(0.f, 0.f, 1.f);
-const ColorX ColorX::White(1.f, 1.f, 1.f);
-const ColorX ColorX::Black(0.f, 0.f, 0.f);
+using namespace cross;
 
+Point::Point(){
+	x = -100;
+	y = -100;
+}
 
-ColorX::ColorX(float r, float g, float b){
-	this->R = r;
-	this->G = g;
-	this->B = b;
+Point::Point(float x, float y){
+	this->x = x;
+	this->y = y;
 }

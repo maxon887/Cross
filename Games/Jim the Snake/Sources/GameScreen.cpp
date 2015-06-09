@@ -68,13 +68,13 @@ void GameScreen::Start(){
 	snake = NULL;
 
 	resume_btn = new Button(game, resumeup, resumedown);
-	resume_btn->SetLocation(PointX(450, centerH - 40));
+	resume_btn->SetLocation(Point(450, centerH - 40));
 	resume_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
 	menu_btn = new Button(game, menuup, menudown);
-	menu_btn->SetLocation(PointX(450, centerH + 180));
+	menu_btn->SetLocation(Point(450, centerH + 180));
 	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
 	restart_btn = new Button(game, restartup, restartdown);
-	restart_btn->SetLocation(PointX(450, centerH - 40));
+	restart_btn->SetLocation(Point(450, centerH - 40));
 	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
 	state = GameState::ONREADY;
 	Restart();
@@ -234,7 +234,7 @@ void GameScreen::SetApple(){
 	float bottom = game->GetHeight() - 4 * apple->GetRadius();
 	float left = 4 * apple->GetRadius();
 	float right = game->GetWidth() - 4 * apple->GetRadius();
-	PointX apple_pos;
+	Point apple_pos;
 	bool onSnake = true;
 	while(onSnake) {
 		onSnake = false;
@@ -255,7 +255,7 @@ void GameScreen::DrawApples(){
 }
 
 void GameScreen::DrawScore(){
-	static const PointX pos(game->GetWidth() / 2 + 120, 50);
+	static const Point pos(game->GetWidth() / 2 + 120, 50);
 	graphics->DrawImage(pos, score_img);
 	float offset = score_texter->GetWidth() / 2;
 	if(snake->GetScore() > 9)
@@ -266,7 +266,7 @@ void GameScreen::DrawScore(){
 }
 
 void GameScreen::CalcInput(float sec){
-	static PointX control_pos;
+	static Point control_pos;
 	if(input->HaveInput()){
 		if(control_pos.x == 0 && control_pos.y == 0){
 			control_pos.x = input->GetInput().x;
@@ -305,7 +305,7 @@ void GameScreen::CalcInput(float sec){
 }
 
 bool GameScreen::SpiderOnCollision(){
-	PointX spiderAhead(spider->GetPosition().x, spider->GetPosition().y);
+	Point spiderAhead(spider->GetPosition().x, spider->GetPosition().y);
 	spiderAhead.y += -spider->GetSpeedV() * sin(spider->GetAngle() / 180.0 * PI) * 0.1;
 	spiderAhead.x += spider->GetSpeedV() * cos(spider->GetAngle() / 180.0 * PI) * 0.1;
 	return snake->OnCollision(spiderAhead, spider->GetRadius());

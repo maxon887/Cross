@@ -18,29 +18,29 @@
 #include "Misc.h"
 #include <math.h>
 
-static float sign(PointX p1, PointX p2, PointX p3){
+static float sign(cross::Point p1, cross::Point p2, cross::Point p3){
     return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 }
 
-bool PointInRect(PointX p, RectX rect){
+bool cross::PointInRect(Point p, Rect rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&
 			p.y > rect.y &&
 			p.y < rect.y + rect.height;
 }
 
-bool CircleOnCollision(PointX p1, float r1, PointX p2, float r2) {
+bool cross::CircleOnCollision(Point p1, float r1, Point p2, float r2) {
 	float distance = Distance(p1, p2);
 	if(distance < (r1 + r2))
 		return true;
 	else return false;
 }
 
-float Lerp(float v0, float v1, float t) {
+float cross::Lerp(float v0, float v1, float t) {
 	return (1-t)*v0 + t*v1;
 }
 
-bool PointInTriangle (PointX pt, PointX v1, PointX v2, PointX v3){
+bool cross::PointInTriangle (Point pt, Point v1, Point v2, Point v3){
 	bool b1, b2, b3;
 
     b1 = sign(pt, v1, v2) < 0.0f;
@@ -50,11 +50,11 @@ bool PointInTriangle (PointX pt, PointX v1, PointX v2, PointX v3){
     return ((b1 == b2) && (b2 == b3));
 }
 
-float Distance(PointX p1, PointX p2){
+float cross::Distance(Point p1, Point p2){
 	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
 }
 
-float Angle(PointX first, PointX second){
+float cross::Angle(Point first, Point second){
 	double tangens = (first.x - second.x) / (first.y - second.y);
 	double angle = atan(tangens);
 	angle = angle * 180. / PI;

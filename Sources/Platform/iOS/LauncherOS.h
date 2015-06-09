@@ -21,6 +21,8 @@
 #include "Game.h"
 #include "Audio.h"
 
+using namespace cross;
+
 class LauncherOS : public Launcher{
 public:
     LauncherOS();

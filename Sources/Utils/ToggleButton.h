@@ -19,10 +19,12 @@
 
 #include "Button.h"
 
+namespace cross {
+    
 class ToggleButton : public Button{
 //User module
 public:
-	ToggleButton(Game* game, PointX location, Image* on, Image* off);
+	ToggleButton(Game* game, Point location, Image* on, Image* off);
 	void Update();
 	bool GetState();
 	void SetState(bool state);
@@ -31,3 +33,5 @@ private:
 	Image* off;
 	bool state;
 };
+
+}

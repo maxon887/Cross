@@ -16,11 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-
 #include "Screen.h"
 
 #include <chrono>
 
+namespace cross{
+    
 class Debuger;
 
 /*	Core game class. Every game must inherit that class.
@@ -67,3 +68,5 @@ private:
 	Screen* current_screen;
     chrono::time_point<chrono::high_resolution_clock> render_time;
 };
+    
+}

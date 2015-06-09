@@ -17,7 +17,9 @@
 	
 #pragma once
 
-#include "PointX.h"
+#include "Point.h"
+
+namespace cross {
 
 class Game;
 
@@ -33,7 +35,7 @@ public:
 	/* Return true if user have made touch/click */
 	bool HaveInput();
 	/* Return last user touch/click position */
-	PointX GetInput();
+	Point GetInput();
 	/* Return true if user have pushed the key */
 	bool HaveKey();
 	/* Return last user pushed key */
@@ -42,9 +44,11 @@ public:
 public:
 	Input(Game* game);
 	bool input_state;
-	PointX input_loc;
+	Point input_loc;
 	bool key_state;
 	Key key_key;
 private:
 	Game* game;
 };
+    
+}

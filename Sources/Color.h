@@ -17,13 +17,18 @@
 	
 #pragma once
 
-class RectX{
+namespace cross {
+
+class Color{
 public:
-	float x;
-	float y;
-	float width;
-	float height;
-	RectX();
-	RectX(float x, float y, float width, float height);
-private:
+	static const Color Red;
+	static const Color Green;
+	static const Color Blue;
+	static const Color White;
+	static const Color Black;
+
+	float R,G,B;
+	Color(float r, float g, float b);
 };
+    
+}

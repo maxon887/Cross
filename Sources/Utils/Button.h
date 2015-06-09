@@ -21,27 +21,31 @@
 
 #include <functional>
 
+namespace cross {
+
 class Button{
 public:
 	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, PointX location, Image* up, Image* down);
+	Button(Game* game, Point location, Image* up, Image* down);
 	void Update();
 	void RegisterCallback(function<void()> callback);
-	void SetLocation(PointX location);
+	void SetLocation(Point location);
 	float GetWidth();
 	float GetHeight();
-	RectX GetRect();
-	PointX GetCenter();
+	Rect GetRect();
+	Point GetCenter();
 	~Button();
 protected:
 	Launcher* launcher;
 	Graphics* graphics;
 	Input* input;
-	PointX location;
+	Point location;
 	Image* up;
 	Image* down;
 	bool OnLocation(float x, float y);
-	PointX* press_loc;
+	Point* press_loc;
 	function<void()> callback;
 	bool callback_registered;
 };
+    
+}

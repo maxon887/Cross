@@ -17,6 +17,8 @@
 	
 #include "Texter.h"
 
+using namespace cross;
+
 Texter::Texter(Game* game, const char* fontFilename,
 				float width, float height,
 				int columns, int rows,
@@ -31,7 +33,7 @@ Texter::Texter(Game* game, const char* fontFilename,
 	Init(game, fontFilename, width, height, columns, rows, asciiOffset, scaleFactor);
 }
 
-void Texter::DrawText(PointX pos, string text){
+void Texter::DrawText(Point pos, string text){
 	DrawText(pos.x, pos.y, text);
 }
 
@@ -65,7 +67,7 @@ void Texter::Init(	Game* game, const char* fontFilename,
 	font = graphics->LoadImage(fontFilename);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
-			RectX reg(j * width, i * height, width, height);
+			Rect reg(j * width, i * height, width, height);
 			letters[i * columns + j] = graphics->CreateImage(font, reg, scaleFactor);
 			count++;
 		}

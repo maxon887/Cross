@@ -16,14 +16,16 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "PointX.h"
+#include "Point.h"
+
+using namespace cross;
 
 class Eatable{
 public:
 	virtual int Eat() = 0;
 	virtual bool Eaten() = 0;
 	virtual void Draw() = 0;
-	virtual PointX GetPosition() = 0;
+	virtual Point GetPosition() = 0;
 	virtual float GetRadius() = 0;
 	virtual ~Eatable() { };
 };

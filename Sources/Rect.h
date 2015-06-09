@@ -17,14 +17,17 @@
 	
 #pragma once
 
-class ColorX{
-public:
-	static const ColorX Red;
-	static const ColorX Green;
-	static const ColorX Blue;
-	static const ColorX White;
-	static const ColorX Black;
+namespace cross {
 
-	float R,G,B;
-	ColorX(float r, float g, float b);
+class Rect{
+public:
+	float x;
+	float y;
+	float width;
+	float height;
+	Rect();
+	Rect(float x, float y, float width, float height);
+private:
 };
+
+}

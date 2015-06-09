@@ -18,7 +18,7 @@
 #pragma once
 
 #include "Launcher.h"
-#include "RectX.h"
+#include "Rect.h"
 
 #ifdef WIN
     #include <Windows.h>
@@ -28,6 +28,8 @@
 #elif ANDROID
     #include <GLES/gl.h>
 #endif
+
+namespace cross {
 
 /* Class that reflected images loaded in to memory */
 class Image{
@@ -43,14 +45,16 @@ public:
 	int texWidth;
 	int texHeight;
     
-	Image(GLuint id, int texWidth, int texHeight, RectX region);
+	Image(GLuint id, int texWidth, int texHeight, Rect region);
 	void Scale(float factor);
 	GLuint GetTextureID();
 	float* GetVertices();
 private:
-	RectX region;
+	Rect region;
 	GLuint textureID;
 	float vertices[16];
 	float u1, v1;
 	float u2, v2;
 };
+
+}

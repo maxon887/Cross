@@ -20,6 +20,8 @@
 #include "Game.h"
 #include "Texter.h"
 
+namespace cross{
+
 #define CROSSDEBUG
 
 class Debuger{
@@ -45,3 +47,5 @@ private:
 
 	float time;
 };
+    
+}

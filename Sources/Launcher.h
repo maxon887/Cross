@@ -29,6 +29,8 @@ void* bind(void* func, void* sender);
 
 using namespace std;
 
+namespace cross {
+
 /* Class witch contains platform specific code */
 class Launcher{
 public:
@@ -48,3 +50,5 @@ public:
 	virtual ~Launcher() { }
 private:
 };
+    
+}

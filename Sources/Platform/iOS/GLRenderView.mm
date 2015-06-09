@@ -15,12 +15,11 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#import <time.h>
 #import "GLRenderView.h"
 #import "Graphics.h"
 #import "LauncherOS.h"
 #import "Input.h"
-#import "SnakyGame.h"
+#import "JimTheSnake.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
@@ -47,7 +46,7 @@
     [self display];
     if(!launcher){
         launcher = new LauncherOS();
-        game = new SnakyGame(launcher);
+        game = new JimTheSnake(launcher);
         Graphics* graphics = new Graphics(game);
         game->graphics = graphics;
         game->Start();

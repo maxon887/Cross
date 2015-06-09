@@ -17,6 +17,8 @@
 	
 #include "Animation.h"
 
+using namespace cross;
+
 Animation::Animation(Graphics* gfx, float rate, Image* frames[], int frameCount){
 	Init(gfx, rate, frames, frameCount, false);
 }

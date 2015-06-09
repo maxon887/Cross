@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		D41059511B0EFB3D00B4D0D7 /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41059501B0EFB3D00B4D0D7 /* icon.xcassets */; };
+		D42EF9FE1B2597BE0008C0DB /* JimTheSnake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EF9FC1B2597BE0008C0DB /* JimTheSnake.cpp */; };
+		D42EFA051B2598A60008C0DB /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EF9FF1B2598A60008C0DB /* Color.cpp */; };
+		D42EFA061B2598A60008C0DB /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EFA011B2598A60008C0DB /* Point.cpp */; };
+		D42EFA071B2598A60008C0DB /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EFA031B2598A60008C0DB /* Rect.cpp */; };
 		D438E1B61AFB61740015EC19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D438E1B51AFB61740015EC19 /* main.m */; };
 		D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */; };
-		D438E1DF1AFB61EA0015EC19 /* SnakyGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */; };
 		D438E2341AFB62030015EC19 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EA1AFB62030015EC19 /* Game.cpp */; };
 		D438E2351AFB62030015EC19 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EC1AFB62030015EC19 /* Graphics.cpp */; };
 		D438E2361AFB62030015EC19 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1EE1AFB62030015EC19 /* Image.cpp */; };
@@ -27,8 +30,6 @@
 		D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2261AFB62030015EC19 /* Animation.cpp */; };
 		D438E24F1AFB62030015EC19 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2281AFB62030015EC19 /* Button.cpp */; };
 		D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E22A1AFB62030015EC19 /* Debuger.cpp */; };
-		D438E2511AFB62030015EC19 /* PointX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E22C1AFB62030015EC19 /* PointX.cpp */; };
-		D438E2521AFB62030015EC19 /* RectX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E22E1AFB62030015EC19 /* RectX.cpp */; };
 		D438E2531AFB62030015EC19 /* Texter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2301AFB62030015EC19 /* Texter.cpp */; };
 		D438E2541AFB62030015EC19 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E2321AFB62030015EC19 /* ToggleButton.cpp */; };
 		D438E2561AFB626F0015EC19 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D438E2551AFB626F0015EC19 /* Assets */; };
@@ -39,7 +40,6 @@
 		D45F533B1B0B578400D7C618 /* Eatable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D45F53341B0B578400D7C618 /* Eatable.cpp */; };
 		D45F533C1B0B578400D7C618 /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D45F53361B0B578400D7C618 /* Snake.cpp */; };
 		D45F533D1B0B578400D7C618 /* Spider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D45F53381B0B578400D7C618 /* Spider.cpp */; };
-		D473AB6B1B0450C400D1213B /* ColorX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D473AB671B0450C400D1213B /* ColorX.cpp */; };
 		D473AB6C1B0450C400D1213B /* Misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D473AB691B0450C400D1213B /* Misc.cpp */; };
 		D473AB6F1B04510100D1213B /* GameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D473AB6D1B04510100D1213B /* GameScreen.cpp */; };
 		D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4F9D81A1AFC9DE9007B51E6 /* Audio.cpp */; };
@@ -47,13 +47,19 @@
 
 /* Begin PBXFileReference section */
 		D41059501B0EFB3D00B4D0D7 /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = icon.xcassets; path = "Jim the Snake/icon.xcassets"; sourceTree = SOURCE_ROOT; };
+		D42EF9FC1B2597BE0008C0DB /* JimTheSnake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JimTheSnake.cpp; sourceTree = "<group>"; };
+		D42EF9FD1B2597BE0008C0DB /* JimTheSnake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JimTheSnake.h; sourceTree = "<group>"; };
+		D42EF9FF1B2598A60008C0DB /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
+		D42EFA001B2598A60008C0DB /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		D42EFA011B2598A60008C0DB /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
+		D42EFA021B2598A60008C0DB /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
+		D42EFA031B2598A60008C0DB /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
+		D42EFA041B2598A60008C0DB /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
 		D438E1B01AFB61740015EC19 /* Jim the Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jim the Snake.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D438E1B41AFB61740015EC19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Jim the Snake/Info.plist"; sourceTree = "<group>"; };
 		D438E1B51AFB61740015EC19 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Jim the Snake/main.m"; sourceTree = "<group>"; };
 		D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
 		D438E1DB1AFB61EA0015EC19 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
-		D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakyGame.cpp; sourceTree = "<group>"; };
-		D438E1DD1AFB61EA0015EC19 /* SnakyGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakyGame.h; sourceTree = "<group>"; };
 		D438E1E21AFB62030015EC19 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod.h; sourceTree = "<group>"; };
 		D438E1E31AFB62030015EC19 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fmod.hpp; sourceTree = "<group>"; };
 		D438E1E41AFB62030015EC19 /* fmod_codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_codec.h; sourceTree = "<group>"; };
@@ -94,10 +100,6 @@
 		D438E2291AFB62030015EC19 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
 		D438E22A1AFB62030015EC19 /* Debuger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debuger.cpp; sourceTree = "<group>"; };
 		D438E22B1AFB62030015EC19 /* Debuger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debuger.h; sourceTree = "<group>"; };
-		D438E22C1AFB62030015EC19 /* PointX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointX.cpp; sourceTree = "<group>"; };
-		D438E22D1AFB62030015EC19 /* PointX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointX.h; sourceTree = "<group>"; };
-		D438E22E1AFB62030015EC19 /* RectX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectX.cpp; sourceTree = "<group>"; };
-		D438E22F1AFB62030015EC19 /* RectX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectX.h; sourceTree = "<group>"; };
 		D438E2301AFB62030015EC19 /* Texter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texter.cpp; sourceTree = "<group>"; };
 		D438E2311AFB62030015EC19 /* Texter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texter.h; sourceTree = "<group>"; };
 		D438E2321AFB62030015EC19 /* ToggleButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToggleButton.cpp; sourceTree = "<group>"; };
@@ -114,8 +116,6 @@
 		D45F53371B0B578400D7C618 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		D45F53381B0B578400D7C618 /* Spider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spider.cpp; sourceTree = "<group>"; };
 		D45F53391B0B578400D7C618 /* Spider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spider.h; sourceTree = "<group>"; };
-		D473AB671B0450C400D1213B /* ColorX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorX.cpp; sourceTree = "<group>"; };
-		D473AB681B0450C400D1213B /* ColorX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorX.h; sourceTree = "<group>"; };
 		D473AB691B0450C400D1213B /* Misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Misc.cpp; sourceTree = "<group>"; };
 		D473AB6A1B0450C400D1213B /* Misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Misc.h; sourceTree = "<group>"; };
 		D473AB6D1B04510100D1213B /* GameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreen.cpp; sourceTree = "<group>"; };
@@ -169,6 +169,8 @@
 				D45F53331B0B578400D7C618 /* Apple.h */,
 				D45F53341B0B578400D7C618 /* Eatable.cpp */,
 				D45F53351B0B578400D7C618 /* Eatable.h */,
+				D42EF9FC1B2597BE0008C0DB /* JimTheSnake.cpp */,
+				D42EF9FD1B2597BE0008C0DB /* JimTheSnake.h */,
 				D45F53361B0B578400D7C618 /* Snake.cpp */,
 				D45F53371B0B578400D7C618 /* Snake.h */,
 				D45F53381B0B578400D7C618 /* Spider.cpp */,
@@ -177,8 +179,6 @@
 				D473AB6E1B04510100D1213B /* GameScreen.h */,
 				D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */,
 				D438E1DB1AFB61EA0015EC19 /* MenuScreen.h */,
-				D438E1DC1AFB61EA0015EC19 /* SnakyGame.cpp */,
-				D438E1DD1AFB61EA0015EC19 /* SnakyGame.h */,
 			);
 			name = "Jim the Snake";
 			path = ../../Sources;
@@ -195,6 +195,12 @@
 				D4F9D81B1AFC9DE9007B51E6 /* Audio.h */,
 				D438E1EA1AFB62030015EC19 /* Game.cpp */,
 				D438E1EB1AFB62030015EC19 /* Game.h */,
+				D42EF9FF1B2598A60008C0DB /* Color.cpp */,
+				D42EFA001B2598A60008C0DB /* Color.h */,
+				D42EFA011B2598A60008C0DB /* Point.cpp */,
+				D42EFA021B2598A60008C0DB /* Point.h */,
+				D42EFA031B2598A60008C0DB /* Rect.cpp */,
+				D42EFA041B2598A60008C0DB /* Rect.h */,
 				D438E1EC1AFB62030015EC19 /* Graphics.cpp */,
 				D438E1ED1AFB62030015EC19 /* Graphics.h */,
 				D438E1EE1AFB62030015EC19 /* Image.cpp */,
@@ -264,8 +270,6 @@
 		D438E2251AFB62030015EC19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				D473AB671B0450C400D1213B /* ColorX.cpp */,
-				D473AB681B0450C400D1213B /* ColorX.h */,
 				D473AB691B0450C400D1213B /* Misc.cpp */,
 				D473AB6A1B0450C400D1213B /* Misc.h */,
 				D438E2261AFB62030015EC19 /* Animation.cpp */,
@@ -274,10 +278,6 @@
 				D438E2291AFB62030015EC19 /* Button.h */,
 				D438E22A1AFB62030015EC19 /* Debuger.cpp */,
 				D438E22B1AFB62030015EC19 /* Debuger.h */,
-				D438E22C1AFB62030015EC19 /* PointX.cpp */,
-				D438E22D1AFB62030015EC19 /* PointX.h */,
-				D438E22E1AFB62030015EC19 /* RectX.cpp */,
-				D438E22F1AFB62030015EC19 /* RectX.h */,
 				D438E2301AFB62030015EC19 /* Texter.cpp */,
 				D438E2311AFB62030015EC19 /* Texter.h */,
 				D438E2321AFB62030015EC19 /* ToggleButton.cpp */,
@@ -358,18 +358,21 @@
 			files = (
 				D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */,
 				D473AB6F1B04510100D1213B /* GameScreen.cpp in Sources */,
+				D42EFA071B2598A60008C0DB /* Rect.cpp in Sources */,
 				D45F533B1B0B578400D7C618 /* Eatable.cpp in Sources */,
-				D438E1DF1AFB61EA0015EC19 /* SnakyGame.cpp in Sources */,
 				D438E24C1AFB62030015EC19 /* SOIL.c in Sources */,
 				D438E1B61AFB61740015EC19 /* main.m in Sources */,
 				D438E2491AFB62030015EC19 /* Saver.cpp in Sources */,
 				D438E24F1AFB62030015EC19 /* Button.cpp in Sources */,
 				D45F533D1B0B578400D7C618 /* Spider.cpp in Sources */,
 				D438E2371AFB62030015EC19 /* Input.cpp in Sources */,
+				D42EF9FE1B2597BE0008C0DB /* JimTheSnake.cpp in Sources */,
+				D42EFA061B2598A60008C0DB /* Point.cpp in Sources */,
 				D438E24A1AFB62030015EC19 /* Screen.cpp in Sources */,
 				D45F533A1B0B578400D7C618 /* Apple.cpp in Sources */,
 				D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */,
 				D473AB6C1B0450C400D1213B /* Misc.cpp in Sources */,
+				D42EFA051B2598A60008C0DB /* Color.cpp in Sources */,
 				D438E2541AFB62030015EC19 /* ToggleButton.cpp in Sources */,
 				D438E23D1AFB62030015EC19 /* AppDelegate.m in Sources */,
 				D438E2361AFB62030015EC19 /* Image.cpp in Sources */,
@@ -380,12 +383,9 @@
 				D438E24D1AFB62030015EC19 /* stb_image_aug.c in Sources */,
 				D45F533C1B0B578400D7C618 /* Snake.cpp in Sources */,
 				D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */,
-				D473AB6B1B0450C400D1213B /* ColorX.cpp in Sources */,
 				D438E2421AFB62030015EC19 /* LauncherOS.mm in Sources */,
 				D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */,
-				D438E2511AFB62030015EC19 /* PointX.cpp in Sources */,
 				D438E2411AFB62030015EC19 /* GLRenderView.mm in Sources */,
-				D438E2521AFB62030015EC19 /* RectX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +474,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Koen Vandensande (2T6XQQKD3P)";
 				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = "Jim the Snake/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -488,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Koen Vandensande (2T6XQQKD3P)";
 				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = "Jim the Snake/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;

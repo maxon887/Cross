@@ -17,6 +17,9 @@
 	
 #pragma once
 #include "Game.h"
+
+namespace cross {
+    
 #undef DrawText
 
 /* Class responsible for drawing text in to screen */
@@ -32,7 +35,7 @@ public:
 			int asciiOffset, float scaleFactor);
 
 	void DrawText(float x, float y, string text);
-	void DrawText(PointX pos, string text);
+	void DrawText(Point pos, string text);
 	float GetWidth();
 	float GetHeight();
 	void SetScaleFactor(float scaleFactor);
@@ -52,3 +55,5 @@ private:
 	int count;
 	float scale_factor;
 };
+
+}

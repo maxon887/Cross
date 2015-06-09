@@ -15,16 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "RectX.h"
+#include "Rect.h"
 
-RectX::RectX(){
+using namespace cross;
+
+Rect::Rect(){
 	x = 0;
 	y = 0;
 	width = 0;
 	height = 0;
 }
 
-RectX::RectX(float x, float y, float w, float h){
+Rect::Rect(float x, float y, float w, float h){
 	this->x = x;
 	this->y = y;
 	this->width = w;

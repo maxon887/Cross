@@ -20,6 +20,8 @@
 #include "Graphics.h"
 #include <vector>
 
+namespace cross {
+
 class Animation{
 public:
 	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount);
@@ -37,5 +39,6 @@ private:
 	float duration;
 	int frame_num;
 	bool looped;
-
 };
+
+}

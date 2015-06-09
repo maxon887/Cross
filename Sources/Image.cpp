@@ -17,7 +17,9 @@
 	
 #include "Image.h"
 
-Image::Image(GLuint id, int texWidth, int texHeight, RectX region){
+using namespace cross;
+
+Image::Image(GLuint id, int texWidth, int texHeight, Rect region){
 	this->textureID = id;
 	this->region = region;
 	this->texWidth = texWidth;

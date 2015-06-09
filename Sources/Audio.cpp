@@ -21,6 +21,8 @@
 
 #include <stdarg.h>
 
+using namespace cross;
+
 #ifndef Common_vsnprintf
     #define Common_vsnprintf vsnprintf
 #endif

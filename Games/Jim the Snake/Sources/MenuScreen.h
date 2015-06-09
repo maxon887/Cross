@@ -33,19 +33,19 @@ public:
 private:
 	JimTheSnake* game;
 	Image* background;
-	PointX background_pos;
+	Point background_pos;
 	//sun
 	Image* sun;
-	PointX sun_pos;
+	Point sun_pos;
 	float sun_angle;
 	float sun_w;
-	vector<RectX> dead_areas;
+	vector<Rect> dead_areas;
 	
 	Texter* score_texter;
 	int score;
 	Image* bestscore;
 	Image* snaky;
-	PointX snaky_pos;
+	Point snaky_pos;
 
 	Button* play_btn;
 	ToggleButton* music_btn;

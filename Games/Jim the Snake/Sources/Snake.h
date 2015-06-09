@@ -35,7 +35,7 @@ public:
 	float face_angle;
 	Snake();
 	int GetScore();
-	bool OnCollision(PointX center, float radius);
+	bool OnCollision(Point center, float radius);
 	void EatableNear(Eatable* eatable);
 	void DrawFace(float sec);
 	void DrawFaceDeadST0();
@@ -68,9 +68,9 @@ private:
 
 	SnakeState state;
 	int score;
-	PointX face_pos;
-	vector<PointX> body_path;
-	vector<PointX> body_nodes;
+	Point face_pos;
+	vector<Point> body_path;
+	vector<Point> body_nodes;
 	float body_length;
 	list<int> big_nodes;
 	float body_time_left;

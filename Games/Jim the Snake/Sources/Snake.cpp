@@ -19,7 +19,7 @@
 #include "Misc.h"
 #include <stdlib.h>
 #include <cmath>
-#include <JimTheSnake.h>
+#include "JimTheSnake.h"
 
 const float		Snake::face_radius		= 26.f;
 const float		Snake::body_radius		= 26.f;
@@ -105,7 +105,7 @@ Snake::Snake(){
 	body_time_left = 0.3f;
 	body_length = 150.f;
 	big_nodes.clear();
-	body_path.push_back(PointX(0, 400));
+	body_path.push_back(Point(0, 400));
 	face_angle = 0;
 	star_angle = 0;
 	near_eatable = NULL;
@@ -115,8 +115,8 @@ int Snake::GetScore(){
 	return score;
 }
 
-bool Snake::OnCollision(PointX center, float radius){
-	for(PointX node : body_nodes){
+bool Snake::OnCollision(Point center, float radius){
+	for(Point node : body_nodes){
 		if(CircleOnCollision(node, body_radius, center, radius))
 			return true;
 	}
@@ -164,7 +164,7 @@ void Snake::DrawFaceDeadST0(){
 
 void Snake::DrawFaceDeadST1(float sec){
 	DrawFaceDeadST0();
-	PointX stPos;
+	Point stPos;
 	for(int i = 0; i < 6; i++){
 		stPos.x = (face_radius * cos(star_angle + i * 72.f / 180.f * PI));
 		stPos.y = (face_radius * sin(star_angle + i * 72.f / 180.f * PI));
@@ -183,8 +183,8 @@ void Snake::DrawBody(float sec){
 	float pathLen = 0;
 	int nodIndex = 1;
 	for(unsigned int i = 0; i < body_path.size() - 1; i++){
-		PointX curr = body_path[i];
-		PointX next = body_path[i + 1];
+		Point curr = body_path[i];
+		Point next = body_path[i + 1];
 		//length between two path points
 		float len = Distance(curr, next);
 		pathLen += len;
@@ -196,7 +196,7 @@ void Snake::DrawBody(float sec){
 				float x = curr.x + (next.x - curr.x) * k;
 				float y = curr.y + (next.y - curr.y) * k;
 				if(nodIndex <= body_length / nod_length){
-					body_nodes.push_back(PointX(x, y));
+					body_nodes.push_back(Point(x, y));
 					bool bigNode = false;
 					for(int appNode : big_nodes){
 						if(appNode == nodIndex){
@@ -252,7 +252,7 @@ void Snake::CalcBigNodes(float sec){
 
 bool Snake::OnBiteYouself(){
 	for(unsigned int i = 1; i < body_nodes.size(); i++){
-		PointX p = body_nodes[i];
+		Point p = body_nodes[i];
 		if(CircleOnCollision(p, body_radius, face_pos, face_radius)){
 			return true;	
 		}

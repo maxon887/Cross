@@ -19,6 +19,7 @@
 
 #include <vector>
 
+using namespace cross;
 using namespace chrono;
 
 static Launcher* launcher;
@@ -67,7 +68,7 @@ void Debuger::Display(float micro){
 	}
 
 	if(input->HaveInput()){
-		PointX in = input->GetInput();
+		Point in = input->GetInput();
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: x=" + to_string(in.x) + "y=" + to_string(in.y));
 	}else{
 		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");

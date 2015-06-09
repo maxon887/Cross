@@ -18,6 +18,8 @@
 #include "Input.h"
 #include "Game.h"
 
+using namespace cross;
+
 Input::Input(Game* game){
 	this->game = game;
 	input_state = false;
@@ -30,8 +32,8 @@ bool Input::HaveInput(){
 	return input_state;
 }
 
-PointX Input::GetInput(){
-	PointX ret;
+Point Input::GetInput(){
+	Point ret;
 	ret.x = input_loc.x / game->GetScaleFactor();
 	ret.y = input_loc.y / game->GetScaleFactor();
 	return ret;

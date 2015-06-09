@@ -17,9 +17,11 @@
 	
 #pragma once
 
-#include "ColorX.h"
-#include "PointX.h"
+#include "Color.h"
+#include "Point.h"
 #include "Image.h"
+
+namespace cross {
 
 #ifdef WIN
     #define glOrthof glOrtho
@@ -33,16 +35,16 @@ class Game;
 class Graphics{
 public:
 	/*	Clear screen with particular color.*/
-	void Clear(ColorX c);
+	void Clear(Color c);
 	void Clear(float r, float g, float b);
 	/* Scale Image */
 	void ScaleImage(Image* img, float factor);
 	/* Rotate Image counterclockwise in angle degree */
 	void Rotate(Image* img, float angle);
 	/* Create Image from source. Data do not copy. */
-	Image* CreateImage(Image* src, RectX region);
+	Image* CreateImage(Image* src, Rect region);
 	/* Create Image from source with sacale factor. Data do not copy. */
-	Image* CreateImage(Image* src, RectX region, float scaleFactor);
+	Image* CreateImage(Image* src, Rect region, float scaleFactor);
 	/* Load Image from file */
 	Image* LoadImage(string filename);
 	/* Load scaled image from file */
@@ -53,26 +55,28 @@ public:
 	Image* LoadRepeatedImage(string filename, float width, float height);
 	/* Load scaled image filled with images */
 	Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor);
-	void DrawPixel(PointX p, ColorX c);
-	void DrawPixel(PointX p, float r, float g, float b);
-	void DrawLine(PointX p1, PointX p2, ColorX c);
-	void DrawLine(PointX p1, PointX p2, float r, float g, float b);
-	void DrawCircle(PointX center, float radius, ColorX c);
-	void DrawCircle(PointX center, float radius, float r, float g, float b);
-	void DrawRect(RectX rect, ColorX c);
-	void DrawRect(RectX rect, float r, float g, float b);
+	void DrawPixel(Point p, Color c);
+	void DrawPixel(Point p, float r, float g, float b);
+	void DrawLine(Point p1, Point p2, Color c);
+	void DrawLine(Point p1, Point p2, float r, float g, float b);
+	void DrawCircle(Point center, float radius, Color c);
+	void DrawCircle(Point center, float radius, float r, float g, float b);
+	void DrawRect(Rect rect, Color c);
+	void DrawRect(Rect rect, float r, float g, float b);
 	/* Draws Image in game coordinates */
 	void DrawImage(float x, float y, Image* img);
 	/* Draws Image in game coordinates */
-	void DrawImage(PointX p, Image* img);
+	void DrawImage(Point p, Image* img);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Graphics(Game* game);
 private:
 	unsigned char* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
 	void DrawTargetImage(float x, float y, Image* img);
-    void DrawTargetPixel(PointX p, float r, float g, float b);
+    void DrawTargetPixel(Point p, float r, float g, float b);
 	Game* game;
 	Launcher* launcher;
 	GLint prev_texID;
 };
+    
+}

@@ -19,6 +19,8 @@
 
 #include "Game.h"
 
+using namespace cross;
+
 class JimTheSnake : public Game{
 public:
 	JimTheSnake(Launcher* launcher);

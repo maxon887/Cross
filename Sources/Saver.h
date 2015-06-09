@@ -21,6 +21,8 @@
 
 using namespace std;
 
+namespace cross {
+
 class Game;
 
 /* Save and load information whith between game launches.
@@ -55,3 +57,5 @@ private:
 	string prefs_path;
 	string copy_path;
 };
+    
+}

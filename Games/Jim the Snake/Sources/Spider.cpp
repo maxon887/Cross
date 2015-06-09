@@ -102,7 +102,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 				angle += 360.f;
 		}
 
-		//graphics->DrawCircle(end_point, 30, ColorX::Red);
+		//graphics->DrawCircle(end_point, 30, Color::Red);
 		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
 		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
 		if(CircleOnCollision(pos, 2, end_point, 2)){
@@ -232,7 +232,7 @@ void Spider::Draw(){
 			graphics->Rotate(body, angle + 90.f);
 			graphics->Rotate(head, angle + head_angle + 90.f);
 			graphics->DrawImage(pos, body);
-			PointX headPos;
+			Point headPos;
 			headPos.y = pos.y + (float)-10 * sin(angle / 180.f * PI);
 			headPos.x = pos.x + (float)10 * cos(angle / 180.f * PI);
 			graphics->DrawImage(headPos, head);
@@ -248,7 +248,7 @@ float Spider::GetRadius(){
 	return radius;
 }
 
-PointX Spider::GetPosition(){
+Point Spider::GetPosition(){
 	return pos;
 }
 
@@ -261,14 +261,14 @@ bool Spider::OnScreen(){
 }
 
 void Spider::ScanForApples(list<Apple*> &apples){
-	PointX p1;
+	Point p1;
 	p1.y = pos.y + (float)-2000 * sin((angle + 45.f) / 180.f * PI);
 	p1.x = pos.x + (float)2000 * cos((angle + 45.f) / 180.f * PI);
-	PointX p2;
+	Point p2;
 	p2.y = pos.y + (float)-2000 * sin((angle - 45.f) / 180.f * PI);
 	p2.x = pos.x + (float)2000 * cos((angle - 45.f) / 180.f * PI);
-	//graphics->DrawLine(pos, p1, ColorX::Red);
-	//graphics->DrawLine(pos, p2, ColorX::Red);
+	//graphics->DrawLine(pos, p1, Color::Red);
+	//graphics->DrawLine(pos, p2, Color::Red);
 	target_apple = NULL;
 	for(Apple* apple : apples){
 		if(PointInTriangle(apple->GetPosition(), pos, p1, p2)){
@@ -290,7 +290,7 @@ void Spider::ScanForApples(list<Apple*> &apples){
 void Spider::SetNearestBorder(){
 	end_point.x = pos.x;
 	end_point.y = - GetRadius();
-	PointX newPoint;
+	Point newPoint;
 	float distance;
 	float newDistance;
 

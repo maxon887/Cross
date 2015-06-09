@@ -34,8 +34,8 @@ public:
 	int Eat();
 	bool Eaten();
 	void Draw();
-	void SetPosition(PointX pos);
-	PointX GetPosition();
+	void SetPosition(Point pos);
+	Point GetPosition();
 	float GetRadius();
 	void Update(float sec);
 private:
@@ -48,7 +48,7 @@ private:
 	static const float radius;
 
 	AppleState state;
-	PointX pos;
+	Point pos;
 	float angle;
 	float life_time;
 };

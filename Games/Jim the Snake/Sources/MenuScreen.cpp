@@ -54,13 +54,13 @@ void MenuScreen::Start(){
 	snaky_pos.y = 100.f * scaleFactor / game->GetScaleFactor();
 	background_pos.x = game->GetWidth() / 2.f;
 	background_pos.y = game->GetHeight() / 2.f;
-	PointX playPos;
+	Point playPos;
 	playPos.x = 270.f * scaleFactor / game->GetScaleFactor();
 	playPos.y = 490.f * scaleFactor / game->GetScaleFactor();
-	PointX soundPos;
+	Point soundPos;
 	soundPos.x = soundUp->GetWidth() * 0.8f;
 	soundPos.y = game->GetHeight() - soundUp->GetHeight() * 0.8f;
-	PointX musicPos;
+	Point musicPos;
 	musicPos.x = musicUp->GetWidth() * 2.2f;
 	musicPos.y = game->GetHeight() - musicUp->GetHeight() * 0.8f;
 	//scaling
@@ -94,11 +94,11 @@ void MenuScreen::Update(float sec){
 	graphics->DrawImage(background_pos, background);
 
 	graphics->DrawImage(snaky_pos, snaky);
-	graphics->DrawImage(PointX(320.f, 520.f), bestscore);
-	score_texter->DrawText(PointX(510.f, 490.f), to_string(score));
+	graphics->DrawImage(Point(320.f, 520.f), bestscore);
+	score_texter->DrawText(Point(510.f, 490.f), to_string(score));
 	/*
-	for(RectX area : dead_areas){
-		graphics->DrawRect(area, ColorX::Red);
+	for(Rect area : dead_areas){
+		graphics->DrawRect(area, Color::Red);
 	}*/
 
 	music_btn->Update();
@@ -107,7 +107,7 @@ void MenuScreen::Update(float sec){
 }
 
 void MenuScreen::CreateDeadAreas(){
-	RectX r = play_btn->GetRect();
+	Rect r = play_btn->GetRect();
 	dead_areas.push_back(r);
 	r.x = 0;
 	r.y = play_btn->GetCenter().y;

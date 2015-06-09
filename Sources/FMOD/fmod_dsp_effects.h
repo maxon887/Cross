@@ -385,7 +385,7 @@ typedef enum
 [
     [DESCRIPTION]
     Parameter types for the FMOD_DSP_TYPE_ITECHO filter.<br>
-    This is effectively a software based echo filter that emulates the DirectX DMO echo effect.  Impulse tracker files can support this, and FMOD will produce the effect on ANY platform, not just those that support DirectX effects!<br>
+    This is effectively a software based echo filter that emulates the DiRect DMO echo effect.  Impulse tracker files can support this, and FMOD will produce the effect on ANY platform, not just those that support DiRect effects!<br>
 
     [REMARKS]
     Note.  Every time the delay is changed, the plugin re-allocates the echo buffer.  This means the echo will dissapear at that time while it refills its new buffer.<br>

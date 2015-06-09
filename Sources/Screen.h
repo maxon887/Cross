@@ -22,6 +22,8 @@
 #include "Saver.h"
 #include "Audio.h"
 
+namespace cross {
+    
 class Game;
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
@@ -42,9 +44,10 @@ protected:
 	Graphics* graphics;		// Copy of vital game modules just for comfortability
     Input* input;			//
 	Saver* saver;			//
-	//char str_buffer[BUF_LEN];
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	void Init();
 	virtual ~Screen();
 };
+    
+}
