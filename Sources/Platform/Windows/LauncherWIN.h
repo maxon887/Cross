@@ -24,6 +24,8 @@
 #include "Launcher.h"
 #include "Audio.h"
 
+namespace cross{
+
 class LauncherWIN : public Launcher{
 public:
 	LauncherWIN();
@@ -38,3 +40,5 @@ public:
 private:
 	HWND wnd;
 };
+
+}

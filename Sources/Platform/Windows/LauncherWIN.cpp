@@ -17,6 +17,8 @@
 	
 #include "LauncherWIN.h"
 
+using namespace cross;
+
 void IntSleep(int milis){
 	Sleep(milis);
 }

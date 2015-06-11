@@ -97,13 +97,13 @@
     <ClCompile Include="..\..\Sources\JimTheSnake.cpp">
       <Filter>Jim the Snake</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\ColorX.cpp">
+    <ClCompile Include="..\..\..\..\Sources\Color.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\PointX.cpp">
+    <ClCompile Include="..\..\..\..\Sources\Point.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\RectX.cpp">
+    <ClCompile Include="..\..\..\..\Sources\Rect.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
@@ -211,10 +211,13 @@
     <ClInclude Include="..\..\Sources\JimTheSnake.h">
       <Filter>Jim the Snake</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\ColorX.h">
+    <ClInclude Include="..\..\..\..\Sources\Color.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\PointX.h">
+    <ClInclude Include="..\..\..\..\Sources\Point.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Rect.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

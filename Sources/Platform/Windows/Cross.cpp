@@ -22,6 +22,8 @@
 #include "resource.h"
 #include "LauncherWIN.h"
 
+using namespace cross;
+
 static Game* mGame;
 static Input* input;
 
@@ -98,7 +100,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	return DefWindowProc(wnd, msg, wParam, lParam);
 }
 
-int CrossMain(Game* game, HINSTANCE instance, int winShow){
+int cross::CrossMain(cross::Game* game, HINSTANCE instance, int winShow){
 	mGame = game;
 	WNDCLASSEX wc;
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));

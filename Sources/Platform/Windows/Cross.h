@@ -21,4 +21,8 @@
 
 #include <Windows.h>
 
+namespace cross{
+
 int CrossMain(Game* game, HINSTANCE instance, int winShow);
+
+}
