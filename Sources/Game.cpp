@@ -56,6 +56,7 @@ float Game::GetHeight(){
 }
 
 void Game::SetScreen(Screen* screen){
+	launcher->LogIt("Game->SetScreen()");
 	Debuger::StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
@@ -70,6 +71,7 @@ Screen* Game::GetCurrentScreen(){
 }
 
 void Game::Start(){
+	launcher->LogIt("Game->Start()");
 	try{
 #ifdef CROSSDEBUG
 		debuger = new Debuger(this);
@@ -87,8 +89,8 @@ void Game::Start(){
 	}
 }
 
-void Game::Pause(){
-
+void Game::Suspend(){
+	current_screen->Suspend();
 }
 
 void Game::Update(){
@@ -96,7 +98,6 @@ void Game::Update(){
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
-
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
 		//GetCurrentScreen()->Update(0.02f);
 		now = high_resolution_clock::now();
@@ -121,11 +122,11 @@ void Game::Update(){
 }
 
 void Game::Exit(){
-	delete this;
 	exit(0);
 }
 
 Game::~Game(){
+	launcher->LogIt("Game destructor");
 	delete current_screen;
 	delete input;
 	delete saver;

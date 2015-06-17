@@ -27,8 +27,8 @@ namespace cross {
 class Game;
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
-   Every game must implemnt at least one Screen class.
-   Whith will loaded through Game::GetStartScreen function */
+   Every game must implement at least one Screen class.
+   Witch will be loaded through Game::GetStartScreen function */
 class Screen{
 public:
 	/* Screen object need game class for internal purposes.
@@ -36,7 +36,9 @@ public:
 	Screen(Game* game);
 	/* Calls once before screen show up. */
 	virtual void Start();
-	/* Calls every frame update. Idealy 60 times per second(60fps)*/
+
+	virtual void Suspend();
+	/* Calls every frame update. Ideally 60 times per second(60fps)*/
 	virtual void Update(float sec);
 protected:
 	Game* game;				//

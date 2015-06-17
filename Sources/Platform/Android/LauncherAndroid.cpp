@@ -16,22 +16,17 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "LauncherAndroid.h"
-#include "Launcher.h"
+#include "Cross.h"
+#include <string>
 
-LauncherAndroid::LauncherAndroid(android_app* app, int width, int height){
-	this->app = app;
-	this->asset_manager = app->activity->assetManager;
+using namespace cross;
+using namespace std;
+
+LauncherAndroid::LauncherAndroid(int width, int height, string dataPath, AAssetManager* assetManager){
 	this->width = width;
 	this->height = height;
-	JNIEnv *env;
-	app->activity->vm->AttachCurrentThread(&env, NULL);
-	jclass android_content_Context = env->GetObjectClass(app->activity->clazz);
-	jmethodID midGetPackageName = env->GetMethodID(android_content_Context, "getPackageName", "()Ljava/lang/String;");
-	jstring packageName = (jstring)env->CallObjectMethod(app->activity->clazz, midGetPackageName);
-	string appname = env->GetStringUTFChars(packageName, NULL);
-	app->activity->vm->DetachCurrentThread();
-	data_path = "/data/data/" + appname + "/files";
-	LogIt("Android Launcher initialized");
+	this->data_path = dataPath;
+	this->asset_manager = assetManager;
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -51,7 +46,7 @@ string LauncherAndroid::DataPath(){
 }
 
 void LauncherAndroid::LogIt(string str){
-	__android_log_print(ANDROID_LOG_DEBUG, "Cross++", "%s", str.c_str());
+	LOGI("%s", str.c_str());
 }
 
 void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* length){

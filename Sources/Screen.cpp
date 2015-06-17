@@ -37,6 +37,8 @@ void Screen::Init(){
 
 void Screen::Start() { }
 
+void Screen::Suspend() { }
+
 void Screen::Update(float sec) { }
 
 Screen::~Screen() { }

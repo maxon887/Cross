@@ -26,6 +26,7 @@ MenuScreen::MenuScreen(JimTheSnake* game):Screen(game) {
 }
 
 void MenuScreen::Start(){
+	launcher->LogIt("MenuScreen->Start()");
 	sun_w = 5.f;
 	sun_angle = 0;
 	score = 0;

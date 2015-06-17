@@ -40,14 +40,14 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Input.cpp \
 					../../../../../Sources/Saver.cpp \
 					../../../../../Sources/Audio.cpp \
-					../../../../../Sources/PointX.cpp \
-					../../../../../Sources/RectX.cpp \
+					../../../../../Sources/Point.cpp \
+					../../../../../Sources/Rect.cpp \
+					../../../../../Sources/Color.cpp \
 					../../../../../Sources/Utils/Texter.cpp \
 					../../../../../Sources/Utils/Debuger.cpp \
 					../../../../../Sources/Utils/Button.cpp \
 					../../../../../Sources/Utils/Animation.cpp \
 					../../../../../Sources/Utils/ToggleButton.cpp \
-					../../../../../Sources/ColorX.cpp \
 					../../../../../Sources/Utils/Misc.cpp \
 					../../../../../Sources/SOIL/SOIL.c \
 					../../../../../Sources/SOIL/image_helper.c \

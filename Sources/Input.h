@@ -24,8 +24,8 @@ namespace cross {
 class Game;
 
 enum class Key{
-	UNDEFINED,
-	PAUSE
+	UNDEFINED 	= 0,
+	PAUSE		= 1
 };
 
 /*	Class responsible for user input. 

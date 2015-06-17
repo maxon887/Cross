@@ -40,6 +40,7 @@ class GameScreen : public Screen{
 public:
 	GameScreen(JimTheSnake* game);
 	void Start();
+	void Suspend();
 	void Update(float sec);
 	~GameScreen();
 private:

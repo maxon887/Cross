@@ -14,13 +14,11 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+
 #pragma once
-
-#include "LauncherAndroid.h"
 #include "Game.h"
+#include "android/log.h"
 
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,"Cross++",__VA_ARGS__)
 
-LauncherAndroid* CrossInit(android_app* application);
-
-void CrossMain(Game* game);
+cross::Game* CrossMain(cross::Launcher* launcher);

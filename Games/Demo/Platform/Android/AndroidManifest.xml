@@ -6,6 +6,8 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="21" />
+    
+  	<uses-permission android:name="android.permission.SET_DEBUG_APP"/>
    
     <application
         android:allowBackup="true"
@@ -15,11 +17,7 @@
         <activity
             android:name="CrossActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
-            <meta-data 
-                android:name="android.app.lib_name"
-                android:value="cross" />
 	        <intent-filter>
 		        <action android:name="android.intent.action.MAIN" />
 		        <category android:name="android.intent.category.LAUNCHER" />

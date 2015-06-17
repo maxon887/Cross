@@ -20,9 +20,14 @@
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
 
+JimTheSnake* game = NULL;
+
 void android_main(android_app* application){
 	LOGI("android_main()");
 	LauncherAndroid* launcher = CrossInit(application);
-	JimTheSnake* game = new JimTheSnake(launcher);
+	if(game == NULL)
+		game = new JimTheSnake(launcher);
+	else
+		game->launcher = launcher;
 	CrossMain(game);
 }

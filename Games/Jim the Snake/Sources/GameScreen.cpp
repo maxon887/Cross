@@ -97,6 +97,10 @@ void GameScreen::Restart(){
 	spider = new Spider();
 }
 
+void GameScreen::Suspend(){
+	state = GameState::PAUSED;
+}
+
 void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
@@ -319,11 +323,24 @@ GameScreen::~GameScreen(){
 	Apple::Release();
 
 	delete music;
+	delete game_over;
+	delete punch;
 	for(Apple* apple : apples){
 		delete apple;
 	}
 	graphics->ReleaseImage(background);
+	graphics->ReleaseImage(score_img);
+	graphics->ReleaseImage(gameover_img);
+	graphics->ReleaseImage(control_base);
+	graphics->ReleaseImage(control_facepointer);
+	graphics->ReleaseImage(pause_img);
 	graphics->ReleaseImage(ready_img);
+
+	delete resume_btn;
+	delete restart_btn;
+	delete menu_btn;
+
+	delete score_texter;
 }
 
 void GameScreen::OnMenuClick(){

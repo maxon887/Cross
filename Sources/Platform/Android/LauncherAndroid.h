@@ -17,17 +17,14 @@
 
 #pragma once
 
-//#include "Game.h"
 #include "Launcher.h"
-#include <android/log.h>
 #include <android/asset_manager.h>
-#include <android_native_app_glue.h>
 
-using namespace cross;
+namespace cross{
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(android_app* app, int width, int height);
+	LauncherAndroid(int width, int height, string dataPath, AAssetManager* assetManager);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	string AssetsPath();
@@ -40,5 +37,6 @@ private:
 	int height;
 	string data_path;
 	AAssetManager* asset_manager;
-	android_app* app;
 };
+
+}

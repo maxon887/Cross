@@ -30,13 +30,19 @@ public class CrossActivity extends NativeActivity
 	@Override
 	protected void onPause() {
 		Log.d("Cross++", "Java onPause()");
-		ReleaseAudio();
-		FMOD.close();
 		super.onPause();
 	}
 	
 	@Override
-	private void run() {
+	protected void onStop(){
+		Log.d("Cross++", "Java onStop()");
+		//ReleaseAudio();
+		//FMOD.close();
+		super.onStop();
+	}
+	
+	@Override
+	public void run() {
 		InitAudio();
 	}
 }

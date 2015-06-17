@@ -93,6 +93,11 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_KEYUP:
 		input->key_state = false;
 		break;
+	case WM_KILLFOCUS:
+		mGame->Suspend();
+		break;
+	case WM_SETFOCUS:
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

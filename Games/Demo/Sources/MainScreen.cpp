@@ -41,7 +41,7 @@ void MainScreen::Start(){
 	pos.y = on->GetHeight();
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
-	//bck_music = new Audio("Eskimo.mp3", true, true);
+	bck_music = new Audio("Eskimo.mp3", true, true);
 	bool musicState = saver->LoadBool("MUSIC_STATE");
 	music_btn->SetState(musicState);
 	if(musicState){
@@ -65,8 +65,8 @@ void MainScreen::Start(){
 	blue_sound_btn->SetLocation(pos);
 	blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
 
-	//jaguar = new Audio("Jaguar.wav", false, false);
-	//truck = new Audio("Truck.wav", true, false);
+	jaguar = new Audio("Jaguar.wav", false, false);
+	truck = new Audio("Truck.wav", true, false);
 
 	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
 	startLaunches++;
@@ -122,7 +122,11 @@ void MainScreen::MusicOnClick(){
 }
 
 MainScreen::~MainScreen(){
+	launcher->LogIt("MainScreen destructor");
 	graphics->ReleaseImage(x_img);
+	launcher->LogIt("delete btn;");
 	delete btn;
+	launcher->LogIt("delete bck_music;");
 	delete bck_music;
+	launcher->LogIt("end of MainScreen destructor");
 }

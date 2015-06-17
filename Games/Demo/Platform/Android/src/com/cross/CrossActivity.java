@@ -1,12 +1,19 @@
 package com.cross;
+
 import org.fmod.FMOD;
 
-import android.app.NativeActivity;
+import android.app.Activity;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 
-public class CrossActivity extends NativeActivity 
-							implements Runnable{
+public class CrossActivity extends Activity{
+	public static Cross cross;
+	public static AssetManager asset_manager;
+	//public static Thread audio_thread;
+	private CrossRenderer renderer;
 	
 	static{
 		System.loadLibrary("c++_shared");
@@ -14,36 +21,82 @@ public class CrossActivity extends NativeActivity
 		System.loadLibrary("cross");
 	}
 	
-	private Thread mThread;
-	
-	private native void InitAudio();
-	private native void ReleaseAudio();
-	
-	@Override 
-	protected void onCreate(Bundle savedInstanceState) {
-		Log.d("Cross++", "Java onCreate()");
-		super.onCreate(savedInstanceState);
-	};
-	
 	@Override
-	protected void onResume() {
-		Log.d("Cross++", "Java onResume()");
-		//FMOD.init(this);
-        //mThread = new Thread(this, "Audio thread");
-        //mThread.start();
-		super.onResume();
+	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("Cross++", "Java onCreate");
+		super.onCreate(savedInstanceState);
+		FMOD.init(this);
+		renderer = new CrossRenderer(this);
+		renderer.setPreserveEGLContextOnPause(true);
+		setContentView(renderer);
 	}
 	
 	@Override
 	protected void onPause() {
-		Log.d("Cross++", "Java onPause()");
-		//ReleaseAudio();
-		//FMOD.close();
+		Log.d("Cross++", "Java onPause");
 		super.onPause();
+		if(cross != null){
+			cross.Suspend();
+		}
+		renderer.onPause();
 	}
 	
 	@Override
-	public void run() {
-		InitAudio();
+	protected void onResume() {
+		Log.d("Cross++", "Java onResume");
+		super.onResume();
+		renderer.onResume();
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+		case MotionEvent.ACTION_MOVE:
+			cross.SetInputState(true);
+			cross.SetInputLoc(event.getX(), event.getY());
+			return true;
+		case MotionEvent.ACTION_UP:
+			cross.SetInputState(false);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			cross.SetKeyState(true);
+			cross.SetKeyKey(1);	//1 means pause key
+			return true;
+		case KeyEvent.KEYCODE_MENU:
+			cross.SetKeyState(true);
+			cross.SetKeyKey(1);
+			return true;
+		}
+		return false;
+	}
+	
+	public void Init(int width, int height){
+		Log.d("Cross++", "Java Init");
+		if(cross == null){
+			String dataPath =  getFilesDir().getPath();
+			cross = new Cross();
+			asset_manager = getResources().getAssets();
+			cross.Init(width, height, dataPath, asset_manager);
+		}
+	}
+	
+	public void Update(){
+		cross.Update();
+	}	
+	
+	public void ReleaseCross(){
+		if(cross != null){
+			cross.Release();
+			//FMOD.close();
+			cross = null;
+		}
 	}
 }

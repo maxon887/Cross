@@ -40,8 +40,8 @@ public:
 	Game(Launcher* launcher, float width);
 	// Cause when game is about to start
 	virtual void Start();
-	// Cause when game needs to be paused. Fo example input call or window lost focus
-	virtual void Pause();
+	// Cause when game needs to be paused. For example input call or window lost focus
+	virtual void Suspend();
 	/* Reflect ratio between game and target device width.*/
 	float GetScaleFactor();
 	/* Return virtual game width */
