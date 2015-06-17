@@ -37,9 +37,10 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Image.cpp \
 					../../../../../Sources/Input.cpp \
 					../../../../../Sources/Saver.cpp \
-					../../../../../Sources/Utils/PointX.cpp \
-					../../../../../Sources/Utils/RectX.cpp \
+					../../../../../Sources/Point.cpp \
+					../../../../../Sources/Rect.cpp \
 					../../../../../Sources/Utils/Texter.cpp \
+					../../../../../Sources/Color.cpp \
 					../../../../../Sources/Utils/Debuger.cpp \
 					../../../../../Sources/Utils/Button.cpp \
 					../../../../../Sources/Utils/Animation.cpp \
@@ -48,7 +49,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/SOIL/image_helper.c \
 					../../../../../Sources/SOIL/stb_image_aug.c 
 					
-LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM -lOpenSLES
+LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 LOCAL_SHARED_LIBRARIES  := fmod
 

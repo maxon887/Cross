@@ -23,6 +23,8 @@
 #include <android/asset_manager.h>
 #include <android_native_app_glue.h>
 
+using namespace cross;
+
 class LauncherAndroid : public Launcher{
 public:
 	LauncherAndroid(android_app* app, int width, int height);
@@ -32,6 +34,7 @@ public:
 	string DataPath();
 	void LogIt(string str);
 	void LoadFile(string filename, unsigned char** buffer, int* length);
+	~LauncherAndroid();
 private:
 	int width;
 	int height;

@@ -18,11 +18,15 @@
 #include "MainScreen.h"
 #include "SecondScreen.h"
 
-MainScreen::MainScreen(Game* game):Screen(game) { }
+MainScreen::MainScreen(Game* game):Screen(game) {
+	bck_music = NULL;
+	jaguar = NULL;
+	truck = NULL;
+}
 
 void MainScreen::Start(){
-	PointX pos;
-	texter = new Texter(game);
+	Point pos;
+	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
     x_img = graphics->LoadImage("X256.png");
 	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
     Image* release = graphics->LoadImage("StartButtonUp.png");
@@ -37,7 +41,7 @@ void MainScreen::Start(){
 	pos.y = on->GetHeight();
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
-	bck_music = new Audio("Eskimo.mp3", true, true);
+	//bck_music = new Audio("Eskimo.mp3", true, true);
 	bool musicState = saver->LoadBool("MUSIC_STATE");
 	music_btn->SetState(musicState);
 	if(musicState){
@@ -61,20 +65,19 @@ void MainScreen::Start(){
 	blue_sound_btn->SetLocation(pos);
 	blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
 
-	jaguar = new Audio("Jaguar.wav", false, false);
-	truck = new Audio("Truck.wav", true, false);
+	//jaguar = new Audio("Jaguar.wav", false, false);
+	//truck = new Audio("Truck.wav", true, false);
 
 	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
 	startLaunches++;
 	game->saver->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
-
 }
 
 void MainScreen::Update(float sec){
 	graphics->Clear(0, 0.15f, 0.15f);
 
-	PointX pos;
+	Point pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 3 - 120;
 	graphics->Rotate(x_img, 15);

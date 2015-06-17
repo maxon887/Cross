@@ -19,11 +19,13 @@
 
 #include "Graphics.h"
 #include "Screen.h"
-#include "PointX.h"
+#include "Point.h"
 #include "Texter.h"
 #include "Debuger.h"
 #include "Button.h"
 #include "ToggleButton.h"
+
+using namespace cross;
 
 class MainScreen : public Screen{
 public:

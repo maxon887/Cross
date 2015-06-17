@@ -66,7 +66,8 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	AAsset_close(asset);
 }
 
-
+LauncherAndroid::~LauncherAndroid(){
+}
 
 
 

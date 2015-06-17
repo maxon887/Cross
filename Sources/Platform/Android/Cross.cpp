@@ -27,37 +27,26 @@
 #include <android_native_app_glue.h>
 
 #include <unistd.h>
+using namespace cross;
 
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
+android_app* app = NULL;
 
-android_app* app;
+EGLDisplay display = EGL_NO_DISPLAY;
+EGLSurface surface = EGL_NO_SURFACE;
+EGLContext context = EGL_NO_CONTEXT;
 
-EGLDisplay display;
-EGLSurface surface;
-EGLContext context;
-
-LauncherAndroid* launcher;
-Game* mGame;
-
-bool onPause = false;
-bool focusLost = true;
+//bool eglInitialized = false;
+LauncherAndroid* launcher = NULL;
+Game* mGame = NULL;
 
 extern "C"{
 	void Java_com_cross_CrossActivity_InitAudio(JNIEnv *env, jobject thiz)
 	{
 		Audio::Init(NULL);
-		//onPause = false;
-		/*
-		if(app->window != NULL){
-			init_display();
-		}else{
-			LOGI("Error window not initialized");
-		}*/
+
 	}
 	void Java_com_cross_CrossActivity_ReleaseAudio(JNIEnv* env, jobject thiz){
-		//onPause = true;
 		Audio::Release();
-		//launcher = NULL;
 	}
 }
 
@@ -73,23 +62,37 @@ static void init_display(){
     EGLint w, h, dummy, format;
     EGLint numConfigs;
     EGLConfig config;
+    EGLBoolean result;
 
     display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    if(!display){
+    	LOGI("ERROR: eglGetDisplay");
+    }
 
-    eglInitialize(display, 0, 0);
+    result = eglInitialize(display, 0, 0);
+    if(!result){
+    	LOGI("ERROR: eglInitialize");
+    }
 
-    eglChooseConfig(display, attribs, &config, 1, &numConfigs);
+    result = eglChooseConfig(display, attribs, &config, 1, &numConfigs);
+    if(!result){
+    	LOGI("ERROR: eglChooseConfig");
+    }
 
-    eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
+    result = eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
+    if(!result){
+    	LOGI("ERROR: eglGetConfigAttrib");
+    }
 
     ANativeWindow_setBuffersGeometry(app->window, 0, 0, format);
 
     surface = eglCreateWindowSurface(display, config, app->window, NULL);
-    context = eglCreateContext(display, config, NULL, NULL);
+    if(context == EGL_NO_CONTEXT)
+    	context = eglCreateContext(display, config, NULL, NULL);
 
-    if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
-        LOGI("Unable to eglMakeCurrent");
-        return;
+    result = eglMakeCurrent(display, surface, surface, context);
+	if(!result){
+		LOGI("ERROR: eglMakeCurrent");
     }
 
     eglQuerySurface(display, surface, EGL_WIDTH, &w);
@@ -100,10 +103,12 @@ static void init_display(){
     glShadeModel(GL_SMOOTH);
     glDisable(GL_DEPTH_TEST);
 
+    //eglInitialized = true;
     launcher = new LauncherAndroid(app, w, h);
 }
 
 static int32_t handle_input(android_app* appl, AInputEvent* event){
+	LOGI("handle_input 0");
     int32_t eventType = AInputEvent_getType(event);
     switch(eventType){
         case AINPUT_EVENT_TYPE_MOTION:
@@ -143,26 +148,24 @@ static int32_t handle_input(android_app* appl, AInputEvent* event){
 }
 
 static void on_exit(){
-	//Audio::Release();
 	LOGI("on_exit()");
     if (display != EGL_NO_DISPLAY) {
         eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-        if (context != EGL_NO_CONTEXT) {
-            eglDestroyContext(display, context);
-        }
+        //if (engine->context != EGL_NO_CONTEXT) {
+       //     eglDestroyContext(engine->display, engine->context);
+       // }
         if (surface != EGL_NO_SURFACE) {
             eglDestroySurface(display, surface);
         }
-        eglTerminate(display);
+        //eglTerminate(engine->display);
     }
     display = EGL_NO_DISPLAY;
-    context = EGL_NO_CONTEXT;
+    //engine->context = EGL_NO_CONTEXT;
     surface = EGL_NO_SURFACE;
+
+    //eglInitialized = false;
     delete launcher;
     launcher = NULL;
-    if(mGame != NULL){
-    	mGame->Exit();
-    }
 }
 
 static void handle_cmd(struct android_app* app, int32_t cmd) {
@@ -174,12 +177,10 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 		LOGI("APP_CMD_INIT_WINDOW");
 		if(app->window != NULL){
 			init_display();
-			onPause = false;
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
 		LOGI("APP_CMD_TERM_WINDOW");
-		onPause = true;
 		on_exit();
 		break;
 	case APP_CMD_START:
@@ -196,11 +197,9 @@ static void handle_cmd(struct android_app* app, int32_t cmd) {
 		break;
 	case APP_CMD_GAINED_FOCUS:
 		LOGI("APP_CMD_GAINED_FOCUS");
-		focusLost = false;
 		break;
 	case APP_CMD_LOST_FOCUS:
 		LOGI("APP_CMD_LOST_FOCUS");
-		focusLost = true;
 		break;
 	}
 }
@@ -221,10 +220,6 @@ LauncherAndroid* CrossInit(android_app* application){
 		if(eventID >= 0){
 			if(source != NULL)
 				source->process(app, source);
-			//if(app->destroyRequested != 0){
-				//on_exit();
-				//return 0;
-			//}
 		}
 	}
 	return launcher;
@@ -232,25 +227,31 @@ LauncherAndroid* CrossInit(android_app* application){
 
 void CrossMain(Game* game){
 	LOGI("CrossMain");
-	mGame = game;
-	game->graphics = new Graphics(game);
-	game->Start();
-	while(true){
+	if(!mGame){
+		mGame = game;
+		mGame->graphics = new Graphics(mGame);
+		mGame->Start();
+	}else{
+		mGame = game;
+		mGame->launcher = launcher;
+	}
+	while(launcher){
 		android_poll_source* source;
 		int events;
 		int eventID = ALooper_pollOnce(0, NULL, &events, (void**)&source);
 		if(eventID >= 0){
 			if(source != NULL)
 				source->process(app, source);
-			if(app->destroyRequested != 0){
-				launcher->LogIt("destroyRequested");
-				return;
-			}
 		}
-		if(game != NULL && launcher != NULL && !focusLost){
-			game->Update();
-			mGame->input->key_state = false;
+        // Check if we are exiting.
+        if (app->destroyRequested != 0) {
+        	LOGI("destroyRequested");
+            return;
+        }
+		if(launcher){
+			mGame->Update();
 		    eglSwapBuffers(display, surface);
 		}
 	}
+	ANativeActivity_finish(app->activity);
 }

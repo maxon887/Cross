@@ -19,6 +19,8 @@
 #include "LauncherAndroid.h"
 #include "Game.h"
 
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__))
+
 LauncherAndroid* CrossInit(android_app* application);
 
 void CrossMain(Game* game);

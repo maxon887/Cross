@@ -20,6 +20,8 @@
 #include "Screen.h"
 #include "Animation.h"
 
+using namespace cross;
+
 class SecondScreen : public Screen{
 //User module
 public:
