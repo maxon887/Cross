@@ -32,6 +32,7 @@ static LauncherAndroid* launcher;
 void Init(int width, int heigth, string dataPath, AAssetManager* assetManager){
 	LOGI("Init");
 	launcher = new LauncherAndroid(width, heigth, dataPath, assetManager);
+	Audio::Init(launcher);
 	game = CrossMain(launcher);
 	graphics = new Graphics(game);
 	game->graphics = graphics;
@@ -57,16 +58,20 @@ extern "C"{
 	void Java_com_cross_Cross_Suspend(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Suspend");
 		game->Suspend();
-		Audio::Suspend();
+		Audio::SuspendSystem();
+	}
+
+	void Java_com_cross_Cross_Resume(JNIEnv *env, jobject thiz){
+		LOGI("Cross_Resume");
+		Audio::ResumeSystem();
 	}
 
 	void Java_com_cross_Cross_Release(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Release");
 		delete game;
-		LOGI("delete graphics;");
+		Audio::Release();
 		delete graphics;
 		delete launcher;
-		//Audio::Release();
 	}
 
 
@@ -82,10 +87,5 @@ extern "C"{
 	}
 	void Java_com_cross_Cross_SetKeyKey(JNIEnv *env, jobject thiz, jint key){
 		game->input->key_key = (Key)key;
-	}
-
-	void Java_com_cross_Cross_InitAudio(JNIEnv *env, jobject thiz){
-		LOGI("Cross_InitAudio");
-		Audio::Init(NULL);
 	}
 }

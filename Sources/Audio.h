@@ -25,7 +25,8 @@ namespace cross {
 class Audio{
 public:
 	static void Init(Launcher* launcher);
-	static void Suspend();
+	static void SuspendSystem();
+	static void ResumeSystem();
 	static void Release();
 	Audio(string path, bool loop, bool isStream);
 	void Play();

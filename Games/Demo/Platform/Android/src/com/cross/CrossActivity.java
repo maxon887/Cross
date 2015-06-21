@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 public class CrossActivity extends Activity{
 	public static Cross cross;
 	public static AssetManager asset_manager;
-	//public static Thread audio_thread;
 	private CrossRenderer renderer;
 	
 	static{
@@ -25,7 +24,6 @@ public class CrossActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("Cross++", "Java onCreate");
 		super.onCreate(savedInstanceState);
-		FMOD.init(this);
 		renderer = new CrossRenderer(this);
 		renderer.setPreserveEGLContextOnPause(true);
 		setContentView(renderer);
@@ -35,10 +33,10 @@ public class CrossActivity extends Activity{
 	protected void onPause() {
 		Log.d("Cross++", "Java onPause");
 		super.onPause();
+		renderer.onPause();
 		if(cross != null){
 			cross.Suspend();
 		}
-		renderer.onPause();
 	}
 	
 	@Override
@@ -46,6 +44,9 @@ public class CrossActivity extends Activity{
 		Log.d("Cross++", "Java onResume");
 		super.onResume();
 		renderer.onResume();
+		if(cross != null) {
+			cross.Resume();
+		}
 	}
 	
 	@Override
@@ -81,6 +82,7 @@ public class CrossActivity extends Activity{
 	public void Init(int width, int height){
 		Log.d("Cross++", "Java Init");
 		if(cross == null){
+			FMOD.init(this);
 			String dataPath =  getFilesDir().getPath();
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
@@ -95,7 +97,7 @@ public class CrossActivity extends Activity{
 	public void ReleaseCross(){
 		if(cross != null){
 			cross.Release();
-			//FMOD.close();
+			FMOD.close();
 			cross = null;
 		}
 	}

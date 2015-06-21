@@ -63,27 +63,28 @@ void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 
 void Audio::Init(Launcher* launcher){
 	Audio::launcher = launcher;
-	if(system == NULL){
-		result = FMOD::System_Create(&system);
-		ERRCHECK(result);
+	result = FMOD::System_Create(&system);
+	ERRCHECK(result);
 
-		result = system->getVersion(&version);
-		ERRCHECK(result);
+	result = system->getVersion(&version);
+	ERRCHECK(result);
 
-		if (version < FMOD_VERSION)
-		{
-			Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
-		}
-
-		result = system->init(32, FMOD_INIT_NORMAL, extradriverdata);
-		ERRCHECK(result);
-	}else{
+	if (version < FMOD_VERSION)
+	{
+		Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 	}
 
+	result = system->init(32, FMOD_INIT_NORMAL, extradriverdata);
+	ERRCHECK(result);
+	launcher->LogIt("Audio initialized");
 }
 
-void Audio::Suspend(){
+void Audio::SuspendSystem(){
 	system->mixerSuspend();
+}
+
+void Audio::ResumeSystem(){
+	system->mixerResume();
 }
 
 void Audio::Release(){
@@ -107,12 +108,6 @@ Audio::Audio(string path, bool loop, bool isStream){
 #else
 	path = launcher->AssetsPath() + path;
 #endif
-	/*
-	if(launcher != NULL)
-		path = launcher->AssetsPath() + path;
-	else
-		path = "file:///android_asset/" + path;
-*/
 	result = system->createSound(path.c_str(), mode, 0, &sound);
     ERRCHECK(result);
 }
@@ -157,6 +152,6 @@ bool Audio::IsPlaying(){
 }
 
 Audio::~Audio(){
-	//result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
-    //ERRCHECK(result);
+	result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
+    ERRCHECK(result);
 }
