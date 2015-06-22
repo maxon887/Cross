@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright � 2015 Lukyanau Maksim
  
 	This file is part of Cross++ Game Engine.
  
@@ -15,24 +15,11 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#pragma once
-
-#include "Launcher.h"
-#include "Game.h"
-#include "Audio.h"
+#include "Demo.h"
+#include "Cross.h"
 
 using namespace cross;
 
-class LauncherOS : public Launcher{
-public:
-    LauncherOS();
-    int GetTargetWidth();
-    int GetTargetHeight();
-    string AssetsPath();
-    string DataPath();
-    void LogIt(string str);
-    ~LauncherOS();
-private:
-    int width;
-    int height;
-};
+Game* CrossMain(Launcher* launcher){
+    return new Demo(launcher);
+}

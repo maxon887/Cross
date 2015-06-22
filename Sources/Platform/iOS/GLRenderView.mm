@@ -19,12 +19,11 @@
 #import "Graphics.h"
 #import "LauncherOS.h"
 #import "Input.h"
-#import "JimTheSnake.h"
+#import "Cross.h"
 
 @implementation GLRenderView{
     LauncherOS* launcher;
     Game* game;
-
     CGFloat screenScale;
 }
 
@@ -46,12 +45,13 @@
     [self display];
     if(!launcher){
         launcher = new LauncherOS();
-        game = new JimTheSnake(launcher);
-        Graphics* graphics = new Graphics(game);
-        game->graphics = graphics;
+        game = CrossMain(launcher);
+        //Graphics* graphics = new Graphics(game);
+        game->graphics = new Graphics(game);
         game->Start();
+    }else{
+        game->Update();
     }
-    game->Update();
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

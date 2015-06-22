@@ -49,3 +49,11 @@ string LauncherOS::DataPath(){
 void LauncherOS::LogIt(string str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str.c_str()]);
 }
+
+LauncherOS::~LauncherOS(){
+    Audio::Release();
+}
+
+
+
+

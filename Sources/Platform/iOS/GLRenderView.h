@@ -15,12 +15,11 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
 @interface GLRenderView : GLKView
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithCoder:(NSCoder*)aDecoder;
 - (void)render:(CADisplayLink*)displayLink;
 
 @end
