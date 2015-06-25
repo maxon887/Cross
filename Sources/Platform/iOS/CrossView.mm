@@ -15,16 +15,17 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
-#import "GLRenderView.h"
+#import "CrossView.h"
 #import "Graphics.h"
 #import "LauncherOS.h"
 #import "Input.h"
 #import "Cross.h"
 
-@implementation GLRenderView{
+@implementation CrossView{
     LauncherOS* launcher;
     Game* game;
     CGFloat screenScale;
+    CADisplayLink* displayLink;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -34,7 +35,7 @@
     EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     self.context = context;
     self.enableSetNeedsDisplay = NO;
-    CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
+    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
     screenScale = [[UIScreen mainScreen] scale];
@@ -46,12 +47,21 @@
     if(!launcher){
         launcher = new LauncherOS();
         game = CrossMain(launcher);
-        //Graphics* graphics = new Graphics(game);
         game->graphics = new Graphics(game);
         game->Start();
     }else{
         game->Update();
     }
+}
+
+- (void)didGoingBackground{
+    game->Suspend();
+    displayLink.paused = YES;
+    [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
+}
+
+- (void)didGoingForeground{
+    displayLink.paused = NO;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

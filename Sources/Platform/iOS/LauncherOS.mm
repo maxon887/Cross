@@ -41,8 +41,9 @@ string LauncherOS::AssetsPath(){
 }
 
 string LauncherOS::DataPath(){
-    NSString* path = [[NSBundle mainBundle] resourcePath];
-    string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    string cPath = [basePath cStringUsingEncoding:[NSString defaultCStringEncoding]];
     return cPath + "/";
 }
 

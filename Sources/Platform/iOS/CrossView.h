@@ -17,9 +17,9 @@
 
 #import <GLKit/GLKit.h>
 
-@interface GLRenderView : GLKView
+@interface CrossView : GLKView
 
-- (id)initWithCoder:(NSCoder*)aDecoder;
-- (void)render:(CADisplayLink*)displayLink;
+- (void)didGoingBackground;
+- (void)didGoingForeground;
 
 @end
