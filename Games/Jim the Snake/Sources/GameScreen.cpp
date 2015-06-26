@@ -64,7 +64,7 @@ void GameScreen::Start(){
 	}else{
 		punch = NULL;
 	}
-	score_texter = new Texter(game, "Numbers.png", 60.f, 76.f, 10, 1, 48);
+	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 	snake = NULL;
 
 	resume_btn = new Button(game, resumeup, resumedown);
@@ -116,8 +116,7 @@ void GameScreen::Update(float sec){
 			spider->Rotate(-180.f);
 		}
 	}
-	switch (state)
-	{
+	switch (state) {
 	case GameState::RUNNING:{
 			static bool down = false;
 			snake->EatableNear(spider);
@@ -310,8 +309,8 @@ void GameScreen::CalcInput(float sec){
 
 bool GameScreen::SpiderOnCollision(){
 	Point spiderAhead(spider->GetPosition().x, spider->GetPosition().y);
-	spiderAhead.y += -spider->GetSpeedV() * sin(spider->GetAngle() / 180.0 * PI) * 0.1;
-	spiderAhead.x += spider->GetSpeedV() * cos(spider->GetAngle() / 180.0 * PI) * 0.1;
+	spiderAhead.y += -spider->GetSpeedV() * sin(spider->GetAngle() / 180.0f * PI) * 0.1;
+	spiderAhead.x += spider->GetSpeedV() * cos(spider->GetAngle() / 180.0f * PI) * 0.1;
 	return snake->OnCollision(spiderAhead, spider->GetRadius());
 }
 

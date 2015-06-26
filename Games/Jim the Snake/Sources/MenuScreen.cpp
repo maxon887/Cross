@@ -34,7 +34,7 @@ void MenuScreen::Start(){
 	background = graphics->LoadImage("Menu/Background.png");
 	sun = graphics->LoadImage("Menu/Sun.jpg");
 	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
-	snaky = graphics->LoadImage("Menu/SnakyLabel.png");
+	jimthesnake = graphics->LoadImage("Menu/JimTheSnakeLabel.png");
 	Image* playUp = graphics->LoadImage("Menu/PlayButtonUp.png");
 	Image* playDown = graphics->LoadImage("Menu/PlayButtonDown.png");
 	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png", game->GetScaleFactor() * 1.2f);
@@ -52,7 +52,7 @@ void MenuScreen::Start(){
 	sun_pos.x = 400.f * scaleFactor / game->GetScaleFactor();
 	sun_pos.y = 580.f * scaleFactor / game->GetScaleFactor();
 	snaky_pos.x = 200.f * scaleFactor / game->GetScaleFactor();
-	snaky_pos.y = 100.f * scaleFactor / game->GetScaleFactor();
+	snaky_pos.y = 120.f * scaleFactor / game->GetScaleFactor();
 	background_pos.x = game->GetWidth() / 2.f;
 	background_pos.y = game->GetHeight() / 2.f;
 	Point playPos;
@@ -67,7 +67,7 @@ void MenuScreen::Start(){
 	//scaling
 	graphics->ScaleImage(background, scaleFactor);
 	graphics->ScaleImage(sun, scaleFactor);
-	graphics->ScaleImage(snaky, scaleFactor);
+	graphics->ScaleImage(jimthesnake, scaleFactor * 0.9f);
 	//buttons creation
 	play_btn = new Button(game, playPos, playUp, playDown);
 	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
@@ -76,7 +76,7 @@ void MenuScreen::Start(){
 	music_btn = new ToggleButton(game, musicPos, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
 	//misc
-	score_texter = new Texter(game, "Numbers.png", 60.f, 76.f, 10, 1, 48);
+	score_texter = new Texter(game, "NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
 	score = game->BestScore();
 	sound_btn->SetState(game->IsSoundEnabled());
 	menu_music = 0;
@@ -94,9 +94,10 @@ void MenuScreen::Update(float sec){
 	UpdateSun(sec);
 	graphics->DrawImage(background_pos, background);
 
-	graphics->DrawImage(snaky_pos, snaky);
-	graphics->DrawImage(Point(320.f, 520.f), bestscore);
-	score_texter->DrawText(Point(510.f, 490.f), to_string(score));
+	graphics->DrawImage(snaky_pos, jimthesnake);
+	float offset = bestscore->GetHeight() / 2;
+	graphics->DrawImage(Point(game->GetWidth() / 2 + 100.f, game->GetHeight() - offset - 20.f), bestscore);
+	score_texter->DrawText(Point(game->GetWidth() / 2 + 170.f + 100.f, game->GetHeight() - offset - 55.f), to_string(score));
 	/*
 	for(Rect area : dead_areas){
 		graphics->DrawRect(area, Color::Red);
@@ -198,7 +199,7 @@ MenuScreen::~MenuScreen(){
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(sun);
 	graphics->ReleaseImage(bestscore);
-	graphics->ReleaseImage(snaky);
+	graphics->ReleaseImage(jimthesnake);
 	delete play_btn;
 	delete music_btn;
 	delete sound_btn;

@@ -44,7 +44,7 @@ private:
 	Texter* score_texter;
 	int score;
 	Image* bestscore;
-	Image* snaky;
+	Image* jimthesnake;
 	Point snaky_pos;
 
 	Button* play_btn;

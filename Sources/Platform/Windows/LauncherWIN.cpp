@@ -19,6 +19,14 @@
 
 using namespace cross;
 
+bool DirectoryExists(LPCTSTR szPath)
+{
+  DWORD dwAttrib = GetFileAttributes(szPath);
+
+  return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
+         (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
 void IntSleep(int milis){
 	Sleep(milis);
 }
@@ -36,11 +44,21 @@ int LauncherWIN::GetTargetHeight(){
 }
 
 string LauncherWIN::AssetsPath(){
-	return "../../Assets/";
+	LPCTSTR szPath = "../../Assets/";
+	if(DirectoryExists(szPath)){
+		return szPath;
+	}else{
+		return "Assets/";
+	}
 }
 
 string LauncherWIN::DataPath(){
-	return "../../Data/";
+	LPCTSTR szPath = "../../Data/";
+	if(DirectoryExists(szPath)){
+		return szPath;
+	}else{
+		return "Data/";
+	}
 }
 
 void LauncherWIN::LogIt(string msg){
