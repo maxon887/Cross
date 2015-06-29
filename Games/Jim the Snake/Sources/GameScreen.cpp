@@ -16,10 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "GameScreen.h"
+#include "GameObject.h"
 #include "MenuScreen.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Snake.h"
+#include "Cactus.h"
 #include "Misc.h"
 #include <Math.h>
 #include <stdlib.h>
@@ -29,11 +31,12 @@ GameScreen::GameScreen(JimTheSnake* game):Screen(game){
 }
 
 void GameScreen::Start(){
-	Snake::Init(game);
+	GameObject::Init(game);
+	Snake::Init();
 	Spider::Init(game);
 	Apple::Init(game);
+	Cactus::Init(game);
 	snake = NULL;
-	spider = NULL;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img = graphics->LoadImage("Game/ReadyTapLabel.png");
@@ -65,7 +68,6 @@ void GameScreen::Start(){
 		punch = NULL;
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
-	snake = NULL;
 
 	resume_btn = new Button(game, resumeup, resumedown);
 	resume_btn->SetLocation(Point(450, centerH - 40));
@@ -76,36 +78,58 @@ void GameScreen::Start(){
 	restart_btn = new Button(game, restartup, restartdown);
 	restart_btn->SetLocation(Point(450, centerH - 40));
 	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
-	state = GameState::ONREADY;
+
 	Restart();
 }
 
 void GameScreen::Restart(){
-	onready_time = 4.3f;
 	game_over->Stop();
 	music->Play();
-	for(Apple* apple : apples){
-		delete apple;
-	}
-	apples.clear();
+	apple_count = 0;
+	onready_time = 4.3f;
 	state = GameState::ONREADY;
 	score_texter->SetScaleFactor(game->GetScaleFactor());
-	graphics->ScaleImage(score_img, game->GetScaleFactor());
+	//graphics->ScaleImage(score_img, game->GetScaleFactor());
 	delete snake;
 	snake = new Snake();
-	delete spider;
-	spider = new Spider();
+	//delete spider;
+	//spider = new Spider();
 }
 
 void GameScreen::Suspend(){
 	state = GameState::PAUSED;
+	OnStateChanged();
 }
 
 void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth() /2, game->GetHeight()/2, background);
-	DrawApples();
-	spider->Draw();
+	UpdateObjects(sec);
+	switch (state)
+	{
+	case RUNNING:
+		CalcInput(sec);
+		DrawScore();
+		break;
+	case ONREADY:
+		graphics->DrawImage(centerW, centerH, ready_img);
+		onready_time -= sec;
+		if(onready_time < 0 || input->HaveInput()){
+			state = GameState::RUNNING;
+			OnStateChanged();
+		}
+		break;
+	case PAUSED:
+		break;
+	case GAMEOVER:
+		break;
+	default:
+		break;
+	}
+
+	//DrawApples();
+	//spider->Draw();
+	/*
 	snake->DrawFace(sec);
 	snake->DrawBody(sec);
 	if(!spider->Eaten() && SpiderOnCollision()){
@@ -116,6 +140,10 @@ void GameScreen::Update(float sec){
 			spider->Rotate(-180.f);
 		}
 	}
+	//test  
+	cactus->Update(sec);
+	cactus->Draw();
+
 	switch (state) {
 	case GameState::RUNNING:{
 			static bool down = false;
@@ -200,34 +228,22 @@ void GameScreen::Update(float sec){
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 void GameScreen::CalcApples(float sec){
 	static float next_apple = 0; 
+	static int apple_count = 0;
 	if(next_apple <= 0) {
 		next_apple = (float)(rand()%15);
 		SetApple();
 	} else {
 		next_apple -= sec;
 	}
-	if(apples.size() == 0)
+
+	if(apple_count == 0){
 		SetApple();
-	auto it = apples.begin();
-	while(it != apples.end()){
-		if(!(*it)->Eaten()){
-			snake->EatableNear(*it);
-			(*it)->Update(sec);
-			it++;
-		} else {
-			delete *it;
-			*it = NULL;
-			it = apples.erase(it);
-			int roll = rand() % 101;
-			if(roll > 20){
-				spider->Start();
-			}
-		}
+		apple_count++;
 	}
 }
 
@@ -237,35 +253,37 @@ void GameScreen::SetApple(){
 	float bottom = game->GetHeight() - 4 * apple->GetRadius();
 	float left = 4 * apple->GetRadius();
 	float right = game->GetWidth() - 4 * apple->GetRadius();
-	Point apple_pos;
-	bool onSnake = true;
-	while(onSnake) {
-		onSnake = false;
+	Point applePos;
+	bool onCollision = true;
+	while(onCollision) {
+		onCollision = false;
 		int randX = (int)(right - left);
 		int randY = (int)(bottom - top);
-		apple_pos.x = (float)(rand() % randX) + left;
-		apple_pos.y = (float)(rand() % randY) + top;
-		onSnake = snake->OnCollision(apple_pos, apple->GetRadius());
+		applePos.x = (float)(rand() % randX) + left;
+		applePos.y = (float)(rand() % randY) + top;
+		for(GameObject* obj : game_objects){
+			if(CircleOnCollision(obj->GetPosition(), obj->GetRadius(), applePos, apple->GetRadius())){
+				onCollision = true;
+				break;
+			}
+		}
 	}
-	apple->SetPosition(apple_pos);
-	apples.push_back(apple);
+	apple->SetPosition(applePos);
 }
 
-void GameScreen::DrawApples(){
-	for(Apple* apple : apples) {
-		apple->Draw();
-	}
+void GameScreen::IncreaseScore(int gain){
+	score += gain;
 }
 
 void GameScreen::DrawScore(){
 	static const Point pos(game->GetWidth() / 2 + 120, 50);
 	graphics->DrawImage(pos, score_img);
 	float offset = score_texter->GetWidth() / 2;
-	if(snake->GetScore() > 9)
+	if(score > 9)
 		offset = score_texter->GetWidth();
-	if(snake->GetScore() > 99)
+	if(score > 99)
 		offset = score_texter->GetWidth() * 2;
-	score_texter->DrawText(game->GetWidth() / 2 + 380 - offset, 20, to_string(snake->GetScore()));
+	score_texter->DrawText(game->GetWidth() / 2 + 380 - offset, 20, to_string(score));
 }
 
 void GameScreen::CalcInput(float sec){
@@ -279,26 +297,29 @@ void GameScreen::CalcInput(float sec){
 		float fingerAngle = Angle(control_pos, input->GetInput());
 		//determine in witch direction we need to move
 		float clockwise;
-		if( fingerAngle > snake->face_angle )
-			clockwise = 360 + snake->face_angle - fingerAngle;
+		if( fingerAngle > snake->Direction() )
+			clockwise = 360 + snake->Direction() - fingerAngle;
 		else 
-			clockwise = snake->face_angle - fingerAngle;
+			clockwise = snake->Direction() - fingerAngle;
 		float counterclockwise = 360 - clockwise;
 		//rotate snake head
 		if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
-			snake->face_angle = fingerAngle;
+			//snake->Direction() = fingerAngle;
+			snake->Rotate(fingerAngle);
 		} else {
 			if(counterclockwise < clockwise) 
-				snake->face_angle += snake->GetSpeedW() * sec;
+				//snake->Direction() += snake->GetSpeedW() * sec;
+				snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
 			else
-				snake->face_angle -= snake->GetSpeedW() * sec;
-			if(snake->face_angle >= 180.f)
-				snake->face_angle -= 360.f;
-			if(snake->face_angle <= -180.f)
-				snake->face_angle += 360.f;
+				snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+
+			if(snake->Direction() >= 180.f)
+				snake->Rotate(snake->Direction() - 360.f);
+			if(snake->Direction() <= -180.f)
+				snake->Rotate(snake->Direction() + 360.f);
 		}
 		//draw control elements
-		graphics->Rotate(control_facepointer, snake->face_angle);
+		graphics->Rotate(control_facepointer, snake->Direction());
 		graphics->DrawImage(control_pos, control_base);
 		graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
 	}else{
@@ -306,27 +327,50 @@ void GameScreen::CalcInput(float sec){
 		control_pos.y = 0;
 	}
 }
-
+/*
 bool GameScreen::SpiderOnCollision(){
 	Point spiderAhead(spider->GetPosition().x, spider->GetPosition().y);
 	spiderAhead.y += -spider->GetSpeedV() * sin(spider->GetAngle() / 180.0f * PI) * 0.1;
 	spiderAhead.x += spider->GetSpeedV() * cos(spider->GetAngle() / 180.0f * PI) * 0.1;
 	return snake->OnCollision(spiderAhead, spider->GetRadius());
+}*/
+
+void GameScreen::AddGameObject(GameObject* obj){
+	game_objects.push_back(obj);
+}
+
+void GameScreen::UpdateObjects(float sec){
+	auto it = game_objects.begin();
+	while (it != game_objects.end()){
+		if((*it)){
+			if(!(*it)->Deleted()){
+				(*it)->Update(sec);
+				(*it)->Draw();
+				it++;
+			}else{
+				delete (*it);
+				(*it) = NULL;
+			}
+		}else{
+			it = game_objects.erase(it);
+		}
+	}
 }
 
 GameScreen::~GameScreen(){
 	delete snake;
-	delete spider;
+	//delete spider;
 	Snake::Release();
 	Spider::Release();
 	Apple::Release();
+	Cactus::Release();
 
 	delete music;
 	delete game_over;
-	delete punch;
+	delete punch;/*
 	for(Apple* apple : apples){
 		delete apple;
-	}
+	}*/
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(score_img);
 	graphics->ReleaseImage(gameover_img);
@@ -348,8 +392,29 @@ void GameScreen::OnMenuClick(){
 
 void GameScreen::OnResumeClick(){
 	state = GameState::RUNNING;
+	OnStateChanged();
 }
 
 void GameScreen::OnRestartClick(){
 	Restart();
+}
+
+GameState GameScreen::GetGameState(){
+	return state;
+}
+
+void GameScreen::OnStateChanged(){
+	auto it = listeners.begin();
+	while (it != listeners.end()){
+		if((*it)){
+			(*it)->GameEventAccured(this, GameEvent::STATE_CHANGED);
+			it++;
+		}else{
+			it = listeners.erase(it);
+		}
+	}
+}
+
+void GameScreen::RegisterListener(GameListener* listener){
+	listeners.push_back(listener);
 }

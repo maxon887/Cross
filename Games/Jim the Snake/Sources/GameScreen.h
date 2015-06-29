@@ -23,17 +23,27 @@
 
 #include <list>
 
+class GameObject;
 class Snake;
 class Spider;
 class Apple;
+class Cactus;
+class GameScreen;
 
-enum class GameState{
+enum GameState{
 	RUNNING,
 	ONREADY,
 	PAUSED,
-	DEAD0,
-	DEAD1,
-	DEAD2
+	GAMEOVER
+};
+
+enum GameEvent{
+	STATE_CHANGED
+};
+
+class GameListener{
+public:
+	virtual void GameEventAccured(GameScreen* sender, GameEvent e);
 };
 
 class GameScreen : public Screen{
@@ -42,13 +52,20 @@ public:
 	void Start();
 	void Suspend();
 	void Update(float sec);
+	void AddGameObject(GameObject* gameObject);
+	void RegisterListener(GameListener* listener);
+	GameState GetGameState();
+	void IncreaseScore(int gain);
 	~GameScreen();
 private:
 	JimTheSnake* game;
 	GameState state;
+	list<GameObject*> game_objects;
+	list<GameListener*> listeners;
 	Snake* snake;
-	Spider* spider;
-	list<Apple*> apples;
+	int apple_count;
+	int score;
+	float onready_time;
 
 	Image* background;
 	Image* score_img;
@@ -68,21 +85,23 @@ private:
 
 	Texter* score_texter;
 
-	bool music_enable;
-	bool sound_enable;
-	float onready_time;
 	float centerW;
 	float centerH;
-	float time_dead01;
-	float time_dead02;
+	//float time_dead01;
+	//float time_dead02;
 
 	void Restart();
-	void DrawApples();
+	void CalcInput(float sec);
+
+	//void DrawApples();
 	void DrawScore();
+
 	void CalcApples(float sec);
 	void SetApple();
-	bool SpiderOnCollision();
-	void CalcInput(float delta);
+	//bool SpiderOnCollision();
+
+	void UpdateObjects(float sec);
+	void OnStateChanged();
 
 	void OnResumeClick();
 	void OnMenuClick();

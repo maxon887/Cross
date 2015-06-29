@@ -41,7 +41,8 @@ void Texter::DrawText(float x, float y, string text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
 	for(unsigned int i = 0; i < text.length(); i++){
-		graphics->DrawImage(x + i * GetWidth(), y, letters[text[i] - offset]);
+		//graphics->DrawImage(x + i * GetWidth(), y, letters[text[i] - offset]);
+		graphics->DrawImage(Point(x + i * GetWidth(), y), letters[text[i] - offset], 5);
 	}
 }
 

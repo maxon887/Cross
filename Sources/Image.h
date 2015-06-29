@@ -44,8 +44,10 @@ public:
     float angle;
 	int texWidth;
 	int texHeight;
+	//int layer;
     
 	Image(GLuint id, int texWidth, int texHeight, Rect region);
+	//Image(GLuint id, int texWidth, int texHeight, Rect region, int layer);
 	void Scale(float factor);
 	GLuint GetTextureID();
 	float* GetVertices();

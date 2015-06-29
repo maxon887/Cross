@@ -25,6 +25,9 @@ public:
 	float y;
 	Point();
 	Point(float x, float y);
+
+	bool operator == (const Point& p);
+	bool operator != (const Point& p);
 private:
 };
 

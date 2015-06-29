@@ -121,8 +121,8 @@ int cross::CrossMain(cross::Game* game, HINSTANCE instance, int winShow){
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
 	LauncherWIN* launcher = (LauncherWIN*)game->launcher;
 	launcher->SetHWND(wnd);
-	int winX = game->saver->LoadInt("WIN_POS_X");
-	int winY = game->saver->LoadInt("WIN_POS_Y");
+	int winX = game->saver->LoadInt("WIN_POS_X", 0);
+	int winY = game->saver->LoadInt("WIN_POS_Y", 0);
 	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;

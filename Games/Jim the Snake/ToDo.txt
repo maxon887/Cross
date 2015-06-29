@@ -6,3 +6,4 @@
 6. Double eat
 7. Game suspend
 8. Rotate snake sound
+9. Cactuses!

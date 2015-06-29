@@ -21,7 +21,7 @@
 #include "Point.h"
 #include "Image.h"
 
-namespace cross {
+#include <vector>
 
 #ifdef WIN
     #define glOrthof glOrtho
@@ -29,7 +29,18 @@ namespace cross {
     #undef LoadImage
 #endif
 
+namespace cross {
+
 class Game;
+
+struct Drawable{
+	Image* img;
+	Point pos;
+	int layer;
+	bool operator < (const Drawable& rhs){
+		return layer < rhs.layer;
+	}
+};
 
 /* Class responsible for drawing objects into the sceen */
 class Graphics{
@@ -45,16 +56,20 @@ public:
 	Image* CreateImage(Image* src, Rect region);
 	/* Create Image from source with sacale factor. Data do not copy. */
 	Image* CreateImage(Image* src, Rect region, float scaleFactor);
+	//Image* CreateImage(Image* src, Rect region, float scaleFactor, int layer);
 	/* Load Image from file */
 	Image* LoadImage(string filename);
+	//Image* LoadImage(string filename, int layer);
 	/* Load scaled image from file */
 	Image* LoadImage(string filename, float scaleFactor);
+	//Image* LoadImage(string filename, float scaleFactor, int layer);
 	/* Delete all data related with Image */
 	void ReleaseImage(Image* img);
 	/* Load image filled with images */
 	Image* LoadRepeatedImage(string filename, float width, float height);
 	/* Load scaled image filled with images */
 	Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor);
+	//Image* LoadRepeatedImage(string filename, float width, float height, float scaleFactor, int layer);
 	void DrawPixel(Point p, Color c);
 	void DrawPixel(Point p, float r, float g, float b);
 	void DrawLine(Point p1, Point p2, Color c);
@@ -67,9 +82,11 @@ public:
 	void DrawImage(float x, float y, Image* img);
 	/* Draws Image in game coordinates */
 	void DrawImage(Point p, Image* img);
+	void DrawImage(Point p, Image* img, int layer);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Graphics(Game* game);
+	void Update();
 private:
 	unsigned char* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
 	void DrawTargetImage(float x, float y, Image* img);
@@ -77,6 +94,8 @@ private:
 	Game* game;
 	Launcher* launcher;
 	GLint prev_texID;
+	vector<Drawable> layers[10];
+	//list<Drawable> drawbles;
 };
     
 }
