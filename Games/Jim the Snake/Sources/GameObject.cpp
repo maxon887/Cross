@@ -15,19 +15,33 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "GameObject.h"
 
-namespace cross{
+JimTheSnake*	GameObject::game = NULL;
+GameScreen*		GameObject::screen = NULL;
+Graphics*		GameObject::graphics = NULL;
 
-class Point{
-public:
-	float x;
-	float y;
-	Point();
-	Point(float x, float y);
-	bool operator == (const Point& p);
-	bool operator != (const Point& p);
-private:
-};
+void GameObject::Init(JimTheSnake* game){
+	GameObject::game = game;
+	GameObject::graphics = game->graphics;
+	GameObject::screen = dynamic_cast<GameScreen*>(game->GetCurrentScreen());
+	if(!screen){
+		throw string("Game object must be initialized under GameScreen");
+	}
+}
 
+GameObject::GameObject(){
+	SetPosition(Point(0, 0));
+}
+
+GameObject::GameObject(Point pos){
+	SetPosition(pos);
+}
+
+void GameObject::SetPosition(Point pos){
+	this->position = pos;
+}
+
+Point GameObject::GetPosition(){
+	return position;
 }

@@ -99,7 +99,6 @@ void Game::Update(){
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
-		graphics->Update();
 		//GetCurrentScreen()->Update(0.02f);
 		now = high_resolution_clock::now();
 		long long up = duration_cast<microseconds>(now - render_time).count();

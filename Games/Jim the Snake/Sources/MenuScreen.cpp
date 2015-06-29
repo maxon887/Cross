@@ -33,14 +33,14 @@ void MenuScreen::Start(){
 	//image loading
 	background = graphics->LoadImage("Menu/Background.png");
 	sun = graphics->LoadImage("Menu/Sun.jpg");
-	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png");
+	bestscore = graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
 	jimthesnake = graphics->LoadImage("Menu/JimTheSnakeLabel.png");
 	Image* playUp = graphics->LoadImage("Menu/PlayButtonUp.png");
 	Image* playDown = graphics->LoadImage("Menu/PlayButtonDown.png");
-	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png");
-	Image* soundDown = graphics->LoadImage("Menu/SoundDown.png");
-	Image* musicUp = graphics->LoadImage("Menu/MusicUp.png");
-	Image* musicDown = graphics->LoadImage("Menu/MusicDown.png");
+	Image* soundUp = graphics->LoadImage("Menu/SoundUp.png", game->GetScaleFactor() * 1.2f);
+	Image* soundDown = graphics->LoadImage("Menu/SoundDown.png", game->GetScaleFactor() * 1.2f);
+	Image* musicUp = graphics->LoadImage("Menu/MusicUp.png", game->GetScaleFactor() * 1.2f);
+	Image* musicDown = graphics->LoadImage("Menu/MusicDown.png", game->GetScaleFactor() * 1.2f);
 	//positioning
 	float scaleFactor = 0;
 	float imageAspect = background->GetWidth() / background->GetHeight();

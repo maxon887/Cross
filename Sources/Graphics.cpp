@@ -38,11 +38,7 @@ Graphics::Graphics(Game* game){
 	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrthof(0, launcher->GetTargetWidth(), launcher->GetTargetHeight(), 0, 10, -10);
-
-	//glEnable(GL_DEPTH_TEST);
-	//glAlphaFunc(GL_NOTEQUAL, 0);
-	//glEnable(GL_ALPHA_TEST);
+	glOrthof(0, launcher->GetTargetWidth(), launcher->GetTargetHeight(), 0, 1, -1);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -57,8 +53,8 @@ void Graphics::Clear(Color c){
 
 void Graphics::Clear(float r, float g, float b){
 	glClearColor(r, g, b, 1);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	//glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Graphics::ScaleImage(Image* img, float factor){
@@ -71,11 +67,7 @@ void Graphics::Rotate(Image* img, float angle){
 
 Image* Graphics::CreateImage(Image* src, Rect reg){
 	return CreateImage(src, reg, game->GetScaleFactor());
-}
-/*
-Image* Graphics::CreateImage(Image* src, Rect region, float scaleFactor){
-	return CreateImage(src, region, scaleFactor, 0);
-}*/
+} 
 
 Image* Graphics::CreateImage(Image* src, Rect region, float scaleFactor){
 	if(src == NULL)
@@ -89,11 +81,7 @@ Image* Graphics::CreateImage(Image* src, Rect region, float scaleFactor){
 Image* Graphics::LoadImage(string filename){
 	return LoadImage(filename, game->GetScaleFactor());
 }
-/*
-Image* Graphics::LoadImage(string filename, float scaleFactor){
-	return LoadImage(filename, scaleFactor, 0);
-}
-*/
+
 Image* Graphics::LoadImage(string filename, float scaleFactor){
 	Debuger::StartCheckTime();
 	GLuint textureID;
@@ -148,10 +136,6 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 Image* Graphics::LoadRepeatedImage(string filename, float w, float h){
 	return LoadRepeatedImage(filename, w, h, game->GetScaleFactor());
 }
-/*
-Image* Graphics::LoadRepeatedImage(string filename, float w, float h, float scaleFactor){
-	return LoadRepeatedImage(filename, w, h, scaleFactor, 0);
-}*/
 
 Image* Graphics::LoadRepeatedImage(string filename, float w, float h, float scaleFactor){
 	Debuger::StartCheckTime();
@@ -226,13 +210,12 @@ void Graphics::DrawLine(Point p1, Point p2, float r, float g, float b){
 	p1.y *= game->GetScaleFactor();
 	p2.x *= game->GetScaleFactor();
 	p2.y *= game->GetScaleFactor();
-	float vertices[] = { p1.x, p1.y, -5, p2.x, p2.y, -5};
+	float vertices[] = { p1.x, p1.y, p2.x, p2.y };
 	float colors[] = { r, g, b, 1, r, g, b, 1 };
 	static const unsigned short indices[] = { 0, 1 };
 	glLoadIdentity();
-
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
+	glVertexPointer(2, GL_FLOAT, 0, vertices);
 
 	glEnableClientState(GL_COLOR_ARRAY);
 	glColorPointer(4, GL_FLOAT, 0, colors);
@@ -318,24 +301,12 @@ void Graphics::DrawImage(float x, float y, Image* img){
 	x = x * game->GetScaleFactor();
 	y = y * game->GetScaleFactor();
 	DrawTargetImage(x + .5f, y + .5f, img);
-	//DrawImage(Point(x + .5f, y + .5f), img, 0);
 }
 
 void Graphics::DrawImage(Point p, Image* img){
 	p.x = p.x * game->GetScaleFactor();
 	p.y = p.y * game->GetScaleFactor();
 	DrawTargetImage(p.x, p.y, img);
-	//DrawImage(p, img, 0);
-}
-
-void Graphics::DrawImage(Point p, Image* img, int layer){
-	p.x = p.x * game->GetScaleFactor();
-	p.y = p.y * game->GetScaleFactor();
-	Drawable d;
-	d.img = img;
-	d.pos = p;
-	d.layer = layer;
-	layers[layer].push_back(d);
 }
 
 void Graphics::DrawTargetImage(float x, float y, Image* img){
@@ -347,7 +318,6 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 		prev_texID = img->GetTextureID();
 		//glDisable(GL_TEXTURE_2D);
 	}
-
 	glEnable(GL_TEXTURE_2D);
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -386,15 +356,6 @@ void Graphics::DrawTargetPixel(Point p, float r, float g, float b){
     glColorPointer(4, GL_FLOAT, 0, colors);
     
     glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
+    
     //glDisableClientState(GL_COLOR_ARRAY);
-}
-
-void Graphics::Update(){
-	//drawbles.sort();
-	for(int i = 0; i < 10; i++){
-		for(Drawable d : layers[i]){
-			DrawTargetImage(d.pos.x, d.pos.y, d.img);
-		}
-		layers[i].clear();
-	}
 }

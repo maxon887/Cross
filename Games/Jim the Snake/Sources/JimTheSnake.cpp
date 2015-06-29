@@ -31,9 +31,9 @@ JimTheSnake::JimTheSnake(Launcher* launcher):Game(launcher, GAME_WIDTH){
 
 void JimTheSnake::Start(){
 	launcher->LogIt("SnakyGame->Start()");
-	music = saver->LoadBool(PROPERTY_MUSIC, true);
-	sound = saver->LoadBool(PROPERTY_SOUND, true);
-	score = saver->LoadInt(PROPERTY_SCORE, 0);
+	music = saver->LoadBool(PROPERTY_MUSIC);
+	sound = saver->LoadBool(PROPERTY_SOUND);
+	score = saver->LoadInt(PROPERTY_SCORE);
 	Game::Start();
 }
 

@@ -33,7 +33,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\Apple.cpp" />
-    <ClCompile Include="..\..\Sources\Cactus.cpp" />
     <ClCompile Include="..\..\Sources\GameObject.cpp" />
     <ClCompile Include="..\..\Sources\GameScreen.cpp" />
     <ClCompile Include="..\..\Sources\MenuScreen.cpp" />
@@ -74,7 +73,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\Apple.h" />
-    <ClInclude Include="..\..\Sources\Cactus.h" />
     <ClInclude Include="..\..\Sources\Eatable.h" />
     <ClInclude Include="..\..\Sources\GameObject.h" />
     <ClInclude Include="..\..\Sources\GameScreen.h" />

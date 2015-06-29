@@ -84,22 +84,22 @@ string Saver::LoadString(string key){
 	return value;
 }
 
-int Saver::LoadInt(string key, int def){
+int Saver::LoadInt(string key){
 	string strValue = LoadString(key);
 	if(strValue.empty())
-		return def;
+		return 0;
 	int ret = atoi(strValue.c_str());
 	return ret;
 }
 
-float Saver::LoadFloat(string key, float def){
+float Saver::LoadFloat(string key){
 	string strValue = LoadString(key);
 	if(strValue.empty())
-		return def;
+		return 0;
 	float ret = (float)atof(strValue.c_str());
 	return ret;
 }
 
-bool Saver::LoadBool(string key, bool def){
-	return LoadInt(key, def) != 0;
+bool Saver::LoadBool(string key){
+	return LoadInt(key) != 0;
 }

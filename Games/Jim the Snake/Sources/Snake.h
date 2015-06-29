@@ -16,8 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "GameObject.h"
 #include "JimTheSnake.h"
+#include "GameObject.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Animation.h"
@@ -26,95 +26,61 @@
 class Body : public GameObject{
 public:
 	static Image* img;
-	Body(Point pos):GameObject(pos){
-		big = false;
-	}
-	float GetRadius(){
-		return 26.f;
-	}
-	void Draw(){
-		if(!big){
-			graphics->ScaleImage(img, game->GetScaleFactor());
-		}else{
-			graphics->ScaleImage(img, game->GetScaleFactor() * 1.2f);
-		}
-		graphics->DrawImage(position, img);
-	}
+	Body(Point pos);
+	float GetRadius();
+	bool Update(float sec);
+	void Draw();
+	void SetBig();
+	void SetNext(Body* next);
+private:
 	bool big;
+	float time_left;
+	Body* next;
 };
 
 class Snake : public GameObject{
 public:
 	static void Init();
 	static void Release();
-	
 	Snake();
-	float GetSpeedW();
 	float Direction();
 	void Rotate(float angle);
 	float GetRadius();
 	void Update(float sec);
 	void Draw();
-private:
-	static const float speedV;
-	static const float speedW;
-	static const float nod_length;
-	static Animation* bottom_anim;
-	static Animation* top_anim;
-	static Image* dead_face;
-	static Image* star_img;
-	float angle;
-	bool dead;
+	~Snake();
 
-	vector<Point> body_path;
-	vector<Body*> body_nodes;
-	float body_length;
-	/*
-	float face_angle;
-	Snake();
 	int GetScore();
 	bool OnCollision(Point center, float radius);
 	void EatableNear(Eatable* eatable);
 	void DrawFace(float sec);
 	void DrawFaceDeadST0();
 	void DrawFaceDeadST1(float sec);
-	void CalcHead(float sec);
 	void DrawBody(float sec);
 	bool OnBiteYouself();
 	bool OnBorder();
 	float GetSpeedW();
 private:
-	enum SnakeState{
-		ALIVE,
-		DEAD0,
-		DEAD1
-	};
-	static JimTheSnake* game;
-	static Graphics* graphics;
-
-	//static const float face_radius;
-	//static const float body_radius;
 	static const float speedV;
 	static const float speedW;
 	static const float nod_length;
 	static const float star_speedW;
-	static Image* body_img;
+
+	static Animation* face_bottom_anim;
+	static Animation* face_top_anim;
+	static Image* face_dead;
 	static Image* star_img;
 
 	static Audio* eat_snd;
 
-	void CalcBigNodes(float sec);
-
-	SnakeState state;
-	Head* head;
-	int score;
-	//Point face_pos;
-	vector<Point> body_path;
-	vector<Body> body_nodes;
+	float angle;
 	float body_length;
-	list<int> big_nodes;
-	float body_time_left;
+	bool dead;
+	vector<Point> body_path;
+	vector<Body*> body_nodes;
+
+	int score;
 	float eatable_time_left;
 	float star_angle;
-	Eatable* near_eatable;*/
+	Eatable* near_eatable;
 };

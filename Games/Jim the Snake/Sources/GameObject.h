@@ -16,18 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+#include "GameScreen.h"
 
-namespace cross{
-
-class Point{
+class GameObject{
 public:
-	float x;
-	float y;
-	Point();
-	Point(float x, float y);
-	bool operator == (const Point& p);
-	bool operator != (const Point& p);
-private:
+	static void Init(JimTheSnake* game);
+	GameObject();
+	GameObject(Point pos);
+	virtual float GetRadius() = 0;
+	virtual void SetPosition(Point pos);
+	virtual Point GetPosition();
+	virtual ~GameObject() { };
+protected:
+	static JimTheSnake* game;
+	static GameScreen* screen;
+	static Graphics* graphics;
+	Point position;
 };
-
-}

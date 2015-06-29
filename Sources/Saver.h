@@ -44,12 +44,12 @@ public:
 	string LoadString(string key);
 	//Load int property from string key.
 	//Return 0 if can't find key
-	int LoadInt(string key, int def);
+	int LoadInt(string key);
 	//Load float property from string key.
 	//Return 0 if can't find key
-	float LoadFloat(string key, float def);
+	float LoadFloat(string key);
 
-	bool LoadBool(string key, bool def);
+	bool LoadBool(string key);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Saver(Game* game);
