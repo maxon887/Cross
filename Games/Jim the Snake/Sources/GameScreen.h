@@ -44,6 +44,8 @@ public:
 
 	void SetState(GameState newState);
 	GameState GetState();
+	list<Apple*>& GetApples();
+	void MusicStop();
 private:
 	JimTheSnake* game;
 	GameState state;
@@ -60,7 +62,6 @@ private:
 	Image* ready_img;
 
 	Audio* music;
-	Audio* punch;
 	Audio* game_over;
 
 	Button* resume_btn;
@@ -78,7 +79,6 @@ private:
 	float time_dead02;
 
 	void Restart();
-	void DrawApples();
 	void DrawScore();
 	void CalcApples(float sec);
 	void SetApple();

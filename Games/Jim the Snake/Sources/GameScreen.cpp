@@ -32,8 +32,8 @@ GameScreen::GameScreen(JimTheSnake* game):Screen(game){
 void GameScreen::Start(){
 	GameObject::Init(game);
 	Snake::Init();
+	Apple::Init();
 	Spider::Init(game);
-	Apple::Init(game);
 	snake = NULL;
 	spider = NULL;
 	//image loading
@@ -60,11 +60,6 @@ void GameScreen::Start(){
 	}else{
 		music = NULL;
 		game_over = NULL;
-	}
-	if(game->IsSoundEnabled()){
-		punch = new Audio("Game/Punch.wav", false, false);
-	}else{
-		punch = NULL;
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 	snake = NULL;
@@ -100,13 +95,82 @@ void GameScreen::Restart(){
 }
 
 void GameScreen::Suspend(){
-	state = GameState::PAUSED;
+	if(state != GameState::GAMEOVER){
+		state = GameState::PAUSED;
+	}
 }
 
 void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
+	auto it = apples.begin();
+	while(it != apples.end()) {
+		if(!(*it)->Eaten()) {
+			(*it)->Update(sec);
+			(*it)->Draw();
+			it++;
+		} else {
+			delete *it;
+			*it = NULL;
+			it = apples.erase(it);
+			int roll = rand() % 101;
+			if(roll > 20) {
+				spider->Start();
+			}
+		}
+	}
 	snake->Update(sec);
+	snake->Draw();
+	switch (state) {
+	case GameState::ONREADY:
+		graphics->DrawImage(centerW, centerW, ready_img);
+		onready_time -= sec;
+		if(onready_time < 0 || input->HaveInput()){
+			state = GameState::RUNNING;
+		}
+		break;
+	case GameState::RUNNING:{
+		static bool down = false;
+		CalcApples(sec);
+		CalcInput(sec);
+		DrawScore();
+		if(input->HaveKey() && input->GetKey() == Key::PAUSE){
+			down = true;
+		}
+		if(down && !input->HaveKey()){
+			state = GameState::PAUSED;
+			music->Pause();
+			down = false;
+		}
+		}break;
+	case GameState::PAUSED:{
+			static bool down = false;
+			DrawScore();
+			graphics->DrawImage(450, centerH - 250, pause_img);
+			if(input->HaveKey() && input->GetKey() == Key::PAUSE){
+				down = true;
+			}
+			if(down && !input->HaveKey()){
+				state = GameState::RUNNING;
+				music->Play();
+				down = false;
+			}
+			resume_btn->Update();
+			menu_btn->Update();
+		}break;
+	case GameState::GAMEOVER:
+		//spider->Update(sec, apples);
+		CalcApples(sec);
+		//snake->DrawFaceDeadST1(sec);
+		graphics->DrawImage(450, centerH - 340, gameover_img);
+		graphics->DrawImage(300, centerH - 210, score_img);
+		score_texter->DrawText(520, centerH - 255, to_string(snake->GetScore()));
+		restart_btn->Update();
+		menu_btn->Update();
+		break;
+	default:
+		break;
+	}
 	/*
 	DrawApples();
 	spider->Draw();
@@ -215,6 +279,14 @@ GameState GameScreen::GetState(){
 	return state;
 }
 
+list<Apple*>& GameScreen::GetApples(){
+	return apples;
+}
+
+void GameScreen::MusicStop(){
+	music->Stop();
+}
+
 void GameScreen::CalcApples(float sec){
 	static float next_apple = 0; 
 	if(next_apple <= 0) {
@@ -225,22 +297,6 @@ void GameScreen::CalcApples(float sec){
 	}
 	if(apples.size() == 0)
 		SetApple();
-	auto it = apples.begin();
-	while(it != apples.end()){
-		if(!(*it)->Eaten()){
-			snake->EatableNear(*it);
-			(*it)->Update(sec);
-			it++;
-		} else {
-			delete *it;
-			*it = NULL;
-			it = apples.erase(it);
-			int roll = rand() % 101;
-			if(roll > 20){
-				spider->Start();
-			}
-		}
-	}
 }
 
 void GameScreen::SetApple(){
@@ -261,12 +317,6 @@ void GameScreen::SetApple(){
 	}
 	apple->SetPosition(apple_pos);
 	apples.push_back(apple);
-}
-
-void GameScreen::DrawApples(){
-	for(Apple* apple : apples) {
-		apple->Draw();
-	}
 }
 
 void GameScreen::DrawScore(){
@@ -321,8 +371,8 @@ void GameScreen::CalcInput(float sec){
 
 bool GameScreen::SpiderOnCollision(){
 	Point spiderAhead(spider->GetPosition().x, spider->GetPosition().y);
-	spiderAhead.y += -spider->GetSpeedV() * sin(spider->GetAngle() / 180.0f * PI) * 0.1;
-	spiderAhead.x += spider->GetSpeedV() * cos(spider->GetAngle() / 180.0f * PI) * 0.1;
+	spiderAhead.y += -spider->GetSpeedV() * sin(spider->GetAngle() / 180.0f * PI) * 0.1f;
+	spiderAhead.x += spider->GetSpeedV() * cos(spider->GetAngle() / 180.0f * PI) * 0.1f;
 	return snake->OnCollision(spiderAhead, spider->GetRadius());
 }
 
@@ -335,7 +385,7 @@ GameScreen::~GameScreen(){
 
 	delete music;
 	delete game_over;
-	delete punch;
+	//delete punch;
 	for(Apple* apple : apples){
 		delete apple;
 	}
@@ -355,6 +405,7 @@ GameScreen::~GameScreen(){
 }
 
 void GameScreen::OnMenuClick(){
+	game_over->Stop();
 	game->SetScreen(new MenuScreen(game));
 }
 

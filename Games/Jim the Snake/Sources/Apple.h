@@ -28,27 +28,27 @@ enum class AppleState {
 
 class Apple : public Eatable{
 public:
-	static void Init(Game* game);
+	static void Init();
 	static void Release();
 	Apple();
 	int Eat();
 	bool Eaten();
 	void Draw();
-	void SetPosition(Point pos);
-	Point GetPosition();
+	//void SetPosition(Point pos);
+	//Point GetPosition();
 	float GetRadius();
 	void Update(float sec);
 private:
-	static Graphics* graphics;
-	static Game* game;
+	//static Graphics* graphics;
+	//static Game* game;
 	static Image* fresh_img;
 	static Image* rot_img;
 	static Image* dead_img;
 
-	static const float radius;
+	//static const float radius;
 
 	AppleState state;
-	Point pos;
+	//Point pos;
 	float angle;
 	float life_time;
 };

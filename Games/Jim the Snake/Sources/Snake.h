@@ -53,10 +53,9 @@ public:
 	int GetScore();
 	bool OnCollision(Point center, float radius);
 	void EatableNear(Eatable* eatable);
-	void DrawFace(float sec);
+	void DrawFace();
 	void DrawFaceDeadST0();
-	void DrawFaceDeadST1(float sec);
-	void DrawBody(float sec);
+	void DrawFaceDeadST1();
 	bool OnBiteYouself();
 	bool OnBorder();
 	float GetSpeedW();
@@ -72,12 +71,16 @@ private:
 	static Image* star_img;
 
 	static Audio* eat_snd;
+	static Audio* punch;
 
 	float angle;
 	float body_length;
+	float dead_time;
 	bool dead;
 	vector<Point> body_path;
 	vector<Body*> body_nodes;
+
+	void UpdateAndDrawBody(float sec);
 
 	int score;
 	float eatable_time_left;

@@ -53,7 +53,7 @@ bool Animation::IsRunning(){
 Animation::~Animation(){
 	for(unsigned int i = 0; i < frames.size(); i++){
 		if(frames[i] != NULL){
-			for(int j = i+1; j < frames.size(); j++){
+			for(unsigned int j = i+1; j < frames.size(); j++){
 				if(frames[i] == frames[j]){
 					frames[j] = NULL;
 				}

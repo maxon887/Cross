@@ -18,16 +18,16 @@
 #include "Apple.h"
 #include <stdlib.h>
 
-const float Apple::radius = 12.f;
-Graphics*	Apple::graphics = NULL;
-Game*		Apple::game = NULL;
+//const float Apple::radius = 12.f;
+//Graphics*	Apple::graphics = NULL;
+//Game*		Apple::game = NULL;
 Image*		Apple::fresh_img = NULL;
 Image*		Apple::rot_img = NULL;
 Image*		Apple::dead_img = NULL;
 
-void Apple::Init(Game* game){
-	Apple::game = game;
-	Apple::graphics = game->graphics;
+void Apple::Init(){
+	//Apple::game = game;
+	//Apple::graphics = game->graphics;
 	Apple::fresh_img = graphics->LoadImage("Game/AppleFresh.png");
 	Apple::rot_img = graphics->LoadImage("Game/AppleRot.png");
 	Apple::dead_img = graphics->LoadImage("Game/AppleDead.png");
@@ -44,6 +44,7 @@ Apple::Apple(){
 		throw string("Class Apple needs to be initialized staticly");
 	this->angle = (float)(rand()%360);
 	life_time = 15;
+	state = AppleState::FRESH;
 }
 
 int Apple::Eat(){
@@ -87,19 +88,11 @@ void Apple::Draw(){
 		throw string("Unexpected apple behavior");
 	}
 	graphics->Rotate(current, angle);
-	graphics->DrawImage(pos, current);
-}
-
-void Apple::SetPosition(Point pos){
-	this->pos = pos;
-}
-
-Point Apple::GetPosition(){
-	return pos;
+	graphics->DrawImage(GetPosition(), current);
 }
 
 float Apple::GetRadius(){
-	return radius;
+	return 12.f;
 }
 
 void Apple::Update(float sec){

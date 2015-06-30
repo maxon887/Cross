@@ -75,6 +75,7 @@ Image*			Snake::face_dead		= NULL;
 Animation*		Snake::face_bottom_anim	= NULL;
 Animation*		Snake::face_top_anim	= NULL;
 Audio*			Snake::eat_snd			= NULL;
+Audio*			Snake::punch			= NULL;
 
 void Snake::Init(){
 	Body::img = graphics->LoadImage("Game/Body.png");
@@ -122,6 +123,7 @@ void Snake::Init(){
 
 	if(game->IsSoundEnabled()){
 		eat_snd = new Audio("Game/Eat.wav", false, false);
+		punch = new Audio("Game/Punch.wav", false, false);
 	}
 }
 
@@ -132,13 +134,16 @@ void Snake::Release(){
 	delete face_bottom_anim;
 	delete face_top_anim;
 	delete eat_snd;
+	delete punch;
 }
 
 Snake::Snake():GameObject(Point(200, 400)){
 	score = 0;
 	angle = 0;
 	star_angle = 0;
+	eatable_time_left = -1;
 	body_length = 150.f;
+	dead_time = 0;
 	dead = false;
 	near_eatable = NULL;
 	body_path.clear();
@@ -151,7 +156,9 @@ float Snake::Direction(){
 }
 
 void Snake::Rotate(float angle){
-	this->angle = angle;
+	if(!dead){
+		this->angle = angle;
+	}
 }
 
 float Snake::GetRadius(){
@@ -159,6 +166,7 @@ float Snake::GetRadius(){
 }
 
 void Snake::Update(float sec){
+	UpdateAndDrawBody(sec);
 	switch (screen->GetState())
 	{
 	case GameState::ONREADY:
@@ -171,14 +179,54 @@ void Snake::Update(float sec){
 			p.x += speedV * cos(angle / 180.f * PI) * sec;
 			p.y += -speedV * sin(angle / 180.f * PI) * sec;
 			SetPosition(p);
+			if(eatable_time_left > 0 && near_eatable != NULL){
+				eatable_time_left -= sec;
+				if(eatable_time_left < 0){
+					body_nodes[0]->SetBig();
+					score += near_eatable->Eat();
+					near_eatable = NULL;
+				}
+			}
+			list<Apple*>& apples = screen->GetApples();
+			auto it = apples.begin();
+			while(it != apples.end()){
+				EatableNear(*it);
+				it++;
+			}
+			if(OnBorder() || OnBiteYouself()){
+				if(GetScore() > game->BestScore()){
+					game->SetBestScore(GetScore());
+				}
+				dead = true;
+				screen->MusicStop();
+				punch->Play();
+			}
+		}else{
+			dead_time += sec;
 		}
 		break;
 	case GameState::PAUSED:
 		break;
 	case GameState::GAMEOVER:
+		star_angle += star_speedW * sec;
 		break;
 	default:
 		break;
+	}
+}
+
+void Snake::Draw(){
+	if(!dead){
+		DrawFace();
+	}else{
+		if(dead_time < 1.f){
+			DrawFaceDeadST0();
+		}else{
+			DrawFaceDeadST1();
+			if(screen->GetState() != GameState::GAMEOVER){
+				screen->SetState(GameState::GAMEOVER);
+			}
+		}
 	}
 }
 
@@ -217,18 +265,12 @@ void Snake::EatableNear(Eatable* eatable){
 	}
 }
 
-void Snake::DrawFace(float sec){
+void Snake::DrawFace(){
 	Image* face = face_bottom_anim->GetImage();
 	graphics->Rotate(face, angle + 90.f);
 	graphics->DrawImage(GetPosition(), face);
-
-	if(eatable_time_left > 0 && near_eatable != NULL){
+	if(near_eatable != NULL){
 		near_eatable->Draw();
-		eatable_time_left -= sec;
-		if(eatable_time_left < 0){
-			body_nodes[0]->SetBig();
-			score += near_eatable->Eat();
-		}
 	}
 	face = face_top_anim->GetImage();
 	graphics->Rotate(face, angle + 90.f);
@@ -240,7 +282,7 @@ void Snake::DrawFaceDeadST0(){
 	graphics->DrawImage(GetPosition(), face_dead);
 }
 
-void Snake::DrawFaceDeadST1(float sec){
+void Snake::DrawFaceDeadST1(){
 	DrawFaceDeadST0();
 	Point stPos;
 	for(int i = 0; i < 6; i++){
@@ -250,22 +292,16 @@ void Snake::DrawFaceDeadST1(float sec){
 		stPos.y += GetPosition().y;
 		graphics->DrawImage(stPos, star_img);
 	}
-	star_angle += star_speedW * sec;
 }
 
-void Snake::DrawBody(float sec){
+void Snake::UpdateAndDrawBody(float sec){
 	Point first = body_path[0];
 	if(first != GetPosition()){
 		body_path.insert(body_path.begin(), GetPosition());
 	}
-	for(Body* b : body_nodes){
-		if(b->Update(sec)){
-			body_length += nod_length;
-		}
-	}
 	//drawing body nodes
 	float pathLen = 0;
-	int nodIndex = 1;
+	unsigned int nodIndex = 1;
 	for(unsigned int i = 0; i < body_path.size() - 1; i++){
 		Point curr = body_path[i];
 		Point next = body_path[i + 1];
@@ -293,6 +329,9 @@ void Snake::DrawBody(float sec){
 					Body* node = body_nodes[nodIndex];
 					node->SetPosition(Point(x, y));
 					node->Draw();
+					if(node->Update(sec)){
+						body_length += nod_length;
+					}
 				}
 				nodIndex++;
 				l += nod_length;
@@ -309,7 +348,7 @@ void Snake::DrawBody(float sec){
 }
 
 bool Snake::OnBiteYouself(){
-	for(int i = 2; i < body_nodes.size(); i++){
+	for(unsigned int i = 2; i < body_nodes.size(); i++){
 		Body* b = body_nodes[i];
 		if(CircleOnCollision(b->GetPosition(), b->GetRadius(), GetPosition(), GetRadius())){
 			return true;

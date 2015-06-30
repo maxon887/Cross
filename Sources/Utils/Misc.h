@@ -22,7 +22,7 @@
 
 namespace cross {
 
-#define PI (3.141592653589793)
+#define PI (3.141592653589793f)
 
 bool PointInRect(Point p, Rect rect);
 bool PointInTriangle(Point pt, Point v1, Point v2, Point v3);
