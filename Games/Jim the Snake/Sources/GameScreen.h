@@ -37,21 +37,26 @@ enum class GameState{
 class GameScreen : public Screen{
 public:
 	GameScreen(JimTheSnake* game);
-	void Start();
-	void Suspend();
-	void Update(float sec);
 	~GameScreen();
 
-	void SetState(GameState newState);
+	void Start();
+	void Update(float sec);
+	void Suspend();
+
 	GameState GetState();
+	void SetState(GameState newState);
+	int GetScore();
+	void SetScore(int score);
 	list<Apple*>& GetApples();
+	list<Spider*>& GetSpiders();
 	void MusicStop();
 private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
-	Spider* spider;
+	//Spider* spider;
 	list<Apple*> apples;
+	list<Spider*> spiders;
 
 	Image* background;
 	Image* score_img;
@@ -72,18 +77,20 @@ private:
 
 	bool music_enable;
 	bool sound_enable;
+	int score;
 	float onready_time;
 	float centerW;
 	float centerH;
-	float time_dead01;
-	float time_dead02;
 
 	void Restart();
-	void DrawScore();
-	void CalcApples(float sec);
+	void UpdateApples(float sec);
+	void DrawApples();
+	void UpdateSpiders(float sec);
+	void DrawSpiders();
 	void SetApple();
-	bool SpiderOnCollision();
-	void CalcInput(float delta);
+	void DrawScore();
+	void CalcInput(float sec);
+	//bool SpiderOnCollision();
 
 	void OnResumeClick();
 	void OnMenuClick();

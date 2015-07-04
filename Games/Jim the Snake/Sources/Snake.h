@@ -17,47 +17,27 @@
 	
 #pragma once
 #include "JimTheSnake.h"
-#include "GameObject.h"
+#include "Body.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Animation.h"
 #include "Eatable.h"
 
-class Body : public GameObject{
-public:
-	static Image* img;
-	Body(Point pos);
-	float GetRadius();
-	bool Update(float sec);
-	void Draw();
-	void SetBig();
-	void SetNext(Body* next);
-private:
-	bool big;
-	float time_left;
-	Body* next;
-};
-
 class Snake : public GameObject{
 public:
 	static void Init();
 	static void Release();
+
 	Snake();
-	float Direction();
-	void Rotate(float angle);
-	float GetRadius();
-	void Update(float sec);
-	void Draw();
 	~Snake();
 
-	int GetScore();
+	float GetRadius();
+
+	float Direction();
+	void Rotate(float angle);
+	void Update(float sec);
+	void Draw();
 	bool OnCollision(Point center, float radius);
-	void EatableNear(Eatable* eatable);
-	void DrawFace();
-	void DrawFaceDeadST0();
-	void DrawFaceDeadST1();
-	bool OnBiteYouself();
-	bool OnBorder();
 	float GetSpeedW();
 private:
 	static const float speedV;
@@ -73,17 +53,19 @@ private:
 	static Audio* eat_snd;
 	static Audio* punch;
 
+	bool dead;
 	float angle;
 	float body_length;
 	float dead_time;
-	bool dead;
-	vector<Point> body_path;
-	vector<Body*> body_nodes;
-
-	void UpdateAndDrawBody(float sec);
-
-	int score;
 	float eatable_time_left;
 	float star_angle;
 	Eatable* near_eatable;
+	vector<Point> body_path;
+	vector<Body*> body_nodes;
+
+	bool OnBiteYouself();
+	bool OnBorder();
+	void UpdateBody(float sec);
+	void DrawBody();
+	void EatableNear(Eatable* eatable);
 };

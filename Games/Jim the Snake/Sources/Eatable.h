@@ -26,7 +26,5 @@ public:
 	virtual int Eat() = 0;
 	virtual bool Eaten() = 0;
 	virtual void Draw() = 0;
-	//virtual Point GetPosition() = 0;
-	//virtual float GetRadius() = 0;
 	virtual ~Eatable() { };
 };

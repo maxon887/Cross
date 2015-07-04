@@ -109,6 +109,9 @@
     <ClCompile Include="..\..\Sources\GameObject.cpp">
       <Filter>Jim the Snake</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Body.cpp">
+      <Filter>Jim the Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
@@ -224,6 +227,9 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\GameObject.h">
+      <Filter>Jim the Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Body.h">
       <Filter>Jim the Snake</Filter>
     </ClInclude>
   </ItemGroup>

@@ -31,39 +31,35 @@ enum class SpiderState{
 
 class Spider : public Eatable{
 public:
-	static void Init(JimTheSnake* game);
+	static void Init();
 	static void Release();
 	Spider();
+	~Spider();
 	void Start();
 	int Eat();
 	bool Eaten();
 	void Draw();
-	void Update(float sec, list<Apple*> &apples);
+	void Update(float sec);
 	void Rotate(float deltaAngle);
 	float GetRadius();
-	Point GetPosition();
 	float GetAngle();
 	float GetSpeedV();
 private:
-	static JimTheSnake* game;
-	static Graphics* graphics;
+	static const float speedV;
+	static const float speedW;
+
 	static Animation* anim;
 	static Image* head;
 	static Image* body;
 	static Audio* run_snd;
 
-	static const float radius;
-	static const float speedV;
-	static const float speedW;
-
 	SpiderState state;
-	Point pos;
 	Point end_point;
 	float angle;
 	float rotate_angle;
 	float head_angle;
 	float thinking_time;
-	bool eaten;
+	bool hungry;
 	bool OnScreen();
 	void ScanForApples(list<Apple*> &apples);
 	void SetNearestBorder();

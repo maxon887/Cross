@@ -68,6 +68,33 @@ void Saver::SaveBool(string key, bool value){
 	SaveInt(key, value);
 }
 
+string Saver::LoadString(string key, string def){
+	string strValue = LoadString(key);
+	if(strValue.empty())
+		return def;
+	return strValue;
+}
+
+int Saver::LoadInt(string key, int def){
+	string strValue = LoadString(key);
+	if(strValue.empty())
+		return def;
+	int ret = atoi(strValue.c_str());
+	return ret;
+}
+
+float Saver::LoadFloat(string key, float def){
+	string strValue = LoadString(key);
+	if(strValue.empty())
+		return def;
+	float ret = (float)atof(strValue.c_str());
+	return ret;
+}
+
+bool Saver::LoadBool(string key, bool def){
+	return LoadInt(key, def) != 0;
+}
+
 string Saver::LoadString(string key){
 	ifstream prefs;
 	prefs.open(prefs_path);
@@ -82,24 +109,4 @@ string Saver::LoadString(string key){
 	}
 	prefs.close();
 	return value;
-}
-
-int Saver::LoadInt(string key){
-	string strValue = LoadString(key);
-	if(strValue.empty())
-		return 0;
-	int ret = atoi(strValue.c_str());
-	return ret;
-}
-
-float Saver::LoadFloat(string key){
-	string strValue = LoadString(key);
-	if(strValue.empty())
-		return 0;
-	float ret = (float)atof(strValue.c_str());
-	return ret;
-}
-
-bool Saver::LoadBool(string key){
-	return LoadInt(key) != 0;
 }

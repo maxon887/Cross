@@ -18,16 +18,11 @@
 #include "Apple.h"
 #include <stdlib.h>
 
-//const float Apple::radius = 12.f;
-//Graphics*	Apple::graphics = NULL;
-//Game*		Apple::game = NULL;
 Image*		Apple::fresh_img = NULL;
 Image*		Apple::rot_img = NULL;
 Image*		Apple::dead_img = NULL;
 
 void Apple::Init(){
-	//Apple::game = game;
-	//Apple::graphics = game->graphics;
 	Apple::fresh_img = graphics->LoadImage("Game/AppleFresh.png");
 	Apple::rot_img = graphics->LoadImage("Game/AppleRot.png");
 	Apple::dead_img = graphics->LoadImage("Game/AppleDead.png");
@@ -40,8 +35,6 @@ void Apple::Release(){
 }
 
 Apple::Apple(){
-	if(game == NULL)
-		throw string("Class Apple needs to be initialized staticly");
 	this->angle = (float)(rand()%360);
 	life_time = 15;
 	state = AppleState::FRESH;

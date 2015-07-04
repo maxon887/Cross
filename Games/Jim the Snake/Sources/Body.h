@@ -16,32 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "Game.h"
-#include "Eatable.h"
 
-enum class AppleState {
-	FRESH,
-	ROT,
-	DEAD,
-	EMPTY
-};
+#include "GameObject.h"
 
-class Apple : public Eatable{
+class Body : public GameObject{
 public:
-	static void Init();
-	static void Release();
-	Apple();
-	int Eat();
-	bool Eaten();
-	void Draw();
+	static Image* img;
+	Body(Point pos);
 	float GetRadius();
-	void Update(float sec);
+	bool Update(float sec);
+	void Draw();
+	void SetBig();
+	void SetNext(Body* next);
 private:
-	static Image* fresh_img;
-	static Image* rot_img;
-	static Image* dead_img;
-
-	AppleState state;
-	float angle;
-	float life_time;
+	bool big;
+	float time_left;
+	Body* next;
 };

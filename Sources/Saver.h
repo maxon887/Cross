@@ -41,21 +41,22 @@ public:
 	//Load string property from string key.
 	//Important! returned string must to be deleted.
 	//Return NULL if can't find key
-	string LoadString(string key);
+	string LoadString(string key, string def);
 	//Load int property from string key.
 	//Return 0 if can't find key
-	int LoadInt(string key);
+	int LoadInt(string key, int def);
 	//Load float property from string key.
 	//Return 0 if can't find key
-	float LoadFloat(string key);
+	float LoadFloat(string key, float def);
 
-	bool LoadBool(string key);
+	bool LoadBool(string key, bool def);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Saver(Game* game);
 private:
 	string prefs_path;
 	string copy_path;
+	string LoadString(string key);
 };
     
 }

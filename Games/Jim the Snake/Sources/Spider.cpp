@@ -20,20 +20,15 @@
 #include <stdlib.h>
 #include <cmath>
 
-JimTheSnake* Spider::game = NULL;
-Graphics* Spider::graphics = NULL;
 Animation* Spider::anim = NULL;
 Image* Spider::head = NULL;
 Image* Spider::body = NULL;
 Audio* Spider::run_snd = NULL;
 
-const float Spider::radius = 24.f;
 const float Spider::speedV = 130.f;
 const float Spider::speedW = 90.f;
 
-void Spider::Init(JimTheSnake* game){
-	Spider::game = game;
-	Spider::graphics = game->graphics;
+void Spider::Init(){
 	Image* frames[8];
 	frames[0] = graphics->LoadImage("Game/Spider/00.png");
 	frames[1] = graphics->LoadImage("Game/Spider/01.png");
@@ -46,11 +41,12 @@ void Spider::Init(JimTheSnake* game){
 	anim = new Animation(graphics, 0.03f, frames, 8, true);
 	head = graphics->LoadImage("Game/Spider/Head.png");
 	body = graphics->LoadImage("Game/Spider/Body.png");
+	/*
 	if(game->IsSoundEnabled()){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
 	}else{
 		run_snd = NULL;
-	}
+	}*/
 	anim->Start();
 }
 
@@ -62,24 +58,64 @@ void Spider::Release(){
 }
 
 Spider::Spider(){
-	if(game == NULL)
-		throw string("Class Spider needs to be initialized staticly");
-	state = SpiderState::DEAD;
 	head_angle = 0;
 	rotate_angle = 0;
 	thinking_time = 1.3f;
 	target_apple = NULL;
-	eaten = false;
-	pos.x = -100;
-	pos.y = -100;
+	run_snd = NULL;
+	hungry = true;
+
+	short side = rand()%4;
+	float x, y;
+	switch (side){
+	case 0:		//left
+		x = -GetRadius();
+		y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
+		end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
+		end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
+		break;
+	case 1:		//bottom
+		x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
+		y =	game->GetHeight() + GetRadius();
+		end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
+		end_point.y = game->GetHeight() / 2 + rand() % (int)(game->GetHeight() / 2);
+		break;
+	case 2:		//right
+		x = game->GetWidth() + GetRadius();
+		y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
+		end_point.x = game->GetWidth() / 2 + rand() % (int)(game->GetWidth() / 2);
+		end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
+		break;
+	case 3:		//top
+		x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
+		y = -GetRadius();
+		end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
+		end_point.y = GetRadius() + rand() % (int)(game->GetHeight() / 2);
+		break;
+	default:
+		break;
+	}
+	SetPosition(Point(x, y));
+	angle = Angle(GetPosition(), end_point);
+	hungry = true;
+	if(game->IsSoundEnabled()){
+		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
+	}
+	run_snd->Play();
+	state = SpiderState::RUNNING;
 }
 
-void Spider::Update(float sec, list<Apple*> &apples){
+Spider::~Spider(){
+	delete run_snd;
+}
+
+void Spider::Update(float sec){
+	list<Apple*>& apples = screen->GetApples();
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
 		anim->Update(sec);
-		float neededAngle = Angle(pos, end_point);
+		float neededAngle = Angle(GetPosition(), end_point);
 		
 		//determine in witch direction we need to move
 		float clockwise;
@@ -103,10 +139,12 @@ void Spider::Update(float sec, list<Apple*> &apples){
 		}
 
 		//graphics->DrawCircle(end_point, 30, Color::Red);
+		Point pos = GetPosition();
 		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
 		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
+		SetPosition(pos);
 		if(CircleOnCollision(pos, 2, end_point, 2)){
-			if(!eaten){
+			if(hungry){
 				if(target_apple != NULL){
 					EatApple(apples);
 				}
@@ -134,13 +172,13 @@ void Spider::Update(float sec, list<Apple*> &apples){
 			head_angle = 0;
 			state = SpiderState::RUNNING;
 			run_snd->Play();
-			if(!eaten){
+			if(hungry){
 				ScanForApples(apples);
 				if(target_apple == NULL){
 					do{
 						end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
 						end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
-					}while(Distance(pos, end_point) <= speedV / (speedW / 360 * PI));
+					}while(Distance(GetPosition(), end_point) <= speedV / (speedW / 360 * PI));
 				}
 			}else{
 				SetNearestBorder();
@@ -166,7 +204,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 				do{
 					end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
 					end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
-				}while(Distance(pos, end_point) <= speedV / (speedW / 360 * PI));
+				}while(Distance(GetPosition(), end_point) <= speedV / (speedW / 360 * PI));
 			}
 			state = SpiderState::RUNNING;
 		}
@@ -178,7 +216,7 @@ void Spider::Update(float sec, list<Apple*> &apples){
 		break;
 	}
 }
-
+/*
 void Spider::Start(){
 	if(state == SpiderState::DEAD){
 		short side = rand()%4;
@@ -211,14 +249,13 @@ void Spider::Start(){
 		default:
 			break;
 		}
-		pos.x = x;
-		pos.y = y;
-		angle = Angle(pos, end_point);
+		SetPosition(Point(x, y));
+		angle = Angle(GetPosition(), end_point);
 		run_snd->Play();
-		eaten = false;
+		hungry = true;
 		state = SpiderState::RUNNING;
 	}
-}
+}*/
 
 void Spider::Draw(){
 	switch (state)
@@ -226,15 +263,15 @@ void Spider::Draw(){
 	case SpiderState::RUNNING:
 	case SpiderState::ROTATE:
 		graphics->Rotate(anim->GetImage(), angle + 90.f);
-		graphics->DrawImage(pos, anim->GetImage());
+		graphics->DrawImage(GetPosition(), anim->GetImage());
 		break;
 	case SpiderState::THINKING:{
 			graphics->Rotate(body, angle + 90.f);
 			graphics->Rotate(head, angle + head_angle + 90.f);
-			graphics->DrawImage(pos, body);
+			graphics->DrawImage(GetPosition(), body);
 			Point headPos;
-			headPos.y = pos.y + (float)-10 * sin(angle / 180.f * PI);
-			headPos.x = pos.x + (float)10 * cos(angle / 180.f * PI);
+			headPos.y = GetPosition().y + (float)-10 * sin(angle / 180.f * PI);
+			headPos.x = GetPosition().x + (float)10 * cos(angle / 180.f * PI);
 			graphics->DrawImage(headPos, head);
 		}break;
 	case SpiderState::DEAD:
@@ -245,39 +282,35 @@ void Spider::Draw(){
 }
 
 float Spider::GetRadius(){
-	return radius;
-}
-
-Point Spider::GetPosition(){
-	return pos;
+	return 24.f;
 }
 
 bool Spider::OnScreen(){
-	if(pos.x > game->GetWidth() || pos.x < 0)
+	if(GetPosition().x > game->GetWidth() || GetPosition().x < 0)
 		return false;
-	if(pos.y > game->GetHeight() || pos.y < 0)
+	if(GetPosition().y > game->GetHeight() || GetPosition().y < 0)
 		return false;
 	return true;
 }
 
 void Spider::ScanForApples(list<Apple*> &apples){
 	Point p1;
-	p1.y = pos.y + (float)-2000 * sin((angle + 45.f) / 180.f * PI);
-	p1.x = pos.x + (float)2000 * cos((angle + 45.f) / 180.f * PI);
+	p1.y = GetPosition().y + (float)-2000 * sin((angle + 45.f) / 180.f * PI);
+	p1.x = GetPosition().x + (float)2000 * cos((angle + 45.f) / 180.f * PI);
 	Point p2;
-	p2.y = pos.y + (float)-2000 * sin((angle - 45.f) / 180.f * PI);
-	p2.x = pos.x + (float)2000 * cos((angle - 45.f) / 180.f * PI);
-	//graphics->DrawLine(pos, p1, Color::Red);
-	//graphics->DrawLine(pos, p2, Color::Red);
+	p2.y = GetPosition().y + (float)-2000 * sin((angle - 45.f) / 180.f * PI);
+	p2.x = GetPosition().x + (float)2000 * cos((angle - 45.f) / 180.f * PI);
+	//graphics->DrawLine(GetPosition(), p1, Color::Red);
+	//graphics->DrawLine(GetPosition(), p2, Color::Red);
 	target_apple = NULL;
 	for(Apple* apple : apples){
-		if(PointInTriangle(apple->GetPosition(), pos, p1, p2)){
+		if(PointInTriangle(apple->GetPosition(), GetPosition(), p1, p2)){
 			if(target_apple == NULL){
 				target_apple = apple;
 				end_point = target_apple->GetPosition();
 			}else{
-				float targedDistance = Distance(target_apple->GetPosition(), pos);
-				float newDistatnce = Distance(apple->GetPosition(), pos);
+				float targedDistance = Distance(target_apple->GetPosition(), GetPosition());
+				float newDistatnce = Distance(apple->GetPosition(), GetPosition());
 				if(newDistatnce < targedDistance){
 					target_apple = apple;
 					end_point = target_apple->GetPosition();
@@ -288,30 +321,30 @@ void Spider::ScanForApples(list<Apple*> &apples){
 }
 
 void Spider::SetNearestBorder(){
-	end_point.x = pos.x;
+	end_point.x = GetPosition().x;
 	end_point.y = - GetRadius();
 	Point newPoint;
 	float distance;
 	float newDistance;
 
 	newPoint.x = game->GetWidth() + GetRadius();
-	newPoint.y = pos.y;
-	distance = Distance(end_point, pos);
-	newDistance = Distance(newPoint, pos);
+	newPoint.y = GetPosition().y;
+	distance = Distance(end_point, GetPosition());
+	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		end_point = newPoint;
 
-	newPoint.x = pos.x;
+	newPoint.x = GetPosition().x;
 	newPoint.y = game->GetHeight() + GetRadius();
-	distance = Distance(end_point, pos);
-	newDistance = Distance(newPoint, pos);
+	distance = Distance(end_point, GetPosition());
+	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		end_point = newPoint;
 
 	newPoint.x = - GetRadius();
-	newPoint.y = pos.y;
-	distance = Distance(end_point, pos);
-	newDistance = Distance(newPoint, pos);
+	newPoint.y = GetPosition().y;
+	distance = Distance(end_point, GetPosition());
+	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		end_point = newPoint;
 }
@@ -323,15 +356,14 @@ void Spider::EatApple(list<Apple*> &apples){
 			*it = NULL;
 			it = apples.erase(it);
 			target_apple = NULL;
-			eaten = true;
+			hungry = false;
 			return;
 		}
 	}
 }
 
 int Spider::Eat(){
-	pos.x = -100;
-	pos.y = -100;
+	SetPosition(Point(-100, -100));;
 	run_snd->Stop();
 	state = SpiderState::DEAD;
 	return 3;

@@ -14,34 +14,50 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+
+#include "Body.h"
 	
-#pragma once
-#include "Game.h"
-#include "Eatable.h"
+Image*			Body::img			= NULL;
 
-enum class AppleState {
-	FRESH,
-	ROT,
-	DEAD,
-	EMPTY
-};
+Body::Body(Point pos):GameObject(pos){
+	big = false;
+	next = NULL;
+	time_left = -1;
+}
 
-class Apple : public Eatable{
-public:
-	static void Init();
-	static void Release();
-	Apple();
-	int Eat();
-	bool Eaten();
-	void Draw();
-	float GetRadius();
-	void Update(float sec);
-private:
-	static Image* fresh_img;
-	static Image* rot_img;
-	static Image* dead_img;
+float Body::GetRadius(){
+	return 26.f;
+}
 
-	AppleState state;
-	float angle;
-	float life_time;
-};
+bool Body::Update(float sec){
+	if(time_left > 0){
+		time_left -= sec;
+		if(time_left < 0){
+			big = false;
+			if(next == NULL){
+				return true;
+			}else{
+				next->SetBig();
+			}
+		}
+	}
+	return false;
+}
+
+void Body::Draw(){
+	if(big){
+		graphics->ScaleImage(img, game->GetScaleFactor() * 1.2f);
+	}else{
+		graphics->ScaleImage(img, game->GetScaleFactor());
+	}
+	graphics->DrawImage(GetPosition(), img);
+}
+
+void Body::SetBig(){
+	big = true;
+	time_left = 0.3f;
+}
+
+void Body::SetNext(Body* next){
+	this->next = next;
+}

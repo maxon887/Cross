@@ -36,10 +36,10 @@ public:
 	Screen(Game* game);
 	/* Calls once before screen show up. */
 	virtual void Start();
-
-	virtual void Suspend();
 	/* Calls every frame update. Ideally 60 times per second(60fps)*/
 	virtual void Update(float sec);
+	/* Calls where game need to be stoped like lost focus or input phone call */
+	virtual void Suspend();
 protected:
 	Game* game;				//
 	Launcher* launcher;		//
