@@ -20,10 +20,9 @@
 #include <stdlib.h>
 #include <cmath>
 
-Animation* Spider::anim = NULL;
+Animation* Spider::st_anim = NULL;
 Image* Spider::head = NULL;
 Image* Spider::body = NULL;
-//Audio* Spider::run_snd = NULL;
 
 const float Spider::speedV = 130.f;
 const float Spider::speedW = 90.f;
@@ -38,21 +37,13 @@ void Spider::Init(){
 	frames[5] = graphics->LoadImage("Game/Spider/05.png");
 	frames[6] = graphics->LoadImage("Game/Spider/06.png");
 	frames[7] = graphics->LoadImage("Game/Spider/07.png");
-	anim = new Animation(graphics, 0.03f, frames, 8, true);
+	st_anim = new Animation(graphics, 0.03f, frames, 8, true);
 	head = graphics->LoadImage("Game/Spider/Head.png");
 	body = graphics->LoadImage("Game/Spider/Body.png");
-	/*
-	if(game->IsSoundEnabled()){
-		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
-	}else{
-		run_snd = NULL;
-	}*/
-	anim->Start();
 }
 
 void Spider::Release(){
-	delete anim;
-	//delete run_snd;
+	delete st_anim;
 	graphics->ReleaseImage(head);
 	graphics->ReleaseImage(body);
 }
@@ -103,6 +94,8 @@ Spider::Spider(){
 	}
 	run_snd->Play();
 	state = SpiderState::RUNNING;
+	anim = new Animation(*st_anim);
+	anim->Start();
 }
 
 Spider::~Spider(){
@@ -110,9 +103,31 @@ Spider::~Spider(){
 }
 
 void Spider::Update(float sec){
-	list<Apple*>& apples = screen->GetApples();
 	switch (state)
 	{
+	case SpiderState::RUNNING:{
+		Point p1 = GetPosition();
+		Point p2;
+		p2.x += cos(angle / 180.0f * PI) * 200.f;
+		p2.y += sin(angle / 180.0f * PI) * 200.f;
+		graphics->DrawLine(p1, p2, Color::Red);
+		}break;
+	case SpiderState::THINKING:
+		break;
+	case SpiderState::ROTATE:
+		break;
+	case SpiderState::HIDING:
+		break;
+	case SpiderState::DEAD:
+		break;
+	default:
+		break;
+	}
+}
+/*
+void Spider::Update(float sec){
+	list<Apple*>& apples = screen->GetApples();
+	switch (state){
 	case SpiderState::RUNNING:{
 		anim->Update(sec);
 		float neededAngle = Angle(GetPosition(), end_point);
@@ -124,14 +139,15 @@ void Spider::Update(float sec){
 		else 
 			clockwise = angle - neededAngle;
 		float counterclockwise = 360 - clockwise;
-		//rotate snake head
+		//rotate 
 		if(clockwise < speedW * sec || counterclockwise < speedW * sec) {
 			angle = neededAngle;
 		} else {
-			if(counterclockwise < clockwise) 
+			if(counterclockwise < clockwise) {
 				angle += speedW * sec;
-			else
+			}else{
 				angle -= speedW * sec;
+			}
 			if(angle >= 180.f)
 				angle -= 360.f;
 			if(angle <= -180.f)
@@ -215,7 +231,7 @@ void Spider::Update(float sec){
 		throw string("Unexpected spider state");
 		break;
 	}
-}
+}*/
 
 void Spider::Draw(){
 	switch (state)

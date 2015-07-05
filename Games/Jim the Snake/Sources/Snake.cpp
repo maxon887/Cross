@@ -130,6 +130,7 @@ void Snake::Update(float sec){
 	switch (screen->GetState())
 	{
 	case GameState::ONREADY:
+		UpdateBody(sec);
 		break;
 	case GameState::RUNNING:
 		if(!dead){
@@ -162,6 +163,7 @@ void Snake::Update(float sec){
 				screen->MusicStop();
 				punch->Play();
 			}
+			UpdateBody(sec);
 		}else{
 			dead_time += sec;
 		}
@@ -174,7 +176,6 @@ void Snake::Update(float sec){
 	default:
 		break;
 	}
-	UpdateBody(sec);
 }
 
 void Snake::Draw(){

@@ -44,7 +44,14 @@ Cactus::Cactus(){
 }
 
 float Cactus::GetRadius(){
-	return 12.f;
+	switch (state) {
+	case Cactus::GROWING:
+		return 15.f;
+	case Cactus::ADULT:case Cactus::OLD:
+		return 40.f;
+	default:
+		return 0;
+	}
 }
 
 void Cactus::Update(float sec){
@@ -63,10 +70,8 @@ void Cactus::Update(float sec){
 				shake_up = true;
 		}
 		game->launcher->LogIt(scale_factor);
-		graphics->ScaleImage(small_img, game->GetScaleFactor() * 0.2f * scale_factor);
 		}break;
 	case ADULT:{
-		//static bool up = true;
 		if(shake_up){
 			scale_factor += sec * shake_state;
 			if(scale_factor > 1.13)
@@ -76,7 +81,6 @@ void Cactus::Update(float sec){
 			if(scale_factor < 1)
 				shake_up = true;
 		}
-		graphics->ScaleImage(adult_img, game->GetScaleFactor() * 0.5f * scale_factor);
 		if(lerp < 1)
 			lerp += 0.13f * sec;
 		else 
@@ -88,7 +92,6 @@ void Cactus::Update(float sec){
 		break;
 	case HIDING:
 		scale_factor -= sec * 2.f;
-		graphics->ScaleImage(old_img, game->GetScaleFactor() * 0.5f * scale_factor);
 		break;
 	case EMPTY:
 		break;
@@ -111,15 +114,17 @@ void Cactus::Update(float sec){
 }
 
 void Cactus::Draw(){
-	graphics->DrawCircle(GetPosition(), GetRadius(), 1, 0, 0);
 	switch (state) {
 	case Cactus::GROWING:
+		graphics->ScaleImage(small_img, game->GetScaleFactor() * 0.2f * scale_factor);
 		graphics->DrawImage(GetPosition(), small_img);
 		break;
 	case Cactus::ADULT:
+		graphics->ScaleImage(adult_img, game->GetScaleFactor() * 0.5f * scale_factor);
 		graphics->DrawImage(GetPosition(), adult_img);
 		break;
 	case Cactus::OLD:case Cactus::HIDING:
+		graphics->ScaleImage(old_img, game->GetScaleFactor() * 0.5f * scale_factor);
 		graphics->DrawImage(GetPosition(), old_img);
 		break;
 	case Cactus::EMPTY:
@@ -127,6 +132,7 @@ void Cactus::Draw(){
 	default:
 		break;
 	}
+	graphics->DrawCircle(GetPosition(), GetRadius(), 1, 0, 0);
 }
 
 bool Cactus::IsDead(){

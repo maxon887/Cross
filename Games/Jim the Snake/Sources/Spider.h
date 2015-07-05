@@ -53,12 +53,13 @@ private:
 	static const float speedV;
 	static const float speedW;
 
-	static Animation* anim;
+	static Animation* st_anim;
 	static Image* head;
 	static Image* body;
 
 	SpiderState state;
 	Point end_point;
+	Animation* anim;
 	Audio* run_snd;
 	float angle;
 	float rotate_angle;

@@ -94,7 +94,6 @@ private:
 	void DrawScore();
 	void CalcInput(float sec);
 	Point GetEmptyPosition(float radius);
-	//bool SpiderOnCollision();
 
 	void OnResumeClick();
 	void OnMenuClick();
