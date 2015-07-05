@@ -17,7 +17,7 @@
 	
 #include "GameScreen.h"
 #include "MenuScreen.h"
-#include "GameObject.h"
+#include "Cactus.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Snake.h"
@@ -34,14 +34,15 @@ GameScreen::~GameScreen(){
 	Snake::Release();
 	Spider::Release();
 	Apple::Release();
-
-	delete music;
-	delete game_over;
+	Cactus::Release();
 	for(Apple* apple : apples){
 		delete apple;
 	}
 	for(Spider* spider : spiders){
 		delete spider;
+	}
+	for(Cactus* cactus : cactuses){
+		delete cactus;
 	}
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(score_img);
@@ -54,7 +55,8 @@ GameScreen::~GameScreen(){
 	delete resume_btn;
 	delete restart_btn;
 	delete menu_btn;
-
+	delete music;
+	delete game_over;
 	delete score_texter;
 }
 //						OVERRIDDEN METHODS
@@ -63,6 +65,7 @@ void GameScreen::Start(){
 	Snake::Init();
 	Apple::Init();
 	Spider::Init();
+	Cactus::Init();
 	snake = NULL;
 	music = NULL;
 	game_over = NULL;
@@ -107,6 +110,8 @@ void GameScreen::Update(float sec){
 	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
 	UpdateApples(sec);
 	DrawApples();
+	UpdateCactuses(sec);
+	DrawCactuses();
 	UpdateSpiders(sec);
 	DrawSpiders();
 	snake->Update(sec);
@@ -201,6 +206,10 @@ list<Spider*>& GameScreen::GetSpiders(){
 	return spiders;
 }
 
+list<Cactus*>& GameScreen::GetCactuses(){
+	return cactuses;
+}
+
 void GameScreen::MusicStop(){
 	music->Stop();
 }
@@ -212,16 +221,31 @@ void GameScreen::Restart(){
 	music->Play();
 	apples.clear();
 	spiders.clear();
+	cactuses.clear();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
 	delete snake;
+	for(Apple* apple : apples){
+		delete apple;
+	}
+	for(Spider* spider : spiders){
+		delete spider;
+	}
+	for(Cactus* cactus : cactuses){
+		delete cactus;
+	}
 	snake = new Snake();
+	for(int i = 0; i < 1; i++){
+		Cactus* cactus = new Cactus();
+		cactus->SetPosition(GetEmptyPosition(cactus->GetRadius()));
+		cactuses.push_back(cactus);
+	}
 	SetState(GameState::ONREADY);
 }
 
 void GameScreen::UpdateApples(float sec){
-	if(GetState() == GameState::RUNNING || GetState() == GameState::GAMEOVER){
-		static float next_apple = 0; 
+	if(GetState() != GameState::PAUSED){
+		static float next = 0; 
 		auto it = apples.begin();
 		while(it != apples.end()) {
 			Apple* apple = (*it);
@@ -237,14 +261,14 @@ void GameScreen::UpdateApples(float sec){
 				}
 			}
 		}
-		if(next_apple <= 0) {
-			next_apple = (float)(rand()%15);
-			SetApple();
+		if(next <= 0 || apples.size() == 0) {
+			next = (float)(rand()%15);
+			Apple* newApple = new Apple();
+			newApple->SetPosition(GetEmptyPosition(newApple->GetRadius()));
+			apples.push_back(newApple);
 		} else {
-			next_apple -= sec;
+			next -= sec;
 		}
-		if(apples.size() == 0)
-			SetApple();
 	}
 }
 
@@ -255,15 +279,17 @@ void GameScreen::DrawApples(){
 }
 
 void GameScreen::UpdateSpiders(float sec){
-	auto it = spiders.begin();
-	while(it != spiders.end()){
-		Spider* spider = (*it);
-		if(!spider->Eaten()){
-			spider->Update(sec);
-			it++;
-		}else{
-			delete spider;
-			it = spiders.erase(it);
+	if(GetState() != GameState::PAUSED){
+		auto it = spiders.begin();
+		while(it != spiders.end()){
+			Spider* spider = (*it);
+			if(!spider->Eaten() || !spider->Hiding()){
+				spider->Update(sec);
+				it++;
+			}else{
+				delete spider;
+				it = spiders.erase(it);
+			}
 		}
 	}
 }
@@ -274,24 +300,35 @@ void GameScreen::DrawSpiders(){
 	}
 }
 
-void GameScreen::SetApple(){
-	Apple* apple = new Apple();;
-	float top = score_img->GetHeight() + 50;
-	float bottom = game->GetHeight() - 4 * apple->GetRadius();
-	float left = 4 * apple->GetRadius();
-	float right = game->GetWidth() - 4 * apple->GetRadius();
-	Point apple_pos;
-	bool onSnake = true;
-	while(onSnake) {
-		onSnake = false;
-		int randX = (int)(right - left);
-		int randY = (int)(bottom - top);
-		apple_pos.x = (float)(rand() % randX) + left;
-		apple_pos.y = (float)(rand() % randY) + top;
-		onSnake = snake->OnCollision(apple_pos, apple->GetRadius());
+void GameScreen::UpdateCactuses(float sec){
+	if(GetState() != GameState::PAUSED){
+		static float next = (float)(rand()%15);
+		auto it = cactuses.begin();
+		while(it != cactuses.end()){
+			Cactus* cactus = (*it);
+			if(!cactus->IsDead()){
+				cactus->Update(sec);
+				it++;
+			}else{
+				delete cactus;
+				it = cactuses.erase(it);
+			}
+		}
+		if(next <= 0) {
+			next = (float)(rand()%15);
+			Cactus* cactus = new Cactus();
+			cactus->SetPosition(GetEmptyPosition(cactus->GetRadius()));
+			cactuses.push_back(cactus);
+		} else {
+			next -= sec;
+		}
 	}
-	apple->SetPosition(apple_pos);
-	apples.push_back(apple);
+}
+
+void GameScreen::DrawCactuses(){
+	for(Cactus* cactus : cactuses){
+		cactus->Draw();
+	}
 }
 
 void GameScreen::DrawScore(){
@@ -342,6 +379,47 @@ void GameScreen::CalcInput(float sec){
 		control_pos.x = 0;
 		control_pos.y = 0;
 	}
+}
+
+Point GameScreen::GetEmptyPosition(float radius){
+	float top = score_img->GetHeight() + 50;
+	float bottom = game->GetHeight() - 4 * radius;
+	float left = 4 * radius;
+	float right = game->GetWidth() - 4 * radius;
+	Point position;
+	bool onCollision = true;
+	while(onCollision) {
+		onCollision = false;
+		int randX = (int)(right - left);
+		int randY = (int)(bottom - top);
+		position.x = (float)(rand() % randX) + left;
+		position.y = (float)(rand() % randY) + top;
+		onCollision = snake->OnCollision(position, radius);
+		if(onCollision)
+			continue;
+		for(Apple* apple : apples){
+			onCollision = CircleOnCollision(position, radius, apple->GetPosition(), apple->GetRadius());
+			if(onCollision)
+				break;
+		}
+		if(onCollision)
+			continue;
+		for(Spider* spider : spiders){
+			onCollision = CircleOnCollision(position, radius, spider->GetPosition(), spider->GetRadius());
+			if(onCollision)
+				break;
+		}
+		if(onCollision)
+			continue;
+		for(Cactus* cactus : cactuses){
+			onCollision = CircleOnCollision(position, radius, cactus->GetPosition(), cactus->GetRadius());
+			if(onCollision)
+				break;
+		}
+		if(onCollision)
+			continue;
+	}
+	return position;
 }
 /*
 bool GameScreen::SpiderOnCollision(){

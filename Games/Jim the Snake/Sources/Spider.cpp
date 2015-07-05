@@ -23,7 +23,7 @@
 Animation* Spider::anim = NULL;
 Image* Spider::head = NULL;
 Image* Spider::body = NULL;
-Audio* Spider::run_snd = NULL;
+//Audio* Spider::run_snd = NULL;
 
 const float Spider::speedV = 130.f;
 const float Spider::speedW = 90.f;
@@ -52,7 +52,7 @@ void Spider::Init(){
 
 void Spider::Release(){
 	delete anim;
-	delete run_snd;
+	//delete run_snd;
 	graphics->ReleaseImage(head);
 	graphics->ReleaseImage(body);
 }
@@ -216,46 +216,6 @@ void Spider::Update(float sec){
 		break;
 	}
 }
-/*
-void Spider::Start(){
-	if(state == SpiderState::DEAD){
-		short side = rand()%4;
-		float x, y;
-		switch (side){
-		case 0:		//left
-			x = -GetRadius();
-			y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
-			end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
-			end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
-			break;
-		case 1:		//bottom
-			x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
-			y =	game->GetHeight() + GetRadius();
-			end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
-			end_point.y = game->GetHeight() / 2 + rand() % (int)(game->GetHeight() / 2);
-			break;
-		case 2:		//right
-			x = game->GetWidth() + GetRadius();
-			y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
-			end_point.x = game->GetWidth() / 2 + rand() % (int)(game->GetWidth() / 2);
-			end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
-			break;
-		case 3:		//top
-			x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
-			y = -GetRadius();
-			end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
-			end_point.y = GetRadius() + rand() % (int)(game->GetHeight() / 2);
-			break;
-		default:
-			break;
-		}
-		SetPosition(Point(x, y));
-		angle = Angle(GetPosition(), end_point);
-		run_snd->Play();
-		hungry = true;
-		state = SpiderState::RUNNING;
-	}
-}*/
 
 void Spider::Draw(){
 	switch (state)
@@ -389,4 +349,11 @@ float Spider::GetAngle(){
 
 float Spider::GetSpeedV(){
 	return speedV;
+}
+
+bool Spider::Hiding(){
+	if(state == SpiderState::HIDING)
+		return true;
+	else 
+		return false;
 }

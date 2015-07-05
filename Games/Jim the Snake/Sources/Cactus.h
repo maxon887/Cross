@@ -14,60 +14,43 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
+	
 #pragma once
-#include "JimTheSnake.h"
-#include "Animation.h"
-#include "Apple.h"
+#include "GameObject.h"
+#include "Game.h"
 
-#include <list>
+using namespace cross;
 
-enum class SpiderState{
-	RUNNING,
-	THINKING,
-	ROTATE,
-	HIDING,
-	DEAD
-};
-
-class Spider : public Eatable{
+class Cactus : public GameObject{
 public:
 	static void Init();
 	static void Release();
 
-	Spider();
-	~Spider();
+	Cactus();
 
 	float GetRadius();
-	int Eat();
-	bool Eaten();
 
-	void Start();
-	void Draw();
 	void Update(float sec);
-	void Rotate(float deltaAngle);
-	float GetAngle();
-	float GetSpeedV();
-	bool Hiding();
+	void Draw();
+	bool IsDead();
 private:
-	static const float speedV;
-	static const float speedW;
+	enum CactusState {
+		GROWING,
+		ADULT,
+		OLD,
+		HIDING,
+		EMPTY
+	};
 
-	static Animation* anim;
-	static Image* head;
-	static Image* body;
+	static Image* small_img;
+	static Image* adult_img;
+	static Image* old_img;
 
-	SpiderState state;
-	Point end_point;
-	Audio* run_snd;
-	float angle;
-	float rotate_angle;
-	float head_angle;
-	float thinking_time;
-	bool hungry;
-	bool OnScreen();
-	void ScanForApples(list<Apple*> &apples);
-	void SetNearestBorder();
-	void EatApple(list<Apple*> &apples);
-	Apple* target_apple;
+	CactusState state;
+	float life_time;
+	float lerp;
+	float shake_state;
+	float scale_factor;
+
+	bool shake_up;
 };

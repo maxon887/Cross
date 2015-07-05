@@ -26,6 +26,7 @@
 class Snake;
 class Spider;
 class Apple;
+class Cactus;
 
 enum class GameState{
 	ONREADY,
@@ -49,14 +50,15 @@ public:
 	void SetScore(int score);
 	list<Apple*>& GetApples();
 	list<Spider*>& GetSpiders();
+	list<Cactus*>& GetCactuses();
 	void MusicStop();
 private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
-	//Spider* spider;
 	list<Apple*> apples;
 	list<Spider*> spiders;
+	list<Cactus*> cactuses;
 
 	Image* background;
 	Image* score_img;
@@ -87,9 +89,11 @@ private:
 	void DrawApples();
 	void UpdateSpiders(float sec);
 	void DrawSpiders();
-	void SetApple();
+	void UpdateCactuses(float sec);
+	void DrawCactuses();
 	void DrawScore();
 	void CalcInput(float sec);
+	Point GetEmptyPosition(float radius);
 	//bool SpiderOnCollision();
 
 	void OnResumeClick();

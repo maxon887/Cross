@@ -311,7 +311,7 @@ void Graphics::DrawImage(Point p, Image* img){
 
 void Graphics::DrawTargetImage(float x, float y, Image* img){
 	if(img == NULL)
-		throw "Attempt to draw NULL image";
+		throw string("Attempt to draw NULL image");
 	if(prev_texID != img->GetTextureID()){
 		//glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, img->GetTextureID());

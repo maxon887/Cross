@@ -45,6 +45,9 @@ public:
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
 	virtual void Sleep(float milis) { };
+
+	void LogIt(int msg);
+	void LogIt(float msg);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }
