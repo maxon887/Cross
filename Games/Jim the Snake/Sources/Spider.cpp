@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Spider.h"
+#include "Snake.h"
 #include "Misc.h"
 #include <stdlib.h>
 #include <cmath>
@@ -106,11 +107,23 @@ void Spider::Update(float sec){
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
-		Point p1 = GetPosition();
-		Point p2;
-		p2.x += cos(angle / 180.0f * PI) * 200.f;
-		p2.y += sin(angle / 180.0f * PI) * 200.f;
-		graphics->DrawLine(p1, p2, Color::Red);
+		bool needRotate;
+
+		Snake* snake = screen->GetSnake();
+		Point obstacles[4];
+		float sinus = sin(angle / 180.f * PI);
+		float cosinus = cos(angle / 180.f * PI);
+		for(int i = 0; i < 4; i++){
+			obstacles[i].x = sinus * (i + 1) * 50 + GetPosition().x;
+			obstacles[i].y = cosinus * (i + 1) * 50 + GetPosition().y;
+			bool onCollision = snake->OnCollision(obstacles[i]);
+			if(onCollision){
+
+			}
+			graphics->DrawCircle(obstacles[i], 3, Color::Red);
+		}
+		graphics->DrawLine(GetPosition(), obstacles[3], Color::Red);
+		graphics->DrawCircle(end_point, 15, Color::Blue);
 		}break;
 	case SpiderState::THINKING:
 		break;

@@ -48,6 +48,7 @@ public:
 	void SetState(GameState newState);
 	int GetScore();
 	void SetScore(int score);
+	Snake* GetSnake();
 	list<Apple*>& GetApples();
 	list<Spider*>& GetSpiders();
 	list<Cactus*>& GetCactuses();

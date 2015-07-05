@@ -37,6 +37,7 @@ public:
 	void Rotate(float angle);
 	void Update(float sec);
 	void Draw();
+	bool OnCollision(Point p);
 	bool OnCollision(Point center, float radius);
 	float GetSpeedW();
 private:

@@ -210,6 +210,16 @@ void Snake::Draw(){
 	}
 }
 
+bool Snake::OnCollision(Point p){
+	for(Body* node : body_nodes){
+		if(PointInCircle(p, node->GetPosition(), node->GetRadius()))
+			return true;
+	}
+	if(PointInCircle(p, GetPosition(), GetRadius()))
+		return true;
+	return false;
+}
+
 bool Snake::OnCollision(Point center, float radius){
 	for(Body* node : body_nodes){
 		if(CircleOnCollision(node->GetPosition(), node->GetRadius(), center, radius))

@@ -29,6 +29,21 @@ bool cross::PointInRect(Point p, Rect rect){
 			p.y < rect.y + rect.height;
 }
 
+bool cross::PointInTriangle(Point pt, Point v1, Point v2, Point v3){
+	bool b1, b2, b3;
+    b1 = sign(pt, v1, v2) < 0.0f;
+    b2 = sign(pt, v2, v3) < 0.0f;
+    b3 = sign(pt, v3, v1) < 0.0f;
+    return ((b1 == b2) && (b2 == b3));
+}
+
+bool cross::PointInCircle(Point p, Point center, float radius){
+	float distance = Distance(p, center);
+	if(distance < radius)
+		return true;
+	else return false;
+}
+
 bool cross::CircleOnCollision(Point p1, float r1, Point p2, float r2) {
 	float distance = Distance(p1, p2);
 	if(distance < (r1 + r2))
@@ -38,16 +53,6 @@ bool cross::CircleOnCollision(Point p1, float r1, Point p2, float r2) {
 
 float cross::Lerp(float v0, float v1, float t) {
 	return (1-t)*v0 + t*v1;
-}
-
-bool cross::PointInTriangle (Point pt, Point v1, Point v2, Point v3){
-	bool b1, b2, b3;
-
-    b1 = sign(pt, v1, v2) < 0.0f;
-    b2 = sign(pt, v2, v3) < 0.0f;
-    b3 = sign(pt, v3, v1) < 0.0f;
-
-    return ((b1 == b2) && (b2 == b3));
 }
 
 float cross::Distance(Point p1, Point p2){

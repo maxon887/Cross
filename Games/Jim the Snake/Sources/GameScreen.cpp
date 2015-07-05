@@ -198,6 +198,10 @@ void GameScreen::SetScore(int score){
 	this->score = score;
 }
 
+Snake* GameScreen::GetSnake(){
+	return snake;
+}
+
 list<Apple*>& GameScreen::GetApples(){
 	return apples;
 }
@@ -235,10 +239,12 @@ void GameScreen::Restart(){
 		delete cactus;
 	}
 	snake = new Snake();
-	for(int i = 0; i < 1; i++){
+	for(int i = 0; i < 2; i++){
 		Cactus* cactus = new Cactus();
 		cactus->SetPosition(GetEmptyPosition(cactus->GetRadius()));
 		cactuses.push_back(cactus);
+
+		spiders.push_back(new Spider());
 	}
 	SetState(GameState::ONREADY);
 }
