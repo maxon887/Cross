@@ -17,6 +17,7 @@
 	
 #include "Spider.h"
 #include "Snake.h"
+#include "Cactus.h"
 #include "Misc.h"
 #include <stdlib.h>
 #include <cmath>
@@ -25,7 +26,6 @@ Animation* Spider::st_anim = NULL;
 Image* Spider::head = NULL;
 Image* Spider::body = NULL;
 
-const float Spider::speedV = 130.f;
 const float Spider::speedW = 90.f;
 
 void Spider::Init(){
@@ -53,9 +53,11 @@ Spider::Spider(){
 	head_angle = 0;
 	rotate_angle = 0;
 	thinking_time = 1.3f;
+	speedV = 130.f;
 	target_apple = NULL;
 	run_snd = NULL;
 	hungry = true;
+	temporary_run = false;
 
 	short side = rand()%4;
 	float x, y;
@@ -63,32 +65,32 @@ Spider::Spider(){
 	case 0:		//left
 		x = -GetRadius();
 		y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
-		end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
-		end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
+		destanation.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
+		destanation.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
 		break;
 	case 1:		//bottom
 		x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
 		y =	game->GetHeight() + GetRadius();
-		end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
-		end_point.y = game->GetHeight() / 2 + rand() % (int)(game->GetHeight() / 2);
+		destanation.x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
+		destanation.y = game->GetHeight() / 2 + rand() % (int)(game->GetHeight() / 2);
 		break;
 	case 2:		//right
 		x = game->GetWidth() + GetRadius();
 		y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
-		end_point.x = game->GetWidth() / 2 + rand() % (int)(game->GetWidth() / 2);
-		end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
+		destanation.x = game->GetWidth() / 2 + rand() % (int)(game->GetWidth() / 2);
+		destanation.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
 		break;
 	case 3:		//top
 		x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
 		y = -GetRadius();
-		end_point.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
-		end_point.y = GetRadius() + rand() % (int)(game->GetHeight() / 2);
+		destanation.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
+		destanation.y = GetRadius() + rand() % (int)(game->GetHeight() / 2);
 		break;
 	default:
 		break;
 	}
 	SetPosition(Point(x, y));
-	angle = Angle(GetPosition(), end_point);
+	angle = Angle(GetPosition(), destanation);
 	hungry = true;
 	if(game->IsSoundEnabled()){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
@@ -107,23 +109,80 @@ void Spider::Update(float sec){
 	switch (state)
 	{
 	case SpiderState::RUNNING:{
-		bool needRotate;
-
+		anim->Update(sec);
 		Snake* snake = screen->GetSnake();
 		Point obstacles[4];
-		float sinus = sin(angle / 180.f * PI);
-		float cosinus = cos(angle / 180.f * PI);
+		speedV = 130.f;
+		float sinus = sin((angle + 90) / 180.f * PI);
+		float cosinus = cos((angle + 90) / 180.f * PI);
 		for(int i = 0; i < 4; i++){
 			obstacles[i].x = sinus * (i + 1) * 50 + GetPosition().x;
 			obstacles[i].y = cosinus * (i + 1) * 50 + GetPosition().y;
 			bool onCollision = snake->OnCollision(obstacles[i]);
 			if(onCollision){
-
+				if(i < 2){
+					speedV = 0;
+				}
+				bool haveNewDirection = false;
+				float deltaAngle = 5;
+				while(!haveNewDirection){
+					for(int i = 0; i < 2; i++){
+						float newAngle = angle + deltaAngle + 90;
+						float x;
+						float y;
+						for(int j = 0; j < 4; j++){
+							x = sin(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().x;
+							y = cos(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().y;	
+							haveNewDirection = !snake->OnCollision(Point(x, y));
+							if(!haveNewDirection)
+								break;
+						}
+						if(haveNewDirection){
+							destanation.x = x;
+							destanation.y = y;
+							break;
+						}
+						deltaAngle *= -1;
+					}
+					deltaAngle += 5;
+					if(haveNewDirection)
+						break;
+				}
 			}
 			graphics->DrawCircle(obstacles[i], 3, Color::Red);
 		}
 		graphics->DrawLine(GetPosition(), obstacles[3], Color::Red);
-		graphics->DrawCircle(end_point, 15, Color::Blue);
+
+		graphics->DrawCircle(destanation, 15, Color::Blue);
+		float neededAngle = Angle(GetPosition(), destanation);
+		
+		//determine in witch direction we need to move
+		float clockwise;
+		if( neededAngle > angle )
+			clockwise = 360 + angle - neededAngle;
+		else 
+			clockwise = angle - neededAngle;
+		float counterclockwise = 360 - clockwise;
+		//rotate 
+		if(clockwise < speedW * sec || counterclockwise < speedW * sec) {
+			angle = neededAngle;
+		} else {
+			if(counterclockwise < clockwise) {
+				angle += speedW * sec;
+			}else{
+				angle -= speedW * sec;
+			}
+			if(angle >= 180.f)
+				angle -= 360.f;
+			if(angle <= -180.f)
+				angle += 360.f;
+		}
+		Point pos = GetPosition();
+		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
+		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
+		SetPosition(pos);
+
+
 		}break;
 	case SpiderState::THINKING:
 		break;
@@ -137,13 +196,27 @@ void Spider::Update(float sec){
 		break;
 	}
 }
+
+bool Spider::OnCollision(Point p, float radius){
+	list<Cactus*> cactuses = screen->GetCactuses();
+	for(Cactus* cactus : cactuses){
+		if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), p, radius))
+			return true;
+	}
+	list<Spider*> spiders = screen->GetSpiders();
+	for(Spider* spider : spiders){
+
+	}
+	Snake* jim = screen->GetSnake();
+	return jim->OnCollision(p, radius);
+}
 /*
 void Spider::Update(float sec){
 	list<Apple*>& apples = screen->GetApples();
 	switch (state){
 	case SpiderState::RUNNING:{
 		anim->Update(sec);
-		float neededAngle = Angle(GetPosition(), end_point);
+		float neededAngle = Angle(GetPosition(), destanation);
 		
 		//determine in witch direction we need to move
 		float clockwise;
@@ -167,12 +240,12 @@ void Spider::Update(float sec){
 				angle += 360.f;
 		}
 
-		//graphics->DrawCircle(end_point, 30, Color::Red);
+		//graphics->DrawCircle(destanation, 30, Color::Red);
 		Point pos = GetPosition();
 		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
 		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
 		SetPosition(pos);
-		if(CircleOnCollision(pos, 2, end_point, 2)){
+		if(CircleOnCollision(pos, 2, destanation, 2)){
 			if(hungry){
 				if(target_apple != NULL){
 					EatApple(apples);
@@ -205,9 +278,9 @@ void Spider::Update(float sec){
 				ScanForApples(apples);
 				if(target_apple == NULL){
 					do{
-						end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
-						end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
-					}while(Distance(GetPosition(), end_point) <= speedV / (speedW / 360 * PI));
+						destanation.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
+						destanation.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
+					}while(Distance(GetPosition(), destanation) <= speedV / (speedW / 360 * PI));
 				}
 			}else{
 				SetNearestBorder();
@@ -231,9 +304,9 @@ void Spider::Update(float sec){
 			ScanForApples(apples);
 			if(target_apple == NULL){
 				do{
-					end_point.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
-					end_point.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
-				}while(Distance(GetPosition(), end_point) <= speedV / (speedW / 360 * PI));
+					destanation.x = GetRadius() + rand() % (int)(game->GetWidth() - GetRadius()*2);
+					destanation.y = GetRadius() + rand() % (int)(game->GetHeight() - GetRadius()*2);
+				}while(Distance(GetPosition(), destanation) <= speedV / (speedW / 360 * PI));
 			}
 			state = SpiderState::RUNNING;
 		}
@@ -273,14 +346,14 @@ void Spider::Draw(){
 float Spider::GetRadius(){
 	return 24.f;
 }
-
+/*
 bool Spider::OnScreen(){
 	if(GetPosition().x > game->GetWidth() || GetPosition().x < 0)
 		return false;
 	if(GetPosition().y > game->GetHeight() || GetPosition().y < 0)
 		return false;
 	return true;
-}
+}*/
 
 void Spider::ScanForApples(list<Apple*> &apples){
 	Point p1;
@@ -296,13 +369,13 @@ void Spider::ScanForApples(list<Apple*> &apples){
 		if(PointInTriangle(apple->GetPosition(), GetPosition(), p1, p2)){
 			if(target_apple == NULL){
 				target_apple = apple;
-				end_point = target_apple->GetPosition();
+				destanation = target_apple->GetPosition();
 			}else{
 				float targedDistance = Distance(target_apple->GetPosition(), GetPosition());
 				float newDistatnce = Distance(apple->GetPosition(), GetPosition());
 				if(newDistatnce < targedDistance){
 					target_apple = apple;
-					end_point = target_apple->GetPosition();
+					destanation = target_apple->GetPosition();
 				}
 			}
 		}
@@ -310,32 +383,32 @@ void Spider::ScanForApples(list<Apple*> &apples){
 }
 
 void Spider::SetNearestBorder(){
-	end_point.x = GetPosition().x;
-	end_point.y = - GetRadius();
+	destanation.x = GetPosition().x;
+	destanation.y = - GetRadius();
 	Point newPoint;
 	float distance;
 	float newDistance;
 
 	newPoint.x = game->GetWidth() + GetRadius();
 	newPoint.y = GetPosition().y;
-	distance = Distance(end_point, GetPosition());
+	distance = Distance(destanation, GetPosition());
 	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
-		end_point = newPoint;
+		destanation = newPoint;
 
 	newPoint.x = GetPosition().x;
 	newPoint.y = game->GetHeight() + GetRadius();
-	distance = Distance(end_point, GetPosition());
+	distance = Distance(destanation, GetPosition());
 	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
-		end_point = newPoint;
+		destanation = newPoint;
 
 	newPoint.x = - GetRadius();
 	newPoint.y = GetPosition().y;
-	distance = Distance(end_point, GetPosition());
+	distance = Distance(destanation, GetPosition());
 	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
-		end_point = newPoint;
+		destanation = newPoint;
 }
 
 void Spider::EatApple(list<Apple*> &apples){

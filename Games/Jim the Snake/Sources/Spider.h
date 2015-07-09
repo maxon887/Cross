@@ -50,7 +50,6 @@ public:
 	float GetSpeedV();
 	bool Hiding();
 private:
-	static const float speedV;
 	static const float speedW;
 
 	static Animation* st_anim;
@@ -58,15 +57,19 @@ private:
 	static Image* body;
 
 	SpiderState state;
-	Point end_point;
 	Animation* anim;
 	Audio* run_snd;
+	Point destanation;
+	bool temporary_run;
 	float angle;
 	float rotate_angle;
 	float head_angle;
 	float thinking_time;
+	float speedV;
 	bool hungry;
-	bool OnScreen();
+
+	bool OnCollision(Point p, float radius);
+	//bool OnScreen();
 	void ScanForApples(list<Apple*> &apples);
 	void SetNearestBorder();
 	void EatApple(list<Apple*> &apples);

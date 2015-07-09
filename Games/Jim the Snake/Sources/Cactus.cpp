@@ -69,7 +69,6 @@ void Cactus::Update(float sec){
 			if(scale_factor < 1)
 				shake_up = true;
 		}
-		game->launcher->LogIt(scale_factor);
 		}break;
 	case ADULT:{
 		if(shake_up){

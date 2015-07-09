@@ -53,7 +53,7 @@ string LauncherWIN::AssetsPath(){
 }
 
 string LauncherWIN::DataPath(){
-	LPCTSTR szPath = "../../Data/";
+	LPCTSTR szPath = "Debug/Data/";
 	if(DirectoryExists(szPath)){
 		return szPath;
 	}else{
