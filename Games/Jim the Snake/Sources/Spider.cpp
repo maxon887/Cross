@@ -104,7 +104,7 @@ Spider::Spider(){
 Spider::~Spider(){
 	delete run_snd;
 }
-
+/*
 void Spider::Update(float sec){
 	switch (state)
 	{
@@ -195,8 +195,8 @@ void Spider::Update(float sec){
 	default:
 		break;
 	}
-}
-
+}*/
+/*
 bool Spider::OnCollision(Point p, float radius){
 	list<Cactus*> cactuses = screen->GetCactuses();
 	for(Cactus* cactus : cactuses){
@@ -209,7 +209,7 @@ bool Spider::OnCollision(Point p, float radius){
 	}
 	Snake* jim = screen->GetSnake();
 	return jim->OnCollision(p, radius);
-}
+}*/
 /*
 void Spider::Update(float sec){
 	list<Apple*>& apples = screen->GetApples();

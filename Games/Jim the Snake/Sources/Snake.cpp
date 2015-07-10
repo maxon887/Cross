@@ -93,7 +93,7 @@ void Snake::Release(){
 	delete punch;
 }
 //						CONSTRUCTOR
-Snake::Snake():GameObject(Point(200, 400)){
+Snake::Snake():GameObject(Point(200, 400), 9){
 	angle = 0;
 	star_angle = 0;
 	eatable_time_left = -1;
@@ -108,6 +108,7 @@ Snake::Snake():GameObject(Point(200, 400)){
 //						DESTRUCTOR
 Snake::~Snake(){
 	for(Body* b : body_nodes){
+		screen->DeleteObject(b);
 		delete b;
 	}
 }
@@ -147,14 +148,14 @@ void Snake::Update(float sec){
 					screen->SetScore(screen->GetScore() + near_eatable->Eat());
 					near_eatable = NULL;
 				}
-			}
+			}/*
 			list<Apple*>& apples = screen->GetApples();
 			for(Apple* apple : screen->GetApples()){
 				EatableNear(apple);
 			}
 			for(Spider* spider : screen->GetSpiders()){
 				EatableNear(spider);
-			}
+			}*/
 			if(OnBorder() || OnBiteYouself()){
 				if(screen->GetScore() > game->BestScore()){
 					game->SetBestScore(screen->GetScore());
@@ -293,15 +294,21 @@ void Snake::UpdateBody(float sec){
 							Body* cur = new Body(Point(0, 0));
 							previous->SetNext(cur);
 							body_nodes.push_back(cur);
+							screen->AddObject(cur);
 						}else{
-							body_nodes.push_back(new Body(GetPosition()));
+							Body* b = new Body(Point(-100, -100));
+							body_nodes.push_back(b);
+							screen->AddObject(b);
 						}
 					}
 					Body* node = body_nodes[nodIndex];
 					node->SetPosition(Point(x, y));
-					if(node->Update(sec)){
+					if(node->NeedMore()){
 						body_length += nod_length;
 					}
+					//if(node->Update(sec)){
+					//	body_length += nod_length;
+					//}
 				}
 				nodIndex++;
 				l += nod_length;

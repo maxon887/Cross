@@ -44,7 +44,7 @@ public:
 
 	void Start();
 	void Draw();
-	void Update(float sec);
+	//void Update(float sec);
 	void Rotate(float deltaAngle);
 	float GetAngle();
 	float GetSpeedV();
@@ -68,7 +68,7 @@ private:
 	float speedV;
 	bool hungry;
 
-	bool OnCollision(Point p, float radius);
+	//bool OnCollision(Point p, float radius);
 	//bool OnScreen();
 	void ScanForApples(list<Apple*> &apples);
 	void SetNearestBorder();

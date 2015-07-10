@@ -24,12 +24,14 @@ public:
 	static Image* img;
 	Body(Point pos);
 	float GetRadius();
-	bool Update(float sec);
+	void Update(float sec);
 	void Draw();
 	void SetBig();
 	void SetNext(Body* next);
+	bool NeedMore();
 private:
 	bool big;
+	bool need_more;
 	float time_left;
 	Body* next;
 };

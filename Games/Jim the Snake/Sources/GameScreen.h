@@ -21,12 +21,13 @@
 #include "Texter.h"
 #include "Button.h"
 
-#include <list>
+#include <map>
 
 class Snake;
 class Spider;
 class Apple;
 class Cactus;
+class GameObject;
 
 enum class GameState{
 	ONREADY,
@@ -48,18 +49,22 @@ public:
 	void SetState(GameState newState);
 	int GetScore();
 	void SetScore(int score);
-	Snake* GetSnake();
-	list<Apple*>& GetApples();
-	list<Spider*>& GetSpiders();
-	list<Cactus*>& GetCactuses();
+	void AddObject(GameObject* obj);
+	void DeleteObject(GameObject* obj);
+	//Snake* GetSnake();
+	//list<Apple*>& GetApples();
+	//list<Spider*>& GetSpiders();
+	//list<Cactus*>& GetCactuses();
 	void MusicStop();
 private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
-	list<Apple*> apples;
-	list<Spider*> spiders;
-	list<Cactus*> cactuses;
+	map<int, GameObject*> objects;
+	//set<GameObject> objects;
+	//list<Apple*> apples;
+	//list<Spider*> spiders;
+	//list<Cactus*> cactuses;
 
 	Image* background;
 	Image* score_img;
@@ -86,12 +91,14 @@ private:
 	float centerH;
 
 	void Restart();
+	void SetApple();
+	/*
 	void UpdateApples(float sec);
 	void DrawApples();
 	void UpdateSpiders(float sec);
 	void DrawSpiders();
 	void UpdateCactuses(float sec);
-	void DrawCactuses();
+	void DrawCactuses();*/
 	void DrawScore();
 	void CalcInput(float sec);
 	Point GetEmptyPosition(float radius);

@@ -34,7 +34,7 @@ GameScreen::~GameScreen(){
 	Snake::Release();
 	Spider::Release();
 	Apple::Release();
-	Cactus::Release();
+	Cactus::Release();/*
 	for(Apple* apple : apples){
 		delete apple;
 	}
@@ -43,7 +43,7 @@ GameScreen::~GameScreen(){
 	}
 	for(Cactus* cactus : cactuses){
 		delete cactus;
-	}
+	}*/
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(score_img);
 	graphics->ReleaseImage(gameover_img);
@@ -107,15 +107,20 @@ void GameScreen::Start(){
 
 void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
-	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
+	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);/*
 	UpdateApples(sec);
 	DrawApples();
 	UpdateCactuses(sec);
 	DrawCactuses();
 	UpdateSpiders(sec);
-	DrawSpiders();
-	snake->Update(sec);
-	snake->Draw();
+	DrawSpiders();*/
+	//snake->Update(sec);
+	//snake->Draw();
+	for(pair<int, GameObject*> pair : objects){
+		GameObject* obj = pair.second;
+		obj->Update(sec);
+		obj->Draw();
+	}
 	switch (state) {
 	case GameState::ONREADY:
 		graphics->DrawImage(centerW, centerW, ready_img);
@@ -198,10 +203,19 @@ void GameScreen::SetScore(int score){
 	this->score = score;
 }
 
-Snake* GameScreen::GetSnake(){
-	return snake;
+void GameScreen::AddObject(GameObject* obj){
+	objects.insert(pair<int, GameObject*>(obj->GetId(), obj));
 }
 
+void GameScreen::DeleteObject(GameObject* obj){
+	auto it = objects.find(obj->GetId());
+	objects.erase(it);
+}
+/*
+Snake* GameScreen::GetSnake(){
+	return snake;
+}*/
+/*
 list<Apple*>& GameScreen::GetApples(){
 	return apples;
 }
@@ -213,7 +227,7 @@ list<Spider*>& GameScreen::GetSpiders(){
 list<Cactus*>& GameScreen::GetCactuses(){
 	return cactuses;
 }
-
+*/
 void GameScreen::MusicStop(){
 	music->Stop();
 }
@@ -223,12 +237,13 @@ void GameScreen::Restart(){
 	onready_time = 4.3f;
 	game_over->Stop();
 	music->Play();
-	apples.clear();
-	spiders.clear();
-	cactuses.clear();
+	//apples.clear();
+	//spiders.clear();
+	//cactuses.clear();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
 	delete snake;
+	/*
 	for(Apple* apple : apples){
 		delete apple;
 	}
@@ -237,18 +252,25 @@ void GameScreen::Restart(){
 	}
 	for(Cactus* cactus : cactuses){
 		delete cactus;
-	}
+	}*/
 	snake = new Snake();
+	AddObject(snake);
+	//objects.insert(snake);
+	/*
 	for(int i = 0; i < 2; i++){
 		Cactus* cactus = new Cactus();
 		cactus->SetPosition(GetEmptyPosition(cactus->GetRadius()));
 		cactuses.push_back(cactus);
 
 		spiders.push_back(new Spider());
-	}
+	}*/
 	SetState(GameState::ONREADY);
 }
 
+void GameScreen::SetApple(){
+
+}
+/*
 void GameScreen::UpdateApples(float sec){
 	if(GetState() != GameState::PAUSED){
 		static float next = 0; 
@@ -335,7 +357,7 @@ void GameScreen::DrawCactuses(){
 	for(Cactus* cactus : cactuses){
 		cactus->Draw();
 	}
-}
+}*/
 
 void GameScreen::DrawScore(){
 	static const Point pos(game->GetWidth() / 2 + 120, 50);
@@ -400,6 +422,13 @@ Point GameScreen::GetEmptyPosition(float radius){
 		int randY = (int)(bottom - top);
 		position.x = (float)(rand() % randX) + left;
 		position.y = (float)(rand() % randY) + top;
+		for(pair<int, GameObject*> pair : objects){
+			GameObject* obj = pair.second;
+			onCollision = CircleOnCollision(position, radius, obj->GetPosition(), obj->GetRadius());
+			if(onCollision)
+				break;
+		}
+		/*
 		onCollision = snake->OnCollision(position, radius);
 		if(onCollision)
 			continue;
@@ -423,7 +452,7 @@ Point GameScreen::GetEmptyPosition(float radius){
 				break;
 		}
 		if(onCollision)
-			continue;
+			continue;*/
 	}
 	return position;
 }

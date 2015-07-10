@@ -19,8 +19,9 @@
 	
 Image*			Body::img			= NULL;
 
-Body::Body(Point pos):GameObject(pos){
+Body::Body(Point pos):GameObject(pos, 9){
 	big = false;
+	need_more = false;
 	next = NULL;
 	time_left = -1;
 }
@@ -29,19 +30,20 @@ float Body::GetRadius(){
 	return 26.f;
 }
 
-bool Body::Update(float sec){
+void Body::Update(float sec){
 	if(time_left > 0){
 		time_left -= sec;
 		if(time_left < 0){
 			big = false;
 			if(next == NULL){
-				return true;
+				need_more = true;
+				return;
 			}else{
 				next->SetBig();
 			}
 		}
 	}
-	return false;
+	//return false;
 }
 
 void Body::Draw(){
@@ -60,4 +62,13 @@ void Body::SetBig(){
 
 void Body::SetNext(Body* next){
 	this->next = next;
+}
+
+bool Body::NeedMore(){
+	if(need_more){
+		need_more = false;
+		return true;
+	}else{
+		return false;
+	}
 }

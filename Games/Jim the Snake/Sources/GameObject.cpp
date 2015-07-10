@@ -17,9 +17,10 @@
 	
 #include "GameObject.h"
 
-JimTheSnake*	GameObject::game = NULL;
-GameScreen*		GameObject::screen = NULL;
-Graphics*		GameObject::graphics = NULL;
+JimTheSnake*		GameObject::game = NULL;
+GameScreen*			GameObject::screen = NULL;
+Graphics*			GameObject::graphics = NULL;
+int					GameObject::count = 0;
 
 void GameObject::Init(JimTheSnake* game){
 	GameObject::game = game;
@@ -31,11 +32,23 @@ void GameObject::Init(JimTheSnake* game){
 }
 
 GameObject::GameObject(){
-	SetPosition(Point(0, 0));
+	Initialize(Point(0, 0), 0);
 }
 
 GameObject::GameObject(Point pos){
-	SetPosition(pos);
+	Initialize(pos, 0);
+}
+
+GameObject::GameObject(Point pos, int layer){
+	Initialize(pos, layer);
+}
+
+GameObject::~GameObject(){
+	count--;
+}
+
+int GameObject::GetId(){
+	return id;
 }
 
 void GameObject::SetPosition(Point pos){
@@ -44,4 +57,14 @@ void GameObject::SetPosition(Point pos){
 
 Point GameObject::GetPosition(){
 	return position;
+}
+/*
+bool GameObject::operator < (GameObject& obj){
+	return id < obj.GetId();
+}*/
+
+void GameObject::Initialize(Point pos, int layer){
+	id = count + layer * 1000;
+	count++;
+	SetPosition(pos);
 }
