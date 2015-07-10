@@ -98,6 +98,7 @@ Snake::Snake():GameObject(Point(200, 400), 9){
 	star_angle = 0;
 	eatable_time_left = -1;
 	body_length = 150.f;
+	//body_length = 10000.f;
 	dead_time = 0;
 	dead = false;
 	near_eatable = NULL;
@@ -156,6 +157,7 @@ void Snake::Update(float sec){
 			for(Spider* spider : screen->GetSpiders()){
 				EatableNear(spider);
 			}*/
+			/*
 			if(OnBorder() || OnBiteYouself()){
 				if(screen->GetScore() > game->BestScore()){
 					game->SetBestScore(screen->GetScore());
@@ -163,7 +165,8 @@ void Snake::Update(float sec){
 				dead = true;
 				screen->MusicStop();
 				punch->Play();
-			}
+			}*/
+
 			UpdateBody(sec);
 		}else{
 			dead_time += sec;
@@ -187,12 +190,12 @@ void Snake::Draw(){
 		if(near_eatable != NULL){
 			near_eatable->Draw();
 		}
-		DrawBody();
+		//DrawBody();
 		face = face_top_anim->GetImage();
 		graphics->Rotate(face, angle + 90.f);
 		graphics->DrawImage(GetPosition(), face);
 	}else{
-		DrawBody();
+		//DrawBody();
 		graphics->Rotate(face_dead, angle + 90.f);
 		graphics->DrawImage(GetPosition(), face_dead);
 		if(dead_time > 1.f){
@@ -267,16 +270,20 @@ bool Snake::OnBorder(){
 }
 
 void Snake::UpdateBody(float sec){
-	Point first = body_path[0];
+	Point first = *body_path.begin();
 	if(first != GetPosition()){
 		body_path.insert(body_path.begin(), GetPosition());
 	}
 	//drawing body nodes
 	float pathLen = 0;
 	unsigned int nodIndex = 1;
-	for(unsigned int i = 0; i < body_path.size() - 1; i++){
-		Point curr = body_path[i];
-		Point next = body_path[i + 1];
+	auto currIt = body_path.begin();
+	auto nextIt = body_path.begin();
+	nextIt++;
+
+	while(nextIt != body_path.end()){
+		Point curr = *currIt;
+		Point next = *nextIt;
 		//length between two path points
 		float len = Distance(curr, next);
 		pathLen += len;
@@ -306,9 +313,6 @@ void Snake::UpdateBody(float sec){
 					if(node->NeedMore()){
 						body_length += nod_length;
 					}
-					//if(node->Update(sec)){
-					//	body_length += nod_length;
-					//}
 				}
 				nodIndex++;
 				l += nod_length;
@@ -317,16 +321,11 @@ void Snake::UpdateBody(float sec){
 		}
 		//remove unused path
 		if(pathLen > body_length){
-			while (body_path.size() - 2 > i){
-				body_path.erase(body_path.begin() + i + 2);
-			}
+			nextIt = body_path.erase(nextIt, body_path.end());
+		}else{
+			currIt++;
+			nextIt++;
 		}
-	}
-}
-
-void Snake::DrawBody(){
-	for(unsigned int i = 1; i < body_nodes.size(); i++){
-			body_nodes[i]->Draw();
 	}
 }
 

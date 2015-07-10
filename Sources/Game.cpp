@@ -103,8 +103,8 @@ void Game::Update(){
 		now = high_resolution_clock::now();
 		long long up = duration_cast<microseconds>(now - render_time).count();
 		float milis = up / 1000.f;
-		if(milis < 10){
-			launcher->Sleep(10 - milis);
+		if(milis < 5){
+			launcher->Sleep(5 - milis);
 		}
 #ifdef CROSSDEBUG
 		debuger->Display((float)rend);

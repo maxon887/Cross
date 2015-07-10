@@ -170,7 +170,7 @@ void GameScreen::Update(float sec){
 
 void GameScreen::Suspend(){
 	if(state != GameState::GAMEOVER && state != GameState::PAUSED){
-		SetState(GameState::PAUSED);
+		//SetState(GameState::PAUSED);
 	}
 }
 //						PUBLIC METHODS	

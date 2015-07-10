@@ -61,12 +61,11 @@ private:
 	float eatable_time_left;
 	float star_angle;
 	Eatable* near_eatable;
-	vector<Point> body_path;
+	list<Point> body_path;
 	vector<Body*> body_nodes;
 
 	bool OnBiteYouself();
 	bool OnBorder();
 	void UpdateBody(float sec);
-	void DrawBody();
 	void EatableNear(Eatable* eatable);
 };
