@@ -21,7 +21,6 @@
 #include "Apple.h"
 #include "Spider.h"
 #include "Animation.h"
-#include "Eatable.h"
 
 class Snake : public GameObject{
 public:
@@ -37,10 +36,19 @@ public:
 	void Rotate(float angle);
 	void Update(float sec);
 	void Draw();
-	bool OnCollision(Point p);
-	bool OnCollision(Point center, float radius);
 	float GetSpeedW();
+	vector<Body*>& GetBodyNodes();
+	GameObject* GetRadar();
 private:
+	class Radar : public GameObject{
+	public:
+		Eatable* eatable;
+		Radar(Point pos):GameObject(pos), eatable(NULL){};
+		float GetRadius(){ return 60.f; }
+		void OnCollision(GameObject* obj){
+			eatable = dynamic_cast<Eatable*>(obj);
+		}
+	};
 	static const float speedV;
 	static const float speedW;
 	static const float nod_length;
@@ -58,14 +66,13 @@ private:
 	float angle;
 	float body_length;
 	float dead_time;
-	float eatable_time_left;
 	float star_angle;
-	Eatable* near_eatable;
+	float eatable_time_left;
 	list<Point> body_path;
 	vector<Body*> body_nodes;
+	Radar* radar;
 
-	bool OnBiteYouself();
 	bool OnBorder();
 	void UpdateBody(float sec);
-	void EatableNear(Eatable* eatable);
+	void DrawBody();
 };

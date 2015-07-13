@@ -19,7 +19,7 @@
 	
 Image*			Body::img			= NULL;
 
-Body::Body(Point pos):GameObject(pos, 9){
+Body::Body(Point pos){
 	big = false;
 	need_more = false;
 	next = NULL;

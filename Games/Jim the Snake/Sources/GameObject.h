@@ -23,25 +23,17 @@ public:
 	static void Init(JimTheSnake* game);
 
 	virtual float GetRadius() = 0;
-	virtual void OnCollision() { };
-	virtual void Update(float sec) { };
-	virtual void Draw() { };
+	virtual void OnCollision(GameObject* obj){};
 
 	GameObject();
 	GameObject(Point pos);
-	GameObject(Point pos, int layer);
-	virtual ~GameObject();
+	virtual ~GameObject() { };
 
 	void SetPosition(Point pos);
-	int GetId();
 	Point GetPosition();
-	//bool operator < (GameObject& obj);
 protected:
 	static JimTheSnake* game;
 	static GameScreen* screen;
 	static Graphics* graphics;
-	static int count;
-	void Initialize(Point pos, int layer);
 	Point position;
-	int id;
 };

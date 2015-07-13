@@ -30,12 +30,15 @@ class Apple : public Eatable{
 public:
 	static void Init();
 	static void Release();
+	static int count;
 	Apple();
+	~Apple();
 	int Eat();
 	bool Eaten();
 	void Draw();
 	float GetRadius();
 	void Update(float sec);
+	bool Useless();
 private:
 	static Image* fresh_img;
 	static Image* rot_img;

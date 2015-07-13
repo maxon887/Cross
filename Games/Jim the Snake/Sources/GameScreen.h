@@ -21,7 +21,7 @@
 #include "Texter.h"
 #include "Button.h"
 
-#include <map>
+#include <list>
 
 class Snake;
 class Spider;
@@ -47,24 +47,12 @@ public:
 
 	GameState GetState();
 	void SetState(GameState newState);
-	int GetScore();
-	void SetScore(int score);
-	void AddObject(GameObject* obj);
-	void DeleteObject(GameObject* obj);
-	//Snake* GetSnake();
-	//list<Apple*>& GetApples();
-	//list<Spider*>& GetSpiders();
-	//list<Cactus*>& GetCactuses();
-	void MusicStop();
+	void AddScore(int gain);
 private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
-	map<int, GameObject*> objects;
-	//set<GameObject> objects;
-	//list<Apple*> apples;
-	//list<Spider*> spiders;
-	//list<Cactus*> cactuses;
+	list<Apple*> apples;
 
 	Image* background;
 	Image* score_img;
@@ -91,14 +79,9 @@ private:
 	float centerH;
 
 	void Restart();
-	void SetApple();
-	/*
+	void ProccessCollisions();
 	void UpdateApples(float sec);
 	void DrawApples();
-	void UpdateSpiders(float sec);
-	void DrawSpiders();
-	void UpdateCactuses(float sec);
-	void DrawCactuses();*/
 	void DrawScore();
 	void CalcInput(float sec);
 	Point GetEmptyPosition(float radius);

@@ -34,8 +34,8 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../Sources/Apple.cpp \
 					../../../Sources/Spider.cpp \
 					../../../Sources/Snake.cpp \
-					../../../Sources/Cactus.cpp \
 					../../../Sources/Body.cpp \
+					../../../Sources/Cactus.cpp \
 					../../../../../Sources/Graphics.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Screen.cpp \
@@ -46,6 +46,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Point.cpp \
 					../../../../../Sources/Rect.cpp \
 					../../../../../Sources/Color.cpp \
+					../../../../../Sources/Launcher.cpp \
 					../../../../../Sources/Utils/Texter.cpp \
 					../../../../../Sources/Utils/Debuger.cpp \
 					../../../../../Sources/Utils/Button.cpp \
