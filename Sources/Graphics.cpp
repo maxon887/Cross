@@ -31,6 +31,7 @@
 using namespace cross;
 
 #define BYTES_PER_CHANNEL 4
+#define PRIMITIVE_ENABLED
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -206,6 +207,7 @@ void Graphics::DrawLine(Point p1, Point p2, Color c){
 }
 
 void Graphics::DrawLine(Point p1, Point p2, float r, float g, float b){
+#ifdef PRIMITIVE_ENABLED
 	p1.x *= game->GetScaleFactor();
 	p1.y *= game->GetScaleFactor();
 	p2.x *= game->GetScaleFactor();
@@ -223,6 +225,7 @@ void Graphics::DrawLine(Point p1, Point p2, float r, float g, float b){
 	glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, indices);
 
 	glDisableClientState(GL_COLOR_ARRAY);
+#endif
 }
 
 void Graphics::DrawCircle(Point center, float radius, Color c){
@@ -230,6 +233,7 @@ void Graphics::DrawCircle(Point center, float radius, Color c){
 }
 
 void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
+#ifdef PRIMITIVE_ENABLED
     c.x *= game->GetScaleFactor();
     c.y *= game->GetScaleFactor();
     radius *= game->GetScaleFactor();
@@ -283,6 +287,7 @@ void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
     glColorPointer(4, GL_FLOAT, 0, colors.data());
     
 	glDrawElements(GL_POINTS, points.size(), GL_UNSIGNED_SHORT, points.data());
+#endif
 #endif
 }
 
@@ -346,6 +351,7 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 }
 
 void Graphics::DrawTargetPixel(Point p, float r, float g, float b){
+#ifdef PRIMITIVE_ENABLED
     float vertices[] = { p.x, p.y };
     float colors[] = { r, g, b, 1 };
     static const unsigned short indices[] = { 0 };
@@ -358,4 +364,5 @@ void Graphics::DrawTargetPixel(Point p, float r, float g, float b){
     glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
     
     //glDisableClientState(GL_COLOR_ARRAY);
+#endif
 }

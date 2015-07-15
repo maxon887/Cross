@@ -94,6 +94,7 @@ void Apple::Draw(){
 	}
 	graphics->Rotate(current, angle);
 	graphics->DrawImage(GetPosition(), current);
+	graphics->DrawCircle(GetPosition(), GetRadius(), Color::Green);
 }
 
 float Apple::GetRadius(){
@@ -101,6 +102,7 @@ float Apple::GetRadius(){
 }
 
 void Apple::Update(float sec){
+	Collisioner::Update(sec);
 	life_time -= sec;
 	if(life_time < 0){
 		state = AppleState::EMPTY;

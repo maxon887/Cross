@@ -15,25 +15,36 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
-
 #include "Collisioner.h"
+#include "Misc.h"
 
-class Body : public Collisioner{
-public:
-	static Image* img;
-	Body(Point pos);
-	Body(Point pos, float radius);
-	float GetRadius();
-	void Update(float sec);
-	void Draw();
-	void SetBig();
-	void SetNext(Body* next);
-	bool NeedMore();
-private:
-	float radius;
-	bool big;
-	bool need_more;
-	float time_left;
-	Body* next;
-};
+void Collisioner::Update(float sec){
+	if(partner != NULL){
+		if(!CircleOnCollision(GetPosition(), GetRadius(), partner->GetPosition(), partner->GetRadius())){
+			partner = NULL;
+		}
+	}
+}
+
+Collisioner* Collisioner::OnCollision(){
+	return partner;
+}
+
+void Collisioner::CheckCollision(Collisioner* obj){
+	if(obj != partner){
+		partner = obj;
+		CollisionOccurred(obj);
+	}
+}
+
+void Collisioner::BreakUp(){
+	if(partner != NULL){
+		partner = NULL;
+	}
+}
+
+Collisioner::~Collisioner(){
+	if(partner != NULL){
+		partner->BreakUp();
+	}
+}

@@ -19,18 +19,28 @@
 	
 Image*			Body::img			= NULL;
 
-Body::Body(Point pos){
+Body::Body(Point pos):Collisioner(pos){
 	big = false;
 	need_more = false;
 	next = NULL;
 	time_left = -1;
+	radius = 26.f;
+}
+
+Body::Body(Point pos, float radius):Collisioner(pos){
+	big = false;
+	need_more = false;
+	next = NULL;
+	time_left = -1;
+	this->radius = radius;
 }
 
 float Body::GetRadius(){
-	return 26.f;
+	return radius;
 }
 
 void Body::Update(float sec){
+	Collisioner::Update(sec);
 	if(time_left > 0){
 		time_left -= sec;
 		if(time_left < 0){
@@ -53,6 +63,7 @@ void Body::Draw(){
 		graphics->ScaleImage(img, game->GetScaleFactor());
 	}
 	graphics->DrawImage(GetPosition(), img);
+	graphics->DrawCircle(GetPosition(), GetRadius(), Color::Blue);
 }
 
 void Body::SetBig(){

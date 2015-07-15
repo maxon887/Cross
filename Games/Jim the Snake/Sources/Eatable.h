@@ -17,14 +17,13 @@
 	
 #pragma once
 #include "Point.h"
-#include "GameObject.h"
+#include "Collisioner.h"
 
 using namespace cross;
 
-class Eatable : public GameObject{
+class Eatable : public Collisioner{
 public:
 	virtual int Eat() = 0;
 	virtual bool Eaten() = 0;
-	virtual void Draw() = 0;
 	virtual ~Eatable() { };
 };

@@ -36,6 +36,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../Sources/Snake.cpp \
 					../../../Sources/Body.cpp \
 					../../../Sources/Cactus.cpp \
+					../../../Sources/Collisioner.cpp \
 					../../../../../Sources/Graphics.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Screen.cpp \

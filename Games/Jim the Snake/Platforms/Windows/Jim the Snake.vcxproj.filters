@@ -118,6 +118,9 @@
     <ClCompile Include="..\..\..\..\Sources\Launcher.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Collisioner.cpp">
+      <Filter>Jim the Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
@@ -239,6 +242,9 @@
       <Filter>Jim the Snake</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Cactus.h">
+      <Filter>Jim the Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Collisioner.h">
       <Filter>Jim the Snake</Filter>
     </ClInclude>
   </ItemGroup>

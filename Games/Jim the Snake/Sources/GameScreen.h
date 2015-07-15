@@ -48,11 +48,14 @@ public:
 	GameState GetState();
 	void SetState(GameState newState);
 	void AddScore(int gain);
+	bool IsEmptyPosition(Point pos, float radius);
 private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
 	list<Apple*> apples;
+	list<Spider*> spiders;
+	list<Cactus*> cactuses;
 
 	Image* background;
 	Image* score_img;
@@ -82,6 +85,8 @@ private:
 	void ProccessCollisions();
 	void UpdateApples(float sec);
 	void DrawApples();
+	void UpdateSpiders(float sec);
+	void DrawSpiders();
 	void DrawScore();
 	void CalcInput(float sec);
 	Point GetEmptyPosition(float radius);

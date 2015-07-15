@@ -31,6 +31,18 @@ GameScreen::GameScreen(JimTheSnake* game):Screen(game){
 //						DESTRUCTOR
 GameScreen::~GameScreen(){
 	delete snake;
+	for(Apple* apple : apples){
+		delete apple;
+	}
+	apples.clear();
+	for(Spider* spider : spiders){
+		delete spider;
+	}
+	spiders.clear();
+	for(Cactus* cactus : cactuses){
+		delete cactus;
+	}
+	cactuses.clear();
 	Snake::Release();
 	Spider::Release();
 	Apple::Release();
@@ -53,6 +65,7 @@ GameScreen::~GameScreen(){
 }
 //						OVERRIDDEN METHODS
 void GameScreen::Start(){
+	//srand(time(NULL));
 	GameObject::Init(game);
 	Snake::Init();
 	Apple::Init();
@@ -103,6 +116,8 @@ void GameScreen::Update(float sec){
 	ProccessCollisions();
 	UpdateApples(sec);
 	DrawApples();
+	UpdateSpiders(sec);
+	DrawSpiders();
 	snake->Update(sec);
 	snake->Draw();
 	switch (state) {
@@ -172,9 +187,13 @@ void GameScreen::SetState(GameState newState){
 		music->Pause();
 		break;
 	case GameState::GAMEOVER:
+		music->Stop();
+		if(score > game->BestScore()){
+			game->SetBestScore(score);
+		}
 		break;
 	default:
-		break;
+		throw string("Unexpected GameState");
 	}
 	state = newState;
 }
@@ -191,16 +210,54 @@ void GameScreen::Restart(){
 	music->Play();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
+	apples.clear();
+	spiders.clear();
 	delete snake;
 	snake = new Snake();
 	SetState(GameState::ONREADY);
+	//debug
+	for(int i = 0; i < 10; i++){
+		Apple* newApple1 = new Apple();
+		newApple1->SetPosition(GetEmptyPosition(newApple1->GetRadius()));
+		apples.push_back(newApple1);
+		Apple* newApple2 = new Apple();
+		newApple2->SetPosition(GetEmptyPosition(newApple2->GetRadius()));
+		apples.push_back(newApple2);
+		spiders.push_back(new Spider());
+	}
 }
 
 void GameScreen::ProccessCollisions(){
-	GameObject* radar = snake->GetRadar();
+	Collisioner* snakeRadar = snake->GetRadar();
+	vector<Body*> snakeBody = snake->GetBodyNodes();
+	Collisioner* snakeHead = snake;
 	for(Apple* apple : apples){
-		if(CircleOnCollision(radar->GetPosition(), radar->GetRadius(), apple->GetPosition(), apple->GetRadius())){
-			radar->OnCollision(apple);
+		if(CircleOnCollision(snakeRadar->GetPosition(), snakeRadar->GetRadius(), apple->GetPosition(), apple->GetRadius())){
+			snakeRadar->CheckCollision(apple);
+			apple->CheckCollision(snakeRadar);
+		}
+	}
+	for(Spider* spider : spiders){
+		vector<Collisioner*> radars = spider->GetRadars();
+		if(CircleOnCollision(snakeRadar->GetPosition(), snakeRadar->GetRadius(), spider->GetPosition(), spider->GetRadius())){
+			snakeRadar->CheckCollision(spider);
+			spider->CheckCollision(snakeRadar);
+		}
+		for(Collisioner* spiderRadar : radars){
+			for(Body* b : snakeBody){
+				if(CircleOnCollision(b->GetPosition(), b->GetRadius(), spiderRadar->GetPosition(), spiderRadar->GetRadius())){
+					spiderRadar->CheckCollision(b);
+					b->CheckCollision(spiderRadar);
+				}
+				if(CircleOnCollision(b->GetPosition(), b->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
+					b->CheckCollision(snakeHead);
+					snakeHead->CheckCollision(b);
+				}
+			}
+			if(CircleOnCollision(snakeHead->GetPosition(), snakeHead->GetRadius(), spiderRadar->GetPosition(), spiderRadar->GetRadius())){
+				snakeHead->CheckCollision(spiderRadar);
+				spiderRadar->CheckCollision(snakeHead);
+			}
 		}
 	}
 }
@@ -219,10 +276,11 @@ void GameScreen::UpdateApples(float sec){
 				it = apples.erase(it);
 				int roll = rand() % 101;
 				if(roll > 20) {
-					//spiders.push_back(new Spider());
+					spiders.push_back(new Spider());
 				}
 			}
 		}
+
 		if(next <= 0 || apples.size() == 0) {
 			next = (float)(rand()%15);
 			Apple* newApple = new Apple();
@@ -237,6 +295,26 @@ void GameScreen::UpdateApples(float sec){
 void GameScreen::DrawApples(){
 	for(Apple* apple : apples){
 		apple->Draw();
+	}
+}
+
+void GameScreen::UpdateSpiders(float sec){
+	auto it = spiders.begin();
+	while(it != spiders.end()){
+		Spider* spider = (*it);
+		if(!spider->Eaten()){
+			spider->Update(sec);
+			it++;
+		}else{
+			delete spider;
+			it = spiders.erase(it);
+		}
+	}
+}
+
+void GameScreen::DrawSpiders(){
+	for(Spider* spider : spiders){
+		spider->Draw();
 	}
 }
 
@@ -290,6 +368,24 @@ void GameScreen::CalcInput(float sec){
 	}
 }
 
+bool GameScreen::IsEmptyPosition(Point pos, float radius){
+	if(CircleOnCollision(pos, radius, snake->GetPosition(), snake->GetRadius()))
+		return false;
+	for(GameObject* body : snake->GetBodyNodes()){
+		if(CircleOnCollision(pos, radius, body->GetPosition(), body->GetRadius()))
+			return false;
+	}
+	for(Apple* apple : apples){
+		if(CircleOnCollision(pos, radius, apple->GetPosition(), apple->GetRadius()))
+			return false;
+	}
+	for(Spider* spider : spiders){
+		if(CircleOnCollision(pos, radius, spider->GetPosition(), spider->GetRadius()))
+			return false;
+	}
+	return true;
+}
+
 Point GameScreen::GetEmptyPosition(float radius){
 	float top = score_img->GetHeight() + 50;
 	float bottom = game->GetHeight() - 4 * radius;
@@ -303,38 +399,7 @@ Point GameScreen::GetEmptyPosition(float radius){
 		int randY = (int)(bottom - top);
 		position.x = (float)(rand() % randX) + left;
 		position.y = (float)(rand() % randY) + top;
-
-		if(CircleOnCollision(position, radius, snake->GetPosition(), snake->GetRadius()))
-			continue;
-		for(GameObject* body : snake->GetBodyNodes()){
-			onCollision = CircleOnCollision(position, radius, body->GetPosition(), body->GetRadius());
-			if(onCollision)
-				break;
-		}
-		if(onCollision)
-			continue;
-		for(Apple* apple : apples){
-			onCollision = CircleOnCollision(position, radius, apple->GetPosition(), apple->GetRadius());
-			if(onCollision)
-				break;
-		}
-		if(onCollision)
-			continue;
-		/*
-		for(Spider* spider : spiders){
-			onCollision = CircleOnCollision(position, radius, spider->GetPosition(), spider->GetRadius());
-			if(onCollision)
-				break;
-		}
-		if(onCollision)
-			continue;
-		for(Cactus* cactus : cactuses){
-			onCollision = CircleOnCollision(position, radius, cactus->GetPosition(), cactus->GetRadius());
-			if(onCollision)
-				break;
-		}
-		if(onCollision)
-			continue;*/
+		onCollision = !IsEmptyPosition(position, radius);
 	}
 	return position;
 }

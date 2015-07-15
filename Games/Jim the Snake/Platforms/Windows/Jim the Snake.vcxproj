@@ -36,6 +36,7 @@
     <ClCompile Include="..\..\Sources\Apple.cpp" />
     <ClCompile Include="..\..\Sources\Body.cpp" />
     <ClCompile Include="..\..\Sources\Cactus.cpp" />
+    <ClCompile Include="..\..\Sources\Collisioner.cpp" />
     <ClCompile Include="..\..\Sources\GameObject.cpp" />
     <ClCompile Include="..\..\Sources\GameScreen.cpp" />
     <ClCompile Include="..\..\Sources\MenuScreen.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="..\..\Sources\Apple.h" />
     <ClInclude Include="..\..\Sources\Body.h" />
     <ClInclude Include="..\..\Sources\Cactus.h" />
+    <ClInclude Include="..\..\Sources\Collisioner.h" />
     <ClInclude Include="..\..\Sources\Eatable.h" />
     <ClInclude Include="..\..\Sources\GameObject.h" />
     <ClInclude Include="..\..\Sources\GameScreen.h" />

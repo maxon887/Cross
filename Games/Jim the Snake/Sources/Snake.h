@@ -17,12 +17,13 @@
 	
 #pragma once
 #include "JimTheSnake.h"
+#include "Collisioner.h"
 #include "Body.h"
 #include "Apple.h"
 #include "Spider.h"
 #include "Animation.h"
 
-class Snake : public GameObject{
+class Snake : public Collisioner{
 public:
 	static void Init();
 	static void Release();
@@ -31,6 +32,7 @@ public:
 	~Snake();
 
 	float GetRadius();
+	void CollisionOccurred(Collisioner* obj);
 
 	float Direction();
 	void Rotate(float angle);
@@ -38,17 +40,16 @@ public:
 	void Draw();
 	float GetSpeedW();
 	vector<Body*>& GetBodyNodes();
-	GameObject* GetRadar();
+	Collisioner* GetRadar();
 private:
-	class Radar : public GameObject{
+	class Radar : public Collisioner{
 	public:
-		Eatable* eatable;
-		Radar(Point pos):GameObject(pos), eatable(NULL){};
+		Radar(Point pos, Snake* snake):Collisioner(pos), snake(snake){};
 		float GetRadius(){ return 60.f; }
-		void OnCollision(GameObject* obj){
-			eatable = dynamic_cast<Eatable*>(obj);
-		}
+		void CollisionOccurred(Collisioner* obj);
+		Snake* snake;
 	};
+
 	static const float speedV;
 	static const float speedW;
 	static const float nod_length;
@@ -75,4 +76,5 @@ private:
 	bool OnBorder();
 	void UpdateBody(float sec);
 	void DrawBody();
+	void Die();
 };

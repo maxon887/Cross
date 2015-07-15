@@ -22,14 +22,6 @@
 
 #include <list>
 
-enum class SpiderState{
-	RUNNING,
-	THINKING,
-	ROTATE,
-	HIDING,
-	DEAD
-};
-
 class Spider : public Eatable{
 public:
 	static void Init();
@@ -41,15 +33,37 @@ public:
 	float GetRadius();
 	int Eat();
 	bool Eaten();
-
-	void Start();
 	void Draw();
-	//void Update(float sec);
-	void Rotate(float deltaAngle);
-	float GetAngle();
-	float GetSpeedV();
-	bool Hiding();
+
+	void Update(float sec);
+	vector<Collisioner*>& GetRadars();
 private:
+	enum SpiderState{
+		RUNNING,
+		THINKING,
+		ROTATING,
+		HIDING,
+		DEAD
+	};
+	class NearRadar : public Collisioner{
+	public:
+		NearRadar(Point pos, Spider* spider):Collisioner(pos), spider(spider){};
+		float GetRadius() { return 1.f; };
+		void CollisionOccurred(Collisioner* obj){
+			spider->NearRadarCollision();
+		}
+		Spider* spider;
+	};
+	class FarRadar : public Collisioner{
+	public:
+		FarRadar(Point pos, Spider* spider):Collisioner(pos), spider(spider){};
+		float GetRadius() { return 1.f; };
+		void CollisionOccurred(Collisioner* obj){
+			spider->FarRadarCollision();
+		}
+		Spider* spider;
+	};
+
 	static const float speedW;
 
 	static Animation* st_anim;
@@ -60,18 +74,19 @@ private:
 	Animation* anim;
 	Audio* run_snd;
 	Point destanation;
+	vector<Collisioner*> radars;
+	Apple* target_apple;
 	bool temporary_run;
 	float angle;
-	float rotate_angle;
 	float head_angle;
 	float thinking_time;
 	float speedV;
 	bool hungry;
 
-	//bool OnCollision(Point p, float radius);
-	//bool OnScreen();
+	void NearRadarCollision();
+	void FarRadarCollision();
+
 	void ScanForApples(list<Apple*> &apples);
 	void SetNearestBorder();
 	void EatApple(list<Apple*> &apples);
-	Apple* target_apple;
 };

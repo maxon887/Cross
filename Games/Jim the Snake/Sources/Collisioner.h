@@ -16,24 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+#include "GameObject.h"
 
-#include "Collisioner.h"
-
-class Body : public Collisioner{
+class Collisioner : public GameObject{
 public:
-	static Image* img;
-	Body(Point pos);
-	Body(Point pos, float radius);
-	float GetRadius();
+	virtual void CollisionOccurred(Collisioner* obj){};
+
+	Collisioner():partner(NULL){};
+	Collisioner(Point pos):GameObject(pos), partner(NULL){};
+	virtual ~Collisioner();
+	
 	void Update(float sec);
-	void Draw();
-	void SetBig();
-	void SetNext(Body* next);
-	bool NeedMore();
+	Collisioner* OnCollision();
+	void CheckCollision(Collisioner* obj);
+	void BreakUp();
 private:
-	float radius;
-	bool big;
-	bool need_more;
-	float time_left;
-	Body* next;
+	Collisioner* partner;
 };

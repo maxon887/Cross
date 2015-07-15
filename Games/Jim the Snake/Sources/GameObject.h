@@ -23,7 +23,7 @@ public:
 	static void Init(JimTheSnake* game);
 
 	virtual float GetRadius() = 0;
-	virtual void OnCollision(GameObject* obj){};
+	virtual void Draw(){};
 
 	GameObject();
 	GameObject(Point pos);
