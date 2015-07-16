@@ -64,9 +64,9 @@ Spider::Spider(){
 		float x = sinus * (i + 1) * 50 + GetPosition().x;
 		float y = cosinus * (i + 1) * 50 + GetPosition().y;
 		if(i < 2){
-			radars.push_back(new NearRadar(GetPosition(), this));
+			radars.push_back(new NearRadar(Point(x, y), this));
 		}else{
-			radars.push_back(new FarRadar(GetPosition(), this));
+			radars.push_back(new FarRadar(Point(x, y), this));
 		}
 	}
 
@@ -190,8 +190,8 @@ void Spider::FarRadarCollision(){
 		j++;
 		for(int i = 0; i < 2; i++){
 			float newAngle = angle + deltaAngle + 90;
-			float x;
-			float y;
+			float x = 0;
+			float y = 0;
 			for(int j = 0; j < 4; j++){
 				x = sin(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().x;
 				y = cos(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().y;	

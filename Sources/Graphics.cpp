@@ -54,7 +54,6 @@ void Graphics::Clear(Color c){
 
 void Graphics::Clear(float r, float g, float b){
 	glClearColor(r, g, b, 1);
-	//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -286,7 +285,7 @@ void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
    	glEnableClientState(GL_COLOR_ARRAY);
     glColorPointer(4, GL_FLOAT, 0, colors.data());
     
-	glDrawElements(GL_POINTS, points.size(), GL_UNSIGNED_SHORT, points.data());
+	glDrawElements(GL_POINTS, (GLuint)points.size(), GL_UNSIGNED_SHORT, points.data());
 #endif
 #endif
 }

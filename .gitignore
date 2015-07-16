@@ -284,3 +284,9 @@ Targets/iOS/build/iOS.build/Debug-iphoneos/iOSTests.build/Objects-normal/armv7/i
 Targets/iOS/build/iOS.build/Debug-iphoneos/iOSTests.build/Objects-normal/armv7/iOSTests.LinkFileList
 
 Targets/iOS/build/iOS.build/Debug-iphoneos/iOSTests.build/Objects-normal/armv7/iOSTests.o
+
+Games/Jim the Snake/Sources/Snake.cpp
+
+Games/Jim the Snake/Sources/Collisioner.cpp
+
+Games/Jim the Snake/Sources/Collisioner.cpp

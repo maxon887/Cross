@@ -43,6 +43,7 @@
 		D49F05BF1B4EA1EA00BBD910 /* Cactus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D49F05BA1B4EA1EA00BBD910 /* Cactus.cpp */; };
 		D49F05C01B4EA1EA00BBD910 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D49F05BC1B4EA1EA00BBD910 /* GameObject.cpp */; };
 		D49F05C21B4EA20600BBD910 /* Launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D49F05C11B4EA20600BBD910 /* Launcher.cpp */; };
+		D4B015F51B57D54100A04459 /* Collisioner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4B015F31B57D54100A04459 /* Collisioner.cpp */; };
 		D4B251A01B4EA0D1008BB79B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B251981B4EA0D1008BB79B /* AppDelegate.m */; };
 		D4B251A11B4EA0D1008BB79B /* CrossView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4B2519B1B4EA0D1008BB79B /* CrossView.mm */; };
 		D4B251A21B4EA0D1008BB79B /* CrossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B2519D1B4EA0D1008BB79B /* CrossViewController.m */; };
@@ -127,6 +128,8 @@
 		D49F05BC1B4EA1EA00BBD910 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		D49F05BD1B4EA1EA00BBD910 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		D49F05C11B4EA20600BBD910 /* Launcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Launcher.cpp; sourceTree = "<group>"; };
+		D4B015F31B57D54100A04459 /* Collisioner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Collisioner.cpp; sourceTree = "<group>"; };
+		D4B015F41B57D54100A04459 /* Collisioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collisioner.h; sourceTree = "<group>"; };
 		D4B251971B4EA0D1008BB79B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D4B251981B4EA0D1008BB79B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D4B251991B4EA0D1008BB79B /* Cross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cross.h; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				D49F05B91B4EA1EA00BBD910 /* Body.h */,
 				D49F05BA1B4EA1EA00BBD910 /* Cactus.cpp */,
 				D49F05BB1B4EA1EA00BBD910 /* Cactus.h */,
+				D4B015F31B57D54100A04459 /* Collisioner.cpp */,
+				D4B015F41B57D54100A04459 /* Collisioner.h */,
 				D49F05BC1B4EA1EA00BBD910 /* GameObject.cpp */,
 				D49F05BD1B4EA1EA00BBD910 /* GameObject.h */,
 				D45F53321B0B578400D7C618 /* Apple.cpp */,
@@ -402,6 +407,7 @@
 				D438E24A1AFB62030015EC19 /* Screen.cpp in Sources */,
 				D45F533A1B0B578400D7C618 /* Apple.cpp in Sources */,
 				D49F05BE1B4EA1EA00BBD910 /* Body.cpp in Sources */,
+				D4B015F51B57D54100A04459 /* Collisioner.cpp in Sources */,
 				D438E2501AFB62030015EC19 /* Debuger.cpp in Sources */,
 				D4B251A21B4EA0D1008BB79B /* CrossViewController.m in Sources */,
 				D4B251A31B4EA0D1008BB79B /* LauncherOS.mm in Sources */,
@@ -508,13 +514,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Koen Vandensande (2T6XQQKD3P)";
 				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = "Jim the Snake/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
-				OTHER_LDFLAGS = "-lfmodL_$PLATFORM_NAME";
+				OTHER_LDFLAGS = "-lfmod_$PLATFORM_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -523,13 +530,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Koen Vandensande (2T6XQQKD3P)";
 				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = "Jim the Snake/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
-				OTHER_LDFLAGS = "-lfmodL_$PLATFORM_NAME";
+				OTHER_LDFLAGS = "-lfmod_$PLATFORM_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
