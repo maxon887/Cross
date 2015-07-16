@@ -17,10 +17,7 @@
 	
 #pragma once
 #include "JimTheSnake.h"
-#include "Collisioner.h"
 #include "Body.h"
-#include "Apple.h"
-#include "Spider.h"
 #include "Animation.h"
 
 class Snake : public Collisioner{

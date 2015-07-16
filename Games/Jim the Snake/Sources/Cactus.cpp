@@ -55,6 +55,7 @@ float Cactus::GetRadius(){
 }
 
 void Cactus::Update(float sec){
+	Collisioner::Update(sec);
 	life_time += sec;
 	switch (state)
 	{

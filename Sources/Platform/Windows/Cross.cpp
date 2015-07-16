@@ -16,19 +16,16 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Cross.h"
-#include "Graphics.h"
-#include "Input.h"
 #include "Screen.h"
-#include "resource.h"
 #include "LauncherWIN.h"
+#include "resource.h"
 
 using namespace cross;
 
-static Game* mGame;
+static Game* game;
 static Input* input;
 
-void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight)
-{
+void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight){
 	RECT rcClient, rcWind;
 	POINT ptDiff;
 	GetClientRect(hWnd, &rcClient);
@@ -61,8 +58,7 @@ void ShowLastError(){
 
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	RECT winRect;
-	switch (msg)
-	{
+	switch(msg){
 	case WM_LBUTTONDOWN:
 		input->input_state = true;
 		input->input_loc.x = (short)LOWORD(lParam);
@@ -77,13 +73,12 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);
-		mGame->saver->SaveInt("WIN_POS_X", winRect.left);
-		mGame->saver->SaveInt("WIN_POS_Y", winRect.top);
+		game->saver->SaveInt("WIN_POS_X", winRect.left);
+		game->saver->SaveInt("WIN_POS_Y", winRect.top);
 		break;
 	case WM_KEYDOWN:
 		input->key_state = true;
-		switch (wParam)
-		{
+		switch(wParam){
 		case VK_ESCAPE:
 			input->key_key = Key::PAUSE;
 		default:
@@ -94,7 +89,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->key_state = false;
 		break;
 	case WM_KILLFOCUS:
-		mGame->Suspend();
+		game->Suspend();
 		break;
 	case WM_SETFOCUS:
 		break;
@@ -105,8 +100,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	return DefWindowProc(wnd, msg, wParam, lParam);
 }
 
-int cross::CrossMain(cross::Game* game, HINSTANCE instance, int winShow){
-	mGame = game;
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int winShow){
 	WNDCLASSEX wc;
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -119,8 +113,8 @@ int cross::CrossMain(cross::Game* game, HINSTANCE instance, int winShow){
 	RegisterClassEx(&wc);
 
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
-	LauncherWIN* launcher = (LauncherWIN*)game->launcher;
-	launcher->SetHWND(wnd);
+	LauncherWIN* launcher = new LauncherWIN(wnd);
+	game = CrossMain(launcher);
 	int winX = game->saver->LoadInt("WIN_POS_X", 0);
 	int winY = game->saver->LoadInt("WIN_POS_Y", 0);
 	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
@@ -133,7 +127,6 @@ int cross::CrossMain(cross::Game* game, HINSTANCE instance, int winShow){
 	pfd.iPixelType = PFD_TYPE_RGBA;
 	pfd.cColorBits = 16;
 	pfd.cDepthBits = 16;
-	pfd.iLayerType = PFD_MAIN_PLANE;
 
 	HDC dc;
 	HGLRC renderContext;

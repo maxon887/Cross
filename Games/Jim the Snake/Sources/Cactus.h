@@ -16,12 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "GameObject.h"
+#include "Collisioner.h"
 #include "Game.h"
 
 using namespace cross;
 
-class Cactus : public GameObject{
+class Cactus : public Collisioner{
 public:
 	static void Init();
 	static void Release();

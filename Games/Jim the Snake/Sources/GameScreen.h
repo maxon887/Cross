@@ -87,6 +87,8 @@ private:
 	void DrawApples();
 	void UpdateSpiders(float sec);
 	void DrawSpiders();
+	void UpdateCactuses(float sec);
+	void DrawCactuses();
 	void DrawScore();
 	void CalcInput(float sec);
 	Point GetEmptyPosition(float radius);

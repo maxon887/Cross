@@ -28,7 +28,8 @@ namespace cross{
 
 class LauncherWIN : public Launcher{
 public:
-	LauncherWIN();
+	LauncherWIN(HWND wnd);
+	~LauncherWIN();
 	int GetTargetWidth();
 	int GetTargetHeight();
 	string AssetsPath();
@@ -36,7 +37,6 @@ public:
 	void LogIt(string msg);
 	void Sleep(float milis);
 	void ShowMessage(string msg);
-	void SetHWND(HWND wnd);
 private:
 	HWND wnd;
 };

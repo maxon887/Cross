@@ -18,11 +18,6 @@
 #pragma once
 
 #include "Game.h"
-
 #include <Windows.h>
 
-namespace cross{
-
-int CrossMain(Game* game, HINSTANCE instance, int winShow);
-
-}
+cross::Game* CrossMain(cross::Launcher* launcher);

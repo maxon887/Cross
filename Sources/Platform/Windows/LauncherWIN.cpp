@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "LauncherWIN.h"
+#include "vld.h"
 
 using namespace cross;
 
@@ -31,8 +32,13 @@ void IntSleep(int milis){
 	Sleep(milis);
 }
 
-LauncherWIN::LauncherWIN(){
+LauncherWIN::LauncherWIN(HWND wnd){
+	this->wnd = wnd;
 	Audio::Init(this);
+}
+
+LauncherWIN::~LauncherWIN(){
+	LogIt("Launcher deleted");
 }
 
 int LauncherWIN::GetTargetWidth(){
@@ -72,8 +78,4 @@ void LauncherWIN::Sleep(float milis){
 
 void LauncherWIN::ShowMessage(string msg){
 	MessageBox(wnd, msg.c_str(), "Exception", MB_OK);
-}
-
-void LauncherWIN::SetHWND(HWND wnd){
-	this->wnd = wnd;
 }

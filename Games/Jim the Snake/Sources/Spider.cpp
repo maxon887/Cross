@@ -114,68 +114,67 @@ Spider::Spider(){
 
 Spider::~Spider(){
 	delete run_snd;
+	free(anim);
 	for(Collisioner* col : radars){
 		delete col;
 	}
 }
 
 void Spider::Update(float sec){
-	if(screen->GetState() != GameState::PAUSED){
-		Collisioner::Update(sec);
-		switch (state)
-		{
-		case SpiderState::RUNNING:{
-			anim->Update(sec);
+	Collisioner::Update(sec);
+	switch (state)
+	{
+	case SpiderState::RUNNING:{
+		anim->Update(sec);
 
-			float sinus = sin((angle + 90) / 180.f * PI);
-			float cosinus = cos((angle + 90) / 180.f * PI);
-			for(int i = 0; i < 4; i++){
-				float x = sinus * (i + 1) * 50 + GetPosition().x;
-				float y = cosinus * (i + 1) * 50 + GetPosition().y;
-				radars[i]->Update(sec);
-				radars[i]->SetPosition(Point(x, y));
-			}
-
-			graphics->DrawCircle(destanation, 15, Color::Blue);
-			float neededAngle = Angle(GetPosition(), destanation);
-		
-			//determine in witch direction we need to move
-			float clockwise;
-			if( neededAngle > angle )
-				clockwise = 360 + angle - neededAngle;
-			else 
-				clockwise = angle - neededAngle;
-			float counterclockwise = 360 - clockwise;
-			//rotate 
-			if(clockwise < speedW * sec || counterclockwise < speedW * sec) {
-				angle = neededAngle;
-			} else {
-				if(counterclockwise < clockwise) {
-					angle += speedW * sec;
-				}else{
-					angle -= speedW * sec;
-				}
-				if(angle >= 180.f)
-					angle -= 360.f;
-				if(angle <= -180.f)
-					angle += 360.f;
-			}
-			Point pos = GetPosition();
-			pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
-			pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
-			SetPosition(pos);
-			}break;
-		case SpiderState::THINKING:
-			break;
-		case SpiderState::ROTATING:
-			break;
-		case SpiderState::HIDING:
-			break;
-		case SpiderState::DEAD:
-			break;
-		default:
-			break;
+		float sinus = sin((angle + 90) / 180.f * PI);
+		float cosinus = cos((angle + 90) / 180.f * PI);
+		for(int i = 0; i < 4; i++){
+			float x = sinus * (i + 1) * 50 + GetPosition().x;
+			float y = cosinus * (i + 1) * 50 + GetPosition().y;
+			radars[i]->Update(sec);
+			radars[i]->SetPosition(Point(x, y));
 		}
+
+		graphics->DrawCircle(destanation, 15, Color::Blue);
+		float neededAngle = Angle(GetPosition(), destanation);
+		
+		//determine in witch direction we need to move
+		float clockwise;
+		if( neededAngle > angle )
+			clockwise = 360 + angle - neededAngle;
+		else 
+			clockwise = angle - neededAngle;
+		float counterclockwise = 360 - clockwise;
+		//rotate 
+		if(clockwise < speedW * sec || counterclockwise < speedW * sec) {
+			angle = neededAngle;
+		} else {
+			if(counterclockwise < clockwise) {
+				angle += speedW * sec;
+			}else{
+				angle -= speedW * sec;
+			}
+			if(angle >= 180.f)
+				angle -= 360.f;
+			if(angle <= -180.f)
+				angle += 360.f;
+		}
+		Point pos = GetPosition();
+		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
+		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
+		SetPosition(pos);
+		}break;
+	case SpiderState::THINKING:
+		break;
+	case SpiderState::ROTATING:
+		break;
+	case SpiderState::HIDING:
+		break;
+	case SpiderState::DEAD:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -216,20 +215,6 @@ void Spider::FarRadarCollision(){
 vector<Collisioner*>& Spider::GetRadars(){
 	return radars;
 }
-/*
-bool Spider::OnCollision(Point p, float radius){
-	list<Cactus*> cactuses = screen->GetCactuses();
-	for(Cactus* cactus : cactuses){
-		if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), p, radius))
-			return true;
-	}
-	list<Spider*> spiders = screen->GetSpiders();
-	for(Spider* spider : spiders){
-
-	}
-	Snake* jim = screen->GetSnake();
-	return jim->OnCollision(p, radius);
-}*/
 
 void Spider::Draw(){
 	switch (state){

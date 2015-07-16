@@ -116,6 +116,8 @@ void GameScreen::Update(float sec){
 	ProccessCollisions();
 	UpdateApples(sec);
 	DrawApples();
+	UpdateCactuses(sec);
+	DrawCactuses();
 	UpdateSpiders(sec);
 	DrawSpiders();
 	snake->Update(sec);
@@ -210,8 +212,18 @@ void GameScreen::Restart(){
 	music->Play();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
+	for(Apple* apple : apples){
+		delete apple;
+	}
 	apples.clear();
+	for(Spider* spider : spiders){
+		delete spider;
+	}
 	spiders.clear();
+	for(Cactus* cactus : cactuses){
+		delete cactus;
+	}
+	cactuses.clear();
 	delete snake;
 	snake = new Snake();
 	SetState(GameState::ONREADY);
@@ -224,6 +236,9 @@ void GameScreen::Restart(){
 		newApple2->SetPosition(GetEmptyPosition(newApple2->GetRadius()));
 		apples.push_back(newApple2);
 		spiders.push_back(new Spider());
+		Cactus* newOne = new Cactus();
+		newOne->SetPosition(GetEmptyPosition(newOne->GetRadius()));
+		cactuses.push_back(newOne);
 	}
 }
 
@@ -252,6 +267,16 @@ void GameScreen::ProccessCollisions(){
 				if(CircleOnCollision(b->GetPosition(), b->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
 					b->CheckCollision(snakeHead);
 					snakeHead->CheckCollision(b);
+				}
+			}
+			for(Cactus* cactus : cactuses){
+				if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), spiderRadar->GetPosition(), spiderRadar->GetRadius())){
+					cactus->CheckCollision(spiderRadar);
+					spiderRadar->CheckCollision(cactus);
+				}
+				if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
+					cactus->CheckCollision(snakeHead);
+					snakeHead->CheckCollision(cactus);
 				}
 			}
 			if(CircleOnCollision(snakeHead->GetPosition(), snakeHead->GetRadius(), spiderRadar->GetPosition(), spiderRadar->GetRadius())){
@@ -299,15 +324,17 @@ void GameScreen::DrawApples(){
 }
 
 void GameScreen::UpdateSpiders(float sec){
-	auto it = spiders.begin();
-	while(it != spiders.end()){
-		Spider* spider = (*it);
-		if(!spider->Eaten()){
-			spider->Update(sec);
-			it++;
-		}else{
-			delete spider;
-			it = spiders.erase(it);
+	if(GetState() != GameState::PAUSED){
+		auto it = spiders.begin();
+		while(it != spiders.end()){
+			Spider* spider = (*it);
+			if(!spider->Eaten()){
+				spider->Update(sec);
+				it++;
+			}else{
+				delete spider;
+				it = spiders.erase(it);
+			}
 		}
 	}
 }
@@ -315,6 +342,38 @@ void GameScreen::UpdateSpiders(float sec){
 void GameScreen::DrawSpiders(){
 	for(Spider* spider : spiders){
 		spider->Draw();
+	}
+}
+
+void GameScreen::UpdateCactuses(float sec){
+	if(GetState() != GameState::PAUSED){
+		static float next = 0;
+		auto it = cactuses.begin();
+		while(it != cactuses.end()){
+			Cactus* cactus = (*it);
+			if(!cactus->IsDead()){
+				cactus->Update(sec);
+				++it;
+			}else{
+				delete cactus;
+				it = cactuses.erase(it);
+			}
+		}
+
+		if(next < 0){
+			next = (float)(rand()%15);
+			Cactus* newOne = new Cactus();
+			newOne->SetPosition(GetEmptyPosition(newOne->GetRadius()));
+			cactuses.push_back(newOne);
+		}else{
+			next -= sec;
+		}
+	}
+}
+
+void GameScreen::DrawCactuses(){
+	for(Cactus* cactus : cactuses){
+		cactus->Draw();
 	}
 }
 

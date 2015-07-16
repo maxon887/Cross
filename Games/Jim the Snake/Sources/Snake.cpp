@@ -16,10 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Snake.h"
+#include "Eatable.h"
+
 #include "Misc.h"
 #include <stdlib.h>
 #include <cmath>
-#include "JimTheSnake.h"
 
 void Snake::Radar::CollisionOccurred(Collisioner* obj){
 	if(!face_bottom_anim->IsRunning() && !snake->dead){
@@ -109,10 +110,11 @@ Snake::Snake():Collisioner(Point(200, 400)){
 	body_length = 10000.f;
 	dead_time = 0;
 	dead = false;
-	body_path.clear();
-	body_nodes.clear();
 	body_path.push_back(Point(0, 400));
-	body_nodes.push_back(new Body(Point(-100, -100), 1.f));
+	Point p;
+	Body* b = new Body(p, 1.f);
+	//body_nodes.push_back(new Body(Point(-100, -100), 1.f));
+	body_nodes.push_back(b);
 	radar = new Radar(GetPosition(), this);
 }
 //						DESTRUCTOR
@@ -128,8 +130,8 @@ float Snake::GetRadius(){
 }
 
 void Snake::CollisionOccurred(Collisioner* obj){
-	Body* b = dynamic_cast<Body*>(obj);
-	if(b){
+	Eatable* eatable = dynamic_cast<Eatable*>(obj);
+	if(!eatable){
 		Die();
 	}
 }

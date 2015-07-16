@@ -27,7 +27,7 @@ public:
 
 	GameObject();
 	GameObject(Point pos);
-	virtual ~GameObject() { };
+	virtual ~GameObject(){};
 
 	void SetPosition(Point pos);
 	Point GetPosition();
