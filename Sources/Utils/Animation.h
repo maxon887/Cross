@@ -24,6 +24,7 @@ namespace cross {
 
 class Animation{
 public:
+	Animation(Animation& anim);
 	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount);
 	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped);
 	void Start();
@@ -39,6 +40,7 @@ private:
 	float duration;
 	int frame_num;
 	bool looped;
+	bool original;
 };
 
 }

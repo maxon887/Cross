@@ -171,5 +171,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
+	delete graphics;
+	delete game;
+	delete launcher;
 	return msg.wParam;
 }

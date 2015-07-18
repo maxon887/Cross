@@ -212,6 +212,8 @@ void GameScreen::Restart(){
 	music->Play();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
 	graphics->ScaleImage(score_img, game->GetScaleFactor());
+	delete snake;
+	snake = NULL;
 	for(Apple* apple : apples){
 		delete apple;
 	}
@@ -224,7 +226,6 @@ void GameScreen::Restart(){
 		delete cactus;
 	}
 	cactuses.clear();
-	delete snake;
 	snake = new Snake();
 	SetState(GameState::ONREADY);
 	//debug
@@ -291,12 +292,12 @@ void GameScreen::UpdateApples(float sec){
 	if(GetState() != GameState::PAUSED){
 		static float next = 0; 
 		auto it = apples.begin();
-		while(it != apples.end()) {
+		while(it != apples.end()){
 			Apple* apple = (*it);
-			if(!apple->Eaten()) {
+			if(!apple->Eaten()){
 				apple->Update(sec);
 				it++;
-			} else {
+			}else{
 				delete apple;
 				it = apples.erase(it);
 				int roll = rand() % 101;
@@ -306,12 +307,12 @@ void GameScreen::UpdateApples(float sec){
 			}
 		}
 
-		if(next <= 0 || apples.size() == 0) {
+		if(next <= 0 || apples.size() == 0){
 			next = (float)(rand()%15);
 			Apple* newApple = new Apple();
 			newApple->SetPosition(GetEmptyPosition(newApple->GetRadius()));
 			apples.push_back(newApple);
-		} else {
+		}else{
 			next -= sec;
 		}
 	}

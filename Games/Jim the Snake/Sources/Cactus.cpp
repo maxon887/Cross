@@ -45,9 +45,9 @@ Cactus::Cactus(){
 
 float Cactus::GetRadius(){
 	switch (state) {
-	case Cactus::GROWING:
+	case GROWING:
 		return 15.f;
-	case Cactus::ADULT:case Cactus::OLD:
+	case ADULT:case Cactus::OLD:
 		return 40.f;
 	default:
 		return 0;
@@ -115,19 +115,19 @@ void Cactus::Update(float sec){
 
 void Cactus::Draw(){
 	switch (state) {
-	case Cactus::GROWING:
+	case GROWING:
 		graphics->ScaleImage(small_img, game->GetScaleFactor() * 0.2f * scale_factor);
 		graphics->DrawImage(GetPosition(), small_img);
 		break;
-	case Cactus::ADULT:
+	case ADULT:
 		graphics->ScaleImage(adult_img, game->GetScaleFactor() * 0.5f * scale_factor);
 		graphics->DrawImage(GetPosition(), adult_img);
 		break;
-	case Cactus::OLD:case Cactus::HIDING:
+	case OLD:case Cactus::HIDING:
 		graphics->ScaleImage(old_img, game->GetScaleFactor() * 0.5f * scale_factor);
 		graphics->DrawImage(GetPosition(), old_img);
 		break;
-	case Cactus::EMPTY:
+	case EMPTY:
 		break;
 	default:
 		break;
@@ -136,8 +136,15 @@ void Cactus::Draw(){
 }
 
 bool Cactus::IsDead(){
-	if(state == Cactus::EMPTY)
+	if(state == EMPTY)
 		return true;
 	else
+		return false;
+}
+
+bool Cactus::Dangerous(){
+	if(state == ADULT || state == OLD)
+		return true;
+	else 
 		return false;
 }

@@ -28,9 +28,6 @@ using namespace chrono;
 
 Game::Game(Launcher* launcher, float width){
 	this->launcher = launcher;
-#ifdef CROSSDEBUG
-	Debuger::SetLauncher(launcher);
-#endif
 	this->input = new Input(this);
 	this->saver = new Saver(this);
 	this->graphics = NULL;
@@ -73,9 +70,7 @@ Screen* Game::GetCurrentScreen(){
 void Game::Start(){
 	launcher->LogIt("Game->Start()");
 	try{
-#ifdef CROSSDEBUG
 		debuger = new Debuger(this);
-#endif
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
 	}catch(string& msg){
@@ -106,10 +101,8 @@ void Game::Update(){
 		if(milis < 5){
 			launcher->Sleep(5 - milis);
 		}
-#ifdef CROSSDEBUG
 		debuger->Display((float)rend);
 		debuger->SetUpdateTime((float)up);
-#endif
 	}catch(string msg){
 		msg = "Exception: " + msg;
 		launcher->LogIt(msg);
@@ -130,7 +123,5 @@ Game::~Game(){
 	delete current_screen;
 	delete input;
 	delete saver;
-#ifdef CROSSDEBUG
 	delete debuger;
-#endif
 }

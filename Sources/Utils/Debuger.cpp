@@ -22,70 +22,9 @@
 using namespace cross;
 using namespace chrono;
 
-static Launcher* launcher;
+static Launcher* launcher = NULL;
 
 static vector<time_point<high_resolution_clock>> times;
-
-void Debuger::SetLauncher(Launcher* launc){
-	launcher = launc;
-}
-
-Debuger::Debuger(Game* game){
-	launcher = game->launcher;
-	input = game->input;
-	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
-	update_time = 0;
-	update_sum = 0;
-	update_counter = 0;
-	render_time = 0;
-	render_sum = 0;
-	render_counter = 0;
-	time = 0;
-}
-
-void Debuger::Display(float micro){
-	time += micro / 1000000.0f;
-	if(render_counter == 20){
-		render_counter = 0;
-		render_time = render_sum / 20.0f / 1000.0f;
-		render_sum = 0;
-	} else {
-		render_sum += micro;
-		render_counter++;
-	}
-	texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
-
-	if(update_time == 0){
-		texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
-	} else {
-		texter->DrawText(0, texter->GetHeight(), "Update Time: " + to_string(update_time) + "ms");
-	}
-
-	if(render_time == 0){
-		texter->DrawText(0, texter->GetHeight() * 2, "FPS: Infinitive");
-	} else {
-		texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
-	}
-
-	if(input->HaveInput()){
-		Point in = input->GetInput();
-		texter->DrawText(0, texter->GetHeight() * 3, "Input: x=" + to_string(in.x) + "y=" + to_string(in.y));
-	}else{
-		texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
-	}
-	texter->DrawText(0, texter->GetHeight() * 4, "Run time: " + to_string(time));
-}
-
-void Debuger::SetUpdateTime(float micro) {
-	if(update_counter == 20){
-		update_counter = 0;
-		update_time = update_sum / 20.0f / 1000.0f;
-		update_sum = 0;
-	} else {
-		update_sum += micro;
-		update_counter++;
-	}
-}
 
 void Debuger::StartCheckTime(){
 	time_point<high_resolution_clock> check_time = high_resolution_clock::now();
@@ -99,8 +38,83 @@ void Debuger::StopCheckTime(string label){
 	auto up = duration_cast<microseconds>(now - check_time).count();
 	double milis = up/1000.0;
 	string msg = label + to_string(milis) + "ms";
-	//if(launcher != NULL)
-	//	launcher->LogIt(msg);
+	if(launcher != NULL)
+		launcher->LogIt(msg);
+}
+
+Debuger::Debuger(Game* game){
+	launcher = game->launcher;
+	input = game->input;
+	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+	update_time = 0;
+	update_sum = 0;
+	update_counter = 0;
+	render_time = 0;
+	render_sum = 0;
+	render_counter = 0;
+	time = 0;
+	next_display = 3000000.f;
+}
+
+Debuger::~Debuger(){
+	delete texter;
+}
+
+void Debuger::Display(float micro){
+	time += micro / 1000000.0f;
+	if(render_counter == 20){
+		render_counter = 0;
+		render_time = render_sum / 20.0f / 1000.0f;
+		render_sum = 0;
+	} else {
+		render_sum += micro;
+		render_counter++;
+	}
+	if(true){
+		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
+		if(update_time == 0){
+			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
+		} else {
+			texter->DrawText(0, texter->GetHeight(), "Update Time: " + to_string(update_time) + "ms");
+		}
+		if(render_time == 0){
+			texter->DrawText(0, texter->GetHeight() * 2, "FPS: Infinitive");
+		} else {
+			texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
+		}
+		if(input->HaveInput()){
+			Point in = input->GetInput();
+			texter->DrawText(0, texter->GetHeight() * 3, "Input: x=" + to_string(in.x) + "y=" + to_string(in.y));
+		}else{
+			texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
+		}
+		texter->DrawText(0, texter->GetHeight() * 4, "Run time: " + to_string(time));
+	}
+	if(true){
+		if(next_display < 0){
+			string msg = "";
+			msg += "Render Time: " + to_string(render_time) + "ms\n";
+			msg += "Update Time: " + to_string(update_time) + "ms\n";
+			msg += "FPS: " + to_string(1000.f/render_time) + "\n";
+			msg += "=================================";
+			launcher->LogIt(msg);
+			next_display = 3000000.f;
+		}else{
+			next_display -= micro;
+		}
+	}
+}
+
+
+void Debuger::SetUpdateTime(float micro) {
+	if(update_counter == 20){
+		update_counter = 0;
+		update_time = update_sum / 20.0f / 1000.0f;
+		update_sum = 0;
+	} else {
+		update_sum += micro;
+		update_counter++;
+	}
 }
 
 

@@ -33,6 +33,7 @@ public:
 	void Update(float sec);
 	void Draw();
 	bool IsDead();
+	bool Dangerous();
 private:
 	enum CactusState {
 		GROWING,

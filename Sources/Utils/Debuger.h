@@ -26,13 +26,14 @@ namespace cross{
 
 class Debuger{
 public:
-	static void SetLauncher(Launcher* launcher);
-	Debuger(Game* game);
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-
 	static void StartCheckTime();
 	static void StopCheckTime(string label);
+
+	Debuger(Game* game);
+	~Debuger();
+
+	void Display(float sec);
+	void SetUpdateTime(float sec);
 private:
 	Texter* texter;
 	Input* input;
@@ -46,6 +47,7 @@ private:
 	int render_counter;
 
 	float time;
+	float next_display;
 };
     
 }

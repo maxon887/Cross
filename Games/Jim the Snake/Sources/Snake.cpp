@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Snake.h"
-#include "Eatable.h"
+#include "Cactus.h"
 
 #include "Misc.h"
 #include <stdlib.h>
@@ -27,6 +27,13 @@ void Snake::Radar::CollisionOccurred(Collisioner* obj){
 		face_bottom_anim->Start();
 		face_top_anim->Start();
 		eat_snd->Play();
+	}
+	snake->eatable = dynamic_cast<Eatable*>(obj);
+}
+
+void Snake::Radar::ObjectLeft(Collisioner* obj){
+	if(obj == snake->eatable){
+		snake->eatable = NULL;
 	}
 }
 
@@ -110,6 +117,7 @@ Snake::Snake():Collisioner(Point(200, 400)){
 	body_length = 10000.f;
 	dead_time = 0;
 	dead = false;
+	eatable = NULL;
 	body_path.push_back(Point(0, 400));
 	Point p;
 	Body* b = new Body(p, 1.f);
@@ -130,8 +138,8 @@ float Snake::GetRadius(){
 }
 
 void Snake::CollisionOccurred(Collisioner* obj){
-	Eatable* eatable = dynamic_cast<Eatable*>(obj);
-	if(!eatable){
+	Cactus* cactus = dynamic_cast<Cactus*>(obj);
+	if(cactus && cactus->Dangerous()){
 		Die();
 	}
 }
@@ -148,8 +156,7 @@ void Snake::Rotate(float angle){
 
 void Snake::Update(float sec){
 	Collisioner::Update(sec);
-	switch (screen->GetState())
-	{
+	switch (screen->GetState()){
 	case GameState::ONREADY:
 		UpdateBody(sec);
 		break;
@@ -165,7 +172,7 @@ void Snake::Update(float sec){
 			radar->Update(sec);
 			UpdateBody(sec);
 
-			Eatable* eatable = dynamic_cast<Eatable*>(radar->OnCollision());
+			//Eatable* eatable = dynamic_cast<Eatable*>(radar->OnCollision());
 			if(eatable){
 				if(eatable_time_left > 0){
 					eatable_time_left -= sec;
@@ -200,8 +207,8 @@ void Snake::Draw(){
 		Image* face = face_bottom_anim->GetImage();
 		graphics->Rotate(face, angle + 90.f);
 		graphics->DrawImage(GetPosition(), face);
-		if(radar->OnCollision()){
-			radar->OnCollision()->Draw();
+		if(eatable){
+			eatable->Draw();
 		}
 		DrawBody();
 		face = face_top_anim->GetImage();

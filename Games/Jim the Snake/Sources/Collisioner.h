@@ -17,19 +17,21 @@
 	
 #pragma once
 #include "GameObject.h"
+#include <list>
 
 class Collisioner : public GameObject{
 public:
 	virtual void CollisionOccurred(Collisioner* obj){};
+	virtual void ObjectLeft(Collisioner* obj){};
 
-	Collisioner():partner(NULL){};
-	Collisioner(Point pos):GameObject(pos), partner(NULL){};
+	Collisioner(){};
+	Collisioner(Point pos):GameObject(pos){};
 	virtual ~Collisioner();
 	
 	void Update(float sec);
-	Collisioner* OnCollision();
+	bool OnCollision();
 	void CheckCollision(Collisioner* obj);
-	void BreakUp();
+	void BreakUp(Collisioner* partner);
 private:
-	Collisioner* partner;
+	list<Collisioner*> partners;
 };

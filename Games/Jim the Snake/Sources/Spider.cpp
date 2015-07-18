@@ -114,7 +114,7 @@ Spider::Spider(){
 
 Spider::~Spider(){
 	delete run_snd;
-	free(anim);
+	delete anim;
 	for(Collisioner* col : radars){
 		delete col;
 	}

@@ -33,13 +33,13 @@ public:
 			float width, float height,
 			int columns, int rows,
 			int asciiOffset, float scaleFactor);
+	~Texter();
 
 	void DrawText(float x, float y, string text);
 	void DrawText(Point pos, string text);
 	float GetWidth();
 	float GetHeight();
 	void SetScaleFactor(float scaleFactor);
-	~Texter();
 private:
 	void Init(Game* game, const char* fontFilename,
 			float width, float height,
@@ -53,6 +53,8 @@ private:
 	float height;
 	int offset;
 	int count;
+	int rows;
+	int columns;
 	float scale_factor;
 };
 

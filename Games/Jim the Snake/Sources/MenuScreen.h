@@ -27,9 +27,10 @@
 class MenuScreen : public Screen{
 public:
 	MenuScreen(JimTheSnake* game);
+	~MenuScreen();
+
 	void Start();
 	void Update(float sec);
-	~MenuScreen();
 private:
 	JimTheSnake* game;
 	Image* background;

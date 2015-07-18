@@ -19,6 +19,16 @@
 
 using namespace cross;
 
+Animation::Animation(Animation& anim){
+	this->graphics = anim.graphics;
+	this->frames = anim.frames;
+	this->rate = anim.rate;
+	this->duration = anim.duration;
+	this->frame_num = anim.frame_num;
+	this->looped = anim.looped;
+	this->original = false;
+}
+
 Animation::Animation(Graphics* gfx, float rate, Image* frames[], int frameCount){
 	Init(gfx, rate, frames, frameCount, false);
 }
@@ -51,20 +61,23 @@ bool Animation::IsRunning(){
 }
 
 Animation::~Animation(){
-	for(unsigned int i = 0; i < frames.size(); i++){
-		if(frames[i] != NULL){
-			for(unsigned int j = i+1; j < frames.size(); j++){
-				if(frames[i] == frames[j]){
-					frames[j] = NULL;
+	if(original){
+		for(unsigned int i = 0; i < frames.size(); i++){
+			if(frames[i] != NULL){
+				for(unsigned int j = i+1; j < frames.size(); j++){
+					if(frames[i] == frames[j]){
+						frames[j] = NULL;
+					}
 				}
+				graphics->ReleaseImage(frames[i]);
+				frames[i] = NULL;
 			}
-			graphics->ReleaseImage(frames[i]);
-			frames[i] = NULL;
 		}
 	}
 }
 
 void Animation::Init(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped){
+	original = true;
 	this->graphics = gfx;
 	this->duration = 0xFF;
 	this->frame_num = 0;

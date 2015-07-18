@@ -18,6 +18,7 @@
 #pragma once
 #include "JimTheSnake.h"
 #include "Body.h"
+#include "Eatable.h"
 #include "Animation.h"
 
 class Snake : public Collisioner{
@@ -44,6 +45,7 @@ private:
 		Radar(Point pos, Snake* snake):Collisioner(pos), snake(snake){};
 		float GetRadius(){ return 60.f; }
 		void CollisionOccurred(Collisioner* obj);
+		void ObjectLeft(Collisioner* obj);
 		Snake* snake;
 	};
 
@@ -69,6 +71,7 @@ private:
 	list<Point> body_path;
 	vector<Body*> body_nodes;
 	Radar* radar;
+	Eatable* eatable;
 
 	bool OnBorder();
 	void UpdateBody(float sec);

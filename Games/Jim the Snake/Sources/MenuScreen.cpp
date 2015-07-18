@@ -204,4 +204,5 @@ MenuScreen::~MenuScreen(){
 	delete music_btn;
 	delete sound_btn;
 	delete menu_music;
+	delete score_texter;
 }

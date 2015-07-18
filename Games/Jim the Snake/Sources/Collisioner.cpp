@@ -19,32 +19,48 @@
 #include "Misc.h"
 
 void Collisioner::Update(float sec){
-	if(partner != NULL){
-		if(!CircleOnCollision(GetPosition(), GetRadius(), partner->GetPosition(), partner->GetRadius())){
-			partner = NULL;
+	auto it = partners.begin();
+	while(it != partners.end()){
+		Collisioner* obj = (*it);
+		if(!CircleOnCollision(GetPosition(), GetRadius(), obj->GetPosition(), obj->GetRadius())){
+			ObjectLeft(obj);
+			it = partners.erase(it);
+		}else{
+			++it;
 		}
 	}
 }
 
-Collisioner* Collisioner::OnCollision(){
-	return partner;
+bool Collisioner::OnCollision(){
+	if(partners.size() > 0)
+		return true;
+	else
+		return false;
 }
 
 void Collisioner::CheckCollision(Collisioner* obj){
-	if(obj != partner){
-		partner = obj;
-		CollisionOccurred(obj);
+	for(Collisioner* partner : partners){
+		if(obj == partner)
+			return;
 	}
+	CollisionOccurred(obj);
+	partners.push_back(obj);
 }
 
-void Collisioner::BreakUp(){
-	if(partner != NULL){
-		partner = NULL;
+void Collisioner::BreakUp(Collisioner* partner){
+	auto it = partners.begin();
+	while(it != partners.end()){
+		if((*it) == partner){
+			partners.erase(it);
+			break;
+		}
+		++it;
 	}
 }
 
 Collisioner::~Collisioner(){
-	if(partner != NULL){
-		partner->BreakUp();
+	for(Collisioner* partner : partners){
+		partner->ObjectLeft(this);
+		partner->BreakUp(this);
 	}
 }
