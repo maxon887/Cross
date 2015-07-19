@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+
 #include "GameScreen.h"
 #include "MenuScreen.h"
 #include "Cactus.h"
@@ -30,7 +30,6 @@ GameScreen::GameScreen(JimTheSnake* game):Screen(game){
 }
 //						DESTRUCTOR
 GameScreen::~GameScreen(){
-	delete snake;
 	for(Apple* apple : apples){
 		delete apple;
 	}
@@ -42,6 +41,7 @@ GameScreen::~GameScreen(){
 	for(Cactus* cactus : cactuses){
 		delete cactus;
 	}
+	delete snake;
 	cactuses.clear();
 	Snake::Release();
 	Spider::Release();
@@ -94,7 +94,6 @@ void GameScreen::Start(){
 	if(game->IsMusicEnabled()){
 		music = new Audio("Game/GameMusic.mp3", true, true);
 		game_over = new Audio("Game/GameOver.wav", false, true);
-		music->Play();
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 
@@ -150,8 +149,7 @@ void GameScreen::Update(float sec){
 				down = true;
 			}
 			if(down && !input->HaveKey()){
-				state = GameState::RUNNING;
-				music->Play();
+				SetState(GameState::RUNNING);
 				down = false;
 			}
 			resume_btn->Update();
@@ -171,7 +169,7 @@ void GameScreen::Update(float sec){
 
 void GameScreen::Suspend(){
 	if(state != GameState::GAMEOVER && state != GameState::PAUSED){
-		//SetState(GameState::PAUSED);
+		SetState(GameState::PAUSED);
 	}
 }
 //						PUBLIC METHODS	
@@ -184,9 +182,16 @@ void GameScreen::SetState(GameState newState){
 	case GameState::ONREADY:
 		break;
 	case GameState::RUNNING:
+		music->Resume();
+		for(Spider* spider : spiders){
+			spider->Resume();
+		}
 		break;
 	case GameState::PAUSED:
 		music->Pause();
+		for(Spider* spider : spiders){
+			spider->Pause();
+		}
 		break;
 	case GameState::GAMEOVER:
 		music->Stop();
@@ -227,8 +232,11 @@ void GameScreen::Restart(){
 	}
 	cactuses.clear();
 	snake = new Snake();
-	SetState(GameState::ONREADY);
+	SetState(GameState::RUNNING);
 	//debug
+	spiders.push_back(new Spider(Point(400, 0), Point(400, 400)));
+	cactuses.push_back(new Cactus(Point(400, 300)));
+	
 	for(int i = 0; i < 10; i++){
 		Apple* newApple1 = new Apple();
 		newApple1->SetPosition(GetEmptyPosition(newApple1->GetRadius()));
@@ -253,11 +261,30 @@ void GameScreen::ProccessCollisions(){
 			apple->CheckCollision(snakeRadar);
 		}
 	}
+	for(Cactus* cactus : cactuses){
+		if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
+			cactus->CheckCollision(snakeHead);
+			snakeHead->CheckCollision(cactus);
+		}
+	}
+	for(Body* b : snakeBody){
+		if(CircleOnCollision(b->GetPosition(), b->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
+			b->CheckCollision(snakeHead);
+			snakeHead->CheckCollision(b);
+		}
+	}
+
 	for(Spider* spider : spiders){
 		vector<Collisioner*> radars = spider->GetRadars();
 		if(CircleOnCollision(snakeRadar->GetPosition(), snakeRadar->GetRadius(), spider->GetPosition(), spider->GetRadius())){
 			snakeRadar->CheckCollision(spider);
 			spider->CheckCollision(snakeRadar);
+		}
+		for(Apple* apple : apples){
+			if(CircleOnCollision(apple->GetPosition(), apple->GetRadius(), spider->GetPosition(), spider->GetRadius())){
+				spider->CheckCollision(apple);
+				apple->CheckCollision(spider);
+			}
 		}
 		for(Collisioner* spiderRadar : radars){
 			for(Body* b : snakeBody){
@@ -265,19 +292,11 @@ void GameScreen::ProccessCollisions(){
 					spiderRadar->CheckCollision(b);
 					b->CheckCollision(spiderRadar);
 				}
-				if(CircleOnCollision(b->GetPosition(), b->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
-					b->CheckCollision(snakeHead);
-					snakeHead->CheckCollision(b);
-				}
 			}
 			for(Cactus* cactus : cactuses){
 				if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), spiderRadar->GetPosition(), spiderRadar->GetRadius())){
 					cactus->CheckCollision(spiderRadar);
 					spiderRadar->CheckCollision(cactus);
-				}
-				if(CircleOnCollision(cactus->GetPosition(), cactus->GetRadius(), snakeHead->GetPosition(), snakeHead->GetRadius())){
-					cactus->CheckCollision(snakeHead);
-					snakeHead->CheckCollision(cactus);
 				}
 			}
 			if(CircleOnCollision(snakeHead->GetPosition(), snakeHead->GetRadius(), spiderRadar->GetPosition(), spiderRadar->GetRadius())){
@@ -443,7 +462,16 @@ bool GameScreen::IsEmptyPosition(Point pos, float radius){
 		if(CircleOnCollision(pos, radius, spider->GetPosition(), spider->GetRadius()))
 			return false;
 	}
+	for(Cactus* cactus : cactuses){
+		if(CircleOnCollision(pos, radius, cactus->GetPosition(), cactus->GetRadius())){
+			return false;
+		}
+	}
 	return true;
+}
+
+list<Apple*>& GameScreen::GetApples(){
+	return apples;
 }
 
 Point GameScreen::GetEmptyPosition(float radius){
@@ -470,7 +498,7 @@ void GameScreen::OnMenuClick(){
 }
 
 void GameScreen::OnResumeClick(){
-	state = GameState::RUNNING;
+	SetState(GameState::RUNNING);
 }
 
 void GameScreen::OnRestartClick(){

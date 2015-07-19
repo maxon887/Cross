@@ -52,11 +52,21 @@ void Spider::Release(){
 Spider::Spider(){
 	head_angle = 0;
 	thinking_time = 1.3f;
+	eat_time = 1.5f;
 	speedV = 130.f;
-	target_apple = NULL;
+	think_turn_left = false;
+	eat_apple = NULL;
 	run_snd = NULL;
 	hungry = true;
 	temporary_run = false;
+
+	if(game->IsSoundEnabled()){
+		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
+	}
+	run_snd->Play();
+	state = SpiderState::RUNNING;
+	anim = new Animation(*st_anim);
+	anim->Start();
 	//Radars initialization
 	float sinus = sin((angle + 90) / 180.f * PI);
 	float cosinus = cos((angle + 90) / 180.f * PI);
@@ -74,26 +84,30 @@ Spider::Spider(){
 	float x, y;
 	switch (side){
 	case 0:		//left
-		x = -GetRadius();
+		//x = -GetRadius();
+		x = -GetTurnRadius();
 		y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
 		destanation.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
 		destanation.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
 		break;
 	case 1:		//bottom
 		x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
-		y =	game->GetHeight() + GetRadius();
+		//y =	game->GetHeight() + GetRadius();
+		y = game->GetHeight() + GetTurnRadius();
 		destanation.x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
 		destanation.y = game->GetHeight() / 2 + rand() % (int)(game->GetHeight() / 2);
 		break;
 	case 2:		//right
-		x = game->GetWidth() + GetRadius();
+		//x = game->GetWidth() + GetRadius();
+		x = game->GetWidth() + GetTurnRadius();
 		y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
 		destanation.x = game->GetWidth() / 2 + rand() % (int)(game->GetWidth() / 2);
 		destanation.y = GetRadius() + rand() % (int)(game->GetHeight() - 2 * GetRadius());
 		break;
 	case 3:		//top
 		x = GetRadius() + rand() % (int)(game->GetWidth() - 2 * GetRadius());
-		y = -GetRadius();
+		//y = -GetRadius();
+		y = -GetTurnRadius();
 		destanation.x = GetRadius() + rand() % (int)(game->GetWidth() / 2);
 		destanation.y = GetRadius() + rand() % (int)(game->GetHeight() / 2);
 		break;
@@ -102,7 +116,19 @@ Spider::Spider(){
 	}
 	SetPosition(Point(x, y));
 	angle = Angle(GetPosition(), destanation);
+}
+
+Spider::Spider(Point position, Point destanation):Eatable(position){
+	this->destanation = destanation;
+	head_angle = 0;
+	thinking_time = 1.3f;
+	speedV = 130.f;
+	eat_time = 1.5f;
+	eat_apple = NULL;
+	run_snd = NULL;
 	hungry = true;
+	temporary_run = false;
+
 	if(game->IsSoundEnabled()){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
 	}
@@ -110,6 +136,18 @@ Spider::Spider(){
 	state = SpiderState::RUNNING;
 	anim = new Animation(*st_anim);
 	anim->Start();
+	//Radars initialization
+	float sinus = sin((angle + 90) / 180.f * PI);
+	float cosinus = cos((angle + 90) / 180.f * PI);
+	for(int i = 0; i < 4; i++){
+		float x = sinus * (i + 1) * 50 + GetPosition().x;
+		float y = cosinus * (i + 1) * 50 + GetPosition().y;
+		if(i < 2){
+			radars.push_back(new NearRadar(Point(x, y), this));
+		}else{
+			radars.push_back(new FarRadar(Point(x, y), this));
+		}
+	}
 }
 
 Spider::~Spider(){
@@ -122,21 +160,21 @@ Spider::~Spider(){
 
 void Spider::Update(float sec){
 	Collisioner::Update(sec);
-	switch (state)
-	{
+
+	float sinus = sin((angle + 90) / 180.f * PI);
+	float cosinus = cos((angle + 90) / 180.f * PI);
+	for(int i = 0; i < 4; i++){
+		float x = sinus * (i + 1) * 50 + GetPosition().x;
+		float y = cosinus * (i + 1) * 50 + GetPosition().y;
+		radars[i]->Update(sec);
+		radars[i]->SetPosition(Point(x, y));
+	}
+
+	switch (state){
 	case SpiderState::RUNNING:{
 		anim->Update(sec);
 
-		float sinus = sin((angle + 90) / 180.f * PI);
-		float cosinus = cos((angle + 90) / 180.f * PI);
-		for(int i = 0; i < 4; i++){
-			float x = sinus * (i + 1) * 50 + GetPosition().x;
-			float y = cosinus * (i + 1) * 50 + GetPosition().y;
-			radars[i]->Update(sec);
-			radars[i]->SetPosition(Point(x, y));
-		}
-
-		graphics->DrawCircle(destanation, 15, Color::Blue);
+		graphics->DrawCircle(destanation, GetRadius(), Color::Blue);
 		float neededAngle = Angle(GetPosition(), destanation);
 		
 		//determine in witch direction we need to move
@@ -149,6 +187,7 @@ void Spider::Update(float sec){
 		//rotate 
 		if(clockwise < speedW * sec || counterclockwise < speedW * sec) {
 			angle = neededAngle;
+			speedV = 130.f;
 		} else {
 			if(counterclockwise < clockwise) {
 				angle += speedW * sec;
@@ -164,12 +203,45 @@ void Spider::Update(float sec){
 		pos.y += (float)-speedV * sin(angle / 180.f * PI) * sec;
 		pos.x += (float)speedV * cos(angle / 180.f * PI) * sec;
 		SetPosition(pos);
+		if(CircleOnCollision(pos, 2.f, destanation, 2.f)){
+			state = THINKING;
+			run_snd->Pause();
+		}
 		}break;
-	case SpiderState::THINKING:
-		break;
-	case SpiderState::ROTATING:
-		break;
-	case SpiderState::HIDING:
+	case SpiderState::THINKING:{
+		if(!OnScreen()){
+			state = DEAD;
+		}
+		thinking_time -= sec;
+		if(think_turn_left) {
+			head_angle += sec * 150.f;
+			if(head_angle > 45)
+				think_turn_left = false;
+		} else {
+			head_angle -= sec * 150.f;
+			if(head_angle < -45)
+				think_turn_left = true;
+		}
+		if(thinking_time < 0){
+			thinking_time = 1.3f;
+			head_angle = 0;
+			state = SpiderState::RUNNING;
+			run_snd->Play();
+			if(hungry){
+				ScanForApples();
+			}else{
+				SetNearestBorder();
+			}
+		}
+		}break;
+	case SpiderState::EATING:
+		if(eat_time < 0){
+			eat_apple->Eat();
+			hungry = false;
+			state = THINKING;
+		}else{
+			eat_time -= sec;
+		}
 		break;
 	case SpiderState::DEAD:
 		break;
@@ -178,37 +250,13 @@ void Spider::Update(float sec){
 	}
 }
 
-void Spider::NearRadarCollision(){
-	speedV = 0;
+void Spider::Pause(){
+	run_snd->Pause();
 }
 
-void Spider::FarRadarCollision(){
-	bool haveNewDirection = false;
-	float deltaAngle = 5;
-	int j = 0;
-	while(speedV != 0 && !haveNewDirection && j < 18){
-		j++;
-		for(int i = 0; i < 2; i++){
-			float newAngle = angle + deltaAngle + 90;
-			float x = 0;
-			float y = 0;
-			for(int j = 0; j < 4; j++){
-				x = sin(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().x;
-				y = cos(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().y;	
-				haveNewDirection = screen->IsEmptyPosition(Point(x, y), GetRadius());
-				if(!haveNewDirection)
-					break;
-			}
-			if(haveNewDirection){
-				destanation.x = x;
-				destanation.y = y;
-				break;
-			}
-			deltaAngle *= -1;
-		}
-		deltaAngle += 10;
-		if(haveNewDirection)
-			break;
+void Spider::Resume(){
+	if(state == RUNNING){
+		run_snd->Resume();
 	}
 }
 
@@ -216,14 +264,50 @@ vector<Collisioner*>& Spider::GetRadars(){
 	return radars;
 }
 
+void Spider::NearRadarCollision(){
+	speedV = 0;
+	FarRadarCollision();
+}
+
+void Spider::FarRadarCollision(){
+	bool haveNewDirection = false;
+	float deltaAngle = 5;
+	while(!haveNewDirection && deltaAngle < 180){
+		for(int i = 0; i < 2; i++){
+			float newAngle = angle + deltaAngle + 90;
+			Point dest;
+			for(int j = 0; j < 4; j++){
+				dest.x = sin(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().x;
+				dest.y = cos(newAngle / 180.f * PI) * (j + 1) * 50 + GetPosition().y;	
+				haveNewDirection = screen->IsEmptyPosition(dest, GetRadius());
+				if(!haveNewDirection)
+					break;
+			}
+			if(haveNewDirection){
+				destanation = dest;
+				break;
+			}
+			deltaAngle *= -1;
+		}
+		if(haveNewDirection)
+			break;
+		else
+			deltaAngle += 10;
+	}
+}
+
+float Spider::GetTurnRadius(){
+	return speedV / (speedW / 360.f * PI);
+}
+
 void Spider::Draw(){
 	switch (state){
-	case SpiderState::RUNNING:
-	case SpiderState::ROTATING:
+	case RUNNING:
+	case EATING:
 		graphics->Rotate(anim->GetImage(), angle + 90.f);
 		graphics->DrawImage(GetPosition(), anim->GetImage());
 		break;
-	case SpiderState::THINKING:{
+	case THINKING:{
 			graphics->Rotate(body, angle + 90.f);
 			graphics->Rotate(head, angle + head_angle + 90.f);
 			graphics->DrawImage(GetPosition(), body);
@@ -232,7 +316,7 @@ void Spider::Draw(){
 			headPos.x = GetPosition().x + (float)10 * cos(angle / 180.f * PI);
 			graphics->DrawImage(headPos, head);
 		}break;
-	case SpiderState::DEAD:
+	case DEAD:
 		break;
 	default:
 		break;
@@ -241,45 +325,54 @@ void Spider::Draw(){
 		graphics->DrawCircle(col->GetPosition(), col->GetRadius(), Color::Red);
 	}
 	graphics->DrawLine(radars[0]->GetPosition(), radars[3]->GetPosition(), Color::Red);
+	graphics->DrawCircle(GetPosition(), GetTurnRadius(), Color::Yellow);
+	graphics->DrawCircle(GetPosition(), GetRadius(), Color::Red);
 }
 
 float Spider::GetRadius(){
 	return 24.f;
 }
-/*
+
+void Spider::CollisionOccurred(Collisioner* obj){
+	Apple* apple = dynamic_cast<Apple*>(obj);
+	if(apple){
+		eat_apple = apple;
+		state = EATING;
+		run_snd->Pause();
+	}
+}
+
+void Spider::ObjectLeft(Collisioner* obj){
+	if(obj == eat_apple){
+		eat_apple = NULL;
+		state = THINKING;
+	}
+}
+
 bool Spider::OnScreen(){
 	if(GetPosition().x > game->GetWidth() || GetPosition().x < 0)
 		return false;
 	if(GetPosition().y > game->GetHeight() || GetPosition().y < 0)
 		return false;
 	return true;
-}*/
+}
 
-void Spider::ScanForApples(list<Apple*> &apples){
-	Point p1;
-	p1.y = GetPosition().y + (float)-2000 * sin((angle + 45.f) / 180.f * PI);
-	p1.x = GetPosition().x + (float)2000 * cos((angle + 45.f) / 180.f * PI);
-	Point p2;
-	p2.y = GetPosition().y + (float)-2000 * sin((angle - 45.f) / 180.f * PI);
-	p2.x = GetPosition().x + (float)2000 * cos((angle - 45.f) / 180.f * PI);
-	//graphics->DrawLine(GetPosition(), p1, Color::Red);
-	//graphics->DrawLine(GetPosition(), p2, Color::Red);
-	target_apple = NULL;
+void Spider::ScanForApples(){
+	list<Apple*> apples = screen->GetApples();
+	Point dest(-10000, 10000);
 	for(Apple* apple : apples){
-		if(PointInTriangle(apple->GetPosition(), GetPosition(), p1, p2)){
-			if(target_apple == NULL){
-				target_apple = apple;
-				destanation = target_apple->GetPosition();
-			}else{
-				float targedDistance = Distance(target_apple->GetPosition(), GetPosition());
-				float newDistatnce = Distance(apple->GetPosition(), GetPosition());
-				if(newDistatnce < targedDistance){
-					target_apple = apple;
-					destanation = target_apple->GetPosition();
-				}
+		if(!CircleOnCollision(GetPosition(), GetTurnRadius(), apple->GetPosition(), apple->GetRadius())){
+			if(Distance(GetPosition(), apple->GetPosition()) < Distance(GetPosition(), dest)){
+				dest = apple->GetPosition();
 			}
 		}
 	}
+	if(dest == Point(-10000, 10000)){
+		do{
+			dest = screen->GetEmptyPosition(GetRadius());
+		}while(Distance(dest, GetPosition()) < GetTurnRadius());
+	}
+	destanation = dest;
 }
 
 void Spider::SetNearestBorder(){
@@ -309,19 +402,6 @@ void Spider::SetNearestBorder(){
 	newDistance = Distance(newPoint, GetPosition());
 	if(newDistance < distance && newDistance > speedV / (speedW / 360 * PI))
 		destanation = newPoint;
-}
-
-void Spider::EatApple(list<Apple*> &apples){
-	for(auto it = apples.begin(); it != apples.end(); it++){
-		if((*it) == target_apple){
-			delete *it;
-			*it = NULL;
-			it = apples.erase(it);
-			target_apple = NULL;
-			hungry = false;
-			return;
-		}
-	}
 }
 
 int Spider::Eat(){

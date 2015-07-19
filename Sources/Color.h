@@ -26,6 +26,8 @@ public:
 	static const Color Blue;
 	static const Color White;
 	static const Color Black;
+	static const Color Yellow;
+	static const Color Purple;
 
 	float R,G,B;
 	Color(float r, float g, float b);

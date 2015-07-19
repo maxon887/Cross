@@ -27,8 +27,10 @@ public:
 	static void Release();
 
 	Cactus();
+	Cactus(Point pos);
 
 	float GetRadius();
+	void CollisionOccurred(Collisioner* obj);
 
 	void Update(float sec);
 	void Draw();

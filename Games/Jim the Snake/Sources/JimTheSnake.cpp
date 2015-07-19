@@ -38,8 +38,8 @@ void JimTheSnake::Start(){
 }
 
 Screen* JimTheSnake::GetStartScreen(){
-	return new MenuScreen(this);
-	//return new GameScreen(this);
+	//return new MenuScreen(this);
+	return new GameScreen(this);
 }
 
 bool JimTheSnake::IsMusicEnabled(){

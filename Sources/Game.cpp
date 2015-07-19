@@ -94,7 +94,8 @@ void Game::Update(){
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
-		//GetCurrentScreen()->Update(0.02f);
+		//GetCurrentScreen()->Update(0.1f);
+		//launcher->Sleep(500);
 		now = high_resolution_clock::now();
 		long long up = duration_cast<microseconds>(now - render_time).count();
 		float milis = up / 1000.f;

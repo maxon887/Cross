@@ -18,6 +18,8 @@
 #include "Collisioner.h"
 #include "Misc.h"
 
+#include "Snake.h"
+
 void Collisioner::Update(float sec){
 	auto it = partners.begin();
 	while(it != partners.end()){
@@ -51,10 +53,11 @@ void Collisioner::BreakUp(Collisioner* partner){
 	auto it = partners.begin();
 	while(it != partners.end()){
 		if((*it) == partner){
-			partners.erase(it);
+			it = partners.erase(it);
 			break;
+		}else{
+			++it;
 		}
-		++it;
 	}
 }
 

@@ -17,6 +17,7 @@
 	
 #include "Cactus.h"
 #include "Misc.h"
+#include "Snake.h"
 
 Image*		Cactus::small_img = NULL;
 Image*		Cactus::adult_img = NULL;
@@ -43,6 +44,15 @@ Cactus::Cactus(){
 	shake_up = true;
 }
 
+Cactus::Cactus(Point pos):Collisioner(pos){
+	scale_factor = 1.f;
+	life_time = 0;
+	shake_state = 3;
+	lerp = 0;
+	state = GROWING;
+	shake_up = true;
+}
+
 float Cactus::GetRadius(){
 	switch (state) {
 	case GROWING:
@@ -51,6 +61,15 @@ float Cactus::GetRadius(){
 		return 40.f;
 	default:
 		return 0;
+	}
+}
+
+void Cactus::CollisionOccurred(Collisioner* obj){
+	Snake* snake = dynamic_cast<Snake*>(obj);
+	if(snake && state == GROWING){
+		scale_factor = .5f;
+		state = HIDING;
+		life_time = 14;
 	}
 }
 

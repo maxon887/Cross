@@ -48,7 +48,6 @@ private:
 		void ObjectLeft(Collisioner* obj);
 		Snake* snake;
 	};
-
 	static const float speedV;
 	static const float speedW;
 	static const float nod_length;
@@ -70,8 +69,8 @@ private:
 	float eatable_time_left;
 	list<Point> body_path;
 	vector<Body*> body_nodes;
+	list<pair<Eatable*, float>> eatables;
 	Radar* radar;
-	Eatable* eatable;
 
 	bool OnBorder();
 	void UpdateBody(float sec);

@@ -49,6 +49,8 @@ public:
 	void SetState(GameState newState);
 	void AddScore(int gain);
 	bool IsEmptyPosition(Point pos, float radius);
+	Point GetEmptyPosition(float radius);
+	list<Apple*>& GetApples();
 private:
 	JimTheSnake* game;
 	GameState state;
@@ -91,7 +93,6 @@ private:
 	void DrawCactuses();
 	void DrawScore();
 	void CalcInput(float sec);
-	Point GetEmptyPosition(float radius);
 
 	void OnResumeClick();
 	void OnMenuClick();

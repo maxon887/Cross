@@ -23,17 +23,26 @@
 #include <cmath>
 
 void Snake::Radar::CollisionOccurred(Collisioner* obj){
-	if(!face_bottom_anim->IsRunning() && !snake->dead){
-		face_bottom_anim->Start();
-		face_top_anim->Start();
-		eat_snd->Play();
+	Eatable* eatable = dynamic_cast<Eatable*>(obj);
+	if(eatable){
+		if(!face_bottom_anim->IsRunning() && !snake->dead){
+			face_bottom_anim->Start();
+			face_top_anim->Start();
+			eat_snd->Play();
+		}
+		snake->eatables.push_back(pair<Eatable*, float>(eatable, -1.f));
 	}
-	snake->eatable = dynamic_cast<Eatable*>(obj);
 }
 
 void Snake::Radar::ObjectLeft(Collisioner* obj){
-	if(obj == snake->eatable){
-		snake->eatable = NULL;
+	auto it = snake->eatables.begin();
+	while(it != snake->eatables.end()){
+		if((*it).first == obj){
+			it = snake->eatables.erase(it);
+			break;
+		}else{
+			++it;
+		}
 	}
 }
 
@@ -114,15 +123,14 @@ Snake::Snake():Collisioner(Point(200, 400)){
 	star_angle = 0;
 	eatable_time_left = -1;
 	body_length = 150.f;
-	body_length = 10000.f;
+	//body_length = 10000.f;
 	dead_time = 0;
 	dead = false;
-	eatable = NULL;
-	body_path.push_back(Point(0, 400));
+
+	body_path.push_back(Point(150, 400));
+
 	Point p;
-	Body* b = new Body(p, 1.f);
-	//body_nodes.push_back(new Body(Point(-100, -100), 1.f));
-	body_nodes.push_back(b);
+	body_nodes.push_back(new Body(Point(), 1.f));
 	radar = new Radar(GetPosition(), this);
 }
 //						DESTRUCTOR
@@ -139,7 +147,11 @@ float Snake::GetRadius(){
 
 void Snake::CollisionOccurred(Collisioner* obj){
 	Cactus* cactus = dynamic_cast<Cactus*>(obj);
+	Body* b = dynamic_cast<Body*>(obj);
 	if(cactus && cactus->Dangerous()){
+		Die();
+	}
+	if(b){
 		Die();
 	}
 }
@@ -156,6 +168,7 @@ void Snake::Rotate(float angle){
 
 void Snake::Update(float sec){
 	Collisioner::Update(sec);
+	radar->Update(sec);
 	switch (screen->GetState()){
 	case GameState::ONREADY:
 		UpdateBody(sec);
@@ -169,22 +182,20 @@ void Snake::Update(float sec){
 			p.y += -speedV * sin(angle / 180.f * PI) * sec;
 			SetPosition(p);
 			radar->SetPosition(p);
-			radar->Update(sec);
 			UpdateBody(sec);
 
-			//Eatable* eatable = dynamic_cast<Eatable*>(radar->OnCollision());
-			if(eatable){
-				if(eatable_time_left > 0){
-					eatable_time_left -= sec;
-					if(eatable_time_left < 0){
+			for(auto it = eatables.begin(); it != eatables.end(); ++it){
+				if((*it).second > 0){
+					(*it).second -= sec;
+					if((*it).second < 0){
 						auto bigNode = body_nodes.begin();
 						++bigNode;
 						(*bigNode)->SetBig();
-						screen->AddScore(eatable->Eat());
+						screen->AddScore((*it).first->Eat());
 					}
 				}else{
-					if(CircleOnCollision(GetPosition(), GetRadius(), eatable->GetPosition(), 1.f)) {
-						eatable_time_left = 0.025f;
+					if(CircleOnCollision(GetPosition(), GetRadius(), (*it).first->GetPosition(), 1.f)){
+						(*it).second = 0.25f;
 					}
 				}
 			}
@@ -195,6 +206,7 @@ void Snake::Update(float sec){
 	case GameState::PAUSED:
 		break;
 	case GameState::GAMEOVER:
+		UpdateBody(sec);
 		star_angle += star_speedW * sec;
 		break;
 	default:
@@ -207,8 +219,8 @@ void Snake::Draw(){
 		Image* face = face_bottom_anim->GetImage();
 		graphics->Rotate(face, angle + 90.f);
 		graphics->DrawImage(GetPosition(), face);
-		if(eatable){
-			eatable->Draw();
+		for(pair<Eatable*, float> pair : eatables){
+			pair.first->Draw();
 		}
 		DrawBody();
 		face = face_top_anim->GetImage();
@@ -251,19 +263,19 @@ Collisioner* Snake::GetRadar(){
 
 bool Snake::OnBorder(){
 	Point p = GetPosition();
-	if( p.x - GetRadius() < 0 ) {
+	if(p.x - GetRadius() < 0){
 		p.x = GetRadius();
 		return true;
 	}
-	if( p.x + GetRadius() > game->GetWidth()) {
+	if(p.x + GetRadius() > game->GetWidth()){
 		p.x = game->GetWidth() - GetRadius();
 		return true;
 	}
-	if( p.y - GetRadius() < 0 ) {
+	if(p.y - GetRadius() < 0){
 		p.y = GetRadius();
 		return true;
 	}
-	if( p.y + GetRadius() > game->GetHeight()) {
+	if(p.y + GetRadius() > game->GetHeight()){
 		p.y = game->GetHeight() - GetRadius();
 		return true;
 	}
@@ -322,7 +334,7 @@ void Snake::UpdateBody(float sec){
 			}
 		}
 		//remove unused path
-		if(pathLen > body_length){
+		if(pathLen > body_length + nod_length){
 			nextIt = body_path.erase(nextIt, body_path.end());
 		}else{
 			++nextIt;

@@ -23,6 +23,8 @@ using namespace cross;
 
 class Eatable : public Collisioner{
 public:
+	Eatable():Collisioner(){};
+	Eatable(Point pos):Collisioner(pos){};
 	virtual int Eat() = 0;
 	virtual bool Eaten() = 0;
 	virtual ~Eatable() { };

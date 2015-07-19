@@ -28,21 +28,25 @@ public:
 	static void Release();
 
 	Spider();
+	Spider(Point position, Point destanation);
 	~Spider();
 
 	float GetRadius();
+	void Draw();
+	void CollisionOccurred(Collisioner* obj);
+	void ObjectLeft(Collisioner* obj);
 	int Eat();
 	bool Eaten();
-	void Draw();
 
 	void Update(float sec);
+	void Pause();
+	void Resume();
 	vector<Collisioner*>& GetRadars();
 private:
 	enum SpiderState{
 		RUNNING,
 		THINKING,
-		ROTATING,
-		HIDING,
+		EATING,
 		DEAD
 	};
 	class NearRadar : public Collisioner{
@@ -75,18 +79,20 @@ private:
 	Audio* run_snd;
 	Point destanation;
 	vector<Collisioner*> radars;
-	Apple* target_apple;
+	Apple* eat_apple;
 	bool temporary_run;
+	bool think_turn_left;
 	float angle;
 	float head_angle;
 	float thinking_time;
 	float speedV;
+	float eat_time;
 	bool hungry;
 
 	void NearRadarCollision();
 	void FarRadarCollision();
-
-	void ScanForApples(list<Apple*> &apples);
+	float GetTurnRadius();
+	void ScanForApples();
 	void SetNearestBorder();
-	void EatApple(list<Apple*> &apples);
+	bool OnScreen();
 };
