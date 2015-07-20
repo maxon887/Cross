@@ -50,6 +50,7 @@ GameScreen::~GameScreen(){
 
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(score_img);
+	graphics->ReleaseImage(score_bright_img);
 	graphics->ReleaseImage(gameover_img);
 	graphics->ReleaseImage(control_base);
 	graphics->ReleaseImage(control_facepointer);
@@ -76,8 +77,9 @@ void GameScreen::Start(){
 	game_over = NULL;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
-	ready_img = graphics->LoadImage("Game/ReadyTapLabel.png");
+	ready_img = graphics->LoadImage("Game/ReadyLabel.png");
 	score_img = graphics->LoadImage("Game/ScoreLabel.png");
+	score_bright_img = graphics->LoadImage("Game/ScoreBrightLabel.png");
 	control_facepointer = graphics->LoadImage("Game/FacePointer.png");
 	control_base = graphics->LoadImage("Game/ControlBase.png");
 	pause_img = graphics->LoadImage("Game/PauseLabel.png");
@@ -123,7 +125,7 @@ void GameScreen::Update(float sec){
 	snake->Draw();
 	switch (state) {
 	case GameState::ONREADY:
-		graphics->DrawImage(centerW, centerW, ready_img);
+		graphics->DrawImage(centerW, game->GetHeight() / 3, ready_img);
 		onready_time -= sec;
 		if(onready_time < 0 || input->HaveInput()){
 			SetState(GameState::RUNNING);
@@ -157,7 +159,7 @@ void GameScreen::Update(float sec){
 		}break;
 	case GameState::GAMEOVER:
 		graphics->DrawImage(450, centerH - 340, gameover_img);
-		graphics->DrawImage(300, centerH - 210, score_img);
+		graphics->DrawImage(300, centerH - 210, score_bright_img);
 		score_texter->DrawText(520, centerH - 255, to_string(score));
 		restart_btn->Update();
 		menu_btn->Update();
@@ -216,7 +218,7 @@ void GameScreen::Restart(){
 	game_over->Stop();
 	music->Play();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
-	graphics->ScaleImage(score_img, game->GetScaleFactor());
+	//graphics->ScaleImage(score_img, game->GetScaleFactor());
 	delete snake;
 	snake = NULL;
 	for(Apple* apple : apples){
@@ -232,8 +234,9 @@ void GameScreen::Restart(){
 	}
 	cactuses.clear();
 	snake = new Snake();
-	SetState(GameState::RUNNING);
+	SetState(GameState::ONREADY);
 	//debug
+	/*
 	spiders.push_back(new Spider(Point(400, 0), Point(400, 400)));
 	cactuses.push_back(new Cactus(Point(400, 300)));
 	
@@ -248,7 +251,7 @@ void GameScreen::Restart(){
 		Cactus* newOne = new Cactus();
 		newOne->SetPosition(GetEmptyPosition(newOne->GetRadius()));
 		cactuses.push_back(newOne);
-	}
+	}*/
 }
 
 void GameScreen::ProccessCollisions(){

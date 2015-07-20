@@ -20,6 +20,9 @@
 #define TARGET_WIDTH 500 
 #define TARGET_HEIGHT 900
 
+//#define TARGET_WIDTH 320 
+//#define TARGET_HEIGHT 480
+
 #include <Windows.h>
 #include "Launcher.h"
 #include "Audio.h"

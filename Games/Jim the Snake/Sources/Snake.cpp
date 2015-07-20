@@ -118,7 +118,7 @@ void Snake::Release(){
 	delete punch;
 }
 //						CONSTRUCTOR
-Snake::Snake():Collisioner(Point(200, 400)){
+Snake::Snake():Collisioner(){
 	angle = 0;
 	star_angle = 0;
 	eatable_time_left = -1;
@@ -127,9 +127,10 @@ Snake::Snake():Collisioner(Point(200, 400)){
 	dead_time = 0;
 	dead = false;
 
-	body_path.push_back(Point(150, 400));
+	float height = game->GetHeight() / 2;
+	SetPosition(Point(200, height));
 
-	Point p;
+	body_path.push_back(Point(49, height));
 	body_nodes.push_back(new Body(Point(), 1.f));
 	radar = new Radar(GetPosition(), this);
 }
@@ -148,10 +149,7 @@ float Snake::GetRadius(){
 void Snake::CollisionOccurred(Collisioner* obj){
 	Cactus* cactus = dynamic_cast<Cactus*>(obj);
 	Body* b = dynamic_cast<Body*>(obj);
-	if(cactus && cactus->Dangerous()){
-		Die();
-	}
-	if(b){
+	if((cactus && cactus->Dangerous()) || b){
 		Die();
 	}
 }
@@ -184,6 +182,10 @@ void Snake::Update(float sec){
 			radar->SetPosition(p);
 			UpdateBody(sec);
 
+			if(OnBorder()){
+				Die();
+			}
+
 			for(auto it = eatables.begin(); it != eatables.end(); ++it){
 				if((*it).second > 0){
 					(*it).second -= sec;
@@ -195,7 +197,7 @@ void Snake::Update(float sec){
 					}
 				}else{
 					if(CircleOnCollision(GetPosition(), GetRadius(), (*it).first->GetPosition(), 1.f)){
-						(*it).second = 0.25f;
+						(*it).second = .25f;
 					}
 				}
 			}
@@ -334,7 +336,7 @@ void Snake::UpdateBody(float sec){
 			}
 		}
 		//remove unused path
-		if(pathLen > body_length + nod_length){
+		if(pathLen > body_length + 150.f){
 			nextIt = body_path.erase(nextIt, body_path.end());
 		}else{
 			++nextIt;

@@ -31,7 +31,7 @@ namespace cross {
 
 class Game;
 
-/* Class responsible for drawing objects into the sceen */
+/* Class responsible for drawing objects in the sceen */
 class Graphics{
 public:
 	/*	Clear screen with particular color.*/
@@ -73,7 +73,6 @@ public:
 	void DrawTargetImage(float x, float y, Image* img);
 private:
 	unsigned char* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
-	//void DrawTargetImage(float x, float y, Image* img);
     void DrawTargetPixel(Point p, float r, float g, float b);
 	Game* game;
 	Launcher* launcher;
