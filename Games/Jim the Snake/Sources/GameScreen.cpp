@@ -43,10 +43,6 @@ GameScreen::~GameScreen(){
 	}
 	delete snake;
 	cactuses.clear();
-	Snake::Release();
-	Spider::Release();
-	Apple::Release();
-	Cactus::Release();
 
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(score_img);
@@ -63,10 +59,15 @@ GameScreen::~GameScreen(){
 	delete music;
 	delete game_over;
 	delete score_texter;
+
+	Snake::Release();
+	Spider::Release();
+	Apple::Release();
+	Cactus::Release();
 }
 //						OVERRIDDEN METHODS
 void GameScreen::Start(){
-	//srand(time(NULL));
+	srand(time(0));
 	GameObject::Init(game);
 	Snake::Init();
 	Apple::Init();
@@ -75,6 +76,7 @@ void GameScreen::Start(){
 	snake = NULL;
 	music = NULL;
 	game_over = NULL;
+	apple_drop = NULL;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img = graphics->LoadImage("Game/ReadyLabel.png");
@@ -95,7 +97,10 @@ void GameScreen::Start(){
 	centerH = game->GetHeight() / 2;
 	if(game->IsMusicEnabled()){
 		music = new Audio("Game/GameMusic.mp3", true, true);
-		game_over = new Audio("Game/GameOver.wav", false, true);
+		game_over = new Audio("Game/GameOver.mp3", false, true);
+	}
+	if(game->IsSoundEnabled()){
+		apple_drop = new Audio("Game/AppleDrop.wav", false, false);
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 
@@ -196,7 +201,8 @@ void GameScreen::SetState(GameState newState){
 		}
 		break;
 	case GameState::GAMEOVER:
-		music->Stop();
+		//music->Stop();
+		game_over->Play();
 		if(score > game->BestScore()){
 			game->SetBestScore(score);
 		}
@@ -209,6 +215,10 @@ void GameScreen::SetState(GameState newState){
 
 void GameScreen::AddScore(int gain){
 	score += gain;
+}
+
+void GameScreen::StopMusic(){
+	music->Stop();
 }
 
 //						PRIVATE METHODS	
@@ -237,9 +247,6 @@ void GameScreen::Restart(){
 	SetState(GameState::ONREADY);
 	//debug
 	/*
-	spiders.push_back(new Spider(Point(400, 0), Point(400, 400)));
-	cactuses.push_back(new Cactus(Point(400, 300)));
-	
 	for(int i = 0; i < 10; i++){
 		Apple* newApple1 = new Apple();
 		newApple1->SetPosition(GetEmptyPosition(newApple1->GetRadius()));
@@ -323,7 +330,7 @@ void GameScreen::UpdateApples(float sec){
 				delete apple;
 				it = apples.erase(it);
 				int roll = rand() % 101;
-				if(roll > 20) {
+				if(roll > 75) {
 					spiders.push_back(new Spider());
 				}
 			}
@@ -334,6 +341,7 @@ void GameScreen::UpdateApples(float sec){
 			Apple* newApple = new Apple();
 			newApple->SetPosition(GetEmptyPosition(newApple->GetRadius()));
 			apples.push_back(newApple);
+			apple_drop->Play();
 		}else{
 			next -= sec;
 		}

@@ -19,8 +19,6 @@
 #include "Collisioner.h"
 #include "Game.h"
 
-using namespace cross;
-
 class Cactus : public Collisioner{
 public:
 	static void Init();
@@ -45,15 +43,20 @@ private:
 		EMPTY
 	};
 
+	static const float growing_time;
+	static const float adult_time;
+	static const float old_time;
+
 	static Image* small_img;
 	static Image* adult_img;
 	static Image* old_img;
+	static Audio* bith;
+	static Audio* splash;
 
 	CactusState state;
 	float life_time;
 	float lerp;
 	float shake_state;
 	float scale_factor;
-
 	bool shake_up;
 };

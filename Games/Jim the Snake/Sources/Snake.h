@@ -66,7 +66,6 @@ private:
 	float body_length;
 	float dead_time;
 	float star_angle;
-	float eatable_time_left;
 	list<Point> body_path;
 	vector<Body*> body_nodes;
 	list<pair<Eatable*, float>> eatables;

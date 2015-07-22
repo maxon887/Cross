@@ -52,16 +52,18 @@ void Spider::Release(){
 Spider::Spider(){
 	head_angle = 0;
 	thinking_time = 1.3f;
-	eat_time = 1.5f;
+	eat_time = .8f;
 	speedV = 130.f;
 	think_turn_left = false;
 	eat_apple = NULL;
 	run_snd = NULL;
+	eat_snd = NULL;
 	hungry = true;
 	temporary_run = false;
 
 	if(game->IsSoundEnabled()){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
+		eat_snd = new Audio("Game/Spider/SpiderEat.wav", false, false);
 	}
 	run_snd->Play();
 	state = SpiderState::RUNNING;
@@ -117,13 +119,13 @@ Spider::Spider(){
 	SetPosition(Point(x, y));
 	angle = Angle(GetPosition(), destanation);
 }
-
+/*
 Spider::Spider(Point position, Point destanation):Eatable(position){
 	this->destanation = destanation;
 	head_angle = 0;
 	thinking_time = 1.3f;
 	speedV = 130.f;
-	eat_time = 1.5f;
+	eat_time = .8f;
 	eat_apple = NULL;
 	run_snd = NULL;
 	hungry = true;
@@ -148,7 +150,7 @@ Spider::Spider(Point position, Point destanation):Eatable(position){
 			radars.push_back(new FarRadar(Point(x, y), this));
 		}
 	}
-}
+}*/
 
 Spider::~Spider(){
 	delete run_snd;
@@ -338,6 +340,7 @@ void Spider::CollisionOccurred(Collisioner* obj){
 	if(apple){
 		eat_apple = apple;
 		state = EATING;
+		eat_snd->Play();
 		run_snd->Pause();
 	}
 }

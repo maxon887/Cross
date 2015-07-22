@@ -28,7 +28,7 @@ public:
 	static void Release();
 
 	Spider();
-	Spider(Point position, Point destanation);
+	//Spider(Point position, Point destanation);
 	~Spider();
 
 	float GetRadius();
@@ -77,6 +77,7 @@ private:
 	SpiderState state;
 	Animation* anim;
 	Audio* run_snd;
+	Audio* eat_snd;
 	Point destanation;
 	vector<Collisioner*> radars;
 	Apple* eat_apple;

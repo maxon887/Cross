@@ -27,5 +27,5 @@ public:
 	Eatable(Point pos):Collisioner(pos){};
 	virtual int Eat() = 0;
 	virtual bool Eaten() = 0;
-	virtual ~Eatable() { };
+	virtual ~Eatable(){};
 };

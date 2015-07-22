@@ -51,6 +51,7 @@ public:
 	bool IsEmptyPosition(Point pos, float radius);
 	Point GetEmptyPosition(float radius);
 	list<Apple*>& GetApples();
+	void StopMusic();
 private:
 	JimTheSnake* game;
 	GameState state;
@@ -69,6 +70,7 @@ private:
 	Image* ready_img;
 
 	Audio* music;
+	Audio* apple_drop;
 	Audio* game_over;
 
 	Button* resume_btn;
@@ -77,8 +79,6 @@ private:
 
 	Texter* score_texter;
 
-	bool music_enable;
-	bool sound_enable;
 	int score;
 	float onready_time;
 	float centerW;
@@ -86,6 +86,7 @@ private:
 
 	void Restart();
 	void ProccessCollisions();
+	void CalcInput(float sec);
 	void UpdateApples(float sec);
 	void DrawApples();
 	void UpdateSpiders(float sec);
@@ -93,7 +94,6 @@ private:
 	void UpdateCactuses(float sec);
 	void DrawCactuses();
 	void DrawScore();
-	void CalcInput(float sec);
 
 	void OnResumeClick();
 	void OnMenuClick();

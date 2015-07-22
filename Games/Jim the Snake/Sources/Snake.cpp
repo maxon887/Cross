@@ -121,9 +121,7 @@ void Snake::Release(){
 Snake::Snake():Collisioner(){
 	angle = 0;
 	star_angle = 0;
-	eatable_time_left = -1;
 	body_length = 150.f;
-	//body_length = 10000.f;
 	dead_time = 0;
 	dead = false;
 
@@ -353,5 +351,5 @@ void Snake::DrawBody(){
 void Snake::Die(){
 	punch->Play();
 	dead = true;
-	screen->SetState(GameState::GAMEOVER);
+	screen->StopMusic();
 }
