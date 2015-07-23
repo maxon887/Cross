@@ -38,7 +38,7 @@ LauncherWIN::LauncherWIN(HWND wnd){
 }
 
 LauncherWIN::~LauncherWIN(){
-	LogIt("Launcher deleted");
+	Audio::Release();
 }
 
 int LauncherWIN::GetTargetWidth(){

@@ -28,7 +28,10 @@ public:
 	static void SuspendSystem();
 	static void ResumeSystem();
 	static void Release();
+
 	Audio(string path, bool loop, bool isStream);
+	Audio(Audio& obj);
+
 	void Play();
 	void Pause();
 	void Resume();
@@ -44,6 +47,7 @@ private:
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;
+	bool original;
 };
 
 }

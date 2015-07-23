@@ -43,6 +43,9 @@ void Cactus::Release(){
 	graphics->ReleaseImage(small_img);
 	graphics->ReleaseImage(adult_img);
 	graphics->ReleaseImage(old_img);
+
+	delete bith;
+	delete splash;
 }
 
 Cactus::Cactus(){
@@ -146,7 +149,7 @@ void Cactus::Update(float sec){
 }
 
 void Cactus::Draw(){
-	switch (state) {
+	switch(state){
 	case GROWING:
 		graphics->ScaleImage(small_img, game->GetScaleFactor() * 0.2f * scale_factor);
 		graphics->DrawImage(GetPosition(), small_img);

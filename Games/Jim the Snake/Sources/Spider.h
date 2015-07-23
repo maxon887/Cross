@@ -28,7 +28,7 @@ public:
 	static void Release();
 
 	Spider();
-	//Spider(Point position, Point destanation);
+	Spider(Point position, Point destanation);
 	~Spider();
 
 	float GetRadius();
@@ -96,4 +96,5 @@ private:
 	void ScanForApples();
 	void SetNearestBorder();
 	bool OnScreen();
+	void Initialize();
 };

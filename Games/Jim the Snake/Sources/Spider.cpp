@@ -22,9 +22,9 @@
 #include <stdlib.h>
 #include <cmath>
 
-Animation* Spider::st_anim = NULL;
-Image* Spider::head = NULL;
-Image* Spider::body = NULL;
+Animation*	Spider::st_anim = NULL;
+Image*		Spider::head = NULL;
+Image*		Spider::body = NULL;
 
 const float Spider::speedW = 90.f;
 
@@ -50,38 +50,7 @@ void Spider::Release(){
 }
 
 Spider::Spider(){
-	head_angle = 0;
-	thinking_time = 1.3f;
-	eat_time = .8f;
-	speedV = 130.f;
-	think_turn_left = false;
-	eat_apple = NULL;
-	run_snd = NULL;
-	eat_snd = NULL;
-	hungry = true;
-	temporary_run = false;
-
-	if(game->IsSoundEnabled()){
-		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
-		eat_snd = new Audio("Game/Spider/SpiderEat.wav", false, false);
-	}
-	run_snd->Play();
-	state = SpiderState::RUNNING;
-	anim = new Animation(*st_anim);
-	anim->Start();
-	//Radars initialization
-	float sinus = sin((angle + 90) / 180.f * PI);
-	float cosinus = cos((angle + 90) / 180.f * PI);
-	for(int i = 0; i < 4; i++){
-		float x = sinus * (i + 1) * 50 + GetPosition().x;
-		float y = cosinus * (i + 1) * 50 + GetPosition().y;
-		if(i < 2){
-			radars.push_back(new NearRadar(Point(x, y), this));
-		}else{
-			radars.push_back(new FarRadar(Point(x, y), this));
-		}
-	}
-
+	Initialize();
 	short side = rand()%4;
 	float x, y;
 	switch (side){
@@ -119,41 +88,15 @@ Spider::Spider(){
 	SetPosition(Point(x, y));
 	angle = Angle(GetPosition(), destanation);
 }
-/*
+
 Spider::Spider(Point position, Point destanation):Eatable(position){
 	this->destanation = destanation;
-	head_angle = 0;
-	thinking_time = 1.3f;
-	speedV = 130.f;
-	eat_time = .8f;
-	eat_apple = NULL;
-	run_snd = NULL;
-	hungry = true;
-	temporary_run = false;
-
-	if(game->IsSoundEnabled()){
-		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
-	}
-	run_snd->Play();
-	state = SpiderState::RUNNING;
-	anim = new Animation(*st_anim);
-	anim->Start();
-	//Radars initialization
-	float sinus = sin((angle + 90) / 180.f * PI);
-	float cosinus = cos((angle + 90) / 180.f * PI);
-	for(int i = 0; i < 4; i++){
-		float x = sinus * (i + 1) * 50 + GetPosition().x;
-		float y = cosinus * (i + 1) * 50 + GetPosition().y;
-		if(i < 2){
-			radars.push_back(new NearRadar(Point(x, y), this));
-		}else{
-			radars.push_back(new FarRadar(Point(x, y), this));
-		}
-	}
-}*/
+	Initialize();
+}
 
 Spider::~Spider(){
 	delete run_snd;
+	delete eat_snd;
 	delete anim;
 	for(Collisioner* col : radars){
 		delete col;
@@ -207,7 +150,7 @@ void Spider::Update(float sec){
 		SetPosition(pos);
 		if(CircleOnCollision(pos, 2.f, destanation, 2.f)){
 			state = THINKING;
-			run_snd->Pause();
+			run_snd->Stop();
 		}
 		}break;
 	case SpiderState::THINKING:{
@@ -253,12 +196,12 @@ void Spider::Update(float sec){
 }
 
 void Spider::Pause(){
-	run_snd->Pause();
+	run_snd->Stop();
 }
 
 void Spider::Resume(){
 	if(state == RUNNING){
-		run_snd->Resume();
+		run_snd->Play();
 	}
 }
 
@@ -337,11 +280,11 @@ float Spider::GetRadius(){
 
 void Spider::CollisionOccurred(Collisioner* obj){
 	Apple* apple = dynamic_cast<Apple*>(obj);
-	if(apple){
+	if(apple && hungry){
 		eat_apple = apple;
 		state = EATING;
+		run_snd->Stop();
 		eat_snd->Play();
-		run_snd->Pause();
 	}
 }
 
@@ -419,4 +362,37 @@ bool Spider::Eaten(){
 		return true;
 	else
 		return false;
+}
+
+void Spider::Initialize(){
+	head_angle = 0;
+	thinking_time = 1.3f;
+	eat_time = .8f;
+	speedV = 130.f;
+	think_turn_left = false;
+	eat_apple = NULL;
+	run_snd = NULL;
+	eat_snd = NULL;
+	hungry = true;
+	temporary_run = false;
+	if(game->IsSoundEnabled()){
+		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
+		eat_snd = new Audio("Game/Spider/SpiderEat.wav", false, false);
+	}
+	run_snd->Play();
+	state = SpiderState::RUNNING;
+	anim = new Animation(*st_anim);
+	anim->Start();
+	//Radars initialization
+	float sinus = sin((angle + 90) / 180.f * PI);
+	float cosinus = cos((angle + 90) / 180.f * PI);
+	for(int i = 0; i < 4; i++){
+		float x = sinus * (i + 1) * 50 + GetPosition().x;
+		float y = cosinus * (i + 1) * 50 + GetPosition().y;
+		if(i < 2){
+			radars.push_back(new NearRadar(Point(x, y), this));
+		}else{
+			radars.push_back(new FarRadar(Point(x, y), this));
+		}
+	}
 }

@@ -56,9 +56,11 @@ GameScreen::~GameScreen(){
 	delete resume_btn;
 	delete restart_btn;
 	delete menu_btn;
+	delete score_texter;
+
 	delete music;
 	delete game_over;
-	delete score_texter;
+	delete apple_drop;
 
 	Snake::Release();
 	Spider::Release();
@@ -133,7 +135,8 @@ void GameScreen::Update(float sec){
 		graphics->DrawImage(centerW, game->GetHeight() / 3, ready_img);
 		onready_time -= sec;
 		if(onready_time < 0 || input->HaveInput()){
-			SetState(GameState::RUNNING);
+			//SetState(GameState::RUNNING);
+			state = GameState::RUNNING;
 		}
 		break;
 	case GameState::RUNNING:{
@@ -201,7 +204,6 @@ void GameScreen::SetState(GameState newState){
 		}
 		break;
 	case GameState::GAMEOVER:
-		//music->Stop();
 		game_over->Play();
 		if(score > game->BestScore()){
 			game->SetBestScore(score);
@@ -245,9 +247,14 @@ void GameScreen::Restart(){
 	cactuses.clear();
 	snake = new Snake();
 	SetState(GameState::ONREADY);
+	for(int i = 0; i < 2; i++){
+		Cactus* newOne = new Cactus();
+		newOne->SetPosition(GetEmptyPosition(newOne->GetRadius()));
+		cactuses.push_back(newOne);
+	}
 	//debug
 	/*
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < 1; i++){
 		Apple* newApple1 = new Apple();
 		newApple1->SetPosition(GetEmptyPosition(newApple1->GetRadius()));
 		apples.push_back(newApple1);

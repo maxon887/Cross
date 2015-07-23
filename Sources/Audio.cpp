@@ -74,7 +74,7 @@ void Audio::Init(Launcher* launcher){
 		Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 	}
 
-	result = system->init(32, FMOD_INIT_NORMAL, extradriverdata);
+	result = system->init(16, FMOD_INIT_NORMAL, extradriverdata);
 	ERRCHECK(result);
 	launcher->LogIt("Audio initialized");
 }
@@ -97,6 +97,7 @@ Audio::Audio(string path, bool loop, bool isStream){
 		throw string("Audio not initialized");
 	FMOD_MODE mode = 0;
 	channel = NULL;
+	original = true;
 	if(loop)
 		mode = FMOD_LOOP_NORMAL;
 	else
@@ -112,10 +113,16 @@ Audio::Audio(string path, bool loop, bool isStream){
     ERRCHECK(result);
 }
 
+Audio::Audio(Audio& obj){
+	original = false;
+	sound = obj.sound;
+}
+
 void Audio::Play(){
 	if(this != NULL){
 		result = system->playSound(sound, 0, false, &channel);
 		ERRCHECK(result);
+		system->update();
 	}
 }
 
@@ -152,6 +159,10 @@ bool Audio::IsPlaying(){
 }
 
 Audio::~Audio(){
-	result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
-    ERRCHECK(result);
+	if(original){
+		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
+		ERRCHECK(result);
+	}else{
+		channel->stop();
+	}
 }
