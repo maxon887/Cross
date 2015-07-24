@@ -42,7 +42,7 @@ void MainScreen::Start(){
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
 	bck_music = new Audio("Eskimo.mp3", true, true);
-	bool musicState = saver->LoadBool("MUSIC_STATE");
+	bool musicState = saver->LoadBool("MUSIC_STATE", true);
 	music_btn->SetState(musicState);
 	if(musicState){
 		bck_music->Play();
@@ -68,7 +68,7 @@ void MainScreen::Start(){
 	jaguar = new Audio("Jaguar.wav", false, false);
 	truck = new Audio("Truck.wav", true, false);
 
-	int startLaunches = game->saver->LoadInt("START_LAUNCHES");
+	int startLaunches = game->saver->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
 	game->saver->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;

@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -65,12 +65,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Point.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Rect.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Saver.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
@@ -79,8 +82,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\PointX.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\RectX.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
@@ -90,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
+    <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics.h" />
     <ClInclude Include="..\..\..\..\Sources\Image.h" />
@@ -97,6 +99,8 @@
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
+    <ClInclude Include="..\..\..\..\Sources\Point.h" />
+    <ClInclude Include="..\..\..\..\Sources\Rect.h" />
     <ClInclude Include="..\..\..\..\Sources\Saver.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
@@ -105,13 +109,15 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\PointX.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\RectX.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\SecondScreen.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Cross++.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
