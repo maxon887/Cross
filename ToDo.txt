@@ -1,1 +1,2 @@
 1. Button click event
+2. Input global event system.

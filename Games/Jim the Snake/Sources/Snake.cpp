@@ -122,6 +122,7 @@ Snake::Snake():Collisioner(){
 	angle = 0;
 	star_angle = 0;
 	body_length = 150.f;
+	//body_length = 2000.f;
 	dead_time = 0;
 	dead = false;
 
