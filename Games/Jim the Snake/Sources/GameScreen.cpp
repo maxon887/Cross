@@ -53,7 +53,7 @@ GameScreen::~GameScreen(){
 	graphics->ReleaseImage(pause_img);
 	graphics->ReleaseImage(ready_img);
 
-	delete resume_btn;
+	delete back_btn;
 	delete restart_btn;
 	delete menu_btn;
 	delete score_texter;
@@ -88,8 +88,8 @@ void GameScreen::Start(){
 	control_base = graphics->LoadImage("Game/ControlBase.png");
 	pause_img = graphics->LoadImage("Game/PauseLabel.png");
 	gameover_img = graphics->LoadImage("Game/GameOverLabel.png");
-	Image* resumeup = graphics->LoadImage("Game/ResumeUp.png");
-	Image* resumedown = graphics->LoadImage("Game/ResumeDown.png");
+	Image* backup = graphics->LoadImage("Game/BackUp.png");
+	Image* backdown = graphics->LoadImage("Game/BackDown.png");
 	Image* menuup = graphics->LoadImage("Game/MenuUp.png");
 	Image* menudown = graphics->LoadImage("Game/MenuDown.png");
 	Image* restartup = graphics->LoadImage("Game/RestartUp.png");
@@ -106,9 +106,9 @@ void GameScreen::Start(){
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 
-	resume_btn = new Button(game, resumeup, resumedown);
-	resume_btn->SetLocation(Point(450, centerH - 40));
-	resume_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
+	back_btn = new Button(game, backup, backdown);
+	back_btn->SetLocation(Point(450, centerH - 40));
+	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
 	menu_btn = new Button(game, menuup, menudown);
 	menu_btn->SetLocation(Point(450, centerH + 180));
 	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
@@ -162,7 +162,7 @@ void GameScreen::Update(float sec){
 				SetState(GameState::RUNNING);
 				down = false;
 			}
-			resume_btn->Update();
+			back_btn->Update();
 			menu_btn->Update();
 		}break;
 	case GameState::GAMEOVER:
@@ -434,6 +434,16 @@ void GameScreen::CalcInput(float sec){
 			control_pos.y = input->GetInput().y;
 			return;
 		}
+		//test
+		float NeedDistance = 300.f;
+		float RealDistance = Distance(control_pos, input->GetInput());
+		if(RealDistance > NeedDistance){
+			float fingerAngle = Angle(control_pos, input->GetInput());
+			float deltaDist = RealDistance - NeedDistance;
+			control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
+			control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
+		}
+
 		float fingerAngle = Angle(control_pos, input->GetInput());
 		//determine in witch direction we need to move
 		float clockwise;
@@ -456,9 +466,9 @@ void GameScreen::CalcInput(float sec){
 				snake->Rotate(snake->Direction() + 360.f);
 		}
 		//draw control elements
-		graphics->Rotate(control_facepointer, snake->Direction());
-		graphics->DrawImage(control_pos, control_base);
-		graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
+		//graphics->Rotate(control_facepointer, snake->Direction());
+		//graphics->DrawImage(control_pos, control_base);
+		//graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
 	}else{
 		control_pos.x = 0;
 		control_pos.y = 0;

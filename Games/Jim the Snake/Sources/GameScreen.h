@@ -73,7 +73,7 @@ private:
 	Audio* apple_drop;
 	Audio* game_over;
 
-	Button* resume_btn;
+	Button* back_btn;
 	Button* menu_btn;
 	Button* restart_btn;
 

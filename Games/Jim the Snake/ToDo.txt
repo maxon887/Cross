@@ -11,3 +11,7 @@
 11. 3 didgits score size
 12. Big Cactus
 +13. Spider sounds
+14. Позиционирование
+15. Пустые настройки
+16. Didgits shados
+17. Auto Die!!!
