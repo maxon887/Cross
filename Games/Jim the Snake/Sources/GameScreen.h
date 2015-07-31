@@ -76,6 +76,7 @@ private:
 	Button* back_btn;
 	Button* menu_btn;
 	Button* restart_btn;
+	Button* pause_btn;
 
 	Texter* score_texter;
 
@@ -98,4 +99,5 @@ private:
 	void OnResumeClick();
 	void OnMenuClick();
 	void OnRestartClick();
+	void OnPauseClick();
 };

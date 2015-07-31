@@ -46,11 +46,6 @@ void Button::SetLocation(Point location){
 }
 
 void Button::Update(){
-	if(input->HaveInput() && press_loc != NULL && OnLocation(press_loc->x, press_loc->y)){
-		graphics->DrawImage(location, down);
-	}else{
-		graphics->DrawImage(location, up);
-	}
 	//first press
 	if(press_loc == NULL && input->HaveInput()){
 		press_loc = new Point(input->GetInput().x, input->GetInput().y);
@@ -71,6 +66,13 @@ void Button::Update(){
 	if(!input->HaveInput()){
 		delete press_loc;
 		press_loc = NULL;
+	}
+	if(input->HaveInput() && press_loc != NULL && OnLocation(press_loc->x, press_loc->y)){
+		if(down != NULL){
+			graphics->DrawImage(location, down);
+		}
+	}else{
+		graphics->DrawImage(location, up);
 	}
 }
 

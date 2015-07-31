@@ -164,9 +164,11 @@ Image* Graphics::LoadRepeatedImage(string filename, float w, float h, float scal
 }
 
 void Graphics::ReleaseImage(Image* img){
-	const GLuint texID = (const GLuint)img->GetTextureID();
-	glDeleteTextures(1, &texID);
-	delete img;
+	if(img != NULL){
+		const GLuint texID = (const GLuint)img->GetTextureID();
+		glDeleteTextures(1, &texID);
+		delete img;
+	}
 }
 
 unsigned char* Graphics::LoadImageInternal(string filename, GLuint* textureID, int* width, int* height){

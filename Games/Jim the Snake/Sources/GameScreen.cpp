@@ -94,6 +94,7 @@ void GameScreen::Start(){
 	Image* menudown = graphics->LoadImage("Game/MenuDown.png");
 	Image* restartup = graphics->LoadImage("Game/RestartUp.png");
 	Image* restartdown = graphics->LoadImage("Game/RestartDown.png");
+	Image* pause = graphics->LoadImage("Game/PauseButton.png");
 	//positioning
 	centerW = game->GetWidth() / 2;
 	centerH = game->GetHeight() / 2;
@@ -106,6 +107,9 @@ void GameScreen::Start(){
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 
+	pause_btn = new Button(game, pause, NULL);
+	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
+	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
 	back_btn = new Button(game, backup, backdown);
 	back_btn->SetLocation(Point(450, centerH - 40));
 	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
@@ -150,6 +154,7 @@ void GameScreen::Update(float sec){
 			SetState(GameState::PAUSED);
 			down = false;
 		}
+		pause_btn->Update();
 		}break;
 	case GameState::PAUSED:{
 			static bool down = false;
@@ -531,4 +536,9 @@ void GameScreen::OnResumeClick(){
 
 void GameScreen::OnRestartClick(){
 	Restart();
+}
+
+void GameScreen::OnPauseClick(){
+	SetState(GameState::PAUSED);
+	launcher->LogIt("There");
 }
