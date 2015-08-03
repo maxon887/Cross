@@ -29,12 +29,15 @@ public:
 
 	bool IsMusicEnabled();
 	bool IsSoundEnabled();
+	bool IsPurchased();
 	int BestScore();
 	void SetMusicEnabled(bool enabled);
 	void SetSoundEnabled(bool enabled);
+	void SetPurchased(bool purchased);
 	void SetBestScore(int best);
 private:
 	bool music;
 	bool sound;
+	bool purchased;
 	int score;
 };

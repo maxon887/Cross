@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "LauncherAndroid.h"
+#include "CommercialAndroid.h"
 #include "Cross.h"
 #include <string>
 
@@ -59,6 +60,14 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	*buffer = (unsigned char*)malloc(*length);
 	int read = AAsset_read(asset, *buffer, *length);
 	AAsset_close(asset);
+}
+
+void LauncherAndroid::InitializeCommercial(jobject comm){
+	this->commercial = comm;
+}
+
+Commercial* LauncherAndroid::GetCommercial() {
+	return new CommercialAndroid(commercial);
 }
 
 LauncherAndroid::~LauncherAndroid(){

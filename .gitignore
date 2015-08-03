@@ -290,3 +290,9 @@ Games/Jim the Snake/Sources/Snake.cpp
 Games/Jim the Snake/Sources/Collisioner.cpp
 
 Games/Jim the Snake/Sources/Collisioner.cpp
+Games/Jim the Snake/Platforms/Android/.settings/
+Games/Jim the Snake/Platforms/Android/libs/
+Games/Jim the Snake/Platforms/Android/bin/
+Games/Jim the Snake/Platforms/Android/obj/
+Games/Jim the Snake/Platforms/Android/jni/cross.cpp
+Games/Jim the Snake/Platforms/Android/lint.xml

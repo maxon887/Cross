@@ -88,4 +88,8 @@ extern "C"{
 	void Java_com_cross_Cross_SetKeyKey(JNIEnv *env, jobject thiz, jint key){
 		game->input->key_key = (Key)key;
 	}
+
+	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
+		launcher->InitializeCommercial(comm);
+	}
 }

@@ -77,6 +77,7 @@ void GameScreen::Start(){
 	Cactus::Init();
 	snake = NULL;
 	music = NULL;
+	commercial = NULL;
 	game_over = NULL;
 	apple_drop = NULL;
 	//image loading
