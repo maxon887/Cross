@@ -1,29 +1,42 @@
 package com.cross;
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 public class Commercial {
-	InterstitialAd mAd;
+	public static Activity mActivity;
+	public static InterstitialAd mAd;
 	
-	public Commercial(Context context) {
-		mAd = new InterstitialAd(context);
-		mAd.setAdUnitId("ca-app-pub-8147388388000575/6331429441");
+	public Commercial(Activity activity) {
+		mActivity = activity;
 	}
 	
 	public void DownloadAd() {
 		Log.d("Cross++", "Java DownloadAd");
-		AdRequest adRequest = new AdRequest.Builder().build();
-		mAd.loadAd(adRequest);
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Log.d("Cross++", "Java MainThread DownloadAd");
+				mAd = new InterstitialAd(mActivity);
+				mAd.setAdUnitId("ca-app-pub-8147388388000575/6331429441");
+				AdRequest adRequest = new AdRequest.Builder().build();
+				mAd.loadAd(adRequest);
+			}
+		});
 	}
 	
 	public void ShowAd() {
 		Log.d("Cross++", "Java ShowAd");
-		if(mAd.isLoaded()) {
-			mAd.show();
-		}
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if(mAd.isLoaded()) {
+					mAd.show();
+				}
+			}
+		});
 	}
 }

@@ -74,4 +74,3 @@ void JimTheSnake::SetPurchased(bool purchased){
 	saver->SaveBool(PROPERTY_PURCHASED, purchased);
 	this->purchased = purchased;
 }
-}

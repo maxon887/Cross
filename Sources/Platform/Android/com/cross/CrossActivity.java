@@ -28,6 +28,7 @@ public class CrossActivity extends Activity{
 		renderer = new CrossRenderer(this);
 		renderer.setPreserveEGLContextOnPause(true);
 		setContentView(renderer);
+		commercial = new Commercial(this);
 	}
 	
 	@Override
@@ -88,7 +89,7 @@ public class CrossActivity extends Activity{
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
 			cross.Init(width, height, dataPath, asset_manager);
-			commercial = new Commercial(this);
+			//commercial = new Commercial(this);
 			cross.InitialCommercial(commercial);
 		}
 	}

@@ -18,8 +18,9 @@
 #pragma once
 
 #include "Commercial.h"
+#include <jni.h>
 
-class CommercialAndroid{
+class CommercialAndroid : public Commercial{
 public:
 	CommercialAndroid(JNIEnv* env, jobject comm);
 	virtual void DownloadAd();

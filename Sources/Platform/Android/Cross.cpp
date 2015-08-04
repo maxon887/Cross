@@ -90,6 +90,11 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
-		launcher->InitializeCommercial(comm);
+		LOGI("Java_com_cross_Cross_InitialCommercial");
+		//jclass clazz = env->GetObjectClass(comm);
+		//jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
+		comm = env->NewGlobalRef(comm);
+		//env->CallVoidMethod(comm, methodID);
+		launcher->InitializeCommercial(env, comm);
 	}
 }

@@ -90,7 +90,7 @@ void Debuger::Display(float micro){
 		}
 		texter->DrawText(0, texter->GetHeight() * 4, "Run time: " + to_string(time));
 	}
-	if(true){
+	if(false){
 		if(next_display < 0){
 			string msg = "";
 			msg += "Render Time: " + to_string(render_time) + "ms\n";

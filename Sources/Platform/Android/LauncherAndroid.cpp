@@ -28,6 +28,8 @@ LauncherAndroid::LauncherAndroid(int width, int height, string dataPath, AAssetM
 	this->height = height;
 	this->data_path = dataPath;
 	this->asset_manager = assetManager;
+	this->env = NULL;
+	this->commercial = 0;
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -62,12 +64,14 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	AAsset_close(asset);
 }
 
-void LauncherAndroid::InitializeCommercial(jobject comm){
+void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){
+	LOGI("LauncherAndroid::InitializeCommercial");
+	this->env = env;
 	this->commercial = comm;
 }
 
 Commercial* LauncherAndroid::GetCommercial() {
-	return new CommercialAndroid(commercial);
+	return new CommercialAndroid(env, commercial);
 }
 
 LauncherAndroid::~LauncherAndroid(){

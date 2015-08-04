@@ -16,20 +16,35 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "CommercialAndroid.h"
+#include "Cross.h"
 
 CommercialAndroid::CommercialAndroid(JNIEnv* env, jobject comm){
+	LOGI("CommercialAndroid::CommercialAndroid");
+	if(env == NULL || comm == 0)
+		throw string("JNIEnv not initialized");
 	this->env = env;
 	this->comm = comm;
 }
 
 void CommercialAndroid::DownloadAd(){
+	LOGI("CommercialAndroid::DownloadAd");
+	//JavaVM *vm;
+	//env->GetJavaVM(&vm);
+	//vm->AttachCurrentThread(&env, NULL);
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
 	env->CallVoidMethod(comm, methodID);
+	//vm->DetachCurrentThread();
+	//LOGI("1");
 }
 
 void CommercialAndroid::ShowAd(){
+	LOGI("CommercialAndroid::ShowAd");
+	//JavaVM *vm;
+	//env->GetJavaVM(&vm);
+	//vm->AttachCurrentThread(&env, NULL);
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "ShowAd", "()V");
 	env->CallVoidMethod(comm, methodID);
+	//vm->DetachCurrentThread();
 }

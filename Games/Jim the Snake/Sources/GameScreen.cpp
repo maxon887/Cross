@@ -120,6 +120,9 @@ void GameScreen::Start(){
 	restart_btn = new Button(game, restartup, restartdown);
 	restart_btn->SetLocation(Point(450, centerH - 40));
 	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
+	if(!game->IsPurchased()){
+		commercial = launcher->GetCommercial();
+	}
 	Restart();
 }
 
@@ -196,6 +199,9 @@ GameState GameScreen::GetState(){
 void GameScreen::SetState(GameState newState){
 	switch (newState){
 	case GameState::ONREADY:
+		if(!game->IsPurchased()){
+			commercial->DownloadAd();
+		}
 		break;
 	case GameState::RUNNING:
 		music->Resume();
@@ -213,6 +219,9 @@ void GameScreen::SetState(GameState newState){
 		game_over->Play();
 		if(score > game->BestScore()){
 			game->SetBestScore(score);
+		}
+		if(!game->IsPurchased()){
+			commercial->ShowAd();
 		}
 		break;
 	default:
