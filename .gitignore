@@ -296,3 +296,13 @@ Games/Jim the Snake/Platforms/Android/bin/
 Games/Jim the Snake/Platforms/Android/obj/
 Games/Jim the Snake/Platforms/Android/jni/cross.cpp
 Games/Jim the Snake/Platforms/Android/lint.xml
+Games/Jim the Snake/Platforms/Windows/Debug/Jim the Snake.exe
+Games/Jim the Snake/Platforms/Windows/Debug/Jim the Snake.ilk
+Games/Jim the Snake/Platforms/Windows/Debug/Jim the Snake.lastbuildstate
+Games/Jim the Snake/Platforms/Windows/Debug/Jim the Snake.log
+Games/Jim the Snake/Platforms/Windows/Debug/Jim the Snake.pdb
+Games/Jim the Snake/Platforms/Windows/Debug/Jim the Snake.res
+Games/Jim the Snake/Platforms/Windows/Debug/vc110.idb
+Games/Jim the Snake/Platforms/Windows/Debug/vc110.pdb
+Games/Jim the Snake/Platforms/Windows/Jim the Snake.sdf
+Games/Jim the Snake/Platforms/Windows/Jim the Snake.v11.suo
