@@ -19,3 +19,4 @@
 19. Поуки под кактусами
 20. Assets map
 21. Exit
+22. Buttons sound

@@ -108,5 +108,5 @@ string Saver::LoadString(string key){
 		}
 	}
 	prefs.close();
-	return value;
+	return string("");
 }

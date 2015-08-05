@@ -24,6 +24,7 @@
 #define PROPERTY_SCORE 		"SCORE"
 #define PROPERTY_MUSIC 		"MUSIC"
 #define PROPERTY_SOUND 		"SOUND"
+#define PROPERTY_CONTROL	"CONTROL"
 #define PROPERTY_PURCHASED 	"PURCHASED"
 
 JimTheSnake::JimTheSnake(Launcher* launcher):Game(launcher, GAME_WIDTH){
@@ -35,6 +36,7 @@ void JimTheSnake::Start(){
 	music = saver->LoadBool(PROPERTY_MUSIC, true);
 	sound = saver->LoadBool(PROPERTY_SOUND, true);
 	score = saver->LoadInt(PROPERTY_SCORE, 0);
+	control = (Control)saver->LoadInt(PROPERTY_CONTROL, NONE);
 	purchased = saver->LoadBool(PROPERTY_PURCHASED, false);
 	Game::Start();
 }
@@ -54,6 +56,10 @@ int JimTheSnake::BestScore(){
 	return score;
 }
 
+Control JimTheSnake::GetControl(){
+	return control;
+}
+
 bool JimTheSnake::IsPurchased(){
 	return purchased;
 }
@@ -69,6 +75,10 @@ void JimTheSnake::SetSoundEnabled(bool enabled){
 void JimTheSnake::SetBestScore(int best){
 	saver->SaveInt(PROPERTY_SCORE, best);
 	score = best;
+}
+void JimTheSnake::SetControl(Control control){
+	saver->SaveInt(PROPERTY_CONTROL, control);
+	this->control = control;
 }
 void JimTheSnake::SetPurchased(bool purchased){
 	saver->SaveBool(PROPERTY_PURCHASED, purchased);

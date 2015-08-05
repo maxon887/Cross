@@ -199,7 +199,7 @@ GameState GameScreen::GetState(){
 void GameScreen::SetState(GameState newState){
 	switch (newState){
 	case GameState::ONREADY:
-		if(!game->IsPurchased()){
+		if(commercial && !game->IsPurchased()){
 			commercial->DownloadAd();
 		}
 		break;
@@ -220,7 +220,7 @@ void GameScreen::SetState(GameState newState){
 		if(score > game->BestScore()){
 			game->SetBestScore(score);
 		}
-		if(!game->IsPurchased()){
+		if(commercial && !game->IsPurchased()){
 			commercial->ShowAd();
 		}
 		break;
