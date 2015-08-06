@@ -60,6 +60,8 @@ private:
 	list<Spider*> spiders;
 	list<Cactus*> cactuses;
 
+	Commercial* commercial;
+
 	Image* background;
 	Image* score_img;
 	Image* score_bright_img;

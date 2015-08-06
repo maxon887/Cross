@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 
 public class CrossActivity extends Activity{
 	public static Cross cross;
+	public static Commercial commercial;
 	public static AssetManager asset_manager;
 	private CrossRenderer renderer;
 	
@@ -27,6 +28,7 @@ public class CrossActivity extends Activity{
 		renderer = new CrossRenderer(this);
 		renderer.setPreserveEGLContextOnPause(true);
 		setContentView(renderer);
+		commercial = new Commercial(this);
 	}
 	
 	@Override
@@ -87,6 +89,8 @@ public class CrossActivity extends Activity{
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
 			cross.Init(width, height, dataPath, asset_manager);
+			//commercial = new Commercial(this);
+			cross.InitialCommercial(commercial);
 		}
 	}
 	

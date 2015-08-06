@@ -20,6 +20,7 @@
 #import "LauncherOS.h"
 #import "Input.h"
 #import "Cross.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @implementation CrossView{
     LauncherOS* launcher;
@@ -39,6 +40,8 @@
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
     screenScale = [[UIScreen mainScreen] scale];
+    //ads test
+    NSLog(@"Google Mobile Ads Version %@", [GADRequest sdkVersion]);
     return self;
 }
 

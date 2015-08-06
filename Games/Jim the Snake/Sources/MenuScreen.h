@@ -34,7 +34,11 @@ public:
 private:
 	JimTheSnake* game;
 	Image* background;
+	Image* background_left;
+	Image* background_right;
 	Point background_pos;
+	Point background_left_pos;
+	Point background_right_pos;
 	//sun
 	Image* sun;
 	Point sun_pos;
@@ -42,20 +46,55 @@ private:
 	float sun_w;
 	vector<Rect> dead_areas;
 	
-	Texter* score_texter;
-	int score;
 	Image* bestscore;
+	Texter* score_texter;
+	Point best_lb_pos;
+	Point best_tx_pos;
+	int score;
 	Image* jimthesnake;
-	Point snaky_pos;
+	Point jimthesnake_pos;
 
 	Button* play_btn;
-	ToggleButton* music_btn;
-	ToggleButton* sound_btn;
+	Point	play_btn_pos;
+	Button* settings_btn;
+	Point	settings_pos;
+
+	Button* back_btn;
+	Point	back_pos;
+	Image*  on;
+	Image*  off;
+
+	Button* music_btn;
+	Point   music_pos;
+	Point   music_value_pos;
+	bool    music_value;
+
+	Button* sounds_btn;
+	Point	sounds_pos;
+	Point   sounds_value_pos;
+	bool    sounds_value;
+
+	Button* control_btn;
+	Image*  arrows;
+	Image*  pointer;
+	Image*  none;
+	Point	control_pos;
+	Point   control_value_pos;
+	Control control_value;
+
+	Button* remove_ads_btn;
+	Point   remove_ads_pos;
 	Audio* menu_music;
+	bool transition;
+	float transitionLerp;
+	bool onLeft;
 
 	void CreateDeadAreas();
-	void UpdateSun(float sec);
+	void UpdateSun(float sec, Point sun_pos);
 	void OnPlayClick();
 	void OnMusicClick();
 	void OnSoundClick();
+	void OnSettingsClick();
+	void OnControlClick();
+	void OnRemoveAdsClick();
 };

@@ -21,6 +21,12 @@
 
 using namespace cross;
 
+enum Control{
+	NONE,
+	ARROWS,
+	POINTER
+};
+
 class JimTheSnake : public Game{
 public:
 	JimTheSnake(Launcher* launcher);
@@ -29,12 +35,18 @@ public:
 
 	bool IsMusicEnabled();
 	bool IsSoundEnabled();
+	Control GetControl();
+	bool IsPurchased();
 	int BestScore();
 	void SetMusicEnabled(bool enabled);
 	void SetSoundEnabled(bool enabled);
+	void SetControl(Control control);
+	void SetPurchased(bool purchased);
 	void SetBestScore(int best);
 private:
 	bool music;
 	bool sound;
+	Control control;
+	bool purchased;
 	int score;
 };

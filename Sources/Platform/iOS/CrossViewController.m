@@ -9,8 +9,19 @@
 #import "CrossViewController.h"
 #import "CrossView.h"
 
+static UIViewController* rootViewController;
+
 @implementation CrossViewController{
     IBOutlet CrossView* crossView;
+}
+
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    rootViewController = self;
+}
+
++ (UIViewController*)getRootController{
+    return rootViewController;
 }
 
 - (void)didGoingBackground{

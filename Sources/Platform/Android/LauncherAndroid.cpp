@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "LauncherAndroid.h"
+#include "CommercialAndroid.h"
 #include "Cross.h"
 #include <string>
 
@@ -27,6 +28,8 @@ LauncherAndroid::LauncherAndroid(int width, int height, string dataPath, AAssetM
 	this->height = height;
 	this->data_path = dataPath;
 	this->asset_manager = assetManager;
+	this->env = NULL;
+	this->commercial = 0;
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -59,6 +62,16 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	*buffer = (unsigned char*)malloc(*length);
 	int read = AAsset_read(asset, *buffer, *length);
 	AAsset_close(asset);
+}
+
+void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){
+	LOGI("LauncherAndroid::InitializeCommercial");
+	this->env = env;
+	this->commercial = comm;
+}
+
+Commercial* LauncherAndroid::GetCommercial() {
+	return new CommercialAndroid(env, commercial);
 }
 
 LauncherAndroid::~LauncherAndroid(){

@@ -17,6 +17,7 @@
 	
 #pragma once
 
+#include "Commercial.h"
 #include <string>
 
 #ifdef _WIN32
@@ -48,6 +49,8 @@ public:
 
 	void LogIt(int msg);
 	void LogIt(float msg);
+
+	virtual Commercial* GetCommercial() { return NULL; };
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }

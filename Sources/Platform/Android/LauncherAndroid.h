@@ -18,6 +18,7 @@
 #pragma once
 
 #include "Launcher.h"
+#include <jni.h>
 #include <android/asset_manager.h>
 
 namespace cross{
@@ -31,12 +32,16 @@ public:
 	string DataPath();
 	void LogIt(string str);
 	void LoadFile(string filename, unsigned char** buffer, int* length);
+	void InitializeCommercial(JNIEnv* env, jobject comm);
+	Commercial* GetCommercial();
 	~LauncherAndroid();
 private:
 	int width;
 	int height;
 	string data_path;
 	AAssetManager* asset_manager;
+	JNIEnv* env;
+	jobject commercial;
 };
 
 }

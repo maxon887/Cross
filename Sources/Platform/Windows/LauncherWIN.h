@@ -17,9 +17,12 @@
 	
 #pragma once
 
-#define TARGET_WIDTH 500 
-#define TARGET_HEIGHT 900
-
+//#define TARGET_WIDTH 540		
+//#define TARGET_HEIGHT 960
+//iPhone 5
+#define TARGET_WIDTH 320		
+#define TARGET_HEIGHT 568		
+//htc wildfire
 //#define TARGET_WIDTH 320 
 //#define TARGET_HEIGHT 480
 

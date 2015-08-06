@@ -1,0 +1,6 @@
+# Compiled source #
+###################
+*.o
+*.d
+*.obj
+*.tlog

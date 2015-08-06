@@ -88,4 +88,13 @@ extern "C"{
 	void Java_com_cross_Cross_SetKeyKey(JNIEnv *env, jobject thiz, jint key){
 		game->input->key_key = (Key)key;
 	}
+
+	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
+		LOGI("Java_com_cross_Cross_InitialCommercial");
+		//jclass clazz = env->GetObjectClass(comm);
+		//jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
+		comm = env->NewGlobalRef(comm);
+		//env->CallVoidMethod(comm, methodID);
+		launcher->InitializeCommercial(env, comm);
+	}
 }

@@ -27,6 +27,7 @@ LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Platform/Android/LauncherAndroid.cpp \
 					../../../../../Sources/Platform/Android/Cross.cpp \
+					../../../../../Sources/Platform/Android/CommercialAndroid.cpp \
 					../../../Sources/MenuScreen.cpp \
 					../../../Sources/JimTheSnake.cpp \
 					../../../Sources/GameScreen.cpp \
@@ -48,6 +49,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Rect.cpp \
 					../../../../../Sources/Color.cpp \
 					../../../../../Sources/Launcher.cpp \
+					../../../../../Sources/Commercial.cpp \
 					../../../../../Sources/Utils/Texter.cpp \
 					../../../../../Sources/Utils/Debuger.cpp \
 					../../../../../Sources/Utils/Button.cpp \
