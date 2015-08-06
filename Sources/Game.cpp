@@ -88,6 +88,10 @@ void Game::Suspend(){
 	current_screen->Suspend();
 }
 
+void Game::Resume(){
+	render_time = high_resolution_clock::now();
+}
+
 void Game::Update(){
 	try{
 		time_point<high_resolution_clock> now = high_resolution_clock::now();

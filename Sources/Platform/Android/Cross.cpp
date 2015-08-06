@@ -63,6 +63,7 @@ extern "C"{
 
 	void Java_com_cross_Cross_Resume(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Resume");
+		game->Resume();
 		Audio::ResumeSystem();
 	}
 

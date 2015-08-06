@@ -69,7 +69,7 @@ GameScreen::~GameScreen(){
 }
 //						OVERRIDDEN METHODS
 void GameScreen::Start(){
-	srand(time(0));
+	srand((unsigned int)time(NULL));
 	GameObject::Init(game);
 	Snake::Init();
 	Apple::Init();
@@ -128,6 +128,9 @@ void GameScreen::Start(){
 
 void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
+	if(sec > 1){
+		launcher->LogIt("Warning! Update time more than 1sec");
+	}
 	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
 	ProccessCollisions();
 	UpdateApples(sec);

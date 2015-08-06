@@ -42,6 +42,8 @@ public:
 	virtual void Start();
 	// Cause when game needs to be paused. For example input call or window lost focus
 	virtual void Suspend();
+	// Cause when game gained focus.
+	virtual void Resume();
 	/* Reflect ratio between game and target device width.*/
 	float GetScaleFactor();
 	/* Return virtual game width */
