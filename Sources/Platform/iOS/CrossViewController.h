@@ -10,6 +10,8 @@
 
 @interface CrossViewController : UIViewController
 
++ (UIViewController*)getRootController;
+
 - (void)didGoingBackground;
 - (void)didGoingForeground;
 

@@ -31,8 +31,10 @@ public:
     string AssetsPath();
     string DataPath();
     void LogIt(string str);
+    Commercial* GetCommercial();
     ~LauncherOS();
 private:
     int width;
     int height;
+    Commercial* commercial;
 };

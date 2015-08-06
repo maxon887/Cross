@@ -68,7 +68,8 @@ void MenuScreen::Start(){
 		background_pos.x = game->GetWidth();
 	}else{
 		scaleFactor = launcher->GetTargetHeight() / background_left->GetHeight();
-		background_pos.x = (game->GetWidth() + background->GetWidth() / 2 * (1 + scaleFactor)) / 2;
+        background_pos.x = game->GetWidth();
+		//background_pos.x = (game->GetWidth() + background->GetWidth() / 2 * (1 + scaleFactor)) / 2;
 	}
 	sun_pos.x = 400.f * scaleFactor / game->GetScaleFactor();
 	sun_pos.y = 580.f * scaleFactor / game->GetScaleFactor();

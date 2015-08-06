@@ -16,6 +16,7 @@
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #import <UIKit/UIKit.h>
+#include "CommercialOS.h"
 #include "LauncherOS.h"
 
 LauncherOS::LauncherOS(){
@@ -23,6 +24,7 @@ LauncherOS::LauncherOS(){
     CGFloat screenScale = [[UIScreen mainScreen] scale];
     width = screenRect.size.width * screenScale;
     height = screenRect.size.height * screenScale;
+    commercial = new CommercialOS();
     Audio::Init(this);
 }
 
@@ -51,7 +53,12 @@ void LauncherOS::LogIt(string str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str.c_str()]);
 }
 
+Commercial* LauncherOS::GetCommercial(){
+    return commercial;
+}
+
 LauncherOS::~LauncherOS(){
+    delete commercial;
     Audio::Release();
 }
 
