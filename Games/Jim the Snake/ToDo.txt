@@ -1,4 +1,4 @@
-+1. Cut of "GameOver" music
+﻿+1. Cut of "GameOver" music
 +2. Back sounds (spider)
 +3. Big nodes on pause
 +4. Spider circle run
@@ -20,4 +20,6 @@
 20. Assets map
 21. Exit
 22. Buttons sound
+
 23. Тайминги на рекламу и смерть
+24. Settings redesine

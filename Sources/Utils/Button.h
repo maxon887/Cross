@@ -32,6 +32,7 @@ public:
 	void SetLocation(Point location);
 	float GetWidth();
 	float GetHeight();
+	bool IsPressed();
 	Rect GetRect();
 	Point GetCenter();
 	~Button();
@@ -46,6 +47,7 @@ protected:
 	Point* press_loc;
 	function<void()> callback;
 	bool callback_registered;
+	bool is_pressed;
 };
     
 }

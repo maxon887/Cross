@@ -49,6 +49,9 @@ void Button::Update(){
 	//first press
 	if(press_loc == NULL && input->HaveInput()){
 		press_loc = new Point(input->GetInput().x, input->GetInput().y);
+		if(OnLocation(input->GetInput().x, input->GetInput().y)){
+			is_pressed = true;
+		}
 	}
 	//callback
 	if(!input->HaveInput() && press_loc != NULL){
@@ -56,6 +59,9 @@ void Button::Update(){
 			if(callback_registered){
 				delete press_loc;
 				press_loc = NULL;
+				if(down != NULL){
+					graphics->DrawImage(location, down);
+				}
 				callback();
 				return;
 			}else{
@@ -66,6 +72,7 @@ void Button::Update(){
 	if(!input->HaveInput()){
 		delete press_loc;
 		press_loc = NULL;
+		is_pressed = false;
 	}
 	if(input->HaveInput() && press_loc != NULL && OnLocation(press_loc->x, press_loc->y)){
 		if(down != NULL){
@@ -107,6 +114,10 @@ bool Button::OnLocation(float x, float y){
 void Button::RegisterCallback(function<void()> callback){
 	callback_registered = true;
 	this->callback = callback;
+}
+
+bool Button::IsPressed(){
+	return is_pressed;
 }
 
 Button::~Button(){

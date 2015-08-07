@@ -56,6 +56,7 @@ private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
+	Control control;
 	list<Apple*> apples;
 	list<Spider*> spiders;
 	list<Cactus*> cactuses;
@@ -79,6 +80,8 @@ private:
 	Button* menu_btn;
 	Button* restart_btn;
 	Button* pause_btn;
+	Button* left_btn;
+	Button* right_btn;
 
 	Texter* score_texter;
 

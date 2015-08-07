@@ -96,6 +96,13 @@ void GameScreen::Start(){
 	Image* restartup = graphics->LoadImage("Game/RestartUp.png");
 	Image* restartdown = graphics->LoadImage("Game/RestartDown.png");
 	Image* pause = graphics->LoadImage("Game/PauseButton.png");
+	Image* pausePressed = graphics->LoadImage("Game/PauseButtonPressed.png");
+	Image* arrowRight = graphics->LoadImage("Game/Arrow.png");
+	Image* arrowRightPressed = graphics->LoadImage("Game/ArrowPressed.png");
+	Image* arrowLeft = new Image(*arrowRight);
+	graphics->Rotate(arrowLeft, 180.f);
+	Image* arrowLeftPressed = new Image(*arrowRightPressed);
+	graphics->Rotate(arrowLeftPressed, 180.f);
 	//positioning
 	centerW = game->GetWidth() / 2;
 	centerH = game->GetHeight() / 2;
@@ -108,7 +115,7 @@ void GameScreen::Start(){
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 
-	pause_btn = new Button(game, pause, NULL);
+	pause_btn = new Button(game, pause, pausePressed);
 	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
 	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
 	back_btn = new Button(game, backup, backdown);
@@ -120,6 +127,12 @@ void GameScreen::Start(){
 	restart_btn = new Button(game, restartup, restartdown);
 	restart_btn->SetLocation(Point(450, centerH - 40));
 	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
+	right_btn = new Button(game, arrowRight, arrowRightPressed);
+	right_btn->SetLocation(Point(game->GetWidth() - arrowRight->GetWidth()/2, game->GetHeight() - arrowRight->GetHeight()/2));
+	left_btn = new Button(game, arrowLeft, arrowLeftPressed);
+	left_btn->SetLocation(Point(arrowLeft->GetWidth()/2, game->GetHeight() - arrowLeft->GetHeight()/2));
+
+	control = game->GetControl();
 	if(!game->IsPurchased()){
 		commercial = launcher->GetCommercial();
 	}
@@ -130,6 +143,7 @@ void GameScreen::Update(float sec){
 	graphics->Clear(0.25, 0.25, 0);
 	if(sec > 1){
 		launcher->LogIt("Warning! Update time more than 1sec");
+		return;
 	}
 	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
 	ProccessCollisions();
@@ -446,50 +460,64 @@ void GameScreen::DrawScore(){
 
 void GameScreen::CalcInput(float sec){
 	static Point control_pos;
-	if(input->HaveInput()){
-		if(control_pos.x == 0 && control_pos.y == 0){
-			control_pos.x = input->GetInput().x;
-			control_pos.y = input->GetInput().y;
-			return;
-		}
-		//test
-		float NeedDistance = 300.f;
-		float RealDistance = Distance(control_pos, input->GetInput());
-		if(RealDistance > NeedDistance){
-			float fingerAngle = Angle(control_pos, input->GetInput());
-			float deltaDist = RealDistance - NeedDistance;
-			control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
-			control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
-		}
+	if(control == NONE || control == POINTER){
+		if(input->HaveInput()){
+			if(control_pos.x == 0 && control_pos.y == 0){
+				control_pos.x = input->GetInput().x;
+				control_pos.y = input->GetInput().y;
+				return;
+			}
+			if(control == NONE){
+				float NeedDistance = 300.f;
+				float RealDistance = Distance(control_pos, input->GetInput());
+				if(RealDistance > NeedDistance){
+					float fingerAngle = Angle(control_pos, input->GetInput());
+					float deltaDist = RealDistance - NeedDistance;
+					control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
+					control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
+				}
+			}
 
-		float fingerAngle = Angle(control_pos, input->GetInput());
-		//determine in witch direction we need to move
-		float clockwise;
-		if(fingerAngle > snake->Direction())
-			clockwise = 360 + snake->Direction() - fingerAngle;
-		else 
-			clockwise = snake->Direction() - fingerAngle;
-		float counterclockwise = 360 - clockwise;
-		//rotate snake head
-		if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
-			snake->Rotate(fingerAngle);
-		} else {
-			if(counterclockwise < clockwise) 
-				snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-			else
-				snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
-			if(snake->Direction() >= 180.f)
-				snake->Rotate(snake->Direction() - 360.f);
-			if(snake->Direction() <= -180.f)
-				snake->Rotate(snake->Direction() + 360.f);
+			float fingerAngle = Angle(control_pos, input->GetInput());
+			//determine in witch direction we need to move
+			float clockwise;
+			if(fingerAngle > snake->Direction())
+				clockwise = 360 + snake->Direction() - fingerAngle;
+			else 
+				clockwise = snake->Direction() - fingerAngle;
+			float counterclockwise = 360 - clockwise;
+			//rotate snake head
+			if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
+				snake->Rotate(fingerAngle);
+			} else {
+				if(counterclockwise < clockwise) 
+					snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
+				else
+					snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+				if(snake->Direction() >= 180.f)
+					snake->Rotate(snake->Direction() - 360.f);
+				if(snake->Direction() <= -180.f)
+					snake->Rotate(snake->Direction() + 360.f);
+			}
+			if(control == POINTER){
+				graphics->Rotate(control_facepointer, snake->Direction());
+				graphics->DrawImage(control_pos, control_base);
+				graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
+			}
+		}else{
+			control_pos.x = 0;
+			control_pos.y = 0;
 		}
-		//draw control elements
-		//graphics->Rotate(control_facepointer, snake->Direction());
-		//graphics->DrawImage(control_pos, control_base);
-		//graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
-	}else{
-		control_pos.x = 0;
-		control_pos.y = 0;
+	}
+	if(control == ARROWS){
+		right_btn->Update();
+		left_btn->Update();
+		if(left_btn->IsPressed()){
+			snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
+		}
+		if(right_btn->IsPressed()){
+			snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+		}
 	}
 }
 
