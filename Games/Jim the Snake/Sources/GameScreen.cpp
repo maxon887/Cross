@@ -82,30 +82,49 @@ void GameScreen::Start(){
 	apple_drop = NULL;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
-	ready_img = graphics->LoadImage("Game/ReadyLabel.png");
-	score_img = graphics->LoadImage("Game/ScoreLabel.png");
-	score_bright_img = graphics->LoadImage("Game/ScoreBrightLabel.png");
-	control_facepointer = graphics->LoadImage("Game/FacePointer.png");
-	control_base = graphics->LoadImage("Game/ControlBase.png");
-	pause_img = graphics->LoadImage("Game/PauseLabel.png");
-	gameover_img = graphics->LoadImage("Game/GameOverLabel.png");
-	Image* backup = graphics->LoadImage("Game/BackUp.png");
-	Image* backdown = graphics->LoadImage("Game/BackDown.png");
-	Image* menuup = graphics->LoadImage("Game/MenuUp.png");
-	Image* menudown = graphics->LoadImage("Game/MenuDown.png");
-	Image* restartup = graphics->LoadImage("Game/RestartUp.png");
-	Image* restartdown = graphics->LoadImage("Game/RestartDown.png");
-	Image* pause = graphics->LoadImage("Game/PauseButton.png");
-	Image* pausePressed = graphics->LoadImage("Game/PauseButtonPressed.png");
-	Image* arrowRight = graphics->LoadImage("Game/Arrow.png");
-	Image* arrowRightPressed = graphics->LoadImage("Game/ArrowPressed.png");
-	Image* arrowLeft = new Image(*arrowRight);
+	ready_img				= graphics->LoadImage("Game/ReadyLabel.png");
+	score_img				= graphics->LoadImage("Game/ScoreLabel.png");
+	score_bright_img		= graphics->LoadImage("Game/ScoreBrightLabel.png");
+	control_facepointer		= graphics->LoadImage("Game/FacePointer.png");
+	control_base			= graphics->LoadImage("Game/ControlBase.png");
+	pause_img				= graphics->LoadImage("Game/PauseLabel.png");
+	gameover_img			= graphics->LoadImage("Game/GameOverLabel.png");
+	Image* backUp			= graphics->LoadImage("Game/BackUp.png");
+	Image* backDown			= graphics->LoadImage("Game/BackDown.png");
+	Image* menuUp			= graphics->LoadImage("Game/MenuUp.png");
+	Image* menuDown			= graphics->LoadImage("Game/MenuDown.png");
+	Image* restartUp		= graphics->LoadImage("Game/RestartUp.png");
+	Image* restartDown		= graphics->LoadImage("Game/RestartDown.png");
+	Image* pauseUp			= graphics->LoadImage("Game/PauseUp.png");
+	Image* pauseDown		= graphics->LoadImage("Game/PauseDown.png");
+	Image* arrowRightUp		= graphics->LoadImage("Game/ArrowUp.png");
+	Image* arrowRightDown	= graphics->LoadImage("Game/ArrowDown.png");
+	Image* arrowLeft = new Image(*arrowRightUp);
 	graphics->Rotate(arrowLeft, 180.f);
-	Image* arrowLeftPressed = new Image(*arrowRightPressed);
+	Image* arrowLeftPressed = new Image(*arrowRightDown);
 	graphics->Rotate(arrowLeftPressed, 180.f);
-	//positioning
+
 	centerW = game->GetWidth() / 2;
 	centerH = game->GetHeight() / 2;
+
+	pause_btn = new Button(game, pauseUp, pauseDown);
+	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
+	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
+	back_btn = new Button(game, backUp, backDown);
+	back_btn->SetLocation(Point(450, centerH - 40));
+	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
+	menu_btn = new Button(game, menuUp, menuDown);
+	menu_btn->SetLocation(Point(450, centerH + 180));
+	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
+	restart_btn = new Button(game, restartUp, restartDown);
+	restart_btn->SetLocation(Point(450, centerH - 40));
+	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
+	right_btn = new Button(game, arrowRightUp, arrowRightDown);
+	right_btn->SetLocation(Point(game->GetWidth() - arrowRightUp->GetWidth()/2, game->GetHeight() - arrowRightUp->GetHeight()/2));
+	left_btn = new Button(game, arrowLeft, arrowLeftPressed);
+	left_btn->SetLocation(Point(arrowLeft->GetWidth()/2, game->GetHeight() - arrowLeft->GetHeight()/2));
+
+	control = game->GetControl();
 	if(game->IsMusicEnabled()){
 		music = new Audio("Game/GameMusic.mp3", true, true);
 		game_over = new Audio("Game/GameOver.mp3", false, true);
@@ -114,25 +133,6 @@ void GameScreen::Start(){
 		apple_drop = new Audio("Game/AppleDrop.wav", false, false);
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
-
-	pause_btn = new Button(game, pause, pausePressed);
-	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
-	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
-	back_btn = new Button(game, backup, backdown);
-	back_btn->SetLocation(Point(450, centerH - 40));
-	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
-	menu_btn = new Button(game, menuup, menudown);
-	menu_btn->SetLocation(Point(450, centerH + 180));
-	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
-	restart_btn = new Button(game, restartup, restartdown);
-	restart_btn->SetLocation(Point(450, centerH - 40));
-	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
-	right_btn = new Button(game, arrowRight, arrowRightPressed);
-	right_btn->SetLocation(Point(game->GetWidth() - arrowRight->GetWidth()/2, game->GetHeight() - arrowRight->GetHeight()/2));
-	left_btn = new Button(game, arrowLeft, arrowLeftPressed);
-	left_btn->SetLocation(Point(arrowLeft->GetWidth()/2, game->GetHeight() - arrowLeft->GetHeight()/2));
-
-	control = game->GetControl();
 	if(!game->IsPurchased()){
 		commercial = launcher->GetCommercial();
 	}
