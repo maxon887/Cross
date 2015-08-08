@@ -14,42 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
-#pragma once
 
-#include "Game.h"
 #include "Commercial.h"
 
 using namespace cross;
 
-enum Control{
-	NONE,
-	ARROWS,
-	POINTER
-};
+void Commercial::RegisterCallback(function<void(Event&)> callback){
+	this->callback = callback;
+}
 
-class JimTheSnake : public Game{
-public:
-	JimTheSnake(Launcher* launcher);
-	Screen* GetStartScreen();
-	void Start();
-
-	bool IsMusicEnabled();
-	bool IsSoundEnabled();
-	Control GetControl();
-	bool IsPurchased();
-	int BestScore();
-	void SetMusicEnabled(bool enabled);
-	void SetSoundEnabled(bool enabled);
-	void SetControl(Control control);
-	void SetBestScore(int best);
-	Commercial* GetCommercial();
-	void CommercialCallback(Commercial::Event e);
-private:
-	Commercial* commercial;
-	bool music;
-	bool sound;
-	Control control;
-	bool purchased;
-	int score;
-};
+void Commercial::CommercialResult(Event e){
+	callback(e);
+}

@@ -24,6 +24,7 @@
 #include "Misc.h"
 #include <Math.h>
 #include <stdlib.h>
+
 //						CONSTRUCTOR
 GameScreen::GameScreen(JimTheSnake* game):Screen(game){
 	this->game = game;
@@ -134,7 +135,7 @@ void GameScreen::Start(){
 	}
 	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 	if(!game->IsPurchased()){
-		commercial = launcher->GetCommercial();
+		commercial = game->GetCommercial();
 	}
 	Restart();
 }

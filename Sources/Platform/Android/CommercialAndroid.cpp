@@ -28,23 +28,21 @@ CommercialAndroid::CommercialAndroid(JNIEnv* env, jobject comm){
 
 void CommercialAndroid::DownloadAd(){
 	LOGI("CommercialAndroid::DownloadAd");
-	//JavaVM *vm;
-	//env->GetJavaVM(&vm);
-	//vm->AttachCurrentThread(&env, NULL);
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
 	env->CallVoidMethod(comm, methodID);
-	//vm->DetachCurrentThread();
-	//LOGI("1");
 }
 
 void CommercialAndroid::ShowAd(){
 	LOGI("CommercialAndroid::ShowAd");
-	//JavaVM *vm;
-	//env->GetJavaVM(&vm);
-	//vm->AttachCurrentThread(&env, NULL);
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "ShowAd", "()V");
 	env->CallVoidMethod(comm, methodID);
-	//vm->DetachCurrentThread();
+}
+
+void CommercialAndroid::Purchase(){
+	LOGI("CommercialAndroid::Purchase");
+	jclass clazz = env->GetObjectClass(comm);
+	jmethodID methodID = env->GetMethodID(clazz, "Purchase", "()V");
+	env->CallVoidMethod(comm, methodID);
 }

@@ -21,6 +21,7 @@
 #include "Texter.h"
 #include "Button.h"
 #include "ToggleButton.h"
+#include "Commercial.h"
 
 #include <vector>
 
@@ -33,6 +34,7 @@ public:
 	void Update(float sec);
 private:
 	JimTheSnake* game;
+	Commercial* commercial;
 	Image* background;
 	Image* background_left;
 	Image* background_right;

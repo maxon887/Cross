@@ -27,6 +27,8 @@
 #define PROPERTY_CONTROL	"CONTROL"
 #define PROPERTY_PURCHASED 	"PURCHASED"
 
+using namespace std::placeholders;
+
 JimTheSnake::JimTheSnake(Launcher* launcher):Game(launcher, GAME_WIDTH){
 
 }
@@ -38,6 +40,10 @@ void JimTheSnake::Start(){
 	score = saver->LoadInt(PROPERTY_SCORE, 0);
 	control = (Control)saver->LoadInt(PROPERTY_CONTROL, NONE);
 	purchased = saver->LoadBool(PROPERTY_PURCHASED, false);
+	commercial = launcher->GetCommercial();
+	if(commercial != NULL){
+		commercial->RegisterCallback(bind(&JimTheSnake::CommercialCallback, this, _1));
+	}
 	Game::Start();
 }
 
@@ -80,7 +86,30 @@ void JimTheSnake::SetControl(Control control){
 	saver->SaveInt(PROPERTY_CONTROL, control);
 	this->control = control;
 }
-void JimTheSnake::SetPurchased(bool purchased){
-	saver->SaveBool(PROPERTY_PURCHASED, purchased);
-	this->purchased = purchased;
+
+Commercial* JimTheSnake::GetCommercial(){
+	return commercial;
+}
+
+void JimTheSnake::CommercialCallback(Commercial::Event e){
+	switch (e){
+	case Commercial::AD_LOADED:
+		launcher->LogIt("Ad loaded");
+		break;
+	case Commercial::AD_LOAD_FAILED:
+		launcher->LogIt("Ad failed to load");
+		break;
+	case Commercial::PURCHASE_COMPLITE:
+		launcher->LogIt("Purchase complite");
+		saver->SaveBool(PROPERTY_PURCHASED, true);
+		break;
+	case Commercial::PURCHASE_CANCELED:
+		launcher->LogIt("Ad canceled");
+		break;
+	case Commercial::PURCHASE_FAILED:
+		launcher->LogIt("Ad failed");
+		break;
+	default:
+		break;
+	}
 }

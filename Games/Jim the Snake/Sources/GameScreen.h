@@ -20,6 +20,7 @@
 #include "Screen.h"
 #include "Texter.h"
 #include "Button.h"
+#include "Commercial.h"
 
 #include <list>
 
@@ -56,12 +57,11 @@ private:
 	JimTheSnake* game;
 	GameState state;
 	Snake* snake;
+	Commercial* commercial;
 	Control control;
 	list<Apple*> apples;
 	list<Spider*> spiders;
 	list<Cactus*> cactuses;
-
-	Commercial* commercial;
 
 	Image* background;
 	Image* score_img;

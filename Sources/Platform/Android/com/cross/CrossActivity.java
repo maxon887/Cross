@@ -3,6 +3,7 @@ package com.cross;
 import org.fmod.FMOD;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,6 +82,12 @@ public class CrossActivity extends Activity{
 		return false;
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		commercial.HandleActivityResult(requestCode, resultCode, data);
+	}
+	
 	public void Init(int width, int height){
 		Log.d("Cross++", "Java Init");
 		if(cross == null){
@@ -89,8 +96,16 @@ public class CrossActivity extends Activity{
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
 			cross.Init(width, height, dataPath, asset_manager);
-			//commercial = new Commercial(this);
 			cross.InitialCommercial(commercial);
+			cross.Start();
+		}
+	}
+	
+	public void SendCommertialResult(int event) {
+		if(cross != null) {
+			cross.CommertialResult(event);
+		} else {
+			Log.d("Cross++", "Can't send CommertialResult. cross = null");
 		}
 	}
 	

@@ -20,11 +20,14 @@
 #include "Commercial.h"
 #include <jni.h>
 
+using namespace cross;
+
 class CommercialAndroid : public Commercial{
 public:
 	CommercialAndroid(JNIEnv* env, jobject comm);
-	virtual void DownloadAd();
-	virtual void ShowAd();
+	void DownloadAd();
+	void ShowAd();
+	void Purchase();
 private:
 	JNIEnv* env;
 	jobject comm;

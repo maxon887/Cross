@@ -149,6 +149,7 @@ void MenuScreen::Start(){
 	if(game->IsMusicEnabled()){
 		menu_music->Play();
 	}
+	commercial = game->GetCommercial();
 	CreateDeadAreas();
 }
 
@@ -368,7 +369,9 @@ void MenuScreen::OnControlClick(){
 }
 
 void MenuScreen::OnRemoveAdsClick(){
-
+	if(commercial != NULL){
+		commercial->Purchase();
+	}
 }
 
 MenuScreen::~MenuScreen(){

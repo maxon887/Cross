@@ -17,7 +17,6 @@
 	
 #pragma once
 
-#include "Commercial.h"
 #include <string>
 
 #ifdef _WIN32
@@ -26,11 +25,14 @@
 #define IOS true
 #elif defined(ANDROID) || defined(__ANDROID__)
 void* bind(void* func, void* sender);
+void* bind(void* func, void* sender, void* arg1);
 #endif
 
 using namespace std;
 
 namespace cross {
+
+class Commercial;
 
 /* Class witch contains platform specific code */
 class Launcher{

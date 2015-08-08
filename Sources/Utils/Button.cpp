@@ -57,12 +57,6 @@ Button::Button(Game* game, Point location, float width, float height){
 	this->press_loc = NULL;
 	this->callback_registered = false;
 	InitRect(location, width, height);
-	/*
-	area.x = location.x - width / 2;
-	area.y = location.y - height / 2;
-	area.width = width;
-	area.height = height;
-	have_area = true;*/
 }
 
 Button::Button(Game* game, Rect area){
@@ -132,12 +126,7 @@ float Button::GetHeight(){
 Rect Button::GetRect(){
 	if(!have_area){
 		throw string("This button have not area");
-	}/*
-	rect.x = location.x - up->GetWidth() / 2;
-	rect.y = location.y - up->GetHeight() / 2;
-	rect.width = up->GetWidth();
-	rect.height = up->GetHeight();
-	return rect;*/
+	}
 	return area;
 }
 
@@ -145,11 +134,7 @@ Point Button::GetCenter(){
 	return location;
 }
 
-bool Button::OnLocation(float x, float y){/*
-		return  x > (location.x - up->GetWidth() / 2) &&
-				x < (location.x + up->GetWidth() / 2) &&
-				y > (location.y - up->GetHeight() / 2) &&
-				y < (location.y + up->GetHeight() / 2);*/
+bool Button::OnLocation(float x, float y){
 	return	x > area.x &&
 			x < (area.x + area.width) &&
 			y > area.y &&

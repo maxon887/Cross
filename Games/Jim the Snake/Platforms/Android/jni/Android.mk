@@ -49,7 +49,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Rect.cpp \
 					../../../../../Sources/Color.cpp \
 					../../../../../Sources/Launcher.cpp \
-					../../../../../Sources/Commercial.cpp \
+					../../../../../Sources/Utils/Commercial.cpp \
 					../../../../../Sources/Utils/Texter.cpp \
 					../../../../../Sources/Utils/Debuger.cpp \
 					../../../../../Sources/Utils/Button.cpp \

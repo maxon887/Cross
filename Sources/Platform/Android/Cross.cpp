@@ -36,7 +36,6 @@ void Init(int width, int heigth, string dataPath, AAssetManager* assetManager){
 	game = CrossMain(launcher);
 	graphics = new Graphics(game);
 	game->graphics = graphics;
-	game->Start();
 }
 
 extern "C"{
@@ -48,6 +47,10 @@ extern "C"{
 		}
 		string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
 		Init((int)width, (int)height, stdDataPath, mng);
+	}
+
+	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
+		game->Start();
 	}
 
 	void Java_com_cross_Cross_Update(JNIEnv *env, jobject thiz){
@@ -92,10 +95,13 @@ extern "C"{
 
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
 		LOGI("Java_com_cross_Cross_InitialCommercial");
-		//jclass clazz = env->GetObjectClass(comm);
-		//jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
 		comm = env->NewGlobalRef(comm);
-		//env->CallVoidMethod(comm, methodID);
 		launcher->InitializeCommercial(env, comm);
+	}
+
+	void Java_com_cross_Cross_CommertialResult(JNIEnv* env, jobject thiz, jint event){
+		//CommercialAndroid* comm = (CommercialAndroid*)launcher->GetCommercial();
+		//comm->CommertialResult((Commercial::Event)event);
+		launcher->GetCommercial()->CommercialResult((Commercial::Event)event);
 	}
 }

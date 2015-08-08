@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 public class Cross {
 
 	public native void Init(int width, int height, String dataPath, AssetManager manager);
+	public native void Start();
 	public native void Release();
 	public native void Update();
 	public native void Suspend();
@@ -16,4 +17,5 @@ public class Cross {
 	public native void SetKeyKey(int key);
 	
 	public native void InitialCommercial(Commercial comm);
+	public native void CommertialResult(int event);
 }

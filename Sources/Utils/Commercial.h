@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,36 +14,33 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
+	
 #pragma once
 
-#include "Launcher.h"
-#include "CommercialAndroid.h"
-#include <jni.h>
-#include <android/asset_manager.h>
+#include <functional>
+#include <list>
 
-namespace cross{
+using namespace std;
 
-class LauncherAndroid : public Launcher{
+namespace cross {
+
+class Commercial{
 public:
-	LauncherAndroid(int width, int height, string dataPath, AAssetManager* assetManager);
-	int GetTargetWidth();
-	int GetTargetHeight();
-	string AssetsPath();
-	string DataPath();
-	void LogIt(string str);
-	void LoadFile(string filename, unsigned char** buffer, int* length);
-	void InitializeCommercial(JNIEnv* env, jobject comm);
-	Commercial* GetCommercial();
-	~LauncherAndroid();
+	enum Event{
+		AD_LOADED,
+		AD_LOAD_FAILED,
+		PURCHASE_COMPLITE,
+		PURCHASE_CANCELED,
+		PURCHASE_FAILED
+	};
+	virtual void DownloadAd() = 0;
+	virtual void ShowAd() = 0;
+	virtual void Purchase() = 0;
+	void RegisterCallback(function<void(Event&)> callback);
+	void CommercialResult(Event e);
+	virtual ~Commercial() {};
 private:
-	int width;
-	int height;
-	string data_path;
-	AAssetManager* asset_manager;
-	CommercialAndroid* commercial;
-	//JNIEnv* env;
-	//jobject commercial;
+	function<void(Event&)> callback;
 };
 
 }
