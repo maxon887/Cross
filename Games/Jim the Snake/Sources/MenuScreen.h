@@ -61,23 +61,29 @@ private:
 
 	Button* back_btn;
 	Point	back_pos;
-	Image*  on;
-	Image*  off;
+	Image*  check;
+	Image*  uncheck;
 
 	Button* music_btn;
+	ToggleButton* music_chk;
 	Point   music_pos;
 	Point   music_value_pos;
 	bool    music_value;
 
 	Button* sounds_btn;
+	ToggleButton* sounds_chk;
 	Point	sounds_pos;
 	Point   sounds_value_pos;
 	bool    sounds_value;
 
 	Button* control_btn;
-	Image*  arrows;
-	Image*  pointer;
-	Image*  none;
+	Button* control_chk;
+	Image*  arrows_up;
+	Image*	arrows_down;
+	Image*  pointer_up;
+	Image*	pointer_down;
+	Image*  none_up;
+	Image*  none_down;
 	Point	control_pos;
 	Point   control_value_pos;
 	Control control_value;

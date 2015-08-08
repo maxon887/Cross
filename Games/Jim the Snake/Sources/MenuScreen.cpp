@@ -40,21 +40,28 @@ void MenuScreen::Start(){
 	sun					= graphics->LoadImage("Menu/Sun.jpg");
 	bestscore			= graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
 	jimthesnake			= graphics->LoadImage("Menu/JimTheSnakeLabel.png");
-	on					= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
-	off					= graphics->LoadImage("Menu/Uncheck.png", game->GetScaleFactor() * 1.2f);
-	arrows				= graphics->LoadImage("Menu/ArrowsLabel.png", game->GetScaleFactor() * 1.2f);
-	pointer				= graphics->LoadImage("Menu/PointerLabel.png", game->GetScaleFactor() * 1.2f);
-	none				= graphics->LoadImage("Menu/NoneLabel.png", game->GetScaleFactor() * 1.2f);
+	check				= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
+	uncheck				= graphics->LoadImage("Menu/Uncheck.png", game->GetScaleFactor() * 1.2f);
+	arrows_up			= graphics->LoadImage("Menu/ArrowsUp.png", game->GetScaleFactor() * 1.2f);
+	arrows_down			= graphics->LoadImage("Menu/ArrowsDown.png", game->GetScaleFactor() * 1.2f);
+	pointer_up			= graphics->LoadImage("Menu/PointerUp.png", game->GetScaleFactor() * 1.2f);
+	pointer_down		= graphics->LoadImage("Menu/PointerDown.png", game->GetScaleFactor() * 1.2f);
+	none_up				= graphics->LoadImage("Menu/NoneUp.png", game->GetScaleFactor() * 1.2f);
+	none_down			= graphics->LoadImage("Menu/NoneDown.png", game->GetScaleFactor() * 1.2f);
 	Image* playUp		= graphics->LoadImage("Menu/PlayButtonUp.png");
 	Image* playDown		= graphics->LoadImage("Menu/PlayButtonDown.png");
 	Image* settingsUp	= graphics->LoadImage("Menu/SettingsUp.png", game->GetScaleFactor() * 1.2f);
 	Image* settingsDown = graphics->LoadImage("Menu/SettingsDown.png", game->GetScaleFactor() * 1.2f);
 	Image* backUp		= graphics->LoadImage("Menu/BackUp.png", game->GetScaleFactor() * 1.2f);
 	Image* backDown		= graphics->LoadImage("Menu/BackDown.png", game->GetScaleFactor() * 1.2f);
-	Image* musicUp		= graphics->LoadImage("Menu/MusicLabel.png", game->GetScaleFactor() * 1.2f);
-	Image* soundsUp		= graphics->LoadImage("Menu/SoundsLabel.png", game->GetScaleFactor() * 1.2f);
-	Image* controlUp	= graphics->LoadImage("Menu/ControlLabel.png", game->GetScaleFactor() * 1.2f);
-	Image* removeAdsUp	= graphics->LoadImage("Menu/RemoveAdsLabel.png", game->GetScaleFactor() * 1.2f);
+	Image* musicUp		= graphics->LoadImage("Menu/MusicUp.png", game->GetScaleFactor() * 1.2f);
+	Image* musicDown	= graphics->LoadImage("Menu/MusicDown.png", game->GetScaleFactor() * 1.2f);
+	Image* soundsUp		= graphics->LoadImage("Menu/SoundsUp.png", game->GetScaleFactor() * 1.2f);
+	Image* soundsDown   = graphics->LoadImage("Menu/SoundsDown.png", game->GetScaleFactor() * 1.2f);
+	Image* controlUp	= graphics->LoadImage("Menu/ControlUp.png", game->GetScaleFactor() * 1.2f);
+	Image* controlDown  = graphics->LoadImage("Menu/ControlDown.png", game->GetScaleFactor() * 1.2f);
+	Image* removeAdsUp	= graphics->LoadImage("Menu/RemoveAdsUp.png", game->GetScaleFactor() * 1.2f);
+	Image* removeAdsDown= graphics->LoadImage("Menu/RemoveAdsDown.png", game->GetScaleFactor() * 1.2f);
 	//positioning
 	float scaleFactor = 0;
 	float imageAspect = background_left->GetWidth() / background_left->GetHeight();
@@ -83,25 +90,23 @@ void MenuScreen::Start(){
 	best_lb_pos.y = game->GetHeight() - offset - 20.f;
 	best_tx_pos.x = bestscore->GetWidth() / 2 + 170.f + 30.f;
 	best_tx_pos.y = game->GetHeight() - offset - 55.f;
-
 	back_pos.x = backUp->GetWidth() * 0.8f + game->GetWidth();
 	back_pos.y = game->GetHeight() - backUp->GetHeight() * 0.8f;
 
-	//float baseOffset = game->GetHeight() / 20.f;
 	float baseOffset = game->GetHeight() / 30.f;
 	music_pos.x = musicUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	music_pos.y = (game->GetHeight() / 8.f) * 1.f + baseOffset;
-	music_value_pos.x = game->GetWidth() / 4.f * 3.f + game->GetWidth();
+	music_value_pos.x = game->GetWidth() - check->GetWidth() + game->GetWidth();
 	music_value_pos.y = (game->GetHeight() / 8.f) * 1.f + baseOffset;
 	sounds_pos.x = soundsUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	sounds_pos.y = (game->GetHeight() / 8.f) * 2.f + baseOffset;
-	sounds_value_pos.x = game->GetWidth() / 4.f * 3.f + game->GetWidth();
+	sounds_value_pos.x = game->GetWidth() - check->GetWidth() + game->GetWidth();
 	sounds_value_pos.y = (game->GetHeight() / 8.f) * 2.f + baseOffset;
 	control_pos.x = controlUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	control_pos.y = (game->GetHeight() / 8.f) * 3.f + baseOffset;
 	control_value_pos.x = game->GetWidth() / 3.f * 2.f + game->GetWidth();
-	control_value_pos.y = (game->GetHeight() / 8.f) * 4.f + baseOffset;
-	remove_ads_pos.x = game->GetWidth() / 2.f + game->GetWidth();
+	control_value_pos.y = (game->GetHeight() / 8.f) * 3.75f + baseOffset;
+	remove_ads_pos.x = game->GetWidth() / 3.f + game->GetWidth();
 	remove_ads_pos.y = (game->GetHeight() / 8.f) * 5.f + baseOffset;
 
 	//scaling
@@ -119,22 +124,28 @@ void MenuScreen::Start(){
 	settings_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
 	back_btn = new Button(game, back_pos, backUp, backDown);
 	back_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
-	music_btn = new Button(game, music_pos, musicUp, NULL);
+	music_btn = new Button(game, music_pos, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
-	sounds_btn = new Button(game, sounds_pos, soundsUp, NULL);
+	music_chk = new ToggleButton(game, music_value_pos, check, uncheck);
+	music_chk->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
+	sounds_btn = new Button(game, sounds_pos, soundsUp, soundsDown);
 	sounds_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
-	control_btn = new Button(game, control_pos, controlUp, NULL);
+	sounds_chk = new ToggleButton(game, sounds_value_pos, new Image(*check), new Image(*uncheck));
+	sounds_chk->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
+	control_btn = new Button(game, control_pos, controlUp, controlDown);
 	control_btn->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
-	remove_ads_btn = new Button(game, remove_ads_pos, removeAdsUp, NULL);
+	control_chk = new Button(game, control_value_pos, pointer_up->GetWidth(), pointer_up->GetHeight());
+	control_chk->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
+	remove_ads_btn = new Button(game, remove_ads_pos, removeAdsUp, removeAdsDown);
 	remove_ads_btn->RegisterCallback(bind(&MenuScreen::OnRemoveAdsClick, this));
 	//misc
 	score_texter = new Texter(game, "NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
 	score = game->BestScore();
-	//sound_btn->SetState(game->IsSoundEnabled());
+	sounds_chk->SetState(game->IsSoundEnabled());
 	menu_music = 0;
 	menu_music->Play();
 	menu_music = new Audio("Menu/MenuMusic.mp3", true, true);
-	//music_btn->SetState(game->IsMusicEnabled());
+	music_chk->SetState(game->IsMusicEnabled());
 	if(game->IsMusicEnabled()){
 		menu_music->Play();
 	}
@@ -142,7 +153,7 @@ void MenuScreen::Start(){
 }
 
 void MenuScreen::Update(float sec){
- 	graphics->Clear(0.0f, 0.25f, 0.25f);
+	graphics->Clear(1.f, 0.352f, 0.082f);
 	static Point backgroundPos = background_pos;
 	static Point jimthesnakePos = jimthesnake_pos;
 	static Point playBtnPos = play_btn_pos;
@@ -169,38 +180,37 @@ void MenuScreen::Update(float sec){
 	sounds_btn->SetLocation(soundsPos);
 	control_btn->SetLocation(controlPos);
 	remove_ads_btn->SetLocation(removeAdsPos);
+	music_chk->SetLocation(musicValuePos);
+	sounds_chk->SetLocation(soundsValuePos);
+	control_chk->SetLocation(controlValuePos);
 
 	graphics->DrawImage(bestLbPos, bestscore);
 	score_texter->DrawText(bestTxPos, to_string(score));
-	if(game->IsSoundEnabled()){
-		graphics->DrawImage(soundsValuePos, on);
-	}else{
-		graphics->DrawImage(soundsValuePos, off);
-	}
-	if(game->IsMusicEnabled()){
-		graphics->DrawImage(musicValuePos, on);
-	}else{
-		graphics->DrawImage(musicValuePos, off);
-	}
 	switch (game->GetControl()){
 	case ARROWS:
-		graphics->DrawImage(controlValuePos, arrows);
+		if(control_chk->IsPressed()){
+			graphics->DrawImage(controlValuePos, arrows_down);
+		}else{
+			graphics->DrawImage(controlValuePos, arrows_up);
+		}
 		break;
 	case POINTER:
-		graphics->DrawImage(controlValuePos, pointer);
+		if(control_chk->IsPressed()){
+			graphics->DrawImage(controlValuePos, pointer_down);
+		}else{
+			graphics->DrawImage(controlValuePos, pointer_up);
+		}
 		break;
 	case NONE:
-		graphics->DrawImage(controlValuePos, none);
+		if(control_chk->IsPressed()){
+			graphics->DrawImage(controlValuePos, none_down);
+		}else{
+			graphics->DrawImage(controlValuePos, none_up);
+		}
 		break;
 	default:
 		break;
 	}
-	//graphics->DrawImage(Point(bestscore->GetWidth() / 2 + 30.f, game->GetHeight() - offset - 20.f), bestscore);
-	//score_texter->DrawText(Point(bestscore->GetWidth() / 2 + 170.f + 30.f, game->GetHeight() - offset - 55.f), to_string(score));
-	/*
-	for(Rect area : dead_areas){
-		graphics->DrawRect(area, Color::Red);
-	}*/
 
 	if(transition){
 		if(transitionLerp < 1) {
@@ -249,7 +259,12 @@ void MenuScreen::Update(float sec){
 	music_btn->Update();
 	sounds_btn->Update();
 	control_btn->Update();
-	remove_ads_btn->Update();
+	if(!game->IsPurchased()){
+		remove_ads_btn->Update();
+	}
+	music_chk->Update();
+	sounds_chk->Update();
+	control_chk->Update();
 	play_btn->Update();
 }
 
@@ -329,6 +344,7 @@ void MenuScreen::OnPlayClick(){
 
 void MenuScreen::OnMusicClick(){
 	game->SetMusicEnabled(!game->IsMusicEnabled());
+	music_chk->SetState(game->IsMusicEnabled());
 	if(game->IsMusicEnabled()){
 		menu_music->Play();
 	}else{
@@ -338,7 +354,7 @@ void MenuScreen::OnMusicClick(){
 
 void MenuScreen::OnSoundClick(){
 	game->SetSoundEnabled(!game->IsSoundEnabled());
-	//game->SetSoundEnabled(sound_btn->GetState());
+	sounds_chk->SetState(game->IsSoundEnabled());
 }
 
 void MenuScreen::OnSettingsClick(){

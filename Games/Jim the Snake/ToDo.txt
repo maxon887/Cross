@@ -22,4 +22,4 @@
 22. Buttons sound
 
 23. Тайминги на рекламу и смерть
-24. Settings redesine
++24. Settings redesine

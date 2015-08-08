@@ -28,6 +28,9 @@ Button::Button(Game* game, Image* up, Image* down){
 	this->down = down;
 	this->press_loc = NULL;
 	this->callback_registered = false;
+	this->have_area = false;
+	this->area.width = up->GetWidth();
+	this->area.height = up->GetHeight();
 }
 
 Button::Button(Game* game, Point location, Image* up, Image* down){
@@ -39,10 +42,45 @@ Button::Button(Game* game, Point location, Image* up, Image* down){
 	this->down = down;
 	this->press_loc = NULL;
 	this->callback_registered = false;
+	this->have_area = false;
+	InitRect(location, up->GetWidth(), up->GetHeight());
+}
+
+Button::Button(Game* game, Point location, float width, float height){
+	this->launcher = game->launcher;
+	this->graphics = game->graphics;
+	this->input = game->input;
+	this->location = Point();
+	this->area = area;
+	this->up = NULL;
+	this->down = NULL;
+	this->press_loc = NULL;
+	this->callback_registered = false;
+	InitRect(location, width, height);
+	/*
+	area.x = location.x - width / 2;
+	area.y = location.y - height / 2;
+	area.width = width;
+	area.height = height;
+	have_area = true;*/
+}
+
+Button::Button(Game* game, Rect area){
+	this->launcher = game->launcher;
+	this->graphics = game->graphics;
+	this->input = game->input;
+	this->location = Point();
+	this->area = area;
+	this->up = NULL;
+	this->down = NULL;
+	this->press_loc = NULL;
+	this->callback_registered = false;
+	this->have_area = true;
 }
 
 void Button::SetLocation(Point location){
 	this->location = location;
+	InitRect(location, area.width, area.height);
 }
 
 void Button::Update(){
@@ -64,8 +102,6 @@ void Button::Update(){
 				}
 				callback();
 				return;
-			}else{
-				launcher->LogIt("Callback not registered");
 			}
 		}
 	}
@@ -79,7 +115,9 @@ void Button::Update(){
 			graphics->DrawImage(location, down);
 		}
 	}else{
-		graphics->DrawImage(location, up);
+		if(up != NULL){
+			graphics->DrawImage(location, up);
+		}
 	}
 }
 
@@ -92,23 +130,38 @@ float Button::GetHeight(){
 }
 
 Rect Button::GetRect(){
-	Rect rect;
+	if(!have_area){
+		throw string("This button have not area");
+	}/*
 	rect.x = location.x - up->GetWidth() / 2;
 	rect.y = location.y - up->GetHeight() / 2;
 	rect.width = up->GetWidth();
 	rect.height = up->GetHeight();
-	return rect;
+	return rect;*/
+	return area;
 }
 
 Point Button::GetCenter(){
 	return location;
 }
 
-bool Button::OnLocation(float x, float y){
+bool Button::OnLocation(float x, float y){/*
 		return  x > (location.x - up->GetWidth() / 2) &&
 				x < (location.x + up->GetWidth() / 2) &&
 				y > (location.y - up->GetHeight() / 2) &&
-				y < (location.y + up->GetHeight() / 2);
+				y < (location.y + up->GetHeight() / 2);*/
+	return	x > area.x &&
+			x < (area.x + area.width) &&
+			y > area.y &&
+			y < (area.y + area.height);
+}
+
+void Button::InitRect(Point loc, float width, float heiht){
+	area.x = loc.x - width / 2.f;
+	area.y = loc.y - heiht / 2.f;
+	area.width = width;
+	area.height = heiht;
+	have_area = true;
 }
 
 void Button::RegisterCallback(function<void()> callback){

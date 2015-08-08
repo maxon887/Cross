@@ -27,6 +27,8 @@ class Button{
 public:
 	Button(Game* game, Image* up, Image* down);
 	Button(Game* game, Point location, Image* up, Image* down);
+	Button(Game* game, Point location, float width, float height);
+	Button(Game* game, Rect area);
 	void Update();
 	void RegisterCallback(function<void()> callback);
 	void SetLocation(Point location);
@@ -41,13 +43,16 @@ protected:
 	Graphics* graphics;
 	Input* input;
 	Point location;
+	Rect area;
 	Image* up;
 	Image* down;
 	bool OnLocation(float x, float y);
+	void InitRect(Point loc, float width, float heiht);
 	Point* press_loc;
 	function<void()> callback;
 	bool callback_registered;
 	bool is_pressed;
+	bool have_area;
 };
     
 }
