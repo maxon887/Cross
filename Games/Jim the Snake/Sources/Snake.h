@@ -37,6 +37,7 @@ public:
 	void Update(float sec);
 	void Draw();
 	float GetSpeedW();
+	bool IsDead();
 	vector<Body*>& GetBodyNodes();
 	Collisioner* GetRadar();
 private:
@@ -64,7 +65,7 @@ private:
 	bool dead;
 	float angle;
 	float body_length;
-	float dead_time;
+	//float dead_time;
 	float star_angle;
 	list<Point> body_path;
 	vector<Body*> body_nodes;

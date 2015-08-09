@@ -34,19 +34,16 @@ public:
 	void Update(float sec);
 private:
 	JimTheSnake* game;
-	Commercial* commercial;
+	//Commercial* commercial;
 	Image* background;
-	Image* background_left;
-	Image* background_right;
 	Point background_pos;
-	Point background_left_pos;
-	Point background_right_pos;
 	//sun
 	Image* sun;
 	Point sun_pos;
 	float sun_angle;
 	float sun_w;
-	vector<Rect> dead_areas;
+	vector<Rect> dead_areas_left;
+	vector<Rect> dead_areas_right;
 	
 	Image* bestscore;
 	Texter* score_texter;
@@ -98,6 +95,7 @@ private:
 	bool onLeft;
 
 	void CreateDeadAreas();
+	void DrawDeadAreas();
 	void UpdateSun(float sec, Point sun_pos);
 	void OnPlayClick();
 	void OnMusicClick();

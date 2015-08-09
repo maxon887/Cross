@@ -90,6 +90,7 @@ void GameScreen::Start(){
 	control_base			= graphics->LoadImage("Game/ControlBase.png");
 	pause_img				= graphics->LoadImage("Game/PauseLabel.png");
 	gameover_img			= graphics->LoadImage("Game/GameOverLabel.png");
+	best_img				= graphics->LoadImage("Game/Best.png");
 	Image* backUp			= graphics->LoadImage("Game/BackUp.png");
 	Image* backDown			= graphics->LoadImage("Game/BackDown.png");
 	Image* menuUp			= graphics->LoadImage("Game/MenuUp.png");
@@ -133,7 +134,8 @@ void GameScreen::Start(){
 	if(game->IsSoundEnabled()){
 		apple_drop = new Audio("Game/AppleDrop.wav", false, false);
 	}
-	score_texter = new Texter(game, "NumbersRed.png", 60.f, 76.f, 10, 1, 48);
+	score_texter = new Texter(game, "Game/NumbersRed.png", 60.f, 76.f, 10, 1, 48);
+	score_texter_light = new Texter(game, "Game/NumbersRedLight.png", 65.f, 76.f, 10, 1, 48);
 	if(!game->IsPurchased()){
 		commercial = game->GetCommercial();
 	}
@@ -150,10 +152,10 @@ void GameScreen::Update(float sec){
 	ProccessCollisions();
 	UpdateApples(sec);
 	DrawApples();
-	UpdateCactuses(sec);
-	DrawCactuses();
 	UpdateSpiders(sec);
 	DrawSpiders();
+	UpdateCactuses(sec);
+	DrawCactuses();
 	snake->Update(sec);
 	snake->Draw();
 	switch (state) {
@@ -179,23 +181,30 @@ void GameScreen::Update(float sec){
 		pause_btn->Update();
 		}break;
 	case GameState::PAUSED:{
-			static bool down = false;
-			DrawScore();
-			graphics->DrawImage(450, centerH - 250, pause_img);
-			if(input->HaveKey() && input->GetKey() == Key::PAUSE){
-				down = true;
-			}
-			if(down && !input->HaveKey()){
-				SetState(GameState::RUNNING);
-				down = false;
-			}
-			back_btn->Update();
-			menu_btn->Update();
+		static bool down = false;
+		DrawScore();
+		graphics->DrawImage(450, centerH - 250, pause_img);
+		if(input->HaveKey() && input->GetKey() == Key::PAUSE){
+			down = true;
+		}
+		if(down && !input->HaveKey()){
+			SetState(GameState::RUNNING);
+			down = false;
+		}
+		back_btn->Update();
+		menu_btn->Update();
 		}break;
 	case GameState::GAMEOVER:
 		graphics->DrawImage(450, centerH - 340, gameover_img);
-		graphics->DrawImage(300, centerH - 210, score_bright_img);
-		score_texter->DrawText(520, centerH - 255, to_string(score));
+		DrawLastScore();
+		if(ad_timer > 0){
+			ad_timer -= sec;
+			if(ad_timer <= 0){
+				if(commercial && !game->IsPurchased()){
+					commercial->ShowAd();
+				}
+			}
+		}
 		restart_btn->Update();
 		menu_btn->Update();
 		break;
@@ -237,9 +246,7 @@ void GameScreen::SetState(GameState newState){
 		game_over->Play();
 		if(score > game->BestScore()){
 			game->SetBestScore(score);
-		}
-		if(commercial && !game->IsPurchased()){
-			commercial->ShowAd();
+			is_best_score = true;
 		}
 		break;
 	default:
@@ -258,12 +265,13 @@ void GameScreen::StopMusic(){
 
 //						PRIVATE METHODS	
 void GameScreen::Restart(){
+	is_best_score = false;
 	score = 0;
 	onready_time = 4.3f;
+	ad_timer = 1.5f;
 	game_over->Stop();
 	music->Play();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
-	//graphics->ScaleImage(score_img, game->GetScaleFactor());
 	delete snake;
 	snake = NULL;
 	for(Apple* apple : apples){
@@ -449,14 +457,57 @@ void GameScreen::DrawCactuses(){
 }
 
 void GameScreen::DrawScore(){
-	static const Point pos(game->GetWidth() / 2 + 120, 50);
-	graphics->DrawImage(pos, score_img);
-	float offset = score_texter->GetWidth() / 2;
-	if(score > 9)
-		offset = score_texter->GetWidth();
-	if(score > 99)
-		offset = score_texter->GetWidth() * 2;
-	score_texter->DrawText(game->GetWidth() / 2 + 380 - offset, 20, to_string(score));
+	Point labelPos;
+	Point texterPos;
+	int digits = 0;
+	int locScore = score;
+	if(locScore != 0){
+		while(locScore){
+			locScore /= 10;
+			digits++;
+		}
+	}else{
+		digits = 1;
+	}
+	labelPos.x = game->GetWidth() - score_img->GetWidth()/2 - score_texter->GetWidth() * (digits + 1);
+	labelPos.y = 50;
+	texterPos.x = game->GetWidth() - (score_texter->GetWidth() * digits) - 10.f;
+	texterPos.y = 20;
+	graphics->DrawImage(labelPos, score_img);
+	score_texter->DrawText(texterPos, to_string(score));
+}
+
+void GameScreen::DrawLastScore(){
+	if(is_best_score){
+		Point bestPos;
+		Point labelPos;
+		Point texterPos;
+		int digits = 0;
+		int locScore = score;
+		if(locScore != 0){
+			while(locScore){
+				locScore /= 10;
+				digits++;
+			}
+		}else{
+			digits = 1;
+		}
+		bestPos.x = game->GetWidth() - best_img->GetWidth() / 2;
+		bestPos.y = centerH - 220;
+		texterPos.x = 620 - score_texter->GetWidth() * (digits + 1);
+		texterPos.y = centerH - 250;
+		labelPos.x = 400 - score_texter->GetWidth() * (digits + 1);
+		labelPos.y = centerH - 210;
+
+		if(is_best_score){
+			graphics->DrawImage(bestPos, best_img);
+		}
+		graphics->DrawImage(labelPos, score_bright_img);
+		score_texter_light->DrawText(texterPos, to_string(score));
+	}else{
+		graphics->DrawImage(300, centerH - 210, score_bright_img);
+		score_texter_light->DrawText(520, centerH - 255, to_string(score));
+	}
 }
 
 void GameScreen::CalcInput(float sec){
@@ -491,10 +542,12 @@ void GameScreen::CalcInput(float sec){
 			if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
 				snake->Rotate(fingerAngle);
 			} else {
-				if(counterclockwise < clockwise) 
+				if(counterclockwise < clockwise) {
 					snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-				else
+				}else{
 					snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+				}
+
 				if(snake->Direction() >= 180.f)
 					snake->Rotate(snake->Direction() - 360.f);
 				if(snake->Direction() <= -180.f)
@@ -569,6 +622,11 @@ Point GameScreen::GetEmptyPosition(float radius){
 
 void GameScreen::OnMenuClick(){
 	game_over->Stop();
+	if(!snake->IsDead()){
+		if(score > game->BestScore()){
+			game->SetBestScore(score);
+		}
+	}
 	game->SetScreen(new MenuScreen(game));
 }
 
@@ -582,5 +640,4 @@ void GameScreen::OnRestartClick(){
 
 void GameScreen::OnPauseClick(){
 	SetState(GameState::PAUSED);
-	launcher->LogIt("There");
 }

@@ -16,15 +16,16 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
+
 // 16:9
-//#define TARGET_WIDTH 540		
-//#define TARGET_HEIGHT 960
+#define TARGET_WIDTH 540		
+#define TARGET_HEIGHT 960
 //iPhone 5
-//#define TARGET_WIDTH 320		
+//#define TARGET_WIDTH 320
 //#define TARGET_HEIGHT 568	
-// 4:3 (htc wildfire, iPhone 4)
-#define TARGET_WIDTH 320 
-#define TARGET_HEIGHT 480
+// 4:3
+//#define TARGET_WIDTH 320 
+//#define TARGET_HEIGHT 480
 
 #include <Windows.h>
 #include "Launcher.h"

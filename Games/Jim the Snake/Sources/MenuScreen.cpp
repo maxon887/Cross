@@ -35,8 +35,6 @@ void MenuScreen::Start(){
 	transitionLerp = 0.f;
 	//image loading
 	background			= graphics->LoadImage("Menu/Background.png");
-	background_left		= graphics->LoadImage("Menu/BackgroundRight.png");
-	background_right	= graphics->LoadImage("Menu/BackgroundRight.png");
 	sun					= graphics->LoadImage("Menu/Sun.jpg");
 	bestscore			= graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
 	jimthesnake			= graphics->LoadImage("Menu/JimTheSnakeLabel.png");
@@ -64,25 +62,23 @@ void MenuScreen::Start(){
 	Image* removeAdsDown= graphics->LoadImage("Menu/RemoveAdsDown.png", game->GetScaleFactor() * 1.2f);
 	//positioning
 	float scaleFactor = 0;
-	float imageAspect = background_left->GetWidth() / background_left->GetHeight();
+	float imageAspect = background->GetWidth() / 2 / background->GetHeight();
 	float deviceAspect = (float)launcher->GetTargetWidth() / launcher->GetTargetHeight();
 	if(imageAspect < deviceAspect){
-		scaleFactor = launcher->GetTargetWidth() / background_left->GetWidth();
+		scaleFactor = launcher->GetTargetWidth() / (background->GetWidth() / 2);
 		background_pos.x = game->GetWidth();
 	}else{
-		scaleFactor = launcher->GetTargetHeight() / background_left->GetHeight();
+		scaleFactor = launcher->GetTargetHeight() / background->GetHeight();
         background_pos.x = game->GetWidth();
 		//background_pos.x = (game->GetWidth() + background->GetWidth() / 2 * (1 + scaleFactor)) / 2;
 	}
-	sun_pos.x = 400.f * scaleFactor / game->GetScaleFactor();
-	sun_pos.y = 580.f * scaleFactor / game->GetScaleFactor();
-	jimthesnake_pos.x = 200.f * scaleFactor / game->GetScaleFactor();
-	jimthesnake_pos.y = 120.f * scaleFactor / game->GetScaleFactor();
 	background_pos.y = game->GetHeight() / 2.f;
-	background_left_pos.x = game->GetWidth() / 2.f;
-	background_left_pos.y = game->GetHeight() / 2.f;
-	play_btn_pos.x = 270.f * scaleFactor / game->GetScaleFactor();
-	play_btn_pos.y = 490.f * scaleFactor / game->GetScaleFactor();
+	sun_pos.x = game->GetWidth();
+	sun_pos.y = game->GetHeight() / 5 * 4.2;
+	jimthesnake_pos.x = game->GetWidth() / 2;
+	jimthesnake_pos.y = 120.f * scaleFactor / game->GetScaleFactor();
+	play_btn_pos.x = game->GetWidth() / 3 * 2;
+	play_btn_pos.y = game->GetHeight() / 3 * 2;
 	settings_pos.x = game->GetWidth() - settingsUp->GetWidth() * 0.8f;
 	settings_pos.y = game->GetHeight() - settingsUp->GetHeight() * 0.8f;
 	float offset = bestscore->GetHeight() / 2;
@@ -111,12 +107,8 @@ void MenuScreen::Start(){
 
 	//scaling
 	graphics->ScaleImage(background, scaleFactor);
-	graphics->ScaleImage(background_left, scaleFactor);
-	graphics->ScaleImage(background_right, scaleFactor);
 	graphics->ScaleImage(sun, scaleFactor);
 	graphics->ScaleImage(jimthesnake, scaleFactor * 0.9f);
-	background_right_pos.x = background_left_pos.x * scaleFactor + background_left->GetWidth() * 2 - 1;
-	background_right_pos.y = background_left_pos.y;
 	//buttons creation
 	play_btn = new Button(game, play_btn_pos, playUp, playDown);
 	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
@@ -149,31 +141,28 @@ void MenuScreen::Start(){
 	if(game->IsMusicEnabled()){
 		menu_music->Play();
 	}
-	commercial = game->GetCommercial();
+	//commercial = game->GetCommercial();
 	CreateDeadAreas();
 }
 
 void MenuScreen::Update(float sec){
 	graphics->Clear(1.f, 0.352f, 0.082f);
-	static Point backgroundPos = background_pos;
-	static Point jimthesnakePos = jimthesnake_pos;
-	static Point playBtnPos = play_btn_pos;
-	static Point settingsPos = settings_pos;
-	static Point backPos = back_pos;
-	static Point backgroundRightPos = background_right_pos;
-	static Point sunPos = sun_pos;
-	static Point musicPos = music_pos;
-	static Point soundsPos = sounds_pos;
-	static Point bestLbPos = best_lb_pos;
-	static Point bestTxPos = best_tx_pos;
-	static Point controlPos = control_pos;
-	static Point removeAdsPos = remove_ads_pos;
-	static Point musicValuePos = music_value_pos;
-	static Point soundsValuePos = sounds_value_pos;
-	static Point controlValuePos = control_value_pos;
+	static Point backgroundPos		= background_pos;
+	static Point jimthesnakePos		= jimthesnake_pos;
+	static Point playBtnPos			= play_btn_pos;
+	static Point settingsPos		= settings_pos;
+	static Point backPos			= back_pos;
+	static Point sunPos				= sun_pos;
+	static Point musicPos			= music_pos;
+	static Point soundsPos			= sounds_pos;
+	static Point bestLbPos			= best_lb_pos;
+	static Point bestTxPos			= best_tx_pos;
+	static Point controlPos			= control_pos;
+	static Point removeAdsPos		= remove_ads_pos;
+	static Point musicValuePos		= music_value_pos;
+	static Point soundsValuePos		= sounds_value_pos;
+	static Point controlValuePos	= control_value_pos;
 	UpdateSun(sec, sunPos);
-	graphics->DrawImage(backgroundPos, background);
-	graphics->DrawImage(jimthesnakePos, jimthesnake);
 	play_btn->SetLocation(playBtnPos);
 	settings_btn->SetLocation(settingsPos);
 	back_btn->SetLocation(backPos);
@@ -185,6 +174,8 @@ void MenuScreen::Update(float sec){
 	sounds_chk->SetLocation(soundsValuePos);
 	control_chk->SetLocation(controlValuePos);
 
+	graphics->DrawImage(backgroundPos, background);
+	graphics->DrawImage(jimthesnakePos, jimthesnake);
 	graphics->DrawImage(bestLbPos, bestscore);
 	score_texter->DrawText(bestTxPos, to_string(score));
 	switch (game->GetControl()){
@@ -222,7 +213,6 @@ void MenuScreen::Update(float sec){
 		if(!onLeft){
 			sunPos.x = Lerp(sunPos.x, sun_pos.x - game->GetWidth(), transitionLerp);
 			backgroundPos.x = Lerp(backgroundPos.x, background_pos.x - game->GetWidth(), transitionLerp);
-			backgroundRightPos.x = Lerp(backgroundRightPos.x, background_right_pos.x - game->GetWidth(), transitionLerp);
 			jimthesnakePos.x = Lerp(jimthesnakePos.x, jimthesnake_pos.x - game->GetWidth(), transitionLerp);
 			playBtnPos.x = Lerp(playBtnPos.x, play_btn_pos.x - game->GetWidth(), transitionLerp);
 			settingsPos.x = Lerp(settingsPos.x, settings_pos.x - game->GetWidth(), transitionLerp);
@@ -239,7 +229,6 @@ void MenuScreen::Update(float sec){
 		}else{
 			sunPos.x = Lerp(sunPos.x, sun_pos.x, transitionLerp);
 			backgroundPos.x = Lerp(backgroundPos.x, background_pos.x, transitionLerp);
-			backgroundRightPos.x = Lerp(backgroundRightPos.x, background_right_pos.x, transitionLerp);
 			jimthesnakePos.x = Lerp(jimthesnakePos.x, jimthesnake_pos.x, transitionLerp);
 			playBtnPos.x = Lerp(playBtnPos.x, play_btn_pos.x, transitionLerp);
 			settingsPos.x = Lerp(settingsPos.x, settings_pos.x, transitionLerp);
@@ -255,6 +244,8 @@ void MenuScreen::Update(float sec){
 			controlValuePos.x = Lerp(controlValuePos.x, control_value_pos.x, transitionLerp);
 		}
 	}
+	//DrawDeadAreas();
+
 	settings_btn->Update();
 	back_btn->Update();
 	music_btn->Update();
@@ -271,17 +262,23 @@ void MenuScreen::Update(float sec){
 
 void MenuScreen::CreateDeadAreas(){
 	Rect r = play_btn->GetRect();
-	dead_areas.push_back(r);
+	dead_areas_left.push_back(r);
 	r.x = 0;
 	r.y = play_btn->GetCenter().y;
 	r.width = game->GetWidth();
 	r.height = game->GetHeight() - r.y;
-	dead_areas.push_back(r);
+	dead_areas_left.push_back(r);
 	r.x = 0;
 	r.y = 570;
 	r.width = 250;
 	r.height = game->GetHeight() - r.y;
-	dead_areas.push_back(r);
+	dead_areas_left.push_back(r);
+
+	r.x = 0;
+	r.y = 0;
+	r.width = game->GetWidth();
+	r.height = game->GetHeight();
+	dead_areas_right.push_back(r);
 }
 
 void MenuScreen::UpdateSun(float sec, Point sun_pos){
@@ -292,9 +289,20 @@ void MenuScreen::UpdateSun(float sec, Point sun_pos){
 	bool touchInDeadArea = false;
 
 	if(input->HaveInput() && startAngle == 0){
-		for(unsigned int i = 0; i < dead_areas.size(); i++){
-			if(PointInRect(input->GetInput(), dead_areas[i])){
-				touchInDeadArea = true;
+		if(onLeft){
+			//for(unsigned int i = 0; i < dead_areas_left.size(); i++){
+			for(Rect dead : dead_areas_left){
+				if(PointInRect(input->GetInput(), dead)){
+					touchInDeadArea = true;
+					break;
+				}
+			}
+		}else{
+			for(Rect dead : dead_areas_right){
+				if(PointInRect(input->GetInput(), dead)){
+					touchInDeadArea = true;
+					break;
+				}
 			}
 		}
 	}
@@ -369,14 +377,25 @@ void MenuScreen::OnControlClick(){
 }
 
 void MenuScreen::OnRemoveAdsClick(){
-	if(commercial != NULL){
-		commercial->Purchase();
+	Commercial* comm = game->GetCommercial();
+	if(comm != NULL){
+		comm->Purchase();
+	}
+}
+
+void MenuScreen::DrawDeadAreas(){
+	if(onLeft){
+		for(Rect dead : dead_areas_left){
+			graphics->DrawRect(dead, Color::Red);
+		}
+	}else{
+		for(Rect dead : dead_areas_right){
+			graphics->DrawRect(dead, Color::Red);
+		}
 	}
 }
 
 MenuScreen::~MenuScreen(){
-	graphics->ReleaseImage(background_left);
-	graphics->ReleaseImage(background_right);
 	graphics->ReleaseImage(sun);
 	graphics->ReleaseImage(bestscore);
 	graphics->ReleaseImage(jimthesnake);

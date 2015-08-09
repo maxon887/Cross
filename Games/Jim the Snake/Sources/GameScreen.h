@@ -71,6 +71,7 @@ private:
 	Image* control_facepointer;
 	Image* pause_img;
 	Image* ready_img;
+	Image* best_img;
 
 	Audio* music;
 	Audio* apple_drop;
@@ -84,9 +85,12 @@ private:
 	Button* right_btn;
 
 	Texter* score_texter;
+	Texter* score_texter_light;
 
 	int score;
+	bool is_best_score;
 	float onready_time;
+	float ad_timer;
 	float centerW;
 	float centerH;
 
@@ -100,6 +104,7 @@ private:
 	void UpdateCactuses(float sec);
 	void DrawCactuses();
 	void DrawScore();
+	void DrawLastScore();
 
 	void OnResumeClick();
 	void OnMenuClick();

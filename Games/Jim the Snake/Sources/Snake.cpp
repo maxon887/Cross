@@ -123,7 +123,7 @@ Snake::Snake():Collisioner(){
 	star_angle = 0;
 	body_length = 150.f;
 	//body_length = 2000.f;
-	dead_time = 0;
+	//dead_time = 0;
 	dead = false;
 
 	float height = game->GetHeight() / 2;
@@ -200,8 +200,6 @@ void Snake::Update(float sec){
 					}
 				}
 			}
-		}else{
-			dead_time += sec;
 		}
 		break;
 	case GameState::PAUSED:
@@ -232,7 +230,7 @@ void Snake::Draw(){
 		DrawBody();
 		graphics->Rotate(face_dead, angle + 90.f);
 		graphics->DrawImage(GetPosition(), face_dead);
-		if(dead_time > 1.f){
+		//if(dead_time > 0.f){
 			Point stPos;
 			for(int i = 0; i < 6; i++){
 				stPos.x = (GetRadius() * cos(star_angle + i * 72.f / 180.f * PI));
@@ -244,13 +242,17 @@ void Snake::Draw(){
 			if(screen->GetState() != GameState::GAMEOVER){
 				screen->SetState(GameState::GAMEOVER);
 			}
-		}
+		//}
 	}
 	graphics->DrawCircle(GetPosition(), GetRadius(), Color::Red);
 }
 
 float Snake::GetSpeedW(){
 	return speedW;
+}
+
+bool Snake::IsDead(){
+	return dead;
 }
 
 vector<Body*>& Snake::GetBodyNodes(){

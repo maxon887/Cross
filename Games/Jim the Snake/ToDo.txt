@@ -5,20 +5,18 @@
 +5. Fast menu at the end of game
 +6. Double eat
 +7. Game suspend
-8. Rotate snake sound
 +9. Spider eat sound
 +10. Dead on pause
-11. 3 didgits score size
-12. Big Cactus
++11. 3 didgits score size
++12. Big Cactus
 +13. Spider sounds
-14. Позиционирование
-15. Пустые настройки
-16. Didgits shados
++14. Позиционирование
++15. Пустые настройки
 17. Auto Die!!!
-18. Яркий счет при смерти
++18. Яркий счет при смерти
 19. Поуки под кактусами
 20. Assets map
 21. Exit
 22. Buttons sound
-23. Тайминги на рекламу и смерть
++23. Тайминги на рекламу и смерть
 +24. Settings redesine
