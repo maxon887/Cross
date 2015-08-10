@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4062A381B789D4B009B1A66 /* Commercial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4062A361B789D4B009B1A66 /* Commercial.cpp */; };
+		D4062A3E1B78A15D009B1A66 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D4062A3D1B78A15D009B1A66 /* IAPHelper.m */; };
 		D41059511B0EFB3D00B4D0D7 /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41059501B0EFB3D00B4D0D7 /* icon.xcassets */; };
 		D42EF9FE1B2597BE0008C0DB /* JimTheSnake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EF9FC1B2597BE0008C0DB /* JimTheSnake.cpp */; };
 		D42EFA051B2598A60008C0DB /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EF9FF1B2598A60008C0DB /* Color.cpp */; };
 		D42EFA061B2598A60008C0DB /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EFA011B2598A60008C0DB /* Point.cpp */; };
 		D42EFA071B2598A60008C0DB /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42EFA031B2598A60008C0DB /* Rect.cpp */; };
-		D43424D81B7351850075FDE1 /* Commercial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D43424D61B7351850075FDE1 /* Commercial.cpp */; };
 		D43424DB1B7351EC0075FDE1 /* CommercialOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D43424DA1B7351EC0075FDE1 /* CommercialOS.mm */; };
 		D438E1B61AFB61740015EC19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D438E1B51AFB61740015EC19 /* main.m */; };
 		D438E1DE1AFB61EA0015EC19 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D438E1DA1AFB61EA0015EC19 /* MenuScreen.cpp */; };
@@ -66,6 +67,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D4062A361B789D4B009B1A66 /* Commercial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Commercial.cpp; sourceTree = "<group>"; };
+		D4062A371B789D4B009B1A66 /* Commercial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commercial.h; sourceTree = "<group>"; };
+		D4062A3C1B78A15D009B1A66 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
+		D4062A3D1B78A15D009B1A66 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
 		D41059501B0EFB3D00B4D0D7 /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = icon.xcassets; path = "Jim the Snake/icon.xcassets"; sourceTree = SOURCE_ROOT; };
 		D42EF9FC1B2597BE0008C0DB /* JimTheSnake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JimTheSnake.cpp; sourceTree = "<group>"; };
 		D42EF9FD1B2597BE0008C0DB /* JimTheSnake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JimTheSnake.h; sourceTree = "<group>"; };
@@ -75,8 +80,6 @@
 		D42EFA021B2598A60008C0DB /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
 		D42EFA031B2598A60008C0DB /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
 		D42EFA041B2598A60008C0DB /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
-		D43424D61B7351850075FDE1 /* Commercial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Commercial.cpp; sourceTree = "<group>"; };
-		D43424D71B7351850075FDE1 /* Commercial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commercial.h; sourceTree = "<group>"; };
 		D43424D91B73519B0075FDE1 /* CommercialOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommercialOS.h; sourceTree = "<group>"; };
 		D43424DA1B7351EC0075FDE1 /* CommercialOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CommercialOS.mm; sourceTree = "<group>"; };
 		D438E1B01AFB61740015EC19 /* Jim the Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jim the Snake.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,9 +180,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48D40EB1B7350A700318B70 /* StoreKit.framework in Frameworks */,
 				D48D40EF1B7350D700318B70 /* MessageUI.framework in Frameworks */,
 				D48D40ED1B7350AE00318B70 /* SystemConfiguration.framework in Frameworks */,
-				D48D40EB1B7350A700318B70 /* StoreKit.framework in Frameworks */,
 				D48D40E91B7350A000318B70 /* EventKitUI.framework in Frameworks */,
 				D48D40E71B73509D00318B70 /* EventKit.framework in Frameworks */,
 				D48D40E51B73509600318B70 /* CoreTelephony.framework in Frameworks */,
@@ -201,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				D48D40DB1B73503F00318B70 /* Dependencies */,
+				D48D40EA1B7350A700318B70 /* StoreKit.framework */,
 				D438E25B1AFB630C0015EC19 /* GLKit.framework */,
 				D438E2591AFB628F0015EC19 /* AudioToolbox.framework */,
 				D438E2571AFB628A0015EC19 /* OpenGLES.framework */,
@@ -267,8 +271,6 @@
 				D438E1EB1AFB62030015EC19 /* Game.h */,
 				D42EF9FF1B2598A60008C0DB /* Color.cpp */,
 				D42EFA001B2598A60008C0DB /* Color.h */,
-				D43424D61B7351850075FDE1 /* Commercial.cpp */,
-				D43424D71B7351850075FDE1 /* Commercial.h */,
 				D42EFA011B2598A60008C0DB /* Point.cpp */,
 				D42EFA021B2598A60008C0DB /* Point.h */,
 				D42EFA031B2598A60008C0DB /* Rect.cpp */,
@@ -328,6 +330,8 @@
 				D438E20C1AFB62030015EC19 /* Main.storyboard */,
 				D43424D91B73519B0075FDE1 /* CommercialOS.h */,
 				D43424DA1B7351EC0075FDE1 /* CommercialOS.mm */,
+				D4062A3C1B78A15D009B1A66 /* IAPHelper.h */,
+				D4062A3D1B78A15D009B1A66 /* IAPHelper.m */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -348,6 +352,8 @@
 		D438E2251AFB62030015EC19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D4062A361B789D4B009B1A66 /* Commercial.cpp */,
+				D4062A371B789D4B009B1A66 /* Commercial.h */,
 				D473AB691B0450C400D1213B /* Misc.cpp */,
 				D473AB6A1B0450C400D1213B /* Misc.h */,
 				D438E2261AFB62030015EC19 /* Animation.cpp */,
@@ -369,7 +375,6 @@
 			children = (
 				D48D40EE1B7350D700318B70 /* MessageUI.framework */,
 				D48D40EC1B7350AE00318B70 /* SystemConfiguration.framework */,
-				D48D40EA1B7350A700318B70 /* StoreKit.framework */,
 				D48D40E81B7350A000318B70 /* EventKitUI.framework */,
 				D48D40E61B73509D00318B70 /* EventKit.framework */,
 				D48D40E41B73509600318B70 /* CoreTelephony.framework */,
@@ -456,9 +461,11 @@
 				D473AB6F1B04510100D1213B /* GameScreen.cpp in Sources */,
 				D42EFA071B2598A60008C0DB /* Rect.cpp in Sources */,
 				D45F533B1B0B578400D7C618 /* Eatable.cpp in Sources */,
+				D4062A381B789D4B009B1A66 /* Commercial.cpp in Sources */,
 				D4B251A61B4EA137008BB79B /* cross.cpp in Sources */,
 				D438E24C1AFB62030015EC19 /* SOIL.c in Sources */,
 				D438E1B61AFB61740015EC19 /* main.m in Sources */,
+				D4062A3E1B78A15D009B1A66 /* IAPHelper.m in Sources */,
 				D438E2491AFB62030015EC19 /* Saver.cpp in Sources */,
 				D49F05BF1B4EA1EA00BBD910 /* Cactus.cpp in Sources */,
 				D438E24F1AFB62030015EC19 /* Button.cpp in Sources */,
@@ -488,7 +495,6 @@
 				D438E24D1AFB62030015EC19 /* stb_image_aug.c in Sources */,
 				D45F533C1B0B578400D7C618 /* Snake.cpp in Sources */,
 				D4F9D81C1AFC9DE9007B51E6 /* Audio.cpp in Sources */,
-				D43424D81B7351850075FDE1 /* Commercial.cpp in Sources */,
 				D438E24E1AFB62030015EC19 /* Animation.cpp in Sources */,
 				D49F05C01B4EA1EA00BBD910 /* GameObject.cpp in Sources */,
 			);

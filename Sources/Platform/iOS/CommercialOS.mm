@@ -8,10 +8,19 @@
 
 #import "CommercialOS.h"
 #import "CrossViewController.h"
+#import "IAPHelper.h"
 #import <UIKit/UIKit.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import <StoreKit/StoreKit.h>
 
-static GADInterstitial *interstitial;
+static GADInterstitial* interstitial;
+static IAPHelper* iapHelper;
+
+CommercialOS::CommercialOS(){
+    iapHelper = [[IAPHelper alloc] initWithProductID:@"com.cross.JimtheSnake.ads" CommercialResultHander:^(int event){
+        Commercial::CommercialResult((Commercial::Event)event);
+    }];
+}
 
 void CommercialOS::DownloadAd(){
     interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-8147388388000575/9516738242"];
@@ -24,4 +33,8 @@ void CommercialOS::ShowAd(){
     if ([interstitial isReady]) {
         [interstitial presentFromRootViewController:[CrossViewController getRootController]];
     }
+}
+
+void CommercialOS::Purchase(){
+    [iapHelper buy];
 }
