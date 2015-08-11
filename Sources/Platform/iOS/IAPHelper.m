@@ -25,8 +25,6 @@
 }
 
 - (void)productsRequest:(SKProductsRequest*)request didReceiveResponse:(SKProductsResponse *)response{
-   // NSLog(@"Loaded list of products:");
-    //mProductRequest = nil;
     NSArray* skProducts = response.products;
     for(SKProduct* skProduct in skProducts){
         NSLog(@"Found product: %@ %@ %0.2f",
@@ -79,25 +77,27 @@
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
     NSLog(@"completeTransaction...");
-    mCommercialResultHandler(EVENT_PURCHASE_COMPLITE);
+    mCommercialResultHandler(EVENT_PURCHASE_COMPLETE);
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction {
     NSLog(@"restoreTransaction...");
-    mCommercialResultHandler(EVENT_PURCHASE_COMPLITE);
+    mCommercialResultHandler(EVENT_PURCHASE_COMPLETE);
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
     NSLog(@"failedTransaction...");
-    if (transaction.error.code != SKErrorPaymentCancelled)
-    {
-        NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+    if (transaction.error.code != SKErrorPaymentCancelled){
+        //NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Transaction error" message:transaction.error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
         mCommercialResultHandler(EVENT_PURCHASE_FAILED);
     }
     
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    mCommercialResultHandler(EVENT_PURCHASE_CANCELED);
 }
 
 @end

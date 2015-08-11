@@ -19,6 +19,8 @@
 
 @interface CrossView : GLKView
 
+@property (assign) BOOL BlockInput;
+
 - (void)didGoingBackground;
 - (void)didGoingForeground;
 

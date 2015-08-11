@@ -99,15 +99,16 @@ void JimTheSnake::CommercialCallback(Commercial::Event e){
 	case Commercial::AD_LOAD_FAILED:
 		launcher->LogIt("Ad failed to load");
 		break;
-	case Commercial::PURCHASE_COMPLITE:
-		launcher->LogIt("Purchase complite");
-		saver->SaveBool(PROPERTY_PURCHASED, true);
+	case Commercial::PURCHASE_COMPLETE:
+		launcher->LogIt("Purchase complete");
+        saver->SaveBool(PROPERTY_PURCHASED, true);
+        purchased = true;
 		break;
 	case Commercial::PURCHASE_CANCELED:
-		launcher->LogIt("Ad canceled");
+		launcher->LogIt("Purchase canceled");
 		break;
 	case Commercial::PURCHASE_FAILED:
-		launcher->LogIt("Ad failed");
+		launcher->LogIt("Purchase failed");
 		break;
 	default:
 		break;

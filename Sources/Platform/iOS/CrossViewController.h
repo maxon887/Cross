@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CrossView.h"
 
 @interface CrossViewController : UIViewController
 
-+ (UIViewController*)getRootController;
+@property (weak, nonatomic) IBOutlet CrossView* CrossV;
+
++ (CrossViewController*)getRootController;
 
 - (void)didGoingBackground;
 - (void)didGoingForeground;

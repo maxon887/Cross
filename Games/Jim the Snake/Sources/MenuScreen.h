@@ -34,7 +34,6 @@ public:
 	void Update(float sec);
 private:
 	JimTheSnake* game;
-	//Commercial* commercial;
 	Image* background;
 	Point background_pos;
 	//sun

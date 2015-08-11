@@ -11,7 +11,7 @@
 
 //typedef void (^RequestProductsHandler)(BOOL success, NSArray* products);
 typedef void (^CommercialResultHander)(int event);
-#define EVENT_PURCHASE_COMPLITE 2
+#define EVENT_PURCHASE_COMPLETE 2
 #define EVENT_PURCHASE_CANCELED 3
 #define EVENT_PURCHASE_FAILED   4
 

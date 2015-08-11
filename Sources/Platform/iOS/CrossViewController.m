@@ -7,29 +7,30 @@
 //
 
 #import "CrossViewController.h"
-#import "CrossView.h"
 
-static UIViewController* rootViewController;
+static CrossViewController* rootViewController;
 
 @implementation CrossViewController{
-    IBOutlet CrossView* crossView;
+    //IBOutlet CrossView* crossView;
 }
+
+@synthesize CrossV;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     rootViewController = self;
 }
 
-+ (UIViewController*)getRootController{
++ (CrossViewController*)getRootController{
     return rootViewController;
 }
 
 - (void)didGoingBackground{
-    [crossView didGoingBackground];
+    [CrossV didGoingBackground];
 }
 
 - (void)didGoingForeground{
-    [crossView didGoingForeground];
+    [CrossV didGoingForeground];
 }
 
 @end

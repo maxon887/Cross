@@ -29,19 +29,23 @@
     CADisplayLink* displayLink;
 }
 
+@synthesize BlockInput;
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    
-    NSLog(@"initWithCoder");
-    EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    self.context = context;
-    self.enableSetNeedsDisplay = NO;
-    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-    
-    screenScale = [[UIScreen mainScreen] scale];
-    //ads test
-    NSLog(@"Google Mobile Ads Version %@", [GADRequest sdkVersion]);
+    if(self){
+        NSLog(@"initWithCoder");
+        EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+        self.context = context;
+        self.enableSetNeedsDisplay = NO;
+        displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        
+        screenScale = [[UIScreen mainScreen] scale];
+        //ads test
+        NSLog(@"Google Mobile Ads Version %@", [GADRequest sdkVersion]);
+        BlockInput = false;
+    }
     return self;
 }
 
@@ -68,22 +72,29 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    game->input->input_state = true;
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView:touch.view];
-    game->input->input_loc.x = location.x * screenScale;
-    game->input->input_loc.y = location.y * screenScale;
+    if(!BlockInput){
+        game->input->input_state = true;
+        UITouch *touch = [[event allTouches] anyObject];
+        CGPoint location = [touch locationInView:touch.view];
+        game->input->input_loc.x = location.x * screenScale;
+        game->input->input_loc.y = location.y * screenScale;
+    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView:touch.view];
-    game->input->input_loc.x = location.x * screenScale;
-    game->input->input_loc.y = location.y * screenScale;
+    if(!BlockInput){
+        UITouch *touch = [[event allTouches] anyObject];
+        CGPoint location = [touch locationInView:touch.view];
+        game->input->input_loc.x = location.x * screenScale;
+        game->input->input_loc.y = location.y * screenScale;
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    game->input->input_state = false;
+    if(!BlockInput){
+        game->input->input_state = false;
+        
+    }
 }
 
 @end

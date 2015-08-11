@@ -268,7 +268,7 @@ void GameScreen::Restart(){
 	is_best_score = false;
 	score = 0;
 	onready_time = 4.3f;
-	ad_timer = 1.5f;
+	ad_timer = 0.7f;
 	game_over->Stop();
 	music->Play();
 	score_texter->SetScaleFactor(game->GetScaleFactor());
