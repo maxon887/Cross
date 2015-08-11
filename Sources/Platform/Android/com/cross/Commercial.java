@@ -11,6 +11,11 @@ import com.mouse.billing.IabResult;
 import com.mouse.billing.Purchase;
 
 public class Commercial {
+	public static final int EVENT_AD_LOADED 		= 0;
+	public static final int EVENT_AD_LOAD_FAILED 	= 1;
+	public static final int EVENT_PURCHASE_COMPLITE = 2;
+	public static final int EVENT_PURCHASE_CANCELED = 3;
+	public static final int EVENT_PURCHASE_FAILED 	= 4;
 	
 	class CommAdListener extends AdListener{
 		@Override
@@ -46,12 +51,6 @@ public class Commercial {
 		public void onAdClosed() {
 		}
 	}
-	
-	public static final int EVENT_AD_LOADED 		= 0;
-	public static final int EVENT_AD_LOAD_FAILED 	= 1;
-	public static final int EVENT_PURCHASE_COMPLITE = 2;
-	public static final int EVENT_PURCHASE_CANCELED = 3;
-	public static final int EVENT_PURCHASE_FAILED 	= 4;
 	
 	private static final String app_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhTuPsyyBtQp9MYyE9t3Zn/yy6dt3DE4hghFq85s0lEtl8v7jWDbCZ4yW8ZAStxf9DMbDl2vatRPYaEbUz9eAhDKLt4RScRd99AWwYee9+sackXg29XUunyNBTWXj6POfYHLChIJoRGLem3Fp8kVV8w21PokdgynfAi6Dr7/nPlYbxzu03eYU4CmXY4p+FWTuf2XX5HY5HJMsfiqb59J5TTi+PxwsSteL7hmvtSamWkzV0B2mI11PHiistD6u0Tp5Qn+D22DIoWlNNZlh77BijlXvp9rzH1U8f56jN19GauCpYB4v6jesJaq4Qb+PCiP1cg6V6eLVGxkVfuKa0JND5wIDAQAB";
 	private static IabHelper mHelper;

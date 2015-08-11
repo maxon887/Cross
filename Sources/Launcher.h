@@ -48,6 +48,7 @@ public:
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
 	virtual void Sleep(float milis) { };
+	virtual void PromtToExit() { };
 
 	void LogIt(int msg);
 	void LogIt(float msg);

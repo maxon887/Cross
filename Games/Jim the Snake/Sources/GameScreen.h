@@ -76,6 +76,8 @@ private:
 	Audio* music;
 	Audio* apple_drop;
 	Audio* game_over;
+	Audio* btn_push;
+	Audio* btn_pull;
 
 	Button* back_btn;
 	Button* menu_btn;

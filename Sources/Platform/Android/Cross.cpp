@@ -29,9 +29,9 @@ static Game* game;
 static Graphics* graphics;
 static LauncherAndroid* launcher;
 
-void Init(int width, int heigth, string dataPath, AAssetManager* assetManager){
+void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject crossActivity, JNIEnv* env){
 	LOGI("Init");
-	launcher = new LauncherAndroid(width, heigth, dataPath, assetManager);
+	launcher = new LauncherAndroid(w, h, dataPath, assetManager, crossActivity, env);
 	Audio::Init(launcher);
 	game = CrossMain(launcher);
 	graphics = new Graphics(game);
@@ -39,14 +39,15 @@ void Init(int width, int heigth, string dataPath, AAssetManager* assetManager){
 }
 
 extern "C"{
-	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager){
+	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager, jobject crossActivity){
 		LOGI("Cross_Init");
 		AAssetManager* mng = AAssetManager_fromJava(env, assetManager);
 		if(!mng){
 			LOGI("Error loading asset manager");
 		}
 		string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
-		Init((int)width, (int)height, stdDataPath, mng);
+		crossActivity = env->NewGlobalRef(crossActivity);
+		Init((int)width, (int)height, stdDataPath, mng, crossActivity, env);
 	}
 
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
@@ -100,8 +101,6 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_CommertialResult(JNIEnv* env, jobject thiz, jint event){
-		//CommercialAndroid* comm = (CommercialAndroid*)launcher->GetCommercial();
-		//comm->CommertialResult((Commercial::Event)event);
 		launcher->GetCommercial()->CommercialResult((Commercial::Event)event);
 	}
 }

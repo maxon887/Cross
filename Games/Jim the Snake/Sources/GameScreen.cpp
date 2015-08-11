@@ -81,6 +81,8 @@ void GameScreen::Start(){
 	commercial = NULL;
 	game_over = NULL;
 	apple_drop = NULL;
+	btn_push = NULL;
+	btn_pull = NULL;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img				= graphics->LoadImage("Game/ReadyLabel.png");
@@ -108,32 +110,38 @@ void GameScreen::Start(){
 
 	centerW = game->GetWidth() / 2;
 	centerH = game->GetHeight() / 2;
-
-	pause_btn = new Button(game, pauseUp, pauseDown);
-	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
-	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
-	back_btn = new Button(game, backUp, backDown);
-	back_btn->SetLocation(Point(450, centerH - 40));
-	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
-	menu_btn = new Button(game, menuUp, menuDown);
-	menu_btn->SetLocation(Point(450, centerH + 180));
-	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
-	restart_btn = new Button(game, restartUp, restartDown);
-	restart_btn->SetLocation(Point(450, centerH - 40));
-	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
-	right_btn = new Button(game, arrowRightUp, arrowRightDown);
-	right_btn->SetLocation(Point(game->GetWidth() - arrowRightUp->GetWidth()/2, game->GetHeight() - arrowRightUp->GetHeight()/2));
-	left_btn = new Button(game, arrowLeft, arrowLeftPressed);
-	left_btn->SetLocation(Point(arrowLeft->GetWidth()/2, game->GetHeight() - arrowLeft->GetHeight()/2));
-
-	control = game->GetControl();
 	if(game->IsMusicEnabled()){
 		music = new Audio("Game/GameMusic.mp3", true, true);
 		game_over = new Audio("Game/GameOver.mp3", false, true);
 	}
 	if(game->IsSoundEnabled()){
 		apple_drop = new Audio("Game/AppleDrop.wav", false, false);
+		btn_push = new Audio("ButtonPush.wav", false, false);
+		btn_pull = new Audio("ButtonPull.wav", false, false);
 	}
+
+	pause_btn = new Button(game, pauseUp, pauseDown);
+	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
+	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
+	pause_btn->SetSounds(btn_push, btn_pull);
+	back_btn = new Button(game, backUp, backDown);
+	back_btn->SetLocation(Point(450, centerH - 40));
+	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
+	back_btn->SetSounds(btn_push, btn_pull);
+	menu_btn = new Button(game, menuUp, menuDown);
+	menu_btn->SetLocation(Point(450, centerH + 180));
+	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
+	menu_btn->SetSounds(btn_push, btn_pull);
+	restart_btn = new Button(game, restartUp, restartDown);
+	restart_btn->SetLocation(Point(450, centerH - 40));
+	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
+	restart_btn->SetSounds(btn_push, btn_pull);
+	right_btn = new Button(game, arrowRightUp, arrowRightDown);
+	right_btn->SetLocation(Point(game->GetWidth() - arrowRightUp->GetWidth()/2, game->GetHeight() - arrowRightUp->GetHeight()/2));
+	left_btn = new Button(game, arrowLeft, arrowLeftPressed);
+	left_btn->SetLocation(Point(arrowLeft->GetWidth()/2, game->GetHeight() - arrowLeft->GetHeight()/2));
+
+	control = game->GetControl();
 	score_texter = new Texter(game, "Game/NumbersRed.png", 60.f, 76.f, 10, 1, 48);
 	score_texter_light = new Texter(game, "Game/NumbersRedLight.png", 65.f, 76.f, 10, 1, 48);
 	if(!game->IsPurchased()){
@@ -171,8 +179,12 @@ void GameScreen::Update(float sec){
 		static bool down = false;
 		CalcInput(sec);
 		DrawScore();
-		if(input->HaveKey() && input->GetKey() == Key::PAUSE){
-			down = true;
+		if(input->HaveKey()){
+			if(input->GetKey() == Key::BACK ||
+			   input->GetKey() == Key::OPTIONS ||
+			   input->GetKey() == Key::PAUSE){
+				down = true;
+			}
 		}
 		if(down && !input->HaveKey()){
 			SetState(GameState::PAUSED);
@@ -184,8 +196,12 @@ void GameScreen::Update(float sec){
 		static bool down = false;
 		DrawScore();
 		graphics->DrawImage(450, centerH - 250, pause_img);
-		if(input->HaveKey() && input->GetKey() == Key::PAUSE){
-			down = true;
+		if(input->HaveKey()){
+			if(input->GetKey() == Key::BACK ||
+			   input->GetKey() == Key::OPTIONS ||
+			   input->GetKey() == Key::PAUSE){
+				down = true;
+			}
 		}
 		if(down && !input->HaveKey()){
 			SetState(GameState::RUNNING);

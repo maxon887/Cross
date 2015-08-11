@@ -22,6 +22,8 @@ using namespace cross;
 Button::Button(Game* game, Image* up, Image* down){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
+	this->push = NULL;
+	this->pull = NULL;
 	this->input = game->input;
 	this->location = Point();
 	this->up = up;
@@ -29,6 +31,7 @@ Button::Button(Game* game, Image* up, Image* down){
 	this->press_loc = NULL;
 	this->callback_registered = false;
 	this->have_area = false;
+	this->is_pressed = false;
 	this->area.width = up->GetWidth();
 	this->area.height = up->GetHeight();
 }
@@ -36,6 +39,8 @@ Button::Button(Game* game, Image* up, Image* down){
 Button::Button(Game* game, Point location, Image* up, Image* down){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
+	this->push = NULL;
+	this->pull = NULL;
 	this->input = game->input;
 	this->location = location;
 	this->up = up;
@@ -43,12 +48,15 @@ Button::Button(Game* game, Point location, Image* up, Image* down){
 	this->press_loc = NULL;
 	this->callback_registered = false;
 	this->have_area = false;
+	this->is_pressed = false;
 	InitRect(location, up->GetWidth(), up->GetHeight());
 }
 
-Button::Button(Game* game, Point location, float width, float height){
+Button::Button(Game* game, float width, float height){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
+	this->push = NULL;
+	this->pull = NULL;
 	this->input = game->input;
 	this->location = Point();
 	this->area = area;
@@ -56,12 +64,15 @@ Button::Button(Game* game, Point location, float width, float height){
 	this->down = NULL;
 	this->press_loc = NULL;
 	this->callback_registered = false;
+	this->is_pressed = false;
 	InitRect(location, width, height);
 }
 
 Button::Button(Game* game, Rect area){
 	this->launcher = game->launcher;
 	this->graphics = game->graphics;
+	this->push = NULL;
+	this->pull = NULL;
 	this->input = game->input;
 	this->location = Point();
 	this->area = area;
@@ -69,6 +80,7 @@ Button::Button(Game* game, Rect area){
 	this->down = NULL;
 	this->press_loc = NULL;
 	this->callback_registered = false;
+	this->is_pressed = false;
 	this->have_area = true;
 }
 
@@ -77,22 +89,34 @@ void Button::SetLocation(Point location){
 	InitRect(location, area.width, area.height);
 }
 
+void Button::SetSounds(Audio* push, Audio* pull){
+	this->push = push;
+	this->pull = pull;
+}
+
 void Button::Update(){
 	//first press
 	if(press_loc == NULL && input->HaveInput()){
 		press_loc = new Point(input->GetInput().x, input->GetInput().y);
 		if(OnLocation(input->GetInput().x, input->GetInput().y)){
 			is_pressed = true;
+			if(push != NULL){
+				push->Play();
+			}
 		}
 	}
 	//callback
-	if(!input->HaveInput() && press_loc != NULL){
+	if(!input->HaveInput() && is_pressed){
 		if(OnLocation(input->GetInput().x, input->GetInput().y)){
 			if(callback_registered){
 				delete press_loc;
 				press_loc = NULL;
+				is_pressed = false;
 				if(down != NULL){
 					graphics->DrawImage(location, down);
+				}
+				if(pull != NULL){
+					pull->Play();
 				}
 				callback();
 				return;

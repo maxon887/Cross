@@ -74,6 +74,9 @@ private:
 	Point   sounds_value_pos;
 	bool    sounds_value;
 
+	Audio* btn_push;
+	Audio* btn_pull;
+
 	Button* control_btn;
 	Button* control_chk;
 	Image*  arrows_up;
@@ -95,6 +98,7 @@ private:
 
 	void CreateDeadAreas();
 	void DrawDeadAreas();
+	void SetupButtonSounds(Audio* push, Audio* pull);
 	void UpdateSun(float sec, Point sun_pos);
 	void OnPlayClick();
 	void OnMusicClick();

@@ -27,9 +27,10 @@ class Button{
 public:
 	Button(Game* game, Image* up, Image* down);
 	Button(Game* game, Point location, Image* up, Image* down);
-	Button(Game* game, Point location, float width, float height);
+	Button(Game* game, float width, float height);
 	Button(Game* game, Rect area);
 	void Update();
+	void SetSounds(Audio* push, Audio* pull);
 	void RegisterCallback(function<void()> callback);
 	void SetLocation(Point location);
 	float GetWidth();
@@ -46,6 +47,8 @@ protected:
 	Rect area;
 	Image* up;
 	Image* down;
+	Audio* push;
+	Audio* pull;
 	bool OnLocation(float x, float y);
 	void InitRect(Point loc, float width, float heiht);
 	Point* press_loc;

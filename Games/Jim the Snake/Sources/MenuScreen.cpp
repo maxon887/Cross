@@ -27,6 +27,9 @@ MenuScreen::MenuScreen(JimTheSnake* game):Screen(game) {
 
 void MenuScreen::Start(){
 	launcher->LogIt("MenuScreen->Start()");
+	menu_music = NULL;
+	btn_pull = NULL;
+	btn_push = NULL;
 	sun_w = 5.f;
 	sun_angle = 0;
 	score = 0;
@@ -70,7 +73,6 @@ void MenuScreen::Start(){
 	}else{
 		scaleFactor = launcher->GetTargetHeight() / background->GetHeight();
         background_pos.x = game->GetWidth();
-		//background_pos.x = (game->GetWidth() + background->GetWidth() / 2 * (1 + scaleFactor)) / 2;
 	}
 	background_pos.y = game->GetHeight() / 2.f;
 	sun_pos.x = game->GetWidth();
@@ -109,39 +111,42 @@ void MenuScreen::Start(){
 	graphics->ScaleImage(background, scaleFactor);
 	graphics->ScaleImage(sun, scaleFactor);
 	graphics->ScaleImage(jimthesnake, scaleFactor * 0.9f);
+	//music
+	menu_music = new Audio("Menu/MenuMusic.mp3", true, true);
+	btn_push = new Audio("ButtonPush.wav", false, false);
+	btn_pull = new Audio("ButtonPull.wav", false, false);
 	//buttons creation
 	play_btn = new Button(game, play_btn_pos, playUp, playDown);
 	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
-	settings_btn = new Button(game, settings_pos, settingsUp, settingsDown);
+	settings_btn = new Button(game, settingsUp, settingsDown);
 	settings_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
-	back_btn = new Button(game, back_pos, backUp, backDown);
+	back_btn = new Button(game, backUp, backDown);
 	back_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
-	music_btn = new Button(game, music_pos, musicUp, musicDown);
+	music_btn = new Button(game, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
-	music_chk = new ToggleButton(game, music_value_pos, check, uncheck);
+	music_chk = new ToggleButton(game, check, uncheck);
 	music_chk->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
-	sounds_btn = new Button(game, sounds_pos, soundsUp, soundsDown);
+	sounds_btn = new Button(game, soundsUp, soundsDown);
 	sounds_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
-	sounds_chk = new ToggleButton(game, sounds_value_pos, new Image(*check), new Image(*uncheck));
+	sounds_chk = new ToggleButton(game, new Image(*check), new Image(*uncheck));
 	sounds_chk->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
-	control_btn = new Button(game, control_pos, controlUp, controlDown);
+	control_btn = new Button(game, controlUp, controlDown);
 	control_btn->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
-	control_chk = new Button(game, control_value_pos, pointer_up->GetWidth(), pointer_up->GetHeight());
+	control_chk = new Button(game, pointer_up->GetWidth(), pointer_up->GetHeight());
 	control_chk->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
-	remove_ads_btn = new Button(game, remove_ads_pos, removeAdsUp, removeAdsDown);
+	remove_ads_btn = new Button(game, removeAdsUp, removeAdsDown);
 	remove_ads_btn->RegisterCallback(bind(&MenuScreen::OnRemoveAdsClick, this));
 	//misc
 	score_texter = new Texter(game, "NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
 	score = game->BestScore();
 	sounds_chk->SetState(game->IsSoundEnabled());
-	menu_music = 0;
-	menu_music->Play();
-	menu_music = new Audio("Menu/MenuMusic.mp3", true, true);
 	music_chk->SetState(game->IsMusicEnabled());
 	if(game->IsMusicEnabled()){
 		menu_music->Play();
 	}
-	//commercial = game->GetCommercial();
+	if(game->IsSoundEnabled()){
+		SetupButtonSounds(btn_push, btn_pull);
+	}
 	CreateDeadAreas();
 }
 
@@ -245,7 +250,13 @@ void MenuScreen::Update(float sec){
 		}
 	}
 	//DrawDeadAreas();
-
+	if(input->HaveKey() && input->GetKey() == Key::BACK){
+		if(onLeft){
+			launcher->PromtToExit();
+		}else{
+			OnSettingsClick();
+		}
+	}
 	settings_btn->Update();
 	back_btn->Update();
 	music_btn->Update();
@@ -364,6 +375,11 @@ void MenuScreen::OnMusicClick(){
 void MenuScreen::OnSoundClick(){
 	game->SetSoundEnabled(!game->IsSoundEnabled());
 	sounds_chk->SetState(game->IsSoundEnabled());
+	if(game->IsSoundEnabled()){
+		SetupButtonSounds(btn_push, btn_pull);
+	}else{
+		SetupButtonSounds(NULL, NULL);
+	}
 }
 
 void MenuScreen::OnSettingsClick(){
@@ -393,6 +409,19 @@ void MenuScreen::DrawDeadAreas(){
 			graphics->DrawRect(dead, Color::Red);
 		}
 	}
+}
+
+void MenuScreen::SetupButtonSounds(Audio* btn_push, Audio* btn_pull){
+	play_btn->SetSounds(btn_push, btn_pull);
+	settings_btn->SetSounds(btn_push, btn_pull);
+	back_btn->SetSounds(btn_push, btn_pull);
+	music_btn->SetSounds(btn_push, btn_pull);
+	music_chk->SetSounds(btn_push, btn_pull);
+	sounds_btn->SetSounds(btn_push, btn_pull);
+	sounds_chk->SetSounds(btn_push, btn_pull);
+	control_btn->SetSounds(btn_push, btn_pull);
+	control_chk->SetSounds(btn_push, btn_pull);
+	remove_ads_btn->SetSounds(btn_push, btn_pull);
 }
 
 MenuScreen::~MenuScreen(){

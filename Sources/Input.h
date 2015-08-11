@@ -25,7 +25,9 @@ class Game;
 
 enum class Key{
 	UNDEFINED 	= 0,
-	PAUSE		= 1
+	PAUSE		= 1,
+	BACK		= 2,
+	OPTIONS		= 3
 };
 
 /*	Class responsible for user input. 

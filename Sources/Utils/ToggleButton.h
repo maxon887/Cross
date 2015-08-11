@@ -24,6 +24,7 @@ namespace cross {
 class ToggleButton : public Button{
 //User module
 public:
+	ToggleButton(Game* game, Image* on, Image* off);
 	ToggleButton(Game* game, Point location, Image* on, Image* off);
 	void Update();
 	bool GetState();

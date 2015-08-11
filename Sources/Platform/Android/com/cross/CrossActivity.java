@@ -3,6 +3,8 @@ package com.cross;
 import org.fmod.FMOD;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -72,11 +74,11 @@ public class CrossActivity extends Activity{
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
 			cross.SetKeyState(true);
-			cross.SetKeyKey(1);	//1 means pause key
+			cross.SetKeyKey(Cross.KEY_BACK);
 			return true;
 		case KeyEvent.KEYCODE_MENU:
 			cross.SetKeyState(true);
-			cross.SetKeyKey(1);
+			cross.SetKeyKey(Cross.KEY_OPTIONS);
 			return true;
 		}
 		return false;
@@ -95,10 +97,31 @@ public class CrossActivity extends Activity{
 			String dataPath =  getFilesDir().getPath();
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
-			cross.Init(width, height, dataPath, asset_manager);
+			cross.Init(width, height, dataPath, asset_manager, this);
 			cross.InitialCommercial(commercial);
 			cross.Start();
 		}
+	}
+	
+	public void PromtToExit() {
+		Log.d("Cross++", "Java PromtToExit");
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+			    new AlertDialog.Builder(CrossActivity.this)
+		        .setIcon(android.R.drawable.ic_dialog_alert)
+		        .setTitle("Confirm Exit")
+		        .setMessage("Do you want to quit the game?")
+		        .setPositiveButton("Yes", new DialogInterface.OnClickListener()   {
+			        @Override
+			        public void onClick(DialogInterface dialog, int which) {
+			            finish();  
+			        }
+		        })
+		        .setNegativeButton("No", null)
+		        .show();
+			}
+		});
 	}
 	
 	public void SendCommertialResult(int event) {

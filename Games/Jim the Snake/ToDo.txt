@@ -16,7 +16,8 @@
 +18. Яркий счет при смерти
 +19. Поуки под кактусами
 20. Assets map
-21. Exit
-22. Buttons sound
++21. Exit
++22. Buttons sound
 +23. Тайминги на рекламу и смерть
 +24. Settings redesine
+25. Pointer on pause click

@@ -19,6 +19,13 @@
 
 using namespace cross;
 
+ToggleButton::ToggleButton(Game* game, Image* on, Image* off)
+	:Button(game, on, off){
+	this->on = on;
+	this->off = off;
+	this->location = Point();
+}
+
 ToggleButton::ToggleButton(Game* game, Point location, Image* on, Image* off)
 	:Button(game, location, on, off){
 	this->on = on;
@@ -34,14 +41,24 @@ void ToggleButton::Update(){
 	//first press
 	if(input->HaveInput() && press_loc == NULL){
 		press_loc = new Point(input->GetInput());
+		if(OnLocation(input->GetInput().x, input->GetInput().y)){
+			is_pressed = true;
+			if(push != NULL){
+				push->Play();
+			}
+		}
 	}
 	//call listener
-	if(input->HaveInput() == false && press_loc != NULL){
+	if(input->HaveInput() == false && is_pressed){
 		if(OnLocation(input->GetInput().x, input->GetInput().y)){
 			SetState(!GetState());
 			if(callback_registered){
 				delete press_loc;
 				press_loc = NULL;
+				is_pressed = false;
+				if(pull != NULL){
+					pull->Play();
+				}
 				callback();
 				return;
 			}else{

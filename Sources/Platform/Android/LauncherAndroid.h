@@ -26,24 +26,25 @@ namespace cross{
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(int width, int height, string dataPath, AAssetManager* assetManager);
+	LauncherAndroid(int w, int h, string dataPath, AAssetManager* assManager, jobject crossActivity, JNIEnv* env);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
 	void LogIt(string str);
 	void LoadFile(string filename, unsigned char** buffer, int* length);
+	void PromtToExit();
 	void InitializeCommercial(JNIEnv* env, jobject comm);
 	Commercial* GetCommercial();
 	~LauncherAndroid();
 private:
-	int width;
-	int height;
-	string data_path;
+	JNIEnv* env;
+	jobject cross_activity;
 	AAssetManager* asset_manager;
 	CommercialAndroid* commercial;
-	//JNIEnv* env;
-	//jobject commercial;
+	string data_path;
+	int width;
+	int height;
 };
 
 }

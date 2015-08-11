@@ -23,11 +23,13 @@
 using namespace cross;
 using namespace std;
 
-LauncherAndroid::LauncherAndroid(int width, int height, string dataPath, AAssetManager* assetManager){
-	this->width = width;
-	this->height = height;
+LauncherAndroid::LauncherAndroid(int w, int h, string dataPath, AAssetManager* assManager, jobject crossActivity, JNIEnv* env){
+	this->width = w;
+	this->height = h;
 	this->data_path = dataPath;
-	this->asset_manager = assetManager;
+	this->asset_manager = assManager;
+	this->cross_activity = crossActivity;
+	this->env = env;
 	this->commercial = NULL;
 }
 
@@ -61,6 +63,12 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	*buffer = (unsigned char*)malloc(*length);
 	int read = AAsset_read(asset, *buffer, *length);
 	AAsset_close(asset);
+}
+
+void LauncherAndroid::PromtToExit(){
+	jclass clazz = env->GetObjectClass(cross_activity);
+	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
+	env->CallVoidMethod(cross_activity, methodID);
 }
 
 void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){
