@@ -24,12 +24,14 @@ ToggleButton::ToggleButton(Game* game, Image* on, Image* off)
 	this->on = on;
 	this->off = off;
 	this->location = Point();
+	this->state = true;
 }
 
 ToggleButton::ToggleButton(Game* game, Point location, Image* on, Image* off)
 	:Button(game, location, on, off){
 	this->on = on;
 	this->off = off;
+	this->state = true;
 }
 
 void ToggleButton::Update(){

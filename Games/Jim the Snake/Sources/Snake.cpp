@@ -105,6 +105,9 @@ void Snake::Init(){
 	if(game->IsSoundEnabled()){
 		eat_snd = new Audio("Game/Eat.wav", false, false);
 		punch = new Audio("Game/Punch.wav", false, false);
+	}else{
+		eat_snd = NULL;
+		punch = NULL;
 	}
 }
 

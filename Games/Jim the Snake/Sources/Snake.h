@@ -65,7 +65,6 @@ private:
 	bool dead;
 	float angle;
 	float body_length;
-	//float dead_time;
 	float star_angle;
 	list<Point> body_path;
 	vector<Body*> body_nodes;

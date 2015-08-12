@@ -25,3 +25,4 @@
 +27. Ads show condition
 28. Rate it dialog
 +29. Memory leaks
+30. JvmEnv global referencies

@@ -33,8 +33,6 @@ public class CrossActivity extends Activity{
 		setContentView(renderer);
 		commercial = new Commercial(this);
 		//rate it
-		RateThisApp.Config config = new RateThisApp.Config(5, 5);
-		RateThisApp.init(config);
 	    RateThisApp.onStart(this);
 	    RateThisApp.showRateDialogIfNeeded(this);
 	}
@@ -128,40 +126,6 @@ public class CrossActivity extends Activity{
 			}
 		});
 	}
-	/*
-	public void RateIt(){
-		Log.d("Cross++", "Java RateIt");
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				new AlertDialog.Builder(CrossActivity.this)
-                .setTitle("Rate It")
-                .setMessage("If you like this app, please rate it")
-                .setPositiveButton("Rate", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cross.SetBoolProperty(Cross.PROPERTY_RATED, true);
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + CrossActivity.this.getPackageName())));
-                        //getSharedPreferences(getActivity()).edit().putBoolean(DISABLED, true).commit();
-                       // dismiss();
-                    }
-                })
-                .setNeutralButton("Later", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //dismiss();
-                    }
-                })
-                .setNegativeButton("Never", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cross.SetBoolProperty(Cross.PROPERTY_RATED, true);
-                    }
-                //}).create();
-                }).show();
-			}
-		});
-	}*/
 	
 	public void SendCommertialResult(int event) {
 		if(cross != null) {

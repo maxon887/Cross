@@ -52,7 +52,8 @@ void Spider::Release(){
 Spider::Spider(){
 	Initialize();
 	short side = rand()%4;
-	float x, y;
+	float x = 0;
+	float y = 0;
 	switch (side){
 	case 0:		//left
 		//x = -GetRadius();
@@ -374,7 +375,6 @@ void Spider::Initialize(){
 	run_snd = NULL;
 	eat_snd = NULL;
 	hungry = true;
-	temporary_run = false;
 	if(game->IsSoundEnabled()){
 		run_snd = new Audio("Game/Spider/SpiderRun.wav", true, false);
 		eat_snd = new Audio("Game/Spider/SpiderEat.wav", false, false);

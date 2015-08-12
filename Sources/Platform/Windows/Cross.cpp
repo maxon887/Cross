@@ -44,13 +44,12 @@ RECT GetLocalCoordinates(HWND hWnd){
 
 void ShowLastError(){
 		DWORD error = GetLastError();
-		LPSTR str = 0;
-		FormatMessage(	FORMAT_MESSAGE_ALLOCATE_BUFFER |
-						FORMAT_MESSAGE_FROM_SYSTEM,
+		LPTSTR str;
+		FormatMessage(	FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
 						NULL,
 						error,
 						MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),                              // Default language
-						str,
+						(LPTSTR)&str,
 						0,
 						NULL );
 		MessageBox(NULL, str, "Error", MB_OK);

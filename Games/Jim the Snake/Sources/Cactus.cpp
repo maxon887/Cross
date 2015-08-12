@@ -36,6 +36,9 @@ void Cactus::Init(){
 	if(game->IsSoundEnabled()){
 		bith = new Audio("Game/CactusBirth.wav", false, false);
 		splash = new Audio("Game/CactusSplash.wav", false, false);
+	}else{
+		bith = NULL;
+		splash = NULL;
 	}
 }
 
@@ -129,7 +132,6 @@ void Cactus::Update(float sec){
 			state = OLD;
 		}
 		}break;
-		break;
 	case OLD:
 		if(life_time > oldTime){
 			state = HIDING;

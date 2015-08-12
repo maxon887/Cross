@@ -19,9 +19,10 @@
 
 using namespace cross;
 
-Image::Image(GLuint id, int texWidth, int texHeight, Rect region){
+Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
+	:region(region){
 	this->textureID = id;
-	this->region = region;
+ 	//this->region = region;
 	this->texWidth = texWidth;
 	this->texHeight = texHeight;
 	this->u1 = region.x / texWidth;
@@ -29,6 +30,7 @@ Image::Image(GLuint id, int texWidth, int texHeight, Rect region){
 	this->u2 = this->u1 + region.width / texWidth;
 	this->v2 = this->v1 + region.height / texHeight;
 	angle = 0;
+	memset(vertices, 0, sizeof(float) * 16);
 }
 
 void Image::Scale(float factor){

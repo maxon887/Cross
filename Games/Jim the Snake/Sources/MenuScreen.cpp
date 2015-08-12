@@ -78,7 +78,7 @@ void MenuScreen::Start(){
 	}
 	background_pos.y = game->GetHeight() / 2.f;
 	sun_pos.x = game->GetWidth();
-	sun_pos.y = game->GetHeight() / 5 * 4.2;
+	sun_pos.y = game->GetHeight() / 5.f * 4.2f;
 	jimthesnake_pos.x = game->GetWidth() / 2;
 	jimthesnake_pos.y = 120.f * scaleFactor / game->GetScaleFactor();
 	play_btn_pos.x = game->GetWidth() / 3 * 2;

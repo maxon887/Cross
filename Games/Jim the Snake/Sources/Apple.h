@@ -30,7 +30,6 @@ class Apple : public Eatable{
 public:
 	static void Init();
 	static void Release();
-	static int count;
 	Apple();
 	~Apple();
 	int Eat();

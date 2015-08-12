@@ -86,11 +86,11 @@ void GameScreen::Start(){
 	Cactus::Init();
 	snake = NULL;
 	music = NULL;
-	commercial = NULL;
-	game_over = NULL;
 	apple_drop = NULL;
 	btn_push = NULL;
 	btn_pull = NULL;
+	game_over = NULL;
+	commercial = NULL;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img				= graphics->LoadImage("Game/ReadyLabel.png");
@@ -179,7 +179,6 @@ void GameScreen::Update(float sec){
 		graphics->DrawImage(centerW, game->GetHeight() / 3, ready_img);
 		onready_time -= sec;
 		if(onready_time < 0 || input->HaveInput()){
-			//SetState(GameState::RUNNING);
 			state = GameState::RUNNING;
 		}
 		break;
@@ -253,10 +252,7 @@ GameState GameScreen::GetState(){
 
 void GameScreen::SetState(GameState newState){
 	switch (newState){
-	case GameState::ONREADY:/*
-		if(commercial && !game->IsPurchased()){
-			commercial->DownloadAd();
-		}*/
+	case GameState::ONREADY:
 		break;
 	case GameState::RUNNING:
 		music->Resume();
@@ -652,7 +648,7 @@ Point GameScreen::GetEmptyPosition(float radius){
 	Point position;
 	bool onCollision = true;
 	while(onCollision) {
-		onCollision = false;
+	//	onCollision = false;
 		int randX = (int)(right - left);
 		int randY = (int)(bottom - top);
 		position.x = (float)(rand() % randX) + left;

@@ -62,6 +62,10 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	*length = AAsset_getLength(asset);
 	*buffer = (unsigned char*)malloc(*length);
 	int read = AAsset_read(asset, *buffer, *length);
+	if(read <= 0){
+		string msg = "Can't load asset " + filename;
+		throw msg;
+	}
 	AAsset_close(asset);
 }
 
@@ -82,6 +86,7 @@ Commercial* LauncherAndroid::GetCommercial() {
 
 LauncherAndroid::~LauncherAndroid(){
 	delete commercial;
+	//env->DeleteGlobalRef(cross_activity);
 }
 
 

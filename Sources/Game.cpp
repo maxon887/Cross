@@ -108,7 +108,7 @@ void Game::Update(){
 		}
 		debuger->Display((float)rend);
 		debuger->SetUpdateTime((float)up);
-	}catch(string msg){
+	}catch(string& msg){
 		msg = "Exception: " + msg;
 		launcher->LogIt(msg);
 #ifdef WIN

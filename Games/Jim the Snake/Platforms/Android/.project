@@ -65,47 +65,47 @@
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/Base64.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/Base64.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/Base64.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/Base64DecoderException.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/Base64DecoderException.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/Base64DecoderException.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/IabException.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/IabException.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/IabException.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/IabHelper.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/IabHelper.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/IabHelper.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/IabResult.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/IabResult.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/IabResult.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/Inventory.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/Inventory.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/Inventory.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/Purchase.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/Purchase.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/Purchase.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/Security.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/Security.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/Security.java</locationURI>
 		</link>
 		<link>
 			<name>Cross/Platform/Android/com/mouse/billing/SkuDetails.java</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Sudoku/trunk/src/com/mouse/billing/SkuDetails.java</locationURI>
+			<locationURI>PARENT-5-PROJECT_LOC/LIBS/Billing/Android/SkuDetails.java</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>

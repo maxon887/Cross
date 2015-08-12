@@ -21,7 +21,6 @@
 Image*		Apple::fresh_img = NULL;
 Image*		Apple::rot_img = NULL;
 Image*		Apple::dead_img = NULL;
-int			Apple::count = 0;
 
 void Apple::Init(){
 	Apple::fresh_img = graphics->LoadImage("Game/AppleFresh.png");
@@ -39,11 +38,9 @@ Apple::Apple(){
 	this->angle = (float)(rand()%360);
 	life_time = 15;
 	state = AppleState::FRESH;
-	count++;
 }
 
 Apple::~Apple(){
-	count--;
 }
 
 int Apple::Eat(){

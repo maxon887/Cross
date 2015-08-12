@@ -81,7 +81,6 @@ private:
 	Point destanation;
 	vector<Collisioner*> radars;
 	Apple* eat_apple;
-	bool temporary_run;
 	bool think_turn_left;
 	float angle;
 	float head_angle;

@@ -115,6 +115,7 @@ Audio::Audio(string path, bool loop, bool isStream){
 
 Audio::Audio(Audio& obj){
 	original = false;
+	channel = obj.channel;
 	sound = obj.sound;
 }
 
