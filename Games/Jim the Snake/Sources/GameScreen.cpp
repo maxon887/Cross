@@ -227,12 +227,8 @@ void GameScreen::Update(float sec){
 			ad_timer -= sec;
 			if(ad_timer <= 0){
 				if(commercial){
-					if(score > 50 && !game->IsRated()){
-						commercial->RateIt();
-					}else{
-						if(ad_downloaded && !game->IsPurchased()){
-							commercial->ShowAd();
-						}
+					if(ad_downloaded && !game->IsPurchased()){
+						commercial->ShowAd();
 					}
 				}
 			}

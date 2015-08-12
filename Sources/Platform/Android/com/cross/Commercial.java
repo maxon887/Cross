@@ -19,9 +19,6 @@ public class Commercial {
 	public static final int EVENT_PURCHASE_COMPLITE = 2;
 	public static final int EVENT_PURCHASE_CANCELED = 3;
 	public static final int EVENT_PURCHASE_FAILED 	= 4;
-	public static final int EVENT_RATE_OK			= 5;
-	public static final int EVENT_RATE_NEVER		= 6;
-	public static final int EVENT_RATE_LATER		= 7;
 	
 	class CommAdListener extends AdListener{
 		@Override
@@ -124,38 +121,6 @@ public class Commercial {
 			@Override
 			public void run() {
 				mHelper.launchPurchaseFlow(mActivity, "ads", 69, mPurchaseFinishedListener, "Jim the Snake Billing");	
-			}
-		});
-	}
-	
-	public void RateIt(){
-		Log.d("Cross++", "Java RateIt");
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				new AlertDialog.Builder(mActivity)
-                .setTitle("Rate It")
-                .setMessage("If you like this app, please rate it")
-                .setPositiveButton("Rate", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    	mActivity.SendCommertialResult(EVENT_RATE_OK);
-                    	mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + mActivity.getPackageName())));
-                    }
-                })
-                .setNeutralButton("Later", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    	mActivity.SendCommertialResult(EVENT_RATE_LATER);
-                    }
-                })
-                .setNegativeButton("Never", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    	mActivity.SendCommertialResult(EVENT_RATE_NEVER);
-                    }
-                //}).create();
-                }).show();
 			}
 		});
 	}

@@ -28,7 +28,6 @@ public:
 	void DownloadAd();
 	void ShowAd();
 	void Purchase();
-	void RateIt();
 private:
 	JNIEnv* env;
 	jobject comm;

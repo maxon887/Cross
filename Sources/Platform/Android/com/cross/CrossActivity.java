@@ -32,6 +32,11 @@ public class CrossActivity extends Activity{
 		renderer.setPreserveEGLContextOnPause(true);
 		setContentView(renderer);
 		commercial = new Commercial(this);
+		//rate it
+		RateThisApp.Config config = new RateThisApp.Config(5, 5);
+		RateThisApp.init(config);
+	    RateThisApp.onStart(this);
+	    RateThisApp.showRateDialogIfNeeded(this);
 	}
 	
 	@Override
