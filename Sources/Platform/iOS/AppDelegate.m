@@ -17,6 +17,7 @@
 
 #import "AppDelegate.h"
 #import "CrossViewController.h"
+#import "iRate.h"
 
 @implementation AppDelegate{
     CrossViewController* viewController;
@@ -28,6 +29,8 @@
     viewController = (CrossViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CrossViewController"];
     self.window.rootViewController = viewController; 
     [self.window makeKeyAndVisible];
+    //[iRate sharedInstance].applicationBundleID = @"com.charcoaldesign.rainbowblocks-free";
+    //[iRate sharedInstance].previewMode = YES;
     return YES;
 }
 

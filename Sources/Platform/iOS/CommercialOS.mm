@@ -64,3 +64,13 @@ void CommercialOS::Purchase(){
     [iapHelper buy];
     //[conditionLock lockWhenCondition:1];
 }
+
+
+
+
+
+
+
+
+
+
