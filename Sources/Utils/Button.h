@@ -36,6 +36,11 @@ public:
 	float GetWidth();
 	float GetHeight();
 	bool IsPressed();
+	void SetPressed(bool pressed);
+	bool OnLocation(float x, float y);
+	bool OnLocation(Point p);
+	void DrawUp();
+	void DrawDown();
 	Rect GetRect();
 	Point GetCenter();
 	~Button();
@@ -49,7 +54,6 @@ protected:
 	Image* down;
 	Audio* push;
 	Audio* pull;
-	bool OnLocation(float x, float y);
 	void InitRect(Point loc, float width, float heiht);
 	Point* press_loc;
 	function<void()> callback;

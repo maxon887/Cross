@@ -27,15 +27,19 @@ namespace cross {
 class Commercial{
 public:
 	enum Event{
-		AD_LOADED,
-		AD_LOAD_FAILED,
-		PURCHASE_COMPLETE,
-		PURCHASE_CANCELED,
-		PURCHASE_FAILED
+		AD_LOADED			= 0,
+		AD_LOAD_FAILED		= 1,
+		PURCHASE_COMPLETE	= 2,
+		PURCHASE_CANCELED	= 3,
+		PURCHASE_FAILED		= 4,
+		RATE_OK				= 5,
+		RATE_NEVER			= 6,
+		RATE_LATE			= 7
 	};
 	virtual void DownloadAd() = 0;
 	virtual void ShowAd() = 0;
 	virtual void Purchase() = 0;
+	virtual void RateIt() = 0;
 	void RegisterCallback(function<void(Event&)> callback);
 	void CommercialResult(Event e);
 	virtual ~Commercial() {};

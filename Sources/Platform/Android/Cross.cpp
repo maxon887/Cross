@@ -79,7 +79,6 @@ extern "C"{
 		delete launcher;
 	}
 
-
 	void Java_com_cross_Cross_SetInputState(JNIEnv *env, jobject thiz, jboolean state){
 		game->input->input_state = state;
 	}

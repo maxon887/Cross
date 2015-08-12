@@ -46,3 +46,10 @@ void CommercialAndroid::Purchase(){
 	jmethodID methodID = env->GetMethodID(clazz, "Purchase", "()V");
 	env->CallVoidMethod(comm, methodID);
 }
+
+void CommercialAndroid::RateIt(){
+	LOGI("CommercialAndroid::RateIt");
+	jclass clazz = env->GetObjectClass(comm);
+	jmethodID methodID = env->GetMethodID(clazz, "RateIt", "()V");
+	env->CallVoidMethod(comm, methodID);
+}

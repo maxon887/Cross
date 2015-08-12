@@ -59,8 +59,8 @@ private:
 
 	Button* back_btn;
 	Point	back_pos;
-	Image*  check;
-	Image*  uncheck;
+	//Image*  check;
+	//Image*  uncheck;
 
 	Button* music_btn;
 	ToggleButton* music_chk;

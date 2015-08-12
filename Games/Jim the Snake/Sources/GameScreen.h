@@ -91,6 +91,7 @@ private:
 
 	int score;
 	bool is_best_score;
+	bool ad_downloaded;
 	float onready_time;
 	float ad_timer;
 	float centerW;

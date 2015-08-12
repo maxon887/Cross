@@ -20,4 +20,8 @@
 +22. Buttons sound
 +23. Тайминги на рекламу и смерть
 +24. Settings redesine
-25. Pointer on pause click
++25. Pointer on pause click
++26. Arrow buttons click
++27. Ads show condition
+28. Rate it dialog
++29. Memory leaks

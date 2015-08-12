@@ -26,6 +26,7 @@
 #define PROPERTY_SOUND 		"SOUND"
 #define PROPERTY_CONTROL	"CONTROL"
 #define PROPERTY_PURCHASED 	"PURCHASED"
+#define PROPERTY_RATED		"RATED"
 
 using namespace std::placeholders;
 
@@ -40,6 +41,7 @@ void JimTheSnake::Start(){
 	score = saver->LoadInt(PROPERTY_SCORE, 0);
 	control = (Control)saver->LoadInt(PROPERTY_CONTROL, NONE);
 	purchased = saver->LoadBool(PROPERTY_PURCHASED, false);
+	rated = saver->LoadBool(PROPERTY_RATED, false);
 	commercial = launcher->GetCommercial();
 	if(commercial != NULL){
 		commercial->RegisterCallback(bind(&JimTheSnake::CommercialCallback, this, _1));
@@ -60,6 +62,9 @@ bool JimTheSnake::IsSoundEnabled(){
 }
 int JimTheSnake::BestScore(){
 	return score;
+}
+bool JimTheSnake::IsRated(){
+	return rated;
 }
 
 Control JimTheSnake::GetControl(){
@@ -109,6 +114,12 @@ void JimTheSnake::CommercialCallback(Commercial::Event e){
 		break;
 	case Commercial::PURCHASE_FAILED:
 		launcher->LogIt("Purchase failed");
+		break;
+	case Commercial::RATE_OK: case Commercial::RATE_NEVER:
+		saver->SaveBool(PROPERTY_RATED, true);
+		rated = true;
+		break;
+	case Commercial::RATE_LATE:
 		break;
 	default:
 		break;

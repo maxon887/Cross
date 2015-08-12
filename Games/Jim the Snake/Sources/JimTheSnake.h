@@ -39,12 +39,12 @@ public:
 	Control GetControl();
 	bool IsPurchased();
 	int BestScore();
+	bool IsRated();
 	void SetMusicEnabled(bool enabled);
 	void SetSoundEnabled(bool enabled);
 	void SetControl(Control control);
 	void SetBestScore(int best);
 	Commercial* GetCommercial();
-	void CommercialCallback(Commercial::Event e);
 private:
 	Commercial* commercial;
 	bool music;
@@ -52,4 +52,6 @@ private:
 	Control control;
 	bool purchased;
 	int score;
+	bool rated;
+	void CommercialCallback(Commercial::Event e);
 };

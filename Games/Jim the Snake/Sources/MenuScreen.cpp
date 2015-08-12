@@ -41,8 +41,6 @@ void MenuScreen::Start(){
 	sun					= graphics->LoadImage("Menu/Sun.jpg");
 	bestscore			= graphics->LoadImage("Menu/BestScoreLabel.png", game->GetScaleFactor() * 1.2f);
 	jimthesnake			= graphics->LoadImage("Menu/JimTheSnakeLabel.png");
-	check				= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
-	uncheck				= graphics->LoadImage("Menu/Uncheck.png", game->GetScaleFactor() * 1.2f);
 	arrows_up			= graphics->LoadImage("Menu/ArrowsUp.png", game->GetScaleFactor() * 1.2f);
 	arrows_down			= graphics->LoadImage("Menu/ArrowsDown.png", game->GetScaleFactor() * 1.2f);
 	pointer_up			= graphics->LoadImage("Menu/PointerUp.png", game->GetScaleFactor() * 1.2f);
@@ -63,6 +61,10 @@ void MenuScreen::Start(){
 	Image* controlDown  = graphics->LoadImage("Menu/ControlDown.png", game->GetScaleFactor() * 1.2f);
 	Image* removeAdsUp	= graphics->LoadImage("Menu/RemoveAdsUp.png", game->GetScaleFactor() * 1.2f);
 	Image* removeAdsDown= graphics->LoadImage("Menu/RemoveAdsDown.png", game->GetScaleFactor() * 1.2f);
+	Image* check1		= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
+	Image* uncheck1		= graphics->LoadImage("Menu/Uncheck.png", game->GetScaleFactor() * 1.2f);
+	Image* check2		= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
+	Image* uncheck2		= graphics->LoadImage("Menu/Uncheck.png", game->GetScaleFactor() * 1.2f);
 	//positioning
 	float scaleFactor = 0;
 	float imageAspect = background->GetWidth() / 2 / background->GetHeight();
@@ -94,11 +96,11 @@ void MenuScreen::Start(){
 	float baseOffset = game->GetHeight() / 30.f;
 	music_pos.x = musicUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	music_pos.y = (game->GetHeight() / 8.f) * 1.f + baseOffset;
-	music_value_pos.x = game->GetWidth() - check->GetWidth() + game->GetWidth();
+	music_value_pos.x = game->GetWidth() - check1->GetWidth() + game->GetWidth();
 	music_value_pos.y = (game->GetHeight() / 8.f) * 1.f + baseOffset;
 	sounds_pos.x = soundsUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	sounds_pos.y = (game->GetHeight() / 8.f) * 2.f + baseOffset;
-	sounds_value_pos.x = game->GetWidth() - check->GetWidth() + game->GetWidth();
+	sounds_value_pos.x = game->GetWidth() - check1->GetWidth() + game->GetWidth();
 	sounds_value_pos.y = (game->GetHeight() / 8.f) * 2.f + baseOffset;
 	control_pos.x = controlUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	control_pos.y = (game->GetHeight() / 8.f) * 3.f + baseOffset;
@@ -124,11 +126,11 @@ void MenuScreen::Start(){
 	back_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
 	music_btn = new Button(game, musicUp, musicDown);
 	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
-	music_chk = new ToggleButton(game, check, uncheck);
+	music_chk = new ToggleButton(game, check1, uncheck1);
 	music_chk->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
 	sounds_btn = new Button(game, soundsUp, soundsDown);
 	sounds_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
-	sounds_chk = new ToggleButton(game, new Image(*check), new Image(*uncheck));
+	sounds_chk = new ToggleButton(game, check2, uncheck2);
 	sounds_chk->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
 	control_btn = new Button(game, controlUp, controlDown);
 	control_btn->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
@@ -426,9 +428,29 @@ void MenuScreen::SetupButtonSounds(Audio* btn_push, Audio* btn_pull){
 
 MenuScreen::~MenuScreen(){
 	graphics->ReleaseImage(sun);
+	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(bestscore);
 	graphics->ReleaseImage(jimthesnake);
+	//graphics->ReleaseImage(check);
+	//graphics->ReleaseImage(uncheck);
+	graphics->ReleaseImage(arrows_up);
+	graphics->ReleaseImage(arrows_down);
+	graphics->ReleaseImage(pointer_up);
+	graphics->ReleaseImage(pointer_down);
+	graphics->ReleaseImage(none_up);
+	graphics->ReleaseImage(none_down);
 	delete play_btn;
+	delete settings_btn;
+	delete back_btn;
+	delete music_btn;
+	delete music_chk;
+	delete sounds_btn;
+	delete sounds_chk;
+	delete control_btn;
+	delete control_chk;
+	delete remove_ads_btn;
 	delete menu_music;
+	delete btn_push;
+	delete btn_pull;
 	delete score_texter;
 }

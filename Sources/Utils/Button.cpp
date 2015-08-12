@@ -158,11 +158,22 @@ Point Button::GetCenter(){
 	return location;
 }
 
+bool Button::OnLocation(Point p){
+	return OnLocation(p.x, p.y);
+}
+
 bool Button::OnLocation(float x, float y){
 	return	x > area.x &&
 			x < (area.x + area.width) &&
 			y > area.y &&
 			y < (area.y + area.height);
+}
+
+void Button::DrawUp(){
+	graphics->DrawImage(location, up);
+}
+void Button::DrawDown(){
+	graphics->DrawImage(location, down);
 }
 
 void Button::InitRect(Point loc, float width, float heiht){
@@ -180,6 +191,10 @@ void Button::RegisterCallback(function<void()> callback){
 
 bool Button::IsPressed(){
 	return is_pressed;
+}
+
+void Button::SetPressed(bool pressed){
+	is_pressed = pressed;
 }
 
 Button::~Button(){

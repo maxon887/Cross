@@ -53,15 +53,23 @@ GameScreen::~GameScreen(){
 	graphics->ReleaseImage(control_facepointer);
 	graphics->ReleaseImage(pause_img);
 	graphics->ReleaseImage(ready_img);
+	graphics->ReleaseImage(best_img);
 
 	delete back_btn;
 	delete restart_btn;
 	delete menu_btn;
-	delete score_texter;
+	delete pause_btn;
+	delete left_btn;
+	delete right_btn;
 
 	delete music;
 	delete game_over;
 	delete apple_drop;
+	delete btn_push;
+	delete btn_pull;
+
+	delete score_texter;
+	delete score_texter_light;
 
 	Snake::Release();
 	Spider::Release();
@@ -177,7 +185,9 @@ void GameScreen::Update(float sec){
 		break;
 	case GameState::RUNNING:{
 		static bool down = false;
-		CalcInput(sec);
+		if(!pause_btn->IsPressed()){
+			CalcInput(sec);
+		}
 		DrawScore();
 		if(input->HaveKey()){
 			if(input->GetKey() == Key::BACK ||
@@ -216,8 +226,14 @@ void GameScreen::Update(float sec){
 		if(ad_timer > 0){
 			ad_timer -= sec;
 			if(ad_timer <= 0){
-				if(commercial && !game->IsPurchased()){
-					commercial->ShowAd();
+				if(commercial){
+					if(score > 50 && !game->IsRated()){
+						commercial->RateIt();
+					}else{
+						if(ad_downloaded && !game->IsPurchased()){
+							commercial->ShowAd();
+						}
+					}
 				}
 			}
 		}
@@ -241,10 +257,10 @@ GameState GameScreen::GetState(){
 
 void GameScreen::SetState(GameState newState){
 	switch (newState){
-	case GameState::ONREADY:
+	case GameState::ONREADY:/*
 		if(commercial && !game->IsPurchased()){
 			commercial->DownloadAd();
-		}
+		}*/
 		break;
 	case GameState::RUNNING:
 		music->Resume();
@@ -273,6 +289,10 @@ void GameScreen::SetState(GameState newState){
 
 void GameScreen::AddScore(int gain){
 	score += gain;
+	if(score > 10 && !ad_downloaded && commercial && !game->IsPurchased()){
+		commercial->DownloadAd();
+		ad_downloaded = true;
+	}
 }
 
 void GameScreen::StopMusic(){
@@ -282,6 +302,7 @@ void GameScreen::StopMusic(){
 //						PRIVATE METHODS	
 void GameScreen::Restart(){
 	is_best_score = false;
+	ad_downloaded = false;
 	score = 0;
 	onready_time = 4.3f;
 	ad_timer = 0.7f;
@@ -580,13 +601,22 @@ void GameScreen::CalcInput(float sec){
 		}
 	}
 	if(control == ARROWS){
-		right_btn->Update();
-		left_btn->Update();
-		if(left_btn->IsPressed()){
-			snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-		}
-		if(right_btn->IsPressed()){
-			snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+		if(input->HaveInput()){
+			if(left_btn->OnLocation(input->GetInput())){
+				snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
+				left_btn->DrawDown();
+			}else{
+				left_btn->DrawUp();
+			}
+			if(right_btn->OnLocation(input->GetInput())){
+				snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+				right_btn->DrawDown();
+			}else{
+				right_btn->DrawUp();
+			}
+		}else{
+			left_btn->DrawUp();
+			right_btn->DrawUp();
 		}
 	}
 }
