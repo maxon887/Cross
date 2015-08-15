@@ -26,3 +26,7 @@
 28. Rate it dialog
 +29. Memory leaks
 30. JvmEnv global referencies
+31. Landscape mode
+32. Arraws simultaneous press
+33. ADs loading optimization (iOS)
+34. Fly score.
