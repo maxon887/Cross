@@ -89,6 +89,8 @@ private:
 
 	Button* remove_ads_btn;
 	Point   remove_ads_pos;
+	Button* restore_btn;
+	Point	restore_pos;
 	Audio* menu_music;
 	bool transition;
 	float transitionLerp;
@@ -104,4 +106,5 @@ private:
 	void OnSettingsClick();
 	void OnControlClick();
 	void OnRemoveAdsClick();
+	void OnRestoreClick();
 };

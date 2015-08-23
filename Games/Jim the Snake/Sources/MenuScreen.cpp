@@ -61,6 +61,8 @@ void MenuScreen::Start(){
 	Image* controlDown  = graphics->LoadImage("Menu/ControlDown.png", game->GetScaleFactor() * 1.2f);
 	Image* removeAdsUp	= graphics->LoadImage("Menu/RemoveAdsUp.png", game->GetScaleFactor() * 1.2f);
 	Image* removeAdsDown= graphics->LoadImage("Menu/RemoveAdsDown.png", game->GetScaleFactor() * 1.2f);
+	Image* restoreUp	= graphics->LoadImage("Menu/RestorePurchaseUp.png", game->GetScaleFactor() * 1.2f);
+	Image* restoreDown  = graphics->LoadImage("Menu/RestorePurchaseDown.png", game->GetScaleFactor() * 1.2f);
 	Image* check1		= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
 	Image* uncheck1		= graphics->LoadImage("Menu/Uncheck.png", game->GetScaleFactor() * 1.2f);
 	Image* check2		= graphics->LoadImage("Menu/Check.png", game->GetScaleFactor() * 1.2f);
@@ -93,7 +95,7 @@ void MenuScreen::Start(){
 	back_pos.x = backUp->GetWidth() * 0.8f + game->GetWidth();
 	back_pos.y = game->GetHeight() - backUp->GetHeight() * 0.8f;
 
-	float baseOffset = game->GetHeight() / 30.f;
+	float baseOffset = 0;// game->GetHeight() / 50.f;
 	music_pos.x = musicUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	music_pos.y = (game->GetHeight() / 8.f) * 1.f + baseOffset;
 	music_value_pos.x = game->GetWidth() - check1->GetWidth() + game->GetWidth();
@@ -108,6 +110,8 @@ void MenuScreen::Start(){
 	control_value_pos.y = (game->GetHeight() / 8.f) * 3.75f + baseOffset;
 	remove_ads_pos.x = game->GetWidth() / 3.f + game->GetWidth();
 	remove_ads_pos.y = (game->GetHeight() / 8.f) * 5.f + baseOffset;
+	restore_pos.x = remove_ads_pos.x;
+	restore_pos.y = remove_ads_pos.y + restoreUp->GetHeight() / 2 + removeAdsUp->GetHeight() / 2 + 50;
 
 	//scaling
 	graphics->ScaleImage(background, scaleFactor);
@@ -138,6 +142,8 @@ void MenuScreen::Start(){
 	control_chk->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
 	remove_ads_btn = new Button(game, removeAdsUp, removeAdsDown);
 	remove_ads_btn->RegisterCallback(bind(&MenuScreen::OnRemoveAdsClick, this));
+	restore_btn = new Button(game, restoreUp, restoreDown);
+	restore_btn->RegisterCallback(bind(&MenuScreen::OnRestoreClick, this));
 	//misc
 	score_texter = new Texter(game, "NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
 	score = game->BestScore();
@@ -166,6 +172,7 @@ void MenuScreen::Update(float sec){
 	static Point bestTxPos			= best_tx_pos;
 	static Point controlPos			= control_pos;
 	static Point removeAdsPos		= remove_ads_pos;
+	static Point restorePos			= restore_pos;
 	static Point musicValuePos		= music_value_pos;
 	static Point soundsValuePos		= sounds_value_pos;
 	static Point controlValuePos	= control_value_pos;
@@ -180,6 +187,7 @@ void MenuScreen::Update(float sec){
 	music_chk->SetLocation(musicValuePos);
 	sounds_chk->SetLocation(soundsValuePos);
 	control_chk->SetLocation(controlValuePos);
+	restore_btn->SetLocation(restorePos);
 
 	graphics->DrawImage(backgroundPos, background);
 	graphics->DrawImage(jimthesnakePos, jimthesnake);
@@ -233,6 +241,7 @@ void MenuScreen::Update(float sec){
 			musicValuePos.x = Lerp(musicValuePos.x, music_value_pos.x - game->GetWidth(), transitionLerp);
 			soundsValuePos.x = Lerp(soundsValuePos.x, sounds_value_pos.x - game->GetWidth(), transitionLerp);
 			controlValuePos.x = Lerp(controlValuePos.x, control_value_pos.x - game->GetWidth(), transitionLerp);
+			restorePos.x = Lerp(restorePos.x, restore_pos.x - game->GetWidth(), transitionLerp);
 		}else{
 			sunPos.x = Lerp(sunPos.x, sun_pos.x, transitionLerp);
 			backgroundPos.x = Lerp(backgroundPos.x, background_pos.x, transitionLerp);
@@ -249,6 +258,7 @@ void MenuScreen::Update(float sec){
 			musicValuePos.x = Lerp(musicValuePos.x, music_value_pos.x, transitionLerp);
 			soundsValuePos.x = Lerp(soundsValuePos.x, sounds_value_pos.x, transitionLerp);
 			controlValuePos.x = Lerp(controlValuePos.x, control_value_pos.x, transitionLerp);
+			restorePos.x = Lerp(restorePos.x, restore_pos.x, transitionLerp);
 		}
 	}
 	//DrawDeadAreas();
@@ -266,6 +276,7 @@ void MenuScreen::Update(float sec){
 	control_btn->Update();
 	if(!game->IsPurchased()){
 		remove_ads_btn->Update();
+		restore_btn->Update();
 	}
 	music_chk->Update();
 	sounds_chk->Update();
@@ -399,6 +410,10 @@ void MenuScreen::OnRemoveAdsClick(){
 	if(comm != NULL){
 		comm->Purchase();
 	}
+}
+
+void MenuScreen::OnRestoreClick(){
+
 }
 
 void MenuScreen::DrawDeadAreas(){
