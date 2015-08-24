@@ -160,7 +160,7 @@ void GameScreen::Start(){
 
 void GameScreen::Update(float sec){
     if(sec > 0.1){
-        launcher->LogIt("Warning! Update time more than 1sec");
+        launcher->LogIt("Warning! Update time more than 0.1 sec");
         return;
     }
 	graphics->Clear(0.25, 0.25, 0);

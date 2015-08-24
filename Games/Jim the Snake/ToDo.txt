@@ -1,4 +1,4 @@
-+1. Cut of "GameOver" music
+﻿+1. Cut of "GameOver" music
 +2. Back sounds (spider)
 +3. Big nodes on pause
 +4. Spider circle run
@@ -30,4 +30,5 @@
 32. Arraws simultaneous press
 33. ADs loading optimization (iOS)
 34. Fly score.
+
 35. System freeze костыль

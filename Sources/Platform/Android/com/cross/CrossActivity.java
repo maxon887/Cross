@@ -14,7 +14,7 @@ import android.view.MotionEvent;
 
 public class CrossActivity extends Activity{
 	public static Cross cross;
-	public static Commercial commercial;
+	private static Commercial commercial;
 	public static AssetManager asset_manager;
 	private CrossRenderer renderer;
 	
@@ -29,9 +29,18 @@ public class CrossActivity extends Activity{
 		Log.d("Cross++", "Java onCreate");
 		super.onCreate(savedInstanceState);
 		renderer = new CrossRenderer(this);
-		renderer.setPreserveEGLContextOnPause(true);
+		try{
+			renderer.setPreserveEGLContextOnPause(true);
+		}catch(Throwable ex){
+			Log.d("Cross++", "Java setPreserveEGLContextOnPause exception");
+		}
 		setContentView(renderer);
-		commercial = new Commercial(this);
+		try{
+			commercial = new Commercial(this);
+		}catch(Throwable ex){
+			Log.d("Cross++", "Java can not create commercial");
+			commercial = null;
+		}
 		//rate it
 	    RateThisApp.onStart(this);
 	    RateThisApp.showRateDialogIfNeeded(this);
@@ -101,7 +110,9 @@ public class CrossActivity extends Activity{
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
 			cross.Init(width, height, dataPath, asset_manager, this);
-			cross.InitialCommercial(commercial);
+			if(commercial != null){
+				cross.InitialCommercial(commercial);
+			}
 			cross.Start();
 		}
 	}
