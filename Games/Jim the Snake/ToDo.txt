@@ -1,4 +1,4 @@
-﻿+1. Cut of "GameOver" music
++1. Cut of "GameOver" music
 +2. Back sounds (spider)
 +3. Big nodes on pause
 +4. Spider circle run
@@ -12,7 +12,7 @@
 +13. Spider sounds
 +14. Позиционирование
 +15. Пустые настройки
-17. Auto Die!!!
++17. Auto Die!!!
 +18. Яркий счет при смерти
 +19. Поуки под кактусами
 20. Assets map
@@ -23,10 +23,11 @@
 +25. Pointer on pause click
 +26. Arrow buttons click
 +27. Ads show condition
-28. Rate it dialog
++28. Rate it dialog
 +29. Memory leaks
 30. JvmEnv global referencies
 31. Landscape mode
 32. Arraws simultaneous press
 33. ADs loading optimization (iOS)
 34. Fly score.
+35. System freeze костыль

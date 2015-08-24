@@ -18,4 +18,5 @@ public:
     void DownloadAd();
     void ShowAd();
     void Purchase();
+    void Restore();
 };

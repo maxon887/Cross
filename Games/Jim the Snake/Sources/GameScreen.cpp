@@ -159,11 +159,11 @@ void GameScreen::Start(){
 }
 
 void GameScreen::Update(float sec){
+    if(sec > 0.1){
+        launcher->LogIt("Warning! Update time more than 1sec");
+        return;
+    }
 	graphics->Clear(0.25, 0.25, 0);
-	if(sec > 1){
-		launcher->LogIt("Warning! Update time more than 1sec");
-		return;
-	}
 	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
 	ProccessCollisions();
 	UpdateApples(sec);

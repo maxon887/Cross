@@ -62,7 +62,14 @@ void CommercialOS::Purchase(){
     crossView.BlockInput = YES;
     [indicator startAnimating];
     [iapHelper buy];
-    //[conditionLock lockWhenCondition:1];
+}
+
+void CommercialOS::Restore(){
+    CrossViewController* viewController = [CrossViewController getRootController];
+    CrossView* crossView = viewController.CrossV;
+    crossView.BlockInput = YES;
+    [indicator startAnimating];
+    [iapHelper restore];
 }
 
 

@@ -32,10 +32,12 @@ public:
 		PURCHASE_COMPLETE	= 2,
 		PURCHASE_CANCELED	= 3,
 		PURCHASE_FAILED		= 4
+        //PURCHASE_RESTORED   = 5
 	};
 	virtual void DownloadAd() = 0;
 	virtual void ShowAd() = 0;
 	virtual void Purchase() = 0;
+    virtual void Restore() = 0;
 	void RegisterCallback(function<void(Event&)> callback);
 	void CommercialResult(Event e);
 	virtual ~Commercial() {};

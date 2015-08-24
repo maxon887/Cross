@@ -46,6 +46,9 @@
     mCommercialResultHandler(EVENT_PURCHASE_FAILED);
 }
 
+- (void)restore{
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
 
 - (void)buy{
     [self requestProduct];
@@ -72,6 +75,10 @@
                 break;
         }
     };
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
+    mCommercialResultHandler(EVENT_PURCHASE_FAILED);
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {

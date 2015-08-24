@@ -14,11 +14,13 @@ typedef void (^CommercialResultHander)(int event);
 #define EVENT_PURCHASE_COMPLETE 2
 #define EVENT_PURCHASE_CANCELED 3
 #define EVENT_PURCHASE_FAILED   4
+//#define EVENT_PURCHASE_RESTORED 5
 
 
 @interface IAPHelper : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 - (id)initWithProductID:(NSString*)productID CommercialResultHander:(CommercialResultHander)handler;
+- (void)restore;
 - (void)buy;
 
 @end

@@ -413,7 +413,10 @@ void MenuScreen::OnRemoveAdsClick(){
 }
 
 void MenuScreen::OnRestoreClick(){
-
+    Commercial* comm = game->GetCommercial();
+    if(comm != NULL){
+        comm->Restore();
+    }
 }
 
 void MenuScreen::DrawDeadAreas(){
