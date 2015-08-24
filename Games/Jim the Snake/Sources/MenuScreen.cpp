@@ -94,8 +94,11 @@ void MenuScreen::Start(){
 	best_tx_pos.y = game->GetHeight() - offset - 55.f;
 	back_pos.x = backUp->GetWidth() * 0.8f + game->GetWidth();
 	back_pos.y = game->GetHeight() - backUp->GetHeight() * 0.8f;
-
-	float baseOffset = 0;// game->GetHeight() / 50.f;
+#ifdef IOS
+	float baseOffset = 0;// game->GetHeight() / 30.f;
+#else
+	float baseOffset = game->GetWidth() / 30.f;
+#endif
 	music_pos.x = musicUp->GetWidth() / 2.f + 60.f + game->GetWidth();
 	music_pos.y = (game->GetHeight() / 8.f) * 1.f + baseOffset;
 	music_value_pos.x = game->GetWidth() - check1->GetWidth() + game->GetWidth();
@@ -276,7 +279,9 @@ void MenuScreen::Update(float sec){
 	control_btn->Update();
 	if(!game->IsPurchased()){
 		remove_ads_btn->Update();
+#ifdef IOS
 		restore_btn->Update();
+#endif
 	}
 	music_chk->Update();
 	sounds_chk->Update();
@@ -449,8 +454,6 @@ MenuScreen::~MenuScreen(){
 	graphics->ReleaseImage(background);
 	graphics->ReleaseImage(bestscore);
 	graphics->ReleaseImage(jimthesnake);
-	//graphics->ReleaseImage(check);
-	//graphics->ReleaseImage(uncheck);
 	graphics->ReleaseImage(arrows_up);
 	graphics->ReleaseImage(arrows_down);
 	graphics->ReleaseImage(pointer_up);
@@ -467,6 +470,7 @@ MenuScreen::~MenuScreen(){
 	delete control_btn;
 	delete control_chk;
 	delete remove_ads_btn;
+	delete restore_btn;
 	delete menu_music;
 	delete btn_push;
 	delete btn_pull;
