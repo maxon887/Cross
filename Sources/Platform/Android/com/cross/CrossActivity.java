@@ -13,9 +13,9 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 public class CrossActivity extends Activity{
-	public static Cross cross;
+	private static Cross cross;
 	private static Commercial commercial;
-	public static AssetManager asset_manager;
+	private static AssetManager asset_manager;
 	private CrossRenderer renderer;
 	
 	static{
