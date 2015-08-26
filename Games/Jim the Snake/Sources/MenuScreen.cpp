@@ -81,16 +81,16 @@ void MenuScreen::Start(){
 	background_pos.y = game->GetHeight() / 2.f;
 	sun_pos.x = game->GetWidth();
 	sun_pos.y = game->GetHeight() / 5.f * 4.2f;
-	jimthesnake_pos.x = game->GetWidth() / 2;
+	jimthesnake_pos.x = game->GetWidth() / 2.f;
 	jimthesnake_pos.y = 120.f * scaleFactor / game->GetScaleFactor();
-	play_btn_pos.x = game->GetWidth() / 3 * 2;
-	play_btn_pos.y = game->GetHeight() / 3 * 2;
+	play_btn_pos.x = game->GetWidth() / 3.f * 2.f;
+	play_btn_pos.y = game->GetHeight() / 3.f * 2.f;
 	settings_pos.x = game->GetWidth() - settingsUp->GetWidth() * 0.8f;
 	settings_pos.y = game->GetHeight() - settingsUp->GetHeight() * 0.8f;
-	float offset = bestscore->GetHeight() / 2;
-	best_lb_pos.x = bestscore->GetWidth() / 2 + 30.f;
+	float offset = bestscore->GetHeight() / 2.f;
+	best_lb_pos.x = bestscore->GetWidth() / 2.f + 30.f;
 	best_lb_pos.y = game->GetHeight() - offset - 20.f;
-	best_tx_pos.x = bestscore->GetWidth() / 2 + 170.f + 30.f;
+	best_tx_pos.x = bestscore->GetWidth() / 2.f + 170.f + 30.f;
 	best_tx_pos.y = game->GetHeight() - offset - 55.f;
 	back_pos.x = backUp->GetWidth() * 0.8f + game->GetWidth();
 	back_pos.y = game->GetHeight() - backUp->GetHeight() * 0.8f;
@@ -114,7 +114,7 @@ void MenuScreen::Start(){
 	remove_ads_pos.x = game->GetWidth() / 3.f + game->GetWidth();
 	remove_ads_pos.y = (game->GetHeight() / 8.f) * 5.f + baseOffset;
 	restore_pos.x = remove_ads_pos.x;
-	restore_pos.y = remove_ads_pos.y + restoreUp->GetHeight() / 2 + removeAdsUp->GetHeight() / 2 + 50;
+	restore_pos.y = remove_ads_pos.y + restoreUp->GetHeight() / 2.f + removeAdsUp->GetHeight() / 2.f + 50.f;
 
 	//scaling
 	graphics->ScaleImage(background, scaleFactor);
@@ -319,7 +319,6 @@ void MenuScreen::UpdateSun(float sec, Point sun_pos){
 
 	if(input->HaveInput() && startAngle == 0){
 		if(onLeft){
-			//for(unsigned int i = 0; i < dead_areas_left.size(); i++){
 			for(Rect dead : dead_areas_left){
 				if(PointInRect(input->GetInput(), dead)){
 					touchInDeadArea = true;

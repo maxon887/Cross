@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+
 import com.mouse.billing.IabHelper;
 import com.mouse.billing.IabResult;
 import com.mouse.billing.Purchase;
@@ -71,25 +72,8 @@ public class Commercial {
 	
 	private static final String app_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhTuPsyyBtQp9MYyE9t3Zn/yy6dt3DE4hghFq85s0lEtl8v7jWDbCZ4yW8ZAStxf9DMbDl2vatRPYaEbUz9eAhDKLt4RScRd99AWwYee9+sackXg29XUunyNBTWXj6POfYHLChIJoRGLem3Fp8kVV8w21PokdgynfAi6Dr7/nPlYbxzu03eYU4CmXY4p+FWTuf2XX5HY5HJMsfiqb59J5TTi+PxwsSteL7hmvtSamWkzV0B2mI11PHiistD6u0Tp5Qn+D22DIoWlNNZlh77BijlXvp9rzH1U8f56jN19GauCpYB4v6jesJaq4Qb+PCiP1cg6V6eLVGxkVfuKa0JND5wIDAQAB";
 	private static IabHelper mHelper;
-	/*
-	IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener 
-	   = new IabHelper.OnIabPurchaseFinishedListener() {
-	   public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-	      if (!result.isFailure()) {
-	    	  mActivity.SendCommertialResult(EVENT_PURCHASE_COMPLITE);
-	      }else{
-	         if(result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED){
-	        	 mActivity.SendCommertialResult(EVENT_PURCHASE_COMPLITE);
-	         }else {
-	        	 Log.d("Cross++", "Can't purchase product: " + result);
-	        	 mActivity.SendCommertialResult(EVENT_PURCHASE_FAILED);
-	         }
-	      }
-	   }
-	};*/
-	
-	public static CrossActivity mActivity;
-	public static InterstitialAd mAd;
+	private static CrossActivity mActivity;
+	private static InterstitialAd mAd;
 	
 	public Commercial(CrossActivity activity) {
 		mActivity = activity;

@@ -27,6 +27,7 @@ LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Platform/Android/LauncherAndroid.cpp \
 					../../../../../Sources/Platform/Android/Cross.cpp \
+					../../../../../Sources/Platform/Android/CommercialAndroid.cpp \
 					../../../Sources/Demo.cpp \
 					../../../Sources/MainScreen.cpp \
 					../../../Sources/SecondScreen.cpp \
@@ -45,6 +46,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Utils/Button.cpp \
 					../../../../../Sources/Utils/Animation.cpp \
 					../../../../../Sources/Utils/ToggleButton.cpp \
+					../../../../../Sources/Utils/Commercial.cpp \
 					../../../../../Sources/SOIL/SOIL.c \
 					../../../../../Sources/SOIL/image_helper.c \
 					../../../../../Sources/SOIL/stb_image_aug.c 
