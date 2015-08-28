@@ -148,7 +148,7 @@ void MenuScreen::Start(){
 	restore_btn = new Button(game, restoreUp, restoreDown);
 	restore_btn->RegisterCallback(bind(&MenuScreen::OnRestoreClick, this));
 	//misc
-	score_texter = new Texter(game, "NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
+	score_texter = new Texter(game, "Menu/NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
 	score = game->BestScore();
 	sounds_chk->SetState(game->IsSoundEnabled());
 	music_chk->SetState(game->IsMusicEnabled());
