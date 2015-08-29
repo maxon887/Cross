@@ -70,7 +70,7 @@ void Debuger::Display(float micro){
 		render_sum += micro;
 		render_counter++;
 	}
-	if(!true){
+	if(true){
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");

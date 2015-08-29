@@ -17,21 +17,13 @@
 	
 #pragma once
 
-namespace cross {
+#include "Game.h"
 
-class Color{
+using namespace cross;
+
+class SliceThemOut : public Game{
 public:
-	static const Color Red;
-	static const Color Green;
-	static const Color Blue;
-	static const Color White;
-	static const Color Black;
-	static const Color Yellow;
-	static const Color Purple;
-
-	float R,G,B;
-	Color(float r, float g, float b);
-	Color(int r, int g, int b);
+	SliceThemOut(Launcher* launcher);
+	Screen* GetStartScreen();
+private:
 };
-    
-}

@@ -27,7 +27,13 @@ enum class Key{
 	UNDEFINED 	= 0,
 	PAUSE		= 1,
 	BACK		= 2,
-	OPTIONS		= 3
+	OPTIONS		= 3,
+	UP			= 4,
+	DOWN		= 5,
+	RIGHT       = 6,
+	LEFT        = 7,
+	ENTER       = 8,
+	SPACE		= 9
 };
 
 /*	Class responsible for user input. 

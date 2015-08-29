@@ -76,7 +76,7 @@ void MainScreen::Start(){
 
 void MainScreen::Update(float sec){
 	graphics->Clear(0, 0.15f, 0.15f);
-
+	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 	Point pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 3 - 120;

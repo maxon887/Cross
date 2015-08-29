@@ -15,23 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "SliceThemOut.h"
+#include "GameScreen.h"
 
-namespace cross {
+SliceThemOut::SliceThemOut(Launcher* launcher):Game(launcher, 900){}
 
-class Color{
-public:
-	static const Color Red;
-	static const Color Green;
-	static const Color Blue;
-	static const Color White;
-	static const Color Black;
-	static const Color Yellow;
-	static const Color Purple;
-
-	float R,G,B;
-	Color(float r, float g, float b);
-	Color(int r, int g, int b);
-};
-    
+Screen* SliceThemOut::GetStartScreen(){
+	return new GameScreen(this);
 }

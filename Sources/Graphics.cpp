@@ -31,7 +31,7 @@
 using namespace cross;
 
 #define BYTES_PER_CHANNEL 4
-//#define PRIMITIVE_ENABLED
+#define PRIMITIVE_ENABLED
 
 Graphics::Graphics(Game* game){
 	this->game = game;
@@ -40,7 +40,7 @@ Graphics::Graphics(Game* game){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrthof(0, launcher->GetTargetWidth(), launcher->GetTargetHeight(), 0, 1, -1);
-
+	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -326,7 +326,7 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	}
 	glEnable(GL_TEXTURE_2D);
 	
-	glMatrixMode(GL_MODELVIEW);
+	//glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(x, y, 0);
 	

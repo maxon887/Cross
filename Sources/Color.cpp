@@ -33,3 +33,9 @@ Color::Color(float r, float g, float b){
 	this->G = g;
 	this->B = b;
 }
+
+Color::Color(int r, int g, int b){
+	this->R = r/255.f;
+	this->G = g/255.f;
+	this->B = b/255.f;
+}

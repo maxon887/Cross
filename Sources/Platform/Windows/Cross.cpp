@@ -80,6 +80,22 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		switch(wParam){
 		case VK_ESCAPE:
 			input->key_key = Key::PAUSE;
+			break;
+		case VK_UP:
+			input->key_key = Key::UP;
+			break;
+		case VK_DOWN:
+			input->key_key = Key::DOWN;
+			break;
+		case VK_LEFT:
+			input->key_key = Key::LEFT;
+			break;
+		case VK_RIGHT:
+			input->key_key = Key::RIGHT;
+			break;
+		case VK_SPACE:
+			input->key_key = Key::SPACE;
+			break;
 		default:
 			break;
 		}

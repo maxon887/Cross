@@ -238,6 +238,7 @@ void GameScreen::Update(float sec){
 	default:
 		break;
 	}
+	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 }
 
 void GameScreen::Suspend(){
