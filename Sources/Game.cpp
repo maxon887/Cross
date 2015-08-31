@@ -27,17 +27,19 @@ using namespace cross;
 using namespace chrono;
 
 Game::Game(Launcher* launcher, float width){
-	this->launcher = launcher;
-	this->input = new Input(this);
-	this->saver = new Saver(this);
-	this->graphics = NULL;
-	this->current_screen = NULL;
+	Init(launcher);
 	this->width = width;
-	this->debuger = NULL;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
 	scale_factor = (float)launcher->GetTargetWidth() / width;
 	launcher->LogIt("Game initialized");
+}
+
+Game::Game(Launcher* launcher, float width, float height){
+	Init(launcher);
+	this->width = width;
+	this->height = height;
+	scale_factor = (float)launcher->GetTargetWidth() / width;
 }
 
 float Game::GetScaleFactor(){
@@ -121,6 +123,15 @@ void Game::Update(){
 
 void Game::Exit(){
 	exit(0);
+}
+
+void Game::Init(Launcher* launcher){
+	this->launcher = launcher;
+	this->input = new Input(this);
+	this->saver = new Saver(this);
+	this->graphics = NULL;
+	this->current_screen = NULL;
+	this->debuger = NULL;
 }
 
 Game::~Game(){

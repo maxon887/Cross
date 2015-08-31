@@ -21,12 +21,12 @@
 #include <time.h>
 #include <math.h>
 
-#define VW 800 //Screen Width
-#define VH 600 //Screen Height
+//#define VW 800 //Screen Width
+//#define VH 600 //Screen Height
 #define OFFX 150 //Offset x
 #define OFFY 100 //Offset y
-#define RW 1200 //Room Width
-#define RH 800 //Room Height
+//#define RW 1200 //Room Width
+//#define RH 800 //Room Height
 #define PN 0 //This is the id of the playable character playerx[PN] is the x coordinate of the player you control
 
 GameScreen::GameScreen(Game* game):Screen(game),
@@ -50,48 +50,35 @@ GameScreen::GameScreen(Game* game):Screen(game),
 }
 
 void GameScreen::Start(){
-	    x_img = graphics->LoadImage("X256.png");
 }
 
 void GameScreen::Update(float sec){
 	graphics->Clear(.25f, .25f, .25f);
-	if (playerhp[PN]<=0)
-	{
+	if (playerhp[PN]<=0){
 		deathtimer++;
-		if (deathtimer>120)
-		{
+		if (deathtimer>120){
 			//restartgame();
 		}
-	}
-	else
-	{
+	}else{
 		deathtimer=0;
 	}
 	//gfx.vx=max(0,min(RW-VW,gfx.vx));
 	//gfx.vy=max(0,min(RH-VH,gfx.vy));
-	if (!pause)
-	{
-		for(int xx=0;xx<playernumber;xx++)
-		{
-			if (playerhp[xx]>0)
-			{
+	if (!pause){
+		for(int xx=0;xx<playernumber;xx++){
+			if (playerhp[xx]>0){
 				//updateplayer(xx);
 			}
 		}
 	}
-	if (!(input->HaveKey() && input->GetKey() == Key::ENTER))//kbd.EnterIsPressed())
-	{
+	if (!(input->HaveKey() && input->GetKey() == Key::ENTER)){//kbd.EnterIsPressed())
 		enterpressed=false;
 	}
-	if ((input->HaveKey() && input->GetKey() == Key::ENTER) && enterpressed==false)
-	{
+	if ((input->HaveKey() && input->GetKey() == Key::ENTER) && enterpressed==false){
 		enterpressed=true;
-		if (!pause)
-		{
+		if (!pause){
 			pause=true;
-		}
-		else
-		{
+		}else{
 			pause=false;
 		}
 	}
@@ -113,7 +100,7 @@ void GameScreen::Update(float sec){
 	{
 		spawntimer=0;
 	}
-
+	/*
 	if (checkdead==0 && spawntimer>120)
 	{
 		playernumber=1;
@@ -123,10 +110,10 @@ void GameScreen::Update(float sec){
 			backr=random(255);
 			backg=random(255);
 			backb=random(255);
-			//createplayer(random(RW - 24),random(RH - 24),100);
+			createplayer(random(RW - 24),random(RH - 24),100);
 		}
 		pNum+=2;
-	}
+	}*/
 }
 
 int GameScreen::random(int number)
@@ -162,17 +149,22 @@ void GameScreen::ComposeFrame()
 
 	}
 	
-	for(int xx=0;xx<RH;xx+=48)
+	for(int xx=0;xx<game->GetHeight();xx+=48)
 	{
 		//gfx.DrawRect(0,xx,RW,xx+48,(int)(((float)xx/(float)RH)*realbackr),realbackg,(int)(((float)xx/(float)RH)*realbackb),false);
-		graphics->DrawRect(Rect(0, xx, RW, xx+48), Color((int)(((float)xx/(float)RH)*realbackr),realbackg,(int)(((float)xx/(float)RH)*realbackb)));
-		for(int xy=0;xy<RW;xy+=48)
+		Color c((int)((xx/game->GetHeight())*realbackr),realbackg,(int)((xx/game->GetHeight())*realbackb));
+		Rect r(0, xx, game->GetWidth(), xx+48);
+		graphics->DrawRect(r, c, true);
+		for(int xy=0;xy<game->GetWidth();xy+=48)
 		{
 			//gfx.DrawRect(xy,xx,xy+24,xx+24,255-realbackr,255-realbackg,abs((int)(((float)xx/(float)RH)*255)-realbackb),false);
-			graphics->DrawRect(Rect(xy, xx, 24, 24), Color(255-realbackr,255-realbackg,abs((int)(((float)xx/(float)RH)*255)-realbackb)));
+			Color c(255-realbackr,255-realbackg,abs((int)((xx/game->GetHeight())*255)-realbackb));
+			graphics->DrawRect(Rect(xy, xx, 24, 24), c, true);
 		}
 	}
-	//graphics->DrawRect(Rect(0, 0, 24, 24), Color::Red);
+
+	//graphics->DrawRect(Rect(0, 0, 24, 24), Color::Red, true);
+
 	for( int xx=0;xx<playernumber;xx++)
 	{
 		if (playerhp[xx]>0)

@@ -38,6 +38,7 @@ public:
 	   Don't mess with target width.
 	   Game height will be set automatically depend on screen aspect ratio. */
 	Game(Launcher* launcher, float width);
+	Game(Launcher* launcher, float width, float height);
 	// Cause when game is about to start
 	virtual void Start();
 	// Cause when game needs to be paused. For example input call or window lost focus
@@ -69,6 +70,7 @@ protected:
 private:
 	Screen* current_screen;
     chrono::time_point<chrono::high_resolution_clock> render_time;
+	void Init(Launcher* launch);
 };
     
 }

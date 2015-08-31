@@ -16,12 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "LauncherWIN.h"
-//#include "vld.h"
+#include "vld.h"
 
 using namespace cross;
 
-bool DirectoryExists(LPCTSTR szPath)
-{
+bool DirectoryExists(LPCTSTR szPath){
   DWORD dwAttrib = GetFileAttributes(szPath);
 
   return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
@@ -35,6 +34,7 @@ void IntSleep(int milis){
 LauncherWIN::LauncherWIN(HWND wnd){
 	this->wnd = wnd;
 	Audio::Init(this);
+	landscape = false;
 }
 
 LauncherWIN::~LauncherWIN(){
@@ -42,11 +42,19 @@ LauncherWIN::~LauncherWIN(){
 }
 
 int LauncherWIN::GetTargetWidth(){
-	return TARGET_WIDTH;
+	if(landscape){
+		return TARGET_HEIGHT;
+	}else{
+		return TARGET_WIDTH;
+	}
 }
 
 int LauncherWIN::GetTargetHeight(){
-	return TARGET_HEIGHT;
+	if(landscape){
+		return TARGET_WIDTH;
+	}else{
+		return TARGET_HEIGHT;
+	}
 }
 
 string LauncherWIN::AssetsPath(){
@@ -78,4 +86,8 @@ void LauncherWIN::Sleep(float milis){
 
 void LauncherWIN::ShowMessage(string msg){
 	MessageBox(wnd, msg.c_str(), "Exception", MB_OK);
+}
+
+void LauncherWIN::LandscapeMode(bool land){
+	landscape = land;
 }

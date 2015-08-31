@@ -44,8 +44,10 @@ public:
 	void LogIt(string msg);
 	void Sleep(float milis);
 	void ShowMessage(string msg);
+	void LandscapeMode(bool land);
 private:
 	HWND wnd;
+	bool landscape;
 };
 
 }

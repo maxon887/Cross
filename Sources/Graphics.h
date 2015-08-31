@@ -62,7 +62,7 @@ public:
 	void DrawCircle(Point center, float radius, Color c);
 	void DrawCircle(Point center, float radius, float r, float g, float b);
 	void DrawRect(Rect rect, Color c);
-	void DrawRect(Rect rect, float r, float g, float b);
+	void DrawRect(Rect rect, Color c, bool filled);
 	/* Draws Image in game coordinates */
 	void DrawImage(float x, float y, Image* img);
 	/* Draws Image in game coordinates */

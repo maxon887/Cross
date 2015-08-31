@@ -18,7 +18,7 @@
 #include "SliceThemOut.h"
 #include "GameScreen.h"
 
-SliceThemOut::SliceThemOut(Launcher* launcher):Game(launcher, 900){}
+SliceThemOut::SliceThemOut(Launcher* launcher):Game(launcher, 1600, 1600){}
 
 Screen* SliceThemOut::GetStartScreen(){
 	return new GameScreen(this);

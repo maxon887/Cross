@@ -41,7 +41,6 @@ public:
 	int random( int number);
 	int thru(int nn1, int nn2);
 private:
-		Image* x_img;
 	int pNum;
 	int deathtimer;
 	int turn;

@@ -293,14 +293,52 @@ void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
 }
 
 void Graphics::DrawRect(Rect rect, Color c){
-	DrawRect(rect, c.R, c.G, c.B);
+	DrawRect(rect, c, false);
 }
 
-void Graphics::DrawRect(Rect rect, float r, float g, float b){
-	DrawLine(Point(rect.x, rect.y), Point(rect.x, rect.y + rect.height), r, g, b);
-	DrawLine(Point(rect.x, rect.y), Point(rect.x + rect.width, rect.y), r, g, b);
-	DrawLine(Point(rect.x, rect.y + rect.height), Point(rect.x + rect.width, rect.y + rect.height), r, g, b);
-	DrawLine(Point(rect.x + rect.width, rect.y), Point(rect.x + rect.width, rect.y + rect.height), r, g, b);
+void Graphics::DrawRect(Rect rect, Color c, bool filled){
+	if(!filled){
+		DrawLine(Point(rect.x, rect.y), Point(rect.x, rect.y + rect.height), c);
+		DrawLine(Point(rect.x, rect.y), Point(rect.x + rect.width, rect.y), c);
+		DrawLine(Point(rect.x, rect.y + rect.height), Point(rect.x + rect.width, rect.y + rect.height), c);
+		DrawLine(Point(rect.x + rect.width, rect.y), Point(rect.x + rect.width, rect.y + rect.height), c);
+	}else{
+		
+		rect.x *= game->GetScaleFactor();
+		rect.y *= game->GetScaleFactor();
+		rect.width *= game->GetScaleFactor();
+		rect.height *= game->GetScaleFactor();
+
+		glLoadIdentity();
+		glTranslatef(rect.x, rect.y, 0);
+	
+		glEnableClientState(GL_VERTEX_ARRAY);
+		float vertices[8];
+
+		vertices[0] = 0;
+		vertices[1] = rect.height;
+		
+		vertices[2] = rect.width;
+		vertices[3] = rect.height;
+		
+		vertices[4] = rect.width;
+		vertices[5] = 0;
+		
+		vertices[6] = 0;
+		vertices[7] = 0; 
+		glVertexPointer(2, GL_FLOAT, 8, vertices);
+
+		float colors[] = { c.R, c.G, c.B, 1, c.R, c.G, c.B, 1, c.R, c.G, c.B, 1, c.R, c.G, c.B, 1 };
+
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_FLOAT, 0, colors);
+
+		static const short indices[] = { 0, 1, 2, 0, 2, 3 };
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+		glDisable(GL_TEXTURE_2D);
+		glTranslatef(-rect.x, -rect.y, 0);
+		glLoadIdentity();
+	}
 }
 
 void Graphics::DrawImage(float x, float y, Image* img){
@@ -319,10 +357,8 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 	if(img == NULL)
 		throw string("Attempt to draw NULL image");
 	if(prev_texID != img->GetTextureID()){
-		//glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
 		prev_texID = img->GetTextureID();
-		//glDisable(GL_TEXTURE_2D);
 	}
 	glEnable(GL_TEXTURE_2D);
 	

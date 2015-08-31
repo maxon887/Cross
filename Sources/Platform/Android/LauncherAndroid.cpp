@@ -86,7 +86,6 @@ Commercial* LauncherAndroid::GetCommercial() {
 
 LauncherAndroid::~LauncherAndroid(){
 	delete commercial;
-	//env->DeleteGlobalRef(cross_activity);
 }
 
 
