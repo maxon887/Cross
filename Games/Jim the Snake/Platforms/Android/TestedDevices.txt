@@ -1,0 +1,5 @@
+1.Samsung Galaxy Mini s4 (GT-l9190) 4.3.1 (API 18)
+2.LenovoA3300-HV 4.4.2 (API 19)
+3.LG Optimus L9 (LG-P760) 4.3.1 (API 18)
+4.HTC Wildfire S (A510e) 2.3.3 (API 10)
+5.Emulator (API 21)
