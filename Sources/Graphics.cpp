@@ -31,7 +31,7 @@
 using namespace cross;
 
 #define BYTES_PER_CHANNEL 4
-#define PRIMITIVE_ENABLED
+//#define PRIMITIVE_ENABLED
 
 Graphics::Graphics(Game* game){
 	this->game = game;

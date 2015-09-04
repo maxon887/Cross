@@ -17,7 +17,7 @@ package com.cross;
 
 import java.util.Date;
 
-import com.cross.jimthesnake.R;
+import com.cross.jim.R;
 
 import android.app.AlertDialog;
 import android.content.Context;
