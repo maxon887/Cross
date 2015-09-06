@@ -22,8 +22,6 @@
 
 namespace cross{
 
-#define CROSSDEBUG
-
 class Debuger{
 public:
 	static void StartCheckTime();
@@ -34,7 +32,10 @@ public:
 
 	void Display(float sec);
 	void SetUpdateTime(float sec);
+	void EnableScreenDebug();
+	void EnableConsoleDebug();
 private:
+	Game* game;
 	Texter* texter;
 	Input* input;
 
@@ -48,6 +49,9 @@ private:
 
 	float time;
 	float next_display;
+
+	bool screen_debug;
+	bool console_debug;
 };
     
 }

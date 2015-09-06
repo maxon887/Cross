@@ -23,7 +23,6 @@ using namespace cross;
 using namespace chrono;
 
 static Launcher* launcher = NULL;
-
 static vector<time_point<high_resolution_clock>> times;
 
 void Debuger::StartCheckTime(){
@@ -43,9 +42,10 @@ void Debuger::StopCheckTime(string label){
 }
 
 Debuger::Debuger(Game* game){
+	this->game = game;
 	launcher = game->launcher;
 	input = game->input;
-	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+	texter = NULL;
 	update_time = 0;
 	update_sum = 0;
 	update_counter = 0;
@@ -53,6 +53,8 @@ Debuger::Debuger(Game* game){
 	render_sum = 0;
 	render_counter = 0;
 	time = 0;
+	screen_debug = false;
+	console_debug = false;
 	next_display = 3000000.f;
 }
 
@@ -61,25 +63,27 @@ Debuger::~Debuger(){
 }
 
 void Debuger::Display(float micro){
-	time += micro / 1000000.0f;
-	if(render_counter == 20){
-		render_counter = 0;
-		render_time = render_sum / 20.0f / 1000.0f;
-		render_sum = 0;
-	} else {
-		render_sum += micro;
-		render_counter++;
+	if(screen_debug || console_debug){
+		time += micro / 1000000.0f;
+		if(render_counter == 20){
+			render_counter = 0;
+			render_time = render_sum / 20.0f / 1000.0f;
+			render_sum = 0;
+		}else{
+			render_sum += micro;
+			render_counter++;
+		}
 	}
-	if(false){
+	if(screen_debug){
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
-		} else {
+		}else{
 			texter->DrawText(0, texter->GetHeight(), "Update Time: " + to_string(update_time) + "ms");
 		}
 		if(render_time == 0){
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: Infinitive");
-		} else {
+		}else{
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
 		}
 		if(input->HaveInput()){
@@ -90,7 +94,7 @@ void Debuger::Display(float micro){
 		}
 		texter->DrawText(0, texter->GetHeight() * 4, "Run time: " + to_string(time));
 	}
-	if(false){
+	if(console_debug){
 		if(next_display < 0){
 			string msg = "";
 			msg += "Render Time: " + to_string(render_time) + "ms\n";
@@ -105,15 +109,29 @@ void Debuger::Display(float micro){
 	}
 }
 
+void Debuger::EnableScreenDebug(){
+	if(texter == NULL){
+		texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+	}else{
+		launcher->LogIt("Warning!Screen debug already anabled");
+	}
+	screen_debug = true;
+}
+
+void Debuger::EnableConsoleDebug(){
+	console_debug = true;
+}
 
 void Debuger::SetUpdateTime(float micro) {
-	if(update_counter == 20){
-		update_counter = 0;
-		update_time = update_sum / 20.0f / 1000.0f;
-		update_sum = 0;
-	} else {
-		update_sum += micro;
-		update_counter++;
+	if(screen_debug || console_debug){
+		if(update_counter == 20){
+			update_counter = 0;
+			update_time = update_sum / 20.0f / 1000.0f;
+			update_sum = 0;
+		} else {
+			update_sum += micro;
+			update_counter++;
+		}
 	}
 }
 

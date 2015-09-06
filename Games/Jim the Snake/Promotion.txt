@@ -1,7 +1,13 @@
-1) Контактик
-2) ГаймДев.ру
-3) Чили форум
+1)+Контактик
+2)+ГаймДев.ру
+3)+Чили форум
 4)+4pda
 5) Статья на хабре 
 6) AdMob campaign 
 7) BlackBery Market
+
+Start
+http://habrahabr.ru/post/238935/
+http://appflood.com/blog/four-free-app-promotion-tips-on-a-budget
+http://www.shoutmeloud.com/how-to-promote-android-app-game.html
+http://www.shoutmeloud.com/best-ways-to-promote-iphonei-pad-app-game.html

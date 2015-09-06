@@ -24,6 +24,7 @@ using namespace cross;
 class SliceThemOut : public Game{
 public:
 	SliceThemOut(Launcher* launcher);
+	void Start();
 	Screen* GetStartScreen();
 private:
 };

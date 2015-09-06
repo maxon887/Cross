@@ -30,5 +30,6 @@
 32. Arraws simultaneous press
 33. ADs loading optimization (iOS)
 34. Fly score.
-
 35. System freeze костыль
+36. iPad adoptation
+37. 2 control way

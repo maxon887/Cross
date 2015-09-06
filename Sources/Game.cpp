@@ -72,7 +72,6 @@ Screen* Game::GetCurrentScreen(){
 void Game::Start(){
 	launcher->LogIt("Game->Start()");
 	try{
-		debuger = new Debuger(this);
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
 	}catch(string& msg){
@@ -129,9 +128,9 @@ void Game::Init(Launcher* launcher){
 	this->launcher = launcher;
 	this->input = new Input(this);
 	this->saver = new Saver(this);
+	this->debuger = new Debuger(this);
 	this->graphics = NULL;
 	this->current_screen = NULL;
-	this->debuger = NULL;
 }
 
 Game::~Game(){

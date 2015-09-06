@@ -17,8 +17,14 @@
 	
 #include "SliceThemOut.h"
 #include "GameScreen.h"
+#include "Debuger.h"
 
 SliceThemOut::SliceThemOut(Launcher* launcher):Game(launcher, 1600, 1600){}
+
+void SliceThemOut::Start(){
+	Game::Start();
+	debuger->EnableScreenDebug();
+}
 
 Screen* SliceThemOut::GetStartScreen(){
 	return new GameScreen(this);
