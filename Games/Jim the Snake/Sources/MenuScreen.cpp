@@ -43,10 +43,8 @@ void MenuScreen::Start(){
 	jimthesnake			= graphics->LoadImage("Menu/JimTheSnakeLabel.png");
 	arrows_up			= graphics->LoadImage("Menu/ArrowsUp.png", game->GetScaleFactor() * 1.2f);
 	arrows_down			= graphics->LoadImage("Menu/ArrowsDown.png", game->GetScaleFactor() * 1.2f);
-	pointer_up			= graphics->LoadImage("Menu/PointerUp.png", game->GetScaleFactor() * 1.2f);
-	pointer_down		= graphics->LoadImage("Menu/PointerDown.png", game->GetScaleFactor() * 1.2f);
-	none_up				= graphics->LoadImage("Menu/NoneUp.png", game->GetScaleFactor() * 1.2f);
-	none_down			= graphics->LoadImage("Menu/NoneDown.png", game->GetScaleFactor() * 1.2f);
+	slide_up			= graphics->LoadImage("Menu/SlideUp.png", game->GetScaleFactor() * 1.2f);
+	slide_down			= graphics->LoadImage("Menu/SlideDown.png", game->GetScaleFactor() * 1.2f);
 	Image* playUp		= graphics->LoadImage("Menu/PlayButtonUp.png");
 	Image* playDown		= graphics->LoadImage("Menu/PlayButtonDown.png");
 	Image* settingsUp	= graphics->LoadImage("Menu/SettingsUp.png", game->GetScaleFactor() * 1.2f);
@@ -141,7 +139,7 @@ void MenuScreen::Start(){
 	sounds_chk->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
 	control_btn = new Button(game, controlUp, controlDown);
 	control_btn->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
-	control_chk = new Button(game, pointer_up->GetWidth(), pointer_up->GetHeight());
+	control_chk = new Button(game, arrows_up->GetWidth(), arrows_up->GetHeight());
 	control_chk->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
 	remove_ads_btn = new Button(game, removeAdsUp, removeAdsDown);
 	remove_ads_btn->RegisterCallback(bind(&MenuScreen::OnRemoveAdsClick, this));
@@ -204,18 +202,11 @@ void MenuScreen::Update(float sec){
 			graphics->DrawImage(controlValuePos, arrows_up);
 		}
 		break;
-	case POINTER:
+	case SLIDE:
 		if(control_chk->IsPressed()){
-			graphics->DrawImage(controlValuePos, pointer_down);
+			graphics->DrawImage(controlValuePos, slide_down);
 		}else{
-			graphics->DrawImage(controlValuePos, pointer_up);
-		}
-		break;
-	case NONE:
-		if(control_chk->IsPressed()){
-			graphics->DrawImage(controlValuePos, none_down);
-		}else{
-			graphics->DrawImage(controlValuePos, none_up);
+			graphics->DrawImage(controlValuePos, slide_up);
 		}
 		break;
 	default:
@@ -406,7 +397,7 @@ void MenuScreen::OnSettingsClick(){
 }
 
 void MenuScreen::OnControlClick(){
-	game->SetControl((Control)((game->GetControl() + 1) % 3));
+	game->SetControl((Control)((game->GetControl() + 1) % 2));
 }
 
 void MenuScreen::OnRemoveAdsClick(){
@@ -455,10 +446,8 @@ MenuScreen::~MenuScreen(){
 	graphics->ReleaseImage(jimthesnake);
 	graphics->ReleaseImage(arrows_up);
 	graphics->ReleaseImage(arrows_down);
-	graphics->ReleaseImage(pointer_up);
-	graphics->ReleaseImage(pointer_down);
-	graphics->ReleaseImage(none_up);
-	graphics->ReleaseImage(none_down);
+	graphics->ReleaseImage(slide_up);
+	graphics->ReleaseImage(slide_down);
 	delete play_btn;
 	delete settings_btn;
 	delete back_btn;

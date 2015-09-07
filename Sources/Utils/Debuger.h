@@ -34,10 +34,12 @@ public:
 	void SetUpdateTime(float sec);
 	void EnableScreenDebug();
 	void EnableConsoleDebug();
+	void EnableTouches();
 private:
 	Game* game;
 	Texter* texter;
 	Input* input;
+	Image* touch_pointer;
 
 	float update_time;
 	float update_sum;
@@ -52,6 +54,7 @@ private:
 
 	bool screen_debug;
 	bool console_debug;
+	bool touches;
 };
     
 }

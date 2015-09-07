@@ -49,8 +49,6 @@ GameScreen::~GameScreen(){
 	graphics->ReleaseImage(score_img);
 	graphics->ReleaseImage(score_bright_img);
 	graphics->ReleaseImage(gameover_img);
-	graphics->ReleaseImage(control_base);
-	graphics->ReleaseImage(control_facepointer);
 	graphics->ReleaseImage(pause_img);
 	graphics->ReleaseImage(ready_img);
 	graphics->ReleaseImage(best_img);
@@ -96,8 +94,6 @@ void GameScreen::Start(){
 	ready_img				= graphics->LoadImage("Game/ReadyLabel.png");
 	score_img				= graphics->LoadImage("Game/ScoreLabel.png");
 	score_bright_img		= graphics->LoadImage("Game/ScoreBrightLabel.png");
-	control_facepointer		= graphics->LoadImage("Game/FacePointer.png");
-	control_base			= graphics->LoadImage("Game/ControlBase.png");
 	pause_img				= graphics->LoadImage("Game/PauseLabel.png");
 	gameover_img			= graphics->LoadImage("Game/GameOverLabel.png");
 	best_img				= graphics->LoadImage("Game/Best.png");
@@ -542,22 +538,20 @@ void GameScreen::DrawLastScore(){
 
 void GameScreen::CalcInput(float sec){
 	static Point control_pos;
-	if(control == NONE || control == POINTER){
+	if(control == SLIDE){
 		if(input->HaveInput()){
 			if(control_pos.x == 0 && control_pos.y == 0){
 				control_pos.x = input->GetInput().x;
 				control_pos.y = input->GetInput().y;
 				return;
 			}
-			if(control == NONE){
-				float NeedDistance = 300.f;
-				float RealDistance = Distance(control_pos, input->GetInput());
-				if(RealDistance > NeedDistance){
-					float fingerAngle = Angle(control_pos, input->GetInput());
-					float deltaDist = RealDistance - NeedDistance;
-					control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
-					control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
-				}
+			float NeedDistance = 300.f;
+			float RealDistance = Distance(control_pos, input->GetInput());
+			if(RealDistance > NeedDistance){
+				float fingerAngle = Angle(control_pos, input->GetInput());
+				float deltaDist = RealDistance - NeedDistance;
+				control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
+				control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
 			}
 
 			float fingerAngle = Angle(control_pos, input->GetInput());
@@ -582,11 +576,6 @@ void GameScreen::CalcInput(float sec){
 					snake->Rotate(snake->Direction() - 360.f);
 				if(snake->Direction() <= -180.f)
 					snake->Rotate(snake->Direction() + 360.f);
-			}
-			if(control == POINTER){
-				graphics->Rotate(control_facepointer, snake->Direction());
-				graphics->DrawImage(control_pos, control_base);
-				graphics->DrawImage(control_pos.x, control_pos.y - 2, control_facepointer);
 			}
 		}else{
 			control_pos.x = 0;

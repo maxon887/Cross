@@ -23,9 +23,8 @@
 using namespace cross;
 
 enum Control{
-	NONE,
-	ARROWS,
-	POINTER
+	SLIDE,
+	ARROWS
 };
 
 class JimTheSnake : public Game{

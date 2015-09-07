@@ -46,6 +46,7 @@ Debuger::Debuger(Game* game){
 	launcher = game->launcher;
 	input = game->input;
 	texter = NULL;
+	touch_pointer = NULL;
 	update_time = 0;
 	update_sum = 0;
 	update_counter = 0;
@@ -55,6 +56,7 @@ Debuger::Debuger(Game* game){
 	time = 0;
 	screen_debug = false;
 	console_debug = false;
+	touches = false;
 	next_display = 3000000.f;
 }
 
@@ -107,6 +109,11 @@ void Debuger::Display(float micro){
 			next_display -= micro;
 		}
 	}
+	if(touches){
+		if(input->HaveInput()){
+			game->graphics->DrawImage(input->GetInput(), touch_pointer);
+		}
+	}
 }
 
 void Debuger::EnableScreenDebug(){
@@ -120,6 +127,15 @@ void Debuger::EnableScreenDebug(){
 
 void Debuger::EnableConsoleDebug(){
 	console_debug = true;
+}
+
+void Debuger::EnableTouches(){
+	if(touch_pointer == NULL){
+		touch_pointer = game->graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.25f);
+	}else{
+		launcher->LogIt("Warning!Touches already anabled");
+	}
+	touches = true;
 }
 
 void Debuger::SetUpdateTime(float micro) {

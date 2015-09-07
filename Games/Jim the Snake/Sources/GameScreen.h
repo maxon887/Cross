@@ -67,8 +67,6 @@ private:
 	Image* score_img;
 	Image* score_bright_img;
 	Image* gameover_img;
-	Image* control_base;
-	Image* control_facepointer;
 	Image* pause_img;
 	Image* ready_img;
 	Image* best_img;

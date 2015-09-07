@@ -18,6 +18,7 @@
 #include "JimTheSnake.h"
 #include "GameScreen.h"
 #include "MenuScreen.h"
+#include "Debuger.h"
 
 #define GAME_WIDTH 900
 
@@ -38,18 +39,18 @@ void JimTheSnake::Start(){
 	music = saver->LoadBool(PROPERTY_MUSIC, true);
 	sound = saver->LoadBool(PROPERTY_SOUND, true);
 	score = saver->LoadInt(PROPERTY_SCORE, 0);
-	control = (Control)saver->LoadInt(PROPERTY_CONTROL, NONE);
+	control = (Control)saver->LoadInt(PROPERTY_CONTROL, SLIDE);
 	purchased = saver->LoadBool(PROPERTY_PURCHASED, false);
 	commercial = launcher->GetCommercial();
 	if(commercial != NULL){
 		commercial->RegisterCallback(bind(&JimTheSnake::CommercialCallback, this, _1));
 	}
 	Game::Start();
+	debuger->EnableTouches();
 }
 
 Screen* JimTheSnake::GetStartScreen(){
 	return new MenuScreen(this);
-	//return new GameScreen(this);
 }
 
 bool JimTheSnake::IsMusicEnabled(){

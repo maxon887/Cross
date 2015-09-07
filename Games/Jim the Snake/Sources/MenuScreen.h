@@ -79,10 +79,8 @@ private:
 	Button* control_chk;
 	Image*  arrows_up;
 	Image*	arrows_down;
-	Image*  pointer_up;
-	Image*	pointer_down;
-	Image*  none_up;
-	Image*  none_down;
+	Image*  slide_up;
+	Image*  slide_down;
 	Point	control_pos;
 	Point   control_value_pos;
 	Control control_value;
