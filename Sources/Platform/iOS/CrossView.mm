@@ -73,27 +73,33 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if(!BlockInput){
-        game->input->input_state = true;
-        UITouch *touch = [[event allTouches] anyObject];
-        CGPoint location = [touch locationInView:touch.view];
-        game->input->input_loc.x = location.x * screenScale;
-        game->input->input_loc.y = location.y * screenScale;
+        NSSet* touches = [event allTouches];
+        if(touches.count == 1){
+            game->input->input_state = true;
+            UITouch *touch = [touches anyObject];
+            CGPoint location = [touch locationInView:touch.view];
+            game->input->input_loc.x = location.x * screenScale;
+            game->input->input_loc.y = location.y * screenScale;
+        }
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     if(!BlockInput){
-        UITouch *touch = [[event allTouches] anyObject];
-        CGPoint location = [touch locationInView:touch.view];
-        game->input->input_loc.x = location.x * screenScale;
-        game->input->input_loc.y = location.y * screenScale;
+        NSSet* touches = [event allTouches];
+        if(touches.count == 1){
+            game->input->input_state = true;
+            UITouch *touch = [touches anyObject];
+            CGPoint location = [touch locationInView:touch.view];
+            game->input->input_loc.x = location.x * screenScale;
+            game->input->input_loc.y = location.y * screenScale;
+        }
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if(!BlockInput){
         game->input->input_state = false;
-        
     }
 }
 

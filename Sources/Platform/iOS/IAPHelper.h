@@ -9,12 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-//typedef void (^RequestProductsHandler)(BOOL success, NSArray* products);
 typedef void (^CommercialResultHander)(int event);
 #define EVENT_PURCHASE_COMPLETE 2
 #define EVENT_PURCHASE_CANCELED 3
 #define EVENT_PURCHASE_FAILED   4
-//#define EVENT_PURCHASE_RESTORED 5
 
 
 @interface IAPHelper : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver>

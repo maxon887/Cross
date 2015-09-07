@@ -20,13 +20,14 @@ static UIActivityIndicatorView* indicator;
 
 CommercialOS::CommercialOS(){
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    UIViewController* rootViewController = [ CrossViewController getRootController];
+    UIViewController* rootViewController = [CrossViewController getRootController];
     indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
     indicator.transform = CGAffineTransformMakeScale(2.0, 2.0);
     indicator.center = rootViewController.view.center;
     [rootViewController.view addSubview:indicator];
     [indicator bringSubviewToFront:rootViewController.view];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [UIView setAnimationsEnabled:NO];
     
     NSString* productID = @"com.cross.JimtheSnake.ads";
     iapHelper = [[IAPHelper alloc] initWithProductID:productID CommercialResultHander:^(int event){
@@ -46,7 +47,7 @@ CommercialOS::CommercialOS(){
 void CommercialOS::DownloadAd(){
     interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-8147388388000575/9516738242"];
     GADRequest *request = [GADRequest request];
-    request.testDevices = @[@"1c58e9df9dfdf889f4be1cc33f841ff6"];
+    request.testDevices = @[ @"4ae2c1e117e5b8d391130c539e7d855b" ];
     [interstitial loadRequest:request];
 }
 
