@@ -1,4 +1,4 @@
-﻿+1. Cut of "GameOver" music
++1. Cut of "GameOver" music
 +2. Back sounds (spider)
 +3. Big nodes on pause
 +4. Spider circle run
@@ -33,3 +33,4 @@
 35. System freeze костыль
 36. iPad adoptation
 37. 2 control way
+38. Restore for purchase forever

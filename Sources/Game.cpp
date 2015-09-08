@@ -31,9 +31,7 @@ Game::Game(Launcher* launcher, float width){
 	this->width = width;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
-    if(aspect >= 1){
-        scale_factor = (float)launcher->GetTargetWidth() / width;
-    }
+    scale_factor = (float)launcher->GetTargetWidth() / width;
 	launcher->LogIt("Game initialized");
 }
 

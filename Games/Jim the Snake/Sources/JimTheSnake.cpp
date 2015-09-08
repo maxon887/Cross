@@ -46,7 +46,6 @@ void JimTheSnake::Start(){
 		commercial->RegisterCallback(bind(&JimTheSnake::CommercialCallback, this, _1));
 	}
 	Game::Start();
-	debuger->EnableTouches();
 }
 
 Screen* JimTheSnake::GetStartScreen(){
