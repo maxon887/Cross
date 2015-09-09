@@ -131,7 +131,7 @@ void Debuger::EnableConsoleDebug(){
 
 void Debuger::EnableTouches(){
 	if(touch_pointer == NULL){
-		touch_pointer = game->graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.25f);
+		touch_pointer = game->graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
 	}else{
 		launcher->LogIt("Warning!Touches already anabled");
 	}
