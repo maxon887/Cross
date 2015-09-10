@@ -75,7 +75,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Jim the Snake.rc" />
+    <ResourceCompile Include="res.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD8370BE-5A1D-406D-942A-752528A6FCF3}</ProjectGuid>

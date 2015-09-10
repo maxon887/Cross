@@ -204,6 +204,6 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Jim the Snake.rc" />
+    <ResourceCompile Include="res.rc" />
   </ItemGroup>
 </Project>

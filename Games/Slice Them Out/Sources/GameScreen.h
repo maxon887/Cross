@@ -29,7 +29,7 @@ public:
 	void Start();
 	void Update(float sec);
 
-	void updateplayer(int pID);
+	void updateplayer(float sec, int pID);
 	void drawplayer(int pID);
 	void createplayer(int x,int y,int hp);
 	void ComposeFrame();
@@ -42,10 +42,10 @@ public:
 	int thru(int nn1, int nn2);
 private:
 	int pNum;
-	int deathtimer;
+	float deathtimer;
 	int turn;
-	int turntimer;
-	int spawntimer;
+	float turntimer;
+	float spawntimer;
 	bool pause;
 	bool shiftpressed;
 	bool enterpressed;
@@ -53,15 +53,15 @@ private:
 	int backr;
 	int backg;
 	int backb;
-	int dangertimer;
+	float dangertimer;
 	int realbackr;	int realbackg;	int realbackb;
 	int playerhp[PNUM];
 	int playerhpmax[PNUM];
 	int playeratkn[PNUM];
-	int playerx[PNUM];
-	int playery[PNUM];
+	float playerx[PNUM];
+	float playery[PNUM];
 	int playerrange[PNUM];
-	int playeratkspd[PNUM];
+	float playeratkspd[PNUM];
 	int aipause[PNUM];
 	int aiwarmup[PNUM];
 	int aidisttoPN[PNUM];
