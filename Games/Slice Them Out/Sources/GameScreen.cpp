@@ -50,29 +50,30 @@ GameScreen::GameScreen(Game* game):Screen(game),
 }
 
 void GameScreen::Start(){
-	srand( (unsigned int)time(NULL) );
+	srand((unsigned int)time(NULL));
 	backr=random(255);
 	backg=random(255);
 	backb=random(255);
 	realbackr=backr;	realbackg=backg;	realbackb=backb;
-	for( int xx=0;xx<pNum;xx++)
-	{
+	for(int xx=0;xx<pNum;xx++){
 		createplayer(random(game->GetWidth() - 24),random(game->GetHeight() - 24),100);
 	}
 }
 
 void GameScreen::Update(float sec){
 	graphics->Clear(.25f, .25f, .25f);
+	//launcher->Sleep(30);
+	float deviceAspec = launcher->GetTargetWidth() /(float) launcher->GetTargetHeight();
+	graphics->SetViewPort(Point(playerx[0] * game->GetScaleFactor() - 300, playery[0]* game->GetScaleFactor() - 300 / deviceAspec ), 600, 600 / deviceAspec);
+	//graphics->SetViewPort(Point(10, 10), 600, 600 / deviceAspec);
 	if (playerhp[PN]<=0){
 		deathtimer++;
 		if (deathtimer>120){
-			//restartgame();
+			restartgame();
 		}
 	}else{
 		deathtimer=0;
 	}
-	//gfx.vx=max(0,min(RW-VW,gfx.vx));
-	//gfx.vy=max(0,min(RH-VH,gfx.vy));
 	if (!pause){
 		for(int xx=0;xx<playernumber;xx++){
 			if (playerhp[xx]>0){
@@ -80,10 +81,10 @@ void GameScreen::Update(float sec){
 			}
 		}
 	}
-	if (!(input->HaveKey() && input->GetKey() == Key::ENTER)){//kbd.EnterIsPressed())
+	if (!input->IsPressed(Key::ENTER)){
 		enterpressed=false;
 	}
-	if ((input->HaveKey() && input->GetKey() == Key::ENTER) && enterpressed==false){
+	if (input->IsPressed(Key::ENTER) && enterpressed==false){
 		enterpressed=true;
 		if (!pause){
 			pause=true;
@@ -91,9 +92,7 @@ void GameScreen::Update(float sec){
 			pause=false;
 		}
 	}
-	//gfx.BeginFrame();
 	ComposeFrame();
-	//gfx.EndFrame();
 
 	int checkdead=0;
 	
@@ -109,20 +108,19 @@ void GameScreen::Update(float sec){
 	{
 		spawntimer=0;
 	}
-	/*
+	
 	if (checkdead==0 && spawntimer>120)
 	{
 		playernumber=1;
-		//srand( (unsigned int)time(NULL) );
-		for( int xx=0;xx<pNum;xx++)
-		{
+		srand( (unsigned int)time(NULL) );
+		for(int xx=0; xx<pNum; xx++){
 			backr=random(255);
 			backg=random(255);
 			backb=random(255);
-			createplayer(random(RW - 24),random(RH - 24),100);
+			createplayer(random(game->GetWidth() - 24),random(game->GetHeight() - 24),100);
 		}
 		pNum+=2;
-	}*/
+	}
 }
 
 int GameScreen::random(int number)
@@ -132,9 +130,6 @@ int GameScreen::random(int number)
 
 void GameScreen::ComposeFrame()
 {
-	//gfx.vx=max(0,min(RW-VW,gfx.vx));
-	//gfx.vy=max(0,min(RH-VH,gfx.vy));
-
 	dangertimer++;
 	/*
 	if (playerhp[PN]<playerhpmax[PN]/4)
@@ -159,8 +154,7 @@ void GameScreen::ComposeFrame()
 		if (realbackb<backb)		{			realbackb++;		}
 	}*/
 	
-	for(int xx=0;xx<game->GetHeight();xx+=48)
-	{
+	for(int xx=0; xx<game->GetHeight(); xx+=48){
 		Rect r(0, xx, game->GetWidth(), xx+48);
 		graphics->DrawRect(r, Color::Black, true);
 		for(int xy=0;xy<game->GetWidth();xy+=48)
@@ -169,13 +163,12 @@ void GameScreen::ComposeFrame()
 		}
 	}
 
-	for( int xx=0;xx<playernumber;xx++)
-	{
-		if (playerhp[xx]>0)
-		{
+	for(int xx=0; xx<playernumber; xx++){
+		if (playerhp[xx]>0){
 			drawplayer(xx);
 		}
 	}
+	graphics->SetViewPort(Point(0, 0), launcher->GetTargetWidth(), 500);
 	for(int xx=0;xx<23;xx++){
 		graphics->DrawRect(Rect(0, 0, game->GetWidth(), xx+1), Color((255-xx*3)/2,(255-xx*3)/2,(255-xx*3)/2), true);
 		graphics->DrawRect(Rect(0, 0, (int)((float)playerhp[PN]/(float)playerhpmax[PN]*game->GetWidth()), 1+xx), Color(255-xx*3,0,0), true);
@@ -205,12 +198,9 @@ void GameScreen::createplayer(int x,int y,int hp)
 		aggro[playernumber]=false;
 		lastdir[playernumber]=0;
 	
-		if (playernumber==PN)
-		{
+		if (playernumber==PN){
 			playerhp[playernumber]=5000;
-		}
-		else
-		{
+		}else{
 			playeratkspd[playernumber]=60;
 		}
 
@@ -228,14 +218,11 @@ void GameScreen::drawplayer(int pID)
 	{
 		for(int xx=0;xx<7;xx++)
 		{
-			//gfx.DrawRect(playerx[pID]+12-32,playery[pID]-16+xx,playerx[pID]+12+32,playery[pID]-15+xx,(255-xx*3)/2,(255-xx*3)/2,(255-xx*3)/2,false);
 			Color c1((255-xx*3)/2,(255-xx*3)/2,(255-xx*3)/2);
 			graphics->DrawRect(Rect(playerx[pID] + 12 -32, playery[pID]-16+xx, 64, 1), c1, true);
-			//gfx.DrawRect(playerx[pID]+12-32,playery[pID]-16+xx,playerx[pID]+12-32+(int)((float)playerhp[pID]/(float)playerhpmax[pID]*64),playery[pID]-15+xx,(255-xx*3),0,0,false);
 			Color c2((255-xx*3),0,0);
 			graphics->DrawRect(Rect(playerx[pID]+12-32,playery[pID]-16+xx,(int)((float)playerhp[pID]/(float)playerhpmax[pID]*64),1), c2, true);
 		}
-		//gfx.DrawRect(playerx[pID]+12-32,playery[pID]-16,playerx[pID]+12+32,playery[pID]-8,0,0,0,true);
 		graphics->DrawRect(Rect(playerx[pID]+12-32, playery[pID]-16, 64,8), Color::Black, false);
 	}
 
@@ -248,7 +235,7 @@ void GameScreen::drawplayer(int pID)
 	{
 		if ((kbdu[pID]+kbdd[pID]+kbdr[pID]+kbdl[pID])>0)
 		{
-			int newatkspd=playerrange[pID]-(int)(max(0,(float)playeratkn[pID]-(float)playeratkspd[pID]+10)/10*(float)playerrange[pID]);
+			float newatkspd=playerrange[pID]-(int)(max(0,(float)playeratkn[pID]-(float)playeratkspd[pID]+10)/10*(float)playerrange[pID]);
 			if (playeratkn[pID]<10)
 			{
 				newatkspd=(int)((float)playeratkn[pID]/10*(float)playerrange[pID]);
@@ -257,30 +244,24 @@ void GameScreen::drawplayer(int pID)
 			{
 				for(int xx=0;xx<6;xx++)
 				{
-					//gfx.DrawLine(playerx[pID]+12+xx-3,playery[pID]+12+yy-3,playerx[pID]+12+((kbdr[pID]-kbdl[pID])*newatkspd),playery[pID]+12+((kbdd[pID]-kbdu[pID])*newatkspd),255,255,0);
 					graphics->DrawLine(Point(playerx[pID]+12+xx-3,playery[pID]+12+yy-3), Point(playerx[pID]+12+((kbdr[pID]-kbdl[pID])*newatkspd),playery[pID]+12+((kbdd[pID]-kbdu[pID])*newatkspd)), Color(255,255,0));
 				}
 			}
 		}
 	}
-	//gfx.DrawRect(playerx[pID],playery[pID],playerx[pID]+24,playery[pID]+24,r,b,255,false);
 	graphics->DrawRect(Rect(playerx[pID],playery[pID], 24, 24), Color(r,b,255), true);
-	//gfx.DrawRect(playerx[pID],playery[pID],playerx[pID]+24,playery[pID]+24,0,0,0,true);
 	graphics->DrawRect(Rect(playerx[pID],playery[pID], 24, 24), Color::Black, false);
 }
 
 
-void GameScreen::updateplayer(float sec, int pID)
-{
-	playerhp[pID] = min(playerhpmax[pID],max(0,playerhp[pID]));
-	playeratkn[pID] = max(0,playeratkn[pID]-1);
-	if (turn==pID || 1==1)
-	{
+void GameScreen::updateplayer(float sec, int pID){
+	playerhp[pID] = min(playerhpmax[pID], max(0,playerhp[pID]));
+	playeratkn[pID] = max(0, playeratkn[pID]-sec*100);
 	bool dothis = false;
-	aipause[pID]= max(0,aipause[pID]-1);
-	for(int atkerxx=0;atkerxx<playernumber;atkerxx++)
+	aipause[pID]= max(0, aipause[pID]-1);
+	for(int atkerxx=0; atkerxx<playernumber; atkerxx++)
 	{
-		for(int victimxx=0;victimxx<playernumber;victimxx++)
+		for(int victimxx=0; victimxx<playernumber; victimxx++)
 		{
 			if( playerx[atkerxx]+playerrange[atkerxx]> playerx[victimxx]   &&
 				playerx[atkerxx]< playerx[victimxx] + playerrange[atkerxx] &&
@@ -289,12 +270,9 @@ void GameScreen::updateplayer(float sec, int pID)
 				!(atkerxx==victimxx)									   &&
 				playerhp[atkerxx]>0)
 			{
-				if (((atkerxx==PN) || (victimxx==PN)) && playeratkn[atkerxx]>0)
-				{
+				if (((atkerxx==PN) || (victimxx==PN)) && playeratkn[atkerxx]>0){
 					playerhp[victimxx]=max(0,playerhp[victimxx]-1);
-				}
-				else
-				{
+				}else{
 					dothis=true;
 				}
 			}
@@ -331,39 +309,15 @@ void GameScreen::updateplayer(float sec, int pID)
 	}
 	float spd=5 * sec * 50;
 	aggro[pID]=false;
-	if (pID==PN)
-	{
-		/*
-		for(int xx=0;xx<5;xx++)
-		{
-			if (playerx[PN]>(gfx.vx+VW/2+OFFX))
-			{
-				gfx.vx++;
-			}
-			if (playerx[PN]<(gfx.vx+VW/2-OFFX))
-			{
-				gfx.vx--;
-			}
-			if (playery[PN]>(gfx.vy+VH/2+OFFY))
-			{
-				gfx.vy++;
-			}
-			if (playery[PN]<(gfx.vy+VH/2-OFFY))
-			{
-				gfx.vy--;
-			}
-		}*/
-		if (!shiftpressed)
-		{
-			if (input->HaveKey() && (input->key_key == Key::SPACE) && playeratkn[PN]==0)
-			{
+	if (pID==PN){
+		if (!shiftpressed){
+			if (input->IsPressed(Key::SHIFT) && playeratkn[PN]==0){
 				shiftpressed=true;
 				playeratkn[PN]=playeratkspd[PN];
 				turntimer+=20;
 			}
 		}
-		if (!(input->HaveKey() && (input->key_key == Key::SPACE)))
-		{
+		if (!input->IsPressed(Key::SHIFT)){
 			shiftpressed=false;
 		}
 	}else{
@@ -372,13 +326,10 @@ void GameScreen::updateplayer(float sec, int pID)
 		aa=abs( playerx[PN]-playerx[pID] );
 		bbb=abs( playery[PN]-playery[pID] );
 		aidisttoPN[pID]=min(aa,bbb);
-		if (playeratkn[pID]==0)
-		{
-			if (aidisttoPN[pID]<98 && aipause[pID]==0)
-			{
+		if (playeratkn[pID]==0){
+			if (aidisttoPN[pID]<98 && aipause[pID]==0){
 				aiwarmup[pID]++;
-			}
-			else
+			}else
 			{
 				aiwarmup[pID]=0;
 				aggro[pID]=true;
@@ -391,33 +342,24 @@ void GameScreen::updateplayer(float sec, int pID)
 			}
 		}
 	}
-	if (playeratkn[pID]==0)
-	{
+	if(playeratkn[pID]==0){
 		kbdl[pID]=0;kbdr[pID]=0;kbdd[pID]=0;kbdu[pID]=0;
-		if (pID==PN && input->HaveKey())
+		if (pID==PN)
 		{
-			switch (input->GetKey())
-			{
-			case Key::UP:
+			if(input->IsPressed(Key::UP)){
 				kbdu[pID]=1;
-				break;
-			case Key::DOWN:
-				kbdd[pID]=1;
-				break;
-			case Key::LEFT:
-				kbdl[pID]=1;
-				break;
-			case Key::RIGHT:
-				kbdr[pID]=1;
-				break;
-			default:
-				break;
 			}
-		}
-		else
-		{
-			if ((aidisttoPN[pID]<200 && aipause[pID]==0 && aiwarmup[pID]==0) || playeratkn[pID]>0 || 1==1)
-			{
+			if(input->IsPressed(Key::DOWN)){
+				kbdd[pID]=1;
+			}
+			if(input->IsPressed(Key::LEFT)){
+				kbdl[pID]=1;
+			}
+			if(input->IsPressed(Key::RIGHT)){
+				kbdr[pID]=1;
+			}
+		}else{
+			if ((aidisttoPN[pID]<200 && aipause[pID]==0 && aiwarmup[pID]==0) || playeratkn[pID]>0 || 1==1){
 				if (playerx[PN]<playerx[pID])				{					kbdl[pID]=1;				}
 				if (playerx[PN]>playerx[pID])				{					kbdr[pID]=1;				}
 				if (playery[PN]<playery[pID])				{					kbdu[pID]=1;				}
@@ -451,11 +393,21 @@ void GameScreen::updateplayer(float sec, int pID)
 	if (playeratkn[pID]>0)
 	{
 		spd = 1 * sec * 50;
-		if (playeratkn[pID]>(float)(playeratkspd[pID]/1.75)){spd=2* sec * 50;}
-		if (playeratkn[pID]>(float)(playeratkspd[pID]/1.5)){spd=3* sec * 50;}
-		if (playeratkn[pID]>(float)(playeratkspd[pID]/1.25)){spd=4* sec * 50;}
-		if (playeratkn[pID]<(float)(playeratkspd[pID]/5)){spd=0;}
-		if (playeratkn[pID]==1){aipause[pID]=30;}
+		if (playeratkn[pID]>(playeratkspd[pID]/1.75f)){
+			spd=2* sec * 50;
+		}
+		if (playeratkn[pID]>(playeratkspd[pID]/1.5f)){
+			spd=3* sec * 50;
+		}
+		if (playeratkn[pID]>(playeratkspd[pID]/1.25f)){
+			spd=4* sec * 50;
+		}
+		if (playeratkn[pID]<(playeratkspd[pID]/5.f)){
+			spd=0;
+		}
+		if (playeratkn[pID]==1){
+			aipause[pID]=30;
+		}
 	}
 	if (!pID==PN)
 	{
@@ -478,20 +430,36 @@ void GameScreen::updateplayer(float sec, int pID)
 		playery[pID]=max(50,playery[pID]-spd);
 	}
 	if (kbdr[pID]+kbdl[pID]+kbdd[pID]+kbdu[pID]>0 && spd>0){
-		turntimer++;
+		turntimer += 1;
 	}
 	if (turntimer>90)
 	{
 		nextturn();
 		turntimer=0;
 	}
-}}
+}
 
-void GameScreen::nextturn()
-{
+void GameScreen::nextturn(){
 	turn++;
-	if (turn>=playernumber)
-	{
+	if (turn>=playernumber){
 		turn=0;
+	}
+}
+
+void GameScreen::restartgame()
+{
+	pNum=10;
+	for(int xx=0;xx<playernumber;xx++)
+	{
+		playerhp[xx]=0;
+	}
+	playernumber=0;
+	backr=random(255);
+	backg=random(255);
+	backb=random(255);
+	realbackr=backr;	realbackg=backg;	realbackb=backb;
+	for( int xx=0;xx<pNum;xx++)
+	{
+		createplayer(random(game->GetWidth() - 24),random(game->GetHeight() - 24),100);
 	}
 }

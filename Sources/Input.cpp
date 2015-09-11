@@ -23,8 +23,6 @@ using namespace cross;
 Input::Input(Game* game){
 	this->game = game;
 	input_state = false;
-	key_state = false;
-	key_key = Key::UNDEFINED;
 	game->launcher->LogIt("Input initialized");
 }
 
@@ -38,9 +36,15 @@ Point Input::GetInput(){
 	ret.y = input_loc.y / game->GetScaleFactor();
 	return ret;
 }
-bool Input::HaveKey(){
-	return key_state;
+
+bool Input::IsPressed(Key key){
+	return pressed_keys.find(key) != pressed_keys.end();
 }
-Key Input::GetKey(){
-	return key_key;
+
+void Input::PressKey(Key key){
+	pressed_keys.insert(key);
+}
+
+void Input::ReleaseKey(Key key){
+	pressed_keys.erase(key);
 }

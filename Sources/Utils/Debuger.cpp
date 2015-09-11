@@ -66,10 +66,10 @@ Debuger::~Debuger(){
 
 void Debuger::Display(float micro){
 	if(screen_debug || console_debug){
-		time += micro / 1000000.0f;
+		time += micro / 1000000.f;
 		if(render_counter == 20){
 			render_counter = 0;
-			render_time = render_sum / 20.0f / 1000.0f;
+			render_time = render_sum / 20.f / 1000.f;
 			render_sum = 0;
 		}else{
 			render_sum += micro;
@@ -77,6 +77,7 @@ void Debuger::Display(float micro){
 		}
 	}
 	if(screen_debug){
+		game->graphics->SetViewPort(Point(0, 0), 900, 900 / launcher->DeviceAspect());
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
@@ -90,11 +91,13 @@ void Debuger::Display(float micro){
 		}
 		if(input->HaveInput()){
 			Point in = input->GetInput();
-			texter->DrawText(0, texter->GetHeight() * 3, "Input: x=" + to_string(in.x) + "y=" + to_string(in.y));
+			texter->DrawText(0, texter->GetHeight() * 3, "Input Virtual: x=" + to_string(in.x) + " y=" + to_string(in.y));
+			texter->DrawText(0, texter->GetHeight() * 4, "Input Real: x=" + to_string(input->input_loc.x) + " y=" + to_string(input->input_loc.y));
 		}else{
-			texter->DrawText(0, texter->GetHeight() * 3, "Input: UP");
+			texter->DrawText(0, texter->GetHeight() * 3, "Input Virtual: UP");
+			texter->DrawText(0, texter->GetHeight() * 4, "Input Real: UP");
 		}
-		texter->DrawText(0, texter->GetHeight() * 4, "Run time: " + to_string(time));
+		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));
 	}
 	if(console_debug){
 		if(next_display < 0){

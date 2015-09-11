@@ -37,6 +37,7 @@ public:
 	/*	Clear screen with particular color.*/
 	void Clear(Color c);
 	void Clear(float r, float g, float b);
+	void SetViewPort(Point c, float width, float height);
 	/* Scale Image */
 	void ScaleImage(Image* img, float factor);
 	/* Rotate Image counterclockwise in angle degree */

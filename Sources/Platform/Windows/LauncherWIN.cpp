@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "LauncherWIN.h"
-//#include "vld.h"
 
 using namespace cross;
 

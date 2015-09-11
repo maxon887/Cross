@@ -26,3 +26,7 @@ void Launcher::LogIt(int msg){
 void Launcher::LogIt(float msg){
 	LogIt(to_string(msg));
 }
+
+float Launcher::DeviceAspect(){
+	return GetTargetWidth() / (float)GetTargetHeight();
+}

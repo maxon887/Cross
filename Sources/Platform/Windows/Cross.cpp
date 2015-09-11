@@ -76,32 +76,55 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		game->saver->SaveInt("WIN_POS_Y", winRect.top);
 		break;
 	case WM_KEYDOWN:
-		input->key_state = true;
 		switch(wParam){
 		case VK_ESCAPE:
-			input->key_key = Key::PAUSE;
+			input->PressKey(Key::PAUSE);
 			break;
 		case VK_UP:
-			input->key_key = Key::UP;
+			input->PressKey(Key::UP);
 			break;
 		case VK_DOWN:
-			input->key_key = Key::DOWN;
+			input->PressKey(Key::DOWN);
 			break;
 		case VK_LEFT:
-			input->key_key = Key::LEFT;
+			input->PressKey(Key::LEFT);
 			break;
 		case VK_RIGHT:
-			input->key_key = Key::RIGHT;
+			input->PressKey(Key::RIGHT);
 			break;
 		case VK_SPACE:
-			input->key_key = Key::SPACE;
+			input->PressKey(Key::SPACE);
 			break;
-		default:
+		case VK_SHIFT:
+			input->PressKey(Key::SHIFT);
 			break;
 		}
 		break;
 	case WM_KEYUP:
-		input->key_state = false;
+		//input->key_state = false;
+		switch(wParam){
+		case VK_ESCAPE:
+			input->ReleaseKey(Key::PAUSE);
+			break;
+		case VK_UP:
+			input->ReleaseKey(Key::UP);
+			break;
+		case VK_DOWN:
+			input->ReleaseKey(Key::DOWN);
+			break;
+		case VK_LEFT:
+			input->ReleaseKey(Key::LEFT);
+			break;
+		case VK_RIGHT:
+			input->ReleaseKey(Key::RIGHT);
+			break;
+		case VK_SPACE:
+			input->ReleaseKey(Key::SPACE);
+			break;
+		case VK_SHIFT:
+			input->ReleaseKey(Key::SHIFT);
+			break;
+		}
 		break;
 	case WM_KILLFOCUS:
 		game->Suspend();

@@ -48,6 +48,14 @@ Graphics::Graphics(Game* game){
 	launcher->LogIt("Graphics initialized");
 }
 
+void Graphics::SetViewPort(Point c, float width, float height){
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrthof(0, width, height, 0, 1, -1);
+	glTranslatef(-(c.x), -(c.y), 0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
 void Graphics::Clear(Color c){
 	Clear(c.R, c.G, c.B);
 }
@@ -403,3 +411,4 @@ void Graphics::DrawTargetPixel(Point p, float r, float g, float b){
     //glDisableClientState(GL_COLOR_ARRAY);
 #endif
 }
+

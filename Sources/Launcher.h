@@ -52,6 +52,7 @@ public:
 
 	void LogIt(int msg);
 	void LogIt(float msg);
+	float DeviceAspect();
 
 	virtual Commercial* GetCommercial() { return NULL; };
 //Internal data. You don't need call any of this methods or modify variable

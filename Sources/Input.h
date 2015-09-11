@@ -19,6 +19,8 @@
 
 #include "Point.h"
 
+#include <set>
+
 namespace cross {
 
 class Game;
@@ -33,7 +35,8 @@ enum class Key{
 	RIGHT       = 6,
 	LEFT        = 7,
 	ENTER       = 8,
-	SPACE		= 9
+	SPACE		= 9,
+	SHIFT		= 10
 };
 
 /*	Class responsible for user input. 
@@ -44,19 +47,18 @@ public:
 	bool HaveInput();
 	/* Return last user touch/click position */
 	Point GetInput();
-	/* Return true if user have pushed the key */
-	bool HaveKey();
-	/* Return last user pushed key */
-	Key GetKey();
+	/* Return true if key pressed at this time */
+	bool IsPressed(Key key);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Input(Game* game);
+	void PressKey(Key key);
+	void ReleaseKey(Key key);
 	bool input_state;
 	Point input_loc;
-	bool key_state;
-	Key key_key;
 private:
 	Game* game;
+	std::set<Key> pressed_keys;
 };
     
 }

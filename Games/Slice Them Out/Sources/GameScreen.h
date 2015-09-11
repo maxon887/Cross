@@ -57,7 +57,7 @@ private:
 	int realbackr;	int realbackg;	int realbackb;
 	int playerhp[PNUM];
 	int playerhpmax[PNUM];
-	int playeratkn[PNUM];
+	float playeratkn[PNUM];
 	float playerx[PNUM];
 	float playery[PNUM];
 	int playerrange[PNUM];
