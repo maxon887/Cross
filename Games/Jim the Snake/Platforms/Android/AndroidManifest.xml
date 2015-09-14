@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cross.jim"
+    package="com.cross.frozenjim"
     android:versionCode="9"
-    android:versionName="1.2.0" >
+    android:versionName="1.3.0" >
 
     <uses-sdk
         android:minSdkVersion="9"

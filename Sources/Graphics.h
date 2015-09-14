@@ -68,6 +68,7 @@ public:
 	void DrawImage(float x, float y, Image* img);
 	/* Draws Image in game coordinates */
 	void DrawImage(Point p, Image* img);
+	void SetPrimitiveEnable(bool enable);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Graphics(Game* game);
@@ -78,6 +79,7 @@ private:
 	Game* game;
 	Launcher* launcher;
 	GLint prev_texID;
+	bool primitive_enable;
 };
     
 }

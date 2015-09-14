@@ -18,8 +18,10 @@
 #pragma once
 
 #include "Point.h"
+#include "Launcher.h"
 
 #include <set>
+#include <functional>
 
 namespace cross {
 
@@ -49,6 +51,9 @@ public:
 	Point GetInput();
 	/* Return true if key pressed at this time */
 	bool IsPressed(Key key);
+
+	void KeyPressedEvent(function<void(Key)> callback);
+	void KeyReleasedEvent(function<void(Key)> callback);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Input(Game* game);
@@ -59,6 +64,8 @@ public:
 private:
 	Game* game;
 	std::set<Key> pressed_keys;
+	function<void(Key)> pressed_event;
+	function<void(Key)> released_event;
 };
     
 }

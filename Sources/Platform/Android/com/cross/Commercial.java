@@ -70,7 +70,7 @@ public class Commercial {
 		}
 	}
 	
-	private static final String app_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnwZzg5RcZ1LRID/mlyV2h/CQNkEmS1XhB/17KQ4aLvjgSnugklyM1f8/+h1w3cWwJLFOQPg86+6IsQEcoEyzBY5O7txm6Zd6dDvdC50rbsvkh3Ied4mwn/us364jxR38voxVcvlFctn0alZLmA6N76Yj1uxSgGjDU2OQW8VH+vyiZkj3v3L5cAZyOuvHaud5iTuB2KM+8uTy6XSEGgRgPgymwbSMYNROqI+Vj2A6QsPqbuHszolWC49EJwV/n12GXaPA8uIgetlpP2V/BZiQadyD81b0Ff72Wkz4WQ300nE8fuGJAdPVEfkrLOJNRtda6vcM0VxzPGI7zdblSgqakwIDAQAB";
+	private static final String app_key = "*******************************";
 	private static IabHelper mHelper;
 	private static CrossActivity mActivity;
 	private static InterstitialAd mAd;
@@ -94,7 +94,7 @@ public class Commercial {
 			@Override
 			public void run() {
 				mAd = new InterstitialAd(mActivity);
-				mAd.setAdUnitId("ca-app-pub-8147388388000575/6331429441");
+				mAd.setAdUnitId("**********************************");
 				AdRequest adRequest = new AdRequest.Builder().build();
 				mAd.setAdListener(new CommAdListener());
 				mAd.loadAd(adRequest);
@@ -120,7 +120,7 @@ public class Commercial {
 			@Override
 			public void run() {
 				try {
-					mHelper.launchPurchaseFlow(mActivity, "ads", 69, new PurchaseFinishedListener(), "Jim the Snake Billing");	
+					mHelper.launchPurchaseFlow(mActivity, "ads", 69, new PurchaseFinishedListener(), "Jim the Snake");	
 				} catch(Throwable ex) {
 					Log.d("Cross++", "Java: " + ex.getMessage());
 				}

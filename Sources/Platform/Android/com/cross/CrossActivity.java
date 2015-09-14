@@ -85,12 +85,23 @@ public class CrossActivity extends Activity{
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
-			cross.SetKeyState(true);
-			cross.SetKeyKey(Cross.KEY_BACK);
+			cross.PressKey(Cross.KEY_BACK);
 			return true;
 		case KeyEvent.KEYCODE_MENU:
-			cross.SetKeyState(true);
-			cross.SetKeyKey(Cross.KEY_OPTIONS);
+			cross.PressKey(Cross.KEY_OPTIONS);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		switch(keyCode){
+		case KeyEvent.KEYCODE_BACK:
+			cross.ReleaseKey(Cross.KEY_BACK);
+			return true;
+		case KeyEvent.KEYCODE_MENU:
+			cross.ReleaseKey(Cross.KEY_OPTIONS);
 			return true;
 		}
 		return false;

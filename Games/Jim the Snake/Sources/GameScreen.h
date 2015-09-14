@@ -53,6 +53,7 @@ public:
 	Point GetEmptyPosition(float radius);
 	list<Apple*>& GetApples();
 	void StopMusic();
+	void KeyPressedHandler(Key key);
 private:
 	JimTheSnake* game;
 	GameState state;

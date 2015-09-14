@@ -22,6 +22,8 @@ using namespace cross;
 
 Input::Input(Game* game){
 	this->game = game;
+	pressed_event = NULL;
+	released_event = NULL;
 	input_state = false;
 	game->launcher->LogIt("Input initialized");
 }
@@ -43,8 +45,21 @@ bool Input::IsPressed(Key key){
 
 void Input::PressKey(Key key){
 	pressed_keys.insert(key);
+	if(pressed_event){
+		pressed_event(key);
+	}
 }
 
 void Input::ReleaseKey(Key key){
 	pressed_keys.erase(key);
+	if(released_event){
+		released_event(key);
+	}
+}
+
+void Input::KeyPressedEvent(function<void(Key)> callback){
+	pressed_event = callback;
+}
+void Input::KeyReleasedEvent(function<void(Key)> callback){
+	released_event = callback;
 }

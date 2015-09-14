@@ -56,7 +56,6 @@ extern "C"{
 
 	void Java_com_cross_Cross_Update(JNIEnv *env, jobject thiz){
 		game->Update();
-		game->input->key_state = false;
 	}
 
 	void Java_com_cross_Cross_Suspend(JNIEnv *env, jobject thiz){
@@ -86,11 +85,11 @@ extern "C"{
 		game->input->input_loc.x = x;
 		game->input->input_loc.y = y;
 	}
-	void Java_com_cross_Cross_SetKeyState(JNIEnv *env, jobject thiz, jboolean state){
-		game->input->key_state = state;
+	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
+		game->input->PressKey((Key)key);
 	}
-	void Java_com_cross_Cross_SetKeyKey(JNIEnv *env, jobject thiz, jint key){
-		game->input->key_key = (Key)key;
+	void Java_com_cross_Cross_ReleaseKey(JNIEnv *env, jobject thiz, jint key){
+		game->input->ReleaseKey((Key)key);
 	}
 
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){

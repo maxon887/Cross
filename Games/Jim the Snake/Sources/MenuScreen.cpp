@@ -256,7 +256,7 @@ void MenuScreen::Update(float sec){
 		}
 	}
 	//DrawDeadAreas();
-	if(input->HaveKey() && input->GetKey() == Key::BACK){
+	if(input->IsPressed(Key::BACK)){
 		if(onLeft){
 			launcher->PromtToExit();
 		}else{

@@ -31,11 +31,11 @@
 using namespace cross;
 
 #define BYTES_PER_CHANNEL 4
-#define PRIMITIVE_ENABLED
 
 Graphics::Graphics(Game* game){
 	this->game = game;
 	launcher = game->launcher;
+	primitive_enable = true;
 	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -216,25 +216,25 @@ void Graphics::DrawLine(Point p1, Point p2, Color c){
 }
 
 void Graphics::DrawLine(Point p1, Point p2, float r, float g, float b){
-#ifdef PRIMITIVE_ENABLED
-	p1.x *= game->GetScaleFactor();
-	p1.y *= game->GetScaleFactor();
-	p2.x *= game->GetScaleFactor();
-	p2.y *= game->GetScaleFactor();
-	float vertices[] = { p1.x, p1.y, p2.x, p2.y };
-	float colors[] = { r, g, b, 1, r, g, b, 1 };
-	static const unsigned short indices[] = { 0, 1 };
-	glLoadIdentity();
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, vertices);
+	if(primitive_enable){
+		p1.x *= game->GetScaleFactor();
+		p1.y *= game->GetScaleFactor();
+		p2.x *= game->GetScaleFactor();
+		p2.y *= game->GetScaleFactor();
+		float vertices[] = { p1.x, p1.y, p2.x, p2.y };
+		float colors[] = { r, g, b, 1, r, g, b, 1 };
+		static const unsigned short indices[] = { 0, 1 };
+		glLoadIdentity();
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(2, GL_FLOAT, 0, vertices);
 
-	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_FLOAT, 0, colors);
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_FLOAT, 0, colors);
 
-	glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, indices);
+		glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, indices);
 
-	glDisableClientState(GL_COLOR_ARRAY);
-#endif
+		glDisableClientState(GL_COLOR_ARRAY);
+	}
 }
 
 void Graphics::DrawCircle(Point center, float radius, Color c){
@@ -242,62 +242,62 @@ void Graphics::DrawCircle(Point center, float radius, Color c){
 }
 
 void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
-#ifdef PRIMITIVE_ENABLED
-    c.x *= game->GetScaleFactor();
-    c.y *= game->GetScaleFactor();
-    radius *= game->GetScaleFactor();
-	float sqrRad = radius * radius;
-#ifdef WIN
-	for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ ) {
-		float y = sqrt(sqrRad - x*x) + .5f;
-		DrawTargetPixel(Point(x + c.x, y + c.y), r, g, b);
-		DrawTargetPixel(Point(x + c.x,-y + c.y), r, g, b);
-		DrawTargetPixel(Point(c.x + y, c.y + x), r, g, b);
-		DrawTargetPixel(Point(c.x - y, c.y + x), r, g, b);
+	if(primitive_enable){
+		c.x *= game->GetScaleFactor();
+		c.y *= game->GetScaleFactor();
+		radius *= game->GetScaleFactor();
+		float sqrRad = radius * radius;
+	#ifdef WIN
+		for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ ) {
+			float y = sqrt(sqrRad - x*x) + .5f;
+			DrawTargetPixel(Point(x + c.x, y + c.y), r, g, b);
+			DrawTargetPixel(Point(x + c.x,-y + c.y), r, g, b);
+			DrawTargetPixel(Point(c.x + y, c.y + x), r, g, b);
+			DrawTargetPixel(Point(c.x - y, c.y + x), r, g, b);
+		}
+	#else
+		int capacity = abs(-radius * 0.7071068f - radius * 0.7071068f) + 1;
+		vector<float> pixels;
+		pixels.reserve(capacity*2);
+		vector<short> points;
+		pixels.reserve(capacity);
+		vector<float> colors;
+		pixels.reserve(capacity*4);
+		unsigned short i = 0;
+		for ( float x = -radius * 0.7071068f; x <= radius * 0.7071068f; x++ )
+		{
+			float y = sqrt(sqrRad - x*x);
+			pixels.push_back(x + c.x);
+			pixels.push_back(y + c.y);
+
+			pixels.push_back(x + c.x);
+			pixels.push_back(-y + c.y);
+
+			pixels.push_back(c.x + y);
+			pixels.push_back(c.y + x);
+
+			pixels.push_back(c.x - y);
+			pixels.push_back(c.y + x);
+
+			points.push_back(i++);
+			points.push_back(i++);
+			points.push_back(i++);
+			points.push_back(i++);
+			for(int j = 0; j < 4; j++){
+				colors.push_back(r);
+				colors.push_back(g);
+				colors.push_back(b);
+				colors.push_back(1);
+			}
+		}
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(2, GL_FLOAT, 0, pixels.data());
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_FLOAT, 0, colors.data());
+
+		glDrawElements(GL_POINTS, (GLuint)points.size(), GL_UNSIGNED_SHORT, points.data());
+	#endif
 	}
-#else
-	int capacity = abs(-radius * 0.7071068f - radius * 0.7071068f) + 1;
-    vector<float> pixels;
-    pixels.reserve(capacity*2);
-    vector<short> points;
-    pixels.reserve(capacity);
-    vector<float> colors;
-    pixels.reserve(capacity*4);
-    unsigned short i = 0;
-	for ( float x = -radius * 0.7071068f; x <= radius * 0.7071068f; x++ )
-	{
-		float y = sqrt(sqrRad - x*x);
-        pixels.push_back(x + c.x);
-        pixels.push_back(y + c.y);
-        
-        pixels.push_back(x + c.x);
-        pixels.push_back(-y + c.y);
-        
-        pixels.push_back(c.x + y);
-        pixels.push_back(c.y + x);
-        
-        pixels.push_back(c.x - y);
-        pixels.push_back(c.y + x);
-        
-        points.push_back(i++);
-        points.push_back(i++);
-        points.push_back(i++);
-        points.push_back(i++);
-        for(int j = 0; j < 4; j++){
-            colors.push_back(r);
-            colors.push_back(g);
-            colors.push_back(b);
-            colors.push_back(1);
-        }
-	}
-	glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, pixels.data());
-   	glEnableClientState(GL_COLOR_ARRAY);
-    glColorPointer(4, GL_FLOAT, 0, colors.data());
-    
-	glDrawElements(GL_POINTS, (GLuint)points.size(), GL_UNSIGNED_SHORT, points.data());
-#endif
-#endif
 }
 
 void Graphics::DrawRect(Rect rect, Color c){
@@ -361,6 +361,10 @@ void Graphics::DrawImage(Point p, Image* img){
 	DrawTargetImage(p.x, p.y, img);
 }
 
+void Graphics::SetPrimitiveEnable(bool enable){
+	primitive_enable = enable;
+}
+
 void Graphics::DrawTargetImage(float x, float y, Image* img){
 	if(img == NULL)
 		throw string("Attempt to draw NULL image");
@@ -396,19 +400,19 @@ void Graphics::DrawTargetImage(float x, float y, Image* img){
 }
 
 void Graphics::DrawTargetPixel(Point p, float r, float g, float b){
-#ifdef PRIMITIVE_ENABLED
-    float vertices[] = { p.x, p.y };
-    float colors[] = { r, g, b, 1 };
-    static const unsigned short indices[] = { 0 };
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, vertices);
-    
-    glEnableClientState(GL_COLOR_ARRAY);
-    glColorPointer(4, GL_FLOAT, 0, colors);
-    
-    glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
-    
-    //glDisableClientState(GL_COLOR_ARRAY);
-#endif
+	if(primitive_enable){
+		float vertices[] = { p.x, p.y };
+		float colors[] = { r, g, b, 1 };
+		static const unsigned short indices[] = { 0 };
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(2, GL_FLOAT, 0, vertices);
+
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_FLOAT, 0, colors);
+
+		glDrawElements(GL_POINTS, 1, GL_UNSIGNED_SHORT, indices);
+
+		//glDisableClientState(GL_COLOR_ARRAY);
+	}
 }
 

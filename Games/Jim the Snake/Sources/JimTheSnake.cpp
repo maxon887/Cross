@@ -42,6 +42,7 @@ void JimTheSnake::Start(){
 	control = (Control)saver->LoadInt(PROPERTY_CONTROL, SLIDE);
 	purchased = saver->LoadBool(PROPERTY_PURCHASED, false);
 	commercial = launcher->GetCommercial();
+	graphics->SetPrimitiveEnable(false);
 	if(commercial != NULL){
 		commercial->RegisterCallback(bind(&JimTheSnake::CommercialCallback, this, _1));
 	}

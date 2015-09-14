@@ -17,8 +17,8 @@ public class Cross {
 	
 	public native void SetInputState(boolean state);
 	public native void SetInputLoc(float x, float y);
-	public native void SetKeyState(boolean state);
-	public native void SetKeyKey(int key);
+	public native void PressKey(int key);
+	public native void ReleaseKey(int key);
 	
 	public native void InitialCommercial(Commercial comm);
 	public native void CommertialResult(int event);
