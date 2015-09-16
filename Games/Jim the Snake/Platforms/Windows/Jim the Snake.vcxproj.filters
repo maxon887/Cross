@@ -22,6 +22,9 @@
     <Filter Include="Cross\Platform\Windows">
       <UniqueIdentifier>{8bf8b7b9-538c-402d-b825-ccd01d97c9d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Events">
+      <UniqueIdentifier>{7386e8be-32d2-4b13-b711-4285213364a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Sources\MenuScreen.cpp">
@@ -252,6 +255,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Commercial.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Events\Event.h">
+      <Filter>Cross\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Events\FastDelegate.h">
+      <Filter>Cross\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Events\FastDelegateBind.h">
+      <Filter>Cross\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

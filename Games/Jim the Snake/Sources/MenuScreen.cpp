@@ -36,6 +36,7 @@ void MenuScreen::Start(){
 	transition = false;
 	onLeft = true;
 	transitionLerp = 0.f;
+	input->KeyPressed.Clear();
 	//image loading
 	background			= graphics->LoadImage("Menu/Background.png");
 	sun					= graphics->LoadImage("Menu/Sun.jpg");
@@ -157,6 +158,7 @@ void MenuScreen::Start(){
 		SetupButtonSounds(btn_push, btn_pull);
 	}
 	CreateDeadAreas();
+	input->KeyPressed += MakeDelegate(this, &MenuScreen::KeyPressedHandler);
 }
 
 void MenuScreen::Update(float sec){
@@ -256,13 +258,6 @@ void MenuScreen::Update(float sec){
 		}
 	}
 	//DrawDeadAreas();
-	if(input->IsPressed(Key::BACK)){
-		if(onLeft){
-			launcher->PromtToExit();
-		}else{
-			OnSettingsClick();
-		}
-	}
 	settings_btn->Update();
 	back_btn->Update();
 	music_btn->Update();
@@ -463,4 +458,14 @@ MenuScreen::~MenuScreen(){
 	delete btn_push;
 	delete btn_pull;
 	delete score_texter;
+}
+
+void MenuScreen::KeyPressedHandler(Key key){
+	if(key == Key::BACK){
+		if(onLeft){
+			launcher->PromtToExit();
+		}else{
+			OnSettingsClick();
+		}
+	}
 }

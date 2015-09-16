@@ -130,9 +130,9 @@ public class CrossActivity extends Activity{
 	
 	public void PromtToExit() {
 		Log.d("Cross++", "Java PromtToExit");
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
+		//runOnUiThread(new Runnable() {
+		//	@Override
+		//	public void run() {
 			    new AlertDialog.Builder(CrossActivity.this)
 		        .setIcon(android.R.drawable.ic_dialog_alert)
 		        .setTitle("Confirm Exit")
@@ -145,8 +145,8 @@ public class CrossActivity extends Activity{
 		        })
 		        .setNegativeButton("No", null)
 		        .show();
-			}
-		});
+		//	}
+		//});
 	}
 	
 	public void SendCommertialResult(int event) {

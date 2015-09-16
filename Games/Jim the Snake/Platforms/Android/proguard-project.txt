@@ -18,3 +18,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keep class org.fmod.** { *; }
+-keep class com.cross.** { *; }
+-keep class com.mouse.** { *; }

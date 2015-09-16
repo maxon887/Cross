@@ -19,9 +19,7 @@
 
 #include "Point.h"
 #include "Launcher.h"
-
-#include <set>
-#include <functional>
+#include "Events\Event.h"
 
 namespace cross {
 
@@ -49,11 +47,9 @@ public:
 	bool HaveInput();
 	/* Return last user touch/click position */
 	Point GetInput();
-	/* Return true if key pressed at this time */
-	bool IsPressed(Key key);
 
-	void KeyPressedEvent(function<void(Key)> callback);
-	void KeyReleasedEvent(function<void(Key)> callback);
+	DECLARE_EVENT(void, Key) KeyPressed;
+	DECLARE_EVENT(void, Key) KeyReleased;
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	Input(Game* game);
@@ -63,9 +59,6 @@ public:
 	Point input_loc;
 private:
 	Game* game;
-	std::set<Key> pressed_keys;
-	function<void(Key)> pressed_event;
-	function<void(Key)> released_event;
 };
-    
+
 }

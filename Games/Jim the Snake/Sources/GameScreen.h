@@ -53,7 +53,6 @@ public:
 	Point GetEmptyPosition(float radius);
 	list<Apple*>& GetApples();
 	void StopMusic();
-	void KeyPressedHandler(Key key);
 private:
 	JimTheSnake* game;
 	GameState state;
@@ -91,6 +90,7 @@ private:
 	int score;
 	bool is_best_score;
 	bool ad_downloaded;
+	bool going_menu;
 	float onready_time;
 	float ad_timer;
 	float centerW;
@@ -98,6 +98,7 @@ private:
 
 	void Restart();
 	void ProccessCollisions();
+	void KeyPressedHandler(Key key);
 	void CalcInput(float sec);
 	void UpdateApples(float sec);
 	void DrawApples();

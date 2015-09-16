@@ -70,9 +70,13 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 }
 
 void LauncherAndroid::PromtToExit(){
+	JavaVM* jvm;
+	env->GetJavaVM(&jvm);
+	jvm->AttachCurrentThread(&env, 0);
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
 	env->CallVoidMethod(cross_activity, methodID);
+	//jvm->DetachCurrentThread();
 }
 
 void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){

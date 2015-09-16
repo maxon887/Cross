@@ -94,6 +94,7 @@ private:
 	float transitionLerp;
 	bool onLeft;
 
+	void KeyPressedHandler(Key key);
 	void CreateDeadAreas();
 	void DrawDeadAreas();
 	void SetupButtonSounds(Audio* push, Audio* pull);

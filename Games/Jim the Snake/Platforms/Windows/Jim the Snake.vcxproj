@@ -49,6 +49,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
+    <ClInclude Include="..\..\..\..\Sources\Events\Event.h" />
+    <ClInclude Include="..\..\..\..\Sources\Events\FastDelegate.h" />
+    <ClInclude Include="..\..\..\..\Sources\Events\FastDelegateBind.h" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod.h" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod.hpp" />
     <ClInclude Include="..\..\..\..\Sources\FMOD\fmod_codec.h" />

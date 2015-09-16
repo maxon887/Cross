@@ -25,8 +25,6 @@
 #include <Math.h>
 #include <stdlib.h>
 
-using namespace std::placeholders;
-
 //						CONSTRUCTOR
 GameScreen::GameScreen(JimTheSnake* game):Screen(game){
 	this->game = game;
@@ -79,7 +77,8 @@ GameScreen::~GameScreen(){
 //						OVERRIDDEN METHODS
 void GameScreen::Start(){
 	srand((unsigned int)time(NULL));
-	input->KeyPressedEvent(bind(&GameScreen::KeyPressedHandler, this, _1));
+	input->KeyPressed.Clear();
+	input->KeyPressed += MakeDelegate(this, &GameScreen::KeyPressedHandler);
 	GameObject::Init(game);
 	Snake::Init();
 	Apple::Init();
@@ -92,6 +91,7 @@ void GameScreen::Start(){
 	btn_pull = NULL;
 	game_over = NULL;
 	commercial = NULL;
+	going_menu = false;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img				= graphics->LoadImage("Game/ReadyLabel.png");
@@ -187,34 +187,12 @@ void GameScreen::Update(float sec){
 			CalcInput(sec);
 		}
 		DrawScore();
-		/*
-		if(input->IsPressed(Key::BACK) ||
-			input->IsPressed(Key::OPTIONS) ||
-			input->IsPressed(Key::PAUSE)){
-			down = true;
-		}
-		if(down && !input->HaveKey()){
-			SetState(GameState::PAUSED);
-			down = false;
-		}*/
 		pause_btn->Update();
 		}break;
 	case GameState::PAUSED:{
 		//static bool down = false;
 		DrawScore();
 		graphics->DrawImage(450, centerH - 250, pause_img);
-		/*
-		if(input->HaveKey()){
-			if(input->GetKey() == Key::BACK ||
-			   input->GetKey() == Key::OPTIONS ||
-			   input->GetKey() == Key::PAUSE){
-				down = true;
-			}
-		}
-		if(down && !input->HaveKey()){
-			SetState(GameState::RUNNING);
-			down = false;
-		}*/
 		back_btn->Update();
 		menu_btn->Update();
 		}break;
@@ -237,7 +215,6 @@ void GameScreen::Update(float sec){
 	default:
 		break;
 	}
-	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 }
 
 void GameScreen::Suspend(){
