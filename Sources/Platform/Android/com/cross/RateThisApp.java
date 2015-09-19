@@ -132,11 +132,9 @@ public class RateThisApp {
      */
     public static void showRateDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        int titleId = sConfig.mTitleId != 0 ? sConfig.mTitleId : R.string.rta_dialog_title;
-        int messageId = sConfig.mMessageId != 0 ? sConfig.mMessageId : R.string.rta_dialog_message;
-        builder.setTitle(titleId);
-        builder.setMessage(messageId);
-        builder.setPositiveButton(R.string.rta_dialog_ok, new OnClickListener() {
+        builder.setTitle("Rate this app");
+        builder.setMessage("If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!");
+        builder.setPositiveButton("Rate now", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String appPackage = context.getPackageName();
@@ -145,13 +143,13 @@ public class RateThisApp {
                 setOptOut(context, true);
             }
         });
-        builder.setNeutralButton(R.string.rta_dialog_cancel, new OnClickListener() {
+        builder.setNeutralButton("Later", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 clearSharedPreferences(context);
             }
         });
-        builder.setNegativeButton(R.string.rta_dialog_no, new OnClickListener() {
+        builder.setNegativeButton("No, thanks", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setOptOut(context, true);

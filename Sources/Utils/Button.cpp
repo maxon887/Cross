@@ -28,12 +28,14 @@ Button::Button(Game* game, Image* up, Image* down){
 	this->location = Point();
 	this->up = up;
 	this->down = down;
-	this->press_loc = NULL;
+	//this->press_loc = NULL;
 	this->callback_registered = false;
 	this->have_area = false;
 	this->is_pressed = false;
 	this->area.width = up->GetWidth();
 	this->area.height = up->GetHeight();
+	input->ActionDown += MakeDelegate(this, &Button::ActionDownHandler);
+	input->ActionUp += MakeDelegate(this, &Button::ActionUpHandler);
 }
 
 Button::Button(Game* game, Point location, Image* up, Image* down){
@@ -45,11 +47,13 @@ Button::Button(Game* game, Point location, Image* up, Image* down){
 	this->location = location;
 	this->up = up;
 	this->down = down;
-	this->press_loc = NULL;
+	//this->press_loc = NULL;
 	this->callback_registered = false;
 	this->have_area = false;
 	this->is_pressed = false;
 	InitRect(location, up->GetWidth(), up->GetHeight());
+	input->ActionDown += MakeDelegate(this, &Button::ActionDownHandler);
+	input->ActionUp += MakeDelegate(this, &Button::ActionUpHandler);
 }
 
 Button::Button(Game* game, float width, float height){
@@ -62,10 +66,12 @@ Button::Button(Game* game, float width, float height){
 	this->area = area;
 	this->up = NULL;
 	this->down = NULL;
-	this->press_loc = NULL;
+	//this->press_loc = NULL;
 	this->callback_registered = false;
 	this->is_pressed = false;
 	InitRect(location, width, height);
+	input->ActionDown += MakeDelegate(this, &Button::ActionDownHandler);
+	input->ActionUp += MakeDelegate(this, &Button::ActionUpHandler);
 }
 
 Button::Button(Game* game, Rect area){
@@ -78,10 +84,17 @@ Button::Button(Game* game, Rect area){
 	this->area = area;
 	this->up = NULL;
 	this->down = NULL;
-	this->press_loc = NULL;
+	//this->press_loc = NULL;
 	this->callback_registered = false;
 	this->is_pressed = false;
 	this->have_area = true;
+	input->ActionDown += MakeDelegate(this, &Button::ActionDownHandler);
+	input->ActionUp += MakeDelegate(this, &Button::ActionUpHandler);
+}
+
+Button::~Button(){
+	graphics->ReleaseImage(down);
+	graphics->ReleaseImage(up);
 }
 
 void Button::SetLocation(Point location){
@@ -95,6 +108,7 @@ void Button::SetSounds(Audio* push, Audio* pull){
 }
 
 void Button::Update(){
+	/*
 	//first press
 	if(press_loc == NULL && input->HaveInput()){
 		press_loc = new Point(input->GetInput().x, input->GetInput().y);
@@ -129,6 +143,15 @@ void Button::Update(){
 		is_pressed = false;
 	}
 	if(input->HaveInput() && press_loc != NULL && OnLocation(press_loc->x, press_loc->y)){
+		if(down != NULL){
+			graphics->DrawImage(location, down);
+		}
+	}else{
+		if(up != NULL){
+			graphics->DrawImage(location, up);
+		}
+	}*/
+	if(is_pressed){
 		if(down != NULL){
 			graphics->DrawImage(location, down);
 		}
@@ -197,7 +220,31 @@ void Button::SetPressed(bool pressed){
 	is_pressed = pressed;
 }
 
-Button::~Button(){
-	graphics->ReleaseImage(down);
-	graphics->ReleaseImage(up);
+void Button::ActionDownHandler(Point pos){
+	if(OnLocation(pos.x, pos.y)){
+		is_pressed = true;
+		if(push != NULL){
+			push->Play();
+		}
+	}
+}
+
+void Button::ActionUpHandler(Point pos){
+	if(is_pressed && push != NULL){
+		push->Play();
+	}
+	is_pressed = false;
+	if(OnLocation(pos.x, pos.y)){
+		if(callback_registered){
+			is_pressed = false;
+			if(down != NULL){
+				graphics->DrawImage(location, down);
+			}
+			if(pull != NULL){
+				pull->Play();
+			}
+			callback();
+			return;
+		}
+	}
 }

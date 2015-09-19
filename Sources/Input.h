@@ -18,12 +18,9 @@
 #pragma once
 
 #include "Point.h"
-#include "Launcher.h"
 #include "Events\Event.h"
 
 namespace cross {
-
-class Game;
 
 enum class Key{
 	UNDEFINED 	= 0,
@@ -43,22 +40,12 @@ enum class Key{
 	Handle touches, clicks and some key events */
 class Input{
 public:
-	/* Return true if user have made touch/click */
-	bool HaveInput();
-	/* Return last user touch/click position */
-	Point GetInput();
+	DECLARE_EVENT(void, Point) ActionDown;
+	DECLARE_EVENT(void, Point) ActionUp;
+	DECLARE_EVENT(void, Point) ActionMove;
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
-//Internal data. You don't need call any of this methods or modify variable
-public:
-	Input(Game* game);
-	void PressKey(Key key);
-	void ReleaseKey(Key key);
-	bool input_state;
-	Point input_loc;
-private:
-	Game* game;
 };
 
 }

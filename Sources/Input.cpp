@@ -15,31 +15,3 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "Input.h"
-#include "Game.h"
-
-using namespace cross;
-
-Input::Input(Game* game){
-	this->game = game;
-	input_state = false;
-	game->launcher->LogIt("Input initialized");
-}
-
-bool Input::HaveInput(){
-	return input_state;
-}
-
-Point Input::GetInput(){
-	Point ret;
-	ret.x = input_loc.x / game->GetScaleFactor();
-	ret.y = input_loc.y / game->GetScaleFactor();
-	return ret;
-}
-void Input::PressKey(Key key){
-	TRIGGER_EVENT(KeyPressed, key);
-}
-
-void Input::ReleaseKey(Key key){
-	TRIGGER_EVENT(KeyReleased, key);
-}

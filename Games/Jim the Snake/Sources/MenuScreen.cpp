@@ -35,6 +35,7 @@ void MenuScreen::Start(){
 	score = 0;
 	transition = false;
 	onLeft = true;
+	going_on_game = false;
 	transitionLerp = 0.f;
 	input->KeyPressed.Clear();
 	//image loading
@@ -273,6 +274,9 @@ void MenuScreen::Update(float sec){
 	sounds_chk->Update();
 	control_chk->Update();
 	play_btn->Update();
+	if(going_on_game){
+		game->SetScreen(new GameScreen(game));
+	}
 }
 
 void MenuScreen::CreateDeadAreas(){
@@ -302,7 +306,7 @@ void MenuScreen::UpdateSun(float sec, Point sun_pos){
 	static float deltaTime = 0;
 	static float lerpVal = 0;
 	bool touchInDeadArea = false;
-
+/*
 	if(input->HaveInput() && startAngle == 0){
 		if(onLeft){
 			for(Rect dead : dead_areas_left){
@@ -358,11 +362,11 @@ void MenuScreen::UpdateSun(float sec, Point sun_pos){
 		else 
 			lerpVal = 1;
 		sun_w = Lerp(sun_w, 5.f, lerpVal);
-	}
+	}*/
 }
 
 void MenuScreen::OnPlayClick(){
-	game->SetScreen(new GameScreen(game));
+	going_on_game = true;
 }
 
 void MenuScreen::OnMusicClick(){

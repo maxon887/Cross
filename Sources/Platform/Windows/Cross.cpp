@@ -57,18 +57,31 @@ void ShowLastError(){
 
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	RECT winRect;
+	short targetX;
+	short targetY;
+	float x;
+	float y;
 	switch(msg){
 	case WM_LBUTTONDOWN:
-		input->input_state = true;
-		input->input_loc.x = (short)LOWORD(lParam);
-		input->input_loc.y = (short)HIWORD(lParam);
+		targetX = (short)LOWORD(lParam);
+		targetY = (short)HIWORD(lParam);
+		x = targetX / game->GetScaleFactor();
+		y = targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionDown, Point(x, y));
 		break;
 	case WM_MOUSEMOVE:
-		input->input_loc.x = LOWORD(lParam);
-		input->input_loc.y = HIWORD(lParam);
+		targetX = (short)LOWORD(lParam);
+		targetY = (short)HIWORD(lParam);
+		x = targetX / game->GetScaleFactor();
+		y = targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionMove, Point(x, y));
 		break;
 	case WM_LBUTTONUP:
-		input->input_state = false;
+		targetX = (short)LOWORD(lParam);
+		targetY = (short)HIWORD(lParam);
+		x = targetX / game->GetScaleFactor();
+		y = targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionUp, Point(x, y));
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);
@@ -78,51 +91,50 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_KEYDOWN:
 		switch(wParam){
 		case VK_ESCAPE:
-			input->PressKey(Key::PAUSE);
+			TRIGGER_EVENT(input->KeyPressed, Key::PAUSE);
 			break;
 		case VK_UP:
-			input->PressKey(Key::UP);
+			TRIGGER_EVENT(input->KeyPressed, Key::UP);
 			break;
 		case VK_DOWN:
-			input->PressKey(Key::DOWN);
+			TRIGGER_EVENT(input->KeyPressed, Key::DOWN);
 			break;
 		case VK_LEFT:
-			input->PressKey(Key::LEFT);
+			TRIGGER_EVENT(input->KeyPressed, Key::LEFT);
 			break;
 		case VK_RIGHT:
-			input->PressKey(Key::RIGHT);
+			TRIGGER_EVENT(input->KeyPressed, Key::RIGHT);
 			break;
 		case VK_SPACE:
-			input->PressKey(Key::SPACE);
+			TRIGGER_EVENT(input->KeyPressed, Key::SPACE);
 			break;
 		case VK_SHIFT:
-			input->PressKey(Key::SHIFT);
+			TRIGGER_EVENT(input->KeyPressed, Key::SHIFT);
 			break;
 		}
 		break;
 	case WM_KEYUP:
-		//input->key_state = false;
 		switch(wParam){
 		case VK_ESCAPE:
-			input->ReleaseKey(Key::PAUSE);
+			TRIGGER_EVENT(input->KeyReleased, Key::PAUSE);
 			break;
 		case VK_UP:
-			input->ReleaseKey(Key::UP);
+			TRIGGER_EVENT(input->KeyReleased, Key::UP);
 			break;
 		case VK_DOWN:
-			input->ReleaseKey(Key::DOWN);
+			TRIGGER_EVENT(input->KeyReleased, Key::DOWN);
 			break;
 		case VK_LEFT:
-			input->ReleaseKey(Key::LEFT);
+			TRIGGER_EVENT(input->KeyReleased, Key::LEFT);
 			break;
 		case VK_RIGHT:
-			input->ReleaseKey(Key::RIGHT);
+			TRIGGER_EVENT(input->KeyReleased, Key::RIGHT);
 			break;
 		case VK_SPACE:
-			input->ReleaseKey(Key::SPACE);
+			TRIGGER_EVENT(input->KeyReleased, Key::SPACE);
 			break;
 		case VK_SHIFT:
-			input->ReleaseKey(Key::SHIFT);
+			TRIGGER_EVENT(input->KeyReleased, Key::SHIFT);
 			break;
 		}
 		break;

@@ -89,6 +89,7 @@ void Debuger::Display(float micro){
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
 		}
+		/*
 		if(input->HaveInput()){
 			Point in = input->GetInput();
 			texter->DrawText(0, texter->GetHeight() * 3, "Input Virtual: x=" + to_string(in.x) + " y=" + to_string(in.y));
@@ -96,7 +97,7 @@ void Debuger::Display(float micro){
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 3, "Input Virtual: UP");
 			texter->DrawText(0, texter->GetHeight() * 4, "Input Real: UP");
-		}
+		}*/
 		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));
 	}
 	if(console_debug){
@@ -112,11 +113,12 @@ void Debuger::Display(float micro){
 			next_display -= micro;
 		}
 	}
+	/*
 	if(touches){
 		if(input->HaveInput()){
 			game->graphics->DrawImage(input->GetInput(), touch_pointer);
 		}
-	}
+	}*/
 }
 
 void Debuger::EnableScreenDebug(){

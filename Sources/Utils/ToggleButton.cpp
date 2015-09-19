@@ -39,7 +39,7 @@ void ToggleButton::Update(){
 		graphics->DrawImage(location, on);
 	else
 		graphics->DrawImage(location, off);
-
+	/*
 	//first press
 	if(input->HaveInput() && press_loc == NULL){
 		press_loc = new Point(input->GetInput());
@@ -71,7 +71,7 @@ void ToggleButton::Update(){
 	if(!input->HaveInput()){
 		delete press_loc;
 		press_loc = NULL;
-	}
+	}*/
 }
 
 bool ToggleButton::GetState(){

@@ -91,14 +91,20 @@ private:
 	bool is_best_score;
 	bool ad_downloaded;
 	bool going_menu;
+	bool on_left;
+	bool on_right;
 	float onready_time;
 	float ad_timer;
 	float centerW;
 	float centerH;
+	Point control_pos;
+	Point input_pos;
 
 	void Restart();
 	void ProccessCollisions();
 	void KeyPressedHandler(Key key);
+	void ActionHandler(Point pos);
+	void ActionUpHandler(Point pos);
 	void CalcInput(float sec);
 	void UpdateApples(float sec);
 	void DrawApples();

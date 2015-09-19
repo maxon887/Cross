@@ -21,12 +21,8 @@
 #include <time.h>
 #include <math.h>
 
-//#define VW 800 //Screen Width
-//#define VH 600 //Screen Height
 #define OFFX 150 //Offset x
 #define OFFY 100 //Offset y
-//#define RW 1200 //Room Width
-//#define RH 800 //Room Height
 #define PN 0 //This is the id of the playable character playerx[PN] is the x coordinate of the player you control
 
 GameScreen::GameScreen(Game* game):Screen(game),
@@ -62,10 +58,8 @@ void GameScreen::Start(){
 
 void GameScreen::Update(float sec){
 	graphics->Clear(.25f, .25f, .25f);
-	//launcher->Sleep(30);
 	float deviceAspec = launcher->GetTargetWidth() /(float) launcher->GetTargetHeight();
 	graphics->SetViewPort(Point(playerx[0] * game->GetScaleFactor() - 300, playery[0]* game->GetScaleFactor() - 300 / deviceAspec ), 600, 600 / deviceAspec);
-	//graphics->SetViewPort(Point(10, 10), 600, 600 / deviceAspec);
 	if (playerhp[PN]<=0){
 		deathtimer++;
 		if (deathtimer>120){
@@ -179,8 +173,7 @@ void GameScreen::ComposeFrame()
 //PLAYER FUNCTIONS BEGIN
 void GameScreen::createplayer(int x,int y,int hp)
 {
-	if (playernumber<450)
-	{
+	if (playernumber<450){
 		//set variables
 		playerhp[playernumber]=hp;
 		playerx[playernumber]=x;
@@ -211,8 +204,7 @@ void GameScreen::createplayer(int x,int y,int hp)
 }
 
 
-void GameScreen::drawplayer(int pID)
-{
+void GameScreen::drawplayer(int pID){
 	//ai helth
 	if (aidisttoPN[pID]<100 && !pID==PN)
 	{
@@ -409,8 +401,7 @@ void GameScreen::updateplayer(float sec, int pID){
 			aipause[pID]=30;
 		}
 	}
-	if (!pID==PN)
-	{
+	if(!pID==PN){
 		spd/=2;
 	}
 	if (kbdr[pID]==1){
@@ -432,8 +423,7 @@ void GameScreen::updateplayer(float sec, int pID){
 	if (kbdr[pID]+kbdl[pID]+kbdd[pID]+kbdu[pID]>0 && spd>0){
 		turntimer += 1;
 	}
-	if (turntimer>90)
-	{
+	if (turntimer>90){
 		nextturn();
 		turntimer=0;
 	}
@@ -446,8 +436,7 @@ void GameScreen::nextturn(){
 	}
 }
 
-void GameScreen::restartgame()
-{
+void GameScreen::restartgame(){
 	pNum=10;
 	for(int xx=0;xx<playernumber;xx++)
 	{

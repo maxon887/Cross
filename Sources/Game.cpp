@@ -126,7 +126,7 @@ void Game::Exit(){
 
 void Game::Init(Launcher* launcher){
 	this->launcher = launcher;
-	this->input = new Input(this);
+	this->input = new Input();
 	this->saver = new Saver(this);
 	this->debuger = new Debuger(this);
 	this->graphics = NULL;

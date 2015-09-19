@@ -15,8 +15,9 @@ public class Cross {
 	public native void Suspend();
 	public native void Resume();
 	
-	public native void SetInputState(boolean state);
-	public native void SetInputLoc(float x, float y);
+	public native void ActionDown(float x, float y);
+	public native void ActionUp(float x, float y);
+	public native void ActionMove(float x, float y);
 	public native void PressKey(int key);
 	public native void ReleaseKey(int key);
 	

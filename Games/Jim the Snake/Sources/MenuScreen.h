@@ -93,6 +93,7 @@ private:
 	bool transition;
 	float transitionLerp;
 	bool onLeft;
+	bool going_on_game;
 
 	void KeyPressedHandler(Key key);
 	void CreateDeadAreas();

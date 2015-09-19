@@ -28,6 +28,7 @@ using namespace cross;
 static Game* game;
 static Graphics* graphics;
 static LauncherAndroid* launcher;
+static Input* input;
 
 void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject crossActivity, JNIEnv* env){
 	LOGI("Init");
@@ -36,6 +37,7 @@ void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject cr
 	game = CrossMain(launcher);
 	graphics = new Graphics(game);
 	game->graphics = graphics;
+	input = game->input;
 }
 
 extern "C"{
@@ -78,18 +80,28 @@ extern "C"{
 		delete launcher;
 	}
 
-	void Java_com_cross_Cross_SetInputState(JNIEnv *env, jobject thiz, jboolean state){
-		game->input->input_state = state;
+	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
+		float x = targetX / game->GetScaleFactor();
+		float y = targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionDown, Point(x, y));
 	}
-	void Java_com_cross_Cross_SetInputLoc(JNIEnv *env, jobject thiz, jfloat x, jfloat y){
-		game->input->input_loc.x = x;
-		game->input->input_loc.y = y;
+
+	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
+		float x = targetX / game->GetScaleFactor();
+		float y = targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionMove, Point(x, y));
+	}
+
+	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
+		float x = targetX / game->GetScaleFactor();
+		float y = targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionUp, Point(x, y));
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
-		game->input->PressKey((Key)key);
+		TRIGGER_EVENT(input->KeyPressed, (Key)key);
 	}
 	void Java_com_cross_Cross_ReleaseKey(JNIEnv *env, jobject thiz, jint key){
-		game->input->ReleaseKey((Key)key);
+		TRIGGER_EVENT(input->KeyReleased, (Key)key);
 	}
 
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){

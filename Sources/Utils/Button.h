@@ -29,6 +29,7 @@ public:
 	Button(Game* game, Point location, Image* up, Image* down);
 	Button(Game* game, float width, float height);
 	Button(Game* game, Rect area);
+	~Button();
 	void Update();
 	void SetSounds(Audio* push, Audio* pull);
 	void RegisterCallback(function<void()> callback);
@@ -43,7 +44,6 @@ public:
 	void DrawDown();
 	Rect GetRect();
 	Point GetCenter();
-	~Button();
 protected:
 	Launcher* launcher;
 	Graphics* graphics;
@@ -55,11 +55,13 @@ protected:
 	Audio* push;
 	Audio* pull;
 	void InitRect(Point loc, float width, float heiht);
-	Point* press_loc;
 	function<void()> callback;
 	bool callback_registered;
 	bool is_pressed;
 	bool have_area;
+
+	void ActionDownHandler(Point pos);
+	void ActionUpHandler(Point pos);
 };
     
 }

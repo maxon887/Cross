@@ -79,6 +79,12 @@ void GameScreen::Start(){
 	srand((unsigned int)time(NULL));
 	input->KeyPressed.Clear();
 	input->KeyPressed += MakeDelegate(this, &GameScreen::KeyPressedHandler);
+	input->ActionDown.Clear();
+	input->ActionDown += MakeDelegate(this, &GameScreen::ActionHandler);
+	input->ActionMove.Clear();
+	input->ActionMove += MakeDelegate(this, &GameScreen::ActionHandler);
+	input->ActionUp.Clear();
+	input->ActionUp += MakeDelegate(this, &GameScreen::ActionUpHandler);
 	GameObject::Init(game);
 	Snake::Init();
 	Apple::Init();
@@ -92,6 +98,8 @@ void GameScreen::Start(){
 	game_over = NULL;
 	commercial = NULL;
 	going_menu = false;
+	on_left = false;
+	on_right = false;
 	//image loading
 	background = graphics->LoadRepeatedImage("Game/Background.jpg", game->GetWidth() + 50.f, game->GetHeight() + 50.f);
 	ready_img				= graphics->LoadImage("Game/ReadyLabel.png");
@@ -177,12 +185,11 @@ void GameScreen::Update(float sec){
 	case GameState::ONREADY:
 		graphics->DrawImage(centerW, game->GetHeight() / 3, ready_img);
 		onready_time -= sec;
-		if(onready_time < 0 || input->HaveInput()){
+		if(onready_time < 0){
 			state = GameState::RUNNING;
 		}
 		break;
 	case GameState::RUNNING:{
-		//static bool down = false;
 		if(!pause_btn->IsPressed()){
 			CalcInput(sec);
 		}
@@ -190,7 +197,6 @@ void GameScreen::Update(float sec){
 		pause_btn->Update();
 		}break;
 	case GameState::PAUSED:{
-		//static bool down = false;
 		DrawScore();
 		graphics->DrawImage(450, centerH - 250, pause_img);
 		back_btn->Update();
@@ -517,69 +523,47 @@ void GameScreen::DrawLastScore(){
 }
 
 void GameScreen::CalcInput(float sec){
-	static Point control_pos;
-	if(control == SLIDE){
-		if(input->HaveInput()){
-			if(control_pos.x == 0 && control_pos.y == 0){
-				control_pos.x = input->GetInput().x;
-				control_pos.y = input->GetInput().y;
-				return;
-			}
-			float NeedDistance = 300.f;
-			float RealDistance = Distance(control_pos, input->GetInput());
-			if(RealDistance > NeedDistance){
-				float fingerAngle = Angle(control_pos, input->GetInput());
-				float deltaDist = RealDistance - NeedDistance;
-				control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
-				control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
-			}
-
-			float fingerAngle = Angle(control_pos, input->GetInput());
-			//determine in witch direction we need to move
-			float clockwise;
-			if(fingerAngle > snake->Direction())
-				clockwise = 360 + snake->Direction() - fingerAngle;
-			else 
-				clockwise = snake->Direction() - fingerAngle;
-			float counterclockwise = 360 - clockwise;
-			//rotate snake head
-			if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
-				snake->Rotate(fingerAngle);
-			} else {
-				if(counterclockwise < clockwise) {
-					snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-				}else{
-					snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
-				}
-
-				if(snake->Direction() >= 180.f)
-					snake->Rotate(snake->Direction() - 360.f);
-				if(snake->Direction() <= -180.f)
-					snake->Rotate(snake->Direction() + 360.f);
-			}
+	float fingerAngle = Angle(control_pos, input_pos);
+	//determine in witch direction we need to move
+	float clockwise;
+	if(fingerAngle > snake->Direction())
+		clockwise = 360 + snake->Direction() - fingerAngle;
+	else 
+		clockwise = snake->Direction() - fingerAngle;
+	float counterclockwise = 360 - clockwise;
+	//rotate snake head
+	if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
+		snake->Rotate(fingerAngle);
+	} else {
+		if(counterclockwise < clockwise) {
+			snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
 		}else{
-			control_pos.x = 0;
-			control_pos.y = 0;
+			snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
 		}
+
+		if(snake->Direction() >= 180.f)
+			snake->Rotate(snake->Direction() - 360.f);
+		if(snake->Direction() <= -180.f)
+			snake->Rotate(snake->Direction() + 360.f);
 	}
+
 	if(control == ARROWS){
-		if(input->HaveInput()){
-			if(left_btn->OnLocation(input->GetInput())){
-				snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-				left_btn->DrawDown();
-			}else{
-				left_btn->DrawUp();
-			}
-			if(right_btn->OnLocation(input->GetInput())){
-				snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
-				right_btn->DrawDown();
-			}else{
-				right_btn->DrawUp();
-			}
+		if(on_left){
+			snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
+			left_btn->DrawDown();
 		}else{
 			left_btn->DrawUp();
+		}
+
+		if(on_right){
+			snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+			right_btn->DrawDown();
+		}else{
 			right_btn->DrawUp();
 		}
+	}else{
+		left_btn->DrawUp();
+		right_btn->DrawUp();
 	}
 }
 
@@ -618,7 +602,6 @@ Point GameScreen::GetEmptyPosition(float radius){
 	Point position;
 	bool onCollision = true;
 	while(onCollision) {
-	//	onCollision = false;
 		int randX = (int)(right - left);
 		int randY = (int)(bottom - top);
 		position.x = (float)(rand() % randX) + left;
@@ -658,5 +641,48 @@ void GameScreen::KeyPressedHandler(Key key){
 	case GameState::PAUSED:
 		SetState(GameState::RUNNING);
 		break;
+	}
+}
+
+void GameScreen::ActionHandler(Point pos){
+	if(state == GameState::ONREADY){
+		state = GameState::RUNNING;
+	}
+
+	if(control == SLIDE){
+		if(control_pos.x == 0 && control_pos.y == 0){
+			control_pos.x = pos.x;
+			control_pos.y = pos.y;
+			return;
+		}
+		float NeedDistance = 300.f;
+		float RealDistance = Distance(control_pos, pos);
+		if(RealDistance > NeedDistance){
+			float fingerAngle = Angle(control_pos, pos);
+			float deltaDist = RealDistance - NeedDistance;
+			control_pos.x += deltaDist * cos(fingerAngle / 180.f * PI);
+			control_pos.y += -deltaDist * sin(fingerAngle / 180.f * PI);
+		}
+		input_pos = pos;
+	}
+
+	if(control == ARROWS){
+		if(left_btn->OnLocation(pos)){
+			on_left = true;
+		}
+		if(right_btn->OnLocation(pos)){
+			on_right = true;
+		}
+	}
+}
+
+void GameScreen::ActionUpHandler(Point pos){
+	if(control == SLIDE){
+		control_pos.x = 0;
+		control_pos.y = 0;
+	}
+	if(control == ARROWS){
+		on_left = false;
+		on_right = false;
 	}
 }

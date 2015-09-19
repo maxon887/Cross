@@ -70,12 +70,13 @@ public class CrossActivity extends Activity{
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			cross.ActionDown(event.getX(), event.getY());
+			return true;
 		case MotionEvent.ACTION_MOVE:
-			cross.SetInputState(true);
-			cross.SetInputLoc(event.getX(), event.getY());
+			cross.ActionMove(event.getX(), event.getY());
 			return true;
 		case MotionEvent.ACTION_UP:
-			cross.SetInputState(false);
+			cross.ActionUp(event.getX(), event.getY());
 			return true;
 		}
 		return false;
