@@ -94,8 +94,18 @@ private:
 	float transitionLerp;
 	bool onLeft;
 	bool going_on_game;
+	//sun stuff
+	float lerp_val;
+	float start_angle;
+	float delta_angle;
+	float delta_time;
+	bool touch_down;
+	Point input_pos;
 
 	void KeyPressedHandler(Key key);
+	void ActionDownHandler(Point pos);
+	void ActionMoveHandler(Point pos);
+	void ActionUpHandler(Point pos);
 	void CreateDeadAreas();
 	void DrawDeadAreas();
 	void SetupButtonSounds(Audio* push, Audio* pull);

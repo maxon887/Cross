@@ -103,7 +103,8 @@ private:
 	void Restart();
 	void ProccessCollisions();
 	void KeyPressedHandler(Key key);
-	void ActionHandler(Point pos);
+	void ActionDownHandler(Point pos);
+	void ActionMoveHandler(Point pos);
 	void ActionUpHandler(Point pos);
 	void CalcInput(float sec);
 	void UpdateApples(float sec);

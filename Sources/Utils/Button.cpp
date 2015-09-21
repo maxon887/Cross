@@ -32,6 +32,7 @@ Button::Button(Game* game, Image* up, Image* down){
 	this->callback_registered = false;
 	this->have_area = false;
 	this->is_pressed = false;
+	this->active = true;
 	this->area.width = up->GetWidth();
 	this->area.height = up->GetHeight();
 	input->ActionDown += MakeDelegate(this, &Button::ActionDownHandler);
@@ -47,6 +48,7 @@ Button::Button(Game* game, Point location, Image* up, Image* down){
 	this->location = location;
 	this->up = up;
 	this->down = down;
+	this->active = true;
 	//this->press_loc = NULL;
 	this->callback_registered = false;
 	this->have_area = false;
@@ -66,7 +68,7 @@ Button::Button(Game* game, float width, float height){
 	this->area = area;
 	this->up = NULL;
 	this->down = NULL;
-	//this->press_loc = NULL;
+	this->active = true;
 	this->callback_registered = false;
 	this->is_pressed = false;
 	InitRect(location, width, height);
@@ -84,7 +86,7 @@ Button::Button(Game* game, Rect area){
 	this->area = area;
 	this->up = NULL;
 	this->down = NULL;
-	//this->press_loc = NULL;
+	this->active = true;
 	this->callback_registered = false;
 	this->is_pressed = false;
 	this->have_area = true;
@@ -100,6 +102,10 @@ Button::~Button(){
 void Button::SetLocation(Point location){
 	this->location = location;
 	InitRect(location, area.width, area.height);
+}
+
+void Button::SetActive(bool active){
+	this->active = active;
 }
 
 void Button::SetSounds(Audio* push, Audio* pull){
@@ -221,7 +227,7 @@ void Button::SetPressed(bool pressed){
 }
 
 void Button::ActionDownHandler(Point pos){
-	if(OnLocation(pos.x, pos.y)){
+	if(active && OnLocation(pos.x, pos.y)){
 		is_pressed = true;
 		if(push != NULL){
 			push->Play();
@@ -230,21 +236,23 @@ void Button::ActionDownHandler(Point pos){
 }
 
 void Button::ActionUpHandler(Point pos){
-	if(is_pressed && push != NULL){
-		push->Play();
-	}
-	is_pressed = false;
-	if(OnLocation(pos.x, pos.y)){
-		if(callback_registered){
-			is_pressed = false;
-			if(down != NULL){
-				graphics->DrawImage(location, down);
+	if(active){
+		if(is_pressed && push != NULL){
+			push->Play();
+		}
+		is_pressed = false;
+		if(OnLocation(pos.x, pos.y)){
+			if(callback_registered){
+				is_pressed = false;
+				if(down != NULL){
+					graphics->DrawImage(location, down);
+				}
+				if(pull != NULL){
+					pull->Play();
+				}
+				callback();
+				return;
 			}
-			if(pull != NULL){
-				pull->Play();
-			}
-			callback();
-			return;
 		}
 	}
 }

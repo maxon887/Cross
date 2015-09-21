@@ -34,6 +34,7 @@ public:
 	void SetSounds(Audio* push, Audio* pull);
 	void RegisterCallback(function<void()> callback);
 	void SetLocation(Point location);
+	void SetActive(bool active);
 	float GetWidth();
 	float GetHeight();
 	bool IsPressed();
@@ -59,6 +60,7 @@ protected:
 	bool callback_registered;
 	bool is_pressed;
 	bool have_area;
+	bool active;
 
 	void ActionDownHandler(Point pos);
 	void ActionUpHandler(Point pos);

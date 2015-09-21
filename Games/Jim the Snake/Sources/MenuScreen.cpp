@@ -33,11 +33,22 @@ void MenuScreen::Start(){
 	sun_w = 5.f;
 	sun_angle = 0;
 	score = 0;
+	lerp_val = 0;
+	start_angle = 0;
+	delta_angle = 0;
+	delta_time = 0;
 	transition = false;
 	onLeft = true;
 	going_on_game = false;
+	touch_down = false;
 	transitionLerp = 0.f;
 	input->KeyPressed.Clear();
+	input->ActionDown.Clear();
+	input->ActionDown += MakeDelegate(this, &MenuScreen::ActionDownHandler);
+	input->ActionMove.Clear();
+	input->ActionMove += MakeDelegate(this, &MenuScreen::ActionMoveHandler);
+	input->ActionUp.Clear();
+	input->ActionUp += MakeDelegate(this, &MenuScreen::ActionUpHandler);
 	//image loading
 	background			= graphics->LoadImage("Menu/Background.png");
 	sun					= graphics->LoadImage("Menu/Sun.jpg");
@@ -301,11 +312,11 @@ void MenuScreen::CreateDeadAreas(){
 }
 
 void MenuScreen::UpdateSun(float sec, Point sun_pos){
-	static float startAngle = 0;
-	static float deltaAngle = 0;
-	static float deltaTime = 0;
-	static float lerpVal = 0;
-	bool touchInDeadArea = false;
+	//static float startAngle = 0;
+	//static float deltaAngle = 0;
+	//static float deltaTime = 0;
+	//static float lerpVal = 0;
+	//bool touchInDeadArea = false;
 /*
 	if(input->HaveInput() && startAngle == 0){
 		if(onLeft){
@@ -344,25 +355,25 @@ void MenuScreen::UpdateSun(float sec, Point sun_pos){
 		deltaTime = 0;
 		lerpVal = 0;
 	}
-
-	if(input->HaveInput() && !touchInDeadArea){
-		float sun_tangens = (sun_pos.x - input->GetInput().x) / (sun_pos.y - input->GetInput().y);
-		deltaAngle = atan(sun_tangens);
-		deltaAngle = (float)(deltaAngle * 180.f / PI);
-		deltaAngle = deltaAngle - startAngle;
-		graphics->Rotate(sun, sun_angle + deltaAngle);
+	*/
+	if(touch_down){
+		float sun_tangens = (sun_pos.x - input_pos.x) / (sun_pos.y - input_pos.y);
+		delta_angle = atan(sun_tangens);
+		delta_angle = (float)(delta_angle * 180.f / PI);
+		delta_angle = delta_angle - start_angle;
+		graphics->Rotate(sun, sun_angle + delta_angle);
 		graphics->DrawImage(sun_pos, sun);
-		deltaTime += sec;
+		delta_time += sec;
 	}else{
 		graphics->Rotate(sun, sun_angle);
 		graphics->DrawImage(sun_pos, sun);
 		sun_angle += sec * sun_w;
-		if(lerpVal < 1)
-			lerpVal += 0.05f * sec;
+		if(lerp_val < 1)
+			lerp_val += 0.05f * sec;
 		else 
-			lerpVal = 1;
-		sun_w = Lerp(sun_w, 5.f, lerpVal);
-	}*/
+			lerp_val = 1;
+		sun_w = Lerp(sun_w, 5.f, lerp_val);
+	}
 }
 
 void MenuScreen::OnPlayClick(){
@@ -471,5 +482,47 @@ void MenuScreen::KeyPressedHandler(Key key){
 		}else{
 			OnSettingsClick();
 		}
+	}
+}
+
+void MenuScreen::ActionDownHandler(Point pos){
+	if(onLeft){
+		for(Rect dead : dead_areas_left){
+			if(PointInRect(pos, dead)){
+				return;
+			}
+		}
+	}else{
+		for(Rect dead : dead_areas_right){
+			if(PointInRect(pos, dead)){
+				return;
+			}
+		}
+	}
+	float sun_tangens = (sun_pos.x - pos.x) / (sun_pos.y - pos.y);
+	start_angle = atan(sun_tangens);
+	start_angle = (float)(start_angle * 180. / PI);
+	input_pos = pos;
+	touch_down = true;
+}
+
+void MenuScreen::ActionMoveHandler(Point pos){
+	input_pos = pos;
+}
+
+void MenuScreen::ActionUpHandler(Point pos){
+	if(touch_down){
+		sun_angle = sun_angle + delta_angle;
+		if(delta_angle < -90){
+			delta_angle += 180.f;
+		}
+		if(delta_angle > 90){
+			delta_angle -= 180.f;
+		}
+		sun_w = delta_angle / delta_time;
+		start_angle = 0;
+		delta_time = 0;
+		start_angle = 0;
+		touch_down = false;
 	}
 }

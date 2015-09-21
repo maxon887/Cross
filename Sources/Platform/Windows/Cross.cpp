@@ -56,6 +56,7 @@ void ShowLastError(){
 }
 
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
+	static bool mouseDown = false;
 	RECT winRect;
 	short targetX;
 	short targetY;
@@ -67,20 +68,24 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		targetY = (short)HIWORD(lParam);
 		x = targetX / game->GetScaleFactor();
 		y = targetY / game->GetScaleFactor();
+		mouseDown = true;
 		TRIGGER_EVENT(input->ActionDown, Point(x, y));
 		break;
 	case WM_MOUSEMOVE:
-		targetX = (short)LOWORD(lParam);
-		targetY = (short)HIWORD(lParam);
-		x = targetX / game->GetScaleFactor();
-		y = targetY / game->GetScaleFactor();
-		TRIGGER_EVENT(input->ActionMove, Point(x, y));
+		if(mouseDown){
+			targetX = (short)LOWORD(lParam);
+			targetY = (short)HIWORD(lParam);
+			x = targetX / game->GetScaleFactor();
+			y = targetY / game->GetScaleFactor();
+			TRIGGER_EVENT(input->ActionMove, Point(x, y));
+		}
 		break;
 	case WM_LBUTTONUP:
 		targetX = (short)LOWORD(lParam);
 		targetY = (short)HIWORD(lParam);
 		x = targetX / game->GetScaleFactor();
 		y = targetY / game->GetScaleFactor();
+		mouseDown = false;
 		TRIGGER_EVENT(input->ActionUp, Point(x, y));
 		break;
 	case WM_CLOSE:

@@ -80,9 +80,9 @@ void GameScreen::Start(){
 	input->KeyPressed.Clear();
 	input->KeyPressed += MakeDelegate(this, &GameScreen::KeyPressedHandler);
 	input->ActionDown.Clear();
-	input->ActionDown += MakeDelegate(this, &GameScreen::ActionHandler);
+	input->ActionDown += MakeDelegate(this, &GameScreen::ActionDownHandler);
 	input->ActionMove.Clear();
-	input->ActionMove += MakeDelegate(this, &GameScreen::ActionHandler);
+	input->ActionMove += MakeDelegate(this, &GameScreen::ActionMoveHandler);
 	input->ActionUp.Clear();
 	input->ActionUp += MakeDelegate(this, &GameScreen::ActionUpHandler);
 	GameObject::Init(game);
@@ -239,18 +239,24 @@ void GameScreen::SetState(GameState newState){
 		break;
 	case GameState::RUNNING:
 		music->Resume();
+		back_btn->SetActive(false);
+		menu_btn->SetActive(false);
 		for(Spider* spider : spiders){
 			spider->Resume();
 		}
 		break;
 	case GameState::PAUSED:
 		music->Pause();
+		back_btn->SetActive(true);
+		menu_btn->SetActive(true);
 		for(Spider* spider : spiders){
 			spider->Pause();
 		}
 		break;
 	case GameState::GAMEOVER:
 		game_over->Play();
+		restart_btn->SetActive(true);
+		menu_btn->SetActive(true);
 		if(score > game->BestScore()){
 			game->SetBestScore(score);
 			is_best_score = true;
@@ -305,6 +311,10 @@ void GameScreen::Restart(){
 		newOne->SetPosition(GetEmptyPosition(newOne->GetRadius()));
 		cactuses.push_back(newOne);
 	}
+
+	back_btn->SetActive(false);
+	menu_btn->SetActive(false);
+	restart_btn->SetActive(false);
 	//debug
 	/*
 	for(int i = 0; i < 1; i++){
@@ -523,28 +533,30 @@ void GameScreen::DrawLastScore(){
 }
 
 void GameScreen::CalcInput(float sec){
-	float fingerAngle = Angle(control_pos, input_pos);
-	//determine in witch direction we need to move
-	float clockwise;
-	if(fingerAngle > snake->Direction())
-		clockwise = 360 + snake->Direction() - fingerAngle;
-	else 
-		clockwise = snake->Direction() - fingerAngle;
-	float counterclockwise = 360 - clockwise;
-	//rotate snake head
-	if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
-		snake->Rotate(fingerAngle);
-	} else {
-		if(counterclockwise < clockwise) {
-			snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-		}else{
-			snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
-		}
+	if(control_pos != input_pos){
+		float fingerAngle = Angle(control_pos, input_pos);
+		//determine in witch direction we need to move
+		float clockwise;
+		if(fingerAngle > snake->Direction())
+			clockwise = 360 + snake->Direction() - fingerAngle;
+		else 
+			clockwise = snake->Direction() - fingerAngle;
+		float counterclockwise = 360 - clockwise;
+		//rotate snake head
+		if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
+			snake->Rotate(fingerAngle);
+		} else {
+			if(counterclockwise < clockwise) {
+				snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
+			}else{
+				snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+			}
 
-		if(snake->Direction() >= 180.f)
-			snake->Rotate(snake->Direction() - 360.f);
-		if(snake->Direction() <= -180.f)
-			snake->Rotate(snake->Direction() + 360.f);
+			if(snake->Direction() >= 180.f)
+				snake->Rotate(snake->Direction() - 360.f);
+			if(snake->Direction() <= -180.f)
+				snake->Rotate(snake->Direction() + 360.f);
+		}
 	}
 
 	if(control == ARROWS){
@@ -561,9 +573,6 @@ void GameScreen::CalcInput(float sec){
 		}else{
 			right_btn->DrawUp();
 		}
-	}else{
-		left_btn->DrawUp();
-		right_btn->DrawUp();
 	}
 }
 
@@ -644,17 +653,19 @@ void GameScreen::KeyPressedHandler(Key key){
 	}
 }
 
-void GameScreen::ActionHandler(Point pos){
+void GameScreen::ActionDownHandler(Point pos){
+	if(control == SLIDE){
+		control_pos.x = pos.x;
+		control_pos.y = pos.y;
+	}
+}
+
+void GameScreen::ActionMoveHandler(Point pos){
 	if(state == GameState::ONREADY){
 		state = GameState::RUNNING;
 	}
 
 	if(control == SLIDE){
-		if(control_pos.x == 0 && control_pos.y == 0){
-			control_pos.x = pos.x;
-			control_pos.y = pos.y;
-			return;
-		}
 		float NeedDistance = 300.f;
 		float RealDistance = Distance(control_pos, pos);
 		if(RealDistance > NeedDistance){
@@ -678,8 +689,8 @@ void GameScreen::ActionHandler(Point pos){
 
 void GameScreen::ActionUpHandler(Point pos){
 	if(control == SLIDE){
-		control_pos.x = 0;
-		control_pos.y = 0;
+		input_pos = pos;
+		control_pos = pos;
 	}
 	if(control == ARROWS){
 		on_left = false;

@@ -77,7 +77,7 @@ void Debuger::Display(float micro){
 		}
 	}
 	if(screen_debug){
-		game->graphics->SetViewPort(Point(0, 0), 900, 900 / launcher->DeviceAspect());
+		//game->graphics->SetViewPort(Point(0, 0), 900, 900 / launcher->DeviceAspect());
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
