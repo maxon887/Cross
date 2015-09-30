@@ -20,6 +20,8 @@
 #include "Point.h"
 #include "Events\Event.h"
 
+#include <mutex>
+
 namespace cross {
 
 enum class Key{
@@ -46,6 +48,13 @@ public:
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
+	
+	std::mutex sync;
+	void TriggerActionDown(Point pos);
+	void TriggerActionUp(Point pos);
+	void TriggerActionMove(Point pos);
+	void TriggerKeyPressed(Key key);
+	void TriggerKeyReleased(Key key);
 };
 
 }

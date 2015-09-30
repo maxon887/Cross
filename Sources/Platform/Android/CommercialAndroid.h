@@ -18,17 +18,20 @@
 #pragma once
 
 #include "Commercial.h"
+#include "LauncherAndroid.h"
 #include <jni.h>
 
-using namespace cross;
+namespace cross{
 
 class CommercialAndroid : public Commercial{
 public:
-	CommercialAndroid(JNIEnv* env, jobject comm);
+	CommercialAndroid(LauncherAndroid* launcher, jobject comm);
 	void DownloadAd();
 	void ShowAd();
 	void Purchase();
 private:
-	JNIEnv* env;
 	jobject comm;
+	LauncherAndroid* launcher;
 };
+
+}

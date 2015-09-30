@@ -172,6 +172,10 @@ void GameScreen::Update(float sec){
     }
 	graphics->Clear(0.25, 0.25, 0);
 	graphics->DrawImage(game->GetWidth()/2, game->GetHeight()/2, background);
+	if(going_menu){
+		game->SetScreen(new MenuScreen(game));
+		return;
+	}
 	ProccessCollisions();
 	UpdateApples(sec);
 	DrawApples();
@@ -627,7 +631,8 @@ void GameScreen::OnMenuClick(){
 			game->SetBestScore(score);
 		}
 	}
-	game->SetScreen(new MenuScreen(game));
+	//game->SetScreen(new MenuScreen(game));
+	going_menu = true;
 }
 
 void GameScreen::OnResumeClick(){
@@ -658,6 +663,14 @@ void GameScreen::ActionDownHandler(Point pos){
 		control_pos.x = pos.x;
 		control_pos.y = pos.y;
 	}
+	if(control == ARROWS){
+		if(left_btn->OnLocation(pos)){
+			on_left = true;
+		}
+		if(right_btn->OnLocation(pos)){
+			on_right = true;
+		}
+	}
 }
 
 void GameScreen::ActionMoveHandler(Point pos){
@@ -666,7 +679,7 @@ void GameScreen::ActionMoveHandler(Point pos){
 	}
 
 	if(control == SLIDE){
-		float NeedDistance = 300.f;
+		static const float NeedDistance = 300.f;
 		float RealDistance = Distance(control_pos, pos);
 		if(RealDistance > NeedDistance){
 			float fingerAngle = Angle(control_pos, pos);
@@ -680,9 +693,11 @@ void GameScreen::ActionMoveHandler(Point pos){
 	if(control == ARROWS){
 		if(left_btn->OnLocation(pos)){
 			on_left = true;
+			on_right = false;
 		}
 		if(right_btn->OnLocation(pos)){
 			on_right = true;
+			on_left = false;
 		}
 	}
 }

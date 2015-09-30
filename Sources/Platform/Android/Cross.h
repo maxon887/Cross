@@ -17,6 +17,7 @@
 
 #pragma once
 #include "Game.h"
+#include "Launcher.h"
 #include "android/log.h"
 
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,"Cross++",__VA_ARGS__)

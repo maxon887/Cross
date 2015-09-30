@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Audio.h"
+#include "Launcher.h"
 
 #include "fmod_errors.h"
 

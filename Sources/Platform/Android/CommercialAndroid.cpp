@@ -18,16 +18,17 @@
 #include "CommercialAndroid.h"
 #include "Cross.h"
 
-CommercialAndroid::CommercialAndroid(JNIEnv* env, jobject comm){
+using namespace cross;
+
+CommercialAndroid::CommercialAndroid(LauncherAndroid* launcher, jobject comm){
 	LOGI("CommercialAndroid::CommercialAndroid");
-	if(env == NULL || comm == 0)
-		throw string("JNIEnv not initialized");
-	this->env = env;
+	this->launcher = launcher;
 	this->comm = comm;
 }
 
 void CommercialAndroid::DownloadAd(){
 	LOGI("CommercialAndroid::DownloadAd");
+	JNIEnv* env = launcher->GetJNIEnv();
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
 	env->CallVoidMethod(comm, methodID);
@@ -35,6 +36,7 @@ void CommercialAndroid::DownloadAd(){
 
 void CommercialAndroid::ShowAd(){
 	LOGI("CommercialAndroid::ShowAd");
+	JNIEnv* env = launcher->GetJNIEnv();
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "ShowAd", "()V");
 	env->CallVoidMethod(comm, methodID);
@@ -42,6 +44,7 @@ void CommercialAndroid::ShowAd(){
 
 void CommercialAndroid::Purchase(){
 	LOGI("CommercialAndroid::Purchase");
+	JNIEnv* env = launcher->GetJNIEnv();
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "Purchase", "()V");
 	env->CallVoidMethod(comm, methodID);

@@ -523,6 +523,7 @@ void MenuScreen::ActionUpHandler(Point pos){
 		start_angle = 0;
 		delta_time = 0;
 		start_angle = 0;
+		lerp_val = 0;
 		touch_down = false;
 	}
 }

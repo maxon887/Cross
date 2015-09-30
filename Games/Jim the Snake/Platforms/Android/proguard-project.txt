@@ -22,3 +22,4 @@
 -keep class org.fmod.** { *; }
 -keep class com.cross.** { *; }
 -keep class com.mouse.** { *; }
+-dontwarn com.google.android.gms.internal.**

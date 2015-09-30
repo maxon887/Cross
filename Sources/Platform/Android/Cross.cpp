@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Cross.h"
+#include "Commercial.h"
 #include "LauncherAndroid.h"
 
 #include "jni.h"
@@ -83,25 +84,25 @@ extern "C"{
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
 		float x = targetX / game->GetScaleFactor();
 		float y = targetY / game->GetScaleFactor();
-		TRIGGER_EVENT(input->ActionDown, Point(x, y));
+		input->TriggerActionDown(Point(x, y));
 	}
 
 	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
 		float x = targetX / game->GetScaleFactor();
 		float y = targetY / game->GetScaleFactor();
-		TRIGGER_EVENT(input->ActionMove, Point(x, y));
+		input->TriggerActionMove(Point(x, y));
 	}
 
 	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
 		float x = targetX / game->GetScaleFactor();
 		float y = targetY / game->GetScaleFactor();
-		TRIGGER_EVENT(input->ActionUp, Point(x, y));
+		input->TriggerActionUp(Point(x, y));
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
-		TRIGGER_EVENT(input->KeyPressed, (Key)key);
+		input->TriggerKeyPressed((Key)key);
 	}
 	void Java_com_cross_Cross_ReleaseKey(JNIEnv *env, jobject thiz, jint key){
-		TRIGGER_EVENT(input->KeyReleased, (Key)key);
+		input->TriggerKeyReleased((Key)key);
 	}
 
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){

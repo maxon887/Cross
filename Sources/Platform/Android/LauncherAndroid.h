@@ -18,11 +18,12 @@
 #pragma once
 
 #include "Launcher.h"
-#include "CommercialAndroid.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 
 namespace cross{
+
+class CommercialAndroid;
 
 class LauncherAndroid : public Launcher{
 public:
@@ -36,9 +37,10 @@ public:
 	void PromtToExit();
 	void InitializeCommercial(JNIEnv* env, jobject comm);
 	Commercial* GetCommercial();
+	JNIEnv* GetJNIEnv();
 	~LauncherAndroid();
 private:
-	JNIEnv* env;
+	JavaVM* jvm;
 	jobject cross_activity;
 	AAssetManager* asset_manager;
 	CommercialAndroid* commercial;

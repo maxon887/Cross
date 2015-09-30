@@ -17,8 +17,6 @@ package com.cross;
 
 import java.util.Date;
 
-import com.cross.frozenjim.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -217,8 +215,6 @@ public class RateThisApp {
     public static class Config {
         private int mCriteriaInstallDays;
         private int mCriteriaLaunchTimes;
-        private int mTitleId = 0;
-        private int mMessageId = 0;
 
         /**
          * Constructor with default criteria.
@@ -235,22 +231,6 @@ public class RateThisApp {
         public Config(int criteriaInstallDays, int criteriaLaunchTimes) {
             this.mCriteriaInstallDays = criteriaInstallDays;
             this.mCriteriaLaunchTimes = criteriaLaunchTimes;
-        }
-
-        /**
-         * Set title string ID.
-         * @param stringId
-         */
-        public void setTitle(int stringId) {
-            this.mTitleId = stringId;
-        }
-
-        /**
-         * Set message string ID.
-         * @param stringId
-         */
-        public void setMessage(int stringId) {
-            this.mMessageId = stringId;
         }
     }
 }

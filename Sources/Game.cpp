@@ -98,7 +98,9 @@ void Game::Update(){
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
+		input->sync.lock();
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
+		input->sync.unlock();
 		//GetCurrentScreen()->Update(0.1f);
 		//launcher->Sleep(500);
 		now = high_resolution_clock::now();

@@ -16,11 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-#include "Launcher.h"
+//#include "Launcher.h"
 
 #include "fmod.hpp"
 
+#include <string>
+
 namespace cross {
+
+class Launcher;
 
 class Audio{
 public:
@@ -29,7 +33,7 @@ public:
 	static void ResumeSystem();
 	static void Release();
 
-	Audio(string path, bool loop, bool isStream);
+	Audio(std::string path, bool loop, bool isStream);
 	Audio(Audio& obj);
 
 	void Play();

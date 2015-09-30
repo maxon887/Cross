@@ -21,7 +21,6 @@
 #include <string>
 
 using namespace cross;
-using namespace std;
 
 LauncherAndroid::LauncherAndroid(int w, int h, string dataPath, AAssetManager* assManager, jobject crossActivity, JNIEnv* env){
 	this->width = w;
@@ -29,8 +28,8 @@ LauncherAndroid::LauncherAndroid(int w, int h, string dataPath, AAssetManager* a
 	this->data_path = dataPath;
 	this->asset_manager = assManager;
 	this->cross_activity = crossActivity;
-	this->env = env;
 	this->commercial = NULL;
+	env->GetJavaVM(&jvm);
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -70,18 +69,15 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 }
 
 void LauncherAndroid::PromtToExit(){
-	JavaVM* jvm;
-	env->GetJavaVM(&jvm);
-	jvm->AttachCurrentThread(&env, 0);
+	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
-	env->CallVoidMethod(cross_activity, methodID);
-	//jvm->DetachCurrentThread();
+	env->CallVoidMethod(cross_activity, methodID);;
 }
 
 void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){
 	LOGI("LauncherAndroid::InitializeCommercial");
-	commercial = new CommercialAndroid(env, comm);
+	commercial = new CommercialAndroid(this, comm);
 }
 
 Commercial* LauncherAndroid::GetCommercial() {
@@ -92,5 +88,24 @@ LauncherAndroid::~LauncherAndroid(){
 	delete commercial;
 }
 
+JNIEnv* LauncherAndroid::GetJNIEnv(){
+    JNIEnv* env;
+    int getEnvStat = jvm->GetEnv((void **)&env, JNI_VERSION_1_6);
+    switch(getEnvStat){
+    case JNI_OK:
+    	return env;
+    case JNI_EDETACHED:
+		LogIt("GetEnv: not attached");
+		if (jvm->AttachCurrentThread(&env, NULL) != 0) {
+			throw string("Failed to attach thread");
+		}
+		return env;
+    case JNI_EVERSION:
+    	throw string("GetEnv: version not supported");
+
+    default:
+    	throw string("Unknown JNI state");
+    }
+}
 
 
