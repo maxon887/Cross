@@ -26,6 +26,8 @@
 using namespace cross;
 using namespace chrono;
 
+mutex cross::global_mutex;
+
 Game::Game(Launcher* launcher, float width){
 	Init(launcher);
 	this->width = width;
@@ -98,9 +100,9 @@ void Game::Update(){
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
-		input->sync.lock();
+		//global_mutex.lock();
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
-		input->sync.unlock();
+		//global_mutex.unlock();
 		//GetCurrentScreen()->Update(0.1f);
 		//launcher->Sleep(500);
 		now = high_resolution_clock::now();
@@ -141,4 +143,5 @@ Game::~Game(){
 	delete input;
 	delete saver;
 	delete debuger;
+	launcher->LogIt("Destructor finished");
 }

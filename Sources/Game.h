@@ -19,10 +19,13 @@
 #include "Screen.h"
 
 #include <chrono>
+#include <mutex>
 
 namespace cross{
     
 class Debuger;
+
+extern mutex global_mutex;
 
 /*	Core game class. Every game must inherit that class.
 	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */

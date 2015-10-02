@@ -16,35 +16,36 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Input.h"
+#include "Game.h"
 
 using namespace cross;
 
 void Input::TriggerActionDown(Point pos){
-	sync.lock();
+	global_mutex.lock();
 	TRIGGER_EVENT(ActionDown, pos);
-	sync.unlock();
+	global_mutex.unlock();
 }
 
 void Input::TriggerActionUp(Point pos){
-	sync.lock();
+	global_mutex.lock();
 	TRIGGER_EVENT(ActionUp, pos);
-	sync.unlock();
+	global_mutex.unlock();
 }
 
 void Input::TriggerActionMove(Point pos){
-	sync.lock();
+	global_mutex.lock();
 	TRIGGER_EVENT(ActionMove, pos);
-	sync.unlock();
+	global_mutex.unlock();
 }
 
 void Input::TriggerKeyPressed(Key key){
-	sync.lock();
+	global_mutex.lock();
 	TRIGGER_EVENT(KeyPressed, key);
-	sync.unlock();
+	global_mutex.unlock();
 }
 
 void Input::TriggerKeyReleased(Key key){
-	sync.lock();
+	global_mutex.lock();
 	TRIGGER_EVENT(KeyReleased, key);
-	sync.unlock();
+	global_mutex.unlock();
 }

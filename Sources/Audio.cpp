@@ -31,7 +31,6 @@ using namespace cross;
 FMOD::System*	Audio::system = NULL;
 FMOD_RESULT		Audio::result;
 unsigned int	Audio::version = 0;
-void*			Audio::extradriverdata = NULL;
 Launcher*		Audio::launcher = NULL;
 
 #define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
@@ -70,12 +69,11 @@ void Audio::Init(Launcher* launcher){
 	result = system->getVersion(&version);
 	ERRCHECK(result);
 
-	if (version < FMOD_VERSION)
-	{
+	if(version < FMOD_VERSION){
 		Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 	}
 
-	result = system->init(16, FMOD_INIT_NORMAL, extradriverdata);
+	result = system->init(32, FMOD_INIT_NORMAL, NULL);
 	ERRCHECK(result);
 	launcher->LogIt("Audio initialized");
 }

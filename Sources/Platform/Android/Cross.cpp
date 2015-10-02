@@ -44,6 +44,7 @@ void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject cr
 extern "C"{
 	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager, jobject crossActivity){
 		LOGI("Cross_Init");
+		global_mutex.lock();
 		AAssetManager* mng = AAssetManager_fromJava(env, assetManager);
 		if(!mng){
 			LOGI("Error loading asset manager");
@@ -51,34 +52,46 @@ extern "C"{
 		string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
 		crossActivity = env->NewGlobalRef(crossActivity);
 		Init((int)width, (int)height, stdDataPath, mng, crossActivity, env);
+		global_mutex.unlock();
 	}
 
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
+		global_mutex.lock();
 		game->Start();
+		global_mutex.unlock();
 	}
 
 	void Java_com_cross_Cross_Update(JNIEnv *env, jobject thiz){
+		global_mutex.lock();
 		game->Update();
+		global_mutex.unlock();
 	}
 
 	void Java_com_cross_Cross_Suspend(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Suspend");
+		global_mutex.lock();
 		game->Suspend();
 		Audio::SuspendSystem();
+		global_mutex.unlock();
 	}
 
 	void Java_com_cross_Cross_Resume(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Resume");
+		global_mutex.lock();
 		game->Resume();
 		Audio::ResumeSystem();
+		global_mutex.unlock();
 	}
 
 	void Java_com_cross_Cross_Release(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Release");
+		global_mutex.lock();
+		game->Suspend();
 		delete game;
 		Audio::Release();
 		delete graphics;
 		delete launcher;
+		global_mutex.unlock();
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
