@@ -17,6 +17,7 @@
 	
 #include "Input.h"
 #include "Game.h"
+#include "Cross.h"
 
 using namespace cross;
 

@@ -64,7 +64,8 @@ float cross::Distance(Point p1, Point p2){
 
 float cross::Angle(Point first, Point second){
 	if(first == second){
-		throw string("angle between same points does not exists");
+		//throw string("angle between same points does not exists");
+		return 0;
 	}
 	double tangens = (first.x - second.x) / (first.y - second.y);
 	double angle = atan(tangens);

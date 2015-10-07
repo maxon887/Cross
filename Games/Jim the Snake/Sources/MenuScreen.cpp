@@ -312,50 +312,6 @@ void MenuScreen::CreateDeadAreas(){
 }
 
 void MenuScreen::UpdateSun(float sec, Point sun_pos){
-	//static float startAngle = 0;
-	//static float deltaAngle = 0;
-	//static float deltaTime = 0;
-	//static float lerpVal = 0;
-	//bool touchInDeadArea = false;
-/*
-	if(input->HaveInput() && startAngle == 0){
-		if(onLeft){
-			for(Rect dead : dead_areas_left){
-				if(PointInRect(input->GetInput(), dead)){
-					touchInDeadArea = true;
-					break;
-				}
-			}
-		}else{
-			for(Rect dead : dead_areas_right){
-				if(PointInRect(input->GetInput(), dead)){
-					touchInDeadArea = true;
-					break;
-				}
-			}
-		}
-	}
-
-	if(input->HaveInput() && startAngle == 0 && !touchInDeadArea){
-		float sun_tangens = (sun_pos.x - input->GetInput().x) / (sun_pos.y - input->GetInput().y);
-		startAngle = atan(sun_tangens);
-		startAngle = (float)(startAngle * 180.f / PI);
-	}
-
-	if(!input->HaveInput() && startAngle != 0 && !touchInDeadArea){
-		sun_angle = sun_angle + deltaAngle;
-		if(deltaAngle < -90){
-			deltaAngle += 180.f;
-		}
-		if(deltaAngle > 90){
-			deltaAngle -= 180.f;
-		}
-		sun_w = deltaAngle / deltaTime;
-		startAngle = 0;
-		deltaTime = 0;
-		lerpVal = 0;
-	}
-	*/
 	if(touch_down){
 		float sun_tangens = (sun_pos.x - input_pos.x) / (sun_pos.y - input_pos.y);
 		delta_angle = atan(sun_tangens);
@@ -511,19 +467,18 @@ void MenuScreen::ActionMoveHandler(Point pos){
 }
 
 void MenuScreen::ActionUpHandler(Point pos){
-	if(touch_down){
-		sun_angle = sun_angle + delta_angle;
-		if(delta_angle < -90){
-			delta_angle += 180.f;
-		}
-		if(delta_angle > 90){
-			delta_angle -= 180.f;
-		}
-		sun_w = delta_angle / delta_time;
-		start_angle = 0;
-		delta_time = 0;
-		start_angle = 0;
-		lerp_val = 0;
-		touch_down = false;
+	sun_angle = sun_angle + delta_angle;
+	if(delta_angle < -90){
+		delta_angle += 180.f;
 	}
+	if(delta_angle > 90){
+		delta_angle -= 180.f;
+	}
+	if(delta_time != 0){
+		sun_w = delta_angle / delta_time;
+	}
+	start_angle = 0;
+	delta_time = 0;
+	lerp_val = 0;
+	touch_down = false;
 }
