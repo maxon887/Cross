@@ -60,9 +60,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/SOIL/image_helper.c \
 					../../../../../Sources/SOIL/stb_image_aug.c 
 					
-LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM -lOpenSLES
+LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM
 LOCAL_SHARED_LIBRARIES  := fmod
 
 include $(BUILD_SHARED_LIBRARY)
-
-$(call import-module,android/native_app_glue)

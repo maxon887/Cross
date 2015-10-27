@@ -77,10 +77,6 @@ void SecondScreen::Update(float sec){
 			spider_run_snd->Play();
 		}
 	}
-
-	if(input->HaveInput()){
-        game->SetScreen(new MainScreen(game));
-    }
 }
 
 void SecondScreen::DrawBackground(float sec) {

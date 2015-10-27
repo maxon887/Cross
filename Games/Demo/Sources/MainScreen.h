@@ -50,4 +50,5 @@ private:
 	Audio* truck;
 	int start_count;
 	bool song_started;
+	bool going_on_second_screen;
 };

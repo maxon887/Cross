@@ -19,7 +19,7 @@
 
 #include "Game.h"
 
-#include <functional>
+//#include <functional>
 
 namespace cross {
 
@@ -32,7 +32,6 @@ public:
 	~Button();
 	void Update();
 	void SetSounds(Audio* push, Audio* pull);
-	void RegisterCallback(function<void()> callback);
 	void SetLocation(Point location);
 	void SetActive(bool active);
 	float GetWidth();
@@ -45,6 +44,8 @@ public:
 	void DrawDown();
 	Rect GetRect();
 	Point GetCenter();
+
+	DECLARE_EVENT(void) Clicked;
 protected:
 	Launcher* launcher;
 	Graphics* graphics;
@@ -56,11 +57,12 @@ protected:
 	Audio* push;
 	Audio* pull;
 	void InitRect(Point loc, float width, float heiht);
-	function<void()> callback;
-	bool callback_registered;
 	bool is_pressed;
 	bool have_area;
 	bool active;
+
+	FastDelegate1<Point, void> action_down_delegate;
+	FastDelegate1<Point, void> action_up_delegate;
 
 	void ActionDownHandler(Point pos);
 	void ActionUpHandler(Point pos);

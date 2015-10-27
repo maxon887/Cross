@@ -22,25 +22,28 @@ MainScreen::MainScreen(Game* game):Screen(game) {
 	bck_music = NULL;
 	jaguar = NULL;
 	truck = NULL;
+	going_on_second_screen = false;
 }
 
 void MainScreen::Start(){
 	Point pos;
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
-    x_img = graphics->LoadImage("X256.png");
+    x_img = graphics->LoadImage("Logo.png");
 	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
     Image* release = graphics->LoadImage("StartButtonUp.png");
 	Image* pressed = graphics->LoadImage("StartButtonDown.png");
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 * 2;
+	pos.y = game->GetHeight() / 4 * 3;
 	btn = new Button(game, pos, release, pressed);
-	btn->RegisterCallback(bind(&MainScreen::OnClick, this));
+	//btn->RegisterCallback(bind(&MainScreen::OnClick, this));
+	btn->Clicked += MakeDelegate(this, &MainScreen::OnClick);
 	Image* on = graphics->LoadImage("MusicOn.png");
 	Image* off = graphics->LoadImage("MusicOff.png");
 	pos.x = game->GetWidth() - on->GetWidth();
 	pos.y = on->GetHeight();
 	music_btn = new ToggleButton(game, pos, on, off);
-	music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
+	//music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
+	music_btn->Clicked += MakeDelegate(this, &MainScreen::MusicOnClick);
 	bck_music = new Audio("Eskimo.mp3", true, true);
 	bool musicState = saver->LoadBool("MUSIC_STATE", true);
 	music_btn->SetState(musicState);
@@ -58,12 +61,14 @@ void MainScreen::Start(){
 	pos.x = yellow_sound_btn->GetWidth() / 2;
 	pos.y = game->GetHeight() - yellow_sound_btn->GetHeight() / 2;
 	yellow_sound_btn->SetLocation(pos);
-	yellow_sound_btn->RegisterCallback(bind(&MainScreen::OnYellowClick, this));
+	//yellow_sound_btn->RegisterCallback(bind(&MainScreen::OnYellowClick, this));
+	yellow_sound_btn->Clicked += MakeDelegate(this, &MainScreen::OnYellowClick);
 	blue_sound_btn = new Button(game, blue_img, gray_img);
 	pos.x = game->GetWidth() - blue_sound_btn->GetWidth() / 2;
 	pos.y = game->GetHeight() - blue_sound_btn->GetHeight() / 2;
 	blue_sound_btn->SetLocation(pos);
-	blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
+	//blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
+	blue_sound_btn->Clicked += MakeDelegate(this, &MainScreen::OnBlueClick);
 
 	jaguar = new Audio("Jaguar.wav", false, false);
 	truck = new Audio("Truck.wav", true, false);
@@ -79,7 +84,7 @@ void MainScreen::Update(float sec){
 	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 	Point pos;
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 3 - 120;
+	pos.y = game->GetHeight() / 3 - 40;
 	graphics->Rotate(x_img, 15);
 	graphics->DrawImage(pos, x_img);
 	pos.x -= 200;
@@ -90,11 +95,15 @@ void MainScreen::Update(float sec){
 	yellow_sound_btn->Update();
 	blue_sound_btn->Update();
 	btn->Update();
+	if(going_on_second_screen){
+		game->SetScreen(new SecondScreen(game));
+	}
 }
 
 void MainScreen::OnClick(){
 	launcher->LogIt("OnClick");
-    game->SetScreen(new SecondScreen(game));
+   // game->SetScreen(new SecondScreen(game));
+	going_on_second_screen = true;
 }
 
 void MainScreen::OnYellowClick(){
