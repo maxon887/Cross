@@ -17,12 +17,12 @@
 
 #include "Graphics.h"
 #include "Game.h"
-#include "Debuger.h"
+#include "Utils/Debuger.h"
 #ifdef ANDROID
 #include "LauncherAndroid.h"
 #endif
 
-#include "SOIL.h"
+#include "SOIL/SOIL.h"
 
 #include <stdlib.h>
 #include <cmath>

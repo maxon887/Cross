@@ -17,9 +17,11 @@
 	
 #pragma once
 
+#define TARGET_WIDTH 512		
+#define TARGET_HEIGHT 512
 // 16:9
-#define TARGET_WIDTH 540		
-#define TARGET_HEIGHT 960
+//#define TARGET_WIDTH 540		
+//#define TARGET_HEIGHT 960
 //iPhone 5
 //#define TARGET_WIDTH 320
 //#define TARGET_HEIGHT 568	

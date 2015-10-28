@@ -18,26 +18,30 @@
 #include "Audio.h"
 #include "Launcher.h"
 
-#include "fmod_errors.h"
+using namespace cross;
+
+#define DISABLE_AUDIO
+#ifndef DISABLE_AUDIO
+
+#include "FMOD\fmod.hpp"
+#include "FMOD/fmod_errors.h"
 
 #include <stdarg.h>
-
-using namespace cross;
 
 #ifndef Common_vsnprintf
     #define Common_vsnprintf vsnprintf
 #endif
 
+static FMOD_RESULT		result;
+
 FMOD::System*	Audio::system = NULL;
-FMOD_RESULT		Audio::result;
 unsigned int	Audio::version = 0;
 Launcher*		Audio::launcher = NULL;
 
 #define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
 void (*Common_Private_Error)(FMOD_RESULT, const char *, int);
 
-void Common_Fatal(const char *format, ...)
-{
+void Common_Fatal(const char *format, ...){
     char error[1024];
 
     va_list args;
@@ -166,3 +170,53 @@ Audio::~Audio(){
 		channel->stop();
 	}
 }
+
+#else
+
+
+void Audio::Init(Launcher* launcher){
+	launcher->LogIt("Audio system disabled");
+}
+
+void Audio::SuspendSystem(){
+}
+
+void Audio::ResumeSystem(){
+}
+
+void Audio::Release(){
+}
+
+Audio::Audio(string path, bool loop, bool isStream){
+	throw string("Audio system disabled");
+}
+
+Audio::Audio(Audio& obj){
+	throw string("Audio system disabled");
+}
+
+void Audio::Play(){
+	throw string("Audio system disabled");
+}
+
+void Audio::Pause(){
+	throw string("Audio system disabled");
+}
+
+void Audio::Resume(){
+	throw string("Audio system disabled");
+}
+
+void Audio::Stop(){
+	throw string("Audio system disabled");
+}
+
+bool Audio::IsPlaying(){
+	throw string("Audio system disabled");
+}
+
+Audio::~Audio(){
+	throw string("Audio system disabled");
+}
+
+#endif

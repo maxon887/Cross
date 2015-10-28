@@ -16,9 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Game.h"
-#include "Debuger.h"
+#include "Utils/Debuger.h"
 #ifdef WIN
-#include "LauncherWIN.h"
+#include "Platform/Windows/LauncherWIN.h"
 #endif 
 
 #include <stdlib.h>

@@ -16,11 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #pragma once
-//#include "Launcher.h"
-
-#include "fmod.hpp"
 
 #include <string>
+
+namespace FMOD{
+	class System;
+	class Sound;
+	class Channel;
+}
 
 namespace cross {
 
@@ -44,7 +47,7 @@ public:
 	~Audio();
 private:
 	static FMOD::System* system;
-	static FMOD_RESULT result;
+	//static unsigned int result;
 	static unsigned int version;
 	static void* extradriverdata;
 	static Launcher* launcher;
