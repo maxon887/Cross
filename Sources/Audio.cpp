@@ -20,7 +20,6 @@
 
 using namespace cross;
 
-#define DISABLE_AUDIO
 #ifndef DISABLE_AUDIO
 
 #include "FMOD\fmod.hpp"

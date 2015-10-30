@@ -39,6 +39,7 @@ class LauncherWIN : public Launcher{
 public:
 	LauncherWIN(HWND wnd);
 	~LauncherWIN();
+	void SetTargetSize(int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	string AssetsPath();
@@ -50,6 +51,8 @@ public:
 private:
 	HWND wnd;
 	bool landscape;
+	int target_width;
+	int target_height;
 };
 
 }

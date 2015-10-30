@@ -33,6 +33,7 @@ class Game{
 public:
 	Launcher* launcher;
 	Graphics* graphics;
+	Graphics3D* gfx3D;
 	Input* input;
 	Saver* saver;
 	/* You need to override this method to get engine know from which screen it must start */
@@ -58,6 +59,7 @@ public:
 	void SetScreen(Screen* screen);
 	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
+	bool Is3D();
 	/* Exit from application */
     void Exit();
 

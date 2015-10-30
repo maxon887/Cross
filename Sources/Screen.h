@@ -17,7 +17,13 @@
 	
 #pragma once
 
-#include "Graphics.h"
+#ifdef C3D
+	#include "Graphics3D.h"
+	class Graphics;
+#else
+	#include "Graphics.h"
+	class Graphics3D;
+#endif
 #include "Input.h"
 #include "Saver.h"
 #include "Audio.h"
@@ -44,6 +50,7 @@ protected:
 	Game* game;				//
 	Launcher* launcher;		//
 	Graphics* graphics;		// Copy of vital game modules just for comfortability
+	Graphics3D* gfx3D;
     Input* input;			//
 	Saver* saver;			//
 //Internal data. You don't need call any of this methods or modify variable

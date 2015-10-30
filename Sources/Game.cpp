@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 #include "Game.h"
+#include "Launcher.h"
 #include "Utils/Debuger.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
@@ -100,11 +101,7 @@ void Game::Update(){
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
-		//global_mutex.lock();
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
-		//global_mutex.unlock();
-		//GetCurrentScreen()->Update(0.1f);
-		//launcher->Sleep(500);
 		now = high_resolution_clock::now();
 		long long up = duration_cast<microseconds>(now - render_time).count();
 		float milis = up / 1000.f;
@@ -124,6 +121,14 @@ void Game::Update(){
 	}
 }
 
+bool Game::Is3D(){
+#ifdef C3D
+	return true;
+#else
+	return false;
+#endif
+}
+
 void Game::Exit(){
 	exit(0);
 }
@@ -134,6 +139,7 @@ void Game::Init(Launcher* launcher){
 	this->saver = new Saver(this);
 	this->debuger = new Debuger(this);
 	this->graphics = NULL;
+	this->gfx3D = NULL;
 	this->current_screen = NULL;
 }
 

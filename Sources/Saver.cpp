@@ -17,6 +17,7 @@
 	
 #include "Saver.h"
 #include "Game.h"
+#include "Launcher.h"
 
 #include <fstream>
 

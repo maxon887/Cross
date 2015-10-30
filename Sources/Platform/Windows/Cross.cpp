@@ -187,7 +187,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	HDC dc;
 	HGLRC renderContext;
-	GLuint pixelFormat;
+	unsigned int pixelFormat;
 	DWORD error;
 
 	dc = GetDC(wnd);
@@ -211,10 +211,14 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		ShowLastError();
 
 	ShowWindow(wnd, winShow);
-
-	Graphics* graphics = new Graphics(game);
+#ifdef C3D
+	Graphics3D* gfx = new Graphics3D(game);
+	game->gfx3D = gfx;
+#else
+	Graphics* gfx = new Graphics(game);
+	game->graphics = gfx;
+#endif
 	input = game->input;
-	game->graphics = graphics;
 	game->input = input;
 	game->Start();
 
@@ -228,7 +232,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
-	delete graphics;
+	delete gfx;
 	delete game;
 	delete launcher;
 	return msg.wParam;

@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Debuger.h"
+#include "Launcher.h"
 
 #include <vector>
 
@@ -45,8 +46,10 @@ Debuger::Debuger(Game* game){
 	this->game = game;
 	launcher = game->launcher;
 	input = game->input;
-	texter = NULL;
+#ifndef C3D
 	touch_pointer = NULL;
+	texter = NULL;
+#endif
 	update_time = 0;
 	update_sum = 0;
 	update_counter = 0;
@@ -61,10 +64,13 @@ Debuger::Debuger(Game* game){
 }
 
 Debuger::~Debuger(){
+#ifndef C3D
 	delete texter;
+#endif
 }
 
 void Debuger::Display(float micro){
+#ifndef C3D
 	if(screen_debug || console_debug){
 		time += micro / 1000000.f;
 		if(render_counter == 20){
@@ -77,7 +83,6 @@ void Debuger::Display(float micro){
 		}
 	}
 	if(screen_debug){
-		//game->graphics->SetViewPort(Point(0, 0), 900, 900 / launcher->DeviceAspect());
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
@@ -89,15 +94,6 @@ void Debuger::Display(float micro){
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
 		}
-		/*
-		if(input->HaveInput()){
-			Point in = input->GetInput();
-			texter->DrawText(0, texter->GetHeight() * 3, "Input Virtual: x=" + to_string(in.x) + " y=" + to_string(in.y));
-			texter->DrawText(0, texter->GetHeight() * 4, "Input Real: x=" + to_string(input->input_loc.x) + " y=" + to_string(input->input_loc.y));
-		}else{
-			texter->DrawText(0, texter->GetHeight() * 3, "Input Virtual: UP");
-			texter->DrawText(0, texter->GetHeight() * 4, "Input Real: UP");
-		}*/
 		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));
 	}
 	if(console_debug){
@@ -113,21 +109,18 @@ void Debuger::Display(float micro){
 			next_display -= micro;
 		}
 	}
-	/*
-	if(touches){
-		if(input->HaveInput()){
-			game->graphics->DrawImage(input->GetInput(), touch_pointer);
-		}
-	}*/
+#endif
 }
 
 void Debuger::EnableScreenDebug(){
+#ifndef C3D
 	if(texter == NULL){
 		texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	}else{
 		launcher->LogIt("Warning!Screen debug already anabled");
 	}
 	screen_debug = true;
+#endif
 }
 
 void Debuger::EnableConsoleDebug(){
@@ -135,12 +128,14 @@ void Debuger::EnableConsoleDebug(){
 }
 
 void Debuger::EnableTouches(){
+#ifndef C3D
 	if(touch_pointer == NULL){
 		touch_pointer = game->graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
 	}else{
 		launcher->LogIt("Warning!Touches already anabled");
 	}
 	touches = true;
+#endif
 }
 
 void Debuger::SetUpdateTime(float micro) {

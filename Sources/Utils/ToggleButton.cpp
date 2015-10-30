@@ -39,39 +39,7 @@ void ToggleButton::Update(){
 		graphics->DrawImage(location, on);
 	else
 		graphics->DrawImage(location, off);
-	/*
-	//first press
-	if(input->HaveInput() && press_loc == NULL){
-		press_loc = new Point(input->GetInput());
-		if(OnLocation(input->GetInput().x, input->GetInput().y)){
-			is_pressed = true;
-			if(push != NULL){
-				push->Play();
-			}
-		}
-	}
-	//call listener
-	if(input->HaveInput() == false && is_pressed){
-		if(OnLocation(input->GetInput().x, input->GetInput().y)){
-			SetState(!GetState());
-			if(callback_registered){
-				delete press_loc;
-				press_loc = NULL;
-				is_pressed = false;
-				if(pull != NULL){
-					pull->Play();
-				}
-				callback();
-				return;
-			}else{
-				launcher->LogIt("Callback not registered");
-			}
-		}
-	}
-	if(!input->HaveInput()){
-		delete press_loc;
-		press_loc = NULL;
-	}*/
+
 }
 
 bool ToggleButton::GetState(){

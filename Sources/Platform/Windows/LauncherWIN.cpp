@@ -34,25 +34,32 @@ LauncherWIN::LauncherWIN(HWND wnd){
 	this->wnd = wnd;
 	Audio::Init(this);
 	landscape = false;
+	target_width = TARGET_WIDTH;
+	target_height = TARGET_HEIGHT;
 }
 
 LauncherWIN::~LauncherWIN(){
 	Audio::Release();
 }
 
+void LauncherWIN::SetTargetSize(int width, int height){
+	target_width = width;
+	target_height = height;
+}
+
 int LauncherWIN::GetTargetWidth(){
 	if(landscape){
-		return TARGET_HEIGHT;
+		return target_height;
 	}else{
-		return TARGET_WIDTH;
+		return target_width;
 	}
 }
 
 int LauncherWIN::GetTargetHeight(){
 	if(landscape){
-		return TARGET_WIDTH;
+		return target_width;
 	}else{
-		return TARGET_HEIGHT;
+		return target_height;
 	}
 }
 

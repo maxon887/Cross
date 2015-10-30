@@ -18,7 +18,9 @@
 #pragma once
 
 #include "Game.h"
+#ifndef C3D
 #include "Texter.h"
+#endif
 
 namespace cross{
 
@@ -37,9 +39,11 @@ public:
 	void EnableTouches();
 private:
 	Game* game;
-	Texter* texter;
 	Input* input;
+#ifndef C3D
+	Texter* texter;
 	Image* touch_pointer;
+#endif
 
 	float update_time;
 	float update_sum;
