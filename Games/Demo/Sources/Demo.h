@@ -18,13 +18,12 @@
 #pragma once
 
 #include "Game.h"
-#include "MainScreen.h"
-#include "SecondScreen.h"
+
+using namespace cross;
 
 class Demo : public Game{
 public:
 	Demo(Launcher* launcher);
 	Screen* GetStartScreen();
 private:
-	//Screen* main_screen;
 };

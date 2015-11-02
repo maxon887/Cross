@@ -16,62 +16,34 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "MainScreen.h"
-#include "SecondScreen.h"
+#include "AnimationScreen.h"
+#include "AudioScreen.h"
 
 MainScreen::MainScreen(Game* game):Screen(game) {
-	bck_music = NULL;
-	jaguar = NULL;
-	truck = NULL;
-	going_on_second_screen = false;
+	going_screen = NO_SCREEN;
 }
 
 void MainScreen::Start(){
 	Point pos;
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
     x_img = graphics->LoadImage("Logo.png");
-	graphics->ScaleImage(x_img, game->GetScaleFactor() * 1.5f);
-    Image* release = graphics->LoadImage("StartButtonUp.png");
-	Image* pressed = graphics->LoadImage("StartButtonDown.png");
-	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 * 3;
-	btn = new Button(game, pos, release, pressed);
-	//btn->RegisterCallback(bind(&MainScreen::OnClick, this));
-	btn->Clicked += MakeDelegate(this, &MainScreen::OnClick);
-	Image* on = graphics->LoadImage("MusicOn.png");
-	Image* off = graphics->LoadImage("MusicOff.png");
-	pos.x = game->GetWidth() - on->GetWidth();
-	pos.y = on->GetHeight();
-	music_btn = new ToggleButton(game, pos, on, off);
-	//music_btn->RegisterCallback(bind(&MainScreen::MusicOnClick, this));
-	music_btn->Clicked += MakeDelegate(this, &MainScreen::MusicOnClick);
-	bck_music = new Audio("Eskimo.mp3", true, true);
-	bool musicState = saver->LoadBool("MUSIC_STATE", true);
-	music_btn->SetState(musicState);
-	if(musicState){
-		bck_music->Play();
-		song_started = true;
-	}else{
-		song_started = false;
-	}
+	graphics->ScaleImage(x_img, game->GetScaleFactor());
+	Image* animationBtn = graphics->LoadImage("AnimationButton.png");
+	Image* audioBtn = graphics->LoadImage("AudioButton.png");
+	Image* primitivesBtn = graphics->LoadImage("PrimitivesButton.png");
+	Image* miscBtn = graphics->LoadImage("MiscButton.png");
+	animation_btn = new Button(game, pos, animationBtn, NULL);
+	audio_btn = new Button(game, pos, audioBtn, NULL);
+	primitives_btn = new Button(game, pos, primitivesBtn, NULL);
+	misc_btn = new Button(game, pos, miscBtn, NULL);
+	animation_btn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
+	audio_btn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
+	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
+	misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
+	//pos.x = game->GetWidth() - on->GetWidth();
+	//pos.y = on->GetHeight();
 
-	Image* yellow_img = graphics->LoadImage("SoundButtonYellow.png");
-	Image* blue_img = graphics->LoadImage("SoundButtonBlue.png");
-	Image* gray_img = graphics->LoadImage("SoundButtonGray.png");
-	yellow_sound_btn = new Button(game, yellow_img, gray_img);
-	pos.x = yellow_sound_btn->GetWidth() / 2;
-	pos.y = game->GetHeight() - yellow_sound_btn->GetHeight() / 2;
-	yellow_sound_btn->SetLocation(pos);
-	//yellow_sound_btn->RegisterCallback(bind(&MainScreen::OnYellowClick, this));
-	yellow_sound_btn->Clicked += MakeDelegate(this, &MainScreen::OnYellowClick);
-	blue_sound_btn = new Button(game, blue_img, gray_img);
-	pos.x = game->GetWidth() - blue_sound_btn->GetWidth() / 2;
-	pos.y = game->GetHeight() - blue_sound_btn->GetHeight() / 2;
-	blue_sound_btn->SetLocation(pos);
-	//blue_sound_btn->RegisterCallback(bind(&MainScreen::OnBlueClick, this));
-	blue_sound_btn->Clicked += MakeDelegate(this, &MainScreen::OnBlueClick);
-
-	jaguar = new Audio("Jaguar.wav", false, false);
-	truck = new Audio("Truck.wav", true, false);
+	game->debuger->EnableScreenDebug();
 
 	int startLaunches = game->saver->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
@@ -80,62 +52,72 @@ void MainScreen::Start(){
 }
 
 void MainScreen::Update(float sec){
-	graphics->Clear(0, 0.15f, 0.15f);
+	graphics->Clear(0.30, 0.30, 0.30);
 	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 	Point pos;
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 3 - 40;
-	graphics->Rotate(x_img, 15);
-	graphics->DrawImage(pos, x_img);
+	pos.y = game->GetHeight() / 4 + 100;
+	//graphics->Rotate(x_img, 15);
+	//graphics->DrawImage(pos, x_img);
+
+	//pos.y += 480;
+	animation_btn->SetLocation(pos);
+	animation_btn->Update();
+	pos.y += 180;
+	audio_btn->SetLocation(pos);
+	audio_btn->Update();
+	pos.y += 180;
+	primitives_btn->SetLocation(pos);
+	primitives_btn->Update();
+	pos.y += 180;
+	misc_btn->SetLocation(pos);
+	misc_btn->Update();
+
+	/*
 	pos.x -= 200;
-	pos.y = game->GetHeight() / 5 * 3 + 50;
+	pos.y = game->GetHeight() / 5 * 2 + 50;
 	string msg = "Screen starts " + to_string(start_count) + " times";
-	texter->DrawText(pos, msg.c_str());
-	music_btn->Update();
-	yellow_sound_btn->Update();
-	blue_sound_btn->Update();
-	btn->Update();
-	if(going_on_second_screen){
-		game->SetScreen(new SecondScreen(game));
+	texter->DrawText(pos, msg.c_str());*/
+
+	switch (going_screen)
+	{
+	case NO_SCREEN:
+		break;
+	case ANIMATION:
+		game->SetScreen(new AnimationScreen(game));
+		break;
+	case AUDIO:
+		game->SetScreen(new AudioScreen(game));
+		break;
+	case PRIMITIVES:
+		break;
+	case MISC:
+		break;
+	default:
+		break;
 	}
 }
 
-void MainScreen::OnClick(){
+void MainScreen::OnAnimationClick(){
 	launcher->LogIt("OnClick");
-   // game->SetScreen(new SecondScreen(game));
-	going_on_second_screen = true;
+	going_screen = ANIMATION;
 }
 
-void MainScreen::OnYellowClick(){
-	jaguar->Play();
+void MainScreen::OnAudioClick(){
+	going_screen = AUDIO;
 }
 
-void MainScreen::OnBlueClick(){
-	if(truck->IsPlaying()){
-		truck->Stop();
-	}else{
-		truck->Play();
-	}
+void MainScreen::OnPrimitivesClick(){
+	going_screen = PRIMITIVES;
 }
 
-void MainScreen::MusicOnClick(){
-	if(music_btn->GetState()){
-		if(song_started)
-			bck_music->Resume();
-		else
-			bck_music->Play();
-	}
-	else
-		bck_music->Pause();
-	saver->SaveBool("MUSIC_STATE", music_btn->GetState());
+void MainScreen::OnMiscClick(){
+	going_screen = MISC;
 }
 
 MainScreen::~MainScreen(){
-	launcher->LogIt("MainScreen destructor");
-	graphics->ReleaseImage(x_img);
-	launcher->LogIt("delete btn;");
-	delete btn;
-	launcher->LogIt("delete bck_music;");
-	delete bck_music;
-	launcher->LogIt("end of MainScreen destructor");
+	delete animation_btn;
+	delete audio_btn;
+	delete primitives_btn;
+	delete misc_btn;
 }

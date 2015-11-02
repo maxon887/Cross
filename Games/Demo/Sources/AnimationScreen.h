@@ -22,13 +22,13 @@
 
 using namespace cross;
 
-class SecondScreen : public Screen{
+class AnimationScreen : public Screen{
 //User module
 public:
-    SecondScreen(Game* game);
+    AnimationScreen(Game* game);
 	void Start();
     void Update(float sec);
-	~SecondScreen();
+	~AnimationScreen();
 private:
 	Animation* spider_run_anim;
 	Image* spider_body;

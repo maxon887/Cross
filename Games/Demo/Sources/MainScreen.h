@@ -27,28 +27,34 @@
 
 using namespace cross;
 
+enum GoingScreen{
+	NO_SCREEN,
+	ANIMATION,
+	AUDIO,
+	PRIMITIVES,
+	MISC
+};
+
 class MainScreen : public Screen{
 public:
 	MainScreen(Game* game);
 	void Start();
 	void Update(float sec);
 
-	void OnClick();
-	void OnYellowClick();
-	void OnBlueClick();
-	void MusicOnClick();
+	void OnAnimationClick();
+	void OnAudioClick();
+	void OnPrimitivesClick();
+	void OnMiscClick();
 	~MainScreen();
 private:
 	Image* x_img;
-	Button* btn;
-	Button* yellow_sound_btn;
-	Button* blue_sound_btn;
-	ToggleButton* music_btn;
+	Button* animation_btn;
+	Button* audio_btn;
+	Button* primitives_btn;
+	Button* misc_btn;
+
 	Texter* texter;
-	Audio* bck_music;
-	Audio* jaguar;
-	Audio* truck;
 	int start_count;
-	bool song_started;
-	bool going_on_second_screen;
+	GoingScreen going_screen;
+	//bool going_on_second_screen;
 };

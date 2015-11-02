@@ -19,8 +19,6 @@
 
 #include "Game.h"
 
-//#include <functional>
-
 namespace cross {
 
 class Button{

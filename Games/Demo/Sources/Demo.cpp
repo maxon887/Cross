@@ -16,10 +16,10 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
 #include "Demo.h"
+#include "MainScreen.h"
 
 Demo::Demo(Launcher* launcher) : Game(launcher, 900) { }
 
 Screen* Demo::GetStartScreen(){
-	//return new SecondScreen(this);
 	return new MainScreen(this);
 }

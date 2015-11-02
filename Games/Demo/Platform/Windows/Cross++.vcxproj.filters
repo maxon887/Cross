@@ -28,9 +28,6 @@
     <ClCompile Include="..\..\Sources\MainScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\SecondScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Game.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -91,15 +88,18 @@
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\AnimationScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\AudioScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\MainScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\SecondScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Game.h">
@@ -165,6 +165,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Rect.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\AnimationScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\AudioScreen.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "SecondScreen.h"
+#include "AnimationScreen.h"
 #include "MainScreen.h"
 
-SecondScreen::SecondScreen(Game* game):Screen(game){
+AnimationScreen::AnimationScreen(Game* game):Screen(game){
 	bcg_scale = 2;
 	run_time = 2;
 	thinking_time = 0;
@@ -27,7 +27,7 @@ SecondScreen::SecondScreen(Game* game):Screen(game){
 	turn_left = true;
 }
 
-void SecondScreen::Start(){
+void AnimationScreen::Start(){
 	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
 	background = graphics->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
@@ -44,7 +44,7 @@ void SecondScreen::Start(){
 	spider_run_snd = new Audio("SpiderRun.wav", true, false);
 }
 
-void SecondScreen::Update(float sec){
+void AnimationScreen::Update(float sec){
     graphics->Clear(0, 0, 0);
 	DrawBackground(sec);
 	spider_run_anim->Update(sec);
@@ -79,7 +79,7 @@ void SecondScreen::Update(float sec){
 	}
 }
 
-void SecondScreen::DrawBackground(float sec) {
+void AnimationScreen::DrawBackground(float sec) {
 	float y = background->GetHeight() / 2;
 	if(run_time > 0)
 		deltaY = deltaY + sec * 430.0f;
@@ -91,7 +91,7 @@ void SecondScreen::DrawBackground(float sec) {
 	graphics->DrawImage(0, y, background);
 }
 
-SecondScreen::~SecondScreen(){
+AnimationScreen::~AnimationScreen(){
 	delete spider_run_anim;
 	delete spider_run_snd;
 	graphics->ReleaseImage(background);
