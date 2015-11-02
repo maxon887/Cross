@@ -33,7 +33,8 @@ enum class Key{
 	LEFT        = 7,
 	ENTER       = 8,
 	SPACE		= 9,
-	SHIFT		= 10
+	SHIFT		= 10,
+	ESCAPE		= 11,
 };
 
 /*	Class responsible for user input. 

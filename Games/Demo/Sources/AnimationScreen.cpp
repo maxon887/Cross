@@ -25,9 +25,11 @@ AnimationScreen::AnimationScreen(Game* game):Screen(game){
 	head_angle = 0;
 	deltaY = 0;
 	turn_left = true;
+	going_back = false;
 }
 
 void AnimationScreen::Start(){
+	input->KeyPressed += MakeDelegate(this, &AnimationScreen::OnKeyPressed);
 	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
 	background = graphics->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
@@ -77,6 +79,9 @@ void AnimationScreen::Update(float sec){
 			spider_run_snd->Play();
 		}
 	}
+	if(going_back){
+		game->SetScreen(game->GetStartScreen());
+	}
 }
 
 void AnimationScreen::DrawBackground(float sec) {
@@ -89,6 +94,39 @@ void AnimationScreen::DrawBackground(float sec) {
 		deltaY -= background->texHeight*bcg_scale;
 	}
 	graphics->DrawImage(0, y, background);
+}
+
+void AnimationScreen::OnKeyPressed(Key key){
+	switch (key)
+	{
+	case cross::Key::UNDEFINED:
+		break;
+	case cross::Key::PAUSE:
+		break;
+	case cross::Key::BACK:
+		break;
+	case cross::Key::OPTIONS:
+		break;
+	case cross::Key::UP:
+		break;
+	case cross::Key::DOWN:
+		break;
+	case cross::Key::RIGHT:
+		break;
+	case cross::Key::LEFT:
+		break;
+	case cross::Key::ENTER:
+		break;
+	case cross::Key::SPACE:
+		break;
+	case cross::Key::SHIFT:
+		break;
+	case cross::Key::ESCAPE:
+		going_back = true;
+		break;
+	default:
+		break;
+	}
 }
 
 AnimationScreen::~AnimationScreen(){

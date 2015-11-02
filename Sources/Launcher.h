@@ -47,6 +47,8 @@ public:
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
+	/* Loads specific file from game assets. Uses AssetsPath() */
+	virtual unsigned char* LoadFile(string filename, int *size) { return NULL; };
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
 

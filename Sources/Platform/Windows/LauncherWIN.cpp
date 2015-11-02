@@ -17,6 +17,8 @@
 	
 #include "LauncherWIN.h"
 
+#include <fstream>
+
 using namespace cross;
 
 bool DirectoryExists(LPCTSTR szPath){
@@ -78,6 +80,22 @@ string LauncherWIN::DataPath(){
 		return szPath;
 	}else{
 		return "Data/";
+	}
+}
+
+unsigned char* LauncherWIN::LoadFile(string filename, int *size){
+	string filePath = AssetsPath() + "//" + filename;
+	ifstream fileStream(filePath, istream::binary);
+	if(fileStream.is_open()){
+		fileStream.seekg(0, fileStream.end);
+		*size = fileStream.tellg();
+		fileStream.seekg(0, fileStream.beg);
+		char* data = new char[*size];
+		ZeroMemory(data, *size);
+		fileStream.read((char*)data, *size);
+		return (unsigned char*)data;
+	}else{
+		throw string("Cannot open file " + filename);
 	}
 }
 

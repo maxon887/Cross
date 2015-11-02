@@ -98,7 +98,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_KEYDOWN:
 		switch(wParam){
 		case VK_ESCAPE:
-			TRIGGER_EVENT(input->KeyPressed, Key::PAUSE);
+			TRIGGER_EVENT(input->KeyPressed, Key::ESCAPE);
 			break;
 		case VK_UP:
 			TRIGGER_EVENT(input->KeyPressed, Key::UP);
@@ -211,13 +211,22 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		ShowLastError();
 
 	ShowWindow(wnd, winShow);
+	Graphics3D* gfx3D = NULL;
+	Graphics* gfx2D = NULL;
+	try{
 #ifdef C3D
-	Graphics3D* gfx = new Graphics3D(game);
-	game->gfx3D = gfx;
+	gfx3D = new Graphics3D(game);
+	game->gfx3D = gfx3D;
 #else
-	Graphics* gfx = new Graphics(game);
-	game->graphics = gfx;
+	gfx2D = new Graphics(game);
+	game->graphics = gfx2D;
 #endif
+	}catch(string& msg){
+		msg = "Exception: " + msg;
+		launcher->LogIt(msg);
+		launcher->ShowMessage(msg);
+		return -1;
+	}
 	input = game->input;
 	game->input = input;
 	game->Start();
@@ -232,7 +241,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
-	delete gfx;
+	delete gfx3D;
+	delete gfx2D;
 	delete game;
 	delete launcher;
 	return msg.wParam;

@@ -23,11 +23,11 @@
 using namespace cross;
 
 class AnimationScreen : public Screen{
-//User module
 public:
     AnimationScreen(Game* game);
 	void Start();
     void Update(float sec);
+	void OnKeyPressed(Key key);
 	~AnimationScreen();
 private:
 	Animation* spider_run_anim;
@@ -40,8 +40,8 @@ private:
 	float thinking_time;
 	float head_angle;
 	bool turn_left;
+	bool going_back;
 
 	void DrawBackground(float sec);
 	float deltaY;
-//Framework module. You don't need call any of this methods or modify variable
 };

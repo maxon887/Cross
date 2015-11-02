@@ -25,6 +25,8 @@ MainScreen::MainScreen(Game* game):Screen(game) {
 
 void MainScreen::Start(){
 	Point pos;
+	input->KeyPressed.Clear();
+	input->KeyReleased.Clear();
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
     x_img = graphics->LoadImage("Logo.png");
 	graphics->ScaleImage(x_img, game->GetScaleFactor());
@@ -40,8 +42,6 @@ void MainScreen::Start(){
 	audio_btn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
 	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
-	//pos.x = game->GetWidth() - on->GetWidth();
-	//pos.y = on->GetHeight();
 
 	game->debuger->EnableScreenDebug();
 
@@ -52,15 +52,12 @@ void MainScreen::Start(){
 }
 
 void MainScreen::Update(float sec){
-	graphics->Clear(0.30, 0.30, 0.30);
+	graphics->Clear(0.30f, 0.30f, 0.30f);
 	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 	Point pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 4 + 100;
-	//graphics->Rotate(x_img, 15);
-	//graphics->DrawImage(pos, x_img);
 
-	//pos.y += 480;
 	animation_btn->SetLocation(pos);
 	animation_btn->Update();
 	pos.y += 180;
@@ -72,12 +69,6 @@ void MainScreen::Update(float sec){
 	pos.y += 180;
 	misc_btn->SetLocation(pos);
 	misc_btn->Update();
-
-	/*
-	pos.x -= 200;
-	pos.y = game->GetHeight() / 5 * 2 + 50;
-	string msg = "Screen starts " + to_string(start_count) + " times";
-	texter->DrawText(pos, msg.c_str());*/
 
 	switch (going_screen)
 	{
