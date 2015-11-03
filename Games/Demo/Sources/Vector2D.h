@@ -17,47 +17,18 @@
 	
 #pragma once
 
-#include "Game.h"
-#ifndef C3D
-#include "Texter.h"
-#endif
-
-namespace cross{
-
-class Debuger{
+class Vector2D{
 public:
-	static void StartCheckTime();
-	static void StopCheckTime(string label);
-
-	Debuger(Game* game);
-	~Debuger();
-
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-	void EnableScreenDebug();
-	void EnableConsoleDebug();
-	void EnableTouches();
+	Vector2D():x(.0f), y(.0f){};
+	Vector2D(float x, float y):x(x), y(y){};
+	float Length();
+	void Normalize();
+	float DotProduct(const Vector2D &v2);
+	Vector2D CrossProduct(const Vector2D &v2);
+	
+	Vector2D operator + (const Vector2D &v2);
+	void operator += (const Vector2D &v2);
 private:
-	Game* game;
-#ifndef C3D
-	Texter* texter;
-	Image* touch_pointer;
-#endif
-
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-
-	float time;
-	float next_display;
-
-	bool screen_debug;
-	bool console_debug;
-	bool touches;
+	float x;
+	float y;
 };
-    
-}

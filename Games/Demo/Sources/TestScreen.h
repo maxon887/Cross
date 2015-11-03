@@ -17,47 +17,16 @@
 	
 #pragma once
 
-#include "Game.h"
-#ifndef C3D
-#include "Texter.h"
-#endif
+#include "Screen.h"
 
-namespace cross{
+using namespace cross;
 
-class Debuger{
+class TestScreen : public Screen{
 public:
-	static void StartCheckTime();
-	static void StopCheckTime(string label);
-
-	Debuger(Game* game);
-	~Debuger();
-
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-	void EnableScreenDebug();
-	void EnableConsoleDebug();
-	void EnableTouches();
+	TestScreen(Game* game):Screen(game){};
+	void Start();
+	void Update(float sec);
 private:
-	Game* game;
-#ifndef C3D
-	Texter* texter;
-	Image* touch_pointer;
-#endif
-
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-
-	float time;
-	float next_display;
-
-	bool screen_debug;
-	bool console_debug;
-	bool touches;
+	bool going_back;
+	void OnKeyPressed(Key key);
 };
-    
-}

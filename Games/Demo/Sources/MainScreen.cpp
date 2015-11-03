@@ -18,6 +18,7 @@
 #include "MainScreen.h"
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
+#include "TestScreen.h"
 
 MainScreen::MainScreen(Game* game):Screen(game) {
 	going_screen = NO_SCREEN;
@@ -83,6 +84,7 @@ void MainScreen::Update(float sec){
 	case PRIMITIVES:
 		break;
 	case MISC:
+		game->SetScreen(new TestScreen(game));
 		break;
 	default:
 		break;

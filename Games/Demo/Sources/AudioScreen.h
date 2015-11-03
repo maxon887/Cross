@@ -10,10 +10,6 @@ public:
 	~AudioScreen(void);
 	void Start();
 	void Update(float sec);
-
-	void OnYellowClick();
-	void OnBlueClick();
-	void MusicOnClick();
 private:
 	Button* yellow_sound_btn;
 	Button* blue_sound_btn;
@@ -22,5 +18,10 @@ private:
 	Audio* jaguar;
 	Audio* truck;
 	bool song_started;
+	bool going_back;
+	void OnYellowClick();
+	void OnBlueClick();
+	void MusicOnClick();
+	void OnKeyPressed(Key key);
 };
 

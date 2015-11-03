@@ -25,7 +25,6 @@
 using namespace cross;
 
 static Game* game;
-static Input* input;
 
 void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight){
 	RECT rcClient, rcWind;
@@ -92,8 +91,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);
-		game->saver->SaveInt("WIN_POS_X", winRect.left);
-		game->saver->SaveInt("WIN_POS_Y", winRect.top);
+		saver->SaveInt("WIN_POS_X", winRect.left);
+		saver->SaveInt("WIN_POS_Y", winRect.top);
 		break;
 	case WM_KEYDOWN:
 		switch(wParam){
@@ -170,10 +169,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	RegisterClassEx(&wc);
 
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
-	LauncherWIN* launcher = new LauncherWIN(wnd);
+	launcher = new LauncherWIN(wnd);
 	game = CrossMain(launcher);
-	int winX = game->saver->LoadInt("WIN_POS_X", 0);
-	int winY = game->saver->LoadInt("WIN_POS_Y", 0);
+	int winX = saver->LoadInt("WIN_POS_X", 0);
+	int winY = saver->LoadInt("WIN_POS_Y", 0);
 	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;
@@ -212,23 +211,20 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	ShowWindow(wnd, winShow);
 	Graphics3D* gfx3D = NULL;
-	Graphics* gfx2D = NULL;
+	//Graphics* gfx2D = NULL;
 	try{
 #ifdef C3D
 	gfx3D = new Graphics3D(game);
 	game->gfx3D = gfx3D;
 #else
-	gfx2D = new Graphics(game);
-	game->graphics = gfx2D;
+	graphics = new Graphics(game);
 #endif
 	}catch(string& msg){
 		msg = "Exception: " + msg;
 		launcher->LogIt(msg);
-		launcher->ShowMessage(msg);
+		//launcher->ShowMessage(msg);
 		return -1;
 	}
-	input = game->input;
-	game->input = input;
 	game->Start();
 
 	MSG msg;
@@ -242,7 +238,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		SwapBuffers(dc);
 	}
 	delete gfx3D;
-	delete gfx2D;
+	delete graphics;
 	delete game;
 	delete launcher;
 	return msg.wParam;

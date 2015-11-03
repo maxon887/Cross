@@ -94,6 +94,12 @@
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\TestScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Vector2D.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -170,6 +176,12 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\AudioScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\TestScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Vector2D.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

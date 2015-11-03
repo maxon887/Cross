@@ -14,50 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
+#include "SliceThemOut.h"
 
-#include "Game.h"
-#ifndef C3D
-#include "Texter.h"
-#endif
-
-namespace cross{
-
-class Debuger{
+class Hero{
 public:
-	static void StartCheckTime();
-	static void StopCheckTime(string label);
-
-	Debuger(Game* game);
-	~Debuger();
-
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-	void EnableScreenDebug();
-	void EnableConsoleDebug();
-	void EnableTouches();
+	Hero();
+	~Hero();
+	void Update(float sec);
+	void Draw();
 private:
-	Game* game;
-#ifndef C3D
-	Texter* texter;
-	Image* touch_pointer;
-#endif
-
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-
-	float time;
-	float next_display;
-
-	bool screen_debug;
-	bool console_debug;
-	bool touches;
+	Image* img;
 };
-    
-}

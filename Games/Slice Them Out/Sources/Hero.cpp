@@ -14,50 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
-#pragma once
+#include "Hero.h"
 
-#include "Game.h"
-#ifndef C3D
-#include "Texter.h"
-#endif
+Hero::Hero(){
+	img = graphics->LoadImage("Hero512.png");
+}
 
-namespace cross{
+Hero::~Hero(){
+	graphics->ReleaseImage(img);
+}
 
-class Debuger{
-public:
-	static void StartCheckTime();
-	static void StopCheckTime(string label);
+void Hero::Update(float sec){
 
-	Debuger(Game* game);
-	~Debuger();
+}
 
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-	void EnableScreenDebug();
-	void EnableConsoleDebug();
-	void EnableTouches();
-private:
-	Game* game;
-#ifndef C3D
-	Texter* texter;
-	Image* touch_pointer;
-#endif
-
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-
-	float time;
-	float next_display;
-
-	bool screen_debug;
-	bool console_debug;
-	bool touches;
-};
-    
+void Hero::Draw(){
+	graphics->DrawImage(Point(800.f, 400.f), img);
 }

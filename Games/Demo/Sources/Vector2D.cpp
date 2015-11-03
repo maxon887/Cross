@@ -15,49 +15,29 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#pragma once
+#include "Vector2D.h"
 
-#include "Game.h"
-#ifndef C3D
-#include "Texter.h"
-#endif
+#include <math.h>
 
-namespace cross{
+float Vector2D::Length(){
+	return sqrt(x*x + y*y);
+}
 
-class Debuger{
-public:
-	static void StartCheckTime();
-	static void StopCheckTime(string label);
+void Vector2D::Normalize(){
+	float len = Length();
+	x /= len;
+	y /= len;
+}
 
-	Debuger(Game* game);
-	~Debuger();
+float Vector2D::DotProduct(const Vector2D &v2){
+	return this->x * v2.x + this->y * v2.y;
+}
 
-	void Display(float sec);
-	void SetUpdateTime(float sec);
-	void EnableScreenDebug();
-	void EnableConsoleDebug();
-	void EnableTouches();
-private:
-	Game* game;
-#ifndef C3D
-	Texter* texter;
-	Image* touch_pointer;
-#endif
+Vector2D Vector2D::operator+(const Vector2D &v2){
+	return Vector2D(this->x + v2.x, this->y + v2.y);
+}
 
-	float update_time;
-	float update_sum;
-	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
-
-	float time;
-	float next_display;
-
-	bool screen_debug;
-	bool console_debug;
-	bool touches;
-};
-    
+void Vector2D::operator+=(const Vector2D &v2){
+	this->x += v2.x;
+	this->y += v2.y;
 }

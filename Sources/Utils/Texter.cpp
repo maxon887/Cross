@@ -67,7 +67,6 @@ void Texter::Init(	Game* game, const char* fontFilename,
 					int columns, int rows,
 					int asciiOffset, float scaleFactor){
 	this->game = game;
-	this->graphics = game->graphics;
 	this->width = width;
 	this->height = height;
 	this->offset = asciiOffset;

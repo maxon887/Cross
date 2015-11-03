@@ -44,8 +44,6 @@ void Debuger::StopCheckTime(string label){
 
 Debuger::Debuger(Game* game){
 	this->game = game;
-	launcher = game->launcher;
-	input = game->input;
 #ifndef C3D
 	touch_pointer = NULL;
 	texter = NULL;
@@ -130,7 +128,7 @@ void Debuger::EnableConsoleDebug(){
 void Debuger::EnableTouches(){
 #ifndef C3D
 	if(touch_pointer == NULL){
-		touch_pointer = game->graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
+		touch_pointer = graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
 	}else{
 		launcher->LogIt("Warning!Touches already anabled");
 	}

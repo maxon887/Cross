@@ -96,10 +96,13 @@
     <ClCompile Include="..\..\Sources\GameScreen.cpp">
       <Filter>Slice Them Out</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="..\..\Sources\SliceThemOut.cpp">
       <Filter>Slice Them Out</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\Sources\Hero.cpp">
+      <Filter>Slice Them Out</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h">
@@ -198,10 +201,13 @@
     <ClInclude Include="..\..\Sources\GameScreen.h">
       <Filter>Slice Them Out</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\Sources\SliceThemOut.h">
       <Filter>Slice Them Out</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\Sources\Hero.h">
+      <Filter>Slice Them Out</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

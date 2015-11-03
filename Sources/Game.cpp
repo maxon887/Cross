@@ -29,6 +29,12 @@ using namespace chrono;
 
 mutex cross::global_mutex;
 
+Launcher*	cross::launcher = NULL;
+Graphics*	cross::graphics = NULL;
+Graphics3D* cross::gfx3D = NULL;
+Input*		cross::input = NULL;
+Saver*		cross::saver = NULL;
+
 Game::Game(Launcher* launcher, float width){
 	Init(launcher);
 	this->width = width;
@@ -62,7 +68,7 @@ void Game::SetScreen(Screen* screen){
 	Debuger::StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
-	current_screen->Init();
+	//current_screen->Init();
 	current_screen->Start();
     render_time = high_resolution_clock::now();
 	Debuger::StopCheckTime("Screen loaded: ");
@@ -134,12 +140,12 @@ void Game::Exit(){
 }
 
 void Game::Init(Launcher* launcher){
-	this->launcher = launcher;
-	this->input = new Input();
-	this->saver = new Saver(this);
-	this->debuger = new Debuger(this);
-	this->graphics = NULL;
-	this->gfx3D = NULL;
+	launcher = launcher;
+	input = new Input();
+	saver = new Saver(this);
+	debuger = new Debuger(this);
+	graphics = NULL;
+	gfx3D = NULL;
 	this->current_screen = NULL;
 }
 

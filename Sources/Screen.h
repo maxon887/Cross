@@ -32,6 +32,12 @@ namespace cross {
     
 class Game;
 
+extern Launcher* launcher;
+extern Graphics* graphics;
+extern Graphics3D* gfx3D;
+extern Input* input;
+extern Saver* saver;
+
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.
    Witch will be loaded through Game::GetStartScreen function */
@@ -47,15 +53,9 @@ public:
 	/* Calls where game need to be stoped like lost focus or input phone call */
 	virtual void Suspend();
 protected:
-	Game* game;				//
-	Launcher* launcher;		//
-	Graphics* graphics;		// Copy of vital game modules just for comfortability
-	Graphics3D* gfx3D;
-    Input* input;			//
-	Saver* saver;			//
+	Game* game;
 //Internal data. You don't need call any of this methods or modify variable
 public:
-	void Init();
 	virtual ~Screen();
 };
     

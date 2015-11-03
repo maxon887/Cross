@@ -9,9 +9,17 @@ AudioScreen::AudioScreen(Game* game):Screen(game){
 
 
 AudioScreen::~AudioScreen(void){
+	delete bck_music;
+	delete jaguar;
+	delete truck;
+	delete yellow_sound_btn;
+	delete blue_sound_btn;
+	delete music_btn;
 }
 
 void AudioScreen::Start(){
+	going_back = false;
+	input->KeyPressed += MakeDelegate(this, &AudioScreen::OnKeyPressed);
 	Image* on = graphics->LoadImage("MusicOn.png");
 	Image* off = graphics->LoadImage("MusicOff.png");
 	Point pos;
@@ -31,13 +39,13 @@ void AudioScreen::Start(){
 
 	Image* yellow_img = graphics->LoadImage("SoundButtonYellow.png");
 	Image* blue_img = graphics->LoadImage("SoundButtonBlue.png");
-	Image* gray_img = graphics->LoadImage("SoundButtonGray.png");
-	yellow_sound_btn = new Button(game, yellow_img, gray_img);
+	//Image* gray_img = graphics->LoadImage("SoundButtonGray.png");
+	yellow_sound_btn = new Button(game, yellow_img, NULL);
 	pos.x = yellow_sound_btn->GetWidth() / 2;
 	pos.y = game->GetHeight() - yellow_sound_btn->GetHeight() / 2;
 	yellow_sound_btn->SetLocation(pos);
 	yellow_sound_btn->Clicked += MakeDelegate(this, &AudioScreen::OnYellowClick);
-	blue_sound_btn = new Button(game, blue_img, gray_img);
+	blue_sound_btn = new Button(game, blue_img, NULL);
 	pos.x = game->GetWidth() - blue_sound_btn->GetWidth() / 2;
 	pos.y = game->GetHeight() - blue_sound_btn->GetHeight() / 2;
 	blue_sound_btn->SetLocation(pos);
@@ -52,6 +60,10 @@ void AudioScreen::Update(float sec){
 	yellow_sound_btn->Update();
 	blue_sound_btn->Update();
 	music_btn->Update();
+
+	if(going_back){
+		game->SetScreen(game->GetStartScreen());
+	}
 }
 
 
@@ -77,4 +89,37 @@ void AudioScreen::MusicOnClick(){
 	else
 		bck_music->Pause();
 	saver->SaveBool("MUSIC_STATE", music_btn->GetState());
+}
+
+void AudioScreen::OnKeyPressed(Key key){
+	switch (key)
+	{
+	case cross::Key::UNDEFINED:
+		break;
+	case cross::Key::PAUSE:
+		break;
+	case cross::Key::BACK:
+		break;
+	case cross::Key::OPTIONS:
+		break;
+	case cross::Key::UP:
+		break;
+	case cross::Key::DOWN:
+		break;
+	case cross::Key::RIGHT:
+		break;
+	case cross::Key::LEFT:
+		break;
+	case cross::Key::ENTER:
+		break;
+	case cross::Key::SPACE:
+		break;
+	case cross::Key::SHIFT:
+		break;
+	case cross::Key::ESCAPE:
+		going_back = true;
+		break;
+	default:
+		break;
+	}
 }

@@ -3,6 +3,7 @@
 #include "SliceThemOut.h"
 
 Game* CrossMain(Launcher* launcher){
-	((LauncherWIN*)launcher)->LandscapeMode(true);
+	LauncherWIN* winLan = (LauncherWIN*)launcher;
+	winLan->SetTargetSize(960, 540);
 	return new SliceThemOut(launcher);
 }

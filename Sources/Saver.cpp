@@ -26,9 +26,9 @@ using namespace cross;
 #undef LoadString
 
 Saver::Saver(Game* game){
-	prefs_path = game->launcher->DataPath() + "/prefs";
-	copy_path = game->launcher->DataPath() + "/prefs.copy";
-	game->launcher->LogIt("Saver initialized");
+	prefs_path = launcher->DataPath() + "/prefs";
+	copy_path = launcher->DataPath() + "/prefs.copy";
+	launcher->LogIt("Saver initialized");
 }
 
 void Saver::SaveString(string key, string value){

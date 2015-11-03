@@ -45,9 +45,6 @@ public:
 
 	DECLARE_EVENT(void) Clicked;
 protected:
-	Launcher* launcher;
-	Graphics* graphics;
-	Input* input;
 	Point location;
 	Rect area;
 	Image* up;

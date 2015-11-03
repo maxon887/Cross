@@ -35,6 +35,7 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\GameScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Hero.cpp" />
     <ClCompile Include="..\..\Sources\SliceThemOut.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -71,6 +72,7 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\GameScreen.h" />
+    <ClInclude Include="..\..\Sources\Hero.h" />
     <ClInclude Include="..\..\Sources\SliceThemOut.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

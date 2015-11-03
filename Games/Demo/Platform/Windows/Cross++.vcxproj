@@ -88,6 +88,8 @@
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\Sources\TestScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +118,8 @@
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\Sources\TestScreen.h" />
+    <ClInclude Include="..\..\Sources\Vector2D.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

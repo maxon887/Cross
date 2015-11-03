@@ -27,15 +27,16 @@ class Debuger;
 
 extern mutex global_mutex;
 
+extern Launcher* launcher;
+extern Graphics* graphics;
+extern Graphics3D* gfx3D;
+extern Input* input;
+extern Saver* saver;
+
 /*	Core game class. Every game must inherit that class.
 	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */
 class Game{
 public:
-	Launcher* launcher;
-	Graphics* graphics;
-	Graphics3D* gfx3D;
-	Input* input;
-	Saver* saver;
 	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
 	/* Constructor gets virtual game width.

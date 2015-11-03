@@ -34,7 +34,6 @@ using namespace cross;
 
 Graphics::Graphics(Game* game){
 	this->game = game;
-	launcher = game->launcher;
 	primitive_enable = true;
 	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	glMatrixMode(GL_PROJECTION);
@@ -190,7 +189,6 @@ unsigned char* Graphics::LoadImageInternal(string filename, GLuint* textureID, i
 	unsigned char* image = SOIL_load_image_from_memory(file, length, width, height, 0, SOIL_LOAD_RGBA);
 	free(file);
 #else
-	Launcher* launcher = game->launcher;
 	string path = launcher->AssetsPath() + filename;
 	unsigned char* image = SOIL_load_image(path.c_str(), width, height, 0, SOIL_LOAD_RGBA);
 #endif

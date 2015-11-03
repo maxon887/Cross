@@ -77,7 +77,6 @@ private:
 	unsigned char* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
     void DrawTargetPixel(Point p, float r, float g, float b);
 	Game* game;
-	Launcher* launcher;
 	GLint prev_texID;
 	bool primitive_enable;
 };

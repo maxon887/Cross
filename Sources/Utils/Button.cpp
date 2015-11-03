@@ -20,11 +20,8 @@
 using namespace cross;
 
 Button::Button(Game* game, Image* up, Image* down){
-	this->launcher = game->launcher;
-	this->graphics = game->graphics;
 	this->push = NULL;
 	this->pull = NULL;
-	this->input = game->input;
 	this->location = Point();
 	this->up = up;
 	this->down = down;
@@ -40,11 +37,8 @@ Button::Button(Game* game, Image* up, Image* down){
 }
 
 Button::Button(Game* game, Point location, Image* up, Image* down){
-	this->launcher = game->launcher;
-	this->graphics = game->graphics;
 	this->push = NULL;
 	this->pull = NULL;
-	this->input = game->input;
 	this->location = location;
 	this->up = up;
 	this->down = down;
@@ -59,11 +53,8 @@ Button::Button(Game* game, Point location, Image* up, Image* down){
 }
 
 Button::Button(Game* game, float width, float height){
-	this->launcher = game->launcher;
-	this->graphics = game->graphics;
 	this->push = NULL;
 	this->pull = NULL;
-	this->input = game->input;
 	this->location = Point();
 	this->area = area;
 	this->up = NULL;
@@ -78,11 +69,8 @@ Button::Button(Game* game, float width, float height){
 }
 
 Button::Button(Game* game, Rect area){
-	this->launcher = game->launcher;
-	this->graphics = game->graphics;
 	this->push = NULL;
 	this->pull = NULL;
-	this->input = game->input;
 	this->location = Point();
 	this->area = area;
 	this->up = NULL;
