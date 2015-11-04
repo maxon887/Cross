@@ -20,7 +20,7 @@
 #include "LauncherWIN.h"
 #include "resource.h"
 
-#pragma comment(lib,"opengl32.lib")
+#pragma comment(lib, "opengl32.lib")
 
 using namespace cross;
 
@@ -210,12 +210,11 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		ShowLastError();
 
 	ShowWindow(wnd, winShow);
-	Graphics3D* gfx3D = NULL;
+	//Graphics3D* gfx3D = NULL;
 	//Graphics* gfx2D = NULL;
 	try{
 #ifdef C3D
-	gfx3D = new Graphics3D(game);
-	game->gfx3D = gfx3D;
+	gfx3D = new Graphics3D();
 #else
 	graphics = new Graphics(game);
 #endif

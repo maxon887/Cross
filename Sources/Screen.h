@@ -29,8 +29,6 @@
 #include "Audio.h"
 
 namespace cross {
-    
-class Game;
 
 extern Launcher* launcher;
 extern Graphics* graphics;
@@ -43,20 +41,15 @@ extern Saver* saver;
    Witch will be loaded through Game::GetStartScreen function */
 class Screen{
 public:
-	/* Screen object need game class for internal purposes.
-	   Do not delete screen yourself */
-	Screen(Game* game);
 	/* Calls once before screen show up. */
-	virtual void Start();
+	virtual void Start() { };
 	/* Calls every frame update. Ideally 60 times per second(60fps)*/
-	virtual void Update(float sec);
+	virtual void Update(float sec) { };
 	/* Calls where game need to be stoped like lost focus or input phone call */
-	virtual void Suspend();
-protected:
-	Game* game;
+	virtual void Suspend() { };
 //Internal data. You don't need call any of this methods or modify variable
 public:
-	virtual ~Screen();
+	virtual ~Screen() { };
 };
     
 }
