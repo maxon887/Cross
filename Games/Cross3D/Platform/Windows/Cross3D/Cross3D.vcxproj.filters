@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="CrossSources">
+      <UniqueIdentifier>{56bcaf70-e74a-4426-b406-11c6f5e57c59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CrossHeaders">
+      <UniqueIdentifier>{3c37def5-e587-496e-aab7-e058e2dfada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{50867831-a06e-45f8-8d4a-e1bce3008ccc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Cross3D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Graphics3D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\HelloTriangleScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\MainScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Audio.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Color.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Game.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Image.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Input.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Launcher.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Point.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Rect.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Saver.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Utils\Debuger.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\SOIL\image_helper.c">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\SOIL\SOIL.c">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\Cross.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Audio.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Color.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Game.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Graphics.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Input.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Launcher.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Point.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Rect.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Saver.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Utils\Commercial.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Utils\Debuger.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Utils\Misc.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Platform\Windows\Cross.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Platform\Windows\LauncherWIN.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Cross++\Sources\Screen.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Cross3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Graphics3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\MainScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Cross++.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\triangles.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\triangles.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
