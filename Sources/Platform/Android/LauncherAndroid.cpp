@@ -68,6 +68,12 @@ void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* len
 	AAsset_close(asset);
 }
 
+unsigned char* LauncherAndroid::LoadFile(string filename, int* size){
+	unsigned char* bufferPtr;
+	LoadFile(filename, &bufferPtr, size);
+	return bufferPtr;
+}
+
 void LauncherAndroid::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);

@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,7 +19,7 @@ public class CrossActivity extends Activity{
 	private static boolean cross_initialized = false;
 	private static Commercial commercial;
 	private static AssetManager asset_manager;
-	private CrossRenderer renderer;
+	private GLSurfaceView renderer;
 	
 	static{
 		System.loadLibrary("c++_shared");
@@ -30,7 +32,8 @@ public class CrossActivity extends Activity{
 		Log.d("Cross++", "Java onCreate");
 		super.onCreate(savedInstanceState);
 		cross_initialized = false;
-		renderer = new CrossRenderer(this);
+		//renderer = new CrossRenderer(this);
+		renderer = new GL20Renderer(this);
 		try{
 			renderer.setPreserveEGLContextOnPause(true);
 		}catch(Throwable ex){
