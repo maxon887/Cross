@@ -26,7 +26,7 @@
 #include <stdlib.h>
 
 //						CONSTRUCTOR
-GameScreen::GameScreen(JimTheSnake* game):Screen(game){
+GameScreen::GameScreen(JimTheSnake* game){
 	this->game = game;
 }
 //						DESTRUCTOR
@@ -137,19 +137,19 @@ void GameScreen::Start(){
 
 	pause_btn = new Button(game, pauseUp, pauseDown);
 	pause_btn->SetLocation(Point(pause_btn->GetWidth()/3*2, pause_btn->GetHeight()/3*2));
-	pause_btn->RegisterCallback(bind(&GameScreen::OnPauseClick, this));
+ 	pause_btn->Clicked += MakeDelegate(this, &GameScreen::OnPauseClick);
 	pause_btn->SetSounds(btn_push, btn_pull);
 	back_btn = new Button(game, backUp, backDown);
 	back_btn->SetLocation(Point(450, centerH - 40));
-	back_btn->RegisterCallback(bind(&GameScreen::OnResumeClick, this));
+	back_btn->Clicked += MakeDelegate(this, &GameScreen::OnResumeClick);
 	back_btn->SetSounds(btn_push, btn_pull);
 	menu_btn = new Button(game, menuUp, menuDown);
 	menu_btn->SetLocation(Point(450, centerH + 180));
-	menu_btn->RegisterCallback(bind(&GameScreen::OnMenuClick, this));
+	menu_btn->Clicked += MakeDelegate(this, &GameScreen::OnMenuClick);
 	menu_btn->SetSounds(btn_push, btn_pull);
 	restart_btn = new Button(game, restartUp, restartDown);
 	restart_btn->SetLocation(Point(450, centerH - 40));
-	restart_btn->RegisterCallback(bind(&GameScreen::OnRestartClick, this)); 
+	restart_btn->Clicked += MakeDelegate(this, &GameScreen::OnRestartClick); 
 	restart_btn->SetSounds(btn_push, btn_pull);
 	right_btn = new Button(game, arrowRightUp, arrowRightDown);
 	right_btn->SetLocation(Point(game->GetWidth() - arrowRightUp->GetWidth()/2, game->GetHeight() - arrowRightUp->GetHeight()/2));

@@ -40,7 +40,6 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../Sources/Collisioner.cpp \
 					../../../../../Sources/Graphics.cpp \
 					../../../../../Sources/Game.cpp \
-					../../../../../Sources/Screen.cpp \
 					../../../../../Sources/Image.cpp \
 					../../../../../Sources/Input.cpp \
 					../../../../../Sources/Saver.cpp \

@@ -27,9 +27,6 @@ using namespace std;
 using namespace cross;
 
 static Game* game;
-static Graphics* graphics;
-static LauncherAndroid* launcher;
-static Input* input;
 
 void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject crossActivity, JNIEnv* env){
 	LOGI("Init");
@@ -37,8 +34,6 @@ void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject cr
 	Audio::Init(launcher);
 	game = CrossMain(launcher);
 	graphics = new Graphics(game);
-	game->graphics = graphics;
-	input = game->input;
 }
 
 extern "C"{
@@ -121,7 +116,7 @@ extern "C"{
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
 		LOGI("Java_com_cross_Cross_InitialCommercial");
 		comm = env->NewGlobalRef(comm);
-		launcher->InitializeCommercial(env, comm);
+		((LauncherAndroid*)launcher)->InitializeCommercial(env, comm);
 	}
 
 	void Java_com_cross_Cross_CommertialResult(JNIEnv* env, jobject thiz, jint event){

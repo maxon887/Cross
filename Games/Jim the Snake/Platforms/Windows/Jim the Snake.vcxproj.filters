@@ -45,9 +45,6 @@
     <ClCompile Include="..\..\..\..\Sources\Saver.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
