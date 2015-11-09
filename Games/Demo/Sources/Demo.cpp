@@ -21,5 +21,5 @@
 Demo::Demo(Launcher* launcher) : Game(launcher, 900) { }
 
 Screen* Demo::GetStartScreen(){
-	return new MainScreen(this);
+	return new MainScreen();
 }

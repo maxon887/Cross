@@ -25,16 +25,17 @@
 	class Graphics3D;
 #endif
 #include "Input.h"
-#include "Saver.h"
+#include "Config.h"
 #include "Audio.h"
 
 namespace cross {
 
+extern Game* game;
 extern Launcher* launcher;
 extern Graphics* graphics;
 extern Graphics3D* gfx3D;
 extern Input* input;
-extern Saver* saver;
+extern Config* config;
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.

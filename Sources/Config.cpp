@@ -15,23 +15,21 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "Saver.h"
-#include "Game.h"
-#include "Launcher.h"
+#include "Config.h"
 
 #include <fstream>
 
 using namespace cross;
 
-#undef LoadString
-
-Saver::Saver(Game* game){
-	prefs_path = launcher->DataPath() + "/prefs";
-	copy_path = launcher->DataPath() + "/prefs.copy";
-	launcher->LogIt("Saver initialized");
+Config::Config(string dataPath){
+	prefs_path = dataPath + "/prefs";
+	copy_path = dataPath + "/prefs.tmp";
 }
 
-void Saver::SaveString(string key, string value){
+void Config::SaveString(string key, string value){
+	if(key.find(" ") != string::npos || value.find(" ") != string::npos){
+		throw string("Key and value can't contains space characters");
+	}
 	ifstream prefs;
 	prefs.open(prefs_path);
 	ofstream prefs_copy;
@@ -39,11 +37,11 @@ void Saver::SaveString(string key, string value){
 	string locKey;
 	string locVal;
 	bool saved = false;
-	while(prefs >> locKey){
+	while(prefs >> locKey) {
 		prefs >> locVal;
-		if(locKey != key){
+		if(locKey != key) {
 			prefs_copy << locKey << " " << locVal << endl;
-		}else{
+		} else {
 			prefs_copy << locKey << " " << value << endl;
 			saved = true;
 		}
@@ -57,26 +55,26 @@ void Saver::SaveString(string key, string value){
 	rename(copy_path.c_str(), prefs_path.c_str());
 }
 
-void Saver::SaveInt(string key, int value){
+void Config::SaveInt(string key, int value){
 	SaveString(key, to_string(value));
 }
 
-void Saver::SaveFloat(string key, float value){
+void Config::SaveFloat(string key, float value){
 	SaveString(key, to_string(value));
 }
 
-void Saver::SaveBool(string key, bool value){
+void Config::SaveBool(string key, bool value){
 	SaveInt(key, value);
 }
 
-string Saver::LoadString(string key, string def){
+string Config::LoadString(string key, string def){
 	string strValue = LoadString(key);
 	if(strValue.empty())
 		return def;
 	return strValue;
 }
 
-int Saver::LoadInt(string key, int def){
+int Config::LoadInt(string key, int def){
 	string strValue = LoadString(key);
 	if(strValue.empty())
 		return def;
@@ -84,7 +82,7 @@ int Saver::LoadInt(string key, int def){
 	return ret;
 }
 
-float Saver::LoadFloat(string key, float def){
+float Config::LoadFloat(string key, float def){
 	string strValue = LoadString(key);
 	if(strValue.empty())
 		return def;
@@ -92,11 +90,11 @@ float Saver::LoadFloat(string key, float def){
 	return ret;
 }
 
-bool Saver::LoadBool(string key, bool def){
+bool Config::LoadBool(string key, bool def){
 	return LoadInt(key, def) != 0;
 }
 
-string Saver::LoadString(string key){
+string Config::LoadString(string key){
 	ifstream prefs;
 	prefs.open(prefs_path);
 	string locKey;

@@ -20,8 +20,8 @@
 using namespace cross;
 
 Point::Point(){
-	x = -100;
-	y = -100;
+	x = 0;
+	y = 0;
 }
 
 Point::Point(float x, float y){

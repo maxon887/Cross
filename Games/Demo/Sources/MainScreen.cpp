@@ -20,11 +20,8 @@
 #include "AudioScreen.h"
 #include "TestScreen.h"
 
-MainScreen::MainScreen(Game* game):Screen(game) {
-	going_screen = NO_SCREEN;
-}
-
 void MainScreen::Start(){
+	going_screen = NO_SCREEN;
 	Point pos;
 	input->KeyPressed.Clear();
 	input->KeyReleased.Clear();
@@ -46,9 +43,9 @@ void MainScreen::Start(){
 
 	game->debuger->EnableScreenDebug();
 
-	int startLaunches = game->saver->LoadInt("START_LAUNCHES", 0);
+	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
-	game->saver->SaveInt("START_LAUNCHES", startLaunches);
+	config->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 }
 
@@ -76,15 +73,15 @@ void MainScreen::Update(float sec){
 	case NO_SCREEN:
 		break;
 	case ANIMATION:
-		game->SetScreen(new AnimationScreen(game));
+		game->SetScreen(new AnimationScreen());
 		break;
 	case AUDIO:
-		game->SetScreen(new AudioScreen(game));
+		game->SetScreen(new AudioScreen());
 		break;
 	case PRIMITIVES:
 		break;
 	case MISC:
-		game->SetScreen(new TestScreen(game));
+		game->SetScreen(new TestScreen());
 		break;
 	default:
 		break;

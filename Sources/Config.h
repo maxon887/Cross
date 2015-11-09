@@ -23,11 +23,8 @@ using namespace std;
 
 namespace cross {
 
-class Game;
-
-/* Save and load information whith between game launches.
-   Like game state, score etc*/
-class Saver{
+/* Simple configuration manager. Loads and saves information between game launches.*/
+class Config{
 public:
 	//Save string value for key.
 	//Important! string key and value can't contain space character
@@ -36,7 +33,7 @@ public:
 	void SaveInt(string key, int value);
 	//Save float value for key
 	void SaveFloat(string key, float value);
-
+	//Save boolean value for key
 	void SaveBool(string key, bool value);
 	//Load string property from string key.
 	//Important! returned string must to be deleted.
@@ -48,11 +45,11 @@ public:
 	//Load float property from string key.
 	//Return 0 if can't find key
 	float LoadFloat(string key, float def);
-
+	//Load boolean property from string key.
 	bool LoadBool(string key, bool def);
 //Internal data. You don't need call any of this methods or modify variable
 public:
-	Saver(Game* game);
+	Config(string dataPath);
 private:
 	string prefs_path;
 	string copy_path;

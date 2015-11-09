@@ -18,7 +18,7 @@
 #include "AnimationScreen.h"
 #include "MainScreen.h"
 
-AnimationScreen::AnimationScreen(Game* game):Screen(game){
+void AnimationScreen::Start(){
 	bcg_scale = 2;
 	run_time = 2;
 	thinking_time = 0;
@@ -26,9 +26,6 @@ AnimationScreen::AnimationScreen(Game* game):Screen(game){
 	deltaY = 0;
 	turn_left = true;
 	going_back = false;
-}
-
-void AnimationScreen::Start(){
 	input->KeyPressed += MakeDelegate(this, &AnimationScreen::OnKeyPressed);
 	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);

@@ -74,8 +74,7 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Point.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Saver.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
@@ -86,6 +85,11 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\AnimationScreen.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp" />
+    <ClCompile Include="..\..\Sources\Birds\Bird.cpp" />
+    <ClCompile Include="..\..\Sources\Birds\BirdsScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Birds\Entity.cpp" />
+    <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\TestScreen.cpp" />
@@ -104,7 +108,7 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\Sources\Point.h" />
     <ClInclude Include="..\..\..\..\Sources\Rect.h" />
-    <ClInclude Include="..\..\..\..\Sources\Saver.h" />
+    <ClInclude Include="..\..\..\..\Sources\Config.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
@@ -116,6 +120,11 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\AnimationScreen.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
+    <ClInclude Include="..\..\Sources\Birds\Behaviour.h" />
+    <ClInclude Include="..\..\Sources\Birds\Bird.h" />
+    <ClInclude Include="..\..\Sources\Birds\BirdsScreen.h" />
+    <ClInclude Include="..\..\Sources\Birds\Entity.h" />
+    <ClInclude Include="..\..\Sources\Birds\MovingEntity.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\TestScreen.h" />

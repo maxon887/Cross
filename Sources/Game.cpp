@@ -33,7 +33,7 @@ Launcher*	cross::launcher = NULL;
 Graphics*	cross::graphics = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
-Saver*		cross::saver = NULL;
+Config*		cross::config = NULL;
 
 Game::Game(Launcher* launcher, float width){
 	Init(launcher);
@@ -142,7 +142,7 @@ void Game::Exit(){
 void Game::Init(Launcher* launcher){
 	launcher = launcher;
 	input = new Input();
-	saver = new Saver(this);
+	config = new Config(launcher->DataPath());
 	debuger = new Debuger(this);
 	graphics = NULL;
 	gfx3D = NULL;
@@ -153,7 +153,7 @@ Game::~Game(){
 	launcher->LogIt("Game destructor");
 	delete current_screen;
 	delete input;
-	delete saver;
+	delete config;
 	delete debuger;
 	launcher->LogIt("Destructor finished");
 }

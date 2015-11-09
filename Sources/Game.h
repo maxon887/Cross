@@ -27,12 +27,6 @@ class Debuger;
 
 extern mutex global_mutex;
 
-extern Launcher* launcher;
-extern Graphics* graphics;
-extern Graphics3D* gfx3D;
-extern Input* input;
-extern Saver* saver;
-
 /*	Core game class. Every game must inherit that class.
 	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */
 class Game{

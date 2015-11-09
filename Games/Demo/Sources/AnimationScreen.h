@@ -24,7 +24,6 @@ using namespace cross;
 
 class AnimationScreen : public Screen{
 public:
-    AnimationScreen(Game* game);
 	void Start();
     void Update(float sec);
 	void OnKeyPressed(Key key);
