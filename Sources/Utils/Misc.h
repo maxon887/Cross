@@ -29,7 +29,7 @@ bool PointInTriangle(Point pt, Point v1, Point v2, Point v3);
 bool PointInCircle(Point p, Point center, float radius);
 bool CircleOnCollision(Point p1, float r1, Point p2, float r2);
 float Lerp(float v0, float v1, float t);
-float Distance(Point p1, Point p2);
-float Angle(Point first, Point second);
+float Distance(const Point &p1, const Point &p2);
+float Angle(const Point &first, const Point &second);
 
 }

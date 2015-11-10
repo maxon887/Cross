@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -81,6 +82,7 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\AnimationScreen.cpp" />
@@ -116,6 +118,7 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\AnimationScreen.h" />

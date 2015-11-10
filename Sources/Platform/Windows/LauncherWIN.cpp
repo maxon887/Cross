@@ -88,7 +88,7 @@ unsigned char* LauncherWIN::LoadFile(string filename, int *size){
 	ifstream fileStream(filePath, istream::binary);
 	if(fileStream.is_open()){
 		fileStream.seekg(0, fileStream.end);
-		*size = fileStream.tellg();
+		*size = (size_t)fileStream.tellg();
 		fileStream.seekg(0, fileStream.beg);
 		char* data = new char[*size];
 		ZeroMemory(data, *size);

@@ -15,27 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 	
-#include "Point.h"
+#pragma once
+#include "BirdsScreen.h"
+#include "Vector2D.h"
 
-using namespace cross;
-
-Point::Point(){
-	x = 0;
-	y = 0;
-}
-
-Point::Point(float x, float y){
-	this->x = x;
-	this->y = y;
-}
-
-bool Point::operator == (const Point& p) const{
-	if(this->x == p.x && this->y && p.y)
-		return true;
-	else
-		return false;
-}
-
-bool Point::operator != (const Point& p) const{
-	return !((*this) == p);
-}
+class Entity{
+public:
+	Vector2D pos;
+	float radius;
+private:
+};

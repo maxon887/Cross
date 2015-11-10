@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include "Game.h"
@@ -37,6 +36,10 @@ public:
 	void EnableScreenDebug();
 	void EnableConsoleDebug();
 	void EnableTouches();
+
+	void OnActionDown(Point pos);
+	void OnActionUp(Point pos);
+	void OnActionMove(Point pos);
 private:
 	Game* game;
 #ifndef C3D

@@ -14,11 +14,11 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "MainScreen.h"
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
 #include "TestScreen.h"
+#include "Birds\BirdsScreen.h"
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
@@ -81,7 +81,8 @@ void MainScreen::Update(float sec){
 	case PRIMITIVES:
 		break;
 	case MISC:
-		game->SetScreen(new TestScreen());
+		//game->SetScreen(new TestScreen());
+		game->SetScreen(new BirdsScreen());
 		break;
 	default:
 		break;

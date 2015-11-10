@@ -14,28 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
-#include "Point.h"
+#include "BirdsScreen.h"
 
-using namespace cross;
+void BirdsScreen::Start(){
 
-Point::Point(){
-	x = 0;
-	y = 0;
 }
 
-Point::Point(float x, float y){
-	this->x = x;
-	this->y = y;
-}
-
-bool Point::operator == (const Point& p) const{
-	if(this->x == p.x && this->y && p.y)
-		return true;
-	else
-		return false;
-}
-
-bool Point::operator != (const Point& p) const{
-	return !((*this) == p);
+void BirdsScreen::Update(float sec){
+	graphics->Clear(0.f, 0.f, 0.f);
 }

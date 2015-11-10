@@ -115,6 +115,9 @@
     <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp">
       <Filter>Demo\Birds</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -213,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Birds\Behaviour.h">
       <Filter>Demo\Birds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
