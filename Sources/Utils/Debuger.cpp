@@ -98,7 +98,7 @@ void Debuger::Display(float micro){
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
 		}
 		if(touch_down){
-			texter->DrawText(0, texter->GetHeight() * 3, "Input x-" + to_string(touch_pos.x) + " y-" + to_string(touch_pos.y));
+			texter->DrawText(0, texter->GetHeight() * 3, "Input x: " + to_string(touch_pos.x) + " y: " + to_string(touch_pos.y));
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 3, "Input Up");
 		}

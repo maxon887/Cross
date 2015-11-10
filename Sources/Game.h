@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 #include "Screen.h"
 
@@ -33,10 +32,11 @@ class Game{
 public:
 	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
-	/* Constructor gets virtual game width.
-	   Don't mess with target width.
-	   Game height will be set automatically depend on screen aspect ratio. */
+	/* Game constructor. Virtual word coordinates will match target physical pixels */
+	Game(Launcher* launcher);
+	/* Game constructor. Virtual world height will calculate proportionally physical screen ratio */
 	Game(Launcher* launcher, float width);
+	/* Game constructor. Game screen will scroll automatically */
 	Game(Launcher* launcher, float width, float height);
 	// Cause when game is about to start
 	virtual void Start();

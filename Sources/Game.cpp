@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #include "Game.h"
 #include "Launcher.h"
 #include "Utils/Debuger.h"
@@ -35,13 +34,19 @@ Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
 Config*		cross::config = NULL;
 
+Game::Game(Launcher* launcher){
+	Init(launcher);
+	this->width = (float)launcher->GetTargetWidth();
+	this->height = (float)launcher->GetTargetHeight();
+	scale_factor = (float)launcher->GetTargetWidth() / width;
+}
+
 Game::Game(Launcher* launcher, float width){
 	Init(launcher);
 	this->width = width;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
     scale_factor = (float)launcher->GetTargetWidth() / width;
-	launcher->LogIt("Game initialized");
 }
 
 Game::Game(Launcher* launcher, float width, float height){
@@ -68,7 +73,6 @@ void Game::SetScreen(Screen* screen){
 	Debuger::StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
-	//current_screen->Init();
 	current_screen->Start();
     render_time = high_resolution_clock::now();
 	Debuger::StopCheckTime("Screen loaded: ");

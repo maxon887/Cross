@@ -21,6 +21,8 @@
 
 using namespace cross;
 
+#define DATA_PATH "Data/"
+
 bool DirectoryExists(LPCTSTR szPath){
   DWORD dwAttrib = GetFileAttributes(szPath);
 
@@ -38,6 +40,9 @@ LauncherWIN::LauncherWIN(HWND wnd){
 	landscape = false;
 	target_width = TARGET_WIDTH;
 	target_height = TARGET_HEIGHT;
+	if(!DirectoryExists(DATA_PATH)){
+		CreateDirectory(DATA_PATH, NULL);
+	}
 }
 
 LauncherWIN::~LauncherWIN(){
@@ -75,12 +80,7 @@ string LauncherWIN::AssetsPath(){
 }
 
 string LauncherWIN::DataPath(){
-	LPCTSTR szPath = "Debug/Data/";
-	if(DirectoryExists(szPath)){
-		return szPath;
-	}else{
-		return "Data/";
-	}
+	return DATA_PATH;
 }
 
 unsigned char* LauncherWIN::LoadFile(string filename, int *size){
