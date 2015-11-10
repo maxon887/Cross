@@ -233,7 +233,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
+#ifdef C3D
 	delete gfx3D;
+#endif
 	delete graphics;
 	delete game;
 	delete launcher;

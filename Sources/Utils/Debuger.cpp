@@ -59,6 +59,7 @@ Debuger::Debuger(Game* game){
 	screen_debug = false;
 	console_debug = false;
 	touches = false;
+	touch_down = false;
 	next_display = 3000000.f;
 	input->ActionDown += MakeDelegate(this, &Debuger::OnActionDown);
 	input->ActionMove += MakeDelegate(this, &Debuger::OnActionMove);
@@ -95,6 +96,11 @@ void Debuger::Display(float micro){
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: Infinitive");
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 2, "FPS: " + to_string(1000.f/render_time));
+		}
+		if(touch_down){
+			texter->DrawText(0, texter->GetHeight() * 3, "Input x-" + to_string(touch_pos.x) + " y-" + to_string(touch_pos.y));
+		}else{
+			texter->DrawText(0, texter->GetHeight() * 3, "Input Up");
 		}
 		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));
 	}
@@ -146,7 +152,7 @@ void Debuger::SetUpdateTime(float micro) {
 			update_counter = 0;
 			update_time = update_sum / 20.0f / 1000.0f;
 			update_sum = 0;
-		} else {
+		}else{
 			update_sum += micro;
 			update_counter++;
 		}
@@ -154,15 +160,16 @@ void Debuger::SetUpdateTime(float micro) {
 }
 
 void Debuger::OnActionDown(Point pos){
-
+	touch_down = true;
+	touch_pos = pos;
 }
 
 void Debuger::OnActionUp(Point pos){
-
+	touch_down = false;
 }
 
 void Debuger::OnActionMove(Point pos){
-
+	touch_pos = pos;
 }
 
 

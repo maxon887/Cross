@@ -61,6 +61,8 @@ private:
 	bool screen_debug;
 	bool console_debug;
 	bool touches;
+	Point touch_pos;
+	bool touch_down;
 };
     
 }
