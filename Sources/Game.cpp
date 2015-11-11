@@ -142,7 +142,6 @@ bool Game::Is3D(){
 void Game::Exit(){
 	exit(0);
 }
-
 void Game::Init(Launcher* launcher){
 	launcher = launcher;
 	input = new Input();

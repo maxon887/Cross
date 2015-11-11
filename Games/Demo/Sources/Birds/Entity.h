@@ -23,5 +23,4 @@ class Entity{
 public:
 	Vector2D pos;
 	float radius;
-private:
 };

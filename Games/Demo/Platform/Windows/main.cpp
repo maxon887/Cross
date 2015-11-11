@@ -4,5 +4,6 @@
 
 Game* CrossMain(Launcher* launcher){
 	((LauncherWIN*)launcher)->SetTargetSize(540, 800);
-	return new Demo(launcher);
+	Game* demo = new Demo(launcher);
+	return demo;
 }

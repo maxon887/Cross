@@ -22,5 +22,4 @@ public:
 	void Update(float sec);
 	void Draw();
 private:
-	BirdsScreen* screen;
 };

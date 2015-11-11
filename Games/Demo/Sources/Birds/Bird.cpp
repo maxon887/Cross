@@ -22,5 +22,6 @@ void Bird::Update(float sec){
 
 void Bird::Draw(){
 	Point p1, p2, p3;
+	//p1.x = pos.x;
 	//graphics->DrawLine(
 }

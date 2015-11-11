@@ -38,7 +38,7 @@ Graphics::Graphics(Game* game){
 	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrthof(0, launcher->GetTargetWidth(), launcher->GetTargetHeight(), 0, 1, -1);
+	glOrthof(-1, launcher->GetTargetWidth(), launcher->GetTargetHeight(), -1, 1, -1);
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -50,7 +50,7 @@ Graphics::Graphics(Game* game){
 void Graphics::SetViewPort(Point c, float width, float height){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrthof(0, width, height, 0, 1, -1);
+	glOrthof(-1, width, height, -1, 1, -1);
 	glTranslatef(-(c.x), -(c.y), 0);
 	glMatrixMode(GL_MODELVIEW);
 }
@@ -106,8 +106,7 @@ Image* Graphics::LoadImage(string filename, float scaleFactor){
 		new_height *= 2;
 	}
 	//Create power of two texture
-	if(new_width > width || new_height > height)
-	{
+	if(new_width > width || new_height > height){
 		unsigned char* newImage = (unsigned char*)malloc(BYTES_PER_CHANNEL * new_width * new_height);
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL );
@@ -219,6 +218,8 @@ void Graphics::DrawLine(Point p1, Point p2, float r, float g, float b){
 		p1.y *= game->GetScaleFactor();
 		p2.x *= game->GetScaleFactor();
 		p2.y *= game->GetScaleFactor();
+		//p1.x < p2.x ? p1.x-- : p2.x--;
+		//p1.y < p2.y ? p1.y-- : p2.y--;
 		float vertices[] = { p1.x, p1.y, p2.x, p2.y };
 		float colors[] = { r, g, b, 1, r, g, b, 1 };
 		static const unsigned short indices[] = { 0, 1 };
@@ -246,8 +247,8 @@ void Graphics::DrawCircle(Point c, float radius, float r, float g, float b){
 		radius *= game->GetScaleFactor();
 		float sqrRad = radius * radius;
 	#ifdef WIN
-		for ( float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + .5f); x++ ) {
-			float y = sqrt(sqrRad - x*x) + .5f;
+		for(float x = -radius * 0.7071068f; x <= (radius * 0.7071068f + 0.5f); x++) {
+			float y = sqrt(sqrRad - x*x);
 			DrawTargetPixel(Point(x + c.x, y + c.y), r, g, b);
 			DrawTargetPixel(Point(x + c.x,-y + c.y), r, g, b);
 			DrawTargetPixel(Point(c.x + y, c.y + x), r, g, b);

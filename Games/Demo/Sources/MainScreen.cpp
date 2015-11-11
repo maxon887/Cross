@@ -54,17 +54,17 @@ void MainScreen::Update(float sec){
 	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 	Point pos;
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 + 100;
+	pos.y = game->GetHeight() / 4 + 40;
 
 	animation_btn->SetLocation(pos);
 	animation_btn->Update();
-	pos.y += 180;
+	pos.y += 150;
 	audio_btn->SetLocation(pos);
 	audio_btn->Update();
-	pos.y += 180;
+	pos.y += 150;
 	primitives_btn->SetLocation(pos);
 	primitives_btn->Update();
-	pos.y += 180;
+	pos.y += 150;
 	misc_btn->SetLocation(pos);
 	misc_btn->Update();
 

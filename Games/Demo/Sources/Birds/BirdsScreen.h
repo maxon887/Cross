@@ -17,6 +17,10 @@
 #pragma once
 
 #include "Screen.h"
+#include "Vector2D.h"
+//#include "Bird.h"
+
+class Bird;
 
 using namespace cross;
 
@@ -25,4 +29,10 @@ public:
 	void Start();
 	void Update(float sec);
 private:
+	bool going_back;
+	Vector2D cursor;
+	Bird* bird;
+	void DrawCursor(Vector2D pos);
+	void OnKeyPressed(Key key);
+	void OnActionDown(Point pos);
 };

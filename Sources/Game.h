@@ -57,7 +57,6 @@ public:
 	bool Is3D();
 	/* Exit from application */
     void Exit();
-
 //Internal data. You don't need call any of this methods or modify variable
 public:
     void Update();
@@ -70,6 +69,7 @@ protected:
 private:
 	Screen* current_screen;
     chrono::time_point<chrono::high_resolution_clock> render_time;
+
 	void Init(Launcher* launch);
 };
     
