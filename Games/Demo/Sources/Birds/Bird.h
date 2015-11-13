@@ -25,4 +25,5 @@ public:
 	void Draw();
 private:
 	Behaviour* behaviour;
+	Vector2D heading;
 };

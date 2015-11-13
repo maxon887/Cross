@@ -22,9 +22,10 @@ Behaviour::Behaviour(MovingEntity* owner){
 
 Vector2D Behaviour::Seek(Vector2D targetPos){
 	Vector2D desiredVelocity = targetPos - owner->pos;
-	desiredVelocity.Normalize();
+	desiredVelocity = desiredVelocity.Normalize();
 	desiredVelocity *= owner->max_speed;
-	return desiredVelocity - owner->velocity;
+	desiredVelocity -= owner->velocity;
+	return desiredVelocity;
 }
 
 Vector2D Behaviour::Flee(Vector2D targetPos){
@@ -33,19 +34,23 @@ Vector2D Behaviour::Flee(Vector2D targetPos){
 		return Vector2D(0, 0);
 	}else{
 		Vector2D desiredVelocity = owner->pos - targetPos;
-		desiredVelocity.Normalize();
+		desiredVelocity = desiredVelocity.Normalize();
 		desiredVelocity *= owner->max_speed;
-		return desiredVelocity - owner->velocity;
+		desiredVelocity -= owner->velocity;
+		return desiredVelocity;
 	}
 }
-/*
+
 Vector2D Behaviour::Arrive(Vector2D targetPos, Deceleration dec){
 	Vector2D toTarget = targetPos - owner->pos;
 	float dist = toTarget.Length();
 	if(dist > 0){
-		const float decelerationTweaker = 0.3f;
+		const float decelerationTweaker = 1.3f;
 		float speed = dist / (dec * decelerationTweaker);
 		speed = min(speed, owner->max_speed);
-		Vector2D desiredVelocity = toTarget
+		Vector2D desiredVelocity = toTarget * speed / dist;
+		desiredVelocity -= owner->velocity;
+		return desiredVelocity;
 	}
-}*/
+	return Vector2D(0.f, 0.f);
+}

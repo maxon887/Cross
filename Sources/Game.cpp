@@ -33,6 +33,7 @@ Graphics*	cross::graphics = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
 Config*		cross::config = NULL;
+Debuger*	cross::debuger = NULL;
 
 Game::Game(Launcher* launcher){
 	Init(launcher);

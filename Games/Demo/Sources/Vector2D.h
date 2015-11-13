@@ -24,8 +24,8 @@ public:
 	Vector2D():x(.0f), y(.0f){};
 	Vector2D(float x, float y):x(x), y(y){};
 	float Length();
-	void Normalize();
-	void Truncate(float len);
+	Vector2D Normalize();
+	Vector2D Truncate(float len);
 	float DotProduct(const Vector2D &v2);
 	
 	Vector2D operator + (const Vector2D &v2) const;

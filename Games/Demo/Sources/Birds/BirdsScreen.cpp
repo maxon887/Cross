@@ -22,7 +22,7 @@ void BirdsScreen::Start(){
 	going_back = false;
 	cursor.x = game->GetWidth() / 2;
 	cursor.y = game->GetHeight() / 2;
-	bird = new Bird(1, 100, 10, 10);
+	bird = new Bird(0.5f, 150, 1, 1);
 	bird->pos = Vector2D(200, 200);
 	bird->velocity = Vector2D(20, 20);
 	input->KeyPressed += MakeDelegate(this, &BirdsScreen::OnKeyPressed);

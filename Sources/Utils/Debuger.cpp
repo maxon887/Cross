@@ -172,4 +172,7 @@ void Debuger::OnActionMove(Point pos){
 	touch_pos = pos;
 }
 
+Texter* Debuger::GetTexter(){
+	return texter;
+}
 

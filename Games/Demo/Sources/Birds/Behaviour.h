@@ -24,7 +24,7 @@ public:
 	Behaviour(MovingEntity* owner);
 	Vector2D Seek(Vector2D targetPos);
 	Vector2D Flee(Vector2D targetPos);
-	//Vector2D Arrive(Vector2D targetPos, Deceleration dec);
+	Vector2D Arrive(Vector2D targetPos, Deceleration dec);
 private:
 	MovingEntity* owner;
 };

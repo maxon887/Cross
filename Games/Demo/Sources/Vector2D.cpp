@@ -22,17 +22,22 @@ float Vector2D::Length(){
 	return sqrt(x*x + y*y);
 }
 
-void Vector2D::Normalize(){
+Vector2D Vector2D::Normalize(){
+	Vector2D result;
 	float len = Length();
-	x /= len;
-	y /= len;
+	result.x  = x / len;
+	result.y  = y / len;
+	return result;
 }
 
-void Vector2D::Truncate(float len){
+Vector2D Vector2D::Truncate(float len){
 	if(this->Length() > len){
-		this->Normalize();
-		(*this) *= len;
+		Vector2D result;
+		result = this->Normalize();
+		result *= len;
+		return result;
 	}
+	return *this;
 }
 
 float Vector2D::DotProduct(const Vector2D &v2){

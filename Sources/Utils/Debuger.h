@@ -40,6 +40,8 @@ public:
 	void OnActionDown(Point pos);
 	void OnActionUp(Point pos);
 	void OnActionMove(Point pos);
+
+	Texter* GetTexter();
 private:
 	Game* game;
 #ifndef C3D

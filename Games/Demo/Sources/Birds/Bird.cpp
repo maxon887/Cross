@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Bird.h"
+#include "Texter.h"
+#include "Utils\Debuger.h"
 
 Bird::Bird(float mass, float maxSpeed, float maxForce, float maxTurnRate):
 	MovingEntity(mass, maxSpeed, maxForce, maxTurnRate){
@@ -22,28 +24,41 @@ Bird::Bird(float mass, float maxSpeed, float maxForce, float maxTurnRate):
 }
 
 void Bird::Update(float sec, Vector2D targetPos){
-	Vector2D steeringForce = behaviour->Seek(targetPos);
+	Vector2D steeringForce = behaviour->Arrive(targetPos, Behaviour::FAST);
 	Vector2D acceleration = steeringForce / mass;
 	velocity += acceleration * sec;
-	velocity.Truncate(max_speed);
+	velocity = velocity.Truncate(max_speed);
 	pos += velocity * sec;
+	if(velocity.Length() >= 5.f){
+		heading = velocity.Normalize();
+	}
+
+	Texter* texter = debuger->GetTexter();
+	string speedMsg = string("Speed - " + to_string(velocity.Length()));
+	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight()), speedMsg);
+	string forceMsg = string("Force - " + to_string(steeringForce.Length()));
+	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight() * 2), forceMsg);
+	string accMsg = string("Accel - " + to_string(acceleration.Length()));
+	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight() * 3), accMsg);
+	graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + acceleration.x, pos.y + acceleration.y), Color::Yellow);
+	graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + steeringForce.x, pos.y + steeringForce.y), Color::Red);
+	graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + velocity.x, pos.y + velocity.y), Color::Green);
 }
 
 void Bird::Draw(){
+	Vector2D normVelocity = heading;
+	Vector2D perpVector1(-normVelocity.y, normVelocity.x);
+	Vector2D perpVector2(normVelocity.y, -normVelocity.x);
+	perpVector1 *= 10;
+	perpVector2 *= 10;
+	normVelocity *= 30;
 	Point p1;
-	p1.x = pos.x;
-	p1.y = pos.y;
-	Point p2;
-	p2.x = pos.x + velocity.x;
-	p2.y = pos.y + velocity.y;
-	Vector2D perpVector1;
-	perpVector1.x = pos.x + velocity.x / 3;
-	perpVector1.y = pos.y - velocity.y / 3;
-	Vector2D perpVector2;
-	perpVector2.x = pos.x - velocity.x / 3;
-	perpVector2.y = pos.y + velocity.y / 3;
+	p1.x = pos.x + normVelocity.x;
+	p1.y = pos.y + normVelocity.y;
+	perpVector1 += pos;
+	perpVector2 += pos;
 
-	graphics->DrawLine(p2, Point(perpVector1.x, perpVector1.y), Color::Blue);
-	graphics->DrawLine(p2, Point(perpVector2.x, perpVector2.y), Color::Blue);
+	graphics->DrawLine(p1, Point(perpVector1.x, perpVector1.y), Color::Blue);
+	graphics->DrawLine(p1, Point(perpVector2.x, perpVector2.y), Color::Blue);
 	graphics->DrawLine(Point(perpVector1.x, perpVector1.y), Point(perpVector2.x, perpVector2.y), Color::Blue);
 }

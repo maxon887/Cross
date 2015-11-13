@@ -22,6 +22,9 @@
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
+	input->ActionDown.Clear();
+	input->ActionMove.Clear();
+	input->ActionUp.Clear();
 	Point pos;
 	input->KeyPressed.Clear();
 	input->KeyReleased.Clear();
@@ -41,7 +44,7 @@ void MainScreen::Start(){
 	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
 
-	game->debuger->EnableScreenDebug();
+	debuger->EnableScreenDebug();
 
 	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
