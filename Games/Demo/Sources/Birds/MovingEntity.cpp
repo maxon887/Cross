@@ -14,4 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+#include "MovingEntity.h"
+
+
+MovingEntity::MovingEntity(float mass, float maxSpeed, float maxForce, float maxTurnRate){
+	this->mass = mass;
+	this->max_speed = maxSpeed;
+	this->max_force = maxForce;
+	this->max_turn_rate = maxTurnRate;
+}

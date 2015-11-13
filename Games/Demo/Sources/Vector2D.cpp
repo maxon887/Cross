@@ -28,6 +28,13 @@ void Vector2D::Normalize(){
 	y /= len;
 }
 
+void Vector2D::Truncate(float len){
+	if(this->Length() > len){
+		this->Normalize();
+		(*this) *= len;
+	}
+}
+
 float Vector2D::DotProduct(const Vector2D &v2){
 	return this->x * v2.x + this->y * v2.y;
 }
@@ -57,6 +64,15 @@ Vector2D Vector2D::operator*(const float v) const{
 void Vector2D::operator*=(const float v){
 	this->x *= v;
 	this->y *= v;
+}
+
+Vector2D Vector2D::operator/(const float v) const{
+	return Vector2D(this->x / v, this->y / v);
+}
+
+void Vector2D::operator/=(const float v){
+	this->x /= v;
+	this->y /= v;
 }
 
 // ***************** General functions ********************

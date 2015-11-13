@@ -16,10 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "MovingEntity.h"
+#include "Behaviour.h"
 
 class Bird : public MovingEntity{
 public:
-	void Update(float sec);
+	Bird(float mass, float maxSpeed, float maxForce, float maxTurnRate);
+	void Update(float sec, Vector2D targetPos);
 	void Draw();
 private:
+	Behaviour* behaviour;
 };

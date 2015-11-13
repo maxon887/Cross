@@ -25,8 +25,8 @@ public:
 	Vector2D(float x, float y):x(x), y(y){};
 	float Length();
 	void Normalize();
+	void Truncate(float len);
 	float DotProduct(const Vector2D &v2);
-	Vector2D CrossProduct(const Vector2D &v2);
 	
 	Vector2D operator + (const Vector2D &v2) const;
 	void operator += (const Vector2D &v2);
@@ -34,6 +34,8 @@ public:
 	void operator -= (const Vector2D &v2);
 	Vector2D operator * (const float value) const;
 	void operator *= (const float value);
+	Vector2D operator / (const float value) const;
+	void operator /= (const float value);
 };
 
 float Distance(const Vector2D &v1, const Vector2D &v2);

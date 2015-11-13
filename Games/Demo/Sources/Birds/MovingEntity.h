@@ -21,6 +21,7 @@
 
 class MovingEntity : public Entity{
 public:
+	MovingEntity(float mass, float maxSpeed, float maxForce, float maxTurnRate);
 	Vector2D velocity;
 	float mass;
 	float max_speed;

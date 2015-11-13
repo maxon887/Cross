@@ -22,7 +22,9 @@ void BirdsScreen::Start(){
 	going_back = false;
 	cursor.x = game->GetWidth() / 2;
 	cursor.y = game->GetHeight() / 2;
-	bird = new Bird();
+	bird = new Bird(1, 100, 10, 10);
+	bird->pos = Vector2D(200, 200);
+	bird->velocity = Vector2D(20, 20);
 	input->KeyPressed += MakeDelegate(this, &BirdsScreen::OnKeyPressed);
 	input->ActionDown += MakeDelegate(this, &BirdsScreen::OnActionDown);
 }
@@ -30,16 +32,14 @@ void BirdsScreen::Start(){
 void BirdsScreen::Update(float sec){
 	graphics->Clear(0.f, 0.f, 0.f);
 	DrawCursor(cursor);
+	bird->Update(sec, cursor);
+	bird->Draw();
 	if(going_back){
 		game->SetScreen(game->GetStartScreen());
 	}
 }
 
 void BirdsScreen::DrawCursor(Vector2D pos){
-	graphics->DrawPixel(Point(0, 0), Color::Red);
-	graphics->DrawPixel(Point(1, 1), Color::Red);
-	graphics->DrawPixel(Point(0, 1), Color::Red);
-	graphics->DrawPixel(Point(1, 0), Color::Red);
 	graphics->DrawLine(Point(pos.x, pos.y + 5), Point(pos.x, pos.y - 6), Color::Red);
 	graphics->DrawLine(Point(pos.x + 5, pos.y), Point(pos.x - 6, pos.y), Color::Red);
 	graphics->DrawCircle(Point(pos.x, pos.y), 3.f, Color::Red);
