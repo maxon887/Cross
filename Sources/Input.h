@@ -37,7 +37,7 @@ enum class Key{
 };
 
 /*	Class responsible for user input. 
-	Handle touches, clicks and some key events */
+	Handle touches, clicks and key events */
 class Input{
 public:
 	DECLARE_EVENT(void, Point) ActionDown;

@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include <string>
@@ -29,13 +28,11 @@ namespace cross {
 
 class Launcher;
 
+/* Class responsible for playing audio.
+	Additional dependencies needed to be included for using this class. 
+	If you don not use audio in your game declare DISABLE_AUDIO directive */
 class Audio{
 public:
-	static void Init(Launcher* launcher);
-	static void SuspendSystem();
-	static void ResumeSystem();
-	static void Release();
-
 	Audio(std::string path, bool loop, bool isStream);
 	Audio(Audio& obj);
 
@@ -45,9 +42,14 @@ public:
 	void Stop();
 	bool IsPlaying();
 	~Audio();
+//Internal data. You don't need call any of this methods or modify variables
+public:
+	static void Init(Launcher* launcher);
+	static void SuspendSystem();
+	static void ResumeSystem();
+	static void Release();
 private:
 	static FMOD::System* system;
-	//static unsigned int result;
 	static unsigned int version;
 	static void* extradriverdata;
 	static Launcher* launcher;

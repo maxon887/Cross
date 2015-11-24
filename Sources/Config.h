@@ -23,7 +23,7 @@ using namespace std;
 
 namespace cross {
 
-/* Simple configuration manager. Loads and saves information between game launches.*/
+/* Configuration manager. Cross platform way for save and load game data(score, config, etc)*/
 class Config{
 public:
 	//Save string value for key.
