@@ -19,6 +19,9 @@
     <Filter Include="Cross\Platform\Windows">
       <UniqueIdentifier>{171b94f2-0c0c-4e31-ae57-bc67b70b4125}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Birds">
+      <UniqueIdentifier>{18ad4c85-df94-42aa-9e69-f8142c1e7b92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -38,12 +41,6 @@
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Input.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Saver.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp">
@@ -100,6 +97,27 @@
     <ClCompile Include="..\..\Sources\Vector2D.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Config.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Birds\Bird.cpp">
+      <Filter>Demo\Birds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Birds\BirdsScreen.cpp">
+      <Filter>Demo\Birds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Birds\Entity.cpp">
+      <Filter>Demo\Birds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp">
+      <Filter>Demo\Birds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp">
+      <Filter>Demo\Birds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -121,9 +139,6 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Launcher.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Saver.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Screen.h">
@@ -183,6 +198,27 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Vector2D.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Config.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Birds\Bird.h">
+      <Filter>Demo\Birds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Birds\BirdsScreen.h">
+      <Filter>Demo\Birds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Birds\Entity.h">
+      <Filter>Demo\Birds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Birds\MovingEntity.h">
+      <Filter>Demo\Birds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Birds\Behaviour.h">
+      <Filter>Demo\Birds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

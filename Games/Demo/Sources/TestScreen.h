@@ -23,7 +23,6 @@ using namespace cross;
 
 class TestScreen : public Screen{
 public:
-	TestScreen(Game* game):Screen(game){};
 	void Start();
 	void Update(float sec);
 private:

@@ -21,7 +21,7 @@
 #include "Misc.h"
 #include <cmath>
 
-MenuScreen::MenuScreen(JimTheSnake* game):Screen(game) {
+MenuScreen::MenuScreen(JimTheSnake* game) {
 	this->game = game;
 }
 
@@ -137,27 +137,27 @@ void MenuScreen::Start(){
 	btn_pull = new Audio("ButtonPull.wav", false, false);
 	//buttons creation
 	play_btn = new Button(game, play_btn_pos, playUp, playDown);
-	play_btn->RegisterCallback(bind(&MenuScreen::OnPlayClick, this));
+	play_btn->Clicked += MakeDelegate(this, &MenuScreen::OnPlayClick);
 	settings_btn = new Button(game, settingsUp, settingsDown);
-	settings_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
+	settings_btn->Clicked += MakeDelegate(this, &MenuScreen::OnSettingsClick);
 	back_btn = new Button(game, backUp, backDown);
-	back_btn->RegisterCallback(bind(&MenuScreen::OnSettingsClick, this));
+	back_btn->Clicked += MakeDelegate(this, &MenuScreen::OnSettingsClick);
 	music_btn = new Button(game, musicUp, musicDown);
-	music_btn->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
+	music_btn->Clicked += MakeDelegate(this, &MenuScreen::OnMusicClick);
 	music_chk = new ToggleButton(game, check1, uncheck1);
-	music_chk->RegisterCallback(bind(&MenuScreen::OnMusicClick, this));
+	music_chk->Clicked += MakeDelegate(this, &MenuScreen::OnMusicClick);
 	sounds_btn = new Button(game, soundsUp, soundsDown);
-	sounds_btn->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
+	sounds_btn->Clicked += MakeDelegate(this, &MenuScreen::OnSoundClick);
 	sounds_chk = new ToggleButton(game, check2, uncheck2);
-	sounds_chk->RegisterCallback(bind(&MenuScreen::OnSoundClick, this));
+	sounds_chk->Clicked += MakeDelegate(this, &MenuScreen::OnSoundClick);
 	control_btn = new Button(game, controlUp, controlDown);
-	control_btn->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
+	control_btn->Clicked += MakeDelegate(this, &MenuScreen::OnControlClick);
 	control_chk = new Button(game, arrows_up->GetWidth(), arrows_up->GetHeight());
-	control_chk->RegisterCallback(bind(&MenuScreen::OnControlClick, this));
+	control_chk->Clicked += MakeDelegate(this, &MenuScreen::OnControlClick);
 	remove_ads_btn = new Button(game, removeAdsUp, removeAdsDown);
-	remove_ads_btn->RegisterCallback(bind(&MenuScreen::OnRemoveAdsClick, this));
+	remove_ads_btn->Clicked += MakeDelegate(this, &MenuScreen::OnRemoveAdsClick);
 	restore_btn = new Button(game, restoreUp, restoreDown);
-	restore_btn->RegisterCallback(bind(&MenuScreen::OnRestoreClick, this));
+	restore_btn->Clicked += MakeDelegate(this, &MenuScreen::OnRestoreClick);
 	//misc
 	score_texter = new Texter(game, "Menu/NumbersYellow.png", 65.f, 76.f, 10, 1, 48);
 	score = game->BestScore();

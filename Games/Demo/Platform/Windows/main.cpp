@@ -3,6 +3,7 @@
 #include "LauncherWIN.h"
 
 Game* CrossMain(Launcher* launcher){
-	((LauncherWIN*)launcher)->SetTargetSize(540, 960);
-	return new Demo(launcher);
+	((LauncherWIN*)launcher)->SetTargetSize(540, 800);
+	Game* demo = new Demo(launcher);
+	return demo;
 }

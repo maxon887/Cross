@@ -6,7 +6,6 @@ using namespace cross;
 
 class AudioScreen :	public Screen{
 public:
-	AudioScreen(Game* game);
 	~AudioScreen(void);
 	void Start();
 	void Update(float sec);

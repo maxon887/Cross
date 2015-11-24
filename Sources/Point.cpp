@@ -20,8 +20,8 @@
 using namespace cross;
 
 Point::Point(){
-	x = -100;
-	y = -100;
+	x = 0;
+	y = 0;
 }
 
 Point::Point(float x, float y){
@@ -29,13 +29,13 @@ Point::Point(float x, float y){
 	this->y = y;
 }
 
-bool Point::operator == (const Point& p){
+bool Point::operator == (const Point& p) const{
 	if(this->x == p.x && this->y && p.y)
 		return true;
 	else
 		return false;
 }
 
-bool Point::operator != (const Point& p){
+bool Point::operator != (const Point& p) const{
 	return !((*this) == p);
 }

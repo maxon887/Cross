@@ -14,21 +14,29 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 class Vector2D{
 public:
+	float x;
+	float y;
+
 	Vector2D():x(.0f), y(.0f){};
 	Vector2D(float x, float y):x(x), y(y){};
 	float Length();
-	void Normalize();
+	Vector2D Normalize();
+	Vector2D Truncate(float len);
 	float DotProduct(const Vector2D &v2);
-	Vector2D CrossProduct(const Vector2D &v2);
 	
-	Vector2D operator + (const Vector2D &v2);
+	Vector2D operator + (const Vector2D &v2) const;
 	void operator += (const Vector2D &v2);
-private:
-	float x;
-	float y;
+	Vector2D operator - (const Vector2D &v2) const;
+	void operator -= (const Vector2D &v2);
+	Vector2D operator * (const float value) const;
+	void operator *= (const float value);
+	Vector2D operator / (const float value) const;
+	void operator /= (const float value);
 };
+
+float Distance(const Vector2D &v1, const Vector2D &v2);
+float DistanceSq(const Vector2D &v1, const Vector2D &v2);

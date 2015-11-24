@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 #include "Screen.h"
 
@@ -27,22 +26,17 @@ class Debuger;
 
 extern mutex global_mutex;
 
-extern Launcher* launcher;
-extern Graphics* graphics;
-extern Graphics3D* gfx3D;
-extern Input* input;
-extern Saver* saver;
-
-/*	Core game class. Every game must inherit that class.
-	Also provide interfaces for all virtual modules. Like graphics, input, sound etc. */
+/*	Core game class. Designed for contains function and fields shared between multiple Screen's\.
+	Every game must implement this class for set start Screen and virtual world size for your game*/
 class Game{
 public:
 	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
-	/* Constructor gets virtual game width.
-	   Don't mess with target width.
-	   Game height will be set automatically depend on screen aspect ratio. */
+	/* Game constructor. Virtual word coordinates will match target physical pixels */
+	Game(Launcher* launcher);
+	/* Game constructor. Virtual world height will calculate proportionally physical screen ratio */
 	Game(Launcher* launcher, float width);
+	/* Game constructor. Game screen will scroll automatically */
 	Game(Launcher* launcher, float width, float height);
 	// Cause when game is about to start
 	virtual void Start();
@@ -63,11 +57,9 @@ public:
 	bool Is3D();
 	/* Exit from application */
     void Exit();
-
 //Internal data. You don't need call any of this methods or modify variable
 public:
     void Update();
-    Debuger* debuger;
 	virtual ~Game();
 protected:
 	float width;
@@ -76,6 +68,7 @@ protected:
 private:
 	Screen* current_screen;
     chrono::time_point<chrono::high_resolution_clock> render_time;
+
 	void Init(Launcher* launch);
 };
     

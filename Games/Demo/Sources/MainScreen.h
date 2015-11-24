@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include "Graphics.h"
@@ -37,7 +36,6 @@ enum GoingScreen{
 
 class MainScreen : public Screen{
 public:
-	MainScreen(Game* game);
 	void Start();
 	void Update(float sec);
 
@@ -56,5 +54,4 @@ private:
 	Texter* texter;
 	int start_count;
 	GoingScreen going_screen;
-	//bool going_on_second_screen;
 };

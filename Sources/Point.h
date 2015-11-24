@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 namespace cross{
@@ -25,8 +24,8 @@ public:
 	float y;
 	Point();
 	Point(float x, float y);
-	bool operator == (const Point& p);
-	bool operator != (const Point& p);
+	bool operator == (const Point &p) const;
+	bool operator != (const Point &p) const;
 private:
 };
 

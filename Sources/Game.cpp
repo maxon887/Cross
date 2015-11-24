@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #include "Game.h"
 #include "Launcher.h"
 #include "Utils/Debuger.h"
@@ -33,7 +32,15 @@ Launcher*	cross::launcher = NULL;
 Graphics*	cross::graphics = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
-Saver*		cross::saver = NULL;
+Config*		cross::config = NULL;
+Debuger*	cross::debuger = NULL;
+
+Game::Game(Launcher* launcher){
+	Init(launcher);
+	this->width = (float)launcher->GetTargetWidth();
+	this->height = (float)launcher->GetTargetHeight();
+	scale_factor = (float)launcher->GetTargetWidth() / width;
+}
 
 Game::Game(Launcher* launcher, float width){
 	Init(launcher);
@@ -41,7 +48,6 @@ Game::Game(Launcher* launcher, float width){
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
     scale_factor = (float)launcher->GetTargetWidth() / width;
-	launcher->LogIt("Game initialized");
 }
 
 Game::Game(Launcher* launcher, float width, float height){
@@ -68,7 +74,6 @@ void Game::SetScreen(Screen* screen){
 	Debuger::StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
-	//current_screen->Init();
 	current_screen->Start();
     render_time = high_resolution_clock::now();
 	Debuger::StopCheckTime("Screen loaded: ");
@@ -138,11 +143,10 @@ bool Game::Is3D(){
 void Game::Exit(){
 	exit(0);
 }
-
 void Game::Init(Launcher* launcher){
 	launcher = launcher;
 	input = new Input();
-	saver = new Saver(this);
+	config = new Config(launcher->DataPath());
 	debuger = new Debuger(this);
 	graphics = NULL;
 	gfx3D = NULL;
@@ -153,7 +157,7 @@ Game::~Game(){
 	launcher->LogIt("Game destructor");
 	delete current_screen;
 	delete input;
-	delete saver;
+	delete config;
 	delete debuger;
 	launcher->LogIt("Destructor finished");
 }

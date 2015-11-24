@@ -34,6 +34,5 @@ public:
 protected:
 	static JimTheSnake* game;
 	static GameScreen* screen;
-	static Graphics* graphics;
 	Point position;
 };

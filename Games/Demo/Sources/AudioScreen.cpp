@@ -1,13 +1,5 @@
 #include "AudioScreen.h"
 
-
-AudioScreen::AudioScreen(Game* game):Screen(game){
-	bck_music = NULL;
-	jaguar = NULL;
-	truck = NULL;
-}
-
-
 AudioScreen::~AudioScreen(void){
 	delete bck_music;
 	delete jaguar;
@@ -18,6 +10,9 @@ AudioScreen::~AudioScreen(void){
 }
 
 void AudioScreen::Start(){
+	bck_music = NULL;
+	jaguar = NULL;
+	truck = NULL;
 	going_back = false;
 	input->KeyPressed += MakeDelegate(this, &AudioScreen::OnKeyPressed);
 	Image* on = graphics->LoadImage("MusicOn.png");
@@ -28,7 +23,7 @@ void AudioScreen::Start(){
 	music_btn = new ToggleButton(game, pos, on, off);
 	music_btn->Clicked += MakeDelegate(this, &AudioScreen::MusicOnClick);
 	bck_music = new Audio("Eskimo.mp3", true, true);
-	bool musicState = saver->LoadBool("MUSIC_STATE", true);
+	bool musicState = config->LoadBool("MUSIC_STATE", true);
 	music_btn->SetState(musicState);
 	if(musicState){
 		bck_music->Play();
@@ -88,12 +83,11 @@ void AudioScreen::MusicOnClick(){
 	}
 	else
 		bck_music->Pause();
-	saver->SaveBool("MUSIC_STATE", music_btn->GetState());
+	config->SaveBool("MUSIC_STATE", music_btn->GetState());
 }
 
 void AudioScreen::OnKeyPressed(Key key){
-	switch (key)
-	{
+	switch (key) {
 	case cross::Key::UNDEFINED:
 		break;
 	case cross::Key::PAUSE:

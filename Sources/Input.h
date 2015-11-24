@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include "Point.h"
@@ -38,7 +37,7 @@ enum class Key{
 };
 
 /*	Class responsible for user input. 
-	Handle touches, clicks and some key events */
+	Handle touches, clicks and key events */
 class Input{
 public:
 	DECLARE_EVENT(void, Point) ActionDown;

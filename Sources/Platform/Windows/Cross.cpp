@@ -14,9 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #include "Cross.h"
-#include "Screen.h"
 #include "LauncherWIN.h"
 #include "resource.h"
 
@@ -24,7 +22,7 @@
 
 using namespace cross;
 
-static Game* game;
+Game* cross::game = NULL;
 
 void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight){
 	RECT rcClient, rcWind;
@@ -91,8 +89,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);
-		saver->SaveInt("WIN_POS_X", winRect.left);
-		saver->SaveInt("WIN_POS_Y", winRect.top);
+		config->SaveInt("WIN_POS_X", winRect.left);
+		config->SaveInt("WIN_POS_Y", winRect.top);
 		break;
 	case WM_KEYDOWN:
 		switch(wParam){
@@ -171,8 +169,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
 	launcher = new LauncherWIN(wnd);
 	game = CrossMain(launcher);
-	int winX = saver->LoadInt("WIN_POS_X", 0);
-	int winY = saver->LoadInt("WIN_POS_Y", 0);
+	int winX = config->LoadInt("WIN_POS_X", 0);
+	int winY = config->LoadInt("WIN_POS_Y", 0);
 	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 
 	PIXELFORMATDESCRIPTOR pfd;
@@ -210,8 +208,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		ShowLastError();
 
 	ShowWindow(wnd, winShow);
-	//Graphics3D* gfx3D = NULL;
-	//Graphics* gfx2D = NULL;
 	try{
 #ifdef C3D
 	gfx3D = new Graphics3D();
@@ -225,7 +221,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		return -1;
 	}
 	game->Start();
-
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 	while (msg.message != WM_QUIT) {
@@ -236,7 +231,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
+#ifdef C3D
 	delete gfx3D;
+#endif
 	delete graphics;
 	delete game;
 	delete launcher;

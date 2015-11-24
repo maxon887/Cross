@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #ifdef C3D
@@ -25,16 +24,20 @@
 	class Graphics3D;
 #endif
 #include "Input.h"
-#include "Saver.h"
+#include "Config.h"
 #include "Audio.h"
 
 namespace cross {
 
+class Debuger;
+
+extern Game* game;
 extern Launcher* launcher;
 extern Graphics* graphics;
 extern Graphics3D* gfx3D;
 extern Input* input;
-extern Saver* saver;
+extern Config* config;
+extern Debuger* debuger;
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.

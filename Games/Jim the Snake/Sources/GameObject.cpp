@@ -19,11 +19,9 @@
 
 JimTheSnake*		GameObject::game = NULL;
 GameScreen*			GameObject::screen = NULL;
-Graphics*			GameObject::graphics = NULL;
 
 void GameObject::Init(JimTheSnake* game){
 	GameObject::game = game;
-	GameObject::graphics = game->graphics;
 	GameObject::screen = dynamic_cast<GameScreen*>(game->GetCurrentScreen());
 	if(!screen){
 		throw string("Game object must be initialized under GameScreen");

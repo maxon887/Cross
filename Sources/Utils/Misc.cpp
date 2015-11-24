@@ -58,18 +58,18 @@ float cross::Lerp(float v0, float v1, float t) {
 	return (1-t)*v0 + t*v1;
 }
 
-float cross::Distance(Point p1, Point p2){
+float cross::Distance(const Point &p1, const Point &p2){
 	return sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
 }
 
-float cross::Angle(Point first, Point second){
+float cross::Angle(const Point &first, const Point &second){
 	if(first == second){
 		//throw string("angle between same points does not exists");
 		return 0;
 	}
 	double tangens = (first.x - second.x) / (first.y - second.y);
 	double angle = atan(tangens);
-	angle = angle * 180. / PI;
+	angle = angle * 180.f / PI;
 	if(first.y > second.y) {
 		angle += 90;
 	} else {

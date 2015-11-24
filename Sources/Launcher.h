@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include <string>
@@ -23,9 +22,6 @@
 #define WIN
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true
-#elif defined(ANDROID) || defined(__ANDROID__)
-void* bind(void* func, void* sender);
-void* bind(void* func, void* sender, void* arg1);
 #endif
 
 using namespace std;
@@ -34,7 +30,7 @@ namespace cross {
 
 class Commercial;
 
-/* Class witch contains platform specific code */
+/* Class witch contains platform dependent code */
 class Launcher{
 public:
 	/* Returns physical screen width in pixels */

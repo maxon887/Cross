@@ -14,17 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "MainScreen.h"
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
 #include "TestScreen.h"
-
-MainScreen::MainScreen(Game* game):Screen(game) {
-	going_screen = NO_SCREEN;
-}
+#include "Birds\BirdsScreen.h"
 
 void MainScreen::Start(){
+	going_screen = NO_SCREEN;
+	input->ActionDown.Clear();
+	input->ActionMove.Clear();
+	input->ActionUp.Clear();
 	Point pos;
 	input->KeyPressed.Clear();
 	input->KeyReleased.Clear();
@@ -44,11 +44,11 @@ void MainScreen::Start(){
 	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
 
-	game->debuger->EnableScreenDebug();
+	debuger->EnableScreenDebug();
 
-	int startLaunches = game->saver->LoadInt("START_LAUNCHES", 0);
+	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
-	game->saver->SaveInt("START_LAUNCHES", startLaunches);
+	config->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 }
 
@@ -57,17 +57,17 @@ void MainScreen::Update(float sec){
 	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
 	Point pos;
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 + 100;
+	pos.y = game->GetHeight() / 4 + 40;
 
 	animation_btn->SetLocation(pos);
 	animation_btn->Update();
-	pos.y += 180;
+	pos.y += 150;
 	audio_btn->SetLocation(pos);
 	audio_btn->Update();
-	pos.y += 180;
+	pos.y += 150;
 	primitives_btn->SetLocation(pos);
 	primitives_btn->Update();
-	pos.y += 180;
+	pos.y += 150;
 	misc_btn->SetLocation(pos);
 	misc_btn->Update();
 
@@ -76,15 +76,16 @@ void MainScreen::Update(float sec){
 	case NO_SCREEN:
 		break;
 	case ANIMATION:
-		game->SetScreen(new AnimationScreen(game));
+		game->SetScreen(new AnimationScreen());
 		break;
 	case AUDIO:
-		game->SetScreen(new AudioScreen(game));
+		game->SetScreen(new AudioScreen());
 		break;
 	case PRIMITIVES:
 		break;
 	case MISC:
-		game->SetScreen(new TestScreen(game));
+		//game->SetScreen(new TestScreen());
+		game->SetScreen(new BirdsScreen());
 		break;
 	default:
 		break;

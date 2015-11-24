@@ -147,30 +147,19 @@ public class CrossActivity extends Activity{
 	
 	public void PromtToExit() {
 		Log.d("Cross++", "Java PromtToExit");
-		//runOnUiThread(new Runnable() {
-		//	@Override
-		//	public void run() {
-			    new AlertDialog.Builder(CrossActivity.this)
-		        .setIcon(android.R.drawable.ic_dialog_alert)
-		        .setTitle("Confirm Exit")
-		        .setMessage("Do you want to quit the game?")
-		        .setPositiveButton("Yes", new DialogInterface.OnClickListener()   {
-			        @Override
-			        public void onClick(DialogInterface dialog, int which) {
-			        	ReleaseCross();
-			        	System.exit(0);
-			        	//finish();
-			        	/*
-						Intent setIntent = new Intent(Intent.ACTION_MAIN);
-						setIntent.addCategory(Intent.CATEGORY_HOME);
-						setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						startActivity(setIntent);*/
-			        }
-		        })
-		        .setNegativeButton("No", null)
-		        .show();
-		//	}
-		//});
+	    new AlertDialog.Builder(CrossActivity.this)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setTitle("Confirm Exit")
+        .setMessage("Do you want to quit the game?")
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener()   {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	        	ReleaseCross();
+	        	System.exit(0);
+	        }
+        })
+        .setNegativeButton("No", null)
+        .show();
 	}
 	
 	public void SendCommertialResult(int event) {

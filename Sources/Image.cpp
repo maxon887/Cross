@@ -22,7 +22,6 @@ using namespace cross;
 Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 	:region(region){
 	this->textureID = id;
- 	//this->region = region;
 	this->texWidth = texWidth;
 	this->texHeight = texHeight;
 	this->u1 = region.x / texWidth;
@@ -36,22 +35,21 @@ Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 void Image::Scale(float factor){
 	float width = region.width * factor;
 	float height = region.height * factor;
-
 	vertices[0] = -width/2.0f;
 	vertices[1] = height/2.0f;
 	vertices[2] = u1;
 	vertices[3] = v2;
-		
+
 	vertices[4] = width/2.0f;
 	vertices[5] = height/2.0f;
 	vertices[6] = u2;
 	vertices[7] = v2;;
-		
+
 	vertices[8] = width/2.0f;
 	vertices[9] = -height/2.0f;
 	vertices[10] = u2;
 	vertices[11] = v1;
-		
+
 	vertices[12] = -width/2.0f;
 	vertices[13] = -height/2.0f;
 	vertices[14] = u1;

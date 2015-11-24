@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "Vector2D.h"
 
 #include <math.h>
@@ -23,21 +22,69 @@ float Vector2D::Length(){
 	return sqrt(x*x + y*y);
 }
 
-void Vector2D::Normalize(){
+Vector2D Vector2D::Normalize(){
+	Vector2D result;
 	float len = Length();
-	x /= len;
-	y /= len;
+	result.x  = x / len;
+	result.y  = y / len;
+	return result;
+}
+
+Vector2D Vector2D::Truncate(float len){
+	if(this->Length() > len){
+		Vector2D result;
+		result = this->Normalize();
+		result *= len;
+		return result;
+	}
+	return *this;
 }
 
 float Vector2D::DotProduct(const Vector2D &v2){
 	return this->x * v2.x + this->y * v2.y;
 }
 
-Vector2D Vector2D::operator+(const Vector2D &v2){
+Vector2D Vector2D::operator+(const Vector2D &v2) const{
 	return Vector2D(this->x + v2.x, this->y + v2.y);
 }
 
 void Vector2D::operator+=(const Vector2D &v2){
 	this->x += v2.x;
 	this->y += v2.y;
+}
+
+Vector2D Vector2D::operator-(const Vector2D &v2) const{
+	return Vector2D(this->x - v2.x, this->y - v2.y);
+}
+
+void Vector2D::operator-=(const Vector2D &v2){
+	this->x -= v2.x;
+	this->y -= v2.y;
+}
+
+Vector2D Vector2D::operator*(const float v) const{
+	return Vector2D(this->x * v, this->y * v);
+}
+
+void Vector2D::operator*=(const float v){
+	this->x *= v;
+	this->y *= v;
+}
+
+Vector2D Vector2D::operator/(const float v) const{
+	return Vector2D(this->x / v, this->y / v);
+}
+
+void Vector2D::operator/=(const float v){
+	this->x /= v;
+	this->y /= v;
+}
+
+// ***************** General functions ********************
+float Distance(const Vector2D &v1, const Vector2D &v2){
+	return sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
+}
+
+float DistanceSq(const Vector2D &v1, const Vector2D &v2){
+	return (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y);
 }
