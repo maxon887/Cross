@@ -71,6 +71,9 @@
     <ClCompile Include="..\..\..\..\..\Sources\Config.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\PrimitivesScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -115,5 +118,22 @@
     <ClInclude Include="..\..\..\Sources\MainScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\PrimitivesScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Assets\triangles.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\Assets\triangles.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\Assets\primitives.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\Assets\primitives.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

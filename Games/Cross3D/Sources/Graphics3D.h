@@ -25,6 +25,7 @@ class Graphics3D{
 public:
 	Graphics3D();
 	GLuint LoadShaders(ShaderInfo* shaders);
+	void DrawTargetPoint(int x, int y, Color c);
 };
 
 }
