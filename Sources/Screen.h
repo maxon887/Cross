@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#ifdef C3D
+#ifdef GFX3D
 	#include "Graphics3D.h"
 	class Graphics;
 #else
@@ -30,6 +30,7 @@
 namespace cross {
 
 class Debuger;
+class Game;
 
 extern Game* game;
 extern Launcher* launcher;

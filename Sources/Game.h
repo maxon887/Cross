@@ -54,7 +54,6 @@ public:
 	void SetScreen(Screen* screen);
 	/* Returns current game screen. */
 	Screen* GetCurrentScreen();
-	bool Is3D();
 	/* Exit from application */
     void Exit();
 //Internal data. You don't need call any of this methods or modify variable

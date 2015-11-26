@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "LauncherWIN.h"
 
 #include <fstream>
@@ -71,7 +70,7 @@ int LauncherWIN::GetTargetHeight(){
 }
 
 string LauncherWIN::AssetsPath(){
-	LPCTSTR szPath = "../../Assets/";
+	LPCTSTR szPath = "../../../Assets/";
 	if(DirectoryExists(szPath)){
 		return szPath;
 	}else{

@@ -209,7 +209,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	ShowWindow(wnd, winShow);
 	try{
-#ifdef C3D
+#ifdef GFX3D
 	gfx3D = new Graphics3D();
 #else
 	graphics = new Graphics(game);
@@ -231,7 +231,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
-#ifdef C3D
+#ifdef GFX3D
 	delete gfx3D;
 #endif
 	delete graphics;

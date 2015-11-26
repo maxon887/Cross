@@ -132,22 +132,15 @@ void Game::Update(){
 	}
 }
 
-bool Game::Is3D(){
-#ifdef C3D
-	return true;
-#else
-	return false;
-#endif
-}
-
 void Game::Exit(){
 	exit(0);
 }
+
 void Game::Init(Launcher* launcher){
 	launcher = launcher;
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	debuger = new Debuger(this);
+	debuger = new Debuger();
 	graphics = NULL;
 	gfx3D = NULL;
 	this->current_screen = NULL;
