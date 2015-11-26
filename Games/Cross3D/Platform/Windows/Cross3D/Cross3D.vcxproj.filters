@@ -73,21 +73,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Cross3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Graphics3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\MainScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ResourceCompile Include="Cross++.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Sources\Audio.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
@@ -98,9 +86,6 @@
       <Filter>CrossHeaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Game.h">
-      <Filter>CrossHeaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Sources\Graphics.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Input.h">
@@ -118,16 +103,17 @@
     <ClInclude Include="..\..\..\..\..\Sources\Screen.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Cross++.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\Assets\triangles.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\..\Assets\triangles.vert">
-      <Filter>Shaders</Filter>
-    </None>
+    <ClInclude Include="..\..\..\Sources\Cross3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Graphics3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\MainScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

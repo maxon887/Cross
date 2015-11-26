@@ -18,6 +18,5 @@
 #pragma once
 
 #include "Game.h"
-#include <Windows.h>
 
 cross::Game* CrossMain(cross::Launcher* launcher);

@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\..\Sources\Platform\Windows;$(ProjectDir)\..\..\..\..\..\Sources;$(ProjectDir);$(ProjectDir)\..\..\..\Sources;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DISABLE_AUDIO;C3D;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_AUDIO;GFX3D;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -67,18 +67,14 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Color.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Game.cpp" />
-    <ClCompile Include="..\..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Launcher.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Point.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Rect.cpp" />
-    <ClCompile Include="..\..\..\..\..\Sources\Saver.cpp" />
-    <ClCompile Include="..\..\..\..\..\Sources\SOIL\image_helper.c" />
-    <ClCompile Include="..\..\..\..\..\Sources\SOIL\SOIL.c" />
-    <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\Sources\Cross3D.cpp" />
@@ -88,33 +84,22 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="Cross++.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Sources\Audio.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Color.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Config.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Game.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Input.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Launcher.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Point.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Rect.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\Sources\Cross3D.h" />
     <ClInclude Include="..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h" />
     <ClInclude Include="..\..\..\Sources\MainScreen.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Audio.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Color.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Game.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Graphics.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Input.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Launcher.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Platform\Windows\Cross.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Platform\Windows\LauncherWIN.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Point.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Rect.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Saver.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Screen.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Utils\Commercial.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Utils\Debuger.h" />
-    <ClInclude Include="..\..\Cross++\Sources\Utils\Misc.h" />
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Cross++.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\triangles.frag" />
-    <None Include="Assets\triangles.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
