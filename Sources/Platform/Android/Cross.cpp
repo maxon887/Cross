@@ -26,7 +26,8 @@
 using namespace std;
 using namespace cross;
 
-static Game* game;
+//static Game* game;
+Game*	cross::game;
 
 void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject crossActivity, JNIEnv* env){
 	LOGI("Init");

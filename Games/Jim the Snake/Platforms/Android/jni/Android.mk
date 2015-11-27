@@ -42,7 +42,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Image.cpp \
 					../../../../../Sources/Input.cpp \
-					../../../../../Sources/Saver.cpp \
+					../../../../../Sources/Config.cpp \
 					../../../../../Sources/Audio.cpp \
 					../../../../../Sources/Point.cpp \
 					../../../../../Sources/Rect.cpp \

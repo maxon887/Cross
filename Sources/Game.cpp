@@ -144,7 +144,6 @@ void Game::Exit(){
 	exit(0);
 }
 void Game::Init(Launcher* launcher){
-	launcher = launcher;
 	input = new Input();
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger(this);
