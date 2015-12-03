@@ -17,7 +17,7 @@
 #pragma once
 
 #include "Point.h"
-#include "Events\Event.h"
+#include "Event.h"
 
 namespace cross {
 
