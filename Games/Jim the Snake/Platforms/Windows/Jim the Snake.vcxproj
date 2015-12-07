@@ -143,7 +143,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;C:\Program Files %28x86%29\Visual Leak Detector\include;../../../../Sources/Platform/Windows/vld;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;C:\Program Files %28x86%29\Visual Leak Detector\include;../../../../Sources/Platform/Windows/vld;$(ProjectDir);../../../../Sources/Events;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
