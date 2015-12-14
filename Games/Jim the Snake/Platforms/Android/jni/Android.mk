@@ -22,6 +22,7 @@ LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 					../../../../Sources \
 					../../../../Sources/Utils \
 					../../../../Sources/SOIL \
+					../../../../Sources/Events \
 					../../Sources 
 
 LOCAL_SRC_FILES := 	main.cpp \
