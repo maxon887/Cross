@@ -22,15 +22,16 @@ const GLuint NumVertices = 1;
 GLfloat vertices[2] = { 0.0f, 0.0f };
 
 void PrimitivesScreen::Start(){
+	/*
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "primitives.vert" },
 		{ GL_FRAGMENT_SHADER, "primitives.frag" },
-		{ GL_NONE, NULL }
+		{ GL_NONE, "" }
 	};
 
 	GLuint program = gfx3D->LoadShaders(shaders);
 	glUseProgram(program);
-
+	*/
 	//glBindAttribLocation(program, 0, "vPosition");
 
 

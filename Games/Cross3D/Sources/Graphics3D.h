@@ -2,6 +2,9 @@
 #include "Color.h"
 #include "Point.h"
 
+#include <string>
+using namespace std;
+
 #ifdef WIN
 #include "GL\glew.h"
 #include "GL\wglew.h"
@@ -13,18 +16,20 @@
 #endif
 
 namespace cross{
-
-typedef struct {
-    GLenum       type;
-    const char*  filename;
-    GLuint       shader;
-} ShaderInfo;
+	/*
+struct ShaderInfo {
+    GLenum Type;
+    string Filename;
+    GLuint Shader;
+};*/
 
 
 class Graphics3D{
 public:
 	Graphics3D();
-	GLuint LoadShaders(ShaderInfo* shaders);
+	GLuint LoadShader(GLenum type, string filename);
+	GLuint CreateProgram(string vertexShader, string framentShader);
+	//GLuint LoadShaders(ShaderInfo* shaders);
 	void DrawTargetPoint(int x, int y, Color c);
 };
 

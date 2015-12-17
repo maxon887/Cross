@@ -22,27 +22,20 @@ const GLuint NumVertices = 3;
 
 GLfloat vertices[NumVertices][3] = {	 0.0f,	0.5f, 0.0f,
 										-0.5f, -0.5f, 0.0f,
-										 0.5f, -0.5f, 0.0f	};
+										 0.5f, -0.5f, 0.0f		};
 
 void HelloTriangleScreen::Start(){
-
-	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "triangles.vert" },
-		{ GL_FRAGMENT_SHADER, "triangles.frag" },
-		{ GL_NONE, NULL }
-	};
-
-	GLuint program = gfx3D->LoadShaders(shaders);
+	GLuint program = gfx3D->CreateProgram("triangles.vert", "triangles.frag");
 	glUseProgram(program);
 
 	//glBindAttribLocation(program, 0, "vPosition");
+	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vertices);
 	glEnableVertexAttribArray(0);
 }
 
 void HelloTriangleScreen::Update(float sec){
 	glClear(GL_COLOR_BUFFER_BIT);
-	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	//glEnableClientState(GL_VERTEX_ARRAY);
 	glDrawArrays(GL_TRIANGLES, 0, NumVertices);
 	glFlush();
