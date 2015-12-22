@@ -19,7 +19,6 @@
 #include <string>
 
 #ifdef _WIN32
-#define WIN
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true
 #endif

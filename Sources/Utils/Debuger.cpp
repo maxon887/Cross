@@ -43,9 +43,8 @@ void Debuger::StopCheckTime(string label){
 		launcher->LogIt(msg);
 }
 
-Debuger::Debuger(Game* game){
-	this->game = game;
-#ifndef C3D
+Debuger::Debuger(){
+#ifndef GFX3D
 	touch_pointer = NULL;
 	texter = NULL;
 #endif
@@ -67,13 +66,13 @@ Debuger::Debuger(Game* game){
 }
 
 Debuger::~Debuger(){
-#ifndef C3D
+#ifndef GFX3D
 	delete texter;
 #endif
 }
 
 void Debuger::Display(float micro){
-#ifndef C3D
+#ifndef GFX3D
 	if(screen_debug || console_debug){
 		time += micro / 1000000.f;
 		if(render_counter == 20){
@@ -121,7 +120,7 @@ void Debuger::Display(float micro){
 }
 
 void Debuger::EnableScreenDebug(){
-#ifndef C3D
+#ifndef GFX3D
 	if(texter == NULL){
 		texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	}else{
@@ -136,7 +135,7 @@ void Debuger::EnableConsoleDebug(){
 }
 
 void Debuger::EnableTouches(){
-#ifndef C3D
+#ifndef GFX3D
 	if(touch_pointer == NULL){
 		touch_pointer = graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
 	}else{
@@ -171,7 +170,7 @@ void Debuger::OnActionUp(Point pos){
 void Debuger::OnActionMove(Point pos){
 	touch_pos = pos;
 }
-#ifndef C3D
+#ifndef GFX3D
 Texter* Debuger::GetTexter(){
 	return texter;
 }

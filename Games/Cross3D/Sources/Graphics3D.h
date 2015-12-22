@@ -5,7 +5,7 @@
 
 #ifdef WIN
 #include "GL\glew.h"
-#include "GL\wglew.h".
+#include "GL\wglew.h"
 #elif ANDROID
 //#include <GLES/gl.h>
 #include <GLES2/gl2.h>
@@ -24,7 +24,6 @@ public:
     GLenum type;
     GLuint handle;
 };
-
 
 class Graphics3D{
 public:

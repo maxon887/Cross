@@ -17,7 +17,7 @@
 #pragma once
 
 #include "Game.h"
-#ifndef C3D
+#ifndef GFX3D
 #include "Texter.h"
 #endif
 
@@ -28,7 +28,7 @@ public:
 	static void StartCheckTime();
 	static void StopCheckTime(string label);
 
-	Debuger(Game* game);
+	Debuger();
 	~Debuger();
 
 	void Display(float sec);
@@ -40,12 +40,11 @@ public:
 	void OnActionDown(Point pos);
 	void OnActionUp(Point pos);
 	void OnActionMove(Point pos);
-#ifndef C3D
+#ifndef GFX3D
 	Texter* GetTexter();
 #endif
 private:
-	Game* game;
-#ifndef C3D
+#ifndef GFX3D
 	Texter* texter;
 	Image* touch_pointer;
 #endif

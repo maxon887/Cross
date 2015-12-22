@@ -32,8 +32,6 @@ void HelloTriangleScreen::Start(){
 	gfx3D->AttachShader(fragShader);
 	gfx3D->CompileProgram();
 
-
-
 	//GLuint program = gfx3D->LoadShaders(shaders);
 	//glUseProgram(program);
 
