@@ -16,14 +16,10 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#include "Point.h"
-
-#include <string>
-#ifndef GFX3D
+#include "Game.h"
+#ifndef C3D
 #include "Texter.h"
 #endif
-
-using namespace std;
 
 namespace cross{
 
@@ -32,7 +28,7 @@ public:
 	static void StartCheckTime();
 	static void StopCheckTime(string label);
 
-	Debuger();
+	Debuger(Game* game);
 	~Debuger();
 
 	void Display(float sec);
@@ -44,12 +40,12 @@ public:
 	void OnActionDown(Point pos);
 	void OnActionUp(Point pos);
 	void OnActionMove(Point pos);
-#ifndef GFX3D
+#ifndef C3D
 	Texter* GetTexter();
 #endif
 private:
-	//Game* game;
-#ifndef GFX3D
+	Game* game;
+#ifndef C3D
 	Texter* texter;
 	Image* touch_pointer;
 #endif

@@ -70,12 +70,15 @@ int LauncherWIN::GetTargetHeight(){
 }
 
 string LauncherWIN::AssetsPath(){
-	LPCTSTR szPath = "../../../Assets/";
-	if(DirectoryExists(szPath)){
-		return szPath;
-	}else{
-		return "Assets/";
+	LPCTSTR releaseAsset = "Assets/";
+	LPCTSTR debugAsset = "../../../Assets/";
+	if (DirectoryExists(releaseAsset)){
+		return releaseAsset;
 	}
+	if(DirectoryExists(debugAsset)){
+		return debugAsset;
+	}
+	throw string("Can't find Assets folder");
 }
 
 string LauncherWIN::DataPath(){

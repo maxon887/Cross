@@ -44,6 +44,9 @@
     <ClCompile Include="..\..\..\..\..\Sources\Game.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Image.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\Sources\Input.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
@@ -62,6 +65,15 @@
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\SOIL\image_helper.c">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\SOIL\SOIL.c">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\Cross.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
@@ -71,14 +83,23 @@
     <ClCompile Include="..\..\..\..\..\Sources\Config.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\PrimitivesScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Cross++.rc" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Cross3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Graphics3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\MainScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Audio.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
@@ -89,6 +110,9 @@
       <Filter>CrossHeaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Game.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Image.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Input.h">
@@ -106,33 +130,21 @@
     <ClInclude Include="..\..\..\..\..\Sources\Screen.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Cross3D.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\..\Sources\Utils\Debuger.h">
+      <Filter>CrossHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Graphics3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\MainScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\PrimitivesScreen.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\..\..\Sources\Utils\Misc.h">
+      <Filter>CrossHeaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Assets\triangles.vert">
-      <Filter>Shaders</Filter>
-    </None>
+    <ResourceCompile Include="Cross++.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="..\..\..\Assets\triangles.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\..\Assets\primitives.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\..\Assets\primitives.frag">
+    <None Include="..\..\..\Assets\triangles.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
