@@ -41,6 +41,18 @@ Shader::Shader(string filename):
 		delete[] log;
 		launcher->LogIt("Shader compilation failed:\n" + msg);
 		throw string("Shader compilation failed:\n" + msg);
+	}else{
+#ifdef DEBUG
+		GLsizei len;
+		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+			if(len > 1){
+			GLchar* log = new GLchar[len + 1];
+			glGetShaderInfoLog(handle, len, &len, log);
+			string msg(log);
+			delete[] log;
+			launcher->LogIt("Shader compilation:\n" + msg);
+		}
+#endif
 	}
 }
 
@@ -81,4 +93,27 @@ void Graphics3D::CompileProgram(){
 		throw string("Shader compilation failed:\n" + msg);
 	}
 	glUseProgram(program);
+#ifdef DEBUG
+	GLsizei len;
+	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &len);
+#endif
+}
+
+void Graphics3D::DrawPoint(Point p, Color c){/*
+	GLfloat vertex[6] = { p.x, p.y, c.R, c.G, c.B };
+	GLuint posAttrib = glGetAttribLocation(program, "a_position");
+	GLuint colorAttrib = glGetAttribLocation(program, "a_color");
+	glEnableVertexAttribArray(posAttrib);
+	glEnableVertexAttribArray(colorAttrib);
+	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 6, vertex);
+	glVertexAttribPointer(colorAttrib, 4, GL_FLOAT, GL_FALSE, 6, vertex + 2);
+	glDrawArrays(GL_POINTS, 0, 1);*/
+	GLfloat vertexPosition[2] = { p.x, p.y };
+	GLfloat vertexColor[4] = { c.R, c.G, c.B };
+	GLint posAttrib = glGetAttribLocation(program, "a_position");
+	GLint colorAttrib = glGetAttribLocation(program, "a_color");
+	glVertexAttrib3fv(colorAttrib, vertexColor);
+	glVertexAttrib2fv(posAttrib, vertexPosition);
+	glDrawArrays(GL_POINTS, 0, 1);
+
 }

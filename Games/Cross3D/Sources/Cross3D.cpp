@@ -4,6 +4,6 @@
 #include "PrimitivesScreen.h"
 
 Screen* Cross3D::GetStartScreen(){
-	return new HelloTriangleScreen();
-	//return new PrimitivesScreen();
+	//return new HelloTriangleScreen();
+	return new PrimitivesScreen();
 }

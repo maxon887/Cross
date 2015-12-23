@@ -30,6 +30,7 @@ public:
 	Graphics3D();
 	void AttachShader(Shader* shader);
 	void CompileProgram();
+	void DrawPoint(Point p, Color c);
 private:
 	GLuint program;
 };

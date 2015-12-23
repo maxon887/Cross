@@ -22,27 +22,20 @@ const GLuint NumVertices = 1;
 GLfloat vertices[2] = { 0.0f, 0.0f };
 
 void PrimitivesScreen::Start(){
-	/*
-	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "primitives.vert" },
-		{ GL_FRAGMENT_SHADER, "primitives.frag" },
-		{ GL_NONE, "" }
-	};
+	Shader* vertShader = new Shader("primitives.vert");
+	Shader* fragShader = new Shader("primitives.frag");
+	gfx3D->AttachShader(vertShader);
+	gfx3D->AttachShader(fragShader);
+	gfx3D->CompileProgram();
 
-	GLuint program = gfx3D->LoadShaders(shaders);
-	glUseProgram(program);
-	*/
-	//glBindAttribLocation(program, 0, "vPosition");
-
-
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glEnableVertexAttribArray(0);
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void PrimitivesScreen::Update(float sec){
 	glClear(GL_COLOR_BUFFER_BIT);
-	glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	glDrawArrays(GL_POINTS, 0, NumVertices);
-	glFlush();
+	//glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
+	gfx3D->DrawPoint(Point(-0.5f, -0.5f), Color::Red);
+	gfx3D->DrawPoint(Point(.5f, .5f), Color::Blue);
+	gfx3D->DrawPoint(Point(0.5f, -0.5f), Color::Green);
+	gfx3D->DrawPoint(Point(-0.5f, 0.5f), Color::Yellow);
 }

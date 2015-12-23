@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\..\Sources\Platform\Windows;$(ProjectDir)\..\..\..\..\..\Sources;$(ProjectDir);$(ProjectDir)\..\..\..\Sources;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DISABLE_AUDIO;GFX3D;WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_AUDIO;GFX3D;WIN;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -85,6 +85,7 @@
     <ClCompile Include="..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\Sources\HelloTriangleScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\..\Sources\PrimitivesScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -104,12 +105,15 @@
     <ClInclude Include="..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h" />
     <ClInclude Include="..\..\..\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\..\Sources\PrimitivesScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Assets\primitives.frag" />
+    <None Include="..\..\..\Assets\primitives.vert" />
     <None Include="..\..\..\Assets\triangles.frag" />
     <None Include="..\..\..\Assets\triangles.vert" />
   </ItemGroup>
