@@ -70,7 +70,7 @@ float Game::GetHeight(){
 }
 
 void Game::SetScreen(Screen* screen){
-	launcher->LogIt("Game->SetScreen()");
+	launcher->LogIt("Game::SetScreen()");
 	Debuger::StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
@@ -84,7 +84,7 @@ Screen* Game::GetCurrentScreen(){
 }
 
 void Game::Start(){
-	launcher->LogIt("Game->Start()");
+	launcher->LogIt("Game::Start()");
 	try{
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
@@ -137,6 +137,7 @@ void Game::Exit(){
 }
 
 void Game::Init(Launcher* launcher){
+	launcher->LogIt("Game::Init()");
 	launcher = launcher;
 	input = new Input();
 	config = new Config(launcher->DataPath());
@@ -147,10 +148,9 @@ void Game::Init(Launcher* launcher){
 }
 
 Game::~Game(){
-	launcher->LogIt("Game destructor");
+	launcher->LogIt("Game::~Game");
 	delete current_screen;
 	delete input;
 	delete config;
 	delete debuger;
-	launcher->LogIt("Destructor finished");
 }

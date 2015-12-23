@@ -62,6 +62,12 @@ Shader::~Shader(){
 
 Graphics3D::Graphics3D():
 		program(0){
+	launcher->LogIt("Graphics3D::Graphics3D()");
+	GLint magorV;
+	GLint minorV;
+	glGetIntegerv(GL_MAJOR_VERSION, &magorV);
+	glGetIntegerv(GL_MINOR_VERSION, &minorV);
+	launcher->LogIt("OpenGL " + to_string(magorV) + "." + to_string(minorV));
 #ifdef WIN
 	if (glewInit()) {
 		launcher->LogIt("Unable to initialize GLEW");
@@ -99,7 +105,7 @@ void Graphics3D::CompileProgram(){
 #endif
 }
 
-void Graphics3D::DrawPoint(Point p, Color c){/*
+void Graphics3D::DrawPoint(Point p, Color c){
 	GLfloat vertex[6] = { p.x, p.y, c.R, c.G, c.B };
 	GLuint posAttrib = glGetAttribLocation(program, "a_position");
 	GLuint colorAttrib = glGetAttribLocation(program, "a_color");
@@ -107,13 +113,13 @@ void Graphics3D::DrawPoint(Point p, Color c){/*
 	glEnableVertexAttribArray(colorAttrib);
 	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 6, vertex);
 	glVertexAttribPointer(colorAttrib, 4, GL_FLOAT, GL_FALSE, 6, vertex + 2);
-	glDrawArrays(GL_POINTS, 0, 1);*/
+	glDrawArrays(GL_POINTS, 0, 1);
+	/* 
 	GLfloat vertexPosition[2] = { p.x, p.y };
-	GLfloat vertexColor[4] = { c.R, c.G, c.B };
+	GLfloat vertexColor[3] = { c.R, c.G, c.B };
 	GLint posAttrib = glGetAttribLocation(program, "a_position");
 	GLint colorAttrib = glGetAttribLocation(program, "a_color");
 	glVertexAttrib3fv(colorAttrib, vertexColor);
 	glVertexAttrib2fv(posAttrib, vertexPosition);
-	glDrawArrays(GL_POINTS, 0, 1);
-
+	glDrawArrays(GL_POINTS, 0, 1);*/
 }

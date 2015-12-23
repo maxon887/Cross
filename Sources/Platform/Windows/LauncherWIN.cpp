@@ -34,6 +34,7 @@ void IntSleep(int milis){
 }
 
 LauncherWIN::LauncherWIN(HWND wnd){
+	LogIt("LauncherWIN::LauncherWIN(HWND)");
 	this->wnd = wnd;
 	Audio::Init(this);
 	landscape = false;
