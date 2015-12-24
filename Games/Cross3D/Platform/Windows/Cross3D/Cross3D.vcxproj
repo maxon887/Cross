@@ -86,6 +86,7 @@
     <ClCompile Include="..\..\..\Sources\HelloTriangleScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\PrimitivesScreen.cpp" />
+    <ClCompile Include="..\..\..\Sources\TriangleAdvanced.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -106,12 +107,15 @@
     <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h" />
     <ClInclude Include="..\..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\..\Sources\PrimitivesScreen.h" />
+    <ClInclude Include="..\..\..\Sources\TriangleAdvanced.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Assets\advanced.frag" />
+    <None Include="..\..\..\Assets\advanced.vert" />
     <None Include="..\..\..\Assets\primitives.frag" />
     <None Include="..\..\..\Assets\primitives.vert" />
     <None Include="..\..\..\Assets\triangles.frag" />

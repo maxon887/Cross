@@ -68,6 +68,9 @@ Graphics3D::Graphics3D():
 	glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 	glGetIntegerv(GL_MINOR_VERSION, &minorV);
 	launcher->LogIt("OpenGL " + to_string(magorV) + "." + to_string(minorV));
+	GLint maxVertexAttribs;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
+	launcher->LogIt("Max Vertex Attributes: " + to_string(maxVertexAttribs));
 #ifdef WIN
 	if (glewInit()) {
 		launcher->LogIt("Unable to initialize GLEW");

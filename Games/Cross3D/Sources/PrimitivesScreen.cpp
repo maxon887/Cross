@@ -17,9 +17,9 @@
 #include "PrimitivesScreen.h"
 #include "Launcher.h"
 
-const GLuint NumVertices = 1;
+static const GLuint NumVertices = 1;
 
-GLfloat vertices[2] = { 0.0f, 0.0f };
+static GLfloat vertices[2] = { 0.0f, 0.0f };
 
 void PrimitivesScreen::Start(){
 	Shader* vertShader = new Shader("primitives.vert");
