@@ -29,7 +29,7 @@ class Graphics3D{
 public:
 	Graphics3D();
 	void AttachShader(Shader* shader);
-	void CompileProgram();
+	GLuint CompileProgram();
 	void DrawPoint(Point p, Color c);
 private:
 	GLuint program;

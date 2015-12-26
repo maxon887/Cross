@@ -26,6 +26,8 @@ class Debuger;
 
 extern mutex global_mutex;
 
+typedef unsigned char byte;
+
 /*	Core game class. Designed for contains function and fields shared between multiple Screen's\.
 	Every game must implement this class for set start Screen and virtual world size for your game*/
 class Game{

@@ -102,6 +102,24 @@ unsigned char* LauncherWIN::LoadFile(string filename, int *size){
 	}
 }
 
+File* LauncherWIN::LoadFile(string filename){
+	File* file = new File();
+	file->name = filename;
+	string filePath = AssetsPath() + "//" + filename;
+	ifstream fileStream(filePath, istream::binary);
+	if(fileStream.is_open()){
+		fileStream.seekg(0, fileStream.end);
+		file->size = (size_t)fileStream.tellg();
+		fileStream.seekg(0, fileStream.beg);
+		file->data = new byte[file->size];
+		ZeroMemory(file->data, file->size);
+		fileStream.read((char*)file->data, file->size);
+		return file;
+	} else{
+		throw string("Cannot open file " + filename);
+	}
+}
+
 void LauncherWIN::LogIt(string msg){
 	msg += "\n";
 	OutputDebugString(msg.c_str());

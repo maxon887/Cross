@@ -89,6 +89,9 @@
     <ClCompile Include="..\..\..\Sources\TriangleAdvanced.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\File.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -147,6 +150,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\TriangleAdvanced.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\Cross.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\File.h">
+      <Filter>CrossHeaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -68,6 +68,7 @@
     <ClCompile Include="..\..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Config.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\File.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Input.cpp" />
@@ -93,10 +94,13 @@
     <ClInclude Include="..\..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Config.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\File.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Launcher.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\Cross.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Point.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Rect.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Screen.h" />

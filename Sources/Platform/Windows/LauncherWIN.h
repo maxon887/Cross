@@ -45,6 +45,7 @@ public:
 	string AssetsPath();
 	string DataPath();
 	unsigned char* LoadFile(string filename, int *size);
+	File* LoadFile(string filename);
 	void LogIt(string msg);
 	void Sleep(float milis);
 	void ShowMessage(string msg);

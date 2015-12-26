@@ -85,7 +85,7 @@ void Graphics3D::AttachShader(Shader* shader){
 	glAttachShader(program, shader->handle);
 }
 
-void Graphics3D::CompileProgram(){
+GLuint Graphics3D::CompileProgram(){
 	glLinkProgram(program);
 
 	GLint linked;
@@ -106,6 +106,7 @@ void Graphics3D::CompileProgram(){
 	GLsizei len;
 	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &len);
 #endif
+	return program;
 }
 
 void Graphics3D::DrawPoint(Point p, Color c){
