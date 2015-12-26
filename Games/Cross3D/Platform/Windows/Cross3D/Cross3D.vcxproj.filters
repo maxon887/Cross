@@ -92,6 +92,12 @@
     <ClCompile Include="..\..\..\..\..\Sources\File.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Matrix.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Vector2D.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -158,6 +164,12 @@
       <Filter>CrossHeaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\File.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Matrix.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
   </ItemGroup>

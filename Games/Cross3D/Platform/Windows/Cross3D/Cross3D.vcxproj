@@ -73,6 +73,7 @@
     <ClCompile Include="..\..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Launcher.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Matrix.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Point.cpp" />
@@ -82,6 +83,7 @@
     <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\Sources\Cross3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\Sources\HelloTriangleScreen.cpp" />
@@ -99,6 +101,7 @@
     <ClInclude Include="..\..\..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Launcher.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Matrix.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Point.h" />
@@ -106,6 +109,7 @@
     <ClInclude Include="..\..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Utils\Misc.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\Sources\Cross3D.h" />
     <ClInclude Include="..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h" />
