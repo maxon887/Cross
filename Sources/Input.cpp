@@ -20,32 +20,22 @@
 
 using namespace cross;
 
-void Input::TriggerActionDown(Point pos){
-	global_mutex.lock();
-	TRIGGER_EVENT(ActionDown, pos);
-	global_mutex.unlock();
+Input::Input(){
+	for(int i = 0; i < Key::MAX_KEY_NUM; i++){
+		pressed_keys[i] = false;
+	}
+	KeyPressed += MakeDelegate(this, &Input::KeyPressedHandle);
+	KeyReleased += MakeDelegate(this, &Input::KeyReleasedHandle);
 }
 
-void Input::TriggerActionUp(Point pos){
-	global_mutex.lock();
-	TRIGGER_EVENT(ActionUp, pos);
-	global_mutex.unlock();
+bool Input::IsPressed(Key key){
+	return pressed_keys[key];
 }
 
-void Input::TriggerActionMove(Point pos){
-	global_mutex.lock();
-	TRIGGER_EVENT(ActionMove, pos);
-	global_mutex.unlock();
+void Input::KeyPressedHandle(Key key){
+	pressed_keys[key] = true;
 }
 
-void Input::TriggerKeyPressed(Key key){
-	global_mutex.lock();
-	TRIGGER_EVENT(KeyPressed, key);
-	global_mutex.unlock();
-}
-
-void Input::TriggerKeyReleased(Key key){
-	global_mutex.lock();
-	TRIGGER_EVENT(KeyReleased, key);
-	global_mutex.unlock();
+void Input::KeyReleasedHandle(Key key){
+	pressed_keys[key] = false;
 }

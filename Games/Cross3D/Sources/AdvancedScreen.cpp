@@ -14,56 +14,55 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "TriangleAdvanced.h"
+#include "AdvancedScreen.h"
 #include "Launcher.h"
 #include "SOIL\SOIL.h"
-#include "Matrix.h"
+#include "Utils\Misc.h"
+#include "cube_verts.h"
+#include "Camera.h"
+#include "glm\glm.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-GLfloat vertices[] = {
-	// Positions				// Colors           // Texture Coords
-	 0.5f,  0.5f, 0.0f, 1.0f,	1.0f, 0.0f,	0.0f,	1.0f, 0.0f,   // Top Right
-	 0.5f, -0.5f, 0.0f,	1.0f,	0.0f, 1.0f,	0.0f,	1.0f, 1.0f,   // Bottom Right
-	-0.5f, -0.5f, 0.0f,	1.0f,	0.0f, 0.0f,	1.0f,	0.0f, 1.0f,   // Bottom Left
-	-0.5f,  0.5f, 0.0f,	1.0f,	1.0f, 1.0f,	0.0f,	0.0f, 0.0f    // Top Left 
-};
-
-GLuint indices[] = {
-	0, 1, 2,
-	0, 2, 3
-};
-/*
-GLfloat transform[] = {
-	1.0f, 0.0f, 0.0f, 0.0f,
-	0.0f, 1.0f, 0.0f, 0.0f,
-	0.0f, 0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 0.0f, 1.0f
-};*/
-
-static Matrix* transform;
+using namespace glm;
 
 static GLuint program;
 static GLuint VBO;
 static GLuint texture1;
 static GLuint texture2;
 
-void TriangleAdvanced::Start(){
+glm::vec3 cubePositions[] = {
+	glm::vec3(0.0f, 0.0f, 0.0f),
+	glm::vec3(2.0f, 5.0f, -15.0f),
+	glm::vec3(-1.5f, -2.2f, -2.5f),
+	glm::vec3(-3.8f, -2.0f, -12.3f),
+	glm::vec3(2.4f, -0.4f, -3.5f),
+	glm::vec3(-1.7f, 3.0f, -7.5f),
+	glm::vec3(1.3f, -2.0f, -2.5f),
+	glm::vec3(1.5f, 2.0f, -2.5f),
+	glm::vec3(1.5f, 0.2f, -1.5f),
+	glm::vec3(-1.3f, 1.0f, -1.5f)
+};
+
+static Camera* camera;
+
+void AdvancedScreen::Start(){
 	Shader* vertexShader = new Shader("advanced.vert");
 	Shader* fragmentShader = new Shader("advanced.frag");
 	gfx3D->AttachShader(vertexShader);
 	gfx3D->AttachShader(fragmentShader);
 	program = gfx3D->CompileProgram();
 
+	camera = new Camera();
+
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	GLint posLoc = glGetAttribLocation(program, "aPosition");
-	GLint colLoc = glGetAttribLocation(program, "aColor");
 	GLint texLoc = glGetAttribLocation(program, "aTexCoord");
-	glVertexAttribPointer(posLoc, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), 0);
-	glVertexAttribPointer(colLoc, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(4 * sizeof(GLfloat)));
-	glVertexAttribPointer(texLoc, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (void*)(7 * sizeof(GLfloat)));
+	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+	glVertexAttribPointer(texLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(posLoc);
-	glEnableVertexAttribArray(colLoc);
 	glEnableVertexAttribArray(texLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
@@ -88,7 +87,7 @@ void TriangleAdvanced::Start(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width1, height1, 0, GL_RGBA, GL_UNSIGNED_BYTE, image1);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	//glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -103,21 +102,27 @@ void TriangleAdvanced::Start(){
 	SOIL_free_image_data(image2);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
 
-	transform = new Matrix();
-	transform->Translate(Vector2D(0.3f, 0.3f));
-	//transform->RotateZ(30);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);;
 }
 
-void TriangleAdvanced::Update(float sec){
-	glClear(GL_COLOR_BUFFER_BIT);
-	//glDrawArrays(GL_TRIANGLES, 0, 6);
+void AdvancedScreen::Update(float sec){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	static float time = 0;
 	time += sec;
-	transform->RotateZ(time * 8);
-	GLuint transformLoc = glGetUniformLocation(program, "uTransform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FLOAT, transform->GetData());
+
+	mat4 model;
+	model = rotate(model, time * 1.0f, vec3(0.5f, 1.0f, 0.0f));
+	//mat4 view;
+	//view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+	mat4 projection = perspective(45.0f, launcher->DeviceAspect(), 0.1f, 100.0f);
+
+	GLuint modelLoc = glGetUniformLocation(program, "uModel");
+	GLuint viewLoc = glGetUniformLocation(program, "uView");
+	GLuint projectionLoc = glGetUniformLocation(program, "uProjection");
+	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, value_ptr(projection));
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
@@ -128,6 +133,33 @@ void TriangleAdvanced::Update(float sec){
 	GLuint texPos2 = glGetUniformLocation(program, "uTexture2");
 	glUniform1i(texPos2, 1);
 
+	//camera 
+	/*
+	vec3 cameraPosition(0.0f, 0.0f, 3.0f);
+	vec3 cameraTarget(0.0f, 0.0f, 0.0f);
+	vec3 cameraDirection = normalize(cameraPosition - cameraTarget);
+	vec3 cameraUp(0.0f, 1.0f, 0.0f);
+	vec3 cameraRight = normalize(glm::cross(cameraUp, cameraDirection));
+	cameraUp = glm::cross(cameraDirection, cameraRight);*/
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indices);
+	GLfloat radius = 10.0f;
+	GLfloat camX = sin(time) * radius;
+	GLfloat camZ = cos(time) * radius;
+	//view = lookAt(vec3(camX, 0.0f, camZ), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	camera->Update(sec);
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, camera->GetMatrix());
+
+
+
+	for(int i = 0; i < 10; i++){
+		mat4 model;
+		model = translate(model, cubePositions[i]);
+		GLfloat angle = 20.0f * i;
+		model = rotate(model, angle, vec3(1.0f, 0.3f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indices);
 }

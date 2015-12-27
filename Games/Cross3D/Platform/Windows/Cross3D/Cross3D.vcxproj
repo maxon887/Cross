@@ -66,6 +66,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Sources\Audio.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Camera.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\File.cpp" />
@@ -83,17 +84,18 @@
     <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp" />
-    <ClCompile Include="..\..\..\..\..\Sources\Vector2D.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Vector.cpp" />
+    <ClCompile Include="..\..\..\Sources\AdvancedScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\Cross3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\Sources\HelloTriangleScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\PrimitivesScreen.cpp" />
-    <ClCompile Include="..\..\..\Sources\TriangleAdvanced.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Sources\Audio.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Camera.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Config.h" />
     <ClInclude Include="..\..\..\..\..\Sources\File.h" />
@@ -109,13 +111,14 @@
     <ClInclude Include="..\..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Utils\Misc.h" />
-    <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Vector.h" />
+    <ClInclude Include="..\..\..\Sources\AdvancedScreen.h" />
     <ClInclude Include="..\..\..\Sources\Cross3D.h" />
+    <ClInclude Include="..\..\..\Sources\cube_verts.h" />
     <ClInclude Include="..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\Sources\HelloTriangleScreen.h" />
     <ClInclude Include="..\..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\..\Sources\PrimitivesScreen.h" />
-    <ClInclude Include="..\..\..\Sources\TriangleAdvanced.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

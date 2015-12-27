@@ -86,16 +86,19 @@
     <ClCompile Include="..\..\..\Sources\PrimitivesScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\TriangleAdvanced.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\Sources\File.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Sources\Matrix.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Sources\Vector2D.cpp">
+    <ClCompile Include="..\..\..\Sources\AdvancedScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Vector.cpp">
+      <Filter>CrossSources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Camera.cpp">
       <Filter>CrossSources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -154,9 +157,6 @@
     <ClInclude Include="..\..\..\Sources\PrimitivesScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\TriangleAdvanced.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\Cross.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
@@ -169,7 +169,16 @@
     <ClInclude Include="..\..\..\..\..\Sources\Matrix.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h">
+    <ClInclude Include="..\..\..\Sources\AdvancedScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Vector.h">
+      <Filter>CrossHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\cube_verts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Camera.h">
       <Filter>CrossHeaders</Filter>
     </ClInclude>
   </ItemGroup>

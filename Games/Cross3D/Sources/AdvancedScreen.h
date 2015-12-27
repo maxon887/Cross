@@ -19,7 +19,7 @@
 
 using namespace cross;
 
-class TriangleAdvanced : public Screen{
+class AdvancedScreen : public Screen{
 public:
 	void Start();
 	void Update(float sec);

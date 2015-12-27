@@ -21,7 +21,7 @@
 
 namespace cross {
 
-enum class Key{
+enum Key{
 	UNDEFINED 	= 0,
 	PAUSE		= 1,
 	BACK		= 2,
@@ -34,6 +34,12 @@ enum class Key{
 	SPACE		= 9,
 	SHIFT		= 10,
 	ESCAPE		= 11,
+	W			= 12,
+	A			= 13,
+	S			= 14,
+	D			= 15,
+	CONTROL		= 16,
+	MAX_KEY_NUM = 17
 };
 
 /*	Class responsible for user input. 
@@ -46,12 +52,21 @@ public:
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
-	
+
+	bool IsPressed(Key key);
+//internal
+public:
+	Input();
+	/*
 	void TriggerActionDown(Point pos);
 	void TriggerActionUp(Point pos);
 	void TriggerActionMove(Point pos);
 	void TriggerKeyPressed(Key key);
-	void TriggerKeyReleased(Key key);
+	void TriggerKeyReleased(Key key);*/
+private:
+	void KeyPressedHandle(Key key);
+	void KeyReleasedHandle(Key key);
+	bool pressed_keys[Key::MAX_KEY_NUM];
 };
 
 }

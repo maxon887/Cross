@@ -26,7 +26,7 @@ namespace cross {
 
 class Commercial;
 
-/* Class witch contains platform dependent code */
+/* Abstract class contained platform specific intrface */
 class Launcher{
 public:
 	/* Returns physical screen width in pixels */
