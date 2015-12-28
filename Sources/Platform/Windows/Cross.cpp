@@ -18,8 +18,6 @@
 #include "LauncherWIN.h"
 #include "resource.h"
 
-#pragma comment(lib, "opengl32.lib")
-
 using namespace cross;
 
 Game* cross::game = NULL;

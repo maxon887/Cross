@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PrimitivesScreen.h"
 #include "Launcher.h"
+#include "Shader.h"
 
 static const GLuint NumVertices = 1;
 

@@ -15,23 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
+#include "Graphics3D.h"
 
 namespace cross{
 
-class Camera{
+class Shader{
 public:
-	Camera();
-	void Update(float sec);
-	float* GetMatrix();
-private:
-	glm::vec3 pos;
-	glm::vec3 direction;
-	glm::vec3 up;
-	glm::mat4 matrix;
-	float speed;
+	Shader(std::string filename);
+	~Shader();
+	GLenum type;
+	GLuint handle;
 };
 
 }

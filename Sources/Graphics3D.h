@@ -13,17 +13,13 @@
 #include <GLES2/gl2platform.h>
 #endif
 
+#include "Shader.h"
+
 using namespace std;
 
 namespace cross{
 
-class Shader{
-public:
-	Shader(string filename);
-	~Shader();
-    GLenum type;
-    GLuint handle;
-};
+class Shader;
 
 class Graphics3D{
 public:

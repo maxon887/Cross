@@ -1,5 +1,4 @@
 attribute vec4 aPosition;
-attribute vec4 aColor;
 attribute vec4 aTexCoord;
 
 varying vec4 vTexCoord;

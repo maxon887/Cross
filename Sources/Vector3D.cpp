@@ -14,15 +14,4 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Screen.h"
-
-using namespace cross;
-
-class AdvancedScreen : public Screen{
-public:
-	void Start();
-	void Update(float sec);
-private:
-	GLuint program;
-};
+#include "Vector3D.h"

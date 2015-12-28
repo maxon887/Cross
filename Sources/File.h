@@ -24,11 +24,10 @@ namespace cross{
 
 class File{
 public:
+	~File();
 	string name;
 	byte* data;
 	unsigned int size;
-
-	~File();
 };
 
 }

@@ -15,24 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Vector.h"
-#include "Utils/Misc.h"
 
-#undef near
-#undef far
-
-class Matrix{
+class Vector3D{
 public:
-	static Matrix* CreateIdentityMatrix();
-	static Matrix* CreatePerspectiveMatrix(float FoV, float aspect, float near, float far);
-	~Matrix();
-	float* GetData();
-	void Translate(Vector vector);
-	void Rotate(Vector axis, float degrees);
-	void RotateX(float degrees);
-	void RotateY(float degrees);
-	void RotateZ(float degrees);
 private:
-	Matrix();
-	float* data;
 };
