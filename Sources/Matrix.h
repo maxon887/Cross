@@ -15,28 +15,27 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Vector4D.h"
 
-class Vector2D{
+class Matrix{
 public:
-	float x;
-	float y;
+	static Matrix& CreateZero();
+	static Matrix& CreateIdentity();
+	static Matrix& CreateTranslation(Vector3D &vec);
 
-	Vector2D();
-	Vector2D(float x, float y);
-	float Length();
-	Vector2D& Normalize();
-	Vector2D& Truncate(float len);
-	float DotProduct(const Vector2D &v2);
-	
-	Vector2D& operator + (const Vector2D &v2) const;
-	void operator += (const Vector2D &v2);
-	Vector2D& operator - (const Vector2D &v2) const;
-	void operator -= (const Vector2D &v2);
-	Vector2D& operator * (const float value) const;
-	void operator *= (const float value);
-	Vector2D& operator / (const float value) const;
-	void operator /= (const float value);
+	float m[4][4];
+
+	Matrix& operator + (float s) const;
+	void operator += (float s);
+	Matrix& operator - (float s) const;
+	void operator -= (float s);
+	Matrix& operator * (float s) const;
+	void operator *= (float s);
+	Matrix& operator / (float s) const;
+	void operator /= (float s);
+	Vector4D& operator * (const Vector4D& vec) const;
+	Matrix& operator * (const Matrix &m2) const;
+	void operator *= (const Matrix &m2);
+private:
+	Matrix() { };
 };
-
-float Distance(const Vector2D &v1, const Vector2D &v2);
-float DistanceSq(const Vector2D &v1, const Vector2D &v2);

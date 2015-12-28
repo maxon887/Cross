@@ -18,11 +18,23 @@
 
 #include <math.h>
 
+Vector2D::Vector2D():
+	x(0.0f),
+	y(0.0f)
+{
+}
+
+Vector2D::Vector2D(float x, float y):
+	x(x),
+	y(y)
+{
+}
+
 float Vector2D::Length(){
 	return sqrt(x*x + y*y);
 }
 
-Vector2D Vector2D::Normalize(){
+Vector2D& Vector2D::Normalize(){
 	Vector2D result;
 	float len = Length();
 	result.x  = x / len;
@@ -30,7 +42,7 @@ Vector2D Vector2D::Normalize(){
 	return result;
 }
 
-Vector2D Vector2D::Truncate(float len){
+Vector2D& Vector2D::Truncate(float len){
 	if(this->Length() > len){
 		Vector2D result;
 		result = this->Normalize();
@@ -44,7 +56,7 @@ float Vector2D::DotProduct(const Vector2D &v2){
 	return this->x * v2.x + this->y * v2.y;
 }
 
-Vector2D Vector2D::operator+(const Vector2D &v2) const{
+Vector2D& Vector2D::operator+(const Vector2D &v2) const{
 	return Vector2D(this->x + v2.x, this->y + v2.y);
 }
 
@@ -53,7 +65,7 @@ void Vector2D::operator+=(const Vector2D &v2){
 	this->y += v2.y;
 }
 
-Vector2D Vector2D::operator-(const Vector2D &v2) const{
+Vector2D& Vector2D::operator-(const Vector2D &v2) const{
 	return Vector2D(this->x - v2.x, this->y - v2.y);
 }
 
@@ -62,7 +74,7 @@ void Vector2D::operator-=(const Vector2D &v2){
 	this->y -= v2.y;
 }
 
-Vector2D Vector2D::operator*(const float v) const{
+Vector2D& Vector2D::operator*(const float v) const{
 	return Vector2D(this->x * v, this->y * v);
 }
 
@@ -71,7 +83,7 @@ void Vector2D::operator*=(const float v){
 	this->y *= v;
 }
 
-Vector2D Vector2D::operator/(const float v) const{
+Vector2D& Vector2D::operator/(const float v) const{
 	return Vector2D(this->x / v, this->y / v);
 }
 
