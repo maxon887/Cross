@@ -16,13 +16,19 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Screen.h"
+#include "VertexShader.h"
+#include "Matrix.h"
 
 using namespace cross;
 
 class AdvancedScreen : public Screen{
 public:
+	~AdvancedScreen();
 	void Start();
 	void Update(float sec);
 private:
 	GLuint program;
+	VertexShader* vertex_shader;
+	Shader* fragment_shader;
+	Matrix triangle_mode;
 };

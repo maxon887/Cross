@@ -15,29 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Vector4D.h"
+#include "Shader.h"
 
-class Matrix{
+namespace cross{
+
+class VertexShader : public Shader{
 public:
-	static Matrix& CreateZero();
-	static Matrix& CreateIdentity();
-	static Matrix& CreateTranslation(Vector3D &vec);
-
-	float m[4][4];
-
-	Matrix() { };
-
-	float* GetData();
-
-	Matrix& operator + (float s) const;
-	void operator += (float s);
-	Matrix& operator - (float s) const;
-	void operator -= (float s);
-	Matrix& operator * (float s) const;
-	void operator *= (float s);
-	Matrix& operator / (float s) const;
-	void operator /= (float s);
-	Vector4D& operator * (const Vector4D& vec) const;
-	Matrix& operator * (const Matrix &m2) const;
-	void operator *= (const Matrix &m2);
+	VertexShader(string filename);
+	void Initialize(GLuint program);
+	GLuint aPositionLoc;
+	GLuint uModelLoc;
+private:
 };
+
+}

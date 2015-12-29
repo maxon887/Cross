@@ -43,6 +43,10 @@ Matrix& Matrix::CreateTranslation(Vector3D &vec){
 	return m;
 }
 
+float* Matrix::GetData(){
+	return (float*)m;
+}
+
 Matrix& Matrix::operator + (float s) const{
 	Matrix res(*this);
 	res += s;

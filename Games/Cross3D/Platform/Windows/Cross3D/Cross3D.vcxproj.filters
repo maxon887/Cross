@@ -101,6 +101,15 @@
     <ClCompile Include="..\..\..\..\..\Sources\Vector3D.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Vector4D.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\VertexShader.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Matrix.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -176,6 +185,15 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Vector3D.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Vector4D.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\VertexShader.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Matrix.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

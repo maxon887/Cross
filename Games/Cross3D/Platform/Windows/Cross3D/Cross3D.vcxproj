@@ -73,6 +73,7 @@
     <ClCompile Include="..\..\..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Launcher.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Matrix.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Point.cpp" />
@@ -83,6 +84,8 @@
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Vector3D.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\VertexShader.cpp" />
     <ClCompile Include="..\..\..\Sources\AdvancedScreen.cpp" />
     <ClCompile Include="..\..\..\Sources\Cross3D.cpp" />
     <ClCompile Include="..\..\..\Sources\HelloTriangleScreen.cpp" />
@@ -99,6 +102,7 @@
     <ClInclude Include="..\..\..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Launcher.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Matrix.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\Cross.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Point.h" />
@@ -109,6 +113,8 @@
     <ClInclude Include="..\..\..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Vector3D.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Vector4D.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\VertexShader.h" />
     <ClInclude Include="..\..\..\Sources\AdvancedScreen.h" />
     <ClInclude Include="..\..\..\Sources\Cross3D.h" />
     <ClInclude Include="..\..\..\Sources\cube_verts.h" />
