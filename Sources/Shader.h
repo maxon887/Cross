@@ -15,13 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D.h"
+#include "Cross.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
 class Shader{
 public:
-	Shader(std::string filename);
+	Shader(string filename);
 	~Shader();
 	GLenum type;
 	GLuint handle;

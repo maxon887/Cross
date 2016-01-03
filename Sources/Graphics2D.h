@@ -16,15 +16,23 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
-class File{
+class Graphics2D : public GraphicsGL{
 public:
-	~File();
-	string name;
-	byte* data;
-	unsigned int size;
+	Graphics2D();
+	~Graphics2D();
+
+	/* Load Image from assert file */
+	//Image* LoadImage(string filename);
+private:
+	Shader* vertex_shader;
+	Shader* fragment_shader;
+
+	byte* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
+//Framework module. You don't need call any of this methods or modify variable
 };
 
 }

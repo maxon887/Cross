@@ -14,8 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Cross.h"
 #include "LauncherWIN.h"
+#include "Cross.h"
+#include "Game.h"
+#include "Input.h"
+#include "Config.h"
+//#include "Graphics.h"
+#include "Graphics2D.h"
 #include "resource.h"
 
 using namespace cross;
@@ -247,8 +252,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	ShowWindow(wnd, winShow);
 	try{
+
+
 #ifdef GFX3D
 	gfx3D = new Graphics3D();
+#elif GFX2D
+	gfx2D = new Graphics2D();
 #else
 	graphics = new Graphics(game);
 #endif

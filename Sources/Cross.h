@@ -14,9 +14,33 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
+#include <string>
 
-#include "Game.h"
+namespace cross{
+
+typedef unsigned char byte;
+
+class Game;
+class Launcher;
+class Graphics;
+class Graphics2D;
+class Graphics3D;
+class Input;
+class Config;
+class Debuger;
+
+extern Game* game;
+extern Launcher* launcher;
+extern Graphics* graphics;
+extern Graphics2D* gfx2D;
+extern Graphics3D* gfx3D;
+extern Input* input;
+extern Config* config;
+extern Debuger* debuger;
+
+}
+
+using namespace std;
 
 cross::Game* CrossMain(cross::Launcher* launcher);

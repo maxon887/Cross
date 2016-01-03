@@ -15,12 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
+#include "File.h"
+#include "Audio.h"
 
 #include <fstream>
 
-using namespace cross;
-
 #define DATA_PATH "Data/"
+
+using namespace cross;
 
 bool DirectoryExists(LPCTSTR szPath){
   DWORD dwAttrib = GetFileAttributes(szPath);

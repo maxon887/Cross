@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "File.h"
+#include "Cross.h"
 
 #ifdef _WIN32
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
@@ -25,6 +25,7 @@
 namespace cross {
 
 class Commercial;
+class File;
 
 /* Abstract class contained platform specific intrface */
 class Launcher{

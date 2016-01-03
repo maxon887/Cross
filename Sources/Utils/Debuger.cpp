@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Debuger.h"
-#include "Launcher.h"
+#include "Cross.h"
 #include "Input.h"
 
 #include <vector>
@@ -44,10 +44,13 @@ void Debuger::StopCheckTime(string label){
 }
 
 Debuger::Debuger(){
-#ifndef GFX3D
+#ifdef GFX3D
+#elif GFX2D
+#else
 	touch_pointer = NULL;
 	texter = NULL;
 #endif
+
 	update_time = 0;
 	update_sum = 0;
 	update_counter = 0;
@@ -66,9 +69,9 @@ Debuger::Debuger(){
 }
 
 Debuger::~Debuger(){
-#ifndef GFX3D
+/*
 	delete texter;
-#endif
+	*/
 }
 
 void Debuger::Display(float micro){
@@ -85,6 +88,7 @@ void Debuger::Display(float micro){
 		}
 	}
 	if(screen_debug){
+		/*
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
@@ -101,7 +105,7 @@ void Debuger::Display(float micro){
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 3, "Input Up");
 		}
-		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));
+		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));*/
 	}
 	if(console_debug){
 		if(next_display < 0){
@@ -120,14 +124,14 @@ void Debuger::Display(float micro){
 }
 
 void Debuger::EnableScreenDebug(){
-#ifndef GFX3D
+/*
 	if(texter == NULL){
 		texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	}else{
 		launcher->LogIt("Warning!Screen debug already anabled");
 	}
 	screen_debug = true;
-#endif
+*/
 }
 
 void Debuger::EnableConsoleDebug(){
@@ -135,10 +139,12 @@ void Debuger::EnableConsoleDebug(){
 }
 
 void Debuger::EnableTouches(){
-#ifndef GFX3D
+#ifdef GFX3D
+#elif GFX2D
+#else	
 	if(touch_pointer == NULL){
 		touch_pointer = graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
-	}else{
+	} else{
 		launcher->LogIt("Warning!Touches already anabled");
 	}
 	touches = true;
@@ -170,8 +176,8 @@ void Debuger::OnActionUp(Point pos){
 void Debuger::OnActionMove(Point pos){
 	touch_pos = pos;
 }
-#ifndef GFX3D
+
+/*
 Texter* Debuger::GetTexter(){
 	return texter;
-}
-#endif
+}*/

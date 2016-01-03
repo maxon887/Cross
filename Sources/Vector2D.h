@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
+namespace cross{
+
 class Vector2D{
 public:
 	float x;
@@ -24,19 +26,21 @@ public:
 	Vector2D();
 	Vector2D(float x, float y);
 	float Length();
-	Vector2D& Normalize();
-	Vector2D& Truncate(float len);
+	Vector2D Normalize();
+	Vector2D Truncate(float len);
 	float DotProduct(const Vector2D &v2);
 	
-	Vector2D& operator + (const Vector2D &v2) const;
+	Vector2D operator + (const Vector2D &v2) const;
 	void operator += (const Vector2D &v2);
-	Vector2D& operator - (const Vector2D &v2) const;
+	Vector2D operator - (const Vector2D &v2) const;
 	void operator -= (const Vector2D &v2);
-	Vector2D& operator * (const float value) const;
+	Vector2D operator * (const float value) const;
 	void operator *= (const float value);
-	Vector2D& operator / (const float value) const;
+	Vector2D operator / (const float value) const;
 	void operator /= (const float value);
 };
 
 float Distance(const Vector2D &v1, const Vector2D &v2);
 float DistanceSq(const Vector2D &v1, const Vector2D &v2);
+
+}

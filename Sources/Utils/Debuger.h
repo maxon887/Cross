@@ -17,11 +17,12 @@
 #pragma once
 
 #include "Game.h"
-#ifndef GFX3D
-#include "Texter.h"
-#endif
+#include "Launcher.h"
+#include "Point.h"
 
 namespace cross{
+
+class Point;
 
 class Debuger{
 public:
@@ -40,14 +41,12 @@ public:
 	void OnActionDown(Point pos);
 	void OnActionUp(Point pos);
 	void OnActionMove(Point pos);
-#ifndef GFX3D
-	Texter* GetTexter();
-#endif
+
+	//Texter* GetTexter();
+
 private:
-#ifndef GFX3D
-	Texter* texter;
-	Image* touch_pointer;
-#endif
+	//Texter* texter;
+	//Image* touch_pointer;
 
 	float update_time;
 	float update_sum;

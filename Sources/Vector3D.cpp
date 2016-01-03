@@ -17,6 +17,8 @@
 #include "Vector3D.h"
 #include <math.h>
 
+using namespace cross;
+
 Vector3D::Vector3D():
 	x(0.0f),
 	y(0.0f),
@@ -42,7 +44,7 @@ float Vector3D::Length(){
 	return sqrt(x*x + y*y + z*z);
 }
 
-Vector3D& Vector3D::Normalize(){
+Vector3D Vector3D::Normalize(){
 	Vector3D result;
 	float len = Length();
 	result.x = x / len;
@@ -51,7 +53,7 @@ Vector3D& Vector3D::Normalize(){
 	return result;
 }
 
-Vector3D& Vector3D::Truncate(float len){
+Vector3D Vector3D::Truncate(float len){
 	if(this->Length() > len){
 		Vector3D result;
 		result = this->Normalize();
@@ -65,7 +67,7 @@ float Vector3D::DotProduct(const Vector3D &v2){
 	return this->x * v2.x + this->y * v2.y + this->z * v2.z;
 }
 
-Vector3D& Vector3D::CrossProduct(const Vector3D &v2){
+Vector3D Vector3D::CrossProduct(const Vector3D &v2){
 	Vector3D result;
 	result.x = this->y * v2.z - this->z * v2.y;
 	result.y = this->z * v2.x - this->x * v2.z;
@@ -73,7 +75,7 @@ Vector3D& Vector3D::CrossProduct(const Vector3D &v2){
 	return result;
 }
 
-Vector3D& Vector3D::operator+(const Vector3D &v2) const{
+Vector3D Vector3D::operator+(const Vector3D &v2) const{
 	return Vector3D(this->x + v2.x, this->y + v2.y, this->z + v2.z);
 }
 
@@ -83,7 +85,7 @@ void Vector3D::operator+=(const Vector3D &v2){
 	this->z += v2.z;
 }
 
-Vector3D& Vector3D::operator-(const Vector3D &v2) const{
+Vector3D Vector3D::operator-(const Vector3D &v2) const{
 	return Vector3D(this->x - v2.x, this->y - v2.y, this->z - v2.z);
 }
 
@@ -93,7 +95,7 @@ void Vector3D::operator-=(const Vector3D &v2){
 	this->z -= v2.z;
 }
 
-Vector3D& Vector3D::operator*(const float v) const{
+Vector3D Vector3D::operator*(const float v) const{
 	return Vector3D(this->x * v, this->y * v, this->z * v);
 }
 
@@ -103,7 +105,7 @@ void Vector3D::operator*=(const float v){
 	this->z *= v;
 }
 
-Vector3D& Vector3D::operator/(const float v) const{
+Vector3D Vector3D::operator/(const float v) const{
 	return Vector3D(this->x / v, this->y / v, this->z / v);
 }
 

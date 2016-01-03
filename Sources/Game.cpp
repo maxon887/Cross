@@ -16,12 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Launcher.h"
+#include "Screen.h"
+#include "Input.h"
+#include "Config.h"
 #include "Utils/Debuger.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #endif 
-
-#include <stdlib.h>
 
 using namespace cross;
 using namespace chrono;
@@ -30,6 +31,7 @@ mutex cross::global_mutex;
 
 Launcher*	cross::launcher = NULL;
 Graphics*	cross::graphics = NULL;
+Graphics2D* cross::gfx2D = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
 Config*		cross::config = NULL;

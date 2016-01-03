@@ -16,7 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Matrix.h"
 
-Matrix& Matrix::CreateZero(){
+using namespace cross;
+
+Matrix Matrix::CreateZero(){
 	Matrix m;
 	m.m[0][0] = 0.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
 	m.m[1][0] = 0.0f; m.m[1][1] = 0.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
@@ -25,7 +27,7 @@ Matrix& Matrix::CreateZero(){
 	return m;
 }
 
-Matrix& Matrix::CreateIdentity(){
+Matrix Matrix::CreateIdentity(){
 	Matrix m;
 	m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
 	m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
@@ -34,7 +36,7 @@ Matrix& Matrix::CreateIdentity(){
 	return m;
 }
 
-Matrix& Matrix::CreateTranslation(Vector3D &vec){
+Matrix Matrix::CreateTranslation(Vector3D &vec){
 	Matrix m;
 	m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = vec.x;
 	m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = vec.y;
@@ -47,7 +49,7 @@ float* Matrix::GetData(){
 	return (float*)m;
 }
 
-Matrix& Matrix::operator + (float s) const{
+Matrix Matrix::operator + (float s) const{
 	Matrix res(*this);
 	res += s;
 	return res;
@@ -60,7 +62,7 @@ void Matrix::operator += (float s){
 	m[3][0] += s; m[3][1] += s; m[3][2] += s; m[3][3] += s;
 }
 
-Matrix& Matrix::operator - (float s) const{
+Matrix Matrix::operator - (float s) const{
 	Matrix res(*this);
 	res -= s;
 	return res;
@@ -73,7 +75,7 @@ void Matrix::operator -= (float s){
 	m[3][0] -= s; m[3][1] -= s; m[3][2] -= s; m[3][3] -= s;
 }
 
-Matrix& Matrix::operator * (float s) const{
+Matrix Matrix::operator * (float s) const{
 	Matrix res(*this);
 	res *= s;
 	return res;
@@ -86,7 +88,7 @@ void Matrix::operator *= (float s){
 	m[3][0] *= s; m[3][1] *= s; m[3][2] *= s; m[3][3] *= s;
 }
 
-Matrix& Matrix::operator / (float s) const{
+Matrix Matrix::operator / (float s) const{
 	Matrix res(*this);
 	res /= s;
 	return res;
@@ -99,7 +101,7 @@ void Matrix::operator /= (float s){
 	m[3][0] /= s; m[3][1] /= s; m[3][2] /= s; m[3][3] /= s;
 }
 
-Vector4D& Matrix::operator * (const Vector4D &vec) const{
+Vector4D Matrix::operator * (const Vector4D &vec) const{
 	Vector4D res;
 	res.x = m[0][0] * vec.x + m[0][1] * vec.y + m[0][2] * vec.z + m[0][3] * vec.w;
 	res.y = m[1][0] * vec.x + m[1][1] * vec.y + m[1][2] * vec.z + m[1][3] * vec.w;
@@ -108,7 +110,7 @@ Vector4D& Matrix::operator * (const Vector4D &vec) const{
 	return res;
 }
 
-Matrix& Matrix::operator * (const Matrix& mat) const{
+Matrix Matrix::operator * (const Matrix& mat) const{
 	Matrix res(*this);
 	res *= mat;
 	return res;

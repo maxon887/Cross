@@ -15,10 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include <string>
-
-using namespace std;
+#include "Cross.h"
 
 namespace cross {
 

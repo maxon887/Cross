@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include "Color.h"
@@ -46,7 +45,7 @@ public:
 	Image* CreateImage(Image* src, Rect region);
 	/* Create Image from source with sacale factor. Data do not copy. */
 	Image* CreateImage(Image* src, Rect region, float scaleFactor);
-	/* Load Image from file */
+	/* Load Image from assert file */
 	Image* LoadImage(string filename);
 	/* Load scaled image from file */
 	Image* LoadImage(string filename, float scaleFactor);

@@ -15,18 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Screen.h"
-
+#include "Cross.h"
 #include <chrono>
 #include <mutex>
 
 namespace cross{
     
 class Debuger;
+class Screen;
+class Launcher;
 
-extern mutex global_mutex;
-
-typedef unsigned char byte;
+extern std::mutex global_mutex;
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screen's\.
 	Every game must implement this class for set start Screen and virtual world size for your game*/
@@ -68,7 +67,7 @@ protected:
 	float scale_factor;
 private:
 	Screen* current_screen;
-    chrono::time_point<chrono::high_resolution_clock> render_time;
+	chrono::time_point<chrono::high_resolution_clock> render_time;
 
 	void Init(Launcher* launch);
 };

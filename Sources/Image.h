@@ -15,18 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include "Launcher.h"
+#include "Cross.h"
+#include "GraphicsGL.h"
 #include "Rect.h"
-
-#ifdef WIN
-    #include <Windows.h>
-    #include <gl/GL.h>
-#elif IOS
-    #include <OpenGLES/ES1/gl.h>
-#elif ANDROID
-    #include <GLES/gl.h>
-#endif
 
 namespace cross {
 

@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Vector4D.h"
 
+using namespace cross;
+
 Vector4D::Vector4D():
 	x(0.0f),
 	y(0.0f),

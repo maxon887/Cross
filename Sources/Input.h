@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
+#include "Cross.h"
 #include "Point.h"
 #include "Events\Event.h"
 
@@ -57,12 +57,6 @@ public:
 //internal
 public:
 	Input();
-	/*
-	void TriggerActionDown(Point pos);
-	void TriggerActionUp(Point pos);
-	void TriggerActionMove(Point pos);
-	void TriggerKeyPressed(Key key);
-	void TriggerKeyReleased(Key key);*/
 private:
 	void KeyPressedHandle(Key key);
 	void KeyReleasedHandle(Key key);

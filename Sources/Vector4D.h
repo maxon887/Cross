@@ -17,6 +17,8 @@
 #pragma once
 #include "Vector3D.h"
 
+namespace cross{
+
 class Vector4D{
 public:
 	float x;
@@ -28,3 +30,5 @@ public:
 	Vector4D(float x, float y, float z, float w);
 	Vector4D(Vector3D& vec, float w);
 };
+
+}

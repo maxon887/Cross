@@ -22,6 +22,8 @@ namespace cross {
     
 #undef DrawText
 
+class Image;
+
 /* Class responsible for drawing text in to screen */
 class Texter{
 public:

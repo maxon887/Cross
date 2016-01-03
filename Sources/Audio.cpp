@@ -173,6 +173,7 @@ Audio::~Audio(){
 
 
 void Audio::Init(Launcher* launcher){
+	launcher->LogIt("Audio::Init()");
 	launcher->LogIt("Audio system disabled");
 }
 
