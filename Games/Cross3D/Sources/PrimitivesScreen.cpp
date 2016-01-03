@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PrimitivesScreen.h"
-#include "Launcher.h"
+//#include "Launcher.h"
 #include "Shader.h"
 
 static const GLuint NumVertices = 1;
@@ -25,18 +25,19 @@ static GLfloat vertices[2] = { 0.0f, 0.0f };
 void PrimitivesScreen::Start(){
 	Shader* vertShader = new Shader("primitives.vert");
 	Shader* fragShader = new Shader("primitives.frag");
+	/*
 	gfx3D->AttachShader(vertShader);
 	gfx3D->AttachShader(fragShader);
-	gfx3D->CompileProgram();
+	gfx3D->CompileProgram();*/
 
 	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void PrimitivesScreen::Update(float sec){
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);/*
 	//glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight());
 	gfx3D->DrawPoint(Point(-0.5f, -0.5f), Color::Red);
 	gfx3D->DrawPoint(Point(.5f, .5f), Color::Blue);
 	gfx3D->DrawPoint(Point(0.5f, -0.5f), Color::Green);
-	gfx3D->DrawPoint(Point(-0.5f, 0.5f), Color::Yellow);
+	gfx3D->DrawPoint(Point(-0.5f, 0.5f), Color::Yellow);*/
 }

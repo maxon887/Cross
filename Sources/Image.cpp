@@ -18,6 +18,8 @@
 
 using namespace cross;
 
+static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+
 Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 	:region(region){
 	this->textureID = id;
@@ -27,8 +29,12 @@ Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 	this->v1 = region.y / texHeight;
 	this->u2 = this->u1 + region.width / texWidth;
 	this->v2 = this->v1 + region.height / texHeight;
-	angle = 0;
+	model = Matrix::CreateIdentity();
 	memset(vertices, 0, sizeof(float) * 16);
+}
+
+void Image::SetPosition(Vector2D pos){
+	model.SetTranslation(pos);
 }
 
 void Image::Scale(float factor){
@@ -69,4 +75,12 @@ float Image::GetHeight(){
 
 float* Image::GetVertices(){
 	return vertices;
+}
+
+float* Image::GetModel(){
+	return model.GetData();
+}
+
+GLushort* Image::GetIndices(){
+	return indices;
 }

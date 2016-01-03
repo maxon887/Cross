@@ -17,21 +17,29 @@
 #pragma once
 #include "Cross.h"
 #include "GraphicsGL.h"
+#include "Matrix.h"
+#include "VertexShader.h"
+
+#undef LoadImage;
 
 namespace cross{
+
+class Image;
 
 class Graphics2D : public GraphicsGL{
 public:
 	Graphics2D();
 	~Graphics2D();
 
+	void DrawTargetImage(float x, float y, Image* img);
 	/* Load Image from assert file */
-	//Image* LoadImage(string filename);
+	Image* LoadImage(string filename);
 private:
-	Shader* vertex_shader;
+	VertexShader* vertex_shader;
 	Shader* fragment_shader;
+	Matrix projection;
 
-	byte* LoadImageInternal(string filename, GLuint* textureID, int* width, int* height);
+	byte* LoadImageInternal(string filename, int* width, int* height);
 //Framework module. You don't need call any of this methods or modify variable
 };
 

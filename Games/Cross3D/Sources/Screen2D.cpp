@@ -14,19 +14,27 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "VertexShader.h"
+#include "Screen2D.h"
+#include "Cross.h"
+#include "Graphics2D.h"
+#include "Matrix.h"
 
-using namespace cross;
+const GLuint NumVertices = 3;
 
-VertexShader::VertexShader(string filename):
-	Shader(filename)
-{
+static GLfloat vertices[NumVertices * 3] = { 250.0f, 500.0f, 0.0f,
+200.0f, 400.0f, 0.0f,
+300.0f, 400.0f, 0.0f };
+	
+void Screen2D::Start(){
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+
+	logo = gfx2D->LoadImage("Logo.png");
+	logo->SetPosition(Vector2D(256, 256));
 
 }
 
-void VertexShader::Initialize(GLuint program){
-	aPositionLoc = glGetAttribLocation(program, "aPosition");
-	aTexCoordLoc = glGetAttribLocation(program, "aTexCoord");
-	uModelLoc = glGetUniformLocation(program, "uModel");
-	uProjectionLoc = glGetUniformLocation(program, "uProjection");
+void Screen2D::Update(float sec){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	gfx2D->DrawTargetImage(256, 256, logo);
 }

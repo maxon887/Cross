@@ -24,7 +24,9 @@ public:
 	VertexShader(string filename);
 	void Initialize(GLuint program);
 	GLuint aPositionLoc;
+	GLuint aTexCoordLoc;
 	GLuint uModelLoc;
+	GLuint uProjectionLoc;
 private:
 };
 

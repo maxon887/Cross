@@ -92,9 +92,6 @@
     <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c">
       <Filter>Cross\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Sources\Graphics3D.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\Sources\Shader.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -108,6 +105,24 @@
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Sources\Matrix.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Graphics2D.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\GraphicsGL.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Graphics3D.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Image.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Screen2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Rect.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,9 +172,6 @@
     <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\Cross.h">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
@@ -178,9 +190,6 @@
     <ClInclude Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.h">
       <Filter>Cross\SOIL</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Sources\Graphics3D.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Shader.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -194,6 +203,30 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Sources\Matrix.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Graphics2D.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\GraphicsGL.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Screen.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Graphics3D.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Image.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Screen2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Cross.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Rect.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
@@ -217,6 +250,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\..\Assets\advanced.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\Assets\Engine\2d.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\Assets\Engine\2d.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

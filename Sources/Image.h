@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "GraphicsGL.h"
 #include "Rect.h"
+#include "Matrix.h"
 
 namespace cross {
 
@@ -31,18 +32,22 @@ public:
 
 //Internal data. You don't need call any of this methods or modify variable
 public:
-    float angle;
 	int texWidth;
 	int texHeight;
     
 	Image(GLuint id, int texWidth, int texHeight, Rect region);
+	void SetPosition(Vector2D pos);
 	void Scale(float factor);
 	GLuint GetTextureID();
 	float* GetVertices();
+	float* GetModel();
+	GLushort* GetIndices();
+
 private:
 	Rect region;
 	GLuint textureID;
-	float vertices[16];
+	Matrix model;
+	GLfloat vertices[16];
 	float u1, v1;
 	float u2, v2;
 };

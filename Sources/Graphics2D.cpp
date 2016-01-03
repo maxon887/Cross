@@ -18,36 +18,109 @@
 #include "Launcher.h"
 #include "Shader.h"
 #include "File.h"
+#include "Game.h"
+#include "Utils\Debuger.h"
+#include "Rect.h"
+#include "Image.h"
 
 #include "SOIL/SOIL.h"
+
+#define BYTES_PER_CHANNEL 4
 
 using namespace cross;
 
 Graphics2D::Graphics2D(){
 	launcher->LogIt("Graphics2D::Graphics2D()");
-	vertex_shader = new Shader("Engine/2d.vert");
+	vertex_shader = new VertexShader("Engine/2d.vert");
 	fragment_shader = new Shader("Engine/2d.frag");
 	AttachShader(vertex_shader);
 	AttachShader(fragment_shader);
 	CompileProgram();
+	vertex_shader->Initialize(program);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	glUniformMatrix4fv(vertex_shader->uProjectionLoc, 1, GL_TRUE, projection.GetData());
 }
 
 Graphics2D::~Graphics2D(){
 
 }
 
-byte* Graphics2D::LoadImageInternal(string filename, GLuint* textureID, int* width, int* height){
+void Graphics2D::DrawTargetImage(float x, float y, Image* img){
+	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
+	glVertexAttribPointer(vertex_shader->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices());
+	glVertexAttribPointer(vertex_shader->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices() + 2);
+	glEnableVertexAttribArray(vertex_shader->aPositionLoc);
+	glEnableVertexAttribArray(vertex_shader->aTexCoordLoc);
+	glUniformMatrix4fv(vertex_shader->uModelLoc, 1, GL_TRUE, img->GetModel());
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+Image* Graphics2D::LoadImage(string filename){
+	Debuger::StartCheckTime();
+	GLuint textureID;
+	int width, height;
+	byte* image = LoadImageInternal(filename, &width, &height);
+
+	int new_width = 1;
+	int new_height = 1;
+	while(new_width < width) {
+		new_width *= 2;
+	}
+	while(new_height < height) {
+		new_height *= 2;
+	}
+	//Create power of two texture
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	if(new_width > width || new_height > height){
+		unsigned char* newImage = (unsigned char*)malloc(BYTES_PER_CHANNEL * new_width * new_height);
+		for(int i = 0; i < height; i++){
+			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL);
+			//Clamp to edge effect
+			if(new_width > width){
+				memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
+			}
+		}
+		//Clamp to edge effect
+		if(new_height > height){
+			memcpy(newImage + height * BYTES_PER_CHANNEL * new_width, image + (height - 1) * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL);
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, new_width, new_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newImage);
+		free(newImage);
+	} else{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	}
+	SOIL_free_image_data(image);
+
+	//parameters
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	Rect region(0, 0, (float)width, (float)height);
+	Image* img = new Image(textureID, new_width, new_height, region);
+	img->Scale(game->GetScaleFactor());
+	string debugMsg = "Load image " + filename + ": ";
+	glBindTexture(GL_TEXTURE_2D, 0);
+	Debuger::StopCheckTime(debugMsg);
+	return img;
+}
+
+byte* Graphics2D::LoadImageInternal(string filename, int* width, int* height){
 	File* imageFile = launcher->LoadFile(filename);
 	byte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, width, height, 0, SOIL_LOAD_RGBA);
 	delete imageFile;
 
-	glGenTextures(1, textureID);
-	glBindTexture(GL_TEXTURE_2D, *textureID);
 	if(image == NULL){
 		string msg = "Can't load file: " + filename;
 		throw msg;
 	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	return image;
 }

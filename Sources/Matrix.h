@@ -18,6 +18,9 @@
 #include "Cross.h"
 #include "Vector4D.h"
 
+#undef near
+#undef far
+
 namespace cross{
 
 class Matrix{
@@ -25,12 +28,15 @@ public:
 	static Matrix CreateZero();
 	static Matrix CreateIdentity();
 	static Matrix CreateTranslation(Vector3D &vec);
+	static Matrix CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far);
 
 	float m[4][4];
 
 	Matrix() { };
 
 	float* GetData();
+	void SetTranslation(Vector2D trans);
+	void SetTranslation(Vector3D trans);
 
 	Matrix operator + (float s) const;
 	void operator += (float s);

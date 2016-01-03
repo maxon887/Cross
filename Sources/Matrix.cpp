@@ -45,8 +45,45 @@ Matrix Matrix::CreateTranslation(Vector3D &vec){
 	return m;
 }
 
+Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far){
+	Matrix m;
+
+	m.m[0][0] = 2.0f / (right - left);
+	m.m[0][1] = 0.0f;
+	m.m[0][2] = 0.0f;
+	m.m[0][3] = (-1.0f) * (right + left) / (right - left);
+
+	m.m[1][0] = 0.0f;
+	m.m[1][1] = 2.0f / (top - bottom);
+	m.m[1][2] = 0.0f;
+	m.m[1][3] = (-1.0f) * (top + bottom) / (top - bottom);
+
+	m.m[2][0] = 0.0f;
+	m.m[2][1] = 0.0f;
+	m.m[2][2] = -2.0f / (far - near);
+	m.m[2][3] = (-1.0f) * (far + near) / (far - near);
+
+	m.m[3][0] = 0.0f;
+	m.m[3][1] = 0.0f;
+	m.m[3][2] = 0.0f;
+	m.m[3][3] = 1.0f;
+	
+	return m;
+}
+
 float* Matrix::GetData(){
 	return (float*)m;
+}
+
+void Matrix::SetTranslation(Vector2D trans){
+	m[0][3] = trans.x;
+	m[1][3] = trans.y;
+}
+
+void Matrix::SetTranslation(Vector3D trans){
+	m[0][3] = trans.x;
+	m[1][3] = trans.y;
+	m[2][3] = trans.z;
 }
 
 Matrix Matrix::operator + (float s) const{

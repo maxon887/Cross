@@ -14,19 +14,18 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "VertexShader.h"
+#pragma once
+#include "Screen.h"
+#include "Image.h"
 
 using namespace cross;
 
-VertexShader::VertexShader(string filename):
-	Shader(filename)
-{
-
-}
-
-void VertexShader::Initialize(GLuint program){
-	aPositionLoc = glGetAttribLocation(program, "aPosition");
-	aTexCoordLoc = glGetAttribLocation(program, "aTexCoord");
-	uModelLoc = glGetUniformLocation(program, "uModel");
-	uProjectionLoc = glGetUniformLocation(program, "uProjection");
-}
+class Screen2D : public Screen{
+//User module
+public:
+	void Start();
+	void Update(float sec);
+private:
+	Image* logo;
+//Framework module. You don't need call any of this methods or modify variable
+};

@@ -34,9 +34,10 @@ AdvancedScreen::~AdvancedScreen(){
 void AdvancedScreen::Start(){
 	vertex_shader = new VertexShader("advanced.vert");
 	fragment_shader = new Shader("advanced.frag");
+	/*
 	gfx3D->AttachShader(vertex_shader);
 	gfx3D->AttachShader(fragment_shader);
-	program = gfx3D->CompileProgram();
+	program = gfx3D->CompileProgram();*/
 	vertex_shader->Initialize(program);
 	
 
@@ -45,7 +46,7 @@ void AdvancedScreen::Start(){
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_vers), triangle_vers, GL_STATIC_DRAW);
-	glVertexAttribPointer(vertex_shader->aPositionLoc, 4, GL_FLOAT, GL_FLOAT, 0, (void*)0);
+	glVertexAttribPointer(vertex_shader->aPositionLoc, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glEnableVertexAttribArray(vertex_shader->aPositionLoc);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
