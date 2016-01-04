@@ -86,6 +86,7 @@
     <ClCompile Include="..\..\..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\..\Sources\Utils\Debuger.cpp" />
+    <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\..\..\..\..\Sources\Vector4D.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="..\..\..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\..\..\Sources\SOIL\stb_image_aug.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Utils\Debuger.h" />
+    <ClInclude Include="..\..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Vector3D.h" />
     <ClInclude Include="..\..\..\..\..\Sources\Vector4D.h" />
@@ -140,8 +142,8 @@
   <ItemGroup>
     <None Include="..\..\..\Assets\advanced.frag" />
     <None Include="..\..\..\Assets\advanced.vert" />
-    <None Include="..\..\..\Assets\Engine\2d.frag" />
-    <None Include="..\..\..\Assets\Engine\2d.vert" />
+    <None Include="..\..\..\Assets\Engine\image.frag" />
+    <None Include="..\..\..\Assets\Engine\image.vert" />
     <None Include="..\..\..\Assets\primitives.frag" />
     <None Include="..\..\..\Assets\primitives.vert" />
     <None Include="..\..\..\Assets\triangles.frag" />

@@ -21,20 +21,24 @@
 
 const GLuint NumVertices = 3;
 
-static GLfloat vertices[NumVertices * 3] = { 250.0f, 500.0f, 0.0f,
-200.0f, 400.0f, 0.0f,
-300.0f, 400.0f, 0.0f };
+static GLfloat vertices[NumVertices * 3] = { 
+	250.0f, 500.0f, 0.0f,
+	200.0f, 400.0f, 0.0f,
+	300.0f, 400.0f, 0.0f };
 	
 void Screen2D::Start(){
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 	logo = gfx2D->LoadImage("Logo.png");
-	logo->SetPosition(Vector2D(256, 256));
+	logo->Scale(0.6f);
 
 }
 
 void Screen2D::Update(float sec){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	static float time = 0;
+	time += sec;
+	logo->Rotate(time * 10);
 
-	gfx2D->DrawTargetImage(256, 256, logo);
+	gfx2D->DrawTargetImage(Vector2D(256, 256), logo);
 }

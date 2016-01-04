@@ -30,7 +30,30 @@ Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 	this->u2 = this->u1 + region.width / texWidth;
 	this->v2 = this->v1 + region.height / texHeight;
 	model = Matrix::CreateIdentity();
+	translation = Matrix::CreateIdentity();
+	scale = Matrix::CreateIdentity();
+	rotation = Matrix::CreateIdentity();
 	memset(vertices, 0, sizeof(float) * 16);
+
+	vertices[0] = -region.width / 2.0f;
+	vertices[1] = -region.height / 2.0f;
+	vertices[2] = u1;
+	vertices[3] = v2;
+
+	vertices[4] = region.width / 2.0f;
+	vertices[5] = -region.height / 2.0f;
+	vertices[6] = u2;
+	vertices[7] = v2;;
+
+	vertices[8] = region.width / 2.0f;
+	vertices[9] = region.height / 2.0f;
+	vertices[10] = u2;
+	vertices[11] = v1;
+
+	vertices[12] = -region.width / 2.0f;
+	vertices[13] = region.height / 2.0f;
+	vertices[14] = u1;
+	vertices[15] = v1;
 }
 
 void Image::SetPosition(Vector2D pos){
@@ -38,27 +61,15 @@ void Image::SetPosition(Vector2D pos){
 }
 
 void Image::Scale(float factor){
-	float width = region.width * factor;
-	float height = region.height * factor;
-	vertices[0] = -width/2.0f;
-	vertices[1] = height/2.0f;
-	vertices[2] = u1;
-	vertices[3] = v2;
+	scale.m[0][0] = factor;
+	scale.m[1][1] = factor;
+	scale.m[2][2] = factor;
+	model = rotation * scale * translation;
+}
 
-	vertices[4] = width/2.0f;
-	vertices[5] = height/2.0f;
-	vertices[6] = u2;
-	vertices[7] = v2;;
-
-	vertices[8] = width/2.0f;
-	vertices[9] = -height/2.0f;
-	vertices[10] = u2;
-	vertices[11] = v1;
-
-	vertices[12] = -width/2.0f;
-	vertices[13] = -height/2.0f;
-	vertices[14] = u1;
-	vertices[15] = v1;
+void Image::Rotate(float angle){
+	rotation.SetRotationZ(angle);
+	model = rotation * scale * translation;
 }
 
 GLuint Image::GetTextureID(){

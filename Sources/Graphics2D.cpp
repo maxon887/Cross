@@ -31,8 +31,8 @@ using namespace cross;
 
 Graphics2D::Graphics2D(){
 	launcher->LogIt("Graphics2D::Graphics2D()");
-	vertex_shader = new VertexShader("Engine/2d.vert");
-	fragment_shader = new Shader("Engine/2d.frag");
+	vertex_shader = new VertexShader("Engine/image.vert");
+	fragment_shader = new Shader("Engine/image.frag");
 	AttachShader(vertex_shader);
 	AttachShader(fragment_shader);
 	CompileProgram();
@@ -49,7 +49,8 @@ Graphics2D::~Graphics2D(){
 
 }
 
-void Graphics2D::DrawTargetImage(float x, float y, Image* img){
+void Graphics2D::DrawTargetImage(Vector2D pos, Image* img){
+	img->SetPosition(pos);
 	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
 	glVertexAttribPointer(vertex_shader->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices());
 	glVertexAttribPointer(vertex_shader->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices() + 2);
@@ -94,7 +95,7 @@ Image* Graphics2D::LoadImage(string filename){
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, new_width, new_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newImage);
 		free(newImage);
-	} else{
+	} else {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	}
 	SOIL_free_image_data(image);
@@ -106,7 +107,7 @@ Image* Graphics2D::LoadImage(string filename){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	Rect region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, new_width, new_height, region);
-	img->Scale(game->GetScaleFactor());
+	//img->Scale(game->GetScaleFactor());
 	string debugMsg = "Load image " + filename + ": ";
 	glBindTexture(GL_TEXTURE_2D, 0);
 	Debuger::StopCheckTime(debugMsg);

@@ -38,6 +38,7 @@ public:
 	Image(GLuint id, int texWidth, int texHeight, Rect region);
 	void SetPosition(Vector2D pos);
 	void Scale(float factor);
+	void Rotate(float angle);
 	GLuint GetTextureID();
 	float* GetVertices();
 	float* GetModel();
@@ -47,6 +48,9 @@ private:
 	Rect region;
 	GLuint textureID;
 	Matrix model;
+	Matrix scale;
+	Matrix translation;
+	Matrix rotation;
 	GLfloat vertices[16];
 	float u1, v1;
 	float u2, v2;

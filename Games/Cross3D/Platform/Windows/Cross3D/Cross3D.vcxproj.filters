@@ -125,6 +125,9 @@
     <ClCompile Include="..\..\..\..\..\Sources\Rect.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Sources\Utils\Misc.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -229,6 +232,9 @@
     <ClInclude Include="..\..\..\..\..\Sources\Rect.h">
       <Filter>Cross</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Sources\Utils\Misc.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -252,10 +258,10 @@
     <None Include="..\..\..\Assets\advanced.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\..\Assets\Engine\2d.frag">
+    <None Include="..\..\..\Assets\Engine\image.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\..\Assets\Engine\2d.vert">
+    <None Include="..\..\..\Assets\Engine\image.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

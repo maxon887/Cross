@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Matrix.h"
+#include "Utils/Misc.h"
 
 using namespace cross;
 
@@ -84,6 +85,15 @@ void Matrix::SetTranslation(Vector3D trans){
 	m[0][3] = trans.x;
 	m[1][3] = trans.y;
 	m[2][3] = trans.z;
+}
+
+void Matrix::SetRotationZ(float angle){
+	float cosA = cos(angle / 180.f * PI);
+	float sinA = sin(angle / 180.f * PI);
+	m[0][0] = cosA;
+	m[0][1] = -sinA;
+	m[1][0] = sinA;
+	m[1][1] = cosA;
 }
 
 Matrix Matrix::operator + (float s) const{

@@ -37,6 +37,7 @@ public:
 	float* GetData();
 	void SetTranslation(Vector2D trans);
 	void SetTranslation(Vector3D trans);
+	void SetRotationZ(float angle);
 
 	Matrix operator + (float s) const;
 	void operator += (float s);

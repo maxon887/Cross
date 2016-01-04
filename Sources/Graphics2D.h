@@ -31,7 +31,7 @@ public:
 	Graphics2D();
 	~Graphics2D();
 
-	void DrawTargetImage(float x, float y, Image* img);
+	void DrawTargetImage(Vector2D pos, Image* img);
 	/* Load Image from assert file */
 	Image* LoadImage(string filename);
 private:

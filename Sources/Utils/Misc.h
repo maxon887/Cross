@@ -14,15 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include "Point.h"
 #include "Rect.h"
 
-namespace cross {
-
 #define PI (3.141592653589793f)
+
+namespace cross {
 
 bool PointInRect(Point p, Rect rect);
 bool PointInTriangle(Point pt, Point v1, Point v2, Point v3);
