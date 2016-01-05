@@ -14,8 +14,10 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "Texter.h"
+#include "Graphics2D.h"
+
+#undef DrawText
 
 using namespace cross;
 
@@ -34,7 +36,7 @@ Texter::Texter(Game* game, const char* fontFilename,
 }
 
 Texter::~Texter(){
-	graphics->ReleaseImage(font);
+	gfx2D->ReleaseImage(font);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
 			delete letters[i * columns + j];
@@ -50,7 +52,7 @@ void Texter::DrawText(float x, float y, string text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
 	for(unsigned int i = 0; i < text.length(); i++){
-		graphics->DrawImage(x + i * GetWidth(), y, letters[text[i] - offset]);
+		gfx2D->DrawImage(Vector2D(x + i * GetWidth(), y), letters[text[i] - offset]);
 	}
 }
 
@@ -74,11 +76,11 @@ void Texter::Init(	Game* game, const char* fontFilename,
 	this->count = 0;
 	this->rows = rows;
 	this->columns = columns;
-	font = graphics->LoadImage(fontFilename);
+	font = gfx2D->LoadImage(fontFilename);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
 			Rect reg(j * width, i * height, width, height);
-			letters[i * columns + j] = graphics->CreateImage(font, reg, scaleFactor);
+			letters[i * columns + j] = gfx2D->CreateImage(font, reg, scaleFactor);
 			count++;
 		}
 	}

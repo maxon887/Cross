@@ -14,9 +14,11 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+#include "Cross.h"
 #include "AnimationScreen.h"
 #include "MainScreen.h"
+#include "Audio.h"
+#include "Image.h"
 
 void AnimationScreen::Start(){
 	bcg_scale = 2;
@@ -27,30 +29,30 @@ void AnimationScreen::Start(){
 	turn_left = true;
 	going_back = false;
 	input->KeyPressed += MakeDelegate(this, &AnimationScreen::OnKeyPressed);
-	spider_body = graphics->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
-	spider_head = graphics->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
-	background = graphics->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
+	spider_body = gfx2D->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
+	spider_head = gfx2D->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
+	//background = gfx2D->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
 	Image* images[8];
-	images[0] = graphics->LoadImage("Spider/00.png", game->GetScaleFactor() * 0.8f);
-	images[1] = graphics->LoadImage("Spider/01.png", game->GetScaleFactor() * 0.8f);
-	images[2] = graphics->LoadImage("Spider/02.png", game->GetScaleFactor() * 0.8f);
-	images[3] = graphics->LoadImage("Spider/03.png", game->GetScaleFactor() * 0.8f);
-	images[4] = graphics->LoadImage("Spider/04.png", game->GetScaleFactor() * 0.8f);
-	images[5] = graphics->LoadImage("Spider/05.png", game->GetScaleFactor() * 0.8f);
-	images[6] = graphics->LoadImage("Spider/06.png", game->GetScaleFactor() * 0.8f);
-	images[7] = graphics->LoadImage("Spider/07.png", game->GetScaleFactor() * 0.8f);
-	spider_run_anim = new Animation(graphics, 0.08f, images, 8, true);
+	images[0] = gfx2D->LoadImage("Spider/00.png", game->GetScaleFactor() * 0.8f);
+	images[1] = gfx2D->LoadImage("Spider/01.png", game->GetScaleFactor() * 0.8f);
+	images[2] = gfx2D->LoadImage("Spider/02.png", game->GetScaleFactor() * 0.8f);
+	images[3] = gfx2D->LoadImage("Spider/03.png", game->GetScaleFactor() * 0.8f);
+	images[4] = gfx2D->LoadImage("Spider/04.png", game->GetScaleFactor() * 0.8f);
+	images[5] = gfx2D->LoadImage("Spider/05.png", game->GetScaleFactor() * 0.8f);
+	images[6] = gfx2D->LoadImage("Spider/06.png", game->GetScaleFactor() * 0.8f);
+	images[7] = gfx2D->LoadImage("Spider/07.png", game->GetScaleFactor() * 0.8f);
+	spider_run_anim = new Animation(0.08f, images, 8, true);
 	spider_run_snd = new Audio("SpiderRun.wav", true, false);
 }
 
 void AnimationScreen::Update(float sec){
-    graphics->Clear(0, 0, 0);
+    gfx2D->Clear();
 	DrawBackground(sec);
 	spider_run_anim->Update(sec);
 
 	if(run_time >= 0) {
 		run_time -= sec;
-		graphics->DrawImage(game->GetWidth() / 2, game->GetHeight() / 2, spider_run_anim->GetImage());
+		gfx2D->DrawImage(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_run_anim->GetImage());
 		if(run_time < 0){
 			thinking_time = 1.3f;
 			spider_run_snd->Stop();
@@ -67,9 +69,10 @@ void AnimationScreen::Update(float sec){
 			if(head_angle < -45)
 				turn_left = true;
 		}
-		graphics->Rotate(spider_head, head_angle);
-		graphics->DrawImage(game->GetWidth() / 2, game->GetHeight() / 2, spider_body);
-		graphics->DrawImage(game->GetWidth() / 2, game->GetHeight() / 2 + 115, spider_head);
+		//graphics->Rotate(spider_head, head_angle);
+		spider_head->Rotate(head_angle);
+		gfx2D->DrawImage(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
+		gfx2D->DrawImage(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 + 115), spider_head);
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;
@@ -90,7 +93,7 @@ void AnimationScreen::DrawBackground(float sec) {
 	if(deltaY > background->texHeight*bcg_scale){
 		deltaY -= background->texHeight*bcg_scale;
 	}
-	graphics->DrawImage(0, y, background);
+	//graphics->DrawImage(0, y, background);
 }
 
 void AnimationScreen::OnKeyPressed(Key key){
@@ -129,7 +132,7 @@ void AnimationScreen::OnKeyPressed(Key key){
 AnimationScreen::~AnimationScreen(){
 	delete spider_run_anim;
 	delete spider_run_snd;
-	graphics->ReleaseImage(background);
-	graphics->ReleaseImage(spider_body);
-	graphics->ReleaseImage(spider_head);
+	//graphics->ReleaseImage(background);
+	gfx2D->ReleaseImage(spider_body);
+	gfx2D->ReleaseImage(spider_head);
 }

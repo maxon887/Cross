@@ -17,6 +17,9 @@
 #include "Bird.h"
 #include "Texter.h"
 #include "Utils\Debuger.h"
+#include "Graphics2D.h"
+
+#undef DrawText
 
 Bird::Bird(float mass, float maxSpeed, float maxForce, float maxTurnRate):
 	MovingEntity(mass, maxSpeed, maxForce, maxTurnRate){
@@ -40,9 +43,9 @@ void Bird::Update(float sec, Vector2D targetPos){
 	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight() * 2), forceMsg);
 	string accMsg = string("Accel - " + to_string(acceleration.Length()));
 	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight() * 3), accMsg);
-	graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + acceleration.x, pos.y + acceleration.y), Color::Yellow);
-	graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + steeringForce.x, pos.y + steeringForce.y), Color::Red);
-	graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + velocity.x, pos.y + velocity.y), Color::Green);
+	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + acceleration.x, pos.y + acceleration.y), Color::Yellow);
+	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + steeringForce.x, pos.y + steeringForce.y), Color::Red);
+	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + velocity.x, pos.y + velocity.y), Color::Green);
 }
 
 void Bird::Draw(){
@@ -58,7 +61,7 @@ void Bird::Draw(){
 	perpVector1 += pos;
 	perpVector2 += pos;
 
-	graphics->DrawLine(p1, Point(perpVector1.x, perpVector1.y), Color::Blue);
-	graphics->DrawLine(p1, Point(perpVector2.x, perpVector2.y), Color::Blue);
-	graphics->DrawLine(Point(perpVector1.x, perpVector1.y), Point(perpVector2.x, perpVector2.y), Color::Blue);
+	//graphics->DrawLine(p1, Point(perpVector1.x, perpVector1.y), Color::Blue);
+	//graphics->DrawLine(p1, Point(perpVector2.x, perpVector2.y), Color::Blue);
+	//graphics->DrawLine(Point(perpVector1.x, perpVector1.y), Point(perpVector2.x, perpVector2.y), Color::Blue);
 }

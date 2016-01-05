@@ -19,6 +19,8 @@
 
 namespace cross{
 
+typedef unsigned char byte;
+
 class File{
 public:
 	~File();

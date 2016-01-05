@@ -30,7 +30,6 @@ using namespace chrono;
 mutex cross::global_mutex;
 
 Launcher*	cross::launcher = NULL;
-Graphics*	cross::graphics = NULL;
 Graphics2D* cross::gfx2D = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;

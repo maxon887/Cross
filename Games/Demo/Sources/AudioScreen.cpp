@@ -1,4 +1,10 @@
 #include "AudioScreen.h"
+#include "Audio.h"
+#include "Graphics2D.h"
+#include "Game.h"
+#include "Config.h"
+
+using namespace cross;
 
 AudioScreen::~AudioScreen(void){
 	delete bck_music;
@@ -15,8 +21,8 @@ void AudioScreen::Start(){
 	truck = NULL;
 	going_back = false;
 	input->KeyPressed += MakeDelegate(this, &AudioScreen::OnKeyPressed);
-	Image* on = graphics->LoadImage("MusicOn.png");
-	Image* off = graphics->LoadImage("MusicOff.png");
+	Image* on = gfx2D->LoadImage("MusicOn.png");
+	Image* off = gfx2D->LoadImage("MusicOff.png");
 	Point pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 4 * 3;
@@ -32,8 +38,8 @@ void AudioScreen::Start(){
 		song_started = false;
 	}
 
-	Image* yellow_img = graphics->LoadImage("SoundButtonYellow.png");
-	Image* blue_img = graphics->LoadImage("SoundButtonBlue.png");
+	Image* yellow_img = gfx2D->LoadImage("SoundButtonYellow.png");
+	Image* blue_img = gfx2D->LoadImage("SoundButtonBlue.png");
 	//Image* gray_img = graphics->LoadImage("SoundButtonGray.png");
 	yellow_sound_btn = new Button(game, yellow_img, NULL);
 	pos.x = yellow_sound_btn->GetWidth() / 2;
@@ -51,7 +57,7 @@ void AudioScreen::Start(){
 }
 
 void AudioScreen::Update(float sec){
-	graphics->Clear(0,0,0);
+	gfx2D->Clear();
 	yellow_sound_btn->Update();
 	blue_sound_btn->Update();
 	music_btn->Update();

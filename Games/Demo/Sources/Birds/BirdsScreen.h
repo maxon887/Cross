@@ -18,7 +18,8 @@
 
 #include "Screen.h"
 #include "Vector2D.h"
-//#include "Bird.h"
+#include "Input.h"
+#include "Point.h"
 
 class Bird;
 

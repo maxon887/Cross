@@ -49,7 +49,11 @@ Graphics2D::~Graphics2D(){
 
 }
 
-void Graphics2D::DrawTargetImage(Vector2D pos, Image* img){
+void Graphics2D::Clear(){
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Graphics2D::DrawImage(Vector2D pos, Image* img){
 	img->SetPosition(pos);
 	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
 	glVertexAttribPointer(vertex_shader->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices());
@@ -59,10 +63,13 @@ void Graphics2D::DrawTargetImage(Vector2D pos, Image* img){
 	glUniformMatrix4fv(vertex_shader->uModelLoc, 1, GL_TRUE, img->GetModel());
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
-	//glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 Image* Graphics2D::LoadImage(string filename){
+	return LoadImage(filename, game->GetScaleFactor());
+}
+
+Image* Graphics2D::LoadImage(string filename, float scaleFactor){
 	Debuger::StartCheckTime();
 	GLuint textureID;
 	int width, height;
@@ -107,11 +114,17 @@ Image* Graphics2D::LoadImage(string filename){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	Rect region(0, 0, (float)width, (float)height);
 	Image* img = new Image(textureID, new_width, new_height, region);
-	//img->Scale(game->GetScaleFactor());
+	img->Scale(scaleFactor);
 	string debugMsg = "Load image " + filename + ": ";
 	glBindTexture(GL_TEXTURE_2D, 0);
 	Debuger::StopCheckTime(debugMsg);
 	return img;
+}
+
+void Graphics2D::ReleaseImage(Image* img){
+	GLuint texID = img->GetTextureID();
+	glDeleteTextures(1, &texID);
+	delete img;
 }
 
 byte* Graphics2D::LoadImageInternal(string filename, int* width, int* height){

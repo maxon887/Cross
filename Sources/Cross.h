@@ -19,20 +19,18 @@
 
 namespace cross{
 
-typedef unsigned char byte;
-
 class Game;
 class Launcher;
-class Graphics;
 class Graphics2D;
 class Graphics3D;
 class Input;
 class Config;
 class Debuger;
+class Image;
+class Audio;
 
 extern Game* game;
 extern Launcher* launcher;
-extern Graphics* graphics;
 extern Graphics2D* gfx2D;
 extern Graphics3D* gfx3D;
 extern Input* input;

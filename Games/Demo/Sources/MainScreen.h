@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#include "Graphics.h"
+#include "Graphics2D.h"
 #include "Screen.h"
 #include "Point.h"
 #include "Texter.h"

@@ -19,6 +19,7 @@
 #include "Game.h"
 #include "Launcher.h"
 #include "Point.h"
+#include "Texter.h"
 
 namespace cross{
 
@@ -42,11 +43,11 @@ public:
 	void OnActionUp(Point pos);
 	void OnActionMove(Point pos);
 
-	//Texter* GetTexter();
+	Texter* GetTexter();
 
 private:
-	//Texter* texter;
-	//Image* touch_pointer;
+	Texter* texter;
+	Image* touch_pointer;
 
 	float update_time;
 	float update_sum;

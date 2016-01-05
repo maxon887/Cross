@@ -18,9 +18,9 @@
 
 using namespace cross;
 
-static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+static unsigned short indices[] = { 0, 1, 2, 0, 2, 3 };
 
-Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
+Image::Image(unsigned int id, int texWidth, int texHeight, Rect region)
 	:region(region){
 	this->textureID = id;
 	this->texWidth = texWidth;
@@ -68,11 +68,12 @@ void Image::Scale(float factor){
 }
 
 void Image::Rotate(float angle){
+	this->angle = angle;
 	rotation.SetRotationZ(angle);
 	model = rotation * scale * translation;
 }
 
-GLuint Image::GetTextureID(){
+unsigned int Image::GetTextureID(){
 	return textureID;
 }
 
@@ -92,6 +93,6 @@ float* Image::GetModel(){
 	return model.GetData();
 }
 
-GLushort* Image::GetIndices(){
+unsigned short* Image::GetIndices(){
 	return indices;
 }

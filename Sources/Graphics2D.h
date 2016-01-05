@@ -19,6 +19,8 @@
 #include "GraphicsGL.h"
 #include "Matrix.h"
 #include "VertexShader.h"
+#include "File.h"
+#include "Color.h"
 
 #undef LoadImage;
 
@@ -30,17 +32,19 @@ class Graphics2D : public GraphicsGL{
 public:
 	Graphics2D();
 	~Graphics2D();
-
-	void DrawTargetImage(Vector2D pos, Image* img);
+	
+	void Clear();
+	void DrawImage(Vector2D pos, Image* img);
 	/* Load Image from assert file */
 	Image* LoadImage(string filename);
+	Image* LoadImage(string filename, float scaleFactor);
+	void ReleaseImage(Image* img);
 private:
 	VertexShader* vertex_shader;
 	Shader* fragment_shader;
 	Matrix projection;
 
 	byte* LoadImageInternal(string filename, int* width, int* height);
-//Framework module. You don't need call any of this methods or modify variable
 };
 
 }

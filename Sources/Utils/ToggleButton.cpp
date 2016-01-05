@@ -14,8 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "ToggleButton.h"
+#include "Graphics2D.h"
 
 using namespace cross;
 
@@ -23,11 +23,10 @@ ToggleButton::ToggleButton(Game* game, Image* on, Image* off)
 	:Button(game, on, off){
 	this->on = on;
 	this->off = off;
-	this->location = Point();
 	this->state = true;
 }
 
-ToggleButton::ToggleButton(Game* game, Point location, Image* on, Image* off)
+ToggleButton::ToggleButton(Game* game, Vector2D location, Image* on, Image* off)
 	:Button(game, location, on, off){
 	this->on = on;
 	this->off = off;
@@ -36,9 +35,9 @@ ToggleButton::ToggleButton(Game* game, Point location, Image* on, Image* off)
 
 void ToggleButton::Update(){
 	if(state)
-		graphics->DrawImage(location, on);
+		gfx2D->DrawImage(location, on);
 	else
-		graphics->DrawImage(location, off);
+		gfx2D->DrawImage(location, off);
 
 }
 

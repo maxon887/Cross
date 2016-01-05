@@ -17,6 +17,7 @@
 #include "Debuger.h"
 #include "Cross.h"
 #include "Input.h"
+#include "Graphics2D.h"
 
 #include <vector>
 

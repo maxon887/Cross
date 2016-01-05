@@ -17,8 +17,8 @@
 #pragma once
 
 #ifdef WIN
-#include "GL\glew.h"
-#include "GL\wglew.h"
+#include "Platform\Windows\glew\glew.h"
+#include "Platform\Windows\glew\wglew.h"
 #elif ANDROID
 //#include <GLES/gl.h>
 #include <GLES2/gl2.h>

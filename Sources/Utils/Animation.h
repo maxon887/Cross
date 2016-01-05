@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#include "Graphics.h"
+#include "Graphics2D.h"
 #include <vector>
 
 namespace cross {
@@ -24,16 +24,15 @@ namespace cross {
 class Animation{
 public:
 	Animation(Animation& anim);
-	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount);
-	Animation(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped);
+	Animation(float rate, Image* frames[], int frameCount);
+	Animation(float rate, Image* frames[], int frameCount, bool looped);
 	void Start();
 	void Update(float sec);
 	Image* GetImage();
 	bool IsRunning();
 	~Animation();
 private:
-	void Init(Graphics* gfx, float rate, Image* frames[], int frameCount, bool looped);
-	Graphics* graphics;
+	void Init(float rate, Image* frames[], int frameCount, bool looped);
 	vector<Image*> frames;
 	float rate;
 	float duration;

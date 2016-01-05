@@ -19,7 +19,6 @@
 #include "Game.h"
 #include "Input.h"
 #include "Config.h"
-//#include "Graphics.h"
 #include "Graphics2D.h"
 #include "resource.h"
 
@@ -258,8 +257,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	gfx3D = new Graphics3D();
 #elif GFX2D
 	gfx2D = new Graphics2D();
-#else
-	graphics = new Graphics(game);
 #endif
 	}catch(string& msg){
 		msg = "Exception: " + msg;
@@ -280,8 +277,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	}
 #ifdef GFX3D
 	delete gfx3D;
+#elif GFX2D
+	delete gfx2D;
 #endif
-	delete graphics;
 	delete game;
 	delete launcher;
 	return msg.wParam;

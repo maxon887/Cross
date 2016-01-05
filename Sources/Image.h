@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
+//#include "GraphicsGL.h"
 #include "Rect.h"
 #include "Matrix.h"
 
@@ -34,24 +34,25 @@ public:
 public:
 	int texWidth;
 	int texHeight;
+	float angle;
     
-	Image(GLuint id, int texWidth, int texHeight, Rect region);
+	Image(unsigned int id, int texWidth, int texHeight, Rect region);
 	void SetPosition(Vector2D pos);
 	void Scale(float factor);
 	void Rotate(float angle);
-	GLuint GetTextureID();
+	unsigned int GetTextureID();
 	float* GetVertices();
 	float* GetModel();
-	GLushort* GetIndices();
+	unsigned short* GetIndices();
 
 private:
 	Rect region;
-	GLuint textureID;
+	unsigned int textureID;
 	Matrix model;
 	Matrix scale;
 	Matrix translation;
 	Matrix rotation;
-	GLfloat vertices[16];
+	float vertices[16];
 	float u1, v1;
 	float u2, v2;
 };
