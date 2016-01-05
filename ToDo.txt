@@ -4,3 +4,6 @@
 4. Graphics2D
 5. Export libs
 6. General Resources
+7. Merge
+8. Memory menegment
+9. OpenGL ES
