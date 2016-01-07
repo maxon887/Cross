@@ -22,9 +22,9 @@
 #import "Cross.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
+Game* cross::game = NULL;
+
 @implementation CrossView{
-    LauncherOS* launcher;
-    Game* game;
     CGFloat screenScale;
     CADisplayLink* displayLink;
 }
@@ -54,7 +54,7 @@
     if(!launcher){
         launcher = new LauncherOS();
         game = CrossMain(launcher);
-        game->graphics = new Graphics(game);
+        graphics = new Graphics(game);
         game->Start();
     }else{
         game->Update();
@@ -71,35 +71,40 @@
     displayLink.paused = NO;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
+    [super touchesBegan:touches withEvent:event];
     if(!BlockInput){
         NSSet* touches = [event allTouches];
-        if(touches.count == 1){
-            game->input->input_state = true;
-            UITouch *touch = [touches anyObject];
-            CGPoint location = [touch locationInView:touch.view];
-            game->input->input_loc.x = location.x * screenScale;
-            game->input->input_loc.y = location.y * screenScale;
-        }
+        UITouch *touch = [touches anyObject];
+        CGPoint location = [touch locationInView:touch.view];
+        float x = location.x * screenScale / game->GetScaleFactor();
+        float y = location.y * screenScale / game->GetScaleFactor();
+        input->TriggerActionDown(cross::Point(x, y));
     }
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event{
+    [super touchesMoved:touches withEvent:event];
     if(!BlockInput){
         NSSet* touches = [event allTouches];
-        if(touches.count == 1){
-            game->input->input_state = true;
-            UITouch *touch = [touches anyObject];
-            CGPoint location = [touch locationInView:touch.view];
-            game->input->input_loc.x = location.x * screenScale;
-            game->input->input_loc.y = location.y * screenScale;
-        }
+        UITouch *touch = [touches anyObject];
+        CGPoint location = [touch locationInView:touch.view];
+        float x = location.x * screenScale / game->GetScaleFactor();
+        float y = location.y * screenScale / game->GetScaleFactor();
+        input->TriggerActionMove(cross::Point(x, y));
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
+    [super touchesEnded:touches withEvent:event];
+    NSMutableSet* alltouches = [[NSMutableSet alloc] initWithSet:[event allTouches]];
     if(!BlockInput){
-        game->input->input_state = false;
+        UITouch* touch = [touches anyObject];
+        touch = [alltouches anyObject];
+        CGPoint location = [touch locationInView:touch.view];
+        float x = location.x * screenScale / game->GetScaleFactor();
+        float y = location.y * screenScale / game->GetScaleFactor();
+        input->TriggerActionUp(cross::Point(x, y));
     }
 }
 

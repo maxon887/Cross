@@ -42,9 +42,6 @@
     <ClCompile Include="..\..\..\..\Sources\Input.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Saver.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -124,6 +121,9 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Commercial.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Config.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\MenuScreen.h">
@@ -142,9 +142,6 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Launcher.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Saver.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Screen.h">
@@ -261,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Events\FastDelegateBind.h">
       <Filter>Cross\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Config.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

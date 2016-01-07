@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #include "GameScreen.h"
 #include "MenuScreen.h"
 #include "Cactus.h"
@@ -537,32 +536,6 @@ void GameScreen::DrawLastScore(){
 }
 
 void GameScreen::CalcInput(float sec){
-	if(control_pos != input_pos){
-		float fingerAngle = Angle(control_pos, input_pos);
-		//determine in witch direction we need to move
-		float clockwise;
-		if(fingerAngle > snake->Direction())
-			clockwise = 360 + snake->Direction() - fingerAngle;
-		else 
-			clockwise = snake->Direction() - fingerAngle;
-		float counterclockwise = 360 - clockwise;
-		//rotate snake head
-		if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
-			snake->Rotate(fingerAngle);
-		} else {
-			if(counterclockwise < clockwise) {
-				snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
-			}else{
-				snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
-			}
-
-			if(snake->Direction() >= 180.f)
-				snake->Rotate(snake->Direction() - 360.f);
-			if(snake->Direction() <= -180.f)
-				snake->Rotate(snake->Direction() + 360.f);
-		}
-	}
-
 	if(control == ARROWS){
 		if(on_left){
 			snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
@@ -576,6 +549,33 @@ void GameScreen::CalcInput(float sec){
 			right_btn->DrawDown();
 		}else{
 			right_btn->DrawUp();
+		}
+	}
+	if(control == SLIDE){
+		if(control_pos != input_pos){
+			float fingerAngle = Angle(control_pos, input_pos);
+			//determine in witch direction we need to move
+			float clockwise;
+			if(fingerAngle > snake->Direction())
+				clockwise = 360 + snake->Direction() - fingerAngle;
+			else 
+				clockwise = snake->Direction() - fingerAngle;
+			float counterclockwise = 360 - clockwise;
+			//rotate snake head
+			if(clockwise < snake->GetSpeedW() * sec || counterclockwise < snake->GetSpeedW() * sec) {
+				snake->Rotate(fingerAngle);
+			} else {
+				if(counterclockwise < clockwise) {
+					snake->Rotate(snake->Direction() + snake->GetSpeedW() * sec);
+				}else{
+					snake->Rotate(snake->Direction() - snake->GetSpeedW() * sec);
+				}
+
+				if(snake->Direction() >= 180.f)
+					snake->Rotate(snake->Direction() - 360.f);
+				if(snake->Direction() <= -180.f)
+					snake->Rotate(snake->Direction() + 360.f);
+			}
 		}
 	}
 }

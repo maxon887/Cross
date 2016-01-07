@@ -29,6 +29,7 @@ using namespace cross;
 
 static Game* game;
 
+
 extern "C"{
 	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager, jobject crossActivity){
 		LOGI("Cross_Init");

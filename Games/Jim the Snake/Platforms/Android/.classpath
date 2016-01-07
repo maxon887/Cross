@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="lib" path="lib/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/Billing.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

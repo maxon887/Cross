@@ -21,7 +21,7 @@ using namespace cross;
 
 #ifndef DISABLE_AUDIO
 
-#include "FMOD\fmod.hpp"
+#include "FMOD/fmod.hpp"
 #include "FMOD/fmod_errors.h"
 
 #include <stdarg.h>

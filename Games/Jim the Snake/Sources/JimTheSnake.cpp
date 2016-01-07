@@ -37,11 +37,11 @@ JimTheSnake::JimTheSnake(Launcher* launcher):Game(launcher, GAME_WIDTH){
 void JimTheSnake::Start(){
 	launcher->LogIt("SnakyGame->Start()");
 	//debuger->EnableScreenDebug();
-	music = saver->LoadBool(PROPERTY_MUSIC, true);
-	sound = saver->LoadBool(PROPERTY_SOUND, true);
-	score = saver->LoadInt(PROPERTY_SCORE, 0);
-	control = (Control)saver->LoadInt(PROPERTY_CONTROL, SLIDE);
-	purchased = saver->LoadBool(PROPERTY_PURCHASED, false);
+	music = config->LoadBool(PROPERTY_MUSIC, true);
+	sound = config->LoadBool(PROPERTY_SOUND, true);
+	score = config->LoadInt(PROPERTY_SCORE, 0);
+	control = (Control)config->LoadInt(PROPERTY_CONTROL, SLIDE);
+	purchased = config->LoadBool(PROPERTY_PURCHASED, false);
 	commercial = launcher->GetCommercial();
 	graphics->SetPrimitiveEnable(false);
 	if(commercial != NULL){
@@ -73,19 +73,19 @@ bool JimTheSnake::IsPurchased(){
 }
 
 void JimTheSnake::SetMusicEnabled(bool enabled){
-	saver->SaveBool(PROPERTY_MUSIC, enabled);
+	config->SaveBool(PROPERTY_MUSIC, enabled);
 	music = enabled;
 }
 void JimTheSnake::SetSoundEnabled(bool enabled){
-	saver->SaveBool(PROPERTY_SOUND, enabled);
+	config->SaveBool(PROPERTY_SOUND, enabled);
 	sound = enabled;
 }
 void JimTheSnake::SetBestScore(int best){
-	saver->SaveInt(PROPERTY_SCORE, best);
+	config->SaveInt(PROPERTY_SCORE, best);
 	score = best;
 }
 void JimTheSnake::SetControl(Control control){
-	saver->SaveInt(PROPERTY_CONTROL, control);
+	config->SaveInt(PROPERTY_CONTROL, control);
 	this->control = control;
 }
 
@@ -103,7 +103,7 @@ void JimTheSnake::CommercialCallback(Commercial::Event e){
 		break;
 	case Commercial::PURCHASE_COMPLETE:
 		launcher->LogIt("Purchase complete");
-        saver->SaveBool(PROPERTY_PURCHASED, true);
+		config->SaveBool(PROPERTY_PURCHASED, true);
         purchased = true;
 		break;
 	case Commercial::PURCHASE_CANCELED:

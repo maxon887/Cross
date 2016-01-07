@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "Snake.h"
 #include "Cactus.h"
 
@@ -349,8 +348,8 @@ void Snake::UpdateBody(float sec){
 }
 
 void Snake::DrawBody(){
-	for(Body* b : body_nodes){
-		b->Draw();
+	for(int i = 1; i < body_nodes.size(); i++){
+		body_nodes[i]->Draw();
 	}
 }
 

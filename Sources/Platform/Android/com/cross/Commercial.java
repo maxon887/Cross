@@ -70,7 +70,7 @@ public class Commercial {
 		}
 	}
 	
-	private static final String app_key = "*******************************";
+	private static final String app_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhg/KgTQjD4eTqTWUJ5iV0G7RcfdiiZ+uEJT+RhuBcx2TguoIkASZKn1QLSflrJY5nYB7UDyt5Vh2AtSLIdP6EWgOybcvohPBYjuXrwsOKWYUadfk1KCebV/565KH58Ex77M5MDDdYV8/WjIm2KOKEqD4bcoBsNdRLpvREXlGLPlJrRyQDVd3hA6b4pJ7PNFGzwRibCo7Ix63UPhTCHpkNgqJXwUc0s/Bx/0vu9qY/Pxwo2+tp5280+J1OZyx1khjq31s37MWAV+SuIu8O/PnG5uXq3byTclsSUpP7oQgyqUloqMhtlcW4FzGkh89o1FWbimzLSwghZ6xKGp8mUAw0QIDAQAB";
 	private static IabHelper mHelper;
 	private static CrossActivity mActivity;
 	private static InterstitialAd mAd;
@@ -94,7 +94,7 @@ public class Commercial {
 			@Override
 			public void run() {
 				mAd = new InterstitialAd(mActivity);
-				mAd.setAdUnitId("**********************************");
+				mAd.setAdUnitId("ca-app-pub-2859596256803284/4602746658");
 				AdRequest adRequest = new AdRequest.Builder().build();
 				mAd.setAdListener(new CommAdListener());
 				mAd.loadAd(adRequest);

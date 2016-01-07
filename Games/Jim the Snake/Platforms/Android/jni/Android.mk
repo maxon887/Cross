@@ -22,6 +22,7 @@ LOCAL_C_INCLUDES := ../../../../Sources/Platform/Android \
 					../../../../Sources \
 					../../../../Sources/Utils \
 					../../../../Sources/SOIL \
+					../../../../Sources/Events \
 					../../Sources 
 
 LOCAL_SRC_FILES := 	main.cpp \
@@ -42,7 +43,7 @@ LOCAL_SRC_FILES := 	main.cpp \
 					../../../../../Sources/Game.cpp \
 					../../../../../Sources/Image.cpp \
 					../../../../../Sources/Input.cpp \
-					../../../../../Sources/Saver.cpp \
+					../../../../../Sources/Config.cpp \
 					../../../../../Sources/Audio.cpp \
 					../../../../../Sources/Point.cpp \
 					../../../../../Sources/Rect.cpp \
