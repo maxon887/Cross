@@ -23,7 +23,7 @@ void AudioScreen::Start(){
 	input->KeyPressed += MakeDelegate(this, &AudioScreen::OnKeyPressed);
 	Image* on = gfx2D->LoadImage("MusicOn.png");
 	Image* off = gfx2D->LoadImage("MusicOff.png");
-	Point pos;
+	Vector2D pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 4 * 3;
 	music_btn = new ToggleButton(game, pos, on, off);

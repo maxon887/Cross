@@ -143,7 +143,7 @@ void Game::Init(Launcher* launcher){
 	input = new Input();
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();
-	graphics = NULL;
+	gfx2D = NULL;
 	gfx3D = NULL;
 	this->current_screen = NULL;
 }

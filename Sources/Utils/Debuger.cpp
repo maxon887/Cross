@@ -165,20 +165,20 @@ void Debuger::SetUpdateTime(float micro) {
 	}
 }
 
-void Debuger::OnActionDown(Point pos){
+void Debuger::OnActionDown(Vector2D pos){
 	touch_down = true;
 	touch_pos = pos;
 }
 
-void Debuger::OnActionUp(Point pos){
+void Debuger::OnActionUp(Vector2D pos){
 	touch_down = false;
 }
 
-void Debuger::OnActionMove(Point pos){
+void Debuger::OnActionMove(Vector2D pos){
 	touch_pos = pos;
 }
 
-/*
+
 Texter* Debuger::GetTexter(){
 	return texter;
-}*/
+}

@@ -65,6 +65,12 @@ void Graphics2D::DrawImage(Vector2D pos, Image* img){
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
 }
 
+Image* Graphics2D::CreateImage(Image* src, Rect area, float scaleFactor){
+	Image* img = new Image(src->GetTextureID(), (int)src->texWidth, (int)src->texHeight, area);
+	img->Scale(scaleFactor);
+	return img;
+}
+
 Image* Graphics2D::LoadImage(string filename){
 	return LoadImage(filename, game->GetScaleFactor());
 }
@@ -122,6 +128,9 @@ Image* Graphics2D::LoadImage(string filename, float scaleFactor){
 }
 
 void Graphics2D::ReleaseImage(Image* img){
+	if(img == NULL){
+		throw string("Can't release NULL image");
+	}
 	GLuint texID = img->GetTextureID();
 	glDeleteTextures(1, &texID);
 	delete img;

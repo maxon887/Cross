@@ -48,7 +48,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodL_vc.lib;$(ProjectDir)/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,9 +76,9 @@
     <ClCompile Include="..\..\..\..\Sources\Matrix.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Point.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
@@ -91,6 +91,7 @@
     <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\VertexShader.cpp" />
     <ClCompile Include="..\..\Sources\AnimationScreen.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp" />
@@ -116,10 +117,10 @@
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
     <ClInclude Include="..\..\..\..\Sources\Matrix.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
-    <ClInclude Include="..\..\..\..\Sources\Point.h" />
     <ClInclude Include="..\..\..\..\Sources\Rect.h" />
     <ClInclude Include="..\..\..\..\Sources\Config.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
@@ -132,6 +133,7 @@
     <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector3D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector4D.h" />
+    <ClInclude Include="..\..\..\..\Sources\VertexShader.h" />
     <ClInclude Include="..\..\Sources\AnimationScreen.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Birds\Behaviour.h" />

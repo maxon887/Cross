@@ -85,8 +85,10 @@ Button::Button(Game* game, Rect area){
 }
 
 Button::~Button(){
-	graphics->ReleaseImage(down);
-	graphics->ReleaseImage(up);
+	if(down){
+		gfx2D->ReleaseImage(down);
+	}
+	gfx2D->ReleaseImage(up);
 	input->ActionDown -= action_down_delegate;
 	input->ActionUp -= action_up_delegate;
 }

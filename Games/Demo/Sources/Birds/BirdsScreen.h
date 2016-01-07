@@ -19,7 +19,7 @@
 #include "Screen.h"
 #include "Vector2D.h"
 #include "Input.h"
-#include "Point.h"
+#include "Vector2D.h"
 
 class Bird;
 
@@ -35,5 +35,5 @@ private:
 	Bird* bird;
 	void DrawCursor(Vector2D pos);
 	void OnKeyPressed(Key key);
-	void OnActionDown(Point pos);
+	void OnActionDown(Vector2D pos);
 };

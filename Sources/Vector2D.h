@@ -38,6 +38,8 @@ public:
 	void operator *= (const float value);
 	Vector2D operator / (const float value) const;
 	void operator /= (const float value);
+	bool operator == (const Vector2D &v2) const;
+	bool operator != (const Vector2D &v2) const;
 };
 
 float Distance(const Vector2D &v1, const Vector2D &v2);

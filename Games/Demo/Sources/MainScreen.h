@@ -18,7 +18,7 @@
 
 #include "Graphics2D.h"
 #include "Screen.h"
-#include "Point.h"
+#include "Vector2D.h"
 #include "Texter.h"
 #include "Debuger.h"
 #include "Button.h"

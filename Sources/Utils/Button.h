@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Vector2D.h"
 #include "Rect.h"
 #include "Vector2D.h"
 #include "Events\Event.h"
@@ -42,7 +43,7 @@ public:
 	void DrawUp();
 	void DrawDown();
 	Rect GetRect();
-	Point GetCenter();
+	Vector2D GetCenter();
 
 	DECLARE_EVENT(void) Clicked;
 protected:

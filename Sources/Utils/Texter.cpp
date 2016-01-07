@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Texter.h"
 #include "Graphics2D.h"
+#include "Rect.h"
+#include "Image.h"
 
 #undef DrawText
 
@@ -44,7 +46,7 @@ Texter::~Texter(){
 	}
 }
 
-void Texter::DrawText(Point pos, string text){
+void Texter::DrawText(Vector2D pos, string text){
 	DrawText(pos.x, pos.y, text);
 }
 
@@ -88,6 +90,6 @@ void Texter::Init(	Game* game, const char* fontFilename,
 
 void Texter::SetScaleFactor(float scaleFactor){
 	for(int i = 0; i < count; i++){
-		graphics->ScaleImage(letters[i], scaleFactor);
+		letters[i]->Scale(scaleFactor);
 	}
 }

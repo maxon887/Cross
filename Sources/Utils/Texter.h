@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Game.h"
-#include "Point.h"
+#include "Vector2D.h"
 
 namespace cross {
     
@@ -38,7 +38,7 @@ public:
 	~Texter();
 
 	void DrawText(float x, float y, string text);
-	void DrawText(Point pos, string text);
+	void DrawText(Vector2D pos, string text);
 	float GetWidth();
 	float GetHeight();
 	void SetScaleFactor(float scaleFactor);

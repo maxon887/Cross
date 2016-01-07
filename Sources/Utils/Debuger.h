@@ -18,12 +18,11 @@
 
 #include "Game.h"
 #include "Launcher.h"
-#include "Point.h"
 #include "Texter.h"
 
 namespace cross{
 
-class Point;
+class Vector2D;
 
 class Debuger{
 public:
@@ -39,9 +38,9 @@ public:
 	void EnableConsoleDebug();
 	void EnableTouches();
 
-	void OnActionDown(Point pos);
-	void OnActionUp(Point pos);
-	void OnActionMove(Point pos);
+	void OnActionDown(Vector2D pos);
+	void OnActionUp(Vector2D pos);
+	void OnActionMove(Vector2D pos);
 
 	Texter* GetTexter();
 
@@ -63,7 +62,7 @@ private:
 	bool screen_debug;
 	bool console_debug;
 	bool touches;
-	Point touch_pos;
+	Vector2D touch_pos;
 	bool touch_down;
 };
     

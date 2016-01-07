@@ -21,6 +21,7 @@
 #include "VertexShader.h"
 #include "File.h"
 #include "Color.h"
+#include "Rect.h"
 
 #undef LoadImage;
 
@@ -35,6 +36,7 @@ public:
 	
 	void Clear();
 	void DrawImage(Vector2D pos, Image* img);
+	Image* CreateImage(Image* src, Rect area, float scaleFactor);
 	/* Load Image from assert file */
 	Image* LoadImage(string filename);
 	Image* LoadImage(string filename, float scaleFactor);

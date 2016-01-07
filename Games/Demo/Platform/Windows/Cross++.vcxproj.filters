@@ -76,9 +76,6 @@
     <ClCompile Include="..\..\..\..\Sources\Color.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Point.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -131,6 +128,12 @@
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shader.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\VertexShader.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
@@ -190,9 +193,6 @@
     <ClInclude Include="..\..\..\..\Sources\Color.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Point.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Rect.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -248,6 +248,12 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shader.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\VertexShader.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

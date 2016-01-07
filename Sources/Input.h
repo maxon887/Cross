@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Point.h"
+#include "Vector2D.h"
 #include "Events\Event.h"
 
 namespace cross {
@@ -46,9 +46,9 @@ enum Key{
 	Handle touches, clicks and key events */
 class Input{
 public:
-	DECLARE_EVENT(void, Point) ActionDown;
-	DECLARE_EVENT(void, Point) ActionUp;
-	DECLARE_EVENT(void, Point) ActionMove;
+	DECLARE_EVENT(void, Vector2D) ActionDown;
+	DECLARE_EVENT(void, Vector2D) ActionUp;
+	DECLARE_EVENT(void, Vector2D) ActionMove;
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;

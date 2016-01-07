@@ -70,7 +70,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		x = targetX / game->GetScaleFactor();
 		y = targetY / game->GetScaleFactor();
 		mouseDown = true;
-		TRIGGER_EVENT(input->ActionDown, Point(x, y));
+		TRIGGER_EVENT(input->ActionDown, Vector2D(x, y));
 		break;
 	case WM_MOUSEMOVE:
 		if(mouseDown){
@@ -78,7 +78,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 			targetY = (short)HIWORD(lParam);
 			x = targetX / game->GetScaleFactor();
 			y = targetY / game->GetScaleFactor();
-			TRIGGER_EVENT(input->ActionMove, Point(x, y));
+			TRIGGER_EVENT(input->ActionMove, Vector2D(x, y));
 		}
 		break;
 	case WM_LBUTTONUP:
@@ -87,7 +87,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		x = targetX / game->GetScaleFactor();
 		y = targetY / game->GetScaleFactor();
 		mouseDown = false;
-		TRIGGER_EVENT(input->ActionUp, Point(x, y));
+		TRIGGER_EVENT(input->ActionUp, Vector2D(x, y));
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);

@@ -94,11 +94,22 @@ void Vector2D::operator/=(const float v){
 	this->y /= v;
 }
 
+bool Vector2D::operator==(const Vector2D &v2) const{
+	if(this->x == v2.x && this->y && v2.y)
+		return true;
+	else
+		return false;
+}
+
+bool Vector2D::operator!=(const Vector2D &v2) const{
+	return !((*this) == v2);
+}
+
 // ***************** General functions ********************
-float Distance(const Vector2D &v1, const Vector2D &v2){
+float cross::Distance(const Vector2D &v1, const Vector2D &v2){
 	return sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
 }
 
-float DistanceSq(const Vector2D &v1, const Vector2D &v2){
+float cross::DistanceSq(const Vector2D &v1, const Vector2D &v2){
 	return (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y);
 }

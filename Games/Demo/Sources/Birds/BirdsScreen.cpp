@@ -41,12 +41,12 @@ void BirdsScreen::Update(float sec){
 }
 
 void BirdsScreen::DrawCursor(Vector2D pos){
-	//graphics->DrawLine(Point(pos.x, pos.y + 5), Point(pos.x, pos.y - 6), Color::Red);
-	//graphics->DrawLine(Point(pos.x + 5, pos.y), Point(pos.x - 6, pos.y), Color::Red);
-	//graphics->DrawCircle(Point(pos.x, pos.y), 3.f, Color::Red);
+	//graphics->DrawLine(Vector2D(pos.x, pos.y + 5), Vector2D(pos.x, pos.y - 6), Color::Red);
+	//graphics->DrawLine(Vector2D(pos.x + 5, pos.y), Vector2D(pos.x - 6, pos.y), Color::Red);
+	//graphics->DrawCircle(Vector2D(pos.x, pos.y), 3.f, Color::Red);
 }
 
-void BirdsScreen::OnActionDown(Point pos){
+void BirdsScreen::OnActionDown(Vector2D pos){
 	cursor.x = pos.x;
 	cursor.y = pos.y;
 }

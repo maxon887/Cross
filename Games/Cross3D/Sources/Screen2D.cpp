@@ -40,5 +40,5 @@ void Screen2D::Update(float sec){
 	time += sec;
 	logo->Rotate(time * 10);
 
-	gfx2D->DrawTargetImage(Vector2D(256, 256), logo);
+	gfx2D->DrawImage(Vector2D(256, 256), logo);
 }

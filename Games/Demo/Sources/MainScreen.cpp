@@ -56,7 +56,7 @@ void MainScreen::Start(){
 
 void MainScreen::Update(float sec){
 	gfx2D->Clear();
-	//gfx2D->DrawLine(Point(0,0), Point(24,24), Color::Blue);
+	//gfx2D->DrawLine(Vector2D(0,0), Vector2D(24,24), Color::Blue);
 	Vector2D pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 4 + 40;

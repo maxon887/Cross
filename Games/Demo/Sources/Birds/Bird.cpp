@@ -38,11 +38,11 @@ void Bird::Update(float sec, Vector2D targetPos){
 
 	Texter* texter = debuger->GetTexter();
 	string speedMsg = string("Speed - " + to_string(velocity.Length()));
-	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight()), speedMsg);
+	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight()), speedMsg);
 	string forceMsg = string("Force - " + to_string(steeringForce.Length()));
-	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight() * 2), forceMsg);
+	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight() * 2), forceMsg);
 	string accMsg = string("Accel - " + to_string(acceleration.Length()));
-	texter->DrawText(Point(0, game->GetHeight() - texter->GetHeight() * 3), accMsg);
+	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight() * 3), accMsg);
 	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + acceleration.x, pos.y + acceleration.y), Color::Yellow);
 	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + steeringForce.x, pos.y + steeringForce.y), Color::Red);
 	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + velocity.x, pos.y + velocity.y), Color::Green);
@@ -55,7 +55,7 @@ void Bird::Draw(){
 	perpVector1 *= 10;
 	perpVector2 *= 10;
 	normVelocity *= 30;
-	Point p1;
+	Vector2D p1;
 	p1.x = pos.x + normVelocity.x;
 	p1.y = pos.y + normVelocity.y;
 	perpVector1 += pos;
