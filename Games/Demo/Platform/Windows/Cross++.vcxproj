@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -44,11 +44,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../Sources;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GFX2D;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodL_vc.lib;$(ProjectDir)/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,15 +67,18 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\File.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Graphics.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Image.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Matrix.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Point.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
@@ -85,6 +88,10 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Vector3D.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\VertexShader.cpp" />
     <ClCompile Include="..\..\Sources\AnimationScreen.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp" />
@@ -95,23 +102,25 @@
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\TestScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
+    <ClInclude Include="..\..\..\..\Sources\Cross.h" />
+    <ClInclude Include="..\..\..\..\Sources\File.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
-    <ClInclude Include="..\..\..\..\Sources\Graphics.h" />
+    <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />
+    <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Image.h" />
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Cross.h" />
+    <ClInclude Include="..\..\..\..\Sources\Matrix.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h" />
-    <ClInclude Include="..\..\..\..\Sources\Point.h" />
     <ClInclude Include="..\..\..\..\Sources\Rect.h" />
     <ClInclude Include="..\..\..\..\Sources\Config.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
@@ -121,6 +130,10 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
+    <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
+    <ClInclude Include="..\..\..\..\Sources\Vector3D.h" />
+    <ClInclude Include="..\..\..\..\Sources\Vector4D.h" />
+    <ClInclude Include="..\..\..\..\Sources\VertexShader.h" />
     <ClInclude Include="..\..\Sources\AnimationScreen.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Birds\Behaviour.h" />
@@ -131,7 +144,6 @@
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\TestScreen.h" />
-    <ClInclude Include="..\..\Sources\Vector2D.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

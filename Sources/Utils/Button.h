@@ -14,53 +14,55 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
-
-#include "Game.h"
+#include "Cross.h"
+#include "Vector2D.h"
+#include "Rect.h"
+#include "Vector2D.h"
+#include "Events\Event.h"
 
 namespace cross {
 
 class Button{
 public:
 	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, Point location, Image* up, Image* down);
+	Button(Game* game, Vector2D location, Image* up, Image* down);
 	Button(Game* game, float width, float height);
 	Button(Game* game, Rect area);
 	~Button();
 	void Update();
 	void SetSounds(Audio* push, Audio* pull);
-	void SetLocation(Point location);
+	void SetLocation(Vector2D location);
 	void SetActive(bool active);
 	float GetWidth();
 	float GetHeight();
 	bool IsPressed();
 	void SetPressed(bool pressed);
 	bool OnLocation(float x, float y);
-	bool OnLocation(Point p);
+	bool OnLocation(Vector2D p);
 	void DrawUp();
 	void DrawDown();
 	Rect GetRect();
-	Point GetCenter();
+	Vector2D GetCenter();
 
 	DECLARE_EVENT(void) Clicked;
 protected:
-	Point location;
+	Vector2D location;
 	Rect area;
 	Image* up;
 	Image* down;
 	Audio* push;
 	Audio* pull;
-	void InitRect(Point loc, float width, float heiht);
+	void InitRect(Vector2D loc, float width, float heiht);
 	bool is_pressed;
 	bool have_area;
 	bool active;
 
-	FastDelegate1<Point, void> action_down_delegate;
-	FastDelegate1<Point, void> action_up_delegate;
+	FastDelegate1<Vector2D, void> action_down_delegate;
+	FastDelegate1<Vector2D, void> action_up_delegate;
 
-	void ActionDownHandler(Point pos);
-	void ActionUpHandler(Point pos);
+	void ActionDownHandler(Vector2D pos);
+	void ActionUpHandler(Vector2D pos);
 };
     
 }

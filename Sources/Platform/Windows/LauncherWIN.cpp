@@ -14,14 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "LauncherWIN.h"
+#include "File.h"
+#include "Audio.h"
 
 #include <fstream>
 
-using namespace cross;
-
 #define DATA_PATH "Data/"
+
+using namespace cross;
 
 bool DirectoryExists(LPCTSTR szPath){
   DWORD dwAttrib = GetFileAttributes(szPath);
@@ -35,6 +36,7 @@ void IntSleep(int milis){
 }
 
 LauncherWIN::LauncherWIN(HWND wnd){
+	LogIt("LauncherWIN::LauncherWIN(HWND)");
 	this->wnd = wnd;
 	Audio::Init(this);
 	landscape = false;
@@ -71,12 +73,19 @@ int LauncherWIN::GetTargetHeight(){
 }
 
 string LauncherWIN::AssetsPath(){
-	LPCTSTR szPath = "../../Assets/";
-	if(DirectoryExists(szPath)){
-		return szPath;
-	}else{
-		return "Assets/";
+	LPCTSTR releaseAsset = "Assets/";
+	LPCTSTR debugAsset = "../../../Assets/";
+	LPCTSTR debugAssetAlt = "../../Assets/";
+	if (DirectoryExists(releaseAsset)){
+		return releaseAsset;
 	}
+	if(DirectoryExists(debugAsset)){
+		return debugAsset;
+	}
+	if(DirectoryExists(debugAssetAlt)){
+		return debugAssetAlt;
+	}
+	throw string("Can't find Assets folder");
 }
 
 string LauncherWIN::DataPath(){
@@ -95,6 +104,24 @@ unsigned char* LauncherWIN::LoadFile(string filename, int *size){
 		fileStream.read((char*)data, *size);
 		return (unsigned char*)data;
 	}else{
+		throw string("Cannot open file " + filename);
+	}
+}
+
+File* LauncherWIN::LoadFile(string filename){
+	File* file = new File();
+	file->name = filename;
+	string filePath = AssetsPath() + "//" + filename;
+	ifstream fileStream(filePath, istream::binary);
+	if(fileStream.is_open()){
+		fileStream.seekg(0, fileStream.end);
+		file->size = (size_t)fileStream.tellg();
+		fileStream.seekg(0, fileStream.beg);
+		file->data = new byte[file->size];
+		ZeroMemory(file->data, file->size);
+		fileStream.read((char*)file->data, file->size);
+		return file;
+	} else{
 		throw string("Cannot open file " + filename);
 	}
 }

@@ -17,18 +17,19 @@
 #pragma once
 
 #include "Game.h"
-#ifndef C3D
+#include "Launcher.h"
 #include "Texter.h"
-#endif
 
 namespace cross{
+
+class Vector2D;
 
 class Debuger{
 public:
 	static void StartCheckTime();
 	static void StopCheckTime(string label);
 
-	Debuger(Game* game);
+	Debuger();
 	~Debuger();
 
 	void Display(float sec);
@@ -37,17 +38,15 @@ public:
 	void EnableConsoleDebug();
 	void EnableTouches();
 
-	void OnActionDown(Point pos);
-	void OnActionUp(Point pos);
-	void OnActionMove(Point pos);
+	void OnActionDown(Vector2D pos);
+	void OnActionUp(Vector2D pos);
+	void OnActionMove(Vector2D pos);
 
 	Texter* GetTexter();
+
 private:
-	Game* game;
-#ifndef C3D
 	Texter* texter;
 	Image* touch_pointer;
-#endif
 
 	float update_time;
 	float update_sum;
@@ -63,7 +62,7 @@ private:
 	bool screen_debug;
 	bool console_debug;
 	bool touches;
-	Point touch_pos;
+	Vector2D touch_pos;
 	bool touch_down;
 };
     

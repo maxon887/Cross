@@ -14,22 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
-#include "Point.h"
+#include "Vector2D.h"
 #include "Rect.h"
-
-namespace cross {
 
 #define PI (3.141592653589793f)
 
-bool PointInRect(Point p, Rect rect);
-bool PointInTriangle(Point pt, Point v1, Point v2, Point v3);
-bool PointInCircle(Point p, Point center, float radius);
-bool CircleOnCollision(Point p1, float r1, Point p2, float r2);
+namespace cross {
+
+bool PointInRect(Vector2D p, Rect rect);
+bool PointInTriangle(Vector2D pt, Vector2D v1, Vector2D v2, Vector2D v3);
+bool PointInCircle(Vector2D p, Vector2D center, float radius);
+bool CircleOnCollision(Vector2D p1, float r1, Vector2D p2, float r2);
 float Lerp(float v0, float v1, float t);
-float Distance(const Point &p1, const Point &p2);
-float Angle(const Point &first, const Point &second);
+float Angle(const Vector2D &first, const Vector2D &second);
 
 }

@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #define TARGET_WIDTH 512		
@@ -31,7 +30,6 @@
 
 #include <Windows.h>
 #include "Launcher.h"
-#include "Audio.h"
 
 namespace cross{
 
@@ -45,6 +43,7 @@ public:
 	string AssetsPath();
 	string DataPath();
 	unsigned char* LoadFile(string filename, int *size);
+	File* LoadFile(string filename);
 	void LogIt(string msg);
 	void Sleep(float milis);
 	void ShowMessage(string msg);

@@ -14,20 +14,11 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
-
-#include "Launcher.h"
+#include "Cross.h"
+//#include "GraphicsGL.h"
 #include "Rect.h"
-
-#ifdef WIN
-    #include <Windows.h>
-    #include <gl/GL.h>
-#elif IOS
-    #include <OpenGLES/ES1/gl.h>
-#elif ANDROID
-    #include <GLES/gl.h>
-#endif
+#include "Matrix.h"
 
 namespace cross {
 
@@ -41,17 +32,26 @@ public:
 
 //Internal data. You don't need call any of this methods or modify variable
 public:
-    float angle;
 	int texWidth;
 	int texHeight;
+	float angle;
     
-	Image(GLuint id, int texWidth, int texHeight, Rect region);
+	Image(unsigned int id, int texWidth, int texHeight, Rect region);
+	void SetPosition(Vector2D pos);
 	void Scale(float factor);
-	GLuint GetTextureID();
+	void Rotate(float angle);
+	unsigned int GetTextureID();
 	float* GetVertices();
+	float* GetModel();
+	unsigned short* GetIndices();
+
 private:
 	Rect region;
-	GLuint textureID;
+	unsigned int textureID;
+	Matrix model;
+	Matrix scale;
+	Matrix translation;
+	Matrix rotation;
 	float vertices[16];
 	float u1, v1;
 	float u2, v2;

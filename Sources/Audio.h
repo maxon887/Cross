@@ -15,8 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include <string>
+#include "Cross.h"
 
 namespace FMOD{
 	class System;
@@ -33,7 +32,7 @@ class Launcher;
 	If you don not use audio in your game declare DISABLE_AUDIO directive */
 class Audio{
 public:
-	Audio(std::string path, bool loop, bool isStream);
+	Audio(string path, bool loop, bool isStream);
 	Audio(Audio& obj);
 
 	void Play();

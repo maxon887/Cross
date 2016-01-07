@@ -16,12 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Launcher.h"
+#include "Screen.h"
+#include "Input.h"
+#include "Config.h"
 #include "Utils/Debuger.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #endif 
-
-#include <stdlib.h>
 
 using namespace cross;
 using namespace chrono;
@@ -29,7 +30,7 @@ using namespace chrono;
 mutex cross::global_mutex;
 
 Launcher*	cross::launcher = NULL;
-Graphics*	cross::graphics = NULL;
+Graphics2D* cross::gfx2D = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
 Config*		cross::config = NULL;
@@ -70,7 +71,7 @@ float Game::GetHeight(){
 }
 
 void Game::SetScreen(Screen* screen){
-	launcher->LogIt("Game->SetScreen()");
+	launcher->LogIt("Game::SetScreen()");
 	Debuger::StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
@@ -84,7 +85,7 @@ Screen* Game::GetCurrentScreen(){
 }
 
 void Game::Start(){
-	launcher->LogIt("Game->Start()");
+	launcher->LogIt("Game::Start()");
 	try{
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
@@ -132,31 +133,25 @@ void Game::Update(){
 	}
 }
 
-bool Game::Is3D(){
-#ifdef C3D
-	return true;
-#else
-	return false;
-#endif
-}
-
 void Game::Exit(){
 	exit(0);
 }
+
 void Game::Init(Launcher* launcher){
+	launcher->LogIt("Game::Init()");
+	launcher = launcher;
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	debuger = new Debuger(this);
-	graphics = NULL;
+	debuger = new Debuger();
+	gfx2D = NULL;
 	gfx3D = NULL;
 	this->current_screen = NULL;
 }
 
 Game::~Game(){
-	launcher->LogIt("Game destructor");
+	launcher->LogIt("Game::~Game");
 	delete current_screen;
 	delete input;
 	delete config;
 	delete debuger;
-	launcher->LogIt("Destructor finished");
 }

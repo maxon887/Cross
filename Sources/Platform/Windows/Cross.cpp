@@ -14,11 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Cross.h"
 #include "LauncherWIN.h"
+#include "Cross.h"
+#include "Game.h"
+#include "Input.h"
+#include "Config.h"
+#include "Graphics2D.h"
 #include "resource.h"
-
-#pragma comment(lib, "opengl32.lib")
 
 using namespace cross;
 
@@ -68,7 +70,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		x = targetX / game->GetScaleFactor();
 		y = targetY / game->GetScaleFactor();
 		mouseDown = true;
-		TRIGGER_EVENT(input->ActionDown, Point(x, y));
+		TRIGGER_EVENT(input->ActionDown, Vector2D(x, y));
 		break;
 	case WM_MOUSEMOVE:
 		if(mouseDown){
@@ -76,7 +78,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 			targetY = (short)HIWORD(lParam);
 			x = targetX / game->GetScaleFactor();
 			y = targetY / game->GetScaleFactor();
-			TRIGGER_EVENT(input->ActionMove, Point(x, y));
+			TRIGGER_EVENT(input->ActionMove, Vector2D(x, y));
 		}
 		break;
 	case WM_LBUTTONUP:
@@ -85,7 +87,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		x = targetX / game->GetScaleFactor();
 		y = targetY / game->GetScaleFactor();
 		mouseDown = false;
-		TRIGGER_EVENT(input->ActionUp, Point(x, y));
+		TRIGGER_EVENT(input->ActionUp, Vector2D(x, y));
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);
@@ -115,8 +117,31 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		case VK_SHIFT:
 			TRIGGER_EVENT(input->KeyPressed, Key::SHIFT);
 			break;
-		}
+		case VK_CONTROL:
+			TRIGGER_EVENT(input->KeyPressed, Key::CONTROL);
+			break;
 		break;
+		}
+	break;
+	case WM_CHAR:
+		switch(wParam)
+		{
+		case 'w': case 'W':
+			TRIGGER_EVENT(input->KeyPressed, Key::W);
+			break;
+		case 'a': case 'A':
+			TRIGGER_EVENT(input->KeyPressed, Key::A);
+			break;
+		case 's': case 'S':
+			TRIGGER_EVENT(input->KeyPressed, Key::S);
+			break;
+		case 'd': case 'D':
+			TRIGGER_EVENT(input->KeyPressed, Key::D);
+			break;
+		default:
+			break;
+		}
+	break;
 	case WM_KEYUP:
 		switch(wParam){
 		case VK_ESCAPE:
@@ -139,6 +164,23 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 			break;
 		case VK_SHIFT:
 			TRIGGER_EVENT(input->KeyReleased, Key::SHIFT);
+			break;
+		case VK_CONTROL:
+			TRIGGER_EVENT(input->KeyReleased, Key::CONTROL);
+			break;
+		case 'w': case 'W':
+			TRIGGER_EVENT(input->KeyReleased, Key::W);
+			break;
+		case 'a': case 'A':
+			TRIGGER_EVENT(input->KeyReleased, Key::A);
+			break;
+		case 's': case 'S':
+			TRIGGER_EVENT(input->KeyReleased, Key::S);
+			break;
+		case 'd': case 'D':
+			TRIGGER_EVENT(input->KeyReleased, Key::D);
+			break;
+		default:
 			break;
 		}
 		break;
@@ -209,10 +251,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 
 	ShowWindow(wnd, winShow);
 	try{
-#ifdef C3D
+
+
+#ifdef GFX3D
 	gfx3D = new Graphics3D();
-#else
-	graphics = new Graphics(game);
+#elif GFX2D
+	gfx2D = new Graphics2D();
 #endif
 	}catch(string& msg){
 		msg = "Exception: " + msg;
@@ -231,10 +275,11 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		game->Update();
 		SwapBuffers(dc);
 	}
-#ifdef C3D
+#ifdef GFX3D
 	delete gfx3D;
+#elif GFX2D
+	delete gfx2D;
 #endif
-	delete graphics;
 	delete game;
 	delete launcher;
 	return msg.wParam;

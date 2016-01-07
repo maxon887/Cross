@@ -15,22 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include <string>
+#include "Cross.h"
 
 #ifdef _WIN32
-#define WIN
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true
 #endif
 
-using namespace std;
-
 namespace cross {
 
 class Commercial;
+class File;
 
-/* Class witch contains platform dependent code */
+/* Abstract class contained platform specific intrface */
 class Launcher{
 public:
 	/* Returns physical screen width in pixels */
@@ -43,8 +40,9 @@ public:
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
-	/* Loads specific file from game assets. Uses AssetsPath() */
-	virtual unsigned char* LoadFile(string filename, int *size) { return NULL; };
+	/* Loads specific file from game assets. */
+	virtual unsigned char* LoadFile(string filename, int *size) = 0;
+	virtual File* LoadFile(string filename) = 0;
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
 

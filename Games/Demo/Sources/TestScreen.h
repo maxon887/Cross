@@ -18,6 +18,7 @@
 #pragma once
 
 #include "Screen.h"
+#include "Input.h"
 
 using namespace cross;
 

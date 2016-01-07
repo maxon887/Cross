@@ -14,12 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "Image.h"
 
 using namespace cross;
 
-Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
+static unsigned short indices[] = { 0, 1, 2, 0, 2, 3 };
+
+Image::Image(unsigned int id, int texWidth, int texHeight, Rect region)
 	:region(region){
 	this->textureID = id;
 	this->texWidth = texWidth;
@@ -28,35 +29,51 @@ Image::Image(GLuint id, int texWidth, int texHeight, Rect region)
 	this->v1 = region.y / texHeight;
 	this->u2 = this->u1 + region.width / texWidth;
 	this->v2 = this->v1 + region.height / texHeight;
-	angle = 0;
+	model = Matrix::CreateIdentity();
+	translation = Matrix::CreateIdentity();
+	scale = Matrix::CreateIdentity();
+	rotation = Matrix::CreateIdentity();
 	memset(vertices, 0, sizeof(float) * 16);
-}
 
-void Image::Scale(float factor){
-	float width = region.width * factor;
-	float height = region.height * factor;
-	vertices[0] = -width/2.0f;
-	vertices[1] = height/2.0f;
+	vertices[0] = -region.width / 2.0f;
+	vertices[1] = -region.height / 2.0f;
 	vertices[2] = u1;
 	vertices[3] = v2;
 
-	vertices[4] = width/2.0f;
-	vertices[5] = height/2.0f;
+	vertices[4] = region.width / 2.0f;
+	vertices[5] = -region.height / 2.0f;
 	vertices[6] = u2;
 	vertices[7] = v2;;
 
-	vertices[8] = width/2.0f;
-	vertices[9] = -height/2.0f;
+	vertices[8] = region.width / 2.0f;
+	vertices[9] = region.height / 2.0f;
 	vertices[10] = u2;
 	vertices[11] = v1;
 
-	vertices[12] = -width/2.0f;
-	vertices[13] = -height/2.0f;
+	vertices[12] = -region.width / 2.0f;
+	vertices[13] = region.height / 2.0f;
 	vertices[14] = u1;
 	vertices[15] = v1;
 }
 
-GLuint Image::GetTextureID(){
+void Image::SetPosition(Vector2D pos){
+	model.SetTranslation(pos);
+}
+
+void Image::Scale(float factor){
+	scale.m[0][0] = factor;
+	scale.m[1][1] = factor;
+	scale.m[2][2] = factor;
+	model = rotation * scale * translation;
+}
+
+void Image::Rotate(float angle){
+	this->angle = angle;
+	rotation.SetRotationZ(angle);
+	model = rotation * scale * translation;
+}
+
+unsigned int Image::GetTextureID(){
 	return textureID;
 }
 
@@ -70,4 +87,12 @@ float Image::GetHeight(){
 
 float* Image::GetVertices(){
 	return vertices;
+}
+
+float* Image::GetModel(){
+	return model.GetData();
+}
+
+unsigned short* Image::GetIndices(){
+	return indices;
 }

@@ -21,18 +21,18 @@
 
 using namespace std;
 
-static float sign(cross::Point p1, cross::Point p2, cross::Point p3){
+static float sign(cross::Vector2D p1, cross::Vector2D p2, cross::Vector2D p3){
     return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 }
 
-bool cross::PointInRect(Point p, Rect rect){
+bool cross::PointInRect(Vector2D p, Rect rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&
 			p.y > rect.y &&
 			p.y < rect.y + rect.height;
 }
 
-bool cross::PointInTriangle(Point pt, Point v1, Point v2, Point v3){
+bool cross::PointInTriangle(Vector2D pt, Vector2D v1, Vector2D v2, Vector2D v3){
 	bool b1, b2, b3;
     b1 = sign(pt, v1, v2) < 0.0f;
     b2 = sign(pt, v2, v3) < 0.0f;
@@ -40,14 +40,14 @@ bool cross::PointInTriangle(Point pt, Point v1, Point v2, Point v3){
     return ((b1 == b2) && (b2 == b3));
 }
 
-bool cross::PointInCircle(Point p, Point center, float radius){
+bool cross::PointInCircle(Vector2D p, Vector2D center, float radius){
 	float distance = Distance(p, center);
 	if(distance < radius)
 		return true;
 	else return false;
 }
 
-bool cross::CircleOnCollision(Point p1, float r1, Point p2, float r2) {
+bool cross::CircleOnCollision(Vector2D p1, float r1, Vector2D p2, float r2) {
 	float distance = Distance(p1, p2);
 	if(distance < (r1 + r2))
 		return true;
@@ -58,11 +58,7 @@ float cross::Lerp(float v0, float v1, float t) {
 	return (1-t)*v0 + t*v1;
 }
 
-float cross::Distance(const Point &p1, const Point &p2){
-	return sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
-}
-
-float cross::Angle(const Point &first, const Point &second){
+float cross::Angle(const Vector2D &first, const Vector2D &second){
 	if(first == second){
 		//throw string("angle between same points does not exists");
 		return 0;

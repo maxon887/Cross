@@ -18,6 +18,7 @@
 #include "TestScreen.h"
 #include "Game.h"
 #include "Vector2D.h"
+#include "Graphics2D.h"
 
 void TestScreen::Start(){
 	going_back = false;
@@ -40,7 +41,7 @@ void TestScreen::Start(){
 }
 
 void TestScreen::Update(float sec){
-	graphics->Clear(0.10f, 0.10f, 0.10f);
+	gfx2D->Clear();
 
 	if(going_back){
 		game->SetScreen(game->GetStartScreen());

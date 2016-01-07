@@ -19,6 +19,7 @@
 
 #include "Screen.h"
 #include "Animation.h"
+#include "Input.h"
 
 using namespace cross;
 

@@ -14,15 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "Button.h"
+#include "Audio.h"
+#include "Graphics2D.h"
+#include "Input.h"
+#include "Image.h"
 
 using namespace cross;
 
 Button::Button(Game* game, Image* up, Image* down){
 	this->push = NULL;
 	this->pull = NULL;
-	this->location = Point();
 	this->up = up;
 	this->down = down;
 	this->have_area = false;
@@ -36,7 +38,7 @@ Button::Button(Game* game, Image* up, Image* down){
 	input->ActionUp += action_up_delegate;
 }
 
-Button::Button(Game* game, Point location, Image* up, Image* down){
+Button::Button(Game* game, Vector2D location, Image* up, Image* down){
 	this->push = NULL;
 	this->pull = NULL;
 	this->location = location;
@@ -55,7 +57,6 @@ Button::Button(Game* game, Point location, Image* up, Image* down){
 Button::Button(Game* game, float width, float height){
 	this->push = NULL;
 	this->pull = NULL;
-	this->location = Point();
 	this->area = area;
 	this->up = NULL;
 	this->down = NULL;
@@ -71,7 +72,6 @@ Button::Button(Game* game, float width, float height){
 Button::Button(Game* game, Rect area){
 	this->push = NULL;
 	this->pull = NULL;
-	this->location = Point();
 	this->area = area;
 	this->up = NULL;
 	this->down = NULL;
@@ -85,13 +85,15 @@ Button::Button(Game* game, Rect area){
 }
 
 Button::~Button(){
-	graphics->ReleaseImage(down);
-	graphics->ReleaseImage(up);
+	if(down){
+		gfx2D->ReleaseImage(down);
+	}
+	gfx2D->ReleaseImage(up);
 	input->ActionDown -= action_down_delegate;
 	input->ActionUp -= action_up_delegate;
 }
 
-void Button::SetLocation(Point location){
+void Button::SetLocation(Vector2D location){
 	this->location = location;
 	InitRect(location, area.width, area.height);
 }
@@ -108,11 +110,11 @@ void Button::SetSounds(Audio* push, Audio* pull){
 void Button::Update(){
 	if(is_pressed){
 		if(down != NULL){
-			graphics->DrawImage(location, down);
+			gfx2D->DrawImage(location, down);
 		}
 	}else{
 		if(up != NULL){
-			graphics->DrawImage(location, up);
+			gfx2D->DrawImage(location, up);
 		}
 	}
 }
@@ -132,11 +134,11 @@ Rect Button::GetRect(){
 	return area;
 }
 
-Point Button::GetCenter(){
+Vector2D Button::GetCenter(){
 	return location;
 }
 
-bool Button::OnLocation(Point p){
+bool Button::OnLocation(Vector2D p){
 	return OnLocation(p.x, p.y);
 }
 
@@ -148,13 +150,13 @@ bool Button::OnLocation(float x, float y){
 }
 
 void Button::DrawUp(){
-	graphics->DrawImage(location, up);
+	gfx2D->DrawImage(location, up);
 }
 void Button::DrawDown(){
-	graphics->DrawImage(location, down);
+	gfx2D->DrawImage(location, down);
 }
 
-void Button::InitRect(Point loc, float width, float heiht){
+void Button::InitRect(Vector2D loc, float width, float heiht){
 	area.x = loc.x - width / 2.f;
 	area.y = loc.y - heiht / 2.f;
 	area.width = width;
@@ -170,7 +172,7 @@ void Button::SetPressed(bool pressed){
 	is_pressed = pressed;
 }
 
-void Button::ActionDownHandler(Point pos){
+void Button::ActionDownHandler(Vector2D pos){
 	if(active && OnLocation(pos.x, pos.y)){
 		is_pressed = true;
 		if(push != NULL){
@@ -179,7 +181,7 @@ void Button::ActionDownHandler(Point pos){
 	}
 }
 
-void Button::ActionUpHandler(Point pos){
+void Button::ActionUpHandler(Vector2D pos){
 	if(active){
 		if(is_pressed && push != NULL){
 			push->Play();
@@ -188,7 +190,7 @@ void Button::ActionUpHandler(Point pos){
 		if(OnLocation(pos.x, pos.y)){
 			is_pressed = false;
 			if(down != NULL){
-				graphics->DrawImage(location, down);
+				gfx2D->DrawImage(location, down);
 			}
 			if(pull != NULL){
 				pull->Play();

@@ -19,22 +19,24 @@
 #include "AudioScreen.h"
 #include "TestScreen.h"
 #include "Birds\BirdsScreen.h"
+#include "Config.h"
+#include "Image.h"
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
 	input->ActionDown.Clear();
 	input->ActionMove.Clear();
 	input->ActionUp.Clear();
-	Point pos;
+	Vector2D pos;
 	input->KeyPressed.Clear();
 	input->KeyReleased.Clear();
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
-    x_img = graphics->LoadImage("Logo.png");
-	graphics->ScaleImage(x_img, game->GetScaleFactor());
-	Image* animationBtn = graphics->LoadImage("AnimationButton.png");
-	Image* audioBtn = graphics->LoadImage("AudioButton.png");
-	Image* primitivesBtn = graphics->LoadImage("PrimitivesButton.png");
-	Image* miscBtn = graphics->LoadImage("MiscButton.png");
+    x_img = gfx2D->LoadImage("Logo.png");
+	//graphics->ScaleImage(x_img, game->GetScaleFactor());
+	Image* animationBtn = gfx2D->LoadImage("AnimationButton.png");
+	Image* audioBtn = gfx2D->LoadImage("AudioButton.png");
+	Image* primitivesBtn = gfx2D->LoadImage("PrimitivesButton.png");
+	Image* miscBtn = gfx2D->LoadImage("MiscButton.png");
 	animation_btn = new Button(game, pos, animationBtn, NULL);
 	audio_btn = new Button(game, pos, audioBtn, NULL);
 	primitives_btn = new Button(game, pos, primitivesBtn, NULL);
@@ -53,9 +55,9 @@ void MainScreen::Start(){
 }
 
 void MainScreen::Update(float sec){
-	graphics->Clear(0.30f, 0.30f, 0.30f);
-	graphics->DrawLine(Point(0,0), Point(24,24), Color::Blue);
-	Point pos;
+	gfx2D->Clear();
+	//gfx2D->DrawLine(Vector2D(0,0), Vector2D(24,24), Color::Blue);
+	Vector2D pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 4 + 40;
 

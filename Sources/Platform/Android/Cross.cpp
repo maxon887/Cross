@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Commercial.h"
 #include "LauncherAndroid.h"
+#include "Screen.h"
 
 #include "jni.h"
 #include "android/asset_manager_jni.h"
@@ -26,16 +27,8 @@
 using namespace std;
 using namespace cross;
 
-//static Game* game;
-Game*	cross::game;
+static Game* game;
 
-void Init(int w, int h, string dataPath, AAssetManager* assetManager, jobject crossActivity, JNIEnv* env){
-	LOGI("Init");
-	launcher = new LauncherAndroid(w, h, dataPath, assetManager, crossActivity, env);
-	Audio::Init(launcher);
-	game = CrossMain(launcher);
-	graphics = new Graphics(game);
-}
 
 extern "C"{
 	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager, jobject crossActivity){
@@ -47,7 +40,16 @@ extern "C"{
 		}
 		string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
 		crossActivity = env->NewGlobalRef(crossActivity);
-		Init((int)width, (int)height, stdDataPath, mng, crossActivity, env);
+		launcher = new LauncherAndroid((int)width, (int)height, stdDataPath, mng, crossActivity, env);
+		Audio::Init(launcher);
+		game = CrossMain(launcher);
+#ifdef C3D
+		gfx3D = new Graphics3D();
+		graphics = NULL;
+#else
+		graphics = new Graphics(game);
+		gfx3D = NULL;
+#endif
 		global_mutex.unlock();
 	}
 
@@ -86,6 +88,7 @@ extern "C"{
 		delete game;
 		Audio::Release();
 		delete graphics;
+		delete gfx3D;
 		delete launcher;
 		global_mutex.unlock();
 	}

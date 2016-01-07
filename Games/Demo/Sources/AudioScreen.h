@@ -1,6 +1,7 @@
 #pragma once
 #include "Screen.h"
 #include "ToggleButton.h"
+#include "Input.h"
 
 using namespace cross;
 

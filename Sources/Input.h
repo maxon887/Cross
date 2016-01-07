@@ -15,13 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Cross.h"
+#include "Vector2D.h"
+#include "Events\Event.h"
 
-#include "Point.h"
-#include "Event.h"
 
 namespace cross {
 
-enum class Key{
+enum Key{
 	UNDEFINED 	= 0,
 	PAUSE		= 1,
 	BACK		= 2,
@@ -34,24 +35,33 @@ enum class Key{
 	SPACE		= 9,
 	SHIFT		= 10,
 	ESCAPE		= 11,
+	W			= 12,
+	A			= 13,
+	S			= 14,
+	D			= 15,
+	CONTROL		= 16,
+	MAX_KEY_NUM = 17
 };
 
 /*	Class responsible for user input. 
 	Handle touches, clicks and key events */
 class Input{
 public:
-	DECLARE_EVENT(void, Point) ActionDown;
-	DECLARE_EVENT(void, Point) ActionUp;
-	DECLARE_EVENT(void, Point) ActionMove;
+	DECLARE_EVENT(void, Vector2D) ActionDown;
+	DECLARE_EVENT(void, Vector2D) ActionUp;
+	DECLARE_EVENT(void, Vector2D) ActionMove;
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
-	
-	void TriggerActionDown(Point pos);
-	void TriggerActionUp(Point pos);
-	void TriggerActionMove(Point pos);
-	void TriggerKeyPressed(Key key);
-	void TriggerKeyReleased(Key key);
+
+	bool IsPressed(Key key);
+//internal
+public:
+	Input();
+private:
+	void KeyPressedHandle(Key key);
+	void KeyReleasedHandle(Key key);
+	bool pressed_keys[Key::MAX_KEY_NUM];
 };
 
 }
