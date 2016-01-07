@@ -14,12 +14,10 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "Misc.h"
-#include <math.h>
-#include <string>
 
-using namespace std;
+#include <math.h>
+#include <string>s
 
 static float sign(cross::Vector2D p1, cross::Vector2D p2, cross::Vector2D p3){
     return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
@@ -72,4 +70,25 @@ float cross::Angle(const Vector2D &first, const Vector2D &second){
 		angle -= 90;
 	}
 	return (float)angle;
+}
+
+
+float cross::Distance(const Vector2D &v1, const Vector2D &v2){
+	return sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
+}
+
+float cross::DistanceSq(const Vector2D &v1, const Vector2D &v2){
+	return (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y);
+}
+
+float cross::Distance(const Vector3D &v1, const Vector3D &v2){
+	return sqrt((v1.x - v2.x)*(v1.x - v2.x) +
+		(v1.y - v2.y)*(v1.y - v2.y) +
+		(v1.z - v2.z)*(v1.z - v2.z));
+}
+
+float cross::DistanceSq(const Vector3D &v1, const Vector3D &v2){
+	return  (v1.x - v2.x)*(v1.x - v2.x) +
+		(v1.y - v2.y)*(v1.y - v2.y) +
+		(v1.z - v2.z)*(v1.z - v2.z);
 }

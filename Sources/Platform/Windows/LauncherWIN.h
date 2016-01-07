@@ -15,6 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Launcher.h"
+
+#include <Windows.h>
 
 #define TARGET_WIDTH 512		
 #define TARGET_HEIGHT 512
@@ -27,9 +30,6 @@
 // 4:3
 //#define TARGET_WIDTH 320 
 //#define TARGET_HEIGHT 480
-
-#include <Windows.h>
-#include "Launcher.h"
 
 namespace cross{
 
@@ -50,6 +50,7 @@ public:
 	void LandscapeMode(bool land);
 private:
 	HWND wnd;
+	string assets_path;
 	bool landscape;
 	int target_width;
 	int target_height;

@@ -15,9 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Vector2D.h"
 
 namespace cross{
+
+class Vector2D;
 
 class Vector3D{
 public:
@@ -44,8 +45,5 @@ public:
 	Vector3D operator / (const float value) const;
 	void operator /= (const float value);
 };
-
-float Distance(const Vector3D &v1, const Vector3D &v2);
-float DistanceSq(const Vector3D &v1, const Vector3D &v2);
 
 }

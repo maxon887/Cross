@@ -15,7 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Matrix.h"
+#include "Cross.h"
 #include "Utils/Misc.h"
+
+#include <math.h>
 
 using namespace cross;
 
@@ -76,12 +79,12 @@ float* Matrix::GetData(){
 	return (float*)m;
 }
 
-void Matrix::SetTranslation(Vector2D trans){
+void Matrix::SetTranslation(const Vector2D &trans){
 	m[0][3] = trans.x;
 	m[1][3] = trans.y;
 }
 
-void Matrix::SetTranslation(Vector3D trans){
+void Matrix::SetTranslation(const Vector3D &trans){
 	m[0][3] = trans.x;
 	m[1][3] = trans.y;
 	m[2][3] = trans.z;

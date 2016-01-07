@@ -42,7 +42,4 @@ public:
 	bool operator != (const Vector2D &v2) const;
 };
 
-float Distance(const Vector2D &v1, const Vector2D &v2);
-float DistanceSq(const Vector2D &v1, const Vector2D &v2);
-
 }

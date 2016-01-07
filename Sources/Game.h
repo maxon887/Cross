@@ -16,16 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+
 #include <chrono>
 #include <mutex>
 
 namespace cross{
-    
-class Debuger;
-class Screen;
-class Launcher;
 
-extern std::mutex global_mutex;
+extern mutex global_mutex;
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screen's\.
 	Every game must implement this class for set start Screen and virtual world size for your game*/
@@ -59,6 +56,7 @@ public:
     void Exit();
 //Internal data. You don't need call any of this methods or modify variable
 public:
+	void Init();
     void Update();
 	virtual ~Game();
 protected:
@@ -68,8 +66,6 @@ protected:
 private:
 	Screen* current_screen;
 	chrono::time_point<chrono::high_resolution_clock> render_time;
-
-	void Init(Launcher* launch);
 };
     
 }

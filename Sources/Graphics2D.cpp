@@ -15,12 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
+#include "VertexShader.h"
 #include "Launcher.h"
-#include "Shader.h"
-#include "File.h"
 #include "Game.h"
 #include "Utils\Debuger.h"
-#include "Rect.h"
 #include "Image.h"
 
 #include "SOIL/SOIL.h"

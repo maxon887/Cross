@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
 #include "File.h"
-#include "Audio.h"
 
 #include <fstream>
 
@@ -38,18 +37,27 @@ void IntSleep(int milis){
 LauncherWIN::LauncherWIN(HWND wnd){
 	LogIt("LauncherWIN::LauncherWIN(HWND)");
 	this->wnd = wnd;
-	Audio::Init(this);
 	landscape = false;
 	target_width = TARGET_WIDTH;
 	target_height = TARGET_HEIGHT;
 	if(!DirectoryExists(DATA_PATH)){
 		CreateDirectory(DATA_PATH, NULL);
 	}
+	LPCTSTR releaseAsset = "Assets/";
+	LPCTSTR debugAsset = "../../../Assets/";
+	LPCTSTR debugAssetAlt = "../../Assets/";
+	if(DirectoryExists(releaseAsset)){
+		assets_path = releaseAsset;
+	} else if(DirectoryExists(debugAsset)){
+		assets_path = debugAsset;
+	} else if(DirectoryExists(debugAssetAlt)){
+		assets_path = debugAssetAlt;
+	} else {
+		throw string("Can't find Assets folder");
+	}
 }
 
-LauncherWIN::~LauncherWIN(){
-	Audio::Release();
-}
+LauncherWIN::~LauncherWIN(){ }
 
 void LauncherWIN::SetTargetSize(int width, int height){
 	target_width = width;
@@ -73,19 +81,7 @@ int LauncherWIN::GetTargetHeight(){
 }
 
 string LauncherWIN::AssetsPath(){
-	LPCTSTR releaseAsset = "Assets/";
-	LPCTSTR debugAsset = "../../../Assets/";
-	LPCTSTR debugAssetAlt = "../../Assets/";
-	if (DirectoryExists(releaseAsset)){
-		return releaseAsset;
-	}
-	if(DirectoryExists(debugAsset)){
-		return debugAsset;
-	}
-	if(DirectoryExists(debugAssetAlt)){
-		return debugAssetAlt;
-	}
-	throw string("Can't find Assets folder");
+	return assets_path;
 }
 
 string LauncherWIN::DataPath(){

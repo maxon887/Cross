@@ -41,7 +41,7 @@ extern "C"{
 		string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
 		crossActivity = env->NewGlobalRef(crossActivity);
 		launcher = new LauncherAndroid((int)width, (int)height, stdDataPath, mng, crossActivity, env);
-		Audio::Init(launcher);
+		Audio::Init();
 		game = CrossMain(launcher);
 #ifdef C3D
 		gfx3D = new Graphics3D();
@@ -55,6 +55,7 @@ extern "C"{
 
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
 		global_mutex.lock();
+		game->Init();
 		game->Start();
 		global_mutex.unlock();
 	}

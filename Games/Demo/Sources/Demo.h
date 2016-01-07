@@ -23,6 +23,7 @@ using namespace cross;
 class Demo : public Game{
 public:
 	Demo(Launcher* launcher);
+	void Start();
 	Screen* GetStartScreen();
 private:
 };

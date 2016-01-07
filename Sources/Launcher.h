@@ -25,7 +25,6 @@
 namespace cross {
 
 class Commercial;
-class File;
 
 /* Abstract class contained platform specific intrface */
 class Launcher{

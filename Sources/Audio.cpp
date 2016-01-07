@@ -34,7 +34,6 @@ static FMOD_RESULT		result;
 
 FMOD::System*	Audio::system = NULL;
 unsigned int	Audio::version = 0;
-Launcher*		Audio::launcher = NULL;
 
 #define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
 void (*Common_Private_Error)(FMOD_RESULT, const char *, int);
@@ -63,8 +62,7 @@ void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 }
 
 
-void Audio::Init(Launcher* launcher){
-	Audio::launcher = launcher;
+void Audio::Init(){
 	result = FMOD::System_Create(&system);
 	ERRCHECK(result);
 

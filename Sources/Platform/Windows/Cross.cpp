@@ -264,6 +264,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		//launcher->ShowMessage(msg);
 		return -1;
 	}
+	game->Init();
 	game->Start();
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));

@@ -25,8 +25,6 @@ namespace FMOD{
 
 namespace cross {
 
-class Launcher;
-
 /* Class responsible for playing audio.
 	Additional dependencies needed to be included for using this class. 
 	If you don not use audio in your game declare DISABLE_AUDIO directive */
@@ -43,7 +41,7 @@ public:
 	~Audio();
 //Internal data. You don't need call any of this methods or modify variables
 public:
-	static void Init(Launcher* launcher);
+	static void Init();
 	static void SuspendSystem();
 	static void ResumeSystem();
 	static void Release();
@@ -51,7 +49,6 @@ private:
 	static FMOD::System* system;
 	static unsigned int version;
 	static void* extradriverdata;
-	static Launcher* launcher;
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;

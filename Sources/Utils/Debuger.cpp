@@ -15,11 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Debuger.h"
-#include "Cross.h"
+#include "Launcher.h"
+#include "Texter.h"
 #include "Input.h"
 #include "Graphics2D.h"
 
 #include <vector>
+#include <chrono>
+
+#undef DrawText
 
 using namespace cross;
 using namespace chrono;
@@ -45,13 +49,8 @@ void Debuger::StopCheckTime(string label){
 }
 
 Debuger::Debuger(){
-#ifdef GFX3D
-#elif GFX2D
-#else
 	touch_pointer = NULL;
 	texter = NULL;
-#endif
-
 	update_time = 0;
 	update_sum = 0;
 	update_counter = 0;
@@ -70,9 +69,7 @@ Debuger::Debuger(){
 }
 
 Debuger::~Debuger(){
-/*
 	delete texter;
-	*/
 }
 
 void Debuger::Display(float micro){
@@ -89,7 +86,6 @@ void Debuger::Display(float micro){
 		}
 	}
 	if(screen_debug){
-		/*
 		texter->DrawText(0, 0, "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, texter->GetHeight(), "Update Time: Undefined");
@@ -106,7 +102,7 @@ void Debuger::Display(float micro){
 		}else{
 			texter->DrawText(0, texter->GetHeight() * 3, "Input Up");
 		}
-		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));*/
+		texter->DrawText(0, texter->GetHeight() * 5, "Run time: " + to_string(time));
 	}
 	if(console_debug){
 		if(next_display < 0){
@@ -125,14 +121,12 @@ void Debuger::Display(float micro){
 }
 
 void Debuger::EnableScreenDebug(){
-/*
 	if(texter == NULL){
 		texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	}else{
 		launcher->LogIt("Warning!Screen debug already anabled");
 	}
 	screen_debug = true;
-*/
 }
 
 void Debuger::EnableConsoleDebug(){

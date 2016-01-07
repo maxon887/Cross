@@ -55,6 +55,7 @@ Game* cross::game = NULL;
         launcher = new LauncherOS();
         game = CrossMain(launcher);
         graphics = new Graphics(game);
+		game->Init();
         game->Start();
     }else{
         game->Update();

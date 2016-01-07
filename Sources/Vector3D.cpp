@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Vector3D.h"
+#include "Vector2D.h"
 #include <math.h>
 
 using namespace cross;
@@ -113,17 +114,4 @@ void Vector3D::operator/=(const float v){
 	this->x /= v;
 	this->y /= v;
 	this->z /= v;
-}
-
-// ***************** General functions ********************
-float Distance(const Vector3D &v1, const Vector3D &v2){
-	return sqrt((v1.x - v2.x)*(v1.x - v2.x) + 
-				(v1.y - v2.y)*(v1.y - v2.y) +
-				(v1.z - v2.z)*(v1.z - v2.z));
-}
-
-float DistanceSq(const Vector3D &v1, const Vector3D &v2){
-	return  (v1.x - v2.x)*(v1.x - v2.x) +
-			(v1.y - v2.y)*(v1.y - v2.y) +
-			(v1.z - v2.z)*(v1.z - v2.z);
 }

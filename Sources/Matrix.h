@@ -15,13 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "Vector4D.h"
 
 #undef near
 #undef far
 
 namespace cross{
+
+class Vector2D;
+class Vector3D;
+class Vector4D;
 
 class Matrix{
 public:
@@ -35,8 +37,8 @@ public:
 	Matrix() { };
 
 	float* GetData();
-	void SetTranslation(Vector2D trans);
-	void SetTranslation(Vector3D trans);
+	void SetTranslation(const Vector2D &trans);
+	void SetTranslation(const Vector3D &trans);
 	void SetRotationZ(float angle);
 
 	Matrix operator + (float s) const;

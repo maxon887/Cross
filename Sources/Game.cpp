@@ -20,6 +20,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "Utils/Debuger.h"
+#include "Audio.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #endif 
@@ -37,14 +38,26 @@ Config*		cross::config = NULL;
 Debuger*	cross::debuger = NULL;
 
 Game::Game(Launcher* launcher){
-	Init(launcher);
+	input = new Input();
+	config = new Config(launcher->DataPath());
+	debuger = new Debuger();
+	Audio::Init();
+	gfx2D = NULL;
+	gfx3D = NULL;
+	this->current_screen = NULL;
 	this->width = (float)launcher->GetTargetWidth();
 	this->height = (float)launcher->GetTargetHeight();
 	scale_factor = (float)launcher->GetTargetWidth() / width;
 }
 
 Game::Game(Launcher* launcher, float width){
-	Init(launcher);
+	input = new Input();
+	config = new Config(launcher->DataPath());
+	debuger = new Debuger();
+	Audio::Init();
+	gfx2D = NULL;
+	gfx3D = NULL;
+	this->current_screen = NULL;
 	this->width = width;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
 	height = width * aspect;
@@ -52,7 +65,13 @@ Game::Game(Launcher* launcher, float width){
 }
 
 Game::Game(Launcher* launcher, float width, float height){
-	Init(launcher);
+	input = new Input();
+	config = new Config(launcher->DataPath());
+	debuger = new Debuger();
+	Audio::Init();
+	gfx2D = NULL;
+	gfx3D = NULL;
+	this->current_screen = NULL;
 	this->width = width;
 	this->height = height;
 	scale_factor = (float)launcher->GetTargetWidth() / width;
@@ -84,21 +103,7 @@ Screen* Game::GetCurrentScreen(){
 	return current_screen;
 }
 
-void Game::Start(){
-	launcher->LogIt("Game::Start()");
-	try{
-		SetScreen(GetStartScreen());
-		launcher->LogIt("Start screen load successfully");
-	}catch(string& msg){
-		msg = "Exception: " + msg;
-		launcher->LogIt(msg);
-#ifdef WIN
-		LauncherWIN* win = (LauncherWIN*)launcher;
-		win->ShowMessage(msg);
-#endif 
-		Exit();
-	}
-}
+void Game::Start(){ }
 
 void Game::Suspend(){
 	current_screen->Suspend();
@@ -137,15 +142,20 @@ void Game::Exit(){
 	exit(0);
 }
 
-void Game::Init(Launcher* launcher){
-	launcher->LogIt("Game::Init()");
-	launcher = launcher;
-	input = new Input();
-	config = new Config(launcher->DataPath());
-	debuger = new Debuger();
-	gfx2D = NULL;
-	gfx3D = NULL;
-	this->current_screen = NULL;
+void Game::Init(){
+	launcher->LogIt("Game::Start()");
+	try{
+		SetScreen(GetStartScreen());
+		launcher->LogIt("Start screen load successfully");
+	} catch(string& msg){
+		msg = "Exception: " + msg;
+		launcher->LogIt(msg);
+#ifdef WIN
+		LauncherWIN* win = (LauncherWIN*)launcher;
+		win->ShowMessage(msg);
+#endif 
+		Exit();
+	}
 }
 
 Game::~Game(){
@@ -154,4 +164,5 @@ Game::~Game(){
 	delete input;
 	delete config;
 	delete debuger;
+	Audio::Release;
 }

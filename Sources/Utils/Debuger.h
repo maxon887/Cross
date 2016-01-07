@@ -15,14 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include "Game.h"
-#include "Launcher.h"
-#include "Texter.h"
+#include "Cross.h"
 
 namespace cross{
-
-class Vector2D;
 
 class Debuger{
 public:

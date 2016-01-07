@@ -15,19 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-/*
-#ifdef GFX3D
-	#include "Graphics3D.h"
-	class Graphics;
-	class Graphics2D;
-#elif GFX2D
-	#include "Graphics2D.h"
-#else
-	#include "Graphics.h"
-	class Graphics3D;
-	class Graphics2D;
-#endif*/
 
 namespace cross {
 

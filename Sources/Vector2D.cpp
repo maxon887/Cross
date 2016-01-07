@@ -104,12 +104,3 @@ bool Vector2D::operator==(const Vector2D &v2) const{
 bool Vector2D::operator!=(const Vector2D &v2) const{
 	return !((*this) == v2);
 }
-
-// ***************** General functions ********************
-float cross::Distance(const Vector2D &v1, const Vector2D &v2){
-	return sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
-}
-
-float cross::DistanceSq(const Vector2D &v1, const Vector2D &v2){
-	return (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y);
-}

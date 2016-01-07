@@ -16,18 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
-#include "Matrix.h"
-#include "VertexShader.h"
 #include "File.h"
-#include "Color.h"
-#include "Rect.h"
+#include "GraphicsGL.h"
 
 #undef LoadImage;
 
 namespace cross{
 
-class Image;
+class VertexShader;
 
 class Graphics2D : public GraphicsGL{
 public:

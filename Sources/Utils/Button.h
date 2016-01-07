@@ -16,9 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Vector2D.h"
-#include "Rect.h"
-#include "Vector2D.h"
 #include "Events\Event.h"
 
 namespace cross {

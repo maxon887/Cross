@@ -15,14 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Game.h"
-#include "Vector2D.h"
+#include "Cross.h"
 
 namespace cross {
     
 #undef DrawText
-
-class Image;
 
 /* Class responsible for drawing text in to screen */
 class Texter{

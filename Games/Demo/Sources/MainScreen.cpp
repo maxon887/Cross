@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
+#include "Game.h"
+#include "Launcher.h"
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
 #include "TestScreen.h"

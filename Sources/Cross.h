@@ -15,6 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Vector2D.h"
+#include "Vector3D.h"
+#include "Vector4D.h"
+#include "Matrix.h"
+#include "Color.h"
+#include "Rect.h"
+
 #include <string>
 
 namespace cross{
@@ -26,8 +33,11 @@ class Graphics3D;
 class Input;
 class Config;
 class Debuger;
+class Texter;
 class Image;
 class Audio;
+class Screen;
+class File;
 
 extern Game* game;
 extern Launcher* launcher;

@@ -15,9 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include "Vector2D.h"
-#include "Rect.h"
+#include "Cross.h"
 
 #define PI (3.141592653589793f)
 
@@ -29,5 +27,9 @@ bool PointInCircle(Vector2D p, Vector2D center, float radius);
 bool CircleOnCollision(Vector2D p1, float r1, Vector2D p2, float r2);
 float Lerp(float v0, float v1, float t);
 float Angle(const Vector2D &first, const Vector2D &second);
+float Distance(const Vector2D &v1, const Vector2D &v2);
+float DistanceSq(const Vector2D &v1, const Vector2D &v2);
+float Distance(const Vector3D &v1, const Vector3D &v2);
+float DistanceSq(const Vector3D &v1, const Vector3D &v2);
 
 }
