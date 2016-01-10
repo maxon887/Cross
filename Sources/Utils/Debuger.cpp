@@ -19,6 +19,7 @@
 #include "Texter.h"
 #include "Input.h"
 #include "Graphics2D.h"
+#include "Game.h"
 
 #include <vector>
 #include <chrono>
@@ -27,10 +28,6 @@
 
 using namespace cross;
 using namespace chrono;
-
-typedef time_point<high_resolution_clock> CrossTime;
-
-static vector<CrossTime> times;
 
 void Debuger::StartCheckTime(){
 	CrossTime check_time = high_resolution_clock::now();
@@ -73,7 +70,6 @@ Debuger::~Debuger(){
 }
 
 void Debuger::Display(float micro){
-#ifndef GFX3D
 	if(screen_debug || console_debug){
 		time += micro / 1000000.f;
 		if(render_counter == 20){
@@ -117,7 +113,6 @@ void Debuger::Display(float micro){
 			next_display -= micro;
 		}
 	}
-#endif
 }
 
 void Debuger::EnableScreenDebug(){
@@ -134,16 +129,12 @@ void Debuger::EnableConsoleDebug(){
 }
 
 void Debuger::EnableTouches(){
-#ifdef GFX3D
-#elif GFX2D
-#else	
 	if(touch_pointer == NULL){
-		touch_pointer = graphics->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
+		touch_pointer = gfx2D->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
 	} else{
 		launcher->LogIt("Warning!Touches already anabled");
 	}
 	touches = true;
-#endif
 }
 
 void Debuger::SetUpdateTime(float micro) {

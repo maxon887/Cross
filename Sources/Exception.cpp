@@ -18,11 +18,9 @@
 
 using namespace cross;
 
-Exception::Exception(string message) :
-	message(message)
-{
-}
 
-string Exception::GetMessage(){
-	return message;
-}
+Exception::Exception(string message, char* filename, unsigned int line):
+	message(message),
+	filename(filename),
+	line(line)
+{ }

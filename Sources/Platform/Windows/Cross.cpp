@@ -207,9 +207,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.lpszClassName = "Cross++";
 	RegisterClassEx(&wc);
-
+	
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
-	launcher = new LauncherWIN(wnd);
+	LauncherWIN launcherWin(wnd);
+	launcher = &launcherWin;
 	game = CrossMain(launcher);
 	int winX = config->LoadInt("WIN_POS_X", 0);
 	int winY = config->LoadInt("WIN_POS_Y", 0);
@@ -248,11 +249,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	error = wglMakeCurrent(dc, renderContext);
 	if(!error)
 		ShowLastError();
-
+	
 	ShowWindow(wnd, winShow);
 	try{
-
-
 #ifdef GFX3D
 	gfx3D = new Graphics3D();
 #elif GFX2D
@@ -282,16 +281,14 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	delete gfx2D;
 #endif
 	delete game;
-	//delete launcher;
 
 	unsigned long leaked = MemoryManager::Instance()->Dump();
-	if(leaked >= 0){
-		char msg[512];
-		sprintf(msg, "Total leaked bytes = %d\n", leaked);
-		OutputDebugString(msg);
+	if(leaked > 0){
+		launcher->LogIt("Total leaked bytes = %d\n", leaked);
 	}else{
-		OutputDebugString("No memory leak detected\n");
+		launcher->LogIt("No memory leak detected\n");
 	}
 
-	return msg.wParam;
+	//return msg.wParam;
+	return 0;
 }

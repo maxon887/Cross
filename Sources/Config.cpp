@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Config.h"
+#include "Exception.h"
 
 #include <fstream>
 
@@ -27,7 +28,7 @@ Config::Config(string dataPath){
 
 void Config::SaveString(string key, string value){
 	if(key.find(" ") != string::npos || value.find(" ") != string::npos){
-		throw string("Key and value can't contains space characters");
+		throw CrossException("Key and value can't contains space characters");
 	}
 	ifstream prefs;
 	prefs.open(prefs_path);

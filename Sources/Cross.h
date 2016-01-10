@@ -50,6 +50,6 @@ extern Debuger* debuger;
 
 }
 
-using namespace std;
-
 cross::Game* CrossMain(cross::Launcher* launcher);
+
+using namespace std;

@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics.h"
+#include "Exception.h"
 #include "Launcher.h"
 #include "Shader.h"
 
@@ -59,7 +60,7 @@ GLuint Graphics::CompileProgram(){
 		string msg(log);
 		delete[] log;
 		launcher->LogIt("Shader compilation failed:\n" + msg);
-		throw string("Shader compilation failed:\n" + msg);
+		throw CrossException("Shader compilation failed:\n" + msg);
 	}
 	glUseProgram(program);
 #ifdef DEBUG

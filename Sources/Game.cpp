@@ -21,8 +21,10 @@
 #include "Config.h"
 #include "Utils/Debuger.h"
 #include "Audio.h"
+#include "Exception.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
+#undef GetMessage
 #endif 
 
 using namespace cross;
@@ -91,12 +93,12 @@ float Game::GetHeight(){
 
 void Game::SetScreen(Screen* screen){
 	launcher->LogIt("Game::SetScreen()");
-	Debuger::StartCheckTime();
+	debuger->StartCheckTime();
 	delete current_screen;
 	current_screen = screen;
 	current_screen->Start();
     render_time = high_resolution_clock::now();
-	Debuger::StopCheckTime("Screen loaded: ");
+	debuger->StopCheckTime("Screen loaded: ");
 }
 
 Screen* Game::GetCurrentScreen(){
@@ -127,8 +129,10 @@ void Game::Update(){
 		}
 		debuger->Display((float)rend);
 		debuger->SetUpdateTime((float)up);
-	}catch(string& msg){
-		msg = "Exception: " + msg;
+	} catch(Exception &exc) {
+		string msg = string(exc.message) +
+			+"\nFile: " + string(exc.filename) +
+			+"\nLine: " + to_string(exc.line);
 		launcher->LogIt(msg);
 #ifdef WIN
 		LauncherWIN* win = (LauncherWIN*)launcher;
@@ -147,8 +151,10 @@ void Game::Init(){
 	try{
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
-	} catch(string& msg){
-		msg = "Exception: " + msg;
+	} catch(Exception &exc) {
+		string msg = string(exc.message) + 
+			+ "\nFile: " + string(exc.filename) +
+			+ "\nLine: " + to_string(exc.line);
 		launcher->LogIt(msg);
 #ifdef WIN
 		LauncherWIN* win = (LauncherWIN*)launcher;

@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #include "Audio.h"
+#include "Exception.h"
 #include "Launcher.h"
 
 using namespace cross;
@@ -63,6 +64,7 @@ void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
 
 
 void Audio::Init(){
+	launcher->LogIt("Audio::Init()");
 	result = FMOD::System_Create(&system);
 	ERRCHECK(result);
 
@@ -75,7 +77,6 @@ void Audio::Init(){
 
 	result = system->init(32, FMOD_INIT_NORMAL, NULL);
 	ERRCHECK(result);
-	launcher->LogIt("Audio initialized");
 }
 
 void Audio::SuspendSystem(){
@@ -93,7 +94,7 @@ void Audio::Release(){
 
 Audio::Audio(string path, bool loop, bool isStream){
 	if(system == NULL)
-		throw string("Audio not initialized");
+		throw CrossException("Audio not initialized");
 	FMOD_MODE mode = 0;
 	channel = NULL;
 	original = true;
@@ -185,35 +186,35 @@ void Audio::Release(){
 }
 
 Audio::Audio(string path, bool loop, bool isStream){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 Audio::Audio(Audio& obj){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 void Audio::Play(){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 void Audio::Pause(){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 void Audio::Resume(){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 void Audio::Stop(){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 bool Audio::IsPlaying(){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 Audio::~Audio(){
-	throw string("Audio system disabled");
+	throw CrossException("Audio system disabled");
 }
 
 #endif

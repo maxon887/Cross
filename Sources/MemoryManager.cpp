@@ -17,7 +17,6 @@
 #include "MemoryManager.h"
 #include "Launcher.h"
 #include "Exception.h"
-#include <string>
 
 #undef new
 
@@ -79,8 +78,7 @@ void* MemoryManager::Alloc(unsigned int size, char* filename, unsigned int line)
 void MemoryManager::Free(void* address){
 	SanityCheck();
 	if(address == NULL){
-		launcher->LogIt("Null pointer deletion");
-		return;
+		throw CrossException("Null pointer deletion");
 	}
 	for(unsigned int i = 0; i < object_count; i++){
 		if(alloc_objects[i].address == address){
@@ -92,8 +90,7 @@ void MemoryManager::Free(void* address){
 			return;
 		}
 	}
-	//launcher->LogIt("Bad pointer deletion");
-	throw Exception("Attempt to delete bad pointer");
+	throw CrossException("Attempt to delete bad pointer");
 }
 
 unsigned long MemoryManager::Dump(){

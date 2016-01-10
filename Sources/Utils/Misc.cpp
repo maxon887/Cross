@@ -58,7 +58,7 @@ float cross::Lerp(float v0, float v1, float t) {
 
 float cross::Angle(const Vector2D &first, const Vector2D &second){
 	if(first == second){
-		//throw string("angle between same points does not exists");
+		//throw CrossException("angle between same points does not exists");
 		return 0;
 	}
 	double tangens = (first.x - second.x) / (first.y - second.y);

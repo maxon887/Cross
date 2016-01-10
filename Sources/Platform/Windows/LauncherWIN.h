@@ -51,7 +51,7 @@ public:
 	void LandscapeMode(bool land);
 private:
 	HWND wnd;
-	string assets_path;
+	char* assets_path;
 	bool landscape;
 	int target_width;
 	int target_height;

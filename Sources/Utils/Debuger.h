@@ -17,16 +17,20 @@
 #pragma once
 #include "Cross.h"
 
+#include <chrono>
+#include <vector>
+
+typedef chrono::time_point<chrono::high_resolution_clock> CrossTime;
+
 namespace cross{
 
 class Debuger{
 public:
-	static void StartCheckTime();
-	static void StopCheckTime(string label);
-
 	Debuger();
 	~Debuger();
 
+	void StartCheckTime();
+	void StopCheckTime(string label);
 	void Display(float sec);
 	void SetUpdateTime(float sec);
 	void EnableScreenDebug();
@@ -42,6 +46,7 @@ public:
 private:
 	Texter* texter;
 	Image* touch_pointer;
+	vector<CrossTime> times;
 
 	float update_time;
 	float update_sum;

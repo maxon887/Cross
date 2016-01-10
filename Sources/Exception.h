@@ -17,14 +17,16 @@
 #pragma once
 #include "Cross.h"
 
+#define CrossException(message) Exception(message, __FILE__, __LINE__)
+
 namespace cross{
 
 class Exception{
 public:
-	Exception(string message);
-	string GetMessage();
-private:
+	Exception(string message, char* filename, unsigned int line);
 	string message;
+	char* filename;
+	unsigned int line;
 };
 
 };

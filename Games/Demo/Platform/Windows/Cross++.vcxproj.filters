@@ -189,9 +189,6 @@
     <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h">
       <Filter>Cross\SOIL</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Audio.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -267,6 +264,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Exception.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
+      <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

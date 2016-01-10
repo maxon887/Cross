@@ -23,6 +23,16 @@
 #include "Birds\BirdsScreen.h"
 #include "Config.h"
 #include "Image.h"
+#include "Exception.h"
+
+MainScreen::~MainScreen(){
+	delete texter;
+	delete animation_btn;
+	delete audio_btn;
+	delete primitives_btn;
+	delete misc_btn;
+	delete x_img;
+}
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
@@ -54,6 +64,7 @@ void MainScreen::Start(){
 	startLaunches++;
 	config->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
+
 }
 
 void MainScreen::Update(float sec){
@@ -111,11 +122,4 @@ void MainScreen::OnPrimitivesClick(){
 
 void MainScreen::OnMiscClick(){
 	going_screen = MISC;
-}
-
-MainScreen::~MainScreen(){
-	delete animation_btn;
-	delete audio_btn;
-	delete primitives_btn;
-	delete misc_btn;
 }

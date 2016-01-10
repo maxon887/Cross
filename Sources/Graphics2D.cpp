@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
+#include "Exception.h"
 #include "VertexShader.h"
 #include "Launcher.h"
 #include "Game.h"
@@ -44,7 +45,8 @@ Graphics2D::Graphics2D(){
 }
 
 Graphics2D::~Graphics2D(){
-
+	delete vertex_shader;
+	delete fragment_shader;
 }
 
 void Graphics2D::Clear(){
@@ -74,7 +76,7 @@ Image* Graphics2D::LoadImage(string filename){
 }
 
 Image* Graphics2D::LoadImage(string filename, float scaleFactor){
-	Debuger::StartCheckTime();
+	debuger->StartCheckTime();
 	GLuint textureID;
 	int width, height;
 	byte* image = LoadImageInternal(filename, &width, &height);
@@ -121,13 +123,13 @@ Image* Graphics2D::LoadImage(string filename, float scaleFactor){
 	img->Scale(scaleFactor);
 	string debugMsg = "Load image " + filename + ": ";
 	glBindTexture(GL_TEXTURE_2D, 0);
-	Debuger::StopCheckTime(debugMsg);
+	debuger->StopCheckTime(debugMsg);
 	return img;
 }
 
 void Graphics2D::ReleaseImage(Image* img){
 	if(img == NULL){
-		throw string("Can't release NULL image");
+		throw CrossException("Can't release NULL image");
 	}
 	GLuint texID = img->GetTextureID();
 	glDeleteTextures(1, &texID);

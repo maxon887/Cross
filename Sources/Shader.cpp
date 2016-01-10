@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shader.h"
-#include "Cross.h"
+#include "Exception.h"
 #include "Launcher.h"
 
 using namespace cross;
@@ -30,7 +30,7 @@ Shader::Shader(string filename) :
 	} else if(extension == "frag"){
 		type = GL_FRAGMENT_SHADER;
 	} else{
-		throw string("Unknown file extension");
+		throw CrossException("Unknown file extension");
 	}
 	int size = 0;
 	char* raw = (char*)launcher->LoadFile(filename, &size);
@@ -56,7 +56,7 @@ Shader::Shader(string filename) :
 		string msg(log);
 		delete[] log;
 		launcher->LogIt("Shader compilation failed:\n" + msg);
-		throw string("Shader compilation failed:\n" + msg);
+		throw CrossException("Shader compilation failed:\n" + msg);
 	} else{
 #ifdef DEBUG
 		GLsizei len;

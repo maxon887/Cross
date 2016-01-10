@@ -5,6 +5,6 @@
 5. Export libs
 6. General Resources
 +7. Merge
-8. Memory menegment
++8. Memory menegment
 9. OpenGL ES
-10. Exception system
++10. Exception system

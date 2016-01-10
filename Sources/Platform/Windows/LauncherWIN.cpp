@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
 #include "File.h"
+#include "Exception.h"
 
 #include <fstream>
 
@@ -43,9 +44,9 @@ LauncherWIN::LauncherWIN(HWND wnd){
 	if(!DirectoryExists(DATA_PATH)){
 		CreateDirectory(DATA_PATH, NULL);
 	}
-	LPCTSTR releaseAsset = "Assets/";
-	LPCTSTR debugAsset = "../../../Assets/";
-	LPCTSTR debugAssetAlt = "../../Assets/";
+	char* releaseAsset = "Assets/";
+	char* debugAsset = "../../../Assets/";
+	char* debugAssetAlt = "../../Assets/";
 	if(DirectoryExists(releaseAsset)){
 		assets_path = releaseAsset;
 	} else if(DirectoryExists(debugAsset)){
@@ -53,7 +54,7 @@ LauncherWIN::LauncherWIN(HWND wnd){
 	} else if(DirectoryExists(debugAssetAlt)){
 		assets_path = debugAssetAlt;
 	} else {
-		throw string("Can't find Assets folder");
+		throw CrossException("Can't find Assets folder");
 	}
 }
 
@@ -100,7 +101,8 @@ unsigned char* LauncherWIN::LoadFile(string filename, int *size){
 		fileStream.read((char*)data, *size);
 		return (unsigned char*)data;
 	}else{
-		throw string("Cannot open file " + filename);
+		string msg = "Cannot open file " + filename;
+		throw CrossException(msg);
 	}
 }
 
@@ -118,7 +120,7 @@ File* LauncherWIN::LoadFile(string filename){
 		fileStream.read((char*)file->data, file->size);
 		return file;
 	} else{
-		throw string("Cannot open file " + filename);
+		throw CrossException("Cannot open file " + filename);
 	}
 }
 
@@ -142,7 +144,7 @@ void LauncherWIN::Sleep(float milis){
 }
 
 void LauncherWIN::ShowMessage(string msg){
-	MessageBox(wnd, msg.c_str(), "Exception", MB_OK);
+	MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
 }
 
 void LauncherWIN::LandscapeMode(bool land){

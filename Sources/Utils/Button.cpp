@@ -19,6 +19,7 @@
 #include "Graphics2D.h"
 #include "Input.h"
 #include "Image.h"
+#include "Exception.h"
 
 using namespace cross;
 
@@ -129,7 +130,7 @@ float Button::GetHeight(){
 
 Rect Button::GetRect(){
 	if(!have_area){
-		throw string("This button have not area");
+		throw CrossException("This button have not area");
 	}
 	return area;
 }
