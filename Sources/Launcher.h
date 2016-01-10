@@ -35,6 +35,7 @@ public:
 	virtual int GetTargetHeight() = 0;
 	/* Log out message */
 	virtual void LogIt(string msg) = 0;
+	virtual void LogIt(const char* formatStr, ...) = 0;
 	/* return path to the application assets folder */
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */

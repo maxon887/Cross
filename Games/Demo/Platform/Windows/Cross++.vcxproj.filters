@@ -127,13 +127,16 @@
     <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shader.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\VertexShader.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Graphics.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\MemoryManager.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
@@ -247,13 +250,16 @@
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shader.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\VertexShader.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Graphics.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\MemoryManager.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

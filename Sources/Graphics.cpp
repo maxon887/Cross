@@ -14,13 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "GraphicsGL.h"
+#include "Graphics.h"
 #include "Launcher.h"
 #include "Shader.h"
 
 using namespace cross;
 
-GraphicsGL::GraphicsGL():
+Graphics::Graphics() :
 	program(0){
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 		GLint magorV;
@@ -38,14 +38,14 @@ GraphicsGL::GraphicsGL():
 #endif
 }
 
-void GraphicsGL::AttachShader(Shader* shader){
+void Graphics::AttachShader(Shader* shader){
 	if(program == 0){
 		program = glCreateProgram();
 	}
 	glAttachShader(program, shader->handle);
 }
 
-GLuint GraphicsGL::CompileProgram(){
+GLuint Graphics::CompileProgram(){
 	glLinkProgram(program);
 
 	GLint linked;

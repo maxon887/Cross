@@ -45,6 +45,7 @@ public:
 	unsigned char* LoadFile(string filename, int *size);
 	File* LoadFile(string filename);
 	void LogIt(string msg);
+	void LogIt(const char* formatString, ...);
 	void Sleep(float milis);
 	void ShowMessage(string msg);
 	void LandscapeMode(bool land);

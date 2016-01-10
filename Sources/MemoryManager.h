@@ -15,34 +15,36 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "File.h"
-#include "Graphics.h"
 
-#undef LoadImage;
+#define MAX_ALLOC 40000
+
+void* operator new(size_t size);
+void* operator new[](size_t size);
+void operator delete(void* p);
+void operator delete[](void* p);
 
 namespace cross{
 
-class VertexShader;
+struct MemoryObject{
+	void* address;
+	unsigned int size;
+	char* filename;
+	unsigned int line;
+};
 
-class Graphics2D : public Graphics{
+class MemoryManager{
 public:
-	Graphics2D();
-	~Graphics2D();
-	
-	void Clear();
-	void DrawImage(Vector2D pos, Image* img);
-	Image* CreateImage(Image* src, Rect area, float scaleFactor);
-	/* Load Image from assert file */
-	Image* LoadImage(string filename);
-	Image* LoadImage(string filename, float scaleFactor);
-	void ReleaseImage(Image* img);
+	static MemoryManager* Instance();
+	void* Alloc(unsigned int size, char* filename, unsigned int line);
+	void Free(void* address);
 private:
-	VertexShader* vertex_shader;
-	Shader* fragment_shader;
-	Matrix projection;
+	unsigned int object_count;
+	MemoryObject alloc_objects[MAX_ALLOC];
 
-	byte* LoadImageInternal(string filename, int* width, int* height);
+	MemoryManager();
+
+	static MemoryManager instance;
+	void SanityCheck();
 };
 
 }

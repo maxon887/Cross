@@ -127,6 +127,16 @@ void LauncherWIN::LogIt(string msg){
 	OutputDebugString(msg.c_str());
 }
 
+void LauncherWIN::LogIt(const char* formatStr, ...){
+	va_list params;
+	char buffer[1024];
+	va_start(params, formatStr);
+	vsprintf_s(buffer, sizeof(buffer), formatStr, params);
+	OutputDebugString(buffer);
+	OutputDebugString("\n");
+	va_end(params);
+}
+
 void LauncherWIN::Sleep(float milis){
 	IntSleep((int)(milis + .5));
 }

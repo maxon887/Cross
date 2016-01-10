@@ -30,10 +30,10 @@ namespace cross{
 
 class Shader;
 
-class GraphicsGL{
+class Graphics{
 //User module
 public:
-	GraphicsGL();
+	Graphics();
 	void AttachShader(Shader* shader);
 	GLuint CompileProgram();
 
