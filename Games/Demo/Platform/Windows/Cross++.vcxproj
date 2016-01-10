@@ -67,6 +67,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Exception.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
+    <ClInclude Include="..\..\..\..\Sources\Exception.h" />
     <ClInclude Include="..\..\..\..\Sources\File.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />

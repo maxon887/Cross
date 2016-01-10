@@ -139,6 +139,9 @@
     <ClCompile Include="..\..\..\..\Sources\MemoryManager.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Exception.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -260,6 +263,9 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\MemoryManager.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Exception.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

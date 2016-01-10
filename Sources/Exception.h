@@ -15,42 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#define MAX_ALLOC 40000
-
-void* operator new(size_t size);
-void* operator new(size_t size, char* filename, unsigned long line);
-void* operator new[](size_t size);
-void* operator new[](size_t size, char* filename, unsigned long line);
-void operator delete(void* p);
-void operator delete[](void* p);
-
-#define DEBUG_NEW new(__FILE__, __LINE__)
-#define new DEBUG_NEW
+#include "Cross.h"
 
 namespace cross{
 
-struct MemoryObject{
-	void* address;
-	unsigned int size;
-	char* filename;
-	unsigned int line;
-};
-
-class MemoryManager{
+class Exception{
 public:
-	static MemoryManager* Instance();
-	void* Alloc(unsigned int size, char* filename, unsigned int line);
-	void Free(void* address);
-	unsigned long Dump();
+	Exception(string message);
+	string GetMessage();
 private:
-	unsigned int object_count;
-	MemoryObject alloc_objects[MAX_ALLOC];
-
-	MemoryManager();
-
-	static MemoryManager instance;
-	void SanityCheck();
+	string message;
 };
 
-}
+};

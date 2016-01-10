@@ -282,6 +282,16 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	delete gfx2D;
 #endif
 	delete game;
-	delete launcher;
+	//delete launcher;
+
+	unsigned long leaked = MemoryManager::Instance()->Dump();
+	if(leaked >= 0){
+		char msg[512];
+		sprintf(msg, "Total leaked bytes = %d\n", leaked);
+		OutputDebugString(msg);
+	}else{
+		OutputDebugString("No memory leak detected\n");
+	}
+
 	return msg.wParam;
 }

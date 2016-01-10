@@ -14,42 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "MemoryManager.h"
-#include "Vector2D.h"
-#include "Vector3D.h"
-#include "Vector4D.h"
-#include "Matrix.h"
-#include "Color.h"
-#include "Rect.h"
+#include "Exception.h"
 
-#include <string>
+using namespace cross;
 
-namespace cross{
-
-class Game;
-class Launcher;
-class Graphics2D;
-class Graphics3D;
-class Input;
-class Config;
-class Debuger;
-class Texter;
-class Image;
-class Audio;
-class Screen;
-class File;
-
-extern Game* game;
-extern Launcher* launcher;
-extern Graphics2D* gfx2D;
-extern Graphics3D* gfx3D;
-extern Input* input;
-extern Config* config;
-extern Debuger* debuger;
-
+Exception::Exception(string message) :
+	message(message)
+{
 }
 
-using namespace std;
-
-cross::Game* CrossMain(cross::Launcher* launcher);
+string Exception::GetMessage(){
+	return message;
+}
