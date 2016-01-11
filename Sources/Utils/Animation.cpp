@@ -36,6 +36,22 @@ Animation::Animation(float rate, Image* frames[], int frameCount, bool looped){
 	Init(rate, frames, frameCount, looped);
 }
 
+Animation::~Animation(){
+	if(original){
+		for(unsigned int i = 0; i < frames.size(); i++){
+			if(frames[i] != NULL){
+				for(unsigned int j = i + 1; j < frames.size(); j++){
+					if(frames[i] == frames[j]){
+						frames[j] = NULL;
+					}
+				}
+				gfx2D->ReleaseImage(frames[i]);
+				frames[i] = NULL;
+			}
+		}
+	}
+}
+
 void Animation::Start(){
 	duration = 0;
 }
@@ -57,22 +73,6 @@ Image* Animation::GetImage(){
 
 bool Animation::IsRunning(){
 	return duration != 0xFF;
-}
-
-Animation::~Animation(){
-	if(original){
-		for(unsigned int i = 0; i < frames.size(); i++){
-			if(frames[i] != NULL){
-				for(unsigned int j = i+1; j < frames.size(); j++){
-					if(frames[i] == frames[j]){
-						frames[j] = NULL;
-					}
-				}
-				gfx2D->ReleaseImage(frames[i]);
-				frames[i] = NULL;
-			}
-		}
-	}
 }
 
 void Animation::Init(float rate, Image* frames[], int frameCount, bool looped){

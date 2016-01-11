@@ -19,7 +19,7 @@
 #include "File.h"
 #include "Graphics.h"
 
-#undef LoadImage;
+#undef LoadImage
 
 namespace cross{
 

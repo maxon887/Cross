@@ -25,8 +25,6 @@ bool PointInRect(Vector2D p, Rect rect);
 bool PointInTriangle(Vector2D pt, Vector2D v1, Vector2D v2, Vector2D v3);
 bool PointInCircle(Vector2D p, Vector2D center, float radius);
 bool CircleOnCollision(Vector2D p1, float r1, Vector2D p2, float r2);
-float Lerp(float v0, float v1, float t);
-float Angle(const Vector2D &first, const Vector2D &second);
 float Distance(const Vector2D &v1, const Vector2D &v2);
 float DistanceSq(const Vector2D &v1, const Vector2D &v2);
 float Distance(const Vector3D &v1, const Vector3D &v2);

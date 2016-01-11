@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
 #include "Cross.h"
+#include "Exception.h"
 #include "Game.h"
 #include "Input.h"
 #include "Config.h"
@@ -211,7 +212,15 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
 	LauncherWIN launcherWin(wnd);
 	launcher = &launcherWin;
-	game = CrossMain(launcher);
+	try{
+		game = CrossMain(launcher);
+	} catch(Exception &exc) {
+		string msg = string(exc.message) +
+			+"\nFile: " + string(exc.filename) +
+			+"\nLine: " + to_string(exc.line);
+		launcherWin.LogIt(msg);
+		launcherWin.ShowMessage(msg);
+	}
 	int winX = config->LoadInt("WIN_POS_X", 0);
 	int winY = config->LoadInt("WIN_POS_Y", 0);
 	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
@@ -251,44 +260,44 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		ShowLastError();
 	
 	ShowWindow(wnd, winShow);
+	MSG msg;
 	try{
 #ifdef GFX3D
-	gfx3D = new Graphics3D();
+		gfx3D = new Graphics3D();
 #elif GFX2D
-	gfx2D = new Graphics2D();
+		gfx2D = new Graphics2D();
 #endif
-	}catch(string& msg){
-		msg = "Exception: " + msg;
-		launcher->LogIt(msg);
-		//launcher->ShowMessage(msg);
-		return -1;
-	}
-	game->Init();
-	game->Start();
-	MSG msg;
-	ZeroMemory(&msg, sizeof(MSG));
-	while (msg.message != WM_QUIT) {
-		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+		game->Init();
+		game->Start();
+		ZeroMemory(&msg, sizeof(MSG));
+		while (msg.message != WM_QUIT) {
+			if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+			game->Update();
+			SwapBuffers(dc);
 		}
-		game->Update();
-		SwapBuffers(dc);
-	}
 #ifdef GFX3D
-	delete gfx3D;
+		delete gfx3D;
 #elif GFX2D
-	delete gfx2D;
+		delete gfx2D;
 #endif
-	delete game;
+		delete game;
 
-	unsigned long leaked = MemoryManager::Instance()->Dump();
-	if(leaked > 0){
-		launcher->LogIt("Total leaked bytes = %d\n", leaked);
-	}else{
-		launcher->LogIt("No memory leak detected\n");
+		unsigned long leaked = MemoryManager::Instance()->Dump();
+		if(leaked > 0){
+			launcher->LogIt("Memory leak.Total bytes = %d\n", leaked);
+		} else{
+			launcher->LogIt("No memory leak detected\n");
+		}
+	} catch(Exception &exc) {
+		string msg = string(exc.message) +
+			+"\nFile: " + string(exc.filename) +
+			+"\nLine: " + to_string(exc.line);
+		launcherWin.LogIt(msg);
+		launcherWin.ShowMessage(msg);
 	}
 
-	//return msg.wParam;
-	return 0;
+	return msg.wParam;
 }

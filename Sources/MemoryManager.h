@@ -23,7 +23,10 @@ void* operator new(size_t size, char* filename, unsigned long line);
 void* operator new[](size_t size);
 void* operator new[](size_t size, char* filename, unsigned long line);
 void operator delete(void* p);
+void operator delete(void* p, char* filename, unsigned long line);
 void operator delete[](void* p);
+void operator delete[](void* p, char* filename, unsigned long line);
+
 
 #define DEBUG_NEW new(__FILE__, __LINE__)
 #define new DEBUG_NEW

@@ -63,6 +63,7 @@ Button::Button(Game* game, float width, float height){
 	this->down = NULL;
 	this->active = true;
 	this->is_pressed = false;
+	this->have_area = false;
 	InitRect(location, width, height);
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -130,7 +131,7 @@ float Button::GetHeight(){
 
 Rect Button::GetRect(){
 	if(!have_area){
-		throw CrossException("This button have not area");
+		throw CrossException("This button does have not area");
 	}
 	return area;
 }
@@ -144,6 +145,9 @@ bool Button::OnLocation(Vector2D p){
 }
 
 bool Button::OnLocation(float x, float y){
+	if(!have_area){
+		throw CrossException("This button does have not area");
+	}
 	return	x > area.x &&
 			x < (area.x + area.width) &&
 			y > area.y &&

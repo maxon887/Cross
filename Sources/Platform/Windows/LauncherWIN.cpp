@@ -36,7 +36,7 @@ void IntSleep(int milis){
 }
 
 LauncherWIN::LauncherWIN(HWND wnd){
-	LogIt("LauncherWIN::LauncherWIN(HWND)");
+	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	this->wnd = wnd;
 	landscape = false;
 	target_width = TARGET_WIDTH;
@@ -87,23 +87,6 @@ string LauncherWIN::AssetsPath(){
 
 string LauncherWIN::DataPath(){
 	return DATA_PATH;
-}
-
-unsigned char* LauncherWIN::LoadFile(string filename, int *size){
-	string filePath = AssetsPath() + "//" + filename;
-	ifstream fileStream(filePath, istream::binary);
-	if(fileStream.is_open()){
-		fileStream.seekg(0, fileStream.end);
-		*size = (size_t)fileStream.tellg();
-		fileStream.seekg(0, fileStream.beg);
-		char* data = new char[*size];
-		ZeroMemory(data, *size);
-		fileStream.read((char*)data, *size);
-		return (unsigned char*)data;
-	}else{
-		string msg = "Cannot open file " + filename;
-		throw CrossException(msg);
-	}
 }
 
 File* LauncherWIN::LoadFile(string filename){

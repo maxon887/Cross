@@ -42,7 +42,6 @@ public:
 	int GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
-	unsigned char* LoadFile(string filename, int *size);
 	File* LoadFile(string filename);
 	void LogIt(string msg);
 	void LogIt(const char* formatString, ...);

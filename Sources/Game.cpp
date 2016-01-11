@@ -170,5 +170,5 @@ Game::~Game(){
 	delete input;
 	delete config;
 	delete debuger;
-	Audio::Release;
+	Audio::Release();
 }

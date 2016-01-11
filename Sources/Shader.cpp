@@ -17,6 +17,7 @@
 #include "Shader.h"
 #include "Exception.h"
 #include "Launcher.h"
+#include "File.h"
 
 using namespace cross;
 
@@ -32,12 +33,11 @@ Shader::Shader(string filename) :
 	} else{
 		throw CrossException("Unknown file extension");
 	}
-	int size = 0;
-	char* raw = (char*)launcher->LoadFile(filename, &size);
-	GLchar* source = new GLchar[size + 1]; // +1 for null terminated string
-	memcpy(source, raw, size);
-	delete[] raw;
-	source[size] = 0;
+	File* file = launcher->LoadFile(filename);
+	GLchar* source = new GLchar[file->size + 1]; // +1 for null terminated string
+	memcpy(source, file->data, file->size);
+	source[file->size] = 0;
+	delete file;
 	//shader compilling part
 	handle = glCreateShader(type);
 	glShaderSource(handle, 1, (const GLchar**)&source, NULL);

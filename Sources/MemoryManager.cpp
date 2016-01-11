@@ -44,7 +44,15 @@ void operator delete(void* p){
 	MemoryManager::Instance()->Free(p);
 }
 
+void operator delete(void* p, char* filename, unsigned long line){
+	MemoryManager::Instance()->Free(p);
+}
+
 void operator delete[](void* p){
+	MemoryManager::Instance()->Free(p);
+}
+
+void operator delete[](void* p, char* filename, unsigned long line){
 	MemoryManager::Instance()->Free(p);
 }
 
