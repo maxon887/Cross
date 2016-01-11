@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#define MAX_ALLOC 40000
+#define MAX_ALLOC 1000
 
 void* operator new(size_t size);
 void* operator new(size_t size, char* filename, unsigned long line);

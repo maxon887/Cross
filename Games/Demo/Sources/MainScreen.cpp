@@ -72,7 +72,7 @@ void MainScreen::Update(float sec){
 	//gfx2D->DrawLine(Vector2D(0,0), Vector2D(24,24), Color::Blue);
 	Vector2D pos;
 	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 + 40;
+	pos.y = 150;
 
 	animation_btn->SetLocation(pos);
 	animation_btn->Update();

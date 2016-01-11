@@ -4,9 +4,6 @@
     <Filter Include="Cross">
       <UniqueIdentifier>{6cfee1d6-7752-4871-bb8a-d3373bf0533c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\SOIL">
-      <UniqueIdentifier>{f0da043f-cca2-4c2b-bd21-44a4e4585a08}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Utils">
       <UniqueIdentifier>{b606314a-4719-4661-a7c6-1ca6a484708c}</UniqueIdentifier>
     </Filter>
@@ -54,15 +51,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
-      <Filter>Cross\SOIL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp">
       <Filter>Cross\Platform\Windows</Filter>
@@ -179,15 +167,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h">
-      <Filter>Cross\SOIL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Audio.h">
       <Filter>Cross</Filter>

@@ -62,6 +62,11 @@ MemoryManager::MemoryManager():
 
 void* MemoryManager::Alloc(unsigned int size, char* filename, unsigned int line){
 	SanityCheck();
+	static int maxAlloc = MAX_ALLOC;
+	if(object_count == maxAlloc - 1){
+		maxAlloc = 0;
+		throw CrossException("Maximum object allocated. Needs to redesign MemoryManager.");
+	}
 
 	alloc_objects[object_count].address = malloc(size + 4);
 	alloc_objects[object_count].filename = filename;
