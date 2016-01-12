@@ -24,6 +24,7 @@
 #include "Config.h"
 #include "Image.h"
 #include "Exception.h"
+#include "TexterAdvanced.h"
 
 MainScreen::~MainScreen(){
 	delete texter;
@@ -64,7 +65,15 @@ void MainScreen::Start(){
 	startLaunches++;
 	config->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
-
+	
+	TexterAdvanced* texterAdvanced = new TexterAdvanced();
+	File* fontFile = launcher->LoadFile("Engine/times.ttf");
+	texterAdvanced->LoadFont(fontFile);
+	int width, height;
+	byte* imageBytes = texterAdvanced->CharBitmap(&width, &height);
+	character = gfx2D->LoadImage(imageBytes, width, height);
+	
+	delete texterAdvanced;
 }
 
 void MainScreen::Update(float sec){
@@ -105,6 +114,7 @@ void MainScreen::Update(float sec){
 	default:
 		break;
 	}
+	gfx2D->DrawImage(Vector2D(0, 0), character);
 }
 
 void MainScreen::OnAnimationClick(){

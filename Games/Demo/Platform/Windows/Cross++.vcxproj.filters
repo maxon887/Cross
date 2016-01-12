@@ -130,6 +130,9 @@
     <ClCompile Include="..\..\..\..\Sources\Exception.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\TexterAdvanced.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -246,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\TexterAdvanced.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

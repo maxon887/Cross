@@ -46,6 +46,7 @@ public:
 	~MainScreen();
 private:
 	Image* x_img;
+	Image* character;
 	Button* animation_btn;
 	Button* audio_btn;
 	Button* primitives_btn;

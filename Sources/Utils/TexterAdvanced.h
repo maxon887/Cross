@@ -15,35 +15,23 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
 #include "File.h"
-#include "Graphics.h"
 
-#undef LoadImage
+#include "FreeType\ft2build.h"
+#include FT_FREETYPE_H
 
 namespace cross{
 
-class VertexShader;
+class File;
 
-class Graphics2D : public Graphics{
+class TexterAdvanced{
 public:
-	Graphics2D();
-	~Graphics2D();
-	
-	void Clear();
-	void DrawImage(Vector2D pos, Image* img);
-	Image* CreateImage(Image* src, Rect area, float scaleFactor);
-	/* Load Image from assert file */
-	Image* LoadImage(string filename);
-	Image* LoadImage(string filename, float scaleFactor);
-	Image* LoadImage(byte* data, int width, int height);
-	void ReleaseImage(Image* img);
+	TexterAdvanced();
+	void LoadFont(File* file);
+	byte* CharBitmap(int* width, int* height);
 private:
-	VertexShader* vertex_shader;
-	Shader* fragment_shader;
-	Matrix projection;
-
-	byte* LoadImageInternal(string filename, int* width, int* height);
+	static FT_Library library;
+	FT_Face face;
 };
 
-}
+};

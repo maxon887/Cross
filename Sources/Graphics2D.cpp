@@ -24,7 +24,8 @@
 
 #include "SOIL/SOIL.h"
 
-#define BYTES_PER_CHANNEL 4
+#define BYTES_RGBA 4
+#define BYTES_RGB  3
 
 using namespace cross;
 
@@ -42,6 +43,8 @@ Graphics2D::Graphics2D(){
 
 	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(vertex_shader->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 Graphics2D::~Graphics2D(){
@@ -93,17 +96,17 @@ Image* Graphics2D::LoadImage(string filename, float scaleFactor){
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	if(new_width > width || new_height > height){
-		unsigned char* newImage = (unsigned char*)malloc(BYTES_PER_CHANNEL * new_width * new_height);
+		unsigned char* newImage = (unsigned char*)malloc(BYTES_RGBA * new_width * new_height);
 		for(int i = 0; i < height; i++){
-			memcpy(newImage + i * new_width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL);
+			memcpy(newImage + i * new_width * BYTES_RGBA, image + i * width * BYTES_RGBA, width * BYTES_RGBA);
 			//Clamp to edge effect
 			if(new_width > width){
-				memcpy(newImage + i * new_width * BYTES_PER_CHANNEL + width * BYTES_PER_CHANNEL, image + i * width * BYTES_PER_CHANNEL, BYTES_PER_CHANNEL);
+				memcpy(newImage + i * new_width * BYTES_RGBA + width * BYTES_RGBA, image + i * width * BYTES_RGBA, BYTES_RGBA);
 			}
 		}
 		//Clamp to edge effect
 		if(new_height > height){
-			memcpy(newImage + height * BYTES_PER_CHANNEL * new_width, image + (height - 1) * width * BYTES_PER_CHANNEL, width * BYTES_PER_CHANNEL);
+			memcpy(newImage + height * BYTES_RGBA * new_width, image + (height - 1) * width * BYTES_RGBA, width * BYTES_RGBA);
 		}
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, new_width, new_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newImage);
@@ -122,6 +125,55 @@ Image* Graphics2D::LoadImage(string filename, float scaleFactor){
 	Image* img = new Image(textureID, new_width, new_height, region);
 	img->Scale(scaleFactor);
 	string debugMsg = "Load image " + filename + ": ";
+	glBindTexture(GL_TEXTURE_2D, 0);
+	debuger->StopCheckTime(debugMsg);
+	return img;
+}
+
+Image* Graphics2D::LoadImage(byte* image, int width, int height){
+	debuger->StartCheckTime();
+	GLuint textureID;
+	int new_width = 1;
+	int new_height = 1;
+	while(new_width < width) {
+		new_width *= 2;
+	}
+	while(new_height < height) {
+		new_height *= 2;
+	}
+	//Create power of two texture
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	if(new_width > width || new_height > height){
+		unsigned char* newImage = (unsigned char*)malloc(BYTES_RGB * new_width * new_height);
+		for(int i = 0; i < height; i++){
+			memcpy(newImage + i * new_width * BYTES_RGB, image + i * width * BYTES_RGB, width * BYTES_RGB);
+			//Clamp to edge effect
+			if(new_width > width){
+				memcpy(newImage + i * new_width * BYTES_RGB + width * BYTES_RGB, image + i * width * BYTES_RGB, BYTES_RGB);
+			}
+		}
+		//Clamp to edge effect
+		if(new_height > height){
+			memcpy(newImage + height * BYTES_RGB * new_width, image + (height - 1) * width * BYTES_RGB, width * BYTES_RGB);
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, new_width, new_height, 0, GL_RGB, GL_UNSIGNED_BYTE, newImage);
+		free(newImage);
+	} else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	}
+	//SOIL_free_image_data(image);
+
+	//parameters
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	Rect region(0, 0, (float)width, (float)height);
+	Image* img = new Image(textureID, new_width, new_height, region);
+	img->Scale(game->GetScaleFactor());
+	string debugMsg = "Load image ";
 	glBindTexture(GL_TEXTURE_2D, 0);
 	debuger->StopCheckTime(debugMsg);
 	return img;
