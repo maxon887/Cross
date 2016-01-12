@@ -15,32 +15,25 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#ifdef WIN
-#include "Platform\Windows\glew\glew.h"
-#include "Platform\Windows\glew\wglew.h"
-#elif ANDROID
-//#include <GLES/gl.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#include <GLES2/gl2platform.h>
-#endif
+#include "Cross.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
-class Shader;
-
-class Graphics{
-//User module
+class SpriteShaders{
 public:
-	Graphics();
-	void AttachShader(Shader* shader);
-	GLuint CompileProgram();
-
-	//void DrawPoint(Vector2D p, Color c);
-protected:
 	GLuint program;
-//Framework module. You don't need call any of this methods or modify variable
+
+	GLuint aPositionLoc;
+	GLuint aTexCoordLoc;
+	GLuint uModelLoc;
+	GLuint uProjectionLoc;
+
+	SpriteShaders();
+	~SpriteShaders();
+private:
+	GLuint vertex_shader;
+	GLuint fragment_shader;
 };
 
-}
+};

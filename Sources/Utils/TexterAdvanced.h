@@ -26,12 +26,12 @@ class File;
 
 class TexterAdvanced{
 public:
+	static FT_Library library;
+	FT_Face face;
+
 	TexterAdvanced();
 	void LoadFont(File* file);
 	byte* CharBitmap(int* width, int* height);
-private:
-	static FT_Library library;
-	FT_Face face;
 };
 
 };

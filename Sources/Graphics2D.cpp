@@ -16,11 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "Exception.h"
-#include "VertexShader.h"
+#include "SpriteShaders.h"
+#include "TexterShaders.h"
 #include "Launcher.h"
 #include "Game.h"
 #include "Utils\Debuger.h"
 #include "Image.h"
+#include "TexterAdvanced.h"
 
 #include "SOIL/SOIL.h"
 
@@ -31,39 +33,129 @@ using namespace cross;
 
 Graphics2D::Graphics2D(){
 	launcher->LogIt("Graphics2D::Graphics2D()");
-	vertex_shader = new VertexShader("Engine/image.vert");
-	fragment_shader = new Shader("Engine/image.frag");
-	AttachShader(vertex_shader);
-	AttachShader(fragment_shader);
-	CompileProgram();
-	vertex_shader->Initialize(program);
+	sprite_shaders = new SpriteShaders();
+	texter_shaders = new TexterShaders();
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	texter = new TexterAdvanced();
+	File* fontFile = launcher->LoadFile("Engine/times.ttf");
+	texter->LoadFont(fontFile);
+	/*
+	GLuint tex;
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glUniform1i(uniform_tex, 0);*/
 
-	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
-	glUniformMatrix4fv(vertex_shader->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+
 
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 Graphics2D::~Graphics2D(){
-	delete vertex_shader;
-	delete fragment_shader;
+	delete sprite_shaders;
 }
 
 void Graphics2D::Clear(){
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void Graphics2D::DrawText(Vector2D pos, string textStr){
+	gfxGL->UseProgram(texter_shaders->program);
+	FT_GlyphSlot g = texter->face->glyph;
+
+	GLuint tex;
+	
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	//glUniform1i(uniform_tex, 0);
+
+	/* We require 1 byte alignment when uploading texture data */
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	/* Clamping to edges is important to prevent artifacts when scaling */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	/* Linear filtering usually looks best for text */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glEnableVertexAttribArray(texter_shaders->aPosition);
+	//parameterization
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	const char* text = textStr.c_str();
+	const char* p = text;
+	while(*p){
+		if(FT_Load_Char(texter->face, *p, FT_LOAD_RENDER))
+			continue;
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, g->bitmap.width, g->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			GL_RED,
+			texter->face->glyph->bitmap.width,
+			texter->face->glyph->bitmap.rows,
+			0,
+			GL_RED,
+			GL_UNSIGNED_BYTE,
+			texter->face->glyph->bitmap.buffer
+		);
+
+		GLfloat red[4] = { 1, 0, 0, 1 };
+		glUniform4fv(texter_shaders->uColor, 1, red);
+
+		//FT_Set_Pixel_Sizes(texter->face, 0, 48);
+
+		float sx = 2.0 / launcher->GetTargetWidth();
+		float sy = 2.0 / launcher->GetTargetHeight();
+
+		float x2 = pos.x + texter->face->glyph->bitmap_left * sx;
+		float y2 = -pos.y - texter->face->glyph->bitmap_top * sy;
+		float w = texter->face->glyph->bitmap.width * sx;
+		float h = texter->face->glyph->bitmap.rows * sy;
+
+		GLfloat box[4][4] = {
+			{ x2, -y2, 0, 0 },
+			{ x2 + w, -y2, 1, 0 },
+			{ x2, -y2 - h, 0, 1 },
+			{ x2 + w, -y2 - h, 1, 1 },
+		};
+
+		//glBufferData(GL_ARRAY_BUFFER, sizeof box, box, GL_DYNAMIC_DRAW);
+		glVertexAttribPointer(texter_shaders->aPosition, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), box);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+		pos.x += (texter->face->glyph->advance.x >> 6) * sx;
+		pos.y += (texter->face->glyph->advance.y >> 6) * sy;
+
+		p++;
+	}
+}
+
 void Graphics2D::DrawImage(Vector2D pos, Image* img){
+	gfxGL->UseProgram(sprite_shaders->program);
+
+	//parameterization
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+
 	img->SetPosition(pos);
 	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
-	glVertexAttribPointer(vertex_shader->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices());
-	glVertexAttribPointer(vertex_shader->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices() + 2);
-	glEnableVertexAttribArray(vertex_shader->aPositionLoc);
-	glEnableVertexAttribArray(vertex_shader->aTexCoordLoc);
-	glUniformMatrix4fv(vertex_shader->uModelLoc, 1, GL_TRUE, img->GetModel());
+	glVertexAttribPointer(sprite_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices());
+	glVertexAttribPointer(sprite_shaders->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices() + 2);
+	glEnableVertexAttribArray(sprite_shaders->aPositionLoc);
+	glEnableVertexAttribArray(sprite_shaders->aTexCoordLoc);
+	glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_TRUE, img->GetModel());
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
 }
@@ -96,7 +188,7 @@ Image* Graphics2D::LoadImage(string filename, float scaleFactor){
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	if(new_width > width || new_height > height){
-		unsigned char* newImage = (unsigned char*)malloc(BYTES_RGBA * new_width * new_height);
+		byte* newImage = (byte*)malloc(BYTES_RGBA * new_width * new_height);
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * new_width * BYTES_RGBA, image + i * width * BYTES_RGBA, width * BYTES_RGBA);
 			//Clamp to edge effect
@@ -145,7 +237,7 @@ Image* Graphics2D::LoadImage(byte* image, int width, int height){
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	if(new_width > width || new_height > height){
-		unsigned char* newImage = (unsigned char*)malloc(BYTES_RGB * new_width * new_height);
+		byte* newImage = (byte*)malloc(BYTES_RGB * new_width * new_height);
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * new_width * BYTES_RGB, image + i * width * BYTES_RGB, width * BYTES_RGB);
 			//Clamp to edge effect
@@ -163,6 +255,7 @@ Image* Graphics2D::LoadImage(byte* image, int width, int height){
 	} else {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	}
+	delete image;
 	//SOIL_free_image_data(image);
 
 	//parameters

@@ -15,19 +15,30 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Shader.h"
+#include "Cross.h"
+
+#ifdef WIN
+#include "Platform\Windows\glew\glew.h"
+#include "Platform\Windows\glew\wglew.h"
+#elif ANDROID
+//#include <GLES/gl.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+#include <GLES2/gl2platform.h>
+#endif
 
 namespace cross{
 
-class VertexShader : public Shader{
+class GraphicsGL{
 public:
-	VertexShader(string filename);
-	void Initialize(GLuint program);
-	GLuint aPositionLoc;
-	GLuint aTexCoordLoc;
-	GLuint uModelLoc;
-	GLuint uProjectionLoc;
-private:
+	GraphicsGL();
+	GLuint ComplileShader(string filename);
+	void DeleteShader(GLuint shader);
+	GLuint CreateProgram();
+	void DeleteProgram(GLuint program);
+	void AttachShader(GLuint program, GLuint shader);
+	void CompileProgram(GLuint program);
+	void UseProgram(GLuint program);
 };
 
 }

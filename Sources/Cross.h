@@ -29,6 +29,7 @@ namespace cross{
 
 class Game;
 class Launcher;
+class GraphicsGL;
 class Graphics2D;
 class Graphics3D;
 class Input;
@@ -42,6 +43,7 @@ class File;
 
 extern Game* game;
 extern Launcher* launcher;
+extern GraphicsGL* gfxGL;
 extern Graphics2D* gfx2D;
 extern Graphics3D* gfx3D;
 extern Input* input;

@@ -46,13 +46,13 @@ void TexterAdvanced::LoadFont(File* file){
 		throw CrossException("Error in set char size");
 	}
 	FT_UInt glyph_index = FT_Get_Char_Index(face, 0x41);
-	error = FT_Load_Glyph(face, glyph_index, FT_RENDER_MODE_LCD_V);
+	error = FT_Load_Glyph(face, glyph_index, FT_RENDER_MODE_LCD);
 	if(error){
 		throw CrossException("Error in loading glyph");
 	}
 
 
-	delete file;
+	//delete file;
 }
 
 byte* TexterAdvanced::CharBitmap(int* width, int* height){

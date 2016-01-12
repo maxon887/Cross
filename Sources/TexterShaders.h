@@ -14,19 +14,23 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "VertexShader.h"
+#pragma once
+#include "GraphicsGL.h"
 
-using namespace cross;
+namespace cross{
 
-VertexShader::VertexShader(string filename):
-	Shader(filename)
-{
+class TexterShaders{
+public:
+	GLuint program;
 
-}
+	GLuint aPosition;
+	GLuint uColor;
 
-void VertexShader::Initialize(GLuint program){
-	aPositionLoc = glGetAttribLocation(program, "aPosition");
-	aTexCoordLoc = glGetAttribLocation(program, "aTexCoord");
-	uModelLoc = glGetUniformLocation(program, "uModel");
-	uProjectionLoc = glGetUniformLocation(program, "uProjection");
+	TexterShaders();
+	~TexterShaders();
+private:
+	GLuint vertex_shader;
+	GLuint fragment_shader;
+};
+
 }

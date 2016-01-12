@@ -14,15 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Graphics.h"
+#include "GraphicsGL.h"
 #include "Exception.h"
 #include "Launcher.h"
-#include "Shader.h"
+#include "File.h"
 
 using namespace cross;
 
-Graphics::Graphics() :
-	program(0){
+GraphicsGL::GraphicsGL(){
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 		GLint magorV;
 		GLint minorV;
@@ -34,19 +33,81 @@ Graphics::Graphics() :
 		launcher->LogIt("Max Vertex Attributes: " + to_string(maxVertexAttribs));
 #ifdef WIN
 		if(glewInit()) {
-			launcher->LogIt("Unable to initialize GLEW");
+			throw CrossException("Unable to initialize GLEW");
 		}
 #endif
 }
 
-void Graphics::AttachShader(Shader* shader){
-	if(program == 0){
-		program = glCreateProgram();
-	}
-	glAttachShader(program, shader->handle);
+GLuint GraphicsGL::ComplileShader(string filename){
+		//file loading part
+		string extension = filename.substr(filename.find_last_of(".") + 1);
+		GLuint type;
+		if(extension == "vert"){
+			type = GL_VERTEX_SHADER;
+		} else if(extension == "frag"){
+			type = GL_FRAGMENT_SHADER;
+		} else{
+			throw CrossException("Can't compile shader.\nUnknown file extension.");
+		}
+		File* file = launcher->LoadFile(filename);
+		GLchar* source = new GLchar[file->size + 1]; // +1 for null terminated string
+		memcpy(source, file->data, file->size);
+		source[file->size] = 0;
+		delete file;
+		//shader compilling part
+		GLuint handle = glCreateShader(type);
+		glShaderSource(handle, 1, (const GLchar**)&source, NULL);
+		delete[] source;
+		source = NULL;
+
+		glCompileShader(handle);
+		GLint compiled;
+		glGetShaderiv(handle, GL_COMPILE_STATUS, &compiled);
+		if(!compiled) {
+			GLsizei len;
+			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+
+			GLchar* log = new GLchar[len + 1];
+			glGetShaderInfoLog(handle, len, &len, log);
+			string msg(log);
+			delete[] log;
+			launcher->LogIt("Shader compilation failed:\n" + msg);
+			throw CrossException("Shader compilation failed:\n" + msg);
+		} else{
+#ifdef CROSS_DEBUG
+			GLsizei len;
+			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+			if(len > 1){
+				GLchar* log = new GLchar[len + 1];
+				glGetShaderInfoLog(handle, len, &len, log);
+				string msg(log);
+				delete[] log;
+				launcher->LogIt("Shader compilation:\n" + msg);
+			}
+#endif
+		}
+		return handle;
 }
 
-GLuint Graphics::CompileProgram(){
+void GraphicsGL::DeleteShader(GLuint handle){
+	glDeleteShader(handle);
+}
+
+GLuint GraphicsGL::CreateProgram(){
+	return glCreateProgram();
+}
+
+void GraphicsGL::DeleteProgram(GLuint program){
+	glDeleteProgram(program);
+}
+
+
+
+void GraphicsGL::AttachShader(GLuint program, GLuint shader){
+	glAttachShader(program, shader);
+}
+
+void GraphicsGL::CompileProgram(GLuint program){
 	glLinkProgram(program);
 
 	GLint linked;
@@ -59,15 +120,12 @@ GLuint Graphics::CompileProgram(){
 		glGetProgramInfoLog(program, len, &len, log);
 		string msg(log);
 		delete[] log;
-		launcher->LogIt("Shader compilation failed:\n" + msg);
 		throw CrossException("Shader compilation failed:\n" + msg);
 	}
+}
+
+void GraphicsGL::UseProgram(GLuint program){
 	glUseProgram(program);
-#ifdef DEBUG
-	GLsizei len;
-	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &len);
-#endif
-	return program;
 }
 /*
 void GraphicsGL::DrawPoint(Vector2D p, Color c){

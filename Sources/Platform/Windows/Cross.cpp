@@ -262,6 +262,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	ShowWindow(wnd, winShow);
 	MSG msg;
 	try{
+		gfxGL = new GraphicsGL();
 #ifdef GFX3D
 		gfx3D = new Graphics3D();
 #elif GFX2D

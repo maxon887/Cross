@@ -17,20 +17,24 @@
 #pragma once
 #include "Cross.h"
 #include "File.h"
-#include "Graphics.h"
+#include "GraphicsGL.h"
 
 #undef LoadImage
+#undef DrawText
 
 namespace cross{
 
-class VertexShader;
+class SpriteShaders;
+class TexterShaders;
+class TexterAdvanced;
 
-class Graphics2D : public Graphics{
+class Graphics2D{
 public:
 	Graphics2D();
 	~Graphics2D();
 	
 	void Clear();
+	void DrawText(Vector2D pos, string text);
 	void DrawImage(Vector2D pos, Image* img);
 	Image* CreateImage(Image* src, Rect area, float scaleFactor);
 	/* Load Image from assert file */
@@ -39,8 +43,9 @@ public:
 	Image* LoadImage(byte* data, int width, int height);
 	void ReleaseImage(Image* img);
 private:
-	VertexShader* vertex_shader;
-	Shader* fragment_shader;
+	SpriteShaders* sprite_shaders;
+	TexterShaders* texter_shaders;
+	TexterAdvanced* texter;
 	Matrix projection;
 
 	byte* LoadImageInternal(string filename, int* width, int* height);

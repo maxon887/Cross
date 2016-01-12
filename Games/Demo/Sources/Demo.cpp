@@ -21,6 +21,7 @@
 Demo::Demo(Launcher* launcher) : Game(launcher) { }
 
 void Demo::Start(){
+	debuger->EnableScreenDebug();
 }
 
 Screen* Demo::GetStartScreen(){

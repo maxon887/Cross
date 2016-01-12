@@ -59,25 +59,24 @@ void MainScreen::Start(){
 	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
 
-	debuger->EnableScreenDebug();
-
 	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
 	config->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 	
-	TexterAdvanced* texterAdvanced = new TexterAdvanced();
-	File* fontFile = launcher->LoadFile("Engine/times.ttf");
-	texterAdvanced->LoadFont(fontFile);
-	int width, height;
-	byte* imageBytes = texterAdvanced->CharBitmap(&width, &height);
-	character = gfx2D->LoadImage(imageBytes, width, height);
+	//TexterAdvanced* texterAdvanced = new TexterAdvanced();
+	//File* fontFile = launcher->LoadFile("Engine/times.ttf");
+	//texterAdvanced->LoadFont(fontFile);
+	//int width, height;
+	//byte* imageBytes = texterAdvanced->CharBitmap(&width, &height);
+	//character = gfx2D->LoadImage(imageBytes, width, height);
 	
-	delete texterAdvanced;
+	//delete texterAdvanced;
 }
 
 void MainScreen::Update(float sec){
 	gfx2D->Clear();
+	
 	//gfx2D->DrawLine(Vector2D(0,0), Vector2D(24,24), Color::Blue);
 	Vector2D pos;
 	pos.x = game->GetWidth() / 2;
@@ -114,7 +113,7 @@ void MainScreen::Update(float sec){
 	default:
 		break;
 	}
-	gfx2D->DrawImage(Vector2D(0, 0), character);
+	gfx2D->DrawText(Vector2D(-1.0f, -1.0f), "Blah");
 }
 
 void MainScreen::OnAnimationClick(){
