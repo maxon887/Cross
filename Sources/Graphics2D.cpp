@@ -94,19 +94,7 @@ void Graphics2D::DrawText(Vector2D pos, string textStr){
 		if(FT_Load_Char(texter->face, *p, FT_LOAD_RENDER))
 			continue;
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, g->bitmap.width, g->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
-
-		glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			GL_RED,
-			texter->face->glyph->bitmap.width,
-			texter->face->glyph->bitmap.rows,
-			0,
-			GL_RED,
-			GL_UNSIGNED_BYTE,
-			texter->face->glyph->bitmap.buffer
-		);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, g->bitmap.width, g->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 
 		GLfloat red[4] = { 1, 0, 0, 1 };
 		glUniform4fv(texter_shaders->uColor, 1, red);
@@ -116,10 +104,12 @@ void Graphics2D::DrawText(Vector2D pos, string textStr){
 		float sx = 2.0 / launcher->GetTargetWidth();
 		float sy = 2.0 / launcher->GetTargetHeight();
 
-		float x2 = pos.x + texter->face->glyph->bitmap_left * sx;
-		float y2 = -pos.y - texter->face->glyph->bitmap_top * sy;
-		float w = texter->face->glyph->bitmap.width * sx;
-		float h = texter->face->glyph->bitmap.rows * sy;
+		//float x2 = pos.x + g->bitmap_left * sx;
+		//float y2 = -pos.y - g->bitmap_top * sy;
+		float x2 = g->bitmap_left * sx;
+		float y2 = g->bitmap_top * sy;
+		float w = g->bitmap.width * sx;
+		float h = g->bitmap.rows * sy;
 
 		GLfloat box[4][4] = {
 			{ x2, -y2, 0, 0 },
@@ -132,8 +122,8 @@ void Graphics2D::DrawText(Vector2D pos, string textStr){
 		glVertexAttribPointer(texter_shaders->aPosition, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), box);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-		pos.x += (texter->face->glyph->advance.x >> 6) * sx;
-		pos.y += (texter->face->glyph->advance.y >> 6) * sy;
+		pos.x += (g->advance.x >> 6) * sx;
+		pos.y += (g->advance.y >> 6) * sy;
 
 		p++;
 	}

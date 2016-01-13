@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TexterAdvanced.h"
 #include "Exception.h"
+#include "Launcher.h"
 
 using namespace cross;
 
@@ -41,7 +42,9 @@ void TexterAdvanced::LoadFont(File* file){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
 
+	//error = FT_Set_Char_Size(face, 0, 16 * 64, 300, 300);
 	error = FT_Set_Char_Size(face, 0, 16 * 64, 300, 300);
+	//error = FT_Set_Pixel_Sizes(face, 10, 10);
 	if(error){
 		throw CrossException("Error in set char size");
 	}
