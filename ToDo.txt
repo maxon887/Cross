@@ -8,3 +8,5 @@
 +8. Memory menegment
 9. OpenGL ES
 +10. Exception system
+11. MemomoryMenager dynamic allocation
+12. Graphics2D video data transfer optimisation

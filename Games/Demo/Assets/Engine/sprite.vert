@@ -1,7 +1,7 @@
 attribute vec2 aPosition;
-attribute vec4 aTexCoord;
+attribute vec2 aTexCoord;
 
-varying vec4 vTexCoord;
+varying vec2 vTexCoord;
 
 uniform mat4 uModel;
 uniform mat4 uView;

@@ -110,7 +110,6 @@ unsigned long MemoryManager::Dump(){
 	SanityCheck();
 	unsigned long totalBytes = 0;
 	for(unsigned int i = 0; i < object_count; i++){
-		//printf("%4d. 0x%08X: %d bytes(%s: %d)\n", 
 		launcher->LogIt("%4d. 0x%08X: %d bytes(%s: %d)",
 			i,
 			(unsigned long)alloc_objects[i].address,
