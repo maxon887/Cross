@@ -34,6 +34,7 @@ public:
 	~Graphics2D();
 	
 	void Clear();
+	void Clear(Color color);
 	void DrawText(Vector2D pos, string text);
 	void DrawImage(Vector2D pos, Image* img);
 	Image* CreateImage(Image* src, Rect area, float scaleFactor);
@@ -47,6 +48,7 @@ private:
 	TexterShaders* texter_shaders;
 	TexterAdvanced* texter;
 	Matrix projection;
+	Color clear_color;
 
 	byte* LoadImageInternal(string filename, int* width, int* height);
 };

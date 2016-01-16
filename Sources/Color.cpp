@@ -38,3 +38,17 @@ Color::Color(int r, int g, int b){
 	this->G = g/255.f;
 	this->B = b/255.f;
 }
+
+bool Color::operator==(const Color &c) const{
+	if(	this->R == c.R &&
+		this->G == c.G &&
+		this->B == c.B){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+bool Color::operator!=(const Color &c) const{
+	return !((*this) == c);
+}
