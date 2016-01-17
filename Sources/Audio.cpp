@@ -18,18 +18,18 @@
 #include "Exception.h"
 #include "Launcher.h"
 
-using namespace cross;
-
-#ifndef DISABLE_AUDIO
-
 #include "FMOD/fmod.hpp"
 #include "FMOD/fmod_errors.h"
 
 #include <stdarg.h>
 
+#ifndef DISABLE_AUDIO
+
 #ifndef Common_vsnprintf
     #define Common_vsnprintf vsnprintf
 #endif
+
+using namespace cross;
 
 static FMOD_RESULT		result;
 

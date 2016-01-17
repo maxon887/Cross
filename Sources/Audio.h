@@ -32,13 +32,13 @@ class Audio{
 public:
 	Audio(string path, bool loop, bool isStream);
 	Audio(Audio& obj);
+	~Audio();
 
 	void Play();
 	void Pause();
 	void Resume();
 	void Stop();
 	bool IsPlaying();
-	~Audio();
 //Internal data. You don't need call any of this methods or modify variables
 public:
 	static void Init();
