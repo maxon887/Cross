@@ -1,6 +1,7 @@
 # Codestyle Guideline
 ### 1. include files
 Header files can be include in other header files only if they extremely necessary there. In any other cases you must include files in source module and use [forward declaration](https://en.wikipedia.org/wiki/Forward_declaration). Good list of situations in which you can and can't do forward declaration can be found [there](http://stackoverflow.com/questions/553682/when-can-i-use-a-forward-declaration). Good practice is to keep include files in next order:
+
 1. User files.
 2. Linked libraries files.
 3. Standard language and system files.
@@ -59,6 +60,7 @@ float GetWidth();
 
 ### 3. Class declarations
 Best way to keep all classes easy readable is to place all class members in fixed order. By the field of view we declare first **public** then **protected** then **private** fields. By the logical meaning we declare fields in next order:
+
 1. Static variables
 2. Static functions
 3. Pure virtual functions
