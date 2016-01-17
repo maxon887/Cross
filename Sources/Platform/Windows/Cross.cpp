@@ -210,58 +210,52 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 	RegisterClassEx(&wc);
 	
 	HWND wnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, NULL, NULL, instance, NULL);
-	LauncherWIN launcherWin(wnd);
-	launcher = &launcherWin;
-	try{
-		game = CrossMain(launcher);
-	} catch(Exception &exc) {
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		launcherWin.LogIt(msg);
-		launcherWin.ShowMessage(msg);
-	}
-	int winX = config->LoadInt("WIN_POS_X", 0);
-	int winY = config->LoadInt("WIN_POS_Y", 0);
-	ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
-
-	PIXELFORMATDESCRIPTOR pfd;
-	ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
-	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-	pfd.nVersion = 1;
-	pfd.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER;
-	pfd.iPixelType = PFD_TYPE_RGBA;
-	pfd.cColorBits = 16;
-	pfd.cDepthBits = 16;
-
-	HDC dc;
-	HGLRC renderContext;
-	unsigned int pixelFormat;
-	DWORD error;
-
-	dc = GetDC(wnd);
-	if(!dc)
-		ShowLastError();
-
-	pixelFormat = ChoosePixelFormat(dc, &pfd);
-	if(!pixelFormat)
-		ShowLastError();
-
-	error = SetPixelFormat(dc, pixelFormat, &pfd);
-	if(!error)
-		ShowLastError();
-
-	renderContext = wglCreateContext(dc);
-	if(!renderContext)
-		ShowLastError();
-	
-	error = wglMakeCurrent(dc, renderContext);
-	if(!error)
-		ShowLastError();
-	
-	ShowWindow(wnd, winShow);
 	MSG msg;
 	try{
+		LauncherWIN launcherWin(wnd);
+		launcher = &launcherWin;
+		game = CrossMain(launcher);
+
+		int winX = config->LoadInt("WIN_POS_X", 0);
+		int winY = config->LoadInt("WIN_POS_Y", 0);
+		ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
+
+		PIXELFORMATDESCRIPTOR pfd;
+		ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
+		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+		pfd.nVersion = 1;
+		pfd.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER;
+		pfd.iPixelType = PFD_TYPE_RGBA;
+		pfd.cColorBits = 16;
+		pfd.cDepthBits = 16;
+
+		HDC dc;
+		HGLRC renderContext;
+		unsigned int pixelFormat;
+		DWORD error;
+
+		dc = GetDC(wnd);
+		if(!dc)
+			ShowLastError();
+
+		pixelFormat = ChoosePixelFormat(dc, &pfd);
+		if(!pixelFormat)
+			ShowLastError();
+
+		error = SetPixelFormat(dc, pixelFormat, &pfd);
+		if(!error)
+			ShowLastError();
+
+		renderContext = wglCreateContext(dc);
+		if(!renderContext)
+			ShowLastError();
+	
+		error = wglMakeCurrent(dc, renderContext);
+		if(!error)
+			ShowLastError();
+	
+		ShowWindow(wnd, winShow);
+
 		gfxGL = new GraphicsGL();
 #ifdef GFX3D
 		gfx3D = new Graphics3D();
@@ -296,8 +290,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);
-		launcherWin.LogIt(msg);
-		launcherWin.ShowMessage(msg);
+		OutputDebugString(msg.c_str());
+		MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+		return 0;
 	}
 
 	return msg.wParam;
