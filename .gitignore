@@ -500,3 +500,8 @@ _Pvt_Extensions/
 ModelManifest.xml
 
 *.vcxproj
+Games/Demo/Platform/Windows/Cross++.vcxproj
+Games/Demo/Platform/Windows/Cross++.vcxproj
+*.vcxproj
+Games/Demo/Platform/Windows/Data/prefs
+*.vcxproj
