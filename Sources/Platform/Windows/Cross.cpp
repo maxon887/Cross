@@ -69,7 +69,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		targetX = (short)LOWORD(lParam);
 		targetY = (short)HIWORD(lParam);
 		x = targetX / game->GetScaleFactor();
-		y = game->GetWidth() - targetY / game->GetScaleFactor();
+		y = targetY / game->GetScaleFactor();
 		mouseDown = true;
 		TRIGGER_EVENT(input->ActionDown, Vector2D(x, y));
 		break;
@@ -78,7 +78,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 			targetX = (short)LOWORD(lParam);
 			targetY = (short)HIWORD(lParam);
 			x = targetX / game->GetScaleFactor();
-			y = game->GetWidth() - targetY / game->GetScaleFactor();
+			y = targetY / game->GetScaleFactor();
 			TRIGGER_EVENT(input->ActionMove, Vector2D(x, y));
 		}
 		break;
@@ -86,7 +86,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		targetX = (short)LOWORD(lParam);
 		targetY = (short)HIWORD(lParam);
 		x = targetX / game->GetScaleFactor();
-		y = game->GetWidth() - targetY / game->GetScaleFactor();
+		y = targetY / game->GetScaleFactor();
 		mouseDown = false;
 		TRIGGER_EVENT(input->ActionUp, Vector2D(x, y));
 		break;
