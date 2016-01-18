@@ -136,6 +136,9 @@
     <ClCompile Include="..\..\..\..\Sources\TexterShaders.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Font.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -254,6 +257,9 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\TexterShaders.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Font.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,20 +13,20 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #pragma once
-
+#include "Cross.h"
 #include "Screen.h"
-#include "Input.h"
+#include "Font.h"
 
 using namespace cross;
 
 class TestScreen : public Screen{
 public:
+	~TestScreen();
 	void Start();
 	void Update(float sec);
 private:
-	bool going_back;
-	void OnKeyPressed(Key key);
+	Image* grid;
+	Font* times_new_roman;
 };

@@ -16,41 +16,22 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "File.h"
-#include "GraphicsGL.h"
 
-#undef LoadImage
-#undef DrawText
+#include "FreeType\ft2build.h"
+#include FT_FREETYPE_H
 
 namespace cross{
 
-class SpriteShaders;
-class TexterShaders;
-class TexterAdvanced;
-class Font;
-
-class Graphics2D{
+class Font{
 public:
-	Graphics2D();
-	~Graphics2D();
-	
-	void Clear();
-	void Clear(Color color);
-	void DrawText(Vector2D pos, string text, Font* font);
-	void DrawImage(Vector2D pos, Image* img);
-	Image* CreateImage(Image* src, Rect area, float scaleFactor);
-	/* Load Image from assert file */
-	Image* LoadImage(string filename);
-	Image* LoadImage(string filename, float scaleFactor);
-	Image* LoadImage(byte* data, int width, int height);
-	void ReleaseImage(Image* img);
+	static FT_Library library;
+	FT_Face face;
+	/* Font will be loaded from file. Available font formats
+	can be found in FreeType library documentation. 
+	Font size will be represented in physical pixels*/
+	Font(string filename, int size, Color color);
 private:
-	SpriteShaders* sprite_shaders;
-	TexterShaders* texter_shaders;
-	Matrix projection;
-	Color clear_color;
-
-	byte* LoadImageInternal(string filename, int* width, int* height);
+	Color color;
 };
 
-}
+};

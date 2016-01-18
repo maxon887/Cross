@@ -64,13 +64,6 @@ void MainScreen::Start(){
 	config->SaveInt("START_LAUNCHES", startLaunches);
 	start_count = startLaunches;
 	
-	//TexterAdvanced* texterAdvanced = new TexterAdvanced();
-	//File* fontFile = launcher->LoadFile("Engine/times.ttf");
-	//texterAdvanced->LoadFont(fontFile);
-	//int width, height;
-	//byte* imageBytes = texterAdvanced->CharBitmap(&width, &height);
-	//character = gfx2D->LoadImage(imageBytes, width, height);
-	
 	//delete texterAdvanced;
 }
 
@@ -113,7 +106,7 @@ void MainScreen::Update(float sec){
 	default:
 		break;
 	}
-	gfx2D->DrawText(Vector2D(-1.0f, -1.0f), "Blah");
+	//gfx2D->DrawText(Vector2D(-1.0f, -1.0f), "Blah");
 }
 
 void MainScreen::OnAnimationClick(){
