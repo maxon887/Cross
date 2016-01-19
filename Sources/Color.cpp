@@ -27,16 +27,21 @@ const Color Color::Yellow(1.f, 1.f, 0.f);
 const Color Color::Purple(1.f, 0.f, 1.f);
 
 
-Color::Color(float r, float g, float b){
-	this->R = r;
-	this->G = g;
-	this->B = b;
+Color::Color(float r, float g, float b):
+	R(r),
+	G(g),
+	B(b),
+	A(1.0f)
+{
+
 }
 
-Color::Color(int r, int g, int b){
-	this->R = r/255.f;
-	this->G = g/255.f;
-	this->B = b/255.f;
+Color::Color(int r, int g, int b):
+	R(r / 255.f),
+	G(g / 255.f),
+	B(b / 255.f),
+	A(1.0f)
+{
 }
 
 bool Color::operator==(const Color &c) const{

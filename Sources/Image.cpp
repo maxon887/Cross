@@ -20,8 +20,9 @@ using namespace cross;
 
 static unsigned short indices[] = { 0, 1, 2, 0, 2, 3 };
 
-Image::Image(unsigned int id, int texWidth, int texHeight, Rect region)
-	:region(region){
+Image::Image(unsigned int id, int texWidth, int texHeight, Rect region):
+	region(region)
+{
 	this->textureID = id;
 	this->texWidth = texWidth;
 	this->texHeight = texHeight;
@@ -33,7 +34,6 @@ Image::Image(unsigned int id, int texWidth, int texHeight, Rect region)
 	translation = Matrix::CreateIdentity();
 	scale = Matrix::CreateIdentity();
 	rotation = Matrix::CreateIdentity();
-	memset(vertices, 0, sizeof(float) * 16);
 
 	vertices[0] = -region.width / 2.0f;
 	vertices[1] = -region.height / 2.0f;
@@ -54,6 +54,29 @@ Image::Image(unsigned int id, int texWidth, int texHeight, Rect region)
 	vertices[13] = region.height / 2.0f;
 	vertices[14] = u1;
 	vertices[15] = v1;
+}
+
+void Image::SetPivot(Vector2D pivot){
+
+	//vertices[0] = -region.width / 2.0f;
+	//vertices[1] = -region.height / 2.0f;
+	vertices[0] = -pivot.x;
+	vertices[1] = -pivot.y;
+
+	//vertices[4] = region.width / 2.0f;
+	//vertices[5] = -region.height / 2.0f;
+	vertices[4] = -pivot.x + region.width;
+	vertices[5] = -pivot.y;
+
+	//vertices[8] = region.width / 2.0f;
+	//vertices[9] = region.height / 2.0f;
+	vertices[8] = -pivot.x + region.width;
+	vertices[9] = -pivot.y + region.height;
+
+	//vertices[12] = -region.width / 2.0f;
+	//vertices[13] = region.height / 2.0f;
+	vertices[12] = -pivot.x;
+	vertices[13] = -pivot.y + region.height;
 }
 
 void Image::SetPosition(Vector2D pos){

@@ -30,6 +30,8 @@ SpriteShaders::SpriteShaders(){
 	aTexCoordLoc = glGetAttribLocation(program, "aTexCoord");
 	uModelLoc = glGetUniformLocation(program, "uModel");
 	uProjectionLoc = glGetUniformLocation(program, "uProjection");
+	uMonochrome = glGetUniformLocation(program, "uMonochrome");
+	uColor = glGetUniformLocation(program, "uColor");
 }
 
 SpriteShaders::~SpriteShaders(){

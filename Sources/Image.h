@@ -35,6 +35,7 @@ public:
     
 	Image(unsigned int id, int texWidth, int texHeight, Rect region);
 	void SetPosition(Vector2D pos);
+	void SetPivot(Vector2D pivot);
 	void Scale(float factor);
 	void Rotate(float angle);
 	unsigned int GetTextureID();

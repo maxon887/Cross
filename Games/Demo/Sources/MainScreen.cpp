@@ -24,7 +24,6 @@
 #include "Config.h"
 #include "Image.h"
 #include "Exception.h"
-#include "TexterAdvanced.h"
 
 MainScreen::~MainScreen(){
 	delete texter;

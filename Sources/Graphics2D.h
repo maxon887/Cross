@@ -38,6 +38,7 @@ public:
 	void Clear(Color color);
 	void DrawText(Vector2D pos, string text, Font* font);
 	void DrawImage(Vector2D pos, Image* img);
+	void DrawImage(Vector2D pos, Image* img, Color color, bool monochrome);
 	Image* CreateImage(Image* src, Rect area, float scaleFactor);
 	/* Load Image from assert file */
 	Image* LoadImage(string filename);
@@ -46,7 +47,6 @@ public:
 	void ReleaseImage(Image* img);
 private:
 	SpriteShaders* sprite_shaders;
-	TexterShaders* texter_shaders;
 	Matrix projection;
 	Color clear_color;
 

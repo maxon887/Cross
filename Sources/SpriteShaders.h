@@ -28,6 +28,8 @@ public:
 	GLuint aTexCoordLoc;
 	GLuint uModelLoc;
 	GLuint uProjectionLoc;
+	GLuint uMonochrome;
+	GLuint uColor;
 
 	SpriteShaders();
 	~SpriteShaders();

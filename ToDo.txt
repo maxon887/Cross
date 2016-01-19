@@ -1,12 +1,13 @@
-+1. Button click event
-+2. Input global event system.
-+3. Config class.
-+4. Graphics2D
 5. Export libs
+	a) PC
+	b) Android
+	c) iOS
 6. General Resources
-+7. Merge
-+8. Memory menegment
 9. OpenGL ES
-+10. Exception system
 11. MemomoryMenager dynamic allocation
 12. Graphics2D video data transfer optimisation
+13. DrawText() stress test
+14. Android project resurrection
+15. iOS project resurrection
+16. Camera conception
+17. 2D layouts conception

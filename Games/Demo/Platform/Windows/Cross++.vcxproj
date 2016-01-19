@@ -82,13 +82,11 @@
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SpriteShaders.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\TexterShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\TexterAdvanced.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector3D.cpp" />
@@ -125,13 +123,11 @@
     <ClInclude Include="..\..\..\..\Sources\Config.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\SpriteShaders.h" />
-    <ClInclude Include="..\..\..\..\Sources\TexterShaders.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\TexterAdvanced.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector3D.h" />
@@ -154,8 +150,6 @@
   <ItemGroup>
     <None Include="..\..\Assets\Engine\sprite.frag" />
     <None Include="..\..\Assets\Engine\sprite.vert" />
-    <None Include="..\..\Assets\Engine\texter.frag" />
-    <None Include="..\..\Assets\Engine\texter.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

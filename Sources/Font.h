@@ -28,10 +28,15 @@ public:
 	FT_Face face;
 	/* Font will be loaded from file. Available font formats
 	can be found in FreeType library documentation. 
-	Font size will be represented in physical pixels*/
-	Font(string filename, int size, Color color);
+	Font size will be represented in virtual metrics*/
+	Font(string filename, float size, Color color);
+	Color GetColor();
+	void SetColor(Color color);
+	float GetSize();
+	float SetSize(float size);
 private:
 	Color color;
+	float size;
 };
 
 };

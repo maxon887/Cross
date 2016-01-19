@@ -17,12 +17,10 @@
 #include "Graphics2D.h"
 #include "Exception.h"
 #include "SpriteShaders.h"
-#include "TexterShaders.h"
 #include "Launcher.h"
 #include "Game.h"
 #include "Utils\Debuger.h"
 #include "Image.h"
-#include "TexterAdvanced.h"
 #include "Font.h"
 
 #include "SOIL/SOIL.h"
@@ -37,13 +35,6 @@ Graphics2D::Graphics2D():
 {
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
-	texter_shaders = new TexterShaders();
-
-	//texter = new TexterAdvanced();
-	//File* fontFile = launcher->LoadFile("Engine/times.ttf");
-	//texter->LoadFont(fontFile);
-	
-	//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 Graphics2D::~Graphics2D(){
@@ -62,15 +53,12 @@ void Graphics2D::Clear(Color color){
 }
 
 void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
-	gfxGL->UseProgram(texter_shaders->program);
 	FT_GlyphSlot g = font->face->glyph;
-	FT_Set_Char_Size(font->face, 0, 16 * 64, 300, 300);
 	GLuint tex;
 	
 	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
-	//glUniform1i(uniform_tex, 0);
 
 	/* We require 1 byte alignment when uploading texture data */
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -83,55 +71,31 @@ void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glEnableVertexAttribArray(texter_shaders->aPosition);
-	//parameterization
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
 	const char* text = textStr.c_str();
-	const char* p = text;
-	while(*p){
-		if(FT_Load_Char(font->face, *p, FT_LOAD_RENDER))
+	while(*text){
+		if(FT_Load_Char(font->face, *text, FT_LOAD_RENDER))
 			continue;
 
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, g->bitmap.width, g->bitmap.rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
-		
 		glTexImage2D(GL_TEXTURE_2D,	0, GL_RED, g->bitmap.width, g->bitmap.rows,	0, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 
-		GLfloat red[4] = { 1, 0, 0, 1 };
-		glUniform4fv(texter_shaders->uColor, 1, red);
+		Rect region(0, 0, (float)g->bitmap.width, (float)g->bitmap.rows);
+		Image ch(tex, g->bitmap.width, g->bitmap.rows, region);
+		int bearingX = g->metrics.horiBearingX >> 6;
+		int bearingY = g->metrics.horiBearingY >> 6;
+		ch.SetPivot(Vector2D(-bearingX, g->bitmap.rows - bearingY));
 
-		//FT_Set_Pixel_Sizes(font->face, 0, 48);
-
-		float sx = 2.0 / launcher->GetTargetWidth();
-		float sy = 2.0 / launcher->GetTargetHeight();
-
-		float x2 = pos.x + g->bitmap_left * sx;
-		float y2 = -pos.y - g->bitmap_top * sy;
-		float w = g->bitmap.width * sx;
-		float h = g->bitmap.rows * sy;
-
-		GLfloat box[4][4] = {
-			{ x2, -y2, 0, 0 },
-			{ x2 + w, -y2, 1, 0 },
-			{ x2, -y2 - h, 0, 1 },
-			{ x2 + w, -y2 - h, 1, 1 },
-		};
-
-		//glBufferData(GL_ARRAY_BUFFER, sizeof box, box, GL_DYNAMIC_DRAW);
-		glVertexAttribPointer(texter_shaders->aPosition, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), box);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-		pos.x += (g->advance.x >> 6) * sx;
-		pos.y += (g->advance.y >> 6) * sy;
-
-		p++;
+		DrawImage(pos, &ch, font->GetColor(), true);
+		pos.x += (g->advance.x >> 6);
+		text++;
 	}
+	glDeleteTextures(1, &tex);
 }
 
 void Graphics2D::DrawImage(Vector2D pos, Image* img){
+	DrawImage(pos, img, Color::White, false);
+}
+
+void Graphics2D::DrawImage(Vector2D pos, Image* img, Color color, bool monochrome){
 	gfxGL->UseProgram(sprite_shaders->program);
 
 	//parameterization
@@ -140,6 +104,8 @@ void Graphics2D::DrawImage(Vector2D pos, Image* img){
 
 	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glUniform1i(sprite_shaders->uMonochrome, (GLint)monochrome);
+	glUniform4fv(sprite_shaders->uColor, 1, (float*)&(color));
 
 	img->SetPosition(pos);
 	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());

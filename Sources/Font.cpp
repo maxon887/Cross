@@ -23,7 +23,7 @@ using namespace cross;
 
 FT_Library Font::library = NULL;
 
-Font::Font(string filename, int size, Color color):
+Font::Font(string filename, float size, Color color):
 	color(color)
 {
 	File* fontFile = launcher->LoadFile(filename);
@@ -39,15 +39,25 @@ Font::Font(string filename, int size, Color color):
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
 
-	//error = FT_Set_Char_Size(face, 0, 16 * 64, 300, 300);
-	error = FT_Set_Char_Size(face, 0, size * 64, 300, 300);
-	//error = FT_Set_Pixel_Sizes(face, 10, 10);
+	SetSize(size);
+}
+
+Color Font::GetColor(){
+	return color;
+}
+
+void Font::SetColor(Color color){
+	this->color = color;
+}
+
+float Font::GetSize(){
+	return size;
+}
+
+float Font::SetSize(float size){
+	this->size = size;
+	FT_Error error = FT_Set_Pixel_Sizes(face, 0, size);
 	if(error){
 		throw CrossException("Error in set char size");
-	}
-	FT_UInt glyph_index = FT_Get_Char_Index(face, 0x41);
-	error = FT_Load_Glyph(face, glyph_index, FT_RENDER_MODE_LCD);
-	if(error){
-		throw CrossException("Error in loading glyph");
 	}
 }

@@ -28,7 +28,7 @@ TestScreen::~TestScreen(){
 
 void TestScreen::Start(){
 	grid = gfx2D->LoadImage("Grid.png");
-	times_new_roman = new Font("Engine/times.ttf", 16, Color::Red);
+	times_new_roman = new Font("Engine/times.ttf", 50, Color::Yellow);
 }
 
 void TestScreen::Update(float sec){
@@ -37,7 +37,7 @@ void TestScreen::Update(float sec){
 	float y = launcher->GetTargetHeight() / 2.f;
 	gfx2D->DrawImage(Vector2D(x, y), grid);
 
-	gfx2D->DrawText(Vector2D(-1.0f, -1.0f), "Blah", times_new_roman);
+	gfx2D->DrawText(Vector2D(100.f, 250.f), "Input zapeli!", times_new_roman);
 
 	if(input->IsPressed(Key::ESCAPE)){
 		game->SetScreen(new MainScreen());
