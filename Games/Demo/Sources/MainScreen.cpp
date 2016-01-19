@@ -36,27 +36,27 @@ MainScreen::~MainScreen(){
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
-	input->ActionDown.Clear();
-	input->ActionMove.Clear();
-	input->ActionUp.Clear();
+	//input->ActionDown.Clear();
+	//input->ActionMove.Clear();
+	//input->ActionUp.Clear();
 	Vector2D pos;
-	input->KeyPressed.Clear();
-	input->KeyReleased.Clear();
+	//input->KeyPressed.Clear();
+	//input->KeyReleased.Clear();
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
     x_img = gfx2D->LoadImage("Logo.png");
 	//graphics->ScaleImage(x_img, game->GetScaleFactor());
-	Image* animationBtn = gfx2D->LoadImage("AnimationButton.png");
+	//Image* animationBtn = gfx2D->LoadImage("AnimationButton.png");
 	Image* audioBtn = gfx2D->LoadImage("AudioButton.png");
-	Image* primitivesBtn = gfx2D->LoadImage("PrimitivesButton.png");
-	Image* miscBtn = gfx2D->LoadImage("MiscButton.png");
-	animation_btn = new Button(game, pos, animationBtn, NULL);
+	//Image* primitivesBtn = gfx2D->LoadImage("PrimitivesButton.png");
+	//Image* miscBtn = gfx2D->LoadImage("MiscButton.png");
+//	animation_btn = new Button(game, pos, animationBtn, NULL);
 	audio_btn = new Button(game, pos, audioBtn, NULL);
-	primitives_btn = new Button(game, pos, primitivesBtn, NULL);
-	misc_btn = new Button(game, pos, miscBtn, NULL);
-	animation_btn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
+//	primitives_btn = new Button(game, pos, primitivesBtn, NULL);
+//	misc_btn = new Button(game, pos, miscBtn, NULL);
+//	animation_btn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
 	audio_btn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
-	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
-	misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
+//	primitives_btn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
+	//misc_btn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
 
 	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
 	startLaunches++;
@@ -74,17 +74,17 @@ void MainScreen::Update(float sec){
 	pos.x = game->GetWidth() / 2;
 	pos.y = 150;
 
-	animation_btn->SetLocation(pos);
-	animation_btn->Update();
+	//animation_btn->SetLocation(pos);
+	//animation_btn->Update();
 	pos.y += 150;
 	audio_btn->SetLocation(pos);
 	audio_btn->Update();
 	pos.y += 150;
-	primitives_btn->SetLocation(pos);
-	primitives_btn->Update();
+	//primitives_btn->SetLocation(pos);
+	//primitives_btn->Update();
 	pos.y += 150;
-	misc_btn->SetLocation(pos);
-	misc_btn->Update();
+//	misc_btn->SetLocation(pos);
+	//misc_btn->Update();
 
 	switch (going_screen)
 	{

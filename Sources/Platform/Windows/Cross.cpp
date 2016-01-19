@@ -62,33 +62,27 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	RECT winRect;
 	short targetX;
 	short targetY;
-	float x;
-	float y;
+	//float x;
+	//float y;
 	switch(msg){
 	case WM_LBUTTONDOWN:
 		targetX = (short)LOWORD(lParam);
 		targetY = (short)HIWORD(lParam);
-		x = targetX / game->GetScaleFactor();
-		y = game->GetWidth() - targetY / game->GetScaleFactor();
 		mouseDown = true;
-		TRIGGER_EVENT(input->ActionDown, Vector2D(x, y));
+		TRIGGER_EVENT(input->ActionDown, Vector2D(targetX, game->GetHeight() - targetY));
 		break;
 	case WM_MOUSEMOVE:
 		if(mouseDown){
 			targetX = (short)LOWORD(lParam);
 			targetY = (short)HIWORD(lParam);
-			x = targetX / game->GetScaleFactor();
-			y = game->GetWidth() - targetY / game->GetScaleFactor();
-			TRIGGER_EVENT(input->ActionMove, Vector2D(x, y));
+			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, game->GetHeight() - targetY));
 		}
 		break;
 	case WM_LBUTTONUP:
 		targetX = (short)LOWORD(lParam);
 		targetY = (short)HIWORD(lParam);
-		x = targetX / game->GetScaleFactor();
-		y = game->GetWidth() - targetY / game->GetScaleFactor();
 		mouseDown = false;
-		TRIGGER_EVENT(input->ActionUp, Vector2D(x, y));
+		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, game->GetHeight() - targetY));
 		break;
 	case WM_CLOSE:
 		winRect = GetLocalCoordinates(wnd);
