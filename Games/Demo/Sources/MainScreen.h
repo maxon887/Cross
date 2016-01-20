@@ -52,6 +52,8 @@ private:
 	Button* primitives_btn;
 	Button* misc_btn;
 
+	Font* internalScreenRedFont;
+
 	Texter* texter;
 	int start_count;
 	GoingScreen going_screen;

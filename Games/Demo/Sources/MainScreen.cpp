@@ -64,11 +64,17 @@ void MainScreen::Start(){
 	start_count = startLaunches;
 	
 	//delete texterAdvanced;
+
+	this->internalScreenRedFont = new Font(DEFAULT_FONT, 80, Color::Red);
 }
 
 void MainScreen::Update(float sec){
+
 	gfx2D->Clear();
-	
+
+	gfx2D->DrawText(Vector2D(0, 0), "bla bla bla");
+	gfx2D->DrawText(Vector2D(0, 200), "text", internalScreenRedFont);
+
 	//gfx2D->DrawLine(Vector2D(0,0), Vector2D(24,24), Color::Blue);
 	Vector2D pos;
 	pos.x = game->GetWidth() / 2;

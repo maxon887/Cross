@@ -25,6 +25,8 @@
 
 #include <string>
 
+#define DEFAULT_FONT "Engine/times.ttf"
+
 namespace cross{
 
 class Game;
