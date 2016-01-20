@@ -26,7 +26,7 @@ FT_Library Font::library = NULL;
 Font::Font(string filename, float size, Color color):
 	color(color)
 {
-	File* fontFile = launcher->LoadFile(filename);
+	file = launcher->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);
@@ -34,12 +34,16 @@ Font::Font(string filename, float size, Color color):
 			throw CrossException("Error initializing FreeType library");
 		}
 	}
-	error = FT_New_Memory_Face(library, fontFile->data, fontFile->size, 0, &face);
+	error = FT_New_Memory_Face(library, file->data, file->size, 0, &face);
 	if(error){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
 
 	SetSize(size);
+}
+
+Font::~Font(){
+	delete file;
 }
 
 Color Font::GetColor(){

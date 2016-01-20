@@ -18,7 +18,7 @@
 
 using namespace cross;
 
-GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
+const GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
 
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	region(region),
@@ -129,7 +129,7 @@ float* Sprite::GetModel(){
 }
 
 GLushort* Sprite::GetIndices(){
-	return indices;
+	return (GLushort*)indices;
 }
 
 int Sprite::GetTextureWidth(){

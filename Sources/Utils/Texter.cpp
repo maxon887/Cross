@@ -54,7 +54,7 @@ void Texter::DrawText(float x, float y, string text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
 	for(unsigned int i = 0; i < text.length(); i++){
-		gfx2D->DrawImage(Vector2D(x + i * GetWidth(), y), letters[text[i] - offset]);
+		gfx2D->DrawSprite(Vector2D(x + i * GetWidth(), y), letters[text[i] - offset]);
 	}
 }
 

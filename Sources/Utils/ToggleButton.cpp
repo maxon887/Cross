@@ -35,9 +35,9 @@ ToggleButton::ToggleButton(Game* game, Vector2D location, Sprite* on, Sprite* of
 
 void ToggleButton::Update(){
 	if(state)
-		gfx2D->DrawImage(location, on);
+		gfx2D->DrawSprite(location, on);
 	else
-		gfx2D->DrawImage(location, off);
+		gfx2D->DrawSprite(location, off);
 
 }
 

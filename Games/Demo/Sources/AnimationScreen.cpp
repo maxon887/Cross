@@ -53,7 +53,7 @@ void AnimationScreen::Update(float sec){
 
 	if(run_time >= 0) {
 		run_time -= sec;
-		gfx2D->DrawImage(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_run_anim->GetImage());
+		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_run_anim->GetImage());
 		if(run_time < 0){
 			thinking_time = 1.3f;
 			spider_run_snd->Stop();
@@ -72,8 +72,8 @@ void AnimationScreen::Update(float sec){
 		}
 		//graphics->Rotate(spider_head, head_angle);
 		spider_head->Rotate(head_angle);
-		gfx2D->DrawImage(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
-		gfx2D->DrawImage(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 + 115), spider_head);
+		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
+		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 + 115), spider_head);
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;
@@ -94,7 +94,7 @@ void AnimationScreen::DrawBackground(float sec) {
 	if(deltaY > background->GetTextureHeight() * bcg_scale){
 		deltaY -= background->GetTextureHeight() * bcg_scale;
 	}
-	//graphics->DrawImage(0, y, background);
+	//graphics->DrawSprite(0, y, background);
 }
 
 void AnimationScreen::OnKeyPressed(Key key){

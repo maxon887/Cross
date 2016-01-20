@@ -39,7 +39,7 @@ public:
 	int GetTextureHeight();
 
 private:
-	static GLushort indices[];
+	static const GLushort indices[];
 	GLuint textureID;
 	Rect region;
 	Matrix model;

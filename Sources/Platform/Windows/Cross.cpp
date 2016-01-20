@@ -59,36 +59,31 @@ void ShowLastError(){
 
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	static bool mouseDown = false;
-	RECT winRect;
-	short targetX;
-	short targetY;
-	//float x;
-	//float y;
 	switch(msg){
-	case WM_LBUTTONDOWN:
-		targetX = (short)LOWORD(lParam);
-		targetY = (short)HIWORD(lParam);
+	case WM_LBUTTONDOWN:{
+		short targetX = (short)LOWORD(lParam);
+		short targetY = (short)HIWORD(lParam);
 		mouseDown = true;
 		TRIGGER_EVENT(input->ActionDown, Vector2D(targetX, game->GetHeight() - targetY));
-		break;
-	case WM_MOUSEMOVE:
+	}break;
+	case WM_MOUSEMOVE:{
 		if(mouseDown){
-			targetX = (short)LOWORD(lParam);
-			targetY = (short)HIWORD(lParam);
+			short targetX = (short)LOWORD(lParam);
+			short targetY = (short)HIWORD(lParam);
 			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, game->GetHeight() - targetY));
 		}
-		break;
-	case WM_LBUTTONUP:
-		targetX = (short)LOWORD(lParam);
-		targetY = (short)HIWORD(lParam);
+	}break;
+	case WM_LBUTTONUP:{
+		short targetX = (short)LOWORD(lParam);
+		short targetY = (short)HIWORD(lParam);
 		mouseDown = false;
 		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, game->GetHeight() - targetY));
-		break;
-	case WM_CLOSE:
-		winRect = GetLocalCoordinates(wnd);
+	}break;
+	case WM_CLOSE:{
+		RECT winRect = GetLocalCoordinates(wnd);
 		config->SaveInt("WIN_POS_X", winRect.left);
 		config->SaveInt("WIN_POS_Y", winRect.top);
-		break;
+	}break;
 	case WM_KEYDOWN:
 		switch(wParam){
 		case VK_ESCAPE:
@@ -119,8 +114,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		}
 	break;
 	case WM_CHAR:
-		switch(wParam)
-		{
+		switch(wParam){
 		case 'w': case 'W':
 			TRIGGER_EVENT(input->KeyPressed, Key::W);
 			break;
@@ -273,6 +267,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		delete gfx2D;
 #endif
 		delete game;
+		delete gfxGL;
 
 		unsigned long leaked = MemoryManager::Instance()->Dump();
 		if(leaked > 0){

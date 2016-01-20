@@ -35,7 +35,7 @@ void TestScreen::Update(float sec){
 	gfx2D->Clear();
 	float x = launcher->GetTargetWidth() / 2.f;
 	float y = launcher->GetTargetHeight() / 2.f;
-	gfx2D->DrawImage(Vector2D(x, y), grid);
+	gfx2D->DrawSprite(Vector2D(x, y), grid);
 
 	gfx2D->DrawText(Vector2D(100.f, 250.f), "Input zapeli!", times_new_roman);
 

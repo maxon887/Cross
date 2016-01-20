@@ -25,8 +25,6 @@
 namespace cross{
 
 class SpriteShaders;
-class TexterShaders;
-class TexterAdvanced;
 class Font;
 
 class Graphics2D{
@@ -37,8 +35,8 @@ public:
 	void Clear();
 	void Clear(Color color);
 	void DrawText(Vector2D pos, string text, Font* font);
-	void DrawImage(Vector2D pos, Sprite* img);
-	void DrawImage(Vector2D pos, Sprite* img, Color color, bool monochrome);
+	void DrawSprite(Vector2D pos, Sprite* sprite);
+	void DrawSprite(Vector2D pos, Sprite* sprite, Color color, bool monochrome);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scaleFactor);

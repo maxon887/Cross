@@ -112,11 +112,11 @@ void Button::SetSounds(Audio* push, Audio* pull){
 void Button::Update(){
 	if(is_pressed){
 		if(down != NULL){
-			gfx2D->DrawImage(location, down);
+			gfx2D->DrawSprite(location, down);
 		}
 	}else{
 		if(up != NULL){
-			gfx2D->DrawImage(location, up);
+			gfx2D->DrawSprite(location, up);
 		}
 	}
 }
@@ -155,10 +155,10 @@ bool Button::OnLocation(float x, float y){
 }
 
 void Button::DrawUp(){
-	gfx2D->DrawImage(location, up);
+	gfx2D->DrawSprite(location, up);
 }
 void Button::DrawDown(){
-	gfx2D->DrawImage(location, down);
+	gfx2D->DrawSprite(location, down);
 }
 
 void Button::InitRect(Vector2D loc, float width, float heiht){
@@ -195,7 +195,7 @@ void Button::ActionUpHandler(Vector2D pos){
 		if(OnLocation(pos.x, pos.y)){
 			is_pressed = false;
 			if(down != NULL){
-				gfx2D->DrawImage(location, down);
+				gfx2D->DrawSprite(location, down);
 			}
 			if(pull != NULL){
 				pull->Play();

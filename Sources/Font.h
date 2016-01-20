@@ -30,11 +30,13 @@ public:
 	can be found in FreeType library documentation. 
 	Font size will be represented in virtual metrics*/
 	Font(string filename, float size, Color color);
+	~Font();
 	Color GetColor();
 	void SetColor(Color color);
 	float GetSize();
 	float SetSize(float size);
 private:
+	File* file;
 	Color color;
 	float size;
 };

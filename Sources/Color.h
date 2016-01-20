@@ -31,6 +31,9 @@ public:
 	float R, G, B, A;
 	Color(float r, float g, float b);
 	Color(int r, int g, int b);
+	Color(float r, float g, float b, float a);
+	Color(int r, int g, int b, int a);
+	float* GetData();
 
 	bool operator == (const Color &c) const;
 	bool operator != (const Color &c) const;
