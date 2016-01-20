@@ -18,12 +18,12 @@
 #include "Audio.h"
 #include "Graphics2D.h"
 #include "Input.h"
-#include "Image.h"
+#include "Sprite.h"
 #include "Exception.h"
 
 using namespace cross;
 
-Button::Button(Game* game, Image* up, Image* down){
+Button::Button(Game* game, Sprite* up, Sprite* down){
 	this->push = NULL;
 	this->pull = NULL;
 	this->up = up;
@@ -39,7 +39,7 @@ Button::Button(Game* game, Image* up, Image* down){
 	input->ActionUp += action_up_delegate;
 }
 
-Button::Button(Game* game, Vector2D location, Image* up, Image* down){
+Button::Button(Game* game, Vector2D location, Sprite* up, Sprite* down){
 	this->push = NULL;
 	this->pull = NULL;
 	this->location = location;

@@ -34,9 +34,6 @@
     <ClCompile Include="..\..\..\..\Sources\Game.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Image.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Input.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -133,6 +130,9 @@
     <ClCompile Include="..\..\..\..\Sources\Font.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Sprite.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -142,9 +142,6 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Game.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Image.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Input.h">
@@ -248,6 +245,9 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Font.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Sprite.h">
       <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>

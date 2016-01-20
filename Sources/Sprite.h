@@ -16,43 +16,39 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "GraphicsGL.h"
 
 namespace cross {
 
-/* Class that reflected images loaded in to memory */
-class Image{
+/* Used for 2D drawing. Contain original texture sprite location on it and pivot */
+class Sprite{
 public:
-	/* Return virtual image width */
-    float GetWidth();
-	/* Return virtual image height */
-    float GetHeight();
+	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region);
+	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
 
-//Internal data. You don't need call any of this methods or modify variable
-public:
-	int texWidth;
-	int texHeight;
-	float angle;
-    
-	Image(unsigned int id, int texWidth, int texHeight, Rect region);
 	void SetPosition(Vector2D pos);
-	void SetPivot(Vector2D pivot);
 	void Scale(float factor);
 	void Rotate(float angle);
-	unsigned int GetTextureID();
-	float* GetVertices();
+	GLuint GetTextureID();
+	GLfloat* GetVertices();
 	float* GetModel();
-	unsigned short* GetIndices();
+	GLushort* GetIndices();
+	float GetWidth();
+	float GetHeight();
+	int GetTextureWidth();
+	int GetTextureHeight();
 
 private:
+	static GLushort indices[];
+	GLuint textureID;
 	Rect region;
-	unsigned int textureID;
 	Matrix model;
 	Matrix scale;
 	Matrix translation;
 	Matrix rotation;
-	float vertices[16];
-	float u1, v1;
-	float u2, v2;
+	GLfloat vertices[16];
+	int texture_width;
+	int texture_height;
 };
 
 }

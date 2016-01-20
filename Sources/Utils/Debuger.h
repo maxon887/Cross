@@ -45,7 +45,7 @@ public:
 
 private:
 	Texter* texter;
-	Image* touch_pointer;
+	Sprite* touch_pointer;
 	vector<CrossTime> times;
 
 	float update_time;

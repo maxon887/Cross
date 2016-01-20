@@ -20,7 +20,7 @@
 #include "Launcher.h"
 #include "Game.h"
 #include "Utils\Debuger.h"
-#include "Image.h"
+#include "Sprite.h"
 #include "Font.h"
 
 #include "SOIL/SOIL.h"
@@ -79,10 +79,10 @@ void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 		glTexImage2D(GL_TEXTURE_2D,	0, GL_RED, g->bitmap.width, g->bitmap.rows,	0, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 
 		Rect region(0, 0, (float)g->bitmap.width, (float)g->bitmap.rows);
-		Image ch(tex, g->bitmap.width, g->bitmap.rows, region);
 		int bearingX = g->metrics.horiBearingX >> 6;
 		int bearingY = g->metrics.horiBearingY >> 6;
-		ch.SetPivot(Vector2D(-bearingX, g->bitmap.rows - bearingY));
+		Vector2D pivot(-bearingX, g->bitmap.rows - bearingY);
+		Sprite ch(tex, g->bitmap.width, g->bitmap.rows, region, pivot);
 
 		DrawImage(pos, &ch, font->GetColor(), true);
 		pos.x += (g->advance.x >> 6);
@@ -91,11 +91,11 @@ void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 	glDeleteTextures(1, &tex);
 }
 
-void Graphics2D::DrawImage(Vector2D pos, Image* img){
+void Graphics2D::DrawImage(Vector2D pos, Sprite* img){
 	DrawImage(pos, img, Color::White, false);
 }
 
-void Graphics2D::DrawImage(Vector2D pos, Image* img, Color color, bool monochrome){
+void Graphics2D::DrawImage(Vector2D pos, Sprite* img, Color color, bool monochrome){
 	gfxGL->UseProgram(sprite_shaders->program);
 
 	//parameterization
@@ -118,69 +118,32 @@ void Graphics2D::DrawImage(Vector2D pos, Image* img, Color color, bool monochrom
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
 }
 
-Image* Graphics2D::CreateImage(Image* src, Rect area, float scaleFactor){
-	Image* img = new Image(src->GetTextureID(), (int)src->texWidth, (int)src->texHeight, area);
+Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
+	Sprite* img = new Sprite(src->GetTextureID(), src->GetTextureWidth(), src->GetTextureHeight(), area);
 	img->Scale(scaleFactor);
 	return img;
 }
 
-Image* Graphics2D::LoadImage(string filename){
+Sprite* Graphics2D::LoadImage(string filename){
 	return LoadImage(filename, game->GetScaleFactor());
 }
 
-Image* Graphics2D::LoadImage(string filename, float scaleFactor){
+Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	debuger->StartCheckTime();
 	GLuint textureID;
 	int width, height;
-	byte* image = LoadImageInternal(filename, &width, &height);
+	File* imageFile = launcher->LoadFile(filename);
+	byte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
+	delete imageFile;
 
-	int new_width = 1;
-	int new_height = 1;
-	while(new_width < width) {
-		new_width *= 2;
+	if(image == NULL){
+		throw CrossException("SOIL can't convert file: " + filename + "\nPay attention on image color channels");
 	}
-	while(new_height < height) {
-		new_height *= 2;
-	}
-	//Create power of two texture
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	if(new_width > width || new_height > height){
-		byte* newImage = (byte*)malloc(BYTES_RGBA * new_width * new_height);
-		for(int i = 0; i < height; i++){
-			memcpy(newImage + i * new_width * BYTES_RGBA, image + i * width * BYTES_RGBA, width * BYTES_RGBA);
-			//Clamp to edge effect
-			if(new_width > width){
-				memcpy(newImage + i * new_width * BYTES_RGBA + width * BYTES_RGBA, image + i * width * BYTES_RGBA, BYTES_RGBA);
-			}
-		}
-		//Clamp to edge effect
-		if(new_height > height){
-			memcpy(newImage + height * BYTES_RGBA * new_width, image + (height - 1) * width * BYTES_RGBA, width * BYTES_RGBA);
-		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, new_width, new_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newImage);
-		free(newImage);
-	} else {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	}
-	SOIL_free_image_data(image);
-
-	//parameters
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	Rect region(0, 0, (float)width, (float)height);
-	Image* img = new Image(textureID, new_width, new_height, region);
-	img->Scale(scaleFactor);
-	string debugMsg = "Load image " + filename + ": ";
-	glBindTexture(GL_TEXTURE_2D, 0);
-	debuger->StopCheckTime(debugMsg);
-	return img;
+	return LoadImage(image, 4, width, height);
 }
 
-Image* Graphics2D::LoadImage(byte* image, int width, int height){
+Sprite* Graphics2D::LoadImage(byte* image, int bytesPerChannel, int width, int height){
 	debuger->StartCheckTime();
 	GLuint textureID;
 	int new_width = 1;
@@ -195,25 +158,45 @@ Image* Graphics2D::LoadImage(byte* image, int width, int height){
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	if(new_width > width || new_height > height){
-		byte* newImage = (byte*)malloc(BYTES_RGB * new_width * new_height);
+		byte* newImage = (byte*)malloc(bytesPerChannel * new_width * new_height);
 		for(int i = 0; i < height; i++){
-			memcpy(newImage + i * new_width * BYTES_RGB, image + i * width * BYTES_RGB, width * BYTES_RGB);
+			memcpy(newImage + i * new_width * bytesPerChannel, image + i * width * bytesPerChannel, width * bytesPerChannel);
 			//Clamp to edge effect
 			if(new_width > width){
-				memcpy(newImage + i * new_width * BYTES_RGB + width * BYTES_RGB, image + i * width * BYTES_RGB, BYTES_RGB);
+				memcpy(newImage + i * new_width * bytesPerChannel + width * bytesPerChannel, image + i * width * bytesPerChannel, bytesPerChannel);
 			}
 		}
 		//Clamp to edge effect
 		if(new_height > height){
-			memcpy(newImage + height * BYTES_RGB * new_width, image + (height - 1) * width * BYTES_RGB, width * BYTES_RGB);
+			memcpy(newImage + height * bytesPerChannel * new_width, image + (height - 1) * width * bytesPerChannel, width * bytesPerChannel);
 		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, new_width, new_height, 0, GL_RGB, GL_UNSIGNED_BYTE, newImage);
+		switch(bytesPerChannel)
+		{
+		case 3:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, new_width, new_height, 0, GL_RGB, GL_UNSIGNED_BYTE, newImage);
+			break;
+		case 4:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, new_width, new_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newImage);
+			break;
+		default:
+			throw CrossException("Unknown bit depth");
+		}
 		free(newImage);
 	} else {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		switch(bytesPerChannel)
+		{
+		case 3:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			break;
+		case 4:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+			break;
+		default:
+			throw CrossException("Unknown bit depth");
+		}
 	}
-	delete image;
+	//delete image;
 	//SOIL_free_image_data(image);
 
 	//parameters
@@ -222,7 +205,7 @@ Image* Graphics2D::LoadImage(byte* image, int width, int height){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	Rect region(0, 0, (float)width, (float)height);
-	Image* img = new Image(textureID, new_width, new_height, region);
+	Sprite* img = new Sprite(textureID, new_width, new_height, region);
 	img->Scale(game->GetScaleFactor());
 	string debugMsg = "Load image ";
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -230,22 +213,11 @@ Image* Graphics2D::LoadImage(byte* image, int width, int height){
 	return img;
 }
 
-void Graphics2D::ReleaseImage(Image* img){
+void Graphics2D::ReleaseImage(Sprite* img){
 	if(img == NULL){
 		throw CrossException("Can't release NULL image");
 	}
 	GLuint texID = img->GetTextureID();
 	glDeleteTextures(1, &texID);
 	delete img;
-}
-
-byte* Graphics2D::LoadImageInternal(string filename, int* width, int* height){
-	File* imageFile = launcher->LoadFile(filename);
-	byte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, width, height, 0, SOIL_LOAD_RGBA);
-	delete imageFile;
-
-	if(image == NULL){
-		throw CrossException("SOIL can't convert file: " + filename + "\nPay attention on image color channels");
-	}
-	return image;
 }

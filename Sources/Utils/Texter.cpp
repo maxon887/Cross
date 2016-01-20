@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Texter.h"
 #include "Graphics2D.h"
-#include "Image.h"
+#include "Sprite.h"
 #include "Game.h"
 
 #undef DrawText

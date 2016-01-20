@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
+#include "Cross.h"
 #include "Graphics2D.h"
 #include "Screen.h"
 #include "Vector2D.h"
@@ -45,8 +45,8 @@ public:
 	void OnMiscClick();
 	~MainScreen();
 private:
-	Image* x_img;
-	Image* character;
+	Sprite* x_img;
+	Sprite* character;
 	Button* animation_btn;
 	Button* audio_btn;
 	Button* primitives_btn;

@@ -22,15 +22,15 @@
 #include "TestScreen.h"
 #include "Birds\BirdsScreen.h"
 #include "Config.h"
-#include "Image.h"
+#include "Sprite.h"
 #include "Exception.h"
 
 MainScreen::~MainScreen(){
 	delete texter;
-	delete animation_btn;
+//	delete animation_btn;
 	delete audio_btn;
-	delete primitives_btn;
-	delete misc_btn;
+//	delete primitives_btn;
+//	delete misc_btn;
 	delete x_img;
 }
 
@@ -45,10 +45,10 @@ void MainScreen::Start(){
 	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
     x_img = gfx2D->LoadImage("Logo.png");
 	//graphics->ScaleImage(x_img, game->GetScaleFactor());
-	//Image* animationBtn = gfx2D->LoadImage("AnimationButton.png");
-	Image* audioBtn = gfx2D->LoadImage("AudioButton.png");
-	//Image* primitivesBtn = gfx2D->LoadImage("PrimitivesButton.png");
-	//Image* miscBtn = gfx2D->LoadImage("MiscButton.png");
+	//Sprite* animationBtn = gfx2D->LoadImage("AnimationButton.png");
+	Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
+	//Sprite* primitivesBtn = gfx2D->LoadImage("PrimitivesButton.png");
+	//Sprite* miscBtn = gfx2D->LoadImage("MiscButton.png");
 //	animation_btn = new Button(game, pos, animationBtn, NULL);
 	audio_btn = new Button(game, pos, audioBtn, NULL);
 //	primitives_btn = new Button(game, pos, primitivesBtn, NULL);

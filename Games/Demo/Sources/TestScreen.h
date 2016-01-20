@@ -27,6 +27,6 @@ public:
 	void Start();
 	void Update(float sec);
 private:
-	Image* grid;
+	Sprite* grid;
 	Font* times_new_roman;
 };

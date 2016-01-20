@@ -24,17 +24,17 @@ namespace cross {
 class Animation{
 public:
 	Animation(Animation& anim);
-	Animation(float rate, Image* frames[], int frameCount);
-	Animation(float rate, Image* frames[], int frameCount, bool looped);
+	Animation(float rate, Sprite* frames[], int frameCount);
+	Animation(float rate, Sprite* frames[], int frameCount, bool looped);
 	~Animation();
 
 	void Start();
 	void Update(float sec);
-	Image* GetImage();
+	Sprite* GetImage();
 	bool IsRunning();
 private:
-	void Init(float rate, Image* frames[], int frameCount, bool looped);
-	vector<Image*> frames;
+	void Init(float rate, Sprite* frames[], int frameCount, bool looped);
+	vector<Sprite*> frames;
 	float rate;
 	float duration;
 	int frame_num;

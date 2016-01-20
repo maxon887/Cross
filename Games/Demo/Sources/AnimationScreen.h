@@ -31,9 +31,9 @@ public:
 	~AnimationScreen();
 private:
 	Animation* spider_run_anim;
-	Image* spider_body;
-	Image* spider_head;
-	Image* background;
+	Sprite* spider_body;
+	Sprite* spider_head;
+	Sprite* background;
 	Audio* spider_run_snd;
 	float bcg_scale;
 	float run_time;

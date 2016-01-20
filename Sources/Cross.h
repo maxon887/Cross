@@ -36,7 +36,7 @@ class Input;
 class Config;
 class Debuger;
 class Texter;
-class Image;
+class Sprite;
 class Audio;
 class Screen;
 class File;

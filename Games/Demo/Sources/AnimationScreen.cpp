@@ -19,7 +19,7 @@
 #include "AnimationScreen.h"
 #include "MainScreen.h"
 #include "Audio.h"
-#include "Image.h"
+#include "Sprite.h"
 
 void AnimationScreen::Start(){
 	bcg_scale = 2;
@@ -33,7 +33,7 @@ void AnimationScreen::Start(){
 	spider_body = gfx2D->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = gfx2D->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
 	//background = gfx2D->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
-	Image* images[8];
+	Sprite* images[8];
 	images[0] = gfx2D->LoadImage("Spider/00.png", game->GetScaleFactor() * 0.8f);
 	images[1] = gfx2D->LoadImage("Spider/01.png", game->GetScaleFactor() * 0.8f);
 	images[2] = gfx2D->LoadImage("Spider/02.png", game->GetScaleFactor() * 0.8f);
@@ -91,8 +91,8 @@ void AnimationScreen::DrawBackground(float sec) {
 		deltaY = deltaY + sec * 430.0f;
 	y -= deltaY;
 	
-	if(deltaY > background->texHeight*bcg_scale){
-		deltaY -= background->texHeight*bcg_scale;
+	if(deltaY > background->GetTextureHeight() * bcg_scale){
+		deltaY -= background->GetTextureHeight() * bcg_scale;
 	}
 	//graphics->DrawImage(0, y, background);
 }

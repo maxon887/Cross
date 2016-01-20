@@ -37,20 +37,17 @@ public:
 	void Clear();
 	void Clear(Color color);
 	void DrawText(Vector2D pos, string text, Font* font);
-	void DrawImage(Vector2D pos, Image* img);
-	void DrawImage(Vector2D pos, Image* img, Color color, bool monochrome);
-	Image* CreateImage(Image* src, Rect area, float scaleFactor);
-	/* Load Image from assert file */
-	Image* LoadImage(string filename);
-	Image* LoadImage(string filename, float scaleFactor);
-	Image* LoadImage(byte* data, int width, int height);
-	void ReleaseImage(Image* img);
+	void DrawImage(Vector2D pos, Sprite* img);
+	void DrawImage(Vector2D pos, Sprite* img, Color color, bool monochrome);
+	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
+	Sprite* LoadImage(string filename);
+	Sprite* LoadImage(string filename, float scaleFactor);
+	Sprite* LoadImage(byte* data, int bytesPerChannel, int width, int height);
+	void ReleaseImage(Sprite* img);
 private:
 	SpriteShaders* sprite_shaders;
 	Matrix projection;
 	Color clear_color;
-
-	byte* LoadImageInternal(string filename, int* width, int* height);
 };
 
 }

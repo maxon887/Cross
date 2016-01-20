@@ -22,8 +22,8 @@ namespace cross {
 
 class Button{
 public:
-	Button(Game* game, Image* up, Image* down);
-	Button(Game* game, Vector2D location, Image* up, Image* down);
+	Button(Game* game, Sprite* up, Sprite* down);
+	Button(Game* game, Vector2D location, Sprite* up, Sprite* down);
 	Button(Game* game, float width, float height);
 	Button(Game* game, Rect area);
 	~Button();
@@ -46,8 +46,8 @@ public:
 protected:
 	Vector2D location;
 	Rect area;
-	Image* up;
-	Image* down;
+	Sprite* up;
+	Sprite* down;
 	Audio* push;
 	Audio* pull;
 	void InitRect(Vector2D loc, float width, float heiht);

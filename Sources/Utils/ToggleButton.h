@@ -22,14 +22,14 @@ namespace cross {
 class ToggleButton : public Button{
 //User module
 public:
-	ToggleButton(Game* game, Image* on, Image* off);
-	ToggleButton(Game* game, Vector2D location, Image* on, Image* off);
+	ToggleButton(Game* game, Sprite* on, Sprite* off);
+	ToggleButton(Game* game, Vector2D location, Sprite* on, Sprite* off);
 	void Update();
 	bool GetState();
 	void SetState(bool state);
 private:
-	Image* on;
-	Image* off;
+	Sprite* on;
+	Sprite* off;
 	bool state;
 };
 

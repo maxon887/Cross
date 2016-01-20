@@ -45,8 +45,8 @@ private:
 			int columns, int rows,
 			int asciiOffset, float scaleFactor);
 	Game* game;
-	Image* font;
-	Image* letters[256];
+	Sprite* font;
+	Sprite* letters[256];
 	float width;
 	float height;
 	int offset;
