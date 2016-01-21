@@ -18,7 +18,6 @@
 #include "Cross.h"
 #include "File.h"
 #include "GraphicsGL.h"
-#include "Font.h" //????
 
 #undef LoadImage
 #undef DrawText
@@ -35,7 +34,7 @@ public:
 	
 	void Clear();
 	void Clear(Color color);
-	void SetTextFont(Font* font);
+	void SetDefaultTextFont(Font* font);
 	void DrawText(Vector2D pos, string text);
 	void DrawText(Vector2D pos, string text, Font* font);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
@@ -46,7 +45,8 @@ public:
 	Sprite* LoadImage(byte* data, int bytesPerChannel, int width, int height);
 	void ReleaseImage(Sprite* img);
 private:
-	Font* font;
+	Font* default_font;
+	Font* current_font;
 	SpriteShaders* sprite_shaders;
 	Matrix projection;
 	Color clear_color;

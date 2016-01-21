@@ -30,7 +30,8 @@ using namespace cross;
 Graphics2D::Graphics2D():
 	clear_color(Color::Black)
 {
-	this->font = new Font(DEFAULT_FONT, 50, Color::White);
+	this->default_font = new Font(DEFAULT_FONT, 50, Color::White);
+	this->current_font = this->default_font;
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
 }
@@ -50,15 +51,14 @@ void Graphics2D::Clear(Color color){
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Graphics2D::SetTextFont(Font* font)
+void Graphics2D::SetDefaultTextFont(Font* font)
 {
-	delete(this->font);
-	this->font = font;
+	this->current_font = font;
 }
 
-void Graphics2D::DrawText(Vector2D pos, string text)
+void Graphics2D::DrawText(Vector2D pos, string textStr)
 {
-	this->DrawText(pos, text, this->font);
+	this->DrawText(pos, textStr, this->current_font);
 }
 
 void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
