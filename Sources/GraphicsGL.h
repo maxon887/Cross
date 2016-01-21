@@ -20,6 +20,8 @@
 #ifdef WIN
 #include "Platform\Windows\glew\glew.h"
 #include "Platform\Windows\glew\wglew.h"
+#undef LoadImage
+#undef DrawText
 #elif ANDROID
 //#include <GLES/gl.h>
 #include <GLES2/gl2.h>

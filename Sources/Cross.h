@@ -25,8 +25,6 @@
 
 #include <string>
 
-#define DEFAULT_FONT "Engine/times.ttf"
-
 namespace cross{
 
 class Game;
@@ -42,6 +40,7 @@ class Sprite;
 class Audio;
 class Screen;
 class File;
+class Font;
 
 extern Game* game;
 extern Launcher* launcher;

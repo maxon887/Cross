@@ -17,15 +17,10 @@
 #pragma once
 #include "Cross.h"
 #include "File.h"
-#include "GraphicsGL.h"
-
-#undef LoadImage
-#undef DrawText
 
 namespace cross{
 
 class SpriteShaders;
-class Font;
 
 class Graphics2D{
 public:
@@ -45,6 +40,7 @@ public:
 	Sprite* LoadImage(byte* data, int bytesPerChannel, int width, int height);
 	void ReleaseImage(Sprite* img);
 private:
+	static const char* def_font_filename;
 	Font* default_font;
 	Font* current_font;
 	SpriteShaders* sprite_shaders;

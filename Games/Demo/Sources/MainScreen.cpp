@@ -65,7 +65,7 @@ void MainScreen::Start(){
 	
 	//delete texterAdvanced;
 
-	this->internalScreenRedFont = new Font(DEFAULT_FONT, 80, Color::Red);
+	this->internalScreenRedFont = new Font("Engine/times.ttf", 80, Color::Red);
 }
 
 void MainScreen::Update(float sec){

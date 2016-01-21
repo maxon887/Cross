@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
+#include "GraphicsGL.h"
 #include "Exception.h"
 #include "SpriteShaders.h"
 #include "Launcher.h"
@@ -27,10 +28,12 @@
 
 using namespace cross;
 
+const char* Graphics2D::def_font_filename = "Engine/times.ttf";
+
 Graphics2D::Graphics2D():
 	clear_color(Color::Black)
 {
-	this->default_font = new Font(DEFAULT_FONT, 50, Color::White);
+	this->default_font = new Font(def_font_filename, 50, Color::White);
 	this->current_font = this->default_font;
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
