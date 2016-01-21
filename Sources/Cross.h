@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "MemoryManager.h"
+#include "Exception.h"
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Vector4D.h"

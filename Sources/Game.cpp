@@ -21,7 +21,6 @@
 #include "Config.h"
 #include "Utils/Debuger.h"
 #include "Audio.h"
-#include "Exception.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #undef GetMessage

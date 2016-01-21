@@ -23,7 +23,6 @@
 #include "Birds\BirdsScreen.h"
 #include "Config.h"
 #include "Sprite.h"
-#include "Exception.h"
 
 MainScreen::~MainScreen(){
 	delete texter;

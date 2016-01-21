@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
-#include "Exception.h"
 #include "SpriteShaders.h"
 #include "Launcher.h"
 #include "Game.h"
@@ -145,7 +144,7 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	delete imageFile;
 
 	if(image == NULL){
-		throw CrossException("SOIL can't convert file: " + filename + "\nPay attention on image color channels");
+//		throw CrossException("SOIL can't convert file: " + filename + "\nPay attention on image color channels");
 	}
 	Sprite* sprite = LoadImage(image, 4, width, height);
 	SOIL_free_image_data(image);

@@ -14,10 +14,9 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#include "Cross.h"
 #include "LauncherWIN.h"
 #include "GraphicsGL.h"
-#include "Cross.h"
-#include "Exception.h"
 #include "Game.h"
 #include "Input.h"
 #include "Config.h"

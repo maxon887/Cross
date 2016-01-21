@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
 #include "File.h"
-#include "Exception.h"
 
 #include <fstream>
 
@@ -103,7 +102,7 @@ File* LauncherWIN::LoadFile(string filename){
 		fileStream.read((char*)file->data, file->size);
 		return file;
 	} else{
-		throw CrossException("Cannot open file " + filename);
+		throw CrossException("Cannot open file %s", file->name.c_str());
 	}
 }
 

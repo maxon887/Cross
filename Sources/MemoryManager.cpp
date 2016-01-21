@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MemoryManager.h"
 #include "Launcher.h"
-#include "Exception.h"
 
 #undef new
 

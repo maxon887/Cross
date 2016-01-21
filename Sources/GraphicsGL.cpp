@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
-#include "Exception.h"
 #include "Launcher.h"
 #include "File.h"
 
@@ -69,10 +68,7 @@ GLuint GraphicsGL::ComplileShader(string filename){
 
 			GLchar* log = new GLchar[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
-			string msg(log);
-			delete[] log;
-			launcher->LogIt("Shader compilation failed:\n" + msg);
-			throw CrossException("Shader compilation failed:\n" + msg);
+			throw CrossException("Shader compilation failed:\n%s", log);
 		} else{
 #ifdef CROSS_DEBUG
 			GLsizei len;
@@ -118,9 +114,7 @@ void GraphicsGL::CompileProgram(GLuint program){
 
 		GLchar* log = new GLchar[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
-		string msg(log);
-		delete[] log;
-		throw CrossException("Shader compilation failed:\n" + msg);
+		throw CrossException("Shader compilation failed:\n %s", log);
 	}
 }
 

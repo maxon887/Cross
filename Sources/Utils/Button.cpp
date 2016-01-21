@@ -19,7 +19,6 @@
 #include "Graphics2D.h"
 #include "Input.h"
 #include "Sprite.h"
-#include "Exception.h"
 
 using namespace cross;
 

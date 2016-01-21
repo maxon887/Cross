@@ -15,17 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
 
-#define CrossException(message) Exception(message, __FILE__, __LINE__)
+#define CrossException(message, ...) Exception(__FILE__, __LINE__, message, ##__VA_ARGS__)
 
 namespace cross{
 
 class Exception{
 public:
-	Exception(string message, char* filename, unsigned int line);
-	string message;
-	char* filename;
+	Exception(const char* filename, unsigned int line, const char* message, ...);
+	char message[1024];
+	const char* filename;
 	unsigned int line;
 };
 

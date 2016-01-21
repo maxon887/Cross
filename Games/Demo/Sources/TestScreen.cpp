@@ -29,6 +29,9 @@ TestScreen::~TestScreen(){
 void TestScreen::Start(){
 	grid = gfx2D->LoadImage("Grid.png");
 	times_new_roman = new Font("Engine/times.ttf", 50, Color::Yellow);
+
+	const string cust = "nih sebe";
+	throw CrossException("Fuck me %d times. With custom message: %s", 3, cust.c_str());
 }
 
 void TestScreen::Update(float sec){

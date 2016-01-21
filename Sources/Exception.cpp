@@ -15,12 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Exception.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 using namespace cross;
 
-
-Exception::Exception(string message, char* filename, unsigned int line):
-	message(message),
+Exception::Exception(const char* filename, unsigned int line, const char* formatString, ...):
 	filename(filename),
 	line(line)
-{ }
+{
+	va_list params;
+	va_start(params, formatString);
+	vsprintf_s(message, sizeof(message), formatString, params);
+}
