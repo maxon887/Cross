@@ -144,7 +144,7 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	delete imageFile;
 
 	if(image == NULL){
-//		throw CrossException("SOIL can't convert file: " + filename + "\nPay attention on image color channels");
+		throw CrossException("SOIL can't convert file:\n Pay attention on image color channels");
 	}
 	Sprite* sprite = LoadImage(image, 4, width, height);
 	SOIL_free_image_data(image);
