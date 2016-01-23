@@ -22,14 +22,25 @@ namespace cross {
 
 class Button{
 public:
-	Button(Sprite* up, Sprite* down);
-	Button(Vector2D location, Sprite* up, Sprite* down);
-	Button(float width, float height);
+
+	Button(Vector2D location, string text);
+	Button(int locX, int locY, string text);
+	Button(Vector2D location);
+	Button(int locX, int locY);
 	Button(Rect area);
+	Button(Sprite* upImage, Sprite* downImage);
+
+
+	Button::Button(Rect area, string text);
+
+
 	~Button();
+
 	void Update();
 	void SetSounds(Audio* push, Audio* pull);
+	void SetImages(Sprite* up, Sprite* down);
 	void SetLocation(Vector2D location);
+	void SetRect(Rect area);
 	void SetActive(bool active);
 	float GetWidth();
 	float GetHeight();
@@ -46,10 +57,11 @@ public:
 protected:
 	Vector2D location;
 	Rect area;
-	Sprite* upImage;
-	Sprite* downImage;
-	Audio* pushSound;
-	Audio* pullSound;
+	Sprite* up_image;
+	Sprite* down_image;
+	Audio* push_sound;
+	Audio* pull_sound;
+	string label;
 	void InitRect(Vector2D loc, float width, float heiht);
 	bool is_pressed;
 	bool have_area;
