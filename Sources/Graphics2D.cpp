@@ -39,6 +39,7 @@ Graphics2D::Graphics2D():
 }
 
 Graphics2D::~Graphics2D(){
+	delete default_font;
 	delete sprite_shaders;
 }
 

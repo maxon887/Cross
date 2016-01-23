@@ -1,0 +1,24 @@
+Engine/sprite.vert
+file->size - 262
+totalMemory - 262
+
+Engine/sprite.frag
+file->size - 295
+totalMemory - 557
+
+Engine/times.ttf
+file->size - 834928
+totalMemory - 835485
+
+Grid.png
+file->size - 7730
+totalMemory - 843215
+
+Engine/times.ttf
+file->size - 834928
+totalMemory - 1678143
+
+Font.png
+file->size - 5582
+totalMemory - 1683725
+

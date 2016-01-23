@@ -31,6 +31,7 @@ MainScreen::~MainScreen(){
 //	delete primitives_btn;
 //	delete misc_btn;
 	delete x_img;
+	delete internalScreenRedFont;
 }
 
 void MainScreen::Start(){

@@ -23,10 +23,10 @@
 using namespace cross;
 
 Button::Button(Sprite* up, Sprite* down){
-	this->push = NULL;
-	this->pull = NULL;
-	this->up = up;
-	this->down = down;
+	this->pushSound = nullptr;
+	this->pullSound = nullptr;
+	this->upImage = up;
+	this->downImage = down;
 	this->have_area = false;
 	this->is_pressed = false;
 	this->active = true;
@@ -39,11 +39,11 @@ Button::Button(Sprite* up, Sprite* down){
 }
 
 Button::Button(Vector2D location, Sprite* up, Sprite* down){
-	this->push = NULL;
-	this->pull = NULL;
+	this->pushSound = nullptr;
+	this->pullSound = nullptr;
 	this->location = location;
-	this->up = up;
-	this->down = down;
+	this->upImage = up;
+	this->downImage = down;
 	this->active = true;
 	this->have_area = false;
 	this->is_pressed = false;
@@ -55,11 +55,11 @@ Button::Button(Vector2D location, Sprite* up, Sprite* down){
 }
 
 Button::Button(float width, float height){
-	this->push = NULL;
-	this->pull = NULL;
+	this->pushSound = nullptr;
+	this->pullSound = nullptr;
 	this->area = area;
-	this->up = NULL;
-	this->down = NULL;
+	this->upImage = nullptr;
+	this->downImage = nullptr;
 	this->active = true;
 	this->is_pressed = false;
 	this->have_area = false;
@@ -71,11 +71,11 @@ Button::Button(float width, float height){
 }
 
 Button::Button(Rect area){
-	this->push = NULL;
-	this->pull = NULL;
+	this->pushSound = nullptr;
+	this->pullSound = nullptr;
 	this->area = area;
-	this->up = NULL;
-	this->down = NULL;
+	this->upImage = nullptr;
+	this->downImage = nullptr;
 	this->active = true;
 	this->is_pressed = false;
 	this->have_area = true;
@@ -86,10 +86,10 @@ Button::Button(Rect area){
 }
 
 Button::~Button(){
-	if(down){
-		gfx2D->ReleaseImage(down);
+	if(downImage){
+		gfx2D->ReleaseImage(downImage);
 	}
-	gfx2D->ReleaseImage(up);
+	gfx2D->ReleaseImage(upImage);
 	input->ActionDown -= action_down_delegate;
 	input->ActionUp -= action_up_delegate;
 }
@@ -104,28 +104,28 @@ void Button::SetActive(bool active){
 }
 
 void Button::SetSounds(Audio* push, Audio* pull){
-	this->push = push;
-	this->pull = pull;
+	this->pushSound = push;
+	this->pullSound = pull;
 }
 
 void Button::Update(){
 	if(is_pressed){
-		if(down != NULL){
-			gfx2D->DrawSprite(location, down);
+		if(downImage != nullptr){
+			gfx2D->DrawSprite(location, downImage);
 		}
 	}else{
-		if(up != NULL){
-			gfx2D->DrawSprite(location, up);
+		if(upImage != nullptr){
+			gfx2D->DrawSprite(location, upImage);
 		}
 	}
 }
 
 float Button::GetWidth(){
-	return up->GetWidth();
+	return upImage->GetWidth();
 }
 
 float Button::GetHeight(){
-	return up->GetHeight();
+	return upImage->GetHeight();
 }
 
 Rect Button::GetRect(){
@@ -154,10 +154,10 @@ bool Button::OnLocation(float x, float y){
 }
 
 void Button::DrawUp(){
-	gfx2D->DrawSprite(location, up);
+	gfx2D->DrawSprite(location, upImage);
 }
 void Button::DrawDown(){
-	gfx2D->DrawSprite(location, down);
+	gfx2D->DrawSprite(location, downImage);
 }
 
 void Button::InitRect(Vector2D loc, float width, float heiht){
@@ -179,25 +179,25 @@ void Button::SetPressed(bool pressed){
 void Button::ActionDownHandler(Vector2D pos){
 	if(active && OnLocation(pos.x, pos.y)){
 		is_pressed = true;
-		if(push != NULL){
-			push->Play();
+		if(pushSound != nullptr){
+			pushSound->Play();
 		}
 	}
 }
 
 void Button::ActionUpHandler(Vector2D pos){
 	if(active){
-		if(is_pressed && push != NULL){
-			push->Play();
+		if(is_pressed && pushSound != nullptr){
+			pushSound->Play();
 		}
 		is_pressed = false;
 		if(OnLocation(pos.x, pos.y)){
 			is_pressed = false;
-			if(down != NULL){
-				gfx2D->DrawSprite(location, down);
+			if(downImage != nullptr){
+				gfx2D->DrawSprite(location, downImage);
 			}
-			if(pull != NULL){
-				pull->Play();
+			if(pullSound != nullptr){
+				pullSound->Play();
 			}
 			TRIGGER_EVENT(Clicked);
 			return;

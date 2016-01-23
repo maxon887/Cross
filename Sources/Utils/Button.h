@@ -46,10 +46,10 @@ public:
 protected:
 	Vector2D location;
 	Rect area;
-	Sprite* up;
-	Sprite* down;
-	Audio* push;
-	Audio* pull;
+	Sprite* upImage;
+	Sprite* downImage;
+	Audio* pushSound;
+	Audio* pullSound;
 	void InitRect(Vector2D loc, float width, float heiht);
 	bool is_pressed;
 	bool have_area;
