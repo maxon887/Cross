@@ -61,11 +61,12 @@ protected:
 	Sprite* down_image;
 	Audio* push_sound;
 	Audio* pull_sound;
-	string label;
+	string label_text;
 	void InitRect(Vector2D loc, float width, float heiht);
 	bool is_pressed;
 	bool have_area;
 	bool active;
+	bool is_with_text;
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_up_delegate;

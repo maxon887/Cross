@@ -59,12 +59,12 @@ void Graphics2D::SetDefaultTextFont(Font* font)
 	this->current_font = font;
 }
 
-void Graphics2D::DrawText(Vector2D pos, string textStr)
+int Graphics2D::DrawText(Vector2D pos, string textStr)
 {
-	this->DrawText(pos, textStr, this->current_font);
+	return DrawText(pos, textStr, this->current_font);
 }
 
-void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
+int Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 	FT_GlyphSlot g = font->face->glyph;
 	GLuint tex;
 	
@@ -76,6 +76,9 @@ void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	const char* text = textStr.c_str();
+
+	int width = 0;
+
 	while(*text){
 		if(FT_Load_Char(font->face, *text, FT_LOAD_RENDER))
 			continue;
@@ -90,9 +93,12 @@ void Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 
 		DrawSprite(pos, &ch, font->GetColor(), true);
 		pos.x += (g->advance.x >> 6);
+		width = pos.x;
 		text++;
 	}
 	glDeleteTextures(1, &tex);
+
+	return width;
 }
 
 void Graphics2D::DrawSprite(Vector2D pos, Sprite* img){
@@ -124,6 +130,11 @@ void Graphics2D::DrawSprite(Vector2D pos, Sprite* img, Color color, bool monochr
 	glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_TRUE, img->GetModel());
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
+}
+
+Font * cross::Graphics2D::GetDefaultFont()
+{
+	return current_font;
 }
 
 Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){

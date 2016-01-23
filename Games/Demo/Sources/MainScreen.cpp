@@ -23,6 +23,7 @@
 #include "Birds\BirdsScreen.h"
 #include "Config.h"
 #include "Sprite.h"
+#include "TestNaPidoraScreen.h"
 
 MainScreen::~MainScreen(){
 	delete texter;
@@ -46,9 +47,12 @@ void MainScreen::Start(){
 
 	audio_btn = new Button(pos);
 	audio_btn->SetImages(audioBtn, nullptr);
-
-
 	audio_btn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
+
+	test_label_button = new Button(pos, "TEST NA PIDORA");
+	test_label_button->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
+
+
 
 
 	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
@@ -72,6 +76,8 @@ void MainScreen::Update(float sec){
 	audio_btn->SetLocation(Vector2D(game->GetWidth() / 2, 300));
 	audio_btn->Update();
 
+	test_label_button->SetLocation(Vector2D(game->GetWidth() / 2, 100));
+	test_label_button->Update();
 
 	switch (going_screen)
 	{
@@ -83,7 +89,8 @@ void MainScreen::Update(float sec){
 	case AUDIO:
 		game->SetScreen(new AudioScreen());
 		break;
-	case PRIMITIVES:
+	case TEST_NA_PIDORA:
+		game->SetScreen(new TestNaPidoraScreen());
 		break;
 	case MISC:
 		//game->SetScreen(new TestScreen());
@@ -109,4 +116,8 @@ void MainScreen::OnPrimitivesClick(){
 
 void MainScreen::OnMiscClick(){
 	going_screen = MISC;
+}
+
+void MainScreen::OnTestNaPidoraClick() {
+	going_screen = TEST_NA_PIDORA;
 }

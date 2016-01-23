@@ -31,7 +31,8 @@ enum GoingScreen{
 	ANIMATION,
 	AUDIO,
 	PRIMITIVES,
-	MISC
+	MISC,
+	TEST_NA_PIDORA
 };
 
 class MainScreen : public Screen{
@@ -43,6 +44,7 @@ public:
 	void OnAudioClick();
 	void OnPrimitivesClick();
 	void OnMiscClick();
+	void OnTestNaPidoraClick();
 	~MainScreen();
 private:
 	Sprite* x_img;
@@ -51,6 +53,7 @@ private:
 	Button* audio_btn;
 	Button* primitives_btn;
 	Button* misc_btn;
+	Button* test_label_button;
 
 	Font* internalScreenRedFont;
 

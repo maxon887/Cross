@@ -19,6 +19,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "Input.h"
 #include "Sprite.h"
+#include "Font.h"
 
 #define DEFAULT_WIDTH 100
 #define DEFAULT_HEIGHT 100
@@ -34,7 +35,9 @@ Button::Button(Rect area, string text) :
 	down_image(nullptr),
 	have_area(false),
 	is_pressed(false),
-	active(true)
+	active(true),
+	is_with_text(false),
+	label_text(text)
 {
 	this->area.width = area.width;
 	this->area.height = area.height;
@@ -48,11 +51,15 @@ Button::Button(Rect area, string text) :
 Button::Button(Vector2D location, string text) :
 	Button(Rect(location.x, location.y, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
+	area.width = gfx2D->DrawText(Vector2D(area.x, area.y), text);
+	area.height = gfx2D->GetDefaultFont()->GetSize();
+	is_with_text = true;
 }
 
 Button::Button(int locX, int locY, string text) :
 	Button(Rect(locX, locY, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
+	is_with_text = true;
 }
 
 Button::Button(Vector2D location) :
@@ -123,6 +130,9 @@ void Button::Update() {
 		if (up_image != nullptr) {
 			gfx2D->DrawSprite(location, up_image);
 		}
+	} 
+	if (is_with_text) {
+		gfx2D->DrawText(Vector2D(area.x, area.y), label_text);
 	}
 }
 

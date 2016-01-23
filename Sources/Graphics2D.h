@@ -30,8 +30,9 @@ public:
 	void Clear();
 	void Clear(Color color);
 	void SetDefaultTextFont(Font* font);
-	void DrawText(Vector2D pos, string text);
-	void DrawText(Vector2D pos, string text, Font* font);
+	Font* GetDefaultFont();
+	int DrawText(Vector2D pos, string text);
+	int DrawText(Vector2D pos, string text, Font* font);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite, Color color, bool monochrome);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
@@ -39,10 +40,11 @@ public:
 	Sprite* LoadImage(string filename, float scaleFactor);
 	Sprite* LoadImage(byte* data, int bytesPerChannel, int width, int height);
 	void ReleaseImage(Sprite* img);
+
 private:
 	static const string def_font_filename;
-	Font* default_font;
 	Font* current_font;
+	Font* default_font;
 	SpriteShaders* sprite_shaders;
 	Matrix projection;
 	Color clear_color;
