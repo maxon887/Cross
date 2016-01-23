@@ -73,9 +73,6 @@
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\TestScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Config.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -121,9 +118,6 @@
     <ClCompile Include="..\..\..\..\Sources\Exception.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SpriteShaders.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -135,6 +129,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\TestNaPidoraScreen.cpp">
       <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\PrimitivesScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SpriteShaders.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +188,6 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\AudioScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\TestScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Config.h">
@@ -241,9 +241,6 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SpriteShaders.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -256,6 +253,15 @@
     <ClInclude Include="..\..\Sources\TestNaPidoraScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Sources\PrimitivesScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SpriteShaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -265,6 +271,12 @@
       <Filter>Cross\Shaders</Filter>
     </None>
     <None Include="..\..\Assets\Engine\sprite.vert">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\primitive.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\primitive.vert">
       <Filter>Cross\Shaders</Filter>
     </None>
   </ItemGroup>

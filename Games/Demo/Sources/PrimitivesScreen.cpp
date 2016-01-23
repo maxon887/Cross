@@ -14,33 +14,36 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "TestScreen.h"
+#include "PrimitivesScreen.h"
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Game.h"
 #include "MainScreen.h"
 #include "Launcher.h"
+#include "Misc.h"
 
-TestScreen::~TestScreen(){
-	gfx2D->ReleaseImage(grid);
-	delete times_new_roman;
+PrimitivesScreen::~PrimitivesScreen(){
 }
 
-void TestScreen::Start(){
-	grid = gfx2D->LoadImage("Grid.png");
-	times_new_roman = new Font("Engine/times.ttf", 50, Color::Yellow);
-
-	//const string cust = "nih sebe";
-	//throw CrossException("Fuck me %d times. With custom message: %s", 3, cust.c_str());
+void PrimitivesScreen::Start(){
 }
 
-void TestScreen::Update(float sec){
+void PrimitivesScreen::Update(float sec){
 	gfx2D->Clear();
 	float x = launcher->GetTargetWidth() / 2.f;
 	float y = launcher->GetTargetHeight() / 2.f;
-	gfx2D->DrawSprite(Vector2D(x, y), grid);
 
-	gfx2D->DrawText(Vector2D(100.f, 250.f), "Input zapeli!", times_new_roman);
+	for(int i = 0; i < 10; i++){
+		gfx2D->DrawPoint(Vector2D(Random(25, 75), Random(25, 75)), Color::Red);
+		gfx2D->DrawPoint(Vector2D(Random(25, 75), Random(25, 75)), Color::Green);
+	}
+	gfx2D->DrawLine(Vector2D(200, 200), Vector2D(400, 150), Color::Green);
+	gfx2D->DrawRect(Rect(50, 250, 50, 100), Color::Red);
+	gfx2D->DrawRect(Rect(200, 50, 150, 70), Color(0.44f, 0.15f, 0.54f), true);
+	gfx2D->DrawRect(Rect(150, 250, 50, 100), Color::Blue, false);
+	gfx2D->DrawCircle(Vector2D(400, 400), 50, Color::Yellow);
+	gfx2D->DrawCircle(Vector2D(350, 250), 25, Color::Red, true);
+	gfx2D->DrawLine(Vector2D(50, 100), Vector2D(50, 200), Color::Red);
 
 	if(input->IsPressed(Key::ESCAPE)){
 		game->SetScreen(new MainScreen());

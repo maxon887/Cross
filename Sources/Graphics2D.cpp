@@ -17,11 +17,13 @@
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
 #include "SpriteShaders.h"
+#include "PrimitiveShaders.h"
 #include "Launcher.h"
 #include "Game.h"
 #include "Utils\Debuger.h"
 #include "Sprite.h"
 #include "Font.h"
+#include "Misc.h"
 
 #include "SOIL/SOIL.h"
 
@@ -29,11 +31,11 @@ using namespace cross;
 
 const string Graphics2D::def_font_filename = "Engine/times.ttf";
 
-Graphics2D::Graphics2D():
-	clear_color(Color::Black)
+Graphics2D::Graphics2D()
 {
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
+	primitive_shaders = new PrimitiveShaders();
 	this->default_font = new Font(def_font_filename, 50, Color::White);
 	this->current_font = this->default_font;
 }
@@ -41,22 +43,114 @@ Graphics2D::Graphics2D():
 Graphics2D::~Graphics2D(){
 	delete default_font;
 	delete sprite_shaders;
+	delete primitive_shaders;
 }
 
 void Graphics2D::Clear(){
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Graphics2D::Clear(Color color){
-	if(color != clear_color){
-		glClearColor(color.R, color.G, color.B, 1.0f);
-	}
-	glClear(GL_COLOR_BUFFER_BIT);
+void Graphics2D::SetClearColor(Color color){
+	glClearColor(color.R, color.G, color.B, 1.0f);
 }
 
 void Graphics2D::SetDefaultTextFont(Font* font)
 {
 	this->current_font = font;
+}
+
+void Graphics2D::DrawPoint(Vector2D pos, Color color){
+	gfxGL->UseProgram(primitive_shaders->program);
+	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
+	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	glDrawArrays(GL_POINTS, 0, 1);
+}
+
+void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
+	gfxGL->UseProgram(primitive_shaders->program);
+	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
+	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	glDrawArrays(GL_LINES, 0, 2);
+}
+
+void Graphics2D::DrawRect(Rect rect, Color color){
+	DrawRect(rect, color, false);
+}
+
+void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
+	gfxGL->UseProgram(primitive_shaders->program);
+	float vertices[5 * 2] = {	rect.x, rect.y,
+								rect.x + rect.width, rect.y,
+								rect.x + rect.width, rect.y + rect.height,
+								rect.x, rect.y + rect.height,
+								rect.x, rect.y };
+	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	if(filled){
+		//glDrawArrays(GL_TRIANGLE_STRIP, 0, 5);
+		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+	}else{
+		glDrawArrays(GL_LINE_STRIP, 0, 5);
+	}
+}
+
+void Graphics2D::DrawCircle(Vector2D center, float radius, Color color){
+	DrawCircle(center, radius, color, false);
+}
+
+void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled){
+	DrawCircle(center, radius, color, filled, 30);
+}
+
+void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy){
+	gfxGL->UseProgram(primitive_shaders->program);
+	int vertexCount = accuracy;
+
+	// Create a buffer for vertex data
+	float* buffer = new float[vertexCount * 2]; 
+	int idx = 0;
+
+	// Center vertex for triangle fan
+	buffer[idx++] = center.x;
+	buffer[idx++] = center.y;
+
+	// Outer vertices of the circle
+	int outerVertexCount = vertexCount - 1;
+
+	for(int i = 0; i < outerVertexCount; ++i){
+		float percent = (i / (float)(outerVertexCount - 1));
+		float rad = percent * 2 * PI;
+
+		//Vertex position
+		float outer_x = center.x + radius * cos(rad);
+		float outer_y = center.y + radius * sin(rad);
+
+		buffer[idx++] = outer_x;
+		buffer[idx++] = outer_y;
+	}
+	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, buffer);
+	//delete buffer;
+	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	if(filled){
+		glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
+	}else{
+		glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2);
+	}
+	delete buffer;
 }
 
 int Graphics2D::DrawText(Vector2D pos, string textStr)
@@ -77,8 +171,6 @@ int Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 
 	const char* text = textStr.c_str();
 
-	int width = 0;
-
 	while(*text){
 		if(FT_Load_Char(font->face, *text, FT_LOAD_RENDER))
 			continue;
@@ -93,12 +185,11 @@ int Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 
 		DrawSprite(pos, &ch, font->GetColor(), true);
 		pos.x += (g->advance.x >> 6);
-		width = pos.x;
 		text++;
 	}
 	glDeleteTextures(1, &tex);
 
-	return width;
+	return pos.x;
 }
 
 void Graphics2D::DrawSprite(Vector2D pos, Sprite* img){
@@ -115,7 +206,7 @@ void Graphics2D::DrawSprite(Vector2D pos, Sprite* img, Color color, bool monochr
 	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
 	glUniform1i(sprite_shaders->uMonochrome, (GLint)monochrome);
-	glUniform4fv(sprite_shaders->uColor, 1, (float*)&(color));
+	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());
 
 	img->SetPosition(pos);
 	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());

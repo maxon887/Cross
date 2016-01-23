@@ -20,6 +20,14 @@ static float sign(cross::Vector2D p1, cross::Vector2D p2, cross::Vector2D p3){
     return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 }
 
+int cross::Random(int max){
+	return rand() % max;
+}
+
+int cross::Random(int min, int max){
+	return (min) + rand() % (max - min);
+}
+
 bool cross::PointInRect(Vector2D p, Rect rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&

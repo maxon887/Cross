@@ -21,6 +21,8 @@
 
 namespace cross {
 
+int Random(int max);
+int Random(int min, int max);
 bool PointInRect(Vector2D p, Rect rect);
 bool PointInTriangle(Vector2D pt, Vector2D v1, Vector2D v2, Vector2D v3);
 bool PointInCircle(Vector2D p, Vector2D center, float radius);

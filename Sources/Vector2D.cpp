@@ -32,11 +32,11 @@ Vector2D::Vector2D(float x, float y):
 {
 }
 
-float Vector2D::Length(){
+float Vector2D::Length() const{
 	return sqrt(x*x + y*y);
 }
 
-Vector2D Vector2D::Normalize(){
+Vector2D Vector2D::Normalize() const{
 	Vector2D result;
 	float len = Length();
 	result.x  = x / len;
@@ -44,7 +44,7 @@ Vector2D Vector2D::Normalize(){
 	return result;
 }
 
-Vector2D Vector2D::Truncate(float len){
+Vector2D Vector2D::Truncate(float len) const{
 	if(this->Length() > len){
 		Vector2D result;
 		result = this->Normalize();
@@ -54,8 +54,12 @@ Vector2D Vector2D::Truncate(float len){
 	return *this;
 }
 
-float Vector2D::DotProduct(const Vector2D &v2){
+float Vector2D::DotProduct(const Vector2D &v2) const{
 	return this->x * v2.x + this->y * v2.y;
+}
+
+float* Vector2D::GetData(){
+	return &x;
 }
 
 Vector2D Vector2D::operator+(const Vector2D &v2) const{

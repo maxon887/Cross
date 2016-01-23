@@ -15,32 +15,24 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Cross.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
-class Vector2D{
+class PrimitiveShaders{
 public:
-	float x;
-	float y;
+	GLuint program;
 
-	Vector2D();
-	Vector2D(float x, float y);
-	float Length() const;
-	Vector2D Normalize() const;
-	Vector2D Truncate(float len) const;
-	float DotProduct(const Vector2D &v2) const;
-	float* GetData();
-	
-	Vector2D operator + (const Vector2D &v2) const;
-	void operator += (const Vector2D &v2);
-	Vector2D operator - (const Vector2D &v2) const;
-	void operator -= (const Vector2D &v2);
-	Vector2D operator * (const float value) const;
-	void operator *= (const float value);
-	Vector2D operator / (const float value) const;
-	void operator /= (const float value);
-	bool operator == (const Vector2D &v2) const;
-	bool operator != (const Vector2D &v2) const;
+	GLuint aPositionLoc;
+	GLuint uProjectionLoc;
+	GLuint uColor;
+
+	PrimitiveShaders();
+	~PrimitiveShaders();
+private:
+	GLuint vertex_shader;
+	GLuint fragment_shader;
 };
 
-}
+};

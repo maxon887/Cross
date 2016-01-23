@@ -21,6 +21,7 @@
 namespace cross{
 
 class SpriteShaders;
+class PrimitiveShaders;
 
 class Graphics2D{
 public:
@@ -28,9 +29,16 @@ public:
 	~Graphics2D();
 	
 	void Clear();
-	void Clear(Color color);
+	void SetClearColor(Color color);
 	void SetDefaultTextFont(Font* font);
 	Font* GetDefaultFont();
+	void DrawPoint(Vector2D pos, Color color);
+	void DrawLine(Vector2D p1, Vector2D p2, Color color);
+	void DrawRect(Rect rect, Color color);
+	void DrawRect(Rect rect, Color color, bool filled);
+	void DrawCircle(Vector2D center, float radius, Color color);
+	void DrawCircle(Vector2D center, float radius, Color color, bool filled);
+	void DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy);
 	int DrawText(Vector2D pos, string text);
 	int DrawText(Vector2D pos, string text, Font* font);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
@@ -46,8 +54,8 @@ private:
 	Font* current_font;
 	Font* default_font;
 	SpriteShaders* sprite_shaders;
+	PrimitiveShaders* primitive_shaders;
 	Matrix projection;
-	Color clear_color;
 };
 
 }

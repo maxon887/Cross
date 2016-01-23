@@ -19,7 +19,7 @@
 #include "Launcher.h"
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
-#include "TestScreen.h"
+#include "PrimitivesScreen.h"
 #include "Birds\BirdsScreen.h"
 #include "Config.h"
 #include "Sprite.h"

@@ -21,12 +21,9 @@
 
 using namespace cross;
 
-class TestScreen : public Screen{
+class PrimitivesScreen : public Screen{
 public:
-	~TestScreen();
+	~PrimitivesScreen();
 	void Start();
 	void Update(float sec);
-private:
-	Sprite* grid;
-	Font* times_new_roman;
 };

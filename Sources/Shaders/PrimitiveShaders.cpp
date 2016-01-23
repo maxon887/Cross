@@ -14,33 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
+#include "PrimitiveShaders.h"
 
-namespace cross{
+using namespace cross;
 
-class Vector2D{
-public:
-	float x;
-	float y;
+PrimitiveShaders::PrimitiveShaders(){
+	vertex_shader = gfxGL->ComplileShader("Engine/primitive.vert");
+	fragment_shader = gfxGL->ComplileShader("Engine/primitive.frag");
+	program = gfxGL->CreateProgram();
+	gfxGL->AttachShader(program, vertex_shader);
+	gfxGL->AttachShader(program, fragment_shader);
+	gfxGL->CompileProgram(program);
 
-	Vector2D();
-	Vector2D(float x, float y);
-	float Length() const;
-	Vector2D Normalize() const;
-	Vector2D Truncate(float len) const;
-	float DotProduct(const Vector2D &v2) const;
-	float* GetData();
-	
-	Vector2D operator + (const Vector2D &v2) const;
-	void operator += (const Vector2D &v2);
-	Vector2D operator - (const Vector2D &v2) const;
-	void operator -= (const Vector2D &v2);
-	Vector2D operator * (const float value) const;
-	void operator *= (const float value);
-	Vector2D operator / (const float value) const;
-	void operator /= (const float value);
-	bool operator == (const Vector2D &v2) const;
-	bool operator != (const Vector2D &v2) const;
-};
+	aPositionLoc = glGetAttribLocation(program, "aPosition");
+	uProjectionLoc = glGetUniformLocation(program, "uProjection");
+	uColor = glGetUniformLocation(program, "uColor");
+}
 
+PrimitiveShaders::~PrimitiveShaders(){
+	gfxGL->DeleteShader(vertex_shader);
+	gfxGL->DeleteShader(fragment_shader);
+	gfxGL->DeleteProgram(program);
 }

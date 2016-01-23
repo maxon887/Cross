@@ -17,7 +17,7 @@
 	
 #include "Demo.h"
 #include "MainScreen.h"
-#include "TestScreen.h"
+#include "PrimitivesScreen.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
 
@@ -27,5 +27,5 @@ void Demo::Start(){
 
 Screen* Demo::GetStartScreen(){
 	//return new MainScreen();
-	return new TestScreen();
+	return new PrimitivesScreen();
 }

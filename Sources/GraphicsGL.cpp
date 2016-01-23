@@ -121,14 +121,3 @@ void GraphicsGL::CompileProgram(GLuint program){
 void GraphicsGL::UseProgram(GLuint program){
 	glUseProgram(program);
 }
-/*
-void GraphicsGL::DrawPoint(Vector2D p, Color c){
-	GLfloat vertex[6] = { p.x, p.y, c.R, c.G, c.B };
-	GLuint posAttrib = glGetAttribLocation(program, "a_position");
-	GLuint colorAttrib = glGetAttribLocation(program, "a_color");
-	glEnableVertexAttribArray(posAttrib);
-	glEnableVertexAttribArray(colorAttrib);
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 6, vertex);
-	glVertexAttribPointer(colorAttrib, 4, GL_FLOAT, GL_FALSE, 6, vertex + 2);
-	glDrawArrays(GL_POINTS, 0, 1);
-}*/
