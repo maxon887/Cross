@@ -31,11 +31,11 @@ public:
 	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
 	/* Game constructor. Virtual word coordinates will match target physical pixels */
-	Game(Launcher* launcher);
+	Game();
 	/* Game constructor. Virtual world height will calculate proportionally physical screen ratio */
-	Game(Launcher* launcher, float width);
+	Game(float width);
 	/* Game constructor. Game screen will scroll automatically */
-	Game(Launcher* launcher, float width, float height);
+	Game(float width, float height);
 	// Cause when game is about to start
 	virtual void Start();
 	// Cause when game needs to be paused. For example input call or window lost focus

@@ -19,15 +19,15 @@
 
 using namespace cross;
 
-ToggleButton::ToggleButton(Game* game, Sprite* on, Sprite* off)
-	:Button(game, on, off){
+ToggleButton::ToggleButton(Sprite* on, Sprite* off)
+	:Button(on, off){
 	this->on = on;
 	this->off = off;
 	this->state = true;
 }
 
-ToggleButton::ToggleButton(Game* game, Vector2D location, Sprite* on, Sprite* off)
-	:Button(game, location, on, off){
+ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
+	:Button(location, on, off){
 	this->on = on;
 	this->off = off;
 	this->state = true;

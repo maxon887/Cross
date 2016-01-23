@@ -22,10 +22,10 @@ namespace cross {
 
 class Button{
 public:
-	Button(Game* game, Sprite* up, Sprite* down);
-	Button(Game* game, Vector2D location, Sprite* up, Sprite* down);
-	Button(Game* game, float width, float height);
-	Button(Game* game, Rect area);
+	Button(Sprite* up, Sprite* down);
+	Button(Vector2D location, Sprite* up, Sprite* down);
+	Button(float width, float height);
+	Button(Rect area);
 	~Button();
 	void Update();
 	void SetSounds(Audio* push, Audio* pull);

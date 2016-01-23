@@ -22,7 +22,7 @@
 
 using namespace cross;
 
-Button::Button(Game* game, Sprite* up, Sprite* down){
+Button::Button(Sprite* up, Sprite* down){
 	this->push = NULL;
 	this->pull = NULL;
 	this->up = up;
@@ -38,7 +38,7 @@ Button::Button(Game* game, Sprite* up, Sprite* down){
 	input->ActionUp += action_up_delegate;
 }
 
-Button::Button(Game* game, Vector2D location, Sprite* up, Sprite* down){
+Button::Button(Vector2D location, Sprite* up, Sprite* down){
 	this->push = NULL;
 	this->pull = NULL;
 	this->location = location;
@@ -54,7 +54,7 @@ Button::Button(Game* game, Vector2D location, Sprite* up, Sprite* down){
 	input->ActionUp += action_up_delegate;
 }
 
-Button::Button(Game* game, float width, float height){
+Button::Button(float width, float height){
 	this->push = NULL;
 	this->pull = NULL;
 	this->area = area;
@@ -70,7 +70,7 @@ Button::Button(Game* game, float width, float height){
 	input->ActionUp += action_up_delegate;
 }
 
-Button::Button(Game* game, Rect area){
+Button::Button(Rect area){
 	this->push = NULL;
 	this->pull = NULL;
 	this->area = area;

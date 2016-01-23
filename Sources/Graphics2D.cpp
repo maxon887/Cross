@@ -27,15 +27,15 @@
 
 using namespace cross;
 
-const char* Graphics2D::def_font_filename = "Engine/times.ttf";
+const string Graphics2D::def_font_filename = "Engine/times.ttf";
 
 Graphics2D::Graphics2D():
 	clear_color(Color::Black)
 {
-	this->default_font = new Font(def_font_filename, 50, Color::White);
-	this->current_font = this->default_font;
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
+	this->default_font = new Font(def_font_filename, 50, Color::White);
+	this->current_font = this->default_font;
 }
 
 Graphics2D::~Graphics2D(){

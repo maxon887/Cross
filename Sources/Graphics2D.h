@@ -40,7 +40,7 @@ public:
 	Sprite* LoadImage(byte* data, int bytesPerChannel, int width, int height);
 	void ReleaseImage(Sprite* img);
 private:
-	static const char* def_font_filename;
+	static const string def_font_filename;
 	Font* default_font;
 	Font* current_font;
 	SpriteShaders* sprite_shaders;

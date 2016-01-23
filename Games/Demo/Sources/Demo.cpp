@@ -19,7 +19,7 @@
 #include "MainScreen.h"
 #include "TestScreen.h"
 
-Demo::Demo(Launcher* launcher) : Game(launcher) { }
+Demo::Demo(Launcher* launcher) : Game() { }
 
 void Demo::Start(){
 	debuger->EnableScreenDebug();

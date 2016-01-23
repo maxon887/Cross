@@ -45,12 +45,16 @@ public:
 	void Free(void* address);
 	unsigned long Dump();
 private:
+	static const unsigned long check_code;
+	static bool dead;
+	static MemoryManager instance;
+
 	unsigned int object_count;
 	MemoryObject alloc_objects[MAX_ALLOC];
 
 	MemoryManager();
+	~MemoryManager();
 
-	static MemoryManager instance;
 	void SanityCheck();
 };
 

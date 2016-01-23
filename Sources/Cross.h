@@ -26,6 +26,10 @@
 
 #include <string>
 
+#if defined(__APPLE__) || defined(__APPLE_CC__)
+#define IOS true
+#endif
+
 namespace cross{
 
 class Game;

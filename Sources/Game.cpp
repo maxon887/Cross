@@ -39,7 +39,7 @@ Input*		cross::input = NULL;
 Config*		cross::config = NULL;
 Debuger*	cross::debuger = NULL;
 
-Game::Game(Launcher* launcher){
+Game::Game(){
 	input = new Input();
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();
@@ -52,7 +52,7 @@ Game::Game(Launcher* launcher){
 	scale_factor = (float)launcher->GetTargetWidth() / width;
 }
 
-Game::Game(Launcher* launcher, float width){
+Game::Game(float width){
 	input = new Input();
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();
@@ -66,7 +66,7 @@ Game::Game(Launcher* launcher, float width){
     scale_factor = (float)launcher->GetTargetWidth() / width;
 }
 
-Game::Game(Launcher* launcher, float width, float height){
+Game::Game(float width, float height){
 	input = new Input();
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();

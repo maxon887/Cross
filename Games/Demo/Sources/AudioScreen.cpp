@@ -26,7 +26,7 @@ void AudioScreen::Start(){
 	Vector2D pos;
 	pos.x = game->GetWidth() / 2;
 	pos.y = game->GetHeight() / 4 * 3;
-	music_btn = new ToggleButton(game, pos, on, off);
+	music_btn = new ToggleButton(pos, on, off);
 	music_btn->Clicked += MakeDelegate(this, &AudioScreen::MusicOnClick);
 	bck_music = new Audio("Eskimo.mp3", true, true);
 	bool musicState = config->LoadBool("MUSIC_STATE", true);
@@ -41,12 +41,12 @@ void AudioScreen::Start(){
 	Sprite* yellow_img = gfx2D->LoadImage("SoundButtonYellow.png");
 	Sprite* blue_img = gfx2D->LoadImage("SoundButtonBlue.png");
 	//Sprite* gray_img = graphics->LoadImage("SoundButtonGray.png");
-	yellow_sound_btn = new Button(game, yellow_img, NULL);
+	yellow_sound_btn = new Button(yellow_img, NULL);
 	pos.x = yellow_sound_btn->GetWidth() / 2;
 	pos.y = game->GetHeight() - yellow_sound_btn->GetHeight() / 2;
 	yellow_sound_btn->SetLocation(pos);
 	yellow_sound_btn->Clicked += MakeDelegate(this, &AudioScreen::OnYellowClick);
-	blue_sound_btn = new Button(game, blue_img, NULL);
+	blue_sound_btn = new Button(blue_img, NULL);
 	pos.x = game->GetWidth() - blue_sound_btn->GetWidth() / 2;
 	pos.y = game->GetHeight() - blue_sound_btn->GetHeight() / 2;
 	blue_sound_btn->SetLocation(pos);

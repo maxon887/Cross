@@ -21,8 +21,6 @@
 
 using namespace cross;
 
-const unsigned long CHECK_CODE = 0x12345678;
-
 void* operator new(size_t size){
 	return MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
 }
@@ -55,7 +53,9 @@ void operator delete[](void* p, char* filename, unsigned long line){
 	MemoryManager::Instance()->Free(p);
 }
 
-MemoryManager MemoryManager::instance;
+const unsigned long		MemoryManager::check_code	= 0x12345678;
+bool					MemoryManager::dead			= true;
+MemoryManager			MemoryManager::instance;
 
 MemoryManager* MemoryManager::Instance(){
 	return &instance;
@@ -64,45 +64,57 @@ MemoryManager* MemoryManager::Instance(){
 MemoryManager::MemoryManager():
 	object_count(0)
 {
+	dead = false;
+}
 
+MemoryManager::~MemoryManager(){
+	dead = true;
 }
 
 void* MemoryManager::Alloc(unsigned int size, char* filename, unsigned int line){
-	SanityCheck();
-	static int maxAlloc = MAX_ALLOC;
-	if(object_count == maxAlloc - 1){
-		maxAlloc = 0;
-		throw CrossException("Maximum object allocated. Needs to redesign MemoryManager.");
-	}
+	if(!dead){
+		SanityCheck();
+		static int maxAlloc = MAX_ALLOC;
+		if(object_count == maxAlloc - 1){
+			maxAlloc = 0;
+			throw CrossException("Maximum object allocated. Needs to redesign MemoryManager.");
+		}
 
-	alloc_objects[object_count].address = malloc(size + 4);
-	alloc_objects[object_count].filename = filename;
-	alloc_objects[object_count].line = line;
-	alloc_objects[object_count].size = size;
+		alloc_objects[object_count].address = malloc(size + 4);
+		alloc_objects[object_count].filename = filename;
+		alloc_objects[object_count].line = line;
+		alloc_objects[object_count].size = size;
 	
-	char* temp = (char*)alloc_objects[object_count].address;
-	temp += size;
-	memcpy(temp, &CHECK_CODE, 4);
+		char* temp = (char*)alloc_objects[object_count].address;
+		temp += size;
+		memcpy(temp, &check_code, 4);
 	
-	return alloc_objects[object_count++].address;
+		return alloc_objects[object_count++].address;
+	}else{
+		return malloc(size);
+	}
 }
 
 void MemoryManager::Free(void* address){
-	SanityCheck();
-	if(address == NULL){
-		throw CrossException("Null pointer deletion");
-	}
-	for(unsigned int i = 0; i < object_count; i++){
-		if(alloc_objects[i].address == address){
-			free(address);
-			if(i != object_count - 1){
-				memcpy(alloc_objects + i, alloc_objects + object_count - 1, sizeof(MemoryObject));
-			}
-			object_count--;
-			return;
+	if(!dead){
+		SanityCheck();
+		if(address == NULL){
+			throw CrossException("Null pointer deletion");
 		}
+		for(unsigned int i = 0; i < object_count; i++){
+			if(alloc_objects[i].address == address){
+				free(address);
+				if(i != object_count - 1){
+					memcpy(alloc_objects + i, alloc_objects + object_count - 1, sizeof(MemoryObject));
+				}
+				object_count--;
+				return;
+			}
+		}
+		throw CrossException("Attempt to delete bad pointer");
+	}else{
+		free(address);
 	}
-	throw CrossException("Attempt to delete bad pointer");
 }
 
 unsigned long MemoryManager::Dump(){
@@ -125,7 +137,7 @@ void MemoryManager::SanityCheck(){
 	for(unsigned int i = 0; i < object_count; ++i){
 		char* temp = (char*)alloc_objects[i].address;
 		temp += alloc_objects[i].size;
-		if(memcmp(temp, &CHECK_CODE, 4) != 0){
+		if(memcmp(temp, &check_code, 4) != 0){
 			launcher->LogIt("Memory corrupted at 0x%08X: %d bytes(%s: %d)\n",
 				(unsigned long)alloc_objects[i].address,
 				alloc_objects[i].size,

@@ -49,7 +49,7 @@ void MainScreen::Start(){
 	//Sprite* primitivesBtn = gfx2D->LoadImage("PrimitivesButton.png");
 	//Sprite* miscBtn = gfx2D->LoadImage("MiscButton.png");
 //	animation_btn = new Button(game, pos, animationBtn, NULL);
-	audio_btn = new Button(game, pos, audioBtn, NULL);
+	audio_btn = new Button(pos, audioBtn, NULL);
 //	primitives_btn = new Button(game, pos, primitivesBtn, NULL);
 //	misc_btn = new Button(game, pos, miscBtn, NULL);
 //	animation_btn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);

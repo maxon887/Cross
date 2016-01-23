@@ -17,11 +17,6 @@
 #pragma once
 #include "Cross.h"
 
-#ifdef _WIN32
-#elif defined(__APPLE__) || defined(__APPLE_CC__)
-#define IOS true
-#endif
-
 namespace cross {
 
 class Commercial;
