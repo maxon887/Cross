@@ -33,6 +33,7 @@ Button::Button(Rect area, string text) :
 	pull_sound(nullptr),
 	up_image(nullptr),
 	down_image(nullptr),
+	background_image(nullptr),
 	have_area(false),
 	is_pressed(false),
 	active(true),
@@ -42,10 +43,18 @@ Button::Button(Rect area, string text) :
 	this->area.width = area.width;
 	this->area.height = area.height;
 
+	background_image = gfx2D->LoadImage("DefaultButton.png");
+
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
 	input->ActionDown += action_down_delegate;
 	input->ActionUp += action_up_delegate;
+
+	if (label_text.compare(NO_TEXT))
+		is_text_resizable = false;
+	else
+		is_text_resizable = true;
+
 }
 
 Button::Button(Vector2D location, string text) :
@@ -131,10 +140,15 @@ void Button::Update() {
 			gfx2D->DrawSprite(location, up_image);
 		}
 	} 
+	if (!is_text_resizable) {
+		gfx2D->DrawSprite(Vector2D(area.x + area.width / 2, area.y + area.height / 2), background_image);
+	}
+
 	if (is_with_text) {
 		gfx2D->DrawText(Vector2D(area.x, area.y), label_text);
 	}
-}
+	
+} 
 
 float Button::GetWidth() {
 	return up_image->GetWidth();

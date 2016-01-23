@@ -59,6 +59,7 @@ protected:
 	Rect area;
 	Sprite* up_image;
 	Sprite* down_image;
+	Sprite* background_image;
 	Audio* push_sound;
 	Audio* pull_sound;
 	string label_text;
@@ -67,6 +68,7 @@ protected:
 	bool have_area;
 	bool active;
 	bool is_with_text;
+	bool is_text_resizable;
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_up_delegate;

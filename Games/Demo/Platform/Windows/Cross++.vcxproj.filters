@@ -133,7 +133,7 @@
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="TestNaPidoraScreen.cpp">
+    <ClCompile Include="..\..\Sources\TestNaPidoraScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -253,7 +253,7 @@
     <ClInclude Include="..\..\..\..\Sources\Sprite.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="TestNaPidoraScreen.h">
+    <ClInclude Include="..\..\Sources\TestNaPidoraScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
