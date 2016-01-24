@@ -14,14 +14,14 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Cross.h"
+#include "TestNaPidoraScreen.h"
+#include "Graphics2D.h"
 #include "Game.h"
 #include "AnimationScreen.h"
 #include "MainScreen.h"
 #include "Audio.h"
 #include "Sprite.h"
 
-#include "TestNaPidoraScreen.h"
 
 
 

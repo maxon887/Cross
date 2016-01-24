@@ -61,7 +61,7 @@ void Graphics2D::SetDefaultTextFont(Font* font)
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);
-	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
@@ -91,7 +91,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 								rect.x + rect.width, rect.y + rect.height,
 								rect.x, rect.y + rect.height,
 								rect.x, rect.y };
-	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
@@ -139,7 +139,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 		buffer[idx++] = outer_x;
 		buffer[idx++] = outer_y;
 	}
-	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, buffer);
 	//delete buffer;
@@ -203,7 +203,7 @@ void Graphics2D::DrawSprite(Vector2D pos, Sprite* img, Color color, bool monochr
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	projection = Matrix::CreateOrthogonalProjection(-1, game->GetWidth(), -1, game->GetHeight(), 1, -1);
+	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
 	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
 	glUniform1i(sprite_shaders->uMonochrome, (GLint)monochrome);
 	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());

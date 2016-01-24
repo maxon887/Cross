@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
 #include "Game.h"
+#include "Graphics2D.h"
 #include "Launcher.h"
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
@@ -26,22 +27,34 @@
 #include "TestNaPidoraScreen.h"
 
 MainScreen::~MainScreen(){
-	delete texter;
-//	delete animation_btn;
-	delete audio_btn;
-//	delete primitives_btn;
-//	delete misc_btn;
-	delete x_img;
-	delete internalScreenRedFont;
+	//delete audio_btn;
+	//delete test_label_button;
 }
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
-
+	menu = new Menu();
+	//Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
+	//Button* btn = new Button(audioBtn, nullptr);
+	//Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
+	//audioBtn->Scale(0.5f);
+	//Button* btn1 = new Button(Vector2D(0.f, 0.f), "Primitives");
+	//Button* btn2 = new Button(Vector2D(0.f, 0.f), "Sprites");
+	/*
+	for(int i = 0; i < 10; i++){
+		Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
+		Button* btn = new Button(audioBtn, nullptr);
+		menu->AddButton(btn);
+	}*/
+	/*
+	Button* btn1 = new Button(audioBtn, nullptr);
+	Button* btn2 = new Button(audioBtn, nullptr);
+	Button* btn3 = new Button(audioBtn, nullptr);
+	menu->AddButton(btn1);
+	menu->AddButton(btn2);
+	menu->AddButton(btn3);*/
+	/*
 	Vector2D pos;
-
-	texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
-    x_img = gfx2D->LoadImage("Logo.png");
 
 	Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
 
@@ -50,34 +63,24 @@ void MainScreen::Start(){
 	audio_btn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
 
 	test_label_button = new Button(pos, "TEST NA PIDORA");
-	test_label_button->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
-
-
-
-
-	int startLaunches = config->LoadInt("START_LAUNCHES", 0);
-	startLaunches++;
-	config->SaveInt("START_LAUNCHES", startLaunches);
-	start_count = startLaunches;
-	
-
-
-	this->internalScreenRedFont = new Font("Engine/times.ttf", 80, Color::Red);
+	test_label_button->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);*/
 }
 
 void MainScreen::Update(float sec){
-
 	gfx2D->Clear();
+	static float time = 1;
+	time += sec;
+	menu->Update(sec);
 
-	gfx2D->DrawText(Vector2D(0, 0), "bla bla bla");
-	gfx2D->DrawText(Vector2D(0, 200), "text", internalScreenRedFont);
-
-
-	audio_btn->SetLocation(Vector2D(game->GetWidth() / 2, 300));
-	audio_btn->Update();
-
-	test_label_button->SetLocation(Vector2D(game->GetWidth() / 2, 100));
-	test_label_button->Update();
+	if((menu->Size() + 1) < time){
+		Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
+		Button* btn = new Button(audioBtn, nullptr);
+		menu->AddButton(btn);
+		if(menu->Size() > 10){
+			menu->Clear();
+			time = 1;
+		}
+	}
 
 	switch (going_screen)
 	{
@@ -102,7 +105,6 @@ void MainScreen::Update(float sec){
 }
 
 void MainScreen::OnAnimationClick(){
-	launcher->LogIt("OnClick");
 	going_screen = ANIMATION;
 }
 

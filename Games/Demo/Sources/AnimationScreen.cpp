@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 #include "Game.h"
+#include "Graphics2D.h"
+#include "Animation.h"
 #include "AnimationScreen.h"
 #include "MainScreen.h"
 #include "Audio.h"

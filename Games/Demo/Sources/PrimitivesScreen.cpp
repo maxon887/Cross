@@ -32,18 +32,18 @@ void PrimitivesScreen::Update(float sec){
 	gfx2D->Clear();
 	float x = launcher->GetTargetWidth() / 2.f;
 	float y = launcher->GetTargetHeight() / 2.f;
-
+	
 	for(int i = 0; i < 10; i++){
-		gfx2D->DrawPoint(Vector2D(Random(25, 75), Random(25, 75)), Color::Red);
-		gfx2D->DrawPoint(Vector2D(Random(25, 75), Random(25, 75)), Color::Green);
+		gfx2D->DrawPoint(Vector2D(Random(25.f, 75.f), Random(25.f, 75.f)), Color::Red);
+		gfx2D->DrawPoint(Vector2D(Random(25.f, 75.f), Random(25.f, 75.f)), Color::Green);
 	}
-	gfx2D->DrawLine(Vector2D(200, 200), Vector2D(400, 150), Color::Green);
-	gfx2D->DrawRect(Rect(50, 250, 50, 100), Color::Red);
-	gfx2D->DrawRect(Rect(200, 50, 150, 70), Color(0.44f, 0.15f, 0.54f), true);
-	gfx2D->DrawRect(Rect(150, 250, 50, 100), Color::Blue, false);
-	gfx2D->DrawCircle(Vector2D(400, 400), 50, Color::Yellow);
-	gfx2D->DrawCircle(Vector2D(350, 250), 25, Color::Red, true);
-	gfx2D->DrawLine(Vector2D(50, 100), Vector2D(50, 200), Color::Red);
+	gfx2D->DrawLine(Vector2D(200.f, 200.f), Vector2D(400.f, 150.f), Color::Green);
+	gfx2D->DrawRect(Rect(50.f, 250.f, 50.f, 100.f), Color::Red);
+	gfx2D->DrawRect(Rect(200.f, 50.f, 150.f, 70.f), Color(0.44f, 0.15f, 0.54f), true);
+	gfx2D->DrawRect(Rect(150.f, 250.f, 50.f, 100.f), Color::Blue, false);
+	gfx2D->DrawCircle(Vector2D(400.f, 400.f), 50.f, Color::Yellow);
+	gfx2D->DrawCircle(Vector2D(350.f, 250.f), 25.f, Color::Red, true);
+	gfx2D->DrawLine(Vector2D(50.f, 100.f), Vector2D(50.f, 200.f), Color::Red);
 
 	if(input->IsPressed(Key::ESCAPE)){
 		game->SetScreen(new MainScreen());

@@ -129,6 +129,14 @@ void Button::SetImages(Sprite * up, Sprite * down)
 	InitRect(location, up->GetWidth(), up->GetHeight());
 }
 
+Sprite* Button::GetUpImage(){
+	return up_image;
+}
+
+Sprite* Button::GetDownImage(){
+	return down_image;
+}
+
 void Button::Update() {
 	if (is_pressed) {
 		if (down_image != nullptr) {
@@ -147,7 +155,7 @@ void Button::Update() {
 	if (is_with_text) {
 		gfx2D->DrawText(Vector2D(area.x, area.y), label_text);
 	}
-	
+	gfx2D->DrawRect(area, Color::Blue);
 } 
 
 float Button::GetWidth() {

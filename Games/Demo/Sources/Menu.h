@@ -16,39 +16,25 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Screen.h"
 #include "Button.h"
-#include "ToggleButton.h"
-#include "Menu.h"
+
+#include <vector>
 
 using namespace cross;
 
-enum GoingScreen{
-	NO_SCREEN,
-	ANIMATION,
-	AUDIO,
-	PRIMITIVES,
-	MISC,
-	TEST_NA_PIDORA
-};
-
-class MainScreen : public Screen{
+class Menu{
 public:
-	void Start();
+	Menu();
+
 	void Update(float sec);
-
-	void OnAnimationClick();
-	void OnAudioClick();
-	void OnPrimitivesClick();
-	void OnMiscClick();
-	void OnTestNaPidoraClick();
-	~MainScreen();
+	void AddButton(Button* but);
+	int Size();
+	void Clear();
 private:
-	Menu* menu;
-	/*
-	Button* audio_btn;
-	Button* primitives_btn;
-	Button* test_label_button;*/
-
-	GoingScreen going_screen;
+	vector<Button*> buttons;
+	float button_def_width;
+	float button_def_height;
+	float button_width;
+	float button_height;
+	float offset;
 };

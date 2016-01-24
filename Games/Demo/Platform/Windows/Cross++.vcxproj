@@ -101,6 +101,7 @@
     <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Menu.cpp" />
     <ClCompile Include="..\..\Sources\TestNaPidoraScreen.cpp" />
     <ClCompile Include="..\..\Sources\PrimitivesScreen.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="..\..\Sources\Birds\MovingEntity.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\Sources\Menu.h" />
     <ClInclude Include="..\..\Sources\TestNaPidoraScreen.h" />
     <ClInclude Include="..\..\Sources\PrimitivesScreen.h" />
     <ClInclude Include="resource.h" />

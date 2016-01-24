@@ -21,10 +21,11 @@ using namespace cross;
 const GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
 
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
-	region(region),
 	textureID(id),
 	texture_width(texWidth),
-	texture_height(texHeight)
+	texture_height(texHeight),
+	width(region.width),
+	height(region.height)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -57,10 +58,11 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 }
 
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D pivot) :
-	region(region),
 	textureID(id),
 	texture_width(texWidth),
-	texture_height(texHeight)
+	texture_height(texHeight),
+	width(region.width),
+	height(region.height)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -113,11 +115,11 @@ unsigned int Sprite::GetTextureID(){
 }
 
 float Sprite::GetWidth(){
-	return region.width;
+	return width * scale.m[0][0];
 }
 
 float Sprite::GetHeight(){
-	return region.height;
+	return height * scale.m[0][0];
 }
 
 float* Sprite::GetVertices(){

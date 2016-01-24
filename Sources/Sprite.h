@@ -41,12 +41,13 @@ public:
 private:
 	static const GLushort indices[];
 	GLuint textureID;
-	Rect region;
 	Matrix model;
 	Matrix scale;
 	Matrix translation;
 	Matrix rotation;
 	GLfloat vertices[16];
+	float width;
+	float height;
 	int texture_width;
 	int texture_height;
 };

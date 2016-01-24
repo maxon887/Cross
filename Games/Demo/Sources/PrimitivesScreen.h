@@ -26,4 +26,5 @@ public:
 	~PrimitivesScreen();
 	void Start();
 	void Update(float sec);
+private:
 };

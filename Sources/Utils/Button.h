@@ -39,6 +39,8 @@ public:
 	void Update();
 	void SetSounds(Audio* push, Audio* pull);
 	void SetImages(Sprite* up, Sprite* down);
+	Sprite* GetUpImage();
+	Sprite* GetDownImage();
 	void SetLocation(Vector2D location);
 	void SetRect(Rect area);
 	void SetActive(bool active);
