@@ -61,7 +61,6 @@ protected:
 	Rect area;
 	Sprite* up_image;
 	Sprite* down_image;
-	Sprite* background_image;
 	Audio* push_sound;
 	Audio* pull_sound;
 	string label_text;

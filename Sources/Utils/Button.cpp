@@ -33,7 +33,6 @@ Button::Button(Rect area, string text) :
 	pull_sound(nullptr),
 	up_image(nullptr),
 	down_image(nullptr),
-	background_image(nullptr),
 	have_area(false),
 	is_pressed(false),
 	active(true),
@@ -43,7 +42,7 @@ Button::Button(Rect area, string text) :
 	this->area.width = area.width;
 	this->area.height = area.height;
 
-	background_image = gfx2D->LoadImage("DefaultButton.png");
+	up_image = gfx2D->LoadImage("DefaultButton.png");
 
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -126,7 +125,8 @@ void Button::SetImages(Sprite * up, Sprite * down)
 	this->up_image = up;
 	this->down_image = down;
 
-	InitRect(location, up->GetWidth(), up->GetHeight());
+	if (up != nullptr)
+		InitRect(location, up->GetWidth(), up->GetHeight());
 }
 
 Sprite* Button::GetUpImage(){
@@ -149,7 +149,7 @@ void Button::Update() {
 		}
 	} 
 	if (!is_text_resizable) {
-		gfx2D->DrawSprite(Vector2D(area.x + area.width / 2, area.y + area.height / 2), background_image);
+		gfx2D->DrawSprite(Vector2D(area.x + area.width / 2, area.y + area.height / 2), up_image);
 	}
 
 	if (is_with_text) {
@@ -159,11 +159,13 @@ void Button::Update() {
 } 
 
 float Button::GetWidth() {
-	return up_image->GetWidth();
+	return area.width;
+	//return up_image->GetWidth();
 }
 
 float Button::GetHeight() {
-	return up_image->GetHeight();
+	return area.height;
+//	return up_image->GetHeight();
 }
 
 Rect Button::GetRect() {

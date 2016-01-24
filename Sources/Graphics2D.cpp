@@ -310,7 +310,7 @@ Sprite* Graphics2D::LoadImage(byte* image, int bytesPerChannel, int width, int h
 }
 
 void Graphics2D::ReleaseImage(Sprite* img){
-	if(img == NULL) {
+	if (img == nullptr) {
 		throw CrossException("Can't release NULL image");
 	}
 	GLuint texID = img->GetTextureID();

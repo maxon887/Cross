@@ -74,7 +74,7 @@ void MainScreen::Update(float sec){
 
 	if((menu->Size() + 1) < time){
 		Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
-		Button* btn = new Button(audioBtn, nullptr);
+		Button* btn = new Button(100, 100, "Top knopka");
 		menu->AddButton(btn);
 		if(menu->Size() > 10){
 			menu->Clear();

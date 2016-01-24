@@ -33,6 +33,14 @@ void TestNaPidoraScreen::Update(float sec)
 	gfx2D->Clear();
 	
 	gfx2D->DrawText(Vector2D(100, 100), "TI PIDOR))))))");
+
+	gfx2D->DrawLine(Vector2D(200.f, 200.f), Vector2D(400.f, 150.f), Color::Green);
+	gfx2D->DrawRect(Rect(50.f, 250.f, 50.f, 100.f), Color::Red);
+	gfx2D->DrawRect(Rect(200.f, 50.f, 150.f, 70.f), Color(0.44f, 0.15f, 0.54f), true);
+	gfx2D->DrawRect(Rect(150.f, 250.f, 50.f, 100.f), Color::Blue, false);
+	gfx2D->DrawCircle(Vector2D(400.f, 400.f), 50.f, Color::Yellow);
+	gfx2D->DrawCircle(Vector2D(350.f, 250.f), 25.f, Color::Red, true);
+	gfx2D->DrawLine(Vector2D(50.f, 100.f), Vector2D(50.f, 200.f), Color::Red);
 }
 
 TestNaPidoraScreen::~TestNaPidoraScreen()
