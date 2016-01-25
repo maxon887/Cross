@@ -33,14 +33,17 @@ Button::Button(Rect area, string text) :
 	pull_sound(nullptr),
 	up_image(nullptr),
 	down_image(nullptr),
-	have_area(false),
+	have_area(true),
 	is_pressed(false),
 	active(true),
-	is_with_text(false),
 	label_text(text)
 {
 	this->area.width = area.width;
 	this->area.height = area.height;
+	this->area.x = area.x;
+	this->area.y = area.y;
+
+	location = Vector2D(area.x, area.y);
 
 	up_image = gfx2D->LoadImage("DefaultButton.png");
 
@@ -49,18 +52,16 @@ Button::Button(Rect area, string text) :
 	input->ActionDown += action_down_delegate;
 	input->ActionUp += action_up_delegate;
 
-	if (label_text.compare(NO_TEXT))
-		is_text_resizable = false;
-	else
-		is_text_resizable = true;
+	if (is_with_text) {
+		this->area.width = gfx2D->DrawText(Vector2D(this->area.x, this->area.y), text) - area.x;
+		this->area.height = gfx2D->GetDefaultFont()->GetSize();
+	}
 
 }
 
 Button::Button(Vector2D location, string text) :
 	Button(Rect(location.x, location.y, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
-	area.width = gfx2D->DrawText(Vector2D(area.x, area.y), text);
-	area.height = gfx2D->GetDefaultFont()->GetSize();
 	is_with_text = true;
 }
 
@@ -73,22 +74,26 @@ Button::Button(int locX, int locY, string text) :
 Button::Button(Vector2D location) :
 	Button(Rect(location.x, location.y, DEFAULT_WIDTH, DEFAULT_HEIGHT), NO_TEXT)
 {
+	is_with_text = false;
 }
 
 Button::Button(int locX, int locY) :
 	Button(Rect(locX, locY, DEFAULT_WIDTH, DEFAULT_HEIGHT), NO_TEXT)
 {
+	is_with_text = false;
 }
 
 Button::Button(Rect area) :
 	Button(area, NO_TEXT)
 {
+	is_with_text = false;
 }
 
 cross::Button::Button(Sprite * upImage, Sprite * downImage) :
 	Button(Rect(DEFAULT_LOCATION, DEFAULT_LOCATION, DEFAULT_WIDTH, DEFAULT_HEIGHT), NO_TEXT)
 {
 	SetImages(upImage, downImage);
+	is_with_text = false;
 }
 
 Button::~Button() {
@@ -144,11 +149,11 @@ void Button::Update() {
 		}
 	}
 	else {
-		if (up_image != nullptr) {
+		if (up_image != nullptr && !is_with_text) {
 			gfx2D->DrawSprite(location, up_image);
 		}
 	} 
-	if (!is_text_resizable) {
+	if (is_with_text && !is_pressed) {
 		gfx2D->DrawSprite(Vector2D(area.x + area.width / 2, area.y + area.height / 2), up_image);
 	}
 
@@ -167,6 +172,7 @@ float Button::GetHeight() {
 	return area.height;
 //	return up_image->GetHeight();
 }
+
 
 Rect Button::GetRect() {
 	if (!have_area) {
