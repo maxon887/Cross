@@ -21,8 +21,8 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Sprite.h"
 #include "Font.h"
 
-#define DEFAULT_WIDTH 100
-#define DEFAULT_HEIGHT 100
+#define DEFAULT_WIDTH 300
+#define DEFAULT_HEIGHT 80
 #define DEFAULT_LOCATION 0
 #define NO_TEXT ""
 
@@ -45,7 +45,7 @@ Button::Button(Rect area, string text) :
 
 	location = Vector2D(area.x, area.y);
 
-	up_image = gfx2D->LoadImage("DefaultButton.png");
+	up_image = gfx2D->LoadImage("DefaultButton.png");//как убрать??
 
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -53,9 +53,10 @@ Button::Button(Rect area, string text) :
 	input->ActionUp += action_up_delegate;
 
 	if (is_with_text) {
-		this->area.width = gfx2D->DrawText(Vector2D(this->area.x, this->area.y), text) - area.x;
-		this->area.height = gfx2D->GetDefaultFont()->GetSize();
+		text_size.x = gfx2D->DrawText(Vector2D(this->area.x, this->area.y), text) - area.x;
+		text_size.y = gfx2D->GetDefaultFont()->GetSize();
 	}
+
 
 }
 
@@ -67,6 +68,12 @@ Button::Button(Vector2D location, string text) :
 
 Button::Button(int locX, int locY, string text) :
 	Button(Rect(locX, locY, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
+{
+	is_with_text = true;
+}
+
+cross::Button::Button(string text) :
+	Button(Rect(DEFAULT_LOCATION, DEFAULT_LOCATION, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
 	is_with_text = true;
 }
@@ -144,33 +151,34 @@ Sprite* Button::GetDownImage(){
 
 void Button::Update() {
 	if (is_pressed) {
-		if (down_image != nullptr) {
+		if (down_image != nullptr && false) {
 			gfx2D->DrawSprite(location, down_image);
+		} else {
+			gfx2D->DrawRect(area, Color::Blue, true);
 		}
-	}
-	else {
-		if (up_image != nullptr && !is_with_text) {
+	} else {
+		if (up_image != nullptr && !is_with_text && false) {
 			gfx2D->DrawSprite(location, up_image);
+		} else {
+			gfx2D->DrawRect(area, Color::Red, true);
 		}
 	} 
-	if (is_with_text && !is_pressed) {
+	if (is_with_text && !is_pressed && up_image != nullptr && false) {
 		gfx2D->DrawSprite(Vector2D(area.x + area.width / 2, area.y + area.height / 2), up_image);
 	}
 
 	if (is_with_text) {
-		gfx2D->DrawText(Vector2D(area.x, area.y), label_text);
+		gfx2D->DrawText(Vector2D(area.x + DEFAULT_WIDTH / 2 - text_size.x / 2, 
+									area.y + DEFAULT_HEIGHT / 2 - text_size.y / 2 + 10), label_text);
 	}
-	gfx2D->DrawRect(area, Color::Blue);
 } 
 
 float Button::GetWidth() {
 	return area.width;
-	//return up_image->GetWidth();
 }
 
 float Button::GetHeight() {
 	return area.height;
-//	return up_image->GetHeight();
 }
 
 

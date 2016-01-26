@@ -29,7 +29,13 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 TestNaPidoraScreen::TestNaPidoraScreen()
 {
-	fooButton = new Button(100, 100, "I'm top button!");
+	fooButton = new Button(100, 100, "I'm button!!!!!");
+	fooButton2 = new Button("knoa");
+	fooButton3 = new Button("knopkaaa");
+
+	fooButton2->SetLocation(Vector2D(250, 370));
+	fooButton3->SetLocation(Vector2D(250, 250));
+
 }
 
 void TestNaPidoraScreen::Update(float sec)
@@ -39,7 +45,8 @@ void TestNaPidoraScreen::Update(float sec)
 	//gfx2D->DrawText(Vector2D(100, 100), "TI PIDOR))))))");
 
 	fooButton->Update();
-
+	fooButton2->Update();
+	fooButton3->Update();
 	
 }
 

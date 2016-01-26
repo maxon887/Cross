@@ -25,6 +25,7 @@ public:
 
 	Button(Vector2D location, string text);
 	Button(int locX, int locY, string text);
+	Button(string text);
 	Button(Vector2D location);
 	Button(int locX, int locY);
 	Button(Rect area);
@@ -58,6 +59,7 @@ public:
 	DECLARE_EVENT(void) Clicked;
 protected:
 	Vector2D location;
+	Vector2D text_size;
 	Rect area;
 	Sprite* up_image;
 	Sprite* down_image;
