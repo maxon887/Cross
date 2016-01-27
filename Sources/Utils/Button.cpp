@@ -50,8 +50,8 @@ Button::Button(Rect area, string text) :
 	input->ActionDown += action_down_delegate;
 	input->ActionUp += action_up_delegate;
 
-	if (is_with_text) {
-		text_size.x = gfx2D->DrawText(Vector2D(this->area.x, this->area.y), text) - area.x;
+	if (text.size()) {
+		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
 		text_size.y = gfx2D->GetDefaultFont()->GetSize();
 	}
 
@@ -60,51 +60,47 @@ Button::Button(Rect area, string text) :
 Button::Button(Vector2D location, string text) :
 	Button(Rect(location.x, location.y, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
-	is_with_text = true;
 }
 
-Button::Button(int locX, int locY, string text) :
+Button::Button(float locX, float locY, string text) :
 	Button(Rect(locX, locY, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
-	is_with_text = true;
 }
 
 cross::Button::Button(string text) :
 	Button(Rect(DEFAULT_LOCATION, DEFAULT_LOCATION, DEFAULT_WIDTH, DEFAULT_HEIGHT), text)
 {
-	is_with_text = true;
 }
 
 Button::Button(Vector2D location) :
 	Button(Rect(location.x, location.y, DEFAULT_WIDTH, DEFAULT_HEIGHT), NO_TEXT)
 {
-	is_with_text = false;
 }
 
-Button::Button(int locX, int locY) :
+Button::Button(float locX, float locY) :
 	Button(Rect(locX, locY, DEFAULT_WIDTH, DEFAULT_HEIGHT), NO_TEXT)
 {
-	is_with_text = false;
 }
 
 Button::Button(Rect area) :
 	Button(area, NO_TEXT)
 {
-	is_with_text = false;
 }
 
 cross::Button::Button(Sprite * upImage, Sprite * downImage) :
 	Button(Rect(DEFAULT_LOCATION, DEFAULT_LOCATION, DEFAULT_WIDTH, DEFAULT_HEIGHT), NO_TEXT)
 {
 	SetImages(upImage, downImage);
-	is_with_text = false;
 }
 
 Button::~Button() {
-	if (down_image) {
+	if (down_image != nullptr) {
 		gfx2D->ReleaseImage(down_image);
 	}
-	gfx2D->ReleaseImage(up_image);
+	if (up_image != nullptr) {
+		gfx2D->ReleaseImage(up_image);
+	}
+
 	input->ActionDown -= action_down_delegate;
 	input->ActionUp -= action_up_delegate;
 	//release audio?
@@ -118,6 +114,13 @@ void Button::SetLocation(Vector2D location) {
 void cross::Button::SetRect(Rect area)
 {
 	this->area = area;
+
+	if (up_image != nullptr && this->area.width != up_image->GetWidth()) {
+		up_image->SetScale(this->area.width / up_image->GetWidth());
+	}
+	if (down_image != nullptr && this->area.width != down_image->GetWidth()) {
+		down_image->SetScale(this->area.width / down_image->GetWidth());
+	}
 }
 
 void Button::SetActive(bool active) {
@@ -147,26 +150,19 @@ Sprite* Button::GetDownImage(){
 }
 
 void Button::Update() {
-	if (is_pressed) {
-		if (down_image != nullptr && false) {
-			gfx2D->DrawSprite(location, down_image);
-		} else {
-			gfx2D->DrawRect(area, Color::Blue, true);
-		}
-	} else {
-		if (up_image != nullptr && !is_with_text && false) {
-			gfx2D->DrawSprite(location, up_image);
-		} else {
-			gfx2D->DrawRect(area, Color::Red, true);
-		}
-	} 
-	if (is_with_text && !is_pressed && up_image != nullptr && false) {
-		gfx2D->DrawSprite(Vector2D(area.x + area.width / 2, area.y + area.height / 2), up_image);
-	}
 
-	if (is_with_text) {
-		gfx2D->DrawText(Vector2D(area.x + DEFAULT_WIDTH / 2 - text_size.x / 2, 
-									area.y + DEFAULT_HEIGHT / 2 - text_size.y / 2 + 10), label_text);
+	if (is_pressed && down_image != nullptr) {
+		gfx2D->DrawSprite(location, down_image);
+	} else if (!is_pressed && up_image != nullptr) {
+		gfx2D->DrawSprite(location, up_image);
+	} else if (is_pressed) {
+		gfx2D->DrawRect(area, Color::Red, true);
+	} else {
+		gfx2D->DrawRect(area, Color::Blue, true);
+	}
+	if (label_text.size()) {
+		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2, 
+									area.y + area.height / 2 - text_size.y / 2 + 10), label_text);
 	}
 } 
 

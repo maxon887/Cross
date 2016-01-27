@@ -24,10 +24,10 @@ class Button{
 public:
 
 	Button(Vector2D location, string text);
-	Button(int locX, int locY, string text);
+	Button(float locX, float locY, string text);
 	Button(string text);
 	Button(Vector2D location);
-	Button(int locX, int locY);
+	Button(float locX, float locY);
 	Button(Rect area);
 	Button(Sprite* upImage, Sprite* downImage);
 
@@ -70,7 +70,6 @@ protected:
 	bool is_pressed;
 	bool have_area;
 	bool active;
-	bool is_with_text;
 	bool is_text_resizable;
 
 	FastDelegate1<Vector2D, void> action_down_delegate;

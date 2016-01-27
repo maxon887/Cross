@@ -19,6 +19,7 @@
 #include "MainScreen.h"
 #include "TestNaPidoraScreen.h"
 #include "Debuger.h"
+#include "SpritesScreen.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
 
