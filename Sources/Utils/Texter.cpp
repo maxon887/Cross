@@ -90,6 +90,6 @@ void Texter::Init(	Game* game, const char* fontFilename,
 
 void Texter::SetScaleFactor(float scaleFactor){
 	for(int i = 0; i < count; i++){
-		letters[i]->Scale(scaleFactor);
+		letters[i]->SetScale(scaleFactor);
 	}
 }

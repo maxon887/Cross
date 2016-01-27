@@ -73,7 +73,7 @@ void AnimationScreen::Update(float sec){
 				turn_left = true;
 		}
 		//graphics->Rotate(spider_head, head_angle);
-		spider_head->Rotate(head_angle);
+		spider_head->SetRotate(head_angle);
 		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
 		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 + 115), spider_head);
 		if(thinking_time < 0){

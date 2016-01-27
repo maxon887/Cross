@@ -142,6 +142,9 @@
     <ClCompile Include="..\..\Sources\Menu.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\SpritesScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -266,6 +269,9 @@
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Menu.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\SpritesScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

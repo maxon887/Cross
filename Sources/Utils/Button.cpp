@@ -45,8 +45,6 @@ Button::Button(Rect area, string text) :
 
 	location = Vector2D(area.x, area.y);
 
-	up_image = gfx2D->LoadImage("DefaultButton.png");//как убрать??
-
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
 	input->ActionDown += action_down_delegate;
@@ -56,7 +54,6 @@ Button::Button(Rect area, string text) :
 		text_size.x = gfx2D->DrawText(Vector2D(this->area.x, this->area.y), text) - area.x;
 		text_size.y = gfx2D->GetDefaultFont()->GetSize();
 	}
-
 
 }
 

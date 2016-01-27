@@ -148,6 +148,7 @@ void Game::Exit(){
 
 void Game::Init(){
 	launcher->LogIt("Game::Start()");
+	srand(time(0));
 	try{
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");

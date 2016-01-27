@@ -98,14 +98,14 @@ void Sprite::SetPosition(Vector2D pos){
 	model.SetTranslation(pos);
 }
 
-void Sprite::Scale(float factor){
+void Sprite::SetScale(float factor){
 	scale.m[0][0] = factor;
 	scale.m[1][1] = factor;
 	scale.m[2][2] = factor;
 	model = rotation * scale * translation;
 }
 
-void Sprite::Rotate(float angle){
+void Sprite::SetRotate(float angle){
 	rotation.SetRotationZ(angle);
 	model = rotation * scale * translation;
 }

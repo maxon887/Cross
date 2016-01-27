@@ -53,11 +53,11 @@ void  Menu::AddButton(Button* but){
 		for(Button* btn : buttons){
 			Sprite* up = btn->GetUpImage();
 			if(up != nullptr){
-				up->Scale(coef);
+				up->SetScale(coef);
 			}
 			Sprite* down = btn->GetDownImage();
 			if(down != nullptr){
-				down->Scale(coef);
+				down->SetScale(coef);
 			}
 			btn->SetImages(up, down);
 		}

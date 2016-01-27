@@ -34,36 +34,6 @@ MainScreen::~MainScreen(){
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
 	menu = new Menu();
-	//Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
-	//Button* btn = new Button(audioBtn, nullptr);
-	//Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
-	//audioBtn->Scale(0.5f);
-	//Button* btn1 = new Button(Vector2D(0.f, 0.f), "Primitives");
-	//Button* btn2 = new Button(Vector2D(0.f, 0.f), "Sprites");
-	/*
-	for(int i = 0; i < 10; i++){
-		Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
-		Button* btn = new Button(audioBtn, nullptr);
-		menu->AddButton(btn);
-	}*/
-	/*
-	Button* btn1 = new Button(audioBtn, nullptr);
-	Button* btn2 = new Button(audioBtn, nullptr);
-	Button* btn3 = new Button(audioBtn, nullptr);
-	menu->AddButton(btn1);
-	menu->AddButton(btn2);
-	menu->AddButton(btn3);*/
-	/*
-	Vector2D pos;
-
-	Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
-
-	audio_btn = new Button(pos);
-	audio_btn->SetImages(audioBtn, nullptr);
-	audio_btn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
-
-	test_label_button = new Button(pos, "TEST NA PIDORA");
-	test_label_button->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);*/
 }
 
 void MainScreen::Update(float sec){

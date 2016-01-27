@@ -28,6 +28,14 @@ int cross::Random(int min, int max){
 	return (min) + rand() % (max - min);
 }
 
+float cross::Random(float max){
+	return rand() / (RAND_MAX / max);
+}
+
+float cross::Random(float min, float max){
+	return (min)+rand() / (RAND_MAX / (max - min));
+}
+
 bool cross::PointInRect(Vector2D p, Rect rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&

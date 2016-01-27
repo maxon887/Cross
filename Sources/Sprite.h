@@ -27,8 +27,8 @@ public:
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
 
 	void SetPosition(Vector2D pos);
-	void Scale(float factor);
-	void Rotate(float angle);
+	void SetScale(float factor);
+	void SetRotate(float angle);
 	GLuint GetTextureID();
 	GLfloat* GetVertices();
 	float* GetModel();

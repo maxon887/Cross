@@ -13,35 +13,21 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #pragma once
 #include "Cross.h"
+#include "Screen.h"
 
-#undef GetCharWidth
+#define SPRITES_COUNT 1
 
-struct FT_FaceRec_;
-typedef struct FT_FaceRec_* FT_Face;
+using namespace cross;
 
-namespace cross{
-
-class Font{
+class SpritesScreen : public Screen{
 public:
-	FT_Face face;
-	/* Font will be loaded from file. Available font formats
-	can be found in FreeType library documentation. 
-	Font size will be represented in virtual metrics*/
-	Font(string filename, float size, Color color);
-	~Font();
-	Color GetColor();
-	void SetColor(Color color);
-	float GetSize();
-	float SetSize(float size);
-	bool IsFixedWidth();
-	float GetCharWidth();
+	void Start();
+	void Update(float sec);
 private:
-	File* file;
-	Color color;
-	float size;
-};
-
+	Sprite* awesome_face;
+	Vector2D positions[SPRITES_COUNT];
+	Vector2D velocities[SPRITES_COUNT];
 };

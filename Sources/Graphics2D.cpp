@@ -26,6 +26,8 @@
 #include "Misc.h"
 
 #include "SOIL/SOIL.h"
+#include "FreeType\ft2build.h"
+#include FT_FREETYPE_H
 
 using namespace cross;
 
@@ -36,8 +38,11 @@ Graphics2D::Graphics2D()
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
 	primitive_shaders = new PrimitiveShaders();
-	this->default_font = new Font(def_font_filename, 50, Color::White);
-	this->current_font = this->default_font;
+	//this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
+	this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
+	bool fix = default_font->IsFixedWidth();
+	float width = default_font->GetCharWidth();
+  	this->current_font = this->default_font;
 }
 
 Graphics2D::~Graphics2D(){
@@ -230,7 +235,7 @@ Font * cross::Graphics2D::GetDefaultFont()
 
 Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
 	Sprite* img = new Sprite(src->GetTextureID(), src->GetTextureWidth(), src->GetTextureHeight(), area);
-	img->Scale(scaleFactor);
+	img->SetScale(scaleFactor);
 	return img;
 }
 
@@ -251,6 +256,7 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	}
 	Sprite* sprite = LoadImage(image, 4, width, height);
 	SOIL_free_image_data(image);
+	sprite->SetScale(scaleFactor);
 	return sprite;
 }
 
