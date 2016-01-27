@@ -28,5 +28,5 @@ void Demo::Start(){
 }
 
 Screen* Demo::GetStartScreen(){
-	return new TestNaPidoraScreen(); 
+	return new MainScreen(); 
 }

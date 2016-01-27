@@ -239,7 +239,6 @@ void Button::ActionUpHandler(Vector2D pos) {
 		}
 		is_pressed = false;
 		if (OnLocation(pos.x, pos.y)) {
-			is_pressed = false;
 			if (down_image != nullptr) {
 				gfx2D->DrawSprite(location, down_image);
 			}
@@ -247,7 +246,6 @@ void Button::ActionUpHandler(Vector2D pos) {
 				pull_sound->Play();
 			}
 			TRIGGER_EVENT(Clicked);
-			return;
 		}
 	}
 }

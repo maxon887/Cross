@@ -25,31 +25,76 @@
 #include "Config.h"
 #include "Sprite.h"
 #include "TestNaPidoraScreen.h"
+#include "SpritesScreen.h"
 
 MainScreen::~MainScreen(){
-	//delete audio_btn;
-	//delete test_label_button;
+	delete def_button;
+	delete main_menu;
+	delete graphics2D_menu;
 }
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
-	menu = new Menu();
+	def_button = gfx2D->LoadImage("DefaultButton.png");
+	//main menu
+	main_menu = new Menu();
+	current_menu = main_menu;
+	Button* graphics2Dbtn = new Button("Graphics 2D");
+	Button* graphics3Dbtn = new Button("Graphics 3D");
+	Button* audioBtn = new Button("Audio");
+	graphics2Dbtn->SetImages(new Sprite(*def_button), nullptr);
+	graphics3Dbtn->SetImages(new Sprite(*def_button), nullptr);
+	audioBtn->SetImages(new Sprite(*def_button), nullptr);
+	graphics2Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics2DClick);
+	main_menu->AddButton(graphics2Dbtn);
+	main_menu->AddButton(graphics3Dbtn);
+	main_menu->AddButton(audioBtn);
+	//graphics 2D menu
+	graphics2D_menu = new Menu();
+	Button* primitivesBtn = new Button("Primitives");
+	Button* spritesBtn = new Button("Sprites");
+	Button* textBtn = new Button("Text Drawing");
+	Button* animationBtn = new Button("Animation");
+	Button* testNaPidoraBtn = new Button("Test Na Pidora");
+	primitivesBtn->SetImages(new Sprite(*def_button), nullptr);
+	spritesBtn->SetImages(new Sprite(*def_button), nullptr);
+	textBtn->SetImages(new Sprite(*def_button), nullptr);
+	animationBtn->SetImages(new Sprite(*def_button), nullptr);
+	testNaPidoraBtn->SetImages(new Sprite(*def_button), nullptr);
+	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
+	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
+	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
+
+	graphics2D_menu->AddButton(primitivesBtn);
+	graphics2D_menu->AddButton(spritesBtn);
+	graphics2D_menu->AddButton(textBtn);
+	graphics2D_menu->AddButton(animationBtn);
+	graphics2D_menu->AddButton(testNaPidoraBtn);
 }
 
 void MainScreen::Update(float sec){
 	gfx2D->Clear();
+	current_menu->Update(sec);
+
+
+
+	/*
+
 	static float time = 1;
 	time += sec;
-	menu->Update(sec);
-
 	if((menu->Size() + 1) < time){
-		Sprite* audioBtn = gfx2D->LoadImage("AudioButton.png");
-		Button* btn = new Button(100, 100, "Top knopka");
+		Sprite* btnSprite = gfx2D->LoadImage("DefaultButton.png");
+		Button* btn = new Button("Graphics 2D");
+		btn->SetImages(btnSprite, nullptr);
 		menu->AddButton(btn);
 		if(menu->Size() > 10){
 			menu->Clear();
 			time = 1;
 		}
+	}*/
+
+	if(input->IsPressed(Key::ESCAPE)){
+		current_menu = main_menu;
 	}
 
 	switch (going_screen)
@@ -65,13 +110,19 @@ void MainScreen::Update(float sec){
 	case TEST_NA_PIDORA:
 		game->SetScreen(new TestNaPidoraScreen());
 		break;
-	case MISC:
-		//game->SetScreen(new TestScreen());
-		game->SetScreen(new BirdsScreen());
+	case SPRITES:
+		game->SetScreen(new SpritesScreen());
+		break;
+	case PRIMITIVES:
+		game->SetScreen(new PrimitivesScreen());
 		break;
 	default:
 		break;
 	}
+}
+
+void MainScreen::OnGraphics2DClick(){
+	current_menu = graphics2D_menu;
 }
 
 void MainScreen::OnAnimationClick(){
@@ -86,8 +137,8 @@ void MainScreen::OnPrimitivesClick(){
 	going_screen = PRIMITIVES;
 }
 
-void MainScreen::OnMiscClick(){
-	going_screen = MISC;
+void MainScreen::OnSpritesClick(){
+	going_screen = SPRITES;
 }
 
 void MainScreen::OnTestNaPidoraClick() {

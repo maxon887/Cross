@@ -23,6 +23,10 @@ Menu::Menu():
 	button_width(0)
 { }
 
+Menu::~Menu(){
+	Clear();
+}
+
 void Menu::Update(float sec){
 	float height = game->GetHeight();
 	Vector2D pos(game->GetWidth() / 2.0f, height - (offset - button_height/2));

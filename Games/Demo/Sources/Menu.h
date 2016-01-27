@@ -25,6 +25,7 @@ using namespace cross;
 class Menu{
 public:
 	Menu();
+	~Menu();
 
 	void Update(float sec);
 	void AddButton(Button* but);
