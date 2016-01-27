@@ -32,7 +32,6 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	GLfloat u2 = u1 + region.width / texWidth;
 	GLfloat v2 = v1 + region.height / texHeight;
 	model = Matrix::CreateIdentity();
-	translation = Matrix::CreateIdentity();
 	scale = Matrix::CreateIdentity();
 	rotation = Matrix::CreateIdentity();
 
@@ -69,7 +68,6 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	GLfloat u2 = u1 + region.width / texWidth;
 	GLfloat v2 = v1 + region.height / texHeight;
 	model = Matrix::CreateIdentity();
-	translation = Matrix::CreateIdentity();
 	scale = Matrix::CreateIdentity();
 	rotation = Matrix::CreateIdentity();
 
@@ -95,19 +93,28 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 }
 
 void Sprite::SetPosition(Vector2D pos){
-	model.SetTranslation(pos);
+	position = pos;
+	model.SetTranslation(position);
 }
 
 void Sprite::SetScale(float factor){
 	scale.m[0][0] = factor;
 	scale.m[1][1] = factor;
-	scale.m[2][2] = factor;
-	model = rotation * scale * translation;
+	model = rotation * scale;
+	model.SetTranslation(position);
+}
+
+void Sprite::SetScale(Vector2D scaleVec){
+	scale.m[0][0] = scaleVec.x;
+	scale.m[1][1] = scaleVec.y;
+	model = rotation * scale;
+	model.SetTranslation(position);
 }
 
 void Sprite::SetRotate(float angle){
 	rotation.SetRotationZ(angle);
-	model = rotation * scale * translation;
+	model = rotation * scale;
+	model.SetTranslation(position);
 }
 
 unsigned int Sprite::GetTextureID(){
@@ -119,7 +126,7 @@ float Sprite::GetWidth(){
 }
 
 float Sprite::GetHeight(){
-	return height * scale.m[0][0];
+	return height * scale.m[1][1];
 }
 
 float* Sprite::GetVertices(){

@@ -16,9 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#undef near
-#undef far
-
 namespace cross{
 
 class Vector2D;
@@ -36,10 +33,10 @@ public:
 
 	Matrix() { };
 
-	float* GetData();
 	void SetTranslation(const Vector2D &trans);
 	void SetTranslation(const Vector3D &trans);
 	void SetRotationZ(float angle);
+	float* GetData();
 
 	Matrix operator + (float s) const;
 	void operator += (float s);

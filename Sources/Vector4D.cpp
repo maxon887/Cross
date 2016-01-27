@@ -24,21 +24,18 @@ Vector4D::Vector4D():
 	y(0.0f),
 	z(0.0f),
 	w(0.0f)
-{
-}
+{ }
 
 Vector4D::Vector4D(float x, float y, float z, float w):
 	x(x),
 	y(y),
 	z(z),
 	w(w)
-{
-}
+{ }
 
 Vector4D::Vector4D(Vector3D& vec, float w):
 	x(vec.x),
 	y(vec.y),
 	z(vec.z),
 	w(w)
-{
-}
+{ }

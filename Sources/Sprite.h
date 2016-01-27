@@ -28,6 +28,7 @@ public:
 
 	void SetPosition(Vector2D pos);
 	void SetScale(float factor);
+	void SetScale(Vector2D scale);
 	void SetRotate(float angle);
 	GLuint GetTextureID();
 	GLfloat* GetVertices();
@@ -43,7 +44,7 @@ private:
 	GLuint textureID;
 	Matrix model;
 	Matrix scale;
-	Matrix translation;
+	Vector2D position;
 	Matrix rotation;
 	GLfloat vertices[16];
 	float width;

@@ -24,28 +24,25 @@ Vector3D::Vector3D():
 	x(0.0f),
 	y(0.0f),
 	z(0.0f)
-{
-}
+{ }
 
 Vector3D::Vector3D(float x, float y, float z):
 	x(x),
 	y(y),
 	z(z)
-{
-}
+{ }
 
 Vector3D::Vector3D(Vector2D &vec, float z):
 	x(vec.x),
 	y(vec.y),
 	z(z)
-{
-}
+{ }
 
-float Vector3D::Length(){
+float Vector3D::Length() const{
 	return sqrt(x*x + y*y + z*z);
 }
 
-Vector3D Vector3D::Normalize(){
+Vector3D Vector3D::Normalize() const{
 	Vector3D result;
 	float len = Length();
 	result.x = x / len;
@@ -54,7 +51,7 @@ Vector3D Vector3D::Normalize(){
 	return result;
 }
 
-Vector3D Vector3D::Truncate(float len){
+Vector3D Vector3D::Truncate(float len) const{
 	if(this->Length() > len){
 		Vector3D result;
 		result = this->Normalize();
@@ -64,16 +61,20 @@ Vector3D Vector3D::Truncate(float len){
 	return *this;
 }
 
-float Vector3D::DotProduct(const Vector3D &v2){
+float Vector3D::DotProduct(const Vector3D &v2) const{
 	return this->x * v2.x + this->y * v2.y + this->z * v2.z;
 }
 
-Vector3D Vector3D::CrossProduct(const Vector3D &v2){
+Vector3D Vector3D::CrossProduct(const Vector3D &v2) const{
 	Vector3D result;
 	result.x = this->y * v2.z - this->z * v2.y;
 	result.y = this->z * v2.x - this->x * v2.z;
 	result.z = this->x * v2.y - this->y * v2.x;
 	return result;
+}
+
+float* Vector3D::GetData(){
+	return &x;
 }
 
 Vector3D Vector3D::operator+(const Vector3D &v2) const{

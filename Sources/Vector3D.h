@@ -30,11 +30,12 @@ public:
 	Vector3D(float x, float y, float z);
 	Vector3D(Vector2D &vec, float z);
 
-	float Length();
-	Vector3D Normalize();
-	Vector3D Truncate(float len);
-	float DotProduct(const Vector3D &v2);
-	Vector3D CrossProduct(const Vector3D &v2);
+	float Length() const;
+	Vector3D Normalize() const;
+	Vector3D Truncate(float len) const;
+	float DotProduct(const Vector3D &v2) const;
+	Vector3D CrossProduct(const Vector3D &v2) const;
+	float* GetData();
 
 	Vector3D operator + (const Vector3D &v2) const;
 	void operator += (const Vector3D &v2);
