@@ -36,6 +36,7 @@ MainScreen::~MainScreen(){
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
 	def_button = gfx2D->LoadImage("DefaultButton.png");
+	gfx2D->SetClearColor(Color::Black);
 	//main menu
 	main_menu = new Menu();
 	current_menu = main_menu;
@@ -97,8 +98,7 @@ void MainScreen::Update(float sec){
 		current_menu = main_menu;
 	}
 
-	switch (going_screen)
-	{
+	switch (going_screen){
 	case NO_SCREEN:
 		break;
 	case ANIMATION:

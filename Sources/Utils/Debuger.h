@@ -36,6 +36,7 @@ public:
 	void EnableScreenDebug();
 	void EnableConsoleDebug();
 	void EnableTouches();
+	float GetFPS();
 
 	void OnActionDown(Vector2D pos);
 	void OnActionUp(Vector2D pos);

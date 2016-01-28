@@ -18,16 +18,21 @@
 #include "Cross.h"
 #include "Screen.h"
 
-#define SPRITES_COUNT 1
+//#define SPRITES_COUNT 10
 
 using namespace cross;
 
 class SpritesScreen : public Screen{
 public:
+	~SpritesScreen();
+
 	void Start();
 	void Update(float sec);
 private:
+	CRArray<Vector2D> positions;
+	CRArray<Vector2D> velocities;
 	Sprite* awesome_face;
-	Vector2D positions[SPRITES_COUNT];
-	Vector2D velocities[SPRITES_COUNT];
+	Font* debug_font;
+
+	void PushSprite();
 };

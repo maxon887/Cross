@@ -32,7 +32,7 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	GLfloat u2 = u1 + region.width / texWidth;
 	GLfloat v2 = v1 + region.height / texHeight;
 	model = Matrix::CreateIdentity();
-	scale = Matrix::CreateIdentity();
+	st_mat = Matrix::CreateIdentity();
 	rotation = Matrix::CreateIdentity();
 
 	vertices[0] = -region.width / 2.0f;
@@ -68,8 +68,8 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	GLfloat u2 = u1 + region.width / texWidth;
 	GLfloat v2 = v1 + region.height / texHeight;
 	model = Matrix::CreateIdentity();
-	scale = Matrix::CreateIdentity();
 	rotation = Matrix::CreateIdentity();
+	st_mat = Matrix::CreateIdentity();
 
 	vertices[0] = -pivot.x;
 	vertices[1] = -pivot.y;
@@ -93,58 +93,55 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 }
 
 void Sprite::SetPosition(Vector2D pos){
-	position = pos;
-	model.SetTranslation(position);
+	st_mat.SetTranslation(pos);
+	model.SetTranslation(pos);
 }
 
 void Sprite::SetScale(float factor){
-	scale.m[0][0] = factor;
-	scale.m[1][1] = factor;
-	model = rotation * scale;
-	model.SetTranslation(position);
+	st_mat.m[0][0] = factor;
+	st_mat.m[1][1] = factor;
+	model = rotation * st_mat;
 }
 
 void Sprite::SetScale(Vector2D scaleVec){
-	scale.m[0][0] = scaleVec.x;
-	scale.m[1][1] = scaleVec.y;
-	model = rotation * scale;
-	model.SetTranslation(position);
+	st_mat.m[0][0] = scaleVec.x;
+	st_mat.m[1][1] = scaleVec.y;
+	model = rotation * st_mat;
 }
 
 void Sprite::SetRotate(float angle){
 	rotation.SetRotationZ(angle);
-	model = rotation * scale;
-	model.SetTranslation(position);
-}
-
-unsigned int Sprite::GetTextureID(){
-	return textureID;
-}
-
-float Sprite::GetWidth(){
-	return width * scale.m[0][0];
-}
-
-float Sprite::GetHeight(){
-	return height * scale.m[1][1];
-}
-
-float* Sprite::GetVertices(){
-	return vertices;
+	model = rotation * st_mat;
 }
 
 float* Sprite::GetModel(){
 	return model.GetData();
 }
 
-GLushort* Sprite::GetIndices(){
+const float* Sprite::GetVertices() const{
+	return vertices;
+}
+
+const GLushort* Sprite::GetIndices() const{
 	return (GLushort*)indices;
 }
 
-int Sprite::GetTextureWidth(){
+unsigned int Sprite::GetTextureID() const{
+	return textureID;
+}
+
+float Sprite::GetWidth() const{
+	return width * st_mat.m[0][0];
+}
+
+float Sprite::GetHeight() const{
+	return height * st_mat.m[1][1];
+}
+
+int Sprite::GetTextureWidth() const{
 	return texture_width;
 }
 
-int Sprite::GetTextureHeight(){
+int Sprite::GetTextureHeight() const{
 	return texture_height;
 }

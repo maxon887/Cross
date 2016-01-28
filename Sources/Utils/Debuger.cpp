@@ -151,6 +151,10 @@ void Debuger::SetUpdateTime(float micro) {
 	}
 }
 
+float Debuger::GetFPS(){
+	return 1000.f / render_time;
+}
+
 void Debuger::OnActionDown(Vector2D pos){
 	touch_down = true;
 	touch_pos = pos;

@@ -30,21 +30,20 @@ public:
 	void SetScale(float factor);
 	void SetScale(Vector2D scale);
 	void SetRotate(float angle);
-	GLuint GetTextureID();
-	GLfloat* GetVertices();
 	float* GetModel();
-	GLushort* GetIndices();
-	float GetWidth();
-	float GetHeight();
-	int GetTextureWidth();
-	int GetTextureHeight();
+	const GLfloat* GetVertices() const;
+	const GLushort* GetIndices() const;
+	GLuint GetTextureID() const;
+	float GetWidth() const;
+	float GetHeight() const;
+	int GetTextureWidth() const;
+	int GetTextureHeight() const;
 
 private:
 	static const GLushort indices[];
 	GLuint textureID;
 	Matrix model;
-	Matrix scale;
-	Vector2D position;
+	Matrix st_mat;//scale-translation matrix
 	Matrix rotation;
 	GLfloat vertices[16];
 	float width;

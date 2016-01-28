@@ -43,10 +43,6 @@ private:
 	Menu* main_menu;
 	Menu* graphics2D_menu;
 	Sprite* def_button;
-	/*
-	Button* audio_btn;
-	Button* primitives_btn;
-	Button* test_label_button;*/
 
 	GoingScreen going_screen;
 	void OnGraphics2DClick();

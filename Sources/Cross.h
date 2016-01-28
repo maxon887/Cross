@@ -25,6 +25,12 @@
 #include "Rect.h"
 
 #include <string>
+#include <vector>
+#include <list>
+
+#define CRByte		unsigned char
+#define CRArray		std::vector
+#define CRList		std::list
 
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true
