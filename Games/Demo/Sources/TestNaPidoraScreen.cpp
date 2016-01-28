@@ -34,7 +34,9 @@ TestNaPidoraScreen::TestNaPidoraScreen()
 
 	//fooButton3->SetRect(Rect(250, 250, 400, 100));
 	//fooButton3->SetRect(Rect(50.f, 0.f, 350.f, 50.f));
-	//fooButton3->SetLocation(Vector2D(50.f, 50.f));
+	fooButton3->SetLocation(Vector2D(250.f, 250.f));
+
+	fooButton3->SetText("button");
 	
 	//fooButton3->SetLocation(Vector2D(250, 250));
 }

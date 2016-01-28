@@ -33,7 +33,6 @@ Button::Button(Rect area, string text) :
 	pull_sound(nullptr),
 	up_image(nullptr),
 	down_image(nullptr),
-	have_area(true),
 	is_pressed(false),
 	active(true),
 	label_text(text)
@@ -141,11 +140,11 @@ void Button::SetImages(Sprite * up, Sprite * down)
 		InitRect(location, up->GetWidth(), up->GetHeight());
 }
 
-Sprite* Button::GetUpImage(){
+Sprite* Button::GetUpImage() const {
 	return up_image;
 }
 
-Sprite* Button::GetDownImage(){
+Sprite* Button::GetDownImage() const {
 	return down_image;
 }
 
@@ -175,23 +174,20 @@ void Button::Update() {
 	}
 } 
 
-float Button::GetWidth() {
+float Button::GetWidth() const {
 	return area.width;
 }
 
-float Button::GetHeight() {
+float Button::GetHeight() const {
 	return area.height;
 }
 
 
-Rect Button::GetRect() {
-	if (!have_area) {
-		throw CrossException("This button does have not area");
-	}
+Rect Button::GetRect() const {
 	return area;
 }
 
-Vector2D Button::GetCenter() {
+Vector2D Button::GetCenter() const {
 	return location;
 }
 
@@ -200,9 +196,6 @@ bool Button::OnLocation(Vector2D p) {
 }
 
 bool Button::OnLocation(float x, float y) {
-	if (!have_area) {
-		throw CrossException("This button does have not area");
-	}
 	return	x > area.x &&
 		x < (area.x + area.width) &&
 		y > area.y &&
@@ -216,12 +209,21 @@ void Button::DrawDown() {
 	gfx2D->DrawSprite(location, down_image);
 }
 
+void Button::SetText(string text)
+{
+	label_text = text;
+
+	if (text.size()) {
+		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
+		text_size.y = gfx2D->GetDefaultFont()->GetSize();
+	}
+}
+
 void Button::InitRect(Vector2D loc, float width, float heiht) {
 	area.x = loc.x - width / 2.f;
 	area.y = loc.y - heiht / 2.f;
 	area.width = width;
 	area.height = heiht;
-	have_area = true;
 }
 
 bool Button::IsPressed() {

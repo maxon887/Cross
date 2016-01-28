@@ -38,23 +38,25 @@ public:
 	~Button();
 
 	void Update();
-	void SetSounds(Audio* push, Audio* pull);
-	void SetImages(Sprite* up, Sprite* down);
-	Sprite* GetUpImage();
-	Sprite* GetDownImage();
-	void SetLocation(Vector2D location);
-	void SetRect(Rect area);
-	void SetActive(bool active);
-	float GetWidth();
-	float GetHeight();
+
 	bool IsPressed();
-	void SetPressed(bool pressed);
 	bool OnLocation(float x, float y);
 	bool OnLocation(Vector2D p);
 	void DrawUp();
 	void DrawDown();
-	Rect GetRect();
-	Vector2D GetCenter();
+	void SetText(string text);
+	void SetPressed(bool pressed);
+	void SetSounds(Audio* push, Audio* pull);
+	void SetImages(Sprite* up, Sprite* down);
+	void SetLocation(Vector2D location);
+	void SetRect(Rect area);
+	void SetActive(bool active);
+	float GetWidth() const;
+	float GetHeight() const;
+	Sprite* GetUpImage() const;
+	Sprite* GetDownImage() const;
+	Rect GetRect() const;
+	Vector2D GetCenter() const;
 
 	DECLARE_EVENT(void) Clicked;
 protected:
@@ -68,7 +70,6 @@ protected:
 	string label_text;
 	void InitRect(Vector2D loc, float width, float heiht);
 	bool is_pressed;
-	bool have_area;
 	bool active;
 	bool is_text_resizable;
 
