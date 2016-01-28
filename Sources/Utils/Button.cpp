@@ -151,15 +151,24 @@ Sprite* Button::GetDownImage(){
 
 void Button::Update() {
 
-	if (is_pressed && down_image != nullptr) {
-		gfx2D->DrawSprite(location, down_image);
-	} else if (!is_pressed && up_image != nullptr) {
-		gfx2D->DrawSprite(location, up_image);
-	} else if (is_pressed) {
-		gfx2D->DrawRect(area, Color::Red, true);
-	} else {
-		gfx2D->DrawRect(area, Color::Blue, true);
+	if (is_pressed) {
+		if (down_image != nullptr) {
+			gfx2D->DrawSprite(location, down_image);
+		}
+		else if (up_image == nullptr) {
+			gfx2D->DrawRect(area, Color::Red, true);
+		}
 	}
+	else {
+		if (up_image != nullptr) {
+			gfx2D->DrawSprite(location, up_image);
+		}
+		else {
+			gfx2D->DrawRect(area, Color::Blue, true);
+		}
+	}
+	
+
 	if (label_text.size()) {
 		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2, 
 									area.y + area.height / 2 - text_size.y / 2 + 10), label_text);

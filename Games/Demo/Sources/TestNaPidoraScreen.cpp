@@ -28,7 +28,7 @@ TestNaPidoraScreen::TestNaPidoraScreen()
 	
 	fooButton3 = new Button(Vector2D(250.f, 250.f));
 
-	//Sprite* audioBtn = gfx2D->LoadImage("DefaultButton.png");
+	Sprite* audioBtn = gfx2D->LoadImage("DefaultButton.png");
 
 	//fooButton3->SetImages(audioBtn, audioBtn);
 
