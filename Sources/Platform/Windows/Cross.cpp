@@ -21,6 +21,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "Graphics2D.h"
+#include "Screen.h"
 #include "resource.h"
 
 using namespace cross;
@@ -259,6 +260,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 			game->Update();
 			SwapBuffers(dc);
 		}
+		game->GetCurrentScreen()->Stop();
 		game->Stop();
 		delete game;
 		delete gfx2D;

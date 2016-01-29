@@ -33,15 +33,14 @@ void TextScreen::Stop(){
 		delete scrChar;
 	}
 	delete font;
+	delete debug_font;
 }
 
 void TextScreen::Update(float sec){
 	gfx2D->Clear();
-	
 	for(ScreenChar* scrChar : chars){
 		font->SetColor(scrChar->color);
-		//font->SetSize(scrChar->size);
-		gfx2D->DrawTextAdvanced(scrChar->positon, scrChar->str, font);
+		gfx2D->DrawText(scrChar->positon, scrChar->str, font);
 	}
 	/*
 	for(ScreenChar* scrChar : chars){

@@ -41,8 +41,6 @@ Graphics2D::Graphics2D()
 	primitive_shaders = new PrimitiveShaders();
 	//this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
 	this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
-	bool fix = default_font->IsFixedWidth();
-	float width = default_font->GetCharWidth();
   	this->current_font = this->default_font;
 	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
 }
@@ -60,11 +58,11 @@ void Graphics2D::Clear(){
 void Graphics2D::SetClearColor(Color color){
 	glClearColor(color.R, color.G, color.B, 1.0f);
 }
-
+/*
 void Graphics2D::SetDefaultTextFont(Font* font)
 {
 	this->current_font = font;
-}
+}*/
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);
@@ -156,9 +154,11 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 }
 
 int Graphics2D::DrawText(Vector2D pos, string textStr){
-	return DrawText(pos, textStr, this->current_font);
+	//return DrawText(pos, textStr, this->current_font);
+	DrawText(pos, textStr, this->current_font);
+	return 0;
 }
-
+/*
 int Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	FT_GlyphSlot g = font->face->glyph;
 	GLuint tex;
@@ -167,7 +167,7 @@ int Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
 
-	/* We require 1 byte alignment when uploading texture data */
+	// We require 1 byte alignment when uploading texture data 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	const char* text = textStr.c_str();
@@ -191,38 +191,22 @@ int Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	glDeleteTextures(1, &tex);
 
 	return pos.x;
-}
+}*/
 
-void Graphics2D::DrawTextAdvanced(Vector2D pos, const string &textStr, Font* font){
-	GLuint tex;
-	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, &tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
-
-	/* We require 1 byte alignment when uploading texture data */
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
+void Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	const char* text = textStr.c_str();
 
 	while(*text){
-		//if(FT_Load_Char(font->face, *text, FT_LOAD_RENDER))
-		//	continue;
-		FT_BitmapGlyph glyph = font->GetGlyph(*text);
-		FT_Glyph glyphM = (FT_Glyph)glyph;
+		Glyph* g = font->GetGlyph(*text);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, glyph->bitmap.width, glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, glyph->bitmap.buffer);
-
-		Rect region(0, 0, (float)glyph->bitmap.width, (float)glyph->bitmap.rows);
-		//int bearingX = g->metrics.horiBearingX >> 6;
-		//int bearingY = g->metrics.horiBearingY >> 6;
-	//	Vector2D pivot(-bearingX, g->bitmap.rows - bearingY);
-		Sprite ch(tex, glyph->bitmap.width, glyph->bitmap.rows, region);
+		Rect region(0, 0, (float)g->bitmap_width, (float)g->bitmap_height);
+		Vector2D pivot(-g->bearingX, g->bitmap_height - g->bearingY);
+		Sprite ch(g->textureID, g->bitmap_width, g->bitmap_height, region, pivot);
 
 		DrawSprite(pos, &ch, font->GetColor(), true);
-		pos.x += (glyphM->advance.x >> 6);
+		pos.x += g->advancedX;
 		text++;
 	}
-	glDeleteTextures(1, &tex);
 }
 
 void Graphics2D::DrawSprite(Vector2D pos, Sprite* img){

@@ -28,6 +28,15 @@ typedef struct FT_FaceRec_* FT_Face;
 struct FT_GlyphRec_;
 typedef struct FT_GlyphRec_* FT_Glyph;*/
 
+struct Glyph{
+	unsigned int textureID;
+	int bitmap_width;
+	int bitmap_height;
+	int bearingX;
+	int bearingY;
+	int advancedX;
+};
+
 namespace cross{
 
 class Font{
@@ -41,13 +50,17 @@ public:
 	Color GetColor();
 	void SetColor(Color color);
 	float GetSize();
+	/* quite expencive function. 
+	All bitmap char need to be racalculated. */
 	float SetSize(float size);
 	bool IsFixedWidth();
 	float GetCharWidth();
-	FT_BitmapGlyph GetGlyph(char c);
+	Glyph* GetGlyph(char c);
 private:
 	File* file;
-	FT_BitmapGlyph	glyphs[128];
+	Glyph glyphs[128];
+	FT_BitmapGlyph	bitmaps[128];
+	unsigned int textures[128];
 	Color color;
 	float size;
 

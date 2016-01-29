@@ -17,6 +17,9 @@
 #include "Font.h"
 #include "Launcher.h"
 #include "File.h"
+#include "GraphicsGL.h"
+
+#undef GetCharWidth
 
 using namespace cross;
 
@@ -37,7 +40,7 @@ Font::Font(string filename, float size, Color color):
 	if(error){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
-
+	ZeroMemory(textures, sizeof(textures));
 	SetSize(size);
 }
 
@@ -82,21 +85,32 @@ float Font::GetCharWidth(){
 	}
 }
 
-FT_BitmapGlyph Font::GetGlyph(char c){
-	return glyphs[c];
+Glyph* Font::GetGlyph(char c){
+	return &glyphs[c - 29];
 }
 
 void Font::Cache(){
 	FT_Error error;
-	FT_Matrix m;
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glDeleteTextures(128, textures);
+	glGenTextures(128, textures);
 	for(int i = 0; i < 127; i++){
-		error = FT_Load_Glyph(face, 65, FT_LOAD_RENDER);
+		//glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[i]);
+		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
 		if(error){
 			throw CrossException("Can't load glyph");
 		}
-		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&glyphs[i]);
+		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&bitmaps[i]);
 		if(error){
 			throw CrossException("Can't abtain glyph");
 		}
+		glyphs[i].textureID = textures[i];
+		glyphs[i].bitmap_width = bitmaps[i]->bitmap.width;
+		glyphs[i].bitmap_height = bitmaps[i]->bitmap.rows;
+		glyphs[i].bearingX = face->glyph->metrics.horiBearingX >> 6;
+		glyphs[i].bearingY = face->glyph->metrics.horiBearingY >> 6;
+		glyphs[i].advancedX = face->glyph->advance.x >> 6;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, glyphs[i].bitmap_width, glyphs[i].bitmap_height, 0, GL_RED, GL_UNSIGNED_BYTE, bitmaps[i]->bitmap.buffer);
 	}
 }
