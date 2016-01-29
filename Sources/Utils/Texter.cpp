@@ -46,11 +46,11 @@ Texter::~Texter(){
 	}
 }
 
-void Texter::DrawText(Vector2D pos, string text){
+void Texter::DrawText(Vector2D pos, const string &text){
 	DrawText(pos.x, pos.y, text);
 }
 
-void Texter::DrawText(float x, float y, string text){
+void Texter::DrawText(float x, float y, const string &text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
 	for(unsigned int i = 0; i < text.length(); i++){

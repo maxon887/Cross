@@ -18,9 +18,6 @@
 #include "Launcher.h"
 #include "File.h"
 
-#include "FreeType\ft2build.h"
-#include FT_FREETYPE_H
-
 using namespace cross;
 
 static FT_Library library = NULL;
@@ -66,6 +63,7 @@ float Font::SetSize(float size){
 	if(error){
 		throw CrossException("Error in set char size");
 	}
+	Cache();
 }
 
 bool Font::IsFixedWidth(){
@@ -81,5 +79,24 @@ float Font::GetCharWidth(){
 		return face->glyph->advance.x >> 6;
 	}else{
 		throw CrossException("Char width can be obtained only for monospace fonts");
+	}
+}
+
+FT_BitmapGlyph Font::GetGlyph(char c){
+	return glyphs[c];
+}
+
+void Font::Cache(){
+	FT_Error error;
+	FT_Matrix m;
+	for(int i = 0; i < 127; i++){
+		error = FT_Load_Glyph(face, 65, FT_LOAD_RENDER);
+		if(error){
+			throw CrossException("Can't load glyph");
+		}
+		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&glyphs[i]);
+		if(error){
+			throw CrossException("Can't abtain glyph");
+		}
 	}
 }

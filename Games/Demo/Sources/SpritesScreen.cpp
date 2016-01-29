@@ -45,7 +45,7 @@ void SpritesScreen::Start(){
 
 void SpritesScreen::Update(float sec){
 	gfx2D->Clear();
-	for(int i = 0; i < positions.size(); i++){
+	for(unsigned int i = 0; i < positions.size(); i++){
 		positions[i] += velocities[i];
 		float spriteWidth = awesome_face->GetWidth()/2;
 		float spriteHeight = awesome_face->GetHeight()/2;
@@ -79,7 +79,7 @@ void SpritesScreen::PushSprite(){
 			velocities.push_back(velocity);
 		}
 	}else{
-		string message = "Spris Drawn " + to_string(positions.size());
+		string message = "Sprites Drawn " + to_string(positions.size());
 		gfx2D->DrawText(Vector2D(0.f, 10.f), message, debug_font);
 	}
 }

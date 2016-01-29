@@ -20,10 +20,22 @@
 
 using namespace cross;
 
+struct ScreenChar{
+	Vector2D positon;
+	Color color;
+	float size;
+	string str;
+};
+
 class TextScreen : public Screen{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
 private:
+	Font* font;
+	Font* debug_font;
+	CRArray<ScreenChar*> chars;
+
+	void AddChar();
 };

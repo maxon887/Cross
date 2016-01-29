@@ -29,6 +29,7 @@ enum GoingScreen{
 	AUDIO,
 	PRIMITIVES,
 	SPRITES,
+	TEXT,
 	TEST_NA_PIDORA
 };
 
@@ -51,4 +52,5 @@ private:
 	void OnAnimationClick();
 	void OnTestNaPidoraClick();
 	void OnAudioClick();
+	void OnTextScreen();
 };

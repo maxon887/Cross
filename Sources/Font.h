@@ -17,10 +17,16 @@
 #pragma once
 #include "Cross.h"
 
-#undef GetCharWidth
+#include "FreeType\ft2build.h"
+#include FT_FREETYPE_H
+#include FT_GLYPH_H
 
+#undef GetCharWidth
+/*
 struct FT_FaceRec_;
 typedef struct FT_FaceRec_* FT_Face;
+struct FT_GlyphRec_;
+typedef struct FT_GlyphRec_* FT_Glyph;*/
 
 namespace cross{
 
@@ -38,10 +44,14 @@ public:
 	float SetSize(float size);
 	bool IsFixedWidth();
 	float GetCharWidth();
+	FT_BitmapGlyph GetGlyph(char c);
 private:
 	File* file;
+	FT_BitmapGlyph	glyphs[128];
 	Color color;
 	float size;
+
+	void Cache();
 };
 
 };

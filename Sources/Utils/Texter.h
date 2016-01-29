@@ -34,8 +34,8 @@ public:
 			int asciiOffset, float scaleFactor);
 	~Texter();
 
-	void DrawText(float x, float y, string text);
-	void DrawText(Vector2D pos, string text);
+	void DrawText(float x, float y, const string &text);
+	void DrawText(Vector2D pos, const string &text);
 	float GetWidth();
 	float GetHeight();
 	void SetScaleFactor(float scaleFactor);

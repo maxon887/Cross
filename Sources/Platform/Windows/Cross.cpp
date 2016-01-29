@@ -247,13 +247,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 		ShowWindow(wnd, winShow);
 
 		gfxGL = new GraphicsGL();
-#ifdef GFX3D
-		gfx3D = new Graphics3D();
-#elif GFX2D
 		gfx2D = new Graphics2D();
-#endif
-		game->Init();
 		game->Start();
+		game->Init();
 		ZeroMemory(&msg, sizeof(MSG));
 		while (msg.message != WM_QUIT) {
 			if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
@@ -263,12 +259,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int w
 			game->Update();
 			SwapBuffers(dc);
 		}
-#ifdef GFX3D
-		delete gfx3D;
-#elif GFX2D
-		delete gfx2D;
-#endif
+		game->Stop();
 		delete game;
+		delete gfx2D;
 		delete gfxGL;
 
 		unsigned long leaked = MemoryManager::Instance()->Dump();

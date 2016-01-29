@@ -26,6 +26,7 @@
 #include "Sprite.h"
 #include "TestNaPidoraScreen.h"
 #include "SpritesScreen.h"
+#include "TextScreen.h"
 
 MainScreen::~MainScreen(){
 	delete def_button;
@@ -65,6 +66,7 @@ void MainScreen::Start(){
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
 	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
+	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextScreen);
 
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
@@ -115,6 +117,9 @@ void MainScreen::Update(float sec){
 	case PRIMITIVES:
 		game->SetScreen(new PrimitivesScreen());
 		break;
+	case TEXT:
+		game->SetScreen(new TextScreen());
+		break;
 	default:
 		break;
 	}
@@ -144,4 +149,8 @@ void MainScreen::OnSpritesClick(){
 
 void MainScreen::OnTestNaPidoraClick() {
 	going_screen = TEST_NA_PIDORA;
+}
+
+void MainScreen::OnTextScreen(){
+	going_screen = TEXT;
 }

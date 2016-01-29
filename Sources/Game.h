@@ -38,6 +38,8 @@ public:
 	Game(float width, float height);
 	// Cause when game is about to start
 	virtual void Start();
+	// Cause when game is about to stop
+	virtual void Stop();
 	// Cause when game needs to be paused. For example input call or window lost focus
 	virtual void Suspend();
 	// Cause when game gained focus.

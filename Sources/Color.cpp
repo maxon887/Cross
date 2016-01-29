@@ -26,42 +26,40 @@ const Color Color::Black(0.f, 0.f, 0.f);
 const Color Color::Yellow(1.f, 1.f, 0.f);
 const Color Color::Purple(1.f, 0.f, 1.f);
 
+Color::Color():
+	R(1.f),
+	G(1.f),
+	B(1.f),
+	A(1.f)
+{ }
 
 Color::Color(float r, float g, float b):
 	R(r),
 	G(g),
 	B(b),
 	A(1.0f)
-{
-
-}
+{ }
 
 Color::Color(int r, int g, int b):
 	R(r / 255.f),
 	G(g / 255.f),
 	B(b / 255.f),
 	A(1.0f)
-{
-
-}
+{ }
 
 Color::Color(float r, float g, float b, float a) :
 	R(r),
 	G(g),
 	B(b),
 	A(a)
-{
-
-}
+{ }
 
 Color::Color(int r, int g, int b, int a) :
 	R(r / 255.f),
 	G(g / 255.f),
 	B(b / 255.f),
 	A(a / 255.f)
-{
-
-}
+{ }
 
 float* Color::GetData(){
 	return &R;

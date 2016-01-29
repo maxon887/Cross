@@ -40,7 +40,8 @@ public:
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled);
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy);
 	int DrawText(Vector2D pos, string text);
-	int DrawText(Vector2D pos, string text, Font* font);
+	int DrawText(Vector2D pos, const string &text, Font* font);
+	void DrawTextAdvanced(Vector2D pos, const string &text, Font* font);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite, Color color, bool monochrome);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);

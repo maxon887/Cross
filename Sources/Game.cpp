@@ -94,7 +94,10 @@ float Game::GetHeight(){
 void Game::SetScreen(Screen* screen){
 	launcher->LogIt("Game::SetScreen()");
 	debuger->StartCheckTime();
-	delete current_screen;
+	if(current_screen){
+		current_screen->Stop();
+		delete current_screen;
+	}
 	current_screen = screen;
 	current_screen->Start();
     render_time = high_resolution_clock::now();
@@ -106,6 +109,8 @@ Screen* Game::GetCurrentScreen(){
 }
 
 void Game::Start(){ }
+
+void Game::Stop(){ }
 
 void Game::Suspend(){
 	current_screen->Suspend();

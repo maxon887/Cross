@@ -14,4 +14,69 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#include "TextScreen.h"
+#include "Graphics2D.h"
+#include "Font.h"
+#include "Input.h"
+#include "Game.h"
+#include "Debuger.h"
+#include "Misc.h"
+#include "Utils/Texter.h"
+
+void TextScreen::Start(){
+	debug_font = new Font("LiberationMono-Bold.ttf", 50, Color::Red);
+	font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
+}
+
+void TextScreen::Stop(){
+	for(ScreenChar* scrChar : chars){
+		delete scrChar;
+	}
+	delete font;
+}
+
+void TextScreen::Update(float sec){
+	gfx2D->Clear();
 	
+	for(ScreenChar* scrChar : chars){
+		font->SetColor(scrChar->color);
+		//font->SetSize(scrChar->size);
+		gfx2D->DrawTextAdvanced(scrChar->positon, scrChar->str, font);
+	}
+	/*
+	for(ScreenChar* scrChar : chars){
+		Texter* texter = debuger->GetTexter();
+		texter->DrawText(scrChar->positon, scrChar->str);
+	}*/
+
+	AddChar();
+
+
+	if(input->IsPressed(Key::ESCAPE)){
+		game->SetScreen(game->GetStartScreen());
+	}
+}
+
+void TextScreen::AddChar(){
+	float fps = debuger->GetFPS();
+	if(fps > 40.f){
+		for(int i = 0; i < 10; i++){
+			float size = Random(10.f, 80.f);
+			Vector2D position;
+			position.x = Random(-size, game->GetWidth());
+			position.y = Random(-size, game->GetHeight());
+			Color color(Random(1.f), Random(1.f), Random(1.f));
+			char c = Random(65, 122);
+			string str(1, c);
+			ScreenChar* screenChar = new ScreenChar();
+			screenChar->positon = position;
+			screenChar->color = color;
+			screenChar->str = str;
+			screenChar->size = size;
+			chars.push_back(screenChar);
+		}
+	} else{
+		string message = "Chars drawn " + to_string(chars.size());
+		gfx2D->DrawText(Vector2D(0.f, 10.f), message, debug_font);
+	}
+}

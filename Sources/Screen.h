@@ -27,6 +27,8 @@ public:
 	virtual void Start() { };
 	/* Calls every frame update. Ideally 60 times per second(60fps)*/
 	virtual void Update(float sec) { };
+	/* Calls when screen about to change on new one */
+	virtual void Stop() { };
 	/* Calls where game need to be stoped like lost focus or input phone call */
 	virtual void Suspend() { };
 //Internal data. You don't need call any of this methods or modify variable

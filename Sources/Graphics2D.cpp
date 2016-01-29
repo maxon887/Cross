@@ -28,6 +28,7 @@
 #include "SOIL/SOIL.h"
 #include "FreeType\ft2build.h"
 #include FT_FREETYPE_H
+#include FT_GLYPH_H
 
 using namespace cross;
 
@@ -158,7 +159,7 @@ int Graphics2D::DrawText(Vector2D pos, string textStr){
 	return DrawText(pos, textStr, this->current_font);
 }
 
-int Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
+int Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	FT_GlyphSlot g = font->face->glyph;
 	GLuint tex;
 	
@@ -190,6 +191,38 @@ int Graphics2D::DrawText(Vector2D pos, string textStr, Font* font){
 	glDeleteTextures(1, &tex);
 
 	return pos.x;
+}
+
+void Graphics2D::DrawTextAdvanced(Vector2D pos, const string &textStr, Font* font){
+	GLuint tex;
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	/* We require 1 byte alignment when uploading texture data */
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	const char* text = textStr.c_str();
+
+	while(*text){
+		//if(FT_Load_Char(font->face, *text, FT_LOAD_RENDER))
+		//	continue;
+		FT_BitmapGlyph glyph = font->GetGlyph(*text);
+		FT_Glyph glyphM = (FT_Glyph)glyph;
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, glyph->bitmap.width, glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, glyph->bitmap.buffer);
+
+		Rect region(0, 0, (float)glyph->bitmap.width, (float)glyph->bitmap.rows);
+		//int bearingX = g->metrics.horiBearingX >> 6;
+		//int bearingY = g->metrics.horiBearingY >> 6;
+	//	Vector2D pivot(-bearingX, g->bitmap.rows - bearingY);
+		Sprite ch(tex, glyph->bitmap.width, glyph->bitmap.rows, region);
+
+		DrawSprite(pos, &ch, font->GetColor(), true);
+		pos.x += (glyphM->advance.x >> 6);
+		text++;
+	}
+	glDeleteTextures(1, &tex);
 }
 
 void Graphics2D::DrawSprite(Vector2D pos, Sprite* img){
