@@ -18,8 +18,6 @@
 #include "Cross.h"
 #include "Button.h"
 
-#include <vector>
-
 using namespace cross;
 
 class Menu{
@@ -28,11 +26,12 @@ public:
 	~Menu();
 
 	void Update(float sec);
+	void Active(bool active);
 	void AddButton(Button* but);
 	int Size();
 	void Clear();
 private:
-	vector<Button*> buttons;
+	CRArray<Button*> buttons;
 	float button_def_width;
 	float button_def_height;
 	float button_width;

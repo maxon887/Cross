@@ -145,6 +145,9 @@
     <ClCompile Include="..\..\Sources\SpritesScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\TextScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -272,6 +275,9 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\SpritesScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\TextScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

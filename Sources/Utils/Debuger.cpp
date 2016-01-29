@@ -21,10 +21,7 @@
 #include "Graphics2D.h"
 #include "Game.h"
 
-#include <vector>
 #include <chrono>
-
-#undef DrawText
 
 using namespace cross;
 using namespace chrono;

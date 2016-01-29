@@ -18,8 +18,6 @@
 #include "Cross.h"
 #include "Screen.h"
 
-//#define SPRITES_COUNT 10
-
 using namespace cross;
 
 class SpritesScreen : public Screen{

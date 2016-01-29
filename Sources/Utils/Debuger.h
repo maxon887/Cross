@@ -18,7 +18,6 @@
 #include "Cross.h"
 
 #include <chrono>
-#include <vector>
 
 typedef chrono::time_point<chrono::high_resolution_clock> CrossTime;
 
@@ -47,7 +46,7 @@ public:
 private:
 	Texter* texter;
 	Sprite* touch_pointer;
-	vector<CrossTime> times;
+	CRArray<CrossTime> times;
 
 	float update_time;
 	float update_sum;

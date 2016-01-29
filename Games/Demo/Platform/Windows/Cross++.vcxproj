@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\Sources\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\TestNaPidoraScreen.cpp" />
     <ClCompile Include="..\..\Sources\PrimitivesScreen.cpp" />
+    <ClCompile Include="..\..\Sources\TextScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="..\..\Sources\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\TestNaPidoraScreen.h" />
     <ClInclude Include="..\..\Sources\PrimitivesScreen.h" />
+    <ClInclude Include="..\..\Sources\TextScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

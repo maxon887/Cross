@@ -17,8 +17,6 @@
 #pragma once
 #include "Cross.h"
 
-#include <vector>
-
 namespace cross {
 
 class Animation{
@@ -34,7 +32,7 @@ public:
 	bool IsRunning();
 private:
 	void Init(float rate, Sprite* frames[], int frameCount, bool looped);
-	vector<Sprite*> frames;
+	CRArray<Sprite*> frames;
 	float rate;
 	float duration;
 	int frame_num;

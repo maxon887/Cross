@@ -32,8 +32,15 @@ void Menu::Update(float sec){
 	Vector2D pos(game->GetWidth() / 2.0f, height - (offset - button_height/2));
 	for(Button* btn : buttons){
 		btn->SetLocation(pos);
+		//btn->SetActive(true);
 		btn->Update();
 		pos.y -= offset;
+	}
+}
+
+void Menu::Active(bool active){
+	for(Button* btn : buttons){
+		btn->SetActive(active);
 	}
 }
 
@@ -67,7 +74,6 @@ void  Menu::AddButton(Button* but){
 		}
 		button_width = but->GetWidth();
 		button_height = but->GetHeight();
-		//offset = (height + button_height) / devider;
 	}
 }
 

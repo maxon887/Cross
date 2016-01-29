@@ -20,6 +20,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Input.h"
 #include "Sprite.h"
 #include "Font.h"
+#include "Launcher.h"
 
 #define DEFAULT_WIDTH 300
 #define DEFAULT_HEIGHT 80
@@ -244,11 +245,11 @@ void Button::ActionDownHandler(Vector2D pos) {
 }
 
 void Button::ActionUpHandler(Vector2D pos) {
-	if (active) {
-		if (is_pressed && push_sound != nullptr) {
+	if (active && is_pressed) {
+		is_pressed = false;
+		if (push_sound != nullptr) {
 			push_sound->Play();
 		}
-		is_pressed = false;
 		if (OnLocation(pos.x, pos.y)) {
 			if (down_image != nullptr) {
 				gfx2D->DrawSprite(location, down_image);

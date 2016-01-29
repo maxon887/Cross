@@ -14,18 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Demo.h"
-#include "MainScreen.h"
-#include "TestNaPidoraScreen.h"
-#include "Debuger.h"
-#include "SpritesScreen.h"
+#pragma once
+#include "Cross.h"
+#include "Screen.h"
 
-Demo::Demo(Launcher* launcher) : Game() { }
+using namespace cross;
 
-void Demo::Start(){
-	debuger->EnableScreenDebug();
-}
-
-Screen* Demo::GetStartScreen(){
-	return new MainScreen(); 
-}
+class TextScreen : public Screen{
+public:
+	void Start();
+	void Stop();
+	void Update(float sec);
+private:
+};

@@ -71,16 +71,13 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(textBtn);
 	graphics2D_menu->AddButton(animationBtn);
 	graphics2D_menu->AddButton(testNaPidoraBtn);
+	graphics2D_menu->Active(false);
 }
 
 void MainScreen::Update(float sec){
 	gfx2D->Clear();
 	current_menu->Update(sec);
-
-
-
 	/*
-
 	static float time = 1;
 	time += sec;
 	if((menu->Size() + 1) < time){
@@ -95,6 +92,8 @@ void MainScreen::Update(float sec){
 	}*/
 
 	if(input->IsPressed(Key::ESCAPE)){
+		current_menu->Active(false);
+		main_menu->Active(true);
 		current_menu = main_menu;
 	}
 
@@ -122,6 +121,8 @@ void MainScreen::Update(float sec){
 }
 
 void MainScreen::OnGraphics2DClick(){
+	current_menu->Active(false);
+	graphics2D_menu->Active(true);
 	current_menu = graphics2D_menu;
 }
 
