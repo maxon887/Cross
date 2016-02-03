@@ -21,6 +21,7 @@
 using namespace cross;
 
 GraphicsGL::GraphicsGL(){
+#if defined (WIN) && defined(OPENGL)
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 		GLint magorV;
 		GLint minorV;
@@ -30,7 +31,6 @@ GraphicsGL::GraphicsGL(){
 		GLint maxVertexAttribs;
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
 		launcher->LogIt("Max Vertex Attributes: " + to_string(maxVertexAttribs));
-#ifdef WIN
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}
@@ -49,13 +49,13 @@ GLuint GraphicsGL::ComplileShader(string filename){
 			throw CrossException("Can't compile shader.\nUnknown file extension.");
 		}
 		File* file = launcher->LoadFile(filename);
-		GLchar* source = new GLchar[file->size + 1]; // +1 for null terminated string
+		CRByte* source = new CRByte[file->size + 1]; // +1 for null terminated string
 		memcpy(source, file->data, file->size);
 		source[file->size] = 0;
 		delete file;
 		//shader compilling part
 		GLuint handle = glCreateShader(type);
-		glShaderSource(handle, 1, (const GLchar**)&source, NULL);
+		glShaderSource(handle, 1, (const char**)&source, NULL);
 		delete[] source;
 		source = NULL;
 
@@ -66,15 +66,15 @@ GLuint GraphicsGL::ComplileShader(string filename){
 			GLsizei len;
 			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
 
-			GLchar* log = new GLchar[len + 1];
+			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
-			throw CrossException("Shader compilation failed:\n%s", log);
-		} else{
+			throw CrossException("Shader: %s\n%sShader", filename.c_str(), log);
+		} else {
 #ifdef CROSS_DEBUG
 			GLsizei len;
 			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
 			if(len > 1){
-				GLchar* log = new GLchar[len + 1];
+				char* log = new char[len + 1];
 				glGetShaderInfoLog(handle, len, &len, log);
 				string msg(log);
 				delete[] log;
@@ -112,7 +112,7 @@ void GraphicsGL::CompileProgram(GLuint program){
 		GLsizei len;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
 
-		GLchar* log = new GLchar[len + 1];
+		char* log = new char[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
 		throw CrossException("Shader compilation failed:\n %s", log);
 	}

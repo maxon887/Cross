@@ -99,6 +99,15 @@ void Matrix::SetRotationZ(float angle){
 	m[1][1] = cosA;
 }
 
+Matrix Matrix::Transpose(){
+	Matrix res;
+	res.m[0][0] = m[0][0]; res.m[0][1] = m[1][0]; res.m[0][2] = m[2][0]; res.m[0][3] = m[3][0];
+	res.m[1][0] = m[0][1]; res.m[1][1] = m[1][1]; res.m[1][2] = m[2][1]; res.m[1][3] = m[3][1];
+	res.m[2][0] = m[0][2]; res.m[2][1] = m[1][2]; res.m[2][2] = m[2][2]; res.m[2][3] = m[3][2];
+	res.m[3][0] = m[0][3]; res.m[3][1] = m[1][3]; res.m[3][2] = m[2][3]; res.m[3][3] = m[3][3];
+	return res;
+}
+
 Matrix Matrix::operator + (float s) const{
 	Matrix res(*this);
 	res += s;

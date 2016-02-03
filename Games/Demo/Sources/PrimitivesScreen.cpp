@@ -32,6 +32,8 @@ void PrimitivesScreen::Update(float sec){
 	gfx2D->Clear();
 	float x = launcher->GetTargetWidth() / 2.f;
 	float y = launcher->GetTargetHeight() / 2.f;
+	//gfx2D->DrawPoint(Vector2D(0.0f, 0.0f), Color::Red);
+	//gfx2D->DrawCircle(Vector2D(0.0f, 0.0f), 10.0f, Color::Yellow, true);
 	
 	for(int i = 0; i < 10; i++){
 		gfx2D->DrawPoint(Vector2D(Random(25.f, 75.f), Random(25.f, 75.f)), Color::Red);

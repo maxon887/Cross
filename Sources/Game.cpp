@@ -44,8 +44,6 @@ Game::Game(){
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();
 	Audio::Init();
-	gfx2D = NULL;
-	gfx3D = NULL;
 	this->current_screen = NULL;
 	this->width = (float)launcher->GetTargetWidth();
 	this->height = (float)launcher->GetTargetHeight();
@@ -57,8 +55,6 @@ Game::Game(float width){
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();
 	Audio::Init();
-	gfx2D = NULL;
-	gfx3D = NULL;
 	this->current_screen = NULL;
 	this->width = width;
 	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
@@ -71,8 +67,6 @@ Game::Game(float width, float height){
 	config = new Config(launcher->DataPath());
 	debuger = new Debuger();
 	Audio::Init();
-	gfx2D = NULL;
-	gfx3D = NULL;
 	this->current_screen = NULL;
 	this->width = width;
 	this->height = height;

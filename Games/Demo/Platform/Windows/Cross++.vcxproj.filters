@@ -148,6 +148,15 @@
     <ClCompile Include="..\..\Sources\TextScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -279,6 +288,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\TextScreen.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h">
+      <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -111,6 +111,6 @@ void Font::Cache(){
 		glyphs[i].bearingX = face->glyph->metrics.horiBearingX >> 6;
 		glyphs[i].bearingY = face->glyph->metrics.horiBearingY >> 6;
 		glyphs[i].advancedX = face->glyph->advance.x >> 6;
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, glyphs[i].bitmap_width, glyphs[i].bitmap_height, 0, GL_RED, GL_UNSIGNED_BYTE, bitmaps[i]->bitmap.buffer);
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, glyphs[i].bitmap_width, glyphs[i].bitmap_height, 0, GL_RED, GL_UNSIGNED_BYTE, bitmaps[i]->bitmap.buffer);
 	}
 }

@@ -30,7 +30,7 @@ public:
 	void SetScale(float factor);
 	void SetScale(Vector2D scale);
 	void SetRotate(float angle);
-	float* GetModel();
+	Matrix GetModel();
 	const GLfloat* GetVertices() const;
 	const GLushort* GetIndices() const;
 	GLuint GetTextureID() const;

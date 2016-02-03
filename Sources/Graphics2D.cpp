@@ -66,7 +66,7 @@ void Graphics2D::SetDefaultTextFont(Font* font)
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
 	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
@@ -76,7 +76,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
 	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
@@ -94,7 +94,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 								rect.x + rect.width, rect.y + rect.height,
 								rect.x, rect.y + rect.height,
 								rect.x, rect.y };
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
 	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
@@ -140,7 +140,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 		buffer[idx++] = outer_x;
 		buffer[idx++] = outer_y;
 	}
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
 	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, buffer);
 	//delete buffer;
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
@@ -213,29 +213,29 @@ void Graphics2D::DrawSprite(Vector2D pos, Sprite* img){
 	DrawSprite(pos, img, Color::White, false);
 }
 
-void Graphics2D::DrawSprite(Vector2D pos, Sprite* img, Color color, bool monochrome){
+void Graphics2D::DrawSprite(Vector2D pos, Sprite* sprite, Color color, bool monochrome){
 	gfxGL->UseProgram(sprite_shaders->program);
 
 	//parameterization
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_TRUE, projection.GetData());
+	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
 	glUniform1i(sprite_shaders->uMonochrome, (GLint)monochrome);
 	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());
 
-	img->SetPosition(pos);
-	glBindTexture(GL_TEXTURE_2D, img->GetTextureID());
+	sprite->SetPosition(pos);
+	glBindTexture(GL_TEXTURE_2D, sprite->GetTextureID());
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glVertexAttribPointer(sprite_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices());
-	glVertexAttribPointer(sprite_shaders->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), img->GetVertices() + 2);
+	glVertexAttribPointer(sprite_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices());
+	glVertexAttribPointer(sprite_shaders->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices() + 2);
 	glEnableVertexAttribArray(sprite_shaders->aPositionLoc);
 	glEnableVertexAttribArray(sprite_shaders->aTexCoordLoc);
-	glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_TRUE, img->GetModel());
+	SAFE(glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_FALSE, sprite->GetModel().Transpose().GetData()));
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, img->GetIndices());
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, sprite->GetIndices());
 }
 
 Font * cross::Graphics2D::GetDefaultFont()

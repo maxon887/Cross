@@ -114,8 +114,8 @@ void Sprite::SetRotate(float angle){
 	model = rotation * st_mat;
 }
 
-float* Sprite::GetModel(){
-	return model.GetData();
+Matrix Sprite::GetModel(){
+	return model;
 }
 
 const float* Sprite::GetVertices() const{

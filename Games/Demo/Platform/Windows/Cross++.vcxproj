@@ -44,11 +44,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Shaders;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../../../Sources/FreeType;../../../../Sources/FreeType/freetype2;../../Sources;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;CROSS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;CROSS_DEBUG;GLES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;glew32.lib;opengl32.lib;SOIL.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;SOIL.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,6 +73,9 @@
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SpriteShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp" />
@@ -118,6 +121,9 @@
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SpriteShaders.h" />
     <ClInclude Include="..\..\..\..\Sources\Sprite.h" />
