@@ -15,3 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include <Windows.h>
+
+LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+HWND WinCreate();
+
+void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight);
+
+RECT GetLocalCoordinates(HWND hWnd);

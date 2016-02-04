@@ -75,7 +75,7 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(testNaPidoraBtn);
 	graphics2D_menu->Active(false);
 
-	gfx2D->SetClearColor(Color::Red);
+	gfx2D->SetClearColor(Color(0.2f, 0.2f, 0.2f));
 }
 
 void MainScreen::Update(float sec){
