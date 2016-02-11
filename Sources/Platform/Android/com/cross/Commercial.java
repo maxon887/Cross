@@ -1,5 +1,5 @@
 package com.cross;
-
+/*
 import android.content.Intent;
 import android.util.Log;
 
@@ -11,8 +11,8 @@ import com.mouse.billing.IabHelper;
 import com.mouse.billing.IabResult;
 import com.mouse.billing.Purchase;
 import com.mouse.billing.IabHelper.OnIabPurchaseFinishedListener;
-
-public class Commercial {
+*/
+public class Commercial {/*
 	public static final int EVENT_AD_LOADED 		= 0;
 	public static final int EVENT_AD_LOAD_FAILED 	= 1;
 	public static final int EVENT_PURCHASE_COMPLITE = 2;
@@ -130,5 +130,5 @@ public class Commercial {
 	
 	public void HandleActivityResult(int requestCode, int resultCode, Intent data) {
 		mHelper.handleActivityResult(requestCode, resultCode, data);
-	}
+	}*/
 }

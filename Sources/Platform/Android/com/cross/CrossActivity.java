@@ -32,8 +32,8 @@ public class CrossActivity extends Activity{
 		Log.d("Cross++", "Java onCreate");
 		super.onCreate(savedInstanceState);
 		cross_initialized = false;
-		//renderer = new CrossRenderer(this);
-		renderer = new GL20Renderer(this);
+		renderer = new CrossRenderer(this);
+		//renderer = new GL20Renderer(this);
 		try{
 			renderer.setPreserveEGLContextOnPause(true);
 		}catch(Throwable ex){
@@ -41,7 +41,7 @@ public class CrossActivity extends Activity{
 		}
 		setContentView(renderer);
 		try{
-			commercial = new Commercial(this);
+			//commercial = new Commercial(this);
 		}catch(Throwable ex){
 			Log.d("Cross++", "Java can not create commercial");
 			commercial = null;
@@ -123,7 +123,7 @@ public class CrossActivity extends Activity{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if(commercial != null){
-			commercial.HandleActivityResult(requestCode, resultCode, data);
+			//commercial.HandleActivityResult(requestCode, resultCode, data);
 		}
 	}
 	

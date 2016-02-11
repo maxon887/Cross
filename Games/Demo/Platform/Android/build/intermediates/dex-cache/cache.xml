@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Android\SDK\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_3af62365efa68590026d6e6d134363a491168d36.jar" />
+    </item>
+    <item
+        jar="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\libs\fmod.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="60776265ce27b8896f73fde9ac7d6c02e4f64a37">
+        <dex dex="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\pre-dexed\debug\fmod_f34e79a8d45b9bf8dc01c57de635c3366bddbffb.jar" />
+    </item>
+    <item
+        jar="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_94128cfd2a7615db738921884afefaa89d5f8b0c.jar" />
+    </item>
+    <item
+        jar="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_596bb568f48ae6c79e16e726e3989fcc3e4732f9.jar" />
+    </item>
+    <item
+        jar="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="D:\GameDev\Cross++\Games\Demo\Platform\Android\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_323f6344b0ea350d7ad1b6544b62ff89bcb0c0d1.jar" />
+    </item>
+
+</items>
