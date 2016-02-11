@@ -46,7 +46,7 @@ public:
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scaleFactor);
-	Sprite* LoadImage(byte* data, int bytesPerChannel, int width, int height);
+	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
 	void ReleaseImage(Sprite* img);
 
 private:

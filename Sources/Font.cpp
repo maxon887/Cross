@@ -95,7 +95,6 @@ void Font::Cache(){
 	glDeleteTextures(128, textures);
 	glGenTextures(128, textures);
 	for(int i = 0; i < 127; i++){
-		//glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textures[i]);
 		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
 		if(error){

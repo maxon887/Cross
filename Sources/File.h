@@ -19,13 +19,11 @@
 
 namespace cross{
 
-typedef unsigned char byte;
-
 class File{
 public:
 	~File();
 	string name;
-	byte* data;
+	CRByte* data;
 	unsigned int size;
 };
 

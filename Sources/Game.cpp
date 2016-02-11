@@ -107,7 +107,9 @@ void Game::Start(){ }
 void Game::Stop(){ }
 
 void Game::Suspend(){
-	current_screen->Suspend();
+	if(current_screen != nullptr) {
+		current_screen->Suspend();
+	}
 }
 
 void Game::Resume(){

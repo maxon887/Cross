@@ -258,7 +258,7 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	GLuint textureID;
 	int width, height;
 	File* imageFile = launcher->LoadFile(filename);
-	byte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
+	CRByte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
 	delete imageFile;
 
 	if(image == NULL){
@@ -270,7 +270,7 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	return sprite;
 }
 
-Sprite* Graphics2D::LoadImage(byte* image, int bytesPerChannel, int width, int height){
+Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int height){
 	debuger->StartCheckTime();
 	GLuint textureID;
 	Rect region(0, 0, (float)width, (float)height);
@@ -285,9 +285,9 @@ Sprite* Graphics2D::LoadImage(byte* image, int bytesPerChannel, int width, int h
 	//Create power of two texture
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	byte* newImage = NULL;
+	CRByte* newImage = NULL;
 	if(newWidth > width || newHeight > height){
-		newImage = (byte*)malloc(bytesPerChannel * newWidth * newHeight);
+		newImage = (CRByte*)malloc(bytesPerChannel * newWidth * newHeight);
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * newWidth * bytesPerChannel, image + i * width * bytesPerChannel, width * bytesPerChannel);
 			//Clamp to edge effect
