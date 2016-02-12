@@ -41,8 +41,6 @@ public:
 	void OnActionUp(Vector2D pos);
 	void OnActionMove(Vector2D pos);
 
-	Texter* GetTexter();
-
 private:
 	Texter* texter;
 	Sprite* touch_pointer;

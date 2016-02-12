@@ -18,10 +18,8 @@
 #include "Cross.h"
 
 namespace cross {
-    
-#undef DrawText
 
-/* Class responsible for drawing text in to screen */
+/* Depricated */
 class Texter{
 public:
 	Texter(Game* game, const char* fontFilename,

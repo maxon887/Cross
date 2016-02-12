@@ -36,14 +36,13 @@ void Bird::Update(float sec, Vector2D targetPos){
 	if(velocity.Length() >= 5.f){
 		heading = velocity.Normalize();
 	}
-
-	Texter* texter = debuger->GetTexter();
+	/*
 	string speedMsg = string("Speed - " + to_string(velocity.Length()));
 	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight()), speedMsg);
 	string forceMsg = string("Force - " + to_string(steeringForce.Length()));
 	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight() * 2), forceMsg);
 	string accMsg = string("Accel - " + to_string(acceleration.Length()));
-	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight() * 3), accMsg);
+	texter->DrawText(Vector2D(0, game->GetHeight() - texter->GetHeight() * 3), accMsg);*/
 	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + acceleration.x, pos.y + acceleration.y), Color::Yellow);
 	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + steeringForce.x, pos.y + steeringForce.y), Color::Red);
 	//graphics->DrawLine(Point(pos.x, pos.y), Point(pos.x + velocity.x, pos.y + velocity.y), Color::Green);

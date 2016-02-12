@@ -19,8 +19,8 @@
 using namespace cross;
 
 PrimitiveShaders::PrimitiveShaders(){
-	vertex_shader = gfxGL->ComplileShader("Engine/primitive.vert");
-	fragment_shader = gfxGL->ComplileShader("Engine/primitive.frag");
+	vertex_shader = gfxGL->ComplileShader("Engine/Shaders/primitive.vert");
+	fragment_shader = gfxGL->ComplileShader("Engine/Shaders/primitive.frag");
 	program = gfxGL->CreateProgram();
 	gfxGL->AttachShader(program, vertex_shader);
 	gfxGL->AttachShader(program, fragment_shader);

@@ -19,8 +19,8 @@
 using namespace cross;
 
 SpriteShaders::SpriteShaders(){
-	vertex_shader = gfxGL->ComplileShader("Engine/sprite.vert");
-	fragment_shader = gfxGL->ComplileShader("Engine/sprite.frag");
+	vertex_shader = gfxGL->ComplileShader("Engine/Shaders/sprite.vert");
+	fragment_shader = gfxGL->ComplileShader("Engine/Shaders/sprite.frag");
 	program = gfxGL->CreateProgram();
 	gfxGL->AttachShader(program, vertex_shader);
 	gfxGL->AttachShader(program, fragment_shader);

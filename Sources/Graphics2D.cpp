@@ -39,7 +39,6 @@ Graphics2D::Graphics2D()
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
 	primitive_shaders = new PrimitiveShaders();
-	//this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
 	this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
   	this->current_font = this->default_font;
 	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
@@ -58,11 +57,6 @@ void Graphics2D::Clear(){
 void Graphics2D::SetClearColor(Color color){
 	glClearColor(color.R, color.G, color.B, 1.0f);
 }
-/*
-void Graphics2D::SetDefaultTextFont(Font* font)
-{
-	this->current_font = font;
-}*/
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);

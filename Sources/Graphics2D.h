@@ -30,7 +30,6 @@ public:
 	
 	void Clear();
 	void SetClearColor(Color color);
-	void SetDefaultTextFont(Font* font);
 	Font* GetDefaultFont();
 	void DrawPoint(Vector2D pos, Color color);
 	void DrawLine(Vector2D p1, Vector2D p2, Color color);

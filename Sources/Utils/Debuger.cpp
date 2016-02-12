@@ -20,50 +20,50 @@
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Game.h"
+#include "Font.h"
 
 #include <chrono>
 
 using namespace cross;
 using namespace chrono;
 
-void Debuger::StartCheckTime(){
-	CrossTime check_time = high_resolution_clock::now();
-	times.push_back(check_time);
-}
-
-void Debuger::StopCheckTime(string label){
-	CrossTime now = high_resolution_clock::now();
-	CrossTime check_time = times.back();
-	times.pop_back();
-	auto up = duration_cast<microseconds>(now - check_time).count();
-	double milis = up/1000.0;
-	string msg = label + to_string(milis) + "ms";
-	if(launcher != NULL)
-		launcher->LogIt(msg);
-}
-
-Debuger::Debuger(){
-	touch_pointer = NULL;
-	texter = NULL;
-	update_time = 0;
-	update_sum = 0;
-	update_counter = 0;
-	render_time = 0;
-	render_sum = 0;
-	render_counter = 0;
-	time = 0;
-	screen_debug = false;
-	console_debug = false;
-	touches = false;
-	touch_down = false;
-	next_display = 3000000.f;
+Debuger::Debuger():
+	touch_pointer(nullptr),
+	texter(nullptr),
+	update_time(0),
+	update_sum(0),
+	update_counter(0),
+	render_time(0),
+	render_sum(0),
+	render_counter(0),
+	time(0),
+	screen_debug(false),
+	console_debug(false),
+	touches(false),
+	touch_down(false),
+	next_display(3000000.f)
+{
 	input->ActionDown += MakeDelegate(this, &Debuger::OnActionDown);
 	input->ActionMove += MakeDelegate(this, &Debuger::OnActionMove);
 	input->ActionUp += MakeDelegate(this, &Debuger::OnActionUp);
 }
 
-Debuger::~Debuger(){
-	delete texter;
+Debuger::~Debuger(){ }
+
+void Debuger::StartCheckTime() {
+	CrossTime check_time = high_resolution_clock::now();
+	times.push_back(check_time);
+}
+
+void Debuger::StopCheckTime(string label) {
+	CrossTime now = high_resolution_clock::now();
+	CrossTime check_time = times.back();
+	times.pop_back();
+	auto up = duration_cast<microseconds>(now - check_time).count();
+	double milis = up / 1000.0;
+	string msg = label + to_string(milis) + "ms";
+	if(launcher != NULL)
+		launcher->LogIt(msg);
 }
 
 void Debuger::Display(float micro){
@@ -115,7 +115,7 @@ void Debuger::Display(float micro){
 
 void Debuger::EnableScreenDebug(){
 	if(texter == NULL){
-		texter = new Texter(game, "Font.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+		texter = new Texter(game, "Engine/Fonts/Texter.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
 	}else{
 		launcher->LogIt("Warning!Screen debug already anabled");
 	}
@@ -163,9 +163,4 @@ void Debuger::OnActionUp(Vector2D pos){
 
 void Debuger::OnActionMove(Vector2D pos){
 	touch_pos = pos;
-}
-
-
-Texter* Debuger::GetTexter(){
-	return texter;
 }

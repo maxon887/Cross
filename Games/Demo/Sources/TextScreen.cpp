@@ -24,8 +24,8 @@
 #include "Utils/Texter.h"
 
 void TextScreen::Start(){
-	debug_font = new Font("LiberationMono-Bold.ttf", 50, Color::Red);
-	font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
+	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);
+	font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 }
 
 void TextScreen::Stop(){
@@ -38,19 +38,13 @@ void TextScreen::Stop(){
 
 void TextScreen::Update(float sec){
 	gfx2D->Clear();
+
+	
 	for(ScreenChar* scrChar : chars){
 		font->SetColor(scrChar->color);
 		gfx2D->DrawText(scrChar->positon, scrChar->str, font);
 	}
-	/*
-	for(ScreenChar* scrChar : chars){
-		Texter* texter = debuger->GetTexter();
-		texter->DrawText(scrChar->positon, scrChar->str);
-	}*/
-
 	AddChar();
-
-
 	if(input->IsPressed(Key::ESCAPE)){
 		game->SetScreen(game->GetStartScreen());
 	}
