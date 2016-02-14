@@ -29,7 +29,6 @@ public:
 	static const Color Purple;
 
 	float R, G, B, A;
-	Color();
 	Color(float r, float g, float b);
 	Color(int r, int g, int b);
 	Color(float r, float g, float b, float a);

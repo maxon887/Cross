@@ -95,10 +95,10 @@ cross::Button::Button(Sprite * upImage, Sprite * downImage) :
 
 Button::~Button() {
 	if (down_image != nullptr) {
-		gfx2D->ReleaseImage(down_image);
+		gfx2D->ReleaseSprite(down_image);
 	}
 	if (up_image != nullptr) {
-		gfx2D->ReleaseImage(up_image);
+		gfx2D->ReleaseSprite(up_image);
 	}
 
 	input->ActionDown -= action_down_delegate;

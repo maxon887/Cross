@@ -26,13 +26,6 @@ const Color Color::Black(0.f, 0.f, 0.f);
 const Color Color::Yellow(1.f, 1.f, 0.f);
 const Color Color::Purple(1.f, 0.f, 1.f);
 
-Color::Color():
-	R(1.f),
-	G(1.f),
-	B(1.f),
-	A(1.f)
-{ }
-
 Color::Color(float r, float g, float b):
 	R(r),
 	G(g),

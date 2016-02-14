@@ -44,7 +44,6 @@ void SpritesScreen::Start(){
 }
 
 void SpritesScreen::Update(float sec){
-	gfx2D->Clear();
 	for(unsigned int i = 0; i < positions.size(); i++){
 		positions[i] += velocities[i];
 		float spriteWidth = awesome_face->GetWidth()/2;

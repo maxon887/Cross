@@ -52,8 +52,11 @@ public:
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
 
+	DECLARE_EVENT(void) MouseWheelUp;
+	DECLARE_EVENT(void) MouseWheelDown;
+
 	bool IsPressed(Key key);
-//internal
+//Internal data. You don't need call any of this methods or modify variable
 public:
 	Input();
 private:

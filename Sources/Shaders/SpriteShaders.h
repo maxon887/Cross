@@ -24,12 +24,11 @@ class SpriteShaders{
 public:
 	GLuint program;
 
-	GLuint aPositionLoc;
-	GLuint aTexCoordLoc;
-	GLuint uModelLoc;
-	GLuint uProjectionLoc;
-	GLuint uMonochrome;
-	GLuint uColor;
+	GLint aPosition;
+	GLint aTexCoord;
+	GLint uMVP;
+	GLint uMonochrome;
+	GLint uColor;
 
 	SpriteShaders();
 	~SpriteShaders();

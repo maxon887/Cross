@@ -22,15 +22,15 @@ namespace cross{
 
 class SpriteShaders;
 class PrimitiveShaders;
+class Camera;
 
+/*	This class can be used for drawing 2D graphics.
+	All coordinates supposed to be in Canvas space. */
 class Graphics2D{
 public:
-	Graphics2D();
-	~Graphics2D();
-	
-	void Clear();
-	void SetClearColor(Color color);
 	Font* GetDefaultFont();
+	void SetCamera(Camera* camera);
+	Camera* GetDefaultCamera();
 	void DrawPoint(Vector2D pos, Color color);
 	void DrawLine(Vector2D p1, Vector2D p2, Color color);
 	void DrawRect(Rect rect, Color color);
@@ -40,21 +40,30 @@ public:
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy);
 	int DrawText(Vector2D pos, string text);
 	void DrawText(Vector2D pos, const string &text, Font* font);
+	void DrawSprite(Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
-	void DrawSprite(Vector2D pos, Sprite* sprite, Color color, bool monochrome);
+	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
+	void DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monochrome);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scaleFactor);
 	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
-	void ReleaseImage(Sprite* img);
-
+	void ReleaseSprite(Sprite* img);
+//Internal data. You don't need call any of this methods or modify variables
+public:
+	Graphics2D();
+	~Graphics2D();
+	void Update();
 private:
 	static const string def_font_filename;
 	Font* current_font;
 	Font* default_font;
 	SpriteShaders* sprite_shaders;
 	PrimitiveShaders* primitive_shaders;
-	Matrix projection;
+	Camera* camera;
+	Camera* default_camera;
+
+	Camera* GetCamera();
 };
 
 }

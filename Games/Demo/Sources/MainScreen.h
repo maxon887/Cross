@@ -30,15 +30,15 @@ enum GoingScreen{
 	PRIMITIVES,
 	SPRITES,
 	TEXT,
-	TEST_NA_PIDORA
+	TEST_NA_PIDORA,
+	CAMERA2D
 };
 
 class MainScreen : public Screen{
 public:
 	void Start();
+	void Stop();
 	void Update(float sec);
-
-	~MainScreen();
 private:
 	Menu* current_menu;
 	Menu* main_menu;
@@ -52,5 +52,6 @@ private:
 	void OnAnimationClick();
 	void OnTestNaPidoraClick();
 	void OnAudioClick();
-	void OnTextScreen();
+	void On2DCameraClick();
+	void OnTextClick();
 };

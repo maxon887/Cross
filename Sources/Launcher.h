@@ -40,8 +40,6 @@ public:
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
 
-	void LogIt(int msg);
-	void LogIt(float msg);
 	float DeviceAspect();
 
 	virtual Commercial* GetCommercial() { return NULL; };

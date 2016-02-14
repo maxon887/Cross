@@ -38,7 +38,7 @@ Texter::Texter(Game* game, const char* fontFilename,
 }
 
 Texter::~Texter(){
-	gfx2D->ReleaseImage(font);
+	gfx2D->ReleaseSprite(font);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < columns; j++){
 			delete letters[i * columns + j];
@@ -54,7 +54,9 @@ void Texter::DrawText(float x, float y, const string &text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
 	for(unsigned int i = 0; i < text.length(); i++){
-		gfx2D->DrawSprite(Vector2D(x + i * GetWidth(), y), letters[text[i] - offset]);
+		//gfx2D->DrawSprite(Vector2D(x + i * GetWidth(), y), letters[text[i] - offset]);
+		letters[text[i] - offset]->SetPosition(Vector2D(x + i * GetWidth(), y));
+		gfx2D->DrawSprite(letters[text[i] - offset], Color::White, gfx2D->GetDefaultCamera(), false);
 	}
 }
 

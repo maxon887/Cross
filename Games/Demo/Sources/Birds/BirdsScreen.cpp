@@ -31,7 +31,6 @@ void BirdsScreen::Start(){
 }
 
 void BirdsScreen::Update(float sec){
-	gfx2D->Clear();
 	DrawCursor(cursor);
 	bird->Update(sec, cursor);
 	bird->Draw();

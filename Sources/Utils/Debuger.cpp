@@ -48,7 +48,9 @@ Debuger::Debuger():
 	input->ActionUp += MakeDelegate(this, &Debuger::OnActionUp);
 }
 
-Debuger::~Debuger(){ }
+Debuger::~Debuger(){
+	delete texter;
+}
 
 void Debuger::StartCheckTime() {
 	CrossTime check_time = high_resolution_clock::now();

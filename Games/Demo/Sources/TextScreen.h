@@ -22,7 +22,7 @@ using namespace cross;
 
 struct ScreenChar{
 	Vector2D positon;
-	Color color;
+	Color color = Color::White;
 	float size;
 	string str;
 };

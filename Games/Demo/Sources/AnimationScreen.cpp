@@ -49,7 +49,6 @@ void AnimationScreen::Start(){
 }
 
 void AnimationScreen::Update(float sec){
-    gfx2D->Clear();
 	DrawBackground(sec);
 	spider_run_anim->Update(sec);
 
@@ -135,7 +134,6 @@ void AnimationScreen::OnKeyPressed(Key key){
 AnimationScreen::~AnimationScreen(){
 	delete spider_run_anim;
 	delete spider_run_snd;
-	//graphics->ReleaseImage(background);
-	gfx2D->ReleaseImage(spider_body);
-	gfx2D->ReleaseImage(spider_head);
+	gfx2D->ReleaseSprite(spider_body);
+	gfx2D->ReleaseSprite(spider_head);
 }

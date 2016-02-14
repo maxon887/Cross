@@ -26,10 +26,9 @@ SpriteShaders::SpriteShaders(){
 	gfxGL->AttachShader(program, fragment_shader);
 	gfxGL->CompileProgram(program);
 
-	aPositionLoc = glGetAttribLocation(program, "aPosition");
-	aTexCoordLoc = glGetAttribLocation(program, "aTexCoord");
-	uModelLoc = glGetUniformLocation(program, "uModel");
-	uProjectionLoc = glGetUniformLocation(program, "uProjection");
+	aPosition = glGetAttribLocation(program, "aPosition");
+	aTexCoord = glGetAttribLocation(program, "aTexCoord");
+	uMVP = glGetUniformLocation(program, "uMVP");
 	uMonochrome = glGetUniformLocation(program, "uMonochrome");
 	uColor = glGetUniformLocation(program, "uColor");
 }

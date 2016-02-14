@@ -66,6 +66,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Camera.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Exception.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
@@ -73,6 +74,7 @@
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Launcher.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
@@ -102,6 +104,7 @@
     <ClCompile Include="..\..\Sources\Birds\BirdsScreen.cpp" />
     <ClCompile Include="..\..\Sources\Birds\Entity.cpp" />
     <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp" />
+    <ClCompile Include="..\..\Sources\Camera2DScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
@@ -113,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
+    <ClInclude Include="..\..\..\..\Sources\Camera.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Exception.h" />
@@ -151,6 +155,7 @@
     <ClInclude Include="..\..\Sources\Birds\BirdsScreen.h" />
     <ClInclude Include="..\..\Sources\Birds\Entity.h" />
     <ClInclude Include="..\..\Sources\Birds\MovingEntity.h" />
+    <ClInclude Include="..\..\Sources\Camera2DScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
@@ -164,10 +169,10 @@
     <ResourceCompile Include="Cross++.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Assets\Engine\primitive.frag" />
-    <None Include="..\..\Assets\Engine\primitive.vert" />
-    <None Include="..\..\Assets\Engine\sprite.frag" />
-    <None Include="..\..\Assets\Engine\sprite.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\primitive.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\primitive.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\sprite.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\sprite.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

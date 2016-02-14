@@ -16,23 +16,27 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
+#include "Screen.h"
+#include "Camera.h"
 
-namespace cross{
+using namespace cross;
 
-class PrimitiveShaders{
+class Camera2DScreen : public Screen{
 public:
-	GLuint program;
-
-	GLint aPosition;
-	GLint uMVP;
-	GLint uColor;
-
-	PrimitiveShaders();
-	~PrimitiveShaders();
+	void Start();
+	void Stop();
+	void Update(float sec);
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
-};
+	Sprite* grid;
+	Sprite* awesomefase;
+	CRArray<Sprite*> sprites;
+	CRArray<Vector2D> velocities;
+	float cam_speed;
+	float view_width;
+	Vector2D cam_positon;
+	Camera* camera;
+	Font* tip_font;
 
+	void WheelUpHandler();
+	void WheelDownHandler();
 };

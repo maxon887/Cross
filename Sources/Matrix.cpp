@@ -90,6 +90,23 @@ void Matrix::SetTranslation(const Vector3D &trans){
 	m[2][3] = trans.z;
 }
 
+void Matrix::SetScale(float scale){
+	m[0][0] = scale;
+	m[1][1] = scale;
+	m[2][2] = scale;
+}
+
+void Matrix::SetScale(const Vector2D &scale){
+	m[0][0] = scale.x;
+	m[1][1] = scale.y;
+}
+
+void Matrix::SetScale(const Vector3D &scale){
+	m[0][0] = scale.x;
+	m[1][1] = scale.y;
+	m[2][2] = scale.z;
+}
+
 void Matrix::SetRotationZ(float angle){
 	float cosA = cos(angle / 180.f * PI);
 	float sinA = sin(angle / 180.f * PI);

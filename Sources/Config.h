@@ -19,7 +19,8 @@
 
 namespace cross {
 
-/* Configuration manager. Cross platform way for save and load game data(score, config, etc)*/
+/*	Configuration manager. This class provide interface 
+	for saving and loading data in non-volatile device memory. */
 class Config{
 public:
 	//Save string value for key.

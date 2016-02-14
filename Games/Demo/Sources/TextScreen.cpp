@@ -37,9 +37,6 @@ void TextScreen::Stop(){
 }
 
 void TextScreen::Update(float sec){
-	gfx2D->Clear();
-
-	
 	for(ScreenChar* scrChar : chars){
 		font->SetColor(scrChar->color);
 		gfx2D->DrawText(scrChar->positon, scrChar->str, font);

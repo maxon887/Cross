@@ -21,6 +21,7 @@
 #include "Config.h"
 #include "Utils/Debuger.h"
 #include "Audio.h"
+#include "Graphics2D.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #undef GetMessage
@@ -121,6 +122,7 @@ void Game::Update(){
 		time_point<high_resolution_clock> now = high_resolution_clock::now();
 		long long rend = duration_cast<microseconds>(now - render_time).count();
 		render_time = high_resolution_clock::now();
+		gfx2D->Update();
 		GetCurrentScreen()->Update((float)(rend / 1000000.));
 		now = high_resolution_clock::now();
 		long long up = duration_cast<microseconds>(now - render_time).count();

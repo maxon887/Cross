@@ -19,6 +19,10 @@
 #include "File.h"
 #include "GraphicsGL.h"
 
+#include "FreeType\ft2build.h"
+#include FT_FREETYPE_H
+#include FT_GLYPH_H
+
 #undef GetCharWidth
 
 using namespace cross;
@@ -60,7 +64,7 @@ float Font::GetSize(){
 	return size;
 }
 
-float Font::SetSize(float size){
+void Font::SetSize(float size){
 	this->size = size;
 	FT_Error error = FT_Set_Pixel_Sizes(face, 0, size);
 	if(error){

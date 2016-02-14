@@ -16,23 +16,22 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
 
 namespace cross{
 
-class PrimitiveShaders{
+class Camera{
 public:
-	GLuint program;
-
-	GLint aPosition;
-	GLint uMVP;
-	GLint uColor;
-
-	PrimitiveShaders();
-	~PrimitiveShaders();
+	Camera();
+	/* Setup camera view area. Height will be calculated regarding on aspect ratio */
+	void ViewWidth(float width);
+	void SetPosition(Vector2D pos);
+//Framework module. You don't need call any of this methods or modify variable
+public:
+	Matrix GetViewMatrix();
+	Matrix GetProjectionMatrix();
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+	Matrix view;
+	Matrix projection;
 };
 
 };

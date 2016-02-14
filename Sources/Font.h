@@ -17,16 +17,14 @@
 #pragma once
 #include "Cross.h"
 
-#include "FreeType\ft2build.h"
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-
 #undef GetCharWidth
-/*
+
 struct FT_FaceRec_;
 typedef struct FT_FaceRec_* FT_Face;
-struct FT_GlyphRec_;
-typedef struct FT_GlyphRec_* FT_Glyph;*/
+struct FT_BitmapGlyphRec_;
+typedef struct FT_BitmapGlyphRec_* FT_BitmapGlyph;
+
+namespace cross {
 
 struct Glyph{
 	unsigned int textureID;
@@ -37,26 +35,24 @@ struct Glyph{
 	int advancedX;
 };
 
-namespace cross{
-
+/*	Vital class for rendring texts. Available font formats
+	can be found in FreeType library documentation.
+	Font size will be represented in virtual canvas metrics. */
 class Font{
 public:
-	FT_Face face;
-	/* Font will be loaded from file. Available font formats
-	can be found in FreeType library documentation. 
-	Font size will be represented in virtual metrics*/
 	Font(string filename, float size, Color color);
 	~Font();
+
 	Color GetColor();
 	void SetColor(Color color);
 	float GetSize();
-	/* quite expencive function. 
-	All bitmap char need to be racalculated. */
-	float SetSize(float size);
+	/* Quite expencive function. All bitmap chars need to be racalculated. */
+	void SetSize(float size);
 	bool IsFixedWidth();
 	float GetCharWidth();
 	Glyph* GetGlyph(char c);
 private:
+	FT_Face face;
 	File* file;
 	Glyph glyphs[128];
 	FT_BitmapGlyph	bitmaps[128];

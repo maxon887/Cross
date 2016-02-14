@@ -14,25 +14,32 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
+#include "Camera.h"
+#include "Launcher.h"
 
-namespace cross{
+using namespace cross;
 
-class PrimitiveShaders{
-public:
-	GLuint program;
+Camera::Camera(){
+	view = Matrix::CreateIdentity();
+	float width = (float)launcher->GetTargetWidth();
+	float height = (float)launcher->GetTargetHeight();
+	projection = Matrix::CreateOrthogonalProjection(0, width, 0, height, 1, -1);
+}
 
-	GLint aPosition;
-	GLint uMVP;
-	GLint uColor;
+void Camera::ViewWidth(float width){
+	float scale = (float)launcher->GetTargetWidth() / width;
+	float height = (float)launcher->GetTargetHeight() / scale;
+	projection = Matrix::CreateOrthogonalProjection(0, width, 0, height, 1, -1);
+}
 
-	PrimitiveShaders();
-	~PrimitiveShaders();
-private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
-};
+void Camera::SetPosition(Vector2D pos){
+	view.SetTranslation(pos*(-1));
+}
 
-};
+Matrix Camera::GetViewMatrix(){
+	return view;
+}
+
+Matrix Camera::GetProjectionMatrix(){
+	return projection;
+}

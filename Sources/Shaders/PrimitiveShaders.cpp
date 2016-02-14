@@ -26,8 +26,8 @@ PrimitiveShaders::PrimitiveShaders(){
 	gfxGL->AttachShader(program, fragment_shader);
 	gfxGL->CompileProgram(program);
 
-	aPositionLoc = glGetAttribLocation(program, "aPosition");
-	uProjectionLoc = glGetUniformLocation(program, "uProjection");
+	aPosition = glGetAttribLocation(program, "aPosition");
+	uMVP = glGetUniformLocation(program, "uMVP");
 	uColor = glGetUniformLocation(program, "uColor");
 }
 

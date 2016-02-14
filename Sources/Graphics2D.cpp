@@ -24,6 +24,7 @@
 #include "Sprite.h"
 #include "Font.h"
 #include "Misc.h"
+#include "Camera.h"
 
 #include "SOIL/SOIL.h"
 #include "FreeType\ft2build.h"
@@ -34,46 +35,54 @@ using namespace cross;
 
 const string Graphics2D::def_font_filename = "Engine/times.ttf";
 
-Graphics2D::Graphics2D()
+Graphics2D::Graphics2D() :
+	camera(nullptr)
 {
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
 	primitive_shaders = new PrimitiveShaders();
 	this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
   	this->current_font = this->default_font;
-	projection = Matrix::CreateOrthogonalProjection(0, game->GetWidth(), 0, game->GetHeight(), 1, -1);
+	default_camera = new Camera();
 }
 
 Graphics2D::~Graphics2D(){
 	delete default_font;
+	delete default_camera;
 	delete sprite_shaders;
 	delete primitive_shaders;
 }
 
-void Graphics2D::Clear(){
-	glClear(GL_COLOR_BUFFER_BIT);
+void Graphics2D::SetCamera(Camera* camera){
+	this->camera = camera;
 }
 
-void Graphics2D::SetClearColor(Color color){
-	glClearColor(color.R, color.G, color.B, 1.0f);
+Camera* Graphics2D::GetDefaultCamera(){
+	return default_camera;
 }
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
-	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
+	Camera* cam = GetCamera();
+	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
+	mvp = mvp.Transpose();
+	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	glEnableVertexAttribArray(primitive_shaders->aPosition);
 	glDrawArrays(GL_POINTS, 0, 1);
 }
 
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	gfxGL->UseProgram(primitive_shaders->program);
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
-	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	Camera* cam = GetCamera();
+	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
+	mvp = mvp.Transpose();
+	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	glEnableVertexAttribArray(primitive_shaders->aPosition);
 	glDrawArrays(GL_LINES, 0, 2);
 }
 
@@ -88,10 +97,13 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 								rect.x + rect.width, rect.y + rect.height,
 								rect.x, rect.y + rect.height,
 								rect.x, rect.y };
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
-	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	Camera* cam = GetCamera();
+	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
+	mvp = mvp.Transpose();
+	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	glEnableVertexAttribArray(primitive_shaders->aPosition);
 	if(filled){
 		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
@@ -134,11 +146,14 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 		buffer[idx++] = outer_x;
 		buffer[idx++] = outer_y;
 	}
-	glUniformMatrix4fv(primitive_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
-	glVertexAttribPointer(primitive_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 0, buffer);
+	Camera* cam = GetCamera();
+	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
+	mvp = mvp.Transpose();
+	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer);
 	//delete buffer;
 	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPositionLoc);
+	glEnableVertexAttribArray(primitive_shaders->aPosition);
 	if(filled){
 		glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
 	}else{
@@ -148,44 +163,9 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 }
 
 int Graphics2D::DrawText(Vector2D pos, string textStr){
-	//return DrawText(pos, textStr, this->current_font);
 	DrawText(pos, textStr, this->current_font);
 	return 0;
 }
-/*
-int Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
-	FT_GlyphSlot g = font->face->glyph;
-	GLuint tex;
-	
-	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, &tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
-
-	// We require 1 byte alignment when uploading texture data 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-	const char* text = textStr.c_str();
-
-	while(*text){
-		if(FT_Load_Char(font->face, *text, FT_LOAD_RENDER))
-			continue;
-
-		glTexImage2D(GL_TEXTURE_2D,	0, GL_RED, g->bitmap.width, g->bitmap.rows,	0, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
-
-		Rect region(0, 0, (float)g->bitmap.width, (float)g->bitmap.rows);
-		int bearingX = g->metrics.horiBearingX >> 6;
-		int bearingY = g->metrics.horiBearingY >> 6;
-		Vector2D pivot(-bearingX, g->bitmap.rows - bearingY);
-		Sprite ch(tex, g->bitmap.width, g->bitmap.rows, region, pivot);
-
-		DrawSprite(pos, &ch, font->GetColor(), true);
-		pos.x += (g->advance.x >> 6);
-		text++;
-	}
-	glDeleteTextures(1, &tex);
-
-	return pos.x;
-}*/
 
 void Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	const char* text = textStr.c_str();
@@ -196,38 +176,53 @@ void Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 		Rect region(0, 0, (float)g->bitmap_width, (float)g->bitmap_height);
 		Vector2D pivot(-g->bearingX, g->bitmap_height - g->bearingY);
 		Sprite ch(g->textureID, g->bitmap_width, g->bitmap_height, region, pivot);
-
-		DrawSprite(pos, &ch, font->GetColor(), true);
+		ch.SetPosition(pos);
+		DrawSprite(&ch, font->GetColor(), true);
 		pos.x += g->advancedX;
 		text++;
 	}
 }
 
-void Graphics2D::DrawSprite(Vector2D pos, Sprite* img){
-	DrawSprite(pos, img, Color::White, false);
+void Graphics2D::DrawSprite(Sprite* sprite){
+	DrawSprite(sprite, Color::White, false);
 }
 
-void Graphics2D::DrawSprite(Vector2D pos, Sprite* sprite, Color color, bool monochrome){
-	gfxGL->UseProgram(sprite_shaders->program);
+void Graphics2D::DrawSprite(Vector2D pos, Sprite* sprite){
+	sprite->SetPosition(pos);
+	DrawSprite(sprite, Color::White, false);
+}
 
+void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
+	DrawSprite(sprite, color, GetCamera(), monochrome);
+}
+
+void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monochrome){
+	gfxGL->UseProgram(sprite_shaders->program);
 	//parameterization
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glUniformMatrix4fv(sprite_shaders->uProjectionLoc, 1, GL_FALSE, projection.Transpose().GetData());
+	Matrix mvp = cam->GetProjectionMatrix();
+	mvp = mvp * cam->GetViewMatrix();
+	
+	mvp = mvp * sprite->translate;
+	mvp = mvp * sprite->rotation;
+	mvp = mvp * sprite->scale;
+
+	mvp = mvp.Transpose();
+	glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
 	glUniform1i(sprite_shaders->uMonochrome, (GLint)monochrome);
 	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());
 
-	sprite->SetPosition(pos);
 	glBindTexture(GL_TEXTURE_2D, sprite->GetTextureID());
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glVertexAttribPointer(sprite_shaders->aPositionLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices());
-	glVertexAttribPointer(sprite_shaders->aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices() + 2);
-	glEnableVertexAttribArray(sprite_shaders->aPositionLoc);
-	glEnableVertexAttribArray(sprite_shaders->aTexCoordLoc);
-	SAFE(glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_FALSE, sprite->GetModel().Transpose().GetData()));
+	glVertexAttribPointer(sprite_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices());
+	glVertexAttribPointer(sprite_shaders->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices() + 2);
+	glEnableVertexAttribArray(sprite_shaders->aPosition);
+	glEnableVertexAttribArray(sprite_shaders->aTexCoord);
+	//SAFE(glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_FALSE, sprite->GetModel().Transpose().GetData()));
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, sprite->GetIndices());
 }
@@ -249,7 +244,6 @@ Sprite* Graphics2D::LoadImage(string filename){
 
 Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	debuger->StartCheckTime();
-	GLuint textureID;
 	int width, height;
 	File* imageFile = launcher->LoadFile(filename);
 	CRByte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
@@ -319,11 +313,23 @@ Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int
 	return img;
 }
 
-void Graphics2D::ReleaseImage(Sprite* img){
+void Graphics2D::ReleaseSprite(Sprite* img){
 	if (img == nullptr) {
 		throw CrossException("Can't release NULL image");
 	}
 	GLuint texID = img->GetTextureID();
 	glDeleteTextures(1, &texID);
 	delete img;
+}
+
+void Graphics2D::Update(){
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+Camera* Graphics2D::GetCamera(){
+	if(camera){
+		return camera;
+	}else{
+		return default_camera;
+	}
 }

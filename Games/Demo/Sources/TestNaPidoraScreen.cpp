@@ -43,8 +43,6 @@ TestNaPidoraScreen::TestNaPidoraScreen()
 
 void TestNaPidoraScreen::Update(float sec)
 {
-	gfx2D->Clear();
-	
 	fooButton3->Update();
 
 	if(input->IsPressed(Key::ESCAPE)){

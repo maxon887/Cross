@@ -25,15 +25,15 @@ namespace FMOD{
 
 namespace cross {
 
-/* Class responsible for playing audio.
-	Additional dependencies needed to be included for using this class. 
-	If you don not use audio in your game declare DISABLE_AUDIO directive */
+/*	Audio class provided both stream and cached palying. 
+	Audio sources must be created themself using constructors of this class. 
+	If you dont use audio in your game declare DISABLE_AUDIO */
 class Audio{
 public:
 	Audio(string path, bool loop, bool isStream);
 	Audio(Audio& obj);
 	~Audio();
-
+	
 	void Play();
 	void Pause();
 	void Resume();

@@ -39,7 +39,7 @@ Vector3D::Vector3D(Vector2D &vec, float z):
 { }
 
 float Vector3D::Length() const{
-	return sqrt(x*x + y*y + z*z);
+	return (float)sqrt(x*x + y*y + z*z);
 }
 
 Vector3D Vector3D::Normalize() const{

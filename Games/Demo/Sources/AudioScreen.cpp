@@ -57,7 +57,6 @@ void AudioScreen::Start(){
 }
 
 void AudioScreen::Update(float sec){
-	gfx2D->Clear();
 	yellow_sound_btn->Update();
 	blue_sound_btn->Update();
 	music_btn->Update();

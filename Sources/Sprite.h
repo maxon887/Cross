@@ -30,7 +30,7 @@ public:
 	void SetScale(float factor);
 	void SetScale(Vector2D scale);
 	void SetRotate(float angle);
-	Matrix GetModel();
+	Vector2D GetPosition();
 	const GLfloat* GetVertices() const;
 	const GLushort* GetIndices() const;
 	GLuint GetTextureID() const;
@@ -39,12 +39,14 @@ public:
 	int GetTextureWidth() const;
 	int GetTextureHeight() const;
 
+//Internal data. You don't need call any of this methods or modify variable
+public:
+	Matrix scale;
+	Matrix translate;
+	Matrix rotation;
 private:
 	static const GLushort indices[];
 	GLuint textureID;
-	Matrix model;
-	Matrix st_mat;//scale-translation matrix
-	Matrix rotation;
 	GLfloat vertices[16];
 	float width;
 	float height;

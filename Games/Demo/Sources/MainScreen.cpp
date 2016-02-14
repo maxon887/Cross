@@ -27,17 +27,11 @@
 #include "TestNaPidoraScreen.h"
 #include "SpritesScreen.h"
 #include "TextScreen.h"
-
-MainScreen::~MainScreen(){
-	delete def_button;
-	delete main_menu;
-	delete graphics2D_menu;
-}
+#include "Camera2DScreen.h"
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
 	def_button = gfx2D->LoadImage("DefaultButton.png");
-	gfx2D->SetClearColor(Color::Black);
 	//main menu
 	main_menu = new Menu();
 	current_menu = main_menu;
@@ -56,44 +50,38 @@ void MainScreen::Start(){
 	Button* primitivesBtn = new Button("Primitives");
 	Button* spritesBtn = new Button("Sprites");
 	Button* textBtn = new Button("Text Drawing");
+	Button* canvasBtn = new Button("2D Camera");
 	Button* animationBtn = new Button("Animation");
 	Button* testNaPidoraBtn = new Button("Test Na Pidora");
 	primitivesBtn->SetImages(new Sprite(*def_button), nullptr);
 	spritesBtn->SetImages(new Sprite(*def_button), nullptr);
 	textBtn->SetImages(new Sprite(*def_button), nullptr);
+	canvasBtn->SetImages(new Sprite(*def_button), nullptr);
 	animationBtn->SetImages(new Sprite(*def_button), nullptr);
 	testNaPidoraBtn->SetImages(new Sprite(*def_button), nullptr);
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
+	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
 	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
-	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextScreen);
+	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
 
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
 	graphics2D_menu->AddButton(textBtn);
+	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
 	graphics2D_menu->AddButton(testNaPidoraBtn);
 	graphics2D_menu->Active(false);
+}
 
-	gfx2D->SetClearColor(Color(0.2f, 0.2f, 0.2f));
+void MainScreen::Stop(){
+	delete def_button;
+	delete main_menu;
+	delete graphics2D_menu;
 }
 
 void MainScreen::Update(float sec){
-	gfx2D->Clear();
 	current_menu->Update(sec);
-	/*
-	static float time = 1;
-	time += sec;
-	if((menu->Size() + 1) < time){
-		Sprite* btnSprite = gfx2D->LoadImage("DefaultButton.png");
-		Button* btn = new Button("Graphics 2D");
-		btn->SetImages(btnSprite, nullptr);
-		menu->AddButton(btn);
-		if(menu->Size() > 10){
-			menu->Clear();
-			time = 1;
-		}
-	}*/
 
 	if(input->IsPressed(Key::ESCAPE)){
 		current_menu->Active(false);
@@ -121,6 +109,9 @@ void MainScreen::Update(float sec){
 		break;
 	case TEXT:
 		game->SetScreen(new TextScreen());
+		break;
+	case CAMERA2D:
+		game->SetScreen(new Camera2DScreen());
 		break;
 	default:
 		break;
@@ -153,6 +144,10 @@ void MainScreen::OnTestNaPidoraClick() {
 	going_screen = TEST_NA_PIDORA;
 }
 
-void MainScreen::OnTextScreen(){
+void MainScreen::OnTextClick(){
 	going_screen = TEXT;
+}
+
+void MainScreen::On2DCameraClick(){
+	going_screen = CAMERA2D;
 }
