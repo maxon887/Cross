@@ -4,10 +4,26 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="004855c5-a3b2-4db1-9922-ba89661e1c2b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/GL20Renderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Commercial.java" afterPath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Commercial.java" />
+    <list default="true" readonly="true" id="004855c5-a3b2-4db1-9922-ba89661e1c2b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/jni" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/jni/Android.mk" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_1_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/outputFileStates.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java" afterPath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/GL20Renderer.java" afterPath="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/GL20Renderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <caret line="31" column="3" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -49,32 +65,38 @@
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
+              <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CrossActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java">
+      <file leaf-file-name="Android.mk" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/jni/Android.mk">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33203125">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.33995584">
+              <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <file leaf-file-name="Application.mk" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/jni/Application.mk">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-              <folding>
-                <element signature="e#217#235#0" expanded="true" />
-              </folding>
+              <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Exception.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../../Sources/Exception.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.296296">
+              <caret line="18" column="89" selection-start-line="18" selection-start-column="89" selection-end-line="18" selection-end-column="89" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1255,7 +1277,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="D:\GameDev\Cross++\Games\Demo\Platform\Android" value="4365529668380" />
+        <entry key="D:\GameDev\Cross++\Games\Demo\Platform\Android" value="4366608804883" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1474,6 +1496,7 @@
                             <option value="D:/Android/SDK/extras/android/m2repository/com/android/support/appcompat-v7/23.1.1/appcompat-v7-23.1.1.aar" />
                             <option value="D:/Android/SDK/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1.aar" />
                             <option value="D:/Android/SDK/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar" />
+                            <option value="$MODULE_DIR$/libs/fmod.jar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/app" />
@@ -1614,12 +1637,22 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Commercial.java" />
         <option value="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossRenderer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/GL20Renderer.java" />
         <option value="$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/gradle.properties" />
+        <option value="$PROJECT_DIR$/local.properties" />
+        <option value="$PROJECT_DIR$/app/src/main/jni/main.cpp" />
+        <option value="$PROJECT_DIR$/../../../../Sources/Cross.h" />
+        <option value="$PROJECT_DIR$/../../../../Sources/Game.h" />
+        <option value="$PROJECT_DIR$/../../../../Sources/Game.cpp" />
+        <option value="$PROJECT_DIR$/app/src/main/jni/Application.mk" />
+        <option value="$PROJECT_DIR$/../../../../Sources/Exception.h" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/jni/Android.mk" />
       </list>
     </option>
   </component>
@@ -1655,9 +1688,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1706,112 +1737,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cross" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
             </PATH_ELEMENT>
@@ -1882,7 +1807,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
+              <option name="myItemId" value="jni" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1894,26 +1819,12 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1924,6 +1835,29 @@
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.app">
+    <configuration default="true" type="AndroidNativeRunConfigurationType" factoryName="Android Native">
+      <module name="" />
+      <option name="WORKING_DIR" value="" />
+      <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="DEPLOY" value="true" />
@@ -2067,8 +2001,32 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="app-native" type="AndroidNativeRunConfigurationType" factoryName="Android Native">
+      <module name="app" />
+      <option name="WORKING_DIR" value="" />
+      <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Android Application.app" />
+      <item index="1" class="java.lang.String" itemvalue="Android Native.app-native" />
     </list>
     <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
@@ -2086,6 +2044,7 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" cleanupOnStartRun="true">
     <configuration>C:\Users\maksim.lukyanov\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
   </component>
   <component name="SvnFileUrlMappingImpl">
     <option name="myMappingRoots">
@@ -2094,6 +2053,26 @@
           <option name="myVcsRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android" />
           <option name="myCopyRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android" />
         </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android\.idea" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android\.idea" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android\app" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android\app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Games\Demo\Sources" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Games\Demo\Sources" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Sources" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Sources" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Sources\Platform\Android" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Sources\Platform\Android" />
+        </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
@@ -2101,6 +2080,14 @@
         <SvnCopyRootSimple>
           <option name="myVcsRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android" />
           <option name="myCopyRoot" value="D:\GameDev\Cross++\Games\Demo\Platform\Android" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Games\Demo\Sources" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Games\Demo\Sources" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\GameDev\Cross++\Sources" />
+          <option name="myCopyRoot" value="D:\GameDev\Cross++\Sources" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -2127,36 +2114,67 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.4978678" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54444444" sideWeight="0.63432837" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46555555" sideWeight="0.6705757" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54444444" sideWeight="0.63432837" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.4936034" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4" sideWeight="0.5063966" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23666666" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46" sideWeight="0.6705757" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46555555" sideWeight="0.32942432" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46" sideWeight="0.29051173" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23454158" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5466667" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54444444" sideWeight="0.63432837" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40222222" sideWeight="0.7164179" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23454158" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5466667" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.4978678" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.4936034" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40222222" sideWeight="0.2835821" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -2171,20 +2189,280 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java</url>
-          <line>24</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Android.iml">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/Android.mk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/Application.mk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Android/NDK/sources/cxx-stl/llvm-libc++/libcxx/include/functional">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1337" column="11" selection-start-line="1337" selection-start-column="11" selection-end-line="1337" selection-end-column="11" />
+          <folding>
+            <marker date="1402389611000" expanded="false" signature="34780:34806" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="34844:34864" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="34917:35350" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35078:35107" placeholder="&lt;..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35260:35348" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35353:35383" placeholder="&lt;_Rp,_Tp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35462:35504" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="35597:35600" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35603:35622" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35696:39282" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35699:35738" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35781:35784" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35787:35817" placeholder="&lt;_Rp,_A1&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35908:35911" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35914:35953" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35997:36000" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="36003:36044" placeholder="&lt;_Rp,_A1,_A2&gt;" />
+            <marker date="1402389611000" expanded="true" signature="36147:36150" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="36153:36172" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="36188:36227" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="36260:36849" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="36852:36896" placeholder="&lt;_FD,_Alloc,_FB&gt;" />
+            <marker date="1402389611000" expanded="false" signature="36912:36976" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="37062:38442" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="38445:38509" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="38593:38889" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="38891:38955" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="39047:39103" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="39105:39169" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="39284:39348" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="39596:39660" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="39739:39814" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="39841:39905" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40095:40159" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40327:40366" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="40583:44930" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="40726:40746" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40843:40877" placeholder="&lt;_R2,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40981:41026" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41135:41180" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41295:41340" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41458:41503" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41627:41661" placeholder="&lt;_R2,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41780:41913" placeholder="&lt;_Fp,bool=!is_same&lt;_Fp,function&gt;::value&amp;&amp;__invokable&lt;_Fp&amp;,_ArgTypes...&gt;::value&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41945:41965" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="42011:42183" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="42081:42165" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="42189:42209" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="42256:42312" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="42599:42618" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="42695:42873" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="42892:42914" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43021:43043" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43161:43183" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43253:43275" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43340:43373" placeholder="&lt;_Fp,_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43645:43664" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="43696:43852" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43969:44002" placeholder="&lt;_Fp,_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44359:44399" placeholder="&lt;_R2,..._ArgTypes2&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44479:44519" placeholder="&lt;_R2,..._ArgTypes2&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44788:44811" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44841:44864" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44933:44972" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="45032:45252" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="45254:45293" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="45294:45317" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="true" signature="45446:45666" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="45668:45707" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="46011:46050" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="46051:46074" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="true" signature="46198:46435" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="46437:46476" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="46477:46497" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="46638:46815" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="46838:47486" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="47488:47527" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="47528:47562" placeholder="&lt;_Fp,_Alloc&gt;" />
+            <marker date="1402389611000" expanded="true" signature="47749:48654" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="48045:48069" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="48656:48695" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="48785:48837" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="48839:48878" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="49358:49397" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="49638:49677" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="49678:49698" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="49718:49751" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="49989:50062" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="50064:50103" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="50145:50262" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="50264:50303" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="51297:51336" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="51407:51584" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="51611:51650" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="51817:51856" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="51857:51880" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52026:52065" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52066:52089" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52287:52327" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52454:52494" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52621:52661" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52793:52833" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52965:53005" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53152:53171" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53224:53243" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53362:53381" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53445:53464" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="53598:54019" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="53601:53619" placeholder="&lt;int _Np&gt;" />
+            <marker date="1402389611000" expanded="false" signature="54038:54055" placeholder="&lt;int _Np&gt;" />
+            <marker date="1402389611000" expanded="false" signature="54152:54183" placeholder="&lt;_Tp,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54261:54286" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="54288:54339" placeholder="&lt;_Ti,..._Uj,size_t..._Indx&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54485:54547" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="54549:54583" placeholder="&lt;_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54636:54720" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54764:54892" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="54894:54936" placeholder="&lt;bool IsPh,_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="false" signature="54962:54993" placeholder="&lt;_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55030:55117" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="55120:55151" placeholder="&lt;_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55204:55317" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55346:55493" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="55495:55526" placeholder="&lt;_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55579:55710" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55739:55759" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="55761:55858" placeholder="&lt;_Ti,bool IsReferenceWrapper,bool IsBindEx,bool IsPh,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="false" signature="55882:55933" placeholder="&lt;bool _Invokable,_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55975:56002" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56005:56039" placeholder="&lt;_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56090:56152" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56155:56189" placeholder="&lt;_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56336:56339" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56342:56378" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56435:56564" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="56471:56548" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="56567:56603" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56660:56701" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56704:56740" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56798:56824" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56827:56863" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56909:57220" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57221:57224" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="57227:57281" placeholder="&lt;_Fp,_BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57311:57351" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="57354:57411" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57478:57609" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="57521:57599" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="57612:57669" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57742:57879" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="57785:57869" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="57882:58010" placeholder="&lt;_Fp,_BoundArgs,_TupleUj,bool=_is_valid_bind_return&lt;_Fp,_BoundArgs,_TupleUj&gt;::value&gt;" />
+            <marker date="1402389611000" expanded="false" signature="58034:58091" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58156:58333" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="58195:58319" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58248:58304" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="58336:58393" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58464:58647" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="58503:58633" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58556:58618" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="58650:58718" placeholder="&lt;_Fp,_BoundArgs,size_t..._Indx,_Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58916:58988" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="58990:59030" placeholder="&lt;_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="59103:61374" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="59403:60053" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="60106:60464" placeholder="&lt;_Gp,..._BA,=enable_if&lt;is_constructible&lt;_Fd,_Gp&gt;::value&amp;&amp;!is_same&lt;remove_reference&lt;_Gp&gt;::type,__bind&gt;::value&gt;::type&gt;" />
+            <marker date="1402389611000" expanded="true" signature="60213:60457" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="60328:60417" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="60665:60690" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="60838:61006" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="61012:61037" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="61203:61372" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="61377:61417" placeholder="&lt;_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="false" signature="61499:61550" placeholder="&lt;_Rp,_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="61606:63784" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="61810:62352" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="62405:62765" placeholder="&lt;_Gp,..._BA,=enable_if&lt;is_constructible&lt;_Fd,_Gp&gt;::value&amp;&amp;!is_same&lt;remove_reference&lt;_Gp&gt;::type,__bind_r&gt;::value&gt;::type&gt;" />
+            <marker date="1402389611000" expanded="true" signature="62512:62758" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="62627:62718" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="62958:62983" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63053:63223" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63081:63181" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63276:63358" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="63364:63389" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63459:63641" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63487:63599" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63700:63782" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="63787:63838" placeholder="&lt;_Rp,_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="false" signature="63927:63967" placeholder="&lt;_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="64074:64210" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="64212:64263" placeholder="&lt;_Rp,_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="64377:64520" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="65497:65508" placeholder="&lt;&gt;" />
+            <marker date="1402389611000" expanded="true" signature="65599:65719" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="65722:65733" placeholder="&lt;&gt;" />
+            <marker date="1402389611000" expanded="true" signature="65824:65944" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Config.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#735#754#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Game.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+          <folding>
+            <element signature="e#747#765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Game.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding>
+            <element signature="e#734#751#0" expanded="true" />
+            <element signature="e#914#973#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Exception.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2192,56 +2470,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Commercial.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.963039">
-          <caret line="132" column="7" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22792608">
-          <caret line="8" column="26" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#485#486#0" expanded="true" />
-            <element signature="e#509#510#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/GL20Renderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40657085">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-          <folding>
-            <element signature="e#483#484#0" expanded="true" />
-            <element signature="e#507#508#0" expanded="true" />
-            <element signature="e#583#584#0" expanded="true" />
-            <element signature="e#618#619#0" expanded="true" />
-            <element signature="e#689#690#0" expanded="true" />
-            <element signature="e#719#720#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Cross.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18069816">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-          <folding>
-            <element signature="e#217#235#0" expanded="true" />
-          </folding>
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2263,11 +2496,378 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33203125">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Commercial.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="132" column="7" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/GL20Renderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35740072">
+          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/Cross.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Platform/Android/com/cross/CrossActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.3333335">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Android/NDK/sources/cxx-stl/stlport/stlport/stl/_new.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.9259257">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Cross.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.09109731">
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Game.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#747#765#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Game.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding>
+            <element signature="e#734#751#0" expanded="true" />
+            <element signature="e#914#973#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Config.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#735#754#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Android/NDK/sources/cxx-stl/llvm-libc++/libcxx/include/functional">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1337" column="11" selection-start-line="1337" selection-start-column="11" selection-end-line="1337" selection-end-column="11" />
+          <folding>
+            <marker date="1402389611000" expanded="false" signature="34780:34806" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="34844:34864" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="34917:35350" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35078:35107" placeholder="&lt;..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35260:35348" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35353:35383" placeholder="&lt;_Rp,_Tp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35462:35504" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="35597:35600" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35603:35622" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35696:39282" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35699:35738" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35781:35784" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35787:35817" placeholder="&lt;_Rp,_A1&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35908:35911" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="35914:35953" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="35997:36000" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="36003:36044" placeholder="&lt;_Rp,_A1,_A2&gt;" />
+            <marker date="1402389611000" expanded="true" signature="36147:36150" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="36153:36172" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="36188:36227" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="36260:36849" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="36852:36896" placeholder="&lt;_FD,_Alloc,_FB&gt;" />
+            <marker date="1402389611000" expanded="false" signature="36912:36976" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="37062:38442" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="38445:38509" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="38593:38889" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="38891:38955" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="39047:39103" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="39105:39169" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="39284:39348" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="39596:39660" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="39739:39814" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="39841:39905" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40095:40159" placeholder="&lt;_Fp,_Alloc,_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40327:40366" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="40583:44930" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="40726:40746" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40843:40877" placeholder="&lt;_R2,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="40981:41026" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41135:41180" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41295:41340" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41458:41503" placeholder="&lt;_R2,_Cp,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41627:41661" placeholder="&lt;_R2,..._Ap&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41780:41913" placeholder="&lt;_Fp,bool=!is_same&lt;_Fp,function&gt;::value&amp;&amp;__invokable&lt;_Fp&amp;,_ArgTypes...&gt;::value&gt;" />
+            <marker date="1402389611000" expanded="false" signature="41945:41965" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="42011:42183" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="42081:42165" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="42189:42209" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="42256:42312" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="42599:42618" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="42695:42873" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="42892:42914" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43021:43043" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43161:43183" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43253:43275" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43340:43373" placeholder="&lt;_Fp,_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43645:43664" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="43696:43852" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="43969:44002" placeholder="&lt;_Fp,_Alloc&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44359:44399" placeholder="&lt;_R2,..._ArgTypes2&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44479:44519" placeholder="&lt;_R2,..._ArgTypes2&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44788:44811" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44841:44864" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="44933:44972" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="45032:45252" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="45254:45293" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="45294:45317" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="true" signature="45446:45666" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="45668:45707" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="46011:46050" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="46051:46074" placeholder="&lt;_Alloc&gt;" />
+            <marker date="1402389611000" expanded="true" signature="46198:46435" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="46437:46476" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="46477:46497" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="46638:46815" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="46838:47486" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="47488:47527" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="47528:47562" placeholder="&lt;_Fp,_Alloc&gt;" />
+            <marker date="1402389611000" expanded="true" signature="47749:48654" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="48045:48069" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="48656:48695" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="48785:48837" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="48839:48878" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="49358:49397" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="49638:49677" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="49678:49698" placeholder="&lt;_Fp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="49718:49751" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="49989:50062" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="50064:50103" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="50145:50262" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="50264:50303" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="51297:51336" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="true" signature="51407:51584" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="51611:51650" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="51817:51856" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="51857:51880" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52026:52065" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52066:52089" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52287:52327" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52454:52494" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52621:52661" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52793:52833" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="52965:53005" placeholder="&lt;_Rp,..._ArgTypes&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53152:53171" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53224:53243" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53362:53381" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="false" signature="53445:53464" placeholder="&lt;_Tp&gt;" />
+            <marker date="1402389611000" expanded="true" signature="53598:54019" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="53601:53619" placeholder="&lt;int _Np&gt;" />
+            <marker date="1402389611000" expanded="false" signature="54038:54055" placeholder="&lt;int _Np&gt;" />
+            <marker date="1402389611000" expanded="false" signature="54152:54183" placeholder="&lt;_Tp,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54261:54286" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="54288:54339" placeholder="&lt;_Ti,..._Uj,size_t..._Indx&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54485:54547" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="54549:54583" placeholder="&lt;_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54636:54720" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="54764:54892" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="54894:54936" placeholder="&lt;bool IsPh,_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="false" signature="54962:54993" placeholder="&lt;_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55030:55117" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="55120:55151" placeholder="&lt;_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55204:55317" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55346:55493" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="55495:55526" placeholder="&lt;_Ti,_Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55579:55710" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55739:55759" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="55761:55858" placeholder="&lt;_Ti,bool IsReferenceWrapper,bool IsBindEx,bool IsPh,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="false" signature="55882:55933" placeholder="&lt;bool _Invokable,_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="55975:56002" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56005:56039" placeholder="&lt;_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56090:56152" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56155:56189" placeholder="&lt;_Ti,..._Uj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56336:56339" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56342:56378" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56435:56564" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="56471:56548" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="56567:56603" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56660:56701" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56704:56740" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56798:56824" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="56827:56863" placeholder="&lt;_Ti,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="56909:57220" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57221:57224" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="57227:57281" placeholder="&lt;_Fp,_BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57311:57351" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="57354:57411" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57478:57609" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="57521:57599" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="57612:57669" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="57742:57879" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="57785:57869" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="57882:58010" placeholder="&lt;_Fp,_BoundArgs,_TupleUj,bool=_is_valid_bind_return&lt;_Fp,_BoundArgs,_TupleUj&gt;::value&gt;" />
+            <marker date="1402389611000" expanded="false" signature="58034:58091" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58156:58333" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="58195:58319" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58248:58304" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="58336:58393" placeholder="&lt;_Fp,..._BoundArgs,_TupleUj&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58464:58647" placeholder="{...}" />
+            <marker date="1402389611000" expanded="true" signature="58503:58633" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58556:58618" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="58650:58718" placeholder="&lt;_Fp,_BoundArgs,size_t..._Indx,_Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="58916:58988" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="58990:59030" placeholder="&lt;_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="59103:61374" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="59403:60053" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="60106:60464" placeholder="&lt;_Gp,..._BA,=enable_if&lt;is_constructible&lt;_Fd,_Gp&gt;::value&amp;&amp;!is_same&lt;remove_reference&lt;_Gp&gt;::type,__bind&gt;::value&gt;::type&gt;" />
+            <marker date="1402389611000" expanded="true" signature="60213:60457" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="60328:60417" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="60665:60690" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="60838:61006" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="61012:61037" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="61203:61372" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="61377:61417" placeholder="&lt;_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="false" signature="61499:61550" placeholder="&lt;_Rp,_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="61606:63784" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="61810:62352" placeholder="..." />
+            <marker date="1402389611000" expanded="false" signature="62405:62765" placeholder="&lt;_Gp,..._BA,=enable_if&lt;is_constructible&lt;_Fd,_Gp&gt;::value&amp;&amp;!is_same&lt;remove_reference&lt;_Gp&gt;::type,__bind_r&gt;::value&gt;::type&gt;" />
+            <marker date="1402389611000" expanded="true" signature="62512:62758" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="62627:62718" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="false" signature="62958:62983" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63053:63223" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63081:63181" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63276:63358" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="63364:63389" placeholder="&lt;..._Args&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63459:63641" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63487:63599" placeholder="&lt;~&gt;" />
+            <marker date="1402389611000" expanded="true" signature="63700:63782" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="63787:63838" placeholder="&lt;_Rp,_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="false" signature="63927:63967" placeholder="&lt;_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="64074:64210" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="64212:64263" placeholder="&lt;_Rp,_Fp,..._BoundArgs&gt;" />
+            <marker date="1402389611000" expanded="true" signature="64377:64520" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="65497:65508" placeholder="&lt;&gt;" />
+            <marker date="1402389611000" expanded="true" signature="65599:65719" placeholder="{...}" />
+            <marker date="1402389611000" expanded="false" signature="65722:65733" placeholder="&lt;&gt;" />
+            <marker date="1402389611000" expanded="true" signature="65824:65944" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56435645">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Sources/Exception.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.296296">
+          <caret line="18" column="89" selection-start-line="18" selection-start-column="89" selection-end-line="18" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="3" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/Application.mk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/jni/Android.mk">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33995584">
+          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

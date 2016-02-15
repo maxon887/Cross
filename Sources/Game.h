@@ -18,11 +18,11 @@
 #include "Cross.h"
 
 #include <chrono>
-#include <mutex>
+//#include <mutex>
 
 namespace cross{
 
-extern mutex global_mutex;
+//extern mutex global_mutex;
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screens.
 	Every game must implement this class for set start Screen and virtual world size for your game. */

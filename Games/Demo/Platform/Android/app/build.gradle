@@ -10,6 +10,12 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        ndk{
+            moduleName "cross"
+            stl "c++_shared"
+            cFlags + "-std=c++11"
+            cFlags + "-fexceptions"
+        }
     }
     buildTypes {
         release {
@@ -18,8 +24,13 @@ android {
         }
     }
     sourceSets {
-        main.java.srcDirs += 'src/main/../../../../../../../Sources/Platform/Android/com/cross/'
+        main.java.srcDirs += 'src/main/../../../../../../../Sources/Platform/Android/'
+       // main.jni.srcDirs += 'src/jni/../../../../../../../Sources/'
+       // main.jni.srcDirs += 'src/jni/../../../../../Sources/'
+        main.jni.srcDirs = [];
+        main.jniLibs.srcDirs 'src/main/libs'
     }
+
 }
 
 dependencies {
