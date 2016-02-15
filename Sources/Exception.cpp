@@ -26,5 +26,5 @@ Exception::Exception(const char* filename, unsigned int line, const char* format
 {
 	va_list params;
 	va_start(params, formatString);
-	vsprintf_s(message, sizeof(message), formatString, params);
+	vsprintf(message, formatString, params);
 }

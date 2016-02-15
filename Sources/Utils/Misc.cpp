@@ -16,6 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Misc.h"
 
+#include <math.h>
+#include <stdlib.h>
+
 static float sign(cross::Vector2D p1, cross::Vector2D p2, cross::Vector2D p3){
     return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 }

@@ -32,7 +32,7 @@ public:
 	Button(Sprite* upImage, Sprite* downImage);
 
 
-	Button::Button(Rect area, string text);
+	Button(Rect area, string text);
 
 
 	~Button();

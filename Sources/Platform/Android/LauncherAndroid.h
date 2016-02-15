@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright ï¿½ 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,12 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #pragma once
 
 #include "Launcher.h"
 #include <jni.h>
 #include <android/asset_manager.h>
+#include "android/log.h"
+
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__)
 
 namespace cross{
 
@@ -33,8 +35,10 @@ public:
 	string AssetsPath();
 	string DataPath();
 	void LogIt(string str);
-	void LoadFile(string filename, unsigned char** buffer, int* length);
-	unsigned char* LoadFile(string filename, int *size);
+    void LogIt(const char* formatStr, ...);
+	//void LoadFile(string filename, unsigned char** buffer, int* length);
+	//unsigned char* LoadFile(string filename, int *size);
+	File* LoadFile(string filename);
 	void PromtToExit();
 	void InitializeCommercial(JNIEnv* env, jobject comm);
 	Commercial* GetCommercial();

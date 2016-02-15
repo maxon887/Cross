@@ -17,7 +17,7 @@
 #pragma once
 
 #define MAX_ALLOC 10000
-
+/*
 void* operator new(size_t size);
 void* operator new(size_t size, char* filename, unsigned long line);
 void* operator new[](size_t size);
@@ -25,9 +25,9 @@ void* operator new[](size_t size, char* filename, unsigned long line);
 void operator delete(void* p);
 void operator delete(void* p, char* filename, unsigned long line);
 void operator delete[](void* p);
-void operator delete[](void* p, char* filename, unsigned long line);
+void operator delete[](void* p, char* filename, unsigned long line);*/
 
-#define new new(__FILE__, __LINE__)
+//#define new new(__FILE__, __LINE__)
 
 namespace cross{
 

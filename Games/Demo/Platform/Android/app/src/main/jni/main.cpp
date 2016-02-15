@@ -20,3 +20,5 @@
 Game* CrossMain(Launcher* launcher){
 	return new Demo(launcher);
 }
+
+// build string c:\Android\NDK\ndk-build.cmd -C c:\Cross++\Games\Demo\Platform\Android\app\src\main\jni\

@@ -25,9 +25,13 @@
 #include "Font.h"
 #include "Misc.h"
 #include "Camera.h"
+#include "File.h"
 
 #include "SOIL/SOIL.h"
 #include "FreeType\ft2build.h"
+
+#include <math.h>
+
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 

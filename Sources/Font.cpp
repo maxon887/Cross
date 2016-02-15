@@ -44,7 +44,7 @@ Font::Font(string filename, float size, Color color):
 	if(error){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
-	ZeroMemory(textures, sizeof(textures));
+	memset(textures, 0, sizeof(textures));
 	SetSize(size);
 }
 

@@ -27,6 +27,8 @@
 #undef GetMessage
 #endif 
 
+#include <stdlib.h>
+
 using namespace cross;
 using namespace chrono;
 
@@ -146,7 +148,9 @@ void Game::Update(){
 }
 
 void Game::Exit(){
+#ifdef WIN
 	exit(0);
+#endif // WIN
 }
 
 void Game::Init(){

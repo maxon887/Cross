@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright ï¿½ 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,11 +14,9 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #include "LauncherAndroid.h"
 #include "CommercialAndroid.h"
-#include "Cross.h"
-#include <string>
+#include "File.h"
 
 using namespace cross;
 
@@ -52,6 +50,31 @@ void LauncherAndroid::LogIt(string str){
 	LOGI("%s", str.c_str());
 }
 
+void LauncherAndroid::LogIt(const char* formatStr, ...){
+    va_list params;
+    char buffer[1024];
+    va_start(params, formatStr);
+    vsprintf(buffer, formatStr, params);
+    LOGI("%s/n", buffer);
+    va_end(params);
+}
+
+File* LauncherAndroid::LoadFile(string filename) {
+    AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
+    if(!asset){
+        throw CrossException("Can't load asset %s", filename.c_str());
+    }
+    File* file = new File();
+    file->size = AAsset_getLength(asset);
+    file->data = new CRByte[file->size];
+    int read = AAsset_read(asset, file->data, file->size);
+    if(read <= 0){
+        throw CrossException("Can't load asset %s", filename.c_str());
+    }
+    AAsset_close(asset);
+    return file;
+}
+/*
 void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* length){
 	AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
 	if(!asset){
@@ -72,7 +95,7 @@ unsigned char* LauncherAndroid::LoadFile(string filename, int* size){
 	unsigned char* bufferPtr;
 	LoadFile(filename, &bufferPtr, size);
 	return bufferPtr;
-}
+}*/
 
 void LauncherAndroid::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
