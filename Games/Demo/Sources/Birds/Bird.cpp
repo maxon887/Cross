@@ -16,8 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Bird.h"
 #include "Game.h"
-#include "Texter.h"
-#include "Utils\Debuger.h"
+#include "Utils/Texter.h"
+#include "Utils/Debuger.h"
 #include "Graphics2D.h"
 
 #undef DrawText

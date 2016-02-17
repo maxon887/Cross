@@ -20,7 +20,7 @@
 #include "Game.h"
 #include "MainScreen.h"
 #include "Launcher.h"
-#include "Misc.h"
+#include "Utils/Misc.h"
 
 PrimitivesScreen::~PrimitivesScreen(){
 }

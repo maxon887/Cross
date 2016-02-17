@@ -19,8 +19,8 @@
 #include "Font.h"
 #include "Input.h"
 #include "Game.h"
-#include "Debuger.h"
-#include "Misc.h"
+#include "Utils/Debuger.h"
+#include "Utils/Misc.h"
 #include "Utils/Texter.h"
 
 void TextScreen::Start(){

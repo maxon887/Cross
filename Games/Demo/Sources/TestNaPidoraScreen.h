@@ -2,7 +2,7 @@
 #include "Cross.h"
 #include "Screen.h"
 #include "Input.h"
-#include "Button.h"
+#include "Utils/Button.h"
 
 using namespace cross;
 

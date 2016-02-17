@@ -17,8 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
-#include "Button.h"
-#include "ToggleButton.h"
+#include "Utils/Button.h"
 #include "Menu.h"
 
 using namespace cross;

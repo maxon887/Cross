@@ -13,8 +13,8 @@ android {
         ndk{
             moduleName "cross"
             stl "c++_shared"
-            cFlags + "-std=c++11"
-            cFlags + "-fexceptions"
+            cFlags = "-std=c++11 -fexceptions -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2 -I${project.buildDir}/../../../../../../Sources/FreeType -I${project.buildDir}/../../../../../../Sources"
+           // cFlags + "-fexceptions"
         }
     }
     buildTypes {
@@ -24,11 +24,37 @@ android {
         }
     }
     sourceSets {
+        main.jniLibs.srcDirs 'src/main/lib'
         main.java.srcDirs += 'src/main/../../../../../../../Sources/Platform/Android/'
-       // main.jni.srcDirs += 'src/jni/../../../../../../../Sources/'
-       // main.jni.srcDirs += 'src/jni/../../../../../Sources/'
-        main.jni.srcDirs = [];
+        //main.jni.srcDirs += 'src/jni/../../../../../../../Sources/'
+        main.jni.srcDirs += 'src/jni/../../../../../Sources/'
+        //main.jni.srcDirs.remove('/src/jni/../../../../../../../Sources/Platform/Windows/')
+       // main.jni.exclude('src/jni/../../../../../../../Sources/Platform/Windows/')
+       // main.jni.srcDirs = [];
+        /*
         main.jniLibs.srcDirs 'src/main/libs'
+        main.jni.excludes += 'src/jni/../../../../../../..//Sources/Platform/Windows/Cross.cpp'
+        main.jni.getFilter().exclude('src/jni/../../../../../../../Sources/Platform/Windows/Cross.cpp')
+        main.jni.exclude "/src/jni/../../../../../../../Sources/Platform/Windows/Cross.cpp"*/
+
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Audio.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Camera.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Color.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Config.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Exception.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/File.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Font.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Game.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Graphics2D.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Input.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Launcher.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Matrix.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/MemoryManager.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Rect.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Sprite.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Vector2D.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Vector3D.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Vector4D.cpp'
     }
 
 }

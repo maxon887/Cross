@@ -18,7 +18,7 @@
 #pragma once
 
 #include "Screen.h"
-#include "Animation.h"
+#include "Utils/Animation.h"
 #include "Input.h"
 
 using namespace cross;

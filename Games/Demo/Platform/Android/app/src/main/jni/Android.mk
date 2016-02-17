@@ -33,8 +33,8 @@ LOCAL_C_INCLUDES := ../../../../../../../../Sources/Platform/Android \
 					../../../../../../../../Sources/Utils \
 					../../../../../../../../Sources/SOIL \
 					../../../../../../../../Sources/Shaders \
-					../../../../../../../../Sources/FreeType2 \
-					../../../../../../../../Sources/FreeType2/freetype2 \
+					../../../../../../../../Sources/FreeType \
+					../../../../../../../../Sources/FreeType/freetype2 \
 					../../../../../../Sources
 
 LOCAL_SRC_FILES := 	main.cpp \

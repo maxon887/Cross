@@ -19,9 +19,9 @@
 #include "Input.h"
 #include "Game.h"
 #include "MainScreen.h"
-#include "Misc.h"
+#include "Utils/Misc.h"
 #include "Sprite.h"
-#include "Debuger.h"
+#include "Utils/Debuger.h"
 #include "Font.h"
 
 SpritesScreen::~SpritesScreen(){

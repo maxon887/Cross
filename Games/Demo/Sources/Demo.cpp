@@ -17,7 +17,7 @@
 #include "Demo.h"
 #include "MainScreen.h"
 #include "TestNaPidoraScreen.h"
-#include "Debuger.h"
+#include "Utils/Debuger.h"
 #include "SpritesScreen.h"
 #include "PrimitivesScreen.h"
 

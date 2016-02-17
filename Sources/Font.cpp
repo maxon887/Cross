@@ -19,7 +19,7 @@
 #include "File.h"
 #include "GraphicsGL.h"
 
-#include "FreeType\ft2build.h"
+#include "FreeType/ft2build.h"
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 

@@ -21,12 +21,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-/*
-// call regular ndk-build(.cmd) script from app directory
-task ndkBuild(type: Exec) {
-    commandLine 'd:/Android/NDK/ndk-build', '-C', file('src/main/jni').absolutePath
-}
-
-tasks.withType(JavaCompile) {
-    compileTask -> compileTask.dependsOn ndkBuild
-}*/

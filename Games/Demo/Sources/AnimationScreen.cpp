@@ -17,7 +17,7 @@
 #include "Cross.h"
 #include "Game.h"
 #include "Graphics2D.h"
-#include "Animation.h"
+#include "Utils/Animation.h"
 #include "AnimationScreen.h"
 #include "MainScreen.h"
 #include "Audio.h"

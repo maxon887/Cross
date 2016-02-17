@@ -16,19 +16,19 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
-#include "SpriteShaders.h"
-#include "PrimitiveShaders.h"
+#include "Shaders/SpriteShaders.h"
+#include "Shaders/PrimitiveShaders.h"
 #include "Launcher.h"
 #include "Game.h"
-#include "Utils\Debuger.h"
+#include "Utils/Debuger.h"
 #include "Sprite.h"
 #include "Font.h"
-#include "Misc.h"
+#include "Utils/Misc.h"
 #include "Camera.h"
 #include "File.h"
 
 #include "SOIL/SOIL.h"
-#include "FreeType\ft2build.h"
+#include "FreeType/ft2build.h"
 
 #include <math.h>
 
