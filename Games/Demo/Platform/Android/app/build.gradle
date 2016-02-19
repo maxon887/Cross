@@ -3,18 +3,34 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
+    productFlavors{
+        arm{
+            ndk {
+                abiFilter "armeabi"
+            }
+        }
+    }
     defaultConfig {
         applicationId "com.cross.demo"
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        ndk{
+        ndk {
             moduleName "cross"
             stl "c++_shared"
-            cFlags = "-std=c++11 -fexceptions -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2 -I${project.buildDir}/../../../../../../Sources/FreeType -I${project.buildDir}/../../../../../../Sources"
+            ldLibs "log"
+            ldLibs "android"
+            ldLibs "GLESv2"
+           // ldLibs "libfmod.so"
+            cFlags = "-std=c++11 -fexceptions -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2 -I${project.buildDir}/../../../../../../Sources/FreeType -I${project.buildDir}/../../../../../../Sources -L${project.buildDir}/../src/main/jniLibs/armeabi/libfmod.so"
+            //cFlags += "-I${file("src/main/jniLibs/")}".toString()
+            //cFlags += "-L${file("src/main/jniLibs/")}".toString()
+           // abiFilters "armeabi"
+           // ldLibs "fmod"
            // cFlags + "-fexceptions"
+            ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
+            ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
         }
     }
     buildTypes {
@@ -24,7 +40,7 @@ android {
         }
     }
     sourceSets {
-        main.jniLibs.srcDirs 'src/main/lib'
+        //main.jniLibs.srcDirs 'src/main/lib'
         main.java.srcDirs += 'src/main/../../../../../../../Sources/Platform/Android/'
         //main.jni.srcDirs += 'src/jni/../../../../../../../Sources/'
         main.jni.srcDirs += 'src/jni/../../../../../Sources/'
@@ -37,6 +53,10 @@ android {
         main.jni.getFilter().exclude('src/jni/../../../../../../../Sources/Platform/Windows/Cross.cpp')
         main.jni.exclude "/src/jni/../../../../../../../Sources/Platform/Windows/Cross.cpp"*/
 
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Utils/'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/SOIL/'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Shaders/'
+        main.jni.srcDirs += 'src/main/../../../../../../../Sources/Platform/Android/'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Audio.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Camera.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Color.cpp'
@@ -46,6 +66,7 @@ android {
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Font.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Game.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Graphics2D.cpp'
+        main.jni.srcDirs += 'src/jni/../../../../../../../Sources/GraphicsGL.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Input.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Launcher.cpp'
         main.jni.srcDirs += 'src/jni/../../../../../../../Sources/Matrix.cpp'
