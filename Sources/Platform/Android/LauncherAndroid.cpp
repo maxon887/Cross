@@ -21,6 +21,7 @@
 using namespace cross;
 
 LauncherAndroid::LauncherAndroid(int w, int h, string dataPath, AAssetManager* assManager, jobject crossActivity, JNIEnv* env){
+    LOGI("LauncherAndroid::LauncherAndroid");
 	this->width = w;
 	this->height = h;
 	this->data_path = dataPath;

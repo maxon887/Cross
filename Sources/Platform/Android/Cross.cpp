@@ -21,31 +21,39 @@
 #include "LauncherAndroid.h"
 #include "Screen.h"
 #include "Audio.h"
+#include "GraphicsGL.h"
 #include "Graphics2D.h"
 
 #include "jni.h"
 #include "android/asset_manager_jni.h"
+#include "../../Cross.h"
 
-using namespace cross;
+    using namespace cross;
 
     Game* cross::game = NULL;
 
 extern "C"{
 	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager, jobject crossActivity){
 		LOGI("Cross_Init");
-		//global_mutex.lock();
-		AAssetManager* mng = AAssetManager_fromJava(env, assetManager);
-		if(!mng){
-			LOGI("Error loading asset manager");
-		}
-		string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
-		crossActivity = env->NewGlobalRef(crossActivity);
-		launcher = new LauncherAndroid((int)width, (int)height, stdDataPath, mng, crossActivity, env);
-		Audio::Init();
-		game = CrossMain(launcher);
-		gfx2D = new Graphics2D;
-		//gfx3D = NULL;
-		//global_mutex.unlock();
+        try {
+            AAssetManager *mng = AAssetManager_fromJava(env, assetManager);
+            if (!mng) {
+                LOGI("Error loading asset manager");
+            }
+            string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
+            crossActivity = env->NewGlobalRef(crossActivity);
+            launcher = new LauncherAndroid((int) width, (int) height, stdDataPath, mng,
+                                           crossActivity, env);
+            Audio::Init();
+            game = CrossMain(launcher);
+            gfxGL = new GraphicsGL();
+            gfx2D = new Graphics2D();
+        } catch(Exception &exc) {
+            string msg = string(exc.message) +
+                         +"\nFile: " + string(exc.filename) +
+                         +"\nLine: " + to_string(exc.line);
+            LOGE("%s", msg.c_str());
+        }
 	}
 
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){

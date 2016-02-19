@@ -1,19 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 15
     buildToolsVersion "23.0.2"
     productFlavors{
-        arm{
+        arm {
             ndk {
                 abiFilter "armeabi"
             }
         }
+        x86 {
+            ndk {
+                abiFilter "x86"
+            }
+        }
+        fat
     }
     defaultConfig {
         applicationId "com.cross.demo"
         minSdkVersion 8
-        targetSdkVersion 23
+        targetSdkVersion 8
         versionCode 1
         versionName "1.0"
         ndk {
@@ -22,6 +28,7 @@ android {
             ldLibs "log"
             ldLibs "android"
             ldLibs "GLESv2"
+            ldLibs "EGL"
            // ldLibs "libfmod.so"
             cFlags = "-std=c++11 -fexceptions -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2 -I${project.buildDir}/../../../../../../Sources/FreeType -I${project.buildDir}/../../../../../../Sources -L${project.buildDir}/../src/main/jniLibs/armeabi/libfmod.so"
             //cFlags += "-I${file("src/main/jniLibs/")}".toString()
@@ -40,6 +47,7 @@ android {
         }
     }
     sourceSets {
+        main.assets.srcDirs += '/../../../Assets'
         //main.jniLibs.srcDirs 'src/main/lib'
         main.java.srcDirs += 'src/main/../../../../../../../Sources/Platform/Android/'
         //main.jni.srcDirs += 'src/jni/../../../../../../../Sources/'
@@ -83,5 +91,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    //compile 'com.android.support:appcompat-v7:23.1.1'
 }

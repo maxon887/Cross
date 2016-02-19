@@ -23,6 +23,7 @@ public class CrossActivity extends Activity{
 	static{
 		System.loadLibrary("c++_shared");
 		System.loadLibrary("fmod");
+        System.loadLibrary("freetype2");
 		System.loadLibrary("cross");
 	}
 	
