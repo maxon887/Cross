@@ -18,9 +18,10 @@
 #include "GraphicsGL.h"
 #include "Shaders/SpriteShaders.h"
 #include "Shaders/PrimitiveShaders.h"
+#include "Shaders/MonochromeShaders.h"
 #include "Launcher.h"
 #include "Game.h"
-#include "Utils/Debuger.h"
+#include "Utils/Debugger.h"
 #include "Sprite.h"
 #include "Font.h"
 #include "Utils/Misc.h"
@@ -45,6 +46,7 @@ Graphics2D::Graphics2D() :
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	sprite_shaders = new SpriteShaders();
 	primitive_shaders = new PrimitiveShaders();
+	monochrome_shaders = new MonochromeShaders();
 	this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
   	this->current_font = this->default_font;
 	default_camera = new Camera();
@@ -175,14 +177,11 @@ void Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
 	const char* text = textStr.c_str();
 
 	while(*text){
-		Glyph* g = font->GetGlyph(*text);
-
-		Rect region(0, 0, (float)g->bitmap_width, (float)g->bitmap_height);
-		Vector2D pivot(-g->bearingX, g->bitmap_height - g->bearingY);
-		Sprite ch(g->textureID, g->bitmap_width, g->bitmap_height, region, pivot);
-		ch.SetPosition(pos);
-		DrawSprite(&ch, font->GetColor(), true);
-		pos.x += g->advancedX;
+		Sprite* ch = font->GetChar(*text);
+		float advance = font->GetCharAdvance(*text);
+		ch->SetPosition(pos);
+		DrawSprite(ch, font->GetColor(), true);
+		pos.x += advance;
 		text++;
 	}
 }
@@ -201,7 +200,11 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monochrome){
-	gfxGL->UseProgram(sprite_shaders->program);
+	if(monochrome){
+		gfxGL->UseProgram(monochrome_shaders->program);
+	}else{
+		gfxGL->UseProgram(sprite_shaders->program);
+	}
 	//parameterization
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -214,7 +217,6 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monoc
 
 	mvp = mvp.Transpose();
 	glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
-	glUniform1i(sprite_shaders->uMonochrome, (GLint)monochrome);
 	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());
 
 	glBindTexture(GL_TEXTURE_2D, sprite->GetTextureID());
@@ -222,13 +224,17 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monoc
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glVertexAttribPointer(sprite_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices());
-	glVertexAttribPointer(sprite_shaders->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), sprite->GetVertices() + 2);
-	glEnableVertexAttribArray(sprite_shaders->aPosition);
-	glEnableVertexAttribArray(sprite_shaders->aTexCoord);
-	//SAFE(glUniformMatrix4fv(sprite_shaders->uModelLoc, 1, GL_FALSE, sprite->GetModel().Transpose().GetData()));
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, sprite->GetIndices());
+	glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO);
+	glEnableVertexAttribArray(sprite_shaders->aPosition);
+	glVertexAttribPointer(sprite_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0);
+	glEnableVertexAttribArray(sprite_shaders->aTexCoord);
+	glVertexAttribPointer(sprite_shaders->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2);
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sprite->EBO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 Font * cross::Graphics2D::GetDefaultFont()
@@ -247,7 +253,7 @@ Sprite* Graphics2D::LoadImage(string filename){
 }
 
 Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
-	debuger->StartCheckTime();
+	Debugger::Instance()->StartCheckTime();
 	int width, height;
 	File* imageFile = launcher->LoadFile(filename);
 	CRByte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
@@ -263,7 +269,7 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 }
 
 Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int height){
-	debuger->StartCheckTime();
+	Debugger::Instance()->StartCheckTime();
 	GLuint textureID;
 	Rect region(0, 0, (float)width, (float)height);
 	int newWidth = 1;
@@ -313,7 +319,7 @@ Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int
 	Sprite* img = new Sprite(textureID, width, height, region);
 	string debugMsg = "Load image ";
 	glBindTexture(GL_TEXTURE_2D, 0);
-	debuger->StopCheckTime(debugMsg);
+	Debugger::Instance()->StopCheckTime(debugMsg);
 	return img;
 }
 

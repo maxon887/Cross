@@ -18,6 +18,7 @@
 #include "Launcher.h"
 #include "File.h"
 #include "GraphicsGL.h"
+#include "Sprite.h"
 
 #include "FreeType/ft2build.h"
 #include FT_FREETYPE_H
@@ -30,7 +31,8 @@ using namespace cross;
 static FT_Library library = NULL;
 
 Font::Font(string filename, float size, Color color):
-	color(color)
+	color(color),
+	sprites(128)
 {
 	file = launcher->LoadFile(filename);
 	FT_Error error;
@@ -49,6 +51,7 @@ Font::Font(string filename, float size, Color color):
 }
 
 Font::~Font(){
+	glDeleteTextures(128, textures);
 	delete file;
 }
 
@@ -66,7 +69,7 @@ float Font::GetSize(){
 
 void Font::SetSize(float size){
 	this->size = size;
-	FT_Error error = FT_Set_Pixel_Sizes(face, 0, size);
+	FT_Error error = FT_Set_Pixel_Sizes(face, 0, (FT_UInt)size);
 	if(error){
 		throw CrossException("Error in set char size");
 	}
@@ -74,7 +77,11 @@ void Font::SetSize(float size){
 }
 
 bool Font::IsFixedWidth(){
-	return FT_IS_FIXED_WIDTH(face);
+	if(FT_IS_FIXED_WIDTH((FT_Long)face)){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 float Font::GetCharWidth(){
@@ -83,14 +90,22 @@ float Font::GetCharWidth(){
 		if(error){
 			throw CrossException("Can't load glyph");
 		}
-		return face->glyph->advance.x >> 6;
+		return (float)(face->glyph->advance.x >> 6);
 	}else{
 		throw CrossException("Char width can be obtained only for monospace fonts");
 	}
 }
-
+/*
 Glyph* Font::GetGlyph(char c){
 	return &glyphs[c - 29];
+}*/
+
+Sprite* Font::GetChar(char c){
+	return sprites[c - 29];
+}
+
+float Font::GetCharAdvance(char c){
+	return advances[c - 29];
 }
 
 void Font::Cache(){
@@ -104,16 +119,20 @@ void Font::Cache(){
 		if(error){
 			throw CrossException("Can't load glyph");
 		}
-		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&bitmaps[i]);
+		FT_BitmapGlyph bitmapGlyhp;
+		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&bitmapGlyhp);
 		if(error){
 			throw CrossException("Can't abtain glyph");
 		}
-		glyphs[i].textureID = textures[i];
-		glyphs[i].bitmap_width = bitmaps[i]->bitmap.width;
-		glyphs[i].bitmap_height = bitmaps[i]->bitmap.rows;
-		glyphs[i].bearingX = face->glyph->metrics.horiBearingX >> 6;
-		glyphs[i].bearingY = face->glyph->metrics.horiBearingY >> 6;
-		glyphs[i].advancedX = face->glyph->advance.x >> 6;
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, glyphs[i].bitmap_width, glyphs[i].bitmap_height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, bitmaps[i]->bitmap.buffer);
+		advances[i] = (float)(face->glyph->advance.x >> 6);
+		float bmpWidth = (float)bitmapGlyhp->bitmap.width;
+		float bmpHeight = (float)bitmapGlyhp->bitmap.rows;
+		float bearingX = (float)(face->glyph->metrics.horiBearingX >> 6);
+		float bearingY = (float)(face->glyph->metrics.horiBearingY >> 6);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, (GLsizei)bmpWidth, (GLsizei)bmpHeight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, bitmapGlyhp->bitmap.buffer);
+		Rect region(0, 0, bmpWidth, bmpHeight);
+		Vector2D pivot(-bearingX, bmpHeight - bearingY);
+		Sprite* sprite = new Sprite(textures[i], (int)bmpWidth, (int)bmpHeight, region, pivot);
+		sprites[i] = sprite;
 	}
 }

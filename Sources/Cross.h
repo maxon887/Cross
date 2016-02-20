@@ -45,7 +45,6 @@ class Graphics2D;
 class Graphics3D;
 class Input;
 class Config;
-class Debuger;
 class Texter;
 class Sprite;
 class Audio;
@@ -60,7 +59,6 @@ extern Graphics2D* gfx2D;
 extern Graphics3D* gfx3D;
 extern Input* input;
 extern Config* config;
-extern Debuger* debuger;
 
 }
 

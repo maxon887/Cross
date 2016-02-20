@@ -45,7 +45,7 @@ void TestNaPidoraScreen::Update(float sec)
 {
 	fooButton3->Update();
 
-	if(input->IsPressed(Key::ESCAPE)){
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
 		game->SetScreen(new MainScreen());
 	}
 }

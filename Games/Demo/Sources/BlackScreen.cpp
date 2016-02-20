@@ -17,15 +17,32 @@
 #include "BlackScreen.h"
 #include "Input.h"
 #include "Game.h"
-#include "Debuger.h"
+#include "Debugger.h"
+#include "Input.h"
 
 void BlackScreen::Start(){
+	screen_debug = false;
+	Debugger::Instance()->ScreenDebug(screen_debug);
+	Debugger::Instance()->ConsoleDebug(!screen_debug);
 
+	input->ActionDown += MakeDelegate(this, &BlackScreen::ActionDownHandler);
+}
+
+void BlackScreen::Stop(){
+	input->ActionDown.RemoveDelegate(input->ActionDown.GetLastDelegate());
+	Debugger::Instance()->ScreenDebug(true);
+	Debugger::Instance()->ConsoleDebug(false);
 }
 
 void BlackScreen::Update(float sec){
 
-	if(input->IsPressed(Key::ESCAPE)) {
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
 	}
+}
+
+void BlackScreen::ActionDownHandler(Vector2D pos){
+	screen_debug = !screen_debug;
+	Debugger::Instance()->ScreenDebug(screen_debug);
+	Debugger::Instance()->ConsoleDebug(!screen_debug);
 }

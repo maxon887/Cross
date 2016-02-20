@@ -19,7 +19,7 @@
 #include "Font.h"
 #include "Input.h"
 #include "Game.h"
-#include "Utils/Debuger.h"
+#include "Utils/Debugger.h"
 #include "Utils/Misc.h"
 #include "Utils/Texter.h"
 
@@ -42,13 +42,13 @@ void TextScreen::Update(float sec){
 		gfx2D->DrawText(scrChar->positon, scrChar->str, font);
 	}
 	AddChar();
-	if(input->IsPressed(Key::ESCAPE)){
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
 		game->SetScreen(game->GetStartScreen());
 	}
 }
 
 void TextScreen::AddChar(){
-	float fps = debuger->GetFPS();
+	float fps = Debugger::Instance()->GetFPS();
 	if(fps > 40.f){
 		for(int i = 0; i < 10; i++){
 			float size = Random(10.f, 80.f);

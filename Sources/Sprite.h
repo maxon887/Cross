@@ -25,6 +25,7 @@ class Sprite{
 public:
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region);
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
+	~Sprite();
 
 	void SetPosition(Vector2D pos);
 	void SetScale(float factor);
@@ -44,6 +45,8 @@ public:
 	Matrix scale;
 	Matrix translate;
 	Matrix rotation;
+	GLuint VBO;
+	static GLuint EBO;
 private:
 	static const GLushort indices[];
 	GLuint textureID;

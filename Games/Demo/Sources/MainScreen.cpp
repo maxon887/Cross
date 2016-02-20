@@ -21,7 +21,6 @@
 #include "AnimationScreen.h"
 #include "AudioScreen.h"
 #include "PrimitivesScreen.h"
-#include "Birds\BirdsScreen.h"
 #include "Config.h"
 #include "Sprite.h"
 #include "TestNaPidoraScreen.h"
@@ -88,7 +87,7 @@ void MainScreen::Stop(){
 void MainScreen::Update(float sec){
 	current_menu->Update(sec);
 
-	if(input->IsPressed(Key::ESCAPE)){
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
 		current_menu->Active(false);
 		main_menu->Active(true);
 		current_menu = main_menu;

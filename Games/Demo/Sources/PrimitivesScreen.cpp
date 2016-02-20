@@ -46,7 +46,7 @@ void PrimitivesScreen::Update(float sec){
 	gfx2D->DrawCircle(Vector2D(350.f, 250.f), 25.f, Color::Red, true);
 	gfx2D->DrawLine(Vector2D(50.f, 100.f), Vector2D(50.f, 200.f), Color::Red);
 
-	if(input->IsPressed(Key::ESCAPE)){
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
 		game->SetScreen(new MainScreen());
 	}
 }

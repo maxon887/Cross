@@ -23,6 +23,10 @@ using namespace cross;
 class BlackScreen : public Screen{
 public:
 	void Start();
+	void Stop();
 	void Update(float sec);
 private:
+	bool screen_debug;
+
+	void ActionDownHandler(Vector2D pos);
 };

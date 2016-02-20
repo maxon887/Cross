@@ -17,14 +17,14 @@
 #include "Demo.h"
 #include "MainScreen.h"
 #include "TestNaPidoraScreen.h"
-#include "Utils/Debuger.h"
+#include "Utils/Debugger.h"
 #include "SpritesScreen.h"
 #include "PrimitivesScreen.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
 
 void Demo::Start(){
-	debuger->EnableScreenDebug();
+	Debugger::Instance()->ScreenDebug(true);
 }
 
 Screen* Demo::GetStartScreen(){

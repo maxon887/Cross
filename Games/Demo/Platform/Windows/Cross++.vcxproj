@@ -48,7 +48,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;SOIL.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,8 +78,12 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SpriteShaders.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
+    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
+    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Matrix.cpp" />
@@ -90,7 +94,7 @@
     <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\Debugger.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
@@ -99,11 +103,6 @@
     <ClCompile Include="..\..\..\..\Sources\Vector4D.cpp" />
     <ClCompile Include="..\..\Sources\AnimationScreen.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp" />
-    <ClCompile Include="..\..\Sources\Birds\Bird.cpp" />
-    <ClCompile Include="..\..\Sources\Birds\BirdsScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Birds\Entity.cpp" />
-    <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp" />
     <ClCompile Include="..\..\Sources\BlackScreen.cpp" />
     <ClCompile Include="..\..\Sources\Camera2DScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
@@ -129,8 +128,15 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShaders.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SpriteShaders.h" />
+    <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h" />
+    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
+    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
     <ClInclude Include="..\..\..\..\Sources\Sprite.h" />
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
@@ -142,7 +148,7 @@
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\Debugger.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
@@ -151,11 +157,6 @@
     <ClInclude Include="..\..\..\..\Sources\Vector4D.h" />
     <ClInclude Include="..\..\Sources\AnimationScreen.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
-    <ClInclude Include="..\..\Sources\Birds\Behaviour.h" />
-    <ClInclude Include="..\..\Sources\Birds\Bird.h" />
-    <ClInclude Include="..\..\Sources\Birds\BirdsScreen.h" />
-    <ClInclude Include="..\..\Sources\Birds\Entity.h" />
-    <ClInclude Include="..\..\Sources\Birds\MovingEntity.h" />
     <ClInclude Include="..\..\Sources\BlackScreen.h" />
     <ClInclude Include="..\..\Sources\Camera2DScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />

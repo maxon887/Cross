@@ -31,12 +31,12 @@ void Camera2DScreen::Start(){
 	for(int i = 0; i < 10; ++i){
 		Sprite* sprite = new Sprite(*awesomefase);
 		sprite->SetScale(0.1f);
-		sprite->SetPosition(Vector2D(Random(100, 900), Random(100, 900)));
+		sprite->SetPosition(Vector2D(Random(100.f, 900.f), Random(100.f, 900.f)));
 		sprites.push_back(sprite);
-		velocities.push_back(Vector2D(Random(-5, 5), Random(-5, 5)));
+		velocities.push_back(Vector2D(Random(-5.f, 5.f), Random(-5.f, 5.f)));
 	}
 	cam_speed = 10.f;
-	view_width = launcher->GetTargetWidth();
+	view_width = (float)launcher->GetTargetWidth();
 	cam_positon = Vector2D(0.f, 0.f);
 	camera = new Camera();
 	gfx2D->SetCamera(camera);
@@ -68,9 +68,9 @@ void Camera2DScreen::Update(float sec){
 		fontColor.A -= 0.01f;
 	}
 	tip_font->SetColor(fontColor);
-	gfx2D->DrawText(Vector2D(50, launcher->GetTargetHeight() / 2), "Use WSDA for scroling", tip_font);
-	gfx2D->DrawText(Vector2D(50, launcher->GetTargetHeight() / 2 - 50), "Mouse wheel for zooming", tip_font);
-	for(int i = 0; i < sprites.size(); ++i){
+	gfx2D->DrawText(Vector2D(50.f, launcher->GetTargetHeight() / 2.f), "Use WSDA for scroling", tip_font);
+	gfx2D->DrawText(Vector2D(50.f, launcher->GetTargetHeight() / 2.f - 50.f), "Mouse wheel for zooming", tip_font);
+	for(unsigned int i = 0; i < sprites.size(); ++i){
 		Sprite* sprite = sprites[i];
 		float spriteWidth = sprite->GetWidth() / 2;
 		float spriteHeight = sprite->GetHeight() / 2;
@@ -119,7 +119,7 @@ void Camera2DScreen::Update(float sec){
 	}
 	camera->SetPosition(cam_positon);
 
-	if(input->IsPressed(Key::ESCAPE)) {
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(new MainScreen());
 	}
 }

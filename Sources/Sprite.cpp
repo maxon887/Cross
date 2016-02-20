@@ -19,13 +19,15 @@
 using namespace cross;
 
 const GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
+GLuint Sprite::EBO = -1;
 
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	textureID(id),
 	texture_width(texWidth),
 	texture_height(texHeight),
 	width(region.width),
-	height(region.height)
+	height(region.height),
+	VBO(-1)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -54,6 +56,18 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	vertices[13] = region.height / 2.0f;
 	vertices[14] = u1;
 	vertices[15] = v1;
+
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	if(EBO == -1){
+		glGenBuffers(1, &EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
 }
 
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D pivot) :
@@ -61,7 +75,8 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	texture_width(texWidth),
 	texture_height(texHeight),
 	width(region.width),
-	height(region.height)
+	height(region.height),
+	VBO(-1)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -90,6 +105,22 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	vertices[13] = -pivot.y + region.height;
 	vertices[14] = u1;
 	vertices[15] = v1;
+
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	if(EBO == -1) {
+		glGenBuffers(1, &EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+}
+
+Sprite::~Sprite(){
+	glDeleteBuffers(1, &VBO);
 }
 
 void Sprite::SetPosition(Vector2D pos){

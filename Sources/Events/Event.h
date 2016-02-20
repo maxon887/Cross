@@ -69,7 +69,13 @@ public:
 	HDELEGATE GetFirstDelegate() { return m_delegates.begin(); }
 	HDELEGATE GetNextDelegate( HDELEGATE hDG ) { HDELEGATE hRet = hDG; return ++hRet; }
 	HDELEGATE GetPrevDelegate( HDELEGATE hDG ) { HDELEGATE hRet = hDG; return --hRet; }
-	HDELEGATE GetLastDelegate() { return m_delegates.back(); }
+	//HDELEGATE GetLastDelegate() { return m_delegates.back(); }
+	HDELEGATE GetLastDelegate() 
+	{ 
+		HDELEGATE last = m_delegates.end();
+		last--;
+		return last;
+	}
 	HDELEGATE GetEndDelegate() { return m_delegates.end(); }
 };
 

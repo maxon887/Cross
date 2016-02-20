@@ -21,7 +21,7 @@
 #include "MainScreen.h"
 #include "Utils/Misc.h"
 #include "Sprite.h"
-#include "Utils/Debuger.h"
+#include "Utils/Debugger.h"
 #include "Font.h"
 
 SpritesScreen::~SpritesScreen(){
@@ -59,13 +59,13 @@ void SpritesScreen::Update(float sec){
 	}
 	PushSprite();
 	
-	if(input->IsPressed(Key::ESCAPE)){
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
 		game->SetScreen(new MainScreen());
 	}
 }
 
 void SpritesScreen::PushSprite(){
-	float fps = debuger->GetFPS();
+	float fps = Debugger::Instance()->GetFPS();
 	if(fps > 40.f){
 		for(int i = 0; i < 20; i++){
 			Vector2D position;

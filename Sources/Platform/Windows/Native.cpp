@@ -126,8 +126,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_KEYUP:
 		switch(wParam){
 		case VK_ESCAPE:
-			TRIGGER_EVENT(input->KeyReleased, Key::PAUSE);
 			TRIGGER_EVENT(input->KeyReleased, Key::ESCAPE);
+			TRIGGER_EVENT(input->KeyReleased, Key::BACK);
 			break;
 		case VK_UP:
 			TRIGGER_EVENT(input->KeyReleased, Key::UP);

@@ -21,19 +21,8 @@
 
 struct FT_FaceRec_;
 typedef struct FT_FaceRec_* FT_Face;
-struct FT_BitmapGlyphRec_;
-typedef struct FT_BitmapGlyphRec_* FT_BitmapGlyph;
 
 namespace cross {
-
-struct Glyph{
-	unsigned int textureID;
-	int bitmap_width;
-	int bitmap_height;
-	int bearingX;
-	int bearingY;
-	int advancedX;
-};
 
 /*	Vital class for rendring texts. Available font formats
 	can be found in FreeType library documentation.
@@ -50,12 +39,13 @@ public:
 	void SetSize(float size);
 	bool IsFixedWidth();
 	float GetCharWidth();
-	Glyph* GetGlyph(char c);
+	Sprite* GetChar(char c);
+	float GetCharAdvance(char c);
 private:
 	FT_Face face;
 	File* file;
-	Glyph glyphs[128];
-	FT_BitmapGlyph	bitmaps[128];
+	CRArray<Sprite*> sprites;
+	float advances[128];
 	unsigned int textures[128];
 	Color color;
 	float size;

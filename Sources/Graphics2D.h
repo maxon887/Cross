@@ -21,6 +21,7 @@ namespace cross{
 
 class SpriteShaders;
 class PrimitiveShaders;
+class MonochromeShaders;
 class Camera;
 
 /*	This class can be used for drawing 2D graphics.
@@ -59,6 +60,7 @@ private:
 	Font* default_font;
 	SpriteShaders* sprite_shaders;
 	PrimitiveShaders* primitive_shaders;
+	MonochromeShaders* monochrome_shaders;
 	Camera* camera;
 	Camera* default_camera;
 

@@ -16,11 +16,11 @@
     <Filter Include="Cross\Platform\Windows">
       <UniqueIdentifier>{171b94f2-0c0c-4e31-ae57-bc67b70b4125}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Birds">
-      <UniqueIdentifier>{18ad4c85-df94-42aa-9e69-f8142c1e7b92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Shaders">
       <UniqueIdentifier>{0339447c-d355-47b0-9d8b-a80353255f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\SOIL">
+      <UniqueIdentifier>{047af7fd-1390-4d40-88dd-a8f6050d30d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -41,9 +41,6 @@
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\Debuger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Texter.cpp">
@@ -75,21 +72,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Config.cpp">
       <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Birds\Bird.cpp">
-      <Filter>Demo\Birds</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Birds\BirdsScreen.cpp">
-      <Filter>Demo\Birds</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Birds\Entity.cpp">
-      <Filter>Demo\Birds</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp">
-      <Filter>Demo\Birds</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Birds\Behaviour.cpp">
-      <Filter>Demo\Birds</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp">
       <Filter>Cross\Utils</Filter>
@@ -169,6 +151,21 @@
     <ClCompile Include="..\..\Sources\BlackScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Debugger.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShaders.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
+      <Filter>Cross\SOIL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -195,9 +192,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\Debuger.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Texter.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -222,21 +216,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Config.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Birds\Bird.h">
-      <Filter>Demo\Birds</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Birds\BirdsScreen.h">
-      <Filter>Demo\Birds</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Birds\Entity.h">
-      <Filter>Demo\Birds</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Birds\MovingEntity.h">
-      <Filter>Demo\Birds</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Birds\Behaviour.h">
-      <Filter>Demo\Birds</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h">
       <Filter>Cross\Utils</Filter>
@@ -318,6 +297,30 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\BlackScreen.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Debugger.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug.h">
+      <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug_c.h">
+      <Filter>Cross\SOIL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

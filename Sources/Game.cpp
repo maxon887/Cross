@@ -19,7 +19,7 @@
 #include "Screen.h"
 #include "Input.h"
 #include "Config.h"
-#include "Utils/Debuger.h"
+#include "Utils/Debugger.h"
 #include "Audio.h"
 #include "Graphics2D.h"
 #ifdef WIN
@@ -32,20 +32,16 @@
 using namespace cross;
 using namespace chrono;
 
-//mutex cross::global_mutex;
-
 Launcher*	cross::launcher = NULL;
 GraphicsGL* cross::gfxGL = NULL;
 Graphics2D* cross::gfx2D = NULL;
 Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
 Config*		cross::config = NULL;
-Debuger*	cross::debuger = NULL;
 
 Game::Game(){
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	debuger = new Debuger();
 	Audio::Init();
 	this->current_screen = NULL;
 	this->width = (float)launcher->GetTargetWidth();
@@ -56,7 +52,6 @@ Game::Game(){
 Game::Game(float width){
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	debuger = new Debuger();
 	Audio::Init();
 	this->current_screen = NULL;
 	this->width = width;
@@ -68,7 +63,6 @@ Game::Game(float width){
 Game::Game(float width, float height){
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	debuger = new Debuger();
 	Audio::Init();
 	this->current_screen = NULL;
 	this->width = width;
@@ -90,7 +84,7 @@ float Game::GetHeight(){
 
 void Game::SetScreen(Screen* screen){
 	launcher->LogIt("Game::SetScreen()");
-	debuger->StartCheckTime();
+	Debugger::Instance()->StartCheckTime();
 	if(current_screen){
 		current_screen->Stop();
 		delete current_screen;
@@ -98,7 +92,7 @@ void Game::SetScreen(Screen* screen){
 	current_screen = screen;
 	current_screen->Start();
     render_time = high_resolution_clock::now();
-	debuger->StopCheckTime("Screen loaded: ");
+	Debugger::Instance()->StopCheckTime("Screen loaded: ");
 }
 
 Screen* Game::GetCurrentScreen(){
@@ -132,8 +126,8 @@ void Game::Update(){
 		if(milis < 5){
 			launcher->Sleep(5 - milis);
 		}
-		debuger->Display((float)rend);
-		debuger->SetUpdateTime((float)up);
+		Debugger::Instance()->Display((float)rend);
+		Debugger::Instance()->SetUpdateTime((float)up);
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
@@ -155,7 +149,7 @@ void Game::Exit(){
 
 void Game::Init(){
 	launcher->LogIt("Game::Start()");
-	srand(time(0));
+	srand((unsigned int)time(0));
 	try{
 		SetScreen(GetStartScreen());
 		launcher->LogIt("Start screen load successfully");
@@ -177,6 +171,5 @@ Game::~Game(){
 	delete current_screen;
 	delete input;
 	delete config;
-	delete debuger;
 	Audio::Release();
 }
