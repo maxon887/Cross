@@ -28,6 +28,7 @@
 #include "SpritesScreen.h"
 #include "TextScreen.h"
 #include "Camera2DScreen.h"
+#include "BlackScreen.h"
 
 void MainScreen::Start(){
 	going_screen = NO_SCREEN;
@@ -38,13 +39,17 @@ void MainScreen::Start(){
 	Button* graphics2Dbtn = new Button("Graphics 2D");
 	Button* graphics3Dbtn = new Button("Graphics 3D");
 	Button* audioBtn = new Button("Audio");
+	Button* blackBtn = new Button("Black Screen");
 	graphics2Dbtn->SetImages(new Sprite(*def_button), nullptr);
 	graphics3Dbtn->SetImages(new Sprite(*def_button), nullptr);
 	audioBtn->SetImages(new Sprite(*def_button), nullptr);
+	blackBtn->SetImages(new Sprite(*def_button), nullptr);
 	graphics2Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics2DClick);
+	blackBtn->Clicked += MakeDelegate(this, &MainScreen::OnBlackClick);
 	main_menu->AddButton(graphics2Dbtn);
 	main_menu->AddButton(graphics3Dbtn);
 	main_menu->AddButton(audioBtn);
+	main_menu->AddButton(blackBtn);
 	//graphics 2D menu
 	graphics2D_menu = new Menu();
 	Button* primitivesBtn = new Button("Primitives");
@@ -113,6 +118,9 @@ void MainScreen::Update(float sec){
 	case CAMERA2D:
 		game->SetScreen(new Camera2DScreen());
 		break;
+	case BLACK:
+		game->SetScreen(new BlackScreen());
+		break;
 	default:
 		break;
 	}
@@ -150,4 +158,8 @@ void MainScreen::OnTextClick(){
 
 void MainScreen::On2DCameraClick(){
 	going_screen = CAMERA2D;
+}
+
+void MainScreen::OnBlackClick(){
+	going_screen = BLACK;
 }

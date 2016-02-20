@@ -36,7 +36,7 @@ class GL20Renderer extends GLSurfaceView {
     }
 	
 	
-    private static String TAG = "GL2JNIView";
+    private static String TAG = "Cross++";
     private static final boolean DEBUG = false;
 	private static CrossActivity activity;
 

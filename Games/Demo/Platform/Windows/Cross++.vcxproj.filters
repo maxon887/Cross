@@ -166,6 +166,9 @@
     <ClCompile Include="..\..\..\..\Sources\Launcher.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\BlackScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -311,6 +314,9 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Camera2DScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\BlackScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

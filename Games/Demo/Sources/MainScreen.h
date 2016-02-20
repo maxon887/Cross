@@ -30,7 +30,8 @@ enum GoingScreen{
 	SPRITES,
 	TEXT,
 	TEST_NA_PIDORA,
-	CAMERA2D
+	CAMERA2D,
+	BLACK
 };
 
 class MainScreen : public Screen{
@@ -53,4 +54,5 @@ private:
 	void OnAudioClick();
 	void On2DCameraClick();
 	void OnTextClick();
+	void OnBlackClick();
 };

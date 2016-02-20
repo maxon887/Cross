@@ -110,50 +110,98 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Audio.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Audio.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Audio.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Audio.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Camera.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Color.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Color.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Color.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Color.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Config.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Config.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Config.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Config.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Cross.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Cross.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Exception.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Exception.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Exception.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Exception.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/File.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/File.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/File.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/File.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Font.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Font.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Font.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Font.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Game.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Game.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Game.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Game.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Input.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Input.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Input.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Input.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Launcher.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Launcher.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Matrix.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Matrix.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Matrix.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Matrix.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Rect.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Rect.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Rect.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Rect.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/SOIL">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/SOIL" isTestSource="false" />
@@ -164,17 +212,29 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Sprite.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sprite.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Utils">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Utils" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.cpp" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.h" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 15 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

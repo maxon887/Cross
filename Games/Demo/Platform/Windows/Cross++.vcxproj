@@ -104,6 +104,7 @@
     <ClCompile Include="..\..\Sources\Birds\BirdsScreen.cpp" />
     <ClCompile Include="..\..\Sources\Birds\Entity.cpp" />
     <ClCompile Include="..\..\Sources\Birds\MovingEntity.cpp" />
+    <ClCompile Include="..\..\Sources\BlackScreen.cpp" />
     <ClCompile Include="..\..\Sources\Camera2DScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\..\Sources\Birds\BirdsScreen.h" />
     <ClInclude Include="..\..\Sources\Birds\Entity.h" />
     <ClInclude Include="..\..\Sources\Birds\MovingEntity.h" />
+    <ClInclude Include="..\..\Sources\BlackScreen.h" />
     <ClInclude Include="..\..\Sources\Camera2DScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />

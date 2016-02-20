@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.WindowManager;
+import android.view.Window;
 
 public class CrossActivity extends Activity{
 	private static Cross cross;
@@ -32,8 +34,9 @@ public class CrossActivity extends Activity{
 		Log.d("Cross++", "Java onCreate");
 		super.onCreate(savedInstanceState);
 		cross_initialized = false;
-		//renderer = new CrossRenderer(this);
-		renderer = new GL20Renderer(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        renderer = new GL20Renderer(this);
 		try{
 			renderer.setPreserveEGLContextOnPause(true);
 		}catch(Throwable ex){
