@@ -101,17 +101,16 @@
     <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector4D.cpp" />
-    <ClCompile Include="..\..\Sources\AnimationScreen.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
-    <ClCompile Include="..\..\Sources\BlackScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Camera2DScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\Camera2DScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
-    <ClCompile Include="..\..\Sources\SpritesScreen.cpp" />
-    <ClCompile Include="..\..\Sources\TestNaPidoraScreen.cpp" />
-    <ClCompile Include="..\..\Sources\PrimitivesScreen.cpp" />
-    <ClCompile Include="..\..\Sources\TextScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,17 +154,16 @@
     <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector3D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector4D.h" />
-    <ClInclude Include="..\..\Sources\AnimationScreen.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
-    <ClInclude Include="..\..\Sources\BlackScreen.h" />
-    <ClInclude Include="..\..\Sources\Camera2DScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\Camera2DScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
-    <ClInclude Include="..\..\Sources\SpritesScreen.h" />
-    <ClInclude Include="..\..\Sources\TestNaPidoraScreen.h" />
-    <ClInclude Include="..\..\Sources\PrimitivesScreen.h" />
-    <ClInclude Include="..\..\Sources\TextScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

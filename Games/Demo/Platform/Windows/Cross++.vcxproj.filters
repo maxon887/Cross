@@ -22,6 +22,9 @@
     <Filter Include="Cross\SOIL">
       <UniqueIdentifier>{047af7fd-1390-4d40-88dd-a8f6050d30d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Graphics2D">
+      <UniqueIdentifier>{22f427a0-3bad-4d14-b5b9-128218b78dd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -63,9 +66,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp">
       <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\AnimationScreen.cpp">
-      <Filter>Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
@@ -109,12 +109,6 @@
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\TestNaPidoraScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\PrimitivesScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -122,12 +116,6 @@
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Menu.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\SpritesScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\TextScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp">
@@ -142,14 +130,8 @@
     <ClCompile Include="..\..\..\..\Sources\Camera.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Camera2DScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Launcher.cpp">
       <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\BlackScreen.cpp">
-      <Filter>Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
@@ -165,6 +147,24 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
       <Filter>Cross\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics2D\Camera2DScreen.cpp">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.cpp">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp">
+      <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +207,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Rect.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\AnimationScreen.h">
-      <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\AudioScreen.h">
       <Filter>Demo</Filter>
@@ -259,12 +256,6 @@
     <ClInclude Include="..\..\..\..\Sources\Sprite.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\TestNaPidoraScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\PrimitivesScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -272,12 +263,6 @@
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Menu.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\SpritesScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\TextScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h">
@@ -291,12 +276,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Camera.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Camera2DScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\BlackScreen.h">
-      <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Debugger.h">
       <Filter>Cross\Utils</Filter>
@@ -321,6 +300,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug_c.h">
       <Filter>Cross\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics2D\Camera2DScreen.h">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.h">
+      <Filter>Demo\Graphics2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h">
+      <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

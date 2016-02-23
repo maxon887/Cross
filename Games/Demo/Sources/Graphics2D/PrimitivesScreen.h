@@ -13,36 +13,18 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
-#include "Utils/Button.h"
-#include "Menu.h"
+#include "Font.h"
 
 using namespace cross;
 
-class MainScreen : public Screen{
+class PrimitivesScreen : public Screen{
 public:
+	~PrimitivesScreen();
 	void Start();
-	void Stop();
 	void Update(float sec);
 private:
-	Menu* current_menu;
-	Menu* main_menu;
-	Menu* graphics2D_menu;
-	Menu* graphics3D_menu;
-	Sprite* def_button;
-	Screen* next_screen;
-
-	void OnGraphics2DClick();
-	void OnGraphics3DClick();
-	void OnPrimitivesClick();
-	void OnSpritesClick();
-	void OnAnimationClick();
-	void OnTestNaPidoraClick();
-	void On2DCameraClick();
-	void OnTextClick();
-	void OnTriangleClick();
-	void OnAudioClick();
 };

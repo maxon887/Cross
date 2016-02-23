@@ -16,10 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
 #include "MainScreen.h"
-#include "TestNaPidoraScreen.h"
 #include "Utils/Debugger.h"
-#include "SpritesScreen.h"
-#include "PrimitivesScreen.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
 

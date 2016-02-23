@@ -20,13 +20,22 @@
 
 using namespace cross;
 
-class BlackScreen : public Screen{
+struct ScreenChar{
+	Vector2D positon;
+	Color color = Color::White;
+	float size;
+	string str;
+};
+
+class TextScreen : public Screen{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
 private:
-	bool screen_debug;
+	Font* font;
+	Font* debug_font;
+	CRArray<ScreenChar*> chars;
 
-	void ActionDownHandler(Vector2D pos);
+	void AddChar();
 };

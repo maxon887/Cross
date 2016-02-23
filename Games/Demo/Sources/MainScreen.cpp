@@ -18,19 +18,18 @@
 #include "Game.h"
 #include "Graphics2D.h"
 #include "Launcher.h"
-#include "AnimationScreen.h"
 #include "AudioScreen.h"
-#include "PrimitivesScreen.h"
 #include "Config.h"
 #include "Sprite.h"
-#include "TestNaPidoraScreen.h"
-#include "SpritesScreen.h"
-#include "TextScreen.h"
-#include "Camera2DScreen.h"
-#include "BlackScreen.h"
+#include "Graphics2D/PrimitivesScreen.h"
+#include "Graphics2D/AnimationScreen.h"
+#include "Graphics2D/TestNaPidoraScreen.h"
+#include "Graphics2D/SpritesScreen.h"
+#include "Graphics2D/TextScreen.h"
+#include "Graphics2D/Camera2DScreen.h"
 
 void MainScreen::Start(){
-	going_screen = NO_SCREEN;
+	next_screen = nullptr;
 	def_button = gfx2D->LoadImage("DefaultButton.png");
 	//main menu
 	main_menu = new Menu();
@@ -38,17 +37,15 @@ void MainScreen::Start(){
 	Button* graphics2Dbtn = new Button("Graphics 2D");
 	Button* graphics3Dbtn = new Button("Graphics 3D");
 	Button* audioBtn = new Button("Audio");
-	Button* blackBtn = new Button("Black Screen");
 	graphics2Dbtn->SetImages(new Sprite(*def_button), nullptr);
 	graphics3Dbtn->SetImages(new Sprite(*def_button), nullptr);
 	audioBtn->SetImages(new Sprite(*def_button), nullptr);
-	blackBtn->SetImages(new Sprite(*def_button), nullptr);
 	graphics2Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics2DClick);
-	blackBtn->Clicked += MakeDelegate(this, &MainScreen::OnBlackClick);
+	graphics3Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics3DClick);
+	audioBtn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
 	main_menu->AddButton(graphics2Dbtn);
 	main_menu->AddButton(graphics3Dbtn);
 	main_menu->AddButton(audioBtn);
-	main_menu->AddButton(blackBtn);
 	//graphics 2D menu
 	graphics2D_menu = new Menu();
 	Button* primitivesBtn = new Button("Primitives");
@@ -68,6 +65,12 @@ void MainScreen::Start(){
 	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
 	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
+	//graphics 3D menu
+	graphics3D_menu = new Menu();
+	Button* triangleBtn = new Button("Triangle");
+	triangleBtn->SetImages(new Sprite(*def_button), nullptr);
+	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
+	graphics3D_menu->AddButton(triangleBtn);
 
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
@@ -93,35 +96,8 @@ void MainScreen::Update(float sec){
 		current_menu = main_menu;
 	}
 
-	switch (going_screen){
-	case NO_SCREEN:
-		break;
-	case ANIMATION:
-		game->SetScreen(new AnimationScreen());
-		break;
-	case AUDIO:
-		game->SetScreen(new AudioScreen());
-		break;
-	case TEST_NA_PIDORA:
-		game->SetScreen(new TestNaPidoraScreen());
-		break;
-	case SPRITES:
-		game->SetScreen(new SpritesScreen());
-		break;
-	case PRIMITIVES:
-		game->SetScreen(new PrimitivesScreen());
-		break;
-	case TEXT:
-		game->SetScreen(new TextScreen());
-		break;
-	case CAMERA2D:
-		game->SetScreen(new Camera2DScreen());
-		break;
-	case BLACK:
-		game->SetScreen(new BlackScreen());
-		break;
-	default:
-		break;
+	if(next_screen){
+		game->SetScreen(next_screen);
 	}
 }
 
@@ -131,34 +107,40 @@ void MainScreen::OnGraphics2DClick(){
 	current_menu = graphics2D_menu;
 }
 
-void MainScreen::OnAnimationClick(){
-	going_screen = ANIMATION;
+void MainScreen::OnGraphics3DClick(){
+	current_menu->Active(false);
+	graphics3D_menu->Active(true);
+	current_menu = graphics3D_menu;
 }
 
-void MainScreen::OnAudioClick(){
-	going_screen = AUDIO;
+void MainScreen::OnAnimationClick(){
+	next_screen = new AnimationScreen();
 }
 
 void MainScreen::OnPrimitivesClick(){
-	going_screen = PRIMITIVES;
+	next_screen = new PrimitivesScreen();
 }
 
 void MainScreen::OnSpritesClick(){
-	going_screen = SPRITES;
+	next_screen = new SpritesScreen();
 }
 
 void MainScreen::OnTestNaPidoraClick() {
-	going_screen = TEST_NA_PIDORA;
+	next_screen = new TestNaPidoraScreen();
 }
 
 void MainScreen::OnTextClick(){
-	going_screen = TEXT;
+	next_screen = new TextScreen();
 }
 
 void MainScreen::On2DCameraClick(){
-	going_screen = CAMERA2D;
+	next_screen = new Camera2DScreen();
 }
 
-void MainScreen::OnBlackClick(){
-	going_screen = BLACK;
+void MainScreen::OnTriangleClick(){
+
+}
+
+void MainScreen::OnAudioClick() {
+	next_screen = new AudioScreen();
 }
