@@ -15,9 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include <string>
-#include <vector>
-#include <list>
 
 #include "MemoryManager.h"
 #include "Exception.h"
@@ -27,6 +24,10 @@
 #include "Matrix.h"
 #include "Color.h"
 #include "Rect.h"
+
+#include <string>
+#include <vector>
+#include <list>
 
 #define CRByte		unsigned char
 #define CRArray		std::vector
@@ -51,6 +52,7 @@ class Audio;
 class Screen;
 class File;
 class Font;
+class Camera;
 
 extern Game* game;
 extern Launcher* launcher;

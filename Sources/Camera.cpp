@@ -21,15 +21,16 @@ using namespace cross;
 
 Camera::Camera(){
 	view = Matrix::CreateIdentity();
-	float width = (float)launcher->GetTargetWidth();
-	float height = (float)launcher->GetTargetHeight();
-	projection = Matrix::CreateOrthogonalProjection(0, width, 0, height, 1, -1);
+	view_width = (float)launcher->GetTargetWidth();
+	view_height = (float)launcher->GetTargetHeight();
+	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
-void Camera::ViewWidth(float width){
-	float scale = (float)launcher->GetTargetWidth() / width;
-	float height = (float)launcher->GetTargetHeight() / scale;
-	projection = Matrix::CreateOrthogonalProjection(0, width, 0, height, 1, -1);
+void Camera::SetViewWidth(float width){
+	this->view_width = width;
+	float scale = (float)launcher->GetTargetWidth() / view_width;
+	view_height = (float)launcher->GetTargetHeight() / scale;
+	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
 void Camera::SetPosition(Vector2D pos){
@@ -42,4 +43,12 @@ Matrix Camera::GetViewMatrix(){
 
 Matrix Camera::GetProjectionMatrix(){
 	return projection;
+}
+
+float Camera::GetViewWidth(){
+	return view_width;
+}
+
+float Camera::GetViewHeight(){
+	return view_height;
 }

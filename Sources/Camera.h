@@ -23,8 +23,10 @@ class Camera{
 public:
 	Camera();
 	/* Setup camera view area. Height will be calculated regarding on aspect ratio */
-	void ViewWidth(float width);
+	void SetViewWidth(float width);
 	void SetPosition(Vector2D pos);
+	float GetViewWidth();
+	float GetViewHeight();
 //Framework module. You don't need call any of this methods or modify variable
 public:
 	Matrix GetViewMatrix();
@@ -32,6 +34,8 @@ public:
 private:
 	Matrix view;
 	Matrix projection;
+	float view_width;
+	float view_height;
 };
 
 };
