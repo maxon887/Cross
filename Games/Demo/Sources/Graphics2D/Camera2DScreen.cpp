@@ -131,10 +131,10 @@ void Camera2DScreen::WheelUpHandler(){
 	}else{
 		view_width = 1000.f * launcher->DeviceAspect();
 	}
-	camera->ViewWidth(view_width);
+	camera->SetViewWidth(view_width);
 }
 
 void Camera2DScreen::WheelDownHandler(){
 	view_width *= 0.95f;
-	camera->ViewWidth(view_width);
+	camera->SetViewWidth(view_width);
 }
