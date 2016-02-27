@@ -19,6 +19,7 @@
 #include "Texter.h"
 #include "Input.h"
 #include "Graphics2D.h"
+#include "Camera.h"
 #include "Game.h"
 #include "Font.h"
 
@@ -34,7 +35,7 @@ Debugger* Debugger::Instance()
 	return &instance;
 }
 
-Debugger::Debugger():
+Debugger::Debugger() :
 	touch_pointer(nullptr),
 	texter(nullptr),
 	update_time(0),
@@ -45,15 +46,12 @@ Debugger::Debugger():
 	render_counter(0),
 	time(0),
 	screen_debug(false),
+	input_debug(false),
 	console_debug(false),
 	touches(false),
 	touch_down(false),
 	next_display(3000000.f)
-{
-	//input->ActionDown += MakeDelegate(this, &Debugger::OnActionDown);
-	//input->ActionMove += MakeDelegate(this, &Debugger::OnActionMove);
-	//input->ActionUp += MakeDelegate(this, &Debugger::OnActionUp);
-}
+{ }
 
 Debugger::~Debugger(){
 	delete texter;
@@ -88,7 +86,7 @@ void Debugger::Display(float micro){
 		}
 	}
 	if(screen_debug){
-		float height = game->GetHeight();
+		float height = gfx2D->GetDefaultCamera()->GetViewHeight();
 		texter->DrawText(0, height - texter->GetHeight(), "Render Time: " + to_string(render_time) + "ms");
 		if(update_time == 0){
 			texter->DrawText(0, height - texter->GetHeight() * 2, "Update Time: Undefined");
@@ -101,6 +99,13 @@ void Debugger::Display(float micro){
 			texter->DrawText(0, height - texter->GetHeight() * 3, "FPS: " + to_string(1000.f / render_time));
 		}
 		texter->DrawText(0, height - texter->GetHeight() * 4, "Run time: " + to_string(time));
+		if(input_debug){
+			if(touch_down) {
+				texter->DrawText(0, height - texter->GetHeight() * 5, "Input x: " + to_string(touch_pos.x) + " y: " + to_string(touch_pos.y));
+			} else {
+				texter->DrawText(0, height - texter->GetHeight() * 5, "Input Up");
+			}
+		}
 	}
 	if(console_debug){
 		if(next_display < 0){
@@ -121,11 +126,18 @@ void Debugger::ScreenDebug(bool enable){
 	screen_debug = enable;
 	if(screen_debug){
 		if(texter == NULL){
-			texter = new Texter(game, "Engine/Fonts/Texter.png", 11.0f, 20.0f, 23, 6, 32, 1.0f);
+			texter = new Texter(game, "Engine/Fonts/Texter.png", 11.0f, 20.0f, 23, 6, 32);
 		}else{
 			launcher->LogIt("Warning!Screen debug already anabled");
 		}
 	}
+}
+
+void Debugger::EnableInputDebug(){
+	input_debug = true;
+	input->ActionDown += MakeDelegate(this, &Debugger::OnActionDown);
+	input->ActionMove += MakeDelegate(this, &Debugger::OnActionMove);
+	input->ActionUp += MakeDelegate(this, &Debugger::OnActionUp);
 }
 
 void Debugger::ConsoleDebug(bool enable){
@@ -136,7 +148,7 @@ void Debugger::Touches(bool enable){
 	touches = enable;
 	if(touches){
 		if(touch_pointer == NULL){
-			touch_pointer = gfx2D->LoadImage("TouchPointer.png", game->GetScaleFactor() * 0.5f);
+			touch_pointer = gfx2D->LoadImage("TouchPointer.png", 0.5f);
 		} else{
 			launcher->LogIt("Warning!Touches already anabled");
 		}
@@ -158,4 +170,17 @@ void Debugger::SetUpdateTime(float micro) {
 
 float Debugger::GetFPS(){
 	return 1000.f / render_time;
+}
+
+void Debugger::OnActionDown(Vector2D pos) {
+	touch_down = true;
+	touch_pos = pos;
+}
+
+void Debugger::OnActionUp(Vector2D pos) {
+	touch_down = false;
+}
+
+void Debugger::OnActionMove(Vector2D pos) {
+	touch_pos = pos;
 }

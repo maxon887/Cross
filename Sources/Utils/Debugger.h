@@ -32,6 +32,7 @@ public:
 	void Display(float sec);
 	void SetUpdateTime(float sec);
 	void ScreenDebug(bool enable);
+	void EnableInputDebug();
 	void ConsoleDebug(bool enable);
 	void Touches(bool enable);
 	float GetFPS();
@@ -55,6 +56,7 @@ private:
 	float next_display;
 
 	bool screen_debug;
+	bool input_debug;
 	bool console_debug;
 	bool touches;
 	Vector2D touch_pos;
@@ -62,6 +64,10 @@ private:
 
 	Debugger();
 	~Debugger();
+
+	void OnActionDown(Vector2D pos);
+	void OnActionUp(Vector2D pos);
+	void OnActionMove(Vector2D pos);
 };
     
 }

@@ -22,7 +22,6 @@
 #include "Launcher.h"
 #include "Camera.h"
 #include "Game.h"
-#include "MainScreen.h"
 #include "Font.h"
 
 void Camera2DScreen::Start(){
@@ -47,7 +46,7 @@ void Camera2DScreen::Start(){
 }
 
 void Camera2DScreen::Stop(){
-	gfx2D->SetCamera(gfx2D->GetDefaultCamera());
+	//gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 	delete camera;
 	delete tip_font;
 	for(Sprite* sprite : sprites){
@@ -120,7 +119,7 @@ void Camera2DScreen::Update(float sec){
 	camera->SetPosition(cam_positon);
 
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(new MainScreen());
+		game->SetScreen(game->GetStartScreen());
 	}
 }
 

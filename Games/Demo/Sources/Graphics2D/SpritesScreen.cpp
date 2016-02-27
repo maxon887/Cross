@@ -18,7 +18,6 @@
 #include "Graphics2D.h"
 #include "Input.h"
 #include "Game.h"
-#include "MainScreen.h"
 #include "Utils/Misc.h"
 #include "Sprite.h"
 #include "Utils/Debugger.h"
@@ -32,15 +31,6 @@ SpritesScreen::~SpritesScreen(){
 void SpritesScreen::Start(){
 	awesome_face = gfx2D->LoadImage("AwesomeFace.png", 0.1f);
 	debug_font = new Font("LiberationMono-Bold.ttf", 50, Color::Red);
-	/*
-	for(int i = 0; i < SPRITES_COUNT; i++){
-		positions[i].x = Random(5 + awesome_face->GetWidth() / 2, game->GetWidth() - 5 - awesome_face->GetWidth() / 2);
-		positions[i].y = Random(5 + awesome_face->GetHeight() / 2, game->GetHeight() - 5 - awesome_face->GetHeight() / 2);
-
-		velocities[i].x = Random(1.f, 5.f);
-		velocities[i].y = Random(1.f, 5.f);
-	}
-	gfx2D->SetClearColor(Color(0.2f, 0.2f, 0.2f));*/
 }
 
 void SpritesScreen::Update(float sec){
@@ -60,7 +50,7 @@ void SpritesScreen::Update(float sec){
 	PushSprite();
 	
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
-		game->SetScreen(new MainScreen());
+		game->SetScreen(game->GetStartScreen());
 	}
 }
 

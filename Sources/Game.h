@@ -18,11 +18,8 @@
 #include "Cross.h"
 
 #include <chrono>
-//#include <mutex>
 
 namespace cross{
-
-//extern mutex global_mutex;
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screens.
 	Every game must implement this class for set start Screen and virtual world size for your game. */
@@ -32,10 +29,6 @@ public:
 	virtual Screen* GetStartScreen() = 0;
 	/* Game constructor. Virtual word coordinates will match target physical pixels */
 	Game();
-	/* Game constructor. Virtual world height will calculate proportionally physical screen ratio */
-	Game(float width);
-	/* Game constructor. Game screen will scroll automatically */
-	Game(float width, float height);
 	// Cause when game is about to start
 	virtual void Start();
 	// Cause when game is about to stop
@@ -61,10 +54,6 @@ public:
 	void Init();
     void Update();
 	virtual ~Game();
-protected:
-	float width;
-	float height;
-	float scale_factor;
 private:
 	Screen* current_screen;
 	chrono::time_point<chrono::high_resolution_clock> render_time;

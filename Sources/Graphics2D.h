@@ -30,6 +30,7 @@ class Graphics2D{
 public:
 	Font* GetDefaultFont();
 	void SetCamera(Camera* camera);
+	Camera* GetCamera();
 	Camera* GetDefaultCamera();
 	void DrawPoint(Vector2D pos, Color color);
 	void DrawLine(Vector2D p1, Vector2D p2, Color color);
@@ -46,7 +47,7 @@ public:
 	void DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monochrome);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
-	Sprite* LoadImage(string filename, float scaleFactor);
+	Sprite* LoadImage(string filename, float scale);
 	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
 	void ReleaseSprite(Sprite* img);
 //Internal data. You don't need call any of this methods or modify variables
@@ -63,8 +64,6 @@ private:
 	MonochromeShaders* monochrome_shaders;
 	Camera* camera;
 	Camera* default_camera;
-
-	Camera* GetCamera();
 };
 
 }

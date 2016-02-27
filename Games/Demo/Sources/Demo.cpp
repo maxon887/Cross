@@ -17,13 +17,23 @@
 #include "Demo.h"
 #include "MainScreen.h"
 #include "Utils/Debugger.h"
+#include "Graphics2D.h"
+#include "Camera.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
 
 void Demo::Start(){
 	Debugger::Instance()->ScreenDebug(true);
+	Debugger::Instance()->EnableInputDebug();
+	camera = new Camera();
+	camera->SetViewWidth(900.f);
+}
+
+void Demo::Stop(){
+	delete camera;
 }
 
 Screen* Demo::GetStartScreen(){
+	gfx2D->SetCamera(camera);
 	return new MainScreen();
 }

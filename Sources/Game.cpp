@@ -22,6 +22,7 @@
 #include "Utils/Debugger.h"
 #include "Audio.h"
 #include "Graphics2D.h"
+#include "Camera.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #undef GetMessage
@@ -44,42 +45,19 @@ Game::Game(){
 	config = new Config(launcher->DataPath());
 	Audio::Init();
 	this->current_screen = NULL;
-	this->width = (float)launcher->GetTargetWidth();
-	this->height = (float)launcher->GetTargetHeight();
-	scale_factor = (float)launcher->GetTargetWidth() / width;
-}
-
-Game::Game(float width){
-	input = new Input();
-	config = new Config(launcher->DataPath());
-	Audio::Init();
-	this->current_screen = NULL;
-	this->width = width;
-	float aspect = (float)launcher->GetTargetHeight() / (float)launcher->GetTargetWidth();
-	height = width * aspect;
-    scale_factor = (float)launcher->GetTargetWidth() / width;
-}
-
-Game::Game(float width, float height){
-	input = new Input();
-	config = new Config(launcher->DataPath());
-	Audio::Init();
-	this->current_screen = NULL;
-	this->width = width;
-	this->height = height;
-	scale_factor = (float)launcher->GetTargetWidth() / width;
+	//scale_factor = (float)launcher->GetTargetWidth() / width;
 }
 
 float Game::GetScaleFactor(){
-	return scale_factor;
+	return (float)launcher->GetTargetWidth() / GetWidth();
 }
 
 float Game::GetWidth(){
-	return width;
+	return gfx2D->GetCamera()->GetViewWidth();
 }
 
 float Game::GetHeight(){
-	return height;
+	return gfx2D->GetCamera()->GetViewHeight();
 }
 
 void Game::SetScreen(Screen* screen){

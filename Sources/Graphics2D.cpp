@@ -63,6 +63,14 @@ void Graphics2D::SetCamera(Camera* camera){
 	this->camera = camera;
 }
 
+Camera* Graphics2D::GetCamera() {
+	if(camera) {
+		return camera;
+	} else {
+		return default_camera;
+	}
+}
+
 Camera* Graphics2D::GetDefaultCamera(){
 	return default_camera;
 }
@@ -248,11 +256,13 @@ Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
 	return img;
 }
 
-Sprite* Graphics2D::LoadImage(string filename){
-	return LoadImage(filename, game->GetScaleFactor());
+Sprite* Graphics2D::LoadImage(string filename, float scale){
+	Sprite* sprite = LoadImage(filename);
+	sprite->SetScale(scale);
+	return sprite;
 }
 
-Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
+Sprite* Graphics2D::LoadImage(string filename){
 	Debugger::Instance()->StartCheckTime();
 	int width, height;
 	File* imageFile = launcher->LoadFile(filename);
@@ -264,7 +274,6 @@ Sprite* Graphics2D::LoadImage(string filename, float scaleFactor){
 	}
 	Sprite* sprite = LoadImage(image, 4, width, height);
 	SOIL_free_image_data(image);
-	sprite->SetScale(scaleFactor);
 	return sprite;
 }
 
@@ -334,12 +343,4 @@ void Graphics2D::ReleaseSprite(Sprite* img){
 
 void Graphics2D::Update(){
 	glClear(GL_COLOR_BUFFER_BIT);
-}
-
-Camera* Graphics2D::GetCamera(){
-	if(camera){
-		return camera;
-	}else{
-		return default_camera;
-	}
 }

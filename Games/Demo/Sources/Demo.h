@@ -23,7 +23,9 @@ using namespace cross;
 class Demo : public Game{
 public:
 	Demo(Launcher* launcher);
-	void Start();
+	void Start() override;
+	void Stop() override;
 	Screen* GetStartScreen();
 private:
+	Camera* camera;
 };

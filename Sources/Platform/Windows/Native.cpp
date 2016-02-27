@@ -20,6 +20,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "resource.h"
+#include "Launcher.h"
 
 using namespace cross;
 
@@ -47,20 +48,26 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		short targetX = (short)LOWORD(lParam);
 		short targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		TRIGGER_EVENT(input->ActionDown, Vector2D(targetX, game->GetHeight() - targetY));
+		targetX = targetX / game->GetScaleFactor();
+		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionDown, Vector2D(targetX, targetY));
 	}break;
 	case WM_MOUSEMOVE:{
 		if(mouseDown){
 			short targetX = (short)LOWORD(lParam);
 			short targetY = (short)HIWORD(lParam);
-			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, game->GetHeight() - targetY));
+			targetX = targetX / game->GetScaleFactor();
+			targetY = game->GetHeight() - targetY / game->GetScaleFactor();
+			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, targetY));
 		}
 	}break;
 	case WM_LBUTTONUP:{
 		short targetX = (short)LOWORD(lParam);
 		short targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, game->GetHeight() - targetY));
+		targetX = targetX / game->GetScaleFactor();
+		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
+		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, targetY));
 	}break;
 	case WM_CLOSE:{
 		RECT winRect = GetLocalCoordinates(wnd);

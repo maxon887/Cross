@@ -26,14 +26,16 @@ using namespace cross;
 Texter::Texter(Game* game, const char* fontFilename,
 				float width, float height,
 				int columns, int rows,
-				int asciiOffset){
-	Init(game, fontFilename, width, height, columns, rows, asciiOffset, game->GetScaleFactor());
+				int asciiOffset)
+{
+	Init(game, fontFilename, width, height, columns, rows, asciiOffset, 1.0);
 }
 
 Texter::Texter(Game* game, const char* fontFilename,
 				float width, float height,
 				int columns, int rows,
-				int asciiOffset, float scaleFactor){
+				int asciiOffset, float scaleFactor)
+{
 	Init(game, fontFilename, width, height, columns, rows, asciiOffset, scaleFactor);
 }
 
@@ -54,18 +56,17 @@ void Texter::DrawText(float x, float y, const string &text){
 	x += GetWidth() / 2;
 	y += GetHeight() / 2;
 	for(unsigned int i = 0; i < text.length(); i++){
-		//gfx2D->DrawSprite(Vector2D(x + i * GetWidth(), y), letters[text[i] - offset]);
 		letters[text[i] - offset]->SetPosition(Vector2D(x + i * GetWidth(), y));
 		gfx2D->DrawSprite(letters[text[i] - offset], Color::White, gfx2D->GetDefaultCamera(), false);
 	}
 }
 
 float Texter::GetWidth(){
-	return width / game->GetScaleFactor() * scale_factor;
+	return width /  scale_factor;
 }
 
 float Texter::GetHeight(){
-	return height / game->GetScaleFactor() * scale_factor;
+	return height / scale_factor;
 }
 
 void Texter::Init(	Game* game, const char* fontFilename,
