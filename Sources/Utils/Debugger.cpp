@@ -28,11 +28,18 @@
 using namespace cross;
 using namespace chrono;
 
-Debugger Debugger::instance;
+Debugger* Debugger::instance = nullptr;
 
-Debugger* Debugger::Instance()
-{
-	return &instance;
+Debugger* Debugger::Instance(){
+	if(!instance){
+		instance = new Debugger();
+	}
+	return instance;
+}
+
+void Debugger::Release(){
+	delete instance;
+	instance = nullptr;
 }
 
 Debugger::Debugger() :

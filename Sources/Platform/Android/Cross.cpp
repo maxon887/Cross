@@ -26,7 +26,6 @@
 
 #include "jni.h"
 #include "android/asset_manager_jni.h"
-#include "../../Cross.h"
 
     using namespace cross;
 
@@ -57,44 +56,69 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
-		//global_mutex.lock();
-		game->Init();
-		game->Start();
-		//global_mutex.unlock();
+		try{
+			game->Init();
+			game->Start();
+		} catch(Exception &exc) {
+            string msg = string(exc.message) +
+                         +"\nFile: " + string(exc.filename) +
+                         +"\nLine: " + to_string(exc.line);
+            LOGE("%s", msg.c_str());
+        }
 	}
 
 	void Java_com_cross_Cross_Update(JNIEnv *env, jobject thiz){
-		//global_mutex.lock();
-		game->Update();
-		//global_mutex.unlock();
+		try{
+			game->Update();
+		} catch(Exception &exc) {
+            string msg = string(exc.message) +
+                         +"\nFile: " + string(exc.filename) +
+                         +"\nLine: " + to_string(exc.line);
+            LOGE("%s", msg.c_str());
+        }
 	}
 
 	void Java_com_cross_Cross_Suspend(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Suspend");
-		//global_mutex.lock();
-		game->Suspend();
-		Audio::SuspendSystem();
-		//global_mutex.unlock();
+		try{
+			game->Suspend();
+			Audio::SuspendSystem();
+		} catch(Exception &exc) {
+            string msg = string(exc.message) +
+                         +"\nFile: " + string(exc.filename) +
+                         +"\nLine: " + to_string(exc.line);
+            LOGE("%s", msg.c_str());
+        }
 	}
 
 	void Java_com_cross_Cross_Resume(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Resume");
-		//global_mutex.lock();
-		game->Resume();
-		Audio::ResumeSystem();
-		//global_mutex.unlock();
+		try{
+			game->Resume();
+			Audio::ResumeSystem();
+		} catch(Exception &exc) {
+            string msg = string(exc.message) +
+                         +"\nFile: " + string(exc.filename) +
+                         +"\nLine: " + to_string(exc.line);
+            LOGE("%s", msg.c_str());
+        }
 	}
 
 	void Java_com_cross_Cross_Release(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Release");
-		//global_mutex.lock();
-		game->Suspend();
-		delete game;
-		Audio::Release();
-		delete gfx2D;
-		//delete gfx3D;
-		delete launcher;
-		//global_mutex.unlock();
+		try{
+			game->Suspend();
+			delete game;
+			Audio::Release();
+			delete gfxGL;
+			delete gfx2D;
+			delete launcher;
+		} catch(Exception &exc) {
+            string msg = string(exc.message) +
+                         +"\nFile: " + string(exc.filename) +
+                         +"\nLine: " + to_string(exc.line);
+            LOGE("%s", msg.c_str());
+        }
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){

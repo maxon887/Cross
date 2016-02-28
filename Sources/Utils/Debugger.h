@@ -26,6 +26,7 @@ namespace cross{
 class Debugger{
 public:
 	static Debugger* Instance();
+	static void Release();
 
 	void StartCheckTime();
 	void StopCheckTime(string label);
@@ -38,7 +39,7 @@ public:
 	float GetFPS();
 
 private:
-	static Debugger instance;
+	static Debugger* instance;
 
 	Texter* texter;
 	Sprite* touch_pointer;

@@ -53,6 +53,9 @@ Font::Font(string filename, float size, Color color):
 Font::~Font(){
 	glDeleteTextures(128, textures);
 	delete file;
+	for(Sprite* sprite : sprites){
+		delete sprite;
+	}
 }
 
 Color Font::GetColor(){
@@ -95,10 +98,6 @@ float Font::GetCharWidth(){
 		throw CrossException("Char width can be obtained only for monospace fonts");
 	}
 }
-/*
-Glyph* Font::GetGlyph(char c){
-	return &glyphs[c - 29];
-}*/
 
 Sprite* Font::GetChar(char c){
 	return sprites[c - 29];
@@ -133,6 +132,7 @@ void Font::Cache(){
 		Rect region(0, 0, bmpWidth, bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
 		Sprite* sprite = new Sprite(textures[i], (int)bmpWidth, (int)bmpHeight, region, pivot);
+		delete sprites[i];
 		sprites[i] = sprite;
 	}
 }

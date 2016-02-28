@@ -17,6 +17,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Sprite.h"
+#include "Launcher.h"
 
 Menu::Menu():
 	button_height(0),

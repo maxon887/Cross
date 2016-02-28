@@ -56,7 +56,7 @@ void LauncherAndroid::LogIt(const char* formatStr, ...){
     char buffer[1024];
     va_start(params, formatStr);
     vsprintf(buffer, formatStr, params);
-    LOGI("%s/n", buffer);
+    LOGI("%s", buffer);
     va_end(params);
 }
 
@@ -75,28 +75,6 @@ File* LauncherAndroid::LoadFile(string filename) {
     AAsset_close(asset);
     return file;
 }
-/*
-void LauncherAndroid::LoadFile(string filename, unsigned char** buffer, int* length){
-	AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
-	if(!asset){
-		string msg = "Can't load asset " + filename;
-		throw msg;
-	}
-	*length = AAsset_getLength(asset);
-	*buffer = (unsigned char*)malloc(*length);
-	int read = AAsset_read(asset, *buffer, *length);
-	if(read <= 0){
-		string msg = "Can't load asset " + filename;
-		throw msg;
-	}
-	AAsset_close(asset);
-}
-
-unsigned char* LauncherAndroid::LoadFile(string filename, int* size){
-	unsigned char* bufferPtr;
-	LoadFile(filename, &bufferPtr, size);
-	return bufferPtr;
-}*/
 
 void LauncherAndroid::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();

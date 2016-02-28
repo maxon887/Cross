@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.Window;
 
 public class CrossActivity extends Activity{
+	private static String TAG = "CrossJava";
 	private static Cross cross;
 	private static boolean cross_initialized = false;
 	private static Commercial commercial;
@@ -31,7 +32,7 @@ public class CrossActivity extends Activity{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d("Cross++", "Java onCreate");
+		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		cross_initialized = false;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -40,13 +41,13 @@ public class CrossActivity extends Activity{
 		try{
 			renderer.setPreserveEGLContextOnPause(true);
 		}catch(Throwable ex){
-			Log.d("Cross++", "Java setPreserveEGLContextOnPause exception");
+			Log.d(TAG, "setPreserveEGLContextOnPause exception");
 		}
 		setContentView(renderer);
 		try{
 			//commercial = new Commercial(this);
 		}catch(Throwable ex){
-			Log.d("Cross++", "Java can not create commercial");
+			Log.d(TAG, "can not create commercial");
 			commercial = null;
 		}
 		//rate it
@@ -56,7 +57,7 @@ public class CrossActivity extends Activity{
 	
 	@Override
 	protected void onPause() {
-		Log.d("Cross++", "Java onPause");
+		Log.d(TAG, "onPause");
 		super.onPause();
 		if(cross_initialized){
 			cross.Suspend();
@@ -66,7 +67,7 @@ public class CrossActivity extends Activity{
 	
 	@Override
 	protected void onResume() {
-		Log.d("Cross++", "Java onResume");
+		Log.d(TAG, "onResume");
 		super.onResume();
 		renderer.onResume();
 		if(cross_initialized) {
@@ -131,7 +132,7 @@ public class CrossActivity extends Activity{
 	}
 	
 	public void Init(int width, int height){
-		Log.d("Cross++", "Java Init OpenGL");
+		Log.d(TAG, "Init OpenGL");
 		if(!cross_initialized){
 			FMOD.init(this);
 			String dataPath =  getFilesDir().getPath();
@@ -144,12 +145,12 @@ public class CrossActivity extends Activity{
 			cross.Start();
 			cross_initialized = true;
 		}else{
-			Log.d("Cross++", "Java initialization unexpected behaviour");
+			Log.d(TAG, "Initialization unexpected behaviour");
 		}
 	}
 	
 	public void PromtToExit() {
-		Log.d("Cross++", "Java PromtToExit");
+		Log.d(TAG, "PromtToExit");
 	    new AlertDialog.Builder(CrossActivity.this)
         .setIcon(android.R.drawable.ic_dialog_alert)
         .setTitle("Confirm Exit")
@@ -169,7 +170,7 @@ public class CrossActivity extends Activity{
 		if(cross != null) {
 			cross.CommertialResult(event);
 		} else {
-			Log.d("Cross++", "Can't send CommertialResult. cross = null");
+			Log.d(TAG, "Can't send CommertialResult. cross = null");
 		}
 	}
 	

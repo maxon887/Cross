@@ -45,7 +45,6 @@ Game::Game(){
 	config = new Config(launcher->DataPath());
 	Audio::Init();
 	this->current_screen = NULL;
-	//scale_factor = (float)launcher->GetTargetWidth() / width;
 }
 
 float Game::GetScaleFactor(){
@@ -92,31 +91,19 @@ void Game::Resume(){
 }
 
 void Game::Update(){
-	try{
-		time_point<high_resolution_clock> now = high_resolution_clock::now();
-		long long rend = duration_cast<microseconds>(now - render_time).count();
-		render_time = high_resolution_clock::now();
-		gfx2D->Update();
-		GetCurrentScreen()->Update((float)(rend / 1000000.));
-		now = high_resolution_clock::now();
-		long long up = duration_cast<microseconds>(now - render_time).count();
-		float milis = up / 1000.f;
-		if(milis < 5){
-			launcher->Sleep(5 - milis);
-		}
-		Debugger::Instance()->Display((float)rend);
-		Debugger::Instance()->SetUpdateTime((float)up);
-	} catch(Exception &exc) {
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		launcher->LogIt(msg);
-#ifdef WIN
-		LauncherWIN* win = (LauncherWIN*)launcher;
-		win->ShowMessage(msg);
-#endif 
-		Exit();
+	time_point<high_resolution_clock> now = high_resolution_clock::now();
+	long long rend = duration_cast<microseconds>(now - render_time).count();
+	render_time = high_resolution_clock::now();
+	gfx2D->Update();
+	GetCurrentScreen()->Update((float)(rend / 1000000.));
+	now = high_resolution_clock::now();
+	long long up = duration_cast<microseconds>(now - render_time).count();
+	float milis = up / 1000.f;
+	if(milis < 5){
+		launcher->Sleep(5 - milis);
 	}
+	Debugger::Instance()->Display((float)rend);
+	Debugger::Instance()->SetUpdateTime((float)up);
 }
 
 void Game::Exit(){
@@ -128,20 +115,8 @@ void Game::Exit(){
 void Game::Init(){
 	launcher->LogIt("Game::Start()");
 	srand((unsigned int)time(0));
-	try{
-		SetScreen(GetStartScreen());
-		launcher->LogIt("Start screen load successfully");
-	} catch(Exception &exc) {
-		string msg = string(exc.message) + 
-			+ "\nFile: " + string(exc.filename) +
-			+ "\nLine: " + to_string(exc.line);
-		launcher->LogIt(msg);
-#ifdef WIN
-		LauncherWIN* win = (LauncherWIN*)launcher;
-		win->ShowMessage(msg);
-#endif 
-		Exit();
-	}
+	SetScreen(GetStartScreen());
+	launcher->LogIt("Start screen load successfully");
 }
 
 Game::~Game(){
@@ -150,4 +125,5 @@ Game::~Game(){
 	delete input;
 	delete config;
 	Audio::Release();
+	Debugger::Release();
 }

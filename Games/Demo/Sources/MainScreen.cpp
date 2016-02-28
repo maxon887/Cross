@@ -71,7 +71,6 @@ void MainScreen::Start(){
 	triangleBtn->SetImages(new Sprite(*def_button), nullptr);
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	graphics3D_menu->AddButton(triangleBtn);
-
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
 	graphics2D_menu->AddButton(textBtn);
@@ -85,6 +84,7 @@ void MainScreen::Stop(){
 	delete def_button;
 	delete main_menu;
 	delete graphics2D_menu;
+	delete graphics3D_menu;
 }
 
 void MainScreen::Update(float sec){
