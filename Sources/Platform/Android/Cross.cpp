@@ -57,8 +57,8 @@ extern "C"{
 
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
 		try{
+            game->Start();
 			game->Init();
-			game->Start();
 		} catch(Exception &exc) {
             string msg = string(exc.message) +
                          +"\nFile: " + string(exc.filename) +
@@ -107,11 +107,12 @@ extern "C"{
 	void Java_com_cross_Cross_Release(JNIEnv *env, jobject thiz){
 		LOGI("Cross_Release");
 		try{
-			game->Suspend();
+            game->GetCurrentScreen()->Stop();
+            game->Stop();
 			delete game;
 			Audio::Release();
-			delete gfxGL;
 			delete gfx2D;
+            delete gfxGL;
 			delete launcher;
 		} catch(Exception &exc) {
             string msg = string(exc.message) +

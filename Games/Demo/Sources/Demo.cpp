@@ -19,10 +19,12 @@
 #include "Utils/Debugger.h"
 #include "Graphics2D.h"
 #include "Camera.h"
+#include "Launcher.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
 
 void Demo::Start(){
+	launcher->LogIt("Demo::Start()");
 	Debugger::Instance()->ScreenDebug(true);
 	Debugger::Instance()->EnableInputDebug();
 	camera = new Camera();
@@ -30,6 +32,7 @@ void Demo::Start(){
 }
 
 void Demo::Stop(){
+	launcher->LogIt("Demo::Stop()");
 	delete camera;
 }
 

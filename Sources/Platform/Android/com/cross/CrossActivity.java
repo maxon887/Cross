@@ -61,8 +61,8 @@ public class CrossActivity extends Activity{
 		super.onPause();
 		if(cross_initialized){
 			cross.Suspend();
-			renderer.onPause();
 		}
+		renderer.onPause();
 	}
 	
 	@Override
@@ -135,7 +135,7 @@ public class CrossActivity extends Activity{
 		Log.d(TAG, "Init OpenGL");
 		if(!cross_initialized){
 			FMOD.init(this);
-			String dataPath =  getFilesDir().getPath();
+			String dataPath = getFilesDir().getPath();
 			cross = new Cross();
 			asset_manager = getResources().getAssets();
 			cross.Init(width, height, dataPath, asset_manager, this);
