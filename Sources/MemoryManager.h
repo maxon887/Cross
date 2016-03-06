@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#define MAX_ALLOC 10000
 
 #ifdef WIN
 
@@ -54,7 +53,8 @@ private:
 	static MemoryManager instance;
 
 	unsigned int object_count;
-	MemoryObject alloc_objects[MAX_ALLOC];
+	unsigned int capacity;
+	MemoryObject* alloc_objects;
 
 	MemoryManager();
 	~MemoryManager();

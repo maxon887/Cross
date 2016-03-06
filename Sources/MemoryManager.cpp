@@ -19,6 +19,9 @@
 
 using namespace cross;
 
+#define START_MEMORY_OBJECTS_ARRAY_CAPACITY 100
+
+
 #ifdef WIN
 
 #undef new
@@ -69,6 +72,8 @@ MemoryManager::MemoryManager():
 	object_count(0)
 {
 	dead = false;
+	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
+	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * capacity);
 }
 
 MemoryManager::~MemoryManager(){
@@ -77,12 +82,13 @@ MemoryManager::~MemoryManager(){
 
 void* MemoryManager::Alloc(unsigned int size, char* filename, unsigned int line){
 	if(!dead){
-		SanityCheck();
-		static int maxAlloc = MAX_ALLOC;
-		if(object_count == maxAlloc - 1){
-			maxAlloc = 0;
-			throw CrossException("Maximum object allocated. Needs to redesign MemoryManager.");
+
+		if(object_count > capacity - 1){
+			capacity *= 2;
+			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * capacity);
 		}
+
+		SanityCheck();
 
 		alloc_objects[object_count].address = malloc(size + 4);
 		alloc_objects[object_count].filename = filename;
