@@ -217,12 +217,8 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monoc
 	//parameterization
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	Matrix mvp = cam->GetProjectionMatrix();
-	mvp = mvp * cam->GetViewMatrix();
-	
-	mvp = mvp * sprite->translate;
-	mvp = mvp * sprite->rotation;
-	mvp = mvp * sprite->scale;
+	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
+	mvp = mvp * sprite->translate * sprite->rotation * sprite->scale;
 
 	mvp = mvp.Transpose();
 	glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData());

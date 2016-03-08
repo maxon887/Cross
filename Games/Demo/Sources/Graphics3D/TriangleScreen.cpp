@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TriangleScreen.h"
 #include "GraphicsGL.h"
+#include "Input.h"
+#include "Game.h"
 
 struct Vertex
 {
@@ -24,6 +26,7 @@ struct Vertex
 
 void TriangleScreen::Start(){
 	shader = new TriangleShaders();
+	projection = Matrix::CreatePerspectiveProjection(45.f, 1, 0.1f, 100.f);
 
 	Vertex verticesData[3];
 
@@ -52,9 +55,20 @@ void TriangleScreen::Update(float sec){
 	}
 	if(shader->uMVP != -1)
 	{
-		Matrix mat = Matrix::CreateIdentity();
-		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, (GLfloat*)&mat.m));
+		static float angle = 0;
+		angle += 90 * sec;
+		Matrix translate = Matrix::CreateIdentity();
+		translate.SetTranslation(Vector3D(3.f, 0.f, -10.f));
+		Matrix rotate = Matrix::CreateIdentity();
+		rotate.SetRotationZ(angle);
+		Matrix mvp = projection * translate * rotate;
+		mvp = mvp.Transpose();
+		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
+		game->SetScreen(game->GetStartScreen());
+	}
 }

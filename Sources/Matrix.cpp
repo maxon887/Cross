@@ -75,6 +75,33 @@ Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom,
 	return m;
 }
 
+Matrix Matrix::CreatePerspectiveProjection(float fov, float aspect, float near, float far){
+	Matrix m;
+	float tanFov = tan(fov / 2);
+
+	m.m[0][0] = 1.f / (aspect * tanFov);
+	m.m[0][1] = 0.0f;
+	m.m[0][2] = 0.0f;
+	m.m[0][3] = 0.0f;
+
+	m.m[1][0] = 0.0f;
+	m.m[1][1] = 1.f / tanFov;
+	m.m[1][2] = 0.0f;
+	m.m[1][3] = 0.0f;
+
+	m.m[2][0] = 0.0f;
+	m.m[2][1] = 0.0f;
+	m.m[2][2] = (-1) * (far + near) / (far - near);
+	m.m[2][3] = (-1) * (2 * far * near) / (far - near);
+
+	m.m[3][0] = 0.0f;
+	m.m[3][1] = 0.0f;
+	m.m[3][2] = -1.f;
+	m.m[3][3] = 0.0f;
+
+	return m;
+}
+
 float* Matrix::GetData(){
 	return (float*)m;
 }
@@ -108,12 +135,30 @@ void Matrix::SetScale(const Vector3D &scale){
 }
 
 void Matrix::SetRotationZ(float angle){
-	float cosA = cos(angle / 180.f * PI);
-	float sinA = sin(angle / 180.f * PI);
+	float cosA = cosf(angle / 180.f * 3.14);
+	float sinA = sinf(angle / 180.f * 3.14);
 	m[0][0] = cosA;
 	m[0][1] = -sinA;
 	m[1][0] = sinA;
 	m[1][1] = cosA;
+}
+
+void Matrix::SetRotationX(float angle){
+	float cosA = cos(angle / 180.f * PI);
+	float sinA = sin(angle / 180.f * PI);
+	m[1][1] = cosA;
+	m[1][2] = -sinA;
+	m[2][1] = sinA;
+	m[2][2] = cosA;
+}
+
+void Matrix::SetRotationY(float angle){
+	float cosA = cos(angle / 180.f * PI);
+	float sinA = sin(angle / 180.f * PI);
+	m[0][0] = cosA;
+	m[0][2] = -sinA;
+	m[2][0] = sinA;
+	m[2][2] = cosA;
 }
 
 Matrix Matrix::Transpose(){
@@ -187,11 +232,29 @@ Vector4D Matrix::operator * (const Vector4D &vec) const{
 }
 
 Matrix Matrix::operator * (const Matrix& mat) const{
-	Matrix res(*this);
-	res *= mat;
+	Matrix res;
+	res.m[0][0] = m[0][0] * mat.m[0][0] + m[0][1] * mat.m[1][0] + m[0][2] * mat.m[2][0] + m[0][3] * mat.m[3][0];
+	res.m[0][1] = m[0][0] * mat.m[0][1] + m[0][1] * mat.m[1][1] + m[0][2] * mat.m[2][1] + m[0][3] * mat.m[3][1];
+	res.m[0][2] = m[0][0] * mat.m[0][2] + m[0][1] * mat.m[1][2] + m[0][2] * mat.m[2][2] + m[0][3] * mat.m[3][2];
+	res.m[0][3] = m[0][0] * mat.m[0][3] + m[0][1] * mat.m[1][3] + m[0][2] * mat.m[2][3] + m[0][3] * mat.m[3][3];
+
+	res.m[1][0] = m[1][0] * mat.m[0][0] + m[1][1] * mat.m[1][0] + m[1][2] * mat.m[2][0] + m[1][3] * mat.m[3][0];
+	res.m[1][1] = m[1][0] * mat.m[0][1] + m[1][1] * mat.m[1][1] + m[1][2] * mat.m[2][1] + m[1][3] * mat.m[3][1];
+	res.m[1][2] = m[1][0] * mat.m[0][2] + m[1][1] * mat.m[1][2] + m[1][2] * mat.m[2][2] + m[1][3] * mat.m[3][2];
+	res.m[1][3] = m[1][0] * mat.m[0][3] + m[1][1] * mat.m[1][3] + m[1][2] * mat.m[2][3] + m[1][3] * mat.m[3][3];
+
+	res.m[2][0] = m[2][0] * mat.m[0][0] + m[2][1] * mat.m[1][0] + m[2][2] * mat.m[2][0] + m[2][3] * mat.m[3][0];
+	res.m[2][1] = m[2][0] * mat.m[0][1] + m[2][1] * mat.m[1][1] + m[2][2] * mat.m[2][1] + m[2][3] * mat.m[3][1];
+	res.m[2][2] = m[2][0] * mat.m[0][2] + m[2][1] * mat.m[1][2] + m[2][2] * mat.m[2][2] + m[2][3] * mat.m[3][2];
+	res.m[2][3] = m[2][0] * mat.m[0][3] + m[2][1] * mat.m[1][3] + m[2][2] * mat.m[2][3] + m[2][3] * mat.m[3][3];
+
+	res.m[3][0] = m[3][0] * mat.m[0][0] + m[3][1] * mat.m[1][0] + m[3][2] * mat.m[2][0] + m[3][3] * mat.m[3][0];
+	res.m[3][1] = m[3][0] * mat.m[0][1] + m[3][1] * mat.m[1][1] + m[3][2] * mat.m[2][1] + m[3][3] * mat.m[3][1];
+	res.m[3][2] = m[3][0] * mat.m[0][2] + m[3][1] * mat.m[1][2] + m[3][2] * mat.m[2][2] + m[3][3] * mat.m[3][2];
+	res.m[3][3] = m[3][0] * mat.m[0][3] + m[3][1] * mat.m[1][3] + m[3][2] * mat.m[2][3] + m[3][3] * mat.m[3][3];
 	return res;
 }
-
+/*
 void Matrix::operator *= (const Matrix& mat){
 	m[0][0] = m[0][0] * mat.m[0][0] + m[0][1] * mat.m[1][0] + m[0][2] * mat.m[2][0] + m[0][3] * mat.m[3][0];
 	m[0][1] = m[0][0] * mat.m[0][1] + m[0][1] * mat.m[1][1] + m[0][2] * mat.m[2][1] + m[0][3] * mat.m[3][1];
@@ -214,3 +277,4 @@ void Matrix::operator *= (const Matrix& mat){
 	m[3][3] = m[3][0] * mat.m[0][3] + m[3][1] * mat.m[1][3] + m[3][2] * mat.m[2][3] + m[3][3] * mat.m[3][3];
 }
 
+*/

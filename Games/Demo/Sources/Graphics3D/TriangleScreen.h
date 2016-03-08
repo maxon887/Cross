@@ -30,4 +30,5 @@ public:
 private:
 	GLuint vboId;
 	TriangleShaders* shader;
+	Matrix projection;
 };
