@@ -18,9 +18,8 @@
 #include "Game.h"
 #include "Graphics2D.h"
 #include "Launcher.h"
-#include "AudioScreen.h"
-#include "Config.h"
 #include "Sprite.h"
+#include "AudioScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/TestNaPidoraScreen.h"
@@ -30,16 +29,16 @@
 
 void MainScreen::Start(){
 	next_screen = nullptr;
-	def_button = gfx2D->LoadImage("DefaultButton.png");
+	button_sprite = gfx2D->LoadImage("DefaultButton.png");
 	//main menu
 	main_menu = new Menu();
 	current_menu = main_menu;
 	Button* graphics2Dbtn = new Button("Graphics 2D");
 	Button* graphics3Dbtn = new Button("Graphics 3D");
 	Button* audioBtn = new Button("Audio");
-	graphics2Dbtn->SetImages(new Sprite(*def_button), nullptr);
-	graphics3Dbtn->SetImages(new Sprite(*def_button), nullptr);
-	audioBtn->SetImages(new Sprite(*def_button), nullptr);
+	graphics2Dbtn->SetImages(button_sprite->Clone(), nullptr);
+	graphics3Dbtn->SetImages(button_sprite->Clone(), nullptr);
+	audioBtn->SetImages(button_sprite->Clone(), nullptr);
 	graphics2Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics2DClick);
 	graphics3Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics3DClick);
 	audioBtn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
@@ -54,12 +53,12 @@ void MainScreen::Start(){
 	Button* canvasBtn = new Button("2D Camera");
 	Button* animationBtn = new Button("Animation");
 	Button* testNaPidoraBtn = new Button("Test Na Pidora");
-	primitivesBtn->SetImages(new Sprite(*def_button), nullptr);
-	spritesBtn->SetImages(new Sprite(*def_button), nullptr);
-	textBtn->SetImages(new Sprite(*def_button), nullptr);
-	canvasBtn->SetImages(new Sprite(*def_button), nullptr);
-	animationBtn->SetImages(new Sprite(*def_button), nullptr);
-	testNaPidoraBtn->SetImages(new Sprite(*def_button), nullptr);
+	primitivesBtn->SetImages(button_sprite->Clone(), nullptr);
+	spritesBtn->SetImages(button_sprite->Clone(), nullptr);
+	textBtn->SetImages(button_sprite->Clone(), nullptr);
+	canvasBtn->SetImages(button_sprite->Clone(), nullptr);
+	animationBtn->SetImages(button_sprite->Clone(), nullptr);
+	testNaPidoraBtn->SetImages(button_sprite->Clone(), nullptr);
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
 	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
@@ -68,7 +67,7 @@ void MainScreen::Start(){
 	//graphics 3D menu
 	graphics3D_menu = new Menu();
 	Button* triangleBtn = new Button("Triangle");
-	triangleBtn->SetImages(new Sprite(*def_button), nullptr);
+	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	graphics3D_menu->AddButton(triangleBtn);
 	graphics2D_menu->AddButton(primitivesBtn);
@@ -77,11 +76,11 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
 	graphics2D_menu->AddButton(testNaPidoraBtn);
-	graphics2D_menu->Active(false);
+	//graphics2D_menu->Active(false);
 }
 
 void MainScreen::Stop(){
-	delete def_button;
+	delete button_sprite;
 	delete main_menu;
 	delete graphics2D_menu;
 	delete graphics3D_menu;

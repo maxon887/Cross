@@ -23,8 +23,76 @@ using namespace cross;
 
 class PrimitivesScreen : public Screen{
 public:
-	~PrimitivesScreen();
 	void Start();
+	void Stop();
 	void Update(float sec);
+
 private:
+	class Entity{
+	public:
+		enum Type {
+			POINT,
+			CIRCLE,
+			LINE,
+			RECTANGLE,
+			NONE
+		};
+		Vector2D velocity;
+		Vector2D position;
+		Color color;
+
+		Entity(Vector2D pos);
+		virtual ~Entity() { };
+
+		virtual void Draw() = 0;
+		virtual bool IsVisible() = 0;
+		virtual void Update(float sec);
+	};
+
+	class Point : public Entity{
+	public:
+		Point(Vector2D pos);
+		void Draw();
+		bool IsVisible();
+	};
+
+	class Circle : public Entity{
+	public:
+		Circle(Vector2D pos);
+		void Draw();
+		bool IsVisible();
+		float radius;
+	};
+
+	class Line : public Entity{
+	public:
+		Line(Vector2D pos);
+		void Draw();
+		bool IsVisible();
+		void Update(float sec);
+	private:
+		Vector2D second_pos;
+		Vector2D second_vel;
+	};
+
+	class Rectangle : public Entity{
+	public:
+		Rectangle(Vector2D pos);
+		void Draw();
+		bool IsVisible();
+	private:
+		float width;
+		float height;
+	};
+
+	CRList<Entity*> entities;
+	bool generate_entities;
+	Vector2D spawn;
+	Entity::Type entity_type;
+
+	void GenerateEntity();
+
+	void OnActionDown(Vector2D pos);
+	void OnActionMove(Vector2D pos);
+	void OnActionUp(Vector2D pos);
 };

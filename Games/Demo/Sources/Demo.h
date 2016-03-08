@@ -25,7 +25,8 @@ public:
 	Demo(Launcher* launcher);
 	void Start() override;
 	void Stop() override;
-	Screen* GetStartScreen();
+	Screen* GetStartScreen() override;
+
 private:
 	Camera* camera;
 };

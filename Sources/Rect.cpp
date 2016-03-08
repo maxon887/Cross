@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #include "Rect.h"
+#include "Cross.h"
 
 using namespace cross;
 
@@ -23,6 +24,13 @@ Rect::Rect(){
 	y = 0;
 	width = 0;
 	height = 0;
+}
+
+Rect::Rect(const Vector2D& pos, float w, float h){
+	this->x = pos.x;
+	this->y = pos.y;
+	this->width = w;
+	this->height = h;
 }
 
 Rect::Rect(float x, float y, float w, float h){

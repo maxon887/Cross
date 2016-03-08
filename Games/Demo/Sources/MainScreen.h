@@ -32,9 +32,9 @@ private:
 	Menu* main_menu;
 	Menu* graphics2D_menu;
 	Menu* graphics3D_menu;
-	Sprite* def_button;
+	Sprite* button_sprite;
 	Screen* next_screen;
-
+	//connections
 	void OnGraphics2DClick();
 	void OnGraphics3DClick();
 	void OnPrimitivesClick();

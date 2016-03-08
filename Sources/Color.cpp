@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Color.h"
+#include "Utils/Misc.h"
 
 using namespace cross;
 
@@ -25,6 +26,10 @@ const Color Color::White(1.f, 1.f, 1.f);
 const Color Color::Black(0.f, 0.f, 0.f);
 const Color Color::Yellow(1.f, 1.f, 0.f);
 const Color Color::Purple(1.f, 0.f, 1.f);
+
+Color Color::Random(){
+	return Color(cross::Random(0.f, 1.f), cross::Random(0.f, 1.f), cross::Random(0.f, 1.f));
+}
 
 Color::Color(float r, float g, float b):
 	R(r),

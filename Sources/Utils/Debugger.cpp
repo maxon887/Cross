@@ -94,18 +94,23 @@ void Debugger::Display(float micro){
 	}
 	if(screen_debug){
 		float height = gfx2D->GetDefaultCamera()->GetViewHeight();
-		texter->DrawText(0, height - texter->GetHeight(), "Render Time: " + to_string(render_time) + "ms");
+		char outputString[256];
+		sprintf(outputString, "Render Time: %0.1fms", render_time);
+		texter->DrawText(0, height - texter->GetHeight(), outputString);
 		if(update_time == 0){
-			texter->DrawText(0, height - texter->GetHeight() * 2, "Update Time: Undefined");
+			texter->DrawText(0, height - texter->GetHeight() * 2, "Update Time: -");
 		}else{
-			texter->DrawText(0, height - texter->GetHeight() * 2, "Update Time: " + to_string(update_time) + "ms");
+			sprintf(outputString, "Update Time: %0.1fms", update_time);
+			texter->DrawText(0, height - texter->GetHeight() * 2, outputString);
 		}
 		if(render_time == 0){
-			texter->DrawText(0, height - texter->GetHeight() * 3, "FPS: Infinitive");
+			texter->DrawText(0, height - texter->GetHeight() * 3, "FPS: -");
 		}else{
-			texter->DrawText(0, height - texter->GetHeight() * 3, "FPS: " + to_string(1000.f / render_time));
+			sprintf(outputString, "FPS: %0.1f", 1000.f / render_time);
+			texter->DrawText(0, height - texter->GetHeight() * 3, outputString);
 		}
-		texter->DrawText(0, height - texter->GetHeight() * 4, "Run time: " + to_string(time));
+		sprintf(outputString, "Run time: %0.2fsec", time);
+		texter->DrawText(0, height - texter->GetHeight() * 4, outputString);
 		if(input_debug){
 			if(touch_down) {
 				texter->DrawText(0, height - texter->GetHeight() * 5, "Input x: " + to_string(touch_pos.x) + " y: " + to_string(touch_pos.y));

@@ -35,7 +35,7 @@ void SpritesScreen::Start(){
 
 void SpritesScreen::Update(float sec){
 	for(unsigned int i = 0; i < positions.size(); i++){
-		positions[i] += velocities[i];
+		positions[i] += velocities[i] * sec * 100;
 		float spriteWidth = awesome_face->GetWidth()/2;
 		float spriteHeight = awesome_face->GetHeight()/2;
 

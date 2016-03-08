@@ -27,6 +27,7 @@ public:
 	static const Color Black;
 	static const Color Yellow;
 	static const Color Purple;
+	static Color Random();
 
 	float R, G, B, A;
 	Color(float r, float g, float b);

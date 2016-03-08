@@ -23,10 +23,11 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Font.h"
+#include "../../../../Sources/Cross.h"
 
 void Camera2DScreen::Start(){
 	grid = gfx2D->LoadImage("1000grid.jpg");
-	awesomefase = gfx2D->LoadImage("awesomeface.png");
+	awesomefase = gfx2D->LoadImage("AwesomeFace.png");
 	for(int i = 0; i < 10; ++i){
 		Sprite* sprite = new Sprite(*awesomefase);
 		sprite->SetScale(0.1f);
@@ -74,7 +75,7 @@ void Camera2DScreen::Update(float sec){
 		float spriteWidth = sprite->GetWidth() / 2;
 		float spriteHeight = sprite->GetHeight() / 2;
 		Vector2D position = sprite->GetPosition();
-		position += velocities[i];
+		position += velocities[i] * sec * 100;
 		sprite->SetPosition(position);
 
 		if((position.x - spriteWidth) <= 0 || (position.x + spriteWidth) >= 1000.f) {

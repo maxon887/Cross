@@ -45,8 +45,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	static bool mouseDown = false;
 	switch(msg){
 	case WM_LBUTTONDOWN:{
-		short targetX = (short)LOWORD(lParam);
-		short targetY = (short)HIWORD(lParam);
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
 		targetX = targetX / game->GetScaleFactor();
 		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
@@ -54,16 +54,16 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	}break;
 	case WM_MOUSEMOVE:{
 		if(mouseDown){
-			short targetX = (short)LOWORD(lParam);
-			short targetY = (short)HIWORD(lParam);
+			float targetX = (short)LOWORD(lParam);
+			float targetY = (short)HIWORD(lParam);
 			targetX = targetX / game->GetScaleFactor();
 			targetY = game->GetHeight() - targetY / game->GetScaleFactor();
 			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, targetY));
 		}
 	}break;
 	case WM_LBUTTONUP:{
-		short targetX = (short)LOWORD(lParam);
-		short targetY = (short)HIWORD(lParam);
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
 		targetX = targetX / game->GetScaleFactor();
 		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
