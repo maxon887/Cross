@@ -31,6 +31,7 @@ void AnimationScreen::Start(){
 	deltaY = 0;
 	turn_left = true;
 	going_back = false;
+	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
 	input->KeyPressed += MakeDelegate(this, &AnimationScreen::OnKeyPressed);
 	spider_body = gfx2D->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
 	spider_head = gfx2D->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
@@ -49,7 +50,7 @@ void AnimationScreen::Start(){
 }
 
 void AnimationScreen::Update(float sec){
-	DrawBackground(sec);
+	//DrawBackground(sec);
 	spider_run_anim->Update(sec);
 
 	if(run_time >= 0) {
@@ -60,6 +61,7 @@ void AnimationScreen::Update(float sec){
 			spider_run_snd->Stop();
 		}
 	}
+
 	if(thinking_time >= 0){
 		thinking_time -= sec;
 		if(turn_left) {
@@ -73,8 +75,9 @@ void AnimationScreen::Update(float sec){
 		}
 		//graphics->Rotate(spider_head, head_angle);
 		spider_head->SetRotate(head_angle);
+		//spider_head->SetRotate(90.f);
 		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
-		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 + 115), spider_head);
+		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 - 60), spider_head);
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;

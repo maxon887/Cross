@@ -38,5 +38,6 @@ void Demo::Stop(){
 
 Screen* Demo::GetStartScreen(){
 	gfx2D->SetCamera(camera);
+	gfx2D->SetClearColor(Color(0.02f, 0.02f, 0.02f));
 	return new MainScreen();
 }

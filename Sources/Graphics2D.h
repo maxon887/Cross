@@ -50,6 +50,7 @@ public:
 	Sprite* LoadImage(string filename, float scale);
 	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
 	void ReleaseSprite(Sprite* img);
+	void SetClearColor(Color color);
 //Internal data. You don't need call any of this methods or modify variables
 public:
 	Graphics2D();

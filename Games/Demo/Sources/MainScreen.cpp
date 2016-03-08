@@ -62,6 +62,7 @@ void MainScreen::Start(){
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
 	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
+	animationBtn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
 	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
 	//graphics 3D menu

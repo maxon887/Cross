@@ -23,7 +23,6 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Font.h"
-#include "../../../../Sources/Cross.h"
 
 void Camera2DScreen::Start(){
 	grid = gfx2D->LoadImage("1000grid.jpg");
@@ -47,7 +46,6 @@ void Camera2DScreen::Start(){
 }
 
 void Camera2DScreen::Stop(){
-	//gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 	delete camera;
 	delete tip_font;
 	for(Sprite* sprite : sprites){
@@ -131,7 +129,21 @@ void Camera2DScreen::WheelUpHandler(){
 	}else{
 		view_width = 1000.f * launcher->DeviceAspect();
 	}
+
+	if(cam_positon.x + view_width < 1000.f) {
+		cam_positon.x += cam_speed;
+	} else {
+		cam_positon.x = 1000.f - view_width;
+	}
+	float view_height = view_width / launcher->DeviceAspect();
+	if(cam_positon.y + view_height < 1000.f) {
+		cam_positon.y += cam_speed;
+	} else {
+		cam_positon.y = 1000.f - view_height;
+	}
+
 	camera->SetViewWidth(view_width);
+
 }
 
 void Camera2DScreen::WheelDownHandler(){

@@ -345,3 +345,7 @@ void Graphics2D::ReleaseSprite(Sprite* img){
 void Graphics2D::Update(){
 	glClear(GL_COLOR_BUFFER_BIT);
 }
+
+void Graphics2D::SetClearColor(Color color){
+	glClearColor(color.R, color.G, color.B, 1.f);
+}

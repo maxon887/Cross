@@ -13,6 +13,7 @@ void AudioScreen::Start(){
 	truck = NULL;
 	is_bck_playing = false;
 
+	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = gfx2D->LoadImage("DefaultButton.png");
 	audio_menu = new Menu();
 	Button* soundBtn = new Button("Sound");
