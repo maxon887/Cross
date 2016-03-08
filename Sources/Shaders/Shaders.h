@@ -16,18 +16,21 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Shaders.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
-class SpriteShaders : public Shaders{
+class Shaders{
 public:
-	GLint aPosition;
-	GLint aTexCoord;
-	GLint uMonochrome;
-	GLint uColor;
+	GLuint program;
+	GLint uMVP;
 
-	SpriteShaders();
+	Shaders(string vertexFile, string fragmentFile);
+	virtual ~Shaders();
+
+private:
+	GLuint vertex_shader;
+	GLuint fragment_shader;
 };
 
-};
+}

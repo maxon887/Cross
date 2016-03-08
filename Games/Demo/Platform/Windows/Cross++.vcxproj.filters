@@ -25,6 +25,9 @@
     <Filter Include="Demo\Graphics2D">
       <UniqueIdentifier>{22f427a0-3bad-4d14-b5b9-128218b78dd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Graphics3D">
+      <UniqueIdentifier>{e2bb383f-7353-4c96-b961-b48bbccd78f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -165,6 +168,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\Shaders.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\TriangleShaders.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +331,15 @@
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h">
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\Shaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\TriangleShaders.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -335,6 +356,12 @@
     </None>
     <None Include="..\..\Assets\Engine\Shaders\sprite.vert">
       <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\triangle.frag">
+      <Filter>Demo\Graphics3D</Filter>
+    </None>
+    <None Include="..\..\Assets\triangle.vert">
+      <Filter>Demo\Graphics3D</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -18,16 +18,12 @@
 #include "Cross.h"
 #include "Shaders.h"
 
-namespace cross{
+using namespace cross;
 
-class SpriteShaders : public Shaders{
+class TriangleShaders : public Shaders{
 public:
 	GLint aPosition;
-	GLint aTexCoord;
-	GLint uMonochrome;
-	GLint uColor;
 
-	SpriteShaders();
-};
-
+	TriangleShaders();
+private:
 };

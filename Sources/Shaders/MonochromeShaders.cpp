@@ -18,22 +18,10 @@
 
 using namespace cross;
 
-MonochromeShaders::MonochromeShaders(){
-	vertex_shader = gfxGL->ComplileShader("Engine/Shaders/monochrome.vert");
-	fragment_shader = gfxGL->ComplileShader("Engine/Shaders/monochrome.frag");
-	program = gfxGL->CreateProgram();
-	gfxGL->AttachShader(program, vertex_shader);
-	gfxGL->AttachShader(program, fragment_shader);
-	gfxGL->CompileProgram(program);
-
+MonochromeShaders::MonochromeShaders() :
+	Shaders("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag")
+{
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoord = glGetAttribLocation(program, "aTexCoord");
-	uMVP = glGetUniformLocation(program, "uMVP");
 	uColor = glGetUniformLocation(program, "uColor");
-}
-
-MonochromeShaders::~MonochromeShaders(){
-	gfxGL->DeleteShader(vertex_shader);
-	gfxGL->DeleteShader(fragment_shader);
-	gfxGL->DeleteProgram(program);
 }

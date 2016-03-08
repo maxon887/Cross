@@ -16,18 +16,18 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Shaders.h"
+#include "Screen.h"
+#include "TriangleShaders.h"
 
-namespace cross{
+using namespace cross;
 
-class SpriteShaders : public Shaders{
+class TriangleScreen : public Screen{
 public:
-	GLint aPosition;
-	GLint aTexCoord;
-	GLint uMonochrome;
-	GLint uColor;
+	void Start();
+	void Stop();
+	void Update(float sec);
 
-	SpriteShaders();
-};
-
+private:
+	GLuint vboId;
+	TriangleShaders* shader;
 };

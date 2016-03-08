@@ -18,21 +18,9 @@
 
 using namespace cross;
 
-PrimitiveShaders::PrimitiveShaders(){
-	vertex_shader = gfxGL->ComplileShader("Engine/Shaders/primitive.vert");
-	fragment_shader = gfxGL->ComplileShader("Engine/Shaders/primitive.frag");
-	program = gfxGL->CreateProgram();
-	gfxGL->AttachShader(program, vertex_shader);
-	gfxGL->AttachShader(program, fragment_shader);
-	gfxGL->CompileProgram(program);
-
+PrimitiveShaders::PrimitiveShaders() :
+	Shaders("Engine/Shaders/primitive.vert", "Engine/Shaders/primitive.frag")
+{
 	aPosition = glGetAttribLocation(program, "aPosition");
-	uMVP = glGetUniformLocation(program, "uMVP");
 	uColor = glGetUniformLocation(program, "uColor");
-}
-
-PrimitiveShaders::~PrimitiveShaders(){
-	gfxGL->DeleteShader(vertex_shader);
-	gfxGL->DeleteShader(fragment_shader);
-	gfxGL->DeleteProgram(program);
 }

@@ -97,5 +97,5 @@ private:
 	void OnActionUp(Vector2D pos);
 
 	//test 
-	//Sprite* awsome_face;
+	Sprite* awsome_face;
 };

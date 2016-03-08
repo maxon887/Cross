@@ -20,6 +20,7 @@
 #include "Launcher.h"
 #include "Sprite.h"
 #include "AudioScreen.h"
+#include "Graphics3D/TriangleScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/TestNaPidoraScreen.h"
@@ -138,7 +139,7 @@ void MainScreen::On2DCameraClick(){
 }
 
 void MainScreen::OnTriangleClick(){
-
+	next_screen = new TriangleScreen();
 }
 
 void MainScreen::OnAudioClick() {

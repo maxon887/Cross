@@ -18,23 +18,11 @@
 
 using namespace cross;
 
-SpriteShaders::SpriteShaders(){
-	vertex_shader = gfxGL->ComplileShader("Engine/Shaders/sprite.vert");
-	fragment_shader = gfxGL->ComplileShader("Engine/Shaders/sprite.frag");
-	program = gfxGL->CreateProgram();
-	gfxGL->AttachShader(program, vertex_shader);
-	gfxGL->AttachShader(program, fragment_shader);
-	gfxGL->CompileProgram(program);
-
+SpriteShaders::SpriteShaders() :
+	Shaders("Engine/Shaders/sprite.vert", "Engine/Shaders/sprite.frag")
+{
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoord = glGetAttribLocation(program, "aTexCoord");
-	uMVP = glGetUniformLocation(program, "uMVP");
 	uMonochrome = glGetUniformLocation(program, "uMonochrome");
 	uColor = glGetUniformLocation(program, "uColor");
-}
-
-SpriteShaders::~SpriteShaders(){
-	gfxGL->DeleteShader(vertex_shader);
-	gfxGL->DeleteShader(fragment_shader);
-	gfxGL->DeleteProgram(program);
 }

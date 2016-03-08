@@ -14,20 +14,10 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Shaders.h"
+#include "TriangleShaders.h"
 
-namespace cross{
-
-class SpriteShaders : public Shaders{
-public:
-	GLint aPosition;
-	GLint aTexCoord;
-	GLint uMonochrome;
-	GLint uColor;
-
-	SpriteShaders();
-};
-
-};
+TriangleShaders::TriangleShaders() :
+	Shaders("triangle.vert", "triangle.frag")
+{
+	aPosition = glGetAttribLocation(program, "aPosition");
+}

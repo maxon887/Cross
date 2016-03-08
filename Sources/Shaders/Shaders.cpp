@@ -14,20 +14,23 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
 #include "Shaders.h"
 
-namespace cross{
+using namespace cross;
 
-class SpriteShaders : public Shaders{
-public:
-	GLint aPosition;
-	GLint aTexCoord;
-	GLint uMonochrome;
-	GLint uColor;
+Shaders::Shaders(string vertexFile, string fragmentFile){
+	vertex_shader = gfxGL->ComplileShader(vertexFile);
+	fragment_shader = gfxGL->ComplileShader(fragmentFile);
+	program = gfxGL->CreateProgram();
+	gfxGL->AttachShader(program, vertex_shader);
+	gfxGL->AttachShader(program, fragment_shader);
+	gfxGL->CompileProgram(program);
 
-	SpriteShaders();
-};
+	uMVP = glGetUniformLocation(program, "uMVP");
+}
 
-};
+Shaders::~Shaders(){
+	gfxGL->DeleteShader(vertex_shader);
+	gfxGL->DeleteShader(fragment_shader);
+	gfxGL->DeleteProgram(program);
+}

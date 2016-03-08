@@ -16,23 +16,16 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
+#include "Shaders.h"
 
 namespace cross{
 
-class PrimitiveShaders{
+class PrimitiveShaders : public Shaders{
 public:
-	GLuint program;
-
 	GLint aPosition;
-	GLint uMVP;
 	GLint uColor;
 
 	PrimitiveShaders();
-	~PrimitiveShaders();
-private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
 };
 
 };
