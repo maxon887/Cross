@@ -95,7 +95,4 @@ private:
 	void OnActionDown(Vector2D pos);
 	void OnActionMove(Vector2D pos);
 	void OnActionUp(Vector2D pos);
-
-	//test 
-	Sprite* awsome_face;
 };

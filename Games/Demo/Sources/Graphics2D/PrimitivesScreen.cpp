@@ -27,10 +27,6 @@ void PrimitivesScreen::Start(){
 	input->ActionDown += MakeDelegate(this, &PrimitivesScreen::OnActionDown);
 	input->ActionMove += MakeDelegate(this, &PrimitivesScreen::OnActionMove);
 	input->ActionUp += MakeDelegate(this, &PrimitivesScreen::OnActionUp);
-
-	awsome_face = gfx2D->LoadImage("AwesomeFace.png");
-	//awsome_face->SetRotate(45.f);
-	awsome_face->SetPosition(Vector2D(game->GetWidth() / 2.f, game->GetHeight() / 2.f));
 }
 
 void PrimitivesScreen::Stop(){
@@ -45,14 +41,6 @@ void PrimitivesScreen::Stop(){
 }
 
 void PrimitivesScreen::Update(float sec){
-	static float rot = 0;
-	rot += sec * 34;
-	awsome_face->SetRotate(rot);
-	//awsome_face->SetScale(Vector2D(1.f, 0.5f));
-	//awsome_face->SetRotate(45.f);
-	//awsome_face->SetScale(0.1f);
-	gfx2D->DrawSprite(awsome_face);
-
 	if(generate_entities){
 		GenerateEntity();
 	}
