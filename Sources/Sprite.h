@@ -39,6 +39,7 @@ public:
 	float GetHeight() const;
 	int GetTextureWidth() const;
 	int GetTextureHeight() const;
+	Sprite* Clone() const;
 
 //Internal data. You don't need call any of this methods or modify variable
 public:

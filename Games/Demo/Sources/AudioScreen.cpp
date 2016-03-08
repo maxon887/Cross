@@ -3,122 +3,69 @@
 #include "Graphics2D.h"
 #include "Game.h"
 #include "Config.h"
+#include "Sprite.h"
 
 using namespace cross;
-
-AudioScreen::~AudioScreen(void){
-	delete bck_music;
-	delete jaguar;
-	delete truck;
-	delete yellow_sound_btn;
-	delete blue_sound_btn;
-	delete music_btn;
-}
 
 void AudioScreen::Start(){
 	bck_music = NULL;
 	jaguar = NULL;
 	truck = NULL;
-	going_back = false;
-	input->KeyPressed += MakeDelegate(this, &AudioScreen::OnKeyPressed);
-	Sprite* on = gfx2D->LoadImage("MusicOn.png");
-	Sprite* off = gfx2D->LoadImage("MusicOff.png");
-	Vector2D pos;
-	pos.x = game->GetWidth() / 2;
-	pos.y = game->GetHeight() / 4 * 3;
-	music_btn = new ToggleButton(pos, on, off);
-	music_btn->Clicked += MakeDelegate(this, &AudioScreen::MusicOnClick);
-	bck_music = new Audio("Eskimo.mp3", true, true);
-	bool musicState = config->LoadBool("MUSIC_STATE", true);
-	music_btn->SetState(musicState);
-	if(musicState){
-		bck_music->Play();
-		song_started = true;
-	}else{
-		song_started = false;
-	}
+	is_bck_playing = false;
 
-	Sprite* yellow_img = gfx2D->LoadImage("SoundButtonYellow.png");
-	Sprite* blue_img = gfx2D->LoadImage("SoundButtonBlue.png");
-	//Sprite* gray_img = graphics->LoadImage("SoundButtonGray.png");
-	yellow_sound_btn = new Button(yellow_img, NULL);
-	pos.x = yellow_sound_btn->GetWidth() / 2;
-	pos.y = game->GetHeight() - yellow_sound_btn->GetHeight() / 2;
-	yellow_sound_btn->SetLocation(pos);
-	yellow_sound_btn->Clicked += MakeDelegate(this, &AudioScreen::OnYellowClick);
-	blue_sound_btn = new Button(blue_img, NULL);
-	pos.x = game->GetWidth() - blue_sound_btn->GetWidth() / 2;
-	pos.y = game->GetHeight() - blue_sound_btn->GetHeight() / 2;
-	blue_sound_btn->SetLocation(pos);
-	blue_sound_btn->Clicked += MakeDelegate(this, &AudioScreen::OnBlueClick);
+	button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	audio_menu = new Menu();
+	Button* soundBtn = new Button("Sound");
+	soundBtn->SetImages(button_sprite->Clone(), nullptr);
+	Button* loopBtn = new Button("Loop");
+	loopBtn->SetImages(button_sprite->Clone(), nullptr);
+	Button* streamBtn = new Button("Stream");
+	streamBtn->SetImages(button_sprite->Clone(), nullptr);
+	soundBtn->Clicked += MakeDelegate(this, &AudioScreen::OnSoundButtonClick);
+	loopBtn->Clicked += MakeDelegate(this, &AudioScreen::OnLoopButttonClick);
+	streamBtn->Clicked += MakeDelegate(this, &AudioScreen::OnStreamButtonClick);
+	audio_menu->AddButton(soundBtn);
+	audio_menu->AddButton(loopBtn);
+	audio_menu->AddButton(streamBtn);
 
+	bck_music = new Audio("bck_music.mp3", true, true);
 	jaguar = new Audio("Jaguar.wav", false, false);
 	truck = new Audio("Truck.wav", true, false);
 }
 
-void AudioScreen::Update(float sec){
-	yellow_sound_btn->Update();
-	blue_sound_btn->Update();
-	music_btn->Update();
+void AudioScreen::Stop(){
+	delete bck_music;
+	delete jaguar;
+	delete truck;
+	delete audio_menu;
+}
 
-	if(going_back){
+void AudioScreen::Update(float sec){
+	audio_menu->Update(sec);
+
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
 	}
 }
 
-
-void AudioScreen::OnYellowClick(){
+void AudioScreen::OnSoundButtonClick(){
 	jaguar->Play();
 }
 
-void AudioScreen::OnBlueClick(){
-	if(truck->IsPlaying()){
+void AudioScreen::OnLoopButttonClick(){
+	if(truck->IsPlaying()) {
 		truck->Stop();
-	}else{
+	} else {
 		truck->Play();
 	}
 }
 
-void AudioScreen::MusicOnClick(){
-	if(music_btn->GetState()){
-		if(song_started)
-			bck_music->Resume();
-		else
-			bck_music->Play();
-	}
-	else
+void AudioScreen::OnStreamButtonClick(){
+	if(is_bck_playing){
 		bck_music->Pause();
-	config->SaveBool("MUSIC_STATE", music_btn->GetState());
-}
-
-void AudioScreen::OnKeyPressed(Key key){
-	switch (key) {
-	case cross::Key::UNDEFINED:
-		break;
-	case cross::Key::PAUSE:
-		break;
-	case cross::Key::BACK:
-		break;
-	case cross::Key::OPTIONS:
-		break;
-	case cross::Key::UP:
-		break;
-	case cross::Key::DOWN:
-		break;
-	case cross::Key::RIGHT:
-		break;
-	case cross::Key::LEFT:
-		break;
-	case cross::Key::ENTER:
-		break;
-	case cross::Key::SPACE:
-		break;
-	case cross::Key::SHIFT:
-		break;
-	case cross::Key::ESCAPE:
-		going_back = true;
-		break;
-	default:
-		break;
+		is_bck_playing = false;
+	}else{
+		bck_music->Play();
+		is_bck_playing = true;
 	}
 }

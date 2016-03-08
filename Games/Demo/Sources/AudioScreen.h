@@ -2,26 +2,26 @@
 #include "Screen.h"
 #include "Utils/ToggleButton.h"
 #include "Input.h"
+#include "Menu.h"
 
 using namespace cross;
 
 class AudioScreen :	public Screen{
 public:
-	~AudioScreen(void);
 	void Start();
+	void Stop();
 	void Update(float sec);
+
 private:
-	Button* yellow_sound_btn;
-	Button* blue_sound_btn;
-	ToggleButton* music_btn;
+	Menu* audio_menu;
+	Sprite* button_sprite;
 	Audio* bck_music;
 	Audio* jaguar;
 	Audio* truck;
-	bool song_started;
-	bool going_back;
-	void OnYellowClick();
-	void OnBlueClick();
-	void MusicOnClick();
-	void OnKeyPressed(Key key);
+	bool is_bck_playing;
+
+	void OnSoundButtonClick();
+	void OnLoopButttonClick();
+	void OnStreamButtonClick();
 };
 

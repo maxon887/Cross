@@ -170,3 +170,7 @@ int Sprite::GetTextureWidth() const{
 int Sprite::GetTextureHeight() const{
 	return texture_height;
 }
+
+Sprite* Sprite::Clone() const{
+	return new Sprite(*this);
+}
