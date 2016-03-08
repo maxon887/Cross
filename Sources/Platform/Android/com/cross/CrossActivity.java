@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -61,10 +62,13 @@ public class CrossActivity extends Activity{
 		super.onPause();
 		if(cross_initialized){
 			cross.Suspend();
+            if(Build.VERSION.SDK_INT < 11){
+               System.exit(0);
+            }
 		}
 		renderer.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		Log.d(TAG, "onResume");
@@ -131,24 +135,6 @@ public class CrossActivity extends Activity{
 		}
 	}
 	
-	public void Init(int width, int height){
-		Log.d(TAG, "Init OpenGL");
-		if(!cross_initialized){
-			FMOD.init(this);
-			String dataPath = getFilesDir().getPath();
-			cross = new Cross();
-			asset_manager = getResources().getAssets();
-			cross.Init(width, height, dataPath, asset_manager, this);
-			if(commercial != null){
-				cross.InitialCommercial(commercial);
-			}
-			cross.Start();
-			cross_initialized = true;
-		}else{
-			Log.d(TAG, "Initialization unexpected behaviour");
-		}
-	}
-	
 	public void PromtToExit() {
 		Log.d(TAG, "PromtToExit");
 	    new AlertDialog.Builder(CrossActivity.this)
@@ -173,6 +159,24 @@ public class CrossActivity extends Activity{
 			Log.d(TAG, "Can't send CommertialResult. cross = null");
 		}
 	}
+
+    public void Init(int width, int height){
+        Log.d(TAG, "Init");
+        if(!cross_initialized){
+            FMOD.init(this);
+            String dataPath = getFilesDir().getPath();
+            cross = new Cross();
+            asset_manager = getResources().getAssets();
+            cross.Init(width, height, dataPath, asset_manager, this);
+            if(commercial != null){
+                cross.InitialCommercial(commercial);
+            }
+            cross.Start();
+            cross_initialized = true;
+        }else{
+            Log.d(TAG, "Initialization unexpected behaviour");
+        }
+    }
 	
 	public void Update(){
 		if(cross_initialized){
