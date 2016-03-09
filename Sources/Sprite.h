@@ -31,7 +31,7 @@ public:
 	void SetScale(float factor);
 	void SetScale(Vector2D scale);
 	void SetRotate(float angle);
-	Vector2D GetPosition();
+	Vector2D GetPosition() const;
 	const GLfloat* GetVertices() const;
 	const GLushort* GetIndices() const;
 	GLuint GetTextureID() const;
@@ -40,16 +40,18 @@ public:
 	int GetTextureWidth() const;
 	int GetTextureHeight() const;
 	Sprite* Clone() const;
-
+	Matrix& GetModelMatrix();
 //Internal data. You don't need call any of this methods or modify variable
 public:
-	Matrix scale;
-	Matrix translate;
-	Matrix rotation;
 	GLuint VBO;
 	static GLuint EBO;
 private:
 	static const GLushort indices[];
+	Matrix model;
+	Matrix scale;
+	Matrix translate;
+	Matrix rotation;
+	bool recalc_model;
 	GLuint textureID;
 	GLfloat vertices[16];
 	float width;

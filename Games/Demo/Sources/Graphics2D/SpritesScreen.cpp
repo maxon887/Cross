@@ -30,7 +30,7 @@ SpritesScreen::~SpritesScreen(){
 
 void SpritesScreen::Start(){
 	awesome_face = gfx2D->LoadImage("AwesomeFace.png", 0.1f);
-	debug_font = new Font("LiberationMono-Bold.ttf", 50, Color::Red);
+	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);
 }
 
 void SpritesScreen::Update(float sec){

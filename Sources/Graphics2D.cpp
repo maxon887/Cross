@@ -38,8 +38,6 @@
 
 using namespace cross;
 
-const string Graphics2D::def_font_filename = "Engine/times.ttf";
-
 Graphics2D::Graphics2D() :
 	camera(nullptr)
 {
@@ -47,8 +45,7 @@ Graphics2D::Graphics2D() :
 	sprite_shaders = new SpriteShaders();
 	primitive_shaders = new PrimitiveShaders();
 	monochrome_shaders = new MonochromeShaders();
-	this->default_font = new Font("LiberationMono-Regular.ttf", 50, Color::White);
-  	this->current_font = this->default_font;
+	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 	default_camera = new Camera();
 }
 
@@ -177,9 +174,8 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	delete buffer;
 }
 
-int Graphics2D::DrawText(Vector2D pos, string textStr){
-	DrawText(pos, textStr, this->current_font);
-	return 0;
+void Graphics2D::DrawText(Vector2D pos, string textStr){
+	DrawText(pos, textStr, this->default_font);
 }
 
 void Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
@@ -218,7 +214,8 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monoc
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	mvp = mvp * sprite->translate * sprite->rotation * sprite->scale;
+	//mvp = mvp * sprite->translate * sprite->rotation * sprite->scale;
+	mvp = mvp * sprite->GetModelMatrix();
 
 	mvp = mvp.Transpose();
 	glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
@@ -240,11 +237,6 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monoc
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-Font * cross::Graphics2D::GetDefaultFont()
-{
-	return current_font;
 }
 
 Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
@@ -344,4 +336,8 @@ void Graphics2D::Update(){
 
 void Graphics2D::SetClearColor(Color color){
 	glClearColor(color.R, color.G, color.B, 1.f);
+}
+
+Font* Graphics2D::GetDefaultFont(){
+	return default_font;
 }

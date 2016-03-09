@@ -71,7 +71,6 @@ protected:
 	void InitRect(Vector2D loc, float width, float heiht);
 	bool is_pressed;
 	bool active;
-	bool is_text_resizable;
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_up_delegate;

@@ -28,7 +28,6 @@ class Camera;
 	All coordinates supposed to be in Canvas space. */
 class Graphics2D{
 public:
-	Font* GetDefaultFont();
 	void SetCamera(Camera* camera);
 	Camera* GetCamera();
 	Camera* GetDefaultCamera();
@@ -39,7 +38,7 @@ public:
 	void DrawCircle(Vector2D center, float radius, Color color);
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled);
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy);
-	int DrawText(Vector2D pos, string text);
+	void DrawText(Vector2D pos, string text);
 	void DrawText(Vector2D pos, const string &text, Font* font);
 	void DrawSprite(Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
@@ -51,14 +50,13 @@ public:
 	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
 	void ReleaseSprite(Sprite* img);
 	void SetClearColor(Color color);
+	Font* GetDefaultFont();
 //Internal data. You don't need call any of this methods or modify variables
 public:
 	Graphics2D();
 	~Graphics2D();
 	void Update();
 private:
-	static const string def_font_filename;
-	Font* current_font;
 	Font* default_font;
 	SpriteShaders* sprite_shaders;
 	PrimitiveShaders* primitive_shaders;

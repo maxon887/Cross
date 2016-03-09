@@ -27,7 +27,8 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	texture_height(texHeight),
 	width(region.width),
 	height(region.height),
-	VBO(-1)
+	VBO(-1),
+	recalc_model(true)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -76,7 +77,8 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	texture_height(texHeight),
 	width(region.width),
 	height(region.height),
-	VBO(-1)
+	VBO(-1),
+	recalc_model(true)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -125,21 +127,25 @@ Sprite::~Sprite(){
 
 void Sprite::SetPosition(Vector2D pos){
 	translate.SetTranslation(pos);
+	recalc_model = true;
 }
 
 void Sprite::SetScale(float factor){
 	scale.SetScale(factor);
+	recalc_model = true;
 }
 
 void Sprite::SetScale(Vector2D scaleVec){
 	scale.SetScale(scaleVec);
+	recalc_model = true;
 }
 
 void Sprite::SetRotate(float angle){
 	rotation.SetRotationZ(angle);
+	recalc_model = true;
 }
 
-Vector2D Sprite::GetPosition(){
+Vector2D Sprite::GetPosition() const{
 	return Vector2D(translate.m[0][3], translate.m[1][3]);
 }
 
@@ -173,4 +179,12 @@ int Sprite::GetTextureHeight() const{
 
 Sprite* Sprite::Clone() const{
 	return new Sprite(*this);
+}
+
+Matrix& Sprite::GetModelMatrix(){
+	if(recalc_model){
+		model = translate * rotation * scale;
+		recalc_model = false;
+	}
+	return model;
 }

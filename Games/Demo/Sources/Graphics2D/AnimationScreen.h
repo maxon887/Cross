@@ -27,7 +27,6 @@ class AnimationScreen : public Screen{
 public:
 	void Start();
     void Update(float sec);
-	void OnKeyPressed(Key key);
 	~AnimationScreen();
 private:
 	Animation* spider_run_anim;
@@ -40,8 +39,5 @@ private:
 	float thinking_time;
 	float head_angle;
 	bool turn_left;
-	bool going_back;
-
-	void DrawBackground(float sec);
 	float deltaY;
 };

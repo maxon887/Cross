@@ -30,27 +30,23 @@ void AnimationScreen::Start(){
 	head_angle = 0;
 	deltaY = 0;
 	turn_left = true;
-	going_back = false;
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
-	input->KeyPressed += MakeDelegate(this, &AnimationScreen::OnKeyPressed);
-	spider_body = gfx2D->LoadImage("Spider/Body.png", game->GetScaleFactor() * 0.8f);
-	spider_head = gfx2D->LoadImage("Spider/Head.png", game->GetScaleFactor() * 0.8f);
-	//background = gfx2D->LoadRepeatedImage("Background.jpg", 900, 3000, game->GetScaleFactor() * bcg_scale);
+	spider_body = gfx2D->LoadImage("Spider/Body.png");
+	spider_head = gfx2D->LoadImage("Spider/Head.png");
 	Sprite* images[8];
-	images[0] = gfx2D->LoadImage("Spider/00.png", game->GetScaleFactor() * 0.8f);
-	images[1] = gfx2D->LoadImage("Spider/01.png", game->GetScaleFactor() * 0.8f);
-	images[2] = gfx2D->LoadImage("Spider/02.png", game->GetScaleFactor() * 0.8f);
-	images[3] = gfx2D->LoadImage("Spider/03.png", game->GetScaleFactor() * 0.8f);
-	images[4] = gfx2D->LoadImage("Spider/04.png", game->GetScaleFactor() * 0.8f);
-	images[5] = gfx2D->LoadImage("Spider/05.png", game->GetScaleFactor() * 0.8f);
-	images[6] = gfx2D->LoadImage("Spider/06.png", game->GetScaleFactor() * 0.8f);
-	images[7] = gfx2D->LoadImage("Spider/07.png", game->GetScaleFactor() * 0.8f);
+	images[0] = gfx2D->LoadImage("Spider/00.png");
+	images[1] = gfx2D->LoadImage("Spider/01.png");
+	images[2] = gfx2D->LoadImage("Spider/02.png");
+	images[3] = gfx2D->LoadImage("Spider/03.png");
+	images[4] = gfx2D->LoadImage("Spider/04.png");
+	images[5] = gfx2D->LoadImage("Spider/05.png");
+	images[6] = gfx2D->LoadImage("Spider/06.png");
+	images[7] = gfx2D->LoadImage("Spider/07.png");
 	spider_run_anim = new Animation(0.08f, images, 8, true);
 	spider_run_snd = new Audio("SpiderRun.wav", true, false);
 }
 
 void AnimationScreen::Update(float sec){
-	//DrawBackground(sec);
 	spider_run_anim->Update(sec);
 
 	if(run_time >= 0) {
@@ -73,7 +69,6 @@ void AnimationScreen::Update(float sec){
 			if(head_angle < -45)
 				turn_left = true;
 		}
-		//graphics->Rotate(spider_head, head_angle);
 		spider_head->SetRotate(head_angle);
 		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
 		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 - 65), spider_head);
@@ -83,53 +78,9 @@ void AnimationScreen::Update(float sec){
 			spider_run_snd->Play();
 		}
 	}
-	if(going_back){
+
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
-	}
-}
-
-void AnimationScreen::DrawBackground(float sec) {
-	float y = background->GetHeight() / 2;
-	if(run_time > 0)
-		deltaY = deltaY + sec * 430.0f;
-	y -= deltaY;
-	
-	if(deltaY > background->GetTextureHeight() * bcg_scale){
-		deltaY -= background->GetTextureHeight() * bcg_scale;
-	}
-	//graphics->DrawSprite(0, y, background);
-}
-
-void AnimationScreen::OnKeyPressed(Key key){
-	switch (key)
-	{
-	case cross::Key::UNDEFINED:
-		break;
-	case cross::Key::PAUSE:
-		break;
-	case cross::Key::BACK:
-		break;
-	case cross::Key::OPTIONS:
-		break;
-	case cross::Key::UP:
-		break;
-	case cross::Key::DOWN:
-		break;
-	case cross::Key::RIGHT:
-		break;
-	case cross::Key::LEFT:
-		break;
-	case cross::Key::ENTER:
-		break;
-	case cross::Key::SPACE:
-		break;
-	case cross::Key::SHIFT:
-		break;
-	case cross::Key::ESCAPE:
-		going_back = true;
-		break;
-	default:
-		break;
 	}
 }
 
