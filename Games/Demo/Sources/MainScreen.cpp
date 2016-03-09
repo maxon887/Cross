@@ -77,8 +77,8 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(textBtn);
 	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
-	graphics2D_menu->AddButton(testNaPidoraBtn);
 	//graphics2D_menu->Active(false);
+	graphics3D_menu->Active(false);
 }
 
 void MainScreen::Stop(){

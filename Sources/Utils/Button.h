@@ -22,59 +22,56 @@ namespace cross {
 
 class Button{
 public:
+	DECLARE_EVENT(void) Clicked;
 
-	Button(Vector2D location, string text);
-	Button(float locX, float locY, string text);
-	Button(string text);
-	Button(Vector2D location);
-	Button(float locX, float locY);
-	Button(Rect area);
-	Button(Sprite* upImage, Sprite* downImage);
-
-
+	Button(Sprite* upSprite, Sprite* downSprite);
+	Button(Sprite* upSprite);
 	Button(Rect area, string text);
-
-
+	Button(Vector2D location, string text);
+	Button(string text);
+	Button(Rect area);
+	Button(Vector2D location);
+	Button();
 	~Button();
 
 	void Update();
 
-	bool IsPressed();
-	bool OnLocation(float x, float y);
-	bool OnLocation(Vector2D p);
-	void DrawUp();
-	void DrawDown();
-	void SetText(string text);
-	void SetPressed(bool pressed);
-	void SetSounds(Audio* push, Audio* pull);
-	void SetImages(Sprite* up, Sprite* down);
 	void SetLocation(Vector2D location);
-	void SetRect(Rect area);
+	void SetText(string text);
+	void SetImages(Sprite* up, Sprite* down);
+	void SetSounds(Audio* push, Audio* pull);
 	void SetActive(bool active);
+	void Scale(float coef);
+	bool IsPressed() const;
 	float GetWidth() const;
 	float GetHeight() const;
 	Sprite* GetUpImage() const;
 	Sprite* GetDownImage() const;
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
-
-	DECLARE_EVENT(void) Clicked;
 protected:
+	//mandatory parameters
 	Vector2D location;
-	Vector2D text_size;
+	bool located;
+	bool is_pressed;
+	bool active;
 	Rect area;
+	//optional parameters
 	Sprite* up_image;
 	Sprite* down_image;
 	Audio* push_sound;
 	Audio* pull_sound;
 	string label_text;
-	void InitRect(Vector2D loc, float width, float heiht);
-	bool is_pressed;
-	bool active;
+	Vector2D text_size;
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_up_delegate;
 
+	void Locate(Vector2D loc, float width, float heiht);
+	void Locate(Rect rect);
+	bool OnLocation(float x, float y);
+	bool OnLocation(Vector2D p);
+	//connections
 	void ActionDownHandler(Vector2D pos);
 	void ActionUpHandler(Vector2D pos);
 };

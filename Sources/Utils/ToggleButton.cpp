@@ -20,7 +20,9 @@
 using namespace cross;
 
 ToggleButton::ToggleButton(Sprite* on, Sprite* off)
-	:Button(on, off){
+	:Button()
+{
+	SetImages(on, off);
 	this->on = on;
 	this->off = off;
 	this->state = true;

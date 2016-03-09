@@ -63,6 +63,8 @@ void  Menu::AddButton(Button* but){
 	if(offset < (button_height + 20)){
 		float coef = offset / (button_def_height + 20);
 		for(Button* btn : buttons){
+			btn->Scale(coef);
+			/*
 			Sprite* up = btn->GetUpImage();
 			if(up != nullptr){
 				up->SetScale(coef);
@@ -71,8 +73,9 @@ void  Menu::AddButton(Button* but){
 			if(down != nullptr){
 				down->SetScale(coef);
 			}
-			btn->SetImages(up, down);
+			btn->SetImages(up, down);*/
 		}
+		//button_def_height = but->GetHeight();
 		button_width = but->GetWidth();
 		button_height = but->GetHeight();
 	}

@@ -26,7 +26,7 @@ Demo::Demo(Launcher* launcher) : Game() { }
 void Demo::Start(){
 	launcher->LogIt("Demo::Start()");
 	Debugger::Instance()->ScreenDebug(true);
-	//Debugger::Instance()->EnableInputDebug();
+	Debugger::Instance()->EnableInputDebug();
 	camera = new Camera();
 	camera->SetViewWidth(900.f);
 }

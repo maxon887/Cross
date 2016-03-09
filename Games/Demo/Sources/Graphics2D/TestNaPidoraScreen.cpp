@@ -26,19 +26,18 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 TestNaPidoraScreen::TestNaPidoraScreen()
 {
 	
-	fooButton3 = new Button(Vector2D(250.f, 250.f));
+	//fooButton3 = new Button(Vector2D(250.f, 250.f));
+	//fooButton3 = new Button(Rect(50, 50, 100, 500));
+	Sprite* button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	fooButton3 = new Button(button_sprite);
+	//fooButton3 = new Button(Vector2D(150, 150), "Pidr");
+	fooButton3->SetLocation(Vector2D(340.f, 250.f));
+	fooButton3->SetText("SADAS");
 
-	Sprite* audioBtn = gfx2D->LoadImage("DefaultButton.png");
 
-	//fooButton3->SetImages(audioBtn, audioBtn);
+	//fooButton3->SetLocation(Vector2D(250.f, 250.f));
 
-	//fooButton3->SetRect(Rect(250, 250, 400, 100));
-	//fooButton3->SetRect(Rect(50.f, 0.f, 350.f, 50.f));
-	fooButton3->SetLocation(Vector2D(250.f, 250.f));
-
-	fooButton3->SetText("button");
-	
-	//fooButton3->SetLocation(Vector2D(250, 250));
+	//fooButton3->SetText("long text button");
 }
 
 void TestNaPidoraScreen::Update(float sec)
