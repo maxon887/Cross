@@ -26,6 +26,7 @@ ToggleButton::ToggleButton(Sprite* on, Sprite* off)
 	this->on = on;
 	this->off = off;
 	this->state = true;
+	Clicked += MakeDelegate(this, &ToggleButton::OnClicked);
 }
 
 ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
@@ -34,14 +35,23 @@ ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
 	this->on = on;
 	this->off = off;
 	this->state = true;
+	Clicked += MakeDelegate(this, &ToggleButton::OnClicked);
 }
 
 void ToggleButton::Update(){
+	if(!located) {
+		throw CrossException("Button must be located first");
+	}
+
 	if(state)
 		gfx2D->DrawSprite(location, on);
 	else
 		gfx2D->DrawSprite(location, off);
 
+	if(label_text.size()) {
+		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2,
+			area.y + area.height / 2 - text_size.y / 2 + 10), label_text);
+	}
 }
 
 bool ToggleButton::GetState(){
@@ -50,4 +60,8 @@ bool ToggleButton::GetState(){
 
 void ToggleButton::SetState(bool state){
 	this->state = state;
+}
+
+void ToggleButton::OnClicked(){
+	state = !state;
 }

@@ -30,6 +30,8 @@ private:
 	Sprite* on;
 	Sprite* off;
 	bool state;
+
+	void OnClicked();
 };
 
 }

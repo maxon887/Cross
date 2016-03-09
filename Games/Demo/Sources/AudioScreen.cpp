@@ -15,13 +15,16 @@ void AudioScreen::Start(){
 
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	button_sprite_pressed = gfx2D->LoadImage("DefaultButtonPressed.png");
 	audio_menu = new Menu();
 	Button* soundBtn = new Button("Sound");
 	soundBtn->SetImages(button_sprite->Clone(), nullptr);
-	Button* loopBtn = new Button("Loop");
+	ToggleButton* loopBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
 	loopBtn->SetImages(button_sprite->Clone(), nullptr);
-	Button* streamBtn = new Button("Stream");
+	loopBtn->SetText("Loop");
+	ToggleButton* streamBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
 	streamBtn->SetImages(button_sprite->Clone(), nullptr);
+	streamBtn->SetText("Stream");
 	soundBtn->Clicked += MakeDelegate(this, &AudioScreen::OnSoundButtonClick);
 	loopBtn->Clicked += MakeDelegate(this, &AudioScreen::OnLoopButttonClick);
 	streamBtn->Clicked += MakeDelegate(this, &AudioScreen::OnStreamButtonClick);

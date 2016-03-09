@@ -15,6 +15,7 @@ public:
 private:
 	Menu* audio_menu;
 	Sprite* button_sprite;
+	Sprite* button_sprite_pressed;
 	Audio* bck_music;
 	Audio* jaguar;
 	Audio* truck;
