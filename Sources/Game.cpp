@@ -112,13 +112,6 @@ void Game::Exit(){
 #endif // WIN
 }
 
-void Game::Init(){
-	launcher->LogIt("Game::Init()");
-	srand((unsigned int)time(0));
-	SetScreen(GetStartScreen());
-	launcher->LogIt("Start screen load successfully");
-}
-
 Game::~Game(){
 	launcher->LogIt("Game::~Game");
 	delete current_screen;

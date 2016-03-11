@@ -51,7 +51,6 @@ public:
     void Exit();
 //Internal data. You don't need call any of this methods or modify variable
 public:
-	void Init();
     void Update();
 	virtual ~Game();
 private:

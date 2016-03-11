@@ -57,7 +57,7 @@ extern "C"{
 	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
 		try{
             game->Start();
-			game->Init();
+			game->SetScreen(game->GetStartScreen());
 		} catch(Exception &exc) {
             string msg = string(exc.message) +
                          +"\nFile: " + string(exc.filename) +

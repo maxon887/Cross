@@ -94,7 +94,8 @@ int NativeGL_GO(){
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
 		game->Start();
-		game->Init();
+		game->SetScreen(game->GetStartScreen());
+
 		ZeroMemory(&msg, sizeof(MSG));
 		while(msg.message != WM_QUIT) {
 			if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){

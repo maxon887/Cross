@@ -26,12 +26,12 @@ void GraphicsGL::CheckGLError() {
 	while(err != GL_NO_ERROR) {
 		char* error = new char[255];
 		switch(err) {
-		case GL_INVALID_OPERATION:    strcpy_s(error, 255, "INVALID_OPERATION");      break;
-		case GL_INVALID_ENUM:     strcpy_s(error, 255, "INVALID_ENUM");           break;
-		case GL_INVALID_VALUE:     strcpy_s(error, 255, "INVALID_VALUE");          break;
-		case GL_OUT_OF_MEMORY:     strcpy_s(error, 255, "OUT_OF_MEMORY");          break;
-		case GL_INVALID_FRAMEBUFFER_OPERATION:  strcpy_s(error, 255, "INVALID_FRAMEBUFFER_OPERATION");  break;
-		default: strcpy_s(error, 255, "Unknown error");  break;
+		case GL_INVALID_OPERATION:    strcpy(error, "INVALID_OPERATION");      break;
+		case GL_INVALID_ENUM:     strcpy(error, "INVALID_ENUM");           break;
+		case GL_INVALID_VALUE:     strcpy(error, "INVALID_VALUE");          break;
+		case GL_OUT_OF_MEMORY:     strcpy(error, "OUT_OF_MEMORY");          break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:  strcpy(error, "INVALID_FRAMEBUFFER_OPERATION");  break;
+		default: strcpy(error, "Unknown error");  break;
 		}
 		launcher->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, __FILE__, __LINE__);
 		delete[] error;

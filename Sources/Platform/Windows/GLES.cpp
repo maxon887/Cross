@@ -36,6 +36,7 @@ int GLES_GO(){
 	esContext.hWnd = WinCreate();
 
 	try{
+		srand((unsigned int)time(0));
 		LauncherWIN launcherWin(esContext.hWnd);
 		launcher = &launcherWin;
 		game = CrossMain(launcher);
@@ -51,7 +52,7 @@ int GLES_GO(){
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
 		game->Start();
-		game->Init();
+		game->SetScreen(game->GetStartScreen());
 
 		MSG msg;
 		ZeroMemory(&msg, sizeof(MSG));
