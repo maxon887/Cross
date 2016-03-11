@@ -16,9 +16,7 @@ public:
 
 private:
 	void OnKeyPressed(Key key);
-	Button* fooButton;
-	Button* fooButton2;
-	Button* fooButton3;
+	Button* testButton;
 
 };
 

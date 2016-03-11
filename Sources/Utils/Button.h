@@ -24,14 +24,11 @@ class Button{
 public:
 	DECLARE_EVENT(void) Clicked;
 
-	Button(Sprite* upSprite, Sprite* downSprite);
-	Button(Sprite* upSprite);
 	Button(Rect area, string text);
 	Button(Vector2D location, string text);
 	Button(string text);
 	Button(Rect area);
 	Button(Vector2D location);
-	Button();
 	~Button();
 
 	virtual void Update();
@@ -39,6 +36,7 @@ public:
 	void SetLocation(Vector2D location);
 	void SetText(string text);
 	void SetImages(Sprite* up, Sprite* down);
+	void SetImages(Sprite* up);
 	void SetSounds(Audio* push, Audio* pull);
 	void SetActive(bool active);
 	void Scale(float coef);
@@ -50,6 +48,8 @@ public:
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
 protected:
+
+	Button();
 	//mandatory parameters
 	Vector2D location;
 	bool located;
@@ -61,16 +61,18 @@ protected:
 	Sprite* down_image;
 	Audio* push_sound;
 	Audio* pull_sound;
+	Font* font;
 	string label_text;
 	Vector2D text_size;
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_up_delegate;
 
-	void Locate(Vector2D loc, float width, float heiht);
-	void Locate(Rect rect);
-	bool OnLocation(float x, float y);
-	bool OnLocation(Vector2D p);
+	void SetRect(Vector2D loc, float width, float heiht);
+	void SetRect(Rect rect);
+	bool IsOnLocation(float x, float y);
+	bool IsOnLocation(Vector2D p);
+	void FitText();
 	//connections
 	void ActionDownHandler(Vector2D pos);
 	void ActionUpHandler(Vector2D pos);

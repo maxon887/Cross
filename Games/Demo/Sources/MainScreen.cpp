@@ -54,12 +54,12 @@ void MainScreen::Start(){
 	Button* canvasBtn = new Button("2D Camera");
 	Button* animationBtn = new Button("Animation");
 	Button* testNaPidoraBtn = new Button("Test Na Pidora");
-	primitivesBtn->SetImages(button_sprite->Clone(), nullptr);
-	spritesBtn->SetImages(button_sprite->Clone(), nullptr);
-	textBtn->SetImages(button_sprite->Clone(), nullptr);
-	canvasBtn->SetImages(button_sprite->Clone(), nullptr);
-	animationBtn->SetImages(button_sprite->Clone(), nullptr);
-	testNaPidoraBtn->SetImages(button_sprite->Clone(), nullptr);
+	primitivesBtn->SetImages(button_sprite->Clone());
+	spritesBtn->SetImages(button_sprite->Clone());
+	textBtn->SetImages(button_sprite->Clone());
+	canvasBtn->SetImages(button_sprite->Clone());
+	animationBtn->SetImages(button_sprite->Clone());
+	testNaPidoraBtn->SetImages(button_sprite->Clone());
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
 	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);

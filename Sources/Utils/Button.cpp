@@ -27,17 +27,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 using namespace cross;
 
-Button::Button(Sprite* upSprite, Sprite* downSprite) :
-	Button()
-{
-	SetImages(upSprite, downSprite);
-}
-
-Button::Button(Sprite* upSprite) :
-	Button()
-{
-	SetImages(upSprite, nullptr);
-}
 
 Button::Button(Rect area, string text) :
 	Button()
@@ -47,7 +36,7 @@ Button::Button(Rect area, string text) :
 		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
 		text_size.y = gfx2D->GetDefaultFont()->GetSize();
 	}
-	Locate(area);
+	SetRect(area);
 }
 
 Button::Button(Vector2D location, string text) :
@@ -58,7 +47,7 @@ Button::Button(Vector2D location, string text) :
 		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
 		text_size.y = gfx2D->GetDefaultFont()->GetSize();
 	}
-	Locate(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
+	SetRect(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
 }
 
 Button::Button(string text) :
@@ -76,13 +65,13 @@ Button::Button(string text) :
 Button::Button(Rect area) :
 	Button()
 {
-	Locate(area);
+	SetRect(area);
 }
 
 Button::Button(Vector2D location) :
 	Button()
 {
-	Locate(location, HORIZONTAL_PADDING, VERTICAL_PADDING);
+	SetRect(location, HORIZONTAL_PADDING, VERTICAL_PADDING);
 }
 
 Button::Button() :
@@ -135,12 +124,12 @@ void Button::Update() {
 
 	if(label_text.size()) {
 		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2,
-			area.y + area.height / 2 - text_size.y / 2 + 10), label_text);
+			area.y + area.height / 2 - text_size.y / 2 + 10), label_text, font);
 	}
 }
 
 void Button::SetLocation(Vector2D location) {
-	Locate(location, area.width, area.height);
+	SetRect(location, area.width, area.height);
 }
 
 void Button::SetText(string text) {
@@ -161,6 +150,11 @@ void Button::SetImages(Sprite * up, Sprite * down)
 		area.width = up->GetWidth();
 		area.height = up->GetHeight();
 	}
+}
+
+void cross::Button::SetImages(Sprite * up)
+{
+	SetImages(up, nullptr);
 }
 
 void Button::SetSounds(Audio* push, Audio* pull) {
@@ -212,18 +206,22 @@ Vector2D Button::GetCenter() const {
 	return location;
 }
 
-bool Button::OnLocation(Vector2D p) {
-	return OnLocation(p.x, p.y);
+bool Button::IsOnLocation(Vector2D p) {
+	return IsOnLocation(p.x, p.y);
 }
 
-bool Button::OnLocation(float x, float y) {
+void cross::Button::FitText()
+{
+}
+
+bool Button::IsOnLocation(float x, float y) {
 	return	x > area.x &&
 		x < (area.x + area.width) &&
 		y > area.y &&
 		y < (area.y + area.height);
 }
 
-void Button::Locate(Vector2D loc, float width, float heiht) {
+void Button::SetRect(Vector2D loc, float width, float heiht) {
 	this->location = loc;
 	area.x = loc.x - width / 2.f;
 	area.y = loc.y - heiht / 2.f;
@@ -232,7 +230,7 @@ void Button::Locate(Vector2D loc, float width, float heiht) {
 	located = true;
 }
 
-void Button::Locate(Rect rect){
+void Button::SetRect(Rect rect){
 	location.x = rect.x + rect.width / 2.f;
 	location.y = rect.y + rect.height / 2.f;
 	this->area = rect;
@@ -240,7 +238,7 @@ void Button::Locate(Rect rect){
 }
 
 void Button::ActionDownHandler(Vector2D pos) {
-	if (active && OnLocation(pos.x, pos.y)) {
+	if (active && IsOnLocation(pos.x, pos.y)) {
 		is_pressed = true;
 		if (push_sound != nullptr) {
 			push_sound->Play();
@@ -254,7 +252,7 @@ void Button::ActionUpHandler(Vector2D pos) {
 		if (push_sound != nullptr) {
 			push_sound->Play();
 		}
-		if (OnLocation(pos.x, pos.y)) {
+		if (IsOnLocation(pos.x, pos.y)) {
 			if (down_image != nullptr) {
 				gfx2D->DrawSprite(location, down_image);
 			}
