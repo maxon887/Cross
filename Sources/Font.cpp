@@ -30,11 +30,25 @@ using namespace cross;
 
 static FT_Library library = NULL;
 
-Font::Font(string filename, float size, Color color):
-	color(color),
-	sprites(128)
+Font::Font(Font& font) :
+	color(font.color),
+	original(false),
+	face(font.face),
+	size(font.size)
 {
-	file = launcher->LoadFile(filename);
+	for(int i = 0; i < 128; ++i){
+		this->advances[i] = font.advances[i];
+		this->textures[i] = font.textures[i];
+		this->sprites[i] = font.sprites[i]->Clone();
+	}
+}
+
+Font::Font(string filename, float size, Color color) :
+	color(color),
+	sprites(128),
+	original(true)
+{
+	File* file = launcher->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);
@@ -43,6 +57,7 @@ Font::Font(string filename, float size, Color color):
 		}
 	}
 	error = FT_New_Memory_Face(library, file->data, file->size, 0, &face);
+	delete file;
 	if(error){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
@@ -51,9 +66,10 @@ Font::Font(string filename, float size, Color color):
 }
 
 Font::~Font(){
-	glDeleteTextures(128, textures);
-	delete file;
-	for(Sprite* sprite : sprites){
+	if(original){
+		glDeleteTextures(128, textures);
+	}
+	for(Sprite* sprite : sprites) {
 		delete sprite;
 	}
 }
@@ -135,4 +151,8 @@ void Font::Cache(){
 		delete sprites[i];
 		sprites[i] = sprite;
 	}
+}
+
+Font* Font::Clone(){
+	return new Font(*this);
 }

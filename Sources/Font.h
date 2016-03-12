@@ -29,6 +29,7 @@ namespace cross {
 	Font size will be represented in virtual canvas metrics. */
 class Font{
 public:
+	Font(Font& font);
 	Font(string filename, float size, Color color);
 	~Font();
 
@@ -41,14 +42,15 @@ public:
 	float GetCharWidth();
 	Sprite* GetChar(char c);
 	float GetCharAdvance(char c);
+	Font* Clone();
 private:
 	FT_Face face;
-	File* file;
 	CRArray<Sprite*> sprites;
 	float advances[128];
 	unsigned int textures[128];
 	Color color;
 	float size;
+	bool original;
 
 	void Cache();
 };
