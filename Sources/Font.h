@@ -45,6 +45,7 @@ public:
 	Font* Clone();
 private:
 	FT_Face face;
+	File* file;
 	CRArray<Sprite*> sprites;
 	float advances[128];
 	unsigned int textures[128];

@@ -48,7 +48,7 @@ Font::Font(string filename, float size, Color color) :
 	sprites(128),
 	original(true)
 {
-	File* file = launcher->LoadFile(filename);
+	file = launcher->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);
@@ -57,7 +57,6 @@ Font::Font(string filename, float size, Color color) :
 		}
 	}
 	error = FT_New_Memory_Face(library, file->data, file->size, 0, &face);
-	delete file;
 	if(error){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
@@ -68,6 +67,7 @@ Font::Font(string filename, float size, Color color) :
 Font::~Font(){
 	if(original){
 		glDeleteTextures(128, textures);
+		delete file;
 	}
 	for(Sprite* sprite : sprites) {
 		delete sprite;
