@@ -25,13 +25,18 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 TestNaPidoraScreen::TestNaPidoraScreen()
 {
-	testButton = new Button(Rect(Vector2D(100, 100), 500, 100), "bla bla bla bla bla");
+	testButton = new Button(Rect(Vector2D(100, 100), 500, 100), "fgdsgfdfgdfgdfghdfghdfghdgfhdgfh");
+	testButton1 = new Button(Rect(Vector2D(100, 300), 500, 100), "bla");
+	testButton2 = new Button(Rect(Vector2D(100, 500), 500, 100), "bgsfdgdfgsdfghghgfhsfla");
+
 	
 }
 
 void TestNaPidoraScreen::Update(float sec)
 {
 	testButton->Update();
+	testButton1->Update();
+	testButton2->Update();
 
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
 		game->SetScreen(new MainScreen());
@@ -42,6 +47,12 @@ TestNaPidoraScreen::~TestNaPidoraScreen()
 {
 	if (testButton != nullptr) {
 		delete testButton;
+	}
+	if (testButton != nullptr) {
+		delete testButton1;
+	}
+	if (testButton != nullptr) {
+		delete testButton2;
 	}
 }
 

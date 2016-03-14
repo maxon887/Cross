@@ -17,6 +17,8 @@ public:
 private:
 	void OnKeyPressed(Key key);
 	Button* testButton;
+	Button* testButton1;
+	Button* testButton2;
 
 };
 

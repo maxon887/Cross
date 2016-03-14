@@ -72,7 +72,7 @@ protected:
 	void SetRect(Rect rect);
 	bool IsOnLocation(float x, float y);
 	bool IsOnLocation(Vector2D p);
-	void FitText();
+	void FitText(string text);
 	//connections
 	void ActionDownHandler(Vector2D pos);
 	void ActionUpHandler(Vector2D pos);

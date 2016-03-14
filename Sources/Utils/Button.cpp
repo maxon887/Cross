@@ -31,35 +31,21 @@ using namespace cross;
 Button::Button(Rect area, string text) :
 	Button()
 {
-	label_text = text;
-	if(text.size()) {
-		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
-		text_size.y = gfx2D->GetDefaultFont()->GetSize();
-	}
 	SetRect(area);
+	FitText(text);
 }
 
 Button::Button(Vector2D location, string text) :
 	Button()
 {
-	label_text = text;
-	if(text.size()) {
-		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
-		text_size.y = gfx2D->GetDefaultFont()->GetSize();
-	}
+	FitText(text);
 	SetRect(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
 }
 
 Button::Button(string text) :
 	Button()
 {
-	label_text = text;
-	if(text.size()) {
-		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
-		text_size.y = gfx2D->GetDefaultFont()->GetSize();
-	}
-	area.width = text_size.x + HORIZONTAL_PADDING;
-	area.height = text_size.y + VERTICAL_PADDING;
+	FitText(text);
 }
 
 Button::Button(Rect area) :
@@ -83,6 +69,7 @@ Button::Button() :
 	up_image(nullptr),
 	down_image(nullptr)
 {
+	font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
 	input->ActionDown += action_down_delegate;
@@ -95,6 +82,9 @@ Button::~Button() {
 	}
 	if (up_image != nullptr) {
 		gfx2D->ReleaseSprite(up_image);
+	}
+	if (font != nullptr) {
+		delete font;
 	}
 
 	input->ActionDown -= action_down_delegate;
@@ -124,7 +114,7 @@ void Button::Update() {
 
 	if(label_text.size()) {
 		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2,
-			area.y + area.height / 2 - text_size.y / 2 + 10), label_text, font);
+			area.y + area.height / 2 - text_size.y / 2), label_text, font);
 	}
 }
 
@@ -133,12 +123,7 @@ void Button::SetLocation(Vector2D location) {
 }
 
 void Button::SetText(string text) {
-	label_text = text;
-
-	if(text.size()) {
-		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * text.size();
-		text_size.y = gfx2D->GetDefaultFont()->GetSize();
-	}
+	FitText(text);
 }
 
 void Button::SetImages(Sprite * up, Sprite * down)
@@ -210,8 +195,29 @@ bool Button::IsOnLocation(Vector2D p) {
 	return IsOnLocation(p.x, p.y);
 }
 
-void cross::Button::FitText()
+void cross::Button::FitText(string text)
 {
+	label_text = text;
+
+	if (!label_text.empty()) {
+		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * label_text.size();
+		text_size.y = gfx2D->GetDefaultFont()->GetSize();
+	}
+
+	if (!located) return;
+
+	
+	if (text_size.x > area.width - HORIZONTAL_PADDING) {
+		font->SetSize(
+		Font::SizeForWidthForStringLength(area.width - HORIZONTAL_PADDING, label_text.size())
+			);
+	}
+
+	if (!label_text.empty()) {
+		text_size.x = font->GetCharWidth() * label_text.size();
+		text_size.y = font->GetSize();
+	}
+	
 }
 
 bool Button::IsOnLocation(float x, float y) {
@@ -228,6 +234,7 @@ void Button::SetRect(Vector2D loc, float width, float heiht) {
 	area.width = width;
 	area.height = heiht;
 	located = true;
+	FitText(label_text);
 }
 
 void Button::SetRect(Rect rect){
@@ -235,6 +242,7 @@ void Button::SetRect(Rect rect){
 	location.y = rect.y + rect.height / 2.f;
 	this->area = rect;
 	located = true;
+	FitText(label_text);
 }
 
 void Button::ActionDownHandler(Vector2D pos) {
