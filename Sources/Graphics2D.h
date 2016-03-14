@@ -22,15 +22,14 @@ namespace cross{
 class SpriteShaders;
 class PrimitiveShaders;
 class MonochromeShaders;
-class Camera;
 
 /*	This class can be used for drawing 2D graphics.
 	All coordinates supposed to be in Canvas space. */
 class Graphics2D{
 public:
-	void SetCamera(Camera* camera);
-	Camera* GetCamera();
-	Camera* GetDefaultCamera();
+	void SetCamera(Camera2D* camera);
+	Camera2D* GetCamera();
+	Camera2D* GetDefaultCamera();
 	void DrawPoint(Vector2D pos, Color color);
 	void DrawLine(Vector2D p1, Vector2D p2, Color color);
 	void DrawRect(Rect rect, Color color);
@@ -43,7 +42,7 @@ public:
 	void DrawSprite(Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
-	void DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monochrome);
+	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scale);
@@ -61,8 +60,8 @@ private:
 	SpriteShaders* sprite_shaders;
 	PrimitiveShaders* primitive_shaders;
 	MonochromeShaders* monochrome_shaders;
-	Camera* camera;
-	Camera* default_camera;
+	Camera2D* camera;
+	Camera2D* default_camera;
 };
 
 }

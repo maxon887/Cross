@@ -21,21 +21,14 @@ namespace cross{
 
 class Camera{
 public:
-	Camera();
-	/* Setup camera view area. Height will be calculated regarding on aspect ratio */
-	void SetViewWidth(float width);
 	void SetPosition(Vector2D pos);
-	float GetViewWidth();
-	float GetViewHeight();
 //Framework module. You don't need call any of this methods or modify variable
 public:
-	Matrix GetViewMatrix();
-	Matrix GetProjectionMatrix();
-private:
+	const Matrix& GetViewMatrix() const;
+	const Matrix& GetProjectionMatrix() const;
+protected:
 	Matrix view;
 	Matrix projection;
-	float view_width;
-	float view_height;
 };
 
 };

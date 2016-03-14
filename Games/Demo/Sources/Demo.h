@@ -28,5 +28,5 @@ public:
 	Screen* GetStartScreen() override;
 
 private:
-	Camera* camera;
+	Camera2D* camera;
 };

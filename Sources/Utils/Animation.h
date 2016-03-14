@@ -31,7 +31,6 @@ public:
 	Sprite* GetImage();
 	bool IsRunning();
 private:
-	void Init(float rate, Sprite* frames[], int frameCount, bool looped);
 	CRArray<Sprite*> frames;
 	float rate;
 	float duration;

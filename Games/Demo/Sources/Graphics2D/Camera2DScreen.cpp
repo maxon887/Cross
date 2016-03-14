@@ -20,7 +20,7 @@
 #include "Utils/Misc.h"
 #include "Input.h"
 #include "Launcher.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "Game.h"
 #include "Font.h"
 
@@ -37,7 +37,7 @@ void Camera2DScreen::Start(){
 	cam_speed = 10.f;
 	view_width = (float)launcher->GetTargetWidth();
 	cam_positon = Vector2D(0.f, 0.f);
-	camera = new Camera();
+	camera = new Camera2D();
 	gfx2D->SetCamera(camera);
 	tip_font = new Font("Engine/Fonts/VeraMono.ttf", 35, Color(150, 217, 234));
 

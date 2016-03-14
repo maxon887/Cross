@@ -37,8 +37,6 @@ public:
 	string DataPath();
 	void LogIt(string str);
     void LogIt(const char* formatStr, ...);
-	//void LoadFile(string filename, unsigned char** buffer, int* length);
-	//unsigned char* LoadFile(string filename, int *size);
 	File* LoadFile(string filename);
 	void PromtToExit();
 	void InitializeCommercial(JNIEnv* env, jobject comm);

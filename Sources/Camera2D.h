@@ -14,18 +14,21 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#pragma once
+#include "Cross.h"
 #include "Camera.h"
 
-using namespace cross;
+namespace cross{
 
-void Camera::SetPosition(Vector2D pos){
-	view.SetTranslation(pos*(-1));
-}
+class Camera2D : public Camera{
+public:
+	Camera2D();
+	void SetViewWidth(float width);
+	float GetViewWidth();
+	float GetViewHeight();
+private:
+	float view_width;
+	float view_height;
+};
 
-const Matrix& Camera::GetViewMatrix() const{
-	return view;
-}
-
-const Matrix& Camera::GetProjectionMatrix() const{
-	return projection;
 }

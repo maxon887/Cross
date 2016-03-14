@@ -19,7 +19,7 @@
 #include "Texter.h"
 #include "Input.h"
 #include "Graphics2D.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "Game.h"
 #include "Font.h"
 

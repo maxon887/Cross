@@ -25,7 +25,7 @@
 #include "Sprite.h"
 #include "Font.h"
 #include "Utils/Misc.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "File.h"
 
 #include "SOIL/SOIL.h"
@@ -46,7 +46,7 @@ Graphics2D::Graphics2D() :
 	primitive_shaders = new PrimitiveShaders();
 	monochrome_shaders = new MonochromeShaders();
 	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
-	default_camera = new Camera();
+	default_camera = new Camera2D();
 }
 
 Graphics2D::~Graphics2D(){
@@ -57,11 +57,11 @@ Graphics2D::~Graphics2D(){
 	delete monochrome_shaders;
 }
 
-void Graphics2D::SetCamera(Camera* camera){
+void Graphics2D::SetCamera(Camera2D* camera){
 	this->camera = camera;
 }
 
-Camera* Graphics2D::GetCamera() {
+Camera2D* Graphics2D::GetCamera() {
 	if(camera) {
 		return camera;
 	} else {
@@ -69,7 +69,7 @@ Camera* Graphics2D::GetCamera() {
 	}
 }
 
-Camera* Graphics2D::GetDefaultCamera(){
+Camera2D* Graphics2D::GetDefaultCamera(){
 	return default_camera;
 }
 
@@ -204,19 +204,16 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
 	DrawSprite(sprite, color, GetCamera(), monochrome);
 }
 
-void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera* cam, bool monochrome){
+void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome){
 	if(monochrome){
 		gfxGL->UseProgram(monochrome_shaders->program);
 	}else{
 		gfxGL->UseProgram(sprite_shaders->program);
 	}
-	//parameterization
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	//mvp = mvp * sprite->translate * sprite->rotation * sprite->scale;
-	mvp = mvp * sprite->GetModelMatrix();
-
+	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * sprite->GetModelMatrix();
 	mvp = mvp.Transpose();
 	glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
 	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());

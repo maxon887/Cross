@@ -53,6 +53,8 @@ class Screen;
 class File;
 class Font;
 class Camera;
+class Camera2D;
+class Camera3D;
 
 extern Game* game;
 extern Launcher* launcher;

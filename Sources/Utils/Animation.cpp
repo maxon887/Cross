@@ -28,12 +28,20 @@ Animation::Animation(Animation& anim){
 	this->original = false;
 }
 
-Animation::Animation(float rate, Sprite* frames[], int frameCount){
-	Init(rate, frames, frameCount, false);
-}
+Animation::Animation(float rate, Sprite* frames[], int frameCount) : 
+	Animation(rate, frames, frameCount, false)
+{ }
 
-Animation::Animation(float rate, Sprite* frames[], int frameCount, bool looped){
-	Init(rate, frames, frameCount, looped);
+Animation::Animation(float rate, Sprite* frames[], int frameCount, bool looped) :
+	original(true),
+	duration(0xFF),
+	frame_num(0),
+	looped(looped),
+	rate(rate)
+{
+	for(int i = 0; i < frameCount; i++) {
+		this->frames.push_back(frames[i]);
+	}
 }
 
 Animation::~Animation(){
@@ -73,15 +81,4 @@ Sprite* Animation::GetImage(){
 
 bool Animation::IsRunning(){
 	return duration != 0xFF;
-}
-
-void Animation::Init(float rate, Sprite* frames[], int frameCount, bool looped){
-	original = true;
-	this->duration = 0xFF;
-	this->frame_num = 0;
-	this->looped = looped;
-	this->rate = rate;
-	for(int i = 0; i < frameCount; i++){
-		this->frames.push_back(frames[i]);
-	}
 }

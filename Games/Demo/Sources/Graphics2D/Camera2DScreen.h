@@ -34,7 +34,7 @@ private:
 	float cam_speed;
 	float view_width;
 	Vector2D cam_positon;
-	Camera* camera;
+	Camera2D* camera;
 	Font* tip_font;
 
 	void WheelUpHandler();

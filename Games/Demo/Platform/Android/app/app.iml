@@ -119,6 +119,18 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Camera.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Color.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Color.cpp" isTestSource="false" />
     </content>

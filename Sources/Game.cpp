@@ -22,7 +22,7 @@
 #include "Utils/Debugger.h"
 #include "Audio.h"
 #include "Graphics2D.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #ifdef WIN
 #include "Platform/Windows/LauncherWIN.h"
 #undef GetMessage

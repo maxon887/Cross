@@ -58,9 +58,9 @@ void TriangleScreen::Update(float sec){
 		static float angle = 0;
 		angle += 90 * sec;
 		Matrix translate = Matrix::CreateIdentity();
-		translate.SetTranslation(Vector3D(3.f, 0.f, -10.f));
+		translate.SetTranslation(Vector3D(0.f, 0.f, -1.f));
 		Matrix rotate = Matrix::CreateIdentity();
-		rotate.SetRotationZ(angle);
+		rotate.SetRotationY(angle);
 		Matrix mvp = projection * translate * rotate;
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));

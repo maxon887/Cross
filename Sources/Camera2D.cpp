@@ -14,18 +14,29 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Camera.h"
+#include "Camera2D.h"
+#include "Launcher.h"
 
 using namespace cross;
 
-void Camera::SetPosition(Vector2D pos){
-	view.SetTranslation(pos*(-1));
+Camera2D::Camera2D() {
+	view = Matrix::CreateIdentity();
+	view_width = (float)launcher->GetTargetWidth();
+	view_height = (float)launcher->GetTargetHeight();
+	projection = Matrix::CreateOrthogonalProjection( 0, view_width, 0, view_height, 1, -1 );
 }
 
-const Matrix& Camera::GetViewMatrix() const{
-	return view;
+void Camera2D::SetViewWidth(float width) {
+	this->view_width = width;
+	float scale = (float)launcher->GetTargetWidth() / view_width;
+	view_height = (float)launcher->GetTargetHeight() / scale;
+	projection = Matrix::CreateOrthogonalProjection( 0, view_width, 0, view_height, 1, -1 );
 }
 
-const Matrix& Camera::GetProjectionMatrix() const{
-	return projection;
+float Camera2D::GetViewWidth() {
+	return view_width;
+}
+
+float Camera2D::GetViewHeight() {
+	return view_height;
 }

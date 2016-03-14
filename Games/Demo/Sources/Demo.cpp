@@ -18,7 +18,7 @@
 #include "MainScreen.h"
 #include "Utils/Debugger.h"
 #include "Graphics2D.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "Launcher.h"
 
 Demo::Demo(Launcher* launcher) : Game() { }
@@ -27,7 +27,7 @@ void Demo::Start(){
 	launcher->LogIt("Demo::Start()");
 	Debugger::Instance()->ScreenDebug(true);
 	Debugger::Instance()->EnableInputDebug();
-	camera = new Camera();
+	camera = new Camera2D();
 	camera->SetViewWidth(900.f);
 }
 
