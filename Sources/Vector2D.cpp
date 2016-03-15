@@ -78,20 +78,20 @@ void Vector2D::operator-=(const Vector2D &v2){
 	this->y -= v2.y;
 }
 
-Vector2D Vector2D::operator*(const float v) const{
+Vector2D Vector2D::operator*(float v) const{
 	return Vector2D(this->x * v, this->y * v);
 }
 
-void Vector2D::operator*=(const float v){
+void Vector2D::operator*=(float v){
 	this->x *= v;
 	this->y *= v;
 }
 
-Vector2D Vector2D::operator/(const float v) const{
+Vector2D Vector2D::operator/(float v) const{
 	return Vector2D(this->x / v, this->y / v);
 }
 
-void Vector2D::operator/=(const float v){
+void Vector2D::operator/=(float v){
 	this->x /= v;
 	this->y /= v;
 }

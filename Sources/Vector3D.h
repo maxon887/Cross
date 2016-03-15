@@ -28,7 +28,7 @@ public:
 
 	Vector3D();
 	Vector3D(float x, float y, float z);
-	Vector3D(Vector2D &vec, float z);
+	Vector3D(const Vector2D &vec, float z);
 
 	float Length() const;
 	Vector3D Normalize() const;
@@ -41,10 +41,10 @@ public:
 	void operator += (const Vector3D &v2);
 	Vector3D operator - (const Vector3D &v2) const;
 	void operator -= (const Vector3D &v2);
-	Vector3D operator * (const float value) const;
-	void operator *= (const float value);
-	Vector3D operator / (const float value) const;
-	void operator /= (const float value);
+	Vector3D operator * (float value) const;
+	void operator *= (float value);
+	Vector3D operator / (float value) const;
+	void operator /= (float value);
 };
 
 }

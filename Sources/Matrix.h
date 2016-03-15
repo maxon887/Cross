@@ -26,13 +26,11 @@ class Matrix{
 public:
 	static Matrix CreateZero();
 	static Matrix CreateIdentity();
-	static Matrix CreateTranslation(Vector3D &vec);
+	static Matrix CreateTranslation(const Vector3D &vec);
 	static Matrix CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far);
 	static Matrix CreatePerspectiveProjection(float fov, float aspect, float near, float far);
 
 	float m[4][4];
-
-	Matrix() { };
 
 	void SetTranslation(const Vector2D &trans);
 	void SetTranslation(const Vector3D &trans);
@@ -55,7 +53,6 @@ public:
 	void operator /= (float s);
 	Vector4D operator * (const Vector4D& vec) const;
 	Matrix operator * (const Matrix &m2) const;
-	//void operator *= (const Matrix &m2);
 };
 
 };

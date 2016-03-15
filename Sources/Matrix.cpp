@@ -40,7 +40,7 @@ Matrix Matrix::CreateIdentity(){
 	return m;
 }
 
-Matrix Matrix::CreateTranslation(Vector3D &vec){
+Matrix Matrix::CreateTranslation(const Vector3D &vec){
 	Matrix m;
 	m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = vec.x;
 	m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = vec.y;

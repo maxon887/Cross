@@ -32,7 +32,7 @@ Vector3D::Vector3D(float x, float y, float z):
 	z(z)
 { }
 
-Vector3D::Vector3D(Vector2D &vec, float z):
+Vector3D::Vector3D(const Vector2D &vec, float z):
 	x(vec.x),
 	y(vec.y),
 	z(z)
@@ -97,21 +97,21 @@ void Vector3D::operator-=(const Vector3D &v2){
 	this->z -= v2.z;
 }
 
-Vector3D Vector3D::operator*(const float v) const{
+Vector3D Vector3D::operator*(float v) const{
 	return Vector3D(this->x * v, this->y * v, this->z * v);
 }
 
-void Vector3D::operator*=(const float v){
+void Vector3D::operator*=(float v){
 	this->x *= v;
 	this->y *= v;
 	this->z *= v;
 }
 
-Vector3D Vector3D::operator/(const float v) const{
+Vector3D Vector3D::operator/(float v) const{
 	return Vector3D(this->x / v, this->y / v, this->z / v);
 }
 
-void Vector3D::operator/=(const float v){
+void Vector3D::operator/=(float v){
 	this->x /= v;
 	this->y /= v;
 	this->z /= v;

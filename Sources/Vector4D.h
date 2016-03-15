@@ -29,7 +29,7 @@ public:
 
 	Vector4D();
 	Vector4D(float x, float y, float z, float w);
-	Vector4D(Vector3D& vec, float w);
+	Vector4D(const Vector3D& vec, float w);
 };
 
 }
