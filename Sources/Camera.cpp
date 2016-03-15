@@ -18,14 +18,67 @@
 
 using namespace cross;
 
-void Camera::SetPosition(Vector2D pos){
-	view.SetTranslation(pos*(-1));
+Camera::Camera() :
+	direction(0.f, 0.f, 1.f),
+	position(0.f, 0.f, 0.f),
+	recalc_view(true)
+{ }
+
+void Camera::SetPosition(const Vector2D& pos){
+	position = Vector3D(pos.x, pos.y, 0.f);
+	recalc_view = true;
 }
 
-const Matrix& Camera::GetViewMatrix() const{
+void Camera::SetPosition(const Vector3D& pos){
+	position = pos;
+	recalc_view = true;
+}
+
+void Camera::SetDirection(const Vector3D& dir){
+	direction = dir;
+	recalc_view = true;
+}
+
+Vector3D Camera::GetPosition() const{
+	return position;
+}
+
+Vector3D Camera::GetDirection() const{
+	return direction;
+}
+
+const Matrix& Camera::GetViewMatrix(){
+	if(recalc_view){
+		RecalView();
+	}
 	return view;
 }
 
 const Matrix& Camera::GetProjectionMatrix() const{
 	return projection;
+}
+
+void Camera::RecalView(){
+	view = Matrix::CreateIdentity();
+	direction = direction.Normalize();
+	view.m[2][0] = -direction.x;
+	view.m[2][1] = -direction.y;
+	view.m[2][2] = -direction.z;
+	Vector3D right = direction.CrossProduct(Vector3D(0.f, 1.f, 0.f)) * (-1);
+	right = right.Normalize();
+	view.m[0][0] = right.x;
+	view.m[0][1] = right.y;
+	view.m[0][2] = right.z;
+	Vector3D up = right.CrossProduct(direction) * (-1);
+	view.m[1][0] = up.x;
+	view.m[1][1] = up.y;
+	view.m[1][2] = up.z;
+
+	Matrix posMatrix = Matrix::CreateIdentity();
+	posMatrix.m[0][3] = -position.x;
+	posMatrix.m[1][3] = -position.y;
+	posMatrix.m[2][3] = -position.z;
+
+	view = view * posMatrix;
+	recalc_view = false;
 }

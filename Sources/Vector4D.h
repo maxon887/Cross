@@ -30,6 +30,15 @@ public:
 	Vector4D();
 	Vector4D(float x, float y, float z, float w);
 	Vector4D(const Vector3D& vec, float w);
+
+	Vector4D operator + (const Vector4D &v2) const;
+	void operator += (const Vector4D &v2);
+	Vector4D operator - (const Vector4D &v2) const;
+	void operator -= (const Vector4D &v2);
+	Vector4D operator * (float value) const;
+	void operator *= (float value);
+	Vector4D operator / (float value) const;
+	void operator /= (float value);
 };
 
 }

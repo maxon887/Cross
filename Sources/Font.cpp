@@ -35,9 +35,10 @@ Font::Font(Font& font) :
 	color(font.color),
 	original(false),
 	face(font.face),
-	size(font.size)
+	size(font.size),
+	sprites(128)
 {
-	for(int i = 0; i < 128; ++i){
+	for(int i = 0; i < 127; ++i){
 		this->advances[i] = font.advances[i];
 		this->textures[i] = font.textures[i];
 		this->sprites[i] = font.sprites[i]->Clone();

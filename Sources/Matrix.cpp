@@ -161,7 +161,7 @@ void Matrix::SetRotationY(float angle){
 	m[2][2] = cosA;
 }
 
-Matrix Matrix::Transpose(){
+Matrix Matrix::Transpose() const{
 	Matrix res;
 	res.m[0][0] = m[0][0]; res.m[0][1] = m[1][0]; res.m[0][2] = m[2][0]; res.m[0][3] = m[3][0];
 	res.m[1][0] = m[0][1]; res.m[1][1] = m[1][1]; res.m[1][2] = m[2][1]; res.m[1][3] = m[3][1];

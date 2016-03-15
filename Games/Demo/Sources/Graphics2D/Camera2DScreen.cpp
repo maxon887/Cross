@@ -101,7 +101,7 @@ void Camera2DScreen::Update(float sec){
 		}
 	}
 	if(input->IsPressed(Key::W)){
-		float view_height = view_width / launcher->DeviceAspect();
+		float view_height = view_width / launcher->GetAspectRatio();
 		if(cam_positon.y + view_height < 1000.f){
 			cam_positon.y += cam_speed;
 		}else{
@@ -123,11 +123,11 @@ void Camera2DScreen::Update(float sec){
 }
 
 void Camera2DScreen::WheelUpHandler(){
-	float height = view_width / launcher->DeviceAspect();
+	float height = view_width / launcher->GetAspectRatio();
 	if(height < 1000.f){
 		view_width *= 1.05f;
 	}else{
-		view_width = 1000.f * launcher->DeviceAspect();
+		view_width = 1000.f * launcher->GetAspectRatio();
 	}
 
 	if(cam_positon.x + view_width < 1000.f) {
@@ -135,7 +135,7 @@ void Camera2DScreen::WheelUpHandler(){
 	} else {
 		cam_positon.x = 1000.f - view_width;
 	}
-	float view_height = view_width / launcher->DeviceAspect();
+	float view_height = view_width / launcher->GetAspectRatio();
 	if(cam_positon.y + view_height < 1000.f) {
 		cam_positon.y += cam_speed;
 	} else {

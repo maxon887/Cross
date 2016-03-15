@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Screen.h"
 #include "TriangleShaders.h"
+#include "Camera3D.h"
 
 using namespace cross;
 
@@ -28,7 +29,8 @@ public:
 	void Update(float sec);
 
 private:
+	Camera3D* camera;
+	Font* debug_font;
 	GLuint vboId;
 	TriangleShaders* shader;
-	Matrix projection;
 };

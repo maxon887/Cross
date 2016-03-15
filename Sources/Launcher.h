@@ -40,7 +40,7 @@ public:
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
 
-	float DeviceAspect();
+	float GetAspectRatio();
 
 	virtual Commercial* GetCommercial() { return NULL; };
 //Internal data. You don't need call any of this methods or modify variable

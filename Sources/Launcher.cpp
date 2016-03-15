@@ -18,6 +18,6 @@
 
 using namespace cross;
 
-float Launcher::DeviceAspect(){
+float Launcher::GetAspectRatio(){
 	return GetTargetWidth() / (float)GetTargetHeight();
 }

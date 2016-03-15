@@ -21,8 +21,13 @@ namespace cross{
 
 class Camera3D : public Camera{
 public:
+	Camera3D();
+	void Update(float sec);
 private:
-//Framework module. You don't need call any of this methods or modify variable
+	float liner_speed;
+	float angular_speed;
+	float pitch;
+	float yaw;
 };
 
 }

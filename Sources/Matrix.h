@@ -40,7 +40,7 @@ public:
 	void SetRotationZ(float angle);
 	void SetRotationX(float angle);
 	void SetRotationY(float angle);
-	Matrix Transpose();
+	Matrix Transpose() const;
 	float* GetData();
 
 	Matrix operator + (float s) const;

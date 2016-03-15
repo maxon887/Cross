@@ -18,6 +18,8 @@
 #include "GraphicsGL.h"
 #include "Input.h"
 #include "Game.h"
+#include "Graphics2D.h"
+#include "Font.h"
 
 struct Vertex
 {
@@ -26,7 +28,10 @@ struct Vertex
 
 void TriangleScreen::Start(){
 	shader = new TriangleShaders();
-	projection = Matrix::CreatePerspectiveProjection(45.f, 1, 0.1f, 100.f);
+	camera = new Camera3D();
+	camera->SetPosition(Vector3D(0.f, 0.f, -1.f));
+	debug_font = gfx2D->GetDefaultFont()->Clone();
+	debug_font->SetSize(25.f);
 
 	Vertex verticesData[3];
 
@@ -42,14 +47,20 @@ void TriangleScreen::Start(){
 }
 
 void TriangleScreen::Stop(){
-
+	delete shader;
+	delete camera;
+	delete debug_font;
+	SAFE(glDeleteBuffers(1, &vboId));
 }
 
 void TriangleScreen::Update(float sec){
+	camera->Update(sec);
+
+
 	SAFE(glUseProgram(shader->program));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 	if(shader->aPosition != -1)
 	{
+		SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
 		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	}
@@ -58,16 +69,22 @@ void TriangleScreen::Update(float sec){
 		static float angle = 0;
 		angle += 90 * sec;
 		Matrix translate = Matrix::CreateIdentity();
-		translate.SetTranslation(Vector3D(0.f, 0.f, -1.f));
 		Matrix rotate = Matrix::CreateIdentity();
-		rotate.SetRotationY(angle);
-		Matrix mvp = projection * translate * rotate;
+		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix();
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
+	//debug camera
+	char buffer[256];
+	Vector3D camPos = camera->GetPosition();
+	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
+	gfx2D->DrawText(Vector2D(5.f, 3.f), buffer, debug_font);
+	Vector3D camDir = camera->GetDirection();
+	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
+	gfx2D->DrawText(Vector2D(5.f, 3.f + debug_font->GetSize()), buffer, debug_font);
+	//exit screen
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
 	}

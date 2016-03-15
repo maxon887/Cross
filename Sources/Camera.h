@@ -21,14 +21,26 @@ namespace cross{
 
 class Camera{
 public:
-	void SetPosition(Vector2D pos);
+	Camera();
+
+	void SetPosition(const Vector2D& pos);
+	void SetPosition(const Vector3D& pos);
+	void SetDirection(const Vector3D& dir);
+	Vector3D GetPosition() const;
+	Vector3D GetDirection() const;
 //Framework module. You don't need call any of this methods or modify variable
 public:
-	const Matrix& GetViewMatrix() const;
+	const Matrix& GetViewMatrix();
 	const Matrix& GetProjectionMatrix() const;
 protected:
 	Matrix view;
 	Matrix projection;
+	Vector3D position;
+	Vector3D direction;
+	//Vector3D up;
+	bool recalc_view;
+
+	void RecalView();
 };
 
 };
