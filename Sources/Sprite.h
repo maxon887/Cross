@@ -27,24 +27,26 @@ public:
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
 	~Sprite();
 
-	void SetPosition(Vector2D pos);
+	void SetPosition(const Vector2D& pos);
 	void SetScale(float factor);
-	void SetScale(Vector2D scale);
+	void SetScale(const Vector2D& scale);
 	void SetRotate(float angle);
 	Vector2D GetPosition() const;
-	const GLfloat* GetVertices() const;
-	const GLushort* GetIndices() const;
 	GLuint GetTextureID() const;
 	float GetWidth() const;
 	float GetHeight() const;
 	int GetTextureWidth() const;
 	int GetTextureHeight() const;
 	Sprite* Clone() const;
-	Matrix& GetModelMatrix();
 //Internal data. You don't need call any of this methods or modify variable
 public:
-	GLuint VBO;
 	static GLuint EBO;
+
+	GLuint VBO;
+
+	const GLfloat* GetVertices() const;
+	const GLushort* GetIndices() const;
+	Matrix& GetModelMatrix();
 private:
 	static const GLushort indices[];
 	Matrix model;

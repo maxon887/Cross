@@ -125,7 +125,7 @@ Sprite::~Sprite(){
 	glDeleteBuffers(1, &VBO);
 }
 
-void Sprite::SetPosition(Vector2D pos){
+void Sprite::SetPosition(const Vector2D& pos){
 	translate.SetTranslation(pos);
 	recalc_model = true;
 }
@@ -135,7 +135,7 @@ void Sprite::SetScale(float factor){
 	recalc_model = true;
 }
 
-void Sprite::SetScale(Vector2D scaleVec){
+void Sprite::SetScale(const Vector2D& scaleVec){
 	scale.SetScale(scaleVec);
 	recalc_model = true;
 }

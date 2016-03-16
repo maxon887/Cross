@@ -14,6 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#ifdef CROSS_DEBUG
+
 #include "MemoryManager.h"
 #include "Launcher.h"
 
@@ -160,3 +162,5 @@ void MemoryManager::SanityCheck(){
 		launcher->LogIt("Total: %d corrupted buffers\n", count);
 	}
 }
+
+#endif // CROSS_DEBUG
