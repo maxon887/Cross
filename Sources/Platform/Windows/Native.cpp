@@ -83,95 +83,10 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		}
 	}break;
 	case WM_KEYDOWN:
-		switch(wParam){
-		case VK_ESCAPE:
-			TRIGGER_EVENT(input->KeyPressed, Key::BACK);
-			TRIGGER_EVENT(input->KeyPressed, Key::ESCAPE);
-			break;
-		case VK_UP:
-			TRIGGER_EVENT(input->KeyPressed, Key::UP);
-			break;
-		case VK_DOWN:
-			TRIGGER_EVENT(input->KeyPressed, Key::DOWN);
-			break;
-		case VK_LEFT:
-			TRIGGER_EVENT(input->KeyPressed, Key::LEFT);
-			break;
-		case VK_RIGHT:
-			TRIGGER_EVENT(input->KeyPressed, Key::RIGHT);
-			break;
-		case VK_SPACE:
-			TRIGGER_EVENT(input->KeyPressed, Key::SPACE);
-			break;
-		case VK_SHIFT:
-			TRIGGER_EVENT(input->KeyPressed, Key::SHIFT);
-			break;
-		case VK_CONTROL:
-			TRIGGER_EVENT(input->KeyPressed, Key::CONTROL);
-			break;
-			break;
-		}
-		break;
-	case WM_CHAR:
-		switch(wParam){
-		case 'w': case 'W':
-			TRIGGER_EVENT(input->KeyPressed, Key::W);
-			break;
-		case 'a': case 'A':
-			TRIGGER_EVENT(input->KeyPressed, Key::A);
-			break;
-		case 's': case 'S':
-			TRIGGER_EVENT(input->KeyPressed, Key::S);
-			break;
-		case 'd': case 'D':
-			TRIGGER_EVENT(input->KeyPressed, Key::D);
-			break;
-		default:
-			break;
-		}
+		TRIGGER_EVENT(input->KeyPressed, (cross::Key)wParam);
 		break;
 	case WM_KEYUP:
-		switch(wParam){
-		case VK_ESCAPE:
-			TRIGGER_EVENT(input->KeyReleased, Key::ESCAPE);
-			TRIGGER_EVENT(input->KeyReleased, Key::BACK);
-			break;
-		case VK_UP:
-			TRIGGER_EVENT(input->KeyReleased, Key::UP);
-			break;
-		case VK_DOWN:
-			TRIGGER_EVENT(input->KeyReleased, Key::DOWN);
-			break;
-		case VK_LEFT:
-			TRIGGER_EVENT(input->KeyReleased, Key::LEFT);
-			break;
-		case VK_RIGHT:
-			TRIGGER_EVENT(input->KeyReleased, Key::RIGHT);
-			break;
-		case VK_SPACE:
-			TRIGGER_EVENT(input->KeyReleased, Key::SPACE);
-			break;
-		case VK_SHIFT:
-			TRIGGER_EVENT(input->KeyReleased, Key::SHIFT);
-			break;
-		case VK_CONTROL:
-			TRIGGER_EVENT(input->KeyReleased, Key::CONTROL);
-			break;
-		case 'w': case 'W':
-			TRIGGER_EVENT(input->KeyReleased, Key::W);
-			break;
-		case 'a': case 'A':
-			TRIGGER_EVENT(input->KeyReleased, Key::A);
-			break;
-		case 's': case 'S':
-			TRIGGER_EVENT(input->KeyReleased, Key::S);
-			break;
-		case 'd': case 'D':
-			TRIGGER_EVENT(input->KeyReleased, Key::D);
-			break;
-		default:
-			break;
-		}
+		TRIGGER_EVENT(input->KeyReleased, (cross::Key)wParam);
 		break;
 	case WM_KILLFOCUS:
 		game->Suspend();

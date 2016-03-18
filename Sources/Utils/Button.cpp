@@ -208,9 +208,10 @@ void cross::Button::FitText(string text)
 
 	
 	if (text_size.x > area.width - HORIZONTAL_PADDING) {
-		font->SetSize(
-		Font::SizeForWidthForStringLength(area.width - HORIZONTAL_PADDING, label_text.size())
-			);
+		//font->SetSize(
+		//Font::SizeForWidthForStringLength(area.width - HORIZONTAL_PADDING, label_text.size())
+		//	);
+		throw CrossException("Not Implemented");
 	}
 
 	if (!label_text.empty()) {

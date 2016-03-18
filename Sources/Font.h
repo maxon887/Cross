@@ -43,8 +43,6 @@ public:
 	Sprite* GetChar(char c);
 	float GetCharAdvance(char c);
 	Font* Clone();
-
-	static int SizeForWidthForStringLength(float width, float string_length);
 private:
 	FT_Face face;
 	File* file;
@@ -56,8 +54,6 @@ private:
 	bool original;
 
 	void Cache();
-
-	static int CharSizeForWidth(int width);
 };
 
 };

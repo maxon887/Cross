@@ -29,7 +29,6 @@
 using namespace cross;
 
 static FT_Library library = NULL;
-static const float CharSizeToWidthCoefficient = 1.6666666666;
 
 Font::Font(Font& font) :
 	color(font.color),
@@ -158,16 +157,3 @@ void Font::Cache(){
 Font* Font::Clone(){
 	return new Font(*this);
 }
-
-int cross::Font::SizeForWidthForStringLength(float width, float string_length)
-{
-	int requested_char_width = width / string_length;
-	return CharSizeForWidth(requested_char_width);
-}
-
-int cross::Font::CharSizeForWidth(int width)
-{
-	return width * CharSizeToWidthCoefficient;
-}
-
-

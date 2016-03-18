@@ -25,7 +25,7 @@ namespace FMOD{
 
 namespace cross {
 
-/*	Audio class provided both stream and cached palying. 
+/*	Audio class provided both stream and cached sound palying. 
 	Audio sources must be created themself using constructors of this class. 
 	If you dont use audio in your game declare DISABLE_AUDIO */
 class Audio{
@@ -39,6 +39,7 @@ public:
 	void Resume();
 	void Stop();
 	bool IsPlaying();
+	Audio* Clone();
 //Internal data. You don't need call any of this methods or modify variables
 public:
 	static void Init();

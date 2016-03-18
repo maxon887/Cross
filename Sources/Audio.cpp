@@ -158,6 +158,10 @@ bool Audio::IsPlaying(){
 	return false;
 }
 
+Audio* Audio::Clone(){
+	return new Audio(*this);
+}
+
 Audio::~Audio(){
 	if(original){
 		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */

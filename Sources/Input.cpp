@@ -19,7 +19,7 @@
 using namespace cross;
 
 Input::Input(){
-	for(int i = 0; i < Key::MAX_KEY_NUM; i++){
+	for(unsigned int i = 0; i < (unsigned int)Key::MAX_KEY_NUM; i++){
 		pressed_keys[i] = false;
 	}
 	KeyPressed += MakeDelegate(this, &Input::KeyPressedHandle);
@@ -27,13 +27,13 @@ Input::Input(){
 }
 
 bool Input::IsPressed(Key key){
-	return pressed_keys[key];
+	return pressed_keys[(unsigned int)key];
 }
 
 void Input::KeyPressedHandle(Key key){
-	pressed_keys[key] = true;
+	pressed_keys[(unsigned int)key] = true;
 }
 
 void Input::KeyReleasedHandle(Key key){
-	pressed_keys[key] = false;
+	pressed_keys[(unsigned int)key] = false;
 }
