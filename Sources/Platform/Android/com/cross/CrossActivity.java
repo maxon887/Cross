@@ -104,9 +104,6 @@ public class CrossActivity extends Activity{
 			case KeyEvent.KEYCODE_BACK:
 				cross.PressKey(Cross.KEY_BACK);
 				return true;
-			case KeyEvent.KEYCODE_MENU:
-				cross.PressKey(Cross.KEY_OPTIONS);
-				return true;
 			}
 		}
 		return false;
@@ -118,9 +115,6 @@ public class CrossActivity extends Activity{
 			switch(keyCode){
 			case KeyEvent.KEYCODE_BACK:
 				cross.ReleaseKey(Cross.KEY_BACK);
-				return true;
-			case KeyEvent.KEYCODE_MENU:
-				cross.ReleaseKey(Cross.KEY_OPTIONS);
 				return true;
 			}
 		}

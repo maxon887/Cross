@@ -15,20 +15,31 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Cross.h"
+#include "Screen.h"
 #include "Camera.h"
 
-namespace cross{
+using namespace cross;
 
-/* 3D user controlled camera */
-class Camera3D : public Camera{
+class CameraControlScreen : public Screen{
 public:
-	Camera3D();
-	void Update(float sec);
+	CameraControlScreen();
+
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
+	Camera* GetCamera();
+protected:
+	Camera* camera;
 private:
 	float liner_speed;
 	float angular_speed;
 	float pitch;
 	float yaw;
-};
+	Vector2D touch_position;
 
-}
+	void RecalcAngles();
+
+	void ActionDownHandle(Vector2D position);
+	void ActionMoveHandle(Vector2D position);
+};

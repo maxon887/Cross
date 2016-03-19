@@ -18,6 +18,12 @@
 
 using namespace cross;
 
+Camera::Camera(Matrix projection) :
+	Camera()
+{
+	this->projection = projection;
+}
+
 Camera::Camera() :
 	direction(0.f, 0.f, 1.f),
 	position(0.f, 0.f, 0.f),

@@ -71,7 +71,6 @@
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Camera.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Camera3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Exception.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
@@ -115,17 +114,17 @@
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\TriangleShaders.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
-    <ClCompile Include="..\..\Sources\TriangleShaders.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Sources\Audio.h" />
     <ClInclude Include="..\..\..\..\Sources\Camera.h" />
     <ClInclude Include="..\..\..\..\Sources\Camera2D.h" />
-    <ClInclude Include="..\..\..\..\Sources\Camera3D.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Exception.h" />
@@ -173,10 +172,11 @@
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\TriangleShaders.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
-    <ClInclude Include="..\..\Sources\TriangleShaders.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

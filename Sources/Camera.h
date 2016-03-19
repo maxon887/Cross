@@ -22,6 +22,7 @@ namespace cross{
 /* Base class for cameras. Used for calculation projection and view matrices. */
 class Camera{
 public:
+	Camera(Matrix projection);
 	Camera();
 	/* Set up camera position in the world */
 	void SetPosition(const Vector2D& pos);

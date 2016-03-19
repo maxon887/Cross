@@ -16,21 +16,22 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Screen.h"
+#include "Graphics3D/CameraControlScreen.h"
 #include "TriangleShaders.h"
-#include "Camera3D.h"
 
 using namespace cross;
 
-class TriangleScreen : public Screen{
+class TriangleScreen : public CameraControlScreen{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
-
 private:
-	Camera3D* camera;
 	Font* debug_font;
 	GLuint vboId;
 	TriangleShaders* shader;
+
+	Vector2D touch_pos;
+
+	void ActionMoveHandle(Vector2D position);
 };

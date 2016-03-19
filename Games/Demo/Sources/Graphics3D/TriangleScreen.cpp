@@ -27,9 +27,8 @@ struct Vertex
 };
 
 void TriangleScreen::Start(){
+	CameraControlScreen::Start();
 	shader = new TriangleShaders();
-	camera = new Camera3D();
-	camera->SetPosition(Vector3D(0.f, 0.f, -1.f));
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
 
@@ -44,19 +43,21 @@ void TriangleScreen::Start(){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	input->ActionMove += MakeDelegate(this, &TriangleScreen::ActionMoveHandle);
 }
 
 void TriangleScreen::Stop(){
+	CameraControlScreen::Stop();
 	delete shader;
-	delete camera;
 	delete debug_font;
 	SAFE(glDeleteBuffers(1, &vboId));
+
+	input->ActionMove.RemoveDelegate(input->ActionMove.GetLastDelegate());
 }
 
 void TriangleScreen::Update(float sec){
-	camera->Update(sec);
-
-
+	CameraControlScreen::Update(sec);
 	SAFE(glUseProgram(shader->program));
 	if(shader->aPosition != -1)
 	{
@@ -70,7 +71,8 @@ void TriangleScreen::Update(float sec){
 		angle += 90 * sec;
 		Matrix translate = Matrix::CreateIdentity();
 		Matrix rotate = Matrix::CreateIdentity();
-		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix();
+		//rotate.SetRotationY(angle);
+		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * rotate;
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
@@ -88,4 +90,8 @@ void TriangleScreen::Update(float sec){
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
 	}
+}
+
+void TriangleScreen::ActionMoveHandle(Vector2D position){
+
 }

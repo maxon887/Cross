@@ -3,10 +3,7 @@ package com.cross;
 import android.content.res.AssetManager;
 
 public class Cross {
-	public static final int	KEY_UNDEFINED 	= 0;
-	public static final int	KEY_PAUSE		= 1;
-	public static final int	KEY_BACK		= 2;
-	public static final int	KEY_OPTIONS		= 3;
+	public static final int	KEY_BACK		= 0x08;
 
 	public native void Init(int w, int h, String dataPath, AssetManager manager, CrossActivity crossActivity);
 	public native void Start();

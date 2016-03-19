@@ -175,14 +175,14 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shaders.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\TriangleShaders.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Camera3D.cpp">
-      <Filter>Cross</Filter>
+    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\TriangleShaders.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -343,14 +343,14 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shaders.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\TriangleShaders.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Camera2D.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Camera3D.h">
-      <Filter>Cross</Filter>
+    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\TriangleShaders.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
