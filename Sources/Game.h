@@ -22,7 +22,7 @@
 namespace cross{
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screens.
-	Every game must implement this class for set start Screen and virtual world size for your game. */
+	Every game must implement this class for set start Screen. */
 class Game{
 public:
 	/* You need to override this method to get engine know from which screen it must start */

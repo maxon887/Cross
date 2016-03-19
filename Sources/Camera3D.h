@@ -19,6 +19,7 @@
 
 namespace cross{
 
+/* 3D user controlled camera */
 class Camera3D : public Camera{
 public:
 	Camera3D();

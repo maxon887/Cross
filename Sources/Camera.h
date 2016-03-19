@@ -19,14 +19,19 @@
 
 namespace cross{
 
+/* Base class for cameras. Used for calculation projection and view matrices. */
 class Camera{
 public:
 	Camera();
-
+	/* Set up camera position in the world */
 	void SetPosition(const Vector2D& pos);
+	/* Set up camera position in the world */
 	void SetPosition(const Vector3D& pos);
+	/* Set up camera view direction */
 	void SetDirection(const Vector3D& dir);
+	/* Return camera world position */
 	Vector3D GetPosition() const;
+	/* Return camera view direction */
 	Vector3D GetDirection() const;
 //Framework module. You don't need call any of this methods or modify variable
 public:

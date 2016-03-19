@@ -24,7 +24,7 @@ namespace cross {
 class Config{
 public:
 	//Save string value for key.
-	//Important! string key and value can't contain space character
+	//Important! string key and value can't contain space characters
 	void SaveString(string key, string value);
 	//Save int value for key
 	void SaveInt(string key, int value);

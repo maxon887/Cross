@@ -23,8 +23,8 @@ class SpriteShaders;
 class PrimitiveShaders;
 class MonochromeShaders;
 
-/*	This class can be used for drawing 2D graphics.
-	All coordinates supposed to be in Canvas space. */
+/*	This class can be used for drawing 2D graphics. If you not support Camera2D all drawings
+	will be placed in device screen metrics. */
 class Graphics2D{
 public:
 	void SetCamera(Camera2D* camera);

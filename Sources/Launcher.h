@@ -21,14 +21,14 @@ namespace cross {
 
 class Commercial;
 
-/* Abstract class contained platform specific intrface */
+/* Abstract class contained platform specific functionality. */
 class Launcher{
 public:
 	/* Returns physical screen width in pixels */
 	virtual int GetTargetWidth() = 0;
 	/* Returns physical screen height in pixels */
 	virtual int GetTargetHeight() = 0;
-	/* Log out message */
+	/* Cross platform way to log out message */
 	virtual void LogIt(string msg) = 0;
 	virtual void LogIt(const char* formatStr, ...) = 0;
 	/* return path to the application assets folder */
@@ -39,7 +39,7 @@ public:
 	virtual File* LoadFile(string filename) = 0;
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
-
+	/* Return physical screen aspec ration */
 	float GetAspectRatio();
 
 	virtual Commercial* GetCommercial() { return NULL; };

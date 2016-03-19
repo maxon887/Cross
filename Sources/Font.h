@@ -25,8 +25,7 @@ typedef struct FT_FaceRec_* FT_Face;
 namespace cross {
 
 /*	Vital class for rendring texts. Available font formats
-	can be found in FreeType library documentation.
-	Font size will be represented in virtual canvas metrics. */
+	can be found in FreeType library documentation. */
 class Font{
 public:
 	Font(Font& font);
@@ -38,6 +37,7 @@ public:
 	float GetSize();
 	/* Quite expencive function. All bitmap chars need to be racalculated. */
 	void SetSize(float size);
+	/* Return true if current font is monospaced */
 	bool IsFixedWidth();
 	float GetCharWidth();
 	Sprite* GetChar(char c);
