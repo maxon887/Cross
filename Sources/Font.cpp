@@ -35,7 +35,8 @@ Font::Font(Font& font) :
 	original(false),
 	face(font.face),
 	size(font.size),
-	sprites(128)
+	sprites(128),
+	file(font.file)
 {
 	for(int i = 0; i < 127; ++i){
 		this->advances[i] = font.advances[i];
@@ -126,11 +127,11 @@ float Font::GetCharAdvance(char c){
 
 void Font::Cache(){
 	FT_Error error;
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glDeleteTextures(128, textures);
-	glGenTextures(128, textures);
+	SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+	SAFE((128, textures));
+	SAFE(glGenTextures(128, textures));
 	for(int i = 0; i < 127; i++){
-		glBindTexture(GL_TEXTURE_2D, textures[i]);
+		SAFE(glBindTexture(GL_TEXTURE_2D, textures[i]));
 		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
 		if(error){
 			throw CrossException("Can't load glyph");
@@ -145,7 +146,7 @@ void Font::Cache(){
 		float bmpHeight = (float)bitmapGlyhp->bitmap.rows;
 		float bearingX = (float)(face->glyph->metrics.horiBearingX >> 6);
 		float bearingY = (float)(face->glyph->metrics.horiBearingY >> 6);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, (GLsizei)bmpWidth, (GLsizei)bmpHeight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, bitmapGlyhp->bitmap.buffer);
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, (GLsizei)bmpWidth, (GLsizei)bmpHeight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, bitmapGlyhp->bitmap.buffer));
 		Rect region(0, 0, bmpWidth, bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
 		Sprite* sprite = new Sprite(textures[i], (int)bmpWidth, (int)bmpHeight, region, pivot);

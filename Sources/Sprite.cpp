@@ -21,6 +21,21 @@ using namespace cross;
 const GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
 GLuint Sprite::EBO = -1;
 
+Sprite::Sprite(Sprite& sprite) :
+	VBO(sprite.VBO),
+	model(sprite.model),
+	scale(sprite.scale),
+	translate(sprite.translate),
+	rotation(sprite.rotation),
+	recalc_model(sprite.recalc_model),
+	textureID(sprite.textureID),
+	width(sprite.width),
+	height(sprite.height),
+	texture_width(sprite.texture_width),
+	texture_height(sprite.texture_height),
+	original(false)
+{ }
+
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	textureID(id),
 	texture_width(texWidth),
@@ -28,7 +43,8 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	width(region.width),
 	height(region.height),
 	VBO(-1),
-	recalc_model(true)
+	recalc_model(true),
+	original(true)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -38,6 +54,7 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	translate = Matrix::CreateIdentity();
 	scale = Matrix::CreateIdentity();
 
+	GLfloat vertices[16];
 	vertices[0] = -region.width / 2.0f;
 	vertices[1] = -region.height / 2.0f;
 	vertices[2] = u1;
@@ -78,7 +95,8 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	width(region.width),
 	height(region.height),
 	VBO(-1),
-	recalc_model(true)
+	recalc_model(true),
+	original(true)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
@@ -88,6 +106,7 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	translate = Matrix::CreateIdentity();
 	scale = Matrix::CreateIdentity();
 
+	GLfloat vertices[16];
 	vertices[0] = -pivot.x;
 	vertices[1] = -pivot.y;
 	vertices[2] = u1;
@@ -122,7 +141,10 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 }
 
 Sprite::~Sprite(){
-	glDeleteBuffers(1, &VBO);
+	if(original){
+		glDeleteTextures(1, &textureID);
+		glDeleteBuffers(1, &VBO);
+	}
 }
 
 void Sprite::SetPosition(const Vector2D& pos){
@@ -149,10 +171,6 @@ Vector2D Sprite::GetPosition() const{
 	return Vector2D(translate.m[0][3], translate.m[1][3]);
 }
 
-const float* Sprite::GetVertices() const{
-	return vertices;
-}
-
 const GLushort* Sprite::GetIndices() const{
 	return (GLushort*)indices;
 }
@@ -177,7 +195,7 @@ int Sprite::GetTextureHeight() const{
 	return texture_height;
 }
 
-Sprite* Sprite::Clone() const{
+Sprite* Sprite::Clone(){
 	return new Sprite(*this);
 }
 

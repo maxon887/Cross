@@ -23,6 +23,7 @@ namespace cross {
 /* Used for 2D drawing. Contain original texture sprite location on it and pivot */
 class Sprite{
 public:
+	Sprite(Sprite& sprite);
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region);
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
 	~Sprite();
@@ -37,14 +38,13 @@ public:
 	float GetHeight() const;
 	int GetTextureWidth() const;
 	int GetTextureHeight() const;
-	Sprite* Clone() const;
+	Sprite* Clone();
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	static GLuint EBO;
 
 	GLuint VBO;
 
-	const GLfloat* GetVertices() const;
 	const GLushort* GetIndices() const;
 	Matrix& GetModelMatrix();
 private:
@@ -55,11 +55,11 @@ private:
 	Matrix rotation;
 	bool recalc_model;
 	GLuint textureID;
-	GLfloat vertices[16];
 	float width;
 	float height;
 	int texture_width;
 	int texture_height;
+	bool original;
 };
 
 }

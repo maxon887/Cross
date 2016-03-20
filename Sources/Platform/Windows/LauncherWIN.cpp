@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
 #include "File.h"
+#include "Native.h"
 
 #include <fstream>
 
@@ -34,12 +35,14 @@ void IntSleep(int milis){
 	Sleep(milis);
 }
 
-LauncherWIN::LauncherWIN(HWND wnd){
+LauncherWIN::LauncherWIN(HWND wnd) : 
+	wnd(wnd),
+	window_pos_x(0),
+	window_pos_y(0),
+	window_width(0),
+	window_height(0)
+{
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
-	this->wnd = wnd;
-	landscape = false;
-	target_width = TARGET_WIDTH;
-	target_height = TARGET_HEIGHT;
 	if(!DirectoryExists(DATA_PATH)){
 		CreateDirectory(DATA_PATH, NULL);
 	}
@@ -59,25 +62,12 @@ LauncherWIN::LauncherWIN(HWND wnd){
 
 LauncherWIN::~LauncherWIN(){ }
 
-void LauncherWIN::SetTargetSize(int width, int height){
-	target_width = width;
-	target_height = height;
-}
-
 int LauncherWIN::GetTargetWidth(){
-	if(landscape){
-		return target_height;
-	}else{
-		return target_width;
-	}
+	return window_width;
 }
 
 int LauncherWIN::GetTargetHeight(){
-	if(landscape){
-		return target_width;
-	}else{
-		return target_height;
-	}
+	return window_height;
 }
 
 string LauncherWIN::AssetsPath(){
@@ -101,7 +91,7 @@ File* LauncherWIN::LoadFile(string filename){
 		ZeroMemory(file->data, file->size);
 		fileStream.read((char*)file->data, file->size);
 		return file;
-	} else{
+	} else {
 		throw CrossException("Cannot open file %s", file->name.c_str());
 	}
 }
@@ -129,6 +119,32 @@ void LauncherWIN::ShowMessage(string msg){
 	MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
 }
 
-void LauncherWIN::LandscapeMode(bool land){
-	landscape = land;
+void LauncherWIN::ResizeWindow(int posX, int posY, int width, int height){
+	window_pos_x = posX;
+	window_pos_y = posY;
+	window_width = width;
+	window_height = height;
+	RECT rcClient, rcWind;
+	POINT ptDiff;
+	GetClientRect(wnd, &rcClient);
+	GetWindowRect(wnd, &rcWind);
+	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
+	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
+	MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
+}
+
+void LauncherWIN::SetWindowPosition(int x, int y){
+	window_pos_x = x;
+	window_pos_y = y;
+}
+
+void LauncherWIN::SetWindowSize(int width, int height){
+	window_width = width;
+	window_height = height;
+}
+
+void LauncherWIN::KeyReleasedHandle(Key key){
+	if(key == Key::F12){
+		ResizeWindow(window_pos_x, window_pos_y, window_height, window_width);
+	}
 }

@@ -146,6 +146,9 @@ void Debugger::ScreenDebug(bool enable){
 }
 
 void Debugger::EnableInputDebug(){
+	if(input_debug){
+		throw CrossException("Can't enable input debug");
+	}
 	input_debug = true;
 	input->ActionDown += MakeDelegate(this, &Debugger::OnActionDown);
 	input->ActionMove += MakeDelegate(this, &Debugger::OnActionMove);

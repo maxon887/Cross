@@ -54,6 +54,7 @@ GraphicsGL::GraphicsGL(){
 			throw CrossException("Unable to initialize GLEW");
 		}
 #endif
+		launcher->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
 }
 
 GLuint GraphicsGL::ComplileShader(string filename){
@@ -139,4 +140,8 @@ void GraphicsGL::CompileProgram(GLuint program){
 
 void GraphicsGL::UseProgram(GLuint program){
 	glUseProgram(program);
+}
+
+void GraphicsGL::WindowResizeHandle(int width, int height){
+	glViewport(0, 0, width, height);
 }

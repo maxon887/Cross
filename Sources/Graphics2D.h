@@ -47,6 +47,7 @@ public:
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scale);
 	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
+	/* depricated. Now you can use Sprite destructor */
 	void ReleaseSprite(Sprite* img);
 	void SetClearColor(Color color);
 	Font* GetDefaultFont();

@@ -40,10 +40,13 @@ int GLES_GO(){
 		LauncherWIN launcherWin(esContext.hWnd);
 		launcher = &launcherWin;
 		game = CrossMain(launcher);
+		input->KeyReleased += MakeDelegate(&launcherWin, &LauncherWIN::KeyReleasedHandle);
 
 		int winX = config->LoadInt("WIN_POS_X", 0);
 		int winY = config->LoadInt("WIN_POS_Y", 0);
-		ClientResize(esContext.hWnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
+		int winWidth = config->LoadInt("WIN_WIDTH", 500);
+		int winHeight = config->LoadInt("WIN_HEIGHT", 500);
+		launcherWin.ResizeWindow(winX, winY, winWidth, winHeight);
 
 		esCreateWindow(&esContext, ES_WINDOW_RGB | ES_WINDOW_DEPTH);
 

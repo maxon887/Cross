@@ -20,25 +20,22 @@
 #include "Input.h"
 #include "Config.h"
 #include "resource.h"
-#include "Launcher.h"
+#include "LauncherWIN.h"
 
 using namespace cross;
 
 RECT GetLocalCoordinates(HWND hWnd){
-	RECT Rect;
-	GetWindowRect(hWnd, &Rect);
-	MapWindowPoints(HWND_DESKTOP, GetParent(hWnd), (LPPOINT)&Rect, 2);
-	return Rect;
-}
+	RECT win, client;
+	GetWindowRect(hWnd, &win);
+	GetClientRect(hWnd, &client);
+	POINT diff;
+	diff.x = (win.right - win.left) - client.right;
+	diff.y = (win.bottom - win.top) - client.bottom;
+	win.right -= diff.x;
+	win.bottom -= diff.y;
+	MapWindowPoints(HWND_DESKTOP, GetParent(hWnd), (LPPOINT)&win, 2);
 
-void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight){
-	RECT rcClient, rcWind;
-	POINT ptDiff;
-	GetClientRect(hWnd, &rcClient);
-	GetWindowRect(hWnd, &rcWind);
-	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
-	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
-	MoveWindow(hWnd, nX, nY, nWidth + ptDiff.x, nHeight + ptDiff.y, TRUE);
+	return win;
 }
 	
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
@@ -69,11 +66,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
 		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, targetY));
 	}break;
-	case WM_CLOSE:{
-		RECT winRect = GetLocalCoordinates(wnd);
-		config->SaveInt("WIN_POS_X", winRect.left);
-		config->SaveInt("WIN_POS_Y", winRect.top);
-	}break;
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
 		if(delta < 0){
@@ -88,11 +80,32 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_KEYUP:
 		TRIGGER_EVENT(input->KeyReleased, (cross::Key)wParam);
 		break;
+	case WM_MOVE:{
+		int x = LOWORD(lParam) - 8;
+		int y = HIWORD(lParam) - 30;
+		LauncherWIN* winLanch = (LauncherWIN*)launcher;
+		winLanch->SetWindowPosition(x, y);
+	}break;
+	case WM_SIZE:{
+		RECT winRect = GetLocalCoordinates(wnd);
+		int width = winRect.right - winRect.left;
+		int height = winRect.bottom - winRect.top;
+		LauncherWIN* winLanch = (LauncherWIN*)launcher;
+		winLanch->SetWindowSize(width, height);
+		TRIGGER_EVENT(launcher->WindowResized, width, height);
+	}break;
 	case WM_KILLFOCUS:
 		game->Suspend();
 		break;
 	case WM_SETFOCUS:
 		break;
+	case WM_CLOSE: {
+		RECT winRect = GetLocalCoordinates(wnd);
+		config->SaveInt("WIN_POS_X", winRect.left);
+		config->SaveInt("WIN_POS_Y", winRect.top);
+		config->SaveInt("WIN_WIDTH", winRect.right - winRect.left);
+		config->SaveInt("WIN_HEIGHT", winRect.bottom - winRect.top);
+	}break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

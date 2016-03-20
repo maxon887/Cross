@@ -23,14 +23,18 @@ Camera2D::Camera2D() {
 	view = Matrix::CreateIdentity();
 	view_width = (float)launcher->GetTargetWidth();
 	view_height = (float)launcher->GetTargetHeight();
-	projection = Matrix::CreateOrthogonalProjection( 0, view_width, 0, view_height, 1, -1 );
+	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
+	window_resized_delegate = MakeDelegate(this, &Camera2D::WindowResizedHandle);
+	launcher->WindowResized += window_resized_delegate;
 }
 
 void Camera2D::SetViewWidth(float width) {
 	this->view_width = width;
 	float scale = (float)launcher->GetTargetWidth() / view_width;
 	view_height = (float)launcher->GetTargetHeight() / scale;
-	projection = Matrix::CreateOrthogonalProjection( 0, view_width, 0, view_height, 1, -1 );
+	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
+	window_resized_delegate = MakeDelegate(this, &Camera2D::WindowResizedHandle);
+	launcher->WindowResized += window_resized_delegate;
 }
 
 float Camera2D::GetViewWidth() {
@@ -39,4 +43,10 @@ float Camera2D::GetViewWidth() {
 
 float Camera2D::GetViewHeight() {
 	return view_height;
+}
+
+void Camera2D::WindowResizedHandle(int width, int heght){
+	view_width = (float)launcher->GetTargetWidth();
+	view_height = (float)launcher->GetTargetHeight();
+	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }

@@ -69,7 +69,8 @@ Button::Button() :
 	up_image(nullptr),
 	down_image(nullptr)
 {
-	font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
+	font = gfx2D->GetDefaultFont()->Clone();
+	font->SetSize(50.f);
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
 	input->ActionDown += action_down_delegate;

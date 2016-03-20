@@ -16,20 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Launcher.h"
+#include "Input.h"
 
 #include <Windows.h>
-
-#define TARGET_WIDTH 512		
-#define TARGET_HEIGHT 512
-// 16:9
-//#define TARGET_WIDTH 540		
-//#define TARGET_HEIGHT 960
-//iPhone 5
-//#define TARGET_WIDTH 320
-//#define TARGET_HEIGHT 568	
-// 4:3
-//#define TARGET_WIDTH 320 
-//#define TARGET_HEIGHT 480
 
 namespace cross{
 
@@ -37,7 +26,6 @@ class LauncherWIN : public Launcher{
 public:
 	LauncherWIN(HWND wnd);
 	~LauncherWIN();
-	void SetTargetSize(int width, int height);
 	int GetTargetWidth();
 	int GetTargetHeight();
 	string AssetsPath();
@@ -47,13 +35,19 @@ public:
 	void LogIt(const char* formatString, ...);
 	void Sleep(float milis);
 	void ShowMessage(string msg);
-	void LandscapeMode(bool land);
+	void ResizeWindow(int posX, int posY, int width, int height);
+public:
+	void SetWindowPosition(int x, int y);
+	void SetWindowSize(int width, int heght);
+
+	void KeyReleasedHandle(Key key);
 private:
 	HWND wnd;
 	char* assets_path;
-	bool landscape;
-	int target_width;
-	int target_height;
+	int window_pos_x;
+	int window_pos_y;
+	int window_width;
+	int window_height;
 };
 
 }

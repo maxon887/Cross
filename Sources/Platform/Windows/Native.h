@@ -20,7 +20,3 @@
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 HWND WinCreate();
-
-void ClientResize(HWND hWnd, int nX, int nY, int nWidth, int nHeight);
-
-RECT GetLocalCoordinates(HWND hWnd);

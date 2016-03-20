@@ -62,6 +62,8 @@ public:
 	void AttachShader(GLuint program, GLuint shader);
 	void CompileProgram(GLuint program);
 	void UseProgram(GLuint program);
+private:
+	void WindowResizeHandle(int width, int height);
 };
 
 }

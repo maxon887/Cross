@@ -211,29 +211,29 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 		gfxGL->UseProgram(sprite_shaders->program);
 	}
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	SAFE(glEnable(GL_BLEND));
+	SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * sprite->GetModelMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
-	glUniform4fv(sprite_shaders->uColor, 1, color.GetData());
+	SAFE(glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glUniform4fv(sprite_shaders->uColor, 1, color.GetData()));
 
-	glBindTexture(GL_TEXTURE_2D, sprite->GetTextureID());
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTextureID()));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
-	glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO);
-	glEnableVertexAttribArray(sprite_shaders->aPosition);
-	glVertexAttribPointer(sprite_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0);
-	glEnableVertexAttribArray(sprite_shaders->aTexCoord);
-	glVertexAttribPointer(sprite_shaders->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2);
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
+	SAFE(glEnableVertexAttribArray(sprite_shaders->aPosition));
+	SAFE(glVertexAttribPointer(sprite_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
+	SAFE(glEnableVertexAttribArray(sprite_shaders->aTexCoord));
+	SAFE(glVertexAttribPointer(sprite_shaders->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sprite->EBO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sprite->EBO));
+	SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 
 Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
@@ -324,6 +324,7 @@ void Graphics2D::ReleaseSprite(Sprite* img){
 	}
 	GLuint texID = img->GetTextureID();
 	glDeleteTextures(1, &texID);
+	glDeleteBuffers(1, &img->VBO);
 	delete img;
 }
 

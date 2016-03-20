@@ -53,7 +53,10 @@ int NativeGL_GO(){
 
 		int winX = config->LoadInt("WIN_POS_X", 0);
 		int winY = config->LoadInt("WIN_POS_Y", 0);
-		ClientResize(wnd, winX, winY, launcher->GetTargetWidth(), launcher->GetTargetHeight());
+		int winWidth = config->LoadInt("WIN_WIDTH", 500);
+		int winHeight = config->LoadInt("WIN_HEIGHT", 500);
+		launcherWin.ResizeWindow(winX, winY, winWidth, winHeight);
+		input->KeyReleased += MakeDelegate(&launcherWin, &LauncherWIN::KeyReleasedHandle);
 
 		PIXELFORMATDESCRIPTOR pfd;
 		ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));

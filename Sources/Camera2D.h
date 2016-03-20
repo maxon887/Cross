@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Camera.h"
+#include "Events/Event.h"
 
 namespace cross{
 
@@ -35,6 +36,10 @@ public:
 private:
 	float view_width;
 	float view_height;
+
+	FastDelegate2<int, int, void> window_resized_delegate;
+
+	void WindowResizedHandle(int width, int heght);
 };
 
 }
