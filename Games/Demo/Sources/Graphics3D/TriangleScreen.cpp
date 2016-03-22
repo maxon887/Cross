@@ -43,6 +43,7 @@ void TriangleScreen::Start(){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 
 	input->ActionMove += MakeDelegate(this, &TriangleScreen::ActionMoveHandle);
 }
@@ -57,7 +58,7 @@ void TriangleScreen::Stop(){
 }
 
 void TriangleScreen::Update(float sec){
-	CameraControlScreen::Update(sec);
+	//CameraControlScreen::Update(sec);
 	SAFE(glUseProgram(shader->program));
 	if(shader->aPosition != -1)
 	{
@@ -79,6 +80,7 @@ void TriangleScreen::Update(float sec){
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//debug camera
+	/*
 	char buffer[256];
 	Vector3D camPos = camera->GetPosition();
 	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
@@ -89,7 +91,8 @@ void TriangleScreen::Update(float sec){
 	//exit screen
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
-	}
+	}*/
+	CameraControlScreen::Update(sec);
 }
 
 void TriangleScreen::ActionMoveHandle(Vector2D position){

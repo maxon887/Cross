@@ -27,6 +27,7 @@ namespace cross{
 class Camera2D : public Camera{
 public:
 	Camera2D();
+	~Camera2D();
 	/* Set up camera view distance */
 	void SetViewWidth(float width);
 	/* Return width view distance */
@@ -39,7 +40,8 @@ private:
 
 	FastDelegate2<int, int, void> window_resized_delegate;
 
-	void WindowResizedHandle(int width, int heght);
+	void WindowResizedHandle(int width, int height);
+	void WindowRisezedHandleCust(int width, int height);
 };
 
 }

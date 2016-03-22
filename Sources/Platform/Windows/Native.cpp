@@ -90,9 +90,11 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		RECT winRect = GetLocalCoordinates(wnd);
 		int width = winRect.right - winRect.left;
 		int height = winRect.bottom - winRect.top;
-		LauncherWIN* winLanch = (LauncherWIN*)launcher;
-		winLanch->SetWindowSize(width, height);
-		TRIGGER_EVENT(launcher->WindowResized, width, height);
+		if(width > 0 && height > 0){
+			LauncherWIN* winLanch = (LauncherWIN*)launcher;
+			winLanch->SetWindowSize(width, height);
+			TRIGGER_EVENT(launcher->WindowResized, width, height);
+		}
 	}break;
 	case WM_KILLFOCUS:
 		game->Suspend();

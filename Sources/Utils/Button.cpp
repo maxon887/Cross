@@ -117,6 +117,8 @@ void Button::Update() {
 		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2,
 			area.y + area.height / 2 - text_size.y / 2), label_text, font);
 	}
+
+	gfx2D->DrawRect(area, Color::Red);
 }
 
 void Button::SetLocation(Vector2D location) {
@@ -207,13 +209,13 @@ void cross::Button::FitText(string text)
 
 	if (!located) return;
 
-	
+	/*
 	if (text_size.x > area.width - HORIZONTAL_PADDING) {
 		//font->SetSize(
 		//Font::SizeForWidthForStringLength(area.width - HORIZONTAL_PADDING, label_text.size())
 		//	);
 		throw CrossException("Not Implemented");
-	}
+	}*/
 
 	if (!label_text.empty()) {
 		text_size.x = font->GetCharWidth() * label_text.size();

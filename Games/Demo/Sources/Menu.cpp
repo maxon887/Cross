@@ -22,10 +22,14 @@
 Menu::Menu():
 	button_height(0),
 	button_width(0)
-{ }
+{
+	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
+	launcher->WindowResized += window_resized_delegate;
+}
 
 Menu::~Menu(){
 	Clear();
+	launcher->WindowResized -= window_resized_delegate;
 }
 
 void Menu::Update(float sec){
@@ -33,7 +37,6 @@ void Menu::Update(float sec){
 	Vector2D pos(game->GetWidth() / 2.0f, height - (offset - button_height/2));
 	for(Button* btn : buttons){
 		btn->SetLocation(pos);
-		//btn->SetActive(true);
 		btn->Update();
 		pos.y -= offset;
 	}
@@ -46,6 +49,7 @@ void Menu::Active(bool active){
 }
 
 void  Menu::AddButton(Button* but){
+	buttons.push_back(but);
 	if(button_width == 0){
 		button_def_width = but->GetWidth();
 		button_def_height = but->GetHeight();
@@ -55,7 +59,6 @@ void  Menu::AddButton(Button* but){
 	if(button_def_height != but->GetHeight() && button_def_width != but->GetWidth()){
 		throw CrossException("All buttons must be equal size");
 	}
-	buttons.push_back(but);
 	float height = game->GetHeight();
 	int devider = buttons.size() + 1;
 	offset = (height + button_height) / devider;
@@ -64,18 +67,7 @@ void  Menu::AddButton(Button* but){
 		float coef = offset / (button_def_height + 20);
 		for(Button* btn : buttons){
 			btn->Scale(coef);
-			/*
-			Sprite* up = btn->GetUpImage();
-			if(up != nullptr){
-				up->SetScale(coef);
-			}
-			Sprite* down = btn->GetDownImage();
-			if(down != nullptr){
-				down->SetScale(coef);
-			}
-			btn->SetImages(up, down);*/
 		}
-		//button_def_height = but->GetHeight();
 		button_width = but->GetWidth();
 		button_height = but->GetHeight();
 	}
@@ -95,4 +87,23 @@ void  Menu::Clear(){
 	button_width = 0;
 	button_height = 0;
 	offset = 0;
+}
+
+void Menu::LocateButtons(){
+
+}
+
+void Menu::WindowResizedHandle(int w, int h){
+	float height = game->GetHeight();
+	int devider = buttons.size() + 1;
+	offset = (height + button_height) / devider;
+
+	if(offset < (button_height + 20)){
+		float coef = offset / (button_def_height + 20);
+		for(Button* btn : buttons){
+			btn->Scale(coef);
+		}
+	}
+	button_width = buttons[0]->GetWidth();
+	button_height = buttons[0]->GetHeight();
 }

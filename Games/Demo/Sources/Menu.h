@@ -37,4 +37,9 @@ private:
 	float button_width;
 	float button_height;
 	float offset;
+	FastDelegate2<int, int, void> window_resized_delegate;
+
+	void LocateButtons();
+
+	void WindowResizedHandle(int width, int height);
 };

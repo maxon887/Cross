@@ -144,7 +144,15 @@ void LauncherWIN::SetWindowSize(int width, int height){
 }
 
 void LauncherWIN::KeyReleasedHandle(Key key){
-	if(key == Key::F12){
+	switch(key)
+	{
+	case Key::F12:
 		ResizeWindow(window_pos_x, window_pos_y, window_height, window_width);
+		break;
+	case Key::F1:
+		ResizeWindow(window_pos_x, window_pos_y, 800, 450);
+		break;
+	default:
+		break;
 	}
 }

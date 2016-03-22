@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Screen.h"
 #include "Camera.h"
+#include "Button.h"
 
 using namespace cross;
 
@@ -37,6 +38,13 @@ private:
 	float pitch;
 	float yaw;
 	Vector2D touch_position;
+	
+	Sprite* arrow_released;
+	Sprite* arrow_pressed;
+	Button* left_btn;
+	Button* right_btn;
+	Button* up_btn;
+	Button* down_btn;
 
 	void RecalcAngles();
 
