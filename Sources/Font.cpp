@@ -67,12 +67,12 @@ Font::Font(string filename, float size, Color color) :
 }
 
 Font::~Font(){
-	if(original){
-		glDeleteTextures(128, textures);
-		delete file;
-	}
 	for(Sprite* sprite : sprites) {
 		delete sprite;
+	}
+	if(original){
+		SAFE(glDeleteTextures(128, textures));
+		delete file;
 	}
 }
 
@@ -128,7 +128,7 @@ float Font::GetCharAdvance(char c){
 void Font::Cache(){
 	FT_Error error;
 	SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-	SAFE((128, textures));
+	SAFE(glDeleteTextures(128, textures));
 	SAFE(glGenTextures(128, textures));
 	for(int i = 0; i < 127; i++){
 		SAFE(glBindTexture(GL_TEXTURE_2D, textures[i]));

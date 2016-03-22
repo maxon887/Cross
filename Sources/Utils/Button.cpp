@@ -32,12 +32,14 @@ Button::Button(Rect area, string text) :
 	Button()
 {
 	SetRect(area);
+	font = gfx2D->GetDefaultFont()->Clone();
 	FitText(text);
 }
 
 Button::Button(Vector2D location, string text) :
 	Button()
 {
+	font = gfx2D->GetDefaultFont()->Clone();
 	FitText(text);
 	SetRect(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
 }
@@ -45,6 +47,7 @@ Button::Button(Vector2D location, string text) :
 Button::Button(string text) :
 	Button()
 {
+	font = gfx2D->GetDefaultFont()->Clone();
 	FitText(text);
 }
 
@@ -67,10 +70,9 @@ Button::Button() :
 	push_sound(nullptr),
 	pull_sound(nullptr),
 	up_image(nullptr),
-	down_image(nullptr)
+	down_image(nullptr),
+	font(nullptr)
 {
-	font = gfx2D->GetDefaultFont()->Clone();
-	font->SetSize(50.f);
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
 	input->ActionDown += action_down_delegate;
@@ -87,10 +89,15 @@ Button::~Button() {
 	if (font != nullptr) {
 		delete font;
 	}
+	if(push_sound != nullptr) {
+		delete push_sound;
+	}
+	if(pull_sound != nullptr) {
+		delete pull_sound;
+	}
 
 	input->ActionDown -= action_down_delegate;
 	input->ActionUp -= action_up_delegate;
-	//release audio?
 }
 
 void Button::Update() {
@@ -129,19 +136,16 @@ void Button::SetText(string text) {
 	FitText(text);
 }
 
-void Button::SetImages(Sprite * up, Sprite * down)
-{
+void Button::SetImages(Sprite * up, Sprite * down) {
 	this->up_image = up;
 	this->down_image = down;
 
 	if(up != nullptr) {
-		area.width = up->GetWidth();
-		area.height = up->GetHeight();
+		SetRect(GetCenter(), up->GetWidth(), up->GetHeight());
 	}
 }
 
-void cross::Button::SetImages(Sprite * up)
-{
+void Button::SetImages(Sprite * up) {
 	SetImages(up, nullptr);
 }
 
@@ -154,7 +158,7 @@ void Button::SetActive(bool active) {
 	this->active = active;
 }
 
-void Button::Scale(float scale){
+void Button::Scale(float scale) {
 	area.width *= scale;
 	area.height *= scale;
 	if(up_image){
@@ -198,8 +202,7 @@ bool Button::IsOnLocation(Vector2D p) {
 	return IsOnLocation(p.x, p.y);
 }
 
-void cross::Button::FitText(string text)
-{
+void Button::FitText(string text) {
 	label_text = text;
 
 	if (!label_text.empty()) {

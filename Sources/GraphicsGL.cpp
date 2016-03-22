@@ -26,15 +26,20 @@ void GraphicsGL::CheckGLError() {
 	while(err != GL_NO_ERROR) {
 		char* error = new char[255];
 		switch(err) {
-		case GL_INVALID_OPERATION:    strcpy(error, "INVALID_OPERATION");      
+		case GL_INVALID_OPERATION:    
+			strcpy(error, "INVALID_OPERATION");      
 			break;
-		case GL_INVALID_ENUM:     strcpy(error, "INVALID_ENUM");
+		case GL_INVALID_ENUM:     
+			strcpy(error, "INVALID_ENUM");
 			break;
-		case GL_INVALID_VALUE:     strcpy(error, "INVALID_VALUE");         
+		case GL_INVALID_VALUE:     
+			strcpy(error, "INVALID_VALUE");         
 			break;
-		case GL_OUT_OF_MEMORY:     strcpy(error, "OUT_OF_MEMORY");          
+		case GL_OUT_OF_MEMORY:     
+			strcpy(error, "OUT_OF_MEMORY");          
 			break;
-		case GL_INVALID_FRAMEBUFFER_OPERATION:  strcpy(error, "INVALID_FRAMEBUFFER_OPERATION");  
+		case GL_INVALID_FRAMEBUFFER_OPERATION:  
+			strcpy(error, "INVALID_FRAMEBUFFER_OPERATION");  
 			break;
 		default: strcpy(error, "Unknown error");  
 			break;
@@ -61,18 +66,17 @@ GraphicsGL::GraphicsGL(){
 		}
 #endif
 		launcher->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
-		//glEnable(GL_DEPTH_TEST);
 }
 
 GLuint GraphicsGL::ComplileShader(string filename){
 		//file loading part
 		string extension = filename.substr(filename.find_last_of(".") + 1);
 		GLuint type;
-		if(extension == "vert"){
+		if(extension == "vert") {
 			type = GL_VERTEX_SHADER;
-		} else if(extension == "frag"){
+		} else if(extension == "frag") {
 			type = GL_FRAGMENT_SHADER;
-		} else{
+		} else {
 			throw CrossException("Can't compile shader.\nUnknown file extension.");
 		}
 		File* file = launcher->LoadFile(filename);
@@ -123,8 +127,6 @@ GLuint GraphicsGL::CreateProgram(){
 void GraphicsGL::DeleteProgram(GLuint program){
 	glDeleteProgram(program);
 }
-
-
 
 void GraphicsGL::AttachShader(GLuint program, GLuint shader){
 	glAttachShader(program, shader);

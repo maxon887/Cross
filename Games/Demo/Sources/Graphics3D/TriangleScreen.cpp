@@ -28,6 +28,8 @@ struct Vertex
 
 void TriangleScreen::Start(){
 	CameraControlScreen::Start();
+	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
+	/*
 	shader = new TriangleShaders();
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
@@ -43,22 +45,22 @@ void TriangleScreen::Start(){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 
-	input->ActionMove += MakeDelegate(this, &TriangleScreen::ActionMoveHandle);
+	input->ActionMove += MakeDelegate(this, &TriangleScreen::ActionMoveHandle);*/
 }
 
 void TriangleScreen::Stop(){
-	CameraControlScreen::Stop();
+	CameraControlScreen::Stop();/*
 	delete shader;
 	delete debug_font;
 	SAFE(glDeleteBuffers(1, &vboId));
 
-	input->ActionMove.RemoveDelegate(input->ActionMove.GetLastDelegate());
+	input->ActionMove.RemoveDelegate(input->ActionMove.GetLastDelegate());*/
 }
 
 void TriangleScreen::Update(float sec){
 	//CameraControlScreen::Update(sec);
+	/*
 	SAFE(glUseProgram(shader->program));
 	if(shader->aPosition != -1)
 	{
@@ -79,20 +81,13 @@ void TriangleScreen::Update(float sec){
 	}
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	//debug camera
-	/*
-	char buffer[256];
-	Vector3D camPos = camera->GetPosition();
-	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
-	gfx2D->DrawText(Vector2D(5.f, 3.f), buffer, debug_font);
-	Vector3D camDir = camera->GetDirection();
-	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
-	gfx2D->DrawText(Vector2D(5.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 	//exit screen
+	*/
+	CameraControlScreen::Update(sec);
+	
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
-	}*/
-	CameraControlScreen::Update(sec);
+	}
 }
 
 void TriangleScreen::ActionMoveHandle(Vector2D position){

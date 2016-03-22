@@ -39,8 +39,10 @@ void CameraControlScreen::Start(){
 	camera = new Camera(projection);
 	camera->SetPosition(Vector3D(0.f, 0.f, -1.f));
 
-	input->ActionDown += MakeDelegate(this, &CameraControlScreen::ActionDownHandle);
-	input->ActionMove += MakeDelegate(this, &CameraControlScreen::ActionMoveHandle);
+	action_down_delegate = MakeDelegate(this, &CameraControlScreen::ActionDownHandle);
+	action_move_delegate = MakeDelegate(this, &CameraControlScreen::ActionMoveHandle);
+	input->ActionDown += action_down_delegate;
+	input->ActionMove += action_move_delegate;
 
 	arrow_released = gfx2D->LoadImage("ArrowUp.png");
 	arrow_pressed = gfx2D->LoadImage("ArrowDown.png");
@@ -74,8 +76,8 @@ void CameraControlScreen::Start(){
 
 void CameraControlScreen::Stop(){
 	delete camera;
-	input->ActionDown.RemoveDelegate(input->ActionDown.GetLastDelegate());
-	input->ActionMove.RemoveDelegate(input->ActionMove.GetLastDelegate());
+	input->ActionDown -= action_down_delegate;
+	input->ActionMove -= action_move_delegate;
 
 	delete arrow_released;
 	delete arrow_pressed;

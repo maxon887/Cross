@@ -48,6 +48,9 @@ private:
 
 	void RecalcAngles();
 
+	FastDelegate1<Vector2D, void> action_down_delegate;
+	FastDelegate1<Vector2D, void> action_move_delegate;
+
 	void ActionDownHandle(Vector2D position);
 	void ActionMoveHandle(Vector2D position);
 };

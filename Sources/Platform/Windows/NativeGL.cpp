@@ -113,14 +113,6 @@ int NativeGL_GO(){
 		delete game;
 		delete gfx2D;
 		delete gfxGL;
-#ifdef CROSS_DEBUG
-		unsigned long leaked = MemoryManager::Instance()->Dump();
-		if(leaked > 0){
-			launcher->LogIt("Memory leak.Total bytes = %d\n", leaked);
-		} else{
-			launcher->LogIt("No memory leak detected\n");
-		}
-#endif
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +

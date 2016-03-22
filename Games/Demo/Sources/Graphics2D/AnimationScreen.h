@@ -26,8 +26,8 @@ using namespace cross;
 class AnimationScreen : public Screen{
 public:
 	void Start();
+	void Stop();
     void Update(float sec);
-	~AnimationScreen();
 private:
 	Animation* spider_run_anim;
 	Sprite* spider_body;

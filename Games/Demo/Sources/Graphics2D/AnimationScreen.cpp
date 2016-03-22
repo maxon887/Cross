@@ -46,6 +46,13 @@ void AnimationScreen::Start(){
 	spider_run_snd = new Audio("SpiderRun.wav", true, false);
 }
 
+void AnimationScreen::Stop(){
+	delete spider_run_anim;
+	delete spider_run_snd;
+	gfx2D->ReleaseSprite(spider_body);
+	gfx2D->ReleaseSprite(spider_head);
+}
+
 void AnimationScreen::Update(float sec){
 	spider_run_anim->Update(sec);
 
@@ -82,11 +89,4 @@ void AnimationScreen::Update(float sec){
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
 	}
-}
-
-AnimationScreen::~AnimationScreen(){
-	delete spider_run_anim;
-	delete spider_run_snd;
-	gfx2D->ReleaseSprite(spider_body);
-	gfx2D->ReleaseSprite(spider_head);
 }

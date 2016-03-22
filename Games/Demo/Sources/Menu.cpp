@@ -23,13 +23,13 @@ Menu::Menu():
 	button_height(0),
 	button_width(0)
 {
-	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
-	launcher->WindowResized += window_resized_delegate;
+	//window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
+	//launcher->WindowResized += window_resized_delegate;
 }
 
 Menu::~Menu(){
 	Clear();
-	launcher->WindowResized -= window_resized_delegate;
+	//launcher->WindowResized -= window_resized_delegate;
 }
 
 void Menu::Update(float sec){

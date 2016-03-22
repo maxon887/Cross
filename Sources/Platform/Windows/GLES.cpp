@@ -74,21 +74,22 @@ int GLES_GO(){
 		delete gfx2D;
 		delete gfxGL;
 
-		unsigned long leaked = MemoryManager::Instance()->Dump();
-		if(leaked > 0){
-			launcher->LogIt("Memory leak.Total bytes = %d\n", leaked);
-		} else{
-			launcher->LogIt("No memory leak detected\n");
-		}
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);
 		OutputDebugString(msg.c_str());
 		MessageBox(esContext.hWnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
-		return 0;
+		return -1;
 	}
-
+	unsigned long leaked = MemoryManager::Instance()->Dump();
+	if(leaked > 0) {
+		string msg = "Memory leak.Total bytes = %d\n" + leaked;
+		OutputDebugString(msg.c_str());
+		return -1;
+	} else {
+		OutputDebugString("No memory leak detected\n");
+	}
 	return 0;
 }
 
