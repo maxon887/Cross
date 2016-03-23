@@ -33,5 +33,6 @@ private:
 
 	Vector2D touch_pos;
 
+	FastDelegate1<Vector2D, void> action_move_delegate;
 	void ActionMoveHandle(Vector2D position);
 };

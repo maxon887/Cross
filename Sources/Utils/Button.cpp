@@ -120,9 +120,11 @@ void Button::Update() {
 	}
 
 
-	if(label_text.size()) {
-		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2,
-			area.y + area.height / 2 - text_size.y / 2), label_text, font);
+	if(!label_text.empty()) {
+		Vector2D textPos;
+		textPos.x = area.x + area.width / 2 - text_size.x / 2;
+		textPos.y = area.y + area.height / 2 - text_size.y / 2;
+		gfx2D->DrawText(textPos, label_text, font);
 	}
 
 	gfx2D->DrawRect(area, Color::Red);
@@ -133,6 +135,9 @@ void Button::SetLocation(Vector2D location) {
 }
 
 void Button::SetText(string text) {
+	if(!font){
+		font = gfx2D->GetDefaultFont()->Clone();
+	}
 	FitText(text);
 }
 
@@ -204,11 +209,11 @@ bool Button::IsOnLocation(Vector2D p) {
 
 void Button::FitText(string text) {
 	label_text = text;
-
+	/*
 	if (!label_text.empty()) {
 		text_size.x = gfx2D->GetDefaultFont()->GetCharWidth() * label_text.size();
 		text_size.y = gfx2D->GetDefaultFont()->GetSize();
-	}
+	}*/
 
 	if (!located) return;
 

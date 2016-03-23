@@ -51,7 +51,9 @@ private:
 	unsigned int textures[128];
 	Color color;
 	float size;
+	float char_width;
 	bool original;
+	bool kill_textures;
 
 	void Cache();
 };

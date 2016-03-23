@@ -29,11 +29,11 @@ struct Vertex
 void TriangleScreen::Start(){
 	CameraControlScreen::Start();
 	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
-	/*
+	
 	shader = new TriangleShaders();
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
-
+	
 	Vertex verticesData[3];
 
 	verticesData[0].pos.x = 0.0f;  verticesData[0].pos.y = 0.5f;  verticesData[0].pos.z = 0.0f;
@@ -46,21 +46,23 @@ void TriangleScreen::Start(){
 	SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
-	input->ActionMove += MakeDelegate(this, &TriangleScreen::ActionMoveHandle);*/
+	action_move_delegate = MakeDelegate(this, &TriangleScreen::ActionMoveHandle);
+	input->ActionMove += action_move_delegate;
 }
 
 void TriangleScreen::Stop(){
-	CameraControlScreen::Stop();/*
+	CameraControlScreen::Stop();
 	delete shader;
 	delete debug_font;
+	
 	SAFE(glDeleteBuffers(1, &vboId));
 
-	input->ActionMove.RemoveDelegate(input->ActionMove.GetLastDelegate());*/
+	input->ActionMove -= action_move_delegate;
 }
 
 void TriangleScreen::Update(float sec){
 	//CameraControlScreen::Update(sec);
-	/*
+	
 	SAFE(glUseProgram(shader->program));
 	if(shader->aPosition != -1)
 	{
@@ -81,7 +83,16 @@ void TriangleScreen::Update(float sec){
 	}
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	//exit screen
+	
+	//debug camera
+	/*
+	char buffer[256];
+	Vector3D camPos = camera->GetPosition();
+	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
+	gfx2D->DrawText(Vector2D(5.f, 3.f), buffer, debug_font);
+	Vector3D camDir = camera->GetDirection();
+	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
+	gfx2D->DrawText(Vector2D(5.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 	*/
 	CameraControlScreen::Update(sec);
 	

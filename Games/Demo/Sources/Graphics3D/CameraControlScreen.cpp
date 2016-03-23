@@ -34,7 +34,7 @@ CameraControlScreen::CameraControlScreen() :
 	down_btn(nullptr)
 { }
 
-void CameraControlScreen::Start(){
+void CameraControlScreen::Start() {
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
 	camera->SetPosition(Vector3D(0.f, 0.f, -1.f));

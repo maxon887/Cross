@@ -35,8 +35,10 @@ Font::Font(Font& font) :
 	original(false),
 	face(font.face),
 	size(font.size),
+	char_width(font.char_width),
 	sprites(128),
-	file(font.file)
+	file(font.file),
+	kill_textures(false)
 {
 	for(int i = 0; i < 127; ++i){
 		this->advances[i] = font.advances[i];
@@ -48,7 +50,8 @@ Font::Font(Font& font) :
 Font::Font(string filename, float size, Color color) :
 	color(color),
 	sprites(128),
-	original(true)
+	original(true),
+	kill_textures(true)
 {
 	file = launcher->LoadFile(filename);
 	FT_Error error;
@@ -70,9 +73,13 @@ Font::~Font(){
 	for(Sprite* sprite : sprites) {
 		delete sprite;
 	}
-	if(original){
+	if(original) {
 		SAFE(glDeleteTextures(128, textures));
 		delete file;
+	} else {
+		if(kill_textures) {
+			SAFE(glDeleteTextures(128, textures));
+		}
 	}
 }
 
@@ -94,6 +101,13 @@ void Font::SetSize(float size){
 	if(error){
 		throw CrossException("Error in set char size");
 	}
+	if(IsFixedWidth()){
+		FT_Error error = FT_Load_Char(face, 0x41, FT_LOAD_RENDER);
+		if(error){
+			throw CrossException("Can't load glyph");
+		}
+		char_width = (float)(face->glyph->advance.x >> 6);
+	}
 	Cache();
 }
 
@@ -107,11 +121,7 @@ bool Font::IsFixedWidth(){
 
 float Font::GetCharWidth(){
 	if(IsFixedWidth()){
-		FT_Error error = FT_Load_Char(face, 0x41, FT_LOAD_RENDER);
-		if(error){
-			throw CrossException("Can't load glyph");
-		}
-		return (float)(face->glyph->advance.x >> 6);
+		return char_width;
 	}else{
 		throw CrossException("Char width can be obtained only for monospace fonts");
 	}
@@ -127,9 +137,13 @@ float Font::GetCharAdvance(char c){
 
 void Font::Cache(){
 	FT_Error error;
-	SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-	SAFE(glDeleteTextures(128, textures));
+	if(kill_textures) {
+		SAFE(glDeleteTextures(128, textures));
+	} else {
+		kill_textures = true;
+	}
 	SAFE(glGenTextures(128, textures));
+	SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 	for(int i = 0; i < 127; i++){
 		SAFE(glBindTexture(GL_TEXTURE_2D, textures[i]));
 		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
