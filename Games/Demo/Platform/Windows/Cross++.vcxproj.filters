@@ -184,6 +184,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleShaders.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">

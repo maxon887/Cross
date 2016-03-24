@@ -39,10 +39,10 @@ void SpritesScreen::Update(float sec){
 		float spriteWidth = awesome_face->GetWidth()/2;
 		float spriteHeight = awesome_face->GetHeight()/2;
 
-		if((positions[i].x - spriteWidth) <= 0 || (positions[i].x + spriteWidth) >= game->GetWidth()){
+		if((positions[i].x - spriteWidth) <= 0 || (positions[i].x + spriteWidth) >= GetWidth()){
 			velocities[i].x *= -1;
 		}
-		if((positions[i].y - spriteHeight) <= 0 || (positions[i].y + spriteHeight) >= game->GetHeight()){
+		if((positions[i].y - spriteHeight) <= 0 || (positions[i].y + spriteHeight) >= GetHeight()){
 			velocities[i].y *= -1;
 		}
 		gfx2D->DrawSprite(positions[i], awesome_face);
@@ -59,8 +59,8 @@ void SpritesScreen::PushSprite(){
 	if(fps > 40.f){
 		for(int i = 0; i < 20; i++){
 			Vector2D position;
-			position.x = Random(5 + awesome_face->GetWidth() / 2, game->GetWidth() - 5 - awesome_face->GetWidth() / 2);
-			position.y = Random(5 + awesome_face->GetHeight() / 2, game->GetHeight() - 5 - awesome_face->GetHeight() / 2);
+			position.x = Random(5 + awesome_face->GetWidth() / 2, GetWidth() - 5 - awesome_face->GetWidth() / 2);
+			position.y = Random(5 + awesome_face->GetHeight() / 2, GetHeight() - 5 - awesome_face->GetHeight() / 2);
 			positions.push_back(position);
 			Vector2D velocity;
 			velocity.x = Random(-3.f, 3.f);

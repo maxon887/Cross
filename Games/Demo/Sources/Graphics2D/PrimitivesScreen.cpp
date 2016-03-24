@@ -123,8 +123,8 @@ void PrimitivesScreen::Point::Draw(){
 }
 
 bool PrimitivesScreen::Point::IsVisible(){
-	if(position.x < game->GetWidth() && position.x >= 0 &&
-		position.y < game->GetHeight() && position.y >= 0){
+	if(position.x < game->GetCurrentScreen()->GetWidth() && position.x >= 0 &&
+		position.y < game->GetCurrentScreen()->GetHeight() && position.y >= 0){
 		return true;
 	}else{
 		return false;
@@ -142,8 +142,8 @@ void PrimitivesScreen::Circle::Draw(){
 }
 
 bool PrimitivesScreen::Circle::IsVisible(){
-	if(position.x + radius < game->GetWidth() && position.x + radius >= 0 &&
-		position.y + radius < game->GetHeight() && position.y + radius >= 0){
+	if(position.x + radius < game->GetCurrentScreen()->GetWidth() && position.x + radius >= 0 &&
+		position.y + radius < game->GetCurrentScreen()->GetHeight() && position.y + radius >= 0){
 		return true;
 	}else{
 		return false;
@@ -165,16 +165,16 @@ void PrimitivesScreen::Line::Draw(){
 
 bool PrimitivesScreen::Line::IsVisible(){
 	bool firstVisible = false;
-	if(position.x < game->GetWidth() && position.x >= 0 &&
-		position.y < game->GetHeight() && position.y >= 0) {
+	if(position.x < game->GetCurrentScreen()->GetWidth() && position.x >= 0 &&
+		position.y < game->GetCurrentScreen()->GetHeight() && position.y >= 0) {
 		firstVisible = true;
 	} else {
 		firstVisible = false;
 	}
 
 	bool secondVisible = false;
-	if(second_pos.x < game->GetWidth() && second_pos.x >= 0 &&
-		second_pos.y < game->GetHeight() && second_pos.y >= 0) {
+	if(second_pos.x < game->GetCurrentScreen()->GetWidth() && second_pos.x >= 0 &&
+		second_pos.y < game->GetCurrentScreen()->GetHeight() && second_pos.y >= 0) {
 		secondVisible = true;
 	} else {
 		secondVisible = false;
@@ -204,8 +204,8 @@ void PrimitivesScreen::Rectangle::Draw(){
 }
 
 bool PrimitivesScreen::Rectangle::IsVisible(){
-	if(position.x < game->GetWidth() && position.x >= 0 &&
-		position.y < game->GetHeight() && position.y >= 0) {
+	if(position.x < game->GetCurrentScreen()->GetWidth() && position.x >= 0 &&
+		position.y < game->GetCurrentScreen()->GetHeight() && position.y >= 0) {
 		return true;
 	} else {
 		return false;

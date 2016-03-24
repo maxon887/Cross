@@ -18,6 +18,7 @@
 #include "Game.h"
 #include "Sprite.h"
 #include "Launcher.h"
+#include "Screen.h"
 
 Menu::Menu():
 	button_height(0),
@@ -33,8 +34,8 @@ Menu::~Menu(){
 }
 
 void Menu::Update(float sec){
-	float height = game->GetHeight();
-	Vector2D pos(game->GetWidth() / 2.0f, height - (offset - button_height/2));
+	float height = game->GetCurrentScreen()->GetHeight();
+	Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.0f, height - (offset - button_height/2));
 	for(Button* btn : buttons){
 		btn->SetLocation(pos);
 		btn->Update();
@@ -59,7 +60,7 @@ void  Menu::AddButton(Button* but){
 	if(button_def_height != but->GetHeight() && button_def_width != but->GetWidth()){
 		throw CrossException("All buttons must be equal size");
 	}
-	float height = game->GetHeight();
+	float height = game->GetCurrentScreen()->GetHeight();
 	int devider = buttons.size() + 1;
 	offset = (height + button_height) / devider;
 
@@ -94,7 +95,7 @@ void Menu::LocateButtons(){
 }
 
 void Menu::WindowResizedHandle(int w, int h){
-	float height = game->GetHeight();
+	float height = game->GetCurrentScreen()->GetHeight();
 	int devider = buttons.size() + 1;
 	offset = (height + button_height) / devider;
 

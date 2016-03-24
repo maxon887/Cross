@@ -17,6 +17,7 @@
 #include "Native.h"
 #include "Cross.h"
 #include "Game.h"
+#include "Screen.h"
 #include "Input.h"
 #include "Config.h"
 #include "resource.h"
@@ -45,27 +46,30 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		targetX = targetX / game->GetScaleFactor();
-		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
+		targetX = targetX / game->GetCurrentScreen()->GetScaleFactor();
+		targetY = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
 		TRIGGER_EVENT(input->ActionDown, Vector2D(targetX, targetY));
-	}break;
+		break;
+	}
 	case WM_MOUSEMOVE:{
 		if(mouseDown){
 			float targetX = (short)LOWORD(lParam);
 			float targetY = (short)HIWORD(lParam);
-			targetX = targetX / game->GetScaleFactor();
-			targetY = game->GetHeight() - targetY / game->GetScaleFactor();
+			targetX = targetX / game->GetCurrentScreen()->GetScaleFactor();
+			targetY = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
 			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, targetY));
 		}
-	}break;
+		break;
+	}
 	case WM_LBUTTONUP:{
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		targetX = targetX / game->GetScaleFactor();
-		targetY = game->GetHeight() - targetY / game->GetScaleFactor();
+		targetX = targetX / game->GetCurrentScreen()->GetScaleFactor();
+		targetY = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
 		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, targetY));
-	}break;
+		break;
+	}
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
 		if(delta < 0){
@@ -73,7 +77,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		}else{
 			TRIGGER_EVENT(input->MouseWheelDown);
 		}
-	}break;
+		break;
+	}
 	case WM_KEYDOWN:
 		TRIGGER_EVENT(input->KeyPressed, (cross::Key)wParam);
 		break;
@@ -85,7 +90,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		int y = HIWORD(lParam) - 30;
 		LauncherWIN* winLanch = (LauncherWIN*)launcher;
 		winLanch->SetWindowPosition(x, y);
-	}break;
+		break;
+	}
 	case WM_SIZE:{
 		RECT winRect = GetLocalCoordinates(wnd);
 		int width = winRect.right - winRect.left;
@@ -95,7 +101,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 			winLanch->SetWindowSize(width, height);
 			TRIGGER_EVENT(launcher->WindowResized, width, height);
 		}
-	}break;
+		break;
+	}
 	case WM_KILLFOCUS:
 		game->Suspend();
 		break;
@@ -107,7 +114,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		config->SaveInt("WIN_POS_Y", winRect.top);
 		config->SaveInt("WIN_WIDTH", winRect.right - winRect.left);
 		config->SaveInt("WIN_HEIGHT", winRect.bottom - winRect.top);
-	}break;
+		break;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

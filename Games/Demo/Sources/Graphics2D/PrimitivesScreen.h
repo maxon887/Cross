@@ -40,6 +40,7 @@ private:
 		Vector2D velocity;
 		Vector2D position;
 		Color color;
+		Screen* screen;
 
 		Entity(Vector2D pos);
 		virtual ~Entity() { };

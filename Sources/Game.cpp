@@ -47,18 +47,6 @@ Game::Game(){
 	this->current_screen = NULL;
 }
 
-float Game::GetScaleFactor(){
-	return (float)launcher->GetTargetWidth() / GetWidth();
-}
-
-float Game::GetWidth(){
-	return gfx2D->GetCamera()->GetViewWidth();
-}
-
-float Game::GetHeight(){
-	return gfx2D->GetCamera()->GetViewHeight();
-}
-
 void Game::SetScreen(Screen* screen){
 	launcher->LogIt("Game::SetScreen()");
 	Debugger::Instance()->StartCheckTime();
@@ -88,6 +76,9 @@ void Game::Suspend(){
 
 void Game::Resume(){
 	render_time = high_resolution_clock::now();
+	if(current_screen != nullptr) {
+		current_screen->Resume();
+	}
 }
 
 void Game::Update(){

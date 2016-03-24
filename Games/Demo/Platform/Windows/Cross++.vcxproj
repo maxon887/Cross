@@ -82,6 +82,7 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shaders.cpp" />

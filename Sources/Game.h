@@ -29,23 +29,17 @@ public:
 	virtual Screen* GetStartScreen() = 0;
 	/* Game constructor. Virtual word coordinates will match target physical pixels */
 	Game();
-	// Cause when game is about to start
+	/* Cause when game is about to start */
 	virtual void Start();
-	// Cause when game is about to stop
+	/* Cause when game is about to stop */
 	virtual void Stop();
-	// Cause when game needs to be paused. For example input call or window lost focus
+	/* Cause when game needs to be paused. For example input call or window lost focus */
 	virtual void Suspend();
-	// Cause when game gained focus.
+	/* Cause when game gained focus */
 	virtual void Resume();
-	/* Reflect ratio between game and target device width.*/
-	float GetScaleFactor();
-	/* Return virtual game width */
-	float GetWidth();
-	/* Return virtual game height; */
-	float GetHeight();
-	/* Set up new Screen. Previous screen data will be deleted. */
+	/* Set up new Screen. Previous screen data will be deleted */
 	void SetScreen(Screen* screen);
-	/* Returns current game screen. */
+	/* Returns current game screen */
 	Screen* GetCurrentScreen();
 	/* Exit from application */
     void Exit();

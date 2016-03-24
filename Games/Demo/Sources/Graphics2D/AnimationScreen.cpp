@@ -58,7 +58,7 @@ void AnimationScreen::Update(float sec){
 
 	if(run_time >= 0) {
 		run_time -= sec;
-		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_run_anim->GetImage());
+		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_run_anim->GetImage());
 		if(run_time < 0){
 			thinking_time = 1.3f;
 			spider_run_snd->Stop();
@@ -77,8 +77,8 @@ void AnimationScreen::Update(float sec){
 				turn_left = true;
 		}
 		spider_head->SetRotate(head_angle);
-		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2), spider_body);
-		gfx2D->DrawSprite(Vector2D(game->GetWidth() / 2, game->GetHeight() / 2 - 65), spider_head);
+		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_body);
+		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2 - 65), spider_head);
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;

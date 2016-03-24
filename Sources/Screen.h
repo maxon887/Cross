@@ -25,12 +25,20 @@ class Screen{
 public:
 	/* Calls once before screen show up. */
 	virtual void Start() { };
-	/* Calls every frame update. Ideally 60 times per second(60fps)*/
-	virtual void Update(float sec) { };
 	/* Calls when screen about to change on new one */
 	virtual void Stop() { };
+	/* Calls every frame update. Ideally 60 times per second(60fps) */
+	virtual void Update(float sec) { };
 	/* Calls where game need to be stoped like lost focus or input phone call */
 	virtual void Suspend() { };
+	/* Calls where game about show again after suspending */
+	virtual void Resume() { };
+	/* Return virtual game width for 2D drawing */
+	virtual float GetWidth();
+	/* Return virtual game height for 2D drawing */
+	virtual float GetHeight();
+	/* Reflect ratio between screen and target device width */
+	float GetScaleFactor();
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Screen() { };

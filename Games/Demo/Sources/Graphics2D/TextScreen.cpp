@@ -53,8 +53,8 @@ void TextScreen::AddChar(){
 		for(int i = 0; i < 10; i++){
 			float size = Random(10.f, 80.f);
 			Vector2D position;
-			position.x = Random(-size, game->GetWidth());
-			position.y = Random(-size, game->GetHeight());
+			position.x = Random(-size, GetWidth());
+			position.y = Random(-size, GetHeight());
 			Color color(Random(1.f), Random(1.f), Random(1.f));
 			char c = Random(65, 122);
 			string str(1, c);
