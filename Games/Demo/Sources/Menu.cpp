@@ -24,13 +24,13 @@ Menu::Menu():
 	button_height(0),
 	button_width(0)
 {
-	//window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
-	//launcher->WindowResized += window_resized_delegate;
+	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
+	launcher->WindowResized += window_resized_delegate;
 }
 
 Menu::~Menu(){
 	Clear();
-	//launcher->WindowResized -= window_resized_delegate;
+	launcher->WindowResized -= window_resized_delegate;
 }
 
 void Menu::Update(float sec){
@@ -60,21 +60,9 @@ void  Menu::AddButton(Button* but){
 	if(button_def_height != but->GetHeight() && button_def_width != but->GetWidth()){
 		throw CrossException("All buttons must be equal size");
 	}
-	float height = game->GetCurrentScreen()->GetHeight();
-	int devider = buttons.size() + 1;
-	offset = (height + button_height) / devider;
-
-	if(offset < (button_height + 20)){
-		float coef = offset / (button_def_height + 20);
-		for(Button* btn : buttons){
-			btn->Scale(coef);
-		}
-		button_width = but->GetWidth();
-		button_height = but->GetHeight();
-	}
 }
 
-int Menu::Size(){
+int Menu::Count(){
 	return buttons.size();
 }
 
@@ -91,7 +79,18 @@ void  Menu::Clear(){
 }
 
 void Menu::LocateButtons(){
+	float height = game->GetCurrentScreen()->GetHeight();
+	int devider = buttons.size() + 1;
+	offset = (height + button_height) / devider;
 
+	if(offset < (button_height + 20)){
+		float coef = offset / (button_def_height + 20);
+		for(Button* btn : buttons){
+			btn->Scale(coef);
+		}
+		button_width = buttons[0]->GetWidth();
+		button_height = buttons[0]->GetHeight();
+	}
 }
 
 void Menu::WindowResizedHandle(int w, int h){

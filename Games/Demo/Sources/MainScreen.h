@@ -16,13 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Screen.h"
+#include "ScrollScreen.h"
 #include "Utils/Button.h"
 #include "Menu.h"
 
 using namespace cross;
 
-class MainScreen : public Screen{
+class MainScreen : public ScrollScreen{
 public:
 	void Start();
 	void Stop();

@@ -64,10 +64,6 @@ Screen* Game::GetCurrentScreen(){
 	return current_screen;
 }
 
-void Game::Start(){ }
-
-void Game::Stop(){ }
-
 void Game::Suspend(){
 	if(current_screen != nullptr) {
 		current_screen->Suspend();

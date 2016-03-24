@@ -187,6 +187,9 @@
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\ScrollScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -354,6 +357,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleShaders.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\ScrollScreen.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

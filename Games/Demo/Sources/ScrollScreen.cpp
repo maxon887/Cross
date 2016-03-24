@@ -14,32 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Utils/Button.h"
+#include "ScrollScreen.h"
 
-using namespace cross;
+ScrollScreen::ScrollScreen(){
+	width = Screen::GetWidth();
+	height = Screen::GetHeight();
+}
 
-class Menu{
-public:
-	Menu();
-	~Menu();
+float ScrollScreen::GetWidth(){
+	return width;
+}
 
-	void Update(float sec);
-	void Active(bool active);
-	void LocateButtons();
-	void AddButton(Button* but);
-	int Count();
-	void Clear();
-private:
-	CRArray<Button*> buttons;
-	float button_def_width;
-	float button_def_height;
-	float button_width;
-	float button_height;
-	float offset;
+float ScrollScreen::GetHeight(){
+	return height;
+}
 
-	FastDelegate2<int, int, void> window_resized_delegate;
+void ScrollScreen::SetWidth(float width){
+	this->width = width;
+}
 
-	void WindowResizedHandle(int width, int height);
-};
+void ScrollScreen::SetHeight(float height){
+	this->height = height;
+}

@@ -120,6 +120,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleShaders.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
+    <ClCompile Include="..\..\Sources\ScrollScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleShaders.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
+    <ClInclude Include="..\..\Sources\ScrollScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
