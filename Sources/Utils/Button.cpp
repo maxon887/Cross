@@ -31,7 +31,7 @@ using namespace cross;
 Button::Button(Rect area, string text) :
 	Button()
 {
-	SetRect(area);
+	Locate(area);
 	font = gfx2D->GetDefaultFont()->Clone();
 	FitText(text);
 }
@@ -41,7 +41,7 @@ Button::Button(Vector2D location, string text) :
 {
 	font = gfx2D->GetDefaultFont()->Clone();
 	FitText(text);
-	SetRect(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
+	Locate(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
 }
 
 Button::Button(string text) :
@@ -54,13 +54,13 @@ Button::Button(string text) :
 Button::Button(Rect area) :
 	Button()
 {
-	SetRect(area);
+	Locate(area);
 }
 
 Button::Button(Vector2D location) :
 	Button()
 {
-	SetRect(location, HORIZONTAL_PADDING, VERTICAL_PADDING);
+	Locate(location, HORIZONTAL_PADDING, VERTICAL_PADDING);
 }
 
 Button::Button() :
@@ -71,7 +71,9 @@ Button::Button() :
 	pull_sound(nullptr),
 	up_image(nullptr),
 	down_image(nullptr),
-	font(nullptr)
+	font(nullptr),
+	def_width(0),
+	def_height(0)
 {
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -131,7 +133,7 @@ void Button::Update() {
 }
 
 void Button::SetLocation(Vector2D location) {
-	SetRect(location, area.width, area.height);
+	Locate(location, area.width, area.height);
 }
 
 void Button::SetText(string text) {
@@ -146,7 +148,7 @@ void Button::SetImages(Sprite * up, Sprite * down) {
 	this->down_image = down;
 
 	if(up != nullptr) {
-		SetRect(GetCenter(), up->GetWidth(), up->GetHeight());
+		Locate(GetCenter(), up->GetWidth(), up->GetHeight());
 	}
 }
 
@@ -164,8 +166,8 @@ void Button::SetActive(bool active) {
 }
 
 void Button::Scale(float scale) {
-	area.width *= scale;
-	area.height *= scale;
+	area.width = def_width * scale;
+	area.height = def_height * scale;
 	if(up_image){
 		up_image->SetScale(scale);
 	}
@@ -203,8 +205,8 @@ Vector2D Button::GetCenter() const {
 	return location;
 }
 
-bool Button::IsOnLocation(Vector2D p) {
-	return IsOnLocation(p.x, p.y);
+bool Button::OnLocation(Vector2D p) {
+	return OnLocation(p.x, p.y);
 }
 
 void Button::FitText(string text) {
@@ -232,33 +234,41 @@ void Button::FitText(string text) {
 	
 }
 
-bool Button::IsOnLocation(float x, float y) {
+bool Button::OnLocation(float x, float y) {
 	return	x > area.x &&
 		x < (area.x + area.width) &&
 		y > area.y &&
 		y < (area.y + area.height);
 }
 
-void Button::SetRect(Vector2D loc, float width, float heiht) {
+void Button::Locate(Vector2D loc, float width, float height) {
 	this->location = loc;
 	area.x = loc.x - width / 2.f;
-	area.y = loc.y - heiht / 2.f;
+	area.y = loc.y - height / 2.f;
 	area.width = width;
-	area.height = heiht;
+	area.height = height;
+	if(def_width == 0 && def_height == 0){
+		def_width = width;
+		def_height = height;
+	}
 	located = true;
 	FitText(label_text);
 }
 
-void Button::SetRect(Rect rect){
+void Button::Locate(Rect rect){
 	location.x = rect.x + rect.width / 2.f;
 	location.y = rect.y + rect.height / 2.f;
+	if(def_width == 0 && def_height == 0){
+		def_width = rect.width;
+		def_height = rect.height;
+	}
 	this->area = rect;
 	located = true;
 	FitText(label_text);
 }
 
 void Button::ActionDownHandler(Vector2D pos) {
-	if (active && IsOnLocation(pos.x, pos.y)) {
+	if (active && OnLocation(pos.x, pos.y)) {
 		is_pressed = true;
 		if (push_sound != nullptr) {
 			push_sound->Play();
@@ -272,7 +282,7 @@ void Button::ActionUpHandler(Vector2D pos) {
 		if (push_sound != nullptr) {
 			push_sound->Play();
 		}
-		if (IsOnLocation(pos.x, pos.y)) {
+		if (OnLocation(pos.x, pos.y)) {
 			if (down_image != nullptr) {
 				gfx2D->DrawSprite(location, down_image);
 			}

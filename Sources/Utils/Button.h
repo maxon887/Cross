@@ -56,6 +56,8 @@ protected:
 	bool is_pressed;
 	bool active;
 	Rect area;
+	float def_width;
+	float def_height;
 	//optional parameters
 	Sprite* up_image;
 	Sprite* down_image;
@@ -68,10 +70,10 @@ protected:
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_up_delegate;
 
-	void SetRect(Vector2D loc, float width, float heiht);
-	void SetRect(Rect rect);
-	bool IsOnLocation(float x, float y);
-	bool IsOnLocation(Vector2D p);
+	void Locate(Vector2D loc, float width, float heiht);
+	void Locate(Rect rect);
+	bool OnLocation(float x, float y);
+	bool OnLocation(Vector2D p);
 	void FitText(string text);
 	//connections
 	void ActionDownHandler(Vector2D pos);

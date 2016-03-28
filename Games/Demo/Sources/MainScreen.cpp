@@ -46,7 +46,6 @@ void MainScreen::Start(){
 	main_menu->AddButton(graphics2Dbtn);
 	main_menu->AddButton(graphics3Dbtn);
 	main_menu->AddButton(audioBtn);
-	main_menu->LocateButtons();
 	//graphics 2D menu
 	graphics2D_menu = new Menu();
 	Button* primitivesBtn = new Button("Primitives");
@@ -106,9 +105,8 @@ void MainScreen::Update(float sec){
 }
 
 void MainScreen::OnGraphics2DClick(){
-	SetHeight(GetHeight() * 2.f);
+	//SetHeight(GetHeight() * 2.f);
 	current_menu->Active(false);
-	graphics2D_menu->LocateButtons();
 	graphics2D_menu->Active(true);
 	current_menu = graphics2D_menu;
 }

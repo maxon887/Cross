@@ -27,7 +27,6 @@ public:
 
 	void Update(float sec);
 	void Active(bool active);
-	void LocateButtons();
 	void AddButton(Button* but);
 	int Count();
 	void Clear();
@@ -38,8 +37,12 @@ private:
 	float button_width;
 	float button_height;
 	float offset;
+	bool located;
+	bool resizeble;
 
 	FastDelegate2<int, int, void> window_resized_delegate;
 
+	void Locate();
+	
 	void WindowResizedHandle(int width, int height);
 };

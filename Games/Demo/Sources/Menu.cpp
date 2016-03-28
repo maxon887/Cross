@@ -22,7 +22,8 @@
 
 Menu::Menu():
 	button_height(0),
-	button_width(0)
+	button_width(0),
+	located(false)
 {
 	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
 	launcher->WindowResized += window_resized_delegate;
@@ -34,12 +35,11 @@ Menu::~Menu(){
 }
 
 void Menu::Update(float sec){
-	float height = game->GetCurrentScreen()->GetHeight();
-	Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.0f, height - (offset - button_height/2));
+	if(!located){
+		Locate();
+	}
 	for(Button* btn : buttons){
-		btn->SetLocation(pos);
 		btn->Update();
-		pos.y -= offset;
 	}
 }
 
@@ -49,7 +49,7 @@ void Menu::Active(bool active){
 	}
 }
 
-void  Menu::AddButton(Button* but){
+void Menu::AddButton(Button* but){
 	buttons.push_back(but);
 	if(button_width == 0){
 		button_def_width = but->GetWidth();
@@ -76,34 +76,30 @@ void  Menu::Clear(){
 	button_width = 0;
 	button_height = 0;
 	offset = 0;
+	located = false;
 }
 
-void Menu::LocateButtons(){
+void Menu::Locate(){
 	float height = game->GetCurrentScreen()->GetHeight();
 	int devider = buttons.size() + 1;
 	offset = (height + button_height) / devider;
 
-	if(offset < (button_height + 20)){
-		float coef = offset / (button_def_height + 20);
-		for(Button* btn : buttons){
+	Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.0f, height - (offset - button_height/2));
+
+	for(Button* btn : buttons){
+		if(offset < (button_height + 20.f)){
+			float coef = offset / (button_def_height + 20);
 			btn->Scale(coef);
 		}
-		button_width = buttons[0]->GetWidth();
-		button_height = buttons[0]->GetHeight();
-	}
-}
 
-void Menu::WindowResizedHandle(int w, int h){
-	float height = game->GetCurrentScreen()->GetHeight();
-	int devider = buttons.size() + 1;
-	offset = (height + button_height) / devider;
-
-	if(offset < (button_height + 20)){
-		float coef = offset / (button_def_height + 20);
-		for(Button* btn : buttons){
-			btn->Scale(coef);
-		}
+		btn->SetLocation(pos);
+		pos.y -= offset;
 	}
 	button_width = buttons[0]->GetWidth();
 	button_height = buttons[0]->GetHeight();
+	located = true;
+}
+
+void Menu::WindowResizedHandle(int w, int h){
+	Locate();
 }
