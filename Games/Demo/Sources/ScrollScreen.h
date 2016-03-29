@@ -16,12 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Screen.h"
+#include "Input.h"
 
 using namespace cross;
 
 class ScrollScreen : public Screen{
 public:
-	ScrollScreen();
+
+	virtual void Start();
+	virtual void Stop();
 
 	virtual float GetWidth();
 	virtual float GetHeight();
@@ -31,4 +34,14 @@ public:
 private:
 	float width;
 	float height;
+	Vector2D touch;
+
+	FastDelegate1<Vector2D, void> action_down_handler;
+	FastDelegate1<Vector2D, void> action_move_handler;
+	FastDelegate1<Vector2D, void> action_up_handler;
+
+	void ActionDownHandle(Vector2D pos);
+	void ActionMoveHandle(Vector2D pos);
+	void ActionUpHandle(Vector2D pos);
+
 };

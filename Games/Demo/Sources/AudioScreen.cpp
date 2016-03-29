@@ -16,7 +16,7 @@ void AudioScreen::Start(){
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = gfx2D->LoadImage("DefaultButton.png");
 	button_sprite_pressed = gfx2D->LoadImage("DefaultButtonPressed.png");
-	audio_menu = new Menu();
+	audio_menu = new Menu(true);
 	Button* soundBtn = new Button("Sound");
 	soundBtn->SetImages(button_sprite->Clone(), nullptr);
 	ToggleButton* loopBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());

@@ -22,7 +22,7 @@ using namespace cross;
 
 class Menu{
 public:
-	Menu();
+	Menu(bool resizeble);
 	~Menu();
 
 	void Update(float sec);
@@ -30,6 +30,7 @@ public:
 	void AddButton(Button* but);
 	int Count();
 	void Clear();
+	float GetHeight();
 private:
 	CRArray<Button*> buttons;
 	float button_def_width;
@@ -39,6 +40,7 @@ private:
 	float offset;
 	bool located;
 	bool resizeble;
+	float menu_height;
 
 	FastDelegate2<int, int, void> window_resized_delegate;
 

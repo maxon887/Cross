@@ -20,6 +20,7 @@
 #include "Launcher.h"
 #include "Sprite.h"
 #include "AudioScreen.h"
+#include "Camera2D.h"
 #include "Graphics3D/TriangleScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
@@ -29,10 +30,12 @@
 #include "Graphics2D/Camera2DScreen.h"
 
 void MainScreen::Start(){
+	ScrollScreen::Start();
 	next_screen = nullptr;
 	button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	button_sprite->SetScale(1.35f);
 	//main menu
-	main_menu = new Menu();
+	main_menu = new Menu(true);
 	current_menu = main_menu;
 	Button* graphics2Dbtn = new Button("Graphics 2D");
 	Button* graphics3Dbtn = new Button("Graphics 3D");
@@ -47,7 +50,7 @@ void MainScreen::Start(){
 	main_menu->AddButton(graphics3Dbtn);
 	main_menu->AddButton(audioBtn);
 	//graphics 2D menu
-	graphics2D_menu = new Menu();
+	graphics2D_menu = new Menu(false);
 	Button* primitivesBtn = new Button("Primitives");
 	Button* spritesBtn = new Button("Sprites");
 	Button* textBtn = new Button("Text Drawing");
@@ -67,7 +70,7 @@ void MainScreen::Start(){
 	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
 	//graphics 3D menu
-	graphics3D_menu = new Menu();
+	graphics3D_menu = new Menu(false);
 	Button* triangleBtn = new Button("Triangle");
 	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
@@ -84,6 +87,7 @@ void MainScreen::Start(){
 }
 
 void MainScreen::Stop(){
+	ScrollScreen::Stop();
 	delete button_sprite;
 	delete main_menu;
 	delete graphics2D_menu;
@@ -97,6 +101,11 @@ void MainScreen::Update(float sec){
 		current_menu->Active(false);
 		main_menu->Active(true);
 		current_menu = main_menu;
+		float scrWidth = 1600.f;
+		float scrHeight = scrWidth / launcher->GetAspectRatio();
+		SetWidth(scrWidth);
+		SetHeight(scrHeight);
+		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 	}
 
 	if(next_screen){
@@ -105,7 +114,10 @@ void MainScreen::Update(float sec){
 }
 
 void MainScreen::OnGraphics2DClick(){
-	//SetHeight(GetHeight() * 2.f);
+	SetHeight(graphics2D_menu->GetHeight());
+	Vector2D camPos(0.f, 0.f);
+	camPos.y = GetHeight() - gfx2D->GetCamera()->GetViewHeight();
+	gfx2D->GetCamera()->SetPosition(camPos);
 	current_menu->Active(false);
 	graphics2D_menu->Active(true);
 	current_menu = graphics2D_menu;

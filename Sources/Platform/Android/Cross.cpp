@@ -122,20 +122,20 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        float x = targetX / game->GetScaleFactor();
-        float y = game->GetHeight() - targetY / game->GetScaleFactor();
+        float x = targetX / game->GetCurrentScreen()->GetScaleFactor();
+        float y = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
         TRIGGER_EVENT(input->ActionDown, Vector2D(x, y));
 	}
 
 	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        float x = targetX / game->GetScaleFactor();
-        float y = game->GetHeight() - targetY / game->GetScaleFactor();
+        float x = targetX / game->GetCurrentScreen()->GetScaleFactor();
+        float y = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
         TRIGGER_EVENT(input->ActionMove, Vector2D(x, y));
 	}
 
 	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        float x = targetX / game->GetScaleFactor();
-        float y = game->GetHeight() - targetY / game->GetScaleFactor();
+        float x = targetX / game->GetCurrentScreen()->GetScaleFactor();
+        float y = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
         TRIGGER_EVENT(input->ActionUp, Vector2D(x, y));
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){

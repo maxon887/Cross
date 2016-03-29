@@ -43,6 +43,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	static bool mouseDown = false;
 	switch(msg){
 	case WM_LBUTTONDOWN:{
+		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
@@ -62,6 +63,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	}
 	case WM_LBUTTONUP:{
+		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;

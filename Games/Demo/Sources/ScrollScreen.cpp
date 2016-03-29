@@ -15,10 +15,26 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "ScrollScreen.h"
+#include "Graphics2D.h"
+#include "Camera2D.h"
 
-ScrollScreen::ScrollScreen(){
+void ScrollScreen::Start(){
+	Screen::Start();
 	width = Screen::GetWidth();
 	height = Screen::GetHeight();
+	action_down_handler = MakeDelegate(this, &ScrollScreen::ActionDownHandle);
+	action_move_handler = MakeDelegate(this, &ScrollScreen::ActionMoveHandle);
+	action_up_handler = MakeDelegate(this, &ScrollScreen::ActionUpHandle);
+	input->ActionDown += action_down_handler;
+	input->ActionMove += action_move_handler;
+	input->ActionUp += action_up_handler;
+}
+
+void ScrollScreen::Stop(){
+	Screen::Stop();
+	input->ActionDown -= action_down_handler;
+	input->ActionMove -= action_move_handler;
+	input->ActionUp -= action_up_handler;
 }
 
 float ScrollScreen::GetWidth(){
@@ -35,4 +51,40 @@ void ScrollScreen::SetWidth(float width){
 
 void ScrollScreen::SetHeight(float height){
 	this->height = height;
+}
+
+void ScrollScreen::ActionDownHandle(Vector2D pos){
+	touch = pos;
+}
+
+void ScrollScreen::ActionMoveHandle(Vector2D pos){
+	Vector2D diff = pos - touch;
+	touch = pos;
+
+	Camera2D* cam = gfx2D->GetCamera();
+	Vector2D camPos = Vector2D(cam->GetPosition().x, cam->GetPosition().y);
+	camPos += diff;
+	float camW = cam->GetViewWidth();
+	float camH = cam->GetViewHeight();
+
+	if(camPos.x < 0) {
+		camPos.x = 0;
+	}
+	if(camPos.y < 0) {
+		camPos.y = 0;
+	}
+	if(camPos.x > GetWidth() - camW){
+		camPos.x = GetWidth() - camW;
+	}
+	if(camPos.y > GetHeight() - camH){
+		camPos.y = GetHeight() - camH;
+	}
+
+
+		
+	cam->SetPosition(camPos);
+}
+
+void ScrollScreen::ActionUpHandle(Vector2D pos){
+	ActionMoveHandle(pos);
 }

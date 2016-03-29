@@ -218,6 +218,12 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/SOIL">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/SOIL" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Screen.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Screen.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Screen.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Screen.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Shaders">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Shaders" isTestSource="false" />
     </content>

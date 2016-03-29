@@ -96,6 +96,8 @@ android {
         main.jni.srcDirs += '../../../../../Sources/Vector4D.cpp'
         main.jni.srcDirs += '../../../../../Sources/Vector4D.h'
         main.jni.srcDirs += '../../../../../Sources/Cross.h'
+        main.jni.srcDirs += '../../../../../Sources/Screen.h'
+        main.jni.srcDirs += '../../../../../Sources/Screen.cpp'
     }
 }
 

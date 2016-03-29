@@ -20,10 +20,11 @@
 #include "Launcher.h"
 #include "Screen.h"
 
-Menu::Menu():
+Menu::Menu(bool resizeble):
 	button_height(0),
 	button_width(0),
-	located(false)
+	located(false),
+	resizeble(resizeble)
 {
 	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
 	launcher->WindowResized += window_resized_delegate;
@@ -79,24 +80,41 @@ void  Menu::Clear(){
 	located = false;
 }
 
-void Menu::Locate(){
-	float height = game->GetCurrentScreen()->GetHeight();
-	int devider = buttons.size() + 1;
-	offset = (height + button_height) / devider;
-
-	Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.0f, height - (offset - button_height/2));
-
-	for(Button* btn : buttons){
-		if(offset < (button_height + 20.f)){
-			float coef = offset / (button_def_height + 20);
-			btn->Scale(coef);
-		}
-
-		btn->SetLocation(pos);
-		pos.y -= offset;
+float Menu::GetHeight(){
+	if(!located){
+		Locate();
 	}
-	button_width = buttons[0]->GetWidth();
-	button_height = buttons[0]->GetHeight();
+	return menu_height;
+}
+
+void Menu::Locate(){
+	if(resizeble){
+		menu_height = game->GetCurrentScreen()->GetHeight();
+		int devider = buttons.size() + 1;
+		offset = (menu_height + button_height) / devider;
+
+		Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.f, menu_height - (offset - button_height/2.f));
+
+		for(Button* btn : buttons){
+			if(offset < (button_height + 20.f)){
+				float coef = offset / (button_def_height + 20);
+				btn->Scale(coef);
+			}
+
+			btn->SetLocation(pos);
+			pos.y -= offset;
+		}
+		button_width = buttons[0]->GetWidth();
+		button_height = buttons[0]->GetHeight();
+	}else{
+		static const float space_len = 25.f;
+		menu_height = button_height * Count() + Count() * space_len;
+		Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.f, menu_height - button_height/2.f - space_len/2.f);
+		for(Button* btn : buttons){
+			btn->SetLocation(pos);
+			pos.y -= button_height + space_len;
+		}
+	}
 	located = true;
 }
 

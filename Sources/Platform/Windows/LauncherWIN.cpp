@@ -149,8 +149,17 @@ void LauncherWIN::KeyReleasedHandle(Key key){
 	case Key::F12:
 		ResizeWindow(window_pos_x, window_pos_y, window_height, window_width);
 		break;
-	case Key::F1:
-		ResizeWindow(window_pos_x, window_pos_y, 800, 450);
+	case Key::F1:	//16:9
+		ResizeWindow(window_pos_x, window_pos_y, 960, 540);
+		break;
+	case Key::F2:	//5:3
+		ResizeWindow(window_pos_x, window_pos_y, 1000, 600);
+		break;
+	case Key::F3:	//16:10
+		ResizeWindow(window_pos_x, window_pos_y, 960, 600);
+		break;
+	case Key::F4:	//4:3
+		ResizeWindow(window_pos_x, window_pos_y, 800, 600);
 		break;
 	default:
 		break;
