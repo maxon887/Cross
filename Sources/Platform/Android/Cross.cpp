@@ -122,28 +122,20 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        //float x = targetX / game->GetCurrentScreen()->GetScaleFactor();
-        //float y = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
         TRIGGER_EVENT(input->TargetActionDown, (float)targetX, (float)targetY);
 	}
 
 	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        //float x = targetX / game->GetCurrentScreen()->GetScaleFactor();
-        //float y = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
         TRIGGER_EVENT(input->TargetActionMove, (float)targetX, (float)targetY);
 	}
 
 	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        //float x = targetX / game->GetCurrentScreen()->GetScaleFactor();
-       // float y = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
         TRIGGER_EVENT(input->TargetActionUp, (float)targetX, (float)targetY);
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
-		//input->TriggerKeyPressed((Key)key);
         TRIGGER_EVENT(input->KeyPressed, (Key)key);
 	}
 	void Java_com_cross_Cross_ReleaseKey(JNIEnv *env, jobject thiz, jint key){
-		//input->TriggerKeyReleased((Key)key);
         TRIGGER_EVENT(input->KeyReleased, (Key)key);
 	}
 

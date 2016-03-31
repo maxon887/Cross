@@ -34,10 +34,6 @@ void SpritesScreen::Start(){
 }
 
 void SpritesScreen::Update(float sec){
-	for(Sprite* awsome : sprites){
-		gfx2D->DrawSprite(awsome);
-	}
-	/*
 	for(unsigned int i = 0; i < positions.size(); i++){
 		positions[i] += velocities[i] * sec * 100;
 		float spriteWidth = awesome_face->GetWidth()/2;
@@ -49,9 +45,8 @@ void SpritesScreen::Update(float sec){
 		if((positions[i].y - spriteHeight) <= 0 || (positions[i].y + spriteHeight) >= GetHeight()){
 			velocities[i].y *= -1;
 		}
-		//gfx2D->DrawSprite(positions[i], awesome_face);
-		gfx2D->DrawSprite(awesome_face);
-	}*/
+		gfx2D->DrawSprite(positions[i], awesome_face);
+	}
 	PushSprite();
 	
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
@@ -71,10 +66,6 @@ void SpritesScreen::PushSprite(){
 			velocity.x = Random(-3.f, 3.f);
 			velocity.y = Random(-3.f, 3.f);
 			velocities.push_back(velocity);
-
-			Sprite* clone = awesome_face->Clone();
-			clone->SetPosition(position);
-			sprites.push_back(clone);
 		}
 	}else{
 		string message = "Sprites Drawn " + to_string(positions.size());
