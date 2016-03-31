@@ -27,6 +27,8 @@ public:
 	void Start();
 	void Update(float sec);
 private:
+	CRArray<Sprite*> sprites;
+
 	CRArray<Vector2D> positions;
 	CRArray<Vector2D> velocities;
 	Sprite* awesome_face;

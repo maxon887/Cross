@@ -117,9 +117,14 @@ enum class Key{
 	Handle touches, clicks and key events */
 class Input{
 public:
+	/* Scaled in screen coordinates input */
 	DECLARE_EVENT(void, Vector2D) ActionDown;
-	DECLARE_EVENT(void, Vector2D) ActionUp;
 	DECLARE_EVENT(void, Vector2D) ActionMove;
+	DECLARE_EVENT(void, Vector2D) ActionUp;
+	/* Physical device inputs */
+	DECLARE_EVENT(void, float, float) TargetActionDown;
+	DECLARE_EVENT(void, float, float) TargetActionMove;
+	DECLARE_EVENT(void, float, float) TargetActionUp;
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
@@ -132,9 +137,15 @@ public:
 public:
 	Input();
 private:
+	bool pressed_keys[(unsigned int)Key::MAX_KEY_NUM];
+
+	Vector2D TargetToWordConvert(float x, float y);
+
+	void TargetActionDonwHandle(float x, float y);
+	void TargetActionMoveHandle(float x, float y);
+	void TargetActionUpHandle(float x, float y);
 	void KeyPressedHandle(Key key);
 	void KeyReleasedHandle(Key key);
-	bool pressed_keys[(unsigned int)Key::MAX_KEY_NUM];
 };
 
 }

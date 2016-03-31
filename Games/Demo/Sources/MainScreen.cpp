@@ -109,6 +109,7 @@ void MainScreen::Update(float sec){
 	}
 
 	if(next_screen){
+		gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 		game->SetScreen(next_screen);
 	}
 }

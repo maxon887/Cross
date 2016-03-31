@@ -59,6 +59,7 @@ void ScrollScreen::ActionDownHandle(Vector2D pos){
 
 void ScrollScreen::ActionMoveHandle(Vector2D pos){
 	Vector2D diff = pos - touch;
+	diff /= 2.f;
 	touch = pos;
 
 	Camera2D* cam = gfx2D->GetCamera();
@@ -80,8 +81,6 @@ void ScrollScreen::ActionMoveHandle(Vector2D pos){
 		camPos.y = GetHeight() - camH;
 	}
 
-
-		
 	cam->SetPosition(camPos);
 }
 

@@ -44,32 +44,26 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch(msg){
 	case WM_LBUTTONDOWN:{
 		SetCapture(wnd);
-		float targetX = (short)LOWORD(lParam);
-		float targetY = (short)HIWORD(lParam);
+		float targetX = (float)LOWORD(lParam);
+		float targetY = (float)HIWORD(lParam);
 		mouseDown = true;
-		targetX = targetX / game->GetCurrentScreen()->GetScaleFactor();
-		targetY = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
-		TRIGGER_EVENT(input->ActionDown, Vector2D(targetX, targetY));
+		TRIGGER_EVENT(input->TargetActionDown, targetX, targetY);
 		break;
 	}
 	case WM_MOUSEMOVE:{
 		if(mouseDown){
-			float targetX = (short)LOWORD(lParam);
-			float targetY = (short)HIWORD(lParam);
-			targetX = targetX / game->GetCurrentScreen()->GetScaleFactor();
-			targetY = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
-			TRIGGER_EVENT(input->ActionMove, Vector2D(targetX, targetY));
+			float targetX = (float)LOWORD(lParam);
+			float targetY = (float)HIWORD(lParam);
+			TRIGGER_EVENT(input->TargetActionMove,targetX, targetY);
 		}
 		break;
 	}
 	case WM_LBUTTONUP:{
 		ReleaseCapture();
-		float targetX = (short)LOWORD(lParam);
-		float targetY = (short)HIWORD(lParam);
+		float targetX = (float)LOWORD(lParam);
+		float targetY = (float)HIWORD(lParam);
 		mouseDown = false;
-		targetX = targetX / game->GetCurrentScreen()->GetScaleFactor();
-		targetY = game->GetCurrentScreen()->GetHeight() - targetY / game->GetCurrentScreen()->GetScaleFactor();
-		TRIGGER_EVENT(input->ActionUp, Vector2D(targetX, targetY));
+		TRIGGER_EVENT(input->TargetActionUp, targetX, targetY);
 		break;
 	}
 	case WM_MOUSEWHEEL:{

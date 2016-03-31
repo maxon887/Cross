@@ -15,6 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Input.h"
+#include "Graphics2D.h"
+#include "Camera2D.h"
+#include "Launcher.h"
 
 using namespace cross;
 
@@ -24,6 +27,20 @@ Input::Input(){
 	}
 	KeyPressed += MakeDelegate(this, &Input::KeyPressedHandle);
 	KeyReleased += MakeDelegate(this, &Input::KeyReleasedHandle);
+	TargetActionDown += MakeDelegate(this, &Input::TargetActionDonwHandle);
+	TargetActionMove += MakeDelegate(this, &Input::TargetActionMoveHandle);
+	TargetActionUp += MakeDelegate(this, &Input::TargetActionUpHandle);
+}
+
+Vector2D Input::TargetToWordConvert(float x, float y){
+	Vector2D result;
+	Camera2D* cam = gfx2D->GetCamera();
+	float scaleFactor = launcher->GetTargetWidth() / cam->GetViewWidth();
+	result.x = x / scaleFactor;
+	result.y = cam->GetViewHeight() - y / scaleFactor;
+	result.x += cam->GetPosition().x;
+	result.y += cam->GetPosition().y;
+	return result;
 }
 
 bool Input::IsPressed(Key key){
@@ -36,4 +53,16 @@ void Input::KeyPressedHandle(Key key){
 
 void Input::KeyReleasedHandle(Key key){
 	pressed_keys[(unsigned int)key] = false;
+}
+
+void Input::TargetActionDonwHandle(float x, float y){
+	TRIGGER_EVENT(ActionDown, TargetToWordConvert(x, y));
+}
+
+void Input::TargetActionMoveHandle(float x, float y){
+	TRIGGER_EVENT(ActionMove, TargetToWordConvert(x, y));
+}
+
+void Input::TargetActionUpHandle(float x, float y){
+	TRIGGER_EVENT(ActionUp, TargetToWordConvert(x, y));
 }
