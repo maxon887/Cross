@@ -52,26 +52,32 @@ void CameraControlScreen::Start() {
 	//button
 	up_btn = new Button(Vector2D(150.f, 150.f));
 	Sprite* cloneReleased = arrow_released->Clone();
-	cloneReleased->SetRotate(90);
+	cloneReleased->SetRotate(90.f);
 	Sprite* clonePressed = arrow_pressed->Clone();
-	clonePressed->SetRotate(90);
+	clonePressed->SetRotate(90.f);
 	up_btn->SetImages(cloneReleased, clonePressed);
 	left_btn = new Button(Vector2D(50.f, 50.f));
 	cloneReleased = arrow_released->Clone();
-	cloneReleased->SetRotate(180);
+	cloneReleased->SetRotate(180.f);
 	clonePressed = arrow_pressed->Clone();
-	clonePressed->SetRotate(180);
+	clonePressed->SetRotate(180.f);
 	left_btn->SetImages(cloneReleased, clonePressed);
 	down_btn = new Button(Vector2D(150.f, 50.f));
 	cloneReleased = arrow_released->Clone();
-	cloneReleased->SetRotate(-90);
+	cloneReleased->SetRotate(-90.f);
 	clonePressed = arrow_pressed->Clone();
-	clonePressed->SetRotate(-90);
+	clonePressed->SetRotate(-90.f);
 	down_btn->SetImages(cloneReleased, clonePressed);
 	right_btn = new Button(Vector2D(250.f, 50.f));
 	cloneReleased = arrow_released->Clone();
 	clonePressed = arrow_pressed->Clone();
 	right_btn->SetImages(cloneReleased, clonePressed);
+	Sprite* eye = gfx2D->LoadImage("EyeBtn.png");
+	Sprite* eyePressed = gfx2D->LoadImage("EyeBtnPressed.png");
+	eye->SetScale(0.5f);
+	eyePressed->SetScale(0.5f);
+	eye_btn = new ToggleButton(eye, eyePressed);
+	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 }
 
 void CameraControlScreen::Stop(){
@@ -85,6 +91,7 @@ void CameraControlScreen::Stop(){
 	delete down_btn;
 	delete left_btn;
 	delete right_btn;
+	delete eye_btn;
 }
 
 void CameraControlScreen::Update(float sec){
@@ -109,30 +116,47 @@ void CameraControlScreen::Update(float sec){
 		RecalcAngles();
 	}
 
+	if(eye_btn->GetState()){
+		if(input->IsPressed(Key::W)) {
+			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::S)) {
+			camera->SetPosition(camera->GetPosition() - camera->GetDirection() * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::A)) {
+			camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::D)) {
+			camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::SHIFT)) {
+			camera->SetPosition(camera->GetPosition() + Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::CONTROL)) {
+			camera->SetPosition(camera->GetPosition() - Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
+		}
+	}else{
+		camera->LookAt(Vector3D(0.f, 0.f, 0.f));
+		if(input->IsPressed(Key::W)) {
+			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::D)) {
+			camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::W)) {
+			camera->SetPosition(camera->GetPosition() + camera->GetUpVector() * liner_speed * sec);
+		}
+		if(input->IsPressed(Key::S)) {
+			camera->SetPosition(camera->GetPosition() - camera->GetUpVector() * liner_speed * sec);
+		}
+	}
 
-	if(input->IsPressed(Key::W)) {
-		camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
-	}
-	if(input->IsPressed(Key::S)) {
-		camera->SetPosition(camera->GetPosition() - camera->GetDirection() * liner_speed * sec);
-	}
-	if(input->IsPressed(Key::A)) {
-		camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
-	}
-	if(input->IsPressed(Key::D)) {
-		camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
-	}
-	if(input->IsPressed(Key::SHIFT)) {
-		camera->SetPosition(camera->GetPosition() + Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
-	}
-	if(input->IsPressed(Key::CONTROL)) {
-		camera->SetPosition(camera->GetPosition() - Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
-	}
 	//gui
 	up_btn->Update();
 	left_btn->Update();
 	right_btn->Update();
 	down_btn->Update();
+	eye_btn->Update();
 }
 
 Camera* CameraControlScreen::GetCamera(){
@@ -163,9 +187,11 @@ void CameraControlScreen::ActionDownHandle(Vector2D position){
 }
 
 void CameraControlScreen::ActionMoveHandle(Vector2D position){
-	Vector2D deltaPosition = touch_position - position;
-	touch_position = position;
-	yaw += deltaPosition.x / 10;
-	pitch += deltaPosition.y / 10;
-	RecalcAngles();
+	if(eye_btn->GetState()){
+		Vector2D deltaPosition = touch_position - position;
+		touch_position = position;
+		yaw += deltaPosition.x / 10;
+		pitch += deltaPosition.y / 10;
+		RecalcAngles();
+	}
 }

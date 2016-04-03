@@ -110,9 +110,9 @@ int NativeGL_GO(){
 		}
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
-		delete game;
 		delete gfx2D;
 		delete gfxGL;
+		delete game;
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +

@@ -27,12 +27,12 @@ Menu::Menu(bool resizeble):
 	resizeble(resizeble)
 {
 	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
-	launcher->WindowResized += window_resized_delegate;
+	game->WindowResized += window_resized_delegate;
 }
 
 Menu::~Menu(){
 	Clear();
-	launcher->WindowResized -= window_resized_delegate;
+	game->WindowResized -= window_resized_delegate;
 }
 
 void Menu::Update(float sec){

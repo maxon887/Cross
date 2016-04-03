@@ -14,19 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
+#include "ScrollScreen.h"
 
-#include "Game.h"
+ScrollScreen::ScrollScreen(float width, float height){
 
-using namespace cross;
-
-class Demo : public Game{
-public:
-	Demo(Launcher* launcher);
-	void Start();
-	void Stop();
-	Screen* GetStartScreen();
-
-private:
-	Camera2D* camera;
-};
+}

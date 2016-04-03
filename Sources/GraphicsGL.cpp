@@ -17,6 +17,7 @@
 #include "GraphicsGL.h"
 #include "Launcher.h"
 #include "File.h"
+#include "Game.h"
 
 using namespace cross;
 
@@ -65,7 +66,7 @@ GraphicsGL::GraphicsGL(){
 			throw CrossException("Unable to initialize GLEW");
 		}
 #endif
-		launcher->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
+		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
 }
 
 GLuint GraphicsGL::ComplileShader(string filename){

@@ -70,7 +70,7 @@ void MainScreen::Start(){
 	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
 	//graphics 3D menu
-	graphics3D_menu = new Menu(false);
+	graphics3D_menu = new Menu(true);
 	Button* triangleBtn = new Button("Triangle");
 	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);

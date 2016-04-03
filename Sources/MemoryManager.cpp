@@ -156,6 +156,7 @@ void MemoryManager::SanityCheck(){
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
+			//throw CrossException("Sanity Check failed");
 		}
 	}
 	if(count > 0){

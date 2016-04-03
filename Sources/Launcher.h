@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Events/Event.h"
 
 namespace cross {
 
@@ -25,7 +24,6 @@ class Commercial;
 /* Abstract class contained platform specific functionality. */
 class Launcher{
 public:
-	DECLARE_EVENT(void, int, int) WindowResized;
 	/* Returns physical screen width in pixels */
 	virtual int GetTargetWidth() = 0;
 	/* Returns physical screen height in pixels */

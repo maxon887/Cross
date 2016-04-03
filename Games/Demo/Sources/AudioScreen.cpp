@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Config.h"
 #include "Sprite.h"
+#include "Camera2D.h"
 
 using namespace cross;
 
@@ -13,17 +14,21 @@ void AudioScreen::Start(){
 	truck = NULL;
 	is_bck_playing = false;
 
+	camera = new Camera2D();
+	camera->SetViewWidth(1600.f);
+	gfx2D->SetCamera(camera);
+
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	button_sprite->SetScale(1.35f);
 	button_sprite_pressed = gfx2D->LoadImage("DefaultButtonPressed.png");
+	button_sprite_pressed->SetScale(1.35f);
 	audio_menu = new Menu(true);
 	Button* soundBtn = new Button("Sound");
 	soundBtn->SetImages(button_sprite->Clone(), nullptr);
 	ToggleButton* loopBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
-	loopBtn->SetImages(button_sprite->Clone(), nullptr);
 	loopBtn->SetText("Loop");
 	ToggleButton* streamBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
-	streamBtn->SetImages(button_sprite->Clone(), nullptr);
 	streamBtn->SetText("Stream");
 	soundBtn->Clicked += MakeDelegate(this, &AudioScreen::OnSoundButtonClick);
 	loopBtn->Clicked += MakeDelegate(this, &AudioScreen::OnLoopButttonClick);
@@ -38,10 +43,13 @@ void AudioScreen::Start(){
 }
 
 void AudioScreen::Stop(){
+	delete button_sprite;
+	delete button_sprite_pressed;
 	delete bck_music;
 	delete jaguar;
 	delete truck;
 	delete audio_menu;
+	delete camera;
 }
 
 void AudioScreen::Update(float sec){

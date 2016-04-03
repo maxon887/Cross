@@ -95,7 +95,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		if(width > 0 && height > 0){
 			LauncherWIN* winLanch = (LauncherWIN*)launcher;
 			winLanch->SetWindowSize(width, height);
-			TRIGGER_EVENT(launcher->WindowResized, width, height);
+			TRIGGER_EVENT(game->WindowResized, width, height);
 		}
 		break;
 	}

@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Events/Event.h"
 
 #include <chrono>
 
@@ -28,6 +29,8 @@ public:
 	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
 	/* Game constructor. Virtual word coordinates will match target physical pixels */
+	DECLARE_EVENT(void, int, int) WindowResized;
+
 	Game();
 	/* Cause when game is about to start */
 	virtual void Start() { };

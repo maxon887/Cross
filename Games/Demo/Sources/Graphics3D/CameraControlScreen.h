@@ -19,6 +19,7 @@
 #include "Screen.h"
 #include "Camera.h"
 #include "Button.h"
+#include "ToggleButton.h"
 
 using namespace cross;
 
@@ -45,6 +46,7 @@ private:
 	Button* right_btn;
 	Button* up_btn;
 	Button* down_btn;
+	ToggleButton* eye_btn;
 
 	void RecalcAngles();
 

@@ -45,12 +45,23 @@ void Camera::SetDirection(const Vector3D& dir){
 	recalc_view = true;
 }
 
+void Camera::LookAt(const Vector3D& object){
+	SetDirection(object - position);
+}
+
 Vector3D Camera::GetPosition() const{
 	return position;
 }
 
 Vector3D Camera::GetDirection() const{
 	return direction;
+}
+
+Vector3D Camera::GetUpVector() const{
+	Vector3D right = direction.CrossProduct(Vector3D(0.f, 1.f, 0.f)) * (-1);
+	Vector3D up = right.CrossProduct(direction) * (-1);
+	up = up.Normalize();
+	return up;
 }
 
 const Matrix& Camera::GetViewMatrix(){

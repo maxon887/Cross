@@ -15,18 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include "Game.h"
+#include "Screen.h"
+#include "Camera2D.h"
 
 using namespace cross;
 
-class Demo : public Game{
+class ScrollScreen : public Screen{
 public:
-	Demo(Launcher* launcher);
-	void Start();
-	void Stop();
-	Screen* GetStartScreen();
-
+	ScrollScreen(float width, float height);
 private:
 	Camera2D* camera;
 };

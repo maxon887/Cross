@@ -13,6 +13,7 @@ public:
 	void Update(float sec);
 
 private:
+	Camera2D* camera;
 	Menu* audio_menu;
 	Sprite* button_sprite;
 	Sprite* button_sprite_pressed;

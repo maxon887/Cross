@@ -70,9 +70,19 @@ int GLES_GO(){
 
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
-		delete game;
 		delete gfx2D;
 		delete gfxGL;
+		delete game;
+
+		unsigned long leaked = MemoryManager::Instance()->Dump();
+		if(leaked > 0) {
+			char buf[256];
+			sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
+			OutputDebugString(buf);
+			return -1;
+		} else {
+			OutputDebugString("No memory leak detected\n");
+		}
 
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
@@ -81,14 +91,6 @@ int GLES_GO(){
 		OutputDebugString(msg.c_str());
 		MessageBox(esContext.hWnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
 		return -1;
-	}
-	unsigned long leaked = MemoryManager::Instance()->Dump();
-	if(leaked > 0) {
-		string msg = "Memory leak.Total bytes = %d\n" + leaked;
-		OutputDebugString(msg.c_str());
-		return -1;
-	} else {
-		OutputDebugString("No memory leak detected\n");
 	}
 	return 0;
 }
