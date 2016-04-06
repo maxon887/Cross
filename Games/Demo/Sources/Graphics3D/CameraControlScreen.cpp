@@ -84,6 +84,7 @@ void CameraControlScreen::Start() {
 	Sprite* eye = gfx2D->LoadImage("EyeBtn.png");
 	Sprite* eyePressed = gfx2D->LoadImage("EyeBtnPressed.png");
 	eye_btn = new ToggleButton(eye, eyePressed);
+	eye_btn->Clicked += MakeDelegate(this, &CameraControlScreen::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	gui.push_back(eye_btn);
 }
@@ -203,6 +204,19 @@ void CameraControlScreen::RecalcAngles(){
 	direction.x = cosPitch * sinYaw;
 
 	camera->SetDirection(direction);
+}
+
+void CameraControlScreen::OnEyeClick(){
+	//orbit
+	orbit_distance = camera->GetPosition().Length();
+	//free
+	Vector3D direction = camera->GetDirection();
+	float sinP = direction.y;
+	float cosP = sqrt(1.f - pow(direction.y, 2.f));
+	float sinY = direction.x / cosP;
+	pitch = asin(sinP) * 180.f / PI;
+	yaw = asin(sinY) * 180.f / PI;
+	RecalcAngles();
 }
 
 void CameraControlScreen::ActionDownHandle(Vector2D position){

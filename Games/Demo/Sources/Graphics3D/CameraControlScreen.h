@@ -55,6 +55,7 @@ private:
 
 	bool OnGuiArea(Vector2D pos);
 	void RecalcAngles();
+	void OnEyeClick();
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_move_delegate;
