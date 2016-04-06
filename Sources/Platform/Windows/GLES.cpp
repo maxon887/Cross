@@ -121,11 +121,6 @@ EGLBoolean CreateEGLContext(EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 		return EGL_FALSE;
 	}
 
-	// Get configs
-	if(!eglGetConfigs(display, NULL, 0, &numConfigs))	{
-		return EGL_FALSE;
-	}
-
 	// Choose config
 	if(!eglChooseConfig(display, attribList, &config, 1, &numConfigs))	{
 		return EGL_FALSE;

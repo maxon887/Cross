@@ -86,7 +86,7 @@ void MainScreen::Start(){
 	graphics3D_menu->Active(false);
 
 	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
-	input->KeyReleased += key_released_delegate;
+	input->KeyPressed += key_released_delegate;
 }
 
 void MainScreen::Stop(){
@@ -95,14 +95,14 @@ void MainScreen::Stop(){
 	delete main_menu;
 	delete graphics2D_menu;
 	delete graphics3D_menu;
-	input->KeyReleased -= key_released_delegate;
+	input->KeyPressed -= key_released_delegate;
 }
 
 void MainScreen::Update(float sec){
 	current_menu->Update(sec);
 
 	if(next_screen){
-		gfx2D->SetCamera(gfx2D->GetDefaultCamera());
+		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 		game->SetScreen(next_screen);
 	}
 }
