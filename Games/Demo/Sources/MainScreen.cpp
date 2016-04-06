@@ -24,7 +24,6 @@
 #include "Graphics3D/TriangleScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
-#include "Graphics2D/TestNaPidoraScreen.h"
 #include "Graphics2D/SpritesScreen.h"
 #include "Graphics2D/TextScreen.h"
 #include "Graphics2D/Camera2DScreen.h"
@@ -56,18 +55,15 @@ void MainScreen::Start(){
 	Button* textBtn = new Button("Text Drawing");
 	Button* canvasBtn = new Button("2D Camera");
 	Button* animationBtn = new Button("Animation");
-	Button* testNaPidoraBtn = new Button("Test Na Pidora");
 	primitivesBtn->SetImages(button_sprite->Clone());
 	spritesBtn->SetImages(button_sprite->Clone());
 	textBtn->SetImages(button_sprite->Clone());
 	canvasBtn->SetImages(button_sprite->Clone());
 	animationBtn->SetImages(button_sprite->Clone());
-	testNaPidoraBtn->SetImages(button_sprite->Clone());
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
 	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
 	animationBtn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
-	testNaPidoraBtn->Clicked += MakeDelegate(this, &MainScreen::OnTestNaPidoraClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
 	//graphics 3D menu
 	graphics3D_menu = new Menu(true);
@@ -80,7 +76,6 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(textBtn);
 	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
-	graphics2D_menu->AddButton(testNaPidoraBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -147,10 +142,6 @@ void MainScreen::OnPrimitivesClick(){
 
 void MainScreen::OnSpritesClick(){
 	next_screen = new SpritesScreen();
-}
-
-void MainScreen::OnTestNaPidoraClick() {
-	next_screen = new TestNaPidoraScreen();
 }
 
 void MainScreen::OnTextClick(){

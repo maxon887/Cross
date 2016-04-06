@@ -36,23 +36,31 @@ protected:
 private:
 	float liner_speed;
 	float angular_speed;
+	float orbit_speed;
 	float pitch;
 	float yaw;
+
+	bool handle_action;
 	Vector2D touch_position;
 	
 	Sprite* arrow_released;
 	Sprite* arrow_pressed;
+	CRArray<Button*> gui;
 	Button* left_btn;
 	Button* right_btn;
 	Button* up_btn;
 	Button* down_btn;
 	ToggleButton* eye_btn;
+	float orbit_distance;
 
+	bool OnGuiArea(Vector2D pos);
 	void RecalcAngles();
 
 	FastDelegate1<Vector2D, void> action_down_delegate;
 	FastDelegate1<Vector2D, void> action_move_delegate;
+	FastDelegate1<Vector2D, void> action_up_delegate;
 
 	void ActionDownHandle(Vector2D position);
 	void ActionMoveHandle(Vector2D position);
+	void ActionUpHandle(Vector2D position);
 };

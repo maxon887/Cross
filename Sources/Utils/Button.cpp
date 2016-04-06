@@ -128,8 +128,9 @@ void Button::Update() {
 		textPos.y = area.y + area.height / 2 - text_size.y / 2;
 		gfx2D->DrawText(textPos, label_text, font);
 	}
-
-	gfx2D->DrawRect(area, Color::Red);
+	
+	//debug active area
+	//gfx2D->DrawRect(area, Color::Red);
 }
 
 void Button::SetLocation(Vector2D location) {

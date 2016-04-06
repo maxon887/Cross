@@ -163,9 +163,6 @@
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.cpp">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
@@ -335,9 +332,6 @@
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.h">
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h">

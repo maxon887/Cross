@@ -113,7 +113,6 @@
     <ClCompile Include="..\..\Sources\Graphics2D\Camera2DScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
@@ -172,7 +171,6 @@
     <ClInclude Include="..\..\Sources\Graphics2D\Camera2DScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics2D\TestNaPidoraScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />

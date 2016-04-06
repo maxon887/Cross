@@ -44,7 +44,6 @@ private:
 	void OnPrimitivesClick();
 	void OnSpritesClick();
 	void OnAnimationClick();
-	void OnTestNaPidoraClick();
 	void On2DCameraClick();
 	void OnTextClick();
 	void OnTriangleClick();
