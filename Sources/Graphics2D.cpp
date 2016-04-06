@@ -50,6 +50,7 @@ Graphics2D::Graphics2D() :
 }
 
 Graphics2D::~Graphics2D(){
+	launcher->LogIt("Graphics2D::~Graphics2D");
 	delete default_font;
 	delete default_camera;
 	delete sprite_shaders;

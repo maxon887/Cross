@@ -34,7 +34,11 @@ private:
 	Menu* graphics3D_menu;
 	Sprite* button_sprite;
 	Screen* next_screen;
+
+	FastDelegate1<Key, void> key_released_delegate;
 	//connections
+	void KeyReleasedHandle(Key key);
+
 	void OnGraphics2DClick();
 	void OnGraphics3DClick();
 	void OnPrimitivesClick();

@@ -22,13 +22,15 @@
 
 #include <stdarg.h>
 
+//#define DISABLE_AUDIO
+
+using namespace cross;
+
 #ifndef DISABLE_AUDIO
 
 #ifndef Common_vsnprintf
     #define Common_vsnprintf vsnprintf
 #endif
-
-using namespace cross;
 
 static FMOD_RESULT		result;
 
@@ -174,7 +176,7 @@ Audio::~Audio(){
 #else
 
 
-void Audio::Init(Launcher* launcher){
+void Audio::Init(){
 	launcher->LogIt("Audio::Init()");
 	launcher->LogIt("Audio system disabled");
 }

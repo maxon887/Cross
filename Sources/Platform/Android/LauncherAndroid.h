@@ -30,7 +30,9 @@ class CommercialAndroid;
 
 class LauncherAndroid : public Launcher{
 public:
-	LauncherAndroid(int w, int h, string dataPath, AAssetManager* assManager, jobject crossActivity, JNIEnv* env);
+	LauncherAndroid(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
+	~LauncherAndroid();
+
 	int GetTargetWidth();
 	int GetTargetHeight();
 	string AssetsPath();
@@ -39,10 +41,14 @@ public:
     void LogIt(const char* formatStr, ...);
 	File* LoadFile(string filename);
 	void PromtToExit();
+	void Exit();
+	void Sleep(float milis);
 	void InitializeCommercial(JNIEnv* env, jobject comm);
 	Commercial* GetCommercial();
+public:
+	void SetTargetWidth(int width);
+	void SetTargetHeight(int height);
 	JNIEnv* GetJNIEnv();
-	~LauncherAndroid();
 private:
 	JavaVM* jvm;
 	jobject cross_activity;

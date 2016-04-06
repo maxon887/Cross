@@ -23,102 +23,177 @@
 #include "Audio.h"
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
+#include "CrossEGL.h"
 
-#include "jni.h"
-#include "android/asset_manager_jni.h"
+#include <android/native_window_jni.h>
+#include <android/asset_manager_jni.h>
 
-    using namespace cross;
+#include <pthread.h>
+#include <mutex>
 
-    Game* cross::game = NULL;
+using namespace cross;
+
+enum ApplicationState{
+    APP_INIT,
+    APP_START,
+    APP_RUNNING,
+    APP_PAUSED,
+    APP_EXIT
+};
+
+enum WindowState{
+    WND_NONE,
+    WND_CREATE,
+    WND_RELEASE,
+    WND_ACTIVE
+};
+
+Game* cross::game           = NULL;
+CrossEGL* crossEGL          = NULL;
+ApplicationState app_state  = APP_INIT;
+WindowState wnd_state       = WND_NONE;
+pthread_t   threadID;
+std::mutex  app_mutex;
+std::mutex  pause_mutex;
+
+void* Main(void* self){
+    LOGI("Main()");
+    try {
+        while (app_state != APP_EXIT) {
+            switch (app_state) {
+                case APP_INIT: {
+                    if (!crossEGL) {
+                        crossEGL = new CrossEGL();
+                        app_state = APP_START;
+                    } else {
+                        throw CrossException("Application try to initialize second time");
+                    }
+                    break;
+                }
+                case APP_START: {
+                    if (wnd_state == WND_ACTIVE) {
+                        game = CrossMain(launcher);
+                        gfxGL = new GraphicsGL();
+                        gfx2D = new Graphics2D();
+                        game->Start();
+                        game->SetScreen(game->GetStartScreen());
+                        app_state = APP_RUNNING;
+                    }
+                    break;
+                }
+                case APP_RUNNING:{
+                    game->Update();
+                    break;
+                }
+                case APP_PAUSED:{
+                    pause_mutex.lock();
+                    launcher->Sleep(16);
+                    pause_mutex.unlock();
+                    break;
+                }
+            }
+            switch (wnd_state) {
+                case WND_NONE:
+                    break;
+                case WND_CREATE:{
+                    app_mutex.lock();
+                    if(!crossEGL->IsContextCreated()) {
+                        bool success = crossEGL->CreateContext(true);
+                        if (success) {
+                            LOGI("Window create success");
+                            wnd_state = WND_ACTIVE;
+                        } else {
+                            LOGI("Can not create native window");
+                            app_state = APP_EXIT;
+                        }
+                    }else{
+                        crossEGL->DestroyContext(false);
+                        bool success = crossEGL->CreateContext(false);
+                        if (success) {
+                            LOGI("Window recreaded");
+                            wnd_state = WND_ACTIVE;
+                            app_state = APP_RUNNING;
+                        } else {
+                            LOGI("Can not recread native window");
+                            app_state = APP_EXIT;
+                        }
+                    }
+                    app_mutex.unlock();
+                    break;
+                }
+                case WND_RELEASE:
+                    break;
+                case WND_ACTIVE:
+                    crossEGL->SwapBuffers();
+                    break;
+            }
+        }
+        //exit application
+        game->GetCurrentScreen()->Stop();
+        game->Stop();
+        delete game;
+        delete gfx2D;
+        delete gfxGL;
+    } catch (Exception& exc){
+        string msg = string(exc.message) +
+                     +"\nFile: " + string(exc.filename) +
+                     +"\nLine: " + to_string(exc.line);
+        LOGE("%s", msg.c_str());
+    }
+    ((LauncherAndroid *) launcher)->Exit();
+    delete launcher;
+}
 
 extern "C"{
-	void Java_com_cross_Cross_Init(JNIEnv *env, jobject thiz, jint width, jint height, jstring dataPath, jobject assetManager, jobject crossActivity){
-		LOGI("Cross_Init");
-        try {
-            AAssetManager *mng = AAssetManager_fromJava(env, assetManager);
+	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
+		LOGI("Cross_OnCreate");
+        if(!launcher) {
+            AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
             string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
-            launcher = new LauncherAndroid((int) width, (int) height, stdDataPath, mng,
-                                           crossActivity, env);
-            game = CrossMain(launcher);
-            gfxGL = new GraphicsGL();
-            gfx2D = new Graphics2D();
-        } catch(Exception &exc) {
-            string msg = string(exc.message) +
-                         +"\nFile: " + string(exc.filename) +
-                         +"\nLine: " + to_string(exc.line);
-            LOGE("%s", msg.c_str());
+            launcher = new LauncherAndroid(env, crossActivity, mng, stdDataPath);
+            Audio::Init();
+            pthread_create(&threadID, 0, Main, NULL);
+        }else{
+            LOGE("Attempt to initialize game second time");
         }
 	}
 
-	void Java_com_cross_Cross_Start(JNIEnv* env, jobject thiz){
-		try{
-            game->Start();
-			game->SetScreen(game->GetStartScreen());
-		} catch(Exception &exc) {
-            string msg = string(exc.message) +
-                         +"\nFile: " + string(exc.filename) +
-                         +"\nLine: " + to_string(exc.line);
-            LOGE("%s", msg.c_str());
-        }
+    void Java_com_cross_Cross_SurfaceChanged(JNIEnv *env, jobject thiz, jobject surface, jint w, jint h){
+        LOGI("Cross_SurfaceChanged w - %d, h - %d", w, h);
+        ANativeWindow *nativeWindow = ANativeWindow_fromSurface(env, surface);
+        app_mutex.lock();
+        ((LauncherAndroid *) launcher)->SetTargetWidth((int) w);
+        ((LauncherAndroid *) launcher)->SetTargetHeight((int) h);
+        crossEGL->BindWindow(nativeWindow);
+        wnd_state = WND_CREATE;
+        app_mutex.unlock();
+    }
+
+    void Java_com_cross_Cross_SurfaceDestroyed(JNIEnv* env, jobject thiz){
+        LOGI("Cross_SurfaceDestroyed");
+        crossEGL->UnbindWindow();
+        wnd_state = WND_RELEASE;
+    }
+
+    void Java_com_cross_Cross_OnResume(JNIEnv *env, jobject thiz){
+        LOGI("Cross_OnResume");
+        pause_mutex.unlock();
+    }
+
+	void Java_com_cross_Cross_OnSuspend(JNIEnv *env, jobject thiz){
+        LOGI("Cross_OnSuspend");
+        pause_mutex.lock();
+        app_state = APP_PAUSED;
+        wnd_state = WND_NONE;
 	}
 
-	void Java_com_cross_Cross_Update(JNIEnv *env, jobject thiz){
-		try{
-			game->Update();
-		} catch(Exception &exc) {
-            string msg = string(exc.message) +
-                         +"\nFile: " + string(exc.filename) +
-                         +"\nLine: " + to_string(exc.line);
-            LOGE("%s", msg.c_str());
-        }
-	}
-
-	void Java_com_cross_Cross_Suspend(JNIEnv *env, jobject thiz){
-		LOGI("Cross_Suspend");
-		try{
-			game->Suspend();
-			Audio::SuspendSystem();
-		} catch(Exception &exc) {
-            string msg = string(exc.message) +
-                         +"\nFile: " + string(exc.filename) +
-                         +"\nLine: " + to_string(exc.line);
-            LOGE("%s", msg.c_str());
-        }
-	}
-
-	void Java_com_cross_Cross_Resume(JNIEnv *env, jobject thiz){
-		LOGI("Cross_Resume");
-		try{
-			game->Resume();
-			Audio::ResumeSystem();
-		} catch(Exception &exc) {
-            string msg = string(exc.message) +
-                         +"\nFile: " + string(exc.filename) +
-                         +"\nLine: " + to_string(exc.line);
-            LOGE("%s", msg.c_str());
-        }
-	}
-
-	void Java_com_cross_Cross_Release(JNIEnv *env, jobject thiz){
-		LOGI("Cross_Release");
-		try{
-            game->GetCurrentScreen()->Stop();
-            game->Stop();
-			delete game;
-			Audio::Release();
-			delete gfx2D;
-            delete gfxGL;
-			delete launcher;
-		} catch(Exception &exc) {
-            string msg = string(exc.message) +
-                         +"\nFile: " + string(exc.filename) +
-                         +"\nLine: " + to_string(exc.line);
-            LOGE("%s", msg.c_str());
-        }
+	void Java_com_cross_Cross_OnExit(JNIEnv *env, jobject thiz){
+		LOGI("Cross_OnExit");
+        app_state = APP_EXIT;
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){

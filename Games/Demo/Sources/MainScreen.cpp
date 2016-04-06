@@ -84,6 +84,9 @@ void MainScreen::Start(){
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
+
+	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
+	input->KeyReleased += key_released_delegate;
 }
 
 void MainScreen::Stop(){
@@ -92,26 +95,30 @@ void MainScreen::Stop(){
 	delete main_menu;
 	delete graphics2D_menu;
 	delete graphics3D_menu;
+	input->KeyReleased -= key_released_delegate;
 }
 
 void MainScreen::Update(float sec){
 	current_menu->Update(sec);
 
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
-		current_menu->Active(false);
-		main_menu->Active(true);
-		current_menu = main_menu;
-		float scrWidth = 1600.f;
-		float scrHeight = scrWidth / launcher->GetAspectRatio();
-		SetWidth(scrWidth);
-		SetHeight(scrHeight);
-		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
-	}
-
 	if(next_screen){
 		gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 		game->SetScreen(next_screen);
 	}
+}
+
+void MainScreen::KeyReleasedHandle(Key key){
+	if(current_menu == main_menu){
+		launcher->PromtToExit();
+	}
+	current_menu->Active(false);
+	main_menu->Active(true);
+	current_menu = main_menu;
+	float scrWidth = 1600.f;
+	float scrHeight = scrWidth / launcher->GetAspectRatio();
+	SetWidth(scrWidth);
+	SetHeight(scrHeight);
+	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 }
 
 void MainScreen::OnGraphics2DClick(){

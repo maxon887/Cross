@@ -6,7 +6,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme">
-        <activity android:name="com.cross.CrossActivity"
+        <activity
+            android:name="com.cross.CrossActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

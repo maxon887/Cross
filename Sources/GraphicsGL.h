@@ -55,6 +55,7 @@ public:
 	static void CheckGLError();
 
 	GraphicsGL();
+
 	GLuint ComplileShader(string filename);
 	void DeleteShader(GLuint shader);
 	GLuint CreateProgram();

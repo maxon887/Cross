@@ -17,18 +17,22 @@
 #include "LauncherAndroid.h"
 #include "CommercialAndroid.h"
 #include "File.h"
+#include <unistd.h>
 
 using namespace cross;
 
-LauncherAndroid::LauncherAndroid(int w, int h, string dataPath, AAssetManager* assManager, jobject crossActivity, JNIEnv* env){
+LauncherAndroid::LauncherAndroid(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath){
     LOGI("LauncherAndroid::LauncherAndroid");
-	this->width = w;
-	this->height = h;
 	this->data_path = dataPath;
 	this->asset_manager = assManager;
 	this->cross_activity = crossActivity;
 	this->commercial = NULL;
 	env->GetJavaVM(&jvm);
+}
+
+LauncherAndroid::~LauncherAndroid(){
+    LOGI("LauncherAndroid::~LauncherAndroid");
+    delete commercial;
 }
 
 int LauncherAndroid::GetTargetWidth(){
@@ -80,7 +84,19 @@ void LauncherAndroid::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
-	env->CallVoidMethod(cross_activity, methodID);;
+	env->CallVoidMethod(cross_activity, methodID);
+}
+
+void LauncherAndroid::Exit() {
+    JNIEnv* env = GetJNIEnv();
+    jclass clazz = env->GetObjectClass(cross_activity);
+    jmethodID methodID = env->GetMethodID(clazz, "Exit", "()V");
+    env->CallVoidMethod(cross_activity, methodID);
+    jvm->DetachCurrentThread();
+}
+
+void LauncherAndroid::Sleep(float milis) {
+    usleep(milis*1000);
 }
 
 void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){
@@ -92,8 +108,12 @@ Commercial* LauncherAndroid::GetCommercial() {
 	return commercial;
 }
 
-LauncherAndroid::~LauncherAndroid(){
-	delete commercial;
+void LauncherAndroid::SetTargetWidth(int width) {
+    this->width = width;
+}
+
+void LauncherAndroid::SetTargetHeight(int height) {
+    this->height = height;
 }
 
 JNIEnv* LauncherAndroid::GetJNIEnv(){
@@ -103,16 +123,16 @@ JNIEnv* LauncherAndroid::GetJNIEnv(){
     case JNI_OK:
     	return env;
     case JNI_EDETACHED:
-		LogIt("GetEnv: not attached");
+		LogIt("Attempt to attach thread to JVM");
 		if (jvm->AttachCurrentThread(&env, NULL) != 0) {
-			throw string("Failed to attach thread");
+			throw CrossException("Failed to attach thread");
 		}
 		return env;
     case JNI_EVERSION:
-    	throw string("GetEnv: version not supported");
+    	throw CrossException("Java environment: version not supported");
 
     default:
-    	throw string("Unknown JNI state");
+    	throw CrossException("Unknown JNI state");
     }
 }
 

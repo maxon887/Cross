@@ -1,16 +1,17 @@
 package com.cross;
 
 import android.content.res.AssetManager;
+import android.view.Surface;
 
 public class Cross {
 	public static final int	KEY_BACK		= 0x08;
 
-	public native void Init(int w, int h, String dataPath, AssetManager manager, CrossActivity crossActivity);
-	public native void Start();
-	public native void Release();
-	public native void Update();
-	public native void Suspend();
-	public native void Resume();
+	public native void OnCreate(CrossActivity activity, AssetManager assManager, String dataPath);
+	public native void SurfaceChanged(Surface surface, int width, int height);
+	public native void SurfaceDestroyed();
+	public native void OnResume();
+	public native void OnSuspend();
+	public native void OnExit();
 	
 	public native void ActionDown(float x, float y);
 	public native void ActionUp(float x, float y);

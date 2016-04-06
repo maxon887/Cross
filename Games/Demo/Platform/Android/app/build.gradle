@@ -28,6 +28,7 @@ android {
             ldLibs "log"
             ldLibs "android"
             ldLibs "GLESv2"
+            ldLibs "EGL"
             cFlags " -std=c++11"
             cFlags += " -fexceptions"
             cFlags += " -I${project.buildDir}/../../../../../../Sources"
