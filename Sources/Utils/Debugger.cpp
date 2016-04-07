@@ -187,15 +187,15 @@ float Debugger::GetFPS(){
 	return 1000.f / render_time;
 }
 
-void Debugger::OnActionDown(Vector2D pos) {
+void Debugger::OnActionDown(Input::Action action) {
 	touch_down = true;
-	touch_pos = pos;
+	touch_pos = action.pos;
 }
 
-void Debugger::OnActionUp(Vector2D pos) {
+void Debugger::OnActionUp(Input::Action action) {
 	touch_down = false;
 }
 
-void Debugger::OnActionMove(Vector2D pos) {
-	touch_pos = pos;
+void Debugger::OnActionMove(Input::Action action) {
+	touch_pos = action.pos;
 }

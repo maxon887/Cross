@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Screen.h"
 #include "Font.h"
+#include "Input.h"
 
 using namespace cross;
 
@@ -93,7 +94,7 @@ private:
 
 	void GenerateEntity();
 
-	void OnActionDown(Vector2D pos);
-	void OnActionMove(Vector2D pos);
-	void OnActionUp(Vector2D pos);
+	void OnActionDown(Input::Action action);
+	void OnActionMove(Input::Action action);
+	void OnActionUp(Input::Action action);
 };

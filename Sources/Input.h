@@ -117,14 +117,19 @@ enum class Key{
 	Handle touches, clicks and key events */
 class Input{
 public:
+	class Action{
+	public:
+		Vector2D pos;
+		int id;
+	};
 	/* Scaled in screen coordinates input */
-	DECLARE_EVENT(void, Vector2D) ActionDown;
-	DECLARE_EVENT(void, Vector2D) ActionMove;
-	DECLARE_EVENT(void, Vector2D) ActionUp;
+	DECLARE_EVENT(void, Action) ActionDown;
+	DECLARE_EVENT(void, Action) ActionMove;
+	DECLARE_EVENT(void, Action) ActionUp;
 	/* Physical device inputs */
-	DECLARE_EVENT(void, float, float) TargetActionDown;
-	DECLARE_EVENT(void, float, float) TargetActionMove;
-	DECLARE_EVENT(void, float, float) TargetActionUp;
+	DECLARE_EVENT(void, float, float, int) TargetActionDown;
+	DECLARE_EVENT(void, float, float, int) TargetActionMove;
+	DECLARE_EVENT(void, float, float, int) TargetActionUp;
 
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
@@ -141,9 +146,9 @@ private:
 
 	Vector2D TargetToWordConvert(float x, float y);
 
-	void TargetActionDonwHandle(float x, float y);
-	void TargetActionMoveHandle(float x, float y);
-	void TargetActionUpHandle(float x, float y);
+	void TargetActionDonwHandle(float x, float y, int actionID);
+	void TargetActionMoveHandle(float x, float y, int actionID);
+	void TargetActionUpHandle(float x, float y, int actionID);
 	void KeyPressedHandle(Key key);
 	void KeyReleasedHandle(Key key);
 };

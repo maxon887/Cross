@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Graphics3D/CameraControlScreen.h"
 #include "TriangleShaders.h"
+#include "Input.h"
 
 using namespace cross;
 
@@ -33,6 +34,6 @@ private:
 
 	Vector2D touch_pos;
 
-	FastDelegate1<Vector2D, void> action_move_delegate;
-	void ActionMoveHandle(Vector2D position);
+	FastDelegate1<Input::Action, void> action_move_delegate;
+	void ActionMoveHandle(Input::Action action);
 };

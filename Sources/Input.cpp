@@ -55,14 +55,23 @@ void Input::KeyReleasedHandle(Key key){
 	pressed_keys[(unsigned int)key] = false;
 }
 
-void Input::TargetActionDonwHandle(float x, float y){
-	TRIGGER_EVENT(ActionDown, TargetToWordConvert(x, y));
+void Input::TargetActionDonwHandle(float x, float y, int actionID){
+	Action action;
+	action.pos = TargetToWordConvert(x, y);
+	action.id = actionID;
+	TRIGGER_EVENT(ActionDown, action);
 }
 
-void Input::TargetActionMoveHandle(float x, float y){
-	TRIGGER_EVENT(ActionMove, TargetToWordConvert(x, y));
+void Input::TargetActionMoveHandle(float x, float y, int actionID){
+	Action action;
+	action.pos = TargetToWordConvert(x, y);
+	action.id = actionID;
+	TRIGGER_EVENT(ActionMove, action);
 }
 
-void Input::TargetActionUpHandle(float x, float y){
-	TRIGGER_EVENT(ActionUp, TargetToWordConvert(x, y));
+void Input::TargetActionUpHandle(float x, float y, int actionID){
+	Action action;
+	action.pos = TargetToWordConvert(x, y);
+	action.id = actionID;
+	TRIGGER_EVENT(ActionUp, action);
 }

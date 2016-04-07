@@ -20,6 +20,7 @@
 #include "Camera.h"
 #include "Button.h"
 #include "ToggleButton.h"
+#include "Input.h"
 
 using namespace cross;
 
@@ -40,7 +41,7 @@ private:
 	float pitch;
 	float yaw;
 
-	bool handle_action;
+	int handled_action;
 	Vector2D touch_position;
 	
 	Sprite* arrow_released;
@@ -57,11 +58,11 @@ private:
 	void RecalcAngles();
 	void OnEyeClick();
 
-	FastDelegate1<Vector2D, void> action_down_delegate;
-	FastDelegate1<Vector2D, void> action_move_delegate;
-	FastDelegate1<Vector2D, void> action_up_delegate;
+	FastDelegate1<Input::Action, void> action_down_delegate;
+	FastDelegate1<Input::Action, void> action_move_delegate;
+	FastDelegate1<Input::Action, void> action_up_delegate;
 
-	void ActionDownHandle(Vector2D position);
-	void ActionMoveHandle(Vector2D position);
-	void ActionUpHandle(Vector2D position);
+	void ActionDownHandle(Input::Action action);
+	void ActionMoveHandle(Input::Action action);
+	void ActionUpHandle(Input::Action action);
 };

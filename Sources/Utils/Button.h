@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Events\Event.h"
+#include "Input.h"
 
 namespace cross {
 
@@ -55,6 +55,7 @@ protected:
 	Vector2D location;
 	bool located;
 	bool is_pressed;
+	int handled_action_id;
 	bool active;
 	Rect area;
 	float def_width;
@@ -68,16 +69,16 @@ protected:
 	string label_text;
 	Vector2D text_size;
 
-	FastDelegate1<Vector2D, void> action_down_delegate;
-	FastDelegate1<Vector2D, void> action_up_delegate;
-
 	void Locate(Vector2D loc, float width, float heiht);
 	void Locate(Rect rect);
 	bool OnLocation(float x, float y);
 	void FitText(string text);
 	//connections
-	void ActionDownHandler(Vector2D pos);
-	void ActionUpHandler(Vector2D pos);
+	FastDelegate1<Input::Action, void> action_down_delegate;
+	FastDelegate1<Input::Action, void> action_up_delegate;
+
+	void ActionDownHandler(Input::Action action);
+	void ActionUpHandler(Input::Action action);
 };
     
 }

@@ -196,16 +196,16 @@ extern "C"{
         app_state = APP_EXIT;
 	}
 
-	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        TRIGGER_EVENT(input->TargetActionDown, (float)targetX, (float)targetY);
+	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
+        TRIGGER_EVENT(input->TargetActionDown, (float)targetX, (float)targetY, (int)actionID);
 	}
 
-	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        TRIGGER_EVENT(input->TargetActionMove, (float)targetX, (float)targetY);
+	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
+        TRIGGER_EVENT(input->TargetActionMove, (float)targetX, (float)targetY, (int)actionID);
 	}
 
-	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY){
-        TRIGGER_EVENT(input->TargetActionUp, (float)targetX, (float)targetY);
+	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
+        TRIGGER_EVENT(input->TargetActionUp, (float)targetX, (float)targetY, (int)actionID);
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
         TRIGGER_EVENT(input->KeyPressed, (Key)key);

@@ -13,9 +13,9 @@ public class Cross {
 	public native void OnSuspend();
 	public native void OnExit();
 	
-	public native void ActionDown(float x, float y);
-	public native void ActionUp(float x, float y);
-	public native void ActionMove(float x, float y);
+	public native void ActionDown(float x, float y, int actionID);
+	public native void ActionUp(float x, float y, int actionID);
+	public native void ActionMove(float x, float y, int actionID);
 	public native void PressKey(int key);
 	public native void ReleaseKey(int key);
 	

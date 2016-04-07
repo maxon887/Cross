@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Input.h"
 
 #include <chrono>
 
@@ -66,9 +67,9 @@ private:
 	Debugger();
 	~Debugger();
 
-	void OnActionDown(Vector2D pos);
-	void OnActionUp(Vector2D pos);
-	void OnActionMove(Vector2D pos);
+	void OnActionDown(Input::Action action);
+	void OnActionUp(Input::Action action);
+	void OnActionMove(Input::Action action);
 };
     
 }

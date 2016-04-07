@@ -30,7 +30,7 @@ CameraControlScreen::CameraControlScreen() :
 	yaw(0.f),
 	pitch(0.f),
 	eye_btn(nullptr),
-	handle_action(false)
+	handled_action(-1)
 { }
 
 void CameraControlScreen::Start() {
@@ -219,24 +219,25 @@ void CameraControlScreen::OnEyeClick(){
 	RecalcAngles();
 }
 
-void CameraControlScreen::ActionDownHandle(Vector2D position){
-	if(!OnGuiArea(position)){
-		handle_action = true;
-		touch_position = position;
+void CameraControlScreen::ActionDownHandle(Input::Action action){
+	if(!OnGuiArea(action.pos) && handled_action == -1){
+		handled_action = action.id;
+		touch_position = action.pos;
 	}
 }
 
-void CameraControlScreen::ActionMoveHandle(Vector2D position){
-	if(handle_action){
+void CameraControlScreen::ActionMoveHandle(Input::Action action){
+	if(handled_action == action.id){
 		if(eye_btn->GetState()){	//free camera
-			Vector2D deltaPosition = touch_position - position;
-			touch_position = position;
+			Vector2D deltaPosition = touch_position - action.pos;
+			touch_position = action.pos;
 			yaw += deltaPosition.x / 10;
 			pitch += deltaPosition.y / 10;
 			RecalcAngles();
 		}else{						//look at camera
-			Vector2D deltaPosition = touch_position - position;
-			touch_position = position;
+			Vector2D deltaPosition = touch_position - action.pos;
+			touch_position = action.pos;
+
 			Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
 			Vector3D vertical = camera->GetUpVector();
 			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * 0.004f);
@@ -250,6 +251,8 @@ void CameraControlScreen::ActionMoveHandle(Vector2D position){
 	}
 }
 
-void CameraControlScreen::ActionUpHandle(Vector2D position){
-	handle_action = false;
+void CameraControlScreen::ActionUpHandle(Input::Action action){
+	if(handled_action == action.id){
+		handled_action = -1;
+	}
 }

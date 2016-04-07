@@ -47,14 +47,14 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		TRIGGER_EVENT(input->TargetActionDown, targetX, targetY);
+		TRIGGER_EVENT(input->TargetActionDown, targetX, targetY, 0);
 		break;
 	}
 	case WM_MOUSEMOVE:{
 		if(mouseDown){
 			float targetX = (short)LOWORD(lParam);
 			float targetY = (short)HIWORD(lParam);
-			TRIGGER_EVENT(input->TargetActionMove,targetX, targetY);
+			TRIGGER_EVENT(input->TargetActionMove,targetX, targetY, 0);
 		}
 		break;
 	}
@@ -63,7 +63,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		TRIGGER_EVENT(input->TargetActionUp, targetX, targetY);
+		TRIGGER_EVENT(input->TargetActionUp, targetX, targetY, 0);
 		break;
 	}
 	case WM_MOUSEWHEEL:{

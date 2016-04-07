@@ -23,7 +23,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private SurfaceView surface_view 	= null;
 	private AssetManager asset_manager 	= null;
 	private Commercial commercial		= null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate");
@@ -71,7 +71,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		super.onResume();
 		cross.OnResume();
 	}
-	
+
 	@Override
 	protected void onPause() {
 		Log.d(TAG, "onPause");
@@ -107,6 +107,28 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		int actionIndex = event.getActionIndex();
+		int actionId = event.getPointerId(actionIndex);
+		int actionMasked = event.getActionMasked();
+		switch (actionMasked){
+			case MotionEvent.ACTION_DOWN:
+			case MotionEvent.ACTION_POINTER_DOWN:{
+				cross.ActionDown(event.getX(actionIndex), event.getY(actionIndex), actionId);
+				return true;
+			}
+			case MotionEvent.ACTION_MOVE:{
+				for(int i = 0; i < event.getPointerCount(); i++){
+					cross.ActionMove(event.getX(i), event.getY(i), event.getPointerId(i));
+				}
+				return true;
+			}
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_POINTER_UP: {
+				cross.ActionUp(event.getX(actionIndex), event.getY(actionIndex), actionId);
+				return true;
+			}
+		}
+		/*
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			cross.ActionDown(event.getX(), event.getY());
@@ -117,10 +139,10 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		case MotionEvent.ACTION_UP:
 			cross.ActionUp(event.getX(), event.getY());
 			return true;
-		}
-		return false;
+		}*/
+		return super.onTouchEvent(event);
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -130,7 +152,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		switch(keyCode){
@@ -140,7 +162,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -148,7 +170,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 			//commercial.HandleActivityResult(requestCode, resultCode, data);
 		}
 	}
-	
+
 	public void PromtToExit() {
 		Log.d(TAG, "PromtToExit");
 
@@ -180,7 +202,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 			}
 		});
 	}
-	
+
 	public void SendCommertialResult(int event) {
 		if(cross != null) {
 			cross.CommertialResult(event);

@@ -85,15 +85,15 @@ void TriangleScreen::Update(float sec){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	
 	//debug camera
-	/*
+	
 	char buffer[256];
 	Vector3D camPos = camera->GetPosition();
 	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
-	gfx2D->DrawText(Vector2D(5.f, 3.f), buffer, debug_font);
+	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f), buffer, debug_font);
 	Vector3D camDir = camera->GetDirection();
 	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
-	gfx2D->DrawText(Vector2D(5.f, 3.f + debug_font->GetSize()), buffer, debug_font);
-	*/
+	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
+	
 	CameraControlScreen::Update(sec);
 	
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
@@ -101,6 +101,6 @@ void TriangleScreen::Update(float sec){
 	}
 }
 
-void TriangleScreen::ActionMoveHandle(Vector2D position){
+void TriangleScreen::ActionMoveHandle(Input::Action action){
 
 }

@@ -73,7 +73,8 @@ Button::Button() :
 	down_image(nullptr),
 	font(nullptr),
 	def_width(0),
-	def_height(0)
+	def_height(0),
+	handled_action_id(-1)
 {
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -268,29 +269,35 @@ void Button::Locate(Rect rect){
 	FitText(label_text);
 }
 
-void Button::ActionDownHandler(Vector2D pos) {
-	if (active && OnLocation(pos.x, pos.y)) {
-		is_pressed = true;
-		if (push_sound != nullptr) {
-			push_sound->Play();
+void Button::ActionDownHandler(Input::Action action) {
+	if(handled_action_id == -1){
+		if (active && OnLocation(action.pos.x, action.pos.y)) {
+			is_pressed = true;
+			handled_action_id = action.id;
+			if (push_sound != nullptr) {
+				push_sound->Play();
+			}
 		}
 	}
 }
 
-void Button::ActionUpHandler(Vector2D pos) {
-	if (active && is_pressed) {
-		is_pressed = false;
-		if (push_sound != nullptr) {
-			push_sound->Play();
-		}
-		if (OnLocation(pos.x, pos.y)) {
-			if (down_image != nullptr) {
-				gfx2D->DrawSprite(location, down_image);
+void Button::ActionUpHandler(Input::Action action) {
+	if(handled_action_id == action.id){
+		if (active && is_pressed) {
+			is_pressed = false;
+			handled_action_id = -1;
+			if (push_sound != nullptr) {
+				push_sound->Play();
 			}
-			if (pull_sound != nullptr) {
-				pull_sound->Play();
+			if (OnLocation(action.pos.x, action.pos.y)) {
+				if (down_image != nullptr) {
+					gfx2D->DrawSprite(location, down_image);
+				}
+				if (pull_sound != nullptr) {
+					pull_sound->Play();
+				}
+				TRIGGER_EVENT(Clicked);
 			}
-			TRIGGER_EVENT(Clicked);
 		}
 	}
 }

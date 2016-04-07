@@ -36,12 +36,12 @@ private:
 	float height;
 	Vector2D touch;
 
-	FastDelegate1<Vector2D, void> action_down_handler;
-	FastDelegate1<Vector2D, void> action_move_handler;
-	FastDelegate1<Vector2D, void> action_up_handler;
+	FastDelegate1<Input::Action, void> action_down_handler;
+	FastDelegate1<Input::Action, void> action_move_handler;
+	FastDelegate1<Input::Action, void> action_up_handler;
 
-	void ActionDownHandle(Vector2D pos);
-	void ActionMoveHandle(Vector2D pos);
-	void ActionUpHandle(Vector2D pos);
+	void ActionDownHandle(Input::Action action);
+	void ActionMoveHandle(Input::Action action);
+	void ActionUpHandle(Input::Action action);
 
 };

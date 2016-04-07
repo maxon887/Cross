@@ -87,16 +87,16 @@ void PrimitivesScreen::GenerateEntity(){
 	entities.push_back(entity);
 }
 
-void PrimitivesScreen::OnActionDown(Vector2D pos){
+void PrimitivesScreen::OnActionDown(Input::Action action){
 	generate_entities = true;
-	spawn = pos;
+	spawn = action.pos;
 }
 
-void PrimitivesScreen::OnActionMove(Vector2D pos){
-	spawn = pos;
+void PrimitivesScreen::OnActionMove(Input::Action action){
+	spawn = action.pos;
 }
 
-void PrimitivesScreen::OnActionUp(Vector2D pos){
+void PrimitivesScreen::OnActionUp(Input::Action action){
 	generate_entities = false;
 	entity_type = (Entity::Type)((entity_type+1) % Entity::Type::NONE);
 
