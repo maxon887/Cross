@@ -19,6 +19,7 @@
 #include "Input.h"
 #include "Game.h"
 #include "Graphics2D.h"
+#include "Graphics3D.h"
 #include "Font.h"
 
 struct Vertex
@@ -28,7 +29,6 @@ struct Vertex
 
 void TriangleScreen::Start(){
 	CameraControlScreen::Start();
-	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 	
 	shader = new TriangleShaders();
 	debug_font = gfx2D->GetDefaultFont()->Clone();
@@ -64,6 +64,7 @@ void TriangleScreen::Update(float sec){
 	//CameraControlScreen::Update(sec);
 	
 	SAFE(glUseProgram(shader->program));
+	Camera* camera = gfx3D->GetCamera();
 	if(shader->aPosition != -1)
 	{
 		SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
@@ -85,7 +86,6 @@ void TriangleScreen::Update(float sec){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	
 	//debug camera
-	
 	char buffer[256];
 	Vector3D camPos = camera->GetPosition();
 	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);

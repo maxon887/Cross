@@ -23,7 +23,9 @@
 #include "Audio.h"
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
+#include "Graphics3D.h"
 #include "CrossEGL.h"
+#include "../../Cross.h"
 
 #include <android/native_window_jni.h>
 #include <android/asset_manager_jni.h>
@@ -75,6 +77,7 @@ void* Main(void* self){
                         game = CrossMain(launcher);
                         gfxGL = new GraphicsGL();
                         gfx2D = new Graphics2D();
+                        gfx3D = new Graphics3D();
                         game->Start();
                         game->SetScreen(game->GetStartScreen());
                         app_state = APP_RUNNING;
@@ -131,9 +134,10 @@ void* Main(void* self){
         //exit application
         game->GetCurrentScreen()->Stop();
         game->Stop();
-        delete game;
+        delete gfx3D;
         delete gfx2D;
         delete gfxGL;
+        delete game;
     } catch (Exception& exc){
         string msg = string(exc.message) +
                      +"\nFile: " + string(exc.filename) +

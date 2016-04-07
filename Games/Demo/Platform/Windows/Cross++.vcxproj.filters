@@ -28,6 +28,9 @@
     <Filter Include="Demo\Graphics3D">
       <UniqueIdentifier>{e2bb383f-7353-4c96-b961-b48bbccd78f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Assimp">
+      <UniqueIdentifier>{7fd1b04b-857e-4b8c-8ec7-4f00e48ed1d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -186,6 +189,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\ScrollScreen.cpp">
       <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Mesh.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\MeshScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -354,6 +366,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\ScrollScreen.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Mesh.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Graphics3D.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\MeshScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

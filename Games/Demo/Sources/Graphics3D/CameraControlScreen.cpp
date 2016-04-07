@@ -19,6 +19,7 @@
 #include "Input.h"
 #include "Utils/Misc.h"
 #include "Graphics2D.h"
+#include "Graphics3D.h"
 #include "Sprite.h"
 
 #include <math.h>
@@ -30,14 +31,12 @@ CameraControlScreen::CameraControlScreen() :
 	yaw(0.f),
 	pitch(0.f),
 	eye_btn(nullptr),
-	handled_action(-1)
+	handled_action(-1),
+	orbit_distance(1.f)
 { }
 
 void CameraControlScreen::Start() {
-	orbit_distance = 1.f;
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
-	camera = new Camera(projection);
-	camera->SetPosition(Vector3D(0.f, 0.f, -1.f));
+	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 
 	action_down_delegate = MakeDelegate(this, &CameraControlScreen::ActionDownHandle);
 	action_move_delegate = MakeDelegate(this, &CameraControlScreen::ActionMoveHandle);
@@ -90,7 +89,6 @@ void CameraControlScreen::Start() {
 }
 
 void CameraControlScreen::Stop(){
-	delete camera;
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;
@@ -124,7 +122,7 @@ void CameraControlScreen::Update(float sec){
 	if(eulerAngles) {
 		RecalcAngles();
 	}
-
+	Camera* camera = gfx3D->GetCamera();
 	if(eye_btn->GetState()){	//free camera
 		if(input->IsPressed(Key::W) || up_btn->IsPressed()) {
 			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
@@ -174,10 +172,6 @@ void CameraControlScreen::Update(float sec){
 	}
 }
 
-Camera* CameraControlScreen::GetCamera(){
-	return camera;
-}
-
 bool CameraControlScreen::OnGuiArea(Vector2D pos){
 	for(Button* btn : gui){
 		if(btn->OnLocation(pos)){
@@ -203,14 +197,14 @@ void CameraControlScreen::RecalcAngles(){
 	direction.y = sinPitch;
 	direction.x = cosPitch * sinYaw;
 
-	camera->SetDirection(direction);
+	gfx3D->GetCamera()->SetDirection(direction);
 }
 
 void CameraControlScreen::OnEyeClick(){
 	//orbit
-	orbit_distance = camera->GetPosition().Length();
+	orbit_distance = gfx3D->GetCamera()->GetPosition().Length();
 	//free
-	Vector3D direction = camera->GetDirection();
+	Vector3D direction = gfx3D->GetCamera()->GetDirection();
 	float sinP = direction.y;
 	float cosP = sqrt(1.f - pow(direction.y, 2.f));
 	float sinY = direction.x / cosP;
@@ -235,6 +229,7 @@ void CameraControlScreen::ActionMoveHandle(Input::Action action){
 			pitch += deltaPosition.y / 10;
 			RecalcAngles();
 		}else{						//look at camera
+			Camera* camera = gfx3D->GetCamera();
 			Vector2D deltaPosition = touch_position - action.pos;
 			touch_position = action.pos;
 

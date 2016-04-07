@@ -31,9 +31,6 @@ public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
-	Camera* GetCamera();
-protected:
-	Camera* camera;
 private:
 	float liner_speed;
 	float angular_speed;

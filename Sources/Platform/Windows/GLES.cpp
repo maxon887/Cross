@@ -22,6 +22,7 @@
 #include "LauncherWIN.h"
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
+#include "Graphics3D.h"
 #include "Config.h"
 
 using namespace cross;
@@ -54,6 +55,7 @@ int GLES_GO(){
 
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
+		gfx3D = new Graphics3D();
 		game->Start();
 		game->SetScreen(game->GetStartScreen());
 
@@ -70,6 +72,7 @@ int GLES_GO(){
 
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
+		delete gfx3D;
 		delete gfx2D;
 		delete gfxGL;
 		delete game;

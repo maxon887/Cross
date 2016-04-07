@@ -23,6 +23,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "Graphics2D.h"
+#include "Graphics3D.h"
 #include "Screen.h"
 #include "resource.h"
 
@@ -96,6 +97,7 @@ int NativeGL_GO(){
 
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
+		gfx3D = new Graphics3D();
 		game->Start();
 		game->SetScreen(game->GetStartScreen());
 
@@ -110,6 +112,7 @@ int NativeGL_GO(){
 		}
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
+		delete gfx3D;
 		delete gfx2D;
 		delete gfxGL;
 		delete game;

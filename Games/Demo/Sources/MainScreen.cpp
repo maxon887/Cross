@@ -22,6 +22,7 @@
 #include "AudioScreen.h"
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScreen.h"
+#include "Graphics3D/MeshScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -65,17 +66,21 @@ void MainScreen::Start(){
 	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
 	animationBtn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
-	//graphics 3D menu
-	graphics3D_menu = new Menu(true);
-	Button* triangleBtn = new Button("Triangle");
-	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
-	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
-	graphics3D_menu->AddButton(triangleBtn);
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
 	graphics2D_menu->AddButton(textBtn);
 	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
+	//graphics 3D menu
+	graphics3D_menu = new Menu(true);
+	Button* triangleBtn = new Button("Triangle");
+	Button* meshBtn = new Button("Mesh");
+	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
+	meshBtn->SetImages(button_sprite->Clone(), nullptr);
+	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
+	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnMeshClick);
+	graphics3D_menu->AddButton(triangleBtn);
+	graphics3D_menu->AddButton(meshBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -154,6 +159,10 @@ void MainScreen::On2DCameraClick(){
 
 void MainScreen::OnTriangleClick(){
 	next_screen = new TriangleScreen();
+}
+
+void MainScreen::OnMeshClick(){
+	next_screen = new MeshScreen();
 }
 
 void MainScreen::OnAudioClick() {

@@ -46,6 +46,9 @@ private:
 	void OnAnimationClick();
 	void On2DCameraClick();
 	void OnTextClick();
+
 	void OnTriangleClick();
+	void OnMeshClick();
+
 	void OnAudioClick();
 };
