@@ -34,8 +34,10 @@ android {
             cFlags += " -I${project.buildDir}/../../../../../../Sources"
             cFlags += " -I${project.buildDir}/../../../../../../Sources/FreeType"
             cFlags += " -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2"
+            cFlags += " -I${project.buildDir}/../../../../../../Sources/Assimp"
             ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
             ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
+            ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
         }
     }
     buildTypes {
@@ -99,6 +101,12 @@ android {
         main.jni.srcDirs += '../../../../../Sources/Cross.h'
         main.jni.srcDirs += '../../../../../Sources/Screen.h'
         main.jni.srcDirs += '../../../../../Sources/Screen.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Mesh.h'
+        main.jni.srcDirs += '../../../../../Sources/Mesh.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Model.h'
+        main.jni.srcDirs += '../../../../../Sources/Model.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Graphics3D.h'
+        main.jni.srcDirs += '../../../../../Sources/Graphics3D.cpp'
     }
 }
 

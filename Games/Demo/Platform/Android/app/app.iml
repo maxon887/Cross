@@ -176,6 +176,12 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.cpp" isTestSource="false" />
     </content>
@@ -205,6 +211,18 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Mesh.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Mesh.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Mesh.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Mesh.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Model.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Model.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Model.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Model.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android" isTestSource="false" />

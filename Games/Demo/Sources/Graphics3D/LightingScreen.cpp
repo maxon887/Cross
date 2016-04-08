@@ -18,6 +18,7 @@
 #include "Game.h"
 
 void LightingScreen::Start(){
+	CameraControlScreen::Start();
 }
 
 void LightingScreen::Stop(){
