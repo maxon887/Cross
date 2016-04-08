@@ -21,6 +21,5 @@ using namespace cross;
 PrimitiveShaders::PrimitiveShaders() :
 	Shaders("Engine/Shaders/primitive.vert", "Engine/Shaders/primitive.frag")
 {
-	aPosition = glGetAttribLocation(program, "aPosition");
 	uColor = glGetUniformLocation(program, "uColor");
 }

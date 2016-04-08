@@ -22,7 +22,6 @@ namespace cross{
 
 class MonochromeShaders : public Shaders{
 public:
-	GLint aPosition;
 	GLint aTexCoord;
 	GLint uColor;
 

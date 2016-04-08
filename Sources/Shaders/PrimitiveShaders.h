@@ -22,7 +22,6 @@ namespace cross{
 
 class PrimitiveShaders : public Shaders{
 public:
-	GLint aPosition;
 	GLint uColor;
 
 	PrimitiveShaders();

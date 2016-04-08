@@ -75,7 +75,7 @@ Camera2D* Graphics2D::GetDefaultCamera(){
 }
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
-	gfxGL->UseProgram(primitive_shaders->program);
+	gfxGL->UseShaders(primitive_shaders);
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
@@ -87,7 +87,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 }
 
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
-	gfxGL->UseProgram(primitive_shaders->program);
+	gfxGL->UseShaders(primitive_shaders);
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
@@ -104,7 +104,7 @@ void Graphics2D::DrawRect(Rect rect, Color color){
 }
 
 void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
-	gfxGL->UseProgram(primitive_shaders->program);
+	gfxGL->UseShaders(primitive_shaders);
 	float vertices[5 * 2] = {	rect.x, rect.y,
 								rect.x + rect.width, rect.y,
 								rect.x + rect.width, rect.y + rect.height,
@@ -134,7 +134,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 }
 
 void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy){
-	gfxGL->UseProgram(primitive_shaders->program);
+	gfxGL->UseShaders(primitive_shaders);
 	int vertexCount = accuracy;
 
 	// Create a buffer for vertex data
@@ -207,9 +207,9 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome){
 	if(monochrome){
-		gfxGL->UseProgram(monochrome_shaders->program);
+		gfxGL->UseShaders(monochrome_shaders);
 	}else{
-		gfxGL->UseProgram(sprite_shaders->program);
+		gfxGL->UseShaders(sprite_shaders);
 	}
 
 	SAFE(glEnable(GL_BLEND));

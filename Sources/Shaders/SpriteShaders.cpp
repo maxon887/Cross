@@ -21,7 +21,6 @@ using namespace cross;
 SpriteShaders::SpriteShaders() :
 	Shaders("Engine/Shaders/sprite.vert", "Engine/Shaders/sprite.frag")
 {
-	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoord = glGetAttribLocation(program, "aTexCoord");
 	uMonochrome = glGetUniformLocation(program, "uMonochrome");
 	uColor = glGetUniformLocation(program, "uColor");

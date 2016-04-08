@@ -27,6 +27,7 @@ Shaders::Shaders(string vertexFile, string fragmentFile){
 	gfxGL->CompileProgram(program);
 
 	uMVP = glGetUniformLocation(program, "uMVP");
+	aPosition = glGetAttribLocation(program, "aPosition");
 }
 
 Shaders::~Shaders(){

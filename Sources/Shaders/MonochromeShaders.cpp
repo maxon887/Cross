@@ -21,7 +21,6 @@ using namespace cross;
 MonochromeShaders::MonochromeShaders() :
 	Shaders("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag")
 {
-	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoord = glGetAttribLocation(program, "aTexCoord");
 	uColor = glGetUniformLocation(program, "uColor");
 }

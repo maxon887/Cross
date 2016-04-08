@@ -22,7 +22,6 @@ namespace cross{
 
 class SpriteShaders : public Shaders{
 public:
-	GLint aPosition;
 	GLint aTexCoord;
 	GLint uMonochrome;
 	GLint uColor;

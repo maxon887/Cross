@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics3D/CameraControlScreen.h"
-#include "TriangleShaders.h"
+#include "Shaders/SimpleShaders.h"
 #include "Input.h"
 
 using namespace cross;
@@ -30,7 +30,7 @@ public:
 private:
 	//Font* debug_font;
 	GLuint vboId;
-	TriangleShaders* shader;
+	SimpleShaders* shader;
 
 	Vector2D touch_pos;
 

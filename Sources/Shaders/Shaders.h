@@ -24,6 +24,7 @@ class Shaders{
 public:
 	GLuint program;
 	GLint uMVP;
+	GLint aPosition;
 
 	Shaders(string vertexFile, string fragmentFile);
 	virtual ~Shaders();

@@ -40,6 +40,7 @@ void CameraControlScreen::Start() {
 	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -20.f));
 	gfx3D->GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	orbit_distance = gfx3D->GetCamera()->GetPosition().Length();
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
 
@@ -90,6 +91,7 @@ void CameraControlScreen::Start() {
 	eye_btn = new ToggleButton(eye, eyePressed);
 	eye_btn->Clicked += MakeDelegate(this, &CameraControlScreen::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
+	eye_btn->SetState(false);
 	gui.push_back(eye_btn);
 }
 

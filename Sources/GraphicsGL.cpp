@@ -18,6 +18,7 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
+#include "Shaders.h"
 
 using namespace cross;
 
@@ -148,8 +149,8 @@ void GraphicsGL::CompileProgram(GLuint program){
 	}
 }
 
-void GraphicsGL::UseProgram(GLuint program){
-	glUseProgram(program);
+void GraphicsGL::UseShaders(Shaders* shaders){
+	glUseProgram(shaders->program);
 }
 
 void GraphicsGL::WindowResizeHandle(int width, int height){

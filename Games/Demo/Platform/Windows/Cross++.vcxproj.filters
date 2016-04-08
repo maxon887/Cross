@@ -112,9 +112,6 @@
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\SpriteShaders.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -178,9 +175,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\TriangleShaders.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -201,6 +195,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\LightingScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShaders.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightShaders.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,9 +295,6 @@
     <ClInclude Include="..\..\..\..\Sources\Sprite.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\SpriteShaders.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -364,9 +364,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\TriangleShaders.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\ScrollScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
@@ -385,6 +382,15 @@
     <ClInclude Include="..\..\Sources\Graphics3D\LightingScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightShaders.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -402,11 +408,17 @@
     <None Include="..\..\Assets\Engine\Shaders\sprite.vert">
       <Filter>Cross\Shaders</Filter>
     </None>
-    <None Include="..\..\Assets\triangle.frag">
-      <Filter>Demo\Graphics3D</Filter>
+    <None Include="..\..\Assets\Engine\Shaders\simple.frag">
+      <Filter>Cross\Shaders</Filter>
     </None>
-    <None Include="..\..\Assets\triangle.vert">
-      <Filter>Demo\Graphics3D</Filter>
+    <None Include="..\..\Assets\Engine\Shaders\simple.vert">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\light.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\light.vert">
+      <Filter>Cross\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

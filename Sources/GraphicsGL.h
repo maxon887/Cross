@@ -50,6 +50,8 @@
 
 namespace cross{
 
+class Shaders;
+
 class GraphicsGL{
 public:
 	static void CheckGLError();
@@ -62,7 +64,7 @@ public:
 	void DeleteProgram(GLuint program);
 	void AttachShader(GLuint program, GLuint shader);
 	void CompileProgram(GLuint program);
-	void UseProgram(GLuint program);
+	void UseShaders(Shaders* shaders);
 private:
 	void WindowResizeHandle(int width, int height);
 };

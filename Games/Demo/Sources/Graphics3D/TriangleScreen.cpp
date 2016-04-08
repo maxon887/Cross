@@ -30,7 +30,7 @@ struct Vertex
 void TriangleScreen::Start(){
 	CameraControlScreen::Start();
 	
-	shader = new TriangleShaders();
+	shader = new SimpleShaders();
 	
 	Vertex verticesData[3];
 

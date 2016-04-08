@@ -59,10 +59,12 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 	}
 }
 
+
+
 Graphics3D::Graphics3D(){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
-	triangle_shader = new TriangleShaders();
+	simple_shader = new SimpleShaders();
 }
 
 Camera* Graphics3D::GetCamera(){
@@ -88,21 +90,20 @@ Model* Graphics3D::LoadModel(const string& filename){
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	launcher->LogIt("-------------------------");
 	return model;
 }
 
 void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform){
-	gfxGL->UseProgram(triangle_shader->program);
-	if(triangle_shader->aPosition != -1){
+	gfxGL->UseShaders(simple_shader);
+	if(simple_shader->aPosition != -1){
 		SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-		SAFE(glEnableVertexAttribArray(triangle_shader->aPosition));
-		SAFE(glVertexAttribPointer(triangle_shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+		SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
+		SAFE(glVertexAttribPointer(simple_shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	}
-	if(triangle_shader->uMVP != -1){
+	if(simple_shader->uMVP != -1){
 		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
 		mvp = mvp.Transpose();
-		SAFE(glUniformMatrix4fv(triangle_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+		SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));

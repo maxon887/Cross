@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "GraphicsGL.h"
-#include "Graphics3D/TriangleShaders.h"
+#include "Shaders/SimpleShaders.h"
 
 namespace cross{
 
@@ -31,7 +31,7 @@ public:
 	void DrawMesh(Mesh* mesh, const Matrix& model);
 private:
 	Camera* camera;
-	TriangleShaders* triangle_shader;
+	SimpleShaders* simple_shader;
 };
 
 }
