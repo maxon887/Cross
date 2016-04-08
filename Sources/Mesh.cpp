@@ -18,7 +18,8 @@
 
 using namespace cross;
 
-Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices){
+Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount){
+	poly_count = polyCount;
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 	

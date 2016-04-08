@@ -18,6 +18,8 @@
 #include "Mesh.h"
 #include "File.h"
 #include "Camera.h"
+#include "Model.h"
+#include "Utils/Debugger.h"
 
 #define SWIG
 
@@ -28,24 +30,22 @@
 using namespace cross;
 
 Mesh* processMesh(aiMesh* mesh, const aiScene* scene){
-	CRArray<Vertex>* vertices = new CRArray<Vertex>();
-	CRArray<unsigned int>* indices = new CRArray<unsigned int>();
+	CRArray<Vertex> vertices;
+	CRArray<unsigned int> indices;
 
 	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
 		Vertex vertex;
 		vertex.pos.x = mesh->mVertices[i].x;
 		vertex.pos.y = mesh->mVertices[i].y;
 		vertex.pos.z = mesh->mVertices[i].z;
-		vertices->push_back(vertex);
+		vertices.push_back(vertex);
 	}
-
 	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
-		//aiFace face = mesh->mFaces[i];
 		for(unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
-			indices->push_back(mesh->mFaces[i].mIndices[j]);
+			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	Mesh* ret = new Mesh(*vertices, *indices);
+	Mesh* ret = new Mesh(vertices, indices, mesh->mNumFaces);
 	return ret;
 }
 
@@ -62,7 +62,6 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 Graphics3D::Graphics3D(){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
-	camera->SetPosition(Vector3D(0.f, 0.f, -1.f));
 	triangle_shader = new TriangleShaders();
 }
 
@@ -70,20 +69,27 @@ Camera* Graphics3D::GetCamera(){
 	return camera;
 }
 
-Mesh* Graphics3D::LoadMesh(string filename){
+CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
-	//const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs);
 	const aiScene* scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
 	if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
 	CRArray<Mesh*> meshes;
 	processNode(&meshes, scene->mRootNode, scene);
-	if(meshes.size() > 1){
-		//throw CrossException("Model file containes more than 1 mesh");
-	}
-	return meshes[1];
+	return meshes;
+}
+
+Model* Graphics3D::LoadModel(const string& filename){
+	Debugger::Instance()->StartCheckTime();
+	CRArray<Mesh*> modelMeshes = LoadMeshes(filename);
+	Model* model = new Model(modelMeshes);
+	string msg = "" + filename + " loaded in ";
+	Debugger::Instance()->StopCheckTime(msg);
+	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
+	launcher->LogIt("-------------------------");
+	return model;
 }
 
 void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform){
@@ -98,9 +104,10 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform){
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(triangle_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
-	//glDrawArrays(GL_TRIANGLES, 0,
+
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
 }

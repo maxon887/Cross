@@ -26,7 +26,8 @@ public:
 	Graphics3D();
 
 	Camera* GetCamera();
-	Mesh* LoadMesh(string filename);
+	CRArray<Mesh*> LoadMeshes(const string& filename);
+	Model* LoadModel(const string& filename);
 	void DrawMesh(Mesh* mesh, const Matrix& model);
 private:
 	Camera* camera;

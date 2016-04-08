@@ -31,14 +31,12 @@ void TriangleScreen::Start(){
 	CameraControlScreen::Start();
 	
 	shader = new TriangleShaders();
-	debug_font = gfx2D->GetDefaultFont()->Clone();
-	debug_font->SetSize(25.f);
 	
 	Vertex verticesData[3];
 
-	verticesData[0].pos.x = 0.0f;  verticesData[0].pos.y = 0.5f;  verticesData[0].pos.z = 0.0f;
-	verticesData[1].pos.x = -0.5f;  verticesData[1].pos.y = -0.5f;  verticesData[1].pos.z = 0.0f;
-	verticesData[2].pos.x = 0.5f;  verticesData[2].pos.y = -0.5f;  verticesData[2].pos.z = 0.0f;
+	verticesData[0].pos.x = 0.0f;  verticesData[0].pos.y = 5.f;  verticesData[0].pos.z = 0.0f;
+	verticesData[1].pos.x = -5.f;  verticesData[1].pos.y = -5.f;  verticesData[1].pos.z = 0.0f;
+	verticesData[2].pos.x = 5.f;  verticesData[2].pos.y = -5.f;  verticesData[2].pos.z = 0.0f;
 
 	//buffer object
 	SAFE(glGenBuffers(1, &vboId));
@@ -53,7 +51,6 @@ void TriangleScreen::Start(){
 void TriangleScreen::Stop(){
 	CameraControlScreen::Stop();
 	delete shader;
-	delete debug_font;
 	
 	SAFE(glDeleteBuffers(1, &vboId));
 
@@ -61,8 +58,6 @@ void TriangleScreen::Stop(){
 }
 
 void TriangleScreen::Update(float sec){
-	//CameraControlScreen::Update(sec);
-	
 	SAFE(glUseProgram(shader->program));
 	Camera* camera = gfx3D->GetCamera();
 	if(shader->aPosition != -1)
@@ -84,15 +79,6 @@ void TriangleScreen::Update(float sec){
 	}
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	
-	//debug camera
-	char buffer[256];
-	Vector3D camPos = camera->GetPosition();
-	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
-	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f), buffer, debug_font);
-	Vector3D camDir = camera->GetDirection();
-	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
-	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 	
 	CameraControlScreen::Update(sec);
 	

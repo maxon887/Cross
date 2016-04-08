@@ -15,13 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CameraControlScreen.h"
+#include "Cross.h"
 
-class MeshScreen : public CameraControlScreen{
+namespace cross{
+
+class Model{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Mesh* mesh;
+	Model(CRArray<Mesh*>& meshes);
+
+	void Draw();
+	int GetPolyCount();
+protected:
+	Matrix transform;
+	CRArray<Mesh*> meshes;
 };
+
+}

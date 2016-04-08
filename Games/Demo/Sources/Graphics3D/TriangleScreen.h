@@ -28,7 +28,7 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Font* debug_font;
+	//Font* debug_font;
 	GLuint vboId;
 	TriangleShaders* shader;
 

@@ -38,6 +38,8 @@ private:
 	float pitch;
 	float yaw;
 
+	Font* debug_font;
+
 	int handled_action;
 	Vector2D touch_position;
 	

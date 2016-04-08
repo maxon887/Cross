@@ -261,11 +261,12 @@ Sprite* Graphics2D::LoadImage(string filename){
 	}
 	Sprite* sprite = LoadImage(image, 4, width, height);
 	SOIL_free_image_data(image);
+	string debugMsg = "" + filename + " loaded in ";
+	Debugger::Instance()->StopCheckTime(debugMsg);
 	return sprite;
 }
 
 Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int height){
-	Debugger::Instance()->StartCheckTime();
 	GLuint textureID;
 	Rect region(0, 0, (float)width, (float)height);
 	int newWidth = 1;
@@ -313,9 +314,7 @@ Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int
 	}
 
 	Sprite* img = new Sprite(textureID, width, height, region);
-	string debugMsg = "Load image ";
 	glBindTexture(GL_TEXTURE_2D, 0);
-	Debugger::Instance()->StopCheckTime(debugMsg);
 	return img;
 }
 

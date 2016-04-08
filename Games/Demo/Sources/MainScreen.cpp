@@ -22,7 +22,7 @@
 #include "AudioScreen.h"
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScreen.h"
-#include "Graphics3D/MeshScreen.h"
+#include "Graphics3D/CubeScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -74,7 +74,7 @@ void MainScreen::Start(){
 	//graphics 3D menu
 	graphics3D_menu = new Menu(true);
 	Button* triangleBtn = new Button("Triangle");
-	Button* meshBtn = new Button("Mesh");
+	Button* meshBtn = new Button("Cube");
 	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
 	meshBtn->SetImages(button_sprite->Clone(), nullptr);
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
@@ -162,7 +162,7 @@ void MainScreen::OnTriangleClick(){
 }
 
 void MainScreen::OnMeshClick(){
-	next_screen = new MeshScreen();
+	next_screen = new CubeScreen();
 }
 
 void MainScreen::OnAudioClick() {

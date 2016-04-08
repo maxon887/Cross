@@ -21,13 +21,14 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Sprite.h"
+#include "Font.h"
 
 #include <math.h>
 
 CameraControlScreen::CameraControlScreen() :
-	liner_speed(1.f),
+	liner_speed(10.f),
 	angular_speed(45.f),
-	orbit_speed(5.f),
+	orbit_speed(10.f),
 	yaw(0.f),
 	pitch(0.f),
 	eye_btn(nullptr),
@@ -37,6 +38,10 @@ CameraControlScreen::CameraControlScreen() :
 
 void CameraControlScreen::Start() {
 	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
+	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -20.f));
+	gfx3D->GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	debug_font = gfx2D->GetDefaultFont()->Clone();
+	debug_font->SetSize(25.f);
 
 	action_down_delegate = MakeDelegate(this, &CameraControlScreen::ActionDownHandle);
 	action_move_delegate = MakeDelegate(this, &CameraControlScreen::ActionMoveHandle);
@@ -93,6 +98,7 @@ void CameraControlScreen::Stop(){
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;
 
+	delete debug_font;
 	delete arrow_released;
 	delete arrow_pressed;
 	for(Button* btn : gui){
@@ -144,16 +150,16 @@ void CameraControlScreen::Update(float sec){
 		}
 	}else{	//look at camera
 		if(input->IsPressed(Key::A) || left_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * sec);
+			camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * sec * 5.f);
 		}
 		if(input->IsPressed(Key::D) || right_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * sec);
+			camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * sec * 5.f);
 		}
 		if(input->IsPressed(Key::W)) {
-			camera->SetPosition(camera->GetPosition() + camera->GetUpVector() * orbit_speed * sec);
+			camera->SetPosition(camera->GetPosition() + camera->GetUpVector() * orbit_speed * sec * 5.f);
 		}
 		if(input->IsPressed(Key::S)) {
-			camera->SetPosition(camera->GetPosition() - camera->GetUpVector() * orbit_speed * sec);
+			camera->SetPosition(camera->GetPosition() - camera->GetUpVector() * orbit_speed * sec * 5.f);
 		}
 		if(up_btn->IsPressed()){
 			orbit_distance -= liner_speed * sec;
@@ -170,6 +176,14 @@ void CameraControlScreen::Update(float sec){
 	for(Button* btn : gui){
 		btn->Update();
 	}
+	//debug camera
+	char buffer[256];
+	Vector3D camPos = camera->GetPosition();
+	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
+	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f), buffer, debug_font);
+	Vector3D camDir = camera->GetDirection();
+	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
+	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 }
 
 bool CameraControlScreen::OnGuiArea(Vector2D pos){
@@ -235,8 +249,8 @@ void CameraControlScreen::ActionMoveHandle(Input::Action action){
 
 			Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
 			Vector3D vertical = camera->GetUpVector();
-			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * 0.004f);
-			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * 0.004f);
+			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * orbit_speed *  0.004f);
+			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * orbit_speed * 0.004f);
 
 			camera->LookAt(Vector3D(0.f, 0.f, 0.f));
 			float objectDistance = camera->GetPosition().Length();

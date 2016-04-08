@@ -14,26 +14,27 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "MeshScreen.h"
-#include "Game.h"
+#include "Model.h"
 #include "Graphics3D.h"
 #include "Mesh.h"
 
-void MeshScreen::Start(){
-	CameraControlScreen::Start();
-	mesh = gfx3D->LoadMesh("Gnome.obj");
+using namespace cross;
+
+Model::Model(CRArray<Mesh*>& meshes){
+	this->meshes = meshes;
+	transform = Matrix::CreateIdentity();
 }
 
-void MeshScreen::Stop(){
-	CameraControlScreen::Stop();
-}
-
-void MeshScreen::Update(float sec){
-
-	gfx3D->DrawMesh(mesh, Matrix::CreateIdentity());
-
-	CameraControlScreen::Update(sec);
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
+void Model::Draw(){
+	for(Mesh* mesh : meshes){
+		gfx3D->DrawMesh(mesh, transform);
 	}
+}
+
+int Model::GetPolyCount(){
+	int polyCount = 0;
+	for(Mesh* mesh : meshes){
+		polyCount += mesh->poly_count;
+	}
+	return polyCount;
 }

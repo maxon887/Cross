@@ -55,6 +55,7 @@ class Font;
 class Camera;
 class Camera2D;
 class Mesh;
+class Model;
 
 extern Game* game;
 extern Launcher* launcher;

@@ -30,8 +30,9 @@ public:
 	GLuint EBO;
 	GLuint VAO;
 	GLuint index_count;
+	GLuint poly_count;
 
-	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices);
+	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount);
 
 	void Draw();
 };

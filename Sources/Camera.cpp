@@ -41,7 +41,7 @@ void Camera::SetPosition(const Vector3D& pos){
 }
 
 void Camera::SetDirection(const Vector3D& dir){
-	direction = dir;
+	direction = dir.Normalize();
 	recalc_view = true;
 }
 
