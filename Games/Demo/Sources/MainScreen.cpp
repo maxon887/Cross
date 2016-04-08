@@ -23,6 +23,7 @@
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScreen.h"
 #include "Graphics3D/CubeScreen.h"
+#include "Graphics3D/LightingScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -75,12 +76,16 @@ void MainScreen::Start(){
 	graphics3D_menu = new Menu(true);
 	Button* triangleBtn = new Button("Triangle");
 	Button* meshBtn = new Button("Cube");
+	Button* lightBtn = new Button("Lighting");
 	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
 	meshBtn->SetImages(button_sprite->Clone(), nullptr);
+	lightBtn->SetImages(button_sprite->Clone(), nullptr);
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
-	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnMeshClick);
+	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnCubeClick);
+	lightBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightingClick);
 	graphics3D_menu->AddButton(triangleBtn);
 	graphics3D_menu->AddButton(meshBtn);
+	graphics3D_menu->AddButton(lightBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -161,10 +166,14 @@ void MainScreen::OnTriangleClick(){
 	next_screen = new TriangleScreen();
 }
 
-void MainScreen::OnMeshClick(){
+void MainScreen::OnCubeClick(){
 	next_screen = new CubeScreen();
 }
 
 void MainScreen::OnAudioClick() {
 	next_screen = new AudioScreen();
+}
+
+void MainScreen::OnLightingClick(){
+	next_screen = new LightingScreen();
 }

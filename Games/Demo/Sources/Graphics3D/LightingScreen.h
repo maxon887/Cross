@@ -16,40 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "ScrollScreen.h"
-#include "Utils/Button.h"
-#include "Menu.h"
+#include "CameraControlScreen.h"
 
-using namespace cross;
-
-class MainScreen : public ScrollScreen{
+class LightingScreen : public CameraControlScreen{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
 private:
-	Menu* current_menu;
-	Menu* main_menu;
-	Menu* graphics2D_menu;
-	Menu* graphics3D_menu;
-	Sprite* button_sprite;
-	Screen* next_screen;
-
-	FastDelegate1<Key, void> key_released_delegate;
-	//connections
-	void KeyReleasedHandle(Key key);
-
-	void OnGraphics2DClick();
-	void OnGraphics3DClick();
-	void OnPrimitivesClick();
-	void OnSpritesClick();
-	void OnAnimationClick();
-	void On2DCameraClick();
-	void OnTextClick();
-
-	void OnTriangleClick();
-	void OnCubeClick();
-	void OnLightingClick();
-
-	void OnAudioClick();
 };

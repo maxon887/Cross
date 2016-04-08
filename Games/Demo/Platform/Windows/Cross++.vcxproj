@@ -119,6 +119,7 @@
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CubeScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\LightingScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleShaders.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CubeScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\LightingScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleShaders.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />

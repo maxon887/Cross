@@ -199,6 +199,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CubeScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\LightingScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -377,6 +380,9 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\CubeScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\LightingScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
