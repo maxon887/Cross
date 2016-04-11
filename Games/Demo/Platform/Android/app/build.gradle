@@ -107,6 +107,10 @@ android {
         main.jni.srcDirs += '../../../../../Sources/Model.cpp'
         main.jni.srcDirs += '../../../../../Sources/Graphics3D.h'
         main.jni.srcDirs += '../../../../../Sources/Graphics3D.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Transformable.h'
+        main.jni.srcDirs += '../../../../../Sources/Transformable.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Texture.h'
+        main.jni.srcDirs += '../../../../../Sources/Texture.cpp'
     }
 }
 

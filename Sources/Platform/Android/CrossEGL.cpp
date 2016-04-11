@@ -9,6 +9,7 @@ static const EGLint config_attribs[]{
         EGL_RED_SIZE, 4,
         EGL_GREEN_SIZE, 4,
         EGL_BLUE_SIZE, 4,
+        EGL_DEPTH_SIZE, 4,
         EGL_NONE,
 };
 

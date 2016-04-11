@@ -164,11 +164,10 @@ GLboolean esCreateWindow(ESContext *esContext, GLuint flags)
 {
 	EGLint attribList[] =
 	{
-		EGL_RED_SIZE, 5,
-		EGL_GREEN_SIZE, 6,
-		EGL_BLUE_SIZE, 5,
-		EGL_ALPHA_SIZE, (flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
-		EGL_DEPTH_SIZE, (flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
+		EGL_RED_SIZE, 4,
+		EGL_GREEN_SIZE, 4,
+		EGL_BLUE_SIZE, 4,
+		EGL_DEPTH_SIZE, 4,
 		EGL_STENCIL_SIZE, (flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
 		EGL_SAMPLE_BUFFERS, (flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
 		EGL_NONE

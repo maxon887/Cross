@@ -22,13 +22,14 @@
 #include "Graphics3D.h"
 #include "Sprite.h"
 #include "Font.h"
+#include "Game.h"
 
 #include <math.h>
 
 CameraControlScreen::CameraControlScreen() :
 	liner_speed(10.f),
 	angular_speed(45.f),
-	orbit_speed(10.f),
+	orbit_speed(1.f),
 	yaw(0.f),
 	pitch(0.f),
 	eye_btn(nullptr),
@@ -152,16 +153,18 @@ void CameraControlScreen::Update(float sec){
 		}
 	}else{	//look at camera
 		if(input->IsPressed(Key::A) || left_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * sec * 5.f);
+			Vector3D offset = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * orbit_distance * sec;
+			camera->SetPosition(camera->GetPosition() + offset);
 		}
 		if(input->IsPressed(Key::D) || right_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * sec * 5.f);
+			Vector3D offset = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * orbit_distance * sec;
+			camera->SetPosition(camera->GetPosition() - offset);
 		}
 		if(input->IsPressed(Key::W)) {
-			camera->SetPosition(camera->GetPosition() + camera->GetUpVector() * orbit_speed * sec * 5.f);
+			camera->SetPosition(camera->GetPosition() + camera->GetUpVector() * orbit_speed * orbit_distance * sec);
 		}
 		if(input->IsPressed(Key::S)) {
-			camera->SetPosition(camera->GetPosition() - camera->GetUpVector() * orbit_speed * sec * 5.f);
+			camera->SetPosition(camera->GetPosition() - camera->GetUpVector() * orbit_speed * orbit_distance * sec);
 		}
 		if(up_btn->IsPressed()){
 			orbit_distance -= liner_speed * sec;
@@ -251,8 +254,8 @@ void CameraControlScreen::ActionMoveHandle(Input::Action action){
 
 			Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
 			Vector3D vertical = camera->GetUpVector();
-			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * orbit_speed *  0.004f);
-			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * orbit_speed * 0.004f);
+			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
+			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * orbit_speed * 0.002f * orbit_distance);
 
 			camera->LookAt(Vector3D(0.f, 0.f, 0.f));
 			float objectDistance = camera->GetPosition().Length();

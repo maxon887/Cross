@@ -39,6 +39,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		System.loadLibrary("c++_shared");
 		System.loadLibrary("fmod");
 		System.loadLibrary("freetype2");
+        System.loadLibrary("assimp");
 		System.loadLibrary("cross");
 		cross = new Cross();
 
@@ -128,18 +129,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 				return true;
 			}
 		}
-		/*
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			cross.ActionDown(event.getX(), event.getY());
-			return true;
-		case MotionEvent.ACTION_MOVE:
-			cross.ActionMove(event.getX(), event.getY());
-			return true;
-		case MotionEvent.ACTION_UP:
-			cross.ActionUp(event.getX(), event.getY());
-			return true;
-		}*/
 		return super.onTouchEvent(event);
 	}
 
@@ -149,8 +138,10 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 			case KeyEvent.KEYCODE_BACK:
 				cross.PressKey(Cross.KEY_BACK);
 				return true;
+            default:
+                cross.PressKey(keyCode);
+                return true;
 		}
-		return false;
 	}
 
 	@Override

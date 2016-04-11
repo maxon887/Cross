@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "GraphicsGL.h"
 #include "Shaders/SimpleShaders.h"
+#include "Events/Event.h"
 
 namespace cross{
 
@@ -33,6 +34,9 @@ public:
 private:
 	Camera* camera;
 	SimpleShaders* simple_shader;
+
+	FastDelegate2<int, int, void> window_resize_handle;
+	void WindowResizeHandle(int width, int height);
 };
 
 }

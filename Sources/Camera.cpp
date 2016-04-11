@@ -71,6 +71,10 @@ const Matrix& Camera::GetViewMatrix(){
 	return view;
 }
 
+void Camera::SetProjectionMatrix(const Matrix& projection){
+	this->projection = projection;
+}
+
 const Matrix& Camera::GetProjectionMatrix() const{
 	return projection;
 }

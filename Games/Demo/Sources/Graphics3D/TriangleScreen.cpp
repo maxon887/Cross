@@ -30,7 +30,7 @@ struct Vertex
 void TriangleScreen::Start(){
 	CameraControlScreen::Start();
 	
-	shader = new SimpleShaders();
+	shader = new PrimitiveShaders();
 	
 	Vertex verticesData[3];
 
@@ -60,14 +60,15 @@ void TriangleScreen::Stop(){
 void TriangleScreen::Update(float sec){
 	SAFE(glUseProgram(shader->program));
 	Camera* camera = gfx3D->GetCamera();
-	if(shader->aPosition != -1)
-	{
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
+	if(shader->aPosition != -1)	{
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
 		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	}
-	if(shader->uMVP != -1)
-	{
+	if(shader->uColor != -1){
+		SAFE(glUniform4f(shader->uColor, 1.f, 0.f, 0.f, 0.f));
+	}
+	if(shader->uMVP != -1){
 		static float angle = 0;
 		angle += 90 * sec;
 		Matrix translate = Matrix::CreateIdentity();

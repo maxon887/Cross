@@ -251,6 +251,18 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Transformable.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Transformable.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Utils">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Utils" isTestSource="false" />
     </content>

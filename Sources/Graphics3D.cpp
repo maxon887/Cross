@@ -22,6 +22,7 @@
 #include "Utils/Debugger.h"
 #include "Graphics2D.h"
 #include "Texture.h"
+#include "Game.h"
 
 #define SWIG
 
@@ -75,10 +76,14 @@ Graphics3D::Graphics3D(){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
 	simple_shader = new SimpleShaders();
+
+	window_resize_handle = MakeDelegate(this, &Graphics3D::WindowResizeHandle);
+	game->WindowResized += window_resize_handle;
 }
 
 Camera* Graphics3D::GetCamera(){
 	return camera;
+	game->WindowResized -= window_resize_handle;
 }
 
 CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
@@ -148,5 +153,9 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse)
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glDisable(GL_DEPTH_TEST));
+}
 
+void Graphics3D::WindowResizeHandle(int width, int height){
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
+	camera->SetProjectionMatrix(projection);
 }

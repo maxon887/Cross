@@ -30,17 +30,18 @@ public:
 	void SetPosition(const Vector3D& pos);
 	/* Set up camera view direction */
 	void SetDirection(const Vector3D& dir);
-
+	/* Turn camera to object */
 	void LookAt(const Vector3D& object);
 	/* Return camera world position */
 	Vector3D GetPosition() const;
 	/* Return camera view direction */
 	Vector3D GetDirection() const;
-
+	/* Return camre up vector */
 	Vector3D GetUpVector() const;
 //Framework module. You don't need call any of this methods or modify variable
 public:
 	const Matrix& GetViewMatrix();
+	void SetProjectionMatrix(const Matrix& projection);
 	const Matrix& GetProjectionMatrix() const;
 protected:
 	Matrix view;
