@@ -28,7 +28,8 @@ public:
 	Camera* GetCamera();
 	CRArray<Mesh*> LoadMeshes(const string& filename);
 	Model* LoadModel(const string& filename);
-	void DrawMesh(Mesh* mesh, const Matrix& model);
+	Model* LoadModel(const string& modelFile, const string& diffuseTexture);
+	void DrawMesh(Mesh* mesh, const Matrix& model, Texture* diffuse);
 private:
 	Camera* camera;
 	SimpleShaders* simple_shader;

@@ -43,6 +43,7 @@ public:
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
 	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
+	Texture* LoadTexture(string filename);
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scale);

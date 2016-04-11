@@ -15,27 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "Graphics3D.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
-struct Vertex{
-	Vector3D pos;
-	Vector2D uv;
-};
-
-class Mesh{
+class Texture{
 public:
-	GLuint VBO;
-	GLuint EBO;
-	GLuint VAO;
-	GLuint index_count;
-	GLuint poly_count;
 
-	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount);
+	GLuint GetID();
 
-	void Draw();
+	GLuint id;
+	int width;
+	int height;
+private:
 };
 
 }

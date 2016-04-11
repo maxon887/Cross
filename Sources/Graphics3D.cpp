@@ -20,6 +20,8 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Utils/Debugger.h"
+#include "Graphics2D.h"
+#include "Texture.h"
 
 #define SWIG
 
@@ -38,6 +40,14 @@ Mesh* processMesh(aiMesh* mesh, const aiScene* scene){
 		vertex.pos.x = mesh->mVertices[i].x;
 		vertex.pos.y = mesh->mVertices[i].y;
 		vertex.pos.z = mesh->mVertices[i].z;
+
+		if(mesh->mTextureCoords[0]){
+			vertex.uv.x = mesh->mTextureCoords[0][i].x;
+			vertex.uv.y = mesh->mTextureCoords[0][i].y;
+		}else{
+			vertex.uv = Vector2D(0.f, 0.f);
+		}
+
 		vertices.push_back(vertex);
 	}
 	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
@@ -83,20 +93,31 @@ CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
 	return meshes;
 }
 
-Model* Graphics3D::LoadModel(const string& filename){
+Model* Graphics3D::LoadModel(const string& model){
+	return LoadModel(model, "");
+}
+
+Model* Graphics3D::LoadModel(const string& modelFile, const string& diffuseTexture){
 	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*> modelMeshes = LoadMeshes(filename);
+	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
 	Model* model = new Model(modelMeshes);
-	string msg = "" + filename + " loaded in ";
+	if(!diffuseTexture.empty()){
+		Texture* diffuse = gfx2D->LoadTexture(diffuseTexture);
+		model->SetDiffuseTexture(diffuse);
+	}
+	string msg = "" + modelFile + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
 }
 
-void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform){
+void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse){
 	gfxGL->UseShaders(simple_shader);
+
+	SAFE(glEnable(GL_DEPTH_TEST));
+
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
 	if(simple_shader->aPosition != -1){
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
 		SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
 		SAFE(glVertexAttribPointer(simple_shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	}
@@ -106,9 +127,26 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform){
 		SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 
+	if(diffuse != nullptr && simple_shader->uDiffuseTexture != -1){
+		SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
+		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+		SAFE(glUniform1i(simple_shader->uDiffuseTexture, 0));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+	}
+
+	if(simple_shader->aDiffuseCoords != -1){
+		SAFE(glEnableVertexAttribArray(simple_shader->aDiffuseCoords));
+		SAFE(glVertexAttribPointer(simple_shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+	}
+
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glDisable(GL_DEPTH_TEST));
 
 }

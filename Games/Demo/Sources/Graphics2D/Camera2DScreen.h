@@ -30,7 +30,7 @@ private:
 	Sprite* grid;
 	Sprite* awesomefase;
 	CRArray<Sprite*> sprites;
-	CRArray<Vector2D> velocities;
+	CRArray<Vector3D> velocities;
 	float cam_speed;
 	float view_width;
 	Vector2D cam_positon;

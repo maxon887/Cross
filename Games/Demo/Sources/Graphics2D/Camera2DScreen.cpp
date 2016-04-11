@@ -32,7 +32,7 @@ void Camera2DScreen::Start(){
 		sprite->SetScale(0.1f);
 		sprite->SetPosition(Vector2D(Random(100.f, 900.f), Random(100.f, 900.f)));
 		sprites.push_back(sprite);
-		velocities.push_back(Vector2D(Random(-5.f, 5.f), Random(-5.f, 5.f)));
+		velocities.push_back(Vector3D(Random(-5.f, 5.f), Random(-5.f, 5.f), 0.f));
 	}
 	cam_speed = 10.f;
 	view_width = (float)launcher->GetTargetWidth();
@@ -72,7 +72,7 @@ void Camera2DScreen::Update(float sec){
 		Sprite* sprite = sprites[i];
 		float spriteWidth = sprite->GetWidth() / 2;
 		float spriteHeight = sprite->GetHeight() / 2;
-		Vector2D position = sprite->GetPosition();
+		Vector3D position = sprite->GetPosition();
 		position += velocities[i] * sec * 100;
 		sprite->SetPosition(position);
 

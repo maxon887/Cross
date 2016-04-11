@@ -16,26 +16,30 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Graphics3D.h"
 
 namespace cross{
 
-struct Vertex{
-	Vector3D pos;
-	Vector2D uv;
-};
-
-class Mesh{
+class Transformable{
 public:
-	GLuint VBO;
-	GLuint EBO;
-	GLuint VAO;
-	GLuint index_count;
-	GLuint poly_count;
+	Transformable(Transformable& trans);
+	Transformable();
 
-	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount);
+	void SetPosition(const Vector2D& pos);
+	void SetPosition(const Vector3D& pos);
+	void SetScale(float factor);
+	void SetScale(const Vector2D& scale);
+	void SetRotateX(float angle);
+	void SetRotateY(float angle);
+	void SetRotateZ(float angle);
+	Vector3D GetPosition() const;
 
-	void Draw();
+	Matrix& GetModelMatrix();
+protected:
+	Matrix model;
+	Matrix scale;
+	Matrix translate;
+	Matrix rotation;
+	bool recalc_model;
 };
 
 }

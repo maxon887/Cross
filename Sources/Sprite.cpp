@@ -22,12 +22,8 @@ const GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
 GLuint Sprite::EBO = -1;
 
 Sprite::Sprite(Sprite& sprite) :
+	Transformable(sprite),
 	VBO(sprite.VBO),
-	model(sprite.model),
-	scale(sprite.scale),
-	translate(sprite.translate),
-	rotation(sprite.rotation),
-	recalc_model(sprite.recalc_model),
 	textureID(sprite.textureID),
 	width(sprite.width),
 	height(sprite.height),
@@ -37,22 +33,19 @@ Sprite::Sprite(Sprite& sprite) :
 { }
 
 Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
+	Transformable(),
 	textureID(id),
 	texture_width(texWidth),
 	texture_height(texHeight),
 	width(region.width),
 	height(region.height),
 	VBO(-1),
-	recalc_model(true),
 	original(true)
 {
 	GLfloat u1 = region.x / texWidth;
 	GLfloat v1 = region.y / texHeight;
 	GLfloat u2 = u1 + region.width / texWidth;
 	GLfloat v2 = v1 + region.height / texHeight;
-	rotation = Matrix::CreateIdentity();
-	translate = Matrix::CreateIdentity();
-	scale = Matrix::CreateIdentity();
 
 	GLfloat vertices[16];
 	vertices[0] = -region.width / 2.0f;
@@ -95,7 +88,6 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 	width(region.width),
 	height(region.height),
 	VBO(-1),
-	recalc_model(true),
 	original(true)
 {
 	GLfloat u1 = region.x / texWidth;
@@ -147,29 +139,6 @@ Sprite::~Sprite(){
 	}
 }
 
-void Sprite::SetPosition(const Vector2D& pos){
-	translate.SetTranslation(pos);
-	recalc_model = true;
-}
-
-void Sprite::SetScale(float factor){
-	scale.SetScale(factor);
-	recalc_model = true;
-}
-
-void Sprite::SetScale(const Vector2D& scaleVec){
-	scale.SetScale(scaleVec);
-	recalc_model = true;
-}
-
-void Sprite::SetRotate(float angle){
-	rotation.SetRotationZ(angle);
-	recalc_model = true;
-}
-
-Vector2D Sprite::GetPosition() const{
-	return Vector2D(translate.m[0][3], translate.m[1][3]);
-}
 
 const GLushort* Sprite::GetIndices() const{
 	return (GLushort*)indices;
@@ -195,14 +164,10 @@ int Sprite::GetTextureHeight() const{
 	return texture_height;
 }
 
-Sprite* Sprite::Clone(){
-	return new Sprite(*this);
+void Sprite::SetRotate(float angle){
+	SetRotateZ(angle);
 }
 
-Matrix& Sprite::GetModelMatrix(){
-	if(recalc_model){
-		model = translate * rotation * scale;
-		recalc_model = false;
-	}
-	return model;
+Sprite* Sprite::Clone(){
+	return new Sprite(*this);
 }

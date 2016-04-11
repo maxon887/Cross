@@ -18,4 +18,7 @@
 
 SimpleShaders::SimpleShaders() :
 	Shaders("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag")
-{ }
+{ 
+	uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
+	aDiffuseCoords = glGetAttribLocation(program, "aDiffuseCoords");
+}

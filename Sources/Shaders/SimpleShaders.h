@@ -22,6 +22,8 @@ using namespace cross;
 
 class SimpleShaders : public Shaders{
 public:
+	GLuint uDiffuseTexture;
+	GLuint aDiffuseCoords;
 	SimpleShaders();
 private:
 };

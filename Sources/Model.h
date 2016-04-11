@@ -16,18 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Transformable.h"
 
 namespace cross{
 
-class Model{
+class Model : public Transformable{
 public:
 	Model(CRArray<Mesh*>& meshes);
 
 	void Draw();
 	int GetPolyCount();
+	void SetDiffuseTexture(Texture* diffuse);
 protected:
-	Matrix transform;
 	CRArray<Mesh*> meshes;
+	Texture* diffuse;
 };
 
 }

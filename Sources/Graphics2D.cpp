@@ -27,6 +27,7 @@
 #include "Utils/Misc.h"
 #include "Camera2D.h"
 #include "File.h"
+#include "Texture.h"
 
 #include "SOIL/SOIL.h"
 #include "FreeType/ft2build.h"
@@ -235,6 +236,39 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	SAFE(glDisable(GL_BLEND));
+}
+
+Texture* Graphics2D::LoadTexture(string filename){
+	Debugger::Instance()->StartCheckTime();
+	int width, height;
+	File* textureFile = launcher->LoadFile(filename);
+	CRByte* bytes = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
+	delete textureFile;
+	if(bytes == NULL){
+		throw CrossException("SOIL can't convert file:\n Pay attention on image color channels");
+	}
+	int newWidth = 1;
+	int newHeight = 1;
+	while(newWidth < width) {
+		newWidth *= 2;
+	}
+	while(newHeight < height) {
+		newHeight *= 2;
+	}
+	if(newWidth != width || newHeight != height){
+		throw CrossException("Texture size must be equal to power of 2");
+	}
+	GLuint textureID;
+	glGenTextures(1, &textureID); 
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	Texture* texture = new Texture();
+	texture->id = textureID;
+	texture->width = width;
+	texture->height = height;
+	return texture;
 }
 
 Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
@@ -329,7 +363,7 @@ void Graphics2D::ReleaseSprite(Sprite* img){
 }
 
 void Graphics2D::Update(){
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Graphics2D::SetClearColor(Color color){

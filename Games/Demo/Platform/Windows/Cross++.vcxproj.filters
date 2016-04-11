@@ -205,6 +205,12 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShaders.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Texture.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Transformable.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -390,6 +396,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShaders.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Texture.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Transformable.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

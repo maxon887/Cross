@@ -21,7 +21,11 @@
 
 void CubeScreen::Start(){
 	CameraControlScreen::Start();
-	cube = gfx3D->LoadModel("gfx3D/CubeMaxTriangles.obj");
+	//cube = gfx3D->LoadModel("gfx3D/CubeMaxTriangles.obj", "gfx3D/Box.png");
+	cube = gfx3D->LoadModel("gfx3D/Gnome.obj", "gfx3D/Gnome.png");
+	cube->SetRotateY(180.f);
+	cube->SetScale(2.f);
+	cube->SetPosition(cube->GetPosition() + Vector3D(0.f, -5.f, 0.f));
 }
 
 void CubeScreen::Stop(){

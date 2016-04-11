@@ -56,6 +56,7 @@ class Camera;
 class Camera2D;
 class Mesh;
 class Model;
+class Texture;
 
 extern Game* game;
 extern Launcher* launcher;

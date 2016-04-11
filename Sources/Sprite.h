@@ -17,27 +17,24 @@
 #pragma once
 #include "Cross.h"
 #include "GraphicsGL.h"
+#include "Transformable.h"
 
 namespace cross {
 
 /* Used for 2D drawing. Contain original texture sprite location on it and pivot */
-class Sprite{
+class Sprite : public Transformable{
 public:
 	Sprite(Sprite& sprite);
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region);
 	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
 	~Sprite();
 
-	void SetPosition(const Vector2D& pos);
-	void SetScale(float factor);
-	void SetScale(const Vector2D& scale);
-	void SetRotate(float angle);
-	Vector2D GetPosition() const;
 	GLuint GetTextureID() const;
 	float GetWidth() const;
 	float GetHeight() const;
 	int GetTextureWidth() const;
 	int GetTextureHeight() const;
+	void SetRotate(float angle);
 	Sprite* Clone();
 //Internal data. You don't need call any of this methods or modify variable
 public:
@@ -46,14 +43,8 @@ public:
 	GLuint VBO;
 
 	const GLushort* GetIndices() const;
-	Matrix& GetModelMatrix();
 private:
 	static const GLushort indices[];
-	Matrix model;
-	Matrix scale;
-	Matrix translate;
-	Matrix rotation;
-	bool recalc_model;
 	GLuint textureID;
 	float width;
 	float height;

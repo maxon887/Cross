@@ -20,14 +20,15 @@
 
 using namespace cross;
 
-Model::Model(CRArray<Mesh*>& meshes){
-	this->meshes = meshes;
-	transform = Matrix::CreateIdentity();
+Model::Model(CRArray<Mesh*>& meshes) :
+	meshes(meshes),
+	diffuse(nullptr)
+{
 }
 
 void Model::Draw(){
 	for(Mesh* mesh : meshes){
-		gfx3D->DrawMesh(mesh, transform);
+		gfx3D->DrawMesh(mesh, GetModelMatrix(), diffuse);
 	}
 }
 
@@ -37,4 +38,8 @@ int Model::GetPolyCount(){
 		polyCount += mesh->poly_count;
 	}
 	return polyCount;
+}
+
+void Model::SetDiffuseTexture(Texture* diffuse){
+	this->diffuse = diffuse;
 }
