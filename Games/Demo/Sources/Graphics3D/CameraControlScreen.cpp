@@ -22,7 +22,7 @@
 #include "Graphics3D.h"
 #include "Sprite.h"
 #include "Font.h"
-#include "Game.h"
+#include "Demo.h"
 
 #include <math.h>
 
@@ -52,8 +52,8 @@ void CameraControlScreen::Start() {
 	input->ActionMove += action_move_delegate;
 	input->ActionUp += action_up_delegate;
 
-	arrow_released = gfx2D->LoadImage("ArrowUp.png");
-	arrow_pressed = gfx2D->LoadImage("ArrowDown.png");
+	arrow_released = demo->GetCommonSprite("ArrowUp.png");
+	arrow_pressed = demo->GetCommonSprite("ArrowDown.png");
 
 	//button
 	float btnWidth = 300.f;
@@ -87,9 +87,9 @@ void CameraControlScreen::Start() {
 	right_btn->SetImages(cloneReleased, clonePressed);
 	gui.push_back(right_btn);
 
-	Sprite* eye = gfx2D->LoadImage("EyeBtn.png");
-	Sprite* eyePressed = gfx2D->LoadImage("EyeBtnPressed.png");
-	eye_btn = new ToggleButton(eye, eyePressed);
+	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
+	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
+	eye_btn = new ToggleButton(eye->Clone(), eyePressed->Clone());
 	eye_btn->Clicked += MakeDelegate(this, &CameraControlScreen::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
@@ -102,8 +102,6 @@ void CameraControlScreen::Stop(){
 	input->ActionUp -= action_up_delegate;
 
 	delete debug_font;
-	delete arrow_released;
-	delete arrow_pressed;
 	for(Button* btn : gui){
 		delete btn;
 	}

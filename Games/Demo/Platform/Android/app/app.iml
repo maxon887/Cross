@@ -257,6 +257,9 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/TinyXML">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/TinyXML" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp" isTestSource="false" />
     </content>

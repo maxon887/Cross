@@ -1,7 +1,7 @@
 #include "AudioScreen.h"
 #include "Audio.h"
 #include "Graphics2D.h"
-#include "Game.h"
+#include "Demo.h"
 #include "Config.h"
 #include "Sprite.h"
 #include "Camera2D.h"
@@ -19,9 +19,9 @@ void AudioScreen::Start(){
 	gfx2D->SetCamera(camera);
 
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
-	button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	button_sprite = demo->GetCommonSprite("DefaultButton.png");
 	button_sprite->SetScale(1.35f);
-	button_sprite_pressed = gfx2D->LoadImage("DefaultButtonPressed.png");
+	button_sprite_pressed = demo->GetCommonSprite("DefaultButtonPressed.png");
 	button_sprite_pressed->SetScale(1.35f);
 	audio_menu = new Menu(true);
 	Button* soundBtn = new Button("Sound");
@@ -43,8 +43,6 @@ void AudioScreen::Start(){
 }
 
 void AudioScreen::Stop(){
-	delete button_sprite;
-	delete button_sprite_pressed;
 	delete bck_music;
 	delete jaguar;
 	delete truck;

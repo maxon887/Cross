@@ -22,9 +22,8 @@ using namespace cross;
 
 class SpritesScreen : public Screen{
 public:
-	~SpritesScreen();
-
 	void Start();
+	void Stop();
 	void Update(float sec);
 private:
 	CRArray<Vector2D> positions;

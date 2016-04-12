@@ -36,14 +36,11 @@ public:
 	void ScreenDebug(bool enable);
 	void EnableInputDebug();
 	void ConsoleDebug(bool enable);
-	void Touches(bool enable);
 	float GetFPS();
 
 private:
 	static Debugger* instance;
 
-	Texter* texter;
-	Sprite* touch_pointer;
 	CRArray<CrossTime> times;
 
 	float update_time;

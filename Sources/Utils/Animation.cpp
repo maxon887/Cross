@@ -53,7 +53,7 @@ Animation::~Animation(){
 						frames[j] = NULL;
 					}
 				}
-				gfx2D->ReleaseSprite(frames[i]);
+				delete frames[i];
 				frames[i] = NULL;
 			}
 		}

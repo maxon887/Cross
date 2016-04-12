@@ -24,6 +24,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Config.h"
+#include "Audio.h"
 
 using namespace cross;
 
@@ -53,6 +54,7 @@ int GLES_GO(){
 
 		ShowWindow(esContext.hWnd, TRUE);
 
+		Audio::Init();
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
 		gfx3D = new Graphics3D();
@@ -75,6 +77,7 @@ int GLES_GO(){
 		delete gfx3D;
 		delete gfx2D;
 		delete gfxGL;
+		Audio::Release();
 		delete game;
 
 		unsigned long leaked = MemoryManager::Instance()->Dump();

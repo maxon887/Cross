@@ -73,6 +73,7 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 
 
 Graphics3D::Graphics3D(){
+	launcher->LogIt("Graphics3D::Graphics3D()");
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
 	simple_shader = new SimpleShaders();
@@ -81,9 +82,14 @@ Graphics3D::Graphics3D(){
 	game->WindowResized += window_resize_handle;
 }
 
+Graphics3D::~Graphics3D(){
+	delete simple_shader;
+	delete camera;
+	game->WindowResized -= window_resize_handle;
+}
+
 Camera* Graphics3D::GetCamera(){
 	return camera;
-	game->WindowResized -= window_resize_handle;
 }
 
 CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){

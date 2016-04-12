@@ -29,6 +29,7 @@ public:
 	void Stop();
     void Update(float sec);
 private:
+	Texture* texture;
 	Animation* spider_run_anim;
 	Sprite* spider_body;
 	Sprite* spider_head;

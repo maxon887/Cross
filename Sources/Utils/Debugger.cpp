@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Debugger.h"
 #include "Launcher.h"
-#include "Texter.h"
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
@@ -43,8 +42,6 @@ void Debugger::Release(){
 }
 
 Debugger::Debugger() :
-	touch_pointer(nullptr),
-	texter(nullptr),
 	update_time(0),
 	update_sum(0),
 	update_counter(0),
@@ -61,7 +58,6 @@ Debugger::Debugger() :
 { }
 
 Debugger::~Debugger(){
-	delete texter;
 }
 
 void Debugger::StartCheckTime() {
@@ -92,7 +88,7 @@ void Debugger::Display(float micro){
 			render_counter++;
 		}
 	}
-	if(screen_debug){
+	if(screen_debug){/*
 		float height = gfx2D->GetDefaultCamera()->GetViewHeight();
 		char outputString[256];
 		sprintf(outputString, "Render Time: %0.1fms", render_time);
@@ -117,7 +113,7 @@ void Debugger::Display(float micro){
 			} else {
 				texter->DrawText(0, height - texter->GetHeight() * 5, "Input Up");
 			}
-		}
+		}*/
 	}
 	if(console_debug){
 		if(next_display < 0){
@@ -134,7 +130,7 @@ void Debugger::Display(float micro){
 	}
 }
 
-void Debugger::ScreenDebug(bool enable){
+void Debugger::ScreenDebug(bool enable){/*
 	screen_debug = enable;
 	if(screen_debug){
 		if(texter == NULL){
@@ -142,7 +138,7 @@ void Debugger::ScreenDebug(bool enable){
 		}else{
 			launcher->LogIt("Warning!Screen debug already anabled");
 		}
-	}
+	}*/
 }
 
 void Debugger::EnableInputDebug(){
@@ -157,17 +153,6 @@ void Debugger::EnableInputDebug(){
 
 void Debugger::ConsoleDebug(bool enable){
 	console_debug = enable;
-}
-
-void Debugger::Touches(bool enable){
-	touches = enable;
-	if(touches){
-		if(touch_pointer == NULL){
-			touch_pointer = gfx2D->LoadImage("TouchPointer.png", 0.5f);
-		} else{
-			launcher->LogIt("Warning!Touches already anabled");
-		}
-	}
 }
 
 void Debugger::SetUpdateTime(float micro) {

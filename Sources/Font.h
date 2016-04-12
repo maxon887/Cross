@@ -47,8 +47,9 @@ private:
 	FT_Face face;
 	File* file;
 	CRArray<Sprite*> sprites;
+	CRArray<Texture*> textures;
 	float advances[128];
-	unsigned int textures[128];
+	//Texture textures[128];
 	Color color;
 	float size;
 	float char_width;
@@ -56,6 +57,7 @@ private:
 	bool kill_textures;
 
 	void Cache();
+	void KillTextures();
 };
 
 };

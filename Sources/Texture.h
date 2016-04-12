@@ -22,12 +22,16 @@ namespace cross{
 class Texture{
 public:
 
-	GLuint GetID();
+	Texture(GLuint id, int width, int height);
+	~Texture();
 
+	GLuint GetID();
+	int GetWidth();
+	int GetHeight();
+private:
 	GLuint id;
 	int width;
 	int height;
-private:
 };
 
 }

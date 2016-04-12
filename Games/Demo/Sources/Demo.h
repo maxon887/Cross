@@ -20,6 +20,9 @@
 
 using namespace cross;
 
+class Demo;
+extern Demo* demo;
+
 class Demo : public Game{
 public:
 	Demo(Launcher* launcher);
@@ -27,6 +30,11 @@ public:
 	void Stop();
 	Screen* GetStartScreen();
 
+	Sprite* GetCommonSprite(string name);
+
 private:
 	Camera2D* camera;
+
+	Texture* common_texture;
+	CRDictionary<string, Sprite*> common_sprites;
 };

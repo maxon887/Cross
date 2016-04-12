@@ -17,20 +17,19 @@
 #include "SpritesScreen.h"
 #include "Graphics2D.h"
 #include "Input.h"
-#include "Game.h"
+#include "Demo.h"
 #include "Utils/Misc.h"
 #include "Sprite.h"
 #include "Utils/Debugger.h"
 #include "Font.h"
 
-SpritesScreen::~SpritesScreen(){
-	delete awesome_face;
-	delete debug_font;
+void SpritesScreen::Start(){
+	awesome_face = demo->GetCommonSprite("AwesomeFace.png");
+	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);
 }
 
-void SpritesScreen::Start(){
-	awesome_face = gfx2D->LoadImage("AwesomeFace.png", 0.1f);
-	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);
+void SpritesScreen::Stop(){
+	delete debug_font;
 }
 
 void SpritesScreen::Update(float sec){

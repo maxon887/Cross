@@ -21,12 +21,11 @@
 #include "Input.h"
 #include "Launcher.h"
 #include "Camera2D.h"
-#include "Game.h"
+#include "Demo.h"
 #include "Font.h"
 
 void Camera2DScreen::Start(){
-	grid = gfx2D->LoadImage("1000grid.jpg");
-	awesomefase = gfx2D->LoadImage("AwesomeFace.png");
+	awesomefase = demo->GetCommonSprite("AwesomeFace.png");
 	for(int i = 0; i < 10; ++i){
 		Sprite* sprite = new Sprite(*awesomefase);
 		sprite->SetScale(0.1f);
@@ -51,14 +50,11 @@ void Camera2DScreen::Stop(){
 	for(Sprite* sprite : sprites){
 		delete sprite;
 	}
-	gfx2D->ReleaseSprite(awesomefase);
-	gfx2D->ReleaseSprite(grid);
 	input->MouseWheelUp.Clear();
 	input->MouseWheelDown.Clear();
 }
 
 void Camera2DScreen::Update(float sec){
-	gfx2D->DrawSprite(Vector2D(500.f, 500.f), grid);
 	Color fontColor = tip_font->GetColor();
 	static float tipTimeOut = 2.f;
 	tipTimeOut -= sec;

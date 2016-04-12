@@ -84,10 +84,10 @@ Button::Button() :
 
 Button::~Button() {
 	if (down_image != nullptr) {
-		gfx2D->ReleaseSprite(down_image);
+		delete down_image;
 	}
 	if (up_image != nullptr) {
-		gfx2D->ReleaseSprite(up_image);
+		delete up_image;
 	}
 	if (font != nullptr) {
 		delete font;

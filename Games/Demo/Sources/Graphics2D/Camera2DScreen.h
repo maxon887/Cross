@@ -27,7 +27,7 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Sprite* grid;
+	//Sprite* grid;
 	Sprite* awesomefase;
 	CRArray<Sprite*> sprites;
 	CRArray<Vector3D> velocities;

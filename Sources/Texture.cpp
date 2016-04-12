@@ -18,6 +18,24 @@
 
 using namespace cross;
 
+Texture::Texture(GLuint id, int width, int height) : 
+	id(id),
+	width(width),
+	height(height)
+{ }
+
+Texture::~Texture(){
+	SAFE(glDeleteTextures(1, &id));
+}
+
 GLuint Texture::GetID(){
 	return id;
+}
+
+int Texture::GetWidth(){
+	return width;
+}
+
+int Texture::GetHeight(){
+	return height;
 }

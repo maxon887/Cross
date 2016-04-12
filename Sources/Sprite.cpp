@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Sprite.h"
+#include "Texture.h"
 
 using namespace cross;
 
@@ -24,28 +25,24 @@ GLuint Sprite::EBO = -1;
 Sprite::Sprite(Sprite& sprite) :
 	Transformable(sprite),
 	VBO(sprite.VBO),
-	textureID(sprite.textureID),
 	width(sprite.width),
 	height(sprite.height),
-	texture_width(sprite.texture_width),
-	texture_height(sprite.texture_height),
-	original(false)
+	original(false),
+	texture(sprite.texture)
 { }
 
-Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
+Sprite::Sprite(Texture* texture, Rect region) :
 	Transformable(),
-	textureID(id),
-	texture_width(texWidth),
-	texture_height(texHeight),
 	width(region.width),
 	height(region.height),
 	VBO(-1),
-	original(true)
+	original(true),
+	texture(texture)
 {
-	GLfloat u1 = region.x / texWidth;
-	GLfloat v1 = region.y / texHeight;
-	GLfloat u2 = u1 + region.width / texWidth;
-	GLfloat v2 = v1 + region.height / texHeight;
+	GLfloat u1 = region.x / texture->GetWidth();
+	GLfloat v1 = region.y / texture->GetHeight();
+	GLfloat u2 = u1 + region.width / texture->GetWidth();
+	GLfloat v2 = v1 + region.height / texture->GetHeight();
 
 	GLfloat vertices[16];
 	vertices[0] = -region.width / 2.0f;
@@ -81,19 +78,17 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region) :
 	}
 }
 
-Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D pivot) :
-	textureID(id),
-	texture_width(texWidth),
-	texture_height(texHeight),
+Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
+	texture(texture),
 	width(region.width),
 	height(region.height),
 	VBO(-1),
 	original(true)
 {
-	GLfloat u1 = region.x / texWidth;
-	GLfloat v1 = region.y / texHeight;
-	GLfloat u2 = u1 + region.width / texWidth;
-	GLfloat v2 = v1 + region.height / texHeight;
+	GLfloat u1 = region.x / texture->GetWidth();
+	GLfloat v1 = region.y / texture->GetHeight();
+	GLfloat u2 = u1 + region.width / texture->GetWidth();
+	GLfloat v2 = v1 + region.height / texture->GetHeight();
 	rotation = Matrix::CreateIdentity();
 	translate = Matrix::CreateIdentity();
 	scale = Matrix::CreateIdentity();
@@ -134,18 +129,16 @@ Sprite::Sprite(GLuint id, int texWidth, int texHeight, Rect region, Vector2D piv
 
 Sprite::~Sprite(){
 	if(original){
-		glDeleteTextures(1, &textureID);
 		glDeleteBuffers(1, &VBO);
 	}
 }
-
 
 const GLushort* Sprite::GetIndices() const{
 	return (GLushort*)indices;
 }
 
-unsigned int Sprite::GetTextureID() const{
-	return textureID;
+Texture* Sprite::GetTexture(){
+	return texture;
 }
 
 float Sprite::GetWidth() const{
@@ -154,14 +147,6 @@ float Sprite::GetWidth() const{
 
 float Sprite::GetHeight() const{
 	return height * scale.m[1][1];
-}
-
-int Sprite::GetTextureWidth() const{
-	return texture_width;
-}
-
-int Sprite::GetTextureHeight() const{
-	return texture_height;
 }
 
 void Sprite::SetRotate(float angle){

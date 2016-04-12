@@ -31,26 +31,32 @@ void AnimationScreen::Start(){
 	deltaY = 0;
 	turn_left = true;
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
-	spider_body = gfx2D->LoadImage("Spider/Body.png");
-	spider_head = gfx2D->LoadImage("Spider/Head.png");
+
+	texture = gfx2D->LoadTexture("gfx2D/Spider.png");
+	CRDictionary<string, Sprite*> sprites = gfx2D->LoadSprites(texture, "gfx2D/Spider.xml");
+
+
+	spider_body = sprites["Body.png"];
+	spider_head = sprites["Head.png"];
 	Sprite* images[8];
-	images[0] = gfx2D->LoadImage("Spider/00.png");
-	images[1] = gfx2D->LoadImage("Spider/01.png");
-	images[2] = gfx2D->LoadImage("Spider/02.png");
-	images[3] = gfx2D->LoadImage("Spider/03.png");
-	images[4] = gfx2D->LoadImage("Spider/04.png");
-	images[5] = gfx2D->LoadImage("Spider/05.png");
-	images[6] = gfx2D->LoadImage("Spider/06.png");
-	images[7] = gfx2D->LoadImage("Spider/07.png");
+	images[0] = sprites["00.png"];
+	images[1] = sprites["01.png"];
+	images[2] = sprites["02.png"];
+	images[3] = sprites["03.png"];
+	images[4] = sprites["04.png"];
+	images[5] = sprites["05.png"];
+	images[6] = sprites["06.png"];
+	images[7] = sprites["07.png"];
 	spider_run_anim = new Animation(0.08f, images, 8, true);
 	spider_run_snd = new Audio("SpiderRun.wav", true, false);
 }
 
 void AnimationScreen::Stop(){
+	delete texture;
 	delete spider_run_anim;
 	delete spider_run_snd;
-	gfx2D->ReleaseSprite(spider_body);
-	gfx2D->ReleaseSprite(spider_head);
+	delete spider_body;
+	delete spider_head;
 }
 
 void AnimationScreen::Update(float sec){

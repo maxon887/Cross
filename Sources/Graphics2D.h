@@ -44,12 +44,16 @@ public:
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
 	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
 	Texture* LoadTexture(string filename);
+	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
+	CRDictionary<string, Sprite*> LoadSprites(Texture* texture, string xml);
+	/*
 	Sprite* CreateImage(Sprite* src, Rect area, float scaleFactor);
 	Sprite* LoadImage(string filename);
 	Sprite* LoadImage(string filename, float scale);
-	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);
+	Sprite* LoadImage(CRByte* data, int bytesPerChannel, int width, int height);*/
+
 	/* depricated. Now you can use Sprite destructor */
-	void ReleaseSprite(Sprite* img);
+	//void ReleaseSprite(Sprite* img);
 	void SetClearColor(Color color);
 	Font* GetDefaultFont();
 //Internal data. You don't need call any of this methods or modify variables

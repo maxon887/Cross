@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
-#include "Game.h"
 #include "Graphics2D.h"
 #include "Launcher.h"
 #include "Sprite.h"
@@ -29,11 +28,12 @@
 #include "Graphics2D/SpritesScreen.h"
 #include "Graphics2D/TextScreen.h"
 #include "Graphics2D/Camera2DScreen.h"
+#include "Demo.h"
 
 void MainScreen::Start(){
 	ScrollScreen::Start();
 	next_screen = nullptr;
-	button_sprite = gfx2D->LoadImage("DefaultButton.png");
+	button_sprite = demo->GetCommonSprite("DefaultButton.png");
 	button_sprite->SetScale(1.35f);
 	//main menu
 	main_menu = new Menu(true);
@@ -96,7 +96,6 @@ void MainScreen::Start(){
 
 void MainScreen::Stop(){
 	ScrollScreen::Stop();
-	delete button_sprite;
 	delete main_menu;
 	delete graphics2D_menu;
 	delete graphics3D_menu;

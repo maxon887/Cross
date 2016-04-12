@@ -28,10 +28,12 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <map>
 
-#define CRByte		unsigned char
-#define CRArray		std::vector
-#define CRList		std::list
+#define CRByte			unsigned char
+#define CRArray			std::vector
+#define CRList			std::list
+#define CRDictionary	std::map
 
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true

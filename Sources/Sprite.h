@@ -25,15 +25,12 @@ namespace cross {
 class Sprite : public Transformable{
 public:
 	Sprite(Sprite& sprite);
-	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region);
-	Sprite(GLuint id, int textureWidth, int texureHeight, Rect region, Vector2D pivot);
+	Sprite(Texture* texture, Rect region);
+	Sprite(Texture* texture, Rect region, Vector2D pivot);
 	~Sprite();
 
-	GLuint GetTextureID() const;
 	float GetWidth() const;
 	float GetHeight() const;
-	int GetTextureWidth() const;
-	int GetTextureHeight() const;
 	void SetRotate(float angle);
 	Sprite* Clone();
 //Internal data. You don't need call any of this methods or modify variable
@@ -43,13 +40,13 @@ public:
 	GLuint VBO;
 
 	const GLushort* GetIndices() const;
+	Texture* GetTexture();
 private:
 	static const GLushort indices[];
-	GLuint textureID;
 	float width;
 	float height;
-	int texture_width;
-	int texture_height;
+
+	Texture* texture;
 	bool original;
 };
 

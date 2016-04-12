@@ -17,8 +17,9 @@
 #include "Font.h"
 #include "Launcher.h"
 #include "File.h"
-#include "GraphicsGL.h"
+#include "Graphics2D.h"
 #include "Sprite.h"
+#include "Texture.h"
 
 #include "FreeType/ft2build.h"
 #include FT_FREETYPE_H
@@ -37,6 +38,7 @@ Font::Font(Font& font) :
 	size(font.size),
 	char_width(font.char_width),
 	sprites(128),
+	textures(127),
 	file(font.file),
 	kill_textures(false)
 {
@@ -50,8 +52,9 @@ Font::Font(Font& font) :
 Font::Font(string filename, float size, Color color) :
 	color(color),
 	sprites(128),
+	textures(127),
 	original(true),
-	kill_textures(true)
+	kill_textures(false)
 {
 	file = launcher->LoadFile(filename);
 	FT_Error error;
@@ -65,7 +68,7 @@ Font::Font(string filename, float size, Color color) :
 	if(error){
 		throw CrossException("The font file could be opened and read, but it appears");
 	}
-	memset(textures, 0, sizeof(textures));
+	//memset(textures, 0, sizeof(textures));
 	SetSize(size);
 }
 
@@ -74,11 +77,11 @@ Font::~Font(){
 		delete sprite;
 	}
 	if(original) {
-		SAFE(glDeleteTextures(128, textures));
+		KillTextures();
 		delete file;
 	} else {
 		if(kill_textures) {
-			SAFE(glDeleteTextures(128, textures));
+			KillTextures();
 		}
 	}
 }
@@ -138,14 +141,11 @@ float Font::GetCharAdvance(char c){
 void Font::Cache(){
 	FT_Error error;
 	if(kill_textures) {
-		SAFE(glDeleteTextures(128, textures));
+		KillTextures();
 	} else {
 		kill_textures = true;
 	}
-	SAFE(glGenTextures(128, textures));
-	SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 	for(int i = 0; i < 127; i++){
-		SAFE(glBindTexture(GL_TEXTURE_2D, textures[i]));
 		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
 		if(error){
 			throw CrossException("Can't load glyph");
@@ -156,16 +156,23 @@ void Font::Cache(){
 			throw CrossException("Can't abtain glyph");
 		}
 		advances[i] = (float)(face->glyph->advance.x >> 6);
-		float bmpWidth = (float)bitmapGlyhp->bitmap.width;
-		float bmpHeight = (float)bitmapGlyhp->bitmap.rows;
+		int bmpWidth = bitmapGlyhp->bitmap.width;
+		int bmpHeight = bitmapGlyhp->bitmap.rows;
 		float bearingX = (float)(face->glyph->metrics.horiBearingX >> 6);
 		float bearingY = (float)(face->glyph->metrics.horiBearingY >> 6);
-		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, (GLsizei)bmpWidth, (GLsizei)bmpHeight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, bitmapGlyhp->bitmap.buffer));
-		Rect region(0, 0, bmpWidth, bmpHeight);
+		Texture* texture = gfx2D->CreateTexture(bitmapGlyhp->bitmap.buffer, 1, bmpWidth, bmpHeight);
+		textures[i] = texture;
+		Rect region(0, 0, (float)bmpWidth, (float)bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
-		Sprite* sprite = new Sprite(textures[i], (int)bmpWidth, (int)bmpHeight, region, pivot);
+		Sprite* sprite = new Sprite(texture, region, pivot);
 		delete sprites[i];
 		sprites[i] = sprite;
+	}
+}
+
+void Font::KillTextures(){
+	for(Texture* texture : textures){
+		delete texture;
 	}
 }
 

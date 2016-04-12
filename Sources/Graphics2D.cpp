@@ -31,6 +31,7 @@
 
 #include "SOIL/SOIL.h"
 #include "FreeType/ft2build.h"
+#include "TinyXML/tinyxml.h"
 
 #include <math.h>
 
@@ -220,11 +221,11 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glUniform4fv(sprite_shaders->uColor, 1, color.GetData()));
 
-	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTextureID()));
+	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+	//SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	//SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
 	SAFE(glEnableVertexAttribArray(sprite_shaders->aPosition));
@@ -241,9 +242,9 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 
 Texture* Graphics2D::LoadTexture(string filename){
 	Debugger::Instance()->StartCheckTime();
-	int width, height;
+	int width, height, channels;
 	File* textureFile = launcher->LoadFile(filename);
-	CRByte* bytes = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
+	CRByte* bytes = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_RGBA);
 	delete textureFile;
 	if(bytes == NULL){
 		throw CrossException("SOIL can't convert file:\n Pay attention on image color channels");
@@ -259,18 +260,70 @@ Texture* Graphics2D::LoadTexture(string filename){
 	if(newWidth != width || newHeight != height){
 		throw CrossException("Texture size must be equal to power of 2");
 	}
-	GLuint textureID;
-	glGenTextures(1, &textureID); 
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	Texture* texture = new Texture();
-	texture->id = textureID;
-	texture->width = width;
-	texture->height = height;
+	Texture* texture = CreateTexture(bytes, channels, width, height);
 	return texture;
 }
 
+Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){
+	GLuint id;
+	SAFE(glGenTextures(1, &id));
+	SAFE(glBindTexture(GL_TEXTURE_2D, id));
+	switch(channels)
+	{
+	case 1:
+		SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, data));
+		break;
+	case 3:
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
+		break;
+	case 4:
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
+		break;
+	default:
+		throw CrossException("Wrong texture channel count");
+	}
+	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
+	Texture* texture = new Texture(id, width, height);
+	return texture;
+}
+
+CRDictionary<string, Sprite*> Graphics2D::LoadSprites(Texture* texture, string xmlFilename){
+	File* xmlFile = launcher->LoadFile(xmlFilename);
+	TiXmlDocument xml;
+	CRByte* source = new CRByte[xmlFile->size + 1]; // +1 for null terminated string
+	memcpy(source, xmlFile->data, xmlFile->size);
+	source[xmlFile->size] = 0;
+	delete xmlFile;
+	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
+	delete source;
+
+	CRDictionary<string, Sprite*> dictionary;
+
+	TiXmlHandle xmlDoc(&xml);
+	TiXmlElement* root;
+	TiXmlElement* element;
+
+	root = xmlDoc.FirstChildElement("TextureAtlas").Element();
+	if(root){
+		element = root->FirstChildElement("sprite");
+		while(element){
+			string name = element->Attribute("n");
+			float xPos = stof(element->Attribute("x"));
+			float yPos = stof(element->Attribute("y"));
+			float width = stof(element->Attribute("w"));
+			float height = stof(element->Attribute("h"));
+			Rect rect(xPos, yPos, width, height);
+			Sprite* sprite = new Sprite(texture, rect);
+			dictionary[name] = sprite;
+			element = element->NextSiblingElement("sprite");
+		}
+	}else{
+		throw CrossException("XML empty root element");
+	}
+	return dictionary;
+}
+/*
 Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
 	Sprite* img = new Sprite(src->GetTextureID(), src->GetTextureWidth(), src->GetTextureHeight(), area);
 	img->SetScale(scaleFactor);
@@ -350,17 +403,17 @@ Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int
 	Sprite* img = new Sprite(textureID, width, height, region);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return img;
-}
-
+}*/
+/*
 void Graphics2D::ReleaseSprite(Sprite* img){
 	if (img == nullptr) {
 		throw CrossException("Can't release NULL image");
 	}
-	GLuint texID = img->GetTextureID();
-	glDeleteTextures(1, &texID);
+	//GLuint texID = img->GetTextureID();
+	//glDeleteTextures(1, &texID);
 	glDeleteBuffers(1, &img->VBO);
 	delete img;
-}
+}*/
 
 void Graphics2D::Update(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

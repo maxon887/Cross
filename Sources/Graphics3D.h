@@ -25,6 +25,7 @@ namespace cross{
 class Graphics3D : public GraphicsGL{
 public:
 	Graphics3D();
+	~Graphics3D();
 
 	Camera* GetCamera();
 	CRArray<Mesh*> LoadMeshes(const string& filename);

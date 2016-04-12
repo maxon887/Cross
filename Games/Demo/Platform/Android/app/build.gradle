@@ -35,6 +35,7 @@ android {
             cFlags += " -I${project.buildDir}/../../../../../../Sources/FreeType"
             cFlags += " -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2"
             cFlags += " -I${project.buildDir}/../../../../../../Sources/Assimp"
+            cFlags += " -I${project.buildDir}/../../../../../../Sources/TinyXML"
             ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
             ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
             ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
@@ -54,8 +55,10 @@ android {
         //main.jni.srcDirs += '../../../../../Sources/'
         main.jni.srcDirs += '../../../../../Sources/Utils/'
         main.jni.srcDirs += '../../../../../Sources/SOIL/'
+        main.jni.srcDirs += '../../../../../Sources/TinyXML/'
         main.jni.srcDirs += '../../../../../Sources/Shaders/'
         main.jni.srcDirs += '../../../../../Sources/Platform/Android/'
+
         main.jni.srcDirs += '../../../../../Sources/Audio.cpp'
         main.jni.srcDirs += '../../../../../Sources/Audio.h'
         main.jni.srcDirs += '../../../../../Sources/Camera.cpp'
