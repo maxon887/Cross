@@ -41,9 +41,9 @@ Input*		cross::input = NULL;
 Config*		cross::config = NULL;
 
 Game::Game(){
+	launcher->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	//Audio::Init();
 	this->current_screen = NULL;
 }
 

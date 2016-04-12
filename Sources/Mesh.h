@@ -29,7 +29,6 @@ class Mesh{
 public:
 	GLuint VBO;
 	GLuint EBO;
-	GLuint VAO;
 	GLuint index_count;
 	GLuint poly_count;
 

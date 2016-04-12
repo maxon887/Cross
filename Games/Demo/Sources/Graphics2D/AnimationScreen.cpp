@@ -33,7 +33,8 @@ void AnimationScreen::Start(){
 	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
 
 	texture = gfx2D->LoadTexture("gfx2D/Spider.png");
-	CRDictionary<string, Sprite*> sprites = gfx2D->LoadSprites(texture, "gfx2D/Spider.xml");
+	CRDictionary<string, Sprite*> sprites;
+	gfx2D->LoadSprites(sprites, texture, "gfx2D/Spider.xml");
 
 
 	spider_body = sprites["Body.png"];

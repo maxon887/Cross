@@ -37,7 +37,7 @@ void Demo::Start(){
 	camera->SetViewWidth(1600.f);
 
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png");
-	common_sprites = gfx2D->LoadSprites(common_texture, "gfx2D/Common.xml");
+	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
 }
 
 void Demo::Stop(){

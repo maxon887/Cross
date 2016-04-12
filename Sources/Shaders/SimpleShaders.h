@@ -18,7 +18,7 @@
 #include "Cross.h"
 #include "Shaders.h"
 
-using namespace cross;
+namespace cross{
 
 class SimpleShaders : public Shaders{
 public:
@@ -27,3 +27,5 @@ public:
 	SimpleShaders();
 private:
 };
+
+}

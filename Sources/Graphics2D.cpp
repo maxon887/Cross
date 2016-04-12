@@ -222,10 +222,6 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glUniform4fv(sprite_shaders->uColor, 1, color.GetData()));
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	//SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	//SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
 	SAFE(glEnableVertexAttribArray(sprite_shaders->aPosition));
@@ -244,9 +240,9 @@ Texture* Graphics2D::LoadTexture(string filename){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
 	File* textureFile = launcher->LoadFile(filename);
-	CRByte* bytes = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_RGBA);
+	CRByte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
-	if(bytes == NULL){
+	if(image == NULL){
 		throw CrossException("SOIL can't convert file:\n Pay attention on image color channels");
 	}
 	int newWidth = 1;
@@ -258,9 +254,26 @@ Texture* Graphics2D::LoadTexture(string filename){
 		newHeight *= 2;
 	}
 	if(newWidth != width || newHeight != height){
-		throw CrossException("Texture size must be equal to power of 2");
+		launcher->LogIt("Not power of 2 texture. Performance issue!");
+		CRByte* newImage = (CRByte*)malloc(channels * newWidth * newHeight);
+		for(int i = 0; i < height; i++){
+			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
+			//Clamp to edge effect
+			if(newWidth > width){
+				memcpy(newImage + i * newWidth * channels + width * channels, image + i * width * channels, channels);
+			}
+		}
+		//Clamp to edge effect
+		if(newHeight > height){
+			memcpy(newImage + height * channels * newWidth, image + (height - 1) * width * channels, width * channels);
+		}
+		width = newWidth;
+		height = newHeight;
+		image = newImage;
 	}
-	Texture* texture = CreateTexture(bytes, channels, width, height);
+	Texture* texture = CreateTexture(image, channels, width, height);
+	string debugMsg = "Texure(" + filename + ") loaded in ";
+	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
@@ -268,8 +281,7 @@ Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int he
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
-	switch(channels)
-	{
+	switch(channels) {
 	case 1:
 		SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, data));
@@ -283,12 +295,18 @@ Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int he
 	default:
 		throw CrossException("Wrong texture channel count");
 	}
+
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 	Texture* texture = new Texture(id, width, height);
 	return texture;
 }
 
-CRDictionary<string, Sprite*> Graphics2D::LoadSprites(Texture* texture, string xmlFilename){
+void Graphics2D::LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
 	File* xmlFile = launcher->LoadFile(xmlFilename);
 	TiXmlDocument xml;
 	CRByte* source = new CRByte[xmlFile->size + 1]; // +1 for null terminated string
@@ -297,8 +315,6 @@ CRDictionary<string, Sprite*> Graphics2D::LoadSprites(Texture* texture, string x
 	delete xmlFile;
 	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
 	delete source;
-
-	CRDictionary<string, Sprite*> dictionary;
 
 	TiXmlHandle xmlDoc(&xml);
 	TiXmlElement* root;
@@ -315,105 +331,13 @@ CRDictionary<string, Sprite*> Graphics2D::LoadSprites(Texture* texture, string x
 			float height = stof(element->Attribute("h"));
 			Rect rect(xPos, yPos, width, height);
 			Sprite* sprite = new Sprite(texture, rect);
-			dictionary[name] = sprite;
+			output[name] = sprite;
 			element = element->NextSiblingElement("sprite");
 		}
 	}else{
 		throw CrossException("XML empty root element");
 	}
-	return dictionary;
 }
-/*
-Sprite* Graphics2D::CreateImage(Sprite* src, Rect area, float scaleFactor){
-	Sprite* img = new Sprite(src->GetTextureID(), src->GetTextureWidth(), src->GetTextureHeight(), area);
-	img->SetScale(scaleFactor);
-	return img;
-}
-
-Sprite* Graphics2D::LoadImage(string filename, float scale){
-	Sprite* sprite = LoadImage(filename);
-	sprite->SetScale(scale);
-	return sprite;
-}
-
-Sprite* Graphics2D::LoadImage(string filename){
-	Debugger::Instance()->StartCheckTime();
-	int width, height;
-	File* imageFile = launcher->LoadFile(filename);
-	CRByte* image = SOIL_load_image_from_memory(imageFile->data, imageFile->size, &width, &height, 0, SOIL_LOAD_RGBA);
-	delete imageFile;
-
-	if(image == NULL){
-		throw CrossException("SOIL can't convert file:\n Pay attention on image color channels");
-	}
-	Sprite* sprite = LoadImage(image, 4, width, height);
-	SOIL_free_image_data(image);
-	string debugMsg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(debugMsg);
-	return sprite;
-}
-
-Sprite* Graphics2D::LoadImage(CRByte* image, int bytesPerChannel, int width, int height){
-	GLuint textureID;
-	Rect region(0, 0, (float)width, (float)height);
-	int newWidth = 1;
-	int newHeight = 1;
-	while(newWidth < width) {
-		newWidth *= 2;
-	}
-	while(newHeight < height) {
-		newHeight *= 2;
-	}
-	//Create power of two texture
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	CRByte* newImage = NULL;
-	if(newWidth > width || newHeight > height){
-		newImage = (CRByte*)malloc(bytesPerChannel * newWidth * newHeight);
-		for(int i = 0; i < height; i++){
-			memcpy(newImage + i * newWidth * bytesPerChannel, image + i * width * bytesPerChannel, width * bytesPerChannel);
-			//Clamp to edge effect
-			if(newWidth > width){
-				memcpy(newImage + i * newWidth * bytesPerChannel + width * bytesPerChannel, image + i * width * bytesPerChannel, bytesPerChannel);
-			}
-		}
-		//Clamp to edge effect
-		if(newHeight > height){
-			memcpy(newImage + height * bytesPerChannel * newWidth, image + (height - 1) * width * bytesPerChannel, width * bytesPerChannel);
-		}
-		width = newWidth;
-		height = newHeight;
-		image = newImage;
-	}
-
-	switch(bytesPerChannel) {
-	case 3:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-		break;
-	case 4:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-		break;
-	default:
-		throw CrossException("Unknown bit depth");
-	}
-	if(newImage){
-		free(newImage);
-	}
-
-	Sprite* img = new Sprite(textureID, width, height, region);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return img;
-}*/
-/*
-void Graphics2D::ReleaseSprite(Sprite* img){
-	if (img == nullptr) {
-		throw CrossException("Can't release NULL image");
-	}
-	//GLuint texID = img->GetTextureID();
-	//glDeleteTextures(1, &texID);
-	glDeleteBuffers(1, &img->VBO);
-	delete img;
-}*/
 
 void Graphics2D::Update(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

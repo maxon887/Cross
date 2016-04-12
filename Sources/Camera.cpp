@@ -58,9 +58,6 @@ Vector3D Camera::GetDirection() const{
 }
 
 Vector3D Camera::GetUpVector() const{
-	Vector3D right = direction.CrossProduct(Vector3D(0.f, 1.f, 0.f)) * (-1);
-	Vector3D up = right.CrossProduct(direction) * (-1);
-	up = up.Normalize();
 	return up;
 }
 
@@ -90,7 +87,7 @@ void Camera::RecalView(){
 	view.m[0][0] = right.x;
 	view.m[0][1] = right.y;
 	view.m[0][2] = right.z;
-	Vector3D up = right.CrossProduct(direction) * (-1);
+	up = right.CrossProduct(direction) * (-1);
 	view.m[1][0] = up.x;
 	view.m[1][1] = up.y;
 	view.m[1][2] = up.z;

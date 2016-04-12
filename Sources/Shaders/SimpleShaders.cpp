@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SimpleShaders.h"
 
+using namespace cross;
+
 SimpleShaders::SimpleShaders() :
 	Shaders("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag")
 { 

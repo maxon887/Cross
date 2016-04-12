@@ -23,6 +23,7 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Game.h"
+#include "Shaders/SimpleShaders.h"
 
 #define SWIG
 
@@ -142,10 +143,6 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse)
 		SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
 		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
 		SAFE(glUniform1i(simple_shader->uDiffuseTexture, 0));
-		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 	}
 
 	if(simple_shader->aDiffuseCoords != -1){

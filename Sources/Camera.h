@@ -48,7 +48,7 @@ protected:
 	Matrix projection;
 	Vector3D position;
 	Vector3D direction;
-	//Vector3D up;
+	Vector3D up;
 	bool recalc_view;
 
 	void RecalView();

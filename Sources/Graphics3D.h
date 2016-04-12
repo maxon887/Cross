@@ -17,10 +17,11 @@
 #pragma once
 #include "Cross.h"
 #include "GraphicsGL.h"
-#include "Shaders/SimpleShaders.h"
 #include "Events/Event.h"
 
 namespace cross{
+
+class SimpleShaders;
 
 class Graphics3D : public GraphicsGL{
 public:
