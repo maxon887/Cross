@@ -21,6 +21,7 @@
 #include "Camera2D.h"
 #include "Game.h"
 #include "Font.h"
+#include "Screen.h"
 
 #include <chrono>
 
@@ -54,7 +55,8 @@ Debugger::Debugger() :
 	console_debug(false),
 	touches(false),
 	touch_down(false),
-	next_display(3000000.f)
+	next_display(3000000.f),
+	debugger_font(nullptr)
 { }
 
 Debugger::~Debugger(){
@@ -88,32 +90,33 @@ void Debugger::Display(float micro){
 			render_counter++;
 		}
 	}
-	if(screen_debug){/*
-		float height = gfx2D->GetDefaultCamera()->GetViewHeight();
+	if(screen_debug){
+		float height = game->GetCurrentScreen()->GetHeight();
 		char outputString[256];
 		sprintf(outputString, "Render Time: %0.1fms", render_time);
-		texter->DrawText(0, height - texter->GetHeight(), outputString);
+		//Font* font = gfx2D->GetDefaultFont();
+		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize()), outputString, debugger_font);
 		if(update_time == 0){
-			texter->DrawText(0, height - texter->GetHeight() * 2, "Update Time: -");
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 2), "Update Time: -");
 		}else{
 			sprintf(outputString, "Update Time: %0.1fms", update_time);
-			texter->DrawText(0, height - texter->GetHeight() * 2, outputString);
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 2), outputString, debugger_font);
 		}
 		if(render_time == 0){
-			texter->DrawText(0, height - texter->GetHeight() * 3, "FPS: -");
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 3), "FPS: -");
 		}else{
 			sprintf(outputString, "FPS: %0.1f", 1000.f / render_time);
-			texter->DrawText(0, height - texter->GetHeight() * 3, outputString);
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 3), outputString, debugger_font);
 		}
 		sprintf(outputString, "Run time: %0.2fsec", time);
-		texter->DrawText(0, height - texter->GetHeight() * 4, outputString);
+		gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 4), outputString, debugger_font);
 		if(input_debug){
 			if(touch_down) {
-				texter->DrawText(0, height - texter->GetHeight() * 5, "Input x: " + to_string(touch_pos.x) + " y: " + to_string(touch_pos.y));
+				gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 5), "Input x: " + to_string(touch_pos.x) + " y: " + to_string(touch_pos.y), debugger_font);
 			} else {
-				texter->DrawText(0, height - texter->GetHeight() * 5, "Input Up");
+				gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 5), "Input Up", debugger_font);
 			}
-		}*/
+		}
 	}
 	if(console_debug){
 		if(next_display < 0){
@@ -130,15 +133,14 @@ void Debugger::Display(float micro){
 	}
 }
 
-void Debugger::ScreenDebug(bool enable){/*
+void Debugger::ScreenDebug(bool enable){
 	screen_debug = enable;
-	if(screen_debug){
-		if(texter == NULL){
-			texter = new Texter(game, "Engine/Fonts/Texter.png", 11.0f, 20.0f, 23, 6, 32);
-		}else{
-			launcher->LogIt("Warning!Screen debug already anabled");
+	if(enable){
+		if(!debugger_font){
+			debugger_font = gfx2D->GetDefaultFont()->Clone();
+			debugger_font->SetSize(debugger_font->GetSize() / 2.f);
 		}
-	}*/
+	}
 }
 
 void Debugger::EnableInputDebug(){

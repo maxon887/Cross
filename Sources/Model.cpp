@@ -23,8 +23,7 @@ using namespace cross;
 Model::Model(CRArray<Mesh*>& meshes) :
 	meshes(meshes),
 	diffuse(nullptr)
-{
-}
+{ }
 
 void Model::Draw(){
 	for(Mesh* mesh : meshes){

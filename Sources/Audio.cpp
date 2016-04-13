@@ -22,8 +22,6 @@
 
 #include <stdarg.h>
 
-//#define DISABLE_AUDIO
-
 using namespace cross;
 
 #ifndef DISABLE_AUDIO

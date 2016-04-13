@@ -22,6 +22,7 @@
 #include "MainScreen.h"
 #include "Audio.h"
 #include "Sprite.h"
+#include "Texture.h"
 
 void AnimationScreen::Start(){
 	bcg_scale = 2;

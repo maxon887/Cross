@@ -49,7 +49,6 @@ private:
 	CRArray<Sprite*> sprites;
 	CRArray<Texture*> textures;
 	float advances[128];
-	//Texture textures[128];
 	Color color;
 	float size;
 	float char_width;

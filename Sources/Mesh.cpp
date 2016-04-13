@@ -32,7 +32,3 @@ Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint pol
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-
-void Mesh::Draw(){
-
-}

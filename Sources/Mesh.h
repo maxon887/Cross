@@ -33,8 +33,6 @@ public:
 	GLuint poly_count;
 
 	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount);
-
-	void Draw();
 };
 
 }

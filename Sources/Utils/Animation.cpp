@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Animation.h"
 #include "Graphics2D.h"
+#include "Sprite.h"
 
 using namespace cross;
 

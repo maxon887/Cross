@@ -43,6 +43,8 @@ private:
 
 	CRArray<CrossTime> times;
 
+	Font* debugger_font;
+
 	float update_time;
 	float update_sum;
 	int update_counter;
