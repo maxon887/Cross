@@ -114,7 +114,7 @@ Model* Graphics3D::LoadModel(const string& modelFile, const string& diffuseTextu
 	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
 	Model* model = new Model(modelMeshes);
 	if(!diffuseTexture.empty()){
-		Texture* diffuse = gfx2D->LoadTexture(diffuseTexture);
+		Texture* diffuse = gfx2D->LoadTexture(diffuseTexture, true);
 		model->SetDiffuseTexture(diffuse);
 	}
 	string msg = "" + modelFile + " loaded in ";

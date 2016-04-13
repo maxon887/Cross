@@ -237,6 +237,10 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 }
 
 Texture* Graphics2D::LoadTexture(string filename){
+	return LoadTexture(filename, false);
+}
+
+Texture* Graphics2D::LoadTexture(string filename, bool generateMipmap){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
 	File* textureFile = launcher->LoadFile(filename);
@@ -271,13 +275,17 @@ Texture* Graphics2D::LoadTexture(string filename){
 		height = newHeight;
 		image = newImage;
 	}
-	Texture* texture = CreateTexture(image, channels, width, height);
+	Texture* texture = CreateTexture(image, channels, width, height, generateMipmap);
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){
+	return CreateTexture(data, channels, width, height, false);
+}
+
+Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height, bool generateMipmap){
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
@@ -295,14 +303,11 @@ Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int he
 	default:
 		throw CrossException("Wrong texture channel count");
 	}
-
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	Texture* texture = new Texture(id, width, height);
+	Texture* texture = new Texture(id, width, height, generateMipmap);
 	return texture;
 }
 
