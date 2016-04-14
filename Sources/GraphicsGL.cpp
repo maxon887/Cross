@@ -25,7 +25,7 @@
 
 using namespace cross;
 
-void GraphicsGL::CheckGLError() {
+void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 	GLenum err;
 	err = glGetError();
 	while(err != GL_NO_ERROR) {
@@ -49,9 +49,10 @@ void GraphicsGL::CheckGLError() {
 		default: strcpy(error, "Unknown error");  
 			break;
 		}
-		launcher->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, __FILE__, __LINE__);
-		delete[] error;
-		err = glGetError();
+		//launcher->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
+		throw CrossException("OpenGL error: %s in %s : %d", error, file, line);
+		//delete[] error;
+		//err = glGetError();
 }
 }
 

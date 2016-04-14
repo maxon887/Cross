@@ -23,7 +23,10 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Game.h"
+#include "Shaders/SimpleShader.h"
 #include "Shaders/TextureShader.h"
+#include "Shaders/LightShader.h"
+#include "Utils/Light.h"
 
 #define SWIG
 
@@ -42,6 +45,14 @@ Mesh* processMesh(aiMesh* mesh, const aiScene* scene){
 		vertex.pos.x = mesh->mVertices[i].x;
 		vertex.pos.y = mesh->mVertices[i].y;
 		vertex.pos.z = mesh->mVertices[i].z;
+
+		if(mesh->mNormals){
+			vertex.normal.x = mesh->mNormals[i].x;
+			vertex.normal.y = mesh->mNormals[i].y;
+			vertex.normal.z = mesh->mNormals[i].z;
+		}else{
+			vertex.normal = Vector3D(0.f, 0.f, 0.f);
+		}
 
 		if(mesh->mTextureCoords[0]){
 			vertex.uv.x = mesh->mTextureCoords[0][i].x;
@@ -71,7 +82,10 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 	}
 }
 
-Graphics3D::Graphics3D(){
+Graphics3D::Graphics3D() : 
+	ambient_light_strength(0.15f),
+	ambient_light_color(Color::White)
+{
 	launcher->LogIt("Graphics3D::Graphics3D()");
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
@@ -89,6 +103,34 @@ Camera* Graphics3D::GetCamera(){
 	return camera;
 }
 
+void Graphics3D::AddLightSource(Light* light){
+	light_sources.push_back(light);
+}
+
+void Graphics3D::ClearLightSources(){
+	light_sources.clear();
+}
+
+Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile){
+	Debugger::Instance()->StartCheckTime();
+	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
+	Model* model = new Model(shaderType);
+	model->SetMeshes(modelMeshes);
+	string msg = "" + modelFile + " loaded in ";
+	Debugger::Instance()->StopCheckTime(msg);
+	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
+	return model;
+}
+
+Mesh* Graphics3D::LoadMesh(const string& filename){
+	CRArray<Mesh*> meshes = LoadMeshes(filename);
+	if(meshes.size() > 1){
+		throw CrossException("File contains more than 1 mesh.\nUse LoadMeshes function.");
+	}else{
+		return meshes[0];
+	}
+}
+
 CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
@@ -98,49 +140,27 @@ CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
 	}
 	CRArray<Mesh*> meshes;
 	processNode(&meshes, scene->mRootNode, scene);
+	if(meshes.size() == 0){
+		throw CrossException("Cannot load meshes from file");
+	}
 	return meshes;
 }
 
-Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile){
-	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
-	Model* model = new Model();
-	model->SetShader(gfxGL->GetShader(shaderType));
-	model->SetMeshes(modelMeshes);
-	string msg = "" + modelFile + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	return model;
-}
-
-/*
-void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse){
-	TextureShader* shader = (TextureShader*)gfxGL->GetShader(Shader::Type::TEXTURE);
+void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& transform, Color& color){
+	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
 	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-	if(shader->aPosition != -1){
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
-	}
-	if(shader->uMVP != -1){
-		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
-		mvp = mvp.Transpose();
-		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	}
 
-	if(diffuse != nullptr && shader->uDiffuseTexture != -1){
-		SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
-		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
-		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
-	}
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 
-	if(shader->aDiffuseCoords != -1){
-		SAFE(glEnableVertexAttribArray(shader->aDiffuseCoords));
-		SAFE(glVertexAttribPointer(shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
-	}
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
@@ -148,7 +168,66 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse)
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glDisable(GL_DEPTH_TEST));
-}*/
+}
+
+void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* diffuse){
+	TextureShader* shader = (TextureShader*)gfxGL->GetShader(Shader::Type::TEXTURE);
+	gfxGL->UseShader(shader);
+
+	SAFE(glEnable(GL_DEPTH_TEST));
+
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
+
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+
+	SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
+	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+	SAFE(glUniform1i(shader->uDiffuseTexture, 0));
+
+	SAFE(glEnableVertexAttribArray(shader->aDiffuseCoords));
+	SAFE(glVertexAttribPointer(shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glDisable(GL_DEPTH_TEST));
+}
+
+void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform, Color& color){
+	LightShader* shader = (LightShader*)gfxGL->GetShader(Shader::Type::LIGHT);
+	gfxGL->UseShader(shader);
+
+	SAFE(glEnable(GL_DEPTH_TEST));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
+
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glUniform3fv(shader->uLightPosition, 1, light_sources[0]->GetPosition().GetData()));
+	SAFE(glUniform3fv(shader->uLightColor, 1, light_sources[0]->GetColor().GetData()));
+	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform1f(shader->uAmbientLightStrength, ambient_light_strength));
+	SAFE(glUniform3fv(shader->uAmbientLightColor, 1, ambient_light_color.GetData()));
+
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+	SAFE(glEnableVertexAttribArray(shader->aNormal));
+	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glDisable(GL_DEPTH_TEST));
+}
 
 void Graphics3D::WindowResizeHandle(int width, int height){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);

@@ -21,16 +21,24 @@
 
 void LightingScreen::Start(){
 	CameraControlScreen::Start();
+	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
+	orbit_distance = 28.f;
 	cube = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Cube.obj");
+	cube->SetColor(Color(1.f, 0.33f, 0.f));
+	light = new Light(Color::White);
+	light->SetPosition(Vector3D(10.f, 8.f, -5.f));
+	gfx3D->AddLightSource(light);
 }
 
 void LightingScreen::Stop(){
 	CameraControlScreen::Stop();
-
+	delete cube;
+	delete light;
 }
 
 void LightingScreen::Update(float sec){
 	cube->Draw();
+	light->Draw();
 
 	CameraControlScreen::Update(sec);
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {

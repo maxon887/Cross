@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "CameraControlScreen.h"
+#include "Utils/Light.h"
 
 class LightingScreen : public CameraControlScreen{
 public:
@@ -24,5 +25,6 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
+	Light* light;
 	Model* cube;
 };

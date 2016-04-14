@@ -22,19 +22,31 @@
 
 namespace cross{
 
+class Light;
+
 class Graphics3D{
 public:
 	Graphics3D();
 	~Graphics3D();
 
 	Camera* GetCamera();
-	Model* LoadModel(Shader::Type shaderType, const string& filename);
+	void AddLightSource(Light* light);
+	void ClearLightSources();
 
-	//void DrawMesh(Mesh* mesh, const Matrix& model, Texture* diffuse);
+	Model* LoadModel(Shader::Type shaderType, const string& filename);
+	Mesh* LoadMesh(const string& filename);
+	CRArray<Mesh*> LoadMeshes(const string& filename);
+
+	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
+	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
+	void DrawMeshLight(Mesh* mesh, const Matrix& model, Color& color);
 private:
 	Camera* camera;
-
-	CRArray<Mesh*> LoadMeshes(const string& filename);
+	//ambient light
+	float ambient_light_strength;
+	Color ambient_light_color;
+	//point lights
+	CRArray<Light*> light_sources;
 
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

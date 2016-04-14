@@ -23,6 +23,7 @@ namespace cross{
 struct Vertex{
 	Vector3D pos;
 	Vector2D uv;
+	Vector3D normal;
 };
 
 class Mesh{

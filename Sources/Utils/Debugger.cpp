@@ -60,6 +60,7 @@ Debugger::Debugger() :
 { }
 
 Debugger::~Debugger(){
+	delete debugger_font;
 }
 
 void Debugger::StartCheckTime() {
@@ -97,13 +98,13 @@ void Debugger::Display(float micro){
 		//Font* font = gfx2D->GetDefaultFont();
 		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize()), outputString, debugger_font);
 		if(update_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 2), "Update Time: -");
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 2), "Update Time: -", debugger_font);
 		}else{
 			sprintf(outputString, "Update Time: %0.1fms", update_time);
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 2), outputString, debugger_font);
 		}
 		if(render_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 3), "FPS: -");
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 3), "FPS: -", debugger_font);
 		}else{
 			sprintf(outputString, "FPS: %0.1f", 1000.f / render_time);
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 3), outputString, debugger_font);

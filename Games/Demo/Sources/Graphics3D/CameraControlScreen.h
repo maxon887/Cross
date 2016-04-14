@@ -31,7 +31,7 @@ public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
-private:
+protected:
 	float liner_speed;
 	float angular_speed;
 	float orbit_speed;

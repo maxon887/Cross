@@ -42,7 +42,7 @@
 #define SAFE(X) \
 {\
 	(X);      \
-	GraphicsGL::CheckGLError(); \
+	GraphicsGL::CheckGLError(__FILE__, __LINE__); \
 }
 #else
 #define SAFE(X) X;
@@ -54,11 +54,10 @@ class Shader;
 
 class GraphicsGL{
 public:
-	static void CheckGLError();
+	static void CheckGLError(const char* file, unsigned int line);
 
 	GraphicsGL();
 	~GraphicsGL();
-
 
 	Shader* GetShader(unsigned int type);
 	GLuint ComplileShader(string filename);

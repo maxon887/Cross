@@ -14,30 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Transformable.h"
-#include "Shaders/Shader.h"
+#include "Light.h"
+#include "Graphics3D.h"
 
-namespace cross{
+using namespace cross;
 
-class Model : public Transformable{
-public:
-	Model(Shader::Type type);
-	~Model();
+Mesh* Light::sphere = nullptr;
 
-	void Draw();
-	int GetPolyCount();
-	void SetMesh(Mesh* mesh);
-	void SetMeshes(CRArray<Mesh*>& meshes);
-	void SetDiffuseTexture(Texture* diffuse);
-	void SetColor(Color color);
-	Color GetColor();
-protected:
-	Shader::Type shader_type;
-	CRArray<Mesh*> meshes;
-	Texture* diffuse;
-	Color color;
-};
-
+Light::Light(Color color) : 
+	Model(Shader::Type::SIMPLE)
+{ 
+	SetColor(color);
+	if(!sphere){
+		sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
+	}
+	SetMesh(sphere);
+	SetScale(0.1f);
 }

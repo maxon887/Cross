@@ -18,43 +18,48 @@
 #include "Graphics3D.h"
 #include "Mesh.h"
 #include "Camera.h"
-#include "Shaders/SimpleShader.h"
-#include "Shaders/TextureShader.h"
 #include "Texture.h"
 
 using namespace cross;
 
-Model::Model() :
+Model::Model(Shader::Type type) :
 	diffuse(nullptr),
-	shader(nullptr),
+	shader_type(type),
 	color(Color::White)
 { }
 
-void Model::Draw(){
-	if(!shader){
-		throw CrossException("Shader not installed");
+Model::~Model(){
+	for(Mesh* mesh : meshes){
+		delete mesh;
 	}
+	if(diffuse){
+		delete diffuse;
+	}
+}
 
-	SAFE(glEnable(GL_DEPTH_TEST));
-
-	switch(shader->type){
+void Model::Draw(){
+	switch(shader_type){
 	case Shader::Type::SIMPLE:
-		DrawSimple();
+		for(Mesh* mesh : meshes){
+			gfx3D->DrawMeshSimple(mesh, GetModelMatrix(), color);
+		}
 		break;
 	case Shader::Type::TEXTURE:
 		if(!diffuse){
 			throw CrossException("There are no diffuse texture applied for model");
 		}
-		DrawTexture();
+		for(Mesh* mesh : meshes){
+			gfx3D->DrawMeshTexture(mesh, GetModelMatrix(), diffuse);
+		}
 		break;
 	case Shader::Type::LIGHT:
-		DrawLight();
+		for(Mesh* mesh : meshes){
+			gfx3D->DrawMeshLight(mesh, GetModelMatrix(), color);
+		}
 		break;
 	default:
 		throw CrossException("Wrong shader type");
 	}
-
-	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
 int Model::GetPolyCount(){
@@ -65,9 +70,9 @@ int Model::GetPolyCount(){
 	return polyCount;
 }
 
-
-void Model::SetShader(Shader* shader){
-	this->shader = shader;
+void Model::SetMesh(Mesh* mesh){
+	meshes.clear();
+	meshes.push_back(mesh);
 }
 
 void Model::SetMeshes(CRArray<Mesh*>& meshes){
@@ -82,58 +87,6 @@ void Model::SetColor(Color color){
 	this->color = color;
 }
 
-void Model::DrawSimple(){
-	SimpleShader* simpleShader = (SimpleShader*)shader;
-	gfxGL->UseShader(simpleShader);
-
-	for(Mesh* mesh : meshes){
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
-
-		Camera* camera = gfx3D->GetCamera();
-		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * GetModelMatrix();
-		mvp = mvp.Transpose();
-		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-		SAFE(glUniform4fv(simpleShader->uColor, 1, color.GetData()));
-
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-		SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	}
-}
-
-void Model::DrawTexture(){
-	TextureShader* textureShader = (TextureShader*)shader;
-	gfxGL->UseShader(textureShader);
-
-	for(Mesh* mesh : meshes){
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
-
-		Camera* camera = gfx3D->GetCamera();
-		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * GetModelMatrix();
-		mvp = mvp.Transpose();
-		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-		SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
-		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
-		SAFE(glUniform1i(textureShader->uDiffuseTexture, 0));
-
-		SAFE(glEnableVertexAttribArray(textureShader->aDiffuseCoords));
-		SAFE(glVertexAttribPointer(textureShader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
-
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-		SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	}
-}
-
-void Model::DrawLight(){
-
+Color Model::GetColor(){
+	return color;
 }

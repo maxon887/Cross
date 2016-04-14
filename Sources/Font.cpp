@@ -163,7 +163,7 @@ void Font::Cache(){
 		textures[i] = texture;
 		Rect region(0, 0, (float)bmpWidth, (float)bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
-		Sprite* sprite = new Sprite(texture, region, pivot);
+		Sprite* sprite = new Sprite(texture, region, pivot);  
 		delete sprites[i];
 		sprites[i] = sprite;
 	}

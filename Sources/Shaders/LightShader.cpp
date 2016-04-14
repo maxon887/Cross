@@ -20,4 +20,12 @@ using namespace cross;
 
 LightShader::LightShader() :
 	Shader(Type::LIGHT, "Engine/Shaders/light.vert", "Engine/Shaders/light.frag")
-{ }
+{ 
+	uColor = glGetUniformLocation(program, "uColor");
+	uAmbientLightStrength = glGetUniformLocation(program, "uAmbientLightStrength");
+	uAmbientLightColor = glGetUniformLocation(program, "uAmbientLightColor");
+	uLightPosition = glGetUniformLocation(program, "uLightPosition");
+	uLightColor = glGetUniformLocation(program, "uLightColor");
+
+	aNormal = glGetAttribLocation(program, "aNormal");
+}
