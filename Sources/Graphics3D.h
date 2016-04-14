@@ -28,8 +28,7 @@ public:
 	~Graphics3D();
 
 	Camera* GetCamera();
-	Model* LoadModel(const string& filename);
-	Model* LoadModel(Shader::Type shaderType, const string& modelFile, const string& diffuseTexture);
+	Model* LoadModel(Shader::Type shaderType, const string& filename);
 
 	//void DrawMesh(Mesh* mesh, const Matrix& model, Texture* diffuse);
 private:

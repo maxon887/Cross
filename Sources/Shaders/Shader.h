@@ -14,14 +14,33 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SpriteShaders.h"
+#pragma once
+#include "Cross.h"
+#include "GraphicsGL.h"
 
-using namespace cross;
+namespace cross{
 
-SpriteShaders::SpriteShaders() :
-	Shaders(Type::SPRITE, "Engine/Shaders/sprite.vert", "Engine/Shaders/sprite.frag")
-{
-	aTexCoord = glGetAttribLocation(program, "aTexCoord");
-	uMonochrome = glGetUniformLocation(program, "uMonochrome");
-	uColor = glGetUniformLocation(program, "uColor");
+class Shader{
+public:
+	enum Type{
+		SIMPLE,
+		MONOCHROME,
+		TEXTURE,
+		LIGHT,
+		COUNT
+	};
+
+	GLuint program;
+	GLint uMVP;
+	GLint aPosition;
+	Type type;
+
+	Shader(Type type, string vertexFile, string fragmentFile);
+	virtual ~Shader();
+
+private:
+	GLuint vertex_shader;
+	GLuint fragment_shader;
+};
+
 }

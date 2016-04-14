@@ -243,10 +243,10 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 }
 
 Texture* Graphics2D::LoadTexture(string filename){
-	return LoadTexture(filename, false);
+	return LoadTexture(filename, Texture::Filter::LINEAR);
 }
 
-Texture* Graphics2D::LoadTexture(string filename, bool generateMipmap){
+Texture* Graphics2D::LoadTexture(string filename, Texture::Filter filter){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
 	File* textureFile = launcher->LoadFile(filename);
@@ -281,17 +281,17 @@ Texture* Graphics2D::LoadTexture(string filename, bool generateMipmap){
 		height = newHeight;
 		image = newImage;
 	}
-	Texture* texture = CreateTexture(image, channels, width, height, generateMipmap);
+	Texture* texture = CreateTexture(image, channels, width, height, filter);
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){
-	return CreateTexture(data, channels, width, height, false);
+	return CreateTexture(data, channels, width, height, Texture::Filter::LINEAR);
 }
 
-Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height, bool generateMipmap){
+Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter){
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
@@ -313,7 +313,7 @@ Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int he
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	Texture* texture = new Texture(id, width, height, generateMipmap);
+	Texture* texture = new Texture(id, width, height, filter);
 	return texture;
 }
 

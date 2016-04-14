@@ -21,15 +21,6 @@ namespace cross{
 
 class Texture{
 public:
-	Texture(GLuint id, int width, int height);
-	Texture(GLuint id, int width, int height, bool generateMipmap);
-	//Texture(GLuint id, int width, int height, bool generateMipmap, Filter filter);
-	~Texture();
-
-	GLuint GetID();
-	int GetWidth();
-	int GetHeight();
-private:
 	enum Filter{
 		NEAREST,
 		LINEAR,
@@ -38,6 +29,14 @@ private:
 		NONE
 	};
 
+	Texture(GLuint id, int width, int height);
+	Texture(GLuint id, int width, int height, Filter filter);
+	~Texture();
+
+	GLuint GetID();
+	int GetWidth();
+	int GetHeight();
+private:
 	GLuint id;
 	int width;
 	int height;

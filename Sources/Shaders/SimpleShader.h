@@ -14,26 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "LightingScreen.h"
-#include "Game.h"
-#include "Graphics3D.h"
-#include "Model.h"
+#pragma once
+#include "Cross.h"
+#include "Shader.h"
 
-void LightingScreen::Start(){
-	CameraControlScreen::Start();
-	cube = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Cube.obj");
-}
+namespace cross{
 
-void LightingScreen::Stop(){
-	CameraControlScreen::Stop();
+class SimpleShader : public Shader{
+public:
+	GLint uColor;
 
-}
+	SimpleShader();
+};
 
-void LightingScreen::Update(float sec){
-	cube->Draw();
-
-	CameraControlScreen::Update(sec);
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-	}
-}
+};

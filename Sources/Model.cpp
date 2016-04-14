@@ -43,7 +43,7 @@ void Model::Draw(){
 		break;
 	case Shader::Type::TEXTURE:
 		if(!diffuse){
-			throw CrossException("There are no texture for model");
+			throw CrossException("There are no diffuse texture applied for model");
 		}
 		DrawTexture();
 		break;

@@ -19,21 +19,16 @@
 using namespace cross;
 
 Texture::Texture(GLuint id, int width, int height) : 
-	Texture(id, width, height, false)
+	Texture(id, width, height, Filter::LINEAR)
 { }
 
-Texture::Texture(GLuint id, int width, int height, bool generateMipmap) :
+Texture::Texture(GLuint id, int width, int height, Filter filter) :
 	id(id),
 	width(width),
 	height(height)
 {
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
-	if(generateMipmap){
-		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
-		ApplyFilter(Filter::TRILINEAR);
-	}else{
-		ApplyFilter(Filter::LINEAR);
-	}
+	ApplyFilter(filter);
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 }
 
@@ -64,10 +59,12 @@ void Texture::ApplyFilter(Filter filter){
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	case cross::Texture::BILINEAR:
+		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	case cross::Texture::TRILINEAR:
+		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;

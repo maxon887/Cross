@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Texture.h"
 
 namespace cross{
 
@@ -40,9 +41,9 @@ public:
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
 	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
 	Texture* LoadTexture(string filename);
-	Texture* LoadTexture(string filename, bool generateMipmap);
+	Texture* LoadTexture(string filename, Texture::Filter filter);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
-	Texture* CreateTexture(CRByte* data, int channels, int width, int height, bool generateMipmap);
+	Texture* CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter);
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
 	void SetClearColor(Color color);
 	Font* GetDefaultFont();

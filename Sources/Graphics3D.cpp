@@ -101,25 +101,18 @@ CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
 	return meshes;
 }
 
-Model* Graphics3D::LoadModel(const string& model){
-	return LoadModel(Shader::Type::SIMPLE, model, "");
-}
-
-Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile, const string& diffuseTexture){
+Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile){
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
 	Model* model = new Model();
 	model->SetShader(gfxGL->GetShader(shaderType));
 	model->SetMeshes(modelMeshes);
-	if(!diffuseTexture.empty()){
-		Texture* diffuse = gfx2D->LoadTexture(diffuseTexture, true);
-		model->SetDiffuseTexture(diffuse);
-	}
 	string msg = "" + modelFile + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
 }
+
 /*
 void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse){
 	TextureShader* shader = (TextureShader*)gfxGL->GetShader(Shader::Type::TEXTURE);

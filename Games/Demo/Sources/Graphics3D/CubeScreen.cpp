@@ -17,11 +17,14 @@
 #include "CubeScreen.h"
 #include "Game.h"
 #include "Graphics3D.h"
+#include "Graphics2D.h"
 #include "Model.h"
 
 void CubeScreen::Start(){
 	CameraControlScreen::Start();
-	cube = gfx3D->LoadModel(Shader::Type::SIMPLE, "gfx3D/Cube.obj", "gfx3D/Box.png");
+	cube = gfx3D->LoadModel(Shader::Type::TEXTURE, "gfx3D/Cube.obj");
+	Texture* box = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
+	cube->SetDiffuseTexture(box);
 	/*
 	cube = gfx3D->LoadModel("gfx3D/Gnome.obj", "gfx3D/Gnome.png");
 	cube->SetRotateY(180.f);
