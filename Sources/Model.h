@@ -17,19 +17,29 @@
 #pragma once
 #include "Cross.h"
 #include "Transformable.h"
+#include "Shaders/Shader.h"
 
 namespace cross{
 
 class Model : public Transformable{
 public:
-	Model(CRArray<Mesh*>& meshes);
+	Model();
 
 	void Draw();
 	int GetPolyCount();
+	void SetShader(Shader* shader);
+	void SetMeshes(CRArray<Mesh*>& meshes);
 	void SetDiffuseTexture(Texture* diffuse);
+	void SetColor(Color color);
 protected:
+	Shader* shader;
 	CRArray<Mesh*> meshes;
 	Texture* diffuse;
+	Color color;
+
+	void DrawSimple();
+	void DrawTexture();
+	void DrawLight();
 };
 
 }

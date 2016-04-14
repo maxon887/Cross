@@ -16,9 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LightingScreen.h"
 #include "Game.h"
+#include "Graphics3D.h"
+#include "Model.h"
 
 void LightingScreen::Start(){
 	CameraControlScreen::Start();
+	cube = gfx3D->LoadModel("gfx3D/Cube.obj");
 }
 
 void LightingScreen::Stop(){
@@ -27,6 +30,7 @@ void LightingScreen::Stop(){
 }
 
 void LightingScreen::Update(float sec){
+	cube->Draw();
 
 	CameraControlScreen::Update(sec);
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {

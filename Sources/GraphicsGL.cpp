@@ -18,7 +18,10 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
-#include "Shaders.h"
+#include "Shaders/SimpleShader.h"
+#include "Shaders/MonochromeShader.h"
+#include "Shaders/TextureShader.h"
+#include "Shaders/LightShader.h"
 
 using namespace cross;
 
@@ -52,7 +55,9 @@ void GraphicsGL::CheckGLError() {
 }
 }
 
-GraphicsGL::GraphicsGL(){
+GraphicsGL::GraphicsGL() : 
+	shaders(Shader::Type::COUNT)	
+{
 #if defined (WIN) && defined(OPENGL)
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 		GLint magorV;
@@ -68,6 +73,21 @@ GraphicsGL::GraphicsGL(){
 		}
 #endif
 		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
+
+		shaders[Shader::Type::SIMPLE] = new SimpleShader();
+		shaders[Shader::Type::MONOCHROME] = new MonochromeShader();
+		shaders[Shader::Type::TEXTURE] = new TextureShader();
+		shaders[Shader::Type::LIGHT] = new LightShader();
+}
+
+GraphicsGL::~GraphicsGL(){
+	for(Shader* shader : shaders){
+		delete shader;
+	}
+}
+
+Shader* GraphicsGL::GetShader(unsigned int type){
+	return shaders[type];
 }
 
 GLuint GraphicsGL::ComplileShader(string filename){
@@ -149,7 +169,7 @@ void GraphicsGL::CompileProgram(GLuint program){
 	}
 }
 
-void GraphicsGL::UseShaders(Shaders* shaders){
+void GraphicsGL::UseShader(Shader* shaders){
 	glUseProgram(shaders->program);
 }
 

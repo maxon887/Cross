@@ -24,4 +24,5 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
+	Model* cube;
 };

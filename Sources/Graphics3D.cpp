@@ -23,7 +23,7 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Game.h"
-#include "Shaders/SimpleShaders.h"
+#include "Shaders/TextureShader.h"
 
 #define SWIG
 
@@ -71,20 +71,16 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 	}
 }
 
-
-
 Graphics3D::Graphics3D(){
 	launcher->LogIt("Graphics3D::Graphics3D()");
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
-	simple_shader = new SimpleShaders();
 
 	window_resize_handle = MakeDelegate(this, &Graphics3D::WindowResizeHandle);
 	game->WindowResized += window_resize_handle;
 }
 
 Graphics3D::~Graphics3D(){
-	delete simple_shader;
 	delete camera;
 	game->WindowResized -= window_resize_handle;
 }
@@ -106,13 +102,15 @@ CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
 }
 
 Model* Graphics3D::LoadModel(const string& model){
-	return LoadModel(model, "");
+	return LoadModel(Shader::Type::SIMPLE, model, "");
 }
 
-Model* Graphics3D::LoadModel(const string& modelFile, const string& diffuseTexture){
+Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile, const string& diffuseTexture){
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
-	Model* model = new Model(modelMeshes);
+	Model* model = new Model();
+	model->SetShader(gfxGL->GetShader(shaderType));
+	model->SetMeshes(modelMeshes);
 	if(!diffuseTexture.empty()){
 		Texture* diffuse = gfx2D->LoadTexture(diffuseTexture, true);
 		model->SetDiffuseTexture(diffuse);
@@ -122,32 +120,33 @@ Model* Graphics3D::LoadModel(const string& modelFile, const string& diffuseTextu
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
 }
-
+/*
 void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse){
-	gfxGL->UseShaders(simple_shader);
+	TextureShader* shader = (TextureShader*)gfxGL->GetShader(Shader::Type::TEXTURE);
+	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-	if(simple_shader->aPosition != -1){
-		SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
-		SAFE(glVertexAttribPointer(simple_shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+	if(shader->aPosition != -1){
+		SAFE(glEnableVertexAttribArray(shader->aPosition));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	}
-	if(simple_shader->uMVP != -1){
+	if(shader->uMVP != -1){
 		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
 		mvp = mvp.Transpose();
-		SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 
-	if(diffuse != nullptr && simple_shader->uDiffuseTexture != -1){
+	if(diffuse != nullptr && shader->uDiffuseTexture != -1){
 		SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
 		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
-		SAFE(glUniform1i(simple_shader->uDiffuseTexture, 0));
+		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
 	}
 
-	if(simple_shader->aDiffuseCoords != -1){
-		SAFE(glEnableVertexAttribArray(simple_shader->aDiffuseCoords));
-		SAFE(glVertexAttribPointer(simple_shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+	if(shader->aDiffuseCoords != -1){
+		SAFE(glEnableVertexAttribArray(shader->aDiffuseCoords));
+		SAFE(glVertexAttribPointer(shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
 	}
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
@@ -156,7 +155,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& transform, Texture* diffuse)
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glDisable(GL_DEPTH_TEST));
-}
+}*/
 
 void Graphics3D::WindowResizeHandle(int width, int height){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);

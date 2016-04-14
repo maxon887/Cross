@@ -50,22 +50,27 @@
 
 namespace cross{
 
-class Shaders;
+class Shader;
 
 class GraphicsGL{
 public:
 	static void CheckGLError();
 
 	GraphicsGL();
+	~GraphicsGL();
 
+
+	Shader* GetShader(unsigned int type);
 	GLuint ComplileShader(string filename);
 	void DeleteShader(GLuint shader);
 	GLuint CreateProgram();
 	void DeleteProgram(GLuint program);
 	void AttachShader(GLuint program, GLuint shader);
 	void CompileProgram(GLuint program);
-	void UseShaders(Shaders* shaders);
+	void UseShader(Shader* shaders);
 private:
+	CRArray<Shader*> shaders;
+
 	void WindowResizeHandle(int width, int height);
 };
 

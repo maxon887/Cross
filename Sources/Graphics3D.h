@@ -18,24 +18,24 @@
 #include "Cross.h"
 #include "GraphicsGL.h"
 #include "Events/Event.h"
+#include "Shaders/Shader.h"
 
 namespace cross{
 
-class SimpleShaders;
-
-class Graphics3D : public GraphicsGL{
+class Graphics3D{
 public:
 	Graphics3D();
 	~Graphics3D();
 
 	Camera* GetCamera();
-	CRArray<Mesh*> LoadMeshes(const string& filename);
 	Model* LoadModel(const string& filename);
-	Model* LoadModel(const string& modelFile, const string& diffuseTexture);
-	void DrawMesh(Mesh* mesh, const Matrix& model, Texture* diffuse);
+	Model* LoadModel(Shader::Type shaderType, const string& modelFile, const string& diffuseTexture);
+
+	//void DrawMesh(Mesh* mesh, const Matrix& model, Texture* diffuse);
 private:
 	Camera* camera;
-	SimpleShaders* simple_shader;
+
+	CRArray<Mesh*> LoadMeshes(const string& filename);
 
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

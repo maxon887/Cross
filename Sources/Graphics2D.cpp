@@ -16,9 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
-#include "Shaders/SpriteShaders.h"
-#include "Shaders/PrimitiveShaders.h"
-#include "Shaders/MonochromeShaders.h"
 #include "Launcher.h"
 #include "Game.h"
 #include "Utils/Debugger.h"
@@ -28,6 +25,9 @@
 #include "Camera2D.h"
 #include "File.h"
 #include "Texture.h"
+#include "Shaders/SimpleShader.h"
+#include "Shaders/MonochromeShader.h"
+#include "Shaders/TextureShader.h"
 
 #include "SOIL/SOIL.h"
 #include "FreeType/ft2build.h"
@@ -44,9 +44,6 @@ Graphics2D::Graphics2D() :
 	camera(nullptr)
 {
 	launcher->LogIt("Graphics2D::Graphics2D()");
-	sprite_shaders = new SpriteShaders();
-	primitive_shaders = new PrimitiveShaders();
-	monochrome_shaders = new MonochromeShaders();
 	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 	default_camera = new Camera2D();
 }
@@ -55,9 +52,6 @@ Graphics2D::~Graphics2D(){
 	launcher->LogIt("Graphics2D::~Graphics2D");
 	delete default_font;
 	delete default_camera;
-	delete sprite_shaders;
-	delete primitive_shaders;
-	delete monochrome_shaders;
 }
 
 void Graphics2D::SetCamera(Camera2D* camera){
@@ -77,27 +71,29 @@ Camera2D* Graphics2D::GetDefaultCamera(){
 }
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
-	gfxGL->UseShaders(primitive_shaders);
+	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	gfxGL->UseShader(shader);
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
-	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPosition);
+	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
+	glUniform4fv(shader->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(shader->aPosition);
 	glDrawArrays(GL_POINTS, 0, 1);
 }
 
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
-	gfxGL->UseShaders(primitive_shaders);
+	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	gfxGL->UseShader(shader);
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPosition);
+	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glUniform4fv(shader->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(shader->aPosition);
 	glDrawArrays(GL_LINES, 0, 2);
 }
 
@@ -106,7 +102,8 @@ void Graphics2D::DrawRect(Rect rect, Color color){
 }
 
 void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
-	gfxGL->UseShaders(primitive_shaders);
+	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	gfxGL->UseShader(shader);
 	float vertices[5 * 2] = {	rect.x, rect.y,
 								rect.x + rect.width, rect.y,
 								rect.x + rect.width, rect.y + rect.height,
@@ -115,10 +112,10 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPosition);
+	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glUniform4fv(shader->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(shader->aPosition);
 	if(filled){
 		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
@@ -136,7 +133,8 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 }
 
 void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy){
-	gfxGL->UseShaders(primitive_shaders);
+	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	gfxGL->UseShader(shader);
 	int vertexCount = accuracy;
 
 	// Create a buffer for vertex data
@@ -164,11 +162,11 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(primitive_shaders->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(primitive_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer);
+	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
+	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer);
 	//delete buffer;
-	glUniform4fv(primitive_shaders->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(primitive_shaders->aPosition);
+	glUniform4fv(shader->uColor, 1, color.GetData());
+	glEnableVertexAttribArray(shader->aPosition);
 	if(filled){
 		glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
 	}else{
@@ -208,26 +206,34 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome){
+
+	Shader* shader = nullptr;
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
+	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	if(monochrome){
-		gfxGL->UseShaders(monochrome_shaders);
+		shader = gfxGL->GetShader(Shader::Type::MONOCHROME);
+		gfxGL->UseShader(shader);
+		MonochromeShader* spriteShader = (MonochromeShader*)shader;
+		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));
+		SAFE(glEnableVertexAttribArray(spriteShader->aTexCoord));
+		SAFE(glVertexAttribPointer(spriteShader->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	}else{
-		gfxGL->UseShaders(sprite_shaders);
+		shader = gfxGL->GetShader(Shader::Type::TEXTURE);
+		gfxGL->UseShader(shader);
+		TextureShader* spriteShader = (TextureShader*)shader;
+		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));
+		SAFE(glEnableVertexAttribArray(spriteShader->aDiffuseCoords));
+		SAFE(glVertexAttribPointer(spriteShader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	}
 
 	SAFE(glEnable(GL_BLEND));
 	SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * sprite->GetModelMatrix();
 	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(sprite_shaders->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glUniform4fv(sprite_shaders->uColor, 1, color.GetData()));
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 
-	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
-
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
-	SAFE(glEnableVertexAttribArray(sprite_shaders->aPosition));
-	SAFE(glVertexAttribPointer(sprite_shaders->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
-	SAFE(glEnableVertexAttribArray(sprite_shaders->aTexCoord));
-	SAFE(glVertexAttribPointer(sprite_shaders->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
 	
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sprite->EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0));

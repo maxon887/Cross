@@ -86,12 +86,11 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightShaders.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShaders.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\Shaders.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShaders.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\SpriteShaders.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
@@ -151,12 +150,11 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightShaders.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShaders.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\PrimitiveShaders.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\Shaders.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShaders.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\SpriteShaders.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
@@ -206,12 +204,12 @@
   <ItemGroup>
     <None Include="..\..\Assets\Engine\Shaders\light.frag" />
     <None Include="..\..\Assets\Engine\Shaders\light.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\primitive.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\primitive.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\monochrome.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\monochrome.vert" />
     <None Include="..\..\Assets\Engine\Shaders\simple.frag" />
     <None Include="..\..\Assets\Engine\Shaders\simple.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\sprite.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\sprite.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\texture.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\texture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

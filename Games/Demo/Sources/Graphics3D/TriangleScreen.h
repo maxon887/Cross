@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics3D/CameraControlScreen.h"
-#include "Shaders/PrimitiveShaders.h"
+#include "Shaders/SimpleShader.h"
 #include "Input.h"
 
 using namespace cross;
@@ -29,7 +29,7 @@ public:
 	void Update(float sec);
 private:
 	GLuint vboId;
-	PrimitiveShaders* shader;
+	SimpleShader* shader;
 
 	Vector2D touch_pos;
 

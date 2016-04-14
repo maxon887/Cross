@@ -19,10 +19,6 @@
 
 namespace cross{
 
-class SpriteShaders;
-class PrimitiveShaders;
-class MonochromeShaders;
-
 /*	This class can be used for drawing 2D graphics. If you not support Camera2D all drawings
 	will be placed in device screen metrics. */
 class Graphics2D{
@@ -57,9 +53,6 @@ public:
 	void Update();
 private:
 	Font* default_font;
-	SpriteShaders* sprite_shaders;
-	PrimitiveShaders* primitive_shaders;
-	MonochromeShaders* monochrome_shaders;
 	Camera2D* camera;
 	Camera2D* default_camera;
 };
