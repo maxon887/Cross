@@ -32,14 +32,19 @@ public:
 	DECLARE_EVENT(void, int, int) WindowResized;
 
 	Game();
+	virtual ~Game();
 	/* Cause when game is about to start */
 	virtual void Start() { };
 	/* Cause when game is about to stop */
 	virtual void Stop() { };
+	/* Update game every frame */
+	virtual void Update();
 	/* Cause when game needs to be paused. For example input call or window lost focus */
 	virtual void Suspend();
 	/* Cause when game gained focus */
 	virtual void Resume();
+
+	float GetRunTime();
 	/* Set up new Screen. Previous screen data will be deleted */
 	void SetScreen(Screen* screen);
 	/* Returns current game screen */
@@ -47,12 +52,10 @@ public:
 	/* Exit from application */
     void Exit();
 //Internal data. You don't need call any of this methods or modify variable
-public:
-    void Update();
-	virtual ~Game();
 private:
 	Screen* current_screen;
 	chrono::time_point<chrono::high_resolution_clock> render_time;
+	float run_time;
 };
     
 }

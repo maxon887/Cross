@@ -28,6 +28,7 @@ public:
 	void SetPosition(const Vector3D& pos);
 	void SetScale(float factor);
 	void SetScale(const Vector2D& scale);
+	void SetScale(const Vector3D& scale);
 	void SetRotateX(float angle);
 	void SetRotateY(float angle);
 	void SetRotateZ(float angle);

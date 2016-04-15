@@ -215,6 +215,8 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform, Color& color
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
 	SAFE(glUniform1f(shader->uAmbientLightStrength, ambient_light_strength));
 	SAFE(glUniform3fv(shader->uAmbientLightColor, 1, ambient_light_color.GetData()));
+	Matrix normalMatrix = transform.Inverse();
+	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));

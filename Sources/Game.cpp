@@ -40,12 +40,24 @@ Graphics3D* cross::gfx3D = NULL;
 Input*		cross::input = NULL;
 Config*		cross::config = NULL;
 
-Game::Game(){
+Game::Game() :
+	current_screen(nullptr),
+	run_time(0.f)
+{
 	launcher->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config(launcher->DataPath());
-	this->current_screen = NULL;
 }
+
+Game::~Game(){
+	launcher->LogIt("Game::~Game");
+	delete current_screen;
+	delete input;
+	delete config;
+	Audio::Release();
+	Debugger::Release();
+}
+
 
 void Game::SetScreen(Screen* screen){
 	launcher->LogIt("Game::SetScreen()");
@@ -77,10 +89,15 @@ void Game::Resume(){
 	}
 }
 
+float Game::GetRunTime(){
+	return run_time;
+}
+
 void Game::Update(){
 	time_point<high_resolution_clock> now = high_resolution_clock::now();
 	long long rend = duration_cast<microseconds>(now - render_time).count();
 	render_time = high_resolution_clock::now();
+	run_time += (float)(rend / 1000000.);
 	gfx2D->Update();
 	GetCurrentScreen()->Update((float)(rend / 1000000.));
 	now = high_resolution_clock::now();
@@ -97,13 +114,4 @@ void Game::Exit(){
 #ifdef WIN
 	exit(0);
 #endif // WIN
-}
-
-Game::~Game(){
-	launcher->LogIt("Game::~Game");
-	delete current_screen;
-	delete input;
-	delete config;
-	Audio::Release();
-	Debugger::Release();
 }

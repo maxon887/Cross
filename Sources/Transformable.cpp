@@ -53,6 +53,11 @@ void Transformable::SetScale(const Vector2D& scaleVec){
 	recalc_model = true;
 }
 
+void Transformable::SetScale(const Vector3D& scaleVec){
+	scale.SetScale(scaleVec);
+	recalc_model = true;
+}
+
 void Transformable::SetRotateX(float angle){
 	rotation.SetRotationX(angle);
 	recalc_model = true;

@@ -53,7 +53,6 @@ private:
 	float render_sum;
 	int render_counter;
 
-	float time;
 	float next_display;
 
 	bool screen_debug;

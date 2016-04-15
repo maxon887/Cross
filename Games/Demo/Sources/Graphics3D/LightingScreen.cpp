@@ -39,6 +39,7 @@ void LightingScreen::Stop(){
 void LightingScreen::Update(float sec){
 	cube->Draw();
 	light->Draw();
+	cube->SetRotateY(game->GetRunTime() * 15.f);
 
 	CameraControlScreen::Update(sec);
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {

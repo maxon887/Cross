@@ -49,7 +49,6 @@ Debugger::Debugger() :
 	render_time(0),
 	render_sum(0),
 	render_counter(0),
-	time(0),
 	screen_debug(false),
 	input_debug(false),
 	console_debug(false),
@@ -81,7 +80,7 @@ void Debugger::StopCheckTime(string label) {
 
 void Debugger::Display(float micro){
 	if(screen_debug || console_debug){
-		time += micro / 1000000.f;
+		//time += micro / 1000000.f;
 		if(render_counter == 20){
 			render_counter = 0;
 			render_time = render_sum / 20.f / 1000.f;
@@ -95,7 +94,6 @@ void Debugger::Display(float micro){
 		float height = game->GetCurrentScreen()->GetHeight();
 		char outputString[256];
 		sprintf(outputString, "Render Time: %0.1fms", render_time);
-		//Font* font = gfx2D->GetDefaultFont();
 		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize()), outputString, debugger_font);
 		if(update_time == 0){
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 2), "Update Time: -", debugger_font);
@@ -109,7 +107,7 @@ void Debugger::Display(float micro){
 			sprintf(outputString, "FPS: %0.1f", 1000.f / render_time);
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 3), outputString, debugger_font);
 		}
-		sprintf(outputString, "Run time: %0.2fsec", time);
+		sprintf(outputString, "Run time: %0.2fsec", game->GetRunTime());
 		gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * 4), outputString, debugger_font);
 		if(input_debug){
 			if(touch_down) {

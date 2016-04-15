@@ -26,6 +26,7 @@ LightShader::LightShader() :
 	uAmbientLightColor = glGetUniformLocation(program, "uAmbientLightColor");
 	uLightPosition = glGetUniformLocation(program, "uLightPosition");
 	uLightColor = glGetUniformLocation(program, "uLightColor");
+	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 
 	aNormal = glGetAttribLocation(program, "aNormal");
 }

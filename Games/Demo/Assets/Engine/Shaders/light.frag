@@ -14,7 +14,8 @@ void main() {
 
 	vec3 lightDirection = uLightPosition - vFragPosition;
 	lightDirection = normalize(lightDirection);
-	float lightStrength = max(dot(vNormal, lightDirection), 0.0);
+	vec3 normal = normalize(vNormal);
+	float lightStrength = max(dot(normal, lightDirection), 0.0);
 	vec3 diffuseEffect = uLightColor * lightStrength;
 
 	vec3 result = (ambientEffect + diffuseEffect) * vec3(uColor);
