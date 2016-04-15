@@ -23,6 +23,7 @@ class LightShader : public Shader{
 public:
 	GLuint uColor;
 	GLuint uNormalMatrix;
+	GLuint uCameraPosition;
 	GLuint uAmbientLightStrength;
 	GLuint uAmbientLightColor;
 	GLuint uLightPosition;

@@ -92,6 +92,8 @@ void MainScreen::Start(){
 
 	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
 	input->KeyPressed += key_released_delegate;
+
+	delete button_sprite;
 }
 
 void MainScreen::Stop(){

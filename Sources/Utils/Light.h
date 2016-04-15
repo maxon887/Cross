@@ -23,8 +23,6 @@ namespace cross{
 class Light : public Model{
 public:
 	Light(Color color);
-private:
-	static Mesh* sphere;
 };
 
 }

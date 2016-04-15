@@ -19,15 +19,11 @@
 
 using namespace cross;
 
-Mesh* Light::sphere = nullptr;
-
 Light::Light(Color color) : 
 	Model(Shader::Type::SIMPLE)
 { 
-	SetColor(color);
-	if(!sphere){
-		sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
-	}
+	Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
 	SetMesh(sphere);
-	SetScale(0.1f);
+	SetColor(color);
+	SetScale(0.2f);
 }

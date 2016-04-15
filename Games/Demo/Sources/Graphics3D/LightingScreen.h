@@ -26,5 +26,12 @@ public:
 	void Update(float sec);
 private:
 	Light* light;
-	Model* cube;
+	int current_model;
+	CRArray<Model*> models;
+
+	Button* next_model;
+	Button* prev_model;
+
+	void NextModelClick();
+	void PrevModelClick();
 };

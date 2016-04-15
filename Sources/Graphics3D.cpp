@@ -83,7 +83,7 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 }
 
 Graphics3D::Graphics3D() : 
-	ambient_light_strength(0.15f),
+	ambient_light_strength(0.25f),
 	ambient_light_color(Color::White)
 {
 	launcher->LogIt("Graphics3D::Graphics3D()");
@@ -217,6 +217,7 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform, Color& color
 	SAFE(glUniform3fv(shader->uAmbientLightColor, 1, ambient_light_color.GetData()));
 	Matrix normalMatrix = transform.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
+	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));

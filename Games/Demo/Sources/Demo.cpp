@@ -56,5 +56,5 @@ Screen* Demo::GetStartScreen(){
 }
 
 Sprite* Demo::GetCommonSprite(string name){
-	return common_sprites[name];
+	return common_sprites[name]->Clone();
 }

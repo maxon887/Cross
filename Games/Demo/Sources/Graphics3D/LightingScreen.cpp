@@ -15,34 +15,83 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LightingScreen.h"
-#include "Game.h"
+#include "Demo.h"
 #include "Graphics3D.h"
 #include "Model.h"
+#include "Sprite.h"
 
 void LightingScreen::Start(){
 	CameraControlScreen::Start();
+	current_model = 0;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	orbit_distance = 28.f;
-	cube = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Cube.obj");
+	Model* cube = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Cube.obj");
 	cube->SetColor(Color(1.f, 0.33f, 0.f));
+	models.push_back(cube);
+	Model* sphere = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Sphere.obj");
+	sphere->SetColor(Color::Red);
+	models.push_back(sphere);
+	Model* gnome = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Gnome.obj");
+	gnome->SetColor(Color::Green);
+	models.push_back(gnome);
+
 	light = new Light(Color::White);
-	light->SetPosition(Vector3D(10.f, 8.f, -5.f));
+	light->SetPosition(Vector3D(10.f, 4.f, -5.f));
+	gfx3D->ClearLightSources();
 	gfx3D->AddLightSource(light);
+
+	Sprite* arrowUp = demo->GetCommonSprite("ArrowUp.png");
+	Sprite* arrowDown = demo->GetCommonSprite("ArrowDown.png");
+	arrowUp->SetScale(Vector2D(0.5f, 2.f));
+	arrowDown->SetScale(Vector2D(0.5f, 2.f));
+	Vector2D pos;
+	pos.x = GetWidth() - arrowUp->GetWidth() / 2.f - 10.f;
+	pos.y = GetHeight() / 2.f;
+	next_model = new Button(pos);
+	next_model->SetImages(arrowUp->Clone(), arrowDown->Clone());
+	next_model->Clicked += MakeDelegate(this, &LightingScreen::NextModelClick);
+	pos.x = arrowUp->GetWidth() / 2.f + 10.f;
+	prev_model = new Button(pos);
+	arrowUp->SetRotate(180.f);
+	arrowDown->SetRotate(180.f);
+	prev_model->SetImages(arrowUp, arrowDown);
+	prev_model->Clicked += MakeDelegate(this, &LightingScreen::PrevModelClick);
 }
 
 void LightingScreen::Stop(){
 	CameraControlScreen::Stop();
-	delete cube;
 	delete light;
+	delete next_model;
+	delete prev_model;
+	for(Model* model : models){
+		delete model;
+	}
 }
 
 void LightingScreen::Update(float sec){
-	cube->Draw();
 	light->Draw();
-	cube->SetRotateY(game->GetRunTime() * 15.f);
+
+	models[current_model]->Draw();
+	models[current_model]->SetRotateY(game->GetRunTime() * 15.f);
+
+	next_model->Update();
+	prev_model->Update();
 
 	CameraControlScreen::Update(sec);
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
 	}
+}
+
+void LightingScreen::NextModelClick(){
+	current_model++;
+	current_model = current_model % models.size();
+}
+
+void LightingScreen::PrevModelClick(){
+	if(current_model == 0){
+		current_model = models.size();
+	}
+	current_model--;
+	current_model = current_model % models.size();
 }
