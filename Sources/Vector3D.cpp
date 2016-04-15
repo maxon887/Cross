@@ -26,6 +26,12 @@ Vector3D::Vector3D():
 	z(0.0f)
 { }
 
+Vector3D::Vector3D(float value):
+	x(value),
+	y(value),
+	z(value)
+{ }
+
 Vector3D::Vector3D(float x, float y, float z):
 	x(x),
 	y(y),

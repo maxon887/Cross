@@ -19,11 +19,37 @@
 
 using namespace cross;
 
-Light::Light(Color color) : 
-	Model(Shader::Type::SIMPLE)
+Light::Light() : 
+	Model(Shader::Type::SIMPLE),
+	ambient(1.f),
+	diffuse(1.f),
+	specular(1.f)
 { 
 	Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
 	SetMesh(sphere);
-	SetColor(color);
 	SetScale(0.2f);
+}
+
+void Light::SetAmbientStrength(const Vector3D& ambient){
+	this->ambient = ambient;
+}
+
+void Light::SetDiffuseStrength(const Vector3D& diffuse){
+	this->diffuse = diffuse;
+}
+
+void Light::SetSpecularStrength(const Vector3D& specular){
+	this->specular = specular;
+}
+
+Vector3D Light::GetAmbientStrength(){
+	return ambient;
+}
+
+Vector3D Light::GetDiffuseStrength(){
+	return diffuse;
+}
+
+Vector3D Light::GetSpecularStrength(){
+	return specular;
 }

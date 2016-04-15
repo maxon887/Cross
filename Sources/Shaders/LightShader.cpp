@@ -21,13 +21,18 @@ using namespace cross;
 LightShader::LightShader() :
 	Shader(Type::LIGHT, "Engine/Shaders/light.vert", "Engine/Shaders/light.frag")
 { 
-	uColor = glGetUniformLocation(program, "uColor");
-	uAmbientLightStrength = glGetUniformLocation(program, "uAmbientLightStrength");
-	uAmbientLightColor = glGetUniformLocation(program, "uAmbientLightColor");
-	uLightPosition = glGetUniformLocation(program, "uLightPosition");
-	uLightColor = glGetUniformLocation(program, "uLightColor");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
+
+	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
+
+	uLightPosition = glGetUniformLocation(program, "uLight.position");
+	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
+	uLightDiffuse = glGetUniformLocation(program, "uLight.diffuse");
+	uLightSpecular = glGetUniformLocation(program, "uLight.specular");
 
 	aNormal = glGetAttribLocation(program, "aNormal");
 }

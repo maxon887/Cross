@@ -1,11 +1,24 @@
 precision mediump float;
 
-uniform vec4 uColor;
+struct Material{
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	float shininess;
+};
+
+struct Light{
+	vec3 position;
+	
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+
+uniform Material uMaterial;
+uniform Light uLight;
+
 uniform vec3 uCameraPosition;
-uniform float uAmbientLightStrength;
-uniform vec3 uAmbientLightColor;
-uniform vec3 uLightPosition;
-uniform vec3 uLightColor;
 
 varying vec3 vNormal;
 varying vec3 vFragPosition;
@@ -13,20 +26,18 @@ varying vec3 vFragPosition;
 const float specularStrength = 0.5;
 
 void main() {
-	//ambient component
-	vec3 ambientEffect = uAmbientLightColor * uAmbientLightStrength;
-	//diffuse component
-	vec3 lightDirection = uLightPosition - vFragPosition;
-	lightDirection = normalize(lightDirection);
+	//ambient
+	vec3 ambient = uLight.ambient * uMaterial.ambient;
+	//diffuse
 	vec3 normal = normalize(vNormal);
-	float lightStrength = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuseEffect = uLightColor * lightStrength;
-	//specular component
+	vec3 lightDirection = normalize(uLight.position - vFragPosition);
+	float diffEffect = max(dot(normal, lightDirection), 0.0);
+	vec3 diffuse = uLight.diffuse * (diffEffect * uMaterial.diffuse);
+	//specular
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
-	float spec = pow(max(dot(viewDirection, reflectDirection), 0.0), 32.0);
-	vec3 specularEffect = specularStrength * spec * uLightColor;
-
-	vec3 result = (ambientEffect + diffuseEffect + specularEffect) * vec3(uColor);
+	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uMaterial.shininess);
+	vec3 specular = uLight.specular * (specEffect * uMaterial.specular);
+	vec3 result = ambient + diffuse + specular;
 	gl_FragColor = vec4(result, 1.0);
 } 

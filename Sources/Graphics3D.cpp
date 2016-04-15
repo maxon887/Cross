@@ -210,14 +210,23 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform, Color& color
 	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
 	mvp = mvp.Transpose();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glUniform3fv(shader->uLightPosition, 1, light_sources[0]->GetPosition().GetData()));
-	SAFE(glUniform3fv(shader->uLightColor, 1, light_sources[0]->GetColor().GetData()));
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-	SAFE(glUniform1f(shader->uAmbientLightStrength, ambient_light_strength));
-	SAFE(glUniform3fv(shader->uAmbientLightColor, 1, ambient_light_color.GetData()));
 	Matrix normalMatrix = transform.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
+
+	SAFE(glUniform3fv(shader->uMaterialAmbient, 1, Vector3D(0.025f, 0.17f, 0.025f).GetData()));
+	SAFE(glUniform3fv(shader->uMaterialDiffuse, 1, Vector3D(0.074f, 0.61f, 0.63f).GetData()));
+	SAFE(glUniform3fv(shader->uMaterialSpecular, 1, Vector3D(0.63f, 0.72f, 0.63f).GetData()));
+	SAFE(glUniform1f(shader->uMaterialShininess, 0.6f * 128.f));
+
+	SAFE(glUniform3fv(shader->uLightPosition, 1, light_sources[0]->GetPosition().GetData()));
+	SAFE(glUniform3fv(shader->uLightAmbient, 1, light_sources[0]->GetAmbientStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light_sources[0]->GetDiffuseStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightSpecular, 1, light_sources[0]->GetSpecularStrength().GetData()));
+	/*
+	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform1f(shader->uAmbientLightStrength, ambient_light_strength));
+	SAFE(glUniform3fv(shader->uAmbientLightColor, 1, ambient_light_color.GetData()));*/
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));

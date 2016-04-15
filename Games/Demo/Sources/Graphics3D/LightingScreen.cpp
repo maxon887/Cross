@@ -33,10 +33,14 @@ void LightingScreen::Start(){
 	models.push_back(sphere);
 	Model* gnome = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Gnome.obj");
 	gnome->SetColor(Color::Green);
+	gnome->SetScale(2.f);
 	models.push_back(gnome);
 
-	light = new Light(Color::White);
-	light->SetPosition(Vector3D(10.f, 4.f, -5.f));
+	light = new Light();
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	light->SetAmbientStrength(0.1f);
+	light->SetDiffuseStrength(0.5f);
+	light->SetSpecularStrength(1.f);
 	gfx3D->ClearLightSources();
 	gfx3D->AddLightSource(light);
 

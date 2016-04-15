@@ -24,6 +24,7 @@ public:
 	float y;
 
 	Vector2D();
+	Vector2D(float value);
 	Vector2D(float x, float y);
 	float Length() const;
 	Vector2D Normalize() const;

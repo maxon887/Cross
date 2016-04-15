@@ -21,13 +21,18 @@ namespace cross{
 
 class LightShader : public Shader{
 public:
-	GLuint uColor;
 	GLuint uNormalMatrix;
 	GLuint uCameraPosition;
-	GLuint uAmbientLightStrength;
-	GLuint uAmbientLightColor;
+
+	GLuint uMaterialAmbient;
+	GLuint uMaterialDiffuse;
+	GLuint uMaterialSpecular;
+	GLuint uMaterialShininess;
+
 	GLuint uLightPosition;
-	GLuint uLightColor;
+	GLuint uLightAmbient;
+	GLuint uLightDiffuse;
+	GLuint uLightSpecular;
 
 	GLuint aNormal;
 

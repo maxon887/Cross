@@ -25,6 +25,11 @@ Vector2D::Vector2D():
 	y(0.0f)
 { }
 
+Vector2D::Vector2D(float value):
+	x(value),
+	y(value)
+{ }
+
 Vector2D::Vector2D(float x, float y):
 	x(x),
 	y(y)
