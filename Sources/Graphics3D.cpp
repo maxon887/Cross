@@ -83,8 +83,7 @@ void processNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
 }
 
 Graphics3D::Graphics3D() : 
-	ambient_light_strength(0.25f),
-	ambient_light_color(Color::White)
+	camera(nullptr)
 {
 	launcher->LogIt("Graphics3D::Graphics3D()");
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
@@ -152,7 +151,7 @@ void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& transform, Color& colo
 
 	SAFE(glEnable(GL_DEPTH_TEST));
 
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
@@ -162,8 +161,8 @@ void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& transform, Color& colo
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
@@ -176,7 +175,7 @@ void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* d
 
 	SAFE(glEnable(GL_DEPTH_TEST));
 
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
@@ -192,8 +191,8 @@ void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* d
 	SAFE(glEnableVertexAttribArray(shader->aDiffuseCoords));
 	SAFE(glVertexAttribPointer(shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
@@ -205,7 +204,7 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform, Color& color
 	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
 
 	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
 	mvp = mvp.Transpose();
@@ -214,27 +213,23 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform, Color& color
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
 
-	SAFE(glUniform3fv(shader->uMaterialAmbient, 1, Vector3D(0.025f, 0.17f, 0.025f).GetData()));
-	SAFE(glUniform3fv(shader->uMaterialDiffuse, 1, Vector3D(0.074f, 0.61f, 0.63f).GetData()));
-	SAFE(glUniform3fv(shader->uMaterialSpecular, 1, Vector3D(0.63f, 0.72f, 0.63f).GetData()));
-	SAFE(glUniform1f(shader->uMaterialShininess, 0.6f * 128.f));
+	SAFE(glUniform3fv(shader->uMaterialAmbient, 1, mesh->GetMaterial().ambient.GetData()));
+	SAFE(glUniform3fv(shader->uMaterialDiffuse, 1, mesh->GetMaterial().diffuse.GetData()));
+	SAFE(glUniform3fv(shader->uMaterialSpecular, 1, mesh->GetMaterial().specular.GetData()));
+	SAFE(glUniform1f(shader->uMaterialShininess, mesh->GetMaterial().shininess * 128.f));
 
 	SAFE(glUniform3fv(shader->uLightPosition, 1, light_sources[0]->GetPosition().GetData()));
 	SAFE(glUniform3fv(shader->uLightAmbient, 1, light_sources[0]->GetAmbientStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light_sources[0]->GetDiffuseStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, light_sources[0]->GetSpecularStrength().GetData()));
-	/*
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-	SAFE(glUniform1f(shader->uAmbientLightStrength, ambient_light_strength));
-	SAFE(glUniform3fv(shader->uAmbientLightColor, 1, ambient_light_color.GetData()));*/
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	SAFE(glEnableVertexAttribArray(shader->aNormal));
 	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 

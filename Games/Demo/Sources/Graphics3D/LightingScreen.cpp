@@ -26,7 +26,6 @@ void LightingScreen::Start(){
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	orbit_distance = 28.f;
 	Model* cube = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Cube.obj");
-	cube->SetColor(Color(1.f, 0.33f, 0.f));
 	models.push_back(cube);
 	Model* sphere = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Sphere.obj");
 	sphere->SetColor(Color::Red);
@@ -38,8 +37,8 @@ void LightingScreen::Start(){
 
 	light = new Light();
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	light->SetAmbientStrength(0.1f);
-	light->SetDiffuseStrength(0.5f);
+	light->SetAmbientStrength(1.f);
+	light->SetDiffuseStrength(1.f);
 	light->SetSpecularStrength(1.f);
 	gfx3D->ClearLightSources();
 	gfx3D->AddLightSource(light);

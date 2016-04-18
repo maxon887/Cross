@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Transformable.h"
 #include "Shaders/Shader.h"
+#include "Mesh.h"
 
 namespace cross{
 
@@ -33,6 +34,7 @@ public:
 	void SetDiffuseTexture(Texture* diffuse);
 	void SetColor(Color color);
 	Color GetColor();
+	void SetMaterial(Material material);
 protected:
 	Shader::Type shader_type;
 	CRArray<Mesh*> meshes;

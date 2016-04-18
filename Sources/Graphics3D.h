@@ -42,10 +42,6 @@ public:
 	void DrawMeshLight(Mesh* mesh, const Matrix& model, Color& color);
 private:
 	Camera* camera;
-	//ambient light
-	float ambient_light_strength;
-	Color ambient_light_color;
-	//point lights
 	CRArray<Light*> light_sources;
 
 	FastDelegate2<int, int, void> window_resize_handle;

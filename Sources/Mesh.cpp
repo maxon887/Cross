@@ -18,7 +18,19 @@
 
 using namespace cross;
 
-Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount){
+const Material Material::RedPlastic(Vector3D(0.3, 0.0, 0.0), Vector3D(0.7, 0.0, 0.0), Vector3D(0.7, 0.6, 0.6), 0.25f);
+const Material Material::Bronze(Vector3D(0.2125, 0.1275, 0.054), Vector3D(0.714, 0.4284, 0.3935), Vector3D(0.3935, 0.2719, 0.1666), 0.2f);
+
+Material::Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float shininess){
+	this->ambient = ambient;
+	this->diffuse = diffuse;
+	this->specular = specular;
+	this->shininess = shininess;
+}
+
+Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount) : 
+	material(Material::RedPlastic)
+{
 	poly_count = polyCount;
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
@@ -31,4 +43,28 @@ Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint pol
 	index_count = indices.size();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+GLuint Mesh::GetPolyCount() const{
+	return poly_count;
+}
+
+GLuint Mesh::GetIndexCount() const{
+	return index_count;
+}
+
+GLuint Mesh::GetVertexBufferObject() const{
+	return VBO;
+}
+
+GLuint Mesh::GetElementBufferObjet() const{
+	return EBO;
+}
+
+Material Mesh::GetMaterial(){
+	return material;
+}
+
+void Mesh::SetMaterial(Material mat){
+	material = mat;
 }

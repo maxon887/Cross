@@ -20,20 +20,44 @@
 
 namespace cross{
 
-struct Vertex{
+class Vertex{
+public:
 	Vector3D pos;
 	Vector2D uv;
 	Vector3D normal;
 };
 
+class Material{
+public:
+	static const Material RedPlastic;
+	static const Material Bronze;
+
+	Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float shininess);
+
+	Vector3D ambient;
+	Vector3D diffuse;
+	Vector3D specular;
+	float shininess;
+};
+
 class Mesh{
 public:
-	GLuint VBO;
-	GLuint EBO;
-	GLuint index_count;
-	GLuint poly_count;
 
 	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount);
+
+	GLuint GetPolyCount() const;
+	GLuint GetIndexCount() const;
+	GLuint GetVertexBufferObject() const;
+	GLuint GetElementBufferObjet() const;
+	Material GetMaterial();
+	void SetMaterial(Material material);
+
+private:
+	GLuint VBO;
+	GLuint EBO;
+	Material material;
+	GLuint poly_count;
+	GLuint index_count;
 };
 
 }

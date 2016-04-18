@@ -65,7 +65,7 @@ void Model::Draw(){
 int Model::GetPolyCount(){
 	int polyCount = 0;
 	for(Mesh* mesh : meshes){
-		polyCount += mesh->poly_count;
+		polyCount += mesh->GetPolyCount();
 	}
 	return polyCount;
 }
@@ -89,4 +89,13 @@ void Model::SetColor(Color color){
 
 Color Model::GetColor(){
 	return color;
+}
+
+void Model::SetMaterial(Material material){
+	if(shader_type != Shader::LIGHT){
+		throw CrossException("Shader type must be LIGHT");
+	}
+	for(Mesh* mesh : meshes){
+		//mesh->SetMaterial(mate
+	}
 }
