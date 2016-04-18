@@ -39,7 +39,9 @@ public:
 
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
 	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
-	void DrawMeshLight(Mesh* mesh, const Matrix& model, Color& color);
+	void DrawMeshLight(Mesh* mesh, const Matrix& model);
+	void DrawMeshMappedLight(Mesh* mesh, const Matrix& model, Texture* diffuse);
+
 private:
 	Camera* camera;
 	CRArray<Light*> light_sources;

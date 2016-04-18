@@ -18,8 +18,8 @@
 
 using namespace cross;
 
-const Material Material::RedPlastic(Vector3D(0.3, 0.0, 0.0), Vector3D(0.7, 0.0, 0.0), Vector3D(0.7, 0.6, 0.6), 0.25f);
-const Material Material::Bronze(Vector3D(0.2125, 0.1275, 0.054), Vector3D(0.714, 0.4284, 0.3935), Vector3D(0.3935, 0.2719, 0.1666), 0.2f);
+const Material Material::RedPlastic(Vector3D(0.3f, 0.0f, 0.0f), Vector3D(0.7f, 0.0f, 0.0f), Vector3D(0.7f, 0.6f, 0.6f), 0.25f);
+const Material Material::Bronze(Vector3D(0.2125f, 0.1275f, 0.054f), Vector3D(0.714f, 0.4284f, 0.3935f), Vector3D(0.3935f, 0.2719f, 0.1666f), 0.2f);
 
 Material::Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float shininess){
 	this->ambient = ambient;

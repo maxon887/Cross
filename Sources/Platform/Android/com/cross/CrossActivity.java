@@ -11,6 +11,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -152,6 +154,14 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem item= menu.findItem(android.R.id.menu_settings);
+		item.setVisible(false);
+		super.onPrepareOptionsMenu(menu);
+		return true;
 	}
 
 	@Override

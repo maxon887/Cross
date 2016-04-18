@@ -23,6 +23,7 @@ namespace cross{
 class Light : public Model{
 public:
 	Light();
+	Light(float ambient, float diffuse, float specular);
 
 	void SetAmbientStrength(const Vector3D& ambient);
 	void SetDiffuseStrength(const Vector3D& diffuse);

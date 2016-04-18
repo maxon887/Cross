@@ -22,6 +22,7 @@
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
 #include "Shaders/LightShader.h"
+#include "Shaders/MappedLightShader.h"
 
 using namespace cross;
 
@@ -79,6 +80,7 @@ GraphicsGL::GraphicsGL() :
 		shaders[Shader::Type::MONOCHROME] = new MonochromeShader();
 		shaders[Shader::Type::TEXTURE] = new TextureShader();
 		shaders[Shader::Type::LIGHT] = new LightShader();
+		shaders[Shader::Type::MAPPED_LIGHT] = new MappedLightShader();
 }
 
 GraphicsGL::~GraphicsGL(){
@@ -171,9 +173,9 @@ void GraphicsGL::CompileProgram(GLuint program){
 }
 
 void GraphicsGL::UseShader(Shader* shaders){
-	glUseProgram(shaders->program);
+	SAFE(glUseProgram(shaders->program));
 }
 
 void GraphicsGL::WindowResizeHandle(int width, int height){
-	glViewport(0, 0, width, height);
+	SAFE(glViewport(0, 0, width, height));
 }

@@ -20,11 +20,15 @@
 using namespace cross;
 
 Light::Light() : 
+	Light(1.f, 1.f, 1.f)
+{ }
+
+Light::Light(float ambient, float diffuse, float specular) :
 	Model(Shader::Type::SIMPLE),
-	ambient(1.f),
-	diffuse(1.f),
-	specular(1.f)
-{ 
+	ambient(ambient),
+	diffuse(diffuse),
+	specular(specular)
+{
 	Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
 	SetMesh(sphere);
 	SetScale(0.2f);

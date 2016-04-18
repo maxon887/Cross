@@ -223,6 +223,12 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\MappedLightScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MappedLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -418,6 +424,12 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Light.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\MappedLightScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MappedLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -445,6 +457,12 @@
       <Filter>Cross\Shaders</Filter>
     </None>
     <None Include="..\..\Assets\Engine\Shaders\simple.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\mapped_light.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\mapped_light.vert">
       <Filter>Cross\Shaders</Filter>
     </None>
   </ItemGroup>

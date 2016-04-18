@@ -48,7 +48,6 @@ class Graphics2D;
 class Graphics3D;
 class Input;
 class Config;
-class Texter;
 class Sprite;
 class Audio;
 class Screen;

@@ -54,7 +54,15 @@ void Model::Draw(){
 		break;
 	case Shader::Type::LIGHT:
 		for(Mesh* mesh : meshes){
-			gfx3D->DrawMeshLight(mesh, GetModelMatrix(), color);
+			gfx3D->DrawMeshLight(mesh, GetModelMatrix());
+		}
+		break;
+	case Shader::Type::MAPPED_LIGHT:
+		if(!diffuse){
+			throw CrossException("There are no diffuse texture applied for model");
+		}
+		for(Mesh* mesh : meshes){
+			gfx3D->DrawMeshMappedLight(mesh, GetModelMatrix(), diffuse);
 		}
 		break;
 	default:

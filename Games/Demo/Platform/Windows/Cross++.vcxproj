@@ -87,6 +87,7 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MappedLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CubeScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\LightingScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\MappedLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
@@ -152,6 +154,7 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MappedLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CubeScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\LightingScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\MappedLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
@@ -206,6 +210,8 @@
   <ItemGroup>
     <None Include="..\..\Assets\Engine\Shaders\light.frag" />
     <None Include="..\..\Assets\Engine\Shaders\light.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\mapped_light.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\mapped_light.vert" />
     <None Include="..\..\Assets\Engine\Shaders\monochrome.frag" />
     <None Include="..\..\Assets\Engine\Shaders\monochrome.vert" />
     <None Include="..\..\Assets\Engine\Shaders\simple.frag" />

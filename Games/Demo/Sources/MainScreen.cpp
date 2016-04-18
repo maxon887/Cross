@@ -23,6 +23,7 @@
 #include "Graphics3D/TriangleScreen.h"
 #include "Graphics3D/CubeScreen.h"
 #include "Graphics3D/LightingScreen.h"
+#include "Graphics3D/MappedLightScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -73,19 +74,23 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
 	//graphics 3D menu
-	graphics3D_menu = new Menu(true);
+	graphics3D_menu = new Menu(false);
 	Button* triangleBtn = new Button("Triangle");
 	Button* meshBtn = new Button("Cube");
-	Button* lightBtn = new Button("Lighting");
+	Button* solidLightBtn = new Button("Solid Light");
+	Button* mappedLightBtn = new Button("Mapped Light");
 	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
 	meshBtn->SetImages(button_sprite->Clone(), nullptr);
-	lightBtn->SetImages(button_sprite->Clone(), nullptr);
+	solidLightBtn->SetImages(button_sprite->Clone(), nullptr);
+	mappedLightBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnCubeClick);
-	lightBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightingClick);
+	solidLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidLightClick);
+	mappedLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnMappedLightClick);
 	graphics3D_menu->AddButton(triangleBtn);
 	graphics3D_menu->AddButton(meshBtn);
-	graphics3D_menu->AddButton(lightBtn);
+	graphics3D_menu->AddButton(solidLightBtn);
+	graphics3D_menu->AddButton(mappedLightBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -113,6 +118,13 @@ void MainScreen::Update(float sec){
 	}
 }
 
+void MainScreen::AdjustScreenHeight(Menu* menu){
+	SetHeight(menu->GetHeight());
+	Vector2D camPos(0.f, 0.f);
+	camPos.y = GetHeight() - gfx2D->GetCamera()->GetViewHeight();
+	gfx2D->GetCamera()->SetPosition(camPos);
+}
+
 void MainScreen::KeyReleasedHandle(Key key){
 	if(current_menu == main_menu){
 		launcher->PromtToExit();
@@ -128,16 +140,14 @@ void MainScreen::KeyReleasedHandle(Key key){
 }
 
 void MainScreen::OnGraphics2DClick(){
-	SetHeight(graphics2D_menu->GetHeight());
-	Vector2D camPos(0.f, 0.f);
-	camPos.y = GetHeight() - gfx2D->GetCamera()->GetViewHeight();
-	gfx2D->GetCamera()->SetPosition(camPos);
+	AdjustScreenHeight(graphics2D_menu);
 	current_menu->Active(false);
 	graphics2D_menu->Active(true);
 	current_menu = graphics2D_menu;
 }
 
 void MainScreen::OnGraphics3DClick(){
+	AdjustScreenHeight(graphics3D_menu);
 	current_menu->Active(false);
 	graphics3D_menu->Active(true);
 	current_menu = graphics3D_menu;
@@ -175,6 +185,10 @@ void MainScreen::OnAudioClick() {
 	next_screen = new AudioScreen();
 }
 
-void MainScreen::OnLightingClick(){
+void MainScreen::OnSolidLightClick(){
 	next_screen = new LightingScreen();
+}
+
+void MainScreen::OnMappedLightClick(){
+	next_screen = new MappedLightScreen();
 }
