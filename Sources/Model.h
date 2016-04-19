@@ -32,6 +32,7 @@ public:
 	void SetMesh(Mesh* mesh);
 	void SetMeshes(CRArray<Mesh*>& meshes);
 	void SetDiffuseTexture(Texture* diffuse);
+	void SetSpecularTexture(Texture* specular);
 	void SetColor(Color color);
 	Color GetColor();
 	void SetMaterial(Material material);
@@ -39,6 +40,7 @@ protected:
 	Shader::Type shader_type;
 	CRArray<Mesh*> meshes;
 	Texture* diffuse;
+	Texture* specular;
 	Color color;
 };
 

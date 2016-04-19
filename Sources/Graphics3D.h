@@ -40,7 +40,7 @@ public:
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
 	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
 	void DrawMeshLight(Mesh* mesh, const Matrix& model);
-	void DrawMeshMappedLight(Mesh* mesh, const Matrix& model, Texture* diffuse);
+	void DrawMeshMappedLight(Mesh* mesh, const Matrix& model, Texture* diffuse, Texture* specular);
 
 private:
 	Camera* camera;

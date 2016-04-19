@@ -209,6 +209,7 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 
 	Shader* shader = nullptr;
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
+	SAFE(glActiveTexture(GL_TEXTURE0));
 	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	if(monochrome){
 		shader = gfxGL->GetShader(Shader::Type::MONOCHROME);

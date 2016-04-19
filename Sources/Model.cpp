@@ -24,6 +24,7 @@ using namespace cross;
 
 Model::Model(Shader::Type type) :
 	diffuse(nullptr),
+	specular(nullptr),
 	shader_type(type),
 	color(Color::White)
 { }
@@ -61,8 +62,11 @@ void Model::Draw(){
 		if(!diffuse){
 			throw CrossException("There are no diffuse texture applied for model");
 		}
+		if(!specular){
+			throw CrossException("There are no specular texture applied for model");
+		}
 		for(Mesh* mesh : meshes){
-			gfx3D->DrawMeshMappedLight(mesh, GetModelMatrix(), diffuse);
+			gfx3D->DrawMeshMappedLight(mesh, GetModelMatrix(), diffuse, specular);
 		}
 		break;
 	default:
@@ -89,6 +93,10 @@ void Model::SetMeshes(CRArray<Mesh*>& meshes){
 
 void Model::SetDiffuseTexture(Texture* diffuse){
 	this->diffuse = diffuse;
+}
+
+void Model::SetSpecularTexture(Texture* specular){
+	this->specular = specular;
 }
 
 void Model::SetColor(Color color){

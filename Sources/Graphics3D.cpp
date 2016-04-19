@@ -185,7 +185,7 @@ void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* d
 	mvp = mvp.Transpose();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 
-	SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
+	SAFE(glActiveTexture(GL_TEXTURE));
 	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
 	SAFE(glUniform1i(shader->uDiffuseTexture, 0));
 
@@ -237,7 +237,7 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform){
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Graphics3D::DrawMeshMappedLight(Mesh* mesh, const Matrix &transform, Texture* diffuse){
+void Graphics3D::DrawMeshMappedLight(Mesh* mesh, const Matrix &transform, Texture* diffuse, Texture* specular){
 	MappedLightShader* shader = (MappedLightShader*)gfxGL->GetShader(Shader::Type::MAPPED_LIGHT);
 	gfxGL->UseShader(shader);
 
@@ -251,12 +251,15 @@ void Graphics3D::DrawMeshMappedLight(Mesh* mesh, const Matrix &transform, Textur
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
 
-	SAFE(glUniform3fv(shader->uMaterialSpecular, 1, mesh->GetMaterial().specular.GetData()));
 	SAFE(glUniform1f(shader->uMaterialShininess, mesh->GetMaterial().shininess * 128.f));
 
-	SAFE(glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0));
+	SAFE(glActiveTexture(GL_TEXTURE0));
 	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
 	SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
+
+	SAFE(glActiveTexture(GL_TEXTURE1));
+	SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
+	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
 
 	SAFE(glUniform3fv(shader->uLightPosition, 1, light_sources[0]->GetPosition().GetData()));
 	SAFE(glUniform3fv(shader->uLightAmbient, 1, light_sources[0]->GetAmbientStrength().GetData()));

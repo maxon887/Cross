@@ -155,14 +155,14 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 		return false;
 	}
-
+/*
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		MenuItem item= menu.findItem(android.R.id.menu_settings);
 		item.setVisible(false);
 		super.onPrepareOptionsMenu(menu);
 		return true;
-	}
+	}*/
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -28,8 +28,10 @@ void MappedLightScreen::Start(){
 	gfx3D->ClearLightSources();
 	gfx3D->AddLightSource(light);
 	model = gfx3D->LoadModel(Shader::Type::MAPPED_LIGHT, "gfx3D/Cube.obj");
-	Texture* container = gfx2D->LoadTexture("gfx3D/Container.png", Texture::Filter::TRILINEAR);
-	model->SetDiffuseTexture(container);
+	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
+	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
+	model->SetDiffuseTexture(diffuseTexture);
+	model->SetSpecularTexture(specularTexture);
 }
 
 void MappedLightScreen::Stop(){
