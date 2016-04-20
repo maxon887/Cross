@@ -60,20 +60,29 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 GraphicsGL::GraphicsGL() : 
 	shaders(Shader::Type::COUNT)	
 {
-#if defined (WIN) && defined(OPENGL)
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
+#if defined (WIN) && defined(OPENGL)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
 		launcher->LogIt("OpenGL " + to_string(magorV) + "." + to_string(minorV));
-		GLint maxVertexAttribs;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
-		launcher->LogIt("Max Vertex Attributes: " + to_string(maxVertexAttribs));
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}
 #endif
+		GLint maxVertexAttribs;
+		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
+		launcher->LogIt("Max Vertex Attributes: %d", maxVertexAttribs);
+
+		GLint maxTextureSize;
+		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
+		launcher->LogIt("Max Texture Size: %d", maxTextureSize);
+
+		GLint maxTextureUnits;
+		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
+		launcher->LogIt("Max Texture Units: %d", maxTextureUnits);
+
 		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
 
 		shaders[Shader::Type::SIMPLE] = new SimpleShader();
