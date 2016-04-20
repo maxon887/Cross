@@ -45,4 +45,7 @@ void MappedLightScreen::Update(float sec){
 	model->SetRotateY(game->GetRunTime() * 15.f);
 
 	CameraControlScreen::Update(sec);
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
+		game->SetScreen(game->GetStartScreen());
+	}
 }

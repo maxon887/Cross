@@ -31,6 +31,8 @@ public:
 
 	void SetWidth(float width);
 	void SetHeight(float height);
+
+	void ResetScreenSize();
 private:
 	float width;
 	float height;

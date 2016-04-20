@@ -98,6 +98,9 @@ void MainScreen::Start(){
 	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
 	input->KeyPressed += key_released_delegate;
 
+	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
+	game->WindowResized += window_resized_delegate;
+
 	delete button_sprite;
 }
 
@@ -107,6 +110,7 @@ void MainScreen::Stop(){
 	delete graphics2D_menu;
 	delete graphics3D_menu;
 	input->KeyPressed -= key_released_delegate;
+	game->WindowResized -= window_resized_delegate;
 }
 
 void MainScreen::Update(float sec){
@@ -137,6 +141,10 @@ void MainScreen::KeyReleasedHandle(Key key){
 	SetWidth(scrWidth);
 	SetHeight(scrHeight);
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
+}
+
+void MainScreen::WindowResizedHandle(int width, int height){
+	ResetScreenSize();
 }
 
 void MainScreen::OnGraphics2DClick(){

@@ -31,6 +31,7 @@ public:
 	int Count();
 	void Clear();
 	float GetHeight();
+	void Locate();
 private:
 	CRArray<Button*> buttons;
 	float button_def_width;
@@ -43,8 +44,6 @@ private:
 	float menu_height;
 
 	FastDelegate2<int, int, void> window_resized_delegate;
-
-	void Locate();
 	
 	void WindowResizedHandle(int width, int height);
 };

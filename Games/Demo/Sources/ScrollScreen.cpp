@@ -53,6 +53,11 @@ void ScrollScreen::SetHeight(float height){
 	this->height = height;
 }
 
+void ScrollScreen::ResetScreenSize(){
+	width = Screen::GetWidth();
+	height = Screen::GetHeight();
+}
+
 void ScrollScreen::ActionDownHandle(Input::Action action){
 	touch = action.pos;
 }
