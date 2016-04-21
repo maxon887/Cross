@@ -14,19 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/MappedLightShader.h"
+#include "Shaders/LightMaterialShader.h"
 
 using namespace cross;
 
-MappedLightShader::MappedLightShader() :
-	Shader(Type::LIGHT, "Engine/Shaders/mapped_light.vert", "Engine/Shaders/mapped_light.frag")
+LightMaterialShader::LightMaterialShader() :
+	Shader(Type::LIGHT_MATERIAL, "Engine/Shaders/light_material.vert", "Engine/Shaders/light_material.frag")
 { 
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 
-	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
-	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
-	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
+	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
 
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
 	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
@@ -34,5 +35,4 @@ MappedLightShader::MappedLightShader() :
 	uLightSpecular = glGetUniformLocation(program, "uLight.specular");
 
 	aNormal = glGetAttribLocation(program, "aNormal");
-	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 }

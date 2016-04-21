@@ -14,30 +14,4 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Shaders/Shader.h"
-
-namespace cross{
-
-class MappedLightShader : public Shader{
-public:
-	GLuint uNormalMatrix;
-	GLuint uCameraPosition;
-
-	GLuint uMaterialDiffuse;
-	GLuint uMaterialSpecular;
-	GLuint uMaterialShininess;
-
-	GLuint uLightPosition;
-	GLuint uLightAmbient;
-	GLuint uLightDiffuse;
-	GLuint uLightSpecular;
-
-	GLuint aNormal;
-	GLuint aTexCoords;
-
-	MappedLightShader();
-private:
-};
-
-}
+	

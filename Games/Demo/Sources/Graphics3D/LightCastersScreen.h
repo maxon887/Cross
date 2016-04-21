@@ -15,23 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+
 #include "Cross.h"
 #include "CameraControlScreen.h"
-#include "Utils/Light.h"
 
-class LightingScreen : public CameraControlScreen{
+class LightCastersScreen : public CameraControlScreen{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
 private:
-	Light* light;
-	int current_model;
-	CRArray<Model*> models;
-
-	Button* next_model;
-	Button* prev_model;
-
-	void NextModelClick();
-	void PrevModelClick();
 };

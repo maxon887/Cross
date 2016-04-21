@@ -21,8 +21,8 @@
 #include "Shaders/SimpleShader.h"
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
-#include "Shaders/LightShader.h"
-#include "Shaders/MappedLightShader.h"
+#include "Shaders/LightMaterialShader.h"
+#include "Shaders/LightMapsShader.h"
 
 using namespace cross;
 
@@ -88,8 +88,8 @@ GraphicsGL::GraphicsGL() :
 		shaders[Shader::Type::SIMPLE] = new SimpleShader();
 		shaders[Shader::Type::MONOCHROME] = new MonochromeShader();
 		shaders[Shader::Type::TEXTURE] = new TextureShader();
-		shaders[Shader::Type::LIGHT] = new LightShader();
-		shaders[Shader::Type::MAPPED_LIGHT] = new MappedLightShader();
+		shaders[Shader::Type::LIGHT_MATERIAL] = new LightMaterialShader();
+		shaders[Shader::Type::LIGHT_MAPS] = new LightMapsShader();
 }
 
 GraphicsGL::~GraphicsGL(){

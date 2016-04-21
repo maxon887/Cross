@@ -14,35 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	
 #pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
 
-namespace cross{
-
-class Shader{
+class Template{
+//User module
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_MAPS,
-		LIGHT_CASTERS,
-		COUNT
-	};
-
-	GLuint program;
-	GLint uMVP;
-	GLint aPosition;
-	Type type;
-
-	Shader(Type type, string vertexFile, string fragmentFile);
-	virtual ~Shader();
-
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+//Framework module. You don't need call any of this methods or modify variable
 };
-
-}

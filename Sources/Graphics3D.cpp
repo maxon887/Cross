@@ -25,8 +25,8 @@
 #include "Game.h"
 #include "Shaders/SimpleShader.h"
 #include "Shaders/TextureShader.h"
-#include "Shaders/LightShader.h"
-#include "Shaders/MappedLightShader.h"
+#include "Shaders/LightMaterialShader.h"
+#include "Shaders/LightMapsShader.h"
 #include "Utils/Light.h"
 
 #define SWIG
@@ -200,8 +200,8 @@ void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* d
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform){
-	LightShader* shader = (LightShader*)gfxGL->GetShader(Shader::Type::LIGHT);
+void Graphics3D::DrawMeshLightMaterial(Mesh* mesh, const Matrix& transform){
+	LightMaterialShader* shader = (LightMaterialShader*)gfxGL->GetShader(Shader::Type::LIGHT_MATERIAL);
 	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));
@@ -237,8 +237,8 @@ void Graphics3D::DrawMeshLight(Mesh* mesh, const Matrix& transform){
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Graphics3D::DrawMeshMappedLight(Mesh* mesh, const Matrix &transform, Texture* diffuse, Texture* specular){
-	MappedLightShader* shader = (MappedLightShader*)gfxGL->GetShader(Shader::Type::MAPPED_LIGHT);
+void Graphics3D::DrawMeshLightMaps(Mesh* mesh, const Matrix &transform, Texture* diffuse, Texture* specular){
+	LightMapsShader* shader = (LightMapsShader*)gfxGL->GetShader(Shader::Type::LIGHT_MAPS);
 	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));

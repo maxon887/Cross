@@ -189,6 +189,9 @@ void CameraControlScreen::Update(float sec){
 	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
 	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 #endif // !ANDROID
+	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
+		game->SetScreen(game->GetStartScreen());
+	}
 }
 
 bool CameraControlScreen::OnGuiArea(Vector2D pos){

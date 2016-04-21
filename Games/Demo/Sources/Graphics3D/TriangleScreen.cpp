@@ -87,7 +87,3 @@ void TriangleScreen::Update(float sec){
 		game->SetScreen(game->GetStartScreen());
 	}
 }
-
-void TriangleScreen::ActionMoveHandle(Input::Action action){
-
-}

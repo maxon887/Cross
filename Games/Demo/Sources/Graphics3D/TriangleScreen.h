@@ -32,7 +32,4 @@ private:
 	SimpleShader* shader;
 
 	Vector2D touch_pos;
-
-	FastDelegate1<Input::Action, void> action_move_delegate;
-	void ActionMoveHandle(Input::Action action);
 };

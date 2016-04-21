@@ -53,8 +53,9 @@ private:
 
 	void OnTriangleClick();
 	void OnCubeClick();
-	void OnSolidLightClick();
-	void OnMappedLightClick();
+	void OnLightMaterialClick();
+	void OnLightMapsClick();
+	void OnLightCastersClick();
 
 	void OnAudioClick();
 };

@@ -22,8 +22,9 @@
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScreen.h"
 #include "Graphics3D/CubeScreen.h"
-#include "Graphics3D/LightingScreen.h"
-#include "Graphics3D/MappedLightScreen.h"
+#include "Graphics3D/LightMaterialScreen.h"
+#include "Graphics3D/LightMapsScreen.h"
+#include "Graphics3D/LightCastersScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -77,20 +78,24 @@ void MainScreen::Start(){
 	graphics3D_menu = new Menu(false);
 	Button* triangleBtn = new Button("Triangle");
 	Button* meshBtn = new Button("Cube");
-	Button* solidLightBtn = new Button("Solid Light");
-	Button* mappedLightBtn = new Button("Mapped Light");
-	triangleBtn->SetImages(button_sprite->Clone(), nullptr);
-	meshBtn->SetImages(button_sprite->Clone(), nullptr);
-	solidLightBtn->SetImages(button_sprite->Clone(), nullptr);
-	mappedLightBtn->SetImages(button_sprite->Clone());
+	Button* lightMaterialBtn = new Button("Light Material");
+	Button* lightMapsBtn = new Button("Light Maps");
+	Button* lightCastersBtn = new Button("Light Casters");
+	triangleBtn->SetImages(button_sprite->Clone());
+	meshBtn->SetImages(button_sprite->Clone());
+	lightMaterialBtn->SetImages(button_sprite->Clone());
+	lightMapsBtn->SetImages(button_sprite->Clone());
+	lightCastersBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnCubeClick);
-	solidLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidLightClick);
-	mappedLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnMappedLightClick);
+	lightMaterialBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightMaterialClick);
+	lightMapsBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightMapsClick);
+	lightCastersBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightCastersClick);
 	graphics3D_menu->AddButton(triangleBtn);
 	graphics3D_menu->AddButton(meshBtn);
-	graphics3D_menu->AddButton(solidLightBtn);
-	graphics3D_menu->AddButton(mappedLightBtn);
+	graphics3D_menu->AddButton(lightMaterialBtn);
+	graphics3D_menu->AddButton(lightMapsBtn);
+	graphics3D_menu->AddButton(lightCastersBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -193,10 +198,14 @@ void MainScreen::OnAudioClick() {
 	next_screen = new AudioScreen();
 }
 
-void MainScreen::OnSolidLightClick(){
-	next_screen = new LightingScreen();
+void MainScreen::OnLightMaterialClick(){
+	next_screen = new LightMaterialScreen();
 }
 
-void MainScreen::OnMappedLightClick(){
-	next_screen = new MappedLightScreen();
+void MainScreen::OnLightMapsClick(){
+	next_screen = new LightMapsScreen();
+}
+
+void MainScreen::OnLightCastersClick(){
+	next_screen = new LightCastersScreen();
 }

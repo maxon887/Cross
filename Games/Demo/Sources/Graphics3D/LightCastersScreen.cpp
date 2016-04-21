@@ -14,35 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
+#include "LightCastersScreen.h"
 
-namespace cross{
+void LightCastersScreen::Start(){
+	CameraControlScreen::Start();
+}
 
-class Shader{
-public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_MAPS,
-		LIGHT_CASTERS,
-		COUNT
-	};
+void LightCastersScreen::Stop(){
+	CameraControlScreen::Stop();
+}
 
-	GLuint program;
-	GLint uMVP;
-	GLint aPosition;
-	Type type;
+void LightCastersScreen::Update(float sec){
 
-	Shader(Type type, string vertexFile, string fragmentFile);
-	virtual ~Shader();
-
-private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
-};
-
+	CameraControlScreen::Update(sec);
 }

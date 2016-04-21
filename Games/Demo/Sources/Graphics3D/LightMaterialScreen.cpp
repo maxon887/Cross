@@ -14,23 +14,23 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "LightingScreen.h"
+#include "LightMaterialScreen.h"
 #include "Demo.h"
 #include "Graphics3D.h"
 #include "Model.h"
 #include "Sprite.h"
 
-void LightingScreen::Start(){
+void LightMaterialScreen::Start(){
 	CameraControlScreen::Start();
 	current_model = 0;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	orbit_distance = 28.f;
-	Model* cube = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Cube.obj");
+	Model* cube = gfx3D->LoadModel(Shader::LIGHT_MATERIAL, "gfx3D/Cube.obj");
 	models.push_back(cube);
-	Model* sphere = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Sphere.obj");
+	Model* sphere = gfx3D->LoadModel(Shader::LIGHT_MATERIAL, "gfx3D/Sphere.obj");
 	sphere->SetColor(Color::Red);
 	models.push_back(sphere);
-	Model* gnome = gfx3D->LoadModel(Shader::LIGHT, "gfx3D/Gnome.obj");
+	Model* gnome = gfx3D->LoadModel(Shader::LIGHT_MATERIAL, "gfx3D/Gnome.obj");
 	gnome->SetColor(Color::Green);
 	gnome->SetScale(2.f);
 	models.push_back(gnome);
@@ -52,16 +52,16 @@ void LightingScreen::Start(){
 	pos.y = GetHeight() / 2.f;
 	next_model = new Button(pos);
 	next_model->SetImages(arrowUp->Clone(), arrowDown->Clone());
-	next_model->Clicked += MakeDelegate(this, &LightingScreen::NextModelClick);
+	next_model->Clicked += MakeDelegate(this, &LightMaterialScreen::NextModelClick);
 	pos.x = arrowUp->GetWidth() / 2.f + 10.f;
 	prev_model = new Button(pos);
 	arrowUp->SetRotate(180.f);
 	arrowDown->SetRotate(180.f);
 	prev_model->SetImages(arrowUp, arrowDown);
-	prev_model->Clicked += MakeDelegate(this, &LightingScreen::PrevModelClick);
+	prev_model->Clicked += MakeDelegate(this, &LightMaterialScreen::PrevModelClick);
 }
 
-void LightingScreen::Stop(){
+void LightMaterialScreen::Stop(){
 	CameraControlScreen::Stop();
 	delete light;
 	delete next_model;
@@ -71,7 +71,7 @@ void LightingScreen::Stop(){
 	}
 }
 
-void LightingScreen::Update(float sec){
+void LightMaterialScreen::Update(float sec){
 	light->Draw();
 
 	models[current_model]->Draw();
@@ -81,17 +81,14 @@ void LightingScreen::Update(float sec){
 	prev_model->Update();
 
 	CameraControlScreen::Update(sec);
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-	}
 }
 
-void LightingScreen::NextModelClick(){
+void LightMaterialScreen::NextModelClick(){
 	current_model++;
 	current_model = current_model % models.size();
 }
 
-void LightingScreen::PrevModelClick(){
+void LightMaterialScreen::PrevModelClick(){
 	if(current_model == 0){
 		current_model = models.size();
 	}

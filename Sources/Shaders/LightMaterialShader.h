@@ -19,7 +19,7 @@
 
 namespace cross{
 
-class LightShader : public Shader{
+class LightMaterialShader : public Shader{
 public:
 	GLuint uNormalMatrix;
 	GLuint uCameraPosition;
@@ -36,7 +36,7 @@ public:
 
 	GLuint aNormal;
 
-	LightShader();
+	LightMaterialShader();
 private:
 };
 

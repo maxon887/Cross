@@ -19,7 +19,7 @@
 #include "CameraControlScreen.h"
 #include "Utils/Light.h"
 
-class MappedLightScreen : public CameraControlScreen{
+class LightMapsScreen : public CameraControlScreen{
 public:
 	virtual void Start();
 	virtual void Stop();

@@ -14,38 +14,35 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "MappedLightScreen.h"
+#include "LightMapsScreen.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
 #include "Model.h"
 #include "Game.h"
 
-void MappedLightScreen::Start(){
+void LightMapsScreen::Start(){
 	CameraControlScreen::Start();
 
 	light = new Light(0.5f, 1.f, 1.f);
 	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
 	gfx3D->ClearLightSources();
 	gfx3D->AddLightSource(light);
-	model = gfx3D->LoadModel(Shader::Type::MAPPED_LIGHT, "gfx3D/Cube.obj");
+	model = gfx3D->LoadModel(Shader::Type::LIGHT_MAPS, "gfx3D/Cube.obj");
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	model->SetDiffuseTexture(diffuseTexture);
 	model->SetSpecularTexture(specularTexture);
 }
 
-void MappedLightScreen::Stop(){
+void LightMapsScreen::Stop(){
 	CameraControlScreen::Stop();
 	delete model;
 }
 
-void MappedLightScreen::Update(float sec){
+void LightMapsScreen::Update(float sec){
 	light->Draw();
 	model->Draw();
 	model->SetRotateY(game->GetRunTime() * 15.f);
 
 	CameraControlScreen::Update(sec);
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-	}
 }

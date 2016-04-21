@@ -53,12 +53,12 @@ void Model::Draw(){
 			gfx3D->DrawMeshTexture(mesh, GetModelMatrix(), diffuse);
 		}
 		break;
-	case Shader::Type::LIGHT:
+	case Shader::Type::LIGHT_MATERIAL:
 		for(Mesh* mesh : meshes){
-			gfx3D->DrawMeshLight(mesh, GetModelMatrix());
+			gfx3D->DrawMeshLightMaterial(mesh, GetModelMatrix());
 		}
 		break;
-	case Shader::Type::MAPPED_LIGHT:
+	case Shader::Type::LIGHT_MAPS:
 		if(!diffuse){
 			throw CrossException("There are no diffuse texture applied for model");
 		}
@@ -66,7 +66,7 @@ void Model::Draw(){
 			throw CrossException("There are no specular texture applied for model");
 		}
 		for(Mesh* mesh : meshes){
-			gfx3D->DrawMeshMappedLight(mesh, GetModelMatrix(), diffuse, specular);
+			gfx3D->DrawMeshLightMaps(mesh, GetModelMatrix(), diffuse, specular);
 		}
 		break;
 	default:
@@ -108,10 +108,10 @@ Color Model::GetColor(){
 }
 
 void Model::SetMaterial(Material material){
-	if(shader_type != Shader::LIGHT){
+	if(shader_type != Shader::LIGHT_MATERIAL){
 		throw CrossException("Shader type must be LIGHT");
 	}
 	for(Mesh* mesh : meshes){
-		//mesh->SetMaterial(mate
+		mesh->SetMaterial(material);
 	}
 }

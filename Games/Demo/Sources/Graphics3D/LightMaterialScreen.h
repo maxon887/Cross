@@ -16,33 +16,22 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
+#include "CameraControlScreen.h"
+#include "Utils/Light.h"
 
-namespace cross{
-
-class Shader{
+class LightMaterialScreen : public CameraControlScreen{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_MAPS,
-		LIGHT_CASTERS,
-		COUNT
-	};
-
-	GLuint program;
-	GLint uMVP;
-	GLint aPosition;
-	Type type;
-
-	Shader(Type type, string vertexFile, string fragmentFile);
-	virtual ~Shader();
-
+	void Start();
+	void Stop();
+	void Update(float sec);
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
-};
+	Light* light;
+	int current_model;
+	CRArray<Model*> models;
 
-}
+	Button* next_model;
+	Button* prev_model;
+
+	void NextModelClick();
+	void PrevModelClick();
+};
