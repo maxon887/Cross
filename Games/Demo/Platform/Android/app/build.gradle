@@ -1,9 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'littel man'
+            keyPassword 'hideme2078'
+            storeFile file('D:/LittleMan/littlekeystore')
+            storePassword 'hideme2078'
+        }
+    }
     compileSdkVersion 15
     buildToolsVersion "23.0.2"
-    productFlavors{
+    productFlavors {
         arm {
             ndk {
                 abiFilter "armeabi"
@@ -36,15 +44,25 @@ android {
             cFlags += " -I${project.buildDir}/../../../../../../Sources/FreeType/freetype2"
             cFlags += " -I${project.buildDir}/../../../../../../Sources/Assimp"
             cFlags += " -I${project.buildDir}/../../../../../../Sources/TinyXML"
-            ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
-            ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
-            ldLibs file(projectDir).absolutePath+"/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
+            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
+            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
+            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("d:/LittleMan/littlekeystore")
+            storePassword "********"
+            keyAlias "littel man"
+            keyPassword "*****"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     sourceSets {

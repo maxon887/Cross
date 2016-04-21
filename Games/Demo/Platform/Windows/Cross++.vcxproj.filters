@@ -232,6 +232,9 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMapsShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCastersShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -436,6 +439,9 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMapsShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCastersShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -469,6 +475,12 @@
       <Filter>Cross\Shaders</Filter>
     </None>
     <None Include="..\..\Assets\Engine\Shaders\light_material.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\light_casters.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\light_casters.vert">
       <Filter>Cross\Shaders</Filter>
     </None>
   </ItemGroup>

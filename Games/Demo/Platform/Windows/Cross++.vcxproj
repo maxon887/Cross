@@ -86,6 +86,7 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCastersShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMapsShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCastersShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMapsShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h" />
@@ -210,6 +212,8 @@
     <ResourceCompile Include="Cross++.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Assets\Engine\Shaders\light_casters.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\light_casters.vert" />
     <None Include="..\..\Assets\Engine\Shaders\light_material.frag" />
     <None Include="..\..\Assets\Engine\Shaders\light_material.vert" />
     <None Include="..\..\Assets\Engine\Shaders\light_maps.frag" />

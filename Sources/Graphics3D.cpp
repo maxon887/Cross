@@ -27,6 +27,7 @@
 #include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
 #include "Shaders/LightMapsShader.h"
+#include "Shaders/LightCastersShader.h"
 #include "Utils/Light.h"
 
 #define SWIG
@@ -265,6 +266,50 @@ void Graphics3D::DrawMeshLightMaps(Mesh* mesh, const Matrix &transform, Texture*
 	SAFE(glUniform3fv(shader->uLightAmbient, 1, light_sources[0]->GetAmbientStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light_sources[0]->GetDiffuseStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, light_sources[0]->GetSpecularStrength().GetData()));
+
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+	SAFE(glEnableVertexAttribArray(shader->aNormal));
+	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glDisable(GL_DEPTH_TEST));
+}
+
+void Graphics3D::DrawMeshLightCasters(Mesh* mesh, const Matrix& model, Vector3D& direction, Texture* diffuse, Texture* specular){
+	LightCastersShader* shader = (LightCastersShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTERS);
+	gfxGL->UseShader(shader);
+
+	SAFE(glEnable(GL_DEPTH_TEST));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
+
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	Matrix normalMatrix = model.Inverse();
+	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
+	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
+
+	SAFE(glUniform1f(shader->uMaterialShininess, mesh->GetMaterial().shininess * 128.f));
+
+	SAFE(glActiveTexture(GL_TEXTURE0));
+	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+	SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
+
+	SAFE(glActiveTexture(GL_TEXTURE1));
+	SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
+	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
+
+	SAFE(glUniform3fv(shader->uLightDirection, 1, direction.GetData()));
+	SAFE(glUniform3fv(shader->uLightAmbient, 1, Vector3D(0.f).GetData()));
+	SAFE(glUniform3fv(shader->uLightDiffuse, 1, Vector3D(1.f).GetData()));
+	SAFE(glUniform3fv(shader->uLightSpecular, 1, Vector3D(0.5f).GetData()));
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));

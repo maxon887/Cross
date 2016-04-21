@@ -143,8 +143,9 @@ void* Main(void* self){
                      +"\nFile: " + string(exc.filename) +
                      +"\nLine: " + to_string(exc.line);
         LOGE("%s", msg.c_str());
+        ((LauncherAndroid *) launcher)->MessageBox(msg);
     }
-    ((LauncherAndroid *) launcher)->Exit();
+    ((LauncherAndroid *) launcher)->DetachFromJVM();
     delete launcher;
 }
 

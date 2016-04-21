@@ -170,6 +170,28 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 	}
 
+	public void MessageBox(String msg){
+		final String thrMsg = msg;
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				AlertDialog.Builder builder  = new AlertDialog.Builder(CrossActivity.this);
+				builder.setIcon(android.R.drawable.ic_dialog_alert);
+				builder.setMessage(thrMsg);
+				builder.setTitle("Unhandled exception");
+				builder.setCancelable(false);
+				builder.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								FMOD.close();
+								System.exit(0);
+							}
+						});
+				builder.create().show();
+			}
+		});
+	}
+
 	public void PromtToExit() {
 		Log.d(TAG, "PromtToExit");
 

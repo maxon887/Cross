@@ -37,7 +37,6 @@ public:
 	GLuint aNormal;
 
 	LightMaterialShader();
-private:
 };
 
 }

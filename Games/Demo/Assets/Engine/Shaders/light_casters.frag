@@ -1,20 +1,13 @@
 precision mediump float;
-/*
-struct Material{
-	sampler2D diffuse;
-	sampler2D specular;
-	float shininess;
-};*/
 
 struct Light{
-	vec3 position;
+	vec3 direction;
 	
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
 };
 
-//uniform Material uMaterial;
 uniform sampler2D uMaterialDiffuse;
 uniform sampler2D uMaterialSpecular;
 uniform float uMaterialShininess;
@@ -35,7 +28,7 @@ void main() {
 	vec3 ambient = uLight.ambient * vec3(texture2D(uMaterialDiffuse, vTexCoords));
 	//diffuse
 	vec3 normal = normalize(vNormal);
-	vec3 lightDirection = normalize(uLight.position - vFragPosition);
+	vec3 lightDirection = normalize(-uLight.direction);
 	float diffEffect = max(dot(normal, lightDirection), 0.0);
 	vec3 diffuse = uLight.diffuse * diffEffect * vec3(texture2D(uMaterialDiffuse, vTexCoords));
 	//specular

@@ -14,4 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
+#include "Shaders/LightCastersShader.h"
+
+using namespace cross;
+
+LightCastersShader::LightCastersShader() :
+	Shader(Shader::Type::LIGHT_CASTERS, "Engine/Shaders/light_casters.vert", "Engine/Shaders/light_casters.frag")
+{
+	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
+	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
+
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
+
+	uLightDirection = glGetUniformLocation(program, "uLight.direction");
+	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
+	uLightDiffuse = glGetUniformLocation(program, "uLight.diffuse");
+	uLightSpecular = glGetUniformLocation(program, "uLight.specular");
+
+	aNormal = glGetAttribLocation(program, "aNormal");
+	aTexCoords = glGetAttribLocation(program, "aTexCoords");
+}

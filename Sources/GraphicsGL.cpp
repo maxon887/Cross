@@ -181,8 +181,12 @@ void GraphicsGL::CompileProgram(GLuint program){
 	}
 }
 
-void GraphicsGL::UseShader(Shader* shaders){
-	SAFE(glUseProgram(shaders->program));
+void GraphicsGL::UseShader(Shader* shader){
+	if(shader){
+		SAFE(glUseProgram(shader->program));
+	}else{
+		throw CrossException("Attempt to draw with NULL shader");
+	}
 }
 
 void GraphicsGL::WindowResizeHandle(int width, int height){

@@ -27,7 +27,6 @@ public:
 	GLuint uColor;
 
 	TextureShader();
-private:
 };
 
 }

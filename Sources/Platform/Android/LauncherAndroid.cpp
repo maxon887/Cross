@@ -87,6 +87,13 @@ void LauncherAndroid::PromtToExit(){
 	env->CallVoidMethod(cross_activity, methodID);
 }
 
+void LauncherAndroid::MessageBox(string message) {
+    JNIEnv* env = GetJNIEnv();
+    jclass clazz = env->GetObjectClass(cross_activity);
+    jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;)V");
+    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(message.c_str()));
+}
+
 void LauncherAndroid::Exit() {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
@@ -114,6 +121,10 @@ void LauncherAndroid::SetTargetWidth(int width) {
 
 void LauncherAndroid::SetTargetHeight(int height) {
     this->height = height;
+}
+
+void LauncherAndroid::DetachFromJVM() {
+    jvm->DetachCurrentThread();
 }
 
 JNIEnv* LauncherAndroid::GetJNIEnv(){

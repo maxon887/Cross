@@ -25,4 +25,5 @@ public:
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
+	Model* model;
 };

@@ -69,6 +69,17 @@ void Model::Draw(){
 			gfx3D->DrawMeshLightMaps(mesh, GetModelMatrix(), diffuse, specular);
 		}
 		break;
+	case Shader::Type::LIGHT_CASTERS:
+		if(!diffuse){
+			throw CrossException("There are no diffuse texture applied for model");
+		}
+		if(!specular){
+			throw CrossException("There are no specular texture applied for model");
+		}
+		for(Mesh* mesh : meshes){
+			Vector3D direction(0.f, 0.f, 1.f);
+			gfx3D->DrawMeshLightCasters(mesh, GetModelMatrix(), direction, diffuse, specular);
+		}
 	default:
 		throw CrossException("Wrong shader type");
 	}

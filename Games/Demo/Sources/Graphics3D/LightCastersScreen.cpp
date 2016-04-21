@@ -15,9 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LightCastersScreen.h"
+#include "Shaders/Shader.h"
+#include "Texture.h"
+#include "Model.h"
+#include "Graphics2D.h"
+#include "Graphics3D.h"
 
 void LightCastersScreen::Start(){
 	CameraControlScreen::Start();
+	model = gfx3D->LoadModel(Shader::Type::LIGHT_CASTERS, "gfx3D/Cube.obj");
+	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
+	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
+	model->SetDiffuseTexture(diffuseTexture);
+	model->SetSpecularTexture(specularTexture);
 }
 
 void LightCastersScreen::Stop(){
@@ -25,6 +35,7 @@ void LightCastersScreen::Stop(){
 }
 
 void LightCastersScreen::Update(float sec){
+	model->Draw();
 
 	CameraControlScreen::Update(sec);
 }

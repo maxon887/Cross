@@ -14,12 +14,29 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
+#include "Shaders/Shader.h"
 
-class Template{
-//User module
+namespace cross{
+
+class LightCastersShader : public Shader{
 public:
-private:
-//Framework module. You don't need call any of this methods or modify variable
+	GLuint uNormalMatrix;
+	GLuint uCameraPosition;
+
+	GLuint uMaterialDiffuse;
+	GLuint uMaterialSpecular;
+	GLuint uMaterialShininess;
+
+	GLuint uLightDirection;
+	GLuint uLightAmbient;
+	GLuint uLightDiffuse;
+	GLuint uLightSpecular;
+
+	GLuint aNormal;
+	GLuint aTexCoords;
+
+	LightCastersShader();
 };
+
+}

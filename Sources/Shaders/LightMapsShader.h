@@ -37,7 +37,6 @@ public:
 	GLuint aTexCoords;
 
 	LightMapsShader();
-private:
 };
 
 }

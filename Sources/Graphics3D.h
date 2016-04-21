@@ -41,6 +41,7 @@ public:
 	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
 	void DrawMeshLightMaterial(Mesh* mesh, const Matrix& model);
 	void DrawMeshLightMaps(Mesh* mesh, const Matrix& model, Texture* diffuse, Texture* specular);
+	void DrawMeshLightCasters(Mesh* mesh, const Matrix& model, Vector3D& direction, Texture* diffuse, Texture* specular);
 
 private:
 	Camera* camera;

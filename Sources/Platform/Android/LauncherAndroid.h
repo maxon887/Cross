@@ -41,6 +41,7 @@ public:
     void LogIt(const char* formatStr, ...);
 	File* LoadFile(string filename);
 	void PromtToExit();
+	void MessageBox(string message);
 	void Exit();
 	void Sleep(float milis);
 	void InitializeCommercial(JNIEnv* env, jobject comm);
@@ -48,6 +49,7 @@ public:
 public:
 	void SetTargetWidth(int width);
 	void SetTargetHeight(int height);
+	void DetachFromJVM();
 	JNIEnv* GetJNIEnv();
 private:
 	JavaVM* jvm;
