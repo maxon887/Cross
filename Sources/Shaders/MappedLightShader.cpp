@@ -24,9 +24,9 @@ MappedLightShader::MappedLightShader() :
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 
-	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
-	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
-	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
 
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
 	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");

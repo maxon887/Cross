@@ -180,6 +180,7 @@ void CameraControlScreen::Update(float sec){
 		btn->Update();
 	}
 	//debug camera
+#ifndef ANDROID
 	char buffer[256];
 	Vector3D camPos = camera->GetPosition();
 	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
@@ -187,6 +188,7 @@ void CameraControlScreen::Update(float sec){
 	Vector3D camDir = camera->GetDirection();
 	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
 	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
+#endif // !ANDROID
 }
 
 bool CameraControlScreen::OnGuiArea(Vector2D pos){

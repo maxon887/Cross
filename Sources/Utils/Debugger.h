@@ -26,6 +26,14 @@ namespace cross{
 
 class Debugger{
 public:
+	enum Parameter{
+		RENDER_TIME,
+		UPDATE_TIME,
+		FPS,
+		RUN_TIME,
+		INPUT,
+		NONE
+	};
 	static Debugger* Instance();
 	static void Release();
 
@@ -33,8 +41,8 @@ public:
 	void StopCheckTime(string label);
 	void Display(float sec);
 	void SetUpdateTime(float sec);
-	void ScreenDebug(bool enable);
-	void EnableInputDebug();
+	void EnableDebug(Parameter param);
+	void DisableDebug(Parameter param);
 	void ConsoleDebug(bool enable);
 	float GetFPS();
 
@@ -44,6 +52,8 @@ private:
 	CRArray<CrossTime> times;
 
 	Font* debugger_font;
+
+	bool params[Parameter::NONE];
 
 	float update_time;
 	float update_sum;
@@ -55,8 +65,6 @@ private:
 
 	float next_display;
 
-	bool screen_debug;
-	bool input_debug;
 	bool console_debug;
 	bool touches;
 	Vector2D touch_pos;
@@ -64,6 +72,10 @@ private:
 
 	Debugger();
 	~Debugger();
+
+	FastDelegate1<Input::Action, void> action_down_delegate;
+	FastDelegate1<Input::Action, void> action_up_delegate;
+	FastDelegate1<Input::Action, void> action_move_delegate;
 
 	void OnActionDown(Input::Action action);
 	void OnActionUp(Input::Action action);
