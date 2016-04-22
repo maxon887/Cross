@@ -24,6 +24,7 @@
 
 void LightCastersScreen::Start(){
 	CameraControlScreen::Start();
+	orbit_distance = 60.f;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -60.f));
 	model = gfx3D->LoadModel(Shader::Type::LIGHT_CASTERS, "gfx3D/Cube.obj");
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);

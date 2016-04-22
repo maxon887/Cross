@@ -23,7 +23,9 @@
 using namespace cross;
 
 Quaternion::Quaternion():
-	v(0.f),
+	x(0.f),
+	y(0.f),
+	z(0.f),
 	w(0.f)
 { }
 
@@ -32,46 +34,48 @@ Quaternion::Quaternion(const Vector3D& axis, float angle){
 	float halfAngle = angle * 0.5f;
 	float cosA = cos(halfAngle / 180.f * PI);
 	float sinA = sin(halfAngle / 180.f * PI);
-	this->v.x = normV.x * sinA;
-	this->v.y = normV.y * sinA;
-	this->v.z = normV.z * sinA;
+	this->x = normV.x * sinA;
+	this->y = normV.y * sinA;
+	this->z = normV.z * sinA;
 	this->w = cosA;
 }
 
 Quaternion::Quaternion(const Matrix& m){
 	float tr = m.m[0][0] + m.m[1][1] + m.m[2][2]; // trace of m.martix
 	if (tr > 0.0f){     // if trace positive than "w" is biggest com.mponent
-		this->v.x = m.m[1][2] - m.m[2][1];
-		this->v.y = m.m[2][0] - m.m[0][2];
-		this->v.z = m.m[0][1] - m.m[1][0];
+		this->x = m.m[1][2] - m.m[2][1];
+		this->y = m.m[2][0] - m.m[0][2];
+		this->z = m.m[0][1] - m.m[1][0];
 		this->w = tr + 1.0f;
 	}else                 // Som.me of vector com.mponents is bigger
 	if( (m.m[0][0] > m.m[1][1] ) && ( m.m[0][0] > m.m[2][2]) ) {
-		this->v.x = 1.0f + m.m[0][0] - m.m[1][1] - m.m[2][2];
-		this->v.y = m.m[1][0] + m.m[0][1];
-		this->v.z = m.m[2][0] + m.m[0][2];
+		this->x = 1.0f + m.m[0][0] - m.m[1][1] - m.m[2][2];
+		this->y = m.m[1][0] + m.m[0][1];
+		this->z = m.m[2][0] + m.m[0][2];
 		this->w = m.m[1][2] - m.m[2][1];
 	}else 
 	if ( m.m[1][1] > m.m[2][2] ){
-		this->v.x = m.m[1][0] + m.m[0][1];
-		this->v.y = 1.0f + m.m[1][1] - m.m[0][0] - m.m[2][2];
-		this->v.z = m.m[2][1] + m.m[1][2];
+		this->x = m.m[1][0] + m.m[0][1];
+		this->y = 1.0f + m.m[1][1] - m.m[0][0] - m.m[2][2];
+		this->z = m.m[2][1] + m.m[1][2];
 		this->w = m.m[2][0] - m.m[0][2];
 	}else{
-		this->v.x = m.m[2][0] + m.m[0][2];
-		this->v.y = m.m[2][1] + m.m[1][2];
-		this->v.z = 1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1];
+		this->x = m.m[2][0] + m.m[0][2];
+		this->y = m.m[2][1] + m.m[1][2];
+		this->z = 1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1];
 		this->w = m.m[0][1] - m.m[1][0];
 	}
 }
 
 void Quaternion::Scale(float scale){
-	this->v *= scale;
+	this->x *= scale;
+	this->y *= scale;
+	this->z *= scale;
 	this->w *= scale;
 }
 
 float Quaternion::Norm() const{
-	return this->v.x * this->v.x + this->v.y * this->v.y + this->v.z * this->v.z + this->w * this->w;
+	return this->x * this->x + this->y * this->y + this->z * this->z + this->w * this->w;
 }
 
 float Quaternion::Length() const{
@@ -80,21 +84,23 @@ float Quaternion::Length() const{
 
 Quaternion Quaternion::Conjugate() const{
 	Quaternion result = *this;
-	result.v *= -1;
+	result.x *= -1;
+	result.y *= -1;
+	result.z *= -1;
 	return result;
 }
 
 float Quaternion::DotProduct(const Quaternion& q) const{
-	return this->v.x * q.v.x + this->v.y * q.v.y + this->v.z * q.v.z + this->w * q.w;
+	return this->x * q.x + this->y * q.y + this->z * q.z + this->w * q.w;
 }
 
 Matrix Quaternion::GetMatrix() const{
 	Matrix m = Matrix::CreateIdentity();
 	float wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
     float s  = 2.0f / this->Norm();  // 4 mul 3 add 1 div
-    x2 = this->v.x * s;    y2 = this->v.y * s;    z2 = this->v.z * s;
-    xx = this->v.x * x2;   xy = this->v.x * y2;   xz = this->v.x * z2;
-    yy = this->v.y * y2;   yz = this->v.y * z2;   zz = this->v.z * z2;
+    x2 = this->x * s;    y2 = this->y * s;    z2 = this->z * s;
+    xx = this->x * x2;   xy = this->x * y2;   xz = this->x * z2;
+    yy = this->y * y2;   yz = this->y * z2;   zz = this->z * z2;
     wx = w * x2;   wy = w * y2;   wz = w * z2;
 
     m.m[0][0] = 1.0f - (yy + zz);
@@ -114,25 +120,30 @@ Matrix Quaternion::GetMatrix() const{
 
 Quaternion Quaternion::operator+(const Quaternion& q) const{
 	Quaternion result;
-	result.v.x = this->v.x + q.v.x;
-	result.v.y = this->v.y + q.v.y;
-	result.v.x = this->v.x + q.v.z;
+	result.x = this->x + q.x;
+	result.y = this->y + q.y;
+	result.x = this->x + q.z;
 	result.w = this->w + q.w;
 	return result;
 }
 
 Quaternion Quaternion::operator-(const Quaternion& q) const{
 	Quaternion result;
-	result.v.x = this->v.x - q.v.x;
-	result.v.y = this->v.y - q.v.y;
-	result.v.x = this->v.x - q.v.z;
+	result.x = this->x - q.x;
+	result.y = this->y - q.y;
+	result.x = this->x - q.z;
 	result.w = this->w - q.w;
 	return result;
 }
 
 Quaternion Quaternion::operator*(const Quaternion& q) const{
 	Quaternion result;
-	result.v = this->v.CrossProduct(q.v) + q.v * this->w + this->v * q.w;
-	result.w = this->w * q.w + this->v.DotProduct(q.v);
+	result.x = this->y * q.z - this->z * q.y + q.x * this->w + this->x * q.w;
+	result.y = this->x * q.z - this->z * q.x + q.y * this->w + this->y * q.w;
+	result.z = this->x * q.y - this->y * q.x + q.z * this->w + this->z * q.w;
+	result.w = this->w * q.w + this->x * q.x + this->y * q.y + this->z * q.z;
+
+	//result.v = this->v.CrossProduct(q.v) + q.v * this->w + this->v * q.w;
+	//result.w = this->w * q.w + this->v.DotProduct(q.v);
 	return result;
 }

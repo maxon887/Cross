@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'littel man'
-            keyPassword 'hideme2078'
-            storeFile file('D:/LittleMan/littlekeystore')
-            storePassword 'hideme2078'
-        }
-    }
     compileSdkVersion 15
     buildToolsVersion "23.0.2"
     productFlavors {
@@ -49,6 +41,7 @@ android {
             ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
         }
     }
+    /*
     signingConfigs {
         release {
             storeFile file("d:/LittleMan/littlekeystore")
@@ -56,13 +49,13 @@ android {
             keyAlias "littel man"
             keyPassword "*****"
         }
-    }
+    }*/
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
         }
     }
     sourceSets {

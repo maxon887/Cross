@@ -47,7 +47,7 @@ public:
 	Sprite* GetDownImage() const;
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
-	bool OnLocation(Vector2D p);
+	bool OnLocation(Vector2D p) const;
 protected:
 
 	Button();
@@ -71,7 +71,7 @@ protected:
 
 	void Locate(Vector2D loc, float width, float heiht);
 	void Locate(Rect rect);
-	bool OnLocation(float x, float y);
+	bool OnLocation(float x, float y) const;
 	void FitText(string text);
 	//connections
 	FastDelegate1<Input::Action, void> action_down_delegate;

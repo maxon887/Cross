@@ -22,6 +22,7 @@
 #include "Vector3D.h"
 #include "Vector4D.h"
 #include "Matrix.h"
+#include "Quaternion.h"
 #include "Color.h"
 #include "Rect.h"
 

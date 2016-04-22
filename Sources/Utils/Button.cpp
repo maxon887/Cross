@@ -207,7 +207,7 @@ Vector2D Button::GetCenter() const {
 	return location;
 }
 
-bool Button::OnLocation(Vector2D p) {
+bool Button::OnLocation(Vector2D p) const {
 	return OnLocation(p.x, p.y);
 }
 
@@ -236,7 +236,7 @@ void Button::FitText(string text) {
 	
 }
 
-bool Button::OnLocation(float x, float y) {
+bool Button::OnLocation(float x, float y) const {
 	return	x > area.x &&
 		x < (area.x + area.width) &&
 		y > area.y &&

@@ -15,9 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
 
 namespace cross{
+
+class Vector3D;
+class Matrix;
 
 class Quaternion{
 public:
@@ -36,7 +38,9 @@ public:
 	Quaternion operator * (const Quaternion& q) const;
 
 private:
-	Vector3D v;
+	float x;
+	float y;
+	float z;
 	float w;
 
 	Quaternion();
