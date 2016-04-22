@@ -25,6 +25,7 @@ Transformable::Transformable(Transformable& trans) :
 	rotation(trans.rotation),
 	recalc_model(trans.recalc_model)
 { }
+
 Transformable::Transformable() :
 	recalc_model(true)
 { 

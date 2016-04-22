@@ -26,4 +26,5 @@ public:
 	virtual void Update(float sec);
 private:
 	Model* model;
+	CRArray<Model*> objects;
 };

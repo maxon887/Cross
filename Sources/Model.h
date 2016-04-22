@@ -24,6 +24,7 @@ namespace cross{
 
 class Model : public Transformable{
 public:
+	Model(Model& obj);
 	Model(Shader::Type type);
 	~Model();
 
@@ -36,12 +37,15 @@ public:
 	void SetColor(Color color);
 	Color GetColor();
 	void SetMaterial(Material material);
+	Model* Clone();
+
 protected:
 	Shader::Type shader_type;
 	CRArray<Mesh*> meshes;
 	Texture* diffuse;
 	Texture* specular;
 	Color color;
+	bool original;
 };
 
 }

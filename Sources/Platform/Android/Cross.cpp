@@ -145,8 +145,12 @@ void* Main(void* self){
         LOGE("%s", msg.c_str());
         ((LauncherAndroid *) launcher)->MessageBox(msg);
     }
-    ((LauncherAndroid *) launcher)->DetachFromJVM();
-    delete launcher;
+    if(app_state == APP_EXIT){
+        ((LauncherAndroid *) launcher)->Exit();
+    }else {
+        ((LauncherAndroid *) launcher)->DetachFromJVM();
+        delete launcher;
+    }
 }
 
 extern "C"{

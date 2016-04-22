@@ -20,14 +20,22 @@
 #include "Model.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
+#include "Utils/Misc.h"
 
 void LightCastersScreen::Start(){
 	CameraControlScreen::Start();
+	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -60.f));
 	model = gfx3D->LoadModel(Shader::Type::LIGHT_CASTERS, "gfx3D/Cube.obj");
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	model->SetDiffuseTexture(diffuseTexture);
 	model->SetSpecularTexture(specularTexture);
+
+	for(int i = 0; i < 10; ++i){
+		Model* clone = model->Clone();
+		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
+		objects.push_back(clone);
+	}
 }
 
 void LightCastersScreen::Stop(){
@@ -35,7 +43,11 @@ void LightCastersScreen::Stop(){
 }
 
 void LightCastersScreen::Update(float sec){
-	model->Draw();
+	//model->SetPosition(Vector3D(0.f));
+	//model->Draw();
+	for(Model* obj : objects){
+		obj->Draw();
+	}
 
 	CameraControlScreen::Update(sec);
 }

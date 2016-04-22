@@ -22,19 +22,33 @@
 
 using namespace cross;
 
+Model::Model(Model& obj) : 
+	Transformable(obj),
+	diffuse(obj.diffuse),
+	specular(obj.specular),
+	shader_type(obj.shader_type),
+	color(obj.color),
+	meshes(obj.meshes),
+	original(false)
+{ }
+
 Model::Model(Shader::Type type) :
+	Transformable(),
 	diffuse(nullptr),
 	specular(nullptr),
 	shader_type(type),
-	color(Color::White)
+	color(Color::White),
+	original(true)
 { }
 
 Model::~Model(){
-	for(Mesh* mesh : meshes){
-		delete mesh;
-	}
-	if(diffuse){
-		delete diffuse;
+	if(original){
+		for(Mesh* mesh : meshes){
+			delete mesh;
+		}
+		if(diffuse){
+			delete diffuse;
+		}
 	}
 }
 
@@ -80,6 +94,7 @@ void Model::Draw(){
 			Vector3D direction(0.f, 0.f, 1.f);
 			gfx3D->DrawMeshLightCasters(mesh, GetModelMatrix(), direction, diffuse, specular);
 		}
+		break;
 	default:
 		throw CrossException("Wrong shader type");
 	}
@@ -125,4 +140,8 @@ void Model::SetMaterial(Material material){
 	for(Mesh* mesh : meshes){
 		mesh->SetMaterial(material);
 	}
+}
+
+Model* Model::Clone(){
+	return new Model(*this);
 }
