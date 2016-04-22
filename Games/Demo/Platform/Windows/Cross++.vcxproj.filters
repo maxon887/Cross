@@ -235,6 +235,9 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightCastersShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -441,6 +444,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightCastersShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Quaternion.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

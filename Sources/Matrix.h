@@ -32,6 +32,8 @@ public:
 
 	float m[4][4];
 
+	Matrix(float value);
+
 	void SetTranslation(const Vector2D &trans);
 	void SetTranslation(const Vector3D &trans);
 	void SetScale(float scale);
@@ -54,6 +56,8 @@ public:
 	void operator /= (float s);
 	Vector4D operator * (const Vector4D& vec) const;
 	Matrix operator * (const Matrix &m2) const;
+private:
+	Matrix();
 };
 
 };

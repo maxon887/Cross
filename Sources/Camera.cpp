@@ -27,7 +27,9 @@ Camera::Camera(Matrix projection) :
 Camera::Camera() :
 	direction(0.f, 0.f, 1.f),
 	position(0.f, 0.f, 0.f),
-	recalc_view(true)
+	recalc_view(true),
+	view(Matrix::CreateIdentity()),
+	projection(Matrix::CreateIdentity())
 { }
 
 void Camera::SetPosition(const Vector2D& pos){

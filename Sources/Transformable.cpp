@@ -27,7 +27,11 @@ Transformable::Transformable(Transformable& trans) :
 { }
 
 Transformable::Transformable() :
-	recalc_model(true)
+	recalc_model(true),
+	rotation(0.f),
+	translate(0.f),
+	scale(0.f),
+	model(0.f)
 { 
 	rotation = Matrix::CreateIdentity();
 	translate = Matrix::CreateIdentity();
@@ -71,6 +75,21 @@ void Transformable::SetRotateY(float angle){
 
 void Transformable::SetRotateZ(float angle){
 	rotation.SetRotationZ(angle);
+	recalc_model = true;
+}
+
+void Transformable::SetRotate(const Vector3D& axis, float angle){
+	Quaternion quat(axis, angle);
+	SetRotate(quat);
+}
+
+void Transformable::SetRotate(const Quaternion& quat){
+	this->rotation = quat.GetMatrix();
+	recalc_model = true;
+}
+
+void Transformable::SetRotate(const Matrix& rot){
+	this->rotation = rot;
 	recalc_model = true;
 }
 

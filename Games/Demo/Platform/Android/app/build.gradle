@@ -132,6 +132,8 @@ android {
         main.jni.srcDirs += '../../../../../Sources/Transformable.cpp'
         main.jni.srcDirs += '../../../../../Sources/Texture.h'
         main.jni.srcDirs += '../../../../../Sources/Texture.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Quaternion.h'
+        main.jni.srcDirs += '../../../../../Sources/Quaternion.cpp'
     }
 }
 

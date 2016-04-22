@@ -1,4 +1,4 @@
-/*	Copyright Â© 2015 Lukyanau Maksim
+/*	Copyright © 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -16,35 +16,30 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Quaternion.h"
 
 namespace cross{
 
-class Transformable{
+class Quaternion{
 public:
-	Transformable(Transformable& trans);
-	Transformable();
+	Quaternion(const Vector3D& axis, float angle);
+	Quaternion(const Matrix& rotation);
 
-	void SetPosition(const Vector2D& pos);
-	void SetPosition(const Vector3D& pos);
-	void SetScale(float factor);
-	void SetScale(const Vector2D& scale);
-	void SetScale(const Vector3D& scale);
-	void SetRotateX(float angle);
-	void SetRotateY(float angle);
-	void SetRotateZ(float angle);
-	void SetRotate(const Vector3D& axis, float angle);
-	void SetRotate(const Quaternion& quat);
-	void SetRotate(const Matrix& rotation);
-	Vector3D GetPosition() const;
+	void Scale(float scale);
+	float Norm() const;  
+	float Length() const;
+	Quaternion Conjugate() const;
+	float DotProduct(const Quaternion& q) const;
+	Matrix GetMatrix() const;
 
-	Matrix& GetModelMatrix();
-protected:
-	Matrix model;
-	Matrix scale;
-	Matrix translate;
-	Matrix rotation;
-	bool recalc_model;
+	Quaternion operator + (const Quaternion& q) const;
+	Quaternion operator - (const Quaternion& q) const;
+	Quaternion operator * (const Quaternion& q) const;
+
+private:
+	Vector3D v;
+	float w;
+
+	Quaternion();
 };
 
 }

@@ -85,6 +85,7 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightCastersShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Quaternion.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightCastersShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMapsShader.h" />

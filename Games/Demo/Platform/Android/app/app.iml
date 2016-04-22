@@ -227,6 +227,12 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Rect.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Rect.cpp" isTestSource="false" />
     </content>

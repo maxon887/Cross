@@ -106,6 +106,12 @@ float* Matrix::GetData(){
 	return (float*)m;
 }
 
+Matrix::Matrix() { }
+
+Matrix::Matrix(float value){
+	memset(m, value, sizeof(m));
+}
+
 void Matrix::SetTranslation(const Vector2D &trans){
 	m[0][3] = trans.x;
 	m[1][3] = trans.y;
