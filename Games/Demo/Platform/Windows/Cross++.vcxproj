@@ -73,6 +73,7 @@
     <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Exception.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Experimental\Array.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Font.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\Exception.h" />
+    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h" />
     <ClInclude Include="..\..\..\..\Sources\File.h" />
     <ClInclude Include="..\..\..\..\Sources\Font.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />

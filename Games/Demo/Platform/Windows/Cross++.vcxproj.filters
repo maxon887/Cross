@@ -31,6 +31,9 @@
     <Filter Include="Cross\TinyXML">
       <UniqueIdentifier>{a6be3550-dddd-4334-b393-4757584d5c2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Experimental">
+      <UniqueIdentifier>{090a0712-4ab6-4414-bd48-905c77498348}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -237,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
       <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Experimental\Array.cpp">
+      <Filter>Cross\Experimental</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +453,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
+      <Filter>Cross\Experimental</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
