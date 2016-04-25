@@ -33,33 +33,41 @@ public:
 		Type* p;
 	};
 
+	Array(const Array& arr);
 	Array();
+	Array(unsigned int capacity);
 	~Array();
 
-	void PushBack(Type element);
+	void Initialize(const Type& element);
+	void PushBack(const Type& element);
+	void PopBack();
+	Type& Back();
 	unsigned int Size() const;
-	Type Get(unsigned int index) const;
+	unsigned int Capacity() const;
+	Type& Get(unsigned int index) const;
 	Iterator Begin() const;
 	Iterator End() const;
+	void Clear();
+	bool Empty() const;
 
-	Type operator [] (unsigned int index) const;
+	Type& operator [] (unsigned int index) const;
+	void operator = (const Array<Type>& other);
 
 	//back compatibility
 	Iterator begin() const;
 	Iterator end() const;
+	void push_back(const Type& element);
+	void pop_back();
+	Type& back();
+	unsigned int size() const;
+	unsigned int capacity() const;
+	void clear();
 private:
 	Type* data;
-	unsigned int size;
-	unsigned int capacity;
-};
+	unsigned int mSize;
+	unsigned int mCapacity;
 
-template<class Type>
-Array<Type>::Array() :
-	data(nullptr),
-	size(0),
-	capacity(1)
-{
-	data = new Type[1];
+	void CopyData(Type* data, unsigned int size);
 };
 
 //class Iterator
@@ -90,31 +98,81 @@ Type& Array<Type>::Iterator::operator*() const{
 
 //class Array
 template<class Type>
+Array<Type>::Array(const Array& arr) :
+	mSize(arr.mSize),
+	mCapacity(arr.mCapacity)
+{
+	data = new Type[mCapacity];
+	CopyData(arr.data, arr.mSize);
+}
+
+template<class Type>
+Array<Type>::Array() :
+	Array(0)
+{ }
+
+template<class Type>
+Array<Type>::Array(unsigned int capacity) :
+	data(nullptr),
+	mSize(capacity),
+	mCapacity(capacity)
+{
+	if(mCapacity != 0){
+		data = new Type[mCapacity];
+	}else{
+		mCapacity = 1;
+		data = new Type[mCapacity];
+	}
+}
+
+template<class Type>
 Array<Type>::~Array(){
 	delete[] data;
 }
 
 template<class Type>
-void Array<Type>::PushBack(Type element){
-	if(size >= capacity){
-		capacity *= 2;
-		Type* newData = new Type[capacity];
-		memcpy(newData, data, sizeof(Type) * size);
-		delete[] data;
-		data = newData;
+void Array<Type>::Initialize(const Type& element){
+	for(unsigned int i = 0; i < mCapacity; ++i){
+		data[i] = element;
 	}
-	data[size] = element;
-	size++;
-};
-
-template<class Type>
-unsigned int Array<Type>::Size() const{
-	return size;
 }
 
 template<class Type>
-Type Array<Type>::Get(unsigned int index) const{
-	if(index < size) {
+void Array<Type>::PushBack(const Type& element){
+	if(mSize >= mCapacity){
+		mCapacity *= 2;
+		Type* oldData = data;
+		data = new Type[mCapacity];
+		CopyData(oldData, mSize);
+		delete[] oldData;
+	}
+	data[mSize] = element;
+	mSize++;
+}
+
+template<class Type>
+void Array<Type>::PopBack(){
+	mSize--;
+}
+
+template<class Type>
+Type& Array<Type>::Back(){
+	return data[mSize - 1];
+}
+
+template<class Type>
+unsigned int Array<Type>::Size() const{
+	return mSize;
+}
+
+template<class Type>
+unsigned int Array<Type>::Capacity() const{
+	return mCapacity;
+}
+
+template<class Type>
+Type& Array<Type>::Get(unsigned int index) const{
+	if(index < mCapacity) {
 		return data[index];
 	} else {
 		throw CrossException("Out of bounds exception");
@@ -122,29 +180,86 @@ Type Array<Type>::Get(unsigned int index) const{
 }
 
 template<class Type>
-Type Array<Type>::operator[](unsigned int index) const{
+Type& Array<Type>::operator[](unsigned int index) const{
 	return Get(index);
-};
+}
+
+template<class Type>
+void Array<Type>::operator=(const Array<Type>& other){
+	this->mCapacity = other.mCapacity;
+	this->mSize = other.mSize;
+	delete[] data;
+	data = new Type[mCapacity];
+	CopyData(other.data, mSize);
+}
 
 template<class Type>
 typename Array<Type>::Iterator Array<Type>::Begin() const{
 	return Iterator(data);
-};
+}
 
 template<class Type>
 typename Array<Type>::Iterator Array<Type>::End() const{
-	return Iterator(data + size);
+	return Iterator(data + mSize);
 };
+
+template<class Type>
+void Array<Type>::Clear(){
+	mSize = 0;
+}
+
+template<class Type>
+bool Array<Type>::Empty() const{
+	return mSize == 0;
+}
 
 //back compatibility
 template<class Type> 
 typename Array<Type>::Iterator Array<Type>::begin() const{
 	return Begin();
-};
+}
 
 template<class Type>
 typename Array<Type>::Iterator Array<Type>::end() const{
 	return End();
-};
+}
+
+template<class Type>
+void Array<Type>::push_back(const Type& element){
+	PushBack(element);
+}
+
+template<class Type>
+void Array<Type>::pop_back(){
+	PopBack();
+}
+
+template<class Type>
+Type& Array<Type>::back(){
+	return Back();
+}
+
+template<class Type>
+unsigned int Array<Type>::size() const{
+	return Size();
+}
+
+template<class Type>
+unsigned int Array<Type>::capacity() const{
+	return Capacity();
+}
+
+template<class Type>
+void Array<Type>::clear(){
+	Clear();
+}
+
+//private members
+template<class Type>
+void Array<Type>::CopyData(Type* data, unsigned int size){
+	for(unsigned int i = 0; i < size; ++i){
+		this->data[i] = data[i];
+	}
+}
 
 }

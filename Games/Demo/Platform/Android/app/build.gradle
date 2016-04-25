@@ -65,6 +65,7 @@ android {
 
         //main.jni.srcDirs += '../../../../../Sources/'
         main.jni.srcDirs += '../../../../../Sources/Utils/'
+        main.jni.srcDirs += '../../../../../Sources/Experimental/'
         main.jni.srcDirs += '../../../../../Sources/SOIL/'
         main.jni.srcDirs += '../../../../../Sources/TinyXML/'
         main.jni.srcDirs += '../../../../../Sources/Shaders/'

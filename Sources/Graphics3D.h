@@ -35,7 +35,7 @@ public:
 
 	Model* LoadModel(Shader::Type shaderType, const string& filename);
 	Mesh* LoadMesh(const string& filename);
-	CRArray<Mesh*> LoadMeshes(const string& filename);
+	CRArray<Mesh*>* LoadMeshes(const string& filename);
 
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
 	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);

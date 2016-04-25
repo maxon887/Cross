@@ -38,7 +38,8 @@ Model::Model(Shader::Type type) :
 	specular(nullptr),
 	shader_type(type),
 	color(Color::White),
-	original(true)
+	original(true),
+	meshes()
 { }
 
 Model::~Model(){
@@ -48,6 +49,9 @@ Model::~Model(){
 		}
 		if(diffuse){
 			delete diffuse;
+		}
+		if(specular){
+			delete specular;
 		}
 	}
 }

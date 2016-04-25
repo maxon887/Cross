@@ -89,7 +89,7 @@ void CameraControlScreen::Start() {
 
 	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
 	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
-	eye_btn = new ToggleButton(eye->Clone(), eyePressed->Clone());
+	eye_btn = new ToggleButton(eye, eyePressed);
 	eye_btn->Clicked += MakeDelegate(this, &CameraControlScreen::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
@@ -105,6 +105,8 @@ void CameraControlScreen::Stop(){
 	for(Button* btn : gui){
 		delete btn;
 	}
+	delete arrow_released;
+	delete arrow_pressed;
 	gui.clear();
 }
 

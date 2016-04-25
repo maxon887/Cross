@@ -25,6 +25,7 @@
 #include "Quaternion.h"
 #include "Color.h"
 #include "Rect.h"
+#include "Experimental/Array.h"
 
 #include <string>
 #include <vector>
@@ -32,7 +33,7 @@
 #include <map>
 
 #define CRByte			unsigned char
-#define CRArray			std::vector
+#define CRArray			Array
 #define CRList			std::list
 #define CRDictionary	std::map
 

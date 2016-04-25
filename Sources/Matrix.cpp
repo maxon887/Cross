@@ -109,7 +109,7 @@ float* Matrix::GetData(){
 Matrix::Matrix() { }
 
 Matrix::Matrix(float value){
-	memset(m, value, sizeof(m));
+	memset(m, (CRByte)value, sizeof(m));
 }
 
 void Matrix::SetTranslation(const Vector2D &trans){

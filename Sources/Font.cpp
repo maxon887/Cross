@@ -37,7 +37,7 @@ Font::Font(Font& font) :
 	face(font.face),
 	size(font.size),
 	char_width(font.char_width),
-	sprites(128),
+	sprites(127),
 	textures(127),
 	file(font.file),
 	kill_textures(false)
@@ -56,6 +56,9 @@ Font::Font(string filename, float size, Color color) :
 	original(true),
 	kill_textures(false)
 {
+	for(unsigned int i = 0; i < sprites.capacity(); ++i){
+		sprites[i] = nullptr;
+	}
 	file = launcher->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
@@ -164,7 +167,9 @@ void Font::Cache(){
 		Rect region(0, 0, (float)bmpWidth, (float)bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
 		Sprite* sprite = new Sprite(texture, region, pivot);  
-		delete sprites[i];
+		//delete sprites[i];
+		Sprite* delSprite = sprites[i];
+		delete delSprite;
 		sprites[i] = sprite;
 	}
 }

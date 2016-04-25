@@ -114,9 +114,10 @@ void Graphics3D::ClearLightSources(){
 
 Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile){
 	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*> modelMeshes = LoadMeshes(modelFile);
+	CRArray<Mesh*>* modelMeshes = LoadMeshes(modelFile);
 	Model* model = new Model(shaderType);
-	model->SetMeshes(modelMeshes);
+	model->SetMeshes(*modelMeshes);
+	delete modelMeshes;
 	string msg = "" + modelFile + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
@@ -124,24 +125,25 @@ Model* Graphics3D::LoadModel(Shader::Type shaderType, const string& modelFile){
 }
 
 Mesh* Graphics3D::LoadMesh(const string& filename){
-	CRArray<Mesh*> meshes = LoadMeshes(filename);
-	if(meshes.size() > 1){
+	CRArray<Mesh*>* meshes = LoadMeshes(filename);
+	if(meshes->size() > 1){
 		throw CrossException("File contains more than 1 mesh.\nUse LoadMeshes function.");
 	}else{
-		return meshes[0];
+		return (*meshes)[0];
 	}
 }
 
-CRArray<Mesh*> Graphics3D::LoadMeshes(const string& filename){
+CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
+	delete file;
 	if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-	CRArray<Mesh*> meshes;
-	processNode(&meshes, scene->mRootNode, scene);
-	if(meshes.size() == 0){
+	CRArray<Mesh*>* meshes = new CRArray<Mesh*>();
+	processNode(meshes, scene->mRootNode, scene);
+	if(meshes->size() == 0){
 		throw CrossException("Cannot load meshes from file");
 	}
 	return meshes;

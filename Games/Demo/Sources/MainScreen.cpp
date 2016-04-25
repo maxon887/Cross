@@ -109,16 +109,6 @@ void MainScreen::Start(){
 
 	delete button_sprite;
 	//expirimental
-	Array<int> array;
-	array.PushBack(23);
-	array.PushBack(12);
-
-	for(int i = 0; i < array.Size(); ++i){
-		launcher->LogIt("%d", array[i]);
-	}
-	for(int item : array){
-		launcher->LogIt("%d", item);
-	}
 }
 
 void MainScreen::Stop(){
