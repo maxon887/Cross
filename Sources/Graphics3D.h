@@ -22,7 +22,10 @@
 
 namespace cross{
 
-class SimplePointLight;
+class Light;
+class LightCaster;
+class DirectionalLight;
+class PointLight;
 
 class Graphics3D{
 public:
@@ -30,22 +33,29 @@ public:
 	~Graphics3D();
 
 	Camera* GetCamera();
-	void AddLightSource(SimplePointLight* light);
-	void ClearLightSources();
 
-	Model* LoadModel(Shader::Type shaderType, const string& filename);
 	Mesh* LoadMesh(const string& filename);
 	CRArray<Mesh*>* LoadMeshes(const string& filename);
 
+	Model* LoadModel(const string& filename, const Color& color);
+	Model* LoadModel(const string& filename, const Material& material);
+	Model* LoadModel(const string& filename, Texture* diffuse);
+	Model* LoadModel(const string& filename, Texture* diffuse, Texture* specular);
+
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
 	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
-	void DrawMeshLightMaterial(Mesh* mesh, const Matrix& model);
-	void DrawMeshLightMaps(Mesh* mesh, const Matrix& model, Texture* diffuse, Texture* specular);
-	void DrawMeshLightCasters(Mesh* mesh, const Matrix& model, Vector3D& direction, Texture* diffuse, Texture* specular);
+	void DrawMeshLightCasterMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material);
+	void DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess);
+	void DrawMeshLightCasterDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess);
+	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, Texture* diffuse, Texture* specular, float shininess);
+	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specualr);
+
+	void DrawModel(Model* model);
+	void DrawModelLightCaster(Model* model, LightCaster* light);
+	void DrawModelDirectLight(Model* model, DirectionalLight* ligth);
 
 private:
 	Camera* camera;
-	CRArray<SimplePointLight*> light_sources;
 
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

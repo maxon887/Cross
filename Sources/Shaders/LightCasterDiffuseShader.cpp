@@ -14,20 +14,23 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/LightMaterialShader.h"
+#include "Shaders/LightCasterDiffuseShader.h"
 
 using namespace cross;
 
-LightMaterialShader::LightMaterialShader() :
-	Shader(Type::LIGHT_MATERIAL, "Engine/Shaders/light_material.vert", "Engine/Shaders/light_material.frag")
+LightCasterDiffuseShader::LightCasterDiffuseShader() :
+	LightCasterDiffuseShader(Type::LIGHT_CASTER_DIFFUSE, "Engine/Shaders/light_caster_diffuse.vert", "Engine/Shaders/light_caster_diffuse.frag")
+{ }
+
+LightCasterDiffuseShader::LightCasterDiffuseShader(Shader::Type type, string vertex, string fragment) :
+	Shader(type, vertex, fragment)
 { 
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 
-	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
-	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
-	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
-	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
 
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
 	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
@@ -35,4 +38,5 @@ LightMaterialShader::LightMaterialShader() :
 	uLightSpecular = glGetUniformLocation(program, "uLight.specular");
 
 	aNormal = glGetAttribLocation(program, "aNormal");
+	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 }

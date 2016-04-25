@@ -15,13 +15,28 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CameraControlScreen.h"
+#include "Shaders/Shader.h"
 
-class CubeScreen : public CameraControlScreen{
+namespace cross{
+
+class LightCasterMaterialShader : public Shader{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Model* cube;
+	GLuint uNormalMatrix;
+	GLuint uCameraPosition;
+
+	GLuint uMaterialAmbient;
+	GLuint uMaterialDiffuse;
+	GLuint uMaterialSpecular;
+	GLuint uMaterialShininess;
+
+	GLuint uLightPosition;
+	GLuint uLightAmbient;
+	GLuint uLightDiffuse;
+	GLuint uLightSpecular;
+
+	GLuint aNormal;
+
+	LightCasterMaterialShader();
 };
+
+}

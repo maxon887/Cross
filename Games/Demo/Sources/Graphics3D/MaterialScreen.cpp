@@ -14,34 +14,32 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "LightMaterialScreen.h"
+#include "MaterialScreen.h"
 #include "Demo.h"
 #include "Graphics3D.h"
 #include "Model.h"
 #include "Sprite.h"
 
-void LightMaterialScreen::Start(){
+void MaterialScreen::Start(){
 	CameraControlScreen::Start();
 	current_model = 0;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	orbit_distance = 28.f;
-	Model* cube = gfx3D->LoadModel(Shader::LIGHT_MATERIAL, "gfx3D/Cube.obj");
+	Model* cube = gfx3D->LoadModel("gfx3D/Cube.obj", Material::Bronze);
 	models.push_back(cube);
-	Model* sphere = gfx3D->LoadModel(Shader::LIGHT_MATERIAL, "gfx3D/Sphere.obj");
-	sphere->SetColor(Color::Red);
+	Model* sphere = gfx3D->LoadModel("gfx3D/Sphere.obj", Material::Bronze);
 	models.push_back(sphere);
-	Model* gnome = gfx3D->LoadModel(Shader::LIGHT_MATERIAL, "gfx3D/Gnome.obj");
-	gnome->SetColor(Color::Green);
+	Model* gnome = gfx3D->LoadModel("gfx3D/Gnome.obj", Material::Bronze);
 	gnome->SetScale(2.f);
 	models.push_back(gnome);
 
-	light = new SimplePointLight();
+	light_caster_mesh = gfx3D->LoadMesh("Gfx3D/Cube.obj");
+	light = new LightCaster(light_caster_mesh, Vector3D(0.2f), Vector3D(1.f), Vector3D(0.5f));
+	light->SetScale(0.2f);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	light->SetAmbientStrength(1.f);
 	light->SetDiffuseStrength(1.f);
 	light->SetSpecularStrength(1.f);
-	gfx3D->ClearLightSources();
-	gfx3D->AddLightSource(light);
 
 	Sprite* arrowUp = demo->GetCommonSprite("ArrowUp.png");
 	Sprite* arrowDown = demo->GetCommonSprite("ArrowDown.png");
@@ -52,16 +50,16 @@ void LightMaterialScreen::Start(){
 	pos.y = GetHeight() / 2.f;
 	next_model = new Button(pos);
 	next_model->SetImages(arrowUp->Clone(), arrowDown->Clone());
-	next_model->Clicked += MakeDelegate(this, &LightMaterialScreen::NextModelClick);
+	next_model->Clicked += MakeDelegate(this, &MaterialScreen::NextModelClick);
 	pos.x = arrowUp->GetWidth() / 2.f + 10.f;
 	prev_model = new Button(pos);
 	arrowUp->SetRotate(180.f);
 	arrowDown->SetRotate(180.f);
 	prev_model->SetImages(arrowUp, arrowDown);
-	prev_model->Clicked += MakeDelegate(this, &LightMaterialScreen::PrevModelClick);
+	prev_model->Clicked += MakeDelegate(this, &MaterialScreen::PrevModelClick);
 }
 
-void LightMaterialScreen::Stop(){
+void MaterialScreen::Stop(){
 	CameraControlScreen::Stop();
 	delete light;
 	delete next_model;
@@ -71,10 +69,11 @@ void LightMaterialScreen::Stop(){
 	}
 }
 
-void LightMaterialScreen::Update(float sec){
+void MaterialScreen::Update(float sec){
 	light->Draw();
 
-	models[current_model]->Draw();
+	gfx3D->DrawModelLightCaster(models[current_model], light);
+
 	models[current_model]->SetRotateY(game->GetRunTime() * 15.f);
 
 	next_model->Update();
@@ -83,12 +82,12 @@ void LightMaterialScreen::Update(float sec){
 	CameraControlScreen::Update(sec);
 }
 
-void LightMaterialScreen::NextModelClick(){
+void MaterialScreen::NextModelClick(){
 	current_model++;
 	current_model = current_model % models.size();
 }
 
-void LightMaterialScreen::PrevModelClick(){
+void MaterialScreen::PrevModelClick(){
 	if(current_model == 0){
 		current_model = models.size();
 	}

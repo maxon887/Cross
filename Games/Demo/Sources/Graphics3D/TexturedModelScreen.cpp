@@ -14,33 +14,26 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "CubeScreen.h"
+#include "TexturedModelScreen.h"
+
 #include "Game.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
 #include "Model.h"
 
-void CubeScreen::Start(){
+void TexturedModelScreen::Start() {
 	CameraControlScreen::Start();
-	cube = gfx3D->LoadModel(Shader::Type::TEXTURE, "gfx3D/Cube.obj");
 	Texture* box = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
-	cube->SetDiffuseTexture(box);
-	/*
-	cube = gfx3D->LoadModel("gfx3D/Gnome.obj", "gfx3D/Gnome.png");
-	cube->SetRotateY(180.f);
-	cube->SetScale(2.f);
-	cube->SetPosition(cube->GetPosition() + Vector3D(0.f, -5.f, 0.f));*/
+	cube = gfx3D->LoadModel("gfx3D/Cube.obj", box);
 }
 
-void CubeScreen::Stop(){
+void TexturedModelScreen::Stop() {
 	CameraControlScreen::Stop();
+	delete cube;
 }
 
-void CubeScreen::Update(float sec){
-	cube->Draw();
+void TexturedModelScreen::Update(float sec) {
+	gfx3D->DrawModel(cube);
 
 	CameraControlScreen::Update(sec);
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-	}
 }

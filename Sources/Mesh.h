@@ -49,13 +49,10 @@ public:
 	GLuint GetIndexCount() const;
 	GLuint GetVertexBufferObject() const;
 	GLuint GetElementBufferObjet() const;
-	Material GetMaterial();
-	void SetMaterial(Material material);
 
 private:
 	GLuint VBO;
 	GLuint EBO;
-	Material material;
 	GLuint poly_count;
 	GLuint index_count;
 };

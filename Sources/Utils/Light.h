@@ -15,18 +15,26 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
 #include "Cross.h"
-#include "CameraControlScreen.h"
-#include "Utils/DirectionalLight.h"
 
-class DirectionalLightScreen : public CameraControlScreen{
+namespace cross{
+
+class Light{
 public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
-private:
-	Model* model;
-	DirectionalLight* light;
-	CRArray<Model*> objects;
+
+	Light(const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& specular);
+
+	void SetAmbientStrength(const Vector3D& ambient);
+	void SetDiffuseStrength(const Vector3D& diffuse);
+	void SetSpecularStrength(const Vector3D& specular);
+
+	Vector3D GetAmbientStrength();
+	Vector3D GetDiffuseStrength();
+	Vector3D GetSpecularStrength();
+protected:
+	Vector3D ambient;
+	Vector3D diffuse;
+	Vector3D specular;
 };
+
+}

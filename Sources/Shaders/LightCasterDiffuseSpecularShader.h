@@ -15,18 +15,30 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Shaders/Shader.h"
 
-#include "Cross.h"
-#include "CameraControlScreen.h"
-#include "Utils/DirectionalLight.h"
+namespace cross{
 
-class DirectionalLightScreen : public CameraControlScreen{
+class LightCasterDiffuseSpecularShader : public Shader{
 public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
-private:
-	Model* model;
-	DirectionalLight* light;
-	CRArray<Model*> objects;
+	GLuint uNormalMatrix;
+	GLuint uCameraPosition;
+
+	GLuint uMaterialDiffuse;
+	GLuint uMaterialSpecular;
+	GLuint uMaterialShininess;
+
+	GLuint uLightPosition;
+	GLuint uLightAmbient;
+	GLuint uLightDiffuse;
+	GLuint uLightSpecular;
+
+	GLuint aNormal;
+	GLuint aTexCoords;
+
+	LightCasterDiffuseSpecularShader();
+protected:
+	LightCasterDiffuseSpecularShader(Shader::Type type, string vertex, string fragment);
 };
+
+}

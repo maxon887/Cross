@@ -21,9 +21,11 @@
 #include "AudioScreen.h"
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScreen.h"
-#include "Graphics3D/CubeScreen.h"
-#include "Graphics3D/LightMaterialScreen.h"
-#include "Graphics3D/SimplePointLightScreen.h"
+#include "Graphics3D/SolidModelScreen.h"
+#include "Graphics3D/TexturedModelScreen.h"
+#include "Graphics3D/MaterialScreen.h"
+#include "Graphics3D/DiffuseMapScreen.h"
+#include "Graphics3D/DiffuseSpecularMapScreen.h"
 #include "Graphics3D/DirectionalLightScreen.h"
 #include "Graphics3D/PointLightScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
@@ -78,28 +80,36 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(animationBtn);
 	//graphics 3D menu
 	graphics3D_menu = new Menu(false);
-	Button* triangleBtn = new Button("Triangle");
-	Button* meshBtn = new Button("Cube");
-	Button* lightMaterialBtn = new Button("Light Material");
-	Button* simplePointLightBtn = new Button("Simple Point Light");
-	Button* directionalLigthBtn = new Button("Directional Light");
-	Button* pointLightBtn = new Button("Point Light");
+	Button* triangleBtn				= new Button("Triangle");
+	Button* solidModelBtn			= new Button("Solid Model");
+	Button* texturedModelBtn		= new Button("Textured Model");
+	Button* materialBtn 			= new Button("Material");
+	Button* diffuseMap				= new Button("Diffuse Map");
+	Button* diffuseSpecularMapBtn	= new Button("Diffuse Specular Map");
+	Button* directionalLigthBtn		= new Button("Directional Light");
+	Button* pointLightBtn			= new Button("Point Light");
 	triangleBtn->SetImages(button_sprite->Clone());
-	meshBtn->SetImages(button_sprite->Clone());
-	lightMaterialBtn->SetImages(button_sprite->Clone());
-	simplePointLightBtn->SetImages(button_sprite->Clone());
+	solidModelBtn->SetImages(button_sprite->Clone());
+	texturedModelBtn->SetImages(button_sprite->Clone());
+	materialBtn->SetImages(button_sprite->Clone());
+	diffuseMap->SetImages(button_sprite->Clone());
+	diffuseSpecularMapBtn->SetImages(button_sprite->Clone());
 	directionalLigthBtn->SetImages(button_sprite->Clone());
 	pointLightBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
-	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnCubeClick);
-	lightMaterialBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightMaterialClick);
-	simplePointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSimplePointLightClick);
+	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
+	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
+	materialBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
+	diffuseMap->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseMapClick);
+	diffuseSpecularMapBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseSpecularMapClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
 	graphics3D_menu->AddButton(triangleBtn);
-	graphics3D_menu->AddButton(meshBtn);
-	graphics3D_menu->AddButton(lightMaterialBtn);
-	graphics3D_menu->AddButton(simplePointLightBtn);
+	graphics3D_menu->AddButton(solidModelBtn);
+	graphics3D_menu->AddButton(texturedModelBtn);
+	graphics3D_menu->AddButton(materialBtn);
+	graphics3D_menu->AddButton(diffuseMap);
+	graphics3D_menu->AddButton(diffuseSpecularMapBtn);
 	graphics3D_menu->AddButton(directionalLigthBtn);
 	graphics3D_menu->AddButton(pointLightBtn);
 
@@ -197,20 +207,28 @@ void MainScreen::OnTriangleClick(){
 	next_screen = new TriangleScreen();
 }
 
-void MainScreen::OnCubeClick(){
-	next_screen = new CubeScreen();
+void MainScreen::OnSolidModelClick(){
+	next_screen = new SolidModelScreen();
+}
+
+void MainScreen::OnTexturedModelClick(){
+	next_screen = new TexturedModelScreen();
 }
 
 void MainScreen::OnAudioClick() {
 	next_screen = new AudioScreen();
 }
 
-void MainScreen::OnLightMaterialClick(){
-	next_screen = new LightMaterialScreen();
+void MainScreen::OnMaterialClick(){
+	next_screen = new MaterialScreen();
 }
 
-void MainScreen::OnSimplePointLightClick(){
-	next_screen = new SimplePointLightScreen();
+void MainScreen::OnDiffuseMapClick(){
+	next_screen = new DiffuseMapScreen();
+}
+
+void MainScreen::OnDiffuseSpecularMapClick(){
+	next_screen = new DiffuseSpecularMapScreen();
 }
 
 void MainScreen::OnDirectionalLight(){

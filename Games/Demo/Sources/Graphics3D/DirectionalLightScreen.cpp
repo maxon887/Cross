@@ -26,12 +26,12 @@ void DirectionalLightScreen::Start(){
 	CameraControlScreen::Start();
 	orbit_distance = 60.f;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -60.f));
-	model = gfx3D->LoadModel(Shader::Type::DIRECTIONAL_LIGHT, "gfx3D/Cube.obj");
+
+	light = new DirectionalLight(Vector3D(0.f, 0.f, 1.f), Vector3D(0.2f), Vector3D(1.f), Vector3D(0.5f));
 	
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model->SetDiffuseTexture(diffuseTexture);
-	model->SetSpecularTexture(specularTexture);
+	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
 
 	for(int i = 0; i < 10; ++i){
 		Model* clone = model->Clone();
@@ -45,6 +45,7 @@ void DirectionalLightScreen::Stop(){
 	CameraControlScreen::Stop();
 	
 	delete model;
+	delete light;
 	
 	for(Model* obj : objects){
 		delete obj;
@@ -53,7 +54,7 @@ void DirectionalLightScreen::Stop(){
 
 void DirectionalLightScreen::Update(float sec){
 	for(Model* obj : objects){
-		obj->Draw();
+		gfx3D->DrawModelDirectLight(obj, light);
 	}
 
 	CameraControlScreen::Update(sec);

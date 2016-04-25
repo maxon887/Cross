@@ -21,9 +21,11 @@
 #include "Shaders/SimpleShader.h"
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
-#include "Shaders/LightMaterialShader.h"
-#include "Shaders/SimplePointLightShader.h"
+#include "Shaders/LightCasterMaterialShader.h"
+#include "Shaders/LightCasterDiffuseShader.h"
+#include "Shaders/LightCasterDiffuseSpecularShader.h"
 #include "Shaders/DirectionalLightShader.h"
+#include "Shaders/PointLightShader.h"
 
 using namespace cross;
 
@@ -85,13 +87,6 @@ GraphicsGL::GraphicsGL() :
 		launcher->LogIt("Max Texture Units: %d", maxTextureUnits);
 
 		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
-
-		shaders[Shader::Type::SIMPLE] = new SimpleShader();
-		shaders[Shader::Type::MONOCHROME] = new MonochromeShader();
-		shaders[Shader::Type::TEXTURE] = new TextureShader();
-		shaders[Shader::Type::LIGHT_MATERIAL] = new LightMaterialShader();
-		shaders[Shader::Type::SIMPLE_POINT_LIGHT] = new SimplePointLightShader();
-		shaders[Shader::Type::DIRECTIONAL_LIGHT] = new DirectionalLightShader();
 }
 
 GraphicsGL::~GraphicsGL(){
@@ -101,6 +96,36 @@ GraphicsGL::~GraphicsGL(){
 }
 
 Shader* GraphicsGL::GetShader(unsigned int type){
+	if(shaders[type] == nullptr){
+		switch(type) {
+		case Shader::Type::SIMPLE:
+			shaders[type] = new SimpleShader();
+			break;
+		case Shader::Type::MONOCHROME:
+			shaders[type] = new MonochromeShader();
+			break;
+		case Shader::Type::TEXTURE:
+			shaders[type] = new TextureShader();
+			break;
+		case Shader::Type::LIGHT_CASTER_MATERIAL:
+			shaders[type] = new LightCasterMaterialShader();
+			break;
+		case Shader::Type::LIGHT_CASTER_DIFFUSE:
+			shaders[type] = new LightCasterDiffuseShader();
+			break;
+		case Shader::Type::LIGHT_CASTER_DIFFUSE_SPECULAR:
+			shaders[type] = new LightCasterDiffuseSpecularShader();
+			break;
+		case Shader::Type::DIRECTIONAL_LIGHT:
+			shaders[type] = new DirectionalLightShader();
+			break;
+		case Shader::Type::POINT_LIGHT:
+			shaders[type] = new PointLightShader();
+			break;
+		default:
+			throw CrossException("Unknown shader type");
+		}
+	}
 	return shaders[type];
 }
 

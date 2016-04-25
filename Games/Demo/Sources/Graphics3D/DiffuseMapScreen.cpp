@@ -14,31 +14,34 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "PointLightScreen.h"
+#include "DiffuseMapScreen.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
 #include "Model.h"
 #include "Game.h"
-	
-void PointLightScreen::Start(){
+
+void DiffuseMapScreen::Start(){
 	CameraControlScreen::Start();
-	/*
-	light = new PointLight(0.5f, 1.f, 1.f, 1.f, 0.09f, 0.032f);
+
+	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
 	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
-	model = gfx3D->LoadModel(Shader::Type::POINT_LIGHT, "gfx3D/Cube.obj");
-	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
-	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);*/
+	light->SetScale(0.2f);
+	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
+	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture);
 }
 
-void PointLightScreen::Stop(){
+void DiffuseMapScreen::Stop(){
 	CameraControlScreen::Stop();
-	//delete model;
+	delete model;
+	delete light;
 }
 
-void PointLightScreen::Update(float sec){/*
+void DiffuseMapScreen::Update(float sec){
 	light->Draw();
-	model->Draw();
-	model->SetRotateY(game->GetRunTime() * 15.f);*/
+	gfx3D->DrawModelLightCaster(model, light);
+
+	model->SetRotateY(game->GetRunTime() * 15.f);
 
 	CameraControlScreen::Update(sec);
 }

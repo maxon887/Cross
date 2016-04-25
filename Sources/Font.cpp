@@ -51,14 +51,11 @@ Font::Font(Font& font) :
 
 Font::Font(string filename, float size, Color color) :
 	color(color),
-	sprites(128),
+	sprites(127),
 	textures(127),
 	original(true),
 	kill_textures(false)
 {
-	for(unsigned int i = 0; i < sprites.capacity(); ++i){
-		sprites[i] = nullptr;
-	}
 	file = launcher->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){

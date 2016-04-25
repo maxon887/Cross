@@ -19,7 +19,7 @@
 
 namespace cross{
 
-class SimplePointLightShader : public Shader{
+class LightCasterDiffuseShader : public Shader{
 public:
 	GLuint uNormalMatrix;
 	GLuint uCameraPosition;
@@ -36,9 +36,9 @@ public:
 	GLuint aNormal;
 	GLuint aTexCoords;
 
-	SimplePointLightShader();
+	LightCasterDiffuseShader();
 protected:
-	SimplePointLightShader(Shader::Type type, string vertex, string fragment);
+	LightCasterDiffuseShader(Shader::Type type, string vertex, string fragment);
 };
 
 }

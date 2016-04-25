@@ -14,19 +14,24 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
+#include "SolidModelScreen.h"
+#include "Game.h"
+#include "Graphics3D.h"
+#include "Graphics2D.h"
+#include "Model.h"
 
-#include "Cross.h"
-#include "CameraControlScreen.h"
-#include "Utils/DirectionalLight.h"
+void SolidModelScreen::Start(){
+	CameraControlScreen::Start();
+	cube = gfx3D->LoadModel("gfx3D/Cube.obj", Color::Green);
+}
 
-class DirectionalLightScreen : public CameraControlScreen{
-public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
-private:
-	Model* model;
-	DirectionalLight* light;
-	CRArray<Model*> objects;
-};
+void SolidModelScreen::Stop(){
+	CameraControlScreen::Stop();
+	delete cube;
+}
+
+void SolidModelScreen::Update(float sec){
+	gfx3D->DrawModel(cube);
+
+	CameraControlScreen::Update(sec);
+}

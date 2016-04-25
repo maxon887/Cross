@@ -14,34 +14,34 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SimplePointLightScreen.h"
+#include "DiffuseSpecularMapScreen.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
 #include "Model.h"
 #include "Game.h"
 
-void SimplePointLightScreen::Start(){
+void DiffuseSpecularMapScreen::Start() {
 	CameraControlScreen::Start();
 
-	light = new SimplePointLight(0.5f, 1.f, 1.f);
+	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
 	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
-	gfx3D->ClearLightSources();
-	gfx3D->AddLightSource(light);
-	model = gfx3D->LoadModel(Shader::Type::SIMPLE_POINT_LIGHT, "gfx3D/Cube.obj");
+	light->SetScale(0.2f);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model->SetDiffuseTexture(diffuseTexture);
-	model->SetSpecularTexture(specularTexture);
+	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
 }
 
-void SimplePointLightScreen::Stop(){
+void DiffuseSpecularMapScreen::Stop() {
 	CameraControlScreen::Stop();
 	delete model;
+	delete light;
 }
 
-void SimplePointLightScreen::Update(float sec){
+void DiffuseSpecularMapScreen::Update(float sec) {
 	light->Draw();
-	model->Draw();
+	gfx3D->DrawModelLightCaster(model, light);
+
 	model->SetRotateY(game->GetRunTime() * 15.f);
 
 	CameraControlScreen::Update(sec);

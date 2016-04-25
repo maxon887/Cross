@@ -52,9 +52,11 @@ private:
 	void OnTextClick();
 
 	void OnTriangleClick();
-	void OnCubeClick();
-	void OnLightMaterialClick();
-	void OnSimplePointLightClick();
+	void OnSolidModelClick();
+	void OnTexturedModelClick();
+	void OnMaterialClick();
+	void OnDiffuseMapClick();
+	void OnDiffuseSpecularMapClick();
 	void OnDirectionalLight();
 	void OnPointLightClick();
 

@@ -1,10 +1,4 @@
 precision mediump float;
-/*
-struct Material{
-	sampler2D diffuse;
-	sampler2D specular;
-	float shininess;
-};*/
 
 struct Light{
 	vec3 position;
@@ -14,9 +8,8 @@ struct Light{
 	vec3 specular;
 };
 
-//uniform Material uMaterial;
 uniform sampler2D uMaterialDiffuse;
-uniform sampler2D uMaterialSpecular;
+uniform vec3 uMaterialSpecular;
 uniform float uMaterialShininess;
 
 
@@ -42,7 +35,7 @@ void main() {
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uMaterialShininess);
-	vec3 specular = uLight.specular * specEffect * vec3(texture2D(uMaterialSpecular, vTexCoords));
+	vec3 specular = uLight.specular * specEffect * uMaterialSpecular;
 	vec3 result = ambient + diffuse + specular;
 	gl_FragColor = vec4(result, 1.0);
 } 

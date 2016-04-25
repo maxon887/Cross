@@ -14,28 +14,24 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Model.h"
+#include "LightCaster.h"
+#include "Graphics3D.h"
 
-namespace cross{
+using namespace cross;
 
-class SimplePointLight : public Model{
-public:
-	SimplePointLight();
-	SimplePointLight(float ambient, float diffuse, float specular);
+LightCaster::LightCaster(Mesh* mesh, const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& specular) :
+	Light(ambient, diffuse, specular),
+	Model(mesh, Color::White)
+{ }
 
-	void SetAmbientStrength(const Vector3D& ambient);
-	void SetDiffuseStrength(const Vector3D& diffuse);
-	void SetSpecularStrength(const Vector3D& specular);
+LightCaster::LightCaster(const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& specular) :
+	Light(ambient, diffuse, specular),
+	Model(nullptr, Color::White)
+{ }
 
-	Vector3D GetAmbientStrength();
-	Vector3D GetDiffuseStrength();
-	Vector3D GetSpecularStrength();
-private:
-	Vector3D ambient;
-	Vector3D diffuse;
-	Vector3D specular;
-};
-
+void LightCaster::Draw(){
+	for(Mesh* mesh : meshes){
+		Vector3D diffuse = Light::diffuse;
+		gfx3D->DrawMeshSimple(mesh, GetModelMatrix(), Color(diffuse.x, diffuse.y, diffuse.z));
+	}
 }

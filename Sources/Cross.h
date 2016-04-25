@@ -57,6 +57,7 @@ class File;
 class Font;
 class Camera;
 class Camera2D;
+class Material;
 class Mesh;
 class Model;
 class Texture;

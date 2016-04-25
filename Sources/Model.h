@@ -24,28 +24,46 @@ namespace cross{
 
 class Model : public Transformable{
 public:
+	enum Type{
+		SOLID,
+		MATERIAL,
+		TEXTURED
+	};
+
 	Model(Model& obj);
-	Model(Shader::Type type);
+	Model(Mesh* mesh, const Color& color);
+	Model(Mesh* mesh, const Material& material);
+	Model(Mesh* mesh, Texture* diffuse);
+	Model(Mesh* mesh, Texture* diffuse, Texture* specular);
+	Model(CRArray<Mesh*>& meshes, const Color& color);
+	Model(CRArray<Mesh*>& meshes, const Material& material);
+	Model(CRArray<Mesh*>& meshes, Texture* diffuse);
+	Model(CRArray<Mesh*>& meshes, Texture* diffuse, Texture* specular);
 	~Model();
 
-	void Draw();
-	int GetPolyCount();
-	void SetMesh(Mesh* mesh);
-	void SetMeshes(CRArray<Mesh*>& meshes);
-	void SetDiffuseTexture(Texture* diffuse);
-	void SetSpecularTexture(Texture* specular);
-	void SetColor(Color color);
+	Type GetType();
 	Color GetColor();
-	void SetMaterial(Material material);
+	Texture* GetDiffuseTexture();
+	Material* GetMaterial();
+	bool HasSpecularMap();
+	Texture* GetSpecularTexture();
+
+	int GetPolyCount();
 	Model* Clone();
 
 protected:
-	Shader::Type shader_type;
+	friend Graphics3D;
+
+	Type type;
 	CRArray<Mesh*> meshes;
 	Texture* diffuse;
 	Texture* specular;
-	Color color;
+	Material* material;
+	Color* color;
 	bool original;
+
+	Model(Type type, Mesh* meshes, const Color* color, const Material* material, Texture* diffuse, Texture* specular);
+	Model(Type type, CRArray<Mesh*>& meshes, const Color* color, const Material* material, Texture* diffuse, Texture* specular);
 };
 
 }

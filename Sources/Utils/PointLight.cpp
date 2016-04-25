@@ -18,9 +18,16 @@
 
 using namespace cross;
 
-PointLight::PointLight(float ambient, float diffuse, float specular, float constant, float linear, float quadratic) : 
-	SimplePointLight(ambient, diffuse, specular),
+PointLight::PointLight(	const Vector3D& ambient,
+						const Vector3D& diffuse,
+						const Vector3D& specular,
+						float constant,
+						float linear,
+						float quadratic ) :
+	LightCaster(ambient, diffuse, specular),
 	constant(constant),
 	linear(linear),
 	quadratic(quadratic)
-{ }
+{
+
+}

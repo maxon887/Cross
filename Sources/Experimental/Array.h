@@ -119,6 +119,11 @@ Array<Type>::Array(unsigned int capacity) :
 {
 	if(mCapacity != 0){
 		data = new Type[mCapacity];
+
+		unsigned char* dataPtr = (unsigned char*)data;
+		for(unsigned int i = 0; i < mCapacity * sizeof(Type); ++i){
+			*(dataPtr + i) = (unsigned char)0;
+		}
 	}else{
 		mCapacity = 1;
 		data = new Type[mCapacity];

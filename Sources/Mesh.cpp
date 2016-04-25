@@ -28,8 +28,7 @@ Material::Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float 
 	this->shininess = shininess;
 }
 
-Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount) : 
-	material(Material::RedPlastic)
+Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount)
 {
 	poly_count = polyCount;
 	glGenBuffers(1, &VBO);
@@ -59,12 +58,4 @@ GLuint Mesh::GetVertexBufferObject() const{
 
 GLuint Mesh::GetElementBufferObjet() const{
 	return EBO;
-}
-
-Material Mesh::GetMaterial(){
-	return material;
-}
-
-void Mesh::SetMaterial(Material mat){
-	material = mat;
 }
