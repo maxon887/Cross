@@ -14,13 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "PointLight.h"
+#pragma once
+#include "Shaders/SimplePointLightShader.h"
 
-using namespace cross;
+namespace cross{
 
-PointLight::PointLight(float ambient, float diffuse, float specular, float constant, float linear, float quadratic) : 
-	SimplePointLight(ambient, diffuse, specular),
-	constant(constant),
-	linear(linear),
-	quadratic(quadratic)
-{ }
+class PointLightShader : public SimplePointLightShader{
+public:
+	PointLightShader();
+private:
+};
+
+}

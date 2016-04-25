@@ -14,12 +14,18 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
+#include "SimplePointLight.h"
 
-class Template{
-//User module
+namespace cross{
+
+class PointLight : public SimplePointLight{
 public:
+	PointLight(float ambient, float diffuse, float specular, float constant, float linear, float quadratic);
 private:
-//Framework module. You don't need call any of this methods or modify variable
+	float constant;
+	float linear;
+	float quadratic;
 };
+
+}

@@ -244,6 +244,15 @@
     <ClCompile Include="..\..\Sources\Graphics3D\SimplePointLightSceen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\PointLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\PointLight.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -456,6 +465,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SimplePointLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\PointLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\PointLight.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

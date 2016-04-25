@@ -37,6 +37,8 @@ public:
 	GLuint aTexCoords;
 
 	SimplePointLightShader();
+protected:
+	SimplePointLightShader(Shader::Type type, string vertex, string fragment);
 };
 
 }

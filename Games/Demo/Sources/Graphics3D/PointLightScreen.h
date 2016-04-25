@@ -14,13 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "PointLight.h"
+#pragma once
+#include "CameraControlScreen.h"
+#include "Utils/PointLight.h"
 
-using namespace cross;
-
-PointLight::PointLight(float ambient, float diffuse, float specular, float constant, float linear, float quadratic) : 
-	SimplePointLight(ambient, diffuse, specular),
-	constant(constant),
-	linear(linear),
-	quadratic(quadratic)
-{ }
+class PointLightScreen : public CameraControlScreen{
+public:
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
+private:
+	PointLight* light;
+	Model* model;
+};

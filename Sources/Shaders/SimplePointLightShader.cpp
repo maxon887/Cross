@@ -19,7 +19,11 @@
 using namespace cross;
 
 SimplePointLightShader::SimplePointLightShader() :
-	Shader(Type::SIMPLE_POINT_LIGHT, "Engine/Shaders/simple_point_light.vert", "Engine/Shaders/simple_point_light.frag")
+	SimplePointLightShader(Type::SIMPLE_POINT_LIGHT, "Engine/Shaders/simple_point_light.vert", "Engine/Shaders/simple_point_light.frag")
+{ }
+
+SimplePointLightShader::SimplePointLightShader(Shader::Type type, string vertex, string fragment) :
+	Shader(type, vertex, fragment)
 { 
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");

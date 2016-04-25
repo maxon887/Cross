@@ -25,6 +25,7 @@
 #include "Graphics3D/LightMaterialScreen.h"
 #include "Graphics3D/SimplePointLightScreen.h"
 #include "Graphics3D/DirectionalLightScreen.h"
+#include "Graphics3D/PointLightScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -82,21 +83,25 @@ void MainScreen::Start(){
 	Button* lightMaterialBtn = new Button("Light Material");
 	Button* simplePointLightBtn = new Button("Simple Point Light");
 	Button* directionalLigthBtn = new Button("Directional Light");
+	Button* pointLightBtn = new Button("Point Light");
 	triangleBtn->SetImages(button_sprite->Clone());
 	meshBtn->SetImages(button_sprite->Clone());
 	lightMaterialBtn->SetImages(button_sprite->Clone());
 	simplePointLightBtn->SetImages(button_sprite->Clone());
 	directionalLigthBtn->SetImages(button_sprite->Clone());
+	pointLightBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	meshBtn->Clicked += MakeDelegate(this, &MainScreen::OnCubeClick);
 	lightMaterialBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightMaterialClick);
 	simplePointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSimplePointLightClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
+	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
 	graphics3D_menu->AddButton(triangleBtn);
 	graphics3D_menu->AddButton(meshBtn);
 	graphics3D_menu->AddButton(lightMaterialBtn);
 	graphics3D_menu->AddButton(simplePointLightBtn);
 	graphics3D_menu->AddButton(directionalLigthBtn);
+	graphics3D_menu->AddButton(pointLightBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -210,4 +215,8 @@ void MainScreen::OnSimplePointLightClick(){
 
 void MainScreen::OnDirectionalLight(){
 	next_screen = new DirectionalLightScreen();
+}
+
+void MainScreen::OnPointLightClick(){
+	next_screen = new PointLightScreen();
 }
