@@ -14,16 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Light.h"
+#include "SimplePointLight.h"
 #include "Graphics3D.h"
 
 using namespace cross;
 
-Light::Light() : 
-	Light(1.f, 1.f, 1.f)
+SimplePointLight::SimplePointLight() : 
+	SimplePointLight(1.f, 1.f, 1.f)
 { }
 
-Light::Light(float ambient, float diffuse, float specular) :
+SimplePointLight::SimplePointLight(float ambient, float diffuse, float specular) :
 	Model(Shader::Type::SIMPLE),
 	ambient(ambient),
 	diffuse(diffuse),
@@ -34,26 +34,26 @@ Light::Light(float ambient, float diffuse, float specular) :
 	SetScale(0.2f);
 }
 
-void Light::SetAmbientStrength(const Vector3D& ambient){
+void SimplePointLight::SetAmbientStrength(const Vector3D& ambient){
 	this->ambient = ambient;
 }
 
-void Light::SetDiffuseStrength(const Vector3D& diffuse){
+void SimplePointLight::SetDiffuseStrength(const Vector3D& diffuse){
 	this->diffuse = diffuse;
 }
 
-void Light::SetSpecularStrength(const Vector3D& specular){
+void SimplePointLight::SetSpecularStrength(const Vector3D& specular){
 	this->specular = specular;
 }
 
-Vector3D Light::GetAmbientStrength(){
+Vector3D SimplePointLight::GetAmbientStrength(){
 	return ambient;
 }
 
-Vector3D Light::GetDiffuseStrength(){
+Vector3D SimplePointLight::GetDiffuseStrength(){
 	return diffuse;
 }
 
-Vector3D Light::GetSpecularStrength(){
+Vector3D SimplePointLight::GetSpecularStrength(){
 	return specular;
 }

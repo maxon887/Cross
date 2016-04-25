@@ -22,8 +22,8 @@
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
-#include "Shaders/LightMapsShader.h"
-#include "Shaders/LightCastersShader.h"
+#include "Shaders/SimplePointLightShader.h"
+#include "Shaders/DirectionalLightShader.h"
 
 using namespace cross;
 
@@ -90,8 +90,8 @@ GraphicsGL::GraphicsGL() :
 		shaders[Shader::Type::MONOCHROME] = new MonochromeShader();
 		shaders[Shader::Type::TEXTURE] = new TextureShader();
 		shaders[Shader::Type::LIGHT_MATERIAL] = new LightMaterialShader();
-		shaders[Shader::Type::LIGHT_MAPS] = new LightMapsShader();
-		shaders[Shader::Type::LIGHT_CASTERS] = new LightCastersShader();
+		shaders[Shader::Type::SIMPLE_POINT_LIGHT] = new SimplePointLightShader();
+		shaders[Shader::Type::DIRECTIONAL_LIGHT] = new DirectionalLightShader();
 }
 
 GraphicsGL::~GraphicsGL(){

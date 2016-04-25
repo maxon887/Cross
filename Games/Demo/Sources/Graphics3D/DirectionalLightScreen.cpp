@@ -14,35 +14,47 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "LightMapsScreen.h"
-#include "Graphics3D.h"
-#include "Graphics2D.h"
+#include "DirectionalLightScreen.h"
+#include "Shaders/Shader.h"
+#include "Texture.h"
 #include "Model.h"
-#include "Game.h"
+#include "Graphics2D.h"
+#include "Graphics3D.h"
+#include "Utils/Misc.h"
 
-void LightMapsScreen::Start(){
+void DirectionalLightScreen::Start(){
 	CameraControlScreen::Start();
-
-	light = new Light(0.5f, 1.f, 1.f);
-	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
-	gfx3D->ClearLightSources();
-	gfx3D->AddLightSource(light);
-	model = gfx3D->LoadModel(Shader::Type::LIGHT_MAPS, "gfx3D/Cube.obj");
+	orbit_distance = 60.f;
+	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -60.f));
+	model = gfx3D->LoadModel(Shader::Type::DIRECTIONAL_LIGHT, "gfx3D/Cube.obj");
+	
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	model->SetDiffuseTexture(diffuseTexture);
 	model->SetSpecularTexture(specularTexture);
+
+	for(int i = 0; i < 10; ++i){
+		Model* clone = model->Clone();
+		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
+		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
+		objects.push_back(clone);
+	}
 }
 
-void LightMapsScreen::Stop(){
+void DirectionalLightScreen::Stop(){
 	CameraControlScreen::Stop();
+	
 	delete model;
+	
+	for(Model* obj : objects){
+		delete obj;
+	}
 }
 
-void LightMapsScreen::Update(float sec){
-	light->Draw();
-	model->Draw();
-	model->SetRotateY(game->GetRunTime() * 15.f);
+void DirectionalLightScreen::Update(float sec){
+	for(Model* obj : objects){
+		obj->Draw();
+	}
 
 	CameraControlScreen::Update(sec);
 }

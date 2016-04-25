@@ -76,7 +76,7 @@ void Model::Draw(){
 			gfx3D->DrawMeshLightMaterial(mesh, GetModelMatrix());
 		}
 		break;
-	case Shader::Type::LIGHT_MAPS:
+	case Shader::Type::SIMPLE_POINT_LIGHT:
 		if(!diffuse){
 			throw CrossException("There are no diffuse texture applied for model");
 		}
@@ -87,7 +87,7 @@ void Model::Draw(){
 			gfx3D->DrawMeshLightMaps(mesh, GetModelMatrix(), diffuse, specular);
 		}
 		break;
-	case Shader::Type::LIGHT_CASTERS:
+	case Shader::Type::DIRECTIONAL_LIGHT:
 		if(!diffuse){
 			throw CrossException("There are no diffuse texture applied for model");
 		}

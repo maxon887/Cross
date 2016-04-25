@@ -217,25 +217,10 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\LightMaterialScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\LightMapsScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\LightCastersScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightMapsShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCastersShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
@@ -243,6 +228,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Experimental\Array.cpp">
       <Filter>Cross\Experimental</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SimplePointLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\SimplePointLight.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\SimplePointLightSceen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -430,25 +430,10 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\Light.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\LightMaterialScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\LightMapsScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\LightCastersScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightMapsShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCastersShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h">
@@ -456,6 +441,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
       <Filter>Cross\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SimplePointLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\SimplePointLight.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\SimplePointLightScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -492,10 +492,10 @@
     <None Include="..\..\Assets\Engine\Shaders\light_material.frag">
       <Filter>Cross\Shaders</Filter>
     </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_casters.frag">
+    <None Include="..\..\Assets\Engine\Shaders\directional_light.frag">
       <Filter>Cross\Shaders</Filter>
     </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_casters.vert">
+    <None Include="..\..\Assets\Engine\Shaders\directional_light.vert">
       <Filter>Cross\Shaders</Filter>
     </None>
   </ItemGroup>

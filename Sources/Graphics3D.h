@@ -22,7 +22,7 @@
 
 namespace cross{
 
-class Light;
+class SimplePointLight;
 
 class Graphics3D{
 public:
@@ -30,7 +30,7 @@ public:
 	~Graphics3D();
 
 	Camera* GetCamera();
-	void AddLightSource(Light* light);
+	void AddLightSource(SimplePointLight* light);
 	void ClearLightSources();
 
 	Model* LoadModel(Shader::Type shaderType, const string& filename);
@@ -45,7 +45,7 @@ public:
 
 private:
 	Camera* camera;
-	CRArray<Light*> light_sources;
+	CRArray<SimplePointLight*> light_sources;
 
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

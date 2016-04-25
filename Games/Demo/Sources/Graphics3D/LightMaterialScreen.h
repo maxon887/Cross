@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "CameraControlScreen.h"
-#include "Utils/Light.h"
+#include "Utils/SimplePointLight.h"
 
 class LightMaterialScreen : public CameraControlScreen{
 public:
@@ -25,7 +25,7 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Light* light;
+	SimplePointLight* light;
 	int current_model;
 	CRArray<Model*> models;
 

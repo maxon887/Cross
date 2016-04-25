@@ -14,13 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/LightMapsShader.h"
+#include "Shaders/DirectionalLightShader.h"
 
 using namespace cross;
 
-LightMapsShader::LightMapsShader() :
-	Shader(Type::LIGHT_MAPS, "Engine/Shaders/light_maps.vert", "Engine/Shaders/light_maps.frag")
-{ 
+DirectionalLightShader::DirectionalLightShader() :
+	Shader(Shader::Type::DIRECTIONAL_LIGHT, "Engine/Shaders/directional_light.vert", "Engine/Shaders/directional_light.frag")
+{
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 
@@ -28,7 +28,7 @@ LightMapsShader::LightMapsShader() :
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
 	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
 
-	uLightPosition = glGetUniformLocation(program, "uLight.position");
+	uLightDirection = glGetUniformLocation(program, "uLight.direction");
 	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
 	uLightDiffuse = glGetUniformLocation(program, "uLight.diffuse");
 	uLightSpecular = glGetUniformLocation(program, "uLight.specular");

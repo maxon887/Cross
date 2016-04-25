@@ -35,7 +35,7 @@ void LightMaterialScreen::Start(){
 	gnome->SetScale(2.f);
 	models.push_back(gnome);
 
-	light = new Light();
+	light = new SimplePointLight();
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	light->SetAmbientStrength(1.f);
 	light->SetDiffuseStrength(1.f);

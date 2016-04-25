@@ -88,10 +88,10 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCastersShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightMapsShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SimplePointLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp" />
@@ -115,7 +115,7 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debugger.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\SimplePointLight.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
@@ -130,9 +130,9 @@
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CubeScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\LightCastersScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\LightMaterialScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\LightMapsScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\SimplePointLightSceen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
@@ -159,10 +159,10 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCastersShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightMapsShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SimplePointLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h" />
@@ -188,7 +188,7 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debugger.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\Light.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\SimplePointLight.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
@@ -203,9 +203,9 @@
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CubeScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\LightCastersScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\LightMaterialScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\LightMapsScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\SimplePointLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
@@ -216,8 +216,8 @@
     <ResourceCompile Include="Cross++.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Assets\Engine\Shaders\light_casters.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\light_casters.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\directional_light.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\directional_light.vert" />
     <None Include="..\..\Assets\Engine\Shaders\light_material.frag" />
     <None Include="..\..\Assets\Engine\Shaders\light_material.vert" />
     <None Include="..\..\Assets\Engine\Shaders\light_maps.frag" />

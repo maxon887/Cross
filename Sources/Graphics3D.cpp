@@ -26,9 +26,9 @@
 #include "Shaders/SimpleShader.h"
 #include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
-#include "Shaders/LightMapsShader.h"
-#include "Shaders/LightCastersShader.h"
-#include "Utils/Light.h"
+#include "Shaders/SimplePointLightShader.h"
+#include "Shaders/DirectionalLightShader.h"
+#include "Utils/SimplePointLight.h"
 
 #define SWIG
 
@@ -104,7 +104,7 @@ Camera* Graphics3D::GetCamera(){
 	return camera;
 }
 
-void Graphics3D::AddLightSource(Light* light){
+void Graphics3D::AddLightSource(SimplePointLight* light){
 	light_sources.push_back(light);
 }
 
@@ -241,7 +241,7 @@ void Graphics3D::DrawMeshLightMaterial(Mesh* mesh, const Matrix& transform){
 }
 
 void Graphics3D::DrawMeshLightMaps(Mesh* mesh, const Matrix &transform, Texture* diffuse, Texture* specular){
-	LightMapsShader* shader = (LightMapsShader*)gfxGL->GetShader(Shader::Type::LIGHT_MAPS);
+	SimplePointLightShader* shader = (SimplePointLightShader*)gfxGL->GetShader(Shader::Type::SIMPLE_POINT_LIGHT);
 	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));
@@ -285,7 +285,7 @@ void Graphics3D::DrawMeshLightMaps(Mesh* mesh, const Matrix &transform, Texture*
 }
 
 void Graphics3D::DrawMeshLightCasters(Mesh* mesh, const Matrix& model, Vector3D& direction, Texture* diffuse, Texture* specular){
-	LightCastersShader* shader = (LightCastersShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTERS);
+	DirectionalLightShader* shader = (DirectionalLightShader*)gfxGL->GetShader(Shader::Type::DIRECTIONAL_LIGHT);
 	gfxGL->UseShader(shader);
 
 	SAFE(glEnable(GL_DEPTH_TEST));
@@ -309,7 +309,7 @@ void Graphics3D::DrawMeshLightCasters(Mesh* mesh, const Matrix& model, Vector3D&
 	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
 
 	SAFE(glUniform3fv(shader->uLightDirection, 1, direction.GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, Vector3D(0.f).GetData()));
+	SAFE(glUniform3fv(shader->uLightAmbient, 1, Vector3D(0.2f).GetData()));
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, Vector3D(1.f).GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, Vector3D(0.5f).GetData()));
 
