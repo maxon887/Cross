@@ -60,7 +60,7 @@ public:
 	~GraphicsGL();
 
 	Shader* GetShader(unsigned int type);
-	GLuint ComplileShader(string filename);
+	GLuint ComplileShader(const string& filename);
 	void DeleteShader(GLuint shader);
 	GLuint CreateProgram();
 	void DeleteProgram(GLuint program);

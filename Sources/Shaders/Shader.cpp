@@ -18,7 +18,7 @@
 
 using namespace cross;
 
-Shader::Shader(Type type, string vertexFile, string fragmentFile) : 
+Shader::Shader(Type type, const string& vertexFile, const string& fragmentFile) : 
 	type(type)
 {
 	vertex_shader = gfxGL->ComplileShader(vertexFile);

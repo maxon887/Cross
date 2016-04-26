@@ -21,5 +21,7 @@ using namespace cross;
 PointLightShader::PointLightShader() :
 	LightCasterDiffuseSpecularShader(Shader::Type::POINT_LIGHT, "Engine/Shaders/point_light.vert", "Engine/Shaders/point_light.frag")
 {
-
+	uLightConstant = glGetUniformLocation(program, "uLight.constant");
+	uLightLinear = glGetUniformLocation(program, "uLight.linear");
+	uLightQuadratic = glGetUniformLocation(program, "uLight.quadratic");
 }

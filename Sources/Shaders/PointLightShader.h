@@ -22,7 +22,10 @@ namespace cross{
 class PointLightShader : public LightCasterDiffuseSpecularShader {
 public:
 	PointLightShader();
-private:
+
+	GLuint uLightConstant;
+	GLuint uLightLinear;
+	GLuint uLightQuadratic;
 };
 
 }

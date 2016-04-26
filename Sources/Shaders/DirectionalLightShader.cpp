@@ -19,20 +19,13 @@
 using namespace cross;
 
 DirectionalLightShader::DirectionalLightShader() :
-	Shader(Shader::Type::DIRECTIONAL_LIGHT, "Engine/Shaders/directional_light.vert", "Engine/Shaders/directional_light.frag")
+	LightShader(Shader::Type::DIRECTIONAL_LIGHT, "Engine/Shaders/directional_light.vert", "Engine/Shaders/directional_light.frag")
 {
-	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
-	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
-
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
 	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
 
 	uLightDirection = glGetUniformLocation(program, "uLight.direction");
-	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
-	uLightDiffuse = glGetUniformLocation(program, "uLight.diffuse");
-	uLightSpecular = glGetUniformLocation(program, "uLight.specular");
 
-	aNormal = glGetAttribLocation(program, "aNormal");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 }

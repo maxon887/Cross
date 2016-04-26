@@ -129,7 +129,7 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 	return shaders[type];
 }
 
-GLuint GraphicsGL::ComplileShader(string filename){
+GLuint GraphicsGL::ComplileShader(const string& filename){
 		//file loading part
 		string extension = filename.substr(filename.find_last_of(".") + 1);
 		GLuint type;

@@ -25,11 +25,13 @@ void DiffuseSpecularMapScreen::Start() {
 
 	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
 	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
-	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
+	//light->SetPosition(Vector3D(13.f, -3.f, -5.f));
+	light->SetPosition(Vector3D(0.f, 0.f, 0.f));
 	light->SetScale(0.2f);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	model->SetPosition(Vector3D(-20.f, 0.f, 0.f));
 }
 
 void DiffuseSpecularMapScreen::Stop() {
@@ -42,7 +44,8 @@ void DiffuseSpecularMapScreen::Update(float sec) {
 	light->Draw();
 	gfx3D->DrawModelLightCaster(model, light);
 
-	model->SetRotateY(game->GetRunTime() * 15.f);
+	//model->SetRotateY(game->GetRunTime() * 15.f);
+	model->SetRotate(Vector3D(0.f, 1.f, 0.f), game->GetRunTime() * 15.f);
 
 	CameraControlScreen::Update(sec);
 }

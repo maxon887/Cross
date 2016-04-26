@@ -27,6 +27,10 @@ public:
 				float constant,
 				float linear,
 				float quadratic );
+
+	float GetConstant();
+	float GetLinear();
+	float GetQuadratic();
 private:
 	float constant;
 	float linear;

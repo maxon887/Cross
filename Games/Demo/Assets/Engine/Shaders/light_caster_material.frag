@@ -32,12 +32,12 @@ void main() {
 	vec3 normal = normalize(vNormal);
 	vec3 lightDirection = normalize(uLight.position - vFragPosition);
 	float diffEffect = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = uLight.diffuse * (diffEffect * uMaterial.diffuse);
+	vec3 diffuse = uLight.diffuse * uMaterial.diffuse * diffEffect;
 	//specular
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uMaterial.shininess);
-	vec3 specular = uLight.specular * (specEffect * uMaterial.specular);
+	vec3 specular = uLight.specular * uMaterial.specular * specEffect;
 	vec3 result = ambient + diffuse + specular;
 	gl_FragColor = vec4(result, 1.0);
 } 

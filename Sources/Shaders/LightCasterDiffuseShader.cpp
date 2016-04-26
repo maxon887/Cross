@@ -23,20 +23,13 @@ LightCasterDiffuseShader::LightCasterDiffuseShader() :
 { }
 
 LightCasterDiffuseShader::LightCasterDiffuseShader(Shader::Type type, string vertex, string fragment) :
-	Shader(type, vertex, fragment)
+	LightShader(type, vertex, fragment)
 { 
-	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
-	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
-
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
 	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
 
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
-	uLightAmbient = glGetUniformLocation(program, "uLight.ambient");
-	uLightDiffuse = glGetUniformLocation(program, "uLight.diffuse");
-	uLightSpecular = glGetUniformLocation(program, "uLight.specular");
 
-	aNormal = glGetAttribLocation(program, "aNormal");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 }

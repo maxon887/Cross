@@ -48,11 +48,12 @@ public:
 	void DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess);
 	void DrawMeshLightCasterDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess);
 	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, Texture* diffuse, Texture* specular, float shininess);
-	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specualr);
+	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specualr, float shininess);
 
 	void DrawModel(Model* model);
 	void DrawModelLightCaster(Model* model, LightCaster* light);
 	void DrawModelDirectLight(Model* model, DirectionalLight* ligth);
+	void DrawModelPointLight(Model* model, PointLight* light);
 
 private:
 	Camera* camera;

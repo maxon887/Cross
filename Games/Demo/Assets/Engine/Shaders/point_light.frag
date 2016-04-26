@@ -1,10 +1,4 @@
 precision mediump float;
-/*
-struct Material{
-	sampler2D diffuse;
-	sampler2D specular;
-	float shininess;
-};*/
 
 struct Light{
 	vec3 position;
@@ -12,6 +6,10 @@ struct Light{
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+	
+	float constant;
+	float linear;
+	float quadratic;
 };
 
 //uniform Material uMaterial;

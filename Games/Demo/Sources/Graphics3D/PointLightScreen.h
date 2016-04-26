@@ -26,4 +26,5 @@ public:
 private:
 	PointLight* light;
 	Model* model;
+	CRArray<Model*> objects;
 };

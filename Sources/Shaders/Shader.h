@@ -39,7 +39,7 @@ public:
 	GLint aPosition;
 	Type type;
 
-	Shader(Type type, string vertexFile, string fragmentFile);
+	Shader(Type type, const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
 private:

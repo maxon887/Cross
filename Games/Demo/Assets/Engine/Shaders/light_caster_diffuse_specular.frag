@@ -21,8 +21,6 @@ varying vec2 vTexCoords;
 varying vec3 vNormal;
 varying vec3 vFragPosition;
 
-const float specularStrength = 0.5;
-
 void main() {
 	//ambient
 	vec3 ambient = uLight.ambient * vec3(texture2D(uMaterialDiffuse, vTexCoords));

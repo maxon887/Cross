@@ -28,6 +28,20 @@ PointLight::PointLight(	const Vector3D& ambient,
 	constant(constant),
 	linear(linear),
 	quadratic(quadratic)
-{
+{ 
+	Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
+	meshes.push_back(sphere);
+	SetScale(0.2f);
+}
 
+float PointLight::GetConstant(){
+	return constant;
+}
+
+float PointLight::GetLinear(){
+	return linear;
+}
+
+float PointLight::GetQuadratic(){
+	return quadratic;
 }

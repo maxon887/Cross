@@ -25,7 +25,6 @@
 void DirectionalLightScreen::Start(){
 	CameraControlScreen::Start();
 	orbit_distance = 60.f;
-	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -60.f));
 
 	light = new DirectionalLight(Vector3D(0.f, 0.f, 1.f), Vector3D(0.2f), Vector3D(1.f), Vector3D(0.5f));
 	

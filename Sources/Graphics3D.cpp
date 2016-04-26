@@ -29,6 +29,7 @@
 #include "Shaders/LightCasterDiffuseShader.h"
 #include "Shaders/LightCasterDiffuseSpecularShader.h"
 #include "Shaders/DirectionalLightShader.h"
+#include "Shaders/PointLightShader.h"
 #include "Utils/Light.h"
 #include "Utils/LightCaster.h"
 #include "Utils/DirectionalLight.h"
@@ -207,6 +208,8 @@ void Graphics3D::DrawMeshLightCasterMaterial(Mesh* mesh, const Matrix& model, Li
 	LightCasterMaterialShader* shader = (LightCasterMaterialShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTER_MATERIAL);
 	PreDrawMesh(shader, mesh, model);
 
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
+
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -230,6 +233,8 @@ void Graphics3D::DrawMeshLightCasterMaterial(Mesh* mesh, const Matrix& model, Li
 void Graphics3D::DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess) {
 	LightCasterDiffuseShader* shader = (LightCasterDiffuseShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTER_DIFFUSE);
 	PreDrawMesh(shader, mesh, model);
+
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
 	
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
@@ -259,6 +264,8 @@ void Graphics3D::DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, Lig
 void Graphics3D::DrawMeshLightCasterDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess) {
 	LightCasterDiffuseSpecularShader* shader = (LightCasterDiffuseSpecularShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTER_DIFFUSE_SPECULAR);
 	PreDrawMesh(shader, mesh, model);
+
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
 
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
@@ -291,6 +298,8 @@ void Graphics3D::DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, Direc
 	DirectionalLightShader* shader = (DirectionalLightShader*)gfxGL->GetShader(Shader::Type::DIRECTIONAL_LIGHT);
 	PreDrawMesh(shader, mesh, model);
 
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
+
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -306,9 +315,45 @@ void Graphics3D::DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, Direc
 	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
 
 	SAFE(glUniform3fv(shader->uLightDirection, 1, light->GetDirection().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, Vector3D(0.2f).GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, Vector3D(1.f).GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, Vector3D(0.5f).GetData()));
+	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
+
+	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+	SAFE(glEnableVertexAttribArray(shader->aNormal));
+	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+
+	PostDrawMesh(mesh);
+}
+
+void Graphics3D::DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specular, float shininess){
+	PointLightShader* shader = (PointLightShader*)gfxGL->GetShader(Shader::Type::POINT_LIGHT);
+	PreDrawMesh(shader, mesh, model);
+
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
+
+	Matrix normalMatrix = model.Inverse();
+	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
+	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
+	//material
+	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
+
+	SAFE(glActiveTexture(GL_TEXTURE0));
+	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+	SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
+
+	SAFE(glActiveTexture(GL_TEXTURE1));
+	SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
+	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
+	//light
+	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
+	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
+	SAFE(glUniform1f(shader->uLightConstant, light->GetConstant()));
+	SAFE(glUniform1f(shader->uLightLinear, light->GetLinear()));
+	SAFE(glUniform1f(shader->uLightQuadratic, light->GetQuadratic()));
 
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
@@ -366,6 +411,20 @@ void Graphics3D::DrawModelDirectLight(Model* model, DirectionalLight* light){
 		if(model->HasSpecularMap()){
 			for(Mesh* mesh : model->meshes){
 				DrawMeshDirectionalLight(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
+			}
+		}else{
+			throw CrossException("Model needs to be with specular map");
+		}
+	}else{
+		throw CrossException("Expected TEXTURED model type");
+	}
+}
+
+void Graphics3D::DrawModelPointLight(Model* model, PointLight* light){
+	if(model->GetType() == Model::Type::TEXTURED){
+		if(model->HasSpecularMap()){
+			for(Mesh* mesh : model->meshes){
+				DrawMeshPointLight(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
 			}
 		}else{
 			throw CrossException("Model needs to be with specular map");
