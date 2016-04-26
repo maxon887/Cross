@@ -25,7 +25,8 @@ void PointLightScreen::Start(){
 	CameraControlScreen::Start();
 	orbit_distance = 60.f;
 
-	light = new PointLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.9f, 0.032f);
+	light = new PointLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
+	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
 
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
@@ -33,7 +34,7 @@ void PointLightScreen::Start(){
 
 	for(int i = 0; i < 10; ++i){
 		Model* clone = model->Clone();
-		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
+		clone->SetPosition(Vector3D(Random(-40.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
 	}
