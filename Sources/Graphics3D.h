@@ -57,6 +57,9 @@ public:
 private:
 	Camera* camera;
 
+	void PreDrawMesh(Shader* shader, Mesh* mesh, const Matrix& model);
+	void PostDrawMesh(Mesh* mesh);
+
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);
 };

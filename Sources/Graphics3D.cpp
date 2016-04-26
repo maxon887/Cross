@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright ï¿½ 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -180,44 +180,18 @@ CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	return meshes;
 }
 
-void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& transform, Color& color){
+void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color){
 	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
-	gfxGL->UseShader(shader);
+	PreDrawMesh(shader, mesh, model);
 
-	SAFE(glEnable(GL_DEPTH_TEST));
-
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	SAFE(glDisable(GL_DEPTH_TEST));
+	PostDrawMesh(mesh);
 }
 
-void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* diffuse){
+void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse){
 	TextureShader* shader = (TextureShader*)gfxGL->GetShader(Shader::Type::TEXTURE);
-	gfxGL->UseShader(shader);
-
-	SAFE(glEnable(GL_DEPTH_TEST));
-
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	PreDrawMesh(shader, mesh, model);
 
 	SAFE(glActiveTexture(GL_TEXTURE0));
 	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
@@ -226,24 +200,13 @@ void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& transform, Texture* d
 	SAFE(glEnableVertexAttribArray(shader->aDiffuseCoords));
 	SAFE(glVertexAttribPointer(shader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	SAFE(glDisable(GL_DEPTH_TEST));
+	PostDrawMesh(mesh);
 }
 
 void Graphics3D::DrawMeshLightCasterMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material){
 	LightCasterMaterialShader* shader = (LightCasterMaterialShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTER_MATERIAL);
-	gfxGL->UseShader(shader);
+	PreDrawMesh(shader, mesh, model);
 
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -258,29 +221,16 @@ void Graphics3D::DrawMeshLightCasterMaterial(Mesh* mesh, const Matrix& model, Li
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
 
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	SAFE(glEnableVertexAttribArray(shader->aNormal));
 	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	SAFE(glDisable(GL_DEPTH_TEST));
+	PostDrawMesh(mesh);
 }
 
 void Graphics3D::DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess) {
 	LightCasterDiffuseShader* shader = (LightCasterDiffuseShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTER_DIFFUSE);
-	gfxGL->UseShader(shader);
-
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	PreDrawMesh(shader, mesh, model);
+	
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -298,31 +248,18 @@ void Graphics3D::DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, Lig
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
 
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
 	SAFE(glEnableVertexAttribArray(shader->aNormal));
 	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	SAFE(glDisable(GL_DEPTH_TEST));
+	PostDrawMesh(mesh);
 }
 
 void Graphics3D::DrawMeshLightCasterDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess) {
 	LightCasterDiffuseSpecularShader* shader = (LightCasterDiffuseSpecularShader*)gfxGL->GetShader(Shader::Type::LIGHT_CASTER_DIFFUSE_SPECULAR);
-	gfxGL->UseShader(shader);
+	PreDrawMesh(shader, mesh, model);
 
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -342,31 +279,18 @@ void Graphics3D::DrawMeshLightCasterDiffuseSpecular(Mesh* mesh, const Matrix& mo
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
 
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
 	SAFE(glEnableVertexAttribArray(shader->aNormal));
 	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	SAFE(glDisable(GL_DEPTH_TEST));
+	PostDrawMesh(mesh);
 }
 
 void Graphics3D::DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, Texture* diffuse, Texture* specular, float shininess){
 	DirectionalLightShader* shader = (DirectionalLightShader*)gfxGL->GetShader(Shader::Type::DIRECTIONAL_LIGHT);
-	gfxGL->UseShader(shader);
+	PreDrawMesh(shader, mesh, model);
 
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	Matrix normalMatrix = model.Inverse();
 	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
 	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -386,26 +310,20 @@ void Graphics3D::DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, Direc
 	SAFE(glUniform3fv(shader->uLightDiffuse, 1, Vector3D(1.f).GetData()));
 	SAFE(glUniform3fv(shader->uLightSpecular, 1, Vector3D(0.5f).GetData()));
 
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
 	SAFE(glEnableVertexAttribArray(shader->aNormal));
 	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	SAFE(glDisable(GL_DEPTH_TEST));
+	PostDrawMesh(mesh);
 }
 
 void Graphics3D::DrawModel(Model* model){
 	switch(model->GetType()){
 	case Model::Type::SOLID:
 		for(Mesh* mesh : model->meshes){
-			DrawMeshSimple(mesh, model->GetModelMatrix(), model->GetColor());
+			Color color = model->GetColor();
+			DrawMeshSimple(mesh, model->GetModelMatrix(), color);
 		}
 		break;
 	case Model::Type::TEXTURED:
@@ -431,7 +349,8 @@ void Graphics3D::DrawModelLightCaster(Model* model, LightCaster* light){
 			if(model->HasSpecularMap()){
 				DrawMeshLightCasterDiffuseSpecular(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.25f);
 			}else{
-				DrawMeshLightCasterDiffuse(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), Vector3D(0.5f), 0.5f);
+				Vector3D specularStreanth(0.5f);
+				DrawMeshLightCasterDiffuse(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), specularStreanth, 0.5f);
 			}
 		}
 		break;
@@ -454,6 +373,30 @@ void Graphics3D::DrawModelDirectLight(Model* model, DirectionalLight* light){
 	}else{
 		throw CrossException("Expected TEXTURED model type");
 	}
+}
+
+void Graphics3D::PreDrawMesh(Shader* shader, Mesh* mesh, const Matrix& model){
+	gfxGL->UseShader(shader);
+
+	SAFE(glEnable(GL_DEPTH_TEST));
+
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
+
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+}
+
+void Graphics3D::PostDrawMesh(Mesh* mesh){
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
 void Graphics3D::WindowResizeHandle(int width, int height){
