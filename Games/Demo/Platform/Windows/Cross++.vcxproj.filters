@@ -271,6 +271,15 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\SpotLight.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SpotLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -509,6 +518,15 @@
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\SpotLight.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SpotLightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>

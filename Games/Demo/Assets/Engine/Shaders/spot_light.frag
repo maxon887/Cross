@@ -10,6 +10,9 @@ struct Light{
 	float constant;
 	float linear;
 	float quadratic;
+	
+	vec3 direction;
+	float cut_off;
 };
 
 uniform sampler2D uMaterialDiffuse;

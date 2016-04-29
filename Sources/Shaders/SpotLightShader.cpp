@@ -14,24 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "PointLight.h"
+#include "SpotLightShader.h"
 
-namespace cross{
+using namespace cross;
 
-class SpotLight : public PointLight{
-public:
-	SpotLight(	const Vector3D& ambient,
-				const Vector3D& diffuse,
-				const Vector3D& specular,
-				const Vector3D& direction,
-				float constant,
-				float linear,
-				float quadratic,
-				float cutOff );
-protected:
-	Vector3D direction;
-	float cut_off;
-};
-
+SpotLightShader::SpotLightShader() :
+	PointLightShader(Shader::Type::SPOT_LIGHT, "Engine/Shaders/spot_light.vert", "Engine/Shaders/point_light.frag")
+{
+	uLightDirection = glGetUniformLocation(program, "uLight.direction");
+	uLightCutOff = glGetUniformLocation(program, "uLight.cut_off");
 }

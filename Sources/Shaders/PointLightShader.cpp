@@ -18,6 +18,10 @@
 
 using namespace cross;
 
+PointLightShader::PointLightShader(Shader::Type type, const string& vertex, const string& frag) :
+	PointLightShader(type, vertex, frag)
+{ }
+
 PointLightShader::PointLightShader() :
 	LightCasterDiffuseSpecularShader(Shader::Type::POINT_LIGHT, "Engine/Shaders/point_light.vert", "Engine/Shaders/point_light.frag")
 {

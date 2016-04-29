@@ -22,8 +22,11 @@ SpotLight::SpotLight(	const Vector3D& ambient,
 						const Vector3D& diffuse,
 						const Vector3D& specular,
 						const Vector3D& direction,
-						const float cutOff ) : 
-	LightCaster(ambient, diffuse, specular),
+						float constant,
+						float linear,
+						float quadratic,
+						float cutOff ) : 
+	PointLight(ambient, diffuse, specular, constant, linear, quadratic),
 	direction(direction),
 	cut_off(cutOff)
 {

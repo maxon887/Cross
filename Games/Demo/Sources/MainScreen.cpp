@@ -28,6 +28,7 @@
 #include "Graphics3D/DiffuseSpecularMapScreen.h"
 #include "Graphics3D/DirectionalLightScreen.h"
 #include "Graphics3D/PointLightScreen.h"
+#include "Graphics3D/SpotLightScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -88,6 +89,7 @@ void MainScreen::Start(){
 	Button* diffuseSpecularMapBtn	= new Button("Diffuse Specular Map");
 	Button* directionalLigthBtn		= new Button("Directional Light");
 	Button* pointLightBtn			= new Button("Point Light");
+	Button* spotLightBtn			= new Button("Spot Light");
 	triangleBtn->SetImages(button_sprite->Clone());
 	solidModelBtn->SetImages(button_sprite->Clone());
 	texturedModelBtn->SetImages(button_sprite->Clone());
@@ -96,6 +98,7 @@ void MainScreen::Start(){
 	diffuseSpecularMapBtn->SetImages(button_sprite->Clone());
 	directionalLigthBtn->SetImages(button_sprite->Clone());
 	pointLightBtn->SetImages(button_sprite->Clone());
+	spotLightBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
 	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
@@ -104,6 +107,7 @@ void MainScreen::Start(){
 	diffuseSpecularMapBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseSpecularMapClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
+	spotLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpotLightClick);
 	graphics3D_menu->AddButton(triangleBtn);
 	graphics3D_menu->AddButton(solidModelBtn);
 	graphics3D_menu->AddButton(texturedModelBtn);
@@ -112,6 +116,7 @@ void MainScreen::Start(){
 	graphics3D_menu->AddButton(diffuseSpecularMapBtn);
 	graphics3D_menu->AddButton(directionalLigthBtn);
 	graphics3D_menu->AddButton(pointLightBtn);
+	graphics3D_menu->AddButton(spotLightBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -237,4 +242,8 @@ void MainScreen::OnDirectionalLight(){
 
 void MainScreen::OnPointLightClick(){
 	next_screen = new PointLightScreen();
+}
+
+void MainScreen::OnSpotLightClick(){
+	next_screen = new SpotLightScreen();
 }

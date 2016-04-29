@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseSpecularShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\SpotLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
@@ -123,6 +124,7 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\PointLight.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\LightCaster.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\SpotLight.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector3D.cpp" />
@@ -141,6 +143,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\MaterialScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
@@ -177,6 +180,7 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseSpecularShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\SpotLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
@@ -205,6 +209,7 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\PointLight.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\LightCaster.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\SpotLight.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector3D.h" />
@@ -223,6 +228,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\MaterialScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />

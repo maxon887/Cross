@@ -26,6 +26,7 @@
 #include "Shaders/LightCasterDiffuseSpecularShader.h"
 #include "Shaders/DirectionalLightShader.h"
 #include "Shaders/PointLightShader.h"
+#include "Shaders/SpotLightShader.h"
 
 using namespace cross;
 
@@ -121,6 +122,9 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 			break;
 		case Shader::Type::POINT_LIGHT:
 			shaders[type] = new PointLightShader();
+			break;
+		case Shader::Type::SPOT_LIGHT:
+			shaders[type] = new SpotLightShader();
 			break;
 		default:
 			throw CrossException("Unknown shader type");

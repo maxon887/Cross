@@ -59,6 +59,7 @@ private:
 	void OnDiffuseSpecularMapClick();
 	void OnDirectionalLight();
 	void OnPointLightClick();
+	void OnSpotLightClick();
 
 	void OnAudioClick();
 };

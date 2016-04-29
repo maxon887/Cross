@@ -30,10 +30,12 @@
 #include "Shaders/LightCasterDiffuseSpecularShader.h"
 #include "Shaders/DirectionalLightShader.h"
 #include "Shaders/PointLightShader.h"
+#include "Shaders/SpotLightShader.h"
 #include "Utils/Light.h"
 #include "Utils/LightCaster.h"
 #include "Utils/DirectionalLight.h"
 #include "Utils/PointLight.h"
+#include "Utils/SpotLight.h"
 
 #define SWIG
 
@@ -363,6 +365,42 @@ void Graphics3D::DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight*
 	PostDrawMesh(mesh);
 }
 
+void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, Texture* diffuse, Texture* specular, float shininess){
+	SpotLightShader* shader = (SpotLightShader*)gfxGL->GetShader(Shader::Type::SPOT_LIGHT);
+	PreDrawMesh(shader, mesh, model);
+
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
+
+	Matrix normalMatrix = model.Inverse();
+	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
+	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
+	//material
+	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
+
+	SAFE(glActiveTexture(GL_TEXTURE0));
+	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+	SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
+
+	SAFE(glActiveTexture(GL_TEXTURE1));
+	SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
+	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
+	//light
+	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
+	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
+	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
+	SAFE(glUniform1f(shader->uLightConstant, light->GetConstant()));
+	SAFE(glUniform1f(shader->uLightLinear, light->GetLinear()));
+	SAFE(glUniform1f(shader->uLightQuadratic, light->GetQuadratic()));
+
+	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+	SAFE(glEnableVertexAttribArray(shader->aNormal));
+	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+
+	PostDrawMesh(mesh);
+}
+
 void Graphics3D::DrawModel(Model* model){
 	switch(model->GetType()){
 	case Model::Type::SOLID:
@@ -425,6 +463,20 @@ void Graphics3D::DrawModelPointLight(Model* model, PointLight* light){
 		if(model->HasSpecularMap()){
 			for(Mesh* mesh : model->meshes){
 				DrawMeshPointLight(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
+			}
+		}else{
+			throw CrossException("Model needs to be with specular map");
+		}
+	}else{
+		throw CrossException("Expected TEXTURED model type");
+	}
+}
+
+void Graphics3D::DrawModelSpotLight(Model* model, SpotLight* light){
+	if(model->GetType() == Model::Type::TEXTURED){
+		if(model->HasSpecularMap()){
+			for(Mesh* mesh : model->meshes){
+				DrawMeshSpotLight(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
 			}
 		}else{
 			throw CrossException("Model needs to be with specular map");
