@@ -138,12 +138,11 @@ Quaternion Quaternion::operator-(const Quaternion& q) const{
 
 Quaternion Quaternion::operator*(const Quaternion& q) const{
 	Quaternion result;
-	result.x = this->y * q.z - this->z * q.y + q.x * this->w + this->x * q.w;
-	result.y = this->x * q.z - this->z * q.x + q.y * this->w + this->y * q.w;
-	result.z = this->x * q.y - this->y * q.x + q.z * this->w + this->z * q.w;
-	result.w = this->w * q.w + this->x * q.x + this->y * q.y + this->z * q.z;
 
-	//result.v = this->v.CrossProduct(q.v) + q.v * this->w + this->v * q.w;
-	//result.w = this->w * q.w + this->v.DotProduct(q.v);
+    result.x = this->w * q.x + this->x * q.w + this->y * q.z - this->z * q.y;
+    result.y = this->w * q.y - this->x * q.z + this->y * q.w + this->z * q.x;
+    result.z = this->w * q.z + this->x * q.y - this->y * q.x + this->z * q.w;
+	result.w = this->w * q.w - this->x * q.x - this->y * q.y - this->z * q.z;
+
 	return result;
 }

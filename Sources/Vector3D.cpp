@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Vector3D.h"
 #include "Vector2D.h"
+#include "Vector4D.h"
 #include <math.h>
 
 using namespace cross;
@@ -42,6 +43,12 @@ Vector3D::Vector3D(const Vector2D &vec, float z):
 	x(vec.x),
 	y(vec.y),
 	z(z)
+{ }
+
+Vector3D::Vector3D(const Vector4D &vec):
+	x(vec.x),
+	y(vec.y),
+	z(vec.z)
 { }
 
 float Vector3D::Length() const{

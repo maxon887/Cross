@@ -28,6 +28,8 @@ void SpotLightScreen::Start(){
 	light = new SpotLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), Vector3D(0.f, 0.f, 1.f), 1.f, 0.014f, 0.0007f, 30.f);
 	light->SetPosition(Vector3D(0.f, 0.f, -40.f));
 
+	light->LookAt(Vector3D(0.f, 0.f, 0.f));
+
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);

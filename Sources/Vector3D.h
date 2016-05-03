@@ -19,6 +19,7 @@
 namespace cross{
 
 class Vector2D;
+class Vector4D;
 
 class Vector3D{
 public:
@@ -30,6 +31,7 @@ public:
 	Vector3D(float value);
 	Vector3D(float x, float y, float z);
 	Vector3D(const Vector2D &vec, float z);
+	Vector3D(const Vector4D &vec);
 
 	float Length() const;
 	Vector3D Normalize() const;

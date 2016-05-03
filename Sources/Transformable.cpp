@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Transformable.h"
+#include "Misc.h"
 
 using namespace cross;
 
@@ -94,7 +95,27 @@ void Transformable::SetRotate(const Matrix& rot){
 }
 
 void Transformable::LookAt(const Vector3D& object){
+	Vector4D currentLook = Vector4D(0.f, 0.f, -1.f, 0.f);
+	currentLook = rotation * currentLook;
+	Vector3D curLook(currentLook);
+	Vector3D needLook = object - GetPosition();
+	curLook = curLook.Normalize();
+	needLook = needLook.Normalize();
+	float cosA = curLook.DotProduct(needLook);
 
+	if(cosA == -1.f){
+		Vector3D b(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f));
+		Vector3D perp = curLook.CrossProduct(b);
+		SetRotate(perp, 180.f);
+	}else if(cosA == 1.f){
+	
+	}else{
+		Vector3D rotateAxis = curLook.CrossProduct(needLook);
+		float angle = acos(cosA);
+		Quaternion currentQuat(rotation);
+		Quaternion needQuat(rotateAxis, angle * 180.f / PI);
+		SetRotate(currentQuat * needQuat);
+	}
 }
 
 Vector3D Transformable::GetPosition() const{
