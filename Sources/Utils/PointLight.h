@@ -31,10 +31,18 @@ public:
 	float GetConstant();
 	float GetLinear();
 	float GetQuadratic();
-private:
+protected:
 	float constant;
 	float linear;
 	float quadratic;
+
+	PointLight(	const Vector3D& ambient,
+				const Vector3D& diffuse,
+				const Vector3D& specular,
+				float constant,
+				float linear,
+				float quadratic,
+				bool loadMesh);
 };
 
 }

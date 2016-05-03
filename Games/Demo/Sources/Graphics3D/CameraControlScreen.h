@@ -64,4 +64,10 @@ protected:
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
+
+	FastDelegate0<void> mouse_wheel_up;
+	FastDelegate0<void> mouse_wheel_down;
+
+	void MouseWheelUp();
+	void MouseWheelDown();
 };

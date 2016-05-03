@@ -52,6 +52,11 @@ void CameraControlScreen::Start() {
 	input->ActionMove += action_move_delegate;
 	input->ActionUp += action_up_delegate;
 
+	mouse_wheel_up = MakeDelegate(this, &CameraControlScreen::MouseWheelUp);
+	mouse_wheel_down = MakeDelegate(this, &CameraControlScreen::MouseWheelDown);
+	input->MouseWheelUp += mouse_wheel_up;
+	input->MouseWheelDown += mouse_wheel_down;
+
 	arrow_released = demo->GetCommonSprite("ArrowUp.png");
 	arrow_pressed = demo->GetCommonSprite("ArrowDown.png");
 
@@ -100,6 +105,8 @@ void CameraControlScreen::Stop(){
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;
+	input->MouseWheelUp -= mouse_wheel_up;
+	input->MouseWheelDown -= mouse_wheel_down;
 
 	delete debug_font;
 	for(Button* btn : gui){
@@ -274,4 +281,12 @@ void CameraControlScreen::ActionUpHandle(Input::Action action){
 	if(handled_action == action.id){
 		handled_action = -1;
 	}
+}
+
+void CameraControlScreen::MouseWheelUp(){
+	orbit_distance += 2.f;
+}
+
+void CameraControlScreen::MouseWheelDown(){
+	orbit_distance -= 2.f;
 }

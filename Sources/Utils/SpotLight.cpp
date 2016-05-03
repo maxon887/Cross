@@ -26,9 +26,11 @@ SpotLight::SpotLight(	const Vector3D& ambient,
 						float linear,
 						float quadratic,
 						float cutOff ) : 
-	PointLight(ambient, diffuse, specular, constant, linear, quadratic),
+	PointLight(ambient, diffuse, specular, constant, linear, quadratic, false),
 	direction(direction),
 	cut_off(cutOff)
 {
-	
+	Mesh* cone = gfx3D->LoadMesh("Engine/gfx3D/Cone.obj");
+	meshes.push_back(cone);
+	SetScale(0.2f);
 }

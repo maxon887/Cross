@@ -23,15 +23,27 @@ PointLight::PointLight(	const Vector3D& ambient,
 						const Vector3D& specular,
 						float constant,
 						float linear,
-						float quadratic ) :
+						float quadratic) : 
+	PointLight(ambient, diffuse, specular, constant, linear, quadratic, true)
+{ }
+
+PointLight::PointLight(	const Vector3D& ambient,
+						const Vector3D& diffuse,
+						const Vector3D& specular,
+						float constant,
+						float linear,
+						float quadratic, 
+						bool loadMesh ) :
 	LightCaster(ambient, diffuse, specular),
 	constant(constant),
 	linear(linear),
 	quadratic(quadratic)
 { 
-	Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
-	meshes.push_back(sphere);
-	SetScale(0.2f);
+	if(loadMesh){
+		Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
+		meshes.push_back(sphere);
+		SetScale(0.2f);
+	}
 }
 
 float PointLight::GetConstant(){

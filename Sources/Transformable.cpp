@@ -93,6 +93,10 @@ void Transformable::SetRotate(const Matrix& rot){
 	recalc_model = true;
 }
 
+void Transformable::LookAt(const Vector3D& object){
+
+}
+
 Vector3D Transformable::GetPosition() const{
 	return Vector3D(translate.m[0][3], translate.m[1][3], translate.m[2][3]);
 }
