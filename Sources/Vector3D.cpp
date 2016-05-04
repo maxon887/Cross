@@ -90,6 +90,18 @@ float* Vector3D::GetData(){
 	return &x;
 }
 
+bool Vector3D::operator==(const Vector3D &v2) const{
+	if(this->x == v2.x && this->y == v2.y && this->z == v2.z){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+bool Vector3D::operator!=(const Vector3D &v2) const{
+	return !(*this == v2);
+}
+
 Vector3D Vector3D::operator+(const Vector3D &v2) const{
 	return Vector3D(this->x + v2.x, this->y + v2.y, this->z + v2.z);
 }

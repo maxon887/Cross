@@ -36,6 +36,7 @@
 #include "Utils/DirectionalLight.h"
 #include "Utils/PointLight.h"
 #include "Utils/SpotLight.h"
+#include "Utils/Misc.h"
 
 #define SWIG
 
@@ -392,6 +393,9 @@ void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* l
 	SAFE(glUniform1f(shader->uLightConstant, light->GetConstant()));
 	SAFE(glUniform1f(shader->uLightLinear, light->GetLinear()));
 	SAFE(glUniform1f(shader->uLightQuadratic, light->GetQuadratic()));
+	SAFE(glUniform1f(shader->uLightCutOff, cos(light->GetCutOff() / 180.f * PI)));
+	SAFE(glUniform1f(shader->uLightOuterCutOff, cos((light->GetCutOff() + 10.f) / 180.f * PI)));
+	SAFE(glUniform3fv(shader->uLightDirection, 1, light->GetDirection().GetData()));
 
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));

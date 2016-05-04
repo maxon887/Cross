@@ -19,8 +19,9 @@
 using namespace cross;
 
 SpotLightShader::SpotLightShader() :
-	PointLightShader(Shader::Type::SPOT_LIGHT, "Engine/Shaders/spot_light.vert", "Engine/Shaders/point_light.frag")
+	PointLightShader(Shader::Type::SPOT_LIGHT, "Engine/Shaders/spot_light.vert", "Engine/Shaders/spot_light.frag")
 {
 	uLightDirection = glGetUniformLocation(program, "uLight.direction");
 	uLightCutOff = glGetUniformLocation(program, "uLight.cut_off");
+	uLightOuterCutOff = glGetUniformLocation(program, "uLight.outer_cut_off");
 }

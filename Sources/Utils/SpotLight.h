@@ -24,13 +24,13 @@ public:
 	SpotLight(	const Vector3D& ambient,
 				const Vector3D& diffuse,
 				const Vector3D& specular,
-				const Vector3D& direction,
 				float constant,
 				float linear,
 				float quadratic,
 				float cutOff );
+
+	float GetCutOff();
 protected:
-	Vector3D direction;
 	float cut_off;
 };
 

@@ -25,6 +25,7 @@ public:
 
 	GLuint uLightDirection;
 	GLuint uLightCutOff;
+	GLuint uLightOuterCutOff;
 };
 
 }

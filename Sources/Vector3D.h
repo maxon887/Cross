@@ -40,6 +40,8 @@ public:
 	Vector3D CrossProduct(const Vector3D &v2) const;
 	float* GetData();
 
+	bool operator == (const Vector3D &v2) const;
+	bool operator != (const Vector3D &v2) const;
 	Vector3D operator + (const Vector3D &v2) const;
 	void operator += (const Vector3D &v2);
 	Vector3D operator - (const Vector3D &v2) const;
