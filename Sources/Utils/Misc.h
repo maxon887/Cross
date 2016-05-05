@@ -15,11 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
 
 #define PI (3.141592653589793f)
 
 namespace cross {
+
+class Vector2D;
+class Vector3D;
+class Rect;
 
 int Random(int max);
 int Random(int min, int max);

@@ -280,6 +280,12 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\SpotLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -529,6 +535,12 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\SpotLightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
@@ -580,6 +592,12 @@
       <Filter>Cross\Shaders</Filter>
     </None>
     <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse.vert">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\multi_light.frag">
+      <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\Engine\Shaders\multi_light.vert">
       <Filter>Cross\Shaders</Filter>
     </None>
   </ItemGroup>

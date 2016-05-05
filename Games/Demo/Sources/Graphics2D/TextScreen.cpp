@@ -20,7 +20,6 @@
 #include "Input.h"
 #include "Game.h"
 #include "Utils/Debugger.h"
-#include "Utils/Misc.h"
 
 void TextScreen::Start(){
 	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);

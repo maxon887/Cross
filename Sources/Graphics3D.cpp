@@ -31,12 +31,12 @@
 #include "Shaders/DirectionalLightShader.h"
 #include "Shaders/PointLightShader.h"
 #include "Shaders/SpotLightShader.h"
+#include "Shaders/MultiLightShader.h"
 #include "Utils/Light.h"
 #include "Utils/LightCaster.h"
 #include "Utils/DirectionalLight.h"
 #include "Utils/PointLight.h"
 #include "Utils/SpotLight.h"
-#include "Utils/Misc.h"
 
 #define SWIG
 
@@ -405,6 +405,64 @@ void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* l
 	PostDrawMesh(mesh);
 }
 
+void Graphics3D::DrawMeshMultiLight(Mesh* mesh, const Matrix& model, const CRArray<PointLight*>& lights, Texture* diffuse, Texture* specular, float shininess){
+	MultiLightShader* shader = (MultiLightShader*)gfxGL->GetShader(Shader::Type::MULTI_LIGHT);
+
+	if( lights.size() <= shader->MaxPointLights ){
+		gfxGL->UseShader(shader);
+		SAFE(glEnable(GL_DEPTH_TEST));
+		//vertex shader 
+		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
+		mvp = mvp.Transpose();
+		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+
+		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
+		
+		Matrix normalMatrix = model.Inverse();
+		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
+		//materials
+		SAFE(glActiveTexture(GL_TEXTURE0));
+		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+		SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
+
+		SAFE(glActiveTexture(GL_TEXTURE1));
+		SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
+		SAFE(glUniform1i(shader->uMaterialSpecular, 1));
+
+		SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
+		//lights
+		SAFE(glUniform1i(shader->uPointLightCount, lights.size()));
+		for(unsigned int i = 0; i < lights.size(); ++i){
+			SAFE(glUniform3fv(shader->uPointLights[i].position, 1, lights[i]->GetPosition().GetData()));
+			SAFE(glUniform3fv(shader->uPointLights[i].ambient, 1, lights[i]->GetAmbientStrength().GetData()));
+			SAFE(glUniform3fv(shader->uPointLights[i].diffuse, 1, lights[i]->GetDiffuseStrength().GetData()));
+			SAFE(glUniform3fv(shader->uPointLights[i].specular, 1, lights[i]->GetSpecularStrength().GetData()));
+			SAFE(glUniform1f(shader->uPointLights[i].constant, lights[i]->GetConstant()));
+			SAFE(glUniform1f(shader->uPointLights[i].linear, lights[i]->GetLinear()));
+			SAFE(glUniform1f(shader->uPointLights[i].quadratic, lights[i]->GetQuadratic()));
+		}
+
+		SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
+
+		SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
+		SAFE(glEnableVertexAttribArray(shader->aPosition));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+		SAFE(glEnableVertexAttribArray(shader->aNormal));
+		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+
+		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+		SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
+		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+		SAFE(glDisable(GL_DEPTH_TEST));
+	}else{
+		throw CrossException("This shader can only draw %d point lights", shader->MaxPointLights);
+	}
+}
+
 void Graphics3D::DrawModel(Model* model){
 	switch(model->GetType()){
 	case Model::Type::SOLID:
@@ -481,6 +539,20 @@ void Graphics3D::DrawModelSpotLight(Model* model, SpotLight* light){
 		if(model->HasSpecularMap()){
 			for(Mesh* mesh : model->meshes){
 				DrawMeshSpotLight(mesh, model->GetModelMatrix(), light, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
+			}
+		}else{
+			throw CrossException("Model needs to be with specular map");
+		}
+	}else{
+		throw CrossException("Expected TEXTURED model type");
+	}
+}
+
+void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights){
+	if(model->GetType() == Model::Type::TEXTURED){
+		if(model->HasSpecularMap()){
+			for(Mesh* mesh : model->meshes){
+				DrawMeshMultiLight(mesh, model->GetModelMatrix(), lights, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
 			}
 		}else{
 			throw CrossException("Model needs to be with specular map");

@@ -15,38 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
+#include "CameraControlScreen.h"
+#include "Utils/PointLight.h"
 
-namespace cross{
-
-class Shader{
+class MultiLightScreen : public CameraControlScreen{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_CASTER_MATERIAL,
-		LIGHT_CASTER_DIFFUSE,
-		LIGHT_CASTER_DIFFUSE_SPECULAR,
-		DIRECTIONAL_LIGHT,
-		POINT_LIGHT,
-		SPOT_LIGHT,
-		MULTI_LIGHT,
-		COUNT
-	};
-
-	GLuint program;
-	GLint uMVP;
-	GLint aPosition;
-	Type type;
-
-	Shader(Type type, const string& vertexFile, const string& fragmentFile);
-	virtual ~Shader();
-
-private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
+protected:
+	CRArray<PointLight*> point_lights;
+	Model* model;
+	CRArray<Model*> objects;
 };
-
-}

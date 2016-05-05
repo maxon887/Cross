@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Quaternion.h"
 #include "Cross.h"
-#include "Utils/Misc.h"
 
 #include <math.h>
 

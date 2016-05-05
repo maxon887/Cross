@@ -93,6 +93,7 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightCasterMaterialShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PointLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseSpecularShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShader.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MaterialScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
@@ -176,6 +178,7 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightCasterMaterialShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\PointLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseSpecularShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShader.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MaterialScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
@@ -250,6 +254,8 @@
     <None Include="..\..\Assets\Engine\Shaders\light_caster_material.vert" />
     <None Include="..\..\Assets\Engine\Shaders\monochrome.frag" />
     <None Include="..\..\Assets\Engine\Shaders\monochrome.vert" />
+    <None Include="..\..\Assets\Engine\Shaders\multi_light.frag" />
+    <None Include="..\..\Assets\Engine\Shaders\multi_light.vert" />
     <None Include="..\..\Assets\Engine\Shaders\point_light.frag" />
     <None Include="..\..\Assets\Engine\Shaders\point_light.vert" />
     <None Include="..\..\Assets\Engine\Shaders\simple.frag" />

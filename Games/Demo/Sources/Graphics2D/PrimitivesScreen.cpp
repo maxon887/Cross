@@ -19,7 +19,6 @@
 #include "Graphics2D.h"
 #include "Game.h"
 #include "Launcher.h"
-#include "Utils/Misc.h"
 #include "Sprite.h"
 
 void PrimitivesScreen::Start(){

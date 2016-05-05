@@ -26,6 +26,7 @@
 #include "Color.h"
 #include "Rect.h"
 #include "Experimental/Array.h"
+#include "Utils/Misc.h"
 
 #include <string>
 #include <vector>

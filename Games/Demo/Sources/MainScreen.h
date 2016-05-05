@@ -60,6 +60,7 @@ private:
 	void OnDirectionalLight();
 	void OnPointLightClick();
 	void OnSpotLightClick();
+	void OnMultiLightClick();
 
 	void OnAudioClick();
 };

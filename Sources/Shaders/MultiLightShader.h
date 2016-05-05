@@ -15,38 +15,42 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
+#include "Shaders/Shader.h"
 
 namespace cross{
 
-class Shader{
+class MultiLightShader : public Shader{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_CASTER_MATERIAL,
-		LIGHT_CASTER_DIFFUSE,
-		LIGHT_CASTER_DIFFUSE_SPECULAR,
-		DIRECTIONAL_LIGHT,
-		POINT_LIGHT,
-		SPOT_LIGHT,
-		MULTI_LIGHT,
-		COUNT
+	struct PointLightLoc{
+		GLuint position;
+	
+		GLuint ambient;
+		GLuint diffuse;
+		GLuint specular;
+	
+		GLuint constant;
+		GLuint linear;
+		GLuint quadratic;
 	};
 
-	GLuint program;
-	GLint uMVP;
-	GLint aPosition;
-	Type type;
+	static const unsigned int MaxPointLights = 32;
 
-	Shader(Type type, const string& vertexFile, const string& fragmentFile);
-	virtual ~Shader();
+	GLuint uModelMatrix;
+	GLuint uNormalMatrix;
 
-private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+	GLuint uMaterialDiffuse;
+	GLuint uMaterialSpecular;
+	GLuint uMaterialShininess;
+
+	GLuint uPointLightCount;
+	PointLightLoc uPointLights[MaxPointLights];
+
+	GLuint uCameraPosition;
+
+	GLuint aTexCoords;
+	GLuint aNormal;
+
+	MultiLightShader();
 };
 
 }

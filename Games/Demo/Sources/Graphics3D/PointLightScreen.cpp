@@ -19,7 +19,6 @@
 #include "Graphics2D.h"
 #include "Model.h"
 #include "Game.h"
-#include "Utils/Misc.h"
 	
 void PointLightScreen::Start(){
 	CameraControlScreen::Start();
