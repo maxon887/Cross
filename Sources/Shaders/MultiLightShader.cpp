@@ -40,6 +40,15 @@ MultiLightShader::MultiLightShader() :
 		uPointLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
 	}
 
+	uDirectionalLightCount = glGetUniformLocation(program, "uDirectionalLightCount");
+	for(int i = 0; i < MaxDirectionalLights; ++i){
+		string structName = "uDirectionalLights[" + to_string(i) + "]";
+		uDirectionalLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
+		uDirectionalLights[i].ambient = glGetUniformLocation(program, string(structName + ".ambient").c_str());
+		uDirectionalLights[i].diffuse = glGetUniformLocation(program, string(structName + ".diffuse").c_str());
+		uDirectionalLights[i].specular = glGetUniformLocation(program, string(structName + ".specular").c_str());
+	}
+
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");

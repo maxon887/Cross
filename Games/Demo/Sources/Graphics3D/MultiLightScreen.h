@@ -17,6 +17,7 @@
 #pragma once
 #include "CameraControlScreen.h"
 #include "Utils/PointLight.h"
+#include "Utils/DirectionalLight.h"
 
 class MultiLightScreen : public CameraControlScreen{
 public:
@@ -25,6 +26,7 @@ public:
 	virtual void Update(float sec);
 protected:
 	CRArray<PointLight*> point_lights;
+	CRArray<DirectionalLight*> directional_lights;
 	Model* model;
 	CRArray<Model*> objects;
 };

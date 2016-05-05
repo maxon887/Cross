@@ -76,17 +76,21 @@ GraphicsGL::GraphicsGL() :
 			throw CrossException("Unable to initialize GLEW");
 		}
 #endif
-		GLint maxVertexAttribs;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
-		launcher->LogIt("Max Vertex Attributes: %d", maxVertexAttribs);
+		GLint value;
+		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
+		launcher->LogIt("Max Vetex Uniforms: %d", value);
 
-		GLint maxTextureSize;
-		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
-		launcher->LogIt("Max Texture Size: %d", maxTextureSize);
+		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
+		launcher->LogIt("Max Fragment Uniforms: %d", value);
 
-		GLint maxTextureUnits;
-		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
-		launcher->LogIt("Max Texture Units: %d", maxTextureUnits);
+		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value);
+		launcher->LogIt("Max Vertex Attributes: %d", value);
+
+		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
+		launcher->LogIt("Max Texture Size: %d", value);
+
+		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
+		launcher->LogIt("Max Texture Units: %d", value);
 
 		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
 }

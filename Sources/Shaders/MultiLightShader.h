@@ -33,7 +33,16 @@ public:
 		GLuint quadratic;
 	};
 
+	struct DirectionalLight{
+		GLuint direction;
+	
+		GLuint ambient;
+		GLuint diffuse;
+		GLuint specular;
+	};
+
 	static const unsigned int MaxPointLights = 32;
+	static const unsigned int MaxDirectionalLights = 8;
 
 	GLuint uModelMatrix;
 	GLuint uNormalMatrix;
@@ -44,6 +53,9 @@ public:
 
 	GLuint uPointLightCount;
 	PointLightLoc uPointLights[MaxPointLights];
+
+	GLuint uDirectionalLightCount;
+	DirectionalLight uDirectionalLights[MaxDirectionalLights];
 
 	GLuint uCameraPosition;
 

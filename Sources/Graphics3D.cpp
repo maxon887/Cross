@@ -405,7 +405,7 @@ void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* l
 	PostDrawMesh(mesh);
 }
 
-void Graphics3D::DrawMeshMultiLight(Mesh* mesh, const Matrix& model, const CRArray<PointLight*>& lights, Texture* diffuse, Texture* specular, float shininess){
+void Graphics3D::DrawMeshMultiLight(Mesh* mesh, const Matrix& model, const CRArray<PointLight*>& lights, const CRArray<DirectionalLight*>& directLights, Texture* diffuse, Texture* specular, float shininess){
 	MultiLightShader* shader = (MultiLightShader*)gfxGL->GetShader(Shader::Type::MULTI_LIGHT);
 
 	if( lights.size() <= shader->MaxPointLights ){
@@ -440,6 +440,14 @@ void Graphics3D::DrawMeshMultiLight(Mesh* mesh, const Matrix& model, const CRArr
 			SAFE(glUniform1f(shader->uPointLights[i].constant, lights[i]->GetConstant()));
 			SAFE(glUniform1f(shader->uPointLights[i].linear, lights[i]->GetLinear()));
 			SAFE(glUniform1f(shader->uPointLights[i].quadratic, lights[i]->GetQuadratic()));
+		}
+
+		SAFE(glUniform1i(shader->uDirectionalLightCount, directLights.size()));
+		for(unsigned int i = 0; i < directLights.size(); ++i){
+			SAFE(glUniform3fv(shader->uDirectionalLights[i].direction, 1, directLights[i]->GetDirection().GetData()));
+			SAFE(glUniform3fv(shader->uDirectionalLights[i].ambient, 1, directLights[i]->GetAmbientStrength().GetData()));
+			SAFE(glUniform3fv(shader->uDirectionalLights[i].diffuse, 1, directLights[i]->GetDiffuseStrength().GetData()));
+			SAFE(glUniform3fv(shader->uDirectionalLights[i].specular, 1, directLights[i]->GetSpecularStrength().GetData()));
 		}
 
 		SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
@@ -548,11 +556,11 @@ void Graphics3D::DrawModelSpotLight(Model* model, SpotLight* light){
 	}
 }
 
-void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights){
+void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights, const CRArray<DirectionalLight*>& directLights){
 	if(model->GetType() == Model::Type::TEXTURED){
 		if(model->HasSpecularMap()){
 			for(Mesh* mesh : model->meshes){
-				DrawMeshMultiLight(mesh, model->GetModelMatrix(), lights, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
+				DrawMeshMultiLight(mesh, model->GetModelMatrix(), lights, directLights, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
 			}
 		}else{
 			throw CrossException("Model needs to be with specular map");

@@ -51,14 +51,20 @@ public:
 	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, Texture* diffuse, Texture* specular, float shininess);
 	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specualr, float shininess);
 	void DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, Texture* diffuse, Texture* specular, float shininess);
-	void DrawMeshMultiLight(Mesh* mesh, const Matrix& model, const CRArray<PointLight*>& lights, Texture* diffuse, Texture* specular, float shininess);
+	void DrawMeshMultiLight(	Mesh* mesh, 
+								const Matrix& model, 
+								const CRArray<PointLight*>& lights, 
+								const CRArray<DirectionalLight*>& directLights, 
+								Texture* diffuse, 
+								Texture* specular, 
+								float shininess	);
 
 	void DrawModel(Model* model);
 	void DrawModelLightCaster(Model* model, LightCaster* light);
 	void DrawModelDirectLight(Model* model, DirectionalLight* ligth);
 	void DrawModelPointLight(Model* model, PointLight* light);
 	void DrawModelSpotLight(Model* model, SpotLight* light);
-	void DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights);
+	void DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights, const CRArray<DirectionalLight*>& directLights);
 
 private:
 	Camera* camera;

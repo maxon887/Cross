@@ -25,9 +25,18 @@ void MultiLightScreen::Start(){
 
 	for(int i = 0; i < 10; ++i){
 		PointLight* light = new PointLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
+		//PointLight* light = new PointLight(Vector3D(0.2f), Vector3D(Random(0.f, 1.f), Random(0.f, 1.f), Random(0.f, 1.f)), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
 		point_lights.push_back(light);
 	}
+
+	//for(int i = 0; i < 2; ++i){
+	DirectionalLight* directLight = new DirectionalLight(Vector3D(.0f, -1.f, 0.f), Vector3D(0.1f), Vector3D(.0f, 1.f, 0.f), Vector3D(0.85f));
+	directional_lights.push_back(directLight);
+
+	directLight = new DirectionalLight(Vector3D(-1.f, 0.f, 0.f), Vector3D(0.1f), Vector3D(1.0f, 0.f, 0.f), Vector3D(0.85f));
+	directional_lights.push_back(directLight);
+	//}
 
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
@@ -53,7 +62,7 @@ void MultiLightScreen::Update(float sec){
 	}
 
 	for(Model* model : objects){
-		gfx3D->DrawModelMultiLight(model, point_lights);
+		gfx3D->DrawModelMultiLight(model, point_lights, directional_lights);
 	}
 
 	CameraControlScreen::Update(sec);
