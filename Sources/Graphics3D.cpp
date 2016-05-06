@@ -394,7 +394,7 @@ void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* l
 	SAFE(glUniform1f(shader->uLightLinear, light->GetLinear()));
 	SAFE(glUniform1f(shader->uLightQuadratic, light->GetQuadratic()));
 	SAFE(glUniform1f(shader->uLightCutOff, cos(light->GetCutOff() / 180.f * PI)));
-	SAFE(glUniform1f(shader->uLightOuterCutOff, cos((light->GetCutOff() + 10.f) / 180.f * PI)));
+	SAFE(glUniform1f(shader->uLightOuterCutOff, cos(light->GetOuterCutOff() / 180.f * PI)));
 	SAFE(glUniform3fv(shader->uLightDirection, 1, light->GetDirection().GetData()));
 
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
@@ -405,70 +405,98 @@ void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* l
 	PostDrawMesh(mesh);
 }
 
-void Graphics3D::DrawMeshMultiLight(Mesh* mesh, const Matrix& model, const CRArray<PointLight*>& lights, const CRArray<DirectionalLight*>& directLights, Texture* diffuse, Texture* specular, float shininess){
+void Graphics3D::DrawMeshMultiLight(Mesh* mesh,
+									const Matrix& model,
+									const CRArray<PointLight*>& pointLights,
+									const CRArray<DirectionalLight*>& directLights,
+									const CRArray<SpotLight*>& spotLights,
+									Texture* diffuse, Texture* specular, float shininess)
+{
 	MultiLightShader* shader = (MultiLightShader*)gfxGL->GetShader(Shader::Type::MULTI_LIGHT);
 
-	if( lights.size() <= shader->MaxPointLights ){
-		gfxGL->UseShader(shader);
-		SAFE(glEnable(GL_DEPTH_TEST));
-		//vertex shader 
-		Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-		mvp = mvp.Transpose();
-		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-		
-		Matrix normalMatrix = model.Inverse();
-		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-		//materials
-		SAFE(glActiveTexture(GL_TEXTURE0));
-		SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
-		SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
-
-		SAFE(glActiveTexture(GL_TEXTURE1));
-		SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
-		SAFE(glUniform1i(shader->uMaterialSpecular, 1));
-
-		SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-		//lights
-		SAFE(glUniform1i(shader->uPointLightCount, lights.size()));
-		for(unsigned int i = 0; i < lights.size(); ++i){
-			SAFE(glUniform3fv(shader->uPointLights[i].position, 1, lights[i]->GetPosition().GetData()));
-			SAFE(glUniform3fv(shader->uPointLights[i].ambient, 1, lights[i]->GetAmbientStrength().GetData()));
-			SAFE(glUniform3fv(shader->uPointLights[i].diffuse, 1, lights[i]->GetDiffuseStrength().GetData()));
-			SAFE(glUniform3fv(shader->uPointLights[i].specular, 1, lights[i]->GetSpecularStrength().GetData()));
-			SAFE(glUniform1f(shader->uPointLights[i].constant, lights[i]->GetConstant()));
-			SAFE(glUniform1f(shader->uPointLights[i].linear, lights[i]->GetLinear()));
-			SAFE(glUniform1f(shader->uPointLights[i].quadratic, lights[i]->GetQuadratic()));
-		}
-
-		SAFE(glUniform1i(shader->uDirectionalLightCount, directLights.size()));
-		for(unsigned int i = 0; i < directLights.size(); ++i){
-			SAFE(glUniform3fv(shader->uDirectionalLights[i].direction, 1, directLights[i]->GetDirection().GetData()));
-			SAFE(glUniform3fv(shader->uDirectionalLights[i].ambient, 1, directLights[i]->GetAmbientStrength().GetData()));
-			SAFE(glUniform3fv(shader->uDirectionalLights[i].diffuse, 1, directLights[i]->GetDiffuseStrength().GetData()));
-			SAFE(glUniform3fv(shader->uDirectionalLights[i].specular, 1, directLights[i]->GetSpecularStrength().GetData()));
-		}
-
-		SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
-		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
-		SAFE(glEnableVertexAttribArray(shader->aNormal));
-		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
-		SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-		SAFE(glDisable(GL_DEPTH_TEST));
-	}else{
+	if(pointLights.size() > shader->MaxPointLights){
 		throw CrossException("This shader can only draw %d point lights", shader->MaxPointLights);
 	}
+
+	if(directLights.size() > shader->MaxDirectionalLights){
+		throw CrossException("This shader can only draw %d directional lights", shader->MaxDirectionalLights);
+	}
+
+	if(spotLights.size() > shader->MaxSpotLights){
+		throw CrossException("This shader can only draw %d spot lights", shader->MaxSpotLights);
+	}
+
+	gfxGL->UseShader(shader);
+	SAFE(glEnable(GL_DEPTH_TEST));
+	//vertex shader 
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+
+	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
+		
+	Matrix normalMatrix = model.Inverse();
+	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
+	//materials
+	SAFE(glActiveTexture(GL_TEXTURE0));
+	SAFE(glBindTexture(GL_TEXTURE_2D, diffuse->GetID()));
+	SAFE(glUniform1i(shader->uMaterialDiffuse, 0));
+
+	SAFE(glActiveTexture(GL_TEXTURE1));
+	SAFE(glBindTexture(GL_TEXTURE_2D, specular->GetID()));
+	SAFE(glUniform1i(shader->uMaterialSpecular, 1));
+
+	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
+	//lights
+	SAFE(glUniform1i(shader->uPointLightCount, pointLights.size()));
+	for(unsigned int i = 0; i < pointLights.size(); ++i){
+		SAFE(glUniform3fv(shader->uPointLights[i].position, 1, pointLights[i]->GetPosition().GetData()));
+		SAFE(glUniform3fv(shader->uPointLights[i].ambient, 1, pointLights[i]->GetAmbientStrength().GetData()));
+		SAFE(glUniform3fv(shader->uPointLights[i].diffuse, 1, pointLights[i]->GetDiffuseStrength().GetData()));
+		SAFE(glUniform3fv(shader->uPointLights[i].specular, 1, pointLights[i]->GetSpecularStrength().GetData()));
+		SAFE(glUniform1f(shader->uPointLights[i].constant, pointLights[i]->GetConstant()));
+		SAFE(glUniform1f(shader->uPointLights[i].linear, pointLights[i]->GetLinear()));
+		SAFE(glUniform1f(shader->uPointLights[i].quadratic, pointLights[i]->GetQuadratic()));
+	}
+
+	SAFE(glUniform1i(shader->uDirectionalLightCount, directLights.size()));
+	for(unsigned int i = 0; i < directLights.size(); ++i){
+		SAFE(glUniform3fv(shader->uDirectionalLights[i].direction, 1, directLights[i]->GetDirection().GetData()));
+		SAFE(glUniform3fv(shader->uDirectionalLights[i].ambient, 1, directLights[i]->GetAmbientStrength().GetData()));
+		SAFE(glUniform3fv(shader->uDirectionalLights[i].diffuse, 1, directLights[i]->GetDiffuseStrength().GetData()));
+		SAFE(glUniform3fv(shader->uDirectionalLights[i].specular, 1, directLights[i]->GetSpecularStrength().GetData()));
+	}
+
+	SAFE(glUniform1i(shader->uSpotLightCount, spotLights.size()));
+	for(unsigned int i = 0; i <spotLights.size(); ++i){
+		SAFE(glUniform3fv(shader->uSpotLights[i].position, 1, spotLights[i]->GetPosition().GetData()));
+		SAFE(glUniform3fv(shader->uSpotLights[i].ambient, 1, spotLights[i]->GetAmbientStrength().GetData()));
+		SAFE(glUniform3fv(shader->uSpotLights[i].diffuse, 1, spotLights[i]->GetDiffuseStrength().GetData()));
+		SAFE(glUniform3fv(shader->uSpotLights[i].specular, 1, spotLights[i]->GetSpecularStrength().GetData()));
+		SAFE(glUniform1f(shader->uSpotLights[i].constant, spotLights[i]->GetConstant()));
+		SAFE(glUniform1f(shader->uSpotLights[i].linear, spotLights[i]->GetLinear()));
+		SAFE(glUniform1f(shader->uSpotLights[i].quadratic, spotLights[i]->GetQuadratic()));
+		SAFE(glUniform1f(shader->uSpotLights[i].cut_off, cos(spotLights[i]->GetCutOff() / 180.f * PI)));
+		SAFE(glUniform1f(shader->uSpotLights[i].outer_cut_off, cos(spotLights[i]->GetOuterCutOff() / 180.f * PI)));
+		SAFE(glUniform3fv(shader->uSpotLights[i].direction, 1, spotLights[i]->GetDirection().GetData()));
+	}
+
+	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
+
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->GetVertexBufferObject()));
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0));
+	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
+	SAFE(glEnableVertexAttribArray(shader->aNormal));
+	SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->GetElementBufferObjet()));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
 void Graphics3D::DrawModel(Model* model){
@@ -556,11 +584,11 @@ void Graphics3D::DrawModelSpotLight(Model* model, SpotLight* light){
 	}
 }
 
-void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights, const CRArray<DirectionalLight*>& directLights){
+void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& lights, const CRArray<DirectionalLight*>& directLights, const CRArray<SpotLight*>& spotLights){
 	if(model->GetType() == Model::Type::TEXTURED){
 		if(model->HasSpecularMap()){
 			for(Mesh* mesh : model->meshes){
-				DrawMeshMultiLight(mesh, model->GetModelMatrix(), lights, directLights, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
+				DrawMeshMultiLight(mesh, model->GetModelMatrix(), lights, directLights, spotLights, model->GetDiffuseTexture(), model->GetSpecularTexture(), 0.4f);
 			}
 		}else{
 			throw CrossException("Model needs to be with specular map");

@@ -41,8 +41,25 @@ public:
 		GLuint specular;
 	};
 
+	struct SpotLight{
+		GLuint position;
+	
+		GLuint ambient;
+		GLuint diffuse;
+		GLuint specular;
+	
+		GLuint constant;
+		GLuint linear;
+		GLuint quadratic;
+	
+		GLuint direction;
+		GLuint cut_off;
+		GLuint outer_cut_off;
+	};
+
 	static const unsigned int MaxPointLights = 32;
 	static const unsigned int MaxDirectionalLights = 8;
+	static const unsigned int MaxSpotLights = 16;
 
 	GLuint uModelMatrix;
 	GLuint uNormalMatrix;
@@ -56,6 +73,9 @@ public:
 
 	GLuint uDirectionalLightCount;
 	DirectionalLight uDirectionalLights[MaxDirectionalLights];
+
+	GLuint uSpotLightCount;
+	SpotLight uSpotLights[MaxSpotLights];
 
 	GLuint uCameraPosition;
 

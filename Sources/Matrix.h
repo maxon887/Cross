@@ -39,9 +39,9 @@ public:
 	void SetScale(float scale);
 	void SetScale(const Vector2D &scale);
 	void SetScale(const Vector3D &scale);
-	void SetRotationZ(float angle);
 	void SetRotationX(float angle);
 	void SetRotationY(float angle);
+	void SetRotationZ(float angle);
 	Matrix Transpose() const;
 	Matrix Inverse() const;
 	float* GetData();

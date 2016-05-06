@@ -23,20 +23,26 @@ void MultiLightScreen::Start(){
 	CameraControlScreen::Start();
 	orbit_distance = 60.f;
 
-	for(int i = 0; i < 10; ++i){
-		PointLight* light = new PointLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
-		//PointLight* light = new PointLight(Vector3D(0.2f), Vector3D(Random(0.f, 1.f), Random(0.f, 1.f), Random(0.f, 1.f)), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
+	for(int i = 0; i < 16; ++i){
+		PointLight* light = new PointLight(Vector3D(0.2f), Vector3D(1.f, 0.f, 0.f), Vector3D(0.85f), 1.f, 0.05f, 0.003f);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
 		point_lights.push_back(light);
 	}
-
-	//for(int i = 0; i < 2; ++i){
-	DirectionalLight* directLight = new DirectionalLight(Vector3D(.0f, -1.f, 0.f), Vector3D(0.1f), Vector3D(.0f, 1.f, 0.f), Vector3D(0.85f));
-	directional_lights.push_back(directLight);
-
-	directLight = new DirectionalLight(Vector3D(-1.f, 0.f, 0.f), Vector3D(0.1f), Vector3D(1.0f, 0.f, 0.f), Vector3D(0.85f));
-	directional_lights.push_back(directLight);
-	//}
+	
+	for(int i = 0; i < 3; ++i){
+		DirectionalLight* light = new DirectionalLight(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), 
+														Vector3D(0.0f),
+														Vector3D(0.f, 0.f, 0.3f),
+														Vector3D(0.85f));
+		directional_lights.push_back(light);
+	}
+	
+	for(int i = 0; i < 8; ++i){
+		SpotLight* light = new SpotLight(Vector3D(0.1f), Vector3D(0.f, 1.f, 0.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f, 5.f);
+		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
+		light->LookAt(Vector3D(0.0f));
+		spot_lights.push_back(light);
+	}
 
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
@@ -48,21 +54,35 @@ void MultiLightScreen::Start(){
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
 	}
-
 }
 
 void MultiLightScreen::Stop(){
 	CameraControlScreen::Stop();
-
+	for(Model* model : objects){
+		delete model;
+	}
+	for(Light* light : point_lights){
+		delete light;
+	}
+	for(Light* light : spot_lights){
+		delete light;
+	}
+	for(Light* light : directional_lights){
+		delete light;
+	}
+	delete model;
 }
 
 void MultiLightScreen::Update(float sec){
 	for(PointLight* light : point_lights){
 		light->Draw();
 	}
+	for(SpotLight* light : spot_lights){
+		light->Draw();
+	}
 
 	for(Model* model : objects){
-		gfx3D->DrawModelMultiLight(model, point_lights, directional_lights);
+		gfx3D->DrawModelMultiLight(model, point_lights, directional_lights, spot_lights);
 	}
 
 	CameraControlScreen::Update(sec);

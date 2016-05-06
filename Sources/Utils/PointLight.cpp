@@ -27,6 +27,9 @@ PointLight::PointLight(	const Vector3D& ambient,
 	PointLight(ambient, diffuse, specular, constant, linear, quadratic, true)
 { }
 
+PointLight::~PointLight()
+{ }
+
 PointLight::PointLight(	const Vector3D& ambient,
 						const Vector3D& diffuse,
 						const Vector3D& specular,

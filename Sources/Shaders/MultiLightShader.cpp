@@ -48,6 +48,21 @@ MultiLightShader::MultiLightShader() :
 		uDirectionalLights[i].diffuse = glGetUniformLocation(program, string(structName + ".diffuse").c_str());
 		uDirectionalLights[i].specular = glGetUniformLocation(program, string(structName + ".specular").c_str());
 	}
+	
+	uSpotLightCount = glGetUniformLocation(program, "uSpotLightCount");
+	for(int i = 0; i < MaxSpotLights; ++i){
+		string structName = "uSpotLights[" + to_string(i) + "]";
+		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
+		uSpotLights[i].ambient = glGetUniformLocation(program, string(structName + ".ambient").c_str());
+		uSpotLights[i].diffuse = glGetUniformLocation(program, string(structName + ".diffuse").c_str());
+		uSpotLights[i].specular = glGetUniformLocation(program, string(structName + ".specular").c_str());
+		uSpotLights[i].constant = glGetUniformLocation(program, string(structName + ".constant").c_str());
+		uSpotLights[i].linear = glGetUniformLocation(program, string(structName + ".linear").c_str());
+		uSpotLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
+		uSpotLights[i].cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
+		uSpotLights[i].outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
+		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
+	}
 
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 

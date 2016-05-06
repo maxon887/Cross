@@ -18,6 +18,7 @@
 #include "CameraControlScreen.h"
 #include "Utils/PointLight.h"
 #include "Utils/DirectionalLight.h"
+#include "Utils/SpotLight.h"
 
 class MultiLightScreen : public CameraControlScreen{
 public:
@@ -27,6 +28,7 @@ public:
 protected:
 	CRArray<PointLight*> point_lights;
 	CRArray<DirectionalLight*> directional_lights;
+	CRArray<SpotLight*> spot_lights;
 	Model* model;
 	CRArray<Model*> objects;
 };

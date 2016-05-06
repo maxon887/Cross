@@ -27,6 +27,7 @@ public:
 				float constant,
 				float linear,
 				float quadratic );
+	virtual ~PointLight();
 
 	float GetConstant();
 	float GetLinear();

@@ -139,15 +139,6 @@ void Matrix::SetScale(const Vector3D &scale){
 	m[2][2] = scale.z;
 }
 
-void Matrix::SetRotationZ(float angle){
-	float cosA = cos(angle / 180.f * PI);
-	float sinA = sin(angle / 180.f * PI);
-	m[0][0] = cosA;
-	m[0][1] = -sinA;
-	m[1][0] = sinA;
-	m[1][1] = cosA;
-}
-
 void Matrix::SetRotationX(float angle){
 	float cosA = cos(angle / 180.f * PI);
 	float sinA = sin(angle / 180.f * PI);
@@ -161,9 +152,18 @@ void Matrix::SetRotationY(float angle){
 	float cosA = cos(angle / 180.f * PI);
 	float sinA = sin(angle / 180.f * PI);
 	m[0][0] = cosA;
-	m[0][2] = -sinA;
-	m[2][0] = sinA;
+	m[0][2] = sinA;
+	m[2][0] = -sinA;
 	m[2][2] = cosA;
+}
+
+void Matrix::SetRotationZ(float angle){
+	float cosA = cos(angle / 180.f * PI);
+	float sinA = sin(angle / 180.f * PI);
+	m[0][0] = cosA;
+	m[0][1] = -sinA;
+	m[1][0] = sinA;
+	m[1][1] = cosA;
 }
 
 Matrix Matrix::Transpose() const{

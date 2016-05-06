@@ -113,8 +113,8 @@ void Transformable::LookAt(const Vector3D& object){
 		}else if(cosA == 1.f){
 	
 		}else{
-			Vector3D rotateAxis = curLook.CrossProduct(needLook);
 			float angle = acos(cosA);
+			Vector3D rotateAxis = needLook.CrossProduct(curLook);
 			Quaternion currentQuat(rotation);
 			Quaternion needQuat(rotateAxis, angle * 180.f / PI);
 			SetRotate(currentQuat * needQuat);

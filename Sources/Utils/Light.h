@@ -23,6 +23,7 @@ class Light{
 public:
 
 	Light(const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& specular);
+	virtual ~Light();
 
 	void SetAmbientStrength(const Vector3D& ambient);
 	void SetDiffuseStrength(const Vector3D& diffuse);

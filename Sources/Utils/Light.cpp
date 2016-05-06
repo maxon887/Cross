@@ -24,6 +24,9 @@ Light::Light(const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& s
 	specular(specular)
 { }
 
+Light::~Light()
+{ }
+
 void Light::SetAmbientStrength(const Vector3D& ambient) {
 	this->ambient = ambient;
 }

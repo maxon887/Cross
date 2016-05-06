@@ -36,3 +36,7 @@ SpotLight::SpotLight(	const Vector3D& ambient,
 float SpotLight::GetCutOff(){
 	return cut_off;
 }
+
+float SpotLight::GetOuterCutOff(){
+	return cut_off + 10.f;
+}

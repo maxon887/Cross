@@ -24,7 +24,7 @@ void SpotLightScreen::Start(){
 	CameraControlScreen::Start();
 	orbit_distance = 60.f;
 
-	light = new SpotLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f, 30.f);
+	light = new SpotLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f, 5.f);
 	light->SetPosition(Vector3D(0.f, 0.f, -40.f));
 	//light->SetPosition(Vector3D(0.f, 0.f, 1.f));
 

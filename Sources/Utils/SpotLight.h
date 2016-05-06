@@ -30,6 +30,7 @@ public:
 				float cutOff );
 
 	float GetCutOff();
+	float GetOuterCutOff();
 protected:
 	float cut_off;
 };
