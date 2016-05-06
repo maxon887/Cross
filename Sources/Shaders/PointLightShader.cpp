@@ -23,7 +23,7 @@ PointLightShader::PointLightShader() :
 { }
 
 PointLightShader::PointLightShader(Shader::Type type, const string& vertex, const string& frag) :
-	LightCasterDiffuseSpecularShader(type, vertex, frag)
+	LightDiffuseSpecularShader(type, vertex, frag)
 {
 	uLightConstant = glGetUniformLocation(program, "uLight.constant");
 	uLightLinear = glGetUniformLocation(program, "uLight.linear");

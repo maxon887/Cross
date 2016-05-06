@@ -19,7 +19,7 @@
 
 namespace cross{
 
-class LightCasterDiffuseShader : public LightShader{
+class LightDiffuseShader : public LightShader{
 public:
 	GLuint uMaterialDiffuse;
 	GLuint uMaterialSpecular;
@@ -29,9 +29,9 @@ public:
 
 	GLuint aTexCoords;
 
-	LightCasterDiffuseShader();
+	LightDiffuseShader();
 protected:
-	LightCasterDiffuseShader(Shader::Type type, string vertex, string fragment);
+	LightDiffuseShader(Shader::Type type, string vertex, string fragment);
 };
 
 }

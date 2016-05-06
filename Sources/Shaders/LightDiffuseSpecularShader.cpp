@@ -14,16 +14,22 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/LightCasterMaterialShader.h"
+#include "Shaders/LightDiffuseSpecularShader.h"
 
 using namespace cross;
 
-LightCasterMaterialShader::LightCasterMaterialShader() :
-	LightShader(Type::LIGHT_CASTER_MATERIAL, "Engine/Shaders/light_caster_material.vert", "Engine/Shaders/light_caster_material.frag")
+LightDiffuseSpecularShader::LightDiffuseSpecularShader() :
+	LightDiffuseSpecularShader(Type::LIGHT_DIFFUSE_SPECULAR, "Engine/Shaders/light_diffuse_specular.vert", "Engine/Shaders/light_diffuse_specular.frag")
+{ }
+
+LightDiffuseSpecularShader::LightDiffuseSpecularShader(Shader::Type type, string vertex, string fragment) :
+	LightShader(type, vertex, fragment)
 { 
-	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
-	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
-	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
-	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
+
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
+
+	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 }

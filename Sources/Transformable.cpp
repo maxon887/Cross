@@ -139,3 +139,7 @@ Matrix& Transformable::GetModelMatrix(){
 	}
 	return model;
 }
+
+Matrix Transformable::GetNormalMatrix(){
+	return rotation * scale;
+}

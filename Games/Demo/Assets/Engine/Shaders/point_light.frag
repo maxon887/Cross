@@ -1,6 +1,6 @@
 precision mediump float;
 
-struct Light{
+struct PointLight{
 	vec3 position;
 	
 	vec3 ambient;
@@ -16,7 +16,7 @@ uniform sampler2D uMaterialDiffuse;
 uniform sampler2D uMaterialSpecular;
 uniform float uMaterialShininess;
 
-uniform Light uLight;
+uniform PointLight uLight;
 
 uniform vec3 uCameraPosition;
 

@@ -15,11 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Shaders/LightCasterDiffuseSpecularShader.h"
+#include "Shaders/LightDiffuseSpecularShader.h"
 
 namespace cross{
 
-class PointLightShader : public LightCasterDiffuseSpecularShader {
+class PointLightShader : public LightDiffuseSpecularShader {
 public:
 	PointLightShader();
 

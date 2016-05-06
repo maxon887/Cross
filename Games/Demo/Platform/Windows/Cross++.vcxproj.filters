@@ -232,9 +232,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCasterMaterialShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
@@ -262,12 +259,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseSpecularShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -284,6 +275,15 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
@@ -487,9 +487,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCasterMaterialShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
@@ -517,12 +514,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseSpecularShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightCasterDiffuseShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -539,6 +530,15 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>

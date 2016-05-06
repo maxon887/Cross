@@ -20,6 +20,10 @@
 #include "Events/Event.h"
 #include "Shaders/Shader.h"
 
+struct aiMesh;
+struct aiNode;
+struct aiScene;
+
 namespace cross{
 
 class Light;
@@ -43,12 +47,19 @@ public:
 	Model* LoadModel(const string& filename, Texture* diffuse);
 	Model* LoadModel(const string& filename, Texture* diffuse, Texture* specular);
 
+	//use "simple" shader
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
+	//use "texture" shader
 	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
-	void DrawMeshLightCasterMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material);
-	void DrawMeshLightCasterDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess);
-	void DrawMeshLightCasterDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess);
+	//use "light_material" shader
+	void DrawMeshLightMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material);
+	//use "light_diffuse" shader
+	void DrawMeshLightDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess);
+	//use "light_diffuse_specular" shader
+	void DrawMeshLightDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess);
+	//use "directional_light" shader
 	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, Texture* diffuse, Texture* specular, float shininess);
+	//use "point_light" shader
 	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specualr, float shininess);
 	void DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, Texture* diffuse, Texture* specular, float shininess);
 	void DrawMeshMultiLight(	Mesh* mesh, 
@@ -73,8 +84,8 @@ public:
 private:
 	Camera* camera;
 
-	void PreDrawMesh(Shader* shader, Mesh* mesh, const Matrix& model);
-	void PostDrawMesh(Mesh* mesh);
+	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene);
 
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

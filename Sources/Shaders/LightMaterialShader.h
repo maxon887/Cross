@@ -15,38 +15,20 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
+#include "Shaders/LightShader.h"
 
 namespace cross{
 
-class Shader{
+class LightMaterialShader : public LightShader{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_DIFFUSE,
-		LIGHT_DIFFUSE_SPECULAR,
-		DIRECTIONAL_LIGHT,
-		POINT_LIGHT,
-		SPOT_LIGHT,
-		MULTI_LIGHT,
-		COUNT
-	};
+	GLuint uMaterialAmbient;
+	GLuint uMaterialDiffuse;
+	GLuint uMaterialSpecular;
+	GLuint uMaterialShininess;
 
-	GLuint program;
-	GLint uMVP;
-	GLint aPosition;
-	Type type;
+	GLuint uLightPosition;
 
-	Shader(Type type, const string& vertexFile, const string& fragmentFile);
-	virtual ~Shader();
-
-private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+	LightMaterialShader();
 };
 
 }

@@ -14,21 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Shaders/LightShader.h"
+#include "Shaders/LightMaterialShader.h"
 
-namespace cross{
+using namespace cross;
 
-class LightCasterMaterialShader : public LightShader{
-public:
-	GLuint uMaterialAmbient;
-	GLuint uMaterialDiffuse;
-	GLuint uMaterialSpecular;
-	GLuint uMaterialShininess;
-
-	GLuint uLightPosition;
-
-	LightCasterMaterialShader();
-};
-
+LightMaterialShader::LightMaterialShader() :
+	LightShader(Type::LIGHT_MATERIAL, "Engine/Shaders/light_material.vert", "Engine/Shaders/light_material.frag")
+{ 
+	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
+	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
+	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
+	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
+	uLightPosition = glGetUniformLocation(program, "uLight.position");
 }

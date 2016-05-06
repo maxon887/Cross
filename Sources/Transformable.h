@@ -41,6 +41,8 @@ public:
 	Vector3D GetDirection() const;
 
 	Matrix& GetModelMatrix();
+	//do not tested!
+	Matrix GetNormalMatrix();
 protected:
 	Matrix model;
 	Matrix scale;

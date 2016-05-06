@@ -21,9 +21,9 @@
 #include "Shaders/SimpleShader.h"
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
-#include "Shaders/LightCasterMaterialShader.h"
-#include "Shaders/LightCasterDiffuseShader.h"
-#include "Shaders/LightCasterDiffuseSpecularShader.h"
+#include "Shaders/LightMaterialShader.h"
+#include "Shaders/LightDiffuseShader.h"
+#include "Shaders/LightDiffuseSpecularShader.h"
 #include "Shaders/DirectionalLightShader.h"
 #include "Shaders/PointLightShader.h"
 #include "Shaders/SpotLightShader.h"
@@ -113,14 +113,14 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 		case Shader::Type::TEXTURE:
 			shaders[type] = new TextureShader();
 			break;
-		case Shader::Type::LIGHT_CASTER_MATERIAL:
-			shaders[type] = new LightCasterMaterialShader();
+		case Shader::Type::LIGHT_MATERIAL:
+			shaders[type] = new LightMaterialShader();
 			break;
-		case Shader::Type::LIGHT_CASTER_DIFFUSE:
-			shaders[type] = new LightCasterDiffuseShader();
+		case Shader::Type::LIGHT_DIFFUSE:
+			shaders[type] = new LightDiffuseShader();
 			break;
-		case Shader::Type::LIGHT_CASTER_DIFFUSE_SPECULAR:
-			shaders[type] = new LightCasterDiffuseSpecularShader();
+		case Shader::Type::LIGHT_DIFFUSE_SPECULAR:
+			shaders[type] = new LightDiffuseSpecularShader();
 			break;
 		case Shader::Type::DIRECTIONAL_LIGHT:
 			shaders[type] = new DirectionalLightShader();

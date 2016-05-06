@@ -21,17 +21,6 @@ namespace cross{
 
 class MultiLightShader : public Shader{
 public:
-	struct PointLightLoc{
-		GLuint position;
-	
-		GLuint ambient;
-		GLuint diffuse;
-		GLuint specular;
-	
-		GLuint constant;
-		GLuint linear;
-		GLuint quadratic;
-	};
 
 	struct DirectionalLight{
 		GLuint direction;
@@ -69,7 +58,7 @@ public:
 	GLuint uMaterialShininess;
 
 	GLuint uPointLightCount;
-	PointLightLoc uPointLights[MaxPointLights];
+	PointLight uPointLights[MaxPointLights];
 
 	GLuint uDirectionalLightCount;
 	DirectionalLight uDirectionalLights[MaxDirectionalLights];

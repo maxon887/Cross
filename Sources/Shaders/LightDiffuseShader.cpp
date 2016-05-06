@@ -14,15 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/LightCasterDiffuseSpecularShader.h"
+#include "Shaders/LightDiffuseShader.h"
 
 using namespace cross;
 
-LightCasterDiffuseSpecularShader::LightCasterDiffuseSpecularShader() :
-	LightCasterDiffuseSpecularShader(Type::LIGHT_CASTER_DIFFUSE_SPECULAR, "Engine/Shaders/light_caster_diffuse_specular.vert", "Engine/Shaders/light_caster_diffuse_specular.frag")
+LightDiffuseShader::LightDiffuseShader() :
+	LightDiffuseShader(Type::LIGHT_DIFFUSE, "Engine/Shaders/light_diffuse.vert", "Engine/Shaders/light_diffuse.frag")
 { }
 
-LightCasterDiffuseSpecularShader::LightCasterDiffuseSpecularShader(Shader::Type type, string vertex, string fragment) :
+LightDiffuseShader::LightDiffuseShader(Shader::Type type, string vertex, string fragment) :
 	LightShader(type, vertex, fragment)
 { 
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
