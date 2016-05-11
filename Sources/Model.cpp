@@ -26,13 +26,13 @@ Model::Model(Model& obj) :
 	Transformable(obj),
 	type(obj.type),
 	meshes(obj.meshes),
-	diffuse(obj.diffuse),
-	specular(obj.specular),
+	diffuse_maps(obj.diffuse_maps),
+	specular_maps(obj.specular_maps),
 	material(obj.material),
 	color(obj.color),
 	original(false)
 { }
-
+/*
 Model::Model(Mesh* mesh, const Color& color) :
 	Model(Type::SOLID, mesh, &color, nullptr, nullptr, nullptr)
 { }
@@ -84,25 +84,48 @@ Model::Model(Type type, Mesh* mesh, const Color* color, const Material* material
 	if(material != nullptr) {
 		this->material = new Material(*material);
 	}
-}
+}*/
 
-Model::Model(Type type, CRArray<Mesh*>& meshes, const Color* color, const Material* material, Texture* diffuse, Texture* specular) :
-	Transformable(),
-	type(type),
-	meshes(meshes),
-	color(nullptr),
+Model::Model(Type t) :
+	type(t),
+	meshes(),
+	diffuse_maps(),
+	specular_maps(),
 	material(nullptr),
-	diffuse(diffuse),
-	specular(specular),
+	original(true)
+{ }
+
+Model::Model(CRArray<Mesh*>& meshes, const Color& color) :
+	type(Type::SOLID),
+	meshes(meshes),
+	diffuse_maps(),
+	specular_maps(),
+	material(nullptr),
 	original(true)
 {
-	if(color != nullptr){
-		this->color = new Color(*color);
-	}
-	if(material != nullptr){
-		this->material = new Material(*material);
-	}
+	this->color = new Color(color);
 }
+
+Model::Model(CRArray<Mesh*>& meshes, const Material& material ) :
+	type(Type::MATERIAL),
+	meshes(meshes),
+	diffuse_maps(),
+	specular_maps(),
+	color(nullptr),
+	original(true)
+{
+	this->material = new Material(material);
+}
+
+Model::	Model(CRArray<Mesh*>& meshes, CRArray<Texture*>& diffuseMaps, CRArray<Texture*>& specularMaps) :
+	type(Type::TEXTURED),
+	meshes(meshes),
+	diffuse_maps(diffuseMaps),
+	specular_maps(specularMaps),
+	color(nullptr),
+	material(nullptr),
+	original(true)
+{ }
 
 
 Model::~Model(){
@@ -110,11 +133,11 @@ Model::~Model(){
 		for(Mesh* mesh : meshes){
 			delete mesh;
 		}
-		if(diffuse){
-			delete diffuse;
+		for(Texture* texture : diffuse_maps){
+			delete texture;
 		}
-		if(specular){
-			delete specular;
+		for(Texture* texture : specular_maps){
+			delete texture;
 		}
 		if(color){
 			delete color;
@@ -138,8 +161,8 @@ Color Model::GetColor(){
 }
 
 Texture* Model::GetDiffuseTexture(){
-	if(diffuse != nullptr){
-		return diffuse;
+	if(diffuse_maps.size() > 0){
+		return diffuse_maps[0];
 	}else{
 		throw CrossException("Current model does not have diffuse texture");
 	}
@@ -154,7 +177,7 @@ Material* Model::GetMaterial(){
 }
 
 bool Model::HasSpecularMap(){
-	if(specular != nullptr) {
+	if(specular_maps.size() > 0) {
 		return true;
 	}else{
 		return false;
@@ -162,7 +185,19 @@ bool Model::HasSpecularMap(){
 }
 
 Texture* Model::GetSpecularTexture(){
-	return specular;
+	if(specular_maps.size() > 0){
+		return specular_maps[0];
+	}else{
+		throw CrossException("Current model does not have specular texture");
+	}
+}
+
+void Model::AddDiffuseTexture(Texture* texture){
+	diffuse_maps.push_back(texture);
+}
+
+void Model::AddSpecularTexture(Texture* texture){
+	specular_maps.push_back(texture);
 }
 /*
 void Model::Draw(){

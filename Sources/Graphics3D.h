@@ -20,6 +20,8 @@
 #include "Events/Event.h"
 #include "Shaders/Shader.h"
 
+enum aiTextureType;
+struct aiMaterial;
 struct aiMesh;
 struct aiNode;
 struct aiScene;
@@ -84,6 +86,7 @@ public:
 private:
 	Camera* camera;
 
+	CRArray<Texture*>* LoadTextures(aiMaterial* material, aiTextureType type);
 	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene);
 	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene);
 

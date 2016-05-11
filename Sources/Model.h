@@ -17,7 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "Transformable.h"
-#include "Shaders/Shader.h"
 #include "Mesh.h"
 
 namespace cross{
@@ -29,8 +28,7 @@ public:
 		MATERIAL,
 		TEXTURED
 	};
-
-	Model(Model& obj);
+/*
 	Model(Mesh* mesh, const Color& color);
 	Model(Mesh* mesh, const Material& material);
 	Model(Mesh* mesh, Texture* diffuse);
@@ -38,7 +36,15 @@ public:
 	Model(CRArray<Mesh*>& meshes, const Color& color);
 	Model(CRArray<Mesh*>& meshes, const Material& material);
 	Model(CRArray<Mesh*>& meshes, Texture* diffuse);
-	Model(CRArray<Mesh*>& meshes, Texture* diffuse, Texture* specular);
+	Model(CRArray<Mesh*>& meshes, Texture* diffuse, Texture* specular);*/
+
+	//Solid constructor
+	Model(CRArray<Mesh*>& meshes, const Color& color);
+	//Material constructor
+	Model(CRArray<Mesh*>& meshes, const Material& material);
+	//Textured constructor
+	Model(CRArray<Mesh*>& meshes, CRArray<Texture*>& diffuseMaps,	CRArray<Texture*>& specularMaps);
+	
 	~Model();
 
 	Type GetType();
@@ -47,6 +53,8 @@ public:
 	Material* GetMaterial();
 	bool HasSpecularMap();
 	Texture* GetSpecularTexture();
+	void AddDiffuseTexture(Texture* texture);
+	void AddSpecularTexture(Texture* texture);
 
 	int GetPolyCount();
 	Model* Clone();
@@ -56,14 +64,15 @@ protected:
 
 	Type type;
 	CRArray<Mesh*> meshes;
-	Texture* diffuse;
-	Texture* specular;
+	CRArray<Texture*> diffuse_maps;
+	CRArray<Texture*> specular_maps;
 	Material* material;
 	Color* color;
 	bool original;
 
-	Model(Type type, Mesh* meshes, const Color* color, const Material* material, Texture* diffuse, Texture* specular);
-	Model(Type type, CRArray<Mesh*>& meshes, const Color* color, const Material* material, Texture* diffuse, Texture* specular);
+	//Copy constructor
+	Model(Model& obj);
+	Model(Type type);
 };
 
 }

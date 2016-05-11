@@ -91,8 +91,13 @@ Model* Graphics3D::LoadModel(const string& filename, const Material& material){
 Model* Graphics3D::LoadModel(const string& filename, Texture* texture){
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes, texture);
+	CRArray<Texture*>* diffuseTextures = new CRArray<Texture*>();
+	CRArray<Texture*>* specularTextures = new CRArray<Texture*>();
+	diffuseTextures->push_back(texture);
+	Model* model = new Model(*modelMeshes, *diffuseTextures, *specularTextures);
 	delete modelMeshes;
+	delete diffuseTextures;
+	delete specularTextures;
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
@@ -102,8 +107,14 @@ Model* Graphics3D::LoadModel(const string& filename, Texture* texture){
 Model* Graphics3D::LoadModel(const string& filename, Texture* diffuse, Texture* specular) {
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes, diffuse, specular);
+	CRArray<Texture*>* diffuseTextures = new CRArray<Texture*>();
+	CRArray<Texture*>* specularTextures = new CRArray<Texture*>();
+	diffuseTextures->push_back(diffuse);
+	specularTextures->push_back(specular);
+	Model* model = new Model(*modelMeshes, *diffuseTextures, *specularTextures);
 	delete modelMeshes;
+	delete diffuseTextures;
+	delete specularTextures;
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
@@ -671,15 +682,28 @@ void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& l
 	}
 }
 
+CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, aiTextureType type){
+	CRArray<Texture*>* textures = new CRArray<Texture*>();
+	for(unsigned int i = 0; i < material->GetTextureCount(type); ++i){
+
+	}
+	return textures;
+}
+
 Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
 	CRArray<Vertex> vertices;
 	CRArray<unsigned int> indices;
 
 	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
 		Vertex vertex;
-		vertex.pos.x = mesh->mVertices[i].x;
-		vertex.pos.y = mesh->mVertices[i].y;
-		vertex.pos.z = mesh->mVertices[i].z;
+
+		if(mesh->mVertices){
+			vertex.pos.x = mesh->mVertices[i].x;
+			vertex.pos.y = mesh->mVertices[i].y;
+			vertex.pos.z = mesh->mVertices[i].z;
+		}else{
+			throw CrossException("Model file does not vertex position data");
+		}
 
 		if(mesh->mNormals){
 			vertex.normal.x = mesh->mNormals[i].x;
@@ -687,6 +711,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
 			vertex.normal.z = mesh->mNormals[i].z;
 		}else{
 			vertex.normal = Vector3D(0.f, 0.f, 0.f);
+			//throw CrossException("Model file does not contain vertex normals data");
 		}
 
 		if(mesh->mTextureCoords[0]){
@@ -694,15 +719,24 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
 			vertex.uv.y = mesh->mTextureCoords[0][i].y;
 		}else{
 			vertex.uv = Vector2D(0.f, 0.f);
+			//throw CrossException("Model file does not contain texture coordinates data");
 		}
 
 		vertices.push_back(vertex);
 	}
+
 	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
 		for(unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
+
+	if(mesh->mMaterialIndex >= 0){
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		CRArray<Texture*>* diffuseMaps = LoadTextures(material, aiTextureType_DIFFUSE);
+		CRArray<Texture*>* specularMaps = LoadTextures(material, aiTextureType_SPECULAR);
+	}
+
 	Mesh* ret = new Mesh(vertices, indices, mesh->mNumFaces);
 	return ret;
 }

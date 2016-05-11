@@ -53,6 +53,8 @@ public:
 private:
 	GLuint VBO;
 	GLuint EBO;
+	CRArray<Texture*> diffuse_maps;
+	CRArray<Texture*> specular_maps;
 	GLuint poly_count;
 	GLuint index_count;
 };
