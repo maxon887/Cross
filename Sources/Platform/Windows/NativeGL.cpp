@@ -25,6 +25,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Screen.h"
+#include "Debugger.h"
 #include "resource.h"
 
 using namespace cross;
@@ -112,6 +113,7 @@ int NativeGL_GO(){
 		}
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
+		Debugger::Release();
 		delete gfx3D;
 		delete gfx2D;
 		delete gfxGL;

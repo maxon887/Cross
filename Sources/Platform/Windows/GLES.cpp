@@ -25,6 +25,7 @@
 #include "Graphics3D.h"
 #include "Config.h"
 #include "Audio.h"
+#include "Debugger.h"
 
 using namespace cross;
 
@@ -74,6 +75,7 @@ int GLES_GO(){
 
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
+		Debugger::Release();
 		delete gfx3D;
 		delete gfx2D;
 		delete gfxGL;

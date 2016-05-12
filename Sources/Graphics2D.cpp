@@ -242,11 +242,38 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glDisable(GL_BLEND));
 }
 
-Texture* Graphics2D::LoadTexture(string filename){
-	return LoadTexture(filename, Texture::Filter::LINEAR);
+Texture* Graphics2D::LoadTexture(const string& filename){
+	auto it = loaded_textures.find(filename);
+	if(it != loaded_textures.end()){
+		auto pair = (*it).second;
+		pair.second++;
+		return pair.first->Clone();
+	}else{
+		Texture* newTexture = LoadTexture(filename, Texture::Filter::LINEAR);
+		newTexture->SetName(filename);
+		pair<Texture*, int> pair;
+		pair.first = newTexture;
+		pair.second = 1;
+		loaded_textures[filename] = pair;
+		return newTexture->Clone();
+	}
 }
 
-Texture* Graphics2D::LoadTexture(string filename, Texture::Filter filter){
+void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
+	auto it = loaded_textures.find(filename);
+	if(it != loaded_textures.end()){
+		auto pair = (*it).second;
+		pair.second--;
+		if(pair.second <= 0){
+			loaded_textures.erase(it);
+			delete pair.first;
+		}
+	}else{
+		SAFE(glDeleteTextures(1, id));
+	}
+}
+
+Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
 	File* textureFile = launcher->LoadFile(filename);

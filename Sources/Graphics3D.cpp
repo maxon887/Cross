@@ -682,9 +682,9 @@ void Graphics3D::DrawModelMultiLight(Model* model, const CRArray<PointLight*>& l
 	}
 }
 
-CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, aiTextureType type){
+CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type){
 	CRArray<Texture*>* textures = new CRArray<Texture*>();
-	for(unsigned int i = 0; i < material->GetTextureCount(type); ++i){
+	for(unsigned int i = 0; i < material->GetTextureCount((aiTextureType)type); ++i){
 
 	}
 	return textures;

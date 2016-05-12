@@ -33,13 +33,17 @@ public:
 	Texture(GLuint id, int width, int height, Filter filter);
 	~Texture();
 
-	GLuint GetID();
-	int GetWidth();
-	int GetHeight();
+	GLuint GetID() const;
+	int GetWidth() const;
+	int GetHeight() const;
+	Texture* Clone() const;
+	void SetName(const string& name);
+	string GetName();
 private:
 	GLuint id;
 	int width;
 	int height;
+	string name;
 
 	void ApplyFilter(Filter filter);
 };

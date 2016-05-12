@@ -54,8 +54,7 @@ Game::~Game(){
 	delete current_screen;
 	delete input;
 	delete config;
-	Audio::Release();
-	Debugger::Release();
+	//Debugger::Release();
 }
 
 

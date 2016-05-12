@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Texture.h"
+#include "Graphics2D.h"
 
 using namespace cross;
 
@@ -33,19 +34,32 @@ Texture::Texture(GLuint id, int width, int height, Filter filter) :
 }
 
 Texture::~Texture(){
-	SAFE(glDeleteTextures(1, &id));
+	//SAFE(glDeleteTextures(1, &id));
+	gfx2D->ReleaseTexture(name, &id);
 }
 
-GLuint Texture::GetID(){
+GLuint Texture::GetID() const{
 	return id;
 }
 
-int Texture::GetWidth(){
+int Texture::GetWidth() const{
 	return width;
 }
 
-int Texture::GetHeight(){
+int Texture::GetHeight() const{
 	return height;
+}
+
+void Texture::SetName(const string& name){
+	this->name = name;
+}
+
+string Texture::GetName(){
+	return name;
+}
+
+Texture* Texture::Clone() const{
+	return new Texture(*this);
 }
 
 void Texture::ApplyFilter(Filter filter){

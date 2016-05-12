@@ -40,8 +40,9 @@ public:
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
 	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
-	Texture* LoadTexture(string filename);
-	Texture* LoadTexture(string filename, Texture::Filter filter);
+	Texture* LoadTexture(const string& filename);
+	Texture* LoadTexture(const string& filename, Texture::Filter filter);
+	void ReleaseTexture(const string& filename, GLuint* id);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter);
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
@@ -49,6 +50,7 @@ public:
 	Font* GetDefaultFont();
 //Internal data. You don't need call any of this methods or modify variables
 public:
+	CRDictionary<string, pair<Texture*, int> > loaded_textures;
 	Graphics2D();
 	~Graphics2D();
 	void Update();

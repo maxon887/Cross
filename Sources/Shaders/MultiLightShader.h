@@ -58,9 +58,9 @@ public:
 		GLuint outer_cut_off;
 	};
 
-	static const unsigned int MaxPointLights = 32;
-	static const unsigned int MaxDirectionalLights = 8;
-	static const unsigned int MaxSpotLights = 16;
+	static const unsigned int MaxPointLights = 16;
+	static const unsigned int MaxDirectionalLights = 4;
+	static const unsigned int MaxSpotLights = 8;
 
 	GLuint uModelMatrix;
 	GLuint uNormalMatrix;

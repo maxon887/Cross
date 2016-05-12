@@ -24,6 +24,7 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
+#include "Debugger.h"
 #include "CrossEGL.h"
 #include "../../Cross.h"
 
@@ -134,6 +135,7 @@ void* Main(void* self){
         //exit application
         game->GetCurrentScreen()->Stop();
         game->Stop();
+        Debugger::Release();
         delete gfx3D;
         delete gfx2D;
         delete gfxGL;
