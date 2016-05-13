@@ -51,29 +51,32 @@ public:
 	//use "simple" shader
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
 	//use "texture" shader
-	void DrawMeshTexture(Mesh* mesh, const Matrix& model, Texture* diffuse);
+	void DrawMeshTexture(Mesh* mesh, const Matrix& model);
 	//use "light_material" shader
 	void DrawMeshLightMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material);
 	//use "light_diffuse" shader
-	void DrawMeshLightDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Vector3D& specular, float shininess);
+	void DrawMeshLightDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Vector3D& specular, float shininess);
 	//use "light_diffuse_specular" shader
-	void DrawMeshLightDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, Texture* diffuse, Texture* specular, float shininess);
+	void DrawMeshLightDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, float shininess);
 	//use "directional_light" shader
-	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, Texture* diffuse, Texture* specular, float shininess);
+	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, float shininess);
 	//use "point_light" shader
-	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, Texture* diffuse, Texture* specualr, float shininess);
-	void DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, Texture* diffuse, Texture* specular, float shininess);
+	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, float shininess);
+	//use "spot_light" shader
+	void DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, float shininess);
+	//use "multi_light" shader
 	void DrawMeshMultiLight(	Mesh* mesh, 
 								const Matrix& model, 
 								const CRArray<PointLight*>& pointLights, 
 								const CRArray<DirectionalLight*>& directLights, 
 								const CRArray<SpotLight*>& spotLights,
-								Texture* diffuse, 
-								Texture* specular, 
 								float shininess	);
 
-	void DrawModel(Model* model);
-	void DrawModelLightCaster(Model* model, LightCaster* light);
+	void DrawModelSimple(Model* model);
+	void DrawModelTexture(Model* model);
+	void DrawModelLightMaterial(Model* model, LightCaster* light);
+	void DrawModelLightDiffuse(Model* model, LightCaster* light);
+	void DrawModelLightDiffuseSpecular(Model* model, LightCaster* light);
 	void DrawModelDirectLight(Model* model, DirectionalLight* ligth);
 	void DrawModelPointLight(Model* model, PointLight* light);
 	void DrawModelSpotLight(Model* model, SpotLight* light);
@@ -84,6 +87,9 @@ public:
 
 private:
 	Camera* camera;
+
+	void BindTextures(Shader* shader, Mesh* mesh);
+	void BindAttributes(Shader* shader, Mesh* mesh);
 
 	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType);
 	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene);

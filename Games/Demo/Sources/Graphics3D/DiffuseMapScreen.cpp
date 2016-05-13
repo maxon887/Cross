@@ -39,7 +39,7 @@ void DiffuseMapScreen::Stop(){
 
 void DiffuseMapScreen::Update(float sec){
 	light->Draw();
-	gfx3D->DrawModelLightCaster(model, light);
+	gfx3D->DrawModelLightDiffuse(model, light);
 
 	model->SetRotateY(game->GetRunTime() * 15.f);
 

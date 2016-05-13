@@ -30,6 +30,17 @@ Shader::Shader(Type type, const string& vertexFile, const string& fragmentFile) 
 
 	uMVP = glGetUniformLocation(program, "uMVP");
 	aPosition = glGetAttribLocation(program, "aPosition");
+	aTexCoords = glGetAttribLocation(program, "aTexCoords");
+	aNormal = glGetAttribLocation(program, "aNormal");
+
+	for(int i = 0; i < MaxDiffuseMaps; ++i){
+		string uniformName = string("uDiffuseMap") + to_string(i);
+		uDiffuseMaps[i] = glGetUniformLocation(program, uniformName.c_str());
+	}
+	for(int i = 0; i < MaxSpecularMaps; ++i){
+		string uniformName = string("uSpecularMap") + to_string(i);
+		uSpecularMaps[i] = glGetUniformLocation(program, uniformName.c_str());
+	}
 }
 
 Shader::~Shader(){

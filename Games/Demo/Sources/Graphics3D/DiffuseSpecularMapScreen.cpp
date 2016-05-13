@@ -40,7 +40,7 @@ void DiffuseSpecularMapScreen::Stop() {
 
 void DiffuseSpecularMapScreen::Update(float sec) {
 	light->Draw();
-	gfx3D->DrawModelLightCaster(model, light);
+	gfx3D->DrawModelLightDiffuseSpecular(model, light);
 
 	//model->SetRotateY(game->GetRunTime() * 15.f);
 	model->SetRotate(Vector3D(0.f, 1.f, 0.f), game->GetRunTime() * 15.f);

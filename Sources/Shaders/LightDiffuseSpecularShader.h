@@ -27,8 +27,6 @@ public:
 
 	GLuint uLightPosition;
 
-	GLuint aTexCoords;
-
 	LightDiffuseSpecularShader();
 protected:
 	LightDiffuseSpecularShader(Shader::Type type, string vertex, string fragment);

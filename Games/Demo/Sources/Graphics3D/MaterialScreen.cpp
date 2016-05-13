@@ -72,7 +72,7 @@ void MaterialScreen::Stop(){
 void MaterialScreen::Update(float sec){
 	light->Draw();
 
-	gfx3D->DrawModelLightCaster(models[current_model], light);
+	gfx3D->DrawModelLightMaterial(models[current_model], light);
 
 	models[current_model]->SetRotateY(game->GetRunTime() * 15.f);
 

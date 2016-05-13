@@ -222,8 +222,8 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 		gfxGL->UseShader(shader);
 		TextureShader* spriteShader = (TextureShader*)shader;
 		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));
-		SAFE(glEnableVertexAttribArray(spriteShader->aDiffuseCoords));
-		SAFE(glVertexAttribPointer(spriteShader->aDiffuseCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
+		SAFE(glEnableVertexAttribArray(spriteShader->aTexCoords));
+		SAFE(glVertexAttribPointer(spriteShader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	}
 
 	SAFE(glEnable(GL_BLEND));

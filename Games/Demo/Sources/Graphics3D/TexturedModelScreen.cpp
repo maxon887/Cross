@@ -33,7 +33,7 @@ void TexturedModelScreen::Stop() {
 }
 
 void TexturedModelScreen::Update(float sec) {
-	gfx3D->DrawModel(cube);
+	gfx3D->DrawModelTexture(cube);
 
 	CameraControlScreen::Update(sec);
 }

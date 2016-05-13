@@ -29,8 +29,6 @@ public:
 	GLuint uLightDiffuse;
 	GLuint uLightSpecular;
 
-	GLuint aNormal;
-
 	LightShader(Shader::Type type, const string& vertex, const string& fragment);
 private:
 };

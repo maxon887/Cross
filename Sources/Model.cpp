@@ -24,82 +24,20 @@ using namespace cross;
 
 Model::Model(Model& obj) : 
 	Transformable(obj),
-	type(obj.type),
 	meshes(obj.meshes),
-	diffuse_maps(obj.diffuse_maps),
-	specular_maps(obj.specular_maps),
 	material(obj.material),
 	color(obj.color),
 	original(false)
 { }
-/*
-Model::Model(Mesh* mesh, const Color& color) :
-	Model(Type::SOLID, mesh, &color, nullptr, nullptr, nullptr)
-{ }
 
-Model::Model(Mesh* mesh, const Material& material) :
-	Model(Type::MATERIAL, mesh, nullptr, &material, nullptr, nullptr)
-{ }
-
-Model::Model(Mesh* mesh, Texture* diffuse) :
-	Model(Type::TEXTURED, mesh, nullptr, nullptr, diffuse, nullptr)
-{ }
-
-Model::Model(Mesh* mesh, Texture* diffuse, Texture* specular) :
-	Model(Type::TEXTURED, mesh, nullptr, nullptr, diffuse, specular)
-{ }
-
-Model::Model(CRArray<Mesh*>& meshes, const Color& color) :
-	Model(Type::SOLID, meshes, &color, nullptr, nullptr, nullptr)
-{ }
-
-Model::Model(CRArray<Mesh*>& meshes, const Material& material) :
-	Model(Type::MATERIAL, meshes, nullptr, &material, nullptr, nullptr)
-{ }
-
-Model::Model(CRArray<Mesh*>& meshes, Texture* diffuse) :
-	Model(Type::TEXTURED, meshes, nullptr, nullptr, diffuse, nullptr)
-{ }
-
-Model::Model(CRArray<Mesh*>& meshes, Texture* diffuse, Texture* specular) :
-	Model(Type::TEXTURED, meshes, nullptr, nullptr, diffuse, specular)
-{ }
-
-Model::Model(Type type, Mesh* mesh, const Color* color, const Material* material, Texture* diffuse, Texture* specular) :
-	Transformable(),
-	type(type),
+Model::Model() :
 	meshes(),
-	color(nullptr),
-	material(nullptr),
-	diffuse(diffuse),
-	specular(specular),
-	original(true)
-{
-	if(mesh != nullptr){
-		meshes.push_back(mesh);
-	}
-	if(color != nullptr) {
-		this->color = new Color(*color);
-	}
-	if(material != nullptr) {
-		this->material = new Material(*material);
-	}
-}*/
-
-Model::Model(Type t) :
-	type(t),
-	meshes(),
-	diffuse_maps(),
-	specular_maps(),
 	material(nullptr),
 	original(true)
 { }
 
 Model::Model(CRArray<Mesh*>& meshes, const Color& color) :
-	type(Type::SOLID),
 	meshes(meshes),
-	diffuse_maps(),
-	specular_maps(),
 	material(nullptr),
 	original(true)
 {
@@ -107,21 +45,15 @@ Model::Model(CRArray<Mesh*>& meshes, const Color& color) :
 }
 
 Model::Model(CRArray<Mesh*>& meshes, const Material& material ) :
-	type(Type::MATERIAL),
 	meshes(meshes),
-	diffuse_maps(),
-	specular_maps(),
 	color(nullptr),
 	original(true)
 {
 	this->material = new Material(material);
 }
 
-Model::	Model(CRArray<Mesh*>& meshes, CRArray<Texture*>& diffuseMaps, CRArray<Texture*>& specularMaps) :
-	type(Type::TEXTURED),
+Model::	Model(CRArray<Mesh*>& meshes) :
 	meshes(meshes),
-	diffuse_maps(diffuseMaps),
-	specular_maps(specularMaps),
 	color(nullptr),
 	material(nullptr),
 	original(true)
@@ -133,12 +65,6 @@ Model::~Model(){
 		for(Mesh* mesh : meshes){
 			delete mesh;
 		}
-		for(Texture* texture : diffuse_maps){
-			delete texture;
-		}
-		for(Texture* texture : specular_maps){
-			delete texture;
-		}
 		if(color){
 			delete color;
 		}
@@ -146,10 +72,6 @@ Model::~Model(){
 			delete material;
 		}
 	}
-}
-
-Model::Type Model::GetType(){
-	return type;
 }
 
 Color Model::GetColor(){
@@ -160,13 +82,6 @@ Color Model::GetColor(){
 	}
 }
 
-Texture* Model::GetDiffuseTexture(){
-	if(diffuse_maps.size() > 0){
-		return diffuse_maps[0];
-	}else{
-		throw CrossException("Current model does not have diffuse texture");
-	}
-}
 
 Material* Model::GetMaterial(){
 	if(material != nullptr){
@@ -176,28 +91,16 @@ Material* Model::GetMaterial(){
 	}
 }
 
-bool Model::HasSpecularMap(){
-	if(specular_maps.size() > 0) {
-		return true;
-	}else{
-		return false;
+void Model::SetDiffuseTexture(Texture* texture){
+	for(Mesh* mesh : meshes){
+		mesh->SetDiffuseTexture(texture);
 	}
 }
 
-Texture* Model::GetSpecularTexture(){
-	if(specular_maps.size() > 0){
-		return specular_maps[0];
-	}else{
-		throw CrossException("Current model does not have specular texture");
+void Model::SetSpecularTexture(Texture* texture){
+	for(Mesh* mesh : meshes){
+		mesh->SetSpecularTexture(texture);
 	}
-}
-
-void Model::AddDiffuseTexture(Texture* texture){
-	diffuse_maps.push_back(texture);
-}
-
-void Model::AddSpecularTexture(Texture* texture){
-	specular_maps.push_back(texture);
 }
 /*
 void Model::Draw(){

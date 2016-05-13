@@ -20,8 +20,6 @@ using namespace cross;
 
 TextureShader::TextureShader() :
 	Shader(Type::TEXTURE, "Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag")
-{ 
-	uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
-	aDiffuseCoords = glGetAttribLocation(program, "aDiffuseCoords");
+{
 	uColor = glGetUniformLocation(program, "uColor");
 }

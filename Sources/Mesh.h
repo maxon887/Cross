@@ -41,14 +41,19 @@ public:
 };
 
 class Mesh{
+friend Graphics3D;
 public:
 
-	Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount);
+	Mesh(	CRArray<Vertex> &vertices,
+			CRArray<unsigned int> &indices,
+			CRArray<Texture*>& diffuseMaps,
+			CRArray<Texture*>& specularMaps,
+			GLuint polyCount );
+	~Mesh();
 
 	GLuint GetPolyCount() const;
-	GLuint GetIndexCount() const;
-	GLuint GetVertexBufferObject() const;
-	GLuint GetElementBufferObjet() const;
+	void SetDiffuseTexture(Texture* texture);
+	void SetSpecularTexture(Texture* specular);
 
 private:
 	GLuint VBO;

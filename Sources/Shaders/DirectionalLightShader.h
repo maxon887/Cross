@@ -28,8 +28,6 @@ public:
 
 	GLuint uLightDirection;
 
-	GLuint aTexCoords;
-
 	DirectionalLightShader();
 };
 

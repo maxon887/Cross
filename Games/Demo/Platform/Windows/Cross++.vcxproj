@@ -73,7 +73,6 @@
     <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Exception.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Experimental\Array.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Font.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />

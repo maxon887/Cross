@@ -8,7 +8,7 @@ struct Light{
 	vec3 specular;
 };
 
-uniform sampler2D uMaterialDiffuse;
+uniform sampler2D uDiffuseMap0;
 uniform vec3 uMaterialSpecular;
 uniform float uMaterialShininess;
 
@@ -25,12 +25,12 @@ const float specularStrength = 0.5;
 
 void main() {
 	//ambient
-	vec3 ambient = uLight.ambient * vec3(texture2D(uMaterialDiffuse, vTexCoords));
+	vec3 ambient = uLight.ambient * vec3(texture2D(uDiffuseMap0, vTexCoords));
 	//diffuse
 	vec3 normal = normalize(vNormal);
 	vec3 lightDirection = normalize(uLight.position - vFragPosition);
 	float diffEffect = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = uLight.diffuse * diffEffect * vec3(texture2D(uMaterialDiffuse, vTexCoords));
+	vec3 diffuse = uLight.diffuse * diffEffect * vec3(texture2D(uDiffuseMap0, vTexCoords));
 	//specular
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);

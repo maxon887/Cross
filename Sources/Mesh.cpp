@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
+#include "Texture.h"
 
 using namespace cross;
 
@@ -28,7 +29,9 @@ Material::Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float 
 	this->shininess = shininess;
 }
 
-Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint polyCount)
+Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, CRArray<Texture*>& diffuseMaps, CRArray<Texture*>& specularMaps, GLuint polyCount) :
+	diffuse_maps(diffuseMaps),
+	specular_maps(specularMaps)
 {
 	poly_count = polyCount;
 	glGenBuffers(1, &VBO);
@@ -44,18 +47,25 @@ Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, GLuint pol
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
+Mesh::~Mesh(){
+	for(Texture* texture : diffuse_maps){
+		delete texture;
+	}
+	for(Texture* texture : specular_maps){
+		delete texture;
+	}
+}
+
 GLuint Mesh::GetPolyCount() const{
 	return poly_count;
 }
 
-GLuint Mesh::GetIndexCount() const{
-	return index_count;
+void Mesh::SetDiffuseTexture(Texture* texture){
+	diffuse_maps.clear();
+	diffuse_maps.push_back(texture);
 }
 
-GLuint Mesh::GetVertexBufferObject() const{
-	return VBO;
-}
-
-GLuint Mesh::GetElementBufferObjet() const{
-	return EBO;
+void Mesh::SetSpecularTexture(Texture* texture){
+	specular_maps.clear();
+	specular_maps.push_back(texture);
 }

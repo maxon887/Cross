@@ -31,7 +31,7 @@ void SolidModelScreen::Stop(){
 }
 
 void SolidModelScreen::Update(float sec){
-	gfx3D->DrawModel(cube);
+	gfx3D->DrawModelSimple(cube);
 
 	CameraControlScreen::Update(sec);
 }

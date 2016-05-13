@@ -40,8 +40,8 @@ struct SpotLight{
 	float outer_cut_off;
 };
 
-uniform sampler2D uMaterialDiffuse;
-uniform sampler2D uMaterialSpecular;
+uniform sampler2D uDiffuseMap0;
+uniform sampler2D uSpecularMap0;
 uniform float uMaterialShininess;
 
 uniform int uPointLightCount;
@@ -120,8 +120,8 @@ vec3 CalcSpotLight(SpotLight light, vec3 diffuseColor, vec3 specularColor){
 void main(){
 	vec3 result = vec3(0.0);
 	
-	vec3 diffuseColor = vec3(texture2D(uMaterialDiffuse, vTexCoords));
-	vec3 specularColor = vec3(texture2D(uMaterialSpecular, vTexCoords));
+	vec3 diffuseColor = vec3(texture2D(uDiffuseMap0, vTexCoords));
+	vec3 specularColor = vec3(texture2D(uSpecularMap0, vTexCoords));
 	
 	for(int i = 0; i < uPointLightCount; ++i){
 		result += CalcPointLight(uPointLights[i], diffuseColor, specularColor);

@@ -22,57 +22,34 @@
 namespace cross{
 
 class Model : public Transformable{
+friend Graphics3D;
 public:
-	enum Type{
-		SOLID,
-		MATERIAL,
-		TEXTURED
-	};
-/*
-	Model(Mesh* mesh, const Color& color);
-	Model(Mesh* mesh, const Material& material);
-	Model(Mesh* mesh, Texture* diffuse);
-	Model(Mesh* mesh, Texture* diffuse, Texture* specular);
-	Model(CRArray<Mesh*>& meshes, const Color& color);
-	Model(CRArray<Mesh*>& meshes, const Material& material);
-	Model(CRArray<Mesh*>& meshes, Texture* diffuse);
-	Model(CRArray<Mesh*>& meshes, Texture* diffuse, Texture* specular);*/
-
 	//Solid constructor
 	Model(CRArray<Mesh*>& meshes, const Color& color);
 	//Material constructor
 	Model(CRArray<Mesh*>& meshes, const Material& material);
 	//Textured constructor
-	Model(CRArray<Mesh*>& meshes, CRArray<Texture*>& diffuseMaps,	CRArray<Texture*>& specularMaps);
+	Model(CRArray<Mesh*>& meshes);
 	
 	~Model();
 
-	Type GetType();
 	Color GetColor();
-	Texture* GetDiffuseTexture();
 	Material* GetMaterial();
-	bool HasSpecularMap();
-	Texture* GetSpecularTexture();
-	void AddDiffuseTexture(Texture* texture);
-	void AddSpecularTexture(Texture* texture);
+	void SetDiffuseTexture(Texture* texture);
+	void SetSpecularTexture(Texture* texture);
 
 	int GetPolyCount();
 	Model* Clone();
 
 protected:
-	friend Graphics3D;
-
-	Type type;
 	CRArray<Mesh*> meshes;
-	CRArray<Texture*> diffuse_maps;
-	CRArray<Texture*> specular_maps;
 	Material* material;
 	Color* color;
 	bool original;
 
 	//Copy constructor
 	Model(Model& obj);
-	Model(Type type);
+	Model();
 };
 
 }

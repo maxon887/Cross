@@ -22,8 +22,6 @@ namespace cross{
 
 class TextureShader : public Shader{
 public:
-	GLuint uDiffuseTexture;
-	GLuint aDiffuseCoords;
 	GLuint uColor;
 
 	TextureShader();

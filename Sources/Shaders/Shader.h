@@ -36,9 +36,18 @@ public:
 		COUNT
 	};
 
+	static const int MaxDiffuseMaps = 8;
+	static const int MaxSpecularMaps = 8;
+
 	GLuint program;
 	GLint uMVP;
+	//shader attributes
 	GLint aPosition;
+	GLint aTexCoords;
+	GLint aNormal;
+	GLint uDiffuseMaps[MaxDiffuseMaps];
+	GLint uSpecularMaps[MaxSpecularMaps];
+
 	Type type;
 
 	Shader(Type type, const string& vertexFile, const string& fragmentFile);

@@ -211,9 +211,6 @@
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Experimental\Array.cpp">
-      <Filter>Cross\Experimental</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>

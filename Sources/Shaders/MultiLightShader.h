@@ -80,9 +80,6 @@ public:
 
 	GLuint uCameraPosition;
 
-	GLuint aTexCoords;
-	GLuint aNormal;
-
 	MultiLightShader();
 };
 
