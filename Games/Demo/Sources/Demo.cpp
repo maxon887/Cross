@@ -32,11 +32,11 @@ void Demo::Start(){
 	demo = (Demo*)game;
 
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::FPS);
-#ifndef ANDROID
+//#ifndef ANDROID
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::UPDATE_TIME);
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::RUN_TIME);
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::RENDER_TIME);
-#endif 
+//#endif 
 
 	camera = new Camera2D();
 	camera->SetViewWidth(1600.f);

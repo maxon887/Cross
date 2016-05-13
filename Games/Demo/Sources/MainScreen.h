@@ -32,6 +32,8 @@ private:
 	Menu* main_menu;
 	Menu* graphics2D_menu;
 	Menu* graphics3D_menu;
+	Menu* graphics3D_simple;
+	Menu* graphics3D_light;
 	Sprite* button_sprite;
 	Screen* next_screen;
 
@@ -42,14 +44,19 @@ private:
 	//connections
 	void KeyReleasedHandle(Key key);
 	void WindowResizedHandle(int width, int height);
-
+	//main menu
 	void OnGraphics2DClick();
 	void OnGraphics3DClick();
+	void OnAudioClick();
+	//graphics 2d menu
 	void OnPrimitivesClick();
 	void OnSpritesClick();
-	void OnAnimationClick();
-	void On2DCameraClick();
 	void OnTextClick();
+	void On2DCameraClick();
+	void OnAnimationClick();
+	//graphics 3d menu
+	void OnSimpleClick();
+	void OnLightClick();
 
 	void OnTriangleClick();
 	void OnSolidModelClick();
@@ -61,6 +68,4 @@ private:
 	void OnPointLightClick();
 	void OnSpotLightClick();
 	void OnMultiLightClick();
-
-	void OnAudioClick();
 };
