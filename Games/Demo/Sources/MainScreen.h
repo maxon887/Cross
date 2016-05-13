@@ -57,10 +57,12 @@ private:
 	//graphics 3d menu
 	void OnSimpleClick();
 	void OnLightClick();
-
+	//graphics 3d simple
 	void OnTriangleClick();
 	void OnSolidModelClick();
 	void OnTexturedModelClick();
+	void OnNanosuitClick();
+	//graphics 3d light
 	void OnMaterialClick();
 	void OnDiffuseMapClick();
 	void OnDiffuseSpecularMapClick();

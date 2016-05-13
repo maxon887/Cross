@@ -43,6 +43,7 @@ public:
 	Mesh* LoadMesh(const string& filename);
 	CRArray<Mesh*>* LoadMeshes(const string& filename);
 
+	Model* LoadModel(const string& filename);
 	Model* LoadModel(const string& filename, const Color& color);
 	Model* LoadModel(const string& filename, const Material& material);
 	Model* LoadModel(const string& filename, Texture* diffuse);

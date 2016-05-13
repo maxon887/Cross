@@ -30,6 +30,7 @@
 #include "Graphics3D/PointLightScreen.h"
 #include "Graphics3D/SpotLightScreen.h"
 #include "Graphics3D/MultiLightScreen.h"
+#include "Graphics3D/NanosuitScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -94,15 +95,19 @@ void MainScreen::Start(){
 	Button* triangleBtn				= new Button("Triangle");
 	Button* solidModelBtn			= new Button("Solid Model");
 	Button* texturedModelBtn		= new Button("Textured Model");
+	Button* nanosuitBtn				= new Button("Nanosuit");
 	triangleBtn->SetImages(button_sprite->Clone());
 	solidModelBtn->SetImages(button_sprite->Clone());
 	texturedModelBtn->SetImages(button_sprite->Clone());
+	nanosuitBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
 	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
+	nanosuitBtn->Clicked += MakeDelegate(this, &MainScreen::OnNanosuitClick);
 	graphics3D_simple->AddButton(triangleBtn);
 	graphics3D_simple->AddButton(solidModelBtn);
 	graphics3D_simple->AddButton(texturedModelBtn);
+	graphics3D_simple->AddButton(nanosuitBtn);
 
 	graphics3D_light = new Menu(false);
 	Button* materialBtn 			= new Button("Material");
@@ -152,6 +157,8 @@ void MainScreen::Stop(){
 	delete main_menu;
 	delete graphics2D_menu;
 	delete graphics3D_menu;
+	delete graphics3D_simple;
+	delete graphics3D_light;
 	input->KeyPressed -= key_released_delegate;
 	game->WindowResized -= window_resized_delegate;
 }
@@ -248,6 +255,10 @@ void MainScreen::OnSolidModelClick(){
 
 void MainScreen::OnTexturedModelClick(){
 	next_screen = new TexturedModelScreen();
+}
+
+void MainScreen::OnNanosuitClick(){
+	next_screen = new NanosuitScreen();
 }
 
 void MainScreen::OnAudioClick() {

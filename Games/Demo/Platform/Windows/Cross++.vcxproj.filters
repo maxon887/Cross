@@ -283,6 +283,9 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\NanosuitScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -537,6 +540,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\NanosuitScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

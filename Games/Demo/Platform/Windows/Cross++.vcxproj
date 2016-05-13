@@ -142,6 +142,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MaterialScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\NanosuitScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MaterialScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\NanosuitScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />

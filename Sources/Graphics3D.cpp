@@ -66,6 +66,17 @@ Camera* Graphics3D::GetCamera(){
 	return camera;
 }
 
+Model* Graphics3D::LoadModel(const string& filename){
+	Debugger::Instance()->StartCheckTime();
+	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
+	Model* model = new Model(*modelMeshes);
+	delete modelMeshes;
+	string msg = "" + filename + " loaded in ";
+	Debugger::Instance()->StopCheckTime(msg);
+	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
+	return model;
+}
+
 Model* Graphics3D::LoadModel(const string& filename, const Color& color){
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
@@ -129,6 +140,7 @@ CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
+	//const aiScene* scene = importer.ReadFile("d:/GameDev/Cross++/Games/Demo/Assets/gfx3D/nanosuit/nanosuit.obj", aiProcess_Triangulate | aiProcess_FlipUVs);
 	delete file;
 	if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
@@ -591,7 +603,9 @@ CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int t
 	for(unsigned int i = 0; i < material->GetTextureCount((aiTextureType)type); ++i){
 		aiString str;
 		material->GetTexture((aiTextureType)type, i, &str);
-		Texture* texture = gfx2D->LoadTexture(str.C_Str());
+
+		string textureName = "gfx3D/nanosuit/" + string(str.C_Str());
+		Texture* texture = gfx2D->LoadTexture(textureName);
 		textures->push_back(texture);
 	}
 	return textures;
@@ -640,6 +654,9 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
 
 	if(mesh->mMaterialIndex >= 0){
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		aiString matName;
+		material->Get(AI_MATKEY_NAME, matName);
+		launcher->LogIt(matName.C_Str());
 		diffuseMaps = LoadTextures(material, aiTextureType_DIFFUSE);
 		specularMaps = LoadTextures(material, aiTextureType_SPECULAR);
 
