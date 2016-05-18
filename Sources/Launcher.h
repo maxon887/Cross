@@ -29,18 +29,19 @@ public:
 	/* Returns physical screen height in pixels */
 	virtual int GetTargetHeight() = 0;
 	/* Cross platform way to log out message */
-	virtual void LogIt(string msg) = 0;
+	virtual void LogIt(const string& msg) = 0;
 	virtual void LogIt(const char* formatStr, ...) = 0;
 	/* return path to the application assets folder */
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
 	/* Loads specific file from game assets. */
-	virtual File* LoadFile(string filename) = 0;
+	virtual File* LoadFile(const string& filename) = 0;
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
 	/* Return physical screen aspec ration */
 	float GetAspectRatio();
+	string PathFromFile(const string& filePath);
 
 	virtual Commercial* GetCommercial() { return NULL; };
 //Internal data. You don't need call any of this methods or modify variable

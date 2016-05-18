@@ -24,6 +24,8 @@ void NanosuitScreen::Start(){
 	orbit_distance = 60.f;
 
 	nanosuit = gfx3D->LoadModel("gfx3D/nanosuit/nanosuit.fbx");
+	nanosuit->SetPosition(Vector3D(0.f, -7.f, 0.f));
+	//nanosuit = gfx3D->LoadModel("gfx3D/Cube.fbx");
 }
 
 void NanosuitScreen::Stop(){

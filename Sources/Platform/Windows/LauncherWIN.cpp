@@ -78,7 +78,7 @@ string LauncherWIN::DataPath(){
 	return DATA_PATH;
 }
 
-File* LauncherWIN::LoadFile(string filename){
+File* LauncherWIN::LoadFile(const string& filename){
 	File* file = new File();
 	file->name = filename;
 	string filePath = AssetsPath() + "//" + filename;
@@ -96,9 +96,9 @@ File* LauncherWIN::LoadFile(string filename){
 	}
 }
 
-void LauncherWIN::LogIt(string msg){
-	msg += "\n";
+void LauncherWIN::LogIt(const string& msg){
 	OutputDebugString(msg.c_str());
+	OutputDebugString("\n");
 }
 
 void LauncherWIN::LogIt(const char* formatStr, ...){
@@ -115,7 +115,7 @@ void LauncherWIN::Sleep(float milis){
 	IntSleep((int)(milis + .5));
 }
 
-void LauncherWIN::ShowMessage(string msg){
+void LauncherWIN::ShowMessage(const string& msg){
 	MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
 }
 

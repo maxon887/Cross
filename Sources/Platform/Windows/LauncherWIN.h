@@ -30,11 +30,11 @@ public:
 	int GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
-	File* LoadFile(string filename);
-	void LogIt(string msg);
+	File* LoadFile(const string& filename);
+	void LogIt(const string& msg);
 	void LogIt(const char* formatString, ...);
 	void Sleep(float milis);
-	void ShowMessage(string msg);
+	void ShowMessage(const string& msg);
 	void ResizeWindow(int posX, int posY, int width, int height);
 public:
 	void SetWindowPosition(int x, int y);

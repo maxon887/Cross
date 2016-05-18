@@ -51,7 +51,7 @@ string LauncherAndroid::DataPath(){
 	return data_path;
 }
 
-void LauncherAndroid::LogIt(string str){
+void LauncherAndroid::LogIt(const string& str){
 	LOGI("%s", str.c_str());
 }
 
@@ -64,7 +64,7 @@ void LauncherAndroid::LogIt(const char* formatStr, ...){
     va_end(params);
 }
 
-File* LauncherAndroid::LoadFile(string filename) {
+File* LauncherAndroid::LoadFile(const string& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
     if(!asset){
         throw CrossException("Can't load asset %s", filename.c_str());

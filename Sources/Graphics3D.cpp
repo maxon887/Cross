@@ -140,13 +140,13 @@ CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
-	//const aiScene* scene = importer.ReadFile("d:/GameDev/Cross++/Games/Demo/Assets/gfx3D/nanosuit/nanosuit.obj", aiProcess_Triangulate | aiProcess_FlipUVs);
 	delete file;
 	if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
 	CRArray<Mesh*>* meshes = new CRArray<Mesh*>();
-	ProcessNode(meshes, scene->mRootNode, scene);
+	string modelFilePath = launcher->PathFromFile(filename);
+	ProcessNode(meshes, scene->mRootNode, scene, modelFilePath);
 	if(meshes->size() == 0){
 		throw CrossException("Cannot load meshes from file");
 	}
@@ -598,20 +598,20 @@ void Graphics3D::BindAttributes(Shader* shader, Mesh* mesh){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 
-CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type){
+CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type, const string& modelFilePath){
 	CRArray<Texture*>* textures = new CRArray<Texture*>();
 	for(unsigned int i = 0; i < material->GetTextureCount((aiTextureType)type); ++i){
 		aiString str;
 		material->GetTexture((aiTextureType)type, i, &str);
 
-		string textureName = "gfx3D/nanosuit/" + string(str.C_Str());
+		string textureName = modelFilePath + "/"+ string(str.C_Str());
 		Texture* texture = gfx2D->LoadTexture(textureName);
 		textures->push_back(texture);
 	}
 	return textures;
 }
 
-Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
+Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& modelFilePath){
 	CRArray<Vertex> vertices;
 	CRArray<unsigned int> indices;
 
@@ -657,8 +657,8 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
 		aiString matName;
 		material->Get(AI_MATKEY_NAME, matName);
 		launcher->LogIt(matName.C_Str());
-		diffuseMaps = LoadTextures(material, aiTextureType_DIFFUSE);
-		specularMaps = LoadTextures(material, aiTextureType_SPECULAR);
+		diffuseMaps = LoadTextures(material, aiTextureType_DIFFUSE, modelFilePath);
+		specularMaps = LoadTextures(material, aiTextureType_SPECULAR, modelFilePath);
 
 	}
 
@@ -668,13 +668,13 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene){
 	return ret;
 }
 
-void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene){
+void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene, const string& modelFilePath){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes->push_back(ProcessMesh(mesh, scene));
+		meshes->push_back(ProcessMesh(mesh, scene, modelFilePath));
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
-		ProcessNode(meshes, node->mChildren[i], scene);
+		ProcessNode(meshes, node->mChildren[i], scene, modelFilePath);
 	}
 }
 

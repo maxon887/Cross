@@ -37,9 +37,9 @@ public:
 	int GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
-	void LogIt(string str);
+	void LogIt(const string& str);
     void LogIt(const char* formatStr, ...);
-	File* LoadFile(string filename);
+	File* LoadFile(const string& filename);
 	void PromtToExit();
 	void MessageBox(string message);
 	void Exit();

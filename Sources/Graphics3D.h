@@ -18,7 +18,6 @@
 #include "Cross.h"
 #include "GraphicsGL.h"
 #include "Events/Event.h"
-#include "Shaders/Shader.h"
 
 struct aiMaterial;
 struct aiMesh;
@@ -92,9 +91,9 @@ private:
 	void BindTextures(Shader* shader, Mesh* mesh);
 	void BindAttributes(Shader* shader, Mesh* mesh);
 
-	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType);
-	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene);
-	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene);
+	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
+	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& modelFilePath);
+	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene, const string& modelFilePath);
 
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);
