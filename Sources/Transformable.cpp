@@ -140,6 +140,11 @@ Matrix& Transformable::GetModelMatrix(){
 	return model;
 }
 
+void Transformable::SetModelMatrix(const Matrix& mod){
+	this->model = mod;
+	recalc_model = false;
+}
+
 Matrix Transformable::GetNormalMatrix(){
 	return rotation * scale;
 }

@@ -41,6 +41,7 @@ public:
 	Vector3D GetDirection() const;
 
 	Matrix& GetModelMatrix();
+	void SetModelMatrix(const Matrix& model);
 	//do not tested!
 	Matrix GetNormalMatrix();
 protected:

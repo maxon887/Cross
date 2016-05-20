@@ -497,50 +497,50 @@ void Graphics3D::DrawMeshMultiLight(Mesh* mesh,
 void Graphics3D::DrawModelSimple(Model* model){
 	for(Mesh* mesh : model->meshes){
 		Color color = model->GetColor();
-		DrawMeshSimple(mesh, model->GetModelMatrix(), color);
+		DrawMeshSimple(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), color);
 	}
 }
 
 void Graphics3D::DrawModelTexture(Model* model){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshTexture(mesh, mesh->GetModelMatrix());
+		DrawMeshTexture(mesh, model->GetModelMatrix() * mesh->GetModelMatrix());
 	}
 }
 
 void Graphics3D::DrawModelLightMaterial(Model* model, LightCaster* light){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshLightMaterial(mesh, model->GetModelMatrix(), light, model->GetMaterial());
+		DrawMeshLightMaterial(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, model->GetMaterial());
 	}
 }
 
 void Graphics3D::DrawModelLightDiffuse(Model* model, LightCaster* light){
 	Vector3D specularStength(0.5f);
 	for(Mesh* mesh : model->meshes){
-		DrawMeshLightDiffuse(mesh, model->GetModelMatrix(), light, specularStength, 0.5f);
+		DrawMeshLightDiffuse(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, specularStength, 0.5f);
 	}
 }
 
 void Graphics3D::DrawModelLightDiffuseSpecular(Model* model, LightCaster* light){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshLightDiffuseSpecular(mesh, model->GetModelMatrix(), light, 0.5f);
+		DrawMeshLightDiffuseSpecular(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
 	}
 }
 
 void Graphics3D::DrawModelDirectLight(Model* model, DirectionalLight* light){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshDirectionalLight(mesh, model->GetModelMatrix(), light, 0.5f);
+		DrawMeshDirectionalLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
 	}
 }
 
 void Graphics3D::DrawModelPointLight(Model* model, PointLight* light){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshPointLight(mesh, model->GetModelMatrix(), light, 0.5f);
+		DrawMeshPointLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
 	}
 }
 
 void Graphics3D::DrawModelSpotLight(Model* model, SpotLight* light){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshSpotLight(mesh, model->GetModelMatrix(), light, 0.5f);
+		DrawMeshSpotLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
 	}
 }
 
@@ -548,7 +548,7 @@ void Graphics3D::DrawModelMultiLight(Model* model,	const CRArray<PointLight*>& p
 													const CRArray<DirectionalLight*>& directLights,
 													const CRArray<SpotLight*>& spotLights){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshMultiLight(mesh, model->GetModelMatrix(), pointLights, directLights, spotLights, 0.5f);
+		DrawMeshMultiLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), pointLights, directLights, spotLights, 0.5f);
 	}
 }
 
@@ -670,8 +670,12 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& 
 
 void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene, const string& modelFilePath){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
-		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes->push_back(ProcessMesh(mesh, scene, modelFilePath));
+		aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
+		Mesh* crMesh = ProcessMesh(aiMesh, scene, modelFilePath);
+		Matrix model = Matrix::CreateZero();
+		memcpy(model.m, &node->mTransformation.a1, sizeof(float) * 16);
+		crMesh->SetModelMatrix(model);
+		meshes->push_back(crMesh);
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
 		ProcessNode(meshes, node->mChildren[i], scene, modelFilePath);

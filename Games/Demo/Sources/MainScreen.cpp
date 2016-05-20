@@ -30,7 +30,7 @@
 #include "Graphics3D/PointLightScreen.h"
 #include "Graphics3D/SpotLightScreen.h"
 #include "Graphics3D/MultiLightScreen.h"
-#include "Graphics3D/NanosuitScreen.h"
+#include "Graphics3D/ComplexModelScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -95,7 +95,7 @@ void MainScreen::Start(){
 	Button* triangleBtn				= new Button("Triangle");
 	Button* solidModelBtn			= new Button("Solid Model");
 	Button* texturedModelBtn		= new Button("Textured Model");
-	Button* nanosuitBtn				= new Button("Nanosuit");
+	Button* nanosuitBtn				= new Button("Complex Model");
 	triangleBtn->SetImages(button_sprite->Clone());
 	solidModelBtn->SetImages(button_sprite->Clone());
 	texturedModelBtn->SetImages(button_sprite->Clone());
@@ -258,7 +258,7 @@ void MainScreen::OnTexturedModelClick(){
 }
 
 void MainScreen::OnNanosuitClick(){
-	next_screen = new NanosuitScreen();
+	next_screen = new ComplexModelScreen();
 }
 
 void MainScreen::OnAudioClick() {
