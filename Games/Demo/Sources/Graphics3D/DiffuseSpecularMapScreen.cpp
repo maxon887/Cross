@@ -21,7 +21,7 @@
 #include "Game.h"
 
 void DiffuseSpecularMapScreen::Start() {
-	CameraControlScreen::Start();
+	CCScreen::Start();
 
 	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
 	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
@@ -33,7 +33,7 @@ void DiffuseSpecularMapScreen::Start() {
 }
 
 void DiffuseSpecularMapScreen::Stop() {
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	delete model;
 	delete light;
 }
@@ -45,5 +45,5 @@ void DiffuseSpecularMapScreen::Update(float sec) {
 	//model->SetRotateY(game->GetRunTime() * 15.f);
 	model->SetRotate(Vector3D(0.f, 1.f, 0.f), game->GetRunTime() * 15.f);
 
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 }

@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "CameraControlScreen.h"
+#include "CCScreen.h"
 #include "Launcher.h"
 #include "Input.h"
 #include "Graphics2D.h"
@@ -25,7 +25,7 @@
 
 #include <math.h>
 
-CameraControlScreen::CameraControlScreen() :
+CCScreen::CCScreen() :
 	liner_speed(10.f),
 	angular_speed(45.f),
 	orbit_speed(1.f),
@@ -36,7 +36,7 @@ CameraControlScreen::CameraControlScreen() :
 	orbit_distance(1.f)
 { }
 
-void CameraControlScreen::Start() {
+void CCScreen::Start() {
 	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -20.f));
 	gfx3D->GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
@@ -44,15 +44,15 @@ void CameraControlScreen::Start() {
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
 
-	action_down_delegate = MakeDelegate(this, &CameraControlScreen::ActionDownHandle);
-	action_move_delegate = MakeDelegate(this, &CameraControlScreen::ActionMoveHandle);
-	action_up_delegate = MakeDelegate(this, &CameraControlScreen::ActionUpHandle);
+	action_down_delegate = MakeDelegate(this, &CCScreen::ActionDownHandle);
+	action_move_delegate = MakeDelegate(this, &CCScreen::ActionMoveHandle);
+	action_up_delegate = MakeDelegate(this, &CCScreen::ActionUpHandle);
 	input->ActionDown += action_down_delegate;
 	input->ActionMove += action_move_delegate;
 	input->ActionUp += action_up_delegate;
 
-	mouse_wheel_up = MakeDelegate(this, &CameraControlScreen::MouseWheelUp);
-	mouse_wheel_down = MakeDelegate(this, &CameraControlScreen::MouseWheelDown);
+	mouse_wheel_up = MakeDelegate(this, &CCScreen::MouseWheelUp);
+	mouse_wheel_down = MakeDelegate(this, &CCScreen::MouseWheelDown);
 	input->MouseWheelUp += mouse_wheel_up;
 	input->MouseWheelDown += mouse_wheel_down;
 
@@ -94,13 +94,13 @@ void CameraControlScreen::Start() {
 	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
 	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
 	eye_btn = new ToggleButton(eye, eyePressed);
-	eye_btn->Clicked += MakeDelegate(this, &CameraControlScreen::OnEyeClick);
+	eye_btn->Clicked += MakeDelegate(this, &CCScreen::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
 	gui.push_back(eye_btn);
 }
 
-void CameraControlScreen::Stop(){
+void CCScreen::Stop(){
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;
@@ -116,7 +116,7 @@ void CameraControlScreen::Stop(){
 	gui.clear();
 }
 
-void CameraControlScreen::Update(float sec){
+void CCScreen::Update(float sec){
 	bool eulerAngles = false;
 	if(input->IsPressed(Key::LEFT)) {
 		yaw -= angular_speed * sec;
@@ -202,7 +202,7 @@ void CameraControlScreen::Update(float sec){
 	}
 }
 
-bool CameraControlScreen::OnGuiArea(Vector2D pos){
+bool CCScreen::OnGuiArea(Vector2D pos){
 	for(Button* btn : gui){
 		if(btn->OnLocation(pos)){
 			return true;
@@ -211,7 +211,7 @@ bool CameraControlScreen::OnGuiArea(Vector2D pos){
 	return false;
 }
 
-void CameraControlScreen::RecalcAngles(){
+void CCScreen::RecalcAngles(){
 	if(pitch > 89.0f)
 		pitch = 89.0f;
 	if(pitch < -89.0f)
@@ -230,7 +230,7 @@ void CameraControlScreen::RecalcAngles(){
 	gfx3D->GetCamera()->SetDirection(direction);
 }
 
-void CameraControlScreen::OnEyeClick(){
+void CCScreen::OnEyeClick(){
 	//orbit
 	orbit_distance = gfx3D->GetCamera()->GetPosition().Length();
 	//free
@@ -243,14 +243,14 @@ void CameraControlScreen::OnEyeClick(){
 	RecalcAngles();
 }
 
-void CameraControlScreen::ActionDownHandle(Input::Action action){
+void CCScreen::ActionDownHandle(Input::Action action){
 	if(!OnGuiArea(action.pos) && handled_action == -1){
 		handled_action = action.id;
 		touch_position = action.pos;
 	}
 }
 
-void CameraControlScreen::ActionMoveHandle(Input::Action action){
+void CCScreen::ActionMoveHandle(Input::Action action){
 	if(handled_action == action.id){
 		if(eye_btn->GetState()){	//free camera
 			Vector2D deltaPosition = touch_position - action.pos;
@@ -276,16 +276,16 @@ void CameraControlScreen::ActionMoveHandle(Input::Action action){
 	}
 }
 
-void CameraControlScreen::ActionUpHandle(Input::Action action){
+void CCScreen::ActionUpHandle(Input::Action action){
 	if(handled_action == action.id){
 		handled_action = -1;
 	}
 }
 
-void CameraControlScreen::MouseWheelUp(){
+void CCScreen::MouseWheelUp(){
 	orbit_distance += 2.f;
 }
 
-void CameraControlScreen::MouseWheelDown(){
+void CCScreen::MouseWheelDown(){
 	orbit_distance -= 2.f;
 }

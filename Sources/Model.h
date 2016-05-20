@@ -34,6 +34,7 @@ public:
 	~Model();
 
 	Color GetColor();
+	void SetColor(const Color& c);
 	Material* GetMaterial();
 	void SetDiffuseTexture(Texture* texture);
 	void SetSpecularTexture(Texture* texture);

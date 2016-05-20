@@ -229,9 +229,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseMapScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
@@ -283,7 +280,13 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\NanosuitScreen.cpp">
+    <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\CCScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -487,9 +490,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseMapScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
@@ -541,7 +541,13 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\NanosuitScreen.h">
+    <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\CCScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>

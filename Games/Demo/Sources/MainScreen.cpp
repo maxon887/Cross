@@ -31,6 +31,7 @@
 #include "Graphics3D/SpotLightScreen.h"
 #include "Graphics3D/MultiLightScreen.h"
 #include "Graphics3D/ComplexModelScreen.h"
+#include "Graphics3D/DepthTestScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -84,30 +85,34 @@ void MainScreen::Start(){
 	graphics3D_menu = new Menu(true);
 	Button* simpleBtn				= new Button("Simple");
 	Button* lightBtn				= new Button("Light");
+	Button* advancedBtn				= new Button("Advanced");
 	simpleBtn->SetImages(button_sprite->Clone());
 	lightBtn->SetImages(button_sprite->Clone());
+	advancedBtn->SetImages(button_sprite->Clone());
 	simpleBtn->Clicked += MakeDelegate(this, &MainScreen::OnSimpleClick);
 	lightBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightClick);
+	advancedBtn->Clicked += MakeDelegate(this, &MainScreen::OnAdvancedClick);
 	graphics3D_menu->AddButton(simpleBtn);
 	graphics3D_menu->AddButton(lightBtn);
+	graphics3D_menu->AddButton(advancedBtn);
 
 	graphics3D_simple = new Menu(true);
 	Button* triangleBtn				= new Button("Triangle");
 	Button* solidModelBtn			= new Button("Solid Model");
 	Button* texturedModelBtn		= new Button("Textured Model");
-	Button* nanosuitBtn				= new Button("Complex Model");
+	Button* complexBtn				= new Button("Complex Model");
 	triangleBtn->SetImages(button_sprite->Clone());
 	solidModelBtn->SetImages(button_sprite->Clone());
 	texturedModelBtn->SetImages(button_sprite->Clone());
-	nanosuitBtn->SetImages(button_sprite->Clone());
+	complexBtn->SetImages(button_sprite->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
 	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
-	nanosuitBtn->Clicked += MakeDelegate(this, &MainScreen::OnNanosuitClick);
+	complexBtn->Clicked += MakeDelegate(this, &MainScreen::OnComplexModelClick);
 	graphics3D_simple->AddButton(triangleBtn);
 	graphics3D_simple->AddButton(solidModelBtn);
 	graphics3D_simple->AddButton(texturedModelBtn);
-	graphics3D_simple->AddButton(nanosuitBtn);
+	graphics3D_simple->AddButton(complexBtn);
 
 	graphics3D_light = new Menu(false);
 	Button* materialBtn 			= new Button("Material");
@@ -139,6 +144,12 @@ void MainScreen::Start(){
 	graphics3D_light->AddButton(spotLightBtn);
 	graphics3D_light->AddButton(multiLightBtn);
 
+	graphics3D_advanced = new Menu(false);
+	Button* depthTestBtn			= new Button("Depth Test");
+	depthTestBtn->SetImages(button_sprite->Clone());
+	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
+	graphics3D_advanced->AddButton(depthTestBtn);
+
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
 
@@ -159,6 +170,7 @@ void MainScreen::Stop(){
 	delete graphics3D_menu;
 	delete graphics3D_simple;
 	delete graphics3D_light;
+	delete graphics3D_advanced;
 	input->KeyPressed -= key_released_delegate;
 	game->WindowResized -= window_resized_delegate;
 }
@@ -229,6 +241,13 @@ void MainScreen::OnLightClick(){
 	current_menu = graphics3D_light;
 }
 
+void MainScreen::OnAdvancedClick(){
+	AdjustScreenHeight(graphics3D_advanced);
+	current_menu->Active(false);
+	graphics3D_advanced->Active(true);
+	current_menu = graphics3D_advanced;
+}
+
 void MainScreen::OnPrimitivesClick(){
 	next_screen = new PrimitivesScreen();
 }
@@ -257,7 +276,7 @@ void MainScreen::OnTexturedModelClick(){
 	next_screen = new TexturedModelScreen();
 }
 
-void MainScreen::OnNanosuitClick(){
+void MainScreen::OnComplexModelClick(){
 	next_screen = new ComplexModelScreen();
 }
 
@@ -291,4 +310,8 @@ void MainScreen::OnSpotLightClick(){
 
 void MainScreen::OnMultiLightClick(){
 	next_screen = new MultiLightScreen();
+}
+
+void MainScreen::OnDepthTestClick(){
+	next_screen = new DepthTestScreen();
 }

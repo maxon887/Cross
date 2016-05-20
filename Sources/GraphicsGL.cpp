@@ -63,7 +63,7 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 }
 
 GraphicsGL::GraphicsGL() : 
-	shaders(Shader::Type::COUNT)	
+	shaders(Shader::Type::NONE)	
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 #if defined (WIN) && defined(OPENGL)

@@ -20,7 +20,7 @@
 #include "Model.h"
 
 void MultiLightScreen::Start(){
-	CameraControlScreen::Start();
+	CCScreen::Start();
 	orbit_distance = 60.f;
 
 	for(int i = 0; i < 16; ++i){
@@ -57,7 +57,7 @@ void MultiLightScreen::Start(){
 }
 
 void MultiLightScreen::Stop(){
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	for(Model* model : objects){
 		delete model;
 	}
@@ -85,5 +85,5 @@ void MultiLightScreen::Update(float sec){
 		gfx3D->DrawModelMultiLight(model, point_lights, directional_lights, spot_lights);
 	}
 
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 }

@@ -22,7 +22,7 @@
 #include "Graphics3D.h"
 
 void DirectionalLightScreen::Start(){
-	CameraControlScreen::Start();
+	CCScreen::Start();
 	orbit_distance = 60.f;
 
 	light = new DirectionalLight(Vector3D(0.f, 0.f, 1.f), Vector3D(0.2f), Vector3D(1.f), Vector3D(0.5f));
@@ -40,7 +40,7 @@ void DirectionalLightScreen::Start(){
 }
 
 void DirectionalLightScreen::Stop(){
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	
 	delete model;
 	delete light;
@@ -55,5 +55,5 @@ void DirectionalLightScreen::Update(float sec){
 		gfx3D->DrawModelDirectLight(obj, light);
 	}
 
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 }

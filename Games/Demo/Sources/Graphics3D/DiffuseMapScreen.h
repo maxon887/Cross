@@ -16,10 +16,10 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "CameraControlScreen.h"
+#include "CCScreen.h"
 #include "Utils/LightCaster.h"
 
-class DiffuseMapScreen : public CameraControlScreen{
+class DiffuseMapScreen : public CCScreen{
 public:
 	virtual void Start();
 	virtual void Stop();

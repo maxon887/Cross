@@ -18,6 +18,10 @@
 
 using namespace cross;
 
+Shader::Shader(const string& vertexFile, const string& fragmentFile) :
+	Shader(Type::NONE, vertexFile, fragmentFile)
+{ }
+
 Shader::Shader(Type type, const string& vertexFile, const string& fragmentFile) : 
 	type(type)
 {

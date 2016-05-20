@@ -48,6 +48,8 @@ public:
 	Model* LoadModel(const string& filename, Texture* diffuse);
 	Model* LoadModel(const string& filename, Texture* diffuse, Texture* specular);
 
+	//use custom shader
+	void DrawMesh(Shader* shader, Mesh* mesh, const Matrix& model);
 	//use "simple" shader
 	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
 	//use "texture" shader
@@ -71,6 +73,8 @@ public:
 								const CRArray<DirectionalLight*>& directLights, 
 								const CRArray<SpotLight*>& spotLights,
 								float shininess	);
+
+	void DrawModel(Shader* shader, Model* model);
 
 	void DrawModelSimple(Model* model);
 	void DrawModelTexture(Model* model);

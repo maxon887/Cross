@@ -14,22 +14,26 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Graphics3D/CCScreen.h"
-#include "Shaders/SimpleShader.h"
-#include "Input.h"
+#include "DepthTestScreen.h"
+#include "Graphics3D.h"
+#include "Model.h"
+#include "Shaders/Shader.h"
 
-using namespace cross;
+void DepthTestScreen::Start(){
+	CCScreen::Start();
+	shader = new Shader("gfx3D/shaders/depth_test.vert", "gfx3D/shaders/depth_test.frag");
+	warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.3DS");
+	warrior->SetRotateX(-90.f);
+}
 
-class TriangleScreen : public CCScreen{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	GLuint vboId;
-	SimpleShader* shader;
+void DepthTestScreen::Stop(){
+	CCScreen::Stop();
+	delete shader;
+	delete warrior;
+}
 
-	Vector2D touch_pos;
-};
+void DepthTestScreen::Update(float sec){
+	gfx3D->DrawModel(shader, warrior);
+
+	CCScreen::Update(sec);
+}

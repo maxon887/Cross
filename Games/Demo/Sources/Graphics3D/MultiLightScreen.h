@@ -15,12 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CameraControlScreen.h"
+#include "CCScreen.h"
 #include "Utils/PointLight.h"
 #include "Utils/DirectionalLight.h"
 #include "Utils/SpotLight.h"
 
-class MultiLightScreen : public CameraControlScreen{
+class MultiLightScreen : public CCScreen{
 public:
 	virtual void Start();
 	virtual void Stop();

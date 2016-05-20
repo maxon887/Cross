@@ -153,6 +153,24 @@ CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	return meshes;
 }
 
+void Graphics3D::DrawMesh(Shader* shader, Mesh* mesh, const Matrix& model){
+	gfxGL->UseShader(shader);
+	//transfer uniforms
+	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
+	mvp = mvp.Transpose();
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+
+	BindTextures(shader, mesh);
+	BindAttributes(shader, mesh);
+
+	//drawing
+	SAFE(glEnable(GL_DEPTH_TEST));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glDisable(GL_DEPTH_TEST));
+}
+
 void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color){
 	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
 	gfxGL->UseShader(shader);
@@ -492,6 +510,12 @@ void Graphics3D::DrawMeshMultiLight(Mesh* mesh,
 	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_DEPTH_TEST));
+}
+
+void Graphics3D::DrawModel(Shader* shader, Model* model){
+	for(Mesh* mesh : model->meshes){
+		DrawMesh(shader, mesh, model->GetModelMatrix() * mesh->GetModelMatrix());
+	}
 }
 
 void Graphics3D::DrawModelSimple(Model* model){

@@ -21,7 +21,7 @@
 #include "Game.h"
 	
 void PointLightScreen::Start(){
-	CameraControlScreen::Start();
+	CCScreen::Start();
 	orbit_distance = 60.f;
 
 	light = new PointLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
@@ -40,7 +40,7 @@ void PointLightScreen::Start(){
 }
 
 void PointLightScreen::Stop(){
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	delete model;
 	delete light;
 	
@@ -56,5 +56,5 @@ void PointLightScreen::Update(float sec){
 		gfx3D->DrawModelPointLight(obj, light);
 	}
 
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 }

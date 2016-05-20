@@ -28,7 +28,7 @@ struct Vertex
 };
 
 void TriangleScreen::Start(){
-	CameraControlScreen::Start();
+	CCScreen::Start();
 	
 	shader = new SimpleShader();
 	
@@ -49,7 +49,7 @@ void TriangleScreen::Start(){
 }
 
 void TriangleScreen::Stop(){
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	delete shader;
 	
 	SAFE(glDeleteBuffers(1, &vboId));
@@ -81,7 +81,7 @@ void TriangleScreen::Update(float sec){
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 	
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());

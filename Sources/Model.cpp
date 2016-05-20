@@ -81,6 +81,10 @@ Color Model::GetColor(){
 	}
 }
 
+void Model::SetColor(const Color& c){
+	this->color = new Color(c);
+}
+
 
 Material* Model::GetMaterial(){
 	if(material != nullptr){

@@ -21,17 +21,17 @@
 #include "Model.h"
 
 void SolidModelScreen::Start(){
-	CameraControlScreen::Start();
+	CCScreen::Start();
 	cube = gfx3D->LoadModel("gfx3D/Cube.obj", Color::Green);
 }
 
 void SolidModelScreen::Stop(){
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	delete cube;
 }
 
 void SolidModelScreen::Update(float sec){
 	gfx3D->DrawModelSimple(cube);
 
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 }

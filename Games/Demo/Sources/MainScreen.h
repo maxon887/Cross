@@ -34,6 +34,7 @@ private:
 	Menu* graphics3D_menu;
 	Menu* graphics3D_simple;
 	Menu* graphics3D_light;
+	Menu* graphics3D_advanced;
 	Sprite* button_sprite;
 	Screen* next_screen;
 
@@ -57,11 +58,12 @@ private:
 	//graphics 3d menu
 	void OnSimpleClick();
 	void OnLightClick();
+	void OnAdvancedClick();
 	//graphics 3d simple
 	void OnTriangleClick();
 	void OnSolidModelClick();
 	void OnTexturedModelClick();
-	void OnNanosuitClick();
+	void OnComplexModelClick();
 	//graphics 3d light
 	void OnMaterialClick();
 	void OnDiffuseMapClick();
@@ -70,4 +72,6 @@ private:
 	void OnPointLightClick();
 	void OnSpotLightClick();
 	void OnMultiLightClick();
+	//graphics 3d advanced
+	void OnDepthTestClick();
 };

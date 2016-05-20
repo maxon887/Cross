@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CameraControlScreen.h"
+#include "CCScreen.h"
 #include "Utils/LightCaster.h"
 
-class DiffuseSpecularMapScreen : public CameraControlScreen{
+class DiffuseSpecularMapScreen : public CCScreen{
 public:
 	virtual void Start();
 	virtual void Stop();

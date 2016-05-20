@@ -15,48 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "GraphicsGL.h"
+#include "CCScreen.h"
 
-namespace cross{
-
-class Shader{
+class ComplexModelScreen : public CCScreen{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_DIFFUSE,
-		LIGHT_DIFFUSE_SPECULAR,
-		DIRECTIONAL_LIGHT,
-		POINT_LIGHT,
-		SPOT_LIGHT,
-		MULTI_LIGHT,
-		NONE
-	};
-
-	static const int MaxDiffuseMaps = 8;
-	static const int MaxSpecularMaps = 8;
-
-	GLuint program;
-	GLint uMVP;
-	//shader attributes
-	GLint aPosition;
-	GLint aTexCoords;
-	GLint aNormal;
-	GLint uDiffuseMaps[MaxDiffuseMaps];
-	GLint uSpecularMaps[MaxSpecularMaps];
-
-	Type type;
-
-	Shader(const string& vertexFile, const string& fragmentFile);
-	Shader(Type type, const string& vertexFile, const string& fragmentFile);
-	virtual ~Shader();
-
+	void Start();
+	void Stop();
+	void Update(float sec);
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+	Model* warrior;
 };
-
-}

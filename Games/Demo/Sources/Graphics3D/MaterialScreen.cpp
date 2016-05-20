@@ -21,7 +21,7 @@
 #include "Sprite.h"
 
 void MaterialScreen::Start(){
-	CameraControlScreen::Start();
+	CCScreen::Start();
 	current_model = 0;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	orbit_distance = 28.f;
@@ -60,7 +60,7 @@ void MaterialScreen::Start(){
 }
 
 void MaterialScreen::Stop(){
-	CameraControlScreen::Stop();
+	CCScreen::Stop();
 	delete light;
 	delete next_model;
 	delete prev_model;
@@ -79,7 +79,7 @@ void MaterialScreen::Update(float sec){
 	next_model->Update();
 	prev_model->Update();
 
-	CameraControlScreen::Update(sec);
+	CCScreen::Update(sec);
 }
 
 void MaterialScreen::NextModelClick(){

@@ -24,9 +24,10 @@
 
 using namespace cross;
 
-class CameraControlScreen : public Screen{
+//CC short for Camera Control
+class CCScreen : public Screen{
 public:
-	CameraControlScreen();
+	CCScreen();
 
 	virtual void Start();
 	virtual void Stop();
