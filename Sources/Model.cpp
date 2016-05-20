@@ -23,7 +23,6 @@
 using namespace cross;
 
 Model::Model(Model& obj) : 
-	Transformable(obj),
 	meshes(obj.meshes),
 	material(obj.material),
 	color(obj.color),

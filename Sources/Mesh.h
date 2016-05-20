@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics3D.h"
+#include "Transformable.h"
 
 namespace cross{
 
@@ -40,7 +41,7 @@ public:
 	float shininess;
 };
 
-class Mesh{
+class Mesh : public Transformable{
 friend Graphics3D;
 public:
 

@@ -23,8 +23,11 @@ void NanosuitScreen::Start(){
 	CameraControlScreen::Start();
 	orbit_distance = 60.f;
 
-	nanosuit = gfx3D->LoadModel("gfx3D/nanosuit/nanosuit.fbx");
-	nanosuit->SetPosition(Vector3D(0.f, -7.f, 0.f));
+	//nanosuit = gfx3D->LoadModel("gfx3D/nanosuit/nanosuit.fbx");
+	nanosuit = gfx3D->LoadModel("gfx3D/warrior/warrior.fbx");
+	nanosuit->SetRotateX(-90.f);
+	nanosuit->SetScale(Vector3D(0.1f));
+	//nanosuit->SetPosition(Vector3D(0.f, -7.f, 0.f));
 	//nanosuit = gfx3D->LoadModel("gfx3D/Cube.fbx");
 }
 

@@ -503,7 +503,7 @@ void Graphics3D::DrawModelSimple(Model* model){
 
 void Graphics3D::DrawModelTexture(Model* model){
 	for(Mesh* mesh : model->meshes){
-		DrawMeshTexture(mesh, model->GetModelMatrix());
+		DrawMeshTexture(mesh, mesh->GetModelMatrix());
 	}
 }
 
