@@ -129,6 +129,7 @@
     <ClCompile Include="..\..\..\..\Sources\Vector2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\VertexBuffer.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="..\..\..\..\Sources\Vector2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector3D.h" />
     <ClInclude Include="..\..\..\..\Sources\Vector4D.h" />
+    <ClInclude Include="..\..\..\..\Sources\VertexBuffer.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h" />

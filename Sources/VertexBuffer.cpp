@@ -1,0 +1,92 @@
+/*	Copyright © 2015 Lukyanau Maksim
+
+	This file is part of Cross++ Game Engine.
+
+    Cross++ Game Engine is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Cross++ is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#include "VertexBuffer.h"
+
+using namespace cross;
+
+VertexBuffer::VertexBuffer():
+	initialized(false),
+	uv_enabled(false),
+	normals_enabled(false)
+{ }
+
+bool VertexBuffer::HasTextureCoordinates(){
+	return uv_enabled;
+}
+
+bool VertexBuffer::HasNormals(){
+	return normals_enabled;
+}
+
+unsigned int VertexBuffer::VertexSize(){
+	unsigned int vertSize = 3;
+	if(uv_enabled){
+		vertSize += 2;
+	}
+	if(normals_enabled){
+		vertSize += 3;
+	}
+	return vertSize * sizeof(float);
+}
+
+unsigned int VertexBuffer::GetPossitionsOffset(){
+	return 0;
+}
+
+unsigned int VertexBuffer::GetTextureCoordinatesOffset(){
+	if(uv_enabled){
+		return 3;
+	}else{
+		throw CrossException("VertexBuffer noes not contains texture coordinates");
+	}
+}
+
+unsigned int VertexBuffer::GetNormalsOffset(){
+	if(normals_enabled){
+		if(uv_enabled){
+			return 5;
+		}else{
+			return 3;
+		}
+	}else{
+		throw CrossException("VertexBuffer noes not contains normals");
+	}
+}
+
+void VertexBuffer::UVEnabled(bool enabled){
+	uv_enabled = enabled;
+}
+
+void VertexBuffer::NarmalsEnabled(bool enabled){
+	normals_enabled = enabled;
+}
+
+void VertexBuffer::PushData(CRByte* bytes, unsigned int size){
+	data.insert(data.end(), bytes, bytes+size);
+}
+
+CRByte* VertexBuffer::GetData(){
+	return data.data();
+}
+
+unsigned int VertexBuffer::GetDataSize(){
+	return data.size();
+}
+
+void VertexBuffer::Free(){
+	data.clear();
+}

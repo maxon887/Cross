@@ -52,3 +52,11 @@ Shader::~Shader(){
 	gfxGL->DeleteShader(fragment_shader);
 	gfxGL->DeleteProgram(program);
 }
+
+bool Shader::TextureCoordinatesRequired(){
+	return false;
+}
+
+bool Shader::NormalsRequired(){
+	return false;
+}

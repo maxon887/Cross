@@ -29,22 +29,25 @@ Material::Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float 
 	this->shininess = shininess;
 }
 
-Mesh::Mesh(CRArray<Vertex> &vertices, CRArray<unsigned int> &indices, CRArray<Texture*>& diffuseMaps, CRArray<Texture*>& specularMaps, GLuint polyCount) :
+Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, CRArray<Texture*>& diffuseMaps, CRArray<Texture*>& specularMaps, GLuint polyCount) :
 	diffuse_maps(diffuseMaps),
 	specular_maps(specularMaps)
 {
 	poly_count = polyCount;
+	vertex_buffer = vertexBuffer;
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexBuffer->GetDataSize(), vertexBuffer->GetData(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	index_count = indices.size();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	vertexBuffer->Free();
 }
 
 Mesh::~Mesh(){
@@ -58,6 +61,10 @@ Mesh::~Mesh(){
 
 GLuint Mesh::GetPolyCount() const{
 	return poly_count;
+}
+
+VertexBuffer* Mesh::GetVertexBuffer(){
+	return vertex_buffer;
 }
 
 void Mesh::SetDiffuseTexture(Texture* texture){

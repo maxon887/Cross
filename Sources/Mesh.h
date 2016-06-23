@@ -18,15 +18,9 @@
 #include "Cross.h"
 #include "Graphics3D.h"
 #include "Transformable.h"
+#include "VertexBuffer.h"
 
 namespace cross{
-
-class Vertex{
-public:
-	Vector3D pos;
-	Vector2D uv;
-	Vector3D normal;
-};
 
 class Material{
 public:
@@ -45,7 +39,7 @@ class Mesh : public Transformable{
 friend Graphics3D;
 public:
 
-	Mesh(	CRArray<Vertex> &vertices,
+	Mesh(	VertexBuffer* vertexBuffer,
 			CRArray<unsigned int> &indices,
 			CRArray<Texture*>& diffuseMaps,
 			CRArray<Texture*>& specularMaps,
@@ -53,12 +47,15 @@ public:
 	~Mesh();
 
 	GLuint GetPolyCount() const;
+	VertexBuffer* GetVertexBuffer();
+
 	void SetDiffuseTexture(Texture* texture);
 	void SetSpecularTexture(Texture* specular);
 
 private:
 	GLuint VBO;
 	GLuint EBO;
+	VertexBuffer* vertex_buffer;
 	CRArray<Texture*> diffuse_maps;
 	CRArray<Texture*> specular_maps;
 	GLuint poly_count;

@@ -289,6 +289,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CCScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\VertexBuffer.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -549,6 +552,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\CCScreen.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\VertexBuffer.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

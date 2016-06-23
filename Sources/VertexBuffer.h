@@ -16,50 +16,32 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
 
 namespace cross{
 
-class Shader{
+class VertexBuffer{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_DIFFUSE,
-		LIGHT_DIFFUSE_SPECULAR,
-		DIRECTIONAL_LIGHT,
-		POINT_LIGHT,
-		SPOT_LIGHT,
-		MULTI_LIGHT,
-		NONE
-	};
+	
+	VertexBuffer();
 
-	static const int MaxDiffuseMaps = 8;
-	static const int MaxSpecularMaps = 8;
+	bool HasTextureCoordinates();
+	bool HasNormals();
+	unsigned int VertexSize();
+	unsigned int GetPossitionsOffset();
+	unsigned int GetTextureCoordinatesOffset();
+	unsigned int GetNormalsOffset();
 
-	GLuint program;
-	GLint uMVP;
-	//shader attributes
-	GLint aPosition;
-	GLint aTexCoords;
-	GLint aNormal;
-	GLint uDiffuseMaps[MaxDiffuseMaps];
-	GLint uSpecularMaps[MaxSpecularMaps];
-
-	Type type;
-
-	Shader(const string& vertexFile, const string& fragmentFile);
-	Shader(Type type, const string& vertexFile, const string& fragmentFile);
-	virtual ~Shader();
-
-	virtual bool TextureCoordinatesRequired();
-	virtual bool NormalsRequired();
-
+	void UVEnabled(bool enabled);
+	void NarmalsEnabled(bool enabled);
+	void PushData(CRByte* data, unsigned int size);
+	CRByte* GetData();
+	unsigned int GetDataSize();
+	void Free();
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
+	bool initialized;
+	CRArray<CRByte> data;
+	bool uv_enabled;
+	bool normals_enabled;
 };
 
 }

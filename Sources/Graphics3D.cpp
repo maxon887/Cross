@@ -607,17 +607,27 @@ void Graphics3D::BindTextures(Shader* shader, Mesh* mesh){
 
 void Graphics3D::BindAttributes(Shader* shader, Mesh* mesh){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-	if(shader->aPosition != -1){
+	VertexBuffer* vertexBuffer = mesh->GetVertexBuffer();
+	unsigned int vertexSize = vertexBuffer->VertexSize();
+	//if(shader->aPosition != -1){
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 0));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuffer->GetPossitionsOffset())));
+	//}
+	if(shader->TextureCoordinatesRequired()){
+		if(vertexBuffer->HasTextureCoordinates()){
+			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuffer->GetTextureCoordinatesOffset())));
+		}else{
+			throw CrossException("Current mesh noes not contain texture coordinates");
+		}
 	}
-	if(shader->aTexCoords != -1){
-		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 3));
-	}
-	if(shader->aNormal != -1){
-		SAFE(glEnableVertexAttribArray(shader->aNormal));
-		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLfloat*)0 + 5));
+	if(shader->NormalsRequired()){
+		if(vertexBuffer->HasNormals()){
+			SAFE(glEnableVertexAttribArray(shader->aNormal));
+			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuffer->GetNormalsOffset())));
+		}else{
+			throw CrossException("Current mesh noes not countain normals");
+		}
 	}
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
@@ -636,38 +646,27 @@ CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int t
 }
 
 Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& modelFilePath){
-	CRArray<Vertex> vertices;
-	CRArray<unsigned int> indices;
-
-	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
-		Vertex vertex;
-
-		if(mesh->mVertices){
-			vertex.pos.x = mesh->mVertices[i].x;
-			vertex.pos.y = mesh->mVertices[i].y;
-			vertex.pos.z = mesh->mVertices[i].z;
-		}else{
-			throw CrossException("Model file does not vertex position data");
-		}
-
-		if(mesh->mNormals){
-			vertex.normal.x = mesh->mNormals[i].x;
-			vertex.normal.y = mesh->mNormals[i].y;
-			vertex.normal.z = mesh->mNormals[i].z;
-		}else{
-			vertex.normal = Vector3D(0.f, 0.f, 0.f);
-		}
-
-		if(mesh->mTextureCoords[0]){
-			vertex.uv.x = mesh->mTextureCoords[0][i].x;
-			vertex.uv.y = mesh->mTextureCoords[0][i].y;
-		}else{
-			vertex.uv = Vector2D(0.f, 0.f);
-		}
-
-		vertices.push_back(vertex);
+	VertexBuffer* vertexBuffer = new VertexBuffer();
+	if(mesh->mTextureCoords[0]){
+		vertexBuffer->UVEnabled(true);
+	}
+	if(mesh->mNormals){
+		vertexBuffer->NarmalsEnabled(true);
 	}
 
+	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
+		vertexBuffer->PushData((unsigned char*)&mesh->mVertices[i], 3 * sizeof(float));
+
+		if(vertexBuffer->HasTextureCoordinates()){
+			vertexBuffer->PushData((unsigned char*)&mesh->mTextureCoords[0][i], 2 * sizeof(float));
+		}
+
+		if(vertexBuffer->HasNormals()){
+			vertexBuffer->PushData((unsigned char*)&mesh->mNormals[i], 3 * sizeof(float));
+		}
+	}
+
+	CRArray<unsigned int> indices;
 	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
 		for(unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
@@ -686,7 +685,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& 
 
 	}
 
-	Mesh* ret = new Mesh(vertices, indices, *diffuseMaps, *specularMaps,  mesh->mNumFaces);
+	Mesh* ret = new Mesh(vertexBuffer, indices, *diffuseMaps, *specularMaps,  mesh->mNumFaces);
 	delete diffuseMaps;
 	delete specularMaps;
 	return ret;
