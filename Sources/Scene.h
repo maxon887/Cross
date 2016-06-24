@@ -14,12 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SimpleShader.h"
+#pragma once
+#include "Cross.h"
+#include "Screen.h"
+#include "Input.h"
 
-using namespace cross;
+namespace cross{
 
-SimpleShader::SimpleShader() :
-	Shader(Type::SIMPLE, "Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag")
-{
-	uColor = glGetUniformLocation(program, "uColor");
+class Scene : public Screen{
+public:
+
+	virtual void Start();
+	virtual void Stop();
+
+	Camera* GetCamera();
+protected:
+	Camera* camera;
+private:
+	FastDelegate2<int, int, void> window_resize_handle;
+	void WindowResizeHandle(int width, int height);
+};
+
 }

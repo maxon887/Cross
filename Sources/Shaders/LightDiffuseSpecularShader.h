@@ -29,7 +29,7 @@ public:
 
 	LightDiffuseSpecularShader();
 protected:
-	LightDiffuseSpecularShader(Shader::Type type, string vertex, string fragment);
+	LightDiffuseSpecularShader(string vertex, string fragment);
 };
 
 }

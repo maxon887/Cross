@@ -52,6 +52,20 @@ namespace cross{
 
 class Shader;
 
+enum DefaultShader{
+	SIMPLE,
+	MONOCHROME,
+	TEXTURE,
+	LIGHT_MATERIAL,
+	LIGHT_DIFFUSE,
+	LIGHT_DIFFUSE_SPECULAR,
+	DIRECTIONAL_LIGHT,
+	POINT_LIGHT,
+	SPOT_LIGHT,
+	MULTI_LIGHT,
+	NONE
+};
+
 class GraphicsGL{
 public:
 	static void CheckGLError(const char* file, unsigned int line);

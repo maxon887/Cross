@@ -18,8 +18,8 @@
 
 using namespace cross;
 
-LightShader::LightShader(Shader::Type type, const string& vertex, const string& fragment) :
-	Shader(type, vertex, fragment)
+LightShader::LightShader(const string& vertex, const string& fragment) :
+	Shader(vertex, fragment)
 {
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");

@@ -19,11 +19,11 @@
 using namespace cross;
 
 LightDiffuseShader::LightDiffuseShader() :
-	LightDiffuseShader(Type::LIGHT_DIFFUSE, "Engine/Shaders/light_diffuse.vert", "Engine/Shaders/light_diffuse.frag")
+	LightDiffuseShader("Engine/Shaders/light_diffuse.vert", "Engine/Shaders/light_diffuse.frag")
 { }
 
-LightDiffuseShader::LightDiffuseShader(Shader::Type type, string vertex, string fragment) :
-	LightShader(type, vertex, fragment)
+LightDiffuseShader::LightDiffuseShader(string vertex, string fragment) :
+	LightShader(vertex, fragment)
 { 
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");

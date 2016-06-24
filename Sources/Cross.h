@@ -62,6 +62,7 @@ class Material;
 class Mesh;
 class Model;
 class Texture;
+class Scene;
 
 extern Game* game;
 extern Launcher* launcher;

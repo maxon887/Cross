@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScreen.h"
+#include "CCScene.h"
 #include "Utils/SpotLight.h"
 
-class SpotLightScreen : public CCScreen{
+class SpotLightScreen : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();

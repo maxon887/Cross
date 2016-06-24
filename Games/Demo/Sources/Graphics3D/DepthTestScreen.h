@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScreen.h"
+#include "CCScene.h"
 #include "Shaders/Shader.h"
 
-class DepthTestScreen : public CCScreen{
+class DepthTestScreen : public CCScene{
 public:
 	void Start();
 	void Stop();

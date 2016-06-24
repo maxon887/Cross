@@ -37,8 +37,6 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
-	Camera* GetCamera();
-
 	Mesh* LoadMesh(const string& filename);
 	CRArray<Mesh*>* LoadMeshes(const string& filename);
 
@@ -47,7 +45,7 @@ public:
 	Model* LoadModel(const string& filename, const Material& material);
 	Model* LoadModel(const string& filename, Texture* diffuse);
 	Model* LoadModel(const string& filename, Texture* diffuse, Texture* specular);
-
+	/*
 	//use custom shader
 	void DrawMesh(Shader* shader, Mesh* mesh, const Matrix& model);
 	//use "simple" shader
@@ -87,20 +85,15 @@ public:
 	void DrawModelMultiLight(	Model* model,
 								const CRArray<PointLight*>& pointLights, 
 								const CRArray<DirectionalLight*>& directLights,
-								const CRArray<SpotLight*>& spotLights);
+								const CRArray<SpotLight*>& spotLights);*/
 
 private:
-	Camera* camera;
-
 	void BindTextures(Shader* shader, Mesh* mesh);
 	void BindAttributes(Shader* shader, Mesh* mesh);
 
 	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
 	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& modelFilePath);
 	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene, const string& modelFilePath);
-
-	FastDelegate2<int, int, void> window_resize_handle;
-	void WindowResizeHandle(int width, int height);
 };
 
 }

@@ -19,21 +19,21 @@
 #include "Model.h"
 #include "DirectionalLight.h"
 
-void ComplexModelScreen::Start(){
-	CCScreen::Start();
+void ComplexModelScreen::Start(){/*
+	CCScene::Start();
 	orbit_distance = 60.f;
 	warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.3DS");
 	warrior->SetColor(Color::Red);
-	warrior->SetRotateX(-90.f);
+	warrior->SetRotateX(-90.f);*/
 }
 
 void ComplexModelScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	delete warrior;
 }
 
-void ComplexModelScreen::Update(float sec){
+void ComplexModelScreen::Update(float sec){/*
 	gfx3D->DrawModelTexture(warrior);
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }

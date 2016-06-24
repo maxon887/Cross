@@ -17,10 +17,10 @@
 #pragma once
 
 #include "Cross.h"
-#include "CCScreen.h"
+#include "CCScene.h"
 #include "Utils/DirectionalLight.h"
 
-class DirectionalLightScreen : public CCScreen{
+class DirectionalLightScreen : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();

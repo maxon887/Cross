@@ -21,7 +21,7 @@
 #include "Game.h"
 	
 void SpotLightScreen::Start(){
-	CCScreen::Start();
+	CCScene::Start();/*
 	orbit_distance = 60.f;
 
 	light = new SpotLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f, 5.f);
@@ -39,11 +39,11 @@ void SpotLightScreen::Start(){
 		clone->SetPosition(Vector3D(Random(-40.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}
+	}*/
 }
 
 void SpotLightScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	delete model;
 	delete light;
 	
@@ -52,13 +52,13 @@ void SpotLightScreen::Stop(){
 	}
 }
 
-void SpotLightScreen::Update(float sec){
+void SpotLightScreen::Update(float sec){/*
 	light->Draw();
 	
 	for(Model* obj : objects){
 		//gfx3D->DrawModelPointLight(obj, light);
 		gfx3D->DrawModelSpotLight(obj, light);
 	}
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }

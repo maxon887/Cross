@@ -20,7 +20,7 @@
 #include "Model.h"
 
 void MultiLightScreen::Start(){
-	CCScreen::Start();
+	CCScene::Start();/*
 	orbit_distance = 60.f;
 
 	for(int i = 0; i < 16; ++i){
@@ -53,11 +53,11 @@ void MultiLightScreen::Start(){
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}
+	}*/
 }
 
 void MultiLightScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	for(Model* model : objects){
 		delete model;
 	}
@@ -73,7 +73,7 @@ void MultiLightScreen::Stop(){
 	delete model;
 }
 
-void MultiLightScreen::Update(float sec){
+void MultiLightScreen::Update(float sec){/*
 	for(PointLight* light : point_lights){
 		light->Draw();
 	}
@@ -84,6 +84,6 @@ void MultiLightScreen::Update(float sec){
 	for(Model* model : objects){
 		gfx3D->DrawModelMultiLight(model, point_lights, directional_lights, spot_lights);
 	}
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }

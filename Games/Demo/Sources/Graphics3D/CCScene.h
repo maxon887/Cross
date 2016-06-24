@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Screen.h"
+#include "Scene.h"
 #include "Camera.h"
 #include "Button.h"
 #include "ToggleButton.h"
@@ -25,14 +25,14 @@
 using namespace cross;
 
 //CC short for Camera Control
-class CCScreen : public Screen{
+class CCScene : public Scene{
 public:
-	CCScreen();
+	CCScene();
 
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
-protected:
+private:
 	float liner_speed;
 	float angular_speed;
 	float orbit_speed;

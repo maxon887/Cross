@@ -21,7 +21,8 @@
 #include "Sprite.h"
 
 void MaterialScreen::Start(){
-	CCScreen::Start();
+	CCScene::Start();
+	/*
 	current_model = 0;
 	gfx3D->GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	orbit_distance = 28.f;
@@ -56,11 +57,11 @@ void MaterialScreen::Start(){
 	arrowUp->SetRotate(180.f);
 	arrowDown->SetRotate(180.f);
 	prev_model->SetImages(arrowUp, arrowDown);
-	prev_model->Clicked += MakeDelegate(this, &MaterialScreen::PrevModelClick);
+	prev_model->Clicked += MakeDelegate(this, &MaterialScreen::PrevModelClick);*/
 }
 
 void MaterialScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	delete light;
 	delete next_model;
 	delete prev_model;
@@ -69,7 +70,7 @@ void MaterialScreen::Stop(){
 	}
 }
 
-void MaterialScreen::Update(float sec){
+void MaterialScreen::Update(float sec){/*
 	light->Draw();
 
 	gfx3D->DrawModelLightMaterial(models[current_model], light);
@@ -78,8 +79,8 @@ void MaterialScreen::Update(float sec){
 
 	next_model->Update();
 	prev_model->Update();
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }
 
 void MaterialScreen::NextModelClick(){

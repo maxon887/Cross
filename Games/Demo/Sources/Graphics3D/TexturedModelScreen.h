@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScreen.h"
+#include "CCScene.h"
 
-class TexturedModelScreen : public CCScreen{
+class TexturedModelScreen : public CCScene{
 public:
 	void Start();
 	void Stop();

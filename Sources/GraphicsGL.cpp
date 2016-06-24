@@ -18,7 +18,6 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
-#include "Shaders/SimpleShader.h"
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
@@ -63,7 +62,7 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 }
 
 GraphicsGL::GraphicsGL() : 
-	shaders(Shader::Type::NONE)	
+	shaders(DefaultShader::NONE)	
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 #if defined (WIN) && defined(OPENGL)
@@ -104,34 +103,34 @@ GraphicsGL::~GraphicsGL(){
 Shader* GraphicsGL::GetShader(unsigned int type){
 	if(shaders[type] == nullptr){
 		switch(type) {
-		case Shader::Type::SIMPLE:
-			shaders[type] = new SimpleShader();
+		case DefaultShader::SIMPLE:
+			shaders[type] = new Shader("gfx3D/shaders/simple.vert", "gfx3D/shaders/simple.frag");
 			break;
-		case Shader::Type::MONOCHROME:
+		case DefaultShader::MONOCHROME:
 			shaders[type] = new MonochromeShader();
 			break;
-		case Shader::Type::TEXTURE:
+		case DefaultShader::TEXTURE:
 			shaders[type] = new TextureShader();
 			break;
-		case Shader::Type::LIGHT_MATERIAL:
+		case DefaultShader::LIGHT_MATERIAL:
 			shaders[type] = new LightMaterialShader();
 			break;
-		case Shader::Type::LIGHT_DIFFUSE:
+		case DefaultShader::LIGHT_DIFFUSE:
 			shaders[type] = new LightDiffuseShader();
 			break;
-		case Shader::Type::LIGHT_DIFFUSE_SPECULAR:
+		case DefaultShader::LIGHT_DIFFUSE_SPECULAR:
 			shaders[type] = new LightDiffuseSpecularShader();
 			break;
-		case Shader::Type::DIRECTIONAL_LIGHT:
+		case DefaultShader::DIRECTIONAL_LIGHT:
 			shaders[type] = new DirectionalLightShader();
 			break;
-		case Shader::Type::POINT_LIGHT:
+		case DefaultShader::POINT_LIGHT:
 			shaders[type] = new PointLightShader();
 			break;
-		case Shader::Type::SPOT_LIGHT:
+		case DefaultShader::SPOT_LIGHT:
 			shaders[type] = new SpotLightShader();
 			break;
-		case Shader::Type::MULTI_LIGHT:
+		case DefaultShader::MULTI_LIGHT:
 			shaders[type] = new MultiLightShader();
 			break;
 		default:

@@ -27,7 +27,7 @@ public:
 	GLuint uLightLinear;
 	GLuint uLightQuadratic;
 protected:
-	PointLightShader(Shader::Type type, const string& vertex, const string& fragment);
+	PointLightShader(const string& vertex, const string& fragment);
 };
 
 }

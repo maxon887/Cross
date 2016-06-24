@@ -29,7 +29,7 @@ public:
 
 	LightDiffuseShader();
 protected:
-	LightDiffuseShader(Shader::Type type, string vertex, string fragment);
+	LightDiffuseShader(string vertex, string fragment);
 };
 
 }

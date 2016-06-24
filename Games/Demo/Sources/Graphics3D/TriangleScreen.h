@@ -16,20 +16,19 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Graphics3D/CCScreen.h"
-#include "Shaders/SimpleShader.h"
+#include "Graphics3D/CCScene.h"
+#include "Shader.h"
 #include "Input.h"
 
 using namespace cross;
 
-class TriangleScreen : public CCScreen{
+class TriangleScreen : public CCScene{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
 private:
-	GLuint vboId;
-	SimpleShader* shader;
-
-	Vector2D touch_pos;
+	Mesh* triangle;
+	Shader* triangle_shader;
+	Material* triangle_material;
 };

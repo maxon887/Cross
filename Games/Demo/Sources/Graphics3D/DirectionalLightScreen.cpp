@@ -21,8 +21,8 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 
-void DirectionalLightScreen::Start(){
-	CCScreen::Start();
+void DirectionalLightScreen::Start(){/*
+	CCScene::Start();
 	orbit_distance = 60.f;
 
 	light = new DirectionalLight(Vector3D(0.f, 0.f, 1.f), Vector3D(0.2f), Vector3D(1.f), Vector3D(0.5f));
@@ -36,11 +36,11 @@ void DirectionalLightScreen::Start(){
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}
+	}*/
 }
 
 void DirectionalLightScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	
 	delete model;
 	delete light;
@@ -50,10 +50,10 @@ void DirectionalLightScreen::Stop(){
 	}
 }
 
-void DirectionalLightScreen::Update(float sec){
+void DirectionalLightScreen::Update(float sec){/*
 	for(Model* obj : objects){
 		gfx3D->DrawModelDirectLight(obj, light);
 	}
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }

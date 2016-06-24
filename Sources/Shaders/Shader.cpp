@@ -18,13 +18,7 @@
 
 using namespace cross;
 
-Shader::Shader(const string& vertexFile, const string& fragmentFile) :
-	Shader(Type::NONE, vertexFile, fragmentFile)
-{ }
-
-Shader::Shader(Type type, const string& vertexFile, const string& fragmentFile) : 
-	type(type)
-{
+Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	vertex_shader = gfxGL->ComplileShader(vertexFile);
 	fragment_shader = gfxGL->ComplileShader(fragmentFile);
 	program = gfxGL->CreateProgram();
@@ -32,19 +26,13 @@ Shader::Shader(Type type, const string& vertexFile, const string& fragmentFile) 
 	gfxGL->AttachShader(program, fragment_shader);
 	gfxGL->CompileProgram(program);
 
-	uMVP = glGetUniformLocation(program, "uMVP");
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 	aNormal = glGetAttribLocation(program, "aNormal");
 
-	for(int i = 0; i < MaxDiffuseMaps; ++i){
-		string uniformName = string("uDiffuseMap") + to_string(i);
-		uDiffuseMaps[i] = glGetUniformLocation(program, uniformName.c_str());
-	}
-	for(int i = 0; i < MaxSpecularMaps; ++i){
-		string uniformName = string("uSpecularMap") + to_string(i);
-		uSpecularMaps[i] = glGetUniformLocation(program, uniformName.c_str());
-	}
+	uMVP = glGetUniformLocation(program, "uMVP");
+	uColor = glGetUniformLocation(program, "uColor");
+	uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
 }
 
 Shader::~Shader(){
@@ -54,9 +42,9 @@ Shader::~Shader(){
 }
 
 bool Shader::TextureCoordinatesRequired(){
-	return false;
+	return aTexCoords != -1;
 }
 
 bool Shader::NormalsRequired(){
-	return false;
+	return aNormal != -1;
 }

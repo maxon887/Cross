@@ -47,13 +47,16 @@ public:
 	float GetRunTime();
 	/* Set up new Screen. Previous screen data will be deleted */
 	void SetScreen(Screen* screen);
+	void SetScene(Scene* scene);
 	/* Returns current game screen */
 	Screen* GetCurrentScreen();
+	Scene* GetCurrentScene();
 	/* Exit from application */
     void Exit();
 //Internal data. You don't need call any of this methods or modify variable
 private:
 	Screen* current_screen;
+	bool on_scene;
 	chrono::time_point<chrono::high_resolution_clock> render_time;
 	float run_time;
 };

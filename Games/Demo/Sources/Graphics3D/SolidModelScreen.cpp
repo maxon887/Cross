@@ -15,23 +15,26 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SolidModelScreen.h"
-#include "Game.h"
-#include "Graphics3D.h"
-#include "Graphics2D.h"
-#include "Model.h"
+#include "Material.h"
+#include "Mesh.h"
 
 void SolidModelScreen::Start(){
-	CCScreen::Start();
-	cube = gfx3D->LoadModel("gfx3D/Cube.obj", Color::Green);
+	CCScene::Start();
+	cubeShader = new Shader("gfx3D/shaders/simple.vert", "gfx3D/shaders/simple.frag");
+	cubeMaterial = new Material(cubeShader);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(cubeMaterial);
 }
 
 void SolidModelScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	delete cube;
+	delete cubeMaterial;
+	delete cubeShader;
 }
 
 void SolidModelScreen::Update(float sec){
-	gfx3D->DrawModelSimple(cube);
+	cube->Draw();
 
-	CCScreen::Update(sec);
+	CCScene::Update(sec);
 }

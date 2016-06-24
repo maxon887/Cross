@@ -22,41 +22,21 @@ namespace cross{
 
 class Shader{
 public:
-	enum Type{
-		SIMPLE,
-		MONOCHROME,
-		TEXTURE,
-		LIGHT_MATERIAL,
-		LIGHT_DIFFUSE,
-		LIGHT_DIFFUSE_SPECULAR,
-		DIRECTIONAL_LIGHT,
-		POINT_LIGHT,
-		SPOT_LIGHT,
-		MULTI_LIGHT,
-		NONE
-	};
-
-	static const int MaxDiffuseMaps = 8;
-	static const int MaxSpecularMaps = 8;
-
 	GLuint program;
-	GLint uMVP;
 	//shader attributes
 	GLint aPosition;
 	GLint aTexCoords;
 	GLint aNormal;
-	GLint uDiffuseMaps[MaxDiffuseMaps];
-	GLint uSpecularMaps[MaxSpecularMaps];
-
-	Type type;
+	//shader uniforms
+	GLint uMVP;
+	GLint uColor;
+	GLint uDiffuseTexture;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
-	Shader(Type type, const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
 	virtual bool TextureCoordinatesRequired();
 	virtual bool NormalsRequired();
-
 private:
 	GLuint vertex_shader;
 	GLuint fragment_shader;

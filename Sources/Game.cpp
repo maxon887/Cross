@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Launcher.h"
-#include "Screen.h"
+#include "Scene.h"
 #include "Input.h"
 #include "Config.h"
 #include "Utils/Debugger.h"
@@ -42,6 +42,7 @@ Config*		cross::config = NULL;
 
 Game::Game() :
 	current_screen(nullptr),
+	on_scene(false),
 	run_time(0.f)
 {
 	launcher->LogIt("Game::Game()");
@@ -54,12 +55,12 @@ Game::~Game(){
 	delete current_screen;
 	delete input;
 	delete config;
-	//Debugger::Release();
 }
 
 
 void Game::SetScreen(Screen* screen){
 	launcher->LogIt("Game::SetScreen()");
+	on_scene = false;
 	Debugger::Instance()->StartCheckTime();
 	if(current_screen){
 		current_screen->Stop();
@@ -71,8 +72,21 @@ void Game::SetScreen(Screen* screen){
 	Debugger::Instance()->StopCheckTime("Screen loaded: ");
 }
 
+void Game::SetScene(Scene* scene){
+	SetScreen(scene);
+	on_scene = true;
+}
+
 Screen* Game::GetCurrentScreen(){
 	return current_screen;
+}
+
+Scene* Game::GetCurrentScene(){
+	if(on_scene){
+		return (Scene*)current_screen;
+	}else{
+		throw CrossException("Current game state does not have 3D scene");
+	}
 }
 
 void Game::Suspend(){

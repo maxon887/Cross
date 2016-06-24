@@ -80,12 +80,14 @@
     <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Launcher.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Material.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Mesh.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Model.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Scene.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp" />
@@ -137,7 +139,7 @@
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\CCScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseMapScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.cpp" />
@@ -169,12 +171,14 @@
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Material.h" />
     <ClInclude Include="..\..\..\..\Sources\Mesh.h" />
     <ClInclude Include="..\..\..\..\Sources\Model.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h" />
+    <ClInclude Include="..\..\..\..\Sources\Scene.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h" />
@@ -227,7 +231,7 @@
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\CCScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseMapScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.h" />

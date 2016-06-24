@@ -14,17 +14,27 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Shader.h"
+#include "Scene.h"
+#include "Camera.h"
+#include "Game.h"
+#include "Launcher.h"
 
-namespace cross{
+using namespace cross;
 
-class SimpleShader : public Shader{
-public:
-	GLint uColor;
+void Scene::Start(){
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
+	camera = new Camera(projection);
 
-	SimpleShader();
-};
+	window_resize_handle = MakeDelegate(this, &Scene::WindowResizeHandle);
+	game->WindowResized += window_resize_handle;
+}
 
-};
+void Scene::Stop(){
+	delete camera;
+	game->WindowResized -= window_resize_handle;
+}
+
+void Scene::WindowResizeHandle(int width, int height){
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
+	camera->SetProjectionMatrix(projection);
+}

@@ -22,44 +22,27 @@
 
 namespace cross{
 
-class Material{
-public:
-	static const Material RedPlastic;
-	static const Material Bronze;
-
-	Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float shininess);
-
-	Vector3D ambient;
-	Vector3D diffuse;
-	Vector3D specular;
-	float shininess;
-};
-
 class Mesh : public Transformable{
 friend Graphics3D;
 public:
-
-	Mesh(	VertexBuffer* vertexBuffer,
-			CRArray<unsigned int> &indices,
-			CRArray<Texture*>& diffuseMaps,
-			CRArray<Texture*>& specularMaps,
-			GLuint polyCount );
+	Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount);
 	~Mesh();
 
-	GLuint GetPolyCount() const;
-	VertexBuffer* GetVertexBuffer();
+	virtual void Draw();
 
-	void SetDiffuseTexture(Texture* texture);
-	void SetSpecularTexture(Texture* specular);
+	void SetMaterial(Material* material);
+
+	unsigned int GetPrimitivesCount() const;
+	VertexBuffer* GetVertexBuffer();
 
 private:
 	GLuint VBO;
 	GLuint EBO;
+
 	VertexBuffer* vertex_buffer;
-	CRArray<Texture*> diffuse_maps;
-	CRArray<Texture*> specular_maps;
-	GLuint poly_count;
-	GLuint index_count;
+	Material* material;
+	unsigned int primitives_count;
+	unsigned int index_count;
 };
 
 }

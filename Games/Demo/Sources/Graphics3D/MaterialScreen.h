@@ -16,10 +16,10 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "CCScreen.h"
+#include "CCScene.h"
 #include "Utils/LightCaster.h"
 
-class MaterialScreen : public CCScreen{
+class MaterialScreen : public CCScene{
 public:
 	void Start();
 	void Stop();

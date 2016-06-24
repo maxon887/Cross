@@ -24,7 +24,6 @@
 #include "Camera2D.h"
 #include "File.h"
 #include "Texture.h"
-#include "Shaders/SimpleShader.h"
 #include "Shaders/MonochromeShader.h"
 #include "Shaders/TextureShader.h"
 
@@ -70,7 +69,7 @@ Camera2D* Graphics2D::GetDefaultCamera(){
 }
 
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
-	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	gfxGL->UseShader(shader);
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
@@ -83,7 +82,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 }
 
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
-	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	gfxGL->UseShader(shader);
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
 	Camera* cam = GetCamera();
@@ -101,7 +100,7 @@ void Graphics2D::DrawRect(Rect rect, Color color){
 }
 
 void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
-	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	gfxGL->UseShader(shader);
 	float vertices[5 * 2] = {	rect.x, rect.y,
 								rect.x + rect.width, rect.y,
@@ -132,7 +131,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 }
 
 void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy){
-	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
+	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	gfxGL->UseShader(shader);
 	int vertexCount = accuracy;
 
@@ -211,14 +210,14 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glActiveTexture(GL_TEXTURE0));
 	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	if(monochrome){
-		shader = gfxGL->GetShader(Shader::Type::MONOCHROME);
+		shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
 		gfxGL->UseShader(shader);
 		MonochromeShader* spriteShader = (MonochromeShader*)shader;
 		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));
 		SAFE(glEnableVertexAttribArray(spriteShader->aTexCoord));
 		SAFE(glVertexAttribPointer(spriteShader->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	}else{
-		shader = gfxGL->GetShader(Shader::Type::TEXTURE);
+		shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 		gfxGL->UseShader(shader);
 		TextureShader* spriteShader = (TextureShader*)shader;
 		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));

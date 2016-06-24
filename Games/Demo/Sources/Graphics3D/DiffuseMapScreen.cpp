@@ -21,7 +21,7 @@
 #include "Game.h"
 
 void DiffuseMapScreen::Start(){
-	CCScreen::Start();
+	CCScene::Start();
 
 	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
 	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
@@ -32,16 +32,16 @@ void DiffuseMapScreen::Start(){
 }
 
 void DiffuseMapScreen::Stop(){
-	CCScreen::Stop();
+	CCScene::Stop();
 	delete model;
 	delete light;
 }
 
-void DiffuseMapScreen::Update(float sec){
+void DiffuseMapScreen::Update(float sec){/*
 	light->Draw();
 	gfx3D->DrawModelLightDiffuse(model, light);
 
 	model->SetRotateY(game->GetRunTime() * 15.f);
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }

@@ -22,18 +22,18 @@
 #include "Model.h"
 
 void TexturedModelScreen::Start() {
-	CCScreen::Start();
+	CCScene::Start();
 	Texture* box = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
 	cube = gfx3D->LoadModel("gfx3D/Cube.obj", box);
 }
 
 void TexturedModelScreen::Stop() {
-	CCScreen::Stop();
+	CCScene::Stop();
 	delete cube;
 }
 
-void TexturedModelScreen::Update(float sec) {
+void TexturedModelScreen::Update(float sec) {/*
 	gfx3D->DrawModelTexture(cube);
-
-	CCScreen::Update(sec);
+	*/
+	CCScene::Update(sec);
 }

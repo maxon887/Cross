@@ -14,17 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "CCScene.h"
-#include "Shader.h"
+#include "Material.h"
 
-class SolidModelScreen : public CCScene{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Mesh* cube;
-	Material* cubeMaterial;
-	Shader* cubeShader;
-};
+using namespace cross;
+
+Material::Material(Shader* shader) :
+	shader(shader),
+	diffuse_color(Color(0.f, 0.f, 0.f)),
+	shininess(0.f),
+	diffuse_texture(nullptr)
+{ }
+
+void Material::SetDiffuseColor(const Color& color){
+	diffuse_color = color;
+}
+
+void Material::SetDiffuseTexture(Texture* diffuse){
+	diffuse_texture = diffuse;
+}
+
+void Material::SetShininess(float snininess){
+	this->shininess = shininess;
+}

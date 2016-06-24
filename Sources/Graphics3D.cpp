@@ -23,7 +23,6 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Game.h"
-#include "Shaders/SimpleShader.h"
 #include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
 #include "Shaders/LightDiffuseShader.h"
@@ -46,24 +45,12 @@
 
 using namespace cross;
 
-Graphics3D::Graphics3D() : 
-	camera(nullptr)
+Graphics3D::Graphics3D()
 {
 	launcher->LogIt("Graphics3D::Graphics3D()");
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
-	camera = new Camera(projection);
-
-	window_resize_handle = MakeDelegate(this, &Graphics3D::WindowResizeHandle);
-	game->WindowResized += window_resize_handle;
 }
 
 Graphics3D::~Graphics3D(){
-	delete camera;
-	game->WindowResized -= window_resize_handle;
-}
-
-Camera* Graphics3D::GetCamera(){
-	return camera;
 }
 
 Model* Graphics3D::LoadModel(const string& filename){
@@ -152,7 +139,7 @@ CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	}
 	return meshes;
 }
-
+/*
 void Graphics3D::DrawMesh(Shader* shader, Mesh* mesh, const Matrix& model){
 	gfxGL->UseShader(shader);
 	//transfer uniforms
@@ -604,6 +591,7 @@ void Graphics3D::BindTextures(Shader* shader, Mesh* mesh){
 		}
 	}
 }
+*/
 
 void Graphics3D::BindAttributes(Shader* shader, Mesh* mesh){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
@@ -685,7 +673,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& 
 
 	}
 
-	Mesh* ret = new Mesh(vertexBuffer, indices, *diffuseMaps, *specularMaps,  mesh->mNumFaces);
+	Mesh* ret = new Mesh(vertexBuffer, indices, mesh->mNumFaces);
 	delete diffuseMaps;
 	delete specularMaps;
 	return ret;
@@ -703,9 +691,4 @@ void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
 		ProcessNode(meshes, node->mChildren[i], scene, modelFilePath);
 	}
-}
-
-void Graphics3D::WindowResizeHandle(int width, int height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
-	camera->SetProjectionMatrix(projection);
 }

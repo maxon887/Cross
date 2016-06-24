@@ -286,11 +286,17 @@
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\CCScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\VertexBuffer.cpp">
       <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Scene.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Material.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -550,11 +556,17 @@
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\CCScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\VertexBuffer.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Scene.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Material.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

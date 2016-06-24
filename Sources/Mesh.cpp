@@ -15,26 +15,21 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
+#include "Game.h"
+#include "Scene.h"
+#include "Camera.h"
+#include "Material.h"
 #include "Texture.h"
 
 using namespace cross;
 
-const Material Material::RedPlastic(Vector3D(0.3f, 0.0f, 0.0f), Vector3D(0.7f, 0.0f, 0.0f), Vector3D(0.7f, 0.6f, 0.6f), 0.25f);
-const Material Material::Bronze(Vector3D(0.2125f, 0.1275f, 0.054f), Vector3D(0.714f, 0.4284f, 0.3935f), Vector3D(0.3935f, 0.2719f, 0.1666f), 0.2f);
-
-Material::Material(Vector3D ambient, Vector3D diffuse, Vector3D specular, float shininess){
-	this->ambient = ambient;
-	this->diffuse = diffuse;
-	this->specular = specular;
-	this->shininess = shininess;
-}
-
-Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, CRArray<Texture*>& diffuseMaps, CRArray<Texture*>& specularMaps, GLuint polyCount) :
-	diffuse_maps(diffuseMaps),
-	specular_maps(specularMaps)
+Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount) :
+	vertex_buffer(vertexBuffer),
+	primitives_count(primitivesCount),
+	material(nullptr)
 {
-	poly_count = polyCount;
-	vertex_buffer = vertexBuffer;
+	index_count = indices.size();
+
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 	
@@ -43,36 +38,80 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, CRArray<T
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	index_count = indices.size();
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	vertexBuffer->Free();
 }
 
 Mesh::~Mesh(){
-	for(Texture* texture : diffuse_maps){
-		delete texture;
-	}
-	for(Texture* texture : specular_maps){
-		delete texture;
-	}
 }
 
-GLuint Mesh::GetPolyCount() const{
-	return poly_count;
+void Mesh::Draw(){
+	if(material == nullptr){
+		throw CrossException("Current mesh does not have material");
+	}
+	Shader* shader = material->GetShader();
+
+	gfxGL->UseShader(shader);
+	Camera* cam = game->GetCurrentScene()->GetCamera();
+	//binding uniforms
+	if(shader->uMVP != -1){
+		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * GetModelMatrix();
+		mvp = mvp.Transpose();
+		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	}
+
+	if(shader->uColor != -1){
+		SAFE(glUniform3fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
+	}
+
+	if(shader->uDiffuseTexture != -1){
+		Texture* texture = material->GetDiffuseTexture();
+		SAFE(glActiveTexture(GL_TEXTURE0));
+		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
+		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
+	}
+	//binding attributes
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	unsigned int vertexSize = vertex_buffer->VertexSize();
+	if(shader->aPosition != -1){
+		SAFE(glEnableVertexAttribArray(shader->aPosition));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetPossitionsOffset())));
+	}
+	if(shader->TextureCoordinatesRequired()){
+		if(vertex_buffer->HasTextureCoordinates()){
+			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetTextureCoordinatesOffset())));
+		}else{
+			throw CrossException("Current mesh noes not contain texture coordinates");
+		}
+	}
+	if(shader->NormalsRequired()){
+		if(vertex_buffer->HasNormals()){
+			SAFE(glEnableVertexAttribArray(shader->aNormal));
+			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetNormalsOffset())));
+		}else{
+			throw CrossException("Current mesh noes not countain normals");
+		}
+	}
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	//drawing
+	SAFE(glEnable(GL_DEPTH_TEST));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glDisable(GL_DEPTH_TEST));
+}
+
+void Mesh::SetMaterial(Material* mat){
+	this->material = mat;
+}
+
+unsigned int Mesh::GetPrimitivesCount() const{
+	return primitives_count;
 }
 
 VertexBuffer* Mesh::GetVertexBuffer(){
 	return vertex_buffer;
-}
-
-void Mesh::SetDiffuseTexture(Texture* texture){
-	diffuse_maps.clear();
-	diffuse_maps.push_back(texture);
-}
-
-void Mesh::SetSpecularTexture(Texture* texture){
-	specular_maps.clear();
-	specular_maps.push_back(texture);
 }

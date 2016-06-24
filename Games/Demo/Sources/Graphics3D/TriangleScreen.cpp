@@ -21,45 +21,53 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Font.h"
-
-struct Vertex
-{
-	Vector3D pos;
-};
+#include "VertexBuffer.h"
+#include "Mesh.h"
+#include "Material.h"
 
 void TriangleScreen::Start(){
-	CCScreen::Start();
+	CCScene::Start();
 	
-	shader = new SimpleShader();
-	
-	Vertex verticesData[3];
+	triangle_shader = new Shader("gfx3D/shaders/simple.vert", "gfx3D/shaders/simple.frag");
 
-	verticesData[0].pos.x = 0.0f;  verticesData[0].pos.y = 5.f;  verticesData[0].pos.z = 0.0f;
-	verticesData[1].pos.x = -5.f;  verticesData[1].pos.y = -5.f;  verticesData[1].pos.z = 0.0f;
-	verticesData[2].pos.x = 5.f;  verticesData[2].pos.y = -5.f;  verticesData[2].pos.z = 0.0f;
+	triangle_material = new Material(triangle_shader);
+
+	VertexBuffer* vertexBuffer = new VertexBuffer();
+	
+	Vector3D verticesData[3];
+	verticesData[0].x = 0.0f;  verticesData[0].y = 5.f;  verticesData[0].z = 0.0f;
+	verticesData[1].x = -5.f;  verticesData[1].y = -5.f;  verticesData[1].z = 0.0f;
+	verticesData[2].x = 5.f;  verticesData[2].y = -5.f;  verticesData[2].z = 0.0f;
+
+	vertexBuffer->PushData((CRByte*)&verticesData[0], 3 * sizeof(Vector3D));
+
+	CRArray<unsigned int> indices = { 0, 1, 2 };
+
+	triangle = new Mesh(vertexBuffer, indices, indices.size());
+	triangle->SetMaterial(triangle_material);
 
 	//buffer object
+	/*
 	SAFE(glGenBuffers(1, &vboId));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-	action_move_delegate = MakeDelegate(this, &TriangleScreen::ActionMoveHandle);
-	input->ActionMove += action_move_delegate;
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));*/
 }
 
 void TriangleScreen::Stop(){
-	CCScreen::Stop();
-	delete shader;
+	CCScene::Stop();
+	delete triangle_shader;
+	delete triangle_material;
+	delete triangle;
 	
-	SAFE(glDeleteBuffers(1, &vboId));
-
-	input->ActionMove -= action_move_delegate;
+	//SAFE(glDeleteBuffers(1, &vboId));
 }
 
 void TriangleScreen::Update(float sec){
-	SAFE(glUseProgram(shader->program));
-	Camera* camera = gfx3D->GetCamera();
+
+	triangle->Draw();
+	/*
+	SAFE(glUseProgram(triangle_shader->program));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vboId));
 	if(shader->aPosition != -1)	{
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
@@ -81,9 +89,9 @@ void TriangleScreen::Update(float sec){
 	SAFE(glDrawArrays(GL_TRIANGLES, 0, 3));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	
-	CCScreen::Update(sec);
+	CCScene::Update(sec);
 	
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
-	}
+	}*/
 }

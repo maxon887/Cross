@@ -19,11 +19,11 @@
 using namespace cross;
 
 PointLightShader::PointLightShader() :
-	PointLightShader(Shader::Type::POINT_LIGHT, "Engine/Shaders/point_light.vert", "Engine/Shaders/point_light.frag")
+	PointLightShader("Engine/Shaders/point_light.vert", "Engine/Shaders/point_light.frag")
 { }
 
-PointLightShader::PointLightShader(Shader::Type type, const string& vertex, const string& frag) :
-	LightDiffuseSpecularShader(type, vertex, frag)
+PointLightShader::PointLightShader(const string& vertex, const string& frag) :
+	LightDiffuseSpecularShader(vertex, frag)
 {
 	uLightConstant = glGetUniformLocation(program, "uLight.constant");
 	uLightLinear = glGetUniformLocation(program, "uLight.linear");
