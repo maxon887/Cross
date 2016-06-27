@@ -52,8 +52,8 @@ void Mesh::Draw(){
 		throw CrossException("Current mesh does not have material");
 	}
 	Shader* shader = material->GetShader();
-
 	gfxGL->UseShader(shader);
+
 	Camera* cam = game->GetCurrentScene()->GetCamera();
 	//binding uniforms
 	if(shader->uMVP != -1){

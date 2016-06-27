@@ -37,6 +37,7 @@ private:
 	Menu* graphics3D_advanced;
 	Sprite* button_sprite;
 	Screen* next_screen;
+	Scene* next_scene;
 
 	void AdjustScreenHeight(Menu* menu);
 

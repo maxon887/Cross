@@ -19,7 +19,7 @@
 using namespace cross;
 
 MonochromeShader::MonochromeShader() :
-	Shader(Type::MONOCHROME, "Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag")
+	Shader("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag")
 {
 	aTexCoord = glGetAttribLocation(program, "aTexCoord");
 	uColor = glGetUniformLocation(program, "uColor");

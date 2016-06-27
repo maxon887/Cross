@@ -37,6 +37,7 @@ CCScene::CCScene() :
 { }
 
 void CCScene::Start() {
+	Scene::Start();
 	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -20.f));
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
@@ -101,6 +102,7 @@ void CCScene::Start() {
 }
 
 void CCScene::Stop(){
+	Scene::Stop();
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;

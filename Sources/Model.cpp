@@ -17,6 +17,7 @@
 #include "Model.h"
 #include "Graphics3D.h"
 #include "Mesh.h"
+#include "Material.h"
 #include "Camera.h"
 #include "Texture.h"
 
@@ -94,22 +95,10 @@ Material* Model::GetMaterial(){
 	}
 }
 
-void Model::SetDiffuseTexture(Texture* texture){
-	for(Mesh* mesh : meshes){
-		mesh->SetDiffuseTexture(texture);
-	}
-}
-
-void Model::SetSpecularTexture(Texture* texture){
-	for(Mesh* mesh : meshes){
-		mesh->SetSpecularTexture(texture);
-	}
-}
-
 int Model::GetPolyCount(){
 	int polyCount = 0;
 	for(Mesh* mesh : meshes){
-		polyCount += mesh->GetPolyCount();
+		polyCount += mesh->GetPrimitivesCount();
 	}
 	return polyCount;
 }

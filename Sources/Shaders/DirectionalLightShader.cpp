@@ -19,7 +19,7 @@
 using namespace cross;
 
 DirectionalLightShader::DirectionalLightShader() :
-	LightShader(Shader::Type::DIRECTIONAL_LIGHT, "Engine/Shaders/directional_light.vert", "Engine/Shaders/directional_light.frag")
+	LightShader("Engine/Shaders/directional_light.vert", "Engine/Shaders/directional_light.frag")
 {
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");

@@ -90,7 +90,6 @@ Model* Graphics3D::LoadModel(const string& filename, Texture* texture){
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
 	Model* model = new Model(*modelMeshes);
-	model->SetDiffuseTexture(texture);
 	delete modelMeshes;
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
@@ -102,8 +101,6 @@ Model* Graphics3D::LoadModel(const string& filename, Texture* diffuse, Texture* 
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
 	Model* model = new Model(*modelMeshes);
-	model->SetDiffuseTexture(diffuse);
-	model->SetSpecularTexture(specular);
 	delete modelMeshes;
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);

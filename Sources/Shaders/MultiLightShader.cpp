@@ -19,7 +19,7 @@
 using namespace cross;
 
 MultiLightShader::MultiLightShader() :
-	Shader(Shader::Type::MULTI_LIGHT, "Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
+	Shader("Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
 { 
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");

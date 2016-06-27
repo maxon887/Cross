@@ -36,3 +36,23 @@ void Material::SetDiffuseTexture(Texture* diffuse){
 void Material::SetShininess(float snininess){
 	this->shininess = shininess;
 }
+
+Color Material::GetDiffuseColor(){
+	return diffuse_color;
+}
+
+Texture* Material::GetDiffuseTexture(){
+	if(HasDiffuseTexture()){
+		return diffuse_texture;
+	}else{
+		throw CrossException("Current material does not have diffuse texture");
+	}
+}
+
+bool Material::HasDiffuseTexture(){
+	return diffuse_texture? true : false;
+}
+
+Shader* Material::GetShader(){
+	return shader;
+}

@@ -19,7 +19,7 @@
 using namespace cross;
 
 LightMaterialShader::LightMaterialShader() :
-	LightShader(Type::LIGHT_MATERIAL, "Engine/Shaders/light_material.vert", "Engine/Shaders/light_material.frag")
+	LightShader("Engine/Shaders/light_material.vert", "Engine/Shaders/light_material.frag")
 { 
 	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");

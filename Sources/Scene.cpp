@@ -22,6 +22,7 @@
 using namespace cross;
 
 void Scene::Start(){
+	Screen::Start();
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera = new Camera(projection);
 
@@ -30,8 +31,13 @@ void Scene::Start(){
 }
 
 void Scene::Stop(){
+	Screen::Stop();
 	delete camera;
 	game->WindowResized -= window_resize_handle;
+}
+
+Camera* Scene::GetCamera(){
+	return camera;
 }
 
 void Scene::WindowResizeHandle(int width, int height){

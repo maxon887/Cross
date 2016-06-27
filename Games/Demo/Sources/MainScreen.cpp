@@ -20,7 +20,7 @@
 #include "Sprite.h"
 #include "AudioScreen.h"
 #include "Camera2D.h"
-#include "Graphics3D/TriangleScreen.h"
+#include "Graphics3D/TriangleScene.h"
 #include "Graphics3D/SolidModelScreen.h"
 #include "Graphics3D/TexturedModelScreen.h"
 #include "Graphics3D/MaterialScreen.h"
@@ -42,6 +42,7 @@
 void MainScreen::Start(){
 	ScrollScreen::Start();
 	next_screen = nullptr;
+	next_scene = nullptr;
 	button_sprite = demo->GetCommonSprite("DefaultButton.png");
 	button_sprite->SetScale(1.35f);
 	//main menu
@@ -105,7 +106,7 @@ void MainScreen::Start(){
 	solidModelBtn->SetImages(button_sprite->Clone());
 	texturedModelBtn->SetImages(button_sprite->Clone());
 	complexBtn->SetImages(button_sprite->Clone());
-	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
+	//triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
 	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
 	complexBtn->Clicked += MakeDelegate(this, &MainScreen::OnComplexModelClick);
@@ -157,7 +158,7 @@ void MainScreen::Start(){
 	input->KeyPressed += key_released_delegate;
 
 	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
-	game->WindowResized += window_resized_delegate;
+	//game->WindowResized += window_resized_delegate;
 
 	delete button_sprite;
 	//expirimental
@@ -181,6 +182,10 @@ void MainScreen::Update(float sec){
 	if(next_screen){
 		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 		game->SetScreen(next_screen);
+	}
+
+	if(next_scene){
+		game->SetScene(next_scene);
 	}
 }
 
@@ -265,7 +270,7 @@ void MainScreen::On2DCameraClick(){
 }
 
 void MainScreen::OnTriangleClick(){
-	next_screen = new TriangleScreen();
+	next_scene = new TriangleScene();
 }
 
 void MainScreen::OnSolidModelClick(){

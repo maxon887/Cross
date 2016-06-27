@@ -19,7 +19,7 @@
 using namespace cross;
 
 TextureShader::TextureShader() :
-	Shader(Type::TEXTURE, "Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag")
+	Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag")
 {
 	uColor = glGetUniformLocation(program, "uColor");
 }

@@ -36,8 +36,6 @@ public:
 	Color GetColor();
 	void SetColor(const Color& c);
 	Material* GetMaterial();
-	void SetDiffuseTexture(Texture* texture);
-	void SetSpecularTexture(Texture* texture);
 
 	int GetPolyCount();
 	Model* Clone();

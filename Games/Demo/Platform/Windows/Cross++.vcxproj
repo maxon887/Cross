@@ -97,7 +97,6 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PointLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\SimpleShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SpotLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp" />
@@ -151,7 +150,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\TriangleScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
     <ClCompile Include="..\..\Sources\ScrollScreen.cpp" />
@@ -187,7 +186,6 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\PointLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\SimpleShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SpotLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h" />
@@ -243,7 +241,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\TriangleScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
     <ClInclude Include="..\..\Sources\ScrollScreen.h" />

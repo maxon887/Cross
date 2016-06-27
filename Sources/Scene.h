@@ -23,7 +23,6 @@ namespace cross{
 
 class Scene : public Screen{
 public:
-
 	virtual void Start();
 	virtual void Stop();
 

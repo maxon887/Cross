@@ -22,7 +22,7 @@
 
 using namespace cross;
 
-class TriangleScreen : public CCScene{
+class TriangleScene : public CCScene{
 public:
 	void Start();
 	void Stop();

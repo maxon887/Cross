@@ -36,6 +36,6 @@ void LightCaster::Draw(){
 	for(Mesh* mesh : meshes){
 		Vector3D diffuse = Light::diffuse;
         Color color(diffuse.x, diffuse.y, diffuse.z);
-		gfx3D->DrawMeshSimple(mesh, GetModelMatrix(), color);
+		//gfx3D->DrawMeshSimple(mesh, GetModelMatrix(), color);
 	}
 }
