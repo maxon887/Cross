@@ -24,6 +24,8 @@
 #include "Font.h"
 
 void Camera2DScreen::Start(){
+	tip_timeout = 2.f;
+	cam_speed = 10.f;
 	awesomefase = demo->GetCommonSprite("AwesomeFace.png");
 	for(int i = 0; i < 10; ++i){
 		Sprite* sprite = new Sprite(*awesomefase);
@@ -32,11 +34,13 @@ void Camera2DScreen::Start(){
 		sprites.push_back(sprite);
 		velocities.push_back(Vector3D(Random(-5.f, 5.f), Random(-5.f, 5.f), 0.f));
 	}
-	cam_speed = 10.f;
-	view_width = (float)launcher->GetTargetWidth();
-	cam_positon = Vector2D(0.f, 0.f);
+	//view_width = (float)launcher->GetTargetWidth();
 	camera = new Camera2D();
+	camera->SetViewWidth(1000.f);
+	cam_positon = Vector2D(0, 0);
+	camera->SetPosition(cam_positon);
 	gfx2D->SetCamera(camera);
+	view_width = camera->GetViewWidth();
 	tip_font = new Font("Engine/Fonts/VeraMono.ttf", 35, Color(150, 217, 234));
 
 	input->MouseWheelUp += MakeDelegate(this, &Camera2DScreen::WheelUpHandler);
@@ -55,14 +59,20 @@ void Camera2DScreen::Stop(){
 
 void Camera2DScreen::Update(float sec){
 	Color fontColor = tip_font->GetColor();
-	static float tipTimeOut = 2.f;
-	tipTimeOut -= sec;
-	if(tipTimeOut < 0){
+	if(tip_timeout < 0){
 		fontColor.A -= 0.01f;
+	}else{
+		tip_timeout -= sec;
 	}
 	tip_font->SetColor(fontColor);
 	gfx2D->DrawText(Vector2D(50.f, launcher->GetTargetHeight() / 2.f), "Use WSDA for scroling", tip_font);
 	gfx2D->DrawText(Vector2D(50.f, launcher->GetTargetHeight() / 2.f - 50.f), "Mouse wheel for zooming", tip_font);
+
+	gfx2D->DrawLine(Vector2D(1.f, 1.f), Vector2D(999.f, 1.f), Color::Red);
+	gfx2D->DrawLine(Vector2D(1.f, 1.f), Vector2D(1.f, 999.f), Color::Red);
+	gfx2D->DrawLine(Vector2D(999.f, 999.f), Vector2D(999.f, 1.f), Color::Red);
+	gfx2D->DrawLine(Vector2D(999.f, 999.f), Vector2D(1.f, 999.f), Color::Red);
+
 	for(unsigned int i = 0; i < sprites.size(); ++i){
 		Sprite* sprite = sprites[i];
 		float spriteWidth = sprite->GetWidth() / 2;
@@ -119,10 +129,10 @@ void Camera2DScreen::Update(float sec){
 
 void Camera2DScreen::WheelUpHandler(){
 	float height = view_width / launcher->GetAspectRatio();
-	if(height < 1000.f){
+	if(height < 1000.f && view_width * 1.05f < 1000.f){
 		view_width *= 1.05f;
 	}else{
-		view_width = 1000.f * launcher->GetAspectRatio();
+		view_width = 1000.f;
 	}
 
 	if(cam_positon.x + view_width < 1000.f) {

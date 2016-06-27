@@ -27,12 +27,12 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	//Sprite* grid;
 	Sprite* awesomefase;
 	CRArray<Sprite*> sprites;
 	CRArray<Vector3D> velocities;
 	float cam_speed;
 	float view_width;
+	float tip_timeout;
 	Vector2D cam_positon;
 	Camera2D* camera;
 	Font* tip_font;

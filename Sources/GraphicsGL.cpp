@@ -104,7 +104,7 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 	if(shaders[type] == nullptr){
 		switch(type) {
 		case DefaultShader::SIMPLE:
-			shaders[type] = new Shader("gfx3D/shaders/simple.vert", "gfx3D/shaders/simple.frag");
+			shaders[type] = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
 			break;
 		case DefaultShader::MONOCHROME:
 			shaders[type] = new MonochromeShader();

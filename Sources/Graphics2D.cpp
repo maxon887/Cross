@@ -204,7 +204,6 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome){
-
 	Shader* shader = nullptr;
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
 	SAFE(glActiveTexture(GL_TEXTURE0));

@@ -203,6 +203,12 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Material.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Matrix.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Matrix.cpp" isTestSource="false" />
     </content>
@@ -244,6 +250,12 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/SOIL">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/SOIL" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Scene.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Scene.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Screen.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Screen.cpp" isTestSource="false" />
@@ -295,6 +307,12 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.h" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 15 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

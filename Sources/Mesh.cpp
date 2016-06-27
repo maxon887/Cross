@@ -63,7 +63,7 @@ void Mesh::Draw(){
 	}
 
 	if(shader->uColor != -1){
-		SAFE(glUniform3fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
+		SAFE(glUniform4fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
 	}
 
 	if(shader->uDiffuseTexture != -1){

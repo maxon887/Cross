@@ -106,7 +106,7 @@ void MainScreen::Start(){
 	solidModelBtn->SetImages(button_sprite->Clone());
 	texturedModelBtn->SetImages(button_sprite->Clone());
 	complexBtn->SetImages(button_sprite->Clone());
-	//triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
+	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
 	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
 	complexBtn->Clicked += MakeDelegate(this, &MainScreen::OnComplexModelClick);
@@ -153,12 +153,15 @@ void MainScreen::Start(){
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
+	graphics3D_simple->Active(false);
+	graphics3D_light->Active(false);
+	graphics3D_advanced->Active(false);
 
 	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
 	input->KeyPressed += key_released_delegate;
 
 	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
-	//game->WindowResized += window_resized_delegate;
+	game->WindowResized += window_resized_delegate;
 
 	delete button_sprite;
 	//expirimental
@@ -182,10 +185,12 @@ void MainScreen::Update(float sec){
 	if(next_screen){
 		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 		game->SetScreen(next_screen);
+		return;
 	}
-
+	
 	if(next_scene){
 		game->SetScene(next_scene);
+		return;
 	}
 }
 
