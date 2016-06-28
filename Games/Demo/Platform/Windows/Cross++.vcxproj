@@ -93,13 +93,11 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PointLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\SpotLightShader.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
@@ -147,7 +145,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScene.cpp" />
@@ -182,13 +180,11 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\PointLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\SpotLightShader.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
@@ -238,7 +234,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScene.h" />

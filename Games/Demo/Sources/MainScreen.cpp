@@ -21,7 +21,7 @@
 #include "AudioScreen.h"
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScene.h"
-#include "Graphics3D/SolidModelScreen.h"
+#include "Graphics3D/SolidModelScene.h"
 #include "Graphics3D/TexturedModelScreen.h"
 #include "Graphics3D/MaterialScreen.h"
 #include "Graphics3D/DiffuseMapScreen.h"
@@ -97,7 +97,7 @@ void MainScreen::Start(){
 	graphics3D_menu->AddButton(lightBtn);
 	graphics3D_menu->AddButton(advancedBtn);
 
-	graphics3D_simple = new Menu(true);
+	graphics3D_simple = new Menu(false);
 	Button* triangleBtn				= new Button("Triangle");
 	Button* solidModelBtn			= new Button("Solid Model");
 	Button* texturedModelBtn		= new Button("Textured Model");
@@ -279,7 +279,7 @@ void MainScreen::OnTriangleClick(){
 }
 
 void MainScreen::OnSolidModelClick(){
-	next_screen = new SolidModelScreen();
+	next_scene = new SolidModelScene();
 }
 
 void MainScreen::OnTexturedModelClick(){

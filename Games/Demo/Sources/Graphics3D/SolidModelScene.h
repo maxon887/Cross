@@ -18,7 +18,7 @@
 #include "CCScene.h"
 #include "Shader.h"
 
-class SolidModelScreen : public CCScene{
+class SolidModelScene : public CCScene{
 public:
 	void Start();
 	void Stop();
@@ -26,5 +26,4 @@ public:
 private:
 	Mesh* cube;
 	Material* cubeMaterial;
-	Shader* cubeShader;
 };

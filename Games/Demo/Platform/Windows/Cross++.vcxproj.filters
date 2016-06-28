@@ -199,12 +199,6 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\MonochromeShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\TextureShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -239,9 +233,6 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScreen.cpp">
@@ -293,6 +284,9 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -463,12 +457,6 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\MonochromeShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\TextureShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -506,9 +494,6 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScreen.h">
@@ -560,6 +545,9 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>

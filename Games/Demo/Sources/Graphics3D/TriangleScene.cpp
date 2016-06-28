@@ -49,12 +49,13 @@ void TriangleScene::Start(){
 }
 
 void TriangleScene::Stop(){
-	CCScene::Stop();
 	delete triangle_shader;
 	delete triangle_material;
 	delete triangle;
+	CCScene::Stop();
 }
 
 void TriangleScene::Update(float sec){
 	triangle->Draw();
+	CCScene::Update(sec);
 }

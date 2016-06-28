@@ -34,7 +34,6 @@ void Camera2DScreen::Start(){
 		sprites.push_back(sprite);
 		velocities.push_back(Vector3D(Random(-5.f, 5.f), Random(-5.f, 5.f), 0.f));
 	}
-	//view_width = (float)launcher->GetTargetWidth();
 	camera = new Camera2D();
 	camera->SetViewWidth(1000.f);
 	cam_positon = Vector2D(0, 0);

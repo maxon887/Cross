@@ -24,8 +24,7 @@
 #include "Camera2D.h"
 #include "File.h"
 #include "Texture.h"
-#include "Shaders/MonochromeShader.h"
-#include "Shaders/TextureShader.h"
+#include "Shader.h"
 
 #include "SOIL/SOIL.h"
 #include "FreeType/ft2build.h"
@@ -210,19 +209,13 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	if(monochrome){
 		shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
-		gfxGL->UseShader(shader);
-		MonochromeShader* spriteShader = (MonochromeShader*)shader;
-		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));
-		SAFE(glEnableVertexAttribArray(spriteShader->aTexCoord));
-		SAFE(glVertexAttribPointer(spriteShader->aTexCoord, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	}else{
 		shader = gfxGL->GetShader(DefaultShader::TEXTURE);
-		gfxGL->UseShader(shader);
-		TextureShader* spriteShader = (TextureShader*)shader;
-		SAFE(glUniform4fv(spriteShader->uColor, 1, color.GetData()));
-		SAFE(glEnableVertexAttribArray(spriteShader->aTexCoords));
-		SAFE(glVertexAttribPointer(spriteShader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 	}
+	gfxGL->UseShader(shader);
+	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 
 	SAFE(glEnable(GL_BLEND));
 	SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));

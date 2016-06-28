@@ -22,6 +22,7 @@
 #include "Sprite.h"
 #include "Font.h"
 #include "Demo.h"
+#include "Camera2D.h"
 
 #include <math.h>
 
@@ -39,6 +40,7 @@ CCScene::CCScene() :
 void CCScene::Start() {
 	Scene::Start();
 	gfx2D->SetClearColor(Color(0.3f, 0.3f, 0.3f));
+	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -20.f));
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	orbit_distance = GetCamera()->GetPosition().Length();

@@ -18,8 +18,6 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
-#include "Shaders/MonochromeShader.h"
-#include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
 #include "Shaders/LightDiffuseShader.h"
 #include "Shaders/LightDiffuseSpecularShader.h"
@@ -107,10 +105,10 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 			shaders[type] = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
 			break;
 		case DefaultShader::MONOCHROME:
-			shaders[type] = new MonochromeShader();
+			shaders[type] = new Shader("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag");
 			break;
 		case DefaultShader::TEXTURE:
-			shaders[type] = new TextureShader();
+			shaders[type] = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
 			break;
 		case DefaultShader::LIGHT_MATERIAL:
 			shaders[type] = new LightMaterialShader();

@@ -23,7 +23,6 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Game.h"
-#include "Shaders/TextureShader.h"
 #include "Shaders/LightMaterialShader.h"
 #include "Shaders/LightDiffuseShader.h"
 #include "Shaders/LightDiffuseSpecularShader.h"
