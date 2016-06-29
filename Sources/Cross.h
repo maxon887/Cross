@@ -63,6 +63,9 @@ class Mesh;
 class Model;
 class Texture;
 class Scene;
+class DirectionalLight;
+class PointLight;
+class SpotLight;
 
 extern Game* game;
 extern Launcher* launcher;

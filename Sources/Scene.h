@@ -26,9 +26,20 @@ public:
 	virtual void Start();
 	virtual void Stop();
 
+	void AddDirectionalLight(DirectionalLight* light);
+	void AddPointLight(PointLight* light);
+	void AddSpotLight(SpotLight* light);
+
+	CRArray<DirectionalLight*>& GetDirectionalLights();
+	CRArray<PointLight*>& GetPointLights();
+	CRArray<SpotLight*>& GetSpotLights();
+
 	Camera* GetCamera();
 protected:
 	Camera* camera;
+	CRArray<DirectionalLight*> directional_lights;
+	CRArray<PointLight*> point_lights;
+	CRArray<SpotLight*> spot_lights;
 private:
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

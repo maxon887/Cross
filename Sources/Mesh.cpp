@@ -58,9 +58,9 @@ void Mesh::Draw(const Matrix& globalModel){
 	Shader* shader = material->GetShader();
 	gfxGL->UseShader(shader);
 
-	Camera* cam = game->GetCurrentScene()->GetCamera();
 	//binding uniforms
 	if(shader->uMVP != -1){
+		Camera* cam = game->GetCurrentScene()->GetCamera();
 		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel * GetModelMatrix();
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -76,6 +76,19 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
 		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
 	}
+
+	if(shader->UseDirectionalLights()){
+		shader->TransferDirectionLights(game->GetCurrentScene()->GetDirectionalLights());
+	}
+
+	if(shader->UsePointLights()){
+		shader->TransferPointLights(game->GetCurrentScene()->GetPointLights());
+	}
+
+	if(shader->UseSpotLights()){
+		shader->TransferSpotLights(game->GetCurrentScene()->GetSpotLights());
+	}
+
 	//binding attributes
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
 	unsigned int vertexSize = vertex_buffer->VertexSize();

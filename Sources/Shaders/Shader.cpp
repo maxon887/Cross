@@ -40,3 +40,15 @@ Shader::~Shader(){
 	gfxGL->DeleteShader(fragment_shader);
 	gfxGL->DeleteProgram(program);
 }
+
+bool Shader::UseDirectionalLights(){
+	return false;
+}
+
+bool Shader::UsePointLights(){
+	return false;
+}
+
+bool Shader::UseSpotLights(){
+	return false;
+}

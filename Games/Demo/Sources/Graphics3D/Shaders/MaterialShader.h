@@ -15,11 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Shaders/LightShader.h"
+#include "Shader.h"
 
-namespace cross{
+using namespace cross;
 
-class LightMaterialShader : public LightShader{
+class MaterialShader : public Shader{
 public:
 	GLuint uMaterialAmbient;
 	GLuint uMaterialDiffuse;
@@ -28,7 +28,5 @@ public:
 
 	GLuint uLightPosition;
 
-	LightMaterialShader();
+	MaterialShader();
 };
-
-}

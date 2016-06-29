@@ -31,9 +31,33 @@ void Scene::Start(){
 }
 
 void Scene::Stop(){
-	Screen::Stop();
 	delete camera;
 	game->WindowResized -= window_resize_handle;
+	Screen::Stop();
+}
+
+void Scene::AddDirectionalLight(DirectionalLight* light){
+	directional_lights.push_back(light);
+}
+
+void Scene::AddPointLight(PointLight* light){
+	point_lights.push_back(light);
+}
+
+void Scene::AddSpotLight(SpotLight* light){
+	spot_lights.push_back(light);
+}
+
+CRArray<DirectionalLight*>& Scene::GetDirectionalLights(){
+	return directional_lights;
+}
+
+CRArray<PointLight*>& Scene::GetPointLights(){
+	return point_lights;
+}
+
+CRArray<SpotLight*>&Scene::GetSpotLights(){
+	return spot_lights;
 }
 
 Camera* Scene::GetCamera(){

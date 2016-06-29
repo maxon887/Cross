@@ -91,7 +91,6 @@
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\PointLightShader.cpp" />
@@ -145,6 +144,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScene.cpp" />
@@ -178,7 +178,6 @@
     <ClInclude Include="..\..\..\..\Sources\Scene.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h" />
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\PointLightShader.h" />
@@ -234,6 +233,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScene.h" />
@@ -265,6 +265,8 @@
     <None Include="..\..\Assets\Engine\Shaders\simple.vert" />
     <None Include="..\..\Assets\Engine\Shaders\texture.frag" />
     <None Include="..\..\Assets\Engine\Shaders\texture.vert" />
+    <None Include="..\..\Assets\gfx3D\shaders\material.frag" />
+    <None Include="..\..\Assets\gfx3D\shaders\material.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

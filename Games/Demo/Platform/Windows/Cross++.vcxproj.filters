@@ -34,6 +34,9 @@
     <Filter Include="Cross\Experimental">
       <UniqueIdentifier>{090a0712-4ab6-4414-bd48-905c77498348}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Graphics3D\Shaders">
+      <UniqueIdentifier>{73c2bef2-ddc7-46e5-bf06-f946388fb5c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -253,9 +256,6 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightMaterialShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -288,6 +288,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.cpp">
+      <Filter>Demo\Graphics3D\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,9 +517,6 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightMaterialShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -549,6 +549,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.h">
+      <Filter>Demo\Graphics3D\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,6 +611,12 @@
     </None>
     <None Include="..\..\Assets\Engine\Shaders\multi_light.vert">
       <Filter>Cross\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\gfx3D\shaders\material.frag">
+      <Filter>Demo\Graphics3D\Shaders</Filter>
+    </None>
+    <None Include="..\..\Assets\gfx3D\shaders\material.vert">
+      <Filter>Demo\Graphics3D\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
