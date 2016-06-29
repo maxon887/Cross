@@ -35,8 +35,6 @@ public:
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
-	virtual bool TextureCoordinatesRequired();
-	virtual bool NormalsRequired();
 private:
 	GLuint vertex_shader;
 	GLuint fragment_shader;

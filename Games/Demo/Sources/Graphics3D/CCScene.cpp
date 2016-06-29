@@ -205,6 +205,10 @@ void CCScene::Update(float sec){
 	}
 }
 
+void CCScene::SetOrbitDistance(float orbitDistance){
+	orbit_distance = orbitDistance;
+}
+
 bool CCScene::OnGuiArea(Vector2D pos){
 	for(Button* btn : gui){
 		if(btn->OnLocation(pos)){

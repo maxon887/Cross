@@ -48,6 +48,10 @@ Mesh::~Mesh(){
 }
 
 void Mesh::Draw(){
+	Draw(Matrix::CreateIdentity());
+}
+
+void Mesh::Draw(const Matrix& globalModel){
 	if(material == nullptr){
 		throw CrossException("Current mesh does not have material");
 	}
@@ -57,7 +61,7 @@ void Mesh::Draw(){
 	Camera* cam = game->GetCurrentScene()->GetCamera();
 	//binding uniforms
 	if(shader->uMVP != -1){
-		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * GetModelMatrix();
+		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel * GetModelMatrix();
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
@@ -79,18 +83,18 @@ void Mesh::Draw(){
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
 		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetPossitionsOffset())));
 	}
-	if(shader->TextureCoordinatesRequired()){
+	if(shader->aTexCoords != -1){
 		if(vertex_buffer->HasTextureCoordinates()){
 			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetTextureCoordinatesOffset())));
+			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTextureCoordinatesOffset()));
 		}else{
 			throw CrossException("Current mesh noes not contain texture coordinates");
 		}
 	}
-	if(shader->NormalsRequired()){
+	if(shader->aNormal != -1){
 		if(vertex_buffer->HasNormals()){
 			SAFE(glEnableVertexAttribArray(shader->aNormal));
-			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetNormalsOffset())));
+			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetNormalsOffset()));
 		}else{
 			throw CrossException("Current mesh noes not countain normals");
 		}

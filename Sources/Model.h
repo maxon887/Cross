@@ -24,26 +24,17 @@ namespace cross{
 class Model : public Transformable{
 friend Graphics3D;
 public:
-	//Solid constructor
-	Model(CRArray<Mesh*>& meshes, const Color& color);
-	//Material constructor
-	Model(CRArray<Mesh*>& meshes, const Material& material);
-	//Textured constructor
+
 	Model(CRArray<Mesh*>& meshes);
-	
 	~Model();
 
-	Color GetColor();
-	void SetColor(const Color& c);
-	Material* GetMaterial();
+	virtual void Draw();
 
 	int GetPolyCount();
 	Model* Clone();
 
 protected:
 	CRArray<Mesh*> meshes;
-	Material* material;
-	Color* color;
 	bool original;
 
 	//Copy constructor

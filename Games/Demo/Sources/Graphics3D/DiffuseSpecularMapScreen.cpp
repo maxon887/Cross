@@ -29,7 +29,7 @@ void DiffuseSpecularMapScreen::Start() {
 	light->SetScale(0.2f);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	//model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
 }
 
 void DiffuseSpecularMapScreen::Stop() {

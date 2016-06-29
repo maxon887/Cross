@@ -40,11 +40,3 @@ Shader::~Shader(){
 	gfxGL->DeleteShader(fragment_shader);
 	gfxGL->DeleteProgram(program);
 }
-
-bool Shader::TextureCoordinatesRequired(){
-	return aTexCoords != -1;
-}
-
-bool Shader::NormalsRequired(){
-	return aNormal != -1;
-}

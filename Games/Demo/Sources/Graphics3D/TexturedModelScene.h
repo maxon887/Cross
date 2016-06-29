@@ -14,26 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "TexturedModelScreen.h"
+#pragma once
+#include "CCScene.h"
 
-#include "Game.h"
-#include "Graphics3D.h"
-#include "Graphics2D.h"
-#include "Model.h"
-
-void TexturedModelScreen::Start() {
-	CCScene::Start();
-	Texture* box = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
-	cube = gfx3D->LoadModel("gfx3D/Cube.obj", box);
-}
-
-void TexturedModelScreen::Stop() {
-	CCScene::Stop();
-	delete cube;
-}
-
-void TexturedModelScreen::Update(float sec) {/*
-	gfx3D->DrawModelTexture(cube);
-	*/
-	CCScene::Update(sec);
-}
+class TexturedModelScene : public CCScene{
+public:
+	void Start();
+	void Stop();
+	void Update(float sec);
+private:
+	Mesh* cube;
+	Material* material;
+	Texture* texture;
+};

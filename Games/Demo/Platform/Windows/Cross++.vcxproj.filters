@@ -235,9 +235,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -265,9 +262,6 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
@@ -287,6 +281,12 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -496,9 +496,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -526,9 +523,6 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
@@ -548,6 +542,12 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>

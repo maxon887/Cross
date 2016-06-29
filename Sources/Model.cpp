@@ -25,37 +25,17 @@ using namespace cross;
 
 Model::Model(Model& obj) : 
 	meshes(obj.meshes),
-	material(obj.material),
-	color(obj.color),
 	original(false)
 { }
 
 Model::Model() :
 	meshes(),
-	material(nullptr),
 	original(true)
 { }
 
-Model::Model(CRArray<Mesh*>& meshes, const Color& color) :
-	meshes(meshes),
-	material(nullptr),
-	original(true)
-{
-	this->color = new Color(color);
-}
-
-Model::Model(CRArray<Mesh*>& meshes, const Material& material ) :
-	meshes(meshes),
-	color(nullptr),
-	original(true)
-{
-	this->material = new Material(material);
-}
 
 Model::	Model(CRArray<Mesh*>& meshes) :
 	meshes(meshes),
-	color(nullptr),
-	material(nullptr),
 	original(true)
 { }
 
@@ -65,33 +45,12 @@ Model::~Model(){
 		for(Mesh* mesh : meshes){
 			delete mesh;
 		}
-		if(color){
-			delete color;
-		}
-		if(material){
-			delete material;
-		}
 	}
 }
 
-Color Model::GetColor(){
-	if(color != nullptr){
-		return *color;
-	}else{
-		throw CrossException("Current model does not have a color");
-	}
-}
-
-void Model::SetColor(const Color& c){
-	this->color = new Color(c);
-}
-
-
-Material* Model::GetMaterial(){
-	if(material != nullptr){
-		return material;
-	}else{
-		throw CrossException("Current model does not have material");
+void Model::Draw(){
+	for(Mesh* mesh : meshes){
+		mesh->Draw(GetModelMatrix());
 	}
 }
 

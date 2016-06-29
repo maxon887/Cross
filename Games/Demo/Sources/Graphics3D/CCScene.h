@@ -32,6 +32,8 @@ public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
+
+	void SetOrbitDistance(float orbitDistance);
 private:
 	float liner_speed;
 	float angular_speed;

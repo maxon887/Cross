@@ -20,7 +20,7 @@ using namespace cross;
 
 Material::Material(Shader* shader) :
 	shader(shader),
-	diffuse_color(Color(0.f, 0.f, 0.f)),
+	diffuse_color(Color::White),
 	shininess(0.f),
 	diffuse_texture(nullptr)
 { }

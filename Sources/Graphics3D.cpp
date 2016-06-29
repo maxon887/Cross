@@ -23,6 +23,7 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Game.h"
+#include "Material.h"
 #include "Shaders/LightMaterialShader.h"
 #include "Shaders/LightDiffuseShader.h"
 #include "Shaders/LightDiffuseSpecularShader.h"
@@ -52,8 +53,9 @@ Graphics3D::Graphics3D()
 Graphics3D::~Graphics3D(){
 }
 
-Model* Graphics3D::LoadModel(const string& filename){
+Model* Graphics3D::LoadModel(const string& filename, Shader* shader){
 	Debugger::Instance()->StartCheckTime();
+	current_shader = shader;
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
 	Model* model = new Model(*modelMeshes);
 	delete modelMeshes;
@@ -62,7 +64,7 @@ Model* Graphics3D::LoadModel(const string& filename){
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
 }
-
+/*
 Model* Graphics3D::LoadModel(const string& filename, const Color& color){
 	Debugger::Instance()->StartCheckTime();
 	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
@@ -105,7 +107,7 @@ Model* Graphics3D::LoadModel(const string& filename, Texture* diffuse, Texture* 
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
-}
+}*/
 
 Mesh* Graphics3D::LoadMesh(const string& filename){
 	Mesh* result = nullptr;
@@ -122,14 +124,14 @@ Mesh* Graphics3D::LoadMesh(const string& filename){
 CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
+	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
 	delete file;
-	if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
+	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
 	CRArray<Mesh*>* meshes = new CRArray<Mesh*>();
 	string modelFilePath = launcher->PathFromFile(filename);
-	ProcessNode(meshes, scene->mRootNode, scene, modelFilePath);
+	ProcessNode(meshes, current_scene->mRootNode, modelFilePath);
 	if(meshes->size() == 0){
 		throw CrossException("Cannot load meshes from file");
 	}
@@ -588,7 +590,7 @@ void Graphics3D::BindTextures(Shader* shader, Mesh* mesh){
 	}
 }
 */
-
+/*
 void Graphics3D::BindAttributes(Shader* shader, Mesh* mesh){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
 	VertexBuffer* vertexBuffer = mesh->GetVertexBuffer();
@@ -614,7 +616,7 @@ void Graphics3D::BindAttributes(Shader* shader, Mesh* mesh){
 		}
 	}
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-}
+}*/
 
 CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type, const string& modelFilePath){
 	CRArray<Texture*>* textures = new CRArray<Texture*>();
@@ -629,7 +631,21 @@ CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int t
 	return textures;
 }
 
-Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& modelFilePath){
+Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const string& modelFilePath){
+	if(material->GetTextureCount((aiTextureType)type) > 1){
+		throw CrossException("Multiple textures not supported");
+	}
+	if(material->GetTextureCount((aiTextureType)type) == 0){
+		return nullptr;
+	}
+	aiString textureName;
+	material->GetTexture((aiTextureType)type, 0, &textureName);
+	string filename = modelFilePath + "/"+ string(textureName.C_Str());
+	Texture* texture = gfx2D->LoadTexture(filename);
+	return texture;
+}
+
+Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const string& modelFilePath){
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	if(mesh->mTextureCoords[0]){
 		vertexBuffer->UVEnabled(true);
@@ -656,35 +672,42 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& 
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	CRArray<Texture*>* diffuseMaps;
-	CRArray<Texture*>* specularMaps;
+	//CRArray<Texture*>* diffuseMaps;
+	//CRArray<Texture*>* specularMaps;
 
+	Material* crossMaterial = new Material(current_shader);
 	if(mesh->mMaterialIndex >= 0){
-		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		aiMaterial* material = current_scene->mMaterials[mesh->mMaterialIndex];
 		aiString matName;
 		material->Get(AI_MATKEY_NAME, matName);
 		launcher->LogIt(matName.C_Str());
+		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, modelFilePath);
+		crossMaterial->SetDiffuseTexture(diffuseTexture);
+		/*
 		diffuseMaps = LoadTextures(material, aiTextureType_DIFFUSE, modelFilePath);
+		if(diffuseMaps->size() > 1){
+			throw CrossException("Multiple diffuse textures not supported");
+		}
 		specularMaps = LoadTextures(material, aiTextureType_SPECULAR, modelFilePath);
-
+		if(specularMaps->size() > 1){
+			throw CrossException("Multiple specular textures not supported");
+		}*/
 	}
-
-	Mesh* ret = new Mesh(vertexBuffer, indices, mesh->mNumFaces);
-	delete diffuseMaps;
-	delete specularMaps;
-	return ret;
+	Mesh* crossMesh = new Mesh(vertexBuffer, indices, mesh->mNumFaces);
+	crossMesh->SetMaterial(crossMaterial);
+	return crossMesh;
 }
 
-void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const aiScene* scene, const string& modelFilePath){
+void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const string& modelFilePath){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
-		aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
-		Mesh* crMesh = ProcessMesh(aiMesh, scene, modelFilePath);
+		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
+		Mesh* crMesh = ProcessMesh(aiMesh, modelFilePath);
 		Matrix model = Matrix::CreateZero();
 		memcpy(model.m, &node->mTransformation.a1, sizeof(float) * 16);
 		crMesh->SetModelMatrix(model);
 		meshes->push_back(crMesh);
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
-		ProcessNode(meshes, node->mChildren[i], scene, modelFilePath);
+		ProcessNode(meshes, node->mChildren[i], modelFilePath);
 	}
 }

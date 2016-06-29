@@ -23,13 +23,13 @@ LightCaster::LightCaster(Mesh* mesh, const Vector3D& ambient, const Vector3D& di
 	Light(ambient, diffuse, specular)
 { 
 	this->meshes.push_back(mesh);
-	this->color = new Color(Color::White);
+	//this->color = new Color(Color::White);
 }
 
 LightCaster::LightCaster(const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& specular) :
 	Light(ambient, diffuse, specular)
 {
-	this->color = new Color(Color::White);
+	//this->color = new Color(Color::White);
 }
 
 void LightCaster::Draw(){

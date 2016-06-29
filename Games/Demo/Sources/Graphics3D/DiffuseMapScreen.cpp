@@ -28,7 +28,7 @@ void DiffuseMapScreen::Start(){
 	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
 	light->SetScale(0.2f);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
-	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture);
+	//model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture);
 }
 
 void DiffuseMapScreen::Stop(){

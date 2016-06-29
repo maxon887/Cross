@@ -28,7 +28,8 @@ public:
 	Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount);
 	~Mesh();
 
-	virtual void Draw();
+	void Draw();
+	void Draw(const Matrix& model);
 
 	void SetMaterial(Material* material);
 

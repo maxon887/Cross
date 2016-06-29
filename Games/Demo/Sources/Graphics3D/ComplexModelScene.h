@@ -14,26 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "ComplexModelScreen.h"
-#include "Graphics3D.h"
-#include "Model.h"
-#include "DirectionalLight.h"
+#pragma once
+#include "CCScene.h"
 
-void ComplexModelScreen::Start(){/*
-	CCScene::Start();
-	orbit_distance = 60.f;
-	warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.3DS");
-	warrior->SetColor(Color::Red);
-	warrior->SetRotateX(-90.f);*/
-}
-
-void ComplexModelScreen::Stop(){
-	CCScene::Stop();
-	delete warrior;
-}
-
-void ComplexModelScreen::Update(float sec){/*
-	gfx3D->DrawModelTexture(warrior);
-	*/
-	CCScene::Update(sec);
-}
+class ComplexModelScene : public CCScene{
+public:
+	void Start();
+	void Stop();
+	void Update(float sec);
+private:
+	Model* warrior;
+};

@@ -22,7 +22,7 @@
 #include "Camera2D.h"
 #include "Graphics3D/TriangleScene.h"
 #include "Graphics3D/SolidModelScene.h"
-#include "Graphics3D/TexturedModelScreen.h"
+#include "Graphics3D/TexturedModelScene.h"
 #include "Graphics3D/MaterialScreen.h"
 #include "Graphics3D/DiffuseMapScreen.h"
 #include "Graphics3D/DiffuseSpecularMapScreen.h"
@@ -30,7 +30,7 @@
 #include "Graphics3D/PointLightScreen.h"
 #include "Graphics3D/SpotLightScreen.h"
 #include "Graphics3D/MultiLightScreen.h"
-#include "Graphics3D/ComplexModelScreen.h"
+#include "Graphics3D/ComplexModelScene.h"
 #include "Graphics3D/DepthTestScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
@@ -283,11 +283,11 @@ void MainScreen::OnSolidModelClick(){
 }
 
 void MainScreen::OnTexturedModelClick(){
-	next_screen = new TexturedModelScreen();
+	next_scene = new TexturedModelScene();
 }
 
 void MainScreen::OnComplexModelClick(){
-	next_screen = new ComplexModelScreen();
+	next_scene = new ComplexModelScene();
 }
 
 void MainScreen::OnAudioClick() {
