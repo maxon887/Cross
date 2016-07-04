@@ -32,15 +32,21 @@ public:
 	GLint aNormal;
 	//shader uniforms
 	GLint uMVP;
+	GLint uModelMatrix;
+	GLint uNormalMatrix;
+	GLint uCameraPosition;
 	GLint uColor;
+	GLint uSpecularColor;
+	GLint uShininess;
 	GLint uDiffuseTexture;
+	GLint uAmbientLight;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
-	virtual void TransferDirectionLights(const CRArray<DirectionalLight*>& lights){ };
-	virtual void TransferPointLights(const CRArray<PointLight*>& lights){ };
-	virtual void TransferSpotLights(const CRArray<SpotLight*> lights){ };
+	virtual void TransferDirectionLights(const CRArray<DirectionalLight*>& lights);
+	virtual void TransferPointLights(const CRArray<PointLight*>& lights);
+	virtual void TransferSpotLights(const CRArray<SpotLight*> lights);
 
 	virtual bool UseDirectionalLights();
 	virtual bool UsePointLights();

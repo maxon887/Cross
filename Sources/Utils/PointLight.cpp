@@ -18,45 +18,23 @@
 
 using namespace cross;
 
-PointLight::PointLight(	const Vector3D& ambient,
-						const Vector3D& diffuse,
-						const Vector3D& specular,
-						float constant,
-						float linear,
-						float quadratic) : 
-	PointLight(ambient, diffuse, specular, constant, linear, quadratic, true)
+PointLight::PointLight(const Color& color) : 
+	Light(color)
 { }
 
-PointLight::~PointLight()
-{ }
-
-PointLight::PointLight(	const Vector3D& ambient,
-						const Vector3D& diffuse,
-						const Vector3D& specular,
-						float constant,
-						float linear,
-						float quadratic, 
-						bool loadMesh ) :
-	LightCaster(ambient, diffuse, specular),
-	constant(constant),
-	linear(linear),
-	quadratic(quadratic)
+PointLight::PointLight(const Color& color, const Vector3D& position) :
+	Light(color)
 { 
-	if(loadMesh){
-		Mesh* sphere = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
-		meshes.push_back(sphere);
-		SetScale(0.2f);
-	}
+	SetPosition(position);
 }
 
-float PointLight::GetConstant(){
-	return constant;
+PointLight::PointLight(const Color& color, const Vector3D& position, float distance) :
+	Light(color)
+{
+	SetPosition(position);
+	SetDistance(distance);
 }
 
-float PointLight::GetLinear(){
-	return linear;
-}
-
-float PointLight::GetQuadratic(){
-	return quadratic;
+void PointLight::SetDistance(float distance){
+	this->distance = distance;
 }

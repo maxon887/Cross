@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "CCScene.h"
-#include "Utils/LightCaster.h"
 
 class DiffuseSpecularMapScreen : public CCScene{
 public:
@@ -25,6 +24,5 @@ public:
 	virtual void Update(float sec);
 private:
 	Mesh* light_caster_mesh;
-	LightCaster* light;
 	Model* model;
 };

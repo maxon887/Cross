@@ -24,10 +24,13 @@ public:
 	Material(Shader* shader);
 
 	void SetDiffuseColor(const Color& color);
+	void SetSpecularColor(const Color& color);
 	void SetShininess(float shininess);
 	void SetDiffuseTexture(Texture* texture);
 
 	Color GetDiffuseColor();
+	Color GetSpecularColor();
+	float GetShininess();
 	Texture* GetDiffuseTexture();
 
 	bool HasDiffuseTexture();
@@ -36,6 +39,7 @@ public:
 private:
 	Shader* shader;
 	Color diffuse_color;
+	Color specular_color;
 	float shininess;
 	Texture* diffuse_texture;
 };

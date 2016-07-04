@@ -23,7 +23,7 @@ namespace cross{
 class Exception{
 public:
 	Exception(const char* filename, unsigned int line, const char* message, ...);
-	char message[2048];
+	char message[4096];
 	const char* filename;
 	unsigned int line;
 };

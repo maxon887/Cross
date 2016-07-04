@@ -17,7 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "CCScene.h"
-#include "Utils/LightCaster.h"
 
 class DiffuseMapScreen : public CCScene{
 public:
@@ -26,6 +25,5 @@ public:
 	virtual void Update(float sec);
 private:
 	Mesh* light_caster_mesh;
-	LightCaster* light;
 	Model* model;
 };

@@ -14,14 +14,18 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Graphics3D/Shaders/MaterialShader.h"
+#pragma once
+#include "Cross.h"
+#include "CCScene.h"
 
-MaterialShader::MaterialShader() :
-	Shader("gfx3D/shaders/material.vert", "Engine/Shaders/material.frag")
-{ 
-	uMaterialAmbient = glGetUniformLocation(program, "uMaterial.ambient");
-	uMaterialDiffuse = glGetUniformLocation(program, "uMaterial.diffuse");
-	uMaterialSpecular = glGetUniformLocation(program, "uMaterial.specular");
-	uMaterialShininess = glGetUniformLocation(program, "uMaterial.shininess");
-	uLightPosition = glGetUniformLocation(program, "uLight.position");
-}
+class MaterialScene : public CCScene{
+public:
+	void Start();
+	void Stop();
+	void Update(float sec);
+
+private:
+	Material* material;
+	Mesh* cube;
+	Mesh* light_caster_mesh;
+};

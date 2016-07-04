@@ -31,8 +31,14 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	aNormal = glGetAttribLocation(program, "aNormal");
 
 	uMVP = glGetUniformLocation(program, "uMVP");
+	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 	uColor = glGetUniformLocation(program, "uColor");
+	uSpecularColor = glGetUniformLocation(program, "uSpecularColor");
+	uShininess = glGetUniformLocation(program, "uShininess");
 	uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
+	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
+	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
+	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 }
 
 Shader::~Shader(){
@@ -51,4 +57,16 @@ bool Shader::UsePointLights(){
 
 bool Shader::UseSpotLights(){
 	return false;
+}
+
+void Shader::TransferDirectionLights(const CRArray<DirectionalLight*>& lights){
+	throw CrossException("Direction lights does not support by this type of shader");
+}
+
+void Shader::TransferPointLights(const CRArray<PointLight*>& lights){
+	throw CrossException("Point lights does not support by this type of shader");
+}
+
+void Shader::TransferSpotLights(const CRArray<SpotLight*> lights){
+	throw CrossException("Spot lights does not support by this type of shader");
 }

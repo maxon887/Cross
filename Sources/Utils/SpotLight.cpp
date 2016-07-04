@@ -19,17 +19,17 @@
 using namespace cross;
 
 SpotLight::SpotLight(	const Vector3D& ambient,
-						const Vector3D& diffuse,
+						const Color& diffuse,
 						const Vector3D& specular,
 						float constant,
 						float linear,
 						float quadratic,
-						float cutOff ) : 
-	PointLight(ambient, diffuse, specular, constant, linear, quadratic, false),
-	cut_off(cutOff)
+						float cutOff ) :
+	PointLight(diffuse)
+	//cut_off(cutOff)
 {
-	Mesh* cone = gfx3D->LoadMesh("Engine/gfx3D/Cone.obj");
-	meshes.push_back(cone);
+//	Mesh* cone = gfx3D->LoadMesh("Engine/gfx3D/Cone.obj");
+	//meshes.push_back(cone);
 	SetScale(0.2f);
 }
 

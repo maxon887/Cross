@@ -15,35 +15,20 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "LightCaster.h"
+#include "Light.h"
+#include "Transformable.h"
 
 namespace cross{
 
-class PointLight : public LightCaster {
+class PointLight : public Light, public Transformable {
 public:
-	PointLight(	const Vector3D& ambient,
-				const Vector3D& diffuse,
-				const Vector3D& specular,
-				float constant,
-				float linear,
-				float quadratic );
-	virtual ~PointLight();
+	PointLight(const Color& color);
+	PointLight(const Color& color, const Vector3D& position);
+	PointLight(const Color& color, const Vector3D& position, float distance);
 
-	float GetConstant();
-	float GetLinear();
-	float GetQuadratic();
+	void SetDistance(float distance);
 protected:
-	float constant;
-	float linear;
-	float quadratic;
-
-	PointLight(	const Vector3D& ambient,
-				const Vector3D& diffuse,
-				const Vector3D& specular,
-				float constant,
-				float linear,
-				float quadratic,
-				bool loadMesh);
+	float distance;
 };
 
 }

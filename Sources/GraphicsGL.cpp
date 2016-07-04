@@ -18,7 +18,6 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
-#include "Shaders/LightMaterialShader.h"
 #include "Shaders/LightDiffuseShader.h"
 #include "Shaders/LightDiffuseSpecularShader.h"
 #include "Shaders/DirectionalLightShader.h"
@@ -109,9 +108,6 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 			break;
 		case DefaultShader::TEXTURE:
 			shaders[type] = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-			break;
-		case DefaultShader::LIGHT_MATERIAL:
-			shaders[type] = new LightMaterialShader();
 			break;
 		case DefaultShader::LIGHT_DIFFUSE:
 			shaders[type] = new LightDiffuseShader();

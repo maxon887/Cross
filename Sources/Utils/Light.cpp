@@ -18,35 +18,10 @@
 
 using namespace cross;
 
-Light::Light(const Vector3D& ambient, const Vector3D& diffuse, const Vector3D& specular) :
-	ambient(ambient),
-	diffuse(diffuse),
-	specular(specular)
+Light::Light(const Color& color):
+	color(color)
 { }
 
-Light::~Light()
-{ }
-
-void Light::SetAmbientStrength(const Vector3D& ambient) {
-	this->ambient = ambient;
-}
-
-void Light::SetDiffuseStrength(const Vector3D& diffuse) {
-	this->diffuse = diffuse;
-}
-
-void Light::SetSpecularStrength(const Vector3D& specular) {
-	this->specular = specular;
-}
-
-Vector3D Light::GetAmbientStrength() {
-	return ambient;
-}
-
-Vector3D Light::GetDiffuseStrength() {
-	return diffuse;
-}
-
-Vector3D Light::GetSpecularStrength() {
-	return specular;
+Color Light::GetColor() const{
+	return color;
 }

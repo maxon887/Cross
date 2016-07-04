@@ -23,7 +23,7 @@ class DirectionalLight : public Light{
 public:
 	DirectionalLight( const Vector3D& direction,
 					  const Vector3D& ambient,
-					  const Vector3D& diffuse,
+					  const Color& diffuse,
 					  const Vector3D& specular );
 
 	Vector3D GetDirection();

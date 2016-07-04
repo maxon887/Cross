@@ -35,11 +35,18 @@ public:
 	CRArray<SpotLight*>& GetSpotLights();
 
 	Camera* GetCamera();
+	Color GetAmbientColor() const;
+	void SetAmbientColor(const Color& color);
+
 protected:
 	Camera* camera;
+	Color ambient_color;
+
 	CRArray<DirectionalLight*> directional_lights;
 	CRArray<PointLight*> point_lights;
 	CRArray<SpotLight*> spot_lights;
+
+	Scene();
 private:
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

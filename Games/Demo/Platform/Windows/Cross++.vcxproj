@@ -120,7 +120,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\PointLight.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Utils\LightCaster.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Misc.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\SpotLight.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
@@ -140,11 +139,11 @@
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseMapScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\MaterialScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\MaterialScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScene.cpp" />
@@ -209,7 +208,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Light.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\PointLight.h" />
-    <ClInclude Include="..\..\..\..\Sources\Utils\LightCaster.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Misc.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\SpotLight.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />
@@ -229,11 +227,11 @@
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseMapScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\MaterialScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\MaterialScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScene.h" />

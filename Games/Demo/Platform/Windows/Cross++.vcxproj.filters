@@ -217,9 +217,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\LightCaster.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -230,9 +227,6 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\MaterialScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp">
@@ -289,7 +283,10 @@
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.cpp">
+    <ClCompile Include="..\..\Sources\Graphics3D\MaterialScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.cpp">
       <Filter>Demo\Graphics3D\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
@@ -478,9 +475,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Light.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\LightCaster.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -491,9 +485,6 @@
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\MaterialScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h">
@@ -550,7 +541,10 @@
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\MaterialShader.h">
+    <ClInclude Include="..\..\Sources\Graphics3D\MaterialScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.h">
       <Filter>Demo\Graphics3D\Shaders</Filter>
     </ClInclude>
   </ItemGroup>

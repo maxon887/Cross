@@ -22,7 +22,7 @@ namespace cross{
 class SpotLight : public PointLight{
 public:
 	SpotLight(	const Vector3D& ambient,
-				const Vector3D& diffuse,
+				const Color& diffuse,
 				const Vector3D& specular,
 				float constant,
 				float linear,

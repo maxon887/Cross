@@ -21,6 +21,11 @@
 
 using namespace cross;
 
+Scene::Scene() :
+	Screen(),
+	ambient_color(Color(0.1f, 0.1f, 0.1f))
+{ }
+
 void Scene::Start(){
 	Screen::Start();
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
@@ -62,6 +67,14 @@ CRArray<SpotLight*>&Scene::GetSpotLights(){
 
 Camera* Scene::GetCamera(){
 	return camera;
+}
+
+Color Scene::GetAmbientColor() const{
+	return ambient_color;
+}
+
+void Scene::SetAmbientColor(const Color& color){
+	this->ambient_color = color;
 }
 
 void Scene::WindowResizeHandle(int width, int height){

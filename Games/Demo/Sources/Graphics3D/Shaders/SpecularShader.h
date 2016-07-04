@@ -15,24 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "CCScene.h"
-#include "Utils/LightCaster.h"
+#include "Shader.h"
 
-class MaterialScreen : public CCScene{
+using namespace cross;
+
+class SpecularShader : public Shader{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Mesh* light_caster_mesh;
-	LightCaster* light;
-	int current_model;
-	CRArray<Model*> models;
+	GLuint uLightPosition;
+	GLuint uLightColor;
 
-	Button* next_model;
-	Button* prev_model;
+	void TransferPointLights(const CRArray<PointLight*>& lights);
+	bool UsePointLights();
 
-	void NextModelClick();
-	void PrevModelClick();
+	SpecularShader();
 };

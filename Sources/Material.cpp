@@ -21,12 +21,17 @@ using namespace cross;
 Material::Material(Shader* shader) :
 	shader(shader),
 	diffuse_color(Color::White),
-	shininess(0.f),
+	specular_color(Color::White),
+	shininess(0.5f),
 	diffuse_texture(nullptr)
 { }
 
 void Material::SetDiffuseColor(const Color& color){
 	diffuse_color = color;
+}
+
+void Material::SetSpecularColor(const Color& color){
+	specular_color = color;
 }
 
 void Material::SetDiffuseTexture(Texture* diffuse){
@@ -39,6 +44,14 @@ void Material::SetShininess(float snininess){
 
 Color Material::GetDiffuseColor(){
 	return diffuse_color;
+}
+
+Color Material::GetSpecularColor(){
+	return specular_color;
+}
+
+float Material::GetShininess(){
+	return shininess;
 }
 
 Texture* Material::GetDiffuseTexture(){

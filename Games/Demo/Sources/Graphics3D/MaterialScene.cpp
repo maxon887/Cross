@@ -14,33 +14,36 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "DiffuseMapScreen.h"
+#include "MaterialScene.h"
+#include "Demo.h"
 #include "Graphics3D.h"
-#include "Graphics2D.h"
 #include "Model.h"
-#include "Game.h"
+#include "Sprite.h"
+#include "Material.h"
+#include "Graphics3D/Shaders/SpecularShader.h"
 
-void DiffuseMapScreen::Start(){
+void MaterialScene::Start(){
 	CCScene::Start();
-	/*
-	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
-	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
-	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
-	light->SetScale(0.2f);
-	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);*/
-	//model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture);
+	
+	SetOrbitDistance(28.f);
+	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
+	//light setups
+	PointLight* light = new PointLight(Color::White);
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	AddPointLight(light);
+	//scene setups
+	SpecularShader* shader = new SpecularShader();
+	Material* material = new Material(shader);
+	material->SetDiffuseColor(Color::Red);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 }
 
-void DiffuseMapScreen::Stop(){
+void MaterialScene::Stop(){
 	CCScene::Stop();
-	delete model;
 }
 
-void DiffuseMapScreen::Update(float sec){/*
-	light->Draw();
-	gfx3D->DrawModelLightDiffuse(model, light);
-
-	model->SetRotateY(game->GetRunTime() * 15.f);
-	*/
+void MaterialScene::Update(float sec){
+	cube->Draw();
 	CCScene::Update(sec);
 }

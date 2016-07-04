@@ -58,16 +58,40 @@ void Mesh::Draw(const Matrix& globalModel){
 	Shader* shader = material->GetShader();
 	gfxGL->UseShader(shader);
 
+	Scene* scene = game->GetCurrentScene();
 	//binding uniforms
 	if(shader->uMVP != -1){
-		Camera* cam = game->GetCurrentScene()->GetCamera();
+		Camera* cam = scene->GetCamera();
 		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel * GetModelMatrix();
 		mvp = mvp.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 
+	if(shader->uModelMatrix != -1){
+		Matrix model = GetModelMatrix();
+		model = model.Transpose();
+		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.GetData()));
+	}
+
+	if(shader->uNormalMatrix != -1){
+		Matrix normal = GetModelMatrix().Inverse();
+		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normal.GetData()));
+	}
+
+	if(shader->uCameraPosition != -1){
+		SAFE(glUniform3fv(shader->uCameraPosition, 1, scene->GetCamera()->GetPosition().GetData()));
+	}
+
 	if(shader->uColor != -1){
-		SAFE(glUniform4fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
+		SAFE(glUniform3fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
+	}
+	
+	if(shader->uSpecularColor != -1){
+		SAFE(glUniform3fv(shader->uSpecularColor, 1, material->GetSpecularColor().GetData()));
+	}
+
+	if(shader->uShininess != -1){
+		SAFE(glUniform1f(shader->uShininess, material->GetShininess() * 128.f));
 	}
 
 	if(shader->uDiffuseTexture != -1){
@@ -77,16 +101,20 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
 	}
 
+	if(shader->uAmbientLight != -1){
+		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
+	}
+
 	if(shader->UseDirectionalLights()){
-		shader->TransferDirectionLights(game->GetCurrentScene()->GetDirectionalLights());
+		shader->TransferDirectionLights(scene->GetDirectionalLights());
 	}
 
 	if(shader->UsePointLights()){
-		shader->TransferPointLights(game->GetCurrentScene()->GetPointLights());
+		shader->TransferPointLights(scene->GetPointLights());
 	}
 
 	if(shader->UseSpotLights()){
-		shader->TransferSpotLights(game->GetCurrentScene()->GetSpotLights());
+		shader->TransferSpotLights(scene->GetSpotLights());
 	}
 
 	//binding attributes
