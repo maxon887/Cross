@@ -220,9 +220,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\DiffuseMapScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
@@ -283,11 +280,14 @@
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\MaterialScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.cpp">
       <Filter>Demo\Graphics3D\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -478,9 +478,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\DiffuseMapScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
@@ -541,76 +538,17 @@
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\MaterialScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.h">
       <Filter>Demo\Graphics3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Assets\Engine\Shaders\directional_light.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\directional_light.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_material.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_material.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\monochrome.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\monochrome.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\point_light.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\point_light.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\simple.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\simple.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\texture.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\texture.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse_specular.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse_specular.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\multi_light.frag">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\Engine\Shaders\multi_light.vert">
-      <Filter>Cross\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\gfx3D\shaders\material.frag">
-      <Filter>Demo\Graphics3D\Shaders</Filter>
-    </None>
-    <None Include="..\..\Assets\gfx3D\shaders\material.vert">
-      <Filter>Demo\Graphics3D\Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>

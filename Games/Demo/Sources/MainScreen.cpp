@@ -23,8 +23,8 @@
 #include "Graphics3D/TriangleScene.h"
 #include "Graphics3D/SolidModelScene.h"
 #include "Graphics3D/TexturedModelScene.h"
-#include "Graphics3D/MaterialScene.h"
-#include "Graphics3D/DiffuseMapScreen.h"
+#include "Graphics3D/SpecularScene.h"
+#include "Graphics3D/SpecularDiffuseScene.h"
 #include "Graphics3D/DiffuseSpecularMapScreen.h"
 #include "Graphics3D/DirectionalLightScreen.h"
 #include "Graphics3D/PointLightScreen.h"
@@ -295,11 +295,11 @@ void MainScreen::OnAudioClick() {
 }
 
 void MainScreen::OnMaterialClick(){
-	next_scene = new MaterialScene();
+	next_scene = new SpecularScene();
 }
 
 void MainScreen::OnDiffuseMapClick(){
-	next_screen = new DiffuseMapScreen();
+	next_scene = new SpecularDiffuseScene();
 }
 
 void MainScreen::OnDiffuseSpecularMapClick(){

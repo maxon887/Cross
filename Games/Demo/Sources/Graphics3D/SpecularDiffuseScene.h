@@ -18,12 +18,11 @@
 #include "Cross.h"
 #include "CCScene.h"
 
-class DiffuseMapScreen : public CCScene{
+class SpecularDiffuseScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
-	Mesh* light_caster_mesh;
-	Model* model;
+	Mesh* cube;
 };

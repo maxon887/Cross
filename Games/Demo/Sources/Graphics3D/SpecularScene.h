@@ -18,7 +18,7 @@
 #include "Cross.h"
 #include "CCScene.h"
 
-class MaterialScene : public CCScene{
+class SpecularScene : public CCScene{
 public:
 	void Start();
 	void Stop();

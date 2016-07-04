@@ -136,10 +136,10 @@
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\DiffuseMapScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\MaterialScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
@@ -224,10 +224,10 @@
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\DiffuseMapScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\MaterialScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
@@ -243,28 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Assets\Engine\Shaders\directional_light.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\directional_light.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse_specular.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_diffuse_specular.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_material.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\light_caster_material.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\monochrome.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\monochrome.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\multi_light.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\multi_light.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\point_light.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\point_light.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\simple.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\simple.vert" />
-    <None Include="..\..\Assets\Engine\Shaders\texture.frag" />
-    <None Include="..\..\Assets\Engine\Shaders\texture.vert" />
-    <None Include="..\..\Assets\gfx3D\shaders\material.frag" />
-    <None Include="..\..\Assets\gfx3D\shaders\material.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

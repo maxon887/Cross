@@ -24,8 +24,8 @@ public:
 	GLuint uLightPosition;
 	GLuint uLightColor;
 
+	SpecularShader(const string& vertex, const string& fragment);
+
 	void TransferPointLights(const CRArray<PointLight*>& lights);
 	bool UsePointLights();
-
-	SpecularShader();
 };

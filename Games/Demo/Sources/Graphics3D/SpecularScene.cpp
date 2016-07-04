@@ -14,15 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "MaterialScene.h"
+#include "SpecularScene.h"
 #include "Demo.h"
 #include "Graphics3D.h"
 #include "Model.h"
 #include "Sprite.h"
 #include "Material.h"
 #include "Graphics3D/Shaders/SpecularShader.h"
+#include "Graphics2D.h"
 
-void MaterialScene::Start(){
+void SpecularScene::Start(){
 	CCScene::Start();
 	
 	SetOrbitDistance(28.f);
@@ -32,18 +33,18 @@ void MaterialScene::Start(){
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddPointLight(light);
 	//scene setups
-	SpecularShader* shader = new SpecularShader();
+	SpecularShader* shader = new SpecularShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	Material* material = new Material(shader);
 	material->SetDiffuseColor(Color::Red);
 	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 
-void MaterialScene::Stop(){
+void SpecularScene::Stop(){
 	CCScene::Stop();
 }
 
-void MaterialScene::Update(float sec){
+void SpecularScene::Update(float sec){
 	cube->Draw();
 	CCScene::Update(sec);
 }

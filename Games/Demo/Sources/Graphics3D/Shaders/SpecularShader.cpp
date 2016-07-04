@@ -16,8 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics3D/Shaders/SpecularShader.h"
 
-SpecularShader::SpecularShader() :
-	Shader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag")
+SpecularShader::SpecularShader(const string& vertex, const string& fragment) :
+	Shader(vertex, fragment)
 { 
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
 	uLightColor = glGetUniformLocation(program, "uLight.color");
