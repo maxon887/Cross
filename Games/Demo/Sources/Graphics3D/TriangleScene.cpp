@@ -27,10 +27,9 @@
 
 void TriangleScene::Start(){
 	CCScene::Start();
-	
-	triangle_shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
 
-	triangle_material = new Material(triangle_shader);
+	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	triangle_material = new Material(shader);
 	triangle_material->SetDiffuseColor(Color::Red);
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
@@ -49,7 +48,6 @@ void TriangleScene::Start(){
 }
 
 void TriangleScene::Stop(){
-	delete triangle_shader;
 	delete triangle_material;
 	delete triangle;
 	CCScene::Stop();

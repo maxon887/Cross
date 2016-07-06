@@ -29,6 +29,7 @@ void SpritesScreen::Start(){
 
 void SpritesScreen::Stop(){
 	delete debug_font;
+	delete awesome_face;
 }
 
 void SpritesScreen::Update(float sec){

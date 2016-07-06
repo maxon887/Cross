@@ -20,15 +20,15 @@
 
 void SolidModelScene::Start(){
 	CCScene::Start();
-	cubeMaterial = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
-	cubeMaterial->SetDiffuseColor(Color::Green);
+	material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
+	material->SetDiffuseColor(Color::Green);
 	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
-	cube->SetMaterial(cubeMaterial);
+	cube->SetMaterial(material);
 }
 
 void SolidModelScene::Stop(){
 	delete cube;
-	delete cubeMaterial;
+	delete material;
 	CCScene::Stop();
 }
 

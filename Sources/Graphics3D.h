@@ -17,7 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "GraphicsGL.h"
-#include "Events/Event.h"
 
 struct aiMaterial;
 struct aiMesh;
@@ -26,79 +25,28 @@ struct aiScene;
 
 namespace cross{
 
-class Light;
-class LightCaster;
-class DirectionalLight;
-class PointLight;
-class SpotLight;
-
 class Graphics3D{
 public:
 	Graphics3D();
 	~Graphics3D();
 
 	Mesh* LoadMesh(const string& filename);
-	CRArray<Mesh*>* LoadMeshes(const string& filename);
-
-	Model* LoadModel(const string& filename, Shader* shader);
-	/*
-	Model* LoadModel(const string& filename, const Color& color);
-	Model* LoadModel(const string& filename, const Material& material);
-	Model* LoadModel(const string& filename, Texture* diffuse);
-	Model* LoadModel(const string& filename, Texture* diffuse, Texture* specular);*/
-	/*
-	//use custom shader
-	void DrawMesh(Shader* shader, Mesh* mesh, const Matrix& model);
-	//use "simple" shader
-	void DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color);
-	//use "texture" shader
-	void DrawMeshTexture(Mesh* mesh, const Matrix& model);
-	//use "light_material" shader
-	void DrawMeshLightMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material);
-	//use "light_diffuse" shader
-	void DrawMeshLightDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Vector3D& specular, float shininess);
-	//use "light_diffuse_specular" shader
-	void DrawMeshLightDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, float shininess);
-	//use "directional_light" shader
-	void DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, float shininess);
-	//use "point_light" shader
-	void DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, float shininess);
-	//use "spot_light" shader
-	void DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, float shininess);
-	//use "multi_light" shader
-	void DrawMeshMultiLight(	Mesh* mesh, 
-								const Matrix& model, 
-								const CRArray<PointLight*>& pointLights, 
-								const CRArray<DirectionalLight*>& directLights, 
-								const CRArray<SpotLight*>& spotLights,
-								float shininess	);
-
-	void DrawModel(Shader* shader, Model* model);
-
-	void DrawModelSimple(Model* model);
-	void DrawModelTexture(Model* model);
-	void DrawModelLightMaterial(Model* model, LightCaster* light);
-	void DrawModelLightDiffuse(Model* model, LightCaster* light);
-	void DrawModelLightDiffuseSpecular(Model* model, LightCaster* light);
-	void DrawModelDirectLight(Model* model, DirectionalLight* ligth);
-	void DrawModelPointLight(Model* model, PointLight* light);
-	void DrawModelSpotLight(Model* model, SpotLight* light);
-	void DrawModelMultiLight(	Model* model,
-								const CRArray<PointLight*>& pointLights, 
-								const CRArray<DirectionalLight*>& directLights,
-								const CRArray<SpotLight*>& spotLights);*/
 
 private:
 	Shader* current_shader;
 	const aiScene* current_scene;
 
-	void BindTextures(Shader* shader, Mesh* mesh);
-	//void BindAttributes(Shader* shader, Mesh* mesh);
+	Mesh* ProcessNode(aiNode* node);
+	Mesh* ProcessMesh(aiMesh* mesh);
 
 	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
 	Texture* LoadTexture(aiMaterial* material, unsigned int textureTepy, const string& modelFilePath);
-	Mesh* ProcessMesh(aiMesh* mesh, const string& modelFilePath);
 	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const string& modelFilePath);
+	//old stuff
+
+	CRArray<Mesh*>* LoadMeshes(const string& filename);
+
+	Model* LoadModel(const string& filename, Shader* shader);
 };
 
 }

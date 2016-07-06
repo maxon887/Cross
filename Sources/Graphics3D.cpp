@@ -51,6 +51,74 @@ Graphics3D::Graphics3D()
 Graphics3D::~Graphics3D(){
 }
 
+Mesh* Graphics3D::LoadMesh(const string& filename){
+	File* file = launcher->LoadFile(filename);
+	Assimp::Importer importer;
+	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate|aiProcess_FlipUVs);
+	delete file;
+	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
+		throw CrossException("Assimp Error: %s", importer.GetErrorString());
+	}
+	return ProcessNode(current_scene->mRootNode);
+}
+
+Mesh* Graphics3D::ProcessNode(aiNode* node){
+	for(unsigned int i = 0; i < node->mNumMeshes; i++){
+		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
+		Mesh* crMesh = ProcessMesh(aiMesh);
+		Matrix model = Matrix::CreateZero();
+		memcpy(model.m, &node->mTransformation.a1, sizeof(float) * 16);
+		crMesh->SetModelMatrix(model);
+		return crMesh;
+	}
+	for(unsigned int i = 0; i < node->mNumChildren; ++i){
+		return ProcessNode(node->mChildren[i]);
+	}
+	throw CrossException("Empty node");
+}
+
+Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
+	VertexBuffer* vertexBuffer = new VertexBuffer();
+	if(mesh->mTextureCoords[0]){
+		vertexBuffer->UVEnabled(true);
+	}
+	if(mesh->mNormals){
+		vertexBuffer->NarmalsEnabled(true);
+	}
+
+	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
+		vertexBuffer->PushData((unsigned char*)&mesh->mVertices[i], 3 * sizeof(float));
+
+		if(vertexBuffer->HasTextureCoordinates()){
+			vertexBuffer->PushData((unsigned char*)&mesh->mTextureCoords[0][i], 2 * sizeof(float));
+		}
+
+		if(vertexBuffer->HasNormals()){
+			vertexBuffer->PushData((unsigned char*)&mesh->mNormals[i], 3 * sizeof(float));
+		}
+	}
+
+	CRArray<unsigned int> indices;
+	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
+		for(unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
+			indices.push_back(mesh->mFaces[i].mIndices[j]);
+		}
+	}
+
+	Mesh* crossMesh = new Mesh(vertexBuffer, indices, mesh->mNumFaces);/*
+	if(mesh->mMaterialIndex >= 0){
+		Material* crossMaterial = new Material(current_shader);
+		aiMaterial* material = current_scene->mMaterials[mesh->mMaterialIndex];
+		aiString matName;
+		material->Get(AI_MATKEY_NAME, matName);
+		launcher->LogIt(matName.C_Str());
+		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, modelFilePath);
+		crossMaterial->SetDiffuseTexture(diffuseTexture);
+		crossMesh->SetMaterial(crossMaterial);
+	}*/
+	return crossMesh;
+}
+
 Model* Graphics3D::LoadModel(const string& filename, Shader* shader){
 	Debugger::Instance()->StartCheckTime();
 	current_shader = shader;
@@ -107,18 +175,6 @@ Model* Graphics3D::LoadModel(const string& filename, Texture* diffuse, Texture* 
 	return model;
 }*/
 
-Mesh* Graphics3D::LoadMesh(const string& filename){
-	Mesh* result = nullptr;
-	CRArray<Mesh*>* meshes = LoadMeshes(filename);
-	if(meshes->size() > 1){
-		throw CrossException("File contains more than 1 mesh.\nUse LoadMeshes function.");
-	}else{
-		result = (*meshes)[0];
-		delete meshes;
-		return result;
-	}
-}
-
 CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	File* file = launcher->LoadFile(filename);
 	Assimp::Importer importer;
@@ -129,492 +185,12 @@ CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
 	}
 	CRArray<Mesh*>* meshes = new CRArray<Mesh*>();
 	string modelFilePath = launcher->PathFromFile(filename);
-	ProcessNode(meshes, current_scene->mRootNode, modelFilePath);
+	//ProcessNode(meshes, current_scene->mRootNode, modelFilePath);
 	if(meshes->size() == 0){
 		throw CrossException("Cannot load meshes from file");
 	}
 	return meshes;
 }
-/*
-void Graphics3D::DrawMesh(Shader* shader, Mesh* mesh, const Matrix& model){
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	BindTextures(shader, mesh);
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshSimple(Mesh* mesh, const Matrix& model, Color& color){
-	SimpleShader* shader = (SimpleShader*)gfxGL->GetShader(Shader::Type::SIMPLE);
-	gfxGL->UseShader(shader);
-
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshTexture(Mesh* mesh, const Matrix& model){
-	TextureShader* shader = (TextureShader*)gfxGL->GetShader(Shader::Type::TEXTURE);
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	BindTextures(shader, mesh);
-
-	Color white = Color::White;
-	SAFE(glUniform4fv(shader->uColor, 1, white.GetData()));
-	
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshLightMaterial(Mesh* mesh, const Matrix& model, LightCaster* light, Material* material){
-	LightMaterialShader* shader = (LightMaterialShader*)gfxGL->GetShader(Shader::Type::LIGHT_MATERIAL);
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-
-	SAFE(glUniform3fv(shader->uMaterialAmbient, 1, material->ambient.GetData()));
-	SAFE(glUniform3fv(shader->uMaterialDiffuse, 1, material->diffuse.GetData()));
-	SAFE(glUniform3fv(shader->uMaterialSpecular, 1, material->specular.GetData()));
-	SAFE(glUniform1f(shader->uMaterialShininess, material->shininess * 128.f));
-
-	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
-
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshLightDiffuse(Mesh* mesh, const Matrix& model, LightCaster* light, Vector3D& specular, float shininess) {
-	LightDiffuseShader* shader = (LightDiffuseShader*)gfxGL->GetShader(Shader::Type::LIGHT_DIFFUSE);
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-	
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-
-	BindTextures(shader, mesh);
-
-	SAFE(glUniform3fv(shader->uMaterialSpecular, 1, specular.GetData()));
-
-	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-
-	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
-
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshLightDiffuseSpecular(Mesh* mesh, const Matrix& model, LightCaster* light, float shininess) {
-	LightDiffuseSpecularShader* shader = (LightDiffuseSpecularShader*)gfxGL->GetShader(Shader::Type::LIGHT_DIFFUSE_SPECULAR);
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-
-	BindTextures(shader, mesh);
-
-	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-
-	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
-
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshDirectionalLight(Mesh* mesh, const Matrix& model, DirectionalLight* light, float shininess){
-	DirectionalLightShader* shader = (DirectionalLightShader*)gfxGL->GetShader(Shader::Type::DIRECTIONAL_LIGHT);
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-
-	BindTextures(shader, mesh);
-
-	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-
-	SAFE(glUniform3fv(shader->uLightDirection, 1, light->GetDirection().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
-
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshPointLight(Mesh* mesh, const Matrix& model, PointLight* light, float shininess){
-	PointLightShader* shader = (PointLightShader*)gfxGL->GetShader(Shader::Type::POINT_LIGHT);
-	gfxGL->UseShader(shader);
-	//transfer uniforms
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-
-	BindTextures(shader, mesh);
-
-	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-
-	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
-	SAFE(glUniform1f(shader->uLightConstant, light->GetConstant()));
-	SAFE(glUniform1f(shader->uLightLinear, light->GetLinear()));
-	SAFE(glUniform1f(shader->uLightQuadratic, light->GetQuadratic()));
-
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-	//transfer attributes
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshSpotLight(Mesh* mesh, const Matrix& model, SpotLight* light, float shininess){
-	SpotLightShader* shader = (SpotLightShader*)gfxGL->GetShader(Shader::Type::SPOT_LIGHT);
-	gfxGL->UseShader(shader);
-
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-	//material
-	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-
-	BindTextures(shader, mesh);
-	//light
-	SAFE(glUniform3fv(shader->uLightPosition, 1, light->GetPosition().GetData()));
-	SAFE(glUniform3fv(shader->uLightAmbient, 1, light->GetAmbientStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightDiffuse, 1, light->GetDiffuseStrength().GetData()));
-	SAFE(glUniform3fv(shader->uLightSpecular, 1, light->GetSpecularStrength().GetData()));
-	SAFE(glUniform1f(shader->uLightConstant, light->GetConstant()));
-	SAFE(glUniform1f(shader->uLightLinear, light->GetLinear()));
-	SAFE(glUniform1f(shader->uLightQuadratic, light->GetQuadratic()));
-	SAFE(glUniform1f(shader->uLightCutOff, cos(light->GetCutOff() / 180.f * PI)));
-	SAFE(glUniform1f(shader->uLightOuterCutOff, cos(light->GetOuterCutOff() / 180.f * PI)));
-	SAFE(glUniform3fv(shader->uLightDirection, 1, light->GetDirection().GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawMeshMultiLight(Mesh* mesh,
-									const Matrix& model,
-									const CRArray<PointLight*>& pointLights,
-									const CRArray<DirectionalLight*>& directLights,
-									const CRArray<SpotLight*>& spotLights,
-									float shininess)
-{
-	MultiLightShader* shader = (MultiLightShader*)gfxGL->GetShader(Shader::Type::MULTI_LIGHT);
-
-	if(pointLights.size() > shader->MaxPointLights){
-		throw CrossException("This shader can only draw %d point lights", shader->MaxPointLights);
-	}
-
-	if(directLights.size() > shader->MaxDirectionalLights){
-		throw CrossException("This shader can only draw %d directional lights", shader->MaxDirectionalLights);
-	}
-
-	if(spotLights.size() > shader->MaxSpotLights){
-		throw CrossException("This shader can only draw %d spot lights", shader->MaxSpotLights);
-	}
-
-	gfxGL->UseShader(shader);
-	//vertex shader 
-	Matrix mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	mvp = mvp.Transpose();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.Transpose().GetData()));
-		
-	Matrix normalMatrix = model.Inverse();
-	SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normalMatrix.GetData()));
-	//materials
-	BindTextures(shader, mesh);
-
-	SAFE(glUniform1f(shader->uMaterialShininess, shininess * 128.f));
-	//lights
-	SAFE(glUniform1i(shader->uPointLightCount, pointLights.size()));
-	for(unsigned int i = 0; i < pointLights.size(); ++i){
-		SAFE(glUniform3fv(shader->uPointLights[i].position, 1, pointLights[i]->GetPosition().GetData()));
-		SAFE(glUniform3fv(shader->uPointLights[i].ambient, 1, pointLights[i]->GetAmbientStrength().GetData()));
-		SAFE(glUniform3fv(shader->uPointLights[i].diffuse, 1, pointLights[i]->GetDiffuseStrength().GetData()));
-		SAFE(glUniform3fv(shader->uPointLights[i].specular, 1, pointLights[i]->GetSpecularStrength().GetData()));
-		SAFE(glUniform1f(shader->uPointLights[i].constant, pointLights[i]->GetConstant()));
-		SAFE(glUniform1f(shader->uPointLights[i].linear, pointLights[i]->GetLinear()));
-		SAFE(glUniform1f(shader->uPointLights[i].quadratic, pointLights[i]->GetQuadratic()));
-	}
-
-	SAFE(glUniform1i(shader->uDirectionalLightCount, directLights.size()));
-	for(unsigned int i = 0; i < directLights.size(); ++i){
-		SAFE(glUniform3fv(shader->uDirectionalLights[i].direction, 1, directLights[i]->GetDirection().GetData()));
-		SAFE(glUniform3fv(shader->uDirectionalLights[i].ambient, 1, directLights[i]->GetAmbientStrength().GetData()));
-		SAFE(glUniform3fv(shader->uDirectionalLights[i].diffuse, 1, directLights[i]->GetDiffuseStrength().GetData()));
-		SAFE(glUniform3fv(shader->uDirectionalLights[i].specular, 1, directLights[i]->GetSpecularStrength().GetData()));
-	}
-
-	SAFE(glUniform1i(shader->uSpotLightCount, spotLights.size()));
-	for(unsigned int i = 0; i < spotLights.size(); ++i){
-		SAFE(glUniform3fv(shader->uSpotLights[i].position, 1, spotLights[i]->GetPosition().GetData()));
-		SAFE(glUniform3fv(shader->uSpotLights[i].ambient, 1, spotLights[i]->GetAmbientStrength().GetData()));
-		SAFE(glUniform3fv(shader->uSpotLights[i].diffuse, 1, spotLights[i]->GetDiffuseStrength().GetData()));
-		SAFE(glUniform3fv(shader->uSpotLights[i].specular, 1, spotLights[i]->GetSpecularStrength().GetData()));
-		SAFE(glUniform1f(shader->uSpotLights[i].constant, spotLights[i]->GetConstant()));
-		SAFE(glUniform1f(shader->uSpotLights[i].linear, spotLights[i]->GetLinear()));
-		SAFE(glUniform1f(shader->uSpotLights[i].quadratic, spotLights[i]->GetQuadratic()));
-		SAFE(glUniform1f(shader->uSpotLights[i].cut_off, cos(spotLights[i]->GetCutOff() / 180.f * PI)));
-		SAFE(glUniform1f(shader->uSpotLights[i].outer_cut_off, cos(spotLights[i]->GetOuterCutOff() / 180.f * PI)));
-		SAFE(glUniform3fv(shader->uSpotLights[i].direction, 1, spotLights[i]->GetDirection().GetData()));
-	}
-
-	SAFE(glUniform3fv(shader->uCameraPosition, 1, camera->GetPosition().GetData()));
-
-	BindAttributes(shader, mesh);
-
-	//drawing
-	SAFE(glEnable(GL_DEPTH_TEST));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_DEPTH_TEST));
-}
-
-void Graphics3D::DrawModel(Shader* shader, Model* model){
-	for(Mesh* mesh : model->meshes){
-		DrawMesh(shader, mesh, model->GetModelMatrix() * mesh->GetModelMatrix());
-	}
-}
-
-void Graphics3D::DrawModelSimple(Model* model){
-	for(Mesh* mesh : model->meshes){
-		Color color = model->GetColor();
-		DrawMeshSimple(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), color);
-	}
-}
-
-void Graphics3D::DrawModelTexture(Model* model){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshTexture(mesh, model->GetModelMatrix() * mesh->GetModelMatrix());
-	}
-}
-
-void Graphics3D::DrawModelLightMaterial(Model* model, LightCaster* light){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshLightMaterial(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, model->GetMaterial());
-	}
-}
-
-void Graphics3D::DrawModelLightDiffuse(Model* model, LightCaster* light){
-	Vector3D specularStength(0.5f);
-	for(Mesh* mesh : model->meshes){
-		DrawMeshLightDiffuse(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, specularStength, 0.5f);
-	}
-}
-
-void Graphics3D::DrawModelLightDiffuseSpecular(Model* model, LightCaster* light){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshLightDiffuseSpecular(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
-	}
-}
-
-void Graphics3D::DrawModelDirectLight(Model* model, DirectionalLight* light){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshDirectionalLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
-	}
-}
-
-void Graphics3D::DrawModelPointLight(Model* model, PointLight* light){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshPointLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
-	}
-}
-
-void Graphics3D::DrawModelSpotLight(Model* model, SpotLight* light){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshSpotLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), light, 0.5f);
-	}
-}
-
-void Graphics3D::DrawModelMultiLight(Model* model,	const CRArray<PointLight*>& pointLights, 
-													const CRArray<DirectionalLight*>& directLights,
-													const CRArray<SpotLight*>& spotLights){
-	for(Mesh* mesh : model->meshes){
-		DrawMeshMultiLight(mesh, model->GetModelMatrix() * mesh->GetModelMatrix(), pointLights, directLights, spotLights, 0.5f);
-	}
-}
-
-void Graphics3D::BindTextures(Shader* shader, Mesh* mesh){
-	for(unsigned int i = 0; i < Shader::MaxDiffuseMaps; ++i){
-		if(shader->uDiffuseMaps[i] != -1){
-			if(mesh->diffuse_maps.size() > i){
-				SAFE(glActiveTexture(GL_TEXTURE0 + i));
-				SAFE(glBindTexture(GL_TEXTURE_2D, mesh->diffuse_maps[i]->GetID()));
-				SAFE(glUniform1i(shader->uDiffuseMaps[i], i));
-			}else{
-				throw CrossException("Mesh does not contain %d diffuse map", i);
-			}
-		}else{
-			break;
-		}
-	}
-	for(unsigned int i = 0; i < Shader::MaxSpecularMaps; ++i){
-		if(shader->uSpecularMaps[i] != -1){
-			if(mesh->specular_maps.size() > i){
-				SAFE(glActiveTexture(GL_TEXTURE0 + Shader::MaxDiffuseMaps + i));
-				SAFE(glBindTexture(GL_TEXTURE_2D, mesh->specular_maps[i]->GetID()));
-				SAFE(glUniform1i(shader->uSpecularMaps[i], Shader::MaxDiffuseMaps + i));
-			}else{
-				throw CrossException("Mesh does not contain %d specular map", i);
-			}
-		}else{
-			break;
-		}
-	}
-}
-*/
-/*
-void Graphics3D::BindAttributes(Shader* shader, Mesh* mesh){
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO));
-	VertexBuffer* vertexBuffer = mesh->GetVertexBuffer();
-	unsigned int vertexSize = vertexBuffer->VertexSize();
-	//if(shader->aPosition != -1){
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuffer->GetPossitionsOffset())));
-	//}
-	if(shader->TextureCoordinatesRequired()){
-		if(vertexBuffer->HasTextureCoordinates()){
-			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuffer->GetTextureCoordinatesOffset())));
-		}else{
-			throw CrossException("Current mesh noes not contain texture coordinates");
-		}
-	}
-	if(shader->NormalsRequired()){
-		if(vertexBuffer->HasNormals()){
-			SAFE(glEnableVertexAttribArray(shader->aNormal));
-			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuffer->GetNormalsOffset())));
-		}else{
-			throw CrossException("Current mesh noes not countain normals");
-		}
-	}
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-}*/
 
 CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type, const string& modelFilePath){
 	CRArray<Texture*>* textures = new CRArray<Texture*>();
@@ -643,67 +219,14 @@ Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const 
 	return texture;
 }
 
-Mesh* Graphics3D::ProcessMesh(aiMesh* mesh, const string& modelFilePath){
-	VertexBuffer* vertexBuffer = new VertexBuffer();
-	if(mesh->mTextureCoords[0]){
-		vertexBuffer->UVEnabled(true);
-	}
-	if(mesh->mNormals){
-		vertexBuffer->NarmalsEnabled(true);
-	}
-
-	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
-		vertexBuffer->PushData((unsigned char*)&mesh->mVertices[i], 3 * sizeof(float));
-
-		if(vertexBuffer->HasTextureCoordinates()){
-			vertexBuffer->PushData((unsigned char*)&mesh->mTextureCoords[0][i], 2 * sizeof(float));
-		}
-
-		if(vertexBuffer->HasNormals()){
-			vertexBuffer->PushData((unsigned char*)&mesh->mNormals[i], 3 * sizeof(float));
-		}
-	}
-
-	CRArray<unsigned int> indices;
-	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
-		for(unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
-			indices.push_back(mesh->mFaces[i].mIndices[j]);
-		}
-	}
-	//CRArray<Texture*>* diffuseMaps;
-	//CRArray<Texture*>* specularMaps;
-
-	Material* crossMaterial = new Material(current_shader);
-	if(mesh->mMaterialIndex >= 0){
-		aiMaterial* material = current_scene->mMaterials[mesh->mMaterialIndex];
-		aiString matName;
-		material->Get(AI_MATKEY_NAME, matName);
-		launcher->LogIt(matName.C_Str());
-		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, modelFilePath);
-		crossMaterial->SetDiffuseTexture(diffuseTexture);
-		/*
-		diffuseMaps = LoadTextures(material, aiTextureType_DIFFUSE, modelFilePath);
-		if(diffuseMaps->size() > 1){
-			throw CrossException("Multiple diffuse textures not supported");
-		}
-		specularMaps = LoadTextures(material, aiTextureType_SPECULAR, modelFilePath);
-		if(specularMaps->size() > 1){
-			throw CrossException("Multiple specular textures not supported");
-		}*/
-	}
-	Mesh* crossMesh = new Mesh(vertexBuffer, indices, mesh->mNumFaces);
-	crossMesh->SetMaterial(crossMaterial);
-	return crossMesh;
-}
-
 void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const string& modelFilePath){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
-		Mesh* crMesh = ProcessMesh(aiMesh, modelFilePath);
+		//Mesh* crMesh = ProcessMesh(aiMesh, modelFilePath);
 		Matrix model = Matrix::CreateZero();
 		memcpy(model.m, &node->mTransformation.a1, sizeof(float) * 16);
-		crMesh->SetModelMatrix(model);
-		meshes->push_back(crMesh);
+		//crMesh->SetModelMatrix(model);
+		//meshes->push_back(crMesh);
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
 		ProcessNode(meshes, node->mChildren[i], modelFilePath);

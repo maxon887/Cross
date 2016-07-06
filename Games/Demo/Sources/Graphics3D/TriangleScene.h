@@ -28,7 +28,6 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Mesh* triangle;
-	Shader* triangle_shader;
 	Material* triangle_material;
+	Mesh* triangle;
 };

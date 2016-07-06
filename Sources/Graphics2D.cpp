@@ -73,11 +73,11 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData());
-	glUniform4fv(shader->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(shader->aPosition);
-	glDrawArrays(GL_POINTS, 0, 1);
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
+	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glDrawArrays(GL_POINTS, 0, 1));
 }
 
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
@@ -87,11 +87,11 @@ void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glUniform4fv(shader->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(shader->aPosition);
-	glDrawArrays(GL_LINES, 0, 2);
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
+	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
 
 void Graphics2D::DrawRect(Rect rect, Color color){
@@ -109,15 +109,15 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glUniform4fv(shader->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(shader->aPosition);
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
+	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	if(filled){
 		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+		SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices));
 	}else{
-		glDrawArrays(GL_LINE_STRIP, 0, 5);
+		SAFE(glDrawArrays(GL_LINE_STRIP, 0, 5));
 	}
 }
 
@@ -159,15 +159,15 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.Transpose();
-	glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData());
-	glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer);
+	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
 	//delete buffer;
-	glUniform4fv(shader->uColor, 1, color.GetData());
-	glEnableVertexAttribArray(shader->aPosition);
+	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	if(filled){
-		glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
+		SAFE(glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount));
 	}else{
-		glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2);
+		SAFE(glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2));
 	}
 	delete buffer;
 }

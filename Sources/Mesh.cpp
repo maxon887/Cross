@@ -45,6 +45,7 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned 
 }
 
 Mesh::~Mesh(){
+	delete vertex_buffer;
 }
 
 void Mesh::Draw(){

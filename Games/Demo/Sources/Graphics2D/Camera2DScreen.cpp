@@ -54,6 +54,7 @@ void Camera2DScreen::Stop(){
 	}
 	input->MouseWheelUp.Clear();
 	input->MouseWheelDown.Clear();
+	delete awesomefase;
 }
 
 void Camera2DScreen::Update(float sec){
