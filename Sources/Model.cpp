@@ -28,10 +28,12 @@ Model::Model(Model& obj) :
 	original(false)
 { }
 
-Model::Model() :
-	meshes(),
+Model::Model(const string& name) :
+	name(name),
 	original(true)
-{ }
+{ 
+	filepath = launcher->PathFromFile(name);
+}
 
 Model::~Model(){
 	if(original){
@@ -50,12 +52,34 @@ void Model::Draw(){
 	}
 }
 
+string Model::GetName(){
+	return name;
+}
+
+string Model::GetFilePath(){
+	return filepath;
+}
+
 int Model::GetPolyCount(){
 	int polyCount = 0;
 	for(Mesh* mesh : meshes){
 		polyCount += mesh->GetPrimitivesCount();
 	}
 	return polyCount;
+}
+
+void Model::AddMesh(Mesh* mesh){
+	meshes.push_back(mesh);
+}
+
+void Model::AddMaterial(Material* material){
+	materials.push_back(material);
+}
+
+void Model::SetShader(Shader* shader){
+	for(Material* material : materials){
+		material->SetShader(shader);
+	}
 }
 
 Model* Model::Clone(){

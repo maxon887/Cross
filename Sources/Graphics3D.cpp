@@ -64,9 +64,8 @@ Mesh* Graphics3D::LoadMesh(const string& filename){
 
 Model* Graphics3D::LoadModel(const string& filename){
 	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model();
-	delete modelMeshes;
+	Model* model = new Model(filename);
+	LoadMeshes(model);
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
@@ -116,91 +115,18 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 		}
 	}
 
-	Mesh* crossMesh = new Mesh(vertexBuffer, indices, mesh->mNumFaces);/*
-	if(mesh->mMaterialIndex >= 0){
-		Material* crossMaterial = new Material(current_shader);
-		aiMaterial* material = current_scene->mMaterials[mesh->mMaterialIndex];
-		aiString matName;
-		material->Get(AI_MATKEY_NAME, matName);
-		launcher->LogIt(matName.C_Str());
-		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, modelFilePath);
-		crossMaterial->SetDiffuseTexture(diffuseTexture);
-		crossMesh->SetMaterial(crossMaterial);
-	}*/
-	return crossMesh;
+	return new Mesh(vertexBuffer, indices, mesh->mNumFaces);
 }
 
-CRArray<Material*>* Graphics3D::LoadMaterials(aiScene* scene){
-	CRArray<Material*>* materials = new CRArray<Material*>();
-	for(int i = 0; i < scene->mNumMaterials; ++i){
-		aiMaterial* aiMat = scene->mMaterials[i];
-		aiString aiMatName;
-		aiMat->Get(AI_MATKEY_NAME, aiMatName);
-		Material* crMat = new Material(aiMatName.C_Str());
-	}
-	return nullptr;
-}
-
-/*
-Model* Graphics3D::LoadModel(const string& filename, const Color& color){
-	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes, color);
-	delete modelMeshes;
-	string msg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	return model;
-}
-
-Model* Graphics3D::LoadModel(const string& filename, const Material& material){
-	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes, material);
-	delete modelMeshes;
-	string msg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	return model;
-}
-
-Model* Graphics3D::LoadModel(const string& filename, Texture* texture){
-	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes);
-	delete modelMeshes;
-	string msg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	return model;
-}
-
-Model* Graphics3D::LoadModel(const string& filename, Texture* diffuse, Texture* specular) {
-	Debugger::Instance()->StartCheckTime();
-	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes);
-	delete modelMeshes;
-	string msg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	return model;
-}*/
-
-CRArray<Mesh*>* Graphics3D::LoadMeshes(const string& filename){
-	File* file = launcher->LoadFile(filename);
+void Graphics3D::LoadMeshes(Model* model){
+	File* file = launcher->LoadFile(model->GetName());
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
 	delete file;
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-	CRArray<Mesh*>* meshes = new CRArray<Mesh*>();
-	string modelFilePath = launcher->PathFromFile(filename);
-	//ProcessNode(meshes, current_scene->mRootNode, modelFilePath);
-	if(meshes->size() == 0){
-		throw CrossException("Cannot load meshes from file");
-	}
-	return meshes;
+	ProcessNode(model, current_scene->mRootNode);
 }
 
 CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type, const string& modelFilePath){
@@ -230,16 +156,29 @@ Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const 
 	return texture;
 }
 
-void Graphics3D::ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const string& modelFilePath){
+void Graphics3D::ProcessNode(Model* model, aiNode* node){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
-		//Mesh* crMesh = ProcessMesh(aiMesh, modelFilePath);
-		Matrix model = Matrix::CreateZero();
-		memcpy(model.m, &node->mTransformation.a1, sizeof(float) * 16);
-		//crMesh->SetModelMatrix(model);
-		//meshes->push_back(crMesh);
+		Mesh* crMesh = ProcessMesh(aiMesh);
+		Matrix modelMat = Matrix::CreateZero();
+		memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
+		crMesh->SetModelMatrix(modelMat);
+
+		if(aiMesh->mMaterialIndex >= 0){
+			aiMaterial* material = current_scene->mMaterials[aiMesh->mMaterialIndex];
+			aiString matName;
+			material->Get(AI_MATKEY_NAME, matName);
+			launcher->LogIt(matName.C_Str());
+			Material* crossMaterial = new Material(matName.C_Str());
+			Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, model->GetFilePath());
+			crossMaterial->SetDiffuseTexture(diffuseTexture);
+			crMesh->SetMaterial(crossMaterial);
+			model->AddMaterial(crossMaterial);
+		}
+
+		model->AddMesh(crMesh);
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
-		ProcessNode(meshes, node->mChildren[i], modelFilePath);
+		ProcessNode(model, node->mChildren[i]);
 	}
 }

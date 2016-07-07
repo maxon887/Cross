@@ -25,18 +25,26 @@ class Model : public Transformable{
 friend Graphics3D;
 public:
 
-	Model();
+	Model(const string& name);
 	~Model();
 
 	virtual void Draw();
 
+	string GetName();
+	string GetFilePath();
 	int GetPolyCount();
+
+	void AddMesh(Mesh* mesh);
+	void AddMaterial(Material* material);
+	void SetShader(Shader* shader);
+
 	Model* Clone();
 
 protected:
+	string name;
+	string filepath;
 	CRArray<Mesh*> meshes;
 	CRArray<Material*> materials;
-	CRArray<Texture*> textures;
 	bool original;
 
 	//Copy constructor

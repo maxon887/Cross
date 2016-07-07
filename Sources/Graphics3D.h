@@ -38,14 +38,12 @@ private:
 
 	Mesh* ProcessNode(aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
-	CRArray<Material*>* LoadMaterials(aiScene* scene);
 
 	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
 	Texture* LoadTexture(aiMaterial* material, unsigned int textureTepy, const string& modelFilePath);
-	void ProcessNode(CRArray<Mesh*>* meshes, aiNode* node, const string& modelFilePath);
+	void ProcessNode(Model* model, aiNode* node);
 	//old stuff
-
-	CRArray<Mesh*>* LoadMeshes(const string& filename);
+	void LoadMeshes(Model* model);
 
 	Model* LoadModel(const string& filename, Shader* shader);
 };

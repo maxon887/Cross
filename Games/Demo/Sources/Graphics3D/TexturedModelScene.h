@@ -25,5 +25,4 @@ public:
 private:
 	Mesh* cube;
 	Material* material;
-	Texture* texture;
 };

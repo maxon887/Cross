@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Material.h"
+#include "Texture.h"
 
 using namespace cross;
 
@@ -32,6 +33,10 @@ Material::Material(Shader* shader) :
 	diffuse_texture(nullptr),
 	name("")
 { }
+
+Material::~Material(){
+	delete diffuse_texture;
+}
 
 void Material::SetShader(Shader* shader){
 	this->shader = shader;

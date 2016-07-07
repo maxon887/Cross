@@ -26,7 +26,7 @@ void TexturedModelScene::Start() {
 	CCScene::Start();
 	Shader* shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	material = new Material(shader);
-	texture = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
+	Texture* texture = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
 	material->SetDiffuseTexture(texture);
 	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
 	cube->SetMaterial(material);
@@ -35,7 +35,6 @@ void TexturedModelScene::Start() {
 void TexturedModelScene::Stop() {
 	delete cube;
 	delete material;
-	delete texture;
 	CCScene::Stop();
 }
 

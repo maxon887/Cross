@@ -23,6 +23,7 @@ class Material{
 public:
 	Material(const string& name);
 	Material(Shader* shader);
+	~Material();
 
 	void SetShader(Shader* shader);
 	void SetDiffuseColor(const Color& color);
