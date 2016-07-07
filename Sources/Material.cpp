@@ -18,13 +18,24 @@
 
 using namespace cross;
 
+Material::Material(const string& name) : 
+	Material(nullptr)
+{ 
+	this->name = name;
+}
+
 Material::Material(Shader* shader) :
 	shader(shader),
 	diffuse_color(Color::White),
 	specular_color(Color::White),
 	shininess(0.5f),
-	diffuse_texture(nullptr)
+	diffuse_texture(nullptr),
+	name("")
 { }
+
+void Material::SetShader(Shader* shader){
+	this->shader = shader;
+}
 
 void Material::SetDiffuseColor(const Color& color){
 	diffuse_color = color;
@@ -67,5 +78,9 @@ bool Material::HasDiffuseTexture(){
 }
 
 Shader* Material::GetShader(){
-	return shader;
+	if(shader){
+		return shader;
+	}else{
+		throw CrossException("Current material does not contain shader");
+	}
 }

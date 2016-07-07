@@ -34,7 +34,6 @@ Texture::Texture(GLuint id, int width, int height, Filter filter) :
 }
 
 Texture::~Texture(){
-	//SAFE(glDeleteTextures(1, &id));
 	gfx2D->ReleaseTexture(name, &id);
 }
 

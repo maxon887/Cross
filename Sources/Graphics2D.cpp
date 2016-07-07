@@ -234,30 +234,40 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 }
 
 Texture* Graphics2D::LoadTexture(const string& filename){
-	auto it = loaded_textures.find(filename);
+	auto it = loaded_textures.begin();
+	for( ; it != loaded_textures.end(); it++){
+		if( (*it).first->GetName() == filename ){
+			break;
+		}
+	}
+
 	if(it != loaded_textures.end()){
-		auto pair = (*it).second;
-		pair.second++;
-		return pair.first->Clone();
+		(*it).second++;
+		return (*it).first->Clone();
 	}else{
 		Texture* newTexture = LoadTexture(filename, Texture::Filter::LINEAR);
-		newTexture->SetName(filename);
 		pair<Texture*, int> pair;
 		pair.first = newTexture;
 		pair.second = 1;
-		loaded_textures[filename] = pair;
+		loaded_textures.push_back(pair);
 		return newTexture->Clone();
 	}
 }
 
 void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
-	auto it = loaded_textures.find(filename);
+	auto it = loaded_textures.begin();
+	for( ; it != loaded_textures.end(); it++){
+		if( (*it).first->GetName() == filename ){
+			break;
+		}
+	}
+
 	if(it != loaded_textures.end()){
-		auto pair = (*it).second;
-		pair.second--;
-		if(pair.second <= 0){
+		(*it).second--;
+		if((*it).second <= 0){
+			Texture* texture = (*it).first;
 			loaded_textures.erase(it);
-			delete pair.first;
+			delete texture;
 		}
 	}else{
 		SAFE(glDeleteTextures(1, id));
@@ -300,6 +310,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 		image = newImage;
 	}
 	Texture* texture = CreateTexture(image, channels, width, height, filter);
+	texture->SetName(filename);
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;

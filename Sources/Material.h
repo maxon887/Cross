@@ -21,8 +21,10 @@ namespace cross{
 
 class Material{
 public:
+	Material(const string& name);
 	Material(Shader* shader);
 
+	void SetShader(Shader* shader);
 	void SetDiffuseColor(const Color& color);
 	void SetSpecularColor(const Color& color);
 	void SetShininess(float shininess);
@@ -37,6 +39,7 @@ public:
 
 	Shader* GetShader();
 private:
+	string name;
 	Shader* shader;
 	Color diffuse_color;
 	Color specular_color;

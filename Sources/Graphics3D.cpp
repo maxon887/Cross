@@ -62,6 +62,17 @@ Mesh* Graphics3D::LoadMesh(const string& filename){
 	return ProcessNode(current_scene->mRootNode);
 }
 
+Model* Graphics3D::LoadModel(const string& filename){
+	Debugger::Instance()->StartCheckTime();
+	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
+	Model* model = new Model();
+	delete modelMeshes;
+	string msg = "" + filename + " loaded in ";
+	Debugger::Instance()->StopCheckTime(msg);
+	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
+	return model;
+}
+
 Mesh* Graphics3D::ProcessNode(aiNode* node){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
@@ -119,17 +130,17 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	return crossMesh;
 }
 
-Model* Graphics3D::LoadModel(const string& filename, Shader* shader){
-	Debugger::Instance()->StartCheckTime();
-	current_shader = shader;
-	CRArray<Mesh*>* modelMeshes = LoadMeshes(filename);
-	Model* model = new Model(*modelMeshes);
-	delete modelMeshes;
-	string msg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
-	return model;
+CRArray<Material*>* Graphics3D::LoadMaterials(aiScene* scene){
+	CRArray<Material*>* materials = new CRArray<Material*>();
+	for(int i = 0; i < scene->mNumMaterials; ++i){
+		aiMaterial* aiMat = scene->mMaterials[i];
+		aiString aiMatName;
+		aiMat->Get(AI_MATKEY_NAME, aiMatName);
+		Material* crMat = new Material(aiMatName.C_Str());
+	}
+	return nullptr;
 }
+
 /*
 Model* Graphics3D::LoadModel(const string& filename, const Color& color){
 	Debugger::Instance()->StartCheckTime();

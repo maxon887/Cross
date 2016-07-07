@@ -33,17 +33,13 @@ Model::Model() :
 	original(true)
 { }
 
-
-Model::	Model(CRArray<Mesh*>& meshes) :
-	meshes(meshes),
-	original(true)
-{ }
-
-
 Model::~Model(){
 	if(original){
 		for(Mesh* mesh : meshes){
 			delete mesh;
+		}
+		for(Material* material : materials){
+			delete material;
 		}
 	}
 }

@@ -25,7 +25,7 @@ class Model : public Transformable{
 friend Graphics3D;
 public:
 
-	Model(CRArray<Mesh*>& meshes);
+	Model();
 	~Model();
 
 	virtual void Draw();
@@ -35,11 +35,12 @@ public:
 
 protected:
 	CRArray<Mesh*> meshes;
+	CRArray<Material*> materials;
+	CRArray<Texture*> textures;
 	bool original;
 
 	//Copy constructor
 	Model(Model& obj);
-	Model();
 };
 
 }

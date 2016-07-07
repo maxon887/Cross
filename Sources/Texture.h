@@ -40,10 +40,10 @@ public:
 	void SetName(const string& name);
 	string GetName();
 private:
+	string name;
 	GLuint id;
 	int width;
 	int height;
-	string name;
 
 	void ApplyFilter(Filter filter);
 };
