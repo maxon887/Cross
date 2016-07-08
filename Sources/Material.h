@@ -41,6 +41,8 @@ public:
 	bool HasDiffuseTexture();
 
 	Shader* GetShader();
+
+	Material* Clone();
 private:
 	string name;
 	Shader* shader;
@@ -49,6 +51,8 @@ private:
 	float shininess;
 	Texture* diffuse_texture;
 	Texture* specular_texture;
+
+	Material(Material& obj);
 };
 
 }

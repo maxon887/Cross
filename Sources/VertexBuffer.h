@@ -37,11 +37,15 @@ public:
 	CRByte* GetData();
 	unsigned int GetDataSize();
 	void Free();
+	VertexBuffer* Clone();
+
 private:
 	bool initialized;
 	CRArray<CRByte> data;
 	bool uv_enabled;
 	bool normals_enabled;
+
+	VertexBuffer(VertexBuffer& obj);
 };
 
 }

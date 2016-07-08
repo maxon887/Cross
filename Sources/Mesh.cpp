@@ -26,7 +26,8 @@ using namespace cross;
 Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount) :
 	vertex_buffer(vertexBuffer),
 	primitives_count(primitivesCount),
-	material(nullptr)
+	material(nullptr),
+	original(true)
 {
 	index_count = indices.size();
 
@@ -44,8 +45,23 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned 
 	vertexBuffer->Free();
 }
 
+Mesh::Mesh(Mesh& obj) : 
+	primitives_count(obj.primitives_count),
+	index_count(obj.index_count),
+	material(obj.material), //warning pointer copy!
+	VBO(obj.VBO),
+	EBO(obj.EBO),
+	original(false)
+{
+	vertex_buffer = obj.vertex_buffer->Clone();
+}
+
 Mesh::~Mesh(){
 	delete vertex_buffer;
+	if(original){
+		glDeleteBuffers(1, &VBO);
+		glDeleteBuffers(1, &EBO);
+	}
 }
 
 void Mesh::Draw(){
@@ -166,4 +182,8 @@ unsigned int Mesh::GetPrimitivesCount() const{
 
 VertexBuffer* Mesh::GetVertexBuffer(){
 	return vertex_buffer;
+}
+
+Mesh* Mesh::Clone(){
+	return new Mesh(*this);
 }

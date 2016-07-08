@@ -14,35 +14,50 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "DirectionalLightScreen.h"
-#include "Shaders/Shader.h"
-#include "Texture.h"
-#include "Model.h"
+#include "DirectionalLightScene.h"
 #include "Graphics2D.h"
-#include "Graphics3D.h"
+#include "Graphics3D/Shaders/LightShader.h"
+#include "Material.h"
+#include "Mesh.h"
 
-void DirectionalLightScreen::Start(){/*
+void DirectionalLightScene::Start(){
 	CCScene::Start();
-	orbit_distance = 60.f;
 
-	light = new DirectionalLight(Vector3D(0.f, 0.f, 1.f), Vector3D(0.2f), Vector3D(1.f), Vector3D(0.5f));
-	
+	SetOrbitDistance(60.f);
+
+	DirectionalLight* light = new DirectionalLight(Color::White, Vector3D(0.f, 0.f, 1.f));
+	AddDirectionalLight(light);
+
+	shader = new LightShader("gfx3D/shaders/directional_light.vert", "gfx3D/shaders/directional_light.frag");
+	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	material->SetDiffuseTexture(diffuseTexture);
+	material->SetSpecularTexture(specularTexture);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 
 	for(int i = 0; i < 10; ++i){
-		Model* clone = model->Clone();
+		Mesh* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}*/
+	}
 }
 
-void DirectionalLightScreen::Stop(){
+void DirectionalLightScene::Stop(){
+	for(Mesh* clone : objects){
+		delete clone;
+	}
+	delete cube;
+	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 
-void DirectionalLightScreen::Update(float sec){
+void DirectionalLightScene::Update(float sec){
+	for(Mesh* obj : objects){
+		obj->Draw();
+	}
 	CCScene::Update(sec);
 }

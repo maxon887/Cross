@@ -36,7 +36,9 @@ public:
 	unsigned int GetPrimitivesCount() const;
 	VertexBuffer* GetVertexBuffer();
 
-private:
+	Mesh* Clone();
+
+protected:
 	GLuint VBO;
 	GLuint EBO;
 
@@ -44,6 +46,10 @@ private:
 	Material* material;
 	unsigned int primitives_count;
 	unsigned int index_count;
+
+	bool original;
+
+	Mesh(Mesh& obj);
 };
 
 }

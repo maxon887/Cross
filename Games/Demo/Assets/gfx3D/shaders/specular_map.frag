@@ -20,14 +20,14 @@ varying vec3 vNormal;
 varying vec3 vFragPosition;
 
 void main() {
-	vec3 texturedColor = vec3(texture2D(uDiffuseTexture, vTexCoords));
+	vec3 texel = vec3(texture2D(uDiffuseTexture, vTexCoords));
 	//ambient
-	vec3 ambient = uAmbientLight * uColor * texturedColor;
+	vec3 ambient = uAmbientLight * uColor * texel;
 	//diffuse
 	vec3 normal = normalize(vNormal);
 	vec3 lightDirection = normalize(uLight.position - vFragPosition);
 	float diffEffect = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = uLight.color * diffEffect * texturedColor;
+	vec3 diffuse = uLight.color * diffEffect * texel;
 	//specular
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);

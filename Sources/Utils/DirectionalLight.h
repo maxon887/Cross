@@ -21,10 +21,8 @@ namespace cross{
 
 class DirectionalLight : public Light{
 public:
-	DirectionalLight( const Vector3D& direction,
-					  const Vector3D& ambient,
-					  const Color& diffuse,
-					  const Vector3D& specular );
+	DirectionalLight( const Color& color,
+					  const Vector3D& direction );
 
 	Vector3D GetDirection();
 protected:

@@ -26,7 +26,7 @@
 #include "Graphics3D/SpecularScene.h"
 #include "Graphics3D/SpecularDiffuseScene.h"
 #include "Graphics3D/SpecularMapScene.h"
-#include "Graphics3D/DirectionalLightScreen.h"
+#include "Graphics3D/DirectionalLightScene.h"
 #include "Graphics3D/PointLightScreen.h"
 #include "Graphics3D/SpotLightScreen.h"
 #include "Graphics3D/MultiLightScreen.h"
@@ -307,7 +307,7 @@ void MainScreen::OnDiffuseSpecularMapClick(){
 }
 
 void MainScreen::OnDirectionalLight(){
-	next_screen = new DirectionalLightScreen();
+	next_scene = new DirectionalLightScene();
 }
 
 void MainScreen::OnPointLightClick(){

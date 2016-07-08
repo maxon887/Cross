@@ -24,6 +24,13 @@ VertexBuffer::VertexBuffer():
 	normals_enabled(false)
 { }
 
+VertexBuffer::VertexBuffer(VertexBuffer& obj) :
+	initialized(obj.initialized),
+	uv_enabled(obj.uv_enabled),
+	normals_enabled(obj.normals_enabled),
+	data(obj.data)
+{ }
+
 bool VertexBuffer::HasTextureCoordinates(){
 	return uv_enabled;
 }
@@ -89,4 +96,8 @@ unsigned int VertexBuffer::GetDataSize(){
 
 void VertexBuffer::Free(){
 	data.clear();
+}
+
+VertexBuffer* VertexBuffer::Clone(){
+	return new VertexBuffer(*this);
 }

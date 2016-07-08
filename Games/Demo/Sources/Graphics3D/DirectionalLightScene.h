@@ -15,17 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#include "Cross.h"
 #include "CCScene.h"
-#include "Utils/DirectionalLight.h"
 
-class DirectionalLightScreen : public CCScene{
+class DirectionalLightScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
-	Model* model;
-	DirectionalLight* light;
+	Shader* shader;
+	Material* material;
+	Mesh* cube;
+	CRArray<Mesh*> objects;
 };

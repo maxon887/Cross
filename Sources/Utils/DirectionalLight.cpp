@@ -18,11 +18,9 @@
 
 using namespace cross;
 
-DirectionalLight::DirectionalLight(	const Vector3D& direction,
-									const Vector3D& ambient,
-									const Color& diffuse,
-									const Vector3D& specular) :
-	Light(diffuse),
+DirectionalLight::DirectionalLight(	const Color& color,
+									const Vector3D& direction) :
+	Light(color),
 	direction(direction)
 { }
 

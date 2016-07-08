@@ -214,9 +214,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
@@ -267,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Shaders\LightShader.cpp">
       <Filter>Demo\Graphics3D\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -451,9 +451,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
@@ -504,6 +501,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Shaders\LightShader.h">
       <Filter>Demo\Graphics3D\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScene.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

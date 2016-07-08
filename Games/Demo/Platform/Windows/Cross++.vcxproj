@@ -131,7 +131,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularMapScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp" />
@@ -212,7 +212,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularMapScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h" />

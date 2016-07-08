@@ -35,8 +35,24 @@ Material::Material(Shader* shader) :
 	name("")
 { }
 
+Material::Material(Material& obj) :
+	shader(obj.shader),
+	diffuse_color(obj.diffuse_color),
+	specular_color(obj.specular_color),
+	shininess(obj.shininess),
+	name("")
+{ 
+	if(obj.diffuse_texture){
+		diffuse_texture = obj.diffuse_texture->Clone();
+	}
+	if(obj.specular_texture){
+		specular_texture = obj.specular_texture->Clone();
+	}
+}
+
 Material::~Material(){
 	delete diffuse_texture;
+	delete specular_texture;
 }
 
 void Material::SetShader(Shader* shader){
@@ -97,4 +113,8 @@ Shader* Material::GetShader(){
 	}else{
 		throw CrossException("Current material does not contain shader");
 	}
+}
+
+Material* Material::Clone(){
+	return new Material(*this);
 }

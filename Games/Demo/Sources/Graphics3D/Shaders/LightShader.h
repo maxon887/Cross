@@ -21,9 +21,9 @@ using namespace cross;
 
 class LightShader : public Shader{
 public:
-	GLuint uLightPosition;
-	GLuint uLightDirection;
-	GLuint uLightColor;
+	GLint uLightPosition;
+	GLint uLightDirection;
+	GLint uLightColor;
 
 	LightShader(const string& vertex, const string& fragment);
 
