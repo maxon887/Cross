@@ -76,6 +76,10 @@ void Model::AddMaterial(Material* material){
 	materials.push_back(material);
 }
 
+Material* Model::GetMaterial(unsigned int index){
+	return materials[index];
+}
+
 void Model::SetShader(Shader* shader){
 	for(Material* material : materials){
 		material->SetShader(shader);

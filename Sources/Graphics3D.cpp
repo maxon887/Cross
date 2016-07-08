@@ -17,23 +17,11 @@
 #include "Graphics3D.h"
 #include "Mesh.h"
 #include "File.h"
-#include "Camera.h"
 #include "Model.h"
 #include "Utils/Debugger.h"
 #include "Graphics2D.h"
 #include "Texture.h"
-#include "Game.h"
 #include "Material.h"
-#include "Shaders/LightDiffuseShader.h"
-#include "Shaders/LightDiffuseSpecularShader.h"
-#include "Shaders/DirectionalLightShader.h"
-#include "Shaders/PointLightShader.h"
-#include "Shaders/SpotLightShader.h"
-#include "Shaders/MultiLightShader.h"
-#include "Utils/Light.h"
-#include "Utils/DirectionalLight.h"
-#include "Utils/PointLight.h"
-#include "Utils/SpotLight.h"
 
 #define SWIG
 
@@ -87,6 +75,23 @@ Mesh* Graphics3D::ProcessNode(aiNode* node){
 	throw CrossException("Empty node");
 }
 
+void Graphics3D::ProcessNode(Model* model, aiNode* node){
+	for(unsigned int i = 0; i < node->mNumMeshes; i++){
+		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
+		Mesh* crMesh = ProcessMesh(aiMesh);
+		Matrix modelMat = Matrix::CreateZero();
+		memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
+		crMesh->SetModelMatrix(modelMat);
+
+		Material* material = model->GetMaterial(aiMesh->mMaterialIndex);
+		crMesh->SetMaterial(material);
+		model->AddMesh(crMesh);
+	}
+	for(unsigned int i = 0; i < node->mNumChildren; ++i){
+		ProcessNode(model, node->mChildren[i]);
+	}
+}
+
 Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	if(mesh->mTextureCoords[0]){
@@ -126,20 +131,19 @@ void Graphics3D::LoadMeshes(Model* model){
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-	ProcessNode(model, current_scene->mRootNode);
-}
 
-CRArray<Texture*>* Graphics3D::LoadTextures(aiMaterial* material, unsigned int type, const string& modelFilePath){
-	CRArray<Texture*>* textures = new CRArray<Texture*>();
-	for(unsigned int i = 0; i < material->GetTextureCount((aiTextureType)type); ++i){
-		aiString str;
-		material->GetTexture((aiTextureType)type, i, &str);
-
-		string textureName = modelFilePath + "/"+ string(str.C_Str());
-		Texture* texture = gfx2D->LoadTexture(textureName);
-		textures->push_back(texture);
+	for(int i = 0; i < current_scene->mNumMaterials; ++i){
+		aiMaterial* material = current_scene->mMaterials[i];
+		aiString matName;
+		material->Get(AI_MATKEY_NAME, matName);
+		launcher->LogIt(matName.C_Str());
+		Material* crossMaterial = new Material(matName.C_Str());
+		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, model->GetFilePath());
+		crossMaterial->SetDiffuseTexture(diffuseTexture);
+		model->AddMaterial(crossMaterial);
 	}
-	return textures;
+
+	ProcessNode(model, current_scene->mRootNode);
 }
 
 Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const string& modelFilePath){
@@ -154,31 +158,4 @@ Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const 
 	string filename = modelFilePath + "/"+ string(textureName.C_Str());
 	Texture* texture = gfx2D->LoadTexture(filename);
 	return texture;
-}
-
-void Graphics3D::ProcessNode(Model* model, aiNode* node){
-	for(unsigned int i = 0; i < node->mNumMeshes; i++){
-		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
-		Mesh* crMesh = ProcessMesh(aiMesh);
-		Matrix modelMat = Matrix::CreateZero();
-		memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-		crMesh->SetModelMatrix(modelMat);
-
-		if(aiMesh->mMaterialIndex >= 0){
-			aiMaterial* material = current_scene->mMaterials[aiMesh->mMaterialIndex];
-			aiString matName;
-			material->Get(AI_MATKEY_NAME, matName);
-			launcher->LogIt(matName.C_Str());
-			Material* crossMaterial = new Material(matName.C_Str());
-			Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, model->GetFilePath());
-			crossMaterial->SetDiffuseTexture(diffuseTexture);
-			crMesh->SetMaterial(crossMaterial);
-			model->AddMaterial(crossMaterial);
-		}
-
-		model->AddMesh(crMesh);
-	}
-	for(unsigned int i = 0; i < node->mNumChildren; ++i){
-		ProcessNode(model, node->mChildren[i]);
-	}
 }

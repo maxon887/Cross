@@ -33,19 +33,16 @@ public:
 	Mesh* LoadMesh(const string& filename);
 	Model* LoadModel(const string& filename);
 
-private:
+protected:
 	const aiScene* current_scene;
 
 	Mesh* ProcessNode(aiNode* node);
-	Mesh* ProcessMesh(aiMesh* mesh);
-
-	CRArray<Texture*>* LoadTextures(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
-	Texture* LoadTexture(aiMaterial* material, unsigned int textureTepy, const string& modelFilePath);
 	void ProcessNode(Model* model, aiNode* node);
-	//old stuff
+	Mesh* ProcessMesh(aiMesh* mesh);
 	void LoadMeshes(Model* model);
 
-	Model* LoadModel(const string& filename, Shader* shader);
+	Texture* LoadTexture(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
+
 };
 
 }

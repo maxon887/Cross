@@ -36,6 +36,7 @@ public:
 
 	void AddMesh(Mesh* mesh);
 	void AddMaterial(Material* material);
+	Material* GetMaterial(unsigned int index);
 	void SetShader(Shader* shader);
 
 	Model* Clone();
