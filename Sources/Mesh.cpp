@@ -101,6 +101,12 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
 		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
 	}
+	if(shader->uSpecularTexture != -1){
+		Texture* texture = material->GetSpecularTexture();
+		SAFE(glActiveTexture(GL_TEXTURE1));
+		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
+		SAFE(glUniform1i(shader->uSpecularTexture, 1));
+	}
 
 	if(shader->uAmbientLight != -1){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));

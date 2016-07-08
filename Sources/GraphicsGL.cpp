@@ -18,12 +18,7 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
-#include "Shaders/LightDiffuseShader.h"
-#include "Shaders/LightDiffuseSpecularShader.h"
-#include "Shaders/DirectionalLightShader.h"
-#include "Shaders/PointLightShader.h"
-#include "Shaders/SpotLightShader.h"
-#include "Shaders/MultiLightShader.h"
+#include "Shader.h"
 
 using namespace cross;
 
@@ -108,24 +103,6 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 			break;
 		case DefaultShader::TEXTURE:
 			shaders[type] = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-			break;
-		case DefaultShader::LIGHT_DIFFUSE:
-			shaders[type] = new LightDiffuseShader();
-			break;
-		case DefaultShader::LIGHT_DIFFUSE_SPECULAR:
-			shaders[type] = new LightDiffuseSpecularShader();
-			break;
-		case DefaultShader::DIRECTIONAL_LIGHT:
-			shaders[type] = new DirectionalLightShader();
-			break;
-		case DefaultShader::POINT_LIGHT:
-			shaders[type] = new PointLightShader();
-			break;
-		case DefaultShader::SPOT_LIGHT:
-			shaders[type] = new SpotLightShader();
-			break;
-		case DefaultShader::MULTI_LIGHT:
-			shaders[type] = new MultiLightShader();
 			break;
 		default:
 			throw CrossException("Unknown shader type");

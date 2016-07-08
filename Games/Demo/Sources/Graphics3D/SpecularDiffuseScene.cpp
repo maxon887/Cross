@@ -20,7 +20,7 @@
 #include "Model.h"
 #include "Game.h"
 #include "PointLight.h"
-#include "Graphics3D/Shaders/SpecularShader.h"
+#include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
 
 void SpecularDiffuseScene::Start(){
@@ -33,9 +33,9 @@ void SpecularDiffuseScene::Start(){
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddPointLight(light);
 	//scene setups
-	SpecularShader* shader = new SpecularShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
+	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
 	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
-	Material* material = new Material(shader);
+	material = new Material(shader);
 	material->SetDiffuseTexture(diffuse);
 	material->SetDiffuseColor(Color::White);
 	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
@@ -43,7 +43,9 @@ void SpecularDiffuseScene::Start(){
 }
 
 void SpecularDiffuseScene::Stop(){
-
+	delete cube;
+	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 

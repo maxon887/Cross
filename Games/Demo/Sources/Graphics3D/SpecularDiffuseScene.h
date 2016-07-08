@@ -24,5 +24,7 @@ public:
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
+	Shader* shader;
+	Material* material;
 	Mesh* cube;
 };

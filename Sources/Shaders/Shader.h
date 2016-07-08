@@ -39,6 +39,7 @@ public:
 	GLint uSpecularColor;
 	GLint uShininess;
 	GLint uDiffuseTexture;
+	GLint uSpecularTexture;
 	GLint uAmbientLight;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
@@ -46,7 +47,7 @@ public:
 
 	virtual void TransferDirectionLights(const CRArray<DirectionalLight*>& lights);
 	virtual void TransferPointLights(const CRArray<PointLight*>& lights);
-	virtual void TransferSpotLights(const CRArray<SpotLight*> lights);
+	virtual void TransferSpotLights(const CRArray<SpotLight*>& lights);
 
 	virtual bool UseDirectionalLights();
 	virtual bool UsePointLights();

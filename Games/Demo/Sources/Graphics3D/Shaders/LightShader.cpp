@@ -14,16 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Graphics3D/Shaders/SpecularShader.h"
+#include "Graphics3D/Shaders/LightShader.h"
 
-SpecularShader::SpecularShader(const string& vertex, const string& fragment) :
+LightShader::LightShader(const string& vertex, const string& fragment) :
 	Shader(vertex, fragment)
 { 
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
+	uLightDirection = glGetUniformLocation(program, "uLight.direction");
 	uLightColor = glGetUniformLocation(program, "uLight.color");
 }
 
-void SpecularShader::TransferPointLights(const CRArray<PointLight*>& lights){
+void LightShader::TransferPointLights(const CRArray<PointLight*>& lights){
 	PointLight* light = lights[0];
 	if(uLightPosition != -1){
 		Vector3D position = light->GetPosition();
@@ -34,6 +35,29 @@ void SpecularShader::TransferPointLights(const CRArray<PointLight*>& lights){
 	}
 }
 
-bool SpecularShader::UsePointLights(){
-	return true;
+void LightShader::TransferDirectionLights(const CRArray<DirectionalLight*>& lights){
+	DirectionalLight* light = lights[0];
+	if(uLightDirection != -1){
+		Vector3D direction = light->GetDirection();
+		SAFE(glUniform3fv(uLightDirection, 1, direction.GetData()));
+	}
+	if(uLightColor != -1){
+		SAFE(glUniform3fv(uLightColor, 1, light->GetColor().GetData()));
+	}
+}
+
+bool LightShader::UsePointLights(){
+	if(uLightPosition != -1){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+bool LightShader::UseDirectionalLights(){
+	if(uLightDirection != -1){
+		return true;
+	}else{
+		return false;
+	}
 }

@@ -30,11 +30,13 @@ public:
 	void SetSpecularColor(const Color& color);
 	void SetShininess(float shininess);
 	void SetDiffuseTexture(Texture* texture);
+	void SetSpecularTexture(Texture* texture);
 
 	Color GetDiffuseColor();
 	Color GetSpecularColor();
 	float GetShininess();
 	Texture* GetDiffuseTexture();
+	Texture* GetSpecularTexture();
 
 	bool HasDiffuseTexture();
 
@@ -46,6 +48,7 @@ private:
 	Color specular_color;
 	float shininess;
 	Texture* diffuse_texture;
+	Texture* specular_texture;
 };
 
 }

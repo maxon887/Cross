@@ -63,6 +63,8 @@ class Mesh;
 class Model;
 class Texture;
 class Scene;
+class Shader;
+class Light;
 class DirectionalLight;
 class PointLight;
 class SpotLight;

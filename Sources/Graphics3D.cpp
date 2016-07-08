@@ -132,7 +132,7 @@ void Graphics3D::LoadMeshes(Model* model){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
 
-	for(int i = 0; i < current_scene->mNumMaterials; ++i){
+	for(unsigned int i = 0; i < current_scene->mNumMaterials; ++i){
 		aiMaterial* material = current_scene->mMaterials[i];
 		aiString matName;
 		material->Get(AI_MATKEY_NAME, matName);

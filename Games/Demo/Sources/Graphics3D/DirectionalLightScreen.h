@@ -28,5 +28,4 @@ public:
 private:
 	Model* model;
 	DirectionalLight* light;
-	CRArray<Model*> objects;
 };

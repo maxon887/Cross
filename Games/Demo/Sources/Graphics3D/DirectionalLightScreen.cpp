@@ -41,19 +41,8 @@ void DirectionalLightScreen::Start(){/*
 
 void DirectionalLightScreen::Stop(){
 	CCScene::Stop();
-	
-	delete model;
-	delete light;
-	
-	for(Model* obj : objects){
-		delete obj;
-	}
 }
 
-void DirectionalLightScreen::Update(float sec){/*
-	for(Model* obj : objects){
-		gfx3D->DrawModelDirectLight(obj, light);
-	}
-	*/
+void DirectionalLightScreen::Update(float sec){
 	CCScene::Update(sec);
 }

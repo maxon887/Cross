@@ -23,6 +23,7 @@ class Light{
 public:
 
 	Light(const Color& color);
+	virtual ~Light(){ };
 
 	Color GetColor() const;
 

@@ -14,35 +14,43 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "DiffuseSpecularMapScreen.h"
+#include "SpecularMapScene.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
-#include "Model.h"
+#include "PointLight.h"
 #include "Game.h"
+#include "Graphics3D/Shaders/LightShader.h"
+#include "Material.h"
+#include "Mesh.h"
 
-void DiffuseSpecularMapScreen::Start() {
+void SpecularMapScene::Start() {
 	CCScene::Start();
-	/*
-	light_caster_mesh = gfx3D->LoadMesh("gfx3D/Cube.obj");
-	light = new LightCaster(light_caster_mesh, Vector3D(0.5f), Vector3D(1.f), Vector3D(1.f));
-	light->SetPosition(Vector3D(13.f, -3.f, -5.f));
-	light->SetScale(0.2f);
+
+	SetOrbitDistance(28.f);
+	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
+	//light setups
+	PointLight* light = new PointLight(Color::White);
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	AddPointLight(light);
+
+	shader = new LightShader("gfx3D/shaders/specular_map.vert", "gfx3D/shaders/specular_map.frag");
+	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
-	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);*/
-	//model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
+	material->SetDiffuseTexture(diffuseTexture);
+	material->SetSpecularTexture(specularTexture);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 }
 
-void DiffuseSpecularMapScreen::Stop() {
+void SpecularMapScene::Stop() {
+	delete cube;
+	delete material;
+	delete shader;
 	CCScene::Stop();
-	delete model;
 }
 
-void DiffuseSpecularMapScreen::Update(float sec) {/*
-	light->Draw();
-	gfx3D->DrawModelLightDiffuseSpecular(model, light);
-
-	//model->SetRotateY(game->GetRunTime() * 15.f);
-	model->SetRotate(Vector3D(0.f, 1.f, 0.f), game->GetRunTime() * 15.f);
-	*/
+void SpecularMapScene::Update(float sec) {
+	cube->Draw();
 	CCScene::Update(sec);
 }

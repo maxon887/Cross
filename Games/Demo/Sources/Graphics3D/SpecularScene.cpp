@@ -20,7 +20,7 @@
 #include "Model.h"
 #include "Sprite.h"
 #include "Material.h"
-#include "Graphics3D/Shaders/SpecularShader.h"
+#include "Graphics3D/Shaders/LightShader.h"
 #include "Graphics2D.h"
 
 void SpecularScene::Start(){
@@ -33,14 +33,17 @@ void SpecularScene::Start(){
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddPointLight(light);
 	//scene setups
-	SpecularShader* shader = new SpecularShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
-	Material* material = new Material(shader);
+	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	material = new Material(shader);
 	material->SetDiffuseColor(Color::Red);
 	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 
 void SpecularScene::Stop(){
+	delete cube;
+	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 

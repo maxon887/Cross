@@ -205,12 +205,6 @@
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\PointLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\PointLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -220,17 +214,11 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
@@ -238,20 +226,8 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\SpotLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\SpotLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.cpp">
-      <Filter>Cross\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
@@ -280,14 +256,17 @@
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.cpp">
-      <Filter>Demo\Graphics3D\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\SpecularMapScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\LightShader.cpp">
+      <Filter>Demo\Graphics3D\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,12 +442,6 @@
     <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
       <Filter>Cross\Experimental</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\DirectionalLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\PointLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\PointLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -478,17 +451,11 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\DiffuseSpecularMapScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
-      <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
@@ -496,20 +463,8 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\SpotLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\SpotLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseSpecularShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Shaders\LightDiffuseShader.h">
-      <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h">
       <Filter>Demo\Graphics3D</Filter>
@@ -538,14 +493,17 @@
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\SpecularShader.h">
-      <Filter>Demo\Graphics3D\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\SpecularMapScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\LightShader.h">
+      <Filter>Demo\Graphics3D\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

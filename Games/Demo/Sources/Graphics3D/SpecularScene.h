@@ -25,7 +25,7 @@ public:
 	void Update(float sec);
 
 private:
+	Shader* shader;
 	Material* material;
 	Mesh* cube;
-	Mesh* light_caster_mesh;
 };

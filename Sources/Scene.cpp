@@ -18,6 +18,9 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Launcher.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 
 using namespace cross;
 
@@ -38,6 +41,18 @@ void Scene::Start(){
 void Scene::Stop(){
 	delete camera;
 	game->WindowResized -= window_resize_handle;
+	for(Light* light : directional_lights){
+		delete light;
+	}
+	directional_lights.clear();
+	for(Light* light : point_lights){
+		delete light;
+	}
+	point_lights.clear();
+	for(Light* light : spot_lights){
+		delete light;
+	}
+	spot_lights.clear();
 	Screen::Stop();
 }
 

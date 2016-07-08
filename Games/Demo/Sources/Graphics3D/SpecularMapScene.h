@@ -15,17 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Shaders/PointLightShader.h"
+#include "CCScene.h"
 
-namespace cross{
-
-class SpotLightShader : public PointLightShader {
+class SpecularMapScene : public CCScene{
 public:
-	SpotLightShader();
-
-	GLuint uLightDirection;
-	GLuint uLightCutOff;
-	GLuint uLightOuterCutOff;
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
+private:
+	Shader* shader;
+	Material* material;
+	Mesh* cube;
 };
-
-}

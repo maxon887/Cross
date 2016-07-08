@@ -25,7 +25,7 @@
 #include "Graphics3D/TexturedModelScene.h"
 #include "Graphics3D/SpecularScene.h"
 #include "Graphics3D/SpecularDiffuseScene.h"
-#include "Graphics3D/DiffuseSpecularMapScreen.h"
+#include "Graphics3D/SpecularMapScene.h"
 #include "Graphics3D/DirectionalLightScreen.h"
 #include "Graphics3D/PointLightScreen.h"
 #include "Graphics3D/SpotLightScreen.h"
@@ -118,7 +118,7 @@ void MainScreen::Start(){
 	graphics3D_light = new Menu(false);
 	Button* specularBtn 			= new Button("Specular");
 	Button* diffuseMap				= new Button("Diffuse");
-	Button* diffuseSpecularMapBtn	= new Button("Diffuse Specular");
+	Button* diffuseSpecularMapBtn	= new Button("Specular Map");
 	Button* directionalLigthBtn		= new Button("Directional Light");
 	Button* pointLightBtn			= new Button("Point Light");
 	Button* spotLightBtn			= new Button("Spot Light");
@@ -303,7 +303,7 @@ void MainScreen::OnDiffuseMapClick(){
 }
 
 void MainScreen::OnDiffuseSpecularMapClick(){
-	next_screen = new DiffuseSpecularMapScreen();
+	next_scene = new SpecularMapScene();
 }
 
 void MainScreen::OnDirectionalLight(){
