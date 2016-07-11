@@ -385,10 +385,6 @@ void Graphics2D::Update(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Graphics2D::SetClearColor(Color color){
-	glClearColor(color.R, color.G, color.B, 1.f);
-}
-
 Font* Graphics2D::GetDefaultFont(){
 	return default_font;
 }

@@ -40,6 +40,7 @@ public:
 	virtual float GetHeight();
 	/* Reflect ratio between screen and target device width */
 	float GetScaleFactor();
+	void SetBackground(const Color& background);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Screen() { };

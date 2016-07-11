@@ -48,7 +48,6 @@ public:
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter);
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
-	void SetClearColor(Color color);
 	Font* GetDefaultFont();
 //Internal data. You don't need call any of this methods or modify variables
 public:

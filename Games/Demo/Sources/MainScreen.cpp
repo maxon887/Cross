@@ -41,6 +41,7 @@
 
 void MainScreen::Start(){
 	ScrollScreen::Start();
+	SetBackground(Color::Black);
 	next_screen = nullptr;
 	next_scene = nullptr;
 	button_sprite = demo->GetCommonSprite("DefaultButton.png");

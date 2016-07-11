@@ -18,7 +18,7 @@ void AudioScreen::Start(){
 	camera->SetViewWidth(1600.f);
 	gfx2D->SetCamera(camera);
 
-	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
+	SetBackground(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = demo->GetCommonSprite("DefaultButton.png");
 	button_sprite->SetScale(1.35f);
 	button_sprite_pressed = demo->GetCommonSprite("DefaultButtonPressed.png");

@@ -17,6 +17,8 @@
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Utils/Light.h"
 
+#include <math.h>
+
 LightShader::LightShader(const string& vertex, const string& fragment) :
 	Shader(vertex, fragment)
 { 

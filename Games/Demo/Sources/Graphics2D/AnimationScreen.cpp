@@ -31,7 +31,7 @@ void AnimationScreen::Start(){
 	head_angle = 0;
 	deltaY = 0;
 	turn_left = true;
-	gfx2D->SetClearColor(Color(0.25f, 0.25f, 0.25f));
+	SetBackground(Color(0.25f, 0.25f, 0.25f));
 
 	texture = gfx2D->LoadTexture("gfx2D/Spider.png");
 	CRDictionary<string, Sprite*> sprites;

@@ -32,3 +32,7 @@ float Screen::GetHeight(){
 float Screen::GetScaleFactor(){
 	return (float)launcher->GetTargetWidth() / GetWidth();
 }
+
+void Screen::SetBackground(const Color& c){
+	glClearColor(c.R, c.G, c.B, 1.f);
+}
