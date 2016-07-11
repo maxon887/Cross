@@ -135,7 +135,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\PointLightScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\PointLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Shaders\LightShader.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
@@ -216,7 +216,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\PointLightScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\PointLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Shaders\LightShader.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />

@@ -19,22 +19,25 @@
 using namespace cross;
 
 PointLight::PointLight(const Color& color) : 
-	Light(color)
+	PointLight(color, Vector3D(0.f))
 { }
 
 PointLight::PointLight(const Color& color, const Vector3D& position) :
-	Light(color)
-{ 
-	SetPosition(position);
-}
+	PointLight(color, position, 0.f, 0.f)
+{ }
 
-PointLight::PointLight(const Color& color, const Vector3D& position, float distance) :
-	Light(color)
+PointLight::PointLight(const Color& color, const Vector3D& position, float linear_attenaution, float quadratic_attenaution) :
+	Light(color),
+	linear_attenaution(linear_attenaution),
+	quadratic_attenaution(quadratic_attenaution)
 {
 	SetPosition(position);
-	SetDistance(distance);
 }
 
-void PointLight::SetDistance(float distance){
-	this->distance = distance;
+float PointLight::GetLinearAttenaution(){
+	return linear_attenaution;
+}
+
+float PointLight::GetQuadraticAttenaution(){
+	return quadratic_attenaution;
 }

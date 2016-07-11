@@ -16,15 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "CCScene.h"
-#include "Utils/PointLight.h"
 
-class PointLightScreen : public CCScene{
+class PointLightScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
-	PointLight* light;
-	Model* model;
-	CRArray<Model*> objects;
+	Shader* shader;
+	Material* material;
+	Mesh* cube;
+	CRArray<Mesh*> objects;
 };

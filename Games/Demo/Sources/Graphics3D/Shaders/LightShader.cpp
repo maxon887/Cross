@@ -22,6 +22,8 @@ LightShader::LightShader(const string& vertex, const string& fragment) :
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
 	uLightDirection = glGetUniformLocation(program, "uLight.direction");
 	uLightColor = glGetUniformLocation(program, "uLight.color");
+	uLightLinear = glGetUniformLocation(program, "uLight.linear");
+	uLightQuadratic = glGetUniformLocation(program, "uLight.quadratic");
 }
 
 void LightShader::TransferPointLights(const CRArray<PointLight*>& lights){
@@ -32,6 +34,12 @@ void LightShader::TransferPointLights(const CRArray<PointLight*>& lights){
 	}
 	if(uLightColor != -1){
 		SAFE(glUniform3fv(uLightColor, 1, light->GetColor().GetData()));
+	}
+	if(uLightLinear != -1){
+		SAFE(glUniform1f(uLightLinear, light->GetLinearAttenaution()));
+	}
+	if(uLightQuadratic != -1){
+		SAFE(glUniform1f(uLightQuadratic, light->GetQuadraticAttenaution()));
 	}
 }
 

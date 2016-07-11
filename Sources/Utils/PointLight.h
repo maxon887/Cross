@@ -24,11 +24,13 @@ class PointLight : public Light, public Transformable {
 public:
 	PointLight(const Color& color);
 	PointLight(const Color& color, const Vector3D& position);
-	PointLight(const Color& color, const Vector3D& position, float distance);
+	PointLight(const Color& color, const Vector3D& position, float linear_attenaution, float quadratic_attenaution);
 
-	void SetDistance(float distance);
+	float GetLinearAttenaution();
+	float GetQuadraticAttenaution();
 protected:
-	float distance;
+	float linear_attenaution;
+	float quadratic_attenaution;
 };
 
 }

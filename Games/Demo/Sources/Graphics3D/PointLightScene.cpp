@@ -14,47 +14,51 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "PointLightScreen.h"
-#include "Graphics3D.h"
+#include "PointLightScene.h"
+#include "Graphics3D/Shaders/LightShader.h"
+#include "Material.h"
+#include "Mesh.h"
 #include "Graphics2D.h"
-#include "Model.h"
-#include "Game.h"
+#include "Graphics3D.h"
 	
-void PointLightScreen::Start(){
-	CCScene::Start();/*
-	orbit_distance = 60.f;
+void PointLightScene::Start(){
+	CCScene::Start();
 
-	light = new PointLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f);
-	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
+	SetOrbitDistance(60.f);
 
+	PointLight* light = new PointLight(Color::White, Vector3D(40.f, 0.f, 0.f), 0.014f, 0.0007f);
+	AddPointLight(light);
+
+	shader = new LightShader("gfx3D/shaders/point_light.vert", "gfx3D/shaders/point_light.frag");
+	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	material->SetDiffuseTexture(diffuseTexture);
+	material->SetSpecularTexture(specularTexture);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 
 	for(int i = 0; i < 10; ++i){
-		Model* clone = model->Clone();
-		clone->SetPosition(Vector3D(Random(-40.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
+		Mesh* clone = cube->Clone();
+		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}*/
+	}
 }
 
-void PointLightScreen::Stop(){
+void PointLightScene::Stop(){
+	for(Mesh* clone : objects){
+		delete clone;
+	}
+	delete cube;
+	delete material;
+	delete shader;
 	CCScene::Stop();
-	delete model;
-	delete light;
-	
-	for(Model* obj : objects){
-		delete obj;
-	}
 }
 
-void PointLightScreen::Update(float sec){/*
-	light->Draw();
-	
-	for(Model* obj : objects){
-		gfx3D->DrawModelPointLight(obj, light);
+void PointLightScene::Update(float sec){
+	for(Mesh* obj : objects){
+		obj->Draw();
 	}
-	*/
 	CCScene::Update(sec);
 }
