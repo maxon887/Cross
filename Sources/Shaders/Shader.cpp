@@ -48,26 +48,10 @@ Shader::~Shader(){
 	gfxGL->DeleteProgram(program);
 }
 
-bool Shader::UseDirectionalLights(){
+bool Shader::UseLights(){
 	return false;
 }
 
-bool Shader::UsePointLights(){
-	return false;
-}
-
-bool Shader::UseSpotLights(){
-	return false;
-}
-
-void Shader::TransferDirectionLights(const CRArray<DirectionalLight*>& lights){
-	throw CrossException("Direction lights does not support by this type of shader");
-}
-
-void Shader::TransferPointLights(const CRArray<PointLight*>& lights){
-	throw CrossException("Point lights does not support by this type of shader");
-}
-
-void Shader::TransferSpotLights(const CRArray<SpotLight*>& lights){
-	throw CrossException("Spot lights does not support by this type of shader");
+void Shader::TransferLightData(const CRArray<Light*>& lights){
+	throw CrossException("Lighting does not supported by this shader");
 }

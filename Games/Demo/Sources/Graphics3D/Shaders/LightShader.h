@@ -29,8 +29,6 @@ public:
 
 	LightShader(const string& vertex, const string& fragment);
 
-	void TransferPointLights(const CRArray<PointLight*>& lights);
-	void TransferDirectionLights(const CRArray<DirectionalLight*>& lights);
-	bool UsePointLights();
-	bool UseDirectionalLights();
+	virtual bool UseLights();
+	virtual void TransferLightData(const CRArray<Light*>& lights);
 };

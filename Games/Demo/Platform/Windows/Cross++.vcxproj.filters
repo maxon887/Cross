@@ -205,20 +205,11 @@
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\PointLight.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\DirectionalLight.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Utils\SpotLight.cpp">
-      <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
@@ -442,20 +433,11 @@
     <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
       <Filter>Cross\Experimental</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\PointLight.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Light.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\DirectionalLight.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Utils\SpotLight.h">
-      <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h">
       <Filter>Demo\Graphics3D</Filter>

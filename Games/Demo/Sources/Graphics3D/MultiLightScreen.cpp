@@ -58,19 +58,6 @@ void MultiLightScreen::Start(){
 
 void MultiLightScreen::Stop(){
 	CCScene::Stop();
-	for(Model* model : objects){
-		delete model;
-	}
-	for(Light* light : point_lights){
-		delete light;
-	}
-	for(Light* light : spot_lights){
-		delete light;
-	}
-	for(Light* light : directional_lights){
-		delete light;
-	}
-	delete model;
 }
 
 void MultiLightScreen::Update(float sec){/*

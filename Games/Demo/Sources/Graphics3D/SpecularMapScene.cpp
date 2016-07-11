@@ -17,7 +17,7 @@
 #include "SpecularMapScene.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
-#include "PointLight.h"
+#include "Light.h"
 #include "Game.h"
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
@@ -29,9 +29,9 @@ void SpecularMapScene::Start() {
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
-	PointLight* light = new PointLight(Color::White);
+	Light* light = new Light(Light::POINT);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddPointLight(light);
+	AddLight(light);
 
 	shader = new LightShader("gfx3D/shaders/specular_map.vert", "gfx3D/shaders/specular_map.frag");
 	material = new Material(shader);

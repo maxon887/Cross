@@ -19,7 +19,7 @@
 #include "Graphics2D.h"
 #include "Model.h"
 #include "Game.h"
-#include "PointLight.h"
+#include "Light.h"
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
 
@@ -29,9 +29,9 @@ void SpecularDiffuseScene::Start(){
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
-	PointLight* light = new PointLight(Color::White);
+	Light* light = new Light(Light::POINT);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddPointLight(light);
+	AddLight(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
 	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");

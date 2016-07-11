@@ -17,7 +17,6 @@
 #include "ComplexModelScene.h"
 #include "Graphics3D.h"
 #include "Model.h"
-#include "DirectionalLight.h"
 
 void ComplexModelScene::Start(){
 	CCScene::Start();

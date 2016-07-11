@@ -19,14 +19,16 @@
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
 #include "Mesh.h"
+#include "Light.h"
 
 void DirectionalLightScene::Start(){
 	CCScene::Start();
 
 	SetOrbitDistance(60.f);
 
-	DirectionalLight* light = new DirectionalLight(Color::White, Vector3D(0.f, 0.f, 1.f));
-	AddDirectionalLight(light);
+	Light* light = new Light(Light::DIRECTIONAL);
+	light->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	AddLight(light);
 
 	shader = new LightShader("gfx3D/shaders/directional_light.vert", "gfx3D/shaders/directional_light.frag");
 	material = new Material(shader);

@@ -16,19 +16,34 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Transformable.h"
 
 namespace cross{
 
-class Light{
+class Light : public Transformable{
 public:
+	enum Type{
+		DIRECTIONAL,
+		POINT,
+		SPOT
+	};
 
-	Light(const Color& color);
+	Light(Type type);
 	virtual ~Light(){ };
 
 	Color GetColor() const;
+	Type GetType() const;
+	float GetLinearAttenaution() const;
+	float GetQuadraticAttenaution() const;
+	float GetCutOff();
+	float GetOuterCutOff();
 
 protected:
+	Type type;
 	Color color;
+	float cut_off;
+	float linear_attenaution;
+	float quadratic_attenaution;
 };
 
 }

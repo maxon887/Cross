@@ -44,12 +44,6 @@ void SpotLightScreen::Start(){
 
 void SpotLightScreen::Stop(){
 	CCScene::Stop();
-	delete model;
-	delete light;
-	
-	for(Model* obj : objects){
-		delete obj;
-	}
 }
 
 void SpotLightScreen::Update(float sec){/*

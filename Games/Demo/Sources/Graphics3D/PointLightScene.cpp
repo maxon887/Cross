@@ -20,14 +20,17 @@
 #include "Mesh.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
+#include "Utils/Light.h"
 	
 void PointLightScene::Start(){
 	CCScene::Start();
 
 	SetOrbitDistance(60.f);
 
-	PointLight* light = new PointLight(Color::White, Vector3D(40.f, 0.f, 0.f), 0.014f, 0.0007f);
-	AddPointLight(light);
+	//PointLight* light = new PointLight(Color::White, Vector3D(40.f, 0.f, 0.f), 0.014f, 0.0007f);
+	Light* light = new Light(Light::Type::POINT);
+	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
+	AddLight(light);
 
 	shader = new LightShader("gfx3D/shaders/point_light.vert", "gfx3D/shaders/point_light.frag");
 	material = new Material(shader);

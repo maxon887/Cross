@@ -38,6 +38,7 @@ public:
 	void SetRotate(const Matrix& rotation);
 	void LookAt(const Vector3D& object);
 	Vector3D GetPosition() const;
+	void SetDirection(const Vector3D& direction);
 	Vector3D GetDirection() const;
 
 	Matrix& GetModelMatrix();

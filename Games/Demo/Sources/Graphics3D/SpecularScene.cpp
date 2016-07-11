@@ -22,6 +22,7 @@
 #include "Material.h"
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Graphics2D.h"
+#include "Utils/Light.h"
 
 void SpecularScene::Start(){
 	CCScene::Start();
@@ -29,9 +30,9 @@ void SpecularScene::Start(){
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
-	PointLight* light = new PointLight(Color::White);
+	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddPointLight(light);
+	AddLight(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	material = new Material(shader);

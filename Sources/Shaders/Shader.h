@@ -17,9 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "GraphicsGL.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
 
 namespace cross{
 
@@ -45,13 +42,8 @@ public:
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
-	virtual void TransferDirectionLights(const CRArray<DirectionalLight*>& lights);
-	virtual void TransferPointLights(const CRArray<PointLight*>& lights);
-	virtual void TransferSpotLights(const CRArray<SpotLight*>& lights);
-
-	virtual bool UseDirectionalLights();
-	virtual bool UsePointLights();
-	virtual bool UseSpotLights();
+	virtual bool UseLights();
+	virtual void TransferLightData(const CRArray<Light*>& lights);
 
 private:
 	GLuint vertex_shader;

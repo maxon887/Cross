@@ -18,9 +18,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Launcher.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
+#include "Light.h"
 
 using namespace cross;
 
@@ -41,43 +39,19 @@ void Scene::Start(){
 void Scene::Stop(){
 	delete camera;
 	game->WindowResized -= window_resize_handle;
-	for(Light* light : directional_lights){
+	for(Light* light : lights){
 		delete light;
 	}
-	directional_lights.clear();
-	for(Light* light : point_lights){
-		delete light;
-	}
-	point_lights.clear();
-	for(Light* light : spot_lights){
-		delete light;
-	}
-	spot_lights.clear();
+	lights.clear();
 	Screen::Stop();
 }
 
-void Scene::AddDirectionalLight(DirectionalLight* light){
-	directional_lights.push_back(light);
+void Scene::AddLight(Light* light){
+	lights.push_back(light);
 }
 
-void Scene::AddPointLight(PointLight* light){
-	point_lights.push_back(light);
-}
-
-void Scene::AddSpotLight(SpotLight* light){
-	spot_lights.push_back(light);
-}
-
-CRArray<DirectionalLight*>& Scene::GetDirectionalLights(){
-	return directional_lights;
-}
-
-CRArray<PointLight*>& Scene::GetPointLights(){
-	return point_lights;
-}
-
-CRArray<SpotLight*>&Scene::GetSpotLights(){
-	return spot_lights;
+CRArray<Light*>& Scene::GetLights(){
+	return lights;
 }
 
 Camera* Scene::GetCamera(){

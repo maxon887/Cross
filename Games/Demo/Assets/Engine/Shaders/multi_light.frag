@@ -6,32 +6,21 @@ precision mediump float;
 
 struct PointLight{
 	vec3 position;
+	vec3 color;
 	
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
-	
-	float constant;
 	float linear;
 	float quadratic;
 };
 
 struct DirectionalLight{
 	vec3 direction;
-	
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
+	vec3 color;
 };
 
 struct SpotLight{
 	vec3 position;
-	
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
-	
-	float constant;
+	vec3 color;
+
 	float linear;
 	float quadratic;
 	
@@ -42,7 +31,7 @@ struct SpotLight{
 
 uniform sampler2D uDiffuseMap0;
 uniform sampler2D uSpecularMap0;
-uniform float uMaterialShininess;
+uniform float uShininess;
 
 uniform int uPointLightCount;
 uniform PointLight uPointLights[MAX_POINT_LIGHTS];

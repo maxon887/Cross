@@ -128,16 +128,8 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	if(shader->UseDirectionalLights()){
-		shader->TransferDirectionLights(scene->GetDirectionalLights());
-	}
-
-	if(shader->UsePointLights()){
-		shader->TransferPointLights(scene->GetPointLights());
-	}
-
-	if(shader->UseSpotLights()){
-		shader->TransferSpotLights(scene->GetSpotLights());
+	if(shader->UseLights()){
+		shader->TransferLightData(scene->GetLights());
 	}
 
 	//binding attributes

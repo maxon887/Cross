@@ -26,13 +26,8 @@ public:
 	virtual void Start();
 	virtual void Stop();
 
-	void AddDirectionalLight(DirectionalLight* light);
-	void AddPointLight(PointLight* light);
-	void AddSpotLight(SpotLight* light);
-
-	CRArray<DirectionalLight*>& GetDirectionalLights();
-	CRArray<PointLight*>& GetPointLights();
-	CRArray<SpotLight*>& GetSpotLights();
+	void AddLight(Light* light);
+	CRArray<Light*>& GetLights();
 
 	Camera* GetCamera();
 	Color GetAmbientColor() const;
@@ -41,10 +36,7 @@ public:
 protected:
 	Camera* camera;
 	Color ambient_color;
-
-	CRArray<DirectionalLight*> directional_lights;
-	CRArray<PointLight*> point_lights;
-	CRArray<SpotLight*> spot_lights;
+	CRArray<Light*> lights;
 
 	Scene();
 private:

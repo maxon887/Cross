@@ -126,6 +126,11 @@ Vector3D Transformable::GetPosition() const{
 	return Vector3D(translate.m[0][3], translate.m[1][3], translate.m[2][3]);
 }
 
+void Transformable::SetDirection(const Vector3D& direction){
+	Vector3D lookAt = this->GetPosition() + direction;
+	LookAt(lookAt);
+}
+
 Vector3D Transformable::GetDirection() const{
 	Vector4D direction = Vector4D(0.f, 0.f, -1.f, 0.f);
 	direction = rotation * direction;

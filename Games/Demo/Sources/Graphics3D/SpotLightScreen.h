@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "CCScene.h"
-#include "Utils/SpotLight.h"
 
 class SpotLightScreen : public CCScene{
 public:
@@ -24,7 +23,6 @@ public:
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
-	SpotLight* light;
 	Model* model;
 	CRArray<Model*> objects;
 };
