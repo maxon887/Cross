@@ -28,7 +28,7 @@
 #include "Graphics3D/SpecularMapScene.h"
 #include "Graphics3D/DirectionalLightScene.h"
 #include "Graphics3D/PointLightScene.h"
-#include "Graphics3D/SpotLightScreen.h"
+#include "Graphics3D/SpotLightScene.h"
 #include "Graphics3D/MultiLightScreen.h"
 #include "Graphics3D/ComplexModelScene.h"
 #include "Graphics3D/DepthTestScreen.h"
@@ -315,7 +315,7 @@ void MainScreen::OnPointLightClick(){
 }
 
 void MainScreen::OnSpotLightClick(){
-	next_screen = new SpotLightScreen();
+	next_scene = new SpotLightScene();
 }
 
 void MainScreen::OnMultiLightClick(){

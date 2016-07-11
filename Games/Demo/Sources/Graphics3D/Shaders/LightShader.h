@@ -26,6 +26,8 @@ public:
 	GLint uLightColor;
 	GLint uLightLinear;
 	GLint uLightQuadratic;
+	GLint uLightCutOff;
+	GLint uLightOuterCutOff;
 
 	LightShader(const string& vertex, const string& fragment);
 

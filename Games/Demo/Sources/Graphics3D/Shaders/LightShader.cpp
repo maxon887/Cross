@@ -25,6 +25,8 @@ LightShader::LightShader(const string& vertex, const string& fragment) :
 	uLightColor = glGetUniformLocation(program, "uLight.color");
 	uLightLinear = glGetUniformLocation(program, "uLight.linear");
 	uLightQuadratic = glGetUniformLocation(program, "uLight.quadratic");
+	uLightCutOff = glGetUniformLocation(program, "uLight.cut_off");
+	uLightOuterCutOff = glGetUniformLocation(program, "uLight.outer_cut_off");
 }
 
 bool LightShader::UseLights(){
@@ -55,5 +57,11 @@ void LightShader::TransferLightData(const CRArray<Light*>& lights){
 	}
 	if(uLightDirection != -1){
 		SAFE(glUniform3fv(uLightDirection, 1, light->GetDirection().GetData()));
+	}
+	if(uLightCutOff != -1){
+		SAFE(glUniform1f(uLightCutOff, cos(light->GetCutOff()/180.f * PI)));
+	}
+	if(uLightOuterCutOff != -1){
+		SAFE(glUniform1f(uLightOuterCutOff, cos(light->GetOuterCutOff()/180.f * PI)));
 	}
 }

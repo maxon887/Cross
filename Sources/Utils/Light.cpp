@@ -22,7 +22,8 @@ Light::Light(Type type):
 	type(type),
 	color(Color::White),
 	linear_attenaution(0.014f),
-	quadratic_attenaution(0.0007f)
+	quadratic_attenaution(0.0007f),
+	cut_off(30.f)
 { }
 
 Color Light::GetColor() const{
@@ -41,10 +42,14 @@ float Light::GetQuadraticAttenaution() const{
 	return quadratic_attenaution;
 }
 
-float Light::GetCutOff(){
+void Light::SetCutOff(float cut_off){
+	this->cut_off = cut_off;
+}
+
+float Light::GetCutOff() const{
 	return cut_off;
 }
 
-float Light::GetOuterCutOff(){
+float Light::GetOuterCutOff() const{
 	return cut_off + 10.f;
 }

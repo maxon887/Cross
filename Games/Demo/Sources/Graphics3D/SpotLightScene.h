@@ -17,12 +17,14 @@
 #pragma once
 #include "CCScene.h"
 
-class SpotLightScreen : public CCScene{
+class SpotLightScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
 private:
-	Model* model;
-	CRArray<Model*> objects;
+	Shader* shader;
+	Material* material;
+	Mesh* cube;
+	CRArray<Mesh*> objects;
 };

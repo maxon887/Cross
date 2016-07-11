@@ -35,8 +35,9 @@ public:
 	Type GetType() const;
 	float GetLinearAttenaution() const;
 	float GetQuadraticAttenaution() const;
-	float GetCutOff();
-	float GetOuterCutOff();
+	void SetCutOff(float cut_off);
+	float GetCutOff() const;
+	float GetOuterCutOff() const;
 
 protected:
 	Type type;

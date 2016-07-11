@@ -14,45 +14,54 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SpotLightScreen.h"
+#include "SpotLightScene.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
-#include "Model.h"
+#include "Mesh.h"
 #include "Game.h"
+#include "Material.h"
+#include "Light.h"
+#include "Graphics3D/Shaders/LightShader.h"
 	
-void SpotLightScreen::Start(){
-	CCScene::Start();/*
-	orbit_distance = 60.f;
+void SpotLightScene::Start(){
+	CCScene::Start();
 
-	light = new SpotLight(Vector3D(0.2f), Vector3D(1.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f, 5.f);
-	light->SetPosition(Vector3D(0.f, 0.f, -40.f));
-	//light->SetPosition(Vector3D(0.f, 0.f, 1.f));
+	Light* light = new Light(Light::Type::SPOT);
+	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
+	light->LookAt(Vector3D(0.f));
+	light->SetCutOff(20.f);
+	AddLight(light);
 
-	light->LookAt(Vector3D(0.f, 0.f, 0.f));
-
+	shader = new LightShader("gfx3D/shaders/spot_light.vert", "gfx3D/shaders/spot_light.frag");
+	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	material->SetDiffuseTexture(diffuseTexture);
+	material->SetSpecularTexture(specularTexture);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 
-	for(int i = 0; i < 20; ++i){
-		Model* clone = model->Clone();
-		clone->SetPosition(Vector3D(Random(-40.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
+	for(int i = 0; i < 10; ++i){
+		Mesh* clone = cube->Clone();
+		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}*/
+	}
 }
 
-void SpotLightScreen::Stop(){
+void SpotLightScene::Stop(){
+	for(Mesh* clone : objects){
+		delete clone;
+	}
+	delete cube;
+	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 
-void SpotLightScreen::Update(float sec){/*
-	light->Draw();
-	
-	for(Model* obj : objects){
-		//gfx3D->DrawModelPointLight(obj, light);
-		gfx3D->DrawModelSpotLight(obj, light);
+void SpotLightScene::Update(float sec){
+	for(Mesh* obj : objects){
+		obj->Draw();
 	}
-	*/
 	CCScene::Update(sec);
 }

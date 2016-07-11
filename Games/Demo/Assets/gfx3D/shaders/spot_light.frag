@@ -12,8 +12,8 @@ struct Light{
 	float outer_cut_off;
 };
 
-uniform sampler2D uDiffuseMap0;	
-uniform sampler2D uSpecularMap0;
+uniform sampler2D uDiffuseTexture;	
+uniform sampler2D uSpecularTexture;
 uniform float uShininess;
 
 uniform Light uLight;
@@ -32,21 +32,23 @@ void main() {
 	float intensity = clamp((theta - uLight.outer_cut_off) / epsilon, 0.0, 1.0);
 
 	float dist = length(uLight.position - vFragPosition);
-	float attenaution = 1.0 / (uLight.constant + uLight.linear * dist + uLight.quadratic * dist * dist);
+	float attenaution = 1.0 / (1.0 + uLight.linear * dist + uLight.quadratic * dist * dist);
+	
+	vec3 texel = vec3(texture2D(uDiffuseTexture, vTexCoords));
 	//ambient
-	vec3 ambient = uLight.ambient * vec3(texture2D(uDiffuseMap0, vTexCoords));
-	ambient *= attenaution;
+	vec3 ambient = uAmbientLight * texel;
+	//ambient *= attenaution;
 	//diffuse
 	vec3 normal = normalize(vNormal);
 	float diffEffect = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = uLight.diffuse * diffEffect * vec3(texture2D(uDiffuseMap0, vTexCoords));
+	vec3 diffuse = uLight.color * diffEffect * texel;
 	diffuse *= attenaution;
 	diffuse *= intensity;
 	//specular
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
-	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uMaterialShininess);
-	vec3 specular = uLight.specular * specEffect * vec3(texture2D(uSpecularMap0, vTexCoords));
+	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uShininess);
+	vec3 specular = uLight.color * specEffect * vec3(texture2D(uSpecularTexture, vTexCoords));
 	specular *= attenaution;
 	specular *= intensity;
 	

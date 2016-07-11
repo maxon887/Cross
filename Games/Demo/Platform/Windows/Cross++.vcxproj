@@ -135,7 +135,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Shaders\LightShader.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
@@ -213,7 +213,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Shaders\LightShader.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
