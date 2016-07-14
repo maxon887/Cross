@@ -24,8 +24,10 @@ namespace cross{
 class Scene : public Screen{
 public:
 	virtual void Start();
+	virtual void Update(float sec);
 	virtual void Stop();
 
+	void DrawLights(bool enabled);
 	void AddLight(Light* light);
 	CRArray<Light*>& GetLights();
 
@@ -36,6 +38,10 @@ public:
 protected:
 	Camera* camera;
 	Color ambient_color;
+	bool light_drawing;
+	Mesh* point_light_mesh;
+	Mesh* spot_light_mesh;
+	Material* light_material;
 	CRArray<Light*> lights;
 
 	Scene();

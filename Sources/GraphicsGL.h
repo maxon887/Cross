@@ -56,6 +56,7 @@ enum DefaultShader{
 	SIMPLE,
 	MONOCHROME,
 	TEXTURE,
+	MULTI_LIGHT,
 	NONE
 };
 

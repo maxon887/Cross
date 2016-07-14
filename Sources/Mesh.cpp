@@ -168,6 +168,10 @@ void Mesh::SetMaterial(Material* mat){
 	this->material = mat;
 }
 
+Material* Mesh::GetMaterial(){
+	return material;
+}
+
 unsigned int Mesh::GetPrimitivesCount() const{
 	return primitives_count;
 }

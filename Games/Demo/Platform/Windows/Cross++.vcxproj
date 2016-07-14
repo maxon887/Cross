@@ -89,6 +89,7 @@
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Scene.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
@@ -130,7 +131,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularMapScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\PointLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Shaders\LightShader.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h" />
     <ClInclude Include="..\..\..\..\Sources\Scene.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
@@ -208,7 +210,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularMapScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\PointLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Shaders\LightShader.h" />

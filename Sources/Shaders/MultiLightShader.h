@@ -23,37 +23,26 @@ class MultiLightShader : public Shader{
 public:
 
 	struct PointLight{
-		GLuint position;
-	
-		GLuint ambient;
-		GLuint diffuse;
-		GLuint specular;
-	
-		GLuint constant;
-		GLuint linear;
-		GLuint quadratic;
-};
+		GLint position;
+		GLint color;
+
+		GLint linear;
+		GLint quadratic;
+	};
 
 	struct DirectionalLight{
-		GLuint direction;
-	
-		GLuint ambient;
-		GLuint diffuse;
-		GLuint specular;
+		GLint direction;
+		GLint color;
 	};
 
 	struct SpotLight{
-		GLuint position;
-	
-		GLuint ambient;
-		GLuint diffuse;
-		GLuint specular;
-	
-		GLuint constant;
-		GLuint linear;
-		GLuint quadratic;
-	
+		GLint position;
 		GLuint direction;
+		GLint color;
+
+		GLint linear;
+		GLint quadratic;
+	
 		GLuint cut_off;
 		GLuint outer_cut_off;
 	};
@@ -81,6 +70,9 @@ public:
 	GLuint uCameraPosition;
 
 	MultiLightShader();
+
+	virtual bool UseLights();
+	virtual void TransferLightData(const CRArray<Light*>& lights);
 };
 
 }

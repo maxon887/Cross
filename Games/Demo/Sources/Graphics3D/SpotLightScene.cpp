@@ -26,6 +26,8 @@
 void SpotLightScene::Start(){
 	CCScene::Start();
 
+	DrawLights(true);
+
 	Light* light = new Light(Light::Type::SPOT);
 	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
 	light->LookAt(Vector3D(0.f));

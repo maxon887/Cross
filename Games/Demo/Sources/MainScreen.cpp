@@ -29,7 +29,7 @@
 #include "Graphics3D/DirectionalLightScene.h"
 #include "Graphics3D/PointLightScene.h"
 #include "Graphics3D/SpotLightScene.h"
-#include "Graphics3D/MultiLightScreen.h"
+#include "Graphics3D/MultiLightScene.h"
 #include "Graphics3D/ComplexModelScene.h"
 #include "Graphics3D/DepthTestScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
@@ -320,7 +320,7 @@ void MainScreen::OnSpotLightClick(){
 }
 
 void MainScreen::OnMultiLightClick(){
-	next_screen = new MultiLightScreen();
+	next_scene = new MultiLightScene();
 }
 
 void MainScreen::OnDepthTestClick(){

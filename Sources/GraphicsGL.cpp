@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Game.h"
 #include "Shader.h"
+#include "MultiLightShader.h"
 
 using namespace cross;
 
@@ -103,6 +104,9 @@ Shader* GraphicsGL::GetShader(unsigned int type){
 			break;
 		case DefaultShader::TEXTURE:
 			shaders[type] = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+			break;
+		case DefaultShader::MULTI_LIGHT:
+			shaders[type] = new MultiLightShader();
 			break;
 		default:
 			throw CrossException("Unknown shader type");

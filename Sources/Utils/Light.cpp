@@ -30,6 +30,10 @@ Color Light::GetColor() const{
 	return color;
 }
 
+void Light::SetColor(const Color& color){
+	this->color = color;
+}
+
 Light::Type Light::GetType() const{
 	return type;
 }

@@ -26,8 +26,8 @@ void PointLightScene::Start(){
 	CCScene::Start();
 
 	SetOrbitDistance(60.f);
+	DrawLights(true);
 
-	//PointLight* light = new PointLight(Color::White, Vector3D(40.f, 0.f, 0.f), 0.014f, 0.0007f);
 	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
 	AddLight(light);

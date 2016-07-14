@@ -104,7 +104,6 @@ void CCScene::Start() {
 }
 
 void CCScene::Stop(){
-	Scene::Stop();
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;
@@ -118,6 +117,7 @@ void CCScene::Stop(){
 	delete arrow_released;
 	delete arrow_pressed;
 	gui.clear();
+	Scene::Stop();
 }
 
 void CCScene::Update(float sec){
@@ -202,7 +202,9 @@ void CCScene::Update(float sec){
 #endif // !ANDROID
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());
+		return;
 	}
+	Scene::Update(sec);
 }
 
 void CCScene::SetOrbitDistance(float orbitDistance){

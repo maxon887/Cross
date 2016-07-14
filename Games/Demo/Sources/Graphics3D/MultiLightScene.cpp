@@ -14,63 +14,70 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "MultiLightScreen.h"
+#include "MultiLightScene.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Model.h"
+#include "Light.h"
+#include "Material.h"
+#include "Mesh.h"
 
-void MultiLightScreen::Start(){
-	CCScene::Start();/*
-	orbit_distance = 60.f;
+void MultiLightScene::Start(){
+	CCScene::Start();
+	
+	SetOrbitDistance(60.f);
+	DrawLights(true);
 
-	for(int i = 0; i < 16; ++i){
-		PointLight* light = new PointLight(Vector3D(0.2f), Vector3D(1.f, 0.f, 0.f), Vector3D(0.85f), 1.f, 0.05f, 0.003f);
-		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
-		point_lights.push_back(light);
-	}
-	
-	for(int i = 0; i < 3; ++i){
-		DirectionalLight* light = new DirectionalLight(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), 
-														Vector3D(0.0f),
-														Vector3D(0.f, 0.f, 0.3f),
-														Vector3D(0.85f));
-		directional_lights.push_back(light);
-	}
-	
 	for(int i = 0; i < 8; ++i){
-		SpotLight* light = new SpotLight(Vector3D(0.1f), Vector3D(0.f, 1.f, 0.f), Vector3D(0.85f), 1.f, 0.014f, 0.0007f, 5.f);
+		Light* light = new Light(Light::Type::POINT);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
-		light->LookAt(Vector3D(0.0f));
-		spot_lights.push_back(light);
+		light->SetColor(Color::Red);
+		AddLight(light);
+	}
+	
+	for(int i = 0; i < 1; ++i){
+		Light* light = new Light(Light::Type::DIRECTIONAL);
+		light->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
+		light->SetColor(Color::Green);
+		AddLight(light);
+	}
+	
+	for(int i = 0; i < 4; ++i){
+		Light* light = new Light(Light::Type::SPOT);
+		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
+		light->LookAt(Vector3D(0.f));
+		light->SetColor(Color::Blue);
+		AddLight(light);
 	}
 
+	Shader* shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	model = gfx3D->LoadModel("gfx3D/Cube.obj", diffuseTexture, specularTexture);
+	material->SetDiffuseTexture(diffuseTexture);
+	material->SetSpecularTexture(specularTexture);
+	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 
-	for(int i = 0; i < 20; ++i){
-		Model* clone = model->Clone();
+	for(int i = 0; i < 10; ++i){
+		Mesh* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
-	}*/
+	}
 }
 
-void MultiLightScreen::Stop(){
+void MultiLightScene::Stop(){
+	for(Mesh* clone : objects){
+		delete clone;
+	}
+	delete cube;
+	delete material;
 	CCScene::Stop();
 }
 
-void MultiLightScreen::Update(float sec){/*
-	for(PointLight* light : point_lights){
-		light->Draw();
+void MultiLightScene::Update(float sec){
+	for(Mesh* obj : objects){
+		obj->Draw();
 	}
-	for(SpotLight* light : spot_lights){
-		light->Draw();
-	}
-
-	for(Model* model : objects){
-		gfx3D->DrawModelMultiLight(model, point_lights, directional_lights, spot_lights);
-	}
-	*/
 	CCScene::Update(sec);
 }

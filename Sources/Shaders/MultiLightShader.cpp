@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shaders/MultiLightShader.h"
+#include "Light.h"
 
 using namespace cross;
 
@@ -32,10 +33,7 @@ MultiLightShader::MultiLightShader() :
 	for(int i = 0; i < MaxPointLights; ++i){
 		string structName = "uPointLights[" + to_string(i) + "]";
 		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uPointLights[i].ambient = glGetUniformLocation(program, string(structName + ".ambient").c_str());
-		uPointLights[i].diffuse = glGetUniformLocation(program, string(structName + ".diffuse").c_str());
-		uPointLights[i].specular = glGetUniformLocation(program, string(structName + ".specular").c_str());
-		uPointLights[i].constant = glGetUniformLocation(program, string(structName + ".constant").c_str());
+		uPointLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
 		uPointLights[i].linear = glGetUniformLocation(program, string(structName + ".linear").c_str());
 		uPointLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
 	}
@@ -44,19 +42,14 @@ MultiLightShader::MultiLightShader() :
 	for(int i = 0; i < MaxDirectionalLights; ++i){
 		string structName = "uDirectionalLights[" + to_string(i) + "]";
 		uDirectionalLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uDirectionalLights[i].ambient = glGetUniformLocation(program, string(structName + ".ambient").c_str());
-		uDirectionalLights[i].diffuse = glGetUniformLocation(program, string(structName + ".diffuse").c_str());
-		uDirectionalLights[i].specular = glGetUniformLocation(program, string(structName + ".specular").c_str());
+		uDirectionalLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
 	}
 	
 	uSpotLightCount = glGetUniformLocation(program, "uSpotLightCount");
 	for(int i = 0; i < MaxSpotLights; ++i){
 		string structName = "uSpotLights[" + to_string(i) + "]";
 		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uSpotLights[i].ambient = glGetUniformLocation(program, string(structName + ".ambient").c_str());
-		uSpotLights[i].diffuse = glGetUniformLocation(program, string(structName + ".diffuse").c_str());
-		uSpotLights[i].specular = glGetUniformLocation(program, string(structName + ".specular").c_str());
-		uSpotLights[i].constant = glGetUniformLocation(program, string(structName + ".constant").c_str());
+		uSpotLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
 		uSpotLights[i].linear = glGetUniformLocation(program, string(structName + ".linear").c_str());
 		uSpotLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
 		uSpotLights[i].cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
@@ -68,4 +61,45 @@ MultiLightShader::MultiLightShader() :
 
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 	aNormal = glGetAttribLocation(program, "aNormal");
+}
+
+bool MultiLightShader::UseLights(){
+	return true;
+}
+
+void MultiLightShader::TransferLightData(const CRArray<Light*>& lights){
+	int pointCount = 0;
+	int spotCount = 0;
+	int directionalCount = 0;
+	for(Light* light : lights){
+		switch(light->GetType()) {
+		case Light::Type::POINT:{
+			SAFE(glUniform3fv(uPointLights[pointCount].position, 1, light->GetPosition().GetData()));
+			SAFE(glUniform3fv(uPointLights[pointCount].color, 1, light->GetColor().GetData()));
+			SAFE(glUniform1f(uPointLights[pointCount].linear, light->GetLinearAttenaution()));
+			SAFE(glUniform1f(uPointLights[pointCount].quadratic, light->GetQuadraticAttenaution()));
+			pointCount++;
+		}break;
+		case Light::Type::SPOT:{
+			SAFE(glUniform3fv(uSpotLights[spotCount].position, 1, light->GetPosition().GetData()));
+			SAFE(glUniform3fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
+			SAFE(glUniform1f(uSpotLights[spotCount].linear, light->GetLinearAttenaution()));
+			SAFE(glUniform1f(uSpotLights[spotCount].quadratic, light->GetQuadraticAttenaution()));
+			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetDirection().GetData()));
+			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, light->GetCutOff()));
+			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, light->GetOuterCutOff()));
+			spotCount++;
+		}break;
+		case Light::Type::DIRECTIONAL:
+			SAFE(glUniform3fv(uDirectionalLights[directionalCount].color, 1, light->GetColor().GetData()));
+			SAFE(glUniform3fv(uDirectionalLights[directionalCount].direction, 1, light->GetDirection().GetData()));
+			directionalCount++;
+			break;
+		default:
+			throw CrossException("Unknown light type");
+		}
+	}
+	SAFE(glUniform1i(uPointLightCount, pointCount));
+	SAFE(glUniform1i(uDirectionalLightCount, directionalCount));
+	SAFE(glUniform1i(uSpotLightCount, spotCount));
 }

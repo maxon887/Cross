@@ -208,9 +208,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
@@ -258,6 +255,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -436,9 +439,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Light.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
@@ -486,6 +486,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScene.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

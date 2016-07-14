@@ -32,6 +32,7 @@ public:
 	virtual ~Light(){ };
 
 	Color GetColor() const;
+	void SetColor(const Color& color);
 	Type GetType() const;
 	float GetLinearAttenaution() const;
 	float GetQuadraticAttenaution() const;

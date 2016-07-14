@@ -32,6 +32,7 @@ public:
 	void Draw(const Matrix& model);
 
 	void SetMaterial(Material* material);
+	Material* GetMaterial();
 
 	unsigned int GetPrimitivesCount() const;
 	VertexBuffer* GetVertexBuffer();
