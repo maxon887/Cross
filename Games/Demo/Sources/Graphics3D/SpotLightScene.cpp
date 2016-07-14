@@ -20,7 +20,7 @@
 #include "Mesh.h"
 #include "Game.h"
 #include "Material.h"
-#include "Light.h"
+#include "Utils/Light.h"
 #include "Graphics3D/Shaders/LightShader.h"
 	
 void SpotLightScene::Start(){

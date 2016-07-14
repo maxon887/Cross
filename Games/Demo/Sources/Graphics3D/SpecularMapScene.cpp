@@ -17,7 +17,7 @@
 #include "SpecularMapScene.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
-#include "Light.h"
+#include "Utils/Light.h"
 #include "Game.h"
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"

@@ -18,8 +18,8 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Game.h"
-#include "Shader.h"
-#include "MultiLightShader.h"
+#include "Shaders/Shader.h"
+#include "Shaders/MultiLightShader.h"
 
 using namespace cross;
 

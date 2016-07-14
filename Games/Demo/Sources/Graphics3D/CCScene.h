@@ -18,9 +18,9 @@
 #include "Cross.h"
 #include "Scene.h"
 #include "Camera.h"
-#include "Button.h"
-#include "ToggleButton.h"
 #include "Input.h"
+#include "Utils/Button.h"
+#include "Utils/ToggleButton.h"
 
 using namespace cross;
 

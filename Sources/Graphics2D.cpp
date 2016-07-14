@@ -24,11 +24,11 @@
 #include "Camera2D.h"
 #include "File.h"
 #include "Texture.h"
-#include "Shader.h"
+#include "Shaders/Shader.h"
 
-#include "SOIL/SOIL.h"
-#include "FreeType/ft2build.h"
-#include "TinyXML/tinyxml.h"
+#include "Libs/SOIL/SOIL.h"
+#include "Libs/FreeType/ft2build.h"
+#include "Libs/TinyXML/tinyxml.h"
 
 #include <math.h>
 

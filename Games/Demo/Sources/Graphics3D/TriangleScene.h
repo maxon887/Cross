@@ -17,7 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics3D/CCScene.h"
-#include "Shader.h"
 #include "Input.h"
 
 using namespace cross;

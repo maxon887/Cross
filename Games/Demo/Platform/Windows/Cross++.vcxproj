@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Shaders;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../../../Sources/FreeType;../../../../Sources/FreeType/freetype2;../../Sources;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Libs/FreeType;../../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../../Sources/Platform/Windows;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;CROSS_DEBUG;GLES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -80,6 +80,13 @@
     <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Launcher.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\image_helper.c" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\SOIL.c" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinystr.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Material.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Mesh.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Model.cpp" />
@@ -91,9 +98,6 @@
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c" />
-    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c" />
-    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c" />
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Matrix.cpp" />
@@ -103,10 +107,6 @@
     <ClCompile Include="..\..\..\..\Sources\Rect.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Texture.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinystr.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinyxml.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinyxmlerror.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Transformable.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
@@ -158,6 +158,14 @@
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics3D.h" />
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\image_DXT.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\image_helper.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\SOIL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinystr.h" />
+    <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.h" />
     <ClInclude Include="..\..\..\..\Sources\Material.h" />
     <ClInclude Include="..\..\..\..\Sources\Mesh.h" />
     <ClInclude Include="..\..\..\..\Sources\Model.h" />
@@ -168,12 +176,6 @@
     <ClInclude Include="..\..\..\..\Sources\Scene.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
-    <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h" />
-    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h" />
-    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h" />
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug.h" />
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug_c.h" />
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h" />
     <ClInclude Include="..\..\..\..\Sources\Sprite.h" />
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />
@@ -184,8 +186,6 @@
     <ClInclude Include="..\..\..\..\Sources\Config.h" />
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\Texture.h" />
-    <ClInclude Include="..\..\..\..\Sources\TinyXML\tinystr.h" />
-    <ClInclude Include="..\..\..\..\Sources\TinyXML\tinyxml.h" />
     <ClInclude Include="..\..\..\..\Sources\Transformable.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />

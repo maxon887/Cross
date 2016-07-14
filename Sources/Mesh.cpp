@@ -20,6 +20,7 @@
 #include "Camera.h"
 #include "Material.h"
 #include "Texture.h"
+#include "Shaders/Shader.h"
 
 using namespace cross;
 

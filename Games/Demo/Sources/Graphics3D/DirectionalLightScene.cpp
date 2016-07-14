@@ -19,7 +19,7 @@
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
 #include "Mesh.h"
-#include "Light.h"
+#include "Utils/Light.h"
 
 void DirectionalLightScene::Start(){
 	CCScene::Start();

@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "CCScene.h"
-#include "Shader.h"
 
 class SolidModelScene : public CCScene{
 public:

@@ -17,8 +17,8 @@
 #include "Audio.h"
 #include "Launcher.h"
 
-#include "FMOD/fmod.hpp"
-#include "FMOD/fmod_errors.h"
+#include "Libs/FMOD/fmod.hpp"
+#include "Libs/FMOD/fmod_errors.h"
 
 #include <stdarg.h>
 

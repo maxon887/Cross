@@ -19,23 +19,26 @@
     <Filter Include="Cross\Shaders">
       <UniqueIdentifier>{0339447c-d355-47b0-9d8b-a80353255f60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\SOIL">
-      <UniqueIdentifier>{047af7fd-1390-4d40-88dd-a8f6050d30d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Demo\Graphics2D">
       <UniqueIdentifier>{22f427a0-3bad-4d14-b5b9-128218b78dd4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Demo\Graphics3D">
       <UniqueIdentifier>{e2bb383f-7353-4c96-b961-b48bbccd78f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\TinyXML">
-      <UniqueIdentifier>{a6be3550-dddd-4334-b393-4757584d5c2e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Experimental">
       <UniqueIdentifier>{090a0712-4ab6-4414-bd48-905c77498348}</UniqueIdentifier>
     </Filter>
     <Filter Include="Demo\Graphics3D\Shaders">
       <UniqueIdentifier>{73c2bef2-ddc7-46e5-bf06-f946388fb5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Libs">
+      <UniqueIdentifier>{0a91abce-0279-48f7-9128-742707d932e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Libs\SOIL">
+      <UniqueIdentifier>{a503569c-198a-4511-93b8-b179bc221b54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Libs\TinyXML">
+      <UniqueIdentifier>{143e55bb-db46-48b5-9f3e-51e7afb79a53}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -139,15 +142,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SOIL\image_helper.c">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SOIL\SOIL.c">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\SOIL\stb_image_aug.c">
-      <Filter>Cross\SOIL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
@@ -186,18 +180,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Transformable.cpp">
       <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinyxml.cpp">
-      <Filter>Cross\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinystr.cpp">
-      <Filter>Cross\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinyxmlerror.cpp">
-      <Filter>Cross\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\TinyXML\tinyxmlparser.cpp">
-      <Filter>Cross\TinyXML</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
@@ -261,6 +243,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\image_helper.c">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\SOIL.c">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\stb_image_aug.c">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinystr.cpp">
+      <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.cpp">
+      <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlerror.cpp">
+      <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp">
+      <Filter>Cross\Libs\TinyXML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,24 +370,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Debugger.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\image_DXT.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\image_helper.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\SOIL.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stb_image_aug.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\SOIL\stbi_DDS_aug_c.h">
-      <Filter>Cross\SOIL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h">
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
@@ -420,12 +405,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Transformable.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\TinyXML\tinyxml.h">
-      <Filter>Cross\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\TinyXML\tinystr.h">
-      <Filter>Cross\TinyXML</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
@@ -492,6 +471,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\image_DXT.h">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\image_helper.h">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\SOIL.h">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\stb_image_aug.h">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\stbi_DDS_aug.h">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\SOIL\stbi_DDS_aug_c.h">
+      <Filter>Cross\Libs\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinystr.h">
+      <Filter>Cross\Libs\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.h">
+      <Filter>Cross\Libs\TinyXML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

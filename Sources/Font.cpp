@@ -21,7 +21,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 
-#include "FreeType/ft2build.h"
+#include "Libs/FreeType/ft2build.h"
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 

@@ -25,9 +25,9 @@
 
 #define SWIG
 
-#include "Assimp/Importer.hpp"
-#include "Assimp/scene.h"
-#include "Assimp/postprocess.h"
+#include "Libs/Assimp/Importer.hpp"
+#include "Libs/Assimp/scene.h"
+#include "Libs/Assimp/postprocess.h"
 
 using namespace cross;
 

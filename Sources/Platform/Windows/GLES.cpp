@@ -25,7 +25,7 @@
 #include "Graphics3D.h"
 #include "Config.h"
 #include "Audio.h"
-#include "Debugger.h"
+#include "Utils/Debugger.h"
 
 using namespace cross;
 

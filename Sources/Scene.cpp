@@ -18,7 +18,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Launcher.h"
-#include "Light.h"
+#include "Utils/Light.h"
 #include "GraphicsGL.h"
 #include "Graphics3D.h"
 #include "Material.h"
