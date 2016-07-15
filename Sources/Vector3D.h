@@ -35,6 +35,7 @@ public:
 
 	float Length() const;
 	Vector3D Normalize() const;
+	bool IsNormalized() const;
 	Vector3D Truncate(float len) const;
 	float DotProduct(const Vector3D &v2) const;
 	Vector3D CrossProduct(const Vector3D &v2) const;

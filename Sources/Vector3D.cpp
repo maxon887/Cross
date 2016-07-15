@@ -64,6 +64,11 @@ Vector3D Vector3D::Normalize() const{
 	return result;
 }
 
+bool Vector3D::IsNormalized() const{
+	float len = Length();
+	return len > 0.999 && len < 1.001;
+}
+
 Vector3D Vector3D::Truncate(float len) const{
 	if(this->Length() > len){
 		Vector3D result;

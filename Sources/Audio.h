@@ -31,7 +31,6 @@ namespace cross {
 class Audio{
 public:
 	Audio(string path, bool loop, bool isStream);
-	Audio(Audio& obj);
 	~Audio();
 	
 	void Play();
@@ -47,6 +46,8 @@ public:
 	static void ResumeSystem();
 	static void Release();
 private:
+	Audio(Audio& obj);
+
 	static FMOD::System* system;
 	static unsigned int version;
 	static void* extradriverdata;

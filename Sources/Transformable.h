@@ -40,6 +40,7 @@ public:
 	Vector3D GetPosition() const;
 	void SetDirection(const Vector3D& direction);
 	Vector3D GetDirection() const;
+	Vector3D GetUpVector() const;
 
 	Matrix& GetModelMatrix();
 	void SetModelMatrix(const Matrix& model);

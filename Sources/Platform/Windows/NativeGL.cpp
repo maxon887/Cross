@@ -25,7 +25,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Screen.h"
-#include "Debugger.h"
+#include "Utils/Debugger.h"
 #include "resource.h"
 
 using namespace cross;

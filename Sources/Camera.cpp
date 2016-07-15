@@ -21,52 +21,18 @@ using namespace cross;
 Camera::Camera(Matrix projection) :
 	Camera()
 {
-	this->projection = projection;
+	SetProjectionMatrix(projection);
 }
 
 Camera::Camera() :
-	direction(0.f, 0.f, 1.f),
-	position(0.f, 0.f, 0.f),
-	recalc_view(true),
 	view(Matrix::CreateIdentity()),
 	projection(Matrix::CreateIdentity())
-{ }
-
-void Camera::SetPosition(const Vector2D& pos){
-	position = Vector3D(pos.x, pos.y, 0.f);
-	recalc_view = true;
-}
-
-void Camera::SetPosition(const Vector3D& pos){
-	position = pos;
-	recalc_view = true;
-}
-
-void Camera::SetDirection(const Vector3D& dir){
-	direction = dir.Normalize();
-	recalc_view = true;
-}
-
-void Camera::LookAt(const Vector3D& object){
-	SetDirection(object - position);
-}
-
-Vector3D Camera::GetPosition() const{
-	return position;
-}
-
-Vector3D Camera::GetDirection() const{
-	return direction;
-}
-
-Vector3D Camera::GetUpVector() const{
-	return up;
+{
+	SetDirection(Vector3D(0.f, 0.f, 1.f));
 }
 
 const Matrix& Camera::GetViewMatrix(){
-	if(recalc_view){
-		RecalView();
-	}
+	RecalView();
 	return view;
 }
 
@@ -80,7 +46,7 @@ const Matrix& Camera::GetProjectionMatrix() const{
 
 void Camera::RecalView(){
 	view = Matrix::CreateIdentity();
-	direction = direction.Normalize();
+	Vector3D direction = GetDirection();
 	view.m[2][0] = -direction.x;
 	view.m[2][1] = -direction.y;
 	view.m[2][2] = -direction.z;
@@ -89,16 +55,16 @@ void Camera::RecalView(){
 	view.m[0][0] = right.x;
 	view.m[0][1] = right.y;
 	view.m[0][2] = right.z;
-	up = right.CrossProduct(direction) * (-1);
+	Vector3D up = right.CrossProduct(direction) * (-1);
 	view.m[1][0] = up.x;
 	view.m[1][1] = up.y;
 	view.m[1][2] = up.z;
 
+	Vector3D position = GetPosition();
 	Matrix posMatrix = Matrix::CreateIdentity();
 	posMatrix.m[0][3] = -position.x;
 	posMatrix.m[1][3] = -position.y;
 	posMatrix.m[2][3] = -position.z;
 
 	view = view * posMatrix;
-	recalc_view = false;
 }

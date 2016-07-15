@@ -106,14 +106,17 @@ void Transformable::LookAt(const Vector3D& object){
 		needLook = needLook.Normalize();
 		float cosA = curLook.DotProduct(needLook);
 
-		if(cosA == -1.f){
+		if(cosA == -1.f){		//opposite rotation 
 			Vector3D b(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f));
 			Vector3D perp = curLook.CrossProduct(b);
 			SetRotate(perp, 180.f);
-		}else if(cosA == 1.f){
+		}else if(cosA == 1.f){	//same look direction.Don't need do any thing
 	
-		}else{
+		}else{					//usuall random rotation
 			float angle = acos(cosA);
+			if(isnan(angle)){
+				return;
+			}
 			Vector3D rotateAxis = needLook.CrossProduct(curLook);
 			Quaternion currentQuat(rotation);
 			Quaternion needQuat(rotateAxis, angle * 180.f / PI);
@@ -135,6 +138,13 @@ Vector3D Transformable::GetDirection() const{
 	Vector4D direction = Vector4D(0.f, 0.f, -1.f, 0.f);
 	direction = rotation * direction;
 	return Vector3D(direction);
+}
+
+Vector3D Transformable::GetUpVector() const{
+	Vector3D direction = GetDirection();
+	Vector3D right = direction.CrossProduct(Vector3D(0.f, 1.f, 0.f)) * (-1);
+	right = right.Normalize();
+	return right.CrossProduct(direction) * (-1);
 }
 
 Matrix& Transformable::GetModelMatrix(){

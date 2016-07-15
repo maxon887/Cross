@@ -58,7 +58,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Shaders;../../../../Sources/Utils;../../../../Sources/SOIL;../../../../Sources/Platform/Windows;../../../../Sources/FMOD;../../../../Sources/FreeType;../../../../Sources/FreeType/freetype2;../../Sources;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Libs/FreeType;../../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../../Sources/Platform/Windows;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
