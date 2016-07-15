@@ -30,6 +30,7 @@ public:
 	virtual int GetTargetHeight() = 0;
 	/* Cross platform way to log out message */
 	virtual void LogIt(const string& msg) = 0;
+	/* Cross platform way to log out message */
 	virtual void LogIt(const char* formatStr, ...) = 0;
 	/* return path to the application assets folder */
 	virtual string AssetsPath() = 0;
@@ -39,13 +40,16 @@ public:
 	virtual File* LoadFile(const string& filename) = 0;
 	/* Return current time in microseconds */
 	virtual unsigned long GetTime() = 0;
+	/* Force current thread sleep m miliseconds */
 	virtual void Sleep(float milis) { };
+	/* Ask user about exit from application */
 	virtual void PromtToExit() { };
-	/* Return physical screen aspec ration */
-	float GetAspectRatio();
-	string PathFromFile(const string& filePath);
-
+	/* Returns platform specific Commercial class object */
 	virtual Commercial* GetCommercial() { return NULL; };
+	/* Returns physical screen aspec ration */
+	float GetAspectRatio();
+	/* Returns directory from full filename */
+	string PathFromFile(const string& filePath);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }

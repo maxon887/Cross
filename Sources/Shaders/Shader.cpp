@@ -21,7 +21,7 @@ using namespace cross;
 Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	vertex_shader = gfxGL->ComplileShader(vertexFile);
 	fragment_shader = gfxGL->ComplileShader(fragmentFile);
-	program = gfxGL->CreateProgram();
+	program = glCreateProgram();
 	gfxGL->AttachShader(program, vertex_shader);
 	gfxGL->AttachShader(program, fragment_shader);
 	gfxGL->CompileProgram(program);
@@ -43,8 +43,8 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 }
 
 Shader::~Shader(){
-	gfxGL->DeleteShader(vertex_shader);
-	gfxGL->DeleteShader(fragment_shader);
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
 	gfxGL->DeleteProgram(program);
 }
 
@@ -54,4 +54,8 @@ bool Shader::UseLights(){
 
 void Shader::TransferLightData(const CRArray<Light*>& lights){
 	throw CrossException("Lighting does not supported by this shader");
+}
+
+GLuint Shader::GetProgram(){
+	return program;
 }

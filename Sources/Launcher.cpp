@@ -23,10 +23,8 @@ float Launcher::GetAspectRatio(){
 }
 
 string Launcher::PathFromFile(const string& filePath){
-	//string directory;
 	const size_t last_slash_idx = filePath.rfind('/');
-	if (std::string::npos != last_slash_idx)
-	{
+	if(std::string::npos != last_slash_idx){
 		return filePath.substr(0, last_slash_idx);
 	}else{
 		throw CrossException("Wrong path format");

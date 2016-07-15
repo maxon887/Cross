@@ -131,18 +131,19 @@ public:
 	DECLARE_EVENT(void, float, float, int) TargetActionDown;
 	DECLARE_EVENT(void, float, float, int) TargetActionMove;
 	DECLARE_EVENT(void, float, float, int) TargetActionUp;
-
+	/* Keyboard events */
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
-
+	/* Mouse Wheel events */
 	DECLARE_EVENT(void) MouseWheelUp;
 	DECLARE_EVENT(void) MouseWheelDown;
-
+	/* Checks if specific key pressed*/
 	bool IsPressed(Key key);
 //Internal data. You don't need call any of this methods or modify variable
-public:
+protected:
+	friend Game;
+
 	Input();
-private:
 	bool pressed_keys[(unsigned int)Key::MAX_KEY_NUM];
 
 	Vector2D TargetToWordConvert(float x, float y);

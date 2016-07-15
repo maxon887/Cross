@@ -33,21 +33,19 @@ public:
 	//Save boolean value for key
 	void SaveBool(string key, bool value);
 	//Load string property from string key.
-	//Important! returned string must to be deleted.
-	//Return NULL if can't find key
 	string LoadString(string key, string def);
 	//Load int property from string key.
-	//Return 0 if can't find key
 	int LoadInt(string key, int def);
 	//Load float property from string key.
-	//Return 0 if can't find key
 	float LoadFloat(string key, float def);
 	//Load boolean property from string key.
 	bool LoadBool(string key, bool def);
-//Internal data. You don't need call any of this methods or modify variable
-public:
+
+protected:
+	friend Game;
+
 	Config(string dataPath);
-private:
+
 	string prefs_path;
 	string copy_path;
 	string LoadString(string key);

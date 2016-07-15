@@ -22,9 +22,7 @@
 using namespace cross;
 
 Input::Input(){
-	for(unsigned int i = 0; i < (unsigned int)Key::MAX_KEY_NUM; i++){
-		pressed_keys[i] = false;
-	}
+	memset(pressed_keys, 0, sizeof(pressed_keys));
 	KeyPressed += MakeDelegate(this, &Input::KeyPressedHandle);
 	KeyReleased += MakeDelegate(this, &Input::KeyReleasedHandle);
 	TargetActionDown += MakeDelegate(this, &Input::TargetActionDonwHandle);

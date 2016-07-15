@@ -54,7 +54,7 @@ public:
 	Scene* GetCurrentScene();
 	/* Exit from application */
     void Exit();
-//Internal data. You don't need call any of this methods or modify variable
+
 private:
 	Screen* current_screen;
 	bool on_scene;

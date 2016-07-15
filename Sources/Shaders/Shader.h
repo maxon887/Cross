@@ -22,7 +22,6 @@ namespace cross{
 
 class Shader{
 public:
-	GLuint program;
 	//shader attributes
 	GLint aPosition;
 	GLint aTexCoords;
@@ -45,6 +44,10 @@ public:
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);
 
+	GLuint GetProgram();
+
+protected:
+	GLuint program;
 private:
 	GLuint vertex_shader;
 	GLuint fragment_shader;

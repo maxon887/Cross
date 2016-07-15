@@ -16,8 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
 #include "Launcher.h"
-#include "File.h"
 #include "Game.h"
+#include "File.h"
 #include "Shaders/Shader.h"
 #include "Shaders/MultiLightShader.h"
 
@@ -54,8 +54,8 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 }
 }
 
-GraphicsGL::GraphicsGL() : 
-	shaders(DefaultShader::NONE)	
+GraphicsGL::GraphicsGL() :
+	shaders(DefaultShader::NONE)	//create place holders for NONE shaders
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 #if defined (WIN) && defined(OPENGL)
@@ -93,7 +93,7 @@ GraphicsGL::~GraphicsGL(){
 	}
 }
 
-Shader* GraphicsGL::GetShader(unsigned int type){
+Shader* GraphicsGL::GetShader(DefaultShader type){
 	if(shaders[type] == nullptr){
 		switch(type) {
 		case DefaultShader::SIMPLE:
@@ -163,14 +163,6 @@ GLuint GraphicsGL::ComplileShader(const string& filename){
 		return handle;
 }
 
-void GraphicsGL::DeleteShader(GLuint handle){
-	glDeleteShader(handle);
-}
-
-GLuint GraphicsGL::CreateProgram(){
-	return glCreateProgram();
-}
-
 void GraphicsGL::DeleteProgram(GLuint program){
 	glDeleteProgram(program);
 }
@@ -190,13 +182,13 @@ void GraphicsGL::CompileProgram(GLuint program){
 
 		char* log = new char[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
-		throw CrossException("Shader compilation failed:\n %s", log);
+		throw CrossException("Shader program compilation failed:\n %s", log);
 	}
 }
 
 void GraphicsGL::UseShader(Shader* shader){
 	if(shader){
-		SAFE(glUseProgram(shader->program));
+		SAFE(glUseProgram(shader->GetProgram()));
 	}else{
 		throw CrossException("Attempt to draw with NULL shader");
 	}
