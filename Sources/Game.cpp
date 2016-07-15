@@ -16,22 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Launcher.h"
-#include "Scene.h"
 #include "Input.h"
 #include "Config.h"
+#include "Scene.h"
 #include "Utils/Debugger.h"
-#include "Audio.h"
 #include "Graphics2D.h"
-#include "Camera2D.h"
-#ifdef WIN
-#include "Platform/Windows/LauncherWIN.h"
-#undef GetMessage
-#endif 
-
-#include <stdlib.h>
 
 using namespace cross;
-using namespace chrono;
 
 Launcher*	cross::launcher = NULL;
 GraphicsGL* cross::gfxGL = NULL;
@@ -43,7 +34,8 @@ Config*		cross::config = NULL;
 Game::Game() :
 	current_screen(nullptr),
 	on_scene(false),
-	run_time(0.f)
+	run_time(0),
+	render_time(0)
 {
 	launcher->LogIt("Game::Game()");
 	input = new Input();
@@ -53,8 +45,8 @@ Game::Game() :
 Game::~Game(){
 	launcher->LogIt("Game::~Game");
 	delete current_screen;
-	delete input;
 	delete config;
+	delete input;
 }
 
 
@@ -68,7 +60,7 @@ void Game::SetScreen(Screen* screen){
 	}
 	current_screen = screen;
 	current_screen->Start();
-    render_time = high_resolution_clock::now();
+	render_time = launcher->GetTime();
 	Debugger::Instance()->StopCheckTime("Screen loaded: ");
 }
 
@@ -96,31 +88,31 @@ void Game::Suspend(){
 }
 
 void Game::Resume(){
-	render_time = high_resolution_clock::now();
+	render_time = launcher->GetTime();
 	if(current_screen != nullptr) {
 		current_screen->Resume();
 	}
 }
 
 float Game::GetRunTime(){
-	return run_time;
+	return (float)(run_time / 1000000.f);
 }
 
 void Game::Update(){
-	time_point<high_resolution_clock> now = high_resolution_clock::now();
-	long long rend = duration_cast<microseconds>(now - render_time).count();
-	render_time = high_resolution_clock::now();
-	run_time += (float)(rend / 1000000.);
+	unsigned long now = launcher->GetTime();
+	unsigned long frame = now - render_time;
+	render_time = now;
+	run_time += frame;
 	gfx2D->Update();
-	GetCurrentScreen()->Update((float)(rend / 1000000.));
-	now = high_resolution_clock::now();
-	long long up = duration_cast<microseconds>(now - render_time).count();
-	float milis = up / 1000.f;
+	GetCurrentScreen()->Update((float)(frame / 1000000.));
+	now = launcher->GetTime();
+	unsigned long update = now - render_time;
+	float milis = update / 1000.f;
 	if(milis < 5){
 		launcher->Sleep(5 - milis);
 	}
-	Debugger::Instance()->Display((float)rend);
-	Debugger::Instance()->SetUpdateTime((float)up);
+	Debugger::Instance()->Display((float)frame);
+	Debugger::Instance()->SetUpdateTime((float)update);
 }
 
 void Game::Exit(){

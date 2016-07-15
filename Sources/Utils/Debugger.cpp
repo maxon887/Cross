@@ -23,10 +23,7 @@
 #include "Font.h"
 #include "Screen.h"
 
-#include <chrono>
-
 using namespace cross;
-using namespace chrono;
 
 Debugger* Debugger::instance = nullptr;
 
@@ -63,16 +60,15 @@ Debugger::~Debugger(){
 }
 
 void Debugger::StartCheckTime() {
-	CrossTime check_time = high_resolution_clock::now();
-	times.push_back(check_time);
+	unsigned long checkTime = launcher->GetTime();
+	times.push_back(checkTime);
 }
 
 void Debugger::StopCheckTime(string label) {
-	CrossTime now = high_resolution_clock::now();
-	CrossTime check_time = times.back();
+	unsigned long now = launcher->GetTime();
+	unsigned long checkTime = times.back();
 	times.pop_back();
-	auto up = duration_cast<microseconds>(now - check_time).count();
-	double milis = up / 1000.0;
+	double milis = (now - checkTime) / 1000.0;
 	string msg = label + to_string(milis) + "ms";
 	if(launcher != NULL)
 		launcher->LogIt(msg);

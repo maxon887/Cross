@@ -31,6 +31,7 @@ public:
 	string AssetsPath();
 	string DataPath();
 	File* LoadFile(const string& filename);
+	unsigned long GetTime();
 	void LogIt(const string& msg);
 	void LogIt(const char* formatString, ...);
 	void Sleep(float milis);

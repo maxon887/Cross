@@ -18,10 +18,6 @@
 #include "Cross.h"
 #include "Input.h"
 
-#include <chrono>
-
-typedef chrono::time_point<chrono::high_resolution_clock> CrossTime;
-
 namespace cross{
 
 class Debugger{
@@ -49,7 +45,7 @@ public:
 private:
 	static Debugger* instance;
 
-	CRArray<CrossTime> times;
+	CRArray<unsigned long> times;
 
 	Font* debugger_font;
 

@@ -19,8 +19,6 @@
 
 #include "Libs/Events/Event.h"
 
-#include <chrono>
-
 namespace cross{
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screens.
@@ -29,7 +27,7 @@ class Game{
 public:
 	/* You need to override this method to get engine know from which screen it must start */
 	virtual Screen* GetStartScreen() = 0;
-	/* Game constructor. Virtual word coordinates will match target physical pixels */
+	/* Occurs when game window resize */
 	DECLARE_EVENT(void, int, int) WindowResized;
 
 	Game();
@@ -38,19 +36,21 @@ public:
 	virtual void Start() { };
 	/* Cause when game is about to stop */
 	virtual void Stop() { };
-	/* Update game every frame */
+	/* Update game every frame. Must be call from overided virsion either */
 	virtual void Update();
 	/* Cause when game needs to be paused. For example input call or window lost focus */
 	virtual void Suspend();
 	/* Cause when game gained focus */
 	virtual void Resume();
-
+	/* Returns time since game start */
 	float GetRunTime();
-	/* Set up new Screen. Previous screen data will be deleted */
+	/* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
 	void SetScreen(Screen* screen);
+	/* New Scene will be updated and deleted due to game live cycle. Previous screen data will be deleted */
 	void SetScene(Scene* scene);
-	/* Returns current game screen */
+	/* Returns active game Screen */
 	Screen* GetCurrentScreen();
+	/* Returns active game Scene*/
 	Scene* GetCurrentScene();
 	/* Exit from application */
     void Exit();
@@ -58,8 +58,8 @@ public:
 private:
 	Screen* current_screen;
 	bool on_scene;
-	chrono::time_point<chrono::high_resolution_clock> render_time;
-	float run_time;
+	unsigned long render_time;
+	unsigned long run_time;
 };
     
 }

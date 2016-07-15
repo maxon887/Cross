@@ -27,6 +27,8 @@
 #include "Audio.h"
 #include "Utils/Debugger.h"
 
+#include <time.h>
+
 using namespace cross;
 
 Game* cross::game = NULL;

@@ -37,6 +37,8 @@ public:
 	virtual string DataPath() = 0;
 	/* Loads specific file from game assets. */
 	virtual File* LoadFile(const string& filename) = 0;
+	/* Return current time in microseconds */
+	virtual unsigned long GetTime() = 0;
 	virtual void Sleep(float milis) { };
 	virtual void PromtToExit() { };
 	/* Return physical screen aspec ration */

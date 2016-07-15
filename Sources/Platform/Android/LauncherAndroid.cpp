@@ -80,6 +80,12 @@ File* LauncherAndroid::LoadFile(const string& filename) {
     return file;
 }
 
+unsigned long LauncherAndroid::GetTime(){
+	struct timeval ptv;
+	gettimeofday(&ptv, NULL);
+	return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
+}
+
 void LauncherAndroid::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);

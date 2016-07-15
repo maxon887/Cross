@@ -203,6 +203,12 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Libs/SOIL">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Libs/SOIL" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Libs/TinyXML">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Libs/TinyXML" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp" isTestSource="false" />
     </content>
@@ -248,9 +254,6 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Rect.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Rect.h" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/SOIL">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/SOIL" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp" isTestSource="false" />
     </content>
@@ -277,9 +280,6 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/TinyXML">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/TinyXML" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp" isTestSource="false" />
