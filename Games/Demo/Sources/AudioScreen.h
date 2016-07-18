@@ -1,10 +1,9 @@
 #pragma once
 #include "Screen.h"
-#include "Utils/ToggleButton.h"
-#include "Input.h"
-#include "Menu.h"
 
 using namespace cross;
+
+class Menu;
 
 class AudioScreen :	public Screen{
 public:
@@ -13,7 +12,6 @@ public:
 	void Update(float sec);
 
 private:
-	Camera2D* camera;
 	Menu* audio_menu;
 	Sprite* button_sprite;
 	Sprite* button_sprite_pressed;

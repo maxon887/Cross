@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScene.h"
+#include "Graphics3D/CCScene.h"
 
-class SpecularMapScene : public CCScene{
+class SpecularDiffuseScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();

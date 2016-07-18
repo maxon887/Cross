@@ -28,9 +28,6 @@
     <Filter Include="Cross\Experimental">
       <UniqueIdentifier>{090a0712-4ab6-4414-bd48-905c77498348}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Graphics3D\Shaders">
-      <UniqueIdentifier>{73c2bef2-ddc7-46e5-bf06-f946388fb5c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Libs">
       <UniqueIdentifier>{0a91abce-0279-48f7-9128-742707d932e7}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,12 @@
     </Filter>
     <Filter Include="Cross\Libs\TinyXML">
       <UniqueIdentifier>{143e55bb-db46-48b5-9f3e-51e7afb79a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Graphics3D\Simple">
+      <UniqueIdentifier>{14bce2b9-46d5-4233-8bac-3494903e2f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Graphics3D\Light">
+      <UniqueIdentifier>{88cb8396-bda3-4c0f-9852-078ed0f9239d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -190,9 +193,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Light.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\DepthTestScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\VertexBuffer.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -201,45 +201,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Material.cpp">
       <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\TriangleScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\SolidModelScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\TexturedModelScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\ComplexModelScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\SpecularScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\SpecularMapScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Shaders\LightShader.cpp">
-      <Filter>Demo\Graphics3D\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\DirectionalLightScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\PointLightScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\SpotLightScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\MultiLightScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
@@ -264,6 +225,48 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp">
       <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\LightShader.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.cpp">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,9 +421,6 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Light.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\DepthTestScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\VertexBuffer.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -429,45 +429,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Material.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\TriangleScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\SolidModelScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\TexturedModelScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\ComplexModelScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\SpecularDiffuseScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\SpecularScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\SpecularMapScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Shaders\LightShader.h">
-      <Filter>Demo\Graphics3D\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\DirectionalLightScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\PointLightScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\SpotLightScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\MultiLightScene.h">
-      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
@@ -495,6 +456,48 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.h">
       <Filter>Cross\Libs\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\LightShader.h">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.h">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h">
+      <Filter>Demo\Graphics3D\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

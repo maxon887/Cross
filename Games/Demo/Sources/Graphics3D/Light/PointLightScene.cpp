@@ -14,33 +14,31 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SpotLightScene.h"
+#include "PointLightScene.h"
 #include "Graphics3D.h"
-#include "Graphics2D.h"
-#include "Mesh.h"
-#include "Game.h"
 #include "Material.h"
+#include "Mesh.h"
 #include "Utils/Light.h"
-#include "Graphics3D/Shaders/LightShader.h"
+#include "Graphics3D/LightShader.h"
+#include "Graphics2D.h"
 	
-void SpotLightScene::Start(){
+void PointLightScene::Start(){
 	CCScene::Start();
 
+	SetOrbitDistance(60.f);
 	DrawLights(true);
 
-	Light* light = new Light(Light::Type::SPOT);
+	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
-	light->LookAt(Vector3D(0.f));
-	light->SetCutOff(20.f);
 	AddLight(light);
 
-	shader = new LightShader("gfx3D/shaders/spot_light.vert", "gfx3D/shaders/spot_light.frag");
+	shader = new LightShader("gfx3D/shaders/point_light.vert", "gfx3D/shaders/point_light.frag");
 	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	material->SetDiffuseTexture(diffuseTexture);
 	material->SetSpecularTexture(specularTexture);
-	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 
 	for(int i = 0; i < 10; ++i){
@@ -51,7 +49,7 @@ void SpotLightScene::Start(){
 	}
 }
 
-void SpotLightScene::Stop(){
+void PointLightScene::Stop(){
 	for(Mesh* clone : objects){
 		delete clone;
 	}
@@ -61,7 +59,7 @@ void SpotLightScene::Stop(){
 	CCScene::Stop();
 }
 
-void SpotLightScene::Update(float sec){
+void PointLightScene::Update(float sec){
 	for(Mesh* obj : objects){
 		obj->Draw();
 	}

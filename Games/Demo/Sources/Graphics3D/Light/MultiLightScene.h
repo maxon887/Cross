@@ -15,16 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
-#include "CCScene.h"
+#include "Graphics3D/CCScene.h"
 
-class SpecularDiffuseScene : public CCScene{
+class MultiLightScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
-private:
-	Shader* shader;
+protected:
 	Material* material;
 	Mesh* cube;
+	CRArray<Mesh*> objects;
 };

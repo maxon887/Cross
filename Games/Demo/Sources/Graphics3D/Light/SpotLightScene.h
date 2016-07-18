@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScene.h"
+#include "Graphics3D/CCScene.h"
 
 class SpotLightScene : public CCScene{
 public:

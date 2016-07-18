@@ -15,15 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TriangleScene.h"
-#include "GraphicsGL.h"
-#include "Input.h"
-#include "Game.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
-#include "Font.h"
+#include "Material.h"
 #include "VertexBuffer.h"
 #include "Mesh.h"
-#include "Material.h"
 
 void TriangleScene::Start(){
 	CCScene::Start();

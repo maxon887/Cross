@@ -1,10 +1,9 @@
 #include "AudioScreen.h"
-#include "Audio.h"
-#include "Graphics2D.h"
 #include "Demo.h"
-#include "Config.h"
 #include "Sprite.h"
-#include "Camera2D.h"
+#include "Utils/ToggleButton.h"
+#include "Menu.h"
+#include "Audio.h"
 
 using namespace cross;
 
@@ -13,10 +12,6 @@ void AudioScreen::Start(){
 	jaguar = NULL;
 	truck = NULL;
 	is_bck_playing = false;
-
-	camera = new Camera2D();
-	camera->SetViewWidth(1600.f);
-	gfx2D->SetCamera(camera);
 
 	SetBackground(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = demo->GetCommonSprite("DefaultButton.png");
@@ -47,7 +42,6 @@ void AudioScreen::Stop(){
 	delete jaguar;
 	delete truck;
 	delete audio_menu;
-	delete camera;
 }
 
 void AudioScreen::Update(float sec){

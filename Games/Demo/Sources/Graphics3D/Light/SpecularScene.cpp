@@ -14,43 +14,38 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SpecularDiffuseScene.h"
-#include "Mesh.h"
+#include "SpecularScene.h"
 #include "Graphics3D.h"
-#include "Graphics2D.h"
-#include "Model.h"
-#include "Game.h"
-#include "Utils/Light.h"
-#include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
+#include "Mesh.h"
+#include "Utils/Light.h"
+#include "Graphics3D/LightShader.h"
 
-void SpecularDiffuseScene::Start(){
+void SpecularScene::Start(){
 	CCScene::Start();
-
+	
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
-	Light* light = new Light(Light::POINT);
+	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddLight(light);
 	//scene setups
-	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
-	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	material = new Material(shader);
-	material->SetDiffuseTexture(diffuse);
-	material->SetDiffuseColor(Color::White);
-	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+	material->SetDiffuseColor(Color::Red);
+	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 
-void SpecularDiffuseScene::Stop(){
+void SpecularScene::Stop(){
 	delete cube;
 	delete material;
 	delete shader;
 	CCScene::Stop();
 }
 
-void SpecularDiffuseScene::Update(float sec){
+void SpecularScene::Update(float sec){
 	cube->Draw();
 	CCScene::Update(sec);
 }

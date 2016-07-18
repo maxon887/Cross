@@ -15,18 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
 #include "Graphics3D/CCScene.h"
-#include "Input.h"
 
-using namespace cross;
-
-class TriangleScene : public CCScene{
+class DepthTestScreen : public CCScene{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
 private:
-	Material* triangle_material;
-	Mesh* triangle;
+	Shader* shader;
+	Model* warrior;
 };

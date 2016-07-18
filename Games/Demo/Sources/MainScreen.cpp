@@ -20,18 +20,18 @@
 #include "Sprite.h"
 #include "AudioScreen.h"
 #include "Camera2D.h"
-#include "Graphics3D/TriangleScene.h"
-#include "Graphics3D/SolidModelScene.h"
-#include "Graphics3D/TexturedModelScene.h"
-#include "Graphics3D/SpecularScene.h"
-#include "Graphics3D/SpecularDiffuseScene.h"
-#include "Graphics3D/SpecularMapScene.h"
-#include "Graphics3D/DirectionalLightScene.h"
-#include "Graphics3D/PointLightScene.h"
-#include "Graphics3D/SpotLightScene.h"
-#include "Graphics3D/MultiLightScene.h"
-#include "Graphics3D/ComplexModelScene.h"
-#include "Graphics3D/DepthTestScreen.h"
+#include "Graphics3D/Simple/TriangleScene.h"
+#include "Graphics3D/Simple/SolidModelScene.h"
+#include "Graphics3D/Simple/TexturedModelScene.h"
+#include "Graphics3D/Light/SpecularScene.h"
+#include "Graphics3D/Light/SpecularDiffuseScene.h"
+#include "Graphics3D/Light/SpecularMapScene.h"
+#include "Graphics3D/Light/DirectionalLightScene.h"
+#include "Graphics3D/Light/PointLightScene.h"
+#include "Graphics3D/Light/SpotLightScene.h"
+#include "Graphics3D/Light/MultiLightScene.h"
+#include "Graphics3D/Simple/ComplexModelScene.h"
+//#include "Graphics3D/DepthTestScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -324,5 +324,5 @@ void MainScreen::OnMultiLightClick(){
 }
 
 void MainScreen::OnDepthTestClick(){
-	next_screen = new DepthTestScreen();
+	//next_screen = new DepthTestScreen();
 }

@@ -15,14 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScene.h"
+#include "Cross.h"
+#include "Graphics3D/CCScene.h"
 
-class TexturedModelScene : public CCScene{
+using namespace cross;
+
+class TriangleScene : public CCScene{
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
 private:
-	Mesh* cube;
-	Material* material;
+	Material* triangle_material;
+	Mesh* triangle;
 };

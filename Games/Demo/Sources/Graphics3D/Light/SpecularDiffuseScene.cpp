@@ -14,27 +14,41 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SolidModelScene.h"
+#include "SpecularDiffuseScene.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Mesh.h"
+#include "Utils/Light.h"
+#include "Graphics3D/LightShader.h"
+#include "Graphics2D.h"
 
-void SolidModelScene::Start(){
+void SpecularDiffuseScene::Start(){
 	CCScene::Start();
-	material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
-	material->SetDiffuseColor(Color::Green);
-	cube = gfx3D->LoadMesh("gfx3D/Cube.obj");
+
+	SetOrbitDistance(28.f);
+	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
+	//light setups
+	Light* light = new Light(Light::POINT);
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	AddLight(light);
+	//scene setups
+	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
+	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	material = new Material(shader);
+	material->SetDiffuseTexture(diffuse);
+	material->SetDiffuseColor(Color::White);
+	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 
-void SolidModelScene::Stop(){
+void SpecularDiffuseScene::Stop(){
 	delete cube;
 	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 
-void SolidModelScene::Update(float sec){
+void SpecularDiffuseScene::Update(float sec){
 	cube->Draw();
-
 	CCScene::Update(sec);
 }

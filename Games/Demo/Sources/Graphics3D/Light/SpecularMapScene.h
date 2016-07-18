@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "CCScene.h"
+#include "Graphics3D/CCScene.h"
 
-class PointLightScene : public CCScene{
+class SpecularMapScene : public CCScene{
 public:
 	virtual void Start();
 	virtual void Stop();
@@ -26,5 +26,4 @@ private:
 	Shader* shader;
 	Material* material;
 	Mesh* cube;
-	CRArray<Mesh*> objects;
 };

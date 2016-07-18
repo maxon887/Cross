@@ -21,7 +21,6 @@
 #include "Camera2D.h"
 #include "Launcher.h"
 #include "Sprite.h"
-#include "Texture.h"
 
 Demo* demo = nullptr;
 

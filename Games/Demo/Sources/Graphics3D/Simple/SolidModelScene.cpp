@@ -14,16 +14,27 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "CCScene.h"
-#include "Shaders/Shader.h"
+#include "SolidModelScene.h"
+#include "Graphics3D.h"
+#include "Material.h"
+#include "Mesh.h"
 
-class DepthTestScreen : public CCScene{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Shader* shader;
-	Model* warrior;
-};
+void SolidModelScene::Start(){
+	CCScene::Start();
+	material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
+	material->SetDiffuseColor(Color::Green);
+	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
+	cube->SetMaterial(material);
+}
+
+void SolidModelScene::Stop(){
+	delete cube;
+	delete material;
+	CCScene::Stop();
+}
+
+void SolidModelScene::Update(float sec){
+	cube->Draw();
+
+	CCScene::Update(sec);
+}
