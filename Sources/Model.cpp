@@ -23,14 +23,22 @@ using namespace cross;
 
 Model::Model(Model& obj) : 
 	meshes(obj.meshes),
-	original(false)
+	original(false),
+	format(obj.format)
 { }
 
 Model::Model(const string& name) :
 	name(name),
-	original(true)
+	original(true),
+	format(UNKNOW)
 { 
 	filepath = launcher->PathFromFile(name);
+	string extension = launcher->ExtensionFromFile(name);
+	if(extension == "fbx" || extension == "FBX"){
+		format = FBX;
+	}else{
+		format = UNKNOW;
+	}
 }
 
 Model::~Model(){
@@ -56,6 +64,10 @@ string Model::GetName(){
 
 string Model::GetFilePath(){
 	return filepath;
+}
+
+Model::Format Model::GetFormat(){
+	return format;
 }
 
 int Model::GetPolyCount(){

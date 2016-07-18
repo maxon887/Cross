@@ -22,6 +22,10 @@ namespace cross{
 
 class Model : public Transformable{
 public:
+	enum Format{
+		FBX,
+		UNKNOW
+	};
 
 	Model(const string& name);
 	~Model();
@@ -30,6 +34,7 @@ public:
 
 	string GetName();
 	string GetFilePath();
+	Format GetFormat();
 	int GetPolyCount();
 
 	void AddMesh(Mesh* mesh);
@@ -42,6 +47,7 @@ public:
 protected:
 	string name;
 	string filepath;
+	Format format;
 	CRArray<Mesh*> meshes;
 	CRArray<Material*> materials;
 	bool original;

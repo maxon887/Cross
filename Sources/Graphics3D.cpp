@@ -31,12 +31,19 @@
 #include "Libs/Assimp/Importer.hpp"
 #include "Libs/Assimp/scene.h"
 #include "Libs/Assimp/postprocess.h"
+#include "Libs/Assimp/version.h"
 
 using namespace cross;
 
-Graphics3D::Graphics3D()
+Graphics3D::Graphics3D():
+	current_translation(Matrix::CreateIdentity()),
+	current_rotation(Matrix::CreateIdentity()),
+	current_scaling(Matrix::CreateIdentity())
 {
 	launcher->LogIt("Graphics3D::Graphics3D()");
+	unsigned int major = aiGetVersionMajor();
+	unsigned int minor = aiGetVersionMinor();
+	launcher->LogIt("Use assimp version %d.%d", major, minor);
 }
 
 Graphics3D::~Graphics3D(){
@@ -82,13 +89,38 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 	for(unsigned int i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
-		Matrix modelMat = Matrix::CreateZero();
-		memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-		crMesh->SetModelMatrix(modelMat);
+		if(model->GetFormat() == Model::Format::FBX){
+			crMesh->SetModelMatrix(current_translation * current_rotation * current_scaling);
+		}else{
+			Matrix modelMat = Matrix::CreateZero();
+			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
+			crMesh->SetModelMatrix(modelMat);
+		}
 
 		Material* material = model->GetMaterial(aiMesh->mMaterialIndex);
 		crMesh->SetMaterial(material);
 		model->AddMesh(crMesh);
+	}
+	if(model->GetFormat() == Model::Format::FBX){
+		string nodeName = node->mName.C_Str();
+		if(nodeName.find("Translation") != std::string::npos){
+			Matrix translation = Matrix::CreateIdentity();
+			memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+			current_translation = translation;
+			//return;
+		}
+		if(nodeName.find("Scaling") != std::string::npos){
+			Matrix scale = Matrix::CreateIdentity();
+			memcpy(scale.m, &node->mTransformation.a1, sizeof(float) * 16);
+			current_scaling = scale;
+			//return;
+		}
+		if(nodeName.find("Rotation") != std::string::npos){
+			Matrix rotation = Matrix::CreateIdentity();
+			memcpy(rotation.m, &node->mTransformation.a1, sizeof(float) * 16);
+			current_rotation = rotation;
+			//return;
+		}
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
 		ProcessNode(model, node->mChildren[i]);

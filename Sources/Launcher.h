@@ -50,6 +50,7 @@ public:
 	float GetAspectRatio();
 	/* Returns directory from full filename */
 	string PathFromFile(const string& filePath);
+	string ExtensionFromFile(const string& file);
 //Internal data. You don't need call any of this methods or modify variable
 public:
 	virtual ~Launcher() { }

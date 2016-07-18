@@ -30,3 +30,7 @@ string Launcher::PathFromFile(const string& filePath){
 		throw CrossException("Wrong path format");
 	}
 }
+
+string Launcher::ExtensionFromFile(const string& file){
+	return file.substr(file.find_last_of(".") +1);
+}

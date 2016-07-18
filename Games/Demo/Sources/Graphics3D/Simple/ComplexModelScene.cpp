@@ -22,7 +22,7 @@
 void ComplexModelScene::Start(){
 	CCScene::Start();
 	SetOrbitDistance(60.f);
-	warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.3DS");
+	warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.fbx");
 	warrior->SetShader(gfxGL->GetShader(DefaultShader::TEXTURE));
 	warrior->SetRotateX(-90.f);
 }

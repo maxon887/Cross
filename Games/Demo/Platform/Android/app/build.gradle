@@ -9,6 +9,11 @@ android {
                 abiFilter "armeabi"
             }
         }
+        armV7{
+            ndk{
+                abiFilter "armeabi-v7a"
+            }
+        }
         x86 {
             ndk {
                 abiFilter "x86"

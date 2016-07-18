@@ -37,6 +37,10 @@ public:
 
 protected:
 	const aiScene* current_scene;
+	//fbx specific stuff
+	Matrix current_translation;
+	Matrix current_rotation;
+	Matrix current_scaling;
 
 	Mesh* ProcessNode(aiNode* node);
 	void ProcessNode(Model* model, aiNode* node);
