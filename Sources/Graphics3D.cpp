@@ -38,7 +38,8 @@ using namespace cross;
 Graphics3D::Graphics3D():
 	current_translation(Matrix::CreateIdentity()),
 	current_rotation(Matrix::CreateIdentity()),
-	current_scaling(Matrix::CreateIdentity())
+	current_scaling(Matrix::CreateIdentity()),
+	current_geotranslation(Matrix::CreateIdentity())
 {
 	launcher->LogIt("Graphics3D::Graphics3D()");
 	unsigned int major = aiGetVersionMajor();
@@ -90,7 +91,8 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
 		if(model->GetFormat() == Model::Format::FBX){
-			crMesh->SetModelMatrix(current_translation * current_rotation * current_scaling);
+			crMesh->SetModelMatrix(current_translation * current_rotation * current_scaling * current_geotranslation);
+			current_geotranslation = Matrix::CreateIdentity();
 		}else{
 			Matrix modelMat = Matrix::CreateZero();
 			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
@@ -104,9 +106,15 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 	if(model->GetFormat() == Model::Format::FBX){
 		string nodeName = node->mName.C_Str();
 		if(nodeName.find("Translation") != std::string::npos){
-			Matrix translation = Matrix::CreateIdentity();
-			memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
-			current_translation = translation;
+			if(nodeName.find("Geometric") != std::string::npos){
+				Matrix translation = Matrix::CreateIdentity();
+				memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+				current_geotranslation = translation;
+			}else{
+				Matrix translation = Matrix::CreateIdentity();
+				memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+				current_translation = translation;
+			}
 			//return;
 		}
 		if(nodeName.find("Scaling") != std::string::npos){
