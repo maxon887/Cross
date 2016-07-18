@@ -15,16 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shader.h"
+#include "Launcher.h"
+#include "File.h"
 
 using namespace cross;
 
 Shader::Shader(const string& vertexFile, const string& fragmentFile) {
-	vertex_shader = gfxGL->ComplileShader(vertexFile);
-	fragment_shader = gfxGL->ComplileShader(fragmentFile);
+	vertex_shader = Compile(vertexFile);
+	fragment_shader = Compile(fragmentFile);
 	program = glCreateProgram();
-	gfxGL->AttachShader(program, vertex_shader);
-	gfxGL->AttachShader(program, fragment_shader);
-	gfxGL->CompileProgram(program);
+	glAttachShader(program, vertex_shader);
+	glAttachShader(program, fragment_shader);
+	CompileProgram();
 
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
@@ -45,7 +47,7 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 Shader::~Shader(){
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
-	gfxGL->DeleteProgram(program);
+	glDeleteProgram(program);
 }
 
 bool Shader::UseLights(){
@@ -58,4 +60,67 @@ void Shader::TransferLightData(const CRArray<Light*>& lights){
 
 GLuint Shader::GetProgram(){
 	return program;
+}
+
+GLuint Shader::Compile(const string& filename){
+	//file loading part
+		string extension = filename.substr(filename.find_last_of(".") + 1);
+		GLuint type;
+		if(extension == "vert") {
+			type = GL_VERTEX_SHADER;
+		} else if(extension == "frag") {
+			type = GL_FRAGMENT_SHADER;
+		} else {
+			throw CrossException("Can't compile shader.\nUnknown file extension.");
+		}
+		File* file = launcher->LoadFile(filename);
+		CRByte* source = new CRByte[file->size + 1]; // +1 for null terminated string
+		memcpy(source, file->data, file->size);
+		source[file->size] = 0;
+		delete file;
+		//shader compilling part
+		GLuint handle = glCreateShader(type);
+		glShaderSource(handle, 1, (const char**)&source, NULL);
+		delete[] source;
+		source = NULL;
+
+		glCompileShader(handle);
+		GLint compiled;
+		glGetShaderiv(handle, GL_COMPILE_STATUS, &compiled);
+		if(!compiled) {
+			GLsizei len;
+			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+
+			char* log = new char[len + 1];
+			glGetShaderInfoLog(handle, len, &len, log);
+			throw CrossException("Shader: %s\n%sShader", filename.c_str(), log);
+		} else {
+#ifdef CROSS_DEBUG
+			GLsizei len;
+			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+			if(len > 1){
+				char* log = new char[len + 1];
+				glGetShaderInfoLog(handle, len, &len, log);
+				string msg(log);
+				delete[] log;
+				launcher->LogIt("Shader compilation:\n" + msg);
+			}
+#endif
+		}
+		return handle;
+}
+
+void Shader::CompileProgram(){
+	glLinkProgram(program);
+
+	GLint linked;
+	glGetProgramiv(program, GL_LINK_STATUS, &linked);
+	if(!linked) {
+		GLsizei len;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
+
+		char* log = new char[len + 1];
+		glGetProgramInfoLog(program, len, &len, log);
+		throw CrossException("Shader program compilation failed:\n %s", log);
+	}
 }

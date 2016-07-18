@@ -16,11 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Model.h"
 #include "Launcher.h"
-#include "Graphics3D.h"
 #include "Mesh.h"
 #include "Material.h"
-#include "Camera.h"
-#include "Texture.h"
 
 using namespace cross;
 

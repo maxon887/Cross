@@ -17,12 +17,10 @@
 #pragma once
 #include "Cross.h"
 #include "Transformable.h"
-#include "Mesh.h"
 
 namespace cross{
 
 class Model : public Transformable{
-friend Graphics3D;
 public:
 
 	Model(const string& name);

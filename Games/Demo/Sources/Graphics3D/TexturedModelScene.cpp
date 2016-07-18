@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TexturedModelScene.h"
-
+#include "Mesh.h"
 #include "Game.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"

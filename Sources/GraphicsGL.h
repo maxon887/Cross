@@ -57,6 +57,7 @@ enum DefaultShader{
 	NONE
 };
 
+/* Class containing specific OpengGL features */
 class GraphicsGL{
 public:
 	static void CheckGLError(const char* file, unsigned int line);
@@ -68,13 +69,6 @@ public:
 	Shader* GetShader(DefaultShader type);
 
 private:
-	friend Shader;
-
-	GLuint ComplileShader(const string& filename);
-	void DeleteProgram(GLuint program);
-	void AttachShader(GLuint program, GLuint shader);
-	void CompileProgram(GLuint program);
-
 	CRArray<Shader*> shaders;
 
 	void WindowResizeHandle(int width, int height);

@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "DirectionalLightScene.h"
 #include "Graphics2D.h"
+#include "Graphics3D.h"
 #include "Graphics3D/Shaders/LightShader.h"
 #include "Material.h"
 #include "Mesh.h"

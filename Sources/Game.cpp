@@ -103,7 +103,7 @@ void Game::Update(){
 	unsigned long frame = now - render_time;
 	render_time = now;
 	run_time += frame;
-	gfx2D->Update();
+	gfx2D->Update((float)(frame / 1000000.));
 	GetCurrentScreen()->Update((float)(frame / 1000000.));
 	now = launcher->GetTime();
 	unsigned long update = now - render_time;

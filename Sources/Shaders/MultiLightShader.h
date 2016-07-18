@@ -50,10 +50,7 @@ public:
 	static const unsigned int MaxPointLights = 16;
 	static const unsigned int MaxDirectionalLights = 4;
 	static const unsigned int MaxSpotLights = 8;
-
-	GLuint uModelMatrix;
-	GLuint uNormalMatrix;
-
+	
 	GLuint uMaterialDiffuse;
 	GLuint uMaterialSpecular;
 	GLuint uMaterialShininess;
@@ -66,8 +63,6 @@ public:
 
 	GLuint uSpotLightCount;
 	SpotLight uSpotLights[MaxSpotLights];
-
-	GLuint uCameraPosition;
 
 	MultiLightShader();
 

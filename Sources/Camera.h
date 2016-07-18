@@ -26,6 +26,8 @@ public:
 	Camera(Matrix projection);
 	Camera();
 
+	virtual void Update(float sec);
+
 	const Matrix& GetViewMatrix();
 	void SetProjectionMatrix(const Matrix& projection);
 	const Matrix& GetProjectionMatrix() const;

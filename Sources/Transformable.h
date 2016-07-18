@@ -16,10 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Quaternion.h"
 
 namespace cross{
 
+/* With this class you can add spatial properties to any game object.
+   Then rotate, scale and move object in world space. */
 class Transformable{
 public:
 	Transformable(Transformable& trans);

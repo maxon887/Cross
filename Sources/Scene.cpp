@@ -19,7 +19,6 @@
 #include "Game.h"
 #include "Launcher.h"
 #include "Utils/Light.h"
-#include "GraphicsGL.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Mesh.h"
@@ -44,6 +43,7 @@ void Scene::Start(){
 }
 
 void Scene::Update(float sec){
+	camera->Update(sec);
 	if(light_drawing){
 		for(Light* light : lights){
 			switch(light->GetType())

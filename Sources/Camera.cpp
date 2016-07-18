@@ -31,8 +31,11 @@ Camera::Camera() :
 	SetDirection(Vector3D(0.f, 0.f, 1.f));
 }
 
-const Matrix& Camera::GetViewMatrix(){
+void Camera::Update(float sec){
 	RecalView();
+}
+
+const Matrix& Camera::GetViewMatrix(){
 	return view;
 }
 

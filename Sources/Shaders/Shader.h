@@ -51,6 +51,9 @@ protected:
 private:
 	GLuint vertex_shader;
 	GLuint fragment_shader;
+
+	GLuint Compile(const string& filename);
+	void CompileProgram();
 };
 
 }

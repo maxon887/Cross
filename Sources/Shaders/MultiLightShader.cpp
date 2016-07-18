@@ -21,9 +21,7 @@ using namespace cross;
 
 MultiLightShader::MultiLightShader() :
 	Shader("Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
-{ 
-	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
-	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
+{
 
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
@@ -56,11 +54,6 @@ MultiLightShader::MultiLightShader() :
 		uSpotLights[i].outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
 		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 	}
-
-	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
-
-	aTexCoords = glGetAttribLocation(program, "aTexCoords");
-	aNormal = glGetAttribLocation(program, "aNormal");
 }
 
 bool MultiLightShader::UseLights(){

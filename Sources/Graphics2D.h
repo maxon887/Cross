@@ -51,14 +51,14 @@ public:
 	Font* GetDefaultFont();
 //Internal data. You don't need call any of this methods or modify variables
 public:
-	CRList<pair<Texture*, int>> loaded_textures;
 	Graphics2D();
 	~Graphics2D();
-	void Update();
+	void Update(float sec);
 private:
 	Font* default_font;
 	Camera2D* camera;
 	Camera2D* default_camera;
+	CRList<pair<Texture*, int>> loaded_textures;
 };
 
 }

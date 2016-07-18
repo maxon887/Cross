@@ -16,14 +16,14 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Graphics3D.h"
 #include "Transformable.h"
-#include "VertexBuffer.h"
+#include "GraphicsGL.h"
 
 namespace cross{
 
+class VertexBuffer;
+
 class Mesh : public Transformable{
-friend Graphics3D;
 public:
 	Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount);
 	~Mesh();

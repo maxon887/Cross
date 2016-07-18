@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
 
 struct aiMaterial;
 struct aiMesh;
@@ -25,12 +24,15 @@ struct aiScene;
 
 namespace cross{
 
+/* Loading 3D assets helper class */
 class Graphics3D{
 public:
 	Graphics3D();
 	~Graphics3D();
 
+	/* Loads only one mesh from file */
 	Mesh* LoadMesh(const string& filename);
+	/* Loads whole file in Cross 3D structures */ 
 	Model* LoadModel(const string& filename);
 
 protected:

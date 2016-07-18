@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics3D.h"
+#include "GraphicsGL.h"
+#include "VertexBuffer.h"
 #include "Launcher.h"
 #include "Mesh.h"
 #include "File.h"

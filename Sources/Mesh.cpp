@@ -15,12 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
+#include "VertexBuffer.h"
+#include "Shaders/Shader.h"
+#include "Material.h"
 #include "Game.h"
 #include "Scene.h"
 #include "Camera.h"
-#include "Material.h"
 #include "Texture.h"
-#include "Shaders/Shader.h"
 
 using namespace cross;
 
