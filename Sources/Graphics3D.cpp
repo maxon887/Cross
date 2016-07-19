@@ -26,6 +26,8 @@
 #include "Texture.h"
 #include "Material.h"
 
+#include <algorithm>
+
 #define SWIG
 
 #include "Libs/Assimp/Importer.hpp"
@@ -198,7 +200,9 @@ Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const 
 	}
 	aiString textureName;
 	material->GetTexture((aiTextureType)type, 0, &textureName);
-	string filename = modelFilePath + "/"+ string(textureName.C_Str());
+	std::string stdName = textureName.C_Str();
+	std::transform(stdName.begin(), stdName.end(), stdName.begin(), ::tolower);
+	string filename = modelFilePath + "/"+ stdName;
 	Texture* texture = gfx2D->LoadTexture(filename);
 	return texture;
 }
