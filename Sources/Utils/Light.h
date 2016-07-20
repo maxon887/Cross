@@ -34,7 +34,9 @@ public:
 	Color GetColor() const;
 	void SetColor(const Color& color);
 	Type GetType() const;
+	void SetLinearAttenaution(float attenaution);
 	float GetLinearAttenaution() const;
+	void SetQuadraticAttenaution(float attenaution);
 	float GetQuadraticAttenaution() const;
 	void SetCutOff(float cut_off);
 	float GetCutOff() const;

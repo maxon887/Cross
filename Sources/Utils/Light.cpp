@@ -38,8 +38,16 @@ Light::Type Light::GetType() const{
 	return type;
 }
 
+void Light::SetLinearAttenaution(float attenaution){
+	linear_attenaution = attenaution;
+}
+
 float Light::GetLinearAttenaution() const{
 	return linear_attenaution;
+}
+
+void Light::SetQuadraticAttenaution(float attenaution){
+	quadratic_attenaution = attenaution;
 }
 
 float Light::GetQuadraticAttenaution() const{

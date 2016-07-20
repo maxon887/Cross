@@ -26,6 +26,7 @@
 void CamaroScene::Start(){
 	CCScene::Start();
 	DrawLights(true);
+	SetAmbientColor(Color(0.05f, 0.05f, 0.05f));
 	SetOrbitDistance(60.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.3DS");
 	camaro->SetShader(gfxGL->GetShader(DefaultShader::MULTI_LIGHT));
