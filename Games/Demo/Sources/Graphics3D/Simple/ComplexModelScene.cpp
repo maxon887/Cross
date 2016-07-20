@@ -22,17 +22,17 @@
 void ComplexModelScene::Start(){
 	CCScene::Start();
 	SetOrbitDistance(60.f);
-	warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.3ds");
-	warrior->SetShader(gfxGL->GetShader(DefaultShader::TEXTURE));
-	warrior->SetRotateX(-90.f);
+	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.3ds");
+	camaro->SetShader(gfxGL->GetShader(DefaultShader::TEXTURE));
+	camaro->SetRotateX(-90.f);
 }
 
 void ComplexModelScene::Stop(){
-	delete warrior;
+	delete camaro;
 	CCScene::Stop();
 }
 
 void ComplexModelScene::Update(float sec){
-	warrior->Draw();
+	camaro->Draw();
 	CCScene::Update(sec);
 }

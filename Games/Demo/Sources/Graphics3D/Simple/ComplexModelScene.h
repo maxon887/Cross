@@ -23,5 +23,5 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Model* warrior;
+	Model* camaro;
 };
