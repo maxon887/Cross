@@ -73,6 +73,7 @@ private:
 	void OnPointLightClick();
 	void OnSpotLightClick();
 	void OnMultiLightClick();
+	void OnCamaroClick();
 	//graphics 3d advanced
 	void OnDepthTestClick();
 };

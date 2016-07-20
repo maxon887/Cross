@@ -87,13 +87,13 @@ void Mesh::Draw(const Matrix& globalModel){
 	}
 
 	if(shader->uModelMatrix != -1){
-		Matrix model = GetModelMatrix();
+		Matrix model = GetModelMatrix() * globalModel;
 		model = model.Transpose();
 		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.GetData()));
 	}
 
 	if(shader->uNormalMatrix != -1){
-		Matrix normal = GetModelMatrix().Inverse();
+		Matrix normal = (GetModelMatrix() * globalModel).Inverse();
 		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normal.GetData()));
 	}
 

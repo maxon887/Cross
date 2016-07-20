@@ -30,6 +30,7 @@
 #include "Graphics3D/Light/PointLightScene.h"
 #include "Graphics3D/Light/SpotLightScene.h"
 #include "Graphics3D/Light/MultiLightScene.h"
+#include "Graphics3D/Light/CamaroScene.h"
 #include "Graphics3D/Simple/ComplexModelScene.h"
 //#include "Graphics3D/DepthTestScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
@@ -124,6 +125,7 @@ void MainScreen::Start(){
 	Button* pointLightBtn			= new Button("Point Light");
 	Button* spotLightBtn			= new Button("Spot Light");
 	Button* multiLightBtn			= new Button("Multi-Ligth");
+	Button* camaroBtn				= new Button("Camaro");
 	specularBtn->SetImages(button_sprite->Clone());
 	diffuseMap->SetImages(button_sprite->Clone());
 	diffuseSpecularMapBtn->SetImages(button_sprite->Clone());
@@ -131,6 +133,7 @@ void MainScreen::Start(){
 	pointLightBtn->SetImages(button_sprite->Clone());
 	spotLightBtn->SetImages(button_sprite->Clone());
 	multiLightBtn->SetImages(button_sprite->Clone());
+	camaroBtn->SetImages(button_sprite->Clone());
 	specularBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
 	diffuseMap->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseMapClick);
 	diffuseSpecularMapBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseSpecularMapClick);
@@ -138,6 +141,7 @@ void MainScreen::Start(){
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
 	spotLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpotLightClick);
 	multiLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnMultiLightClick);
+	camaroBtn->Clicked += MakeDelegate(this, &MainScreen::OnCamaroClick);
 	graphics3D_light->AddButton(specularBtn);
 	graphics3D_light->AddButton(diffuseMap);
 	graphics3D_light->AddButton(diffuseSpecularMapBtn);
@@ -145,6 +149,7 @@ void MainScreen::Start(){
 	graphics3D_light->AddButton(pointLightBtn);
 	graphics3D_light->AddButton(spotLightBtn);
 	graphics3D_light->AddButton(multiLightBtn);
+	graphics3D_light->AddButton(camaroBtn);
 
 	graphics3D_advanced = new Menu(false);
 	Button* depthTestBtn			= new Button("Depth Test");
@@ -321,6 +326,10 @@ void MainScreen::OnSpotLightClick(){
 
 void MainScreen::OnMultiLightClick(){
 	next_scene = new MultiLightScene();
+}
+
+void MainScreen::OnCamaroClick(){
+	next_scene = new CamaroScene();
 }
 
 void MainScreen::OnDepthTestClick(){

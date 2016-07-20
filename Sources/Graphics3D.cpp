@@ -185,7 +185,17 @@ void Graphics3D::LoadMeshes(Model* model){
 		Material* crossMaterial = new Material(matName.C_Str());
 		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, model->GetFilePath());
 		crossMaterial->SetDiffuseTexture(diffuseTexture);
+		Texture* specularTexture = LoadTexture(material, aiTextureType_SHININESS, model->GetFilePath());
+		crossMaterial->SetSpecularTexture(specularTexture);
 		model->AddMaterial(crossMaterial);
+		/*
+		for(int i = 0; i <= aiTextureType_UNKNOWN; i++){
+			Texture* texture = LoadTexture(material, i, model->GetFilePath());
+			if(texture){
+				int j =0;
+				j++;
+			}
+		}*/
 	}
 
 	ProcessNode(model, current_scene->mRootNode);

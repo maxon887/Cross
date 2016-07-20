@@ -129,6 +129,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\LightShader.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\LightShader.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.h" />
