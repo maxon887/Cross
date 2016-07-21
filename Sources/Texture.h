@@ -21,13 +21,20 @@ namespace cross{
 
 class Texture{
 public:
-	enum Filter{
+	enum class Filter{
 		NEAREST,
 		LINEAR,
 		BILINEAR,
 		TRILINEAR,
 		NONE
 	};
+	enum class TilingMode{
+		CLAMP_TO_EDGE,
+		REPEAT,
+		NONE
+	};
+
+	static const TilingMode default_tiling_mode = TilingMode::CLAMP_TO_EDGE;
 
 	Texture(GLuint id, int width, int height);
 	Texture(GLuint id, int width, int height, Filter filter);
@@ -39,6 +46,8 @@ public:
 	Texture* Clone() const;
 	void SetName(const string& name);
 	string GetName();
+	void SetTilingMode(TilingMode mode);
+
 private:
 	string name;
 	GLuint id;

@@ -25,5 +25,6 @@ public:
 private:
 	MultiLightShader* shader;
 	Model* camaro;
+	Model* road;
 	Light* light;
 };

@@ -109,9 +109,8 @@ void main(){
 	vec3 result = vec3(0.0);
 	
 	vec3 diffuseColor = vec3(texture2D(uDiffuseTexture, vTexCoords));
-	vec3 specularColor = vec3(texture2D(uSpecularTexture, vTexCoords)) * 4.0;
-	float shininess = vec3(texture2D(uShininessTexture, vTexCoords)).r * 128.0;
-	//shininess = 1.0;
+	vec3 specularColor = vec3(texture2D(uSpecularTexture, vTexCoords)) * 4.0;// * 4.0;
+	float shininess = vec3(texture2D(uShininessTexture, vTexCoords)).r * 128.0;// * 128.0;
 	
 	result += diffuseColor * uAmbientLight;
 	

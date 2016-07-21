@@ -21,6 +21,8 @@
 #include "Utils/Light.h"
 #include "Shaders/MultiLightShader.h"
 #include "Game.h"
+#include "Material.h"
+#include "Texture.h"
 
 #include <math.h>
 
@@ -28,18 +30,21 @@ void CamaroScene::Start(){
 	CCScene::Start();
 	DrawLights(true);
 	SetAmbientColor(Color(0.05f, 0.05f, 0.05f));
+	SetCameraViewDistance(500.f);
+	SetBackground(Color::Black);
 	SetOrbitDistance(60.f);
 
 	shader = new MultiLightShader("gfx3D/Camaro/camaro.vert", "gfx3D/Camaro/camaro.frag");
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.3DS");
 	camaro->SetShader(shader);
 	camaro->SetRotateX(-90.f);
+	
+	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
+	road->SetShader(gfxGL->GetShader(DefaultShader::MULTI_LIGHT));
+	road->GetMaterial(0)->GetDiffuseTexture()->SetTilingMode(Texture::TilingMode::REPEAT);
+	road->SetRotateX(-90.f);
 	//lights
 	light = new Light(Light::Type::POINT);
-	//light = new Light(Light::DIRECTIONAL);
-	//light->SetDirection(Vector3D(0.f, -1.f, 0.f));
-	//light->SetLinearAttenaution(0.005f);
-	//light->SetQuadraticAttenaution(0.0001f);
 	AddLight(light);
 }
 
@@ -51,6 +56,7 @@ void CamaroScene::Stop(){
 
 void CamaroScene::Update(float sec){
 	camaro->Draw();
+	road->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*23.f, 12.f, sin(game->GetRunTime() / 2.f)*23.f));
 	CCScene::Update(sec);
 }

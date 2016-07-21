@@ -57,31 +57,47 @@ string Texture::GetName(){
 	return name;
 }
 
+void Texture::SetTilingMode(Texture::TilingMode mode){
+	SAFE(glBindTexture(GL_TEXTURE_2D, id));
+	switch(mode) {
+	case cross::Texture::TilingMode::CLAMP_TO_EDGE:
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+		break;
+	case cross::Texture::TilingMode::REPEAT:
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+		break;
+	default:
+		throw CrossException("Unknown tiling mode");
+	}
+}
+
 Texture* Texture::Clone() const{
 	return new Texture(*this);
 }
 
 void Texture::ApplyFilter(Filter filter){
 	switch(filter){
-	case cross::Texture::NEAREST:
+	case cross::Texture::Filter::NEAREST:
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
 		break;
-	case cross::Texture::LINEAR:
+	case cross::Texture::Filter::LINEAR:
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
-	case cross::Texture::BILINEAR:
+	case cross::Texture::Filter::BILINEAR:
 		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
-	case cross::Texture::TRILINEAR:
+	case cross::Texture::Filter::TRILINEAR:
 		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
-	case cross::Texture::NONE:
+	case cross::Texture::Filter::NONE:
 		break;
 	default:
 		throw CrossException("Wrong texture filter type");

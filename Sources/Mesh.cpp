@@ -125,6 +125,12 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
 		SAFE(glUniform1i(shader->uSpecularTexture, 1));
 	}
+	if(shader->uShininessTexture != -1){
+		Texture* texture = material->GetShininessTexture();
+		SAFE(glActiveTexture(GL_TEXTURE2));
+		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
+		SAFE(glUniform1i(shader->uShininessTexture, 2));
+	}
 
 	if(shader->uAmbientLight != -1){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));

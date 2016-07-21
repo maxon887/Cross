@@ -27,6 +27,7 @@ public:
 	virtual void Update(float sec);
 	virtual void Stop();
 
+	void SetCameraViewDistance(float distance);
 	void DrawLights(bool enabled);
 	void AddLight(Light* light);
 	CRArray<Light*>& GetLights();

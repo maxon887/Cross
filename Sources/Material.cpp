@@ -32,6 +32,7 @@ Material::Material(Shader* shader) :
 	shininess(0.5f),
 	diffuse_texture(nullptr),
 	specular_texture(nullptr),
+	shininess_texture(nullptr),
 	name("")
 { }
 
@@ -75,6 +76,10 @@ void Material::SetSpecularTexture(Texture* specular){
 	specular_texture = specular;
 }
 
+void Material::SetShininessTexture(Texture* shininess){
+	shininess_texture = shininess;
+}
+
 void Material::SetShininess(float snininess){
 	this->shininess = shininess;
 }
@@ -104,6 +109,14 @@ Texture* Material::GetSpecularTexture(){
 		return specular_texture;
 	}else{
 		throw CrossException("Current material does not have specular texture");
+	}
+}
+
+Texture* Material::GetShininessTexture(){
+	if(shininess_texture){
+		return shininess_texture;
+	}else{
+		throw CrossException("Current material does not have shininess(gross) texture");
 	}
 }
 

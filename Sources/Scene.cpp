@@ -81,6 +81,11 @@ void Scene::Stop(){
 	Screen::Stop();
 }
 
+void Scene::SetCameraViewDistance(float distance){
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, distance);
+	camera->SetProjectionMatrix(projection);
+}
+
 void Scene::DrawLights(bool enabled){
 	if(enabled && !light_drawing){
 		light_material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
