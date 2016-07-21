@@ -19,6 +19,7 @@
 #include "Graphics3D.h"
 #include "Model.h"
 #include "Utils/Light.h"
+#include "Shaders/MultiLightShader.h"
 #include "Game.h"
 
 #include <math.h>
@@ -28,16 +29,23 @@ void CamaroScene::Start(){
 	DrawLights(true);
 	SetAmbientColor(Color(0.05f, 0.05f, 0.05f));
 	SetOrbitDistance(60.f);
+
+	shader = new MultiLightShader("gfx3D/Camaro/camaro.vert", "gfx3D/Camaro/camaro.frag");
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.3DS");
-	camaro->SetShader(gfxGL->GetShader(DefaultShader::MULTI_LIGHT));
+	camaro->SetShader(shader);
 	camaro->SetRotateX(-90.f);
 	//lights
 	light = new Light(Light::Type::POINT);
+	//light = new Light(Light::DIRECTIONAL);
+	//light->SetDirection(Vector3D(0.f, -1.f, 0.f));
+	//light->SetLinearAttenaution(0.005f);
+	//light->SetQuadraticAttenaution(0.0001f);
 	AddLight(light);
 }
 
 void CamaroScene::Stop(){
 	delete camaro;
+	delete shader;
 	CCScene::Stop();
 }
 

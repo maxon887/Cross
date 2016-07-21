@@ -23,6 +23,7 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
+	MultiLightShader* shader;
 	Model* camaro;
 	Light* light;
 };

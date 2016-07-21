@@ -36,6 +36,7 @@ public:
 	GLint uShininess;
 	GLint uDiffuseTexture;
 	GLint uSpecularTexture;
+	GLint uShininessTexture;
 	GLint uAmbientLight;
 
 	Shader(const string& vertexFile, const string& fragmentFile);

@@ -65,6 +65,7 @@ public:
 	SpotLight uSpotLights[MaxSpotLights];
 
 	MultiLightShader();
+	MultiLightShader(const string& vert, const string& frag);
 
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);

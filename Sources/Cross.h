@@ -64,6 +64,7 @@ class Model;
 class Texture;
 class Scene;
 class Shader;
+class MultiLightShader;
 class Light;
 
 extern Game* game;

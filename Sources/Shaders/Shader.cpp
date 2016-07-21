@@ -39,6 +39,7 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	uShininess = glGetUniformLocation(program, "uShininess");
 	uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
 	uSpecularTexture = glGetUniformLocation(program, "uSpecularTexture");
+	uShininessTexture = glGetUniformLocation(program, "uShininessTexture");
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");

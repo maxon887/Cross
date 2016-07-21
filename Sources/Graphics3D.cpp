@@ -94,6 +94,9 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 		Mesh* crMesh = ProcessMesh(aiMesh);
 		if(model->GetFormat() == Model::Format::FBX){
 			crMesh->SetModelMatrix(current_translation * current_rotation * current_scaling * current_geotranslation);
+			current_translation = Matrix::CreateIdentity();
+			current_rotation = Matrix::CreateIdentity();
+			current_scaling = Matrix::CreateIdentity();
 			current_geotranslation = Matrix::CreateIdentity();
 		}else{
 			Matrix modelMat = Matrix::CreateZero();
@@ -188,14 +191,14 @@ void Graphics3D::LoadMeshes(Model* model){
 		Texture* specularTexture = LoadTexture(material, aiTextureType_SHININESS, model->GetFilePath());
 		crossMaterial->SetSpecularTexture(specularTexture);
 		model->AddMaterial(crossMaterial);
-		/*
+		
 		for(int i = 0; i <= aiTextureType_UNKNOWN; i++){
 			Texture* texture = LoadTexture(material, i, model->GetFilePath());
 			if(texture){
 				int j =0;
 				j++;
 			}
-		}*/
+		}
 	}
 
 	ProcessNode(model, current_scene->mRootNode);

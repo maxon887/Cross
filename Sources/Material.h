@@ -31,12 +31,14 @@ public:
 	void SetShininess(float shininess);
 	void SetDiffuseTexture(Texture* texture);
 	void SetSpecularTexture(Texture* texture);
+	void SetShininessTexture(Texture* shininess);
 
 	Color GetDiffuseColor();
 	Color GetSpecularColor();
 	float GetShininess();
 	Texture* GetDiffuseTexture();
 	Texture* GetSpecularTexture();
+	Texture* GetShininessTexture();
 
 	bool HasDiffuseTexture();
 
@@ -51,6 +53,7 @@ private:
 	float shininess;
 	Texture* diffuse_texture;
 	Texture* specular_texture;
+	Texture* shininess_texture;
 
 	Material(Material& obj);
 };

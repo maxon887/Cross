@@ -20,7 +20,11 @@
 using namespace cross;
 
 MultiLightShader::MultiLightShader() :
-	Shader("Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
+	MultiLightShader("Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
+{ }
+
+MultiLightShader::MultiLightShader(const string& vert, const string& frag) :
+	Shader(vert, frag)
 {
 
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
