@@ -46,6 +46,7 @@ public:
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
 	void ReleaseTexture(const string& filename, GLuint* id);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
+	Texture* CreateTexture(int channels, int width, int height, Texture::Filter filter);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter);
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();

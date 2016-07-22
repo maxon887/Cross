@@ -27,6 +27,7 @@ Demo* demo = nullptr;
 Demo::Demo(Launcher* launcher) : Game() { }
 
 void Demo::Start(){
+	Game::Start();
 	launcher->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
@@ -35,6 +36,7 @@ void Demo::Start(){
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::UPDATE_TIME);
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::RUN_TIME);
 	Debugger::Instance()->EnableDebug(Debugger::Parameter::RENDER_TIME);
+	Debugger::Instance()->EnableDebug(Debugger::Parameter::INPUT);
 //#endif 
 
 	camera = new Camera2D();
@@ -51,6 +53,7 @@ void Demo::Stop(){
 		delete pair.second;
 	}
 	delete common_texture;
+	Game::Stop();
 }
 
 Screen* Demo::GetStartScreen(){

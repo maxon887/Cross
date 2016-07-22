@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SpecularScene.h"
+#include "Game.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Mesh.h"
@@ -23,7 +24,8 @@
 
 void SpecularScene::Start(){
 	CCScene::Start();
-	
+	DrawLights(true);
+	SetCameraViewDistance(500.f);
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
@@ -36,6 +38,10 @@ void SpecularScene::Start(){
 	material->SetDiffuseColor(Color::Red);
 	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
+
+	cube->SetPosition(Vector3D(1.0f, 2.0f, -1.0f));
+	cube->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
+	//cube->SetScale(Vector3D(0.5f, 1.0f, 1.0f));
 }
 
 void SpecularScene::Stop(){
@@ -47,5 +53,6 @@ void SpecularScene::Stop(){
 
 void SpecularScene::Update(float sec){
 	cube->Draw();
+	cube->SetRotateY(game->GetRunTime() * 15.f);
 	CCScene::Update(sec);
 }

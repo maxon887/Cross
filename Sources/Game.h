@@ -33,7 +33,7 @@ public:
 	Game();
 	virtual ~Game();
 	/* Cause when game is about to start */
-	virtual void Start() { };
+	virtual void Start();
 	/* Cause when game is about to stop */
 	virtual void Stop() { };
 	/* Update game every frame. Must be call from overided virsion either */

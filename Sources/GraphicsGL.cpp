@@ -15,6 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
+#include "Graphics2D.h"
+#include "Camera2D.h"
+#include "Sprite.h"
 #include "Launcher.h"
 #include "Game.h"
 #include "File.h"
@@ -47,15 +50,16 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 		default: strcpy(error, "Unknown error");  
 			break;
 		}
-		//launcher->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
-		throw CrossException("OpenGL error: %s in %s : %d", error, file, line);
-		//delete[] error;
-		//err = glGetError();
+		launcher->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
+		//throw CrossException("OpenGL error: %s in %s : %d", error, file, line);
+		delete[] error;
+		err = glGetError();
 }
 }
 
 GraphicsGL::GraphicsGL() :
-	shaders(DefaultShader::NONE)	//create place holders for NONE shaders
+	shaders(DefaultShader::NONE),	//create place holders for NONE shaders
+	off_screen_rendering(true)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 #if defined (WIN) && defined(OPENGL)
@@ -91,6 +95,56 @@ GraphicsGL::~GraphicsGL(){
 	for(Shader* shader : shaders){
 		delete shader;
 	}
+}
+
+void GraphicsGL::Start(){
+	if(off_screen_rendering){
+			SAFE(glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_framebuffer));
+
+			SAFE(glGenFramebuffers(1, &framebuffer));
+			texture = gfx2D->CreateTexture(4, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f, Texture::Filter::LINEAR);
+			SAFE(glGenRenderbuffers(1, &depthbuffer));
+
+			SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
+			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0));
+
+			SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
+			SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f));
+
+			SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
+			SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture->GetID(), 0));
+			SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
+		}
+}
+
+void GraphicsGL::PreProcessFrame(){
+	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
+	SAFE(glViewport(0, 0, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f));
+}
+
+void GraphicsGL::PostProcessFrame(){
+	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, default_framebuffer));
+	SAFE(glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight()));
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	Sprite sprite(texture, Rect(Vector2D(0.f, 0.f), texture->GetWidth(), texture->GetHeight()));
+	//sprite.SetScale(3.f);
+	//sprite.SetPosition(Vector2D(launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f));
+	Vector2D position(launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f);
+	float scaleFactor = launcher->GetTargetWidth() / gfx2D->GetCamera()->GetViewWidth();
+	position /= scaleFactor;
+	sprite.SetPosition(position);
+	sprite.SetScale(2.f / scaleFactor);
+	sprite.SetRotateX(180.f);
+	//sprite.SetRotateY(180.f);
+	//sprite.SetRotate(180.f);
+	gfx2D->DrawSprite(&sprite);
+
+
 }
 
 Shader* GraphicsGL::GetShader(DefaultShader type){

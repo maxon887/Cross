@@ -280,7 +280,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 	CRByte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	if(image == NULL){
-		throw CrossException("SOIL can't convert file:\n Pay attention on image color channels");
+		throw CrossException("SOL can't convert file:\n Pay attention on image color channels");
 	}
 	int newWidth = 1;
 	int newHeight = 1;
@@ -319,6 +319,32 @@ Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int he
 	return CreateTexture(data, channels, width, height, Texture::Filter::LINEAR);
 }
 
+Texture* Graphics2D::CreateTexture(int channels, int width, int height, Texture::Filter filter){
+	GLuint id;
+	SAFE(glGenTextures(1, &id));
+	SAFE(glBindTexture(GL_TEXTURE_2D, id));
+	switch(channels) {
+	case 1:
+		SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0));
+		break;
+	case 3:
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0));
+		break;
+	case 4:
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0));
+		break;
+	default:
+		throw CrossException("Wrong texture channel count");
+	}
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
+	Texture* texture = new Texture(id, width, height, filter);
+	return texture;
+}
+
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter){
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
@@ -339,8 +365,6 @@ Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int he
 	}
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-	//SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-	//SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 	Texture* texture = new Texture(id, width, height, filter);

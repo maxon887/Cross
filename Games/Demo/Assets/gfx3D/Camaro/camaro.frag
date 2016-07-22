@@ -32,7 +32,6 @@ struct SpotLight{
 uniform sampler2D uDiffuseTexture;
 uniform sampler2D uSpecularTexture;
 uniform sampler2D uShininessTexture;
-//uniform float uShininess;
 
 uniform int uPointLightCount;
 uniform PointLight uPointLights[MAX_POINT_LIGHTS];
@@ -69,7 +68,6 @@ vec3 CalcPointLight(PointLight light, vec3 diffuseColor, vec3 specularColor, flo
 }
 
 vec3 CalcDirectionalLight(DirectionalLight light, vec3 diffuseColor, vec3 specularColor, float shininess){
-	//ambient
 	//diffuse
 	vec3 lightDirection = normalize(-light.direction);
 	float diffEffect = max(dot(vNormal, lightDirection), 0.0);

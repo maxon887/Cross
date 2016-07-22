@@ -49,6 +49,7 @@ void CamaroScene::Start(){
 }
 
 void CamaroScene::Stop(){
+	delete road;
 	delete camaro;
 	delete shader;
 	CCScene::Stop();

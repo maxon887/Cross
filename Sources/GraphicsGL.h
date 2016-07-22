@@ -65,11 +65,21 @@ public:
 	GraphicsGL();
 	~GraphicsGL();
 
+	void Start();
+
+	void PreProcessFrame();
+	void PostProcessFrame();
+
 	void UseShader(Shader* shaders);
 	Shader* GetShader(DefaultShader type);
 
 private:
 	CRArray<Shader*> shaders;
+	bool off_screen_rendering;
+	GLint default_framebuffer;
+	GLuint framebuffer;
+	Texture* texture;
+	GLuint depthbuffer;
 
 	void WindowResizeHandle(int width, int height);
 };

@@ -21,13 +21,12 @@ void main() {
 	//ambient
 	vec3 ambient = uAmbientLight * uColor;
 	//diffuse
-	vec3 normal = normalize(vNormal);
 	vec3 lightDirection = normalize(uLight.position - vFragPosition);
-	float diffEffect = max(dot(normal, lightDirection), 0.0);
+	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
 	vec3 diffuse = uLight.color * uColor * diffEffect;
 	//specular
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
-	vec3 reflectDirection = reflect(-lightDirection, normal);
+	vec3 reflectDirection = reflect(-lightDirection, vNormal);
 	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uShininess);
 	vec3 specular = uLight.color * uSpecularColor * specEffect;
 	vec3 result = ambient + diffuse + specular;
