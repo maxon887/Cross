@@ -82,7 +82,7 @@ void VertexBuffer::NarmalsEnabled(bool enabled){
 	normals_enabled = enabled;
 }
 
-void VertexBuffer::PushData(CRByte* bytes, unsigned int size){
+void VertexBuffer::PushData(const CRByte* bytes, unsigned int size){
 	data.insert(data.end(), bytes, bytes+size);
 }
 

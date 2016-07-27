@@ -33,7 +33,7 @@ public:
 
 	void UVEnabled(bool enabled);
 	void NarmalsEnabled(bool enabled);
-	void PushData(CRByte* data, unsigned int size);
+	void PushData(const CRByte* data, unsigned int size);
 	CRByte* GetData();
 	unsigned int GetDataSize();
 	void Free();

@@ -37,7 +37,8 @@
 #include <GLES2/gl2platform.h>
 #endif
 
-#ifdef CROSS_DEBUG
+//doesn't properly work for windows emulator
+#if defined(CROSS_DEBUG) && !defined(GLES)
 #define SAFE(X) \
 {\
 	(X);      \
@@ -75,11 +76,13 @@ public:
 
 private:
 	CRArray<Shader*> shaders;
+	//off screen rendering components
 	bool off_screen_rendering;
-	GLint default_framebuffer;
 	GLuint framebuffer;
-	Texture* texture;
+	GLuint colorbuffer;
 	GLuint depthbuffer;
+	GLuint quadVBO;
+	GLuint quadEBO;
 
 	void WindowResizeHandle(int width, int height);
 };
