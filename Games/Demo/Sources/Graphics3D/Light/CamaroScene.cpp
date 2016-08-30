@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "CamaroScene.h"
 #include "GraphicsGL.h"
+#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Model.h"
 #include "Utils/Light.h"
@@ -35,13 +36,28 @@ void CamaroScene::Start(){
 	SetOrbitDistance(60.f);
 
 	shader = new MultiLightShader("gfx3D/Camaro/camaro.vert", "gfx3D/Camaro/camaro.frag");
-	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.3DS");
-	camaro->SetShader(shader);
-	camaro->SetRotateX(-90.f);
+	Material* carMaterial = new Material(shader);
+	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
+	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/Camaro/specular.jpg");
+	Texture* shininessTexture = gfx2D->LoadTexture("gfx3D/Camaro/shininess.jpg");
+	carMaterial->SetDiffuseTexture(diffuseTexture);
+	carMaterial->SetSpecularTexture(specularTexture);
+	carMaterial->SetShininessTexture(shininessTexture);
+	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	camaro->SetMaterial(carMaterial);
 	
 	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
-	road->SetShader(gfxGL->GetShader(DefaultShader::MULTI_LIGHT));
-	road->GetMaterial(0)->GetDiffuseTexture()->SetTilingMode(Texture::TilingMode::REPEAT);
+	Shader* roadShader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	Material* roadMaterial = new Material(roadShader);
+	Texture* roadDiffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg");
+	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
+	Texture* roadSpecular = gfx2D->LoadTexture("gfx3D/Road/specular.jpg");
+	roadSpecular->SetTilingMode(Texture::TilingMode::REPEAT);
+	roadMaterial->SetDiffuseTexture(roadDiffuse);
+	roadMaterial->SetSpecularTexture(roadSpecular);
+	road->SetMaterial(roadMaterial);
+	//road->SetShader(gfxGL->GetShader(DefaultShader::MULTI_LIGHT));
+	//road->GetMaterial(0)->GetDiffuseTexture()->SetTilingMode(Texture::TilingMode::REPEAT);
 	road->SetRotateX(-90.f);
 	//lights
 	light = new Light(Light::Type::POINT);

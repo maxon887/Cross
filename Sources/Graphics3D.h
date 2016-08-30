@@ -48,7 +48,7 @@ protected:
 	Mesh* ProcessMesh(aiMesh* mesh);
 	void LoadMeshes(Model* model);
 
-	Texture* LoadTexture(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
+	//Texture* LoadTexture(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
 
 };
 

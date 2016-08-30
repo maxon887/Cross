@@ -103,9 +103,9 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
 			crMesh->SetModelMatrix(modelMat);
 		}
-
+		/*
 		Material* material = model->GetMaterial(aiMesh->mMaterialIndex);
-		crMesh->SetMaterial(material);
+		crMesh->SetMaterial(material);*/
 		model->AddMesh(crMesh);
 	}
 	if(model->GetFormat() == Model::Format::FBX){
@@ -179,7 +179,7 @@ void Graphics3D::LoadMeshes(Model* model){
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-
+	/*
 	for(unsigned int i = 0; i < current_scene->mNumMaterials; ++i){
 		aiMaterial* material = current_scene->mMaterials[i];
 		aiString matName;
@@ -201,11 +201,11 @@ void Graphics3D::LoadMeshes(Model* model){
 				j++;
 			}
 		}
-	}
+	}*/
 
 	ProcessNode(model, current_scene->mRootNode);
 }
-
+/*
 Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const string& modelFilePath){
 	if(material->GetTextureCount((aiTextureType)type) > 1){
 		throw CrossException("Multiple textures not supported");
@@ -220,4 +220,4 @@ Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const 
 	string filename = modelFilePath + "/"+ stdName;
 	Texture* texture = gfx2D->LoadTexture(filename);
 	return texture;
-}
+}*/

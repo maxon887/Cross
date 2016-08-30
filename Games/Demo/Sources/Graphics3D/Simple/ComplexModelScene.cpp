@@ -23,7 +23,7 @@ void ComplexModelScene::Start(){
 	CCScene::Start();
 	SetOrbitDistance(60.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.3ds");
-	camaro->SetShader(gfxGL->GetShader(DefaultShader::TEXTURE));
+	//camaro->SetShader(gfxGL->GetShader(DefaultShader::TEXTURE));
 	camaro->SetRotateX(-90.f);
 }
 

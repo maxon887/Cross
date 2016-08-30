@@ -4,14 +4,14 @@ android {
     compileSdkVersion 15
     buildToolsVersion "23.0.2"
     productFlavors {
-        arm {
-            ndk {
-                abiFilter "armeabi"
-            }
-        }
         armV7{
             ndk{
                 abiFilter "armeabi-v7a"
+            }
+        }
+        arm64V8{
+            ndk{
+                abiFilter "arm64-v8a"
             }
         }
         x86 {
