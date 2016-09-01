@@ -46,16 +46,16 @@ void LightShader::TransferLightData(const CRArray<Light*>& lights){
 		SAFE(glUniform3fv(uLightColor, 1, light->GetColor().GetData()));
 	}
 	if(uLightLinear != -1){
-		SAFE(glUniform1f(uLightLinear, light->GetLinearAttenaution()));
+		SAFE(glUniform1f(uLightLinear, light->GetIntensity()));
 	}
 	if(uLightQuadratic != -1){
-		SAFE(glUniform1f(uLightQuadratic, light->GetQuadraticAttenaution()));
+		SAFE(glUniform1f(uLightQuadratic, light->GetIntensity()));
 	}
 	if(uLightLinear != -1){
-		SAFE(glUniform1f(uLightLinear, light->GetLinearAttenaution()));
+		SAFE(glUniform1f(uLightLinear, light->GetIntensity()));
 	}
 	if(uLightQuadratic != -1){
-		SAFE(glUniform1f(uLightQuadratic, light->GetQuadraticAttenaution()));
+		SAFE(glUniform1f(uLightQuadratic, light->GetIntensity()));
 	}
 	if(uLightDirection != -1){
 		SAFE(glUniform3fv(uLightDirection, 1, light->GetDirection().GetData()));

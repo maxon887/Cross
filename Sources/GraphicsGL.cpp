@@ -57,7 +57,7 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 
 GraphicsGL::GraphicsGL() :
 	shaders(DefaultShader::NONE),	//create place holders for NONE shaders
-	off_screen_rendering(true)
+	off_screen_rendering(false)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 #if defined (WIN) && defined(OPENGL)

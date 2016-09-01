@@ -73,15 +73,15 @@ void MultiLightShader::TransferLightData(const CRArray<Light*>& lights){
 		case Light::Type::POINT:{
 			SAFE(glUniform3fv(uPointLights[pointCount].position, 1, light->GetPosition().GetData()));
 			SAFE(glUniform3fv(uPointLights[pointCount].color, 1, light->GetColor().GetData()));
-			SAFE(glUniform1f(uPointLights[pointCount].linear, light->GetLinearAttenaution()));
-			SAFE(glUniform1f(uPointLights[pointCount].quadratic, light->GetQuadraticAttenaution()));
+			SAFE(glUniform1f(uPointLights[pointCount].linear, light->GetIntensity()));
+			SAFE(glUniform1f(uPointLights[pointCount].quadratic, light->GetIntensity()));
 			pointCount++;
 		}break;
 		case Light::Type::SPOT:{
 			SAFE(glUniform3fv(uSpotLights[spotCount].position, 1, light->GetPosition().GetData()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
-			SAFE(glUniform1f(uSpotLights[spotCount].linear, light->GetLinearAttenaution()));
-			SAFE(glUniform1f(uSpotLights[spotCount].quadratic, light->GetQuadraticAttenaution()));
+			SAFE(glUniform1f(uSpotLights[spotCount].linear, light->GetIntensity()));
+			SAFE(glUniform1f(uSpotLights[spotCount].quadratic, light->GetIntensity()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetDirection().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, light->GetCutOff()));
 			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, light->GetOuterCutOff()));

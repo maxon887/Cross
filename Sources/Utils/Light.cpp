@@ -21,8 +21,7 @@ using namespace cross;
 Light::Light(Type type):
 	type(type),
 	color(Color::White),
-	linear_attenaution(0.014f),
-	quadratic_attenaution(0.0007f),
+	intensity(0.001f),
 	cut_off(30.f)
 { }
 
@@ -38,20 +37,12 @@ Light::Type Light::GetType() const{
 	return type;
 }
 
-void Light::SetLinearAttenaution(float attenaution){
-	linear_attenaution = attenaution;
+float Light::GetIntensity() const{
+	return intensity;
 }
 
-float Light::GetLinearAttenaution() const{
-	return linear_attenaution;
-}
-
-void Light::SetQuadraticAttenaution(float attenaution){
-	quadratic_attenaution = attenaution;
-}
-
-float Light::GetQuadraticAttenaution() const{
-	return quadratic_attenaution;
+void Light::SetIntensity(float inten){
+	intensity = inten;
 }
 
 void Light::SetCutOff(float cut_off){

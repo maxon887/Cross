@@ -34,10 +34,8 @@ public:
 	Color GetColor() const;
 	void SetColor(const Color& color);
 	Type GetType() const;
-	void SetLinearAttenaution(float attenaution);
-	float GetLinearAttenaution() const;
-	void SetQuadraticAttenaution(float attenaution);
-	float GetQuadraticAttenaution() const;
+	float GetIntensity() const;
+	void SetIntensity(float intensity);
 	void SetCutOff(float cut_off);
 	float GetCutOff() const;
 	float GetOuterCutOff() const;
@@ -45,9 +43,8 @@ public:
 protected:
 	Type type;
 	Color color;
+	float intensity;
 	float cut_off;
-	float linear_attenaution;
-	float quadratic_attenaution;
 };
 
 }
