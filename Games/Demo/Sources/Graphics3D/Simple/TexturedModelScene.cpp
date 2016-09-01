@@ -18,7 +18,7 @@
 #include "Graphics3D.h"
 #include "Graphics2D.h"
 #include "Material.h"
-#include "Mesh.h"
+#include "Model.h"
 
 void TexturedModelScene::Start() {
 	CCScene::Start();
@@ -26,7 +26,7 @@ void TexturedModelScene::Start() {
 	material = new Material(shader);
 	Texture* texture = gfx2D->LoadTexture("gfx3D/Box.png", Texture::Filter::TRILINEAR);
 	material->SetDiffuseTexture(texture);
-	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 

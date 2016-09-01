@@ -23,6 +23,6 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Mesh* cube;
+	Model* cube;
 	Material* material;
 };

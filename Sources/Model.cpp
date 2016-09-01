@@ -45,10 +45,7 @@ Model::~Model(){
 	if(original){
 		for(Mesh* mesh : meshes){
 			delete mesh;
-		}/*
-		for(Material* material : materials){
-			delete material;
-		}*/
+		}
 	}
 }
 
@@ -81,19 +78,16 @@ int Model::GetPolyCount(){
 void Model::AddMesh(Mesh* mesh){
 	meshes.push_back(mesh);
 }
-/*
-void Model::AddMaterial(Material* material){
-	materials.push_back(material);
-}*/
-/*
-Material* Model::GetMaterial(unsigned int index){
-	return materials[index];
-}*/
 
 void Model::SetMaterial(Material* mat){
+	material = mat;
 	for(Mesh* mesh : meshes){
 		mesh->SetMaterial(mat);
 	}
+}
+
+Material* Model::GetMaterial(){
+	return material;
 }
 
 Model* Model::Clone(){

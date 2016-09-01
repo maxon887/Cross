@@ -40,8 +40,8 @@ protected:
 	Camera* camera;
 	Color ambient_color;
 	bool light_drawing;
-	Mesh* point_light_mesh;
-	Mesh* spot_light_mesh;
+	Model* point_light;
+	Model* spot_light;
 	Material* light_material;
 	CRArray<Light*> lights;
 

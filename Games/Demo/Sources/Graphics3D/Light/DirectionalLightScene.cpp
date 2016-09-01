@@ -17,7 +17,7 @@
 #include "DirectionalLightScene.h"
 #include "Graphics3D.h"
 #include "Material.h"
-#include "Mesh.h"
+#include "Model.h"
 #include "Utils/Light.h"
 #include "Graphics3D/LightShader.h"
 #include "Graphics2D.h"
@@ -37,11 +37,11 @@ void DirectionalLightScene::Start(){
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	material->SetDiffuseTexture(diffuseTexture);
 	material->SetSpecularTexture(specularTexture);
-	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 
 	for(int i = 0; i < 10; ++i){
-		Mesh* clone = cube->Clone();
+		Model* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
@@ -49,7 +49,7 @@ void DirectionalLightScene::Start(){
 }
 
 void DirectionalLightScene::Stop(){
-	for(Mesh* clone : objects){
+	for(Model* clone : objects){
 		delete clone;
 	}
 	delete cube;
@@ -59,7 +59,7 @@ void DirectionalLightScene::Stop(){
 }
 
 void DirectionalLightScene::Update(float sec){
-	for(Mesh* obj : objects){
+	for(Model* obj : objects){
 		obj->Draw();
 	}
 	CCScene::Update(sec);

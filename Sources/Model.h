@@ -38,8 +38,8 @@ public:
 	int GetPolyCount();
 
 	void AddMesh(Mesh* mesh);
-	//Material* GetMaterial(unsigned int index);
 	void SetMaterial(Material* material);
+	Material* GetMaterial();
 
 	Model* Clone();
 
@@ -48,6 +48,7 @@ protected:
 	string filepath;
 	Format format;
 	CRArray<Mesh*> meshes;
+	Material* material;
 	bool original;
 
 	//Copy constructor

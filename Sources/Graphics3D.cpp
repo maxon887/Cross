@@ -52,17 +52,6 @@ Graphics3D::Graphics3D():
 Graphics3D::~Graphics3D(){
 }
 
-Mesh* Graphics3D::LoadMesh(const string& filename){
-	File* file = launcher->LoadFile(filename);
-	Assimp::Importer importer;
-	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate|aiProcess_FlipUVs);
-	delete file;
-	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
-		throw CrossException("Assimp Error: %s", importer.GetErrorString());
-	}
-	return ProcessNode(current_scene->mRootNode);
-}
-
 Model* Graphics3D::LoadModel(const string& filename){
 	Debugger::Instance()->StartCheckTime();
 	Model* model = new Model(filename);
@@ -71,21 +60,6 @@ Model* Graphics3D::LoadModel(const string& filename){
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
-}
-
-Mesh* Graphics3D::ProcessNode(aiNode* node){
-	for(unsigned int i = 0; i < node->mNumMeshes; i++){
-		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
-		Mesh* crMesh = ProcessMesh(aiMesh);
-		Matrix model = Matrix::CreateZero();
-		memcpy(model.m, &node->mTransformation.a1, sizeof(float) * 16);
-		crMesh->SetModelMatrix(model);
-		return crMesh;
-	}
-	for(unsigned int i = 0; i < node->mNumChildren; ++i){
-		return ProcessNode(node->mChildren[i]);
-	}
-	throw CrossException("Empty node");
 }
 
 void Graphics3D::ProcessNode(Model* model, aiNode* node){
@@ -103,9 +77,6 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
 			crMesh->SetModelMatrix(modelMat);
 		}
-		/*
-		Material* material = model->GetMaterial(aiMesh->mMaterialIndex);
-		crMesh->SetMaterial(material);*/
 		model->AddMesh(crMesh);
 	}
 	if(model->GetFormat() == Model::Format::FBX){
@@ -120,19 +91,16 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 				memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
 				current_translation = translation;
 			}
-			//return;
 		}
 		if(nodeName.find("Scaling") != std::string::npos){
 			Matrix scale = Matrix::CreateIdentity();
 			memcpy(scale.m, &node->mTransformation.a1, sizeof(float) * 16);
 			current_scaling = scale;
-			//return;
 		}
 		if(nodeName.find("Rotation") != std::string::npos){
 			Matrix rotation = Matrix::CreateIdentity();
 			memcpy(rotation.m, &node->mTransformation.a1, sizeof(float) * 16);
 			current_rotation = rotation;
-			//return;
 		}
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; ++i){
@@ -179,45 +147,5 @@ void Graphics3D::LoadMeshes(Model* model){
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-	/*
-	for(unsigned int i = 0; i < current_scene->mNumMaterials; ++i){
-		aiMaterial* material = current_scene->mMaterials[i];
-		aiString matName;
-		material->Get(AI_MATKEY_NAME, matName);
-		launcher->LogIt(matName.C_Str());
-		Material* crossMaterial = new Material(matName.C_Str());
-		Texture* diffuseTexture = LoadTexture(material, aiTextureType_DIFFUSE, model->GetFilePath());
-		crossMaterial->SetDiffuseTexture(diffuseTexture);
-		Texture* specularTexture = LoadTexture(material, aiTextureType_SPECULAR, model->GetFilePath());
-		crossMaterial->SetSpecularTexture(specularTexture);
-		Texture* shininessTexture = LoadTexture(material, aiTextureType_SHININESS, model->GetFilePath());
-		crossMaterial->SetShininessTexture(shininessTexture);
-		model->AddMaterial(crossMaterial);
-		
-		for(int i = 0; i <= aiTextureType_UNKNOWN; i++){
-			Texture* texture = LoadTexture(material, i, model->GetFilePath());
-			if(texture){
-				int j = 0;
-				j++;
-			}
-		}
-	}*/
-
 	ProcessNode(model, current_scene->mRootNode);
 }
-/*
-Texture* Graphics3D::LoadTexture(aiMaterial* material, unsigned int type, const string& modelFilePath){
-	if(material->GetTextureCount((aiTextureType)type) > 1){
-		throw CrossException("Multiple textures not supported");
-	}
-	if(material->GetTextureCount((aiTextureType)type) == 0){
-		return nullptr;
-	}
-	aiString textureName;
-	material->GetTexture((aiTextureType)type, 0, &textureName);
-	std::string stdName = textureName.C_Str();
-	std::transform(stdName.begin(), stdName.end(), stdName.begin(), ::tolower);
-	string filename = modelFilePath + "/"+ stdName;
-	Texture* texture = gfx2D->LoadTexture(filename);
-	return texture;
-}*/

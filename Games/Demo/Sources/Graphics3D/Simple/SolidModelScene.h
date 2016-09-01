@@ -24,5 +24,5 @@ public:
 	void Update(float sec);
 private:
 	Material* material;
-	Mesh* cube;
+	Model* cube;
 };

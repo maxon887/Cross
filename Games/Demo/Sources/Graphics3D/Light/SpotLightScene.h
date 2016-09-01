@@ -25,6 +25,6 @@ public:
 private:
 	Shader* shader;
 	Material* material;
-	Mesh* cube;
-	CRArray<Mesh*> objects;
+	Model* cube;
+	CRArray<Model*> objects;
 };

@@ -16,14 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SolidModelScene.h"
 #include "Graphics3D.h"
+#include "GraphicsGL.h"
 #include "Material.h"
-#include "Mesh.h"
+#include "Model.h"
 
 void SolidModelScene::Start(){
 	CCScene::Start();
 	material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
 	material->SetDiffuseColor(Color::Green);
-	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 

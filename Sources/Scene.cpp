@@ -20,8 +20,9 @@
 #include "Launcher.h"
 #include "Utils/Light.h"
 #include "Graphics3D.h"
+#include "GraphicsGL.h"
 #include "Material.h"
-#include "Mesh.h"
+#include "Model.h"
 
 using namespace cross;
 
@@ -29,8 +30,8 @@ Scene::Scene() :
 	Screen(),
 	ambient_color(Color(0.1f, 0.1f, 0.1f)),
 	light_drawing(false),
-	point_light_mesh(nullptr),
-	spot_light_mesh(nullptr)
+	point_light(nullptr),
+	spot_light(nullptr)
 { }
 
 void Scene::Start(){
@@ -50,16 +51,16 @@ void Scene::Update(float sec){
 			{
 			case Light::Type::POINT:
 			{
-				point_light_mesh->SetPosition(light->GetPosition());
-				point_light_mesh->GetMaterial()->SetDiffuseColor(light->GetColor());
-				point_light_mesh->Draw();
+				point_light->SetPosition(light->GetPosition());
+				point_light->GetMaterial()->SetDiffuseColor(light->GetColor());
+				point_light->Draw();
 			}break;
 			case Light::Type::SPOT:
 			{
-				spot_light_mesh->SetPosition(light->GetPosition());
-				spot_light_mesh->SetDirection(light->GetDirection());
-				spot_light_mesh->GetMaterial()->SetDiffuseColor(light->GetColor());
-				spot_light_mesh->Draw();
+				spot_light->SetPosition(light->GetPosition());
+				spot_light->SetDirection(light->GetDirection());
+				spot_light->GetMaterial()->SetDiffuseColor(light->GetColor());
+				spot_light->Draw();
 			}break;
 			default:
 				break;
@@ -76,8 +77,8 @@ void Scene::Stop(){
 	}
 	lights.clear();
 	delete light_material;
-	delete point_light_mesh;
-	delete spot_light_mesh;
+	delete point_light;
+	delete spot_light;
 	Screen::Stop();
 }
 
@@ -89,17 +90,17 @@ void Scene::SetCameraViewDistance(float distance){
 void Scene::DrawLights(bool enabled){
 	if(enabled && !light_drawing){
 		light_material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
-		point_light_mesh = gfx3D->LoadMesh("Engine/gfx3D/Sphere.obj");
-		point_light_mesh->SetScale(0.2f);
-		point_light_mesh->SetMaterial(light_material);
-		spot_light_mesh = gfx3D->LoadMesh("Engine/gfx3D/Cone.obj");
-		spot_light_mesh->SetScale(0.2f);
-		spot_light_mesh->SetMaterial(light_material);
+		point_light = gfx3D->LoadModel("Engine/gfx3D/Sphere.obj");
+		point_light->SetScale(0.2f);
+		point_light->SetMaterial(light_material);
+		spot_light = gfx3D->LoadModel("Engine/gfx3D/Cone.obj");
+		spot_light->SetScale(0.2f);
+		spot_light->SetMaterial(light_material);
 	}
 	if(!enabled){
 		delete light_material;
-		delete point_light_mesh;
-		delete spot_light_mesh;
+		delete point_light;
+		delete spot_light;
 	}
 	light_drawing = enabled;
 }

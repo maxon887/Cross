@@ -24,6 +24,6 @@ public:
 	virtual void Update(float sec);
 protected:
 	Material* material;
-	Mesh* cube;
-	CRArray<Mesh*> objects;
+	Model* cube;
+	CRArray<Model*> objects;
 };

@@ -54,6 +54,7 @@ Material::Material(Material& obj) :
 Material::~Material(){
 	delete diffuse_texture;
 	delete specular_texture;
+	delete shininess_texture;
 }
 
 void Material::SetShader(Shader* shader){

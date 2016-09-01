@@ -30,9 +30,6 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
-	/* Loads only one mesh from file */
-	Mesh* LoadMesh(const string& filename);
-	/* Loads whole file in Cross 3D structures */ 
 	Model* LoadModel(const string& filename);
 
 protected:
@@ -43,12 +40,9 @@ protected:
 	Matrix current_rotation;
 	Matrix current_scaling;
 
-	Mesh* ProcessNode(aiNode* node);
 	void ProcessNode(Model* model, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
 	void LoadMeshes(Model* model);
-
-	//Texture* LoadTexture(aiMaterial* material, unsigned int textureType, const string& modelFilePath);
 
 };
 

@@ -36,28 +36,26 @@ void CamaroScene::Start(){
 	SetOrbitDistance(60.f);
 
 	shader = new MultiLightShader("gfx3D/Camaro/camaro.vert", "gfx3D/Camaro/camaro.frag");
-	Material* carMaterial = new Material(shader);
+	car_mat = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/Camaro/specular.jpg");
 	Texture* shininessTexture = gfx2D->LoadTexture("gfx3D/Camaro/shininess.jpg");
-	carMaterial->SetDiffuseTexture(diffuseTexture);
-	carMaterial->SetSpecularTexture(specularTexture);
-	carMaterial->SetShininessTexture(shininessTexture);
+	car_mat->SetDiffuseTexture(diffuseTexture);
+	car_mat->SetSpecularTexture(specularTexture);
+	car_mat->SetShininessTexture(shininessTexture);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	camaro->SetMaterial(carMaterial);
+	camaro->SetMaterial(car_mat);
 	
 	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
 	Shader* roadShader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	Material* roadMaterial = new Material(roadShader);
+	road_mat = new Material(roadShader);
 	Texture* roadDiffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg");
 	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	Texture* roadSpecular = gfx2D->LoadTexture("gfx3D/Road/specular.jpg");
 	roadSpecular->SetTilingMode(Texture::TilingMode::REPEAT);
-	roadMaterial->SetDiffuseTexture(roadDiffuse);
-	roadMaterial->SetSpecularTexture(roadSpecular);
-	road->SetMaterial(roadMaterial);
-	//road->SetShader(gfxGL->GetShader(DefaultShader::MULTI_LIGHT));
-	//road->GetMaterial(0)->GetDiffuseTexture()->SetTilingMode(Texture::TilingMode::REPEAT);
+	road_mat->SetDiffuseTexture(roadDiffuse);
+	road_mat->SetSpecularTexture(roadSpecular);
+	road->SetMaterial(road_mat);
 	road->SetRotateX(-90.f);
 	//lights
 	light = new Light(Light::Type::POINT);
@@ -68,6 +66,8 @@ void CamaroScene::Stop(){
 	delete road;
 	delete camaro;
 	delete shader;
+	delete car_mat;
+	delete road_mat;
 	CCScene::Stop();
 }
 

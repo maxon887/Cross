@@ -18,7 +18,7 @@
 #include "Game.h"
 #include "Graphics3D.h"
 #include "Material.h"
-#include "Mesh.h"
+#include "Model.h"
 #include "Utils/Light.h"
 #include "Graphics3D/LightShader.h"
 
@@ -36,7 +36,7 @@ void SpecularScene::Start(){
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	material = new Material(shader);
 	material->SetDiffuseColor(Color::Red);
-	cube = gfx3D->LoadMesh("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 
 	cube->SetPosition(Vector3D(1.0f, 2.0f, -1.0f));
