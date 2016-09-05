@@ -17,7 +17,7 @@
    <widget class="SceneView" name="openGLWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>170</x>
       <y>50</y>
       <width>300</width>
       <height>200</height>

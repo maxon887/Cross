@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CROSSEDITOR_H
+#define CROSSEDITOR_H
 
 #include <QtWidgets/QMainWindow>
 #include "ui_CrossEditor.h"
@@ -14,3 +15,5 @@ public:
 private:
 	Ui::CrossEditorClass ui;
 };
+
+#endif // CROSSEDITOR_H
