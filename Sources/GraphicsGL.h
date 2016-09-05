@@ -35,6 +35,9 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <GLES2/gl2platform.h>
+#elif EDITOR
+#include "Platform\Windows\glew\glew.h"
+#include "Platform\Windows\glew\wglew.h"
 #endif
 
 //doesn't properly work for windows emulator
