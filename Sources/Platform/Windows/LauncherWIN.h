@@ -24,7 +24,7 @@ namespace cross{
 
 class LauncherWIN : public Launcher{
 public:
-	LauncherWIN(HWND wnd);
+	LauncherWIN(HWND wnd = 0);
 	~LauncherWIN();
 	int GetTargetWidth();
 	int GetTargetHeight();

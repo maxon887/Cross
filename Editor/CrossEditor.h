@@ -1,6 +1,8 @@
 #ifndef CROSSEDITOR_H
 #define CROSSEDITOR_H
 
+#include "GraphicsGL.h"
+
 #include <QtWidgets/QMainWindow>
 #include "ui_CrossEditor.h"
 

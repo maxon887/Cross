@@ -60,7 +60,7 @@ GraphicsGL::GraphicsGL() :
 	off_screen_rendering(false)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
-#if defined (WIN) && defined(OPENGL)
+#if defined (EDITOR) || defined(OPENGL)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);

@@ -13,11 +13,13 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -102,6 +104,7 @@
     <ClCompile Include="..\Sources\MemoryManager.cpp" />
     <ClCompile Include="..\Sources\Mesh.cpp" />
     <ClCompile Include="..\Sources\Model.cpp" />
+    <ClCompile Include="..\Sources\Platform\Windows\LauncherWIN.cpp" />
     <ClCompile Include="..\Sources\Quaternion.cpp" />
     <ClCompile Include="..\Sources\Rect.cpp" />
     <ClCompile Include="..\Sources\Scene.cpp" />
@@ -122,6 +125,7 @@
     <ClCompile Include="..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\Sources\Vector4D.cpp" />
     <ClCompile Include="..\Sources\VertexBuffer.cpp" />
+    <ClCompile Include="CCScene.cpp" />
     <ClCompile Include="CrossEditor.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_CrossEditor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -137,6 +141,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneView.cpp" />
+    <ClCompile Include="TriangleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.h">
@@ -191,6 +196,7 @@
     <ClInclude Include="..\Sources\MemoryManager.h" />
     <ClInclude Include="..\Sources\Mesh.h" />
     <ClInclude Include="..\Sources\Model.h" />
+    <ClInclude Include="..\Sources\Platform\Windows\LauncherWIN.h" />
     <ClInclude Include="..\Sources\Quaternion.h" />
     <ClInclude Include="..\Sources\Rect.h" />
     <ClInclude Include="..\Sources\Scene.h" />
@@ -211,8 +217,10 @@
     <ClInclude Include="..\Sources\Vector3D.h" />
     <ClInclude Include="..\Sources\Vector4D.h" />
     <ClInclude Include="..\Sources\VertexBuffer.h" />
+    <ClInclude Include="CCScene.h" />
     <ClInclude Include="GeneratedFiles\ui_CrossEditor.h" />
     <ClInclude Include="SceneView.h" />
+    <ClInclude Include="TriangleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">

@@ -26,7 +26,7 @@ namespace cross{
 class Game{
 public:
 	/* You need to override this method to get engine know from which screen it must start */
-	virtual Screen* GetStartScreen() = 0;
+	virtual Screen* GetStartScreen() { return NULL; };
 	/* Occurs when game window resize */
 	DECLARE_EVENT(void, int, int) WindowResized;
 

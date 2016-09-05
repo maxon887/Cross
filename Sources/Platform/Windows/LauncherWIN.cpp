@@ -24,8 +24,8 @@
 
 using namespace cross;
 
-bool DirectoryExists(LPCTSTR szPath){
-  DWORD dwAttrib = GetFileAttributes(szPath);
+bool DirectoryExists(const char* szPath){
+  DWORD dwAttrib = GetFileAttributesA(szPath);
 
   return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
          (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
@@ -44,17 +44,20 @@ LauncherWIN::LauncherWIN(HWND wnd) :
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	if(!DirectoryExists(DATA_PATH)){
-		CreateDirectory(DATA_PATH, NULL);
+		CreateDirectoryA(DATA_PATH, NULL);
 	}
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
 	char* debugAssetAlt = "../../Assets/";
+	char* editorAsset = "../Games/Demo/Assets/";
 	if(DirectoryExists(releaseAsset)){
 		assets_path = releaseAsset;
 	} else if(DirectoryExists(debugAsset)){
 		assets_path = debugAsset;
 	} else if(DirectoryExists(debugAssetAlt)){
 		assets_path = debugAssetAlt;
+	} else if(DirectoryExists(editorAsset)){
+		assets_path = editorAsset;
 	} else {
 		throw CrossException("Can't find Assets folder");
 	}
@@ -105,8 +108,8 @@ unsigned long LauncherWIN::GetTime(){
 }
 
 void LauncherWIN::LogIt(const string& msg){
-	OutputDebugString(msg.c_str());
-	OutputDebugString("\n");
+	OutputDebugStringA(msg.c_str());
+	OutputDebugStringA("\n");
 }
 
 void LauncherWIN::LogIt(const char* formatStr, ...){
@@ -114,8 +117,8 @@ void LauncherWIN::LogIt(const char* formatStr, ...){
 	char buffer[1024];
 	va_start(params, formatStr);
 	vsprintf_s(buffer, sizeof(buffer), formatStr, params);
-	OutputDebugString(buffer);
-	OutputDebugString("\n");
+	OutputDebugStringA(buffer);
+	OutputDebugStringA("\n");
 	va_end(params);
 }
 
@@ -124,21 +127,29 @@ void LauncherWIN::Sleep(float milis){
 }
 
 void LauncherWIN::ShowMessage(const string& msg){
-	MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+	if(wnd){
+		MessageBoxA(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+	}else{
+		LogIt(msg);
+	}
 }
 
 void LauncherWIN::ResizeWindow(int posX, int posY, int width, int height){
-	window_pos_x = posX;
-	window_pos_y = posY;
-	window_width = width;
-	window_height = height;
-	RECT rcClient, rcWind;
-	POINT ptDiff;
-	GetClientRect(wnd, &rcClient);
-	GetWindowRect(wnd, &rcWind);
-	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
-	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
-	MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
+	if(wnd){
+		window_pos_x = posX;
+		window_pos_y = posY;
+		window_width = width;
+		window_height = height;
+		RECT rcClient, rcWind;
+		POINT ptDiff;
+		GetClientRect(wnd, &rcClient);
+		GetWindowRect(wnd, &rcWind);
+		ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
+		ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
+		MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
+	}else{
+		throw CrossException("Zero WND. Can not resize native window");
+	}
 }
 
 void LauncherWIN::SetWindowPosition(int x, int y){

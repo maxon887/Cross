@@ -51,6 +51,12 @@
     <Filter Include="Cross\Utils">
       <UniqueIdentifier>{572590bc-ec3b-4d60-8f06-efa6de26b551}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Platform">
+      <UniqueIdentifier>{4ce4695a-ad61-49e0-a0b2-d41424fd5f84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Platform\Windows">
+      <UniqueIdentifier>{f151c297-0dd6-422f-bc48-0c5991637bcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -208,6 +214,15 @@
     </ClCompile>
     <ClCompile Include="..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Platform\Windows\LauncherWIN.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,6 +386,15 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Platform\Windows\LauncherWIN.h">
+      <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

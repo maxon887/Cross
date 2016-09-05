@@ -1,5 +1,12 @@
 #include "SceneView.h"
 
+#include "Platform/Windows/LauncherWIN.h"
+#include "Game.h"
+
+#include "Graphics3D.h"
+#include "Graphics2D.h"
+
+#include "TriangleScene.h"
 
 
 SceneView::SceneView(QWidget* parent) :
@@ -11,9 +18,19 @@ SceneView::~SceneView()
 { }
 
 void SceneView::initializeGL(){
-	glClearColor(1.f, 0.f, 0.f, 1.f);
+	LauncherWIN* launcherWIN = new LauncherWIN();
+	launcher = launcherWIN;
+	launcherWIN->SetWindowSize(200, 200);
+	game = new Game();
+	gfxGL = new GraphicsGL();
+	gfx2D = new Graphics2D();
+	gfx3D = new Graphics3D();
+
+	triangle_scene = new TriangleScene();
+
+	game->SetScene(triangle_scene);
 }
 
 void SceneView::paintGL(){
-	glClear(GL_COLOR_BUFFER_BIT);
+	triangle_scene->Update(0.1f);
 }
