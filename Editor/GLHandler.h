@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GL_HANDLER
+#define GL_HANDLER
 
 #include "Cross.h"
 #include "GraphicsGL.h"
@@ -15,6 +16,7 @@ public:
 	~GLHandler();
 
 	void initializeGL();
+	void update();
 	void paintGL();
 	void resizeGL();
 	void shutDown();
@@ -25,3 +27,4 @@ public:
 private:
 };
 
+#endif // !GL_HANDLER

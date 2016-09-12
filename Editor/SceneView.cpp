@@ -158,7 +158,7 @@ void SceneView::Update(float sec){
 	}
 	triangle->Draw();
 	triangle->SetRotateY(game->GetRunTime() * sec);
-	launcher->LogIt("Run Time - %f", game->GetRunTime() * sec);
+	//launcher->LogIt("Run Time - %f", game->GetRunTime() * sec);
 
 	Scene::Update(sec);
 }

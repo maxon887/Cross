@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CROSS_EDITOR
+#define CROSS_EDITOR
 
 #include "GraphicsGL.h"
 
@@ -19,3 +20,5 @@ protected:
 private:
 	Ui::CrossEditorClass ui;
 };
+
+#endif // !CROSS_EDITOR

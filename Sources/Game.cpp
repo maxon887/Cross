@@ -49,6 +49,10 @@ Game::~Game(){
 	delete input;
 }
 
+Screen* Game::GetStartScreen(){
+	return current_screen;
+}
+
 void Game::Start(){
 	gfxGL->Start();
 }

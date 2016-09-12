@@ -11,7 +11,9 @@
 
 GLHandler::GLHandler(QWidget* parent) :
 	QOpenGLWidget(parent)
-{ }
+{ 
+	setMouseTracking(true);
+}
 
 
 GLHandler::~GLHandler()
@@ -29,11 +31,16 @@ void GLHandler::initializeGL(){
 	game->SetScene(new SceneView());
 
 	auto pTimer = new QTimer(this);
-	connect(pTimer, &QTimer::timeout, this, &GLHandler::initializeGL); 
+	connect(pTimer, &QTimer::timeout, this, &GLHandler::update); 
 	pTimer->start(1000 / 60.0);
 }
 
+void GLHandler::update(){
+	QOpenGLWidget::update();
+}
+
 void GLHandler::paintGL(){
+	//QOpenGLWidget::paintGL();
 	game->Update();
 }
 
@@ -46,13 +53,13 @@ void GLHandler::shutDown(){
 }
 
 void GLHandler::mousePressEvent(QMouseEvent* eve){
-	TRIGGER_EVENT(input->TargetActionDown, eve->x(), eve->y(), 0);
+	TRIGGER_EVENT(input->TargetActionDown, (float)eve->x(), (float)eve->y(), 0);
 }
 
 void GLHandler::mouseMoveEvent(QMouseEvent* eve){
-	TRIGGER_EVENT(input->TargetActionMove, eve->x(), eve->y(), 0);
+	TRIGGER_EVENT(input->TargetActionMove, (float)eve->x(), (float)eve->y(), 0);
 }
 
 void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
-	TRIGGER_EVENT(input->TargetActionUp, eve->x(), eve->y(), 0);
+	TRIGGER_EVENT(input->TargetActionUp, (float)eve->x(), (float)eve->y(), 0);
 }

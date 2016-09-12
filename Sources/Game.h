@@ -25,13 +25,13 @@ namespace cross{
 	Every game must implement this class for set start Screen. */
 class Game{
 public:
-	/* You need to override this method to get engine know from which screen it must start */
-	virtual Screen* GetStartScreen() { return NULL; };
 	/* Occurs when game window resize */
 	DECLARE_EVENT(void, int, int) WindowResized;
 
 	Game();
 	virtual ~Game();
+	/* You need to override this method to get engine know from which screen it must start */
+	virtual Screen* GetStartScreen();
 	/* Cause when game is about to start */
 	virtual void Start();
 	/* Cause when game is about to stop */
@@ -55,7 +55,7 @@ public:
 	/* Exit from application */
     void Exit();
 
-private:
+protected:
 	Screen* current_screen;
 	bool on_scene;
 	unsigned long render_time;

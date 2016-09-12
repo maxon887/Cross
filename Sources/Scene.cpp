@@ -31,7 +31,8 @@ Scene::Scene() :
 	ambient_color(Color(0.1f, 0.1f, 0.1f)),
 	light_drawing(false),
 	point_light(nullptr),
-	spot_light(nullptr)
+	spot_light(nullptr),
+	light_material(nullptr)
 { }
 
 void Scene::Start(){
