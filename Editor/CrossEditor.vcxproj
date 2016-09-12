@@ -125,7 +125,8 @@
     <ClCompile Include="..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\Sources\Vector4D.cpp" />
     <ClCompile Include="..\Sources\VertexBuffer.cpp" />
-    <ClCompile Include="CCScene.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_GLHandler.cpp" />
+    <ClCompile Include="SceneView.cpp" />
     <ClCompile Include="CrossEditor.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_CrossEditor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -140,15 +141,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SceneView.cpp" />
-    <ClCompile Include="TriangleScene.cpp" />
+    <ClCompile Include="GLHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CrossEditor.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DEDITOR  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\Sources\Libs\FreeType\freetype2" "-I$(ProjectDir)..\Sources\Libs\FreeType" "-I$(ProjectDir)..\Sources"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DEDITOR -D_MBCS  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\Sources\Libs\FreeType\freetype2" "-I$(ProjectDir)..\Sources\Libs\FreeType" "-I$(ProjectDir)..\Sources"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing CrossEditor.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -217,10 +217,9 @@
     <ClInclude Include="..\Sources\Vector3D.h" />
     <ClInclude Include="..\Sources\Vector4D.h" />
     <ClInclude Include="..\Sources\VertexBuffer.h" />
-    <ClInclude Include="CCScene.h" />
-    <ClInclude Include="GeneratedFiles\ui_CrossEditor.h" />
     <ClInclude Include="SceneView.h" />
-    <ClInclude Include="TriangleScene.h" />
+    <ClInclude Include="GeneratedFiles\ui_CrossEditor.h" />
+    <CustomBuild Include="GLHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">

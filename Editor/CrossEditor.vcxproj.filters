@@ -164,9 +164,6 @@
     <ClCompile Include="..\Sources\VertexBuffer.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="SceneView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Libs\SOIL\image_helper.c">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClCompile>
@@ -215,14 +212,17 @@
     <ClCompile Include="..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="TriangleScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CCScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Platform\Windows\LauncherWIN.cpp">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="GLHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GLHandler.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +234,9 @@
     </CustomBuild>
     <CustomBuild Include="CrossEditor.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GLHandler.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -333,9 +336,6 @@
     <ClInclude Include="..\Sources\VertexBuffer.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="SceneView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClInclude>
@@ -387,14 +387,11 @@
     <ClInclude Include="..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="TriangleScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CCScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Platform\Windows\LauncherWIN.h">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneView.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

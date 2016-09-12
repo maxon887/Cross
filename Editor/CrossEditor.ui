@@ -14,7 +14,7 @@
    <string>CrossEditor</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="SceneView" name="openGLWidget">
+   <widget class="GLHandler" name="openGLWidget">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -48,9 +48,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>SceneView</class>
+   <class>GLHandler</class>
    <extends>QOpenGLWidget</extends>
-   <header>SceneView.h</header>
+   <header>GLHandler.h</header>
   </customwidget>
  </customwidgets>
  <resources>
