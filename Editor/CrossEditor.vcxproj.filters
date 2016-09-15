@@ -227,6 +227,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GLHandler.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="LightShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.h">
@@ -394,6 +397,9 @@
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="SceneView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,10 +23,11 @@
 #include "Font.h"
 #include "Camera2D.h"
 #include "Game.h"
-
 #include "Material.h"
 #include "VertexBuffer.h"
-#include "Mesh.h"
+#include "Model.h"
+#include "LightShader.h"
+#include "Utils/Light.h"
 
 #include <math.h>
 
@@ -65,7 +66,7 @@ void SceneView::Start() {
 	//button
 	float btnWidth = 300.f;
 
-	InitializeTriangle();
+	InitializeCube();
 }
 
 void SceneView::Stop(){
@@ -76,9 +77,10 @@ void SceneView::Stop(){
 	input->MouseWheelDown -= mouse_wheel_down;
 
 	delete debug_font;
-	//triangle
-	delete triangle_material;
-	delete triangle;
+	//cube
+	delete shader;
+	delete material;
+	delete cube;
 	Scene::Stop();
 }
 
@@ -156,9 +158,7 @@ void SceneView::Update(float sec){
 		game->SetScreen(game->GetStartScreen());
 		return;
 	}
-	triangle->Draw();
-	triangle->SetRotateY(game->GetRunTime() * sec);
-	//launcher->LogIt("Run Time - %f", game->GetRunTime() * sec);
+	cube->Draw();
 
 	Scene::Update(sec);
 }
@@ -167,24 +167,21 @@ void SceneView::SetOrbitDistance(float orbitDistance){
 	orbit_distance = orbitDistance;
 }
 
-void SceneView::InitializeTriangle(){
-	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	triangle_material = new Material(shader);
-	triangle_material->SetDiffuseColor(Color::Red);
+void SceneView::InitializeCube(){
+	//light setups
+	//SetAmbientColor(Color::White);
+	Light* light = new Light(Light::Type::POINT);
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	AddLight(light);
+	//cube
+	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	material = new Material(shader);
+	material->SetDiffuseColor(Color::Red);
+	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
+	cube->SetMaterial(material);
 
-	VertexBuffer* vertexBuffer = new VertexBuffer();
-	
-	Vector3D verticesData[3];
-	verticesData[0].x = 0.0f;  verticesData[0].y = 5.f;  verticesData[0].z = 0.0f;
-	verticesData[1].x = -5.f;  verticesData[1].y = -5.f;  verticesData[1].z = 0.0f;
-	verticesData[2].x = 5.f;  verticesData[2].y = -5.f;  verticesData[2].z = 0.0f;
-
-	vertexBuffer->PushData((CRByte*)&verticesData[0], 3 * sizeof(Vector3D));
-
-	CRArray<unsigned int> indices = { 0, 1, 2 };
-
-	triangle = new Mesh(vertexBuffer, indices, indices.size());
-	triangle->SetMaterial(triangle_material);
+	cube->SetPosition(Vector3D(1.0f, 2.0f, -1.0f));
+	cube->SetScale(Vector3D(1.0f, 1.0f, 1.0f));
 }
 
 bool SceneView::OnGuiArea(Vector2D pos){

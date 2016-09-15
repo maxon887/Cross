@@ -41,7 +41,6 @@ void SpecularScene::Start(){
 
 	cube->SetPosition(Vector3D(1.0f, 2.0f, -1.0f));
 	cube->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
-	//cube->SetScale(Vector3D(0.5f, 1.0f, 1.0f));
 }
 
 void SpecularScene::Stop(){

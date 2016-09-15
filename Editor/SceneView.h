@@ -48,10 +48,11 @@ private:
 	
 	float orbit_distance;
 
-	Material* triangle_material;
-	Mesh* triangle;
+	Shader* shader;
+	Material* material;
+	Model* cube;
 
-	void InitializeTriangle();
+	void InitializeCube();
 	bool OnGuiArea(Vector2D pos);
 	void RecalcAngles();
 	void OnEyeClick();
