@@ -51,7 +51,7 @@ Model::~Model(){
 
 void Model::Draw(){
 	for(Mesh* mesh : meshes){
-		mesh->Draw(GetModelMatrix());
+		mesh->Draw(GetModelMatrix(), material);
 	}
 }
 

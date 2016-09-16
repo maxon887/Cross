@@ -66,11 +66,11 @@ Mesh::~Mesh(){
 	}
 }
 
-void Mesh::Draw(){
-	Draw(Matrix::CreateIdentity());
+void Mesh::Draw(Material* mat){
+	Draw(Matrix::CreateIdentity(), mat);
 }
 
-void Mesh::Draw(const Matrix& globalModel){
+void Mesh::Draw(const Matrix& globalModel, Material* mat){
 	if(material == nullptr){
 		throw CrossException("Current mesh does not have material");
 	}
@@ -101,6 +101,48 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glUniform3fv(shader->uCameraPosition, 1, scene->GetCamera()->GetPosition().GetData()));
 	}
 
+	if(shader->uAmbientLight != -1){
+		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
+	}
+
+	for(pair<string, Shader::Property*> pair : shader->properices){
+		Shader::Property* prop = pair.second;
+		if(prop->glId == -1){
+			throw CrossException("Broken shader property");
+		}
+
+		switch(prop->type)
+		{
+		case Shader::Property::SAMPLER:
+			SAFE(glActiveTexture(GL_TEXTURE0 + shader->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (GLint)mat->properties[prop->name]));
+			SAFE(glUniform1i(prop->glId, shader->active_texture_slot));
+			break;
+		case Shader::Property::MAT4:
+			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)mat->properties[prop->name]));
+			break;
+		case Shader::Property::MAT3:
+			SAFE(glUniformMatrix3fv(prop->glId, 1, GL_FALSE, (GLfloat*)mat->properties[prop->name]));
+			break;
+		case Shader::Property::VEC4:
+			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)mat->properties[prop->name]));
+			break;
+		case Shader::Property::VEC3:
+			SAFE(glUniform3fv(prop->glId, 1, (GLfloat*)mat->properties[prop->name]));
+			break;
+		case Shader::Property::VEC2:
+			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)mat->properties[prop->name]));
+			break;
+		case Shader::Property::FLOAT:
+			SAFE(glUniform1f(prop->glId, *(GLfloat*)(mat->properties[prop->name])));
+			break;
+		case Shader::Property::INT:
+			break;
+		default:
+			break;
+		}
+	}
+	/*
 	if(shader->uColor != -1){
 		SAFE(glUniform3fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
 	}
@@ -130,11 +172,7 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glActiveTexture(GL_TEXTURE2));
 		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
 		SAFE(glUniform1i(shader->uShininessTexture, 2));
-	}
-
-	if(shader->uAmbientLight != -1){
-		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
-	}
+	}*/
 
 	if(shader->UseLights()){
 		shader->TransferLightData(scene->GetLights());

@@ -11,9 +11,7 @@ CrossEditor::CrossEditor(QWidget *parent)
 }
 
 CrossEditor::~CrossEditor()
-{
-
-}
+{ }
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
 	ui.openGLWidget->shutDown();

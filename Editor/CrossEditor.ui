@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>343</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,20 @@
    <widget class="GLHandler" name="openGLWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>50</y>
-      <width>300</width>
-      <height>200</height>
+      <x>10</x>
+      <y>10</y>
+      <width>391</width>
+      <height>271</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTreeView" name="treeView">
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>10</y>
+      <width>181</width>
+      <height>271</height>
      </rect>
     </property>
    </widget>

@@ -31,7 +31,8 @@
 
 #include <math.h>
 
-SceneView::SceneView() :
+SceneView::SceneView(Scene* scene) :
+	Scene(*scene),
 	liner_speed(10.f),
 	angular_speed(45.f),
 	orbit_speed(1.f),
@@ -168,15 +169,11 @@ void SceneView::SetOrbitDistance(float orbitDistance){
 }
 
 void SceneView::InitializeCube(){
-	//light setups
-	//SetAmbientColor(Color::White);
-	Light* light = new Light(Light::Type::POINT);
-	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddLight(light);
 	//cube
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
 	material = new Material(shader);
-	material->SetDiffuseColor(Color::Red);
+	material->SetPropertyValue("Color", (void*)&Color::Red);
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 

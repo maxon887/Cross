@@ -4,7 +4,7 @@
 #include "Cross.h"
 #include "GraphicsGL.h"
 
-#include <QtWidgets/qopenglwidget.h>
+#include <QOpenGLWidget>
 
 using namespace cross;
 
@@ -25,6 +25,7 @@ public:
 	void mouseMoveEvent(QMouseEvent* eve);
 	void mouseReleaseEvent(QMouseEvent* eve);
 private:
+	void ExceptionMsgBox(const char* msg);
 };
 
 #endif // !GL_HANDLER

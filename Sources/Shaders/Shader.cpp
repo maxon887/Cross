@@ -31,18 +31,21 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 	aNormal = glGetAttribLocation(program, "aNormal");
-
+	
 	uMVP = glGetUniformLocation(program, "uMVP");
-	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
-	uColor = glGetUniformLocation(program, "uColor");
-	uSpecularColor = glGetUniformLocation(program, "uSpecularColor");
-	uShininess = glGetUniformLocation(program, "uShininess");
-	uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
-	uSpecularTexture = glGetUniformLocation(program, "uSpecularTexture");
-	uShininessTexture = glGetUniformLocation(program, "uShininessTexture");
-	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
+	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
+	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
+
+	active_texture_slot = 0;
+
+	//uColor = glGetUniformLocation(program, "uColor");
+	//uSpecularColor = glGetUniformLocation(program, "uSpecularColor");
+	//uShininess = glGetUniformLocation(program, "uShininess");
+	//uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
+	//uSpecularTexture = glGetUniformLocation(program, "uSpecularTexture");
+	//uShininessTexture = glGetUniformLocation(program, "uShininessTexture");
 }
 
 Shader::~Shader(){
@@ -57,6 +60,15 @@ bool Shader::UseLights(){
 
 void Shader::TransferLightData(const CRArray<Light*>& lights){
 	throw CrossException("Lighting does not supported by this shader");
+}
+
+void Shader::AddProperty(Shader::Property* prop){
+	prop->glId = glGetUniformLocation(program, prop->glName.c_str());
+	properices[prop->name] = prop;
+}
+
+Shader::Property* Shader::GetProperty(const string& name){
+	return properices[name];
 }
 
 GLuint Shader::GetProgram(){

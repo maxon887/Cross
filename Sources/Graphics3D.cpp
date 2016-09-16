@@ -25,6 +25,8 @@
 #include "Graphics2D.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Scene.h"
+#include "Utils/Light.h"
 
 #include <algorithm>
 
@@ -55,11 +57,32 @@ Graphics3D::~Graphics3D(){
 Model* Graphics3D::LoadModel(const string& filename){
 	Debugger::Instance()->StartCheckTime();
 	Model* model = new Model(filename);
-	LoadMeshes(model);
+	ProcessScene(model);
 	string msg = "" + filename + " loaded in ";
 	Debugger::Instance()->StopCheckTime(msg);
 	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
 	return model;
+}
+
+Scene* Graphics3D::LoadScene(const string& filename){
+	Scene* newScene = new Scene();
+	//lights
+	//newScene->SetAmbientColor(Color::White);
+	Light* light = new Light(Light::Type::POINT);
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	newScene->AddLight(light);
+	return newScene;
+}
+
+void Graphics3D::ProcessScene(Model* model){
+	File* file = launcher->LoadFile(model->GetName());
+	Assimp::Importer importer;
+	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
+	delete file;
+	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
+		throw CrossException("Assimp Error: %s", importer.GetErrorString());
+	}
+	ProcessNode(model, current_scene->mRootNode);
 }
 
 void Graphics3D::ProcessNode(Model* model, aiNode* node){
@@ -137,15 +160,4 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	}
 
 	return new Mesh(vertexBuffer, indices, mesh->mNumFaces);
-}
-
-void Graphics3D::LoadMeshes(Model* model){
-	File* file = launcher->LoadFile(model->GetName());
-	Assimp::Importer importer;
-	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
-	delete file;
-	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
-		throw CrossException("Assimp Error: %s", importer.GetErrorString());
-	}
-	ProcessNode(model, current_scene->mRootNode);
 }

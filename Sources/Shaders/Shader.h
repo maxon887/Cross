@@ -22,28 +22,61 @@ namespace cross{
 
 class Shader{
 public:
-	//shader attributes
+	class Property{
+	public:
+		enum Type{
+			SAMPLER,
+			MAT4,
+			MAT3,
+			VEC4,
+			VEC3,
+			VEC2,
+			FLOAT,
+			INT
+		};
+
+		Property(string name, Type type, string glName):
+			name(name),
+			type(type),
+			glName(glName),
+			glId(-1)
+		{ }
+
+		string name;
+		Type type;
+		string glName;
+		GLint glId;
+	};
+	//general attributes
 	GLint aPosition;
 	GLint aTexCoords;
 	GLint aNormal;
-	//shader uniforms
+	
+	//general uniforms
 	GLint uMVP;
 	GLint uModelMatrix;
 	GLint uNormalMatrix;
 	GLint uCameraPosition;
-	GLint uColor;
-	GLint uSpecularColor;
-	GLint uShininess;
-	GLint uDiffuseTexture;
-	GLint uSpecularTexture;
-	GLint uShininessTexture;
 	GLint uAmbientLight;
+	//custom properties
+	CRDictionary<string, Property*> properices;
+
+	unsigned int active_texture_slot;
+	//GLint uColor;
+	//GLint uSpecularColor;
+	//GLint uShininess;
+	//GLint uDiffuseTexture;
+	//GLint uSpecularTexture;
+	//GLint uShininessTexture;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);
+
+	void AddProperty(Property* prop);
+	Property* GetProperty(const string& name);
 
 	GLuint GetProgram();
 

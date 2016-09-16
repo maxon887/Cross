@@ -74,7 +74,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	mvp = mvp.Transpose();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
-	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glDrawArrays(GL_POINTS, 0, 1));
 }
@@ -88,7 +88,7 @@ void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	mvp = mvp.Transpose();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
@@ -110,7 +110,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	mvp = mvp.Transpose();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	if(filled){
 		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
@@ -161,7 +161,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
 	//delete buffer;
-	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(shader->aPosition));
 	if(filled){
 		SAFE(glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount));
@@ -212,7 +212,7 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 		shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	}
 	gfxGL->UseShader(shader);
-	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 

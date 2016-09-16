@@ -27,7 +27,7 @@ using namespace cross;
 //CC short for Camera Control
 class SceneView : public Scene{
 public:
-	SceneView();
+	SceneView(Scene* scene);
 
 	virtual void Start();
 	virtual void Stop();

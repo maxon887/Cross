@@ -1,6 +1,7 @@
 #include "CrossEditor.h"
-#include <QtWidgets/QApplication>
 #include "Platform/Windows/LauncherWIN.h"
+
+#include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {

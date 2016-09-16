@@ -23,6 +23,8 @@ namespace cross{
 
 class Scene : public Screen{
 public:
+	Scene();
+
 	virtual void Start();
 	virtual void Update(float sec);
 	virtual void Stop();
@@ -44,8 +46,7 @@ protected:
 	Model* spot_light;
 	Material* light_material;
 	CRArray<Light*> lights;
-
-	Scene();
+	CRArray<Model*> models;
 private:
 	FastDelegate2<int, int, void> window_resize_handle;
 	void WindowResizeHandle(int width, int height);

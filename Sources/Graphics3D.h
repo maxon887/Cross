@@ -31,6 +31,8 @@ public:
 	~Graphics3D();
 
 	Model* LoadModel(const string& filename);
+	Scene* LoadScene(const string& filename);
+	void SaveScene(const Scene* scene, const string& filename);
 
 protected:
 	const aiScene* current_scene;
@@ -40,9 +42,9 @@ protected:
 	Matrix current_rotation;
 	Matrix current_scaling;
 
+	void ProcessScene(Model* model);
 	void ProcessNode(Model* model, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
-	void LoadMeshes(Model* model);
 
 };
 

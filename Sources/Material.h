@@ -21,39 +21,22 @@ namespace cross{
 
 class Material{
 public:
+	CRDictionary<string, void*> properties;
+
 	Material(const string& name);
 	Material(Shader* shader);
 	~Material();
 
 	void SetShader(Shader* shader);
-	void SetDiffuseColor(const Color& color);
-	void SetSpecularColor(const Color& color);
-	void SetShininess(float shininess);
-	void SetDiffuseTexture(Texture* texture);
-	void SetSpecularTexture(Texture* texture);
-	void SetShininessTexture(Texture* shininess);
 
-	Color GetDiffuseColor();
-	Color GetSpecularColor();
-	float GetShininess();
-	Texture* GetDiffuseTexture();
-	Texture* GetSpecularTexture();
-	Texture* GetShininessTexture();
-
-	bool HasDiffuseTexture();
+	void SetPropertyValue(const string& name, void* value);
 
 	Shader* GetShader();
 
-	Material* Clone();
+	//Material* Clone();
 private:
 	string name;
 	Shader* shader;
-	Color diffuse_color;
-	Color specular_color;
-	float shininess;
-	Texture* diffuse_texture;
-	Texture* specular_texture;
-	Texture* shininess_texture;
 
 	Material(Material& obj);
 };

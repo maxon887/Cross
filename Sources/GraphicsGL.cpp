@@ -170,8 +170,8 @@ void GraphicsGL::PostProcessFrame(){
 
 		Shader* shader = GetShader(DefaultShader::TEXTURE);
 		UseShader(shader);
-		if(shader->uColor != -1){
-			SAFE(glUniform3fv(shader->uColor, 1, Color(Color::White).GetData()));
+		if(shader->properices["Color"]->glId != -1){
+			SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, Color(Color::White).GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have color uniform");
 		}
@@ -205,16 +205,22 @@ void GraphicsGL::PostProcessFrame(){
 }
 
 Shader* GraphicsGL::GetShader(DefaultShader type){
+	Shader* shader = nullptr;
 	if(shaders[type] == nullptr){
 		switch(type) {
 		case DefaultShader::SIMPLE:
-			shaders[type] = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
+			shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
+			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
 			break;
 		case DefaultShader::MONOCHROME:
-			shaders[type] = new Shader("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag");
+			shader = new Shader("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag");
+			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
+			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
 			break;
 		case DefaultShader::TEXTURE:
-			shaders[type] = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+			shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
+			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
 			break;
 		case DefaultShader::MULTI_LIGHT:
 			shaders[type] = new MultiLightShader();
@@ -222,6 +228,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		default:
 			throw CrossException("Unknown shader type");
 		}
+		shaders[type] = shader;
 	}
 	return shaders[type];
 }
