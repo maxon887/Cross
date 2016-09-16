@@ -39,13 +39,15 @@ public:
 			name(name),
 			type(type),
 			glName(glName),
-			glId(-1)
+			glId(-1),
+			value(nullptr)
 		{ }
 
 		string name;
 		Type type;
 		string glName;
 		GLint glId;
+		void* value;
 	};
 	//general attributes
 	GLint aPosition;
@@ -58,16 +60,9 @@ public:
 	GLint uNormalMatrix;
 	GLint uCameraPosition;
 	GLint uAmbientLight;
+	GLint uColor;
 	//custom properties
 	CRDictionary<string, Property*> properices;
-
-	unsigned int active_texture_slot;
-	//GLint uColor;
-	//GLint uSpecularColor;
-	//GLint uShininess;
-	//GLint uDiffuseTexture;
-	//GLint uSpecularTexture;
-	//GLint uShininessTexture;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
@@ -76,6 +71,7 @@ public:
 	virtual void TransferLightData(const CRArray<Light*>& lights);
 
 	void AddProperty(Property* prop);
+	void AddProperty(const string& name, Property::Type type, const string& glName);
 	Property* GetProperty(const string& name);
 
 	GLuint GetProgram();

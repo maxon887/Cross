@@ -2,8 +2,8 @@
 
 cross::Game* cross::game = NULL;
 
-CrossEditor::CrossEditor(QWidget *parent)
-	: QMainWindow(parent),
+CrossEditor::CrossEditor(QWidget *parent) :
+	QMainWindow(parent),
 	Game()
 {
 	ui.setupUi(this);

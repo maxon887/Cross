@@ -20,11 +20,11 @@
 #include "Material.h"
 #include "Model.h"
 #include "Utils/Light.h"
-#include "Graphics3D/LightShader.h"
+#include "Shaders/LightShader.h"
 
 void SpecularScene::Start(){
 	CCScene::Start();
-	DrawLights(true);
+	DrawLights(false);
 	SetCameraViewDistance(500.f);
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
@@ -34,8 +34,14 @@ void SpecularScene::Start(){
 	AddLight(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
+	shader->AddProperty("Specular Color", Shader::Property::Type::VEC3, "uSpecularColor");
+	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
 	material = new Material(shader);
-	material->SetDiffuseColor(Color::Red);
+	material->SetPropertyValue("Diffuse Color", (void*)&Color::Red);
+	material->SetPropertyValue("Specular Color", (void*)&Color::White);
+	shininess = 0.5f * 128.f;
+	material->SetPropertyValue("Shininess", (void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 

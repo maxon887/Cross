@@ -105,74 +105,49 @@ void Mesh::Draw(const Matrix& globalModel, Material* mat){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(pair<string, Shader::Property*> pair : shader->properices){
+	for(pair<string, Shader::Property*> pair : mat->properties){
 		Shader::Property* prop = pair.second;
 		if(prop->glId == -1){
 			throw CrossException("Broken shader property");
+		}
+		if(prop->value == nullptr){
+			throw CrossException("Property '%s' value not assigned", prop->name.c_str());
 		}
 
 		switch(prop->type)
 		{
 		case Shader::Property::SAMPLER:
-			SAFE(glActiveTexture(GL_TEXTURE0 + shader->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, (GLint)mat->properties[prop->name]));
-			SAFE(glUniform1i(prop->glId, shader->active_texture_slot));
+			SAFE(glActiveTexture(GL_TEXTURE0 + mat->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (GLint)prop->value));
+			SAFE(glUniform1i(prop->glId, mat->active_texture_slot));
+			mat->active_texture_slot++;
 			break;
 		case Shader::Property::MAT4:
-			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)mat->properties[prop->name]));
+			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
 			break;
 		case Shader::Property::MAT3:
-			SAFE(glUniformMatrix3fv(prop->glId, 1, GL_FALSE, (GLfloat*)mat->properties[prop->name]));
+			SAFE(glUniformMatrix3fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
 			break;
 		case Shader::Property::VEC4:
-			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)mat->properties[prop->name]));
+			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
 			break;
 		case Shader::Property::VEC3:
-			SAFE(glUniform3fv(prop->glId, 1, (GLfloat*)mat->properties[prop->name]));
+			SAFE(glUniform3fv(prop->glId, 1, (GLfloat*)prop->value));
 			break;
 		case Shader::Property::VEC2:
-			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)mat->properties[prop->name]));
+			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)prop->value));
 			break;
-		case Shader::Property::FLOAT:
-			SAFE(glUniform1f(prop->glId, *(GLfloat*)(mat->properties[prop->name])));
-			break;
+		case Shader::Property::FLOAT:{
+			GLfloat value = *((GLfloat*)(prop->value));
+			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
+		}break;
 		case Shader::Property::INT:
 			break;
 		default:
 			break;
 		}
 	}
-	/*
-	if(shader->uColor != -1){
-		SAFE(glUniform3fv(shader->uColor, 1, material->GetDiffuseColor().GetData()));
-	}
-	
-	if(shader->uSpecularColor != -1){
-		SAFE(glUniform3fv(shader->uSpecularColor, 1, material->GetSpecularColor().GetData()));
-	}
-
-	if(shader->uShininess != -1){
-		SAFE(glUniform1f(shader->uShininess, material->GetShininess() * 128.f));
-	}
-
-	if(shader->uDiffuseTexture != -1){
-		Texture* texture = material->GetDiffuseTexture();
-		SAFE(glActiveTexture(GL_TEXTURE0));
-		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
-		SAFE(glUniform1i(shader->uDiffuseTexture, 0));
-	}
-	if(shader->uSpecularTexture != -1){
-		Texture* texture = material->GetSpecularTexture();
-		SAFE(glActiveTexture(GL_TEXTURE1));
-		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
-		SAFE(glUniform1i(shader->uSpecularTexture, 1));
-	}
-	if(shader->uShininessTexture != -1){
-		Texture* texture = material->GetShininessTexture();
-		SAFE(glActiveTexture(GL_TEXTURE2));
-		SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
-		SAFE(glUniform1i(shader->uShininessTexture, 2));
-	}*/
+	mat->active_texture_slot = 0;
 
 	if(shader->UseLights()){
 		shader->TransferLightData(scene->GetLights());

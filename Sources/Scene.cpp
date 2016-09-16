@@ -53,14 +53,14 @@ void Scene::Update(float sec){
 			case Light::Type::POINT:
 			{
 				point_light->SetPosition(light->GetPosition());
-				//point_light->GetMaterial()->SetDiffuseColor(light->GetColor());
+				point_light->GetMaterial()->SetPropertyValue("Color", (void*)&Color::White);
 				point_light->Draw();
 			}break;
 			case Light::Type::SPOT:
 			{
 				spot_light->SetPosition(light->GetPosition());
 				spot_light->SetDirection(light->GetDirection());
-				//spot_light->GetMaterial()->SetDiffuseColor(light->GetColor());
+				point_light->GetMaterial()->SetPropertyValue("Color", (void*)&Color::White);
 				spot_light->Draw();
 			}break;
 			default:

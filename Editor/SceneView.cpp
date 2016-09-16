@@ -26,13 +26,12 @@
 #include "Material.h"
 #include "VertexBuffer.h"
 #include "Model.h"
-#include "LightShader.h"
+#include "Shaders/LightShader.h"
 #include "Utils/Light.h"
 
 #include <math.h>
 
-SceneView::SceneView(Scene* scene) :
-	Scene(*scene),
+SceneView::SceneView() :
 	liner_speed(10.f),
 	angular_speed(45.f),
 	orbit_speed(1.f),
@@ -159,7 +158,7 @@ void SceneView::Update(float sec){
 		game->SetScreen(game->GetStartScreen());
 		return;
 	}
-	cube->Draw();
+	//cube->Draw();
 
 	Scene::Update(sec);
 }

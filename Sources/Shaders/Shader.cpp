@@ -37,15 +37,7 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
-
-	active_texture_slot = 0;
-
-	//uColor = glGetUniformLocation(program, "uColor");
-	//uSpecularColor = glGetUniformLocation(program, "uSpecularColor");
-	//uShininess = glGetUniformLocation(program, "uShininess");
-	//uDiffuseTexture = glGetUniformLocation(program, "uDiffuseTexture");
-	//uSpecularTexture = glGetUniformLocation(program, "uSpecularTexture");
-	//uShininessTexture = glGetUniformLocation(program, "uShininessTexture");
+	uColor = glGetUniformLocation(program, "uColor");
 }
 
 Shader::~Shader(){
@@ -64,7 +56,16 @@ void Shader::TransferLightData(const CRArray<Light*>& lights){
 
 void Shader::AddProperty(Shader::Property* prop){
 	prop->glId = glGetUniformLocation(program, prop->glName.c_str());
-	properices[prop->name] = prop;
+	if(prop->glId != -1){
+		properices[prop->name] = prop;
+	}else{
+		throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
+	}
+}
+
+void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName){
+	Property* prop = new Property(name, type, glName);
+	AddProperty(prop);
 }
 
 Shader::Property* Shader::GetProperty(const string& name){

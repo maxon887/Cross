@@ -19,7 +19,7 @@
 #include "Material.h"
 #include "Model.h"
 #include "Utils/Light.h"
-#include "Graphics3D/LightShader.h"
+#include "Shaders/LightShader.h"
 #include "Graphics2D.h"
 
 void SpecularDiffuseScene::Start(){
@@ -33,10 +33,12 @@ void SpecularDiffuseScene::Start(){
 	AddLight(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
+	shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
+	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
 	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material = new Material(shader);
-	material->SetDiffuseTexture(diffuse);
-	material->SetDiffuseColor(Color::White);
+	material->SetPropertyValue("Diffuse Texture", (void*)diffuse->GetID());
+	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }

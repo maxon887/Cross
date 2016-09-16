@@ -109,6 +109,7 @@
     <ClCompile Include="..\Sources\Rect.cpp" />
     <ClCompile Include="..\Sources\Scene.cpp" />
     <ClCompile Include="..\Sources\Screen.cpp" />
+    <ClCompile Include="..\Sources\Shaders\LightShader.cpp" />
     <ClCompile Include="..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\Sources\Sprite.cpp" />
@@ -125,13 +126,19 @@
     <ClCompile Include="..\Sources\Vector3D.cpp" />
     <ClCompile Include="..\Sources\Vector4D.cpp" />
     <ClCompile Include="..\Sources\VertexBuffer.cpp" />
+    <ClCompile Include="FileExplorer.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_FileExplorer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GLHandler.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FileExplorer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_GLHandler.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="SceneView.cpp" />
     <ClCompile Include="CrossEditor.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_CrossEditor.cpp">
@@ -207,6 +214,7 @@
     <ClInclude Include="..\Sources\Rect.h" />
     <ClInclude Include="..\Sources\Scene.h" />
     <ClInclude Include="..\Sources\Screen.h" />
+    <ClInclude Include="..\Sources\Shaders\LightShader.h" />
     <ClInclude Include="..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\Sources\Sprite.h" />
@@ -223,9 +231,18 @@
     <ClInclude Include="..\Sources\Vector3D.h" />
     <ClInclude Include="..\Sources\Vector4D.h" />
     <ClInclude Include="..\Sources\VertexBuffer.h" />
-    <ClInclude Include="LightShader.h" />
-    <ClInclude Include="SceneView.h" />
+    <CustomBuild Include="FileExplorer.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing FileExplorer.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DEDITOR -D_MBCS "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\Sources\Libs\FreeType\freetype2" "-I$(ProjectDir)..\Sources\Libs\FreeType" "-I$(ProjectDir)..\Sources"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing FileExplorer.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_CrossEditor.h" />
+    <ClInclude Include="SceneView.h" />
     <CustomBuild Include="GLHandler.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing GLHandler.h...</Message>

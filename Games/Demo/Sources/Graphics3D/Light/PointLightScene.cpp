@@ -19,7 +19,7 @@
 #include "Material.h"
 #include "Model.h"
 #include "Utils/Light.h"
-#include "Graphics3D/LightShader.h"
+#include "Shaders/LightShader.h"
 #include "Graphics2D.h"
 	
 void PointLightScene::Start(){
@@ -36,8 +36,8 @@ void PointLightScene::Start(){
 	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	material->SetDiffuseTexture(diffuseTexture);
-	material->SetSpecularTexture(specularTexture);
+	material->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
+	material->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 

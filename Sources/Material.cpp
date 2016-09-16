@@ -20,13 +20,13 @@
 using namespace cross;
 
 Material::Material(Shader* shader) :
-	shader(shader),
-	name("")
+	shader(shader)
 {
 	for(pair<string, Shader::Property*> pair : shader->properices){
 		Shader::Property* prop = pair.second;
-		this->properties[prop->name] = nullptr;
+		this->properties[prop->name] = prop;
 	}
+	active_texture_slot = 0;
 }
 
 Material::~Material(){
@@ -37,7 +37,12 @@ void Material::SetShader(Shader* shader){
 }
 
 void Material::SetPropertyValue(const string& name, void* value){
-	properties[name] = value;
+	auto it = properties.find(name);
+	if(it != properties.end()){
+		it->second->value = value;
+	}else{
+		throw CrossException("'%s' is not property of the material", name.c_str());
+	}
 }
 
 Shader* Material::GetShader(){
@@ -47,7 +52,3 @@ Shader* Material::GetShader(){
 		throw CrossException("Current material does not contain shader");
 	}
 }
-/*
-Material* Material::Clone(){
-	return new Material(*this);
-}*/

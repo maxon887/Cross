@@ -229,9 +229,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\LightShader.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClCompile>
@@ -270,6 +267,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,9 +463,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\LightShader.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClInclude>
@@ -504,6 +501,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

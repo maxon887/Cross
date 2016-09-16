@@ -170,8 +170,8 @@ void GraphicsGL::PostProcessFrame(){
 
 		Shader* shader = GetShader(DefaultShader::TEXTURE);
 		UseShader(shader);
-		if(shader->properices["Color"]->glId != -1){
-			SAFE(glUniform3fv(shader->properices["Color"]->glId, 1, Color(Color::White).GetData()));
+		if(shader->uColor != -1){
+			SAFE(glUniform3fv(shader->uColor, 1, Color(Color::White).GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have color uniform");
 		}
@@ -214,12 +214,10 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 			break;
 		case DefaultShader::MONOCHROME:
 			shader = new Shader("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag");
-			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
 			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
 			break;
 		case DefaultShader::TEXTURE:
 			shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
 			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
 			break;
 		case DefaultShader::MULTI_LIGHT:

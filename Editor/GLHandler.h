@@ -18,7 +18,7 @@ public:
 	void initializeGL();
 	void update();
 	void paintGL();
-	void resizeGL();
+	void resizeGL(int w, int h);
 	void shutDown();
 
 	void mousePressEvent(QMouseEvent* eve);

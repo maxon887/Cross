@@ -16,14 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Shaders/Shader.h"
 
 namespace cross{
 
 class Material{
 public:
-	CRDictionary<string, void*> properties;
+	CRDictionary<string, Shader::Property*> properties;
+	unsigned int active_texture_slot;
 
-	Material(const string& name);
 	Material(Shader* shader);
 	~Material();
 
@@ -32,10 +33,7 @@ public:
 	void SetPropertyValue(const string& name, void* value);
 
 	Shader* GetShader();
-
-	//Material* Clone();
 private:
-	string name;
 	Shader* shader;
 
 	Material(Material& obj);

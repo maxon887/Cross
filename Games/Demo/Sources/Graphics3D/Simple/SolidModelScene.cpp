@@ -23,7 +23,7 @@
 void SolidModelScene::Start(){
 	CCScene::Start();
 	material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
-	material->SetDiffuseColor(Color::Green);
+	material->SetPropertyValue("Color", (void*)&Color::Green);
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }

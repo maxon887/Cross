@@ -227,8 +227,17 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GLHandler.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="LightShader.cpp">
+    <ClCompile Include="FileExplorer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FileExplorer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FileExplorer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Shaders\LightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,11 +253,11 @@
     <CustomBuild Include="GLHandler.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="FileExplorer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_CrossEditor.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Audio.h">
       <Filter>Cross</Filter>
     </ClInclude>
@@ -399,8 +408,11 @@
     <ClInclude Include="SceneView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LightShader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GeneratedFiles\ui_CrossEditor.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Shaders\LightShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

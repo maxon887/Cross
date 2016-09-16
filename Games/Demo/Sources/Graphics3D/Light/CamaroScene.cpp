@@ -40,9 +40,9 @@ void CamaroScene::Start(){
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/Camaro/specular.jpg");
 	Texture* shininessTexture = gfx2D->LoadTexture("gfx3D/Camaro/shininess.jpg");
-	car_mat->SetDiffuseTexture(diffuseTexture);
-	car_mat->SetSpecularTexture(specularTexture);
-	car_mat->SetShininessTexture(shininessTexture);
+	car_mat->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
+	car_mat->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
+	car_mat->SetPropertyValue("Shininess Map", (void*)shininessTexture->GetID());
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	
@@ -53,8 +53,8 @@ void CamaroScene::Start(){
 	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	Texture* roadSpecular = gfx2D->LoadTexture("gfx3D/Road/specular.jpg");
 	roadSpecular->SetTilingMode(Texture::TilingMode::REPEAT);
-	road_mat->SetDiffuseTexture(roadDiffuse);
-	road_mat->SetSpecularTexture(roadSpecular);
+	road_mat->SetPropertyValue("Diffuse Texture", (void*)roadDiffuse->GetID());
+	road_mat->SetPropertyValue("Specular Map", (void*)roadSpecular->GetID());
 	road->SetMaterial(road_mat);
 	road->SetRotateX(-90.f);
 	//lights

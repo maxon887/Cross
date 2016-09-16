@@ -32,7 +32,6 @@
 #include "Graphics3D/Light/MultiLightScene.h"
 #include "Graphics3D/Light/CamaroScene.h"
 #include "Graphics3D/Simple/ComplexModelScene.h"
-//#include "Graphics3D/DepthTestScreen.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"

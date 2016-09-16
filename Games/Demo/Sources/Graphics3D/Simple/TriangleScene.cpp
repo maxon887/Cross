@@ -23,8 +23,9 @@ void TriangleScene::Start(){
 	CCScene::Start();
 
 	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
 	triangle_material = new Material(shader);
-	triangle_material->SetDiffuseColor(Color::Red);
+	triangle_material->SetPropertyValue("Color", (void*)(&Color::Red));
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	
@@ -48,6 +49,6 @@ void TriangleScene::Stop(){
 }
 
 void TriangleScene::Update(float sec){
-	triangle->Draw();
+	triangle->Draw(triangle_material);
 	CCScene::Update(sec);
 }

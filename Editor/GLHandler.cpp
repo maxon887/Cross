@@ -30,8 +30,7 @@ void GLHandler::initializeGL(){
 		gfx2D = new Graphics2D();
 		gfx3D = new Graphics3D();
 		game->Start();
-		Scene* startScene = gfx3D->LoadScene("");
-		game->SetScene(new SceneView(startScene));
+		game->SetScene(new SceneView());
 
 		auto pTimer = new QTimer(this);
 		connect(pTimer, &QTimer::timeout, this, &GLHandler::update); 
@@ -57,6 +56,12 @@ void GLHandler::paintGL(){
 			+"\nLine: " + to_string(exc.line);
 		ExceptionMsgBox(msg.c_str());
 	}
+}
+
+void GLHandler::resizeGL(int w, int h){
+	LauncherWIN* winLanch = (LauncherWIN*)launcher;
+	winLanch->SetWindowSize(w, h);
+	TRIGGER_EVENT(game->WindowResized, w, h);
 }
 
 void GLHandler::shutDown(){

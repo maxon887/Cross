@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\..\..\Sources\Quaternion.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Scene.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp" />
@@ -126,7 +127,6 @@
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\LightShader.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp" />
@@ -175,6 +175,7 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Quaternion.h" />
     <ClInclude Include="..\..\..\..\Sources\Scene.h" />
+    <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\..\..\..\Sources\Sprite.h" />
@@ -206,7 +207,6 @@
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\LightShader.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h" />
