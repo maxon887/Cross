@@ -49,6 +49,6 @@ void TriangleScene::Stop(){
 }
 
 void TriangleScene::Update(float sec){
-	triangle->Draw(triangle_material);
+	triangle->Draw();
 	CCScene::Update(sec);
 }

@@ -35,10 +35,13 @@ void SpecularDiffuseScene::Start(){
 	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
 	shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
+	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
 	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", (void*)diffuse->GetID());
 	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);
+	shininess = 0.5f * 128.f;
+	material->SetPropertyValue("Shininess",	(void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }

@@ -32,11 +32,16 @@ void DirectionalLightScene::Start(){
 	AddLight(light);
 
 	shader = new LightShader("gfx3D/shaders/directional_light.vert", "gfx3D/shaders/directional_light.frag");
+	shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
+	shader->AddProperty("Specular Map", Shader::Property::SAMPLER, "uSpecularMap");
+	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
 	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	material->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
 	material->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
+	shininess = 0.5f * 128.f;
+	material->SetPropertyValue("Shininess", (void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 

@@ -25,5 +25,6 @@ public:
 private:
 	Shader* shader;
 	Material* material;
+	float shininess;
 	Model* cube;
 };

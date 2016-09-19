@@ -66,11 +66,11 @@ Mesh::~Mesh(){
 	}
 }
 
-void Mesh::Draw(Material* mat){
-	Draw(Matrix::CreateIdentity(), mat);
+void Mesh::Draw(){
+	Draw(Matrix::CreateIdentity());
 }
 
-void Mesh::Draw(const Matrix& globalModel, Material* mat){
+void Mesh::Draw(const Matrix& globalModel){
 	if(material == nullptr){
 		throw CrossException("Current mesh does not have material");
 	}
@@ -105,7 +105,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* mat){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(pair<string, Shader::Property*> pair : mat->properties){
+	for(pair<string, Shader::Property*> pair : material->properties){
 		Shader::Property* prop = pair.second;
 		if(prop->glId == -1){
 			throw CrossException("Broken shader property");
@@ -117,10 +117,10 @@ void Mesh::Draw(const Matrix& globalModel, Material* mat){
 		switch(prop->type)
 		{
 		case Shader::Property::SAMPLER:
-			SAFE(glActiveTexture(GL_TEXTURE0 + mat->active_texture_slot));
+			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
 			SAFE(glBindTexture(GL_TEXTURE_2D, (GLint)prop->value));
-			SAFE(glUniform1i(prop->glId, mat->active_texture_slot));
-			mat->active_texture_slot++;
+			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
+			material->active_texture_slot++;
 			break;
 		case Shader::Property::MAT4:
 			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
@@ -147,7 +147,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* mat){
 			break;
 		}
 	}
-	mat->active_texture_slot = 0;
+	material->active_texture_slot = 0;
 
 	if(shader->UseLights()){
 		shader->TransferLightData(scene->GetLights());

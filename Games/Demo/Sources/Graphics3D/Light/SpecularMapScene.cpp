@@ -35,11 +35,14 @@ void SpecularMapScene::Start() {
 	shader = new LightShader("gfx3D/shaders/specular_map.vert", "gfx3D/shaders/specular_map.frag");
 	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularTexture");
+	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
 	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	material->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
 	material->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
+	shininess = 0.5f * 128.f;
+	material->SetPropertyValue("Shininess", (void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
