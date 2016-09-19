@@ -36,6 +36,9 @@ void CamaroScene::Start(){
 	SetOrbitDistance(60.f);
 
 	shader = new MultiLightShader("gfx3D/Camaro/camaro.vert", "gfx3D/Camaro/camaro.frag");
+	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
+	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularMap");
+	shader->AddProperty("Shininess Map", Shader::Property::Type::SAMPLER, "uShininessMap");
 	car_mat = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/Camaro/specular.jpg");
@@ -55,6 +58,8 @@ void CamaroScene::Start(){
 	roadSpecular->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat->SetPropertyValue("Diffuse Texture", (void*)roadDiffuse->GetID());
 	road_mat->SetPropertyValue("Specular Map", (void*)roadSpecular->GetID());
+	road_shininess = 0.5f * 128.f;
+	road_mat->SetPropertyValue("Shininess", (void*)(&road_shininess));
 	road->SetMaterial(road_mat);
 	road->SetRotateX(-90.f);
 	//lights

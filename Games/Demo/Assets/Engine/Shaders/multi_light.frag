@@ -30,7 +30,7 @@ struct SpotLight{
 };
 
 uniform sampler2D uDiffuseTexture;
-uniform sampler2D uSpecularTexture;
+uniform sampler2D uSpecularMap;
 uniform float uShininess;
 
 uniform int uPointLightCount;
@@ -108,7 +108,7 @@ void main(){
 	vec3 result = vec3(0.0);
 	
 	vec3 diffuseColor = vec3(texture2D(uDiffuseTexture, vTexCoords));
-	vec3 specularColor = vec3(texture2D(uSpecularTexture, vTexCoords));
+	vec3 specularColor = vec3(texture2D(uSpecularMap, vTexCoords));
 	
 	result += diffuseColor * uAmbientLight;
 	

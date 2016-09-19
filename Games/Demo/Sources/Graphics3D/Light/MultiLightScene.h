@@ -25,5 +25,6 @@ public:
 protected:
 	Material* material;
 	Model* cube;
+	float shininess;
 	CRArray<Model*> objects;
 };

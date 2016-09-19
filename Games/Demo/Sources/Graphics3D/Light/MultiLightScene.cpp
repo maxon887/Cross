@@ -55,6 +55,8 @@ void MultiLightScene::Start(){
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
 	material->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
 	material->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
+	shininess = 0.5f * 128.f;
+	material->SetPropertyValue("Shininess", (void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 

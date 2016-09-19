@@ -221,7 +221,10 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
 			break;
 		case DefaultShader::MULTI_LIGHT:
-			shaders[type] = new MultiLightShader();
+			shader = new MultiLightShader();
+			shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
+			shader->AddProperty("Specular Map", Shader::Property::SAMPLER, "uSpecularMap");
+			shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
 			break;
 		default:
 			throw CrossException("Unknown shader type");

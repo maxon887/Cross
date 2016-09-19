@@ -29,4 +29,5 @@ private:
 	Model* road;
 	Material* road_mat;
 	Light* light;
+	float road_shininess;
 };

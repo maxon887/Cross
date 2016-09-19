@@ -9,7 +9,7 @@ struct PointLight{
 };
 
 uniform sampler2D uDiffuseTexture;
-uniform sampler2D uSpecularTexture;
+uniform sampler2D uSpecularMap;
 uniform float uShininess;
 
 uniform PointLight uLight;
@@ -39,7 +39,7 @@ void main() {
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uShininess);
-	vec3 specular = uLight.color * specEffect * vec3(texture2D(uSpecularTexture, vTexCoords));
+	vec3 specular = uLight.color * specEffect * vec3(texture2D(uSpecularMap, vTexCoords));
 	specular *= attenaution;
 	
 	vec3 result = ambient + diffuse + specular;
