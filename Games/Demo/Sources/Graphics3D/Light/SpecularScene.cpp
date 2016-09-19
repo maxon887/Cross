@@ -37,6 +37,7 @@ void SpecularScene::Start(){
 	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
 	shader->AddProperty("Specular Color", Shader::Property::Type::VEC3, "uSpecularColor");
 	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->Compile();
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Color", (void*)&Color::Red);
 	material->SetPropertyValue("Specular Color", (void*)&Color::White);

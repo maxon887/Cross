@@ -36,6 +36,7 @@ void PointLightScene::Start(){
 	shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Specular Map", Shader::Property::SAMPLER, "uSpecularMap");
 	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
+	shader->Compile();
 	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);

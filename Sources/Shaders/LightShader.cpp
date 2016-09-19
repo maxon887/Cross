@@ -21,7 +21,10 @@
 
 LightShader::LightShader(const string& vertex, const string& fragment) :
 	Shader(vertex, fragment)
-{ 
+{ }
+
+void LightShader::Compile(){
+	Shader::Compile();
 	uLightPosition = glGetUniformLocation(program, "uLight.position");
 	uLightDirection = glGetUniformLocation(program, "uLight.direction");
 	uLightColor = glGetUniformLocation(program, "uLight.color");

@@ -31,6 +31,8 @@ public:
 
 	LightShader(const string& vertex, const string& fragment);
 
+	virtual void Compile();
+
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);
 };

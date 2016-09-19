@@ -49,6 +49,8 @@ public:
 		GLint glId;
 		void* value;
 	};
+
+	bool compiled;
 	//general attributes
 	GLint aPosition;
 	GLint aTexCoords;
@@ -67,9 +69,14 @@ public:
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
+	virtual void Compile();
+
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);
 
+	bool IsCompiled();
+
+	void DefineMakros(const string& makro);
 	void AddProperty(Property* prop);
 	void AddProperty(const string& name, Property::Type type, const string& glName);
 	Property* GetProperty(const string& name);
@@ -78,11 +85,15 @@ public:
 
 protected:
 	GLuint program;
+	CRArray<string>	macrosies;
 private:
 	GLuint vertex_shader;
 	GLuint fragment_shader;
+	File* vertex_file;
+	File* fragment_file;
+	unsigned int makro_len;
 
-	GLuint Compile(const string& filename);
+	GLuint Compile(GLuint type, File* file);
 	void CompileProgram();
 };
 

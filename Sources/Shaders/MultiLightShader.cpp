@@ -25,8 +25,10 @@ MultiLightShader::MultiLightShader() :
 
 MultiLightShader::MultiLightShader(const string& vert, const string& frag) :
 	Shader(vert, frag)
-{
+{ }
 
+void MultiLightShader::Compile(){
+	Shader::Compile();
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
 	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");

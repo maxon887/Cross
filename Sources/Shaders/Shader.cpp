@@ -20,24 +20,11 @@
 
 using namespace cross;
 
-Shader::Shader(const string& vertexFile, const string& fragmentFile) {
-	vertex_shader = Compile(vertexFile);
-	fragment_shader = Compile(fragmentFile);
-	program = glCreateProgram();
-	glAttachShader(program, vertex_shader);
-	glAttachShader(program, fragment_shader);
-	CompileProgram();
-
-	aPosition = glGetAttribLocation(program, "aPosition");
-	aTexCoords = glGetAttribLocation(program, "aTexCoords");
-	aNormal = glGetAttribLocation(program, "aNormal");
-	
-	uMVP = glGetUniformLocation(program, "uMVP");
-	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
-	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
-	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
-	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
-	uColor = glGetUniformLocation(program, "uColor");
+Shader::Shader(const string& vertexFile, const string& fragmentFile) :
+	compiled(false),
+	makro_len(0) {
+	vertex_file = launcher->LoadFile(vertexFile);
+	fragment_file = launcher->LoadFile(fragmentFile);
 }
 
 Shader::~Shader(){
@@ -54,13 +41,61 @@ void Shader::TransferLightData(const CRArray<Light*>& lights){
 	throw CrossException("Lighting does not supported by this shader");
 }
 
+void Shader::Compile(){
+	vertex_shader = Compile(GL_VERTEX_SHADER, vertex_file);
+	fragment_shader = Compile(GL_FRAGMENT_SHADER, fragment_file);
+	program = glCreateProgram();
+	glAttachShader(program, vertex_shader);
+	glAttachShader(program, fragment_shader);
+	CompileProgram();
+
+	aPosition = glGetAttribLocation(program, "aPosition");
+	aTexCoords = glGetAttribLocation(program, "aTexCoords");
+	aNormal = glGetAttribLocation(program, "aNormal");
+	
+	uMVP = glGetUniformLocation(program, "uMVP");
+	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
+	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
+	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
+	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
+	uColor = glGetUniformLocation(program, "uColor");
+
+	for(pair<string, Shader::Property*> pair : properices){
+		Shader::Property* prop = pair.second;
+		prop->glId = glGetUniformLocation(program, prop->glName.c_str());
+		if(prop->glId != -1){
+			properices[prop->name] = prop;
+		}else{
+			throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
+		}
+	}
+	compiled = true;
+}
+
+bool Shader::IsCompiled(){
+	return compiled;
+}
+
+void Shader::DefineMakros(const string& makro){
+	static const string def = "#define ";
+	string makroString = def + makro + "\n";
+	macrosies.push_back(makroString);
+	makro_len += makroString.length();
+}
+
 void Shader::AddProperty(Shader::Property* prop){
+	if(!compiled){
+		properices[prop->name] = prop;
+	}else{
+		throw CrossException("Shader already compiled");
+	}
+	/*
 	prop->glId = glGetUniformLocation(program, prop->glName.c_str());
 	if(prop->glId != -1){
 		properices[prop->name] = prop;
 	}else{
 		throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
-	}
+	}*/
 }
 
 void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName){
@@ -76,52 +111,61 @@ GLuint Shader::GetProgram(){
 	return program;
 }
 
-GLuint Shader::Compile(const string& filename){
+GLuint Shader::Compile(GLuint type, File* file){
 	//file loading part
-		string extension = filename.substr(filename.find_last_of(".") + 1);
-		GLuint type;
-		if(extension == "vert") {
-			type = GL_VERTEX_SHADER;
-		} else if(extension == "frag") {
-			type = GL_FRAGMENT_SHADER;
-		} else {
-			throw CrossException("Can't compile shader.\nUnknown file extension.");
-		}
-		File* file = launcher->LoadFile(filename);
-		CRByte* source = new CRByte[file->size + 1]; // +1 for null terminated string
-		memcpy(source, file->data, file->size);
-		source[file->size] = 0;
-		delete file;
-		//shader compilling part
-		GLuint handle = glCreateShader(type);
-		glShaderSource(handle, 1, (const char**)&source, NULL);
-		delete[] source;
-		source = NULL;
+	/*
+	string extension = filename.substr(filename.find_last_of(".") + 1);
+	GLuint type;
+	if(extension == "vert") {
+		type = GL_VERTEX_SHADER;
+	} else if(extension == "frag") {
+		type = GL_FRAGMENT_SHADER;
+	} else {
+		throw CrossException("Can't compile shader.\nUnknown file extension.");
+	}
+	File* file = launcher->LoadFile(filename);*/
+	CRByte* source = new CRByte[makro_len + file->size + 1]; // +1 for null terminated string
 
-		glCompileShader(handle);
-		GLint compiled;
-		glGetShaderiv(handle, GL_COMPILE_STATUS, &compiled);
-		if(!compiled) {
-			GLsizei len;
-			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+	int curPos = 0;
+	for(string makro : macrosies){
+		const char* charMakro = makro.c_str();
+		memcpy(source + curPos, charMakro, makro.length());
+		curPos += makro.length();
+	}
 
+	memcpy(source + curPos, file->data, file->size);
+	source[file->size] = 0;
+	delete file;
+	//shader compilling part
+	GLuint handle = glCreateShader(type);
+	glShaderSource(handle, 1, (const char**)&source, NULL);
+	delete[] source;
+	source = NULL;
+
+	glCompileShader(handle);
+	GLint compiled;
+	glGetShaderiv(handle, GL_COMPILE_STATUS, &compiled);
+	if(!compiled) {
+		GLsizei len;
+		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+
+		char* log = new char[len + 1];
+		glGetShaderInfoLog(handle, len, &len, log);
+		throw CrossException("Shader: %s\n%sShader", file->name.c_str(), log);
+	} else {
+#ifdef CROSS_DEBUG
+		GLsizei len;
+		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
+		if(len > 1){
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
-			throw CrossException("Shader: %s\n%sShader", filename.c_str(), log);
-		} else {
-#ifdef CROSS_DEBUG
-			GLsizei len;
-			glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
-			if(len > 1){
-				char* log = new char[len + 1];
-				glGetShaderInfoLog(handle, len, &len, log);
-				string msg(log);
-				delete[] log;
-				launcher->LogIt("Shader compilation:\n" + msg);
-			}
-#endif
+			string msg(log);
+			delete[] log;
+			launcher->LogIt("Shader compilation:\n" + msg);
 		}
-		return handle;
+#endif
+	}
+	return handle;
 }
 
 void Shader::CompileProgram(){

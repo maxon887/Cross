@@ -36,6 +36,7 @@ void SpecularMapScene::Start() {
 	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularTexture");
 	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->Compile();
 	material = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);

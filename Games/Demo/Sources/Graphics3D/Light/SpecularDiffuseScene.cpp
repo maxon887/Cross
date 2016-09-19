@@ -36,6 +36,7 @@ void SpecularDiffuseScene::Start(){
 	shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
 	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
+	shader->Compile();
 	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", (void*)diffuse->GetID());

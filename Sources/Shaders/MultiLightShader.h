@@ -67,6 +67,8 @@ public:
 	MultiLightShader();
 	MultiLightShader(const string& vert, const string& frag);
 
+	virtual void Compile();
+
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);
 };

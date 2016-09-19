@@ -39,6 +39,7 @@ void CamaroScene::Start(){
 	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularMap");
 	shader->AddProperty("Shininess Map", Shader::Property::Type::SAMPLER, "uShininessMap");
+	shader->Compile();
 	car_mat = new Material(shader);
 	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
 	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/Camaro/specular.jpg");
