@@ -27,10 +27,10 @@ MultiLightShader::MultiLightShader(const string& vert, const string& frag) :
 	Shader(vert, frag)
 { }
 
-void MultiLightShader::Compile(/*const CRArray<Light*>& lights*/){
+void MultiLightShader::Compile(const CRArray<Light*>& lights){
 	int pointCount = 0;
 	int spotCount = 0;
-	int directionalCount = 0;/*
+	int directionalCount = 0;
 	for(Light* light : lights){
 		switch(light->GetType()) {
 		case Light::Type::POINT:{
@@ -45,19 +45,15 @@ void MultiLightShader::Compile(/*const CRArray<Light*>& lights*/){
 		default:
 			throw CrossException("Unknown light type");
 		}
-	}*/
+	}
 
 	AddMakro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
 	AddMakro("POINT_LIGHT_COUNT", pointCount);
 	AddMakro("SPOT_LIGHT_COUNT", spotCount);
 
 	Shader::Compile();
-	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
-	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
-	uMaterialShininess = glGetUniformLocation(program, "uMaterialShininess");
 
-	uPointLightCount = glGetUniformLocation(program, "uPointLightCount");
-	for(int i = 0; i < MaxPointLights; ++i){
+	for(int i = 0; i < pointCount; ++i){
 		string structName = "uPointLights[" + to_string(i) + "]";
 		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
 		uPointLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
@@ -65,14 +61,12 @@ void MultiLightShader::Compile(/*const CRArray<Light*>& lights*/){
 		uPointLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
 	}
 
-	uDirectionalLightCount = glGetUniformLocation(program, "uDirectionalLightCount");
 	for(int i = 0; i < MaxDirectionalLights; ++i){
 		string structName = "uDirectionalLights[" + to_string(i) + "]";
 		uDirectionalLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 		uDirectionalLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
 	}
 	
-	uSpotLightCount = glGetUniformLocation(program, "uSpotLightCount");
 	for(int i = 0; i < MaxSpotLights; ++i){
 		string structName = "uSpotLights[" + to_string(i) + "]";
 		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
@@ -121,7 +115,4 @@ void MultiLightShader::TransferLightData(const CRArray<Light*>& lights){
 			throw CrossException("Unknown light type");
 		}
 	}
-	SAFE(glUniform1i(uPointLightCount, pointCount));
-	SAFE(glUniform1i(uDirectionalLightCount, directionalCount));
-	SAFE(glUniform1i(uSpotLightCount, spotCount));
 }

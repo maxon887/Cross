@@ -23,12 +23,11 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	MultiLightShader* shader;
 	Model* camaro;
 	Material* car_mat;
 	Model* road;
 	Material* road_mat;
 	Light* light;
-	float road_specular;
-	float road_shininess;
+	float specular;
+	float shininess;
 };

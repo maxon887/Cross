@@ -79,6 +79,9 @@ bool Shader::IsCompiled(){
 }
 
 void Shader::AddMakro(const string& makro){
+	if(compiled){
+		throw CrossException("Shader already compiled");
+	}
 	static const string def = "#define ";
 	string makroString = def + makro + "\n";
 	macrosies.push_back(makroString);
@@ -86,6 +89,9 @@ void Shader::AddMakro(const string& makro){
 }
 
 void Shader::AddMakro(const string& makro, int value){
+	if(compiled){
+		throw CrossException("Shader already compiled");
+	}
 	static const string def = "#define ";
 	string makroString = def + makro + " " + to_string(value) + "\n";
 	macrosies.push_back(makroString);

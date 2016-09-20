@@ -23,7 +23,7 @@ Material::Material(Shader* shader) :
 	shader(shader) {
 	if(shader->IsCompiled()){
 		for(pair<string, Shader::Property*> pair : shader->properices){
-			Shader::Property* prop = pair.second;
+			Shader::Property* prop = new Shader::Property(*pair.second);
 			this->properties[prop->name] = prop;
 		}
 		active_texture_slot = 0;

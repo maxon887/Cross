@@ -50,24 +50,15 @@ public:
 	static const unsigned int MaxPointLights = 16;
 	static const unsigned int MaxDirectionalLights = 4;
 	static const unsigned int MaxSpotLights = 8;
-	
-	GLuint uMaterialDiffuse;
-	GLuint uMaterialSpecular;
-	GLuint uMaterialShininess;
 
-	GLuint uPointLightCount;
 	PointLight uPointLights[MaxPointLights];
-
-	GLuint uDirectionalLightCount;
 	DirectionalLight uDirectionalLights[MaxDirectionalLights];
-
-	GLuint uSpotLightCount;
 	SpotLight uSpotLights[MaxSpotLights];
 
 	MultiLightShader();
 	MultiLightShader(const string& vert, const string& frag);
 
-	virtual void Compile(/*const CRArray<Light*>& lig*/);
+	virtual void Compile(const CRArray<Light*>& lights);
 
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);

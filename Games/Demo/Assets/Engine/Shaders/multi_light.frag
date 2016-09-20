@@ -1,9 +1,5 @@
 precision mediump float;
 
-#define MAX_POINT_LIGHTS 16
-#define MAX_DIRECTIONAL_LIGHTS 4
-#define MAX_SPOT_LIGHTS 8
-
 struct PointLight{
 	vec3 position;
 	vec3 color;
@@ -37,14 +33,9 @@ uniform float uSpecular;
 #endif
 uniform float uShininess;
 
-uniform int uPointLightCount;
-uniform PointLight uPointLights[MAX_POINT_LIGHTS];
-
-uniform int uDirectionalLightCount;
-uniform DirectionalLight uDirectionalLights[MAX_DIRECTIONAL_LIGHTS];
-
-uniform int uSpotLightCount;
-uniform SpotLight uSpotLights[MAX_SPOT_LIGHTS];
+uniform DirectionalLight uDirectionalLights[DIRECTIONAL_LIGHT_COUNT + 1];
+uniform PointLight uPointLights[POINT_LIGHT_COUNT + 1];
+uniform SpotLight uSpotLights[SPOT_LIGHT_COUNT + 1];
 
 uniform vec3 uAmbientLight;
 
@@ -109,8 +100,6 @@ vec3 CalcSpotLight(SpotLight light, vec3 diffuseColor, vec3 specularColor){
 }
 
 void main(){
-	vec3 result = vec3(0.0);
-	
 	vec3 diffuseColor = vec3(texture2D(uDiffuseTexture, vTexCoords));
 #ifdef USE_SPECULAR_MAP
 	vec3 specularColor = vec3(texture2D(uSpecularMap, vTexCoords));
@@ -118,17 +107,17 @@ void main(){
 	vec3 specularColor = vec3(uSpecular, uSpecular, uSpecular);
 #endif
 	
-	result += diffuseColor * uAmbientLight;
+	vec3 result = diffuseColor * uAmbientLight;
 	
-	for(int i = 0; i < uPointLightCount; i++){
-		result += CalcPointLight(uPointLights[i], diffuseColor, specularColor);
-	}
-	
-	for(int i = 0; i < uDirectionalLightCount; i++){
+	for(int i = 0; i < DIRECTIONAL_LIGHT_COUNT; i++){
 		result += CalcDirectionalLight(uDirectionalLights[i], diffuseColor, specularColor);
 	}
 	
-	for(int i = 0; i < uSpotLightCount; i++){
+	for(int i = 0; i < POINT_LIGHT_COUNT; i++){
+		result += CalcPointLight(uPointLights[i], diffuseColor, specularColor);
+	}
+	
+	for(int i = 0; i < SPOT_LIGHT_COUNT; i++){
 		result += CalcSpotLight(uSpotLights[i], diffuseColor, specularColor);
 	}
 	
