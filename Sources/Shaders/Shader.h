@@ -40,7 +40,7 @@ public:
 			type(type),
 			glName(glName),
 			glId(-1),
-			value(nullptr)
+			value(NULL)
 		{ }
 
 		string name;
@@ -76,7 +76,8 @@ public:
 
 	bool IsCompiled();
 
-	void DefineMakros(const string& makro);
+	void AddMakro(const string& makro);
+	void AddMakro(const string& makro, int value);
 	void AddProperty(Property* prop);
 	void AddProperty(const string& name, Property::Type type, const string& glName);
 	Property* GetProperty(const string& name);

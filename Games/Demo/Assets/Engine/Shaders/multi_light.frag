@@ -30,7 +30,11 @@ struct SpotLight{
 };
 
 uniform sampler2D uDiffuseTexture;
+#ifdef USE_SPECULAR_MAP
 uniform sampler2D uSpecularMap;
+#else
+uniform float uSpecular;
+#endif
 uniform float uShininess;
 
 uniform int uPointLightCount;
@@ -108,19 +112,23 @@ void main(){
 	vec3 result = vec3(0.0);
 	
 	vec3 diffuseColor = vec3(texture2D(uDiffuseTexture, vTexCoords));
+#ifdef USE_SPECULAR_MAP
 	vec3 specularColor = vec3(texture2D(uSpecularMap, vTexCoords));
+#else
+	vec3 specularColor = vec3(uSpecular, uSpecular, uSpecular);
+#endif
 	
 	result += diffuseColor * uAmbientLight;
 	
-	for(int i = 0; i < uPointLightCount; ++i){
+	for(int i = 0; i < uPointLightCount; i++){
 		result += CalcPointLight(uPointLights[i], diffuseColor, specularColor);
 	}
 	
-	for(int i = 0; i < uDirectionalLightCount; ++i){
+	for(int i = 0; i < uDirectionalLightCount; i++){
 		result += CalcDirectionalLight(uDirectionalLights[i], diffuseColor, specularColor);
 	}
 	
-	for(int i = 0; i < uSpotLightCount; ++i){
+	for(int i = 0; i < uSpotLightCount; i++){
 		result += CalcSpotLight(uSpotLights[i], diffuseColor, specularColor);
 	}
 	

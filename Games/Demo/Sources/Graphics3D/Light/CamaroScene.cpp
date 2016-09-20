@@ -52,13 +52,14 @@ void CamaroScene::Start(){
 	
 	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
 	Shader* roadShader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	roadShader->AddProperty("Specular", Shader::Property::SAMPLER, "uSpecular");
+	roadShader->Compile();
 	road_mat = new Material(roadShader);
 	Texture* roadDiffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg");
 	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	Texture* roadSpecular = gfx2D->LoadTexture("gfx3D/Road/specular.jpg");
-	roadSpecular->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat->SetPropertyValue("Diffuse Texture", (void*)roadDiffuse->GetID());
-	road_mat->SetPropertyValue("Specular Map", (void*)roadSpecular->GetID());
+	road_specular = 0.5f;
+	road_mat->SetPropertyValue("Specular", (void*)(&road_specular));
 	road_shininess = 0.5f * 128.f;
 	road_mat->SetPropertyValue("Shininess", (void*)(&road_shininess));
 	road->SetMaterial(road_mat);

@@ -29,5 +29,6 @@ private:
 	Model* road;
 	Material* road_mat;
 	Light* light;
+	float road_specular;
 	float road_shininess;
 };

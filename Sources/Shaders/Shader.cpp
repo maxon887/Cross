@@ -22,6 +22,8 @@ using namespace cross;
 
 Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 	compiled(false),
+	vertex_file(NULL),
+	fragment_file(NULL),
 	makro_len(0) {
 	vertex_file = launcher->LoadFile(vertexFile);
 	fragment_file = launcher->LoadFile(fragmentFile);
@@ -76,9 +78,16 @@ bool Shader::IsCompiled(){
 	return compiled;
 }
 
-void Shader::DefineMakros(const string& makro){
+void Shader::AddMakro(const string& makro){
 	static const string def = "#define ";
 	string makroString = def + makro + "\n";
+	macrosies.push_back(makroString);
+	makro_len += makroString.length();
+}
+
+void Shader::AddMakro(const string& makro, int value){
+	static const string def = "#define ";
+	string makroString = def + makro + " " + to_string(value) + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
 }
@@ -89,13 +98,6 @@ void Shader::AddProperty(Shader::Property* prop){
 	}else{
 		throw CrossException("Shader already compiled");
 	}
-	/*
-	prop->glId = glGetUniformLocation(program, prop->glName.c_str());
-	if(prop->glId != -1){
-		properices[prop->name] = prop;
-	}else{
-		throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
-	}*/
 }
 
 void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName){
@@ -111,19 +113,7 @@ GLuint Shader::GetProgram(){
 	return program;
 }
 
-GLuint Shader::Compile(GLuint type, File* file){
-	//file loading part
-	/*
-	string extension = filename.substr(filename.find_last_of(".") + 1);
-	GLuint type;
-	if(extension == "vert") {
-		type = GL_VERTEX_SHADER;
-	} else if(extension == "frag") {
-		type = GL_FRAGMENT_SHADER;
-	} else {
-		throw CrossException("Can't compile shader.\nUnknown file extension.");
-	}
-	File* file = launcher->LoadFile(filename);*/
+GLuint Shader::Compile(GLuint type, File* file) {
 	CRByte* source = new CRByte[makro_len + file->size + 1]; // +1 for null terminated string
 
 	int curPos = 0;
@@ -134,8 +124,7 @@ GLuint Shader::Compile(GLuint type, File* file){
 	}
 
 	memcpy(source + curPos, file->data, file->size);
-	source[file->size] = 0;
-	delete file;
+	source[makro_len + file->size] = 0;
 	//shader compilling part
 	GLuint handle = glCreateShader(type);
 	glShaderSource(handle, 1, (const char**)&source, NULL);
@@ -165,6 +154,7 @@ GLuint Shader::Compile(GLuint type, File* file){
 		}
 #endif
 	}
+	delete file;
 	return handle;
 }
 

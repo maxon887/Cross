@@ -213,7 +213,8 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
 			break;
 		case DefaultShader::MONOCHROME:
-			shader = new Shader("Engine/Shaders/monochrome.vert", "Engine/Shaders/monochrome.frag");
+			shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+			shader->AddMakro("MONOCHROME");
 			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
 			break;
 		case DefaultShader::TEXTURE:
@@ -223,9 +224,8 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		case DefaultShader::MULTI_LIGHT:
 			shader = new MultiLightShader();
 			shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
-			shader->AddProperty("Specular Map", Shader::Property::SAMPLER, "uSpecularMap");
 			shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
-			break;
+			return shader;
 		default:
 			throw CrossException("Unknown shader type");
 		}

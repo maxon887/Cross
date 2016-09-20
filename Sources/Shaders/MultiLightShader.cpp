@@ -27,7 +27,30 @@ MultiLightShader::MultiLightShader(const string& vert, const string& frag) :
 	Shader(vert, frag)
 { }
 
-void MultiLightShader::Compile(){
+void MultiLightShader::Compile(/*const CRArray<Light*>& lights*/){
+	int pointCount = 0;
+	int spotCount = 0;
+	int directionalCount = 0;/*
+	for(Light* light : lights){
+		switch(light->GetType()) {
+		case Light::Type::POINT:{
+			pointCount++;
+		}break;
+		case Light::Type::SPOT:{
+			spotCount++;
+		}break;
+		case Light::Type::DIRECTIONAL:
+			directionalCount++;
+			break;
+		default:
+			throw CrossException("Unknown light type");
+		}
+	}*/
+
+	AddMakro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
+	AddMakro("POINT_LIGHT_COUNT", pointCount);
+	AddMakro("SPOT_LIGHT_COUNT", spotCount);
+
 	Shader::Compile();
 	uMaterialDiffuse = glGetUniformLocation(program, "uMaterialDiffuse");
 	uMaterialSpecular = glGetUniformLocation(program, "uMaterialSpecular");
