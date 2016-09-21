@@ -235,10 +235,11 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 
 void GraphicsGL::UseShader(Shader* shader){
 	if(shader){
-		if(!shader->IsCompiled()){
-			shader->Compile();
+		if(shader->IsCompiled()){
+			SAFE(glUseProgram(shader->GetProgram()));
+		}else{
+			throw CrossException("Shader not compiled");
 		}
-		SAFE(glUseProgram(shader->GetProgram()));
 	}else{
 		throw CrossException("Attempt to draw with NULL shader");
 	}

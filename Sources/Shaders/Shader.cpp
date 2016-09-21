@@ -33,6 +33,10 @@ Shader::~Shader(){
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
 	glDeleteProgram(program);
+	for(pair<string, Shader::Property*> pair : properices){
+		Shader::Property* prop = pair.second;
+		delete prop;
+	}
 }
 
 bool Shader::UseLights(){
@@ -82,8 +86,7 @@ void Shader::AddMakro(const string& makro){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
-	static const string def = "#define ";
-	string makroString = def + makro + "\n";
+	string makroString = "#define " + makro + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
 }
