@@ -64,38 +64,6 @@ void CamaroScene::Start(){
 	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
 	road->SetMaterial(road_mat);
 	road->SetRotateX(-90.f);//du to 3ds exports
-	/*
-	//shader = new MultiLightShader("gfx3D/Camaro/camaro.vert", "gfx3D/Camaro/camaro.frag");
-	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
-	//shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularMap");
-	//shader->AddProperty("Shininess Map", Shader::Property::Type::SAMPLER, "uShininessMap");
-	shader->Compile(GetLights());
-	car_mat = new Material(shader);
-	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
-	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/Camaro/specular.jpg");
-	Texture* shininessTexture = gfx2D->LoadTexture("gfx3D/Camaro/shininess.jpg");
-	car_mat->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
-	//car_mat->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
-	//car_mat->SetPropertyValue("Shininess Map", (void*)shininessTexture->GetID());
-	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	camaro->SetMaterial(car_mat);
-	
-	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
-	MultiLightShader* roadShader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	int* arr = new int[0];
-	roadShader->AddProperty("Specular", Shader::Property::SAMPLER, "uSpecular");
-	roadShader->Compile(GetLights());
-	road_mat = new Material(roadShader);
-	Texture* roadDiffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg", Texture::Filter::NEAREST);
-	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	road_mat->SetPropertyValue("Diffuse Texture", (void*)roadDiffuse->GetID());
-	road_specular = 0.5f;
-	road_mat->SetPropertyValue("Specular", (void*)(&road_specular));
-	road_shininess = 0.5f * 128.f;
-	road_mat->SetPropertyValue("Shininess", (void*)(&road_shininess));
-	road->SetMaterial(road_mat);
-	road->SetRotateX(-90.f);*/
 }
 
 void CamaroScene::Stop(){

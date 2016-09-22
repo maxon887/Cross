@@ -57,8 +57,7 @@ void MultiLightShader::Compile(const CRArray<Light*>& lights){
 		string structName = "uPointLights[" + to_string(i) + "]";
 		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
 		uPointLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uPointLights[i].linear = glGetUniformLocation(program, string(structName + ".linear").c_str());
-		uPointLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
+		uPointLights[i].intensity = glGetUniformLocation(program, string(structName + ".linear").c_str());
 	}
 
 	for(int i = 0; i < MaxDirectionalLights; ++i){
@@ -70,12 +69,11 @@ void MultiLightShader::Compile(const CRArray<Light*>& lights){
 	for(int i = 0; i < MaxSpotLights; ++i){
 		string structName = "uSpotLights[" + to_string(i) + "]";
 		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
+		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 		uSpotLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uSpotLights[i].linear = glGetUniformLocation(program, string(structName + ".linear").c_str());
-		uSpotLights[i].quadratic = glGetUniformLocation(program, string(structName + ".quadratic").c_str());
+		uSpotLights[i].intensity = glGetUniformLocation(program, string(structName + ".linear").c_str());
 		uSpotLights[i].cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
 		uSpotLights[i].outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
-		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 	}
 }
 
@@ -92,15 +90,13 @@ void MultiLightShader::TransferLightData(const CRArray<Light*>& lights){
 		case Light::Type::POINT:{
 			SAFE(glUniform3fv(uPointLights[pointCount].position, 1, light->GetPosition().GetData()));
 			SAFE(glUniform3fv(uPointLights[pointCount].color, 1, light->GetColor().GetData()));
-			SAFE(glUniform1f(uPointLights[pointCount].linear, light->GetIntensity()));
-			SAFE(glUniform1f(uPointLights[pointCount].quadratic, light->GetIntensity()));
+			SAFE(glUniform1f(uPointLights[pointCount].intensity, light->GetIntensity()));
 			pointCount++;
 		}break;
 		case Light::Type::SPOT:{
 			SAFE(glUniform3fv(uSpotLights[spotCount].position, 1, light->GetPosition().GetData()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
-			SAFE(glUniform1f(uSpotLights[spotCount].linear, light->GetIntensity()));
-			SAFE(glUniform1f(uSpotLights[spotCount].quadratic, light->GetIntensity()));
+			SAFE(glUniform1f(uSpotLights[spotCount].intensity, light->GetIntensity()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetDirection().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, light->GetCutOff()));
 			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, light->GetOuterCutOff()));

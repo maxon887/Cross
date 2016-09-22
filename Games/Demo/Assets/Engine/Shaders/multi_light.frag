@@ -1,41 +1,28 @@
 precision mediump float;
 
-struct PointLight{
+struct Light{
 	vec3 position;
-	vec3 color;
-	
-	float linear;
-	float quadratic;
-};
-
-struct DirectionalLight{
 	vec3 direction;
 	vec3 color;
-};
-
-struct SpotLight{
-	vec3 position;
-	vec3 color;
-
-	float linear;
-	float quadratic;
 	
-	vec3 direction;
+	float intensity;
 	float cut_off;
 	float outer_cut_off;
 };
 
 uniform sampler2D uDiffuseTexture;
+
 #ifdef USE_SPECULAR_MAP
 uniform sampler2D uSpecularMap;
 #else
 uniform float uSpecular;
 #endif
+
 uniform float uShininess;
 
-uniform DirectionalLight uDirectionalLights[DIRECTIONAL_LIGHT_COUNT + 1];
-uniform PointLight uPointLights[POINT_LIGHT_COUNT + 1];
-uniform SpotLight uSpotLights[SPOT_LIGHT_COUNT + 1];
+uniform Light uDirectionalLights[DIRECTIONAL_LIGHT_COUNT + 1];
+uniform Light uPointLights[POINT_LIGHT_COUNT + 1];
+uniform Light uSpotLights[SPOT_LIGHT_COUNT + 1];
 
 uniform vec3 uAmbientLight;
 
@@ -44,26 +31,23 @@ varying vec3 vNormal;
 varying vec3 vFragPosition;
 varying vec3 vViewDirection;
 
-vec3 CalcPointLight(PointLight light, vec3 diffuseColor, vec3 specularColor){
+vec3 CalcPointLight(Light light, vec3 diffuseColor, vec3 specularColor){
 	vec3 lightDirection = normalize(light.position - vFragPosition);
 	//attenaution
 	float dist = length(light.position - vFragPosition);
-	float attenaution = 1.0 / (1.0 + light.linear * dist + light.quadratic * dist * dist);
+	float attenaution = 1.0 / (1.0 + light.intensity * dist + light.intensity * dist * dist);
 	//diffuse
 	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
 	vec3 diffuse = light.color * diffEffect * diffuseColor;
-	diffuse *= attenaution;
 	//specular
 	vec3 reflectDirection = reflect(-lightDirection, vNormal);
 	float specEffect = pow(max(dot(vViewDirection, reflectDirection), 0.0), uShininess);
 	vec3 specular = light.color * specEffect * specularColor;
-	specular *= attenaution;
 	
-	return (diffuse + specular);
+	return (diffuse + specular) * attenaution;
 }
 
-vec3 CalcDirectionalLight(DirectionalLight light, vec3 diffuseColor, vec3 specularColor){
-	//ambient
+vec3 CalcDirectionalLight(Light light, vec3 diffuseColor, vec3 specularColor){
 	//diffuse
 	vec3 lightDirection = normalize(-light.direction);
 	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
@@ -75,7 +59,7 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec3 diffuseColor, vec3 specul
 	return (diffuse + specular);
 }
 
-vec3 CalcSpotLight(SpotLight light, vec3 diffuseColor, vec3 specularColor){
+vec3 CalcSpotLight(Light light, vec3 diffuseColor, vec3 specularColor){
 	vec3 lightDirection = normalize(light.position - vFragPosition);
 	
 	float theta = dot(lightDirection, normalize(-light.direction));
@@ -83,20 +67,16 @@ vec3 CalcSpotLight(SpotLight light, vec3 diffuseColor, vec3 specularColor){
 	float intensity = clamp((theta - light.outer_cut_off) / epsilon, 0.0, 1.0);
 
 	float dist = length(light.position - vFragPosition);
-	float attenaution = 1.0 / (1.0 + light.linear * dist + light.quadratic * dist * dist);
+	float attenaution = 1.0 / (1.0 + light.intensity * dist + light.intensity * dist * dist);
 	//diffuse
 	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
 	vec3 diffuse = light.color * diffEffect * diffuseColor;
-	diffuse *= attenaution;
-	diffuse *= intensity;
 	//specular
 	vec3 reflectDirection = reflect(-lightDirection, vNormal);
 	float specEffect = pow(max(dot(vViewDirection, reflectDirection), 0.0), uShininess);
 	vec3 specular = light.color * specEffect * specularColor;
-	specular *= attenaution;
-	specular *= intensity;
 	
-	return (diffuse + specular);
+	return (diffuse + specular) * attenaution * intensity;
 }
 
 void main(){
@@ -120,8 +100,6 @@ void main(){
 	for(int i = 0; i < SPOT_LIGHT_COUNT; i++){
 		result += CalcSpotLight(uSpotLights[i], diffuseColor, specularColor);
 	}
-	
-	
 	
 	gl_FragColor = vec4(result, 1.0);
 }
