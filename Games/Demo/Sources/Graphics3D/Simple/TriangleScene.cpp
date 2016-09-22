@@ -22,10 +22,10 @@
 void TriangleScene::Start(){
 	CCScene::Start();
 
-	Shader* shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
-	triangle_material = new Material(shader);
-	triangle_material->SetPropertyValue("Color", (void*)(&Color::Red));
+	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	shader->Compile();
+	material = new Material(shader);
+	material->SetPropertyValue("Color", (void*)(&Color::Red));
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	
@@ -39,12 +39,13 @@ void TriangleScene::Start(){
 	CRArray<unsigned int> indices = { 0, 1, 2 };
 
 	triangle = new Mesh(vertexBuffer, indices, indices.size());
-	triangle->SetMaterial(triangle_material);
+	triangle->SetMaterial(material);
 }
 
 void TriangleScene::Stop(){
-	delete triangle_material;
 	delete triangle;
+	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 

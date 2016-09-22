@@ -40,6 +40,10 @@ Graphics2D::Graphics2D() :
 	camera(nullptr)
 {
 	launcher->LogIt("Graphics2D::Graphics2D()");
+	texture_shader = gfxGL->GetShader(DefaultShader::TEXTURE);
+	texture_shader->Compile();
+	monochrome_shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
+	monochrome_shader->Compile();
 	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 	default_camera = new Camera2D();
 }
@@ -48,6 +52,8 @@ Graphics2D::~Graphics2D(){
 	launcher->LogIt("Graphics2D::~Graphics2D");
 	delete default_font;
 	delete default_camera;
+	delete texture_shader;
+	delete monochrome_shader;
 }
 
 void Graphics2D::SetCamera(Camera2D* camera){
@@ -207,10 +213,11 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glActiveTexture(GL_TEXTURE0));
 	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	if(monochrome){
-		shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
+		shader = monochrome_shader;
 	}else{
-		shader = gfxGL->GetShader(DefaultShader::TEXTURE);
+		shader = texture_shader;
 	}
+
 	gfxGL->UseShader(shader);
 
 	SAFE(glUniform3fv(shader->uColor, 1, color.GetData()));

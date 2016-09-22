@@ -114,11 +114,10 @@ void Mesh::Draw(const Matrix& globalModel){
 			throw CrossException("Property '%s' value not assigned", prop->name.c_str());
 		}
 
-		switch(prop->type)
-		{
+		switch(prop->type){
 		case Shader::Property::SAMPLER:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, (GLint)prop->value));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop->value));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;

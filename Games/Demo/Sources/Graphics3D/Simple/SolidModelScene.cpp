@@ -22,7 +22,9 @@
 
 void SolidModelScene::Start(){
 	CCScene::Start();
-	material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
+	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	shader->Compile();
+	material = new Material(shader);
 	material->SetPropertyValue("Color", (void*)&Color::Green);
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
@@ -31,11 +33,11 @@ void SolidModelScene::Start(){
 void SolidModelScene::Stop(){
 	delete cube;
 	delete material;
+	delete shader;
 	CCScene::Stop();
 }
 
 void SolidModelScene::Update(float sec){
 	cube->Draw();
-
 	CCScene::Update(sec);
 }

@@ -33,7 +33,7 @@ Shader::~Shader(){
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
 	glDeleteProgram(program);
-	for(pair<string, Shader::Property*> pair : properices){
+	for(pair<string, Shader::Property*> pair : properties){
 		Shader::Property* prop = pair.second;
 		delete prop;
 	}
@@ -66,11 +66,11 @@ void Shader::Compile(){
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
 	uColor = glGetUniformLocation(program, "uColor");
 
-	for(pair<string, Shader::Property*> pair : properices){
+	for(pair<string, Shader::Property*> pair : properties){
 		Shader::Property* prop = pair.second;
 		prop->glId = glGetUniformLocation(program, prop->glName.c_str());
 		if(prop->glId != -1){
-			properices[prop->name] = prop;
+			properties[prop->name] = prop;
 		}else{
 			throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
 		}
@@ -103,7 +103,12 @@ void Shader::AddMakro(const string& makro, int value){
 
 void Shader::AddProperty(Shader::Property* prop){
 	if(!compiled){
-		properices[prop->name] = prop;
+		auto it = properties.find(prop->name);
+		if(it == properties.end()){
+			properties[prop->name] = prop;
+		}else{
+			throw CrossException("Duplicated property");
+		}
 	}else{
 		throw CrossException("Shader already compiled");
 	}
@@ -115,7 +120,7 @@ void Shader::AddProperty(const string& name, Shader::Property::Type type, const 
 }
 
 Shader::Property* Shader::GetProperty(const string& name){
-	return properices[name];
+	return properties[name];
 }
 
 GLuint Shader::GetProgram(){

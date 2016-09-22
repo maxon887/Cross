@@ -23,6 +23,7 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Model* cube;
+	Shader* shader;
 	Material* material;
+	Model* cube;
 };

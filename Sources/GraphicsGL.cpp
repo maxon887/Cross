@@ -55,8 +55,7 @@ void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
 }
 }
 
-GraphicsGL::GraphicsGL() :
-	shaders(DefaultShader::NONE),	//create place holders for NONE shaders
+GraphicsGL::GraphicsGL() :	
 	off_screen_rendering(false)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
@@ -90,9 +89,6 @@ GraphicsGL::GraphicsGL() :
 }
 
 GraphicsGL::~GraphicsGL(){
-	for(Shader* shader : shaders){
-		delete shader;
-	}
 	SAFE(glDeleteBuffers(1, &quadVBO));
 	SAFE(glDeleteBuffers(1, &quadEBO));
 }
@@ -205,32 +201,28 @@ void GraphicsGL::PostProcessFrame(){
 }
 
 Shader* GraphicsGL::GetShader(DefaultShader type){
-	Shader* shader = nullptr;
-	if(shaders[type] == nullptr){
-		switch(type) {
-		case DefaultShader::SIMPLE:
-			shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
-			shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
-			break;
-		case DefaultShader::MONOCHROME:
-			shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-			shader->AddMakro("MONOCHROME");
-			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
-			break;
-		case DefaultShader::TEXTURE:
-			shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-			shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
-			break;
-		case DefaultShader::MULTI_LIGHT:
-			shader = new MultiLightShader();
-			return shader;
-		default:
-			throw CrossException("Unknown shader type");
-		}
-		shader->Compile();
-		shaders[type] = shader;
+	Shader* shader = NULL;
+	switch(type) {
+	case DefaultShader::SIMPLE:
+		shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
+		shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
+		break;
+	case DefaultShader::MONOCHROME:
+		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+		shader->AddMakro("MONOCHROME");
+		shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
+		break;
+	case DefaultShader::TEXTURE:
+		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+		shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
+		break;
+	case DefaultShader::MULTI_LIGHT:
+		shader = new MultiLightShader();
+		break;
+	default:
+		throw CrossException("Unknown shader type");
 	}
-	return shaders[type];
+	return shader;
 }
 
 void GraphicsGL::UseShader(Shader* shader){

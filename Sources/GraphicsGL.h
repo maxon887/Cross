@@ -78,7 +78,7 @@ public:
 	Shader* GetShader(DefaultShader type);
 
 private:
-	CRArray<Shader*> shaders;
+	//CRArray<Shader*> shaders;
 	//off screen rendering components
 	bool off_screen_rendering;
 	GLuint framebuffer;

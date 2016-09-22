@@ -22,7 +22,7 @@ using namespace cross;
 Material::Material(Shader* shader) :
 	shader(shader) {
 	if(shader->IsCompiled()){
-		for(pair<string, Shader::Property*> pair : shader->properices){
+		for(pair<string, Shader::Property*> pair : shader->properties){
 			Shader::Property* prop = new Shader::Property(*pair.second);
 			this->properties[prop->name] = prop;
 		}
@@ -33,6 +33,10 @@ Material::Material(Shader* shader) :
 }
 
 Material::~Material(){
+	for(pair<string, Shader::Property*> pair : properties){
+		Shader::Property* prop = pair.second;
+		delete prop;
+	}
 }
 
 void Material::SetShader(Shader* shader){

@@ -64,7 +64,7 @@ public:
 	GLint uAmbientLight;
 	GLint uColor;
 	//custom properties
-	CRDictionary<string, Property*> properices;
+	CRDictionary<string, Property*> properties;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
