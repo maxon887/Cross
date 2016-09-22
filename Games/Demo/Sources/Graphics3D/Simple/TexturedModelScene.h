@@ -24,6 +24,7 @@ public:
 	void Update(float sec);
 private:
 	Shader* shader;
+	Texture* texture;
 	Material* material;
 	Model* cube;
 };

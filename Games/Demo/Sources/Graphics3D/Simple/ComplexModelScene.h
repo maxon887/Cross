@@ -23,5 +23,8 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
+	Shader* shader;
+	Texture* texture;
+	Material* material;
 	Model* camaro;
 };

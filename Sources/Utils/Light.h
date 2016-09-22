@@ -31,9 +31,9 @@ public:
 	Light(Type type);
 	virtual ~Light(){ };
 
+	Type GetType() const;
 	Color GetColor() const;
 	void SetColor(const Color& color);
-	Type GetType() const;
 	float GetIntensity() const;
 	void SetIntensity(float intensity);
 	void SetCutOff(float cut_off);

@@ -19,9 +19,9 @@
 #include "GLES.h"
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int winShow){
-#ifdef OPENGL
-	return NativeGL_GO();
-#elif GLES
+#ifdef GLES
 	return GLES_GO();
+#else
+	return NativeGL_GO();
 #endif
 }

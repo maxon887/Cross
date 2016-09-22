@@ -23,11 +23,15 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	Model* camaro;
-	Material* car_mat;
-	Model* road;
-	Material* road_mat;
-	Light* light;
+	Shader* shader;
 	float specular;
 	float shininess;
+	Texture* car_diffuse;
+	Texture* road_diffuse;
+	Material* car_mat;
+	Material* road_mat;
+	Model* camaro;
+	Model* road;
+
+	Light* light;
 };

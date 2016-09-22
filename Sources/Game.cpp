@@ -24,12 +24,13 @@
 
 using namespace cross;
 
+Game*		cross::game		= NULL;
 Launcher*	cross::launcher = NULL;
-GraphicsGL* cross::gfxGL = NULL;
-Graphics2D* cross::gfx2D = NULL;
-Graphics3D* cross::gfx3D = NULL;
-Input*		cross::input = NULL;
-Config*		cross::config = NULL;
+GraphicsGL* cross::gfxGL	= NULL;
+Graphics2D* cross::gfx2D	= NULL;
+Graphics3D* cross::gfx3D	= NULL;
+Input*		cross::input	= NULL;
+Config*		cross::config	= NULL;
 
 Game::Game() :
 	current_screen(nullptr),
@@ -57,9 +58,9 @@ void Game::Start(){
 	gfxGL->Start();
 }
 
-void Game::SetScreen(Screen* screen){
+void Game::SetScreen(Screen* screen, bool scene){
+	on_scene = scene;
 	launcher->LogIt("Game::SetScreen()");
-	on_scene = false;
 	Debugger::Instance()->StartCheckTime();
 	if(current_screen){
 		current_screen->Stop();
@@ -72,8 +73,7 @@ void Game::SetScreen(Screen* screen){
 }
 
 void Game::SetScene(Scene* scene){
-	SetScreen(scene);
-	on_scene = true;
+	SetScreen(scene, true);
 }
 
 Screen* Game::GetCurrentScreen(){

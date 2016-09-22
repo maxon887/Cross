@@ -26,7 +26,7 @@ void MultiLightScene::Start(){
 	
 	SetOrbitDistance(60.f);
 	DrawLights(true);
-
+	
 	for(int i = 0; i < 8; ++i){
 		Light* light = new Light(Light::Type::POINT);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
@@ -48,18 +48,24 @@ void MultiLightScene::Start(){
 		light->SetColor(Color::Blue);
 		AddLight(light);
 	}
-
-	Shader* shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	
+	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader->AddMakro("USE_SPECULAR_MAP");
+	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
+	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularMap");
+	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->Compile();
+	
 	material = new Material(shader);
-	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
-	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	material->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
-	material->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
+	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
+	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
+	material->SetPropertyValue("Diffuse Texture", (void*)diffuse_texture->GetID());
+	material->SetPropertyValue("Specular Map", (void*)specular_map->GetID());
 	shininess = 0.5f * 128.f;
 	material->SetPropertyValue("Shininess", (void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
-
+	
 	for(int i = 0; i < 10; ++i){
 		Model* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
@@ -74,6 +80,9 @@ void MultiLightScene::Stop(){
 	}
 	delete cube;
 	delete material;
+	delete diffuse_texture;
+	delete specular_map;
+	delete shader;
 	CCScene::Stop();
 }
 

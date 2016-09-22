@@ -31,8 +31,6 @@
 
 using namespace cross;
 
-Game* cross::game = NULL;
-
 int GLES_GO(){
 
 	ESContext esContext;

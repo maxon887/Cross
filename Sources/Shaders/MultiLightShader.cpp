@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shaders/MultiLightShader.h"
 #include "Utils/Light.h"
+#include "Game.h"
+#include "Scene.h"
 
 using namespace cross;
 
@@ -26,6 +28,10 @@ MultiLightShader::MultiLightShader() :
 MultiLightShader::MultiLightShader(const string& vert, const string& frag) :
 	Shader(vert, frag)
 { }
+
+void MultiLightShader::Compile(){
+	Compile(game->GetCurrentScene()->GetLights());
+}
 
 void MultiLightShader::Compile(const CRArray<Light*>& lights){
 	int pointCount = 0;
@@ -52,7 +58,6 @@ void MultiLightShader::Compile(const CRArray<Light*>& lights){
 	AddMakro("SPOT_LIGHT_COUNT", spotCount);
 
 	Shader::Compile();
-
 	for(int i = 0; i < pointCount; ++i){
 		string structName = "uPointLights[" + to_string(i) + "]";
 		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());

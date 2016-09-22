@@ -20,25 +20,26 @@
 #include "Material.h"
 #include "Model.h"
 
-void TexturedModelScene::Start() {
+void TexturedModelScene::Start(){
 	CCScene::Start();
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();
 	material = new Material(shader);
-	Texture* texture = gfx2D->LoadTexture("gfx3D/Box.png");
+	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", (void*)texture->GetID());
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 }
 
-void TexturedModelScene::Stop() {
+void TexturedModelScene::Stop(){
 	delete cube;
 	delete material;
+	delete texture;
 	delete shader;
 	CCScene::Stop();
 }
 
-void TexturedModelScene::Update(float sec) {
+void TexturedModelScene::Update(float sec){
 	cube->Draw();
 	CCScene::Update(sec);
 }

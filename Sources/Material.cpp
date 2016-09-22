@@ -20,13 +20,13 @@
 using namespace cross;
 
 Material::Material(Shader* shader) :
-	shader(shader) {
+	shader(shader),
+	active_texture_slot(0){
 	if(shader->IsCompiled()){
 		for(pair<string, Shader::Property*> pair : shader->properties){
 			Shader::Property* prop = new Shader::Property(*pair.second);
 			this->properties[prop->name] = prop;
 		}
-		active_texture_slot = 0;
 	}else{
 		throw CrossException("Material must use compilded shader");
 	}

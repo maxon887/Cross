@@ -30,6 +30,7 @@ public:
 	static Color Random();
 
 	float R, G, B, A;
+	Color(float all);
 	Color(float r, float g, float b);
 	Color(int r, int g, int b);
 	Color(float r, float g, float b, float a);

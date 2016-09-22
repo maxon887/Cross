@@ -17,17 +17,31 @@
 #include "ComplexModelScene.h"
 #include "GraphicsGL.h"
 #include "Graphics3D.h"
+#include "Graphics2D.h"
 #include "Model.h"
+#include "Shaders/Shader.h"
+#include "Material.h"
 
 void ComplexModelScene::Start(){
 	CCScene::Start();
 	SetOrbitDistance(60.f);
+	
+	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
+	shader->Compile();
+
+	texture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
+	material = new Material(shader);
+	material->SetPropertyValue("Texture", (void*)texture->GetID());
+
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.fbx");
-	camaro->SetRotateX(-90.f);
+	camaro->SetMaterial(material);
 }
 
 void ComplexModelScene::Stop(){
 	delete camaro;
+	delete material;
+	delete texture;
+	delete shader;
 	CCScene::Stop();
 }
 

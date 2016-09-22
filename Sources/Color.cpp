@@ -31,6 +31,10 @@ Color Color::Random(){
 	return Color(cross::Random(0.f, 1.f), cross::Random(0.f, 1.f), cross::Random(0.f, 1.f));
 }
 
+Color::Color(float all) :
+	Color(all, all, all)
+{ }
+
 Color::Color(float r, float g, float b):
 	R(r),
 	G(g),

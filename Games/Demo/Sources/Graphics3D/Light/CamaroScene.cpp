@@ -29,8 +29,9 @@
 
 void CamaroScene::Start(){
 	CCScene::Start();
+
 	DrawLights(true);
-	SetAmbientColor(Color(0.25f, 0.25f, 0.25f));
+	SetAmbientColor(Color(0.1f));
 	SetCameraViewDistance(500.f);
 	SetBackground(Color::Black);
 	SetOrbitDistance(60.f);
@@ -40,25 +41,26 @@ void CamaroScene::Start(){
 	AddLight(light);
 
 	specular = 0.5f;
-	shininess = 0.5f;
-	MultiLightShader* shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shininess = 0.5f * 128.f;
+
+	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
 	shader->AddProperty("Specular", Shader::Property::Type::FLOAT, "uSpecular");
 	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
-	shader->Compile(GetLights());
+	shader->Compile();
 
-	Texture* carDiffuse = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
+	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
 	car_mat = new Material(shader);
-	car_mat->SetPropertyValue("Diffuse Texture", (void*)carDiffuse->GetID());
+	car_mat->SetPropertyValue("Diffuse Texture", (void*)car_diffuse->GetID());
 	car_mat->SetPropertyValue("Specular", (void*)(&specular));
 	car_mat->SetPropertyValue("Shininess", (void*)(&shininess));
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	
-	Texture* roadDiffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg");
-	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
+	road_diffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg");
+	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
-	road_mat->SetPropertyValue("Diffuse Texture", (void*)roadDiffuse->GetID());
+	road_mat->SetPropertyValue("Diffuse Texture", (void*)road_diffuse->GetID());
 	road_mat->SetPropertyValue("Specular", (void*)(&specular));
 	road_mat->SetPropertyValue("Shininess", (void*)(&shininess));
 	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
@@ -69,9 +71,11 @@ void CamaroScene::Start(){
 void CamaroScene::Stop(){
 	delete road;
 	delete camaro;
-	//delete shader;
 	delete car_mat;
 	delete road_mat;
+	delete car_diffuse;
+	delete road_diffuse;
+	delete shader;
 	CCScene::Stop();
 }
 

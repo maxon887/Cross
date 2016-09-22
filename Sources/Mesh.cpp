@@ -101,6 +101,10 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glUniform3fv(shader->uCameraPosition, 1, scene->GetCamera()->GetPosition().GetData()));
 	}
 
+	if(shader->uColor != -1){
+		SAFE(glUniform3fv(shader->uColor, 1, Color(Color::White).GetData()));
+	}
+
 	if(shader->uAmbientLight != -1){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}

@@ -104,7 +104,7 @@ unsigned long LauncherWIN::GetTime(){
 	LARGE_INTEGER crt;
 	QueryPerformanceFrequency(&freq);
 	QueryPerformanceCounter(&crt);
-	return ((crt.QuadPart * 1000000) / freq.QuadPart);
+	return (unsigned long)((crt.QuadPart * 1000000) / freq.QuadPart);
 }
 
 void LauncherWIN::LogIt(const string& msg){

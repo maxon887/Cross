@@ -18,16 +18,16 @@
 #include "Cross.h"
 
 #ifdef WIN
-#ifdef OPENGL
-#include "Platform\Windows\glew\glew.h"
-#include "Platform\Windows\glew\wglew.h"
-#pragma comment(lib, "glew32.lib")
-#pragma comment(lib, "opengl32.lib")
-#elif GLES
+#ifdef GLES
 #include "Platform\Windows\GLES2\gl2.h"
 #include "Platform\Windows\EGL\egl.h"
 #pragma comment(lib, "libEGL.lib")
 #pragma comment(lib, "libGLESv2.lib")
+#else
+#include "Platform\Windows\glew\glew.h"
+#include "Platform\Windows\glew\wglew.h"
+#pragma comment(lib, "glew32.lib")
+#pragma comment(lib, "opengl32.lib")
 #endif
 #undef LoadImage
 #undef DrawText

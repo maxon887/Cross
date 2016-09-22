@@ -37,9 +37,9 @@ void SpecularDiffuseScene::Start(){
 	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
 	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
 	shader->Compile();
-	Texture* diffuse = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", (void*)diffuse->GetID());
+	material->SetPropertyValue("Diffuse Texture", (void*)texture->GetID());
 	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);
 	shininess = 0.5f * 128.f;
 	material->SetPropertyValue("Shininess",	(void*)(&shininess));
@@ -50,6 +50,7 @@ void SpecularDiffuseScene::Start(){
 void SpecularDiffuseScene::Stop(){
 	delete cube;
 	delete material;
+	delete texture;
 	delete shader;
 	CCScene::Stop();
 }

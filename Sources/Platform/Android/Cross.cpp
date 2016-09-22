@@ -51,7 +51,6 @@ enum WindowState{
     WND_ACTIVE
 };
 
-Game* cross::game           = NULL;
 CrossEGL* crossEGL          = NULL;
 ApplicationState app_state  = APP_INIT;
 WindowState wnd_state       = WND_NONE;

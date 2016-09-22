@@ -33,6 +33,8 @@ Shader::~Shader(){
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
 	glDeleteProgram(program);
+	delete vertex_file;
+	delete fragment_file;
 	for(pair<string, Shader::Property*> pair : properties){
 		Shader::Property* prop = pair.second;
 		delete prop;
@@ -49,7 +51,11 @@ void Shader::TransferLightData(const CRArray<Light*>& lights){
 
 void Shader::Compile(){
 	vertex_shader = Compile(GL_VERTEX_SHADER, vertex_file);
+	delete vertex_file;
+	vertex_file = NULL;
 	fragment_shader = Compile(GL_FRAGMENT_SHADER, fragment_file);
+	delete fragment_file;
+	fragment_file = NULL;
 	program = glCreateProgram();
 	glAttachShader(program, vertex_shader);
 	glAttachShader(program, fragment_shader);
@@ -95,8 +101,7 @@ void Shader::AddMakro(const string& makro, int value){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
-	static const string def = "#define ";
-	string makroString = def + makro + " " + to_string(value) + "\n";
+	string makroString = "#define " + makro + " " + to_string(value) + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
 }
@@ -168,7 +173,6 @@ GLuint Shader::Compile(GLuint type, File* file) {
 		}
 #endif
 	}
-	delete file;
 	return handle;
 }
 

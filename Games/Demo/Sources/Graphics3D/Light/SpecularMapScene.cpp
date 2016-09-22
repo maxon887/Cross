@@ -24,6 +24,7 @@
 
 void SpecularMapScene::Start() {
 	CCScene::Start();
+	DrawLights(true);
 
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
@@ -38,10 +39,10 @@ void SpecularMapScene::Start() {
 	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
 	shader->Compile();
 	material = new Material(shader);
-	Texture* diffuseTexture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
-	Texture* specularTexture = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
-	material->SetPropertyValue("Diffuse Texture", (void*)diffuseTexture->GetID());
-	material->SetPropertyValue("Specular Map", (void*)specularTexture->GetID());
+	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
+	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
+	material->SetPropertyValue("Diffuse Texture", (void*)diffuse_texture->GetID());
+	material->SetPropertyValue("Specular Map", (void*)specular_map->GetID());
 	shininess = 0.5f * 128.f;
 	material->SetPropertyValue("Shininess", (void*)(&shininess));
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
@@ -51,6 +52,8 @@ void SpecularMapScene::Start() {
 void SpecularMapScene::Stop() {
 	delete cube;
 	delete material;
+	delete diffuse_texture;
+	delete specular_map;
 	delete shader;
 	CCScene::Stop();
 }

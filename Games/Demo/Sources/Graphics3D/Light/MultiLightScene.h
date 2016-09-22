@@ -23,6 +23,9 @@ public:
 	virtual void Stop();
 	virtual void Update(float sec);
 protected:
+	Shader* shader;
+	Texture* diffuse_texture;
+	Texture* specular_map;
 	Material* material;
 	Model* cube;
 	float shininess;

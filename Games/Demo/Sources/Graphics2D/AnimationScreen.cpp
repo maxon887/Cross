@@ -25,7 +25,6 @@
 #include "Texture.h"
 
 void AnimationScreen::Start(){
-	bcg_scale = 2;
 	run_time = 2;
 	thinking_time = 0;
 	head_angle = 0;
@@ -50,13 +49,11 @@ void AnimationScreen::Start(){
 	images[6] = sprites["06.png"];
 	images[7] = sprites["07.png"];
 	spider_run_anim = new Animation(0.08f, images, 8, true);
-	spider_run_snd = new Audio("SpiderRun.wav", true, false);
 }
 
 void AnimationScreen::Stop(){
 	delete texture;
 	delete spider_run_anim;
-	delete spider_run_snd;
 	delete spider_body;
 	delete spider_head;
 }
@@ -69,7 +66,6 @@ void AnimationScreen::Update(float sec){
 		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_run_anim->GetImage());
 		if(run_time < 0){
 			thinking_time = 1.3f;
-			spider_run_snd->Stop();
 		}
 	}
 
@@ -90,7 +86,6 @@ void AnimationScreen::Update(float sec){
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;
-			spider_run_snd->Play();
 		}
 	}
 

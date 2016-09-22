@@ -80,6 +80,7 @@ void Scene::Stop(){
 	delete light_material;
 	delete point_light;
 	delete spot_light;
+	delete light_shader;
 	Screen::Stop();
 }
 
@@ -90,7 +91,9 @@ void Scene::SetCameraViewDistance(float distance){
 
 void Scene::DrawLights(bool enabled){
 	if(enabled && !light_drawing){
-		light_material = new Material(gfxGL->GetShader(DefaultShader::SIMPLE));
+		light_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+		light_shader->Compile();
+		light_material = new Material(light_shader);
 		point_light = gfx3D->LoadModel("Engine/gfx3D/Sphere.obj");
 		point_light->SetScale(0.2f);
 		point_light->SetMaterial(light_material);
@@ -102,6 +105,7 @@ void Scene::DrawLights(bool enabled){
 		delete light_material;
 		delete point_light;
 		delete spot_light;
+		delete light_shader;
 	}
 	light_drawing = enabled;
 }

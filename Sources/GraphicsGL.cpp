@@ -59,7 +59,7 @@ GraphicsGL::GraphicsGL() :
 	off_screen_rendering(false)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
-#if defined (EDITOR) || defined(OPENGL)
+#ifndef GLES
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
@@ -99,7 +99,7 @@ void GraphicsGL::Start(){
 			//generate color buffer
 			SAFE(glGenTextures(1, &colorbuffer));
 			SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
-			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
+			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
 
 			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
@@ -108,7 +108,7 @@ void GraphicsGL::Start(){
 			//generate depth buffer
 			SAFE(glGenTextures(1, &depthbuffer));
 			SAFE(glBindTexture(GL_TEXTURE_2D, depthbuffer));
-			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL));
+			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL));
 
 			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
@@ -150,7 +150,7 @@ void GraphicsGL::Start(){
 void GraphicsGL::PreProcessFrame(){
 	if(off_screen_rendering){
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-		SAFE(glViewport(0, 0, launcher->GetTargetWidth() / 2.f, launcher->GetTargetHeight() / 2.f));
+		SAFE(glViewport(0, 0, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
 	}
 }
 

@@ -34,8 +34,6 @@ private:
 	Sprite* spider_body;
 	Sprite* spider_head;
 	Sprite* background;
-	Audio* spider_run_snd;
-	float bcg_scale;
 	float run_time;
 	float thinking_time;
 	float head_angle;

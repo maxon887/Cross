@@ -45,6 +45,7 @@ protected:
 	Model* point_light;
 	Model* spot_light;
 	Material* light_material;
+	Shader* light_shader;
 	CRArray<Light*> lights;
 	CRArray<Model*> models;
 private:

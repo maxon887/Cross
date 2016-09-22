@@ -24,6 +24,8 @@ public:
 	virtual void Update(float sec);
 private:
 	Shader* shader;
+	Texture* diffuse_texture;
+	Texture* specular_map;
 	Material* material;
 	float shininess;
 	Model* cube;

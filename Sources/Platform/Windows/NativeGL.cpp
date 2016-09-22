@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#ifdef OPENGL
+#ifndef GLES
 #include "Cross.h"
 #include "Native.h"
 #include "LauncherWIN.h"
@@ -29,8 +29,6 @@
 #include "resource.h"
 
 using namespace cross;
-
-Game* cross::game = NULL;
 
 void ShowLastError(){
 	DWORD error = GetLastError();
@@ -118,6 +116,18 @@ int NativeGL_GO(){
 		delete gfx2D;
 		delete gfxGL;
 		delete game;
+#ifdef CROSS_DEBUG
+		unsigned long leaked = MemoryManager::Instance()->Dump();
+		if(leaked > 0) {
+			char buf[256];
+			sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
+			OutputDebugString(buf);
+			return -1;
+		} else {
+			OutputDebugString("No memory leak detected\n");
+		}
+#endif // CROSS_DEBUG
+
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
