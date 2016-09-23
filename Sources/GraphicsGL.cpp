@@ -59,7 +59,8 @@ GraphicsGL::GraphicsGL() :
 	off_screen_rendering(false)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
-#ifndef GLES
+
+#if !defined(GLES) && !defined(ANDROID)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
