@@ -324,6 +324,40 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 	return texture;
 }
 
+Texture* Graphics2D::LoadETC1Texture(const string& filename){
+	File* file = launcher->LoadFile(filename);
+	
+	CRByte header[3];
+	header[0] = file->data[0];
+	header[1] = file->data[1];
+	header[2] = file->data[2];
+	if(header[0] != 'P' || header[1] != 'K' || header[2] != 'M'){
+		throw CrossException("Texture not packed in PKM archive");
+	}
+
+	uint16_t extWidth = (file->data[8] << 8) | (file->data[9]);
+	uint16_t extHeight = (file->data[10] << 8) | (file->data[11]);
+	uint16_t width = (file->data[12] << 8) | (file->data[13]);
+	uint16_t height = (file->data[14] << 8) | (file->data[15]);
+
+	uint32_t dataLength = ((extWidth >> 2) * (extHeight >> 2)) << 3;
+
+	GLuint textureID;
+	SAFE(glGenTextures(1, &textureID));
+	SAFE(glBindTexture(GL_TEXTURE_2D, textureID));
+
+	launcher->LogIt("w - %d, h - %d, size - %d", extWidth, extHeight, dataLength);
+
+	SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, extWidth, extHeight, 0, dataLength, file->data + 16));
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+
+	Texture* texture = new Texture(textureID, width, height, Texture::Filter::LINEAR);
+	return texture;
+}
+
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){
 	return CreateTexture(data, channels, width, height, Texture::Filter::LINEAR);
 }

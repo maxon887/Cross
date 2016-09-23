@@ -49,7 +49,7 @@ void CamaroScene::Start(){
 	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
 	shader->Compile();
 
-	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
+	car_diffuse = gfx2D->LoadETC1Texture("gfx3D/Camaro/diffuse.pkm");
 	car_mat = new Material(shader);
 	car_mat->SetPropertyValue("Diffuse Texture", (void*)car_diffuse->GetID());
 	car_mat->SetPropertyValue("Specular", (void*)(&specular));
@@ -57,7 +57,7 @@ void CamaroScene::Start(){
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	
-	road_diffuse = gfx2D->LoadTexture("gfx3D/Road/diffuse.jpg");
+	road_diffuse = gfx2D->LoadETC1Texture("gfx3D/Road/diffuse.pkm");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", (void*)road_diffuse->GetID());
