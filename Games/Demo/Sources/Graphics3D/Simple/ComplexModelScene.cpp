@@ -29,7 +29,7 @@ void ComplexModelScene::Start(){
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();
 
-	texture = gfx2D->LoadTexture("gfx3D/Camaro/diffuse.jpg");
+	texture = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
 	material = new Material(shader);
 	material->SetPropertyValue("Texture", (void*)texture->GetID());
 

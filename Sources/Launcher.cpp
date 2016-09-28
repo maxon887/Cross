@@ -34,3 +34,8 @@ string Launcher::PathFromFile(const string& filePath){
 string Launcher::ExtensionFromFile(const string& file){
 	return file.substr(file.find_last_of(".") +1);
 }
+
+string Launcher::FileWithoutExtension(const string& file){
+	size_t lastindex = file.find_last_of("."); 
+	return file.substr(0, lastindex); 
+}

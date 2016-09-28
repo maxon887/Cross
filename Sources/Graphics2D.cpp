@@ -285,7 +285,15 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
-	File* textureFile = launcher->LoadFile(filename);
+	File* textureFile = NULL;
+	try{
+		textureFile = launcher->LoadFile(filename);
+	}catch(Exception ex){
+		string newFile = launcher->FileWithoutExtension(filename);
+		newFile += ".pkm";
+		return LoadETC1Texture(newFile);
+	}
+	
 	CRByte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	if(image == NULL){
@@ -325,6 +333,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 }
 
 Texture* Graphics2D::LoadETC1Texture(const string& filename){
+#ifdef ANDROID
 	Debugger::Instance()->StartCheckTime();
 
 	File* file = launcher->LoadFile(filename);
@@ -361,6 +370,9 @@ Texture* Graphics2D::LoadETC1Texture(const string& filename){
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
+#else
+	throw CrossException("Not supported by current platform");
+#endif
 }
 
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){

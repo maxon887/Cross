@@ -47,9 +47,9 @@ LauncherWIN::LauncherWIN(HWND wnd) :
 		CreateDirectoryA(DATA_PATH, NULL);
 	}
 	char* releaseAsset = "Assets/";
-	char* debugAsset = "../../../Assets/";
-	char* debugAssetAlt = "../../Assets/";
-	char* editorAsset = "../Games/Demo/Assets/";
+	char* debugAsset = "../../../Assets/Default";
+	char* debugAssetAlt = "../../Assets/Default";
+	char* editorAsset = "../Games/Demo/Assets/Default";
 	if(DirectoryExists(releaseAsset)){
 		assets_path = releaseAsset;
 	} else if(DirectoryExists(debugAsset)){
