@@ -285,10 +285,8 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
-	File* textureFile = NULL;
-	try{
-		textureFile = launcher->LoadFile(filename);
-	}catch(Exception ex){
+	File* textureFile = launcher->LoadFile(filename);
+	if(!textureFile){
 		string newFile = launcher->FileWithoutExtension(filename);
 		newFile += ".pkm";
 		return LoadETC1Texture(newFile);

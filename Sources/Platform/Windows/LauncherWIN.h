@@ -30,6 +30,7 @@ public:
 	int GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
+	bool IsFileExists(const string& filename);
 	File* LoadFile(const string& filename);
 	unsigned long GetTime();
 	void LogIt(const string& msg);
