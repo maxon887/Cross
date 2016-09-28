@@ -1,4 +1,5 @@
 import os
+import subprocess
 import shutil
 import Image
 
@@ -7,8 +8,8 @@ def walk(dir):
 	for name in os.listdir(curPath):
 		path = os.path.join(curPath, name)
 		if os.path.isfile(path):
-			dest = os.path.join(androidData, dir)
-			dest = os.path.join(dest, name)
+			dest1 = os.path.join(androidData, dir)
+			dest = os.path.join(dest1, name)
 			fileExt = os.path.splitext(path)
 			if fileExt[1] == ".png":
 				img = Image.open(path, 'r')
@@ -19,6 +20,13 @@ def walk(dir):
 				else:
 					print ("Not Alpha")
 					print (path)
+					filename = os.path.splitext(name)
+					dest = os.path.join(dest1, filename[0])
+					dest = dest + ".pkm"
+					outFile = "-o " + dest
+					args = "etc1tool.exe " + path + " " + outFile
+					print args
+					subprocess.call(args)
 					
 			else:
 				shutil.copy(path, dest)

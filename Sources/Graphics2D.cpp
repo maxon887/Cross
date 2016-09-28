@@ -325,6 +325,8 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 }
 
 Texture* Graphics2D::LoadETC1Texture(const string& filename){
+	Debugger::Instance()->StartCheckTime();
+
 	File* file = launcher->LoadFile(filename);
 	
 	CRByte header[3];
@@ -350,11 +352,14 @@ Texture* Graphics2D::LoadETC1Texture(const string& filename){
 
 	SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, extWidth, extHeight, 0, dataLength, file->data + 16));
 	
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 
 	Texture* texture = new Texture(textureID, width, height, Texture::Filter::LINEAR);
+
+	string debugMsg = "Texure(" + filename + ") loaded in ";
+	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
