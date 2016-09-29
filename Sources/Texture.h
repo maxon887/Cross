@@ -33,8 +33,10 @@ public:
 		REPEAT,
 		NONE
 	};
-
-	static const TilingMode default_tiling_mode = TilingMode::CLAMP_TO_EDGE;
+	enum class Compression{
+		ETC1,
+		NONE
+	};
 
 	Texture(GLuint id, int width, int height);
 	Texture(GLuint id, int width, int height, Filter filter);

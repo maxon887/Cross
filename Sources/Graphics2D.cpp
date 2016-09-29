@@ -289,7 +289,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 	if(!textureFile){
 		string newFile = launcher->FileWithoutExtension(filename);
 		newFile += ".pkm";
-		return LoadETC1Texture(newFile);
+		return LoadETC1Texture(newFile, filter);
 	}
 	
 	CRByte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
@@ -323,14 +323,14 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 		height = newHeight;
 		image = newImage;
 	}
-	Texture* texture = CreateTexture(image, channels, width, height, filter);
+	Texture* texture = CreateTexture(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE);
 	texture->SetName(filename);
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
-Texture* Graphics2D::LoadETC1Texture(const string& filename){
+Texture* Graphics2D::LoadETC1Texture(const string& filename, Texture::Filter filter){
 #ifdef ANDROID
 	Debugger::Instance()->StartCheckTime();
 
@@ -349,21 +349,8 @@ Texture* Graphics2D::LoadETC1Texture(const string& filename){
 	uint16_t width = (file->data[12] << 8) | (file->data[13]);
 	uint16_t height = (file->data[14] << 8) | (file->data[15]);
 
-	uint32_t dataLength = ((extWidth >> 2) * (extHeight >> 2)) << 3;
-
-	GLuint textureID;
-	SAFE(glGenTextures(1, &textureID));
-	SAFE(glBindTexture(GL_TEXTURE_2D, textureID));
-
-	launcher->LogIt("w - %d, h - %d, size - %d", extWidth, extHeight, dataLength);
-
-	SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, extWidth, extHeight, 0, dataLength, file->data + 16));
-	
-	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
-
-	Texture* texture = new Texture(textureID, width, height, Texture::Filter::LINEAR);
+	Texture* texture = CreateTexture(file->data + 16, 3, extWidth, extHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE);
+	texture->SetName(filename);
 
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
@@ -374,7 +361,7 @@ Texture* Graphics2D::LoadETC1Texture(const string& filename){
 }
 
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){
-	return CreateTexture(data, channels, width, height, Texture::Filter::LINEAR);
+	return CreateTexture(data, channels, width, height, Texture::Filter::LINEAR, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE);
 }
 
 Texture* Graphics2D::CreateTexture(int channels, int width, int height, Texture::Filter filter){
@@ -403,26 +390,62 @@ Texture* Graphics2D::CreateTexture(int channels, int width, int height, Texture:
 	return texture;
 }
 
-Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height, Texture::Filter filter){
+Texture* Graphics2D::CreateTexture(	CRByte* data, 
+									int channels, 
+									int width, 
+									int height, 
+									Texture::Filter filter,
+									Texture::Compression compression,
+									Texture::TilingMode tilingMode ){
+
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
-	switch(channels) {
-	case 1:
-		SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, data));
+	if(compression == Texture::Compression::NONE){
+		switch(channels) {
+		case 1:
+			SAFE(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, data));
+			break;
+		case 3:
+			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
+			break;
+		case 4:
+			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
+			break;
+		default:
+			throw CrossException("Wrong texture channel count");
+		}
+	}else{
+		switch(compression)
+		{
+		case cross::Texture::Compression::ETC1:
+#ifdef ANDROID
+		{
+            uint32_t dataLength = ((width >> 2) * (height >> 2)) << 3;
+            SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, width, height, 0, dataLength, data));
+        }break;
+#else
+			throw CrossException("ETC1 compression not supported by current platform");
+#endif
+		default:
+			break;
+		}
+	}
+
+	switch(tilingMode)
+	{
+	case cross::Texture::TilingMode::CLAMP_TO_EDGE:
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 		break;
-	case 3:
-		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
-		break;
-	case 4:
-		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
+	case cross::Texture::TilingMode::REPEAT:
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
 		break;
 	default:
-		throw CrossException("Wrong texture channel count");
+		break;
 	}
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 	Texture* texture = new Texture(id, width, height, filter);
