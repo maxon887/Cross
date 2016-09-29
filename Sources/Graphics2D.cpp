@@ -25,11 +25,11 @@
 #include "Texture.h"
 #include "Shaders/Shader.h"
 
+#include <math.h>
+
 #include "Libs/SOIL/SOIL.h"
 #include "Libs/FreeType/ft2build.h"
 #include "Libs/TinyXML/tinyxml.h"
-
-#include <math.h>
 
 #include FT_FREETYPE_H
 #include FT_GLYPH_H

@@ -22,11 +22,7 @@
 #include "File.h"
 #include "Model.h"
 #include "Utils/Debugger.h"
-#include "Graphics2D.h"
-#include "Texture.h"
-#include "Material.h"
 #include "Scene.h"
-#include "Utils/Light.h"
 
 #include <algorithm>
 
@@ -68,9 +64,9 @@ Scene* Graphics3D::LoadScene(const string& filename){
 	Scene* newScene = new Scene();
 	//lights
 	//newScene->SetAmbientColor(Color::White);
-	Light* light = new Light(Light::Type::POINT);
-	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	newScene->AddLight(light);
+	//Light* light = new Light(Light::Type::POINT);
+	//light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	//newScene->AddLight(light);
 	return newScene;
 }
 
