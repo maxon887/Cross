@@ -49,6 +49,7 @@ public:
 	void SetName(const string& name);
 	string GetName();
 	void SetTilingMode(TilingMode mode);
+	void AddMipmapLelel(int level, unsigned int dataLen, CRByte* data, int w, int h, Texture::Compression comp);
 
 private:
 	string name;

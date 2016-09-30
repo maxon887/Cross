@@ -40,7 +40,7 @@ Game::Game() :
 {
 	launcher->LogIt("Game::Game()");
 	input = new Input();
-	config = new Config(launcher->DataPath());
+	config = new Config();
 }
 
 Game::~Game(){

@@ -44,7 +44,8 @@ public:
 
 	Texture* LoadTexture(const string& filename);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
-	Texture* LoadETC1Texture(const string& filename, Texture::Filter filter);
+	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
+	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
 	void ReleaseTexture(const string& filename, GLuint* id);
 	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
 	Texture* CreateTexture(int channels, int width, int height, Texture::Filter filter);

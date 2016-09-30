@@ -15,14 +15,21 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Config.h"
+#include "Launcher.h"
+#include "File.h"
 
 #include <fstream>
 
+#include "Libs/TinyXML/tinyxml.h"
+
 using namespace cross;
 
-Config::Config(string dataPath){
+Config::Config(){
+	string dataPath = launcher->DataPath();
 	prefs_path = dataPath + "/prefs";
 	copy_path = dataPath + "/prefs.tmp";
+	File* config = launcher->LoadFile("Config.xml");
+	InitializeDefaultConfig(config);
 }
 
 void Config::SaveString(string key, string value){
@@ -93,6 +100,10 @@ bool Config::LoadBool(string key, bool def){
 	return LoadInt(key, def) != 0;
 }
 
+Texture::Filter Config::GetTextureFilter(){
+	return texture_filter;
+}
+
 string Config::LoadString(string key){
 	ifstream prefs;
 	prefs.open(prefs_path);
@@ -107,4 +118,44 @@ string Config::LoadString(string key){
 	}
 	prefs.close();
 	return string("");
+}
+
+void Config::InitializeDefaultConfig(File* xmlFile){
+	TiXmlDocument xml;
+	CRByte* source = new CRByte[xmlFile->size + 1]; // +1 for null terminated string
+	memcpy(source, xmlFile->data, xmlFile->size);
+	source[xmlFile->size] = 0;
+	delete xmlFile;
+	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
+	delete source;
+
+	TiXmlHandle xmlDoc(&xml);
+	TiXmlElement* root;
+	TiXmlElement* element;
+
+	root = xmlDoc.FirstChildElement("Config").Element();
+	if(root){
+		element = root->FirstChildElement("property");
+		while(element){
+			string name = element->Attribute("name");
+
+			if(name == "TextureFilter"){
+				string strValue = element->Attribute("value");
+				if(strValue == "NEAREST"){
+					texture_filter = Texture::Filter::NEAREST;
+				}else if(strValue == "LINEAR"){
+					texture_filter = Texture::Filter::LINEAR;
+				}else if(strValue == "BILINEAR"){
+					texture_filter = Texture::Filter::BILINEAR;
+				}else if(strValue == "TRILINEAR"){
+					texture_filter = Texture::Filter::TRILINEAR;
+				}else{
+					throw CrossException("Unknown Texture Filter %s", strValue.c_str());
+				}
+			}
+			element = element->NextSiblingElement("property");
+		}
+	}else{
+		throw CrossException("XML empty root element");
+	}
 }

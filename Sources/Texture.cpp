@@ -73,6 +73,16 @@ void Texture::SetTilingMode(Texture::TilingMode mode){
 	}
 }
 
+void Texture::AddMipmapLelel(int level, unsigned int dataLen, CRByte* data, int w, int h, Texture::Compression comp){
+	SAFE(glBindTexture(GL_TEXTURE_2D, id));
+	if(comp == Texture::Compression::ETC1){
+#ifdef ANDROID
+		SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, level, GL_ETC1_RGB8_OES, w, h, 0, dataLen, data));
+#endif // ANDROID
+	}
+	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
+}
+
 Texture* Texture::Clone() const{
 	return new Texture(*this);
 }
@@ -88,16 +98,14 @@ void Texture::ApplyFilter(Filter filter){
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	case cross::Texture::Filter::BILINEAR:
-		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
+		//SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	case cross::Texture::Filter::TRILINEAR:
-		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
+		//SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-		break;
-	case cross::Texture::Filter::NONE:
 		break;
 	default:
 		throw CrossException("Wrong texture filter type");

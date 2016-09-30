@@ -21,6 +21,7 @@
 #include "Utils/Light.h"
 #include "Shaders/LightShader.h"
 #include "Graphics2D.h"
+#include "Config.h"
 
 void SpecularDiffuseScene::Start(){
 	CCScene::Start();
@@ -37,7 +38,8 @@ void SpecularDiffuseScene::Start(){
 	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
 	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
 	shader->Compile();
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	texture = gfx2D->LoadKTXTexture("gfx3D/ContainerDiffuse.ktx", Texture::Filter::BILINEAR);
+	//texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::BILINEAR);
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", (void*)texture->GetID());
 	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);

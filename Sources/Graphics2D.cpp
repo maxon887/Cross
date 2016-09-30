@@ -24,6 +24,7 @@
 #include "File.h"
 #include "Texture.h"
 #include "Shaders/Shader.h"
+#include "Config.h"
 
 #include <math.h>
 
@@ -35,6 +36,23 @@
 #include FT_GLYPH_H
 
 using namespace cross;
+
+struct KTX{
+	CRByte identifier[12];
+	uint32_t endianness;
+	uint32_t glType;
+	uint32_t glTypeSize;
+	uint32_t glFormat;
+	uint32_t glInternalFormat;
+	uint32_t glBaseInternalFormat;
+	uint32_t pixelWidth;
+	uint32_t pixelHeight;
+	uint32_t pixelDepth;
+	uint32_t numberOfArrayElements;
+	uint32_t numberOfFaces;
+	uint32_t numberOfMipmapLevels;
+	uint32_t bytesOfKeyValueData;
+};
 
 Graphics2D::Graphics2D() :
 	camera(nullptr)
@@ -253,7 +271,7 @@ Texture* Graphics2D::LoadTexture(const string& filename){
 		(*it).second++;
 		return (*it).first->Clone();
 	}else{
-		Texture* newTexture = LoadTexture(filename, Texture::Filter::LINEAR);
+		Texture* newTexture = LoadTexture(filename, config->GetTextureFilter());
 		pair<Texture*, int> pair;
 		pair.first = newTexture;
 		pair.second = 1;
@@ -289,7 +307,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 	if(!textureFile){
 		string newFile = launcher->FileWithoutExtension(filename);
 		newFile += ".pkm";
-		return LoadETC1Texture(newFile, filter);
+		return LoadPKMTexture(newFile, filter);
 	}
 	
 	CRByte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
@@ -330,7 +348,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 	return texture;
 }
 
-Texture* Graphics2D::LoadETC1Texture(const string& filename, Texture::Filter filter){
+Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filter){
 #ifdef ANDROID
 	Debugger::Instance()->StartCheckTime();
 
@@ -358,6 +376,49 @@ Texture* Graphics2D::LoadETC1Texture(const string& filename, Texture::Filter fil
 #else
 	throw CrossException("Not supported by current platform");
 #endif
+}
+
+Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filter){
+	File* file = launcher->LoadFile(filename);
+
+	KTX ktx;
+
+	int offset = sizeof(KTX);
+
+	memcpy(&ktx, file->data, offset);
+
+	uint32_t imageSize;
+	memcpy(&imageSize, file->data + offset, sizeof(uint32_t));
+	offset += sizeof(uint32_t);
+
+	CRByte* imageData = new CRByte[imageSize];
+	memcpy(imageData, file->data + offset, imageSize);
+	offset += imageSize;
+	
+	Texture* texture = CreateTexture(imageData, 3, ktx.pixelWidth, ktx.pixelHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE);
+	texture->SetName(filename);
+
+	int mipmapW = ktx.pixelWidth;
+	int mipmapH = ktx.pixelHeight;
+	for(int i = 1; i < ktx.numberOfMipmapLevels; i++){
+		int padding = 3 - ((imageSize + 3) % 4);
+
+		if(padding != 0){
+			throw CrossException("Not zero padding");
+		}
+
+		mipmapW /= 2;
+		mipmapH /= 2;
+
+		memcpy(&imageSize, file->data + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
+		memcpy(imageData, file->data + offset, imageSize);
+		offset += imageSize;
+		texture->AddMipmapLelel(i, imageSize, imageData, mipmapW, mipmapH, Texture::Compression::ETC1);
+	}
+	delete imageData;
+
+	return texture;
 }
 
 Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){

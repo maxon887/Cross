@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Texture.h"
 
 namespace cross {
 
@@ -23,6 +24,7 @@ namespace cross {
 	for saving and loading data in non-volatile device memory. */
 class Config{
 public:
+	Config();
 	//Save string value for key.
 	//Important! string key and value can't contain space characters
 	void SaveString(string key, string value);
@@ -41,14 +43,18 @@ public:
 	//Load boolean property from string key.
 	bool LoadBool(string key, bool def);
 
+	//default config properties
+	Texture::Filter GetTextureFilter();
+
 protected:
-	friend Game;
-
-	Config(string dataPath);
-
 	string prefs_path;
 	string copy_path;
+
+	Texture::Filter texture_filter;
+
 	string LoadString(string key);
+
+	void InitializeDefaultConfig(File* file);
 };
     
 }
