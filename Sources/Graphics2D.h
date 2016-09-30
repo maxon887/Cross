@@ -65,6 +65,7 @@ public:
 private:
 	Shader* texture_shader;
 	Shader* monochrome_shader;
+	Shader* simple_shader;
 	Font* default_font;
 	Camera2D* camera;
 	Camera2D* default_camera;

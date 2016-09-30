@@ -65,7 +65,7 @@ GraphicsGL::GraphicsGL() :
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		launcher->LogIt("OpenGL " + to_string(magorV) + "." + to_string(minorV));
+		launcher->LogIt("Use OpenGL " + to_string(magorV) + "." + to_string(minorV));
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}

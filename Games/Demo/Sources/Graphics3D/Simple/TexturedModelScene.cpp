@@ -25,7 +25,7 @@ void TexturedModelScene::Start(){
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();
 	material = new Material(shader);
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
 	material->SetPropertyValue("Texture", (void*)texture->GetID());
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);

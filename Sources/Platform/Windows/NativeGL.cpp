@@ -26,6 +26,7 @@
 #include "Graphics3D.h"
 #include "Screen.h"
 #include "Utils/Debugger.h"
+#include "Audio.h"
 #include "resource.h"
 
 using namespace cross;
@@ -94,6 +95,7 @@ int NativeGL_GO(){
 
 		ShowWindow(wnd, TRUE);
 
+		Audio::Init();
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
 		gfx3D = new Graphics3D();
