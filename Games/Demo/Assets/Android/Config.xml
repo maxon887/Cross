@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+	<property name="TextureFilter" value="BILINEAR"/>
+	<property name="OffscreenRender" value="true" factor="0.5"/>
+	<property name="CamaraView" value="100.0"/>
+</Config>

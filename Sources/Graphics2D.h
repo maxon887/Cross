@@ -44,10 +44,8 @@ public:
 
 	Texture* LoadTexture(const string& filename);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
-	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
-	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
+	Texture* LoadTexture(const string& filename, Texture::Filter filter, bool compressed);
 	void ReleaseTexture(const string& filename, GLuint* id);
-	Texture* CreateTexture(CRByte* data, int channels, int width, int height);
 	Texture* CreateTexture(int channels, int width, int height, Texture::Filter filter);
 	Texture* CreateTexture(	CRByte* data,
 							int channels,
@@ -55,7 +53,8 @@ public:
 							int height,
 							Texture::Filter filter,
 							Texture::Compression compression,
-							Texture::TilingMode tilingMode );
+							Texture::TilingMode tilingMode,
+							bool generateMipmaps);
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();
 //Internal data. You don't need call any of this methods or modify variables
@@ -70,6 +69,10 @@ private:
 	Camera2D* camera;
 	Camera2D* default_camera;
 	CRList<pair<Texture*, int>> loaded_textures;
+
+	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
+	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
+	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
 };
 
 }

@@ -260,6 +260,14 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 }
 
 Texture* Graphics2D::LoadTexture(const string& filename){
+	return LoadTexture(filename, config->GetTextureFilter());
+}
+
+Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
+	return LoadTexture(filename, filter, true);
+}
+
+Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter, bool compressed){
 	auto it = loaded_textures.begin();
 	for( ; it != loaded_textures.end(); it++){
 		if( (*it).first->GetName() == filename ){
@@ -271,7 +279,17 @@ Texture* Graphics2D::LoadTexture(const string& filename){
 		(*it).second++;
 		return (*it).first->Clone();
 	}else{
-		Texture* newTexture = LoadTexture(filename, config->GetTextureFilter());
+		Texture* newTexture = NULL;
+		if(!compressed){
+			newTexture = LoadRAWTexture(filename, filter);
+		}else{
+#ifdef WIN
+			newTexture = LoadRAWTexture(filename + ".png", filter);
+#elif ANDROID
+			newTexture = LoadKTXTexture(filename + ".ktx", filter);
+#endif
+		}	
+
 		pair<Texture*, int> pair;
 		pair.first = newTexture;
 		pair.second = 1;
@@ -300,15 +318,11 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 	}
 }
 
-Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
+Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filter){
 	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
+
 	File* textureFile = launcher->LoadFile(filename);
-	if(!textureFile){
-		string newFile = launcher->FileWithoutExtension(filename);
-		newFile += ".pkm";
-		return LoadPKMTexture(newFile, filter);
-	}
 	
 	CRByte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
@@ -341,7 +355,8 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 		height = newHeight;
 		image = newImage;
 	}
-	Texture* texture = CreateTexture(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE);
+	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
+	Texture* texture = CreateTexture(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
 	texture->SetName(filename);
 	string debugMsg = "Texure(" + filename + ") loaded in ";
 	Debugger::Instance()->StopCheckTime(debugMsg);
@@ -367,7 +382,7 @@ Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filt
 	uint16_t width = (file->data[12] << 8) | (file->data[13]);
 	uint16_t height = (file->data[14] << 8) | (file->data[15]);
 
-	Texture* texture = CreateTexture(file->data + 16, 3, extWidth, extHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE);
+	Texture* texture = CreateTexture(file->data + 16, 3, extWidth, extHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
 	texture->SetName(filename);
 
 	string debugMsg = "Texure(" + filename + ") loaded in ";
@@ -395,7 +410,7 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 	memcpy(imageData, file->data + offset, imageSize);
 	offset += imageSize;
 	
-	Texture* texture = CreateTexture(imageData, 3, ktx.pixelWidth, ktx.pixelHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE);
+	Texture* texture = CreateTexture(imageData, 3, ktx.pixelWidth, ktx.pixelHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
 	texture->SetName(filename);
 
 	int mipmapW = ktx.pixelWidth;
@@ -419,10 +434,6 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 	delete imageData;
 
 	return texture;
-}
-
-Texture* Graphics2D::CreateTexture(CRByte* data, int channels, int width, int height){
-	return CreateTexture(data, channels, width, height, Texture::Filter::LINEAR, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE);
 }
 
 Texture* Graphics2D::CreateTexture(int channels, int width, int height, Texture::Filter filter){
@@ -457,7 +468,8 @@ Texture* Graphics2D::CreateTexture(	CRByte* data,
 									int height, 
 									Texture::Filter filter,
 									Texture::Compression compression,
-									Texture::TilingMode tilingMode ){
+									Texture::TilingMode tilingMode,
+									bool generateMipmaps ){
 
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
@@ -506,6 +518,10 @@ Texture* Graphics2D::CreateTexture(	CRByte* data,
 		break;
 	default:
 		break;
+	}
+
+	if(generateMipmaps){
+		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 	}
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));

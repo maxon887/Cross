@@ -159,7 +159,14 @@ void Font::Cache(){
 		int bmpHeight = bitmapGlyhp->bitmap.rows;
 		float bearingX = (float)(face->glyph->metrics.horiBearingX >> 6);
 		float bearingY = (float)(face->glyph->metrics.horiBearingY >> 6);
-		Texture* texture = gfx2D->CreateTexture(bitmapGlyhp->bitmap.buffer, 1, bmpWidth, bmpHeight);
+		Texture* texture = gfx2D->CreateTexture(	bitmapGlyhp->bitmap.buffer,
+													1,
+													bmpWidth,
+													bmpHeight,
+													Texture::Filter::LINEAR,
+													Texture::Compression::NONE,
+													Texture::TilingMode::CLAMP_TO_EDGE,
+													false);
 		textures[i] = texture;
 		Rect region(0, 0, (float)bmpWidth, (float)bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);

@@ -37,8 +37,8 @@ void DirectionalLightScene::Start(){
 	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
 	shader->Compile();
 	material = new Material(shader);
-	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png", Texture::Filter::TRILINEAR);
-	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png", Texture::Filter::TRILINEAR);
+	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png");
 	material->SetPropertyValue("Diffuse Texture", (void*)diffuse_texture->GetID());
 	material->SetPropertyValue("Specular Map", (void*)specular_map->GetID());
 	shininess = 0.5f * 128.f;

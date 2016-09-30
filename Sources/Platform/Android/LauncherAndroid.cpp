@@ -67,7 +67,7 @@ void LauncherAndroid::LogIt(const char* formatStr, ...){
 File* LauncherAndroid::LoadFile(const string& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
     if(!asset){
-		return NULL;
+		throw CrossException("Can't load asset %s", filename.c_str());
     }
     File* file = new File();
     file->size = AAsset_getLength(asset);
