@@ -122,7 +122,6 @@
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics2D\Camera2DScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
@@ -202,7 +201,6 @@
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics2D\Camera2DScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />

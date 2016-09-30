@@ -32,7 +32,7 @@ void AnimationScreen::Start(){
 	turn_left = true;
 	SetBackground(Color(0.25f, 0.25f, 0.25f));
 
-	texture = gfx2D->LoadTexture("gfx2D/Spider.png");
+	texture = gfx2D->LoadTexture("gfx2D/Spider.png", Texture::Filter::LINEAR, false);
 	CRDictionary<string, Sprite*> sprites;
 	gfx2D->LoadSprites(sprites, texture, "gfx2D/Spider.xml");
 
@@ -82,7 +82,7 @@ void AnimationScreen::Update(float sec){
 		}
 		spider_head->SetRotate(head_angle);
 		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_body);
-		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2 - 65), spider_head);
+		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2 - 32), spider_head);
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;

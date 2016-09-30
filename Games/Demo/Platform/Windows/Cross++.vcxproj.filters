@@ -148,9 +148,6 @@
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics2D\Camera2DScreen.cpp">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
@@ -377,9 +374,6 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics2D\Camera2DScreen.h">
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h">

@@ -36,7 +36,6 @@
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
 #include "Graphics2D/TextScreen.h"
-#include "Graphics2D/Camera2DScreen.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -66,22 +65,18 @@ void MainScreen::Start(){
 	Button* primitivesBtn = new Button("Primitives");
 	Button* spritesBtn = new Button("Sprites");
 	Button* textBtn = new Button("Text Drawing");
-	Button* canvasBtn = new Button("2D Camera");
 	Button* animationBtn = new Button("Animation");
 	primitivesBtn->SetImages(button_sprite->Clone());
 	spritesBtn->SetImages(button_sprite->Clone());
 	textBtn->SetImages(button_sprite->Clone());
-	canvasBtn->SetImages(button_sprite->Clone());
 	animationBtn->SetImages(button_sprite->Clone());
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
-	canvasBtn->Clicked += MakeDelegate(this, &MainScreen::On2DCameraClick);
 	animationBtn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
 	textBtn->Clicked += MakeDelegate(this, &MainScreen::OnTextClick);
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
 	graphics2D_menu->AddButton(textBtn);
-	graphics2D_menu->AddButton(canvasBtn);
 	graphics2D_menu->AddButton(animationBtn);
 	//graphics 3D menu
 	graphics3D_menu = new Menu(true);
@@ -273,10 +268,6 @@ void MainScreen::OnSpritesClick(){
 
 void MainScreen::OnTextClick(){
 	next_screen = new TextScreen();
-}
-
-void MainScreen::On2DCameraClick(){
-	next_screen = new Camera2DScreen();
 }
 
 void MainScreen::OnTriangleClick(){

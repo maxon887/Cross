@@ -32,9 +32,9 @@ void AudioScreen::Start(){
 	audio_menu->AddButton(loopBtn);
 	audio_menu->AddButton(streamBtn);
 
-	bck_music = new Audio("bck_music.mp3", true, true);
-	jaguar = new Audio("Jaguar.wav", false, false);
-	truck = new Audio("Truck.wav", true, false);
+	bck_music = new Audio("Audio/Music.mp3", true, true);
+	jaguar = new Audio("Audio/Jaguar.wav", false, false);
+	truck = new Audio("Audio/Truck.wav", true, false);
 }
 
 void AudioScreen::Stop(){
