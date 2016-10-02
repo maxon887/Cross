@@ -40,7 +40,7 @@ public:
 	void LogIt(const string& str);
     void LogIt(const char* formatStr, ...);
 	File* LoadFile(const string& filename);
-	unsigned long GetTime();
+	U64 GetTime();
 	void PromtToExit();
 	void MessageBox(string message);
 	void Exit();

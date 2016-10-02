@@ -23,8 +23,8 @@ class File{
 public:
 	~File();
 	string name;
-	CRByte* data;
-	unsigned int size;
+	Byte* data;
+	U32 size;
 };
 
 }

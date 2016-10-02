@@ -144,7 +144,7 @@ protected:
 	friend Game;
 
 	Input();
-	bool pressed_keys[(unsigned int)Key::MAX_KEY_NUM];
+	bool pressed_keys[(U32)Key::MAX_KEY_NUM];
 
 	Vector2D TargetToWordConvert(float x, float y);
 

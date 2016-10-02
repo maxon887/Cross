@@ -106,8 +106,8 @@ float Game::GetRunTime(){
 }
 
 void Game::Update(){
-	unsigned long now = launcher->GetTime();
-	unsigned long frame = now - render_time;
+	U64 now = launcher->GetTime();
+	U64 frame = now - render_time;
 	render_time = now;
 	run_time += frame;
 	gfxGL->PreProcessFrame();
@@ -115,7 +115,7 @@ void Game::Update(){
 	GetCurrentScreen()->Update((float)(frame / 1000000.));
 	now = launcher->GetTime();
 	gfxGL->PostProcessFrame();
-	unsigned long update = now - render_time;
+	U64 update = now - render_time;
 	float milis = update / 1000.f;
 	if(milis < 5){
 		launcher->Sleep(5 - milis);

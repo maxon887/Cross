@@ -58,8 +58,8 @@ public:
 protected:
 	Screen* current_screen;
 	bool on_scene;
-	unsigned long render_time;
-	unsigned long run_time;
+	U64 render_time;
+	U64 run_time;
 };
     
 }

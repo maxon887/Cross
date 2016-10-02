@@ -33,7 +33,6 @@
 #include <list>
 #include <map>
 
-#define CRByte			unsigned char
 #define CRArray			std::vector
 #define CRList			std::list
 #define CRDictionary	std::map
@@ -43,6 +42,16 @@
 #endif
 
 namespace cross{
+
+typedef int8_t		S8;
+typedef uint8_t		U8;
+typedef int16_t		S16;
+typedef uint16_t	U16;
+typedef int32_t		S32;
+typedef uint32_t	U32;
+typedef int64_t		S64;
+typedef uint64_t	U64;
+typedef uint8_t		Byte;
 
 class Game;
 class Launcher;
@@ -67,13 +76,13 @@ class Shader;
 class MultiLightShader;
 class Light;
 
-extern Game* game;
-extern Launcher* launcher;
-extern GraphicsGL* gfxGL;
-extern Graphics2D* gfx2D;
-extern Graphics3D* gfx3D;
-extern Input* input;
-extern Config* config;
+extern Game*		game;
+extern Launcher*	launcher;
+extern GraphicsGL*	gfxGL;
+extern Graphics2D*	gfx2D;
+extern Graphics3D*	gfx3D;
+extern Input*		input;
+extern Config*		config;
 
 }
 

@@ -49,7 +49,7 @@ private:
 	Audio(Audio& obj);
 
 	static FMOD::System* system;
-	static unsigned int version;
+	static U32 version;
 	static void* extradriverdata;
 
 	FMOD::Sound* sound;

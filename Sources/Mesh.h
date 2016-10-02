@@ -25,7 +25,7 @@ class VertexBuffer;
 
 class Mesh : public Transformable{
 public:
-	Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount);
+	Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount);
 	~Mesh();
 
 	void Draw();
@@ -34,7 +34,7 @@ public:
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 
-	unsigned int GetPrimitivesCount() const;
+	U32 GetPrimitivesCount() const;
 	VertexBuffer* GetVertexBuffer();
 
 	Mesh* Clone();
@@ -45,8 +45,8 @@ protected:
 
 	VertexBuffer* vertex_buffer;
 	Material* material;
-	unsigned int primitives_count;
-	unsigned int index_count;
+	U32 primitives_count;
+	U32 index_count;
 
 	bool original;
 

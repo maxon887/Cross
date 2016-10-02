@@ -42,15 +42,15 @@ Vector2D Input::TargetToWordConvert(float x, float y){
 }
 
 bool Input::IsPressed(Key key){
-	return pressed_keys[(unsigned int)key];
+	return pressed_keys[(U32)key];
 }
 
 void Input::KeyPressedHandle(Key key){
-	pressed_keys[(unsigned int)key] = true;
+	pressed_keys[(U32)key] = true;
 }
 
 void Input::KeyReleasedHandle(Key key){
-	pressed_keys[(unsigned int)key] = false;
+	pressed_keys[(U32)key] = false;
 }
 
 void Input::TargetActionDonwHandle(float x, float y, int actionID){

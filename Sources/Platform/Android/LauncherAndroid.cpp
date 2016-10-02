@@ -71,7 +71,7 @@ File* LauncherAndroid::LoadFile(const string& filename) {
     }
     File* file = new File();
     file->size = AAsset_getLength(asset);
-    file->data = new CRByte[file->size];
+    file->data = new Byte[file->size];
     int read = AAsset_read(asset, file->data, file->size);
     if(read <= 0){
         throw CrossException("Can't load asset %s", filename.c_str());
@@ -80,7 +80,7 @@ File* LauncherAndroid::LoadFile(const string& filename) {
     return file;
 }
 
-unsigned long LauncherAndroid::GetTime(){
+U64 LauncherAndroid::GetTime(){
 	struct timeval ptv;
 	gettimeofday(&ptv, NULL);
 	return (ptv.tv_usec + ptv.tv_sec * 1000000LL);

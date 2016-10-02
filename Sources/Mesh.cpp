@@ -25,7 +25,7 @@
 
 using namespace cross;
 
-Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned int primitivesCount) :
+Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount) :
 	vertex_buffer(vertexBuffer),
 	primitives_count(primitivesCount),
 	material(nullptr),
@@ -41,7 +41,7 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<unsigned int> &indices, unsigned 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(U32), &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	vertexBuffer->Free();
@@ -158,7 +158,7 @@ void Mesh::Draw(const Matrix& globalModel){
 
 	//binding attributes
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
-	unsigned int vertexSize = vertex_buffer->VertexSize();
+	U32 vertexSize = vertex_buffer->VertexSize();
 	if(shader->aPosition != -1){
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
 		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertex_buffer->GetPossitionsOffset())));
@@ -196,7 +196,7 @@ Material* Mesh::GetMaterial(){
 	return material;
 }
 
-unsigned int Mesh::GetPrimitivesCount() const{
+U32 Mesh::GetPrimitivesCount() const{
 	return primitives_count;
 }
 

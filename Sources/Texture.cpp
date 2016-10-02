@@ -73,7 +73,7 @@ void Texture::SetTilingMode(Texture::TilingMode mode){
 	}
 }
 
-void Texture::AddMipmapLelel(int level, unsigned int dataLen, CRByte* data, int w, int h, Texture::Compression comp){
+void Texture::AddMipmapLelel(int level, U32 dataLen, Byte* data, int w, int h, Texture::Compression comp){
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
 	if(comp == Texture::Compression::ETC1){
 #ifdef ANDROID

@@ -33,9 +33,9 @@ public:
 		GLuint outer_cut_off;
 	};
 
-	static const unsigned int MaxPointLights = 16;
-	static const unsigned int MaxDirectionalLights = 4;
-	static const unsigned int MaxSpotLights = 8;
+	static const U32 MaxPointLights = 16;
+	static const U32 MaxDirectionalLights = 4;
+	static const U32 MaxSpotLights = 8;
 
 	SLight uPointLights[MaxPointLights];
 	SLight uDirectionalLights[MaxDirectionalLights];

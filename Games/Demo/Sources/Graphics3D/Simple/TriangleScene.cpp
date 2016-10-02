@@ -34,9 +34,9 @@ void TriangleScene::Start(){
 	verticesData[1].x = -5.f;  verticesData[1].y = -5.f;  verticesData[1].z = 0.0f;
 	verticesData[2].x = 5.f;  verticesData[2].y = -5.f;  verticesData[2].z = 0.0f;
 
-	vertexBuffer->PushData((CRByte*)&verticesData[0], 3 * sizeof(Vector3D));
+	vertexBuffer->PushData((Byte*)&verticesData[0], 3 * sizeof(Vector3D));
 
-	CRArray<unsigned int> indices = { 0, 1, 2 };
+	CRArray<U32> indices = { 0, 1, 2 };
 
 	triangle = new Mesh(vertexBuffer, indices, indices.size());
 	triangle->SetMaterial(material);

@@ -26,22 +26,22 @@ public:
 
 	bool HasTextureCoordinates();
 	bool HasNormals();
-	unsigned int VertexSize();
-	unsigned int GetPossitionsOffset();
-	unsigned int GetTextureCoordinatesOffset();
-	unsigned int GetNormalsOffset();
+	U32 VertexSize();
+	U32 GetPossitionsOffset();
+	U32 GetTextureCoordinatesOffset();
+	U32 GetNormalsOffset();
 
 	void UVEnabled(bool enabled);
 	void NarmalsEnabled(bool enabled);
-	void PushData(const CRByte* data, unsigned int size);
-	CRByte* GetData();
-	unsigned int GetDataSize();
+	void PushData(const Byte* data, U32 size);
+	Byte* GetData();
+	U32 GetDataSize();
 	void Free();
 	VertexBuffer* Clone();
 
 private:
 	bool initialized;
-	CRArray<CRByte> data;
+	CRArray<Byte> data;
 	bool uv_enabled;
 	bool normals_enabled;
 

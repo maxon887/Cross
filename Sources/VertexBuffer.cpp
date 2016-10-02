@@ -39,8 +39,8 @@ bool VertexBuffer::HasNormals(){
 	return normals_enabled;
 }
 
-unsigned int VertexBuffer::VertexSize(){
-	unsigned int vertSize = 3;
+U32 VertexBuffer::VertexSize(){
+	U32 vertSize = 3;
 	if(uv_enabled){
 		vertSize += 2;
 	}
@@ -50,11 +50,11 @@ unsigned int VertexBuffer::VertexSize(){
 	return vertSize * sizeof(float);
 }
 
-unsigned int VertexBuffer::GetPossitionsOffset(){
+U32 VertexBuffer::GetPossitionsOffset(){
 	return 0;
 }
 
-unsigned int VertexBuffer::GetTextureCoordinatesOffset(){
+U32 VertexBuffer::GetTextureCoordinatesOffset(){
 	if(uv_enabled){
 		return 3;
 	}else{
@@ -62,7 +62,7 @@ unsigned int VertexBuffer::GetTextureCoordinatesOffset(){
 	}
 }
 
-unsigned int VertexBuffer::GetNormalsOffset(){
+U32 VertexBuffer::GetNormalsOffset(){
 	if(normals_enabled){
 		if(uv_enabled){
 			return 5;
@@ -82,15 +82,15 @@ void VertexBuffer::NarmalsEnabled(bool enabled){
 	normals_enabled = enabled;
 }
 
-void VertexBuffer::PushData(const CRByte* bytes, unsigned int size){
+void VertexBuffer::PushData(const Byte* bytes, U32 size){
 	data.insert(data.end(), bytes, bytes+size);
 }
 
-CRByte* VertexBuffer::GetData(){
+Byte* VertexBuffer::GetData(){
 	return data.data();
 }
 
-unsigned int VertexBuffer::GetDataSize(){
+U32 VertexBuffer::GetDataSize(){
 	return data.size();
 }
 

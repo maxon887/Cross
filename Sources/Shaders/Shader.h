@@ -92,7 +92,7 @@ private:
 	GLuint fragment_shader;
 	File* vertex_file;
 	File* fragment_file;
-	unsigned int makro_len;
+	U32 makro_len;
 
 	GLuint Compile(GLuint type, File* file);
 	void CompileProgram();

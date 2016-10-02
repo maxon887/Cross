@@ -33,7 +33,7 @@ using namespace cross;
 static FMOD_RESULT		result;
 
 FMOD::System*	Audio::system = NULL;
-unsigned int	Audio::version = 0;
+U32				Audio::version = 0;
 
 #define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
 void (*Common_Private_Error)(FMOD_RESULT, const char *, int);

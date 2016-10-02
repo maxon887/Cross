@@ -45,7 +45,7 @@ public:
 private:
 	static Debugger* instance;
 
-	CRArray<unsigned long> times;
+	CRArray<U64> times;
 
 	Font* debugger_font;
 

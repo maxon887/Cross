@@ -60,13 +60,13 @@ Debugger::~Debugger(){
 }
 
 void Debugger::StartCheckTime() {
-	unsigned long checkTime = launcher->GetTime();
+	U64 checkTime = launcher->GetTime();
 	times.push_back(checkTime);
 }
 
 void Debugger::StopCheckTime(string label) {
-	unsigned long now = launcher->GetTime();
-	unsigned long checkTime = times.back();
+	U64 now = launcher->GetTime();
+	U64 checkTime = times.back();
 	times.pop_back();
 	double milis = (now - checkTime) / 1000.0;
 	string msg = label + to_string(milis) + "ms";

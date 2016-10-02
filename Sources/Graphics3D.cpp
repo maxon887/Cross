@@ -42,8 +42,8 @@ Graphics3D::Graphics3D():
 	current_geotranslation(Matrix::CreateIdentity())
 {
 	launcher->LogIt("Graphics3D::Graphics3D()");
-	unsigned int major = aiGetVersionMajor();
-	unsigned int minor = aiGetVersionMinor();
+	U32 major = aiGetVersionMajor();
+	U32 minor = aiGetVersionMinor();
 	launcher->LogIt("Use assimp version %d.%d", major, minor);
 }
 
@@ -82,7 +82,7 @@ void Graphics3D::ProcessScene(Model* model){
 }
 
 void Graphics3D::ProcessNode(Model* model, aiNode* node){
-	for(unsigned int i = 0; i < node->mNumMeshes; i++){
+	for(U32 i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
 		if(model->GetFormat() == Model::Format::FBX){
@@ -122,7 +122,7 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 			current_rotation = rotation;
 		}
 	}
-	for(unsigned int i = 0; i < node->mNumChildren; ++i){
+	for(U32 i = 0; i < node->mNumChildren; ++i){
 		ProcessNode(model, node->mChildren[i]);
 	}
 }
@@ -136,7 +136,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 		vertexBuffer->NarmalsEnabled(true);
 	}
 
-	for(unsigned int i = 0; i < mesh->mNumVertices; ++i){
+	for(U32 i = 0; i < mesh->mNumVertices; ++i){
 		vertexBuffer->PushData((unsigned char*)&mesh->mVertices[i], 3 * sizeof(float));
 
 		if(vertexBuffer->HasTextureCoordinates()){
@@ -148,9 +148,9 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 		}
 	}
 
-	CRArray<unsigned int> indices;
-	for(unsigned int i = 0; i < mesh->mNumFaces; ++i){
-		for(unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
+	CRArray<U32> indices;
+	for(U32 i = 0; i < mesh->mNumFaces; ++i){
+		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}

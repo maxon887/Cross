@@ -133,7 +133,7 @@ GLuint Shader::GetProgram(){
 }
 
 GLuint Shader::Compile(GLuint type, File* file) {
-	CRByte* source = new CRByte[makro_len + file->size + 1]; // +1 for null terminated string
+	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for null terminated string
 
 	int curPos = 0;
 	for(string makro : macrosies){

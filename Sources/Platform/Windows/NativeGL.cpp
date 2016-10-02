@@ -70,7 +70,7 @@ int NativeGL_GO(){
 
 		HDC dc;
 		HGLRC renderContext;
-		unsigned int pixelFormat;
+		S32 pixelFormat;
 		DWORD error;
 
 		dc = GetDC(wnd);

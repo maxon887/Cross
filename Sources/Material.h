@@ -23,7 +23,7 @@ namespace cross{
 class Material{
 public:
 	CRDictionary<string, Shader::Property*> properties;
-	unsigned int active_texture_slot;
+	U32 active_texture_slot;
 
 	Material(Shader* shader);
 	~Material();

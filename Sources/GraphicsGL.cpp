@@ -24,7 +24,7 @@
 
 using namespace cross;
 
-void GraphicsGL::CheckGLError(const char* file, unsigned int line) {
+void GraphicsGL::CheckGLError(const char* file, U32 line) {
 	GLenum err;
 	err = glGetError();
 	while(err != GL_NO_ERROR) {

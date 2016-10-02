@@ -122,7 +122,7 @@ string Config::LoadString(string key){
 
 void Config::InitializeDefaultConfig(File* xmlFile){
 	TiXmlDocument xml;
-	CRByte* source = new CRByte[xmlFile->size + 1]; // +1 for null terminated string
+	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);
 	source[xmlFile->size] = 0;
 	delete xmlFile;

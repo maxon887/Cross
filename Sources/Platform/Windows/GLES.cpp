@@ -39,7 +39,7 @@ int GLES_GO(){
 	esContext.hWnd = WinCreate();
 
 	try{
-		srand((unsigned int)time(0));
+		srand((U32)time(0));
 		LauncherWIN launcherWin(esContext.hWnd);
 		launcher = &launcherWin;
 		game = CrossMain(launcher);

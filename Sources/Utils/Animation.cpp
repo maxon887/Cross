@@ -47,9 +47,9 @@ Animation::Animation(float rate, Sprite* frames[], int frameCount, bool looped) 
 
 Animation::~Animation(){
 	if(original){
-		for(unsigned int i = 0; i < frames.size(); i++){
+		for(U32 i = 0; i < frames.size(); i++){
 			if(frames[i] != NULL){
-				for(unsigned int j = i + 1; j < frames.size(); j++){
+				for(U32 j = i + 1; j < frames.size(); j++){
 					if(frames[i] == frames[j]){
 						frames[j] = NULL;
 					}

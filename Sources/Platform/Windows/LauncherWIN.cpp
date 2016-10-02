@@ -99,12 +99,12 @@ File* LauncherWIN::LoadFile(const string& filename){
 	}
 }
 
-unsigned long LauncherWIN::GetTime(){
+U64 LauncherWIN::GetTime(){
 	LARGE_INTEGER freq;
 	LARGE_INTEGER crt;
 	QueryPerformanceFrequency(&freq);
 	QueryPerformanceCounter(&crt);
-	return (unsigned long)((crt.QuadPart * 1000000) / freq.QuadPart);
+	return (crt.QuadPart * 1000000) / freq.QuadPart;
 }
 
 void LauncherWIN::LogIt(const string& msg){

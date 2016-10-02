@@ -39,7 +39,7 @@ public:
 	/* Loads specific file from game assets. */
 	virtual File* LoadFile(const string& filename) = 0;
 	/* Return current time in microseconds */
-	virtual unsigned long GetTime() = 0;
+	virtual U64 GetTime() = 0;
 	/* Force current thread sleep m miliseconds */
 	virtual void Sleep(float milis) { };
 	/* Ask user about exit from application */
