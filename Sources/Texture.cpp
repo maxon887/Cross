@@ -19,11 +19,11 @@
 
 using namespace cross;
 
-Texture::Texture(GLuint id, int width, int height) : 
+Texture::Texture(GLuint id, U32 width, U32 height) : 
 	Texture(id, width, height, Filter::LINEAR)
 { }
 
-Texture::Texture(GLuint id, int width, int height, Filter filter) :
+Texture::Texture(GLuint id, U32 width, U32 height, Filter filter) :
 	id(id),
 	width(width),
 	height(height)
@@ -41,11 +41,11 @@ GLuint Texture::GetID() const{
 	return id;
 }
 
-int Texture::GetWidth() const{
+U32 Texture::GetWidth() const{
 	return width;
 }
 
-int Texture::GetHeight() const{
+U32 Texture::GetHeight() const{
 	return height;
 }
 
@@ -73,7 +73,7 @@ void Texture::SetTilingMode(Texture::TilingMode mode){
 	}
 }
 
-void Texture::AddMipmapLelel(int level, U32 dataLen, Byte* data, int w, int h, Texture::Compression comp){
+void Texture::AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp){
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
 	if(comp == Texture::Compression::ETC1){
 #ifdef ANDROID

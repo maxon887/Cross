@@ -61,7 +61,7 @@ void Config::SaveString(string key, string value){
 	rename(copy_path.c_str(), prefs_path.c_str());
 }
 
-void Config::SaveInt(string key, int value){
+void Config::SaveInt(string key, S32 value){
 	SaveString(key, to_string(value));
 }
 
@@ -80,20 +80,18 @@ string Config::LoadString(string key, string def){
 	return strValue;
 }
 
-int Config::LoadInt(string key, int def){
+S32 Config::LoadInt(string key, S32 def){
 	string strValue = LoadString(key);
 	if(strValue.empty())
 		return def;
-	int ret = atoi(strValue.c_str());
-	return ret;
+	return atoi(strValue.c_str());
 }
 
 float Config::LoadFloat(string key, float def){
 	string strValue = LoadString(key);
 	if(strValue.empty())
 		return def;
-	float ret = (float)atof(strValue.c_str());
-	return ret;
+	return (float)atof(strValue.c_str());
 }
 
 bool Config::LoadBool(string key, bool def){

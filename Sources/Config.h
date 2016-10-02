@@ -29,7 +29,7 @@ public:
 	//Important! string key and value can't contain space characters
 	void SaveString(string key, string value);
 	//Save int value for key
-	void SaveInt(string key, int value);
+	void SaveInt(string key, S32 value);
 	//Save float value for key
 	void SaveFloat(string key, float value);
 	//Save boolean value for key
@@ -37,7 +37,7 @@ public:
 	//Load string property from string key.
 	string LoadString(string key, string def);
 	//Load int property from string key.
-	int LoadInt(string key, int def);
+	S32 LoadInt(string key, S32 def);
 	//Load float property from string key.
 	float LoadFloat(string key, float def);
 	//Load boolean property from string key.

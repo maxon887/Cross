@@ -28,7 +28,7 @@ public:
 	void Update(float sec);
 	void Active(bool active);
 	void AddButton(Button* but);
-	int Count();
+	U32 Count();
 	void Clear();
 	float GetHeight();
 	void Locate();
@@ -43,7 +43,7 @@ private:
 	bool resizeble;
 	float menu_height;
 
-	FastDelegate2<int, int, void> window_resized_delegate;
+	FastDelegate2<S32, S32, void> window_resized_delegate;
 	
-	void WindowResizedHandle(int width, int height);
+	void WindowResizedHandle(S32 width, S32 height);
 };

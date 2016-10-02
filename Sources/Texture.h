@@ -38,24 +38,24 @@ public:
 		NONE
 	};
 
-	Texture(GLuint id, int width, int height);
-	Texture(GLuint id, int width, int height, Filter filter);
+	Texture(GLuint id, U32 width, U32 height);
+	Texture(GLuint id, U32 width, U32 height, Filter filter);
 	~Texture();
 
 	GLuint GetID() const;
-	int GetWidth() const;
-	int GetHeight() const;
+	U32 GetWidth() const;
+	U32 GetHeight() const;
 	Texture* Clone() const;
 	void SetName(const string& name);
 	string GetName();
 	void SetTilingMode(TilingMode mode);
-	void AddMipmapLelel(int level, U32 dataLen, Byte* data, int w, int h, Texture::Compression comp);
+	void AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp);
 
 private:
 	string name;
 	GLuint id;
-	int width;
-	int height;
+	U32 width;
+	U32 height;
 
 	void ApplyFilter(Filter filter);
 };

@@ -39,10 +39,10 @@ private:
 	float view_width;
 	float view_height;
 
-	FastDelegate2<int, int, void> window_resized_delegate;
+	FastDelegate2<S32, S32, void> window_resized_delegate;
 
-	void WindowResizedHandle(int width, int height);
-	void WindowRisezedHandleCust(int width, int height);
+	void WindowResizedHandle(S32 width, S32 height);
+	void WindowRisezedHandleCust(S32 width, S32 height);
 };
 
 }

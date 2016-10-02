@@ -215,7 +215,7 @@ void MainScreen::KeyReleasedHandle(Key key){
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 }
 
-void MainScreen::WindowResizedHandle(int width, int height){
+void MainScreen::WindowResizedHandle(S32 width, S32 height){
 	ResetScreenSize();
 }
 

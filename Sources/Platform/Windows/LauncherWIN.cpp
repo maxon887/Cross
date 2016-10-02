@@ -65,11 +65,11 @@ LauncherWIN::LauncherWIN(HWND wnd) :
 
 LauncherWIN::~LauncherWIN(){ }
 
-int LauncherWIN::GetTargetWidth(){
+U32 LauncherWIN::GetTargetWidth(){
 	return window_width;
 }
 
-int LauncherWIN::GetTargetHeight(){
+U32 LauncherWIN::GetTargetHeight(){
 	return window_height;
 }
 

@@ -46,7 +46,7 @@ void DirectionalLightScene::Start(){
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 
-	for(int i = 0; i < 10; ++i){
+	for(U32 i = 0; i < 10; ++i){
 		Model* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));

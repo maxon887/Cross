@@ -56,7 +56,7 @@ void SpritesScreen::Update(float sec){
 void SpritesScreen::PushSprite(){
 	float fps = Debugger::Instance()->GetFPS();
 	if(fps > 40.f){
-		for(int i = 0; i < 20; i++){
+		for(U32 i = 0; i < 20; i++){
 			Vector2D position;
 			position.x = Random(5 + awesome_face->GetWidth() / 2, GetWidth() - 5 - awesome_face->GetWidth() / 2);
 			position.y = Random(5 + awesome_face->GetHeight() / 2, GetHeight() - 5 - awesome_face->GetHeight() / 2);

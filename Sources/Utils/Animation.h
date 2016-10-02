@@ -22,8 +22,8 @@ namespace cross {
 class Animation{
 public:
 	Animation(Animation& anim);
-	Animation(float rate, Sprite* frames[], int frameCount);
-	Animation(float rate, Sprite* frames[], int frameCount, bool looped);
+	Animation(float rate, Sprite* frames[], U32 frameCount);
+	Animation(float rate, Sprite* frames[], U32 frameCount, bool looped);
 	~Animation();
 
 	void Start();
@@ -34,7 +34,7 @@ private:
 	CRArray<Sprite*> frames;
 	float rate;
 	float duration;
-	int frame_num;
+	U32 frame_num;
 	bool looped;
 	bool original;
 };

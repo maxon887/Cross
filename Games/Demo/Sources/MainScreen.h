@@ -42,10 +42,10 @@ private:
 	void AdjustScreenHeight(Menu* menu);
 
 	FastDelegate1<Key, void> key_released_delegate;
-	FastDelegate2<int, int, void> window_resized_delegate;
+	FastDelegate2<S32, S32, void> window_resized_delegate;
 	//connections
 	void KeyReleasedHandle(Key key);
-	void WindowResizedHandle(int width, int height);
+	void WindowResizedHandle(S32 width, S32 height);
 	//main menu
 	void OnGraphics2DClick();
 	void OnGraphics3DClick();

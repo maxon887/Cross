@@ -48,7 +48,7 @@ void TextScreen::Update(float sec){
 void TextScreen::AddChar(){
 	float fps = Debugger::Instance()->GetFPS();
 	if(fps > 40.f){
-		for(int i = 0; i < 10; i++){
+		for(U32 i = 0; i < 10; i++){
 			float size = Random(10.f, 80.f);
 			Vector2D position;
 			position.x = Random(-size, GetWidth());

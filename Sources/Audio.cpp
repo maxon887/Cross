@@ -49,7 +49,7 @@ void Common_Fatal(const char *format, ...){
 
 }
 
-void ERRCHECK_fn(FMOD_RESULT result, const char *file, int line)
+void ERRCHECK_fn(FMOD_RESULT result, const char *file, U32 line)
 {
     if (result != FMOD_OK)
     {

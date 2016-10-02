@@ -53,21 +53,21 @@ void Input::KeyReleasedHandle(Key key){
 	pressed_keys[(U32)key] = false;
 }
 
-void Input::TargetActionDonwHandle(float x, float y, int actionID){
+void Input::TargetActionDonwHandle(float x, float y, S32 actionID){
 	Action action;
 	action.pos = TargetToWordConvert(x, y);
 	action.id = actionID;
 	TRIGGER_EVENT(ActionDown, action);
 }
 
-void Input::TargetActionMoveHandle(float x, float y, int actionID){
+void Input::TargetActionMoveHandle(float x, float y, S32 actionID){
 	Action action;
 	action.pos = TargetToWordConvert(x, y);
 	action.id = actionID;
 	TRIGGER_EVENT(ActionMove, action);
 }
 
-void Input::TargetActionUpHandle(float x, float y, int actionID){
+void Input::TargetActionUpHandle(float x, float y, S32 actionID){
 	Action action;
 	action.pos = TargetToWordConvert(x, y);
 	action.id = actionID;

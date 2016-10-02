@@ -29,18 +29,18 @@ Animation::Animation(Animation& anim){
 	this->original = false;
 }
 
-Animation::Animation(float rate, Sprite* frames[], int frameCount) : 
+Animation::Animation(float rate, Sprite* frames[], U32 frameCount) : 
 	Animation(rate, frames, frameCount, false)
 { }
 
-Animation::Animation(float rate, Sprite* frames[], int frameCount, bool looped) :
+Animation::Animation(float rate, Sprite* frames[], U32 frameCount, bool looped) :
 	original(true),
 	duration(0xFF),
 	frame_num(0),
 	looped(looped),
 	rate(rate)
 {
-	for(int i = 0; i < frameCount; i++) {
+	for(U32 i = 0; i < frameCount; i++) {
 		this->frames.push_back(frames[i]);
 	}
 }
@@ -70,7 +70,7 @@ void Animation::Update(float sec){
 		frame_num = 0;
 		duration = 0xFF;
 	}else{
-		frame_num = (int)(duration / rate);
+		frame_num = (S32)(duration / rate);
 		frame_num = frame_num % frames.size();
 		duration += sec;
 	}

@@ -34,7 +34,7 @@ public:
 	void DrawRect(Rect rect, Color color, bool filled);
 	void DrawCircle(Vector2D center, float radius, Color color);
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled);
-	void DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy);
+	void DrawCircle(Vector2D center, float radius, Color color, bool filled, U32 accuracy);
 	void DrawText(Vector2D pos, string text);
 	void DrawText(Vector2D pos, const string &text, Font* font);
 	void DrawSprite(Sprite* sprite);
@@ -46,11 +46,11 @@ public:
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter, bool compressed);
 	void ReleaseTexture(const string& filename, GLuint* id);
-	Texture* CreateTexture(int channels, int width, int height, Texture::Filter filter);
+	Texture* CreateTexture(U32 channels, U32 width, U32 height, Texture::Filter filter);
 	Texture* CreateTexture(	Byte* data,
-							int channels,
-							int width,
-							int height,
+							U32 channels,
+							U32 width,
+							U32 height,
 							Texture::Filter filter,
 							Texture::Compression compression,
 							Texture::TilingMode tilingMode,
@@ -69,7 +69,7 @@ private:
 	Font* default_font;
 	Camera2D* camera;
 	Camera2D* default_camera;
-	CRList<pair<Texture*, int>> loaded_textures;
+	CRList<pair<Texture*, S32>> loaded_textures;
 
 	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);

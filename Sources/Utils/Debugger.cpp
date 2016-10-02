@@ -84,7 +84,7 @@ void Debugger::Display(float micro){
 		render_counter++;
 	}
 
-	int optionPosition = 1;
+	S32 optionPosition = 1;
 	float height = game->GetCurrentScreen()->GetHeight();
 	char outputString[256];
 	if(params[Parameter::RENDER_TIME] == true){

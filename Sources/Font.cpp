@@ -42,7 +42,7 @@ Font::Font(Font& font) :
 	file(font.file),
 	kill_textures(false)
 {
-	for(int i = 0; i < 127; ++i){
+	for(U8 i = 0; i < 127; ++i){
 		this->advances[i] = font.advances[i];
 		this->textures[i] = font.textures[i];
 		this->sprites[i] = font.sprites[i]->Clone();
@@ -144,7 +144,7 @@ void Font::Cache(){
 	} else {
 		kill_textures = true;
 	}
-	for(int i = 0; i < 127; i++){
+	for(U8 i = 0; i < 127; i++){
 		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
 		if(error){
 			throw CrossException("Can't load glyph");
@@ -155,8 +155,8 @@ void Font::Cache(){
 			throw CrossException("Can't abtain glyph");
 		}
 		advances[i] = (float)(face->glyph->advance.x >> 6);
-		int bmpWidth = bitmapGlyhp->bitmap.width;
-		int bmpHeight = bitmapGlyhp->bitmap.rows;
+		S32 bmpWidth = bitmapGlyhp->bitmap.width;
+		S32 bmpHeight = bitmapGlyhp->bitmap.rows;
 		float bearingX = (float)(face->glyph->metrics.horiBearingX >> 6);
 		float bearingY = (float)(face->glyph->metrics.horiBearingY >> 6);
 		Texture* texture = gfx2D->CreateTexture(	bitmapGlyhp->bitmap.buffer,

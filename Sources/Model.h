@@ -35,7 +35,7 @@ public:
 	string GetName();
 	string GetFilePath();
 	Format GetFormat();
-	int GetPolyCount();
+	U32 GetPolyCount();
 
 	void AddMesh(Mesh* mesh);
 	void SetMaterial(Material* material);

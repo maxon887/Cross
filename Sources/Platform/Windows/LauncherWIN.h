@@ -26,8 +26,8 @@ class LauncherWIN : public Launcher{
 public:
 	LauncherWIN(HWND wnd = 0);
 	~LauncherWIN();
-	int GetTargetWidth();
-	int GetTargetHeight();
+	U32 GetTargetWidth();
+	U32 GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
 	File* LoadFile(const string& filename);

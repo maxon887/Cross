@@ -78,7 +78,6 @@ public:
 	Shader* GetShader(DefaultShader type);
 
 private:
-	//CRArray<Shader*> shaders;
 	//off screen rendering components
 	bool off_screen_rendering;
 	GLuint framebuffer;
@@ -87,7 +86,7 @@ private:
 	GLuint quadVBO;
 	GLuint quadEBO;
 
-	void WindowResizeHandle(int width, int height);
+	void WindowResizeHandle(S32 width, S32 height);
 };
 
 }

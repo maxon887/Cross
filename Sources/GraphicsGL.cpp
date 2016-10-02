@@ -238,6 +238,6 @@ void GraphicsGL::UseShader(Shader* shader){
 	}
 }
 
-void GraphicsGL::WindowResizeHandle(int width, int height){
+void GraphicsGL::WindowResizeHandle(S32 width, S32 height){
 	SAFE(glViewport(0, 0, width, height));
 }

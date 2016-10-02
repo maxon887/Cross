@@ -26,7 +26,7 @@ namespace cross{
 class Game{
 public:
 	/* Occurs when game window resize */
-	DECLARE_EVENT(void, int, int) WindowResized;
+	DECLARE_EVENT(void, S32, S32) WindowResized;
 
 	Game();
 	virtual ~Game();

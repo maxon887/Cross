@@ -43,7 +43,7 @@ private:
 
 	Font* debug_font;
 
-	int handled_action;
+	S32 handled_action;
 	Vector2D touch_position;
 	
 	Sprite* arrow_released;

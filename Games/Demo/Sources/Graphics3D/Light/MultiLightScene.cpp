@@ -27,21 +27,21 @@ void MultiLightScene::Start(){
 	SetOrbitDistance(60.f);
 	DrawLights(true);
 	
-	for(int i = 0; i < 8; ++i){
+	for(U32 i = 0; i < 8; ++i){
 		Light* light = new Light(Light::Type::POINT);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
 		light->SetColor(Color::Red);
 		AddLight(light);
 	}
 	
-	for(int i = 0; i < 1; ++i){
+	for(U32 i = 0; i < 1; ++i){
 		Light* light = new Light(Light::Type::DIRECTIONAL);
 		light->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
 		light->SetColor(Color::Green);
 		AddLight(light);
 	}
 	
-	for(int i = 0; i < 4; ++i){
+	for(U32 i = 0; i < 4; ++i){
 		Light* light = new Light(Light::Type::SPOT);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
 		light->LookAt(Vector3D(0.f));
@@ -66,7 +66,7 @@ void MultiLightScene::Start(){
 	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube->SetMaterial(material);
 	
-	for(int i = 0; i < 10; ++i){
+	for(U32 i = 0; i < 10; ++i){
 		Model* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));

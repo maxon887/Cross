@@ -67,8 +67,8 @@ Model::Format Model::GetFormat(){
 	return format;
 }
 
-int Model::GetPolyCount(){
-	int polyCount = 0;
+U32 Model::GetPolyCount(){
+	U32 polyCount = 0;
 	for(Mesh* mesh : meshes){
 		polyCount += mesh->GetPrimitivesCount();
 	}

@@ -130,7 +130,7 @@ void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
 }
 
-void Scene::WindowResizeHandle(int width, int height){
+void Scene::WindowResizeHandle(S32 width, S32 height){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
 	camera->SetProjectionMatrix(projection);
 }

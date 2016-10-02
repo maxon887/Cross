@@ -163,22 +163,22 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	DrawCircle(center, radius, color, filled, 30);
 }
 
-void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled, int accuracy){
+void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool filled, U32 accuracy){
 	gfxGL->UseShader(simple_shader);
-	int vertexCount = accuracy;
+	U32 vertexCount = accuracy;
 
 	// Create a buffer for vertex data
 	float* buffer = new float[vertexCount * 2]; 
-	int idx = 0;
+	U32 idx = 0;
 
 	// Center vertex for triangle fan
 	buffer[idx++] = center.x;
 	buffer[idx++] = center.y;
 
 	// Outer vertices of the circle
-	int outerVertexCount = vertexCount - 1;
+	U32 outerVertexCount = vertexCount - 1;
 
-	for(int i = 0; i < outerVertexCount; ++i){
+	for(U32 i = 0; i < outerVertexCount; ++i){
 		float percent = (i / (float)(outerVertexCount - 1));
 		float rad = percent * 2 * PI;
 
@@ -300,7 +300,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 #endif
 		}	
 
-		pair<Texture*, int> pair;
+		pair<Texture*, S32> pair;
 		pair.first = newTexture;
 		pair.second = 1;
 		loaded_textures.push_back(pair);
@@ -379,7 +379,7 @@ Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filt
 	File* file = launcher->LoadFile(filename);
 
 	PKM pkm;
-	int offset = sizeof(PKM);
+	U32 offset = sizeof(PKM);
 	memcpy(&pkm, file->data, offset);
 
 	Texture* texture = CreateTexture(file->data + offset, 3, pkm.extendedWidth, pkm.extendedHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
@@ -396,7 +396,7 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 	File* file = launcher->LoadFile(filename);
 
 	KTX ktx;
-	int offset = sizeof(KTX);
+	U32 offset = sizeof(KTX);
 	memcpy(&ktx, file->data, offset);
 
 	U32 imageSize;
@@ -410,10 +410,10 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 	Texture* texture = CreateTexture(imageData, 3, ktx.pixelWidth, ktx.pixelHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
 	texture->SetName(filename);
 
-	int mipmapW = ktx.pixelWidth;
-	int mipmapH = ktx.pixelHeight;
+	U32 mipmapW = ktx.pixelWidth;
+	U32 mipmapH = ktx.pixelHeight;
 	for(U32 i = 1; i < ktx.numberOfMipmapLevels; i++){
-		int padding = 3 - ((imageSize + 3) % 4);
+		U32 padding = 3 - ((imageSize + 3) % 4);
 
 		if(padding != 0){
 			throw CrossException("Not zero padding");
@@ -436,7 +436,7 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 	return texture;
 }
 
-Texture* Graphics2D::CreateTexture(int channels, int width, int height, Texture::Filter filter){
+Texture* Graphics2D::CreateTexture(U32 channels, U32 width, U32 height, Texture::Filter filter){
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
@@ -463,9 +463,9 @@ Texture* Graphics2D::CreateTexture(int channels, int width, int height, Texture:
 }
 
 Texture* Graphics2D::CreateTexture(	Byte* data, 
-									int channels, 
-									int width, 
-									int height, 
+									U32 channels, 
+									U32 width, 
+									U32 height, 
 									Texture::Filter filter,
 									Texture::Compression compression,
 									Texture::TilingMode tilingMode,

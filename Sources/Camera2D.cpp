@@ -51,13 +51,13 @@ float Camera2D::GetViewHeight() {
 	return view_height;
 }
 
-void Camera2D::WindowResizedHandle(int width, int height) {
+void Camera2D::WindowResizedHandle(S32 width, S32 height) {
 	view_width = (float)launcher->GetTargetWidth();
 	view_height = (float)launcher->GetTargetHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
-void Camera2D::WindowRisezedHandleCust(int width, int height) {
+void Camera2D::WindowRisezedHandleCust(S32 width, S32 height) {
 	float scale = (float)launcher->GetTargetWidth() / view_width;
 	view_height = (float)launcher->GetTargetHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);

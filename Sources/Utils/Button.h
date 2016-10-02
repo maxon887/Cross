@@ -55,7 +55,7 @@ protected:
 	Vector2D location;
 	bool located;
 	bool is_pressed;
-	int handled_action_id;
+	S32 handled_action_id;
 	bool active;
 	Rect area;
 	float def_width;

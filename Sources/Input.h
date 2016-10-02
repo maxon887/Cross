@@ -121,16 +121,16 @@ public:
 	class Action{
 	public:
 		Vector2D pos;
-		int id;
+		S32 id;
 	};
 	/* Scaled in screen coordinates input */
 	DECLARE_EVENT(void, Action) ActionDown;
 	DECLARE_EVENT(void, Action) ActionMove;
 	DECLARE_EVENT(void, Action) ActionUp;
 	/* Physical device inputs */
-	DECLARE_EVENT(void, float, float, int) TargetActionDown;
-	DECLARE_EVENT(void, float, float, int) TargetActionMove;
-	DECLARE_EVENT(void, float, float, int) TargetActionUp;
+	DECLARE_EVENT(void, float, float, S32) TargetActionDown;
+	DECLARE_EVENT(void, float, float, S32) TargetActionMove;
+	DECLARE_EVENT(void, float, float, S32) TargetActionUp;
 	/* Keyboard events */
 	DECLARE_EVENT(void, Key) KeyPressed;
 	DECLARE_EVENT(void, Key) KeyReleased;
@@ -148,9 +148,9 @@ protected:
 
 	Vector2D TargetToWordConvert(float x, float y);
 
-	void TargetActionDonwHandle(float x, float y, int actionID);
-	void TargetActionMoveHandle(float x, float y, int actionID);
-	void TargetActionUpHandle(float x, float y, int actionID);
+	void TargetActionDonwHandle(float x, float y, S32 actionID);
+	void TargetActionMoveHandle(float x, float y, S32 actionID);
+	void TargetActionUpHandle(float x, float y, S32 actionID);
 	void KeyPressedHandle(Key key);
 	void KeyReleasedHandle(Key key);
 };

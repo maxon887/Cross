@@ -25,9 +25,9 @@ class Commercial;
 class Launcher{
 public:
 	/* Returns physical screen width in pixels */
-	virtual int GetTargetWidth() = 0;
+	virtual U32 GetTargetWidth() = 0;
 	/* Returns physical screen height in pixels */
-	virtual int GetTargetHeight() = 0;
+	virtual U32 GetTargetHeight() = 0;
 	/* Cross platform way to log out message */
 	virtual void LogIt(const string& msg) = 0;
 	/* Cross platform way to log out message */
