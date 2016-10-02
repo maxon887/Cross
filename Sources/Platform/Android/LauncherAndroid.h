@@ -33,8 +33,8 @@ public:
 	LauncherAndroid(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
 	~LauncherAndroid();
 
-	int GetTargetWidth();
-	int GetTargetHeight();
+	U32 GetTargetWidth();
+	U32 GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
 	void LogIt(const string& str);
@@ -58,8 +58,8 @@ private:
 	AAssetManager* asset_manager;
 	CommercialAndroid* commercial;
 	string data_path;
-	int width;
-	int height;
+	U32 width;
+	U32 height;
 };
 
 }

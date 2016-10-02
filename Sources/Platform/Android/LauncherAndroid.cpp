@@ -35,11 +35,11 @@ LauncherAndroid::~LauncherAndroid(){
     delete commercial;
 }
 
-int LauncherAndroid::GetTargetWidth(){
+U32 LauncherAndroid::GetTargetWidth(){
 	return width;
 }
 
-int LauncherAndroid::GetTargetHeight(){
+U32 LauncherAndroid::GetTargetHeight(){
 	return height;
 }
 
