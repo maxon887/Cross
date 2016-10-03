@@ -24,7 +24,7 @@
 #include "Config.h"
 
 void SpecularDiffuseScene::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
@@ -53,10 +53,10 @@ void SpecularDiffuseScene::Stop(){
 	delete material;
 	delete texture;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void SpecularDiffuseScene::Update(float sec){
 	cube->Draw();
-	CCScene::Update(sec);
+	FreeCameraScene::Update(sec);
 }

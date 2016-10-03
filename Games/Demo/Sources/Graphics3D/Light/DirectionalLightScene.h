@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CCScene.h"
+#include "Utils/FreeCameraScene.h"
 
-class DirectionalLightScene : public CCScene{
+class DirectionalLightScene : public FreeCameraScene{
 public:
 	virtual void Start();
 	virtual void Stop();

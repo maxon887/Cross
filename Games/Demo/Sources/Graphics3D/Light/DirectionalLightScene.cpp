@@ -23,7 +23,7 @@
 #include "Graphics2D.h"
 
 void DirectionalLightScene::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 
 	SetOrbitDistance(60.f);
 
@@ -63,12 +63,12 @@ void DirectionalLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void DirectionalLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	CCScene::Update(sec);
+	FreeCameraScene::Update(sec);
 }

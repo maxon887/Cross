@@ -23,7 +23,7 @@
 #include "Material.h"
 
 void ComplexModelScene::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 	SetOrbitDistance(60.f);
 	
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
@@ -42,10 +42,10 @@ void ComplexModelScene::Stop(){
 	delete material;
 	delete texture;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void ComplexModelScene::Update(float sec){
 	camaro->Draw();
-	CCScene::Update(sec);
+	FreeCameraScene::Update(sec);
 }

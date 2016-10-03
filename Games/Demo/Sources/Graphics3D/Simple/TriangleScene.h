@@ -16,11 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Graphics3D/CCScene.h"
+#include "Utils/FreeCameraScene.h"
 
 using namespace cross;
 
-class TriangleScene : public CCScene{
+class TriangleScene : public FreeCameraScene{
 public:
 	void Start();
 	void Stop();

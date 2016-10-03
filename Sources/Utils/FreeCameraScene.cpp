@@ -14,19 +14,18 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "CCScene.h"
+#include "FreeCameraScene.h"
 #include "Launcher.h"
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Sprite.h"
 #include "Font.h"
-#include "Demo.h"
 #include "Camera2D.h"
 
 #include <math.h>
 
-CCScene::CCScene() :
+FreeCameraScene::FreeCameraScene() :
 	liner_speed(10.f),
 	angular_speed(45.f),
 	orbit_speed(1.f),
@@ -37,7 +36,7 @@ CCScene::CCScene() :
 	orbit_distance(1.f)
 { }
 
-void CCScene::Start() {
+void FreeCameraScene::Start() {
 	Scene::Start();
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
@@ -47,15 +46,15 @@ void CCScene::Start() {
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
 
-	action_down_delegate = MakeDelegate(this, &CCScene::ActionDownHandle);
-	action_move_delegate = MakeDelegate(this, &CCScene::ActionMoveHandle);
-	action_up_delegate = MakeDelegate(this, &CCScene::ActionUpHandle);
+	action_down_delegate = MakeDelegate(this, &FreeCameraScene::ActionDownHandle);
+	action_move_delegate = MakeDelegate(this, &FreeCameraScene::ActionMoveHandle);
+	action_up_delegate = MakeDelegate(this, &FreeCameraScene::ActionUpHandle);
 	input->ActionDown += action_down_delegate;
 	input->ActionMove += action_move_delegate;
 	input->ActionUp += action_up_delegate;
 
-	mouse_wheel_up = MakeDelegate(this, &CCScene::MouseWheelUp);
-	mouse_wheel_down = MakeDelegate(this, &CCScene::MouseWheelDown);
+	mouse_wheel_up = MakeDelegate(this, &FreeCameraScene::MouseWheelUp);
+	mouse_wheel_down = MakeDelegate(this, &FreeCameraScene::MouseWheelDown);
 	input->MouseWheelUp += mouse_wheel_up;
 	input->MouseWheelDown += mouse_wheel_down;
 
@@ -97,13 +96,13 @@ void CCScene::Start() {
 	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
 	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
 	eye_btn = new ToggleButton(eye, eyePressed);
-	eye_btn->Clicked += MakeDelegate(this, &CCScene::OnEyeClick);
+	eye_btn->Clicked += MakeDelegate(this, &FreeCameraScene::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
 	gui.push_back(eye_btn);
 }
 
-void CCScene::Stop(){
+void FreeCameraScene::Stop(){
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
 	input->ActionUp -= action_up_delegate;
@@ -120,7 +119,7 @@ void CCScene::Stop(){
 	Scene::Stop();
 }
 
-void CCScene::Update(float sec){
+void FreeCameraScene::Update(float sec){
 	bool eulerAngles = false;
 	if(input->IsPressed(Key::LEFT)) {
 		yaw -= angular_speed * sec;
@@ -207,11 +206,11 @@ void CCScene::Update(float sec){
 	Scene::Update(sec);
 }
 
-void CCScene::SetOrbitDistance(float orbitDistance){
+void FreeCameraScene::SetOrbitDistance(float orbitDistance){
 	orbit_distance = orbitDistance;
 }
 
-bool CCScene::OnGuiArea(Vector2D pos){
+bool FreeCameraScene::OnGuiArea(Vector2D pos){
 	for(Button* btn : gui){
 		if(btn->OnLocation(pos)){
 			return true;
@@ -220,7 +219,7 @@ bool CCScene::OnGuiArea(Vector2D pos){
 	return false;
 }
 
-void CCScene::RecalcAngles(){
+void FreeCameraScene::RecalcAngles(){
 	if(pitch > 89.0f)
 		pitch = 89.0f;
 	if(pitch < -89.0f)
@@ -239,7 +238,7 @@ void CCScene::RecalcAngles(){
 	GetCamera()->SetDirection(direction);
 }
 
-void CCScene::OnEyeClick(){
+void FreeCameraScene::OnEyeClick(){
 	//orbit
 	orbit_distance = GetCamera()->GetPosition().Length();
 	//free
@@ -252,14 +251,14 @@ void CCScene::OnEyeClick(){
 	RecalcAngles();
 }
 
-void CCScene::ActionDownHandle(Input::Action action){
+void FreeCameraScene::ActionDownHandle(Input::Action action){
 	if(!OnGuiArea(action.pos) && handled_action == -1){
 		handled_action = action.id;
 		touch_position = action.pos;
 	}
 }
 
-void CCScene::ActionMoveHandle(Input::Action action){
+void FreeCameraScene::ActionMoveHandle(Input::Action action){
 	if(handled_action == action.id){
 		if(eye_btn->GetState()){	//free camera
 			Vector2D deltaPosition = touch_position - action.pos;
@@ -284,16 +283,16 @@ void CCScene::ActionMoveHandle(Input::Action action){
 	}
 }
 
-void CCScene::ActionUpHandle(Input::Action action){
+void FreeCameraScene::ActionUpHandle(Input::Action action){
 	if(handled_action == action.id){
 		handled_action = -1;
 	}
 }
 
-void CCScene::MouseWheelUp(){
+void FreeCameraScene::MouseWheelUp(){
 	orbit_distance += 2.f;
 }
 
-void CCScene::MouseWheelDown(){
+void FreeCameraScene::MouseWheelDown(){
 	orbit_distance -= 2.f;
 }

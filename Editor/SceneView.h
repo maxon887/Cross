@@ -21,53 +21,21 @@
 #include "Input.h"
 #include "Utils/Button.h"
 #include "Utils/ToggleButton.h"
+#include "Utils/FreeCameraScene.h"
 
 using namespace cross;
 
-class SceneView : public Scene{
+class SceneView : public FreeCameraScene{
 public:
-
 	SceneView();
 
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
-
-	void SetOrbitDistance(float orbitDistance);
 private:
-	float liner_speed;
-	float angular_speed;
-	float orbit_speed;
-	float pitch;
-	float yaw;
-
-	Font* debug_font;
-
-	int handled_action;
-	Vector2D touch_position;
-	
-	float orbit_distance;
-
 	Shader* shader;
 	Material* material;
 	Model* cube;
 
 	void InitializeCube();
-	bool OnGuiArea(Vector2D pos);
-	void RecalcAngles();
-	void OnEyeClick();
-
-	FastDelegate1<Input::Action, void> action_down_delegate;
-	FastDelegate1<Input::Action, void> action_move_delegate;
-	FastDelegate1<Input::Action, void> action_up_delegate;
-
-	void ActionDownHandle(Input::Action action);
-	void ActionMoveHandle(Input::Action action);
-	void ActionUpHandle(Input::Action action);
-
-	FastDelegate0<void> mouse_wheel_up;
-	FastDelegate0<void> mouse_wheel_down;
-
-	void MouseWheelUp();
-	void MouseWheelDown();
 };

@@ -20,14 +20,14 @@
 #include "Shaders/Shader.h"
 
 void DepthTestScreen::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 	shader = new Shader("gfx3D/shaders/depth_test.vert", "gfx3D/shaders/depth_test.frag");
 	//warrior = gfx3D->LoadModel("gfx3D/warrior/warrior.3DS", shader);
 	warrior->SetRotateX(-90.f);
 }
 
 void DepthTestScreen::Stop(){
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 	delete shader;
 	delete warrior;
 }
@@ -35,5 +35,5 @@ void DepthTestScreen::Stop(){
 void DepthTestScreen::Update(float sec){/*
 	gfx3D->DrawModel(shader, warrior);
 	*/
-	CCScene::Update(sec);
+	FreeCameraScene::Update(sec);
 }

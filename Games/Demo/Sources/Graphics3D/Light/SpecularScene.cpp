@@ -23,8 +23,7 @@
 #include "Shaders/LightShader.h"
 
 void SpecularScene::Start(){
-	CCScene::Start();
-	DrawLights(false);
+	FreeCameraScene::Start();
 	SetCameraViewDistance(500.f);
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
@@ -54,11 +53,12 @@ void SpecularScene::Stop(){
 	delete cube;
 	delete material;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void SpecularScene::Update(float sec){
 	cube->Draw();
 	cube->SetRotateY(game->GetRunTime() * 15.f);
-	CCScene::Update(sec);
+	DrawLights();
+	FreeCameraScene::Update(sec);
 }

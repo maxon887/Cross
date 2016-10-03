@@ -23,8 +23,7 @@
 #include "Graphics2D.h"
 
 void SpecularMapScene::Start() {
-	CCScene::Start();
-	DrawLights(true);
+	FreeCameraScene::Start();
 
 	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
@@ -55,10 +54,11 @@ void SpecularMapScene::Stop() {
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void SpecularMapScene::Update(float sec) {
 	cube->Draw();
-	CCScene::Update(sec);
+	DrawLights();
+	FreeCameraScene::Update(sec);
 }

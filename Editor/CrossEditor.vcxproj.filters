@@ -239,6 +239,9 @@
     <ClCompile Include="..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Utils\FreeCameraScene.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.h">
@@ -413,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Shaders\LightShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\FreeCameraScene.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

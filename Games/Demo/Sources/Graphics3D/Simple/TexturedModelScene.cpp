@@ -21,7 +21,7 @@
 #include "Model.h"
 
 void TexturedModelScene::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();
 	material = new Material(shader);
@@ -36,10 +36,10 @@ void TexturedModelScene::Stop(){
 	delete material;
 	delete texture;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void TexturedModelScene::Update(float sec){
 	cube->Draw();
-	CCScene::Update(sec);
+	FreeCameraScene::Update(sec);
 }

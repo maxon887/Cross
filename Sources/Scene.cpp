@@ -29,10 +29,9 @@ using namespace cross;
 Scene::Scene() :
 	Screen(),
 	ambient_color(Color(0.1f, 0.1f, 0.1f)),
-	light_drawing(false),
-	point_light(nullptr),
-	spot_light(nullptr),
-	light_material(nullptr)
+	point_light(NULL),
+	spot_light(NULL),
+	light_material(NULL)
 { }
 
 void Scene::Start(){
@@ -42,32 +41,20 @@ void Scene::Start(){
 
 	window_resize_handle = MakeDelegate(this, &Scene::WindowResizeHandle);
 	game->WindowResized += window_resize_handle;
+	//light drawing stuff
+	light_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	light_shader->Compile();
+	light_material = new Material(light_shader);
+	point_light = gfx3D->LoadModel("Engine/gfx3D/Sphere.obj");
+	point_light->SetScale(0.2f);
+	point_light->SetMaterial(light_material);
+	spot_light = gfx3D->LoadModel("Engine/gfx3D/Cone.obj");
+	spot_light->SetScale(0.2f);
+	spot_light->SetMaterial(light_material);
 }
 
 void Scene::Update(float sec){
 	camera->Update(sec);
-	if(light_drawing){
-		for(Light* light : lights){
-			switch(light->GetType())
-			{
-			case Light::Type::POINT:
-			{
-				point_light->SetPosition(light->GetPosition());
-				point_light->GetMaterial()->SetPropertyValue("Color", (void*)&Color::White);
-				point_light->Draw();
-			}break;
-			case Light::Type::SPOT:
-			{
-				spot_light->SetPosition(light->GetPosition());
-				spot_light->SetDirection(light->GetDirection());
-				point_light->GetMaterial()->SetPropertyValue("Color", (void*)&Color::White);
-				spot_light->Draw();
-			}break;
-			default:
-				break;
-			}
-		}
-	}
 }
 
 void Scene::Stop(){
@@ -89,25 +76,24 @@ void Scene::SetCameraViewDistance(float distance){
 	camera->SetProjectionMatrix(projection);
 }
 
-void Scene::DrawLights(bool enabled){
-	if(enabled && !light_drawing){
-		light_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-		light_shader->Compile();
-		light_material = new Material(light_shader);
-		point_light = gfx3D->LoadModel("Engine/gfx3D/Sphere.obj");
-		point_light->SetScale(0.2f);
-		point_light->SetMaterial(light_material);
-		spot_light = gfx3D->LoadModel("Engine/gfx3D/Cone.obj");
-		spot_light->SetScale(0.2f);
-		spot_light->SetMaterial(light_material);
+void Scene::DrawLights(){
+	for(Light* light : lights){
+		switch(light->GetType()) {
+		case Light::Type::POINT:
+			point_light->SetPosition(light->GetPosition());
+			point_light->GetMaterial()->SetPropertyValue("Color", (void*)light->GetColor().GetData());
+			point_light->Draw();
+		break;
+		case Light::Type::SPOT:
+			spot_light->SetPosition(light->GetPosition());
+			spot_light->SetDirection(light->GetDirection());
+			spot_light->GetMaterial()->SetPropertyValue("Color", (void*)light->GetColor().GetData());
+			spot_light->Draw();
+		break;
+		default:
+			break;
+		}
 	}
-	if(!enabled){
-		delete light_material;
-		delete point_light;
-		delete spot_light;
-		delete light_shader;
-	}
-	light_drawing = enabled;
 }
 
 void Scene::AddLight(Light* light){

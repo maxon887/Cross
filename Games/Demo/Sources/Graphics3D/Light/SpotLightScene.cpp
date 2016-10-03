@@ -23,9 +23,7 @@
 #include "Graphics2D.h"
 	
 void SpotLightScene::Start(){
-	CCScene::Start();
-
-	DrawLights(true);
+	FreeCameraScene::Start();
 
 	Light* light = new Light(Light::Type::SPOT);
 	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
@@ -65,12 +63,13 @@ void SpotLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void SpotLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	CCScene::Update(sec);
+	DrawLights();
+	FreeCameraScene::Update(sec);
 }

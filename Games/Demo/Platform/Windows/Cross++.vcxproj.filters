@@ -223,9 +223,6 @@
     <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp">
       <Filter>Cross\Libs\TinyXML</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\CCScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClCompile>
@@ -267,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\FreeCameraScene.cpp">
+      <Filter>Cross\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -454,9 +454,6 @@
     <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.h">
       <Filter>Cross\Libs\TinyXML</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\CCScene.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClInclude>
@@ -498,6 +495,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\FreeCameraScene.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

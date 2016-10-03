@@ -24,9 +24,9 @@ struct aiScene;
 
 namespace cross{
 
-/* Loading 3D assets helper class */
 class Graphics3D{
 public:
+
 	Graphics3D();
 	~Graphics3D();
 

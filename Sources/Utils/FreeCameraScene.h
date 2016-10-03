@@ -25,9 +25,9 @@
 using namespace cross;
 
 //CC short for Camera Control
-class CCScene : public Scene{
+class FreeCameraScene : public Scene{
 public:
-	CCScene();
+	FreeCameraScene();
 
 	virtual void Start();
 	virtual void Stop();

@@ -22,10 +22,9 @@
 #include "Model.h"
 
 void MultiLightScene::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 	
 	SetOrbitDistance(60.f);
-	DrawLights(true);
 	
 	for(U32 i = 0; i < 8; ++i){
 		Light* light = new Light(Light::Type::POINT);
@@ -83,12 +82,13 @@ void MultiLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void MultiLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	CCScene::Update(sec);
+	DrawLights();
+	FreeCameraScene::Update(sec);
 }

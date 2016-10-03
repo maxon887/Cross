@@ -20,7 +20,7 @@
 #include "Mesh.h"
 
 void TriangleScene::Start(){
-	CCScene::Start();
+	FreeCameraScene::Start();
 
 	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	shader->Compile();
@@ -46,10 +46,10 @@ void TriangleScene::Stop(){
 	delete triangle;
 	delete material;
 	delete shader;
-	CCScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void TriangleScene::Update(float sec){
 	triangle->Draw();
-	CCScene::Update(sec);
+	FreeCameraScene::Update(sec);
 }
