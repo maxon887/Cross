@@ -33,7 +33,6 @@ void CamaroScene::Start(){
 	SetAmbientColor(Color(0.1f));
 	SetCameraViewDistance(500.f);
 	SetBackground(Color::Black);
-	SetOrbitDistance(60.f);
 
 	//lights
 	light = new Light(Light::Type::POINT);

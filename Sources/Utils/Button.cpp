@@ -207,10 +207,6 @@ Vector2D Button::GetCenter() const {
 	return location;
 }
 
-bool Button::OnLocation(Vector2D p) const {
-	return OnLocation(p.x, p.y);
-}
-
 void Button::FitText(string text) {
 	label_text = text;
 	/*
@@ -234,13 +230,6 @@ void Button::FitText(string text) {
 		text_size.y = font->GetSize();
 	}
 	
-}
-
-bool Button::OnLocation(float x, float y) const {
-	return	x > area.x &&
-		x < (area.x + area.width) &&
-		y > area.y &&
-		y < (area.y + area.height);
 }
 
 void Button::Locate(Vector2D loc, float width, float height) {
@@ -271,7 +260,7 @@ void Button::Locate(Rect rect){
 
 void Button::ActionDownHandler(Input::Action action) {
 	if(handled_action_id == -1){
-		if (active && OnLocation(action.pos.x, action.pos.y)) {
+		if (active && OnLocation(action.pos)) {
 			is_pressed = true;
 			handled_action_id = action.id;
 			if (push_sound != nullptr) {
@@ -289,7 +278,7 @@ void Button::ActionUpHandler(Input::Action action) {
 			if (push_sound != nullptr) {
 				push_sound->Play();
 			}
-			if (OnLocation(action.pos.x, action.pos.y)) {
+			if (OnLocation(action.pos)) {
 				if (down_image != nullptr) {
 					gfx2D->DrawSprite(location, down_image);
 				}

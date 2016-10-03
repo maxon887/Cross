@@ -31,9 +31,9 @@ FreeCameraScene::FreeCameraScene() :
 	orbit_speed(1.f),
 	yaw(0.f),
 	pitch(0.f),
-	eye_btn(nullptr),
 	handled_action(-1),
-	orbit_distance(1.f)
+	orbit_distance(60.f),
+	look_at(true)
 { }
 
 void FreeCameraScene::Start() {
@@ -46,76 +46,18 @@ void FreeCameraScene::Start() {
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
 
-	action_down_delegate = MakeDelegate(this, &FreeCameraScene::ActionDownHandle);
-	action_move_delegate = MakeDelegate(this, &FreeCameraScene::ActionMoveHandle);
-	action_up_delegate = MakeDelegate(this, &FreeCameraScene::ActionUpHandle);
-	input->ActionDown += action_down_delegate;
-	input->ActionMove += action_move_delegate;
-	input->ActionUp += action_up_delegate;
-
 	mouse_wheel_up = MakeDelegate(this, &FreeCameraScene::MouseWheelUp);
 	mouse_wheel_down = MakeDelegate(this, &FreeCameraScene::MouseWheelDown);
 	input->MouseWheelUp += mouse_wheel_up;
 	input->MouseWheelDown += mouse_wheel_down;
-
-	arrow_released = demo->GetCommonSprite("ArrowUp.png");
-	arrow_pressed = demo->GetCommonSprite("ArrowDown.png");
-
-	//button
-	float btnWidth = 300.f;
-	up_btn = new Button(Vector2D(btnWidth, btnWidth));
-	Sprite* cloneReleased = arrow_released->Clone();
-	cloneReleased->SetRotate(90.f);
-	Sprite* clonePressed = arrow_pressed->Clone();
-	clonePressed->SetRotate(90.f);
-	up_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(up_btn);
-	
-	left_btn = new Button(Vector2D(btnWidth/3.f, btnWidth/3.f));
-	cloneReleased = arrow_released->Clone();
-	cloneReleased->SetRotate(180.f);
-	clonePressed = arrow_pressed->Clone();
-	clonePressed->SetRotate(180.f);
-	left_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(left_btn);
-
-	down_btn = new Button(Vector2D(btnWidth, btnWidth/3.f));
-	cloneReleased = arrow_released->Clone();
-	cloneReleased->SetRotate(-90.f);
-	clonePressed = arrow_pressed->Clone();
-	clonePressed->SetRotate(-90.f);
-	down_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(down_btn);
-
-	right_btn = new Button(Vector2D(btnWidth + (btnWidth / 3.f) * 2.f, btnWidth/3.f));
-	cloneReleased = arrow_released->Clone();
-	clonePressed = arrow_pressed->Clone();
-	right_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(right_btn);
-
-	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
-	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
-	eye_btn = new ToggleButton(eye, eyePressed);
-	eye_btn->Clicked += MakeDelegate(this, &FreeCameraScene::OnEyeClick);
-	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
-	eye_btn->SetState(false);
-	gui.push_back(eye_btn);
 }
 
 void FreeCameraScene::Stop(){
-	input->ActionDown -= action_down_delegate;
-	input->ActionMove -= action_move_delegate;
-	input->ActionUp -= action_up_delegate;
 	input->MouseWheelUp -= mouse_wheel_up;
 	input->MouseWheelDown -= mouse_wheel_down;
 
 	delete debug_font;
-	for(Button* btn : gui){
-		delete btn;
-	}
-	delete arrow_released;
-	delete arrow_pressed;
-	gui.clear();
+
 	Scene::Stop();
 }
 
@@ -140,55 +82,33 @@ void FreeCameraScene::Update(float sec){
 	if(eulerAngles) {
 		RecalcAngles();
 	}
-	if(eye_btn->GetState()){	//free camera
-		if(input->IsPressed(Key::W) || up_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
-		}
-		if(input->IsPressed(Key::S) || down_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() - camera->GetDirection() * liner_speed * sec);
-		}
-		if(input->IsPressed(Key::A) || left_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
-		}
-		if(input->IsPressed(Key::D) || right_btn->IsPressed()) {
-			camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
-		}
-		if(input->IsPressed(Key::SHIFT)) {
-			camera->SetPosition(camera->GetPosition() + Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
-		}
-		if(input->IsPressed(Key::CONTROL)) {
-			camera->SetPosition(camera->GetPosition() - Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
-		}
-	}else{	//look at camera
-		if(input->IsPressed(Key::A) || left_btn->IsPressed()) {
-			Vector3D offset = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * orbit_distance * sec;
-			camera->SetPosition(camera->GetPosition() + offset);
-		}
-		if(input->IsPressed(Key::D) || right_btn->IsPressed()) {
-			Vector3D offset = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * orbit_distance * sec;
-			camera->SetPosition(camera->GetPosition() - offset);
-		}
-		if(input->IsPressed(Key::W)) {
-			camera->SetPosition(camera->GetPosition() + camera->GetUpVector() * orbit_speed * orbit_distance * sec);
-		}
-		if(input->IsPressed(Key::S)) {
-			camera->SetPosition(camera->GetPosition() - camera->GetUpVector() * orbit_speed * orbit_distance * sec);
-		}
-		if(up_btn->IsPressed()){
-			orbit_distance -= liner_speed * sec;
-		}
-		if(down_btn->IsPressed()){
-			orbit_distance += liner_speed * sec;
-		}
+
+	if(input->IsPressed(Key::W)) {
+		MoveForward(sec);
+	}
+	if(input->IsPressed(Key::S)) {
+		MoveBackward(sec);
+	}
+	if(input->IsPressed(Key::A)) {
+		MoveLeft(sec);
+	}
+	if(input->IsPressed(Key::D)) {
+		MoveRight(sec);
+	}
+	if(input->IsPressed(Key::SHIFT)) {
+		MoveUp(sec);
+	}
+	if(input->IsPressed(Key::CONTROL)) {
+		MoveDown(sec);
+	}
+
+	if(look_at){
 		camera->LookAt(Vector3D(0.f, 0.f, 0.f));
 		float objectDistance = camera->GetPosition().Length();
 		float diff = objectDistance - orbit_distance;
 		camera->SetPosition(camera->GetPosition() + camera->GetDirection() * diff);
 	}
-	//gui
-	for(Button* btn : gui){
-		btn->Update();
-	}
+
 	//debug camera
 #ifndef ANDROID
 	char buffer[256];
@@ -199,24 +119,57 @@ void FreeCameraScene::Update(float sec){
 	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
 	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 #endif // !ANDROID
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-		return;
-	}
 	Scene::Update(sec);
 }
 
-void FreeCameraScene::SetOrbitDistance(float orbitDistance){
-	orbit_distance = orbitDistance;
+void FreeCameraScene::MoveForward(float sec){
+	if(!look_at){
+		camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
+	}else{
+		orbit_distance -= liner_speed * sec;
+	}
 }
 
-bool FreeCameraScene::OnGuiArea(Vector2D pos){
-	for(Button* btn : gui){
-		if(btn->OnLocation(pos)){
-			return true;
-		}
+void FreeCameraScene::MoveBackward(float sec){
+	if(!look_at){
+		camera->SetPosition(camera->GetPosition() - camera->GetDirection() * liner_speed * sec);
+	}else{
+		orbit_distance += liner_speed * sec;
 	}
-	return false;
+}
+
+void FreeCameraScene::MoveLeft(float sec){
+	if(look_at){
+		camera->SetPosition(camera->GetPosition() + camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
+	}else{
+		Vector3D offset = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * orbit_distance * sec;
+		camera->SetPosition(camera->GetPosition() + offset);
+	}
+}
+
+void FreeCameraScene::MoveRight(float sec){
+	if(look_at){
+		camera->SetPosition(camera->GetPosition() - camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * liner_speed * sec);
+	}else{
+		Vector3D offset = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f)) * orbit_speed * orbit_distance * sec;
+		camera->SetPosition(camera->GetPosition() - offset);
+	}
+}
+
+void FreeCameraScene::MoveUp(float sec){
+	if(look_at){
+		camera->SetPosition(camera->GetPosition() + Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
+	}else{
+
+	}
+}
+
+void FreeCameraScene::MoveDown(float sec){
+	if(look_at){
+		camera->SetPosition(camera->GetPosition() - Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
+	}else{
+
+	}
 }
 
 void FreeCameraScene::RecalcAngles(){
@@ -238,29 +191,16 @@ void FreeCameraScene::RecalcAngles(){
 	GetCamera()->SetDirection(direction);
 }
 
-void FreeCameraScene::OnEyeClick(){
-	//orbit
-	orbit_distance = GetCamera()->GetPosition().Length();
-	//free
-	Vector3D direction = GetCamera()->GetDirection();
-	float sinP = direction.y;
-	float cosP = sqrt(1.f - pow(direction.y, 2.f));
-	float sinY = direction.x / cosP;
-	pitch = asin(sinP) * 180.f / PI;
-	yaw = asin(sinY) * 180.f / PI;
-	RecalcAngles();
-}
-
-void FreeCameraScene::ActionDownHandle(Input::Action action){
-	if(!OnGuiArea(action.pos) && handled_action == -1){
+void FreeCameraScene::ActionDown(Input::Action action){
+	if(handled_action == -1){
 		handled_action = action.id;
 		touch_position = action.pos;
 	}
 }
 
-void FreeCameraScene::ActionMoveHandle(Input::Action action){
+void FreeCameraScene::ActionMove(Input::Action action){
 	if(handled_action == action.id){
-		if(eye_btn->GetState()){	//free camera
+		if(look_at){	//free camera
 			Vector2D deltaPosition = touch_position - action.pos;
 			touch_position = action.pos;
 			yaw += deltaPosition.x / 10;
@@ -283,10 +223,24 @@ void FreeCameraScene::ActionMoveHandle(Input::Action action){
 	}
 }
 
-void FreeCameraScene::ActionUpHandle(Input::Action action){
+void FreeCameraScene::ActionUp(Input::Action action){
 	if(handled_action == action.id){
 		handled_action = -1;
 	}
+}
+
+void FreeCameraScene::FreeCamera(){
+	Vector3D direction = GetCamera()->GetDirection();
+	float sinP = direction.y;
+	float cosP = sqrt(1.f - pow(direction.y, 2.f));
+	float sinY = direction.x / cosP;
+	pitch = asin(sinP) * 180.f / PI;
+	yaw = asin(sinY) * 180.f / PI;
+	RecalcAngles();
+}
+
+void FreeCameraScene::OrbitCamera(float distance){
+	orbit_distance = distance;
 }
 
 void FreeCameraScene::MouseWheelUp(){

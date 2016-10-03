@@ -242,6 +242,9 @@
     <ClCompile Include="..\Sources\Utils\FreeCameraScene.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\UI.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.h">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\FreeCameraScene.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\UI.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

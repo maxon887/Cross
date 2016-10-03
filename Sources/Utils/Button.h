@@ -16,11 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "UI.h"
 #include "Input.h"
 
 namespace cross {
 
-class Button{
+class Button : public UI{
 public:
 	DECLARE_EVENT(void) Clicked;
 
@@ -47,7 +48,6 @@ public:
 	Sprite* GetDownImage() const;
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
-	bool OnLocation(Vector2D p) const;
 protected:
 
 	Button();
@@ -71,7 +71,6 @@ protected:
 
 	void Locate(Vector2D loc, float width, float heiht);
 	void Locate(Rect rect);
-	bool OnLocation(float x, float y) const;
 	void FitText(string text);
 	//connections
 	FastDelegate1<Input::Action, void> action_down_delegate;

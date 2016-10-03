@@ -24,8 +24,6 @@
 void MultiLightScene::Start(){
 	FreeCameraScene::Start();
 	
-	SetOrbitDistance(60.f);
-	
 	for(U32 i = 0; i < 8; ++i){
 		Light* light = new Light(Light::Type::POINT);
 		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));

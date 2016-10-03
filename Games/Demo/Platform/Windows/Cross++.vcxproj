@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\..\..\Sources\Config.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Texture.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Transformable.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\UI.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Debugger.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp" />
@@ -188,6 +190,7 @@
     <ClInclude Include="..\..\..\..\Sources\Screen.h" />
     <ClInclude Include="..\..\..\..\Sources\Texture.h" />
     <ClInclude Include="..\..\..\..\Sources\Transformable.h" />
+    <ClInclude Include="..\..\..\..\Sources\UI.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Debugger.h" />
@@ -205,6 +208,7 @@
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h" />

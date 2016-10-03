@@ -25,8 +25,6 @@
 void DirectionalLightScene::Start(){
 	FreeCameraScene::Start();
 
-	SetOrbitDistance(60.f);
-
 	Light* light = new Light(Light::DIRECTIONAL);
 	light->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	AddLight(light);

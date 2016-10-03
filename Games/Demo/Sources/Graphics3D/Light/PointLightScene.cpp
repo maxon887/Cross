@@ -25,8 +25,6 @@
 void PointLightScene::Start(){
 	FreeCameraScene::Start();
 
-	SetOrbitDistance(60.f);
-
 	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
 	AddLight(light);

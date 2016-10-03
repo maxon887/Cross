@@ -25,7 +25,6 @@
 void SpecularMapScene::Start() {
 	FreeCameraScene::Start();
 
-	SetOrbitDistance(28.f);
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
 	Light* light = new Light(Light::POINT);

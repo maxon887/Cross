@@ -24,7 +24,6 @@
 
 void ComplexModelScene::Start(){
 	FreeCameraScene::Start();
-	SetOrbitDistance(60.f);
 	
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();

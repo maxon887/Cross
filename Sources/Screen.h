@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Input.h"
 
 namespace cross {
 
@@ -24,12 +25,13 @@ namespace cross {
    Witch will be loaded through Game::GetStartScreen function */
 class Screen{
 public:
+	virtual ~Screen() { };
 	/* Calls once before screen show up. */
-	virtual void Start() { };
+	virtual void Start();
 	/* Calls when screen about to change on new one */
-	virtual void Stop() { };
+	virtual void Stop();
 	/* Calls every frame update. Ideally 60 times per second(60fps) */
-	virtual void Update(float sec) { };
+	virtual void Update(float sec);
 	/* Calls where game need to be stoped like lost focus or input phone call */
 	virtual void Suspend() { };
 	/* Calls where game about show again after suspending */
@@ -38,12 +40,30 @@ public:
 	virtual float GetWidth();
 	/* Return virtual game height for 2D drawing */
 	virtual float GetHeight();
+	/* Handle input that not drop on UI elements */
+	virtual void ActionDown(Input::Action action) { };
+	virtual void ActionMove(Input::Action action) { };
+	virtual void ActionUp(Input::Action action) { };
+
 	/* Reflect ratio between screen and target device width */
 	float GetScaleFactor();
+	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
-//Internal data. You don't need call any of this methods or modify variable
-public:
-	virtual ~Screen() { };
+	/* New UI element will auto update and covers area from touches */
+	void AddUI(UI* element);
+private:
+	CRArray<UI*> guis;
+	CRArray<S32> actionIDs;
+
+	FastDelegate1<Input::Action, void> action_down_delegate;
+	FastDelegate1<Input::Action, void> action_move_delegate;
+	FastDelegate1<Input::Action, void> action_up_delegate;
+
+	void ActionDownHandle(Input::Action action);
+	void ActionMoveHandle(Input::Action action);
+	void ActionUpHandle(Input::Action action);
+
+	bool OnGuiArea(Vector2D pos);
 };
     
 }

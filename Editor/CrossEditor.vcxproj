@@ -115,6 +115,7 @@
     <ClCompile Include="..\Sources\Sprite.cpp" />
     <ClCompile Include="..\Sources\Texture.cpp" />
     <ClCompile Include="..\Sources\Transformable.cpp" />
+    <ClCompile Include="..\Sources\UI.cpp" />
     <ClCompile Include="..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\Sources\Utils\Commercial.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="..\Sources\Sprite.h" />
     <ClInclude Include="..\Sources\Texture.h" />
     <ClInclude Include="..\Sources\Transformable.h" />
+    <ClInclude Include="..\Sources\UI.h" />
     <ClInclude Include="..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\Sources\Utils\Button.h" />
     <ClInclude Include="..\Sources\Utils\Commercial.h" />

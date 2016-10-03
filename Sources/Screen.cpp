@@ -18,8 +18,34 @@
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "Launcher.h"
+#include "UI.h"
 
 using namespace cross;
+
+void Screen::Start(){
+	action_down_delegate = MakeDelegate(this, &Screen::ActionDownHandle);
+	action_move_delegate = MakeDelegate(this, &Screen::ActionMoveHandle);
+	action_up_delegate = MakeDelegate(this, &Screen::ActionUpHandle);
+	input->ActionDown += action_down_delegate;
+	input->ActionMove += action_move_delegate;
+	input->ActionUp += action_up_delegate;
+}
+
+void Screen::Update(float sec){
+	for(UI* ui : guis){
+		ui->Update(sec);
+	}
+}
+
+void Screen::Stop(){
+	input->ActionDown -= action_down_delegate;
+	input->ActionMove -= action_move_delegate;
+	input->ActionUp -= action_up_delegate;
+	for(UI* ui : guis){
+		delete ui;
+	}
+	guis.clear();
+}
 
 float Screen::GetWidth(){
 	return gfx2D->GetCamera()->GetViewWidth();
@@ -35,4 +61,36 @@ float Screen::GetScaleFactor(){
 
 void Screen::SetBackground(const Color& c){
 	glClearColor(c.R, c.G, c.B, 1.f);
+}
+
+void Screen::ActionDownHandle(Input::Action action){
+	if(!OnGuiArea(action.pos)){
+		actionIDs.push_back(action.id);
+		ActionDown(action);
+	}
+}
+
+void Screen::ActionMoveHandle(Input::Action action){
+	for(U32 i = 0; i < actionIDs.size(); i++){
+		if(action.id == actionIDs[i]){
+			ActionMove(action);
+		}
+	}
+}
+
+void Screen::ActionUpHandle(Input::Action action){
+	for(U32 i = 0; i < actionIDs.size(); i++){
+		if(action.id == actionIDs[i]){
+			ActionUp(action);
+		}
+	}
+}
+
+bool Screen::OnGuiArea(Vector2D pos){
+	for(UI* ui : guis){
+		if(ui->OnLocation(pos)){
+			return true;
+		}
+	}
+	return false;
 }

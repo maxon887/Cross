@@ -75,6 +75,7 @@ class Scene;
 class Shader;
 class MultiLightShader;
 class Light;
+class UI;
 
 extern Game*		game;
 extern Launcher*	launcher;
