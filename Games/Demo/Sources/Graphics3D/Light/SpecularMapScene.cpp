@@ -21,6 +21,7 @@
 #include "Utils/Light.h"
 #include "Shaders/LightShader.h"
 #include "Graphics2D.h"
+#include "Camera.h"
 
 void SpecularMapScene::Start() {
 	FreeCameraScene::Start();

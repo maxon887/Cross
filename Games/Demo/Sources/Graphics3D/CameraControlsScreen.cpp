@@ -17,6 +17,7 @@
 #include "CameraControlsScreen.h"
 #include "Demo.h"
 #include "Sprite.h"
+#include "Camera.h"
 
 void CameraControlsScreen::Start(){
 	FreeCameraScene::Start();
@@ -85,6 +86,10 @@ void CameraControlsScreen::Update(float sec){
 	}
 	if(right_btn->IsPressed()) {
 		MoveRight(sec);
+	}
+
+	for(Button* btn : gui){
+		btn->Update();
 	}
 
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {

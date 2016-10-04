@@ -28,7 +28,7 @@
 #include <math.h>
 
 void CamaroScene::Start(){
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 
 	SetAmbientColor(Color(0.1f));
 	SetCameraViewDistance(500.f);
@@ -74,7 +74,7 @@ void CamaroScene::Stop(){
 	delete car_diffuse;
 	delete road_diffuse;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void CamaroScene::Update(float sec){
@@ -82,5 +82,5 @@ void CamaroScene::Update(float sec){
 	road->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*23.f, 12.f, sin(game->GetRunTime() / 2.f)*23.f));
 	DrawLights();
-	FreeCameraScene::Update(sec);
+	CameraControlsScreen::Update(sec);
 }

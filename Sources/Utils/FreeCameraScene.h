@@ -17,14 +17,10 @@
 #pragma once
 #include "Cross.h"
 #include "Scene.h"
-#include "Camera.h"
 #include "Input.h"
-#include "Utils/Button.h"
-#include "Utils/ToggleButton.h"
 
 using namespace cross;
 
-//CC short for Camera Control
 class FreeCameraScene : public Scene{
 public:
 	FreeCameraScene();
@@ -46,8 +42,6 @@ public:
 	void MoveRight(float sec);
 	void MoveUp(float sec);
 	void MoveDown(float sec);
-
-	//void SetOrbitDistance(float orbitDistance);
 private:
 	bool look_at;
 

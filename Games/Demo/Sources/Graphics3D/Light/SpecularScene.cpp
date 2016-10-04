@@ -21,6 +21,7 @@
 #include "Model.h"
 #include "Utils/Light.h"
 #include "Shaders/LightShader.h"
+#include "Camera.h"
 
 void SpecularScene::Start(){
 	FreeCameraScene::Start();

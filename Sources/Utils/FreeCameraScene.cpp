@@ -40,9 +40,8 @@ void FreeCameraScene::Start() {
 	Scene::Start();
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -20.f));
+	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
-	orbit_distance = GetCamera()->GetPosition().Length();
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
 
@@ -157,7 +156,7 @@ void FreeCameraScene::MoveRight(float sec){
 }
 
 void FreeCameraScene::MoveUp(float sec){
-	if(look_at){
+	if(!look_at){
 		camera->SetPosition(camera->GetPosition() + Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
 	}else{
 
@@ -165,11 +164,66 @@ void FreeCameraScene::MoveUp(float sec){
 }
 
 void FreeCameraScene::MoveDown(float sec){
-	if(look_at){
+	if(!look_at){
 		camera->SetPosition(camera->GetPosition() - Vector3D(0.f, 1.f, 0.f) * liner_speed * sec);
 	}else{
 
 	}
+}
+
+void FreeCameraScene::ActionDown(Input::Action action){
+	if(handled_action == -1){
+		handled_action = action.id;
+		touch_position = action.pos;
+	}
+}
+
+void FreeCameraScene::ActionMove(Input::Action action){
+	if(handled_action == action.id){
+		if(!look_at){				//free camera
+			Vector2D deltaPosition = touch_position - action.pos;
+			touch_position = action.pos;
+			yaw -= deltaPosition.x / 10;
+			pitch -= deltaPosition.y / 10;
+			RecalcAngles();
+		}else{						//look at camera
+			Vector2D deltaPosition = touch_position - action.pos;
+			touch_position = action.pos;
+
+			Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
+			launcher->LogIt("Horizontal(%f, %f, %f)", horizontal.x, horizontal.y, horizontal.z);
+			Vector3D vertical = camera->GetUpVector();
+			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
+			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * orbit_speed * 0.002f * orbit_distance);
+
+			camera->LookAt(Vector3D(0.f, 0.f, 0.f));
+			float objectDistance = camera->GetPosition().Length();
+			float diff = objectDistance - orbit_distance;
+			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * diff);
+		}
+	}
+}
+
+void FreeCameraScene::ActionUp(Input::Action action){
+	if(handled_action == action.id){
+		handled_action = -1;
+	}
+}
+
+void FreeCameraScene::FreeCamera(){
+	look_at = false;
+	Vector3D direction = GetCamera()->GetDirection();
+	float sinP = direction.y;
+	float cosP = sqrt(1.f - pow(direction.y, 2.f));
+	float sinY = direction.x / cosP;
+	pitch = asin(sinP) * 180.f / PI;
+	yaw = asin(sinY) * 180.f / PI;
+	RecalcAngles();
+}
+
+void FreeCameraScene::OrbitCamera(float distance){
+	look_at = true;
+	orbit_distance = distance;
 }
 
 void FreeCameraScene::RecalcAngles(){
@@ -191,62 +245,10 @@ void FreeCameraScene::RecalcAngles(){
 	GetCamera()->SetDirection(direction);
 }
 
-void FreeCameraScene::ActionDown(Input::Action action){
-	if(handled_action == -1){
-		handled_action = action.id;
-		touch_position = action.pos;
-	}
-}
-
-void FreeCameraScene::ActionMove(Input::Action action){
-	if(handled_action == action.id){
-		if(look_at){	//free camera
-			Vector2D deltaPosition = touch_position - action.pos;
-			touch_position = action.pos;
-			yaw += deltaPosition.x / 10;
-			pitch += deltaPosition.y / 10;
-			RecalcAngles();
-		}else{						//look at camera
-			Vector2D deltaPosition = touch_position - action.pos;
-			touch_position = action.pos;
-
-			Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
-			Vector3D vertical = camera->GetUpVector();
-			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
-			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * orbit_speed * 0.002f * orbit_distance);
-
-			camera->LookAt(Vector3D(0.f, 0.f, 0.f));
-			float objectDistance = camera->GetPosition().Length();
-			float diff = objectDistance - orbit_distance;
-			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * diff);
-		}
-	}
-}
-
-void FreeCameraScene::ActionUp(Input::Action action){
-	if(handled_action == action.id){
-		handled_action = -1;
-	}
-}
-
-void FreeCameraScene::FreeCamera(){
-	Vector3D direction = GetCamera()->GetDirection();
-	float sinP = direction.y;
-	float cosP = sqrt(1.f - pow(direction.y, 2.f));
-	float sinY = direction.x / cosP;
-	pitch = asin(sinP) * 180.f / PI;
-	yaw = asin(sinY) * 180.f / PI;
-	RecalcAngles();
-}
-
-void FreeCameraScene::OrbitCamera(float distance){
-	orbit_distance = distance;
-}
-
 void FreeCameraScene::MouseWheelUp(){
-	orbit_distance += 2.f;
+	MoveForward(1.0f);
 }
 
 void FreeCameraScene::MouseWheelDown(){
-	orbit_distance -= 2.f;
+	MoveBackward(1.0f);
 }

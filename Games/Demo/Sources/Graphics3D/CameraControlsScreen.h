@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Utils/FreeCameraScene.h"
+#include "Utils/ToggleButton.h"
 
 class CameraControlsScreen : public FreeCameraScene{
 public:

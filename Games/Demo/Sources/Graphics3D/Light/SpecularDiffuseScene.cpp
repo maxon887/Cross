@@ -22,6 +22,7 @@
 #include "Shaders/LightShader.h"
 #include "Graphics2D.h"
 #include "Config.h"
+#include "Camera.h"
 
 void SpecularDiffuseScene::Start(){
 	FreeCameraScene::Start();
