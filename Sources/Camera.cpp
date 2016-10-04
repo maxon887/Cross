@@ -53,12 +53,12 @@ void Camera::RecalView(){
 	view.m[2][0] = -direction.x;
 	view.m[2][1] = -direction.y;
 	view.m[2][2] = -direction.z;
-	Vector3D right = direction.CrossProduct(Vector3D(0.f, 1.f, 0.f)) * (-1);
+	Vector3D right = GetRight();
 	right = right.Normalize();
 	view.m[0][0] = right.x;
 	view.m[0][1] = right.y;
 	view.m[0][2] = right.z;
-	Vector3D up = right.CrossProduct(direction) * (-1);
+	Vector3D up = GetUp();
 	view.m[1][0] = up.x;
 	view.m[1][1] = up.y;
 	view.m[1][2] = up.z;
