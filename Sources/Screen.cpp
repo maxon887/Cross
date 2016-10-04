@@ -29,6 +29,9 @@ void Screen::Start(){
 	input->ActionDown += action_down_delegate;
 	input->ActionMove += action_move_delegate;
 	input->ActionUp += action_up_delegate;
+	for(U32 i = 0; i < 20; i++){
+		actionIDs[i] = false;
+	}
 }
 
 void Screen::Update(float sec){
@@ -65,24 +68,21 @@ void Screen::SetBackground(const Color& c){
 
 void Screen::ActionDownHandle(Input::Action action){
 	if(!OnGuiArea(action.pos)){
-		actionIDs.push_back(action.id);
+		actionIDs[action.id] = true;
 		ActionDown(action);
 	}
 }
 
 void Screen::ActionMoveHandle(Input::Action action){
-	for(U32 i = 0; i < actionIDs.size(); i++){
-		if(action.id == actionIDs[i]){
-			ActionMove(action);
-		}
+	if(actionIDs[action.id]){
+		ActionMove(action);
 	}
 }
 
 void Screen::ActionUpHandle(Input::Action action){
-	for(U32 i = 0; i < actionIDs.size(); i++){
-		if(action.id == actionIDs[i]){
-			ActionUp(action);
-		}
+	if(actionIDs[action.id]){
+		actionIDs[action.id] = false;
+		ActionUp(action);
 	}
 }
 

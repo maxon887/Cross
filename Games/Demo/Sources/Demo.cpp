@@ -44,6 +44,12 @@ void Demo::Start(){
 
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::Filter::LINEAR, false);
 	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
+
+	//test
+	Transformable object;
+	Vector3D up = object.GetUpVector();
+	Vector3D w = object.GetDirection();
+	Vector3D r = object.GetRight();
 }
 
 void Demo::Stop(){

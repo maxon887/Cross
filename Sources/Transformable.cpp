@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Transformable.h"
+#include "Launcher.h"
 
 #include <math.h>
 
@@ -97,7 +98,7 @@ void Transformable::SetRotate(const Matrix& rot){
 
 void Transformable::LookAt(const Vector3D& object){
 	if(object != GetPosition()){
-		Vector4D currentLook = Vector4D(0.f, 0.f, -1.f, 0.f);
+		Vector4D currentLook = Vector4D(0.f, 0.f, 1.f, 0.f);
 		currentLook = rotation * currentLook;
 		Vector3D curLook(currentLook);
 		Vector3D needLook = object - GetPosition();
@@ -114,6 +115,7 @@ void Transformable::LookAt(const Vector3D& object){
 		}else{					//usuall random rotation
 			float angle = acos(cosA);
 			if(isnan(angle)){
+				launcher->LogIt("nan angle");
 				return;
 			}
 			Vector3D rotateAxis = needLook.CrossProduct(curLook);
@@ -134,16 +136,21 @@ void Transformable::SetDirection(const Vector3D& direction){
 }
 
 Vector3D Transformable::GetDirection() const{
-	Vector4D direction = Vector4D(0.f, 0.f, -1.f, 0.f);
+	Vector4D direction = Vector4D(0.f, 0.f, 1.f, 0.f);
 	direction = rotation * direction;
 	return Vector3D(direction);
 }
 
+Vector3D Transformable::GetRight() const{
+	Vector4D right = Vector4D(1.f, 0.f, 0.f, 0.f);
+	right = rotation * right;
+	return Vector3D(right);
+}
+
 Vector3D Transformable::GetUpVector() const{
-	Vector3D direction = GetDirection();
-	Vector3D right = direction.CrossProduct(Vector3D(0.f, 1.f, 0.f)) * (-1);
-	right = right.Normalize();
-	return right.CrossProduct(direction) * (-1);
+	Vector4D up = Vector4D(0.f, 1.f, 0.f, 0.f);
+	up = rotation * up;
+	return Vector3D(up);
 }
 
 Matrix& Transformable::GetModelMatrix(){

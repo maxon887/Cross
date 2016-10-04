@@ -52,8 +52,9 @@ public:
 	/* New UI element will auto update and covers area from touches */
 	void AddUI(UI* element);
 private:
+	bool actionIDs[20];
 	CRArray<UI*> guis;
-	CRArray<S32> actionIDs;
+	//CRArray<S32> actionIDs;
 
 	FastDelegate1<Input::Action, void> action_down_delegate;
 	FastDelegate1<Input::Action, void> action_move_delegate;

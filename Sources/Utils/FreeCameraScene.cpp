@@ -40,6 +40,7 @@ void FreeCameraScene::Start() {
 	Scene::Start();
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
+
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	debug_font = gfx2D->GetDefaultFont()->Clone();
@@ -189,17 +190,13 @@ void FreeCameraScene::ActionMove(Input::Action action){
 		}else{						//look at camera
 			Vector2D deltaPosition = touch_position - action.pos;
 			touch_position = action.pos;
-
+			/*
 			Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
 			launcher->LogIt("Horizontal(%f, %f, %f)", horizontal.x, horizontal.y, horizontal.z);
-			Vector3D vertical = camera->GetUpVector();
-			camera->SetPosition(camera->GetPosition() + horizontal * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
-			camera->SetPosition(camera->GetPosition() + vertical * deltaPosition.y * orbit_speed * 0.002f * orbit_distance);
+			Vector3D vertical = camera->GetRight().CrossProduct(Vector3D(0.f, 1.f, 0.f));
+			launcher->LogIt("vertical(%f, %f, %f)", vertical.x, vertical.y, vertical.z);*/
 
-			camera->LookAt(Vector3D(0.f, 0.f, 0.f));
-			float objectDistance = camera->GetPosition().Length();
-			float diff = objectDistance - orbit_distance;
-			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * diff);
+			camera->SetPosition(camera->GetPosition() + camera->GetRight() * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
 		}
 	}
 }
