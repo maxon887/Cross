@@ -23,6 +23,9 @@ class Vector4D;
 
 class Vector3D{
 public:
+	static const Vector3D Zero;
+	static const Vector3D Up;
+
 	float x;
 	float y;
 	float z;

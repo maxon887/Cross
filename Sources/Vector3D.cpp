@@ -21,6 +21,9 @@
 
 using namespace cross;
 
+const Vector3D Vector3D::Zero(0.f, 0.f, 0.f);
+const Vector3D Vector3D::Up(0.f, 1.f, 0.f);
+
 Vector3D::Vector3D():
 	x(0.0f),
 	y(0.0f),

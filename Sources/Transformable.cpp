@@ -115,13 +115,19 @@ void Transformable::LookAt(const Vector3D& object){
 		}else{					//usuall random rotation
 			float angle = acos(cosA);
 			if(isnan(angle)){
-				launcher->LogIt("nan angle");
 				return;
 			}
 			Vector3D rotateAxis = needLook.CrossProduct(curLook);
+			if(rotateAxis == Vector3D::Zero){
+				return;
+			}
 			Quaternion currentQuat(rotation);
 			Quaternion needQuat(rotateAxis, angle * 180.f / PI);
 			SetRotate(currentQuat * needQuat);
+			if(isnan(rotation.m[0][0])){
+				launcher->LogIt("nan angle");
+				return;
+			}
 		}
 	}
 }

@@ -195,6 +195,7 @@ void FreeCameraScene::ActionMove(Input::Action action){
 			launcher->LogIt("Horizontal(%f, %f, %f)", horizontal.x, horizontal.y, horizontal.z);
 			Vector3D vertical = camera->GetRight().CrossProduct(Vector3D(0.f, 1.f, 0.f));
 			launcher->LogIt("vertical(%f, %f, %f)", vertical.x, vertical.y, vertical.z);*/
+			
 
 			camera->SetPosition(camera->GetPosition() + camera->GetRight() * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
 		}
