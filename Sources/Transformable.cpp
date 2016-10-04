@@ -142,9 +142,13 @@ void Transformable::SetDirection(const Vector3D& direction){
 }
 
 Vector3D Transformable::GetDirection() const{
-	Vector4D direction = Vector4D(0.f, 0.f, 1.f, 0.f);
-	direction = rotation * direction;
-	return Vector3D(direction);
+	return GetForward();
+}
+
+Vector3D Transformable::GetForward() const{
+	Vector4D forward = Vector4D(0.f, 0.f, 1.f, 0.f);
+	forward = rotation * forward;
+	return Vector3D(forward);
 }
 
 Vector3D Transformable::GetRight() const{
@@ -153,7 +157,7 @@ Vector3D Transformable::GetRight() const{
 	return Vector3D(right);
 }
 
-Vector3D Transformable::GetUpVector() const{
+Vector3D Transformable::GetUp() const{
 	Vector4D up = Vector4D(0.f, 1.f, 0.f, 0.f);
 	up = rotation * up;
 	return Vector3D(up);
