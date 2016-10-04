@@ -25,6 +25,8 @@ class Vector3D{
 public:
 	static const Vector3D Zero;
 	static const Vector3D Up;
+	static const Vector3D Forward;
+	static const Vector3D Right;
 
 	float x;
 	float y;

@@ -96,13 +96,49 @@ void Transformable::SetRotate(const Matrix& rot){
 	recalc_model = true;
 }
 
-void Transformable::LookAt(const Vector3D& object){
+void Transformable::LookAt3(const Vector3D& object){
+	Vector3D objectZX = object;
+	Vector3D positionZX = GetPosition();
+	positionZX.y = 0;
+	objectZX.y = 0;
+	Vector3D needZX = objectZX - positionZX;
+	needZX = needZX.Normalize();
+	Vector3D forwardZX = GetForward();
+	forwardZX.y = 0;
+	float cosZX = forwardZX.DotProduct(needZX);
+	float angleZX = acos(cosZX) * 180.f / PI;
+	
+	Vector3D axeZX = needZX.CrossProduct(forwardZX);
+	Quaternion rotateZX(Matrix::CreateIdentity());
+	if(angleZX != 0 && axeZX != Vector3D::Zero){
+		rotateZX = Quaternion(axeZX, angleZX);
+	}
+
+	Vector4D forward4 = Vector4D(GetForward(), 0.f);
+	Matrix rotateZXMat = rotateZX.GetMatrix();
+	forward4 = rotateZXMat * forward4;
+	Vector3D forward = Vector3D(forward4);
+	forward = forward.Normalize();
+	Vector3D needDir = object - GetPosition();
+	needDir = needDir.Normalize();
+	float cosZY = forward.DotProduct(needDir);
+	float angleZY = acos(cosZY) * 180.f / PI;
+
+	Vector3D axeZY = GetForward().CrossProduct(Vector3D::Up);
+	Quaternion rotateZY(Matrix::CreateIdentity());
+	if(angleZY != 0 && axeZY != Vector3D::Zero){
+		rotateZY = Quaternion(axeZY, angleZY);
+	}
+
+	Quaternion rotateCur(rotation);
+
+	SetRotate((rotateCur  * rotateZY * rotateZX));
+}
+
+void Transformable::LookAt2(const Vector3D& object){
 	if(object != GetPosition()){
-		Vector4D currentLook = Vector4D(0.f, 0.f, 1.f, 0.f);
-		currentLook = rotation * currentLook;
-		Vector3D curLook(currentLook);
+		Vector3D curLook = GetForward();
 		Vector3D needLook = object - GetPosition();
-		curLook = curLook.Normalize();
 		needLook = needLook.Normalize();
 		float cosA = curLook.DotProduct(needLook);
 
@@ -110,7 +146,7 @@ void Transformable::LookAt(const Vector3D& object){
 			Vector3D b(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f));
 			Vector3D perp = curLook.CrossProduct(b);
 			SetRotate(perp, 180.f);
-		}else if(cosA == 1.f){	//same look direction.Don't need do any thing
+		}else if(cosA == 1.f){	//same look direction. Don't need do any thing
 	
 		}else{					//usuall random rotation
 			float angle = acos(cosA);
@@ -123,13 +159,46 @@ void Transformable::LookAt(const Vector3D& object){
 			}
 			Quaternion currentQuat(rotation);
 			Quaternion needQuat(rotateAxis, angle * 180.f / PI);
-			SetRotate(currentQuat * needQuat);
-			if(isnan(rotation.m[0][0])){
-				launcher->LogIt("nan angle");
+			/*
+			Vector3D newUp = GetForward().CrossProduct(Vector3D::Right).Normalize();			
+			float cosB = newUp.DotProduct(GetUp());
+			float betha = acos(cosB);
+			if(betha == 0){
+				launcher->LogIt("There");
+				SetRotate(currentQuat * needQuat);
 				return;
 			}
+			launcher->LogIt("Betha - %f", betha * 180.f / PI);
+			Quaternion needQuat2(GetForward(), betha * 180.f / PI);*/ 
+
+			SetRotate(needQuat  *  currentQuat);
 		}
 	}
+}
+
+void Transformable::LookAt(const Vector3D& object){
+	Vector3D forward = object - GetPosition();
+	forward = forward.Normalize();
+	Vector3D right = Vector3D::Up.CrossProduct(forward);
+	right = right.Normalize();
+	Vector3D up = forward.CrossProduct(right);
+	up = up.Normalize();
+
+	rotation = Matrix::CreateIdentity();
+
+	rotation.m[0][0] = right.x;
+    rotation.m[1][0] = right.y;
+    rotation.m[2][0] = right.z;
+
+    rotation.m[0][1] = up.x;
+    rotation.m[1][1] = up.y;
+    rotation.m[2][1] = up.z;
+
+    rotation.m[0][2] = forward.x;
+    rotation.m[1][2] = forward.y;
+    rotation.m[2][2] = forward.z;
+	
+	recalc_model = true;
 }
 
 Vector3D Transformable::GetPosition() const{
