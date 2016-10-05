@@ -171,7 +171,7 @@ void Transformable::LookAt2(const Vector3D& object){
 			launcher->LogIt("Betha - %f", betha * 180.f / PI);
 			Quaternion needQuat2(GetForward(), betha * 180.f / PI);*/ 
 
-			SetRotate(needQuat  *  currentQuat);
+			SetRotate(currentQuat * needQuat);
 		}
 	}
 }

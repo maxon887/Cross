@@ -191,16 +191,12 @@ void FreeCameraScene::ActionMove(Input::Action action){
 			Vector2D deltaPosition = touch_position - action.pos;
 			touch_position = action.pos;
 			
-			//Vector3D horizontal = camera->GetDirection().CrossProduct(Vector3D(0.f, 1.f, 0.f));
-			launcher->LogIt("camera->GetRight()(%f, %f, %f)", camera->GetRight().x, camera->GetRight().y, camera->GetRight().z);
-			//Vector3D vertical = camera->GetRight().CrossProduct(Vector3D(0.f, 1.f, 0.f));
-			launcher->LogIt("camera->GetUp()(%f, %f, %f)", camera->GetUp().x, camera->GetUp().y, camera->GetUp().z);
-			
-
-			camera->SetPosition(camera->GetPosition() + camera->GetRight() * deltaPosition.x * orbit_speed *  0.002f * orbit_distance);
+			Vector3D camZX = camera->GetPosition();
+			camZX.y = 0;
+			camera->SetPosition(camera->GetPosition() + camera->GetRight() * deltaPosition.x * orbit_speed *  0.002f * camZX.Length());
 			camera->SetPosition(camera->GetPosition() + camera->GetUp() * deltaPosition.y * orbit_speed *  0.002f * orbit_distance);
 
-			camera->LookAt3(Vector3D(0.f, 0.f, 0.f));
+			camera->LookAt(Vector3D(0.f, 0.f, 0.f));
 			float objectDistance = camera->GetPosition().Length();
 			float diff = objectDistance - orbit_distance;
 			camera->SetPosition(camera->GetPosition() + camera->GetDirection() * diff);
