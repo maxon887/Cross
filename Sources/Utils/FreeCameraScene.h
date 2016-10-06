@@ -42,23 +42,22 @@ public:
 	void MoveRight(float sec);
 	void MoveUp(float sec);
 	void MoveDown(float sec);
+	
+	void LookRight(float sec);
+	void LookLeft(float sec);
+	void LookDown(float sec);
+	void LookUp(float sec);
 private:
 	bool look_at;
 
 	float liner_speed;
 	float angular_speed;
-	float orbit_speed;
-	float pitch;
-	float yaw;
+	float orbit_distance;
 
 	Font* debug_font;
 
 	S32 handled_action;
 	Vector2D touch_position;
-
-	float orbit_distance;
-
-	void RecalcAngles();
 
 	FastDelegate0<void> mouse_wheel_up;
 	FastDelegate0<void> mouse_wheel_down;

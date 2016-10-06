@@ -38,14 +38,14 @@ public:
 	void SetRotate(const Quaternion& quat);
 	void SetRotate(const Matrix& rotation);
 	void LookAt(const Vector3D& object);
-	void LookAt2(const Vector3D& object);
-	void LookAt3(const Vector3D& object);
 	Vector3D GetPosition() const;
 	void SetDirection(const Vector3D& direction);
 	Vector3D GetDirection() const;
 	Vector3D GetForward() const;
 	Vector3D GetRight() const;
 	Vector3D GetUp() const;
+
+	Matrix GetRotation() const;
 
 	Matrix& GetModelMatrix();
 	void SetModelMatrix(const Matrix& model);

@@ -138,9 +138,9 @@ Quaternion Quaternion::operator-(const Quaternion& q) const{
 Quaternion Quaternion::operator*(const Quaternion& q) const{
 	Quaternion result;
 
-    result.x = this->w * q.x + this->x * q.w + this->y * q.z - this->z * q.y;
-    result.y = this->w * q.y - this->x * q.z + this->y * q.w + this->z * q.x;
-    result.z = this->w * q.z + this->x * q.y - this->y * q.x + this->z * q.w;
+    result.x = this->x * q.w + this->w * q.x + this->z * q.y - this->y * q.z;
+    result.y = this->y * q.w - this->z * q.x + this->w * q.y + this->x * q.z;
+    result.z = this->z * q.w + this->y * q.x - this->x * q.y + this->w * q.z;
 	result.w = this->w * q.w - this->x * q.x - this->y * q.y - this->z * q.z;
 
 	return result;
