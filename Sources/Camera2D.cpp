@@ -21,7 +21,6 @@
 using namespace cross;
 
 Camera2D::Camera2D() {
-	view = Matrix::CreateIdentity();
 	view_width = (float)launcher->GetTargetWidth();
 	view_height = (float)launcher->GetTargetHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);

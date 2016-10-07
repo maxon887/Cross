@@ -188,7 +188,7 @@ void GraphicsGL::PostProcessFrame(){
 		}
 
 		if(shader->uMVP != -1){
-			Matrix mvp = Matrix::CreateIdentity();
+			Matrix mvp = Matrix::Identity;
 			SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have MVP matrix");

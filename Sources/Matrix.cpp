@@ -21,6 +21,9 @@
 
 using namespace cross;
 
+const Matrix Matrix::Zero = Matrix::CreateZero();
+const Matrix Matrix::Identity = Matrix::CreateIdentity();
+
 Matrix Matrix::CreateZero(){
 	Matrix m;
 	m.m[0][0] = 0.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;

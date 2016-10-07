@@ -31,15 +31,11 @@ Transformable::Transformable(Transformable& trans) :
 
 Transformable::Transformable() :
 	recalc_model(true),
-	rotation(0.f),
-	translate(0.f),
-	scale(0.f),
+	rotation(Matrix::Identity),
+	translate(Matrix::Identity),
+	scale(Matrix::Identity),
 	model(0.f)
-{ 
-	rotation = Matrix::CreateIdentity();
-	translate = Matrix::CreateIdentity();
-	scale = Matrix::CreateIdentity();
-}
+{ }
 
 void Transformable::SetPosition(const Vector2D& pos){
 	translate.SetTranslation(pos);
@@ -102,7 +98,7 @@ void Transformable::LookAt(const Vector3D& object){
 	Vector3D right = Vector3D::Up.CrossProduct(forward);
 	Vector3D up = forward.CrossProduct(right);
 
-	rotation = Matrix::CreateIdentity();
+	rotation = Matrix::Identity;
 
 	rotation.m[0][0] = right.x;
     rotation.m[1][0] = right.y;

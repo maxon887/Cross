@@ -35,6 +35,7 @@ public:
 	Vector3D();
 	Vector3D(float value);
 	Vector3D(float x, float y, float z);
+	Vector3D(const Vector2D &vec);
 	Vector3D(const Vector2D &vec, float z);
 	Vector3D(const Vector4D &vec);
 

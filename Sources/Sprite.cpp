@@ -79,6 +79,7 @@ Sprite::Sprite(Texture* texture, Rect region) :
 }
 
 Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
+	Transformable(),
 	texture(texture),
 	width(region.width),
 	height(region.height),
@@ -89,9 +90,6 @@ Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
 	GLfloat v1 = region.y / texture->GetHeight();
 	GLfloat u2 = u1 + region.width / texture->GetWidth();
 	GLfloat v2 = v1 + region.height / texture->GetHeight();
-	rotation = Matrix::CreateIdentity();
-	translate = Matrix::CreateIdentity();
-	scale = Matrix::CreateIdentity();
 
 	GLfloat vertices[16];
 	vertices[0] = -pivot.x;

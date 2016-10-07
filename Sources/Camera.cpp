@@ -25,8 +25,8 @@ Camera::Camera(Matrix projection) :
 }
 
 Camera::Camera() :
-	view(Matrix::CreateIdentity()),
-	projection(Matrix::CreateIdentity())
+	view(Matrix::Identity),
+	projection(Matrix::Identity)
 {
 	SetDirection(Vector3D(0.f, 0.f, 1.f));
 }
@@ -48,7 +48,7 @@ const Matrix& Camera::GetProjectionMatrix() const{
 }
 
 void Camera::RecalView(){
-	view = Matrix::CreateIdentity();
+	view = Matrix::Identity;
 	Vector3D direction = GetDirection();
 	view.m[2][0] = -direction.x;
 	view.m[2][1] = -direction.y;
@@ -64,7 +64,7 @@ void Camera::RecalView(){
 	view.m[1][2] = up.z;
 
 	Vector3D position = GetPosition();
-	Matrix posMatrix = Matrix::CreateIdentity();
+	Matrix posMatrix = Matrix::Identity;
 	posMatrix.m[0][3] = -position.x;
 	posMatrix.m[1][3] = -position.y;
 	posMatrix.m[2][3] = -position.z;

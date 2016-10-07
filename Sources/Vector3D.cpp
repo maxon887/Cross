@@ -44,6 +44,10 @@ Vector3D::Vector3D(float x, float y, float z):
 	z(z)
 { }
 
+Vector3D::Vector3D(const Vector2D &vec):
+	Vector3D(vec, 0.f)
+{ }
+
 Vector3D::Vector3D(const Vector2D &vec, float z):
 	x(vec.x),
 	y(vec.y),

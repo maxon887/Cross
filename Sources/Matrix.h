@@ -24,8 +24,9 @@ class Vector4D;
 
 class Matrix{
 public:
-	static Matrix CreateZero();
-	static Matrix CreateIdentity();
+	static const Matrix Zero;
+	static const Matrix Identity;
+
 	static Matrix CreateTranslation(const Vector3D &vec);
 	static Matrix CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far);
 	static Matrix CreatePerspectiveProjection(float fov, float aspect, float near, float far);
@@ -57,6 +58,9 @@ public:
 	Vector4D operator * (const Vector4D& vec) const;
 	Matrix operator * (const Matrix &m2) const;
 private:
+	static Matrix CreateZero();
+	static Matrix CreateIdentity();
+
 	Matrix();
 };
 

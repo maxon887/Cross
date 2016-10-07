@@ -94,7 +94,7 @@ float Quaternion::DotProduct(const Quaternion& q) const{
 }
 
 Matrix Quaternion::GetMatrix() const{
-	Matrix m = Matrix::CreateIdentity();
+	Matrix m = Matrix::Identity;
 	float wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
     float s  = 2.0f / this->Norm();  // 4 mul 3 add 1 div
     x2 = this->x * s;    y2 = this->y * s;    z2 = this->z * s;

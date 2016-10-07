@@ -67,7 +67,7 @@ Mesh::~Mesh(){
 }
 
 void Mesh::Draw(){
-	Draw(Matrix::CreateIdentity());
+	Draw(Matrix::Identity);
 }
 
 void Mesh::Draw(const Matrix& globalModel){
