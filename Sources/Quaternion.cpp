@@ -89,6 +89,10 @@ Quaternion Quaternion::Conjugate() const{
 	return result;
 }
 
+Quaternion Quaternion::Inverse() const{
+	return Conjugate() / Norm();
+}
+
 float Quaternion::DotProduct(const Quaternion& q) const{
 	return this->x * q.x + this->y * q.y + this->z * q.z + this->w * q.w;
 }
@@ -143,5 +147,33 @@ Quaternion Quaternion::operator*(const Quaternion& q) const{
     result.z = this->z * q.w + this->y * q.x - this->x * q.y + this->w * q.z;
 	result.w = this->w * q.w - this->x * q.x - this->y * q.y - this->z * q.z;
 
+	return result;
+}
+
+Vector3D Quaternion::operator*(const Vector3D& vec) const{
+	Quaternion vecQ;
+	vecQ.x = vec.x;
+	vecQ.y = vec.y;
+	vecQ.z = vec.z;
+	vecQ.w = 0;
+	Quaternion quat = (*this) * vecQ * Inverse();
+	return Vector3D(quat.x, quat.y, quat.z);
+	/*
+	Vector3D uv, uuv;
+	Vector3D qvec(x, y, z);
+	uv = qvec.CrossProduct(vec);
+	uuv = qvec.CrossProduct(uv);
+	uv *= (2.0f * w);
+	uuv *= 2.0f;
+
+	return vec + uv + uuv;*/
+}
+
+Quaternion Quaternion::operator / (float v) const{
+	Quaternion result;
+	result.x = this->x / v;
+	result.y = this->y / v;
+	result.z = this->z / v;
+	result.w = this->w / v;
 	return result;
 }

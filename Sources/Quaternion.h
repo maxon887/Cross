@@ -30,12 +30,15 @@ public:
 	float Norm() const;  
 	float Length() const;
 	Quaternion Conjugate() const;
+	Quaternion Inverse() const;
 	float DotProduct(const Quaternion& q) const;
 	Matrix GetMatrix() const;
 
 	Quaternion operator + (const Quaternion& q) const;
 	Quaternion operator - (const Quaternion& q) const;
 	Quaternion operator * (const Quaternion& q) const;
+	Vector3D  operator * (const Vector3D& vec) const;
+	Quaternion operator / (float value) const;
 
 private:
 	float x;
