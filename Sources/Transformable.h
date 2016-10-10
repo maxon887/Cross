@@ -23,7 +23,6 @@ namespace cross{
    Then rotate, scale and move object in world space. */
 class Transformable{
 public:
-	Transformable(Transformable& trans);
 	Transformable();
 
 	void SetPosition(const Vector2D& pos);
@@ -44,19 +43,17 @@ public:
 	Vector3D GetForward() const;
 	Vector3D GetRight() const;
 	Vector3D GetUp() const;
-
-	Matrix GetRotation() const;
+	Quaternion GetRotation() const;
+	Matrix GetNormalMatrix() const;
 
 	Matrix& GetModelMatrix();
 	void SetModelMatrix(const Matrix& model);
-	//do not tested!
-	Matrix GetNormalMatrix();
 protected:
 	Matrix model;
-	Matrix scale;
-	Matrix translate;
-	Matrix rotation;
 	bool recalc_model;
+	Vector3D position;
+	Vector3D scale;
+	Quaternion rotation;
 };
 
 }

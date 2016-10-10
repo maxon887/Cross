@@ -24,30 +24,15 @@ using namespace cross;
 const Matrix Matrix::Zero = Matrix::CreateZero();
 const Matrix Matrix::Identity = Matrix::CreateIdentity();
 
-Matrix Matrix::CreateZero(){
-	Matrix m;
-	m.m[0][0] = 0.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
-	m.m[1][0] = 0.0f; m.m[1][1] = 0.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
-	m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 0.0f; m.m[2][3] = 0.0f;
-	m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 0.0f;
-	return m;
-}
-
-Matrix Matrix::CreateIdentity(){
-	Matrix m;
-	m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
-	m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
-	m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 1.0f; m.m[2][3] = 0.0f;
-	m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 1.0f;
-	return m;
-}
-
 Matrix Matrix::CreateTranslation(const Vector3D &vec){
-	Matrix m;
-	m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = vec.x;
-	m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = vec.y;
-	m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 1.0f; m.m[2][3] = vec.z;
-	m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 1.0f;
+	Matrix m = Matrix::Identity;
+	m.SetTranslation(vec);
+	return m;
+}
+
+Matrix Matrix::CreateScale(const Vector3D &scale){
+	Matrix m = Matrix::Identity;
+	m.SetScale(scale);
 	return m;
 }
 
@@ -106,12 +91,6 @@ Matrix Matrix::CreatePerspectiveProjection(float fov, float aspect, float near, 
 
 float* Matrix::GetData(){
 	return (float*)m;
-}
-
-Matrix::Matrix() { }
-
-Matrix::Matrix(float value){
-	memset(m, (Byte)value, sizeof(m));
 }
 
 void Matrix::SetTranslation(const Vector2D &trans){
@@ -391,4 +370,22 @@ Matrix Matrix::operator * (const Matrix& mat) const{
 	res.m[3][2] = m[3][0] * mat.m[0][2] + m[3][1] * mat.m[1][2] + m[3][2] * mat.m[2][2] + m[3][3] * mat.m[3][2];
 	res.m[3][3] = m[3][0] * mat.m[0][3] + m[3][1] * mat.m[1][3] + m[3][2] * mat.m[2][3] + m[3][3] * mat.m[3][3];
 	return res;
+}
+
+Matrix Matrix::CreateZero(){
+	Matrix m;
+	m.m[0][0] = 0.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
+	m.m[1][0] = 0.0f; m.m[1][1] = 0.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
+	m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 0.0f; m.m[2][3] = 0.0f;
+	m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 0.0f;
+	return m;
+}
+
+Matrix Matrix::CreateIdentity(){
+	Matrix m;
+	m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
+	m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
+	m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 1.0f; m.m[2][3] = 0.0f;
+	m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 1.0f;
+	return m;
 }

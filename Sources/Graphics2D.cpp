@@ -86,6 +86,7 @@ Graphics2D::~Graphics2D(){
 	delete default_camera;
 	delete texture_shader;
 	delete monochrome_shader;
+	delete simple_shader;
 }
 
 void Graphics2D::SetCamera(Camera2D* camera){

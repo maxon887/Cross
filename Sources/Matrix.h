@@ -28,12 +28,11 @@ public:
 	static const Matrix Identity;
 
 	static Matrix CreateTranslation(const Vector3D &vec);
+	static Matrix CreateScale(const Vector3D &scale);
 	static Matrix CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far);
 	static Matrix CreatePerspectiveProjection(float fov, float aspect, float near, float far);
 
 	float m[4][4];
-
-	Matrix(float value);
 
 	void SetTranslation(const Vector2D &trans);
 	void SetTranslation(const Vector3D &trans);
@@ -61,7 +60,7 @@ private:
 	static Matrix CreateZero();
 	static Matrix CreateIdentity();
 
-	Matrix();
+	Matrix() { };
 };
 
 };
