@@ -118,23 +118,14 @@ Vector3D Transformable::GetDirection() const{
 }
 
 Vector3D Transformable::GetForward() const{
-	//Vector4D forward = Vector4D(0.f, 0.f, 1.f, 0.f);
-	//forward = rotation.GetMatrix() * forward;
-	//return Vector3D(forward);
 	return rotation * Vector3D::Forward;
 }
 
 Vector3D Transformable::GetRight() const{
-	//Vector4D right = Vector4D(1.f, 0.f, 0.f, 0.f);
-	//right = rotation.GetMatrix() * right;
-	//return Vector3D(right);
 	return rotation * Vector3D::Right;
 }
 
 Vector3D Transformable::GetUp() const{
-	//Vector4D up = Vector4D(0.f, 1.f, 0.f, 0.f);
-	//up = rotation.GetMatrix() * up;
-	//return Vector3D(up);
 	return rotation * Vector3D::Up;
 }
 

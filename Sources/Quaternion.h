@@ -23,7 +23,10 @@ class Matrix;
 
 class Quaternion{
 public:
+	static const Quaternion Identity;
+	/* Constructor which takes rotation axis and angle in degrees */
 	Quaternion(const Vector3D& axis, float angle);
+	/* Constructor which create quaternion by rotation matrix */
 	Quaternion(const Matrix& rotation);
 
 	void Scale(float scale);
@@ -37,7 +40,8 @@ public:
 	Quaternion operator + (const Quaternion& q) const;
 	Quaternion operator - (const Quaternion& q) const;
 	Quaternion operator * (const Quaternion& q) const;
-	Vector3D  operator * (const Vector3D& vec) const;
+	Vector3D   operator * (const Vector3D& vec) const;
+	Quaternion operator * (float value) const;
 	Quaternion operator / (float value) const;
 
 private:

@@ -21,11 +21,13 @@
 
 using namespace cross;
 
+const Quaternion Quaternion::Identity = Quaternion();
+
 Quaternion::Quaternion():
 	x(0.f),
 	y(0.f),
 	z(0.f),
-	w(0.f)
+	w(1.f)
 { }
 
 Quaternion::Quaternion(const Vector3D& axis, float angle){ 
@@ -141,12 +143,10 @@ Quaternion Quaternion::operator-(const Quaternion& q) const{
 
 Quaternion Quaternion::operator*(const Quaternion& q) const{
 	Quaternion result;
-
     result.x = this->x * q.w + this->w * q.x + this->z * q.y - this->y * q.z;
     result.y = this->y * q.w - this->z * q.x + this->w * q.y + this->x * q.z;
     result.z = this->z * q.w + this->y * q.x - this->x * q.y + this->w * q.z;
 	result.w = this->w * q.w - this->x * q.x - this->y * q.y - this->z * q.z;
-
 	return result;
 }
 
@@ -158,15 +158,15 @@ Vector3D Quaternion::operator*(const Vector3D& vec) const{
 	vecQ.w = 0;
 	Quaternion quat = (*this) * vecQ * Inverse();
 	return Vector3D(quat.x, quat.y, quat.z);
-	/*
-	Vector3D uv, uuv;
-	Vector3D qvec(x, y, z);
-	uv = qvec.CrossProduct(vec);
-	uuv = qvec.CrossProduct(uv);
-	uv *= (2.0f * w);
-	uuv *= 2.0f;
+}
 
-	return vec + uv + uuv;*/
+Quaternion Quaternion::operator * (float v) const{
+	Quaternion result;
+	result.x = this->x * v;
+	result.y = this->y * v;
+	result.z = this->z * v;
+	result.w = this->w * v;
+	return result;
 }
 
 Quaternion Quaternion::operator / (float v) const{
