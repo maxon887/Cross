@@ -43,17 +43,19 @@ public:
 	Vector3D GetForward() const;
 	Vector3D GetRight() const;
 	Vector3D GetUp() const;
-	Quaternion GetRotation() const;
-	Matrix GetNormalMatrix() const;
+
+	Matrix GetRotation() const;
 
 	Matrix& GetModelMatrix();
 	void SetModelMatrix(const Matrix& model);
+	//do not tested!
+	Matrix GetNormalMatrix();
 protected:
 	Matrix model;
+	Matrix translate;
+	Matrix rotate;
+	Matrix scale;
 	bool recalc_model;
-	Vector3D position;
-	Vector3D scale;
-	Quaternion rotation;
 };
 
 }

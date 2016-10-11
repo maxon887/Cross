@@ -339,12 +339,20 @@ void Matrix::operator /= (float s){
 	m[3][0] /= s; m[3][1] /= s; m[3][2] /= s; m[3][3] /= s;
 }
 
-Vector4D Matrix::operator * (const Vector4D &vec) const{
+Vector4D Matrix::operator * (const Vector4D& vec) const{
 	Vector4D res;
 	res.x = m[0][0] * vec.x + m[0][1] * vec.y + m[0][2] * vec.z + m[0][3] * vec.w;
 	res.y = m[1][0] * vec.x + m[1][1] * vec.y + m[1][2] * vec.z + m[1][3] * vec.w;
 	res.z = m[2][0] * vec.x + m[2][1] * vec.y + m[2][2] * vec.z + m[2][3] * vec.w;
 	res.w = m[3][0] * vec.x + m[3][1] * vec.y + m[3][2] * vec.z + m[3][3] * vec.w;
+	return res;
+}
+
+Vector3D Matrix::operator * (const Vector3D& vec) const{
+	Vector3D res;
+	res.x = m[0][0] * vec.x + m[0][1] * vec.y + m[0][2] * vec.z;
+	res.y = m[1][0] * vec.x + m[1][1] * vec.y + m[1][2] * vec.z;
+	res.z = m[2][0] * vec.x + m[2][1] * vec.y + m[2][2] * vec.z;
 	return res;
 }
 

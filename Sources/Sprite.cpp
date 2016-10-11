@@ -140,11 +140,11 @@ Texture* Sprite::GetTexture(){
 }
 
 float Sprite::GetWidth() const{
-	return width * scale.x;
+	return width * scale.m[0][0];
 }
 
 float Sprite::GetHeight() const{
-	return height * scale.y;
+	return height * scale.m[1][1];
 }
 
 void Sprite::SetRotate(float angle){

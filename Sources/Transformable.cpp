@@ -22,47 +22,50 @@
 using namespace cross;
 
 Transformable::Transformable() :
-	recalc_model(true),
-	rotation(Matrix::Identity),
-	position(0.f),
-	scale(1.f),
-	model(Matrix::Identity)
+	model(Matrix::Identity),
+	translate(Matrix::Identity),
+	scale(Matrix::Identity),
+	rotate(Matrix::Identity),
+	recalc_model(true)
 { }
 
 void Transformable::SetPosition(const Vector2D& pos){
-	SetPosition(Vector3D(pos));
+	translate.SetTranslation(pos);
+	recalc_model = true;
 }
 
 void Transformable::SetPosition(const Vector3D& pos){
-	position = pos;
+	translate.SetTranslation(pos);
 	recalc_model = true;
 }
 
 void Transformable::SetScale(float factor){
-	SetScale(Vector3D(factor));
+	scale.SetScale(factor);
+	recalc_model = true;
 }
 
 void Transformable::SetScale(const Vector2D& scaleVec){
-	SetScale(Vector3D(scaleVec));
+	scale.SetScale(scaleVec);
+	recalc_model = true;
 }
 
 void Transformable::SetScale(const Vector3D& scaleVec){
-	scale = scaleVec;
+	scale.SetScale(scaleVec);
 	recalc_model = true;
 }
 
 void Transformable::SetRotateX(float angle){
-	rotation = Quaternion(Vector3D::Right, angle);
+	rotate.SetRotationX(angle);
 	recalc_model = true;
 }
 
 void Transformable::SetRotateY(float angle){
-	rotation = Quaternion(Vector3D::Up, angle);
+	rotate.SetRotationY(angle);
 	recalc_model = true;
 }
 
 void Transformable::SetRotateZ(float angle){
-	rotation = Quaternion(Vector3D::Forward, angle);
+	rotate.SetRotationZ(angle);
 	recalc_model = true;
 }
 
@@ -72,12 +75,12 @@ void Transformable::SetRotate(const Vector3D& axis, float angle){
 }
 
 void Transformable::SetRotate(const Quaternion& quat){
-	this->rotation = quat.GetMatrix();
+	this->rotate = quat.GetMatrix();
 	recalc_model = true;
 }
 
 void Transformable::SetRotate(const Matrix& rot){
-	this->rotation = rot;
+	this->rotate = rot;
 	recalc_model = true;
 }
 
@@ -87,25 +90,25 @@ void Transformable::LookAt(const Vector3D& object){
 	Vector3D right = Vector3D::Up.CrossProduct(forward);
 	Vector3D up = forward.CrossProduct(right);
 
-	Matrix rotateMat = Matrix::Identity;
+	rotate = Matrix::Identity;
 
-	rotateMat.m[0][0] = right.x;
-    rotateMat.m[1][0] = right.y;
-    rotateMat.m[2][0] = right.z;
+	rotate.m[0][0] = right.x;
+    rotate.m[1][0] = right.y;
+    rotate.m[2][0] = right.z;
 
-    rotateMat.m[0][1] = up.x;
-    rotateMat.m[1][1] = up.y;
-    rotateMat.m[2][1] = up.z;
+    rotate.m[0][1] = up.x;
+    rotate.m[1][1] = up.y;
+    rotate.m[2][1] = up.z;
 
-    rotateMat.m[0][2] = forward.x;
-    rotateMat.m[1][2] = forward.y;
-    rotateMat.m[2][2] = forward.z;
+    rotate.m[0][2] = forward.x;
+    rotate.m[1][2] = forward.y;
+    rotate.m[2][2] = forward.z;
 	
 	recalc_model = true;
 }
 
 Vector3D Transformable::GetPosition() const{
-	return position;
+	return Vector3D(translate.m[0][3], translate.m[1][3], translate.m[2][3]);
 }
 
 void Transformable::SetDirection(const Vector3D& direction){
@@ -118,33 +121,24 @@ Vector3D Transformable::GetDirection() const{
 }
 
 Vector3D Transformable::GetForward() const{
-	return rotation * Vector3D::Forward;
+	return rotate * Vector3D::Forward;
 }
 
 Vector3D Transformable::GetRight() const{
-	return rotation * Vector3D::Right;
+	return rotate * Vector3D::Right;
 }
 
 Vector3D Transformable::GetUp() const{
-	return rotation * Vector3D::Up;
+	return rotate * Vector3D::Up;
 }
 
-Quaternion Transformable::GetRotation() const{
-	return rotation;
-}
-
-Matrix Transformable::GetNormalMatrix() const{
-	Matrix scaleMat = Matrix::CreateScale(scale);
-	Matrix rotateMat = rotation.GetMatrix();
-	return rotateMat * scaleMat;
+Matrix Transformable::GetRotation() const{
+	return rotate;
 }
 
 Matrix& Transformable::GetModelMatrix(){
 	if(recalc_model){
-		Matrix translateMat = Matrix::CreateTranslation(position);
-		Matrix scaleMat = Matrix::CreateScale(scale);
-		Matrix rotateMat = rotation.GetMatrix();
-		model = translateMat * rotateMat * scaleMat;
+		model = translate * rotate * scale;
 		recalc_model = false;
 	}
 	return model;
@@ -153,4 +147,8 @@ Matrix& Transformable::GetModelMatrix(){
 void Transformable::SetModelMatrix(const Matrix& mod){
 	this->model = mod;
 	recalc_model = false;
+}
+
+Matrix Transformable::GetNormalMatrix(){
+	return rotate * scale;
 }
