@@ -39,7 +39,7 @@ float Vector2D::Length() const{
 	return (float)sqrt(x*x + y*y);
 }
 
-Vector2D Vector2D::Normalize() const{
+Vector2D Vector2D::GetNormalized() const{
 	Vector2D result;
 	float len = Length();
 	result.x  = x / len;
@@ -47,10 +47,10 @@ Vector2D Vector2D::Normalize() const{
 	return result;
 }
 
-Vector2D Vector2D::Truncate(float len) const{
+Vector2D Vector2D::GetTruncated(float len) const{
 	if(this->Length() > len){
 		Vector2D result;
-		result = this->Normalize();
+		result = this->GetNormalized();
 		result *= len;
 		return result;
 	}

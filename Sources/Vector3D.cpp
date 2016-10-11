@@ -26,6 +26,18 @@ const Vector3D Vector3D::Up(0.f, 1.f, 0.f);
 const Vector3D Vector3D::Forward(0.f, 0.f, 1.f);
 const Vector3D Vector3D::Right(1.f, 0.f, 0.f);
 
+Vector3D Vector3D::Cross(const Vector3D& left, const Vector3D& right){
+	Vector3D result;
+	result.x = left.y * right.z - left.z * right.y;
+	result.y = left.z * right.x - left.x * right.z;
+	result.z = left.x * right.y - left.y * right.x;
+	return result;
+}
+
+float Vector3D::Dot(const Vector3D& left, const Vector3D& right){
+	return left.x * right.x + left.y * right.y + left.z * right.z;
+}
+
 Vector3D::Vector3D():
 	x(0.0f),
 	y(0.0f),
@@ -64,7 +76,7 @@ float Vector3D::Length() const{
 	return (float)sqrt(x*x + y*y + z*z);
 }
 
-Vector3D Vector3D::Normalize() const{
+Vector3D Vector3D::GetNormalized() const{
 	Vector3D result;
 	float len = Length();
 	result.x = x / len;
@@ -78,26 +90,14 @@ bool Vector3D::IsNormalized() const{
 	return len > 0.999 && len < 1.001;
 }
 
-Vector3D Vector3D::Truncate(float len) const{
+Vector3D Vector3D::GetTruncated(float len) const{
 	if(this->Length() > len){
 		Vector3D result;
-		result = this->Normalize();
+		result = this->GetNormalized();
 		result *= len;
 		return result;
 	}
 	return *this;
-}
-
-float Vector3D::DotProduct(const Vector3D &v2) const{
-	return this->x * v2.x + this->y * v2.y + this->z * v2.z;
-}
-
-Vector3D Vector3D::CrossProduct(const Vector3D &v2) const{
-	Vector3D result;
-	result.x = this->y * v2.z - this->z * v2.y;
-	result.y = this->z * v2.x - this->x * v2.z;
-	result.z = this->x * v2.y - this->y * v2.x;
-	return result;
 }
 
 float* Vector3D::GetData(){

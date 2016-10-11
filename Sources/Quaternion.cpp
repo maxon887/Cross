@@ -31,13 +31,13 @@ Quaternion::Quaternion():
 { }
 
 Quaternion::Quaternion(const Vector3D& axis, float angle){ 
-	Vector3D normV = axis.Normalize();
+	//Vector3D normV = axis.Normalize();
 	float halfAngle = angle * 0.5f;
 	float cosA = cos(halfAngle / 180.f * PI);
 	float sinA = sin(halfAngle / 180.f * PI);
-	this->x = normV.x * sinA;
-	this->y = normV.y * sinA;
-	this->z = normV.z * sinA;
+	this->x = axis.x * sinA;
+	this->y = axis.y * sinA;
+	this->z = axis.z * sinA;
 	this->w = cosA;
 }
 

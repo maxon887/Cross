@@ -27,8 +27,8 @@ public:
 	Vector2D(float value);
 	Vector2D(float x, float y);
 	float Length() const;
-	Vector2D Normalize() const;
-	Vector2D Truncate(float len) const;
+	Vector2D GetNormalized() const;
+	Vector2D GetTruncated(float len) const;
 	float DotProduct(const Vector2D &v2) const;
 	float* GetData();
 	

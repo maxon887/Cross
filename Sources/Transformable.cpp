@@ -86,9 +86,9 @@ void Transformable::SetRotate(const Matrix& rot){
 
 void Transformable::LookAt(const Vector3D& object){
 	Vector3D forward = object - GetPosition();
-	forward = forward.Normalize();
-	Vector3D right = Vector3D::Up.CrossProduct(forward);
-	Vector3D up = forward.CrossProduct(right);
+	forward = forward.GetNormalized();
+	Vector3D right = Vector3D::Cross(Vector3D::Up, forward);
+	Vector3D up =  Vector3D::Cross(forward, right);
 
 	rotate = Matrix::Identity;
 

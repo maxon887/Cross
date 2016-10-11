@@ -28,6 +28,9 @@ public:
 	static const Vector3D Forward;
 	static const Vector3D Right;
 
+	static Vector3D Cross(const Vector3D& left, const Vector3D& right);
+	static float Dot(const Vector3D& left, const Vector3D& right);
+
 	float x;
 	float y;
 	float z;
@@ -40,11 +43,9 @@ public:
 	Vector3D(const Vector4D &vec);
 
 	float Length() const;
-	Vector3D Normalize() const;
+	Vector3D GetNormalized() const;
 	bool IsNormalized() const;
-	Vector3D Truncate(float len) const;
-	float DotProduct(const Vector3D &v2) const;
-	Vector3D CrossProduct(const Vector3D &v2) const;
+	Vector3D GetTruncated(float len) const;
 	float* GetData();
 
 	bool operator == (const Vector3D &v2) const;
