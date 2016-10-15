@@ -32,8 +32,8 @@ public:
 	void Scale(float scale);
 	float Norm() const;  
 	float Length() const;
-	Quaternion Conjugate() const;
-	Quaternion Inverse() const;
+	Quaternion GetConjugated() const;
+	Quaternion GetInversed() const;
 	float DotProduct(const Quaternion& q) const;
 	Matrix GetMatrix() const;
 

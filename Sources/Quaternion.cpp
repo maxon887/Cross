@@ -83,7 +83,7 @@ float Quaternion::Length() const{
 	return sqrt(this->Norm());
 }
 
-Quaternion Quaternion::Conjugate() const{
+Quaternion Quaternion::GetConjugated() const{
 	Quaternion result = *this;
 	result.x *= -1;
 	result.y *= -1;
@@ -91,8 +91,8 @@ Quaternion Quaternion::Conjugate() const{
 	return result;
 }
 
-Quaternion Quaternion::Inverse() const{
-	return Conjugate() / Norm();
+Quaternion Quaternion::GetInversed() const{
+	return GetConjugated() / Norm();
 }
 
 float Quaternion::DotProduct(const Quaternion& q) const{
@@ -156,7 +156,7 @@ Vector3D Quaternion::operator*(const Vector3D& vec) const{
 	vecQ.y = vec.y;
 	vecQ.z = vec.z;
 	vecQ.w = 0;
-	Quaternion quat = (*this) * vecQ * Inverse();
+	Quaternion quat = (*this) * vecQ * GetInversed();
 	return Vector3D(quat.x, quat.y, quat.z);
 }
 

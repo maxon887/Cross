@@ -46,17 +46,18 @@ public:
 	Matrix GetInversed() const;
 	float* GetData();
 
-	Matrix operator + (float s) const;
+	Matrix		operator + (float s) const;
+	Matrix		operator - (float s) const;
+	Matrix		operator * (float s) const;
+	Matrix		operator / (float s) const;
+	Vector4D	operator * (const Vector4D& vec) const;
+	Vector3D	operator * (const Vector3D& vec) const;
+	Matrix		operator * (const Matrix &m2) const;
+
 	void operator += (float s);
-	Matrix operator - (float s) const;
 	void operator -= (float s);
-	Matrix operator * (float s) const;
 	void operator *= (float s);
-	Matrix operator / (float s) const;
 	void operator /= (float s);
-	Vector4D operator * (const Vector4D& vec) const;
-	Vector3D operator * (const Vector3D& vec) const;
-	Matrix operator * (const Matrix &m2) const;
 private:
 	static Matrix CreateZero();
 	static Matrix CreateIdentity();
