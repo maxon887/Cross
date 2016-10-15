@@ -104,7 +104,7 @@ float* Vector3D::GetData(){
 	return &x;
 }
 
-bool Vector3D::operator==(const Vector3D &v2) const{
+bool Vector3D::operator == (const Vector3D& v2) const{
 	if(this->x == v2.x && this->y == v2.y && this->z == v2.z){
 		return true;
 	}else{
@@ -112,45 +112,53 @@ bool Vector3D::operator==(const Vector3D &v2) const{
 	}
 }
 
-bool Vector3D::operator!=(const Vector3D &v2) const{
+bool Vector3D::operator != (const Vector3D& v2) const{
 	return !(*this == v2);
 }
 
-Vector3D Vector3D::operator+(const Vector3D &v2) const{
-	return Vector3D(this->x + v2.x, this->y + v2.y, this->z + v2.z);
+Vector3D Vector3D::operator + (const Vector3D& right) const{
+	Vector3D res(*this);
+	res += right;
+	return res;
 }
 
-void Vector3D::operator+=(const Vector3D &v2){
+Vector3D Vector3D::operator - (const Vector3D& right) const{
+	Vector3D res(*this);
+	res -= right;
+	return res;
+}
+
+Vector3D Vector3D::operator * (float right) const{
+	Vector3D res(*this);
+	res *= right;
+	return res;
+}
+
+Vector3D Vector3D::operator / (float right) const{
+	Vector3D res(*this);
+	res /= right;
+	return res;
+}
+
+void Vector3D::operator += (const Vector3D &v2){
 	this->x += v2.x;
 	this->y += v2.y;
 	this->z += v2.z;
 }
 
-Vector3D Vector3D::operator-(const Vector3D &v2) const{
-	return Vector3D(this->x - v2.x, this->y - v2.y, this->z - v2.z);
-}
-
-void Vector3D::operator-=(const Vector3D &v2){
+void Vector3D::operator -= (const Vector3D &v2){
 	this->x -= v2.x;
 	this->y -= v2.y;
 	this->z -= v2.z;
 }
 
-Vector3D Vector3D::operator*(float v) const{
-	return Vector3D(this->x * v, this->y * v, this->z * v);
-}
-
-void Vector3D::operator*=(float v){
+void Vector3D::operator *= (float v){
 	this->x *= v;
 	this->y *= v;
 	this->z *= v;
 }
 
-Vector3D Vector3D::operator/(float v) const{
-	return Vector3D(this->x / v, this->y / v, this->z / v);
-}
-
-void Vector3D::operator/=(float v){
+void Vector3D::operator /= (float v){
 	this->x /= v;
 	this->y /= v;
 	this->z /= v;

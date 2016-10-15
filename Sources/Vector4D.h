@@ -32,12 +32,13 @@ public:
 	Vector4D(const Vector3D& vec, float w);
 
 	Vector4D operator + (const Vector4D &v2) const;
-	void operator += (const Vector4D &v2);
 	Vector4D operator - (const Vector4D &v2) const;
-	void operator -= (const Vector4D &v2);
 	Vector4D operator * (float value) const;
-	void operator *= (float value);
 	Vector4D operator / (float value) const;
+
+	void operator += (const Vector4D &v2);
+	void operator -= (const Vector4D &v2);
+	void operator *= (float value);
 	void operator /= (float value);
 };
 

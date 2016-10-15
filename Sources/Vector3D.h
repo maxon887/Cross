@@ -38,9 +38,9 @@ public:
 	Vector3D();
 	Vector3D(float value);
 	Vector3D(float x, float y, float z);
-	Vector3D(const Vector2D &vec);
-	Vector3D(const Vector2D &vec, float z);
-	Vector3D(const Vector4D &vec);
+	Vector3D(const Vector2D& vec);
+	Vector3D(const Vector2D& vec, float z);
+	Vector3D(const Vector4D& vec);
 
 	float Length() const;
 	Vector3D GetNormalized() const;
@@ -48,15 +48,17 @@ public:
 	Vector3D GetTruncated(float len) const;
 	float* GetData();
 
-	bool operator == (const Vector3D &v2) const;
-	bool operator != (const Vector3D &v2) const;
-	Vector3D operator + (const Vector3D &v2) const;
-	void operator += (const Vector3D &v2);
-	Vector3D operator - (const Vector3D &v2) const;
-	void operator -= (const Vector3D &v2);
+	bool operator == (const Vector3D& v2) const;
+	bool operator != (const Vector3D& v2) const;
+
+	Vector3D operator + (const Vector3D& v2) const;
+	Vector3D operator - (const Vector3D& v2) const;
 	Vector3D operator * (float value) const;
-	void operator *= (float value);
 	Vector3D operator / (float value) const;
+
+	void operator += (const Vector3D &v2);
+	void operator -= (const Vector3D &v2);
+	void operator *= (float value);
 	void operator /= (float value);
 };
 

@@ -65,42 +65,6 @@ float* Vector2D::GetData(){
 	return &x;
 }
 
-Vector2D Vector2D::operator+(const Vector2D &v2) const{
-	return Vector2D(this->x + v2.x, this->y + v2.y);
-}
-
-void Vector2D::operator+=(const Vector2D &v2){
-	this->x += v2.x;
-	this->y += v2.y;
-}
-
-Vector2D Vector2D::operator-(const Vector2D &v2) const{
-	return Vector2D(this->x - v2.x, this->y - v2.y);
-}
-
-void Vector2D::operator-=(const Vector2D &v2){
-	this->x -= v2.x;
-	this->y -= v2.y;
-}
-
-Vector2D Vector2D::operator*(float v) const{
-	return Vector2D(this->x * v, this->y * v);
-}
-
-void Vector2D::operator*=(float v){
-	this->x *= v;
-	this->y *= v;
-}
-
-Vector2D Vector2D::operator/(float v) const{
-	return Vector2D(this->x / v, this->y / v);
-}
-
-void Vector2D::operator/=(float v){
-	this->x /= v;
-	this->y /= v;
-}
-
 bool Vector2D::operator==(const Vector2D &v2) const{
 	if(this->x == v2.x && this->y && v2.y) {
 		return true;
@@ -111,4 +75,41 @@ bool Vector2D::operator==(const Vector2D &v2) const{
 
 bool Vector2D::operator!=(const Vector2D &v2) const{
 	return !((*this) == v2);
+}
+
+Vector2D Vector2D::operator+(const Vector2D &v2) const{
+	return Vector2D(this->x + v2.x, this->y + v2.y);
+}
+
+Vector2D Vector2D::operator-(const Vector2D &v2) const{
+	return Vector2D(this->x - v2.x, this->y - v2.y);
+}
+
+Vector2D Vector2D::operator*(float v) const{
+	return Vector2D(this->x * v, this->y * v);
+}
+
+Vector2D Vector2D::operator/(float v) const{
+	return Vector2D(this->x / v, this->y / v);
+}
+
+
+void Vector2D::operator+=(const Vector2D &v2){
+	this->x += v2.x;
+	this->y += v2.y;
+}
+
+void Vector2D::operator-=(const Vector2D &v2){
+	this->x -= v2.x;
+	this->y -= v2.y;
+}
+
+void Vector2D::operator*=(float v){
+	this->x *= v;
+	this->y *= v;
+}
+
+void Vector2D::operator/=(float v){
+	this->x /= v;
+	this->y /= v;
 }
