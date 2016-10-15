@@ -109,7 +109,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseShader(simple_shader);
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	mvp = mvp.Transpose();
+	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
 	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
@@ -122,7 +122,7 @@ void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	mvp = mvp.Transpose();
+	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
 	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
@@ -143,7 +143,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 								rect.x, rect.y };
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	mvp = mvp.Transpose();
+	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
 	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
@@ -192,7 +192,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	}
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	mvp = mvp.Transpose();
+	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
 	//delete buffer;
@@ -257,7 +257,7 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glEnable(GL_BLEND));
 	SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * sprite->GetModelMatrix();
-	mvp = mvp.Transpose();
+	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 
 	SAFE(glEnableVertexAttribArray(shader->aPosition));

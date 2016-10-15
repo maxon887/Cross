@@ -82,18 +82,18 @@ void Mesh::Draw(const Matrix& globalModel){
 	if(shader->uMVP != -1){
 		Camera* cam = scene->GetCamera();
 		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel * GetModelMatrix();
-		mvp = mvp.Transpose();
+		mvp = mvp.GetTransposed();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 
 	if(shader->uModelMatrix != -1){
 		Matrix model = GetModelMatrix() * globalModel;
-		model = model.Transpose();
+		model = model.GetTransposed();
 		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.GetData()));
 	}
 
 	if(shader->uNormalMatrix != -1){
-		Matrix normal = (GetModelMatrix() * globalModel).Inverse();
+		Matrix normal = (GetModelMatrix() * globalModel).GetInversed();
 		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normal.GetData()));
 	}
 
