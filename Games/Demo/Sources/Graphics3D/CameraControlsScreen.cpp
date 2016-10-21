@@ -20,7 +20,7 @@
 #include "Camera.h"
 
 void CameraControlsScreen::Start(){
-	FreeCameraScene::Start();
+	DebugScene::Start();
 	//UI
 	arrow_released = demo->GetCommonSprite("ArrowUp.png");
 	arrow_pressed = demo->GetCommonSprite("ArrowDown.png");
@@ -64,16 +64,18 @@ void CameraControlsScreen::Start(){
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
 	gui.push_back(eye_btn);
+
+	OnEyeClick();
 }
 
 void CameraControlsScreen::Stop(){
 	delete arrow_released;
 	delete arrow_pressed;
-	FreeCameraScene::Stop();
+	DebugScene::Stop();
 }
 
 void CameraControlsScreen::Update(float sec){
-	FreeCameraScene::Update(sec);
+	DebugScene::Update(sec);
 
 	if(up_btn->IsPressed()) {
 		MoveForward(sec);
@@ -99,9 +101,5 @@ void CameraControlsScreen::Update(float sec){
 }
 
 void CameraControlsScreen::OnEyeClick(){
-	if(eye_btn->GetState()){
-		FreeCamera();
-	}else{
-		OrbitCamera(GetCamera()->GetPosition().Length());
-	}
+	LookAtCamera(!eye_btn->GetState());
 }

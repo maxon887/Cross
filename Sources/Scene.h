@@ -30,7 +30,6 @@ public:
 	virtual void Stop();
 
 	void SetCameraViewDistance(float distance);
-	void DrawLights();
 	void AddLight(Light* light);
 	CRArray<Light*>& GetLights();
 
@@ -44,13 +43,6 @@ protected:
 
 	CRArray<Light*> lights;
 	CRArray<Model*> models;
-
-	//light drawing stuff
-	Model* point_light;
-	Model* spot_light;
-	Material* light_material;
-	Shader* light_shader;
-
 private:
 	FastDelegate2<S32, S32, void> window_resize_handle;
 	void WindowResizeHandle(S32 width, S32 height);

@@ -33,8 +33,7 @@ public:
 	virtual void ActionMove(Input::Action action);
 	virtual void ActionUp(Input::Action action);
 
-	void FreeCamera();
-	void OrbitCamera(float distance);
+	void LookAtCamera(bool enbled);
 
 	void MoveForward(float sec);
 	void MoveBackward(float sec);

@@ -23,7 +23,7 @@
 #include "Graphics2D.h"
 	
 void PointLightScene::Start(){
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 
 	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(40.f, 0.f, 0.f));
@@ -61,13 +61,12 @@ void PointLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void PointLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	DrawLights();
-	FreeCameraScene::Update(sec);
+	CameraControlsScreen::Update(sec);
 }

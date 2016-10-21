@@ -15,24 +15,26 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Utils/DebugScene.h"
-#include "Utils/ToggleButton.h"
+#include "FreeCameraScene.h"
 
-class CameraControlsScreen : public DebugScene{
+namespace cross{
+
+class DebugScene : public FreeCameraScene{
 public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
-private:
-	//UI
-	Sprite* arrow_released;
-	Sprite* arrow_pressed;
-	CRArray<Button*> gui;
-	Button* left_btn;
-	Button* right_btn;
-	Button* up_btn;
-	Button* down_btn;
-	ToggleButton* eye_btn;
+	DebugScene();
 
-	void OnEyeClick();
+	virtual void Start();
+	virtual void Update(float sec);
+	virtual void Stop();
+
+private:
+//light drawing stuff
+	Model* point_light;
+	Model* spot_light;
+	Material* light_material;
+	Shader* light_shader;
+
+	void DrawLights();
 };
+
+}

@@ -23,7 +23,7 @@
 #include "Graphics2D.h"
 
 void DirectionalLightScene::Start(){
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 
 	Light* light = new Light(Light::DIRECTIONAL);
 	light->SetDirection(Vector3D(0.f, 0.f, 1.f));
@@ -61,12 +61,12 @@ void DirectionalLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void DirectionalLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	FreeCameraScene::Update(sec);
+	CameraControlsScreen::Update(sec);
 }

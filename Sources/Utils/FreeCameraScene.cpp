@@ -63,6 +63,7 @@ void FreeCameraScene::Stop(){
 }
 
 void FreeCameraScene::Update(float sec){
+	orbit_distance = GetCamera()->GetPosition().Length();
 	if(input->IsPressed(Key::LEFT)) {
 		LookLeft(sec);
 	}
@@ -212,14 +213,11 @@ void FreeCameraScene::ActionUp(Input::Action action){
 	}
 }
 
-void FreeCameraScene::FreeCamera(){
-	look_at = false;
-}
-
-void FreeCameraScene::OrbitCamera(float distance){
-	look_at = true;
-	orbit_distance = distance;
-	camera->SetPosition(camera->GetDirection() * orbit_distance * (-1));
+void FreeCameraScene::LookAtCamera(bool enabled){
+	look_at = enabled;
+	if(enabled){
+		GetCamera()->LookAt(Vector3D::Zero);
+	}
 }
 
 void FreeCameraScene::MouseWheelUp(){

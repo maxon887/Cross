@@ -25,7 +25,7 @@
 #include "Camera.h"
 
 void SpecularDiffuseScene::Start(){
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
@@ -53,10 +53,10 @@ void SpecularDiffuseScene::Stop(){
 	delete material;
 	delete texture;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void SpecularDiffuseScene::Update(float sec){
 	cube->Draw();
-	FreeCameraScene::Update(sec);
+	CameraControlsScreen::Update(sec);
 }

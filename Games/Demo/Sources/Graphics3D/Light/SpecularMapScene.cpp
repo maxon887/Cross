@@ -24,7 +24,7 @@
 #include "Camera.h"
 
 void SpecularMapScene::Start() {
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
@@ -54,11 +54,10 @@ void SpecularMapScene::Stop() {
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void SpecularMapScene::Update(float sec) {
 	cube->Draw();
-	DrawLights();
-	FreeCameraScene::Update(sec);
+	CameraControlsScreen::Update(sec);
 }
