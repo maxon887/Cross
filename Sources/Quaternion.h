@@ -24,6 +24,8 @@ class Matrix;
 class Quaternion{
 public:
 	static const Quaternion Identity;
+
+	static float DotProduct(const Quaternion& left, const Quaternion& right);
 	/* Constructor which takes rotation axis and angle in degrees */
 	Quaternion(const Vector3D& axis, float angle);
 	/* Constructor which create quaternion by rotation matrix */
@@ -34,7 +36,6 @@ public:
 	float Length() const;
 	Quaternion GetConjugated() const;
 	Quaternion GetInversed() const;
-	float DotProduct(const Quaternion& q) const;
 	Matrix GetMatrix() const;
 
 	Quaternion operator + (const Quaternion& q) const;

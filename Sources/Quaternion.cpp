@@ -23,6 +23,10 @@ using namespace cross;
 
 const Quaternion Quaternion::Identity = Quaternion();
 
+float Quaternion::DotProduct(const Quaternion& left, const Quaternion& right){
+	return left.x * right.x + left.y * right.y + left.z * right.z + left.w * right.w;
+}
+
 Quaternion::Quaternion():
 	x(0.f),
 	y(0.f),
@@ -93,10 +97,6 @@ Quaternion Quaternion::GetConjugated() const{
 
 Quaternion Quaternion::GetInversed() const{
 	return GetConjugated() / Norm();
-}
-
-float Quaternion::DotProduct(const Quaternion& q) const{
-	return this->x * q.x + this->y * q.y + this->z * q.z + this->w * q.w;
 }
 
 Matrix Quaternion::GetMatrix() const{

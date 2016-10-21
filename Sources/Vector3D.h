@@ -43,6 +43,7 @@ public:
 	Vector3D(const Vector4D& vec);
 
 	float Length() const;
+	void Normaize();
 	Vector3D GetNormalized() const;
 	bool IsNormalized() const;
 	Vector3D GetTruncated(float len) const;
