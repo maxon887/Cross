@@ -27,14 +27,17 @@ public:
 	static const Color Black;
 	static const Color Yellow;
 	static const Color Purple;
+
 	static Color Random();
 
 	float R, G, B, A;
+
 	Color(float all);
 	Color(float r, float g, float b);
 	Color(int r, int g, int b);
 	Color(float r, float g, float b, float a);
 	Color(int r, int g, int b, int a);
+
 	float* GetData();
 
 	bool operator == (const Color &c) const;

@@ -17,7 +17,6 @@
 #include "CameraControlsScreen.h"
 #include "Demo.h"
 #include "Sprite.h"
-#include "Camera.h"
 
 void CameraControlsScreen::Start(){
 	DebugScene::Start();
@@ -71,6 +70,9 @@ void CameraControlsScreen::Start(){
 void CameraControlsScreen::Stop(){
 	delete arrow_released;
 	delete arrow_pressed;
+	for(Button* btn : gui){
+		delete btn;
+	}
 	DebugScene::Stop();
 }
 

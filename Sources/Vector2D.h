@@ -20,6 +20,8 @@ namespace cross{
 
 class Vector2D{
 public:
+	static float Dot(const Vector2D& left, const Vector2D& right);
+
 	float x;
 	float y;
 
@@ -30,7 +32,6 @@ public:
 	float Length() const;
 	Vector2D GetNormalized() const;
 	Vector2D GetTruncated(float len) const;
-	float DotProduct(const Vector2D &v2) const;
 	float* GetData();
 
 	bool operator == (const Vector2D &v2) const;

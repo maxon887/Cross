@@ -58,6 +58,7 @@ public:
 	void operator -= (float s);
 	void operator *= (float s);
 	void operator /= (float s);
+
 private:
 	static Matrix CreateZero();
 	static Matrix CreateIdentity();

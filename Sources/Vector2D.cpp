@@ -20,6 +20,10 @@
 
 using namespace cross;
 
+float Vector2D::Dot(const Vector2D& left, const Vector2D& right){
+	return left.x * right.x + left.y * right.y;
+}
+
 Vector2D::Vector2D():
 	x(0.0f),
 	y(0.0f)
@@ -55,10 +59,6 @@ Vector2D Vector2D::GetTruncated(float len) const{
 		return result;
 	}
 	return *this;
-}
-
-float Vector2D::DotProduct(const Vector2D &v2) const{
-	return this->x * v2.x + this->y * v2.y;
 }
 
 float* Vector2D::GetData(){

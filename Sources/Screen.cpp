@@ -29,7 +29,7 @@ void Screen::Start(){
 	input->ActionDown += action_down_delegate;
 	input->ActionMove += action_move_delegate;
 	input->ActionUp += action_up_delegate;
-	for(U32 i = 0; i < 20; i++){
+	for(U32 i = 0; i < MAX_ACTIONS; i++){
 		actionIDs[i] = false;
 	}
 }

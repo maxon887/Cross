@@ -20,6 +20,8 @@
 
 namespace cross {
 
+#define MAX_ACTIONS 20
+
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.
    Witch will be loaded through Game::GetStartScreen function */
@@ -52,9 +54,8 @@ public:
 	/* New UI element will auto update and covers area from touches */
 	void AddUI(UI* element);
 private:
-	bool actionIDs[20];
+	bool actionIDs[MAX_ACTIONS];
 	CRArray<UI*> guis;
-	//CRArray<S32> actionIDs;
 
 	FastDelegate1<Input::Action, void> action_down_delegate;
 	FastDelegate1<Input::Action, void> action_move_delegate;

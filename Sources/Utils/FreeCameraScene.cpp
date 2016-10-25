@@ -63,6 +63,7 @@ void FreeCameraScene::Stop(){
 }
 
 void FreeCameraScene::Update(float sec){
+	Scene::Update(sec);
 	orbit_distance = GetCamera()->GetPosition().Length();
 	if(input->IsPressed(Key::LEFT)) {
 		LookLeft(sec);
@@ -106,7 +107,6 @@ void FreeCameraScene::Update(float sec){
 	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
 	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
 #endif // !ANDROID
-	Scene::Update(sec);
 }
 
 void FreeCameraScene::MoveForward(float sec){

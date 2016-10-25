@@ -36,6 +36,7 @@ void Scene::Start(){
 }
 
 void Scene::Update(float sec){
+	Screen::Update(sec);
 	camera->Update(sec);
 }
 

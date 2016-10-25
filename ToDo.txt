@@ -1,0 +1,6 @@
+1. XML config loader
+2. Skybox
+3. *Folder structure reorder(Utils special)
+4. Basic engine documentation
+5. Global code refactoring
+6. Default game config

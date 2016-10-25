@@ -61,16 +61,6 @@ Model* Graphics3D::LoadModel(const string& filename){
 	return model;
 }
 
-Scene* Graphics3D::LoadScene(const string& filename){
-	Scene* newScene = new Scene();
-	//lights
-	newScene->SetAmbientColor(Color::White);
-	Light* light = new Light(Light::Type::POINT);
-	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	newScene->AddLight(light);
-	return newScene;
-}
-
 void Graphics3D::ProcessScene(Model* model){
 	File* file = launcher->LoadFile(model->GetName());
 	Assimp::Importer importer;

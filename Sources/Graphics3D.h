@@ -26,12 +26,10 @@ namespace cross{
 
 class Graphics3D{
 public:
-
 	Graphics3D();
 	~Graphics3D();
 
 	Model* LoadModel(const string& filename);
-	Scene* LoadScene(const string& filename);
 	void SaveScene(const Scene* scene, const string& filename);
 
 protected:
