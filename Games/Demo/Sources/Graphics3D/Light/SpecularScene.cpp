@@ -19,7 +19,7 @@
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Model.h"
-#include "Utils/Light.h"
+#include "Light.h"
 #include "Shaders/LightShader.h"
 #include "Camera.h"
 

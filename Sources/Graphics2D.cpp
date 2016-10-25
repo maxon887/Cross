@@ -17,7 +17,7 @@
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
 #include "Launcher.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 #include "Sprite.h"
 #include "Font.h"
 #include "Camera2D.h"
@@ -66,14 +66,14 @@ struct KTX{
 Graphics2D::Graphics2D() :
 	camera(NULL),
 	texture_shader(NULL),
-	monochrome_shader(NULL),
+	font_shader(NULL),
 	simple_shader(NULL)
 {
 	launcher->LogIt("Graphics2D::Graphics2D()");
 	texture_shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	texture_shader->Compile();
-	monochrome_shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
-	monochrome_shader->Compile();
+	font_shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
+	font_shader->Compile();
 	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	simple_shader->Compile();
 	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
@@ -85,7 +85,7 @@ Graphics2D::~Graphics2D(){
 	delete default_font;
 	delete default_camera;
 	delete texture_shader;
-	delete monochrome_shader;
+	delete font_shader;
 	delete simple_shader;
 }
 
@@ -242,7 +242,7 @@ void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool mon
 	SAFE(glActiveTexture(GL_TEXTURE0));
 	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
 	if(monochrome){
-		shader = monochrome_shader;
+		shader = font_shader;
 	}else{
 		shader = texture_shader;
 	}

@@ -21,9 +21,9 @@
 #include "Mesh.h"
 #include "File.h"
 #include "Model.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 #include "Scene.h"
-#include "Utils/Light.h"
+#include "Light.h"
 
 #include <algorithm>
 

@@ -25,7 +25,7 @@
 #include "Graphics3D.h"
 #include "Config.h"
 #include "Audio.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 
 #include <time.h>
 

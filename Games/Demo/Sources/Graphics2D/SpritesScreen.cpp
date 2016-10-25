@@ -19,7 +19,7 @@
 #include "Input.h"
 #include "Demo.h"
 #include "Sprite.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 #include "Font.h"
 
 void SpritesScreen::Start(){

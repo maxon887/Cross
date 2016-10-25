@@ -45,6 +45,7 @@ public:
 	static void SuspendSystem();
 	static void ResumeSystem();
 	static void Release();
+
 private:
 	Audio(Audio& obj);
 

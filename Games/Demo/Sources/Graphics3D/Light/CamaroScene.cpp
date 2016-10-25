@@ -19,7 +19,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Model.h"
-#include "Utils/Light.h"
+#include "Light.h"
 #include "Shaders/MultiLightShader.h"
 #include "Game.h"
 #include "Material.h"

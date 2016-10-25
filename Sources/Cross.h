@@ -16,17 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#include "MemoryManager.h"
-#include "Exception.h"
-#include "Vector2D.h"
-#include "Vector3D.h"
-#include "Vector4D.h"
-#include "Matrix.h"
-#include "Quaternion.h"
-#include "Color.h"
-#include "Rect.h"
+#include "System/MemoryManager.h"
+#include "System/Exception.h"
 #include "Experimental/Array.h"
-#include "Utils/Misc.h"
+#include "Math/Math.h"
+#include "Color.h"
 
 #include <string>
 #include <vector>

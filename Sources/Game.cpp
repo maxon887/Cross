@@ -19,7 +19,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "Scene.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 #include "Graphics2D.h"
 
 using namespace cross;

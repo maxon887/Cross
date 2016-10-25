@@ -25,7 +25,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Screen.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 #include "Audio.h"
 #include "resource.h"
 

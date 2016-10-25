@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
 #include "MainScreen.h"
-#include "Utils/Debugger.h"
+#include "System/Debugger.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "Launcher.h"

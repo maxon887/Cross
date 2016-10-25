@@ -64,7 +64,7 @@ public:
 	void Update(float sec);
 private:
 	Shader* texture_shader;
-	Shader* monochrome_shader;
+	Shader* font_shader;
 	Shader* simple_shader;
 	Font* default_font;
 	Camera2D* camera;

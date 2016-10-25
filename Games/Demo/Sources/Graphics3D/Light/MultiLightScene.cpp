@@ -17,7 +17,7 @@
 #include "MultiLightScene.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Utils/Light.h"
+#include "Light.h"
 #include "Material.h"
 #include "Model.h"
 
