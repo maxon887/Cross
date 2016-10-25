@@ -93,13 +93,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
@@ -107,6 +100,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
@@ -165,12 +165,6 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Cross.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Cross.h" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Exception.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Exception.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Exception.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Exception.h" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Experimental">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Experimental" isTestSource="false" />
     </content>
@@ -228,17 +222,20 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Libs/TinyXML">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Libs/TinyXML" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Light.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Light.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Light.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Light.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Material.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.h" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Matrix.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Matrix.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Matrix.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Matrix.h" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../../../Sources/Math">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Math" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.cpp" isTestSource="false" />
@@ -261,18 +258,6 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Quaternion.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Rect.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Rect.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Rect.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Rect.h" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp" isTestSource="false" />
     </content>
@@ -294,6 +279,9 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/System">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp" isTestSource="false" />
     </content>
@@ -314,24 +302,6 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Utils">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Utils" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector2D.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector3D.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Vector4D.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.cpp" isTestSource="false" />

@@ -99,7 +99,7 @@
     <ClCompile Include="..\..\..\..\Sources\Model.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\NativeGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\OpenGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Scene.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Screen.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
@@ -181,7 +181,7 @@
     <ClInclude Include="..\..\..\..\Sources\Model.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\NativeGL.h" />
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\OpenGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Scene.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />

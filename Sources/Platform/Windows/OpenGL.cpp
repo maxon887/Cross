@@ -44,12 +44,13 @@ void ShowLastError(){
 	MessageBox(NULL, str, "Error", MB_OK);
 }
 
-int NativeGL_GO(){
+int OpenGL_GO(){
 	HWND wnd = WinCreate();
 	MSG msg;
 	try{
 		LauncherWIN launcherWin(wnd);
 		launcher = &launcherWin;
+		launcher->LogIt("OpenGL API");
 		game = CrossMain(launcher);
 
 		int winX = config->LoadInt("WIN_POS_X", 0);

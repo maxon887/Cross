@@ -15,13 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include <Windows.h>
-#include "NativeGL.h"
+#include "OpenGL.h"
 #include "GLES.h"
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int winShow){
 #ifdef GLES
 	return GLES_GO();
 #else
-	return NativeGL_GO();
+	return OpenGL_GO();
 #endif
 }

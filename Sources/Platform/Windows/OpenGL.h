@@ -16,4 +16,4 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-int NativeGL_GO();
+int OpenGL_GO();

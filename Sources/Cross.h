@@ -19,7 +19,7 @@
 #include "System/MemoryManager.h"
 #include "System/Exception.h"
 #include "Experimental/Array.h"
-#include "Math/Math.h"
+#include "Math/All.h"
 #include "Color.h"
 
 #include <string>
