@@ -259,9 +259,6 @@
     <ClCompile Include="..\..\..\..\Sources\Light.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Math\Math.cpp">
-      <Filter>Cross\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Math\Matrix.cpp">
       <Filter>Cross\Math</Filter>
     </ClCompile>
@@ -282,6 +279,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\OpenGL.cpp">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Math\All.cpp">
+      <Filter>Cross\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -499,9 +499,6 @@
     <ClInclude Include="..\..\..\..\Sources\Light.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Math\Math.h">
-      <Filter>Cross\Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Math\Matrix.h">
       <Filter>Cross\Math</Filter>
     </ClInclude>
@@ -522,6 +519,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\OpenGL.h">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Math\All.h">
+      <Filter>Cross\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

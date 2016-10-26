@@ -25,40 +25,18 @@
 using namespace cross;
 
 Config::Config(){
-	string dataPath = launcher->DataPath();
-	prefs_path = dataPath + "/prefs";
-	copy_path = dataPath + "/prefs.tmp";
-	File* config = launcher->LoadFile("Config.xml");
-	InitializeDefaultConfig(config);
+	File* defaultConfigFile = launcher->LoadFile("GameConfig.xml");
+	InitializeGameConfig(defaultConfigFile);
+	user_config_path = launcher->DataPath() + "/UserConfig.xml";
+	InitializeUserConfig();
+}
+
+Config::~Config(){
+	SaveFile();
 }
 
 void Config::SaveString(string key, string value){
-	if(key.find(" ") != string::npos || value.find(" ") != string::npos){
-		throw CrossException("Key and value can't contains space characters");
-	}
-	ifstream prefs;
-	prefs.open(prefs_path);
-	ofstream prefs_copy;
-	prefs_copy.open(copy_path);
-	string locKey;
-	string locVal;
-	bool saved = false;
-	while(prefs >> locKey) {
-		prefs >> locVal;
-		if(locKey != key) {
-			prefs_copy << locKey << " " << locVal << endl;
-		} else {
-			prefs_copy << locKey << " " << value << endl;
-			saved = true;
-		}
-	}
-	if(!saved){
-		prefs_copy << key << " " << value << endl;
-	}
-	prefs.close();
-	prefs_copy.close();
-	remove(prefs_path.c_str());
-	rename(copy_path.c_str(), prefs_path.c_str());
+	user_prefs[key] = value;
 }
 
 void Config::SaveInt(string key, S32 value){
@@ -103,22 +81,35 @@ Texture::Filter Config::GetTextureFilter(){
 }
 
 string Config::LoadString(string key){
-	ifstream prefs;
-	prefs.open(prefs_path);
-	string locKey;
-	string value;
-	while(prefs >> locKey){
-		prefs >> value;
-		if(locKey == key){
-			prefs.close();
-			return value;
-		}
+	auto entry = user_prefs.find(key);
+	if(entry != user_prefs.end()){
+		return (*entry).second;
+	}else{
+		return "";
 	}
-	prefs.close();
-	return string("");
 }
 
-void Config::InitializeDefaultConfig(File* xmlFile){
+void Config::InitializeUserConfig(){
+	TiXmlDocument doc(user_config_path.c_str());
+	doc.LoadFile();
+
+	TiXmlHandle xmlHandle(&doc);
+	TiXmlElement* root;
+	TiXmlElement* element;
+
+	root = xmlHandle.FirstChildElement("UserConfig").Element();
+	if(root){
+		element = root->FirstChildElement("Property");
+		while(element){
+			string name = element->Attribute("name");
+			string value = element->Attribute("value");
+			user_prefs[name] = value;
+			element = element->NextSiblingElement("Property");
+		}
+	}
+}
+
+void Config::InitializeGameConfig(File* xmlFile){
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);
@@ -131,9 +122,9 @@ void Config::InitializeDefaultConfig(File* xmlFile){
 	TiXmlElement* root;
 	TiXmlElement* element;
 
-	root = xmlDoc.FirstChildElement("Config").Element();
+	root = xmlDoc.FirstChildElement("GameConfig").Element();
 	if(root){
-		element = root->FirstChildElement("property");
+		element = root->FirstChildElement("Property");
 		while(element){
 			string name = element->Attribute("name");
 
@@ -151,9 +142,30 @@ void Config::InitializeDefaultConfig(File* xmlFile){
 					throw CrossException("Unknown Texture Filter %s", strValue.c_str());
 				}
 			}
-			element = element->NextSiblingElement("property");
+			element = element->NextSiblingElement("Property");
 		}
 	}else{
 		throw CrossException("XML empty root element");
 	}
+}
+
+void Config::SaveFile(){
+	TiXmlDocument doc;
+
+	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
+	doc.LinkEndChild(dec);
+
+	TiXmlElement* element = new TiXmlElement("UserConfig");
+	doc.LinkEndChild(element);
+
+	TiXmlElement* property;
+	for(pair<string, string> pair : user_prefs){
+		property = new TiXmlElement( "Property" );  
+		element->LinkEndChild( property );  
+		property->SetAttribute("name", pair.first.c_str());
+		property->SetAttribute("value", pair.second.c_str());
+	}
+
+	FILE* userConfigFile = fopen(user_config_path.c_str(), "w");
+	doc.SaveFile(userConfigFile);
 }

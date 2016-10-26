@@ -25,6 +25,7 @@ namespace cross {
 class Config{
 public:
 	Config();
+	~Config();
 	//Save string value for key.
 	//Important! string key and value can't contain space characters
 	void SaveString(string key, string value);
@@ -47,14 +48,16 @@ public:
 	Texture::Filter GetTextureFilter();
 
 protected:
-	string prefs_path;
-	string copy_path;
+	string user_config_path;
+	CRDictionary<string, string> user_prefs;
 
 	Texture::Filter texture_filter;
 
 	string LoadString(string key);
 
-	void InitializeDefaultConfig(File* file);
+	void InitializeUserConfig();
+	void InitializeGameConfig(File* file);
+	void SaveFile();
 };
     
 }

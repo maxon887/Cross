@@ -90,7 +90,7 @@ File* LauncherWIN::LoadFile(const string& filename){
 		fileStream.seekg(0, fileStream.end);
 		file->size = (size_t)fileStream.tellg();
 		fileStream.seekg(0, fileStream.beg);
-		file->data = new byte[file->size];
+		file->data = new Byte[file->size];
 		ZeroMemory(file->data, file->size);
 		fileStream.read((char*)file->data, file->size);
 		return file;
