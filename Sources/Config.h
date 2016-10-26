@@ -26,23 +26,15 @@ class Config{
 public:
 	Config();
 	~Config();
-	//Save string value for key.
-	//Important! string key and value can't contain space characters
-	void SaveString(string key, string value);
-	//Save int value for key
-	void SaveInt(string key, S32 value);
-	//Save float value for key
-	void SaveFloat(string key, float value);
-	//Save boolean value for key
-	void SaveBool(string key, bool value);
-	//Load string property from string key.
-	string LoadString(string key, string def);
-	//Load int property from string key.
-	S32 LoadInt(string key, S32 def);
-	//Load float property from string key.
-	float LoadFloat(string key, float def);
-	//Load boolean property from string key.
-	bool LoadBool(string key, bool def);
+
+	void SetString(const string& key, const string& value);
+	void SetInt(const string& key, S32 value);
+	void SetFloat(const string& key, float value);
+	void SetBool(const string& key, bool value);
+	string GetString(const string& key, const string& def);
+	S32 GetInt(const string& key, S32 def);
+	float GetFloat(const string& key, float def);
+	bool GetBool(const string& key, bool def);
 
 	//default config properties
 	Texture::Filter GetTextureFilter();
@@ -53,11 +45,11 @@ protected:
 
 	Texture::Filter texture_filter;
 
-	string LoadString(string key);
+	string GetString(const string& key);
 
-	void InitializeUserConfig();
-	void InitializeGameConfig(File* file);
-	void SaveFile();
+	void LoadGameConfig(File* file);
+	void LoadUserConfig();
+	void SaveUserConfig();
 };
     
 }

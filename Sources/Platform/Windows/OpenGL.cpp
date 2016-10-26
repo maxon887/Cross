@@ -53,10 +53,10 @@ int OpenGL_GO(){
 		launcher->LogIt("OpenGL API");
 		game = CrossMain(launcher);
 
-		int winX = config->LoadInt("WIN_POS_X", 0);
-		int winY = config->LoadInt("WIN_POS_Y", 0);
-		int winWidth = config->LoadInt("WIN_WIDTH", 500);
-		int winHeight = config->LoadInt("WIN_HEIGHT", 500);
+		int winX = config->GetInt("WIN_POS_X", 0);
+		int winY = config->GetInt("WIN_POS_Y", 0);
+		int winWidth = config->GetInt("WIN_WIDTH", 500);
+		int winHeight = config->GetInt("WIN_HEIGHT", 500);
 		launcherWin.ResizeWindow(winX, winY, winWidth, winHeight);
 		input->KeyReleased += MakeDelegate(&launcherWin, &LauncherWIN::KeyReleasedHandle);
 

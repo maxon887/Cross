@@ -2,5 +2,5 @@
 <GameConfig>
 	<Property name="TextureFilter" value="BILINEAR"/>
 	<Property name="OffscreenRender" value="true" factor="0.5"/>
-	<Property name="CamaraView" value="100.0"/>
+	<Property name="CameraView" value="100.0"/>
 </GameConfig>

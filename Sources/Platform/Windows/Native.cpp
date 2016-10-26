@@ -106,10 +106,10 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	case WM_CLOSE: {
 		RECT winRect = GetLocalCoordinates(wnd);
-		config->SaveInt("WIN_POS_X", winRect.left);
-		config->SaveInt("WIN_POS_Y", winRect.top);
-		config->SaveInt("WIN_WIDTH", winRect.right - winRect.left);
-		config->SaveInt("WIN_HEIGHT", winRect.bottom - winRect.top);
+		config->SetInt("WIN_POS_X", winRect.left);
+		config->SetInt("WIN_POS_Y", winRect.top);
+		config->SetInt("WIN_WIDTH", winRect.right - winRect.left);
+		config->SetInt("WIN_HEIGHT", winRect.bottom - winRect.top);
 		break;
 	}
 	case WM_DESTROY:

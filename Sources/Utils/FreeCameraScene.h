@@ -46,6 +46,7 @@ public:
 	void LookLeft(float sec);
 	void LookDown(float sec);
 	void LookUp(float sec);
+
 private:
 	bool look_at;
 

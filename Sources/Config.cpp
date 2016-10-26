@@ -18,69 +18,67 @@
 #include "Launcher.h"
 #include "File.h"
 
-#include <fstream>
-
 #include "Libs/TinyXML/tinyxml.h"
 
 using namespace cross;
 
 Config::Config(){
 	File* defaultConfigFile = launcher->LoadFile("GameConfig.xml");
-	InitializeGameConfig(defaultConfigFile);
+	LoadGameConfig(defaultConfigFile);
 	user_config_path = launcher->DataPath() + "/UserConfig.xml";
-	InitializeUserConfig();
+	LoadUserConfig();
 }
 
 Config::~Config(){
-	SaveFile();
+	SaveUserConfig();
 }
 
-void Config::SaveString(string key, string value){
+void Config::SetString(const string& key, const string& value){
 	user_prefs[key] = value;
 }
 
-void Config::SaveInt(string key, S32 value){
-	SaveString(key, to_string(value));
+void Config::SetInt(const string& key, S32 value){
+	SetString(key, to_string(value));
 }
 
-void Config::SaveFloat(string key, float value){
-	SaveString(key, to_string(value));
+void Config::SetFloat(const string& key, float value){
+	SetString(key, to_string(value));
 }
 
-void Config::SaveBool(string key, bool value){
-	SaveInt(key, value);
+void Config::SetBool(const string& key, bool value){
+	SetInt(key, value);
 }
 
-string Config::LoadString(string key, string def){
-	string strValue = LoadString(key);
+string Config::GetString(const string& key, const string& def){
+	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return strValue;
 }
 
-S32 Config::LoadInt(string key, S32 def){
-	string strValue = LoadString(key);
+S32 Config::GetInt(const string& key, S32 def){
+	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return atoi(strValue.c_str());
 }
 
-float Config::LoadFloat(string key, float def){
-	string strValue = LoadString(key);
+float Config::GetFloat(const string& key, float def){
+	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return (float)atof(strValue.c_str());
 }
 
-bool Config::LoadBool(string key, bool def){
-	return LoadInt(key, def) != 0;
+bool Config::GetBool(const string& key, bool def){
+	return GetInt(key, def) != 0;
 }
 
 Texture::Filter Config::GetTextureFilter(){
 	return texture_filter;
 }
 
-string Config::LoadString(string key){
+string Config::GetString(const string& key){
 	auto entry = user_prefs.find(key);
 	if(entry != user_prefs.end()){
 		return (*entry).second;
@@ -89,27 +87,7 @@ string Config::LoadString(string key){
 	}
 }
 
-void Config::InitializeUserConfig(){
-	TiXmlDocument doc(user_config_path.c_str());
-	doc.LoadFile();
-
-	TiXmlHandle xmlHandle(&doc);
-	TiXmlElement* root;
-	TiXmlElement* element;
-
-	root = xmlHandle.FirstChildElement("UserConfig").Element();
-	if(root){
-		element = root->FirstChildElement("Property");
-		while(element){
-			string name = element->Attribute("name");
-			string value = element->Attribute("value");
-			user_prefs[name] = value;
-			element = element->NextSiblingElement("Property");
-		}
-	}
-}
-
-void Config::InitializeGameConfig(File* xmlFile){
+void Config::LoadGameConfig(File* xmlFile){
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);
@@ -149,7 +127,27 @@ void Config::InitializeGameConfig(File* xmlFile){
 	}
 }
 
-void Config::SaveFile(){
+void Config::LoadUserConfig(){
+	TiXmlDocument doc(user_config_path.c_str());
+	doc.LoadFile();
+
+	TiXmlHandle xmlHandle(&doc);
+	TiXmlElement* root;
+	TiXmlElement* element;
+
+	root = xmlHandle.FirstChildElement("UserConfig").Element();
+	if(root){
+		element = root->FirstChildElement("Property");
+		while(element){
+			string name = element->Attribute("name");
+			string value = element->Attribute("value");
+			user_prefs[name] = value;
+			element = element->NextSiblingElement("Property");
+		}
+	}
+}
+
+void Config::SaveUserConfig(){
 	TiXmlDocument doc;
 
 	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
