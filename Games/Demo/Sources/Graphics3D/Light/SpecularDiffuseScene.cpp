@@ -44,7 +44,8 @@ void SpecularDiffuseScene::Start(){
 	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);
 	shininess = 0.5f * 128.f;
 	material->SetPropertyValue("Shininess",	(void*)(&shininess));
-	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
+	//cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadModel("Engine/Models/Cube.obj");
 	cube->SetMaterial(material);
 }
 
