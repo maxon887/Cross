@@ -18,6 +18,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Launcher.h"
+#include "Config.h"
 
 using namespace cross;
 
@@ -28,7 +29,7 @@ Scene::Scene() :
 
 void Scene::Start(){
 	Screen::Start();
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
 
 	window_resize_handle = MakeDelegate(this, &Scene::WindowResizeHandle);
@@ -76,6 +77,6 @@ void Scene::SetAmbientColor(const Color& color){
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, 100.f);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }

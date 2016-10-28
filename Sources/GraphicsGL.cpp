@@ -21,6 +21,7 @@
 #include "File.h"
 #include "Shaders/Shader.h"
 #include "Shaders/MultiLightShader.h"
+#include "Config.h"
 
 using namespace cross;
 
@@ -55,8 +56,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 }
 }
 
-GraphicsGL::GraphicsGL() :	
-	off_screen_rendering(false)
+GraphicsGL::GraphicsGL()
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 
@@ -95,7 +95,7 @@ GraphicsGL::~GraphicsGL(){
 }
 
 void GraphicsGL::Start(){
-	if(off_screen_rendering){
+	if(config->IsOffscreenRender()){
 			SAFE(glGenFramebuffers(1, &framebuffer));
 			//generate color buffer
 			SAFE(glGenTextures(1, &colorbuffer));
@@ -149,14 +149,14 @@ void GraphicsGL::Start(){
 }
 
 void GraphicsGL::PreProcessFrame(){
-	if(off_screen_rendering){
+	if(config->IsOffscreenRender()){
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 		SAFE(glViewport(0, 0, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
 	}
 }
 
 void GraphicsGL::PostProcessFrame(){
-	if(off_screen_rendering){
+	if(config->IsOffscreenRender()){
 		//binding default frame buffer
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		SAFE(glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight()));

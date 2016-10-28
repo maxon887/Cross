@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <GameConfig>
 	<Property name="TextureFilter" value="BILINEAR"/>
-	<Property name="OffscreenRender" value="true" factor="0.5"/>
-	<Property name="CameraView" value="100.0"/>
+	<Property name="ViewDistance" value="250.0"/>
+	<Property name="OffscreenRender" value="false"/>
 </GameConfig>

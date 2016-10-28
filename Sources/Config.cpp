@@ -22,7 +22,11 @@
 
 using namespace cross;
 
-Config::Config(){
+Config::Config():
+	texture_filter(Texture::Filter::NEAREST),
+	view_distance(100.f),
+	offscreen_render(false)
+{
 	File* defaultConfigFile = launcher->LoadFile("GameConfig.xml");
 	LoadGameConfig(defaultConfigFile);
 	user_config_path = launcher->DataPath() + "/UserConfig.xml";
@@ -78,6 +82,14 @@ Texture::Filter Config::GetTextureFilter(){
 	return texture_filter;
 }
 
+float Config::GetViewDistance(){
+	return view_distance;
+}
+
+bool Config::IsOffscreenRender(){
+	return offscreen_render;
+}
+
 string Config::GetString(const string& key){
 	auto entry = user_prefs.find(key);
 	if(entry != user_prefs.end()){
@@ -105,9 +117,9 @@ void Config::LoadGameConfig(File* xmlFile){
 		element = root->FirstChildElement("Property");
 		while(element){
 			string name = element->Attribute("name");
+			string strValue = element->Attribute("value");
 
 			if(name == "TextureFilter"){
-				string strValue = element->Attribute("value");
 				if(strValue == "NEAREST"){
 					texture_filter = Texture::Filter::NEAREST;
 				}else if(strValue == "LINEAR"){
@@ -120,6 +132,19 @@ void Config::LoadGameConfig(File* xmlFile){
 					throw CrossException("Unknown Texture Filter %s", strValue.c_str());
 				}
 			}
+
+			if(name == "ViewDistance"){
+				view_distance = (float)atof(strValue.c_str());
+			}
+
+			if(name == "OffscreenRender"){
+				if(strValue == "true"){
+					offscreen_render = true;
+				}else{
+					offscreen_render = false;
+				}
+			}
+
 			element = element->NextSiblingElement("Property");
 		}
 	}else{

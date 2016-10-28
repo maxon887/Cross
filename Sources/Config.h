@@ -36,14 +36,18 @@ public:
 	float GetFloat(const string& key, float def);
 	bool GetBool(const string& key, bool def);
 
-	//default config properties
+	//game config properties
 	Texture::Filter GetTextureFilter();
+	float GetViewDistance();
+	bool IsOffscreenRender();
 
 protected:
 	string user_config_path;
 	CRDictionary<string, string> user_prefs;
 
 	Texture::Filter texture_filter;
+	float view_distance;
+	bool offscreen_render;
 
 	string GetString(const string& key);
 

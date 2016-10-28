@@ -79,7 +79,6 @@ public:
 
 private:
 	//off screen rendering components
-	bool off_screen_rendering;
 	GLuint framebuffer;
 	GLuint colorbuffer;
 	GLuint depthbuffer;

@@ -31,7 +31,6 @@ void CamaroScene::Start(){
 	CameraControlsScreen::Start();
 
 	SetAmbientColor(Color(0.1f));
-	SetCameraViewDistance(500.f);
 	SetBackground(Color::Black);
 
 	//lights
