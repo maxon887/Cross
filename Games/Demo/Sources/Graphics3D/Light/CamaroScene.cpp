@@ -77,8 +77,8 @@ void CamaroScene::Stop(){
 }
 
 void CamaroScene::Update(float sec){
+	CameraControlsScreen::Update(sec);
 	camaro->Draw();
 	road->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*23.f, 12.f, sin(game->GetRunTime() / 2.f)*23.f));
-	CameraControlsScreen::Update(sec);
 }

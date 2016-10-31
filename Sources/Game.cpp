@@ -33,8 +33,10 @@ Input*		cross::input	= NULL;
 Config*		cross::config	= NULL;
 
 Game::Game() :
-	current_screen(nullptr),
+	current_screen(NULL),
+	next_screen(NULL),
 	on_scene(false),
+	next_is_scene(false),
 	run_time(0),
 	render_time(0)
 {
@@ -59,17 +61,11 @@ void Game::Start(){
 }
 
 void Game::SetScreen(Screen* screen, bool scene){
-	on_scene = scene;
-	launcher->LogIt("Game::SetScreen()");
-	Debugger::Instance()->StartCheckTime();
-	if(current_screen){
-		current_screen->Stop();
-		delete current_screen;
+	next_is_scene = scene;
+	next_screen = screen;
+	if(!current_screen){
+		ReloadScreen();
 	}
-	current_screen = screen;
-	current_screen->Start();
-	render_time = launcher->GetTime();
-	Debugger::Instance()->StopCheckTime("Screen loaded: ");
 }
 
 void Game::SetScene(Scene* scene){
@@ -110,11 +106,17 @@ void Game::Update(){
 	U64 frame = now - render_time;
 	render_time = now;
 	run_time += frame;
+
 	gfxGL->PreProcessFrame();
 	gfx2D->Update((float)(frame / 1000000.));
 	GetCurrentScreen()->Update((float)(frame / 1000000.));
 	now = launcher->GetTime();
 	gfxGL->PostProcessFrame();
+
+	if(next_screen){
+		ReloadScreen();
+	}
+
 	U64 update = now - render_time;
 	float milis = update / 1000.f;
 	if(milis < 5){
@@ -128,4 +130,20 @@ void Game::Exit(){
 #ifdef WIN
 	exit(0);
 #endif // WIN
+}
+
+void Game::ReloadScreen(){
+	launcher->LogIt("Game::ReloadScreen()");
+	Debugger::Instance()->StartCheckTime();
+
+	if(current_screen){
+		current_screen->Stop();
+		delete current_screen;
+	}
+	current_screen = next_screen;
+	next_screen = NULL;
+	on_scene = next_is_scene;
+	current_screen->Start();
+	render_time = launcher->GetTime();
+	Debugger::Instance()->StopCheckTime("Screen reloaded: ");
 }
