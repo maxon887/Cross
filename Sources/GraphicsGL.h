@@ -85,6 +85,8 @@ private:
 	GLuint quadVBO;
 	GLuint quadEBO;
 
+	Shader* offscreen_shader;
+
 	void WindowResizeHandle(S32 width, S32 height);
 };
 

@@ -56,7 +56,8 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 }
 }
 
-GraphicsGL::GraphicsGL()
+GraphicsGL::GraphicsGL():
+	offscreen_shader(NULL)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 
@@ -87,11 +88,19 @@ GraphicsGL::GraphicsGL()
 		launcher->LogIt("Max Texture Units: %d", value);
 
 		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
+
+		if(config->IsOffscreenRender()){
+			offscreen_shader = GetShader(DefaultShader::TEXTURE);
+			offscreen_shader->Compile();
+		}
 }
 
 GraphicsGL::~GraphicsGL(){
 	SAFE(glDeleteBuffers(1, &quadVBO));
 	SAFE(glDeleteBuffers(1, &quadEBO));
+	if(config->IsOffscreenRender()){
+		delete offscreen_shader;
+	}
 }
 
 void GraphicsGL::Start(){
@@ -165,31 +174,30 @@ void GraphicsGL::PostProcessFrame(){
 		SAFE(glActiveTexture(GL_TEXTURE0));
 		SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
 
-		Shader* shader = GetShader(DefaultShader::TEXTURE);
-		UseShader(shader);
-		if(shader->uColor != -1){
-			SAFE(glUniform3fv(shader->uColor, 1, Color(Color::White).GetData()));
+		UseShader(offscreen_shader);
+		if(offscreen_shader->uColor != -1){
+			SAFE(glUniform3fv(offscreen_shader->uColor, 1, Color(Color::White).GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have color uniform");
 		}
 
-		if(shader->aPosition != -1){
-			SAFE(glEnableVertexAttribArray(shader->aPosition));
-			SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
+		if(offscreen_shader->aPosition != -1){
+			SAFE(glEnableVertexAttribArray(offscreen_shader->aPosition));
+			SAFE(glVertexAttribPointer(offscreen_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
 		}else{
 			throw CrossException("Textured shader doesn't have verteces position coordinates");
 		}
 
-		if(shader->aTexCoords != -1){
-			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
+		if(offscreen_shader->aTexCoords != -1){
+			SAFE(glEnableVertexAttribArray(offscreen_shader->aTexCoords));
+			SAFE(glVertexAttribPointer(offscreen_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 		}else{
 			throw CrossException("Textured shader doesn't have texure coordinates");
 		}
 
-		if(shader->uMVP != -1){
+		if(offscreen_shader->uMVP != -1){
 			Matrix mvp = Matrix::Identity;
-			SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+			SAFE(glUniformMatrix4fv(offscreen_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have MVP matrix");
 		}
