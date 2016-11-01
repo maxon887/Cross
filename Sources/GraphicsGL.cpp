@@ -100,53 +100,53 @@ GraphicsGL::~GraphicsGL(){
 	SAFE(glDeleteBuffers(1, &quadEBO));
 	if(config->IsOffscreenRender()){
 		delete offscreen_shader;
+		SAFE(glDeleteBuffers(1, &framebuffer));
+		SAFE(glDeleteBuffers(1, &colorbuffer));
+		SAFE(glDeleteBuffers(1, &depthbuffer));
 	}
 }
 
 void GraphicsGL::Start(){
 	if(config->IsOffscreenRender()){
-			SAFE(glGenFramebuffers(1, &framebuffer));
-			SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-			//generate color buffer
-			SAFE(glGenTextures(1, &colorbuffer));
-			SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
-			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL));
+		SAFE(glGenFramebuffers(1, &framebuffer));
+		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
+		//generate color buffer
+		SAFE(glGenTextures(1, &colorbuffer));
+		SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL));
+		SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+		SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+		SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0));
+		//generate depth buffer
+		SAFE(glGenRenderbuffers(1, &depthbuffer));
+		SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
+		SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
+		SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
 
-			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-			SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-			//generate depth buffer
-			SAFE(glGenRenderbuffers(1, &depthbuffer));
-			SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
-			SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
-			SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
-
-			//setup frame buffer
-			SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0));
-
-			if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-				throw CrossException("Can not initialize second frame buffer");
-			}
-
-			SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-			//quad setub
-			static const float quadVertices[] = {
-				-1.0f, -1.0f,		0.f, 0.f,
-				 1.0f, -1.0f,		1.f, 0.f,
-				 1.0f,  1.0f,		1.f, 1.f,
-				-1.0f,  1.0f,		0.f, 1.f,
-			};
-			SAFE(glGenBuffers(1, &quadVBO));
-			SAFE(glBindBuffer(GL_ARRAY_BUFFER, quadVBO));
-			SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW));
-			SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-			static const GLushort quadIndices[] = { 0, 1, 2, 0, 2, 3 };
-			SAFE(glGenBuffers(1, &quadEBO));
-			SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO));
-			SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(quadIndices), quadIndices, GL_STATIC_DRAW));
-			SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-		
+		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+			throw CrossException("Can not initialize second frame buffer");
 		}
+
+		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+		//quad setub
+		static const float quadVertices[] = {
+			-1.0f, -1.0f,		0.f, 0.f,
+			1.0f, -1.0f,		1.f, 0.f,
+			1.0f,  1.0f,		1.f, 1.f,
+			-1.0f,  1.0f,		0.f, 1.f,
+		};
+		SAFE(glGenBuffers(1, &quadVBO));
+		SAFE(glBindBuffer(GL_ARRAY_BUFFER, quadVBO));
+		SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW));
+		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+		static const GLushort quadIndices[] = { 0, 1, 2, 0, 2, 3 };
+		SAFE(glGenBuffers(1, &quadEBO));
+		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO));
+		SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(quadIndices), quadIndices, GL_STATIC_DRAW));
+		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+		
+	}
 }
 
 void GraphicsGL::PreProcessFrame(){
