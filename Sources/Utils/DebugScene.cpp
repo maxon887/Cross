@@ -47,9 +47,9 @@ void DebugScene::Update(float sec){
 }
 
 void DebugScene::Stop(){
-	delete light_material;
 	delete point_light;
 	delete spot_light;
+	delete light_material;
 	delete light_shader;
 	FreeCameraScene::Stop();
 }

@@ -45,7 +45,7 @@ Graphics3D::Graphics3D():
 	launcher->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
-	launcher->LogIt("Use assimp version %d.%d", major, minor);
+	launcher->LogIt("\tUse assimp version %d.%d", major, minor);
 }
 
 Graphics3D::~Graphics3D(){
@@ -56,8 +56,7 @@ Model* Graphics3D::LoadModel(const string& filename){
 	Model* model = new Model(filename);
 	ProcessScene(model);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	launcher->LogIt("Model(%s) loaded in %fms", filename.c_str(), loadTime);
-	//launcher->LogIt("\tpoly count - %d", model->GetPolyCount());
+	launcher->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
 }
 

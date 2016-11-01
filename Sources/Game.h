@@ -60,10 +60,10 @@ protected:
 	Screen* next_screen;
 	bool on_scene;
 	bool next_is_scene;
-	U64 render_time;
+	U64 timestamp;
 	U64 run_time;
 
-	void ReloadScreen();
+	void LoadNextScreen();
 };
     
 }

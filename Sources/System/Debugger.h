@@ -37,11 +37,11 @@ public:
 	void SetTimeCheck();
 	float GetTimeCheck();
 
-	void Display(float sec);
+	void Update(float micro);
+
 	void SetCPUTime(float sec);
 	void EnableDebug(Parameter param);
 	void DisableDebug(Parameter param);
-	void ConsoleDebug(bool enable);
 	float GetFPS();
 
 private:
@@ -61,9 +61,6 @@ private:
 	float update_sum;
 	int update_counter;
 
-	float next_display;
-
-	bool console_debug;
 	bool touches;
 	Vector2D touch_pos;
 	bool touch_down;

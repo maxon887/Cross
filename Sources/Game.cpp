@@ -38,7 +38,7 @@ Game::Game() :
 	on_scene(false),
 	next_is_scene(false),
 	run_time(0),
-	render_time(0)
+	timestamp(0)
 {
 	launcher->LogIt("Game::Game()");
 	input = new Input();
@@ -64,7 +64,7 @@ void Game::SetScreen(Screen* screen, bool scene){
 	next_is_scene = scene;
 	next_screen = screen;
 	if(!current_screen){
-		ReloadScreen();
+		LoadNextScreen();
 	}
 }
 
@@ -91,7 +91,7 @@ void Game::Suspend(){
 }
 
 void Game::Resume(){
-	render_time = launcher->GetTime();
+	timestamp = launcher->GetTime();
 	if(current_screen != nullptr) {
 		current_screen->Resume();
 	}
@@ -103,27 +103,27 @@ float Game::GetRunTime(){
 
 void Game::Update(){
 	U64 now = launcher->GetTime();
-	U64 frame = now - render_time;
-	render_time = now;
-	run_time += frame;
+	U64 updateTime = now - timestamp;
+	timestamp = now;
+	run_time += updateTime;
 
 	gfxGL->PreProcessFrame();
-	gfx2D->Update((float)(frame / 1000000.));
-	GetCurrentScreen()->Update((float)(frame / 1000000.));
-	now = launcher->GetTime();
+	gfx2D->Update((float)(updateTime / 1000000.));
+	GetCurrentScreen()->Update((float)(updateTime / 1000000.));
 	gfxGL->PostProcessFrame();
 
 	if(next_screen){
-		ReloadScreen();
+		LoadNextScreen();
 	}
 
-	U64 update = now - render_time;
-	float milis = update / 1000.f;
+	Debugger::Instance()->Update((float)updateTime);
+	U64 cpuTime = launcher->GetTime() - timestamp;
+	Debugger::Instance()->SetCPUTime((float)cpuTime);
+
+	float milis = cpuTime / 1000.f;
 	if(milis < 5){
 		launcher->Sleep(5 - milis);
 	}
-	Debugger::Instance()->Display((float)frame);
-	Debugger::Instance()->SetCPUTime((float)update);
 }
 
 void Game::Exit(){
@@ -132,8 +132,8 @@ void Game::Exit(){
 #endif // WIN
 }
 
-void Game::ReloadScreen(){
-	launcher->LogIt("Game::ReloadScreen()");
+void Game::LoadNextScreen(){
+	launcher->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 
 	if(current_screen){
@@ -144,7 +144,7 @@ void Game::ReloadScreen(){
 	next_screen = NULL;
 	on_scene = next_is_scene;
 	current_screen->Start();
-	render_time = launcher->GetTime();
+	timestamp = launcher->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	launcher->LogIt("Screen(no name) loaded in %fms", loadTime);
+	launcher->LogIt("Screen(no name) loaded in %0.1fms", loadTime);
 }

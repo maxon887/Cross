@@ -18,7 +18,6 @@
 #include "Launcher.h"
 #include "Input.h"
 #include "Graphics2D.h"
-#include "Camera2D.h"
 #include "Game.h"
 #include "Font.h"
 #include "Screen.h"
@@ -46,10 +45,8 @@ Debugger::Debugger() :
 	update_time(0),
 	update_sum(0),
 	update_counter(0),
-	console_debug(false),
 	touches(false),
 	touch_down(false),
-	next_display(3000000.f),
 	debugger_font(nullptr)
 { 
 	memset(params, 0, sizeof(params));
@@ -69,13 +66,9 @@ float Debugger::GetTimeCheck() {
 	U64 checkTime = time_checks.back();
 	time_checks.pop_back();
 	return (now - checkTime) / 1000.f;
-	//double milis = (now - checkTime) / 1000.0;
-	//string msg = label + to_string(milis) + "ms";
-	//if(launcher != NULL)
-	//	launcher->LogIt(msg);
 }
 
-void Debugger::Display(float micro){
+void Debugger::Update(float micro){
 	if(update_counter == 20){
 		update_counter = 0;
 		update_time = update_sum / 20.f / 1000.f;
@@ -124,24 +117,6 @@ void Debugger::Display(float micro){
 		}
 		optionPosition++;
 	}
-
-	if(console_debug){
-		if(next_display < 0){
-			string msg = "";
-			msg += "Render Time: " + to_string(update_time) + "ms\n";
-			msg += "Update Time: " + to_string(cpu_time) + "ms\n";
-			msg += "FPS: " + to_string(GetFPS()) + "\n";
-			msg += "=================================";
-			launcher->LogIt(msg);
-			next_display = 3000000.f;
-		}else{
-			next_display -= micro;
-		}
-	}
-}
-
-void Debugger::ConsoleDebug(bool enable){
-	console_debug = enable;
 }
 
 void Debugger::SetCPUTime(float micro) {

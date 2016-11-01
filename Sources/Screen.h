@@ -27,6 +27,7 @@ namespace cross {
    Witch will be loaded through Game::GetStartScreen function */
 class Screen{
 public:
+	virtual ~Screen() { };
 	/* Calls once before screen show up. */
 	virtual void Start();
 	/* Calls when screen about to change on new one */

@@ -23,6 +23,7 @@ public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
+
 private:
 	//UI
 	Sprite* arrow_released;

@@ -66,26 +66,28 @@ GraphicsGL::GraphicsGL():
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		launcher->LogIt("Use OpenGL " + to_string(magorV) + "." + to_string(minorV));
+		launcher->LogIt("\tUsed OpenGL " + to_string(magorV) + "." + to_string(minorV));
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}
+#else
+		launcher->LogIt("\tUsed OpenGL ES 2.0");
 #endif
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
-		launcher->LogIt("Max Vetex Uniforms: %d", value);
+		launcher->LogIt("\tMax Vetex Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
-		launcher->LogIt("Max Fragment Uniforms: %d", value);
+		launcher->LogIt("\tMax Fragment Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value);
-		launcher->LogIt("Max Vertex Attributes: %d", value);
+		launcher->LogIt("\tMax Vertex Attributes: %d", value);
 
 		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
-		launcher->LogIt("Max Texture Size: %d", value);
+		launcher->LogIt("\tMax Texture Size: %d", value);
 
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
-		launcher->LogIt("Max Texture Units: %d", value);
+		launcher->LogIt("\tMax Texture Units: %d", value);
 
 		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
 

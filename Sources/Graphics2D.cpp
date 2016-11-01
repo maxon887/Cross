@@ -302,7 +302,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 #endif
 		}	
 		float loadTime = Debugger::Instance()->GetTimeCheck();
-		launcher->LogIt("Texture(%s) loaded in %fms", filename.c_str(), loadTime);
+		launcher->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 
 		pair<Texture*, S32> pair;
 		pair.first = newTexture;

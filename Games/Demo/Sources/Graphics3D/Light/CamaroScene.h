@@ -22,6 +22,7 @@ public:
 	void Start();
 	void Stop();
 	void Update(float sec);
+
 private:
 	Shader* shader;
 	float specular;
