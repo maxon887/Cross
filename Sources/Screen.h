@@ -27,7 +27,6 @@ namespace cross {
    Witch will be loaded through Game::GetStartScreen function */
 class Screen{
 public:
-	virtual ~Screen() { };
 	/* Calls once before screen show up. */
 	virtual void Start();
 	/* Calls when screen about to change on new one */
@@ -53,6 +52,7 @@ public:
 	void SetBackground(const Color& background);
 	/* New UI element will auto update and covers area from touches */
 	void AddUI(UI* element);
+
 private:
 	bool actionIDs[MAX_ACTIONS];
 	CRArray<UI*> guis;

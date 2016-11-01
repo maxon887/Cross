@@ -106,7 +106,7 @@ Audio::Audio(string path, bool loop, bool isStream){
 #ifdef ANDROID
 	path = "file:///android_asset/" + path;
 #else
-	path = launcher->AssetsPath() + path;
+	path = launcher->AssetsPath() + "/" + path;
 #endif
 	result = system->createSound(path.c_str(), mode, 0, &sound);
     ERRCHECK(result);
