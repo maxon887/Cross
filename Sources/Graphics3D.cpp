@@ -52,12 +52,12 @@ Graphics3D::~Graphics3D(){
 }
 
 Model* Graphics3D::LoadModel(const string& filename){
-	Debugger::Instance()->StartCheckTime();
+	Debugger::Instance()->SetTimeCheck();
 	Model* model = new Model(filename);
 	ProcessScene(model);
-	string msg = "" + filename + " loaded in ";
-	Debugger::Instance()->StopCheckTime(msg);
-	launcher->LogIt("Poly Count: %d", model->GetPolyCount());
+	float loadTime = Debugger::Instance()->GetTimeCheck();
+	launcher->LogIt("Model(%s) loaded in %fms", filename.c_str(), loadTime);
+	//launcher->LogIt("\tpoly count - %d", model->GetPolyCount());
 	return model;
 }
 

@@ -291,6 +291,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 		return (*it).first->Clone();
 	}else{
 		Texture* newTexture = NULL;
+		Debugger::Instance()->SetTimeCheck();
 		if(!compressed){
 			newTexture = LoadRAWTexture(filename, filter);
 		}else{
@@ -300,6 +301,8 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 			newTexture = LoadKTXTexture(filename + ".ktx", filter);
 #endif
 		}	
+		float loadTime = Debugger::Instance()->GetTimeCheck();
+		launcher->LogIt("Texture(%s) loaded in %fms", filename.c_str(), loadTime);
 
 		pair<Texture*, S32> pair;
 		pair.first = newTexture;
@@ -330,7 +333,6 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 }
 
 Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filter){
-	Debugger::Instance()->StartCheckTime();
 	int width, height, channels;
 
 	File* textureFile = launcher->LoadFile(filename);
@@ -369,14 +371,10 @@ Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filt
 	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
 	Texture* texture = CreateTexture(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
 	texture->SetName(filename);
-	string debugMsg = "Texure(" + filename + ") loaded in ";
-	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
 Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filter){
-	Debugger::Instance()->StartCheckTime();
-
 	File* file = launcher->LoadFile(filename);
 
 	PKM pkm;
@@ -385,15 +383,10 @@ Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filt
 
 	Texture* texture = CreateTexture(file->data + offset, 3, pkm.extendedWidth, pkm.extendedHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
 	texture->SetName(filename);
-
-	string debugMsg = "Texure(" + filename + ") loaded in ";
-	Debugger::Instance()->StopCheckTime(debugMsg);
 	return texture;
 }
 
 Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filter){
-	Debugger::Instance()->StartCheckTime();
-
 	File* file = launcher->LoadFile(filename);
 
 	KTX ktx;
@@ -430,10 +423,6 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 		texture->AddMipmapLelel(i, imageSize, imageData, mipmapW, mipmapH, Texture::Compression::ETC1);
 	}
 	delete imageData;
-
-	string debugMsg = "Texure(" + filename + ") loaded in ";
-	Debugger::Instance()->StopCheckTime(debugMsg);
-
 	return texture;
 }
 

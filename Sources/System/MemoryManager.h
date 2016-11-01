@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #ifdef CROSS_DEBUG
-
 #ifdef WIN
 
 void* operator new(size_t size);
@@ -47,6 +46,7 @@ public:
 	void* Alloc(unsigned int size, char* filename, unsigned int line);
 	void Free(void* address);
 	unsigned long Dump();
+	
 private:
 	static const unsigned long check_code;
 	static bool dead;

@@ -23,20 +23,22 @@ namespace cross{
 class Debugger{
 public:
 	enum Parameter{
-		RENDER_TIME,
 		UPDATE_TIME,
+		CPU_TIME,
 		FPS,
 		RUN_TIME,
 		INPUT,
 		NONE
 	};
+
 	static Debugger* Instance();
 	static void Release();
 
-	void StartCheckTime();
-	void StopCheckTime(string label);
+	void SetTimeCheck();
+	float GetTimeCheck();
+
 	void Display(float sec);
-	void SetUpdateTime(float sec);
+	void SetCPUTime(float sec);
 	void EnableDebug(Parameter param);
 	void DisableDebug(Parameter param);
 	void ConsoleDebug(bool enable);
@@ -45,19 +47,19 @@ public:
 private:
 	static Debugger* instance;
 
-	CRArray<U64> times;
+	CRArray<U64> time_checks;
 
 	Font* debugger_font;
 
 	bool params[Parameter::NONE];
 
+	float cpu_time;
+	float cpu_sum;
+	int cpu_counter;
+
 	float update_time;
 	float update_sum;
 	int update_counter;
-
-	float render_time;
-	float render_sum;
-	int render_counter;
 
 	float next_display;
 

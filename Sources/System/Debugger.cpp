@@ -40,12 +40,12 @@ void Debugger::Release(){
 }
 
 Debugger::Debugger() :
+	cpu_time(0),
+	cpu_sum(0),
+	cpu_counter(0),
 	update_time(0),
 	update_sum(0),
 	update_counter(0),
-	render_time(0),
-	render_sum(0),
-	render_counter(0),
 	console_debug(false),
 	touches(false),
 	touch_down(false),
@@ -59,53 +59,54 @@ Debugger::~Debugger(){
 	delete debugger_font;
 }
 
-void Debugger::StartCheckTime() {
+void Debugger::SetTimeCheck() {
 	U64 checkTime = launcher->GetTime();
-	times.push_back(checkTime);
+	time_checks.push_back(checkTime);
 }
 
-void Debugger::StopCheckTime(string label) {
+float Debugger::GetTimeCheck() {
 	U64 now = launcher->GetTime();
-	U64 checkTime = times.back();
-	times.pop_back();
-	double milis = (now - checkTime) / 1000.0;
-	string msg = label + to_string(milis) + "ms";
-	if(launcher != NULL)
-		launcher->LogIt(msg);
+	U64 checkTime = time_checks.back();
+	time_checks.pop_back();
+	return (now - checkTime) / 1000.f;
+	//double milis = (now - checkTime) / 1000.0;
+	//string msg = label + to_string(milis) + "ms";
+	//if(launcher != NULL)
+	//	launcher->LogIt(msg);
 }
 
 void Debugger::Display(float micro){
-	if(render_counter == 20){
-		render_counter = 0;
-		render_time = render_sum / 20.f / 1000.f;
-		render_sum = 0;
+	if(update_counter == 20){
+		update_counter = 0;
+		update_time = update_sum / 20.f / 1000.f;
+		update_sum = 0;
 	}else{
-		render_sum += micro;
-		render_counter++;
+		update_sum += micro;
+		update_counter++;
 	}
 
 	S32 optionPosition = 1;
 	float height = game->GetCurrentScreen()->GetHeight();
 	char outputString[256];
-	if(params[Parameter::RENDER_TIME] == true){
-		sprintf(outputString, "Render Time: %0.1fms", render_time);
-		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		optionPosition++;
-	}
-	if(params[Parameter::UPDATE_TIME] == true){
+	if(params[Parameter::FPS] == true){
 		if(update_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "Update Time: -", debugger_font);
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "FPS: -", debugger_font);
 		}else{
-			sprintf(outputString, "Update Time: %0.1fms", update_time);
+			sprintf(outputString, "FPS: %0.1f", 1000.f / update_time);
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
 		}
 		optionPosition++;
 	}
-	if(params[Parameter::FPS] == true){
-		if(render_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "FPS: -", debugger_font);
+	if(params[Parameter::UPDATE_TIME] == true){
+		sprintf(outputString, "Update Time: %0.1fms", update_time);
+		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
+		optionPosition++;
+	}
+	if(params[Parameter::CPU_TIME] == true){
+		if(cpu_time == 0){
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "Update Time: -", debugger_font);
 		}else{
-			sprintf(outputString, "FPS: %0.1f", 1000.f / render_time);
+			sprintf(outputString, "CPU Time: %0.1fms", cpu_time);
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
 		}
 		optionPosition++;
@@ -127,9 +128,9 @@ void Debugger::Display(float micro){
 	if(console_debug){
 		if(next_display < 0){
 			string msg = "";
-			msg += "Render Time: " + to_string(render_time) + "ms\n";
-			msg += "Update Time: " + to_string(update_time) + "ms\n";
-			msg += "FPS: " + to_string(1000.f/render_time) + "\n";
+			msg += "Render Time: " + to_string(update_time) + "ms\n";
+			msg += "Update Time: " + to_string(cpu_time) + "ms\n";
+			msg += "FPS: " + to_string(GetFPS()) + "\n";
 			msg += "=================================";
 			launcher->LogIt(msg);
 			next_display = 3000000.f;
@@ -143,14 +144,14 @@ void Debugger::ConsoleDebug(bool enable){
 	console_debug = enable;
 }
 
-void Debugger::SetUpdateTime(float micro) {
-	if(update_counter == 20){
-		update_counter = 0;
-		update_time = update_sum / 20.0f / 1000.0f;
-		update_sum = 0;
+void Debugger::SetCPUTime(float micro) {
+	if(cpu_counter == 20){
+		cpu_counter = 0;
+		cpu_time = cpu_sum / 20.0f / 1000.0f;
+		cpu_sum = 0;
 	}else{
-		update_sum += micro;
-		update_counter++;
+		cpu_sum += micro;
+		cpu_counter++;
 	}
 }
 
@@ -184,7 +185,7 @@ void Debugger::DisableDebug(Parameter param){
 }
 
 float Debugger::GetFPS(){
-	return 1000.f / render_time;
+	return 1000.f / update_time;
 }
 
 void Debugger::OnActionDown(Input::Action action) {

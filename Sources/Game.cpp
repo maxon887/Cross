@@ -123,7 +123,7 @@ void Game::Update(){
 		launcher->Sleep(5 - milis);
 	}
 	Debugger::Instance()->Display((float)frame);
-	Debugger::Instance()->SetUpdateTime((float)update);
+	Debugger::Instance()->SetCPUTime((float)update);
 }
 
 void Game::Exit(){
@@ -134,7 +134,7 @@ void Game::Exit(){
 
 void Game::ReloadScreen(){
 	launcher->LogIt("Game::ReloadScreen()");
-	Debugger::Instance()->StartCheckTime();
+	Debugger::Instance()->SetTimeCheck();
 
 	if(current_screen){
 		current_screen->Stop();
@@ -145,5 +145,6 @@ void Game::ReloadScreen(){
 	on_scene = next_is_scene;
 	current_screen->Start();
 	render_time = launcher->GetTime();
-	Debugger::Instance()->StopCheckTime("Screen reloaded: ");
+	float loadTime = Debugger::Instance()->GetTimeCheck();
+	launcher->LogIt("Screen(no name) loaded in %fms", loadTime);
 }
