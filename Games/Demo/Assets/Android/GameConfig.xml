@@ -2,5 +2,5 @@
 <GameConfig>
 	<Property name="TextureFilter" value="BILINEAR"/>
 	<Property name="ViewDistance" value="250.0"/>
-	<Property name="OffscreenRender" value="false"/>
+	<Property name="OffscreenRender" value="true"/>
 </GameConfig>

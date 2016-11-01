@@ -40,8 +40,7 @@
 #include "Platform\Windows\glew\wglew.h"
 #endif
 
-//doesn't properly work for windows emulator
-#if defined(CROSS_DEBUG) && !defined(GLES)
+#if defined(CROSS_DEBUG)
 #define SAFE(X) \
 {\
 	(X);      \

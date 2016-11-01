@@ -116,7 +116,7 @@ EGLBoolean CreateEGLContext(EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 	EGLContext context;
 	EGLSurface surface;
 	EGLConfig config;
-	EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE, EGL_NONE };
+	EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
 
 	// Get Display
 	display = eglGetDisplay(GetDC(hWnd));
@@ -169,6 +169,8 @@ GLboolean esCreateWindow(ESContext *esContext, GLuint flags)
 {
 	EGLint attribList[] =
 	{
+		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
 		EGL_RED_SIZE, 4,
 		EGL_GREEN_SIZE, 4,
 		EGL_BLUE_SIZE, 4,

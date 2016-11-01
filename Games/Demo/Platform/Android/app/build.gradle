@@ -49,7 +49,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("d:/Trash/Confidencial/LittleMan/littlekeystore")
+            storeFile file("d:/littlekeystore")
             //storePassword "********"
             storePassword "hideme2078"
             keyAlias "littel man"
