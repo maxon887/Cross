@@ -26,7 +26,7 @@
 #include "Config.h"
 #include "Audio.h"
 #include "System/Debugger.h"
-#include "CrossEGL.h"
+#include "Platform/CrossEGL.h"
 
 #include <time.h>
 
@@ -71,7 +71,6 @@ int GLES_Main(){
 				DispatchMessage(&msg);
 			}
 			game->Update();
-			//eglSwapBuffers(esContext.eglDisplay, esContext.eglSurface);
 			crossEGL->SwapBuffers();
 		}
 
@@ -95,7 +94,6 @@ int GLES_Main(){
 		} else {
 			OutputDebugString("No memory leak detected\n");
 		}
-
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
