@@ -1,13 +1,20 @@
 #pragma once
 #include <EGL/egl.h>
+
+#ifdef WIN
+#define NATIVE_WINDOW HWND
+#elif ANDROID
 #include <GLES/gl.h>
 #include <android/native_window.h>
+#define NATIVE_WINDOW ANativeWindow*
+#endif
 
 class CrossEGL {
 public:
     CrossEGL();
 
-    void BindWindow(ANativeWindow* wnd);
+    void BindWindow(NATIVE_WINDOW wnd);
+	NATIVE_WINDOW GetWindow();
     void UnbindWindow();
     bool CreateContext(bool createDisplay);
     void DestroyContext(bool destroyDisplay);
@@ -16,7 +23,7 @@ public:
     void SwapBuffers();
 
 private:
-    ANativeWindow*  native_window;
+    NATIVE_WINDOW  native_window;
 
     bool        context_created;
     EGLConfig   config;

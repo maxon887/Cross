@@ -20,8 +20,8 @@
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE instancePrev, LPSTR args, int winShow){
 #ifdef GLES
-	return GLES_GO();
+	return GLES_Main();
 #else
-	return OpenGL_GO();
+	return OpenGL_Main();
 #endif
 }

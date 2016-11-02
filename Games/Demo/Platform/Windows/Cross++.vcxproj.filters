@@ -283,6 +283,9 @@
     <ClCompile Include="..\..\..\..\Sources\Math\All.cpp">
       <Filter>Cross\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\CrossEGL.cpp">
+      <Filter>Cross\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -522,6 +525,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Math\All.h">
       <Filter>Cross\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\CrossEGL.h">
+      <Filter>Cross\Platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

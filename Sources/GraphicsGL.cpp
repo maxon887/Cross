@@ -133,8 +133,8 @@ void GraphicsGL::Start(){
 		//quad setub
 		static const float quadVertices[] = {
 			-1.0f, -1.0f,		0.f, 0.f,
-			1.0f, -1.0f,		1.f, 0.f,
-			1.0f,  1.0f,		1.f, 1.f,
+			 1.0f, -1.0f,		1.f, 0.f,
+			 1.0f,  1.0f,		1.f, 1.f,
 			-1.0f,  1.0f,		0.f, 1.f,
 		};
 		SAFE(glGenBuffers(1, &quadVBO));
@@ -147,7 +147,6 @@ void GraphicsGL::Start(){
 		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO));
 		SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(quadIndices), quadIndices, GL_STATIC_DRAW));
 		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-		
 	}
 }
 

@@ -50,10 +50,10 @@ void Shader::TransferLightData(const CRArray<Light*>& lights){
 }
 
 void Shader::Compile(){
-	vertex_shader = Compile(GL_VERTEX_SHADER, vertex_file);
+	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = NULL;
-	fragment_shader = Compile(GL_FRAGMENT_SHADER, fragment_file);
+	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
 	fragment_file = NULL;
 	program = glCreateProgram();
@@ -132,7 +132,7 @@ GLuint Shader::GetProgram(){
 	return program;
 }
 
-GLuint Shader::Compile(GLuint type, File* file) {
+GLuint Shader::CompileShader(GLuint type, File* file) {
 	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for null terminated string
 
 	int curPos = 0;

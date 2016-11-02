@@ -44,7 +44,7 @@ void ShowLastError(){
 	MessageBox(NULL, str, "Error", MB_OK);
 }
 
-int OpenGL_GO(){
+int OpenGL_Main(){
 	HWND wnd = WinCreate();
 	MSG msg;
 	try{

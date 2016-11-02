@@ -37,7 +37,9 @@ public:
 	void Sleep(float milis);
 	void ShowMessage(const string& msg);
 	void ResizeWindow(int posX, int posY, int width, int height);
+
 public:
+	void SetWND(HWND wnd);
 	void SetWindowPosition(int x, int y);
 	void SetWindowSize(int width, int heght);
 

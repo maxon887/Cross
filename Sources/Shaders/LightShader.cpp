@@ -39,6 +39,12 @@ bool LightShader::UseLights(){
 }
 
 void LightShader::TransferLightData(const CRArray<Light*>& lights){
+	if(lights.size() > 1){
+		throw CrossException("Scene contains more than 1 light source");
+	}
+	if(lights.size() == 0){
+		throw CrossException("Scene must have one light source");
+	}
 	Light* light = lights[0];
 
 	if(uLightPosition != -1){

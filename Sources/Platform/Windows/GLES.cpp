@@ -26,21 +26,22 @@
 #include "Config.h"
 #include "Audio.h"
 #include "System/Debugger.h"
+#include "CrossEGL.h"
 
 #include <time.h>
 
 using namespace cross;
 
-int GLES_GO(){
+CrossEGL* crossEGL = NULL;
 
-	ESContext esContext;
-	memset(&esContext, 0, sizeof(ESContext));
-	
-	esContext.hWnd = WinCreate();
+int GLES_Main(){
 
 	try{
+		crossEGL = new CrossEGL();
+		crossEGL->BindWindow(WinCreate());
+
 		srand((U32)time(0));
-		LauncherWIN launcherWin(esContext.hWnd);
+		LauncherWIN launcherWin(crossEGL->GetWindow());
 		launcher = &launcherWin;
 		game = CrossMain(launcher);
 		input->KeyReleased += MakeDelegate(&launcherWin, &LauncherWIN::KeyReleasedHandle);
@@ -51,9 +52,9 @@ int GLES_GO(){
 		int winHeight = config->GetInt("WIN_HEIGHT", 500);
 		launcherWin.ResizeWindow(winX, winY, winWidth, winHeight);
 
-		esCreateWindow(&esContext, ES_WINDOW_RGB | ES_WINDOW_DEPTH);
+		crossEGL->CreateContext(true);
 
-		ShowWindow(esContext.hWnd, TRUE);
+		ShowWindow(crossEGL->GetWindow(), TRUE);
 
 		Audio::Init();
 		gfxGL = new GraphicsGL();
@@ -70,7 +71,8 @@ int GLES_GO(){
 				DispatchMessage(&msg);
 			}
 			game->Update();
-			eglSwapBuffers(esContext.eglDisplay, esContext.eglSurface);
+			//eglSwapBuffers(esContext.eglDisplay, esContext.eglSurface);
+			crossEGL->SwapBuffers();
 		}
 
 		game->GetCurrentScreen()->Stop();
@@ -79,6 +81,8 @@ int GLES_GO(){
 		delete gfx3D;
 		delete gfx2D;
 		delete gfxGL;
+		crossEGL->DestroyContext(true);
+		delete crossEGL;
 		Audio::Release();
 		delete game;
 
@@ -97,105 +101,10 @@ int GLES_GO(){
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);
 		OutputDebugString(msg.c_str());
-		MessageBox(esContext.hWnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(crossEGL->GetWindow(), msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
 		return -1;
 	}
 	return 0;
 }
-
-// CreateEGLContext()
-//Creates an EGL rendering context and all associated elements
-EGLBoolean CreateEGLContext(EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
-	EGLContext* eglContext, EGLSurface* eglSurface,
-	EGLint attribList[])
-{
-	EGLint numConfigs;
-	EGLint majorVersion;
-	EGLint minorVersion;
-	EGLDisplay display;
-	EGLContext context;
-	EGLSurface surface;
-	EGLConfig config;
-	EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
-
-	// Get Display
-	display = eglGetDisplay(GetDC(hWnd));
-	if(display == EGL_NO_DISPLAY)	{
-		return EGL_FALSE;
-	}
-
-	// Initialize EGL
-	if(!eglInitialize(display, &majorVersion, &minorVersion))	{
-		return EGL_FALSE;
-	}
-
-	// Choose config
-	if(!eglChooseConfig(display, attribList, &config, 1, &numConfigs))	{
-		return EGL_FALSE;
-	}
-
-	// Create a surface
-	surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)hWnd, NULL);
-	if(surface == EGL_NO_SURFACE)	{
-		return EGL_FALSE;
-	}
-
-	// Create a GL context
-	context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs);
-	if(context == EGL_NO_CONTEXT)	{
-		return EGL_FALSE;
-	}
-
-	// Make the context current
-	if(!eglMakeCurrent(display, surface, surface, context))	{
-		return EGL_FALSE;
-	}
-
-	*eglDisplay = display;
-	*eglSurface = surface;
-	*eglContext = context;
-	return EGL_TRUE;
-}
-
-
-//  esCreateWindow()
-//
-//      flags  - bitwise or of window creation flags 
-//          ES_WINDOW_ALPHA       - specifies that the framebuffer should have alpha
-//          ES_WINDOW_DEPTH       - specifies that a depth buffer should be created
-//          ES_WINDOW_STENCIL     - specifies that a stencil buffer should be created
-//          ES_WINDOW_MULTISAMPLE - specifies that a multi-sample buffer should be created
-GLboolean esCreateWindow(ESContext *esContext, GLuint flags)
-{
-	EGLint attribList[] =
-	{
-		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-		EGL_RED_SIZE, 4,
-		EGL_GREEN_SIZE, 4,
-		EGL_BLUE_SIZE, 4,
-		EGL_DEPTH_SIZE, 4,
-		//EGL_STENCIL_SIZE, (flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
-		//EGL_SAMPLE_BUFFERS, (flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
-		EGL_NONE
-	};
-
-	if(esContext == NULL)
-	{
-		return GL_FALSE;
-	}
-
-	if(!CreateEGLContext(esContext->hWnd,
-		&esContext->eglDisplay,
-		&esContext->eglContext,
-		&esContext->eglSurface,
-		attribList))
-	{
-		return GL_FALSE;
-	}
-
-	return GL_TRUE;
-}
-
 
 #endif

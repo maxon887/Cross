@@ -152,6 +152,10 @@ void LauncherWIN::ResizeWindow(int posX, int posY, int width, int height){
 	}
 }
 
+void LauncherWIN::SetWND(HWND wnd){
+	this->wnd = wnd;
+}
+
 void LauncherWIN::SetWindowPosition(int x, int y){
 	window_pos_x = x;
 	window_pos_y = y;

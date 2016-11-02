@@ -1,7 +1,12 @@
 #include "CrossEGL.h"
-#include "LauncherAndroid.h"
+#include "Cross.h"
+#include "Launcher.h"
 
-#include <string.h>
+#ifdef ANDROID
+#include "LauncherAndroid.h"
+#endif // ANDROID
+
+using namespace cross;
 
 static const EGLint config_attribs[]{
         EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
@@ -27,65 +32,72 @@ CrossEGL::CrossEGL() :
         context(EGL_NO_CONTEXT)
 { }
 
-void CrossEGL::BindWindow(ANativeWindow *wnd) {
+void CrossEGL::BindWindow(NATIVE_WINDOW wnd) {
     native_window = wnd;
+}
+
+NATIVE_WINDOW CrossEGL::GetWindow(){
+	return native_window;
 }
 
 void CrossEGL::UnbindWindow() {
     if(native_window){
+#ifdef ANDROID
         ANativeWindow_release(native_window);
+#endif // ANDROID
         native_window = NULL;
     }else{
-        LOGE("Native window doesn't created");
+        launcher->LogIt("Native window doesn't created");
     }
 }
 
 bool CrossEGL::CreateContext(bool createDisplay) {
-    LOGI("CrossEGL::CreateContext");
+    launcher->LogIt("CrossEGL::CreateContext");
     if(context_created){
-        LOGE("Context already created");
+        launcher->LogIt("Context already created");
         return false;
     }
     if(createDisplay) {
         display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
         if (display == EGL_NO_DISPLAY) {
-            LOGE("NativeSurface::CreateDisplay failed. Reason: eglGetDisplay failed.");
+            launcher->LogIt("NativeSurface::CreateDisplay failed. Reason: eglGetDisplay failed.");
             return false;
         }
         if (!eglInitialize(display, 0, 0)) {
-            LOGE("NativeSurface::CreateDisplay failed. Reason: eglInitialize failed.");
+            launcher->LogIt("NativeSurface::CreateDisplay failed. Reason: eglInitialize failed.");
             return false;
         }
         EGLint mathConfigNum;
         if (!eglChooseConfig(display, config_attribs, &config, 1, &mathConfigNum)) {
-            LOGE("NativeSurface::CreateContext failed. Reason: eglChooseConfig failed.");
+            launcher->LogIt("NativeSurface::CreateContext failed. Reason: eglChooseConfig failed.");
             return false;
         }
-        //new stuff
+#ifdef ANDROID
+		//new stuff
         if (!eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format)) {
-            LOGE("eglGetConfigAttrib() returned error %d", eglGetError());
+            launcher->LogIt("eglGetConfigAttrib() returned error %d", eglGetError());
             return false;
         }
-
-        ANativeWindow_setBuffersGeometry(native_window, 0, 0, format);
+		ANativeWindow_setBuffersGeometry(native_window, 0, 0, format);
+#endif // ANDROID
     }
     //create surface
-    surface = eglCreateWindowSurface(display, config, native_window, NULL);
+    surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), NULL);
     if(surface == EGL_NO_SURFACE){
-        LOGE("eglCreateWindowSurface failed");
+        launcher->LogIt("eglCreateWindowSurface failed");
         return false;
     }
     //create context
     if(createDisplay) {
         context = eglCreateContext(display, config, context, context_attribs);
         if (context == EGL_NO_CONTEXT) {
-            LOGE("eglCreateContext failed");
+            launcher->LogIt("eglCreateContext failed");
             return false;
         }
     }
 
     if(!eglMakeCurrent(display, surface, surface, context)){
-        LOGE("eglMakeCurrent failed.");
+        launcher->LogIt("eglMakeCurrent failed.");
         return false;
     }
     context_created = true;
@@ -93,7 +105,7 @@ bool CrossEGL::CreateContext(bool createDisplay) {
 }
 
 void CrossEGL::DestroyContext(bool destroyDisplay) {
-    LOGI("CrossEGL::DestroyContext");
+    launcher->LogIt("CrossEGL::DestroyContext");
     if(display){
         eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 
@@ -122,6 +134,6 @@ bool CrossEGL::IsContextCreated() {
 
 void CrossEGL::SwapBuffers() {
     if(!eglSwapBuffers(display, surface)){
-        LOGE("eglSwapBuffers failed");
+        launcher->LogIt("eglSwapBuffers failed");
     }
 }

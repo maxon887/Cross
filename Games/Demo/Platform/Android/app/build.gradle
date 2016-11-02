@@ -133,6 +133,8 @@ android {
         main.jni.srcDirs += '../../../../../Sources/Material.cpp'
         main.jni.srcDirs += '../../../../../Sources/UI.h'
         main.jni.srcDirs += '../../../../../Sources/UI.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Platform/CrossEGL.h'
+        main.jni.srcDirs += '../../../../../Sources/Platform/CrossEGL.cpp'
     }
 }
 

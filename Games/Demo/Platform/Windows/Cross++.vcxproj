@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\..\..\Sources\Math\Vector4D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Mesh.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Model.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Platform\CrossEGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\GLES.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\OpenGL.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="..\..\..\..\Sources\Math\Vector4D.h" />
     <ClInclude Include="..\..\..\..\Sources\Mesh.h" />
     <ClInclude Include="..\..\..\..\Sources\Model.h" />
+    <ClInclude Include="..\..\..\..\Sources\Platform\CrossEGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\OpenGL.h" />

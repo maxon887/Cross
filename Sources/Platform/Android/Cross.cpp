@@ -25,7 +25,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Debugger.h"
-#include "CrossEGL.h"
+#include "Platform/CrossEGL.h"
 #include "../../Cross.h"
 
 #include <android/native_window_jni.h>

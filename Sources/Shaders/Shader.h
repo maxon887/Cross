@@ -87,6 +87,7 @@ public:
 protected:
 	GLuint program;
 	CRArray<string>	macrosies;
+
 private:
 	GLuint vertex_shader;
 	GLuint fragment_shader;
@@ -94,7 +95,7 @@ private:
 	File* fragment_file;
 	U32 makro_len;
 
-	GLuint Compile(GLuint type, File* file);
+	GLuint CompileShader(GLuint type, File* file);
 	void CompileProgram();
 };
 
