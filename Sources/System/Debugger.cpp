@@ -24,7 +24,7 @@
 
 using namespace cross;
 
-Debugger* Debugger::instance = nullptr;
+Debugger* Debugger::instance = NULL;
 
 Debugger* Debugger::Instance(){
 	if(!instance){
@@ -35,7 +35,7 @@ Debugger* Debugger::Instance(){
 
 void Debugger::Release(){
 	delete instance;
-	instance = nullptr;
+	instance = NULL;
 }
 
 Debugger::Debugger() :
@@ -47,13 +47,44 @@ Debugger::Debugger() :
 	update_counter(0),
 	touches(false),
 	touch_down(false),
-	debugger_font(nullptr)
-{ 
-	memset(params, 0, sizeof(params));
+	debugger_font(NULL)
+{
+	params[FPS]			= true;
+	params[UPDATE_TIME]	= true;
+	params[CPU_TIME]	= true;
+	params[RUN_TIME]	= true;
+	params[INPUT]		= true;
+
+	for(int i = 0; i < Parameter::NONE; i++){
+		//if any of debug parameters enabled create debug font
+		if(params[i]){
+			debugger_font = gfx2D->GetDefaultFont()->Clone();
+			if(launcher->GetTargetWidth() < 700){
+				debugger_font->SetSize(37.f);
+			}else{
+				debugger_font->SetSize(25.f);
+			}
+			break;
+		}
+	}
+
+	if(params[Parameter::INPUT]){
+		action_down_delegate = MakeDelegate(this, &Debugger::OnActionDown);
+		action_move_delegate = MakeDelegate(this, &Debugger::OnActionMove);
+		action_up_delegate = MakeDelegate(this, &Debugger::OnActionUp);
+		input->ActionDown += action_down_delegate;
+		input->ActionMove += action_move_delegate;
+		input->ActionUp += action_up_delegate;
+	}
 }
 
 Debugger::~Debugger(){
 	delete debugger_font;
+	if(params[Parameter::INPUT]){
+		input->ActionDown -= action_down_delegate;
+		input->ActionMove -= action_move_delegate;
+		input->ActionUp -= action_up_delegate;
+	}
 }
 
 void Debugger::SetTimeCheck() {
@@ -97,7 +128,7 @@ void Debugger::Update(float micro){
 	}
 	if(params[Parameter::CPU_TIME] == true){
 		if(cpu_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "Update Time: -", debugger_font);
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "CPU Time: -", debugger_font);
 		}else{
 			sprintf(outputString, "CPU Time: %0.1fms", cpu_time);
 			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
@@ -127,35 +158,6 @@ void Debugger::SetCPUTime(float micro) {
 	}else{
 		cpu_sum += micro;
 		cpu_counter++;
-	}
-}
-
-void Debugger::EnableDebug(Parameter param){
-	params[param] = true;
-	if(!debugger_font){
-		debugger_font = gfx2D->GetDefaultFont()->Clone();
-		if(launcher->GetTargetWidth() < 700){
-			debugger_font->SetSize(37.f);
-		}else{
-			debugger_font->SetSize(25.f);
-		}
-	}
-	if(param == Parameter::INPUT){
-		action_down_delegate = MakeDelegate(this, &Debugger::OnActionDown);
-		action_move_delegate = MakeDelegate(this, &Debugger::OnActionMove);
-		action_up_delegate = MakeDelegate(this, &Debugger::OnActionUp);
-		input->ActionDown += action_down_delegate;
-		input->ActionMove += action_move_delegate;
-		input->ActionUp += action_up_delegate;
-	}
-}
-
-void Debugger::DisableDebug(Parameter param){
-	params[param] = false;
-	if(param == Parameter::INPUT){
-		input->ActionDown -= action_down_delegate;
-		input->ActionMove -= action_move_delegate;
-		input->ActionUp -= action_up_delegate;
 	}
 }
 

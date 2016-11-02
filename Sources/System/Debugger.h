@@ -23,9 +23,9 @@ namespace cross{
 class Debugger{
 public:
 	enum Parameter{
+		FPS,
 		UPDATE_TIME,
 		CPU_TIME,
-		FPS,
 		RUN_TIME,
 		INPUT,
 		NONE
@@ -34,14 +34,11 @@ public:
 	static Debugger* Instance();
 	static void Release();
 
-	void SetTimeCheck();
-	float GetTimeCheck();
-
 	void Update(float micro);
 
+	void SetTimeCheck();
+	float GetTimeCheck();
 	void SetCPUTime(float sec);
-	void EnableDebug(Parameter param);
-	void DisableDebug(Parameter param);
 	float GetFPS();
 
 private:
