@@ -4,7 +4,6 @@
 #ifdef WIN
 #define NATIVE_WINDOW HWND
 #elif ANDROID
-#include <GLES/gl.h>
 #include <android/native_window.h>
 #define NATIVE_WINDOW ANativeWindow*
 #endif
@@ -30,5 +29,4 @@ private:
     EGLDisplay  display;
     EGLSurface  surface;
     EGLContext  context;
-    EGLint      format;
 };

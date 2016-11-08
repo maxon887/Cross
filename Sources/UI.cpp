@@ -19,13 +19,5 @@
 using namespace cross;
 
 bool UI::OnLocation(Vector2D p) const {
-	return OnLocation(p.x, p.y);
-}
-
-bool UI::OnLocation(float x, float y) const {
-	Rect area = GetRect();
-	return	x > area.x &&
-		x < (area.x + area.width) &&
-		y > area.y &&
-		y < (area.y + area.height);
+	return PointInRect(p, GetRect());
 }

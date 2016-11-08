@@ -21,7 +21,6 @@ namespace cross{
 
 class UI{
 public:
-
 	virtual Rect GetRect() const = 0;
 
 	virtual ~UI() { };
@@ -29,9 +28,6 @@ public:
 	virtual void Update(float sec) { };
 
 	bool OnLocation(Vector2D p) const;
-
-private:
-	bool OnLocation(float x, float y) const;
 };
 
 }

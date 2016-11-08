@@ -40,14 +40,14 @@ float cross::Random(float min, float max){
 	return (min)+rand() / (RAND_MAX / (max - min));
 }
 
-bool cross::PointInRect(Vector2D p, Rect rect){
+bool cross::PointInRect(const Vector2D& p, const  Rect& rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&
 			p.y > rect.y &&
 			p.y < rect.y + rect.height;
 }
 
-bool cross::PointInTriangle(Vector2D pt, Vector2D v1, Vector2D v2, Vector2D v3){
+bool cross::PointInTriangle(const Vector2D& pt, const  Vector2D& v1, const  Vector2D& v2, const  Vector2D& v3){
 	bool b1, b2, b3;
     b1 = sign(pt, v1, v2) < 0.0f;
     b2 = sign(pt, v2, v3) < 0.0f;
@@ -55,14 +55,14 @@ bool cross::PointInTriangle(Vector2D pt, Vector2D v1, Vector2D v2, Vector2D v3){
     return ((b1 == b2) && (b2 == b3));
 }
 
-bool cross::PointInCircle(Vector2D p, Vector2D center, float radius){
+bool cross::PointInCircle(const Vector2D& p, const  Vector2D& center, float radius){
 	float distance = Distance(p, center);
 	if(distance < radius)
 		return true;
 	else return false;
 }
 
-bool cross::CircleOnCollision(Vector2D p1, float r1, Vector2D p2, float r2) {
+bool cross::CircleOnCollision(const Vector2D& p1, float r1, const Vector2D& p2, float r2) {
 	float distance = Distance(p1, p2);
 	if(distance < (r1 + r2))
 		return true;

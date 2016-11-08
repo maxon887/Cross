@@ -2,10 +2,6 @@
 #include "Cross.h"
 #include "Launcher.h"
 
-#ifdef ANDROID
-#include "LauncherAndroid.h"
-#endif // ANDROID
-
 using namespace cross;
 
 static const EGLint config_attribs[]{
@@ -74,6 +70,7 @@ bool CrossEGL::CreateContext(bool createDisplay) {
         }
 #ifdef ANDROID
 		//new stuff
+		EGLint format;
         if (!eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format)) {
             launcher->LogIt("eglGetConfigAttrib() returned error %d", eglGetError());
             return false;

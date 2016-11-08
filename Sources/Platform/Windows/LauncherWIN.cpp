@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "LauncherWIN.h"
 #include "File.h"
-#include "Native.h"
 
 #include <fstream>
 
