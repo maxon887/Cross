@@ -21,25 +21,13 @@ namespace cross{
 
 class MultiLightShader : public Shader{
 public:
-
-	struct SLight{
-		GLint position;
-		GLuint direction;
-		GLint color;
-
-		GLint intensity;
-	
-		GLuint cut_off;
-		GLuint outer_cut_off;
-	};
-
 	static const U32 MaxPointLights = 16;
 	static const U32 MaxDirectionalLights = 4;
 	static const U32 MaxSpotLights = 8;
 
-	SLight uPointLights[MaxPointLights];
-	SLight uDirectionalLights[MaxDirectionalLights];
-	SLight uSpotLights[MaxSpotLights];
+	LightUniforms uPointLights[MaxPointLights];
+	LightUniforms uDirectionalLights[MaxDirectionalLights];
+	LightUniforms uSpotLights[MaxSpotLights];
 
 	MultiLightShader();
 	MultiLightShader(const string& vert, const string& frag);

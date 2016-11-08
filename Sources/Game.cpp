@@ -35,8 +35,6 @@ Config*		cross::config	= NULL;
 Game::Game() :
 	current_screen(NULL),
 	next_screen(NULL),
-	on_scene(false),
-	next_is_scene(false),
 	run_time(0),
 	timestamp(0)
 {
@@ -60,24 +58,23 @@ void Game::Start(){
 	gfxGL->Start();
 }
 
-void Game::SetScreen(Screen* screen, bool scene){
-	next_is_scene = scene;
+void Game::SetScreen(Screen* screen){
 	next_screen = screen;
 	if(!current_screen){
 		LoadNextScreen();
 	}
 }
-
+/*
 void Game::SetScene(Scene* scene){
 	SetScreen(scene, true);
-}
+}*/
 
 Screen* Game::GetCurrentScreen(){
 	return current_screen;
 }
 
 Scene* Game::GetCurrentScene(){
-	if(on_scene){
+	if(current_screen->IsScene()){
 		return (Scene*)current_screen;
 	}else{
 		throw CrossException("Current game state does not have 3D scene");
@@ -107,14 +104,14 @@ void Game::Update(){
 	timestamp = now;
 	run_time += updateTime;
 
+	if(next_screen){
+		LoadNextScreen();
+	}
+
 	gfxGL->PreProcessFrame();
 	gfx2D->Update((float)(updateTime / 1000000.));
 	GetCurrentScreen()->Update((float)(updateTime / 1000000.));
 	gfxGL->PostProcessFrame();
-
-	if(next_screen){
-		LoadNextScreen();
-	}
 
 	Debugger::Instance()->Update((float)updateTime);
 	U64 cpuTime = launcher->GetTime() - timestamp;
@@ -142,7 +139,6 @@ void Game::LoadNextScreen(){
 	}
 	current_screen = next_screen;
 	next_screen = NULL;
-	on_scene = next_is_scene;
 	current_screen->Start();
 	timestamp = launcher->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();

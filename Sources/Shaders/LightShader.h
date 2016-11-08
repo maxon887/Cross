@@ -17,17 +17,11 @@
 #pragma once
 #include "Shaders/Shader.h"
 
-using namespace cross;
+namespace cross{
 
 class LightShader : public Shader{
 public:
-	GLint uLightPosition;
-	GLint uLightDirection;
-	GLint uLightColor;
-	GLint uLightLinear;
-	GLint uLightQuadratic;
-	GLint uLightCutOff;
-	GLint uLightOuterCutOff;
+	LightUniforms light_attribs;
 
 	LightShader(const string& vertex, const string& fragment);
 
@@ -36,3 +30,5 @@ public:
 	virtual bool UseLights();
 	virtual void TransferLightData(const CRArray<Light*>& lights);
 };
+
+}

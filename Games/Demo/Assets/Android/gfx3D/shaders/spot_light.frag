@@ -5,8 +5,7 @@ struct Light{
 	vec3 position;
 	vec3 color;
 	
-	float linear;
-	float quadratic;
+	float intensity;
 	
 	float cut_off;
 	float outer_cut_off;
@@ -32,7 +31,7 @@ void main() {
 	float intensity = clamp((theta - uLight.outer_cut_off) / epsilon, 0.0, 1.0);
 
 	float dist = length(uLight.position - vFragPosition);
-	float attenaution = 1.0 / (1.0 + uLight.linear * dist + uLight.quadratic * dist * dist);
+	float attenaution = 1.0 / (1.0 + uLight.intensity * dist + uLight.intensity * dist * dist);
 	
 	vec3 texel = vec3(texture2D(uDiffuseTexture, vTexCoords));
 	//ambient

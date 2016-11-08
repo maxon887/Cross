@@ -21,6 +21,8 @@
 #include "Model.h"
 #include "Light.h"
 
+using namespace cross;
+
 DebugScene::DebugScene() :
 	point_light(NULL),
 	spot_light(NULL),

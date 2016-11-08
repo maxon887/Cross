@@ -42,7 +42,6 @@ void MainScreen::Start(){
 	ScrollScreen::Start();
 	SetBackground(Color::Black);
 	next_screen = nullptr;
-	next_scene = nullptr;
 	button_sprite = demo->GetCommonSprite("DefaultButton.png");
 	button_sprite->SetScale(1.35f);
 	//main menu
@@ -187,11 +186,11 @@ void MainScreen::Update(float sec){
 		game->SetScreen(next_screen);
 		return;
 	}
-	
-	if(next_scene){
-		game->SetScene(next_scene);
+	/*
+	if(next_screen){
+		game->SetScreen(next_screen);
 		return;
-	}
+	}*/
 }
 
 void MainScreen::AdjustScreenHeight(Menu* menu){
@@ -271,19 +270,19 @@ void MainScreen::OnTextClick(){
 }
 
 void MainScreen::OnTriangleClick(){
-	next_scene = new TriangleScene();
+	next_screen = new TriangleScene();
 }
 
 void MainScreen::OnSolidModelClick(){
-	next_scene = new SolidModelScene();
+	next_screen = new SolidModelScene();
 }
 
 void MainScreen::OnTexturedModelClick(){
-	next_scene = new TexturedModelScene();
+	next_screen = new TexturedModelScene();
 }
 
 void MainScreen::OnComplexModelClick(){
-	next_scene = new ComplexModelScene();
+	next_screen = new ComplexModelScene();
 }
 
 void MainScreen::OnAudioClick() {
@@ -291,35 +290,35 @@ void MainScreen::OnAudioClick() {
 }
 
 void MainScreen::OnMaterialClick(){
-	next_scene = new SpecularScene();
+	next_screen = new SpecularScene();
 }
 
 void MainScreen::OnDiffuseMapClick(){
-	next_scene = new SpecularDiffuseScene();
+	next_screen = new SpecularDiffuseScene();
 }
 
 void MainScreen::OnDiffuseSpecularMapClick(){
-	next_scene = new SpecularMapScene();
+	next_screen = new SpecularMapScene();
 }
 
 void MainScreen::OnDirectionalLight(){
-	next_scene = new DirectionalLightScene();
+	next_screen = new DirectionalLightScene();
 }
 
 void MainScreen::OnPointLightClick(){
-	next_scene = new PointLightScene();
+	next_screen = new PointLightScene();
 }
 
 void MainScreen::OnSpotLightClick(){
-	next_scene = new SpotLightScene();
+	next_screen = new SpotLightScene();
 }
 
 void MainScreen::OnMultiLightClick(){
-	next_scene = new MultiLightScene();
+	next_screen = new MultiLightScene();
 }
 
 void MainScreen::OnCamaroClick(){
-	next_scene = new CamaroScene();
+	next_screen = new CamaroScene();
 }
 
 void MainScreen::OnDepthTestClick(){

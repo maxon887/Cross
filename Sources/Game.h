@@ -45,9 +45,7 @@ public:
 	/* Returns time since game start */
 	float GetRunTime();
 	/* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
-	void SetScreen(Screen* screen, bool scene = false);
-	/* New Scene will be updated and deleted due to game live cycle. Previous screen data will be deleted */
-	void SetScene(Scene* scene);
+	void SetScreen(Screen* screen);
 	/* Returns active game Screen */
 	Screen* GetCurrentScreen();
 	/* Returns active game Scene*/
@@ -58,8 +56,6 @@ public:
 protected:
 	Screen* current_screen;
 	Screen* next_screen;
-	bool on_scene;
-	bool next_is_scene;
 	U64 timestamp;
 	U64 run_time;
 

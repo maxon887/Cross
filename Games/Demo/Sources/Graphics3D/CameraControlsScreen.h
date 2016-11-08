@@ -18,6 +18,8 @@
 #include "Utils/DebugScene.h"
 #include "Utils/ToggleButton.h"
 
+using namespace cross;
+
 class CameraControlsScreen : public DebugScene{
 public:
 	virtual void Start();

@@ -21,7 +21,7 @@
 #include "Model.h"
 
 void SolidModelScene::Start(){
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	shader->Compile();
 	material = new Material(shader);
@@ -34,10 +34,10 @@ void SolidModelScene::Stop(){
 	delete cube;
 	delete material;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void SolidModelScene::Update(float sec){
 	cube->Draw();
-	FreeCameraScene::Update(sec);
+	CameraControlsScreen::Update(sec);
 }

@@ -25,6 +25,8 @@
 
 #include <math.h>
 
+using namespace cross;
+
 FreeCameraScene::FreeCameraScene() :
 	liner_speed(50.f),
 	angular_speed(45.f),

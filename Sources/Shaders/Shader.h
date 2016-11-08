@@ -50,6 +50,18 @@ public:
 		void* value;
 	};
 
+	class LightUniforms{
+	public:
+		GLint position;
+		GLuint direction;
+		GLint color;
+
+		GLint intensity;
+	
+		GLuint cut_off;
+		GLuint outer_cut_off;
+	};
+
 	bool compiled;
 	//general attributes
 	GLint aPosition;
@@ -63,7 +75,7 @@ public:
 	GLint uCameraPosition;
 	GLint uAmbientLight;
 	GLint uColor;
-	//custom properties
+	//custom uniforms
 	CRDictionary<string, Property*> properties;
 
 	Shader(const string& vertexFile, const string& fragmentFile);

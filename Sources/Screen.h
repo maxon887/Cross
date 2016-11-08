@@ -47,13 +47,15 @@ public:
 	virtual void ActionMove(Input::Action action) { };
 	virtual void ActionUp(Input::Action action) { };
 
+	bool IsScene();
 	/* Reflect ratio between screen and target device width */
 	float GetScaleFactor();
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
 	/* New UI element will auto update and covers area from touches */
 	void AddUI(UI* element);
-
+protected:
+	bool is_scene;
 private:
 	bool actionIDs[MAX_ACTIONS];
 	CRArray<UI*> guis;

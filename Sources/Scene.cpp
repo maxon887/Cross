@@ -30,6 +30,7 @@ Scene::Scene() :
 
 void Scene::Start(){
 	Screen::Start();
+	is_scene = true;
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
 

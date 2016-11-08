@@ -23,6 +23,7 @@
 using namespace cross;
 
 void Screen::Start(){
+	is_scene = false;
 	action_down_delegate = MakeDelegate(this, &Screen::ActionDownHandle);
 	action_move_delegate = MakeDelegate(this, &Screen::ActionMoveHandle);
 	action_up_delegate = MakeDelegate(this, &Screen::ActionUpHandle);
@@ -56,6 +57,10 @@ float Screen::GetWidth(){
 
 float Screen::GetHeight(){
 	return gfx2D->GetCamera()->GetViewHeight();
+}
+
+bool Screen::IsScene(){
+	return is_scene;
 }
 
 float Screen::GetScaleFactor(){

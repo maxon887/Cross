@@ -107,15 +107,15 @@ void Shader::AddMakro(const string& makro, int value){
 }
 
 void Shader::AddProperty(Shader::Property* prop){
-	if(!compiled){
-		auto it = properties.find(prop->name);
-		if(it == properties.end()){
-			properties[prop->name] = prop;
-		}else{
-			throw CrossException("Duplicated property");
-		}
-	}else{
+	if(compiled){
 		throw CrossException("Shader already compiled");
+	}
+
+	auto it = properties.find(prop->name);
+	if(it == properties.end()){
+		properties[prop->name] = prop;
+	}else{
+		throw CrossException("Duplicated property");
 	}
 }
 

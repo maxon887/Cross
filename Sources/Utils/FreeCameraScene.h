@@ -19,7 +19,7 @@
 #include "Scene.h"
 #include "Input.h"
 
-using namespace cross;
+namespace cross{
 
 class FreeCameraScene : public Scene{
 public:
@@ -65,3 +65,5 @@ private:
 	void MouseWheelUp();
 	void MouseWheelDown();
 };
+
+}

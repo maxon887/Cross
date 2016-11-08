@@ -4,8 +4,7 @@ struct PointLight{
 	vec3 position;
 	vec3 color;
 	
-	float linear;
-	float quadratic;
+	float intensity;
 };
 
 uniform sampler2D uDiffuseTexture;
@@ -25,7 +24,7 @@ void main() {
 	vec3 texel = vec3(texture2D(uDiffuseTexture, vTexCoords));
 	//attenaution
 	float dist = length(uLight.position - vFragPosition);
-	float attenaution = 1.0 / (1.0 + uLight.linear * dist + uLight.quadratic * dist * dist);
+	float attenaution = 1.0 / (1.0 + uLight.intensity * dist + uLight.intensity * dist * dist);
 	//ambient
 	vec3 ambient = uAmbientLight * texel;
 	ambient *= attenaution;
