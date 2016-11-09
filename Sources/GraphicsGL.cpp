@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
+#include "Graphics2D.h"
 #include "VertexBuffer.h"
 #include "Launcher.h"
 #include "Game.h"
@@ -113,16 +114,19 @@ void GraphicsGL::Start(){
 		SAFE(glGenFramebuffers(1, &framebuffer));
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 		//generate color buffer
+		bufferWidth = launcher->GetTargetWidth() / 2;
+		bufferHeight = launcher->GetTargetHeight() / 2;
+
 		SAFE(glGenTextures(1, &colorbuffer));
 		SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
-		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL));
+		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bufferWidth, bufferHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
 		SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
 		SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
 		SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0));
 		//generate depth buffer
 		SAFE(glGenRenderbuffers(1, &depthbuffer));
 		SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
-		SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
+		SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth, bufferHeight));
 		SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
 
 		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
@@ -225,6 +229,18 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		throw CrossException("Unknown shader type");
 	}
 	return shader;
+}
+
+Texture* GraphicsGL::GetColorBuffer(){
+	if(config->IsOffscreenRender()){
+		//Texture* colorBuf = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
+		//return new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
+		//Texture* colorBuf = gfx2D->CreateTexture(4, bufferWidth, bufferHeight, Texture::Filter::NEAREST);
+		//glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_UNSIGNED_BYTE, 0, 0, bufferWidth, bufferHeight, 0);
+		throw CrossException("Do not work yet");
+	}else{
+		throw CrossException("You can obtain colorbuffer only if postprocess using");
+	}
 }
 
 void GraphicsGL::UseShader(Shader* shader){

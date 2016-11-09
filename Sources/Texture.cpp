@@ -20,13 +20,14 @@
 using namespace cross;
 
 Texture::Texture(GLuint id, U32 width, U32 height) : 
-	Texture(id, width, height, Filter::LINEAR)
+	Texture(id, width, height, 4, Filter::LINEAR)
 { }
 
-Texture::Texture(GLuint id, U32 width, U32 height, Filter filter) :
+Texture::Texture(GLuint id, U32 width, U32 height, U32 channels, Filter filter) :
 	id(id),
 	width(width),
-	height(height)
+	height(height),
+	channels(channels)
 {
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
 	ApplyFilter(filter);
@@ -47,6 +48,10 @@ U32 Texture::GetWidth() const{
 
 U32 Texture::GetHeight() const{
 	return height;
+}
+
+U32 Texture::GetChannels() const{
+	return channels;
 }
 
 void Texture::SetName(const string& name){

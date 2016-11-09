@@ -76,6 +76,8 @@ public:
 	void UseShader(Shader* shaders);
 	Shader* GetShader(DefaultShader type);
 
+	Texture* GetColorBuffer();
+
 private:
 	//off screen rendering components
 	GLuint framebuffer;
@@ -83,6 +85,8 @@ private:
 	GLuint depthbuffer;
 	GLuint quadVBO;
 	GLuint quadEBO;
+	int bufferWidth;
+	int bufferHeight;
 
 	Shader* offscreen_shader;
 

@@ -21,6 +21,17 @@
 
 using namespace cross;
 
+void Launcher::SaveFile(File* file){
+	string filePath = DataPath() + file->name;
+	ofstream fileStream(filePath, istream::binary);
+	if(fileStream.is_open()){
+		fileStream.write((char*)file->data, file->size);
+		fileStream.close();
+	}else{
+		throw CrossException("Can't open file stream: %s", filePath.c_str());
+	}
+}
+
 float Launcher::GetAspectRatio(){
 	return GetTargetWidth() / (float)GetTargetHeight();
 }

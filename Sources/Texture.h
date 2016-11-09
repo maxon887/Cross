@@ -39,12 +39,13 @@ public:
 	};
 
 	Texture(GLuint id, U32 width, U32 height);
-	Texture(GLuint id, U32 width, U32 height, Filter filter);
+	Texture(GLuint id, U32 width, U32 height, U32 channels, Filter filter);
 	~Texture();
 
 	GLuint GetID() const;
 	U32 GetWidth() const;
 	U32 GetHeight() const;
+	U32 GetChannels() const;
 	Texture* Clone() const;
 	void SetName(const string& name);
 	string GetName();
@@ -56,6 +57,7 @@ private:
 	GLuint id;
 	U32 width;
 	U32 height;
+	U32 channels;
 
 	void ApplyFilter(Filter filter);
 };

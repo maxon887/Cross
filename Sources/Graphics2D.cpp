@@ -312,6 +312,21 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 	}
 }
 
+void Graphics2D::SaveTexture(Texture* texture, const string& filename){
+#ifdef OPENGL
+	File file;
+	file.name = filename;
+	file.size = texture->GetWidth() * texture->GetHeight() * texture->GetChannels();
+	file.data = new Byte[file.size * texture->GetChannels()];
+	SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
+	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
+	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
+	launcher->SaveFile(&file);
+#else
+	throw CrossException("SaveTexture does not support by current graphics API");
+#endif
+}
+
 void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 	auto it = loaded_textures.begin();
 	for( ; it != loaded_textures.end(); it++){
@@ -448,7 +463,7 @@ Texture* Graphics2D::CreateTexture(U32 channels, U32 width, U32 height, Texture:
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	Texture* texture = new Texture(id, width, height, filter);
+	Texture* texture = new Texture(id, width, height, channels, filter);
 	return texture;
 }
 
@@ -480,8 +495,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 			throw CrossException("Wrong texture channel count");
 		}
 	}else{
-		switch(compression)
-		{
+		switch(compression) {
 		case cross::Texture::Compression::ETC1:
 #ifdef ANDROID
 		{
@@ -496,8 +510,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 		}
 	}
 
-	switch(tilingMode)
-	{
+	switch(tilingMode) {
 	case cross::Texture::TilingMode::CLAMP_TO_EDGE:
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
@@ -510,12 +523,12 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 		break;
 	}
 
-	if(generateMipmaps){
+	if(generateMipmaps) {
 		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
 	}
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	Texture* texture = new Texture(id, width, height, filter);
+	Texture* texture = new Texture(id, width, height, channels, filter);
 	return texture;
 }
 

@@ -92,6 +92,7 @@ File* LauncherWIN::LoadFile(const string& filename){
 		file->data = new Byte[file->size];
 		ZeroMemory(file->data, file->size);
 		fileStream.read((char*)file->data, file->size);
+		fileStream.close();
 		return file;
 	} else {
 		throw CrossException("Cannot open file %s", file->name.c_str());

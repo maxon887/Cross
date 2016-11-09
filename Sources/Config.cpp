@@ -188,7 +188,18 @@ void Config::SaveUserConfig(){
 		property->SetAttribute("name", pair.first.c_str());
 		property->SetAttribute("value", pair.second.c_str());
 	}
-
+	
+	TiXmlPrinter printer;
+	printer.SetIndent("\t");
+	
+	doc.Accept(&printer);
+	File userConfig;
+	userConfig.name = "UserConfig.xml";
+	userConfig.size = printer.Size();
+	userConfig.data = (Byte*)printer.CStr();
+	launcher->SaveFile(&userConfig);
+	userConfig.data = NULL;
+	/*
 	FILE* userConfigFile = fopen(user_config_path.c_str(), "w");
-	doc.SaveFile(userConfigFile);
+	doc.SaveFile(userConfigFile);*/
 }

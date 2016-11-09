@@ -64,10 +64,6 @@ void Game::SetScreen(Screen* screen){
 		LoadNextScreen();
 	}
 }
-/*
-void Game::SetScene(Scene* scene){
-	SetScreen(scene, true);
-}*/
 
 Screen* Game::GetCurrentScreen(){
 	return current_screen;

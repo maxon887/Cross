@@ -22,6 +22,7 @@ namespace cross{
 class File{
 public:
 	~File();
+
 	string name;
 	Byte* data;
 	U32 size;

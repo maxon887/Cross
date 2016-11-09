@@ -28,7 +28,7 @@ public:
 	virtual U32 GetTargetWidth() = 0;
 	/* Returns physical screen height in pixels */
 	virtual U32 GetTargetHeight() = 0;
-	/* Cross platform way to log out message */
+	// TODO remove virtualization
 	virtual void LogIt(const string& msg) = 0;
 	/* Cross platform way to log out message */
 	virtual void LogIt(const char* formatStr, ...) = 0;
@@ -46,6 +46,8 @@ public:
 	virtual void PromtToExit() { };
 	/* Returns platform specific Commercial class object */
 	virtual Commercial* GetCommercial() { return NULL; };
+	/* Safe file to Data folder */
+	void SaveFile(File* file);
 	/* Returns physical screen aspec ration */
 	float GetAspectRatio();
 	/* Returns directory from full filename */

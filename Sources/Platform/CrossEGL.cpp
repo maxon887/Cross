@@ -1,3 +1,4 @@
+#if !(defined OPENGL)
 #include "CrossEGL.h"
 #include "Cross.h"
 #include "Launcher.h"
@@ -134,3 +135,5 @@ void CrossEGL::SwapBuffers() {
         launcher->LogIt("eglSwapBuffers failed");
     }
 }
+
+#endif

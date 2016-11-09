@@ -179,18 +179,18 @@ void MainScreen::Stop(){
 }
 
 void MainScreen::Update(float sec){
+	glClearColor(1.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT);
 	current_menu->Update(sec);
 
 	if(next_screen){
+		//Texture* printTexture = gfxGL->GetColorBuffer();
+		//gfx2D->SaveTexture(printTexture, "Test.data");
+		//delete printTexture;
 		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 		game->SetScreen(next_screen);
 		return;
 	}
-	/*
-	if(next_screen){
-		game->SetScreen(next_screen);
-		return;
-	}*/
 }
 
 void MainScreen::AdjustScreenHeight(Menu* menu){

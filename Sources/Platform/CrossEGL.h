@@ -1,4 +1,5 @@
 #pragma once
+#if !(defined OPENGL)
 #include <EGL/egl.h>
 
 #ifdef WIN
@@ -30,3 +31,5 @@ private:
     EGLSurface  surface;
     EGLContext  context;
 };
+
+#endif

@@ -26,6 +26,7 @@ class LauncherWIN : public Launcher{
 public:
 	LauncherWIN(HWND wnd = 0);
 	~LauncherWIN();
+
 	U32 GetTargetWidth();
 	U32 GetTargetHeight();
 	string AssetsPath();

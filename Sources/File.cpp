@@ -19,5 +19,7 @@
 using namespace cross;
 
 File::~File(){
-	delete[] data;
+	if(data){
+		delete[] data;
+	}
 }
