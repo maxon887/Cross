@@ -24,6 +24,11 @@ namespace cross{
 	will be placed in device screen metrics. */
 class Graphics2D{
 public:
+	Graphics2D();
+	~Graphics2D();
+
+	void Update(float sec);
+
 	void SetCamera(Camera2D* camera);
 	Camera2D* GetCamera();
 	Camera2D* GetDefaultCamera();
@@ -58,11 +63,7 @@ public:
 							bool generateMipmaps);
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();
-//Internal data. You don't need call any of this methods or modify variables
-public:
-	Graphics2D();
-	~Graphics2D();
-	void Update(float sec);
+
 private:
 	Shader* texture_shader;
 	Shader* font_shader;

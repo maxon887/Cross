@@ -69,6 +69,7 @@ public:
 	~GraphicsGL();
 
 	void Start();
+	void Stop();
 
 	void PreProcessFrame();
 	void PostProcessFrame();
@@ -87,8 +88,8 @@ private:
 	GLuint quadEBO;
 	int bufferWidth;
 	int bufferHeight;
-
 	Shader* offscreen_shader;
+	Texture* colorbuffer_texture;
 
 	void WindowResizeHandle(S32 width, S32 height);
 };

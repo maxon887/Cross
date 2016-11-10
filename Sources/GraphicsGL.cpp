@@ -58,7 +58,15 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 }
 
 GraphicsGL::GraphicsGL():
-	offscreen_shader(NULL)
+	framebuffer(0),
+	colorbuffer(0),
+	depthbuffer(0),
+	quadVBO(0),
+	quadEBO(0),
+	bufferWidth(0),
+	bufferHeight(0),
+	offscreen_shader(NULL),
+	colorbuffer_texture(NULL)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 
@@ -154,6 +162,12 @@ void GraphicsGL::Start(){
 	}
 }
 
+void GraphicsGL::Stop(){
+	if(colorbuffer_texture){
+		delete colorbuffer_texture;
+	}
+}
+
 void GraphicsGL::PreProcessFrame(){
 	if(config->IsOffscreenRender()){
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
@@ -233,11 +247,10 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 
 Texture* GraphicsGL::GetColorBuffer(){
 	if(config->IsOffscreenRender()){
-		//Texture* colorBuf = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
-		//return new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
-		//Texture* colorBuf = gfx2D->CreateTexture(4, bufferWidth, bufferHeight, Texture::Filter::NEAREST);
-		//glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_UNSIGNED_BYTE, 0, 0, bufferWidth, bufferHeight, 0);
-		throw CrossException("Do not work yet");
+		if(!colorbuffer_texture){
+			colorbuffer_texture = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
+		}
+		return colorbuffer_texture;
 	}else{
 		throw CrossException("You can obtain colorbuffer only if postprocess using");
 	}

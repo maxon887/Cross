@@ -163,7 +163,6 @@ void MainScreen::Start(){
 	game->WindowResized += window_resized_delegate;
 
 	delete button_sprite;
-	//expirimental
 }
 
 void MainScreen::Stop(){
@@ -179,14 +178,11 @@ void MainScreen::Stop(){
 }
 
 void MainScreen::Update(float sec){
-	glClearColor(1.f, 0.f, 0.f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT);
 	current_menu->Update(sec);
 
 	if(next_screen){
-		//Texture* printTexture = gfxGL->GetColorBuffer();
-		//gfx2D->SaveTexture(printTexture, "Test.data");
-		//delete printTexture;
+		Texture* printTexture = gfxGL->GetColorBuffer();
+		gfx2D->SaveTexture(printTexture, "Test.data");
 		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 		game->SetScreen(next_screen);
 		return;
@@ -323,4 +319,5 @@ void MainScreen::OnCamaroClick(){
 
 void MainScreen::OnDepthTestClick(){
 	//next_screen = new DepthTestScreen();
+	throw CrossException("Screen not implemented yet");
 }
