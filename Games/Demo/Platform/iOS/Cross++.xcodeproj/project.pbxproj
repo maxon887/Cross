@@ -7,21 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D4317A7F1B37F46F00CBB5E0 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A7B1B37F46F00CBB5E0 /* Point.cpp */; };
-		D4317A801B37F46F00CBB5E0 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A7D1B37F46F00CBB5E0 /* Rect.cpp */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
-		D46A23D81AF9F4B800B77AC8 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23721AF9F4B800B77AC8 /* Game.cpp */; };
-		D46A23D91AF9F4B800B77AC8 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23741AF9F4B800B77AC8 /* Graphics.cpp */; };
-		D46A23DA1AF9F4B800B77AC8 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23761AF9F4B800B77AC8 /* Image.cpp */; };
-		D46A23DB1AF9F4B800B77AC8 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23781AF9F4B800B77AC8 /* Input.cpp */; };
 		D46A23E21AF9F4B800B77AC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A23931AF9F4B800B77AC8 /* AppDelegate.m */; };
 		D46A23E61AF9F4B800B77AC8 /* CrossView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D46A23A51AF9F4B800B77AC8 /* CrossView.mm */; };
 		D46A23E71AF9F4B800B77AC8 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D46A23A71AF9F4B800B77AC8 /* LauncherOS.mm */; };
 		D46A23E81AF9F4B800B77AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46A23A81AF9F4B800B77AC8 /* Main.storyboard */; };
-		D46A23EE1AF9F4B800B77AC8 /* Saver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23BD1AF9F4B800B77AC8 /* Saver.cpp */; };
-		D46A23EF1AF9F4B800B77AC8 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A23BF1AF9F4B800B77AC8 /* Screen.cpp */; };
 		D46A23F01AF9F4B800B77AC8 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = D46A23C21AF9F4B800B77AC8 /* image_helper.c */; };
 		D46A23F11AF9F4B800B77AC8 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = D46A23C41AF9F4B800B77AC8 /* SOIL.c */; };
 		D46A23F21AF9F4B800B77AC8 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = D46A23C61AF9F4B800B77AC8 /* stb_image_aug.c */; };
@@ -38,29 +30,15 @@
 		D46A245A1AF9F8B900B77AC8 /* SecondScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D46A24561AF9F8B900B77AC8 /* SecondScreen.cpp */; };
 		D46A245C1AF9F8C600B77AC8 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D46A245B1AF9F8C600B77AC8 /* Assets */; };
 		D4E8F0771B3C45DC00C34343 /* CrossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8F0761B3C45DC00C34343 /* CrossViewController.m */; };
-		D4F9D81F1AFC9EFC007B51E6 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4F9D81D1AFC9EFC007B51E6 /* Audio.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D4317A7B1B37F46F00CBB5E0 /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
-		D4317A7C1B37F46F00CBB5E0 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
-		D4317A7D1B37F46F00CBB5E0 /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
-		D4317A7E1B37F46F00CBB5E0 /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
 		D4317A811B37F9C100CBB5E0 /* Cross.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cross.h; sourceTree = "<group>"; };
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D46A23481AF9EF8400B77AC8 /* Cross++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cross++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A234C1AF9EF8400B77AC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Cross++/Info.plist"; sourceTree = "<group>"; };
 		D46A234D1AF9EF8400B77AC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Cross++/main.m"; sourceTree = "<group>"; };
 		D46A23581AF9EF8400B77AC8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Cross++/Images.xcassets"; sourceTree = "<group>"; };
-		D46A23721AF9F4B800B77AC8 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
-		D46A23731AF9F4B800B77AC8 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
-		D46A23741AF9F4B800B77AC8 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
-		D46A23751AF9F4B800B77AC8 /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
-		D46A23761AF9F4B800B77AC8 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
-		D46A23771AF9F4B800B77AC8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
-		D46A23781AF9F4B800B77AC8 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
-		D46A23791AF9F4B800B77AC8 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
-		D46A237A1AF9F4B800B77AC8 /* Launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Launcher.h; sourceTree = "<group>"; };
 		D46A23921AF9F4B800B77AC8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D46A23931AF9F4B800B77AC8 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D46A23A41AF9F4B800B77AC8 /* CrossView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrossView.h; sourceTree = "<group>"; };
@@ -68,10 +46,6 @@
 		D46A23A61AF9F4B800B77AC8 /* LauncherOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherOS.h; sourceTree = "<group>"; };
 		D46A23A71AF9F4B800B77AC8 /* LauncherOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LauncherOS.mm; sourceTree = "<group>"; };
 		D46A23A81AF9F4B800B77AC8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		D46A23BD1AF9F4B800B77AC8 /* Saver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Saver.cpp; sourceTree = "<group>"; };
-		D46A23BE1AF9F4B800B77AC8 /* Saver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Saver.h; sourceTree = "<group>"; };
-		D46A23BF1AF9F4B800B77AC8 /* Screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
-		D46A23C01AF9F4B800B77AC8 /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Screen.h; sourceTree = "<group>"; };
 		D46A23C21AF9F4B800B77AC8 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_helper.c; sourceTree = "<group>"; };
 		D46A23C31AF9F4B800B77AC8 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
 		D46A23C41AF9F4B800B77AC8 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SOIL.c; sourceTree = "<group>"; };
@@ -108,8 +82,6 @@
 		D4A21A711AFA156200456BD1 /* fmod_output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmod_output.h; sourceTree = "<group>"; };
 		D4E8F0751B3C45DC00C34343 /* CrossViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrossViewController.h; sourceTree = "<group>"; };
 		D4E8F0761B3C45DC00C34343 /* CrossViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrossViewController.m; sourceTree = "<group>"; };
-		D4F9D81D1AFC9EFC007B51E6 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
-		D4F9D81E1AFC9EFC007B51E6 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,25 +128,6 @@
 			children = (
 				D4A21A691AFA156200456BD1 /* FMOD */,
 				D46A237C1AF9F4B800B77AC8 /* Platform */,
-				D4F9D81D1AFC9EFC007B51E6 /* Audio.cpp */,
-				D4F9D81E1AFC9EFC007B51E6 /* Audio.h */,
-				D46A23721AF9F4B800B77AC8 /* Game.cpp */,
-				D4317A7B1B37F46F00CBB5E0 /* Point.cpp */,
-				D4317A7C1B37F46F00CBB5E0 /* Point.h */,
-				D4317A7D1B37F46F00CBB5E0 /* Rect.cpp */,
-				D4317A7E1B37F46F00CBB5E0 /* Rect.h */,
-				D46A23731AF9F4B800B77AC8 /* Game.h */,
-				D46A23741AF9F4B800B77AC8 /* Graphics.cpp */,
-				D46A23751AF9F4B800B77AC8 /* Graphics.h */,
-				D46A23761AF9F4B800B77AC8 /* Image.cpp */,
-				D46A23771AF9F4B800B77AC8 /* Image.h */,
-				D46A23781AF9F4B800B77AC8 /* Input.cpp */,
-				D46A23791AF9F4B800B77AC8 /* Input.h */,
-				D46A237A1AF9F4B800B77AC8 /* Launcher.h */,
-				D46A23BD1AF9F4B800B77AC8 /* Saver.cpp */,
-				D46A23BE1AF9F4B800B77AC8 /* Saver.h */,
-				D46A23BF1AF9F4B800B77AC8 /* Screen.cpp */,
-				D46A23C01AF9F4B800B77AC8 /* Screen.h */,
 				D46A23C11AF9F4B800B77AC8 /* SOIL */,
 				D46A23C91AF9F4B800B77AC8 /* Utils */,
 			);
@@ -338,29 +291,20 @@
 			files = (
 				D46A23E61AF9F4B800B77AC8 /* CrossView.mm in Sources */,
 				D46A23F41AF9F4B800B77AC8 /* Button.cpp in Sources */,
-				D46A23EF1AF9F4B800B77AC8 /* Screen.cpp in Sources */,
 				D46A24581AF9F8B900B77AC8 /* Demo.cpp in Sources */,
 				D46A23E21AF9F4B800B77AC8 /* AppDelegate.m in Sources */,
-				D46A23EE1AF9F4B800B77AC8 /* Saver.cpp in Sources */,
 				D46A23F01AF9F4B800B77AC8 /* image_helper.c in Sources */,
-				D4F9D81F1AFC9EFC007B51E6 /* Audio.cpp in Sources */,
 				D46A23F11AF9F4B800B77AC8 /* SOIL.c in Sources */,
 				D46A23F31AF9F4B800B77AC8 /* Animation.cpp in Sources */,
 				D46A234E1AF9EF8400B77AC8 /* main.m in Sources */,
-				D46A23DA1AF9F4B800B77AC8 /* Image.cpp in Sources */,
 				D46A23F91AF9F4B800B77AC8 /* ToggleButton.cpp in Sources */,
 				D46A23F21AF9F4B800B77AC8 /* stb_image_aug.c in Sources */,
 				D46A24591AF9F8B900B77AC8 /* MainScreen.cpp in Sources */,
 				D4E8F0771B3C45DC00C34343 /* CrossViewController.m in Sources */,
-				D4317A801B37F46F00CBB5E0 /* Rect.cpp in Sources */,
 				D46A23E71AF9F4B800B77AC8 /* LauncherOS.mm in Sources */,
-				D4317A7F1B37F46F00CBB5E0 /* Point.cpp in Sources */,
 				D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */,
 				D46A23F51AF9F4B800B77AC8 /* Debuger.cpp in Sources */,
 				D46A23F81AF9F4B800B77AC8 /* Texter.cpp in Sources */,
-				D46A23D91AF9F4B800B77AC8 /* Graphics.cpp in Sources */,
-				D46A23D81AF9F4B800B77AC8 /* Game.cpp in Sources */,
-				D46A23DB1AF9F4B800B77AC8 /* Input.cpp in Sources */,
 				D46A245A1AF9F8B900B77AC8 /* SecondScreen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
