@@ -17,6 +17,7 @@
 #include "Camera2D.h"
 #include "Game.h"
 #include "Launcher.h"
+#include "Screen.h"
 
 using namespace cross;
 
@@ -57,6 +58,7 @@ void Camera2D::WindowResizedHandle(S32 width, S32 height) {
 }
 
 void Camera2D::WindowRisezedHandleCust(S32 width, S32 height) {
+	launcher->LogIt("TargetWidth - %d", launcher->GetTargetWidth());
 	float scale = (float)launcher->GetTargetWidth() / view_width;
 	view_height = (float)launcher->GetTargetHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);

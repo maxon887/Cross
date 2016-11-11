@@ -27,7 +27,7 @@ void TexturedModelScene::Start(){
 	material = new Material(shader);
 	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
 	material->SetPropertyValue("Texture", (void*)texture->GetID());
-	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 }
 

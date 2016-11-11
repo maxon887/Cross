@@ -51,6 +51,19 @@ Graphics3D::Graphics3D():
 Graphics3D::~Graphics3D(){
 }
 
+Model* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
+	switch(primitive) {
+	case cross::Graphics3D::CUBE:
+		return LoadModel("Engine/Models/Cube.obj");
+	case cross::Graphics3D::SPHERE:
+		return LoadModel("Engine/Models/Sphere.obj");
+	case cross::Graphics3D::PLANE:
+		return LoadModel("Engine/Models/Plane.obj");
+	default:
+		throw CrossException("Unknown primitive type");
+	}
+}
+
 Model* Graphics3D::LoadModel(const string& filename){
 	Debugger::Instance()->SetTimeCheck();
 	Model* model = new Model(filename);

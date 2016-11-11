@@ -90,6 +90,9 @@ private:
 	int bufferHeight;
 	Shader* offscreen_shader;
 	Texture* colorbuffer_texture;
+	bool regenerade_framebuffer;
+
+	void GeneradeFramebuffer();
 
 	void WindowResizeHandle(S32 width, S32 height);
 };

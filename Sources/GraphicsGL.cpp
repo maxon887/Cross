@@ -66,7 +66,8 @@ GraphicsGL::GraphicsGL():
 	bufferWidth(0),
 	bufferHeight(0),
 	offscreen_shader(NULL),
-	colorbuffer_texture(NULL)
+	colorbuffer_texture(NULL),
+	regenerade_framebuffer(true)
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 
@@ -120,22 +121,8 @@ GraphicsGL::~GraphicsGL(){
 void GraphicsGL::Start(){
 	if(config->IsOffscreenRender()){
 		SAFE(glGenFramebuffers(1, &framebuffer));
-		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-		//generate color buffer
-		bufferWidth = launcher->GetTargetWidth() / 2;
-		bufferHeight = launcher->GetTargetHeight() / 2;
 
-		SAFE(glGenTextures(1, &colorbuffer));
-		SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
-		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bufferWidth, bufferHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
-		SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-		SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-		SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0));
-		//generate depth buffer
-		SAFE(glGenRenderbuffers(1, &depthbuffer));
-		SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
-		SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth, bufferHeight));
-		SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
+		GeneradeFramebuffer();
 
 		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
 			throw CrossException("Can not initialize second frame buffer");
@@ -170,6 +157,9 @@ void GraphicsGL::Stop(){
 
 void GraphicsGL::PreProcessFrame(){
 	if(config->IsOffscreenRender()){
+		if(regenerade_framebuffer){
+			GeneradeFramebuffer();
+		}
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 		SAFE(glViewport(0, 0, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
 	}
@@ -268,6 +258,31 @@ void GraphicsGL::UseShader(Shader* shader){
 	}
 }
 
+void GraphicsGL::GeneradeFramebuffer(){
+	//generade color buffer
+	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
+	//generate color buffer
+	bufferWidth = launcher->GetTargetWidth() / 2;
+	bufferHeight = launcher->GetTargetHeight() / 2;
+
+	SAFE(glGenTextures(1, &colorbuffer));
+	SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
+	SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bufferWidth, bufferHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
+	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+	SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0));
+	//generate depth buffer
+	SAFE(glGenRenderbuffers(1, &depthbuffer));
+	SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
+	SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth, bufferHeight));
+	SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
+	regenerade_framebuffer = false;
+}
+
 void GraphicsGL::WindowResizeHandle(S32 width, S32 height){
 	SAFE(glViewport(0, 0, width, height));
+	if(config->IsOffscreenRender()){
+		//GeneradeFramebuffer();
+		regenerade_framebuffer = true;
+	}
 }

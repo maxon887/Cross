@@ -131,7 +131,7 @@ void Button::Update() {
 	}
 	
 	//debug active area
-	//gfx2D->DrawRect(area, Color::Red);
+	gfx2D->DrawRect(area, Color::Red);
 }
 
 void Button::SetLocation(Vector2D location) {

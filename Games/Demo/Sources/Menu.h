@@ -32,6 +32,7 @@ public:
 	void Clear();
 	float GetHeight();
 	void Locate();
+
 private:
 	CRArray<Button*> buttons;
 	float button_def_width;

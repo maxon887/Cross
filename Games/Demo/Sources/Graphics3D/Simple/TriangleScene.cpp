@@ -20,7 +20,7 @@
 #include "Mesh.h"
 
 void TriangleScene::Start(){
-	FreeCameraScene::Start();
+	CameraControlsScreen::Start();
 
 	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	shader->Compile();
@@ -30,9 +30,9 @@ void TriangleScene::Start(){
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	
 	Vector3D verticesData[3];
-	verticesData[0].x = 0.0f;  verticesData[0].y = 5.f;  verticesData[0].z = 0.0f;
-	verticesData[1].x = -5.f;  verticesData[1].y = -5.f;  verticesData[1].z = 0.0f;
-	verticesData[2].x = 5.f;  verticesData[2].y = -5.f;  verticesData[2].z = 0.0f;
+	verticesData[0].x = 0.0f;  verticesData[0].y = 1.f;  verticesData[0].z = 0.0f;
+	verticesData[1].x = -1.f;  verticesData[1].y = -1.f;  verticesData[1].z = 0.0f;
+	verticesData[2].x = 1.f;  verticesData[2].y = -1.f;  verticesData[2].z = 0.0f;
 
 	vertexBuffer->PushData((Byte*)&verticesData[0], 3 * sizeof(Vector3D));
 
@@ -46,10 +46,10 @@ void TriangleScene::Stop(){
 	delete triangle;
 	delete material;
 	delete shader;
-	FreeCameraScene::Stop();
+	CameraControlsScreen::Stop();
 }
 
 void TriangleScene::Update(float sec){
+	CameraControlsScreen::Update(sec);
 	triangle->Draw();
-	FreeCameraScene::Update(sec);
 }

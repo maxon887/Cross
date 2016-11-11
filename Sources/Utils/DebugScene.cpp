@@ -35,10 +35,10 @@ void DebugScene::Start(){
 	light_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	light_shader->Compile();
 	light_material = new Material(light_shader);
-	point_light = gfx3D->LoadModel("Engine/gfx3D/Sphere.obj");
+	point_light = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	point_light->SetScale(0.2f);
 	point_light->SetMaterial(light_material);
-	spot_light = gfx3D->LoadModel("Engine/gfx3D/Cone.obj");
+	spot_light = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	spot_light->SetScale(0.2f);
 	spot_light->SetMaterial(light_material);
 }

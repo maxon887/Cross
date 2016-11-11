@@ -217,9 +217,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
@@ -285,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\CrossEGL.cpp">
       <Filter>Cross\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\DiffuseScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -460,9 +460,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
@@ -528,6 +525,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\CrossEGL.h">
       <Filter>Cross\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\DiffuseScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

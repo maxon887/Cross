@@ -26,7 +26,7 @@ void SolidModelScene::Start(){
 	shader->Compile();
 	material = new Material(shader);
 	material->SetPropertyValue("Color", (void*)&Color::Green);
-	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 }
 

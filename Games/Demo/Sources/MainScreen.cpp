@@ -24,7 +24,7 @@
 #include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"
 #include "Graphics3D/Light/SpecularScene.h"
-#include "Graphics3D/Light/SpecularDiffuseScene.h"
+#include "Graphics3D/Light/DiffuseScene.h"
 #include "Graphics3D/Light/SpecularMapScene.h"
 #include "Graphics3D/Light/DirectionalLightScene.h"
 #include "Graphics3D/Light/PointLightScene.h"
@@ -41,11 +41,17 @@
 void MainScreen::Start(){
 	ScrollScreen::Start();
 	SetBackground(Color::Black);
-	next_screen = nullptr;
+	next_screen = NULL;
 	button_sprite = demo->GetCommonSprite("DefaultButton.png");
 	button_sprite->SetScale(1.35f);
+
+	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
+	input->KeyPressed += key_released_delegate;
+
+	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
+	game->WindowResized += window_resized_delegate;
 	//main menu
-	main_menu = new Menu(true);
+	main_menu = new Menu(false);
 	current_menu = main_menu;
 	Button* graphics2Dbtn = new Button("Graphics 2D");
 	Button* graphics3Dbtn = new Button("Graphics 3D");
@@ -113,7 +119,7 @@ void MainScreen::Start(){
 	graphics3D_light = new Menu(false);
 	Button* specularBtn 			= new Button("Specular");
 	Button* diffuseMap				= new Button("Diffuse");
-	Button* diffuseSpecularMapBtn	= new Button("Specular Map");
+	Button* specularMapBtn			= new Button("Specular Map");
 	Button* directionalLigthBtn		= new Button("Directional Light");
 	Button* pointLightBtn			= new Button("Point Light");
 	Button* spotLightBtn			= new Button("Spot Light");
@@ -121,7 +127,7 @@ void MainScreen::Start(){
 	Button* camaroBtn				= new Button("Camaro");
 	specularBtn->SetImages(button_sprite->Clone());
 	diffuseMap->SetImages(button_sprite->Clone());
-	diffuseSpecularMapBtn->SetImages(button_sprite->Clone());
+	specularMapBtn->SetImages(button_sprite->Clone());
 	directionalLigthBtn->SetImages(button_sprite->Clone());
 	pointLightBtn->SetImages(button_sprite->Clone());
 	spotLightBtn->SetImages(button_sprite->Clone());
@@ -129,7 +135,7 @@ void MainScreen::Start(){
 	camaroBtn->SetImages(button_sprite->Clone());
 	specularBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
 	diffuseMap->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseMapClick);
-	diffuseSpecularMapBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseSpecularMapClick);
+	specularMapBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseSpecularMapClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
 	spotLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpotLightClick);
@@ -137,14 +143,14 @@ void MainScreen::Start(){
 	camaroBtn->Clicked += MakeDelegate(this, &MainScreen::OnCamaroClick);
 	graphics3D_light->AddButton(specularBtn);
 	graphics3D_light->AddButton(diffuseMap);
-	graphics3D_light->AddButton(diffuseSpecularMapBtn);
+	graphics3D_light->AddButton(specularMapBtn);
 	graphics3D_light->AddButton(directionalLigthBtn);
 	graphics3D_light->AddButton(pointLightBtn);
 	graphics3D_light->AddButton(spotLightBtn);
 	graphics3D_light->AddButton(multiLightBtn);
 	graphics3D_light->AddButton(camaroBtn);
 
-	graphics3D_advanced = new Menu(false);
+	graphics3D_advanced = new Menu(true);
 	Button* depthTestBtn			= new Button("Depth Test");
 	depthTestBtn->SetImages(button_sprite->Clone());
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
@@ -155,12 +161,6 @@ void MainScreen::Start(){
 	graphics3D_simple->Active(false);
 	graphics3D_light->Active(false);
 	graphics3D_advanced->Active(false);
-
-	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
-	input->KeyPressed += key_released_delegate;
-
-	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
-	game->WindowResized += window_resized_delegate;
 
 	delete button_sprite;
 }
@@ -197,17 +197,20 @@ void MainScreen::AdjustScreenHeight(Menu* menu){
 }
 
 void MainScreen::KeyReleasedHandle(Key key){
-	if(current_menu == main_menu){
-		launcher->PromtToExit();
+	if(key == Key::ESCAPE || key == Key::BACK){
+		if(current_menu == main_menu){
+			launcher->PromtToExit();
+		}else{
+			current_menu->Active(false);
+			main_menu->Active(true);
+			current_menu = main_menu;
+			float scrWidth = 1600.f;
+			float scrHeight = scrWidth / launcher->GetAspectRatio();
+			SetWidth(scrWidth);
+			SetHeight(scrHeight);
+			gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
+		}
 	}
-	current_menu->Active(false);
-	main_menu->Active(true);
-	current_menu = main_menu;
-	float scrWidth = 1600.f;
-	float scrHeight = scrWidth / launcher->GetAspectRatio();
-	SetWidth(scrWidth);
-	SetHeight(scrHeight);
-	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 }
 
 void MainScreen::WindowResizedHandle(S32 width, S32 height){
@@ -290,7 +293,7 @@ void MainScreen::OnMaterialClick(){
 }
 
 void MainScreen::OnDiffuseMapClick(){
-	next_screen = new SpecularDiffuseScene();
+	next_screen = new DiffuseScene();
 }
 
 void MainScreen::OnDiffuseSpecularMapClick(){

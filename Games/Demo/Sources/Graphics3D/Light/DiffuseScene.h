@@ -17,11 +17,12 @@
 #pragma once
 #include "Graphics3D/CameraControlsScreen.h"
 
-class SpecularDiffuseScene : public CameraControlsScreen{
+class DiffuseScene : public CameraControlsScreen{
 public:
 	virtual void Start();
 	virtual void Stop();
-	virtual void Update(float sec);
+	virtual void Update(float sec); 
+
 private:
 	Shader* shader;
 	float shininess;

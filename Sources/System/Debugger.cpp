@@ -18,6 +18,7 @@
 #include "Launcher.h"
 #include "Input.h"
 #include "Graphics2D.h"
+#include "Camera2D.h"
 #include "Game.h"
 #include "Font.h"
 #include "Screen.h"
@@ -111,6 +112,9 @@ void Debugger::Update(float micro){
 
 	S32 optionPosition = 1;
 	float height = game->GetCurrentScreen()->GetHeight();
+	Camera2D* prevCam = gfx2D->GetCamera();
+	height = gfx2D->GetDefaultCamera()->GetViewHeight();
+	gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 	char outputString[256];
 	if(params[Parameter::FPS] == true){
 		if(update_time == 0){
@@ -148,6 +152,7 @@ void Debugger::Update(float micro){
 		}
 		optionPosition++;
 	}
+	gfx2D->SetCamera(prevCam);
 }
 
 void Debugger::SetCPUTime(float micro) {

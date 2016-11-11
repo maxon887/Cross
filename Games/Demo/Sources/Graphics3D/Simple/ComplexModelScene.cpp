@@ -33,6 +33,7 @@ void ComplexModelScene::Start(){
 	material->SetPropertyValue("Texture", (void*)texture->GetID());
 
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.fbx");
+	camaro->SetScale(0.1f);
 	camaro->SetMaterial(material);
 }
 

@@ -135,7 +135,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\DiffuseScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp" />
@@ -218,7 +218,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularDiffuseScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\DiffuseScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h" />

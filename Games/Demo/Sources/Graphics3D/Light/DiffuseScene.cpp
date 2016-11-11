@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "SpecularDiffuseScene.h"
+#include "DiffuseScene.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Model.h"
@@ -24,7 +24,7 @@
 #include "Config.h"
 #include "Camera.h"
 
-void SpecularDiffuseScene::Start(){
+void DiffuseScene::Start(){
 	CameraControlsScreen::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
@@ -44,12 +44,11 @@ void SpecularDiffuseScene::Start(){
 	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);
 	shininess = 0.5f * 128.f;
 	material->SetPropertyValue("Shininess",	(void*)(&shininess));
-	//cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
 	cube = gfx3D->LoadModel("Engine/Models/Cube.obj");
 	cube->SetMaterial(material);
 }
 
-void SpecularDiffuseScene::Stop(){
+void DiffuseScene::Stop(){
 	delete cube;
 	delete material;
 	delete texture;
@@ -57,7 +56,7 @@ void SpecularDiffuseScene::Stop(){
 	CameraControlsScreen::Stop();
 }
 
-void SpecularDiffuseScene::Update(float sec){
-	cube->Draw();
+void DiffuseScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
+	cube->Draw();
 }

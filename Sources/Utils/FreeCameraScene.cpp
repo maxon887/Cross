@@ -31,7 +31,7 @@ FreeCameraScene::FreeCameraScene() :
 	liner_speed(50.f),
 	angular_speed(45.f),
 	handled_action(-1),
-	orbit_distance(60.f),
+	orbit_distance(5.f),
 	look_at(true)
 { }
 

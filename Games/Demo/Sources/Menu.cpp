@@ -102,6 +102,7 @@ void Menu::Locate(){
 			}
 
 			btn->SetLocation(pos);
+			//launcher->LogIt("Pos x - %f, y - %f", pos.x, pos.y);
 			pos.y -= offset;
 		}
 		button_width = buttons[0]->GetWidth();

@@ -26,9 +26,16 @@ namespace cross{
 
 class Graphics3D{
 public:
+	enum Primitives{
+		CUBE,
+		SPHERE,
+		PLANE
+	};
+
 	Graphics3D();
 	~Graphics3D();
 
+	Model* LoadPrimitive(Primitives primitive);
 	Model* LoadModel(const string& filename);
 	void SaveScene(const Scene* scene, const string& filename);
 

@@ -27,6 +27,7 @@ public:
 	void Start();
 	void Stop();
 	void Update(float sec);
+
 private:
 	Menu* current_menu;
 	Menu* main_menu;
@@ -37,7 +38,6 @@ private:
 	Menu* graphics3D_advanced;
 	Sprite* button_sprite;
 	Screen* next_screen;
-	//Scene* next_scene;
 
 	void AdjustScreenHeight(Menu* menu);
 
