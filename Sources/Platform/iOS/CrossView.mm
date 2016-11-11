@@ -51,6 +51,7 @@
     [self display];
     if(!launcher){
         launcher = new LauncherOS();
+        game = CrossMain(launcher);
         Audio::Init();
         gfxGL = new GraphicsGL();
         gfx2D = new Graphics2D();

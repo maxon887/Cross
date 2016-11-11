@@ -224,8 +224,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 #if DEBUG
 
         //enable verbose logging in debug mode
-        self.verboseLogging = YES;
-        NSLog(@"iRate verbose logging enabled.");
+        self.verboseLogging = NO;
+        NSLog(@"iRate verbose logging disabled.");
 
 #endif
 

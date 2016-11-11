@@ -17,7 +17,7 @@
 
 #import "AppDelegate.h"
 #import "CrossViewController.h"
-#import "iRate.h"
+//#import "iRate.h"
 
 @implementation AppDelegate{
     CrossViewController* viewController;
