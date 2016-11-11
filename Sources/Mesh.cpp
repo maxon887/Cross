@@ -121,7 +121,7 @@ void Mesh::Draw(const Matrix& globalModel){
 		switch(prop->type){
 		case Shader::Property::SAMPLER:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop->value));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (U64)prop->value));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;

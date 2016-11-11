@@ -71,7 +71,7 @@ GraphicsGL::GraphicsGL():
 {
 		launcher->LogIt("GraphicsGL::GraphicsGL()");
 
-#if !defined(GLES) && !defined(ANDROID)
+#if defined(OPENGL)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);

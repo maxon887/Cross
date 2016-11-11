@@ -11,14 +11,14 @@
 #import "CrossViewController.h"
 #import "IAPHelper.h"
 #import <UIKit/UIKit.h>
-#import <GoogleMobileAds/GoogleMobileAds.h>
+//#import <GoogleMobileAds/GoogleMobileAds.h>
 #import <StoreKit/StoreKit.h>
 
-static GADInterstitial* interstitial;
+//static GADInterstitial* interstitial;
 static IAPHelper* iapHelper;
 static UIActivityIndicatorView* indicator;
 
-CommercialOS::CommercialOS(){
+CommercialOS::CommercialOS(){/*
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     UIViewController* rootViewController = [CrossViewController getRootController];
     indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
@@ -41,36 +41,36 @@ CommercialOS::CommercialOS(){
         }
         
         Commercial::CommercialResult((Commercial::Event)event);
-    }];
+    }];*/
 }
 
-void CommercialOS::DownloadAd(){
+void CommercialOS::DownloadAd(){/*
     interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-8147388388000575/9516738242"];
     GADRequest *request = [GADRequest request];
     request.testDevices = @[ @"4ae2c1e117e5b8d391130c539e7d855b" ];
-    [interstitial loadRequest:request];
+    [interstitial loadRequest:request];*/
 }
 
-void CommercialOS::ShowAd(){
+void CommercialOS::ShowAd(){/*
     if ([interstitial isReady]) {
         [interstitial presentFromRootViewController:[CrossViewController getRootController]];
-    }
+    }*/
 }
 
-void CommercialOS::Purchase(){
+void CommercialOS::Purchase(){/*
     CrossViewController* viewController = [CrossViewController getRootController];
     CrossView* crossView = viewController.CrossV;
     crossView.BlockInput = YES;
     [indicator startAnimating];
-    [iapHelper buy];
+    [iapHelper buy];*/
 }
 
-void CommercialOS::Restore(){
+void CommercialOS::Restore(){/*
     CrossViewController* viewController = [CrossViewController getRootController];
     CrossView* crossView = viewController.CrossV;
     crossView.BlockInput = YES;
     [indicator startAnimating];
-    [iapHelper restore];
+    [iapHelper restore];*/
 }
 
 

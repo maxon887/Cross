@@ -25,14 +25,13 @@ LauncherOS::LauncherOS(){
     width = screenRect.size.width * screenScale;
     height = screenRect.size.height * screenScale;
     commercial = new CommercialOS();
-    Audio::Init(this);
 }
 
-int LauncherOS::GetTargetWidth(){
+U32 LauncherOS::GetTargetWidth(){
     return width;
 }
 
-int LauncherOS::GetTargetHeight(){
+U32 LauncherOS::GetTargetHeight(){
     return height;
 }
 

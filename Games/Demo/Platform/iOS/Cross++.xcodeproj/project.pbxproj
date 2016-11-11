@@ -89,6 +89,13 @@
 		D4CEA68B1DD6344D0054B6A9 /* SolidModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6841DD6344D0054B6A9 /* SolidModelScene.cpp */; };
 		D4CEA68C1DD6344D0054B6A9 /* TexturedModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6861DD6344D0054B6A9 /* TexturedModelScene.cpp */; };
 		D4CEA68D1DD6344D0054B6A9 /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6881DD6344D0054B6A9 /* TriangleScene.cpp */; };
+		D4DA8DCD1DD6613300D236A4 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DC51DD6613300D236A4 /* image_helper.c */; };
+		D4DA8DCE1DD6613300D236A4 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DC71DD6613300D236A4 /* SOIL.c */; };
+		D4DA8DCF1DD6613300D236A4 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DC91DD6613300D236A4 /* stb_image_aug.c */; };
+		D4DA8DD61DD6614000D236A4 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD01DD6614000D236A4 /* tinystr.cpp */; };
+		D4DA8DD71DD6614000D236A4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD21DD6614000D236A4 /* tinyxml.cpp */; };
+		D4DA8DD81DD6614000D236A4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD41DD6614000D236A4 /* tinyxmlerror.cpp */; };
+		D4DA8DD91DD6614000D236A4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD51DD6614000D236A4 /* tinyxmlparser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +259,24 @@
 		D4CEA6871DD6344D0054B6A9 /* TexturedModelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TexturedModelScene.h; path = Graphics3D/Simple/TexturedModelScene.h; sourceTree = "<group>"; };
 		D4CEA6881DD6344D0054B6A9 /* TriangleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TriangleScene.cpp; path = Graphics3D/Simple/TriangleScene.cpp; sourceTree = "<group>"; };
 		D4CEA6891DD6344D0054B6A9 /* TriangleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleScene.h; path = Graphics3D/Simple/TriangleScene.h; sourceTree = "<group>"; };
+		D4DA8DC41DD6613300D236A4 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = image_DXT.h; path = Libs/SOIL/image_DXT.h; sourceTree = "<group>"; };
+		D4DA8DC51DD6613300D236A4 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = image_helper.c; path = Libs/SOIL/image_helper.c; sourceTree = "<group>"; };
+		D4DA8DC61DD6613300D236A4 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = image_helper.h; path = Libs/SOIL/image_helper.h; sourceTree = "<group>"; };
+		D4DA8DC71DD6613300D236A4 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SOIL.c; path = Libs/SOIL/SOIL.c; sourceTree = "<group>"; };
+		D4DA8DC81DD6613300D236A4 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOIL.h; path = Libs/SOIL/SOIL.h; sourceTree = "<group>"; };
+		D4DA8DC91DD6613300D236A4 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stb_image_aug.c; path = Libs/SOIL/stb_image_aug.c; sourceTree = "<group>"; };
+		D4DA8DCA1DD6613300D236A4 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image_aug.h; path = Libs/SOIL/stb_image_aug.h; sourceTree = "<group>"; };
+		D4DA8DCB1DD6613300D236A4 /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stbi_DDS_aug_c.h; path = Libs/SOIL/stbi_DDS_aug_c.h; sourceTree = "<group>"; };
+		D4DA8DCC1DD6613300D236A4 /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stbi_DDS_aug.h; path = Libs/SOIL/stbi_DDS_aug.h; sourceTree = "<group>"; };
+		D4DA8DD01DD6614000D236A4 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinystr.cpp; path = Libs/TinyXML/tinystr.cpp; sourceTree = "<group>"; };
+		D4DA8DD11DD6614000D236A4 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinystr.h; path = Libs/TinyXML/tinystr.h; sourceTree = "<group>"; };
+		D4DA8DD21DD6614000D236A4 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = Libs/TinyXML/tinyxml.cpp; sourceTree = "<group>"; };
+		D4DA8DD31DD6614000D236A4 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml.h; path = Libs/TinyXML/tinyxml.h; sourceTree = "<group>"; };
+		D4DA8DD41DD6614000D236A4 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlerror.cpp; path = Libs/TinyXML/tinyxmlerror.cpp; sourceTree = "<group>"; };
+		D4DA8DD51DD6614000D236A4 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = Libs/TinyXML/tinyxmlparser.cpp; sourceTree = "<group>"; };
+		D4DA8DDA1DD6614F00D236A4 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = Libs/Events/Event.h; sourceTree = "<group>"; };
+		D4DA8DDB1DD6614F00D236A4 /* FastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegate.h; path = Libs/Events/FastDelegate.h; sourceTree = "<group>"; };
+		D4DA8DDC1DD6614F00D236A4 /* FastDelegateBind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegateBind.h; path = Libs/Events/FastDelegateBind.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -476,6 +501,12 @@
 		D4CEA5ED1DD632810054B6A9 /* TinyXML */ = {
 			isa = PBXGroup;
 			children = (
+				D4DA8DD01DD6614000D236A4 /* tinystr.cpp */,
+				D4DA8DD11DD6614000D236A4 /* tinystr.h */,
+				D4DA8DD21DD6614000D236A4 /* tinyxml.cpp */,
+				D4DA8DD31DD6614000D236A4 /* tinyxml.h */,
+				D4DA8DD41DD6614000D236A4 /* tinyxmlerror.cpp */,
+				D4DA8DD51DD6614000D236A4 /* tinyxmlparser.cpp */,
 			);
 			name = TinyXML;
 			sourceTree = "<group>";
@@ -483,6 +514,15 @@
 		D4CEA5EE1DD632980054B6A9 /* SOIL */ = {
 			isa = PBXGroup;
 			children = (
+				D4DA8DC41DD6613300D236A4 /* image_DXT.h */,
+				D4DA8DC51DD6613300D236A4 /* image_helper.c */,
+				D4DA8DC61DD6613300D236A4 /* image_helper.h */,
+				D4DA8DC71DD6613300D236A4 /* SOIL.c */,
+				D4DA8DC81DD6613300D236A4 /* SOIL.h */,
+				D4DA8DC91DD6613300D236A4 /* stb_image_aug.c */,
+				D4DA8DCA1DD6613300D236A4 /* stb_image_aug.h */,
+				D4DA8DCB1DD6613300D236A4 /* stbi_DDS_aug_c.h */,
+				D4DA8DCC1DD6613300D236A4 /* stbi_DDS_aug.h */,
 			);
 			name = SOIL;
 			sourceTree = "<group>";
@@ -504,6 +544,9 @@
 		D4CEA5F11DD632BB0054B6A9 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				D4DA8DDA1DD6614F00D236A4 /* Event.h */,
+				D4DA8DDB1DD6614F00D236A4 /* FastDelegate.h */,
+				D4DA8DDC1DD6614F00D236A4 /* FastDelegateBind.h */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -635,6 +678,7 @@
 				TargetAttributes = {
 					D46A23471AF9EF8400B77AC8 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = AQNAZWX3GB;
 					};
 				};
 			};
@@ -680,6 +724,7 @@
 				D4CEA5E11DD631C50054B6A9 /* Mesh.cpp in Sources */,
 				D4CEA5C21DD631A40054B6A9 /* Font.cpp in Sources */,
 				D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */,
+				D4DA8DD81DD6614000D236A4 /* tinyxmlerror.cpp in Sources */,
 				D4CEA5DF1DD631C50054B6A9 /* Light.cpp in Sources */,
 				D4CEA5C11DD631A40054B6A9 /* File.cpp in Sources */,
 				D4CEA6811DD634400054B6A9 /* SpotLightScene.cpp in Sources */,
@@ -693,6 +738,7 @@
 				D4CEA61D1DD633440054B6A9 /* Rect.cpp in Sources */,
 				D4CEA5E51DD631C50054B6A9 /* Sprite.cpp in Sources */,
 				D4CEA67A1DD634400054B6A9 /* DepthTestScreen.cpp in Sources */,
+				D4DA8DD71DD6614000D236A4 /* tinyxml.cpp in Sources */,
 				D4CEA61B1DD633440054B6A9 /* Matrix.cpp in Sources */,
 				D4CEA63F1DD6337D0054B6A9 /* Animation.cpp in Sources */,
 				D4CEA5E61DD631C50054B6A9 /* Texture.cpp in Sources */,
@@ -700,6 +746,7 @@
 				D4CEA67E1DD634400054B6A9 /* PointLightScene.cpp in Sources */,
 				D4CEA6801DD634400054B6A9 /* SpecularScene.cpp in Sources */,
 				D4CEA5AF1DD631920054B6A9 /* Color.cpp in Sources */,
+				D4DA8DCE1DD6613300D236A4 /* SOIL.c in Sources */,
 				D4CEA67D1DD634400054B6A9 /* MultiLightScene.cpp in Sources */,
 				D46A234E1AF9EF8400B77AC8 /* main.m in Sources */,
 				D4CEA5EC1DD631FA0054B6A9 /* Array.cpp in Sources */,
@@ -714,6 +761,7 @@
 				D4CEA6401DD6337D0054B6A9 /* Button.cpp in Sources */,
 				D4CEA5E31DD631C50054B6A9 /* Scene.cpp in Sources */,
 				D4CEA6641DD6340E0054B6A9 /* CameraControlsScreen.cpp in Sources */,
+				D4DA8DD61DD6614000D236A4 /* tinystr.cpp in Sources */,
 				D4CEA6271DD6335A0054B6A9 /* LightShader.cpp in Sources */,
 				D4CEA6071DD633180054B6A9 /* CrossViewController.m in Sources */,
 				D4CEA68D1DD6344D0054B6A9 /* TriangleScene.cpp in Sources */,
@@ -724,6 +772,7 @@
 				D4CEA61E1DD633440054B6A9 /* Vector2D.cpp in Sources */,
 				D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */,
 				D4CEA6281DD6335A0054B6A9 /* MultiLightShader.cpp in Sources */,
+				D4DA8DD91DD6614000D236A4 /* tinyxmlparser.cpp in Sources */,
 				D4CEA67B1DD634400054B6A9 /* DiffuseScene.cpp in Sources */,
 				D4CEA67C1DD634400054B6A9 /* DirectionalLightScene.cpp in Sources */,
 				D4CEA5AC1DD631920054B6A9 /* Audio.cpp in Sources */,
@@ -740,6 +789,7 @@
 				D4CEA6201DD633440054B6A9 /* Vector4D.cpp in Sources */,
 				D4CEA65F1DD633FD0054B6A9 /* PrimitivesScreen.cpp in Sources */,
 				D4CEA5C31DD631A40054B6A9 /* Game.cpp in Sources */,
+				D4DA8DCD1DD6613300D236A4 /* image_helper.c in Sources */,
 				D4CEA6301DD633690054B6A9 /* Debugger.cpp in Sources */,
 				D4CEA5C51DD631A40054B6A9 /* Graphics3D.cpp in Sources */,
 				D4CEA5E01DD631C50054B6A9 /* Material.cpp in Sources */,
@@ -749,6 +799,7 @@
 				D4CEA6531DD633E50054B6A9 /* MainScreen.cpp in Sources */,
 				D4CEA6431DD6337D0054B6A9 /* FreeCameraScene.cpp in Sources */,
 				D4CEA61C1DD633440054B6A9 /* Quaternion.cpp in Sources */,
+				D4DA8DCF1DD6613300D236A4 /* stb_image_aug.c in Sources */,
 				D4CEA6051DD633180054B6A9 /* CommercialOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -838,11 +889,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AQNAZWX3GB;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../Sources/",
+					"$(SRCROOT)/../../../../Sources/",
+					"$(SRCROOT)/../../../../Sources/Libs/FreeType/",
+					"$(SRCROOT)/../../../../Sources/Libs/FreeType/freetype2/",
+				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
-				OTHER_LDFLAGS = "-lfmodL_$PLATFORM_NAME";
+				OTHER_LDFLAGS = (
+					"-lfmodL_$PLATFORM_NAME",
+					"-lFreetype2",
+					"-lassimp",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -851,11 +914,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AQNAZWX3GB;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../Sources/",
+					"$(SRCROOT)/../../../../Sources/",
+					"$(SRCROOT)/../../../../Sources/Libs/FreeType/",
+					"$(SRCROOT)/../../../../Sources/Libs/FreeType/freetype2/",
+				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
-				OTHER_LDFLAGS = "-lfmodL_$PLATFORM_NAME";
+				OTHER_LDFLAGS = (
+					"-lfmodL_$PLATFORM_NAME",
+					"-lFreetype2",
+					"-lassimp",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

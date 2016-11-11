@@ -35,6 +35,8 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <GLES2/gl2platform.h>
+#elif IOS
+#import <OpenGLES/ES2/glext.h>
 #elif EDITOR
 #include "Platform\Windows\glew\glew.h"
 #include "Platform\Windows\glew\wglew.h"

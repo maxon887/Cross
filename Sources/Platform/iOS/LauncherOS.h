@@ -26,13 +26,15 @@ using namespace cross;
 class LauncherOS : public Launcher{
 public:
     LauncherOS();
-    int GetTargetWidth();
-    int GetTargetHeight();
+    ~LauncherOS();
+    
+    U32 GetTargetWidth();
+    U32 GetTargetHeight();
     string AssetsPath();
     string DataPath();
     void LogIt(string str);
     Commercial* GetCommercial();
-    ~LauncherOS();
+    
 private:
     int width;
     int height;
