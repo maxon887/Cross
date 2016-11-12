@@ -53,6 +53,25 @@ Screen* Demo::GetStartScreen(){
 	return new MainScreen();
 }
 
+void Demo::SetScreen(cross::Screen *screen){
+    Game::SetScreen(screen);
+    
+    back_btn = new Button();
+    Sprite* arrowReleased = GetCommonSprite("ArrowUp.png");
+    Sprite* arrowPressed = GetCommonSprite("ArrowDown.png");
+    arrowReleased->SetRotate(180.f);
+    arrowPressed->SetRotate(180.f);
+    back_btn->SetImages(arrowReleased, arrowPressed);
+    back_btn->SetLocation(Vector2D(back_btn->GetWidth()/2.f, screen->GetHeight() - back_btn->GetHeight()/2.f));
+    back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
+    
+    screen->AddUI(back_btn);
+}
+
 Sprite* Demo::GetCommonSprite(string name){
 	return common_sprites[name]->Clone();
+}
+
+void Demo::OnBackClick(){
+    SetScreen(GetStartScreen());
 }

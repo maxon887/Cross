@@ -93,7 +93,7 @@ void CameraControlsScreen::Update(float sec){
 	}
 
 	for(Button* btn : gui){
-		btn->Update();
+		btn->Update(sec);
 	}
 
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {

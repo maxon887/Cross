@@ -15,8 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
 #include "Game.h"
+#include "Utils/Button.h"
 
 using namespace cross;
 
@@ -29,12 +29,15 @@ public:
 	void Start();
 	void Stop();
 	Screen* GetStartScreen();
+    void SetScreen(Screen* screen);
 
 	Sprite* GetCommonSprite(string name);
+    
+    void OnBackClick();
 
 private:
 	Camera2D* camera;
-
+    Button* back_btn;
 	Texture* common_texture;
 	CRDictionary<string, Sprite*> common_sprites;
 };

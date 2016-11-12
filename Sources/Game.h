@@ -42,10 +42,10 @@ public:
 	virtual void Suspend();
 	/* Cause when game gained focus */
 	virtual void Resume();
+    /* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
+    virtual void SetScreen(Screen* screen);
 	/* Returns time since game start */
 	float GetRunTime();
-	/* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
-	void SetScreen(Screen* screen);
 	/* Returns active game Screen */
 	Screen* GetCurrentScreen();
 	/* Returns active game Scene*/

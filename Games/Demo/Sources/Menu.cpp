@@ -40,7 +40,7 @@ void Menu::Update(float sec){
 		Locate();
 	}
 	for(Button* btn : buttons){
-		btn->Update();
+		btn->Update(sec);
 	}
 }
 

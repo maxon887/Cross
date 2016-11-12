@@ -71,6 +71,10 @@ void Screen::SetBackground(const Color& c){
 	glClearColor(c.R, c.G, c.B, 1.f);
 }
 
+void Screen::AddUI(UI* element){
+    guis.push_back(element);
+}
+
 void Screen::ActionDownHandle(Input::Action action){
 	if(!OnGuiArea(action.pos)){
 		actionIDs[action.id] = true;

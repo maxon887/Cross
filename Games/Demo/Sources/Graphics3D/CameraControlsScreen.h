@@ -38,4 +38,5 @@ private:
 	ToggleButton* eye_btn;
 
 	void OnEyeClick();
+    void OnBackClick();
 };

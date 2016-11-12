@@ -30,9 +30,10 @@ public:
 	Button(string text);
 	Button(Rect area);
 	Button(Vector2D location);
+	Button();
 	~Button();
 
-	virtual void Update();
+	virtual void Update(float sec);
 
 	void SetLocation(Vector2D location);
 	void SetText(string text);
@@ -49,8 +50,6 @@ public:
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
 protected:
-
-	Button();
 	//mandatory parameters
 	Vector2D location;
 	bool located;

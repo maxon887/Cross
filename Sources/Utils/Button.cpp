@@ -103,7 +103,7 @@ Button::~Button() {
 	input->ActionUp -= action_up_delegate;
 }
 
-void Button::Update() {
+void Button::Update(float sec) {
 	if(!located) {
 		throw CrossException("Button must be located first");
 	}
