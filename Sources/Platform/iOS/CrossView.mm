@@ -33,7 +33,7 @@
     self = [super initWithCoder:aDecoder];
     if(self){
         NSLog(@"initWithCoder");
-        EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+        EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         self.context = context;
         self.enableSetNeedsDisplay = NO;
         displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
@@ -49,17 +49,27 @@
 
 - (void)render:(CADisplayLink*)displayLink{
     [self display];
-    if(!launcher){
-        launcher = new LauncherOS();
-        game = CrossMain(launcher);
-        Audio::Init();
-        gfxGL = new GraphicsGL();
-        gfx2D = new Graphics2D();
-        gfx3D = new Graphics3D();
-        game->Start();
-        game->SetScreen(game->GetStartScreen());
-    }else{
-        game->Update();
+    try{
+        if(!launcher){
+            launcher = new LauncherOS();
+            game = CrossMain(launcher);
+            Audio::Init();
+            gfxGL = new GraphicsGL();
+            gfx2D = new Graphics2D();
+            gfx3D = new Graphics3D();
+            game->Start();
+            game->SetScreen(game->GetStartScreen());
+        }else{
+            game->Update();
+        }
+    } catch(Exception &exc) {
+        string msg = string(exc.message) +
+        +"\nFile: " + string(exc.filename) +
+        +"\nLine: " + to_string(exc.line);
+        NSLog(@"%@", [NSString stringWithFormat:@"\nUnhandled Exception:\n\t%s", msg.c_str()]);
+        //OutputDebugString(msg.c_str());
+        //MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+        //return 0;
     }
 }
 

@@ -40,7 +40,7 @@ U32 LauncherOS::GetTargetHeight(){
 string LauncherOS::AssetsPath(){
     NSString* path = [[NSBundle mainBundle] bundlePath];
     string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    return cPath + "/Assets/";
+    return cPath + "/Assets/Default/";
 }
 
 string LauncherOS::DataPath(){
@@ -66,7 +66,7 @@ void LauncherOS::LogIt(const char* formatStr, ...){
 File* LauncherOS::LoadFile(const string& filename){
     File* file = new File();
     file->name = filename;
-    string filePath = AssetsPath() + "//" + filename;
+    string filePath = AssetsPath() + filename;
     ifstream fileStream(filePath, istream::binary);
     if(fileStream.is_open()){
         fileStream.seekg(0, fileStream.end);

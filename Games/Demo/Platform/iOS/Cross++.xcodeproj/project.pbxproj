@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
-		D46920941DD68C4F00CF949F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D46920931DD68C4F00CF949F /* libz.tbd */; };
+		D46920961DD68E6800CF949F /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D46920951DD68E6800CF949F /* libz.1.2.8.tbd */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
@@ -102,6 +102,8 @@
 /* Begin PBXFileReference section */
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D46920931DD68C4F00CF949F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D46920951DD68E6800CF949F /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
+		D46920971DD6909300CF949F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		D46A23481AF9EF8400B77AC8 /* Cross++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cross++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A234C1AF9EF8400B77AC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Cross++/Info.plist"; sourceTree = "<group>"; };
 		D46A234D1AF9EF8400B77AC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Cross++/main.m"; sourceTree = "<group>"; };
@@ -286,7 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46920941DD68C4F00CF949F /* libz.tbd in Frameworks */,
+				D46920961DD68E6800CF949F /* libz.1.2.8.tbd in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
 				D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */,
 				D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */,
@@ -299,6 +301,8 @@
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D46920971DD6909300CF949F /* libc++.tbd */,
+				D46920951DD68E6800CF949F /* libz.1.2.8.tbd */,
 				D46920931DD68C4F00CF949F /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -910,7 +914,7 @@
 					"$(SRCROOT)/../../../../Sources/Libs/FreeType/freetype2/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
 				OTHER_LDFLAGS = (
@@ -919,6 +923,7 @@
 					"-lassimp",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -935,7 +940,7 @@
 					"$(SRCROOT)/../../../../Sources/Libs/FreeType/freetype2/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = $PROJECT_DIR;
 				OTHER_LDFLAGS = (
@@ -944,6 +949,7 @@
 					"-lassimp",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

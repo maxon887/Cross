@@ -295,7 +295,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 		if(!compressed){
 			newTexture = LoadRAWTexture(filename, filter);
 		}else{
-#ifdef WIN
+#if defined(WIN) || defined(IOS)
 			newTexture = LoadRAWTexture(filename + ".png", filter);
 #elif ANDROID
 			newTexture = LoadKTXTexture(filename + ".ktx", filter);
