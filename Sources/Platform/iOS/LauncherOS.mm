@@ -15,9 +15,10 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #import <UIKit/UIKit.h>
+#include "LauncherOS.h"
+#include "Audio.h"
 #include "File.h"
 #include "CommercialOS.h"
-#include "LauncherOS.h"
 
 #include <sys/time.h>
 #include <fstream>
@@ -41,7 +42,7 @@ U32 LauncherOS::GetTargetHeight(){
 string LauncherOS::AssetsPath(){
     NSString* path = [[NSBundle mainBundle] bundlePath];
     string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    return cPath + "/Assets/Default/";
+    return cPath + "/Default/";
 }
 
 string LauncherOS::DataPath(){

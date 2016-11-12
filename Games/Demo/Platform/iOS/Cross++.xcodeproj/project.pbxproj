@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
-		D46920961DD68E6800CF949F /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D46920951DD68E6800CF949F /* libz.1.2.8.tbd */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
 		D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */; };
 		D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24081AF9F77400B77AC8 /* GLKit.framework */; };
-		D46A245C1AF9F8C600B77AC8 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D46A245B1AF9F8C600B77AC8 /* Assets */; };
+		D47823B01DD7C4B600685A9B /* Default in Resources */ = {isa = PBXBuildFile; fileRef = D47823AF1DD7C4B600685A9B /* Default */; };
+		D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D46920931DD68C4F00CF949F /* libz.tbd */; };
 		D4CEA5AC1DD631920054B6A9 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A11DD631920054B6A9 /* Audio.cpp */; };
 		D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A31DD631920054B6A9 /* Camera.cpp */; };
 		D4CEA5AE1DD631920054B6A9 /* Camera2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A51DD631920054B6A9 /* Camera2D.cpp */; };
@@ -42,8 +42,7 @@
 		D4CEA5EC1DD631FA0054B6A9 /* Array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5EA1DD631FA0054B6A9 /* Array.cpp */; };
 		D4CEA6041DD633180054B6A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5F51DD633180054B6A9 /* AppDelegate.m */; };
 		D4CEA6051DD633180054B6A9 /* CommercialOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5F71DD633180054B6A9 /* CommercialOS.mm */; };
-		D4CEA6061DD633180054B6A9 /* CrossView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5FA1DD633180054B6A9 /* CrossView.mm */; };
-		D4CEA6071DD633180054B6A9 /* CrossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5FC1DD633180054B6A9 /* CrossViewController.m */; };
+		D4CEA6071DD633180054B6A9 /* CrossViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5FC1DD633180054B6A9 /* CrossViewController.mm */; };
 		D4CEA6081DD633180054B6A9 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5FE1DD633180054B6A9 /* IAPHelper.m */; };
 		D4CEA6091DD633180054B6A9 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6001DD633180054B6A9 /* iRate.m */; };
 		D4CEA60A1DD633180054B6A9 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6021DD633180054B6A9 /* LauncherOS.mm */; };
@@ -111,7 +110,7 @@
 		D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D46A24081AF9F77400B77AC8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		D46A245B1AF9F8C600B77AC8 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Assets; path = ../../Assets; sourceTree = "<group>"; };
+		D47823AF1DD7C4B600685A9B /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Default; path = ../../Assets/Default; sourceTree = "<group>"; };
 		D4CEA5A11DD631920054B6A9 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		D4CEA5A21DD631920054B6A9 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		D4CEA5A31DD631920054B6A9 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -167,11 +166,8 @@
 		D4CEA5F51DD633180054B6A9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Platform/iOS/AppDelegate.m; sourceTree = "<group>"; };
 		D4CEA5F61DD633180054B6A9 /* CommercialOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommercialOS.h; path = Platform/iOS/CommercialOS.h; sourceTree = "<group>"; };
 		D4CEA5F71DD633180054B6A9 /* CommercialOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CommercialOS.mm; path = Platform/iOS/CommercialOS.mm; sourceTree = "<group>"; };
-		D4CEA5F81DD633180054B6A9 /* Cross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cross.h; path = Platform/iOS/Cross.h; sourceTree = "<group>"; };
-		D4CEA5F91DD633180054B6A9 /* CrossView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrossView.h; path = Platform/iOS/CrossView.h; sourceTree = "<group>"; };
-		D4CEA5FA1DD633180054B6A9 /* CrossView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CrossView.mm; path = Platform/iOS/CrossView.mm; sourceTree = "<group>"; };
 		D4CEA5FB1DD633180054B6A9 /* CrossViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrossViewController.h; path = Platform/iOS/CrossViewController.h; sourceTree = "<group>"; };
-		D4CEA5FC1DD633180054B6A9 /* CrossViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrossViewController.m; path = Platform/iOS/CrossViewController.m; sourceTree = "<group>"; };
+		D4CEA5FC1DD633180054B6A9 /* CrossViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CrossViewController.mm; path = Platform/iOS/CrossViewController.mm; sourceTree = "<group>"; };
 		D4CEA5FD1DD633180054B6A9 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPHelper.h; path = Platform/iOS/IAPHelper.h; sourceTree = "<group>"; };
 		D4CEA5FE1DD633180054B6A9 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPHelper.m; path = Platform/iOS/IAPHelper.m; sourceTree = "<group>"; };
 		D4CEA5FF1DD633180054B6A9 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = Platform/iOS/iRate.h; sourceTree = "<group>"; };
@@ -288,7 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46920961DD68E6800CF949F /* libz.1.2.8.tbd in Frameworks */,
+				D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
 				D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */,
 				D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */,
@@ -314,6 +310,7 @@
 				D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */,
 				D46A24081AF9F77400B77AC8 /* GLKit.framework */,
 				D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */,
+				D47823AF1DD7C4B600685A9B /* Default */,
 				D46A23491AF9EF8400B77AC8 /* Products */,
 				D46A234D1AF9EF8400B77AC8 /* main.m */,
 				D4317A821B37FB4000CBB5E0 /* main.cpp */,
@@ -321,7 +318,6 @@
 				D46A23581AF9EF8400B77AC8 /* Images.xcassets */,
 				D46A23711AF9F4B800B77AC8 /* Cross */,
 				D46A24511AF9F8B900B77AC8 /* Demo */,
-				D46A245B1AF9F8C600B77AC8 /* Assets */,
 				D46920921DD68C4F00CF949F /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -581,11 +577,8 @@
 				D4CEA5F51DD633180054B6A9 /* AppDelegate.m */,
 				D4CEA5F61DD633180054B6A9 /* CommercialOS.h */,
 				D4CEA5F71DD633180054B6A9 /* CommercialOS.mm */,
-				D4CEA5F81DD633180054B6A9 /* Cross.h */,
-				D4CEA5F91DD633180054B6A9 /* CrossView.h */,
-				D4CEA5FA1DD633180054B6A9 /* CrossView.mm */,
 				D4CEA5FB1DD633180054B6A9 /* CrossViewController.h */,
-				D4CEA5FC1DD633180054B6A9 /* CrossViewController.m */,
+				D4CEA5FC1DD633180054B6A9 /* CrossViewController.mm */,
 				D4CEA5FD1DD633180054B6A9 /* IAPHelper.h */,
 				D4CEA5FE1DD633180054B6A9 /* IAPHelper.m */,
 				D4CEA5FF1DD633180054B6A9 /* iRate.h */,
@@ -721,9 +714,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D47823B01DD7C4B600685A9B /* Default in Resources */,
 				D4CEA60B1DD633180054B6A9 /* Main.storyboard in Resources */,
 				D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */,
-				D46A245C1AF9F8C600B77AC8 /* Assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,7 +743,6 @@
 				D4CEA6421DD6337D0054B6A9 /* DebugScene.cpp in Sources */,
 				D4CEA5C41DD631A40054B6A9 /* Graphics2D.cpp in Sources */,
 				D4CEA60A1DD633180054B6A9 /* LauncherOS.mm in Sources */,
-				D4CEA6061DD633180054B6A9 /* CrossView.mm in Sources */,
 				D4CEA61D1DD633440054B6A9 /* Rect.cpp in Sources */,
 				D4CEA5E51DD631C50054B6A9 /* Sprite.cpp in Sources */,
 				D4CEA67A1DD634400054B6A9 /* DepthTestScreen.cpp in Sources */,
@@ -779,7 +771,7 @@
 				D4CEA6641DD6340E0054B6A9 /* CameraControlsScreen.cpp in Sources */,
 				D4DA8DD61DD6614000D236A4 /* tinystr.cpp in Sources */,
 				D4CEA6271DD6335A0054B6A9 /* LightShader.cpp in Sources */,
-				D4CEA6071DD633180054B6A9 /* CrossViewController.m in Sources */,
+				D4CEA6071DD633180054B6A9 /* CrossViewController.mm in Sources */,
 				D4CEA68D1DD6344D0054B6A9 /* TriangleScene.cpp in Sources */,
 				D4CEA6541DD633E50054B6A9 /* Menu.cpp in Sources */,
 				D4CEA6511DD633E50054B6A9 /* AudioScreen.cpp in Sources */,

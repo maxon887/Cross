@@ -7,7 +7,6 @@
 //
 
 #import "CommercialOS.h"
-#import "CrossView.h"
 #import "CrossViewController.h"
 #import "IAPHelper.h"
 #import <UIKit/UIKit.h>

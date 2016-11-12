@@ -14,21 +14,13 @@
  
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-
 #import "AppDelegate.h"
-#import "CrossViewController.h"
 //#import "iRate.h"
 
-@implementation AppDelegate{
-    CrossViewController* viewController;
-}
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    viewController = (CrossViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CrossViewController"];
-    self.window.rootViewController = viewController; 
-    [self.window makeKeyAndVisible];
+    // Override point for customization after application launch.
     //[iRate sharedInstance].applicationBundleID = @"com.charcoaldesign.rainbowblocks-free";
     //[iRate sharedInstance].previewMode = YES;
     return YES;
@@ -40,14 +32,11 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [viewController didGoingBackground];
-    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [viewController didGoingForeground];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
