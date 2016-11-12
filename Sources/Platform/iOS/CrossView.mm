@@ -20,9 +20,11 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
+#include "Input.h"
 //#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @implementation CrossView{
+    BOOL disabled;
     CGFloat screenScale;
     CADisplayLink* displayLink;
 }
@@ -33,13 +35,16 @@
     self = [super initWithCoder:aDecoder];
     if(self){
         NSLog(@"initWithCoder");
+        disabled = false;
         EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         self.context = context;
+        self.drawableDepthFormat = GLKViewDrawableDepthFormat16;
         self.enableSetNeedsDisplay = NO;
         displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
         
         screenScale = [[UIScreen mainScreen] scale];
+        //self.multipleTouchEnabled = YES;
         //ads test
         //NSLog(@"Google Mobile Ads Version %@", [GADRequest sdkVersion]);
         BlockInput = false;
@@ -60,16 +65,23 @@
             game->Start();
             game->SetScreen(game->GetStartScreen());
         }else{
-            game->Update();
+            if(!disabled){
+                game->Update();
+            }
         }
     } catch(Exception &exc) {
         string msg = string(exc.message) +
         +"\nFile: " + string(exc.filename) +
         +"\nLine: " + to_string(exc.line);
         NSLog(@"%@", [NSString stringWithFormat:@"\nUnhandled Exception:\n\t%s", msg.c_str()]);
-        //OutputDebugString(msg.c_str());
-        //MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
-        //return 0;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unhandled Exception"
+                                                        message:[NSString stringWithFormat:@"%s", msg.c_str()]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        disabled = true;
     }
 }
 
@@ -85,38 +97,37 @@
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
     [super touchesBegan:touches withEvent:event];
-    if(!BlockInput){/*
+    if(!BlockInput){
         NSSet* touches = [event allTouches];
-        UITouch *touch = [touches anyObject];
-        CGPoint location = [touch locationInView:touch.view];
-        float x = location.x * screenScale / game->GetScaleFactor();
-        float y = location.y * screenScale / game->GetScaleFactor();
-        input->TriggerActionDown(cross::Point(x, y));*/
+        UITouch* touch = [touches anyObject];
+        CGPoint pos = [touch locationInView:touch.view];
+        float x = pos.x * screenScale;
+        float y = pos.y * screenScale;
+        TRIGGER_EVENT(input->TargetActionDown, x, y, 0);
     }
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event{
     [super touchesMoved:touches withEvent:event];
-    if(!BlockInput){/*
+    if(!BlockInput){
         NSSet* touches = [event allTouches];
-        UITouch *touch = [touches anyObject];
-        CGPoint location = [touch locationInView:touch.view];
-        float x = location.x * screenScale / game->GetScaleFactor();
-        float y = location.y * screenScale / game->GetScaleFactor();
-        input->TriggerActionMove(cross::Point(x, y));*/
+        UITouch* touch = [touches anyObject];
+        CGPoint pos = [touch locationInView:touch.view];
+        float x = pos.x * screenScale;
+        float y = pos.y * screenScale;
+        TRIGGER_EVENT(input->TargetActionMove, x, y, 0);
     }
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
     [super touchesEnded:touches withEvent:event];
-    NSMutableSet* alltouches = [[NSMutableSet alloc] initWithSet:[event allTouches]];
-    if(!BlockInput){/*
+    if(!BlockInput){
+        NSSet* touches = [event allTouches];
         UITouch* touch = [touches anyObject];
-        touch = [alltouches anyObject];
-        CGPoint location = [touch locationInView:touch.view];
-        float x = location.x * screenScale / game->GetScaleFactor();
-        float y = location.y * screenScale / game->GetScaleFactor();
-        input->TriggerActionUp(cross::Point(x, y));*/
+        CGPoint pos = [touch locationInView:touch.view];
+        float x = pos.x * screenScale;
+        float y = pos.y * screenScale;
+        TRIGGER_EVENT(input->TargetActionUp, x, y, 0);
     }
 }
 

@@ -19,6 +19,7 @@
 #include "CommercialOS.h"
 #include "LauncherOS.h"
 
+#include <sys/time.h>
 #include <fstream>
 
 LauncherOS::LauncherOS(){
@@ -83,10 +84,9 @@ File* LauncherOS::LoadFile(const string& filename){
 }
 
 U64 LauncherOS::GetTime(){
-    //struct timeval ptv;
-    //gettimeofday(&ptv, NULL);
-   // return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
-    return [[NSDate date] timeIntervalSince1970];
+    struct timeval ptv;
+    gettimeofday(&ptv, NULL);
+    return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
 Commercial* LauncherOS::GetCommercial(){

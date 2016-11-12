@@ -51,7 +51,7 @@ void MainScreen::Start(){
 	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
 	game->WindowResized += window_resized_delegate;
 	//main menu
-	main_menu = new Menu(false);
+	main_menu = new Menu(true);
 	current_menu = main_menu;
 	Button* graphics2Dbtn = new Button("Graphics 2D");
 	Button* graphics3Dbtn = new Button("Graphics 3D");
@@ -181,8 +181,6 @@ void MainScreen::Update(float sec){
 	current_menu->Update(sec);
 
 	if(next_screen){
-		Texture* printTexture = gfxGL->GetColorBuffer();
-		gfx2D->SaveTexture(printTexture, "Test.data");
 		gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 		game->SetScreen(next_screen);
 		return;
