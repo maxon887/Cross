@@ -32,7 +32,7 @@ void CameraControlsScreen::Start(){
 	Sprite* clonePressed = arrow_pressed->Clone();
 	clonePressed->SetRotate(90.f);
 	up_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(up_btn);
+	AddUI(up_btn);
 	
 	left_btn = new Button(Vector2D(btnWidth/3.f, btnWidth/3.f));
 	cloneReleased = arrow_released->Clone();
@@ -40,7 +40,7 @@ void CameraControlsScreen::Start(){
 	clonePressed = arrow_pressed->Clone();
 	clonePressed->SetRotate(180.f);
 	left_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(left_btn);
+	AddUI(left_btn);
 
 	down_btn = new Button(Vector2D(btnWidth, btnWidth/3.f));
 	cloneReleased = arrow_released->Clone();
@@ -48,13 +48,13 @@ void CameraControlsScreen::Start(){
 	clonePressed = arrow_pressed->Clone();
 	clonePressed->SetRotate(-90.f);
 	down_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(down_btn);
+	AddUI(down_btn);
 
 	right_btn = new Button(Vector2D(btnWidth + (btnWidth / 3.f) * 2.f, btnWidth/3.f));
 	cloneReleased = arrow_released->Clone();
 	clonePressed = arrow_pressed->Clone();
 	right_btn->SetImages(cloneReleased, clonePressed);
-	gui.push_back(right_btn);
+	AddUI(right_btn);
 
 	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
 	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
@@ -62,7 +62,7 @@ void CameraControlsScreen::Start(){
 	eye_btn->Clicked += MakeDelegate(this, &CameraControlsScreen::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
-	gui.push_back(eye_btn);
+	AddUI(eye_btn);
 
 	OnEyeClick();
 }
@@ -70,9 +70,6 @@ void CameraControlsScreen::Start(){
 void CameraControlsScreen::Stop(){
 	delete arrow_released;
 	delete arrow_pressed;
-	for(Button* btn : gui){
-		delete btn;
-	}
 	DebugScene::Stop();
 }
 
@@ -90,10 +87,6 @@ void CameraControlsScreen::Update(float sec){
 	}
 	if(right_btn->IsPressed()) {
 		MoveRight(sec);
-	}
-
-	for(Button* btn : gui){
-		btn->Update(sec);
 	}
 
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {

@@ -31,7 +31,6 @@ void CamaroScene::Start(){
 	CameraControlsScreen::Start();
 
 	SetAmbientColor(Color(0.1f));
-	SetBackground(Color::Black);
 
 	//lights
 	light = new Light(Light::Type::POINT);

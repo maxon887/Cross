@@ -35,7 +35,7 @@ void Screen::Start(){
 	}
 }
 
-void Screen::Update(float sec){
+void Screen::LateUpdate(float sec){
 	for(UI* ui : guis){
 		ui->Update(sec);
 	}

@@ -111,6 +111,7 @@ void Game::Update(){
 	gfxGL->PreProcessFrame();
 	gfx2D->Update((float)(updateTime / 1000000.));
 	GetCurrentScreen()->Update((float)(updateTime / 1000000.));
+	GetCurrentScreen()->LateUpdate((float)(updateTime / 1000000.));
 	gfxGL->PostProcessFrame();
 
 	Debugger::Instance()->Update((float)updateTime);

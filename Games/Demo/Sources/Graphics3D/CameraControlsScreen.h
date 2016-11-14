@@ -30,7 +30,6 @@ private:
 	//UI
 	Sprite* arrow_released;
 	Sprite* arrow_pressed;
-	CRArray<Button*> gui;
 	Button* left_btn;
 	Button* right_btn;
 	Button* up_btn;
