@@ -76,7 +76,7 @@ GraphicsGL::GraphicsGL():
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		launcher->LogIt("\tUsed OpenGL " + to_string(magorV) + "." + to_string(minorV));
+		launcher->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}
@@ -123,10 +123,6 @@ void GraphicsGL::Start(){
 		SAFE(glGenFramebuffers(1, &framebuffer));
 
 		GeneradeFramebuffer();
-
-		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-			throw CrossException("Can not initialize second frame buffer");
-		}
 
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		//quad setub
@@ -259,6 +255,13 @@ void GraphicsGL::UseShader(Shader* shader){
 }
 
 void GraphicsGL::GeneradeFramebuffer(){
+	SAFE(glDeleteBuffers(1, &framebuffer));
+	SAFE(glDeleteBuffers(1, &colorbuffer));
+	SAFE(glDeleteBuffers(1, &depthbuffer));
+	if(colorbuffer_texture){
+		delete colorbuffer_texture;
+		colorbuffer_texture = NULL;
+	}
 	//generade color buffer
 	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 	//generate color buffer
@@ -277,6 +280,10 @@ void GraphicsGL::GeneradeFramebuffer(){
 	SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth, bufferHeight));
 	SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
 	regenerade_framebuffer = false;
+
+	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+		throw CrossException("Can not initialize second frame buffer");
+	}
 }
 
 void GraphicsGL::WindowResizeHandle(S32 width, S32 height){

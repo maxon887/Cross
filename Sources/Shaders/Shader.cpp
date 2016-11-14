@@ -167,9 +167,9 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 		if(len > 1){
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
-			string msg(log);
+			log[len] = 0;
+			launcher->LogIt("Shader compilation:\n%s", log);
 			delete[] log;
-			launcher->LogIt("Shader compilation:\n" + msg);
 		}
 #endif
 	}

@@ -51,17 +51,8 @@ string LauncherAndroid::DataPath(){
 	return data_path;
 }
 
-void LauncherAndroid::LogIt(const string& str){
+void LauncherAndroid::Log(const char* str){
 	LOGI("%s", str.c_str());
-}
-
-void LauncherAndroid::LogIt(const char* formatStr, ...){
-    va_list params;
-    char buffer[1024];
-    va_start(params, formatStr);
-    vsprintf(buffer, formatStr, params);
-    LOGI("%s", buffer);
-    va_end(params);
 }
 
 File* LauncherAndroid::LoadFile(const string& filename) {

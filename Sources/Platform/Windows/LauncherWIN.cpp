@@ -46,9 +46,9 @@ LauncherWIN::LauncherWIN(HWND wnd) :
 		CreateDirectoryA(DATA_PATH, NULL);
 	}
 	char* releaseAsset = "Assets/";
-	char* debugAsset = "../../../Assets/Default";
-	char* debugAssetAlt = "../../Assets/Default";
-	char* editorAsset = "../Games/Demo/Assets/Default";
+	char* debugAsset = "../../../Assets/Default/";
+	char* debugAssetAlt = "../../Assets/Default/";
+	char* editorAsset = "../Games/Demo/Assets/Default/";
 	if(DirectoryExists(releaseAsset)){
 		assets_path = releaseAsset;
 	} else if(DirectoryExists(debugAsset)){
@@ -80,25 +80,6 @@ string LauncherWIN::DataPath(){
 	return DATA_PATH;
 }
 
-File* LauncherWIN::LoadFile(const string& filename){
-	File* file = new File();
-	file->name = filename;
-	string filePath = AssetsPath() + "//" + filename;
-	ifstream fileStream(filePath, istream::binary);
-	if(fileStream.is_open()){
-		fileStream.seekg(0, fileStream.end);
-		file->size = (size_t)fileStream.tellg();
-		fileStream.seekg(0, fileStream.beg);
-		file->data = new Byte[file->size];
-		ZeroMemory(file->data, file->size);
-		fileStream.read((char*)file->data, file->size);
-		fileStream.close();
-		return file;
-	} else {
-		throw CrossException("Cannot open file %s", file->name.c_str());
-	}
-}
-
 U64 LauncherWIN::GetTime(){
 	LARGE_INTEGER freq;
 	LARGE_INTEGER crt;
@@ -107,19 +88,9 @@ U64 LauncherWIN::GetTime(){
 	return (crt.QuadPart * 1000000) / freq.QuadPart;
 }
 
-void LauncherWIN::LogIt(const string& msg){
-	OutputDebugStringA(msg.c_str());
+void LauncherWIN::Log(const char* msg){
+	OutputDebugStringA(msg);
 	OutputDebugStringA("\n");
-}
-
-void LauncherWIN::LogIt(const char* formatStr, ...){
-	va_list params;
-	char buffer[1024];
-	va_start(params, formatStr);
-	vsprintf_s(buffer, sizeof(buffer), formatStr, params);
-	OutputDebugStringA(buffer);
-	OutputDebugStringA("\n");
-	va_end(params);
 }
 
 void LauncherWIN::Sleep(float milis){
@@ -130,7 +101,7 @@ void LauncherWIN::ShowMessage(const string& msg){
 	if(wnd){
 		MessageBoxA(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
 	}else{
-		LogIt(msg);
+		LogIt(msg.c_str());
 	}
 }
 

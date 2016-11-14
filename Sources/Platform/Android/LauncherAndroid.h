@@ -37,8 +37,7 @@ public:
 	U32 GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
-	void LogIt(const string& str);
-    void LogIt(const char* formatStr, ...);
+	void Log(const char* msg);
 	File* LoadFile(const string& filename);
 	U64 GetTime();
 	void PromtToExit();

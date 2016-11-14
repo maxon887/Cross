@@ -20,44 +20,41 @@
 namespace cross {
 
 class Commercial;
-
+	
 /* Abstract class contained platform specific functionality. */
 class Launcher{
 public:
+	virtual ~Launcher() { }
 	/* Returns physical screen width in pixels */
 	virtual U32 GetTargetWidth() = 0;
 	/* Returns physical screen height in pixels */
 	virtual U32 GetTargetHeight() = 0;
-	// TODO remove virtualization
-	virtual void LogIt(const string& msg) = 0;
 	/* Cross platform way to log out message */
-	virtual void LogIt(const char* formatStr, ...) = 0;
+	virtual void Log(const char* msg) = 0;
 	/* return path to the application assets folder */
 	virtual string AssetsPath() = 0;
 	/* return path to the application data folder */
 	virtual string DataPath() = 0;
-	/* Loads specific file from game assets. */
-	virtual File* LoadFile(const string& filename) = 0;
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
+	/* Loads specific file from game assets. */
+	virtual File* LoadFile(const string& filename);
+	/* Safe file to Data folder */
+	virtual void SaveFile(File* file);
 	/* Force current thread sleep m miliseconds */
 	virtual void Sleep(float milis) { };
 	/* Ask user about exit from application */
 	virtual void PromtToExit() { };
 	/* Returns platform specific Commercial class object */
 	virtual Commercial* GetCommercial() { return NULL; };
-	/* Safe file to Data folder */
-	void SaveFile(File* file);
+	
+	void LogIt(const char* format, ...);
 	/* Returns physical screen aspec ration */
 	float GetAspectRatio();
 	/* Returns directory from full filename */
 	string PathFromFile(const string& filePath);
 	string ExtensionFromFile(const string& file);
 	string FileWithoutExtension(const string& file);
-//Internal data. You don't need call any of this methods or modify variable
-public:
-	virtual ~Launcher() { }
-private:
 };
     
 }

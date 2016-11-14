@@ -17,9 +17,29 @@
 #include "Launcher.h"
 #include "File.h"
 
+#include <stdarg.h>
 #include <fstream>
 
 using namespace cross;
+
+File* Launcher::LoadFile(const string& filename){
+	File* file = new File();
+	file->name = filename;
+	string filePath = AssetsPath() + filename;
+	ifstream fileStream(filePath, istream::binary);
+	if(fileStream.is_open()){
+		fileStream.seekg(0, fileStream.end);
+		file->size = (size_t)fileStream.tellg();
+		fileStream.seekg(0, fileStream.beg);
+		file->data = new Byte[file->size];
+		memset(file->data, 0, file->size);
+		fileStream.read((char*)file->data, file->size);
+		fileStream.close();
+		return file;
+	} else {
+		throw CrossException("Cannot open file %s", file->name.c_str());
+	}
+}
 
 void Launcher::SaveFile(File* file){
 	string filePath = DataPath() + file->name;
@@ -30,6 +50,15 @@ void Launcher::SaveFile(File* file){
 	}else{
 		throw CrossException("Can't open file stream: %s", filePath.c_str());
 	}
+}
+
+void Launcher::LogIt(const char* format, ...){
+	va_list params;
+	char buffer[1024];
+	va_start(params, format);
+	vsprintf(buffer, format, params);
+	Log(buffer);
+	va_end(params);
 }
 
 float Launcher::GetAspectRatio(){

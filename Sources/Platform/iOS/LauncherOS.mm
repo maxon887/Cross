@@ -52,36 +52,8 @@ string LauncherOS::DataPath(){
     return cPath + "/";
 }
 
-void LauncherOS::LogIt(const string& str){
+void LauncherOS::Log(const char* str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str.c_str()]);
-}
-
-void LauncherOS::LogIt(const char* formatStr, ...){
-    va_list params;
-    char buffer[1024];
-    va_start(params, formatStr);
-    vsprintf(buffer, formatStr, params);
-    NSLog(@"%@", [NSString stringWithFormat:@"%s", buffer]);
-    va_end(params);
-}
-
-File* LauncherOS::LoadFile(const string& filename){
-    File* file = new File();
-    file->name = filename;
-    string filePath = AssetsPath() + filename;
-    ifstream fileStream(filePath, istream::binary);
-    if(fileStream.is_open()){
-        fileStream.seekg(0, fileStream.end);
-        file->size = (size_t)fileStream.tellg();
-        fileStream.seekg(0, fileStream.beg);
-        file->data = new Byte[file->size];
-        //ZeroMemory(file->data, file->size);
-        fileStream.read((char*)file->data, file->size);
-        fileStream.close();
-        return file;
-    } else {
-        throw CrossException("Cannot open file %s", file->name.c_str());
-    }
 }
 
 U64 LauncherOS::GetTime(){
@@ -98,7 +70,3 @@ LauncherOS::~LauncherOS(){
     delete commercial;
     Audio::Release();
 }
-
-
-
-

@@ -31,10 +31,8 @@ public:
 	U32 GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
-	File* LoadFile(const string& filename);
 	U64 GetTime();
-	void LogIt(const string& msg);
-	void LogIt(const char* formatString, ...);
+	void Log(const char* msg);
 	void Sleep(float milis);
 	void ShowMessage(const string& msg);
 	void ResizeWindow(int posX, int posY, int width, int height);
@@ -45,6 +43,7 @@ public:
 	void SetWindowSize(int width, int heght);
 
 	void KeyReleasedHandle(Key key);
+	
 private:
 	HWND wnd;
 	char* assets_path;
