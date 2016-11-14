@@ -53,7 +53,7 @@ string LauncherOS::DataPath(){
 }
 
 void LauncherOS::Log(const char* str){
-    NSLog(@"%@", [NSString stringWithFormat:@"%s", str.c_str()]);
+    NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
 }
 
 U64 LauncherOS::GetTime(){
