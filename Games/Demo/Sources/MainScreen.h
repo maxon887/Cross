@@ -76,4 +76,5 @@ private:
 	void OnCamaroClick();
 	//graphics 3d advanced
 	void OnDepthTestClick();
+	void OnStencilTestClick();
 };

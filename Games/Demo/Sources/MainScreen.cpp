@@ -20,9 +20,14 @@
 #include "Sprite.h"
 #include "AudioScreen.h"
 #include "Camera2D.h"
+#include "Graphics2D/PrimitivesScreen.h"
+#include "Graphics2D/AnimationScreen.h"
+#include "Graphics2D/SpritesScreen.h"
+#include "Graphics2D/TextScreen.h"
 #include "Graphics3D/Simple/TriangleScene.h"
 #include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"
+#include "Graphics3D/Simple/ComplexModelScene.h"
 #include "Graphics3D/Light/SpecularScene.h"
 #include "Graphics3D/Light/DiffuseScene.h"
 #include "Graphics3D/Light/SpecularMapScene.h"
@@ -31,11 +36,8 @@
 #include "Graphics3D/Light/SpotLightScene.h"
 #include "Graphics3D/Light/MultiLightScene.h"
 #include "Graphics3D/Light/CamaroScene.h"
-#include "Graphics3D/Simple/ComplexModelScene.h"
-#include "Graphics2D/PrimitivesScreen.h"
-#include "Graphics2D/AnimationScreen.h"
-#include "Graphics2D/SpritesScreen.h"
-#include "Graphics2D/TextScreen.h"
+#include "Graphics3D/Advanced/DepthScene.h"
+#include "Graphics3D/Advanced/StencilScene.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -152,9 +154,13 @@ void MainScreen::Start(){
 
 	graphics3D_advanced = new Menu(true);
 	Button* depthTestBtn			= new Button("Depth Test");
+	Button* stencilTestBtn			= new Button("Stencil Test");
 	depthTestBtn->SetImages(button_sprite->Clone());
+	stencilTestBtn->SetImages(button_sprite->Clone());
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
+	stencilTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnStencilTestClick);
 	graphics3D_advanced->AddButton(depthTestBtn);
+	graphics3D_advanced->AddButton(stencilTestBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -319,6 +325,9 @@ void MainScreen::OnCamaroClick(){
 }
 
 void MainScreen::OnDepthTestClick(){
-	//next_screen = new DepthTestScreen();
-	throw CrossException("Screen not implemented yet");
+	next_screen = new DepthScene();
+}
+
+void MainScreen::OnStencilTestClick(){
+	next_screen = new StencilScene();
 }

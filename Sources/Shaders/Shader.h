@@ -36,11 +36,15 @@ public:
 		};
 
 		Property(string name, Type type, string glName):
+			Property(name, type, glName, NULL)
+		{ }
+
+		Property(string name, Type type, string glName, void* value):
 			name(name),
 			type(type),
 			glName(glName),
 			glId(-1),
-			value(NULL)
+			value(value)
 		{ }
 
 		string name;
@@ -92,6 +96,7 @@ public:
 	void AddMakro(const string& makro, int value);
 	void AddProperty(Property* prop);
 	void AddProperty(const string& name, Property::Type type, const string& glName);
+	void AddProperty(const string& name, Property::Type type, const string& glName, void* deffaltValue);
 	Property* GetProperty(const string& name);
 
 	GLuint GetProgram();
