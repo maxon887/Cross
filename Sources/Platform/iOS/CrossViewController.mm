@@ -25,6 +25,8 @@
 
 @implementation CrossViewController{
     CGFloat screenScale;
+    int hashID[10];
+    int lastHashID;
 }
 
 BOOL paused = NO;
@@ -41,6 +43,7 @@ BOOL paused = NO;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
     view.drawableStencilFormat = GLKViewDrawableStencilFormat8;
     screenScale = [[UIScreen mainScreen] scale];
+    lastHashID = 0;
     
     try{
         launcher = new LauncherOS();
@@ -91,6 +94,7 @@ BOOL paused = NO;
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
+    [self setHashIDs:touches began:YES];
     [self handleTouchWithEvent:input->TargetActionDown touches:touches];
 }
 
@@ -101,6 +105,7 @@ BOOL paused = NO;
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
     [self handleTouchWithEvent:input->TargetActionUp touches:touches];
+    [self setHashIDs:touches began:NO];
 }
 
 - (void)handleTouchWithEvent:(A3D::AEvent<FastDelegate<void(float, float, int)>>)event touches:(NSSet *)touches
@@ -109,7 +114,30 @@ BOOL paused = NO;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        TRIGGER_EVENT(event, x, y, (int)[touch hash] % 10);
+        TRIGGER_EVENT(event, x, y, [self idForHash:(int)[touch hash]]);
+        NSLog(@"%d", [self idForHash:(int)[touch hash]]);
+    }
+}
+
+- (int)idForHash:(int)hash
+{
+    for (int i = 0; i <= lastHashID; i++)
+        if (hashID[i] == hash)
+            return i;
+    
+    throw CrossException("touch hash id not found");
+}
+
+- (void)setHashIDs:(NSSet*)touches began:(BOOL)began
+{
+    if (began)
+    {
+        for (UITouch *touch in touches)
+            hashID[lastHashID++] = (int)[touch hash];
+    }
+    else
+    {
+        lastHashID -= [touches count];
     }
 }
 
