@@ -33,6 +33,7 @@ public:
 
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
+	void FaceCulling(bool enabled);
 
 	U32 GetPrimitivesCount() const;
 	VertexBuffer* GetVertexBuffer();
@@ -47,6 +48,7 @@ protected:
 	Material* material;
 	U32 primitives_count;
 	U32 index_count;
+	bool cull_face;
 
 	bool original;
 

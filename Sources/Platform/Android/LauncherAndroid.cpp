@@ -52,7 +52,7 @@ string LauncherAndroid::DataPath(){
 }
 
 void LauncherAndroid::Log(const char* str){
-	LOGI("%s", str.c_str());
+	LOGI("%s", str);
 }
 
 File* LauncherAndroid::LoadFile(const string& filename) {

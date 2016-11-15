@@ -75,6 +75,12 @@ U32 Model::GetPolyCount(){
 	return polyCount;
 }
 
+void Model::FaceCulling(bool enabled){
+	for(Mesh* mesh : meshes){
+		mesh->FaceCulling(enabled);
+	}
+}
+
 void Model::AddMesh(Mesh* mesh){
 	meshes.push_back(mesh);
 }

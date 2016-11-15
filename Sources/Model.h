@@ -36,6 +36,7 @@ public:
 	string GetFilePath();
 	Format GetFormat();
 	U32 GetPolyCount();
+	void FaceCulling(bool enabled);
 
 	void AddMesh(Mesh* mesh);
 	void SetMaterial(Material* material);

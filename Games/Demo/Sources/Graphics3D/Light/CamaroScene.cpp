@@ -60,6 +60,7 @@ void CamaroScene::Start(){
 	road_mat->SetPropertyValue("Specular", (void*)(&specular));
 	road_mat->SetPropertyValue("Shininess", (void*)(&shininess));
 	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
+	road->FaceCulling(false);
 	road->SetMaterial(road_mat);
 	road->SetRotateX(-90.f);//du to 3ds exports
 }

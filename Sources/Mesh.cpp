@@ -29,6 +29,7 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCoun
 	vertex_buffer(vertexBuffer),
 	primitives_count(primitivesCount),
 	material(nullptr),
+	cull_face(true),
 	original(true)
 {
 	index_count = indices.size();
@@ -182,9 +183,14 @@ void Mesh::Draw(const Matrix& globalModel){
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//drawing
 	SAFE(glEnable(GL_DEPTH_TEST));
+	if(cull_face){
+		SAFE(glEnable(GL_CULL_FACE));
+	}
+	SAFE(glCullFace(GL_FRONT));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
@@ -194,6 +200,10 @@ void Mesh::SetMaterial(Material* mat){
 
 Material* Mesh::GetMaterial(){
 	return material;
+}
+
+void Mesh::FaceCulling(bool enabled){
+	cull_face = enabled;
 }
 
 U32 Mesh::GetPrimitivesCount() const{
