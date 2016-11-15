@@ -32,6 +32,7 @@ BOOL paused = NO;
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.preferredFramesPerSecond = 60;
+    self.view.multipleTouchEnabled = YES;
     EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     [EAGLContext setCurrentContext:context];
     GLKView* view = (GLKView*)self.view;
@@ -108,7 +109,7 @@ BOOL paused = NO;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        TRIGGER_EVENT(event, x, y, (int)[touch hash]);
+        TRIGGER_EVENT(event, x, y, (int)[touch hash] % 10);
     }
 }
 
