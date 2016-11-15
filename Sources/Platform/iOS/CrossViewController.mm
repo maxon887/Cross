@@ -90,30 +90,26 @@ BOOL paused = NO;
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
-    [super touchesBegan:touches withEvent:event];
-    UITouch* touch = [touches anyObject];
-    CGPoint pos = [touch locationInView:touch.view];
-    float x = pos.x * screenScale;
-    float y = pos.y * screenScale;
-    TRIGGER_EVENT(input->TargetActionDown, x, y, 0);
+    [self handleTouchWithEvent:input->TargetActionDown touches:touches];
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event{
-    [super touchesMoved:touches withEvent:event];
-    UITouch* touch = [touches anyObject];
-    CGPoint pos = [touch locationInView:touch.view];
-    float x = pos.x * screenScale;
-    float y = pos.y * screenScale;
-    TRIGGER_EVENT(input->TargetActionMove, x, y, 0);
+    [self handleTouchWithEvent:input->TargetActionMove touches:touches];
+    
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
-    [super touchesEnded:touches withEvent:event];
-    UITouch* touch = [touches anyObject];
-    CGPoint pos = [touch locationInView:touch.view];
-    float x = pos.x * screenScale;
-    float y = pos.y * screenScale;
-    TRIGGER_EVENT(input->TargetActionUp, x, y, 0);
+    [self handleTouchWithEvent:input->TargetActionUp touches:touches];
+}
+
+- (void)handleTouchWithEvent:(A3D::AEvent<FastDelegate<void(float, float, int)>>)event touches:(NSSet *)touches
+{
+    for (UITouch *touch in touches){
+        CGPoint pos = [touch locationInView:touch.view];
+        float x = pos.x * screenScale;
+        float y = pos.y * screenScale;
+        TRIGGER_EVENT(event, x, y, (int)[touch hash]);
+    }
 }
 
 @end
