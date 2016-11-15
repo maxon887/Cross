@@ -23,9 +23,8 @@ Material::Material(Shader* shader) :
 	shader(shader),
 	active_texture_slot(0){
 	if(shader->IsCompiled()){
-		for(pair<string, Shader::Property*> pair : shader->properties){
-			Shader::Property* prop = new Shader::Property(*pair.second);
-			this->properties[prop->name] = prop;
+		for(Shader::Property* prop : shader->properties){
+			properties.push_back(new Shader::Property(*prop));
 		}
 	}else{
 		throw CrossException("Material must use compilded shader");
@@ -33,8 +32,7 @@ Material::Material(Shader* shader) :
 }
 
 Material::~Material(){
-	for(pair<string, Shader::Property*> pair : properties){
-		Shader::Property* prop = pair.second;
+	for(Shader::Property* prop : properties){
 		delete prop;
 	}
 }
@@ -43,13 +41,48 @@ void Material::SetShader(Shader* shader){
 	this->shader = shader;
 }
 
-void Material::SetPropertyValue(const string& name, void* value){
-	auto it = properties.find(name);
-	if(it != properties.end()){
-		it->second->value = value;
-	}else{
-		throw CrossException("'%s' is not property of the material", name.c_str());
+Shader::Property* Material::GetProperty(const string& name){
+	for(Shader::Property* prop : properties){
+		if(prop->name == name){
+			return prop;
+		}
 	}
+	throw CrossException("Can not find property");
+}
+
+void Material::SetPropertyValue(const string& name, U32 value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(const string& name, float value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(const string& name, const Color& value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(const string& name, Vector3D& value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(const string& name, Vector4D& value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(const string& name, Matrix& value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(const string& name, Texture* value){
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
 }
 
 Shader* Material::GetShader(){

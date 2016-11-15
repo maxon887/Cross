@@ -36,30 +36,26 @@ void CamaroScene::Start(){
 	light = new Light(Light::Type::POINT);
 	AddLight(light);
 
-	specular = 0.5f;
-	shininess = 0.5f * 128.f;
-
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
-	shader->AddProperty("Specular", Shader::Property::Type::FLOAT, "uSpecular");
-	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	shader->AddProperty("Specular", "uSpecular");
+	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
 	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse");
 	car_mat = new Material(shader);
-	car_mat->SetPropertyValue("Diffuse Texture", (void*)car_diffuse->GetID());
-	car_mat->SetPropertyValue("Specular", (void*)(&specular));
-	car_mat->SetPropertyValue("Shininess", (void*)(&shininess));
+	car_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
+	car_mat->SetPropertyValue("Specular", 0.5f);
+	car_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	
 	road_diffuse = gfx2D->LoadTexture("gfx3D/Road/Diffuse");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
-	road_mat->SetPropertyValue("Diffuse Texture", (void*)road_diffuse->GetID());
-	road_mat->SetPropertyValue("Specular", (void*)(&specular));
-	road_mat->SetPropertyValue("Shininess", (void*)(&shininess));
-	//road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
+	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
+	road_mat->SetPropertyValue("Specular", 0.5f);
+	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(250.f);
 	road->FaceCulling(false);

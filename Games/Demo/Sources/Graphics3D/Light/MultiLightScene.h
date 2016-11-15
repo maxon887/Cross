@@ -28,6 +28,5 @@ protected:
 	Texture* specular_map;
 	Material* material;
 	Model* cube;
-	float shininess;
 	CRArray<Model*> objects;
 };

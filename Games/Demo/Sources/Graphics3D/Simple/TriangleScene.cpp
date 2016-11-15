@@ -25,7 +25,7 @@ void TriangleScene::Start(){
 	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	shader->Compile();
 	material = new Material(shader);
-	material->SetPropertyValue("Color", (void*)(&Color::Red));
+	material->SetPropertyValue("Color", Color::Red);
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	

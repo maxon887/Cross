@@ -25,28 +25,23 @@
 
 void SpecularScene::Start(){
 	CameraControlsScreen::Start();
-	SetCameraViewDistance(500.f);
-	//FreeCameraScene::OrbitCamera(28);
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
 	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddLight(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
-	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
-	shader->AddProperty("Specular Color", Shader::Property::Type::VEC3, "uSpecularColor");
-	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->AddProperty("Diffuse Color", "uColor");
+	shader->AddProperty("Specular Color", "uSpecularColor");
+	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Color", (void*)&Color::Red);
-	material->SetPropertyValue("Specular Color", (void*)&Color::White);
-	shininess = 0.5f * 128.f;
-	material->SetPropertyValue("Shininess", (void*)(&shininess));
+	material->SetPropertyValue("Diffuse Color", Color::Red);
+	material->SetPropertyValue("Specular Color", Color::White);
+	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 
-	cube->SetPosition(Vector3D(1.0f, 2.0f, -1.0f));
 	cube->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
 }
 

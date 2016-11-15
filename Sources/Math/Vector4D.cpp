@@ -40,6 +40,10 @@ Vector4D::Vector4D(const Vector3D& vec, float w):
 	w(w)
 { }
 
+float* Vector4D::GetData(){
+	return &x;
+}
+
 Vector4D Vector4D::operator+(const Vector4D &v2) const{
 	return Vector4D(this->x + v2.x, this->y + v2.y, this->z + v2.z, this->w + v2.w);
 }

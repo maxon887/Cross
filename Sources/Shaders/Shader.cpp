@@ -17,8 +17,85 @@
 #include "Shader.h"
 #include "Launcher.h"
 #include "File.h"
+#include "Texture.h"
 
 using namespace cross;
+
+Shader::Property::Property(Shader::Property& obj):
+	name(obj.name),
+	type(obj.type),
+	glName(obj.glName),
+	glId(obj.glId),
+	value(obj.value),
+	size(obj.size),
+	original(false)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName):
+	name(name),
+	type(UNKNOWN),
+	glName(glName),
+	glId(-1),
+	value(NULL),
+	size(0),
+	original(true)
+{ }
+
+Shader::Property::~Property(){
+	if(value && original){
+		delete[] value;
+	}
+}
+
+void Shader::Property::SetValue(U32 v){
+	type = INT;
+	RealocateIfNeeded(sizeof(U32));
+	memcpy(value, &v, size);
+}
+
+void Shader::Property::SetValue(float v){
+	type = FLOAT;
+	RealocateIfNeeded(sizeof(float));
+	memcpy(value, &v, size);
+}
+
+void Shader::Property::SetValue(const Color& v){
+	type = VEC4;
+	RealocateIfNeeded(sizeof(Color));
+	memcpy(value, v.GetData(), size);
+}
+
+void Shader::Property::SetValue(Vector3D& v){
+	type = VEC3;
+	RealocateIfNeeded(sizeof(Vector3D));
+	memcpy(value, v.GetData(), size);
+}
+
+void Shader::Property::SetValue(Vector4D& v){
+	type = VEC4;
+	RealocateIfNeeded(sizeof(Vector4D));
+	memcpy(value, v.GetData(), size);
+}
+
+void Shader::Property::SetValue(Matrix& v){
+	type = MAT4;
+	RealocateIfNeeded(sizeof(float) * 16);
+	memcpy(value, v.GetData(), size);
+}
+
+void Shader::Property::SetValue(Texture* v){
+	type = SAMPLER;
+	GLuint textureID = v->GetID();
+	RealocateIfNeeded(sizeof(GLuint));
+	memcpy(value, &textureID, size);
+}
+
+void Shader::Property::RealocateIfNeeded(U32 newSize){
+	if(size < newSize){
+		size = newSize;
+		value = new Byte[newSize];
+	}
+}
 
 Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 	compiled(false),
@@ -35,8 +112,7 @@ Shader::~Shader(){
 	glDeleteProgram(program);
 	delete vertex_file;
 	delete fragment_file;
-	for(pair<string, Shader::Property*> pair : properties){
-		Shader::Property* prop = pair.second;
+	for(Shader::Property* prop : properties){
 		delete prop;
 	}
 }
@@ -72,12 +148,9 @@ void Shader::Compile(){
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
 	uColor = glGetUniformLocation(program, "uColor");
 
-	for(pair<string, Shader::Property*> pair : properties){
-		Shader::Property* prop = pair.second;
+	for(Shader::Property* prop : properties){
 		prop->glId = glGetUniformLocation(program, prop->glName.c_str());
-		if(prop->glId != -1){
-			properties[prop->name] = prop;
-		}else{
+		if(prop->glId == -1){
 			throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
 		}
 	}
@@ -110,27 +183,26 @@ void Shader::AddProperty(Shader::Property* prop){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
-
-	auto it = properties.find(prop->name);
-	if(it == properties.end()){
-		properties[prop->name] = prop;
-	}else{
-		throw CrossException("Duplicated property");
-	}
+	properties.push_back(prop);
 }
 
-void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName, void* value){
-	Property* prop = new Property(name, type, glName, value);
-	AddProperty(prop);
+void Shader::AddProperty(const string& name, const string& glName){
+	AddProperty(new Property(name, glName));
 }
 
-void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName){
-	Property* prop = new Property(name, type, glName);
+void Shader::AddProperty(const string& name, const string& glName, float defValue){
+	Property* prop = new Property(name, glName);
+	prop->SetValue(defValue);
 	AddProperty(prop);
 }
 
 Shader::Property* Shader::GetProperty(const string& name){
-	return properties[name];
+	for(Property* prop : properties){
+		if(prop->name == name){
+			return prop;
+		}
+	}
+	throw CrossException("Can not find property");
 }
 
 GLuint Shader::GetProgram(){

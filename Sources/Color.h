@@ -38,7 +38,7 @@ public:
 	Color(float r, float g, float b, float a);
 	Color(int r, int g, int b, int a);
 
-	float* GetData();
+	const float* GetData() const;
 
 	bool operator == (const Color &c) const;
 	bool operator != (const Color &c) const;

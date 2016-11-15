@@ -28,7 +28,6 @@ private:
 	Texture* diffuse_texture;
 	Texture* specular_map;
 	Material* material;
-	float shininess;
 	Model* cube;
 	CRArray<Model*> objects;
 };

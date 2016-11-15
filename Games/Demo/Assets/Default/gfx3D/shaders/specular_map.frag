@@ -8,7 +8,7 @@ struct Light{
 uniform sampler2D uDiffuseTexture;
 uniform sampler2D uSpecularTexture;
 uniform float uShininess;
-uniform vec3 uColor;
+uniform vec4 uColor;
 
 uniform vec3 uAmbientLight;
 uniform Light uLight;

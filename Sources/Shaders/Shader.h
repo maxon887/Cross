@@ -27,31 +27,40 @@ public:
 		enum Type{
 			SAMPLER,
 			MAT4,
-			MAT3,
 			VEC4,
 			VEC3,
 			VEC2,
 			FLOAT,
-			INT
+			INT,
+			UNKNOWN,
 		};
 
-		Property(string name, Type type, string glName):
-			Property(name, type, glName, NULL)
-		{ }
+		Property(Property& obj);
+		Property(const string& name, const string& glName);
+		~Property();
 
-		Property(string name, Type type, string glName, void* value):
-			name(name),
-			type(type),
-			glName(glName),
-			glId(-1),
-			value(value)
-		{ }
+		void SetValue(U32 v);
+		void SetValue(float v);
+		void SetValue(const Color& v);
+		void SetValue(Vector3D& v);
+		void SetValue(Vector4D& v);
+		void SetValue(Matrix& v);
+		void SetValue(Texture* texture);
+
+	private:
+		friend Mesh;
+		friend Shader;
+		friend Material;
+
+		void RealocateIfNeeded(U32 newSIze);
 
 		string name;
 		Type type;
 		string glName;
 		GLint glId;
+		U32 size;
 		void* value;
+		bool original;
 	};
 
 	class LightUniforms{
@@ -80,7 +89,7 @@ public:
 	GLint uAmbientLight;
 	GLint uColor;
 	//custom uniforms
-	CRDictionary<string, Property*> properties;
+	CRArray<Property*> properties;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
@@ -95,8 +104,8 @@ public:
 	void AddMakro(const string& makro);
 	void AddMakro(const string& makro, int value);
 	void AddProperty(Property* prop);
-	void AddProperty(const string& name, Property::Type type, const string& glName);
-	void AddProperty(const string& name, Property::Type type, const string& glName, void* deffaltValue);
+	void AddProperty(const string& name, const string& glName);
+	void AddProperty(const string& name, const string& glName, float defValue);
 	Property* GetProperty(const string& name);
 
 	GLuint GetProgram();

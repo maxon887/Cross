@@ -20,13 +20,16 @@
 #include "Light.h"
 #include "Material.h"
 #include "Model.h"
+#include "Camera.h"
 
 void MultiLightScene::Start(){
 	CameraControlsScreen::Start();
+
+	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 	
 	for(U32 i = 0; i < 8; ++i){
 		Light* light = new Light(Light::Type::POINT);
-		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
+		light->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		light->SetColor(Color::Red);
 		AddLight(light);
 	}
@@ -40,7 +43,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 4; ++i){
 		Light* light = new Light(Light::Type::SPOT);
-		light->SetPosition(Vector3D(Random(-30.f, 30.f), Random(-30.f, 30.f), Random(-30.f, 30.f)));
+		light->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		light->LookAt(Vector3D(0.f));
 		light->SetColor(Color::Blue);
 		AddLight(light);
@@ -48,24 +51,23 @@ void MultiLightScene::Start(){
 	
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddMakro("USE_SPECULAR_MAP");
-	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
-	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularMap");
-	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	shader->AddProperty("Specular Map", "uSpecularMap");
+	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	
 	material = new Material(shader);
 	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
 	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular");
-	material->SetPropertyValue("Diffuse Texture", (void*)diffuse_texture->GetID());
-	material->SetPropertyValue("Specular Map", (void*)specular_map->GetID());
-	shininess = 0.5f * 128.f;
-	material->SetPropertyValue("Shininess", (void*)(&shininess));
+	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
+	material->SetPropertyValue("Specular Map", specular_map);
+	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 	
-	for(U32 i = 0; i < 10; ++i){
+	for(U32 i = 0; i < 50; ++i){
 		Model* clone = cube->Clone();
-		clone->SetPosition(Vector3D(Random(-20.f, 20.f), Random(-20.f, 20.f), Random(-20.f, 20.f)));
+		clone->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		objects.push_back(clone);
 	}

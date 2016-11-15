@@ -63,7 +63,7 @@ Color::Color(int r, int g, int b, int a) :
 	A(a / 255.f)
 { }
 
-float* Color::GetData(){
+const float* Color::GetData() const{
 	return &R;
 }
 

@@ -8,7 +8,7 @@ struct Light{
 uniform sampler2D uDiffuseTexture;
 uniform sampler2D uSpecularMap;
 uniform float uShininess;
-uniform vec3 uColor;
+uniform vec4 uColor;
 
 uniform Light uLight;
 uniform vec3 uAmbientLight;
@@ -32,7 +32,7 @@ void main() {
 	vec3 viewDirection = normalize(uCameraPosition - vFragPosition);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uShininess);
-	vec3 specular = uLight.color * specEffect * vec3(texture2D(uSpecularMap, vTexCoords));
+	vec3 specular = uLight.color * specEffect * texture2D(uSpecularMap, vTexCoords);
 	vec3 result = ambient + diffuse + specular;
 	gl_FragColor = vec4(result, 1.0);
 } 

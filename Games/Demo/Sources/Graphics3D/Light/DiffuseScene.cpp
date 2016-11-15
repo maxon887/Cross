@@ -26,24 +26,23 @@
 
 void DiffuseScene::Start(){
 	CameraControlsScreen::Start();
-
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
 	Light* light = new Light(Light::POINT);
-	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	light->SetPosition(Vector3D(2.f, 2.f, -2.f));
 	AddLight(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
-	shader->AddProperty("Diffuse Texture", Shader::Property::SAMPLER, "uDiffuseTexture");
-	shader->AddProperty("Diffuse Color", Shader::Property::Type::VEC3, "uColor");
-	shader->AddProperty("Shininess", Shader::Property::FLOAT, "uShininess");
+	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	shader->AddProperty("Diffuse Color", "uColor");
+	shader->AddProperty("Specular Color", "uSpecularColor");
+	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", (void*)texture->GetID());
-	material->SetPropertyValue("Diffuse Color", (void*)&Color::White);
-	shininess = 0.5f * 128.f;
-	material->SetPropertyValue("Shininess",	(void*)(&shininess));
+	material->SetPropertyValue("Diffuse Texture", texture);
+	material->SetPropertyValue("Diffuse Color", Color::White);
+	material->SetPropertyValue("Specular Color", Color::White);
+	material->SetPropertyValue("Shininess",	0.5f * 128.f);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 }

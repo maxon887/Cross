@@ -103,34 +103,30 @@ void Mesh::Draw(const Matrix& globalModel){
 	}
 
 	if(shader->uColor != -1){
-		SAFE(glUniform3fv(shader->uColor, 1, Color(Color::White).GetData()));
+		SAFE(glUniform4fv(shader->uColor, 1, Color::White.GetData()));
 	}
 
 	if(shader->uAmbientLight != -1){
 		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(pair<string, Shader::Property*> pair : material->properties){
-		Shader::Property* prop = pair.second;
+	for(Shader::Property* prop : material->properties){
 		if(prop->glId == -1){
 			throw CrossException("Broken shader property");
 		}
-		if(prop->value == nullptr){
+		if(prop->value == NULL){
 			throw CrossException("Property '%s' value not assigned", prop->name.c_str());
 		}
 
 		switch(prop->type){
 		case Shader::Property::SAMPLER:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, (U64)prop->value));
+			SAFE(glBindTexture(GL_TEXTURE_2D, *(U32*)prop->value));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
 		case Shader::Property::MAT4:
 			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
-			break;
-		case Shader::Property::MAT3:
-			SAFE(glUniformMatrix3fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
 			break;
 		case Shader::Property::VEC4:
 			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
@@ -142,7 +138,6 @@ void Mesh::Draw(const Matrix& globalModel){
 			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)prop->value));
 			break;
 		case Shader::Property::FLOAT:{
-			GLfloat value = *((GLfloat*)(prop->value));
 			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
 		}break;
 		case Shader::Property::INT:

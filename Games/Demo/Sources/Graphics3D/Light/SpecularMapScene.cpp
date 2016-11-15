@@ -25,25 +25,22 @@
 
 void SpecularMapScene::Start() {
 	CameraControlsScreen::Start();
-
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -28.f));
 	//light setups
 	Light* light = new Light(Light::POINT);
-	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	light->SetPosition(Vector3D(2.f, 2.f, -2.f));
 	AddLight(light);
 
 	shader = new LightShader("gfx3D/shaders/specular_map.vert", "gfx3D/shaders/specular_map.frag");
-	shader->AddProperty("Diffuse Texture", Shader::Property::Type::SAMPLER, "uDiffuseTexture");
-	shader->AddProperty("Specular Map", Shader::Property::Type::SAMPLER, "uSpecularTexture");
-	shader->AddProperty("Shininess", Shader::Property::Type::FLOAT, "uShininess");
+	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	shader->AddProperty("Specular Map", "uSpecularTexture");
+	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = new Material(shader);
 	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
 	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular");
-	material->SetPropertyValue("Diffuse Texture", (void*)diffuse_texture->GetID());
-	material->SetPropertyValue("Specular Map", (void*)specular_map->GetID());
-	shininess = 0.5f * 128.f;
-	material->SetPropertyValue("Shininess", (void*)(&shininess));
+	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
+	material->SetPropertyValue("Specular Map", specular_map);
+	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 }

@@ -21,7 +21,7 @@ using namespace cross;
 Light::Light(Type type):
 	type(type),
 	color(Color::White),
-	intensity(0.001f),
+	intensity(0.01f), //aroud 15m to max distance
 	cut_off(30.f)
 { }
 

@@ -17,9 +17,11 @@
 #include "CameraControlsScreen.h"
 #include "Demo.h"
 #include "Sprite.h"
+#include "Camera.h"
 
 void CameraControlsScreen::Start(){
 	DebugScene::Start();
+	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -3.f));
 	//UI
 	arrow_released = demo->GetCommonSprite("ArrowUp.png");
 	arrow_pressed = demo->GetCommonSprite("ArrowDown.png");

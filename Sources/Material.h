@@ -22,15 +22,22 @@ namespace cross{
 
 class Material{
 public:
-	CRDictionary<string, Shader::Property*> properties;
+	CRArray<Shader::Property*> properties;
 	U32 active_texture_slot;
 
 	Material(Shader* shader);
 	~Material();
 
 	void SetShader(Shader* shader);
+	Shader::Property* GetProperty(const string& name);
 
-	void SetPropertyValue(const string& name, void* value);
+	void SetPropertyValue(const string& name, U32 value);
+	void SetPropertyValue(const string& name, float value);
+	void SetPropertyValue(const string& name, const Color& value);
+	void SetPropertyValue(const string& name, Vector3D& value);
+	void SetPropertyValue(const string& name, Vector4D& value);
+	void SetPropertyValue(const string& name, Matrix& value);
+	void SetPropertyValue(const string& name, Texture* value);
 
 	Shader* GetShader();
 private:

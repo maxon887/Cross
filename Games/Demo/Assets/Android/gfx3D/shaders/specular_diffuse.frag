@@ -6,8 +6,8 @@ struct Light{
 };
 //material properties
 uniform sampler2D uDiffuseTexture;
-uniform vec3 uColor;
-uniform vec3 uSpecularColor;
+uniform vec4 uColor;
+uniform vec4 uSpecularColor;
 uniform float uShininess;
 //light properties
 uniform vec3 uAmbientLight;
@@ -33,6 +33,7 @@ void main() {
 	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(viewDirection, reflectDirection), 0.0), uShininess);
 	vec3 specular = uLight.color * uSpecularColor * specEffect;
+	
 	vec3 result = ambient + diffuse + specular;
 	
 	gl_FragColor = vec4(result, 1.0);

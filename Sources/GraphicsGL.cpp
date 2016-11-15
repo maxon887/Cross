@@ -173,7 +173,7 @@ void GraphicsGL::PostProcessFrame(){
 
 		UseShader(offscreen_shader);
 		if(offscreen_shader->uColor != -1){
-			SAFE(glUniform3fv(offscreen_shader->uColor, 1, Color(Color::White).GetData()));
+			SAFE(glUniform3fv(offscreen_shader->uColor, 1, Color::White.GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have color uniform");
 		}
@@ -211,20 +211,20 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	switch(type) {
 	case DefaultShader::SIMPLE:
 		shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
-		shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
+		shader->AddProperty("Color", "uColor");
 		break;
 	case DefaultShader::MONOCHROME:
 		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
 		shader->AddMakro("MONOCHROME");
-		shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
+		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::TEXTURE:
 		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-		shader->AddProperty(new Shader::Property("Texture", Shader::Property::Type::SAMPLER, "uTexture"));
+		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::MULTI_LIGHT:
 		shader = new MultiLightShader();
-		//shader->AddProperty(new Shader::Property("Tilling Factor", Shader::Property::Type::FLOAT, "uTillingFactor", (void*)1.f));
+		shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
 		break;
 	default:
 		throw CrossException("Unknown shader type");

@@ -61,13 +61,13 @@ void DebugScene::DrawLights(){
 		switch(light->GetType()) {
 		case Light::Type::POINT:
 			point_light->SetPosition(light->GetPosition());
-			point_light->GetMaterial()->SetPropertyValue("Color", (void*)light->GetColor().GetData());
+			point_light->GetMaterial()->SetPropertyValue("Color", light->GetColor());
 			point_light->Draw();
 		break;
 		case Light::Type::SPOT:
 			spot_light->SetPosition(light->GetPosition());
 			spot_light->SetDirection(light->GetDirection());
-			spot_light->GetMaterial()->SetPropertyValue("Color", (void*)light->GetColor().GetData());
+			spot_light->GetMaterial()->SetPropertyValue("Color", light->GetColor());
 			spot_light->Draw();
 		break;
 		default:

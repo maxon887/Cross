@@ -25,8 +25,6 @@ public:
 
 private:
 	Shader* shader;
-	float specular;
-	float shininess;
 	Texture* car_diffuse;
 	Texture* road_diffuse;
 	Material* car_mat;
