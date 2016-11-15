@@ -49,6 +49,9 @@
     <Filter Include="Cross\Math">
       <UniqueIdentifier>{c29fcd9b-dc4f-4506-bc92-e686220f618c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Graphics3D\Advanced">
+      <UniqueIdentifier>{ac3cc46f-ab38-46b7-9e41-24a82b837ed0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -205,9 +208,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
@@ -285,6 +285,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DiffuseScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\DepthScene.cpp">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\StencilScene.cpp">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -448,9 +454,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\DepthTestScreen.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
@@ -528,6 +531,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DiffuseScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\DepthScene.h">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\StencilScene.h">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

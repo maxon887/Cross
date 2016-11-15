@@ -119,6 +119,11 @@ void Shader::AddProperty(Shader::Property* prop){
 	}
 }
 
+void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName, void* value){
+	Property* prop = new Property(name, type, glName, value);
+	AddProperty(prop);
+}
+
 void Shader::AddProperty(const string& name, Shader::Property::Type type, const string& glName){
 	Property* prop = new Property(name, type, glName);
 	AddProperty(prop);

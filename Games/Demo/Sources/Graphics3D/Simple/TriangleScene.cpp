@@ -40,6 +40,7 @@ void TriangleScene::Start(){
 
 	triangle = new Mesh(vertexBuffer, indices, indices.size());
 	triangle->SetMaterial(material);
+	triangle->FaceCulling(false);
 }
 
 void TriangleScene::Stop(){

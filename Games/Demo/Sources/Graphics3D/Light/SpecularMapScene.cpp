@@ -44,7 +44,7 @@ void SpecularMapScene::Start() {
 	material->SetPropertyValue("Specular Map", (void*)specular_map->GetID());
 	shininess = 0.5f * 128.f;
 	material->SetPropertyValue("Shininess", (void*)(&shininess));
-	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
+	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetMaterial(material);
 }
 
