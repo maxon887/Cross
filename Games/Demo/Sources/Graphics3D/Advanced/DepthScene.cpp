@@ -40,10 +40,10 @@ void DepthScene::Start(){
 	camaro->SetMaterial(car_mat);
 	
 	road_mat = new Material(shader);
-	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
+	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	road->SetScale(250.f);
 	road->FaceCulling(false);
 	road->SetMaterial(road_mat);
-	road->SetRotateX(-90.f);//du to 3ds exports
 }
 
 void DepthScene::Stop(){

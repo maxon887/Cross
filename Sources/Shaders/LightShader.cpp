@@ -53,7 +53,7 @@ void LightShader::TransferLightData(const CRArray<Light*>& lights){
 		SAFE(glUniform3fv(light_attribs.position, 1, position.GetData()));
 	}
 	if(light_attribs.color != -1){
-		SAFE(glUniform3fv(light_attribs.color, 1, light->GetColor().GetData()));
+		SAFE(glUniform4fv(light_attribs.color, 1, light->GetColor().GetData()));
 	}
 	if(light_attribs.intensity != -1){
 		SAFE(glUniform1f(light_attribs.intensity, light->GetIntensity()));

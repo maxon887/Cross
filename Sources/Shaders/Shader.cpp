@@ -26,10 +26,12 @@ Shader::Property::Property(Shader::Property& obj):
 	type(obj.type),
 	glName(obj.glName),
 	glId(obj.glId),
-	value(obj.value),
 	size(obj.size),
 	original(false)
-{ }
+{
+	value = new Byte[obj.size];
+	memcpy(value, obj.value, obj.size);
+}
 
 Shader::Property::Property(const string& name, const string& glName):
 	name(name),
@@ -93,6 +95,9 @@ void Shader::Property::SetValue(Texture* v){
 void Shader::Property::RealocateIfNeeded(U32 newSize){
 	if(size < newSize){
 		size = newSize;
+		if(value){
+			delete[] value;
+		}
 		value = new Byte[newSize];
 	}
 }

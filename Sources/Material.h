@@ -40,6 +40,7 @@ public:
 	void SetPropertyValue(const string& name, Texture* value);
 
 	Shader* GetShader();
+
 private:
 	Shader* shader;
 

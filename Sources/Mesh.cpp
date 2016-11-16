@@ -107,7 +107,7 @@ void Mesh::Draw(const Matrix& globalModel){
 	}
 
 	if(shader->uAmbientLight != -1){
-		SAFE(glUniform3fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
+		SAFE(glUniform4fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
 	for(Shader::Property* prop : material->properties){
@@ -137,13 +137,14 @@ void Mesh::Draw(const Matrix& globalModel){
 		case Shader::Property::VEC2:
 			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)prop->value));
 			break;
-		case Shader::Property::FLOAT:{
+		case Shader::Property::FLOAT:
 			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
-		}break;
+			break;
 		case Shader::Property::INT:
+			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
 			break;
 		default:
-			break;
+			throw CrossException("Unknown property type");
 		}
 	}
 	material->active_texture_slot = 0;

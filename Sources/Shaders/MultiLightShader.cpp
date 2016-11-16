@@ -94,13 +94,13 @@ void MultiLightShader::TransferLightData(const CRArray<Light*>& lights){
 		switch(light->GetType()) {
 		case Light::Type::POINT:{
 			SAFE(glUniform3fv(uPointLights[pointCount].position, 1, light->GetPosition().GetData()));
-			SAFE(glUniform3fv(uPointLights[pointCount].color, 1, light->GetColor().GetData()));
+			SAFE(glUniform4fv(uPointLights[pointCount].color, 1, light->GetColor().GetData()));
 			SAFE(glUniform1f(uPointLights[pointCount].intensity, light->GetIntensity()));
 			pointCount++;
 		}break;
 		case Light::Type::SPOT:{
 			SAFE(glUniform3fv(uSpotLights[spotCount].position, 1, light->GetPosition().GetData()));
-			SAFE(glUniform3fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
+			SAFE(glUniform4fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].intensity, light->GetIntensity()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetDirection().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, light->GetCutOff()));
@@ -108,7 +108,7 @@ void MultiLightShader::TransferLightData(const CRArray<Light*>& lights){
 			spotCount++;
 		}break;
 		case Light::Type::DIRECTIONAL:
-			SAFE(glUniform3fv(uDirectionalLights[directionalCount].color, 1, light->GetColor().GetData()));
+			SAFE(glUniform4fv(uDirectionalLights[directionalCount].color, 1, light->GetColor().GetData()));
 			SAFE(glUniform3fv(uDirectionalLights[directionalCount].direction, 1, light->GetDirection().GetData()));
 			directionalCount++;
 			break;

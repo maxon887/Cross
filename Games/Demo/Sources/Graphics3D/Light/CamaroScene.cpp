@@ -50,17 +50,17 @@ void CamaroScene::Start(){
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	
-	road_diffuse = gfx2D->LoadTexture("gfx3D/Road/Diffuse");
+	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
 	road_mat->SetPropertyValue("Specular", 0.5f);
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
+	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(250.f);
 	road->FaceCulling(false);
 	road->SetMaterial(road_mat);
-	//road->SetRotateX(-90.f);//du to 3ds exports
 }
 
 void CamaroScene::Stop(){

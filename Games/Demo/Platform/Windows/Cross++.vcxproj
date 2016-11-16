@@ -130,6 +130,7 @@
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Advanced\DepthScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\StencilScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp" />

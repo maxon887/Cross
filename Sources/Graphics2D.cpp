@@ -112,7 +112,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
-	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(simple_shader->uColor, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
 	SAFE(glDrawArrays(GL_POINTS, 0, 1));
 }
@@ -125,7 +125,7 @@ void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(simple_shader->uColor, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
@@ -146,7 +146,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(simple_shader->uColor, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
 	if(filled){
 		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
@@ -195,8 +195,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
-	//delete buffer;
-	SAFE(glUniform3fv(simple_shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(simple_shader->uColor, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
 	if(filled){
 		SAFE(glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount));

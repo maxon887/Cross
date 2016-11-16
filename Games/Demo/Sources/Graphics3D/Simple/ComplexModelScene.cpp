@@ -30,7 +30,7 @@ void ComplexModelScene::Start(){
 
 	texture = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse");
 	material = new Material(shader);
-	material->SetPropertyValue("Texture", texture->GetID());
+	material->SetPropertyValue("Texture", texture);
 
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/camaro.fbx");
 	camaro->SetScale(0.1f);

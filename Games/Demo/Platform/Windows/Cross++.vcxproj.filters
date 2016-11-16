@@ -289,6 +289,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Advanced\DepthScene.cpp">
       <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\StencilScene.cpp">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
