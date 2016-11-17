@@ -188,6 +188,9 @@ void Shader::AddProperty(Shader::Property* prop){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
+	if(HaveProperty(prop->name)){
+		throw CrossException("Shader already contain that property");
+	}
 	properties.push_back(prop);
 }
 
@@ -208,6 +211,15 @@ Shader::Property* Shader::GetProperty(const string& name){
 		}
 	}
 	throw CrossException("Can not find property");
+}
+
+bool Shader::HaveProperty(const string& name){
+	for(Property* prop : properties){
+		if(prop->name == name){
+			return true;
+		}
+	}
+	return false;
 }
 
 GLuint Shader::GetProgram(){

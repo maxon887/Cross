@@ -107,6 +107,7 @@ public:
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& name, const string& glName, float defValue);
 	Property* GetProperty(const string& name);
+	bool HaveProperty(const string& name);
 
 	GLuint GetProgram();
 

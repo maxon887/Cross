@@ -81,6 +81,12 @@ void Model::FaceCulling(bool enabled){
 	}
 }
 
+void Model::WriteStencil(bool enabled){
+	for(Mesh* mesh : meshes){
+		mesh->WriteStencil(enabled);
+	}
+}
+
 void Model::AddMesh(Mesh* mesh){
 	meshes.push_back(mesh);
 }

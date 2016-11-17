@@ -33,45 +33,66 @@ void StencilScene::Start(){
 	light->SetPosition(Vector3D(2.f, 2.f, -2.f));
 	AddLight(light);
 	//scene setups
-	shader = new LightShader("gfx3D/shaders/specular_diffuse.vert", "gfx3D/shaders/specular_diffuse.frag");
+	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Diffuse Color", "uColor");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	cube_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
 	cube_mat = new Material(shader);
 	cube_mat->SetPropertyValue("Diffuse Texture", cube_texture);
-	cube_mat->SetPropertyValue("Diffuse Color", Color::White);
 	cube_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
+	shader_outline = gfxGL->GetShader(DefaultShader::SIMPLE);
+	shader_outline->Compile();
+	cube_outline = new Material(shader_outline);
+	cube_outline->SetPropertyValue("Color", Color::Blue);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	cube->SetMaterial(cube_mat);
 	cube->SetPosition(Vector3D(0.f, 0.5f, 0.f));
-	road_texture = gfx2D->LoadTexture("gfx3D/Road/Diffuse");
+	road_texture = gfx2D->LoadTexture("gfx3D/RoadDiffuse");
 	road_texture->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_texture);
-	road_mat->SetPropertyValue("Diffuse Color", Color::White);
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
-	road = gfx3D->LoadModel("gfx3D/Road/road.3DS");
-	road->SetRotateX(-90.f);
-	road->SetScale(.2f);
+	road_mat->SetPropertyValue("Tilling Factor", 3.f);
+	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	road->SetScale(25.f);
 	road->SetMaterial(road_mat);
 	road->FaceCulling(false);
+
+	for(U32 i = 0; i < 10; ++i){
+		Model* clone = cube->Clone();
+		clone->SetPosition(Vector3D(Random(-10.f, 10.f), 0.5f, Random(-10.f, 10.f)));
+		clone->SetRotate(Vector3D::Up, Random(0.f, 360.f));
+		models.push_back(clone);
+	}
 }
 
 void StencilScene::Stop(){
+	for(Model* model : models){
+		delete model;
+	}
 	delete cube;
 	delete road;
 	delete cube_mat;
+	delete cube_outline;
 	delete road_mat;
 	delete cube_texture;
 	delete road_texture;
+	delete shader_outline;
 	delete shader;
 	CameraControlsScreen::Stop();
 }
 
 void StencilScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
-	cube->Draw();
+	for(Model* model : models){
+		model->SetScale(1.f);
+		model->WriteStencil(true);
+		model->SetMaterial(cube_mat);
+		model->Draw();
+		model->SetScale(1.1f);
+		model->WriteStencil(false);
+		model->SetMaterial(cube_outline);
+		model->Draw();
+	}
 	road->Draw();
 }

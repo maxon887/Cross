@@ -565,7 +565,7 @@ void Graphics2D::LoadSprites(CRDictionary<string, Sprite*>& output, Texture* tex
 }
 
 void Graphics2D::Update(float sec){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	GetCamera()->Update(sec);
 }
 

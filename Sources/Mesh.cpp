@@ -30,6 +30,7 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCoun
 	primitives_count(primitivesCount),
 	material(nullptr),
 	cull_face(true),
+	write_stencil(false),
 	original(true)
 {
 	index_count = indices.size();
@@ -182,6 +183,18 @@ void Mesh::Draw(const Matrix& globalModel){
 	if(cull_face){
 		SAFE(glEnable(GL_CULL_FACE));
 	}
+	//stencil test
+	SAFE(glEnable(GL_STENCIL_TEST));
+	SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
+	if(write_stencil){
+		SAFE(glStencilFunc(GL_ALWAYS, 1, 0xFF));
+		SAFE(glStencilMask(0xFF));
+	}else{
+		SAFE(glStencilFunc(GL_NOTEQUAL, 1, 0xFF));
+		SAFE(glStencilMask(0x00));
+	}
+	SAFE(glStencilMask(0xFF));
+	//stencil test
 	SAFE(glCullFace(GL_FRONT));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0));
@@ -200,6 +213,10 @@ Material* Mesh::GetMaterial(){
 
 void Mesh::FaceCulling(bool enabled){
 	cull_face = enabled;
+}
+
+void Mesh::WriteStencil(bool enabled){
+	write_stencil = enabled;
 }
 
 U32 Mesh::GetPrimitivesCount() const{
