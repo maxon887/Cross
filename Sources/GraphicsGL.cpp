@@ -105,6 +105,8 @@ GraphicsGL::GraphicsGL():
 			offscreen_shader = GetShader(DefaultShader::TEXTURE);
 			offscreen_shader->Compile();
 		}
+
+		SAFE(glCullFace(GL_FRONT));
 }
 
 GraphicsGL::~GraphicsGL(){

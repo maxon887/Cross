@@ -86,11 +86,11 @@ void StencilScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
 	for(Model* model : models){
 		model->SetScale(1.f);
-		model->WriteStencil(true);
+		model->SetStencil(Mesh::StencilBehaviour::WRITE);
 		model->SetMaterial(cube_mat);
 		model->Draw();
 		model->SetScale(1.1f);
-		model->WriteStencil(false);
+		model->SetStencil(Mesh::StencilBehaviour::READ);
 		model->SetMaterial(cube_outline);
 		model->Draw();
 	}

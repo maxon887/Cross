@@ -25,6 +25,12 @@ class VertexBuffer;
 
 class Mesh : public Transformable{
 public:
+	enum class StencilBehaviour{
+		WRITE,
+		READ,
+		IGNORED
+	};
+
 	Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount);
 	~Mesh();
 
@@ -34,7 +40,7 @@ public:
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 	void FaceCulling(bool enabled);
-	void WriteStencil(bool enabled);
+	void SetStencil(StencilBehaviour behaviour);
 
 	U32 GetPrimitivesCount() const;
 	VertexBuffer* GetVertexBuffer();
@@ -50,7 +56,7 @@ protected:
 	U32 primitives_count;
 	U32 index_count;
 	bool cull_face;
-	bool write_stencil;
+	StencilBehaviour stencil_behaviour;
 
 	bool original;
 

@@ -81,9 +81,9 @@ void Model::FaceCulling(bool enabled){
 	}
 }
 
-void Model::WriteStencil(bool enabled){
+void Model::SetStencil(Mesh::StencilBehaviour behaviour){
 	for(Mesh* mesh : meshes){
-		mesh->WriteStencil(enabled);
+		mesh->SetStencil(behaviour);
 	}
 }
 

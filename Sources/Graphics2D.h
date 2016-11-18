@@ -60,7 +60,7 @@ public:
 							Texture::Filter filter,
 							Texture::Compression compression,
 							Texture::TilingMode tilingMode,
-							bool generateMipmaps);
+							bool generateMipmaps );
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();
 

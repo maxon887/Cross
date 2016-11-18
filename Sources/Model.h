@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Transformable.h"
+#include "Mesh.h"
 
 namespace cross{
 
@@ -37,7 +38,7 @@ public:
 	Format GetFormat();
 	U32 GetPolyCount();
 	void FaceCulling(bool enabled);
-	void WriteStencil(bool enabled);
+	void SetStencil(Mesh::StencilBehaviour behaviour);
 
 	void AddMesh(Mesh* mesh);
 	void SetMaterial(Material* material);

@@ -80,11 +80,19 @@ void Texture::SetTilingMode(Texture::TilingMode mode){
 
 void Texture::AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp){
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
-	if(comp == Texture::Compression::ETC1){
+	switch(comp) {
+	case cross::Texture::Compression::ETC1:
 #ifdef ANDROID
 		SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, level, GL_ETC1_RGB8_OES, w, h, 0, dataLen, data));
 #endif // ANDROID
+		break;
+	case cross::Texture::Compression::NONE:
+		SAFE(glTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
+		break;
+	default:
+		throw CrossException("Unsupported compression format");
 	}
+
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 }
 

@@ -28,9 +28,9 @@ using namespace cross;
 Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount) :
 	vertex_buffer(vertexBuffer),
 	primitives_count(primitivesCount),
-	material(nullptr),
+	material(NULL),
 	cull_face(true),
-	write_stencil(false),
+	stencil_behaviour(Mesh::StencilBehaviour::IGNORED),
 	original(true)
 {
 	index_count = indices.size();
@@ -184,21 +184,27 @@ void Mesh::Draw(const Matrix& globalModel){
 		SAFE(glEnable(GL_CULL_FACE));
 	}
 	//stencil test
-	SAFE(glEnable(GL_STENCIL_TEST));
-	SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
-	if(write_stencil){
+	switch(stencil_behaviour) {
+	case cross::Mesh::StencilBehaviour::WRITE:
+		SAFE(glEnable(GL_STENCIL_TEST));
+		SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 		SAFE(glStencilFunc(GL_ALWAYS, 1, 0xFF));
-		SAFE(glStencilMask(0xFF));
-	}else{
+		break;
+	case cross::Mesh::StencilBehaviour::READ:
+		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilFunc(GL_NOTEQUAL, 1, 0xFF));
-		SAFE(glStencilMask(0x00));
+		SAFE(glStencilMask(0xFF));
+		break;
+	case cross::Mesh::StencilBehaviour::IGNORED:
+		break;
+	default:
+		throw CrossException("Unknow stecil behaviour");
 	}
-	SAFE(glStencilMask(0xFF));
 	//stencil test
-	SAFE(glCullFace(GL_FRONT));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glDisable(GL_STENCIL_TEST));
 	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
@@ -215,8 +221,8 @@ void Mesh::FaceCulling(bool enabled){
 	cull_face = enabled;
 }
 
-void Mesh::WriteStencil(bool enabled){
-	write_stencil = enabled;
+void Mesh::SetStencil(Mesh::StencilBehaviour behaviour){
+	stencil_behaviour = behaviour;
 }
 
 U32 Mesh::GetPrimitivesCount() const{
