@@ -131,6 +131,7 @@
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Advanced\DepthScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Advanced\StencilScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Advanced\DepthScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Advanced\StencilScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h" />

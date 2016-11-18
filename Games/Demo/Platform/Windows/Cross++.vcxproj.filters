@@ -292,6 +292,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Advanced\StencilScene.cpp">
       <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.cpp">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -536,6 +539,9 @@
       <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Advanced\StencilScene.h">
+      <Filter>Demo\Graphics3D\Advanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.h">
       <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClInclude>
   </ItemGroup>

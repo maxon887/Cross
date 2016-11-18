@@ -38,6 +38,7 @@
 #include "Graphics3D/Light/CamaroScene.h"
 #include "Graphics3D/Advanced/DepthScene.h"
 #include "Graphics3D/Advanced/StencilScene.h"
+#include "Graphics3D/Advanced/TransparencyScene.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -155,12 +156,16 @@ void MainScreen::Start(){
 	graphics3D_advanced = new Menu(true);
 	Button* depthTestBtn			= new Button("Depth Test");
 	Button* stencilTestBtn			= new Button("Stencil Test");
+	Button* transparencyBtn			= new Button("Transparency");
 	depthTestBtn->SetImages(button_sprite->Clone());
 	stencilTestBtn->SetImages(button_sprite->Clone());
+	transparencyBtn->SetImages(button_sprite->Clone());
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
 	stencilTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnStencilTestClick);
+	transparencyBtn->Clicked += MakeDelegate(this, &MainScreen::OnTransparencyClick);
 	graphics3D_advanced->AddButton(depthTestBtn);
 	graphics3D_advanced->AddButton(stencilTestBtn);
+	graphics3D_advanced->AddButton(transparencyBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -330,4 +335,8 @@ void MainScreen::OnDepthTestClick(){
 
 void MainScreen::OnStencilTestClick(){
 	next_screen = new StencilScene();
+}
+
+void MainScreen::OnTransparencyClick(){
+	next_screen = new TransparencyScene();
 }

@@ -77,4 +77,5 @@ private:
 	//graphics 3d advanced
 	void OnDepthTestClick();
 	void OnStencilTestClick();
+	void OnTransparencyClick();
 };

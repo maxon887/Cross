@@ -22,6 +22,7 @@
 using namespace cross;
 
 Model::Model(Model& obj) : 
+	Transformable(obj),
 	meshes(obj.meshes),
 	original(false),
 	format(obj.format)

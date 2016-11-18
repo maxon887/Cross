@@ -20,6 +20,7 @@
 #include "Launcher.h"
 #include "Config.h"
 #include "Light.h"
+#include "Model.h"
 
 using namespace cross;
 
@@ -41,11 +42,17 @@ void Scene::Start(){
 void Scene::Update(float sec){
 	Screen::Update(sec);
 	camera->Update(sec);
+	for(Model* model : models){
+		model->Draw();
+	}
 }
 
 void Scene::Stop(){
 	delete camera;
 	game->WindowResized -= window_resize_handle;
+	for(Model* model : models){
+		delete model;
+	}
 	for(Light* light : lights){
 		delete light;
 	}
