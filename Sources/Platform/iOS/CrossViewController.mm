@@ -22,17 +22,30 @@
 #include "Graphics3D.h"
 #include "Input.h"
 #include "Game.h"
-#include "TouchCounter.hpp"
+
+#define MAX_TOUCHES 11
+
+@interface CrossViewController()
+
+- (S32)getTouchID:(UITouch*) touch;
+- (S32)addTouchID:(UITouch*) touch;
+
+@end
 
 @implementation CrossViewController{
     CGFloat screenScale;
     BOOL paused;
+    UITouch* touchIDs[MAX_TOUCHES];
 }
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.preferredFramesPerSecond = 60;
     self.view.multipleTouchEnabled = YES;
+    paused = NO;
+    for(int i = 0; i < MAX_TOUCHES; ++i){
+        touchIDs[i] = NULL;
+    }
     EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     [EAGLContext setCurrentContext:context];
     GLKView* view = (GLKView*)self.view;
@@ -90,105 +103,68 @@
     NSLog(@"Dealloc");
 }
 
-// Handles the start of a touch
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    for (UITouch *touch in touches)
-    {
-        int fingerID = GetFingerTrackIDByTouch((__bridge void *)touch);
-        
-        if (fingerID == -1)
-        {
-            fingerID = AddNewTouch((__bridge void *)touch);
-        } else
-        {
-            continue;
-        }
-        
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    for (UITouch* touch in touches) {
+        //S32 touchID = [self getTouchID:touch];
+        S32 touchID = [self addTouchID:touch];
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        
-        TRIGGER_EVENT(input->TargetActionDown, x, y, fingerID);
-    }
-    
-    
-#ifdef _DEBUG
-    //LogMsg("%d touches active", GetTouchesActive());
-#endif
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // Enumerate through all the touch objects.
-    for (UITouch *touch in touches)
-    {
-        //found a touch.  Is it already on our list?
-        int fingerID = GetFingerTrackIDByTouch((__bridge void *)touch);
-        if (fingerID != -1)
-        {
-            g_touchTracker[fingerID].m_touchPointer = NULL; //clear it
-        } else
-        {
-            //wasn't on our list
-            continue;
-        }
-        
-        CGPoint pos = [touch locationInView:touch.view];
-        float x = pos.x * screenScale;
-        float y = pos.y * screenScale;
-        
-        TRIGGER_EVENT(input->TargetActionUp, x, y, fingerID);
+        TRIGGER_EVENT(input->TargetActionDown, x, y, touchID);
     }
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // Enumerate through all the touch objects.
-    for (UITouch *touch in touches)
-    {
-        //found a touch.  Is it already on our list?
-        int fingerID = GetFingerTrackIDByTouch((__bridge void *)touch);
-        if (fingerID != -1)
-        {
-            g_touchTracker[fingerID].m_touchPointer = NULL; //clear it
-        } else
-        {
-            //wasn't on our list
-            continue;
-        }
-        
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        S32 touchID = [self getTouchID:touch];
+        touchIDs[touchID] = NULL;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        
-        TRIGGER_EVENT(input->TargetActionUp, x, y, fingerID);
+        TRIGGER_EVENT(input->TargetActionUp, x, y, touchID);
     }
 }
 
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // Enumerate through all the touch objects.
-    for (UITouch *touch in touches)
-    {
-        
-        //found a touch.  Is it already on our list?
-        int fingerID = GetFingerTrackIDByTouch((__bridge void *)touch);
-        if (fingerID != -1)
-        {
-            //found it
-        } else
-        {
-            continue;
-        }
-        
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        S32 touchID = [self getTouchID:touch];
+        touchIDs[touchID] = NULL;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        
-        TRIGGER_EVENT(input->TargetActionMove, x, y, fingerID);
+        TRIGGER_EVENT(input->TargetActionUp, x, y, touchID);
     }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        S32 touchID = [self getTouchID:touch];
+        CGPoint pos = [touch locationInView:touch.view];
+        float x = pos.x * screenScale;
+        float y = pos.y * screenScale;
+        TRIGGER_EVENT(input->TargetActionMove, x, y, touchID);
+    }
+}
+
+- (S32)getTouchID:(UITouch*) touch{
+    for(int i = 0; i < MAX_TOUCHES; ++i){
+        if(touchIDs[i] == touch){
+            return i;
+        }
+    }
+    NSLog(@"Can't find touch id");
+    return -1;
+}
+
+- (S32)addTouchID:(UITouch*) touch{
+    for(int i = 0; i < MAX_TOUCHES; ++i){
+        if(!touchIDs[i]){
+            touchIDs[i] = touch;
+            return i;
+        }
+    }
+    NSLog(@"Can't add new touch");
+    return -1;
 }
 
 @end

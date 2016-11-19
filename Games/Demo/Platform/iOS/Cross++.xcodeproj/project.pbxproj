@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
+		D44D86991DE0A29700FF206B /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86931DE0A29700FF206B /* DepthScene.cpp */; };
+		D44D869A1DE0A29700FF206B /* StencilScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86951DE0A29700FF206B /* StencilScene.cpp */; };
+		D44D869B1DE0A29700FF206B /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86971DE0A29700FF206B /* TransparencyScene.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
@@ -100,6 +103,12 @@
 
 /* Begin PBXFileReference section */
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D44D86931DE0A29700FF206B /* DepthScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthScene.cpp; path = Graphics3D/Advanced/DepthScene.cpp; sourceTree = "<group>"; };
+		D44D86941DE0A29700FF206B /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthScene.h; path = Graphics3D/Advanced/DepthScene.h; sourceTree = "<group>"; };
+		D44D86951DE0A29700FF206B /* StencilScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StencilScene.cpp; path = Graphics3D/Advanced/StencilScene.cpp; sourceTree = "<group>"; };
+		D44D86961DE0A29700FF206B /* StencilScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StencilScene.h; path = Graphics3D/Advanced/StencilScene.h; sourceTree = "<group>"; };
+		D44D86971DE0A29700FF206B /* TransparencyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransparencyScene.cpp; path = Graphics3D/Advanced/TransparencyScene.cpp; sourceTree = "<group>"; };
+		D44D86981DE0A29700FF206B /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransparencyScene.h; path = Graphics3D/Advanced/TransparencyScene.h; sourceTree = "<group>"; };
 		D46920931DD68C4F00CF949F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D46920951DD68E6800CF949F /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
 		D46920971DD6909300CF949F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -294,6 +303,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D44D86921DE0A27400FF206B /* Advanced */ = {
+			isa = PBXGroup;
+			children = (
+				D44D86931DE0A29700FF206B /* DepthScene.cpp */,
+				D44D86941DE0A29700FF206B /* DepthScene.h */,
+				D44D86951DE0A29700FF206B /* StencilScene.cpp */,
+				D44D86961DE0A29700FF206B /* StencilScene.h */,
+				D44D86971DE0A29700FF206B /* TransparencyScene.cpp */,
+				D44D86981DE0A29700FF206B /* TransparencyScene.h */,
+			);
+			name = Advanced;
+			sourceTree = "<group>";
+		};
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +615,7 @@
 		D4CEA6451DD633B30054B6A9 /* Graphics3D */ = {
 			isa = PBXGroup;
 			children = (
+				D44D86921DE0A27400FF206B /* Advanced */,
 				D4CEA6661DD634220054B6A9 /* Light */,
 				D4CEA6651DD634120054B6A9 /* Simple */,
 				D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */,
@@ -737,6 +760,7 @@
 				D4CEA5DF1DD631C50054B6A9 /* Light.cpp in Sources */,
 				D4CEA5C11DD631A40054B6A9 /* File.cpp in Sources */,
 				D4CEA6811DD634400054B6A9 /* SpotLightScene.cpp in Sources */,
+				D44D86991DE0A29700FF206B /* DepthScene.cpp in Sources */,
 				D4CEA6091DD633180054B6A9 /* iRate.m in Sources */,
 				D4CEA6441DD6337D0054B6A9 /* ToggleButton.cpp in Sources */,
 				D4CEA5E91DD631C50054B6A9 /* VertexBuffer.cpp in Sources */,
@@ -763,6 +787,7 @@
 				D4CEA61A1DD633440054B6A9 /* All.cpp in Sources */,
 				D4CEA6611DD633FD0054B6A9 /* TextScreen.cpp in Sources */,
 				D4CEA65E1DD633FD0054B6A9 /* AnimationScreen.cpp in Sources */,
+				D44D869A1DE0A29700FF206B /* StencilScene.cpp in Sources */,
 				D4CEA6551DD633E50054B6A9 /* ScrollScreen.cpp in Sources */,
 				D4CEA5E71DD631C50054B6A9 /* Transformable.cpp in Sources */,
 				D4CEA6321DD633690054B6A9 /* MemoryManager.cpp in Sources */,
@@ -796,6 +821,7 @@
 				D4CEA5E81DD631C50054B6A9 /* UI.cpp in Sources */,
 				D4CEA6201DD633440054B6A9 /* Vector4D.cpp in Sources */,
 				D4CEA65F1DD633FD0054B6A9 /* PrimitivesScreen.cpp in Sources */,
+				D44D869B1DE0A29700FF206B /* TransparencyScene.cpp in Sources */,
 				D4CEA5C31DD631A40054B6A9 /* Game.cpp in Sources */,
 				D4DA8DCD1DD6613300D236A4 /* image_helper.c in Sources */,
 				D4CEA6301DD633690054B6A9 /* Debugger.cpp in Sources */,
