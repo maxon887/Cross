@@ -58,7 +58,7 @@ void CamaroScene::Start(){
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	road->SetScale(250.f);
+	road->SetScale(15.f);
 	road->FaceCulling(false);
 	road->SetMaterial(road_mat);
 }

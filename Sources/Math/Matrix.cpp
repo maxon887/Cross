@@ -352,6 +352,22 @@ Matrix Matrix::operator * (const Matrix& mat) const{
 	return res;
 }
 
+bool Matrix::operator == (const Matrix& mat) const{
+	for(int i = 0; i < 4; ++i){
+		for(int j = 0; j < 4; ++j){
+			if(m[i][j] != mat.m[i][j]){
+				return false;
+			}
+		}
+	
+	}
+	return true;
+}
+
+bool Matrix::operator != (const Matrix& mat) const{
+	return !(*this == mat);
+}
+
 void Matrix::operator += (float s){
 	m[0][0] += s; m[0][1] += s; m[0][2] += s; m[0][3] += s;
 	m[1][0] += s; m[1][1] += s; m[1][2] += s; m[1][3] += s;

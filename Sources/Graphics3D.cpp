@@ -105,24 +105,18 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 		string nodeName = node->mName.C_Str();
 		if(nodeName.find("Translation") != std::string::npos){
 			if(nodeName.find("Geometric") != std::string::npos){
-				Matrix translation = Matrix::Identity;
-				memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
-				current_geotranslation = translation;
+				memcpy(current_geotranslation.m, &node->mTransformation.a1, sizeof(float) * 16);
 			}else{
-				Matrix translation = Matrix::Identity;
-				memcpy(translation.m, &node->mTransformation.a1, sizeof(float) * 16);
-				current_translation = translation;
+				memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
 			}
 		}
 		if(nodeName.find("Scaling") != std::string::npos){
-			Matrix scale = Matrix::Identity;
-			memcpy(scale.m, &node->mTransformation.a1, sizeof(float) * 16);
-			current_scaling = scale;
+			memcpy(current_scaling.m, &node->mTransformation.a1, sizeof(float) * 16);
 		}
 		if(nodeName.find("Rotation") != std::string::npos){
-			Matrix rotation = Matrix::Identity;
-			memcpy(rotation.m, &node->mTransformation.a1, sizeof(float) * 16);
-			current_rotation = rotation;
+			if(current_translation == Matrix::Identity){
+			memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+			}
 		}
 	}
 	for(U32 i = 0; i < node->mNumChildren; ++i){

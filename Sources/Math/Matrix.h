@@ -52,7 +52,9 @@ public:
 	Matrix		operator / (float s) const;
 	Vector4D	operator * (const Vector4D& vec) const;
 	Vector3D	operator * (const Vector3D& vec) const;
-	Matrix		operator * (const Matrix &m2) const;
+	Matrix		operator * (const Matrix& m2) const;
+	bool		operator == (const Matrix& m2) const;
+	bool		operator != (const Matrix& m2) const;
 
 	void operator += (float s);
 	void operator -= (float s);
