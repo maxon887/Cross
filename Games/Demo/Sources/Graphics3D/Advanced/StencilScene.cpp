@@ -37,7 +37,7 @@ void StencilScene::Start(){
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
-	cube_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
+	cube_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	cube_mat = new Material(shader);
 	cube_mat->SetPropertyValue("Diffuse Texture", cube_texture);
 	cube_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
@@ -47,7 +47,7 @@ void StencilScene::Start(){
 	cube_outline->SetPropertyValue("Color", Color::Blue);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	cube->SetPosition(Vector3D(0.f, 0.5f, 0.f));
-	road_texture = gfx2D->LoadTexture("gfx3D/RoadDiffuse");
+	road_texture = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_texture->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_texture);

@@ -23,6 +23,7 @@
 using namespace cross;
 
 Config::Config():
+	use_compressed_textures(false),
 	texture_filter(Texture::Filter::NEAREST),
 	view_distance(100.f),
 	offscreen_render(false)
@@ -78,6 +79,10 @@ bool Config::GetBool(const string& key, bool def){
 	return GetInt(key, def) != 0;
 }
 
+bool Config::UseCompressedTextures(){
+	return use_compressed_textures;
+}
+
 Texture::Filter Config::GetTextureFilter(){
 	return texture_filter;
 }
@@ -119,6 +124,10 @@ void Config::LoadGameConfig(File* xmlFile){
 			string name = element->Attribute("name");
 			string strValue = element->Attribute("value");
 
+			if(name == "UseCompressedTextures"){
+				use_compressed_textures = strValue == "true" ? true : false;
+			}
+
 			if(name == "TextureFilter"){
 				if(strValue == "NEAREST"){
 					texture_filter = Texture::Filter::NEAREST;
@@ -138,11 +147,7 @@ void Config::LoadGameConfig(File* xmlFile){
 			}
 
 			if(name == "OffscreenRender"){
-				if(strValue == "true"){
-					offscreen_render = true;
-				}else{
-					offscreen_render = false;
-				}
+				offscreen_render = strValue == "true" ? true : false;
 			}
 
 			element = element->NextSiblingElement("Property");

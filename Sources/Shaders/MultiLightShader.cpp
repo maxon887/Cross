@@ -62,7 +62,7 @@ void MultiLightShader::Compile(const CRArray<Light*>& lights){
 		string structName = "uPointLights[" + to_string(i) + "]";
 		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
 		uPointLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uPointLights[i].intensity = glGetUniformLocation(program, string(structName + ".linear").c_str());
+		uPointLights[i].intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
 	}
 
 	for(int i = 0; i < MaxDirectionalLights; ++i){
@@ -76,7 +76,7 @@ void MultiLightShader::Compile(const CRArray<Light*>& lights){
 		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
 		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 		uSpotLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uSpotLights[i].intensity = glGetUniformLocation(program, string(structName + ".linear").c_str());
+		uSpotLights[i].intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
 		uSpotLights[i].cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
 		uSpotLights[i].outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
 	}

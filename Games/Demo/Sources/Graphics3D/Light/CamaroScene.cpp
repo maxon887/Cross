@@ -42,15 +42,16 @@ void CamaroScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse");
+	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
 	car_mat = new Material(shader);
 	car_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
 	car_mat->SetPropertyValue("Specular", 0.5f);
 	car_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
+	camaro->SetRotateY(45.f);
 	
-	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse");
+	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);

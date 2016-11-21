@@ -37,6 +37,7 @@ public:
 	bool GetBool(const string& key, bool def);
 
 	//game config properties
+	bool UseCompressedTextures();
 	Texture::Filter GetTextureFilter();
 	float GetViewDistance();
 	bool IsOffscreenRender();
@@ -45,6 +46,7 @@ protected:
 	string user_config_path;
 	CRDictionary<string, string> user_prefs;
 
+	bool use_compressed_textures;
 	Texture::Filter texture_filter;
 	float view_distance;
 	bool offscreen_render;

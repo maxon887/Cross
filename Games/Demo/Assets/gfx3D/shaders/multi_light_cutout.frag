@@ -31,16 +31,18 @@ varying vec3 vNormal;
 varying vec3 vFragPosition;
 varying vec3 vViewDirection;
 
+vec3 normal;
+
 vec4 CalcPointLight(Light light, vec4 diffuseColor, vec4 specularColor){
 	vec3 lightDirection = normalize(light.position - vFragPosition);
 	//attenaution
 	float dist = length(light.position - vFragPosition);
 	float attenaution = 1.0 / (1.0 + light.intensity * dist + light.intensity * dist * dist);
 	//diffuse
-	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
+	float diffEffect = max(dot(normal, lightDirection), 0.0);
 	vec4 diffuse = light.color * diffEffect * diffuseColor;
 	//specular
-	vec3 reflectDirection = reflect(-lightDirection, vNormal);
+	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(vViewDirection, reflectDirection), 0.0), uShininess);
 	vec4 specular = light.color * specEffect * specularColor;
 	
@@ -50,10 +52,10 @@ vec4 CalcPointLight(Light light, vec4 diffuseColor, vec4 specularColor){
 vec4 CalcDirectionalLight(Light light, vec4 diffuseColor, vec4 specularColor){
 	//diffuse
 	vec3 lightDirection = normalize(-light.direction);
-	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
+	float diffEffect = max(dot(normal, lightDirection), 0.0);
 	vec4 diffuse = light.color * diffEffect * diffuseColor;
 	//specular
-	vec3 reflectDirection = reflect(-lightDirection, vNormal);
+	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(vViewDirection, reflectDirection), 0.0), uShininess);
 	vec4 specular = light.color * specEffect * specularColor;
 	return (diffuse + specular);
@@ -69,10 +71,10 @@ vec4 CalcSpotLight(Light light, vec4 diffuseColor, vec4 specularColor){
 	float dist = length(light.position - vFragPosition);
 	float attenaution = 1.0 / (1.0 + light.intensity * dist + light.intensity * dist * dist);
 	//diffuse
-	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
+	float diffEffect = max(dot(normal, lightDirection), 0.0);
 	vec4 diffuse = light.color * diffEffect * diffuseColor;
 	//specular
-	vec3 reflectDirection = reflect(-lightDirection, vNormal);
+	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specEffect = pow(max(dot(vViewDirection, reflectDirection), 0.0), uShininess);
 	vec4 specular = light.color * specEffect * specularColor;
 	
@@ -81,6 +83,17 @@ vec4 CalcSpotLight(Light light, vec4 diffuseColor, vec4 specularColor){
 
 void main(){
 	vec4 diffuseColor = texture2D(uDiffuseTexture, vTexCoords);
+	
+	if(diffuseColor.a < 0.1){
+		discard;
+	}
+	
+	if(!gl_FrontFacing){
+		normal = vNormal;
+	}else{
+		normal = -vNormal;
+	}
+	
 #ifdef USE_SPECULAR_MAP
 	vec4 specularColor = texture2D(uSpecularMap, vTexCoords);
 #else

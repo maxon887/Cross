@@ -57,8 +57,8 @@ void MultiLightScene::Start(){
 	shader->Compile();
 	
 	material = new Material(shader);
-	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
-	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular");
+	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png");
 	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);

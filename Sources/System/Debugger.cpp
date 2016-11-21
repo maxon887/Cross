@@ -112,9 +112,6 @@ void Debugger::Update(float micro){
 
 	S32 optionPosition = 1;
 	float height = game->GetCurrentScreen()->GetHeight();
-	//Camera2D* prevCam = gfx2D->GetCamera();
-	//height = gfx2D->GetDefaultCamera()->GetViewHeight();
-	//gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 	char outputString[256];
 	if(params[Parameter::FPS] == true){
 		if(update_time == 0){
@@ -146,13 +143,14 @@ void Debugger::Update(float micro){
 	}
 	if(params[Parameter::INPUT] == true){
 		if(touch_down) {
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "Input x: " + to_string(touch_pos.x) + " y: " + to_string(touch_pos.y), debugger_font);
+			sprintf(outputString, "Input x: %f y: %f", touch_pos.x, touch_pos.y);
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
 		} else {
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "Input Up", debugger_font);
+			sprintf(outputString, "Input Up");
+			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
 		}
 		optionPosition++;
 	}
-	//gfx2D->SetCamera(prevCam);
 }
 
 void Debugger::SetCPUTime(float micro) {

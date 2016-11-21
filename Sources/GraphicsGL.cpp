@@ -175,7 +175,7 @@ void GraphicsGL::PostProcessFrame(){
 
 		UseShader(offscreen_shader);
 		if(offscreen_shader->uColor != -1){
-			SAFE(glUniform3fv(offscreen_shader->uColor, 1, Color::White.GetData()));
+			SAFE(glUniform4fv(offscreen_shader->uColor, 1, Color::White.GetData()));
 		}else{
 			throw CrossException("Textured shader doesn't have color uniform");
 		}

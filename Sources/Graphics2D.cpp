@@ -205,13 +205,19 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	delete buffer;
 }
 
-void Graphics2D::DrawText(Vector2D pos, string textStr){
-	DrawText(pos, textStr, this->default_font);
+void Graphics2D::DrawText(Vector2D pos, const string& textStr){
+	DrawText(pos, textStr.c_str(), this->default_font);
 }
 
-void Graphics2D::DrawText(Vector2D pos, const string &textStr, Font* font){
-	const char* text = textStr.c_str();
+void Graphics2D::DrawText(Vector2D pos, const string& text, Font* font){
+	DrawText(pos, text.c_str(), font);
+}
 
+void Graphics2D::DrawText(Vector2D pos, const char* text){
+	DrawText(pos, text, this->default_font);
+}
+
+void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font){
 	while(*text){
 		Sprite* ch = font->GetChar(*text);
 		float advance = font->GetCharAdvance(*text);
@@ -274,7 +280,7 @@ Texture* Graphics2D::LoadTexture(const string& filename){
 }
 
 Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
-	return LoadTexture(filename, filter, true);
+	return LoadTexture(filename, filter, config->UseCompressedTextures());
 }
 
 Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter, bool compressed){

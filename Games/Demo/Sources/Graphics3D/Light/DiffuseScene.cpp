@@ -37,7 +37,7 @@ void DiffuseScene::Start(){
 	shader->AddProperty("Specular Color", "uSpecularColor");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse");
+	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", texture);
 	material->SetPropertyValue("Diffuse Color", Color::White);

@@ -34,6 +34,7 @@ void TransparencyScene::Start(){
 
 	//lights
 	light = new Light(Light::Type::POINT);
+	light->SetIntensity(0.01f);
 	AddLight(light);
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
@@ -42,7 +43,7 @@ void TransparencyScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse");
+	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
 	car_mat = new Material(shader);
 	car_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
 	car_mat->SetPropertyValue("Specular", 0.5f);
@@ -50,7 +51,7 @@ void TransparencyScene::Start(){
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	
-	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse");
+	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
@@ -68,7 +69,7 @@ void TransparencyScene::Start(){
 	grass_shader->AddProperty("Shininess", "uShininess");
 	grass_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
 	grass_shader->Compile();
-	grass_diffuse = gfx2D->LoadTexture("gfx3D/GrassDiffuse");
+	grass_diffuse = gfx2D->LoadTexture("gfx3D/GrassDiffuse.png");
 	grass = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
@@ -78,7 +79,7 @@ void TransparencyScene::Start(){
 	grass->FaceCulling(false);
 	grass->SetMaterial(grass_mat);
 
-	for(U32 i = 0; i < 100; ++i){
+	for(U32 i = 0; i < 50; ++i){
 		Model* clone = grass->Clone();
 		clone->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
