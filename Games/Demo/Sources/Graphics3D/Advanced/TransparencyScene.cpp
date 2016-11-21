@@ -58,24 +58,29 @@ void TransparencyScene::Start(){
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	road->SetScale(250.f);
+	road->SetScale(15.f);
 	road->FaceCulling(false);
 	road->SetMaterial(road_mat);
 
+	grass_shader = new MultiLightShader("gfx3D/shaders/multi_light_cutout.vert", "gfx3D/shaders/multi_light_cutout.frag");
+	grass_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	grass_shader->AddProperty("Specular", "uSpecular");
+	grass_shader->AddProperty("Shininess", "uShininess");
+	grass_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
+	grass_shader->Compile();
 	grass_diffuse = gfx2D->LoadTexture("gfx3D/GrassDiffuse");
 	grass = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	grass_mat = new Material(shader);
+	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
 	grass_mat->SetPropertyValue("Specular", 0.5f);
 	grass_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	grass->SetRotateX(90.f);
-	grass->SetScale(5.f);
 	grass->FaceCulling(false);
 	grass->SetMaterial(grass_mat);
 
-	for(U32 i = 0; i < 50; ++i){
+	for(U32 i = 0; i < 100; ++i){
 		Model* clone = grass->Clone();
-		clone->SetPosition(Vector3D(Random(-100.f, 100.f), 2.5f, Random(-100.f, 100.f)));
+		clone->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
 		clone->SetRotate(quat * clone->GetRotation());
 		models.push_back(clone);
@@ -99,5 +104,5 @@ void TransparencyScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
 	camaro->Draw();
 	road->Draw();
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*23.f, 12.f, sin(game->GetRunTime() / 2.f)*23.f));
+	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

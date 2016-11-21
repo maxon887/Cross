@@ -474,7 +474,6 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 									Texture::Compression compression,
 									Texture::TilingMode tilingMode,
 									bool generateMipmaps ){
-
 	GLuint id;
 	SAFE(glGenTextures(1, &id));
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
