@@ -16,7 +16,6 @@
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
 		D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */; };
 		D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24081AF9F77400B77AC8 /* GLKit.framework */; };
-		D47823B01DD7C4B600685A9B /* Default in Resources */ = {isa = PBXBuildFile; fileRef = D47823AF1DD7C4B600685A9B /* Default */; };
 		D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D46920931DD68C4F00CF949F /* libz.tbd */; };
 		D4CEA5AC1DD631920054B6A9 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A11DD631920054B6A9 /* Audio.cpp */; };
 		D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A31DD631920054B6A9 /* Camera.cpp */; };
@@ -99,6 +98,7 @@
 		D4DA8DD71DD6614000D236A4 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD21DD6614000D236A4 /* tinyxml.cpp */; };
 		D4DA8DD81DD6614000D236A4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD41DD6614000D236A4 /* tinyxmlerror.cpp */; };
 		D4DA8DD91DD6614000D236A4 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4DA8DD51DD6614000D236A4 /* tinyxmlparser.cpp */; };
+		D4FB9D5F1DE395CB000A8C15 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = D4FB9D5E1DE395CB000A8C15 /* Assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,7 +119,6 @@
 		D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D46A24081AF9F77400B77AC8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		D47823AF1DD7C4B600685A9B /* Default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Default; path = ../../Assets/Default; sourceTree = "<group>"; };
 		D4CEA5A11DD631920054B6A9 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		D4CEA5A21DD631920054B6A9 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		D4CEA5A31DD631920054B6A9 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -286,6 +285,7 @@
 		D4DA8DDA1DD6614F00D236A4 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = Libs/Events/Event.h; sourceTree = "<group>"; };
 		D4DA8DDB1DD6614F00D236A4 /* FastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegate.h; path = Libs/Events/FastDelegate.h; sourceTree = "<group>"; };
 		D4DA8DDC1DD6614F00D236A4 /* FastDelegateBind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegateBind.h; path = Libs/Events/FastDelegateBind.h; sourceTree = "<group>"; };
+		D4FB9D5E1DE395CB000A8C15 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Assets; path = ../../Assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,10 +329,10 @@
 		D46A233F1AF9EF8400B77AC8 = {
 			isa = PBXGroup;
 			children = (
+				D4FB9D5E1DE395CB000A8C15 /* Assets */,
 				D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */,
 				D46A24081AF9F77400B77AC8 /* GLKit.framework */,
 				D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */,
-				D47823AF1DD7C4B600685A9B /* Default */,
 				D46A23491AF9EF8400B77AC8 /* Products */,
 				D46A234D1AF9EF8400B77AC8 /* main.m */,
 				D4317A821B37FB4000CBB5E0 /* main.cpp */,
@@ -737,8 +737,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D47823B01DD7C4B600685A9B /* Default in Resources */,
 				D4CEA60B1DD633180054B6A9 /* Main.storyboard in Resources */,
+				D4FB9D5F1DE395CB000A8C15 /* Assets in Resources */,
 				D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

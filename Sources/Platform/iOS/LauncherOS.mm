@@ -42,7 +42,7 @@ U32 LauncherOS::GetTargetHeight(){
 string LauncherOS::AssetsPath(){
     NSString* path = [[NSBundle mainBundle] bundlePath];
     string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    return cPath + "/Default/";
+    return cPath + "/Assets/";
 }
 
 string LauncherOS::DataPath(){
