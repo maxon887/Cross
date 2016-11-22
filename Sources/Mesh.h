@@ -37,10 +37,14 @@ public:
 	void Draw();
 	void Draw(const Matrix& model);
 
+	void SetName(const string& name);
+	const string& GetName();
+
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 	void FaceCulling(bool enabled);
 	void SetStencil(StencilBehaviour behaviour);
+	void AlphaBlending(bool enabled);
 
 	U32 GetPrimitivesCount() const;
 	VertexBuffer* GetVertexBuffer();
@@ -51,11 +55,13 @@ protected:
 	GLuint VBO;
 	GLuint EBO;
 
+	string name;
 	VertexBuffer* vertex_buffer;
 	Material* material;
 	U32 primitives_count;
 	U32 index_count;
 	bool cull_face;
+	bool alpha_blending;
 	StencilBehaviour stencil_behaviour;
 
 	bool original;

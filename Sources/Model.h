@@ -41,6 +41,7 @@ public:
 	void SetStencil(Mesh::StencilBehaviour behaviour);
 
 	void AddMesh(Mesh* mesh);
+	Mesh* GetMesh(const string& name);
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 

@@ -92,6 +92,15 @@ void Model::AddMesh(Mesh* mesh){
 	meshes.push_back(mesh);
 }
 
+Mesh* Model::GetMesh(const string& name){
+	for(Mesh* mesh : meshes){
+		if(mesh->GetName() == name){
+			return mesh;
+		}
+	}
+	throw CrossException("Model does not contain current mesh");
+}
+
 void Model::SetMaterial(Material* mat){
 	material = mat;
 	for(Mesh* mesh : meshes){

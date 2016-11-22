@@ -50,6 +50,12 @@ void TransparencyScene::Start(){
 	car_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
+	windshild_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	windshild_shader->Compile();
+	windshield_mat = new Material(windshild_shader);
+	windshield_mat->SetPropertyValue("Color", Color::Red);
+	Mesh* windshild = camaro->GetMesh("Windshield");
+	windshild->SetMaterial(windshield_mat);
 	
 	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
@@ -94,10 +100,12 @@ void TransparencyScene::Stop(){
 	delete car_mat;
 	delete road_mat;
 	delete grass_mat;
+	delete windshield_mat;
 	delete car_diffuse;
 	delete road_diffuse;
 	delete grass_diffuse;
 	delete shader;
+	delete windshild_shader;
 	CameraControlsScreen::Stop();
 }
 

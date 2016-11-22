@@ -30,8 +30,10 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCoun
 	primitives_count(primitivesCount),
 	material(NULL),
 	cull_face(true),
+	alpha_blending(false),
 	stencil_behaviour(Mesh::StencilBehaviour::IGNORED),
-	original(true)
+	original(true),
+	name("")
 {
 	index_count = indices.size();
 
@@ -55,9 +57,13 @@ Mesh::Mesh(Mesh& obj) :
 	material(obj.material), //warning pointer copy!
 	VBO(obj.VBO),
 	EBO(obj.EBO),
-	original(false)
+	original(false),
+	alpha_blending(obj.alpha_blending),
+	stencil_behaviour(obj.stencil_behaviour),
+	cull_face(obj.cull_face)
 {
 	vertex_buffer = obj.vertex_buffer->Clone();
+	name = obj.name + "_copy";
 }
 
 Mesh::~Mesh(){
@@ -177,9 +183,11 @@ void Mesh::Draw(const Matrix& globalModel){
 			throw CrossException("Current mesh noes not countain normals");
 		}
 	}
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//drawing
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	//depth test
 	SAFE(glEnable(GL_DEPTH_TEST));
+	//face culling
 	if(cull_face){
 		SAFE(glEnable(GL_CULL_FACE));
 	}
@@ -207,6 +215,14 @@ void Mesh::Draw(const Matrix& globalModel){
 	SAFE(glDisable(GL_STENCIL_TEST));
 	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
+}
+
+void Mesh::SetName(const string& name){
+	this->name = name;
+}
+
+const string& Mesh::GetName(){
+	return name;
 }
 
 void Mesh::SetMaterial(Material* mat){

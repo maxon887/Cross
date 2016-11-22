@@ -88,6 +88,7 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 	for(U32 i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
+		crMesh->SetName(node->mName.C_Str());
 		if(model->GetFormat() == Model::Format::FBX){
 			crMesh->SetModelMatrix(current_translation * current_rotation * current_scaling * current_geotranslation);
 			current_translation = Matrix::Identity;
