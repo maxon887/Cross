@@ -208,10 +208,15 @@ void Mesh::Draw(const Matrix& globalModel){
 	default:
 		throw CrossException("Unknow stecil behaviour");
 	}
-	//stencil test
+	//alpha blending
+	if(alpha_blending){
+		SAFE(glEnable(GL_BLEND));
+		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
 	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
@@ -239,6 +244,10 @@ void Mesh::FaceCulling(bool enabled){
 
 void Mesh::SetStencil(Mesh::StencilBehaviour behaviour){
 	stencil_behaviour = behaviour;
+}
+
+void Mesh::AlphaBlending(bool enabled){
+	alpha_blending = enabled;
 }
 
 U32 Mesh::GetPrimitivesCount() const{

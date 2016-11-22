@@ -26,7 +26,6 @@ public:
 private:
 	Shader* shader;
 	Shader* grass_shader;
-	Shader* windshild_shader;
 	Texture* car_diffuse;
 	Texture* road_diffuse;
 	Texture* grass_diffuse;

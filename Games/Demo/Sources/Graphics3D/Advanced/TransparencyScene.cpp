@@ -30,7 +30,7 @@
 void TransparencyScene::Start(){
 	CameraControlsScreen::Start();
 
-	SetAmbientColor(Color(0.2f));
+	SetAmbientColor(Color(0.15f));
 
 	//lights
 	light = new Light(Light::Type::POINT);
@@ -39,30 +39,27 @@ void TransparencyScene::Start(){
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Specular", "uSpecular");
-	shader->AddProperty("Shininess", "uShininess");
+	shader->AddProperty("Specular", "uSpecular", 0.5f);
+	shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	shader->Compile();
 
 	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
 	car_mat = new Material(shader);
 	car_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
-	car_mat->SetPropertyValue("Specular", 0.5f);
-	car_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
-	windshild_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	windshild_shader->Compile();
-	windshield_mat = new Material(windshild_shader);
-	windshield_mat->SetPropertyValue("Color", Color::Red);
+	camaro->FaceCulling(false);
+	windshield_mat = new Material(shader);
+	windshield_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
+	windshield_mat->SetPropertyValue("Transparency", 0.5f);
 	Mesh* windshild = camaro->GetMesh("Windshield");
 	windshild->SetMaterial(windshield_mat);
+	windshild->AlphaBlending(true);
 	
 	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
-	road_mat->SetPropertyValue("Specular", 0.5f);
-	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
@@ -105,7 +102,6 @@ void TransparencyScene::Stop(){
 	delete road_diffuse;
 	delete grass_diffuse;
 	delete shader;
-	delete windshild_shader;
 	CameraControlsScreen::Stop();
 }
 

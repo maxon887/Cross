@@ -28,7 +28,7 @@
 using namespace cross;
 
 FreeCameraScene::FreeCameraScene() :
-	liner_speed(50.f),
+	liner_speed(5.f),
 	angular_speed(45.f),
 	handled_action(-1),
 	orbit_distance(5.f),

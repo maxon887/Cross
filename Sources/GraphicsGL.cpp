@@ -227,6 +227,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	case DefaultShader::MULTI_LIGHT:
 		shader = new MultiLightShader();
 		shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
+		shader->AddProperty("Transparency", "uTransparency", 1.f);
 		break;
 	default:
 		throw CrossException("Unknown shader type");

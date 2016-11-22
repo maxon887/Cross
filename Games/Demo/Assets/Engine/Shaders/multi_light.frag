@@ -19,6 +19,7 @@ uniform float uSpecular;
 #endif
 
 uniform float uShininess;
+uniform float uTransparency;
 
 uniform Light uDirectionalLights[DIRECTIONAL_LIGHT_COUNT + 1];
 uniform Light uPointLights[POINT_LIGHT_COUNT + 1];
@@ -101,5 +102,6 @@ void main(){
 		result += CalcSpotLight(uSpotLights[i], diffuseColor, specularColor);
 	}
 	
+	result.a = uTransparency;
 	gl_FragColor = result;
 }
