@@ -32,6 +32,7 @@ public:
 			VEC2,
 			FLOAT,
 			INT,
+			CUBEMAP,
 			UNKNOWN,
 		};
 
@@ -46,6 +47,7 @@ public:
 		void SetValue(Vector4D& v);
 		void SetValue(Matrix& v);
 		void SetValue(Texture* texture);
+		void SetValueCubemap(GLuint id);
 
 	private:
 		friend Mesh;

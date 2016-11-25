@@ -15,30 +15,28 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScreen.h"
-#include "Utils/Skybox.h"
+#include "Cross.h"
+#include "Graphics2D.h"
 
-class TransparencyScene : public CameraControlsScreen{
+namespace cross{
+
+class Skybox{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	Skybox( const string& right,
+			const string& left,
+			const string& top,
+			const string& bottom,
+			const string& back,
+			const string& front	);
+	~Skybox();
+
+	void Draw();
 
 private:
+	GLuint textureID;
 	Shader* shader;
-	Shader* grass_shader;
-	Texture* car_diffuse;
-	Texture* road_diffuse;
-	Texture* grass_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Material* grass_mat;
-	Material* windshield_mat;
-	Model* camaro;
-	Model* road;
-	Model* grass;
-
-	Skybox* skybox;
-
-	Light* light;
+	Material* material;
+	Model* box;
 };
+
+}

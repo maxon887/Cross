@@ -295,6 +295,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.cpp">
       <Filter>Demo\Graphics3D\Advanced</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Skybox.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -543,6 +546,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.h">
       <Filter>Demo\Graphics3D\Advanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Skybox.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -128,7 +128,7 @@ void Mesh::Draw(const Matrix& globalModel){
 		switch(prop->type){
 		case Shader::Property::SAMPLER:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, *(U32*)prop->value));
+			SAFE(glBindTexture(GL_TEXTURE_2D, *(GLuint*)prop->value));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
@@ -149,6 +149,22 @@ void Mesh::Draw(const Matrix& globalModel){
 			break;
 		case Shader::Property::INT:
 			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
+			break;
+		case Shader::Property::CUBEMAP:
+			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, *(GLuint*)prop->value));
+			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
+			material->active_texture_slot++;
+			if(shader->uMVP != -1){
+				Camera* cam = scene->GetCamera();
+				Matrix view = cam->GetViewMatrix();
+				view.m[0][3] = 0.f;
+				view.m[1][3] = 0.f;
+				view.m[2][3] = 0.f;
+				Matrix mvp = cam->GetProjectionMatrix() * view * globalModel * GetModelMatrix();
+				mvp = mvp.GetTransposed();
+				SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
+			}
 			break;
 		default:
 			throw CrossException("Unknown property type");

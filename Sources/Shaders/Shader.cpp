@@ -92,6 +92,12 @@ void Shader::Property::SetValue(Texture* v){
 	memcpy(value, &textureID, size);
 }
 
+void Shader::Property::SetValueCubemap(GLuint id){
+	type = CUBEMAP;
+	RealocateIfNeeded(sizeof(GLuint));
+	memcpy(value, &id, size);
+}
+
 void Shader::Property::RealocateIfNeeded(U32 newSize){
 	if(size < newSize){
 		size = newSize;
@@ -106,7 +112,8 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 	compiled(false),
 	vertex_file(NULL),
 	fragment_file(NULL),
-	makro_len(0) {
+	makro_len(0)
+{
 	vertex_file = launcher->LoadFile(vertexFile);
 	fragment_file = launcher->LoadFile(fragmentFile);
 }

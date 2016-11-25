@@ -82,13 +82,20 @@ void TransparencyScene::Start(){
 	grass->FaceCulling(false);
 	grass->SetMaterial(grass_mat);
 
-	for(U32 i = 0; i < 50; ++i){
+	for(U32 i = 0; i < 10; ++i){
 		Model* clone = grass->Clone();
 		clone->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
 		clone->SetRotate(quat * clone->GetRotation());
 		models.push_back(clone);
 	}
+
+	skybox = new Skybox(	"gfx3D/Skybox/miramar_rt.png",
+							"gfx3D/Skybox/miramar_lf.png",
+							"gfx3D/Skybox/miramar_up.png",
+							"gfx3D/Skybox/miramar_dn.png",
+							"gfx3D/Skybox/miramar_bk.png",
+							"gfx3D/Skybox/miramar_ft.png"	);
 }
 
 void TransparencyScene::Stop(){
@@ -102,11 +109,13 @@ void TransparencyScene::Stop(){
 	delete road_diffuse;
 	delete grass_diffuse;
 	delete shader;
+	delete skybox;
 	CameraControlsScreen::Stop();
 }
 
 void TransparencyScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
+	skybox->Draw();
 	camaro->Draw();
 	road->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));

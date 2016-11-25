@@ -66,6 +66,11 @@ public:
 	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();
 
+	Byte* LoadRawData(const string& filename, int& width, int& height, int& channels);
+	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
+	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
+	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
+
 private:
 	Shader* texture_shader;
 	Shader* font_shader;
@@ -74,10 +79,6 @@ private:
 	Camera2D* camera;
 	Camera2D* default_camera;
 	CRList<pair<Texture*, S32>> loaded_textures;
-
-	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
-	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
-	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
 };
 
 }
