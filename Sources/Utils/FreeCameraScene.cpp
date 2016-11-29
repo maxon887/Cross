@@ -49,10 +49,6 @@ void FreeCameraScene::Start() {
 	mouse_wheel_down = MakeDelegate(this, &FreeCameraScene::MouseWheelDown);
 	input->MouseWheelUp += mouse_wheel_up;
 	input->MouseWheelDown += mouse_wheel_down;
-	//TEST
-	Vector3D vec1(1.f, 1.2f, 0.f);
-	Vector3D vec2(0.f, 2.f, 0.5f);
-	Vector3D vec3 = vec1 + vec2;
 }
 
 void FreeCameraScene::Stop(){

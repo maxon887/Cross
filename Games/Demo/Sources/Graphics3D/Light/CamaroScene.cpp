@@ -37,23 +37,37 @@ void CamaroScene::Start(){
 	AddLight(light);
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader->AddMakro("USE_SPECULAR_MAP");
+	shader->AddMakro("USE_SHININESS_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Specular", "uSpecular");
-	shader->AddProperty("Shininess", "uShininess");
+	//shader->AddProperty("Shininess", "uShininess");
+	shader->AddProperty("Specular Map", "uSpecularMap");
+	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 1.f);
+	shader->AddProperty("Shininess Map", "uShininessMap");
+	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 1.f);
 	shader->Compile();
 
 	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
+	car_specular = gfx2D->LoadTexture("gfx3D/Camaro/Specular.png");
+	car_shininess = gfx2D->LoadTexture("gfx3D/Camaro/Shininess.png");
 	car_mat = new Material(shader);
 	car_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
-	car_mat->SetPropertyValue("Specular", 0.5f);
-	car_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
+	car_mat->SetPropertyValue("Specular Map", car_specular);
+	car_mat->SetPropertyValue("Shininess Map", car_specular);
+	car_mat->SetPropertyValue("Shininess Multiplier", 64.f);
+	car_mat->SetPropertyValue("Specular Multiplier", 2.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	camaro->SetMaterial(car_mat);
 	camaro->SetRotateY(45.f);
 	
+	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	road_shader->AddProperty("Specular", "uSpecular");
+	road_shader->AddProperty("Shininess", "uShininess");
+	road_shader->Compile();
 	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	road_mat = new Material(shader);
+	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
 	road_mat->SetPropertyValue("Specular", 0.5f);
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
@@ -70,8 +84,10 @@ void CamaroScene::Stop(){
 	delete car_mat;
 	delete road_mat;
 	delete car_diffuse;
+	delete car_specular;
 	delete road_diffuse;
 	delete shader;
+	delete road_shader;
 	CameraControlsScreen::Stop();
 }
 

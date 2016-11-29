@@ -25,7 +25,10 @@ public:
 
 private:
 	Shader* shader;
+	Shader* road_shader;
 	Texture* car_diffuse;
+	Texture* car_specular;
+	Texture* car_shininess;
 	Texture* road_diffuse;
 	Material* car_mat;
 	Material* road_mat;
