@@ -41,6 +41,8 @@ public:
 
 	Shader* GetShader();
 
+	Material* Clone();
+
 private:
 	Shader* shader;
 

@@ -40,7 +40,6 @@ void CamaroScene::Start(){
 	shader->AddMakro("USE_SPECULAR_MAP");
 	shader->AddMakro("USE_SHININESS_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	//shader->AddProperty("Shininess", "uShininess");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 1.f);
 	shader->AddProperty("Shininess Map", "uShininessMap");
@@ -57,8 +56,14 @@ void CamaroScene::Start(){
 	car_mat->SetPropertyValue("Shininess Multiplier", 64.f);
 	car_mat->SetPropertyValue("Specular Multiplier", 2.f);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	camaro->FaceCulling(false);
 	camaro->SetMaterial(car_mat);
 	camaro->SetRotateY(45.f);
+	windshield_mat = car_mat->Clone();
+	windshield_mat->SetPropertyValue("Transparency", 0.5f);
+	Mesh* windshild = camaro->GetMesh("Windshield");
+	windshild->SetMaterial(windshield_mat);
+	windshild->AlphaBlending(true);
 	
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
@@ -83,8 +88,10 @@ void CamaroScene::Stop(){
 	delete camaro;
 	delete car_mat;
 	delete road_mat;
+	delete windshield_mat;
 	delete car_diffuse;
 	delete car_specular;
+	delete car_shininess;
 	delete road_diffuse;
 	delete shader;
 	delete road_shader;

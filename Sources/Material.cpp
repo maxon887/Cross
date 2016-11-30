@@ -31,6 +31,15 @@ Material::Material(Shader* shader) :
 	}
 }
 
+Material::Material(Material& obj) :
+	shader(obj.shader),
+	active_texture_slot(obj.active_texture_slot)
+{ 
+	for(Shader::Property* prop : obj.properties){
+		properties.push_back(prop->Clone());
+	}
+}
+
 Material::~Material(){
 	for(Shader::Property* prop : properties){
 		delete prop;
@@ -91,4 +100,8 @@ Shader* Material::GetShader(){
 	}else{
 		throw CrossException("Current material does not contain shader");
 	}
+}
+
+Material* Material::Clone(){
+	return new Material(*this);
 }

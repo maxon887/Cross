@@ -36,7 +36,6 @@ public:
 			UNKNOWN,
 		};
 
-		Property(Property& obj);
 		Property(const string& name, const string& glName);
 		~Property();
 
@@ -49,10 +48,14 @@ public:
 		void SetValue(Texture* texture);
 		void SetValueCubemap(GLuint id);
 
+		Property* Clone();
+
 	private:
 		friend Mesh;
 		friend Shader;
 		friend Material;
+
+		Property(Property& obj);
 
 		void RealocateIfNeeded(U32 newSIze);
 

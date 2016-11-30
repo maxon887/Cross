@@ -21,6 +21,16 @@
 
 using namespace cross;
 
+Shader::Property::Property(const string& name, const string& glName):
+	name(name),
+	type(UNKNOWN),
+	glName(glName),
+	glId(-1),
+	value(NULL),
+	size(0),
+	original(true)
+{ }
+
 Shader::Property::Property(Shader::Property& obj):
 	name(obj.name),
 	type(obj.type),
@@ -33,18 +43,8 @@ Shader::Property::Property(Shader::Property& obj):
 	memcpy(value, obj.value, obj.size);
 }
 
-Shader::Property::Property(const string& name, const string& glName):
-	name(name),
-	type(UNKNOWN),
-	glName(glName),
-	glId(-1),
-	value(NULL),
-	size(0),
-	original(true)
-{ }
-
 Shader::Property::~Property(){
-	if(value && original){
+	if(value){
 		delete[] value;
 	}
 }
@@ -96,6 +96,10 @@ void Shader::Property::SetValueCubemap(GLuint id){
 	type = CUBEMAP;
 	RealocateIfNeeded(sizeof(GLuint));
 	memcpy(value, &id, size);
+}
+
+Shader::Property* Shader::Property::Clone(){
+	return new Shader::Property(*this);
 }
 
 void Shader::Property::RealocateIfNeeded(U32 newSize){
