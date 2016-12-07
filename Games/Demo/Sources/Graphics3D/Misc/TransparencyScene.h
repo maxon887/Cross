@@ -38,7 +38,5 @@ private:
 	Model* road;
 	Model* grass;
 
-	Skybox* skybox;
-
 	Light* light;
 };

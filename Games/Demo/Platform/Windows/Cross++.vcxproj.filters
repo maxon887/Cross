@@ -292,6 +292,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -536,6 +539,9 @@
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
   </ItemGroup>

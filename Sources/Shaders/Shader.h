@@ -110,6 +110,7 @@ public:
 	void AddMakro(const string& makro, int value);
 	void AddProperty(Property* prop);
 	void AddProperty(const string& name, const string& glName);
+	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);
 	Property* GetProperty(const string& name);
 	bool HaveProperty(const string& name);

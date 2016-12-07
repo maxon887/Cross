@@ -89,13 +89,6 @@ void TransparencyScene::Start(){
 		clone->SetRotate(quat * clone->GetRotation());
 		models.push_back(clone);
 	}
-
-	skybox = new Skybox(	"gfx3D/Skybox/miramar_rt.png",
-							"gfx3D/Skybox/miramar_lf.png",
-							"gfx3D/Skybox/miramar_up.png",
-							"gfx3D/Skybox/miramar_dn.png",
-							"gfx3D/Skybox/miramar_bk.png",
-							"gfx3D/Skybox/miramar_ft.png"	);
 }
 
 void TransparencyScene::Stop(){
@@ -109,7 +102,6 @@ void TransparencyScene::Stop(){
 	delete road_diffuse;
 	delete grass_diffuse;
 	delete shader;
-	delete skybox;
 	CameraControlsScreen::Stop();
 }
 

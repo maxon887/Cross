@@ -14,27 +14,21 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Utils/DebugScene.h"
-#include "Utils/ToggleButton.h"
+#include "SkyboxScene.h"
 
-using namespace cross;
+void SkyboxScene::Start(){
+	skybox = new Skybox("gfx3D/Skybox/miramar_rt.png",
+						"gfx3D/Skybox/miramar_lf.png",
+						"gfx3D/Skybox/miramar_up.png",
+						"gfx3D/Skybox/miramar_dn.png",
+						"gfx3D/Skybox/miramar_bk.png",
+						"gfx3D/Skybox/miramar_ft.png");
+}
 
-class CameraControlsScreen : public DebugScene{
-public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
+void SkyboxScene::Stop(){
 
-private:
-	//UI
-	Sprite* arrow_released;
-	Sprite* arrow_pressed;
-	Button* left_btn;
-	Button* right_btn;
-	Button* up_btn;
-	Button* down_btn;
-	ToggleButton* eye_btn;
+}
 
-	void OnEyeClick();
-};
+void SkyboxScene::Update(float sec){
+	
+}

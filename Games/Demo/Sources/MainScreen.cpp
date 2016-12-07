@@ -165,22 +165,26 @@ void MainScreen::Start(){
 	graphics3D_maps->AddButton(roughnessBtn);
 	graphics3D_maps->AddButton(normalBtn);
 	//graphics 3D misc
-	graphics3D_misc = new Menu(true);
+	graphics3D_misc = new Menu(false);
 	Button* depthTestBtn			= new Button("Depth Test");
 	Button* stencilTestBtn			= new Button("Stencil Test");
 	Button* transparencyBtn			= new Button("Transparency");
+	Button* skyboxBtn				= new Button("Skybox");
 	Button* apocalypseBtn			= new Button("Apocalypse Scene");
 	depthTestBtn->SetImages(button_sprite->Clone());
 	stencilTestBtn->SetImages(button_sprite->Clone());
 	transparencyBtn->SetImages(button_sprite->Clone());
+	skyboxBtn->SetImages(button_sprite->Clone());
 	apocalypseBtn->SetImages(button_sprite->Clone());
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
 	stencilTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnStencilTestClick);
 	transparencyBtn->Clicked += MakeDelegate(this, &MainScreen::OnTransparencyClick);
+	skyboxBtn->Clicked += MakeDelegate(this, &MainScreen::OnSkyboxClick);
 	apocalypseBtn->Clicked += MakeDelegate(this, &MainScreen::OnApocalypseClick);
 	graphics3D_misc->AddButton(depthTestBtn);
 	graphics3D_misc->AddButton(stencilTestBtn);
 	graphics3D_misc->AddButton(transparencyBtn);
+	graphics3D_misc->AddButton(skyboxBtn);
 	graphics3D_misc->AddButton(apocalypseBtn);
 
 	graphics2D_menu->Active(false);
@@ -362,10 +366,6 @@ void MainScreen::OnNormalClick(){
 }
 
 //graphics 3d menu misc
-void MainScreen::OnApocalypseClick(){
-	next_screen = new ApocalypseScene();
-}
-
 void MainScreen::OnDepthTestClick(){
 	next_screen = new DepthScene();
 }
@@ -376,4 +376,12 @@ void MainScreen::OnStencilTestClick(){
 
 void MainScreen::OnTransparencyClick(){
 	next_screen = new TransparencyScene();
+}
+
+void MainScreen::OnSkyboxClick(){
+
+}
+
+void MainScreen::OnApocalypseClick(){
+	next_screen = new ApocalypseScene();
 }

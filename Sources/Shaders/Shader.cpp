@@ -209,6 +209,10 @@ void Shader::AddProperty(const string& name, const string& glName){
 	AddProperty(new Property(name, glName));
 }
 
+void Shader::AddProperty(const string& glName, float defValue){
+	AddProperty(glName, glName, defValue);
+}
+
 void Shader::AddProperty(const string& name, const string& glName, float defValue){
 	Property* prop = new Property(name, glName);
 	prop->SetValue(defValue);

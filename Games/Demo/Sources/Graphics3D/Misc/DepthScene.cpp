@@ -24,6 +24,7 @@
 #include "Game.h"
 #include "Material.h"
 #include "Texture.h"
+#include "Config.h"
 
 #include <math.h>
 
@@ -33,6 +34,8 @@ void DepthScene::Start(){
 	SetAmbientColor(Color(0.1f));
 
 	shader = new Shader("gfx3D/shaders/depth_test.vert", "gfx3D/shaders/depth_test.frag");
+	shader->AddProperty("uFar", config->GetViewDistance());
+	shader->AddProperty("uNear", 0.1f);
 	shader->Compile();
 
 	car_mat = new Material(shader);
@@ -41,7 +44,7 @@ void DepthScene::Start(){
 	
 	road_mat = new Material(shader);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	road->SetScale(250.f);
+	road->SetScale(15.f);
 	road->FaceCulling(false);
 	road->SetMaterial(road_mat);
 }
