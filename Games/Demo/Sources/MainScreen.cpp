@@ -28,17 +28,15 @@
 #include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"
 #include "Graphics3D/Simple/ComplexModelScene.h"
-#include "Graphics3D/Light/SpecularScene.h"
-#include "Graphics3D/Light/DiffuseScene.h"
-#include "Graphics3D/Light/SpecularMapScene.h"
+#include "Graphics3D/Light/MaterialScene.h"
 #include "Graphics3D/Light/DirectionalLightScene.h"
 #include "Graphics3D/Light/PointLightScene.h"
 #include "Graphics3D/Light/SpotLightScene.h"
 #include "Graphics3D/Light/MultiLightScene.h"
 #include "Graphics3D/Light/CamaroScene.h"
-#include "Graphics3D/Advanced/DepthScene.h"
-#include "Graphics3D/Advanced/StencilScene.h"
-#include "Graphics3D/Advanced/TransparencyScene.h"
+#include "Graphics3D/Misc/DepthScene.h"
+#include "Graphics3D/Misc/StencilScene.h"
+#include "Graphics3D/Misc/TransparencyScene.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -86,21 +84,25 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(spritesBtn);
 	graphics2D_menu->AddButton(textBtn);
 	graphics2D_menu->AddButton(animationBtn);
-	//graphics 3D menu
-	graphics3D_menu = new Menu(true);
+	//graphics 3D
+	graphics3D_menu = new Menu(false);
 	Button* simpleBtn				= new Button("Simple");
 	Button* lightBtn				= new Button("Light");
-	Button* advancedBtn				= new Button("Advanced");
+	Button* mapsBtn					= new Button("Maps");
+	Button* miscBtn				= new Button("Misc");
 	simpleBtn->SetImages(button_sprite->Clone());
 	lightBtn->SetImages(button_sprite->Clone());
-	advancedBtn->SetImages(button_sprite->Clone());
+	mapsBtn->SetImages(button_sprite->Clone());
+	miscBtn->SetImages(button_sprite->Clone());
 	simpleBtn->Clicked += MakeDelegate(this, &MainScreen::OnSimpleClick);
 	lightBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightClick);
-	advancedBtn->Clicked += MakeDelegate(this, &MainScreen::OnAdvancedClick);
+	mapsBtn->Clicked += MakeDelegate(this, &MainScreen::OnMapsClick);
+	miscBtn->Clicked += MakeDelegate(this, &MainScreen::OnMiscClick);
 	graphics3D_menu->AddButton(simpleBtn);
 	graphics3D_menu->AddButton(lightBtn);
-	graphics3D_menu->AddButton(advancedBtn);
-
+	graphics3D_menu->AddButton(mapsBtn);
+	graphics3D_menu->AddButton(miscBtn);
+	//graphics 3D simple
 	graphics3D_simple = new Menu(false);
 	Button* triangleBtn				= new Button("Triangle");
 	Button* solidModelBtn			= new Button("Solid Model");
@@ -118,42 +120,57 @@ void MainScreen::Start(){
 	graphics3D_simple->AddButton(solidModelBtn);
 	graphics3D_simple->AddButton(texturedModelBtn);
 	graphics3D_simple->AddButton(complexBtn);
-
+	//graphics 3D light
 	graphics3D_light = new Menu(false);
-	Button* specularBtn 			= new Button("Specular");
-	Button* diffuseMap				= new Button("Diffuse");
-	Button* specularMapBtn			= new Button("Specular Map");
+	Button* materialBtn 			= new Button("Material");
 	Button* directionalLigthBtn		= new Button("Directional Light");
 	Button* pointLightBtn			= new Button("Point Light");
 	Button* spotLightBtn			= new Button("Spot Light");
 	Button* multiLightBtn			= new Button("Multi-Ligth");
 	Button* camaroBtn				= new Button("Camaro");
-	specularBtn->SetImages(button_sprite->Clone());
-	diffuseMap->SetImages(button_sprite->Clone());
-	specularMapBtn->SetImages(button_sprite->Clone());
+	materialBtn->SetImages(button_sprite->Clone());
 	directionalLigthBtn->SetImages(button_sprite->Clone());
 	pointLightBtn->SetImages(button_sprite->Clone());
 	spotLightBtn->SetImages(button_sprite->Clone());
 	multiLightBtn->SetImages(button_sprite->Clone());
 	camaroBtn->SetImages(button_sprite->Clone());
-	specularBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
-	diffuseMap->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseMapClick);
-	specularMapBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseSpecularMapClick);
+	materialBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
 	spotLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpotLightClick);
 	multiLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnMultiLightClick);
-	camaroBtn->Clicked += MakeDelegate(this, &MainScreen::OnCamaroClick);
-	graphics3D_light->AddButton(specularBtn);
-	graphics3D_light->AddButton(diffuseMap);
-	graphics3D_light->AddButton(specularMapBtn);
+	camaroBtn->Clicked += MakeDelegate(this, &MainScreen::OnApocalypseClick);
+	graphics3D_light->AddButton(materialBtn);
 	graphics3D_light->AddButton(directionalLigthBtn);
 	graphics3D_light->AddButton(pointLightBtn);
 	graphics3D_light->AddButton(spotLightBtn);
 	graphics3D_light->AddButton(multiLightBtn);
 	graphics3D_light->AddButton(camaroBtn);
-
-	graphics3D_advanced = new Menu(true);
+	//graphics 3D maps
+	graphics3D_maps = new Menu(false);
+	Button* nakedBtn				= new Button("Naked");
+	Button* diffuseBtn				= new Button("Diffuse");
+	Button* specularBtn				= new Button("Specular");
+	Button* roughnessBtn			= new Button("Roughness");
+	Button* normalBtn				= new Button("Normal");
+	nakedBtn->SetImages(button_sprite->Clone());
+	diffuseBtn->SetImages(button_sprite->Clone());
+	specularBtn->SetImages(button_sprite->Clone());
+	roughnessBtn->SetImages(button_sprite->Clone());
+	normalBtn->SetImages(button_sprite->Clone());
+	nakedBtn->Clicked += MakeDelegate(this, &MainScreen::OnNakedClick);
+	diffuseBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseClick);
+	specularBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpecularClick);
+	roughnessBtn->Clicked += MakeDelegate(this, &MainScreen::OnRoughnessClick);
+	normalBtn->Clicked += MakeDelegate(this, &MainScreen::OnNormalClick);
+	graphics3D_maps->AddButton(nakedBtn);
+	graphics3D_maps->AddButton(nakedBtn);
+	graphics3D_maps->AddButton(diffuseBtn);
+	graphics3D_maps->AddButton(specularBtn);
+	graphics3D_maps->AddButton(roughnessBtn);
+	graphics3D_maps->AddButton(normalBtn);
+	//graphics 3D misc
+	graphics3D_misc = new Menu(true);
 	Button* depthTestBtn			= new Button("Depth Test");
 	Button* stencilTestBtn			= new Button("Stencil Test");
 	Button* transparencyBtn			= new Button("Transparency");
@@ -163,15 +180,15 @@ void MainScreen::Start(){
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
 	stencilTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnStencilTestClick);
 	transparencyBtn->Clicked += MakeDelegate(this, &MainScreen::OnTransparencyClick);
-	graphics3D_advanced->AddButton(depthTestBtn);
-	graphics3D_advanced->AddButton(stencilTestBtn);
-	graphics3D_advanced->AddButton(transparencyBtn);
+	graphics3D_misc->AddButton(depthTestBtn);
+	graphics3D_misc->AddButton(stencilTestBtn);
+	graphics3D_misc->AddButton(transparencyBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
 	graphics3D_simple->Active(false);
 	graphics3D_light->Active(false);
-	graphics3D_advanced->Active(false);
+	graphics3D_misc->Active(false);
 
 	delete button_sprite;
 }
@@ -181,9 +198,10 @@ void MainScreen::Stop(){
 	delete main_menu;
 	delete graphics2D_menu;
 	delete graphics3D_menu;
+	delete graphics3D_maps;
 	delete graphics3D_simple;
 	delete graphics3D_light;
-	delete graphics3D_advanced;
+	delete graphics3D_misc;
 	input->KeyPressed -= key_released_delegate;
 	game->WindowResized -= window_resized_delegate;
 }
@@ -226,6 +244,7 @@ void MainScreen::WindowResizedHandle(S32 width, S32 height){
 	ResetScreenSize();
 }
 
+//main menu
 void MainScreen::OnGraphics2DClick(){
 	AdjustScreenHeight(graphics2D_menu);
 	current_menu->Active(false);
@@ -240,10 +259,26 @@ void MainScreen::OnGraphics3DClick(){
 	current_menu = graphics3D_menu;
 }
 
+void MainScreen::OnAudioClick() {
+	next_screen = new AudioScreen();
+}
+//graphics 2D menu
+void MainScreen::OnPrimitivesClick(){
+	next_screen = new PrimitivesScreen();
+}
+
+void MainScreen::OnSpritesClick(){
+	next_screen = new SpritesScreen();
+}
+
+void MainScreen::OnTextClick(){
+	next_screen = new TextScreen();
+}
+
 void MainScreen::OnAnimationClick(){
 	next_screen = new AnimationScreen();
 }
-
+//graphics 3D menu
 void MainScreen::OnSimpleClick(){
 	AdjustScreenHeight(graphics3D_simple);
 	current_menu->Active(false);
@@ -258,25 +293,17 @@ void MainScreen::OnLightClick(){
 	current_menu = graphics3D_light;
 }
 
-void MainScreen::OnAdvancedClick(){
-	AdjustScreenHeight(graphics3D_advanced);
+void MainScreen::OnMapsClick(){
+	throw CrossException("Don't implemented yet");
+}
+
+void MainScreen::OnMiscClick(){
+	AdjustScreenHeight(graphics3D_misc);
 	current_menu->Active(false);
-	graphics3D_advanced->Active(true);
-	current_menu = graphics3D_advanced;
+	graphics3D_misc->Active(true);
+	current_menu = graphics3D_misc;
 }
-
-void MainScreen::OnPrimitivesClick(){
-	next_screen = new PrimitivesScreen();
-}
-
-void MainScreen::OnSpritesClick(){
-	next_screen = new SpritesScreen();
-}
-
-void MainScreen::OnTextClick(){
-	next_screen = new TextScreen();
-}
-
+//graphics 3d menu simpe
 void MainScreen::OnTriangleClick(){
 	next_screen = new TriangleScene();
 }
@@ -293,20 +320,8 @@ void MainScreen::OnComplexModelClick(){
 	next_screen = new ComplexModelScene();
 }
 
-void MainScreen::OnAudioClick() {
-	next_screen = new AudioScreen();
-}
-
 void MainScreen::OnMaterialClick(){
-	next_screen = new SpecularScene();
-}
-
-void MainScreen::OnDiffuseMapClick(){
-	next_screen = new DiffuseScene();
-}
-
-void MainScreen::OnDiffuseSpecularMapClick(){
-	next_screen = new SpecularMapScene();
+	next_screen = new MaterialScene();
 }
 
 void MainScreen::OnDirectionalLight(){
@@ -325,7 +340,29 @@ void MainScreen::OnMultiLightClick(){
 	next_screen = new MultiLightScene();
 }
 
-void MainScreen::OnCamaroClick(){
+//graphics 3d menu maps
+void MainScreen::OnNakedClick(){
+
+}
+
+void MainScreen::OnDiffuseClick(){
+
+}
+
+void MainScreen::OnSpecularClick(){
+
+}
+
+void MainScreen::OnRoughnessClick(){
+
+}
+
+void MainScreen::OnNormalClick(){
+
+}
+
+//graphics 3d menu misc
+void MainScreen::OnApocalypseClick(){
 	next_screen = new CamaroScene();
 }
 

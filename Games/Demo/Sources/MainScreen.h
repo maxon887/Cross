@@ -31,11 +31,15 @@ public:
 private:
 	Menu* current_menu;
 	Menu* main_menu;
+
 	Menu* graphics2D_menu;
 	Menu* graphics3D_menu;
+
 	Menu* graphics3D_simple;
 	Menu* graphics3D_light;
-	Menu* graphics3D_advanced;
+	Menu* graphics3D_maps;
+	Menu* graphics3D_misc;
+
 	Sprite* button_sprite;
 	Screen* next_screen;
 
@@ -54,12 +58,12 @@ private:
 	void OnPrimitivesClick();
 	void OnSpritesClick();
 	void OnTextClick();
-	void On2DCameraClick();
 	void OnAnimationClick();
 	//graphics 3d menu
 	void OnSimpleClick();
 	void OnLightClick();
-	void OnAdvancedClick();
+	void OnMapsClick();
+	void OnMiscClick();
 	//graphics 3d simple
 	void OnTriangleClick();
 	void OnSolidModelClick();
@@ -67,15 +71,20 @@ private:
 	void OnComplexModelClick();
 	//graphics 3d light
 	void OnMaterialClick();
-	void OnDiffuseMapClick();
-	void OnDiffuseSpecularMapClick();
 	void OnDirectionalLight();
 	void OnPointLightClick();
 	void OnSpotLightClick();
 	void OnMultiLightClick();
-	void OnCamaroClick();
-	//graphics 3d advanced
+	//graphics 3d maps
+	void OnNakedClick();
+	void OnDiffuseClick();
+	void OnSpecularClick();
+	void OnRoughnessClick();
+	void OnNormalClick();
+	//graphics 3d misc
 	void OnDepthTestClick();
 	void OnStencilTestClick();
 	void OnTransparencyClick();
+	void OnSkyboxClick();
+	void OnApocalypseClick();
 };

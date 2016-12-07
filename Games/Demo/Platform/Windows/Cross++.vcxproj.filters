@@ -49,7 +49,7 @@
     <Filter Include="Cross\Math">
       <UniqueIdentifier>{c29fcd9b-dc4f-4506-bc92-e686220f618c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Graphics3D\Advanced">
+    <Filter Include="Demo\Graphics3D\Misc">
       <UniqueIdentifier>{ac3cc46f-ab38-46b7-9e41-24a82b837ed0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -217,12 +217,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpecularScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
@@ -283,20 +277,20 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\CrossEGL.cpp">
       <Filter>Cross\Platform</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\DiffuseScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\DepthScene.cpp">
-      <Filter>Demo\Graphics3D\Advanced</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\StencilScene.cpp">
-      <Filter>Demo\Graphics3D\Advanced</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.cpp">
-      <Filter>Demo\Graphics3D\Advanced</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Skybox.cpp">
       <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\MaterialScene.cpp">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\StencilScene.cpp">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp">
+      <Filter>Demo\Graphics3D\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -469,12 +463,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularMapScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpecularScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
@@ -535,20 +523,20 @@
     <ClInclude Include="..\..\..\..\Sources\Platform\CrossEGL.h">
       <Filter>Cross\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\DiffuseScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\DepthScene.h">
-      <Filter>Demo\Graphics3D\Advanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\StencilScene.h">
-      <Filter>Demo\Graphics3D\Advanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Advanced\TransparencyScene.h">
-      <Filter>Demo\Graphics3D\Advanced</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Skybox.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\MaterialScene.h">
+      <Filter>Demo\Graphics3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\StencilScene.h">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h">
+      <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

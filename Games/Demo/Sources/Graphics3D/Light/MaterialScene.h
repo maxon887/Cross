@@ -17,7 +17,7 @@
 #pragma once
 #include "Graphics3D/CameraControlsScreen.h"
 
-class SpecularScene : public CameraControlsScreen{
+class MaterialScene : public CameraControlsScreen{
 public:
 	void Start();
 	void Stop();
