@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "CamaroScene.h"
+#include "ApocalypseScene.h"
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
@@ -27,7 +27,7 @@
 
 #include <math.h>
 
-void CamaroScene::Start(){
+void ApocalypseScene::Start(){
 	CameraControlsScreen::Start();
 
 	SetAmbientColor(Color(0.1f));
@@ -83,7 +83,7 @@ void CamaroScene::Start(){
 	road->SetMaterial(road_mat);
 }
 
-void CamaroScene::Stop(){
+void ApocalypseScene::Stop(){
 	delete road;
 	delete camaro;
 	delete car_mat;
@@ -98,7 +98,7 @@ void CamaroScene::Stop(){
 	CameraControlsScreen::Stop();
 }
 
-void CamaroScene::Update(float sec){
+void ApocalypseScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
 	camaro->Draw();
 	road->Draw();

@@ -33,10 +33,10 @@
 #include "Graphics3D/Light/PointLightScene.h"
 #include "Graphics3D/Light/SpotLightScene.h"
 #include "Graphics3D/Light/MultiLightScene.h"
-#include "Graphics3D/Light/CamaroScene.h"
 #include "Graphics3D/Misc/DepthScene.h"
 #include "Graphics3D/Misc/StencilScene.h"
 #include "Graphics3D/Misc/TransparencyScene.h"
+#include "Graphics3D/Misc/ApocalypseScene.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -127,25 +127,21 @@ void MainScreen::Start(){
 	Button* pointLightBtn			= new Button("Point Light");
 	Button* spotLightBtn			= new Button("Spot Light");
 	Button* multiLightBtn			= new Button("Multi-Ligth");
-	Button* camaroBtn				= new Button("Camaro");
 	materialBtn->SetImages(button_sprite->Clone());
 	directionalLigthBtn->SetImages(button_sprite->Clone());
 	pointLightBtn->SetImages(button_sprite->Clone());
 	spotLightBtn->SetImages(button_sprite->Clone());
 	multiLightBtn->SetImages(button_sprite->Clone());
-	camaroBtn->SetImages(button_sprite->Clone());
 	materialBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
 	spotLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpotLightClick);
 	multiLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnMultiLightClick);
-	camaroBtn->Clicked += MakeDelegate(this, &MainScreen::OnApocalypseClick);
 	graphics3D_light->AddButton(materialBtn);
 	graphics3D_light->AddButton(directionalLigthBtn);
 	graphics3D_light->AddButton(pointLightBtn);
 	graphics3D_light->AddButton(spotLightBtn);
 	graphics3D_light->AddButton(multiLightBtn);
-	graphics3D_light->AddButton(camaroBtn);
 	//graphics 3D maps
 	graphics3D_maps = new Menu(false);
 	Button* nakedBtn				= new Button("Naked");
@@ -164,7 +160,6 @@ void MainScreen::Start(){
 	roughnessBtn->Clicked += MakeDelegate(this, &MainScreen::OnRoughnessClick);
 	normalBtn->Clicked += MakeDelegate(this, &MainScreen::OnNormalClick);
 	graphics3D_maps->AddButton(nakedBtn);
-	graphics3D_maps->AddButton(nakedBtn);
 	graphics3D_maps->AddButton(diffuseBtn);
 	graphics3D_maps->AddButton(specularBtn);
 	graphics3D_maps->AddButton(roughnessBtn);
@@ -174,20 +169,25 @@ void MainScreen::Start(){
 	Button* depthTestBtn			= new Button("Depth Test");
 	Button* stencilTestBtn			= new Button("Stencil Test");
 	Button* transparencyBtn			= new Button("Transparency");
+	Button* apocalypseBtn			= new Button("Apocalypse Scene");
 	depthTestBtn->SetImages(button_sprite->Clone());
 	stencilTestBtn->SetImages(button_sprite->Clone());
 	transparencyBtn->SetImages(button_sprite->Clone());
+	apocalypseBtn->SetImages(button_sprite->Clone());
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
 	stencilTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnStencilTestClick);
 	transparencyBtn->Clicked += MakeDelegate(this, &MainScreen::OnTransparencyClick);
+	apocalypseBtn->Clicked += MakeDelegate(this, &MainScreen::OnApocalypseClick);
 	graphics3D_misc->AddButton(depthTestBtn);
 	graphics3D_misc->AddButton(stencilTestBtn);
 	graphics3D_misc->AddButton(transparencyBtn);
+	graphics3D_misc->AddButton(apocalypseBtn);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
 	graphics3D_simple->Active(false);
 	graphics3D_light->Active(false);
+	graphics3D_maps->Active(false);
 	graphics3D_misc->Active(false);
 
 	delete button_sprite;
@@ -363,7 +363,7 @@ void MainScreen::OnNormalClick(){
 
 //graphics 3d menu misc
 void MainScreen::OnApocalypseClick(){
-	next_screen = new CamaroScene();
+	next_screen = new ApocalypseScene();
 }
 
 void MainScreen::OnDepthTestClick(){

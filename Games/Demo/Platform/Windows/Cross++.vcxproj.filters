@@ -220,9 +220,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\CamaroScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -290,6 +287,9 @@
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -466,9 +466,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h">
       <Filter>Demo\Graphics3D\Light</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\CamaroScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -536,6 +533,9 @@
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h">
+      <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,7 +17,7 @@
 #pragma once
 #include "Graphics3D/CameraControlsScreen.h"
 
-class CamaroScene : public CameraControlsScreen{
+class ApocalypseScene : public CameraControlsScreen{
 public:
 	void Start();
 	void Stop();
