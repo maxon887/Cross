@@ -45,6 +45,31 @@ bool Input::IsPressed(Key key){
 	return pressed_keys[(U32)key];
 }
 
+void Input::Update(){
+	while(!action_stack.empty()){
+		input_mutex.lock();
+		Action action = action_stack.front().first;
+		int actionState = action_stack.front().second;
+		action_stack.pop_front();
+		input_mutex.unlock();
+
+		action.pos = TargetToWordConvert(action.pos.x, action.pos.y);
+		switch(actionState)	{
+		case 0:
+			TRIGGER_EVENT(ActionDown, action);
+			break;
+		case 1:
+			TRIGGER_EVENT(ActionMove, action);
+			break;
+		case 2:
+			TRIGGER_EVENT(ActionUp, action);
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 void Input::KeyPressedHandle(Key key){
 	pressed_keys[(U32)key] = true;
 }
@@ -55,21 +80,27 @@ void Input::KeyReleasedHandle(Key key){
 
 void Input::TargetActionDonwHandle(float x, float y, S32 actionID){
 	Action action;
-	action.pos = TargetToWordConvert(x, y);
+	action.pos = Vector2D(x, y);
 	action.id = actionID;
-	TRIGGER_EVENT(ActionDown, action);
+	input_mutex.lock();
+	action_stack.push_back(pair<Input::Action, int>(action, 0));
+	input_mutex.unlock();
 }
 
 void Input::TargetActionMoveHandle(float x, float y, S32 actionID){
 	Action action;
-	action.pos = TargetToWordConvert(x, y);
+	action.pos = Vector2D(x, y);
 	action.id = actionID;
-	TRIGGER_EVENT(ActionMove, action);
+	input_mutex.lock();
+	action_stack.push_back(pair<Input::Action, int>(action, 1));
+	input_mutex.unlock();
 }
 
 void Input::TargetActionUpHandle(float x, float y, S32 actionID){
 	Action action;
-	action.pos = TargetToWordConvert(x, y);
+	action.pos = Vector2D(x, y);
 	action.id = actionID;
-	TRIGGER_EVENT(ActionUp, action);
+	input_mutex.lock();
+	action_stack.push_back(pair<Input::Action, int>(action, 2));
+	input_mutex.unlock();
 }

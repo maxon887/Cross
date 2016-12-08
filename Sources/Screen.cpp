@@ -35,12 +35,6 @@ void Screen::Start(){
 	}
 }
 
-void Screen::LateUpdate(float sec){
-	for(UI* ui : guis){
-		ui->Update(sec);
-	}
-}
-
 void Screen::Stop(){
 	input->ActionDown -= action_down_delegate;
 	input->ActionMove -= action_move_delegate;
@@ -49,6 +43,15 @@ void Screen::Stop(){
 		delete ui;
 	}
 	guis.clear();
+}
+
+void Screen::Update(float sec){
+}
+
+void Screen::LateUpdate(float sec){
+	for(UI* ui : guis){
+		ui->Update(sec);
+	}
 }
 
 float Screen::GetWidth(){

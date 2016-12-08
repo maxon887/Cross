@@ -17,6 +17,8 @@
 #pragma once
 #include "Cross.h"
 
+#include <mutex>
+
 #include "Libs/Events/Event.h"
 
 namespace cross {
@@ -139,12 +141,16 @@ public:
 	DECLARE_EVENT(void) MouseWheelDown;
 	/* Checks if specific key pressed*/
 	bool IsPressed(Key key);
+	void Update();
 //Internal data. You don't need call any of this methods or modify variable
 protected:
 	friend Game;
 
-	Input();
+	std::mutex  input_mutex;
 	bool pressed_keys[(U32)Key::MAX_KEY_NUM];
+	CRList<pair<Input::Action, int> > action_stack;
+
+	Input();
 
 	Vector2D TargetToWordConvert(float x, float y);
 

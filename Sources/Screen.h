@@ -35,7 +35,7 @@ public:
 	/* Calls when screen about to change on new one */
 	virtual void Stop();
 	/* Calls every frame update. Ideally 60 times per second(60fps) */
-	virtual void Update(float sec) { };
+	virtual void Update(float sec);
 	virtual void LateUpdate(float sec);
 	/* Calls where game need to be stoped like lost focus or input phone call */
 	virtual void Suspend() { };

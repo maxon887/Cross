@@ -108,6 +108,7 @@ void Game::Update(){
 		LoadNextScreen();
 	}
 
+	input->Update();
 	gfxGL->PreProcessFrame();
 	gfx2D->Update((float)(updateTime / 1000000.));
 	GetCurrentScreen()->Update((float)(updateTime / 1000000.));

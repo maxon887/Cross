@@ -111,10 +111,10 @@ void Debugger::Update(float micro){
 	}
 
 	S32 optionPosition = 1;
-	float height = game->GetCurrentScreen()->GetHeight();
-	//Camera2D* curCam = gfx2D->GetCamera();
-	//float height = gfx2D->GetDefaultCamera()->GetViewHeight();
-	//gfx2D->SetCamera(gfx2D->GetDefaultCamera());
+	//float height = game->GetCurrentScreen()->GetHeight();
+	Camera2D* curCam = gfx2D->GetCamera();
+	float height = gfx2D->GetDefaultCamera()->GetViewHeight();
+	gfx2D->SetCamera(gfx2D->GetDefaultCamera());
 	char outputString[256];
 	if(params[Parameter::FPS] == true){
 		if(update_time == 0){
@@ -154,7 +154,7 @@ void Debugger::Update(float micro){
 		}
 		optionPosition++;
 	}
-	//gfx2D->SetCamera(curCam);
+	gfx2D->SetCamera(curCam);
 }
 
 void Debugger::SetCPUTime(float micro) {
