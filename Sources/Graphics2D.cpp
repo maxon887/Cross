@@ -229,12 +229,12 @@ void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font){
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite){
-	DrawSprite(sprite, Color::White, false);
+	DrawSprite(sprite, sprite->GetColor(), false);
 }
 
 void Graphics2D::DrawSprite(Vector2D pos, Sprite* sprite){
 	sprite->SetPosition(pos);
-	DrawSprite(sprite, Color::White, false);
+	DrawSprite(sprite, sprite->GetColor(), false);
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){

@@ -2,11 +2,11 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>3</int>
+        <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.1.0</string>
+        <string>4.3.1</string>
         <key>fileName</key>
-        <string>D:/Trash/TextureTest/TextureProj.tps</string>
+        <string>C:/GameDev/Cross/Games/Demo/Raw/gfx2D/TextureProj.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -29,8 +29,6 @@
         </array>
         <key>allowRotation</key>
         <true/>
-        <key>premultiplyAlpha</key>
-        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -38,7 +36,7 @@
         <key>dataFormat</key>
         <string>xml</string>
         <key>textureFileName</key>
-        <filename>Texture.png</filename>
+        <filename>../../Assets/gfx2D/Common.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -49,6 +47,8 @@
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
         <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
+        <key>etc2CompressionQuality</key>
+        <enum type="SettingsBase::Etc2CompressionQuality">ETC2_QUALITY_LOW_PERCEPTUAL</enum>
         <key>dxtCompressionMode</key>
         <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
         <key>jxrColorFormat</key>
@@ -76,10 +76,12 @@
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
-        <uint>1</uint>
+        <uint>0</uint>
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
+        <string></string>
+        <key>atfFormats</key>
         <string></string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
@@ -99,8 +101,6 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
-        <key>reduceBorderArtifacts</key>
-        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
@@ -110,8 +110,6 @@
             <key>sizeConstraints</key>
             <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
-            <false/>
-            <key>forceWordAligned</key>
             <false/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
@@ -124,6 +122,11 @@
                 <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
+            </struct>
+            <key>polygon</key>
+            <struct type="AlgorithmPolygonSettings">
+                <key>alignToGrid</key>
+                <uint>1</uint>
             </struct>
         </struct>
         <key>andEngine</key>
@@ -147,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Spritest.xml</filename>
+                <filename>../../Assets/gfx2D/Common.xml</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -156,19 +159,19 @@
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
+        <key>alphaHandling</key>
+        <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <true/>
+        <false/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
-        <key>cleanTransparentPixels</key>
-        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -176,13 +179,13 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <enum type="SpriteSettings::TrimMode">None</enum>
             <key>tracerTolerance</key>
             <int>200</int>
             <key>heuristicMask</key>
@@ -194,27 +197,71 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../GameDev/Cross++/Games/Demo/Assets/ArrowDown.png</key>
-            <key type="filename">../../GameDev/Cross++/Games/Demo/Assets/ArrowUp.png</key>
-            <key type="filename">../../GameDev/Cross++/Games/Demo/Assets/DefaultButton.png</key>
-            <key type="filename">../../GameDev/Cross++/Games/Demo/Assets/DefaultButtonPressed.png</key>
-            <key type="filename">../../GameDev/Cross++/Games/Demo/Assets/EyeBtn.png</key>
-            <key type="filename">../../GameDev/Cross++/Games/Demo/Assets/EyeBtnPressed.png</key>
-            <key type="filename">../AwesomeFace.png</key>
+            <key type="filename">ArrowDown.png</key>
+            <key type="filename">ArrowUp.png</key>
+            <key type="filename">EyeBtn.png</key>
+            <key type="filename">EyeBtnPressed.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>50,50,100,100</rect>
+                <key>scale9Paddings</key>
+                <rect>50,50,100,100</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">AwesomeFace.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>184,184,368,368</rect>
+                <key>scale9Paddings</key>
+                <rect>184,184,368,368</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">ButtonTemplate.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>175,50,350,100</rect>
+                <key>scale9Paddings</key>
+                <rect>175,50,350,100</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">ButtonTemplatePressed.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>200,50,400,100</rect>
+                <key>scale9Paddings</key>
+                <rect>200,50,400,100</rect>
+                <key>scale9FromFile</key>
+                <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../GameDev/Cross++/Games/Demo/Assets/ArrowDown.png</filename>
-            <filename>../../GameDev/Cross++/Games/Demo/Assets/ArrowUp.png</filename>
-            <filename>../AwesomeFace.png</filename>
-            <filename>../../GameDev/Cross++/Games/Demo/Assets/DefaultButton.png</filename>
-            <filename>../../GameDev/Cross++/Games/Demo/Assets/DefaultButtonPressed.png</filename>
-            <filename>../../GameDev/Cross++/Games/Demo/Assets/EyeBtn.png</filename>
-            <filename>../../GameDev/Cross++/Games/Demo/Assets/EyeBtnPressed.png</filename>
+            <filename>ArrowDown.png</filename>
+            <filename>ArrowUp.png</filename>
+            <filename>AwesomeFace.png</filename>
+            <filename>EyeBtn.png</filename>
+            <filename>EyeBtnPressed.png</filename>
+            <filename>ButtonTemplate.png</filename>
+            <filename>ButtonTemplatePressed.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -236,5 +283,7 @@
         <string></string>
         <key>normalMapSheetFileName</key>
         <filename></filename>
+        <key>exporterProperties</key>
+        <map type="ExporterProperties"/>
     </struct>
 </data>

@@ -27,6 +27,7 @@ Sprite::Sprite(Sprite& sprite) :
 	VBO(sprite.VBO),
 	width(sprite.width),
 	height(sprite.height),
+	color(sprite.color),
 	original(false),
 	texture(sprite.texture)
 { }
@@ -35,6 +36,7 @@ Sprite::Sprite(Texture* texture, Rect region) :
 	Transformable(),
 	width(region.width),
 	height(region.height),
+	color(Color::White),
 	VBO(-1),
 	original(true),
 	texture(texture)
@@ -83,6 +85,7 @@ Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
 	texture(texture),
 	width(region.width),
 	height(region.height),
+	color(Color::White),
 	VBO(-1),
 	original(true)
 {
@@ -149,6 +152,14 @@ float Sprite::GetHeight() const{
 
 void Sprite::SetRotate(float angle){
 	SetRotateZ(angle);
+}
+
+void Sprite::SetColor(const Color& color){
+	this->color = color;
+}
+
+Color Sprite::GetColor() const{
+	return color;
 }
 
 Sprite* Sprite::Clone(){

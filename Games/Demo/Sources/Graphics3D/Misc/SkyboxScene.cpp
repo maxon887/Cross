@@ -30,5 +30,5 @@ void SkyboxScene::Stop(){
 }
 
 void SkyboxScene::Update(float sec){
-	
+	skybox->Draw();
 }

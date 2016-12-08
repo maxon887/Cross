@@ -32,6 +32,8 @@ public:
 	float GetWidth() const;
 	float GetHeight() const;
 	void SetRotate(float angle);
+	void SetColor(const Color& color);
+	Color GetColor() const;
 	Sprite* Clone();
 //Internal data. You don't need call any of this methods or modify variable
 public:
@@ -45,6 +47,7 @@ private:
 	static const GLushort indices[];
 	float width;
 	float height;
+	Color color;
 
 	Texture* texture;
 	bool original;

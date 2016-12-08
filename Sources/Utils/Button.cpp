@@ -51,6 +51,14 @@ Button::Button(string text) :
 	FitText(text);
 }
 
+Button::Button(string text, Font* font) :
+	Button()
+{
+	this->font = font;
+	FitText(text);
+}
+
+
 Button::Button(Rect area) :
 	Button()
 {

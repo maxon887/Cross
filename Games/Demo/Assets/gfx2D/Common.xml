@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:4ede6a579c09b34fb1ed9f269b524b07:5ac804fbdc953630e484fe622e29c2ed:c94cb543d56c0cb3a45fbf83beabd095$ -->
+<!-- $TexturePacker:SmartUpdate:0e704a436c4c4fb5a1cfe71f67831a97:235072b44dd0f83678261d31d60b0411:b599d8dfe653607610e741827994be00$ -->
 <!--Format:
 n  => name of the sprite
 x  => sprite x pos in texture
@@ -19,12 +19,12 @@ vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
 verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
 triangles  => sprite triangulation, 3 vertex indices per triangle
 -->
-<TextureAtlas imagePath="Texture.png" width="1024" height="1024">
-    <sprite n="DefaultButtonPressed.png" x="1" y="1" w="632" h="175" pX="0.5" pY="0.5" oX="10" oY="3" oW="650" oH="180"/>
-    <sprite n="DefaultButton.png" x="1" y="178" w="632" h="175" pX="0.5" pY="0.5" oX="10" oY="3" oW="650" oH="180"/>
-    <sprite n="EyeBtn.png" x="635" y="178" w="197" h="197" pX="0.5" pY="0.5" oX="1" oY="1" oW="200" oH="200"/>
-    <sprite n="ArrowUp.png" x="1" y="377" w="197" h="197" pX="0.5" pY="0.5" oX="1" oY="1" oW="200" oH="200"/>
-    <sprite n="ArrowDown.png" x="200" y="377" w="200" h="200" pX="0.5" pY="0.5"/>
-    <sprite n="AwesomeFace.png" x="402" y="377" w="200" h="200" pX="0.5" pY="0.5"/>
-    <sprite n="EyeBtnPressed.png" x="604" y="377" w="200" h="200" pX="0.5" pY="0.5"/>
+<TextureAtlas imagePath="Common.png" width="1024" height="1024">
+    <sprite n="ArrowDown.png" x="600" y="0" w="200" h="200" pX="0.5" pY="0.5"/>
+    <sprite n="ArrowUp.png" x="800" y="0" w="200" h="200" pX="0.5" pY="0.5"/>
+    <sprite n="AwesomeFace.png" x="200" y="0" w="200" h="200" pX="0.5" pY="0.5"/>
+    <sprite n="ButtonTemplate.png" x="0" y="200" w="800" h="220" pX="0.5" pY="0.5"/>
+    <sprite n="ButtonTemplatePressed.png" x="0" y="420" w="800" h="220" pX="0.5" pY="0.5"/>
+    <sprite n="EyeBtn.png" x="0" y="0" w="200" h="200" pX="0.5" pY="0.5"/>
+    <sprite n="EyeBtnPressed.png" x="400" y="0" w="200" h="200" pX="0.5" pY="0.5"/>
 </TextureAtlas>

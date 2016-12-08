@@ -41,25 +41,29 @@
 
 void MainScreen::Start(){
 	ScrollScreen::Start();
-	SetBackground(Color::Black);
+	SetBackground(Color(0.3f, 0.3f, 0.3f));
+
 	next_screen = NULL;
-	button_sprite = demo->GetCommonSprite("DefaultButton.png");
-	button_sprite->SetScale(1.35f);
+	Sprite* buttonSprite = demo->GetCommonSprite("ButtonTemplate.png");
+	Sprite* buttonSpritePressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 
 	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
 	input->KeyPressed += key_released_delegate;
 
 	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
 	game->WindowResized += window_resized_delegate;
+
+	font = new Font("Engine/Fonts/VeraMonoBold.ttf", 80, Color(0.f, 0.f, 0.f, 0.70f));
+
 	//main menu
 	main_menu = new Menu(true);
 	current_menu = main_menu;
-	Button* graphics2Dbtn = new Button("Graphics 2D");
-	Button* graphics3Dbtn = new Button("Graphics 3D");
-	Button* audioBtn = new Button("Audio");
-	graphics2Dbtn->SetImages(button_sprite->Clone(), nullptr);
-	graphics3Dbtn->SetImages(button_sprite->Clone(), nullptr);
-	audioBtn->SetImages(button_sprite->Clone(), nullptr);
+	Button* graphics2Dbtn = new Button("Graphics 2D", font->Clone());
+	Button* graphics3Dbtn = new Button("Graphics 3D", font->Clone());
+	Button* audioBtn = new Button("Audio", font->Clone());
+	graphics2Dbtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	graphics3Dbtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	audioBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	graphics2Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics2DClick);
 	graphics3Dbtn->Clicked += MakeDelegate(this, &MainScreen::OnGraphics3DClick);
 	audioBtn->Clicked += MakeDelegate(this, &MainScreen::OnAudioClick);
@@ -68,14 +72,14 @@ void MainScreen::Start(){
 	main_menu->AddButton(audioBtn);
 	//graphics 2D menu
 	graphics2D_menu = new Menu(false);
-	Button* primitivesBtn = new Button("Primitives");
-	Button* spritesBtn = new Button("Sprites");
-	Button* textBtn = new Button("Text Drawing");
-	Button* animationBtn = new Button("Animation");
-	primitivesBtn->SetImages(button_sprite->Clone());
-	spritesBtn->SetImages(button_sprite->Clone());
-	textBtn->SetImages(button_sprite->Clone());
-	animationBtn->SetImages(button_sprite->Clone());
+	Button* primitivesBtn = new Button("Primitives", font->Clone());
+	Button* spritesBtn = new Button("Sprites", font->Clone());
+	Button* textBtn = new Button("Text Drawing", font->Clone());
+	Button* animationBtn = new Button("Animation", font->Clone());
+	primitivesBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	spritesBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	textBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	animationBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	primitivesBtn->Clicked += MakeDelegate(this, &MainScreen::OnPrimitivesClick);
 	spritesBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpritesClick);
 	animationBtn->Clicked += MakeDelegate(this, &MainScreen::OnAnimationClick);
@@ -86,14 +90,14 @@ void MainScreen::Start(){
 	graphics2D_menu->AddButton(animationBtn);
 	//graphics 3D
 	graphics3D_menu = new Menu(false);
-	Button* simpleBtn				= new Button("Simple");
-	Button* lightBtn				= new Button("Light");
-	Button* mapsBtn					= new Button("Maps");
-	Button* miscBtn				= new Button("Misc");
-	simpleBtn->SetImages(button_sprite->Clone());
-	lightBtn->SetImages(button_sprite->Clone());
-	mapsBtn->SetImages(button_sprite->Clone());
-	miscBtn->SetImages(button_sprite->Clone());
+	Button* simpleBtn				= new Button("Simple", font->Clone());
+	Button* lightBtn				= new Button("Light", font->Clone());
+	Button* mapsBtn					= new Button("Maps", font->Clone());
+	Button* miscBtn				= new Button("Misc", font->Clone());
+	simpleBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	lightBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	mapsBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	miscBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	simpleBtn->Clicked += MakeDelegate(this, &MainScreen::OnSimpleClick);
 	lightBtn->Clicked += MakeDelegate(this, &MainScreen::OnLightClick);
 	mapsBtn->Clicked += MakeDelegate(this, &MainScreen::OnMapsClick);
@@ -104,14 +108,14 @@ void MainScreen::Start(){
 	graphics3D_menu->AddButton(miscBtn);
 	//graphics 3D simple
 	graphics3D_simple = new Menu(false);
-	Button* triangleBtn				= new Button("Triangle");
-	Button* solidModelBtn			= new Button("Solid Model");
-	Button* texturedModelBtn		= new Button("Textured Model");
-	Button* complexBtn				= new Button("Complex Model");
-	triangleBtn->SetImages(button_sprite->Clone());
-	solidModelBtn->SetImages(button_sprite->Clone());
-	texturedModelBtn->SetImages(button_sprite->Clone());
-	complexBtn->SetImages(button_sprite->Clone());
+	Button* triangleBtn				= new Button("Triangle", font->Clone());
+	Button* solidModelBtn			= new Button("Solid Model", font->Clone());
+	Button* texturedModelBtn		= new Button("Textured Model", font->Clone());
+	Button* complexBtn				= new Button("Complex Model", font->Clone());
+	triangleBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	solidModelBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	texturedModelBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	complexBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	triangleBtn->Clicked += MakeDelegate(this, &MainScreen::OnTriangleClick);
 	solidModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnSolidModelClick);
 	texturedModelBtn->Clicked += MakeDelegate(this, &MainScreen::OnTexturedModelClick);
@@ -122,16 +126,16 @@ void MainScreen::Start(){
 	graphics3D_simple->AddButton(complexBtn);
 	//graphics 3D light
 	graphics3D_light = new Menu(false);
-	Button* materialBtn 			= new Button("Material");
-	Button* directionalLigthBtn		= new Button("Directional Light");
-	Button* pointLightBtn			= new Button("Point Light");
-	Button* spotLightBtn			= new Button("Spot Light");
-	Button* multiLightBtn			= new Button("Multi-Ligth");
-	materialBtn->SetImages(button_sprite->Clone());
-	directionalLigthBtn->SetImages(button_sprite->Clone());
-	pointLightBtn->SetImages(button_sprite->Clone());
-	spotLightBtn->SetImages(button_sprite->Clone());
-	multiLightBtn->SetImages(button_sprite->Clone());
+	Button* materialBtn 			= new Button("Material", font->Clone());
+	Button* directionalLigthBtn		= new Button("Directional", font->Clone());
+	Button* pointLightBtn			= new Button("Point Light", font->Clone());
+	Button* spotLightBtn			= new Button("Spot Light", font->Clone());
+	Button* multiLightBtn			= new Button("Multi-Ligth", font->Clone());
+	materialBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	directionalLigthBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	pointLightBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	spotLightBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	multiLightBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	materialBtn->Clicked += MakeDelegate(this, &MainScreen::OnMaterialClick);
 	directionalLigthBtn->Clicked += MakeDelegate(this, &MainScreen::OnDirectionalLight);
 	pointLightBtn->Clicked += MakeDelegate(this, &MainScreen::OnPointLightClick);
@@ -144,16 +148,16 @@ void MainScreen::Start(){
 	graphics3D_light->AddButton(multiLightBtn);
 	//graphics 3D maps
 	graphics3D_maps = new Menu(false);
-	Button* nakedBtn				= new Button("Naked");
-	Button* diffuseBtn				= new Button("Diffuse");
-	Button* specularBtn				= new Button("Specular");
-	Button* roughnessBtn			= new Button("Roughness");
-	Button* normalBtn				= new Button("Normal");
-	nakedBtn->SetImages(button_sprite->Clone());
-	diffuseBtn->SetImages(button_sprite->Clone());
-	specularBtn->SetImages(button_sprite->Clone());
-	roughnessBtn->SetImages(button_sprite->Clone());
-	normalBtn->SetImages(button_sprite->Clone());
+	Button* nakedBtn				= new Button("Naked", font->Clone());
+	Button* diffuseBtn				= new Button("Diffuse", font->Clone());
+	Button* specularBtn				= new Button("Specular", font->Clone());
+	Button* roughnessBtn			= new Button("Roughness", font->Clone());
+	Button* normalBtn				= new Button("Normal", font->Clone());
+	nakedBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	diffuseBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	specularBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	roughnessBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	normalBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	nakedBtn->Clicked += MakeDelegate(this, &MainScreen::OnNakedClick);
 	diffuseBtn->Clicked += MakeDelegate(this, &MainScreen::OnDiffuseClick);
 	specularBtn->Clicked += MakeDelegate(this, &MainScreen::OnSpecularClick);
@@ -166,16 +170,16 @@ void MainScreen::Start(){
 	graphics3D_maps->AddButton(normalBtn);
 	//graphics 3D misc
 	graphics3D_misc = new Menu(false);
-	Button* depthTestBtn			= new Button("Depth Test");
-	Button* stencilTestBtn			= new Button("Stencil Test");
-	Button* transparencyBtn			= new Button("Transparency");
-	Button* skyboxBtn				= new Button("Skybox");
-	Button* apocalypseBtn			= new Button("Apocalypse Scene");
-	depthTestBtn->SetImages(button_sprite->Clone());
-	stencilTestBtn->SetImages(button_sprite->Clone());
-	transparencyBtn->SetImages(button_sprite->Clone());
-	skyboxBtn->SetImages(button_sprite->Clone());
-	apocalypseBtn->SetImages(button_sprite->Clone());
+	Button* depthTestBtn			= new Button("Depth Test", font->Clone());
+	Button* stencilTestBtn			= new Button("Stencil Test", font->Clone());
+	Button* transparencyBtn			= new Button("Transparency", font->Clone());
+	Button* skyboxBtn				= new Button("Skybox", font->Clone());
+	Button* apocalypseBtn			= new Button("Apocalypse", font->Clone());
+	depthTestBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	stencilTestBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	transparencyBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	skyboxBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
+	apocalypseBtn->SetImages(buttonSprite->Clone(), buttonSpritePressed->Clone());
 	depthTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnDepthTestClick);
 	stencilTestBtn->Clicked += MakeDelegate(this, &MainScreen::OnStencilTestClick);
 	transparencyBtn->Clicked += MakeDelegate(this, &MainScreen::OnTransparencyClick);
@@ -194,7 +198,8 @@ void MainScreen::Start(){
 	graphics3D_maps->Active(false);
 	graphics3D_misc->Active(false);
 
-	delete button_sprite;
+	delete buttonSprite;
+	delete buttonSpritePressed;
 }
 
 void MainScreen::Stop(){
@@ -206,6 +211,7 @@ void MainScreen::Stop(){
 	delete graphics3D_simple;
 	delete graphics3D_light;
 	delete graphics3D_misc;
+	delete font;
 	input->KeyPressed -= key_released_delegate;
 	game->WindowResized -= window_resized_delegate;
 }

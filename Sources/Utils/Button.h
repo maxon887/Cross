@@ -28,6 +28,7 @@ public:
 	Button(Rect area, string text);
 	Button(Vector2D location, string text);
 	Button(string text);
+	Button(string text, Font* font);
 	Button(Rect area);
 	Button(Vector2D location);
 	Button();
@@ -49,6 +50,7 @@ public:
 	Sprite* GetDownImage() const;
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
+	Button* Clone() const;
 protected:
 	//mandatory parameters
 	Vector2D location;

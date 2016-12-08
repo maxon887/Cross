@@ -29,6 +29,8 @@ public:
 	void Update(float sec);
 
 private:
+	Font* font;
+
 	Menu* current_menu;
 	Menu* main_menu;
 
@@ -40,7 +42,6 @@ private:
 	Menu* graphics3D_maps;
 	Menu* graphics3D_misc;
 
-	Sprite* button_sprite;
 	Screen* next_screen;
 
 	void AdjustScreenHeight(Menu* menu);

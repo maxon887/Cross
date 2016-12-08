@@ -37,7 +37,6 @@ FreeCameraScene::FreeCameraScene() :
 
 void FreeCameraScene::Start() {
 	Scene::Start();
-	SetBackground(Color(0.3f, 0.3f, 0.3f));
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
