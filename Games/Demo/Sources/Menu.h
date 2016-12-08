@@ -28,6 +28,7 @@ public:
 	void Update(float sec);
 	void Active(bool active);
 	void AddButton(Button* but);
+	void SetImages(Sprite* up, Sprite* down);
 	U32 Count();
 	void Clear();
 	float GetHeight();

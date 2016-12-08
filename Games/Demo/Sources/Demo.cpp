@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
 #include "MainScreen.h"
-#include "System/Debugger.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "Launcher.h"
@@ -24,7 +23,9 @@
 
 Demo* demo = NULL;
 
-Demo::Demo(Launcher* launcher) : Game() { }
+Demo::Demo(Launcher* launcher) : 
+	Game()
+{ }
 
 void Demo::Start(){
 	Game::Start();
@@ -33,8 +34,6 @@ void Demo::Start(){
 
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::Filter::LINEAR, false);
 	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
-
-	input->KeyPressed += MakeDelegate(this, &Demo::OnKeyPressed);
 
 	camera = new Camera2D();
 	camera->SetViewWidth(1600.f);
@@ -45,7 +44,9 @@ void Demo::Start(){
     arrowReleased->SetRotate(180.f);
     arrowPressed->SetRotate(180.f);
     back_btn->SetImages(arrowReleased, arrowPressed);
+
 	back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
+	input->KeyPressed += MakeDelegate(this, &Demo::OnKeyPressed);
 }
 
 void Demo::Stop(){

@@ -53,6 +53,7 @@ enum WindowState{
 
 CrossEGL* crossEGL          = NULL;
 ApplicationState app_state  = APP_INIT;
+ApplicationState prev_app_state  = app_state;
 WindowState wnd_state       = WND_NONE;
 pthread_t   threadID;
 std::mutex  app_mutex;
@@ -85,7 +86,9 @@ void* Main(void* self){
                     break;
                 }
                 case APP_RUNNING:{
+					pause_mutex.lock();
                     game->Update();
+					pause_mutex.unlock();
                     break;
                 }
                 case APP_PAUSED:{
@@ -192,13 +195,15 @@ extern "C"{
     void Java_com_cross_Cross_OnResume(JNIEnv *env, jobject thiz){
         LOGI("Cross_OnResume");
         pause_mutex.unlock();
+		//app_state = APP_INIT;
+		//app_state = prev_app_state;
     }
 
 	void Java_com_cross_Cross_OnSuspend(JNIEnv *env, jobject thiz){
         LOGI("Cross_OnSuspend");
         pause_mutex.lock();
-        app_state = APP_PAUSED;
-        wnd_state = WND_NONE;
+		//app_state = APP_PAUSED;
+        //wnd_state = WND_NONE;
 	}
 
 	void Java_com_cross_Cross_OnExit(JNIEnv *env, jobject thiz){

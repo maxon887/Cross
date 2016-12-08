@@ -42,48 +42,18 @@ private:
 	Menu* graphics3D_maps;
 	Menu* graphics3D_misc;
 
-	Screen* next_screen;
-
-	void AdjustScreenHeight(Menu* menu);
+	void SetMenu(Menu* newMenu);
 
 	FastDelegate2<S32, S32, void> window_resized_delegate;
 	//connections
 	void WindowResizedHandle(S32 width, S32 height);
+
 	//main menu
 	void OnGraphics2DClick();
 	void OnGraphics3DClick();
-	void OnAudioClick();
-	//graphics 2d menu
-	void OnPrimitivesClick();
-	void OnSpritesClick();
-	void OnTextClick();
-	void OnAnimationClick();
 	//graphics 3d menu
 	void OnSimpleClick();
 	void OnLightClick();
 	void OnMapsClick();
 	void OnMiscClick();
-	//graphics 3d simple
-	void OnTriangleClick();
-	void OnSolidModelClick();
-	void OnTexturedModelClick();
-	void OnComplexModelClick();
-	//graphics 3d light
-	void OnMaterialClick();
-	void OnDirectionalLight();
-	void OnPointLightClick();
-	void OnSpotLightClick();
-	void OnMultiLightClick();
-	//graphics 3d maps
-	void OnNakedClick();
-	void OnDiffuseClick();
-	void OnSpecularClick();
-	void OnRoughnessClick();
-	void OnNormalClick();
-	//graphics 3d misc
-	void OnDepthTestClick();
-	void OnStencilTestClick();
-	void OnTransparencyClick();
-	void OnSkyboxClick();
-	void OnApocalypseClick();
 };

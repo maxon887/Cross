@@ -50,7 +50,6 @@ public:
 	Sprite* GetDownImage() const;
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
-	Button* Clone() const;
 protected:
 	//mandatory parameters
 	Vector2D location;

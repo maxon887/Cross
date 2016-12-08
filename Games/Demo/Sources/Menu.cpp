@@ -52,14 +52,17 @@ void Menu::Active(bool active){
 
 void Menu::AddButton(Button* but){
 	buttons.push_back(but);
-	if(button_width == 0){
-		button_def_width = but->GetWidth();
-		button_def_height = but->GetHeight();
-		button_width = but->GetWidth();
-		button_height = but->GetHeight();
+}
+
+void Menu::SetImages(Sprite* up, Sprite* down){
+	for(Button* btn : buttons){
+		btn->SetImages(up->Clone(), down->Clone());
 	}
-	if(button_def_height != but->GetHeight() && button_def_width != but->GetWidth()){
-		throw CrossException("All buttons must be equal size");
+	if(button_width == 0){
+		button_def_width = buttons[0]->GetWidth();
+		button_def_height = buttons[0]->GetHeight();
+		button_width = buttons[0]->GetWidth();
+		button_height = buttons[0]->GetHeight();
 	}
 }
 
@@ -67,7 +70,7 @@ U32 Menu::Count(){
 	return buttons.size();
 }
 
-void  Menu::Clear(){
+void Menu::Clear(){
 	for(Button* btn : buttons){
 		delete btn;
 	}

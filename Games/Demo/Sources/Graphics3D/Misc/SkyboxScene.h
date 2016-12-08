@@ -18,7 +18,7 @@
 #include "Graphics3D/CameraControlsScreen.h"
 #include "Utils/Skybox.h"
 
-class SkyboxScene : CameraControlsScreen{
+class SkyboxScene : public CameraControlsScreen{
 public:
 	void Start();
 	void Stop();
