@@ -217,6 +217,7 @@ void MainScreen::Stop(){
 }
 
 void MainScreen::Update(float sec){
+	ScrollScreen::Update(sec);
 	current_menu->Update(sec);
 
 	if(next_screen){

@@ -22,7 +22,6 @@ using namespace cross;
 
 class ScrollScreen : public Screen{
 public:
-
 	virtual void Start();
 	virtual void Stop();
 
@@ -39,12 +38,8 @@ private:
 	float height;
 	Vector2D touch;
 
-	FastDelegate1<Input::Action, void> action_down_handler;
-	FastDelegate1<Input::Action, void> action_move_handler;
-	FastDelegate1<Input::Action, void> action_up_handler;
-
-	void ActionDownHandle(Input::Action action);
-	void ActionMoveHandle(Input::Action action);
-	void ActionUpHandle(Input::Action action);
+	virtual void ActionDown(Input::Action action);
+	virtual void ActionMove(Input::Action action);
+	virtual void ActionUp(Input::Action action);
 
 };

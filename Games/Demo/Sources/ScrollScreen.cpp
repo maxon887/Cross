@@ -22,19 +22,10 @@ void ScrollScreen::Start(){
 	Screen::Start();
 	width = Screen::GetWidth();
 	height = Screen::GetHeight();
-	action_down_handler = MakeDelegate(this, &ScrollScreen::ActionDownHandle);
-	action_move_handler = MakeDelegate(this, &ScrollScreen::ActionMoveHandle);
-	action_up_handler = MakeDelegate(this, &ScrollScreen::ActionUpHandle);
-	input->ActionDown += action_down_handler;
-	input->ActionMove += action_move_handler;
-	input->ActionUp += action_up_handler;
 }
 
 void ScrollScreen::Stop(){
 	Screen::Stop();
-	input->ActionDown -= action_down_handler;
-	input->ActionMove -= action_move_handler;
-	input->ActionUp -= action_up_handler;
 }
 
 float ScrollScreen::GetWidth(){
@@ -47,10 +38,12 @@ float ScrollScreen::GetHeight(){
 
 void ScrollScreen::SetWidth(float width){
 	this->width = width;
+	TRIGGER_EVENT(SizeChanged, width, height);
 }
 
 void ScrollScreen::SetHeight(float height){
 	this->height = height;
+	TRIGGER_EVENT(SizeChanged, width, height);
 }
 
 void ScrollScreen::ResetScreenSize(){
@@ -58,11 +51,11 @@ void ScrollScreen::ResetScreenSize(){
 	height = Screen::GetHeight();
 }
 
-void ScrollScreen::ActionDownHandle(Input::Action action){
+void ScrollScreen::ActionDown(Input::Action action){
 	touch = action.pos;
 }
 
-void ScrollScreen::ActionMoveHandle(Input::Action action){
+void ScrollScreen::ActionMove(Input::Action action){
 	Vector2D diff = action.pos - touch;
 	diff /= 2.f;
 	diff.y = -diff.y;
@@ -90,6 +83,6 @@ void ScrollScreen::ActionMoveHandle(Input::Action action){
 	cam->SetPosition(camPos);
 }
 
-void ScrollScreen::ActionUpHandle(Input::Action action){
-	ActionMoveHandle(action);
+void ScrollScreen::ActionUp(Input::Action action){
+	ActionMove(action);
 }

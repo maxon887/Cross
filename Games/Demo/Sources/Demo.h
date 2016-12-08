@@ -26,10 +26,10 @@ extern Demo* demo;
 class Demo : public Game{
 public:
 	Demo(Launcher* launcher);
-	void Start();
-	void Stop();
-	Screen* GetStartScreen();
-    void SetScreen(Screen* screen);
+
+	virtual void Start();
+	virtual void Stop();
+	virtual Screen* GetStartScreen();
 
 	Sprite* GetCommonSprite(string name);
     
@@ -40,4 +40,7 @@ private:
     Button* back_btn;
 	Texture* common_texture;
 	CRDictionary<string, Sprite*> common_sprites;
+
+	void OnScreenChanged(Screen* screen);
+	void OnScreenSizeChanged(float width, float height);
 };

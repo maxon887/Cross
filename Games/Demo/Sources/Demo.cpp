@@ -36,6 +36,8 @@ void Demo::Start(){
 
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::Filter::LINEAR, false);
 	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
+
+	this->ScreenChanged += MakeDelegate(this, &Demo::OnScreenChanged);
 }
 
 void Demo::Stop(){
@@ -53,25 +55,30 @@ Screen* Demo::GetStartScreen(){
 	return new MainScreen();
 }
 
-void Demo::SetScreen(cross::Screen *screen){
-    Game::SetScreen(screen);
-    
-    back_btn = new Button();
-    Sprite* arrowReleased = GetCommonSprite("ArrowUp.png");
-    Sprite* arrowPressed = GetCommonSprite("ArrowDown.png");
-    arrowReleased->SetRotate(180.f);
-    arrowPressed->SetRotate(180.f);
-    back_btn->SetImages(arrowReleased, arrowPressed);
-    back_btn->SetLocation(Vector2D(back_btn->GetWidth()/2.f, screen->GetHeight() - back_btn->GetHeight()/2.f));
-    back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
-    
-    screen->AddUI(back_btn);
-}
-
 Sprite* Demo::GetCommonSprite(string name){
 	return common_sprites[name]->Clone();
 }
 
 void Demo::OnBackClick(){
     SetScreen(GetStartScreen());
+}
+
+void Demo::OnScreenChanged(Screen* screen){
+	back_btn = new Button();
+    Sprite* arrowReleased = GetCommonSprite("ArrowUp.png");
+    Sprite* arrowPressed = GetCommonSprite("ArrowDown.png");
+    arrowReleased->SetRotate(180.f);
+    arrowPressed->SetRotate(180.f);
+    back_btn->SetImages(arrowReleased, arrowPressed);
+	Vector2D location(back_btn->GetWidth()/2.f, screen->GetHeight() - back_btn->GetHeight()/2.f);
+    back_btn->SetLocation(location);
+    back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
+    screen->AddUI(back_btn);
+
+	screen->SizeChanged += MakeDelegate(this, &Demo::OnScreenSizeChanged);
+}
+
+void Demo::OnScreenSizeChanged(float width, float height){
+	Vector2D location(back_btn->GetWidth()/2.f, height - back_btn->GetHeight()/2.f);
+    back_btn->SetLocation(location);
 }

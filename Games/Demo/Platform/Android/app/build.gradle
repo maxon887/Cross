@@ -50,11 +50,9 @@ android {
     signingConfigs {
         release {
             storeFile file("d:/littlekeystore")
-            //storePassword "********"
-            storePassword "hideme2078"
+            storePassword "**********"
             keyAlias "littel man"
-            keyPassword 'hideme2078'
-            //keyPassword "*****"
+            keyPassword '**********'
         }
     }
 

@@ -27,6 +27,7 @@ class Game{
 public:
 	/* Occurs when game window resize */
 	DECLARE_EVENT(void, S32, S32) WindowResized;
+	DECLARE_EVENT(void, Screen*) ScreenChanged;
 
 	Game();
 	virtual ~Game();

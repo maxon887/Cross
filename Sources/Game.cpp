@@ -144,4 +144,5 @@ void Game::LoadNextScreen(){
 	timestamp = launcher->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	launcher->LogIt("Screen(no name) loaded in %0.1fms", loadTime);
+	TRIGGER_EVENT(ScreenChanged, current_screen);
 }
