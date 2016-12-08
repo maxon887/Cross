@@ -40,9 +40,6 @@ void TextScreen::Update(float sec){
 		gfx2D->DrawText(scrChar->positon, scrChar->str, font);
 	}
 	AddChar();
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
-		game->SetScreen(game->GetStartScreen());
-	}
 }
 
 void TextScreen::AddChar(){

@@ -101,6 +101,7 @@ float Game::GetRunTime(){
 void Game::Update(){
 	U64 now = launcher->GetTime();
 	U64 updateTime = now - timestamp;
+	float secTime = updateTime / 1000000.;
 	timestamp = now;
 	run_time += updateTime;
 
@@ -110,19 +111,20 @@ void Game::Update(){
 
 	input->Update();
 	gfxGL->PreProcessFrame();
-	gfx2D->Update((float)(updateTime / 1000000.));
-	GetCurrentScreen()->Update((float)(updateTime / 1000000.));
-	GetCurrentScreen()->LateUpdate((float)(updateTime / 1000000.));
+	gfx2D->Update(secTime);
+	game->Update(secTime);
+	game->GetCurrentScreen()->Update(secTime);
+	game->GetCurrentScreen()->LateUpdate(secTime);
 	gfxGL->PostProcessFrame();
 
 	Debugger::Instance()->Update((float)updateTime);
 	U64 cpuTime = launcher->GetTime() - timestamp;
 	Debugger::Instance()->SetCPUTime((float)cpuTime);
-
+	/*
 	float milis = cpuTime / 1000.f;
 	if(milis < 5){
 		launcher->Sleep(5 - milis);
-	}
+	}*/
 }
 
 void Game::Exit(){

@@ -22,7 +22,7 @@
 #include "Launcher.h"
 #include "Sprite.h"
 
-Demo* demo = nullptr;
+Demo* demo = NULL;
 
 Demo::Demo(Launcher* launcher) : Game() { }
 
@@ -31,17 +31,26 @@ void Demo::Start(){
 	launcher->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
-	camera = new Camera2D();
-	camera->SetViewWidth(1600.f);
-
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::Filter::LINEAR, false);
 	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
 
-	this->ScreenChanged += MakeDelegate(this, &Demo::OnScreenChanged);
+	input->KeyPressed += MakeDelegate(this, &Demo::OnKeyPressed);
+
+	camera = new Camera2D();
+	camera->SetViewWidth(1600.f);
+
+	back_btn = new Button();
+    Sprite* arrowReleased = GetCommonSprite("ArrowUp.png");
+    Sprite* arrowPressed = GetCommonSprite("ArrowDown.png");
+    arrowReleased->SetRotate(180.f);
+    arrowPressed->SetRotate(180.f);
+    back_btn->SetImages(arrowReleased, arrowPressed);
+	back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
 }
 
 void Demo::Stop(){
 	launcher->LogIt("Demo::Stop()");
+	delete back_btn;
 	delete camera;
 	for(std::pair<string, Sprite*> pair: common_sprites){
 		delete pair.second;
@@ -50,7 +59,16 @@ void Demo::Stop(){
 	Game::Stop();
 }
 
+void Demo::Update(float sec){
+	float height = gfx2D->GetCamera()->GetViewHeight();
+	height += gfx2D->GetCamera()->GetPosition().y;
+	Vector2D location(back_btn->GetWidth()/2.f, height - back_btn->GetHeight()/2.f);
+    back_btn->SetLocation(location);
+	back_btn->Update(sec);
+}
+
 Screen* Demo::GetStartScreen(){
+	camera->SetPosition(Vector3D::Zero);
 	gfx2D->SetCamera(camera);
 	return new MainScreen();
 }
@@ -63,22 +81,8 @@ void Demo::OnBackClick(){
     SetScreen(GetStartScreen());
 }
 
-void Demo::OnScreenChanged(Screen* screen){
-	back_btn = new Button();
-    Sprite* arrowReleased = GetCommonSprite("ArrowUp.png");
-    Sprite* arrowPressed = GetCommonSprite("ArrowDown.png");
-    arrowReleased->SetRotate(180.f);
-    arrowPressed->SetRotate(180.f);
-    back_btn->SetImages(arrowReleased, arrowPressed);
-	Vector2D location(back_btn->GetWidth()/2.f, screen->GetHeight() - back_btn->GetHeight()/2.f);
-    back_btn->SetLocation(location);
-    back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
-    screen->AddUI(back_btn);
-
-	screen->SizeChanged += MakeDelegate(this, &Demo::OnScreenSizeChanged);
-}
-
-void Demo::OnScreenSizeChanged(float width, float height){
-	Vector2D location(back_btn->GetWidth()/2.f, height - back_btn->GetHeight()/2.f);
-    back_btn->SetLocation(location);
+void Demo::OnKeyPressed(Key key){
+	if(key == Key::ESCAPE || key == Key::BACK){
+		SetScreen(GetStartScreen());
+	}
 }

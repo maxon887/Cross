@@ -88,8 +88,4 @@ void AnimationScreen::Update(float sec){
 			head_angle = 0;
 		}
 	}
-
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-	}
 }

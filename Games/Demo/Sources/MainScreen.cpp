@@ -47,9 +47,6 @@ void MainScreen::Start(){
 	Sprite* buttonSprite = demo->GetCommonSprite("ButtonTemplate.png");
 	Sprite* buttonSpritePressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 
-	key_released_delegate = MakeDelegate(this, &MainScreen::KeyReleasedHandle);
-	input->KeyPressed += key_released_delegate;
-
 	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
 	game->WindowResized += window_resized_delegate;
 
@@ -212,7 +209,6 @@ void MainScreen::Stop(){
 	delete graphics3D_light;
 	delete graphics3D_misc;
 	delete font;
-	input->KeyPressed -= key_released_delegate;
 	game->WindowResized -= window_resized_delegate;
 }
 
@@ -232,23 +228,6 @@ void MainScreen::AdjustScreenHeight(Menu* menu){
 	Vector2D camPos(0.f, 0.f);
 	camPos.y = GetHeight() - gfx2D->GetCamera()->GetViewHeight();
 	gfx2D->GetCamera()->SetPosition(camPos);
-}
-
-void MainScreen::KeyReleasedHandle(Key key){
-	if(key == Key::ESCAPE || key == Key::BACK){
-		if(current_menu == main_menu){
-			launcher->PromtToExit();
-		}else{
-			current_menu->Active(false);
-			main_menu->Active(true);
-			current_menu = main_menu;
-			float scrWidth = 1600.f;
-			float scrHeight = scrWidth / launcher->GetAspectRatio();
-			SetWidth(scrWidth);
-			SetHeight(scrHeight);
-			gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));
-		}
-	}
 }
 
 void MainScreen::WindowResizedHandle(S32 width, S32 height){

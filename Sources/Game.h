@@ -38,13 +38,15 @@ public:
 	/* Cause when game is about to stop */
 	virtual void Stop();
 	/* Update game every frame. Must be call from overided virsion either */
-	virtual void Update();
+	virtual void Update(float sec) { };
 	/* Cause when game needs to be paused. For example input call or window lost focus */
 	virtual void Suspend();
 	/* Cause when game gained focus */
 	virtual void Resume();
     /* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
     virtual void SetScreen(Screen* screen);
+
+	void Update();
 	/* Returns time since game start */
 	float GetRunTime();
 	/* Returns active game Screen */

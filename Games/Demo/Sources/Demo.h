@@ -29,11 +29,10 @@ public:
 
 	virtual void Start();
 	virtual void Stop();
+	virtual void Update(float sec);
 	virtual Screen* GetStartScreen();
 
 	Sprite* GetCommonSprite(string name);
-    
-    void OnBackClick();
 
 private:
 	Camera2D* camera;
@@ -41,6 +40,6 @@ private:
 	Texture* common_texture;
 	CRDictionary<string, Sprite*> common_sprites;
 
-	void OnScreenChanged(Screen* screen);
-	void OnScreenSizeChanged(float width, float height);
+	void OnBackClick();
+	void OnKeyPressed(Key key);
 };

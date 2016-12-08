@@ -47,10 +47,6 @@ void SpritesScreen::Update(float sec){
 		gfx2D->DrawSprite(positions[i], awesome_face);
 	}
 	PushSprite();
-	
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
-		game->SetScreen(game->GetStartScreen());
-	}
 }
 
 void SpritesScreen::PushSprite(){

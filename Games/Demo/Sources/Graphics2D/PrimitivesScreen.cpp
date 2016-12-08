@@ -56,10 +56,6 @@ void PrimitivesScreen::Update(float sec){
 		entity->Update(sec);
 		entity->Draw();
 	}
-
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)){
-		game->SetScreen(game->GetStartScreen());
-	}
 }
 
 void PrimitivesScreen::GenerateEntity(){

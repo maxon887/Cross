@@ -90,11 +90,6 @@ void CameraControlsScreen::Update(float sec){
 	if(right_btn->IsPressed()) {
 		MoveRight(sec);
 	}
-
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-		return;
-	}
 }
 
 void CameraControlsScreen::OnEyeClick(){

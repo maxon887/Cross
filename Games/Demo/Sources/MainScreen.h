@@ -24,16 +24,16 @@ using namespace cross;
 
 class MainScreen : public ScrollScreen{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
 
 private:
 	Font* font;
 
 	Menu* current_menu;
-	Menu* main_menu;
 
+	Menu* main_menu;
 	Menu* graphics2D_menu;
 	Menu* graphics3D_menu;
 
@@ -46,10 +46,8 @@ private:
 
 	void AdjustScreenHeight(Menu* menu);
 
-	FastDelegate1<Key, void> key_released_delegate;
 	FastDelegate2<S32, S32, void> window_resized_delegate;
 	//connections
-	void KeyReleasedHandle(Key key);
 	void WindowResizedHandle(S32 width, S32 height);
 	//main menu
 	void OnGraphics2DClick();
