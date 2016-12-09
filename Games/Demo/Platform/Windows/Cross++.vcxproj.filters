@@ -196,9 +196,6 @@
     <ClCompile Include="..\..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp">
       <Filter>Cross\Libs\TinyXML</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.cpp">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClCompile>
@@ -444,9 +441,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Libs\TinyXML\tinyxml.h">
       <Filter>Cross\Libs\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\ComplexModelScene.h">
-      <Filter>Demo\Graphics3D\Simple</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>

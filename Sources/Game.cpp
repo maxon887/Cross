@@ -112,9 +112,9 @@ void Game::Update(){
 	input->Update();
 	gfxGL->PreProcessFrame();
 	gfx2D->Update(secTime);
-	game->Update(secTime);
 	game->GetCurrentScreen()->Update(secTime);
 	game->GetCurrentScreen()->LateUpdate(secTime);
+	game->Update(secTime);
 	gfxGL->PostProcessFrame();
 
 	Debugger::Instance()->Update((float)updateTime);

@@ -32,12 +32,20 @@ public:
 		PLANE
 	};
 
+	enum StencilBehaviour{
+		WRITE,
+		READ,
+		IGNORED
+	};
+
 	Graphics3D();
 	~Graphics3D();
 
 	Model* LoadPrimitive(Primitives primitive);
 	Model* LoadModel(const string& filename);
-	void SaveScene(const Scene* scene, const string& filename);
+
+	void DrawMesh(Mesh* mesh, const Matrix& model, bool faseCulling, bool alphaBlending);
+	void DrawMesh(Mesh* mesh, const Matrix& model, bool faceCulling, bool alphaBlending, StencilBehaviour stencilBehvaiour);
 
 protected:
 	const aiScene* current_scene;

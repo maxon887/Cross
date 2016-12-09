@@ -65,7 +65,7 @@ Skybox::Skybox( const string& right,
 
 	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");
 	Shader::Property* prop = new Shader::Property("Cubemap", "cubemap");
-	prop->SetValueCubemap(textureID);
+	prop->SetValue(this);
 	shader->AddProperty(prop);
 	shader->Compile();
 
@@ -85,4 +85,8 @@ Skybox::~Skybox(){
 
 void Skybox::Draw(){
 	box->Draw();
+}
+
+GLuint Skybox::GetTextureID(){
+	return textureID;
 }

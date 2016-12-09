@@ -25,33 +25,22 @@ class VertexBuffer;
 
 class Mesh : public Transformable{
 public:
-	enum class StencilBehaviour{
-		WRITE,
-		READ,
-		IGNORED
-	};
-
 	Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount);
 	~Mesh();
-
-	void Draw();
-	void Draw(const Matrix& model);
 
 	void SetName(const string& name);
 	const string& GetName();
 
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
-	void FaceCulling(bool enabled);
-	void SetStencil(StencilBehaviour behaviour);
-	void AlphaBlending(bool enabled);
 
 	U32 GetPrimitivesCount() const;
-	VertexBuffer* GetVertexBuffer();
 
 	Mesh* Clone();
 
 protected:
+	friend Graphics3D;
+
 	GLuint VBO;
 	GLuint EBO;
 
@@ -60,10 +49,6 @@ protected:
 	Material* material;
 	U32 primitives_count;
 	U32 index_count;
-	bool cull_face;
-	bool alpha_blending;
-	StencilBehaviour stencil_behaviour;
-
 	bool original;
 
 	Mesh(Mesh& obj);

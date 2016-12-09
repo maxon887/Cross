@@ -18,6 +18,7 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Texture.h"
+#include "Utils/Skybox.h"
 
 using namespace cross;
 
@@ -92,10 +93,11 @@ void Shader::Property::SetValue(Texture* v){
 	memcpy(value, &textureID, size);
 }
 
-void Shader::Property::SetValueCubemap(GLuint id){
+void Shader::Property::SetValue(Skybox* skybox){
 	type = CUBEMAP;
+	GLuint textureID = skybox->GetTextureID();
 	RealocateIfNeeded(sizeof(GLuint));
-	memcpy(value, &id, size);
+	memcpy(value, &textureID, size);
 }
 
 Shader::Property* Shader::Property::Clone(){
@@ -195,16 +197,6 @@ void Shader::AddMakro(const string& makro, int value){
 	makro_len += makroString.length();
 }
 
-void Shader::AddProperty(Shader::Property* prop){
-	if(compiled){
-		throw CrossException("Shader already compiled");
-	}
-	if(HaveProperty(prop->name)){
-		throw CrossException("Shader already contain that property");
-	}
-	properties.push_back(prop);
-}
-
 void Shader::AddProperty(const string& name, const string& glName){
 	AddProperty(new Property(name, glName));
 }
@@ -217,6 +209,16 @@ void Shader::AddProperty(const string& name, const string& glName, float defValu
 	Property* prop = new Property(name, glName);
 	prop->SetValue(defValue);
 	AddProperty(prop);
+}
+
+void Shader::AddProperty(Shader::Property* prop){
+	if(compiled){
+		throw CrossException("Shader already compiled");
+	}
+	if(HaveProperty(prop->name)){
+		throw CrossException("Shader already contain that property");
+	}
+	properties.push_back(prop);
 }
 
 Shader::Property* Shader::GetProperty(const string& name){

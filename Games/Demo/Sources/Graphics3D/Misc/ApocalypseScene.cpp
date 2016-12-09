@@ -59,11 +59,6 @@ void ApocalypseScene::Start(){
 	camaro->FaceCulling(false);
 	camaro->SetMaterial(car_mat);
 	camaro->SetRotateY(45.f);
-	windshield_mat = car_mat->Clone();
-	windshield_mat->SetPropertyValue("Transparency", 0.5f);
-	Mesh* windshild = camaro->GetMesh("Windshield");
-	windshild->SetMaterial(windshield_mat);
-	windshild->AlphaBlending(true);
 	
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
@@ -88,7 +83,6 @@ void ApocalypseScene::Stop(){
 	delete camaro;
 	delete car_mat;
 	delete road_mat;
-	delete windshield_mat;
 	delete car_diffuse;
 	delete car_specular;
 	delete car_shininess;

@@ -32,7 +32,6 @@ private:
 	Texture* road_diffuse;
 	Material* car_mat;
 	Material* road_mat;
-	Material* windshield_mat;
 	Model* camaro;
 	Model* road;
 

@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Transformable.h"
-#include "Mesh.h"
+#include "Graphics3D.h"
 
 namespace cross{
 
@@ -29,6 +29,7 @@ public:
 	};
 
 	Model(const string& name);
+	Model(Model& obj);
 	~Model();
 
 	virtual void Draw();
@@ -38,7 +39,7 @@ public:
 	Format GetFormat();
 	U32 GetPolyCount();
 	void FaceCulling(bool enabled);
-	void SetStencil(Mesh::StencilBehaviour behaviour);
+	void SetStencil(Graphics3D::StencilBehaviour behaviour);
 
 	void AddMesh(Mesh* mesh);
 	Mesh* GetMesh(const string& name);
@@ -54,9 +55,8 @@ protected:
 	CRArray<Mesh*> meshes;
 	Material* material;
 	bool original;
-
-	//Copy constructor
-	Model(Model& obj);
+	bool face_culling;
+	Graphics3D::StencilBehaviour stencil;
 };
 
 }

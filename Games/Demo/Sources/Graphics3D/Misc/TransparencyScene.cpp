@@ -42,19 +42,6 @@ void TransparencyScene::Start(){
 	shader->AddProperty("Specular", "uSpecular", 0.5f);
 	shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	shader->Compile();
-
-	car_diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
-	car_mat = new Material(shader);
-	car_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
-	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	camaro->SetMaterial(car_mat);
-	camaro->FaceCulling(false);
-	windshield_mat = new Material(shader);
-	windshield_mat->SetPropertyValue("Diffuse Texture", car_diffuse);
-	windshield_mat->SetPropertyValue("Transparency", 0.5f);
-	Mesh* windshild = camaro->GetMesh("Windshield");
-	windshild->SetMaterial(windshield_mat);
-	windshild->AlphaBlending(true);
 	
 	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
@@ -93,12 +80,8 @@ void TransparencyScene::Start(){
 
 void TransparencyScene::Stop(){
 	delete road;
-	delete camaro;
-	delete car_mat;
 	delete road_mat;
 	delete grass_mat;
-	delete windshield_mat;
-	delete car_diffuse;
 	delete road_diffuse;
 	delete grass_diffuse;
 	delete shader;
@@ -107,7 +90,6 @@ void TransparencyScene::Stop(){
 
 void TransparencyScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
-	camaro->Draw();
 	road->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

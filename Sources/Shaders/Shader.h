@@ -20,10 +20,31 @@
 
 namespace cross{
 
+class Skybox;
+
 class Shader{
 public:
 	class Property{
 	public:
+		Property(const string& name, const string& glName);
+		~Property();
+
+		void SetValue(U32 v);
+		void SetValue(float v);
+		void SetValue(const Color& v);
+		void SetValue(Vector3D& v);
+		void SetValue(Vector4D& v);
+		void SetValue(Matrix& v);
+		void SetValue(Texture* texture);
+		void SetValue(Skybox* skybox);
+
+		Property* Clone();
+
+	private:
+		friend Shader;
+		friend Graphics3D;
+		friend Material;
+
 		enum Type{
 			SAMPLER,
 			MAT4,
@@ -35,25 +56,6 @@ public:
 			CUBEMAP,
 			UNKNOWN,
 		};
-
-		Property(const string& name, const string& glName);
-		~Property();
-
-		void SetValue(U32 v);
-		void SetValue(float v);
-		void SetValue(const Color& v);
-		void SetValue(Vector3D& v);
-		void SetValue(Vector4D& v);
-		void SetValue(Matrix& v);
-		void SetValue(Texture* texture);
-		void SetValueCubemap(GLuint id);
-
-		Property* Clone();
-
-	private:
-		friend Mesh;
-		friend Shader;
-		friend Material;
 
 		Property(Property& obj);
 
@@ -108,10 +110,10 @@ public:
 
 	void AddMakro(const string& makro);
 	void AddMakro(const string& makro, int value);
-	void AddProperty(Property* prop);
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);
+	void AddProperty(Property* prop);
 	Property* GetProperty(const string& name);
 	bool HaveProperty(const string& name);
 

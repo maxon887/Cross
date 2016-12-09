@@ -27,14 +27,10 @@ public:
 private:
 	Shader* shader;
 	Shader* grass_shader;
-	Texture* car_diffuse;
 	Texture* road_diffuse;
 	Texture* grass_diffuse;
-	Material* car_mat;
 	Material* road_mat;
 	Material* grass_mat;
-	Material* windshield_mat;
-	Model* camaro;
 	Model* road;
 	Model* grass;
 

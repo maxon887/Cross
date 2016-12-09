@@ -24,7 +24,7 @@
 
 void SpritesScreen::Start(){
 	awesome_face = demo->GetCommonSprite("AwesomeFace.png");
-	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);
+	debug_font = new Font("Engine/Fonts/VeraMonoBold.ttf", 50, Color::Red);
 }
 
 void SpritesScreen::Stop(){

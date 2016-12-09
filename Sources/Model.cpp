@@ -18,19 +18,15 @@
 #include "Launcher.h"
 #include "Mesh.h"
 #include "Material.h"
+#include "Graphics3D.h"
 
 using namespace cross;
-
-Model::Model(Model& obj) : 
-	Transformable(obj),
-	meshes(obj.meshes),
-	original(false),
-	format(obj.format)
-{ }
 
 Model::Model(const string& name) :
 	name(name),
 	original(true),
+	face_culling(true),
+	stencil(Graphics3D::StencilBehaviour::IGNORED),
 	format(UNKNOW)
 { 
 	filepath = launcher->PathFromFile(name);
@@ -42,6 +38,15 @@ Model::Model(const string& name) :
 	}
 }
 
+Model::Model(Model& obj) : 
+	Transformable(obj),
+	meshes(obj.meshes),
+	original(false),
+	format(obj.format),
+	face_culling(obj.face_culling),
+	stencil(obj.stencil)
+{ }
+
 Model::~Model(){
 	if(original){
 		for(Mesh* mesh : meshes){
@@ -52,7 +57,7 @@ Model::~Model(){
 
 void Model::Draw(){
 	for(Mesh* mesh : meshes){
-		mesh->Draw(GetModelMatrix());
+		gfx3D->DrawMesh(mesh, GetModelMatrix(), face_culling, false, stencil);
 	}
 }
 
@@ -77,15 +82,11 @@ U32 Model::GetPolyCount(){
 }
 
 void Model::FaceCulling(bool enabled){
-	for(Mesh* mesh : meshes){
-		mesh->FaceCulling(enabled);
-	}
+	face_culling = enabled;
 }
 
-void Model::SetStencil(Mesh::StencilBehaviour behaviour){
-	for(Mesh* mesh : meshes){
-		mesh->SetStencil(behaviour);
-	}
+void Model::SetStencil(Graphics3D::StencilBehaviour behaviour){
+	stencil = behaviour;
 }
 
 void Model::AddMesh(Mesh* mesh){

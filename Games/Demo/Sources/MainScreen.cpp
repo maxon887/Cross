@@ -100,15 +100,12 @@ void MainScreen::Start(){
 	Button* triangleBtn			= new Button("Triangle", font->Clone());
 	Button* solidModelBtn		= new Button("Solid Model", font->Clone());
 	Button* texturedModelBtn	= new Button("Textured Model", font->Clone());
-	Button* complexBtn			= new Button("Complex Model", font->Clone());
 	triangleBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new TriangleScene()); });
 	solidModelBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new SolidModelScene()); });
 	texturedModelBtn->Clicked	+= FastDelegate0<void>([](){ game->SetScreen(new TexturedModelScene()); });
-	complexBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new ComplexModelScene()); });
 	graphics3D_simple->AddButton(triangleBtn);
 	graphics3D_simple->AddButton(solidModelBtn);
 	graphics3D_simple->AddButton(texturedModelBtn);
-	graphics3D_simple->AddButton(complexBtn);
 	graphics3D_simple->SetImages(buttonSprite, buttonSpritePressed);
 	//graphics 3D light
 	graphics3D_light = new Menu(false);

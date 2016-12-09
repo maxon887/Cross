@@ -18,6 +18,7 @@
 #include "Material.h"
 #include "VertexBuffer.h"
 #include "Mesh.h"
+#include "Graphics3D.h"
 
 void TriangleScene::Start(){
 	CameraControlsScreen::Start();
@@ -40,7 +41,6 @@ void TriangleScene::Start(){
 
 	triangle = new Mesh(vertexBuffer, indices, indices.size());
 	triangle->SetMaterial(material);
-	triangle->FaceCulling(false);
 }
 
 void TriangleScene::Stop(){
@@ -52,5 +52,5 @@ void TriangleScene::Stop(){
 
 void TriangleScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
-	triangle->Draw();
+	gfx3D->DrawMesh(triangle, Matrix::Identity, false, false, Graphics3D::StencilBehaviour::IGNORED);
 }

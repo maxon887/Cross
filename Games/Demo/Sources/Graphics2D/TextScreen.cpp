@@ -22,7 +22,7 @@
 #include "System/Debugger.h"
 
 void TextScreen::Start(){
-	debug_font = new Font("Engine/Fonts/VeraMono-Bold.ttf", 50, Color::Red);
+	debug_font = new Font("Engine/Fonts/VeraMonoBold.ttf", 50, Color::Red);
 	font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 }
 

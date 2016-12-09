@@ -31,6 +31,7 @@ public:
 	~Skybox();
 
 	void Draw();
+	GLuint GetTextureID();
 
 private:
 	GLuint textureID;

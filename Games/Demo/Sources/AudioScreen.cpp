@@ -14,10 +14,8 @@ void AudioScreen::Start(){
 	is_bck_playing = false;
 
 	SetBackground(Color(0.25f, 0.25f, 0.25f));
-	button_sprite = demo->GetCommonSprite("DefaultButton.png");
-	button_sprite->SetScale(1.35f);
-	button_sprite_pressed = demo->GetCommonSprite("DefaultButtonPressed.png");
-	button_sprite_pressed->SetScale(1.35f);
+	button_sprite = demo->GetCommonSprite("ButtonTemplate.png");
+	button_sprite_pressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 	audio_menu = new Menu(true);
 	Button* soundBtn = new Button("Sound");
 	soundBtn->SetImages(button_sprite->Clone(), nullptr);
