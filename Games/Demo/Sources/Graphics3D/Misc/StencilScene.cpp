@@ -34,12 +34,15 @@ void StencilScene::Start(){
 	AddLight(light);
 	//scene setups
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader->AddMakro("USE_DIFFUSE_MAP");
+	shader->AddMakro("USE_TILLING_FACTOR");
+	shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
-	cube_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	box_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	cube_mat = new Material(shader);
-	cube_mat->SetPropertyValue("Diffuse Texture", cube_texture);
+	cube_mat->SetPropertyValue("Diffuse Texture", box_texture);
 	cube_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	shader_outline = gfxGL->GetShader(DefaultShader::SIMPLE);
 	shader_outline->Compile();
@@ -75,7 +78,7 @@ void StencilScene::Stop(){
 	delete cube_mat;
 	delete cube_outline;
 	delete road_mat;
-	delete cube_texture;
+	delete box_texture;
 	delete road_texture;
 	delete shader_outline;
 	delete shader;

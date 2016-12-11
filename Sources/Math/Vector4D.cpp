@@ -40,7 +40,7 @@ Vector4D::Vector4D(const Vector3D& vec, float w):
 	w(w)
 { }
 
-float* Vector4D::GetData(){
+const float* Vector4D::GetData() const{
 	return &x;
 }
 

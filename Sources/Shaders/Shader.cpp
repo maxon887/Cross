@@ -68,13 +68,13 @@ void Shader::Property::SetValue(const Color& v){
 	memcpy(value, v.GetData(), size);
 }
 
-void Shader::Property::SetValue(Vector3D& v){
+void Shader::Property::SetValue(const Vector3D& v){
 	type = VEC3;
 	RealocateIfNeeded(sizeof(Vector3D));
 	memcpy(value, v.GetData(), size);
 }
 
-void Shader::Property::SetValue(Vector4D& v){
+void Shader::Property::SetValue(const Vector4D& v){
 	type = VEC4;
 	RealocateIfNeeded(sizeof(Vector4D));
 	memcpy(value, v.GetData(), size);
@@ -206,6 +206,18 @@ void Shader::AddProperty(const string& glName, float defValue){
 }
 
 void Shader::AddProperty(const string& name, const string& glName, float defValue){
+	Property* prop = new Property(name, glName);
+	prop->SetValue(defValue);
+	AddProperty(prop);
+}
+
+void Shader::AddProperty(const string& name, const string& glName, const Color& defValue) {
+	Property* prop = new Property(name, glName);
+	prop->SetValue(defValue);
+	AddProperty(prop);
+}
+
+void Shader::AddProperty(const string& name, const string& glName, const Vector3D& defValue) {
 	Property* prop = new Property(name, glName);
 	prop->SetValue(defValue);
 	AddProperty(prop);

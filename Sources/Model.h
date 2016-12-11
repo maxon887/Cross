@@ -39,6 +39,7 @@ public:
 	Format GetFormat();
 	U32 GetPolyCount();
 	void FaceCulling(bool enabled);
+	void AlphaBlending(bool enabled);
 	void SetStencil(Graphics3D::StencilBehaviour behaviour);
 
 	void AddMesh(Mesh* mesh);
@@ -56,6 +57,7 @@ protected:
 	Material* material;
 	bool original;
 	bool face_culling;
+	bool alpha_blending;
 	Graphics3D::StencilBehaviour stencil;
 };
 

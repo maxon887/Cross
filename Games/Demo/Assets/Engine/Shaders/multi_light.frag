@@ -9,8 +9,11 @@ struct Light{
 	float cut_off;
 	float outer_cut_off;
 };
-
+#ifdef USE_DIFFUSE_MAP
 uniform sampler2D uDiffuseTexture;
+#else
+uniform vec4 uDiffuseColor;
+#endif
 
 #ifdef USE_SPECULAR_MAP
 uniform sampler2D uSpecularMap;
@@ -88,7 +91,13 @@ vec4 CalcSpotLight(Light light, vec4 diffuseColor, vec4 specularColor, float shi
 }
 
 void main(){
+
+#ifdef USE_DIFFUSE_MAP
 	vec4 diffuseColor = texture2D(uDiffuseTexture, vTexCoords);
+#else
+	vec4 diffuseColor = uDiffuseColor;
+#endif
+	
 #ifdef USE_SPECULAR_MAP
 	vec4 specularColor = texture2D(uSpecularMap, vTexCoords) * uSpecularMultiplier;
 #else
@@ -99,6 +108,12 @@ void main(){
 	float shininess = texture2D(uShininessMap, vTexCoords).r * uShininessMultiplier + 1.0;
 #else
 	float shininess = uShininess;
+#endif
+
+#ifdef USE_CUTOUT
+	if(diffuseColor.a < 0.1){
+		discard;
+	}
 #endif
 	
 	vec4 result = diffuseColor * uAmbientLight;

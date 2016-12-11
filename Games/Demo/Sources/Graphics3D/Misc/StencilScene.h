@@ -26,7 +26,7 @@ public:
 private:
 	Shader* shader;
 	Shader* shader_outline;
-	Texture* cube_texture;
+	Texture* box_texture;
 	Texture* road_texture;
 	Material* cube_mat;
 	Material* cube_outline;

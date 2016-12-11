@@ -32,8 +32,8 @@ public:
 		void SetValue(U32 v);
 		void SetValue(float v);
 		void SetValue(const Color& v);
-		void SetValue(Vector3D& v);
-		void SetValue(Vector4D& v);
+		void SetValue(const Vector3D& v);
+		void SetValue(const Vector4D& v);
 		void SetValue(Matrix& v);
 		void SetValue(Texture* texture);
 		void SetValue(Skybox* skybox);
@@ -113,6 +113,8 @@ public:
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);
+	void AddProperty(const string& name, const string& glName, const Color& color);
+	void AddProperty(const string& name, const string& glName, const Vector3D& vec);
 	void AddProperty(Property* prop);
 	Property* GetProperty(const string& name);
 	bool HaveProperty(const string& name);

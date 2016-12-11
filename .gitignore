@@ -505,3 +505,4 @@ Games/Demo/Platform/Windows/Cross++.vcxproj
 *.vcxproj
 Games/Demo/Platform/Windows/Data/prefs
 *.vcxproj
+Games/Demo/Platform/Windows/Cross++.VC.opendb

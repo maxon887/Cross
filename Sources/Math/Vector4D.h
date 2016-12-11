@@ -31,7 +31,7 @@ public:
 	Vector4D(float x, float y, float z, float w);
 	Vector4D(const Vector3D& vec, float w);
 
-	float* GetData();
+	const float* GetData() const;
 
 	Vector4D operator + (const Vector4D &v2) const;
 	Vector4D operator - (const Vector4D &v2) const;

@@ -107,7 +107,7 @@ Vector3D Vector3D::GetTruncated(float len) const{
 	return *this;
 }
 
-float* Vector3D::GetData(){
+const float* Vector3D::GetData() const{
 	return &x;
 }
 

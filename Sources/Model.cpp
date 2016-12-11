@@ -26,6 +26,7 @@ Model::Model(const string& name) :
 	name(name),
 	original(true),
 	face_culling(true),
+	alpha_blending(false),
 	stencil(Graphics3D::StencilBehaviour::IGNORED),
 	format(UNKNOW)
 { 
@@ -38,12 +39,13 @@ Model::Model(const string& name) :
 	}
 }
 
-Model::Model(Model& obj) : 
+Model::Model(Model& obj) :
 	Transformable(obj),
 	meshes(obj.meshes),
 	original(false),
 	format(obj.format),
 	face_culling(obj.face_culling),
+	alpha_blending(obj.alpha_blending),
 	stencil(obj.stencil)
 { }
 
@@ -57,7 +59,7 @@ Model::~Model(){
 
 void Model::Draw(){
 	for(Mesh* mesh : meshes){
-		gfx3D->DrawMesh(mesh, GetModelMatrix(), face_culling, false, stencil);
+		gfx3D->DrawMesh(mesh, GetModelMatrix(), face_culling, alpha_blending, stencil);
 	}
 }
 
@@ -83,6 +85,10 @@ U32 Model::GetPolyCount(){
 
 void Model::FaceCulling(bool enabled){
 	face_culling = enabled;
+}
+
+void Model::AlphaBlending(bool enabled){
+	alpha_blending = enabled;
 }
 
 void Model::SetStencil(Graphics3D::StencilBehaviour behaviour){
