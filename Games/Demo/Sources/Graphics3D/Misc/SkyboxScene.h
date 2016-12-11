@@ -20,9 +20,15 @@
 
 class SkyboxScene : public CameraControlsScreen{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
+
 private:
 	Skybox* skybox;
+	
+	Shader* shader;
+	Texture* texture;
+	Material* material;
+	Model* cube;
 };

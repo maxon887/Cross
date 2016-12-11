@@ -56,7 +56,7 @@ Shader::Property* Material::GetProperty(const string& name){
 			return prop;
 		}
 	}
-	throw CrossException("Can not find property");
+	throw CrossException("Can not find property '%s'", name.c_str());
 }
 
 void Material::SetPropertyValue(const string& name, U32 value){

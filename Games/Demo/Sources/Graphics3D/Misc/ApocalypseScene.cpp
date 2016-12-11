@@ -37,6 +37,7 @@ void ApocalypseScene::Start(){
 	AddLight(light);
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader->AddMakro("USE_DIFFUSE_MAP");
 	shader->AddMakro("USE_SPECULAR_MAP");
 	shader->AddMakro("USE_SHININESS_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
@@ -61,9 +62,12 @@ void ApocalypseScene::Start(){
 	camaro->SetRotateY(45.f);
 	
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	road_shader->AddMakro("USE_DIFFUSE_MAP");
+	road_shader->AddMakro("USE_TILLING_FACTOR");
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	road_shader->AddProperty("Specular", "uSpecular");
 	road_shader->AddProperty("Shininess", "uShininess");
+	road_shader->AddProperty("Tilling Factor", "uTillingFactor");
 	road_shader->Compile();
 	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);

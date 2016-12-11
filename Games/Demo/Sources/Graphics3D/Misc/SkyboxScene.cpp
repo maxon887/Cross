@@ -15,20 +15,36 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SkyboxScene.h"
+#include "Shaders/Shader.h"
+#include "Material.h"
+#include "Graphics3D.h"
+#include "Model.h"
 
 void SkyboxScene::Start(){
+	CameraControlsScreen::Start();
 	skybox = new Skybox("gfx3D/Skybox/miramar_rt.png",
 						"gfx3D/Skybox/miramar_lf.png",
 						"gfx3D/Skybox/miramar_up.png",
 						"gfx3D/Skybox/miramar_dn.png",
 						"gfx3D/Skybox/miramar_bk.png",
 						"gfx3D/Skybox/miramar_ft.png");
+
+	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
+	shader->Compile();
+	material = new Material(shader);
+	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	material->SetPropertyValue("Texture", texture);
+	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	cube->SetMaterial(material);
 }
 
 void SkyboxScene::Stop(){
 
+	CameraControlsScreen::Stop();
 }
 
 void SkyboxScene::Update(float sec){
+	CameraControlsScreen::Update(sec);
+	cube->Draw();
 	skybox->Draw();
 }
