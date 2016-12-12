@@ -21,13 +21,17 @@ using namespace cross;
 VertexBuffer::VertexBuffer():
 	initialized(false),
 	uv_enabled(false),
-	normals_enabled(false)
+	normals_enabled(false),
+	tangents_enabled(false),
+	bitangents_enabled(false)
 { }
 
 VertexBuffer::VertexBuffer(VertexBuffer& obj) :
 	initialized(obj.initialized),
 	uv_enabled(obj.uv_enabled),
 	normals_enabled(obj.normals_enabled),
+	tangents_enabled(obj.tangents_enabled),
+	bitangents_enabled(obj.bitangents_enabled),
 	data(obj.data)
 { }
 
@@ -39,15 +43,12 @@ bool VertexBuffer::HasNormals(){
 	return normals_enabled;
 }
 
-U32 VertexBuffer::VertexSize(){
-	U32 vertSize = 3;
-	if(uv_enabled){
-		vertSize += 2;
-	}
-	if(normals_enabled){
-		vertSize += 3;
-	}
-	return vertSize * sizeof(float);
+bool VertexBuffer::HasTangents(){
+	return tangents_enabled;
+}
+
+bool VertexBuffer::HasBitangents(){
+	return bitangents_enabled;
 }
 
 U32 VertexBuffer::GetPossitionsOffset(){
@@ -55,23 +56,23 @@ U32 VertexBuffer::GetPossitionsOffset(){
 }
 
 U32 VertexBuffer::GetTextureCoordinatesOffset(){
-	if(uv_enabled){
-		return 3;
-	}else{
-		throw CrossException("VertexBuffer noes not contains texture coordinates");
-	}
+	return 3;
 }
 
 U32 VertexBuffer::GetNormalsOffset(){
-	if(normals_enabled){
-		if(uv_enabled){
-			return 5;
-		}else{
-			return 3;
-		}
-	}else{
-		throw CrossException("VertexBuffer noes not contains normals");
-	}
+	return GetTextureCoordinatesOffset() + 2;
+}
+
+U32 VertexBuffer::GetTangentsOffset(){
+	return GetNormalsOffset() + 3;
+}
+
+U32 VertexBuffer::GetBitangentsOffset(){
+	return GetTangentsOffset() + 3;
+}
+
+U32 VertexBuffer::VertexSize() {
+	return (GetBitangentsOffset() + 3) * sizeof(float);
 }
 
 void VertexBuffer::UVEnabled(bool enabled){
@@ -80,6 +81,14 @@ void VertexBuffer::UVEnabled(bool enabled){
 
 void VertexBuffer::NarmalsEnabled(bool enabled){
 	normals_enabled = enabled;
+}
+
+void VertexBuffer::TangentsEnabled(bool enabled){
+	tangents_enabled = enabled;
+}
+
+void VertexBuffer::BitangentsEnabled(bool enabled){
+	bitangents_enabled = enabled;
 }
 
 void VertexBuffer::PushData(const Byte* bytes, U32 size){

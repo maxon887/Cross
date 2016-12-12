@@ -158,6 +158,8 @@ void Shader::Compile(){
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
 	aNormal = glGetAttribLocation(program, "aNormal");
+	aTangent = glGetAttribLocation(program, "aTangent");
+	aBitangent = glGetAttribLocation(program, "aBitangent");
 	
 	uMVP = glGetUniformLocation(program, "uMVP");
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");

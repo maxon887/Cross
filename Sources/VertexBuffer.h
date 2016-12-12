@@ -26,13 +26,19 @@ public:
 
 	bool HasTextureCoordinates();
 	bool HasNormals();
-	U32 VertexSize();
+	bool HasTangents();
+	bool HasBitangents();
 	U32 GetPossitionsOffset();
 	U32 GetTextureCoordinatesOffset();
 	U32 GetNormalsOffset();
+	U32 GetTangentsOffset();
+	U32 GetBitangentsOffset();
+	U32 VertexSize();
 
 	void UVEnabled(bool enabled);
 	void NarmalsEnabled(bool enabled);
+	void TangentsEnabled(bool enabled);
+	void BitangentsEnabled(bool enabled);
 	void PushData(const Byte* data, U32 size);
 	Byte* GetData();
 	U32 GetDataSize();
@@ -44,6 +50,8 @@ private:
 	CRArray<Byte> data;
 	bool uv_enabled;
 	bool normals_enabled;
+	bool tangents_enabled;
+	bool bitangents_enabled;
 
 	VertexBuffer(VertexBuffer& obj);
 };

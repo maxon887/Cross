@@ -138,6 +138,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NormalScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\SpecularScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NormalScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\SpecularScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h" />

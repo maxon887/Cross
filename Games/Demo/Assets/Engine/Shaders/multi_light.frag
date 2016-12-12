@@ -30,6 +30,10 @@ uniform float uShininessMultiplier;
 uniform float uShininess;
 #endif
 
+#ifdef USE_NORMAL_MAP
+uniform sampler2D uNormalMap;
+#endif
+
 uniform float uTransparency;
 
 uniform Light uDirectionalLights[DIRECTIONAL_LIGHT_COUNT + 1];
@@ -42,14 +46,26 @@ varying vec2 vTexCoords;
 varying vec3 vNormal;
 varying vec3 vFragPosition;
 varying vec3 vViewDirection;
+#ifdef USE_NORMAL_MAP
+varying mat3 vTBN;
+#endif
 
 vec4 CalcPointLight(Light light, vec4 diffuseColor, vec4 specularColor, float shininess){
 	vec3 lightDirection = normalize(light.position - vFragPosition);
 	//attenaution
 	float dist = length(light.position - vFragPosition);
 	float attenaution = 1.0 / (1.0 + light.intensity * dist + light.intensity * dist * dist);
+	
+#ifdef USE_NORMAL_MAP
+	vec3 normal = texture2D(uNormalMap, vTexCoords).rgb;
+	normal = normalize(normal * 2.0 -1.0);
+	normal = normalize(vTBN * normal);
+#else
+	vec3 normal = vNormal;
+#endif
+	
 	//diffuse
-	float diffEffect = max(dot(vNormal, lightDirection), 0.0);
+	float diffEffect = max(dot(normal, lightDirection), 0.0);
 	vec4 diffuse = light.color * diffEffect * diffuseColor;
 	//specular
 	vec3 reflectDirection = reflect(-lightDirection, vNormal);

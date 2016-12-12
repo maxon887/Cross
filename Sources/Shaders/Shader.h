@@ -87,6 +87,8 @@ public:
 	GLint aPosition;
 	GLint aTexCoords;
 	GLint aNormal;
+	GLint aTangent;
+	GLint aBitangent;
 	
 	//general uniforms
 	GLint uMVP;

@@ -33,11 +33,13 @@ void NormalScene::Start(){
 	shader->AddMakro("USE_DIFFUSE_MAP");
 	shader->AddMakro("USE_SPECULAR_MAP");
 	shader->AddMakro("USE_SHININESS_MAP");
+	shader->AddMakro("USE_NORMAL_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
-	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 0.75f);
+	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 2.f);
 	shader->AddProperty("Shininess Map", "uShininessMap");
-	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 64.f);
+	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 2.f);
+	shader->AddProperty("Normal Map", "uNormalMap");
 	shader->Compile();
 
 	diffuse = gfx2D->LoadTexture("gfx3D/Revolver/Diffuse.png", Texture::TilingMode::REPEAT);
@@ -49,6 +51,7 @@ void NormalScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
+	material->SetPropertyValue("Normal Map", normal);
 	revolver = gfx3D->LoadModel("gfx3D/Revolver/Revolver.fbx");
 	revolver->SetMaterial(material);
 	revolver->SetScale(0.1f);

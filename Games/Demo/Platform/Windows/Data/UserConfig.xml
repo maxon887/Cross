@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <UserConfig>
-	<Property name="WIN_HEIGHT" value="567" />
-	<Property name="WIN_POS_X" value="740" />
-	<Property name="WIN_POS_Y" value="245" />
-	<Property name="WIN_WIDTH" value="905" />
+	<Property name="WIN_HEIGHT" value="715" />
+	<Property name="WIN_POS_X" value="493" />
+	<Property name="WIN_POS_Y" value="97" />
+	<Property name="WIN_WIDTH" value="1152" />
 </UserConfig>

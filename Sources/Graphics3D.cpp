@@ -194,7 +194,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
 			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
 		}else{
-			throw CrossException("Current mesh noes not contain texture coordinates");
+			throw CrossException("Current mesh does not contain texture coordinates");
 		}
 	}
 	if(shader->aNormal != -1){
@@ -202,9 +202,26 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 			SAFE(glEnableVertexAttribArray(shader->aNormal));
 			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
 		}else{
-			throw CrossException("Current mesh noes not countain normals");
+			throw CrossException("Current mesh does not countain normals");
 		}
 	}
+	if(shader->aTangent != -1){
+		if(vertexBuf->HasTangents()){
+			SAFE(glEnableVertexAttribArray(shader->aTangent));
+			SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
+		}else{
+			throw CrossException("Current mesh does not contain tangents");
+		}
+	}
+	if(shader->aBitangent != -1){
+		if(vertexBuf->HasBitangents()){
+			SAFE(glEnableVertexAttribArray(shader->aBitangent));
+			SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
+		}else{
+			throw CrossException("Current mesh does not contain bitangents");
+		}
+	}
+
 	//drawing
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//depth test
@@ -247,7 +264,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 void Graphics3D::ProcessScene(Model* model){
 	File* file = launcher->LoadFile(model->GetName());
 	Assimp::Importer importer;
-	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs);
+	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	delete file;
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
@@ -311,16 +328,30 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	if(mesh->mNormals){
 		vertexBuffer->NarmalsEnabled(true);
 	}
+	if(mesh->mTangents){
+		vertexBuffer->TangentsEnabled(true);
+	}
+	if(mesh->mBitangents){
+		vertexBuffer->BitangentsEnabled(true);
+	}
 
 	for(U32 i = 0; i < mesh->mNumVertices; ++i){
-		vertexBuffer->PushData((unsigned char*)&mesh->mVertices[i], 3 * sizeof(float));
+		vertexBuffer->PushData((Byte*)&mesh->mVertices[i], 3 * sizeof(float));
 
 		if(vertexBuffer->HasTextureCoordinates()){
-			vertexBuffer->PushData((unsigned char*)&mesh->mTextureCoords[0][i], 2 * sizeof(float));
+			vertexBuffer->PushData((Byte*)&mesh->mTextureCoords[0][i], 2 * sizeof(float));
 		}
 
 		if(vertexBuffer->HasNormals()){
-			vertexBuffer->PushData((unsigned char*)&mesh->mNormals[i], 3 * sizeof(float));
+			vertexBuffer->PushData((Byte*)&mesh->mNormals[i], 3 * sizeof(float));
+		}
+
+		if(vertexBuffer->HasTangents()){
+			vertexBuffer->PushData((Byte*)&mesh->mTangents[i], 3 * sizeof(float));
+		}
+
+		if(vertexBuffer->HasBitangents()){
+			vertexBuffer->PushData((Byte*)&mesh->mBitangents[i], 3 * sizeof(float));
 		}
 	}
 
