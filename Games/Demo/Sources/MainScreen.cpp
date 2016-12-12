@@ -33,6 +33,7 @@
 #include "Graphics3D/Light/PointLightScene.h"
 #include "Graphics3D/Light/SpotLightScene.h"
 #include "Graphics3D/Light/MultiLightScene.h"
+#include "Graphics3D/Maps/NakedScene.h"
 #include "Graphics3D/Misc/DepthScene.h"
 #include "Graphics3D/Misc/StencilScene.h"
 #include "Graphics3D/Misc/TransparencyScene.h"
@@ -132,7 +133,7 @@ void MainScreen::Start(){
 	Button* specularBtn			= new Button("Specular", font->Clone());
 	Button* roughnessBtn		= new Button("Roughness", font->Clone());
 	Button* normalBtn			= new Button("Normal", font->Clone());
-	nakedBtn->Clicked			+= FastDelegate0<void>([](){ });
+	nakedBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new NakedScene()); });
 	diffuseBtn->Clicked			+= FastDelegate0<void>([](){ });
 	specularBtn->Clicked		+= FastDelegate0<void>([](){ });
 	roughnessBtn->Clicked		+= FastDelegate0<void>([](){ });
@@ -225,7 +226,7 @@ void MainScreen::OnLightClick(){
 }
 
 void MainScreen::OnMapsClick(){
-	throw CrossException("Don't implemented yet");
+	SetMenu(graphics3D_maps);
 }
 
 void MainScreen::OnMiscClick(){

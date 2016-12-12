@@ -52,6 +52,7 @@ protected:
 	//fbx specific stuff
 	Matrix current_geotranslation;
 	Matrix current_translation;
+	Matrix current_pre_rotation;
 	Matrix current_rotation;
 	Matrix current_scaling;
 

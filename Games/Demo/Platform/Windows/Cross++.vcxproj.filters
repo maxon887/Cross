@@ -52,6 +52,9 @@
     <Filter Include="Demo\Graphics3D\Misc">
       <UniqueIdentifier>{ac3cc46f-ab38-46b7-9e41-24a82b837ed0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Graphics3D\Maps">
+      <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -291,6 +294,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp">
       <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp">
+      <Filter>Demo\Graphics3D\Maps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -537,6 +543,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h">
       <Filter>Demo\Graphics3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h">
+      <Filter>Demo\Graphics3D\Maps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,7 @@ using namespace cross;
 
 Graphics3D::Graphics3D():
 	current_translation(Matrix::Identity),
+	current_pre_rotation(Matrix::Identity),
 	current_rotation(Matrix::Identity),
 	current_scaling(Matrix::Identity),
 	current_geotranslation(Matrix::Identity)
@@ -99,13 +100,13 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 	}
 
 	if(shader->uModelMatrix != -1){
-		Matrix model = mesh->GetModelMatrix() * globalModel;
+		Matrix model = globalModel * mesh->GetModelMatrix();
 		model = model.GetTransposed();
 		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.GetData()));
 	}
 
 	if(shader->uNormalMatrix != -1){
-		Matrix normal = (mesh->GetModelMatrix() * globalModel).GetInversed();
+		Matrix normal = (globalModel * mesh->GetModelMatrix()).GetInversed();
 		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normal.GetData()));
 	}
 
@@ -260,8 +261,9 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 		Mesh* crMesh = ProcessMesh(aiMesh);
 		crMesh->SetName(node->mName.C_Str());
 		if(model->GetFormat() == Model::Format::FBX){
-			crMesh->SetModelMatrix(current_translation * current_rotation * current_scaling * current_geotranslation);
+			crMesh->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
 			current_translation = Matrix::Identity;
+			current_pre_rotation = Matrix::Identity;
 			current_rotation = Matrix::Identity;
 			current_scaling = Matrix::Identity;
 			current_geotranslation = Matrix::Identity;
@@ -278,15 +280,21 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 			if(nodeName.find("Geometric") != std::string::npos){
 				memcpy(current_geotranslation.m, &node->mTransformation.a1, sizeof(float) * 16);
 			}else{
-				memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+				if(current_translation == Matrix::Identity){
+					memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+				}
 			}
 		}
 		if(nodeName.find("Scaling") != std::string::npos){
 			memcpy(current_scaling.m, &node->mTransformation.a1, sizeof(float) * 16);
 		}
 		if(nodeName.find("Rotation") != std::string::npos){
-			if(current_translation == Matrix::Identity){
-			memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+			if(nodeName.find("Pre") != std::string::npos){
+				memcpy(current_pre_rotation.m, &node->mTransformation.a1, sizeof(float) * 16);
+			}else{
+				if(current_translation == Matrix::Identity){
+					memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
+				}
 			}
 		}
 	}
