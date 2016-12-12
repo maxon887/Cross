@@ -22,12 +22,13 @@
 
 void SkyboxScene::Start(){
 	CameraControlsScreen::Start();
-	skybox = new Skybox("gfx3D/Skybox/miramar_rt.png",
-						"gfx3D/Skybox/miramar_lf.png",
-						"gfx3D/Skybox/miramar_up.png",
-						"gfx3D/Skybox/miramar_dn.png",
-						"gfx3D/Skybox/miramar_bk.png",
-						"gfx3D/Skybox/miramar_ft.png");
+	
+	skybox = new Skybox("gfx3D/Skybox/right.png",
+						"gfx3D/Skybox/left.png",
+						"gfx3D/Skybox/up.png",
+						"gfx3D/Skybox/down.png",
+						"gfx3D/Skybox/back.png",
+						"gfx3D/Skybox/front.png");
 
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();
