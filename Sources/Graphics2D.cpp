@@ -279,11 +279,15 @@ Texture* Graphics2D::LoadTexture(const string& filename){
 	return LoadTexture(filename, config->GetTextureFilter());
 }
 
-Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
-	return LoadTexture(filename, filter, config->UseCompressedTextures());
+Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode tillingMode){
+	return LoadTexture(filename, tillingMode, config->GetTextureFilter(), config->UseCompressedTextures());
 }
 
-Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter, bool compressed){
+Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter){
+	return LoadTexture(filename, Texture::TilingMode::CLAMP_TO_EDGE, filter, config->UseCompressedTextures());
+}
+
+Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed){
 	auto it = loaded_textures.begin();
 	for( ; it != loaded_textures.end(); it++){
 		if( (*it).first->GetName() == filename ){
@@ -305,7 +309,8 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter,
 #elif ANDROID
 			newTexture = LoadKTXTexture(filename + ".ktx", filter);
 #endif
-		}	
+		}
+		newTexture->SetTilingMode(tillingMode);
 		float loadTime = Debugger::Instance()->GetTimeCheck();
 		launcher->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 

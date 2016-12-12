@@ -32,7 +32,7 @@ void Demo::Start(){
 	launcher->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
-	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::Filter::LINEAR, false);
+	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::TilingMode::CLAMP_TO_EDGE, Texture::Filter::LINEAR, false);
 	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
 
 	camera = new Camera2D();

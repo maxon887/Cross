@@ -298,6 +298,15 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp">
       <Filter>Demo\Graphics3D\Maps</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.cpp">
+      <Filter>Demo\Graphics3D\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\SpecularScene.cpp">
+      <Filter>Demo\Graphics3D\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.cpp">
+      <Filter>Demo\Graphics3D\Maps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -545,6 +554,15 @@
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h">
+      <Filter>Demo\Graphics3D\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.h">
+      <Filter>Demo\Graphics3D\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\SpecularScene.h">
+      <Filter>Demo\Graphics3D\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.h">
       <Filter>Demo\Graphics3D\Maps</Filter>
     </ClInclude>
   </ItemGroup>

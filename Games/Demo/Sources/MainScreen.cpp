@@ -34,6 +34,9 @@
 #include "Graphics3D/Light/SpotLightScene.h"
 #include "Graphics3D/Light/MultiLightScene.h"
 #include "Graphics3D/Maps/NakedScene.h"
+#include "Graphics3D/Maps/DiffuseScene.h"
+#include "Graphics3D/Maps/SpecularScene.h"
+#include "Graphics3D/Maps/RoughnessScene.h"
 #include "Graphics3D/Misc/DepthScene.h"
 #include "Graphics3D/Misc/StencilScene.h"
 #include "Graphics3D/Misc/TransparencyScene.h"
@@ -134,9 +137,9 @@ void MainScreen::Start(){
 	Button* roughnessBtn		= new Button("Roughness", font->Clone());
 	Button* normalBtn			= new Button("Normal", font->Clone());
 	nakedBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new NakedScene()); });
-	diffuseBtn->Clicked			+= FastDelegate0<void>([](){ });
-	specularBtn->Clicked		+= FastDelegate0<void>([](){ });
-	roughnessBtn->Clicked		+= FastDelegate0<void>([](){ });
+	diffuseBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new DiffuseScene()); });
+	specularBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new SpecularScene()); });
+	roughnessBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new RoughnessScene()); });
 	normalBtn->Clicked			+= FastDelegate0<void>([](){ });
 	graphics3D_maps->AddButton(nakedBtn);
 	graphics3D_maps->AddButton(diffuseBtn);

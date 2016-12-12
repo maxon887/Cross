@@ -50,8 +50,9 @@ public:
 	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
 
 	Texture* LoadTexture(const string& filename);
+	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
-	Texture* LoadTexture(const string& filename, Texture::Filter filter, bool compressed);
+	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
 	void SaveTexture(Texture* texture, const string& filename);
 	void ReleaseTexture(const string& filename, GLuint* id);
 	Texture* CreateTexture(U32 channels, U32 width, U32 height, Texture::Filter filter);

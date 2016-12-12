@@ -136,7 +136,10 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\MaterialScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\SpecularScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp" />
@@ -221,7 +224,10 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\MaterialScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\SpecularScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h" />
