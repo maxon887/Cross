@@ -65,7 +65,7 @@ void MultiLightShader::Compile(const CRArray<Light*>& lights){
 		uPointLights[i].intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
 	}
 
-	for(int i = 0; i < pointCount; ++i){
+	for(int i = 0; i < directionalCount; ++i){
 		string structName = "uDirectionalLights[" + to_string(i) + "]";
 		uDirectionalLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 		uDirectionalLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());

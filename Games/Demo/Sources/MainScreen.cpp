@@ -37,6 +37,7 @@
 #include "Graphics3D/Maps/DiffuseScene.h"
 #include "Graphics3D/Maps/SpecularScene.h"
 #include "Graphics3D/Maps/RoughnessScene.h"
+#include "Graphics3D/Maps/NormalScene.h"
 #include "Graphics3D/Misc/DepthScene.h"
 #include "Graphics3D/Misc/StencilScene.h"
 #include "Graphics3D/Misc/TransparencyScene.h"
@@ -140,7 +141,7 @@ void MainScreen::Start(){
 	diffuseBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new DiffuseScene()); });
 	specularBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new SpecularScene()); });
 	roughnessBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new RoughnessScene()); });
-	normalBtn->Clicked			+= FastDelegate0<void>([](){ });
+	normalBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new NormalScene()); });
 	graphics3D_maps->AddButton(nakedBtn);
 	graphics3D_maps->AddButton(diffuseBtn);
 	graphics3D_maps->AddButton(specularBtn);

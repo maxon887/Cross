@@ -48,8 +48,6 @@ public:
 
 	Matrix& GetModelMatrix();
 	void SetModelMatrix(const Matrix& model);
-	//do not tested!
-	Matrix GetNormalMatrix();
 protected:
 	Matrix model;
 	Matrix translate;

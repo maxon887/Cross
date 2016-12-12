@@ -506,3 +506,9 @@ Games/Demo/Platform/Windows/Cross++.vcxproj
 Games/Demo/Platform/Windows/Data/prefs
 *.vcxproj
 Games/Demo/Platform/Windows/Cross++.VC.opendb
+Games/Demo/Platform/Android/.idea/compiler.xml
+Games/Demo/Platform/Android/.idea/copyright/profiles_settings.xml
+Games/Demo/Platform/Android/.idea/gradle.xml
+Games/Demo/Platform/Android/.idea/misc.xml
+Games/Demo/Platform/Android/.idea/modules.xml
+Games/Demo/Platform/Android/.idea/runConfigurations.xml

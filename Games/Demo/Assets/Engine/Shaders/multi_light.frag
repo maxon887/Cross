@@ -9,6 +9,7 @@ struct Light{
 	float cut_off;
 	float outer_cut_off;
 };
+
 #ifdef USE_DIFFUSE_MAP
 uniform sampler2D uDiffuseTexture;
 #else
