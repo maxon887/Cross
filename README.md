@@ -1,7 +1,21 @@
 # Cross++
 Is a lightweight cross-platform game engine. Written mostly on C++. Biggest advantage of this framework that is not require high skill qualification to work with. You can write you scripts on C++ in favorite VisualStudio or Xcode. Only needed to transfer *.h files and binary libraries in to new project. Currently supported platforms windows, android, iOS.
+
 ### Source Example
 Example which shows how to use fundamental engine features located in Games/Demo/ directory. VisualStudio project and other located in Games/Demo/Platform/Windows/ directories.
+
+### Features
+1. Text, Sprites drawing. Sprite animation. UI.
+2. 
+Point Lights ![(/Release/Screenshot06.png)
+Directional Lights ![(/Release/Screenshot07.png)
+Spot Lights ![(/Release/Screenshot08.png)
+3. Model loading. Materials systmem. Basic scene managment. 
+![(/Release/Screenshot01.png)
+Diffuse + Specular + Shininess maps support
+![(/Release/Screenshot04.png)
+Normal map support
+![(/Release/Screenshot05.png)
 
 ### 1.0 New Game Creation
 In order to create new game you must do 3 things.
