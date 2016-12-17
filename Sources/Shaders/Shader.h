@@ -20,8 +20,6 @@
 
 namespace cross{
 
-class Skybox;
-
 class Shader{
 public:
 	class Property{
@@ -36,7 +34,7 @@ public:
 		void SetValue(const Vector4D& v);
 		void SetValue(Matrix& v);
 		void SetValue(Texture* texture);
-		void SetValue(Skybox* skybox);
+		void SetValue(Cubemap* cubemap);
 
 		Property* Clone();
 

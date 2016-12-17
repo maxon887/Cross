@@ -23,49 +23,12 @@
 
 using namespace cross;
 
-Skybox::Skybox( const string& right,
-				const string& left,
-				const string& top,
-				const string& bottom,
-				const string& back,
-				const string& front	)
+Skybox::Skybox( Cubemap* cubemap ) :
+	cubemap(cubemap)
 {
-	SAFE(glGenTextures(1, &textureID));
-	SAFE(glActiveTexture(GL_TEXTURE0));
-	SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, textureID));
-
-	int width, height, channels;
-	Byte* image;
-
-	image = gfx2D->LoadRawData(right, width, height, channels);
-	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
-	//delete[] image;
-	image = gfx2D->LoadRawData(left, width, height, channels);
-	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
-	//delete image;
-	image = gfx2D->LoadRawData(top, width, height, channels);
-	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
-	//delete image;
-	image = gfx2D->LoadRawData(bottom, width, height, channels);
-	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
-	//delete image;
-	image = gfx2D->LoadRawData(back, width, height, channels);
-	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
-	//delete image;
-	image = gfx2D->LoadRawData(front, width, height, channels);
-	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
-	//delete image;
-	
-	SAFE(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-	SAFE(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	SAFE(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-    SAFE(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
-	SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
-
 	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");
 	Shader::Property* prop = new Shader::Property("Cubemap", "cubemap");
-	prop->SetValue(this);
+	prop->SetValue(cubemap);
 	shader->AddProperty(prop);
 	shader->Compile();
 
@@ -78,15 +41,11 @@ Skybox::Skybox( const string& right,
 }
 
 Skybox::~Skybox(){
+	delete cubemap;
 	delete shader;
 	delete box;
-	SAFE(glDeleteTextures(1, &textureID));
 }
 
 void Skybox::Draw(){
 	box->Draw();
-}
-
-GLuint Skybox::GetTextureID(){
-	return textureID;
 }

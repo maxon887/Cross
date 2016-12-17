@@ -17,24 +17,19 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics2D.h"
+#include "Utils/Cubemap.h"
 
 namespace cross{
 
 class Skybox{
 public:
-	Skybox( const string& right,
-			const string& left,
-			const string& top,
-			const string& bottom,
-			const string& back,
-			const string& front	);
+	Skybox(Cubemap* cubemap);
 	~Skybox();
 
 	void Draw();
-	GLuint GetTextureID();
 
 private:
-	GLuint textureID;
+	Cubemap* cubemap;
 	Shader* shader;
 	Material* material;
 	Model* box;

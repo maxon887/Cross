@@ -23,13 +23,13 @@
 void SkyboxScene::Start(){
 	CameraControlsScreen::Start();
 	
-	skybox = new Skybox("gfx3D/Skybox/right.png",
-						"gfx3D/Skybox/left.png",
-						"gfx3D/Skybox/up.png",
-						"gfx3D/Skybox/down.png",
-						"gfx3D/Skybox/back.png",
-						"gfx3D/Skybox/front.png");
-
+	Cubemap* cubemap = new Cubemap( "gfx3D/Skybox/right.png",
+									"gfx3D/Skybox/left.png",
+									"gfx3D/Skybox/up.png",
+									"gfx3D/Skybox/down.png",
+									"gfx3D/Skybox/back.png",
+									"gfx3D/Skybox/front.png" );
+	skybox = new Skybox(cubemap);
 	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	shader->Compile();
 	material = new Material(shader);

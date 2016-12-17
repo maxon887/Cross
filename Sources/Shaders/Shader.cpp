@@ -18,7 +18,7 @@
 #include "Launcher.h"
 #include "File.h"
 #include "Texture.h"
-#include "Utils/Skybox.h"
+#include "Utils/Cubemap.h"
 
 using namespace cross;
 
@@ -93,9 +93,9 @@ void Shader::Property::SetValue(Texture* v){
 	memcpy(value, &textureID, size);
 }
 
-void Shader::Property::SetValue(Skybox* skybox){
+void Shader::Property::SetValue(Cubemap* cubemap){
 	type = CUBEMAP;
-	GLuint textureID = skybox->GetTextureID();
+	GLuint textureID = cubemap->GetTextureID();
 	RealocateIfNeeded(sizeof(GLuint));
 	memcpy(value, &textureID, size);
 }
