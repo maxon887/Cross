@@ -36,15 +36,14 @@ void DiffuseScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	diffuse = gfx2D->LoadTexture("gfx3D/Revolver/Diffuse.png");
+	diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
 
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", diffuse);
-	material->SetPropertyValue("Specular", 0.5f);
-	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	revolver = gfx3D->LoadModel("gfx3D/Revolver/Revolver.fbx");
+	material->SetPropertyValue("Specular", 2.f);
+	material->SetPropertyValue("Shininess", 64.f);
+	revolver = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	revolver->SetMaterial(material);
-	revolver->SetScale(0.1f);
 }
 
 void DiffuseScene::Stop(){

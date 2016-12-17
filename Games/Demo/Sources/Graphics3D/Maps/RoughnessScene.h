@@ -31,5 +31,5 @@ private:
 	Texture* specular;
 	Texture* roughness;
 	Material* material;
-	Model* revolver;
+	Model* model;
 };

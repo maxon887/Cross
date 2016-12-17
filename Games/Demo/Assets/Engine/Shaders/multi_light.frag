@@ -58,6 +58,7 @@ vec4 CalcPointLight(Light light, vec4 diffuseColor, vec4 specularColor, float sh
 	
 #ifdef USE_NORMAL_MAP
 	vec3 normal = texture2D(uNormalMap, vTexCoords).rgb;
+	normal = normalize(normal);
 	normal = normalize(normal * 2.0 -1.0);
 	normal = normalize(vTBN * normal);
 #else

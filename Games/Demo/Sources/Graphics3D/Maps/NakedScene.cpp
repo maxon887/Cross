@@ -35,15 +35,14 @@ void NakedScene::Start(){
 	shader->Compile();
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Color", Color::White);
-	material->SetPropertyValue("Specular", 0.5f);
-	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	revolver = gfx3D->LoadModel("gfx3D/Revolver/Revolver.fbx");
-	revolver->SetMaterial(material);
-	revolver->SetScale(0.1f);
+	material->SetPropertyValue("Specular", 2.f);
+	material->SetPropertyValue("Shininess", 64.f);
+	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	model->SetMaterial(material);
 }
 
 void NakedScene::Stop(){
-	delete revolver;
+	delete model;
 	delete material;
 	delete shader;
 	CameraControlsScreen::Stop();
@@ -51,6 +50,6 @@ void NakedScene::Stop(){
 
 void NakedScene::Update(float sec){
 	CameraControlsScreen::Update(sec);
-	revolver->Draw();
+	model->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }
