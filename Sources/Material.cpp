@@ -94,6 +94,11 @@ void Material::SetPropertyValue(const string& name, Texture* value){
 	prop->SetValue(value);
 }
 
+void Material::SetPropertyValue(const string& name, Cubemap* value) {
+	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
 Shader* Material::GetShader(){
 	if(shader){
 		return shader;

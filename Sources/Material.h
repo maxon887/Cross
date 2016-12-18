@@ -38,6 +38,7 @@ public:
 	void SetPropertyValue(const string& name, Vector4D& value);
 	void SetPropertyValue(const string& name, Matrix& value);
 	void SetPropertyValue(const string& name, Texture* value);
+	void SetPropertyValue(const string& name, Cubemap* cubemap);
 
 	Shader* GetShader();
 

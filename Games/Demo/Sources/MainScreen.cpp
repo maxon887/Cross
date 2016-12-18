@@ -43,6 +43,7 @@
 #include "Graphics3D/Misc/TransparencyScene.h"
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
+#include "Graphics3D/Misc/PBRScene.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -154,16 +155,19 @@ void MainScreen::Start(){
 	Button* stencilTestBtn		= new Button("Stencil Test", font->Clone());
 	Button* transparencyBtn		= new Button("Transparency", font->Clone());
 	Button* skyboxBtn			= new Button("Skybox", font->Clone());
+	Button* pbrBtn				= new Button("BPR", font->Clone());
 	Button* apocalypseBtn		= new Button("Apocalypse", font->Clone());
 	depthTestBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new DepthScene()); });
 	stencilTestBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new StencilScene()); });
 	transparencyBtn->Clicked	+= FastDelegate0<void>([](){ game->SetScreen(new TransparencyScene()); });
 	skyboxBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new SkyboxScene()); });
+	pbrBtn->Clicked				+= FastDelegate0<void>([](){ game->SetScreen(new PBRScene()); });
 	apocalypseBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new ApocalypseScene()); });
 	graphics3D_misc->AddButton(depthTestBtn);
 	graphics3D_misc->AddButton(stencilTestBtn);
 	graphics3D_misc->AddButton(transparencyBtn);
 	graphics3D_misc->AddButton(skyboxBtn);
+	graphics3D_misc->AddButton(pbrBtn);
 	graphics3D_misc->AddButton(apocalypseBtn);
 	graphics3D_misc->SetImages(buttonSprite, buttonSpritePressed);
 
