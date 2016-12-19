@@ -20,7 +20,6 @@
 #include "Camera2D.h"
 #include "Launcher.h"
 #include "Sprite.h"
-#include "Graphics3D/Misc/PBRScene.h"
 
 Demo* demo = NULL;
 
@@ -73,7 +72,6 @@ Screen* Demo::GetStartScreen(){
 	camera->SetPosition(Vector3D::Zero);
 	gfx2D->SetCamera(camera);
 	return new MainScreen();
-	//return new PBRScene();
 }
 
 Sprite* Demo::GetCommonSprite(string name){

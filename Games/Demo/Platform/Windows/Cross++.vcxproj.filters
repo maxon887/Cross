@@ -313,9 +313,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\PBRScene.cpp">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -579,9 +576,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Cubemap.h">
       <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\PBRScene.h">
-      <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

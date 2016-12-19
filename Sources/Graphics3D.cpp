@@ -162,11 +162,11 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 			material->active_texture_slot++;
 			if(shader->uMVP != -1){
 				Camera* cam = scene->GetCamera();
-				//Matrix view = cam->GetViewMatrix();
-				//view.m[0][3] = 0.f;
-				//view.m[1][3] = 0.f;
-				//view.m[2][3] = 0.f;
-				Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel * mesh->GetModelMatrix();
+				Matrix view = cam->GetViewMatrix();
+				view.m[0][3] = 0.f;
+				view.m[1][3] = 0.f;
+				view.m[2][3] = 0.f;
+				Matrix mvp = cam->GetProjectionMatrix() * view * globalModel * mesh->GetModelMatrix();
 				mvp = mvp.GetTransposed();
 				SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 			}
