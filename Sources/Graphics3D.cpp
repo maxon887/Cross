@@ -162,6 +162,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 			material->active_texture_slot++;
 			if(shader->uMVP != -1){
 				Camera* cam = scene->GetCamera();
+				//DO TO: REMOVE THIS!!!
 				Matrix view = cam->GetViewMatrix();
 				view.m[0][3] = 0.f;
 				view.m[1][3] = 0.f;
