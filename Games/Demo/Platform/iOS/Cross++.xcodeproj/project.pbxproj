@@ -8,9 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
-		D44D86991DE0A29700FF206B /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86931DE0A29700FF206B /* DepthScene.cpp */; };
-		D44D869A1DE0A29700FF206B /* StencilScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86951DE0A29700FF206B /* StencilScene.cpp */; };
-		D44D869B1DE0A29700FF206B /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86971DE0A29700FF206B /* TransparencyScene.cpp */; };
+		D44F108F1E09C18F00870451 /* DepthTestScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10831E09C18F00870451 /* DepthTestScreen.cpp */; };
+		D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */; };
+		D44F10911E09C18F00870451 /* MaterialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10871E09C18F00870451 /* MaterialScene.cpp */; };
+		D44F10921E09C18F00870451 /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10891E09C18F00870451 /* MultiLightScene.cpp */; };
+		D44F10931E09C18F00870451 /* PointLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F108B1E09C18F00870451 /* PointLightScene.cpp */; };
+		D44F10941E09C18F00870451 /* SpotLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F108D1E09C18F00870451 /* SpotLightScene.cpp */; };
+		D44F10A11E09C1A600870451 /* DiffuseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10971E09C1A600870451 /* DiffuseScene.cpp */; };
+		D44F10A21E09C1A600870451 /* NakedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10991E09C1A600870451 /* NakedScene.cpp */; };
+		D44F10A31E09C1A600870451 /* NormalScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F109B1E09C1A600870451 /* NormalScene.cpp */; };
+		D44F10A41E09C1A600870451 /* RoughnessScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F109D1E09C1A600870451 /* RoughnessScene.cpp */; };
+		D44F10A51E09C1A600870451 /* SpecularScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F109F1E09C1A600870451 /* SpecularScene.cpp */; };
+		D44F10B01E09C1AF00870451 /* ApocalypseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10A61E09C1AF00870451 /* ApocalypseScene.cpp */; };
+		D44F10B11E09C1AF00870451 /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10A81E09C1AF00870451 /* DepthScene.cpp */; };
+		D44F10B21E09C1AF00870451 /* SkyboxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10AA1E09C1AF00870451 /* SkyboxScene.cpp */; };
+		D44F10B31E09C1AF00870451 /* StencilScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10AC1E09C1AF00870451 /* StencilScene.cpp */; };
+		D44F10B41E09C1AF00870451 /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10AE1E09C1AF00870451 /* TransparencyScene.cpp */; };
+		D44F10B71E09C1FB00870451 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10B51E09C1FB00870451 /* Skybox.cpp */; };
+		D44F10BA1E09C20100870451 /* Cubemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10B81E09C20100870451 /* Cubemap.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
@@ -78,15 +93,6 @@
 		D4CEA6601DD633FD0054B6A9 /* SpritesScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA65A1DD633FD0054B6A9 /* SpritesScreen.cpp */; };
 		D4CEA6611DD633FD0054B6A9 /* TextScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA65C1DD633FD0054B6A9 /* TextScreen.cpp */; };
 		D4CEA6641DD6340E0054B6A9 /* CameraControlsScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */; };
-		D4CEA6791DD634400054B6A9 /* CamaroScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6671DD634400054B6A9 /* CamaroScene.cpp */; };
-		D4CEA67A1DD634400054B6A9 /* DepthTestScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6691DD634400054B6A9 /* DepthTestScreen.cpp */; };
-		D4CEA67B1DD634400054B6A9 /* DiffuseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA66B1DD634400054B6A9 /* DiffuseScene.cpp */; };
-		D4CEA67C1DD634400054B6A9 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA66D1DD634400054B6A9 /* DirectionalLightScene.cpp */; };
-		D4CEA67D1DD634400054B6A9 /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA66F1DD634400054B6A9 /* MultiLightScene.cpp */; };
-		D4CEA67E1DD634400054B6A9 /* PointLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6711DD634400054B6A9 /* PointLightScene.cpp */; };
-		D4CEA67F1DD634400054B6A9 /* SpecularMapScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6731DD634400054B6A9 /* SpecularMapScene.cpp */; };
-		D4CEA6801DD634400054B6A9 /* SpecularScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6751DD634400054B6A9 /* SpecularScene.cpp */; };
-		D4CEA6811DD634400054B6A9 /* SpotLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6771DD634400054B6A9 /* SpotLightScene.cpp */; };
 		D4CEA68A1DD6344D0054B6A9 /* ComplexModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6821DD6344D0054B6A9 /* ComplexModelScene.cpp */; };
 		D4CEA68B1DD6344D0054B6A9 /* SolidModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6841DD6344D0054B6A9 /* SolidModelScene.cpp */; };
 		D4CEA68C1DD6344D0054B6A9 /* TexturedModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6861DD6344D0054B6A9 /* TexturedModelScene.cpp */; };
@@ -103,12 +109,42 @@
 
 /* Begin PBXFileReference section */
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		D44D86931DE0A29700FF206B /* DepthScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthScene.cpp; path = Graphics3D/Advanced/DepthScene.cpp; sourceTree = "<group>"; };
-		D44D86941DE0A29700FF206B /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthScene.h; path = Graphics3D/Advanced/DepthScene.h; sourceTree = "<group>"; };
-		D44D86951DE0A29700FF206B /* StencilScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StencilScene.cpp; path = Graphics3D/Advanced/StencilScene.cpp; sourceTree = "<group>"; };
-		D44D86961DE0A29700FF206B /* StencilScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StencilScene.h; path = Graphics3D/Advanced/StencilScene.h; sourceTree = "<group>"; };
-		D44D86971DE0A29700FF206B /* TransparencyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransparencyScene.cpp; path = Graphics3D/Advanced/TransparencyScene.cpp; sourceTree = "<group>"; };
-		D44D86981DE0A29700FF206B /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransparencyScene.h; path = Graphics3D/Advanced/TransparencyScene.h; sourceTree = "<group>"; };
+		D44F10831E09C18F00870451 /* DepthTestScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthTestScreen.cpp; path = Graphics3D/Light/DepthTestScreen.cpp; sourceTree = "<group>"; };
+		D44F10841E09C18F00870451 /* DepthTestScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthTestScreen.h; path = Graphics3D/Light/DepthTestScreen.h; sourceTree = "<group>"; };
+		D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionalLightScene.cpp; path = Graphics3D/Light/DirectionalLightScene.cpp; sourceTree = "<group>"; };
+		D44F10861E09C18F00870451 /* DirectionalLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectionalLightScene.h; path = Graphics3D/Light/DirectionalLightScene.h; sourceTree = "<group>"; };
+		D44F10871E09C18F00870451 /* MaterialScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialScene.cpp; path = Graphics3D/Light/MaterialScene.cpp; sourceTree = "<group>"; };
+		D44F10881E09C18F00870451 /* MaterialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaterialScene.h; path = Graphics3D/Light/MaterialScene.h; sourceTree = "<group>"; };
+		D44F10891E09C18F00870451 /* MultiLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultiLightScene.cpp; path = Graphics3D/Light/MultiLightScene.cpp; sourceTree = "<group>"; };
+		D44F108A1E09C18F00870451 /* MultiLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiLightScene.h; path = Graphics3D/Light/MultiLightScene.h; sourceTree = "<group>"; };
+		D44F108B1E09C18F00870451 /* PointLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointLightScene.cpp; path = Graphics3D/Light/PointLightScene.cpp; sourceTree = "<group>"; };
+		D44F108C1E09C18F00870451 /* PointLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointLightScene.h; path = Graphics3D/Light/PointLightScene.h; sourceTree = "<group>"; };
+		D44F108D1E09C18F00870451 /* SpotLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpotLightScene.cpp; path = Graphics3D/Light/SpotLightScene.cpp; sourceTree = "<group>"; };
+		D44F108E1E09C18F00870451 /* SpotLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotLightScene.h; path = Graphics3D/Light/SpotLightScene.h; sourceTree = "<group>"; };
+		D44F10971E09C1A600870451 /* DiffuseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DiffuseScene.cpp; path = Graphics3D/Maps/DiffuseScene.cpp; sourceTree = "<group>"; };
+		D44F10981E09C1A600870451 /* DiffuseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiffuseScene.h; path = Graphics3D/Maps/DiffuseScene.h; sourceTree = "<group>"; };
+		D44F10991E09C1A600870451 /* NakedScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NakedScene.cpp; path = Graphics3D/Maps/NakedScene.cpp; sourceTree = "<group>"; };
+		D44F109A1E09C1A600870451 /* NakedScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NakedScene.h; path = Graphics3D/Maps/NakedScene.h; sourceTree = "<group>"; };
+		D44F109B1E09C1A600870451 /* NormalScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalScene.cpp; path = Graphics3D/Maps/NormalScene.cpp; sourceTree = "<group>"; };
+		D44F109C1E09C1A600870451 /* NormalScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NormalScene.h; path = Graphics3D/Maps/NormalScene.h; sourceTree = "<group>"; };
+		D44F109D1E09C1A600870451 /* RoughnessScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RoughnessScene.cpp; path = Graphics3D/Maps/RoughnessScene.cpp; sourceTree = "<group>"; };
+		D44F109E1E09C1A600870451 /* RoughnessScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoughnessScene.h; path = Graphics3D/Maps/RoughnessScene.h; sourceTree = "<group>"; };
+		D44F109F1E09C1A600870451 /* SpecularScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpecularScene.cpp; path = Graphics3D/Maps/SpecularScene.cpp; sourceTree = "<group>"; };
+		D44F10A01E09C1A600870451 /* SpecularScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpecularScene.h; path = Graphics3D/Maps/SpecularScene.h; sourceTree = "<group>"; };
+		D44F10A61E09C1AF00870451 /* ApocalypseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ApocalypseScene.cpp; path = Graphics3D/Misc/ApocalypseScene.cpp; sourceTree = "<group>"; };
+		D44F10A71E09C1AF00870451 /* ApocalypseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApocalypseScene.h; path = Graphics3D/Misc/ApocalypseScene.h; sourceTree = "<group>"; };
+		D44F10A81E09C1AF00870451 /* DepthScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthScene.cpp; path = Graphics3D/Misc/DepthScene.cpp; sourceTree = "<group>"; };
+		D44F10A91E09C1AF00870451 /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthScene.h; path = Graphics3D/Misc/DepthScene.h; sourceTree = "<group>"; };
+		D44F10AA1E09C1AF00870451 /* SkyboxScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SkyboxScene.cpp; path = Graphics3D/Misc/SkyboxScene.cpp; sourceTree = "<group>"; };
+		D44F10AB1E09C1AF00870451 /* SkyboxScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkyboxScene.h; path = Graphics3D/Misc/SkyboxScene.h; sourceTree = "<group>"; };
+		D44F10AC1E09C1AF00870451 /* StencilScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StencilScene.cpp; path = Graphics3D/Misc/StencilScene.cpp; sourceTree = "<group>"; };
+		D44F10AD1E09C1AF00870451 /* StencilScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StencilScene.h; path = Graphics3D/Misc/StencilScene.h; sourceTree = "<group>"; };
+		D44F10AE1E09C1AF00870451 /* TransparencyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransparencyScene.cpp; path = Graphics3D/Misc/TransparencyScene.cpp; sourceTree = "<group>"; };
+		D44F10AF1E09C1AF00870451 /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransparencyScene.h; path = Graphics3D/Misc/TransparencyScene.h; sourceTree = "<group>"; };
+		D44F10B51E09C1FB00870451 /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skybox.cpp; path = Utils/Skybox.cpp; sourceTree = "<group>"; };
+		D44F10B61E09C1FB00870451 /* Skybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skybox.h; path = Utils/Skybox.h; sourceTree = "<group>"; };
+		D44F10B81E09C20100870451 /* Cubemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cubemap.cpp; path = Utils/Cubemap.cpp; sourceTree = "<group>"; };
+		D44F10B91E09C20100870451 /* Cubemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cubemap.h; path = Utils/Cubemap.h; sourceTree = "<group>"; };
 		D46920931DD68C4F00CF949F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D46920951DD68E6800CF949F /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
 		D46920971DD6909300CF949F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -241,24 +277,6 @@
 		D4CEA65D1DD633FD0054B6A9 /* TextScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextScreen.h; path = Graphics2D/TextScreen.h; sourceTree = "<group>"; };
 		D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraControlsScreen.cpp; path = Graphics3D/CameraControlsScreen.cpp; sourceTree = "<group>"; };
 		D4CEA6631DD6340E0054B6A9 /* CameraControlsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraControlsScreen.h; path = Graphics3D/CameraControlsScreen.h; sourceTree = "<group>"; };
-		D4CEA6671DD634400054B6A9 /* CamaroScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CamaroScene.cpp; path = Graphics3D/Light/CamaroScene.cpp; sourceTree = "<group>"; };
-		D4CEA6681DD634400054B6A9 /* CamaroScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CamaroScene.h; path = Graphics3D/Light/CamaroScene.h; sourceTree = "<group>"; };
-		D4CEA6691DD634400054B6A9 /* DepthTestScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthTestScreen.cpp; path = Graphics3D/Light/DepthTestScreen.cpp; sourceTree = "<group>"; };
-		D4CEA66A1DD634400054B6A9 /* DepthTestScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthTestScreen.h; path = Graphics3D/Light/DepthTestScreen.h; sourceTree = "<group>"; };
-		D4CEA66B1DD634400054B6A9 /* DiffuseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DiffuseScene.cpp; path = Graphics3D/Light/DiffuseScene.cpp; sourceTree = "<group>"; };
-		D4CEA66C1DD634400054B6A9 /* DiffuseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiffuseScene.h; path = Graphics3D/Light/DiffuseScene.h; sourceTree = "<group>"; };
-		D4CEA66D1DD634400054B6A9 /* DirectionalLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionalLightScene.cpp; path = Graphics3D/Light/DirectionalLightScene.cpp; sourceTree = "<group>"; };
-		D4CEA66E1DD634400054B6A9 /* DirectionalLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectionalLightScene.h; path = Graphics3D/Light/DirectionalLightScene.h; sourceTree = "<group>"; };
-		D4CEA66F1DD634400054B6A9 /* MultiLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultiLightScene.cpp; path = Graphics3D/Light/MultiLightScene.cpp; sourceTree = "<group>"; };
-		D4CEA6701DD634400054B6A9 /* MultiLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiLightScene.h; path = Graphics3D/Light/MultiLightScene.h; sourceTree = "<group>"; };
-		D4CEA6711DD634400054B6A9 /* PointLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointLightScene.cpp; path = Graphics3D/Light/PointLightScene.cpp; sourceTree = "<group>"; };
-		D4CEA6721DD634400054B6A9 /* PointLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointLightScene.h; path = Graphics3D/Light/PointLightScene.h; sourceTree = "<group>"; };
-		D4CEA6731DD634400054B6A9 /* SpecularMapScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpecularMapScene.cpp; path = Graphics3D/Light/SpecularMapScene.cpp; sourceTree = "<group>"; };
-		D4CEA6741DD634400054B6A9 /* SpecularMapScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpecularMapScene.h; path = Graphics3D/Light/SpecularMapScene.h; sourceTree = "<group>"; };
-		D4CEA6751DD634400054B6A9 /* SpecularScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpecularScene.cpp; path = Graphics3D/Light/SpecularScene.cpp; sourceTree = "<group>"; };
-		D4CEA6761DD634400054B6A9 /* SpecularScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpecularScene.h; path = Graphics3D/Light/SpecularScene.h; sourceTree = "<group>"; };
-		D4CEA6771DD634400054B6A9 /* SpotLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpotLightScene.cpp; path = Graphics3D/Light/SpotLightScene.cpp; sourceTree = "<group>"; };
-		D4CEA6781DD634400054B6A9 /* SpotLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotLightScene.h; path = Graphics3D/Light/SpotLightScene.h; sourceTree = "<group>"; };
 		D4CEA6821DD6344D0054B6A9 /* ComplexModelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ComplexModelScene.cpp; path = Graphics3D/Simple/ComplexModelScene.cpp; sourceTree = "<group>"; };
 		D4CEA6831DD6344D0054B6A9 /* ComplexModelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComplexModelScene.h; path = Graphics3D/Simple/ComplexModelScene.h; sourceTree = "<group>"; };
 		D4CEA6841DD6344D0054B6A9 /* SolidModelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SolidModelScene.cpp; path = Graphics3D/Simple/SolidModelScene.cpp; sourceTree = "<group>"; };
@@ -303,17 +321,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D44D86921DE0A27400FF206B /* Advanced */ = {
+		D44F10951E09C19900870451 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				D44D86931DE0A29700FF206B /* DepthScene.cpp */,
-				D44D86941DE0A29700FF206B /* DepthScene.h */,
-				D44D86951DE0A29700FF206B /* StencilScene.cpp */,
-				D44D86961DE0A29700FF206B /* StencilScene.h */,
-				D44D86971DE0A29700FF206B /* TransparencyScene.cpp */,
-				D44D86981DE0A29700FF206B /* TransparencyScene.h */,
+				D44F10971E09C1A600870451 /* DiffuseScene.cpp */,
+				D44F10981E09C1A600870451 /* DiffuseScene.h */,
+				D44F10991E09C1A600870451 /* NakedScene.cpp */,
+				D44F109A1E09C1A600870451 /* NakedScene.h */,
+				D44F109B1E09C1A600870451 /* NormalScene.cpp */,
+				D44F109C1E09C1A600870451 /* NormalScene.h */,
+				D44F109D1E09C1A600870451 /* RoughnessScene.cpp */,
+				D44F109E1E09C1A600870451 /* RoughnessScene.h */,
+				D44F109F1E09C1A600870451 /* SpecularScene.cpp */,
+				D44F10A01E09C1A600870451 /* SpecularScene.h */,
 			);
-			name = Advanced;
+			name = Maps;
+			sourceTree = "<group>";
+		};
+		D44F10961E09C19E00870451 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				D44F10A61E09C1AF00870451 /* ApocalypseScene.cpp */,
+				D44F10A71E09C1AF00870451 /* ApocalypseScene.h */,
+				D44F10A81E09C1AF00870451 /* DepthScene.cpp */,
+				D44F10A91E09C1AF00870451 /* DepthScene.h */,
+				D44F10AA1E09C1AF00870451 /* SkyboxScene.cpp */,
+				D44F10AB1E09C1AF00870451 /* SkyboxScene.h */,
+				D44F10AC1E09C1AF00870451 /* StencilScene.cpp */,
+				D44F10AD1E09C1AF00870451 /* StencilScene.h */,
+				D44F10AE1E09C1AF00870451 /* TransparencyScene.cpp */,
+				D44F10AF1E09C1AF00870451 /* TransparencyScene.h */,
+			);
+			name = Misc;
 			sourceTree = "<group>";
 		};
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
@@ -516,6 +555,10 @@
 		D4CEA5A01DD631170054B6A9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D44F10B81E09C20100870451 /* Cubemap.cpp */,
+				D44F10B91E09C20100870451 /* Cubemap.h */,
+				D44F10B51E09C1FB00870451 /* Skybox.cpp */,
+				D44F10B61E09C1FB00870451 /* Skybox.h */,
 				D4CEA6331DD6337D0054B6A9 /* Animation.cpp */,
 				D4CEA6341DD6337D0054B6A9 /* Animation.h */,
 				D4CEA6351DD6337D0054B6A9 /* Button.cpp */,
@@ -615,7 +658,8 @@
 		D4CEA6451DD633B30054B6A9 /* Graphics3D */ = {
 			isa = PBXGroup;
 			children = (
-				D44D86921DE0A27400FF206B /* Advanced */,
+				D44F10961E09C19E00870451 /* Misc */,
+				D44F10951E09C19900870451 /* Maps */,
 				D4CEA6661DD634220054B6A9 /* Light */,
 				D4CEA6651DD634120054B6A9 /* Simple */,
 				D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */,
@@ -657,24 +701,18 @@
 		D4CEA6661DD634220054B6A9 /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				D4CEA6671DD634400054B6A9 /* CamaroScene.cpp */,
-				D4CEA6681DD634400054B6A9 /* CamaroScene.h */,
-				D4CEA6691DD634400054B6A9 /* DepthTestScreen.cpp */,
-				D4CEA66A1DD634400054B6A9 /* DepthTestScreen.h */,
-				D4CEA66B1DD634400054B6A9 /* DiffuseScene.cpp */,
-				D4CEA66C1DD634400054B6A9 /* DiffuseScene.h */,
-				D4CEA66D1DD634400054B6A9 /* DirectionalLightScene.cpp */,
-				D4CEA66E1DD634400054B6A9 /* DirectionalLightScene.h */,
-				D4CEA66F1DD634400054B6A9 /* MultiLightScene.cpp */,
-				D4CEA6701DD634400054B6A9 /* MultiLightScene.h */,
-				D4CEA6711DD634400054B6A9 /* PointLightScene.cpp */,
-				D4CEA6721DD634400054B6A9 /* PointLightScene.h */,
-				D4CEA6731DD634400054B6A9 /* SpecularMapScene.cpp */,
-				D4CEA6741DD634400054B6A9 /* SpecularMapScene.h */,
-				D4CEA6751DD634400054B6A9 /* SpecularScene.cpp */,
-				D4CEA6761DD634400054B6A9 /* SpecularScene.h */,
-				D4CEA6771DD634400054B6A9 /* SpotLightScene.cpp */,
-				D4CEA6781DD634400054B6A9 /* SpotLightScene.h */,
+				D44F10831E09C18F00870451 /* DepthTestScreen.cpp */,
+				D44F10841E09C18F00870451 /* DepthTestScreen.h */,
+				D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */,
+				D44F10861E09C18F00870451 /* DirectionalLightScene.h */,
+				D44F10871E09C18F00870451 /* MaterialScene.cpp */,
+				D44F10881E09C18F00870451 /* MaterialScene.h */,
+				D44F10891E09C18F00870451 /* MultiLightScene.cpp */,
+				D44F108A1E09C18F00870451 /* MultiLightScene.h */,
+				D44F108B1E09C18F00870451 /* PointLightScene.cpp */,
+				D44F108C1E09C18F00870451 /* PointLightScene.h */,
+				D44F108D1E09C18F00870451 /* SpotLightScene.cpp */,
+				D44F108E1E09C18F00870451 /* SpotLightScene.h */,
 			);
 			name = Light;
 			sourceTree = "<group>";
@@ -751,35 +789,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4CEA6081DD633180054B6A9 /* IAPHelper.m in Sources */,
+				D44F10A31E09C1A600870451 /* NormalScene.cpp in Sources */,
 				D4CEA68A1DD6344D0054B6A9 /* ComplexModelScene.cpp in Sources */,
-				D4CEA6791DD634400054B6A9 /* CamaroScene.cpp in Sources */,
 				D4CEA5E11DD631C50054B6A9 /* Mesh.cpp in Sources */,
 				D4CEA5C21DD631A40054B6A9 /* Font.cpp in Sources */,
 				D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */,
+				D44F10B21E09C1AF00870451 /* SkyboxScene.cpp in Sources */,
 				D4DA8DD81DD6614000D236A4 /* tinyxmlerror.cpp in Sources */,
 				D4CEA5DF1DD631C50054B6A9 /* Light.cpp in Sources */,
+				D44F10B31E09C1AF00870451 /* StencilScene.cpp in Sources */,
 				D4CEA5C11DD631A40054B6A9 /* File.cpp in Sources */,
-				D4CEA6811DD634400054B6A9 /* SpotLightScene.cpp in Sources */,
-				D44D86991DE0A29700FF206B /* DepthScene.cpp in Sources */,
 				D4CEA6091DD633180054B6A9 /* iRate.m in Sources */,
 				D4CEA6441DD6337D0054B6A9 /* ToggleButton.cpp in Sources */,
+				D44F10A51E09C1A600870451 /* SpecularScene.cpp in Sources */,
 				D4CEA5E91DD631C50054B6A9 /* VertexBuffer.cpp in Sources */,
 				D4CEA6421DD6337D0054B6A9 /* DebugScene.cpp in Sources */,
 				D4CEA5C41DD631A40054B6A9 /* Graphics2D.cpp in Sources */,
 				D4CEA60A1DD633180054B6A9 /* LauncherOS.mm in Sources */,
 				D4CEA61D1DD633440054B6A9 /* Rect.cpp in Sources */,
 				D4CEA5E51DD631C50054B6A9 /* Sprite.cpp in Sources */,
-				D4CEA67A1DD634400054B6A9 /* DepthTestScreen.cpp in Sources */,
 				D4DA8DD71DD6614000D236A4 /* tinyxml.cpp in Sources */,
 				D4CEA61B1DD633440054B6A9 /* Matrix.cpp in Sources */,
 				D4CEA63F1DD6337D0054B6A9 /* Animation.cpp in Sources */,
+				D44F10B71E09C1FB00870451 /* Skybox.cpp in Sources */,
 				D4CEA5E61DD631C50054B6A9 /* Texture.cpp in Sources */,
 				D4CEA68B1DD6344D0054B6A9 /* SolidModelScene.cpp in Sources */,
-				D4CEA67E1DD634400054B6A9 /* PointLightScene.cpp in Sources */,
-				D4CEA6801DD634400054B6A9 /* SpecularScene.cpp in Sources */,
 				D4CEA5AF1DD631920054B6A9 /* Color.cpp in Sources */,
 				D4DA8DCE1DD6613300D236A4 /* SOIL.c in Sources */,
-				D4CEA67D1DD634400054B6A9 /* MultiLightScene.cpp in Sources */,
+				D44F10911E09C18F00870451 /* MaterialScene.cpp in Sources */,
 				D46A234E1AF9EF8400B77AC8 /* main.m in Sources */,
 				D4CEA5EC1DD631FA0054B6A9 /* Array.cpp in Sources */,
 				D4CEA6291DD6335A0054B6A9 /* Shader.cpp in Sources */,
@@ -787,43 +824,47 @@
 				D4CEA61A1DD633440054B6A9 /* All.cpp in Sources */,
 				D4CEA6611DD633FD0054B6A9 /* TextScreen.cpp in Sources */,
 				D4CEA65E1DD633FD0054B6A9 /* AnimationScreen.cpp in Sources */,
-				D44D869A1DE0A29700FF206B /* StencilScene.cpp in Sources */,
 				D4CEA6551DD633E50054B6A9 /* ScrollScreen.cpp in Sources */,
 				D4CEA5E71DD631C50054B6A9 /* Transformable.cpp in Sources */,
 				D4CEA6321DD633690054B6A9 /* MemoryManager.cpp in Sources */,
 				D4CEA6401DD6337D0054B6A9 /* Button.cpp in Sources */,
 				D4CEA5E31DD631C50054B6A9 /* Scene.cpp in Sources */,
 				D4CEA6641DD6340E0054B6A9 /* CameraControlsScreen.cpp in Sources */,
+				D44F10A11E09C1A600870451 /* DiffuseScene.cpp in Sources */,
 				D4DA8DD61DD6614000D236A4 /* tinystr.cpp in Sources */,
 				D4CEA6271DD6335A0054B6A9 /* LightShader.cpp in Sources */,
+				D44F10B11E09C1AF00870451 /* DepthScene.cpp in Sources */,
+				D44F10941E09C18F00870451 /* SpotLightScene.cpp in Sources */,
 				D4CEA6071DD633180054B6A9 /* CrossViewController.mm in Sources */,
 				D4CEA68D1DD6344D0054B6A9 /* TriangleScene.cpp in Sources */,
 				D4CEA6541DD633E50054B6A9 /* Menu.cpp in Sources */,
 				D4CEA6511DD633E50054B6A9 /* AudioScreen.cpp in Sources */,
 				D4CEA5AE1DD631920054B6A9 /* Camera2D.cpp in Sources */,
+				D44F10A41E09C1A600870451 /* RoughnessScene.cpp in Sources */,
 				D4CEA61F1DD633440054B6A9 /* Vector3D.cpp in Sources */,
 				D4CEA61E1DD633440054B6A9 /* Vector2D.cpp in Sources */,
 				D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */,
 				D4CEA6281DD6335A0054B6A9 /* MultiLightShader.cpp in Sources */,
 				D4DA8DD91DD6614000D236A4 /* tinyxmlparser.cpp in Sources */,
-				D4CEA67B1DD634400054B6A9 /* DiffuseScene.cpp in Sources */,
-				D4CEA67C1DD634400054B6A9 /* DirectionalLightScene.cpp in Sources */,
 				D4CEA5AC1DD631920054B6A9 /* Audio.cpp in Sources */,
+				D44F10A21E09C1A600870451 /* NakedScene.cpp in Sources */,
 				D4CEA5E21DD631C50054B6A9 /* Model.cpp in Sources */,
+				D44F10931E09C18F00870451 /* PointLightScene.cpp in Sources */,
+				D44F10921E09C18F00870451 /* MultiLightScene.cpp in Sources */,
 				D4CEA5B01DD631920054B6A9 /* Config.cpp in Sources */,
 				D4CEA6521DD633E50054B6A9 /* Demo.cpp in Sources */,
 				D4CEA5E41DD631C50054B6A9 /* Screen.cpp in Sources */,
-				D4CEA67F1DD634400054B6A9 /* SpecularMapScene.cpp in Sources */,
 				D4CEA6041DD633180054B6A9 /* AppDelegate.m in Sources */,
 				D4CEA68C1DD6344D0054B6A9 /* TexturedModelScene.cpp in Sources */,
 				D4CEA5C71DD631A40054B6A9 /* Input.cpp in Sources */,
 				D4CEA5C61DD631A40054B6A9 /* GraphicsGL.cpp in Sources */,
+				D44F10BA1E09C20100870451 /* Cubemap.cpp in Sources */,
 				D4CEA5E81DD631C50054B6A9 /* UI.cpp in Sources */,
 				D4CEA6201DD633440054B6A9 /* Vector4D.cpp in Sources */,
 				D4CEA65F1DD633FD0054B6A9 /* PrimitivesScreen.cpp in Sources */,
-				D44D869B1DE0A29700FF206B /* TransparencyScene.cpp in Sources */,
 				D4CEA5C31DD631A40054B6A9 /* Game.cpp in Sources */,
 				D4DA8DCD1DD6613300D236A4 /* image_helper.c in Sources */,
+				D44F108F1E09C18F00870451 /* DepthTestScreen.cpp in Sources */,
 				D4CEA6301DD633690054B6A9 /* Debugger.cpp in Sources */,
 				D4CEA5C51DD631A40054B6A9 /* Graphics3D.cpp in Sources */,
 				D4CEA5E01DD631C50054B6A9 /* Material.cpp in Sources */,
@@ -831,10 +872,13 @@
 				D4CEA6601DD633FD0054B6A9 /* SpritesScreen.cpp in Sources */,
 				D4CEA6411DD6337D0054B6A9 /* Commercial.cpp in Sources */,
 				D4CEA6531DD633E50054B6A9 /* MainScreen.cpp in Sources */,
+				D44F10B41E09C1AF00870451 /* TransparencyScene.cpp in Sources */,
 				D4CEA6431DD6337D0054B6A9 /* FreeCameraScene.cpp in Sources */,
 				D4CEA61C1DD633440054B6A9 /* Quaternion.cpp in Sources */,
 				D4DA8DCF1DD6613300D236A4 /* stb_image_aug.c in Sources */,
+				D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */,
 				D4CEA6051DD633180054B6A9 /* CommercialOS.mm in Sources */,
+				D44F10B01E09C1AF00870451 /* ApocalypseScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

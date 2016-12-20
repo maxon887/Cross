@@ -22,6 +22,8 @@
 #include "Matrix.h"
 #include "Quaternion.h"
 
+#include <math.h>
+
 #define PI (3.141592653589793f)
 
 namespace cross {
