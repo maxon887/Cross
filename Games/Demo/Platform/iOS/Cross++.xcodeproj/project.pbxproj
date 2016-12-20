@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D42A95EA1DF1DB810009E7B1 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D42A95E81DF1DB810009E7B1 /* Skybox.cpp */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D44D86991DE0A29700FF206B /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86931DE0A29700FF206B /* DepthScene.cpp */; };
 		D44D869A1DE0A29700FF206B /* StencilScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44D86951DE0A29700FF206B /* StencilScene.cpp */; };
@@ -103,8 +102,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D42A95E81DF1DB810009E7B1 /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skybox.cpp; path = Utils/Skybox.cpp; sourceTree = "<group>"; };
-		D42A95E91DF1DB810009E7B1 /* Skybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skybox.h; path = Utils/Skybox.h; sourceTree = "<group>"; };
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D44D86931DE0A29700FF206B /* DepthScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthScene.cpp; path = Graphics3D/Advanced/DepthScene.cpp; sourceTree = "<group>"; };
 		D44D86941DE0A29700FF206B /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthScene.h; path = Graphics3D/Advanced/DepthScene.h; sourceTree = "<group>"; };
@@ -519,8 +516,6 @@
 		D4CEA5A01DD631170054B6A9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				D42A95E81DF1DB810009E7B1 /* Skybox.cpp */,
-				D42A95E91DF1DB810009E7B1 /* Skybox.h */,
 				D4CEA6331DD6337D0054B6A9 /* Animation.cpp */,
 				D4CEA6341DD6337D0054B6A9 /* Animation.h */,
 				D4CEA6351DD6337D0054B6A9 /* Button.cpp */,
@@ -710,13 +705,12 @@
 		D46A23401AF9EF8400B77AC8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Lukyanau Maksim";
 				TargetAttributes = {
 					D46A23471AF9EF8400B77AC8 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = AQNAZWX3GB;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -771,7 +765,6 @@
 				D4CEA6441DD6337D0054B6A9 /* ToggleButton.cpp in Sources */,
 				D4CEA5E91DD631C50054B6A9 /* VertexBuffer.cpp in Sources */,
 				D4CEA6421DD6337D0054B6A9 /* DebugScene.cpp in Sources */,
-				D42A95EA1DF1DB810009E7B1 /* Skybox.cpp in Sources */,
 				D4CEA5C41DD631A40054B6A9 /* Graphics2D.cpp in Sources */,
 				D4CEA60A1DD633180054B6A9 /* LauncherOS.mm in Sources */,
 				D4CEA61D1DD633440054B6A9 /* Rect.cpp in Sources */,
@@ -861,19 +854,15 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -907,10 +896,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -918,7 +905,6 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -937,7 +923,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = AQNAZWX3GB;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -955,7 +940,6 @@
 					"-lFreetype2",
 					"-lassimp",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cross.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -965,7 +949,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = AQNAZWX3GB;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -983,7 +966,6 @@
 					"-lFreetype2",
 					"-lassimp",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cross.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
