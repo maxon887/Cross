@@ -27,7 +27,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 using namespace cross;
 
-
 Button::Button(Rect area, string text) :
 	Button()
 {
@@ -166,7 +165,7 @@ void Button::SetImages(Sprite * up) {
 	SetImages(up, nullptr);
 }
 
-void Button::SetSounds(Audio* push, Audio* pull) {
+void Button::SetSounds(Sound* push, Sound* pull) {
 	this->push_sound = push;
 	this->pull_sound = pull;
 }

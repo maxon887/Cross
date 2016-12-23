@@ -16,22 +16,21 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #include "Audio.h"
 #include "Launcher.h"
+#include "Sound.h"
 
 #include "Libs/FMOD/fmod.hpp"
 #include "Libs/FMOD/fmod_errors.h"
 
+#define ERRCHECK(_result) if(_result != FMOD_OK) { throw CrossException("FMOD error %d - %s", _result, FMOD_ErrorString(_result)); }
+
 using namespace cross;
 
-#ifndef DISABLE_AUDIO
+static FMOD_RESULT result;
 
-static FMOD_RESULT		result;
-
-FMOD::System*	Audio::system = NULL;
-
-#define ERRCHECK(result) if(result != FMOD_OK) { throw CrossException("FMOD error %d - %s", result, FMOD_ErrorString(result)); }
-
-void Audio::Init(){
-	launcher->LogIt("Audio::Init()");
+Audio::Audio() : 
+	system(NULL)	
+{
+	launcher->LogIt("Audio::Audio()");
 	result = FMOD::System_Create(&system);
 	ERRCHECK(result);
 
@@ -47,31 +46,24 @@ void Audio::Init(){
 	ERRCHECK(result);
 }
 
-void Audio::SuspendSystem(){
-	system->mixerSuspend();
-}
-
-void Audio::ResumeSystem(){
-	system->mixerResume();
-}
-
-void Audio::Release(){
-    result = system->close();
+Audio::~Audio(){
+	result = system->close();
     ERRCHECK(result);
 }
 
-Audio::Audio(const string& path, bool loop, bool isStream){
-	if(system == NULL)
+Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
+	if(system == NULL){
 		throw CrossException("Audio not initialized");
+	}
+	Sound* sound = new Sound();
+
 	FMOD_MODE mode = 0;
-	channel = NULL;
-	original = true;
 	if(loop){
 		mode = FMOD_LOOP_NORMAL;
 	}else{
 		mode = FMOD_LOOP_OFF;
 	}
-	if(isStream){
+	if(stream){
 		mode |= FMOD_CREATESTREAM;
 	}
 #ifdef ANDROID
@@ -79,105 +71,20 @@ Audio::Audio(const string& path, bool loop, bool isStream){
 #else
 	string absPath = launcher->AssetsPath() + "/" + path;
 #endif
-	result = system->createSound(absPath.c_str(), mode, 0, &sound);
+	result = system->createSound(absPath.c_str(), mode, 0, &sound->sound);
     ERRCHECK(result);
+
+	return sound;
 }
 
-Audio::Audio(Audio& obj){
-	original = false;
-	channel = obj.channel;
-	sound = obj.sound;
-}
-
-void Audio::Play(){
-	result = system->playSound(sound, 0, false, &channel);
-	ERRCHECK(result);
-	system->update();
-}
-
-void Audio::Pause(){
-	result = channel->setPaused(true);
-	ERRCHECK(result);
+void Audio::Suspend(){
+	system->mixerSuspend();
 }
 
 void Audio::Resume(){
-	result = channel->setPaused(false);
-	ERRCHECK(result);
+	system->mixerResume();
 }
 
-void Audio::Stop(){
-	channel->stop();
+FMOD::System* Audio::GetSystem(){
+	return system;
 }
-
-bool Audio::IsPlaying(){
-	bool playing;
-	result = channel->isPlaying(&playing);
-	if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
-		ERRCHECK(result);
-	}
-	return playing;
-}
-
-Audio* Audio::Clone(){
-	return new Audio(*this);
-}
-
-Audio::~Audio(){
-	if(original){
-		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
-		ERRCHECK(result);
-	}else{
-		channel->stop();
-	}
-}
-
-#else
-
-
-void Audio::Init(){
-	launcher->LogIt("Audio::Init()");
-	launcher->LogIt("Audio system disabled");
-}
-
-void Audio::SuspendSystem(){
-}
-
-void Audio::ResumeSystem(){
-}
-
-void Audio::Release(){
-}
-
-Audio::Audio(string path, bool loop, bool isStream){
-	throw CrossException("Audio system disabled");
-}
-
-Audio::Audio(Audio& obj){
-	throw CrossException("Audio system disabled");
-}
-
-void Audio::Play(){
-	throw CrossException("Audio system disabled");
-}
-
-void Audio::Pause(){
-	throw CrossException("Audio system disabled");
-}
-
-void Audio::Resume(){
-	throw CrossException("Audio system disabled");
-}
-
-void Audio::Stop(){
-	throw CrossException("Audio system disabled");
-}
-
-bool Audio::IsPlaying(){
-	throw CrossException("Audio system disabled");
-}
-
-Audio::~Audio(){
-	throw CrossException("Audio system disabled");
-}
-
-#endif

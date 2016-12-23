@@ -313,6 +313,9 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Sound.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -576,6 +579,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Sound.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

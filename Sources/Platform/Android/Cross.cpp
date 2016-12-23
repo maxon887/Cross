@@ -168,7 +168,7 @@ extern "C"{
             string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
             launcher = new LauncherAndroid(env, crossActivity, mng, stdDataPath);
-            Audio::Init();
+            audio = new Audio();
             pthread_create(&threadID, 0, Main, NULL);
         }else{
             LOGE("Attempt to initialize game second time");
@@ -209,6 +209,7 @@ extern "C"{
 	void Java_com_cross_Cross_OnExit(JNIEnv *env, jobject thiz){
 		LOGI("Cross_OnExit");
         app_state = APP_EXIT;
+		delete audio;
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){

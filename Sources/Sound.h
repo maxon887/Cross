@@ -16,27 +16,33 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Sound.h"
 
 namespace FMOD{
-	class System;
+	class Sound;
+	class Channel;
 }
 
-namespace cross {
+namespace cross{
 
-class Audio{
+class Sound{
 public:
-	Audio();
-	~Audio();
+	Sound();
+	Sound(Sound& obj);
+	~Sound();
 
-	Sound* LoadSound(const string& path, bool loop, bool isStream);
-	void Suspend();
+	void Play();
+	void Pause();
 	void Resume();
-
-	FMOD::System* GetSystem();
+	void Stop();
+	bool IsPlaying();
+	Sound* Clone();
 
 private:
-	FMOD::System* system;
+	friend Audio;
+
+	FMOD::Sound* sound;
+	FMOD::Channel* channel;
+	bool original;
 };
 
-}
+};

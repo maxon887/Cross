@@ -40,7 +40,7 @@ public:
 	void SetText(string text);
 	void SetImages(Sprite* up, Sprite* down);
 	void SetImages(Sprite* up);
-	void SetSounds(Audio* push, Audio* pull);
+	void SetSounds(Sound* push, Sound* pull);
 	void SetActive(bool active);
 	void Scale(float coef);
 	bool IsPressed() const;
@@ -63,8 +63,8 @@ protected:
 	//optional parameters
 	Sprite* up_image;
 	Sprite* down_image;
-	Audio* push_sound;
-	Audio* pull_sound;
+	Sound* push_sound;
+	Sound* pull_sound;
 	Font* font;
 	string label_text;
 	Vector2D text_size;

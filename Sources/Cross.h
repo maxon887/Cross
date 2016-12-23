@@ -55,6 +55,7 @@ class Input;
 class Config;
 class Sprite;
 class Audio;
+class Sound;
 class Screen;
 class File;
 class Font;
@@ -76,6 +77,7 @@ extern Launcher*	launcher;
 extern GraphicsGL*	gfxGL;
 extern Graphics2D*	gfx2D;
 extern Graphics3D*	gfx3D;
+extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
 

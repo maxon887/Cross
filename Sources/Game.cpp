@@ -26,6 +26,7 @@ using namespace cross;
 
 Game*		cross::game		= NULL;
 Launcher*	cross::launcher = NULL;
+Audio*		cross::audio	= NULL;
 GraphicsGL* cross::gfxGL	= NULL;
 Graphics2D* cross::gfx2D	= NULL;
 Graphics3D* cross::gfx3D	= NULL;

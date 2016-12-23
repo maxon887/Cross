@@ -15,9 +15,9 @@ private:
 	Menu* audio_menu;
 	Sprite* button_sprite;
 	Sprite* button_sprite_pressed;
-	Audio* bck_music;
-	Audio* jaguar;
-	Audio* truck;
+	Sound* bck_music;
+	Sound* jaguar;
+	Sound* truck;
 	bool is_bck_playing;
 
 	void OnSoundButtonClick();

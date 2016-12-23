@@ -106,6 +106,7 @@
     <ClCompile Include="..\..\..\..\Sources\Shaders\LightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Sound.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Input.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\LightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h" />
+    <ClInclude Include="..\..\..\..\Sources\Sound.h" />
     <ClInclude Include="..\..\..\..\Sources\Sprite.h" />
     <ClInclude Include="..\..\..\..\Sources\Input.h" />
     <ClInclude Include="..\..\..\..\Sources\Launcher.h" />

@@ -97,7 +97,7 @@ int OpenGL_Main(){
 
 		ShowWindow(wnd, TRUE);
 
-		Audio::Init();
+		audio = new Audio();
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
 		gfx3D = new Graphics3D();

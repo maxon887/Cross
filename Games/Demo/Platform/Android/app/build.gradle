@@ -80,6 +80,8 @@ android {
 
         main.jni.srcDirs += '../../../../../Sources/Audio.cpp'
         main.jni.srcDirs += '../../../../../Sources/Audio.h'
+        main.jni.srcDirs += '../../../../../Sources/Sound.cpp'
+        main.jni.srcDirs += '../../../../../Sources/Sound.h'
         main.jni.srcDirs += '../../../../../Sources/Camera.cpp'
         main.jni.srcDirs += '../../../../../Sources/Camera.h'
         main.jni.srcDirs += '../../../../../Sources/Camera2D.cpp'
