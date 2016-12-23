@@ -23,8 +23,6 @@
 #include "Font.h"
 #include "Camera2D.h"
 
-#include <math.h>
-
 using namespace cross;
 
 FreeCameraScene::FreeCameraScene() :

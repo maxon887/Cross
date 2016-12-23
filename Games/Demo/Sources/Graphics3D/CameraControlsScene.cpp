@@ -14,12 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "CameraControlsScreen.h"
+#include "CameraControlsScene.h"
 #include "Demo.h"
 #include "Sprite.h"
 #include "Camera.h"
 
-void CameraControlsScreen::Start(){
+void CameraControlsScene::Start(){
 	DebugScene::Start();
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -3.f));
 	//UI
@@ -61,7 +61,7 @@ void CameraControlsScreen::Start(){
 	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
 	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
 	eye_btn = new ToggleButton(eye, eyePressed);
-	eye_btn->Clicked += MakeDelegate(this, &CameraControlsScreen::OnEyeClick);
+	eye_btn->Clicked += MakeDelegate(this, &CameraControlsScene::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
 	AddUI(eye_btn);
@@ -69,13 +69,13 @@ void CameraControlsScreen::Start(){
 	OnEyeClick();
 }
 
-void CameraControlsScreen::Stop(){
+void CameraControlsScene::Stop(){
 	delete arrow_released;
 	delete arrow_pressed;
 	DebugScene::Stop();
 }
 
-void CameraControlsScreen::Update(float sec){
+void CameraControlsScene::Update(float sec){
 	DebugScene::Update(sec);
 
 	if(up_btn->IsPressed()) {
@@ -92,6 +92,6 @@ void CameraControlsScreen::Update(float sec){
 	}
 }
 
-void CameraControlsScreen::OnEyeClick(){
+void CameraControlsScene::OnEyeClick(){
 	LookAtCamera(!eye_btn->GetState());
 }

@@ -25,10 +25,8 @@
 #include "Material.h"
 #include "Texture.h"
 
-#include <math.h>
-
 void TransparencyScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	SetAmbientColor(Color(0.15f));
 
@@ -101,11 +99,11 @@ void TransparencyScene::Stop(){
 	delete road_diffuse;
 	delete grass_diffuse;
 	delete road_shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void TransparencyScene::Update(float sec){
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 	road->Draw();
 	sphere->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));

@@ -17,8 +17,6 @@
 #include "Matrix.h"
 #include "Cross.h"
 
-#include <math.h>
-
 using namespace cross;
 
 const Matrix Matrix::Zero = Matrix::CreateZero();

@@ -17,8 +17,6 @@
 #include "Transformable.h"
 #include "Launcher.h"
 
-#include <math.h>
-
 using namespace cross;
 
 Transformable::Transformable() :

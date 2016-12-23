@@ -17,8 +17,6 @@
 #include "Shaders/LightShader.h"
 #include "Light.h"
 
-#include <math.h>
-
 using namespace cross;
 
 LightShader::LightShader(const string& vertex, const string& fragment) :

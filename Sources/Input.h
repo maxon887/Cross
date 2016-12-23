@@ -120,8 +120,7 @@ enum class Key{
 	Handle touches, clicks and key events */
 class Input{
 public:
-	class Action{
-	public:
+	struct Action{
 		Vector2D pos;
 		S32 id;
 	};

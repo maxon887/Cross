@@ -26,8 +26,6 @@
 #include "Shaders/Shader.h"
 #include "Config.h"
 
-#include <math.h>
-
 #include "Libs/SOIL/SOIL.h"
 #include "Libs/FreeType/ft2build.h"
 #include "Libs/TinyXML/tinyxml.h"

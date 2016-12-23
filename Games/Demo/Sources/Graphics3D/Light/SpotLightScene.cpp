@@ -24,7 +24,7 @@
 #include "Camera.h"
 	
 void SpotLightScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(-8.f, 0.f, -15.f));
 
@@ -65,12 +65,12 @@ void SpotLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void SpotLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 }

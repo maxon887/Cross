@@ -21,7 +21,7 @@
 #include "Graphics3D.h"
 
 void TriangleScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	shader->Compile();
@@ -47,10 +47,10 @@ void TriangleScene::Stop(){
 	delete triangle;
 	delete material;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void TriangleScene::Update(float sec){
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 	gfx3D->DrawMesh(triangle, Matrix::Identity, false, false, Graphics3D::StencilBehaviour::IGNORED);
 }

@@ -24,7 +24,7 @@
 #include "Camera.h"
 
 void MaterialScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 	//light setups
 	Light* light = new Light(Light::Type::POINT);
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
@@ -49,11 +49,11 @@ void MaterialScene::Stop(){
 	delete cube;
 	delete material;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void MaterialScene::Update(float sec){
 	cube->Draw();
 	cube->SetRotateY(game->GetRunTime() * 15.f);
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 }

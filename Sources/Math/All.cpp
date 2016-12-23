@@ -14,10 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Math.h"
-#include "Cross.h"
+#include "All.h"
 
-#include <math.h>
 #include <stdlib.h>
 
 static float sign(const cross::Vector2D& p1, const cross::Vector2D& p2, const cross::Vector2D& p3){
@@ -70,7 +68,7 @@ bool cross::CircleOnCollision(const Vector2D& p1, float r1, const Vector2D& p2, 
 }
 
 float cross::Distance(const Vector2D &v1, const Vector2D &v2){
-	return sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
+	return sqrtf((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
 }
 
 float cross::DistanceSq(const Vector2D &v1, const Vector2D &v2){
@@ -78,7 +76,7 @@ float cross::DistanceSq(const Vector2D &v1, const Vector2D &v2){
 }
 
 float cross::Distance(const Vector3D &v1, const Vector3D &v2){
-	return sqrt((v1.x - v2.x)*(v1.x - v2.x) +
+	return sqrtf((v1.x - v2.x)*(v1.x - v2.x) +
 		(v1.y - v2.y)*(v1.y - v2.y) +
 		(v1.z - v2.z)*(v1.z - v2.z));
 }

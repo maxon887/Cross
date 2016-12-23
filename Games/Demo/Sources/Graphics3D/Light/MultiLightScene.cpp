@@ -23,7 +23,7 @@
 #include "Camera.h"
 
 void MultiLightScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 	
@@ -83,12 +83,12 @@ void MultiLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void MultiLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 }

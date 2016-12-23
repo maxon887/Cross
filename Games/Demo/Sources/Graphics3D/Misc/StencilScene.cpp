@@ -25,7 +25,7 @@
 #include "Camera.h"
 
 void StencilScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -6.f));
 	//light setups
@@ -82,11 +82,11 @@ void StencilScene::Stop(){
 	delete road_texture;
 	delete shader_outline;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void StencilScene::Update(float sec){
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 	for(Model* model : models){
 		model->SetScale(1.f);
 		model->SetStencil(Graphics3D::StencilBehaviour::WRITE);

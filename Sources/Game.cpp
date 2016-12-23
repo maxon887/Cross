@@ -101,7 +101,7 @@ float Game::GetRunTime(){
 void Game::Update(){
 	U64 now = launcher->GetTime();
 	U64 updateTime = now - timestamp;
-	float secTime = updateTime / 1000000.;
+	float secTime = (float)(updateTime / 1000000.);
 	timestamp = now;
 	run_time += updateTime;
 

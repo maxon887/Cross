@@ -226,9 +226,6 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\FreeCameraScene.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScreen.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\UI.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -312,6 +309,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -493,9 +493,6 @@
     <ClInclude Include="..\..\..\..\Sources\UI.h">
       <Filter>Cross</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScreen.h">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\DebugScene.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -576,6 +573,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Cubemap.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

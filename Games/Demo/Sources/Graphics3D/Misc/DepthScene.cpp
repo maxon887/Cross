@@ -26,10 +26,8 @@
 #include "Texture.h"
 #include "Config.h"
 
-#include <math.h>
-
 void DepthScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	SetAmbientColor(Color(0.1f));
 
@@ -55,11 +53,11 @@ void DepthScene::Stop(){
 	delete car_mat;
 	delete road_mat;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void DepthScene::Update(float sec){
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 	camaro->Draw();
 	road->Draw();
 }

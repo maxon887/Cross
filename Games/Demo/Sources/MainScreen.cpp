@@ -27,7 +27,6 @@
 #include "Graphics3D/Simple/TriangleScene.h"
 #include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"
-#include "Graphics3D/Simple/ComplexModelScene.h"
 #include "Graphics3D/Light/MaterialScene.h"
 #include "Graphics3D/Light/DirectionalLightScene.h"
 #include "Graphics3D/Light/PointLightScene.h"

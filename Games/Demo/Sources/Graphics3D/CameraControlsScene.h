@@ -20,7 +20,7 @@
 
 using namespace cross;
 
-class CameraControlsScreen : public DebugScene{
+class CameraControlsScene : public DebugScene{
 public:
 	virtual void Start();
 	virtual void Stop();

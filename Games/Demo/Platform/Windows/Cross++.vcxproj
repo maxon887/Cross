@@ -131,7 +131,7 @@
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
@@ -221,7 +221,7 @@
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />

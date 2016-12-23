@@ -21,19 +21,19 @@ namespace cross{
 
 class Texture{
 public:
-	enum class Filter{
+	enum Filter{
 		NEAREST,
 		LINEAR,
 		BILINEAR,
-		TRILINEAR,
-		NONE
+		TRILINEAR
 	};
-	enum class TilingMode{
+
+	enum TilingMode{
 		CLAMP_TO_EDGE,
-		REPEAT,
-		NONE
+		REPEAT
 	};
-	enum class Compression{
+
+	enum Compression{
 		ETC1,
 		NONE
 	};

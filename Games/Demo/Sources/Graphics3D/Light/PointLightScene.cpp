@@ -24,7 +24,7 @@
 #include "Camera.h"
 	
 void PointLightScene::Start(){
-	CameraControlsScreen::Start();
+	CameraControlsScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 
@@ -62,12 +62,12 @@ void PointLightScene::Stop(){
 	delete diffuse_texture;
 	delete specular_map;
 	delete shader;
-	CameraControlsScreen::Stop();
+	CameraControlsScene::Stop();
 }
 
 void PointLightScene::Update(float sec){
 	for(Model* obj : objects){
 		obj->Draw();
 	}
-	CameraControlsScreen::Update(sec);
+	CameraControlsScene::Update(sec);
 }

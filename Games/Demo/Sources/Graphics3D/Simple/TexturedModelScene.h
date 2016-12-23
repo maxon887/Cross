@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScreen.h"
+#include "Graphics3D/CameraControlsScene.h"
 
-class TexturedModelScene : public CameraControlsScreen{
+class TexturedModelScene : public CameraControlsScene{
 public:
 	void Start();
 	void Stop();
