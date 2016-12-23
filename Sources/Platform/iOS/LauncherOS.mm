@@ -68,5 +68,5 @@ Commercial* LauncherOS::GetCommercial(){
 
 LauncherOS::~LauncherOS(){
     delete commercial;
-    Audio::Release();
+    delete audio;
 }

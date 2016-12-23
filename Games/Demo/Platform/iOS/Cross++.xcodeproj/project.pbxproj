@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
-		D44F108F1E09C18F00870451 /* DepthTestScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10831E09C18F00870451 /* DepthTestScreen.cpp */; };
 		D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */; };
 		D44F10911E09C18F00870451 /* MaterialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10871E09C18F00870451 /* MaterialScene.cpp */; };
 		D44F10921E09C18F00870451 /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10891E09C18F00870451 /* MultiLightScene.cpp */; };
@@ -32,6 +31,8 @@
 		D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */; };
 		D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24081AF9F77400B77AC8 /* GLKit.framework */; };
 		D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D46920931DD68C4F00CF949F /* libz.tbd */; };
+		D4CA6FE01E0DE2970063AC97 /* CameraControlsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CA6FDE1E0DE2970063AC97 /* CameraControlsScene.cpp */; };
+		D4CA6FE31E0DE3530063AC97 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CA6FE11E0DE3530063AC97 /* Sound.cpp */; };
 		D4CEA5AC1DD631920054B6A9 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A11DD631920054B6A9 /* Audio.cpp */; };
 		D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A31DD631920054B6A9 /* Camera.cpp */; };
 		D4CEA5AE1DD631920054B6A9 /* Camera2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A51DD631920054B6A9 /* Camera2D.cpp */; };
@@ -92,8 +93,6 @@
 		D4CEA65F1DD633FD0054B6A9 /* PrimitivesScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6581DD633FD0054B6A9 /* PrimitivesScreen.cpp */; };
 		D4CEA6601DD633FD0054B6A9 /* SpritesScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA65A1DD633FD0054B6A9 /* SpritesScreen.cpp */; };
 		D4CEA6611DD633FD0054B6A9 /* TextScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA65C1DD633FD0054B6A9 /* TextScreen.cpp */; };
-		D4CEA6641DD6340E0054B6A9 /* CameraControlsScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */; };
-		D4CEA68A1DD6344D0054B6A9 /* ComplexModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6821DD6344D0054B6A9 /* ComplexModelScene.cpp */; };
 		D4CEA68B1DD6344D0054B6A9 /* SolidModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6841DD6344D0054B6A9 /* SolidModelScene.cpp */; };
 		D4CEA68C1DD6344D0054B6A9 /* TexturedModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6861DD6344D0054B6A9 /* TexturedModelScene.cpp */; };
 		D4CEA68D1DD6344D0054B6A9 /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6881DD6344D0054B6A9 /* TriangleScene.cpp */; };
@@ -109,8 +108,6 @@
 
 /* Begin PBXFileReference section */
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		D44F10831E09C18F00870451 /* DepthTestScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DepthTestScreen.cpp; path = Graphics3D/Light/DepthTestScreen.cpp; sourceTree = "<group>"; };
-		D44F10841E09C18F00870451 /* DepthTestScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DepthTestScreen.h; path = Graphics3D/Light/DepthTestScreen.h; sourceTree = "<group>"; };
 		D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionalLightScene.cpp; path = Graphics3D/Light/DirectionalLightScene.cpp; sourceTree = "<group>"; };
 		D44F10861E09C18F00870451 /* DirectionalLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectionalLightScene.h; path = Graphics3D/Light/DirectionalLightScene.h; sourceTree = "<group>"; };
 		D44F10871E09C18F00870451 /* MaterialScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialScene.cpp; path = Graphics3D/Light/MaterialScene.cpp; sourceTree = "<group>"; };
@@ -155,6 +152,10 @@
 		D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D46A24081AF9F77400B77AC8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D4CA6FDE1E0DE2970063AC97 /* CameraControlsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraControlsScene.cpp; path = Graphics3D/CameraControlsScene.cpp; sourceTree = "<group>"; };
+		D4CA6FDF1E0DE2970063AC97 /* CameraControlsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraControlsScene.h; path = Graphics3D/CameraControlsScene.h; sourceTree = "<group>"; };
+		D4CA6FE11E0DE3530063AC97 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
+		D4CA6FE21E0DE3530063AC97 /* Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sound.h; sourceTree = "<group>"; };
 		D4CEA5A11DD631920054B6A9 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		D4CEA5A21DD631920054B6A9 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		D4CEA5A31DD631920054B6A9 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -275,10 +276,6 @@
 		D4CEA65B1DD633FD0054B6A9 /* SpritesScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpritesScreen.h; path = Graphics2D/SpritesScreen.h; sourceTree = "<group>"; };
 		D4CEA65C1DD633FD0054B6A9 /* TextScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextScreen.cpp; path = Graphics2D/TextScreen.cpp; sourceTree = "<group>"; };
 		D4CEA65D1DD633FD0054B6A9 /* TextScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextScreen.h; path = Graphics2D/TextScreen.h; sourceTree = "<group>"; };
-		D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraControlsScreen.cpp; path = Graphics3D/CameraControlsScreen.cpp; sourceTree = "<group>"; };
-		D4CEA6631DD6340E0054B6A9 /* CameraControlsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraControlsScreen.h; path = Graphics3D/CameraControlsScreen.h; sourceTree = "<group>"; };
-		D4CEA6821DD6344D0054B6A9 /* ComplexModelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ComplexModelScene.cpp; path = Graphics3D/Simple/ComplexModelScene.cpp; sourceTree = "<group>"; };
-		D4CEA6831DD6344D0054B6A9 /* ComplexModelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComplexModelScene.h; path = Graphics3D/Simple/ComplexModelScene.h; sourceTree = "<group>"; };
 		D4CEA6841DD6344D0054B6A9 /* SolidModelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SolidModelScene.cpp; path = Graphics3D/Simple/SolidModelScene.cpp; sourceTree = "<group>"; };
 		D4CEA6851DD6344D0054B6A9 /* SolidModelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolidModelScene.h; path = Graphics3D/Simple/SolidModelScene.h; sourceTree = "<group>"; };
 		D4CEA6861DD6344D0054B6A9 /* TexturedModelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TexturedModelScene.cpp; path = Graphics3D/Simple/TexturedModelScene.cpp; sourceTree = "<group>"; };
@@ -440,6 +437,8 @@
 				D4CEA5D21DD631C50054B6A9 /* Scene.h */,
 				D4CEA5D31DD631C50054B6A9 /* Screen.cpp */,
 				D4CEA5D41DD631C50054B6A9 /* Screen.h */,
+				D4CA6FE11E0DE3530063AC97 /* Sound.cpp */,
+				D4CA6FE21E0DE3530063AC97 /* Sound.h */,
 				D4CEA5D51DD631C50054B6A9 /* Sprite.cpp */,
 				D4CEA5D61DD631C50054B6A9 /* Sprite.h */,
 				D4CEA5D71DD631C50054B6A9 /* Texture.cpp */,
@@ -658,12 +657,12 @@
 		D4CEA6451DD633B30054B6A9 /* Graphics3D */ = {
 			isa = PBXGroup;
 			children = (
+				D4CA6FDE1E0DE2970063AC97 /* CameraControlsScene.cpp */,
+				D4CA6FDF1E0DE2970063AC97 /* CameraControlsScene.h */,
 				D44F10961E09C19E00870451 /* Misc */,
 				D44F10951E09C19900870451 /* Maps */,
 				D4CEA6661DD634220054B6A9 /* Light */,
 				D4CEA6651DD634120054B6A9 /* Simple */,
-				D4CEA6621DD6340E0054B6A9 /* CameraControlsScreen.cpp */,
-				D4CEA6631DD6340E0054B6A9 /* CameraControlsScreen.h */,
 			);
 			name = Graphics3D;
 			sourceTree = "<group>";
@@ -686,8 +685,6 @@
 		D4CEA6651DD634120054B6A9 /* Simple */ = {
 			isa = PBXGroup;
 			children = (
-				D4CEA6821DD6344D0054B6A9 /* ComplexModelScene.cpp */,
-				D4CEA6831DD6344D0054B6A9 /* ComplexModelScene.h */,
 				D4CEA6841DD6344D0054B6A9 /* SolidModelScene.cpp */,
 				D4CEA6851DD6344D0054B6A9 /* SolidModelScene.h */,
 				D4CEA6861DD6344D0054B6A9 /* TexturedModelScene.cpp */,
@@ -701,8 +698,6 @@
 		D4CEA6661DD634220054B6A9 /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				D44F10831E09C18F00870451 /* DepthTestScreen.cpp */,
-				D44F10841E09C18F00870451 /* DepthTestScreen.h */,
 				D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */,
 				D44F10861E09C18F00870451 /* DirectionalLightScene.h */,
 				D44F10871E09C18F00870451 /* MaterialScene.cpp */,
@@ -790,7 +785,6 @@
 			files = (
 				D4CEA6081DD633180054B6A9 /* IAPHelper.m in Sources */,
 				D44F10A31E09C1A600870451 /* NormalScene.cpp in Sources */,
-				D4CEA68A1DD6344D0054B6A9 /* ComplexModelScene.cpp in Sources */,
 				D4CEA5E11DD631C50054B6A9 /* Mesh.cpp in Sources */,
 				D4CEA5C21DD631A40054B6A9 /* Font.cpp in Sources */,
 				D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */,
@@ -800,6 +794,7 @@
 				D44F10B31E09C1AF00870451 /* StencilScene.cpp in Sources */,
 				D4CEA5C11DD631A40054B6A9 /* File.cpp in Sources */,
 				D4CEA6091DD633180054B6A9 /* iRate.m in Sources */,
+				D4CA6FE01E0DE2970063AC97 /* CameraControlsScene.cpp in Sources */,
 				D4CEA6441DD6337D0054B6A9 /* ToggleButton.cpp in Sources */,
 				D44F10A51E09C1A600870451 /* SpecularScene.cpp in Sources */,
 				D4CEA5E91DD631C50054B6A9 /* VertexBuffer.cpp in Sources */,
@@ -829,7 +824,6 @@
 				D4CEA6321DD633690054B6A9 /* MemoryManager.cpp in Sources */,
 				D4CEA6401DD6337D0054B6A9 /* Button.cpp in Sources */,
 				D4CEA5E31DD631C50054B6A9 /* Scene.cpp in Sources */,
-				D4CEA6641DD6340E0054B6A9 /* CameraControlsScreen.cpp in Sources */,
 				D44F10A11E09C1A600870451 /* DiffuseScene.cpp in Sources */,
 				D4DA8DD61DD6614000D236A4 /* tinystr.cpp in Sources */,
 				D4CEA6271DD6335A0054B6A9 /* LightShader.cpp in Sources */,
@@ -864,7 +858,6 @@
 				D4CEA65F1DD633FD0054B6A9 /* PrimitivesScreen.cpp in Sources */,
 				D4CEA5C31DD631A40054B6A9 /* Game.cpp in Sources */,
 				D4DA8DCD1DD6613300D236A4 /* image_helper.c in Sources */,
-				D44F108F1E09C18F00870451 /* DepthTestScreen.cpp in Sources */,
 				D4CEA6301DD633690054B6A9 /* Debugger.cpp in Sources */,
 				D4CEA5C51DD631A40054B6A9 /* Graphics3D.cpp in Sources */,
 				D4CEA5E01DD631C50054B6A9 /* Material.cpp in Sources */,
@@ -879,6 +872,7 @@
 				D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */,
 				D4CEA6051DD633180054B6A9 /* CommercialOS.mm in Sources */,
 				D44F10B01E09C1AF00870451 /* ApocalypseScene.cpp in Sources */,
+				D4CA6FE31E0DE3530063AC97 /* Sound.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
