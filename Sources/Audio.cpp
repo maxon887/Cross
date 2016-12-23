@@ -20,58 +20,27 @@
 #include "Libs/FMOD/fmod.hpp"
 #include "Libs/FMOD/fmod_errors.h"
 
-#include <stdarg.h>
-
 using namespace cross;
 
 #ifndef DISABLE_AUDIO
 
-#ifndef Common_vsnprintf
-    #define Common_vsnprintf vsnprintf
-#endif
-
 static FMOD_RESULT		result;
 
 FMOD::System*	Audio::system = NULL;
-U32				Audio::version = 0;
 
-#define ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)
-void (*Common_Private_Error)(FMOD_RESULT, const char *, int);
-
-void Common_Fatal(const char *format, ...){
-    char error[1024];
-
-    va_list args;
-    va_start(args, format);
-    Common_vsnprintf(error, 1024, format, args);
-    va_end(args);
-    error[1023] = '\0';
-
-}
-
-void ERRCHECK_fn(FMOD_RESULT result, const char *file, U32 line)
-{
-    if (result != FMOD_OK)
-    {
-        if (Common_Private_Error)
-        {
-            Common_Private_Error(result, file, line);
-        }
-        Common_Fatal("%s(%d): FMOD error %d - %s", file, line, result, FMOD_ErrorString(result));
-    }
-}
-
+#define ERRCHECK(result) if(result != FMOD_OK) { throw CrossException("FMOD error %d - %s", result, FMOD_ErrorString(result)); }
 
 void Audio::Init(){
 	launcher->LogIt("Audio::Init()");
 	result = FMOD::System_Create(&system);
 	ERRCHECK(result);
 
+	U32 version;
 	result = system->getVersion(&version);
 	ERRCHECK(result);
 
 	if(version < FMOD_VERSION){
-		Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
+		throw CrossException("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 	}
 
 	result = system->init(32, FMOD_INIT_NORMAL, NULL);
@@ -91,24 +60,26 @@ void Audio::Release(){
     ERRCHECK(result);
 }
 
-Audio::Audio(string path, bool loop, bool isStream){
+Audio::Audio(const string& path, bool loop, bool isStream){
 	if(system == NULL)
 		throw CrossException("Audio not initialized");
 	FMOD_MODE mode = 0;
 	channel = NULL;
 	original = true;
-	if(loop)
+	if(loop){
 		mode = FMOD_LOOP_NORMAL;
-	else
+	}else{
 		mode = FMOD_LOOP_OFF;
-	if(isStream)
+	}
+	if(isStream){
 		mode |= FMOD_CREATESTREAM;
+	}
 #ifdef ANDROID
-	path = "file:///android_asset/" + path;
+	string absPath = "file:///android_asset/" + path;
 #else
-	path = launcher->AssetsPath() + "/" + path;
+	string absPath = launcher->AssetsPath() + "/" + path;
 #endif
-	result = system->createSound(path.c_str(), mode, 0, &sound);
+	result = system->createSound(absPath.c_str(), mode, 0, &sound);
     ERRCHECK(result);
 }
 
@@ -119,43 +90,32 @@ Audio::Audio(Audio& obj){
 }
 
 void Audio::Play(){
-	if(this != NULL){
-		result = system->playSound(sound, 0, false, &channel);
-		ERRCHECK(result);
-		system->update();
-	}
+	result = system->playSound(sound, 0, false, &channel);
+	ERRCHECK(result);
+	system->update();
 }
 
 void Audio::Pause(){
-	if(this != NULL){
-		result = channel->setPaused(true);
-		ERRCHECK(result);
-	}
+	result = channel->setPaused(true);
+	ERRCHECK(result);
 }
 
 void Audio::Resume(){
-	if(this != NULL){
-		result = channel->setPaused(false);
-		ERRCHECK(result);
-	}
+	result = channel->setPaused(false);
+	ERRCHECK(result);
 }
 
 void Audio::Stop(){
-	if(this != NULL){
-		channel->stop();
-	}
+	channel->stop();
 }
 
 bool Audio::IsPlaying(){
-	if(this != NULL){
-		bool playing;
-		result = channel->isPlaying(&playing);
-		if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
-		    ERRCHECK(result);
-		}
-		return playing;
+	bool playing;
+	result = channel->isPlaying(&playing);
+	if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
+		ERRCHECK(result);
 	}
-	return false;
+	return playing;
 }
 
 Audio* Audio::Clone(){

@@ -30,7 +30,7 @@ namespace cross {
 	If you dont use audio in your game declare DISABLE_AUDIO */
 class Audio{
 public:
-	Audio(string path, bool loop, bool isStream);
+	Audio(const string& path, bool loop, bool isStream);
 	~Audio();
 	
 	void Play();
@@ -50,8 +50,6 @@ private:
 	Audio(Audio& obj);
 
 	static FMOD::System* system;
-	static U32 version;
-	static void* extradriverdata;
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;
