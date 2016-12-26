@@ -46,8 +46,8 @@ public:
 private:
 	FT_Face face;
 	File* file;
-	CRArray<Sprite*> sprites;
-	CRArray<Texture*> textures;
+	Array<Sprite*> sprites;
+	Array<Texture*> textures;
 	float advances[128];
 	Color color;
 	float size;

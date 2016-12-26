@@ -427,9 +427,6 @@
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
-      <Filter>Cross\Experimental</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\VertexBuffer.h">
       <Filter>Cross</Filter>
     </ClInclude>

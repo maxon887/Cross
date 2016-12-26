@@ -31,7 +31,7 @@ public:
 	Sprite* GetImage();
 	bool IsRunning();
 private:
-	CRArray<Sprite*> frames;
+	Array<Sprite*> frames;
 	float rate;
 	float duration;
 	U32 frame_num;

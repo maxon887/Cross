@@ -147,7 +147,7 @@ protected:
 
 	std::mutex  input_mutex;
 	bool pressed_keys[(U32)Key::MAX_KEY_NUM];
-	CRList<pair<Input::Action, int> > action_stack;
+	List<pair<Input::Action, int> > action_stack;
 
 	Input();
 

@@ -22,7 +22,7 @@ namespace cross{
 
 class Material{
 public:
-	CRArray<Shader::Property*> properties;
+	Array<Shader::Property*> properties;
 	U32 active_texture_slot;
 
 	Material(Shader* shader);

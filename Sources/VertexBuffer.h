@@ -47,7 +47,7 @@ public:
 
 private:
 	bool initialized;
-	CRArray<Byte> data;
+	Array<Byte> data;
 	bool uv_enabled;
 	bool normals_enabled;
 	bool tangents_enabled;

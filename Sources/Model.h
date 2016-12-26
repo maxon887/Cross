@@ -53,7 +53,7 @@ protected:
 	string name;
 	string filepath;
 	Format format;
-	CRArray<Mesh*> meshes;
+	Array<Mesh*> meshes;
 	Material* material;
 	bool original;
 	bool face_culling;

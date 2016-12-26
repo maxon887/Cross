@@ -64,7 +64,7 @@ public:
 							Texture::Compression compression,
 							Texture::TilingMode tilingMode,
 							bool generateMipmaps );
-	void LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xml);
+	void LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();
 
 	Byte* LoadRawData(const string& filename, int& width, int& height, int& channels);
@@ -79,7 +79,7 @@ private:
 	Font* default_font;
 	Camera2D* camera;
 	Camera2D* default_camera;
-	CRList<pair<Texture*, S32>> loaded_textures;
+	List<pair<Texture*, S32>> loaded_textures;
 };
 
 }

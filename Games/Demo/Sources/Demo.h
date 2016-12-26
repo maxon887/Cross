@@ -38,7 +38,7 @@ private:
 	Camera2D* camera;
     Button* back_btn;
 	Texture* common_texture;
-	CRDictionary<string, Sprite*> common_sprites;
+	Dictionary<string, Sprite*> common_sprites;
 
 	void OnBackClick();
 	void OnKeyPressed(Key key);

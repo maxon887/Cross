@@ -31,7 +31,7 @@ public:
 
 	void SetCameraViewDistance(float distance);
 	void AddLight(Light* light);
-	CRArray<Light*>& GetLights();
+	Array<Light*>& GetLights();
 
 	Camera* GetCamera();
 	Color GetAmbientColor() const;
@@ -41,8 +41,8 @@ protected:
 	Camera* camera;
 	Color ambient_color;
 
-	CRArray<Light*> lights;
-	CRArray<Model*> models;
+	Array<Light*> lights;
+	Array<Model*> models;
 
 private:
 	FastDelegate2<S32, S32, void> window_resize_handle;

@@ -356,7 +356,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 		}
 	}
 
-	CRArray<U32> indices;
+	Array<U32> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i){
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);

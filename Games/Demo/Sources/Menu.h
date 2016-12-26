@@ -35,7 +35,7 @@ public:
 	void Locate();
 
 private:
-	CRArray<Button*> buttons;
+	Array<Button*> buttons;
 	float button_def_width;
 	float button_def_height;
 	float button_width;

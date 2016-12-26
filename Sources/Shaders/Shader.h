@@ -96,7 +96,7 @@ public:
 	GLint uAmbientLight;
 	GLint uColor;
 	//custom uniforms
-	CRArray<Property*> properties;
+	Array<Property*> properties;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
@@ -104,7 +104,7 @@ public:
 	virtual void Compile();
 
 	virtual bool UseLights();
-	virtual void TransferLightData(const CRArray<Light*>& lights);
+	virtual void TransferLightData(const Array<Light*>& lights);
 
 	bool IsCompiled();
 
@@ -123,7 +123,7 @@ public:
 
 protected:
 	GLuint program;
-	CRArray<string>	macrosies;
+	Array<string>	macrosies;
 
 private:
 	GLuint vertex_shader;

@@ -25,7 +25,7 @@ class VertexBuffer;
 
 class Mesh : public Transformable{
 public:
-	Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount);
+	Mesh(VertexBuffer* vertexBuffer, Array<U32> &indices, U32 primitivesCount);
 	~Mesh();
 
 	void SetName(const string& name);

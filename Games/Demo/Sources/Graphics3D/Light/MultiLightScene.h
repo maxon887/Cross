@@ -28,5 +28,5 @@ protected:
 	Texture* specular_map;
 	Material* material;
 	Model* cube;
-	CRArray<Model*> objects;
+	Array<Model*> objects;
 };

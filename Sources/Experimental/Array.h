@@ -29,6 +29,7 @@ public:
 		bool operator != (const Iterator& it) const;
 		void operator ++ ();
 		Type& operator * () const;
+
 	private:
 		Type* p;
 	};
@@ -49,6 +50,7 @@ public:
 	Iterator End() const;
 	void Clear();
 	bool Empty() const;
+	void Insert(Iterator begin, T* first, T* last);
 
 	Type& operator [] (unsigned int index) const;
 	void operator = (const Array<Type>& other);
@@ -62,6 +64,7 @@ public:
 	unsigned int size() const;
 	unsigned int capacity() const;
 	void clear();
+	void insert(Iterator begin, T* first, T* last);
 private:
 	Type* data;
 	unsigned int mSize;

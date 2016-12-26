@@ -29,5 +29,5 @@ private:
 	Material* material;
 	float shininess;
 	Model* cube;
-	CRArray<Model*> objects;
+	Array<Model*> objects;
 };

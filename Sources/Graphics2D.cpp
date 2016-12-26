@@ -544,7 +544,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 	return texture;
 }
 
-void Graphics2D::LoadSprites(CRDictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
+void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
 	File* xmlFile = launcher->LoadFile(xmlFilename);
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string

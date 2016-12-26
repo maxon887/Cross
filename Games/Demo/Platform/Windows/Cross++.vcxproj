@@ -162,7 +162,6 @@
     <ClInclude Include="..\..\..\..\Sources\Camera2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
-    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h" />
     <ClInclude Include="..\..\..\..\Sources\File.h" />
     <ClInclude Include="..\..\..\..\Sources\Font.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />

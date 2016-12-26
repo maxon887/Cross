@@ -87,7 +87,7 @@ private:
 		float height;
 	};
 
-	CRList<Entity*> entities;
+	List<Entity*> entities;
 	bool generate_entities;
 	Vector2D spawn;
 	Entity::Type entity_type;

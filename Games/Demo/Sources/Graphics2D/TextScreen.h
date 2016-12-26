@@ -35,7 +35,7 @@ public:
 private:
 	Font* font;
 	Font* debug_font;
-	CRArray<ScreenChar*> chars;
+	Array<ScreenChar*> chars;
 
 	void AddChar();
 };

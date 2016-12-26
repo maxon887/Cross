@@ -44,7 +44,7 @@ public:
 
 protected:
 	string user_config_path;
-	CRDictionary<string, string> user_prefs;
+	Dictionary<string, string> user_prefs;
 
 	bool use_compressed_textures;
 	Texture::Filter texture_filter;

@@ -17,7 +17,6 @@
 #pragma once
 #include "System/MemoryManager.h"
 #include "System/Exception.h"
-#include "Experimental/Array.h"
 #include "Math/All.h"
 #include "Color.h"
 
@@ -25,11 +24,7 @@
 #include <vector>
 #include <list>
 #include <map>
-
-#define CRArray			std::vector
-#define CRList			std::list
-#define CRDictionary	std::map
-
+//TODO: remove form here
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true
 #endif
@@ -45,6 +40,13 @@ typedef uint32_t	U32;
 typedef int64_t		S64;
 typedef uint64_t	U64;
 typedef uint8_t		Byte;
+
+template<typename T>
+using Array = std::vector<T>;
+template<typename T>
+using List = std::list<T>;
+template<typename K, typename V>
+using Dictionary = std::map<K, V>;
 
 class Game;
 class Launcher;

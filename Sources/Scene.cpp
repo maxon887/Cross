@@ -69,7 +69,7 @@ void Scene::AddLight(Light* light){
 	lights.push_back(light);
 }
 
-CRArray<Light*>& Scene::GetLights(){
+Array<Light*>& Scene::GetLights(){
 	return lights;
 }
 

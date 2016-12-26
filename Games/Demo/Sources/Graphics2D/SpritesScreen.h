@@ -26,8 +26,8 @@ public:
 	void Stop();
 	void Update(float sec);
 private:
-	CRArray<Vector2D> positions;
-	CRArray<Vector2D> velocities;
+	Array<Vector2D> positions;
+	Array<Vector2D> velocities;
 	Sprite* awesome_face;
 	Font* debug_font;
 

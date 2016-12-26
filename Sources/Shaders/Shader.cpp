@@ -139,7 +139,7 @@ bool Shader::UseLights(){
 	return false;
 }
 
-void Shader::TransferLightData(const CRArray<Light*>& lights){
+void Shader::TransferLightData(const Array<Light*>& lights){
 	throw CrossException("Lighting does not supported by this shader");
 }
 

@@ -33,5 +33,5 @@ private:
 	Material* road_mat;
 	Model* cube;
 	Model* road;
-	CRArray<Model*> models;
+	Array<Model*> models;
 };

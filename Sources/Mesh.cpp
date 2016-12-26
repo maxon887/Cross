@@ -21,7 +21,7 @@
 
 using namespace cross;
 
-Mesh::Mesh(VertexBuffer* vertexBuffer, CRArray<U32> &indices, U32 primitivesCount) :
+Mesh::Mesh(VertexBuffer* vertexBuffer, Array<U32> &indices, U32 primitivesCount) :
 	vertex_buffer(vertexBuffer),
 	primitives_count(primitivesCount),
 	material(NULL),

@@ -61,7 +61,7 @@ protected:
 	bool is_scene;
 private:
 	bool actionIDs[MAX_ACTIONS];
-	CRArray<UI*> guis;
+	Array<UI*> guis;
 
 	FastDelegate1<Input::Action, void> action_down_delegate;
 	FastDelegate1<Input::Action, void> action_move_delegate;
