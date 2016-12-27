@@ -1,8 +1,8 @@
 #include "Cross.h"
 #include "Demo.h"
-#include "Platform/Windows/LauncherWIN.h"
+#include "Platform/Windows/WINSystem.h"
 
-Game* CrossMain(Launcher* launcher){
-	Game* demo = new Demo(launcher);
+Game* CrossMain(){
+	Game* demo = new Demo();
 	return demo;
 }

@@ -17,7 +17,7 @@
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
-#include "Launcher.h"
+#include "System.h"
 
 using namespace cross;
 
@@ -33,7 +33,7 @@ Input::Input(){
 Vector2D Input::TargetToWordConvert(float x, float y){
 	Vector2D result;
 	Camera2D* cam = gfx2D->GetCamera();
-	float scaleFactor = launcher->GetTargetWidth() / cam->GetViewWidth();
+	float scaleFactor = system->GetWindowWidth() / cam->GetViewWidth();
 	result.x = x / scaleFactor;
 	result.y = cam->GetViewHeight() - y / scaleFactor;
 	result.x += cam->GetPosition().x;

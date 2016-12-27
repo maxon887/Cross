@@ -17,7 +17,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Sprite.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Screen.h"
 
 Menu::Menu(bool resizeble):
@@ -27,12 +27,12 @@ Menu::Menu(bool resizeble):
 	resizeble(resizeble)
 {
 	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
-	game->WindowResized += window_resized_delegate;
+	cross::system->WindowResized += window_resized_delegate;
 }
 
 Menu::~Menu(){
 	Clear();
-	game->WindowResized -= window_resized_delegate;
+	cross::system->WindowResized -= window_resized_delegate;
 }
 
 void Menu::Update(float sec){
@@ -105,7 +105,7 @@ void Menu::Locate(){
 			}
 
 			btn->SetLocation(pos);
-			//launcher->LogIt("Pos x - %f, y - %f", pos.x, pos.y);
+			//system->LogIt("Pos x - %f, y - %f", pos.x, pos.y);
 			pos.y -= offset;
 		}
 		button_width = buttons[0]->GetWidth();

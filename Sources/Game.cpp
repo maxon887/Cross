@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Input.h"
 #include "Config.h"
 #include "Scene.h"
@@ -25,7 +25,7 @@
 using namespace cross;
 
 Game*		cross::game		= NULL;
-Launcher*	cross::launcher = NULL;
+System*		cross::system	= NULL;
 Audio*		cross::audio	= NULL;
 GraphicsGL* cross::gfxGL	= NULL;
 Graphics2D* cross::gfx2D	= NULL;
@@ -39,20 +39,16 @@ Game::Game() :
 	run_time(0),
 	timestamp(0)
 {
-	launcher->LogIt("Game::Game()");
+	system->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
 }
 
 Game::~Game(){
-	launcher->LogIt("Game::~Game");
+	system->LogIt("Game::~Game");
 	delete current_screen;
 	delete config;
 	delete input;
-}
-
-Screen* Game::GetStartScreen(){
-	return current_screen;
 }
 
 void Game::Start(){
@@ -89,7 +85,7 @@ void Game::Suspend(){
 }
 
 void Game::Resume(){
-	timestamp = launcher->GetTime();
+	timestamp = system->GetTime();
 	if(current_screen != nullptr) {
 		current_screen->Resume();
 	}
@@ -100,7 +96,7 @@ float Game::GetRunTime(){
 }
 
 void Game::EngineUpdate(){
-	U64 now = launcher->GetTime();
+	U64 now = system->GetTime();
 	U64 updateTime = now - timestamp;
 	float secTime = (float)(updateTime / 1000000.);
 	timestamp = now;
@@ -119,12 +115,12 @@ void Game::EngineUpdate(){
 	gfxGL->PostProcessFrame();
 
 	Debugger::Instance()->Update((float)updateTime);
-	U64 cpuTime = launcher->GetTime() - timestamp;
+	U64 cpuTime = system->GetTime() - timestamp;
 	Debugger::Instance()->SetCPUTime((float)cpuTime);
 	/*
 	float milis = cpuTime / 1000.f;
 	if(milis < 5){
-		launcher->Sleep(5 - milis);
+		system->Sleep(5 - milis);
 	}*/
 }
 
@@ -135,7 +131,7 @@ void Game::Exit(){
 }
 
 void Game::LoadNextScreen(){
-	launcher->LogIt("Game::LoadNextScreen()");
+	system->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 
 	if(current_screen){
@@ -145,8 +141,8 @@ void Game::LoadNextScreen(){
 	current_screen = next_screen;
 	next_screen = NULL;
 	current_screen->Start();
-	timestamp = launcher->GetTime();
+	timestamp = system->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	launcher->LogIt("Screen(no name) loaded in %0.1fms", loadTime);
+	system->LogIt("Screen(no name) loaded in %0.1fms", loadTime);
 	TRIGGER_EVENT(ScreenChanged, current_screen);
 }

@@ -17,7 +17,7 @@
 #include "Screen.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
-#include "Launcher.h"
+#include "System.h"
 #include "UI.h"
 
 using namespace cross;
@@ -67,7 +67,7 @@ bool Screen::IsScene(){
 }
 
 float Screen::GetScaleFactor(){
-	return (float)launcher->GetTargetWidth() / GetWidth();
+	return (float)system->GetWindowWidth() / GetWidth();
 }
 
 void Screen::SetBackground(const Color& c){

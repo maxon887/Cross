@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Debugger.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
@@ -60,7 +60,7 @@ Debugger::Debugger() :
 		//if any of debug parameters enabled create debug font
 		if(params[i]){
 			debugger_font = gfx2D->GetDefaultFont()->Clone();
-			if(launcher->GetTargetWidth() < 700){
+			if(system->GetWindowWidth() < 700){
 				debugger_font->SetSize(37.f);
 			}else{
 				debugger_font->SetSize(17.f);
@@ -89,12 +89,12 @@ Debugger::~Debugger(){
 }
 
 void Debugger::SetTimeCheck() {
-	U64 checkTime = launcher->GetTime();
+	U64 checkTime = system->GetTime();
 	time_checks.push_back(checkTime);
 }
 
 float Debugger::GetTimeCheck() {
-	U64 now = launcher->GetTime();
+	U64 now = system->GetTime();
 	U64 checkTime = time_checks.back();
 	time_checks.pop_back();
 	return (now - checkTime) / 1000.f;

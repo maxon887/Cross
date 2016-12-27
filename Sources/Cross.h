@@ -49,7 +49,7 @@ template<typename K, typename V>
 using Dictionary = std::map<K, V>;
 
 class Game;
-class Launcher;
+class System;
 class GraphicsGL;
 class Graphics2D;
 class Graphics3D;
@@ -76,7 +76,7 @@ class Cubemap;
 class Commercial;
 
 extern Game*		game;
-extern Launcher*	launcher;
+extern System*		system;
 extern GraphicsGL*	gfxGL;
 extern Graphics2D*	gfx2D;
 extern Graphics3D*	gfx3D;
@@ -86,7 +86,7 @@ extern Config*		config;
 
 }
 
-cross::Game* CrossMain(cross::Launcher* launcher);
+cross::Game* CrossMain();
 
 using namespace std;
 
@@ -97,7 +97,7 @@ friend GraphicsGL;		\
 friend Graphics2D;		\
 friend Graphics3D;		\
 friend Game;			\
-friend Launcher;		\
+friend System;			\
 friend Audio;			\
 friend Sound;			\
 friend Input;			\

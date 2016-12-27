@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
-#include "Launcher.h"
+#include "System.h"
 #include "System/Debugger.h"
 #include "Sprite.h"
 #include "Utils/Font.h"
@@ -67,7 +67,7 @@ Graphics2D::Graphics2D() :
 	font_shader(NULL),
 	simple_shader(NULL)
 {
-	launcher->LogIt("Graphics2D::Graphics2D()");
+	system->LogIt("Graphics2D::Graphics2D()");
 	texture_shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	texture_shader->Compile();
 	font_shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
@@ -79,7 +79,7 @@ Graphics2D::Graphics2D() :
 }
 
 Graphics2D::~Graphics2D(){
-	launcher->LogIt("Graphics2D::~Graphics2D");
+	system->LogIt("Graphics2D::~Graphics2D");
 	delete default_font;
 	delete default_camera;
 	delete texture_shader;
@@ -310,7 +310,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode til
 		}
 		newTexture->SetTilingMode(tillingMode);
 		float loadTime = Debugger::Instance()->GetTimeCheck();
-		launcher->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+		system->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 
 		pair<Texture*, S32> pair;
 		pair.first = newTexture;
@@ -329,7 +329,7 @@ void Graphics2D::SaveTexture(Texture* texture, const string& filename){
 	SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	launcher->SaveFile(&file);
+	system->SaveFile(&file);
 #else
 	throw CrossException("SaveTexture does not support by current graphics API");
 #endif
@@ -356,7 +356,7 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 }
 
 Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& height, int& channels){
-	File* textureFile = launcher->LoadFile(filename);
+	File* textureFile = system->LoadFile(filename);
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	if(image == NULL){
@@ -371,7 +371,7 @@ Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& he
 		newHeight *= 2;
 	}
 	if(newWidth != width || newHeight != height){
-		launcher->LogIt("Not power of 2 texture. Performance issue!");
+		system->LogIt("Not power of 2 texture. Performance issue!");
 		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
@@ -403,7 +403,7 @@ Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filt
 }
 
 Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filter){
-	File* file = launcher->LoadFile(filename);
+	File* file = system->LoadFile(filename);
 
 	PKM pkm;
 	U32 offset = sizeof(PKM);
@@ -415,7 +415,7 @@ Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filt
 }
 
 Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filter){
-	File* file = launcher->LoadFile(filename);
+	File* file = system->LoadFile(filename);
 
 	KTX ktx;
 	U32 offset = sizeof(KTX);
@@ -545,7 +545,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 }
 
 void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
-	File* xmlFile = launcher->LoadFile(xmlFilename);
+	File* xmlFile = system->LoadFile(xmlFilename);
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);

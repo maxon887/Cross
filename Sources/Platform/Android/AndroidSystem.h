@@ -16,10 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#include "Launcher.h"
+#include "System.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 #include "android/log.h"
+#include "../../System.h"
 
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, "CrossException", __VA_ARGS__)
@@ -28,13 +29,11 @@ namespace cross{
 
 class CommercialAndroid;
 
-class LauncherAndroid : public Launcher{
+class AndroidSystem : public System{
 public:
-	LauncherAndroid(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
-	~LauncherAndroid();
+    AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
+	~AndroidSystem();
 
-	U32 GetTargetWidth();
-	U32 GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
 	void Log(const char* msg);
@@ -46,9 +45,8 @@ public:
 	void Sleep(float milis);
 	void InitializeCommercial(JNIEnv* env, jobject comm);
 	Commercial* GetCommercial();
+	
 public:
-	void SetTargetWidth(int width);
-	void SetTargetHeight(int height);
 	void DetachFromJVM();
 	JNIEnv* GetJNIEnv();
 private:
@@ -57,8 +55,6 @@ private:
 	AAssetManager* asset_manager;
 	CommercialAndroid* commercial;
 	string data_path;
-	U32 width;
-	U32 height;
 };
 
 }

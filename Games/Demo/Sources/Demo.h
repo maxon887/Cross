@@ -25,7 +25,7 @@ extern Demo* demo;
 
 class Demo : public Game{
 public:
-	Demo(Launcher* launcher);
+	Demo();
 
 	virtual void Start();
 	virtual void Stop();

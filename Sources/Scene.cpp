@@ -17,7 +17,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Game.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Config.h"
 #include "Model.h"
 
@@ -31,11 +31,11 @@ Scene::Scene() :
 void Scene::Start(){
 	Screen::Start();
 	is_scene = true;
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
 
 	window_resize_handle = MakeDelegate(this, &Scene::WindowResizeHandle);
-	game->WindowResized += window_resize_handle;
+	cross::system->WindowResized += window_resize_handle;
 }
 
 void Scene::Update(float sec){
@@ -48,7 +48,7 @@ void Scene::Update(float sec){
 
 void Scene::Stop(){
 	delete camera;
-	game->WindowResized -= window_resize_handle;
+	cross::system->WindowResized -= window_resize_handle;
 	for(Model* model : models){
 		delete model;
 	}
@@ -60,7 +60,7 @@ void Scene::Stop(){
 }
 
 void Scene::SetCameraViewDistance(float distance){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, distance);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, distance);
 	camera->SetProjectionMatrix(projection);
 }
 
@@ -85,6 +85,6 @@ void Scene::SetAmbientColor(const Color& color){
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, launcher->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }

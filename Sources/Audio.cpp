@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #include "Audio.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Sound.h"
 
 #include "Libs/FMOD/fmod.hpp"
@@ -28,26 +28,26 @@ using namespace cross;
 static FMOD_RESULT result;
 
 Audio::Audio() : 
-	system(NULL)	
+	fmod_system(NULL)	
 {
-	launcher->LogIt("Audio::Audio()");
-	result = FMOD::System_Create(&system);
+	system->LogIt("Audio::Audio()");
+	result = FMOD::System_Create(&fmod_system);
 	ERRCHECK(result);
 
 	U32 version;
-	result = system->getVersion(&version);
+	result = fmod_system->getVersion(&version);
 	ERRCHECK(result);
 
 	if(version < FMOD_VERSION){
 		throw CrossException("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 	}
 
-	result = system->init(32, FMOD_INIT_NORMAL, NULL);
+	result = fmod_system->init(32, FMOD_INIT_NORMAL, NULL);
 	ERRCHECK(result);
 }
 
 Audio::~Audio(){
-	result = system->close();
+	result = fmod_system->close();
     ERRCHECK(result);
 }
 
@@ -69,18 +69,18 @@ Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 #ifdef ANDROID
 	string absPath = "file:///android_asset/" + path;
 #else
-	string absPath = launcher->AssetsPath() + "/" + path;
+	string absPath = system->AssetsPath() + "/" + path;
 #endif
-	result = system->createSound(absPath.c_str(), mode, 0, &sound->sound);
+	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound->sound);
     ERRCHECK(result);
 
 	return sound;
 }
 
 void Audio::Suspend(){
-	system->mixerSuspend();
+	fmod_system->mixerSuspend();
 }
 
 void Audio::Resume(){
-	system->mixerResume();
+	fmod_system->mixerResume();
 }

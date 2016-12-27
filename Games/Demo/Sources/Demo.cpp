@@ -18,18 +18,18 @@
 #include "MainScreen.h"
 #include "Graphics2D.h"
 #include "Camera2D.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Sprite.h"
 
 Demo* demo = NULL;
 
-Demo::Demo(Launcher* launcher) : 
+Demo::Demo() : 
 	Game()
 { }
 
 void Demo::Start(){
 	Game::Start();
-	launcher->LogIt("Demo::Start()");
+	cross::system->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::TilingMode::CLAMP_TO_EDGE, Texture::Filter::LINEAR, false);
@@ -50,7 +50,7 @@ void Demo::Start(){
 }
 
 void Demo::Stop(){
-	launcher->LogIt("Demo::Stop()");
+	cross::system->LogIt("Demo::Stop()");
 	delete back_btn;
 	delete camera;
 	for(std::pair<string, Sprite*> pair: common_sprites){

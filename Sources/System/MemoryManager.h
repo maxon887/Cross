@@ -60,6 +60,7 @@ private:
 	~MemoryManager();
 
 	void SanityCheck();
+	void Log(const char* msg, ...);
 };
 
 }

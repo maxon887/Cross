@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Utils/Font.h"
-#include "Launcher.h"
+#include "System.h"
 #include "File.h"
 #include "Graphics2D.h"
 #include "Sprite.h"
@@ -56,7 +56,7 @@ Font::Font(string filename, float size, Color color) :
 	original(true),
 	kill_textures(false)
 {
-	file = launcher->LoadFile(filename);
+	file = system->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);

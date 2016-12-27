@@ -22,39 +22,40 @@
 namespace cross{
 
 /*	Core game class. Designed for contains function and fields shared between multiple Screens.
-	Every game must implement this class for set start Screen. */
+	Every game at least must override GetStartScreen() function
+	in order to inform engine from which Screen it should start */
 class Game{
 public:
-	/* Occurs when game window resize */
-	DECLARE_EVENT(void, S32, S32) WindowResized;
+	/* Occurs when someone call SetScreen() */
 	DECLARE_EVENT(void, Screen*) ScreenChanged;
+
+	/* Returns Screen from what game need to be start */
+	virtual Screen* GetStartScreen() = 0;
 
 	Game();
 	virtual ~Game();
-	/* You need to override this method to get engine know from which screen it must start */
-	virtual Screen* GetStartScreen();
-	/* Cause when game is about to start */
+	/* Called when core modules initialized. Before first Screen()::Start() function. */
 	virtual void Start();
-	/* Cause when game is about to stop */
+	/* Called before realese all engine resources */
 	virtual void Stop();
-	/* Update game every frame. Must be call from overided virsion either */
+	/* Called every frame. Do not depend on Screen()::Update() function */
 	virtual void Update(float sec) { };
-	/* Cause when game needs to be paused. For example input call or window lost focus */
+	/* Called when game needs to be paused. For example input call or window lost focus */
 	virtual void Suspend();
-	/* Cause when game gained focus */
+	/* Called when game needs to be restored from previous interrupt. See Suspend() */
 	virtual void Resume();
-    /* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
+    /* Will change current Screen at the end of frame. Old Screen will be deleted */
     virtual void SetScreen(Screen* screen);
 
-	/* Returns time since game start */
+	/* Returns time in sec since game start */
 	float GetRunTime();
 	/* Returns active game Screen */
 	Screen* GetCurrentScreen();
-	/* Returns active game Scene*/
+	/* Returns active game Scene if available */
 	Scene* GetCurrentScene();
 	/* Exit from application */
     void Exit();
-
+	/* Engine specific */
 	void EngineUpdate();
 
 protected:

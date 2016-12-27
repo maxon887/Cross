@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Config.h"
-#include "Launcher.h"
+#include "System.h"
 #include "File.h"
 
 #include "Libs/TinyXML/tinyxml.h"
@@ -28,9 +28,9 @@ Config::Config():
 	view_distance(100.f),
 	offscreen_render(false)
 {
-	File* defaultConfigFile = launcher->LoadFile("GameConfig.xml");
+	File* defaultConfigFile = system->LoadFile("GameConfig.xml");
 	LoadGameConfig(defaultConfigFile);
-	user_config_path = launcher->DataPath() + "/UserConfig.xml";
+	user_config_path = system->DataPath() + "/UserConfig.xml";
 	LoadUserConfig();
 }
 
@@ -202,6 +202,6 @@ void Config::SaveUserConfig(){
 	userConfig.name = "UserConfig.xml";
 	userConfig.size = printer.Size();
 	userConfig.data = (Byte*)printer.CStr();
-	launcher->SaveFile(&userConfig);
+	system->SaveFile(&userConfig);
 	userConfig.data = NULL;
 }

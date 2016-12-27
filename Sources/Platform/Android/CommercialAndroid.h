@@ -14,24 +14,24 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
 
 #include "Utils/Commercial.h"
-#include "LauncherAndroid.h"
+#include "AndroidSystem.h"
 #include <jni.h>
 
 namespace cross{
 
 class CommercialAndroid : public Commercial{
 public:
-	CommercialAndroid(LauncherAndroid* launcher, jobject comm);
+	CommercialAndroid(AndroidSystem* sys, jobject comm);
 	void DownloadAd();
 	void ShowAd();
 	void Purchase();
+	
 private:
 	jobject comm;
-	LauncherAndroid* launcher;
+	AndroidSystem* android_sys;
 };
 
 }

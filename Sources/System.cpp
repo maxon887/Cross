@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
-#include "Launcher.h"
+#include "System.h"
 #include "File.h"
 
 #include <stdarg.h>
@@ -22,7 +22,12 @@
 
 using namespace cross;
 
-File* Launcher::LoadFile(const string& filename){
+System::System() :
+	window_width(-1),
+	window_height(-1)
+{ }
+
+File* System::LoadFile(const string& filename){
 	File* file = new File();
 	file->name = filename;
 	string filePath = AssetsPath() + filename;
@@ -41,7 +46,7 @@ File* Launcher::LoadFile(const string& filename){
 	}
 }
 
-void Launcher::SaveFile(File* file){
+void System::SaveFile(File* file){
 	string filePath = DataPath() + file->name;
 	ofstream fileStream(filePath, istream::binary);
 	if(fileStream.is_open()){
@@ -52,20 +57,28 @@ void Launcher::SaveFile(File* file){
 	}
 }
 
-void Launcher::LogIt(const char* format, ...){
+void System::LogIt(const char* format, ...){
 	va_list params;
-	char buffer[1024];
+	char buffer[4096];
 	va_start(params, format);
 	vsprintf(buffer, format, params);
 	Log(buffer);
 	va_end(params);
 }
 
-float Launcher::GetAspectRatio(){
-	return GetTargetWidth() / (float)GetTargetHeight();
+S32 System::GetWindowWidth(){
+	return window_width;
 }
 
-string Launcher::PathFromFile(const string& filePath){
+S32 System::GetWindowHeight(){
+	return window_height;
+}
+
+float System::GetAspectRatio(){
+	return GetWindowWidth() / (float)GetWindowHeight();
+}
+
+string System::PathFromFile(const string& filePath){
 	const size_t last_slash_idx = filePath.rfind('/');
 	if(std::string::npos != last_slash_idx){
 		return filePath.substr(0, last_slash_idx);
@@ -74,11 +87,17 @@ string Launcher::PathFromFile(const string& filePath){
 	}
 }
 
-string Launcher::ExtensionFromFile(const string& file){
+string System::ExtensionFromFile(const string& file){
 	return file.substr(file.find_last_of(".") +1);
 }
 
-string Launcher::FileWithoutExtension(const string& file){
+string System::FileWithoutExtension(const string& file){
 	size_t lastindex = file.find_last_of("."); 
 	return file.substr(0, lastindex); 
+}
+
+void System::SetWindowSize(S32 width, S32 height){
+	window_width = width;
+	window_height = height;
+	TRIGGER_EVENT(WindowResized, width, height);
 }

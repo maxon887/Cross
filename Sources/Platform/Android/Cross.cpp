@@ -18,7 +18,7 @@
 #include "Game.h"
 #include "Input.h"
 #include "Utils/Commercial.h"
-#include "LauncherAndroid.h"
+#include "AndroidSystem.h"
 #include "Screen.h"
 #include "Audio.h"
 #include "GraphicsGL.h"
@@ -75,7 +75,7 @@ void* Main(void* self){
                 }
                 case APP_START: {
                     if (wnd_state == WND_ACTIVE) {
-                        game = CrossMain(launcher);
+                        game = CrossMain();
                         gfxGL = new GraphicsGL();
                         gfx2D = new Graphics2D();
                         gfx3D = new Graphics3D();
@@ -93,7 +93,7 @@ void* Main(void* self){
                 }
                 case APP_PAUSED:{
                     pause_mutex.lock();
-                    launcher->Sleep(16);
+                    system->Sleep(16);
                     pause_mutex.unlock();
                     break;
                 }
@@ -142,32 +142,33 @@ void* Main(void* self){
         delete gfx2D;
         delete gfxGL;
         delete game;
+        delete system;
     } catch (Exception& exc){
         string msg = string(exc.message) +
                      +"\nFile: " + string(exc.filename) +
                      +"\nLine: " + to_string(exc.line);
         LOGE("%s", msg.c_str());
-        ((LauncherAndroid *) launcher)->MessageBox(msg);
+        ((AndroidSystem *) system)->MessageBox(msg);
     }
     if(app_state == APP_EXIT){
-        ((LauncherAndroid *) launcher)->Exit();
+        ((AndroidSystem *) system)->Exit();
     }else {
-        ((LauncherAndroid *) launcher)->DetachFromJVM();
-        delete launcher;
+        ((AndroidSystem *) system)->DetachFromJVM();
+		delete system;
     }
 }
 
 extern "C"{
 	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
 		LOGI("Cross_OnCreate");
-        if(!launcher) {
+        if(!system) {
             AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
             string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
-            launcher = new LauncherAndroid(env, crossActivity, mng, stdDataPath);
+            system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();
             pthread_create(&threadID, 0, Main, NULL);
         }else{
@@ -179,8 +180,7 @@ extern "C"{
         LOGI("Cross_SurfaceChanged w - %d, h - %d", w, h);
         ANativeWindow *nativeWindow = ANativeWindow_fromSurface(env, surface);
         app_mutex.lock();
-        ((LauncherAndroid *) launcher)->SetTargetWidth((int) w);
-        ((LauncherAndroid *) launcher)->SetTargetHeight((int) h);
+        system->SetWindowSize(w, h);
         crossEGL->BindWindow(nativeWindow);
         wnd_state = WND_CREATE;
         app_mutex.unlock();
@@ -233,10 +233,10 @@ extern "C"{
 	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
 		LOGI("Java_com_cross_Cross_InitialCommercial");
 		comm = env->NewGlobalRef(comm);
-		((LauncherAndroid*)launcher)->InitializeCommercial(env, comm);
+		((AndroidSystem*)system)->InitializeCommercial(env, comm);
 	}
 
 	void Java_com_cross_Cross_CommertialResult(JNIEnv* env, jobject thiz, jint event){
-		launcher->GetCommercial()->CommercialResult((Commercial::Event)event);
+        system->GetCommercial()->CommercialResult((Commercial::Event)event);
 	}
 }

@@ -82,9 +82,6 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp">
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.cpp">
-      <Filter>Cross\Platform\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Audio.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -119,9 +116,6 @@
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Camera.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Launcher.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
@@ -316,6 +310,12 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Font.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\System.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Platform\Windows\WINSystem.cpp">
+      <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -328,9 +328,6 @@
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Input.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Launcher.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Screen.h">
@@ -366,9 +363,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h">
       <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\LauncherWIN.h">
-      <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h">
       <Filter>Cross</Filter>
@@ -579,6 +573,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Font.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\System.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Platform\Windows\WINSystem.h">
+      <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

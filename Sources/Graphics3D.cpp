@@ -17,7 +17,7 @@
 #include "Graphics3D.h"
 #include "GraphicsGL.h"
 #include "VertexBuffer.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Mesh.h"
 #include "File.h"
 #include "Model.h"
@@ -47,10 +47,10 @@ Graphics3D::Graphics3D():
 	current_scaling(Matrix::Identity),
 	current_geotranslation(Matrix::Identity)
 {
-	launcher->LogIt("Graphics3D::Graphics3D()");
+	system->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
-	launcher->LogIt("\tUse assimp version %d.%d", major, minor);
+	system->LogIt("\tUse assimp version %d.%d", major, minor);
 }
 
 Graphics3D::~Graphics3D(){
@@ -74,7 +74,7 @@ Model* Graphics3D::LoadModel(const string& filename){
 	Model* model = new Model(filename);
 	ProcessScene(model);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	launcher->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+	system->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
 }
 
@@ -252,7 +252,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 }
 
 void Graphics3D::ProcessScene(Model* model){
-	File* file = launcher->LoadFile(model->GetName());
+	File* file = system->LoadFile(model->GetName());
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	delete file;

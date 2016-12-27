@@ -17,7 +17,7 @@
 #ifndef GLES
 #include "Cross.h"
 #include "Native.h"
-#include "LauncherWIN.h"
+#include "WINSystem.h"
 #include "GraphicsGL.h"
 #include "Game.h"
 #include "Input.h"
@@ -48,17 +48,17 @@ int OpenGL_Main(){
 	HWND wnd = WinCreate();
 	MSG msg;
 	try{
-		LauncherWIN launcherWin(wnd);
-		launcher = &launcherWin;
-		launcher->LogIt("OpenGL API");
-		game = CrossMain(launcher);
+		WINSystem* winSys = new WINSystem(wnd);
+		cross::system = winSys;
+		cross::system->LogIt("OpenGL API");
+		game = CrossMain();
 
 		int winX = config->GetInt("WIN_POS_X", 0);
 		int winY = config->GetInt("WIN_POS_Y", 0);
 		int winWidth = config->GetInt("WIN_WIDTH", 500);
 		int winHeight = config->GetInt("WIN_HEIGHT", 500);
-		launcherWin.ResizeWindow(winX, winY, winWidth, winHeight);
-		input->KeyReleased += MakeDelegate(&launcherWin, &LauncherWIN::KeyReleasedHandle);
+		winSys->ResizeWindow(winX, winY, winWidth, winHeight);
+		input->KeyReleased += MakeDelegate(winSys, &WINSystem::KeyReleasedHandle);
 
 		PIXELFORMATDESCRIPTOR pfd;
 		ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
@@ -120,6 +120,8 @@ int OpenGL_Main(){
 		delete gfx2D;
 		delete gfxGL;
 		delete game;
+		delete audio;
+		delete cross::system;
 #ifdef CROSS_DEBUG
 		unsigned long leaked = MemoryManager::Instance()->Dump();
 		if(leaked > 0) {

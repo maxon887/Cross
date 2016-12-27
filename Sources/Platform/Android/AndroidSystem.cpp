@@ -14,14 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "LauncherAndroid.h"
+#include "AndroidSystem.h"
 #include "CommercialAndroid.h"
 #include "File.h"
 #include <unistd.h>
 
 using namespace cross;
 
-LauncherAndroid::LauncherAndroid(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath){
+AndroidSystem::AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath){
     LOGI("LauncherAndroid::LauncherAndroid");
 	this->data_path = dataPath;
 	this->asset_manager = assManager;
@@ -30,32 +30,24 @@ LauncherAndroid::LauncherAndroid(JNIEnv* env, jobject crossActivity, AAssetManag
 	env->GetJavaVM(&jvm);
 }
 
-LauncherAndroid::~LauncherAndroid(){
+AndroidSystem::~AndroidSystem(){
     LOGI("LauncherAndroid::~LauncherAndroid");
     delete commercial;
 }
 
-U32 LauncherAndroid::GetTargetWidth(){
-	return width;
-}
-
-U32 LauncherAndroid::GetTargetHeight(){
-	return height;
-}
-
-string LauncherAndroid::AssetsPath(){
+string AndroidSystem::AssetsPath(){
 	return "This platform do not specify application assets folder.\nAll assets needs to be load through asset manager";
 }
 
-string LauncherAndroid::DataPath(){
+string AndroidSystem::DataPath(){
 	return data_path;
 }
 
-void LauncherAndroid::Log(const char* str){
+void AndroidSystem::Log(const char* str){
 	LOGI("%s", str);
 }
 
-File* LauncherAndroid::LoadFile(const string& filename) {
+File* AndroidSystem::LoadFile(const string& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
     if(!asset){
 		throw CrossException("Can't load asset %s", filename.c_str());
@@ -71,27 +63,27 @@ File* LauncherAndroid::LoadFile(const string& filename) {
     return file;
 }
 
-U64 LauncherAndroid::GetTime(){
+U64 AndroidSystem::GetTime(){
 	struct timeval ptv;
 	gettimeofday(&ptv, NULL);
 	return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
-void LauncherAndroid::PromtToExit(){
+void AndroidSystem::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
 	env->CallVoidMethod(cross_activity, methodID);
 }
 
-void LauncherAndroid::MessageBox(string message) {
+void AndroidSystem::MessageBox(string message) {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;)V");
     env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(message.c_str()));
 }
 
-void LauncherAndroid::Exit() {
+void AndroidSystem::Exit() {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "Exit", "()V");
@@ -99,32 +91,24 @@ void LauncherAndroid::Exit() {
     jvm->DetachCurrentThread();
 }
 
-void LauncherAndroid::Sleep(float milis) {
+void AndroidSystem::Sleep(float milis) {
     usleep(milis*1000);
 }
 
-void LauncherAndroid::InitializeCommercial(JNIEnv* env, jobject comm){
+void AndroidSystem::InitializeCommercial(JNIEnv* env, jobject comm){
 	LOGI("LauncherAndroid::InitializeCommercial");
 	commercial = new CommercialAndroid(this, comm);
 }
 
-Commercial* LauncherAndroid::GetCommercial() {
+Commercial* AndroidSystem::GetCommercial() {
 	return commercial;
 }
 
-void LauncherAndroid::SetTargetWidth(int width) {
-    this->width = width;
-}
-
-void LauncherAndroid::SetTargetHeight(int height) {
-    this->height = height;
-}
-
-void LauncherAndroid::DetachFromJVM() {
+void AndroidSystem::DetachFromJVM() {
     jvm->DetachCurrentThread();
 }
 
-JNIEnv* LauncherAndroid::GetJNIEnv(){
+JNIEnv* AndroidSystem::GetJNIEnv(){
     JNIEnv* env;
     int getEnvStat = jvm->GetEnv((void **)&env, JNI_VERSION_1_6);
     switch(getEnvStat){

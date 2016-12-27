@@ -35,7 +35,7 @@ public:
 private:
 	CROSS_FRIENDLY
 
-	FMOD::System* system;
+	FMOD::System* fmod_system;
 };
 
 }

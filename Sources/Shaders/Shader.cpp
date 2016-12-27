@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shader.h"
-#include "Launcher.h"
+#include "System.h"
 #include "File.h"
 #include "Texture.h"
 #include "Utils/Cubemap.h"
@@ -124,8 +124,8 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 	fragment_file(NULL),
 	makro_len(0)
 {
-	vertex_file = launcher->LoadFile(vertexFile);
-	fragment_file = launcher->LoadFile(fragmentFile);
+	vertex_file = system->LoadFile(vertexFile);
+	fragment_file = system->LoadFile(fragmentFile);
 }
 
 Shader::~Shader(){
@@ -297,7 +297,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
-			launcher->LogIt("Shader compilation:\n%s", log);
+			system->LogIt("Shader compilation:\n%s", log);
 			delete[] log;
 		}
 #endif

@@ -15,20 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Launcher.h"
+#include "System.h"
 #include "Input.h"
 
 #include <Windows.h>
 
 namespace cross{
 
-class LauncherWIN : public Launcher{
+class WINSystem : public System{
 public:
-	LauncherWIN(HWND wnd = 0);
-	~LauncherWIN();
+	WINSystem(HWND wnd = 0);
+	~WINSystem();
 
-	U32 GetTargetWidth();
-	U32 GetTargetHeight();
 	string AssetsPath();
 	string DataPath();
 	U64 GetTime();
@@ -40,7 +38,6 @@ public:
 public:
 	void SetWND(HWND wnd);
 	void SetWindowPosition(int x, int y);
-	void SetWindowSize(int width, int heght);
 
 	void KeyReleasedHandle(Key key);
 	
@@ -49,8 +46,6 @@ private:
 	char* assets_path;
 	int window_pos_x;
 	int window_pos_y;
-	int window_width;
-	int window_height;
 };
 
 }

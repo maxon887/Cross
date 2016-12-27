@@ -15,16 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #ifdef CROSS_DEBUG
-
+#include "Cross.h"
 #include "MemoryManager.h"
-#include "Launcher.h"
+
+#include <stdarg.h>
 
 using namespace cross;
 
 #define START_MEMORY_OBJECTS_ARRAY_CAPACITY 100
 
-
 #ifdef WIN
+#include "Windows.h"
 
 #undef new
 
@@ -133,7 +134,7 @@ unsigned long MemoryManager::Dump(){
 	SanityCheck();
 	unsigned long totalBytes = 0;
 	for(unsigned int i = 0; i < object_count; i++){
-		launcher->LogIt("%4d. 0x%08X: %d bytes(%s: %d)",
+		Log("%4d. 0x%08X: %d bytes(%s: %d)",
 			i,
 			(unsigned long)alloc_objects[i].address,
 			alloc_objects[i].size,
@@ -150,7 +151,7 @@ void MemoryManager::SanityCheck(){
 		char* temp = (char*)alloc_objects[i].address;
 		temp += alloc_objects[i].size;
 		if(memcmp(temp, &check_code, 4) != 0){
-			launcher->LogIt("Memory corrupted at 0x%08X: %d bytes(%s: %d)\n",
+			Log("Memory corrupted at 0x%08X: %d bytes(%s: %d)\n",
 				(unsigned long)alloc_objects[i].address,
 				alloc_objects[i].size,
 				alloc_objects[i].filename,
@@ -160,8 +161,19 @@ void MemoryManager::SanityCheck(){
 		}
 	}
 	if(count > 0){
-		launcher->LogIt("Total: %d corrupted buffers\n", count);
+		Log("Total: %d corrupted buffers\n", count);
 	}
+}
+
+void MemoryManager::Log(const char* msg, ...){
+	va_list params;
+	char buffer[4096];
+	va_start(params, msg);
+	vsprintf(buffer, msg, params);
+#ifdef WIN
+	OutputDebugStringA(buffer);
+#endif
+	va_end(params);
 }
 
 #endif // CROSS_DEBUG

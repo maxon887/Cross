@@ -20,7 +20,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Input.h"
 #include "Sprite.h"
 #include "Utils/Font.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Sound.h"
 
 #define HORIZONTAL_PADDING 50.f

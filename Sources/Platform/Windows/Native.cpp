@@ -21,7 +21,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "resource.h"
-#include "LauncherWIN.h"
+#include "WINSystem.h"
 
 using namespace cross;
 
@@ -84,8 +84,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;
 		int y = HIWORD(lParam) - 30;
-		LauncherWIN* winLanch = (LauncherWIN*)launcher;
-		winLanch->SetWindowPosition(x, y);
+		WINSystem* winSys = (WINSystem*)cross::system;
+		winSys->SetWindowPosition(x, y);
 		break;
 	}
 	case WM_SIZE:{
@@ -93,9 +93,9 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		int width = winRect.right - winRect.left;
 		int height = winRect.bottom - winRect.top;
 		if(width > 0 && height > 0){
-			LauncherWIN* winLanch = (LauncherWIN*)launcher;
-			winLanch->SetWindowSize(width, height);
-			TRIGGER_EVENT(game->WindowResized, width, height);
+			WINSystem* winSys = (WINSystem*)cross::system;
+			winSys->SetWindowSize(width, height);
+			TRIGGER_EVENT(cross::system->WindowResized, width, height);
 		}
 		break;
 	}

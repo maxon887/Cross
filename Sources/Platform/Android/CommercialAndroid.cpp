@@ -14,21 +14,20 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #include "CommercialAndroid.h"
 #include "Cross.h"
 
 using namespace cross;
 
-CommercialAndroid::CommercialAndroid(LauncherAndroid* launcher, jobject comm){
+CommercialAndroid::CommercialAndroid(AndroidSystem* sys, jobject comm){
 	LOGI("CommercialAndroid::CommercialAndroid");
-	this->launcher = launcher;
+	this->android_sys = sys;
 	this->comm = comm;
 }
 
 void CommercialAndroid::DownloadAd(){
 	LOGI("CommercialAndroid::DownloadAd");
-	JNIEnv* env = launcher->GetJNIEnv();
+	JNIEnv* env = android_sys->GetJNIEnv();
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "DownloadAd", "()V");
 	env->CallVoidMethod(comm, methodID);
@@ -36,7 +35,7 @@ void CommercialAndroid::DownloadAd(){
 
 void CommercialAndroid::ShowAd(){
 	LOGI("CommercialAndroid::ShowAd");
-	JNIEnv* env = launcher->GetJNIEnv();
+	JNIEnv* env = android_sys->GetJNIEnv();
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "ShowAd", "()V");
 	env->CallVoidMethod(comm, methodID);
@@ -44,7 +43,7 @@ void CommercialAndroid::ShowAd(){
 
 void CommercialAndroid::Purchase(){
 	LOGI("CommercialAndroid::Purchase");
-	JNIEnv* env = launcher->GetJNIEnv();
+	JNIEnv* env = android_sys->GetJNIEnv();
 	jclass clazz = env->GetObjectClass(comm);
 	jmethodID methodID = env->GetMethodID(clazz, "Purchase", "()V");
 	env->CallVoidMethod(comm, methodID);

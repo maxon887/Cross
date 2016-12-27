@@ -17,7 +17,7 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "VertexBuffer.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Game.h"
 #include "File.h"
 #include "Shaders/Shader.h"
@@ -50,7 +50,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 		default: strcpy(error, "Unknown error");  
 			break;
 		}
-		launcher->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
+		system->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
 		//throw CrossException("OpenGL error: %s in %s : %d", error, file, line);
 		delete[] error;
 		err = glGetError();
@@ -69,37 +69,37 @@ GraphicsGL::GraphicsGL():
 	colorbuffer_texture(NULL),
 	regenerade_framebuffer(true)
 {
-		launcher->LogIt("GraphicsGL::GraphicsGL()");
+		system->LogIt("GraphicsGL::GraphicsGL()");
 
 #if defined(OPENGL)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		launcher->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
+		system->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}
 #else
-		launcher->LogIt("\tUsed OpenGL ES 2.0");
+		system->LogIt("\tUsed OpenGL ES 2.0");
 #endif
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
-		launcher->LogIt("\tMax Vetex Uniforms: %d", value);
+		system->LogIt("\tMax Vetex Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
-		launcher->LogIt("\tMax Fragment Uniforms: %d", value);
+		system->LogIt("\tMax Fragment Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value);
-		launcher->LogIt("\tMax Vertex Attributes: %d", value);
+		system->LogIt("\tMax Vertex Attributes: %d", value);
 
 		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
-		launcher->LogIt("\tMax Texture Size: %d", value);
+		system->LogIt("\tMax Texture Size: %d", value);
 
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
-		launcher->LogIt("\tMax Texture Units: %d", value);
+		system->LogIt("\tMax Texture Units: %d", value);
 
-		game->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
+		cross::system->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
 
 		if(config->IsOffscreenRender()){
 			offscreen_shader = GetShader(DefaultShader::TEXTURE);
@@ -159,7 +159,7 @@ void GraphicsGL::PreProcessFrame(){
 			GeneradeFramebuffer();
 		}
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-		SAFE(glViewport(0, 0, launcher->GetTargetWidth() / 2, launcher->GetTargetHeight() / 2));
+		SAFE(glViewport(0, 0, system->GetWindowWidth() / 2, system->GetWindowHeight() / 2));
 	}
 }
 
@@ -167,7 +167,7 @@ void GraphicsGL::PostProcessFrame(){
 	if(config->IsOffscreenRender()){
 		//binding default frame buffer
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-		SAFE(glViewport(0, 0, launcher->GetTargetWidth(), launcher->GetTargetHeight()));
+		SAFE(glViewport(0, 0, system->GetWindowWidth(), system->GetWindowHeight()));
 		//drawing color buffer
 		SAFE(glBindBuffer(GL_ARRAY_BUFFER, quadVBO));
 		SAFE(glActiveTexture(GL_TEXTURE0));
@@ -268,8 +268,8 @@ void GraphicsGL::GeneradeFramebuffer(){
 	//generade color buffer
 	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 	//generate color buffer
-	bufferWidth = launcher->GetTargetWidth() / 2;
-	bufferHeight = launcher->GetTargetHeight() / 2;
+	bufferWidth = system->GetWindowWidth() / 2;
+	bufferHeight = system->GetWindowHeight() / 2;
 
 	SAFE(glGenTextures(1, &colorbuffer));
 	SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));

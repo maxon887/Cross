@@ -210,12 +210,6 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/Input.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Input.h" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Launcher.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Launcher.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Launcher.h" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Libs/SOIL">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Libs/SOIL" isTestSource="false" />
     </content>
@@ -293,6 +287,12 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/System">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/System.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../../Sources/System.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp" isTestSource="false" />

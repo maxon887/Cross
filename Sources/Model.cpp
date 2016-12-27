@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Model.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "Graphics3D.h"
@@ -30,8 +30,8 @@ Model::Model(const string& name) :
 	stencil(Graphics3D::StencilBehaviour::IGNORED),
 	format(UNKNOW)
 { 
-	filepath = launcher->PathFromFile(name);
-	string extension = launcher->ExtensionFromFile(name);
+	filepath = system->PathFromFile(name);
+	string extension = system->ExtensionFromFile(name);
 	if(extension == "fbx" || extension == "FBX"){
 		format = FBX;
 	}else{

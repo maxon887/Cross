@@ -48,9 +48,9 @@ Sound::~Sound(){
 }
 
 void Sound::Play(){
-	result = audio->system->playSound(sound, 0, false, &channel);
+	result = audio->fmod_system->playSound(sound, 0, false, &channel);
 	ERRCHECK(result);
-	audio->system->update();
+	audio->fmod_system->update();
 }
 
 void Sound::Pause(){

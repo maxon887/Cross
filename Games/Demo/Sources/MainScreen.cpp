@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
 #include "Graphics2D.h"
-#include "Launcher.h"
+#include "System.h"
 #include "Sprite.h"
 #include "AudioScreen.h"
 #include "Camera2D.h"
@@ -52,7 +52,7 @@ void MainScreen::Start(){
 	Sprite* buttonSpritePressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 
 	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
-	game->WindowResized += window_resized_delegate;
+	cross::system->WindowResized += window_resized_delegate;
 
 	font = new Font("Engine/Fonts/VeraMonoBold.ttf", 80, Color(0.f, 0.f, 0.f, 0.70f));
 
@@ -187,7 +187,7 @@ void MainScreen::Stop(){
 	delete graphics3D_light;
 	delete graphics3D_misc;
 	delete font;
-	game->WindowResized -= window_resized_delegate;
+	cross::system->WindowResized -= window_resized_delegate;
 }
 
 void MainScreen::Update(float sec){
