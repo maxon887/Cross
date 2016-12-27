@@ -110,7 +110,7 @@ int OpenGL_Main(){
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
-			game->Update();
+			game->EngineUpdate();
 			SwapBuffers(dc);
 		}
 		game->GetCurrentScreen()->Stop();

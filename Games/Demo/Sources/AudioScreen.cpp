@@ -4,6 +4,7 @@
 #include "Utils/ToggleButton.h"
 #include "Menu.h"
 #include "Audio.h"
+#include "Sound.h"
 
 using namespace cross;
 

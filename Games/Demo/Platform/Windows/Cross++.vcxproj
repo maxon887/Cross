@@ -73,7 +73,6 @@
     <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Font.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp" />
@@ -122,6 +121,7 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Cubemap.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\DebugScene.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Utils\Font.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\Skybox.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Utils\ToggleButton.cpp" />
@@ -163,7 +163,6 @@
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
     <ClInclude Include="..\..\..\..\Sources\File.h" />
-    <ClInclude Include="..\..\..\..\Sources\Font.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics3D.h" />
@@ -212,6 +211,7 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Cubemap.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\DebugScene.h" />
+    <ClInclude Include="..\..\..\..\Sources\Utils\Font.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\Skybox.h" />
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h" />

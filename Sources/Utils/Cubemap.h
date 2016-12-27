@@ -29,9 +29,12 @@ public:
 			const string& front);
 	~Cubemap();
 
-	GLuint GetTextureID() const;
 private:
+	CROSS_FRIENDLY;
+
 	GLuint textureID;
+
+	GLuint GetTextureID() const;
 };
 
 };

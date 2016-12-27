@@ -54,7 +54,7 @@
 
 namespace cross{
 
-enum DefaultShader{
+enum class DefaultShader{
 	TEXTURE,
 	MONOCHROME,		//same as TEXTURE but only R channel used
 	SIMPLE,

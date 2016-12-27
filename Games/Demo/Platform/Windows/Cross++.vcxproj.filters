@@ -106,9 +106,6 @@
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Font.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Sprite.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
@@ -316,6 +313,9 @@
     <ClCompile Include="..\..\..\..\Sources\Sound.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Utils\Font.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -371,9 +371,6 @@
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Font.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Sprite.h">
@@ -579,6 +576,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Sound.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Utils\Font.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

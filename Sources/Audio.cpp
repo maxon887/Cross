@@ -84,7 +84,3 @@ void Audio::Suspend(){
 void Audio::Resume(){
 	system->mixerResume();
 }
-
-FMOD::System* Audio::GetSystem(){
-	return system;
-}

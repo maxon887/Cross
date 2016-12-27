@@ -33,6 +33,7 @@ private:
 	Shader* shader;
 	Material* material;
 	Model* box;
+	GLuint mvpID;
 };
 
 }

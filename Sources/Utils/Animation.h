@@ -30,6 +30,7 @@ public:
 	void Update(float sec);
 	Sprite* GetImage();
 	bool IsRunning();
+
 private:
 	Array<Sprite*> frames;
 	float rate;

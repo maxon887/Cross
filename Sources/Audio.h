@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Sound.h"
 
 namespace FMOD{
 	class System;
@@ -33,9 +32,9 @@ public:
 	void Suspend();
 	void Resume();
 
-	FMOD::System* GetSystem();
-
 private:
+	CROSS_FRIENDLY
+
 	FMOD::System* system;
 };
 

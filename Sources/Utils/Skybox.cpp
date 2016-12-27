@@ -20,24 +20,30 @@
 #include "Model.h"
 #include "Material.h"
 #include "Config.h"
+#include "Game.h"
+#include "Scene.h"
+#include "Camera.h"
 
 using namespace cross;
 
 Skybox::Skybox( Cubemap* cubemap ) :
 	cubemap(cubemap)
 {
-	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");
-	Shader::Property* prop = new Shader::Property("Cubemap", "cubemap");
-	prop->SetValue(cubemap);
-	shader->AddProperty(prop);
-	shader->Compile();
-
-	material = new Material(shader);
-
 	box = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	box->SetMaterial(material);
 	box->FaceCulling(false);
 	box->SetScale(config->GetViewDistance());
+
+	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");
+	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "cubemap");
+	cubemapProp->SetValue(cubemap);
+	shader->AddProperty(cubemapProp);
+	Shader::Property* customMVPProp = new Shader::Property("Custom MVP", "uCustomMVP");
+	shader->AddProperty(customMVPProp);
+	shader->Compile();
+	mvpID = customMVPProp->GetID();
+
+	material = new Material(shader);
+	box->SetMaterial(material);
 }
 
 Skybox::~Skybox(){
@@ -47,5 +53,13 @@ Skybox::~Skybox(){
 }
 
 void Skybox::Draw(){
+	Camera* cam = game->GetCurrentScene()->GetCamera();
+	Matrix view = cam->GetViewMatrix();
+	view.m[0][3] = 0.f;
+	view.m[1][3] = 0.f;
+	view.m[2][3] = 0.f;
+	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetModelMatrix();
+	mvp = mvp.GetTransposed();
+	material->SetPropertyValue(mvpID, mvp);
 	box->Draw();
 }

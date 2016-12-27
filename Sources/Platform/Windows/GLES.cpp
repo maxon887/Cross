@@ -70,7 +70,7 @@ int GLES_Main(){
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
-			game->Update();
+			game->EngineUpdate();
 			crossEGL->SwapBuffers();
 		}
 

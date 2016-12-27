@@ -19,8 +19,9 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "Input.h"
 #include "Sprite.h"
-#include "Font.h"
+#include "Utils/Font.h"
 #include "Launcher.h"
+#include "Sound.h"
 
 #define HORIZONTAL_PADDING 50.f
 #define VERTICAL_PADDING 25.f

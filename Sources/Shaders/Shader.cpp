@@ -104,6 +104,10 @@ Shader::Property* Shader::Property::Clone(){
 	return new Shader::Property(*this);
 }
 
+GLuint Shader::Property::GetID() const{
+	return glId;
+}
+
 void Shader::Property::RealocateIfNeeded(U32 newSize){
 	if(size < newSize){
 		size = newSize;
@@ -125,9 +129,9 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 }
 
 Shader::~Shader(){
-	glDeleteShader(vertex_shader);
-	glDeleteShader(fragment_shader);
-	glDeleteProgram(program);
+	SAFE(glDeleteShader(vertex_shader));
+	SAFE(glDeleteShader(fragment_shader));
+	SAFE(glDeleteProgram(program));
 	delete vertex_file;
 	delete fragment_file;
 	for(Shader::Property* prop : properties){

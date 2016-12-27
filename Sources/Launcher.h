@@ -18,8 +18,6 @@
 #include "Cross.h"
 
 namespace cross {
-
-class Commercial;
 	
 /* Abstract class contained platform specific functionality. */
 class Launcher{

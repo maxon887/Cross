@@ -33,22 +33,22 @@ Cubemap::Cubemap(	const string& right,
 	int width, height, channels;
 	Byte* image;
 
-	image = gfx2D->LoadRawData(right, width, height, channels);
+	image = gfx2D->LoadRawTextureData(right, width, height, channels);
 	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
 	//delete[] image;
-	image = gfx2D->LoadRawData(left, width, height, channels);
+	image = gfx2D->LoadRawTextureData(left, width, height, channels);
 	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 1, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
 	//delete image;
-	image = gfx2D->LoadRawData(top, width, height, channels);
+	image = gfx2D->LoadRawTextureData(top, width, height, channels);
 	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 2, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
 	//delete image;
-	image = gfx2D->LoadRawData(bottom, width, height, channels);
+	image = gfx2D->LoadRawTextureData(bottom, width, height, channels);
 	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 3, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
 	//delete image;
-	image = gfx2D->LoadRawData(back, width, height, channels);
+	image = gfx2D->LoadRawTextureData(back, width, height, channels);
 	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 4, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
 	//delete image;
-	image = gfx2D->LoadRawData(front, width, height, channels);
+	image = gfx2D->LoadRawTextureData(front, width, height, channels);
 	SAFE(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + 5, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image));
 	//delete image;
 

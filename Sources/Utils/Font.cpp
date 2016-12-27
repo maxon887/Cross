@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Font.h"
+#include "Utils/Font.h"
 #include "Launcher.h"
 #include "File.h"
 #include "Graphics2D.h"

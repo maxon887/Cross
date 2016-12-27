@@ -48,10 +48,9 @@ Sound::~Sound(){
 }
 
 void Sound::Play(){
-	FMOD::System* system = audio->GetSystem();
-	result = system->playSound(sound, 0, false, &channel);
+	result = audio->system->playSound(sound, 0, false, &channel);
 	ERRCHECK(result);
-	system->update();
+	audio->system->update();
 }
 
 void Sound::Pause(){

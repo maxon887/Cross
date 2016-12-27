@@ -25,6 +25,7 @@ public:
 	class Property{
 	public:
 		Property(const string& name, const string& glName);
+		Property(Property& obj);
 		~Property();
 
 		void SetValue(U32 v);
@@ -38,10 +39,10 @@ public:
 
 		Property* Clone();
 
+		GLuint GetID() const;
+
 	private:
-		friend Shader;
-		friend Graphics3D;
-		friend Material;
+		CROSS_FRIENDLY
 
 		enum Type{
 			SAMPLER,
@@ -55,8 +56,6 @@ public:
 			UNKNOWN,
 		};
 
-		Property(Property& obj);
-
 		void RealocateIfNeeded(U32 newSIze);
 
 		string name;
@@ -67,36 +66,6 @@ public:
 		void* value;
 		bool original;
 	};
-
-	class LightUniforms{
-	public:
-		GLint position;
-		GLuint direction;
-		GLint color;
-
-		GLint intensity;
-	
-		GLuint cut_off;
-		GLuint outer_cut_off;
-	};
-
-	bool compiled;
-	//general attributes
-	GLint aPosition;
-	GLint aTexCoords;
-	GLint aNormal;
-	GLint aTangent;
-	GLint aBitangent;
-	
-	//general uniforms
-	GLint uMVP;
-	GLint uModelMatrix;
-	GLint uNormalMatrix;
-	GLint uCameraPosition;
-	GLint uAmbientLight;
-	GLint uColor;
-	//custom uniforms
-	Array<Property*> properties;
 
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
@@ -119,11 +88,41 @@ public:
 	Property* GetProperty(const string& name);
 	bool HaveProperty(const string& name);
 
-	GLuint GetProgram();
-
 protected:
+	CROSS_FRIENDLY
+
+	class LightUniforms{
+	public:
+		GLint position;
+		GLuint direction;
+		GLint color;
+
+		GLint intensity;
+	
+		GLuint cut_off;
+		GLuint outer_cut_off;
+	};
+
 	GLuint program;
-	Array<string>	macrosies;
+	Array<string> macrosies;
+	bool compiled;
+	//general attributes
+	GLint aPosition;
+	GLint aTexCoords;
+	GLint aNormal;
+	GLint aTangent;
+	GLint aBitangent;
+	//general uniforms
+	GLint uMVP;
+	GLint uModelMatrix;
+	GLint uNormalMatrix;
+	GLint uCameraPosition;
+	GLint uAmbientLight;
+	GLint uColor;
+	//custom uniforms
+	Array<Property*> properties;
+
+	GLuint GetProgram();
 
 private:
 	GLuint vertex_shader;

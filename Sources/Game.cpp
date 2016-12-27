@@ -65,7 +65,7 @@ void Game::Stop(){
 
 void Game::SetScreen(Screen* screen){
 	next_screen = screen;
-	if(!current_screen){
+	if(!current_screen){	//in this case we need momentaly load new screen
 		LoadNextScreen();
 	}
 }
@@ -99,7 +99,7 @@ float Game::GetRunTime(){
 	return (float)(run_time / 1000000.f);
 }
 
-void Game::Update(){
+void Game::EngineUpdate(){
 	U64 now = launcher->GetTime();
 	U64 updateTime = now - timestamp;
 	float secTime = (float)(updateTime / 1000000.);

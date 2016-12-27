@@ -57,8 +57,10 @@ public:
 	void SetBackground(const Color& background);
 	/* New UI element will auto update and covers area from touches */
 	void AddUI(UI* element);
+
 protected:
 	bool is_scene;
+
 private:
 	bool actionIDs[MAX_ACTIONS];
 	Array<UI*> guis;

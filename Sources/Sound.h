@@ -38,7 +38,7 @@ public:
 	Sound* Clone();
 
 private:
-	friend Audio;
+	CROSS_FRIENDLY
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;

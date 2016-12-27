@@ -67,7 +67,7 @@ public:
 	void LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xml);
 	Font* GetDefaultFont();
 
-	Byte* LoadRawData(const string& filename, int& width, int& height, int& channels);
+	Byte* LoadRawTextureData(const string& filename, int& width, int& height, int& channels);
 	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);

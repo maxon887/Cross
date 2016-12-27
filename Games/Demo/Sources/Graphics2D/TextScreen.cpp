@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TextScreen.h"
 #include "Graphics2D.h"
-#include "Font.h"
+#include "Utils/Font.h"
 #include "Input.h"
 #include "Game.h"
 #include "System/Debugger.h"

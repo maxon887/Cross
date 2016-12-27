@@ -19,7 +19,6 @@
 #include "Game.h"
 #include "Launcher.h"
 #include "Config.h"
-#include "Light.h"
 #include "Model.h"
 
 using namespace cross;

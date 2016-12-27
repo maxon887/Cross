@@ -20,7 +20,7 @@
 #include "Demo.h"
 #include "Sprite.h"
 #include "System/Debugger.h"
-#include "Font.h"
+#include "Utils/Font.h"
 
 void SpritesScreen::Start(){
 	awesome_face = demo->GetCommonSprite("AwesomeFace.png");

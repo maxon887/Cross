@@ -46,7 +46,6 @@ public:
     /* New Screen will be updated and deleted due to game live cycle. Previous screen data will be deleted */
     virtual void SetScreen(Screen* screen);
 
-	void Update();
 	/* Returns time since game start */
 	float GetRunTime();
 	/* Returns active game Screen */
@@ -55,6 +54,8 @@ public:
 	Scene* GetCurrentScene();
 	/* Exit from application */
     void Exit();
+
+	void EngineUpdate();
 
 protected:
 	Screen* current_screen;

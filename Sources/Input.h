@@ -141,9 +141,9 @@ public:
 	/* Checks if specific key pressed*/
 	bool IsPressed(Key key);
 	void Update();
-//Internal data. You don't need call any of this methods or modify variable
+
 protected:
-	friend Game;
+	CROSS_FRIENDLY
 
 	std::mutex  input_mutex;
 	bool pressed_keys[(U32)Key::MAX_KEY_NUM];

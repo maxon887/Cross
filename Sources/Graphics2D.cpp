@@ -19,7 +19,7 @@
 #include "Launcher.h"
 #include "System/Debugger.h"
 #include "Sprite.h"
-#include "Font.h"
+#include "Utils/Font.h"
 #include "Camera2D.h"
 #include "File.h"
 #include "Texture.h"
@@ -355,7 +355,7 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 	}
 }
 
-Byte* Graphics2D::LoadRawData(const string& filename, int& width, int& height, int& channels){
+Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& height, int& channels){
 	File* textureFile = launcher->LoadFile(filename);
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
@@ -394,7 +394,7 @@ Byte* Graphics2D::LoadRawData(const string& filename, int& width, int& height, i
 Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filter){
 	int width, height, channels;
 
-	Byte* image = LoadRawData(filename, width, height, channels);
+	Byte* image = LoadRawTextureData(filename, width, height, channels);
 
 	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
 	Texture* texture = CreateTexture(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);

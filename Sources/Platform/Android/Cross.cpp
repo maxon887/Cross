@@ -87,7 +87,7 @@ void* Main(void* self){
                 }
                 case APP_RUNNING:{
 					pause_mutex.lock();
-                    game->Update();
+                    game->EngineUpdate();
 					pause_mutex.unlock();
                     break;
                 }

@@ -35,6 +35,7 @@ public:
 	float GetViewWidth();
 	/* Return height view distance */
 	float GetViewHeight();
+
 private:
 	float view_width;
 	float view_height;

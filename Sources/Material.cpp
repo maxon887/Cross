@@ -59,6 +59,15 @@ Shader::Property* Material::GetProperty(const string& name){
 	throw CrossException("Can not find property '%s'", name.c_str());
 }
 
+Shader::Property* Material::GetProperty(GLuint glID){
+	for(Shader::Property* prop : properties){
+		if(prop->glId == glID){
+			return prop;
+		}
+	}
+	throw CrossException("Can not find property by ID(%d)", glID);
+}
+
 void Material::SetPropertyValue(const string& name, U32 value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
@@ -91,6 +100,41 @@ void Material::SetPropertyValue(const string& name, Matrix& value){
 
 void Material::SetPropertyValue(const string& name, Texture* value){
 	Shader::Property* prop = GetProperty(name);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, U32 value){
+	Shader::Property* prop = GetProperty(glID);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, float value){
+	Shader::Property* prop = GetProperty(glID);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, const Color& value){
+	Shader::Property* prop = GetProperty(glID);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, Vector3D& value){
+	Shader::Property* prop = GetProperty(glID);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, Vector4D& value){
+	Shader::Property* prop = GetProperty(glID);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, Matrix& value){
+	Shader::Property* prop = GetProperty(glID);
+	prop->SetValue(value);
+}
+
+void Material::SetPropertyValue(GLuint glID, Texture* value){
+	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 

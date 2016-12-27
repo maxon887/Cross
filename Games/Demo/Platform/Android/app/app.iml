@@ -180,12 +180,6 @@
     <content url="file://$MODULE_DIR$/../../../../../Sources/File.h">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/File.h" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Font.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Font.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Font.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Font.h" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Game.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Game.cpp" isTestSource="false" />
     </content>

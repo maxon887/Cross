@@ -35,22 +35,22 @@ public:
 	void SetColor(const Color& color);
 	Color GetColor() const;
 	Sprite* Clone();
-//Internal data. You don't need call any of this methods or modify variable
-public:
+
+private:
+	CROSS_FRIENDLY
+
+	static const GLushort indices[];
 	static GLuint EBO;
 
 	GLuint VBO;
-
-	const GLushort* GetIndices() const;
-	Texture* GetTexture();
-private:
-	static const GLushort indices[];
 	float width;
 	float height;
 	Color color;
-
 	Texture* texture;
 	bool original;
+
+	const GLushort* GetIndices() const;
+	Texture* GetTexture();
 };
 
 }

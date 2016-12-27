@@ -73,6 +73,7 @@ class MultiLightShader;
 class Light;
 class UI;
 class Cubemap;
+class Commercial;
 
 extern Game*		game;
 extern Launcher*	launcher;
@@ -88,3 +89,16 @@ extern Config*		config;
 cross::Game* CrossMain(cross::Launcher* launcher);
 
 using namespace std;
+
+#define CROSS_FRIENDLY	\
+friend Shader;			\
+friend Material;		\
+friend GraphicsGL;		\
+friend Graphics2D;		\
+friend Graphics3D;		\
+friend Game;			\
+friend Launcher;		\
+friend Audio;			\
+friend Sound;			\
+friend Input;			\
+friend Config;

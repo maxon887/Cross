@@ -39,7 +39,7 @@ public:
 	Mesh* Clone();
 
 protected:
-	friend Graphics3D;
+	CROSS_FRIENDLY
 
 	GLuint VBO;
 	GLuint EBO;

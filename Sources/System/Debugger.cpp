@@ -20,7 +20,7 @@
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "Game.h"
-#include "Font.h"
+#include "Utils/Font.h"
 #include "Screen.h"
 
 using namespace cross;

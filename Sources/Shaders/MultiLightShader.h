@@ -25,10 +25,6 @@ public:
 	static const U32 MaxDirectionalLights = 4;
 	static const U32 MaxSpotLights = 8;
 
-	LightUniforms uPointLights[MaxPointLights];
-	LightUniforms uDirectionalLights[MaxDirectionalLights];
-	LightUniforms uSpotLights[MaxSpotLights];
-
 	MultiLightShader();
 	MultiLightShader(const string& vert, const string& frag);
 
@@ -37,6 +33,11 @@ public:
 
 	virtual bool UseLights();
 	virtual void TransferLightData(const Array<Light*>& lights);
+
+private:
+	LightUniforms uPointLights[MaxPointLights];
+	LightUniforms uDirectionalLights[MaxDirectionalLights];
+	LightUniforms uSpotLights[MaxSpotLights];
 };
 
 }

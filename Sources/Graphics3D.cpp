@@ -160,17 +160,6 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, *(GLuint*)prop->value));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
-			if(shader->uMVP != -1){
-				Camera* cam = scene->GetCamera();
-				//DO TO: REMOVE THIS!!!
-				Matrix view = cam->GetViewMatrix();
-				view.m[0][3] = 0.f;
-				view.m[1][3] = 0.f;
-				view.m[2][3] = 0.f;
-				Matrix mvp = cam->GetProjectionMatrix() * view * globalModel * mesh->GetModelMatrix();
-				mvp = mvp.GetTransposed();
-				SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-			}
 			break;
 		default:
 			throw CrossException("Unknown property type");

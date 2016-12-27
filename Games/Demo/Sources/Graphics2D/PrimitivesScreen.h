@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
-#include "Font.h"
+#include "Utils/Font.h"
 #include "Input.h"
 
 using namespace cross;

@@ -43,6 +43,7 @@ public:
 	Sprite* GetChar(char c);
 	float GetCharAdvance(char c);
 	Font* Clone();
+
 private:
 	FT_Face face;
 	File* file;

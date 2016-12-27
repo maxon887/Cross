@@ -48,6 +48,7 @@ public:
 
 	Matrix& GetModelMatrix();
 	void SetModelMatrix(const Matrix& model);
+
 protected:
 	Matrix model;
 	Matrix translate;
