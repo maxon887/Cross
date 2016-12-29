@@ -21,19 +21,24 @@
 
 namespace cross {
 
-/* Used for 2D drawing. Contain original texture sprite location on it and pivot */
+/* Used for 2D drawing. Contain original texture sprite location and pivot */
 class Sprite : public Transformable{
 public:
-	Sprite(Sprite& sprite);
 	Sprite(Texture* texture, Rect region);
 	Sprite(Texture* texture, Rect region, Vector2D pivot);
+	Sprite(Sprite& sprite);
 	~Sprite();
-
+	/* Get width on texture occupied by sprite */
 	float GetWidth() const;
+	/* Get height on texture occupied by sprite */
 	float GetHeight() const;
+	/* Rotate sprite by angle in degrees clockwise */
 	void SetRotate(float angle);
+	/* You can override texture collor by this function */
 	void SetColor(const Color& color);
+	/* Gets overrided color(white by default) */
 	Color GetColor() const;
+	/* Make clone of this object */
 	Sprite* Clone();
 
 private:

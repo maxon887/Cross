@@ -22,18 +22,18 @@
 
 namespace cross{
 
-/*	This class allow you set 2D view distance by SetViewWidth. This allow you scale 
-	2D sceene and keep abstract from physical screen ppi. In additional you you can
-	scroll across your 2D sceene by SetPosition function */
+/*	This class designed for managing 2D space. Allow you set view distance what 
+	This allow you scale 2D sceene and keep abstract from physical screen ppi. 
+	In additional you you can scroll across your 2D sceene by SetPosition() function */
 class Camera2D : public Camera{
 public:
 	Camera2D();
 	~Camera2D();
 	/* Set up camera view distance */
 	void SetViewWidth(float width);
-	/* Return width view distance */
+	/* Returns width view distance */
 	float GetViewWidth();
-	/* Return height view distance */
+	/* Returns height view distance */
 	float GetViewHeight();
 
 private:

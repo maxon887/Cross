@@ -24,6 +24,8 @@ struct aiScene;
 
 namespace cross{
 
+/*	Class responsible for 3D objetcs drawing 
+	and model loading */
 class Graphics3D{
 public:
 	enum Primitives{

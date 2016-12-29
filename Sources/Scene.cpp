@@ -20,6 +20,7 @@
 #include "System.h"
 #include "Config.h"
 #include "Model.h"
+#include "Light.h"
 
 using namespace cross;
 

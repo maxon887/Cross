@@ -20,7 +20,7 @@
 #include "Input.h"
 
 namespace cross{
-
+/* Class */
 class Scene : public Screen{
 public:
 	Scene();

@@ -18,7 +18,8 @@
 #include "Cross.h"
 
 namespace cross{
-
+/*	Container class for data loaded from file system 
+	To load File see System class */
 class File{
 public:
 	~File();

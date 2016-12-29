@@ -23,6 +23,7 @@ namespace FMOD{
 
 namespace cross {
 
+/*	Class responsible for loading sound and music */
 class Audio{
 public:
 	Audio();

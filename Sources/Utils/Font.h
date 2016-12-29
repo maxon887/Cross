@@ -24,24 +24,30 @@ typedef struct FT_FaceRec_* FT_Face;
 
 namespace cross {
 
-/*	Vital class for rendring texts. Available font formats
-	can be found in FreeType library documentation. */
+/*	Class needed for text drawing. Container for symbols and font params
+	Available font formats can be found in FreeType library documentation. */
 class Font{
 public:
 	Font(Font& font);
 	Font(string filename, float size, Color color);
 	~Font();
-
-	Color GetColor();
+	/* You can draw text with specific color(white by default) */
 	void SetColor(Color color);
-	float GetSize();
-	/* Quite expencive function. All bitmap chars need to be racalculated. */
+	/* Returns current font color */
+	Color GetColor();
+	/* Sets font size. Quite expencive function. All bitmap chars need to be racalculated. */
 	void SetSize(float size);
+	/* Returns virtual font size */
+	float GetSize();
 	/* Return true if current font is monospaced */
 	bool IsFixedWidth();
+	/* ONLY FOR MONOCHROM FONT! Return virtual char width. For regular font use GetCharWidthAdvance() */
 	float GetCharWidth();
+	/* Return certain char as Sprite from ASCII table */
 	Sprite* GetChar(char c);
-	float GetCharAdvance(char c);
+	/* Return virtual char width for specific symbol from ASCII */
+	float GetCharWidthAdvance(char c);
+	/* Make clone of this object */
 	Font* Clone();
 
 private:

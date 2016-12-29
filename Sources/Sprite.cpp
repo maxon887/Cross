@@ -22,16 +22,6 @@ using namespace cross;
 const GLushort Sprite::indices[] = { 0, 1, 2, 0, 2, 3 };
 GLuint Sprite::EBO = -1;
 
-Sprite::Sprite(Sprite& sprite) :
-	Transformable(sprite),
-	VBO(sprite.VBO),
-	width(sprite.width),
-	height(sprite.height),
-	color(sprite.color),
-	original(false),
-	texture(sprite.texture)
-{ }
-
 Sprite::Sprite(Texture* texture, Rect region) :
 	Transformable(),
 	width(region.width),
@@ -127,6 +117,16 @@ Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
+
+Sprite::Sprite(Sprite& sprite) :
+	Transformable(sprite),
+	VBO(sprite.VBO),
+	width(sprite.width),
+	height(sprite.height),
+	color(sprite.color),
+	original(false),
+	texture(sprite.texture)
+{ }
 
 Sprite::~Sprite(){
 	if(original){

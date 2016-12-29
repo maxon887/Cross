@@ -218,7 +218,7 @@ void Graphics2D::DrawText(Vector2D pos, const char* text){
 void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font){
 	while(*text){
 		Sprite* ch = font->GetChar(*text);
-		float advance = font->GetCharAdvance(*text);
+		float advance = font->GetCharWidthAdvance(*text);
 		ch->SetPosition(pos);
 		DrawSprite(ch, font->GetColor(), true);
 		pos.x += advance;

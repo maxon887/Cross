@@ -24,32 +24,36 @@ namespace cross {
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.
-   Witch will be loaded through Game::GetStartScreen function */
+   Whitch will be loaded through Game::GetStartScreen() function */
 class Screen{
 public:
+	/* Occurs when virtual screen space changed */
 	DECLARE_EVENT(void, float, float) SizeChanged;
 
 	virtual ~Screen() { };
-	/* Calls once before screen show up. */
+	/* Called before screen show up. */
 	virtual void Start();
-	/* Calls when screen about to change on new one */
+	/* Called when screen about to change on new one */
 	virtual void Stop();
-	/* Calls every frame update. Ideally 60 times per second(60fps) */
+	/* Called every frame update. Ideally 60 times per second(60fps) */
 	virtual void Update(float sec);
+	/* Called after regularly Screen::Update()  */
 	virtual void LateUpdate(float sec);
-	/* Calls where game need to be stoped like lost focus or input phone call */
+	/* Called when game need to be suspend like lost focus or input phone call */
 	virtual void Suspend() { };
-	/* Calls where game about show again after suspending */
+	/* Called when game about show again after suspending */
 	virtual void Resume() { };
 	/* Return virtual game width for 2D drawing */
 	virtual float GetWidth();
 	/* Return virtual game height for 2D drawing */
 	virtual float GetHeight();
-	/* Handle input that not drop on UI elements */
+	/* Handle input action down that not drop on UI elements */
 	virtual void ActionDown(Input::Action action) { };
+	/* Handle input action move that not drop on UI elements */
 	virtual void ActionMove(Input::Action action) { };
+	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action) { };
-
+	/* Returns true if current screen is actualy a 3D scene */
 	bool IsScene();
 	/* Reflect ratio between screen and target device width */
 	float GetScaleFactor();

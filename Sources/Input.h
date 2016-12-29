@@ -128,7 +128,7 @@ public:
 	DECLARE_EVENT(void, Action) ActionDown;
 	DECLARE_EVENT(void, Action) ActionMove;
 	DECLARE_EVENT(void, Action) ActionUp;
-	/* Physical device inputs */
+	/* Raw device inputs in pixels */
 	DECLARE_EVENT(void, float, float, S32) TargetActionDown;
 	DECLARE_EVENT(void, float, float, S32) TargetActionMove;
 	DECLARE_EVENT(void, float, float, S32) TargetActionUp;
@@ -140,6 +140,7 @@ public:
 	DECLARE_EVENT(void) MouseWheelDown;
 	/* Checks if specific key pressed*/
 	bool IsPressed(Key key);
+	/* Engine specific */
 	void Update();
 
 protected:

@@ -26,7 +26,7 @@ class Config{
 public:
 	Config();
 	~Config();
-
+	/* Custom user properties */
 	void SetString(const string& key, const string& value);
 	void SetInt(const string& key, S32 value);
 	void SetFloat(const string& key, float value);
@@ -35,8 +35,7 @@ public:
 	S32 GetInt(const string& key, S32 def);
 	float GetFloat(const string& key, float def);
 	bool GetBool(const string& key, bool def);
-
-	//game config properties
+	/* Game config properties */
 	bool UseCompressedTextures();
 	Texture::Filter GetTextureFilter();
 	float GetViewDistance();

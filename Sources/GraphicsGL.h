@@ -62,7 +62,8 @@ enum class DefaultShader{
 	NONE
 };
 
-/* Class containing specific OpengGL features */
+/*	Class containing specific OpengGL features,
+	offscreen rendering and default shaders */
 class GraphicsGL{
 public:
 	static void CheckGLError(const char* file, U32 line);

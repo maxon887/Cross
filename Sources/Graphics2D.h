@@ -20,8 +20,8 @@
 
 namespace cross{
 
-/*	This class can be used for drawing 2D graphics. If you not support Camera2D all drawings
-	will be placed in device screen metrics. */
+/*	Class responsible 2D primitive drawing(ex. lines, dots),
+	sprite drawing, texture loading and processing */
 class Graphics2D{
 public:
 	Graphics2D();

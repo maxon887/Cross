@@ -133,7 +133,7 @@ Sprite* Font::GetChar(char c){
 	return sprites[c - 29];
 }
 
-float Font::GetCharAdvance(char c){
+float Font::GetCharWidthAdvance(char c){
 	return advances[c - 29];
 }
 
