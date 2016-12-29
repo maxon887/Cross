@@ -48,7 +48,9 @@ Audio::Audio() :
 
 Audio::~Audio(){
 	result = fmod_system->close();
-    ERRCHECK(result);
+	if(result != FMOD_OK){
+		system->LogIt("Error while closing FMOD system");
+	}
 }
 
 Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {

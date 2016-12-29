@@ -21,6 +21,9 @@
 
 namespace cross{
 
+/*	This class represent 3D object in scene.
+	3D model consists of Meshes, Materials and Shaders.
+	Model can be loaded through Graphics3D class. */
 class Model : public Transformable{
 public:
 	enum Format{

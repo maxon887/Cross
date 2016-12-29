@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Sound.h"
 #include "Audio.h"
+#include "System.h"
 
 #include "Libs/FMOD/fmod.hpp"
 #include "Libs/FMOD/fmod_errors.h"
@@ -41,9 +42,11 @@ Sound::Sound(Sound& obj) :
 Sound::~Sound(){
 	if(original){
 		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
-		ERRCHECK(result);
 	}else{
-		channel->stop();
+		result = channel->stop();
+	}
+	if(result != FMOD_OK){
+		system->LogIt("Error while destroing Sound");
 	}
 }
 

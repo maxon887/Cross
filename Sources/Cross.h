@@ -69,7 +69,6 @@ class Material;
 class Mesh;
 class Model;
 class Texture;
-class MultiLightShader;
 class Light;
 class UI;
 class Cubemap;

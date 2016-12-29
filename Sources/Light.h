@@ -20,6 +20,8 @@
 
 namespace cross{
 
+/*	Class needed to light your scene and models. 
+	Do not use many light with forward rendering it can make performance issue */
 class Light : public Transformable{
 public:
 	enum Type{

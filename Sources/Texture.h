@@ -19,6 +19,9 @@
 
 namespace cross{
 
+/*	This class represents image data loaded to gpu.
+	If you need to load Texture from file use Graphics2D class.
+	Textures needed to create sprites and 3D models propertie maps */
 class Texture{
 public:
 	enum Filter{
@@ -42,23 +45,25 @@ public:
 	Texture(GLuint id, U32 width, U32 height, U32 channels, Filter filter);
 	~Texture();
 
-	GLuint GetID() const;
 	U32 GetWidth() const;
 	U32 GetHeight() const;
 	U32 GetChannels() const;
-	Texture* Clone() const;
 	void SetName(const string& name);
 	string GetName();
 	void SetTilingMode(TilingMode mode);
 	void AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp);
+	Texture* Clone() const;
 
 private:
+	CROSS_FRIENDLY
+
 	string name;
 	GLuint id;
 	U32 width;
 	U32 height;
 	U32 channels;
 
+	GLuint GetID() const;
 	void ApplyFilter(Filter filter);
 };
 

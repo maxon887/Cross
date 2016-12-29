@@ -19,6 +19,8 @@
 
 namespace cross{
 
+/*	Special type of texture which represents 360 observible texutre. 
+	Created by 6 faces(top, right, back etc.) */
 class Cubemap {
 public:
 	Cubemap(const string& right,

@@ -23,6 +23,8 @@ namespace cross{
 
 class VertexBuffer;
 
+/*	Mesh is smallest 3d entity in game. Which consist of polygons.
+	Mesh also contains its materials which need to properly draw it on Scene */
 class Mesh : public Transformable{
 public:
 	Mesh(VertexBuffer* vertexBuffer, Array<U32> &indices, U32 primitivesCount);

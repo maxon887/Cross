@@ -19,6 +19,9 @@
 
 namespace cross{
 
+/*	Basic user interface element which will be drawin on Screen. 
+	All UI elements must override this class in order to propery 
+	process touches and updates */
 class UI{
 public:
 	virtual Rect GetRect() const = 0;

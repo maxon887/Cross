@@ -20,6 +20,8 @@
 
 namespace cross{
 
+/*	This class needed to link gpu shader input data to engine cpu core. 
+	Needed to create any kind of material */
 class Shader{
 public:
 	class Property{

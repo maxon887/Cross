@@ -20,22 +20,30 @@
 #include "Input.h"
 
 namespace cross{
-/* Class */
+
+/*	This class designed for managing 3D space. 
+	Models, Meshes, Lights can exists only in Scene */
 class Scene : public Screen{
 public:
 	Scene();
-
+	/* Called before scene show up. */
 	virtual void Start();
-	virtual void Update(float sec);
+	/* Called when scene about to change on new one */
 	virtual void Stop();
-
-	void SetCameraViewDistance(float distance);
-	void AddLight(Light* light);
-	Array<Light*>& GetLights();
-
+	/* Called every frame update. */
+	virtual void Update(float sec);
+	/* Returns scene 3D camera */
 	Camera* GetCamera();
-	Color GetAmbientColor() const;
+	/* Reset camera view distance. Can affect on performance */
+	void SetCameraViewDistance(float distance);
+	/* Adds new light to the scene */
+	void AddLight(Light* light);
+	/* Returns all avalible light on scne */
+	Array<Light*>& GetLights();
+	/* Sets up ambient scene light intencity */
 	void SetAmbientColor(const Color& color);
+	/* Returns ambient scene light intencity */
+	Color GetAmbientColor() const;
 
 protected:
 	Camera* camera;
