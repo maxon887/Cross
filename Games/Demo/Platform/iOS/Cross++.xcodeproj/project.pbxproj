@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4312C6F1E15C08600FA4FF4 /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4312C6D1E15C08600FA4FF4 /* System.cpp */; };
+		D4312C721E15C23D00FA4FF4 /* IOSSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4312C711E15C23D00FA4FF4 /* IOSSystem.mm */; };
+		D4312C751E15C35800FA4FF4 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4312C731E15C35800FA4FF4 /* Font.cpp */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */; };
 		D44F10911E09C18F00870451 /* MaterialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10871E09C18F00870451 /* MaterialScene.cpp */; };
@@ -39,13 +42,11 @@
 		D4CEA5AF1DD631920054B6A9 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A71DD631920054B6A9 /* Color.cpp */; };
 		D4CEA5B01DD631920054B6A9 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5A91DD631920054B6A9 /* Config.cpp */; };
 		D4CEA5C11DD631A40054B6A9 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5B11DD631A40054B6A9 /* File.cpp */; };
-		D4CEA5C21DD631A40054B6A9 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5B31DD631A40054B6A9 /* Font.cpp */; };
 		D4CEA5C31DD631A40054B6A9 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5B51DD631A40054B6A9 /* Game.cpp */; };
 		D4CEA5C41DD631A40054B6A9 /* Graphics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5B71DD631A40054B6A9 /* Graphics2D.cpp */; };
 		D4CEA5C51DD631A40054B6A9 /* Graphics3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5B91DD631A40054B6A9 /* Graphics3D.cpp */; };
 		D4CEA5C61DD631A40054B6A9 /* GraphicsGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5BB1DD631A40054B6A9 /* GraphicsGL.cpp */; };
 		D4CEA5C71DD631A40054B6A9 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5BD1DD631A40054B6A9 /* Input.cpp */; };
-		D4CEA5C81DD631A40054B6A9 /* Launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5BF1DD631A40054B6A9 /* Launcher.cpp */; };
 		D4CEA5DF1DD631C50054B6A9 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5C91DD631C50054B6A9 /* Light.cpp */; };
 		D4CEA5E01DD631C50054B6A9 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5CB1DD631C50054B6A9 /* Material.cpp */; };
 		D4CEA5E11DD631C50054B6A9 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5CD1DD631C50054B6A9 /* Mesh.cpp */; };
@@ -63,7 +64,6 @@
 		D4CEA6071DD633180054B6A9 /* CrossViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5FC1DD633180054B6A9 /* CrossViewController.mm */; };
 		D4CEA6081DD633180054B6A9 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA5FE1DD633180054B6A9 /* IAPHelper.m */; };
 		D4CEA6091DD633180054B6A9 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6001DD633180054B6A9 /* iRate.m */; };
-		D4CEA60A1DD633180054B6A9 /* LauncherOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA6021DD633180054B6A9 /* LauncherOS.mm */; };
 		D4CEA60B1DD633180054B6A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4CEA6031DD633180054B6A9 /* Main.storyboard */; };
 		D4CEA61A1DD633440054B6A9 /* All.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA60C1DD633440054B6A9 /* All.cpp */; };
 		D4CEA61B1DD633440054B6A9 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4CEA60E1DD633440054B6A9 /* Matrix.cpp */; };
@@ -107,6 +107,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D4312C6D1E15C08600FA4FF4 /* System.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
+		D4312C6E1E15C08600FA4FF4 /* System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
+		D4312C701E15C23D00FA4FF4 /* IOSSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOSSystem.h; path = Platform/iOS/IOSSystem.h; sourceTree = "<group>"; };
+		D4312C711E15C23D00FA4FF4 /* IOSSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IOSSystem.mm; path = Platform/iOS/IOSSystem.mm; sourceTree = "<group>"; };
+		D4312C731E15C35800FA4FF4 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Font.cpp; path = Utils/Font.cpp; sourceTree = "<group>"; };
+		D4312C741E15C35800FA4FF4 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Font.h; path = Utils/Font.h; sourceTree = "<group>"; };
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionalLightScene.cpp; path = Graphics3D/Light/DirectionalLightScene.cpp; sourceTree = "<group>"; };
 		D44F10861E09C18F00870451 /* DirectionalLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectionalLightScene.h; path = Graphics3D/Light/DirectionalLightScene.h; sourceTree = "<group>"; };
@@ -169,8 +175,6 @@
 		D4CEA5AB1DD631920054B6A9 /* Cross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cross.h; sourceTree = "<group>"; };
 		D4CEA5B11DD631A40054B6A9 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
 		D4CEA5B21DD631A40054B6A9 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
-		D4CEA5B31DD631A40054B6A9 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
-		D4CEA5B41DD631A40054B6A9 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		D4CEA5B51DD631A40054B6A9 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		D4CEA5B61DD631A40054B6A9 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		D4CEA5B71DD631A40054B6A9 /* Graphics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics2D.cpp; sourceTree = "<group>"; };
@@ -181,8 +185,6 @@
 		D4CEA5BC1DD631A40054B6A9 /* GraphicsGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsGL.h; sourceTree = "<group>"; };
 		D4CEA5BD1DD631A40054B6A9 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
 		D4CEA5BE1DD631A40054B6A9 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
-		D4CEA5BF1DD631A40054B6A9 /* Launcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Launcher.cpp; sourceTree = "<group>"; };
-		D4CEA5C01DD631A40054B6A9 /* Launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Launcher.h; sourceTree = "<group>"; };
 		D4CEA5C91DD631C50054B6A9 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
 		D4CEA5CA1DD631C50054B6A9 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		D4CEA5CB1DD631C50054B6A9 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
@@ -217,8 +219,6 @@
 		D4CEA5FE1DD633180054B6A9 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPHelper.m; path = Platform/iOS/IAPHelper.m; sourceTree = "<group>"; };
 		D4CEA5FF1DD633180054B6A9 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = Platform/iOS/iRate.h; sourceTree = "<group>"; };
 		D4CEA6001DD633180054B6A9 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iRate.m; path = Platform/iOS/iRate.m; sourceTree = "<group>"; };
-		D4CEA6011DD633180054B6A9 /* LauncherOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LauncherOS.h; path = Platform/iOS/LauncherOS.h; sourceTree = "<group>"; };
-		D4CEA6021DD633180054B6A9 /* LauncherOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LauncherOS.mm; path = Platform/iOS/LauncherOS.mm; sourceTree = "<group>"; };
 		D4CEA6031DD633180054B6A9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Platform/iOS/Main.storyboard; sourceTree = "<group>"; };
 		D4CEA60C1DD633440054B6A9 /* All.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = All.cpp; path = Math/All.cpp; sourceTree = "<group>"; };
 		D4CEA60D1DD633440054B6A9 /* All.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = All.h; path = Math/All.h; sourceTree = "<group>"; };
@@ -411,8 +411,6 @@
 				D4CEA5AB1DD631920054B6A9 /* Cross.h */,
 				D4CEA5B11DD631A40054B6A9 /* File.cpp */,
 				D4CEA5B21DD631A40054B6A9 /* File.h */,
-				D4CEA5B31DD631A40054B6A9 /* Font.cpp */,
-				D4CEA5B41DD631A40054B6A9 /* Font.h */,
 				D4CEA5B51DD631A40054B6A9 /* Game.cpp */,
 				D4CEA5B61DD631A40054B6A9 /* Game.h */,
 				D4CEA5B71DD631A40054B6A9 /* Graphics2D.cpp */,
@@ -423,11 +421,11 @@
 				D4CEA5BC1DD631A40054B6A9 /* GraphicsGL.h */,
 				D4CEA5BD1DD631A40054B6A9 /* Input.cpp */,
 				D4CEA5BE1DD631A40054B6A9 /* Input.h */,
-				D4CEA5BF1DD631A40054B6A9 /* Launcher.cpp */,
-				D4CEA5C01DD631A40054B6A9 /* Launcher.h */,
 				D4CEA5C91DD631C50054B6A9 /* Light.cpp */,
 				D4CEA5CA1DD631C50054B6A9 /* Light.h */,
 				D4CEA5CB1DD631C50054B6A9 /* Material.cpp */,
+				D4312C6D1E15C08600FA4FF4 /* System.cpp */,
+				D4312C6E1E15C08600FA4FF4 /* System.h */,
 				D4CEA5CC1DD631C50054B6A9 /* Material.h */,
 				D4CEA5CD1DD631C50054B6A9 /* Mesh.cpp */,
 				D4CEA5CE1DD631C50054B6A9 /* Mesh.h */,
@@ -554,6 +552,8 @@
 		D4CEA5A01DD631170054B6A9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D4312C731E15C35800FA4FF4 /* Font.cpp */,
+				D4312C741E15C35800FA4FF4 /* Font.h */,
 				D44F10B81E09C20100870451 /* Cubemap.cpp */,
 				D44F10B91E09C20100870451 /* Cubemap.h */,
 				D44F10B51E09C1FB00870451 /* Skybox.cpp */,
@@ -637,6 +637,8 @@
 		D4CEA5F31DD632F70054B6A9 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D4312C701E15C23D00FA4FF4 /* IOSSystem.h */,
+				D4312C711E15C23D00FA4FF4 /* IOSSystem.mm */,
 				D4CEA5F41DD633180054B6A9 /* AppDelegate.h */,
 				D4CEA5F51DD633180054B6A9 /* AppDelegate.m */,
 				D4CEA5F61DD633180054B6A9 /* CommercialOS.h */,
@@ -647,8 +649,6 @@
 				D4CEA5FE1DD633180054B6A9 /* IAPHelper.m */,
 				D4CEA5FF1DD633180054B6A9 /* iRate.h */,
 				D4CEA6001DD633180054B6A9 /* iRate.m */,
-				D4CEA6011DD633180054B6A9 /* LauncherOS.h */,
-				D4CEA6021DD633180054B6A9 /* LauncherOS.mm */,
 				D4CEA6031DD633180054B6A9 /* Main.storyboard */,
 			);
 			name = iOS;
@@ -786,7 +786,6 @@
 				D4CEA6081DD633180054B6A9 /* IAPHelper.m in Sources */,
 				D44F10A31E09C1A600870451 /* NormalScene.cpp in Sources */,
 				D4CEA5E11DD631C50054B6A9 /* Mesh.cpp in Sources */,
-				D4CEA5C21DD631A40054B6A9 /* Font.cpp in Sources */,
 				D4CEA5AD1DD631920054B6A9 /* Camera.cpp in Sources */,
 				D44F10B21E09C1AF00870451 /* SkyboxScene.cpp in Sources */,
 				D4DA8DD81DD6614000D236A4 /* tinyxmlerror.cpp in Sources */,
@@ -800,7 +799,6 @@
 				D4CEA5E91DD631C50054B6A9 /* VertexBuffer.cpp in Sources */,
 				D4CEA6421DD6337D0054B6A9 /* DebugScene.cpp in Sources */,
 				D4CEA5C41DD631A40054B6A9 /* Graphics2D.cpp in Sources */,
-				D4CEA60A1DD633180054B6A9 /* LauncherOS.mm in Sources */,
 				D4CEA61D1DD633440054B6A9 /* Rect.cpp in Sources */,
 				D4CEA5E51DD631C50054B6A9 /* Sprite.cpp in Sources */,
 				D4DA8DD71DD6614000D236A4 /* tinyxml.cpp in Sources */,
@@ -839,16 +837,19 @@
 				D4CEA61E1DD633440054B6A9 /* Vector2D.cpp in Sources */,
 				D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */,
 				D4CEA6281DD6335A0054B6A9 /* MultiLightShader.cpp in Sources */,
+				D4312C751E15C35800FA4FF4 /* Font.cpp in Sources */,
 				D4DA8DD91DD6614000D236A4 /* tinyxmlparser.cpp in Sources */,
 				D4CEA5AC1DD631920054B6A9 /* Audio.cpp in Sources */,
 				D44F10A21E09C1A600870451 /* NakedScene.cpp in Sources */,
 				D4CEA5E21DD631C50054B6A9 /* Model.cpp in Sources */,
 				D44F10931E09C18F00870451 /* PointLightScene.cpp in Sources */,
+				D4312C721E15C23D00FA4FF4 /* IOSSystem.mm in Sources */,
 				D44F10921E09C18F00870451 /* MultiLightScene.cpp in Sources */,
 				D4CEA5B01DD631920054B6A9 /* Config.cpp in Sources */,
 				D4CEA6521DD633E50054B6A9 /* Demo.cpp in Sources */,
 				D4CEA5E41DD631C50054B6A9 /* Screen.cpp in Sources */,
 				D4CEA6041DD633180054B6A9 /* AppDelegate.m in Sources */,
+				D4312C6F1E15C08600FA4FF4 /* System.cpp in Sources */,
 				D4CEA68C1DD6344D0054B6A9 /* TexturedModelScene.cpp in Sources */,
 				D4CEA5C71DD631A40054B6A9 /* Input.cpp in Sources */,
 				D4CEA5C61DD631A40054B6A9 /* GraphicsGL.cpp in Sources */,
@@ -861,7 +862,6 @@
 				D4CEA6301DD633690054B6A9 /* Debugger.cpp in Sources */,
 				D4CEA5C51DD631A40054B6A9 /* Graphics3D.cpp in Sources */,
 				D4CEA5E01DD631C50054B6A9 /* Material.cpp in Sources */,
-				D4CEA5C81DD631A40054B6A9 /* Launcher.cpp in Sources */,
 				D4CEA6601DD633FD0054B6A9 /* SpritesScreen.cpp in Sources */,
 				D4CEA6411DD6337D0054B6A9 /* Commercial.cpp in Sources */,
 				D4CEA6531DD633E50054B6A9 /* MainScreen.cpp in Sources */,

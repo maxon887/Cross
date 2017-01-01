@@ -15,7 +15,8 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #import "CrossViewController.h"
-#include "LauncherOS.h"
+#include "Cross.h"
+#include "IOSSystem.h"
 #include "Audio.h"
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
@@ -24,6 +25,8 @@
 #include "Game.h"
 
 #define MAX_TOUCHES 11
+
+using namespace cross;
 
 @interface CrossViewController()
 
@@ -56,8 +59,8 @@
     screenScale = [[UIScreen mainScreen] scale];
     
     try{
-        launcher = new LauncherOS();
-        game = CrossMain(launcher);
+        cross::system = new IOSSystem();
+        game = CrossMain();
         audio = new Audio();
         gfxGL = new GraphicsGL();
         gfx2D = new Graphics2D();
@@ -82,7 +85,7 @@
 - (void)update{
     try{
         if(!paused){
-            game->Update();
+            game->EngineUpdate();
         }
     } catch(Exception &exc) {
         paused = YES;

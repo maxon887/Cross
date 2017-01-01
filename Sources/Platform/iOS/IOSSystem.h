@@ -16,17 +16,15 @@
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Launcher.h"
+#include "System.h"
 
 using namespace cross;
 
-class LauncherOS : public Launcher{
+class IOSSystem : public System{
 public:
-    LauncherOS();
-    ~LauncherOS();
+    IOSSystem();
+    ~IOSSystem();
     
-    U32 GetTargetWidth();
-    U32 GetTargetHeight();
     string AssetsPath();
     string DataPath();
     void Log(const char* msg);
@@ -34,7 +32,5 @@ public:
     Commercial* GetCommercial();
     
 private:
-    int width;
-    int height;
     Commercial* commercial;
 };

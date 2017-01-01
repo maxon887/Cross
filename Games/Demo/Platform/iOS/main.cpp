@@ -20,6 +20,6 @@
 
 using namespace cross;
 
-Game* CrossMain(Launcher* launcher){
-    return new Demo(launcher);
+Game* CrossMain(){
+    return new Demo();
 }
