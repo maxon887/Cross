@@ -19,7 +19,7 @@
 #include "Native.h"
 #include "Game.h"
 #include "Screen.h"
-#include "LauncherWIN.h"
+#include "WINSystem.h"
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
@@ -41,22 +41,22 @@ int GLES_Main(){
 		crossEGL->BindWindow(WinCreate());
 
 		srand((U32)time(0));
-		LauncherWIN launcherWin(crossEGL->GetWindow());
-		launcher = &launcherWin;
-		game = CrossMain(launcher);
-		input->KeyReleased += MakeDelegate(&launcherWin, &LauncherWIN::KeyReleasedHandle);
+		WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
+		cross::system = winSys;
+		game = CrossMain();
+		input->KeyReleased += MakeDelegate(winSys, &WINSystem::KeyReleasedHandle);
 
 		int winX = config->GetInt("WIN_POS_X", 0);
 		int winY = config->GetInt("WIN_POS_Y", 0);
 		int winWidth = config->GetInt("WIN_WIDTH", 500);
 		int winHeight = config->GetInt("WIN_HEIGHT", 500);
-		launcherWin.ResizeWindow(winX, winY, winWidth, winHeight);
+		winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 
 		crossEGL->CreateContext(true);
 
 		ShowWindow(crossEGL->GetWindow(), TRUE);
 
-		Audio::Init();
+		audio = new Audio();
 		gfxGL = new GraphicsGL();
 		gfx2D = new Graphics2D();
 		gfx3D = new Graphics3D();
@@ -82,8 +82,9 @@ int GLES_Main(){
 		delete gfxGL;
 		crossEGL->DestroyContext(true);
 		delete crossEGL;
-		Audio::Release();
+		delete audio;
 		delete game;
+		delete cross::system;
 
 		unsigned long leaked = MemoryManager::Instance()->Dump();
 		if(leaked > 0) {

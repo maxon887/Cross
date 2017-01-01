@@ -9,6 +9,8 @@
 #define NATIVE_WINDOW ANativeWindow*
 #endif
 
+namespace cross{
+
 class CrossEGL {
 public:
     CrossEGL();
@@ -31,5 +33,7 @@ private:
     EGLSurface  surface;
     EGLContext  context;
 };
+
+}
 
 #endif
