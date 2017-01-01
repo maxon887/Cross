@@ -49,6 +49,7 @@ Skybox::Skybox( Cubemap* cubemap ) :
 Skybox::~Skybox(){
 	delete cubemap;
 	delete shader;
+	delete material;
 	delete box;
 }
 
