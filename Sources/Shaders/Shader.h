@@ -96,13 +96,13 @@ protected:
 	class LightUniforms{
 	public:
 		GLint position;
-		GLuint direction;
+		GLint direction;
 		GLint color;
 
 		GLint intensity;
 	
-		GLuint cut_off;
-		GLuint outer_cut_off;
+		GLint cut_off;
+		GLint outer_cut_off;
 	};
 
 	GLuint program;

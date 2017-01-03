@@ -213,7 +213,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	switch(type) {
 	case DefaultShader::SIMPLE:
 		shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
-		shader->AddProperty("Color", "uColor");
+		shader->AddProperty("Color", "uColor", Color::White);
 		break;
 	case DefaultShader::MONOCHROME:
 		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
