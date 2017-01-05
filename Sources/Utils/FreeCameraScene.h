@@ -34,6 +34,8 @@ public:
 	virtual void ActionUp(Input::Action action);
 
 	void LookAtCamera(bool enbled);
+	void LookAtCamera(const Vector3D& target);
+	bool IsLookAtCamera();
 
 	void MoveForward(float sec);
 	void MoveBackward(float sec);
@@ -58,6 +60,7 @@ private:
 
 	S32 handled_action;
 	Vector2D touch_position;
+	Vector3D target;
 
 	FastDelegate0<void> mouse_wheel_up;
 	FastDelegate0<void> mouse_wheel_down;
