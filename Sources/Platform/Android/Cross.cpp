@@ -24,9 +24,8 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Debugger.h"
+#include "System/Debugger.h"
 #include "Platform/CrossEGL.h"
-#include "../../Cross.h"
 
 #include <android/native_window_jni.h>
 #include <android/asset_manager_jni.h>
@@ -53,7 +52,6 @@ enum WindowState{
 
 CrossEGL* crossEGL          = NULL;
 ApplicationState app_state  = APP_INIT;
-ApplicationState prev_app_state  = app_state;
 WindowState wnd_state       = WND_NONE;
 pthread_t   threadID;
 std::mutex  app_mutex;

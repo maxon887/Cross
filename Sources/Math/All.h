@@ -23,8 +23,19 @@
 #include "Quaternion.h"
 
 #include <math.h>
+#include <sstream>
 
 #define PI (3.141592653589793f)
+
+#if defined(ANDROID)
+template <typename T>
+inline std::string to_stringAndroid(T value){
+    std::ostringstream os ;
+    os << value ;
+    return os.str() ;
+}
+#define  to_string to_stringAndroid
+#endif
 
 namespace cross {
 
