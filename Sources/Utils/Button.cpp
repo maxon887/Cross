@@ -112,6 +112,9 @@ Button::~Button() {
 }
 
 void Button::Update(float sec) {
+	if(!active){
+		return;
+	}
 	if(!located) {
 		throw CrossException("Button must be located first");
 	}
