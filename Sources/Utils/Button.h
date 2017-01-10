@@ -41,7 +41,6 @@ public:
 	void SetImages(Sprite* up, Sprite* down);
 	void SetImages(Sprite* up);
 	void SetSounds(Sound* push, Sound* pull);
-	void SetActive(bool active);
 	void Scale(float coef);
 	bool IsPressed() const;
 	float GetWidth() const;
@@ -56,7 +55,6 @@ protected:
 	bool located;
 	bool is_pressed;
 	S32 handled_action_id;
-	bool active;
 	Rect area;
 	float def_width;
 	float def_height;

@@ -26,11 +26,17 @@ class UI{
 public:
 	virtual Rect GetRect() const = 0;
 
+	UI();
 	virtual ~UI() { };
 
 	virtual void Update(float sec) { };
 
 	bool OnLocation(Vector2D p) const;
+	bool IsActive();
+	void SetActive(bool active);
+
+protected:
+	bool active;
 };
 
 }

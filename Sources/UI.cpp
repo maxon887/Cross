@@ -18,6 +18,18 @@
 
 using namespace cross;
 
+UI::UI():
+	active(true)
+{ }
+
 bool UI::OnLocation(Vector2D p) const {
 	return PointInRect(p, GetRect());
+}
+
+bool UI::IsActive(){
+	return active;
+}
+
+void UI::SetActive(bool yes){
+	active = yes;
 }

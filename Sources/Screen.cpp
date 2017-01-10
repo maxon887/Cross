@@ -100,7 +100,7 @@ void Screen::ActionUpHandle(Input::Action action){
 
 bool Screen::OnGuiArea(Vector2D pos){
 	for(UI* ui : guis){
-		if(ui->OnLocation(pos)){
+		if(ui->IsActive() && ui->OnLocation(pos)){
 			return true;
 		}
 	}

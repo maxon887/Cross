@@ -74,7 +74,6 @@ Button::Button(Vector2D location) :
 Button::Button() :
 	located(false),
 	is_pressed(false),
-	active(true),
 	push_sound(nullptr),
 	pull_sound(nullptr),
 	up_image(nullptr),
@@ -172,10 +171,6 @@ void Button::SetImages(Sprite * up) {
 void Button::SetSounds(Sound* push, Sound* pull) {
 	this->push_sound = push;
 	this->pull_sound = pull;
-}
-
-void Button::SetActive(bool active) {
-	this->active = active;
 }
 
 void Button::Scale(float scale) {
