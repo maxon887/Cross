@@ -23,6 +23,11 @@ namespace cross {
 /* Class for platform specific functional */
 class System{
 public:
+	enum Orientation{
+		LANDSCAPE,
+		PORTRAIT,
+		AUTO
+	};
 	/* Occurs when window size changed */
 	DECLARE_EVENT(void, S32, S32) WindowResized;
 	/* Print message in console. See LogIt() if you need formated output */

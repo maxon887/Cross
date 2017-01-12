@@ -49,7 +49,7 @@ public:
 	void LookDown(float sec);
 	void LookUp(float sec);
 
-private:
+protected:
 	bool look_at;
 
 	float liner_speed;

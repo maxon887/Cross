@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Texture.h"
+#include "System.h"
 
 namespace cross {
 
@@ -36,15 +37,16 @@ public:
 	float GetFloat(const string& key, float def);
 	bool GetBool(const string& key, bool def);
 	/* Game config properties */
+	System::Orientation GetScreenOrientation();
 	bool UseCompressedTextures();
 	Texture::Filter GetTextureFilter();
 	float GetViewDistance();
 	bool IsOffscreenRender();
 
 protected:
-	string user_config_path;
 	Dictionary<string, string> user_prefs;
 
+	System::Orientation orientation;
 	bool use_compressed_textures;
 	Texture::Filter texture_filter;
 	float view_distance;
@@ -52,8 +54,9 @@ protected:
 
 	string GetString(const string& key);
 
-	void LoadGameConfig(File* file);
-	void LoadUserConfig();
+	void LoadGameConfig(const string& path);
+	void LoadUserConfig(const string& path);
+	void SaveGameConfig();
 	void SaveUserConfig();
 };
     

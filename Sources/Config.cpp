@@ -23,18 +23,20 @@
 using namespace cross;
 
 Config::Config():
+	orientation(System::LANDSCAPE),
 	use_compressed_textures(false),
 	texture_filter(Texture::Filter::NEAREST),
 	view_distance(100.f),
 	offscreen_render(false)
 {
-	File* defaultConfigFile = system->LoadFile("GameConfig.xml");
-	LoadGameConfig(defaultConfigFile);
-	user_config_path = system->DataPath() + "/UserConfig.xml";
-	LoadUserConfig();
+	string gameConfigPath = system->DataPath() + "/GameConfig.xml";
+	string userConfigPath = system->DataPath() + "/UserConfig.xml";
+	LoadGameConfig(gameConfigPath);
+	LoadUserConfig(userConfigPath);
 }
 
 Config::~Config(){
+	SaveGameConfig();
 	SaveUserConfig();
 }
 
@@ -79,6 +81,10 @@ bool Config::GetBool(const string& key, bool def){
 	return GetInt(key, def) != 0;
 }
 
+System::Orientation Config::GetScreenOrientation(){
+	return orientation;
+}
+
 bool Config::UseCompressedTextures(){
 	return use_compressed_textures;
 }
@@ -104,16 +110,20 @@ string Config::GetString(const string& key){
 	}
 }
 
-void Config::LoadGameConfig(File* xmlFile){
+void Config::LoadGameConfig(const string& path){
+	/* Code for loading xmls from memery
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);
 	source[xmlFile->size] = 0;
 	delete xmlFile;
 	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
-	delete source;
+	delete source;*/
 
-	TiXmlHandle xmlDoc(&xml);
+	TiXmlDocument doc(path.c_str());
+	doc.LoadFile();
+
+	TiXmlHandle xmlDoc(&doc);
 	TiXmlElement* root;
 	TiXmlElement* element;
 
@@ -124,22 +134,16 @@ void Config::LoadGameConfig(File* xmlFile){
 			string name = element->Attribute("name");
 			string strValue = element->Attribute("value");
 
+			if(name == "Orientation"){
+				orientation = (System::Orientation)atoi(strValue.c_str());
+			}
+
 			if(name == "UseCompressedTextures"){
 				use_compressed_textures = strValue == "true" ? true : false;
 			}
 
 			if(name == "TextureFilter"){
-				if(strValue == "NEAREST"){
-					texture_filter = Texture::Filter::NEAREST;
-				}else if(strValue == "LINEAR"){
-					texture_filter = Texture::Filter::LINEAR;
-				}else if(strValue == "BILINEAR"){
-					texture_filter = Texture::Filter::BILINEAR;
-				}else if(strValue == "TRILINEAR"){
-					texture_filter = Texture::Filter::TRILINEAR;
-				}else{
-					throw CrossException("Unknown Texture Filter %s", strValue.c_str());
-				}
+				texture_filter = (Texture::Filter)atoi(strValue.c_str());
 			}
 
 			if(name == "ViewDistance"){
@@ -152,13 +156,11 @@ void Config::LoadGameConfig(File* xmlFile){
 
 			element = element->NextSiblingElement("Property");
 		}
-	}else{
-		throw CrossException("XML empty root element");
 	}
 }
 
-void Config::LoadUserConfig(){
-	TiXmlDocument doc(user_config_path.c_str());
+void Config::LoadUserConfig(const string& path){
+	TiXmlDocument doc(path.c_str());
 	doc.LoadFile();
 
 	TiXmlHandle xmlHandle(&doc);
@@ -177,6 +179,52 @@ void Config::LoadUserConfig(){
 	}
 }
 
+void Config::SaveGameConfig(){
+	TiXmlDocument doc;
+
+	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
+	doc.LinkEndChild(dec);
+
+	TiXmlElement* element = new TiXmlElement("GameConfig");
+	doc.LinkEndChild(element);
+
+	TiXmlElement* property = new TiXmlElement("Property");
+	property->SetAttribute("name", "Orientation");
+	property->SetAttribute("value", to_string(orientation).c_str());
+	element->LinkEndChild(property);
+
+	property = new TiXmlElement("Property");
+	property->SetAttribute("name", "UseCompressedTextures");
+	property->SetAttribute("value", use_compressed_textures ? "true" : "false");
+	element->LinkEndChild(property);
+
+	property = new TiXmlElement("Property");
+	property->SetAttribute("name", "TextureFilter");
+	property->SetAttribute("value", to_string(texture_filter).c_str());
+	element->LinkEndChild(property);
+
+	property = new TiXmlElement("Property");
+	property->SetAttribute("name", "ViewDistance");
+	property->SetAttribute("value", to_string(view_distance).c_str());
+	element->LinkEndChild(property);
+
+	property = new TiXmlElement("Property");
+	property->SetAttribute("name", "OffscreenRender");
+	property->SetAttribute("value", offscreen_render ? "true" : "false");
+	element->LinkEndChild(property);
+
+	TiXmlPrinter printer;
+	printer.SetIndent("\t");
+	
+	doc.Accept(&printer);
+	File gameConfig;
+	gameConfig.name = "GameConfig.xml";
+	gameConfig.size = printer.Size();
+	gameConfig.data = (Byte*)printer.CStr();
+	system->SaveFile(&gameConfig);
+	gameConfig.data = NULL;
+}
+
 void Config::SaveUserConfig(){
 	TiXmlDocument doc;
 
@@ -187,11 +235,11 @@ void Config::SaveUserConfig(){
 	doc.LinkEndChild(element);
 
 	TiXmlElement* property;
-	for(pair<string, string> pair : user_prefs){
-		property = new TiXmlElement( "Property" );  
-		element->LinkEndChild( property );  
+	for(auto pair : user_prefs){
+		property = new TiXmlElement("Property");  
 		property->SetAttribute("name", pair.first.c_str());
 		property->SetAttribute("value", pair.second.c_str());
+		element->LinkEndChild(property);  
 	}
 	
 	TiXmlPrinter printer;
