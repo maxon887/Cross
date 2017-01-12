@@ -46,6 +46,10 @@ cross::Vector3D cross::Lerp(const Vector3D& v1, const Vector3D& v2, float t){
 	return v1 * (1 - t) + v2 * t;
 }
 
+cross::Quaternion cross::Lerp(const Quaternion& v1, const Quaternion& v2, float t){
+	return v1 * (1 - t) + v2 * t;
+}
+
 bool cross::PointInRect(const Vector2D& p, const  Rect& rect){
 	return  p.x > rect.x &&
 			p.x < rect.x + rect.width &&

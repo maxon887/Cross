@@ -45,6 +45,7 @@ float Random(float max);
 float Random(float min, float max);
 float Lerp(float v1, float v2, float t);
 Vector3D Lerp(const Vector3D& v1, const Vector3D& v2, float t);
+Quaternion Lerp(const Quaternion& v1, const Quaternion& v2, float t);
 
 bool PointInRect(const Vector2D& p, const Rect& rect);
 bool PointInTriangle(const Vector2D& pt, const Vector2D& v1, const Vector2D& v2, const Vector2D& v3);
