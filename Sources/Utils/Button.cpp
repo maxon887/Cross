@@ -81,7 +81,8 @@ Button::Button() :
 	font(nullptr),
 	def_width(0),
 	def_height(0),
-	handled_action_id(-1)
+	handled_action_id(-1),
+	visible(true)
 {
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -118,17 +119,19 @@ void Button::Update(float sec) {
 		throw CrossException("Button must be located first");
 	}
 
-	if(is_pressed) {
-		if(down_image != nullptr) {
-			gfx2D->DrawSprite(location, down_image);
-		} else if(up_image == nullptr) {
-			gfx2D->DrawRect(area, Color::Red, true);
-		}
-	} else {
-		if(up_image != nullptr) {
-			gfx2D->DrawSprite(location, up_image);
+	if(visible){
+		if(is_pressed) {
+			if(down_image != nullptr) {
+				gfx2D->DrawSprite(location, down_image);
+			} else if(up_image == nullptr) {
+				gfx2D->DrawRect(area, Color::Red, true);
+			}
 		} else {
-			gfx2D->DrawRect(area, Color::Blue, true);
+			if(up_image != nullptr) {
+				gfx2D->DrawSprite(location, up_image);
+			} else {
+				gfx2D->DrawRect(area, Color::Blue, true);
+			}
 		}
 	}
 
@@ -141,7 +144,7 @@ void Button::Update(float sec) {
 	}
 	
 	//debug active area
-	//gfx2D->DrawRect(area, Color::Red);
+	gfx2D->DrawRect(area, Color::Red);
 }
 
 void Button::SetLocation(Vector2D location) {
@@ -182,6 +185,10 @@ void Button::Scale(float scale) {
 	if(down_image){
 		down_image->SetScale(scale);
 	}
+}
+
+void Button::SetVisible(bool visible){
+	this->visible = visible;
 }
 
 bool Button::IsPressed() const {

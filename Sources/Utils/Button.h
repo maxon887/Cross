@@ -42,6 +42,7 @@ public:
 	void SetImages(Sprite* up);
 	void SetSounds(Sound* push, Sound* pull);
 	void Scale(float coef);
+	void SetVisible(bool visible);
 	bool IsPressed() const;
 	float GetWidth() const;
 	float GetHeight() const;
@@ -58,6 +59,7 @@ protected:
 	Rect area;
 	float def_width;
 	float def_height;
+	bool visible;
 	//optional parameters
 	Sprite* up_image;
 	Sprite* down_image;

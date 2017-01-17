@@ -81,8 +81,12 @@ bool Config::GetBool(const string& key, bool def){
 	return GetInt(key, def) != 0;
 }
 
-System::Orientation Config::GetScreenOrientation(){
+System::Orientation Config::GetOrientation(){
 	return orientation;
+}
+
+void Config::SetOrientation(System::Orientation ori){
+	orientation = ori;
 }
 
 bool Config::UseCompressedTextures(){

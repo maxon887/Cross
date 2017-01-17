@@ -37,7 +37,8 @@ public:
 	float GetFloat(const string& key, float def);
 	bool GetBool(const string& key, bool def);
 	/* Game config properties */
-	System::Orientation GetScreenOrientation();
+	System::Orientation GetOrientation();
+	void SetOrientation(System::Orientation orientation);
 	bool UseCompressedTextures();
 	Texture::Filter GetTextureFilter();
 	float GetViewDistance();

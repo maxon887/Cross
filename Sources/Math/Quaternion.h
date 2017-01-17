@@ -26,6 +26,8 @@ public:
 	static const Quaternion Identity;
 
 	static float DotProduct(const Quaternion& left, const Quaternion& right);
+
+	Quaternion();
 	/* Constructor which takes rotation axis and angle in degrees */
 	Quaternion(const Vector3D& axis, float angle);
 	/* Constructor which create quaternion by rotation matrix */
@@ -50,8 +52,6 @@ private:
 	float y;
 	float z;
 	float w;
-
-	Quaternion();
 };
 
 }

@@ -26,7 +26,8 @@ public:
 	enum Orientation{
 		LANDSCAPE,
 		PORTRAIT,
-		AUTO
+		AUTO,
+		COUNT
 	};
 	/* Occurs when window size changed */
 	DECLARE_EVENT(void, S32, S32) WindowResized;
