@@ -134,11 +134,11 @@ void Graphics2D::DrawRect(Rect rect, Color color){
 
 void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	gfxGL->UseShader(simple_shader);
-	float vertices[5 * 2] = {	rect.x, rect.y,
-								rect.x + rect.width, rect.y,
-								rect.x + rect.width, rect.y + rect.height,
-								rect.x, rect.y + rect.height,
-								rect.x, rect.y };
+    float vertices[4 * 2] = {rect.x, rect.y,
+                             rect.x + rect.width, rect.y,
+                             rect.x, rect.y + rect.height,
+                             rect.x + rect.width, rect.y + rect.height};
+
 	Camera* cam = GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
@@ -147,10 +147,11 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	SAFE(glUniform4fv(simple_shader->uColor, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
 	if(filled){
-		static GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-		SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices));
+        static GLushort indices[] = {0, 1, 2, 3};
+        SAFE(glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, indices));
 	}else{
-		SAFE(glDrawArrays(GL_LINE_STRIP, 0, 5));
+        static GLushort indices[] = {0, 1, 3, 2, 0};
+        SAFE(glDrawElements(GL_LINE_STRIP, 5, GL_UNSIGNED_SHORT, indices));
 	}
 }
 
