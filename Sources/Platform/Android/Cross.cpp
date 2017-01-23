@@ -193,6 +193,9 @@ extern "C"{
     void Java_com_cross_Cross_OnResume(JNIEnv *env, jobject thiz){
         LOGI("Cross_OnResume");
         pause_mutex.unlock();
+        if(game){
+            game->Resume();
+        }
 		//app_state = APP_INIT;
 		//app_state = prev_app_state;
     }
@@ -200,6 +203,9 @@ extern "C"{
 	void Java_com_cross_Cross_OnSuspend(JNIEnv *env, jobject thiz){
         LOGI("Cross_OnSuspend");
         pause_mutex.lock();
+        if(game){
+            game->Suspend();
+        }
 		//app_state = APP_PAUSED;
         //wnd_state = WND_NONE;
 	}

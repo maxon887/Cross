@@ -146,6 +146,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
 	SAFE(glVertexAttribPointer(simple_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
 	SAFE(glUniform4fv(simple_shader->uColor, 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
+	SAFE(glEnable(GL_BLEND));
 	if(filled){
         static GLushort indices[] = {0, 1, 2, 3};
         SAFE(glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, indices));

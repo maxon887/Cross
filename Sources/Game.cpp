@@ -21,6 +21,7 @@
 #include "Scene.h"
 #include "System/Debugger.h"
 #include "Graphics2D.h"
+#include "Audio.h"
 
 using namespace cross;
 
@@ -79,12 +80,16 @@ Scene* Game::GetCurrentScene(){
 }
 
 void Game::Suspend(){
+	system->LogIt("Game::Suspend");
+	audio->Suspend();
 	if(current_screen != nullptr) {
 		current_screen->Suspend();
 	}
 }
 
 void Game::Resume(){
+	system->LogIt("Game::Resume");
+	audio->Resume();
 	timestamp = system->GetTime();
 	if(current_screen != nullptr) {
 		current_screen->Resume();
