@@ -82,7 +82,8 @@ Button::Button() :
 	def_width(0),
 	def_height(0),
 	handled_action_id(-1),
-	visible(true)
+	visible(true),
+	color(Color::White)
 {
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
 	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
@@ -122,13 +123,15 @@ void Button::Update(float sec) {
 	if(visible){
 		if(is_pressed) {
 			if(down_image != nullptr) {
-				gfx2D->DrawSprite(location, down_image);
+				down_image->SetPosition(location);
+				gfx2D->DrawSprite(down_image, color, false);
 			} else if(up_image == nullptr) {
 				gfx2D->DrawRect(area, Color::Red, true);
 			}
 		} else {
 			if(up_image != nullptr) {
-				gfx2D->DrawSprite(location, up_image);
+				up_image->SetPosition(location);
+				gfx2D->DrawSprite(up_image, color, false);
 			} else {
 				gfx2D->DrawRect(area, Color::Blue, true);
 			}
@@ -174,6 +177,10 @@ void Button::SetImages(Sprite * up) {
 void Button::SetSounds(Sound* push, Sound* pull) {
 	this->push_sound = push;
 	this->pull_sound = pull;
+}
+
+void Button::SetColor(const Color& c){
+	color = c;
 }
 
 void Button::Scale(float scale) {

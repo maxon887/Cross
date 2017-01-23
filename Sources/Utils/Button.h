@@ -41,6 +41,7 @@ public:
 	void SetImages(Sprite* up, Sprite* down);
 	void SetImages(Sprite* up);
 	void SetSounds(Sound* push, Sound* pull);
+	void SetColor(const Color& color);
 	void Scale(float coef);
 	void SetVisible(bool visible);
 	bool IsPressed() const;
@@ -50,6 +51,9 @@ public:
 	Sprite* GetDownImage() const;
 	Rect GetRect() const;
 	Vector2D GetCenter() const;
+	void Locate(Vector2D loc, float width, float heiht);
+	void Locate(Rect rect);
+
 protected:
 	//mandatory parameters
 	Vector2D location;
@@ -65,12 +69,11 @@ protected:
 	Sprite* down_image;
 	Sound* push_sound;
 	Sound* pull_sound;
+	Color color;
 	Font* font;
 	string label_text;
 	Vector2D text_size;
 
-	void Locate(Vector2D loc, float width, float heiht);
-	void Locate(Rect rect);
 	void FitText(string text);
 	//connections
 	FastDelegate1<Input::Action, void> action_down_delegate;
