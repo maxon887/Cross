@@ -147,7 +147,7 @@ void Button::Update(float sec) {
 	}
 	
 	//debug active area
-	//gfx2D->DrawRect(area, Color::Red);
+	gfx2D->DrawRect(area, Color::Red);
 }
 
 void Button::SetLocation(Vector2D location) {
@@ -276,6 +276,14 @@ void Button::Locate(Rect rect){
 	this->area = rect;
 	located = true;
 	FitText(label_text);
+}
+
+void Button::Locate(const Vector2D& pos){
+	if(up_image){
+		Locate(pos, up_image->GetWidth(), up_image->GetHeight());
+	}else{
+		throw CrossException("Button does not have images");
+	}
 }
 
 void Button::ActionDownHandler(Input::Action action) {

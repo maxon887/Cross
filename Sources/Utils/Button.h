@@ -53,6 +53,7 @@ public:
 	Vector2D GetCenter() const;
 	void Locate(Vector2D loc, float width, float heiht);
 	void Locate(Rect rect);
+	void Locate(const Vector2D& loc);
 
 protected:
 	//mandatory parameters

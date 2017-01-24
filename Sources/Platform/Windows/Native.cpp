@@ -95,7 +95,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		if(width > 0 && height > 0){
 			WINSystem* winSys = (WINSystem*)cross::system;
 			winSys->SetWindowSize(width, height);
-			TRIGGER_EVENT(cross::system->WindowResized, width, height);
 		}
 		break;
 	}

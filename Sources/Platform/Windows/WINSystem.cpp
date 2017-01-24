@@ -124,10 +124,10 @@ void WINSystem::SetWindowPosition(int x, int y){
 void WINSystem::KeyReleasedHandle(Key key){
 	switch(key)	{
 	case Key::F1:	//16:9
-		ResizeWindow(window_pos_x, window_pos_y, 960, 540);
+		ResizeWindow(window_pos_x, window_pos_y, 960, 600);
 		break;
-	case Key::F2:	//5:3
-		ResizeWindow(window_pos_x, window_pos_y, 1000, 600);
+	case Key::F2:	//9:16
+		ResizeWindow(window_pos_x, window_pos_y, 600, 960);
 		break;
 	case Key::F3:	//16:10
 		ResizeWindow(window_pos_x, window_pos_y, 960, 600);

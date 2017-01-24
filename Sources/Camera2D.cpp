@@ -38,9 +38,9 @@ void Camera2D::SetViewWidth(float width) {
 	float scale = (float)system->GetWindowWidth() / view_width;
 	view_height = (float)system->GetWindowHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
-	cross::system->WindowResized -= window_resized_delegate;
+	//cross::system->WindowResized -= window_resized_delegate;
 	window_resized_delegate = MakeDelegate(this, &Camera2D::WindowRisezedHandleCust);
-	cross::system->WindowResized += window_resized_delegate;
+	//cross::system->WindowResized += window_resized_delegate;
 }
 
 float Camera2D::GetViewWidth() {

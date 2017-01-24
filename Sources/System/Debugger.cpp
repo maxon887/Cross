@@ -50,10 +50,10 @@ Debugger::Debugger() :
 	touch_down(false),
 	debugger_font(NULL)
 {
-	params[FPS]			= true;
-	params[UPDATE_TIME]	= true;
-	params[CPU_TIME]	= true;
-	params[RUN_TIME]	= true;
+	params[FPS]			= false;
+	params[UPDATE_TIME]	= false;
+	params[CPU_TIME]	= false;
+	params[RUN_TIME]	= false;
 	params[INPUT]		= true;
 
 	for(int i = 0; i < Parameter::NONE; i++){
