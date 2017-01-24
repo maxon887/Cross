@@ -21,7 +21,7 @@
 
 using namespace cross;
 
-Mesh::Mesh(VertexBuffer* vertexBuffer, Array<U32> &indices, U32 primitivesCount) :
+Mesh::Mesh(VertexBuffer* vertexBuffer, Array<GLushort> &indices, U32 primitivesCount) :
 	vertex_buffer(vertexBuffer),
 	primitives_count(primitivesCount),
 	material(NULL),
@@ -38,7 +38,7 @@ Mesh::Mesh(VertexBuffer* vertexBuffer, Array<U32> &indices, U32 primitivesCount)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(U32), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), &indices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	vertexBuffer->Free();

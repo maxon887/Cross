@@ -22,7 +22,7 @@
 using namespace cross;
 
 AndroidSystem::AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath){
-    LOGI("LauncherAndroid::LauncherAndroid");
+    LOGI("AndroidSystem::AndroidSystem");
 	this->data_path = dataPath;
 	this->asset_manager = assManager;
 	this->cross_activity = crossActivity;
@@ -31,7 +31,7 @@ AndroidSystem::AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* 
 }
 
 AndroidSystem::~AndroidSystem(){
-    LOGI("LauncherAndroid::~LauncherAndroid");
+    LOGI("AndroidSystem::~AndroidSystem");
     delete commercial;
 }
 

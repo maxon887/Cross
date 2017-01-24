@@ -243,7 +243,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0));
+	SAFE(glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -345,7 +345,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 		}
 	}
 
-	Array<U32> indices;
+	Array<GLushort> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i){
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);

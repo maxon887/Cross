@@ -27,7 +27,7 @@ class VertexBuffer;
 	Mesh also contains its materials which need to properly draw it on Scene */
 class Mesh : public Transformable{
 public:
-	Mesh(VertexBuffer* vertexBuffer, Array<U32> &indices, U32 primitivesCount);
+	Mesh(VertexBuffer* vertexBuffer, Array<GLushort> &indices, U32 primitivesCount);
 	~Mesh();
 
 	void SetName(const string& name);
