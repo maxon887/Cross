@@ -36,7 +36,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		surface_view.setFocusableInTouchMode(true);
 		surface_view.getHolder().addCallback(this);
 		setContentView(surface_view);
-		System.loadLibrary("c++_shared");
 		System.loadLibrary("fmod");
 		System.loadLibrary("freetype2");
         System.loadLibrary("assimp");

@@ -115,6 +115,7 @@ void* Main(void* self){
                         bool success = crossEGL->CreateContext(false);
                         if (success) {
                             LOGI("Window recreaded");
+                            system->SetWindowSize(system->GetWindowWidth(), system->GetWindowHeight());
                             wnd_state = WND_ACTIVE;
                             app_state = APP_RUNNING;
                         } else {
@@ -178,8 +179,8 @@ extern "C"{
         LOGI("Cross_SurfaceChanged w - %d, h - %d", w, h);
         ANativeWindow *nativeWindow = ANativeWindow_fromSurface(env, surface);
         app_mutex.lock();
-        system->SetWindowSize(w, h);
         crossEGL->BindWindow(nativeWindow);
+        system->SetWindowSize(w, h);
         wnd_state = WND_CREATE;
         app_mutex.unlock();
     }

@@ -145,14 +145,15 @@ void Font::Cache(){
 		kill_textures = true;
 	}
 	for(U8 i = 0; i < 127; i++){
-		error = FT_Load_Glyph(face, i, FT_LOAD_RENDER);
+		U32 glyphIndex = FT_Get_Char_Index(face, i + 29);
+		error = FT_Load_Glyph(face, glyphIndex, FT_LOAD_RENDER);
 		if(error){
-			throw CrossException("Can't load glyph");
+			system->LogIt("Can't load glyph %c", i);
 		}
 		FT_BitmapGlyph bitmapGlyhp;
 		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&bitmapGlyhp);
 		if(error){
-			throw CrossException("Can't abtain glyph");
+			system->LogIt("Can't abtain glyph %c", i);
 		}
 		advances[i] = (float)(face->glyph->advance.x >> 6);
 		S32 bmpWidth = bitmapGlyhp->bitmap.width;
@@ -170,8 +171,7 @@ void Font::Cache(){
 		textures[i] = texture;
 		Rect region(0, 0, (float)bmpWidth, (float)bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
-		Sprite* sprite = new Sprite(texture, region, pivot);  
-		//delete sprites[i];
+		Sprite* sprite = new Sprite(texture, region, pivot);
 		Sprite* delSprite = sprites[i];
 		delete delSprite;
 		sprites[i] = sprite;
