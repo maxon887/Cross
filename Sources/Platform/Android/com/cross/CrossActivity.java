@@ -20,9 +20,9 @@ import android.view.Window;
 public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private static final String TAG 	= "CrossJava";
 	private Cross cross 				= null;
-	private SurfaceView surface_view 	= null;
 	private AssetManager asset_manager 	= null;
 	private Commercial commercial		= null;
+    private int orientation = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,12 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-		surface_view = new SurfaceView(this);
-		surface_view.setEnabled(true);
-		surface_view.setFocusable(true);
-		surface_view.setFocusableInTouchMode(true);
-		surface_view.getHolder().addCallback(this);
-		setContentView(surface_view);
+        SurfaceView surfaceView = new SurfaceView(this);
+        surfaceView.setEnabled(true);
+        surfaceView.setFocusable(true);
+        surfaceView.setFocusableInTouchMode(true);
+        surfaceView.getHolder().addCallback(this);
+		setContentView(surfaceView);
 		System.loadLibrary("fmod");
 		System.loadLibrary("freetype2");
         System.loadLibrary("assimp");

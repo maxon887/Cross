@@ -58,6 +58,7 @@ public:
 	S32 GetWindowWidth();
 	/* Returns window Height in pixels. Don't miss wiht Screen::GetHeight() */
 	S32 GetWindowHeight();
+    Orientation GetDeviceOrientation();
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio();
 	/* Returns directory from full filename */

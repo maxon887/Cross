@@ -74,6 +74,14 @@ S32 System::GetWindowHeight(){
 	return window_height;
 }
 
+System::Orientation System::GetDeviceOrientation() {
+    if(window_width > window_height){
+        return Orientation::LANDSCAPE;
+    }else{
+        return Orientation::PORTRAIT;
+    }
+}
+
 float System::GetAspectRatio(){
 	return GetWindowWidth() / (float)GetWindowHeight();
 }

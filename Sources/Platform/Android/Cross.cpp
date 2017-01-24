@@ -56,6 +56,8 @@ WindowState wnd_state       = WND_NONE;
 pthread_t   threadID;
 std::mutex  app_mutex;
 std::mutex  pause_mutex;
+int screen_width            = 0;
+int screen_height           = 0;
 
 void* Main(void* self){
     LOGI("Main()");
@@ -106,6 +108,7 @@ void* Main(void* self){
                         if (success) {
                             LOGI("Window create success");
                             wnd_state = WND_ACTIVE;
+                            system->SetWindowSize(screen_width, screen_height);
                         } else {
                             LOGI("Can not create native window");
                             app_state = APP_EXIT;
@@ -115,9 +118,9 @@ void* Main(void* self){
                         bool success = crossEGL->CreateContext(false);
                         if (success) {
                             LOGI("Window recreaded");
-                            system->SetWindowSize(system->GetWindowWidth(), system->GetWindowHeight());
                             wnd_state = WND_ACTIVE;
                             app_state = APP_RUNNING;
+                            system->SetWindowSize(screen_width, screen_height);
                         } else {
                             LOGI("Can not recread native window");
                             app_state = APP_EXIT;
@@ -180,7 +183,8 @@ extern "C"{
         ANativeWindow *nativeWindow = ANativeWindow_fromSurface(env, surface);
         app_mutex.lock();
         crossEGL->BindWindow(nativeWindow);
-        system->SetWindowSize(w, h);
+        screen_width = w;
+        screen_height = h;
         wnd_state = WND_CREATE;
         app_mutex.unlock();
     }
@@ -197,8 +201,6 @@ extern "C"{
         if(game){
             game->Resume();
         }
-		//app_state = APP_INIT;
-		//app_state = prev_app_state;
     }
 
 	void Java_com_cross_Cross_OnSuspend(JNIEnv *env, jobject thiz){
@@ -207,8 +209,6 @@ extern "C"{
         if(game){
             game->Suspend();
         }
-		//app_state = APP_PAUSED;
-        //wnd_state = WND_NONE;
 	}
 
 	void Java_com_cross_Cross_OnExit(JNIEnv *env, jobject thiz){
