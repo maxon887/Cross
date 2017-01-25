@@ -23,6 +23,7 @@ class VertexBuffer{
 public:
 	
 	VertexBuffer();
+	VertexBuffer(VertexBuffer& obj);
 
 	bool HasTextureCoordinates();
 	bool HasNormals();
@@ -52,8 +53,6 @@ private:
 	bool normals_enabled;
 	bool tangents_enabled;
 	bool bitangents_enabled;
-
-	VertexBuffer(VertexBuffer& obj);
 };
 
 }

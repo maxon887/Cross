@@ -48,6 +48,7 @@ public:
 	bool IsNormalized() const;
 	Vector3D GetTruncated(float len) const;
 	const float* GetData() const;
+	void SetData(const float* data);
 
 	bool operator == (const Vector3D& v2) const;
 	bool operator != (const Vector3D& v2) const;

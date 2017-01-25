@@ -21,35 +21,21 @@
 
 using namespace cross;
 
-Mesh::Mesh(VertexBuffer* vertexBuffer, Array<GLushort> &indices, U32 primitivesCount) :
-	vertex_buffer(vertexBuffer),
-	primitives_count(primitivesCount),
+Mesh::Mesh() :
+	vertex_buffer(NULL),
 	material(NULL),
 	original(true),
+	initialized(false),
 	name("")
-{
-	index_count = indices.size();
-
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexBuffer->GetDataSize(), vertexBuffer->GetData(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), &indices[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	vertexBuffer->Free();
-}
+{ }
 
 Mesh::Mesh(Mesh& obj) : 
-	primitives_count(obj.primitives_count),
 	index_count(obj.index_count),
+	indices(obj.indices),
 	material(obj.material), //warning pointer copy!
 	VBO(obj.VBO),
 	EBO(obj.EBO),
+	initialized(obj.initialized),
 	original(false)
 {
 	vertex_buffer = obj.vertex_buffer->Clone();
@@ -58,9 +44,40 @@ Mesh::Mesh(Mesh& obj) :
 
 Mesh::~Mesh(){
 	delete vertex_buffer;
-	if(original){
+	if(original && initialized){
 		glDeleteBuffers(1, &VBO);
 		glDeleteBuffers(1, &EBO);
+	}
+}
+
+void Mesh::Initialize(){
+	index_count = indices.size();
+
+	SAFE(glGenBuffers(1, &VBO));
+	SAFE(glGenBuffers(1, &EBO));
+	
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	SAFE(glBufferData(GL_ARRAY_BUFFER, vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), &indices[0], GL_STATIC_DRAW));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+
+	vertex_buffer->Free();
+	initialized = true;
+}
+
+void Mesh::PushData(VertexBuffer* buffer, Array<GLushort>& inds){
+	if(vertex_buffer == NULL){
+		vertex_buffer = buffer->Clone();
+	}else{
+		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
+	}
+
+	U32 indsOffset = indices.size();
+	for(U32 i = 0; i < inds.size(); ++i){
+		indices.push_back(indsOffset + inds[i]);
 	}
 }
 
@@ -80,8 +97,12 @@ Material* Mesh::GetMaterial(){
 	return material;
 }
 
-U32 Mesh::GetPrimitivesCount() const{
-	return primitives_count;
+VertexBuffer* Mesh::GetVertexBuffer(){
+	return vertex_buffer;
+}
+
+Array<GLushort>& Mesh::GetIndices(){
+	return indices;
 }
 
 Mesh* Mesh::Clone(){

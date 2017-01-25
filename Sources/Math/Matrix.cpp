@@ -320,9 +320,9 @@ Vector4D Matrix::operator * (const Vector4D& vec) const{
 
 Vector3D Matrix::operator * (const Vector3D& vec) const{
 	Vector3D res;
-	res.x = m[0][0] * vec.x + m[0][1] * vec.y + m[0][2] * vec.z;
-	res.y = m[1][0] * vec.x + m[1][1] * vec.y + m[1][2] * vec.z;
-	res.z = m[2][0] * vec.x + m[2][1] * vec.y + m[2][2] * vec.z;
+	res.x = m[0][0] * vec.x + m[0][1] * vec.y + m[0][2] * vec.z + m[0][3];
+	res.y = m[1][0] * vec.x + m[1][1] * vec.y + m[1][2] * vec.z + m[1][3];
+	res.z = m[2][0] * vec.x + m[2][1] * vec.y + m[2][2] * vec.z + m[2][3];
 	return res;
 }
 

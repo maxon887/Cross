@@ -41,19 +41,21 @@ Model::Model(const string& name) :
 
 Model::Model(Model& obj) :
 	Transformable(obj),
-	meshes(obj.meshes),
+	//meshes(obj.meshes),
 	original(false),
 	format(obj.format),
 	face_culling(obj.face_culling),
 	alpha_blending(obj.alpha_blending),
 	stencil(obj.stencil)
-{ }
+{ 
+	for(Mesh* mesh : obj.meshes){
+		meshes.push_back(mesh->Clone());
+	}
+}
 
 Model::~Model(){
-	if(original){
-		for(Mesh* mesh : meshes){
-			delete mesh;
-		}
+	for(Mesh* mesh : meshes){
+		delete mesh;
 	}
 }
 
@@ -75,12 +77,10 @@ Model::Format Model::GetFormat(){
 	return format;
 }
 
-U32 Model::GetPolyCount(){
-	U32 polyCount = 0;
+void Model::Initialize(){
 	for(Mesh* mesh : meshes){
-		polyCount += mesh->GetPrimitivesCount();
+		mesh->Initialize();
 	}
-	return polyCount;
 }
 
 void Model::FaceCulling(bool enabled){

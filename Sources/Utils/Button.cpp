@@ -278,14 +278,6 @@ void Button::Locate(Rect rect){
 	FitText(label_text);
 }
 
-void Button::Locate(const Vector2D& pos){
-	if(up_image){
-		Locate(pos, up_image->GetWidth(), up_image->GetHeight());
-	}else{
-		throw CrossException("Button does not have images");
-	}
-}
-
 void Button::ActionDownHandler(Input::Action action) {
 	if(handled_action_id == -1){
 		if (active && OnLocation(action.pos)) {

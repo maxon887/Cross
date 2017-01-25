@@ -19,6 +19,7 @@
 #include "Vector4D.h"
 
 #include <math.h>
+#include <string.h>
 
 using namespace cross;
 
@@ -110,6 +111,10 @@ Vector3D Vector3D::GetTruncated(float len) const{
 
 const float* Vector3D::GetData() const{
 	return &x;
+}
+
+void Vector3D::SetData(const float* data){
+	memcpy(&x, data, sizeof(float) * 3);
 }
 
 bool Vector3D::operator == (const Vector3D& v2) const{

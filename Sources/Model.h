@@ -40,7 +40,7 @@ public:
 	string GetName();
 	string GetFilePath();
 	Format GetFormat();
-	U32 GetPolyCount();
+	void Initialize();
 	void FaceCulling(bool enabled);
 	void AlphaBlending(bool enabled);
 	void SetStencil(Graphics3D::StencilBehaviour behaviour);

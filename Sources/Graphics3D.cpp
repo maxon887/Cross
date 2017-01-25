@@ -45,31 +45,50 @@ Graphics3D::Graphics3D():
 	current_pre_rotation(Matrix::Identity),
 	current_rotation(Matrix::Identity),
 	current_scaling(Matrix::Identity),
-	current_geotranslation(Matrix::Identity)
+	current_geotranslation(Matrix::Identity),
+	initialize_in_load(true)
 {
 	system->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
 	system->LogIt("\tUse assimp version %d.%d", major, minor);
+	memset(primitives, 0, sizeof(primitives));
 }
 
 Graphics3D::~Graphics3D(){
-}
-
-Model* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
-	switch(primitive) {
-	case cross::Graphics3D::CUBE:
-		return LoadModel("Engine/Models/Cube.obj");
-	case cross::Graphics3D::SPHERE:
-		return LoadModel("Engine/Models/Sphere.obj");
-	case cross::Graphics3D::PLANE:
-		return LoadModel("Engine/Models/Plane.obj");
-	default:
-		throw CrossException("Unknown primitive type");
+	for(U32 i = 0; i < Primitives::COUNT; ++i){
+		delete primitives[i];
 	}
 }
 
-Model* Graphics3D::LoadModel(const string& filename){
+Model* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive, bool initialize){
+
+	if(primitives[primitive]){
+		Model* model = primitives[primitive]->Clone();
+		if(initialize){
+			model->Initialize();
+		}
+		return model;
+	}else{
+		switch(primitive) {
+		case cross::Graphics3D::CUBE:
+			primitives[primitive] = LoadModel("Engine/Models/Cube.obj", false);
+			break;
+		case cross::Graphics3D::SPHERE:
+			primitives[primitive] = LoadModel("Engine/Models/Sphere.obj", false);
+			break;
+		case cross::Graphics3D::PLANE:
+			primitives[primitive] = LoadModel("Engine/Models/Plane.obj", false);
+			break;
+		default:
+			throw CrossException("Unknown primitive type");
+		}
+		return LoadPrimitive(primitive, initialize);
+	}
+}
+
+Model* Graphics3D::LoadModel(const string& filename, bool initialize){
+	initialize_in_load = initialize;
 	Debugger::Instance()->SetTimeCheck();
 	Model* model = new Model(filename);
 	ProcessScene(model);
@@ -83,6 +102,9 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 }
 
 void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCulling, bool alphaBlending, StencilBehaviour stencilBehvaiour){
+	if(!mesh->initialized){
+		throw CrossException("Before draw mesh needs to be initialized");
+	}
 	Material* material = mesh->GetMaterial();
 	if(material == nullptr){
 		throw CrossException("Current mesh does not have material");
@@ -351,6 +373,12 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-
-	return new Mesh(vertexBuffer, indices, mesh->mNumFaces);
+	cross::system->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
+	Mesh* crsMesh = new Mesh();
+	crsMesh->PushData(vertexBuffer, indices);
+	delete vertexBuffer;
+	if(initialize_in_load){
+		crsMesh->Initialize();
+	}
+	return crsMesh;
 }

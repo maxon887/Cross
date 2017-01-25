@@ -31,7 +31,8 @@ public:
 	enum Primitives{
 		CUBE,
 		SPHERE,
-		PLANE
+		PLANE,
+		COUNT
 	};
 
 	enum StencilBehaviour{
@@ -43,13 +44,14 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
-	Model* LoadPrimitive(Primitives primitive);
-	Model* LoadModel(const string& filename);
+	Model* LoadPrimitive(Primitives primitive, bool initialize = true);
+	Model* LoadModel(const string& filename, bool initialize = true);
 
 	void DrawMesh(Mesh* mesh, const Matrix& model, bool faseCulling, bool alphaBlending);
 	void DrawMesh(Mesh* mesh, const Matrix& model, bool faceCulling, bool alphaBlending, StencilBehaviour stencilBehvaiour);
 
 protected:
+	Model* primitives[COUNT];
 	const aiScene* current_scene;
 	//fbx specific stuff
 	Matrix current_geotranslation;
@@ -57,6 +59,7 @@ protected:
 	Matrix current_pre_rotation;
 	Matrix current_rotation;
 	Matrix current_scaling;
+	bool initialize_in_load;
 
 	void ProcessScene(Model* model);
 	void ProcessNode(Model* model, aiNode* node);

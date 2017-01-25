@@ -27,8 +27,11 @@ class VertexBuffer;
 	Mesh also contains its materials which need to properly draw it on Scene */
 class Mesh : public Transformable{
 public:
-	Mesh(VertexBuffer* vertexBuffer, Array<GLushort> &indices, U32 primitivesCount);
+	Mesh();
 	~Mesh();
+
+	void Initialize();
+	void PushData(VertexBuffer* vertexBuffer, Array<GLushort>& indices);
 
 	void SetName(const string& name);
 	const string& GetName();
@@ -36,7 +39,8 @@ public:
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 
-	U32 GetPrimitivesCount() const;
+	VertexBuffer* GetVertexBuffer();
+	Array<GLushort>& GetIndices();
 
 	Mesh* Clone();
 
@@ -48,10 +52,11 @@ protected:
 
 	string name;
 	VertexBuffer* vertex_buffer;
+	Array<GLushort> indices;
 	Material* material;
-	U32 primitives_count;
 	U32 index_count;
 	bool original;
+	bool initialized;
 
 	Mesh(Mesh& obj);
 };
