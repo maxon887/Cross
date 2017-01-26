@@ -76,6 +76,13 @@ void AndroidSystem::PromtToExit(){
 	env->CallVoidMethod(cross_activity, methodID);
 }
 
+void AndroidSystem::RequestOrientation(Orientation orientation) {
+    JNIEnv* env = GetJNIEnv();
+    jclass clazz = env->GetObjectClass(cross_activity);
+    jmethodID methodID = env->GetMethodID(clazz, "RequestOrientation", "(I)V");
+    env->CallVoidMethod(cross_activity, methodID, orientation);
+}
+
 void AndroidSystem::MessageBox(string message) {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);

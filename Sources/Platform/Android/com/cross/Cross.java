@@ -4,7 +4,10 @@ import android.content.res.AssetManager;
 import android.view.Surface;
 
 public class Cross {
-	public static final int	KEY_BACK		= 0x08;
+	public static final int	KEY_BACK		      = 0x08;
+    public static final int ORIENTATION_LANDSCAPE = 0;
+    public static final int ORIENTATION_PORTRAIT  = 1;
+    public static final int ORIENTATION_AUTO      = 2;
 
 	public native void OnCreate(CrossActivity activity, AssetManager assManager, String dataPath);
 	public native void SurfaceChanged(Surface surface, int width, int height);

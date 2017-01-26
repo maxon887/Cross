@@ -39,6 +39,7 @@ public:
 	File* LoadFile(const string& filename);
 	U64 GetTime();
 	void PromtToExit();
+    void RequestOrientation(Orientation orientation);
 	void MessageBox(string message);
 	void Exit();
 	void Sleep(float milis);

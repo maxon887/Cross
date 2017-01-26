@@ -129,10 +129,10 @@ void WINSystem::KeyReleasedHandle(Key key){
 	case Key::F2:	//9:16
 		ResizeWindow(window_pos_x, window_pos_y, 540, 960);
 		break;
-	case Key::F3:	//16:10
+	case Key::F3:	//4:3
 		ResizeWindow(window_pos_x, window_pos_y, 800, 600);
 		break;
-	case Key::F4:	//4:3
+	case Key::F4:	//3:4
 		ResizeWindow(window_pos_x, window_pos_y, 600, 800);
 		break;
 	default:

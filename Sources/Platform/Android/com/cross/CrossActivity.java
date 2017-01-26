@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -201,6 +202,20 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 			}
 		});
 	}
+
+    public void RequestOrientation(int o){
+        switch (o){
+            case Cross.ORIENTATION_LANDSCAPE:
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                break;
+            case Cross.ORIENTATION_PORTRAIT:
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                break;
+            case Cross.ORIENTATION_AUTO:
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                break;
+        }
+    }
 
 	public void PromtToExit() {
 		Log.d(TAG, "PromtToExit");

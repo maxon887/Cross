@@ -23,10 +23,10 @@
 using namespace cross;
 
 Config::Config():
-	orientation(System::LANDSCAPE),
+	orientation(System::AUTO),
 	use_compressed_textures(false),
 	texture_filter(Texture::Filter::NEAREST),
-	view_distance(100.f),
+	view_distance(300.f),
 	offscreen_render(false)
 {
 	string gameConfigPath = system->DataPath() + "/GameConfig.xml";

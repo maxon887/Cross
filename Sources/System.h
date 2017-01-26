@@ -49,6 +49,7 @@ public:
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis) { };
 	/* Ask user about exit from application */
+    virtual void RequestOrientation(Orientation orientation) { };
 	virtual void PromtToExit() { };
 	/* Returns Commercial class object */
 	virtual Commercial* GetCommercial() { return NULL; };
