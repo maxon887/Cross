@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,20 +17,22 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 import android.view.Window;
+import android.view.View;
 
 public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private static final String TAG 	= "CrossJava";
 	private Cross cross 				= null;
 	private AssetManager asset_manager 	= null;
 	private Commercial commercial		= null;
-    private int orientation = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         SurfaceView surfaceView = new SurfaceView(this);
         surfaceView.setEnabled(true);
         surfaceView.setFocusable(true);
@@ -84,6 +87,22 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		Log.d(TAG, "onStop");
 		super.onStop();
 	}
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            if (Build.VERSION.SDK_INT >= 11) {
+                View decorView = getWindow().getDecorView();
+                decorView.setSystemUiVisibility(  View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
+        }
+    }
 
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
