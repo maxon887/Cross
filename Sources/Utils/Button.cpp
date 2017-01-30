@@ -72,6 +72,7 @@ Button::Button(Vector2D location) :
 }
 
 Button::Button() :
+	UI(),
 	located(false),
 	is_pressed(false),
 	push_sound(nullptr),
@@ -125,14 +126,14 @@ void Button::Update(float sec) {
 				down_image->SetPosition(location);
 				gfx2D->DrawSprite(down_image, color, false);
 			} else if(up_image == nullptr) {
-				gfx2D->DrawRect(area, Color::Red, true);
+				//gfx2D->DrawRect(area, Color::Red, true);
 			}
 		} else {
 			if(up_image != nullptr) {
 				up_image->SetPosition(location);
 				gfx2D->DrawSprite(up_image, color, false);
 			} else {
-				gfx2D->DrawRect(area, Color::Blue, true);
+				//gfx2D->DrawRect(area, Color::Blue, true);
 			}
 		}
 	}
