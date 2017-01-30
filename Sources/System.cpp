@@ -105,7 +105,11 @@ string System::FileWithoutExtension(const string& file){
 }
 
 void System::SetWindowSize(S32 width, S32 height){
+	Orientation prevO = GetDeviceOrientation();
 	window_width = width;
 	window_height = height;
 	TRIGGER_EVENT(WindowResized, width, height);
+	if(prevO != GetDeviceOrientation()){
+		TRIGGER_EVENT(OrientationChanged, GetDeviceOrientation());
+	}
 }

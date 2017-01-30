@@ -31,6 +31,7 @@ public:
 	};
 	/* Occurs when window size changed */
 	DECLARE_EVENT(void, S32, S32) WindowResized;
+	DECLARE_EVENT(void, System::Orientation) OrientationChanged;
 	/* Print message in console. See LogIt() if you need formated output */
 	virtual void Log(const char* msg) = 0;
 	/* Returns path to the application assets folder */
