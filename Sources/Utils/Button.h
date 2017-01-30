@@ -63,7 +63,6 @@ protected:
 	Rect area;
 	float def_width;
 	float def_height;
-	bool visible;
 	//optional parameters
 	Sprite* up_image;
 	Sprite* down_image;

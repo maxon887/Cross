@@ -19,17 +19,26 @@
 using namespace cross;
 
 UI::UI():
-	active(true)
+	visible(true),
+	enable(true)
 { }
 
 bool UI::OnLocation(Vector2D p) const {
 	return PointInRect(p, GetRect());
 }
 
-bool UI::IsActive(){
-	return active;
+bool UI::IsVisible(){
+	return visible;
 }
 
-void UI::SetActive(bool yes){
-	active = yes;
+void UI::SetVisible(bool yes){
+	visible = yes;
+}
+
+bool UI::IsEnabled(){
+	return enable;
+}
+
+void UI::SetEnable(bool enable){
+	this->enable = enable;
 }

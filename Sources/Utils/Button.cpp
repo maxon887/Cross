@@ -82,7 +82,6 @@ Button::Button() :
 	def_width(0),
 	def_height(0),
 	handled_action_id(-1),
-	visible(true),
 	color(Color::White)
 {
 	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
@@ -113,7 +112,7 @@ Button::~Button() {
 }
 
 void Button::Update(float sec) {
-	if(!active){
+	if(!visible){
 		return;
 	}
 	if(!located) {
@@ -280,7 +279,7 @@ void Button::Locate(Rect rect){
 
 void Button::ActionDownHandler(Input::Action action) {
 	if(handled_action_id == -1){
-		if (active && OnLocation(action.pos)) {
+		if (visible && enable && OnLocation(action.pos)) {
 			is_pressed = true;
 			handled_action_id = action.id;
 			if (push_sound != nullptr) {
@@ -292,7 +291,7 @@ void Button::ActionDownHandler(Input::Action action) {
 
 void Button::ActionUpHandler(Input::Action action) {
 	if(handled_action_id == action.id){
-		if (active && is_pressed) {
+		if (visible && enable && is_pressed) {
 			is_pressed = false;
 			handled_action_id = -1;
 			if (push_sound != nullptr) {

@@ -46,7 +46,7 @@ void Menu::Update(float sec){
 
 void Menu::Active(bool active){
 	for(Button* btn : buttons){
-		btn->SetActive(active);
+		btn->SetVisible(active);
 	}
 }
 

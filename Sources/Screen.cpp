@@ -24,6 +24,7 @@ using namespace cross;
 
 void Screen::Start(){
 	is_scene = false;
+	enable_inputs = true;
 	action_down_delegate = MakeDelegate(this, &Screen::ActionDownHandle);
 	action_move_delegate = MakeDelegate(this, &Screen::ActionMoveHandle);
 	action_up_delegate = MakeDelegate(this, &Screen::ActionUpHandle);
@@ -78,8 +79,18 @@ void Screen::AddUI(UI* element){
     guis.push_back(element);
 }
 
+void Screen::EnableUI(bool enable){
+	for(UI* element : guis){
+		element->SetEnable(enable);
+	}
+}
+
+void Screen::EnableInputs(bool enable){
+	enable_inputs = enable;
+}
+
 void Screen::ActionDownHandle(Input::Action action){
-	if(!OnGuiArea(action.pos)){
+	if(!OnGuiArea(action.pos) && enable_inputs){
 		actionIDs[action.id] = true;
 		ActionDown(action);
 	}
@@ -100,7 +111,7 @@ void Screen::ActionUpHandle(Input::Action action){
 
 bool Screen::OnGuiArea(Vector2D pos){
 	for(UI* ui : guis){
-		if(ui->IsActive() && ui->OnLocation(pos)){
+		if(ui->IsVisible() && ui->OnLocation(pos)){
 			return true;
 		}
 	}

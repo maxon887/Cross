@@ -61,9 +61,12 @@ public:
 	void SetBackground(const Color& background);
 	/* New UI element will auto update and covers area from touches */
 	void AddUI(UI* element);
+	void EnableUI(bool enable);
+	void EnableInputs(bool enable);
 
 protected:
 	bool is_scene;
+	bool enable_inputs;
 
 private:
 	bool actionIDs[MAX_ACTIONS];
