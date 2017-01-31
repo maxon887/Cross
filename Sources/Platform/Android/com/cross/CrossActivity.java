@@ -154,13 +154,14 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_BACK:
-				cross.PressKey(Cross.KEY_BACK);
-				return true;
-            default:
-                cross.PressKey(keyCode);
+            case KeyEvent.KEYCODE_BACK:
+                cross.PressKey(Cross.KEY_BACK);
                 return true;
-		}
+            default:
+                super.onKeyDown(keyCode, event);
+                cross.PressKey(keyCode);
+                return false;
+        }
 	}
 
 	@Override
@@ -169,8 +170,11 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		case KeyEvent.KEYCODE_BACK:
 			cross.ReleaseKey(Cross.KEY_BACK);
 			return true;
+        default:
+            super.onKeyUp(keyCode, event);
+            cross.ReleaseKey(keyCode);
+            return false;
 		}
-		return false;
 	}
 
 	@Override
