@@ -47,7 +47,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		cross = new Cross();
 
 		FMOD.init(this);
-		String dataPath = getFilesDir().getPath();
+		String dataPath = getFilesDir().getPath() + "/";
 		asset_manager = getResources().getAssets();
 
 		cross.OnCreate(this, asset_manager, dataPath);

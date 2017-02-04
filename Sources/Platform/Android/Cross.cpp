@@ -24,6 +24,7 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
+#include "Config.h"
 #include "System/Debugger.h"
 #include "Platform/CrossEGL.h"
 
@@ -144,6 +145,7 @@ void* Main(void* self){
         delete gfx2D;
         delete gfxGL;
         delete game;
+        system->LogIt("Saved!");
         delete system;
     } catch (Exception& exc){
         string msg = string(exc.message) +
@@ -208,6 +210,10 @@ extern "C"{
         pause_mutex.lock();
         if(game){
             game->Suspend();
+        }
+        if(config){
+            config->SaveGameConfig();
+            config->SaveUserConfig();
         }
 	}
 

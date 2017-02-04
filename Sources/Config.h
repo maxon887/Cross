@@ -44,6 +44,9 @@ public:
 	float GetViewDistance();
 	bool IsOffscreenRender();
 
+	void SaveGameConfig();
+	void SaveUserConfig();
+
 protected:
 	Dictionary<string, string> user_prefs;
 
@@ -57,8 +60,6 @@ protected:
 
 	void LoadGameConfig(const string& path);
 	void LoadUserConfig(const string& path);
-	void SaveGameConfig();
-	void SaveUserConfig();
 };
     
 }

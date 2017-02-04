@@ -46,7 +46,7 @@ File* System::LoadFile(const string& filename){
 	}
 }
 
-void System::SaveFile(File* file){
+void System::SaveFile(File* file){/*
 	string filePath = DataPath() + file->name;
 	ofstream fileStream(filePath, istream::binary);
 	if(fileStream.is_open()){
@@ -54,7 +54,15 @@ void System::SaveFile(File* file){
 		fileStream.close();
 	}else{
 		throw CrossException("Can't open file stream: %s", filePath.c_str());
-	}
+	}*/
+    string filePath = DataPath() + file->name;
+    FILE* f = fopen(filePath.c_str(), "w");
+    if(f){
+        fwrite(file->data, 1, file->size, f);
+        fclose(f);
+    }else{
+        throw CrossException("Can't open file stream: %s", filePath.c_str());
+    }
 }
 
 void System::LogIt(const char* format, ...){

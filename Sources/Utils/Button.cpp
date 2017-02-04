@@ -147,7 +147,7 @@ void Button::Update(float sec) {
 	}
 	
 	//debug active area
-	gfx2D->DrawRect(area, Color::Red);
+	//gfx2D->DrawRect(area, Color::Red);
 }
 
 void Button::SetLocation(Vector2D location) {
@@ -295,9 +295,9 @@ void Button::ActionUpHandler(Input::Action action) {
 		if (visible && enable && is_pressed) {
 			is_pressed = false;
 			handled_action_id = -1;
-			if (push_sound != nullptr) {
-				push_sound->Play();
-			}
+			//if (push_sound != nullptr) {
+				//push_sound->Play();
+			//}
 			if (OnLocation(action.pos)) {
 				if (down_image != nullptr) {
 					gfx2D->DrawSprite(location, down_image);
