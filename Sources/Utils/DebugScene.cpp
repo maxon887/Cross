@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "DebugScene.h"
 #include "Graphics3D.h"
-#include "Shaders/Shader.h"
+//#include "Shaders/Shader.h"
 #include "Material.h"
 #include "Model.h"
 #include "Light.h"

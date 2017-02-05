@@ -63,3 +63,7 @@ U64 IOSSystem::GetTime(){
 Commercial* IOSSystem::GetCommercial(){
     return commercial;
 }
+
+void IOSSystem::RequestOrientation(cross::System::Orientation orientation){
+    [UIViewController attemptRotationToDeviceOrientation];
+}

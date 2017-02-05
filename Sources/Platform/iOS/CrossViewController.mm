@@ -23,6 +23,7 @@
 #include "Graphics3D.h"
 #include "Input.h"
 #include "Game.h"
+#include "Config.h"
 
 #define MAX_TOUCHES 11
 
@@ -100,6 +101,27 @@ using namespace cross;
                                               otherButtonTitles:nil];
         [alert show];
     }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    S32 width = size.width * screenScale;
+    S32 height = size.height * screenScale;
+    cross::system->SetWindowSize(width, height);
+}
+
+- (NSUInteger)supportedInterfaceOrientations{
+    if(config){
+        switch(cross::config->GetOrientation()){
+            case System::Orientation::AUTO:
+                return UIInterfaceOrientationMaskAll;
+            case System::Orientation::LANDSCAPE:
+                return UIInterfaceOrientationMaskLandscape;
+            case System::Orientation::PORTRAIT:
+                return UIInterfaceOrientationMaskPortrait;
+        }
+    }
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)dealloc{

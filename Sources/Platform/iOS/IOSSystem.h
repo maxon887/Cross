@@ -30,6 +30,7 @@ public:
     void Log(const char* msg);
     U64 GetTime();
     Commercial* GetCommercial();
+    virtual void RequestOrientation(Orientation orientation);
     
 private:
     Commercial* commercial;
