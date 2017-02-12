@@ -32,6 +32,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         SurfaceView surfaceView = new SurfaceView(this);

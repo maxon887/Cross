@@ -45,6 +45,8 @@ public:
 	void Sleep(float milis);
 	void InitializeCommercial(JNIEnv* env, jobject comm);
 	Commercial* GetCommercial();
+    void CallActivityVoidMethod(const string& methodName);
+    void CallActivityVoidMethod(const string& methodName, const string& parameter);
 	
 public:
 	void DetachFromJVM();

@@ -213,16 +213,24 @@ void Graphics2D::DrawText(Vector2D pos, const string& text, Font* font){
 	DrawText(pos, text.c_str(), font);
 }
 
+void Graphics2D::DrawText(Vector2D pos, const string& text, Font* font, const Color& color){
+	DrawText(pos, text.c_str(), font, color);
+}
+
 void Graphics2D::DrawText(Vector2D pos, const char* text){
 	DrawText(pos, text, this->default_font);
 }
 
 void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font){
-	while(*text){
+	DrawText(pos, text, font, font->GetColor());
+}
+
+void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font, const Color& color) {
+	while(*text) {
 		Sprite* ch = font->GetChar(*text);
 		float advance = font->GetCharWidthAdvance(*text);
 		ch->SetPosition(pos);
-		DrawSprite(ch, font->GetColor(), true);
+		DrawSprite(ch, color, true);
 		pos.x += advance;
 		text++;
 	}

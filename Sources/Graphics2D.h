@@ -42,8 +42,10 @@ public:
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled, U32 accuracy);
 	void DrawText(Vector2D pos, const string& text);
 	void DrawText(Vector2D pos, const string& str, Font* font);
+	void DrawText(Vector2D pos, const string& text, Font* font, const Color& color);
 	void DrawText(Vector2D pos, const char* text);
 	void DrawText(Vector2D pos, const char* str, Font* font);
+	void DrawText(Vector2D pos, const char* str, Font* font, const Color& color);
 	void DrawSprite(Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);

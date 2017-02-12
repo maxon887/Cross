@@ -46,6 +46,8 @@ public:
 
 	void SaveGameConfig();
 	void SaveUserConfig();
+    void LoadGameConfig();
+    void LoadUserConfig();
 
 protected:
 	Dictionary<string, string> user_prefs;
@@ -57,9 +59,6 @@ protected:
 	bool offscreen_render;
 
 	string GetString(const string& key);
-
-	void LoadGameConfig(const string& path);
-	void LoadUserConfig(const string& path);
 };
     
 }

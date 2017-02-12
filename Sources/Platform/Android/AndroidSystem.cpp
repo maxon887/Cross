@@ -111,6 +111,20 @@ Commercial* AndroidSystem::GetCommercial() {
 	return commercial;
 }
 
+void AndroidSystem::CallActivityVoidMethod(const string &methodName) {
+    JNIEnv* env = GetJNIEnv();
+    jclass clazz = env->GetObjectClass(cross_activity);
+    jmethodID methodID = env->GetMethodID(clazz, methodName.c_str(), "()V");
+    env->CallVoidMethod(cross_activity, methodID);
+}
+
+void AndroidSystem::CallActivityVoidMethod(const string& methodName, const string& parameter){
+    JNIEnv* env = GetJNIEnv();
+    jclass clazz = env->GetObjectClass(cross_activity);
+    jmethodID methodID = env->GetMethodID(clazz, methodName.c_str(), "(Ljava/lang/String;)V");
+    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(parameter.c_str()));
+}
+
 void AndroidSystem::DetachFromJVM() {
     jvm->DetachCurrentThread();
 }

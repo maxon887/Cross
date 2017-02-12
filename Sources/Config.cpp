@@ -29,10 +29,8 @@ Config::Config():
 	view_distance(300.f),
 	offscreen_render(false)
 {
-	string gameConfigPath = system->DataPath() + "/GameConfig.xml";
-	string userConfigPath = system->DataPath() + "/UserConfig.xml";
-	LoadGameConfig(gameConfigPath);
-	LoadUserConfig(userConfigPath);
+	LoadGameConfig();
+	LoadUserConfig();
 }
 
 Config::~Config(){
@@ -114,7 +112,7 @@ string Config::GetString(const string& key){
 	}
 }
 
-void Config::LoadGameConfig(const string& path){
+void Config::LoadGameConfig(){
 	/* Code for loading xmls from memery
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
@@ -123,6 +121,7 @@ void Config::LoadGameConfig(const string& path){
 	delete xmlFile;
 	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
 	delete source;*/
+    string path = system->DataPath() + "/GameConfig.xml";
 
 	TiXmlDocument doc(path.c_str());
 	doc.LoadFile();
@@ -163,7 +162,9 @@ void Config::LoadGameConfig(const string& path){
 	}
 }
 
-void Config::LoadUserConfig(const string& path){
+void Config::LoadUserConfig(){
+    string path = system->DataPath() + "/UserConfig.xml";
+
 	TiXmlDocument doc(path.c_str());
 	doc.LoadFile();
 

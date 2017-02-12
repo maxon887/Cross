@@ -125,15 +125,25 @@ void WINSystem::KeyReleasedHandle(Key key){
 	switch(key)	{
 	case Key::F1:	//16:9
 		ResizeWindow(window_pos_x, window_pos_y, 960, 540);
+		//ResizeWindow(window_pos_x, window_pos_y, 1600, 900);
 		break;
 	case Key::F2:	//9:16
 		ResizeWindow(window_pos_x, window_pos_y, 540, 960);
+		//ResizeWindow(window_pos_x, window_pos_y, 900, 1600);
 		break;
 	case Key::F3:	//4:3
-		ResizeWindow(window_pos_x, window_pos_y, 800, 600);
+		//ResizeWindow(window_pos_x, window_pos_y, 800, 600);
+		ResizeWindow(window_pos_x, window_pos_y, 1280, 960);
 		break;
 	case Key::F4:	//3:4
-		ResizeWindow(window_pos_x, window_pos_y, 600, 800);
+		//ResizeWindow(window_pos_x, window_pos_y, 600, 800);
+		ResizeWindow(window_pos_x, window_pos_y, 960, 1280);
+		break;
+	case Key::F5:	//8:5
+		ResizeWindow(window_pos_x, window_pos_y, 1280, 800);
+		break;
+	case Key::F6:	//5:8
+		ResizeWindow(window_pos_x, window_pos_y, 800, 1280);
 		break;
 	default:
 		break;
