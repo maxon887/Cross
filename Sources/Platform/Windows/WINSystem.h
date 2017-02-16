@@ -33,6 +33,7 @@ public:
 	void Log(const char* msg);
 	void Sleep(float milis);
 	void ShowMessage(const string& msg);
+	void FullScreen(bool yes);
 	void ResizeWindow(int posX, int posY, int width, int height);
 
 public:
@@ -46,6 +47,10 @@ private:
 	char* assets_path;
 	int window_pos_x;
 	int window_pos_y;
+	bool fullscreen;
+
+	bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate);
+	bool ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowedWidth, int windowedHeight, int windowedPaddingX, int windowedPaddingY);
 };
 
 }

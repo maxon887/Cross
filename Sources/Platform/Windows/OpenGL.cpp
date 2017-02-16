@@ -44,27 +44,6 @@ void ShowLastError(){
 	MessageBox(NULL, str, "Error", MB_OK);
 }
 
-bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate) {
-	DEVMODE fullscreenSettings;
-	bool isChangeSuccessful;
-	RECT windowBoundary;
-
-	EnumDisplaySettings(NULL, 0, &fullscreenSettings);
-	fullscreenSettings.dmPelsWidth = fullscreenWidth;
-	fullscreenSettings.dmPelsHeight = fullscreenHeight;
-	fullscreenSettings.dmBitsPerPel = colourBits;
-	fullscreenSettings.dmDisplayFrequency = refreshRate;
-	fullscreenSettings.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL | DM_DISPLAYFREQUENCY;
-
-	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_APPWINDOW | WS_EX_TOPMOST);
-	SetWindowLongPtr(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
-	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, fullscreenWidth, fullscreenHeight, SWP_SHOWWINDOW);
-	isChangeSuccessful = ChangeDisplaySettings(&fullscreenSettings, CDS_FULLSCREEN) == DISP_CHANGE_SUCCESSFUL;
-	ShowWindow(hwnd, SW_MAXIMIZE);
-
-	return isChangeSuccessful;
-}
-
 int OpenGL_Main(){
 	HWND wnd = WinCreate();
 	MSG msg;
@@ -116,10 +95,7 @@ int OpenGL_Main(){
 		if(!error)
 			ShowLastError();
 
-		EnterFullscreen(wnd, 1920, 1080, 32, 60);
-		glViewport(0, 0, 1920, 1080);
-
-		//ShowWindow(wnd, TRUE);
+		ShowWindow(wnd, TRUE);
 
 		audio = new Audio();
 		gfxGL = new GraphicsGL();

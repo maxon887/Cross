@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "WINSystem.h"
 #include "File.h"
+#include "Config.h"
 
 #include <fstream>
 
@@ -34,10 +35,11 @@ void IntSleep(int milis){
 	Sleep(milis);
 }
 
-WINSystem::WINSystem(HWND wnd) : 
+WINSystem::WINSystem(HWND wnd) :
 	wnd(wnd),
 	window_pos_x(0),
-	window_pos_y(0)
+	window_pos_y(0),
+	fullscreen(false)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	if(!DirectoryExists(DATA_PATH)){
@@ -95,8 +97,25 @@ void WINSystem::ShowMessage(const string& msg){
 	}
 }
 
+void WINSystem::FullScreen(bool yes){
+	if(yes){
+		HDC dc = GetDC(wnd);
+		int fullscreenWidth = GetDeviceCaps(dc, HORZRES);
+		int fullscreenHeight = GetDeviceCaps(dc, VERTRES);
+		int colourBits = GetDeviceCaps(dc, BITSPIXEL);
+		int refreshRate = GetDeviceCaps(dc, VREFRESH);
+
+		EnterFullscreen(wnd, fullscreenHeight, fullscreenWidth, colourBits, refreshRate);
+		//glViewport(0, 0, fullscreenHeight, fullscreenWidth);
+
+
+	}else{
+		ExitFullscreen(wnd, config->GetInt("WIN_POS_X", 0), config->GetInt("WIN_POS_Y", 0), config->GetInt("WIN_WIDTH", 500), config->GetInt("WIN_HEIGHT", 500), 0, 0);
+	}
+}
+
 void WINSystem::ResizeWindow(int posX, int posY, int width, int height){
-	if(wnd){
+	if(wnd && !fullscreen){
 		window_pos_x = posX;
 		window_pos_y = posY;
 		SetWindowSize(width, height);
@@ -145,7 +164,44 @@ void WINSystem::KeyReleasedHandle(Key key){
 	case Key::F6:	//5:8
 		ResizeWindow(window_pos_x, window_pos_y, 800, 1280);
 		break;
+	case Key::F8:
+		fullscreen = !fullscreen;
+		FullScreen(fullscreen);
+		break;
 	default:
 		break;
 	}
+}
+
+bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate) {
+	DEVMODE fullscreenSettings;
+	bool isChangeSuccessful;
+	RECT windowBoundary;
+
+	EnumDisplaySettings(NULL, 0, &fullscreenSettings);
+	fullscreenSettings.dmPelsWidth = fullscreenWidth;
+	fullscreenSettings.dmPelsHeight = fullscreenHeight;
+	fullscreenSettings.dmBitsPerPel = colourBits;
+	fullscreenSettings.dmDisplayFrequency = refreshRate;
+	fullscreenSettings.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL | DM_DISPLAYFREQUENCY;
+
+	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_APPWINDOW | WS_EX_TOPMOST);
+	SetWindowLongPtr(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, fullscreenWidth, fullscreenHeight, SWP_SHOWWINDOW);
+	isChangeSuccessful = ChangeDisplaySettings(&fullscreenSettings, CDS_FULLSCREEN) == DISP_CHANGE_SUCCESSFUL;
+	ShowWindow(hwnd, SW_MAXIMIZE);
+
+	return isChangeSuccessful;
+}
+
+bool WINSystem::ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowedWidth, int windowedHeight, int windowedPaddingX, int windowedPaddingY) {
+	bool isChangeSuccessful;
+
+	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_LEFT);
+	SetWindowLongPtr(hwnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
+	isChangeSuccessful = ChangeDisplaySettings(NULL, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
+	SetWindowPos(hwnd, HWND_NOTOPMOST, windowX, windowY, windowedWidth + windowedPaddingX, windowedHeight + windowedPaddingY, SWP_SHOWWINDOW);
+	ShowWindow(hwnd, SW_RESTORE);
+
+	return isChangeSuccessful;
 }
