@@ -24,10 +24,6 @@
 #include <vector>
 #include <list>
 #include <map>
-//TODO: remove form here
-#if defined(__APPLE__) || defined(__APPLE_CC__)
-#define IOS true
-#endif
 
 namespace cross{
 
@@ -101,3 +97,7 @@ friend Audio;			\
 friend Sound;			\
 friend Input;			\
 friend Config;
+
+#if defined(__APPLE__) || defined(__APPLE_CC__)
+#define IOS true
+#endif

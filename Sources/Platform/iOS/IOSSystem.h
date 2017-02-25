@@ -20,6 +20,10 @@
 
 using namespace cross;
 
+#if defined(__APPLE__) || defined(__APPLE_CC__)
+#define IOS true
+#endif
+
 class IOSSystem : public System{
 public:
     IOSSystem();

@@ -68,7 +68,7 @@ using namespace cross;
         gfx3D = new Graphics3D();
         game->Start();
         game->SetScreen(game->GetStartScreen());
-    } catch(Exception &exc){
+    }catch(Exception &exc){
         paused = YES;
         string msg = string(exc.message) +
         +"\nFile: " + string(exc.filename) +
@@ -130,7 +130,6 @@ using namespace cross;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     for (UITouch* touch in touches) {
-        //S32 touchID = [self getTouchID:touch];
         S32 touchID = [self addTouchID:touch];
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
