@@ -19,4 +19,6 @@
 
 @interface CrossViewController : GLKViewController
 
+@property (atomic) BOOL CrossPaused;
+
 @end

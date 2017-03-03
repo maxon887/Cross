@@ -22,12 +22,17 @@
 using namespace cross;
 
 Input::Input(){
+    touch_enabled = true;
 	memset(pressed_keys, 0, sizeof(pressed_keys));
 	KeyPressed += MakeDelegate(this, &Input::KeyPressedHandle);
 	KeyReleased += MakeDelegate(this, &Input::KeyReleasedHandle);
 	TargetActionDown += MakeDelegate(this, &Input::TargetActionDonwHandle);
 	TargetActionMove += MakeDelegate(this, &Input::TargetActionMoveHandle);
 	TargetActionUp += MakeDelegate(this, &Input::TargetActionUpHandle);
+}
+
+void Input::TouchEnabled(bool enabled){
+    touch_enabled = enabled;
 }
 
 Vector2D Input::TargetToWordConvert(float x, float y){
@@ -79,28 +84,34 @@ void Input::KeyReleasedHandle(Key key){
 }
 
 void Input::TargetActionDonwHandle(float x, float y, S32 actionID){
-	Action action;
-	action.pos = Vector2D(x, y);
-	action.id = actionID;
-	input_mutex.lock();
-	action_stack.push_back(pair<Input::Action, int>(action, 0));
-	input_mutex.unlock();
+    if(touch_enabled){
+        Action action;
+        action.pos = Vector2D(x, y);
+        action.id = actionID;
+        input_mutex.lock();
+        action_stack.push_back(pair<Input::Action, int>(action, 0));
+        input_mutex.unlock();
+    }
 }
 
 void Input::TargetActionMoveHandle(float x, float y, S32 actionID){
-	Action action;
-	action.pos = Vector2D(x, y);
-	action.id = actionID;
-	input_mutex.lock();
-	action_stack.push_back(pair<Input::Action, int>(action, 1));
-	input_mutex.unlock();
+    if(touch_enabled){
+        Action action;
+        action.pos = Vector2D(x, y);
+        action.id = actionID;
+        input_mutex.lock();
+        action_stack.push_back(pair<Input::Action, int>(action, 1));
+        input_mutex.unlock();
+    }
 }
 
 void Input::TargetActionUpHandle(float x, float y, S32 actionID){
-	Action action;
-	action.pos = Vector2D(x, y);
-	action.id = actionID;
-	input_mutex.lock();
-	action_stack.push_back(pair<Input::Action, int>(action, 2));
-	input_mutex.unlock();
+    if(touch_enabled){
+        Action action;
+        action.pos = Vector2D(x, y);
+        action.id = actionID;
+        input_mutex.lock();
+        action_stack.push_back(pair<Input::Action, int>(action, 2));
+        input_mutex.unlock();
+    }
 }

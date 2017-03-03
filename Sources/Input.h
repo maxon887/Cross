@@ -124,6 +124,8 @@ public:
 		Vector2D pos;
 		S32 id;
 	};
+    
+    void TouchEnabled(bool enabled);
 	/* Scaled in screen coordinates input */
 	DECLARE_EVENT(void, Action) ActionDown;
 	DECLARE_EVENT(void, Action) ActionMove;
@@ -147,6 +149,7 @@ protected:
 	CROSS_FRIENDLY
 
 	std::mutex  input_mutex;
+    bool touch_enabled;
 	bool pressed_keys[(U32)Key::MAX_KEY_NUM];
 	List<pair<Input::Action, int> > action_stack;
 

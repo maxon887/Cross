@@ -38,15 +38,16 @@ using namespace cross;
 
 @implementation CrossViewController{
     CGFloat screenScale;
-    BOOL paused;
     UITouch* touchIDs[MAX_TOUCHES];
 }
+
+@synthesize CrossPaused;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.preferredFramesPerSecond = 60;
     self.view.multipleTouchEnabled = YES;
-    paused = NO;
+    CrossPaused = NO;
     for(int i = 0; i < MAX_TOUCHES; ++i){
         touchIDs[i] = NULL;
     }
@@ -69,7 +70,7 @@ using namespace cross;
         game->Start();
         game->SetScreen(game->GetStartScreen());
     }catch(Exception &exc){
-        paused = YES;
+        CrossPaused = YES;
         string msg = string(exc.message) +
         +"\nFile: " + string(exc.filename) +
         +"\nLine: " + to_string(exc.line);
@@ -85,11 +86,11 @@ using namespace cross;
 
 - (void)update{
     try{
-        if(!paused){
+        if(!CrossPaused){
             game->EngineUpdate();
         }
     } catch(Exception &exc) {
-        paused = YES;
+        CrossPaused = YES;
         string msg = string(exc.message) +
         +"\nFile: " + string(exc.filename) +
         +"\nLine: " + to_string(exc.line);
@@ -190,5 +191,6 @@ using namespace cross;
     NSLog(@"Can't add new touch");
     return -1;
 }
+
 
 @end

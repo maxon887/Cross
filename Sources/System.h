@@ -43,8 +43,9 @@ public:
 
 	System();
 	virtual ~System() { }
-	/* Loads specific file from game assets. */
+	/* DEPRICATED! Loads specific file from game assets. TODO LoadAsset */
 	virtual File* LoadFile(const string& filename);
+    virtual File* LoadDataFile(const string& filename);
 	/* Safe file to Data folder */
 	virtual void SaveFile(File* file);
 	/* Force current thread to sleep */

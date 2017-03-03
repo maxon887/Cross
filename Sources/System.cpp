@@ -46,6 +46,25 @@ File* System::LoadFile(const string& filename){
 	}
 }
 
+File* System::LoadDataFile(const string &filename){
+    File* file = new File();
+    file->name = filename;
+    string filePath = DataPath() + filename;
+    ifstream fileStream(filePath, istream::binary);
+    if(fileStream.is_open()){
+        fileStream.seekg(0, fileStream.end);
+        file->size = (size_t)fileStream.tellg();
+        fileStream.seekg(0, fileStream.beg);
+        file->data = new Byte[file->size];
+        memset(file->data, 0, file->size);
+        fileStream.read((char*)file->data, file->size);
+        fileStream.close();
+        return file;
+    } else {
+        throw CrossException("Cannot open file %s", file->name.c_str());
+    }
+}
+
 void System::SaveFile(File* file){/*
 	string filePath = DataPath() + file->name;
 	ofstream fileStream(filePath, istream::binary);
