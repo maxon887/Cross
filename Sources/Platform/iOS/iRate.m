@@ -210,12 +210,12 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         //default settings
         self.useAllAvailableLanguages = YES;
         self.promptForNewVersionIfUserRated = NO;
-        self.onlyPromptIfLatestVersion = YES;
-        self.onlyPromptIfMainWindowIsAvailable = YES;
+        self.onlyPromptIfLatestVersion = NO;
+        self.onlyPromptIfMainWindowIsAvailable = NO;
         self.promptAtLaunch = YES;
         self.usesUntilPrompt = 10;
         self.eventsUntilPrompt = 10;
-        self.daysUntilPrompt = 10.0f;
+        self.daysUntilPrompt = 3.0f;
         self.usesPerWeekForPrompt = 0.0f;
         self.remindPeriod = 1.0f;
         self.verboseLogging = NO;
@@ -224,8 +224,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 #if DEBUG
 
         //enable verbose logging in debug mode
-        self.verboseLogging = NO;
-        NSLog(@"iRate verbose logging disabled.");
+        self.verboseLogging = YES;
+        //NSLog(@"iRate verbose logging disabled.");
 
 #endif
 

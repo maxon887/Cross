@@ -15,7 +15,7 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #import "AppDelegate.h"
-//#import "iRate.h"
+#import "iRate.h"
 #include "Cross.h"
 #include "Game.h"
 #include "Config.h"
@@ -26,7 +26,7 @@ using namespace cross;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //[iRate sharedInstance].applicationBundleID = @"com.charcoaldesign.rainbowblocks-free";
+    [iRate sharedInstance].applicationBundleID = @"com.littleman.sokoban";
     //[iRate sharedInstance].previewMode = YES;
     return YES;
 }
