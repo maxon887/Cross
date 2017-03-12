@@ -1,1 +1,469 @@
 err: egl::Surface::initialize(109): Unable to set present parameters: 000000000000000000000000000000000000000000000000000000000000000000000000080004001
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.
+err: gl::StaticVertexBuffer::reserveRequiredSpace(708): Out of memory allocating a vertex buffer of size 0.
+err: gl::VertexDataManager::writeAttributeData(76): Failed to map vertex buffer.

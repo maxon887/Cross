@@ -31,7 +31,7 @@ public:
 	~Mesh();
 
 	void Initialize();
-	void PushData(VertexBuffer* vertexBuffer, Array<GLushort>& indices);
+	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);
 
 	void SetName(const string& name);
 	const string& GetName();

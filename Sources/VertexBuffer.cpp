@@ -56,19 +56,19 @@ U32 VertexBuffer::GetPossitionsOffset(){
 }
 
 U32 VertexBuffer::GetTextureCoordinatesOffset(){
-	return 3;
+	return GetPossitionsOffset() + (uv_enabled ? 3 : 0);
 }
 
 U32 VertexBuffer::GetNormalsOffset(){
-	return GetTextureCoordinatesOffset() + 2;
+	return GetTextureCoordinatesOffset() + (normals_enabled ? 2 : 0);
 }
 
 U32 VertexBuffer::GetTangentsOffset(){
-	return GetNormalsOffset() + 3;
+	return GetNormalsOffset() + (tangents_enabled ? 3 : 0);
 }
 
 U32 VertexBuffer::GetBitangentsOffset(){
-	return GetTangentsOffset() + 3;
+	return GetTangentsOffset() + (bitangents_enabled ? 3 : 0);
 }
 
 U32 VertexBuffer::VertexSize() {

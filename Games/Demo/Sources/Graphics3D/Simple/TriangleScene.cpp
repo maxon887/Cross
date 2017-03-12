@@ -37,9 +37,12 @@ void TriangleScene::Start(){
 
 	vertexBuffer->PushData((Byte*)&verticesData[0], 3 * sizeof(Vector3D));
 
-	Array<U32> indices = { 0, 1, 2 };
+	const Array<GLushort> indices = { 0, 1, 2 };
 
-	triangle = new Mesh(vertexBuffer, indices, indices.size());
+	triangle = new Mesh();
+	triangle->PushData(vertexBuffer, indices);
+	triangle->Initialize();
+
 	triangle->SetMaterial(material);
 }
 
