@@ -57,6 +57,7 @@ public:
 	virtual Commercial* GetCommercial() { return NULL; };
 	/* Print message in console. */
 	void LogIt(const char* format, ...);
+	void LogIt(const Vector3D& vector);
 	/* Returns window width in pixels. Don't miss wiht Screen::GetWidth() */
 	S32 GetWindowWidth();
 	/* Returns window Height in pixels. Don't miss wiht Screen::GetHeight() */

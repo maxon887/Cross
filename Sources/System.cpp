@@ -93,6 +93,10 @@ void System::LogIt(const char* format, ...){
 	va_end(params);
 }
 
+void System::LogIt(const Vector3D& vector){
+	LogIt("X - %0.3f, Y - %0.3f, Z - %0.3f", vector.x, vector.y, vector.z);
+}
+
 S32 System::GetWindowWidth(){
 	return window_width;
 }
