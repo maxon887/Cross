@@ -15,24 +15,22 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Cross.h"
+#include "Physics/Collision.h"
 
-class ApocalypseScene : public CameraControlsScene{
+namespace cross{
+
+class AABoxCollider{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	AABoxCollider(Vector3D begin, Vector3D end);
 
+	Collision OnCollision(AABoxCollider* other);
+
+	Vector3D GetBegin() const;
+	Vector3D GetEnd() const;
 private:
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Model* road;
-
-	Light* light;
+	Vector3D begin;
+	Vector3D end;
 };
+
+}

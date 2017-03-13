@@ -14,25 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Physics/PlaneCollider.h"
 
-class ApocalypseScene : public CameraControlsScene{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+using namespace cross;
 
-private:
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Model* road;
+PlaneCollider::PlaneCollider(const Vector3D& normal, float distance) : 
+	normal(normal),
+	distance(distance)
+{ }
 
-	Light* light;
-};
+Collision PlaneCollider::OnCollision(SphereCollider* other){
+	float centerDistance = abs(Vector3D::Dot(normal, other->GetCenter())) + distance;
+	float distance = centerDistance - other->GetRadius();
+	return Collision(distance > other->GetRadius(), distance);
+}

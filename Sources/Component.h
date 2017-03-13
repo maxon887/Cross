@@ -15,24 +15,31 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Cross.h"
 
-class ApocalypseScene : public CameraControlsScene{
+namespace cross{
+
+class Component{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	enum Type{
+		MODEL,
+		COUNT
+	};
+
+	Component(Type type);
+	virtual ~Component() { };
+
+	virtual void Update(float sec);
+
+	void Initialize(Entity* entity);
+	bool Initialized() const;
+	Type GetType() const;
+	Entity* GetEntity();
+	Component* GetComponent(Component::Type type);
 
 private:
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Model* road;
-
-	Light* light;
+	Type type;
+	Entity* entity;
 };
+
+}

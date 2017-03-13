@@ -55,6 +55,12 @@
     <Filter Include="Demo\Graphics3D\Maps">
       <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Physics">
+      <UniqueIdentifier>{c2b89c91-3ac6-4c8a-843c-f6b66b6030bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Physics">
+      <UniqueIdentifier>{d815590d-863a-4aa0-90e9-d96242a55789}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -315,6 +321,30 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\WINSystem.cpp">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\SphereCollider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\Collision.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\AABoxCollider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\PhysicsScreen.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\Body.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Entity.cpp">
+      <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Component.cpp">
+      <Filter>Cross</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -579,6 +609,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\WINSystem.h">
       <Filter>Cross\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\SphereCollider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\Collision.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\AABoxCollider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Physics\PhysicsScreen.h">
+      <Filter>Demo\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\Body.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Entity.h">
+      <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Component.h">
+      <Filter>Cross</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

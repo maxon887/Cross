@@ -19,10 +19,12 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Graphics3D.h"
+#include "Entity.h"
 
 using namespace cross;
 
 Model::Model(const string& name) :
+	Component(Component::Type::MODEL),
 	name(name),
 	original(true),
 	face_culling(true),
@@ -40,8 +42,8 @@ Model::Model(const string& name) :
 }
 
 Model::Model(Model& obj) :
+	Component(Component::Type::MODEL),
 	Transformable(obj),
-	//meshes(obj.meshes),
 	original(false),
 	format(obj.format),
 	face_culling(obj.face_culling),
@@ -59,9 +61,17 @@ Model::~Model(){
 	}
 }
 
+void Model::Update(float sec){
+	Draw();
+}
+
 void Model::Draw(){
 	for(Mesh* mesh : meshes){
-		gfx3D->DrawMesh(mesh, GetModelMatrix(), face_culling, alpha_blending, stencil);
+		if(!Initialized()){
+			gfx3D->DrawMesh(mesh, GetModelMatrix(), face_culling, alpha_blending, stencil);
+		}else{
+			gfx3D->DrawMesh(mesh, GetModelMatrix() * GetEntity()->GetModelMatrix(), face_culling, alpha_blending, stencil);
+		}
 	}
 }
 

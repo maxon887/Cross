@@ -74,7 +74,7 @@ void TransparencyScene::Start(){
 		clone->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
 		clone->SetRotate(quat * clone->GetRotation());
-		models.push_back(clone);
+		//models.push_back(clone);
 	}
 
 	sphere_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);

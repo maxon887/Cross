@@ -72,11 +72,18 @@
     <ClCompile Include="..\..\..\..\Sources\Camera.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Color.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Component.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Entity.cpp" />
     <ClCompile Include="..\..\..\..\Sources\File.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Game.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\AABoxCollider.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\Body.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\Collision.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\SphereCollider.cpp" />
     <ClCompile Include="..\..\..\..\Sources\System.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\SOIL.c" />
@@ -153,6 +160,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\PhysicsScreen.cpp" />
     <ClCompile Include="..\..\Sources\ScrollScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -161,7 +169,9 @@
     <ClInclude Include="..\..\..\..\Sources\Camera.h" />
     <ClInclude Include="..\..\..\..\Sources\Camera2D.h" />
     <ClInclude Include="..\..\..\..\Sources\Color.h" />
+    <ClInclude Include="..\..\..\..\Sources\Component.h" />
     <ClInclude Include="..\..\..\..\Sources\Cross.h" />
+    <ClInclude Include="..\..\..\..\Sources\Entity.h" />
     <ClInclude Include="..\..\..\..\Sources\File.h" />
     <ClInclude Include="..\..\..\..\Sources\Game.h" />
     <ClInclude Include="..\..\..\..\Sources\Graphics2D.h" />
@@ -186,6 +196,11 @@
     <ClInclude Include="..\..\..\..\Sources\Math\Vector4D.h" />
     <ClInclude Include="..\..\..\..\Sources\Mesh.h" />
     <ClInclude Include="..\..\..\..\Sources\Model.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\AABoxCollider.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\Body.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\Collision.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\SphereCollider.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\CrossEGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h" />
@@ -243,6 +258,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
+    <ClInclude Include="..\..\Sources\Physics\PhysicsScreen.h" />
     <ClInclude Include="..\..\Sources\ScrollScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

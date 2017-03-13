@@ -61,6 +61,7 @@ class Font;
 class Camera;
 class Camera2D;
 class Shader;
+class Entity;
 class Material;
 class Mesh;
 class Model;
@@ -68,7 +69,7 @@ class Texture;
 class Light;
 class UI;
 class Cubemap;
-class Commercial;
+class Component;
 
 extern Game*		game;
 extern System*		system;

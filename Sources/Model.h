@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Component.h"
 #include "Transformable.h"
 #include "Graphics3D.h"
 
@@ -24,7 +25,7 @@ namespace cross{
 /*	This class represent 3D object in scene.
 	3D model consists of Meshes, Materials and Shaders.
 	Model can be loaded through Graphics3D class. */
-class Model : public Transformable{
+class Model : public Component, public Transformable{
 public:
 	enum Format{
 		FBX,
@@ -35,8 +36,9 @@ public:
 	Model(Model& obj);
 	~Model();
 
-	virtual void Draw();
+	virtual void Update(float sec);
 
+	void Draw();
 	string GetName();
 	string GetFilePath();
 	Format GetFormat();

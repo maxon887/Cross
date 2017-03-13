@@ -36,6 +36,7 @@ private:
 	Menu* main_menu;
 	Menu* graphics2D_menu;
 	Menu* graphics3D_menu;
+	Menu* physics_menu;
 
 	Menu* graphics3D_simple;
 	Menu* graphics3D_light;
@@ -51,6 +52,7 @@ private:
 	//main menu
 	void OnGraphics2DClick();
 	void OnGraphics3DClick();
+	void OnPhysicsClick();
 	//graphics 3d menu
 	void OnSimpleClick();
 	void OnLightClick();

@@ -21,6 +21,7 @@
 #include "Config.h"
 #include "Model.h"
 #include "Light.h"
+#include "Entity.h"
 
 using namespace cross;
 
@@ -42,16 +43,16 @@ void Scene::Start(){
 void Scene::Update(float sec){
 	Screen::Update(sec);
 	camera->Update(sec);
-	for(Model* model : models){
-		model->Draw();
+	for(Entity* obj : objects){
+		obj->Update(sec);
 	}
 }
 
 void Scene::Stop(){
 	delete camera;
 	cross::system->WindowResized -= window_resize_handle;
-	for(Model* model : models){
-		delete model;
+	for(Entity* obj : objects){
+		delete obj;
 	}
 	for(Light* light : lights){
 		delete light;
@@ -67,6 +68,10 @@ void Scene::SetCameraViewDistance(float distance){
 
 void Scene::AddLight(Light* light){
 	lights.push_back(light);
+}
+
+void Scene::AddEntity(Entity* entity){
+	objects.push_back(entity);
 }
 
 Array<Light*>& Scene::GetLights(){

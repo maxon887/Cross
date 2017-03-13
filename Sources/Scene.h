@@ -38,6 +38,7 @@ public:
 	void SetCameraViewDistance(float distance);
 	/* Adds new light to the scene */
 	void AddLight(Light* light);
+	void AddEntity(Entity* entity);
 	/* Returns all avalible light on scne */
 	Array<Light*>& GetLights();
 	/* Sets up ambient scene light intencity */
@@ -50,7 +51,7 @@ protected:
 	Color ambient_color;
 
 	Array<Light*> lights;
-	Array<Model*> models;
+	Array<Entity*> objects;
 
 private:
 	FastDelegate2<S32, S32, void> window_resize_handle;

@@ -53,8 +53,6 @@ public:
 	/* Ask user about exit from application */
     virtual void RequestOrientation(Orientation orientation) { };
 	virtual void PromtToExit() { };
-	/* Returns Commercial class object */
-	virtual Commercial* GetCommercial() { return NULL; };
 	/* Print message in console. */
 	void LogIt(const char* format, ...);
 	void LogIt(const Vector3D& vector);

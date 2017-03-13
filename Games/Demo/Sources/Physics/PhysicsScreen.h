@@ -17,22 +17,11 @@
 #pragma once
 #include "Graphics3D/CameraControlsScene.h"
 
-class ApocalypseScene : public CameraControlsScene{
+class PhysicsScreen : public CameraControlsScene {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	virtual void Start();
+	virtual void Stop();
+	virtual void Update(float sec);
 
 private:
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Model* road;
-
-	Light* light;
 };

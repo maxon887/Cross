@@ -14,25 +14,40 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Entity.h"
+#include "Component.h"
 
-class ApocalypseScene : public CameraControlsScene{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+using namespace cross;
 
-private:
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Model* road;
+Entity::Entity(){
+	memset(components, 0, sizeof(components));
+}
 
-	Light* light;
-};
+Entity::~Entity(){
+	for(Component* component : components) {
+		if(component) {
+			delete component;
+		}
+	}
+}
+
+void Entity::Update(float sec){
+	for(Component* component : components){
+		if(component){
+			component->Update(sec);
+		}
+	}
+}
+
+void Entity::AddComponent(Component* component){
+	if(components[component->GetType()] == NULL){
+		components[component->GetType()] = component;
+		component->Initialize(this);
+	}else{
+		throw CrossException("Entity already have same component");
+	}
+}
+
+Component* Entity::GetComponent(Component::Type type){
+	return components[type];
+}

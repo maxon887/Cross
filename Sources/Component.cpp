@@ -14,25 +14,40 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Component.h"
+#include "Entity.h"
 
-class ApocalypseScene : public CameraControlsScene{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+using namespace cross;
 
-private:
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-	Model* road;
+Component::Component(Type type) :
+	type(type),
+	entity(NULL)
+{ }
 
-	Light* light;
-};
+void Component::Update(float sec){
+	throw CrossException("Unimplemented component");
+}
+
+void Component::Initialize(Entity* entity){
+	this->entity = entity;
+}
+
+bool Component::Initialized() const{
+	return entity != NULL;
+}
+
+Component::Type Component::GetType() const{
+	return type;
+}
+
+Entity* Component::GetEntity(){
+	if(entity){
+		return entity;
+	}else{
+		throw CrossException("Component not initialized");
+	}
+}
+
+Component* Component::GetComponent(Component::Type type){
+	return GetEntity()->GetComponent(type);
+}
