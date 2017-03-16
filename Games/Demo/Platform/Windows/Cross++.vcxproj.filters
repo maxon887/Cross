@@ -337,14 +337,17 @@
     <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\Body.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Entity.cpp">
       <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Component.cpp">
       <Filter>Cross</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\Collider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp">
+      <Filter>Cross\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -625,14 +628,17 @@
     <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h">
       <Filter>Cross\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\Body.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Entity.h">
       <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Component.h">
       <Filter>Cross</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\Collider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Physics\RigidBody.h">
+      <Filter>Cross\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

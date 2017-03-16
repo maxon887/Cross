@@ -24,7 +24,7 @@ PlaneCollider::PlaneCollider(const Vector3D& normal, float distance) :
 { }
 
 Collision PlaneCollider::OnCollision(SphereCollider* other){
-	float centerDistance = abs(Vector3D::Dot(normal, other->GetCenter())) + distance;
+	float centerDistance = abs(Vector3D::Dot(normal, other->GetTransform()->GetPosition())) + distance;
 	float distance = centerDistance - other->GetRadius();
 	return Collision(distance > other->GetRadius(), distance);
 }

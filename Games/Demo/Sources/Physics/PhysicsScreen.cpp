@@ -16,19 +16,99 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PhysicsScreen.h"
 #include "Physics/AABoxCollider.h"
+#include "Entity.h"
+#include "GraphicsGL.h"
+#include "Graphics3D.h"
+#include "Shaders/LightShader.h"
+#include "Material.h"
+#include "Model.h"
+#include "Light.h"
+#include "Physics/RigidBody.h"
+#include "Physics/SphereCollider.h"
+#include "Camera.h"
+#include "Shaders/MultiLightShader.h"
+#include "Texture.h"
+#include "Graphics2D.h"
 
 void PhysicsScreen::Start() {
 	CameraControlsScene::Start();
-	AABoxCollider aabc1(Vector3D(0.0f, 0.0f, 0.0f), Vector3D(1.0f, 1.0f, 1.0f));
-	AABoxCollider aabc2(Vector3D(1.0f, 1.0f, 1.0f), Vector3D(2.0f, 2.0f, 2.0f));
-	AABoxCollider aabc3(Vector3D(1.0f, 0.0f, 0.0f), Vector3D(2.0f, 1.0f, 1.0f));
-	AABoxCollider aabc4(Vector3D(0.0f, 0.0f, -2.0), Vector3D(1.0f, 1.0f, -1.0f));
-	AABoxCollider aabc5(Vector3D(0.0f, 0.5f, 0.0f), Vector3D(1.0f, 1.5f, 1.0f));
+	GetCamera()->SetPosition(Vector3D(0.f, 3.f, -4.f));
+	GetCamera()->LookAt(Vector3D(0.f));
+	//light setups
+	Light* light = new Light(Light::Type::POINT);
+	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
+	AddLight(light);
+	//*********************ROAD**********************
+	MultiLightShader* road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	road_shader->AddMakro("USE_DIFFUSE_MAP");
+	road_shader->AddMakro("USE_TILLING_FACTOR");
+	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	road_shader->AddProperty("Specular", "uSpecular");
+	road_shader->AddProperty("Shininess", "uShininess");
+	road_shader->AddProperty("Tilling Factor", "uTillingFactor");
+	road_shader->Compile();
+	Texture* road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
+	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
+	Material* road_mat = new Material(road_shader);
+	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
+	road_mat->SetPropertyValue("Specular", 0.5f);
+	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
+	road_mat->SetPropertyValue("Tilling Factor", 12.f);
+	Model* roadModel = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	roadModel->SetScale(250.f);
+	roadModel->FaceCulling(false);
+	roadModel->SetMaterial(road_mat);
+	Entity* road = new Entity();
+	road->AddComponent(roadModel);
+	AddEntity(road);
+	//*********************RED BALL**********************
+	//Model component
+	LightShader* shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	shader->AddProperty("Diffuse Color", "uColor");
+	shader->AddProperty("Specular Color", "uSpecularColor");
+	shader->AddProperty("Shininess", "uShininess");
+	shader->Compile();
+	Material* redMaterial = new Material(shader);
+	redMaterial->SetPropertyValue("Diffuse Color", Color::Red);
+	redMaterial->SetPropertyValue("Specular Color", Color::White);
+	redMaterial->SetPropertyValue("Shininess", 0.5f * 128.f);
+	Model* redSphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	redSphere->SetMaterial(redMaterial);
+	//Collider component
+	SphereCollider* redCollider = new SphereCollider(0.5f);
+	//Body component
+	RigidBody* redBody = new RigidBody();
+	redBody->AddVelocity(Vector3D(3.f, 0.f, 0.f));
+	redBody->SetMass(4.f);
+	redBody->UseGravity(false);
 
-	Collision collision2 = aabc1.OnCollision(&aabc2);
-	Collision collision3 = aabc1.OnCollision(&aabc3);
-	Collision collision4 = aabc1.OnCollision(&aabc4);
-	Collision collision5 = aabc1.OnCollision(&aabc5);
+	redBall = new Entity();
+	redBall->SetPosition(Vector3D(-1.f, 1.f, 0.f));
+	redBall->AddComponent(redSphere);
+	redBall->AddComponent(redBody);
+	redBall->AddComponent(redCollider);
+	AddEntity(redBall);
+	//*********************GREEN BALL**********************
+	Material* greenMaterial = new Material(shader);
+	greenMaterial->SetPropertyValue("Diffuse Color", Color::Green);
+	greenMaterial->SetPropertyValue("Specular Color", Color::White);
+	greenMaterial->SetPropertyValue("Shininess", 0.5f * 128.f);
+	Model* greenSphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	greenSphere->SetMaterial(greenMaterial);
+	//Collider component
+	SphereCollider* greenCollider = new SphereCollider(0.5f);
+	//Body component
+	RigidBody* greenBody = new RigidBody();
+	greenBody->AddVelocity(Vector3D(-0.6f, 0.f, 0.2f));
+	greenBody->UseGravity(false);
+
+	Entity* greenBall = new Entity();
+	greenBall->SetPosition(Vector3D(2.f, 1.f, 0.f));
+	greenBall->AddComponent(greenSphere);
+	greenBall->AddComponent(greenBody);
+	greenBall->AddComponent(greenCollider);
+
+	AddEntity(greenBall);
 }
 
 void PhysicsScreen::Stop() {
@@ -38,4 +118,5 @@ void PhysicsScreen::Stop() {
 
 void PhysicsScreen::Update(float sec) {
 	CameraControlsScene::Update(sec);
+	//GetCamera()->LookAt(redBall->GetPosition());
 }

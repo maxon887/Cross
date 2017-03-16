@@ -16,21 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Physics/Collider.h"
 #include "Physics/Collision.h"
 
 namespace cross{
 
-class SphereCollider {
+class SphereCollider : public Collider{
 public:
 	SphereCollider(float radius);
 
-	Collision OnCollision(SphereCollider* other);
+	Collision CollisionCheck(Collider* other);
 
-	Vector3D GetCenter() const;
 	float GetRadius() const;
 
 private:
-	Vector3D center;
 	float radius;
 };
 

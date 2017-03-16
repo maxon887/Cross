@@ -192,7 +192,11 @@ void FreeCameraScene::ActionUp(Input::Action action){
 }
 
 void FreeCameraScene::LookAtCamera(bool enabled){
-	LookAtCamera(Vector3D::Zero);
+	if(enabled){
+		LookAtCamera(Vector3D::Zero);
+	}else{
+		look_at = false;
+	}
 }
 
 void FreeCameraScene::LookAtCamera(const Vector3D& target){

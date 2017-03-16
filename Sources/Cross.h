@@ -70,6 +70,7 @@ class Light;
 class UI;
 class Cubemap;
 class Component;
+class Collider;
 
 extern Game*		game;
 extern System*		system;

@@ -14,30 +14,29 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Physics/SphereCollider.h"
+#pragma once
+#include "Cross.h"
+#include "Component.h"
 
-using namespace cross;
+namespace cross{
 
-SphereCollider::SphereCollider(float rad) :
-	Collider(Collider::Type::SPHERE),
-	radius(rad)
-{ }
+class RigidBody : public Component{
+public:
+	RigidBody();
 
-Collision SphereCollider::CollisionCheck(Collider* other){
-	switch(other->GetType()) {
-	case SPHERE:{
-		SphereCollider* sphere = (SphereCollider*)other;
-		float centerDistance = Distance(this->GetTransform()->GetPosition(), sphere->GetTransform()->GetPosition());
-		Collision collision;
-		collision.yes = centerDistance <= this->radius + sphere->radius;
-		collision.distance = (this->radius + sphere->radius) - centerDistance;
-		return collision;
-	}
-	default:
-		return other->CollisionCheck(this);
-	}
-}
+	virtual void Update(float sec);
 
-float SphereCollider::GetRadius() const {
-	return radius;
+	Vector3D GetVelocity() const;
+	void AddVelocity(const Vector3D& vel);
+	void SetVelocity(const Vector3D& vel);
+	void SetMass(float mass);
+	float GetInverseMass() const;
+	void UseGravity(bool yes);
+
+private:
+	float inverse_mass;
+	Vector3D velocity;
+	bool use_gravity;
+};
+
 }

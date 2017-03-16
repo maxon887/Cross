@@ -80,9 +80,10 @@
     <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Physics\AABoxCollider.cpp" />
-    <ClCompile Include="..\..\..\..\Sources\Physics\Body.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\Collider.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Physics\Collision.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp" />
+    <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Physics\SphereCollider.cpp" />
     <ClCompile Include="..\..\..\..\Sources\System.cpp" />
     <ClCompile Include="..\..\..\..\Sources\Libs\SOIL\image_helper.c" />
@@ -197,9 +198,10 @@
     <ClInclude Include="..\..\..\..\Sources\Mesh.h" />
     <ClInclude Include="..\..\..\..\Sources\Model.h" />
     <ClInclude Include="..\..\..\..\Sources\Physics\AABoxCollider.h" />
-    <ClInclude Include="..\..\..\..\Sources\Physics\Body.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\Collider.h" />
     <ClInclude Include="..\..\..\..\Sources\Physics\Collision.h" />
     <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h" />
+    <ClInclude Include="..\..\..\..\Sources\Physics\RigidBody.h" />
     <ClInclude Include="..\..\..\..\Sources\Physics\SphereCollider.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\CrossEGL.h" />
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\GLES.h" />

@@ -14,6 +14,19 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Body.h"
+#include "Collider.h"
 
 using namespace cross;
+
+Collider::Collider(Type type) :
+	Component(Component::Type::COLLIDER),
+	type(type)
+{ }
+
+Collision Collider::CollisionCheck(Collider* other){
+	throw CrossException("Collision check does not implemented for this collider");
+}
+
+Collider::Type Collider::GetType() const{
+	return type;
+}

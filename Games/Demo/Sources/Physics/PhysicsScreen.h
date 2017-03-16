@@ -24,4 +24,5 @@ public:
 	virtual void Update(float sec);
 
 private:
+	Entity* redBall;
 };

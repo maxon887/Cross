@@ -16,13 +16,29 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Component.h"
+#include "Collision.h"
 
 namespace cross{
 
-class Body{
+class Collider : public Component{
 public:
+	enum Type{
+		SPHERE,
+		AA_BOX,
+		PLANE
+	};
+
+	Collider(Type type);
+
+	virtual void Update(float sec) { };
+
+	virtual Collision CollisionCheck(Collider* other);
+
+	Type GetType() const;
+
 private:
-	Vector3D velocity;
+	Type type;
 };
 
 }

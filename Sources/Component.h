@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Transformable.h"
 
 namespace cross{
 
@@ -23,6 +24,8 @@ class Component{
 public:
 	enum Type{
 		MODEL,
+		RIGIDBODY,
+		COLLIDER,
 		COUNT
 	};
 
@@ -36,6 +39,8 @@ public:
 	Type GetType() const;
 	Entity* GetEntity();
 	Component* GetComponent(Component::Type type);
+	Transformable* GetTransform();
+	Vector3D GetPosition();
 
 private:
 	Type type;

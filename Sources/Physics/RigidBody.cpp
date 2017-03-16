@@ -14,30 +14,46 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Physics/SphereCollider.h"
+#include "RigidBody.h"
 
 using namespace cross;
 
-SphereCollider::SphereCollider(float rad) :
-	Collider(Collider::Type::SPHERE),
-	radius(rad)
+RigidBody::RigidBody() :
+	Component(Component::Type::RIGIDBODY),
+	inverse_mass(1.f),
+	velocity(0.f),
+	use_gravity(true)
 { }
 
-Collision SphereCollider::CollisionCheck(Collider* other){
-	switch(other->GetType()) {
-	case SPHERE:{
-		SphereCollider* sphere = (SphereCollider*)other;
-		float centerDistance = Distance(this->GetTransform()->GetPosition(), sphere->GetTransform()->GetPosition());
-		Collision collision;
-		collision.yes = centerDistance <= this->radius + sphere->radius;
-		collision.distance = (this->radius + sphere->radius) - centerDistance;
-		return collision;
-	}
-	default:
-		return other->CollisionCheck(this);
+void RigidBody::Update(float sec){
+	Transformable* trans = GetTransform();
+	trans->SetPosition(trans->GetPosition() + velocity * sec);
+
+	if(use_gravity){
+		velocity += Vector3D(0.f, -10.f, 0.f) * sec;
 	}
 }
 
-float SphereCollider::GetRadius() const {
-	return radius;
+Vector3D RigidBody::GetVelocity() const{
+	return velocity;
+}
+
+void RigidBody::AddVelocity(const Vector3D& vel){
+	velocity += vel;
+}
+
+void RigidBody::SetVelocity(const Vector3D& vel){
+	velocity = vel;
+}
+
+void RigidBody::SetMass(float mass){
+	inverse_mass = 1.f / mass;
+}
+
+float RigidBody::GetInverseMass() const{
+	return inverse_mass;
+}
+
+void RigidBody::UseGravity(bool yes){
+	use_gravity = yes;
 }
