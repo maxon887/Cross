@@ -50,6 +50,10 @@ void RigidBody::SetMass(float mass){
 	inverse_mass = 1.f / mass;
 }
 
+void RigidBody::SetInverseMass(float mass) {
+	inverse_mass = mass;
+}
+
 float RigidBody::GetInverseMass() const{
 	return inverse_mass;
 }

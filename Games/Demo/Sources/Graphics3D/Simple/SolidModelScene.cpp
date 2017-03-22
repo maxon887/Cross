@@ -18,7 +18,7 @@
 #include "Graphics3D.h"
 #include "GraphicsGL.h"
 #include "Material.h"
-#include "Model.h"
+#include "Entity.h"
 
 void SolidModelScene::Start(){
 	CameraControlsScene::Start();
@@ -27,17 +27,14 @@ void SolidModelScene::Start(){
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	cube->SetMaterial(material);
+	gfx3D->AdjustMaterial(cube, material);
+	AddEntity(cube);
 }
 
 void SolidModelScene::Stop(){
-	delete cube;
-	delete material;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void SolidModelScene::Update(float sec){
-	cube->Draw();
 	CameraControlsScene::Update(sec);
 }

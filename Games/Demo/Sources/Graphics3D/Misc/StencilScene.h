@@ -31,7 +31,6 @@ private:
 	Material* cube_mat;
 	Material* cube_outline;
 	Material* road_mat;
-	Model* cube;
-	Model* road;
-	Array<Model*> models;
+	Entity* cube;
+	Entity* road;
 };

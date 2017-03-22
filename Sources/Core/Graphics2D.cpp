@@ -17,7 +17,7 @@
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
 #include "System.h"
-#include "System/Debugger.h"
+#include "Internals/Debugger.h"
 #include "Sprite.h"
 #include "Utils/Font.h"
 #include "Camera2D.h"

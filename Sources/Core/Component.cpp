@@ -25,7 +25,11 @@ Component::Component(Type type) :
 { }
 
 void Component::Update(float sec){
-	throw CrossException("Unimplemented component");
+	throw CrossException("Unimplemented Component::Update");
+}
+
+Component* Component::Clone(){
+	throw CrossException("Unimplemented Component::Clone");
 }
 
 void Component::Initialize(Entity* entity){

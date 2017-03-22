@@ -33,9 +33,9 @@ private:
 	Material* road_mat;
 	Material* grass_mat;
 	Material* sphere_mat;
-	Model* road;
-	Model* grass;
-	Model* sphere;
+	Entity* road;
+	Entity* grass;
+	Entity* sphere;
 
 	Light* light;
 };

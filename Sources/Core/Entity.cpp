@@ -19,7 +19,9 @@
 
 using namespace cross;
 
-Entity::Entity(){
+Entity::Entity() :
+	parent(NULL)
+{
 	memset(components, 0, sizeof(components));
 }
 
@@ -32,6 +34,9 @@ Entity::~Entity(){
 }
 
 void Entity::Update(float sec){
+	for(Entity* child : children){
+		child->Update(sec);
+	}
 	for(Component* component : components){
 		if(component){
 			component->Update(sec);
@@ -48,6 +53,42 @@ void Entity::AddComponent(Component* component){
 	}
 }
 
-Component* Entity::GetComponent(Component::Type type){
+Component* Entity::GetComponent(Component::Type type) {
 	return components[type];
+}
+
+void Entity::SetParent(Entity* p){
+	parent = p;
+}
+
+void Entity::AddChild(Entity* child){
+	children.push_back(child);
+}
+
+List<Entity*>& Entity::GetChildren(){
+	return children;
+}
+
+Entity* Entity::Clone(){
+	Entity* clone = new Entity();
+	for(U32 i = 0; i < Component::Type::COUNT; ++i){
+		if(this->components[i]){
+			clone->components[i] = this->components[i]->Clone();
+			clone->components[i]->Initialize(clone);
+		}
+	}
+	for(Entity* child : children){
+		Entity* cloneChild = child->Clone();
+		cloneChild->parent = clone;
+		clone->AddChild(cloneChild);
+	}
+	return clone;
+}
+
+Matrix Entity::GetWorldMatrix(){
+	if(parent){
+		return parent->GetModelMatrix() * GetModelMatrix();
+	}else{
+		return GetModelMatrix();
+	}
 }

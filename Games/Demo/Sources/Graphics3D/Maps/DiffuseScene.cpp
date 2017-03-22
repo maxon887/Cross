@@ -21,7 +21,7 @@
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
-#include "Model.h"
+#include "Entity.h"
 
 void DiffuseScene::Start(){
 	CameraControlsScene::Start();
@@ -43,19 +43,15 @@ void DiffuseScene::Start(){
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
 	revolver = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	revolver->SetMaterial(material);
+	gfx3D->AdjustMaterial(revolver, material);
+	AddEntity(revolver);
 }
 
 void DiffuseScene::Stop(){
-	delete revolver;
-	delete material;
-	delete diffuse;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void DiffuseScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	revolver->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

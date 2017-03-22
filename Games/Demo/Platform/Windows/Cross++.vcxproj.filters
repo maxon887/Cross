@@ -43,9 +43,6 @@
     <Filter Include="Demo\Graphics3D\Light">
       <UniqueIdentifier>{88cb8396-bda3-4c0f-9852-078ed0f9239d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\System">
-      <UniqueIdentifier>{d6564650-e2ab-4b0f-9882-cac798a8120e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Math">
       <UniqueIdentifier>{c29fcd9b-dc4f-4506-bc92-e686220f618c}</UniqueIdentifier>
     </Filter>
@@ -61,6 +58,12 @@
     <Filter Include="Demo\Physics">
       <UniqueIdentifier>{d815590d-863a-4aa0-90e9-d96242a55789}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Internals">
+      <UniqueIdentifier>{d6564650-e2ab-4b0f-9882-cac798a8120e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Core">
+      <UniqueIdentifier>{475abeb6-dd54-470f-af9f-ac6856413a61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -69,12 +72,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\MainScreen.cpp">
       <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Game.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Input.cpp">
-      <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Animation.cpp">
       <Filter>Cross\Utils</Filter>
@@ -88,29 +85,8 @@
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Cross.cpp">
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Audio.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Color.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Config.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\File.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Graphics2D.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\GraphicsGL.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Sprite.cpp">
-      <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Menu.cpp">
       <Filter>Demo</Filter>
@@ -120,9 +96,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\Native.cpp">
       <Filter>Cross\Platform\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Camera.cpp">
-      <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
@@ -136,41 +109,11 @@
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Camera2D.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Screen.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\ScrollScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Mesh.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Graphics3D.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Model.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Texture.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Transformable.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\VertexBuffer.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Scene.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Material.cpp">
-      <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
@@ -223,23 +166,8 @@
     <ClCompile Include="..\..\..\..\Sources\Utils\FreeCameraScene.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\UI.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\DebugScene.cpp">
       <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\System\Debugger.cpp">
-      <Filter>Cross\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\System\Exception.cpp">
-      <Filter>Cross\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\System\MemoryManager.cpp">
-      <Filter>Cross\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Light.cpp">
-      <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Math\Matrix.cpp">
       <Filter>Cross\Math</Filter>
@@ -277,9 +205,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\StencilScene.cpp">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClCompile>
@@ -310,14 +235,8 @@
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Sound.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Utils\Font.cpp">
       <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\System.cpp">
-      <Filter>Cross</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\WINSystem.cpp">
       <Filter>Cross\Platform\Windows</Filter>
@@ -337,17 +256,95 @@
     <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Entity.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Component.cpp">
-      <Filter>Cross</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Physics\Collider.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp">
       <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Audio.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Camera.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Camera2D.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Color.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Component.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Config.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Entity.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\File.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Game.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Graphics2D.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Graphics3D.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\GraphicsGL.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Input.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Light.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Material.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Mesh.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Scene.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Screen.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Sound.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Sprite.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\System.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Texture.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\Transformable.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\UI.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Core\VertexBuffer.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Internals\Debugger.cpp">
+      <Filter>Cross\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Internals\Exception.cpp">
+      <Filter>Cross\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Sources\Internals\MemoryManager.cpp">
+      <Filter>Cross\Internals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,15 +353,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\MainScreen.h">
       <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Game.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Input.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Screen.h">
-      <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Animation.h">
       <Filter>Cross\Utils</Filter>
@@ -375,33 +363,9 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Audio.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="..\..\..\..\Sources\Color.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\AudioScreen.h">
       <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Config.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Cross.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\File.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Graphics2D.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\GraphicsGL.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Sprite.h">
-      <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Menu.h">
       <Filter>Demo</Filter>
@@ -411,9 +375,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\Native.h">
       <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Camera.h">
-      <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h">
       <Filter>Demo\Graphics2D</Filter>
@@ -427,38 +388,11 @@
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h">
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Camera2D.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\ScrollScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Mesh.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Graphics3D.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Model.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Texture.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Transformable.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\VertexBuffer.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Scene.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Material.h">
-      <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
@@ -514,23 +448,8 @@
     <ClInclude Include="..\..\..\..\Sources\Utils\FreeCameraScene.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\UI.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\DebugScene.h">
       <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\System\Debugger.h">
-      <Filter>Cross\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\System\Exception.h">
-      <Filter>Cross\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\System\MemoryManager.h">
-      <Filter>Cross\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Light.h">
-      <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Math\Matrix.h">
       <Filter>Cross\Math</Filter>
@@ -568,9 +487,6 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\StencilScene.h">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h">
       <Filter>Demo\Graphics3D\Misc</Filter>
     </ClInclude>
@@ -601,14 +517,8 @@
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h">
       <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Sound.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Utils\Font.h">
       <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\System.h">
-      <Filter>Cross</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\WINSystem.h">
       <Filter>Cross\Platform\Windows</Filter>
@@ -628,17 +538,98 @@
     <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h">
       <Filter>Cross\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Entity.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Component.h">
-      <Filter>Cross</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Physics\Collider.h">
       <Filter>Cross\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Physics\RigidBody.h">
       <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Audio.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Camera.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Camera2D.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Color.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Component.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Config.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Cross.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Entity.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\File.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Game.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Graphics2D.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Graphics3D.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\GraphicsGL.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Input.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Light.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Material.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Mesh.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Scene.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Screen.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Sound.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Sprite.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\System.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Texture.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\Transformable.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\UI.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Core\VertexBuffer.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Internals\Debugger.h">
+      <Filter>Cross\Internals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Internals\Exception.h">
+      <Filter>Cross\Internals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Internals\MemoryManager.h">
+      <Filter>Cross\Internals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

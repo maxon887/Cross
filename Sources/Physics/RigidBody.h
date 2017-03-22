@@ -30,6 +30,7 @@ public:
 	void AddVelocity(const Vector3D& vel);
 	void SetVelocity(const Vector3D& vel);
 	void SetMass(float mass);
+	void SetInverseMass(float mass);
 	float GetInverseMass() const;
 	void UseGravity(bool yes);
 

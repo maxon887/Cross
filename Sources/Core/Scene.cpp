@@ -116,11 +116,16 @@ void Scene::ProcessCollisions(){
 						}
 						float dV = Vs * 2.f;
 						float totalIverseMass = objA->GetInverseMass() + objB->GetInverseMass();
+						if(totalIverseMass == 0.f){
+							return;
+						}
 						float impulse = dV / totalIverseMass;
 						Vector3D impulseV = centerV * impulse * (-1.f);
 
 						objA->AddVelocity(impulseV * objA->GetInverseMass());
 						objB->AddVelocity(impulseV * objB->GetInverseMass() * (-1.f));
+					}else if(objA || objB){
+						
 					}
 				}
 			}

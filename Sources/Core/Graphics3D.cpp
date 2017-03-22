@@ -21,13 +21,14 @@
 #include "Mesh.h"
 #include "File.h"
 #include "Model.h"
-#include "System/Debugger.h"
+#include "Internals/Debugger.h"
 #include "Scene.h"
 #include "Light.h"
 #include "Game.h"
 #include "Camera.h"
 #include "Shaders/Shader.h"
 #include "Material.h"
+#include "Entity.h"
 
 #include <algorithm>
 
@@ -61,24 +62,29 @@ Graphics3D::~Graphics3D(){
 	}
 }
 
-Model* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive, bool initialize){
-
+Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive, bool initialize){
 	if(primitives[primitive]){
-		Model* model = primitives[primitive]->Clone();
+		Entity* prim = primitives[primitive]->Clone();
+		/*
 		if(initialize){
-			model->Initialize();
-		}
-		return model;
+			Mesh* mesh = (Mesh*)prim->GetComponent(Component::Type::MESH);
+			if(mesh){
+				mesh->TransferVideoData();
+			}else{
+				throw CrossException("Primitive entity does not contain Mesh");
+			}
+		}*/
+		return prim;
 	}else{
 		switch(primitive) {
 		case cross::Graphics3D::CUBE:
-			primitives[primitive] = LoadModel("Engine/Models/Cube.obj", false);
+			primitives[primitive] = LoadModel("Engine/Models/Cube.obj", true);
 			break;
 		case cross::Graphics3D::SPHERE:
-			primitives[primitive] = LoadModel("Engine/Models/Sphere.obj", false);
+			primitives[primitive] = LoadModel("Engine/Models/Sphere.obj", true);
 			break;
 		case cross::Graphics3D::PLANE:
-			primitives[primitive] = LoadModel("Engine/Models/Plane.obj", false);
+			primitives[primitive] = LoadModel("Engine/Models/Plane.obj", true);
 			break;
 		default:
 			throw CrossException("Unknown primitive type");
@@ -87,21 +93,33 @@ Model* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive, bool initiali
 	}
 }
 
-Model* Graphics3D::LoadModel(const string& filename, bool initialize){
+Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
 	initialize_in_load = initialize;
 	Debugger::Instance()->SetTimeCheck();
-	Model* model = new Model(filename);
-	ProcessScene(model);
+	Entity* model = new Entity();
+	ProcessScene(model, filename);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	system->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
 }
 
-void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCulling, bool alphaBlending){
-	DrawMesh(mesh, globalModel, faceCulling, alphaBlending, StencilBehaviour::IGNORED);
+void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCulling, bool alphaBlending){
+	Mesh* mesh = (Mesh*)model->GetComponent(Component::Type::MESH);
+	if(mesh){
+		mesh->SetMaterial(material);
+		mesh->SetFaceCullingEnabled(faceCulling);
+		mesh->SetAlphaBlendingEnabled(alphaBlending);
+	}
+	for(Entity* child : model->GetChildren()){
+		AdjustMaterial(child, material);
+	}
 }
 
-void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCulling, bool alphaBlending, StencilBehaviour stencilBehvaiour){
+void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel){
+	DrawMesh(mesh, globalModel, StencilBehaviour::IGNORED);
+}
+
+void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, StencilBehaviour stencilBehvaiour){
 	if(!mesh->initialized){
 		throw CrossException("Before draw mesh needs to be initialized");
 	}
@@ -116,19 +134,19 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 	//binding uniforms
 	if(shader->uMVP != -1){
 		Camera* cam = scene->GetCamera();
-		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel * mesh->GetModelMatrix();
+		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel;
 		mvp = mvp.GetTransposed();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	}
 
 	if(shader->uModelMatrix != -1){
-		Matrix model = globalModel * mesh->GetModelMatrix();
+		Matrix model = globalModel;
 		model = model.GetTransposed();
 		SAFE(glUniformMatrix4fv(shader->uModelMatrix, 1, GL_FALSE, model.GetData()));
 	}
 
 	if(shader->uNormalMatrix != -1){
-		Matrix normal = (globalModel * mesh->GetModelMatrix()).GetInversed();
+		Matrix normal = (globalModel).GetInversed();
 		SAFE(glUniformMatrix4fv(shader->uNormalMatrix, 1, GL_FALSE, normal.GetData()));
 	}
 
@@ -239,7 +257,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 	//depth test
 	SAFE(glEnable(GL_DEPTH_TEST));
 	//face culling
-	if(faceCulling){
+	if(mesh->IsFaceCullingEnabled()){
 		SAFE(glEnable(GL_CULL_FACE));
 	}
 	//stencil test
@@ -260,7 +278,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 		throw CrossException("Unknow stecil behaviour");
 	}
 	//alpha blending
-	if(alphaBlending){
+	if(mesh->IsAlphaBlendingEnabled()){
 		SAFE(glEnable(GL_BLEND));
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
@@ -273,8 +291,14 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, bool faceCullin
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Graphics3D::ProcessScene(Model* model){
-	File* file = system->LoadFile(model->GetName());
+void Graphics3D::ProcessScene(Entity* model, const string& filename){
+	File* file = system->LoadFile(filename);
+	string extension = system->ExtensionFromFile(filename);
+	if(extension == "fbx" || extension == "FBX") {
+		format = FBX;
+	} else {
+		format = UNKNOW;
+	}
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	delete file;
@@ -284,13 +308,13 @@ void Graphics3D::ProcessScene(Model* model){
 	ProcessNode(model, current_scene->mRootNode);
 }
 
-void Graphics3D::ProcessNode(Model* model, aiNode* node){
+void Graphics3D::ProcessNode(Entity* model, aiNode* node){
 	for(U32 i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
 		crMesh->SetName(node->mName.C_Str());
-		if(model->GetFormat() == Model::Format::FBX){
-			crMesh->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
+		if(format == Model::Format::FBX){
+			model->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
 			current_translation = Matrix::Identity;
 			current_pre_rotation = Matrix::Identity;
 			current_rotation = Matrix::Identity;
@@ -299,11 +323,11 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 		}else{
 			Matrix modelMat = Matrix::Zero;
 			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-			crMesh->SetModelMatrix(modelMat);
+			model->SetModelMatrix(modelMat);
 		}
-		model->AddMesh(crMesh);
+		model->AddComponent(crMesh);
 	}
-	if(model->GetFormat() == Model::Format::FBX){
+	if(format == Model::Format::FBX){
 		string nodeName = node->mName.C_Str();
 		if(nodeName.find("Translation") != std::string::npos){
 			if(nodeName.find("Geometric") != std::string::npos){
@@ -328,7 +352,10 @@ void Graphics3D::ProcessNode(Model* model, aiNode* node){
 		}
 	}
 	for(U32 i = 0; i < node->mNumChildren; ++i){
-		ProcessNode(model, node->mChildren[i]);
+		Entity* child = new Entity();
+		child->SetParent(model);
+		ProcessNode(child, node->mChildren[i]);
+		model->AddChild(child);
 	}
 }
 
@@ -378,7 +405,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(initialize_in_load){
-		crsMesh->Initialize();
+		crsMesh->TransferVideoData();
 	}
 	return crsMesh;
 }

@@ -32,7 +32,7 @@ private:
 	Cubemap* cubemap;
 	Shader* shader;
 	Material* material;
-	Model* box;
+	Entity* box;
 	GLuint mvpID;
 };
 

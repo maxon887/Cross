@@ -16,10 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "DebugScene.h"
 #include "Graphics3D.h"
-//#include "Shaders/Shader.h"
 #include "Material.h"
-#include "Model.h"
 #include "Light.h"
+#include "Entity.h"
 
 using namespace cross;
 
@@ -32,15 +31,15 @@ DebugScene::DebugScene() :
 void DebugScene::Start(){
 	FreeCameraScene::Start();
 	//light drawing stuff
-	light_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	light_shader->Compile();
-	light_material = new Material(light_shader);
-	point_light = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	point_light->SetScale(0.2f);
-	point_light->SetMaterial(light_material);
-	spot_light = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	spot_light->SetScale(0.2f);
-	spot_light->SetMaterial(light_material);
+	//light_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	//light_shader->Compile();
+	//light_material = new Material(light_shader);
+	//point_light = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	//point_light->SetScale(0.2f);
+	//point_light->SetMaterial(light_material);
+	//spot_light = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	//spot_light->SetScale(0.2f);
+	//spot_light->SetMaterial(light_material);
 }
 
 void DebugScene::Update(float sec){
@@ -60,15 +59,15 @@ void DebugScene::DrawLights(){
 	for(Light* light : lights){
 		switch(light->GetType()) {
 		case Light::Type::POINT:
-			point_light->SetPosition(light->GetPosition());
-			point_light->GetMaterial()->SetPropertyValue("Color", light->GetColor());
-			point_light->Draw();
+			//point_light->SetPosition(light->GetPosition());
+			//point_light->GetMaterial()->SetPropertyValue("Color", light->GetColor());
+			//point_light->Draw();
 		break;
 		case Light::Type::SPOT:
-			spot_light->SetPosition(light->GetPosition());
-			spot_light->SetDirection(light->GetDirection());
-			spot_light->GetMaterial()->SetPropertyValue("Color", light->GetColor());
-			spot_light->Draw();
+			//spot_light->SetPosition(light->GetPosition());
+			//spot_light->SetDirection(light->GetDirection());
+			//spot_light->GetMaterial()->SetPropertyValue("Color", light->GetColor());
+			//spot_light->Draw();
 		break;
 		default:
 			break;

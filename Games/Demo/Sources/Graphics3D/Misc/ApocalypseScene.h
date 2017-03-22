@@ -32,7 +32,7 @@ private:
 	Texture* road_diffuse;
 	Material* car_mat;
 	Material* road_mat;
-	Model* road;
+	Entity* road;
 
 	Light* light;
 };

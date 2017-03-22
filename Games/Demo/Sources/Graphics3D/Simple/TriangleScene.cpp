@@ -41,7 +41,7 @@ void TriangleScene::Start(){
 
 	triangle = new Mesh();
 	triangle->PushData(vertexBuffer, indices);
-	triangle->Initialize();
+	triangle->TransferVideoData();
 
 	triangle->SetMaterial(material);
 }
@@ -55,5 +55,5 @@ void TriangleScene::Stop(){
 
 void TriangleScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	gfx3D->DrawMesh(triangle, Matrix::Identity, false, false, Graphics3D::StencilBehaviour::IGNORED);
+	gfx3D->DrawMesh(triangle, Matrix::Identity, Graphics3D::StencilBehaviour::IGNORED);
 }

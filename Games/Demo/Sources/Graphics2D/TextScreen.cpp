@@ -19,7 +19,7 @@
 #include "Utils/Font.h"
 #include "Input.h"
 #include "Game.h"
-#include "System/Debugger.h"
+#include "Internals/Debugger.h"
 
 void TextScreen::Start(){
 	debug_font = new Font("Engine/Fonts/VeraMonoBold.ttf", 50, Color::Red);

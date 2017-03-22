@@ -28,6 +28,5 @@ private:
 	Texture* specular_map;
 	Material* material;
 	float shininess;
-	Model* cube;
-	Array<Model*> objects;
+	Entity* cube;
 };

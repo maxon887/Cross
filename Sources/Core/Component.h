@@ -16,22 +16,36 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Component.h"
 #include "Transformable.h"
 
 namespace cross{
 
-class Entity : public Transformable {
+class Component{
 public:
-	Entity();
-	~Entity();
+	enum Type{
+		MESH,
+		RIGIDBODY,
+		COLLIDER,
+		COUNT
+	};
 
-	void Update(float sec);
-	void AddComponent(Component* component);
+	Component(Type type);
+	virtual ~Component() { };
+
+	virtual void Update(float sec);
+	virtual Component* Clone();
+
+	void Initialize(Entity* entity);
+	bool Initialized() const;
+	Type GetType() const;
+	Entity* GetEntity();
 	Component* GetComponent(Component::Type type);
+	Transformable* GetTransform();
+	Vector3D GetPosition();
 
 private:
-	Component* components[Component::COUNT];
+	Type type;
+	Entity* entity;
 };
 
 }

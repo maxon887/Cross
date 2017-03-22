@@ -15,17 +15,31 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#define CrossException(message, ...) Exception(__FILE__, __LINE__, message, ##__VA_ARGS__)
+#include "Cross.h"
+#include "Component.h"
+#include "Transformable.h"
 
 namespace cross{
 
-class Exception{
+class Entity : public Transformable {
 public:
-	Exception(const char* filename, unsigned int line, const char* message, ...);
-	char message[4096];
-	const char* filename;
-	unsigned int line;
+	Entity();
+	~Entity();
+
+	void Update(float sec);
+	void AddComponent(Component* component);
+	Component* GetComponent(Component::Type type);
+	void SetParent(Entity* parent);
+	void AddChild(Entity* child);
+	List<Entity*>& GetChildren();
+	Entity* Clone();
+	//Not optimized function
+	Matrix GetWorldMatrix();
+
+private:
+	Component* components[Component::COUNT];
+	Entity* parent;
+	List<Entity*> children;
 };
 
-};
+}

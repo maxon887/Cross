@@ -17,7 +17,7 @@
 #include "DirectionalLightScene.h"
 #include "Graphics3D.h"
 #include "Material.h"
-#include "Model.h"
+#include "Entity.h"
 #include "Light.h"
 #include "Shaders/LightShader.h"
 #include "Graphics2D.h"
@@ -44,31 +44,20 @@ void DirectionalLightScene::Start(){
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	cube->SetMaterial(material);
+	gfx3D->AdjustMaterial(cube, material);
 
 	for(U32 i = 0; i < 10; ++i){
-		Model* clone = cube->Clone();
+		Entity* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-3.f, 3.f), Random(-3.f, 3.f), Random(-3.f, 3.f)));
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
-		objects.push_back(clone);
+		AddEntity(clone);
 	}
 }
 
 void DirectionalLightScene::Stop(){
-	for(Model* clone : objects){
-		delete clone;
-	}
-	delete cube;
-	delete material;
-	delete diffuse_texture;
-	delete specular_map;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void DirectionalLightScene::Update(float sec){
-	for(Model* obj : objects){
-		obj->Draw();
-	}
 	CameraControlsScene::Update(sec);
 }

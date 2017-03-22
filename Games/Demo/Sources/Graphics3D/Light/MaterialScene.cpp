@@ -18,7 +18,7 @@
 #include "Game.h"
 #include "Graphics3D.h"
 #include "Material.h"
-#include "Model.h"
+#include "Entity.h"
 #include "Light.h"
 #include "Shaders/LightShader.h"
 #include "Camera.h"
@@ -40,20 +40,17 @@ void MaterialScene::Start(){
 	material->SetPropertyValue("Specular Color", Color::White);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	cube->SetMaterial(material);
+	gfx3D->AdjustMaterial(cube, material);
+	AddEntity(cube);
 
 	cube->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
 }
 
 void MaterialScene::Stop(){
-	delete cube;
-	delete material;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void MaterialScene::Update(float sec){
-	cube->Draw();
 	cube->SetRotateY(game->GetRunTime() * 15.f);
 	CameraControlsScene::Update(sec);
 }

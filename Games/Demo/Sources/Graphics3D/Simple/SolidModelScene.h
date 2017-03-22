@@ -25,5 +25,5 @@ public:
 private:
 	Shader* shader;
 	Material* material;
-	Model* cube;
+	Entity *cube;
 };

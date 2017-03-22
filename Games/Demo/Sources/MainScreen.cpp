@@ -38,7 +38,6 @@
 #include "Graphics3D/Maps/RoughnessScene.h"
 #include "Graphics3D/Maps/NormalScene.h"
 #include "Graphics3D/Misc/DepthScene.h"
-#include "Graphics3D/Misc/StencilScene.h"
 #include "Graphics3D/Misc/TransparencyScene.h"
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
@@ -154,17 +153,14 @@ void MainScreen::Start(){
 	//graphics 3D misc
 	graphics3D_misc = new Menu(false);
 	Button* depthTestBtn		= new Button("Depth Test", font->Clone());
-	Button* stencilTestBtn		= new Button("Stencil Test", font->Clone());
 	Button* transparencyBtn		= new Button("Transparency", font->Clone());
 	Button* skyboxBtn			= new Button("Skybox", font->Clone());
 	Button* apocalypseBtn		= new Button("Apocalypse", font->Clone());
 	depthTestBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new DepthScene()); });
-	stencilTestBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new StencilScene()); });
 	transparencyBtn->Clicked	+= FastDelegate0<void>([](){ game->SetScreen(new TransparencyScene()); });
 	skyboxBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new SkyboxScene()); });
 	apocalypseBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new ApocalypseScene()); });
 	graphics3D_misc->AddButton(depthTestBtn);
-	graphics3D_misc->AddButton(stencilTestBtn);
 	graphics3D_misc->AddButton(transparencyBtn);
 	graphics3D_misc->AddButton(skyboxBtn);
 	graphics3D_misc->AddButton(apocalypseBtn);

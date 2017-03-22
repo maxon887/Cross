@@ -17,7 +17,7 @@
 #include "StencilScene.h"
 #include "Graphics3D.h"
 #include "Material.h"
-#include "Model.h"
+#include "Entity.h"
 #include "Light.h"
 #include "Shaders/LightShader.h"
 #include "Graphics2D.h"
@@ -58,30 +58,17 @@ void StencilScene::Start(){
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(25.f);
-	road->SetMaterial(road_mat);
-	road->FaceCulling(false);
+	gfx3D->AdjustMaterial(road, road_mat, false);
 
 	for(U32 i = 0; i < 10; ++i){
-		Model* clone = cube->Clone();
+		Entity* clone = cube->Clone();
 		clone->SetPosition(Vector3D(Random(-10.f, 10.f), 0.5f, Random(-10.f, 10.f)));
 		clone->SetRotate(Vector3D::Up, Random(0.f, 360.f));
-		models.push_back(clone);
+		AddEntity(clone);
 	}
 }
 
 void StencilScene::Stop(){
-	for(Model* model : models){
-		delete model;
-	}
-	delete cube;
-	delete road;
-	delete cube_mat;
-	delete cube_outline;
-	delete road_mat;
-	delete box_texture;
-	delete road_texture;
-	delete shader_outline;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 

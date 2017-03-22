@@ -27,6 +27,5 @@ private:
 	Texture* diffuse_texture;
 	Texture* specular_map;
 	Material* material;
-	Model* cube;
-	Array<Model*> objects;
+	Entity* cube;
 };

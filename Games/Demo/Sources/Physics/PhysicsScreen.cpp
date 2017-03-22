@@ -54,12 +54,10 @@ void PhysicsScreen::Start() {
 	road_mat->SetPropertyValue("Specular", 0.5f);
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	road_mat->SetPropertyValue("Tilling Factor", 12.f);
-	Model* roadModel = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	roadModel->SetScale(250.f);
-	roadModel->FaceCulling(false);
-	roadModel->SetMaterial(road_mat);
-	Entity* road = new Entity();
-	road->AddComponent(roadModel);
+
+	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	road->SetScale(250.f);
+	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
 	//*********************RED BALL**********************
 	//Model component
@@ -72,19 +70,18 @@ void PhysicsScreen::Start() {
 	redMaterial->SetPropertyValue("Diffuse Color", Color::Red);
 	redMaterial->SetPropertyValue("Specular Color", Color::White);
 	redMaterial->SetPropertyValue("Shininess", 0.5f * 128.f);
-	Model* redSphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	redSphere->SetMaterial(redMaterial);
+	//Model* redSphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	//redSphere->SetMaterial(redMaterial);
 	//Collider component
 	SphereCollider* redCollider = new SphereCollider(0.5f);
 	//Body component
 	RigidBody* redBody = new RigidBody();
-	redBody->AddVelocity(Vector3D(3.f, 0.f, 0.f));
-	redBody->SetMass(4.f);
+	redBody->AddVelocity(Vector3D(3.f, 0.f, -0.5f));
 	redBody->UseGravity(false);
 
-	redBall = new Entity();
+	redBall = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	gfx3D->AdjustMaterial(redBall, redMaterial);
 	redBall->SetPosition(Vector3D(-1.f, 1.f, 0.f));
-	redBall->AddComponent(redSphere);
 	redBall->AddComponent(redBody);
 	redBall->AddComponent(redCollider);
 	AddEntity(redBall);
@@ -93,19 +90,20 @@ void PhysicsScreen::Start() {
 	greenMaterial->SetPropertyValue("Diffuse Color", Color::Green);
 	greenMaterial->SetPropertyValue("Specular Color", Color::White);
 	greenMaterial->SetPropertyValue("Shininess", 0.5f * 128.f);
-	Model* greenSphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	greenSphere->SetMaterial(greenMaterial);
+
+	//Model* greenSphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	//greenSphere->SetMaterial(greenMaterial);
 	//Collider component
 	SphereCollider* greenCollider = new SphereCollider(0.5f);
-	//Body component
-	RigidBody* greenBody = new RigidBody();
-	greenBody->AddVelocity(Vector3D(-0.6f, 0.f, 0.2f));
-	greenBody->UseGravity(false);
+	//RigidBody component
+	//RigidBody* greenBody = new RigidBody();
+	//greenBody->AddVelocity(Vector3D(-0.6f, 0.f, 0.2f));
+	//greenBody->UseGravity(false);
 
-	Entity* greenBall = new Entity();
+	Entity* greenBall = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	gfx3D->AdjustMaterial(greenBall, greenMaterial);
 	greenBall->SetPosition(Vector3D(2.f, 1.f, 0.f));
-	greenBall->AddComponent(greenSphere);
-	greenBall->AddComponent(greenBody);
+	//greenBall->AddComponent(greenBody);
 	greenBall->AddComponent(greenCollider);
 
 	AddEntity(greenBall);

@@ -29,8 +29,8 @@ public:
 
 private:
 //light drawing stuff
-	Model* point_light;
-	Model* spot_light;
+	Entity* point_light;
+	Entity* spot_light;
 	Material* light_material;
 	Shader* light_shader;
 

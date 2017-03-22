@@ -18,7 +18,7 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Model.h"
+#include "Entity.h"
 #include "Light.h"
 #include "Shaders/MultiLightShader.h"
 #include "Game.h"
@@ -38,26 +38,20 @@ void DepthScene::Start(){
 
 	car_mat = new Material(shader);
 	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	camaro->SetMaterial(car_mat);
+	gfx3D->AdjustMaterial(camaro, car_mat);
+	AddEntity(camaro);
 	
 	road_mat = new Material(shader);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
-	road->FaceCulling(false);
-	road->SetMaterial(road_mat);
+	gfx3D->AdjustMaterial(road, road_mat, false, false);
+	AddEntity(road);
 }
 
 void DepthScene::Stop(){
-	delete road;
-	delete camaro;
-	delete car_mat;
-	delete road_mat;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void DepthScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	camaro->Draw();
-	road->Draw();
 }

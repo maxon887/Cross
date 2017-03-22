@@ -15,8 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "System/MemoryManager.h"
-#include "System/Exception.h"
+#include "Internals/MemoryManager.h"
+#include "Internals/Exception.h"
 #include "Math/All.h"
 #include "Color.h"
 
@@ -64,7 +64,6 @@ class Shader;
 class Entity;
 class Material;
 class Mesh;
-class Model;
 class Texture;
 class Light;
 class UI;

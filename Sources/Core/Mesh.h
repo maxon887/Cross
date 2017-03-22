@@ -16,54 +16,59 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Component.h"
 #include "Transformable.h"
-#include "Graphics3D.h"
+#include "GraphicsGL.h"
+#include "Component.h"
 
 namespace cross{
 
-/*	This class represent 3D object in scene.
-	3D model consists of Meshes, Materials and Shaders.
-	Model can be loaded through Graphics3D class. */
-class Model : public Component, public Transformable{
-public:
-	enum Format{
-		FBX,
-		UNKNOW
-	};
+class VertexBuffer;
 
-	Model(const string& name);
-	Model(Model& obj);
-	~Model();
+/*	Mesh is smallest 3d entity in game. Which consist of polygons.
+	Mesh also contains its materials which need to properly draw it on Scene */
+class Mesh : public Component{
+public:
+	Mesh();
+	~Mesh();
 
 	virtual void Update(float sec);
 
-	void Draw();
-	string GetName();
-	string GetFilePath();
-	Format GetFormat();
-	void Initialize();
-	void FaceCulling(bool enabled);
-	void AlphaBlending(bool enabled);
-	void SetStencil(Graphics3D::StencilBehaviour behaviour);
+	void TransferVideoData();
+	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);
 
-	void AddMesh(Mesh* mesh);
-	Mesh* GetMesh(const string& name);
+	void SetName(const string& name);
+	const string& GetName();
+
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 
-	Model* Clone();
+	void SetFaceCullingEnabled(bool enabled);
+	bool IsFaceCullingEnabled();
+	void SetAlphaBlendingEnabled(bool enabled);
+	bool IsAlphaBlendingEnabled();
+
+	VertexBuffer* GetVertexBuffer();
+	Array<GLushort>& GetIndices();
+
+	Mesh* Clone();
 
 protected:
+	CROSS_FRIENDLY
+
+	GLuint VBO;
+	GLuint EBO;
+
 	string name;
-	string filepath;
-	Format format;
-	Array<Mesh*> meshes;
+	VertexBuffer* vertex_buffer;
+	Array<GLushort> indices;
 	Material* material;
+	U32 index_count;
 	bool original;
+	bool initialized;
 	bool face_culling;
 	bool alpha_blending;
-	Graphics3D::StencilBehaviour stencil;
+
+	Mesh(Mesh& obj);
 };
 
 }

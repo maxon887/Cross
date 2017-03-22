@@ -21,7 +21,6 @@
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
-#include "Model.h"
 
 void RoughnessScene::Start(){
 	CameraControlsScene::Start();
@@ -49,19 +48,15 @@ void RoughnessScene::Start(){
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
 	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	model->SetMaterial(material);
+	gfx3D->AdjustMaterial(model, material);
+	AddEntity(model);
 }
 
 void RoughnessScene::Stop(){
-	delete model;
-	delete material;
-	delete diffuse;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void RoughnessScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	model->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

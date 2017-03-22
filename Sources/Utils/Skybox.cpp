@@ -17,7 +17,7 @@
 #include "Skybox.h"
 #include "Graphics3D.h"
 #include "Shaders/Shader.h"
-#include "Model.h"
+#include "Entity.h"
 #include "Material.h"
 #include "Config.h"
 #include "Game.h"
@@ -30,7 +30,6 @@ Skybox::Skybox( Cubemap* cubemap ) :
 	cubemap(cubemap)
 {
 	box = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	box->FaceCulling(false);
 	box->SetScale(config->GetViewDistance());
 
 	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");
@@ -43,7 +42,7 @@ Skybox::Skybox( Cubemap* cubemap ) :
 	mvpID = customMVPProp->GetID();
 
 	material = new Material(shader);
-	box->SetMaterial(material);
+	gfx3D->AdjustMaterial(box, material, false);
 }
 
 Skybox::~Skybox(){
@@ -62,5 +61,4 @@ void Skybox::Draw(){
 	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetModelMatrix();
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
-	box->Draw();
 }

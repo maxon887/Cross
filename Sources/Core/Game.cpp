@@ -19,7 +19,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "Scene.h"
-#include "System/Debugger.h"
+#include "Internals/Debugger.h"
 #include "Graphics2D.h"
 #include "Audio.h"
 

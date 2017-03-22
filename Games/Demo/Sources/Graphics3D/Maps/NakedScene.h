@@ -28,5 +28,5 @@ private:
 
 	Shader* shader;
 	Material* material;
-	Model* model;
+	Entity* model;
 };

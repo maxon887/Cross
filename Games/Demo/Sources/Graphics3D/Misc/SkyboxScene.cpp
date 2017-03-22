@@ -18,7 +18,7 @@
 #include "Shaders/Shader.h"
 #include "Material.h"
 #include "Graphics3D.h"
-#include "Model.h"
+#include "Entity.h"
 
 void SkyboxScene::Start(){
 	CameraControlsScene::Start();
@@ -36,7 +36,8 @@ void SkyboxScene::Start(){
 	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	cube->SetMaterial(material);
+	gfx3D->AdjustMaterial(cube, material);
+	AddEntity(cube);
 }
 
 void SkyboxScene::Stop(){
@@ -46,6 +47,5 @@ void SkyboxScene::Stop(){
 
 void SkyboxScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	cube->Draw();
 	skybox->Draw();
 }

@@ -18,7 +18,7 @@
 #include "Graphics3D.h"
 #include "Graphics2D.h"
 #include "Material.h"
-#include "Model.h"
+#include "Entity.h"
 
 void TexturedModelScene::Start(){
 	CameraControlsScene::Start();
@@ -28,18 +28,14 @@ void TexturedModelScene::Start(){
 	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
 	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	cube->SetMaterial(material);
+	gfx3D->AdjustMaterial(cube, material);
+	AddEntity(cube);
 }
 
 void TexturedModelScene::Stop(){
-	delete cube;
-	delete material;
-	delete texture;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void TexturedModelScene::Update(float sec){
-	cube->Draw();
 	CameraControlsScene::Update(sec);
 }

@@ -18,7 +18,7 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Model.h"
+#include "Entity.h"
 #include "Light.h"
 #include "Shaders/MultiLightShader.h"
 #include "Game.h"
@@ -51,8 +51,8 @@ void TransparencyScene::Start(){
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
-	road->FaceCulling(false);
-	road->SetMaterial(road_mat);
+	gfx3D->AdjustMaterial(road, road_mat, false, false);
+	AddEntity(road);
 
 	grass_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	grass_shader->AddMakro("USE_DIFFUSE_MAP");
@@ -66,15 +66,15 @@ void TransparencyScene::Start(){
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
 	grass->SetRotateX(90.f);
-	grass->FaceCulling(false);
-	grass->SetMaterial(grass_mat);
+
+	gfx3D->AdjustMaterial(grass, grass_mat, false, true);
 
 	for(U32 i = 0; i < 10; ++i){
-		Model* clone = grass->Clone();
+		Entity* clone = grass->Clone();
 		clone->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
 		clone->SetRotate(quat * clone->GetRotation());
-		//models.push_back(clone);
+		AddEntity(clone);
 	}
 
 	sphere_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
@@ -87,24 +87,16 @@ void TransparencyScene::Start(){
 	sphere_mat->SetPropertyValue("Transparency", 0.5f);
 
 	sphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	sphere->SetMaterial(sphere_mat);
-	sphere->AlphaBlending(true);
+	gfx3D->AdjustMaterial(sphere, sphere_mat, true, true);
+	AddEntity(sphere);
 	sphere->SetPosition(Vector3D(0.f, 1.f, 0.f));
 }
 
 void TransparencyScene::Stop(){
-	delete road;
-	delete road_mat;
-	delete grass_mat;
-	delete road_diffuse;
-	delete grass_diffuse;
-	delete road_shader;
 	CameraControlsScene::Stop();
 }
 
 void TransparencyScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	road->Draw();
-	sphere->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

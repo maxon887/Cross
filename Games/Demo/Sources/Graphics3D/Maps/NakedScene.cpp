@@ -20,7 +20,7 @@
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
-#include "Model.h"
+#include "Entity.h"
 
 void NakedScene::Start(){
 	CameraControlsScene::Start();
@@ -38,18 +38,15 @@ void NakedScene::Start(){
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
 	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	model->SetMaterial(material);
+	gfx3D->AdjustMaterial(model, material);
+	AddEntity(model);
 }
 
 void NakedScene::Stop(){
-	delete model;
-	delete material;
-	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void NakedScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	model->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

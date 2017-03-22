@@ -31,5 +31,5 @@ private:
 	Texture* specular;
 	Texture* roughness;
 	Material* material;
-	Model* model;
+	Entity* model;
 };

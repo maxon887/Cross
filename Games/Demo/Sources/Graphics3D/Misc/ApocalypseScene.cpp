@@ -55,11 +55,9 @@ void ApocalypseScene::Start(){
 	car_mat->SetPropertyValue("Shininess Map", car_specular);
 	car_mat->SetPropertyValue("Shininess Multiplier", 64.f);
 	car_mat->SetPropertyValue("Specular Multiplier", 2.f);
-	Model* camaroModel = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	camaroModel->FaceCulling(false);
-	camaroModel->SetMaterial(car_mat);
-	Entity* camaro = new Entity();
-	camaro->AddComponent(camaroModel);
+
+	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.obj");
+	gfx3D->AdjustMaterial(camaro, car_mat, false);
 	camaro->SetRotateY(45.f);
 	AddEntity(camaro);
 	
@@ -80,25 +78,15 @@ void ApocalypseScene::Start(){
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
-	road->FaceCulling(false);
-	road->SetMaterial(road_mat);
+	gfx3D->AdjustMaterial(road, road_mat, false);
+	AddEntity(road);
 }
 
 void ApocalypseScene::Stop(){
-	delete road;
-	delete car_mat;
-	delete road_mat;
-	delete car_diffuse;
-	delete car_specular;
-	delete car_shininess;
-	delete road_diffuse;
-	delete shader;
-	delete road_shader;
 	CameraControlsScene::Stop();
 }
 
 void ApocalypseScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	road->Draw();
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

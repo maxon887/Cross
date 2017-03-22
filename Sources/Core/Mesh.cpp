@@ -18,24 +18,30 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "VertexBuffer.h"
 #include "Scene.h"
 #include "Texture.h"
+#include "Graphics3D.h"
+#include "Entity.h"
 
 using namespace cross;
 
 Mesh::Mesh() :
+	Component(Component::Type::MESH),
 	vertex_buffer(NULL),
 	material(NULL),
 	original(true),
 	initialized(false),
+	face_culling(true),
 	name("")
 { }
 
 Mesh::Mesh(Mesh& obj) :
+	Component(Component::Type::MESH),
 	index_count(obj.index_count),
 	indices(obj.indices),
 	material(obj.material), //warning pointer copy!
 	VBO(obj.VBO),
 	EBO(obj.EBO),
 	initialized(obj.initialized),
+	face_culling(obj.face_culling),
 	original(false)
 {
 	vertex_buffer = obj.vertex_buffer->Clone();
@@ -50,7 +56,11 @@ Mesh::~Mesh() {
 	}
 }
 
-void Mesh::Initialize() {
+void Mesh::Update(float sec){
+	gfx3D->DrawMesh(this, GetEntity()->GetWorldMatrix());
+}
+
+void Mesh::TransferVideoData() {
 	index_count = indices.size();
 
 	SAFE(glGenBuffers(1, &VBO));
@@ -95,6 +105,22 @@ void Mesh::SetMaterial(Material* mat) {
 
 Material* Mesh::GetMaterial() {
 	return material;
+}
+
+void Mesh::SetFaceCullingEnabled(bool enabled){
+	face_culling = enabled;
+}
+
+bool Mesh::IsFaceCullingEnabled(){
+	return face_culling;
+}
+
+void Mesh::SetAlphaBlendingEnabled(bool enabled){
+	alpha_blending = enabled;
+}
+
+bool Mesh::IsAlphaBlendingEnabled(){
+	return alpha_blending;
 }
 
 VertexBuffer* Mesh::GetVertexBuffer() {

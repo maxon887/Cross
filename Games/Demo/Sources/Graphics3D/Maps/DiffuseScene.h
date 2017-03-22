@@ -29,5 +29,5 @@ private:
 	Shader* shader;
 	Texture* diffuse;
 	Material* material;
-	Model* revolver;
+	Entity* revolver;
 };

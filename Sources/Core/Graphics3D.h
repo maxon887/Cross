@@ -44,14 +44,20 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
-	Model* LoadPrimitive(Primitives primitive, bool initialize = true);
-	Model* LoadModel(const string& filename, bool initialize = true);
+	Entity* LoadPrimitive(Primitives primitive, bool initialize = true);
+	Entity* LoadModel(const string& filename, bool initialize = true);
+	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true, bool alphaBlending = false);
 
-	void DrawMesh(Mesh* mesh, const Matrix& model, bool faseCulling, bool alphaBlending);
-	void DrawMesh(Mesh* mesh, const Matrix& model, bool faceCulling, bool alphaBlending, StencilBehaviour stencilBehvaiour);
+	void DrawMesh(Mesh* mesh, const Matrix& mode);
+	void DrawMesh(Mesh* mesh, const Matrix& model, StencilBehaviour stencilBehvaiour);
 
 protected:
-	Model* primitives[COUNT];
+	enum Format {
+		FBX,
+		UNKNOW
+	};
+
+	Entity* primitives[COUNT];
 	const aiScene* current_scene;
 	//fbx specific stuff
 	Matrix current_geotranslation;
@@ -60,9 +66,10 @@ protected:
 	Matrix current_rotation;
 	Matrix current_scaling;
 	bool initialize_in_load;
+	Format format;
 
-	void ProcessScene(Model* model);
-	void ProcessNode(Model* model, aiNode* node);
+	void ProcessScene(Entity* model, const string& filename);
+	void ProcessNode(Entity* model, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
 
 };
