@@ -18,7 +18,6 @@
 #include "GraphicsGL.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Model.h"
 #include "Light.h"
 #include "Shaders/MultiLightShader.h"
 #include "Game.h"
@@ -31,9 +30,20 @@ void ApocalypseScene::Start(){
 
 	SetAmbientColor(Color(0.1f));
 
-	//lights
-	light = new Light(Light::Type::POINT);
-	AddLight(light);
+	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	
+	Light* lightComponent = new Light(Light::SPOT);
+	lightComponent->SetCutOff(20.f);
+	Entity* lightSpotLeft = camaro->FindChild("FrontLeftLight");
+	lightSpotLeft->AddComponent(lightComponent);
+	Entity* lightSpotRight = camaro->FindChild("FrontRightLight");
+	lightSpotRight->AddComponent(lightComponent->Clone());
+
+	//Entity* light = new Entity();
+	//light->AddComponent(new Light(Light::POINT));
+	//AddEntity(light);
+
+	AddEntity(camaro);
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddMakro("USE_DIFFUSE_MAP");
@@ -55,11 +65,7 @@ void ApocalypseScene::Start(){
 	car_mat->SetPropertyValue("Shininess Map", car_specular);
 	car_mat->SetPropertyValue("Shininess Multiplier", 64.f);
 	car_mat->SetPropertyValue("Specular Multiplier", 2.f);
-
-	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.obj");
 	gfx3D->AdjustMaterial(camaro, car_mat, false);
-	camaro->SetRotateY(45.f);
-	AddEntity(camaro);
 	
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	road_shader->AddMakro("USE_DIFFUSE_MAP");
@@ -88,5 +94,4 @@ void ApocalypseScene::Stop(){
 
 void ApocalypseScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

@@ -33,6 +33,4 @@ private:
 	Material* car_mat;
 	Material* road_mat;
 	Entity* road;
-
-	Light* light;
 };

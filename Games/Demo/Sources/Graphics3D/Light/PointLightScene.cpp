@@ -28,8 +28,9 @@ void PointLightScene::Start(){
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 
-	Light* light = new Light(Light::Type::POINT);
-	AddLight(light);
+	Entity* light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
+	AddEntity(light);
 
 	shader = new LightShader("gfx3D/shaders/point_light.vert", "gfx3D/shaders/point_light.frag");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");

@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shaders/LightShader.h"
 #include "Light.h"
+#include "Entity.h"
 
 using namespace cross;
 
@@ -57,7 +58,7 @@ void LightShader::TransferLightData(const Array<Light*>& lights){
 		SAFE(glUniform1f(light_attribs.intensity, light->GetIntensity()));
 	}
 	if(light_attribs.direction != -1){
-		SAFE(glUniform3fv(light_attribs.direction, 1, light->GetDirection().GetData()));
+		SAFE(glUniform3fv(light_attribs.direction, 1, light->GetEntity()->GetDirection().GetData()));
 	}
 	if(light_attribs.cut_off != -1){
 		SAFE(glUniform1f(light_attribs.cut_off, cos(light->GetCutOff()/180.f * PI)));

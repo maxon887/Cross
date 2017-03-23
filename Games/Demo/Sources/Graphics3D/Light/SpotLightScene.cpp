@@ -28,11 +28,13 @@ void SpotLightScene::Start(){
 
 	GetCamera()->SetPosition(Vector3D(-8.f, 0.f, -15.f));
 
-	Light* light = new Light(Light::Type::SPOT);
+	Entity* light = new Entity();
+	Light* lightComponent = new Light(Light::Type::SPOT);
 	light->SetPosition(Vector3D(0.f, 0.f, -8.f));
 	light->LookAt(Vector3D(0.f));
-	light->SetCutOff(20.f);
-	AddLight(light);
+	lightComponent->SetCutOff(20.f);
+	light->AddComponent(lightComponent);
+	AddEntity(light);
 
 	shader = new LightShader("gfx3D/shaders/spot_light.vert", "gfx3D/shaders/spot_light.frag");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");

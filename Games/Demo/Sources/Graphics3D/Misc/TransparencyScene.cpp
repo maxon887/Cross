@@ -31,9 +31,11 @@ void TransparencyScene::Start(){
 	SetAmbientColor(Color(0.15f));
 
 	//lights
-	light = new Light(Light::Type::POINT);
-	light->SetIntensity(0.01f);
-	AddLight(light);
+	Light* lightComponent = new Light(Light::Type::POINT);
+	lightComponent->SetIntensity(0.01f);
+	light = new Entity();
+	light->AddComponent(lightComponent);
+	AddEntity(light);
 
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	road_shader->AddMakro("USE_DIFFUSE_MAP");

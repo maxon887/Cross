@@ -20,6 +20,7 @@
 using namespace cross;
 
 Entity::Entity() :
+	name(""),
 	parent(NULL)
 {
 	memset(components, 0, sizeof(components));
@@ -42,6 +43,14 @@ void Entity::Update(float sec){
 			component->Update(sec);
 		}
 	}
+}
+
+void Entity::SetName(const string& name){
+	this->name = name;
+}
+
+string& Entity::GetName(){
+	return name;
 }
 
 void Entity::AddComponent(Component* component){
@@ -69,8 +78,23 @@ List<Entity*>& Entity::GetChildren(){
 	return children;
 }
 
+Entity* Entity::FindChild(const string& name){
+	for(Entity* child : children){
+		if(child->GetName() == name){
+			return child;
+		}else{
+			child = child->FindChild(name);
+			if(child){
+				return child;
+			}
+		}
+	}
+	return NULL;
+}
+
 Entity* Entity::Clone(){
 	Entity* clone = new Entity();
+	clone->name = this->name + "_copy";
 	for(U32 i = 0; i < Component::Type::COUNT; ++i){
 		if(this->components[i]){
 			clone->components[i] = this->components[i]->Clone();
@@ -90,5 +114,21 @@ Matrix Entity::GetWorldMatrix(){
 		return parent->GetModelMatrix() * GetModelMatrix();
 	}else{
 		return GetModelMatrix();
+	}
+}
+
+Vector3D Entity::GetPosition(){
+	if(parent){
+		return parent->GetModelMatrix() * Transformable::GetPosition();
+	}else{
+		return Transformable::GetPosition();
+	}
+}
+
+Vector3D Entity::GetDirection(){
+	if(parent) {
+		return parent->GetModelMatrix() * Transformable::GetDirection();
+	} else {
+		return Transformable::GetDirection();
 	}
 }

@@ -16,13 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Transformable.h"
+#include "Component.h"
 
 namespace cross{
 
 /*	Class needed to light your scene and models. 
 	Do not use many light with forward rendering it can make performance issue */
-class Light : public Transformable{
+class Light : public Component{
 public:
 	enum Type{
 		DIRECTIONAL,
@@ -31,7 +31,11 @@ public:
 	};
 
 	Light(Type type);
+	Light(Light& obj);
 	virtual ~Light(){ };
+
+	virtual void Update(float sec) { };
+	virtual Light* Clone();
 
 	Type GetType() const;
 	Color GetColor() const;

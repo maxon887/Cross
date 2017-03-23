@@ -20,7 +20,6 @@
 #include "System.h"
 #include "Mesh.h"
 #include "File.h"
-#include "Model.h"
 #include "Internals/Debugger.h"
 #include "Scene.h"
 #include "Light.h"
@@ -42,11 +41,6 @@
 using namespace cross;
 
 Graphics3D::Graphics3D():
-	current_translation(Matrix::Identity),
-	current_pre_rotation(Matrix::Identity),
-	current_rotation(Matrix::Identity),
-	current_scaling(Matrix::Identity),
-	current_geotranslation(Matrix::Identity),
 	initialize_in_load(true)
 {
 	system->LogIt("Graphics3D::Graphics3D()");
@@ -293,12 +287,6 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, StencilBehaviou
 
 void Graphics3D::ProcessScene(Entity* model, const string& filename){
 	File* file = system->LoadFile(filename);
-	string extension = system->ExtensionFromFile(filename);
-	if(extension == "fbx" || extension == "FBX") {
-		format = FBX;
-	} else {
-		format = UNKNOW;
-	}
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	delete file;
@@ -308,28 +296,57 @@ void Graphics3D::ProcessScene(Entity* model, const string& filename){
 	ProcessNode(model, current_scene->mRootNode);
 }
 
+void Graphics3D::ProcessNode(Entity* entity, aiNode* node){
+	entity->SetName(node->mName.C_Str());
+
+	Matrix modelMat = Matrix::Zero;
+	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
+	entity->SetTranslate(modelMat.GetTranslation());
+	entity->SetRotate(modelMat.GetRotation());
+	//entity->SetModelMatrix(modelMat);
+
+	if(node->mNumMeshes) {
+		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
+		Mesh* crMesh = ProcessMesh(aiMesh);
+		entity->AddComponent(crMesh);
+	}
+
+	for(U32 i = 0; i < node->mNumChildren; ++i) {
+		Entity* child = new Entity();
+		child->SetParent(entity);
+		ProcessNode(child, node->mChildren[i]);
+		entity->AddChild(child);
+	}
+}
+
+/*
 void Graphics3D::ProcessNode(Entity* model, aiNode* node){
+	static bool newChild = true;
+
+	string nodeName = node->mName.C_Str();
+	//model->SetName(nodeName);
 	for(U32 i = 0; i < node->mNumMeshes; i++){
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
-		crMesh->SetName(node->mName.C_Str());
-		if(format == Model::Format::FBX){
-			model->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
-			current_translation = Matrix::Identity;
-			current_pre_rotation = Matrix::Identity;
-			current_rotation = Matrix::Identity;
-			current_scaling = Matrix::Identity;
-			current_geotranslation = Matrix::Identity;
+		if(format == Format::FBX){
+			//model->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
+			//current_translation = Matrix::Identity;
+			//current_pre_rotation = Matrix::Identity;
+			//current_rotation = Matrix::Identity;
+			//current_scaling = Matrix::Identity;
+			//current_geotranslation = Matrix::Identity;
 		}else{
+			model->SetName(nodeName);
 			Matrix modelMat = Matrix::Zero;
 			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
 			model->SetModelMatrix(modelMat);
 		}
 		model->AddComponent(crMesh);
 	}
-	if(format == Model::Format::FBX){
-		string nodeName = node->mName.C_Str();
+
+	if(format == Format::FBX){
 		if(nodeName.find("Translation") != std::string::npos){
+			newChild = false;
 			if(nodeName.find("Geometric") != std::string::npos){
 				memcpy(current_geotranslation.m, &node->mTransformation.a1, sizeof(float) * 16);
 			}else{
@@ -337,11 +354,13 @@ void Graphics3D::ProcessNode(Entity* model, aiNode* node){
 					memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
 				}
 			}
-		}
+		}else
 		if(nodeName.find("Scaling") != std::string::npos){
+			newChild = false;
 			memcpy(current_scaling.m, &node->mTransformation.a1, sizeof(float) * 16);
-		}
+		}else
 		if(nodeName.find("Rotation") != std::string::npos){
+			newChild = false;
 			if(nodeName.find("Pre") != std::string::npos){
 				memcpy(current_pre_rotation.m, &node->mTransformation.a1, sizeof(float) * 16);
 			}else{
@@ -349,15 +368,29 @@ void Graphics3D::ProcessNode(Entity* model, aiNode* node){
 					memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
 				}
 			}
+		}else{
+			newChild = true;
+			model->SetName(nodeName);
+			//model->SetTranslateMatrix(current_translation * current_scaling);
+			model->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
+			current_translation = Matrix::Identity;
+			current_rotation = Matrix::Identity;
+			current_scaling = Matrix::Identity;
+			current_geotranslation = Matrix::Identity;
 		}
 	}
+
 	for(U32 i = 0; i < node->mNumChildren; ++i){
-		Entity* child = new Entity();
-		child->SetParent(model);
-		ProcessNode(child, node->mChildren[i]);
-		model->AddChild(child);
+		if(newChild){
+			Entity* child = new Entity();
+			child->SetParent(model);
+			ProcessNode(child, node->mChildren[i]);
+			model->AddChild(child);
+		}else{
+			ProcessNode(model, node->mChildren[i]);
+		}
 	}
-}
+}*/
 
 Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	VertexBuffer* vertexBuffer = new VertexBuffer();

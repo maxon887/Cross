@@ -29,8 +29,7 @@ Mesh::Mesh() :
 	material(NULL),
 	original(true),
 	initialized(false),
-	face_culling(true),
-	name("")
+	face_culling(true)
 { }
 
 Mesh::Mesh(Mesh& obj) :
@@ -45,7 +44,6 @@ Mesh::Mesh(Mesh& obj) :
 	original(false)
 {
 	vertex_buffer = obj.vertex_buffer->Clone();
-	name = obj.name + "_copy";
 }
 
 Mesh::~Mesh() {
@@ -89,14 +87,6 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 	for(U32 i = 0; i < inds.size(); ++i) {
 		indices.push_back(indsOffset + inds[i]);
 	}
-}
-
-void Mesh::SetName(const string& name) {
-	this->name = name;
-}
-
-const string& Mesh::GetName() {
-	return name;
 }
 
 void Mesh::SetMaterial(Material* mat) {

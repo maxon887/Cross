@@ -30,6 +30,7 @@ public:
 	void SetScale(float factor);
 	void SetScale(const Vector2D& scale);
 	void SetScale(const Vector3D& scale);
+	void SetTranslate(const Matrix& trans);
 	void SetRotateX(float angle);
 	void SetRotateY(float angle);
 	void SetRotateZ(float angle);
@@ -47,6 +48,7 @@ public:
 	Matrix GetRotation() const;
 
 	Matrix& GetModelMatrix();
+
 	void SetModelMatrix(const Matrix& model);
 
 protected:

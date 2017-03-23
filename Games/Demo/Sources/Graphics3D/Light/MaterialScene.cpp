@@ -26,9 +26,10 @@
 void MaterialScene::Start(){
 	CameraControlsScene::Start();
 	//light setups
-	Light* light = new Light(Light::Type::POINT);
+	Entity* light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddLight(light);
+	AddEntity(light);
 	//scene setups
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	shader->AddProperty("Diffuse Color", "uColor");

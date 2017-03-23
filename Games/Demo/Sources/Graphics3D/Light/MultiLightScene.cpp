@@ -28,25 +28,31 @@ void MultiLightScene::Start(){
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 	
 	for(U32 i = 0; i < 8; ++i){
-		Light* light = new Light(Light::Type::POINT);
+		Entity* light = new Entity();
+		Light* lightComponent = new Light(Light::Type::POINT);
 		light->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
-		light->SetColor(Color::Red);
-		AddLight(light);
+		lightComponent->SetColor(Color::Red);
+		light->AddComponent(lightComponent);
+		AddEntity(light);
 	}
 	
 	for(U32 i = 0; i < 1; ++i){
-		Light* light = new Light(Light::Type::DIRECTIONAL);
+		Entity* light = new Entity();
+		Light* lightComponent = new Light(Light::Type::DIRECTIONAL);
 		light->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
-		light->SetColor(Color::Green);
-		AddLight(light);
+		lightComponent->SetColor(Color::Green);
+		light->AddComponent(lightComponent);
+		AddEntity(light);
 	}
 	
 	for(U32 i = 0; i < 4; ++i){
-		Light* light = new Light(Light::Type::SPOT);
+		Entity* light = new Entity();
+		Light* lightComponent = new Light(Light::Type::SPOT);
 		light->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		light->LookAt(Vector3D(0.f));
-		light->SetColor(Color::Blue);
-		AddLight(light);
+		lightComponent->SetColor(Color::Blue);
+		light->AddComponent(lightComponent);
+		AddEntity(light);
 	}
 	
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);

@@ -21,7 +21,6 @@
 #include "Graphics3D.h"
 #include "Shaders/LightShader.h"
 #include "Material.h"
-#include "Model.h"
 #include "Light.h"
 #include "Physics/RigidBody.h"
 #include "Physics/SphereCollider.h"
@@ -35,9 +34,10 @@ void PhysicsScreen::Start() {
 	GetCamera()->SetPosition(Vector3D(0.f, 3.f, -4.f));
 	GetCamera()->LookAt(Vector3D(0.f));
 	//light setups
-	Light* light = new Light(Light::Type::POINT);
+	Entity* light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddLight(light);
+	AddEntity(light);
 	//*********************ROAD**********************
 	MultiLightShader* road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	road_shader->AddMakro("USE_DIFFUSE_MAP");

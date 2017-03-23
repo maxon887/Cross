@@ -24,8 +24,6 @@ public:
 	virtual void Update(float sec);
 
 private:
-	Light* light;
-
 	Shader* shader;
 	Texture* diffuse;
 	Texture* specular;
@@ -33,4 +31,5 @@ private:
 	Texture* normal;
 	Material* material;
 	Entity* model;
+	Entity* light;
 };

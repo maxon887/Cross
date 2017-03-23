@@ -28,9 +28,11 @@ void DirectionalLightScene::Start(){
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 
-	Light* light = new Light(Light::DIRECTIONAL);
+
+	Entity* light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetDirection(Vector3D(0.f, 0.f, 1.f));
-	AddLight(light);
+	AddEntity(light);
 
 	shader = new LightShader("gfx3D/shaders/directional_light.vert", "gfx3D/shaders/directional_light.frag");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");

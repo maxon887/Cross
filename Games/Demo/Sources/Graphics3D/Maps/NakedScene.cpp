@@ -25,8 +25,9 @@
 void NakedScene::Start(){
 	CameraControlsScene::Start();
 	//lights
-	light = new Light(Light::Type::POINT);
-	AddLight(light);
+	Entity* light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
+	AddEntity(light);
 
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddProperty("Diffuse Color", "uDiffuseColor");

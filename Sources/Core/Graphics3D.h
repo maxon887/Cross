@@ -52,21 +52,10 @@ public:
 	void DrawMesh(Mesh* mesh, const Matrix& model, StencilBehaviour stencilBehvaiour);
 
 protected:
-	enum Format {
-		FBX,
-		UNKNOW
-	};
-
 	Entity* primitives[COUNT];
 	const aiScene* current_scene;
 	//fbx specific stuff
-	Matrix current_geotranslation;
-	Matrix current_translation;
-	Matrix current_pre_rotation;
-	Matrix current_rotation;
-	Matrix current_scaling;
 	bool initialize_in_load;
-	Format format;
 
 	void ProcessScene(Entity* model, const string& filename);
 	void ProcessNode(Entity* model, aiNode* node);

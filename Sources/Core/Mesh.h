@@ -36,9 +36,6 @@ public:
 	void TransferVideoData();
 	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);
 
-	void SetName(const string& name);
-	const string& GetName();
-
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
 
@@ -58,7 +55,6 @@ protected:
 	GLuint VBO;
 	GLuint EBO;
 
-	string name;
 	VertexBuffer* vertex_buffer;
 	Array<GLushort> indices;
 	Material* material;

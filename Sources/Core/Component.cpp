@@ -61,5 +61,5 @@ Transformable* Component::GetTransform(){
 }
 
 Vector3D Component::GetPosition(){
-	return GetTransform()->GetPosition();
+	return GetEntity()->GetPosition();
 }

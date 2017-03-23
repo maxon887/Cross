@@ -19,7 +19,6 @@
 #include "Game.h"
 #include "System.h"
 #include "Config.h"
-#include "Model.h"
 #include "Light.h"
 #include "Entity.h"
 #include "Physics/Collider.h"
@@ -68,14 +67,16 @@ void Scene::SetCameraViewDistance(float distance){
 	camera->SetProjectionMatrix(projection);
 }
 
-void Scene::AddLight(Light* light){
-	lights.push_back(light);
-}
-
 void Scene::AddEntity(Entity* entity){
 	objects.push_back(entity);
-	if(entity->GetComponent(Component::Type::COLLIDER)){
-		colliders.push_back((Collider*)entity->GetComponent(Component::Type::COLLIDER));
+	if(entity->GetComponent(Component::COLLIDER)){
+		colliders.push_back((Collider*)entity->GetComponent(Component::COLLIDER));
+	}
+	if(entity->GetComponent(Component::LIGHT)){
+		lights.push_back((Light*)entity->GetComponent(Component::LIGHT));
+	}
+	for(Entity* child : entity->GetChildren()){
+		AddEntity(child);
 	}
 }
 

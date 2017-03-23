@@ -36,8 +36,7 @@ public:
 	Camera* GetCamera();
 	/* Reset camera view distance. Can affect on performance */
 	void SetCameraViewDistance(float distance);
-	/* Adds new light to the scene */
-	void AddLight(Light* light);
+	/* Adds entity object to the scene*/
 	void AddEntity(Entity* entity);
 	/* Returns all avalible light on scne */
 	Array<Light*>& GetLights();
@@ -51,8 +50,8 @@ protected:
 	Color ambient_color;
 
 	Array<Light*> lights;
-	Array<Entity*> objects;
 	Array<Collider*> colliders;
+	Array<Entity*> objects;
 
 private:
 	FastDelegate2<S32, S32, void> window_resize_handle;

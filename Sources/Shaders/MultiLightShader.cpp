@@ -18,6 +18,7 @@
 #include "Light.h"
 #include "Game.h"
 #include "Scene.h"
+#include "Entity.h"
 
 using namespace cross;
 
@@ -45,12 +46,16 @@ void MultiLightShader::Compile(const Array<Light*>& lights){
 		case Light::Type::SPOT:{
 			spotCount++;
 		}break;
-		case Light::Type::DIRECTIONAL:
+		case Light::Type::DIRECTIONAL:{
 			directionalCount++;
-			break;
+		}break;
 		default:
 			throw CrossException("Unknown light type");
 		}
+	}
+
+	if(!pointCount && !spotCount && !directionalCount){
+		throw CrossException("Current shader required at leas 1 light from scene");
 	}
 
 	AddMakro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
@@ -102,14 +107,14 @@ void MultiLightShader::TransferLightData(const Array<Light*>& lights){
 			SAFE(glUniform3fv(uSpotLights[spotCount].position, 1, light->GetPosition().GetData()));
 			SAFE(glUniform4fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].intensity, light->GetIntensity()));
-			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetDirection().GetData()));
-			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, light->GetCutOff()));
-			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, light->GetOuterCutOff()));
+			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetEntity()->GetDirection().GetData()));
+			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, cos(light->GetCutOff() / 180.f * PI)));
+			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, cos(light->GetOuterCutOff() / 180.f * PI)));
 			spotCount++;
 		}break;
 		case Light::Type::DIRECTIONAL:
 			SAFE(glUniform4fv(uDirectionalLights[directionalCount].color, 1, light->GetColor().GetData()));
-			SAFE(glUniform3fv(uDirectionalLights[directionalCount].direction, 1, light->GetDirection().GetData()));
+			SAFE(glUniform3fv(uDirectionalLights[directionalCount].direction, 1, light->GetEntity()->GetDirection().GetData()));
 			directionalCount++;
 			break;
 		default:

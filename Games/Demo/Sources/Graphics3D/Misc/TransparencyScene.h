@@ -37,5 +37,5 @@ private:
 	Entity* grass;
 	Entity* sphere;
 
-	Light* light;
+	Entity* light;
 };

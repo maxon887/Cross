@@ -102,6 +102,22 @@ void Matrix::SetTranslation(const Vector3D &trans){
 	m[2][3] = trans.z;
 }
 
+Matrix Matrix::GetTranslation(){
+	Matrix res(Matrix::Identity);
+	res.m[0][3] = m[0][3];
+	res.m[1][3] = m[1][3];
+	res.m[2][3] = m[2][3];
+	return res;
+}
+
+Matrix Matrix::GetRotation(){
+	Matrix res(*this);
+	res.m[0][3] = 0;
+	res.m[1][3] = 0;
+	res.m[2][3] = 0;
+	return res;
+}
+
 void Matrix::SetScale(float scale){
 	m[0][0] = scale;
 	m[1][1] = scale;
@@ -120,6 +136,7 @@ void Matrix::SetScale(const Vector3D &scale){
 }
 
 void Matrix::SetRotationX(float angle){
+	memcpy(m, Matrix::Identity.m, sizeof(Matrix));
 	float cosA = cos(angle / 180.f * PI);
 	float sinA = sin(angle / 180.f * PI);
 	m[1][1] = cosA;
@@ -129,6 +146,7 @@ void Matrix::SetRotationX(float angle){
 }
 
 void Matrix::SetRotationY(float angle){
+	memcpy(m, Matrix::Identity.m, sizeof(Matrix));
 	float cosA = cos(angle / 180.f * PI);
 	float sinA = sin(angle / 180.f * PI);
 	m[0][0] = cosA;
@@ -138,6 +156,7 @@ void Matrix::SetRotationY(float angle){
 }
 
 void Matrix::SetRotationZ(float angle){
+	memcpy(m, Matrix::Identity.m, sizeof(Matrix));
 	float cosA = cos(angle / 180.f * PI);
 	float sinA = sin(angle / 180.f * PI);
 	m[0][0] = cosA;

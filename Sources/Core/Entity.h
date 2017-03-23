@@ -27,16 +27,22 @@ public:
 	~Entity();
 
 	void Update(float sec);
+	void SetName(const string& name);
+	string& GetName();
 	void AddComponent(Component* component);
 	Component* GetComponent(Component::Type type);
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
 	List<Entity*>& GetChildren();
+	Entity* FindChild(const string& name);
 	Entity* Clone();
 	//Not optimized function
 	Matrix GetWorldMatrix();
+	Vector3D GetPosition();
+	Vector3D GetDirection();
 
 private:
+	string name;
 	Component* components[Component::COUNT];
 	Entity* parent;
 	List<Entity*> children;
