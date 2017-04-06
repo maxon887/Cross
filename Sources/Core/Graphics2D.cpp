@@ -573,10 +573,10 @@ void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* textu
 		element = root->FirstChildElement("sprite");
 		while(element){
 			string name = element->Attribute("n");
-			float xPos = atof(element->Attribute("x"));
-			float yPos = atof(element->Attribute("y"));
-			float width = atof(element->Attribute("w"));
-			float height = atof(element->Attribute("h"));
+			float xPos = (float)atof(element->Attribute("x"));
+			float yPos = (float)atof(element->Attribute("y"));
+			float width = (float)atof(element->Attribute("w"));
+			float height = (float)atof(element->Attribute("h"));
 			Rect rect(xPos, yPos, width, height);
 			Sprite* sprite = new Sprite(texture, rect);
 			output[name] = sprite;

@@ -176,7 +176,6 @@ void WINSystem::KeyReleasedHandle(Key key){
 bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate) {
 	DEVMODE fullscreenSettings;
 	bool isChangeSuccessful;
-	RECT windowBoundary;
 
 	EnumDisplaySettings(NULL, 0, &fullscreenSettings);
 	fullscreenSettings.dmPelsWidth = fullscreenWidth;
