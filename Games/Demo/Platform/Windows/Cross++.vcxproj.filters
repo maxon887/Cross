@@ -55,9 +55,6 @@
     <Filter Include="Cross\Physics">
       <UniqueIdentifier>{c2b89c91-3ac6-4c8a-843c-f6b66b6030bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Physics">
-      <UniqueIdentifier>{d815590d-863a-4aa0-90e9-d96242a55789}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Internals">
       <UniqueIdentifier>{d6564650-e2ab-4b0f-9882-cac798a8120e}</UniqueIdentifier>
     </Filter>
@@ -249,9 +246,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Physics\AABoxCollider.cpp">
       <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\PhysicsScreen.cpp">
-      <Filter>Demo\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp">
       <Filter>Cross\Physics</Filter>
@@ -531,9 +525,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Physics\AABoxCollider.h">
       <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\PhysicsScreen.h">
-      <Filter>Demo\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h">
       <Filter>Cross\Physics</Filter>

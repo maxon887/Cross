@@ -41,7 +41,6 @@
 #include "Graphics3D/Misc/TransparencyScene.h"
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
-#include "Physics/PhysicsScreen.h"
 #include "Demo.h"
 
 void MainScreen::Start(){
@@ -61,15 +60,12 @@ void MainScreen::Start(){
 	current_menu = main_menu;
 	Button* graphics2Dbtn		= new Button("Graphics 2D", font->Clone());
 	Button* graphics3Dbtn		= new Button("Graphics 3D", font->Clone());
-	Button* physicsBtn			= new Button("Physics", font->Clone());
 	Button* audioBtn			= new Button("Audio", font->Clone());
 	graphics2Dbtn->Clicked		+= MakeDelegate(this, &MainScreen::OnGraphics2DClick);
 	graphics3Dbtn->Clicked		+= MakeDelegate(this, &MainScreen::OnGraphics3DClick);
-	physicsBtn->Clicked			+= MakeDelegate(this, &MainScreen::OnPhysicsClick);
 	audioBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new AudioScreen()); });
 	main_menu->AddButton(graphics2Dbtn);
 	main_menu->AddButton(graphics3Dbtn);
-	main_menu->AddButton(physicsBtn);
 	main_menu->AddButton(audioBtn);
 	main_menu->SetImages(buttonSprite, buttonSpritePressed);
 	//graphics 2D menu
@@ -120,7 +116,7 @@ void MainScreen::Start(){
 	Button* directionalBtn		= new Button("Directional", font->Clone());
 	Button* pointLightBtn		= new Button("Point Light", font->Clone());
 	Button* spotLightBtn		= new Button("Spot Light", font->Clone());
-	Button* multiLightBtn		= new Button("Multi-Ligth", font->Clone());
+	Button* multiLightBtn		= new Button("Multi-Light", font->Clone());
 	materialBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new MaterialScene()); });
 	directionalBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new DirectionalLightScene()); });
 	pointLightBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new PointLightScene()); });
@@ -165,12 +161,6 @@ void MainScreen::Start(){
 	graphics3D_misc->AddButton(skyboxBtn);
 	graphics3D_misc->AddButton(apocalypseBtn);
 	graphics3D_misc->SetImages(buttonSprite, buttonSpritePressed);
-	//physics menu
-	physics_menu = new Menu(true);
-	Button* testBtn = new Button("Test", font->Clone());
-	testBtn->Clicked			+= FastDelegate0<void>([]() { game->SetScreen(new PhysicsScreen()); });
-	physics_menu->AddButton(testBtn);
-	physics_menu->SetImages(buttonSprite, buttonSpritePressed);
 
 	graphics2D_menu->Active(false);
 	graphics3D_menu->Active(false);
@@ -178,7 +168,6 @@ void MainScreen::Start(){
 	graphics3D_light->Active(false);
 	graphics3D_maps->Active(false);
 	graphics3D_misc->Active(false);
-	physics_menu->Active(false);
 
 	delete buttonSprite;
 	delete buttonSpritePressed;
@@ -193,7 +182,6 @@ void MainScreen::Stop(){
 	delete graphics3D_simple;
 	delete graphics3D_light;
 	delete graphics3D_misc;
-	delete physics_menu;
 	delete font;
 	cross::system->WindowResized -= window_resized_delegate;
 }
@@ -225,10 +213,6 @@ void MainScreen::OnGraphics2DClick(){
 
 void MainScreen::OnGraphics3DClick(){
 	SetMenu(graphics3D_menu);
-}
-
-void MainScreen::OnPhysicsClick(){
-	SetMenu(physics_menu);
 }
 
 //graphics 3D menu
