@@ -56,7 +56,6 @@ protected:
 private:
 	FastDelegate2<S32, S32, void> window_resize_handle;
 	void WindowResizeHandle(S32 width, S32 height);
-	void ProcessCollisions();
 };
 
 }

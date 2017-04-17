@@ -52,9 +52,6 @@
     <Filter Include="Demo\Graphics3D\Maps">
       <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\Physics">
-      <UniqueIdentifier>{c2b89c91-3ac6-4c8a-843c-f6b66b6030bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Internals">
       <UniqueIdentifier>{d6564650-e2ab-4b0f-9882-cac798a8120e}</UniqueIdentifier>
     </Filter>
@@ -237,24 +234,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Platform\Windows\WINSystem.cpp">
       <Filter>Cross\Platform\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\SphereCollider.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\Collision.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\AABoxCollider.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\PlaneCollider.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\Collider.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp">
-      <Filter>Cross\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Core\Audio.cpp">
       <Filter>Cross\Core</Filter>
@@ -516,24 +495,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Platform\Windows\WINSystem.h">
       <Filter>Cross\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\SphereCollider.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\Collision.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\AABoxCollider.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\PlaneCollider.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\Collider.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\RigidBody.h">
-      <Filter>Cross\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Core\Audio.h">
       <Filter>Cross\Core</Filter>
