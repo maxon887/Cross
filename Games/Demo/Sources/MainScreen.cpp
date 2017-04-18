@@ -42,16 +42,93 @@
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
 #include "Demo.h"
+#include "Event.h"
+
+void Func(){
+	cross::system->LogIt("Function triggered");
+}
+
+void FuncWithParams(int i){
+    cross::system->LogIt("Function with params triggered, %d", i);
+}
+
+class Sexy{
+public:
+
+    string name = "";
+
+    Sexy() : name("") {}
+    Sexy(string name) : name(name) {}
+
+    void AdvancedFunc(int i){
+        cross::system->LogIt("My name is %s, and you have provided number %d", name.c_str(), i);
+    }
+
+    void SimpleFunc(){
+        cross::system->LogIt("Member function triggered");
+    }
+
+    void ConstFunc() const{
+        cross::system->LogIt("Const member function triggered");
+    }
+
+    void IntFunc(int i){
+        cross::system->LogIt("Member function with params triggered, %d", i);
+    }
+
+    void ConstIntFunc(int i) const {
+        cross::system->LogIt("Const member function with params triggered, %d", i);
+    }
+};
 
 void MainScreen::Start(){
+	Event<> simpleEvent;
+    simpleEvent.Connect(&Func);
+    simpleEvent.Connect([](){
+        cross::system->LogIt("Lambda triggered"); 
+    });
+    simpleEvent();
+    simpleEvent.Disconnect(&Func);
+    simpleEvent();
+
+    Event<int> intEvent;
+    intEvent.Connect(&FuncWithParams);
+    intEvent.Connect([](int i){
+       cross::system->LogIt("Lambda with params triggered, %d", i); 
+    });
+    intEvent.Emit(69);
+
+    Sexy baby("Bony");
+    simpleEvent.DisconnectAll();
+    simpleEvent.Connect(&baby, &Sexy::SimpleFunc);
+    simpleEvent.Connect(&baby, &Sexy::ConstFunc);
+    intEvent.DisconnectAll();
+    intEvent.Connect(&baby, &Sexy::IntFunc);
+    intEvent.Connect(&baby, &Sexy::ConstIntFunc);
+
+
+    simpleEvent();
+    intEvent(70);
+    intEvent(70);
+
+    Sexy man("Clyde");
+    Event<int> advancedEvent;
+    advancedEvent.Connect(&baby, &Sexy::AdvancedFunc);
+    advancedEvent.Connect(&man, &Sexy::AdvancedFunc);
+    advancedEvent.Emit(44);
+    advancedEvent.Disconnect(&man, &Sexy::AdvancedFunc);
+    advancedEvent.Emit(45);
+    advancedEvent.Connect(&man, &Sexy::ConstIntFunc);
+    advancedEvent.Disconnect(&man, &Sexy::ConstIntFunc);
+
+
 	ScrollScreen::Start();
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 
 	Sprite* buttonSprite = demo->GetCommonSprite("ButtonTemplate.png");
 	Sprite* buttonSpritePressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 
-	window_resized_delegate = MakeDelegate(this, &MainScreen::WindowResizedHandle);
-	cross::system->WindowResized += window_resized_delegate;
+	cross::system->WindowResized.Connect(this, &MainScreen::WindowResizedHandle);
 
 	font = new Font("Engine/Fonts/VeraMonoBold.ttf", 80, Color(0.f, 0.f, 0.f, 0.70f));
 
@@ -61,9 +138,9 @@ void MainScreen::Start(){
 	Button* graphics2Dbtn		= new Button("Graphics 2D", font->Clone());
 	Button* graphics3Dbtn		= new Button("Graphics 3D", font->Clone());
 	Button* audioBtn			= new Button("Audio", font->Clone());
-	graphics2Dbtn->Clicked		+= MakeDelegate(this, &MainScreen::OnGraphics2DClick);
-	graphics3Dbtn->Clicked		+= MakeDelegate(this, &MainScreen::OnGraphics3DClick);
-	audioBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new AudioScreen()); });
+	graphics2Dbtn->Clicked.Connect(this, &MainScreen::OnGraphics2DClick);
+	graphics3Dbtn->Clicked.Connect(this, &MainScreen::OnGraphics3DClick);
+	audioBtn->Clicked.Connect([](){ game->SetScreen(new AudioScreen()); });
 	main_menu->AddButton(graphics2Dbtn);
 	main_menu->AddButton(graphics3Dbtn);
 	main_menu->AddButton(audioBtn);
@@ -74,10 +151,10 @@ void MainScreen::Start(){
 	Button* spritesBtn			= new Button("Sprites", font->Clone());
 	Button* textBtn				= new Button("Text Drawing", font->Clone());
 	Button* animationBtn		= new Button("Animation", font->Clone());
-	primitivesBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new PrimitivesScreen()); });
-	spritesBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new SpritesScreen()); });
-	animationBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new AnimationScreen()); });
-	textBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new TextScreen()); });
+	primitivesBtn->Clicked.Connect([](){ game->SetScreen(new PrimitivesScreen()); });
+	spritesBtn->Clicked.Connect([](){ game->SetScreen(new SpritesScreen()); });
+	animationBtn->Clicked.Connect([](){ game->SetScreen(new AnimationScreen()); });
+	textBtn->Clicked.Connect([](){ game->SetScreen(new TextScreen()); });
 	graphics2D_menu->AddButton(primitivesBtn);
 	graphics2D_menu->AddButton(spritesBtn);
 	graphics2D_menu->AddButton(textBtn);
@@ -89,10 +166,10 @@ void MainScreen::Start(){
 	Button* lightBtn			= new Button("Light", font->Clone());
 	Button* mapsBtn				= new Button("Maps", font->Clone());
 	Button* miscBtn				= new Button("Misc", font->Clone());
-	simpleBtn->Clicked			+= MakeDelegate(this, &MainScreen::OnSimpleClick);
-	lightBtn->Clicked			+= MakeDelegate(this, &MainScreen::OnLightClick);
-	mapsBtn->Clicked			+= MakeDelegate(this, &MainScreen::OnMapsClick);
-	miscBtn->Clicked			+= MakeDelegate(this, &MainScreen::OnMiscClick);
+	simpleBtn->Clicked.Connect(this, &MainScreen::OnSimpleClick);
+	lightBtn->Clicked.Connect(this, &MainScreen::OnLightClick);
+	mapsBtn->Clicked.Connect(this, &MainScreen::OnMapsClick);
+	miscBtn->Clicked.Connect(this, &MainScreen::OnMiscClick);
 	graphics3D_menu->AddButton(simpleBtn);
 	graphics3D_menu->AddButton(lightBtn);
 	graphics3D_menu->AddButton(mapsBtn);
@@ -103,9 +180,9 @@ void MainScreen::Start(){
 	Button* triangleBtn			= new Button("Triangle", font->Clone());
 	Button* solidModelBtn		= new Button("Solid Model", font->Clone());
 	Button* texturedModelBtn	= new Button("Textured Model", font->Clone());
-	triangleBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new TriangleScene()); });
-	solidModelBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new SolidModelScene()); });
-	texturedModelBtn->Clicked	+= FastDelegate0<void>([](){ game->SetScreen(new TexturedModelScene()); });
+	triangleBtn->Clicked.Connect([](){ game->SetScreen(new TriangleScene()); });
+	solidModelBtn->Clicked.Connect([](){ game->SetScreen(new SolidModelScene()); });
+	texturedModelBtn->Clicked.Connect([](){ game->SetScreen(new TexturedModelScene()); });
 	graphics3D_simple->AddButton(triangleBtn);
 	graphics3D_simple->AddButton(solidModelBtn);
 	graphics3D_simple->AddButton(texturedModelBtn);
@@ -117,11 +194,11 @@ void MainScreen::Start(){
 	Button* pointLightBtn		= new Button("Point Light", font->Clone());
 	Button* spotLightBtn		= new Button("Spot Light", font->Clone());
 	Button* multiLightBtn		= new Button("Multi-Light", font->Clone());
-	materialBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new MaterialScene()); });
-	directionalBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new DirectionalLightScene()); });
-	pointLightBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new PointLightScene()); });
-	spotLightBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new SpotLightScene()); });
-	multiLightBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new MultiLightScene()); });
+	materialBtn->Clicked.Connect([](){ game->SetScreen(new MaterialScene()); });
+	directionalBtn->Clicked.Connect([](){ game->SetScreen(new DirectionalLightScene()); });
+	pointLightBtn->Clicked.Connect([](){ game->SetScreen(new PointLightScene()); });
+	spotLightBtn->Clicked.Connect([](){ game->SetScreen(new SpotLightScene()); });
+	multiLightBtn->Clicked.Connect([](){ game->SetScreen(new MultiLightScene()); });
 	graphics3D_light->AddButton(materialBtn);
 	graphics3D_light->AddButton(directionalBtn);
 	graphics3D_light->AddButton(pointLightBtn);
@@ -135,11 +212,11 @@ void MainScreen::Start(){
 	Button* specularBtn			= new Button("Specular", font->Clone());
 	Button* roughnessBtn		= new Button("Roughness", font->Clone());
 	Button* normalBtn			= new Button("Normal", font->Clone());
-	nakedBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new NakedScene()); });
-	diffuseBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new DiffuseScene()); });
-	specularBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new SpecularScene()); });
-	roughnessBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new RoughnessScene()); });
-	normalBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new NormalScene()); });
+	nakedBtn->Clicked.Connect([](){ game->SetScreen(new NakedScene()); });
+	diffuseBtn->Clicked.Connect([](){ game->SetScreen(new DiffuseScene()); });
+	specularBtn->Clicked.Connect([](){ game->SetScreen(new SpecularScene()); });
+	roughnessBtn->Clicked.Connect([](){ game->SetScreen(new RoughnessScene()); });
+	normalBtn->Clicked.Connect([](){ game->SetScreen(new NormalScene()); });
 	graphics3D_maps->AddButton(nakedBtn);
 	graphics3D_maps->AddButton(diffuseBtn);
 	graphics3D_maps->AddButton(specularBtn);
@@ -152,10 +229,10 @@ void MainScreen::Start(){
 	Button* transparencyBtn		= new Button("Transparency", font->Clone());
 	Button* skyboxBtn			= new Button("Skybox", font->Clone());
 	Button* apocalypseBtn		= new Button("Apocalypse", font->Clone());
-	depthTestBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new DepthScene()); });
-	transparencyBtn->Clicked	+= FastDelegate0<void>([](){ game->SetScreen(new TransparencyScene()); });
-	skyboxBtn->Clicked			+= FastDelegate0<void>([](){ game->SetScreen(new SkyboxScene()); });
-	apocalypseBtn->Clicked		+= FastDelegate0<void>([](){ game->SetScreen(new ApocalypseScene()); });
+	depthTestBtn->Clicked.Connect([](){ game->SetScreen(new DepthScene()); });
+	transparencyBtn->Clicked.Connect([](){ game->SetScreen(new TransparencyScene()); });
+	skyboxBtn->Clicked.Connect([](){ game->SetScreen(new SkyboxScene()); });
+	apocalypseBtn->Clicked.Connect([](){ game->SetScreen(new ApocalypseScene()); });
 	graphics3D_misc->AddButton(depthTestBtn);
 	graphics3D_misc->AddButton(transparencyBtn);
 	graphics3D_misc->AddButton(skyboxBtn);
@@ -183,7 +260,7 @@ void MainScreen::Stop(){
 	delete graphics3D_light;
 	delete graphics3D_misc;
 	delete font;
-	cross::system->WindowResized -= window_resized_delegate;
+	cross::system->WindowResized.Disconnect(this, &MainScreen::WindowResizedHandle);
 }
 
 void MainScreen::Update(float sec){

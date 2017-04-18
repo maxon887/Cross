@@ -16,8 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-
-#include "Libs/Events/Event.h"
+#include "Event.h"
 
 namespace cross{
 
@@ -27,7 +26,7 @@ namespace cross{
 class Game{
 public:
 	/* Occurs when someone call SetScreen() */
-	DECLARE_EVENT(void, Screen*) ScreenChanged;
+	Event<Screen*> ScreenChanged;
 
 	/* Returns Screen from what game need to be start */
 	virtual Screen* GetStartScreen() = 0;

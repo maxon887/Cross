@@ -61,7 +61,7 @@ void CameraControlsScene::Start(){
 	Sprite* eye = demo->GetCommonSprite("EyeBtn.png");
 	Sprite* eyePressed = demo->GetCommonSprite("EyeBtnPressed.png");
 	eye_btn = new ToggleButton(eye, eyePressed);
-	eye_btn->Clicked += MakeDelegate(this, &CameraControlsScene::OnEyeClick);
+	eye_btn->Clicked.Connect(this, &CameraControlsScene::OnEyeClick);
 	eye_btn->SetLocation(Vector2D(GetWidth() - eye_btn->GetWidth()/2.f, GetHeight() - eye_btn->GetHeight()/2.f));
 	eye_btn->SetState(false);
 	AddUI(eye_btn);

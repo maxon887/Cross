@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Libs/Events/Event.h"
+#include "Event.h"
 
 namespace cross {
 	
@@ -30,8 +30,8 @@ public:
 		COUNT
 	};
 	/* Occurs when window size changed */
-	DECLARE_EVENT(void, S32, S32) WindowResized;
-	DECLARE_EVENT(void, System::Orientation) OrientationChanged;
+	Event<S32, S32> WindowResized;
+	Event<System::Orientation> OrientationChanged;
 	/* Print message in console. See LogIt() if you need formated output */
 	virtual void Log(const char* msg) = 0;
 	/* Returns path to the application assets folder */

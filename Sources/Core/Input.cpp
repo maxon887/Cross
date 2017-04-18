@@ -24,11 +24,11 @@ using namespace cross;
 Input::Input(){
     touch_enabled = true;
 	memset(pressed_keys, 0, sizeof(pressed_keys));
-	KeyPressed += MakeDelegate(this, &Input::KeyPressedHandle);
-	KeyReleased += MakeDelegate(this, &Input::KeyReleasedHandle);
-	TargetActionDown += MakeDelegate(this, &Input::TargetActionDonwHandle);
-	TargetActionMove += MakeDelegate(this, &Input::TargetActionMoveHandle);
-	TargetActionUp += MakeDelegate(this, &Input::TargetActionUpHandle);
+	KeyPressed.Connect(this, &Input::KeyPressedHandle);
+	KeyReleased.Connect(this, &Input::KeyReleasedHandle);
+	TargetActionDown.Connect(this, &Input::TargetActionDonwHandle);
+	TargetActionMove.Connect(this, &Input::TargetActionMoveHandle);
+	TargetActionUp.Connect(this, &Input::TargetActionUpHandle);
 }
 
 void Input::TouchEnabled(bool enabled){
@@ -61,13 +61,13 @@ void Input::Update(){
 		action.pos = TargetToWordConvert(action.pos.x, action.pos.y);
 		switch(actionState)	{
 		case 0:
-			TRIGGER_EVENT(ActionDown, action);
+			ActionDown(action);
 			break;
 		case 1:
-			TRIGGER_EVENT(ActionMove, action);
+			ActionMove(action);
 			break;
 		case 2:
-			TRIGGER_EVENT(ActionUp, action);
+			ActionUp(action);
 			break;
 		default:
 			break;

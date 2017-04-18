@@ -65,10 +65,6 @@ private:
 	Debugger();
 	~Debugger();
 
-	FastDelegate1<Input::Action, void> action_down_delegate;
-	FastDelegate1<Input::Action, void> action_up_delegate;
-	FastDelegate1<Input::Action, void> action_move_delegate;
-
 	void OnActionDown(Input::Action action);
 	void OnActionUp(Input::Action action);
 	void OnActionMove(Input::Action action);

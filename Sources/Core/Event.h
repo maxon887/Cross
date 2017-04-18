@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include <functional>
-#include <typeindex>
 
 namespace cross{
 
@@ -38,6 +37,8 @@ public:
     void Disconnect(Clazz* obj, void(Clazz::*func)(Args...) const);
 
     void DisconnectAll();
+
+    void operator () (Args...);
 
 private:
     List<std::function<void(Args...)>> listeners;
@@ -102,6 +103,11 @@ void Event<Args...>::Disconnect(Clazz* obj, void(Clazz::*func)(Args...) const) {
 template<class... Args>
 void Event<Args...>::DisconnectAll(){
     listeners.clear();
+}
+
+template<class... Args>
+void Event<Args...>::operator () (Args... args){
+    Emit(args...);
 }
 
 };

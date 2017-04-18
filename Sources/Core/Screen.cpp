@@ -25,21 +25,20 @@ using namespace cross;
 void Screen::Start(){
 	is_scene = false;
 	enable_inputs = true;
-	action_down_delegate = MakeDelegate(this, &Screen::ActionDownHandle);
-	action_move_delegate = MakeDelegate(this, &Screen::ActionMoveHandle);
-	action_up_delegate = MakeDelegate(this, &Screen::ActionUpHandle);
-	input->ActionDown += action_down_delegate;
-	input->ActionMove += action_move_delegate;
-	input->ActionUp += action_up_delegate;
+
+    input->ActionDown.Connect(this, &Screen::ActionDownHandle);
+    input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
+    input->ActionUp.Connect(this, &Screen::ActionUpHandle);
+
 	for(U32 i = 0; i < MAX_ACTIONS; i++){
 		actionIDs[i] = false;
 	}
 }
 
 void Screen::Stop(){
-	input->ActionDown -= action_down_delegate;
-	input->ActionMove -= action_move_delegate;
-	input->ActionUp -= action_up_delegate;
+    input->ActionDown.Disconnect(this, &Screen::ActionDownHandle);
+    input->ActionMove.Disconnect(this, &Screen::ActionMoveHandle);
+    input->ActionUp.Disconnect(this, &Screen::ActionUpHandle);
 	for(UI* ui : guis){
 		delete ui;
 	}

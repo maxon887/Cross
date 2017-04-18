@@ -38,12 +38,12 @@ float ScrollScreen::GetHeight(){
 
 void ScrollScreen::SetWidth(float width){
 	this->width = width;
-	TRIGGER_EVENT(SizeChanged, width, height);
+	SizeChanged(width, height);
 }
 
 void ScrollScreen::SetHeight(float height){
 	this->height = height;
-	TRIGGER_EVENT(SizeChanged, width, height);
+	SizeChanged(width, height);
 }
 
 void ScrollScreen::ResetScreenSize(){

@@ -47,14 +47,14 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		TRIGGER_EVENT(input->TargetActionDown, targetX, targetY, 0);
+        input->TargetActionDown(targetX, targetY, 0);
 		break;
 	}
 	case WM_MOUSEMOVE:{
 		if(mouseDown){
 			float targetX = (short)LOWORD(lParam);
 			float targetY = (short)HIWORD(lParam);
-			TRIGGER_EVENT(input->TargetActionMove,targetX, targetY, 0);
+			input->TargetActionMove(targetX, targetY, 0);
 		}
 		break;
 	}
@@ -63,23 +63,23 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		TRIGGER_EVENT(input->TargetActionUp, targetX, targetY, 0);
+		input->TargetActionUp(targetX, targetY, 0);
 		break;
 	}
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
 		if(delta < 0){
-			TRIGGER_EVENT(input->MouseWheelUp);
+			input->MouseWheelUp();
 		}else{
-			TRIGGER_EVENT(input->MouseWheelDown);
+			input->MouseWheelDown();
 		}
 		break;
 	}
 	case WM_KEYDOWN:
-		TRIGGER_EVENT(input->KeyPressed, (cross::Key)wParam);
+        input->KeyReleased((cross::Key)wParam);
 		break;
 	case WM_KEYUP:
-		TRIGGER_EVENT(input->KeyReleased, (cross::Key)wParam);
+		input->KeyReleased((cross::Key)wParam);
 		break;
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;

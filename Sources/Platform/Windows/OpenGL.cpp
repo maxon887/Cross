@@ -58,7 +58,7 @@ int OpenGL_Main(){
 		int winWidth = config->GetInt("WIN_WIDTH", 500);
 		int winHeight = config->GetInt("WIN_HEIGHT", 500);
 		winSys->ResizeWindow(winX, winY, winWidth, winHeight);
-		input->KeyReleased += MakeDelegate(winSys, &WINSystem::KeyReleasedHandle);
+		input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
 		PIXELFORMATDESCRIPTOR pfd;
 		ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));

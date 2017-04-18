@@ -35,8 +35,7 @@ void Scene::Start(){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
 
-	window_resize_handle = MakeDelegate(this, &Scene::WindowResizeHandle);
-	cross::system->WindowResized += window_resize_handle;
+	cross::system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
 void Scene::Update(float sec){
@@ -49,7 +48,7 @@ void Scene::Update(float sec){
 
 void Scene::Stop(){
 	delete camera;
-	cross::system->WindowResized -= window_resize_handle;
+	cross::system->WindowResized.Disconnect(this, &Scene::WindowResizeHandle);
 	for(Entity* obj : objects){
 		delete obj;
 	}

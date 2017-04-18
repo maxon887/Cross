@@ -24,9 +24,9 @@ void AudioScreen::Start(){
 	loopBtn->SetText("Loop");
 	ToggleButton* streamBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
 	streamBtn->SetText("Stream");
-	soundBtn->Clicked += MakeDelegate(this, &AudioScreen::OnSoundButtonClick);
-	loopBtn->Clicked += MakeDelegate(this, &AudioScreen::OnLoopButttonClick);
-	streamBtn->Clicked += MakeDelegate(this, &AudioScreen::OnStreamButtonClick);
+	soundBtn->Clicked.Connect(this, &AudioScreen::OnSoundButtonClick);
+	loopBtn->Clicked.Connect(this, &AudioScreen::OnLoopButttonClick);
+	streamBtn->Clicked.Connect(this, &AudioScreen::OnStreamButtonClick);
 	audio_menu->AddButton(soundBtn);
 	audio_menu->AddButton(loopBtn);
 	audio_menu->AddButton(streamBtn);

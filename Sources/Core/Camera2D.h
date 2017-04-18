@@ -18,12 +18,10 @@
 #include "Cross.h"
 #include "Camera.h"
 
-#include "Libs/Events/Event.h"
-
 namespace cross{
 
 /*	This class designed for managing 2D space. Allow you set view distance what 
-	This allow you scale 2D sceene and keep abstract from physical screen ppi. 
+	This allow you scale 2D scene and keep abstract from physical screen ppi. 
 	In additional you you can scroll across your 2D sceene by SetPosition() function */
 class Camera2D : public Camera{
 public:
@@ -40,9 +38,8 @@ private:
 	float view_width;
 	float view_height;
 
-	FastDelegate2<S32, S32, void> window_resized_delegate;
-
 	void WindowResizedHandle(S32 width, S32 height);
+    //do we really need this method?
 	void WindowRisezedHandleCust(S32 width, S32 height);
 };
 

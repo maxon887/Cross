@@ -16,10 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Event.h"
 
 #include <mutex>
-
-#include "Libs/Events/Event.h"
 
 namespace cross {
 
@@ -127,19 +126,19 @@ public:
     
     void TouchEnabled(bool enabled);
 	/* Scaled in screen coordinates input */
-	DECLARE_EVENT(void, Action) ActionDown;
-	DECLARE_EVENT(void, Action) ActionMove;
-	DECLARE_EVENT(void, Action) ActionUp;
+	Event<Action> ActionDown;
+	Event<Action> ActionMove;
+	Event<Action> ActionUp;
 	/* Raw device inputs in pixels */
-	DECLARE_EVENT(void, float, float, S32) TargetActionDown;
-	DECLARE_EVENT(void, float, float, S32) TargetActionMove;
-	DECLARE_EVENT(void, float, float, S32) TargetActionUp;
+	Event<float, float, S32> TargetActionDown;
+	Event<float, float, S32> TargetActionMove;
+	Event<float, float, S32> TargetActionUp;
 	/* Keyboard events */
-	DECLARE_EVENT(void, Key) KeyPressed;
-	DECLARE_EVENT(void, Key) KeyReleased;
+	Event<Key> KeyPressed;
+	Event<Key> KeyReleased;
 	/* Mouse Wheel events */
-	DECLARE_EVENT(void) MouseWheelUp;
-	DECLARE_EVENT(void) MouseWheelDown;
+	Event<> MouseWheelUp;
+	Event<> MouseWheelDown;
 	/* Checks if specific key pressed*/
 	bool IsPressed(Key key);
 	/* Engine specific */

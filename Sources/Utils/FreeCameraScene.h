@@ -62,9 +62,6 @@ protected:
 	Vector2D touch_position;
 	Vector3D target;
 
-	FastDelegate0<void> mouse_wheel_up;
-	FastDelegate0<void> mouse_wheel_down;
-
 	void MouseWheelUp();
 	void MouseWheelDown();
 };

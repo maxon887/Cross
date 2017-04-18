@@ -26,13 +26,12 @@ Menu::Menu(bool resizeble):
 	located(false),
 	resizeble(resizeble)
 {
-	window_resized_delegate = MakeDelegate(this, &Menu::WindowResizedHandle);
-	cross::system->WindowResized += window_resized_delegate;
+	cross::system->WindowResized.Connect(this, &Menu::WindowResizedHandle);
 }
 
 Menu::~Menu(){
 	Clear();
-	cross::system->WindowResized -= window_resized_delegate;
+	cross::system->WindowResized.Disconnect(this, &Menu::WindowResizedHandle);
 }
 
 void Menu::Update(float sec){

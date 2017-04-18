@@ -99,7 +99,7 @@ GraphicsGL::GraphicsGL():
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
 		system->LogIt("\tMax Texture Units: %d", value);
 
-		cross::system->WindowResized += MakeDelegate(this, &GraphicsGL::WindowResizeHandle);
+		cross::system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
 		if(config->IsOffscreenRender()){
 			offscreen_shader = GetShader(DefaultShader::TEXTURE);

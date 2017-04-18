@@ -44,8 +44,6 @@ private:
 	bool located;
 	bool resizeble;
 	float menu_height;
-
-	FastDelegate2<S32, S32, void> window_resized_delegate;
 	
 	void WindowResizedHandle(S32 width, S32 height);
 };

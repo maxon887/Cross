@@ -38,11 +38,11 @@ public:
 	void SetCameraViewDistance(float distance);
 	/* Adds entity object to the scene*/
 	void AddEntity(Entity* entity);
-	/* Returns all avalible light on scne */
+	/* Returns all available light on scene */
 	Array<Light*>& GetLights();
-	/* Sets up ambient scene light intencity */
+	/* Sets up ambient scene light intensity */
 	void SetAmbientColor(const Color& color);
-	/* Returns ambient scene light intencity */
+	/* Returns ambient scene light intensity */
 	Color GetAmbientColor() const;
 
 protected:
@@ -54,7 +54,6 @@ protected:
 	Array<Entity*> objects;
 
 private:
-	FastDelegate2<S32, S32, void> window_resize_handle;
 	void WindowResizeHandle(S32 width, S32 height);
 };
 

@@ -28,7 +28,7 @@ namespace cross {
 class Screen{
 public:
 	/* Occurs when virtual screen space changed */
-	DECLARE_EVENT(void, float, float) SizeChanged;
+	Event<float, float> SizeChanged;
 
 	virtual ~Screen() { };
 	/* Called before screen show up. */
@@ -53,7 +53,7 @@ public:
 	virtual void ActionMove(Input::Action action) { };
 	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action) { };
-	/* Returns true if current screen is actualy a 3D scene */
+	/* Returns true if current screen is actually a 3D scene */
 	bool IsScene();
 	/* Reflect ratio between screen and target device width */
 	float GetScaleFactor();
@@ -71,10 +71,6 @@ protected:
 private:
 	bool actionIDs[MAX_ACTIONS];
 	Array<UI*> guis;
-
-	FastDelegate1<Input::Action, void> action_down_delegate;
-	FastDelegate1<Input::Action, void> action_move_delegate;
-	FastDelegate1<Input::Action, void> action_up_delegate;
 
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);

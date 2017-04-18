@@ -25,12 +25,11 @@ Camera2D::Camera2D() {
 	view_width = (float)system->GetWindowWidth();
 	view_height = (float)system->GetWindowHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
-	window_resized_delegate = MakeDelegate(this, &Camera2D::WindowResizedHandle);
-	cross::system->WindowResized += window_resized_delegate;
+	cross::system->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
 }
 
 Camera2D::~Camera2D() {
-	cross::system->WindowResized -= window_resized_delegate;
+	cross::system->WindowResized.Disconnect(this, &Camera2D::WindowResizedHandle);
 }
 
 void Camera2D::SetViewWidth(float width) {
@@ -39,7 +38,7 @@ void Camera2D::SetViewWidth(float width) {
 	view_height = (float)system->GetWindowHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 	//cross::system->WindowResized -= window_resized_delegate;
-	window_resized_delegate = MakeDelegate(this, &Camera2D::WindowRisezedHandleCust);
+	//window_resized_delegate = MakeDelegate(this, &Camera2D::WindowRisezedHandleCust);
 	//cross::system->WindowResized += window_resized_delegate;
 }
 
@@ -57,6 +56,7 @@ void Camera2D::WindowResizedHandle(S32 width, S32 height) {
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
+//do we really need this method?
 void Camera2D::WindowRisezedHandleCust(S32 width, S32 height) {
 	system->LogIt("TargetWidth - %d", system->GetWindowWidth());
 	float scale = (float)system->GetWindowWidth() / view_width;

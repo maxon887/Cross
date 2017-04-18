@@ -85,10 +85,8 @@ Button::Button() :
 	handled_action_id(-1),
 	color(Color::White)
 {
-	action_down_delegate = MakeDelegate(this, &Button::ActionDownHandler);
-	action_up_delegate = MakeDelegate(this, &Button::ActionUpHandler);
-	input->ActionDown += action_down_delegate;
-	input->ActionUp += action_up_delegate;
+	input->ActionDown.Connect(this, &Button::ActionDownHandler);
+	input->ActionUp.Connect(this, &Button::ActionUpHandler);
 }
 
 Button::~Button() {
@@ -108,8 +106,8 @@ Button::~Button() {
 		delete pull_sound;
 	}
 
-	input->ActionDown -= action_down_delegate;
-	input->ActionUp -= action_up_delegate;
+    input->ActionDown.Disconnect(this, &Button::ActionDownHandler);
+    input->ActionUp.Disconnect(this, &Button::ActionUpHandler);
 }
 
 void Button::Update(float sec) {
@@ -305,7 +303,7 @@ void Button::ActionUpHandler(Input::Action action) {
 				if (pull_sound != nullptr) {
 					pull_sound->Play();
 				}
-				TRIGGER_EVENT(Clicked);
+				Clicked();
 			}
 		}
 	}

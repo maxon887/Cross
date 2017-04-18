@@ -70,21 +70,18 @@ Debugger::Debugger() :
 	}
 
 	if(params[Parameter::INPUT]){
-		action_down_delegate = MakeDelegate(this, &Debugger::OnActionDown);
-		action_move_delegate = MakeDelegate(this, &Debugger::OnActionMove);
-		action_up_delegate = MakeDelegate(this, &Debugger::OnActionUp);
-		input->ActionDown += action_down_delegate;
-		input->ActionMove += action_move_delegate;
-		input->ActionUp += action_up_delegate;
+		input->ActionDown.Connect(this, &Debugger::OnActionDown);
+		input->ActionMove.Connect(this, &Debugger::OnActionMove);
+		input->ActionUp.Connect(this, &Debugger::OnActionUp);
 	}
 }
 
 Debugger::~Debugger(){
 	delete debugger_font;
 	if(params[Parameter::INPUT]){
-		input->ActionDown -= action_down_delegate;
-		input->ActionMove -= action_move_delegate;
-		input->ActionUp -= action_up_delegate;
+        input->ActionDown.Disconnect(this, &Debugger::OnActionDown);
+        input->ActionMove.Disconnect(this, &Debugger::OnActionMove);
+        input->ActionUp.Disconnect(this, &Debugger::OnActionUp);
 	}
 }
 

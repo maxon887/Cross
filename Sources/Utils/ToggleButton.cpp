@@ -26,7 +26,7 @@ ToggleButton::ToggleButton(Sprite* on, Sprite* off)
 	this->on = on;
 	this->off = off;
 	this->state = true;
-	Clicked += MakeDelegate(this, &ToggleButton::OnClicked);
+	Clicked.Connect(this, &ToggleButton::OnClicked);
 }
 
 ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
@@ -35,7 +35,7 @@ ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
 	this->on = on;
 	this->off = off;
 	this->state = true;
-	Clicked += MakeDelegate(this, &ToggleButton::OnClicked);
+	Clicked.Connect(this, &ToggleButton::OnClicked);
 }
 
 void ToggleButton::Update(){

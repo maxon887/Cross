@@ -44,7 +44,6 @@ private:
 
 	void SetMenu(Menu* newMenu);
 
-	FastDelegate2<S32, S32, void> window_resized_delegate;
 	//connections
 	void WindowResizedHandle(S32 width, S32 height);
 

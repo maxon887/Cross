@@ -23,7 +23,7 @@ namespace cross {
 
 class Button : public UI{
 public:
-	DECLARE_EVENT(void) Clicked;
+	Event<> Clicked;
 
 	Button(Rect area, string text);
 	Button(Vector2D location, string text);
@@ -74,9 +74,6 @@ protected:
 	Vector2D text_size;
 
 	void FitText(string text);
-	//connections
-	FastDelegate1<Input::Action, void> action_down_delegate;
-	FastDelegate1<Input::Action, void> action_up_delegate;
 
 	void ActionDownHandler(Input::Action action);
 	void ActionUpHandler(Input::Action action);

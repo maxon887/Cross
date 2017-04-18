@@ -45,8 +45,8 @@ void Demo::Start(){
     arrowPressed->SetRotate(180.f);
     back_btn->SetImages(arrowReleased, arrowPressed);
 
-	back_btn->Clicked += MakeDelegate(this, &Demo::OnBackClick);
-	input->KeyPressed += MakeDelegate(this, &Demo::OnKeyPressed);
+	back_btn->Clicked.Connect(this, &Demo::OnBackClick);
+	input->KeyPressed.Connect(this, &Demo::OnKeyPressed);
 }
 
 void Demo::Stop(){
