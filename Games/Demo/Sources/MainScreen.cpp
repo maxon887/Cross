@@ -44,85 +44,12 @@
 #include "Demo.h"
 #include "Event.h"
 
-void Func(){
-	cross::system->LogIt("Function triggered");
-}
-
-void FuncWithParams(int i){
-    cross::system->LogIt("Function with params triggered, %d", i);
-}
-
-class Sexy{
-public:
-
-    string name = "";
-
-    Sexy() : name("") {}
-    Sexy(string name) : name(name) {}
-
-    void AdvancedFunc(int i){
-        cross::system->LogIt("My name is %s, and you have provided number %d", name.c_str(), i);
-    }
-
-    void SimpleFunc(){
-        cross::system->LogIt("Member function triggered");
-    }
-
-    void ConstFunc() const{
-        cross::system->LogIt("Const member function triggered");
-    }
-
-    void IntFunc(int i){
-        cross::system->LogIt("Member function with params triggered, %d", i);
-    }
-
-    void ConstIntFunc(int i) const {
-        cross::system->LogIt("Const member function with params triggered, %d", i);
-    }
-};
-
 void MainScreen::Start(){
-	Event<> simpleEvent;
-    simpleEvent.Connect(&Func);
-    simpleEvent.Connect([](){
-        cross::system->LogIt("Lambda triggered"); 
-    });
-    simpleEvent();
-    simpleEvent.Disconnect(&Func);
-    simpleEvent();
-
-    Event<int> intEvent;
-    intEvent.Connect(&FuncWithParams);
-    intEvent.Connect([](int i){
-       cross::system->LogIt("Lambda with params triggered, %d", i); 
-    });
-    intEvent.Emit(69);
-
-    Sexy baby("Bony");
-    simpleEvent.DisconnectAll();
-    simpleEvent.Connect(&baby, &Sexy::SimpleFunc);
-    simpleEvent.Connect(&baby, &Sexy::ConstFunc);
-    intEvent.DisconnectAll();
-    intEvent.Connect(&baby, &Sexy::IntFunc);
-    intEvent.Connect(&baby, &Sexy::ConstIntFunc);
-
-
-    simpleEvent();
-    intEvent(70);
-    intEvent(70);
-
-    Sexy man("Clyde");
-    Event<int> advancedEvent;
-    advancedEvent.Connect(&baby, &Sexy::AdvancedFunc);
-    advancedEvent.Connect(&man, &Sexy::AdvancedFunc);
-    advancedEvent.Emit(44);
-    advancedEvent.Disconnect(&man, &Sexy::AdvancedFunc);
-    advancedEvent.Emit(45);
-    advancedEvent.Connect(&man, &Sexy::ConstIntFunc);
-    advancedEvent.Disconnect(&man, &Sexy::ConstIntFunc);
-
-
 	ScrollScreen::Start();
+
+	Input::Action a;
+	cross::input->ActionDown(a);
+
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 
 	Sprite* buttonSprite = demo->GetCommonSprite("ButtonTemplate.png");
@@ -261,6 +188,9 @@ void MainScreen::Stop(){
 	delete graphics3D_misc;
 	delete font;
 	cross::system->WindowResized.Disconnect(this, &MainScreen::WindowResizedHandle);
+
+	Input::Action a;
+	input->ActionDown(a);
 }
 
 void MainScreen::Update(float sec){

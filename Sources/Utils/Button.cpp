@@ -108,6 +108,7 @@ Button::~Button() {
 
     input->ActionDown.Disconnect(this, &Button::ActionDownHandler);
     input->ActionUp.Disconnect(this, &Button::ActionUpHandler);
+	Clicked.DisconnectAll();
 }
 
 void Button::Update(float sec) {

@@ -22,6 +22,7 @@
 #include "Sprite.h"
 
 void PrimitivesScreen::Start(){
+	Screen::Start();
 	generate_entities = false;
 	input->ActionDown.Connect(this, &PrimitivesScreen::OnActionDown);
 	input->ActionMove.Connect(this, &PrimitivesScreen::OnActionMove);
@@ -37,9 +38,11 @@ void PrimitivesScreen::Stop(){
 		delete entity;
 		iter = entities.erase(iter);
 	}
+	Screen::Stop();
 }
 
 void PrimitivesScreen::Update(float sec){
+	Screen::Update(sec);
 	if(generate_entities){
 		GenerateEntity();
 	}
