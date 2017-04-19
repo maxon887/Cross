@@ -50,11 +50,11 @@ Debugger::Debugger() :
 	touch_down(false),
 	debugger_font(NULL)
 {
-	params[FPS]			= false;
-	params[UPDATE_TIME]	= false;
-	params[CPU_TIME]	= false;
-	params[RUN_TIME]	= false;
-	params[INPUT]		= false;
+	params[FPS]			= true;
+	params[UPDATE_TIME]	= true;
+	params[CPU_TIME]	= true;
+	params[RUN_TIME]	= true;
+	params[INPUT]		= true;
 
 	for(int i = 0; i < Parameter::NONE; i++){
 		//if any of debug parameters enabled create debug font
@@ -79,9 +79,9 @@ Debugger::Debugger() :
 Debugger::~Debugger(){
 	delete debugger_font;
 	if(params[Parameter::INPUT]){
-        input->ActionDown.Disconnect(this, &Debugger::OnActionDown);
-        input->ActionMove.Disconnect(this, &Debugger::OnActionMove);
-        input->ActionUp.Disconnect(this, &Debugger::OnActionUp);
+		input->ActionDown.Disconnect(this, &Debugger::OnActionDown);
+		input->ActionMove.Disconnect(this, &Debugger::OnActionMove);
+		input->ActionUp.Disconnect(this, &Debugger::OnActionUp);
 	}
 }
 
