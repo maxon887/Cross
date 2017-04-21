@@ -47,15 +47,12 @@
 void MainScreen::Start(){
 	ScrollScreen::Start();
 
-	Input::Action a;
-	cross::input->ActionDown(a);
-
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 
 	Sprite* buttonSprite = demo->GetCommonSprite("ButtonTemplate.png");
 	Sprite* buttonSpritePressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 
-	cross::system->WindowResized.Connect(this, &MainScreen::WindowResizedHandle);
+	resize_del = cross::system->WindowResized.Connect(this, &MainScreen::WindowResizedHandle);
 
 	font = new Font("Engine/Fonts/VeraMonoBold.ttf", 80, Color(0.f, 0.f, 0.f, 0.70f));
 
@@ -172,7 +169,7 @@ void MainScreen::Start(){
 	graphics3D_light->Active(false);
 	graphics3D_maps->Active(false);
 	graphics3D_misc->Active(false);
-
+    
 	delete buttonSprite;
 	delete buttonSpritePressed;
 }
@@ -183,14 +180,11 @@ void MainScreen::Stop(){
 	delete graphics2D_menu;
 	delete graphics3D_menu;
 	delete graphics3D_maps;
+    delete graphics3D_light;
 	delete graphics3D_simple;
-	delete graphics3D_light;
 	delete graphics3D_misc;
 	delete font;
-	cross::system->WindowResized.Disconnect(this, &MainScreen::WindowResizedHandle);
-
-	Input::Action a;
-	input->ActionDown(a);
+    cross::system->WindowResized.Disconnect(resize_del);
 }
 
 void MainScreen::Update(float sec){

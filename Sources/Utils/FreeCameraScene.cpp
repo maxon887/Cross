@@ -41,13 +41,13 @@ void FreeCameraScene::Start() {
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
-	input->MouseWheelUp.Connect(this, &FreeCameraScene::MouseWheelUp);
-	input->MouseWheelDown.Connect(this, &FreeCameraScene::MouseWheelDown);
+	wheel_up_del = input->MouseWheelUp.Connect(this, &FreeCameraScene::MouseWheelUp);
+	wheel_down_del = input->MouseWheelDown.Connect(this, &FreeCameraScene::MouseWheelDown);
 }
 
 void FreeCameraScene::Stop(){
-    input->MouseWheelUp.Disconnect(this, &FreeCameraScene::MouseWheelUp);
-    input->MouseWheelDown.Disconnect(this, &FreeCameraScene::MouseWheelDown);
+    input->MouseWheelUp.Disconnect(wheel_up_del);
+    input->MouseWheelDown.Disconnect(wheel_down_del);
 
 	delete debug_font;
 

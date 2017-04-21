@@ -44,6 +44,8 @@ private:
 	bool located;
 	bool resizeble;
 	float menu_height;
+
+    U64 window_resize_del;
 	
 	void WindowResizedHandle(S32 width, S32 height);
 };

@@ -42,8 +42,8 @@ void TriangleScene::Start(){
 	triangle = new Mesh();
 	triangle->PushData(vertexBuffer, indices);
 	triangle->TransferVideoData();
-
 	triangle->SetMaterial(material);
+    delete vertexBuffer;
 }
 
 void TriangleScene::Stop(){

@@ -22,87 +22,65 @@ namespace cross{
 template<class... Args>
 class Event{
 public:
+    typedef uint64_t U64;
+
     void Emit(Args... p);
 
-    void Connect(std::function<void(Args...)> const& func);
+    U64 Connect(std::function<void(Args...)> const& func);
     template<class Clazz>
-    void Connect(Clazz* obj, void(Clazz::*func)(Args...));
+    U64 Connect(Clazz* obj, void(Clazz::*func)(Args...));
     template<class Clazz>
-    void Connect(Clazz* obj, void(Clazz::*func)(Args...) const);
+    U64 Connect(Clazz* obj, void(Clazz::*func)(Args...) const);
 
-    void Disconnect(std::function<void(Args...)> const& func);
-    template<class Clazz>
-    void Disconnect(Clazz* obj, void(Clazz::*func)(Args...));
-    template<class Clazz>
-    void Disconnect(Clazz* obj, void(Clazz::*func)(Args...) const);
-
+    void Disconnect(U64 del);
     void DisconnectAll();
 
     void operator () (Args...);
 
 private:
-    List<std::function<void(Args...)>> listeners;
+    std::map<U64, std::function<void(Args...)>> connections;
+    long connectID = 0;
 };
 
 //implementation
 template<class... Args>
 void Event<Args...>::Emit(Args... p){
-    for (auto it : listeners) {
-        it(p...);
+    for (auto it : connections) {
+        it.second(p...);
     }
 }
 
 template<class... Args>
-void Event<Args...>::Connect(std::function<void(Args...)> const& func){
-    listeners.push_back(func);
+U64 Event<Args...>::Connect(std::function<void(Args...)> const& func){
+    connections.insert(std::make_pair(connectID, func));
+    return connectID++;
 }
 
 template<class... Args>
 template<class Clazz>
-void Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...)){
-    Connect([=](Args... args){
+U64 Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...)){
+    return Connect([=](Args... args){
         (obj->*func)(args...);
     });
 }
 
 template<class... Args>
 template<class Clazz>
-void Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...) const) {
-    Connect([=](Args... args) {
+U64 Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...) const) {
+    return Connect([=](Args... args) {
         (obj->*func)(args...);
     });
 }
 
 template<class... Args>
-void Event<Args...>::Disconnect(std::function<void(Args...)> const& func) {
-    for (auto it = listeners.begin(); it != listeners.end(); it++) {
-        if (*it = func) {
-            listeners.erase(it++);
-            break;
-        }
-    }
-}
-
-template<class... Args>
-template<class Clazz>
-void Event<Args...>::Disconnect(Clazz* obj, void(Clazz::*func)(Args...)) {
-    Disconnect([=](Args... args) {
-        (obj->*func)(args...);
-    });
-}
-
-template<class... Args>
-template<class Clazz>
-void Event<Args...>::Disconnect(Clazz* obj, void(Clazz::*func)(Args...) const) {
-    Disconnect([=](Args... args) {
-        (obj->*func)(args...);
-    });
+void Event<Args...>::Disconnect(U64 del) {
+    connections.erase(del);
 }
 
 
 template<class... Args>
 void Event<Args...>::DisconnectAll(){
-    listeners.clear();
+    connections.clear();
 }
 
 template<class... Args>

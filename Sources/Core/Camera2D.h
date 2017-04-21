@@ -38,6 +38,7 @@ private:
 	float view_width;
 	float view_height;
 
+    U64 resize_del;
 	void WindowResizedHandle(S32 width, S32 height);
     //do we really need this method?
 	void WindowRisezedHandleCust(S32 width, S32 height);

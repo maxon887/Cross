@@ -26,9 +26,9 @@ void Screen::Start(){
 	is_scene = false;
 	enable_inputs = true;
 
-    input->ActionDown.Connect(this, &Screen::ActionDownHandle);
-    input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
-    input->ActionUp.Connect(this, &Screen::ActionUpHandle);
+    down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
+    move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
+    up_del = input->ActionUp.Connect(this, &Screen::ActionUpHandle);
 
 	for(U32 i = 0; i < MAX_ACTIONS; i++){
 		actionIDs[i] = false;
@@ -36,9 +36,9 @@ void Screen::Start(){
 }
 
 void Screen::Stop(){
-    input->ActionDown.Disconnect(this, &Screen::ActionDownHandle);
-    input->ActionMove.Disconnect(this, &Screen::ActionMoveHandle);
-    input->ActionUp.Disconnect(this, &Screen::ActionUpHandle);
+    input->ActionDown.Disconnect(down_del);
+    input->ActionMove.Disconnect(move_del);
+    input->ActionUp.Disconnect(up_del);
 	for(UI* ui : guis){
 		delete ui;
 	}

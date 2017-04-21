@@ -78,11 +78,12 @@ Debugger::Debugger() :
 
 Debugger::~Debugger(){
 	delete debugger_font;
+    /* Maybe unnecessary
 	if(params[Parameter::INPUT]){
 		input->ActionDown.Disconnect(this, &Debugger::OnActionDown);
 		input->ActionMove.Disconnect(this, &Debugger::OnActionMove);
 		input->ActionUp.Disconnect(this, &Debugger::OnActionUp);
-	}
+	}*/
 }
 
 void Debugger::SetTimeCheck() {

@@ -75,6 +75,8 @@ protected:
 
 	void FitText(string text);
 
+    U64 down_del;
+    U64 up_del;
 	void ActionDownHandler(Input::Action action);
 	void ActionUpHandler(Input::Action action);
 };

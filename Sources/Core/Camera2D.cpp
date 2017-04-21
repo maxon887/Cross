@@ -25,11 +25,11 @@ Camera2D::Camera2D() {
 	view_width = (float)system->GetWindowWidth();
 	view_height = (float)system->GetWindowHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
-	cross::system->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
+    resize_del = cross::system->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
 }
 
 Camera2D::~Camera2D() {
-	cross::system->WindowResized.Disconnect(this, &Camera2D::WindowResizedHandle);
+	cross::system->WindowResized.Disconnect(resize_del);
 }
 
 void Camera2D::SetViewWidth(float width) {

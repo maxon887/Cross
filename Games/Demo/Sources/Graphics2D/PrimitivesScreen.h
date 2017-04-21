@@ -94,6 +94,10 @@ private:
 
 	void GenerateEntity();
 
+    U64 down_del;
+    U64 move_del;
+    U64 up_del;
+
 	void OnActionDown(Input::Action action);
 	void OnActionMove(Input::Action action);
 	void OnActionUp(Input::Action action);

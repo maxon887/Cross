@@ -45,6 +45,7 @@ private:
 	void SetMenu(Menu* newMenu);
 
 	//connections
+    U64 resize_del;
 	void WindowResizedHandle(S32 width, S32 height);
 
 	//main menu

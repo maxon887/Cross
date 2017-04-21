@@ -85,8 +85,8 @@ Button::Button() :
 	handled_action_id(-1),
 	color(Color::White)
 {
-	input->ActionDown.Connect(this, &Button::ActionDownHandler);
-	input->ActionUp.Connect(this, &Button::ActionUpHandler);
+	down_del = input->ActionDown.Connect(this, &Button::ActionDownHandler);
+	up_del = input->ActionUp.Connect(this, &Button::ActionUpHandler);
 }
 
 Button::~Button() {
@@ -106,8 +106,8 @@ Button::~Button() {
 		delete pull_sound;
 	}
 
-    input->ActionDown.Disconnect(this, &Button::ActionDownHandler);
-    input->ActionUp.Disconnect(this, &Button::ActionUpHandler);
+    input->ActionDown.Disconnect(down_del);
+    input->ActionUp.Disconnect(up_del);
 	Clicked.DisconnectAll();
 }
 

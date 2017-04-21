@@ -24,15 +24,15 @@
 void PrimitivesScreen::Start(){
 	Screen::Start();
 	generate_entities = false;
-	input->ActionDown.Connect(this, &PrimitivesScreen::OnActionDown);
-	input->ActionMove.Connect(this, &PrimitivesScreen::OnActionMove);
-	input->ActionUp.Connect(this, &PrimitivesScreen::OnActionUp);
+	down_del = input->ActionDown.Connect(this, &PrimitivesScreen::OnActionDown);
+	move_del = input->ActionMove.Connect(this, &PrimitivesScreen::OnActionMove);
+	up_del = input->ActionUp.Connect(this, &PrimitivesScreen::OnActionUp);
 }
 
 void PrimitivesScreen::Stop(){
-	input->ActionDown.Disconnect(this, &PrimitivesScreen::OnActionDown);
-	input->ActionMove.Disconnect(this, &PrimitivesScreen::OnActionMove);
-	input->ActionUp.Disconnect(this, &PrimitivesScreen::OnActionUp);
+	input->ActionDown.Disconnect(down_del);
+	input->ActionMove.Disconnect(move_del);
+	input->ActionUp.Disconnect(up_del);
 	for(auto iter = entities.begin(); iter != entities.end();) {
 		Entity* entity = (*iter);
 		delete entity;

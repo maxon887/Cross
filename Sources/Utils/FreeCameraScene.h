@@ -62,6 +62,8 @@ protected:
 	Vector2D touch_position;
 	Vector3D target;
 
+    U64 wheel_up_del;
+    U64 wheel_down_del;
 	void MouseWheelUp();
 	void MouseWheelDown();
 };
