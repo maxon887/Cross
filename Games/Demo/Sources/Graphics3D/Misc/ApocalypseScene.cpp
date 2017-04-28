@@ -82,13 +82,21 @@ void ApocalypseScene::Start(){
 	road_mat->SetPropertyValue("Specular", 0.5f);
 	road_mat->SetPropertyValue("Shininess", 0.5f * 128.f);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
-	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
 	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
 }
 
 void ApocalypseScene::Stop(){
+	delete road_mat;
+	delete road_diffuse;
+	delete road_shader;
+	delete car_mat;
+	delete car_shininess;
+	delete car_specular;
+	delete car_diffuse;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

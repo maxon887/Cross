@@ -45,7 +45,7 @@ void DirectionalLightScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	Entity* cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	gfx3D->AdjustMaterial(cube, material);
 
 	for(U32 i = 0; i < 10; ++i){
@@ -54,9 +54,15 @@ void DirectionalLightScene::Start(){
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		AddEntity(clone);
 	}
+	cube->DeleteChildren();
+	delete cube;
 }
 
 void DirectionalLightScene::Stop(){
+	delete material;
+	delete specular_map;
+	delete diffuse_texture;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

@@ -26,7 +26,7 @@
 void SpecularScene::Start(){
 	CameraControlsScene::Start();
 	//lights
-	Entity* light = new Entity();
+	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -46,16 +46,20 @@ void SpecularScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess", 64.f);
-	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }
 
 void SpecularScene::Stop(){
+	delete material;
+	delete specular;
+	delete diffuse;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 
 void SpecularScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	//light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

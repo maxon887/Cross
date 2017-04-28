@@ -51,7 +51,7 @@ void TransparencyScene::Start(){
 	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
-	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
 	gfx3D->AdjustMaterial(road, road_mat, false, false);
 	AddEntity(road);
@@ -64,15 +64,17 @@ void TransparencyScene::Start(){
 	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	grass_shader->Compile();
 	grass_diffuse = gfx2D->LoadTexture("gfx3D/GrassDiffuse.png");
-	grass = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* grass = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
 	grass->SetRotateX(90.f);
+	AddEntity(grass);
 
 	gfx3D->AdjustMaterial(grass, grass_mat, false, true);
 
 	for(U32 i = 0; i < 10; ++i){
 		Entity* clone = grass->Clone();
+		clone->SetRotateX(90.f);
 		clone->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
 		clone->SetRotate(quat * clone->GetRotation());
@@ -88,13 +90,21 @@ void TransparencyScene::Start(){
 	sphere_mat = new Material(sphere_shader);
 	sphere_mat->SetPropertyValue("Transparency", 0.5f);
 
-	sphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	Entity* sphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	gfx3D->AdjustMaterial(sphere, sphere_mat, true, true);
 	AddEntity(sphere);
 	sphere->SetPosition(Vector3D(0.f, 1.f, 0.f));
 }
 
 void TransparencyScene::Stop(){
+	delete sphere_mat;
+	delete sphere_shader;
+	delete grass_mat;
+	delete grass_diffuse;
+	delete grass_shader;
+	delete road_mat;
+	delete road_diffuse;
+	delete road_shader;
 	CameraControlsScene::Stop();
 }
 

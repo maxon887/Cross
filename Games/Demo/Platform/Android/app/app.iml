@@ -9,7 +9,6 @@
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="armV7Debug" />
-        <option name="SELECTED_TEST_ARTIFACT" value="_android_test_" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleArmV7Debug" />
         <option name="COMPILE_JAVA_TASK_NAME" value="compileArmV7DebugSources" />
         <afterSyncTasks>
@@ -35,6 +34,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/armV7/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/armV7/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/armV7/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/armV7/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/armV7/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/armV7/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/res" type="java-resource" />
@@ -42,284 +42,92 @@
       <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/armV7Debug/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/armV7/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/armV7/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/armV7/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/armV7/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/armV7/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/armV7/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/armV7/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/assets" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/aidl" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/armV7/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/armV7/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/armV7/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/armV7/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/armV7/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/armV7/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testArmV7Debug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/armV7/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/armV7/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/armV7/shaders" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/assets" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/aidl" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testArmV7/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestArmV7/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/debug/shaders" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/assets" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/aidl" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/shaders" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/ndk" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Sources">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Sources" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Audio.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Audio.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Audio.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Audio.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera2D.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Camera3D.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Color.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Color.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Color.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Color.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Config.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Config.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Config.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Config.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Cross.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Cross.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Experimental">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Experimental" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/File.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/File.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/File.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/File.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Game.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Game.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Game.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Game.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics2D.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Graphics3D.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/GraphicsGL.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Input.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Input.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Input.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Input.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Libs/SOIL">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Libs/SOIL" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Libs/TinyXML">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Libs/TinyXML" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Light.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Light.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Light.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Light.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Material.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Material.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Math">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Math" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/MemoryManager.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Mesh.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Mesh.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Mesh.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Mesh.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Model.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Model.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Model.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Model.h" isTestSource="false" />
-    </content>
     <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/Android" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/CrossEGL.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/CrossEGL.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Platform/CrossEGL.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Platform/CrossEGL.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Scene.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Scene.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Scene.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Screen.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Screen.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Screen.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Screen.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Shaders">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Shaders" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Sound.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sound.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Sound.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sound.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Sprite.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sprite.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Sprite.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/System">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/System.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/System.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/System.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Texture.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Texture.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Transformable.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Transformable.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Transformable.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/UI.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/UI.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/UI.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/UI.h" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/Utils">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/Utils" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.cpp">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.cpp" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.h">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Sources/VertexBuffer.h" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 15 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

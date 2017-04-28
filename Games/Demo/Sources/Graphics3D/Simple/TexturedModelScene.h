@@ -27,5 +27,4 @@ private:
 	Shader* shader;
 	Texture* texture;
 	Material* material;
-	Entity* cube;
 };

@@ -28,6 +28,5 @@ private:
 	Texture* diffuse;
 	Texture* specular;
 	Material* material;
-	Entity* model;
 	Entity* light;
 };

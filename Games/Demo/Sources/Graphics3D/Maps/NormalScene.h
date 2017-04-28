@@ -30,6 +30,5 @@ private:
 	Texture* roughness;
 	Texture* normal;
 	Material* material;
-	Entity* model;
 	Entity* light;
 };

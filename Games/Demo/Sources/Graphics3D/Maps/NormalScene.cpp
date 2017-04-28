@@ -26,7 +26,7 @@
 void NormalScene::Start(){
 	CameraControlsScene::Start();
 	//lights
-	Entity* light = new Entity();
+	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -53,12 +53,18 @@ void NormalScene::Start(){
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
 	material->SetPropertyValue("Normal Map", normal);
-	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }
 
 void NormalScene::Stop(){
+	delete material;
+	delete normal;
+	delete roughness;
+	delete specular;
+	delete diffuse;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

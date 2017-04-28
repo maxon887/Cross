@@ -26,7 +26,7 @@
 void DiffuseScene::Start(){
 	CameraControlsScene::Start();
 	//lights
-	Entity* light = new Entity();
+	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -43,12 +43,15 @@ void DiffuseScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
-	revolver = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* revolver = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(revolver, material);
 	AddEntity(revolver);
 }
 
 void DiffuseScene::Stop(){
+	delete material;
+	delete diffuse;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

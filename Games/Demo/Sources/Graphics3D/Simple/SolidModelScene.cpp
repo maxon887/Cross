@@ -26,12 +26,14 @@ void SolidModelScene::Start(){
 	shader->Compile();
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
-	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	Entity* cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	gfx3D->AdjustMaterial(cube, material);
 	AddEntity(cube);
 }
 
 void SolidModelScene::Stop(){
+	delete material;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

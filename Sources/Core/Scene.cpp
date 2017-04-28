@@ -62,9 +62,6 @@ void Scene::SetCameraViewDistance(float distance){
 
 void Scene::AddEntity(Entity* entity){
 	objects.push_back(entity);
-	if(entity->GetComponent(Component::COLLIDER)){
-		colliders.push_back((Collider*)entity->GetComponent(Component::COLLIDER));
-	}
 	if(entity->GetComponent(Component::LIGHT)){
 		lights.push_back((Light*)entity->GetComponent(Component::LIGHT));
 	}

@@ -27,6 +27,4 @@ private:
 	Shader* shader;
 	Material* car_mat;
 	Material* road_mat;
-	Entity* camaro;
-	Entity* road;
 };

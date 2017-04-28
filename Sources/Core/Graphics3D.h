@@ -24,7 +24,7 @@ struct aiScene;
 
 namespace cross{
 
-/*	Class responsible for 3D objetcs drawing 
+/*	Class responsible for 3D objects drawing 
 	and model loading */
 class Graphics3D{
 public:
@@ -44,7 +44,7 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
-	Entity* LoadPrimitive(Primitives primitive, bool initialize = true);
+	Entity* LoadPrimitive(Primitives primitive);
 	Entity* LoadModel(const string& filename, bool initialize = true);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true, bool alphaBlending = false);
 

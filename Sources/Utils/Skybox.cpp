@@ -61,4 +61,6 @@ void Skybox::Draw(){
 	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetModelMatrix();
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
+	Mesh* mesh = (Mesh*)box->GetChildren().front()->GetComponent(Component::Type::MESH);
+	gfx3D->DrawMesh(mesh, mvp);
 }

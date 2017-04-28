@@ -26,7 +26,7 @@
 void RoughnessScene::Start(){
 	CameraControlsScene::Start();
 	//lights
-	Entity* light = new Entity();
+	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -49,12 +49,17 @@ void RoughnessScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
-	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }
 
 void RoughnessScene::Stop(){
+	delete material;
+	delete roughness;
+	delete specular;
+	delete diffuse;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

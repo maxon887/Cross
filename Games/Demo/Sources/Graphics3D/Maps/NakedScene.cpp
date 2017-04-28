@@ -25,7 +25,7 @@
 void NakedScene::Start(){
 	CameraControlsScene::Start();
 	//lights
-	Entity* light = new Entity();
+	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -38,12 +38,14 @@ void NakedScene::Start(){
 	material->SetPropertyValue("Diffuse Color", Color::White);
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
-	model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }
 
 void NakedScene::Stop(){
+	delete material;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

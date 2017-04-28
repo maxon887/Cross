@@ -32,23 +32,26 @@ void DepthScene::Start(){
 	SetAmbientColor(Color(0.1f));
 
 	shader = new Shader("gfx3D/shaders/depth_test.vert", "gfx3D/shaders/depth_test.frag");
-	shader->AddProperty("uFar", config->GetViewDistance());
+	shader->AddProperty("uFar", 30.f);
 	shader->AddProperty("uNear", 0.1f);
 	shader->Compile();
 
 	car_mat = new Material(shader);
-	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	
 	road_mat = new Material(shader);
-	road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
 	gfx3D->AdjustMaterial(road, road_mat, false, false);
 	AddEntity(road);
 }
 
 void DepthScene::Stop(){
+	delete road_mat;
+	delete car_mat;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

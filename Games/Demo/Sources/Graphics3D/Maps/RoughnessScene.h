@@ -29,6 +29,5 @@ private:
 	Texture* specular;
 	Texture* roughness;
 	Material* material;
-	Entity* model;
 	Entity* light;
 };

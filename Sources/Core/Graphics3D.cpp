@@ -52,23 +52,16 @@ Graphics3D::Graphics3D():
 
 Graphics3D::~Graphics3D(){
 	for(U32 i = 0; i < Primitives::COUNT; ++i){
-		delete primitives[i];
+		if(primitives[i]){
+			primitives[i]->DeleteChildren();
+			delete primitives[i];
+		}
 	}
 }
 
-Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive, bool initialize){
+Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
 	if(primitives[primitive]){
-		Entity* prim = primitives[primitive]->Clone();
-		/*
-		if(initialize){
-			Mesh* mesh = (Mesh*)prim->GetComponent(Component::Type::MESH);
-			if(mesh){
-				mesh->TransferVideoData();
-			}else{
-				throw CrossException("Primitive entity does not contain Mesh");
-			}
-		}*/
-		return prim;
+		return primitives[primitive]->Clone();
 	}else{
 		switch(primitive) {
 		case cross::Graphics3D::CUBE:
@@ -83,7 +76,7 @@ Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive, bool initial
 		default:
 			throw CrossException("Unknown primitive type");
 		}
-		return LoadPrimitive(primitive, initialize);
+		return LoadPrimitive(primitive);
 	}
 }
 
@@ -318,79 +311,6 @@ void Graphics3D::ProcessNode(Entity* entity, aiNode* node){
 		entity->AddChild(child);
 	}
 }
-
-/*
-void Graphics3D::ProcessNode(Entity* model, aiNode* node){
-	static bool newChild = true;
-
-	string nodeName = node->mName.C_Str();
-	//model->SetName(nodeName);
-	for(U32 i = 0; i < node->mNumMeshes; i++){
-		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[i]];
-		Mesh* crMesh = ProcessMesh(aiMesh);
-		if(format == Format::FBX){
-			//model->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
-			//current_translation = Matrix::Identity;
-			//current_pre_rotation = Matrix::Identity;
-			//current_rotation = Matrix::Identity;
-			//current_scaling = Matrix::Identity;
-			//current_geotranslation = Matrix::Identity;
-		}else{
-			model->SetName(nodeName);
-			Matrix modelMat = Matrix::Zero;
-			memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-			model->SetModelMatrix(modelMat);
-		}
-		model->AddComponent(crMesh);
-	}
-
-	if(format == Format::FBX){
-		if(nodeName.find("Translation") != std::string::npos){
-			newChild = false;
-			if(nodeName.find("Geometric") != std::string::npos){
-				memcpy(current_geotranslation.m, &node->mTransformation.a1, sizeof(float) * 16);
-			}else{
-				if(current_translation == Matrix::Identity){
-					memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
-				}
-			}
-		}else
-		if(nodeName.find("Scaling") != std::string::npos){
-			newChild = false;
-			memcpy(current_scaling.m, &node->mTransformation.a1, sizeof(float) * 16);
-		}else
-		if(nodeName.find("Rotation") != std::string::npos){
-			newChild = false;
-			if(nodeName.find("Pre") != std::string::npos){
-				memcpy(current_pre_rotation.m, &node->mTransformation.a1, sizeof(float) * 16);
-			}else{
-				if(current_translation == Matrix::Identity){
-					memcpy(current_translation.m, &node->mTransformation.a1, sizeof(float) * 16);
-				}
-			}
-		}else{
-			newChild = true;
-			model->SetName(nodeName);
-			//model->SetTranslateMatrix(current_translation * current_scaling);
-			model->SetModelMatrix(current_translation * current_pre_rotation * current_rotation * current_scaling * current_geotranslation);
-			current_translation = Matrix::Identity;
-			current_rotation = Matrix::Identity;
-			current_scaling = Matrix::Identity;
-			current_geotranslation = Matrix::Identity;
-		}
-	}
-
-	for(U32 i = 0; i < node->mNumChildren; ++i){
-		if(newChild){
-			Entity* child = new Entity();
-			child->SetParent(model);
-			ProcessNode(child, node->mChildren[i]);
-			model->AddChild(child);
-		}else{
-			ProcessNode(model, node->mChildren[i]);
-		}
-	}
-}*/
 
 Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 	VertexBuffer* vertexBuffer = new VertexBuffer();

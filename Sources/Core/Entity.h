@@ -34,6 +34,7 @@ public:
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
 	List<Entity*>& GetChildren();
+	void DeleteChildren();
 	Entity* FindChild(const string& name);
 	Entity* Clone();
 	//Not optimized function

@@ -51,9 +51,10 @@ protected:
 
 	Array<Light*> lights;
 	Array<Collider*> colliders;
-	Array<Entity*> objects;
 
 private:
+	Array<Entity*> objects;
+
     U64 resize_del;
 	void WindowResizeHandle(S32 width, S32 height);
 };

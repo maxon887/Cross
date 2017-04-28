@@ -27,5 +27,4 @@ protected:
 	Texture* diffuse_texture;
 	Texture* specular_map;
 	Material* material;
-	Entity* cube;
 };

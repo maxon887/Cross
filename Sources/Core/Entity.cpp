@@ -78,6 +78,17 @@ List<Entity*>& Entity::GetChildren(){
 	return children;
 }
 
+void Entity::DeleteChildren(){
+	for(Entity* c : children){
+		if(c->GetChildren().size()){
+			for(Entity* cc : children){
+				cc->DeleteChildren();
+			}
+		}
+		delete c;
+	}
+}
+
 Entity* Entity::FindChild(const string& name){
 	for(Entity* child : children){
 		if(child->GetName() == name){

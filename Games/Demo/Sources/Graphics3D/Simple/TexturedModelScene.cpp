@@ -27,12 +27,15 @@ void TexturedModelScene::Start(){
 	material = new Material(shader);
 	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
-	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	Entity* cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	gfx3D->AdjustMaterial(cube, material);
 	AddEntity(cube);
 }
 
 void TexturedModelScene::Stop(){
+	delete material;
+	delete texture;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 
