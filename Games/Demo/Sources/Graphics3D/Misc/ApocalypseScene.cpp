@@ -39,10 +39,6 @@ void ApocalypseScene::Start(){
 	Entity* lightSpotRight = camaro->FindChild("FrontRightLight");
 	lightSpotRight->AddComponent(lightComponent->Clone());
 
-	//Entity* light = new Entity();
-	//light->AddComponent(new Light(Light::POINT));
-	//AddEntity(light);
-
 	AddEntity(camaro);
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
