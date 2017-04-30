@@ -25,7 +25,7 @@
 #include "Graphics3D.h"
 #include "Config.h"
 #include "Audio.h"
-#include "System/Debugger.h"
+#include "Internals/Debugger.h"
 #include "Platform/CrossEGL.h"
 
 #include <time.h>
@@ -44,7 +44,7 @@ int GLES_Main(){
 		WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
 		cross::system = winSys;
 		game = CrossMain();
-		input->KeyReleased += MakeDelegate(winSys, &WINSystem::KeyReleasedHandle);
+		input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
 		int winX = config->GetInt("WIN_POS_X", 0);
 		int winY = config->GetInt("WIN_POS_Y", 0);
