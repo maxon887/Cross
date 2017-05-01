@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Transformable.h"
 #include "GraphicsGL.h"
+#include "Graphics3D.h"
 #include "Component.h"
 
 namespace cross{
@@ -32,6 +33,7 @@ public:
 	~Mesh();
 
 	virtual void Update(float sec);
+	void Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilBehvaiour);
 
 	void TransferVideoData();
 	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);
