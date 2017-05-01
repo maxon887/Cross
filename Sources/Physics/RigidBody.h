@@ -33,9 +33,9 @@ public:
 
 private:
 	Vector3D velocity;
+	Vector3D acceleration;
 	Vector3D force;
 	float inverse_mass;
-	bool use_gravity;
 };
 
 }

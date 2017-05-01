@@ -84,7 +84,7 @@ void PhysicsScreen::Start() {
 	green_ball = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	gfx3D->AdjustMaterial(green_ball, green_mat);
 	green_ball->SetPosition(Vector3D(4.f, 4.f, 0.f));
-	green_ball->AddComponent(new RigidBody(3.f));
+	green_ball->AddComponent(new RigidBody(1.f));
 	AddEntity(green_ball);
 }
 
@@ -101,7 +101,7 @@ void PhysicsScreen::Stop() {
 void PhysicsScreen::Update(float sec) {
 	if(green_ball->GetPosition().y <= 0.f){
 		RigidBody* rb = (RigidBody*)green_ball->GetComponent(Component::Type::RIGIDBODY);
-		rb->ApplyForce(Vector3D(0.f, 2.f, 0.f));
+		rb->ApplyForce(Vector3D(0.f, 20.f, 0.f));
 	}
 
 

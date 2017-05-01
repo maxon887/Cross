@@ -20,28 +20,32 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 using namespace cross;
 
-RigidBody::RigidBody() : 
+RigidBody::RigidBody() :
 	Component(Component::Type::RIGIDBODY),
 	velocity(Vector3D::Zero),
-	inverse_mass(1.f),
-	use_gravity(true)
-{ }
+	acceleration(Vector3D::Zero),
+	force(Vector3D::Zero),
+	inverse_mass(1.f)
+{
+	acceleration.y = -physics->g;
+}
 
 RigidBody::RigidBody(float mass) :
 	Component(Component::Type::RIGIDBODY),
-	velocity(Vector3D::Zero),
-	use_gravity(true)
+	acceleration(Vector3D::Zero),
+	force(Vector3D::Zero),
+	velocity(Vector3D::Zero)
 { 
 	SetMass(mass);
+	acceleration.y = -physics->g;
 }
 
 void RigidBody::Update(float sec){
-	if(use_gravity){
-		velocity.y -= physics->g * sec;
-	}
+	Vector3D resAccel = acceleration;
+	resAccel += force * inverse_mass;
 
-	velocity += force * inverse_mass;
 	force = Vector3D::Zero;
+	velocity += resAccel * sec;
 
 	GetEntity()->SetPosition(GetEntity()->GetPosition() + velocity * sec);
 }
