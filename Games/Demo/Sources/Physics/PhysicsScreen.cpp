@@ -51,6 +51,7 @@ void PhysicsScreen::Start() {
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
+	road_mat->SetPropertyValue("Transparency", 0.5f);
 
 	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(250.f);
@@ -80,10 +81,11 @@ void PhysicsScreen::Start() {
 	green_mat->SetPropertyValue("Diffuse Color", Color::Green);
 	green_mat->SetPropertyValue("Specular Color", Color::White);
 
-	Entity* greenBall = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	gfx3D->AdjustMaterial(greenBall, green_mat);
-	greenBall->SetPosition(Vector3D(2.f, 1.f, 0.f));
-	AddEntity(greenBall);
+	green_ball = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	gfx3D->AdjustMaterial(green_ball, green_mat);
+	green_ball->SetPosition(Vector3D(4.f, 4.f, 0.f));
+	green_ball->AddComponent(new RigidBody(3.f));
+	AddEntity(green_ball);
 }
 
 void PhysicsScreen::Stop() {
@@ -97,6 +99,12 @@ void PhysicsScreen::Stop() {
 }
 
 void PhysicsScreen::Update(float sec) {
+	if(green_ball->GetPosition().y <= 0.f){
+		RigidBody* rb = (RigidBody*)green_ball->GetComponent(Component::Type::RIGIDBODY);
+		rb->ApplyForce(Vector3D(0.f, 2.f, 0.f));
+	}
+
+
 	CameraControlsScene::Update(sec);
 	//GetCamera()->LookAt(redBall->GetPosition());
 }

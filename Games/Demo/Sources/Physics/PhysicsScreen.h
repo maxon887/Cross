@@ -33,4 +33,6 @@ private:
 	Shader* ball_shader;
 	Material* red_mat;
 	Material* green_mat;
+
+	Entity* green_ball;
 };
