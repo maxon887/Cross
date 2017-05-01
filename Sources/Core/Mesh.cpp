@@ -105,14 +105,6 @@ bool Mesh::IsFaceCullingEnabled(){
 	return face_culling;
 }
 
-void Mesh::SetAlphaBlendingEnabled(bool enabled){
-	alpha_blending = enabled;
-}
-
-bool Mesh::IsAlphaBlendingEnabled(){
-	return alpha_blending;
-}
-
 VertexBuffer* Mesh::GetVertexBuffer() {
 	return vertex_buffer;
 }

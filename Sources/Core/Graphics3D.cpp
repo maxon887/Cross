@@ -90,12 +90,11 @@ Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
 	return model;
 }
 
-void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCulling, bool alphaBlending){
+void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCulling){
 	Mesh* mesh = (Mesh*)model->GetComponent(Component::Type::MESH);
 	if(mesh){
 		mesh->SetMaterial(material);
 		mesh->SetFaceCullingEnabled(faceCulling);
-		mesh->SetAlphaBlendingEnabled(alphaBlending);
 	}
 	for(Entity* child : model->GetChildren()){
 		AdjustMaterial(child, material);
@@ -265,7 +264,7 @@ void Graphics3D::DrawMesh(Mesh* mesh, const Matrix& globalModel, StencilBehaviou
 		throw CrossException("Unknow stecil behaviour");
 	}
 	//alpha blending
-	if(mesh->IsAlphaBlendingEnabled()){
+	if(material->transparency){
 		SAFE(glEnable(GL_BLEND));
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}

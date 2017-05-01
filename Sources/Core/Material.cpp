@@ -21,7 +21,9 @@ using namespace cross;
 
 Material::Material(Shader* shader) :
 	shader(shader),
-	active_texture_slot(0){
+	active_texture_slot(0),
+	transparency(false)
+{
 	if(shader->IsCompiled()){
 		for(Shader::Property* prop : shader->properties){
 			properties.push_back(new Shader::Property(*prop));
@@ -33,7 +35,8 @@ Material::Material(Shader* shader) :
 
 Material::Material(Material& obj) :
 	shader(obj.shader),
-	active_texture_slot(obj.active_texture_slot)
+	active_texture_slot(obj.active_texture_slot),
+	transparency(false)
 { 
 	for(Shader::Property* prop : obj.properties){
 		properties.push_back(prop->Clone());
@@ -48,6 +51,14 @@ Material::~Material(){
 
 void Material::SetShader(Shader* shader){
 	this->shader = shader;
+}
+
+Shader* Material::GetShader() {
+	if(shader) {
+		return shader;
+	} else {
+		throw CrossException("Current material does not contain shader");
+	}
 }
 
 Shader::Property* Material::GetProperty(const string& name){
@@ -138,12 +149,8 @@ void Material::SetPropertyValue(GLuint glID, Texture* value){
 	prop->SetValue(value);
 }
 
-Shader* Material::GetShader(){
-	if(shader){
-		return shader;
-	}else{
-		throw CrossException("Current material does not contain shader");
-	}
+void Material::TransparencyEnabled(bool yes){
+	transparency = yes;
 }
 
 Material* Material::Clone(){

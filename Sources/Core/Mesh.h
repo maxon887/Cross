@@ -41,8 +41,6 @@ public:
 
 	void SetFaceCullingEnabled(bool enabled);
 	bool IsFaceCullingEnabled();
-	void SetAlphaBlendingEnabled(bool enabled);
-	bool IsAlphaBlendingEnabled();
 
 	VertexBuffer* GetVertexBuffer();
 	Array<GLushort>& GetIndices();
@@ -62,7 +60,6 @@ protected:
 	bool original;
 	bool initialized;
 	bool face_culling;
-	bool alpha_blending;
 
 	Mesh(Mesh& obj);
 };
