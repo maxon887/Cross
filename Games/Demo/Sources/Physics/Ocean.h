@@ -39,8 +39,12 @@ private:
 		float rest_length;
 
 		Spring(RigidBody* obj1, RigidBody* obj2, float restLength);
+		Spring(Vector3D ancor, RigidBody* obj, float restLength);
+
 		void Update();
 	private:
+		bool fixed;
+		Vector3D ancor;
 		RigidBody* p1;
 		RigidBody* p2;
 	};
@@ -52,6 +56,8 @@ private:
 	Material* red_mat;
 	Material* green_mat;
 	Material* orange_mat;
+	Material* white_mat;
 
 	Spring* free_spring;
+	Spring* fixed_spring;
 };
