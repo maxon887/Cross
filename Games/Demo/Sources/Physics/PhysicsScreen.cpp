@@ -25,7 +25,25 @@
 #include "Shaders/MultiLightShader.h"
 #include "Texture.h"
 #include "Graphics2D.h"
+#include "System.h"
 #include "Physics/RigidBody.h"
+
+PhysicsScreen::BuoyantEntity::BuoyantEntity(Entity* e) : 
+	Entity(*e)
+{ 
+	e->DeleteChildren();
+	delete e;
+}
+
+void PhysicsScreen::BuoyantEntity::Update(float sec){
+	if(GetPosition().y <= 0.f){
+		RigidBody* rb = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
+		if(rb){
+			rb->ApplyForce(Vector3D(0.f, 20.f, 0.f));
+		}
+	}
+	Entity::Update(sec);
+}
 
 void PhysicsScreen::Start() {
 	CameraControlsScene::Start();
@@ -38,25 +56,7 @@ void PhysicsScreen::Start() {
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
 	SetBackground(Color(0.3f));
-	//*********************ROAD**********************
-	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	road_shader->AddMakro("USE_DIFFUSE_MAP");
-	road_shader->AddMakro("USE_TILLING_FACTOR");
-	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
-	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
-	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 12.f);
-	road_shader->Compile();
-	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
-	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	road_mat = new Material(road_shader);
-	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
-	road_mat->SetPropertyValue("Transparency", 0.5f);
-
-	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	road->SetScale(250.f);
-	gfx3D->AdjustMaterial(road, road_mat, false);
-	AddEntity(road);
+	
 	//*********************BALLS SHADER**********************
 	ball_shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	ball_shader->AddProperty("Diffuse Color", "uColor");
@@ -68,12 +68,12 @@ void PhysicsScreen::Start() {
 	red_mat->SetPropertyValue("Diffuse Color", Color::Red);
 	red_mat->SetPropertyValue("Specular Color", Color::White);
 
-
-	Entity* redBall = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	
+	BuoyantEntity* redBall = new BuoyantEntity(gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE));
 	gfx3D->AdjustMaterial(redBall, red_mat);
-	redBall->SetPosition(Vector3D(-1.f, 1.f, 0.f));
+	redBall->SetPosition(Vector3D(-1.f, 5.f, 0.f));
 	RigidBody* rigid = new RigidBody();
-	rigid->SetVelocity(Vector3D(25.f, 25.f, 0.f));
+	rigid->SetVelocity(Vector3D(5.f, 5.f, 0.f));
 	redBall->AddComponent(rigid);
 	AddEntity(redBall);
 	//*********************GREEN BALL**********************
@@ -81,30 +81,38 @@ void PhysicsScreen::Start() {
 	green_mat->SetPropertyValue("Diffuse Color", Color::Green);
 	green_mat->SetPropertyValue("Specular Color", Color::White);
 
-	green_ball = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	gfx3D->AdjustMaterial(green_ball, green_mat);
-	green_ball->SetPosition(Vector3D(4.f, 4.f, 0.f));
-	green_ball->AddComponent(new RigidBody(1.f));
-	AddEntity(green_ball);
+	BuoyantEntity* greenBall =  new BuoyantEntity(gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE));
+	gfx3D->AdjustMaterial(greenBall, green_mat);
+	greenBall->SetPosition(Vector3D(4.f, 4.f, 0.f));
+	greenBall->AddComponent(new RigidBody(1.f));
+	AddEntity(greenBall);
+	//*********************ROAD**********************
+	water_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	water_shader->AddMakro("USE_TILLING_FACTOR");
+	water_shader->AddProperty("Specular", "uSpecular", 0.5f);
+	water_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
+	water_shader->AddProperty("Color", "uDiffuseColor", Color::Blue);
+	water_shader->Compile();
+	water_mat = new Material(water_shader);
+	water_mat->SetPropertyValue("Transparency", 0.65f);
+	water_mat->TransparencyEnabled(true);
+
+	Entity* water = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	water->SetScale(500.f);
+	gfx3D->AdjustMaterial(water, water_mat, false);
+	AddEntity(water);
 }
 
 void PhysicsScreen::Stop() {
 	delete green_mat;
 	delete red_mat;
 	delete ball_shader;
-	delete road_mat;
-	delete road_diffuse;
-	delete road_shader;
+	delete water_mat;
+	delete water_shader;
 	CameraControlsScene::Stop();
 }
 
 void PhysicsScreen::Update(float sec) {
-	if(green_ball->GetPosition().y <= 0.f){
-		RigidBody* rb = (RigidBody*)green_ball->GetComponent(Component::Type::RIGIDBODY);
-		rb->ApplyForce(Vector3D(0.f, 20.f, 0.f));
-	}
-
-
 	CameraControlsScene::Update(sec);
 	//GetCamera()->LookAt(redBall->GetPosition());
 }

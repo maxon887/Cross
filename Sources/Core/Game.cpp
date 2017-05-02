@@ -50,6 +50,7 @@ Game::Game() :
 
 Game::~Game(){
 	system->LogIt("Game::~Game");
+	delete physics;
 	delete current_screen;
 	delete config;
 	delete input;

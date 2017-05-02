@@ -26,6 +26,24 @@ Entity::Entity() :
 	memset(components, 0, sizeof(components));
 }
 
+Entity::Entity(Entity& e) :
+	name(e.name + "_clone"),
+	parent(NULL)
+{
+	memset(components, 0, sizeof(components));
+	for(U32 i = 0; i < Component::Type::COUNT; ++i){
+		if(e.components[i]){
+			this->components[i] = e.components[i]->Clone();
+			this->components[i]->Initialize(this);
+		}
+	}
+	for(Entity* child : e.children){
+		Entity* cloneChild = child->Clone();
+		cloneChild->parent = this;
+		this->AddChild(cloneChild);
+	}
+}
+
 Entity::~Entity(){
 	for(Component* component : components) {
 		if(component) {

@@ -17,6 +17,7 @@
 #pragma once
 #include "Graphics3D/CameraControlsScene.h"
 #include "Shaders/MultiLightShader.h"
+#include "Entity.h"
 
 class PhysicsScreen : public CameraControlsScene {
 public:
@@ -25,14 +26,18 @@ public:
 	virtual void Update(float sec);
 
 private:
+	class BuoyantEntity : public Entity{
+	public:
+		BuoyantEntity(Entity* e);
+		virtual ~BuoyantEntity() { }
+
+		virtual void Update(float sec);
+	};
 	//road
-	MultiLightShader* road_shader;
-	Texture* road_diffuse;
-	Material* road_mat;
+	MultiLightShader* water_shader;
+	Material* water_mat;
 	//balls
 	Shader* ball_shader;
 	Material* red_mat;
 	Material* green_mat;
-
-	Entity* green_ball;
 };

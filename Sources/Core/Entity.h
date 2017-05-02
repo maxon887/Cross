@@ -24,9 +24,11 @@ namespace cross{
 class Entity : public Transformable {
 public:
 	Entity();
-	~Entity();
+	Entity(Entity& e);
+	virtual ~Entity();
 
-	void Update(float sec);
+	virtual void Update(float sec);
+
 	void SetName(const string& name);
 	string& GetName();
 	void AddComponent(Component* component);
