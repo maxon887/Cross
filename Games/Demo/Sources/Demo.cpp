@@ -21,7 +21,7 @@
 #include "System.h"
 #include "Sprite.h"
 //temp
-#include "Physics/PhysicsScreen.h"
+#include "Physics/Ocean.h"
 
 Demo* demo = NULL;
 
@@ -74,7 +74,7 @@ Screen* Demo::GetStartScreen(){
 	camera->SetPosition(Vector3D::Zero);
 	gfx2D->SetCamera(camera);
 	//return new MainScreen();
-	return new PhysicsScreen();
+	return new Ocean();
 }
 
 Sprite* Demo::GetCommonSprite(string name){

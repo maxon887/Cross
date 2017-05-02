@@ -41,7 +41,7 @@
 #include "Graphics3D/Misc/TransparencyScene.h"
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
-#include "Physics/PhysicsScreen.h"
+#include "Physics/Ocean.h"
 #include "Demo.h"
 #include "Event.h"
 
@@ -168,8 +168,8 @@ void MainScreen::Start(){
 	graphics3D_misc->SetImages(buttonSprite, buttonSpritePressed);
 
 	physics_menu = new Menu(true);
-	Button* testBtn				= new Button("Test", font->Clone());
-	testBtn->Clicked.Connect([](){ game->SetScreen(new PhysicsScreen()); });
+	Button* testBtn				= new Button("Ocean", font->Clone());
+	testBtn->Clicked.Connect([](){ game->SetScreen(new Ocean()); });
 	physics_menu->AddButton(testBtn);
 	physics_menu->SetImages(buttonSprite, buttonSpritePressed);
 

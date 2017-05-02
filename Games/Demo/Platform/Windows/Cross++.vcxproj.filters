@@ -331,7 +331,7 @@
     <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\PhysicsScreen.cpp">
+    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
       <Filter>Demo\Physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -610,7 +610,7 @@
     <ClInclude Include="..\..\..\..\Sources\Physics\RigidBody.h">
       <Filter>Cross\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\PhysicsScreen.h">
+    <ClInclude Include="..\..\Sources\Physics\Ocean.h">
       <Filter>Demo\Physics</Filter>
     </ClInclude>
   </ItemGroup>
