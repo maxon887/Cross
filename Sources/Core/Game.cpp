@@ -21,6 +21,7 @@
 #include "Scene.h"
 #include "Internals/Debugger.h"
 #include "Graphics2D.h"
+#include "Physics/Physics.h"
 #include "Audio.h"
 
 using namespace cross;
@@ -31,6 +32,7 @@ Audio*		cross::audio	= NULL;
 GraphicsGL* cross::gfxGL	= NULL;
 Graphics2D* cross::gfx2D	= NULL;
 Graphics3D* cross::gfx3D	= NULL;
+Physics*	cross::physics	= NULL;
 Input*		cross::input	= NULL;
 Config*		cross::config	= NULL;
 
@@ -43,6 +45,7 @@ Game::Game() :
 	system->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
+	physics = new Physics();
 }
 
 Game::~Game(){

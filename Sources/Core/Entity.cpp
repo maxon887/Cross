@@ -35,9 +35,6 @@ Entity::~Entity(){
 }
 
 void Entity::Update(float sec){
-	for(Entity* child : children){
-		child->Update(sec);
-	}
 	for(Component* component : components){
 		if(component){
 			component->Update(sec);

@@ -20,6 +20,8 @@
 #include "Camera2D.h"
 #include "System.h"
 #include "Sprite.h"
+//temp
+#include "Physics/PhysicsScreen.h"
 
 Demo* demo = NULL;
 
@@ -71,7 +73,8 @@ void Demo::Update(float sec){
 Screen* Demo::GetStartScreen(){
 	camera->SetPosition(Vector3D::Zero);
 	gfx2D->SetCamera(camera);
-	return new MainScreen();
+	//return new MainScreen();
+	return new PhysicsScreen();
 }
 
 Sprite* Demo::GetCommonSprite(string name){

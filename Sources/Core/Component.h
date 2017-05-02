@@ -25,6 +25,7 @@ public:
 	enum Type{
 		MESH,
 		LIGHT,
+		RIGIDBODY,
 		COUNT
 	};
 
