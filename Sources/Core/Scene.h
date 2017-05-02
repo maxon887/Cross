@@ -50,7 +50,6 @@ protected:
 	Color ambient_color;
 
 	Array<Light*> lights;
-	Array<Collider*> colliders;
 
 private:
 	Array<Entity*> objects;
