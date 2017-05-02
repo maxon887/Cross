@@ -45,6 +45,20 @@ void Ocean::BuoyantEntity::Update(float sec){
 	Entity::Update(sec);
 }
 
+Ocean::Spring::Spring(RigidBody* obj1, RigidBody* obj2, float restLength) :
+	p1(obj1),
+	p2(obj2),
+	rest_length(restLength)
+{ }
+
+void Ocean::Spring::Update(){
+	Vector3D dir = p1->GetPosition() - p2->GetPosition();
+	float dL = dir.Length() - rest_length;
+
+	p1->ApplyForce(dir.GetNormalized() * -dL * coef);
+	p2->ApplyForce(dir.GetNormalized() * dL * coef);
+}
+
 void Ocean::Start() {
 	CameraControlsScene::Start();
 	LookAtCamera(false);
@@ -86,6 +100,28 @@ void Ocean::Start() {
 	greenBall->SetPosition(Vector3D(4.f, 4.f, 0.f));
 	greenBall->AddComponent(new RigidBody(1.f));
 	AddEntity(greenBall);
+
+	//*********************CONNECTED BALLS**********************
+	BuoyantEntity* b1 =  new BuoyantEntity(gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE));
+	BuoyantEntity* b2 =  new BuoyantEntity(gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE));
+	orange_mat = new Material(ball_shader);
+	orange_mat->SetPropertyValue("Diffuse Color", Color(1.f, 0.5f, 0.f));
+	orange_mat->SetPropertyValue("Specular Color", Color::White);
+	gfx3D->AdjustMaterial(b1, orange_mat);
+	gfx3D->AdjustMaterial(b2, orange_mat);
+	b1->SetPosition(Vector3D(4.f, 4.f, -2.f));
+	b2->SetPosition(Vector3D(3.f, 2.f, 0.f));
+	RigidBody* b1rb = new RigidBody();
+	b1rb->SetVelocity(Vector3D(0.f, 3.f, 0.f));
+	b1->AddComponent(b1rb);
+	RigidBody* b2rb = new RigidBody();
+	b2rb->SetVelocity(Vector3D(0.f, 3.f, 3.f));
+	b2->AddComponent(b2rb);
+	free_spring = new Spring(b1rb, b2rb, 3.f);
+
+	AddEntity(b1);
+	AddEntity(b2);
+	
 	//*********************ROAD**********************
 	water_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	water_shader->AddMakro("USE_TILLING_FACTOR");
@@ -104,8 +140,10 @@ void Ocean::Start() {
 }
 
 void Ocean::Stop() {
+	delete free_spring;
 	delete green_mat;
 	delete red_mat;
+	delete orange_mat;
 	delete ball_shader;
 	delete water_mat;
 	delete water_shader;
@@ -113,6 +151,7 @@ void Ocean::Stop() {
 }
 
 void Ocean::Update(float sec) {
+	free_spring->Update();
 	CameraControlsScene::Update(sec);
 	//GetCamera()->LookAt(redBall->GetPosition());
 }

@@ -33,6 +33,17 @@ private:
 
 		virtual void Update(float sec);
 	};
+	class Spring {
+	public:
+		float coef = 3.f;
+		float rest_length;
+
+		Spring(RigidBody* obj1, RigidBody* obj2, float restLength);
+		void Update();
+	private:
+		RigidBody* p1;
+		RigidBody* p2;
+	};
 	//road
 	MultiLightShader* water_shader;
 	Material* water_mat;
@@ -40,4 +51,7 @@ private:
 	Shader* ball_shader;
 	Material* red_mat;
 	Material* green_mat;
+	Material* orange_mat;
+
+	Spring* free_spring;
 };
