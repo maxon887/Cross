@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Transformable.h"
 #include "GraphicsGL.h"
+#include "Graphics3D.h"
 #include "Component.h"
 
 namespace cross{
@@ -32,6 +33,7 @@ public:
 	~Mesh();
 
 	virtual void Update(float sec);
+	void Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilBehvaiour);
 
 	void TransferVideoData();
 	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);
@@ -41,8 +43,6 @@ public:
 
 	void SetFaceCullingEnabled(bool enabled);
 	bool IsFaceCullingEnabled();
-	void SetAlphaBlendingEnabled(bool enabled);
-	bool IsAlphaBlendingEnabled();
 
 	VertexBuffer* GetVertexBuffer();
 	Array<GLushort>& GetIndices();
@@ -62,7 +62,6 @@ protected:
 	bool original;
 	bool initialized;
 	bool face_culling;
-	bool alpha_blending;
 
 	Mesh(Mesh& obj);
 };

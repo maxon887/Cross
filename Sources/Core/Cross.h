@@ -90,6 +90,7 @@ using namespace std;
 #define CROSS_FRIENDLY	\
 friend Shader;			\
 friend Material;		\
+friend Mesh;			\
 friend GraphicsGL;		\
 friend Graphics2D;		\
 friend Graphics3D;		\

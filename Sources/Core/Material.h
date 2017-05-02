@@ -25,16 +25,14 @@ namespace cross{
 	specular streight, transparency, all textures types etc.*/
 class Material{
 public:
-	Array<Shader::Property*> properties;
-	U32 active_texture_slot;
-
 	Material(Shader* shader);
 	~Material();
 
 	void SetShader(Shader* shader);
+	Shader* GetShader();
+
 	Shader::Property* GetProperty(const string& name);
 	Shader::Property* GetProperty(GLuint glID);
-
 	void SetPropertyValue(const string& name, U32 value);
 	void SetPropertyValue(const string& name, float value);
 	void SetPropertyValue(const string& name, const Color& value);
@@ -50,12 +48,17 @@ public:
 	void SetPropertyValue(GLuint glID, Matrix& value);
 	void SetPropertyValue(GLuint glID, Texture* value);
 
-	Shader* GetShader();
+	void TransparencyEnabled(bool yes);
 
 	Material* Clone();
 
 private:
+	CROSS_FRIENDLY
+
 	Shader* shader;
+	Array<Shader::Property*> properties;
+	U32 active_texture_slot;
+	bool transparency;
 
 	Material(Material& obj);
 };

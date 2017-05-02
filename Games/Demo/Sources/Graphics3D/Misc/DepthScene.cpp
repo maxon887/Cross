@@ -44,7 +44,7 @@ void DepthScene::Start(){
 	road_mat = new Material(shader);
 	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
-	gfx3D->AdjustMaterial(road, road_mat, false, false);
+	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
 }
 

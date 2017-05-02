@@ -46,10 +46,7 @@ public:
 
 	Entity* LoadPrimitive(Primitives primitive);
 	Entity* LoadModel(const string& filename, bool initialize = true);
-	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true, bool alphaBlending = false);
-
-	void DrawMesh(Mesh* mesh, const Matrix& mode);
-	void DrawMesh(Mesh* mesh, const Matrix& model, StencilBehaviour stencilBehvaiour);
+	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
 
 protected:
 	Entity* primitives[COUNT];

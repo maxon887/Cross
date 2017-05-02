@@ -23,6 +23,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 using namespace cross;
 
@@ -62,5 +63,5 @@ void Skybox::Draw(){
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
 	Mesh* mesh = (Mesh*)box->GetChildren().front()->GetComponent(Component::Type::MESH);
-	gfx3D->DrawMesh(mesh, mvp);
+	mesh->Draw(mvp, Graphics3D::StencilBehaviour::IGNORED);
 }

@@ -55,5 +55,5 @@ void TriangleScene::Stop(){
 
 void TriangleScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	gfx3D->DrawMesh(triangle, Matrix::Identity, Graphics3D::StencilBehaviour::IGNORED);
+	triangle->Draw(Matrix::Identity, Graphics3D::StencilBehaviour::IGNORED);
 }
