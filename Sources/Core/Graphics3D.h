@@ -44,12 +44,14 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
+	void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 	Entity* LoadPrimitive(Primitives primitive);
 	Entity* LoadModel(const string& filename, bool initialize = true);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
 
 protected:
 	Entity* primitives[COUNT];
+	Shader* simple_shader;
 	const aiScene* current_scene;
 	//fbx specific stuff
 	bool initialize_in_load;
