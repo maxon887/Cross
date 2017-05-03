@@ -65,12 +65,14 @@ void Ocean::Spring::Update(){
 		float dL = dir.Length() - rest_length;
 
 		p1->ApplyForce(dir.GetNormalized() * -dL * coef);
+		gfx3D->DrawLine(p1->GetPosition(), ancor, Color::Red);
 	}else{
 		Vector3D dir = p1->GetPosition() - p2->GetPosition();
 		float dL = dir.Length() - rest_length;
 
 		p1->ApplyForce(dir.GetNormalized() * -dL * coef);
 		p2->ApplyForce(dir.GetNormalized() * dL * coef);
+		gfx3D->DrawLine(p1->GetPosition(), p2->GetPosition(), Color::Red);
 	}
 }
 
@@ -119,6 +121,8 @@ void Ocean::Start() {
 	//*********************CONNECTED BALLS**********************
 	BuoyantEntity* b1 =  new BuoyantEntity(gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE));
 	BuoyantEntity* b2 =  new BuoyantEntity(gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE));
+	b1->SetScale(0.5f);
+	b2->SetScale(0.5f);
 	orange_mat = new Material(ball_shader);
 	orange_mat->SetPropertyValue("Diffuse Color", Color(1.f, 0.5f, 0.f));
 	orange_mat->SetPropertyValue("Specular Color", Color::White);
@@ -142,10 +146,10 @@ void Ocean::Start() {
 	white_mat->SetPropertyValue("Diffuse Color", Color::White);
 	white_mat->SetPropertyValue("Specular Color", Color::White);
 	gfx3D->AdjustMaterial(hookedBall, white_mat);
-	hookedBall->SetPosition(Vector3D(7.f, 3.f, 0.f));
+	hookedBall->SetPosition(Vector3D(7.f, 5.f, 0.f));
 	RigidBody* hookedRB = new RigidBody(2.f);
 	hookedBall->AddComponent(hookedRB);
-	fixed_spring = new Spring(Vector3D(9.f, 5.f, 0.f), hookedRB, 1.5f);
+	fixed_spring = new Spring(Vector3D(9.f, 8.f, 0.f), hookedRB, 3.5f);
 	AddEntity(hookedBall);
 	
 	//*********************ROAD**********************
