@@ -78,6 +78,7 @@ void Ocean::Spring::Update(){
 
 void Ocean::Start() {
 	CameraControlsScene::Start();
+	SetBackground(Color(0.3f));
 	LookAtCamera(false);
 	GetCamera()->SetPosition(Vector3D(0.f, 3.f, -4.f));
 	GetCamera()->SetDirection(Vector3D(0.8f, 0.2f, 0.5f));
@@ -86,7 +87,6 @@ void Ocean::Start() {
 	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
-	SetBackground(Color(0.3f));
 	
 	//*********************BALLS SHADER**********************
 	ball_shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");

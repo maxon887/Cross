@@ -155,6 +155,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp" />
     <ClCompile Include="..\..\Sources\Physics\Ocean.cpp" />
     <ClCompile Include="..\..\Sources\ScrollScreen.cpp" />
     <ClCompile Include="main.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
+    <ClInclude Include="..\..\Sources\Physics\Bridge.h" />
     <ClInclude Include="..\..\Sources\Physics\Ocean.h" />
     <ClInclude Include="..\..\Sources\ScrollScreen.h" />
     <ClInclude Include="resource.h" />

@@ -42,6 +42,7 @@
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
 #include "Physics/Ocean.h"
+#include "Physics/Bridge.h"
 #include "Demo.h"
 #include "Event.h"
 
@@ -168,9 +169,11 @@ void MainScreen::Start(){
 	graphics3D_misc->SetImages(buttonSprite, buttonSpritePressed);
 
 	physics_menu = new Menu(true);
-	Button* testBtn				= new Button("Ocean", font->Clone());
-	testBtn->Clicked.Connect([](){ game->SetScreen(new Ocean()); });
-	physics_menu->AddButton(testBtn);
+	Button* oceanBtn			= new Button("Ocean", font->Clone());
+	Button* bridgeBtn			= new Button("Bridge", font->Clone());
+	oceanBtn->Clicked.Connect([](){ game->SetScreen(new Ocean()); });
+	bridgeBtn->Clicked.Connect([](){ game->SetScreen(new Bridge()); });
+	physics_menu->AddButton(oceanBtn);
 	physics_menu->SetImages(buttonSprite, buttonSpritePressed);
 
 	graphics2D_menu->Active(false);
