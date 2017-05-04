@@ -35,6 +35,13 @@ Ocean::BuoyantEntity::BuoyantEntity(Entity* e) :
 	delete e;
 }
 
+void Ocean::BuoyantEntity::AddComponent(Component* newOne){
+	if(newOne->GetType() == Component::Type::RIGIDBODY){
+		((RigidBody*)(newOne))->SetDumping(0.2);
+	}
+	Entity::AddComponent(newOne);
+}
+
 void Ocean::BuoyantEntity::Update(float sec){
 	if(GetPosition().y <= 0.f){
 		RigidBody* rb = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
@@ -80,8 +87,8 @@ void Ocean::Start() {
 	CameraControlsScene::Start();
 	SetBackground(Color(0.3f));
 	LookAtCamera(false);
-	GetCamera()->SetPosition(Vector3D(0.f, 3.f, -4.f));
-	GetCamera()->SetDirection(Vector3D(0.8f, 0.2f, 0.5f));
+	GetCamera()->SetPosition(Vector3D(-2.f, 3.f, -5.f));
+	GetCamera()->SetDirection(Vector3D(0.8f, -0.1f, 0.5f));
 	//light setups
 	Entity* light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
@@ -149,10 +156,11 @@ void Ocean::Start() {
 	hookedBall->SetPosition(Vector3D(7.f, 5.f, 0.f));
 	RigidBody* hookedRB = new RigidBody(2.f);
 	hookedBall->AddComponent(hookedRB);
-	fixed_spring = new Spring(Vector3D(9.f, 8.f, 0.f), hookedRB, 3.5f);
+	fixed_spring = new Spring(Vector3D(9.f, 8.f, 0.f), hookedRB, 2.f);
+	fixed_spring->coef = 5.f;
 	AddEntity(hookedBall);
 	
-	//*********************ROAD**********************
+	//*********************WATER**********************
 	water_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	water_shader->AddMakro("USE_TILLING_FACTOR");
 	water_shader->AddProperty("Specular", "uSpecular", 0.5f);

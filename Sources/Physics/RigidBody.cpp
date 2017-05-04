@@ -25,7 +25,8 @@ RigidBody::RigidBody() :
 	velocity(Vector3D::Zero),
 	acceleration(Vector3D::Zero),
 	force(Vector3D::Zero),
-	inverse_mass(1.f)
+	inverse_mass(1.f),
+	dumping(0.f)
 {
 	acceleration.y = -physics->g;
 }
@@ -34,7 +35,8 @@ RigidBody::RigidBody(float mass) :
 	Component(Component::Type::RIGIDBODY),
 	acceleration(Vector3D::Zero),
 	force(Vector3D::Zero),
-	velocity(Vector3D::Zero)
+	velocity(Vector3D::Zero),
+	dumping(0.f)
 { 
 	SetMass(mass);
 	acceleration.y = -physics->g;
@@ -46,6 +48,7 @@ void RigidBody::Update(float sec){
 
 	force = Vector3D::Zero;
 	velocity += resAccel * sec;
+	velocity *= powf(1.f - dumping, sec);
 
 	GetEntity()->SetPosition(GetEntity()->GetPosition() + velocity * sec);
 }
@@ -72,6 +75,14 @@ void RigidBody::SetVelocity(const Vector3D& vel){
 
 Vector3D RigidBody::GetVelocity(){
 	return velocity;
+}
+
+void RigidBody::SetDumping(float d){
+	dumping = d;
+}
+
+float RigidBody::GetDumping(){
+	return dumping;
 }
 
 void RigidBody::ApplyForce(const Vector3D& f){

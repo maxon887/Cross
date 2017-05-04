@@ -31,6 +31,7 @@ private:
 		BuoyantEntity(Entity* e);
 		virtual ~BuoyantEntity() { }
 
+		virtual void AddComponent(Component* component);
 		virtual void Update(float sec);
 	};
 	class Spring {

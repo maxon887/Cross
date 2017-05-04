@@ -35,6 +35,9 @@ public:
 	void SetVelocity(const Vector3D& vel);
 	Vector3D GetVelocity();
 
+	void SetDumping(float dumping);
+	float GetDumping();
+
 	void ApplyForce(const Vector3D& force);
 
 private:
@@ -42,6 +45,7 @@ private:
 	Vector3D acceleration;
 	Vector3D force;
 	float inverse_mass;
+	float dumping;
 };
 
 }

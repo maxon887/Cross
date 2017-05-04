@@ -107,8 +107,8 @@ Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
 }
 
 void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCulling){
-	Mesh* mesh = (Mesh*)model->GetComponent(Component::Type::MESH);
-	if(mesh){
+	if(model->HasComponent(Component::Type::MESH)) {
+		Mesh* mesh = (Mesh*)model->GetComponent(Component::Type::MESH);
 		mesh->SetMaterial(material);
 		mesh->SetFaceCullingEnabled(faceCulling);
 	}

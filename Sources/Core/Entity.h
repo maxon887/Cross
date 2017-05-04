@@ -27,11 +27,12 @@ public:
 	Entity(Entity& e);
 	virtual ~Entity();
 
+	virtual void AddComponent(Component* component);
 	virtual void Update(float sec);
 
 	void SetName(const string& name);
 	string& GetName();
-	void AddComponent(Component* component);
+	bool HasComponent(Component::Type type);
 	Component* GetComponent(Component::Type type);
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);

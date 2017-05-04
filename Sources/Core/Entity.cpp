@@ -77,6 +77,10 @@ void Entity::AddComponent(Component* component){
 	}
 }
 
+bool Entity::HasComponent(Component::Type type){
+	return (bool)(components[type]);
+}
+
 Component* Entity::GetComponent(Component::Type type) {
 	if(components[type]){
 		return components[type];
