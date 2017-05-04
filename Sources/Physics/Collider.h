@@ -23,6 +23,7 @@ namespace cross{
 class Contact {
 public:
 	Vector3D normal;
+	float depth;
 };
 
 class Collider : public Component {
@@ -30,6 +31,7 @@ public:
 	Collider();
 
 	virtual void Resolve(Collider* other, Contact& contact);
+	virtual void ResolveInterpenetration(Collider* other, Contact& contact);
 
 protected:
 	float CalcSeparatingVelocity(Collider* other, Vector3D& contactNormal);

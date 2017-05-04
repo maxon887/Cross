@@ -43,6 +43,7 @@ public:
 	Component* GetComponent(Component::Type type);
 	Transformable* GetTransform();
 	Vector3D GetPosition();
+	void SetPosition(const Vector3D& pos);
 
 private:
 	Type type;

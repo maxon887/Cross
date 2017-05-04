@@ -37,7 +37,7 @@ Ocean::BuoyantEntity::BuoyantEntity(Entity* e) :
 
 void Ocean::BuoyantEntity::AddComponent(Component* newOne){
 	if(newOne->GetType() == Component::Type::RIGIDBODY){
-		((RigidBody*)(newOne))->SetDumping(0.2);
+		((RigidBody*)(newOne))->SetDumping(0.2f);
 	}
 	Entity::AddComponent(newOne);
 }

@@ -40,7 +40,7 @@ void ParticleCollider::Resolve(Collider* other, Contact& contact){
 	thisRB->SetVelocity(thisRB->GetVelocity() + impulseVec * thisRB->GetInverseMass());
 	if(other){
 		RigidBody* otherRB = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
-		otherRB->SetVelocity(otherRB->GetVelocity() + impulseVec * -thisRB->GetInverseMass());
+		otherRB->SetVelocity(otherRB->GetVelocity() - impulseVec * thisRB->GetInverseMass());
 	}
 }
 

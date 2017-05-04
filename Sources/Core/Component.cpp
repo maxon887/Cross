@@ -63,3 +63,7 @@ Transformable* Component::GetTransform(){
 Vector3D Component::GetPosition(){
 	return GetEntity()->GetPosition();
 }
+
+void Component::SetPosition(const Vector3D& pos){
+	GetEntity()->SetPosition(pos);
+}

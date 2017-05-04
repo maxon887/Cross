@@ -27,6 +27,31 @@ void Collider::Resolve(Collider* other, Contact& contact){
 	throw CrossException("Collider resolvation not implemented");
 }
 
+void Collider::ResolveInterpenetration(Collider* other, Contact& contact){
+	if(contact.depth <= 0){
+		return;
+	}
+
+	RigidBody* thisRB = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
+	float totalInverseMass = thisRB->GetInverseMass();
+	if(other){
+		RigidBody* otherRB = (RigidBody*)other->GetComponent(Component::Type::RIGIDBODY);
+		totalInverseMass += otherRB->GetInverseMass();
+	}
+	
+	if(totalInverseMass <= 0){
+		return;
+	}
+
+	Vector3D movePerIMass = contact.normal * (-contact.depth / totalInverseMass);
+
+	this->SetPosition(GetPosition() + movePerIMass * thisRB->GetInverseMass());
+	if(other){
+		RigidBody* otherRB = (RigidBody*)other->GetComponent(Component::Type::RIGIDBODY);
+		other->SetPosition(other->GetPosition() - movePerIMass * otherRB->GetInverseMass());
+	}
+}
+
 float Collider::CalcSeparatingVelocity(Collider* other, Vector3D& contactNormal){
 	RigidBody* thisRB = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
 	Vector3D commonVel = thisRB->GetVelocity();
