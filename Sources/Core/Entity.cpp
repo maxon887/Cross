@@ -78,7 +78,11 @@ void Entity::AddComponent(Component* component){
 }
 
 Component* Entity::GetComponent(Component::Type type) {
-	return components[type];
+	if(components[type]){
+		return components[type];
+	}else{
+		throw CrossException("Can not obtain component");
+	}
 }
 
 void Entity::SetParent(Entity* p){

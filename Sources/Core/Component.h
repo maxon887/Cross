@@ -26,6 +26,7 @@ public:
 		MESH,
 		LIGHT,
 		RIGIDBODY,
+		COLLIDER,
 		COUNT
 	};
 

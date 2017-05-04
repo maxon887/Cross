@@ -16,6 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Graphics3D/CameraControlsScene.h"
+#include "Physics/Collider.h"
+
+class ParticleCollider : public Collider {
+public:
+	virtual void Resolve(Collider* other, Contact& contact);
+};
 
 class Bridge : public CameraControlsScene {
 public:

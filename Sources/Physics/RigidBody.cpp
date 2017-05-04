@@ -54,12 +54,24 @@ void RigidBody::SetMass(float mass){
 	inverse_mass = 1.f / mass;
 }
 
+float RigidBody::GetMass(){
+	return 1.f / inverse_mass;
+}
+
 void RigidBody::SetInverseMass(float iMass){
 	inverse_mass = iMass;
 }
 
+float RigidBody::GetInverseMass(){
+	return inverse_mass;
+}
+
 void RigidBody::SetVelocity(const Vector3D& vel){
 	velocity = vel;
+}
+
+Vector3D RigidBody::GetVelocity(){
+	return velocity;
 }
 
 void RigidBody::ApplyForce(const Vector3D& f){

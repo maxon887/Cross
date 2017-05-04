@@ -27,8 +27,14 @@ public:
 	virtual void Update(float sec);
 
 	void SetMass(float mass);
+	float GetMass();
+
 	void SetInverseMass(float iMass);
+	float GetInverseMass();
+
 	void SetVelocity(const Vector3D& vel);
+	Vector3D GetVelocity();
+
 	void ApplyForce(const Vector3D& force);
 
 private:
