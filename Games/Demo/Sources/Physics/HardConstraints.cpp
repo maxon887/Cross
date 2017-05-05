@@ -36,25 +36,6 @@ void HardConstraints::Start(){
 	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
-	//***************ROAD*****************
-	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	road_shader->AddMakro("USE_DIFFUSE_MAP");
-	road_shader->AddMakro("USE_TILLING_FACTOR");
-	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
-	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
-	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
-	road_shader->Compile();
-
-	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
-	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	road_mat = new Material(road_shader);
-	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
-	road_mat->SetPropertyValue("Tilling Factor", 3.f);
-	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
-	road->SetScale(15.f);
-	gfx3D->AdjustMaterial(road, road_mat, false);
-	AddEntity(road);
 	//***************PARTICLE*****************
 	particle_shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	particle_shader->AddProperty("Diffuse Color", "uColor");
@@ -77,6 +58,28 @@ void HardConstraints::Start(){
 	particle->AddComponent(collider);
 
 	AddEntity(particle);
+
+	//***************ROAD*****************
+	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	road_shader->AddMakro("USE_DIFFUSE_MAP");
+	road_shader->AddMakro("USE_TILLING_FACTOR");
+	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
+	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
+	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
+	road_shader->Compile();
+
+	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
+	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
+	road_mat = new Material(road_shader);
+	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
+	road_mat->SetPropertyValue("Tilling Factor", 3.f);
+	road_mat->SetPropertyValue("Transparency", 0.75f);
+	road_mat->TransparencyEnabled(true);
+	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	road->SetScale(15.f);
+	gfx3D->AdjustMaterial(road, road_mat, false);
+	AddEntity(road);
 
 	physics->RegisterCollisionProvider(this);
 }

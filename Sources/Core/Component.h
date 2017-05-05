@@ -40,6 +40,7 @@ public:
 	bool Initialized() const;
 	Type GetType() const;
 	Entity* GetEntity();
+	bool HasComponent(Component::Type type);
 	Component* GetComponent(Component::Type type);
 	Vector3D GetPosition();
 	void SetPosition(const Vector3D& pos);

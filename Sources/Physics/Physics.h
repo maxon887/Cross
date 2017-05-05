@@ -32,7 +32,7 @@ public:
 	void RegisterCollisionProvider(CollisionProvider* provider);
 
 protected:
-	void ResolveCollisions();
+	void ResolveCollision(Collider* first, Collider* second, Collision::Contact& contact);
 
 private:
 	Array<Collision> collisions;

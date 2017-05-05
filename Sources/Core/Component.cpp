@@ -48,6 +48,10 @@ Entity* Component::GetEntity(){
 	}
 }
 
+bool Component::HasComponent(Component::Type type){
+	return GetEntity()->HasComponent(type);
+}
+
 Component* Component::GetComponent(Component::Type type){
 	return GetEntity()->GetComponent(type);
 }
