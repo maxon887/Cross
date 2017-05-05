@@ -26,6 +26,7 @@ public:
 	public:
 		Vector3D normal;
 		float depth;
+		float restitution = 0.9f;
 	};
 
 	Collider* first = NULL;

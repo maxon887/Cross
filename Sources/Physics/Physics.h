@@ -32,7 +32,8 @@ public:
 	void RegisterCollisionProvider(CollisionProvider* provider);
 
 protected:
-	void ResolveCollision(Collider* first, Collider* second, Collision::Contact& contact);
+	void ResolveCollision(RigidBody* first, RigidBody* second, Collision::Contact& contact);
+	void ResolveInterpenetration(RigidBody* first, RigidBody* second, Collision::Contact& contact);
 
 private:
 	Array<Collision> collisions;
