@@ -21,6 +21,7 @@
 #include "Config.h"
 #include "Light.h"
 #include "Entity.h"
+#include "Physics/Physics.h"
 
 using namespace cross;
 
@@ -64,6 +65,9 @@ void Scene::AddEntity(Entity* entity){
 	objects.push_back(entity);
 	if(entity->HasComponent(Component::LIGHT)){
 		lights.push_back((Light*)entity->GetComponent(Component::LIGHT));
+	}
+	if(entity->HasComponent(Component::COLLIDER)){
+		physics->RegisterCollider((Collider*)entity->GetComponent(Component::COLLIDER));
 	}
 	for(Entity* child : entity->GetChildren()){
 		AddEntity(child);

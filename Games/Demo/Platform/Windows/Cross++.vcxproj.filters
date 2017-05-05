@@ -340,6 +340,9 @@
     <ClCompile Include="..\..\..\..\Sources\Physics\Collider.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -624,6 +627,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Physics\Collider.h">
       <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Physics\HardConstraints.h">
+      <Filter>Demo\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

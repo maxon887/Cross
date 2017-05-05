@@ -33,7 +33,7 @@ public:
 	Component(Type type);
 	virtual ~Component() { };
 
-	virtual void Update(float sec);
+	virtual void Update(float sec) { }
 	virtual Component* Clone();
 
 	void Initialize(Entity* entity);
@@ -41,7 +41,6 @@ public:
 	Type GetType() const;
 	Entity* GetEntity();
 	Component* GetComponent(Component::Type type);
-	Transformable* GetTransform();
 	Vector3D GetPosition();
 	void SetPosition(const Vector3D& pos);
 

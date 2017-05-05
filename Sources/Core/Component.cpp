@@ -24,10 +24,6 @@ Component::Component(Type type) :
 	entity(NULL)
 { }
 
-void Component::Update(float sec){
-	throw CrossException("Unimplemented Component::Update");
-}
-
 Component* Component::Clone(){
 	throw CrossException("Unimplemented Component::Clone");
 }
@@ -54,10 +50,6 @@ Entity* Component::GetEntity(){
 
 Component* Component::GetComponent(Component::Type type){
 	return GetEntity()->GetComponent(type);
-}
-
-Transformable* Component::GetTransform(){
-	return GetEntity();
 }
 
 Vector3D Component::GetPosition(){

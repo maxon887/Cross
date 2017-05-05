@@ -16,3 +16,23 @@ You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Physics/Physics.h"
 
+using namespace cross;
+
+void Physics::Update(float sec){
+	for(CollisionProvider* provider : collision_providers){
+		provider->Provide(collisions, colliders);
+	}
+	ResolveCollisions();
+}
+
+void Physics::RegisterCollider(Collider* collider){
+	colliders.push_back(collider);
+}
+
+void Physics::RegisterCollisionProvider(CollisionProvider* provider){
+	collision_providers.push_back(provider);
+}
+
+void Physics::ResolveCollisions(){
+	collisions.clear();
+}

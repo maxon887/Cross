@@ -121,6 +121,7 @@ void Game::EngineUpdate(){
 	game->GetCurrentScreen()->Update(secTime);
 	game->GetCurrentScreen()->LateUpdate(secTime);
 	game->Update(secTime);
+	physics->Update(secTime);
 	gfxGL->PostProcessFrame();
 
 	Debugger::Instance()->Update((float)updateTime);

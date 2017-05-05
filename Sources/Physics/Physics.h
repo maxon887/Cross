@@ -15,12 +15,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Collider.h"
 
 namespace cross{
 
+class CollisionProvider {
+public:
+	virtual void Provide(Array<Collision>& collisions,
+						 Array<Collider*>& colliders) = 0;
+};
+
 class Physics {
 public:
-	float g = 10.0f;
+	void Update(float sec);
+	void RegisterCollider(Collider* collider);
+	void RegisterCollisionProvider(CollisionProvider* provider);
+
+protected:
+	void ResolveCollisions();
+
+private:
+	Array<Collision> collisions;
+	Array<Collider*> colliders;
+	Array<CollisionProvider*> collision_providers;
 };
 
 }

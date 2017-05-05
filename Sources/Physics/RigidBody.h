@@ -21,6 +21,8 @@ namespace cross{
 
 class RigidBody : public Component {
 public:
+	const float g = 10.f;
+
 	RigidBody();
 	RigidBody(float mass);
 
@@ -34,6 +36,9 @@ public:
 
 	void SetVelocity(const Vector3D& vel);
 	Vector3D GetVelocity();
+
+	void SetAcceleration(const Vector3D& acc);
+	Vector3D GetAcceleration();
 
 	void SetDumping(float dumping);
 	float GetDumping();

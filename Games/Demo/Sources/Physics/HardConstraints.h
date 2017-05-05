@@ -16,10 +16,23 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Graphics3D/CameraControlsScene.h"
+#include "Shaders/MultiLightShader.h"
+#include "Physics/Physics.h"
 
-class Bridge : public CameraControlsScene {
+class HardConstraints : public CameraControlsScene,
+						public CollisionProvider {
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
+
+	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
+
+private:
+	MultiLightShader* road_shader;
+	Texture* road_diffuse;
+	Material* road_mat;
+
+	Shader* particle_shader;
+	Material* particle_mat;
 };

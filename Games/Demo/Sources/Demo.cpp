@@ -23,6 +23,7 @@
 //temp
 #include "Physics/Ocean.h"
 #include "Physics/Bridge.h"
+#include "Physics/HardConstraints.h"
 
 Demo* demo = NULL;
 
@@ -75,8 +76,9 @@ Screen* Demo::GetStartScreen(){
 	camera->SetPosition(Vector3D::Zero);
 	gfx2D->SetCamera(camera);
 	//return new MainScreen();
-	return new Ocean();
+	//return new Ocean();
 	//return new Bridge();
+	return new HardConstraints();
 }
 
 Sprite* Demo::GetCommonSprite(string name){

@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "RigidBody.h"
 #include "Entity.h"
-#include "Physics/Physics.h"
 
 using namespace cross;
 
@@ -28,7 +27,7 @@ RigidBody::RigidBody() :
 	inverse_mass(1.f),
 	dumping(0.f)
 {
-	acceleration.y = -physics->g;
+	acceleration.y = -g;
 }
 
 RigidBody::RigidBody(float mass) :
@@ -39,7 +38,7 @@ RigidBody::RigidBody(float mass) :
 	dumping(0.f)
 { 
 	SetMass(mass);
-	acceleration.y = -physics->g;
+	acceleration.y = -g;
 }
 
 void RigidBody::Update(float sec){
@@ -75,6 +74,14 @@ void RigidBody::SetVelocity(const Vector3D& vel){
 
 Vector3D RigidBody::GetVelocity(){
 	return velocity;
+}
+
+void RigidBody::SetAcceleration(const Vector3D& acc){
+	acceleration = acc;
+}
+
+Vector3D RigidBody::GetAcceleration(){
+	return acceleration;
 }
 
 void RigidBody::SetDumping(float d){

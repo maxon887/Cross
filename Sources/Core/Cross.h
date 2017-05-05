@@ -71,6 +71,7 @@ class UI;
 class Cubemap;
 class Component;
 class RigidBody;
+class Collider;
 
 extern Game*		game;
 extern System*		system;

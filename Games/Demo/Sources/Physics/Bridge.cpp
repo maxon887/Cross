@@ -17,33 +17,6 @@
 #include "Physics/Bridge.h"
 #include "Physics/RigidBody.h"
 
-void ParticleCollider::Resolve(Collider* other, Contact& contact){
-	RigidBody* thisRB = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
-
-	float separatingVelocity = CalcSeparatingVelocity(other, contact.normal);
-	if(separatingVelocity > 0){
-		return;
-	}
-	float resSepVel = -separatingVelocity;
-	float totalInverseMass = thisRB->GetInverseMass();
-	if(other){
-		RigidBody* otherRB = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
-		totalInverseMass += otherRB->GetInverseMass();
-	}
-	if(totalInverseMass <= 0){
-		return;
-	}
-	//ad hoc
-	float impulse = -2 * separatingVelocity / totalInverseMass;
-	Vector3D impulseVec = contact.normal * impulse;
-
-	thisRB->SetVelocity(thisRB->GetVelocity() + impulseVec * thisRB->GetInverseMass());
-	if(other){
-		RigidBody* otherRB = (RigidBody*)GetComponent(Component::Type::RIGIDBODY);
-		otherRB->SetVelocity(otherRB->GetVelocity() - impulseVec * thisRB->GetInverseMass());
-	}
-}
-
 void Bridge::Start(){
 	CameraControlsScene::Start();
 	SetBackground(Color(0.3f));
