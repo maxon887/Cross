@@ -66,6 +66,9 @@ void Scene::AddEntity(Entity* entity){
 	if(entity->HasComponent(Component::LIGHT)){
 		lights.push_back((Light*)entity->GetComponent(Component::LIGHT));
 	}
+	if(entity->HasComponent(Component::RIGIDBODY)){
+		physics->RegisterRigidBody((RigidBody*)entity->GetComponent(Component::RIGIDBODY));
+	}
 	if(entity->HasComponent(Component::COLLIDER)){
 		physics->RegisterCollider((Collider*)entity->GetComponent(Component::COLLIDER));
 	}

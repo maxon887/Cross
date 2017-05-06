@@ -26,7 +26,7 @@ public:
 	RigidBody();
 	RigidBody(float mass);
 
-	virtual void Update(float sec);
+	void PhysicUpdate(float sec);
 
 	void SetMass(float mass);
 	float GetMass();

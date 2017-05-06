@@ -28,14 +28,16 @@ public:
 class Physics {
 public:
 	void Update(float sec);
+	void RegisterRigidBody(RigidBody* rigid);
 	void RegisterCollider(Collider* collider);
 	void RegisterCollisionProvider(CollisionProvider* provider);
 
 protected:
-	void ResolveCollision(RigidBody* first, RigidBody* second, Collision::Contact& contact);
+	void ResolveCollision(float sec, RigidBody* first, RigidBody* second, Collision::Contact& contact);
 	void ResolveInterpenetration(RigidBody* first, RigidBody* second, Collision::Contact& contact);
 
 private:
+	Array<RigidBody*> rigidbodyes;
 	Array<Collision> collisions;
 	Array<Collider*> colliders;
 	Array<CollisionProvider*> collision_providers;

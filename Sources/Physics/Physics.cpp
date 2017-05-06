@@ -16,10 +16,15 @@ You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Physics/Physics.h"
 #include "Physics/RigidBody.h"
+#include "System.h"
 
 using namespace cross;
 
 void Physics::Update(float sec){
+	//forces update
+	for(RigidBody* rigid : rigidbodyes){
+		rigid->PhysicUpdate(sec);
+	}
 	//collision finding
 	for(CollisionProvider* provider : collision_providers){
 		provider->Provide(collisions, colliders);
@@ -46,10 +51,14 @@ void Physics::Update(float sec){
 		while(!col.contacts.empty()){
 			Collision::Contact contact = col.contacts.back();
 			col.contacts.pop_back();
-			ResolveCollision(firstRB, secondRB, contact);
+			ResolveCollision(sec, firstRB, secondRB, contact);
 			ResolveInterpenetration(firstRB, secondRB, contact);
 		}
 	}
+}
+
+void Physics::RegisterRigidBody(RigidBody* rigid){
+	rigidbodyes.push_back(rigid);
 }
 
 void Physics::RegisterCollider(Collider* collider){
@@ -60,7 +69,7 @@ void Physics::RegisterCollisionProvider(CollisionProvider* provider){
 	collision_providers.push_back(provider);
 }
 
-void Physics::ResolveCollision(RigidBody* first, RigidBody* second, Collision::Contact& contact){
+void Physics::ResolveCollision(float sec, RigidBody* first, RigidBody* second, Collision::Contact& contact){
 	Vector3D relativeVelocity = first->GetVelocity() * (-1.f);
 	if(second){
 		relativeVelocity += second->GetVelocity();
@@ -71,7 +80,22 @@ void Physics::ResolveCollision(RigidBody* first, RigidBody* second, Collision::C
 		return;
 	}
 
-	float deltaVelocity = contact.restitution * closingVelocity + closingVelocity;
+	float newClosingVelocity = -contact.restitution * closingVelocity;
+	//resting contact
+	Vector3D totalAcceleration = first->GetAcceleration();
+	if(second){
+		totalAcceleration -= second->GetAcceleration();
+	}
+	
+	float frameAcceleration = Vector3D::Dot(totalAcceleration, contact.normal) * sec;
+	if(frameAcceleration < 0){
+		newClosingVelocity -= contact.restitution * frameAcceleration;
+		if(newClosingVelocity > 0){
+			newClosingVelocity = 0;
+		}
+	}
+
+	float deltaVelocity = closingVelocity - newClosingVelocity;
 
 	float totalInverseMass = first->GetInverseMass();
 	if(second){
