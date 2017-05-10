@@ -25,7 +25,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Config.h"
-#include "System/Debugger.h"
+#include "Internals/Debugger.h"
 #include "Platform/CrossEGL.h"
 
 #include <android/native_window_jni.h>
@@ -94,7 +94,7 @@ void* Main(void* self){
                 }
                 case APP_PAUSED:{
                     pause_mutex.lock();
-                    system->Sleep(16);
+                    cross::system->Sleep(16);
                     pause_mutex.unlock();
                     break;
                 }
@@ -109,7 +109,7 @@ void* Main(void* self){
                         if (success) {
                             LOGI("Window create success");
                             wnd_state = WND_ACTIVE;
-                            system->SetWindowSize(screen_width, screen_height);
+                            cross::system->SetWindowSize(screen_width, screen_height);
                         } else {
                             LOGI("Can not create native window");
                             app_state = APP_EXIT;
@@ -121,7 +121,7 @@ void* Main(void* self){
                             LOGI("Window recreaded");
                             wnd_state = WND_ACTIVE;
                             app_state = APP_RUNNING;
-                            system->SetWindowSize(screen_width, screen_height);
+                            cross::system->SetWindowSize(screen_width, screen_height);
                         } else {
                             LOGI("Can not recread native window");
                             app_state = APP_EXIT;
@@ -145,34 +145,34 @@ void* Main(void* self){
         delete gfx2D;
         delete gfxGL;
         delete game;
-        system->LogIt("Saved!");
-        delete system;
+        cross::system->LogIt("Saved!");
+        delete cross::system;
     } catch (Exception& exc){
         string msg = string(exc.message) +
                      +"\nFile: " + string(exc.filename) +
                      +"\nLine: " + to_string(exc.line);
         LOGE("%s", msg.c_str());
-        ((AndroidSystem *) system)->MessageBox(msg);
+        ((AndroidSystem *) cross::system)->MessageBox(msg);
     }
     if(app_state == APP_EXIT){
-        ((AndroidSystem *) system)->Exit();
+        ((AndroidSystem *) cross::system)->Exit();
     }else {
-        ((AndroidSystem *) system)->DetachFromJVM();
-		delete system;
+        ((AndroidSystem *) cross::system)->DetachFromJVM();
+		delete cross::system;
     }
 }
 
 extern "C"{
 	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
 		LOGI("Cross_OnCreate");
-        if(!system) {
+        if(!cross::system) {
             AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
             string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
-            system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
+            cross::system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();
             pthread_create(&threadID, 0, Main, NULL);
         }else{
@@ -224,30 +224,20 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
-        TRIGGER_EVENT(input->TargetActionDown, (float)targetX, (float)targetY, (int)actionID);
+        input->TargetActionDown((float)targetX, (float)targetY, (int)actionID);
 	}
 
 	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
-        TRIGGER_EVENT(input->TargetActionMove, (float)targetX, (float)targetY, (int)actionID);
+        input->TargetActionMove((float)targetX, (float)targetY, (int)actionID);
 	}
 
 	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
-        TRIGGER_EVENT(input->TargetActionUp, (float)targetX, (float)targetY, (int)actionID);
+        input->TargetActionUp((float)targetX, (float)targetY, (int)actionID);
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
-        TRIGGER_EVENT(input->KeyPressed, (Key)key);
+        input->KeyPressed((Key)key);
 	}
 	void Java_com_cross_Cross_ReleaseKey(JNIEnv *env, jobject thiz, jint key){
-        TRIGGER_EVENT(input->KeyReleased, (Key)key);
-	}
-
-	void Java_com_cross_Cross_InitialCommercial(JNIEnv *env, jobject thiz, jobject comm){
-		LOGI("Java_com_cross_Cross_InitialCommercial");
-		comm = env->NewGlobalRef(comm);
-		((AndroidSystem*)system)->InitializeCommercial(env, comm);
-	}
-
-	void Java_com_cross_Cross_CommertialResult(JNIEnv* env, jobject thiz, jint event){
-        system->GetCommercial()->CommercialResult((Commercial::Event)event);
+        input->KeyReleased((Key)key);
 	}
 }

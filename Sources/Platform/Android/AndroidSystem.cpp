@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "AndroidSystem.h"
-#include "CommercialAndroid.h"
 #include "File.h"
 #include <unistd.h>
 
@@ -26,13 +25,11 @@ AndroidSystem::AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* 
 	this->data_path = dataPath;
 	this->asset_manager = assManager;
 	this->cross_activity = crossActivity;
-	this->commercial = NULL;
 	env->GetJavaVM(&jvm);
 }
 
 AndroidSystem::~AndroidSystem(){
     LOGI("AndroidSystem::~AndroidSystem");
-    delete commercial;
 }
 
 string AndroidSystem::AssetsPath(){
@@ -100,15 +97,6 @@ void AndroidSystem::Exit() {
 
 void AndroidSystem::Sleep(float milis) {
     usleep(milis*1000);
-}
-
-void AndroidSystem::InitializeCommercial(JNIEnv* env, jobject comm){
-	LOGI("LauncherAndroid::InitializeCommercial");
-	commercial = new CommercialAndroid(this, comm);
-}
-
-Commercial* AndroidSystem::GetCommercial() {
-	return commercial;
 }
 
 void AndroidSystem::CallActivityVoidMethod(const string &methodName) {

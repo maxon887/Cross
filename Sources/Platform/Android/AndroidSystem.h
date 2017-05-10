@@ -26,8 +26,6 @@
 
 namespace cross{
 
-class CommercialAndroid;
-
 class AndroidSystem : public System{
 public:
     AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
@@ -43,8 +41,6 @@ public:
 	void MessageBox(string message);
 	void Exit();
 	void Sleep(float milis);
-	void InitializeCommercial(JNIEnv* env, jobject comm);
-	Commercial* GetCommercial();
     void CallActivityVoidMethod(const string& methodName);
     void CallActivityVoidMethod(const string& methodName, const string& parameter);
 	
@@ -55,7 +51,6 @@ private:
 	JavaVM* jvm;
 	jobject cross_activity;
 	AAssetManager* asset_manager;
-	CommercialAndroid* commercial;
 	string data_path;
 };
 
