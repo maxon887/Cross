@@ -3,47 +3,43 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
-    productFlavors {
-        armV7{
-            ndk{
-                abiFilter "armeabi-v7a"
-            }
-        }
-        arm64V8{
-            ndk{
-                abiFilter "arm64-v8a"
-            }
-        }
-        x86 {
-            ndk {
-                abiFilter "x86"
-            }
-        }
-        fat
-    }
     defaultConfig {
-        applicationId "com.cross.demo"
-        minSdkVersion 8
+        applicationId "com.littleman.cross"
+        minSdkVersion 9
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        ndk {
-            moduleName "cross"
-            stl "c++_shared"
-            ldLibs "log"
-            ldLibs "android"
-            ldLibs "GLESv2"
-            ldLibs "EGL"
-            cFlags " -std=c++11"
-            cFlags += " -fexceptions"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/FreeType"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/FreeType/freetype2"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/Assimp"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/TinyXML"
-            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
-            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
-            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
+        versionCode 300
+        versionName "3.0.0"
+        productFlavors {
+            armV7 {
+                ndk {
+                    abiFilter "armeabi-v7a"
+                }
+            }
+            arm64V8 {
+                ndk {
+                    abiFilter "arm64-v8a"
+                }
+            }
+            x86 {
+                ndk {
+                    abiFilter "x86"
+                }
+            }
+            fat {
+                ndk {
+                    abiFilter "armeabi-v7a"
+                    abiFilter "arm64-v8a"
+                    abiFilter "x86"
+                }
+            }
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti"
+                cppFlags += " -fexceptions"
+                cppFlags += " -std=c++11"
+            }
         }
     }
 
@@ -66,18 +62,12 @@ android {
     sourceSets {
         main.assets.srcDirs += '/../../../Assets'
         main.java.srcDirs += '../../../../../Sources/Platform/Android/'
-        main.jni.srcDirs += '../../../Sources/'
-        main.jni.srcDirs += '../../../../../Sources/Core'
-        main.jni.srcDirs += '../../../../../Sources/Internals/'
-        main.jni.srcDirs += '../../../../../Sources/Math/'
-        main.jni.srcDirs += '../../../../../Sources/Utils/'
-        main.jni.srcDirs += '../../../../../Sources/Experimental/'
-        main.jni.srcDirs += '../../../../../Sources/Libs/SOIL/'
-        main.jni.srcDirs += '../../../../../Sources/Libs/TinyXML/'
-        main.jni.srcDirs += '../../../../../Sources/Shaders/'
-        main.jni.srcDirs += '../../../../../Sources/Platform/Android/'
-        main.jni.srcDirs += '../../../../../Sources/Platform/CrossEGL.h'
-        main.jni.srcDirs += '../../../../../Sources/Platform/CrossEGL.cpp'
+    }
+
+	externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
     }
 }
 
