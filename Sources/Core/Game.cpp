@@ -132,7 +132,7 @@ void Game::EngineUpdate(){
 	if(milis < 5){
 		system->Sleep(5 - milis);
 	}*/
-	//system->Sleep(30.f);
+	system->Sleep(30.f);
 }
 
 void Game::Exit(){

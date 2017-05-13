@@ -190,7 +190,7 @@
     <ClInclude Include="..\..\..\..\Sources\Core\Transformable.h" />
     <ClInclude Include="..\..\..\..\Sources\Core\UI.h" />
     <ClInclude Include="..\..\..\..\Sources\Core\VertexBuffer.h" />
-    <ClInclude Include="..\..\..\..\Sources\Experimental\Event.h" />
+    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h" />
     <ClInclude Include="..\..\..\..\Sources\Internals\Debugger.h" />
     <ClInclude Include="..\..\..\..\Sources\Internals\Exception.h" />
     <ClInclude Include="..\..\..\..\Sources\Internals\MemoryManager.h" />

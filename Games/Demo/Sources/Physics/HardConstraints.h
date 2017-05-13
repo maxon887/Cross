@@ -15,9 +15,38 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Entity.h"
 #include "Graphics3D/CameraControlsScene.h"
 #include "Shaders/MultiLightShader.h"
 #include "Physics/Physics.h"
+
+class Cable : public Entity,
+			  public CollisionProvider {
+public:
+	Cable(float length, Vector3D anchor, Collider* connectedObject);
+
+	virtual void Update(float sec);
+	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
+	
+private:
+	float length;
+	Vector3D anchor;
+	Collider* object;
+};
+
+class Rod : public Entity,
+			public CollisionProvider {
+public:
+	Rod(Collider* first, Collider* second);
+
+	virtual void Update(float sec);
+	virtual void Provide(Array<Collision>& collision, Array<Collider*>& colliders);
+
+private:
+	float length;
+	Collider* first;
+	Collider* second;
+};
 
 class HardConstraints : public CameraControlsScene,
 						public CollisionProvider {
@@ -35,4 +64,7 @@ private:
 
 	Shader* particle_shader;
 	Material* particle_mat;
+
+	Entity* rodA;
+	Entity* rodB;
 };

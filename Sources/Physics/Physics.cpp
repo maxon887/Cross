@@ -47,13 +47,28 @@ void Physics::Update(float sec){
 				}
 			}
 		}
-
+		// WARNIG May cause a problem
+		int interations = col.contacts.size();
+		for(int i = 0; i < interations; ++i){
+			float maxCV = 0;
+			int index = 0;
+			for(int i = 0; i < col.contacts.size(); ++i){
+				float CV = CalcClosingVelocity(firstRB, secondRB, col.contacts[i]);
+				if(CV > maxCV){
+					maxCV = CV;
+					index = i;
+				}
+			}
+			ResolveCollision(sec, firstRB, secondRB, col.contacts[index]);
+			ResolveInterpenetration(firstRB, secondRB, col.contacts[index]);
+		}
+		/* Old Collision resolver code
 		while(!col.contacts.empty()){
 			Collision::Contact contact = col.contacts.back();
 			col.contacts.pop_back();
 			ResolveCollision(sec, firstRB, secondRB, contact);
 			ResolveInterpenetration(firstRB, secondRB, contact);
-		}
+		}*/
 	}
 }
 
@@ -69,13 +84,16 @@ void Physics::RegisterCollisionProvider(CollisionProvider* provider){
 	collision_providers.push_back(provider);
 }
 
-void Physics::ResolveCollision(float sec, RigidBody* first, RigidBody* second, Collision::Contact& contact){
-	Vector3D relativeVelocity = first->GetVelocity() * (-1.f);
-	if(second){
-		relativeVelocity += second->GetVelocity();
+float Physics::CalcClosingVelocity(RigidBody* first, RigidBody* second, Collision::Contact& contact){
+	Vector3D combinedVelocity = first->GetVelocity() * (-1.f);
+	if(second) {
+		combinedVelocity += second->GetVelocity();
 	}
-	float closingVelocity = Vector3D::Dot(contact.normal, relativeVelocity);
+	return Vector3D::Dot(contact.normal, combinedVelocity);
+}
 
+void Physics::ResolveCollision(float sec, RigidBody* first, RigidBody* second, Collision::Contact& contact){
+	float closingVelocity = CalcClosingVelocity(first, second, contact);
 	if(closingVelocity < 0){
 		return;
 	}

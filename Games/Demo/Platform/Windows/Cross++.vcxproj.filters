@@ -607,9 +607,6 @@
     <ClInclude Include="..\..\..\..\Sources\Internals\MemoryManager.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Experimental\Event.h">
-      <Filter>Cross\Experimental</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Sources\Core\Event.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -630,6 +627,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\HardConstraints.h">
       <Filter>Demo\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
+      <Filter>Cross\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

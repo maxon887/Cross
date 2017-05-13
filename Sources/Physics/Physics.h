@@ -33,6 +33,8 @@ public:
 	void RegisterCollisionProvider(CollisionProvider* provider);
 
 protected:
+	float CalcClosingVelocity(RigidBody* r1, RigidBody* r2, Collision::Contact& contact);
+	
 	void ResolveCollision(float sec, RigidBody* first, RigidBody* second, Collision::Contact& contact);
 	void ResolveInterpenetration(RigidBody* first, RigidBody* second, Collision::Contact& contact);
 
