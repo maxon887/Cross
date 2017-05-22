@@ -77,8 +77,8 @@ Screen* Demo::GetStartScreen(){
 	gfx2D->SetCamera(camera);
 	//return new MainScreen();
 	//return new Ocean();
-	//return new Bridge();
-	return new HardConstraints();
+	return new Bridge();
+	//return new HardConstraints();
 }
 
 Sprite* Demo::GetCommonSprite(string name){

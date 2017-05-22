@@ -37,15 +37,18 @@ private:
 class Rod : public Entity,
 			public CollisionProvider {
 public:
-	Rod(Collider* first, Collider* second);
+	Rod(Collider* a, Collider* b);
 
 	virtual void Update(float sec);
 	virtual void Provide(Array<Collision>& collision, Array<Collider*>& colliders);
 
+	Collider* GetEndA();
+	Collider* GetEndB();
+
 private:
 	float length;
-	Collider* first;
-	Collider* second;
+	Collider* endA;
+	Collider* endB;
 };
 
 class HardConstraints : public CameraControlsScene,

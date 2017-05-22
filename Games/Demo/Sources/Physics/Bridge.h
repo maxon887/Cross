@@ -16,10 +16,23 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Graphics3D/CameraControlsScene.h"
+#include "Physics/HardConstraints.h"
 
 class Bridge : public CameraControlsScene {
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
+
+private:
+	Shader* particle_shader;
+	Material* particle_mat;
+	Array<Rod*> rods;
+	Array<Cable*> cables;
+
+	Rod* test;
+
+	Rod* CreateRod(Vector3D& a, Vector3D& b);
+	Cable* CreateCable(float len, Vector3D& ancor, Collider* obj);
+	Rod* Connect(Collider* a, Collider* b);
 };

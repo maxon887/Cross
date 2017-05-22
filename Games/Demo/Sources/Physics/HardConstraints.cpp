@@ -43,38 +43,47 @@ void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
 		Collision::Contact contact;
 		contact.normal = OA.GetNormalized();
 		contact.depth = OA.Length() - length;
+		contact.restitution = 0.7f;
 		collision.AddContact(contact);
 		collisions.push_back(collision);
 	}
 }
 
-Rod::Rod(Collider* first, Collider* second) :
-	first(first),
-	second(second)
+Rod::Rod(Collider* a, Collider* b) :
+	endA(a),
+	endB(b)
 { 
-	Vector3D fs = first->GetPosition() - second->GetPosition();
-	length = fs.Length();
+	Vector3D ab = a->GetPosition() - b->GetPosition();
+	length = ab.Length();
 }
 
 void Rod::Update(float sec) {
-	gfx3D->DrawLine(first->GetPosition(), second->GetPosition(), Color::Red);
+	gfx3D->DrawLine(endA->GetPosition(), endB->GetPosition(), Color::Red);
 }
 
 void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
-	Vector3D SF = second->GetPosition() - first->GetPosition();
-	if(SF.Length() != length){
-		Collision collision(first, second);
+	Vector3D ba = endB->GetPosition() - endA->GetPosition();
+	if(ba.Length() != length){
+		Collision collision(endA, endB);
 		Collision::Contact contact;
-		contact.normal = SF.GetNormalized();
-		contact.depth = length - SF.Length();
+		contact.normal = ba.GetNormalized();
+		contact.depth = length - ba.Length();
 		contact.restitution = 0.f;
-		if(SF.Length() < length){
+		if(ba.Length() < length){
 			contact.normal *= -1.f;
 			contact.depth *= -1.f;
 		}
 		collision.AddContact(contact);
 		collisions.push_back(collision);
 	}
+}
+
+Collider* Rod::GetEndA(){
+	return endA;
+}
+
+Collider* Rod::GetEndB(){
+	return endB;
 }
 
 void HardConstraints::Start(){
@@ -126,7 +135,7 @@ void HardConstraints::Start(){
 	Cable* cable = new Cable(2.f, Vector3D(1.f, 3.f, 1.f), connectedCollider);
 	AddEntity(cable);
 	physics->RegisterCollisionProvider(cable);
-	//***************CABLE*****************
+	//***************ROD*****************
 	rodA = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	rodB = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	rodA->SetScale(0.1f);
