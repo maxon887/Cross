@@ -66,10 +66,11 @@ void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 		Collision collision(first, second);
 		Collision::Contact contact;
 		contact.normal = SF.GetNormalized();
-		contact.depth = abs(SF.Length() - length);
+		contact.depth = length - SF.Length();
 		contact.restitution = 0.f;
 		if(SF.Length() < length){
 			contact.normal *= -1.f;
+			contact.depth *= -1.f;
 		}
 		collision.AddContact(contact);
 		collisions.push_back(collision);
