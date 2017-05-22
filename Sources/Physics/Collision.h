@@ -40,4 +40,5 @@ private:
 	Collider* second = NULL;
 	Array<Contact> contacts;
 };
+
 }

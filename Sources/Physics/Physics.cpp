@@ -24,7 +24,7 @@ using namespace cross;
 void Physics::Update(float sec){
 	//forces update
 	for(RigidBody* rigid : rigidbodyes){
-		rigid->PhysicUpdate(sec);
+		rigid->PFXUpdate(sec);
 	}
 	//collision finding
 	for(CollisionProvider* provider : collision_providers){

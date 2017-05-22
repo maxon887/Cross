@@ -41,7 +41,7 @@ RigidBody::RigidBody(float mass) :
 	acceleration.y = -g;
 }
 
-void RigidBody::PhysicUpdate(float sec){
+void RigidBody::PFXUpdate(float sec){
 	Vector3D resAccel = acceleration;
 	resAccel += force * inverse_mass;
 
