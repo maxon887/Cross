@@ -20,28 +20,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 namespace cross{
 
-class Collision {
-public:
-	class Contact {
-	public:
-		Vector3D normal;
-		float depth;
-		float restitution = 1.0f;
-	};
-
-	Collision(Collider* first);
-	Collision(Collider* first, Collider* second);
-
-	void AddContact(Contact& contact);
-
-private:
-	friend Physics;
-
-	Collider* first = NULL;
-	Collider* second = NULL;
-	Array<Contact> contacts;
-};
-
 class Collider : public Component {
 public:
 	Collider();

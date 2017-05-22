@@ -14,12 +14,30 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Physics/Collider.h"
-#include "RigidBody.h"
+#pragma once
+#include "Cross.h"
 
-using namespace cross;
+namespace cross{
 
+class Collision {
+public:
+	class Contact {
+	public:
+		Vector3D normal;
+		float depth;
+		float restitution = 1.0f;
+	};
 
-Collider::Collider() :
-	Component(Type::COLLIDER)
-{ }
+	Collision(Collider* first);
+	Collision(Collider* first, Collider* second);
+
+	void AddContact(Contact& contact);
+
+private:
+	friend Physics;
+
+	Collider* first = NULL;
+	Collider* second = NULL;
+	Array<Contact> contacts;
+};
+}

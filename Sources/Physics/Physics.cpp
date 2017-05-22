@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Physics/Physics.h"
 #include "Physics/RigidBody.h"
+#include "Physics/Collider.h"
 #include "System.h"
 
 using namespace cross;
@@ -47,8 +48,8 @@ void Physics::Update(float sec){
 				}
 			}
 		}
-		// WARNIG May cause a problem
-		int interations = col.contacts.size();
+
+		int interations = col.contacts.size() * 2;
 		for(int i = 0; i < interations; ++i){
 			float maxCV = 0;
 			int index = 0;
