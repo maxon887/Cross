@@ -26,23 +26,48 @@
 #include "Physics/Collider.h"
 #include "System.h"
 
-Cable::Cable(float lenght, Vector3D anchor, Collider* obj) :
+CableConstraint::CableConstraint(float lenght, Vector3D anchor, Collider* obj) :
 	length(lenght),
 	anchor(anchor),
 	object(obj)
 { }
 
-void Cable::Update(float sec){
+void CableConstraint::Update(float sec){
 	gfx3D->DrawLine(anchor, object->GetPosition(), Color::Red);
 }
 
-void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
+void CableConstraint::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
 	Vector3D OA = anchor - object->GetPosition();
 	if(OA.Length() > length){
 		Collision collision(object);
 		Collision::Contact contact;
 		contact.normal = OA.GetNormalized();
 		contact.depth = OA.Length() - length;
+		contact.restitution = 0.7f;
+		collision.AddContact(contact);
+		collisions.push_back(collision);
+	}
+}
+
+Cable::Cable(Collider* a, Collider* b) :
+	endA(a),
+	endB(b)
+{
+	Vector3D ab = a->GetPosition() - b->GetPosition();
+	length = ab.Length();
+}
+
+void Cable::Update(float sec) {
+	gfx3D->DrawLine(endA->GetPosition(), endB->GetPosition(), Color::Red);
+}
+
+void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
+	Vector3D ab = endB->GetPosition() - endA->GetPosition();
+	if(ab.Length() > length) {
+		Collision collision(endA, endB);
+		Collision::Contact contact;
+		contact.normal = ab.GetNormalized();
+		contact.depth = ab.Length() - length;
 		contact.restitution = 0.7f;
 		collision.AddContact(contact);
 		collisions.push_back(collision);
@@ -67,14 +92,12 @@ void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 		Collision collision(endA, endB);
 		Collision::Contact contact;
 		contact.normal = ab.GetNormalized();
-		//contact.depth = length - ba.Length();
 		contact.depth = ab.Length() - length;
 		contact.restitution = 0.f;
 		if(ab.Length() < length){
 			contact.normal *= -1.f;
 			contact.depth *= -1.f;
 		}
-		cross::system->LogIt("Depth - %f", contact.depth);
 		collision.AddContact(contact);
 		collisions.push_back(collision);
 	}
@@ -109,7 +132,7 @@ void HardConstraints::Start(){
 	particle_mat = new Material(particle_shader);
 	particle_mat->SetPropertyValue("Diffuse Color", Color::Red);
 	particle_mat->SetPropertyValue("Specular Color", Color::White);
-	/*
+
 	//***************PARTICLE*****************
 	Entity* particle = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	particle->SetScale(0.1f);
@@ -135,9 +158,9 @@ void HardConstraints::Start(){
 	
 	AddEntity(connectedObject);
 
-	Cable* cable = new Cable(2.f, Vector3D(1.f, 3.f, 1.f), connectedCollider);
+	CableConstraint* cable = new CableConstraint(2.f, Vector3D(1.f, 3.f, 1.f), connectedCollider);
 	AddEntity(cable);
-	physics->RegisterCollisionProvider(cable);*/
+	physics->RegisterCollisionProvider(cable);
 	//***************ROD*****************
 	rodA = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	rodB = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);

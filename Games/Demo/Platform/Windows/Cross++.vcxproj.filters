@@ -331,9 +331,6 @@
     <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
-      <Filter>Demo\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Physics\Bridge.cpp">
       <Filter>Demo\Physics</Filter>
     </ClCompile>
@@ -345,6 +342,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\Sources\Physics\Collision.cpp">
       <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
+      <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

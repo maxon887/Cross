@@ -30,7 +30,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 	GLenum err;
 	err = glGetError();
 	while(err != GL_NO_ERROR) {
-		char* error = new char[255];
+		char* error = new char[256];
 		switch(err) {
 		case GL_INVALID_OPERATION:    
 			strcpy(error, "INVALID_OPERATION");      

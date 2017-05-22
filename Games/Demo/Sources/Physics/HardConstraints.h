@@ -20,10 +20,10 @@
 #include "Shaders/MultiLightShader.h"
 #include "Physics/Physics.h"
 
-class Cable : public Entity,
-			  public CollisionProvider {
+class CableConstraint : public Entity,
+						public CollisionProvider {
 public:
-	Cable(float length, Vector3D anchor, Collider* connectedObject);
+	CableConstraint(float length, Vector3D anchor, Collider* connectedObject);
 
 	virtual void Update(float sec);
 	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
@@ -32,6 +32,20 @@ private:
 	float length;
 	Vector3D anchor;
 	Collider* object;
+};
+
+class Cable : public Entity,
+			  public CollisionProvider {
+public:
+	Cable(Collider* a, Collider* b);
+
+	virtual void Update(float sec);
+	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
+
+private:
+	float length;
+	Collider* endA;
+	Collider* endB;
 };
 
 class Rod : public Entity,

@@ -28,11 +28,11 @@ private:
 	Shader* particle_shader;
 	Material* particle_mat;
 	Array<Rod*> rods;
-	Array<Cable*> cables;
+	Array<CableConstraint*> cables;
 
 	Rod* test;
 
 	Rod* CreateRod(Vector3D& a, Vector3D& b);
-	Cable* CreateCable(float len, Vector3D& ancor, Collider* obj);
-	Rod* Connect(Collider* a, Collider* b);
+	CableConstraint* CreateCable(float len, Vector3D& ancor, Collider* obj);
+	Cable* Connect(Collider* a, Collider* b);
 };
