@@ -60,6 +60,9 @@ void Physics::Update(float sec){
 					index = i;
 				}
 			}
+			if(maxCV <= 0){
+				break;
+			}
 			ResolveCollision(sec, firstRB, secondRB, col.contacts[index]);
 			ResolveInterpenetration(firstRB, secondRB, col.contacts[index]);
 		}
@@ -150,6 +153,6 @@ void Physics::ResolveInterpenetration(RigidBody* first, RigidBody* second, Colli
 
 	first->SetPosition(first->GetPosition() + movePerIMass * first->GetInverseMass());
 	if(second){
-		second->SetPosition(second->GetPosition() + movePerIMass * second->GetInverseMass());
+		second->SetPosition(second->GetPosition() - movePerIMass * second->GetInverseMass());
 	}
 }

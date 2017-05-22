@@ -62,17 +62,19 @@ void Rod::Update(float sec) {
 }
 
 void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
-	Vector3D ba = endB->GetPosition() - endA->GetPosition();
-	if(ba.Length() != length){
+	Vector3D ab = endB->GetPosition() - endA->GetPosition();
+	if(ab.Length() != length){
 		Collision collision(endA, endB);
 		Collision::Contact contact;
-		contact.normal = ba.GetNormalized();
-		contact.depth = length - ba.Length();
+		contact.normal = ab.GetNormalized();
+		//contact.depth = length - ba.Length();
+		contact.depth = ab.Length() - length;
 		contact.restitution = 0.f;
-		if(ba.Length() < length){
+		if(ab.Length() < length){
 			contact.normal *= -1.f;
 			contact.depth *= -1.f;
 		}
+		cross::system->LogIt("Depth - %f", contact.depth);
 		collision.AddContact(contact);
 		collisions.push_back(collision);
 	}
@@ -107,6 +109,7 @@ void HardConstraints::Start(){
 	particle_mat = new Material(particle_shader);
 	particle_mat->SetPropertyValue("Diffuse Color", Color::Red);
 	particle_mat->SetPropertyValue("Specular Color", Color::White);
+	/*
 	//***************PARTICLE*****************
 	Entity* particle = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	particle->SetScale(0.1f);
@@ -134,7 +137,7 @@ void HardConstraints::Start(){
 
 	Cable* cable = new Cable(2.f, Vector3D(1.f, 3.f, 1.f), connectedCollider);
 	AddEntity(cable);
-	physics->RegisterCollisionProvider(cable);
+	physics->RegisterCollisionProvider(cable);*/
 	//***************ROD*****************
 	rodA = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	rodB = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);

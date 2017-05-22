@@ -46,10 +46,11 @@ void Bridge::Start(){
 	particle_mat->SetPropertyValue("Specular Color", Color::White);
 
 
-	Rod* r1 = CreateRod(Vector3D(-1.f, 1.f, -1.f), Vector3D(-1.f, 1.f, 1.f));
-	cables.push_back(CreateCable(2.f, Vector3D(-1.f, 2.f, -1.f), r1->GetEndA()));
-	cables.push_back(CreateCable(2.f, Vector3D(-1.f, 2.f, 1.f), r1->GetEndB()));
-
+	Rod* r1 = CreateRod(Vector3D(-1.f, 1.f, -1.f), Vector3D(-1.f, 0.f, -1.f));
+	cables.push_back(CreateCable(1.f, Vector3D(-1.f, 2.f, -1.f), r1->GetEndA()));
+	test = r1;
+	//cables.push_back(CreateCable(2.f, Vector3D(-1.f, 2.f, 1.f), r1->GetEndB()));
+	/*
 	Rod* r2 = CreateRod(Vector3D(1.f, 1.f, -1.f), Vector3D(1.f, 1.f, 1.f));
 	cables.push_back(CreateCable(2.f, Vector3D(1.f, 2.f, -1.f), r2->GetEndA()));
 	cables.push_back(CreateCable(2.f, Vector3D(1.f, 2.f, 1.f), r2->GetEndB()));
@@ -61,7 +62,7 @@ void Bridge::Start(){
 	cables.push_back(CreateCable(1.7f, Vector3D(-3.f, 2.f, -1.f), r3->GetEndA()));
 	cables.push_back(CreateCable(1.7f, Vector3D(-3.f, 2.f, 1.f), r3->GetEndB()));
 	Connect(r1->GetEndA(), r3->GetEndA());
-	test = Connect(r1->GetEndB(), r3->GetEndB());
+	test = Connect(r1->GetEndB(), r3->GetEndB());*/
 }
 
 void Bridge::Stop(){
