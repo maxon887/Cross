@@ -26,30 +26,28 @@
 #include "Physics/Collider.h"
 #include "System.h"
 
-CableConstraint::CableConstraint(float lenght, Vector3D anchor, Collider* obj) :
+CableConstraint::CableConstraint(float lenght, Vector3D anchor, RigidBody* b) :
 	length(lenght),
 	anchor(anchor),
-	object(obj)
+	body(b)
 { }
 
 void CableConstraint::Update(float sec){
-	gfx3D->DrawLine(anchor, object->GetPosition(), Color::Red);
+	gfx3D->DrawLine(anchor, body->GetPosition(), Color::Red);
 }
 
 void CableConstraint::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
-	Vector3D OA = anchor - object->GetPosition();
-	if(OA.Length() > length){
-		Collision collision(object);
-		Collision::Contact contact;
-		contact.normal = OA.GetNormalized();
-		contact.depth = OA.Length() - length;
-		contact.restitution = 0.7f;
-		collision.AddContact(contact);
+	Vector3D BA = anchor - body->GetPosition();
+	if(BA.Length() > length){
+		Collision collision(body);
+		collision.contact.normal = BA.GetNormalized();
+		collision.contact.depth = BA.Length() - length;
+		collision.contact.restitution = 0.5f;
 		collisions.push_back(collision);
 	}
 }
 
-Cable::Cable(Collider* a, Collider* b) :
+Cable::Cable(RigidBody* a, RigidBody* b) :
 	endA(a),
 	endB(b)
 {
@@ -65,11 +63,9 @@ void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 	Vector3D ab = endB->GetPosition() - endA->GetPosition();
 	if(ab.Length() > length) {
 		Collision collision(endA, endB);
-		Collision::Contact contact;
-		contact.normal = ab.GetNormalized();
-		contact.depth = ab.Length() - length;
-		contact.restitution = 0.7f;
-		collision.AddContact(contact);
+		collision.contact.normal = ab.GetNormalized();
+		collision.contact.depth = ab.Length() - length;
+		collision.contact.restitution = 0.3f;
 		collisions.push_back(collision);
 	}
 }
@@ -78,7 +74,7 @@ void Cable::SetLength(float len) {
 	length = len;
 }
 
-Rod::Rod(Collider* a, Collider* b) :
+Rod::Rod(RigidBody* a, RigidBody* b) :
 	endA(a),
 	endB(b)
 { 
@@ -94,24 +90,22 @@ void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 	Vector3D ab = endB->GetPosition() - endA->GetPosition();
 	if(ab.Length() != length){
 		Collision collision(endA, endB);
-		Collision::Contact contact;
-		contact.normal = ab.GetNormalized();
-		contact.depth = ab.Length() - length;
-		contact.restitution = 0.f;
+		collision.contact.normal = ab.GetNormalized();
+		collision.contact.depth = ab.Length() - length;
+		collision.contact.restitution = 0.f;
 		if(ab.Length() < length){
-			contact.normal *= -1.f;
-			contact.depth *= -1.f;
+			collision.contact.normal *= -1.f;
+			collision.contact.depth *= -1.f;
 		}
-		collision.AddContact(contact);
 		collisions.push_back(collision);
 	}
 }
 
-Collider* Rod::GetEndA(){
+RigidBody* Rod::GetEndA(){
 	return endA;
 }
 
-Collider* Rod::GetEndB(){
+RigidBody* Rod::GetEndB(){
 	return endB;
 }
 
@@ -162,7 +156,7 @@ void HardConstraints::Start(){
 	
 	AddEntity(connectedObject);
 
-	CableConstraint* cable = new CableConstraint(2.f, Vector3D(1.f, 3.f, 1.f), connectedCollider);
+	CableConstraint* cable = new CableConstraint(2.f, Vector3D(1.f, 3.f, 1.f), connectedRigid);
 	AddEntity(cable);
 	physics->RegisterCollisionProvider(cable);
 	//***************ROD*****************
@@ -186,7 +180,7 @@ void HardConstraints::Start(){
 	AddEntity(rodA);
 	AddEntity(rodB);
 
-	Rod* rod = new Rod(colliderA, colliderB);
+	Rod* rod = new Rod(rigidA, rigidB);
 	AddEntity(rod);
 	physics->RegisterCollisionProvider(rod);
 	//***************ROAD*****************
@@ -229,12 +223,10 @@ void HardConstraints::Update(float sec){
 
 void HardConstraints::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
 	for(Collider* collider : colliders){
-		if(collider->GetPosition().y < 0){
-			Collision collision(collider);
-			Collision::Contact contact;
-			contact.normal = Vector3D::Up;
-			contact.depth = -collider->GetPosition().y;
-			collision.AddContact(contact);
+		if(collider->GetPosition().y < 0 && collider->HasComponent(Component::RIGIDBODY)){
+			Collision collision((RigidBody*)collider->GetComponent(Component::RIGIDBODY));
+			collision.contact.normal = Vector3D::Up;
+			collision.contact.depth = -collider->GetPosition().y;
 			collisions.push_back(collision);
 		}
 	}

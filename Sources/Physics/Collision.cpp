@@ -19,16 +19,27 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 using namespace cross;
 
-Collision::Collision(Collider* first) :
-	first(first),
-	second(NULL)
+Collision::Contact::Contact() :
+	Collision::Contact(Vector3D::Zero, 0)
 { }
 
-Collision::Collision(Collider* first, Collider* second) :
-	first(first),
-	second(second)
-{ }
-
-void Collision::AddContact(Collision::Contact& contact){
-	contacts.push_back(contact);
+Collision::Contact::Contact(Vector3D n, float d) :
+	normal(n),
+	depth(d),
+	restitution(1.f)
+{
+	move[0] = Vector3D::Zero;
+	move[1] = Vector3D::Zero;
 }
+
+Collision::Collision(RigidBody* first) :
+	first(first),
+	second(NULL),
+	contact()
+{ }
+
+Collision::Collision(RigidBody* first, RigidBody* second) :
+	first(first),
+	second(second),
+	contact()
+{ }

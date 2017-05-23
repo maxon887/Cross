@@ -32,7 +32,7 @@ private:
 	Entity* mass;
 	Vector3D mass_pos;
 
-	Rod* CreateRod(Collider* a, Collider* b);
-	CableConstraint* CreateCable(float len, Vector3D& ancor, Collider* obj);
-	Cable* Connect(Collider* a, Collider* b);
+	Rod* CreateRod(RigidBody* a, RigidBody* b);
+	CableConstraint* CreateCable(float len, Vector3D& ancor, RigidBody* obj);
+	Cable* Connect(RigidBody* a, RigidBody* b);
 };

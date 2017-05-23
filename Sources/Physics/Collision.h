@@ -25,20 +25,19 @@ public:
 	public:
 		Vector3D normal;
 		float depth;
-		float restitution = 1.0f;
+		float restitution;
+		Vector3D move[2];
+
+		Contact();
+		Contact(Vector3D normal, float depth);
 	};
 
-	Collision(Collider* first);
-	Collision(Collider* first, Collider* second);
+	RigidBody* first = NULL;
+	RigidBody* second = NULL;
+	Contact contact;
 
-	void AddContact(Contact& contact);
-
-private:
-	friend Physics;
-
-	Collider* first = NULL;
-	Collider* second = NULL;
-	Array<Contact> contacts;
+	Collision(RigidBody* first);
+	Collision(RigidBody* first, RigidBody* second);
 };
 
 }

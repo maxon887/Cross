@@ -23,7 +23,7 @@
 class CableConstraint : public Entity,
 						public CollisionProvider {
 public:
-	CableConstraint(float length, Vector3D anchor, Collider* connectedObject);
+	CableConstraint(float length, Vector3D anchor, RigidBody* body);
 
 	virtual void Update(float sec);
 	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
@@ -31,13 +31,13 @@ public:
 private:
 	float length;
 	Vector3D anchor;
-	Collider* object;
+	RigidBody* body;
 };
 
 class Cable : public Entity,
 			  public CollisionProvider {
 public:
-	Cable(Collider* a, Collider* b);
+	Cable(RigidBody* a, RigidBody* b);
 
 	virtual void Update(float sec);
 	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
@@ -46,25 +46,25 @@ public:
 
 private:
 	float length;
-	Collider* endA;
-	Collider* endB;
+	RigidBody* endA;
+	RigidBody* endB;
 };
 
 class Rod : public Entity,
 			public CollisionProvider {
 public:
-	Rod(Collider* a, Collider* b);
+	Rod(RigidBody* a, RigidBody* b);
 
 	virtual void Update(float sec);
 	virtual void Provide(Array<Collision>& collision, Array<Collider*>& colliders);
 
-	Collider* GetEndA();
-	Collider* GetEndB();
+	RigidBody* GetEndA();
+	RigidBody* GetEndB();
 
 private:
 	float length;
-	Collider* endA;
-	Collider* endB;
+	RigidBody* endA;
+	RigidBody* endB;
 };
 
 class HardConstraints : public CameraControlsScene,

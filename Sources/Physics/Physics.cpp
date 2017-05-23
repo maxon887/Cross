@@ -31,6 +31,27 @@ void Physics::Update(float sec){
 		provider->Provide(collisions, colliders);
 	}
 	//collision resolving
+	U32 iterations = collisions.size() * 2;
+	for(U32 i = 0; i < iterations; ++i){
+		float maxCV = 0;
+		int maxIndex = 0;
+		for(U32 j = 0; j < collisions.size(); ++j){
+			float cv = CalcClosingVelocity(collisions[j]);
+			if(cv > maxCV){
+				maxCV = cv;
+				maxIndex = j;
+			}
+		}
+		if(maxCV <= 0) {
+			break;
+		}
+		ResolveCollision(sec, collisions[maxIndex]);
+		ResolveInterpenetration(collisions[maxIndex]);
+	}
+	collisions.clear();
+
+	//collision resolving
+	/*
 	while(!collisions.empty()){
 		Collision col = collisions.back();
 		collisions.pop_back();
@@ -53,11 +74,11 @@ void Physics::Update(float sec){
 		for(int i = 0; i < interations; ++i){
 			float maxCV = 0;
 			int index = 0;
-			for(int i = 0; i < col.contacts.size(); ++i){
-				float CV = CalcClosingVelocity(firstRB, secondRB, col.contacts[i]);
+			for(int j = 0; j < col.contacts.size(); ++j){
+				float CV = CalcClosingVelocity(firstRB, secondRB, col.contacts[j]);
 				if(CV > maxCV){
 					maxCV = CV;
-					index = i;
+					index = j;
 				}
 			}
 			if(maxCV <= 0){
@@ -66,14 +87,7 @@ void Physics::Update(float sec){
 			ResolveCollision(sec, firstRB, secondRB, col.contacts[index]);
 			ResolveInterpenetration(firstRB, secondRB, col.contacts[index]);
 		}
-		/* Old Collision resolver code
-		while(!col.contacts.empty()){
-			Collision::Contact contact = col.contacts.back();
-			col.contacts.pop_back();
-			ResolveCollision(sec, firstRB, secondRB, contact);
-			ResolveInterpenetration(firstRB, secondRB, contact);
-		}*/
-	}
+	}*/
 }
 
 void Physics::RegisterRigidBody(RigidBody* rigid){
@@ -88,30 +102,32 @@ void Physics::RegisterCollisionProvider(CollisionProvider* provider){
 	collision_providers.push_back(provider);
 }
 
-float Physics::CalcClosingVelocity(RigidBody* first, RigidBody* second, Collision::Contact& contact){
-	Vector3D combinedVelocity = first->GetVelocity() * (-1.f);
-	if(second) {
-		combinedVelocity += second->GetVelocity();
+float Physics::CalcClosingVelocity(Collision& collision){
+	Vector3D combinedVelocity = collision.first->GetVelocity() * (-1.f);
+
+	if(collision.second) {
+		combinedVelocity += collision.second->GetVelocity();
 	}
-	return Vector3D::Dot(contact.normal, combinedVelocity);
+	return Vector3D::Dot(collision.contact.normal, combinedVelocity);
 }
 
-void Physics::ResolveCollision(float sec, RigidBody* first, RigidBody* second, Collision::Contact& contact){
-	float closingVelocity = CalcClosingVelocity(first, second, contact);
+void Physics::ResolveCollision(float sec, Collision& collision){
+	float closingVelocity = CalcClosingVelocity(collision);
 	if(closingVelocity < 0){
 		return;
 	}
 
-	float newClosingVelocity = -contact.restitution * closingVelocity;
+	float newClosingVelocity = -collision.contact.restitution * closingVelocity;
 	//resting contact
-	Vector3D totalAcceleration = first->GetAcceleration();
-	if(second){
-		totalAcceleration -= second->GetAcceleration();
+	Vector3D totalAcceleration = collision.first->GetAcceleration();
+
+	if(collision.second){
+		totalAcceleration -= collision.second->GetAcceleration();
 	}
 	
-	float frameAcceleration = Vector3D::Dot(totalAcceleration, contact.normal) * sec;
+	float frameAcceleration = Vector3D::Dot(totalAcceleration, collision.contact.normal) * sec;
 	if(frameAcceleration < 0){
-		newClosingVelocity -= contact.restitution * frameAcceleration;
+		newClosingVelocity -= collision.contact.restitution * frameAcceleration;
 		if(newClosingVelocity > 0){
 			newClosingVelocity = 0;
 		}
@@ -119,40 +135,43 @@ void Physics::ResolveCollision(float sec, RigidBody* first, RigidBody* second, C
 
 	float deltaVelocity = closingVelocity - newClosingVelocity;
 
-	float totalInverseMass = first->GetInverseMass();
-	if(second){
-		totalInverseMass += second->GetInverseMass();
+	float totalInverseMass = collision.first->GetInverseMass();
+	if(collision.second){
+		totalInverseMass += collision.second->GetInverseMass();
 	}
 	if(totalInverseMass <= 0){
 		return;
 	}
 
 	float impulseVal = deltaVelocity / totalInverseMass;
-	Vector3D impulse = contact.normal * impulseVal;
-	first->SetVelocity(first->GetVelocity() + impulse * first->GetInverseMass());
-	if(second){
-		second->SetVelocity(second->GetVelocity() - impulse * second->GetInverseMass());
+	Vector3D impulse = collision.contact.normal * impulseVal;
+	collision.first->SetVelocity(collision.first->GetVelocity() + impulse * collision.first->GetInverseMass());
+	if(collision.second){
+		collision.second->SetVelocity(collision.second->GetVelocity() - impulse * collision.second->GetInverseMass());
 	}
 }
 
-void Physics::ResolveInterpenetration(RigidBody* first, RigidBody* second, Collision::Contact& contact){
-	if(contact.depth <= 0){
+void Physics::ResolveInterpenetration(Collision& collision){
+	if(collision.contact.depth <= 0){
 		return;
 	}
 
-	float totalInverseMass = first->GetInverseMass();
-	if(second){
-		totalInverseMass += second->GetInverseMass();
+	float totalInverseMass = collision.first->GetInverseMass();
+	if(collision.second){
+		totalInverseMass += collision.second->GetInverseMass();
 	}
 
 	if(totalInverseMass <= 0){
 		return;
 	}
 
-	Vector3D movePerIMass = contact.normal * (contact.depth / totalInverseMass);
+	Vector3D movePerIMass = collision.contact.normal * (collision.contact.depth / totalInverseMass);
 
-	first->SetPosition(first->GetPosition() + movePerIMass * first->GetInverseMass());
-	if(second){
-		second->SetPosition(second->GetPosition() - movePerIMass * second->GetInverseMass());
+	collision.contact.move[0] = movePerIMass * collision.first->GetInverseMass();
+	collision.first->SetPosition(collision.first->GetPosition() + collision.contact.move[0]);
+	if(collision.second){
+		collision.contact.move[1] = movePerIMass * collision.second->GetInverseMass() * (-1.f);
+		collision.second->SetPosition(collision.second->GetPosition() + collision.contact.move[1]);
 	}
+	collision.contact.depth = 0;
 }
