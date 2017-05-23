@@ -74,6 +74,10 @@ void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 	}
 }
 
+void Cable::SetLength(float len) {
+	length = len;
+}
+
 Rod::Rod(Collider* a, Collider* b) :
 	endA(a),
 	endB(b)

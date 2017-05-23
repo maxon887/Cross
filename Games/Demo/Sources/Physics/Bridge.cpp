@@ -27,14 +27,16 @@
 void Bridge::Start(){
 	CameraControlsScene::Start();
 	SetBackground(Color(0.3f));
-	GetCamera()->SetPosition(Vector3D(-2.f, 2.3f, -5.f));
-	GetCamera()->LookAt(Vector3D::Zero);
+	GetCamera()->SetPosition(Vector3D(-4.f, 7.3f, -11.f));
+	GetCamera()->LookAt(Vector3D(0.f, 4.f, 0.f));
+	LookAtCamera(Vector3D(0.f, 4.f, 0.f));
 	//***************LIGHT*****************
 	Entity* light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
 	//***************PARTICLE*****************
+	
 	particle_shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	particle_shader->AddProperty("Diffuse Color", "uColor");
 	particle_shader->AddProperty("Specular Color", "uSpecularColor");
@@ -45,7 +47,51 @@ void Bridge::Start(){
 	particle_mat->SetPropertyValue("Diffuse Color", Color::Red);
 	particle_mat->SetPropertyValue("Specular Color", Color::White);
 
+	//Create nodes
+	for(U32 i = 0; i < 12; i++){
+		Entity* entity = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+		entity->SetScale(0.1f);
+		gfx3D->AdjustMaterial(entity, particle_mat);
+		entity->SetPosition(Vector3D((i / 2) * 2.f - 5.f, 4, (i % 2) * 2.f - 1.f));
 
+		RigidBody* rigid = new RigidBody(1.f);
+		entity->AddComponent(rigid);
+
+		Collider* collider = new Collider();
+		entity->AddComponent(collider);
+
+		AddEntity(entity);
+		nodes.push_back(entity);
+	}
+	//Create cabels
+	for(U32 i = 0; i < 10; i++){
+		Collider* a = (Collider*)nodes[i]->GetComponent(Component::COLLIDER);
+		Collider* b = (Collider*)nodes[i + 2]->GetComponent(Component::COLLIDER);
+		Connect(a, b);
+	}
+	//Supports
+	for(U32 i = 0; i < 12; i++){
+		Vector3D ancor((i / 2) * 2.2f - 5.5f, 6, (i % 2) * 1.6 - 0.8f);
+		Collider* obj = (Collider*)nodes[i]->GetComponent(Component::COLLIDER);
+		if(i < 6){
+			CreateCable((i / 2) * 0.5f + 3.f, ancor, obj);
+		}else{
+			CreateCable(5.5f - (i / 2) * 0.5, ancor, obj);
+		}
+	}
+	//Rods
+	for(U32 i = 0; i < 6; i++){
+		Collider* a = (Collider*)nodes[i * 2]->GetComponent(Component::COLLIDER);
+		Collider* b = (Collider*)nodes[i * 2 + 1]->GetComponent(Component::COLLIDER);
+		CreateRod(a, b);
+	}
+
+	mass = gfx3D->LoadPrimitive(Graphics3D::SPHERE);
+	mass->SetScale(0.5f);
+	gfx3D->AdjustMaterial(mass, particle_mat);
+	AddEntity(mass);
+
+	/*
 	Rod* r1 = CreateRod(Vector3D(-1.f, 1.f, -1.f), Vector3D(-1.f, 1.f, 1.f));
 	cables.push_back(CreateCable(2.f, Vector3D(-1.f, 2.f, -1.f), r1->GetEndA()));
 	cables.push_back(CreateCable(2.f, Vector3D(-1.f, 2.f, 1.f), r1->GetEndB()));
@@ -79,7 +125,7 @@ void Bridge::Start(){
 	cables.push_back(CreateCable(1.5f, Vector3D(4.5f, 2.f, -1.f), r6->GetEndA()));
 	cables.push_back(CreateCable(1.5f, Vector3D(4.5f, 2.f, 1.f), r6->GetEndB()));
 	Connect(r4->GetEndA(), r6->GetEndA());
-	Connect(r4->GetEndB(), r6->GetEndB());
+	Connect(r4->GetEndB(), r6->GetEndB());*/
 }
 
 void Bridge::Stop(){
@@ -88,32 +134,74 @@ void Bridge::Stop(){
 
 void Bridge::Update(float sec){
 	CameraControlsScene::Update(sec);
-	//Vector3D v = test->GetEndA()->GetPosition() - test->GetEndB()->GetPosition();
-	//cross::system->LogIt("Len - %f", v.Length());
+
+	for(U32 i = 0; i < 12; i++){
+		RigidBody* rigid = (RigidBody*)nodes[i]->GetComponent(Component::RIGIDBODY);
+		rigid->SetMass(1.f);
+	}
+	
+	int x = (int)mass_pos.x;
+	float xp = std::fmod(mass_pos.x, 1.f);
+	if(x < 0){
+		x = 0;
+		xp = 0;
+	}
+	if(x >= 5){
+		x = 5;
+		xp = 0;
+	}
+
+	int z = (int)mass_pos.z;
+	float zp = std::fmod(mass_pos.z, 1.f);
+	if(z < 0){
+		z = 0;
+		zp = 0;
+	}
+	if(z >= 1){
+		z = 1;
+		zp = 0;
+	}
+
+	//float scale = (1 - xp)(1 - zp);
+	//Vector3D massPos = nodes[x * 2 + z]->GetPosition() * (float)((1 - xp)(1 - zp));
+	Vector3D massPoss = nodes[x * 2 + z]->GetPosition() * ((float)(1 - xp)*(1 - zp));
+	//mass->SetPosition(nodes[x * 2 + z]->GetPosition() * ((float)(1 - xp)*(1 - zp)));
+
+	if(xp > 0){
+		massPoss += nodes[x * 2 + z + 2]->GetPosition() * (float)(xp * (1 - zp));
+		//mass->SetPosition(nodes[x * 2 + z + 2]->GetPosition() * (float)(xp * (1 - zp)));
+		if(zp > 0){
+			//mass->SetPosition(nodes[x * 2 + z + 3]->GetPosition() * (float)(xp * zp));
+			massPoss += nodes[x * 2 + z + 3]->GetPosition() * (float)(xp * zp);
+		}
+	}
+	if(zp > 0){
+		//mass->SetPosition(nodes[x * 2 + z + 1]->GetPosition() * (float)((1 - xp) * zp));
+		massPoss += nodes[x * 2 + z + 1]->GetPosition() * (float)((1 - xp) * zp);
+	}
+
+	mass->SetPosition(massPoss);
+
+	if(input->IsPressed(Key::W)){
+		mass_pos += Vector3D(0.f, 0.f, 0.1f);
+		//mass->SetPosition(mass->GetPosition() + Vector3D(0.0f, 0.f, 0.1f));
+	}
+	if(input->IsPressed(Key::S)) {
+		//mass->SetPosition(mass->GetPosition() + Vector3D(0.0f, 0.f, -0.1f));
+		mass_pos += Vector3D(0.f, 0.f, -0.1f);
+	}
+	if(input->IsPressed(Key::A)) {
+		//mass->SetPosition(mass->GetPosition() + Vector3D(-0.1f, 0.f, 0.0f));
+		mass_pos += Vector3D(-0.1, 0.f, 0.f);
+	}
+	if(input->IsPressed(Key::D)) {
+		mass_pos += Vector3D(0.1, 0.f, 0.f);
+		//mass->SetPosition(mass->GetPosition() + Vector3D(0.1f, 0.f, 0.0f));
+	}
 }
 
-Rod* Bridge::CreateRod(Vector3D& a, Vector3D& b){
-	Entity* endA = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	Entity* endB = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	endA->SetScale(0.1f);
-	endB->SetScale(0.1f);
-	endA->SetPosition(a);
-	endB->SetPosition(b);
-	gfx3D->AdjustMaterial(endA, particle_mat);
-	gfx3D->AdjustMaterial(endB, particle_mat);
-
-	RigidBody* rigidA = new RigidBody();
-	RigidBody* rigidB = new RigidBody();
-	endA->AddComponent(rigidA);
-	endB->AddComponent(rigidB);
-	Collider* colliderA = new Collider();
-	Collider* colliderB = new Collider();
-	endA->AddComponent(colliderA);
-	endB->AddComponent(colliderB);
-	AddEntity(endA);
-	AddEntity(endB);
-
-	Rod* rod = new Rod(colliderA, colliderB);
+Rod* Bridge::CreateRod(Collider* a, Collider* b){
+	Rod* rod = new Rod(a, b);
 	AddEntity(rod);
 	physics->RegisterCollisionProvider(rod);
 	return rod;
@@ -127,8 +215,9 @@ CableConstraint* Bridge::CreateCable(float len, Vector3D& ancor, Collider* obj){
 }
 
 Cable* Bridge::Connect(Collider* a, Collider* b){
-	Cable* rod = new Cable(a, b);
-	AddEntity(rod);
-	physics->RegisterCollisionProvider(rod);
-	return rod;
+	Cable* cable = new Cable(a, b);
+	cable->SetLength(1.9f);
+	AddEntity(cable);
+	physics->RegisterCollisionProvider(cable);
+	return cable;
 }

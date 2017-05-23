@@ -42,6 +42,8 @@ public:
 	virtual void Update(float sec);
 	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
 
+	void SetLength(float len);
+
 private:
 	float length;
 	Collider* endA;

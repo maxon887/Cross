@@ -76,7 +76,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	}
 	case WM_KEYDOWN:
-        input->KeyReleased((cross::Key)wParam);
+        input->KeyPressed((cross::Key)wParam);
 		break;
 	case WM_KEYUP:
 		input->KeyReleased((cross::Key)wParam);
