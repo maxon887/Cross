@@ -94,7 +94,7 @@ void* Main(void* self){
                 }
                 case APP_PAUSED:{
                     pause_mutex.lock();
-                    cross::system->Sleep(16);
+                    sys->Sleep(16);
                     pause_mutex.unlock();
                     break;
                 }
@@ -109,7 +109,7 @@ void* Main(void* self){
                         if (success) {
                             LOGI("Window create success");
                             wnd_state = WND_ACTIVE;
-                            cross::system->SetWindowSize(screen_width, screen_height);
+                            sys->SetWindowSize(screen_width, screen_height);
                         } else {
                             LOGI("Can not create native window");
                             app_state = APP_EXIT;
@@ -121,7 +121,7 @@ void* Main(void* self){
                             LOGI("Window recreaded");
                             wnd_state = WND_ACTIVE;
                             app_state = APP_RUNNING;
-                            cross::system->SetWindowSize(screen_width, screen_height);
+                            sys->SetWindowSize(screen_width, screen_height);
                         } else {
                             LOGI("Can not recread native window");
                             app_state = APP_EXIT;
@@ -145,34 +145,34 @@ void* Main(void* self){
         delete gfx2D;
         delete gfxGL;
         delete game;
-        cross::system->LogIt("Saved!");
-        delete cross::system;
+        sys->LogIt("Saved!");
+        delete sys;
     } catch (Exception& exc){
         string msg = string(exc.message) +
                      +"\nFile: " + string(exc.filename) +
                      +"\nLine: " + to_string(exc.line);
         LOGE("%s", msg.c_str());
-        ((AndroidSystem *) cross::system)->MessageBox(msg);
+        ((AndroidSystem *) sys)->MessageBox(msg);
     }
     if(app_state == APP_EXIT){
-        ((AndroidSystem *) cross::system)->Exit();
+        ((AndroidSystem *) sys)->Exit();
     }else {
-        ((AndroidSystem *) cross::system)->DetachFromJVM();
-		delete cross::system;
+        ((AndroidSystem *) sys)->DetachFromJVM();
+		delete sys;
     }
 }
 
 extern "C"{
 	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
 		LOGI("Cross_OnCreate");
-        if(!cross::system) {
+        if(!sys) {
             AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
             string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
-            cross::system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
+            sys = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();
             pthread_create(&threadID, 0, Main, NULL);
         }else{
