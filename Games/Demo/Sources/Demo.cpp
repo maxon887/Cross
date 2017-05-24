@@ -29,7 +29,7 @@ Demo::Demo() :
 
 void Demo::Start(){
 	Game::Start();
-	cross::system->LogIt("Demo::Start()");
+	sys->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
 	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::TilingMode::CLAMP_TO_EDGE, Texture::Filter::LINEAR, false);
@@ -50,7 +50,7 @@ void Demo::Start(){
 }
 
 void Demo::Stop(){
-	cross::system->LogIt("Demo::Stop()");
+	sys->LogIt("Demo::Stop()");
 	delete back_btn;
 	delete camera;
 	for(std::pair<string, Sprite*> pair: common_sprites){

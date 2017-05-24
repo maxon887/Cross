@@ -42,7 +42,7 @@ int GLES_Main(){
 
 		srand((U32)time(0));
 		WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
-		cross::system = winSys;
+		sys = winSys;
 		game = CrossMain();
 		input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
@@ -84,7 +84,7 @@ int GLES_Main(){
 		delete crossEGL;
 		delete audio;
 		delete game;
-		delete cross::system;
+		delete sys;
 
 		unsigned long leaked = MemoryManager::Instance()->Dump();
 		if(leaked > 0) {

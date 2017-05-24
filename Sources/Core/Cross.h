@@ -72,7 +72,7 @@ class Component;
 class Collider;
 
 extern Game*		game;
-extern System*		system;
+extern System*		sys;
 extern GraphicsGL*	gfxGL;
 extern Graphics2D*	gfx2D;
 extern Graphics3D*	gfx3D;

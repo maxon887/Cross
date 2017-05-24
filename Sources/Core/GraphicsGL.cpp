@@ -50,7 +50,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 		default: strcpy(error, "Unknown error");  
 			break;
 		}
-		system->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
+		sys->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
 		//throw CrossException("OpenGL error: %s in %s : %d", error, file, line);
 		delete[] error;
 		err = glGetError();
@@ -69,37 +69,37 @@ GraphicsGL::GraphicsGL():
 	colorbuffer_texture(NULL),
 	regenerade_framebuffer(true)
 {
-		system->LogIt("GraphicsGL::GraphicsGL()");
+		sys->LogIt("GraphicsGL::GraphicsGL()");
 
 #if defined(OPENGL)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		system->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
+		sys->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
 		if(glewInit()) {
 			throw CrossException("Unable to initialize GLEW");
 		}
 #else
-		system->LogIt("\tUsed OpenGL ES 2.0");
+		sys->LogIt("\tUsed OpenGL ES 2.0");
 #endif
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
-		system->LogIt("\tMax Vetex Uniforms: %d", value);
+		sys->LogIt("\tMax Vetex Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
-		system->LogIt("\tMax Fragment Uniforms: %d", value);
+		sys->LogIt("\tMax Fragment Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value);
-		system->LogIt("\tMax Vertex Attributes: %d", value);
+		sys->LogIt("\tMax Vertex Attributes: %d", value);
 
 		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
-		system->LogIt("\tMax Texture Size: %d", value);
+		sys->LogIt("\tMax Texture Size: %d", value);
 
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
-		system->LogIt("\tMax Texture Units: %d", value);
+		sys->LogIt("\tMax Texture Units: %d", value);
 
-		cross::system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
+		cross::sys->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
 		if(config->IsOffscreenRender()){
 			offscreen_shader = GetShader(DefaultShader::TEXTURE);
@@ -159,7 +159,7 @@ void GraphicsGL::PreProcessFrame(){
 			GeneradeFramebuffer();
 		}
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-		SAFE(glViewport(0, 0, system->GetWindowWidth() / 2, system->GetWindowHeight() / 2));
+		SAFE(glViewport(0, 0, sys->GetWindowWidth() / 2, sys->GetWindowHeight() / 2));
 	}
 }
 
@@ -167,7 +167,7 @@ void GraphicsGL::PostProcessFrame(){
 	if(config->IsOffscreenRender()){
 		//binding default frame buffer
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-		SAFE(glViewport(0, 0, system->GetWindowWidth(), system->GetWindowHeight()));
+		SAFE(glViewport(0, 0, sys->GetWindowWidth(), sys->GetWindowHeight()));
 		//drawing color buffer
 		SAFE(glBindBuffer(GL_ARRAY_BUFFER, quadVBO));
 		SAFE(glActiveTexture(GL_TEXTURE0));
@@ -268,8 +268,8 @@ void GraphicsGL::GeneradeFramebuffer(){
 	//generade color buffer
 	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 	//generate color buffer
-	bufferWidth = system->GetWindowWidth() / 2;
-	bufferHeight = system->GetWindowHeight() / 2;
+	bufferWidth = sys->GetWindowWidth() / 2;
+	bufferHeight = sys->GetWindowHeight() / 2;
 
 	SAFE(glGenTextures(1, &colorbuffer));
 	SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));

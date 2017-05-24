@@ -124,8 +124,8 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 	fragment_file(NULL),
 	makro_len(0)
 {
-	vertex_file = system->LoadFile(vertexFile);
-	fragment_file = system->LoadFile(fragmentFile);
+	vertex_file = sys->LoadFile(vertexFile);
+	fragment_file = sys->LoadFile(fragmentFile);
 }
 
 Shader::~Shader(){
@@ -297,7 +297,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
-			system->LogIt("Shader compilation:\n%s", log);
+			sys->LogIt("Shader compilation:\n%s", log);
 			delete[] log;
 		}
 #endif
