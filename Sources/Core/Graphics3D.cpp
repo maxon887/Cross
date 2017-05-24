@@ -43,10 +43,10 @@ using namespace cross;
 Graphics3D::Graphics3D():
 	initialize_in_load(true)
 {
-	system->LogIt("Graphics3D::Graphics3D()");
+	sys->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
-	system->LogIt("\tUse assimp version %d.%d", major, minor);
+	sys->LogIt("\tUse assimp version %d.%d", major, minor);
 	memset(primitives, 0, sizeof(primitives));
 	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	simple_shader->Compile();
@@ -102,7 +102,7 @@ Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
 	Entity* model = new Entity();
 	ProcessScene(model, filename);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+	sys->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
 }
 
@@ -118,7 +118,7 @@ void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCull
 }
 
 void Graphics3D::ProcessScene(Entity* model, const string& filename){
-	File* file = system->LoadFile(filename);
+	File* file = sys->LoadFile(filename);
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	delete file;
@@ -192,7 +192,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	cross::system->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
+	sys->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
 	Mesh* crsMesh = new Mesh();
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;

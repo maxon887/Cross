@@ -33,10 +33,10 @@ Scene::Scene() :
 void Scene::Start(){
 	Screen::Start();
 	is_scene = true;
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
 
-	resize_del = cross::system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
+	resize_del = sys->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
 void Scene::Update(float sec){
@@ -49,7 +49,7 @@ void Scene::Update(float sec){
 
 void Scene::Stop(){
 	delete camera;
-	cross::system->WindowResized.Disconnect(resize_del);
+	sys->WindowResized.Disconnect(resize_del);
 	for(Entity* obj : objects){
 		delete obj;
 	}
@@ -57,7 +57,7 @@ void Scene::Stop(){
 }
 
 void Scene::SetCameraViewDistance(float distance){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, distance);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, distance);
 	camera->SetProjectionMatrix(projection);
 }
 
@@ -94,6 +94,6 @@ void Scene::SetAmbientColor(const Color& color){
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }

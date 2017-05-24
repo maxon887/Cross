@@ -1,49 +1,45 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 15
+    compileSdkVersion 25
     buildToolsVersion '25.0.0'
-    productFlavors {
-        armV7{
-            ndk{
-                abiFilter "armeabi-v7a"
-            }
-        }
-        arm64V8{
-            ndk{
-                abiFilter "arm64-v8a"
-            }
-        }
-        x86 {
-            ndk {
-                abiFilter "x86"
-            }
-        }
-        fat
-    }
     defaultConfig {
-        applicationId "com.cross.demo"
-        minSdkVersion 8
-        targetSdkVersion 8
-        versionCode 1
-        versionName "1.0"
-        ndk {
-            moduleName "cross"
-            stl "c++_shared"
-            ldLibs "log"
-            ldLibs "android"
-            ldLibs "GLESv2"
-            ldLibs "EGL"
-            cFlags " -std=c++11"
-            cFlags += " -fexceptions"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/FreeType"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/FreeType/freetype2"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/Assimp"
-            cFlags += " -I${project.buildDir}/../../../../../../Sources/Libs/TinyXML"
-            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfmod.so"
-            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libfreetype2.so"
-            ldLibs file(projectDir).absolutePath + "/src/main/jniLibs/\$(TARGET_ARCH_ABI)/libassimp.so"
+        applicationId "com.littleman.cross"
+        minSdkVersion 9
+        targetSdkVersion 25
+        versionCode 300
+        versionName "3.0.0"
+        productFlavors {
+            armV7 {
+                ndk {
+                    abiFilter "armeabi-v7a"
+                }
+            }
+            arm64V8 {
+                ndk {
+                    abiFilter "arm64-v8a"
+                }
+            }
+            x86 {
+                ndk {
+                    abiFilter "x86"
+                }
+            }
+            fat {
+                ndk {
+                    abiFilter "armeabi-v7a"
+                    abiFilter "arm64-v8a"
+                    abiFilter "x86"
+                }
+            }
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti"
+                cppFlags += " -fexceptions"
+                cppFlags += " -std=c++11"
+            }
         }
     }
 
@@ -66,73 +62,12 @@ android {
     sourceSets {
         main.assets.srcDirs += '/../../../Assets'
         main.java.srcDirs += '../../../../../Sources/Platform/Android/'
-        main.jni.srcDirs += '../../../Sources/'
+    }
 
-        //main.jni.srcDirs += '../../../../../Sources/'
-        main.jni.srcDirs += '../../../../../Sources/System/'
-        main.jni.srcDirs += '../../../../../Sources/Math/'
-        main.jni.srcDirs += '../../../../../Sources/Utils/'
-        main.jni.srcDirs += '../../../../../Sources/Experimental/'
-        main.jni.srcDirs += '../../../../../Sources/Libs/SOIL/'
-        main.jni.srcDirs += '../../../../../Sources/Libs/TinyXML/'
-        main.jni.srcDirs += '../../../../../Sources/Shaders/'
-        main.jni.srcDirs += '../../../../../Sources/Platform/Android/'
-
-        main.jni.srcDirs += '../../../../../Sources/Audio.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Audio.h'
-        main.jni.srcDirs += '../../../../../Sources/Sound.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Sound.h'
-        main.jni.srcDirs += '../../../../../Sources/Camera.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Camera.h'
-        main.jni.srcDirs += '../../../../../Sources/Camera2D.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Camera2D.h'
-        main.jni.srcDirs += '../../../../../Sources/Camera3D.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Camera3D.h'
-        main.jni.srcDirs += '../../../../../Sources/Color.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Color.h'
-        main.jni.srcDirs += '../../../../../Sources/Config.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Config.h'
-        main.jni.srcDirs += '../../../../../Sources/File.cpp'
-        main.jni.srcDirs += '../../../../../Sources/File.h'
-        main.jni.srcDirs += '../../../../../Sources/Game.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Game.h'
-        main.jni.srcDirs += '../../../../../Sources/Graphics2D.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Graphics2D.h'
-        main.jni.srcDirs += '../../../../../Sources/GraphicsGL.cpp'
-        main.jni.srcDirs += '../../../../../Sources/GraphicsGL.h'
-        main.jni.srcDirs += '../../../../../Sources/Input.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Input.h'
-        main.jni.srcDirs += '../../../../../Sources/System.cpp'
-        main.jni.srcDirs += '../../../../../Sources/System.h'
-        main.jni.srcDirs += '../../../../../Sources/MemoryManager.cpp'
-        main.jni.srcDirs += '../../../../../Sources/MemoryManager.h'
-        main.jni.srcDirs += '../../../../../Sources/Light.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Light.h'
-        main.jni.srcDirs += '../../../../../Sources/Sprite.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Sprite.h'
-        main.jni.srcDirs += '../../../../../Sources/Cross.h'
-        main.jni.srcDirs += '../../../../../Sources/Screen.h'
-        main.jni.srcDirs += '../../../../../Sources/Screen.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Mesh.h'
-        main.jni.srcDirs += '../../../../../Sources/Mesh.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Model.h'
-        main.jni.srcDirs += '../../../../../Sources/Model.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Graphics3D.h'
-        main.jni.srcDirs += '../../../../../Sources/Graphics3D.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Transformable.h'
-        main.jni.srcDirs += '../../../../../Sources/Transformable.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Texture.h'
-        main.jni.srcDirs += '../../../../../Sources/Texture.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Scene.h'
-        main.jni.srcDirs += '../../../../../Sources/Scene.cpp'
-        main.jni.srcDirs += '../../../../../Sources/VertexBuffer.h'
-        main.jni.srcDirs += '../../../../../Sources/VertexBuffer.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Material.h'
-        main.jni.srcDirs += '../../../../../Sources/Material.cpp'
-        main.jni.srcDirs += '../../../../../Sources/UI.h'
-        main.jni.srcDirs += '../../../../../Sources/UI.cpp'
-        main.jni.srcDirs += '../../../../../Sources/Platform/CrossEGL.h'
-        main.jni.srcDirs += '../../../../../Sources/Platform/CrossEGL.cpp'
+	externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
     }
 }
 

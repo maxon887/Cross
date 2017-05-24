@@ -113,15 +113,7 @@ string Config::GetString(const string& key){
 }
 
 void Config::LoadGameConfig(){
-	/* Code for loading xmls from memery
-	TiXmlDocument xml;
-	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
-	memcpy(source, xmlFile->data, xmlFile->size);
-	source[xmlFile->size] = 0;
-	delete xmlFile;
-	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
-	delete source;*/
-    string path = system->DataPath() + "/GameConfig.xml";
+    string path = sys->DataPath() + "/GameConfig.xml";
 
 	TiXmlDocument doc(path.c_str());
 	doc.LoadFile();
@@ -163,7 +155,7 @@ void Config::LoadGameConfig(){
 }
 
 void Config::LoadUserConfig(){
-    string path = system->DataPath() + "/UserConfig.xml";
+    string path = sys->DataPath() + "/UserConfig.xml";
 
 	TiXmlDocument doc(path.c_str());
 	doc.LoadFile();
@@ -226,7 +218,7 @@ void Config::SaveGameConfig(){
 	gameConfig.name = "GameConfig.xml";
 	gameConfig.size = printer.Size();
 	gameConfig.data = (Byte*)printer.CStr();
-	system->SaveFile(&gameConfig);
+	sys->SaveFile(&gameConfig);
 	gameConfig.data = NULL;
 }
 
@@ -255,6 +247,6 @@ void Config::SaveUserConfig(){
 	userConfig.name = "UserConfig.xml";
 	userConfig.size = printer.Size();
 	userConfig.data = (Byte*)printer.CStr();
-	system->SaveFile(&userConfig);
+	sys->SaveFile(&userConfig);
 	userConfig.data = NULL;
 }

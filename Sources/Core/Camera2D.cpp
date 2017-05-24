@@ -22,24 +22,21 @@
 using namespace cross;
 
 Camera2D::Camera2D() {
-	view_width = (float)system->GetWindowWidth();
-	view_height = (float)system->GetWindowHeight();
+	view_width = (float)sys->GetWindowWidth();
+	view_height = (float)sys->GetWindowHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
-    resize_del = cross::system->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
+    resize_del = sys->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
 }
 
 Camera2D::~Camera2D() {
-	cross::system->WindowResized.Disconnect(resize_del);
+	sys->WindowResized.Disconnect(resize_del);
 }
 
 void Camera2D::SetViewWidth(float width) {
 	this->view_width = width;
-	float scale = (float)system->GetWindowWidth() / view_width;
-	view_height = (float)system->GetWindowHeight() / scale;
+	float scale = (float)sys->GetWindowWidth() / view_width;
+	view_height = (float)sys->GetWindowHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
-	//cross::system->WindowResized -= window_resized_delegate;
-	//window_resized_delegate = MakeDelegate(this, &Camera2D::WindowRisezedHandleCust);
-	//cross::system->WindowResized += window_resized_delegate;
 }
 
 float Camera2D::GetViewWidth() {
@@ -51,15 +48,15 @@ float Camera2D::GetViewHeight() {
 }
 
 void Camera2D::WindowResizedHandle(S32 width, S32 height) {
-	view_width = (float)system->GetWindowWidth();
-	view_height = (float)system->GetWindowHeight();
+	view_width = (float)sys->GetWindowWidth();
+	view_height = (float)sys->GetWindowHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
 //do we really need this method?
 void Camera2D::WindowRisezedHandleCust(S32 width, S32 height) {
-	system->LogIt("TargetWidth - %d", system->GetWindowWidth());
-	float scale = (float)system->GetWindowWidth() / view_width;
-	view_height = (float)system->GetWindowHeight() / scale;
+	sys->LogIt("TargetWidth - %d", sys->GetWindowWidth());
+	float scale = (float)sys->GetWindowWidth() / view_width;
+	view_height = (float)sys->GetWindowHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }

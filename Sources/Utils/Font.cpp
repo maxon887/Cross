@@ -56,7 +56,8 @@ Font::Font(string filename, float size, Color color) :
 	original(true),
 	kill_textures(false)
 {
-	file = system->LoadFile(filename);
+	memset(advances, 0, sizeof(advances));
+	file = sys->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);
@@ -148,12 +149,12 @@ void Font::Cache(){
 		U32 glyphIndex = FT_Get_Char_Index(face, i + 29);
 		error = FT_Load_Glyph(face, glyphIndex, FT_LOAD_RENDER);
 		if(error){
-			system->LogIt("Can't load glyph %c", i);
+			sys->LogIt("Can't load glyph %c", i);
 		}
 		FT_BitmapGlyph bitmapGlyhp;
 		error = FT_Get_Glyph(face->glyph, (FT_Glyph*)&bitmapGlyhp);
 		if(error){
-			system->LogIt("Can't abtain glyph %c", i);
+			sys->LogIt("Can't abtain glyph %c", i);
 		}
 		advances[i] = (float)(face->glyph->advance.x >> 6);
 		S32 bmpWidth = bitmapGlyhp->bitmap.width;

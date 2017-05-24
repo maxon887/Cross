@@ -30,7 +30,7 @@ static FMOD_RESULT result;
 Audio::Audio() : 
 	fmod_system(NULL)	
 {
-	system->LogIt("Audio::Audio()");
+	sys->LogIt("Audio::Audio()");
 	result = FMOD::System_Create(&fmod_system);
 	ERRCHECK(result);
 
@@ -49,12 +49,12 @@ Audio::Audio() :
 Audio::~Audio(){
 	result = fmod_system->close();
 	if(result != FMOD_OK){
-		system->LogIt("Error while closing FMOD system");
+		sys->LogIt("Error while closing FMOD system");
 	}
 }
 
 Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
-	if(system == NULL){
+	if(sys == NULL){
 		throw CrossException("Audio not initialized");
 	}
 	Sound* sound = new Sound();
@@ -71,7 +71,7 @@ Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 #ifdef ANDROID
 	string absPath = "file:///android_asset/" + path;
 #else
-	string absPath = system->AssetsPath() + "/" + path;
+	string absPath = sys->AssetsPath() + "/" + path;
 #endif
 	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound->sound);
     ERRCHECK(result);

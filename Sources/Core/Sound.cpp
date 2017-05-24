@@ -46,7 +46,7 @@ Sound::~Sound(){
 		result = channel->stop();
 	}
 	if(result != FMOD_OK){
-		system->LogIt("Error while destroing Sound");
+		sys->LogIt("Error while destroing Sound");
 	}
 }
 
