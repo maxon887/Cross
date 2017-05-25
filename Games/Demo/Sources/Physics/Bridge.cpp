@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright ï¿½ 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -24,9 +24,11 @@
 #include "Physics/Collider.h"
 #include "System.h"
 
+#include <cmath>
+
 void Bridge::Start(){
 	CameraControlsScene::Start();
-	SetBackground(Color(0.3f));
+	SetBackground(Color(0.15f));
 	GetCamera()->SetPosition(Vector3D(-4.f, 7.3f, -11.f));
 	GetCamera()->LookAt(Vector3D(0.f, 4.f, 0.f));
 	LookAtCamera(Vector3D(0.f, 4.f, 0.f));
@@ -35,8 +37,8 @@ void Bridge::Start(){
 	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
+
 	//***************PARTICLE*****************
-	
 	particle_shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	particle_shader->AddProperty("Diffuse Color", "uColor");
 	particle_shader->AddProperty("Specular Color", "uSpecularColor");
@@ -44,13 +46,13 @@ void Bridge::Start(){
 	particle_shader->Compile();
 
 	particle_mat = new Material(particle_shader);
-	particle_mat->SetPropertyValue("Diffuse Color", Color::Red);
+	particle_mat->SetPropertyValue("Diffuse Color", Color::Blue);
 	particle_mat->SetPropertyValue("Specular Color", Color::White);
 
 	//Create nodes
 	for(U32 i = 0; i < 12; i++){
 		Entity* entity = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
-		entity->SetScale(0.1f);
+		entity->SetScale(0.2f);
 		gfx3D->AdjustMaterial(entity, particle_mat);
 		entity->SetPosition(Vector3D((i / 2) * 2.f - 5.f, 4, (i % 2) * 2.f - 1.f));
 
@@ -67,28 +69,36 @@ void Bridge::Start(){
 	for(U32 i = 0; i < 10; i++){
 		RigidBody* a = (RigidBody*)nodes[i]->GetComponent(Component::RIGIDBODY);
 		RigidBody* b = (RigidBody*)nodes[i + 2]->GetComponent(Component::RIGIDBODY);
-		Connect(a, b);
+		Cable* cable = Connect(a, b);
+		cable->SetColor(Color::Black);
 	}
 	//Supports
 	for(U32 i = 0; i < 12; i++){
 		Vector3D ancor((i / 2) * 2.2f - 5.5f, 6, (i % 2) * 1.6 - 0.8f);
 		RigidBody* obj = (RigidBody*)nodes[i]->GetComponent(Component::RIGIDBODY);
+		CableConstraint* cable = NULL;
 		if(i < 6){
-			CreateCable((i / 2) * 0.5f + 3.f, ancor, obj);
+			cable = CreateCable((i / 2) * 0.5f + 3.f, ancor, obj);
 		}else{
-			CreateCable(5.5f - (i / 2) * 0.5, ancor, obj);
+			cable = CreateCable(5.5f - (i / 2) * 0.5, ancor, obj);
 		}
+		cable->SetColor(Color::White);
 	}
 	//Rods
 	for(U32 i = 0; i < 6; i++){
 		RigidBody* a = (RigidBody*)nodes[i * 2]->GetComponent(Component::RIGIDBODY);
 		RigidBody* b = (RigidBody*)nodes[i * 2 + 1]->GetComponent(Component::RIGIDBODY);
-		CreateRod(a, b);
+		Rod* rod = CreateRod(a, b);
+		rod->SetColor(Color::Red);
 	}
+	//Mass
+	mass_mat = new Material(particle_shader);
+	mass_mat->SetPropertyValue("Diffuse Color", Color::Green);
+	mass_mat->SetPropertyValue("Specular Color", Color::White);
 
 	mass = gfx3D->LoadPrimitive(Graphics3D::SPHERE);
 	mass->SetScale(0.5f);
-	gfx3D->AdjustMaterial(mass, particle_mat);
+	gfx3D->AdjustMaterial(mass, mass_mat);
 	AddEntity(mass);
 	mass_pos = Vector3D(0.f, 0.f, 0.5f);
 }

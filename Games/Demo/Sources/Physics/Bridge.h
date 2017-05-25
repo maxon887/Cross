@@ -27,6 +27,7 @@ public:
 private:
 	Shader* particle_shader;
 	Material* particle_mat;
+	Material* mass_mat;
 
 	Array<Entity*> nodes;
 	Entity* mass;

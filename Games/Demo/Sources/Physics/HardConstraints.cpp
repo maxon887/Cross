@@ -26,6 +26,14 @@
 #include "Physics/Collider.h"
 #include "System.h"
 
+Connection::Connection() :
+	color(Color::Red)
+{ }
+
+void Connection::SetColor(const Color& c){
+	color = c;
+}
+
 CableConstraint::CableConstraint(float lenght, Vector3D anchor, RigidBody* b) :
 	length(lenght),
 	anchor(anchor),
@@ -33,7 +41,7 @@ CableConstraint::CableConstraint(float lenght, Vector3D anchor, RigidBody* b) :
 { }
 
 void CableConstraint::Update(float sec){
-	gfx3D->DrawLine(anchor, body->GetPosition(), Color::Red);
+	gfx3D->DrawLine(anchor, body->GetPosition(), color);
 }
 
 void CableConstraint::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
@@ -56,7 +64,7 @@ Cable::Cable(RigidBody* a, RigidBody* b) :
 }
 
 void Cable::Update(float sec) {
-	gfx3D->DrawLine(endA->GetPosition(), endB->GetPosition(), Color::Red);
+	gfx3D->DrawLine(endA->GetPosition(), endB->GetPosition(), color);
 }
 
 void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
@@ -83,7 +91,7 @@ Rod::Rod(RigidBody* a, RigidBody* b) :
 }
 
 void Rod::Update(float sec) {
-	gfx3D->DrawLine(endA->GetPosition(), endB->GetPosition(), Color::Red);
+	gfx3D->DrawLine(endA->GetPosition(), endB->GetPosition(), color);
 }
 
 void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {

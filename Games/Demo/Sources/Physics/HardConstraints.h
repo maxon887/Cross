@@ -20,7 +20,18 @@
 #include "Shaders/MultiLightShader.h"
 #include "Physics/Physics.h"
 
+class Connection{
+public:
+	Connection();
+
+	void SetColor(const Color& c);
+
+protected:
+	Color color;
+};
+
 class CableConstraint : public Entity,
+						public Connection,
 						public CollisionProvider {
 public:
 	CableConstraint(float length, Vector3D anchor, RigidBody* body);
@@ -35,6 +46,7 @@ private:
 };
 
 class Cable : public Entity,
+			  public Connection,
 			  public CollisionProvider {
 public:
 	Cable(RigidBody* a, RigidBody* b);
@@ -51,6 +63,7 @@ private:
 };
 
 class Rod : public Entity,
+			public Connection,
 			public CollisionProvider {
 public:
 	Rod(RigidBody* a, RigidBody* b);
