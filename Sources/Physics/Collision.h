@@ -21,23 +21,20 @@ namespace cross{
 
 class Collision {
 public:
-	class Contact {
-	public:
-		Vector3D normal;
-		float depth;
-		float restitution;
-		Vector3D move[2];
 
-		Contact();
-		Contact(Vector3D normal, float depth);
-	};
+	Vector3D normal;
+	float depth;
+	float restitution;
 
 	RigidBody* first = NULL;
 	RigidBody* second = NULL;
-	Contact contact;
 
-	Collision(RigidBody* first);
-	Collision(RigidBody* first, RigidBody* second);
+	Collision(RigidBody* first, Vector3D& normal, float depth, float restitution);
+	Collision(	RigidBody* first, 
+				RigidBody* second, 
+				Vector3D& normal, 
+				float depth, 
+				float restitution	);
 };
 
 }

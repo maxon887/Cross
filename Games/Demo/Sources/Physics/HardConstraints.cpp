@@ -47,10 +47,10 @@ void CableConstraint::Update(float sec){
 void CableConstraint::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
 	Vector3D BA = anchor - body->GetPosition();
 	if(BA.Length() > length){
-		Collision collision(body);
-		collision.contact.normal = BA.GetNormalized();
-		collision.contact.depth = BA.Length() - length;
-		collision.contact.restitution = 0.5f;
+		Vector3D normal = BA.GetNormalized();
+		float depth = BA.Length() - length;
+		float restitution = 0.5f;
+		Collision collision(body, normal, depth, restitution);
 		collisions.push_back(collision);
 	}
 }
@@ -70,10 +70,10 @@ void Cable::Update(float sec) {
 void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 	Vector3D ab = endB->GetPosition() - endA->GetPosition();
 	if(ab.Length() > length) {
-		Collision collision(endA, endB);
-		collision.contact.normal = ab.GetNormalized();
-		collision.contact.depth = ab.Length() - length;
-		collision.contact.restitution = 0.3f;
+		Vector3D normal = ab.GetNormalized();
+		float depth = ab.Length() - length;
+		float restitution = 0.3f;
+		Collision collision(endA, endB, normal, depth, restitution);
 		collisions.push_back(collision);
 	}
 }
@@ -97,14 +97,14 @@ void Rod::Update(float sec) {
 void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 	Vector3D ab = endB->GetPosition() - endA->GetPosition();
 	if(ab.Length() != length){
-		Collision collision(endA, endB);
-		collision.contact.normal = ab.GetNormalized();
-		collision.contact.depth = ab.Length() - length;
-		collision.contact.restitution = 0.f;
+		Vector3D normal = ab.GetNormalized();
+		float depth = ab.Length() - length;
+		float restitution = 0.f;
 		if(ab.Length() < length){
-			collision.contact.normal *= -1.f;
-			collision.contact.depth *= -1.f;
+			normal *= -1.f;
+			depth *= -1.f;
 		}
+		Collision collision(endA, endB, normal, depth, restitution);
 		collisions.push_back(collision);
 	}
 }
@@ -232,9 +232,11 @@ void HardConstraints::Update(float sec){
 void HardConstraints::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
 	for(Collider* collider : colliders){
 		if(collider->GetPosition().y < 0 && collider->HasComponent(Component::RIGIDBODY)){
-			Collision collision((RigidBody*)collider->GetComponent(Component::RIGIDBODY));
-			collision.contact.normal = Vector3D::Up;
-			collision.contact.depth = -collider->GetPosition().y;
+			RigidBody* rigid = (RigidBody*)collider->GetComponent(Component::RIGIDBODY);
+			Vector3D normal = Vector3D::Up;
+			float restitution = 1.f;
+			float depth = -collider->GetPosition().y;
+			Collision collision(rigid, normal, restitution, depth);
 			collisions.push_back(collision);
 		}
 	}
