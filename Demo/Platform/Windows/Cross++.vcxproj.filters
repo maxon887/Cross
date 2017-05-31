@@ -58,11 +58,11 @@
     <Filter Include="Cross\Core">
       <UniqueIdentifier>{475abeb6-dd54-470f-af9f-ac6856413a61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\Physics">
-      <UniqueIdentifier>{005c58e4-e42e-4002-b113-bbe0be3f80be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Demo\Physics">
-      <UniqueIdentifier>{d44c0701-23ef-4486-85e2-a14f40ab6674}</UniqueIdentifier>
+      <UniqueIdentifier>{a9a8c5fb-479f-4b73-bc42-5b2426f4120d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Physics">
+      <UniqueIdentifier>{78c3df1d-69de-45c2-b078-dbdad6cabc0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -235,28 +235,6 @@
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
-<<<<<<< HEAD:Games/Demo/Platform/Windows/Cross++.vcxproj.filters
-    <ClCompile Include="..\..\..\..\Sources\Physics\Physics.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\RigidBody.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp">
-      <Filter>Demo\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\Collider.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp">
-      <Filter>Demo\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Sources\Physics\Collision.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
-      <Filter>Demo\Graphics2D</Filter>
-=======
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\image_helper.c">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClCompile>
@@ -352,7 +330,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
->>>>>>> master:Demo/Platform/Windows/Cross++.vcxproj.filters
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp">
+      <Filter>Cross\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -531,10 +529,6 @@
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
-<<<<<<< HEAD:Games/Demo/Platform/Windows/Cross++.vcxproj.filters
-    <ClInclude Include="..\..\..\..\Sources\Core\Event.h">
-      <Filter>Cross\Core</Filter>
-=======
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_DXT.h">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClInclude>
@@ -633,30 +627,26 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
->>>>>>> master:Demo/Platform/Windows/Cross++.vcxproj.filters
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\Physics.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\RigidBody.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\Ocean.h">
-      <Filter>Demo\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\Bridge.h">
       <Filter>Demo\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\Collider.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\HardConstraints.h">
       <Filter>Demo\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Experimental\Array.h">
-      <Filter>Cross\Math</Filter>
+    <ClInclude Include="..\..\Sources\Physics\Ocean.h">
+      <Filter>Demo\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Sources\Physics\Collision.h">
+    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Physics.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Collision.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Collider.h">
       <Filter>Cross\Physics</Filter>
     </ClInclude>
   </ItemGroup>

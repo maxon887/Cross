@@ -17,7 +17,6 @@ file(GLOB CROSS_SRC
     "../../../Sources/Graphics3D/Light/*.cpp"
     "../../../Sources/Graphics3D/Maps/*.cpp"
     "../../../Sources/Graphics3D/Misc/*.cpp"
-<<<<<<< HEAD:Games/Demo/Platform/Android/app/CMakeLists.txt
     "../../../Sources/Physics/*.cpp"
     "../../../../../Sources/Core/*.cpp"
     "../../../../../Sources/Math/*.cpp"
@@ -29,17 +28,6 @@ file(GLOB CROSS_SRC
     "../../../../../Sources/Libs/TinyXML/*.cpp"
     "../../../../../Sources/Platform/*.cpp"
     "../../../../../Sources/Platform/Android/*.cpp"
-=======
-    "../../../../Sources/Core/*.cpp"
-    "../../../../Sources/Math/*.cpp"
-    "../../../../Sources/Shaders/*.cpp"
-    "../../../../Sources/Internals/*.cpp"
-    "../../../../Sources/Utils/*.cpp"
-    "../../../../Sources/Libs/SOIL/*.c"
-    "../../../../Sources/Libs/TinyXML/*.cpp"
-    "../../../../Sources/Platform/*.cpp"
-    "../../../../Sources/Platform/Android/*.cpp"
->>>>>>> master:Demo/Platform/Android/app/CMakeLists.txt
 
 )
 
