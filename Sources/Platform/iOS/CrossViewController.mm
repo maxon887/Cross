@@ -61,7 +61,7 @@ using namespace cross;
     screenScale = [[UIScreen mainScreen] scale];
     
     try{
-        cross::system = new IOSSystem();
+        sys = new IOSSystem();
         game = CrossMain();
         audio = new Audio();
         gfxGL = new GraphicsGL();
@@ -108,7 +108,7 @@ using namespace cross;
     CGFloat screenScale = [[UIScreen mainScreen] scale];
     S32 width = size.width * screenScale;
     S32 height = size.height * screenScale;
-    cross::system->SetWindowSize(width, height);
+    sys->SetWindowSize(width, height);
 }
 
 - (NSUInteger)supportedInterfaceOrientations{
@@ -135,7 +135,7 @@ using namespace cross;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        TRIGGER_EVENT(input->TargetActionDown, x, y, touchID);
+        input->TargetActionDown(x, y, touchID);
     }
 }
 
@@ -146,7 +146,7 @@ using namespace cross;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        TRIGGER_EVENT(input->TargetActionUp, x, y, touchID);
+        input->TargetActionUp(x, y, touchID);
     }
 }
 
@@ -157,7 +157,7 @@ using namespace cross;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        TRIGGER_EVENT(input->TargetActionUp, x, y, touchID);
+        input->TargetActionUp(x, y, touchID);
     }
 }
 
@@ -167,7 +167,7 @@ using namespace cross;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        TRIGGER_EVENT(input->TargetActionMove, x, y, touchID);
+        input->TargetActionMove(x, y, touchID);
     }
 }
 
