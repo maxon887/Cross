@@ -30,7 +30,12 @@ void ApocalypseScene::Start(){
 
 	SetAmbientColor(Color(0.1f));
 
-	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	//lights
+	light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
+	AddEntity(light);
+
+	camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	
 	Light* lightComponent = new Light(Light::SPOT);
 	lightComponent->SetCutOff(20.f);
@@ -40,6 +45,7 @@ void ApocalypseScene::Start(){
 	lightSpotRight->AddComponent(lightComponent->Clone());
 
 	AddEntity(camaro);
+	camaro = camaro->FindChild("Camaro");
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
 	shader->AddMakro("USE_DIFFUSE_MAP");
@@ -98,4 +104,5 @@ void ApocalypseScene::Stop(){
 
 void ApocalypseScene::Update(float sec){
 	CameraControlsScene::Update(sec);
+	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

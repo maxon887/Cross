@@ -43,6 +43,7 @@
 #include "Graphics3D/Misc/ApocalypseScene.h"
 #include "Physics/Ocean.h"
 #include "Physics/Bridge.h"
+#include "Physics/Suppressors.h"
 #include "Demo.h"
 #include "Event.h"
 
@@ -176,7 +177,7 @@ void MainScreen::Start(){
 	oceanBtn->Clicked.Connect([](){ game->SetScreen(new Ocean()); });
 	hardConstraints->Clicked.Connect([]() { game->SetScreen(new HardConstraints()); });
 	bridgeBtn->Clicked.Connect([](){ game->SetScreen(new Bridge()); });
-	suppressors->Clicked.Connect([]() { game->SetScreen(NULL); });
+	suppressors->Clicked.Connect([]() { game->SetScreen(new Suppressors()); });
 	physics_menu->AddButton(oceanBtn);
 	physics_menu->AddButton(hardConstraints);
 	physics_menu->AddButton(bridgeBtn);

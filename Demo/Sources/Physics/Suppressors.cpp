@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright � 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,26 +14,26 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Physics/Suppressors.h"
+#include "System.h"
+#include "Camera.h"
+#include "Entity.h"
+#include "Physics/RigidBody.h"
 
-class ApocalypseScene : public CameraControlsScene{
-public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+void Suppressors::Start(){
+	ApocalypseScene::Start();
+	GetCamera()->SetPosition(Vector3D(-3.2f, 2.1f, 4.4f));
+	GetCamera()->LookAt(Vector3D::Zero);
 
-protected:
-	Entity* camaro;
+	camaro->SetPosition(Vector3D(0.f, 2.f, 0.f));
+	RigidBody* camaroRigid = new RigidBody(1500.f);
+	//camaro->AddComponent(camaroRigid);
+}
 
-private:
-	Entity* light;
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
-};
+void Suppressors::Stop(){
+	ApocalypseScene::Stop();
+}
+
+void Suppressors::Update(float sec){
+	ApocalypseScene::Update(sec);
+}

@@ -79,7 +79,8 @@ Screen* Demo::GetStartScreen(){
 	//return new MainScreen();
 	//return new Ocean();
 	//return new Bridge();
-	return new HardConstraints();
+	//return new HardConstraints();
+	return new Suppressors();
 }
 
 Sprite* Demo::GetCommonSprite(string name){
