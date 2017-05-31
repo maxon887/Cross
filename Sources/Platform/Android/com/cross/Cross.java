@@ -21,7 +21,4 @@ public class Cross {
 	public native void ActionMove(float x, float y, int actionID);
 	public native void PressKey(int key);
 	public native void ReleaseKey(int key);
-	
-	public native void InitialCommercial(Commercial comm);
-	public native void CommertialResult(int event);
 }
