@@ -51,6 +51,13 @@ void Physics::Update(float sec){
 	collisions.clear();
 }
 
+void Physics::Clear(){
+	rigidbodyes.clear();
+	collisions.clear();
+	colliders.clear();
+	collision_providers.clear();
+}
+
 void Physics::RegisterRigidBody(RigidBody* rigid){
 	rigidbodyes.push_back(rigid);
 }

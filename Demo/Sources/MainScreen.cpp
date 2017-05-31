@@ -170,10 +170,17 @@ void MainScreen::Start(){
 
 	physics_menu = new Menu(true);
 	Button* oceanBtn			= new Button("Ocean", font->Clone());
+	Button* hardConstraints		= new Button("Hard Consts", font->Clone());
 	Button* bridgeBtn			= new Button("Bridge", font->Clone());
+	Button* suppressors			= new Button("Suppressors", font->Clone());
 	oceanBtn->Clicked.Connect([](){ game->SetScreen(new Ocean()); });
+	hardConstraints->Clicked.Connect([]() { game->SetScreen(new HardConstraints()); });
 	bridgeBtn->Clicked.Connect([](){ game->SetScreen(new Bridge()); });
+	suppressors->Clicked.Connect([]() { game->SetScreen(NULL); });
 	physics_menu->AddButton(oceanBtn);
+	physics_menu->AddButton(hardConstraints);
+	physics_menu->AddButton(bridgeBtn);
+	physics_menu->AddButton(suppressors);
 	physics_menu->SetImages(buttonSprite, buttonSpritePressed);
 
 	graphics2D_menu->Active(false);

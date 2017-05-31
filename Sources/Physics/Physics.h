@@ -28,6 +28,7 @@ public:
 class Physics {
 public:
 	void Update(float sec);
+	void Clear();
 	void RegisterRigidBody(RigidBody* rigid);
 	void RegisterCollider(Collider* collider);
 	void RegisterCollisionProvider(CollisionProvider* provider);

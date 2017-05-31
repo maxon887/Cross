@@ -217,6 +217,8 @@ void HardConstraints::Start(){
 }
 
 void HardConstraints::Stop(){
+	delete particle_shader;
+	delete particle_mat;
 	delete road_mat;
 	delete road_diffuse;
 	delete road_shader;
@@ -225,8 +227,6 @@ void HardConstraints::Stop(){
 
 void HardConstraints::Update(float sec){
 	CameraControlsScene::Update(sec);
-	RigidBody* rigidB = (RigidBody*)rodB->GetComponent(Component::Type::RIGIDBODY);
-	//rigidB->ApplyForce(Vector3D(-1.f, 0.f, 0.3f));
 }
 
 void HardConstraints::Provide(Array<Collision>& collisions, Array<Collider*>& colliders){
@@ -236,7 +236,7 @@ void HardConstraints::Provide(Array<Collision>& collisions, Array<Collider*>& co
 			Vector3D normal = Vector3D::Up;
 			float restitution = 1.f;
 			float depth = -collider->GetPosition().y;
-			Collision collision(rigid, normal, restitution, depth);
+			Collision collision(rigid, normal, depth, restitution);
 			collisions.push_back(collision);
 		}
 	}

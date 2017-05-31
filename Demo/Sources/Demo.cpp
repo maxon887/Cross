@@ -24,6 +24,7 @@
 #include "Physics/Ocean.h"
 #include "Physics/Bridge.h"
 #include "Physics/HardConstraints.h"
+#include "Physics/Suppressors.h"
 
 Demo* demo = NULL;
 
@@ -77,8 +78,8 @@ Screen* Demo::GetStartScreen(){
 	gfx2D->SetCamera(camera);
 	//return new MainScreen();
 	//return new Ocean();
-	return new Bridge();
-	//return new HardConstraints();
+	//return new Bridge();
+	return new HardConstraints();
 }
 
 Sprite* Demo::GetCommonSprite(string name){
@@ -86,11 +87,11 @@ Sprite* Demo::GetCommonSprite(string name){
 }
 
 void Demo::OnBackClick(){
-    SetScreen(GetStartScreen());
+	SetScreen(new MainScreen());
 }
 
 void Demo::OnKeyPressed(Key key){
 	if(key == Key::ESCAPE || key == Key::BACK){
-		SetScreen(GetStartScreen());
+		SetScreen(new MainScreen());
 	}
 }

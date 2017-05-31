@@ -147,6 +147,7 @@ void Game::LoadNextScreen(){
 
 	if(current_screen){
 		current_screen->Stop();
+		physics->Clear();
 		delete current_screen;
 	}
 	current_screen = next_screen;

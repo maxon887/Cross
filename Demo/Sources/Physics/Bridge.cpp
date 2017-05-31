@@ -71,18 +71,20 @@ void Bridge::Start(){
 		RigidBody* b = (RigidBody*)nodes[i + 2]->GetComponent(Component::RIGIDBODY);
 		Cable* cable = Connect(a, b);
 		cable->SetColor(Color::Black);
+		AddEntity(cable);
 	}
 	//Supports
 	for(U32 i = 0; i < 12; i++){
 		Vector3D ancor((i / 2) * 2.2f - 5.5f, 6, (i % 2) * 1.6 - 0.8f);
 		RigidBody* obj = (RigidBody*)nodes[i]->GetComponent(Component::RIGIDBODY);
-		CableConstraint* cable = NULL;
+		CableConstraint* support = NULL;
 		if(i < 6){
-			cable = CreateCable((i / 2) * 0.5f + 3.f, ancor, obj);
+			support = CreateCable((i / 2) * 0.5f + 3.f, ancor, obj);
 		}else{
-			cable = CreateCable(5.5f - (i / 2) * 0.5, ancor, obj);
+			support = CreateCable(5.5f - (i / 2) * 0.5, ancor, obj);
 		}
-		cable->SetColor(Color::White);
+		support->SetColor(Color::White);
+		AddEntity(support);
 	}
 	//Rods
 	for(U32 i = 0; i < 6; i++){
@@ -90,6 +92,7 @@ void Bridge::Start(){
 		RigidBody* b = (RigidBody*)nodes[i * 2 + 1]->GetComponent(Component::RIGIDBODY);
 		Rod* rod = CreateRod(a, b);
 		rod->SetColor(Color::Red);
+		AddEntity(rod);
 	}
 	//Mass
 	mass_mat = new Material(particle_shader);
@@ -105,6 +108,10 @@ void Bridge::Start(){
 
 void Bridge::Stop(){
 	CameraControlsScene::Stop();
+	delete mass_mat;
+	delete particle_mat;
+	delete particle_shader;
+
 }
 
 void Bridge::Update(float sec){
@@ -191,14 +198,12 @@ void Bridge::Update(float sec){
 
 Rod* Bridge::CreateRod(RigidBody* a, RigidBody* b){
 	Rod* rod = new Rod(a, b);
-	AddEntity(rod);
 	physics->RegisterCollisionProvider(rod);
 	return rod;
 }
 
 CableConstraint* Bridge::CreateCable(float len, Vector3D& ancor, RigidBody* obj){
 	CableConstraint* cable = new CableConstraint(len, ancor, obj);
-	AddEntity(cable);
 	physics->RegisterCollisionProvider(cable);
 	return cable;
 }
@@ -206,7 +211,6 @@ CableConstraint* Bridge::CreateCable(float len, Vector3D& ancor, RigidBody* obj)
 Cable* Bridge::Connect(RigidBody* a, RigidBody* b){
 	Cable* cable = new Cable(a, b);
 	cable->SetLength(1.9f);
-	AddEntity(cable);
 	physics->RegisterCollisionProvider(cable);
 	return cable;
 }
