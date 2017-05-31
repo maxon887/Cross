@@ -24,7 +24,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private static final String TAG 	= "CrossJava";
 	private Cross cross 				= null;
 	private AssetManager asset_manager 	= null;
-	private Commercial commercial		= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +51,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		asset_manager = getResources().getAssets();
 
 		cross.OnCreate(this, asset_manager, dataPath);
-
-		try{
-			//commercial = new Commercial(this);
-		}catch(Throwable ex){
-			Log.d(TAG, "can not create commercial");
-			commercial = null;
-		}
 		//rate it
 	    RateThisApp.onStart(this);
 	    RateThisApp.showRateDialogIfNeeded(this);
@@ -177,14 +169,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if(commercial != null){
-			//commercial.HandleActivityResult(requestCode, resultCode, data);
-		}
-	}
-
 	public void MessageBox(String msg){
 		final String thrMsg = msg;
 		runOnUiThread(new Runnable() {
@@ -251,13 +235,5 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 				System.exit(0);
 			}
 		});
-	}
-
-	public void SendCommertialResult(int event) {
-		if(cross != null) {
-			cross.CommertialResult(event);
-		} else {
-			Log.d(TAG, "Can't send CommertialResult. cross = null");
-		}
 	}
 }

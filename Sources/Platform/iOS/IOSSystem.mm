@@ -18,7 +18,6 @@
 #include "IOSSystem.h"
 #include "Audio.h"
 #include "File.h"
-#include "CommercialOS.h"
 
 #include <sys/time.h>
 #include <fstream>
@@ -29,11 +28,9 @@ IOSSystem::IOSSystem(){
     S32 width = screenRect.size.width * screenScale;
     S32 height = screenRect.size.height * screenScale;
     SetWindowSize(width, height);
-    commercial = new CommercialOS();
 }
 
 IOSSystem::~IOSSystem(){
-    delete commercial;
     delete audio;
 }
 
@@ -58,10 +55,6 @@ U64 IOSSystem::GetTime(){
     struct timeval ptv;
     gettimeofday(&ptv, NULL);
     return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
-}
-
-Commercial* IOSSystem::GetCommercial(){
-    return commercial;
 }
 
 void IOSSystem::RequestOrientation(cross::System::Orientation orientation){
