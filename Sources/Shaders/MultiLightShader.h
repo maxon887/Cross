@@ -29,10 +29,10 @@ public:
 	MultiLightShader(const string& vert, const string& frag);
 
 	virtual void Compile();
-	virtual void Compile(const Array<Light*>& lights);
+	virtual void Compile(const List<Light*>& lights);
 
 	virtual bool UseLights();
-	virtual void TransferLightData(const Array<Light*>& lights);
+	virtual void TransferLightData(const List<Light*>& lights);
 
 private:
 	LightUniforms uPointLights[MaxPointLights];

@@ -78,7 +78,6 @@ void MultiLightScene::Start(){
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		AddEntity(clone);
 	}
-	cube->DeleteChildren();
 	delete cube;
 }
 

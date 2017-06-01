@@ -34,7 +34,7 @@ void MultiLightShader::Compile(){
 	Compile(game->GetCurrentScene()->GetLights());
 }
 
-void MultiLightShader::Compile(const Array<Light*>& lights){
+void MultiLightShader::Compile(const List<Light*>& lights){
 	int pointCount = 0;
 	int spotCount = 0;
 	int directionalCount = 0;
@@ -91,7 +91,7 @@ bool MultiLightShader::UseLights(){
 	return true;
 }
 
-void MultiLightShader::TransferLightData(const Array<Light*>& lights){
+void MultiLightShader::TransferLightData(const List<Light*>& lights){
 	int pointCount = 0;
 	int spotCount = 0;
 	int directionalCount = 0;

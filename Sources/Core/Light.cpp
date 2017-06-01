@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Light.h"
+#include "Game.h"
+#include "Scene.h"
 
 using namespace cross;
 
@@ -33,6 +35,25 @@ Light::Light(Light& obj):
 	intensity(obj.intensity), //aroud 15m to max distance
 	cut_off(obj.cut_off)
 { }
+
+void Light::Initialize(){
+	Scene* scene = game->GetCurrentScene();
+	List<Light*>& lights = scene->GetLights();
+	auto it = std::find(lights.begin(), lights.end(), this);
+	if(it != lights.end()) {
+		throw CrossException("Current light already in the scene");
+	}
+	lights.push_back(this);
+}
+
+void Light::Remove(){
+	Scene* scene = game->GetCurrentScene();
+	List<Light*>& lights = scene->GetLights();
+	auto it = std::find(lights.begin(), lights.end(), this);
+	if(it != lights.end()) {
+		lights.erase(it);
+	}
+}
 
 Color Light::GetColor() const{
 	return color;

@@ -31,11 +31,11 @@ public:
 	Component(Type type);
 	virtual ~Component() { };
 
-	virtual void Update(float sec);
+	virtual void Initialize() { }
+	virtual void Remove() { }
+	virtual void Update(float sec) { }
 	virtual Component* Clone();
 
-	void Initialize(Entity* entity);
-	bool Initialized() const;
 	Type GetType() const;
 	Entity* GetEntity();
 	Component* GetComponent(Component::Type type);
@@ -43,6 +43,8 @@ public:
 	Vector3D GetPosition();
 
 private:
+	friend Entity;
+
 	Type type;
 	Entity* entity;
 };

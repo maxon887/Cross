@@ -41,17 +41,18 @@ void Scene::Start(){
 void Scene::Update(float sec){
 	Screen::Update(sec);
 	camera->Update(sec);
-	for(Entity* obj : objects){
-		obj->Update(sec);
+	for(Entity* e : objects){
+		e->Update(sec);
 	}
 }
 
 void Scene::Stop(){
 	delete camera;
 	sys->WindowResized.Disconnect(resize_del);
-	for(Entity* obj : objects){
-		delete obj;
+	for(Entity* e : objects){
+		delete e;
 	}
+	objects.clear();
 	Screen::Stop();
 }
 
@@ -60,17 +61,38 @@ void Scene::SetCameraViewDistance(float distance){
 	camera->SetProjectionMatrix(projection);
 }
 
-void Scene::AddEntity(Entity* entity){
-	objects.push_back(entity);
-	if(entity->GetComponent(Component::LIGHT)){
-		lights.push_back((Light*)entity->GetComponent(Component::LIGHT));
+Entity* Scene::GetEntity(const string& name){
+	for(Entity* e : objects){
+		if(e->GetName() == name){
+			return e;
+		}
+		Entity* child = e->FindChild(name);
+		if(child){
+			return child;
+		}
 	}
-	for(Entity* child : entity->GetChildren()){
-		AddEntity(child);
+	throw CrossException("Can not find entity %s", name.c_str());
+}
+
+void Scene::AddEntity(Entity* entity){
+	entity->Initialize();
+	objects.push_back(entity);
+}
+
+Entity* Scene::RemoveEntity(const string& name){
+	for(auto it = objects.begin(); it != objects.end(); it++){
+		Entity* e = (*it);
+		if(e->GetName() == name){
+			e->Remove();
+			objects.erase(it);
+			return e;
+		}else{
+			return e->RemoveChild(name);
+		}
 	}
 }
 
-Array<Light*>& Scene::GetLights(){
+List<Light*>& Scene::GetLights(){
 	return lights;
 }
 

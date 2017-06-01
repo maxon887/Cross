@@ -24,20 +24,8 @@ Component::Component(Type type) :
 	entity(NULL)
 { }
 
-void Component::Update(float sec){
-	throw CrossException("Unimplemented Component::Update");
-}
-
 Component* Component::Clone(){
 	throw CrossException("Unimplemented Component::Clone");
-}
-
-void Component::Initialize(Entity* entity){
-	this->entity = entity;
-}
-
-bool Component::Initialized() const{
-	return entity != NULL;
 }
 
 Component::Type Component::GetType() const{

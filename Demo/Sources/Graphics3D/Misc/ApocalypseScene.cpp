@@ -82,6 +82,9 @@ void ApocalypseScene::Start(){
 	road->SetScale(15.f);
 	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
+
+	Entity* e = RemoveEntity("Camaro");
+	AddEntity(e);
 }
 
 void ApocalypseScene::Stop(){

@@ -26,16 +26,18 @@ public:
 	Entity();
 	~Entity();
 
+	void Initialize();
+	void Remove();
 	void Update(float sec);
 	void SetName(const string& name);
-	string& GetName();
+	const string& GetName();
 	void AddComponent(Component* component);
 	Component* GetComponent(Component::Type type);
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
 	List<Entity*>& GetChildren();
-	void DeleteChildren();
 	Entity* FindChild(const string& name);
+	Entity* RemoveChild(const string& nane);
 	Entity* Clone();
 	//Not optimized function
 	Matrix GetWorldMatrix();
@@ -43,6 +45,8 @@ public:
 	Vector3D GetDirection();
 
 private:
+	CROSS_FRIENDLY
+
 	string name;
 	Component* components[Component::COUNT];
 	Entity* parent;

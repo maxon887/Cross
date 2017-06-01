@@ -37,12 +37,12 @@ typedef int64_t		S64;
 typedef uint64_t	U64;
 typedef uint8_t		Byte;
 
-template<typename T>
-using Array = std::vector<T>;
-template<typename T>
-using List = std::list<T>;
-template<typename K, typename V>
-using Dictionary = std::map<K, V>;
+template<typename Type>
+using Array = std::vector<Type>;
+template<typename Type>
+using List = std::list<Type>;
+template<typename Key, typename Value>
+using Dictionary = std::map<Key, Value>;
 
 class Game;
 class System;
@@ -98,7 +98,8 @@ friend System;			\
 friend Audio;			\
 friend Sound;			\
 friend Input;			\
-friend Config;
+friend Config;			\
+friend Scene;
 
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 #define IOS true

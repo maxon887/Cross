@@ -55,7 +55,6 @@ Graphics3D::Graphics3D():
 Graphics3D::~Graphics3D(){
 	for(U32 i = 0; i < Primitives::COUNT; ++i){
 		if(primitives[i]){
-			primitives[i]->DeleteChildren();
 			delete primitives[i];
 		}
 	}
