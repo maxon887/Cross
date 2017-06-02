@@ -15,19 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SceneView.h"
-#include "Launcher.h"
 #include "Input.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Sprite.h"
-#include "Font.h"
 #include "Camera2D.h"
 #include "Game.h"
 #include "Material.h"
 #include "VertexBuffer.h"
-#include "Model.h"
 #include "Shaders/LightShader.h"
-#include "Utils/Light.h"
+#include "Light.h"
+#include "Entity.h"
 
 #include <math.h>
 
@@ -37,23 +35,25 @@ SceneView::SceneView()
 void SceneView::Start() {
 	Scene::Start();
 
-	Light* light = new Light(Light::Type::POINT);
+	Entity* light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
-	AddLight(light);
+	AddEntity(light);
 
 	SetBackground(Color(0.3f, 0.3f, 0.3f));
 
 	//cube
 	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
-	shader->AddProperty(new Shader::Property("Color", Shader::Property::Type::VEC3, "uColor"));
+	shader->AddVersion("130");
+	shader->AddProperty("Color", "uColor", Color::Red);
 	shader->Compile();
 	material = new Material(shader);
-	material->SetPropertyValue("Color", (void*)&Color::Red);
-	cube = gfx3D->LoadModel("Engine/gfx3D/Cube.obj");
-	cube->SetMaterial(material);
+	cube = gfx3D->LoadModel("Engine/Models/Cube.obj");
+	gfx3D->AdjustMaterial(cube, material);
 
 	cube->SetPosition(Vector3D(1.0f, 2.0f, -1.0f));
 	cube->SetScale(Vector3D(1.0f, 1.0f, 1.0f));
+	AddEntity(cube);
 }
 
 void SceneView::Stop(){
@@ -65,7 +65,5 @@ void SceneView::Stop(){
 }
 
 void SceneView::Update(float sec){
-	cube->Draw();
-
 	Scene::Update(sec);
 }

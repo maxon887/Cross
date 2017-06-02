@@ -185,6 +185,15 @@ bool Shader::IsCompiled(){
 	return compiled;
 }
 
+void Shader::AddVersion(const string& ver){
+	if(compiled) {
+		throw CrossException("Shader already compiled");
+	}
+	string fullStr = "#version " + ver + "\n";
+	macrosies.push_back(fullStr);
+	makro_len += fullStr.length();
+}
+
 void Shader::AddMakro(const string& makro){
 	if(compiled){
 		throw CrossException("Shader already compiled");

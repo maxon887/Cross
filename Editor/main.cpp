@@ -1,5 +1,5 @@
 #include "CrossEditor.h"
-#include "Platform/Windows/LauncherWIN.h"
+#include "Platform/Windows/WINSystem.h"
 
 #include <QtWidgets/QApplication>
 
@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
 	format.setProfile(QSurfaceFormat::CoreProfile);
 	QSurfaceFormat::setDefaultFormat(format);
 
-	LauncherWIN* launcherWIN = new LauncherWIN();
-	launcher = launcherWIN;
+	WINSystem* winsys = new WINSystem();
+	sys = winsys;
 	CrossEditor w;
 	w.show();
 	return a.exec();

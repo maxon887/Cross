@@ -83,6 +83,7 @@ public:
 	Texture* GetColorBuffer();
 
 private:
+	int shaders_version;
 	//off screen rendering components
 	GLuint framebuffer;
 	GLuint colorbuffer;

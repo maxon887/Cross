@@ -1,5 +1,4 @@
 #include "FileExplorer.h"
-#include "Launcher.h"
 
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)

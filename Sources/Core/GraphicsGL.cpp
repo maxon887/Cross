@@ -24,6 +24,8 @@
 #include "Shaders/MultiLightShader.h"
 #include "Config.h"
 
+#include <algorithm>
+
 using namespace cross;
 
 void GraphicsGL::CheckGLError(const char* file, U32 line) {
@@ -58,6 +60,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 }
 
 GraphicsGL::GraphicsGL():
+	shaders_version(100),
 	framebuffer(0),
 	colorbuffer(0),
 	depthbuffer(0),
@@ -71,7 +74,7 @@ GraphicsGL::GraphicsGL():
 {
 		sys->LogIt("GraphicsGL::GraphicsGL()");
 
-#if defined(OPENGL)
+#if defined(OPENGL) || defined(EDITOR)
 		GLint magorV;
 		GLint minorV;
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
@@ -83,6 +86,12 @@ GraphicsGL::GraphicsGL():
 #else
 		sys->LogIt("\tUsed OpenGL ES 2.0");
 #endif
+		const Byte* shaderVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
+		sys->LogIt("\tSupported shader version %s", shaderVersion);
+		string strV((const char*)shaderVersion);
+		strV.erase(remove(strV.begin(), strV.end(), '.'));
+		shaders_version = atoi(strV.c_str());
+
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
 		sys->LogIt("\tMax Vetex Uniforms: %d", value);
@@ -217,7 +226,6 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		break;
 	case DefaultShader::MONOCHROME:
 		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
-		shader->AddMakro("MONOCHROME");
 		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::TEXTURE:
@@ -230,6 +238,14 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		break;
 	default:
 		throw CrossException("Unknown shader type");
+	}
+	if(shaders_version >= 130){
+		char ver[256];
+		itoa(shaders_version, ver, 10);
+		shader->AddVersion(ver);
+	}
+	if(type == DefaultShader::MONOCHROME){
+		shader->AddMakro("MONOCHROME");
 	}
 	return shader;
 }

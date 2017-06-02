@@ -6,15 +6,19 @@
 
 #include <QMainWindow>
 
-class CrossEditor : public QMainWindow, public Game
+class CrossEditor : public QMainWindow, 
+					public Game
 {
 	Q_OBJECT
 public:
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
 
+	virtual Screen* GetStartScreen();
+
 protected:
 	void closeEvent(QCloseEvent* eve);
+
 private:
 	Ui::CrossEditorClass ui;
 };

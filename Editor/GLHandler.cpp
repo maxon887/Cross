@@ -1,6 +1,6 @@
 #include "GLHandler.h"
 
-#include "Platform/Windows/LauncherWIN.h"
+#include "Platform/Windows/WINSystem.h"
 #include "Game.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
@@ -22,7 +22,7 @@ GLHandler::~GLHandler()
 
 void GLHandler::initializeGL(){
 	try{
-		LauncherWIN* launcherWIN = (LauncherWIN*)launcher;
+		WINSystem* launcherWIN = (WINSystem*)sys;
 		QSize size = this->frameSize();
 		launcherWIN->SetWindowSize(size.width(), size.height());
 	
@@ -30,7 +30,8 @@ void GLHandler::initializeGL(){
 		gfx2D = new Graphics2D();
 		gfx3D = new Graphics3D();
 		game->Start();
-		game->SetScene(new SceneView());
+		game->SetScreen(game->GetStartScreen());
+		//game->SetScreen(new SceneView());
 
 		auto pTimer = new QTimer(this);
 		connect(pTimer, &QTimer::timeout, this, &GLHandler::update); 
@@ -49,7 +50,7 @@ void GLHandler::update(){
 
 void GLHandler::paintGL(){
 	try{
-		game->Update();
+		game->Update(0);
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
@@ -59,9 +60,10 @@ void GLHandler::paintGL(){
 }
 
 void GLHandler::resizeGL(int w, int h){
-	LauncherWIN* winLanch = (LauncherWIN*)launcher;
+	WINSystem* winLanch = (WINSystem*)sys;
 	winLanch->SetWindowSize(w, h);
-	TRIGGER_EVENT(game->WindowResized, w, h);
+	//TODO resizing
+	//game->WindowResized(w, h);
 }
 
 void GLHandler::shutDown(){
@@ -80,15 +82,15 @@ void GLHandler::shutDown(){
 }
 
 void GLHandler::mousePressEvent(QMouseEvent* eve){
-	TRIGGER_EVENT(input->TargetActionDown, (float)eve->x(), (float)eve->y(), 0);
+	input->TargetActionDown((float)eve->x(), (float)eve->y(), 0);
 }
 
 void GLHandler::mouseMoveEvent(QMouseEvent* eve){
-	TRIGGER_EVENT(input->TargetActionMove, (float)eve->x(), (float)eve->y(), 0);
+	input->TargetActionMove((float)eve->x(), (float)eve->y(), 0);
 }
 
 void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
-	TRIGGER_EVENT(input->TargetActionUp, (float)eve->x(), (float)eve->y(), 0);
+	input->TargetActionUp((float)eve->x(), (float)eve->y(), 0);
 }
 
 void GLHandler::ExceptionMsgBox(const char* msg){

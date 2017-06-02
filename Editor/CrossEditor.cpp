@@ -1,4 +1,5 @@
 #include "CrossEditor.h"
+#include "SceneView.h"
 
 CrossEditor::CrossEditor(QWidget *parent) :
 	QMainWindow(parent),
@@ -10,6 +11,10 @@ CrossEditor::CrossEditor(QWidget *parent) :
 
 CrossEditor::~CrossEditor()
 { }
+
+Screen* CrossEditor::GetStartScreen(){
+	return new SceneView();
+}
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
 	ui.openGLWidget->shutDown();

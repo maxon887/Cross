@@ -90,6 +90,7 @@ Entity* Scene::RemoveEntity(const string& name){
 			return e->RemoveChild(name);
 		}
 	}
+	return NULL;
 }
 
 List<Light*>& Scene::GetLights(){
