@@ -22,6 +22,8 @@
 #include "Light.h"
 #include "Entity.h"
 
+#include "Libs/TinyXML/tinyxml.h"
+
 using namespace cross;
 
 Scene::Scene() :
@@ -56,6 +58,35 @@ void Scene::Stop(){
 	Screen::Stop();
 }
 
+void Scene::Load(const string& file){
+	const int loaderVersion = 10;
+	string path = sys->AssetsPath() + file;
+
+	TiXmlDocument doc(path.c_str());
+	doc.LoadFile();
+
+	TiXmlHandle xmlDoc(&doc);
+	TiXmlElement* scene;
+
+	scene = xmlDoc.FirstChildElement("Scene").Element();
+	if(scene){
+		name = scene->Attribute("name");
+		int curVersion = MAXINT;
+		scene->Attribute("version", &curVersion);
+		if(curVersion <= loaderVersion){
+
+		}else{
+			throw CrossException("Version missmathc");
+		}
+	}else{
+		throw CrossException("Can not load scene. Wrong file format");
+	}
+}
+
+void Scene::Save(const string& file){
+
+}
+
 void Scene::SetCameraViewDistance(float distance){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, distance);
 	camera->SetProjectionMatrix(projection);
@@ -87,7 +118,10 @@ Entity* Scene::RemoveEntity(const string& name){
 			objects.erase(it);
 			return e;
 		}else{
-			return e->RemoveChild(name);
+			Entity* child = e->RemoveChild(name);
+			if(child){
+				return child;
+			}
 		}
 	}
 	return NULL;

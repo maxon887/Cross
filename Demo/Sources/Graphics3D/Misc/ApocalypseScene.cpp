@@ -30,6 +30,12 @@ void ApocalypseScene::Start(){
 
 	SetAmbientColor(Color(0.1f));
 
+	light = new Entity();
+	light->AddComponent(new Light(Light::Type::POINT));
+	AddEntity(light);
+
+	Load("Apocalypse.scn");
+	/*
 	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
 	
 	Light* lightComponent = new Light(Light::SPOT);
@@ -42,9 +48,9 @@ void ApocalypseScene::Start(){
 	AddEntity(camaro);
 
 	shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	shader->AddMakro("USE_DIFFUSE_MAP");
-	shader->AddMakro("USE_SPECULAR_MAP");
-	shader->AddMakro("USE_SHININESS_MAP");
+	shader->AddMacro("USE_DIFFUSE_MAP");
+	shader->AddMacro("USE_SPECULAR_MAP");
+	shader->AddMacro("USE_SHININESS_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 1.f);
@@ -64,8 +70,8 @@ void ApocalypseScene::Start(){
 	gfx3D->AdjustMaterial(camaro, car_mat, false);
 	
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	road_shader->AddMakro("USE_DIFFUSE_MAP");
-	road_shader->AddMakro("USE_TILLING_FACTOR");
+	road_shader->AddMacro("USE_DIFFUSE_MAP");
+	road_shader->AddMacro("USE_TILLING_FACTOR");
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	road_shader->AddProperty("Specular", "uSpecular");
 	road_shader->AddProperty("Shininess", "uShininess");
@@ -84,7 +90,7 @@ void ApocalypseScene::Start(){
 	AddEntity(road);
 
 	Entity* e = RemoveEntity("Camaro");
-	AddEntity(e);
+	AddEntity(e);*/
 }
 
 void ApocalypseScene::Stop(){
@@ -101,4 +107,5 @@ void ApocalypseScene::Stop(){
 
 void ApocalypseScene::Update(float sec){
 	CameraControlsScene::Update(sec);
+	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

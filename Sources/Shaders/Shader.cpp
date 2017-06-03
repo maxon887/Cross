@@ -194,7 +194,7 @@ void Shader::AddVersion(const string& ver){
 	makro_len += fullStr.length();
 }
 
-void Shader::AddMakro(const string& makro){
+void Shader::AddMacro(const string& makro){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
@@ -203,7 +203,7 @@ void Shader::AddMakro(const string& makro){
 	makro_len += makroString.length();
 }
 
-void Shader::AddMakro(const string& makro, int value){
+void Shader::AddMacro(const string& makro, int value){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}

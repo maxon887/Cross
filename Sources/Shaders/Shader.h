@@ -80,8 +80,8 @@ public:
 	bool IsCompiled();
 
 	void AddVersion(const string& version);
-	void AddMakro(const string& makro);
-	void AddMakro(const string& makro, int value);
+	void AddMacro(const string& makro);
+	void AddMacro(const string& makro, int value);
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);

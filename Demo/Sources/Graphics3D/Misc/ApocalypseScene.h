@@ -24,6 +24,7 @@ public:
 	void Update(float sec);
 
 private:
+	Entity* light;
 	Shader* shader;
 	Shader* road_shader;
 	Texture* car_diffuse;

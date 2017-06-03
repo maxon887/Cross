@@ -31,7 +31,7 @@ void DiffuseScene::Start(){
 	AddEntity(light);
 
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	shader->AddMakro("USE_DIFFUSE_MAP");
+	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular", "uSpecular");
 	shader->AddProperty("Shininess", "uShininess");

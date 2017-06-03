@@ -58,9 +58,9 @@ void MultiLightShader::Compile(const List<Light*>& lights){
 		throw CrossException("Current shader required at leas 1 light from scene");
 	}
 
-	AddMakro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
-	AddMakro("POINT_LIGHT_COUNT", pointCount);
-	AddMakro("SPOT_LIGHT_COUNT", spotCount);
+	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
+	AddMacro("POINT_LIGHT_COUNT", pointCount);
+	AddMacro("SPOT_LIGHT_COUNT", spotCount);
 
 	Shader::Compile();
 	for(int i = 0; i < pointCount; ++i){

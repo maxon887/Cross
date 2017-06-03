@@ -245,7 +245,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		shader->AddVersion(ver);
 	}
 	if(type == DefaultShader::MONOCHROME){
-		shader->AddMakro("MONOCHROME");
+		shader->AddMacro("MONOCHROME");
 	}
 	return shader;
 }

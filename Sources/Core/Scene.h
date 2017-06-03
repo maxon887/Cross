@@ -32,6 +32,9 @@ public:
 	virtual void Stop();
 	/* Called every frame update. */
 	virtual void Update(float sec);
+
+	void Load(const string& file);
+	void Save(const string& file);
 	/* Returns scene 3D camera */
 	Camera* GetCamera();
 	/* Reset camera view distance. Can affect on performance */
@@ -52,6 +55,9 @@ public:
 	Color GetAmbientColor() const;
 
 protected:
+	Dictionary<U32, Shader*> shaders;
+	Dictionary<U32, Texture*> textures;
+	Dictionary<U32, Material*> materials;
 	List<Entity*> objects;
 	List<Light*> lights;
 
@@ -59,6 +65,7 @@ protected:
 	Color ambient_color;
 
 private:
+	string name;
     U64 resize_del;
 	void WindowResizeHandle(S32 width, S32 height);
 };
