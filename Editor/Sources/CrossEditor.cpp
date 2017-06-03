@@ -13,7 +13,8 @@ CrossEditor::~CrossEditor()
 { }
 
 Screen* CrossEditor::GetStartScreen(){
-	return new SceneView();
+	SceneView* sceneView = new SceneView();
+	return sceneView;
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve){

@@ -42,7 +42,9 @@ public:
 	void AddEntity(Entity* entity);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
-	/* Returns all available light on scene. WARNING! will be availible only after first update */
+	/* Returns all game objects on scene */
+	List<Entity*>& GetObjects();
+	/* Returns all available light on scene. */
 	List<Light*>& GetLights();
 	/* Sets up ambient scene light intensity */
 	void SetAmbientColor(const Color& color);

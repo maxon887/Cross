@@ -14,28 +14,38 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
-#include "Scene.h"
-#include "Camera.h"
+#include "SceneView.h"
 #include "Input.h"
-#include "Utils/Button.h"
-#include "Utils/ToggleButton.h"
-#include "Utils/FreeCameraScene.h"
+#include "Graphics2D.h"
+#include "Graphics3D.h"
+#include "Sprite.h"
+#include "Camera2D.h"
+#include "Game.h"
+#include "Material.h"
+#include "VertexBuffer.h"
+#include "Shaders/LightShader.h"
+#include "Light.h"
+#include "Entity.h"
 
-using namespace cross;
+#include <math.h>
 
-class SceneView : public FreeCameraScene{
-public:
-	SceneView();
+SceneView::SceneView()
+{ }
 
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
-private:
-	Shader* shader;
-	Material* material;
-	Entity* cube;
+void SceneView::Start() {
+	FreeCameraScene::Start();
+}
 
-	void InitializeCube();
-};
+void SceneView::Stop(){
+	FreeCameraScene::Stop();
+}
+
+void SceneView::Update(float sec){
+	FreeCameraScene::Update(sec);
+}
+
+void SceneView::LoadScene(Scene* s){
+	objects = s->GetObjects();
+	lights = s->GetLights();
+	ambient_color = s->GetAmbientColor();
+}

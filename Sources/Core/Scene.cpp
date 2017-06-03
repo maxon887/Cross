@@ -93,6 +93,10 @@ Entity* Scene::RemoveEntity(const string& name){
 	return NULL;
 }
 
+List<Entity*>& Scene::GetObjects(){
+	return objects;
+}
+
 List<Light*>& Scene::GetLights(){
 	return lights;
 }
