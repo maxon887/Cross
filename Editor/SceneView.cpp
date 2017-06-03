@@ -33,7 +33,7 @@ SceneView::SceneView()
 { }
 
 void SceneView::Start() {
-	Scene::Start();
+	FreeCameraScene::Start();
 
 	Entity* light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
@@ -60,10 +60,9 @@ void SceneView::Stop(){
 	//cube
 	delete shader;
 	delete material;
-	delete cube;
-	Scene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void SceneView::Update(float sec){
-	Scene::Update(sec);
+	FreeCameraScene::Update(sec);
 }

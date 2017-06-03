@@ -50,7 +50,7 @@ void GLHandler::update(){
 
 void GLHandler::paintGL(){
 	try{
-		game->Update(0);
+		game->EngineUpdate();
 	} catch(Exception &exc) {
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
