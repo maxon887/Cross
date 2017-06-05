@@ -21,6 +21,10 @@
 #include "Config.h"
 #include "Light.h"
 #include "Entity.h"
+#include "Material.h"
+#include "Graphics2D.h"
+#include "Graphics3D.h"
+#include "Shaders/MultiLightShader.h"
 
 #include "Libs/TinyXML/tinyxml.h"
 
@@ -74,9 +78,120 @@ void Scene::Load(const string& file){
 		int curVersion = MAXINT;
 		scene->Attribute("version", &curVersion);
 		if(curVersion <= loaderVersion){
+			TiXmlElement* shadersXML = scene->FirstChildElement("Shaders");
+			if(shadersXML){
+				//shaders loading
+				TiXmlElement* shaderXML = shadersXML->FirstChildElement("Shader");
+				while(shaderXML){
+					Shader* shader = NULL;
+					int id = -1;
+					shaderXML->Attribute("id", &id);
+					const char* useLightsStr = shaderXML->Attribute("multiLight");
+					bool multiLight = strcmp(useLightsStr, "true") == 0;
+					if(multiLight){
+						shader = new MultiLightShader();
+					}else{
+						throw CrossException("Do not implement yet");
+					}
+					TiXmlElement* macrosies = shaderXML->FirstChildElement("Macrosies");
+					if(macrosies){
+						TiXmlElement* macro = macrosies->FirstChildElement("Macro");
+						while(macro){
+							const char* text = macro->GetText();
+							shader->AddMacro(text);
+							macro = macro->NextSiblingElement("Macro");
+						}
+					}
+					TiXmlElement* properties = shaderXML->FirstChildElement("Properties");
+					if(properties){
+						TiXmlElement* property = properties->FirstChildElement("Property");
+						while(property){
+							const char* name = property->Attribute("name");
+							const char* glName = property->Attribute("glName");
+							const char* defVal = property->Attribute("default");
+							if(defVal){
+								float def = atof(defVal);
+								shader->AddProperty(name, glName, def);
+							}else{
+								shader->AddProperty(name, glName);
+							}
+							property = property->NextSiblingElement("Property");
+						}
+					}
 
+					shader->Compile();
+					shaders[id] = shader;
+					shaderXML = shaderXML->NextSiblingElement("Shader");
+				}
+			}
+			//textures loading
+			TiXmlElement* texturesXML = scene->FirstChildElement("Textures");
+			if(texturesXML){
+				TiXmlElement* textureXML = texturesXML->FirstChildElement("Texture");
+				while(textureXML){
+					int id = -1;
+					textureXML->Attribute("id", &id);
+					const char* file = textureXML->Attribute("file");
+					Texture* texture = gfx2D->LoadTexture(file);
+					textures[id] = texture;
+					textureXML = textureXML->NextSiblingElement("Texture");
+				}
+			}
+			//materials loading
+			TiXmlElement* materialsXML = scene->FirstChildElement("Materials");
+			if(materialsXML){
+				TiXmlElement* materialXML = materialsXML->FirstChildElement("Material");
+				while(materialXML){
+					int id = -1;
+					int shaderID = -1;
+					materialXML->Attribute("id", &id);
+					materialXML->Attribute("shader", &shaderID);
+					Material* material = new Material(shaders[shaderID]);
+					TiXmlElement* property = materialXML->FirstChildElement("Property");
+					while(property){
+						const char* type = property->Attribute("type");
+						const char* name = property->Attribute("name");
+
+						if(strcmp(type, "Texture") == 0){
+							int textureID = -1;
+							property->Attribute("value", &textureID);
+							material->SetPropertyValue(name, textures[textureID]);
+						}else if(strcmp(type, "Float") == 0){
+							double val = -1.f;
+							property->Attribute("value", &val);
+							material->SetPropertyValue(name, (float)val);
+						}else{
+							throw CrossException("Unknown material property type");
+						}
+
+						property = property->NextSiblingElement("Property");
+					}
+
+					materials[id] = material;
+					materialXML = materialXML->NextSiblingElement("Material");
+				}
+			}
+			//objects loading
+			TiXmlElement* objectsXML = scene->FirstChildElement("Objects");
+			if(objectsXML){
+				TiXmlElement* objectXML = objectsXML->FirstChildElement("Object");
+				while(objectXML){
+					const char* name = objectXML->Attribute("name");
+					const char* file = objectXML->Attribute("file");
+					int materialID = -1;
+					objectXML->Attribute("material", &materialID);
+					if(file){
+						Entity* entity = gfx3D->LoadModel(file);
+						gfx3D->AdjustMaterial(entity, materials[materialID]);
+						AddEntity(entity);
+					}else{
+						throw CrossException("Undefined behaviour");
+					}
+					objectXML = objectXML->NextSiblingElement("Object");
+				}
+			}
 		}else{
-			throw CrossException("Version missmathc");
+			throw CrossException("Version missmatch");
 		}
 	}else{
 		throw CrossException("Can not load scene. Wrong file format");

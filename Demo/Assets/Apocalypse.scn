@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<Scene name="Apocalypse" version="10">
+<Scene name="Apocalypse" version=10>
 	<Shaders>
-		<Shader id="0" multiLight="true">
+		<Shader id=0 multiLight="true">
 			<Macrosies>
 				<Macro>USE_DIFFUSE_MAP</Macro>
 				<Macro>USE_SPECULAR_MAP</Macro>
@@ -17,22 +17,22 @@
 		</Shader>
 	</Shaders>
 	<Textures>
-		<Texture id="0" file="gfx3D/Camaro/Diffuse.png"/>
-		<Texture id="1" file="gfx3D/Camaro/Specular.png"/>
-		<Texture id="2" file="gfx3D/Camaro/Shininess.png"/>
+		<Texture id=0 file="gfx3D/Camaro/Diffuse.png"/>
+		<Texture id=1 file="gfx3D/Camaro/Specular.png"/>
+		<Texture id=2 file="gfx3D/Camaro/Shininess.png"/>
 	</Textures>
 	<Materials>
-		<Material id="0" shader="0">
-			<Property type="Texture" name="Diffuse Texture" value="0">
-			<Property type="Texture" name="Specular Map" value="1">
-			<Property type="Texture" name="Shininess Map" value="2">
-			<Property type="Float" name="Shininess Multiplier" value="64.0">
-			<Property type="Float" name="Specular Multiplier" value="2.0">
+		<Material id=0 shader=0>
+			<Property type="Texture" name="Diffuse Texture" value=0 />
+			<Property type="Texture" name="Specular Map" value=1 />
+			<Property type="Texture" name="Shininess Map" value=2 />
+			<Property type="Float" name="Shininess Multiplier" value=64.0 />
+			<Property type="Float" name="Specular Multiplier" value=2.0 />
 		</Material>
 	</Materials>
 	<Objects>
-		<Object name="Camaro">
-			<File>gfx3D/Camaro/Camaro.fbx</File>
-		</Object>
+		<Object name="Camaro"
+				file="gfx3D/Camaro/Camaro.fbx"
+				material=0	/>
 	</Objects>
 </Scene>

@@ -142,7 +142,7 @@ void Mesh::Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilB
 			material->active_texture_slot++;
 			break;
 		default:
-			throw CrossException("Unknown property type");
+			throw CrossException("Unknown property type(%s)", prop->name.c_str());
 		}
 	}
 	material->active_texture_slot = 0;
