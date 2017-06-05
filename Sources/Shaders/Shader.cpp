@@ -126,6 +126,11 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 {
 	vertex_file = sys->LoadFile(vertexFile);
 	fragment_file = sys->LoadFile(fragmentFile);
+	if(gfxGL->GetShaderVersion() >= 130) {
+		char ver[256];
+		itoa(130, ver, 10);
+		AddVersion(ver);
+	}
 }
 
 Shader::~Shader(){

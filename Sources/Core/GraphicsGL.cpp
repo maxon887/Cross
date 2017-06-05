@@ -217,6 +217,10 @@ void GraphicsGL::PostProcessFrame(){
 	}
 }
 
+U32 GraphicsGL::GetShaderVersion() const {
+	return shaders_version;
+}
+
 Shader* GraphicsGL::GetShader(DefaultShader type){
 	Shader* shader = NULL;
 	switch(type) {
@@ -226,6 +230,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		break;
 	case DefaultShader::MONOCHROME:
 		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+		shader->AddMacro("MONOCHROME");
 		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::TEXTURE:
@@ -238,14 +243,6 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		break;
 	default:
 		throw CrossException("Unknown shader type");
-	}
-	if(shaders_version >= 130){
-		char ver[256];
-		itoa(shaders_version, ver, 10);
-		shader->AddVersion(ver);
-	}
-	if(type == DefaultShader::MONOCHROME){
-		shader->AddMacro("MONOCHROME");
 	}
 	return shader;
 }
