@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 	WINSystem* winsys = new WINSystem();
 	sys = winsys;
 	CrossEditor w;
+	w.RestoreSettings();
 	w.show();
 	return a.exec();
 }

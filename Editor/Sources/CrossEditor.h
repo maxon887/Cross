@@ -16,6 +16,8 @@ public:
 
 	virtual Screen* GetStartScreen();
 
+	void RestoreSettings();
+
 protected:
 	void closeEvent(QCloseEvent* eve);
 
