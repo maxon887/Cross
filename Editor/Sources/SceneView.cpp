@@ -35,11 +35,6 @@ SceneView::SceneView()
 void SceneView::Start() {
 	FreeCameraScene::Start();
 
-	Entity* light = new Entity();
-	light->AddComponent(new Light(Light::Type::POINT));
-	light->SetPosition(Vector3D(2.f, 3.f, 0.f));
-	AddEntity(light);
-
 	Load("Apocalypse.scn");
 }
 

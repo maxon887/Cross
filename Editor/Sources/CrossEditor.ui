@@ -58,6 +58,7 @@
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionFile_Explorer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -92,6 +93,11 @@
   <action name="actionAssets_Folder">
    <property name="text">
     <string>Assets Folder</string>
+   </property>
+  </action>
+  <action name="actionFile_Explorer">
+   <property name="text">
+    <string>File Explorer</string>
    </property>
   </action>
  </widget>

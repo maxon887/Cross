@@ -63,7 +63,7 @@ void Scene::Stop(){
 }
 
 void Scene::Load(const string& file){
-	const int loaderVersion = 10;
+	const int loaderVersion = 11;
 	string path = sys->AssetsPath() + file;
 
 	TiXmlDocument doc(path.c_str());
@@ -78,12 +78,31 @@ void Scene::Load(const string& file){
 		int curVersion = MAXINT;
 		scene->Attribute("version", &curVersion);
 		if(curVersion <= loaderVersion){
+			//general lighting information
+			int pointLightCount = 0;
+			int spotLightCount = 0;
+			int directionalLightCount = 0;
+			TiXmlElement* lightXML = scene->FirstChildElement("Light");
+			if(lightXML){
+				TiXmlElement* pointXML = lightXML->FirstChildElement("Point");
+				if(pointXML){
+					pointXML->Attribute("count", &pointLightCount);
+				}
+				TiXmlElement* spotXML = lightXML->FirstChildElement("Spot");
+				if(spotXML) {
+					spotXML->Attribute("count", &spotLightCount);
+				}
+				TiXmlElement* directionalXML = lightXML->FirstChildElement("Directional");
+				if(directionalXML) {
+					directionalXML->Attribute("count", &directionalLightCount);
+				}
+			}
+			//shaders loading
 			TiXmlElement* shadersXML = scene->FirstChildElement("Shaders");
 			if(shadersXML){
-				//shaders loading
 				TiXmlElement* shaderXML = shadersXML->FirstChildElement("Shader");
 				while(shaderXML){
-					Shader* shader = NULL;
+					MultiLightShader* shader = NULL;
 					int id = -1;
 					shaderXML->Attribute("id", &id);
 					const char* useLightsStr = shaderXML->Attribute("multiLight");
@@ -119,7 +138,7 @@ void Scene::Load(const string& file){
 						}
 					}
 
-					shader->Compile();
+					shader->Compile(pointLightCount, spotLightCount, directionalLightCount);
 					shaders[id] = shader;
 					shaderXML = shaderXML->NextSiblingElement("Shader");
 				}
@@ -178,15 +197,47 @@ void Scene::Load(const string& file){
 				while(objectXML){
 					const char* name = objectXML->Attribute("name");
 					const char* file = objectXML->Attribute("file");
-					int materialID = -1;
-					objectXML->Attribute("material", &materialID);
+					Entity* entity = NULL;
 					if(file){
-						Entity* entity = gfx3D->LoadModel(file);
+						int materialID = -1;
+						objectXML->Attribute("material", &materialID);
+
+						entity = gfx3D->LoadModel(file);
 						gfx3D->AdjustMaterial(entity, materials[materialID]);
-						AddEntity(entity);
 					}else{
-						throw CrossException("Undefined behaviour");
+						entity = new Entity();
 					}
+
+					TiXmlElement* posXML = objectXML->FirstChildElement("Position");
+					if(posXML){
+						double x, y, z;
+						posXML->Attribute("x", &x);
+						posXML->Attribute("y", &y);
+						posXML->Attribute("z", &z);
+						Vector3D pos(x, y, z);
+						entity->SetPosition(pos);
+					}
+
+					TiXmlElement* componentsXML = objectXML->FirstChildElement("Components");
+					if(componentsXML){
+						TiXmlElement* componentXML = componentsXML->FirstChildElement("Component");
+						while(componentXML){
+							const char* name = componentXML->Attribute("name");
+							if(strcmp(name, "Light") == 0){
+								const char* type = componentXML->Attribute("type");
+								if(strcmp(type, "Point") == 0){
+									Light* light = new Light(Light::Type::POINT);
+									entity->AddComponent(light);
+								}else{
+									throw CrossException("Unknown light type");
+								}
+							}else{
+								throw CrossException("Unknown component");
+							}
+							componentXML = componentXML->NextSiblingElement();
+						}
+					}
+					AddEntity(entity);
 					objectXML = objectXML->NextSiblingElement("Object");
 				}
 			}

@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
-<Scene name="Apocalypse" version=10>
+<Scene name="Apocalypse" version=11>
+	<Light>
+		<Point count=1/>
+	</Light>
 	<Shaders>
 		<Shader id=0 multiLight="true">
 			<Macrosies>
@@ -33,6 +36,14 @@
 	<Objects>
 		<Object name="Camaro"
 				file="gfx3D/Camaro/Camaro.fbx"
-				material=0	/>
+				material=0>
+			<Position x=0.0 y=0.0 z=0.0/>
+		</Object>
+		<Object name="Light">
+			<Position x=2.0 y=3.0 z=0.0/>
+			<Components>
+				<Component name="Light" type="Point" />
+			</Components>
+		</Object>
 	</Objects>
 </Scene>

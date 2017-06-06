@@ -30,6 +30,7 @@ public:
 
 	virtual void Compile();
 	virtual void Compile(const List<Light*>& lights);
+	void Compile(U32 pointCount, U32 spotCount, U32 directionalCount);
 
 	virtual bool UseLights();
 	virtual void TransferLightData(const List<Light*>& lights);
