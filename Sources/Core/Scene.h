@@ -33,7 +33,7 @@ public:
 	/* Called every frame update. */
 	virtual void Update(float sec);
 
-	void Load(const string& file);
+	void Load(const string& file, bool absolute = false);
 	void Save(const string& file);
 	/* Returns scene 3D camera */
 	Camera* GetCamera();

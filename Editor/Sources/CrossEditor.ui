@@ -52,7 +52,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionLoad_Scene"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -63,7 +62,7 @@
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="fileExplorer">
    <property name="windowTitle">
     <string>File Explorer</string>
    </property>

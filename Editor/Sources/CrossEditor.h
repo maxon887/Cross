@@ -6,6 +6,8 @@
 
 #include <QMainWindow>
 
+class SceneView;
+
 class CrossEditor : public QMainWindow, 
 					public Game
 {
@@ -16,6 +18,7 @@ public:
 
 	virtual Screen* GetStartScreen();
 
+	void LoadScene(QString& path);
 	void RestoreSettings();
 
 protected:
@@ -23,9 +26,9 @@ protected:
 
 private:
 	Ui::CrossEditorClass ui;
+	SceneView* scene_view;
 
 private slots:
-	void OnLoadSceneClick();
 	void OnFileExplorerClick();
 };
 

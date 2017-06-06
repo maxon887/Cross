@@ -1,5 +1,6 @@
 #include "FileExplorer.h"
 #include "System.h"
+#include "CrossEditor.h"
 
 #include <QHeaderView.h>
 
@@ -18,9 +19,18 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	header()->setStretchLastSection(false);
 	header()->setSectionResizeMode(0, QHeaderView::Stretch);
 	header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+	connect(this, &QTreeView::doubleClicked, this, &FileExplorer::OnItemDoubleClick);
 }
 
 
 FileExplorer::~FileExplorer(){
 
+}
+
+void FileExplorer::OnItemDoubleClick(QModelIndex index){
+	QFileInfo fileInfo = fileSystem->fileInfo(index);
+	if(fileInfo.suffix() == "scn"){
+		((CrossEditor*)game)->LoadScene(fileInfo.absoluteFilePath());
+	}
 }

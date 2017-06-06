@@ -2,6 +2,7 @@
 #include "SceneView.h"
 
 #include <QSettings.h>
+#include <QFileDialog.h>
 
 CrossEditor::CrossEditor(QWidget *parent) :
 	QMainWindow(parent),
@@ -10,7 +11,6 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	ui.setupUi(this);
 	game = this;
 
-	connect(ui.actionLoad_Scene, &QAction::triggered, this, &CrossEditor::OnLoadSceneClick);
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 }
 
@@ -18,8 +18,8 @@ CrossEditor::~CrossEditor()
 { }
 
 Screen* CrossEditor::GetStartScreen(){
-	SceneView* sceneView = new SceneView();
-	return sceneView;
+	scene_view = new SceneView();
+	return scene_view;
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
@@ -30,16 +30,16 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 	QMainWindow::closeEvent(eve);
 }
 
+void CrossEditor::LoadScene(QString& file){
+	scene_view->Load(file.toStdString(), true);
+}
+
 void CrossEditor::RestoreSettings(){
 	QSettings settings("CrossEditor");
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
 }
 
-void CrossEditor::OnLoadSceneClick(){
-	
-}
-
 void CrossEditor::OnFileExplorerClick(){
-
+	ui.fileExplorer->show();
 }

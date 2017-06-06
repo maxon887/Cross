@@ -62,9 +62,14 @@ void Scene::Stop(){
 	Screen::Stop();
 }
 
-void Scene::Load(const string& file){
+void Scene::Load(const string& file, bool absolute){
 	const int loaderVersion = 11;
-	string path = sys->AssetsPath() + file;
+	string path = "";
+	if(!absolute){
+		path = sys->AssetsPath() + file;
+	}else{
+		path = file;
+	}
 
 	TiXmlDocument doc(path.c_str());
 	doc.LoadFile();
