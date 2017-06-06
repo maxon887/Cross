@@ -52,7 +52,7 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionAssets_Folder"/>
+    <addaction name="actionLoad_Scene"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -90,9 +90,15 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionAssets_Folder">
+  <action name="actionLoad_Scene">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Assets Folder</string>
+    <string>Load Scene</string>
    </property>
   </action>
   <action name="actionFile_Explorer">

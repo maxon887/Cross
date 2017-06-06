@@ -9,6 +9,9 @@ CrossEditor::CrossEditor(QWidget *parent) :
 {
 	ui.setupUi(this);
 	game = this;
+
+	connect(ui.actionLoad_Scene, &QAction::triggered, this, &CrossEditor::OnLoadSceneClick);
+	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 }
 
 CrossEditor::~CrossEditor()
@@ -31,4 +34,12 @@ void CrossEditor::RestoreSettings(){
 	QSettings settings("CrossEditor");
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
+}
+
+void CrossEditor::OnLoadSceneClick(){
+	
+}
+
+void CrossEditor::OnFileExplorerClick(){
+
 }

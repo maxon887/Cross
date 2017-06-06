@@ -33,8 +33,6 @@ public:
 	virtual void Stop();
 	virtual void Update(float sec);
 
-	void LoadScene(Scene* s);
-
 private:
 
 };

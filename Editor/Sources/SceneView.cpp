@@ -35,7 +35,7 @@ SceneView::SceneView()
 void SceneView::Start() {
 	FreeCameraScene::Start();
 
-	Load("Apocalypse.scn");
+	//Load("Apocalypse.scn");
 }
 
 void SceneView::Stop(){
@@ -44,10 +44,4 @@ void SceneView::Stop(){
 
 void SceneView::Update(float sec){
 	FreeCameraScene::Update(sec);
-}
-
-void SceneView::LoadScene(Scene* s){
-	objects = s->GetObjects();
-	lights = s->GetLights();
-	ambient_color = s->GetAmbientColor();
 }

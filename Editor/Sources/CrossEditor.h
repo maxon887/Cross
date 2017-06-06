@@ -23,6 +23,10 @@ protected:
 
 private:
 	Ui::CrossEditorClass ui;
+
+private slots:
+	void OnLoadSceneClick();
+	void OnFileExplorerClick();
 };
 
 #endif // !CROSS_EDITOR
