@@ -53,11 +53,20 @@ void Scene::Update(float sec){
 }
 
 void Scene::Stop(){
-	delete camera;
 	sys->WindowResized.Disconnect(resize_del);
+	for(pair<U32, Shader*> pair : shaders){
+		delete pair.second;
+	}
+	for(pair<U32, Texture*> pair : textures){
+		delete pair.second;
+	}
+	for(pair<U32, Material*> pair : materials){
+		delete pair.second;
+	}
 	for(Entity* e : objects){
 		delete e;
 	}
+	delete camera;
 	objects.clear();
 	Screen::Stop();
 }
