@@ -45,8 +45,6 @@ public:
 	void AddEntity(Entity* entity);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
-	/* Returns all game objects on scene */
-	List<Entity*>& GetObjects();
 	/* Returns all available light on scene. */
 	List<Light*>& GetLights();
 	/* Sets up ambient scene light intensity */
@@ -58,8 +56,8 @@ protected:
 	Dictionary<U32, Shader*> shaders;
 	Dictionary<U32, Texture*> textures;
 	Dictionary<U32, Material*> materials;
-	List<Entity*> objects;
 	List<Light*> lights;
+	Entity* root;
 
 	Camera* camera;
 	Color ambient_color;
