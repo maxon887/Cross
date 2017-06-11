@@ -8,11 +8,15 @@
 
 class SceneView;
 
+extern CrossEditor* editor;
+
 class CrossEditor : public QMainWindow, 
 					public Game
 {
 	Q_OBJECT
 public:
+	Event<Scene*> SceneLoaded;
+
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
 

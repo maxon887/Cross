@@ -39,6 +39,7 @@ void Scene::Start(){
 	Screen::Start();
 	is_scene = true;
 	root = new Entity();
+	root->SetName("Root");
 
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
@@ -262,6 +263,10 @@ void Scene::Load(const string& file, bool absolute){
 
 void Scene::Save(const string& file){
 
+}
+
+Entity* Scene::GetRoot(){
+	return root;
 }
 
 void Scene::SetCameraViewDistance(float distance){

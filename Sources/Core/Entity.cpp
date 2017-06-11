@@ -94,16 +94,31 @@ Component* Entity::GetComponent(Component::Type type) {
 	return components[type];
 }
 
+Entity* Entity::GetParent(){
+	return parent;
+}
+
 void Entity::SetParent(Entity* p){
 	parent = p;
 }
 
 void Entity::AddChild(Entity* child){
+	child->SetParent(this);
 	children.push_back(child);
 }
 
 List<Entity*>& Entity::GetChildren(){
 	return children;
+}
+
+Entity* Entity::FindChild(U32 index){
+	if(index < children.size()){
+		auto it = children.begin();
+		std::advance(it, index);
+		return *it;
+	}else{
+		throw CrossException("Out of bounds");
+	}
 }
 
 Entity* Entity::FindChild(const string& name){

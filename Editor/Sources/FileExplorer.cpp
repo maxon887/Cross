@@ -31,6 +31,6 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	QFileInfo fileInfo = fileSystem->fileInfo(index);
 	if(fileInfo.suffix() == "scn"){
-		((CrossEditor*)game)->LoadScene(fileInfo.absoluteFilePath());
+		editor->LoadScene(fileInfo.absoluteFilePath());
 	}
 }

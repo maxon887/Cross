@@ -33,9 +33,11 @@ public:
 	const string& GetName();
 	void AddComponent(Component* component);
 	Component* GetComponent(Component::Type type);
+	Entity* GetParent();
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
 	List<Entity*>& GetChildren();
+	Entity* FindChild(U32 index);
 	Entity* FindChild(const string& name);
 	Entity* RemoveChild(const string& nane);
 	Entity* Clone();

@@ -4,13 +4,15 @@
 #include <QSettings.h>
 #include <QFileDialog.h>
 
+CrossEditor* editor = NULL;
+
 CrossEditor::CrossEditor(QWidget *parent) :
 	QMainWindow(parent),
 	Game()
 {
+	editor = this;
+	game = editor;
 	ui.setupUi(this);
-	game = this;
-
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 }
 
@@ -32,6 +34,8 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 
 void CrossEditor::LoadScene(QString& file){
 	scene_view->Load(file.toStdString(), true);
+	ui.treeView_2->reset();
+	SceneLoaded(scene_view);
 }
 
 void CrossEditor::RestoreSettings(){

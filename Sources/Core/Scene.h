@@ -35,6 +35,7 @@ public:
 
 	void Load(const string& file, bool absolute = false);
 	void Save(const string& file);
+	Entity* GetRoot();
 	/* Returns scene 3D camera */
 	Camera* GetCamera();
 	/* Reset camera view distance. Can affect on performance */
