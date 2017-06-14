@@ -30,9 +30,6 @@ QModelIndex SceneModel::parent(const QModelIndex& index) const {
 	Entity* childEntity = static_cast<Entity*>(index.internalPointer());
 	Entity* parentEntity = childEntity->GetParent();
 
-	cross::sys->LogIt("%d", parentEntity);
-	cross::sys->LogIt("%d", game->GetCurrentScene()->GetRoot());
-
 	if(parentEntity == game->GetCurrentScene()->GetRoot()){
 		return QModelIndex();
 	}

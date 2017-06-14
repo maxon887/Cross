@@ -3,6 +3,7 @@
 
 #include <QSettings.h>
 #include <QFileDialog.h>
+#include <QMessageBox>
 
 CrossEditor* editor = NULL;
 
@@ -33,15 +34,30 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 }
 
 void CrossEditor::LoadScene(QString& file){
-	scene_view->Load(file.toStdString(), true);
-	ui.treeView_2->reset();
-	SceneLoaded(scene_view);
+	try{
+		scene_view->Load(file.toStdString(), true);
+		ui.treeView_2->reset();
+		SceneLoaded(scene_view);
+	}catch(Exception exc){
+		string msg = string(exc.message) +
+			+"\nFile: " + string(exc.filename) +
+			+"\nLine: " + to_string(exc.line);
+		ExceptionMsgBox(msg.c_str());
+	}
 }
 
 void CrossEditor::RestoreSettings(){
 	QSettings settings("CrossEditor");
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
+}
+
+void CrossEditor::ExceptionMsgBox(const char* msg) {
+	QMessageBox msgBox;
+	msgBox.setText("Unhandled Exception");
+	msgBox.setInformativeText(msg);
+	msgBox.setIcon(QMessageBox::Icon::Critical);
+	msgBox.exec();
 }
 
 void CrossEditor::OnFileExplorerClick(){

@@ -39,6 +39,11 @@
 				material=0>
 			<Position x=0.0 y=0.0 z=0.0/>
 		</Object>
+		<Object name="Cube"
+				file="Engine/Models/Cube.fbx"
+				material=0>
+			<Position x=3.0 y=0.0 z=0.0/>
+		</Object>
 		<Object name="Light">
 			<Position x=2.0 y=3.0 z=0.0/>
 			<Components>

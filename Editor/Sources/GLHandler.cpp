@@ -1,5 +1,6 @@
 #include "GLHandler.h"
 
+#include "CrossEditor.h"
 #include "Platform/Windows/WINSystem.h"
 #include "Game.h"
 #include "Graphics3D.h"
@@ -8,7 +9,6 @@
 
 #include <QMouseEvent>
 #include <QTimer>
-#include <QMessageBox>
 
 GLHandler::GLHandler(QWidget* parent) :
 	QOpenGLWidget(parent)
@@ -39,7 +39,7 @@ void GLHandler::initializeGL(){
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);
-		ExceptionMsgBox(msg.c_str());
+		((CrossEditor*)game)->ExceptionMsgBox(msg.c_str());
 	}
 }
 
@@ -54,7 +54,7 @@ void GLHandler::paintGL(){
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);
-		ExceptionMsgBox(msg.c_str());
+		((CrossEditor*)game)->ExceptionMsgBox(msg.c_str());
 	}
 }
 
@@ -76,7 +76,7 @@ void GLHandler::shutDown(){
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);
-		ExceptionMsgBox(msg.c_str());
+		((CrossEditor*)game)->ExceptionMsgBox(msg.c_str());
 	}
 }
 
@@ -90,13 +90,4 @@ void GLHandler::mouseMoveEvent(QMouseEvent* eve){
 
 void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
 	input->TargetActionUp((float)eve->x(), (float)eve->y(), 0);
-}
-
-void GLHandler::ExceptionMsgBox(const char* msg){
-	QMessageBox msgBox;
-	msgBox.setText("Unhandled Exception");
-	msgBox.setInformativeText(msg);
-	msgBox.setIcon(QMessageBox::Icon::Critical);
-	msgBox.exec();
-	exit(EXIT_FAILURE);
 }

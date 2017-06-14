@@ -24,6 +24,7 @@ public:
 
 	void LoadScene(QString& path);
 	void RestoreSettings();
+	void ExceptionMsgBox(const char* msg);
 
 protected:
 	void closeEvent(QCloseEvent* eve);
