@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include "System.h"
 
-#include <QTreeWidgetItem>
+#include <QHeaderView.h>
 
 QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) const {
 	if(!hasIndex(row, column, parent)){
@@ -83,6 +83,7 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 {
 	scene_model = new SceneModel();
 	setModel(scene_model);
+	header()->hide();
 }
 
 

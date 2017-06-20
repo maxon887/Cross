@@ -40,7 +40,7 @@
 			<Position x=0.0 y=0.0 z=0.0/>
 		</Object>
 		<Object name="Cube"
-				file="Engine/Models/Cube.fbx"
+				file="Engine/Models/Cube.obj"
 				material=0>
 			<Position x=3.0 y=0.0 z=0.0/>
 		</Object>

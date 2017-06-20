@@ -124,7 +124,12 @@ void Graphics3D::ProcessScene(Entity* model, const string& filename){
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-	ProcessNode(model, current_scene->mRootNode);
+	aiNode* root = current_scene->mRootNode;
+	if(root->mNumChildren == 1){
+		ProcessNode(model, root->mChildren[0]);
+	}else{
+		throw CrossException("Failed to load model. Unknown number of root childerns");
+	}
 }
 
 void Graphics3D::ProcessNode(Entity* entity, aiNode* node){

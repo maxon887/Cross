@@ -141,7 +141,7 @@ void Scene::Load(const string& file, bool absolute){
 							const char* glName = property->Attribute("glName");
 							const char* defVal = property->Attribute("default");
 							if(defVal){
-								float def = atof(defVal);
+								float def = (float)atof(defVal);
 								shader->AddProperty(name, glName, def);
 							}else{
 								shader->AddProperty(name, glName);
