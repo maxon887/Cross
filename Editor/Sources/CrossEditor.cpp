@@ -26,9 +26,9 @@ Screen* CrossEditor::GetStartScreen(){
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
-	ui.openGLWidget->shutDown();
+	ui.sceneView->shutDown();
 	QSettings settings("CrossEditor");
-	settings.setValue("geometry", saveGeometry());
+	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
 	QMainWindow::closeEvent(eve);
 }
@@ -48,7 +48,9 @@ void CrossEditor::LoadScene(QString& file){
 
 void CrossEditor::RestoreSettings(){
 	QSettings settings("CrossEditor");
-	restoreGeometry(settings.value("geometry").toByteArray());
+	if(settings.contains("geometry")){
+		setGeometry(settings.value("geometry").value<QRect>());
+	}
 	restoreState(settings.value("windowState").toByteArray());
 }
 
