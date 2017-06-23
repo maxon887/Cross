@@ -37,6 +37,7 @@ public:
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
 	List<Entity*>& GetChildren();
+	void RemoveChildren();
 	Entity* FindChild(U32 index);
 	Entity* FindChild(const string& name);
 	Entity* RemoveChild(const string& nane);

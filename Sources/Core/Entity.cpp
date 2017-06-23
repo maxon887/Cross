@@ -111,6 +111,13 @@ List<Entity*>& Entity::GetChildren(){
 	return children;
 }
 
+void Entity::RemoveChildren(){
+	for(Entity* c : children) {
+		delete c;
+	}
+	children.clear();
+}
+
 Entity* Entity::FindChild(U32 index){
 	if(index < children.size()){
 		auto it = children.begin();

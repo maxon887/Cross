@@ -70,6 +70,7 @@ void Scene::Stop(){
 }
 
 void Scene::Load(const string& file, bool absolute){
+	Clear();
 	const int loaderVersion = 11;
 	string path = "";
 	if(!absolute){
@@ -272,7 +273,24 @@ void Scene::Load(const string& file, bool absolute){
 }
 
 void Scene::Save(const string& file){
+	throw CrossException("Do not implement yet");
+}
 
+void Scene::Clear(){
+	root->RemoveChildren();
+	lights.clear();
+	for(pair<U32, Material*> pair : materials){
+		delete pair.second;
+	}
+	materials.clear();
+	for(pair<U32, Texture*> pair : textures) {
+		delete pair.second;
+	}
+	textures.clear();
+	for(pair<U32, Shader*> pair : shaders) {
+		delete pair.second;
+	}
+	shaders.clear();
 }
 
 Entity* Scene::GetRoot(){

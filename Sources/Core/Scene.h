@@ -33,8 +33,12 @@ public:
 	/* Called every frame update. */
 	virtual void Update(float sec);
 
+	/* Loads scene from file(.scn) */
 	void Load(const string& file, bool absolute = false);
+	/* Loads scene in to file */
 	void Save(const string& file);
+	void Clear();
+	/* Returns root scene entity*/
 	Entity* GetRoot();
 	/* Returns scene 3D camera */
 	Camera* GetCamera();

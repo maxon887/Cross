@@ -34,8 +34,6 @@ SceneView::SceneView()
 
 void SceneView::Start() {
 	FreeCameraScene::Start();
-
-	//Load("Apocalypse.scn");
 }
 
 void SceneView::Stop(){
