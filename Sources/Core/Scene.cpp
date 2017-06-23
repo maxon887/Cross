@@ -228,6 +228,7 @@ void Scene::Load(const string& file, bool absolute){
 					}else{
 						entity = new Entity();
 					}
+					entity->SetName(name);
 
 					TiXmlElement* posXML = objectXML->FirstChildElement("Position");
 					if(posXML){
