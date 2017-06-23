@@ -13,9 +13,9 @@
 			<Properties>
 				<Property name="Diffuse Texture" 		glName="uDiffuseTexture"/>
 				<Property name="Specular Map" 			glName="uSpecularMap"/>
-				<Property name="Specular Multiplier" 	glName="uSpecularMultiplier" default="1.0"/>
+				<Property name="Specular Multiplier" 	glName="uSpecularMultiplier" default=1.0 />
 				<Property name="Shininess Map" 			glName="uShininessMap"/>
-				<Property name="Shininess Multiplier" 	glName="uShininessMultiplier" default="1.0"/>
+				<Property name="Shininess Multiplier" 	glName="uShininessMultiplier" default=1.0 />
 			</Properties>
 		</Shader>
 	</Shaders>

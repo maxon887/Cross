@@ -191,6 +191,15 @@ void Scene::Load(const string& file, bool absolute){
 							double val = -1.f;
 							property->Attribute("value", &val);
 							material->SetPropertyValue(name, (float)val);
+						}else if(strcmp(type, "Color") == 0){
+							TiXmlElement* colorXML = property->FirstChildElement("Color");
+							double r, g, b, a;
+							colorXML->Attribute("r", &r);
+							colorXML->Attribute("g", &g);
+							colorXML->Attribute("b", &b);
+							colorXML->Attribute("a", &a);
+							Color c((float)r, (float)g, (float)b, (float)a);
+							material->SetPropertyValue(name, c);
 						}else{
 							throw CrossException("Unknown material property type");
 						}

@@ -15,6 +15,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	game = editor;
 	ui.setupUi(this);
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
+	connect(ui.actionScene_Explorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
 }
 
 CrossEditor::~CrossEditor()
@@ -64,4 +65,8 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 
 void CrossEditor::OnFileExplorerClick(){
 	ui.fileExplorer->show();
+}
+
+void CrossEditor::OnSceneExplorerClick(){
+	ui.sceneExplorer->show();
 }

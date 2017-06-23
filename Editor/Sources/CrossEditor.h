@@ -35,6 +35,7 @@ private:
 
 private slots:
 	void OnFileExplorerClick();
+	void OnSceneExplorerClick();
 };
 
 #endif // !CROSS_EDITOR

@@ -58,6 +58,7 @@
      <string>View</string>
     </property>
     <addaction name="actionFile_Explorer"/>
+    <addaction name="actionScene_Explorer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -130,6 +131,11 @@
   <action name="actionFile_Explorer">
    <property name="text">
     <string>File Explorer</string>
+   </property>
+  </action>
+  <action name="actionScene_Explorer">
+   <property name="text">
+    <string>Scene Explorer</string>
    </property>
   </action>
  </widget>
