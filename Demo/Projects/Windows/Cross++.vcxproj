@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}</ProjectGuid>
+    <RootNamespace>Cross</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;CROSS_DEBUG;OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>fmod_vc.lib;freetype.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../Sources;../../../../Sources/Libs/FreeType;../../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../../Sources/Platform/Windows;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>fmod_vc.lib;freetype.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Sources\Core\Audio.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Camera2D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Color.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Component.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Config.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\File.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Game.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Graphics2D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Graphics3D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\GraphicsGL.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Input.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Light.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Material.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Mesh.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Scene.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Screen.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Sound.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Sprite.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\System.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Texture.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Transformable.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\UI.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Sources\Internals\Debugger.cpp" />
+    <ClCompile Include="..\..\..\Sources\Internals\Exception.cpp" />
+    <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\SOIL\image_helper.c" />
+    <ClCompile Include="..\..\..\Sources\Libs\SOIL\SOIL.c" />
+    <ClCompile Include="..\..\..\Sources\Libs\SOIL\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinystr.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\All.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\Matrix.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\Quaternion.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\Rect.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\Vector2D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\Vector3D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Math\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\CrossEGL.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\Cross.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\GLES.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\Native.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\OpenGL.cpp" />
+    <ClCompile Include="..\..\..\Sources\Platform\Windows\WINSystem.cpp" />
+    <ClCompile Include="..\..\..\Sources\Shaders\LightShader.cpp" />
+    <ClCompile Include="..\..\..\Sources\Shaders\MultiLightShader.cpp" />
+    <ClCompile Include="..\..\..\Sources\Shaders\Shader.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Animation.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Button.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\DebugScene.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Font.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp" />
+    <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Demo.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\MaterialScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NormalScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Maps\SpecularScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
+    <ClCompile Include="..\..\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Menu.cpp" />
+    <ClCompile Include="..\..\Sources\ScrollScreen.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Sources\Core\Audio.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Camera2D.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Color.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Component.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Config.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Cross.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Entity.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Event.h" />
+    <ClInclude Include="..\..\..\Sources\Core\File.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Game.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Graphics2D.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Graphics3D.h" />
+    <ClInclude Include="..\..\..\Sources\Core\GraphicsGL.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Input.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Light.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Material.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Mesh.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Scene.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Screen.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Sound.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Sprite.h" />
+    <ClInclude Include="..\..\..\Sources\Core\System.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Texture.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Transformable.h" />
+    <ClInclude Include="..\..\..\Sources\Core\UI.h" />
+    <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
+    <ClInclude Include="..\..\..\Sources\Internals\Debugger.h" />
+    <ClInclude Include="..\..\..\Sources\Internals\Exception.h" />
+    <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_DXT.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_helper.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\SOIL\SOIL.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\SOIL\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\SOIL\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\TinyXML\tinystr.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\TinyXML\tinyxml.h" />
+    <ClInclude Include="..\..\..\Sources\Math\All.h" />
+    <ClInclude Include="..\..\..\Sources\Math\Matrix.h" />
+    <ClInclude Include="..\..\..\Sources\Math\Quaternion.h" />
+    <ClInclude Include="..\..\..\Sources\Math\Rect.h" />
+    <ClInclude Include="..\..\..\Sources\Math\Vector2D.h" />
+    <ClInclude Include="..\..\..\Sources\Math\Vector3D.h" />
+    <ClInclude Include="..\..\..\Sources\Math\Vector4D.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\CrossEGL.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\GLES.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\Native.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\OpenGL.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\resource.h" />
+    <ClInclude Include="..\..\..\Sources\Platform\Windows\WINSystem.h" />
+    <ClInclude Include="..\..\..\Sources\Shaders\LightShader.h" />
+    <ClInclude Include="..\..\..\Sources\Shaders\MultiLightShader.h" />
+    <ClInclude Include="..\..\..\Sources\Shaders\Shader.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Animation.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Button.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\DebugScene.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Font.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h" />
+    <ClInclude Include="..\..\Sources\AudioScreen.h" />
+    <ClInclude Include="..\..\Sources\Demo.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\MaterialScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NormalScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Maps\SpecularScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
+    <ClInclude Include="..\..\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\Sources\Menu.h" />
+    <ClInclude Include="..\..\Sources\ScrollScreen.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Cross++.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
