@@ -237,7 +237,7 @@ void Scene::Load(const string& file, bool absolute){
 						posXML->Attribute("x", &x);
 						posXML->Attribute("y", &y);
 						posXML->Attribute("z", &z);
-						Vector3D pos(x, y, z);
+						Vector3D pos((float)x, (float)y, (float)z);
 						entity->SetPosition(pos);
 					}
 
