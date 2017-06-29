@@ -21,7 +21,8 @@ using namespace cross;
 
 Entity::Entity() :
 	name(""),
-	parent(NULL)
+	parent(NULL),
+	children(0)
 {
 	memset(components, 0, sizeof(components));
 }
@@ -47,16 +48,46 @@ Entity::Entity(Entity& e) :
 Entity::~Entity(){
 	for(Component* component : components) {
 		if(component) {
+			component->Remove();
 			delete component;
 		}
+	}
+	for(Entity* c : children){
+		delete c;
+	}
+	children.clear();
+}
+
+void Entity::Initialize(){
+	for(Component* c : components){
+		if(c){
+			c->Initialize();
+		}
+	}
+	for(Entity* c : children){
+		c->Initialize();
+	}
+}
+
+void Entity::Remove(){
+	for(Component* c : components) {
+		if(c) {
+			c->Remove();
+		}
+	}
+	for(Entity* c : children) {
+		c->Remove();
 	}
 }
 
 void Entity::Update(float sec){
-	for(Component* component : components){
-		if(component){
-			component->Update(sec);
+	for(Component* c : components){
+		if(c){
+			c->Update(sec);
 		}
+	}
+	for(Entity* c : children){
+		c->Update(sec);
 	}
 }
 
@@ -64,14 +95,14 @@ void Entity::SetName(const string& name){
 	this->name = name;
 }
 
-string& Entity::GetName(){
+const string& Entity::GetName(){
 	return name;
 }
 
 void Entity::AddComponent(Component* component){
 	if(components[component->GetType()] == NULL){
 		components[component->GetType()] = component;
-		component->Initialize(this);
+		component->entity = this;
 	}else{
 		throw CrossException("Entity already have same component");
 	}
@@ -89,11 +120,16 @@ Component* Entity::GetComponent(Component::Type type) {
 	}
 }
 
+Entity* Entity::GetParent(){
+	return parent;
+}
+
 void Entity::SetParent(Entity* p){
 	parent = p;
 }
 
 void Entity::AddChild(Entity* child){
+	child->SetParent(this);
 	children.push_back(child);
 }
 
@@ -101,14 +137,20 @@ List<Entity*>& Entity::GetChildren(){
 	return children;
 }
 
-void Entity::DeleteChildren(){
-	for(Entity* c : children){
-		if(c->GetChildren().size()){
-			for(Entity* cc : children){
-				cc->DeleteChildren();
-			}
-		}
+void Entity::RemoveChildren(){
+	for(Entity* c : children) {
 		delete c;
+	}
+	children.clear();
+}
+
+Entity* Entity::FindChild(U32 index){
+	if(index < children.size()){
+		auto it = children.begin();
+		std::advance(it, index);
+		return *it;
+	}else{
+		throw CrossException("Out of bounds");
 	}
 }
 
@@ -126,13 +168,27 @@ Entity* Entity::FindChild(const string& name){
 	return NULL;
 }
 
+Entity* Entity::RemoveChild(const string& name){
+	for(auto it = children.begin(); it != children.end(); it++){
+		Entity* c = (*it);
+		if(c->GetName() == name){
+			c->Remove();
+			children.erase(it);
+			return c;
+		}else{
+			return c->RemoveChild(name);
+		}
+	}
+	return NULL;
+}
+
 Entity* Entity::Clone(){
 	Entity* clone = new Entity();
 	clone->name = this->name + "_copy";
 	for(U32 i = 0; i < Component::Type::COUNT; ++i){
 		if(this->components[i]){
 			clone->components[i] = this->components[i]->Clone();
-			clone->components[i]->Initialize(clone);
+			clone->components[i]->entity = clone;
 		}
 	}
 	for(Entity* child : children){

@@ -75,12 +75,13 @@ public:
 	virtual void Compile();
 
 	virtual bool UseLights();
-	virtual void TransferLightData(const Array<Light*>& lights);
+	virtual void TransferLightData(const List<Light*>& lights);
 
 	bool IsCompiled();
 
-	void AddMakro(const string& makro);
-	void AddMakro(const string& makro, int value);
+	void AddVersion(const string& version);
+	void AddMacro(const string& makro);
+	void AddMacro(const string& makro, int value);
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);

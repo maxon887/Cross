@@ -28,14 +28,6 @@ Component* Component::Clone(){
 	throw CrossException("Unimplemented Component::Clone");
 }
 
-void Component::Initialize(Entity* entity){
-	this->entity = entity;
-}
-
-bool Component::Initialized() const{
-	return entity != NULL;
-}
-
 Component::Type Component::GetType() const{
 	return type;
 }

@@ -28,7 +28,7 @@ public:
 	virtual void Compile();
 
 	virtual bool UseLights();
-	virtual void TransferLightData(const Array<Light*>& lights);
+	virtual void TransferLightData(const List<Light*>& lights);
 };
 
 }

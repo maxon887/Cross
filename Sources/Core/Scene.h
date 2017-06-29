@@ -32,28 +32,43 @@ public:
 	virtual void Stop();
 	/* Called every frame update. */
 	virtual void Update(float sec);
+
+	/* Loads scene from file(.scn) */
+	void Load(const string& file, bool absolute = false);
+	/* Loads scene in to file */
+	void Save(const string& file);
+	void Clear();
+	/* Returns root scene entity*/
+	Entity* GetRoot();
 	/* Returns scene 3D camera */
 	Camera* GetCamera();
 	/* Reset camera view distance. Can affect on performance */
 	void SetCameraViewDistance(float distance);
-	/* Adds entity object to the scene*/
+	/* Finds specific entity on the scene by name */
+	Entity* GetEntity(const string& name);
+	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
-	/* Returns all available light on scene */
-	Array<Light*>& GetLights();
+	/* Removes entity from scene by name */
+	Entity* RemoveEntity(const string& name);
+	/* Returns all available light on scene. */
+	List<Light*>& GetLights();
 	/* Sets up ambient scene light intensity */
 	void SetAmbientColor(const Color& color);
 	/* Returns ambient scene light intensity */
 	Color GetAmbientColor() const;
 
 protected:
+	Dictionary<U32, Shader*> shaders;
+	Dictionary<U32, Texture*> textures;
+	Dictionary<U32, Material*> materials;
+	List<Light*> lights;
+	Entity* root;
+
 	Camera* camera;
 	Color ambient_color;
 
-	Array<Light*> lights;
-
 private:
-	Array<Entity*> objects;
-
+	string name;
     U64 resize_del;
 	void WindowResizeHandle(S32 width, S32 height);
 };

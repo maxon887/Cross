@@ -77,12 +77,14 @@ public:
 	void PreProcessFrame();
 	void PostProcessFrame();
 
+	U32 GetShaderVersion() const;
 	void UseShader(Shader* shaders);
 	Shader* GetShader(DefaultShader type);
 
 	Texture* GetColorBuffer();
 
 private:
+	U32 shaders_version;
 	//off screen rendering components
 	GLuint framebuffer;
 	GLuint colorbuffer;

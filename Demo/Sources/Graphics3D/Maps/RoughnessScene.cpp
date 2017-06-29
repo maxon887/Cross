@@ -31,9 +31,9 @@ void RoughnessScene::Start(){
 	AddEntity(light);
 
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	shader->AddMakro("USE_DIFFUSE_MAP");
-	shader->AddMakro("USE_SPECULAR_MAP");
-	shader->AddMakro("USE_SHININESS_MAP");
+	shader->AddMacro("USE_DIFFUSE_MAP");
+	shader->AddMacro("USE_SPECULAR_MAP");
+	shader->AddMacro("USE_SHININESS_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 4.f);

@@ -32,9 +32,10 @@ public:
 
 	Light(Type type);
 	Light(Light& obj);
-	virtual ~Light(){ };
+	virtual ~Light() { };
 
-	virtual void Update(float sec) { };
+	virtual void Initialize();
+	virtual void Remove();
 	virtual Light* Clone();
 
 	Type GetType() const;

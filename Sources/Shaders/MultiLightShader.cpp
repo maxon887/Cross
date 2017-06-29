@@ -34,7 +34,7 @@ void MultiLightShader::Compile(){
 	Compile(game->GetCurrentScene()->GetLights());
 }
 
-void MultiLightShader::Compile(const Array<Light*>& lights){
+void MultiLightShader::Compile(const List<Light*>& lights){
 	int pointCount = 0;
 	int spotCount = 0;
 	int directionalCount = 0;
@@ -58,25 +58,29 @@ void MultiLightShader::Compile(const Array<Light*>& lights){
 		throw CrossException("Current shader required at leas 1 light from scene");
 	}
 
-	AddMakro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
-	AddMakro("POINT_LIGHT_COUNT", pointCount);
-	AddMakro("SPOT_LIGHT_COUNT", spotCount);
+	Compile(pointCount, spotCount, directionalCount);
+}
+
+void MultiLightShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
+	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
+	AddMacro("POINT_LIGHT_COUNT", pointCount);
+	AddMacro("SPOT_LIGHT_COUNT", spotCount);
 
 	Shader::Compile();
-	for(int i = 0; i < pointCount; ++i){
+	for(int i = 0; i < pointCount; ++i) {
 		string structName = "uPointLights[" + to_string(i) + "]";
 		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
 		uPointLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
 		uPointLights[i].intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
 	}
 
-	for(int i = 0; i < directionalCount; ++i){
+	for(int i = 0; i < directionalCount; ++i) {
 		string structName = "uDirectionalLights[" + to_string(i) + "]";
 		uDirectionalLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
 		uDirectionalLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
 	}
-	
-	for(int i = 0; i < spotCount; ++i){
+
+	for(int i = 0; i < spotCount; ++i) {
 		string structName = "uSpotLights[" + to_string(i) + "]";
 		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
 		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
@@ -91,7 +95,7 @@ bool MultiLightShader::UseLights(){
 	return true;
 }
 
-void MultiLightShader::TransferLightData(const Array<Light*>& lights){
+void MultiLightShader::TransferLightData(const List<Light*>& lights){
 	int pointCount = 0;
 	int spotCount = 0;
 	int directionalCount = 0;

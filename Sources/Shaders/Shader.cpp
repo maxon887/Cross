@@ -126,6 +126,11 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) :
 {
 	vertex_file = sys->LoadFile(vertexFile);
 	fragment_file = sys->LoadFile(fragmentFile);
+	if(gfxGL->GetShaderVersion() >= 130) {
+		char ver[256];
+		itoa(130, ver, 10);
+		AddVersion(ver);
+	}
 }
 
 Shader::~Shader(){
@@ -143,7 +148,7 @@ bool Shader::UseLights(){
 	return false;
 }
 
-void Shader::TransferLightData(const Array<Light*>& lights){
+void Shader::TransferLightData(const List<Light*>& lights){
 	throw CrossException("Lighting does not supported by this shader");
 }
 
@@ -185,7 +190,16 @@ bool Shader::IsCompiled(){
 	return compiled;
 }
 
-void Shader::AddMakro(const string& makro){
+void Shader::AddVersion(const string& ver){
+	if(compiled) {
+		throw CrossException("Shader already compiled");
+	}
+	string fullStr = "#version " + ver + "\n";
+	macrosies.push_back(fullStr);
+	makro_len += fullStr.length();
+}
+
+void Shader::AddMacro(const string& makro){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
@@ -194,7 +208,7 @@ void Shader::AddMakro(const string& makro){
 	makro_len += makroString.length();
 }
 
-void Shader::AddMakro(const string& makro, int value){
+void Shader::AddMacro(const string& makro, int value){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}

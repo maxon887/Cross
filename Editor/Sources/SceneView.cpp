@@ -14,34 +14,32 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
-#pragma once
+#include "SceneView.h"
+#include "Input.h"
+#include "Graphics2D.h"
+#include "Graphics3D.h"
+#include "Sprite.h"
+#include "Camera2D.h"
+#include "Game.h"
+#include "Material.h"
+#include "VertexBuffer.h"
+#include "Shaders/LightShader.h"
+#include "Light.h"
+#include "Entity.h"
 
-#include <functional>
-#include <list>
+#include <math.h>
 
-using namespace std;
+SceneView::SceneView()
+{ }
 
-namespace cross {
+void SceneView::Start() {
+	FreeCameraScene::Start();
+}
 
-class Commercial{
-public:
-	enum Event{
-		AD_LOADED			= 0,
-		AD_LOAD_FAILED		= 1,
-		PURCHASE_COMPLETE	= 2,
-		PURCHASE_CANCELED	= 3,
-		PURCHASE_FAILED		= 4
-	};
-	virtual void DownloadAd() = 0;
-	virtual void ShowAd() = 0;
-	virtual void Purchase() = 0;
-    virtual void Restore() {};
-	void RegisterCallback(function<void(Event&)> callback);
-	void CommercialResult(Event e);
-	virtual ~Commercial() {};
-private:
-	function<void(Event&)> callback;
-};
+void SceneView::Stop(){
+	FreeCameraScene::Stop();
+}
 
+void SceneView::Update(float sec){
+	FreeCameraScene::Update(sec);
 }

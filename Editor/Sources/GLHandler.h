@@ -24,8 +24,6 @@ public:
 	void mousePressEvent(QMouseEvent* eve);
 	void mouseMoveEvent(QMouseEvent* eve);
 	void mouseReleaseEvent(QMouseEvent* eve);
-private:
-	void ExceptionMsgBox(const char* msg);
 };
 
 #endif // !GL_HANDLER

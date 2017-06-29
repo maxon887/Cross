@@ -38,8 +38,8 @@ void TransparencyScene::Start(){
 	AddEntity(light);
 
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	road_shader->AddMakro("USE_DIFFUSE_MAP");
-	road_shader->AddMakro("USE_TILLING_FACTOR");
+	road_shader->AddMacro("USE_DIFFUSE_MAP");
+	road_shader->AddMacro("USE_TILLING_FACTOR");
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
 	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
@@ -57,8 +57,8 @@ void TransparencyScene::Start(){
 	AddEntity(road);
 
 	grass_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	grass_shader->AddMakro("USE_DIFFUSE_MAP");
-	grass_shader->AddMakro("USE_CUTOUT");
+	grass_shader->AddMacro("USE_DIFFUSE_MAP");
+	grass_shader->AddMacro("USE_CUTOUT");
 	grass_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	grass_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);

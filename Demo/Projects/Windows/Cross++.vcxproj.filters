@@ -223,9 +223,6 @@
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Experimental\Array.cpp">
-      <Filter>Cross\Experimental</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Internals\Debugger.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
@@ -308,9 +305,6 @@
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Button.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Commercial.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp">
@@ -520,9 +514,6 @@
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Experimental\Array.h">
-      <Filter>Cross\Experimental</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Internals\Debugger.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
@@ -608,9 +599,6 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Button.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Commercial.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h">

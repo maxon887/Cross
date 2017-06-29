@@ -38,14 +38,14 @@ bool LightShader::UseLights(){
 	return true;
 }
 
-void LightShader::TransferLightData(const Array<Light*>& lights){
+void LightShader::TransferLightData(const List<Light*>& lights){
 	if(lights.size() > 1){
 		throw CrossException("Scene contains more than 1 light source");
 	}
 	if(lights.size() == 0){
 		throw CrossException("Scene must have one light source");
 	}
-	Light* light = lights[0];
+	Light* light = lights.front();
 
 	if(light_attribs.position != -1){
 		Vector3D position = light->GetPosition();

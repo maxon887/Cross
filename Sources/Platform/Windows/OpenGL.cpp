@@ -49,8 +49,8 @@ int OpenGL_Main(){
 	MSG msg;
 	try{
 		WINSystem* winSys = new WINSystem(wnd);
-		cross::system = winSys;
-		cross::system->LogIt("OpenGL API");
+		sys = winSys;
+		sys->LogIt("OpenGL API");
 		game = CrossMain();
 
 		int winX = config->GetInt("WIN_POS_X", 0);
@@ -121,7 +121,7 @@ int OpenGL_Main(){
 		delete gfxGL;
 		delete game;
 		delete audio;
-		delete cross::system;
+		delete sys;
 #ifdef CROSS_DEBUG
 		unsigned long leaked = MemoryManager::Instance()->Dump();
 		if(leaked > 0) {

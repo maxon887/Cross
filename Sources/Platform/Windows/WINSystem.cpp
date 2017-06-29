@@ -48,7 +48,7 @@ WINSystem::WINSystem(HWND wnd) :
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
 	char* debugAssetAlt = "../../Assets/";
-	char* editorAsset = "../Games/Demo/Assets/";
+	char* editorAsset = "../Demo/Assets/";
 	if(DirectoryExists(releaseAsset)){
 		assets_path = releaseAsset;
 	} else if(DirectoryExists(debugAsset)){
