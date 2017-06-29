@@ -26,6 +26,8 @@ public:
 	RigidBody();
 	RigidBody(float mass);
 
+	virtual void Initialize();
+
 	void PFXUpdate(float sec);
 
 	void SetMass(float mass);
