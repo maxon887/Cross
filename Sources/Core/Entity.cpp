@@ -41,11 +41,6 @@ Entity::~Entity(){
 }
 
 void Entity::Initialize(){
-	for(Component* c : components){
-		if(c){
-			c->Initialize();
-		}
-	}
 	for(Entity* c : children){
 		c->Initialize();
 	}
@@ -85,6 +80,7 @@ void Entity::AddComponent(Component* component){
 	if(components[component->GetType()] == NULL){
 		components[component->GetType()] = component;
 		component->entity = this;
+		component->Initialize();
 	}else{
 		throw CrossException("Entity already have same component");
 	}
