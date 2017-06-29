@@ -58,6 +58,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;cxx;c;def</Extensions>
     </Filter>
+    <Filter Include="Cross\Physics">
+      <UniqueIdentifier>{65b52e08-ed46-4a22-a3fe-caf98c39d047}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_CrossEditor.cpp">
@@ -207,9 +210,6 @@
     <ClCompile Include="..\Sources\Utils\Button.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Commercial.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -269,6 +269,18 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SceneExplorer.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Physics\Collider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Physics\Collision.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Physics\Physics.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Physics\RigidBody.cpp">
+      <Filter>Cross\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -445,9 +457,6 @@
     <ClInclude Include="..\Sources\Utils\Button.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Commercial.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Utils\Cubemap.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -471,6 +480,18 @@
     </ClInclude>
     <ClInclude Include="Sources\SceneView.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Physics\Collider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Physics\Collision.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Physics\Physics.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Physics\RigidBody.h">
+      <Filter>Cross\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
