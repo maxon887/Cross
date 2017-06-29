@@ -22,18 +22,4 @@ public:
 	void Start();
 	void Stop();
 	void Update(float sec);
-
-protected:
-	Entity* camaro;
-
-private:
-	Entity* light;
-	Shader* shader;
-	Shader* road_shader;
-	Texture* car_diffuse;
-	Texture* car_specular;
-	Texture* car_shininess;
-	Texture* road_diffuse;
-	Material* car_mat;
-	Material* road_mat;
 };
