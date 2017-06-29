@@ -110,6 +110,10 @@
     <ClCompile Include="..\..\..\Sources\Math\Vector2D.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Vector3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\CrossEGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\GLES.cpp" />
@@ -153,6 +157,10 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Menu.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\Suppressors.cpp" />
     <ClCompile Include="..\..\Sources\ScrollScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -202,6 +210,10 @@
     <ClInclude Include="..\..\..\Sources\Math\Vector2D.h" />
     <ClInclude Include="..\..\..\Sources\Math\Vector3D.h" />
     <ClInclude Include="..\..\..\Sources\Math\Vector4D.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\Collider.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\Collision.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\Physics.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h" />
     <ClInclude Include="..\..\..\Sources\Platform\CrossEGL.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\Native.h" />
@@ -245,6 +257,10 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Menu.h" />
+    <ClInclude Include="..\..\Sources\Physics\Bridge.h" />
+    <ClInclude Include="..\..\Sources\Physics\HardConstraints.h" />
+    <ClInclude Include="..\..\Sources\Physics\Ocean.h" />
+    <ClInclude Include="..\..\Sources\Physics\Suppressors.h" />
     <ClInclude Include="..\..\Sources\ScrollScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

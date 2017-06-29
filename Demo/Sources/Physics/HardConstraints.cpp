@@ -193,8 +193,8 @@ void HardConstraints::Start(){
 	physics->RegisterCollisionProvider(rod);
 	//***************ROAD*****************
 	road_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	road_shader->AddMakro("USE_DIFFUSE_MAP");
-	road_shader->AddMakro("USE_TILLING_FACTOR");
+	road_shader->AddMacro("USE_DIFFUSE_MAP");
+	road_shader->AddMacro("USE_TILLING_FACTOR");
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
 	road_shader->AddProperty("Specular", "uSpecular", 0.5f);

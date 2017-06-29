@@ -30,8 +30,7 @@
 
 Ocean::BuoyantEntity::BuoyantEntity(Entity* e) : 
 	Entity(*e)
-{ 
-	e->DeleteChildren();
+{
 	delete e;
 }
 
@@ -162,7 +161,7 @@ void Ocean::Start() {
 	
 	//*********************WATER**********************
 	water_shader = (MultiLightShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
-	water_shader->AddMakro("USE_TILLING_FACTOR");
+	water_shader->AddMacro("USE_TILLING_FACTOR");
 	water_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	water_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	water_shader->AddProperty("Color", "uDiffuseColor", Color::Blue);

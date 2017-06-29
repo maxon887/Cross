@@ -32,6 +32,7 @@ public:
 	void Update(float sec);
 	void SetName(const string& name);
 	const string& GetName();
+	void AddComponent(Component* component);
 	bool HasComponent(Component::Type type);
 	Component* GetComponent(Component::Type type);
 	Entity* GetParent();

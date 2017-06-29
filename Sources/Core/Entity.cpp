@@ -35,7 +35,7 @@ Entity::Entity(Entity& e) :
 	for(U32 i = 0; i < Component::Type::COUNT; ++i){
 		if(e.components[i]){
 			this->components[i] = e.components[i]->Clone();
-			this->components[i]->Initialize(this);
+			this->components[i]->entity = this;
 		}
 	}
 	for(Entity* child : e.children){

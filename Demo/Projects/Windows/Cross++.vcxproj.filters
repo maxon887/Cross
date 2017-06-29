@@ -325,6 +325,18 @@
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Sources\Physics\Bridge.cpp">
       <Filter>Demo\Physics</Filter>
     </ClCompile>
@@ -333,18 +345,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
       <Filter>Demo\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp">
-      <Filter>Cross\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp">
-      <Filter>Cross\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Physics\Suppressors.cpp">
       <Filter>Demo\Physics</Filter>
@@ -619,6 +619,18 @@
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Collider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Collision.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Physics.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\Bridge.h">
       <Filter>Demo\Physics</Filter>
     </ClInclude>
@@ -627,18 +639,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\Ocean.h">
       <Filter>Demo\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\Physics.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\Collision.h">
-      <Filter>Cross\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\Collider.h">
-      <Filter>Cross\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\Suppressors.h">
       <Filter>Demo\Physics</Filter>
