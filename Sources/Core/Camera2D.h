@@ -35,10 +35,11 @@ public:
 	float GetViewHeight();
 
 private:
-	float view_width;
-	float view_height;
+	float view_width	= -1.f;
+	float view_height	= -1.f;
 
-    U64 resize_del;
+    U64 resize_del		= 0;
+
 	void WindowResizedHandle(S32 width, S32 height);
     //do we really need this method?
 	void WindowRisezedHandleCust(S32 width, S32 height);

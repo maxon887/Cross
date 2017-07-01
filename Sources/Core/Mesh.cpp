@@ -26,12 +26,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 using namespace cross;
 
 Mesh::Mesh() :
-	Component(Component::Type::MESH),
-	vertex_buffer(NULL),
-	material(NULL),
-	original(true),
-	initialized(false),
-	face_culling(true)
+	Component(Component::Type::MESH)
 { }
 
 Mesh::Mesh(Mesh& obj) :

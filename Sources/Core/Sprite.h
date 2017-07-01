@@ -47,12 +47,12 @@ private:
 	static const GLushort indices[];
 	static GLuint EBO;
 
-	GLuint VBO;
-	float width;
-	float height;
-	Color color;
-	Texture* texture;
-	bool original;
+	GLuint VBO			= 0;
+	float width			= -1.f;
+	float height		= -1.f;
+	Color color			= Color::White;
+	Texture* texture	= NULL;
+	bool original		= true;
 
 	const GLushort* GetIndices() const;
 	Texture* GetTexture();

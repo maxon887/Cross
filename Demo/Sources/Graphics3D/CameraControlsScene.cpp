@@ -20,7 +20,7 @@
 #include "Camera.h"
 
 void CameraControlsScene::Start(){
-	DebugScene::Start();
+	FreeCameraScene::Start();
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -3.f));
 	//UI
 	arrow_released = demo->GetCommonSprite("ArrowUp.png");
@@ -72,11 +72,11 @@ void CameraControlsScene::Start(){
 void CameraControlsScene::Stop(){
 	delete arrow_released;
 	delete arrow_pressed;
-	DebugScene::Stop();
+	FreeCameraScene::Stop();
 }
 
 void CameraControlsScene::Update(float sec){
-	DebugScene::Update(sec);
+	FreeCameraScene::Update(sec);
 
 	if(up_btn->IsPressed()) {
 		MoveForward(sec);

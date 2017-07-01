@@ -21,7 +21,7 @@ namespace cross{
 
 class LightShader : public Shader{
 public:
-	LightUniforms light_attribs;
+	LightUniforms light_attribs = LightUniforms();
 
 	LightShader(const string& vertex, const string& fragment);
 

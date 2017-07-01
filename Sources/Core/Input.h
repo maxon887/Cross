@@ -123,8 +123,6 @@ public:
 		Vector2D pos;
 		S32 id;
 	};
-    
-    void TouchEnabled(bool enabled);
 	/* Scaled in screen coordinates input */
 	Event<Action> ActionDown;
 	Event<Action> ActionMove;
@@ -139,17 +137,19 @@ public:
 	/* Mouse Wheel events */
 	Event<> MouseWheelUp;
 	Event<> MouseWheelDown;
-	/* Checks if specific key pressed*/
+	/* Checks if specific key pressed */
 	bool IsPressed(Key key);
+	/* Enables disables all touches */
+	void TouchEnabled(bool enabled);
 	/* Engine specific */
 	void Update();
 
 protected:
 	CROSS_FRIENDLY
 
-	std::mutex  input_mutex;
-    bool touch_enabled;
-	bool pressed_keys[(U32)Key::MAX_KEY_NUM];
+	std::mutex input_mutex;
+	bool touch_enabled			= true;
+	Array<bool> pressed_keys	= Array<bool>((U32)Key::MAX_KEY_NUM, false);
 	List<pair<Input::Action, int> > action_stack;
 
 	Input();

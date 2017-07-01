@@ -18,14 +18,6 @@
 
 using namespace cross;
 
-Transformable::Transformable() :
-	model(Matrix::Identity),
-	translate(Matrix::Identity),
-	scale(Matrix::Identity),
-	rotate(Matrix::Identity),
-	recalc_model(true)
-{ }
-
 void Transformable::SetPosition(const Vector2D& pos){
 	translate.SetTranslation(pos);
 	recalc_model = true;

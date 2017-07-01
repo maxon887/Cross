@@ -41,7 +41,6 @@ public:
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
 
-	System();
 	virtual ~System() { }
 	/* DEPRICATED! Loads specific file from game assets. TODO LoadAsset */
 	virtual File* LoadFile(const string& filename);
@@ -73,8 +72,8 @@ public:
 	void SetWindowSize(S32 width, S32 height);
 
 private:
-	S32 window_width;
-	S32 window_height;
+	S32 window_width	= -1;
+	S32 window_height	= -1;
 };
     
 }

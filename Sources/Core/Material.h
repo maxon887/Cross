@@ -55,10 +55,10 @@ public:
 private:
 	CROSS_FRIENDLY
 
-	Shader* shader;
-	Array<Shader::Property*> properties;
-	U32 active_texture_slot;
-	bool transparency;
+	Shader* shader						= NULL;
+	U32 active_texture_slot				= 0;
+	bool transparency					= false;
+	Array<Shader::Property*> properties = Array<Shader::Property*>();
 
 	Material(Material& obj);
 };

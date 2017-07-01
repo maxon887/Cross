@@ -58,14 +58,14 @@ public:
 	Color GetAmbientColor() const;
 
 protected:
-	Dictionary<U32, Shader*> shaders;
-	Dictionary<U32, Texture*> textures;
-	Dictionary<U32, Material*> materials;
-	List<Light*> lights;
-	Entity* root;
+	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();
+	Dictionary<U32, Texture*> textures		= Dictionary<U32, Texture*>();
+	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
+	List<Light*> lights						= List<Light*>();
+	Entity* root							= NULL;
 
-	Camera* camera;
-	Color ambient_color;
+	Camera* camera							= NULL;
+	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
 private:
 	string name;

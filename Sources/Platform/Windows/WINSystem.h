@@ -43,11 +43,11 @@ public:
 	void KeyReleasedHandle(Key key);
 	
 private:
-	HWND wnd;
-	char* assets_path;
-	int window_pos_x;
-	int window_pos_y;
-	bool fullscreen;
+	HWND wnd			= 0;
+	char* assets_path	= "";
+	int window_pos_x	= 0;
+	int window_pos_y	= 0;
+	bool fullscreen		= false;
 
 	bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate);
 	bool ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowedWidth, int windowedHeight, int windowedPaddingX, int windowedPaddingY);

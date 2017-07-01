@@ -61,12 +61,7 @@ struct KTX{
 	U32 bytesOfKeyValueData;
 };
 
-Graphics2D::Graphics2D() :
-	camera(NULL),
-	texture_shader(NULL),
-	font_shader(NULL),
-	simple_shader(NULL)
-{
+Graphics2D::Graphics2D() {
 	sys->LogIt("Graphics2D::Graphics2D()");
 	texture_shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	texture_shader->Compile();

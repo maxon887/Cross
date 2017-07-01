@@ -33,8 +33,8 @@ public:
 	const Matrix& GetProjectionMatrix() const;
 
 protected:
-	Matrix view;
-	Matrix projection;
+	Matrix view			= Matrix::Identity;
+	Matrix projection	= Matrix::Identity;
 
 	void RecalView();
 };

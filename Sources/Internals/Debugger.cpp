@@ -39,17 +39,7 @@ void Debugger::Release(){
 	instance = NULL;
 }
 
-Debugger::Debugger() :
-	cpu_time(0),
-	cpu_sum(0),
-	cpu_counter(0),
-	update_time(0),
-	update_sum(0),
-	update_counter(0),
-	touches(false),
-	touch_down(false),
-	debugger_font(NULL)
-{
+Debugger::Debugger() {
 	params[FPS]			= true;
 	params[UPDATE_TIME]	= true;
 	params[CPU_TIME]	= true;

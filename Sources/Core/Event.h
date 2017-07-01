@@ -39,7 +39,7 @@ public:
 
 private:
     std::map<U64, std::function<void(Args...)>> connections;
-    long connectID = 0;
+	U64 connectID = 1;
 };
 
 //implementation

@@ -72,18 +72,7 @@ Button::Button(Vector2D location) :
 }
 
 Button::Button() :
-	UI(),
-	located(false),
-	is_pressed(false),
-	push_sound(nullptr),
-	pull_sound(nullptr),
-	up_image(nullptr),
-	down_image(nullptr),
-	font(nullptr),
-	def_width(0),
-	def_height(0),
-	handled_action_id(-1),
-	color(Color::White)
+	UI()
 {
 	down_del = input->ActionDown.Connect(this, &Button::ActionDownHandler);
 	up_del = input->ActionUp.Connect(this, &Button::ActionUpHandler);

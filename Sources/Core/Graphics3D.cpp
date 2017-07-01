@@ -40,14 +40,11 @@
 
 using namespace cross;
 
-Graphics3D::Graphics3D():
-	initialize_in_load(true)
-{
+Graphics3D::Graphics3D() {
 	sys->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
 	sys->LogIt("\tUse assimp version %d.%d", major, minor);
-	memset(primitives, 0, sizeof(primitives));
 	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	simple_shader->Compile();
 }

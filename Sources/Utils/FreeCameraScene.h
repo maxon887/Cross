@@ -23,8 +23,6 @@ namespace cross{
 
 class FreeCameraScene : public Scene{
 public:
-	FreeCameraScene();
-
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
@@ -50,20 +48,21 @@ public:
 	void LookUp(float sec);
 
 protected:
-	bool look_at;
+	bool look_at				= true;
 
-	float liner_speed;
-	float angular_speed;
-	float orbit_distance;
+	float liner_speed			= 5.f;
+	float angular_speed			= 45.f;
+	float orbit_distance		= 5.f;
 
-	Font* debug_font;
+	Font* debug_font			= NULL;
 
-	S32 handled_action;
-	Vector2D touch_position;
-	Vector3D target;
+	S32 handled_action			= -1;
+	Vector2D touch_position		= Vector2D();
+	Vector3D target				= Vector3D(0);
 
-    U64 wheel_up_del;
-    U64 wheel_down_del;
+    U64 wheel_up_del			= -1;
+    U64 wheel_down_del			= -1;
+
 	void MouseWheelUp();
 	void MouseWheelDown();
 };

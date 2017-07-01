@@ -36,7 +36,7 @@ public:
 	/* Called when screen about to change on new one */
 	virtual void Stop();
 	/* Called every frame update. Ideally 60 times per second(60fps) */
-	virtual void Update(float sec);
+	virtual void Update(float sec) { };
 	/* Called after regularly Screen::Update()  */
 	virtual void LateUpdate(float sec);
 	/* Called when game need to be suspend like lost focus or input phone call */
@@ -65,16 +65,17 @@ public:
 	void EnableInputs(bool enable);
 
 protected:
-	bool is_scene;
-	bool enable_inputs;
+	bool is_scene					= false;
+	bool enable_inputs				= true;
 
 private:
-	bool actionIDs[MAX_ACTIONS];
-	Array<UI*> guis;
+	Array<bool> actionIDs			= Array<bool>(MAX_ACTIONS, false);
+	Array<UI*> guis					= Array<UI*>();
 
-    U64 down_del;
-    U64 up_del;
-    U64 move_del;
+    U64 down_del					= -1;
+    U64 up_del						= -1;
+    U64 move_del					= -1;
+
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);

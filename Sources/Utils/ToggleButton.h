@@ -27,9 +27,9 @@ public:
 	bool GetState();
 	void SetState(bool state);
 private:
-	Sprite* on;
-	Sprite* off;
-	bool state;
+	Sprite* on	= NULL;
+	Sprite* off	= NULL;
+	bool state	= true;
 
 	void OnClicked();
 };

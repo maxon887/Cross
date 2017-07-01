@@ -23,16 +23,9 @@
 using namespace cross;
 
 void Screen::Start(){
-	is_scene = false;
-	enable_inputs = true;
-
     down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
     move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
     up_del = input->ActionUp.Connect(this, &Screen::ActionUpHandle);
-
-	for(U32 i = 0; i < MAX_ACTIONS; i++){
-		actionIDs[i] = false;
-	}
 }
 
 void Screen::Stop(){
@@ -43,9 +36,6 @@ void Screen::Stop(){
 		delete ui;
 	}
 	guis.clear();
-}
-
-void Screen::Update(float sec){
 }
 
 void Screen::LateUpdate(float sec){

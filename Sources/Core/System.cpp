@@ -22,11 +22,6 @@
 
 using namespace cross;
 
-System::System() :
-	window_width(-1),
-	window_height(-1)
-{ }
-
 File* System::LoadFile(const string& filename){
 	File* file = new File();
 	file->name = filename;

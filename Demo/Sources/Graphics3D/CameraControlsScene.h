@@ -15,12 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Utils/DebugScene.h"
+#include "Utils/FreeCameraScene.h"
 #include "Utils/ToggleButton.h"
 
 using namespace cross;
 
-class CameraControlsScene : public DebugScene{
+class CameraControlsScene : public FreeCameraScene{
 public:
 	virtual void Start();
 	virtual void Stop();

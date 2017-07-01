@@ -20,8 +20,7 @@
 using namespace cross;
 
 Component::Component(Type type) :
-	type(type),
-	entity(NULL)
+	type(type)
 { }
 
 Component* Component::Clone(){

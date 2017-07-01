@@ -26,7 +26,6 @@ class UI{
 public:
 	virtual Rect GetRect() const = 0;
 
-	UI();
 	virtual ~UI() { };
 
 	virtual void Update(float sec) { };
@@ -38,8 +37,8 @@ public:
 	void SetEnable(bool enable);
 
 protected:
-	bool visible;
-	bool enable;
+	bool visible = true;
+	bool enable  = true;
 };
 
 }

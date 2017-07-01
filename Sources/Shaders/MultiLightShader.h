@@ -36,9 +36,9 @@ public:
 	virtual void TransferLightData(const List<Light*>& lights);
 
 private:
-	LightUniforms uPointLights[MaxPointLights];
-	LightUniforms uDirectionalLights[MaxDirectionalLights];
-	LightUniforms uSpotLights[MaxSpotLights];
+	Array<LightUniforms> uPointLights = Array<LightUniforms>(MaxPointLights);
+	Array<LightUniforms> uDirectionalLights = Array<LightUniforms>(MaxDirectionalLights);
+	Array<LightUniforms> uSpotLights = Array<LightUniforms>(MaxSpotLights);
 };
 
 }

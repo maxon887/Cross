@@ -29,11 +29,11 @@ public:
 	void Draw();
 
 private:
-	Cubemap* cubemap;
-	Shader* shader;
-	Material* material;
-	Entity* box;
-	GLuint mvpID;
+	Cubemap* cubemap	= NULL;
+	Shader* shader		= NULL;
+	Material* material	= NULL;
+	Entity* box			= NULL;
+	GLuint mvpID		= 0;
 };
 
 }

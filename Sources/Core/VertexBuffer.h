@@ -21,10 +21,6 @@ namespace cross{
 
 class VertexBuffer{
 public:
-	
-	VertexBuffer();
-	VertexBuffer(VertexBuffer& obj);
-
 	bool HasTextureCoordinates();
 	bool HasNormals();
 	bool HasTangents();
@@ -47,12 +43,12 @@ public:
 	VertexBuffer* Clone();
 
 private:
-	bool initialized;
-	Array<Byte> data;
-	bool uv_enabled;
-	bool normals_enabled;
-	bool tangents_enabled;
-	bool bitangents_enabled;
+	bool initialized			= false;
+	Array<Byte> data			= Array<Byte>();
+	bool uv_enabled				= false;
+	bool normals_enabled		= false;
+	bool tangents_enabled		= false;
+	bool bitangents_enabled		= false;
 };
 
 }

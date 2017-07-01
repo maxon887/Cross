@@ -24,9 +24,9 @@ class File{
 public:
 	~File();
 
-	string name;
-	Byte* data;
-	U32 size;
+	string name	= string();
+	Byte* data	= NULL;
+	U32 size	= 0;
 };
 
 }

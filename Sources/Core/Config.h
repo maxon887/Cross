@@ -50,13 +50,13 @@ public:
     void LoadUserConfig();
 
 protected:
-	Dictionary<string, string> user_prefs;
+	System::Orientation orientation		= System::AUTO;
+	bool use_compressed_textures		= false;
+	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
+	float view_distance					= 300.f;
+	bool offscreen_render				= false;
 
-	System::Orientation orientation;
-	bool use_compressed_textures;
-	Texture::Filter texture_filter;
-	float view_distance;
-	bool offscreen_render;
+	Dictionary<string, string> user_prefs = Dictionary<string, string>();
 
 	string GetString(const string& key);
 };

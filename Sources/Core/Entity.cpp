@@ -19,14 +19,6 @@
 
 using namespace cross;
 
-Entity::Entity() :
-	name(""),
-	parent(NULL),
-	children(0)
-{
-	memset(components, 0, sizeof(components));
-}
-
 Entity::~Entity(){
 	for(Component* component : components) {
 		if(component) {

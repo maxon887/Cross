@@ -22,18 +22,7 @@ using namespace cross;
 
 Light::Light(Type type):
 	Component(Component::LIGHT),
-	type(type),
-	color(Color::White),
-	intensity(0.01f), //aroud 15m to max distance
-	cut_off(30.f)
-{ }
-
-Light::Light(Light& obj):
-	Component(Component::LIGHT),
-	type(obj.type),
-	color(obj.color),
-	intensity(obj.intensity), //aroud 15m to max distance
-	cut_off(obj.cut_off)
+	type(type)
 { }
 
 void Light::Initialize(){

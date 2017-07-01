@@ -27,9 +27,7 @@ using namespace cross;
 
 static FMOD_RESULT result;
 
-Audio::Audio() : 
-	fmod_system(NULL)	
-{
+Audio::Audio() {
 	sys->LogIt("Audio::Audio()");
 	result = FMOD::System_Create(&fmod_system);
 	ERRCHECK(result);

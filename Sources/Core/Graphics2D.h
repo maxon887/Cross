@@ -75,12 +75,12 @@ public:
 	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
 
 private:
-	Shader* texture_shader;
-	Shader* font_shader;
-	Shader* simple_shader;
-	Font* default_font;
-	Camera2D* camera;
-	Camera2D* default_camera;
+	Shader* texture_shader		= NULL;
+	Shader* font_shader			= NULL;
+	Shader* simple_shader		= NULL;
+	Font* default_font			= NULL;
+	Camera2D* camera			= NULL;
+	Camera2D* default_camera	= NULL;
 	List<pair<Texture*, S32>> loaded_textures;
 };
 

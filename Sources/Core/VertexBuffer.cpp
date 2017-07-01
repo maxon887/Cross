@@ -18,23 +18,6 @@
 
 using namespace cross;
 
-VertexBuffer::VertexBuffer():
-	initialized(false),
-	uv_enabled(false),
-	normals_enabled(false),
-	tangents_enabled(false),
-	bitangents_enabled(false)
-{ }
-
-VertexBuffer::VertexBuffer(VertexBuffer& obj) :
-	initialized(obj.initialized),
-	uv_enabled(obj.uv_enabled),
-	normals_enabled(obj.normals_enabled),
-	tangents_enabled(obj.tangents_enabled),
-	bitangents_enabled(obj.bitangents_enabled),
-	data(obj.data)
-{ }
-
 bool VertexBuffer::HasTextureCoordinates(){
 	return uv_enabled;
 }

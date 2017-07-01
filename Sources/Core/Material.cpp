@@ -20,9 +20,7 @@
 using namespace cross;
 
 Material::Material(Shader* shader) :
-	shader(shader),
-	active_texture_slot(0),
-	transparency(false)
+	shader(shader)
 {
 	if(shader->IsCompiled()){
 		for(Shader::Property* prop : shader->properties){
@@ -36,7 +34,7 @@ Material::Material(Shader* shader) :
 Material::Material(Material& obj) :
 	shader(obj.shader),
 	active_texture_slot(obj.active_texture_slot),
-	transparency(false)
+	transparency(obj.transparency)
 { 
 	for(Shader::Property* prop : obj.properties){
 		properties.push_back(prop->Clone());

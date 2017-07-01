@@ -37,12 +37,10 @@ Font::Font(Font& font) :
 	face(font.face),
 	size(font.size),
 	char_width(font.char_width),
-	sprites(127),
-	textures(127),
 	file(font.file),
 	kill_textures(false)
 {
-	for(U8 i = 0; i < 127; ++i){
+	for(U8 i = 0; i < 128; ++i){
 		this->advances[i] = font.advances[i];
 		this->textures[i] = font.textures[i];
 		this->sprites[i] = font.sprites[i]->Clone();
@@ -50,13 +48,8 @@ Font::Font(Font& font) :
 }
 
 Font::Font(string filename, float size, Color color) :
-	color(color),
-	sprites(127),
-	textures(127),
-	original(true),
-	kill_textures(false)
+	color(color)
 {
-	memset(advances, 0, sizeof(advances));
 	file = sys->LoadFile(filename);
 	FT_Error error;
 	if(library == NULL){
@@ -145,7 +138,7 @@ void Font::Cache(){
 	} else {
 		kill_textures = true;
 	}
-	for(U8 i = 0; i < 127; i++){
+	for(U8 i = 0; i < 128; i++){
 		U32 glyphIndex = FT_Get_Char_Index(face, i + 29);
 		error = FT_Load_Glyph(face, glyphIndex, FT_LOAD_RENDER);
 		if(error){

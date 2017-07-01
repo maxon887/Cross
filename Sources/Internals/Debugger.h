@@ -44,23 +44,23 @@ public:
 private:
 	static Debugger* instance;
 
-	Array<U64> time_checks;
+	Array<U64> time_checks			= Array<U64>();
 
-	Font* debugger_font;
+	Font* debugger_font				= NULL;
 
-	bool params[Parameter::NONE];
+	Array<bool> params				= Array<bool>(Parameter::NONE, false);
 
-	float cpu_time;
-	float cpu_sum;
-	int cpu_counter;
+	float cpu_time					= 0;
+	float cpu_sum					= 0;
+	int cpu_counter					= 0;
 
-	float update_time;
-	float update_sum;
-	int update_counter;
+	float update_time				= 0;
+	float update_sum				= 0;
+	int update_counter				= 0;
 
-	bool touches;
-	Vector2D touch_pos;
-	bool touch_down;
+	bool touches					= false;
+	Vector2D touch_pos				= Vector2D(0);
+	bool touch_down					= false;
 
 	Debugger();
 	~Debugger();

@@ -31,7 +31,6 @@ public:
 	};
 
 	Light(Type type);
-	Light(Light& obj);
 	virtual ~Light() { };
 
 	virtual void Initialize();
@@ -49,9 +48,9 @@ public:
 
 protected:
 	Type type;
-	Color color;
-	float intensity;
-	float cut_off;
+	Color color		= Color::White;
+	float intensity = 0.01f; //aroud 15m to max distance
+	float cut_off	= 30.f;
 };
 
 }

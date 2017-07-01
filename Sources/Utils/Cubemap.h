@@ -34,7 +34,7 @@ public:
 private:
 	CROSS_FRIENDLY;
 
-	GLuint textureID;
+	GLuint textureID = 0;
 
 	GLuint GetTextureID() const;
 };

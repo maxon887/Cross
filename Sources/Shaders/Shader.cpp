@@ -24,12 +24,7 @@ using namespace cross;
 
 Shader::Property::Property(const string& name, const string& glName):
 	name(name),
-	type(UNKNOWN),
-	glName(glName),
-	glId(-1),
-	value(NULL),
-	size(0),
-	original(true)
+	glName(glName)
 { }
 
 Shader::Property::Property(Shader::Property& obj):
@@ -118,12 +113,7 @@ void Shader::Property::RealocateIfNeeded(U32 newSize){
 	}
 }
 
-Shader::Shader(const string& vertexFile, const string& fragmentFile) :
-	compiled(false),
-	vertex_file(NULL),
-	fragment_file(NULL),
-	makro_len(0)
-{
+Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 	vertex_file = sys->LoadFile(vertexFile);
 	fragment_file = sys->LoadFile(fragmentFile);
 	if(gfxGL->GetShaderVersion() >= 130) {

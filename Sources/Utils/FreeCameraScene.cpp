@@ -25,14 +25,6 @@
 
 using namespace cross;
 
-FreeCameraScene::FreeCameraScene() :
-	liner_speed(5.f),
-	angular_speed(45.f),
-	handled_action(-1),
-	orbit_distance(5.f),
-	look_at(true)
-{ }
-
 void FreeCameraScene::Start() {
 	Scene::Start();
 	gfx2D->GetCamera()->SetPosition(Vector2D(0.f, 0.f));

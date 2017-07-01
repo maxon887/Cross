@@ -52,16 +52,16 @@ public:
 protected:
 	CROSS_FRIENDLY
 
-	GLuint VBO;
-	GLuint EBO;
+	GLuint VBO					= 0;
+	GLuint EBO					= 0;
 
-	VertexBuffer* vertex_buffer;
-	Array<GLushort> indices;
-	Material* material;
-	U32 index_count;
-	bool original;
-	bool initialized;
-	bool face_culling;
+	VertexBuffer* vertex_buffer = NULL;
+	Array<GLushort> indices		= Array<GLushort>();
+	Material* material			= NULL;
+	U32 index_count				= -1;
+	bool original				= true;
+	bool initialized			= false;
+	bool face_culling			= true;
 
 	Mesh(Mesh& obj);
 };

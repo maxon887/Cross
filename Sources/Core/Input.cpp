@@ -22,8 +22,6 @@
 using namespace cross;
 
 Input::Input(){
-    touch_enabled = true;
-	memset(pressed_keys, 0, sizeof(pressed_keys));
 	KeyPressed.Connect(this, &Input::KeyPressedHandle);
 	KeyReleased.Connect(this, &Input::KeyReleasedHandle);
 	TargetActionDown.Connect(this, &Input::TargetActionDonwHandle);

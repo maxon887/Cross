@@ -304,9 +304,6 @@
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\DebugScene.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Font.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -572,9 +569,6 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\DebugScene.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Font.h">

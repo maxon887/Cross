@@ -34,12 +34,7 @@ Graphics3D* cross::gfx3D	= NULL;
 Input*		cross::input	= NULL;
 Config*		cross::config	= NULL;
 
-Game::Game() :
-	current_screen(NULL),
-	next_screen(NULL),
-	run_time(0),
-	timestamp(0)
-{
+Game::Game() {
 	sys->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();

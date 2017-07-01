@@ -46,7 +46,7 @@ private:
 	friend Entity;
 
 	Type type;
-	Entity* entity;
+	Entity* entity	= NULL;
 };
 
 }

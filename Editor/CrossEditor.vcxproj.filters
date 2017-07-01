@@ -207,9 +207,6 @@
     <ClCompile Include="..\Sources\Utils\Button.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Commercial.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -443,9 +440,6 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\Button.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Commercial.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\Cubemap.h">

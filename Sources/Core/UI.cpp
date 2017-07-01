@@ -18,11 +18,6 @@
 
 using namespace cross;
 
-UI::UI():
-	visible(true),
-	enable(true)
-{ }
-
 bool UI::OnLocation(Vector2D p) const {
 	return PointInRect(p, GetRect());
 }

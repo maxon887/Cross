@@ -27,12 +27,6 @@ using namespace cross;
 
 static FMOD_RESULT result;
 
-Sound::Sound() :
-	sound(NULL),
-	channel(NULL),
-	original(true)
-{ }
-
 Sound::Sound(Sound& obj) :
 	sound(obj.sound),
 	channel(obj.channel),

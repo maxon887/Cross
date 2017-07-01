@@ -60,13 +60,13 @@ public:
 
 		void RealocateIfNeeded(U32 newSIze);
 
-		string name;
-		Type type;
-		string glName;
-		GLint glId;
-		U32 size;
-		void* value;
-		bool original;
+		string name		= string();
+		Type type		= UNKNOWN;
+		string glName	= string();
+		GLint glId		= -1;
+		U32 size		= 0;
+		void* value		= NULL;
+		bool original	= true;
 	};
 
 	Shader(const string& vertexFile, const string& fragmentFile);
@@ -96,43 +96,43 @@ protected:
 
 	class LightUniforms{
 	public:
-		GLint position;
-		GLint direction;
-		GLint color;
+		GLint position			= -1;
+		GLint direction			= -1;
+		GLint color				= -1;
 
-		GLint intensity;
+		GLint intensity			= -1;
 	
-		GLint cut_off;
-		GLint outer_cut_off;
+		GLint cut_off			= -1;
+		GLint outer_cut_off		= -1;
 	};
 
-	GLuint program;
-	Array<string> macrosies;
-	bool compiled;
+	GLuint program				= 0;
+	Array<string> macrosies		= Array<string>();
+	bool compiled				= false;
 	//general attributes
-	GLint aPosition;
-	GLint aTexCoords;
-	GLint aNormal;
-	GLint aTangent;
-	GLint aBitangent;
+	GLint aPosition				= -1;
+	GLint aTexCoords			= -1;
+	GLint aNormal				= -1;
+	GLint aTangent				= -1;
+	GLint aBitangent			= -1;
 	//general uniforms
-	GLint uMVP;
-	GLint uModelMatrix;
-	GLint uNormalMatrix;
-	GLint uCameraPosition;
-	GLint uAmbientLight;
-	GLint uColor;
+	GLint uMVP					= -1;
+	GLint uModelMatrix			= -1;
+	GLint uNormalMatrix			= -1;
+	GLint uCameraPosition		= -1;
+	GLint uAmbientLight			= -1;
+	GLint uColor				= -1;
 	//custom uniforms
-	Array<Property*> properties;
+	Array<Property*> properties	= Array<Property*>();
 
 	GLuint GetProgram();
 
 private:
-	GLuint vertex_shader;
-	GLuint fragment_shader;
-	File* vertex_file;
-	File* fragment_file;
-	U32 makro_len;
+	GLuint vertex_shader		= 0;
+	GLuint fragment_shader		= 0;
+	File* vertex_file			= NULL;
+	File* fragment_file			= NULL;
+	U32 makro_len				= 0;
 
 	GLuint CompileShader(GLuint type, File* file);
 	void CompileProgram();

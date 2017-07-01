@@ -26,9 +26,6 @@ Sprite::Sprite(Texture* texture, Rect region) :
 	Transformable(),
 	width(region.width),
 	height(region.height),
-	color(Color::White),
-	VBO(-1),
-	original(true),
 	texture(texture)
 {
 	GLfloat u1 = region.x / texture->GetWidth();
@@ -74,10 +71,7 @@ Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
 	Transformable(),
 	texture(texture),
 	width(region.width),
-	height(region.height),
-	color(Color::White),
-	VBO(-1),
-	original(true)
+	height(region.height)
 {
 	GLfloat u1 = region.x / texture->GetWidth();
 	GLfloat v1 = region.y / texture->GetHeight();
@@ -124,8 +118,8 @@ Sprite::Sprite(Sprite& sprite) :
 	width(sprite.width),
 	height(sprite.height),
 	color(sprite.color),
-	original(false),
-	texture(sprite.texture)
+	texture(sprite.texture),
+	original(false)
 { }
 
 Sprite::~Sprite(){

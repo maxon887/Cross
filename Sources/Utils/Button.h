@@ -56,22 +56,22 @@ public:
 
 protected:
 	//mandatory parameters
-	Vector2D location;
-	bool located;
-	bool is_pressed;
-	S32 handled_action_id;
-	Rect area;
-	float def_width;
-	float def_height;
+	Vector2D location		= Vector2D();
+	bool located			= false;
+	bool is_pressed			= false;
+	S32 handled_action_id	= -1;
+	Rect area				= Rect();
+	float def_width			= 0;
+	float def_height		= 0;
 	//optional parameters
-	Sprite* up_image;
-	Sprite* down_image;
-	Sound* push_sound;
-	Sound* pull_sound;
-	Color color;
-	Font* font;
-	string label_text;
-	Vector2D text_size;
+	Sprite* up_image		= NULL;
+	Sprite* down_image		= NULL;
+	Sound* push_sound		= NULL;
+	Sound* pull_sound		= NULL;
+	Color color				= Color::White;
+	Font* font				= NULL;
+	string label_text		= string();
+	Vector2D text_size		= Vector2D();
 
 	void FitText(string text);
 

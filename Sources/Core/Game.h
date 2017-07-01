@@ -58,10 +58,10 @@ public:
 	void EngineUpdate();
 
 protected:
-	Screen* current_screen;
-	Screen* next_screen;
-	U64 timestamp;
-	U64 run_time;
+	Screen* current_screen	= NULL;
+	Screen* next_screen		= NULL;
+	U64 timestamp			= 0;
+	U64 run_time			= 0;
 
 	void LoadNextScreen();
 };

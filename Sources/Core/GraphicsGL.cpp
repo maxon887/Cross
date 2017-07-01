@@ -59,19 +59,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 }
 }
 
-GraphicsGL::GraphicsGL():
-	shaders_version(100),
-	framebuffer(0),
-	colorbuffer(0),
-	depthbuffer(0),
-	quadVBO(0),
-	quadEBO(0),
-	bufferWidth(0),
-	bufferHeight(0),
-	offscreen_shader(NULL),
-	colorbuffer_texture(NULL),
-	regenerade_framebuffer(true)
-{
+GraphicsGL::GraphicsGL() {
 		sys->LogIt("GraphicsGL::GraphicsGL()");
 
 #if defined(OPENGL) || defined(EDITOR)

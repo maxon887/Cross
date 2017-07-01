@@ -24,10 +24,7 @@ Camera::Camera(Matrix projection) :
 	SetProjectionMatrix(projection);
 }
 
-Camera::Camera() :
-	view(Matrix::Identity),
-	projection(Matrix::Identity)
-{
+Camera::Camera() {
 	SetDirection(Vector3D(0.f, 0.f, 1.f));
 }
 

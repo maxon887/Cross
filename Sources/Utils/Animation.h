@@ -32,12 +32,12 @@ public:
 	bool IsRunning();
 
 private:
-	Array<Sprite*> frames;
-	float rate;
-	float duration;
-	U32 frame_num;
-	bool looped;
-	bool original;
+	Array<Sprite*> frames	= Array<Sprite*>();
+	float rate				= 0;
+	float duration			= 0xFF;
+	U32 frame_num			= 0;
+	bool looped				= false;
+	bool original			= true;
 };
 
 }

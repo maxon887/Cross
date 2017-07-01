@@ -31,8 +31,7 @@
 using namespace cross;
 
 Scene::Scene() :
-	Screen(),
-	ambient_color(Color(0.1f, 0.1f, 0.1f))
+	Screen()
 { }
 
 void Scene::Start(){

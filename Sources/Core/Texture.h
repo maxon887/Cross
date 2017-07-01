@@ -57,11 +57,11 @@ public:
 private:
 	CROSS_FRIENDLY
 
-	string name;
-	GLuint id;
-	U32 width;
-	U32 height;
-	U32 channels;
+	string name		= "noname";
+	GLuint id		= 0;
+	U32 width		= 0;
+	U32 height		= 0;
+	U32 channels	= 0;
 
 	GLuint GetID() const;
 	void ApplyFilter(Filter filter);

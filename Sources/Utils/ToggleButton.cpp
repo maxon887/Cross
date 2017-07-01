@@ -25,16 +25,15 @@ ToggleButton::ToggleButton(Sprite* on, Sprite* off)
 	SetImages(on, off);
 	this->on = on;
 	this->off = off;
-	this->state = true;
 	Clicked.Connect(this, &ToggleButton::OnClicked);
 }
 
 ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
-	:Button(location){
+	:Button(location)
+{
 	this->SetImages(on, off);
 	this->on = on;
 	this->off = off;
-	this->state = true;
 	Clicked.Connect(this, &ToggleButton::OnClicked);
 }
 

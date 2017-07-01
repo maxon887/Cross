@@ -36,10 +36,7 @@ void IntSleep(int milis){
 }
 
 WINSystem::WINSystem(HWND wnd) :
-	wnd(wnd),
-	window_pos_x(0),
-	window_pos_y(0),
-	fullscreen(false)
+	wnd(wnd)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	if(!DirectoryExists(DATA_PATH)){

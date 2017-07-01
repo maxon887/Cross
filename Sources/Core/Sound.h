@@ -26,7 +26,7 @@ namespace cross{
 /* This class needed for unique audio entity manipulations (aka play, stop) */
 class Sound{
 public:
-	Sound();
+	Sound() = default;
 	Sound(Sound& obj);
 	~Sound();
 
@@ -40,9 +40,9 @@ public:
 private:
 	CROSS_FRIENDLY
 
-	FMOD::Sound* sound;
-	FMOD::Channel* channel;
-	bool original;
+	FMOD::Sound* sound		= NULL;
+	FMOD::Channel* channel	= NULL;
+	bool original			= true;
 };
 
 };

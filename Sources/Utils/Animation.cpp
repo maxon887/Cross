@@ -34,9 +34,6 @@ Animation::Animation(float rate, Sprite* frames[], U32 frameCount) :
 { }
 
 Animation::Animation(float rate, Sprite* frames[], U32 frameCount, bool looped) :
-	original(true),
-	duration(0xFF),
-	frame_num(0),
 	looped(looped),
 	rate(rate)
 {

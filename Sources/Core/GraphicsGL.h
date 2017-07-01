@@ -84,18 +84,18 @@ public:
 	Texture* GetColorBuffer();
 
 private:
-	U32 shaders_version;
+	U32 shaders_version				= 100;
 	//off screen rendering components
-	GLuint framebuffer;
-	GLuint colorbuffer;
-	GLuint depthbuffer;
-	GLuint quadVBO;
-	GLuint quadEBO;
-	int bufferWidth;
-	int bufferHeight;
-	Shader* offscreen_shader;
-	Texture* colorbuffer_texture;
-	bool regenerade_framebuffer;
+	GLuint framebuffer				= 0;
+	GLuint colorbuffer				= 0;
+	GLuint depthbuffer				= 0;
+	GLuint quadVBO					= 0;
+	GLuint quadEBO					= 0;
+	int bufferWidth					= -1;
+	int bufferHeight				= -1;
+	Shader* offscreen_shader		= NULL;
+	Texture* colorbuffer_texture	= NULL;
+	bool regenerade_framebuffer		= false;
 
 	void GeneradeFramebuffer();
 

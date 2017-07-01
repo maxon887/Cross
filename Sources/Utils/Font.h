@@ -52,15 +52,15 @@ public:
 
 private:
 	FT_Face face;
-	File* file;
-	Array<Sprite*> sprites;
-	Array<Texture*> textures;
-	float advances[128];
-	Color color;
-	float size;
-	float char_width;
-	bool original;
-	bool kill_textures;
+	File* file					= NULL;
+	Array<Sprite*> sprites		= Array<Sprite*>(128, NULL);
+	Array<Texture*> textures	= Array<Texture*>(128, NULL);
+	Array<float> advances		= Array<float>(128, 0);
+	Color color					= Color::White;
+	float size					= 0;
+	float char_width			= 0;
+	bool original				= true;
+	bool kill_textures			= false;
 
 	void Cache();
 	void KillTextures();

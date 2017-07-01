@@ -23,7 +23,6 @@ namespace cross{
 
 class Entity : public Transformable {
 public:
-	Entity();
 	~Entity();
 
 	void Initialize();
@@ -50,10 +49,10 @@ public:
 private:
 	CROSS_FRIENDLY
 
-	string name;
-	Component* components[Component::COUNT];
-	Entity* parent;
-	List<Entity*> children;
+	string name						= string();
+	Array<Component*> components	= Array<Component*>(Component::COUNT, NULL);
+	Entity* parent					= NULL;
+	List<Entity*> children			= List<Entity*>();
 };
 
 }
