@@ -26,7 +26,7 @@ public:
 	static const Quaternion Identity;
 
 	static float DotProduct(const Quaternion& left, const Quaternion& right);
-
+	/* Creates identity quaternion */
 	Quaternion();
 	/* Constructor which takes rotation axis and angle in degrees */
 	Quaternion(const Vector3D& axis, float angle);

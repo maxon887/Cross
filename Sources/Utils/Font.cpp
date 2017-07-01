@@ -36,6 +36,9 @@ Font::Font(Font& font) :
 	original(false),
 	face(font.face),
 	size(font.size),
+	advances(128),
+	textures(128),
+	sprites(128),
 	char_width(font.char_width),
 	file(font.file),
 	kill_textures(false)

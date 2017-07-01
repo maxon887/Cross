@@ -72,9 +72,9 @@ private:
 	Array<bool> actionIDs			= Array<bool>(MAX_ACTIONS, false);
 	Array<UI*> guis					= Array<UI*>();
 
-    U64 down_del					= -1;
-    U64 up_del						= -1;
-    U64 move_del					= -1;
+    U64 down_del					= 0;
+    U64 up_del						= 0;
+    U64 move_del					= 0;
 
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);

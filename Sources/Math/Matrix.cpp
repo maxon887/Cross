@@ -376,7 +376,6 @@ bool Matrix::operator == (const Matrix& mat) const{
 				return false;
 			}
 		}
-	
 	}
 	return true;
 }

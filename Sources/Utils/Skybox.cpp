@@ -27,7 +27,7 @@
 
 using namespace cross;
 
-Skybox::Skybox( Cubemap* cubemap ) :
+Skybox::Skybox(Cubemap* cubemap) :
 	cubemap(cubemap)
 {
 	box = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);

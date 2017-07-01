@@ -58,7 +58,7 @@ protected:
 	VertexBuffer* vertex_buffer = NULL;
 	Array<GLushort> indices		= Array<GLushort>();
 	Material* material			= NULL;
-	U32 index_count				= -1;
+	U32 index_count				= 0;
 	bool original				= true;
 	bool initialized			= false;
 	bool face_culling			= true;

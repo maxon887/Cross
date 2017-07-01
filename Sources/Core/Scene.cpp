@@ -30,10 +30,6 @@
 
 using namespace cross;
 
-Scene::Scene() :
-	Screen()
-{ }
-
 void Scene::Start(){
 	Screen::Start();
 	is_scene = true;

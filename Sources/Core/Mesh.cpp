@@ -30,17 +30,20 @@ Mesh::Mesh() :
 { }
 
 Mesh::Mesh(Mesh& obj) :
-	Component(Component::Type::MESH),
-	index_count(obj.index_count),
-	indices(obj.indices),
-	material(obj.material), //warning pointer copy!
+	Component(obj),
 	VBO(obj.VBO),
 	EBO(obj.EBO),
+	vertex_buffer(obj.vertex_buffer),
+	index_count(obj.index_count),
+	indices(obj.indices),
 	initialized(obj.initialized),
 	face_culling(obj.face_culling),
 	original(false)
 {
 	vertex_buffer = obj.vertex_buffer->Clone();
+	if(obj.material){
+		material = obj.material->Clone();
+	}
 }
 
 Mesh::~Mesh() {

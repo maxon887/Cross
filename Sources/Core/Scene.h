@@ -25,7 +25,6 @@ namespace cross{
 	Models, Meshes, Lights can exists only in Scene */
 class Scene : public Screen{
 public:
-	Scene();
 	/* Called before scene show up. */
 	virtual void Start();
 	/* Called when scene about to change on new one */
