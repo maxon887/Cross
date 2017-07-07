@@ -26,11 +26,11 @@ namespace cross{
 class Scene : public Screen{
 public:
 	/* Called before scene show up. */
-	virtual void Start();
+	virtual void Start() override;
 	/* Called when scene about to change on new one */
-	virtual void Stop();
+	virtual void Stop() override;
 	/* Called every frame update. */
-	virtual void Update(float sec);
+	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn) */
 	void Load(const string& file, bool absolute = false);

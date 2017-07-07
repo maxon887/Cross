@@ -29,9 +29,9 @@ class SceneView : public FreeCameraScene{
 public:
 	SceneView();
 
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
 private:
 

@@ -32,7 +32,7 @@ public:
 	Mesh();
 	~Mesh();
 
-	virtual void Update(float sec);
+	void Update(float sec) override;
 	void Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilBehvaiour);
 
 	void TransferVideoData();

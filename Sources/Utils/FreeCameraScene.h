@@ -23,13 +23,13 @@ namespace cross{
 
 class FreeCameraScene : public Scene{
 public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
+	virtual void Start() override;
+	virtual void Stop() override;
+	virtual void Update(float sec) override;
 
-	virtual void ActionDown(Input::Action action);
-	virtual void ActionMove(Input::Action action);
-	virtual void ActionUp(Input::Action action);
+	virtual void ActionDown(Input::Action action) override;
+	virtual void ActionMove(Input::Action action) override;
+	virtual void ActionUp(Input::Action action) override;
 
 	void LookAtCamera(bool enbled);
 	void LookAtCamera(const Vector3D& target);

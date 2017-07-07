@@ -25,10 +25,10 @@ public:
 
 	LightShader(const string& vertex, const string& fragment);
 
-	virtual void Compile();
+	void Compile() override;
 
-	virtual bool UseLights();
-	virtual void TransferLightData(const List<Light*>& lights);
+	bool UseLights() override;
+	void TransferLightData(const List<Light*>& lights) override;
 };
 
 }

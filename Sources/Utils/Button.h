@@ -34,7 +34,7 @@ public:
 	Button();
 	~Button();
 
-	virtual void Update(float sec);
+	void Update(float sec) override;
 
 	void SetLocation(Vector2D location);
 	void SetText(string text);

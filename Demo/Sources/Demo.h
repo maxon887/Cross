@@ -27,10 +27,10 @@ class Demo : public Game{
 public:
 	Demo();
 
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
-	virtual Screen* GetStartScreen();
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
+	Screen* GetStartScreen() override;
 
 	Sprite* GetCommonSprite(string name);
 

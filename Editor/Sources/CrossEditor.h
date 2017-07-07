@@ -20,7 +20,7 @@ public:
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
 
-	virtual Screen* GetStartScreen();
+	Screen* GetStartScreen() override;
 
 	void LoadScene(QString& path);
 	void RestoreSettings();

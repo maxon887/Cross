@@ -33,9 +33,9 @@ public:
 	Light(Type type);
 	virtual ~Light() { };
 
-	virtual void Initialize();
-	virtual void Remove();
-	virtual Light* Clone();
+	void Initialize() override;
+	void Remove() override;
+	Light* Clone() override;
 
 	Type GetType() const;
 	Color GetColor() const;

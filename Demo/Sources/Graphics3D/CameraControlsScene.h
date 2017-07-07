@@ -22,9 +22,9 @@ using namespace cross;
 
 class CameraControlsScene : public FreeCameraScene{
 public:
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
+	virtual void Start() override;
+	virtual void Stop() override;
+	virtual void Update(float sec) override;
 
 private:
 	//UI

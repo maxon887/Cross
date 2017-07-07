@@ -22,11 +22,11 @@ using namespace cross;
 
 class ScrollScreen : public Screen{
 public:
-	virtual void Start();
-	virtual void Stop();
+	void Start() override;
+	void Stop() override;
 
-	virtual float GetWidth();
-	virtual float GetHeight();
+	float GetWidth() override;
+	float GetHeight() override;
 
 	void SetWidth(float width);
 	void SetHeight(float height);
@@ -38,8 +38,8 @@ private:
 	float height;
 	Vector2D touch;
 
-	virtual void ActionDown(Input::Action action);
-	virtual void ActionMove(Input::Action action);
-	virtual void ActionUp(Input::Action action);
+	void ActionDown(Input::Action action) override;
+	void ActionMove(Input::Action action) override;
+	void ActionUp(Input::Action action) override;
 
 };

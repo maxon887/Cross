@@ -23,9 +23,9 @@ class DebugScene : public FreeCameraScene{
 public:
 	DebugScene();
 
-	virtual void Start();
-	virtual void Update(float sec);
-	virtual void Stop();
+	virtual void Start() override;
+	virtual void Update(float sec) override;
+	virtual void Stop() override;
 
 private:
 //light drawing stuff
