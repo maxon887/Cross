@@ -27,15 +27,14 @@ namespace cross{
 class Sound{
 public:
 	Sound() = default;
-	Sound(Sound& obj);
 	~Sound();
 
 	void Play();
 	void Pause();
 	void Resume();
 	void Stop();
-	bool IsPlaying();
-	Sound* Clone();
+	bool IsPlaying() const;
+	Sound* Clone() const;
 
 private:
 	CROSS_FRIENDLY
@@ -43,6 +42,8 @@ private:
 	FMOD::Sound* sound		= NULL;
 	FMOD::Channel* channel	= NULL;
 	bool original			= true;
+
+	Sound(const Sound& obj);
 };
 
 };

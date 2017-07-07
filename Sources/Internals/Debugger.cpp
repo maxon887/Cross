@@ -156,7 +156,7 @@ void Debugger::SetCPUTime(float micro) {
 	}
 }
 
-float Debugger::GetFPS(){
+float Debugger::GetFPS() const{
 	return 1000.f / update_time;
 }
 

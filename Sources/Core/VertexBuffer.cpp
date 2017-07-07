@@ -18,43 +18,43 @@
 
 using namespace cross;
 
-bool VertexBuffer::HasTextureCoordinates(){
+bool VertexBuffer::HasTextureCoordinates() const{
 	return uv_enabled;
 }
 
-bool VertexBuffer::HasNormals(){
+bool VertexBuffer::HasNormals() const{
 	return normals_enabled;
 }
 
-bool VertexBuffer::HasTangents(){
+bool VertexBuffer::HasTangents() const{
 	return tangents_enabled;
 }
 
-bool VertexBuffer::HasBitangents(){
+bool VertexBuffer::HasBitangents() const{
 	return bitangents_enabled;
 }
 
-U32 VertexBuffer::GetPossitionsOffset(){
+U32 VertexBuffer::GetPossitionsOffset() const{
 	return 0;
 }
 
-U32 VertexBuffer::GetTextureCoordinatesOffset(){
+U32 VertexBuffer::GetTextureCoordinatesOffset() const{
 	return GetPossitionsOffset() + (uv_enabled ? 3 : 0);
 }
 
-U32 VertexBuffer::GetNormalsOffset(){
+U32 VertexBuffer::GetNormalsOffset() const{
 	return GetTextureCoordinatesOffset() + (normals_enabled ? 2 : 0);
 }
 
-U32 VertexBuffer::GetTangentsOffset(){
+U32 VertexBuffer::GetTangentsOffset() const{
 	return GetNormalsOffset() + (tangents_enabled ? 3 : 0);
 }
 
-U32 VertexBuffer::GetBitangentsOffset(){
+U32 VertexBuffer::GetBitangentsOffset() const{
 	return GetTangentsOffset() + (bitangents_enabled ? 3 : 0);
 }
 
-U32 VertexBuffer::VertexSize() {
+U32 VertexBuffer::VertexSize() const{
 	return (GetBitangentsOffset() + 3) * sizeof(float);
 }
 
@@ -82,7 +82,7 @@ Byte* VertexBuffer::GetData(){
 	return data.data();
 }
 
-U32 VertexBuffer::GetDataSize(){
+U32 VertexBuffer::GetDataSize() const{
 	return data.size();
 }
 
@@ -90,6 +90,6 @@ void VertexBuffer::Free(){
 	data.clear();
 }
 
-VertexBuffer* VertexBuffer::Clone(){
+VertexBuffer* VertexBuffer::Clone() const{
 	return new VertexBuffer(*this);
 }

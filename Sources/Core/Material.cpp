@@ -31,7 +31,7 @@ Material::Material(Shader* shader) :
 	}
 }
 
-Material::Material(Material& obj) :
+Material::Material(const Material& obj) :
 	shader(obj.shader),
 	active_texture_slot(obj.active_texture_slot),
 	transparency(obj.transparency)
@@ -151,6 +151,6 @@ void Material::TransparencyEnabled(bool yes){
 	transparency = yes;
 }
 
-Material* Material::Clone(){
+Material* Material::Clone() const{
 	return new Material(*this);
 }

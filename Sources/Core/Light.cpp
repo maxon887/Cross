@@ -52,7 +52,7 @@ void Light::SetColor(const Color& color){
 	this->color = color;
 }
 
-Light* Light::Clone(){
+Light* Light::Clone() const{
 	return new Light(*this);
 }
 

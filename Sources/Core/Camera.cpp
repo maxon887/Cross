@@ -32,7 +32,7 @@ void Camera::Update(float sec){
 	RecalView();
 }
 
-const Matrix& Camera::GetViewMatrix(){
+const Matrix& Camera::GetViewMatrix() const{
 	return view;
 }
 

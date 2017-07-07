@@ -91,7 +91,7 @@ void Game::Resume(){
 	}
 }
 
-float Game::GetRunTime(){
+float Game::GetRunTime() const{
 	return (float)(run_time / 1000000.f);
 }
 

@@ -31,9 +31,9 @@ public:
 	virtual void Update(float sec) { };
 
 	bool OnLocation(Vector2D p) const;
-	bool IsVisible();
+	bool IsVisible() const;
 	void SetVisible(bool active);
-	bool IsEnabled();
+	bool IsEnabled() const;
 	void SetEnable(bool enable);
 
 protected:

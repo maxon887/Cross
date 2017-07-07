@@ -28,7 +28,7 @@ public:
 
 	virtual void Update(float sec);
 
-	const Matrix& GetViewMatrix();
+	const Matrix& GetViewMatrix() const;
 	void SetProjectionMatrix(const Matrix& projection);
 	const Matrix& GetProjectionMatrix() const;
 

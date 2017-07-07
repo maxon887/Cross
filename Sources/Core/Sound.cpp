@@ -27,7 +27,7 @@ using namespace cross;
 
 static FMOD_RESULT result;
 
-Sound::Sound(Sound& obj) :
+Sound::Sound(const Sound& obj) :
 	sound(obj.sound),
 	channel(obj.channel),
 	original(false)
@@ -64,7 +64,7 @@ void Sound::Stop(){
 	channel->stop();
 }
 
-bool Sound::IsPlaying(){
+bool Sound::IsPlaying() const{
 	bool playing;
 	result = channel->isPlaying(&playing);
 	if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
@@ -73,6 +73,6 @@ bool Sound::IsPlaying(){
 	return playing;
 }
 
-Sound* Sound::Clone(){
+Sound* Sound::Clone() const{
 	return new Sound(*this);
 }

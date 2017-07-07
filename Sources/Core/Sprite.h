@@ -26,7 +26,6 @@ class Sprite : public Transformable{
 public:
 	Sprite(Texture* texture, Rect region);
 	Sprite(Texture* texture, Rect region, Vector2D pivot);
-	Sprite(Sprite& sprite);
 	~Sprite();
 	/* Get width on texture occupied by sprite */
 	float GetWidth() const;
@@ -39,7 +38,7 @@ public:
 	/* Gets overrided color(white by default) */
 	Color GetColor() const;
 	/* Make clone of this object */
-	Sprite* Clone();
+	Sprite* Clone() const;
 
 private:
 	CROSS_FRIENDLY
@@ -53,6 +52,8 @@ private:
 	Color color			= Color::White;
 	Texture* texture	= NULL;
 	bool original		= true;
+
+	Sprite(const Sprite& sprite);
 
 	const GLushort* GetIndices() const;
 	Texture* GetTexture();

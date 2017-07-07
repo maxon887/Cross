@@ -193,7 +193,7 @@ void FreeCameraScene::LookAtCamera(const Vector3D& target){
 	this->target = target;
 }
 
-bool FreeCameraScene::IsLookAtCamera(){
+bool FreeCameraScene::IsLookAtCamera() const{
 	return look_at;
 }
 

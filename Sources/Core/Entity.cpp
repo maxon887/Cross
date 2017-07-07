@@ -64,7 +64,7 @@ void Entity::SetName(const string& name){
 	this->name = name;
 }
 
-const string& Entity::GetName(){
+const string& Entity::GetName() const{
 	return name;
 }
 
@@ -169,7 +169,7 @@ Matrix Entity::GetWorldMatrix(){
 	}
 }
 
-Vector3D Entity::GetPosition(){
+Vector3D Entity::GetPosition() const{
 	if(parent){
 		return parent->GetModelMatrix() * Transformable::GetPosition();
 	}else{
@@ -177,7 +177,7 @@ Vector3D Entity::GetPosition(){
 	}
 }
 
-Vector3D Entity::GetDirection(){
+Vector3D Entity::GetDirection() const{
 	if(parent) {
 		return parent->GetModelMatrix() * Transformable::GetDirection();
 	} else {

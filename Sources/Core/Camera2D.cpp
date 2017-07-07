@@ -39,11 +39,11 @@ void Camera2D::SetViewWidth(float width) {
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
-float Camera2D::GetViewWidth() {
+float Camera2D::GetViewWidth() const{
 	return view_width;
 }
 
-float Camera2D::GetViewHeight() {
+float Camera2D::GetViewHeight() const{
 	return view_height;
 }
 

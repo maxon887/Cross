@@ -50,7 +50,7 @@ public:
 
 	void TransparencyEnabled(bool yes);
 
-	Material* Clone();
+	Material* Clone() const;
 
 private:
 	CROSS_FRIENDLY
@@ -60,7 +60,7 @@ private:
 	bool transparency					= false;
 	Array<Shader::Property*> properties = Array<Shader::Property*>();
 
-	Material(Material& obj);
+	Material(const Material& obj);
 };
 
 }

@@ -32,17 +32,17 @@ public:
 	void SetInt(const string& key, S32 value);
 	void SetFloat(const string& key, float value);
 	void SetBool(const string& key, bool value);
-	string GetString(const string& key, const string& def);
-	S32 GetInt(const string& key, S32 def);
-	float GetFloat(const string& key, float def);
-	bool GetBool(const string& key, bool def);
+	string GetString(const string& key, const string& def) const;
+	S32 GetInt(const string& key, S32 def) const;
+	float GetFloat(const string& key, float def) const;
+	bool GetBool(const string& key, bool def) const;
 	/* Game config properties */
-	System::Orientation GetOrientation();
+	System::Orientation GetOrientation() const;
 	void SetOrientation(System::Orientation orientation);
-	bool UseCompressedTextures();
-	Texture::Filter GetTextureFilter();
-	float GetViewDistance();
-	bool IsOffscreenRender();
+	bool UseCompressedTextures() const;
+	Texture::Filter GetTextureFilter() const;
+	float GetViewDistance() const;
+	bool IsOffscreenRender() const;
 
 	void SaveGameConfig();
 	void SaveUserConfig();
@@ -58,7 +58,7 @@ protected:
 
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();
 
-	string GetString(const string& key);
+	const string& GetString(const string& key) const;
 };
     
 }

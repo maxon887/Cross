@@ -29,7 +29,7 @@ Mesh::Mesh() :
 	Component(Component::Type::MESH)
 { }
 
-Mesh::Mesh(Mesh& obj) :
+Mesh::Mesh(const Mesh& obj) :
 	Component(obj),
 	VBO(obj.VBO),
 	EBO(obj.EBO),
@@ -272,7 +272,7 @@ void Mesh::SetFaceCullingEnabled(bool enabled){
 	face_culling = enabled;
 }
 
-bool Mesh::IsFaceCullingEnabled(){
+bool Mesh::IsFaceCullingEnabled() const{
 	return face_culling;
 }
 
@@ -284,6 +284,6 @@ Array<GLushort>& Mesh::GetIndices() {
 	return indices;
 }
 
-Mesh* Mesh::Clone() {
+Mesh* Mesh::Clone() const{
 	return new Mesh(*this);
 }

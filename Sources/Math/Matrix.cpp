@@ -102,19 +102,11 @@ void Matrix::SetTranslation(const Vector3D &trans){
 	m[2][3] = trans.z;
 }
 
-Matrix Matrix::GetTranslation(){
+Matrix Matrix::GetTranslation() const{
 	Matrix res(Matrix::Identity);
 	res.m[0][3] = m[0][3];
 	res.m[1][3] = m[1][3];
 	res.m[2][3] = m[2][3];
-	return res;
-}
-
-Matrix Matrix::GetRotation(){
-	Matrix res(*this);
-	res.m[0][3] = 0;
-	res.m[1][3] = 0;
-	res.m[2][3] = 0;
 	return res;
 }
 

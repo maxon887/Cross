@@ -56,18 +56,18 @@ public:
 	void LogIt(const char* format, ...);
 	void LogIt(const Vector3D& vector);
 	/* Returns window width in pixels. Don't miss wiht Screen::GetWidth() */
-	S32 GetWindowWidth();
+	S32 GetWindowWidth() const;
 	/* Returns window Height in pixels. Don't miss wiht Screen::GetHeight() */
-	S32 GetWindowHeight();
-    Orientation GetDeviceOrientation();
+	S32 GetWindowHeight() const;
+    Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
-	float GetAspectRatio();
+	float GetAspectRatio() const;
 	/* Returns directory from full filename */
-	string PathFromFile(const string& filePath);
+	string PathFromFile(const string& filePath) const;
 	/* Returns extencsion from filename or full file path */
-	string ExtensionFromFile(const string& file);
+	string ExtensionFromFile(const string& file) const;
 	/* Returns raw file name without extencion (ex "log" for "log.txt") */
-	string FileWithoutExtension(const string& file);
+	string FileWithoutExtension(const string& file) const;
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
 

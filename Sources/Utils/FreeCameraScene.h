@@ -33,7 +33,7 @@ public:
 
 	void LookAtCamera(bool enbled);
 	void LookAtCamera(const Vector3D& target);
-	bool IsLookAtCamera();
+	bool IsLookAtCamera() const;
 
 	void MoveForward(float sec);
 	void MoveBackward(float sec);

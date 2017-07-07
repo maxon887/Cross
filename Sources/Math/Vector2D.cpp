@@ -61,7 +61,7 @@ Vector2D Vector2D::GetTruncated(float len) const{
 	return *this;
 }
 
-float* Vector2D::GetData(){
+const float* Vector2D::GetData() const{
 	return &x;
 }
 

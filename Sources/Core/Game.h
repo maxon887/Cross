@@ -47,7 +47,7 @@ public:
     virtual void SetScreen(Screen* screen);
 
 	/* Returns time in sec since game start */
-	float GetRunTime();
+	float GetRunTime() const;
 	/* Returns active game Screen */
 	Screen* GetCurrentScreen();
 	/* Returns active game Scene if available */

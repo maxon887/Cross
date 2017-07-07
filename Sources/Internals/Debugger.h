@@ -39,7 +39,7 @@ public:
 	void SetTimeCheck();
 	float GetTimeCheck();
 	void SetCPUTime(float sec);
-	float GetFPS();
+	float GetFPS() const;
 
 private:
 	static Debugger* instance;

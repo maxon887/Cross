@@ -52,7 +52,7 @@ float Screen::GetHeight(){
 	return gfx2D->GetCamera()->GetViewHeight();
 }
 
-bool Screen::IsScene(){
+bool Screen::IsScene() const{
 	return is_scene;
 }
 
@@ -98,7 +98,7 @@ void Screen::ActionUpHandle(Input::Action action){
 	}
 }
 
-bool Screen::OnGuiArea(Vector2D pos){
+bool Screen::OnGuiArea(Vector2D pos) const{
 	for(UI* ui : guis){
 		if(ui->IsVisible() && ui->OnLocation(pos)){
 			return true;

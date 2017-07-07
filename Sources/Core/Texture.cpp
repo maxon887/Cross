@@ -58,7 +58,7 @@ void Texture::SetName(const string& name){
 	this->name = name;
 }
 
-string Texture::GetName(){
+const string& Texture::GetName() const{
 	return name;
 }
 

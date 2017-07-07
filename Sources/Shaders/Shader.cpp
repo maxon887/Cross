@@ -27,7 +27,7 @@ Shader::Property::Property(const string& name, const string& glName):
 	glName(glName)
 { }
 
-Shader::Property::Property(Shader::Property& obj):
+Shader::Property::Property(const Shader::Property& obj):
 	name(obj.name),
 	type(obj.type),
 	glName(obj.glName),
@@ -95,7 +95,7 @@ void Shader::Property::SetValue(Cubemap* cubemap){
 	memcpy(value, &textureID, size);
 }
 
-Shader::Property* Shader::Property::Clone(){
+Shader::Property* Shader::Property::Clone() const{
 	return new Shader::Property(*this);
 }
 
@@ -174,7 +174,7 @@ void Shader::Compile(){
 	compiled = true;
 }
 
-bool Shader::IsCompiled(){
+bool Shader::IsCompiled() const{
 	return compiled;
 }
 
@@ -250,7 +250,7 @@ Shader::Property* Shader::GetProperty(const string& name){
 	throw CrossException("Can not find property");
 }
 
-bool Shader::HaveProperty(const string& name){
+bool Shader::HaveProperty(const string& name) const{
 	for(Property* prop : properties){
 		if(prop->name == name){
 			return true;
@@ -259,7 +259,7 @@ bool Shader::HaveProperty(const string& name){
 	return false;
 }
 
-GLuint Shader::GetProgram(){
+GLuint Shader::GetProgram() const{
 	return program;
 }
 

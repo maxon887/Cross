@@ -48,32 +48,32 @@ void Config::SetBool(const string& key, bool value){
 	SetInt(key, value);
 }
 
-string Config::GetString(const string& key, const string& def){
+string Config::GetString(const string& key, const string& def) const{
 	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return strValue;
 }
 
-S32 Config::GetInt(const string& key, S32 def){
+S32 Config::GetInt(const string& key, S32 def) const{
 	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return atoi(strValue.c_str());
 }
 
-float Config::GetFloat(const string& key, float def){
+float Config::GetFloat(const string& key, float def) const{
 	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return (float)atof(strValue.c_str());
 }
 
-bool Config::GetBool(const string& key, bool def){
+bool Config::GetBool(const string& key, bool def) const{
 	return GetInt(key, def) != 0;
 }
 
-System::Orientation Config::GetOrientation(){
+System::Orientation Config::GetOrientation() const{
 	return orientation;
 }
 
@@ -81,28 +81,29 @@ void Config::SetOrientation(System::Orientation ori){
 	orientation = ori;
 }
 
-bool Config::UseCompressedTextures(){
+bool Config::UseCompressedTextures() const{
 	return use_compressed_textures;
 }
 
-Texture::Filter Config::GetTextureFilter(){
+Texture::Filter Config::GetTextureFilter() const{
 	return texture_filter;
 }
 
-float Config::GetViewDistance(){
+float Config::GetViewDistance() const{
 	return view_distance;
 }
 
-bool Config::IsOffscreenRender(){
+bool Config::IsOffscreenRender() const{
 	return offscreen_render;
 }
 
-string Config::GetString(const string& key){
+const string& Config::GetString(const string& key) const{
 	auto entry = user_prefs.find(key);
 	if(entry != user_prefs.end()){
 		return (*entry).second;
 	}else{
-		return "";
+		static const string empty = "";
+		return empty;
 	}
 }
 

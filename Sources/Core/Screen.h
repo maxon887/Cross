@@ -54,7 +54,7 @@ public:
 	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action) { };
 	/* Returns true if current screen is actually a 3D scene */
-	bool IsScene();
+	bool IsScene() const;
 	/* Reflect ratio between screen and target device width */
 	float GetScaleFactor();
 	/* Set background color for areas than not covered any other stuff */
@@ -80,7 +80,7 @@ private:
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
 
-	bool OnGuiArea(Vector2D pos);
+	bool OnGuiArea(Vector2D pos) const;
 };
     
 }

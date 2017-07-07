@@ -27,7 +27,7 @@ public:
 	class Property{
 	public:
 		Property(const string& name, const string& glName);
-		Property(Property& obj);
+		Property(const Property& obj);
 		~Property();
 
 		void SetValue(U32 v);
@@ -39,7 +39,7 @@ public:
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
 
-		Property* Clone();
+		Property* Clone() const;
 
 		GLuint GetID() const;
 
@@ -77,7 +77,7 @@ public:
 	virtual bool UseLights();
 	virtual void TransferLightData(const List<Light*>& lights);
 
-	bool IsCompiled();
+	bool IsCompiled() const;
 
 	void AddVersion(const string& version);
 	void AddMacro(const string& makro);
@@ -89,7 +89,7 @@ public:
 	void AddProperty(const string& name, const string& glName, const Vector3D& vec);
 	void AddProperty(Property* prop);
 	Property* GetProperty(const string& name);
-	bool HaveProperty(const string& name);
+	bool HaveProperty(const string& name) const;
 
 protected:
 	CROSS_FRIENDLY
@@ -125,7 +125,7 @@ protected:
 	//custom uniforms
 	Array<Property*> properties	= Array<Property*>();
 
-	GLuint GetProgram();
+	GLuint GetProgram() const;
 
 private:
 	GLuint vertex_shader		= 0;

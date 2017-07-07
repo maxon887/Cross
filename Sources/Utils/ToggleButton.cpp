@@ -53,7 +53,7 @@ void ToggleButton::Update(){
 	}
 }
 
-bool ToggleButton::GetState(){
+bool ToggleButton::GetState() const{
 	return state;
 }
 

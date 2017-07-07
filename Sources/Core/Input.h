@@ -138,7 +138,7 @@ public:
 	Event<> MouseWheelUp;
 	Event<> MouseWheelDown;
 	/* Checks if specific key pressed */
-	bool IsPressed(Key key);
+	bool IsPressed(Key key) const;
 	/* Enables disables all touches */
 	void TouchEnabled(bool enabled);
 	/* Engine specific */
@@ -154,7 +154,7 @@ protected:
 
 	Input();
 
-	Vector2D TargetToWordConvert(float x, float y);
+	Vector2D TargetToWordConvert(float x, float y) const;
 
 	void TargetActionDonwHandle(float x, float y, S32 actionID);
 	void TargetActionMoveHandle(float x, float y, S32 actionID);

@@ -29,7 +29,7 @@ public:
 	void Remove();
 	void Update(float sec);
 	void SetName(const string& name);
-	const string& GetName();
+	const string& GetName() const;
 	void AddComponent(Component* component);
 	Component* GetComponent(Component::Type type);
 	Entity* GetParent();
@@ -43,8 +43,8 @@ public:
 	Entity* Clone();
 	//Not optimized function
 	Matrix GetWorldMatrix();
-	Vector3D GetPosition();
-	Vector3D GetDirection();
+	Vector3D GetPosition() const;
+	Vector3D GetDirection() const;
 
 private:
 	CROSS_FRIENDLY

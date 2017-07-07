@@ -23,7 +23,7 @@ Component::Component(Type type) :
 	type(type)
 { }
 
-Component* Component::Clone(){
+Component* Component::Clone() const{
 	throw CrossException("Unimplemented Component::Clone");
 }
 
@@ -40,13 +40,13 @@ Entity* Component::GetEntity(){
 }
 
 Component* Component::GetComponent(Component::Type type){
-	return GetEntity()->GetComponent(type);
+	return entity->GetComponent(type);
 }
 
 Transformable* Component::GetTransform(){
-	return GetEntity();
+	return entity;
 }
 
-Vector3D Component::GetPosition(){
-	return GetEntity()->GetPosition();
+Vector3D Component::GetPosition() const{
+	return entity->GetPosition();
 }

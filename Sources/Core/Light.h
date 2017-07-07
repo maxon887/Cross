@@ -35,7 +35,7 @@ public:
 
 	void Initialize() override;
 	void Remove() override;
-	Light* Clone() override;
+	Light* Clone() const override;
 
 	Type GetType() const;
 	Color GetColor() const;

@@ -77,6 +77,6 @@ Sprite* Animation::GetImage(){
 	return frames[frame_num];
 }
 
-bool Animation::IsRunning(){
+bool Animation::IsRunning() const{
 	return duration != 0xFF;
 }

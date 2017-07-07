@@ -36,8 +36,7 @@ public:
 
 	void SetTranslation(const Vector2D &trans);
 	void SetTranslation(const Vector3D &trans);
-	Matrix GetTranslation();
-	Matrix GetRotation();
+	Matrix GetTranslation() const;
 	void SetScale(float scale);
 	void SetScale(const Vector2D &scale);
 	void SetScale(const Vector3D &scale);

@@ -49,7 +49,7 @@ public:
 	U32 GetHeight() const;
 	U32 GetChannels() const;
 	void SetName(const string& name);
-	string GetName();
+	const string& GetName() const;
 	void SetTilingMode(TilingMode mode);
 	void AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp);
 	Texture* Clone() const;

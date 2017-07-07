@@ -92,15 +92,15 @@ void System::LogIt(const Vector3D& vector){
 	LogIt("X - %0.3f, Y - %0.3f, Z - %0.3f", vector.x, vector.y, vector.z);
 }
 
-S32 System::GetWindowWidth(){
+S32 System::GetWindowWidth() const{
 	return window_width;
 }
 
-S32 System::GetWindowHeight(){
+S32 System::GetWindowHeight() const{
 	return window_height;
 }
 
-System::Orientation System::GetDeviceOrientation() {
+System::Orientation System::GetDeviceOrientation() const{
     if(window_width > window_height){
         return Orientation::LANDSCAPE;
     }else{
@@ -108,11 +108,11 @@ System::Orientation System::GetDeviceOrientation() {
     }
 }
 
-float System::GetAspectRatio(){
+float System::GetAspectRatio() const{
 	return GetWindowWidth() / (float)GetWindowHeight();
 }
 
-string System::PathFromFile(const string& filePath){
+string System::PathFromFile(const string& filePath) const{
 	const size_t last_slash_idx = filePath.rfind('/');
 	if(std::string::npos != last_slash_idx){
 		return filePath.substr(0, last_slash_idx);
@@ -121,11 +121,11 @@ string System::PathFromFile(const string& filePath){
 	}
 }
 
-string System::ExtensionFromFile(const string& file){
+string System::ExtensionFromFile(const string& file) const{
 	return file.substr(file.find_last_of(".") +1);
 }
 
-string System::FileWithoutExtension(const string& file){
+string System::FileWithoutExtension(const string& file) const{
 	size_t lastindex = file.find_last_of("."); 
 	return file.substr(0, lastindex); 
 }

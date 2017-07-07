@@ -112,7 +112,7 @@ Sprite::Sprite(Texture* texture, Rect region, Vector2D pivot) :
 	}
 }
 
-Sprite::Sprite(Sprite& sprite) :
+Sprite::Sprite(const Sprite& sprite) :
 	Transformable(sprite),
 	VBO(sprite.VBO),
 	width(sprite.width),
@@ -156,6 +156,6 @@ Color Sprite::GetColor() const{
 	return color;
 }
 
-Sprite* Sprite::Clone(){
+Sprite* Sprite::Clone() const{
 	return new Sprite(*this);
 }

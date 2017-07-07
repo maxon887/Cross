@@ -29,7 +29,7 @@ public:
 	void Start();
 	void Update(float sec);
 	Sprite* GetImage();
-	bool IsRunning();
+	bool IsRunning() const;
 
 private:
 	Array<Sprite*> frames	= Array<Sprite*>();

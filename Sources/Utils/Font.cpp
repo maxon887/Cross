@@ -31,7 +31,7 @@ using namespace cross;
 
 static FT_Library library = NULL;
 
-Font::Font(Font& font) :
+Font::Font(const Font& font) :
 	color(font.color),
 	original(false),
 	face(font.face),
@@ -82,7 +82,7 @@ Font::~Font(){
 	}
 }
 
-Color Font::GetColor(){
+Color Font::GetColor() const{
 	return color;
 }
 
@@ -90,7 +90,7 @@ void Font::SetColor(Color color){
 	this->color = color;
 }
 
-float Font::GetSize(){
+float Font::GetSize() const{
 	return size;
 }
 
@@ -110,7 +110,7 @@ void Font::SetSize(float size){
 	Cache();
 }
 
-bool Font::IsFixedWidth(){
+bool Font::IsFixedWidth() const{
 	if(FT_IS_FIXED_WIDTH((FT_Long)face)){
 		return true;
 	}else{
@@ -118,7 +118,7 @@ bool Font::IsFixedWidth(){
 	}
 }
 
-float Font::GetCharWidth(){
+float Font::GetCharWidth() const{
 	if(IsFixedWidth()){
 		return char_width;
 	}else{
@@ -130,7 +130,7 @@ Sprite* Font::GetChar(char c){
 	return sprites[c - 29];
 }
 
-float Font::GetCharWidthAdvance(char c){
+float Font::GetCharWidthAdvance(char c) const{
 	return advances[c - 29];
 }
 
@@ -181,6 +181,6 @@ void Font::KillTextures(){
 	}
 }
 
-Font* Font::Clone(){
+Font* Font::Clone() const{
 	return new Font(*this);
 }

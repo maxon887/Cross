@@ -42,12 +42,12 @@ public:
 	Material* GetMaterial();
 
 	void SetFaceCullingEnabled(bool enabled);
-	bool IsFaceCullingEnabled();
+	bool IsFaceCullingEnabled() const;
 
 	VertexBuffer* GetVertexBuffer();
 	Array<GLushort>& GetIndices();
 
-	Mesh* Clone();
+	Mesh* Clone() const override;
 
 protected:
 	CROSS_FRIENDLY
@@ -63,7 +63,7 @@ protected:
 	bool initialized			= false;
 	bool face_culling			= true;
 
-	Mesh(Mesh& obj);
+	Mesh(const Mesh& obj);
 };
 
 }

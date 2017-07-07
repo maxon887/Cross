@@ -21,16 +21,16 @@ namespace cross{
 
 class VertexBuffer{
 public:
-	bool HasTextureCoordinates();
-	bool HasNormals();
-	bool HasTangents();
-	bool HasBitangents();
-	U32 GetPossitionsOffset();
-	U32 GetTextureCoordinatesOffset();
-	U32 GetNormalsOffset();
-	U32 GetTangentsOffset();
-	U32 GetBitangentsOffset();
-	U32 VertexSize();
+	bool HasTextureCoordinates() const;
+	bool HasNormals() const;
+	bool HasTangents() const;
+	bool HasBitangents() const;
+	U32 GetPossitionsOffset() const;
+	U32 GetTextureCoordinatesOffset() const;
+	U32 GetNormalsOffset() const;
+	U32 GetTangentsOffset() const;
+	U32 GetBitangentsOffset() const;
+	U32 VertexSize() const;
 
 	void UVEnabled(bool enabled);
 	void NarmalsEnabled(bool enabled);
@@ -38,9 +38,9 @@ public:
 	void BitangentsEnabled(bool enabled);
 	void PushData(const Byte* data, U32 size);
 	Byte* GetData();
-	U32 GetDataSize();
+	U32 GetDataSize() const;
 	void Free();
-	VertexBuffer* Clone();
+	VertexBuffer* Clone() const;
 
 private:
 	bool initialized			= false;

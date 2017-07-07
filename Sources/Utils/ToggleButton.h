@@ -24,7 +24,7 @@ public:
 	ToggleButton(Sprite* on, Sprite* off);
 	ToggleButton(Vector2D location, Sprite* on, Sprite* off);
 	void Update();
-	bool GetState();
+	bool GetState() const;
 	void SetState(bool state);
 private:
 	Sprite* on	= NULL;

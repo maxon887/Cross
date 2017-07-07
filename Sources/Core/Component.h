@@ -34,13 +34,13 @@ public:
 	virtual void Initialize() { }
 	virtual void Remove() { }
 	virtual void Update(float sec) { }
-	virtual Component* Clone();
+	virtual Component* Clone() const;
 
 	Type GetType() const;
 	Entity* GetEntity();
 	Component* GetComponent(Component::Type type);
 	Transformable* GetTransform();
-	Vector3D GetPosition();
+	Vector3D GetPosition() const;
 
 private:
 	friend Entity;

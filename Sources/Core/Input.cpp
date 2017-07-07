@@ -33,7 +33,7 @@ void Input::TouchEnabled(bool enabled){
     touch_enabled = enabled;
 }
 
-Vector2D Input::TargetToWordConvert(float x, float y){
+Vector2D Input::TargetToWordConvert(float x, float y) const{
 	Vector2D result;
 	Camera2D* cam = gfx2D->GetCamera();
 	float scaleFactor = sys->GetWindowWidth() / cam->GetViewWidth();
@@ -44,7 +44,7 @@ Vector2D Input::TargetToWordConvert(float x, float y){
 	return result;
 }
 
-bool Input::IsPressed(Key key){
+bool Input::IsPressed(Key key) const{
 	return pressed_keys[(U32)key];
 }
 

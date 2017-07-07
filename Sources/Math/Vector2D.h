@@ -32,7 +32,7 @@ public:
 	float Length() const;
 	Vector2D GetNormalized() const;
 	Vector2D GetTruncated(float len) const;
-	float* GetData();
+	const float* GetData() const;
 
 	bool operator == (const Vector2D &v2) const;
 	bool operator != (const Vector2D &v2) const;

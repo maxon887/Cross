@@ -22,7 +22,7 @@ bool UI::OnLocation(Vector2D p) const {
 	return PointInRect(p, GetRect());
 }
 
-bool UI::IsVisible(){
+bool UI::IsVisible() const{
 	return visible;
 }
 
@@ -30,7 +30,7 @@ void UI::SetVisible(bool yes){
 	visible = yes;
 }
 
-bool UI::IsEnabled(){
+bool UI::IsEnabled() const{
 	return enable;
 }
 

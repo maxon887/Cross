@@ -60,7 +60,7 @@ Graphics3D::~Graphics3D(){
 
 void Graphics3D::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {
 	gfxGL->UseShader(simple_shader);
-	float vertices[6] = { p1.x, p1.y, p1.z, p2.x, p2.y, p2.z };
+	static const float vertices[6] = { p1.x, p1.y, p1.z, p2.x, p2.y, p2.z };
 	Camera* cam = game->GetCurrentScene()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
@@ -134,9 +134,7 @@ void Graphics3D::ProcessNode(Entity* entity, aiNode* node){
 
 	Matrix modelMat = Matrix::Zero;
 	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-	entity->SetTranslate(modelMat.GetTranslation());
-	entity->SetRotate(modelMat.GetRotation());
-	//entity->SetModelMatrix(modelMat);
+	entity->SetModelMatrix(modelMat);
 
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];

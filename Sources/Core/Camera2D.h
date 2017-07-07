@@ -30,9 +30,9 @@ public:
 	/* Set up camera view distance */
 	void SetViewWidth(float width);
 	/* Returns width view distance */
-	float GetViewWidth();
+	float GetViewWidth() const;
 	/* Returns height view distance */
-	float GetViewHeight();
+	float GetViewHeight() const;
 
 private:
 	float view_width	= -1.f;
