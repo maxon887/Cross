@@ -16,6 +16,8 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	ui.setupUi(this);
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 	connect(ui.actionScene_Explorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
+	
+	connect(ui.sceneExplorerTree, &QTreeView::clicked, ui.propertiesView, &PropertiesView::onEntitySelected);
 }
 
 CrossEditor::~CrossEditor()
@@ -24,6 +26,10 @@ CrossEditor::~CrossEditor()
 Screen* CrossEditor::GetStartScreen(){
 	scene_view = new SceneView();
 	return scene_view;
+}
+
+void CrossEditor::Update(float sec){
+	ui.propertiesView->Update(sec);
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
@@ -37,7 +43,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 void CrossEditor::LoadScene(QString& file){
 	try{
 		scene_view->Load(file.toStdString(), true);
-		ui.treeView_2->reset();
+		ui.sceneExplorerTree->reset();
 		SceneLoaded(scene_view);
 	}catch(Exception exc){
 		string msg = string(exc.message) +

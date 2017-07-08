@@ -21,6 +21,7 @@ public:
 	~CrossEditor();
 
 	Screen* GetStartScreen() override;
+	void Update(float sec) override;
 
 	void LoadScene(QString& path);
 	void RestoreSettings();

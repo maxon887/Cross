@@ -85,7 +85,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="FileExplorer" name="treeView"/>
+      <widget class="FileExplorer" name="fileExplorerTree"/>
      </item>
     </layout>
    </widget>
@@ -112,7 +112,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="SceneExplorer" name="treeView_2"/>
+      <widget class="SceneExplorer" name="sceneExplorerTree"/>
      </item>
     </layout>
    </widget>
