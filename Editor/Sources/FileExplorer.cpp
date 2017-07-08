@@ -8,10 +8,10 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)
 {
 	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
-	fileSystem = new QFileSystemModel(this);
-	fileSystem->setRootPath(path);
-	setModel(fileSystem);
-	setRootIndex(fileSystem->index(path));
+	file_system = new QFileSystemModel(this);
+	file_system->setRootPath(path);
+	setModel(file_system);
+	setRootIndex(file_system->index(path));
 
 	hideColumn(2);
 	hideColumn(3);
@@ -23,13 +23,13 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	connect(this, &QTreeView::doubleClicked, this, &FileExplorer::OnItemDoubleClick);
 }
 
-
 FileExplorer::~FileExplorer(){
-
+	delete file_system;
+	disconnect(this, &QTreeView::doubleClicked, this, &FileExplorer::OnItemDoubleClick);
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){
-	QFileInfo fileInfo = fileSystem->fileInfo(index);
+	QFileInfo fileInfo = file_system->fileInfo(index);
 	if(fileInfo.suffix() == "scn"){
 		editor->LoadScene(fileInfo.absoluteFilePath());
 	}

@@ -19,7 +19,7 @@ public:
 
 private:
 	CrossEditor* cross_editor;
-	QFileSystemModel* fileSystem;
+	QFileSystemModel* file_system;
 
 private slots:
 	void OnItemDoubleClick(QModelIndex index);

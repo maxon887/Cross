@@ -88,5 +88,5 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 
 
 SceneExplorer::~SceneExplorer(){
-
+	delete scene_model;
 }

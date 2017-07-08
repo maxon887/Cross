@@ -267,6 +267,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SceneExplorer.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\PropertiesView.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertiesView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertiesView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -285,6 +294,9 @@
       <Filter>Editor</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\SceneExplorer.h">
+      <Filter>Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertiesView.h">
       <Filter>Editor</Filter>
     </CustomBuild>
   </ItemGroup>
