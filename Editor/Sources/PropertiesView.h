@@ -7,14 +7,15 @@
 
 using namespace cross;
 
-class CrossEditor;
-
 class PropertiesView : public QDockWidget
 {
 	Q_OBJECT
 public:
 	PropertiesView(QWidget* parent = 0);
 	~PropertiesView();
+
+protected:
+	void showEvent(QShowEvent *event);
 };
 
 #endif
