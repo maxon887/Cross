@@ -23,10 +23,16 @@ protected:
 	void showEvent(QShowEvent *event);
 
 private:
-	Entity* entity	= NULL;
-	QLineEdit* posX = NULL;
-	QLineEdit* posY = NULL;
-	QLineEdit* posZ = NULL;
+	Entity* entity		= NULL;
+	QLineEdit* posX		= NULL;
+	QLineEdit* posY		= NULL;
+	QLineEdit* posZ		= NULL;
+	QLineEdit* rotX		= NULL;
+	QLineEdit* rotY		= NULL;
+	QLineEdit* rotZ		= NULL;
+	QLineEdit* scaleX	= NULL;
+	QLineEdit* scaleY	= NULL;
+	QLineEdit* scaleZ	= NULL;
 };
 
 #endif

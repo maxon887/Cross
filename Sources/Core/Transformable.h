@@ -25,19 +25,25 @@ class Transformable{
 public:
 	void SetPosition(const Vector2D& pos);
 	void SetPosition(const Vector3D& pos);
+	void SetPosition(const Matrix& pos);
+	Vector3D GetPosition() const;
+
 	void SetScale(float factor);
 	void SetScale(const Vector2D& scale);
 	void SetScale(const Vector3D& scale);
 	void SetScale(const Matrix& scale);
-	void SetTranslate(const Matrix& trans);
+	Vector3D GetScale() const;
+
 	void SetRotateX(float angle);
 	void SetRotateY(float angle);
 	void SetRotateZ(float angle);
 	void SetRotate(const Vector3D& axis, float angle);
 	void SetRotate(const Quaternion& quat);
 	void SetRotate(const Matrix& rotation);
+	Vector3D GetRotate() const;
+
 	void LookAt(const Vector3D& object);
-	Vector3D GetPosition() const;
+
 	void SetDirection(const Vector3D& direction);
 	Vector3D GetDirection() const;
 	Vector3D GetForward() const;

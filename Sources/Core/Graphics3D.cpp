@@ -134,7 +134,7 @@ void Graphics3D::ProcessNode(Entity* entity, aiNode* node){
 
 	Matrix modelMat = Matrix::Zero;
 	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-	entity->SetTranslate(modelMat.GetTranslation());
+	entity->SetPosition(modelMat.GetTranslation());
 	entity->SetScale(modelMat.GetScale());
 	entity->SetRotate(modelMat.GetRotation());
 

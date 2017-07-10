@@ -28,6 +28,15 @@ void Transformable::SetPosition(const Vector3D& pos){
 	recalc_model = true;
 }
 
+void Transformable::SetPosition(const Matrix& pos) {
+	this->translate = pos;
+	recalc_model = true;
+}
+
+Vector3D Transformable::GetPosition() const {
+	return Vector3D(translate.m[0][3], translate.m[1][3], translate.m[2][3]);
+}
+
 void Transformable::SetScale(float factor){
 	scale.SetScale(factor);
 	recalc_model = true;
@@ -48,9 +57,8 @@ void Transformable::SetScale(const Matrix& scale){
 	recalc_model = true;
 }
 
-void Transformable::SetTranslate(const Matrix& trans) {
-	this->translate = trans;
-	recalc_model = true;
+Vector3D Transformable::GetScale() const{
+	return Vector3D(scale.m[0][0], scale.m[1][1], scale.m[2][2]);
 }
 
 void Transformable::SetRotateX(float angle){
@@ -83,6 +91,15 @@ void Transformable::SetRotate(const Matrix& rot){
 	recalc_model = true;
 }
 
+Vector3D Transformable::GetRotate() const{
+	Vector3D rot;
+	rot.x = atan2(rotate.m[2][1], rotate.m[2][2]);
+	rot.y = atan2(-rotate.m[2][0], sqrt(pow(rotate.m[2][1], 2.f) + pow(rotate.m[2][2], 2.f)));
+	rot.z = atan2(rotate.m[1][0], rotate.m[0][0]);
+	rot *= 180.f / PI;
+	return rot;
+}
+
 void Transformable::LookAt(const Vector3D& object){
 	Vector3D forward = object - GetPosition();
 	forward.Normaize();
@@ -104,10 +121,6 @@ void Transformable::LookAt(const Vector3D& object){
     rotate.m[2][2] = forward.z;
 	
 	recalc_model = true;
-}
-
-Vector3D Transformable::GetPosition() const{
-	return Vector3D(translate.m[0][3], translate.m[1][3], translate.m[2][3]);
 }
 
 void Transformable::SetDirection(const Vector3D& direction){
