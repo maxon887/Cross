@@ -110,6 +110,45 @@ Matrix Matrix::GetTranslation() const{
 	return res;
 }
 
+Matrix Matrix::GetScale() const{
+	float scaleX = Vector3D(m[0][0], m[0][1], m[0][2]).Length();
+	float scaleY = Vector3D(m[1][0], m[1][1], m[1][2]).Length();
+	float scaleZ = Vector3D(m[2][0], m[2][1], m[2][2]).Length();
+	Matrix res(Matrix::Identity);
+	res.m[0][0] = scaleX;
+	res.m[1][1] = scaleY;
+	res.m[2][2] = scaleZ;
+	return res;
+}
+
+Matrix Matrix::GetRotation() const{
+	float scaleX = Vector3D(m[0][0], m[0][1], m[0][2]).Length();
+	float scaleY = Vector3D(m[1][0], m[1][1], m[1][2]).Length();
+	float scaleZ = Vector3D(m[2][0], m[2][1], m[2][2]).Length();
+	Matrix res(*this);
+	res.m[0][3] = 0;
+	res.m[1][3] = 0;
+	res.m[2][3] = 0;
+	res.m[3][3] = 1.f;
+	res.m[3][2] = 0;
+	res.m[3][1] = 0;
+	res.m[3][0] = 0;
+
+	res.m[0][0] /= scaleX;
+	res.m[1][0] /= scaleX;
+	res.m[2][0] /= scaleX;
+
+	res.m[0][1] /= scaleY;
+	res.m[1][1] /= scaleY;
+	res.m[2][1] /= scaleY;
+
+	res.m[0][2] /= scaleZ;
+	res.m[1][2] /= scaleZ;
+	res.m[2][2] /= scaleZ;
+
+	return res;
+}
+
 void Matrix::SetScale(float scale){
 	m[0][0] = scale;
 	m[1][1] = scale;

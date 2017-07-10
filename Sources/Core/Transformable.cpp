@@ -43,6 +43,11 @@ void Transformable::SetScale(const Vector3D& scaleVec){
 	recalc_model = true;
 }
 
+void Transformable::SetScale(const Matrix& scale){
+	this->scale = scale;
+	recalc_model = true;
+}
+
 void Transformable::SetTranslate(const Matrix& trans) {
 	this->translate = trans;
 	recalc_model = true;

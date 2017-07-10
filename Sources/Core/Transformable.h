@@ -28,6 +28,7 @@ public:
 	void SetScale(float factor);
 	void SetScale(const Vector2D& scale);
 	void SetScale(const Vector3D& scale);
+	void SetScale(const Matrix& scale);
 	void SetTranslate(const Matrix& trans);
 	void SetRotateX(float angle);
 	void SetRotateY(float angle);
