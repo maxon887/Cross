@@ -25,6 +25,7 @@ namespace cross{
 	Models, Meshes, Lights can exists only in Scene */
 class Scene : public Screen{
 public:
+	Event<Entity*> EntityAdded;
 	/* Called before scene show up. */
 	virtual void Start() override;
 	/* Called when scene about to change on new one */

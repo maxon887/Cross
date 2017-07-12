@@ -312,6 +312,7 @@ Entity* Scene::GetEntity(const string& name){
 void Scene::AddEntity(Entity* entity){
 	entity->Initialize();
 	root->AddChild(entity);
+	EntityAdded(entity);//trigger
 }
 
 Entity* Scene::RemoveEntity(const string& name){

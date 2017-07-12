@@ -27,6 +27,9 @@ File* System::LoadFile(const string& filename){
 	file->name = filename;
 	string filePath = AssetsPath() + filename;
 	ifstream fileStream(filePath, istream::binary);
+	if(!fileStream){
+		fileStream = ifstream(filename, istream::binary);
+	}
 	if(fileStream.is_open()){
 		fileStream.seekg(0, fileStream.end);
 		file->size = (size_t)fileStream.tellg();

@@ -23,6 +23,9 @@ public:
 	SceneExplorer(QWidget* parent = 0);
 	~SceneExplorer();
 
+	void OnSceneLoaded(Scene* scene);
+	void OnEntityAdded(Entity* entity);
+
 private:
 	SceneModel* scene_model;
 };

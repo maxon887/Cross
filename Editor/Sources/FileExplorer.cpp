@@ -1,6 +1,9 @@
 #include "FileExplorer.h"
 #include "System.h"
 #include "CrossEditor.h"
+#include "Graphics3D.h"
+#include "Scene.h"
+#include "Material.h"
 
 #include <QHeaderView.h>
 
@@ -30,7 +33,15 @@ FileExplorer::~FileExplorer(){
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	if(fileInfo.suffix() == "scn"){
-		editor->LoadScene(fileInfo.absoluteFilePath());
+	try{
+		if(fileInfo.suffix() == "scn"){
+			editor->LoadScene(fileInfo.absoluteFilePath());
+		}else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
+			Entity* model = gfx3D->LoadModel(fileInfo.absoluteFilePath().toStdString());
+			gfx3D->AdjustMaterial(model, gfx3D->GetDefaultMaterial()->Clone());
+			editor->GetCurrentScene()->AddEntity(model);
+		}
+	}catch(Exception ex){
+		editor->ExceptionMsgBox(ex.message);
 	}
 }

@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Entity.h"
 #include "System.h"
+#include "CrossEditor.h"
 
 #include <QHeaderView.h>
 
@@ -91,8 +92,17 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 	scene_model = new SceneModel();
 	setModel(scene_model);
 	header()->hide();
+	editor->SceneLoaded.Connect(this, &SceneExplorer::OnSceneLoaded);
 }
 
 SceneExplorer::~SceneExplorer(){
 	delete scene_model;
+}
+
+void SceneExplorer::OnSceneLoaded(Scene* scene){
+	scene->EntityAdded.Connect(this, &SceneExplorer::OnEntityAdded);
+}
+
+void SceneExplorer::OnEntityAdded(Entity* entity){
+	reset();
 }
