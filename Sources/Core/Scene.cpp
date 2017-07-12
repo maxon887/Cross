@@ -25,6 +25,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Shaders/MultiLightShader.h"
+#include "File.h"
 
 #include "Libs/TinyXML/tinyxml.h"
 
@@ -64,9 +65,16 @@ void Scene::Stop(){
 	Screen::Stop();
 }
 
+const string& Scene::GetName() const{
+	return name;
+}
+
+void Scene::SetName(const string& name){
+	this->name = name;
+}
+
 void Scene::Load(const string& file, bool absolute){
 	Clear();
-	const int loaderVersion = 11;
 	string path = "";
 	if(!absolute){
 		path = sys->AssetsPath() + file;
@@ -83,9 +91,10 @@ void Scene::Load(const string& file, bool absolute){
 	scene = xmlDoc.FirstChildElement("Scene").Element();
 	if(scene){
 		name = scene->Attribute("name");
+		SetName(name);
 		int curVersion = MAXINT;
 		scene->Attribute("version", &curVersion);
-		if(curVersion <= loaderVersion){
+		if(curVersion <= scene_loader_version){
 			//general lighting information
 			int pointLightCount = 0;
 			int spotLightCount = 0;
@@ -272,7 +281,26 @@ void Scene::Load(const string& file, bool absolute){
 }
 
 void Scene::Save(const string& file){
-	throw CrossException("Do not implement yet");
+	TiXmlDocument doc;
+
+	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
+	doc.LinkEndChild(dec);
+
+	TiXmlElement* scene = new TiXmlElement("Scene");
+	scene->SetAttribute("name", GetName().c_str());
+	doc.LinkEndChild(scene);
+
+
+	TiXmlPrinter printer;
+	printer.SetIndent("\t");
+
+	doc.Accept(&printer);
+	File gameConfig;
+	gameConfig.name = "GameConfig.xml";
+	gameConfig.size = printer.Size();
+	gameConfig.data = (Byte*)printer.CStr();
+	sys->SaveFile(&gameConfig);
+	gameConfig.data = NULL;
 }
 
 void Scene::Clear(){

@@ -46,6 +46,7 @@ void CrossEditor::LoadScene(QFileInfo fileInfo){
 		scene_file = fileInfo;
 		ui.sceneExplorerTree->clearSelection();
 		scene_view->Load(fileInfo.absoluteFilePath().toStdString(), true);
+		setWindowTitle(QString("Cross Editor - ") + QString(scene_view->GetName().c_str()));
 		ui.sceneExplorerTree->reset();
 		SceneLoaded(scene_view);
 	}catch(Exception exc){
