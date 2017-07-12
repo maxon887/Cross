@@ -30,9 +30,16 @@ private:
 	QLineEdit* rotX		= NULL;
 	QLineEdit* rotY		= NULL;
 	QLineEdit* rotZ		= NULL;
+	QLineEdit* angle	= NULL;
 	QLineEdit* scaleX	= NULL;
 	QLineEdit* scaleY	= NULL;
 	QLineEdit* scaleZ	= NULL;
+
+	void PositionChanged();
+	void RotationChanged();
+	void ScaleChanged();
+
+	void UpdateRotatioon();
 };
 
 #endif

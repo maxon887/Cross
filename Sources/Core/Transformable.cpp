@@ -91,13 +91,8 @@ void Transformable::SetRotate(const Matrix& rot){
 	recalc_model = true;
 }
 
-Vector3D Transformable::GetRotate() const{
-	Vector3D rot;
-	rot.x = atan2(rotate.m[2][1], rotate.m[2][2]);
-	rot.y = atan2(-rotate.m[2][0], sqrt(pow(rotate.m[2][1], 2.f) + pow(rotate.m[2][2], 2.f)));
-	rot.z = atan2(rotate.m[1][0], rotate.m[0][0]);
-	rot *= 180.f / PI;
-	return rot;
+Quaternion Transformable::GetRotate() const{
+	return Quaternion(rotate);
 }
 
 void Transformable::LookAt(const Vector3D& object){

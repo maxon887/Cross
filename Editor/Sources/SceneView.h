@@ -32,7 +32,4 @@ public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
-
-private:
-
 };

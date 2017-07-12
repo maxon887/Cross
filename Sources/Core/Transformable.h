@@ -40,7 +40,7 @@ public:
 	void SetRotate(const Vector3D& axis, float angle);
 	void SetRotate(const Quaternion& quat);
 	void SetRotate(const Matrix& rotation);
-	Vector3D GetRotate() const;
+	Quaternion GetRotate() const;
 
 	void LookAt(const Vector3D& object);
 

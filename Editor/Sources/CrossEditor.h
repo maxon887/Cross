@@ -34,7 +34,6 @@ private:
 	Ui::CrossEditorClass ui;
 	SceneView* scene_view;
 
-private slots:
 	void OnFileExplorerClick();
 	void OnSceneExplorerClick();
 };

@@ -18,15 +18,14 @@ public:
 
 	void Update(float sec);
 
+	void OnEntitySelected(const QModelIndex &index);
+
 protected:
 	void showEvent(QShowEvent *event);
 
 private:
 	Entity* selected_entity				= NULL;
 	EntityComponent* entity_component	= NULL;
-
-public slots:
-	void onEntitySelected(const QModelIndex &index);
 };
 
 #endif

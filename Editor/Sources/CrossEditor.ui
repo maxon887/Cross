@@ -154,7 +154,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="posX"/>
+           <widget class="QLineEdit" name="posX">
+            <property name="inputMask">
+             <string/>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLineEdit" name="posY"/>
@@ -193,6 +197,9 @@
           </item>
           <item>
            <widget class="QLineEdit" name="rotZ"/>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="angle"/>
           </item>
          </layout>
         </item>

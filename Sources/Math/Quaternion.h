@@ -38,7 +38,10 @@ public:
 	float Length() const;
 	Quaternion GetConjugated() const;
 	Quaternion GetInversed() const;
+	Quaternion GetNormalized() const;
 	Matrix GetMatrix() const;
+	Vector3D GetAxis() const;
+	float GetAngle() const;
 
 	Quaternion operator + (const Quaternion& q) const;
 	Quaternion operator - (const Quaternion& q) const;

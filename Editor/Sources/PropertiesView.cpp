@@ -15,13 +15,13 @@ void PropertiesView::Update(float sec){
 	}
 }
 
-void PropertiesView::showEvent(QShowEvent *event){
-	entity_component = findChild<EntityComponent*>();
-	entity_component->hide();
-}
-
-void PropertiesView::onEntitySelected(const QModelIndex &index){
+void PropertiesView::OnEntitySelected(const QModelIndex &index) {
 	selected_entity = (Entity*)index.internalPointer();
 	entity_component->show();
 	entity_component->SetEntity(selected_entity);
+}
+
+void PropertiesView::showEvent(QShowEvent *event){
+	entity_component = findChild<EntityComponent*>();
+	entity_component->hide();
 }

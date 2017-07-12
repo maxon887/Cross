@@ -17,7 +17,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 	connect(ui.actionScene_Explorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
 	
-	connect(ui.sceneExplorerTree, &QTreeView::clicked, ui.propertiesView, &PropertiesView::onEntitySelected);
+	connect(ui.sceneExplorerTree, &QTreeView::clicked, ui.propertiesView, &PropertiesView::OnEntitySelected);
 }
 
 CrossEditor::~CrossEditor()

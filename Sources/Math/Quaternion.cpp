@@ -34,8 +34,8 @@ Quaternion::Quaternion():
 	w(1.f)
 { }
 
-Quaternion::Quaternion(const Vector3D& axis, float angle){ 
-	//Vector3D normV = axis.Normalize();
+Quaternion::Quaternion(const Vector3D& inAxis, float angle){ 
+	Vector3D axis = inAxis.GetNormalized();
 	float halfAngle = angle * 0.5f;
 	float cosA = cos(halfAngle / 180.f * PI);
 	float sinA = sin(halfAngle / 180.f * PI);
@@ -99,6 +99,16 @@ Quaternion Quaternion::GetInversed() const{
 	return GetConjugated() / Norm();
 }
 
+Quaternion Quaternion::GetNormalized() const{
+	float len = Length();
+	Quaternion result;
+	result.x = x / len;
+	result.y = y / len;
+	result.z = z / len;
+	result.w = w / len;
+	return result;
+}
+
 Matrix Quaternion::GetMatrix() const{
 	Matrix m = Matrix::Identity;
 	float wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
@@ -121,6 +131,19 @@ Matrix Quaternion::GetMatrix() const{
     m.m[2][2] = 1.0f - (xx + yy);
 	
 	return m;
+}
+
+Vector3D Quaternion::GetAxis() const{
+	Vector3D axis;
+	float sinA = sqrt(1.f - w * w);
+	axis.x = x / sinA;
+	axis.y = y / sinA;
+	axis.z = z / sinA;
+	return axis;
+}
+
+float Quaternion::GetAngle() const{
+	return 2 * acos(w) * 180.f / PI;
 }
 
 Quaternion Quaternion::operator+(const Quaternion& q) const{
