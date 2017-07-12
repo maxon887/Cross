@@ -40,8 +40,7 @@
 			<Position x=0.0 y=0.0 z=0.0/>
 		</Object>
 		<Object name="Cube"
-				file="Engine/Models/Cube.obj"
-				material=0>
+				file="Engine/Models/Cube.obj" >
 			<Position x=3.0 y=0.0 z=0.0/>
 		</Object>
 		<Object name="Light">

@@ -26,6 +26,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include "Shaders/Shader.h"
+#include "Shaders/MultiLightShader.h"
 #include "Material.h"
 #include "Entity.h"
 
@@ -55,6 +56,8 @@ Graphics3D::~Graphics3D(){
 			delete primitives[i];
 		}
 	}
+	delete default_material;
+	delete default_shader;
 	delete simple_shader;
 }
 
@@ -111,6 +114,20 @@ void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCull
 	for(Entity* child : model->GetChildren()){
 		AdjustMaterial(child, material);
 	}
+}
+
+Material* Graphics3D::GetDefaultMaterial(){
+	if(!default_material){
+		default_shader = new MultiLightShader();
+		default_shader->AddProperty("Diffuse Color", "uDiffuseColor");
+		default_shader->AddProperty("Specular", "uSpecular", 2.f);
+		default_shader->AddProperty("Shininess", "uShininess", 64.f);
+		default_shader->Compile(1, 0, 0);
+		
+		default_material = new Material(default_shader);
+		default_material->SetPropertyValue("Diffuse Color", Color(0.5f));
+	}
+	return default_material;
 }
 
 void Graphics3D::ProcessScene(Entity* model, const string& filename){

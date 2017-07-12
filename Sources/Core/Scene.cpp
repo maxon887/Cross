@@ -220,7 +220,11 @@ void Scene::Load(const string& file, bool absolute){
 						objectXML->Attribute("material", &materialID);
 
 						entity = gfx3D->LoadModel(file);
-						gfx3D->AdjustMaterial(entity, materials[materialID]);
+						if(materialID != -1){
+							gfx3D->AdjustMaterial(entity, materials[materialID]);
+						}else{
+							gfx3D->AdjustMaterial(entity, gfx3D->GetDefaultMaterial()->Clone());
+						}
 					}else{
 						entity = new Entity();
 					}

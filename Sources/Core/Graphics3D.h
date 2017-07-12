@@ -24,6 +24,8 @@ struct aiScene;
 
 namespace cross{
 
+class MultiLightShader;
+
 /*	Class responsible for 3D objects drawing 
 	and model loading */
 class Graphics3D{
@@ -48,12 +50,15 @@ public:
 	Entity* LoadPrimitive(Primitives primitive);
 	Entity* LoadModel(const string& filename, bool initialize = true);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
+	Material* GetDefaultMaterial();
 
 protected:
-	Shader* simple_shader			= NULL;
-	const aiScene* current_scene	= NULL;
-	bool initialize_in_load			= true;
-	Array<Entity*> primitives		= Array<Entity*>(COUNT, NULL);
+	Shader* simple_shader				= NULL;
+	MultiLightShader* default_shader	= NULL;
+	Material* default_material			= NULL;
+	const aiScene* current_scene		= NULL;
+	bool initialize_in_load				= true;
+	Array<Entity*> primitives			= Array<Entity*>(COUNT, NULL);
 
 	void ProcessScene(Entity* model, const string& filename);
 	void ProcessNode(Entity* model, aiNode* node);
