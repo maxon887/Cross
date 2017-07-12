@@ -35,7 +35,7 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	try{
 		if(fileInfo.suffix() == "scn"){
-			editor->LoadScene(fileInfo.absoluteFilePath());
+			editor->LoadScene(fileInfo);
 		}else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
 			Entity* model = gfx3D->LoadModel(fileInfo.absoluteFilePath().toStdString());
 			gfx3D->AdjustMaterial(model, gfx3D->GetDefaultMaterial()->Clone());

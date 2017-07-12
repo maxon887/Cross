@@ -23,7 +23,7 @@ public:
 	Screen* GetStartScreen() override;
 	void Update(float sec) override;
 
-	void LoadScene(QString& path);
+	void LoadScene(QFileInfo fileInfo);
 	void RestoreSettings();
 	void ExceptionMsgBox(const char* msg);
 
@@ -33,6 +33,9 @@ protected:
 private:
 	Ui::CrossEditorClass ui;
 	SceneView* scene_view;
+	QFileInfo scene_file;
+
+	void OnSaveAsClick();
 
 	void OnFileExplorerClick();
 	void OnSceneExplorerClick();
