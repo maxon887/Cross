@@ -14,7 +14,14 @@ QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) co
 	Entity* parentEntity = NULL;
 
 	if(!parent.isValid()){
-		parentEntity = game->GetCurrentScene()->GetRoot();
+		if(game->GetCurrentScene()){
+			parentEntity = game->GetCurrentScene()->GetRoot();
+			if(!parentEntity){
+				throw CrossException("Invalid root entity");
+			}
+		}else{
+			throw CrossException("Can not obtain scene");
+		}
 	}else{
 		parentEntity = static_cast<Entity*>(parent.internalPointer());
 	}
@@ -85,7 +92,6 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 	setModel(scene_model);
 	header()->hide();
 }
-
 
 SceneExplorer::~SceneExplorer(){
 	delete scene_model;

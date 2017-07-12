@@ -42,6 +42,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 
 void CrossEditor::LoadScene(QString& file){
 	try{
+		ui.sceneExplorerTree->clearSelection();
 		scene_view->Load(file.toStdString(), true);
 		ui.sceneExplorerTree->reset();
 		SceneLoaded(scene_view);

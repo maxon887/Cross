@@ -1,5 +1,6 @@
 #include "PropertiesView.h"
 #include "EntityComponent.h"
+#include "CrossEditor.h"
 
 #include <QTreeView.h>
 
@@ -15,6 +16,12 @@ void PropertiesView::Update(float sec){
 	}
 }
 
+void PropertiesView::OnSceneLoaded(Scene*){
+	selected_entity = NULL;
+	entity_component->SetEntity(NULL);
+	entity_component->hide();
+}
+
 void PropertiesView::OnEntitySelected(const QModelIndex &index) {
 	show();
 	selected_entity = (Entity*)index.internalPointer();
@@ -23,6 +30,7 @@ void PropertiesView::OnEntitySelected(const QModelIndex &index) {
 }
 
 void PropertiesView::showEvent(QShowEvent *event) {
+	editor->SceneLoaded.Connect(this, &PropertiesView::OnSceneLoaded);
 	entity_component = findChild<EntityComponent*>();
 	entity_component->hide();
 }
