@@ -286,10 +286,81 @@ void Scene::Save(const string& filename){
 	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
 	doc.LinkEndChild(dec);
 
-	TiXmlElement* scene = new TiXmlElement("Scene");
-	scene->SetAttribute("name", GetName().c_str());
-	scene->SetAttribute("version", scene_loader_version);
-	doc.LinkEndChild(scene);
+	TiXmlElement* sceneXML = new TiXmlElement("Scene");
+	sceneXML->SetAttribute("name", GetName().c_str());
+	sceneXML->SetAttribute("version", scene_loader_version);
+	doc.LinkEndChild(sceneXML);
+
+	//light sorting
+	List<Light*>& lights = GetLights();
+	U32 pointCount = 0;
+	U32 directionCount = 0;
+	U32 spotCount = 0;
+	for(Light* light : lights){
+		switch(light->GetType()) {
+		case Light::POINT:
+			pointCount++;
+			break;
+		case Light::DIRECTIONAL:
+			break;
+			directionCount++;
+		case Light::SPOT:
+			spotCount++;
+			break;
+		default:
+			break;
+		}
+	}
+	if(pointCount || directionCount || spotCount){
+		TiXmlElement* lightXML = new TiXmlElement("Light");
+		if(pointCount > 0){
+			TiXmlElement* pointXML = new TiXmlElement("Point");
+			pointXML->SetAttribute("count", pointCount);
+			lightXML->LinkEndChild(pointXML);
+		}
+		if(directionCount > 0){
+			TiXmlElement* directionalXML = new TiXmlElement("Directional");
+			directionalXML->SetAttribute("count", directionCount);
+			lightXML->LinkEndChild(directionalXML);
+		}
+		if(spotCount > 0){
+			TiXmlElement* spotXML = new TiXmlElement("Spot");
+			spotXML->SetAttribute("count", spotCount);
+			lightXML->LinkEndChild(spotXML);
+		}
+		sceneXML->LinkEndChild(lightXML);
+	}
+
+	if(shaders.size() > 0){
+		TiXmlElement* shadersXML = new TiXmlElement("Shaders");
+		for(int i = 0; i < shaders.size(); i++){
+			TiXmlElement* shaderXML= new TiXmlElement("Shader");
+			if(shaders[i]->macrosies.size() > 0){
+				TiXmlElement* macrosiesXML = new TiXmlElement("Macrosies");
+				for(const string& macro : shaders[i]->macrosies){
+					TiXmlElement* macroXML = new TiXmlElement("Macro");
+					//macroXML->SetText("ASD");
+					macrosiesXML->LinkEndChild(macroXML);
+				}
+				shaderXML->LinkEndChild(macrosiesXML);
+			}
+			shadersXML->LinkEndChild(shaderXML);
+		}
+
+		sceneXML->LinkEndChild(shadersXML);
+	}
+
+	if(textures.size() > 0){
+		TiXmlElement* texturesXML = new TiXmlElement("Textures");
+
+		sceneXML->LinkEndChild(texturesXML);
+	}
+
+	if(materials.size() > 0){
+		TiXmlElement* materialsXML = new TiXmlElement("Materials");
+
+		sceneXML->LinkEndChild(materialsXML);
+	}
 
 
 	TiXmlPrinter printer;

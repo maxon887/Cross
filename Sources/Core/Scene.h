@@ -70,7 +70,7 @@ protected:
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
 private:
-	static const U32 scene_loader_version	= 13;
+	static const U32 scene_loader_version	= 14;
 	string name								= "";
     U64 resize_del							= -1;
 	void WindowResizeHandle(S32 width, S32 height);
