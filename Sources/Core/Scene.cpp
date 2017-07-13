@@ -280,7 +280,7 @@ void Scene::Load(const string& file, bool absolute){
 	}
 }
 
-void Scene::Save(const string& file){
+void Scene::Save(const string& filename){
 	TiXmlDocument doc;
 
 	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
@@ -288,6 +288,7 @@ void Scene::Save(const string& file){
 
 	TiXmlElement* scene = new TiXmlElement("Scene");
 	scene->SetAttribute("name", GetName().c_str());
+	scene->SetAttribute("version", scene_loader_version);
 	doc.LinkEndChild(scene);
 
 
@@ -296,7 +297,7 @@ void Scene::Save(const string& file){
 
 	doc.Accept(&printer);
 	File gameConfig;
-	gameConfig.name = "GameConfig.xml";
+	gameConfig.name = filename;
 	gameConfig.size = printer.Size();
 	gameConfig.data = (Byte*)printer.CStr();
 	sys->SaveFile(&gameConfig);

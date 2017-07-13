@@ -361,7 +361,7 @@ void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
 }
 
 Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& height, int& channels){
-	File* textureFile = sys->LoadFile(filename);
+	File* textureFile = sys->LoadAssetFile(filename);
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	if(image == NULL){
@@ -408,7 +408,7 @@ Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filt
 }
 
 Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filter){
-	File* file = sys->LoadFile(filename);
+	File* file = sys->LoadAssetFile(filename);
 
 	PKM pkm;
 	U32 offset = sizeof(PKM);
@@ -420,7 +420,7 @@ Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filt
 }
 
 Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filter){
-	File* file = sys->LoadFile(filename);
+	File* file = sys->LoadAssetFile(filename);
 
 	KTX ktx;
 	U32 offset = sizeof(KTX);
@@ -550,7 +550,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 }
 
 void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
-	File* xmlFile = sys->LoadFile(xmlFilename);
+	File* xmlFile = sys->LoadAssetFile(xmlFilename);
 	TiXmlDocument xml;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);

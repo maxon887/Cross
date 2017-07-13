@@ -48,7 +48,7 @@ public:
 
 	void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 	Entity* LoadPrimitive(Primitives primitive);
-	Entity* LoadModel(const string& filename, bool initialize = true);
+	Entity* LoadModel(const string& filename, bool initialize = true, bool apsolutePath = false);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
 	Material* GetDefaultMaterial();
 
@@ -60,7 +60,7 @@ protected:
 	bool initialize_in_load				= true;
 	Array<Entity*> primitives			= Array<Entity*>(COUNT, NULL);
 
-	void ProcessScene(Entity* model, const string& filename);
+	void ProcessScene(Entity* model, File* sceneFile);
 	void ProcessNode(Entity* model, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
 

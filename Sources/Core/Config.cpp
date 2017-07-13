@@ -213,7 +213,7 @@ void Config::SaveGameConfig(){
 	gameConfig.name = "GameConfig.xml";
 	gameConfig.size = printer.Size();
 	gameConfig.data = (Byte*)printer.CStr();
-	sys->SaveFile(&gameConfig);
+	sys->SaveDataFile(&gameConfig);
 	gameConfig.data = NULL;
 }
 
@@ -242,6 +242,6 @@ void Config::SaveUserConfig(){
 	userConfig.name = "UserConfig.xml";
 	userConfig.size = printer.Size();
 	userConfig.data = (Byte*)printer.CStr();
-	sys->SaveFile(&userConfig);
+	sys->SaveDataFile(&userConfig);
 	userConfig.data = NULL;
 }

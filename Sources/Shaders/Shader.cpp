@@ -114,8 +114,8 @@ void Shader::Property::RealocateIfNeeded(U32 newSize){
 }
 
 Shader::Shader(const string& vertexFile, const string& fragmentFile) {
-	vertex_file = sys->LoadFile(vertexFile);
-	fragment_file = sys->LoadFile(fragmentFile);
+	vertex_file = sys->LoadAssetFile(vertexFile);
+	fragment_file = sys->LoadAssetFile(fragmentFile);
 	if(gfxGL->GetShaderVersion() >= 130) {
 		AddVersion("130");
 	}

@@ -53,7 +53,7 @@ Font::Font(const Font& font) :
 Font::Font(string filename, float size, Color color) :
 	color(color)
 {
-	file = sys->LoadFile(filename);
+	file = sys->LoadAssetFile(filename);
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);

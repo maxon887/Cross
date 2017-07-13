@@ -42,11 +42,16 @@ public:
 	virtual U64 GetTime() = 0;
 
 	virtual ~System() { }
-	/* DEPRICATED! Loads specific file from game assets. TODO LoadAsset */
+	/* Load file from absolute path */
 	virtual File* LoadFile(const string& filename);
+	/* Load file from game asset directory */
+	virtual File* LoadAssetFile(const string& filename);
+	/* Load file from data directory */
     virtual File* LoadDataFile(const string& filename);
-	/* Safe file to Data folder */
+	/* Save file by absolute folder */
 	virtual void SaveFile(File* file);
+	/* Save file to data folder */
+	virtual void SaveDataFile(File* file);
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis) { };
 	/* Ask user about exit from application */
@@ -64,6 +69,7 @@ public:
 	float GetAspectRatio() const;
 	/* Returns directory from full filename */
 	string PathFromFile(const string& filePath) const;
+	string FileFromPath(const string& filename) const;
 	/* Returns extencsion from filename or full file path */
 	string ExtensionFromFile(const string& file) const;
 	/* Returns raw file name without extencion (ex "log" for "log.txt") */

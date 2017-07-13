@@ -95,11 +95,18 @@ Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
 	}
 }
 
-Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
+Entity* Graphics3D::LoadModel(const string& filename, bool initialize, bool absolute){
 	initialize_in_load = initialize;
 	Debugger::Instance()->SetTimeCheck();
 	Entity* model = new Entity();
-	ProcessScene(model, filename);
+	File* file = NULL;
+	if(absolute){
+		file = sys->LoadFile(filename);
+	}else{
+		file = sys->LoadAssetFile(filename);
+	}
+	ProcessScene(model, file);
+	delete file;
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	sys->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
@@ -130,11 +137,9 @@ Material* Graphics3D::GetDefaultMaterial(){
 	return default_material;
 }
 
-void Graphics3D::ProcessScene(Entity* model, const string& filename){
-	File* file = sys->LoadFile(filename);
+void Graphics3D::ProcessScene(Entity* model, File* file){
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	delete file;
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}

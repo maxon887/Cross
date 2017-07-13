@@ -20,17 +20,36 @@
 #include <stdarg.h>
 #include <fstream>
 
+#define C_IMP
+
 using namespace cross;
 
 File* System::LoadFile(const string& filename){
 	File* file = new File();
 	file->name = filename;
-	string filePath = AssetsPath() + filename;
-	ifstream fileStream(filePath, istream::binary);
-	if(!fileStream){
-		fileStream = ifstream(filename, istream::binary);
+	//C realization
+#ifdef C_IMP
+	FILE* f = fopen(filename.c_str(), "rb");
+	if(f){
+		fseek(f, 0, SEEK_END);
+		file->size = ftell(f);
+		fseek(f, 0, SEEK_SET);
+		file->data = new Byte[file->size];
+		if(file->size == fread(file->data, sizeof(Byte), file->size, f)){
+			fclose(f);
+			return file;
+		}else{
+			throw CrossException("Can not read file %s", file->name.c_str());
+		}
+	}else{
+		throw CrossException("Can not open file %s", file->name.c_str());
 	}
-	if(fileStream.is_open()){
+#endif
+	//C++ implementation
+#ifdef CPP_IMP
+	file->name = filename;
+	ifstream fileStream(filename, istream::binary);
+	if(fileStream.is_open()) {
 		fileStream.seekg(0, fileStream.end);
 		file->size = (size_t)fileStream.tellg();
 		fileStream.seekg(0, fileStream.beg);
@@ -39,47 +58,47 @@ File* System::LoadFile(const string& filename){
 		fileStream.read((char*)file->data, file->size);
 		fileStream.close();
 		return file;
-	} else {
-		throw CrossException("Cannot open file %s", file->name.c_str());
+	}else{
+		throw CrossException("Can not open file %s", file->name.c_str());
 	}
+#endif
+}
+
+File* System::LoadAssetFile(const string& filename){
+	return LoadFile(AssetsPath() + filename);
 }
 
 File* System::LoadDataFile(const string &filename){
-    File* file = new File();
-    file->name = filename;
-    string filePath = DataPath() + filename;
-    ifstream fileStream(filePath, istream::binary);
-    if(fileStream.is_open()){
-        fileStream.seekg(0, fileStream.end);
-        file->size = (size_t)fileStream.tellg();
-        fileStream.seekg(0, fileStream.beg);
-        file->data = new Byte[file->size];
-        memset(file->data, 0, file->size);
-        fileStream.read((char*)file->data, file->size);
-        fileStream.close();
-        return file;
-    } else {
-        throw CrossException("Cannot open file %s", file->name.c_str());
-    }
+	return LoadFile(DataPath() + filename);
 }
 
-void System::SaveFile(File* file){/*
+void System::SaveFile(File* file){
+#ifdef C_IMP
+	FILE* f = fopen(file->name.c_str(), "w");
+	if(f) {
+		if(file->size == fwrite(file->data, 1, file->size, f)){
+			fclose(f);
+		}else{
+			throw CrossException("Can not write to file %s", file->name.c_str());
+		}
+	}else{
+		throw CrossException("Can not open file for writing: %s", file->name.c_str());
+	}
+#endif // C_IMP
+
+#ifdef CPP_IMP
 	string filePath = DataPath() + file->name;
 	ofstream fileStream(filePath, istream::binary);
-	if(fileStream.is_open()){
+	if(fileStream.is_open()) {
 		fileStream.write((char*)file->data, file->size);
 		fileStream.close();
-	}else{
-		throw CrossException("Can't open file stream: %s", filePath.c_str());
-	}*/
-    string filePath = DataPath() + file->name;
-    FILE* f = fopen(filePath.c_str(), "w");
-    if(f){
-        fwrite(file->data, 1, file->size, f);
-        fclose(f);
-    }else{
-        throw CrossException("Can't open file stream: %s", filePath.c_str());
-    }
+	} else {
+		throw CrossException("Can not open file stream: %s", filePath.c_str());
+	}
+#endif // CPP_IMP
+}
+
+void System::SaveDataFile(File* file){
 }
 
 void System::LogIt(const char* format, ...){
@@ -120,6 +139,15 @@ string System::PathFromFile(const string& filePath) const{
 	if(std::string::npos != last_slash_idx){
 		return filePath.substr(0, last_slash_idx);
 	}else{
+		throw CrossException("Wrong path format");
+	}
+}
+
+string System::FileFromPath(const string& filename) const{
+	const size_t last_slash_idx = filename.rfind('/');
+	if(std::string::npos != last_slash_idx) {
+		return filename.substr(last_slash_idx, filename.size());
+	} else {
 		throw CrossException("Wrong path format");
 	}
 }
