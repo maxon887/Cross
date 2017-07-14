@@ -80,8 +80,8 @@ public:
 	bool IsCompiled() const;
 
 	void AddVersion(const string& version);
-	void AddMacro(const string& makro);
-	void AddMacro(const string& makro, int value);
+	void AddMacro(const string& makro, bool system = false);
+	void AddMacro(const string& makro, int value, bool system = false);
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);
@@ -108,6 +108,7 @@ protected:
 
 	GLuint program				= 0;
 	Array<string> macrosies		= Array<string>();
+	Array<string> user_macro	= Array<string>();
 	bool compiled				= false;
 	//general attributes
 	GLint aPosition				= -1;

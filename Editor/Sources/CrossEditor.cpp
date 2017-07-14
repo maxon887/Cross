@@ -75,7 +75,9 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 
 void CrossEditor::OnSaveAsClick(){
 	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", scene_file.absoluteFilePath(), "Scene File (*.scn)");
-	scene_view->Save(filePath.toStdString());
+	if(filePath != ""){
+		scene_view->Save(filePath.toStdString());
+	}
 }
 
 void CrossEditor::OnFileExplorerClick(){

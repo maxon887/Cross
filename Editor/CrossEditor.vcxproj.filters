@@ -72,18 +72,6 @@
     <ClCompile Include="..\Sources\Libs\SOIL\stb_image_aug.c">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinystr.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinyxml.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinyxmlerror.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinyxmlparser.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -285,6 +273,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_EntityComponent.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Libs\TinyXML2\tinyxml2.cpp">
+      <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -330,12 +321,6 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Libs\SOIL\stbi_DDS_aug_c.h">
       <Filter>Cross\Libs\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Libs\TinyXML\tinystr.h">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Libs\TinyXML\tinyxml.h">
-      <Filter>Cross\Libs\TinyXML</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
@@ -489,6 +474,9 @@
     </ClInclude>
     <ClInclude Include="Sources\SceneView.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Libs\TinyXML2\tinyxml2.h">
+      <Filter>Cross\Libs\TinyXML</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,9 +18,10 @@
 #include "System.h"
 #include "File.h"
 
-#include "Libs/TinyXML/tinyxml.h"
+#include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
+using namespace tinyxml2;
 
 Config::Config() {
 	LoadGameConfig();
@@ -108,18 +109,14 @@ const string& Config::GetString(const string& key) const{
 }
 
 void Config::LoadGameConfig(){
-    string path = sys->DataPath() + "/GameConfig.xml";
+    string path = sys->DataPath() + "GameConfig.xml";
 
-	TiXmlDocument doc(path.c_str());
-	doc.LoadFile();
+	XMLDocument doc;
+	doc.LoadFile(path.c_str());
 
-	TiXmlHandle xmlDoc(&doc);
-	TiXmlElement* root;
-	TiXmlElement* element;
-
-	root = xmlDoc.FirstChildElement("GameConfig").Element();
+	XMLElement* root = doc.FirstChildElement("GameConfig");
 	if(root){
-		element = root->FirstChildElement("Property");
+		XMLElement* element = root->FirstChildElement("Property");
 		while(element){
 			string name = element->Attribute("name");
 			string strValue = element->Attribute("value");
@@ -150,16 +147,15 @@ void Config::LoadGameConfig(){
 }
 
 void Config::LoadUserConfig(){
-    string path = sys->DataPath() + "/UserConfig.xml";
+    string path = sys->DataPath() + "UserConfig.xml";
 
-	TiXmlDocument doc(path.c_str());
-	doc.LoadFile();
+	XMLDocument doc;
+	doc.LoadFile(path.c_str());
 
-	TiXmlHandle xmlHandle(&doc);
-	TiXmlElement* root;
-	TiXmlElement* element;
+	XMLElement* root;
+	XMLElement* element;
 
-	root = xmlHandle.FirstChildElement("UserConfig").Element();
+	root = doc.FirstChildElement("UserConfig");
 	if(root){
 		element = root->FirstChildElement("Property");
 		while(element){
@@ -172,75 +168,67 @@ void Config::LoadUserConfig(){
 }
 
 void Config::SaveGameConfig(){
-	TiXmlDocument doc;
+	XMLDocument doc;
 
-	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
-	doc.LinkEndChild(dec);
-
-	TiXmlElement* element = new TiXmlElement("GameConfig");
+	XMLElement* element = doc.NewElement("GameConfig");
 	doc.LinkEndChild(element);
 
-	TiXmlElement* property = new TiXmlElement("Property");
+	XMLElement* property = doc.NewElement("Property");
 	property->SetAttribute("name", "Orientation");
 	property->SetAttribute("value", to_string(orientation).c_str());
 	element->LinkEndChild(property);
 
-	property = new TiXmlElement("Property");
+	property = doc.NewElement("Property");
 	property->SetAttribute("name", "UseCompressedTextures");
 	property->SetAttribute("value", use_compressed_textures ? "true" : "false");
 	element->LinkEndChild(property);
 
-	property = new TiXmlElement("Property");
+	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
 	property->SetAttribute("value", to_string(texture_filter).c_str());
 	element->LinkEndChild(property);
 
-	property = new TiXmlElement("Property");
+	property = doc.NewElement("Property");
 	property->SetAttribute("name", "ViewDistance");
 	property->SetAttribute("value", to_string(view_distance).c_str());
 	element->LinkEndChild(property);
 
-	property = new TiXmlElement("Property");
+	property = doc.NewElement("Property");
 	property->SetAttribute("name", "OffscreenRender");
 	property->SetAttribute("value", offscreen_render ? "true" : "false");
 	element->LinkEndChild(property);
 
-	TiXmlPrinter printer;
-	printer.SetIndent("\t");
+	XMLPrinter printer;
 	
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = "GameConfig.xml";
-	gameConfig.size = printer.Size();
+	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
 	sys->SaveDataFile(&gameConfig);
 	gameConfig.data = NULL;
 }
 
 void Config::SaveUserConfig(){
-	TiXmlDocument doc;
+	XMLDocument doc;
 
-	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
-	doc.LinkEndChild(dec);
-
-	TiXmlElement* element = new TiXmlElement("UserConfig");
+	XMLElement* element = doc.NewElement("UserConfig");
 	doc.LinkEndChild(element);
 
-	TiXmlElement* property;
+	XMLElement* property;
 	for(auto pair : user_prefs){
-		property = new TiXmlElement("Property");  
+		property = doc.NewElement("Property");
 		property->SetAttribute("name", pair.first.c_str());
 		property->SetAttribute("value", pair.second.c_str());
 		element->LinkEndChild(property);  
 	}
 	
-	TiXmlPrinter printer;
-	printer.SetIndent("\t");
+	XMLPrinter printer;
 	
 	doc.Accept(&printer);
 	File userConfig;
 	userConfig.name = "UserConfig.xml";
-	userConfig.size = printer.Size();
+	userConfig.size = printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
 	sys->SaveDataFile(&userConfig);
 	userConfig.data = NULL;

@@ -99,6 +99,8 @@ void System::SaveFile(File* file){
 }
 
 void System::SaveDataFile(File* file){
+	file->name = DataPath() + file->name;
+	SaveFile(file);
 }
 
 void System::LogIt(const char* format, ...){

@@ -62,9 +62,9 @@ void MultiLightShader::Compile(const List<Light*>& lights){
 }
 
 void MultiLightShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
-	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
-	AddMacro("POINT_LIGHT_COUNT", pointCount);
-	AddMacro("SPOT_LIGHT_COUNT", spotCount);
+	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount, true);
+	AddMacro("POINT_LIGHT_COUNT", pointCount, true);
+	AddMacro("SPOT_LIGHT_COUNT", spotCount, true);
 
 	Shader::Compile();
 	for(U32 i = 0; i < pointCount; ++i) {

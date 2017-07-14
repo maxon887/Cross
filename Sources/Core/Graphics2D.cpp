@@ -28,12 +28,13 @@
 
 #include "Libs/SOIL/SOIL.h"
 #include "Libs/FreeType/ft2build.h"
-#include "Libs/TinyXML/tinyxml.h"
+#include "Libs/TinyXML2/tinyxml2.h"
 
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
 using namespace cross;
+using namespace tinyxml2;
 
 struct PKM{
 	Byte identifier[6];
@@ -551,19 +552,20 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 
 void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
 	File* xmlFile = sys->LoadAssetFile(xmlFilename);
-	TiXmlDocument xml;
+	XMLDocument doc;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);
 	source[xmlFile->size] = 0;
 	delete xmlFile;
-	xml.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
+	doc.Parse((const char*)source, xmlFile->size);
+	//doc.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
 	delete source;
 
-	TiXmlHandle xmlDoc(&xml);
-	TiXmlElement* root;
-	TiXmlElement* element;
+	//TiXmlHandle xmlDoc(&xml);
+	XMLElement* root;
+	XMLElement* element;
 
-	root = xmlDoc.FirstChildElement("TextureAtlas").Element();
+	root = doc.FirstChildElement("TextureAtlas");
 	if(root){
 		element = root->FirstChildElement("sprite");
 		while(element){

@@ -187,22 +187,28 @@ void Shader::AddVersion(const string& ver){
 	makro_len += fullStr.length();
 }
 
-void Shader::AddMacro(const string& makro){
+void Shader::AddMacro(const string& makro, bool system){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
 	string makroString = "#define " + makro + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
+	if(!system){
+		user_macro.push_back(makro);
+	}
 }
 
-void Shader::AddMacro(const string& makro, int value){
+void Shader::AddMacro(const string& makro, int value, bool system){
 	if(compiled){
 		throw CrossException("Shader already compiled");
 	}
 	string makroString = "#define " + makro + " " + to_string(value) + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
+	if(!system) {
+		throw CrossException("Do not implement yet");
+	}
 }
 
 void Shader::AddProperty(const string& name, const string& glName){

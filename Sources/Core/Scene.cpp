@@ -27,9 +27,10 @@
 #include "Shaders/MultiLightShader.h"
 #include "File.h"
 
-#include "Libs/TinyXML/tinyxml.h"
+#include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
+using namespace tinyxml2;
 
 void Scene::Start(){
 	Screen::Start();
@@ -82,198 +83,183 @@ void Scene::Load(const string& file, bool absolute){
 		path = file;
 	}
 
-	TiXmlDocument doc(path.c_str());
-	doc.LoadFile();
+	XMLDocument doc;
+	XMLError error = doc.LoadFile(path.c_str());
+	if(error != XML_SUCCESS){
+		throw CrossException("Can not parse XML document");
+	}
 
-	TiXmlHandle xmlDoc(&doc);
-	TiXmlElement* scene;
-
-	scene = xmlDoc.FirstChildElement("Scene").Element();
+	XMLElement* scene = doc.FirstChildElement("Scene");
 	if(scene){
 		name = scene->Attribute("name");
 		SetName(name);
-		int curVersion = MAXINT;
-		scene->Attribute("version", &curVersion);
-		if(curVersion <= scene_loader_version){
-			//general lighting information
-			int pointLightCount = 0;
-			int spotLightCount = 0;
-			int directionalLightCount = 0;
-			TiXmlElement* lightXML = scene->FirstChildElement("Light");
-			if(lightXML){
-				TiXmlElement* pointXML = lightXML->FirstChildElement("Point");
-				if(pointXML){
-					pointXML->Attribute("count", &pointLightCount);
-				}
-				TiXmlElement* spotXML = lightXML->FirstChildElement("Spot");
-				if(spotXML) {
-					spotXML->Attribute("count", &spotLightCount);
-				}
-				TiXmlElement* directionalXML = lightXML->FirstChildElement("Directional");
-				if(directionalXML) {
-					directionalXML->Attribute("count", &directionalLightCount);
-				}
+		//general lighting information
+		int pointLightCount = 0;
+		int spotLightCount = 0;
+		int directionalLightCount = 0;
+		XMLElement* lightXML = scene->FirstChildElement("Light");
+		if(lightXML){
+			XMLElement* pointXML = lightXML->FirstChildElement("Point");
+			if(pointXML){
+				pointLightCount = pointXML->IntAttribute("count");
 			}
-			//shaders loading
-			TiXmlElement* shadersXML = scene->FirstChildElement("Shaders");
-			if(shadersXML){
-				TiXmlElement* shaderXML = shadersXML->FirstChildElement("Shader");
-				while(shaderXML){
-					MultiLightShader* shader = NULL;
-					int id = -1;
-					shaderXML->Attribute("id", &id);
-					const char* useLightsStr = shaderXML->Attribute("multiLight");
-					bool multiLight = strcmp(useLightsStr, "true") == 0;
-					if(multiLight){
-						shader = new MultiLightShader();
-					}else{
-						throw CrossException("Do not implement yet");
-					}
-					TiXmlElement* macrosies = shaderXML->FirstChildElement("Macrosies");
-					if(macrosies){
-						TiXmlElement* macro = macrosies->FirstChildElement("Macro");
-						while(macro){
-							const char* text = macro->GetText();
-							shader->AddMacro(text);
-							macro = macro->NextSiblingElement("Macro");
-						}
-					}
-					TiXmlElement* properties = shaderXML->FirstChildElement("Properties");
-					if(properties){
-						TiXmlElement* property = properties->FirstChildElement("Property");
-						while(property){
-							const char* name = property->Attribute("name");
-							const char* glName = property->Attribute("glName");
-							const char* defVal = property->Attribute("default");
-							if(defVal){
-								float def = (float)atof(defVal);
-								shader->AddProperty(name, glName, def);
-							}else{
-								shader->AddProperty(name, glName);
-							}
-							property = property->NextSiblingElement("Property");
-						}
-					}
-
-					shader->Compile(pointLightCount, spotLightCount, directionalLightCount);
-					shaders[id] = shader;
-					shaderXML = shaderXML->NextSiblingElement("Shader");
-				}
+			XMLElement* spotXML = lightXML->FirstChildElement("Spot");
+			if(spotXML) {
+				spotLightCount = spotXML->IntAttribute("count");
 			}
-			//textures loading
-			TiXmlElement* texturesXML = scene->FirstChildElement("Textures");
-			if(texturesXML){
-				TiXmlElement* textureXML = texturesXML->FirstChildElement("Texture");
-				while(textureXML){
-					int id = -1;
-					textureXML->Attribute("id", &id);
-					const char* file = textureXML->Attribute("file");
-					Texture* texture = gfx2D->LoadTexture(file);
-					textures[id] = texture;
-					textureXML = textureXML->NextSiblingElement("Texture");
-				}
+			XMLElement* directionalXML = lightXML->FirstChildElement("Directional");
+			if(directionalXML) {
+				directionalLightCount = directionalXML->IntAttribute("count");
 			}
-			//materials loading
-			TiXmlElement* materialsXML = scene->FirstChildElement("Materials");
-			if(materialsXML){
-				TiXmlElement* materialXML = materialsXML->FirstChildElement("Material");
-				while(materialXML){
-					int id = -1;
-					int shaderID = -1;
-					materialXML->Attribute("id", &id);
-					materialXML->Attribute("shader", &shaderID);
-					Material* material = new Material(shaders[shaderID]);
-					TiXmlElement* property = materialXML->FirstChildElement("Property");
+		}
+		//shaders loading
+		XMLElement* shadersXML = scene->FirstChildElement("Shaders");
+		if(shadersXML){
+			XMLElement* shaderXML = shadersXML->FirstChildElement("Shader");
+			while(shaderXML){
+				MultiLightShader* shader = NULL;
+				int id = shaderXML->IntAttribute("id");
+				const char* useLightsStr = shaderXML->Attribute("multiLight");
+				bool multiLight = strcmp(useLightsStr, "true") == 0;
+				if(multiLight){
+					shader = new MultiLightShader();
+				}else{
+					throw CrossException("Do not implement yet");
+				}
+				XMLElement* macrosies = shaderXML->FirstChildElement("Macrosies");
+				if(macrosies){
+					XMLElement* macro = macrosies->FirstChildElement("Macro");
+					while(macro){
+						const char* text = macro->GetText();
+						shader->AddMacro(text);
+						macro = macro->NextSiblingElement("Macro");
+					}
+				}
+				XMLElement* properties = shaderXML->FirstChildElement("Properties");
+				if(properties){
+					XMLElement* property = properties->FirstChildElement("Property");
 					while(property){
-						const char* type = property->Attribute("type");
 						const char* name = property->Attribute("name");
-
-						if(strcmp(type, "Texture") == 0){
-							int textureID = -1;
-							property->Attribute("value", &textureID);
-							material->SetPropertyValue(name, textures[textureID]);
-						}else if(strcmp(type, "Float") == 0){
-							double val = -1.f;
-							property->Attribute("value", &val);
-							material->SetPropertyValue(name, (float)val);
-						}else if(strcmp(type, "Color") == 0){
-							TiXmlElement* colorXML = property->FirstChildElement("Color");
-							double r, g, b, a;
-							colorXML->Attribute("r", &r);
-							colorXML->Attribute("g", &g);
-							colorXML->Attribute("b", &b);
-							colorXML->Attribute("a", &a);
-							Color c((float)r, (float)g, (float)b, (float)a);
-							material->SetPropertyValue(name, c);
+						const char* glName = property->Attribute("glName");
+						const char* defVal = property->Attribute("default");
+						if(defVal){
+							float def = (float)atof(defVal);
+							shader->AddProperty(name, glName, def);
 						}else{
-							throw CrossException("Unknown material property type");
+							shader->AddProperty(name, glName);
 						}
-
 						property = property->NextSiblingElement("Property");
 					}
-
-					materials[id] = material;
-					materialXML = materialXML->NextSiblingElement("Material");
 				}
-			}
-			//objects loading
-			TiXmlElement* objectsXML = scene->FirstChildElement("Objects");
-			if(objectsXML){
-				TiXmlElement* objectXML = objectsXML->FirstChildElement("Object");
-				while(objectXML){
-					const char* name = objectXML->Attribute("name");
-					const char* file = objectXML->Attribute("file");
-					Entity* entity = NULL;
-					if(file){
-						int materialID = -1;
-						objectXML->Attribute("material", &materialID);
 
-						entity = gfx3D->LoadModel(file);
-						if(materialID != -1){
-							gfx3D->AdjustMaterial(entity, materials[materialID]);
-						}else{
-							gfx3D->AdjustMaterial(entity, gfx3D->GetDefaultMaterial()->Clone());
-						}
+				shader->Compile(pointLightCount, spotLightCount, directionalLightCount);
+				shaders[id] = shader;
+				shaderXML = shaderXML->NextSiblingElement("Shader");
+			}
+		}
+		//textures loading
+		XMLElement* texturesXML = scene->FirstChildElement("Textures");
+		if(texturesXML){
+			XMLElement* textureXML = texturesXML->FirstChildElement("Texture");
+			while(textureXML){
+				int id = textureXML->IntAttribute("id");
+				const char* file = textureXML->Attribute("file");
+				Texture* texture = gfx2D->LoadTexture(file);
+				textures[id] = texture;
+				textureXML = textureXML->NextSiblingElement("Texture");
+			}
+		}
+		//materials loading
+		XMLElement* materialsXML = scene->FirstChildElement("Materials");
+		if(materialsXML){
+			XMLElement* materialXML = materialsXML->FirstChildElement("Material");
+			while(materialXML){
+				int id = materialXML->IntAttribute("id");
+				int shaderID = materialXML->IntAttribute("shader");
+				Material* material = new Material(shaders[shaderID]);
+				XMLElement* property = materialXML->FirstChildElement("Property");
+				while(property){
+					const char* type = property->Attribute("type");
+					const char* name = property->Attribute("name");
+
+					if(strcmp(type, "Texture") == 0){
+						int textureID = property->IntAttribute("value");
+						material->SetPropertyValue(name, textures[textureID]);
+					}else if(strcmp(type, "Float") == 0){
+						double val = property->DoubleAttribute("value");
+						material->SetPropertyValue(name, (float)val);
+					}else if(strcmp(type, "Color") == 0){
+						XMLElement* colorXML = property->FirstChildElement("Color");
+						double r = colorXML->DoubleAttribute("r");
+						double g = colorXML->DoubleAttribute("g");
+						double b = colorXML->DoubleAttribute("b");
+						double a = colorXML->DoubleAttribute("a");
+						Color c((float)r, (float)g, (float)b, (float)a);
+						material->SetPropertyValue(name, c);
 					}else{
-						entity = new Entity();
-					}
-					entity->SetName(name);
-
-					TiXmlElement* posXML = objectXML->FirstChildElement("Position");
-					if(posXML){
-						double x, y, z;
-						posXML->Attribute("x", &x);
-						posXML->Attribute("y", &y);
-						posXML->Attribute("z", &z);
-						Vector3D pos((float)x, (float)y, (float)z);
-						entity->SetPosition(pos);
+						throw CrossException("Unknown material property type");
 					}
 
-					TiXmlElement* componentsXML = objectXML->FirstChildElement("Components");
-					if(componentsXML){
-						TiXmlElement* componentXML = componentsXML->FirstChildElement("Component");
-						while(componentXML){
-							const char* name = componentXML->Attribute("name");
-							if(strcmp(name, "Light") == 0){
-								const char* type = componentXML->Attribute("type");
-								if(strcmp(type, "Point") == 0){
-									Light* light = new Light(Light::Type::POINT);
-									entity->AddComponent(light);
-								}else{
-									throw CrossException("Unknown light type");
-								}
-							}else{
-								throw CrossException("Unknown component");
-							}
-							componentXML = componentXML->NextSiblingElement();
-						}
-					}
-					AddEntity(entity);
-					objectXML = objectXML->NextSiblingElement("Object");
+					property = property->NextSiblingElement("Property");
 				}
+
+				materials[id] = material;
+				materialXML = materialXML->NextSiblingElement("Material");
 			}
-		}else{
-			throw CrossException("Version missmatch");
+		}
+		//objects loading
+		XMLElement* objectsXML = scene->FirstChildElement("Objects");
+		if(objectsXML){
+			XMLElement* objectXML = objectsXML->FirstChildElement("Object");
+			while(objectXML){
+				const char* name = objectXML->Attribute("name");
+				const char* file = objectXML->Attribute("file");
+				Entity* entity = NULL;
+				if(file){
+					int materialID = objectXML->IntAttribute("material");
+
+					entity = gfx3D->LoadModel(file);
+					if(materialID != -1){
+						gfx3D->AdjustMaterial(entity, materials[materialID]);
+					}else{
+						gfx3D->AdjustMaterial(entity, gfx3D->GetDefaultMaterial()->Clone());
+					}
+				}else{
+					entity = new Entity();
+				}
+				entity->SetName(name);
+
+				XMLElement* posXML = objectXML->FirstChildElement("Position");
+				if(posXML){
+					double x = posXML->DoubleAttribute("x");
+					double y = posXML->DoubleAttribute("y");
+					double z = posXML->DoubleAttribute("z");
+					Vector3D pos((float)x, (float)y, (float)z);
+					entity->SetPosition(pos);
+				}
+
+				XMLElement* componentsXML = objectXML->FirstChildElement("Components");
+				if(componentsXML){
+					XMLElement* componentXML = componentsXML->FirstChildElement("Component");
+					while(componentXML){
+						const char* name = componentXML->Attribute("name");
+						if(strcmp(name, "Light") == 0){
+							const char* type = componentXML->Attribute("type");
+							if(strcmp(type, "Point") == 0){
+								Light* light = new Light(Light::Type::POINT);
+								entity->AddComponent(light);
+							}else{
+								throw CrossException("Unknown light type");
+							}
+						}else{
+							throw CrossException("Unknown component");
+						}
+						componentXML = componentXML->NextSiblingElement();
+					}
+				}
+				AddEntity(entity);
+				objectXML = objectXML->NextSiblingElement("Object");
+			}
 		}
 	}else{
 		throw CrossException("Can not load scene. Wrong file format");
@@ -281,12 +267,9 @@ void Scene::Load(const string& file, bool absolute){
 }
 
 void Scene::Save(const string& filename){
-	TiXmlDocument doc;
+	XMLDocument doc;
 
-	TiXmlDeclaration* dec = new TiXmlDeclaration("1.0", "", "");
-	doc.LinkEndChild(dec);
-
-	TiXmlElement* sceneXML = new TiXmlElement("Scene");
+	XMLElement* sceneXML = doc.NewElement("Scene");
 	sceneXML->SetAttribute("name", GetName().c_str());
 	sceneXML->SetAttribute("version", scene_loader_version);
 	doc.LinkEndChild(sceneXML);
@@ -312,19 +295,19 @@ void Scene::Save(const string& filename){
 		}
 	}
 	if(pointCount || directionCount || spotCount){
-		TiXmlElement* lightXML = new TiXmlElement("Light");
+		XMLElement* lightXML = doc.NewElement("Light");
 		if(pointCount > 0){
-			TiXmlElement* pointXML = new TiXmlElement("Point");
+			XMLElement* pointXML = doc.NewElement("Point");
 			pointXML->SetAttribute("count", pointCount);
 			lightXML->LinkEndChild(pointXML);
 		}
 		if(directionCount > 0){
-			TiXmlElement* directionalXML = new TiXmlElement("Directional");
+			XMLElement* directionalXML = doc.NewElement("Directional");
 			directionalXML->SetAttribute("count", directionCount);
 			lightXML->LinkEndChild(directionalXML);
 		}
 		if(spotCount > 0){
-			TiXmlElement* spotXML = new TiXmlElement("Spot");
+			XMLElement* spotXML = doc.NewElement("Spot");
 			spotXML->SetAttribute("count", spotCount);
 			lightXML->LinkEndChild(spotXML);
 		}
@@ -332,17 +315,32 @@ void Scene::Save(const string& filename){
 	}
 
 	if(shaders.size() > 0){
-		TiXmlElement* shadersXML = new TiXmlElement("Shaders");
+		XMLElement* shadersXML = doc.NewElement("Shaders");
 		for(int i = 0; i < shaders.size(); i++){
-			TiXmlElement* shaderXML= new TiXmlElement("Shader");
+			XMLElement* shaderXML= doc.NewElement("Shader");
+			shaderXML->SetAttribute("id", i);
+			if(dynamic_cast<MultiLightShader*>(shaders[i])){
+				shaderXML->SetAttribute("multiLight", true);
+			}
 			if(shaders[i]->macrosies.size() > 0){
-				TiXmlElement* macrosiesXML = new TiXmlElement("Macrosies");
-				for(const string& macro : shaders[i]->macrosies){
-					TiXmlElement* macroXML = new TiXmlElement("Macro");
-					//macroXML->SetText("ASD");
+				XMLElement* macrosiesXML = doc.NewElement("Macrosies");
+				for(const string& macro : shaders[i]->user_macro){
+					XMLElement* macroXML = doc.NewElement("Macro");
+					macroXML->SetText(macro.c_str());
 					macrosiesXML->LinkEndChild(macroXML);
 				}
 				shaderXML->LinkEndChild(macrosiesXML);
+				XMLElement* propertiesXML = doc.NewElement("Properties");
+				for(Shader::Property* prop : shaders[i]->properties){
+					XMLElement* properyXML = doc.NewElement("Property");
+					propertiesXML->SetAttribute("name", prop->name.c_str());
+					propertiesXML->SetAttribute("glName", prop->glName.c_str());
+					if(prop->value != NULL){
+						if(prop->type == Shader::Property::FLOAT){
+							propertiesXML->SetAttribute("default", *(float*)(prop->value));
+						}
+					}
+				}
 			}
 			shadersXML->LinkEndChild(shaderXML);
 		}
@@ -351,25 +349,24 @@ void Scene::Save(const string& filename){
 	}
 
 	if(textures.size() > 0){
-		TiXmlElement* texturesXML = new TiXmlElement("Textures");
+		XMLElement* texturesXML = doc.NewElement("Textures");
 
 		sceneXML->LinkEndChild(texturesXML);
 	}
 
 	if(materials.size() > 0){
-		TiXmlElement* materialsXML = new TiXmlElement("Materials");
+		XMLElement* materialsXML = doc.NewElement("Materials");
 
 		sceneXML->LinkEndChild(materialsXML);
 	}
 
 
-	TiXmlPrinter printer;
-	printer.SetIndent("\t");
+	XMLPrinter printer;
 
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = filename;
-	gameConfig.size = printer.Size();
+	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
 	sys->SaveFile(&gameConfig);
 	gameConfig.data = NULL;
