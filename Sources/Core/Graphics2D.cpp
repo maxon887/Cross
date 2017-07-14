@@ -326,6 +326,15 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode til
 	}
 }
 
+Texture* Graphics2D::FindTextureByGLID(GLuint glId){
+	for(pair<Texture*, S32> pair : loaded_textures){
+		if(pair.first->GetID() == glId){
+			return pair.first;
+		}
+	}
+	return NULL;
+}
+
 void Graphics2D::SaveTexture(Texture* texture, const string& filename){
 #ifdef OPENGL
 	File file;

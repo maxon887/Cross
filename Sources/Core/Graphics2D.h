@@ -55,6 +55,7 @@ public:
 	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
+	Texture* FindTextureByGLID(GLuint glId);
 	void SaveTexture(Texture* texture, const string& filename);
 	void ReleaseTexture(const string& filename, GLuint* id);
 	Texture* CreateTexture(U32 channels, U32 width, U32 height, Texture::Filter filter);

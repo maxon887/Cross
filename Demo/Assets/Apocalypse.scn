@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
 <Scene name="Apocalypse" version="11">
 	<Light>
 		<Point count="1"/>

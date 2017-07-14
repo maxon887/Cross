@@ -52,13 +52,13 @@ void Scene::Update(float sec){
 
 void Scene::Stop(){
 	sys->WindowResized.Disconnect(resize_del);
-	for(pair<U32, Shader*> pair : shaders){
+	for(pair<S32, Shader*> pair : shaders){
 		delete pair.second;
 	}
-	for(pair<U32, Texture*> pair : textures){
+	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
 	}
-	for(pair<U32, Material*> pair : materials){
+	for(pair<S32, Material*> pair : materials){
 		delete pair.second;
 	}
 	delete camera;
@@ -316,31 +316,35 @@ void Scene::Save(const string& filename){
 
 	if(shaders.size() > 0){
 		XMLElement* shadersXML = doc.NewElement("Shaders");
-		for(int i = 0; i < shaders.size(); i++){
+		for(pair<S32, Shader*> pair : shaders){
+			S32 id = pair.first;
+			Shader* shader = pair.second;
 			XMLElement* shaderXML= doc.NewElement("Shader");
-			shaderXML->SetAttribute("id", i);
-			if(dynamic_cast<MultiLightShader*>(shaders[i])){
+			shaderXML->SetAttribute("id", id);
+			if(dynamic_cast<MultiLightShader*>(shader)){
 				shaderXML->SetAttribute("multiLight", true);
 			}
-			if(shaders[i]->macrosies.size() > 0){
+			if(shader->macrosies.size() > 0){
 				XMLElement* macrosiesXML = doc.NewElement("Macrosies");
-				for(const string& macro : shaders[i]->user_macro){
+				for(const string& macro : shader->user_macro){
 					XMLElement* macroXML = doc.NewElement("Macro");
 					macroXML->SetText(macro.c_str());
 					macrosiesXML->LinkEndChild(macroXML);
 				}
 				shaderXML->LinkEndChild(macrosiesXML);
 				XMLElement* propertiesXML = doc.NewElement("Properties");
-				for(Shader::Property* prop : shaders[i]->properties){
-					XMLElement* properyXML = doc.NewElement("Property");
-					propertiesXML->SetAttribute("name", prop->name.c_str());
-					propertiesXML->SetAttribute("glName", prop->glName.c_str());
+				for(Shader::Property* prop : shader->properties){
+					XMLElement* propertyXML = doc.NewElement("Property");
+					propertyXML->SetAttribute("name", prop->name.c_str());
+					propertyXML->SetAttribute("glName", prop->glName.c_str());
 					if(prop->value != NULL){
 						if(prop->type == Shader::Property::FLOAT){
-							propertiesXML->SetAttribute("default", *(float*)(prop->value));
+							propertyXML->SetAttribute("default", *(float*)(prop->value));
 						}
 					}
+					propertiesXML->LinkEndChild(propertyXML);
 				}
+				shaderXML->LinkEndChild(propertiesXML);
 			}
 			shadersXML->LinkEndChild(shaderXML);
 		}
@@ -350,19 +354,72 @@ void Scene::Save(const string& filename){
 
 	if(textures.size() > 0){
 		XMLElement* texturesXML = doc.NewElement("Textures");
-
+		for(pair<S32, Texture*> pair : textures){
+			S32 id = pair.first;
+			Texture* texture = pair.second;
+			XMLElement* textureXML = doc.NewElement("Texture");
+			textureXML->SetAttribute("id", id);
+			textureXML->SetAttribute("file", texture->GetName().c_str());
+			texturesXML->LinkEndChild(textureXML);
+		}
 		sceneXML->LinkEndChild(texturesXML);
 	}
 
 	if(materials.size() > 0){
 		XMLElement* materialsXML = doc.NewElement("Materials");
+		for(pair<S32, Material*> pair : materials){
+			S32 id = pair.first;
+			Material* material = pair.second;
+			XMLElement* materialXML = doc.NewElement("Material");
+			materialXML->SetAttribute("id", id);
+			S32 shaderID = FindShaderID(material->GetShader());
+			materialXML->SetAttribute("shader", shaderID);
 
+			for(Shader::Property* prop : material->properties){
+				XMLElement* propertyXML = doc.NewElement("Property");
+				switch(prop->type) {
+				case Shader::Property::SAMPLER:{
+					propertyXML->SetAttribute("type", "Texture");
+					propertyXML->SetAttribute("name", prop->name.c_str());
+					Texture* usedTexture = gfx2D->FindTextureByGLID(*(GLuint*)prop->value);
+					S32 textureId = FindTextureID(usedTexture);
+					propertyXML->SetAttribute("value", textureId);}
+					break;
+				case Shader::Property::MAT4:
+					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					break;
+				case Shader::Property::VEC4:
+					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					break;
+				case Shader::Property::VEC3:
+					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					break;
+				case Shader::Property::VEC2:
+					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					break;
+				case Shader::Property::FLOAT:
+					propertyXML->SetAttribute("type", "Float");
+					propertyXML->SetAttribute("name", prop->name.c_str());
+					propertyXML->SetAttribute("value", *(float*)prop->value);
+					break;
+				case Shader::Property::INT:
+					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					break;
+				case Shader::Property::CUBEMAP:
+					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					break;
+				default:
+					throw CrossException("Unknown material property");
+					break;
+				}
+				materialXML->LinkEndChild(propertyXML);
+			}
+			materialsXML->LinkEndChild(materialXML);
+		}
 		sceneXML->LinkEndChild(materialsXML);
 	}
 
-
 	XMLPrinter printer;
-
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = filename;
@@ -375,15 +432,15 @@ void Scene::Save(const string& filename){
 void Scene::Clear(){
 	root->RemoveChildren();
 	lights.clear();
-	for(pair<U32, Material*> pair : materials){
+	for(pair<S32, Material*> pair : materials){
 		delete pair.second;
 	}
 	materials.clear();
-	for(pair<U32, Texture*> pair : textures) {
+	for(pair<S32, Texture*> pair : textures) {
 		delete pair.second;
 	}
 	textures.clear();
-	for(pair<U32, Shader*> pair : shaders) {
+	for(pair<S32, Shader*> pair : shaders) {
 		delete pair.second;
 	}
 	shaders.clear();
@@ -430,6 +487,24 @@ Color Scene::GetAmbientColor() const{
 
 void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
+}
+
+S32 Scene::FindShaderID(Shader* shader){
+	for(pair<S32, Shader*> pair : shaders){
+		if(pair.second == shader){
+			return pair.first;
+		}
+	}
+	return -1;
+}
+
+S32 Scene::FindTextureID(Texture* texture){
+	for(pair<S32, Texture*> pair : textures) {
+		if(pair.second->name == texture->name) {
+			return pair.first;
+		}
+	}
+	return -1;
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){

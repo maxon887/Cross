@@ -60,17 +60,20 @@ public:
 	Color GetAmbientColor() const;
 
 protected:
-	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();
-	Dictionary<U32, Texture*> textures		= Dictionary<U32, Texture*>();
-	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
+	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
+	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
+	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= NULL;
 
 	Camera* camera							= NULL;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
+	S32 FindShaderID(Shader* shader);
+	S32 FindTextureID(Texture* texture);
+
 private:
-	static const U32 scene_loader_version	= 15;
+	static const U32 scene_loader_version	= 16;
 	string name								= "";
     U64 resize_del							= -1;
 	void WindowResizeHandle(S32 width, S32 height);
