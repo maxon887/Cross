@@ -93,6 +93,10 @@ void Scene::Load(const string& file, bool absolute){
 	if(scene){
 		name = scene->Attribute("name");
 		SetName(name);
+		int version = scene->IntAttribute("version");
+		if(version > scene_loader_version){
+			throw CrossException("Scene loader version missmatch");
+		}
 		//general lighting information
 		int pointLightCount = 0;
 		int spotLightCount = 0;

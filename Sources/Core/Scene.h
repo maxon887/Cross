@@ -73,7 +73,7 @@ protected:
 	S32 FindTextureID(Texture* texture);
 
 private:
-	static const U32 scene_loader_version	= 16;
+	static const U32 scene_loader_version	= 11;
 	string name								= "";
     U64 resize_del							= -1;
 	void WindowResizeHandle(S32 width, S32 height);
