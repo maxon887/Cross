@@ -24,6 +24,9 @@ public:
 	void mousePressEvent(QMouseEvent* eve);
 	void mouseMoveEvent(QMouseEvent* eve);
 	void mouseReleaseEvent(QMouseEvent* eve);
+
+	void keyPressEvent(QKeyEvent* key) override;
+	void keyReleaseEvent(QKeyEvent* key) override;
 };
 
 #endif // !GL_HANDLER

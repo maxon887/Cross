@@ -14,6 +14,7 @@ GLHandler::GLHandler(QWidget* parent) :
 	QOpenGLWidget(parent)
 { 
 	setMouseTracking(true);
+	setFocus();
 }
 
 
@@ -82,6 +83,7 @@ void GLHandler::shutDown(){
 }
 
 void GLHandler::mousePressEvent(QMouseEvent* eve){
+	setFocus();
 	input->TargetActionDown((float)eve->x(), (float)eve->y(), 0);
 }
 
@@ -91,4 +93,18 @@ void GLHandler::mouseMoveEvent(QMouseEvent* eve){
 
 void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
 	input->TargetActionUp((float)eve->x(), (float)eve->y(), 0);
+}
+
+void GLHandler::keyPressEvent(QKeyEvent* key){
+	Key k = (Key)key->nativeVirtualKey();
+	if(k < Key::MAX_KEY_NUM){
+		input->KeyPressed(k);
+	}
+}
+
+void GLHandler::keyReleaseEvent(QKeyEvent* key){
+	Key k = (Key)key->nativeVirtualKey();
+	if(k < Key::MAX_KEY_NUM) {
+		input->KeyReleased(k);
+	}
 }

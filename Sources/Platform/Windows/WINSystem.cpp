@@ -103,9 +103,6 @@ void WINSystem::FullScreen(bool yes){
 		int refreshRate = GetDeviceCaps(dc, VREFRESH);
 
 		EnterFullscreen(wnd, fullscreenHeight, fullscreenWidth, colourBits, refreshRate);
-		//glViewport(0, 0, fullscreenHeight, fullscreenWidth);
-
-
 	}else{
 		ExitFullscreen(wnd, config->GetInt("WIN_POS_X", 0), config->GetInt("WIN_POS_Y", 0), config->GetInt("WIN_WIDTH", 500), config->GetInt("WIN_HEIGHT", 500), 0, 0);
 	}

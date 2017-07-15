@@ -42,4 +42,7 @@ void SceneView::Stop(){
 
 void SceneView::Update(float sec){
 	FreeCameraScene::Update(sec);
+	if(input->IsPressed(Key::W)){
+		throw CrossException("Imput working");
+	}
 }
