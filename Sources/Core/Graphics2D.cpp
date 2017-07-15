@@ -565,10 +565,9 @@ void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* textu
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);
 	source[xmlFile->size] = 0;
-	delete xmlFile;
 	doc.Parse((const char*)source, xmlFile->size);
-	//doc.Parse((const char*)source, 0, TIXML_ENCODING_UTF8);
-	delete source;
+	delete xmlFile;
+	delete[] source;
 
 	//TiXmlHandle xmlDoc(&xml);
 	XMLElement* root;

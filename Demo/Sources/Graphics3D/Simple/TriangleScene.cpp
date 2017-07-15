@@ -43,6 +43,7 @@ void TriangleScene::Start(){
 	triangle->PushData(vertexBuffer, indices);
 	triangle->TransferVideoData();
 	triangle->SetMaterial(material);
+	triangle->SetFaceCullingEnabled(false);
     delete vertexBuffer;
 }
 

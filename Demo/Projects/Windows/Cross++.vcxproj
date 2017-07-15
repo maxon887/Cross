@@ -99,10 +99,7 @@
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\stb_image_aug.c" />
-    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinystr.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinyxml.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinyxmlerror.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\All.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Matrix.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Quaternion.cpp" />
@@ -192,8 +189,7 @@
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\stbi_DDS_aug.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\stbi_DDS_aug_c.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\stb_image_aug.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\TinyXML\tinystr.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\TinyXML\tinyxml.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\TinyXML2\tinyxml2.h" />
     <ClInclude Include="..\..\..\Sources\Math\All.h" />
     <ClInclude Include="..\..\..\Sources\Math\Matrix.h" />
     <ClInclude Include="..\..\..\Sources\Math\Quaternion.h" />

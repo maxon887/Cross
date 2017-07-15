@@ -48,6 +48,8 @@ void MaterialScene::Start(){
 }
 
 void MaterialScene::Stop(){
+	delete material;
+	delete shader;
 	CameraControlsScene::Stop();
 }
 

@@ -24,6 +24,7 @@
 void PrimitivesScreen::Start(){
 	Screen::Start();
 	generate_entities = false;
+	SetBackground(Color::Black);
 	down_del = input->ActionDown.Connect(this, &PrimitivesScreen::OnActionDown);
 	move_del = input->ActionMove.Connect(this, &PrimitivesScreen::OnActionMove);
 	up_del = input->ActionUp.Connect(this, &PrimitivesScreen::OnActionUp);

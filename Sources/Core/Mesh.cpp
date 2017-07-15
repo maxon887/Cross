@@ -35,15 +35,14 @@ Mesh::Mesh(const Mesh& obj) :
 	EBO(obj.EBO),
 	vertex_buffer(obj.vertex_buffer),
 	index_count(obj.index_count),
+	material(obj.material),
 	indices(obj.indices),
 	initialized(obj.initialized),
 	face_culling(obj.face_culling),
 	original(false)
 {
 	vertex_buffer = obj.vertex_buffer->Clone();
-	if(obj.material){
-		material = obj.material->Clone();
-	}
+	
 }
 
 Mesh::~Mesh() {

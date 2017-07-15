@@ -112,7 +112,7 @@ void MemoryManager::Free(void* address){
 	if(!dead){
 		SanityCheck();
 		if(address == NULL){
-			throw CrossException("Null pointer deletion");
+			return;
 		}
 		for(unsigned int i = 0; i < object_count; i++){
 			if(alloc_objects[i].address == address){
@@ -124,7 +124,7 @@ void MemoryManager::Free(void* address){
 				return;
 			}
 		}
-		throw CrossException("Attempt to delete bad pointer");
+		Log("Attempt to delete bad pointer\n");
 	}else{
 		free(address);
 	}

@@ -225,7 +225,7 @@ void Scene::Load(const string& file){
 					if(materialID != -1){
 						gfx3D->AdjustMaterial(entity, materials[materialID]);
 					}else{
-						gfx3D->AdjustMaterial(entity, gfx3D->GetDefaultMaterial()->Clone());
+						gfx3D->AdjustMaterial(entity, gfx3D->GetDefaultMaterial());
 					}
 				}else{
 					entity = new Entity();
