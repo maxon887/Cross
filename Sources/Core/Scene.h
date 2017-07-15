@@ -25,9 +25,6 @@ namespace cross{
 	Models, Meshes, Lights can exists only in Scene */
 class Scene : public Screen{
 public:
-	Scene() = default;
-	Scene(const string& filename);
-
 	Event<Entity*> EntityAdded;
 	/* Called before scene show up. */
 	virtual void Start() override;
@@ -78,7 +75,6 @@ protected:
 private:
 	static const U32 scene_loader_version	= 11;
 	string name								= "";
-	string filename							= "";
     U64 resize_del							= -1;
 	void WindowResizeHandle(S32 width, S32 height);
 };

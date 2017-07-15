@@ -60,6 +60,16 @@ void Game::SetScreen(Screen* screen){
 	if(!current_screen){	//in this case we need momentaly load new screen
 		LoadNextScreen();
 	}
+	scene_file = "";
+}
+
+void Game::SetScene(Scene* scene){
+	SetScreen(scene);
+}
+
+void Game::SetScene(Scene* scene, const string& filename){
+	SetScreen(scene);
+	scene_file = filename;
 }
 
 Screen* Game::GetCurrentScreen(){
@@ -142,6 +152,9 @@ void Game::LoadNextScreen(){
 	current_screen = next_screen;
 	next_screen = NULL;
 	current_screen->Start();
+	if(scene_file != ""){
+		((Scene*)current_screen)->Load(scene_file);
+	}
 	timestamp = sys->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	sys->LogIt("Screen(no name) loaded in %0.1fms", loadTime);

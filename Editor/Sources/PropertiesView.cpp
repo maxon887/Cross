@@ -16,7 +16,7 @@ void PropertiesView::Update(float sec){
 	}
 }
 
-void PropertiesView::OnSceneLoaded(Scene*){
+void PropertiesView::OnScreenChanged(Screen*){
 	selected_entity = NULL;
 	entity_component->SetEntity(NULL);
 	entity_component->hide();
@@ -30,7 +30,7 @@ void PropertiesView::OnEntitySelected(const QModelIndex &index) {
 }
 
 void PropertiesView::showEvent(QShowEvent *event) {
-	editor->SceneLoaded.Connect(this, &PropertiesView::OnSceneLoaded);
+	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
 	entity_component = findChild<EntityComponent*>();
 	entity_component->hide();
 }

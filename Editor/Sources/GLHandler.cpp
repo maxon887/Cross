@@ -51,6 +51,7 @@ void GLHandler::paintGL(){
 	try{
 		game->EngineUpdate();
 	} catch(Exception &exc) {
+		((CrossEditor*)game)->OnNewSceneClick();
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
 			+"\nLine: " + to_string(exc.line);

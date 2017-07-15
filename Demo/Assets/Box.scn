@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
-<Scene name="Box" version=11>
+<Scene name="Box" version="11">
 	<Light>
-		<Point count=1/>
+		<Point count="1"/>
 	</Light>
 	<Objects>
 		<Object name="Cube"
 				file="Engine/Models/Cube.obj">
-			<Position x=0.0 y=0.0 z=0.0/>
+			<Position x="0.0" y="0.0" z="0.0"/>
 		</Object>
 		<Object name="Light">
-			<Position x=2.0 y=3.0 z=0.0/>
+			<Position x="2.0" y="3.0" z="0.0"/>
 			<Components>
 				<Component name="Light" type="Point" />
 			</Components>

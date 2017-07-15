@@ -92,15 +92,19 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 	scene_model = new SceneModel();
 	setModel(scene_model);
 	header()->hide();
-	editor->SceneLoaded.Connect(this, &SceneExplorer::OnSceneLoaded);
+	editor->ScreenChanged.Connect(this, &SceneExplorer::OnScreenChanged);
 }
 
 SceneExplorer::~SceneExplorer(){
 	delete scene_model;
 }
 
-void SceneExplorer::OnSceneLoaded(Scene* scene){
-	scene->EntityAdded.Connect(this, &SceneExplorer::OnEntityAdded);
+void SceneExplorer::OnScreenChanged(Screen* screen){
+	Scene* scene = dynamic_cast<Scene*>(screen);
+	if(scene){
+		scene->EntityAdded.Connect(this, &SceneExplorer::OnEntityAdded);
+	}
+	reset();
 }
 
 void SceneExplorer::OnEntityAdded(Entity* entity){

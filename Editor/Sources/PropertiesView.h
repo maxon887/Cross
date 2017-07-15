@@ -18,7 +18,7 @@ public:
 
 	void Update(float sec);
 
-	void OnSceneLoaded(Scene*);
+	void OnScreenChanged(Screen*);
 	void OnEntitySelected(const QModelIndex &index);
 
 protected:

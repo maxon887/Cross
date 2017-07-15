@@ -27,8 +27,7 @@ CrossEditor::~CrossEditor()
 { }
 
 Screen* CrossEditor::GetStartScreen(){
-	scene_view = new SceneView();
-	return scene_view;
+	return new SceneView();
 }
 
 void CrossEditor::Update(float sec){
@@ -47,10 +46,9 @@ void CrossEditor::LoadScene(QString& scenePath){
 	try{
 		scene_file = scenePath;
 		ui.sceneExplorerTree->clearSelection();
-		scene_view->Load(scenePath.toStdString());
-		setWindowTitle(QString("Cross Editor - ") + QString(scene_view->GetName().c_str()));
-		ui.sceneExplorerTree->reset();
-		SceneLoaded(scene_view);
+		SetScene(new SceneView(), scenePath.toStdString());
+		QFile file(scenePath);
+		setWindowTitle(QString("Cross Editor - ") + file.fileName());
 	}catch(Exception exc){
 		string msg = string(exc.message) +
 			+"\nFile: " + string(exc.filename) +
@@ -76,14 +74,15 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 }
 
 void CrossEditor::OnNewSceneClick(){
-
+	ui.sceneExplorerTree->reset();
+	SetScene(new SceneView());
 }
 
 void CrossEditor::OnSaveAsClick(){
 	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()) + scene_file;
 	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
 	if(filePath != ""){
-		scene_view->Save(filePath.toStdString());
+		game->GetCurrentScene()->Save(filePath.toStdString());
 	}
 }
 

@@ -32,10 +32,6 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Scene::Scene(const string& filename) :
-	filename(filename)
-{ }
-
 void Scene::Start(){
 	Screen::Start();
 	is_scene = true;
@@ -46,9 +42,6 @@ void Scene::Start(){
 	camera = new Camera(projection);
 
 	resize_del = sys->WindowResized.Connect(this, &Scene::WindowResizeHandle);
-	if(filename != ""){
-		Load(filename);
-	}
 }
 
 void Scene::Update(float sec){
@@ -82,7 +75,6 @@ void Scene::SetName(const string& name){
 }
 
 void Scene::Load(const string& file){
-	Clear();
 	string path = "";
 	path = sys->AssetsPath() + file;
 
@@ -227,7 +219,7 @@ void Scene::Load(const string& file){
 				const char* file = objectXML->Attribute("file");
 				Entity* entity = NULL;
 				if(file){
-					int materialID = objectXML->IntAttribute("material");
+					int materialID = objectXML->IntAttribute("material", -1);
 
 					entity = gfx3D->LoadModel(file);
 					if(materialID != -1){

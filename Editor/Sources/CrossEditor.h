@@ -15,8 +15,6 @@ class CrossEditor : public QMainWindow,
 {
 	Q_OBJECT
 public:
-	Event<Scene*> SceneLoaded;
-
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
 
@@ -27,19 +25,19 @@ public:
 	void RestoreSettings();
 	void ExceptionMsgBox(const char* msg);
 
-protected:
-	void closeEvent(QCloseEvent* eve);
-
-private:
-	Ui::CrossEditorClass ui;
-	SceneView* scene_view;
-	QString scene_file;
-
 	void OnNewSceneClick();
 	void OnSaveAsClick();
 
 	void OnFileExplorerClick();
 	void OnSceneExplorerClick();
+
+protected:
+	void closeEvent(QCloseEvent* eve);
+
+private:
+	Ui::CrossEditorClass ui;
+	QString scene_file;
+
 };
 
 #endif // !CROSS_EDITOR

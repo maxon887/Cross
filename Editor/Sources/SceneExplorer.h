@@ -23,7 +23,7 @@ public:
 	SceneExplorer(QWidget* parent = 0);
 	~SceneExplorer();
 
-	void OnSceneLoaded(Scene* scene);
+	void OnScreenChanged(Screen* scene);
 	void OnEntityAdded(Entity* entity);
 
 private:
