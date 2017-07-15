@@ -95,16 +95,11 @@ Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
 	}
 }
 
-Entity* Graphics3D::LoadModel(const string& filename, bool initialize, bool absolute){
+Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
 	initialize_in_load = initialize;
 	Debugger::Instance()->SetTimeCheck();
 	Entity* model = new Entity();
-	File* file = NULL;
-	if(absolute){
-		file = sys->LoadFile(filename);
-	}else{
-		file = sys->LoadAssetFile(filename);
-	}
+	File* file = sys->LoadAssetFile(filename);
 	ProcessScene(model, file);
 	delete file;
 	float loadTime = Debugger::Instance()->GetTimeCheck();

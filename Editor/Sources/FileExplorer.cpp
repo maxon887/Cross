@@ -33,11 +33,13 @@ FileExplorer::~FileExplorer(){
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
+	QDir root = file_system->rootDirectory();
+	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
 	try{
 		if(fileInfo.suffix() == "scn"){
-			editor->LoadScene(fileInfo);
+			editor->LoadScene(filepath);
 		}else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
-			Entity* model = gfx3D->LoadModel(fileInfo.absoluteFilePath().toStdString(), true, true);
+			Entity* model = gfx3D->LoadModel(filepath.toStdString());
 			gfx3D->AdjustMaterial(model, gfx3D->GetDefaultMaterial()->Clone());
 			editor->GetCurrentScene()->AddEntity(model);
 		}

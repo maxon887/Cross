@@ -32,6 +32,10 @@
 using namespace cross;
 using namespace tinyxml2;
 
+Scene::Scene(const string& filename) :
+	filename(filename)
+{ }
+
 void Scene::Start(){
 	Screen::Start();
 	is_scene = true;
@@ -42,6 +46,9 @@ void Scene::Start(){
 	camera = new Camera(projection);
 
 	resize_del = sys->WindowResized.Connect(this, &Scene::WindowResizeHandle);
+	if(filename != ""){
+		Load(filename);
+	}
 }
 
 void Scene::Update(float sec){
@@ -74,19 +81,19 @@ void Scene::SetName(const string& name){
 	this->name = name;
 }
 
-void Scene::Load(const string& file, bool absolute){
+void Scene::Load(const string& file){
 	Clear();
 	string path = "";
-	if(!absolute){
-		path = sys->AssetsPath() + file;
-	}else{
-		path = file;
-	}
+	path = sys->AssetsPath() + file;
 
 	XMLDocument doc;
 	XMLError error = doc.LoadFile(path.c_str());
 	if(error != XML_SUCCESS){
-		throw CrossException("Can not parse XML document");
+		if(error == XML_ERROR_FILE_NOT_FOUND){
+			throw CrossException("File not found %s", file.c_str());
+		}else{
+			throw CrossException("Can not parse XML document");
+		}
 	}
 
 	XMLElement* scene = doc.FirstChildElement("Scene");

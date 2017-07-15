@@ -1,5 +1,6 @@
 #include "CrossEditor.h"
 #include "SceneView.h"
+#include "System.h"
 
 #include <QSettings.h>
 #include <QFileDialog.h>
@@ -14,6 +15,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	editor = this;
 	game = editor;
 	ui.setupUi(this);
+	connect(ui.actionNew_Scene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
 	connect(ui.actionSave_As, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 	connect(ui.actionScene_Explorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
@@ -41,11 +43,11 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 	QMainWindow::closeEvent(eve);
 }
 
-void CrossEditor::LoadScene(QFileInfo fileInfo){
+void CrossEditor::LoadScene(QString& scenePath){
 	try{
-		scene_file = fileInfo;
+		scene_file = scenePath;
 		ui.sceneExplorerTree->clearSelection();
-		scene_view->Load(fileInfo.absoluteFilePath().toStdString(), true);
+		scene_view->Load(scenePath.toStdString());
 		setWindowTitle(QString("Cross Editor - ") + QString(scene_view->GetName().c_str()));
 		ui.sceneExplorerTree->reset();
 		SceneLoaded(scene_view);
@@ -73,8 +75,13 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 	msgBox.exec();
 }
 
+void CrossEditor::OnNewSceneClick(){
+
+}
+
 void CrossEditor::OnSaveAsClick(){
-	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", scene_file.absoluteFilePath(), "Scene File (*.scn)");
+	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()) + scene_file;
+	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
 	if(filePath != ""){
 		scene_view->Save(filePath.toStdString());
 	}

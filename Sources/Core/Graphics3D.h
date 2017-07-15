@@ -48,7 +48,7 @@ public:
 
 	void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 	Entity* LoadPrimitive(Primitives primitive);
-	Entity* LoadModel(const string& filename, bool initialize = true, bool apsolutePath = false);
+	Entity* LoadModel(const string& filename, bool initialize = true);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
 	Material* GetDefaultMaterial();
 
