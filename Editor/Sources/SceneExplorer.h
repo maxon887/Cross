@@ -2,6 +2,7 @@
 #define SCENE_EXPLORER
 
 #include "Cross.h"
+#include "Event.h"
 
 #include <QTreeView>
 
@@ -20,6 +21,9 @@ public:
 class SceneExplorer : public QTreeView {
 	Q_OBJECT
 public:
+	Event<Entity*> EntitySelected;
+	Event<Entity*> EntityGrabFocus;
+
 	SceneExplorer(QWidget* parent = 0);
 	~SceneExplorer();
 
@@ -28,6 +32,9 @@ public:
 
 private:
 	SceneModel* scene_model;
+
+	void OnItemClick(QModelIndex index);
+	void OnItemDoubleClick(QModelIndex index);
 };
 
 #endif

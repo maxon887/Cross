@@ -41,6 +41,7 @@ public:
 	void MoveRight(float sec);
 	void MoveUp(float sec);
 	void MoveDown(float sec);
+	void MoveCameraUp(float sec);
 	
 	void LookRight(float sec);
 	void LookLeft(float sec);

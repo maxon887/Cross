@@ -19,7 +19,7 @@ public:
 	void Update(float sec);
 
 	void OnScreenChanged(Screen*);
-	void OnEntitySelected(const QModelIndex &index);
+	void OnEntitySelected(Entity* entity);
 
 protected:
 	void showEvent(QShowEvent *event);

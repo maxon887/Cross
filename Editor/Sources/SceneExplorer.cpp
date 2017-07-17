@@ -93,6 +93,9 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 	setModel(scene_model);
 	header()->hide();
 	editor->ScreenChanged.Connect(this, &SceneExplorer::OnScreenChanged);
+
+	connect(this, &QTreeView::clicked, this, &SceneExplorer::OnItemClick);
+	connect(this, &QTreeView::doubleClicked, this, &SceneExplorer::OnItemDoubleClick);
 }
 
 SceneExplorer::~SceneExplorer(){
@@ -109,4 +112,14 @@ void SceneExplorer::OnScreenChanged(Screen* screen){
 
 void SceneExplorer::OnEntityAdded(Entity* entity){
 	reset();
+}
+
+void SceneExplorer::OnItemClick(QModelIndex index){
+	Entity* selected = (Entity*)index.internalPointer();
+	EntitySelected(selected);
+}
+
+void SceneExplorer::OnItemDoubleClick(QModelIndex index){
+	Entity* selected = (Entity*)index.internalPointer();
+	EntityGrabFocus(selected);
 }

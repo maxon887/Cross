@@ -5,6 +5,7 @@
 #include <QSettings.h>
 #include <QFileDialog.h>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 CrossEditor* editor = NULL;
 
@@ -20,7 +21,8 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
 	connect(ui.actionScene_Explorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
 	
-	connect(ui.sceneExplorerTree, &QTreeView::clicked, ui.propertiesView, &PropertiesView::OnEntitySelected);
+	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
+	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
 }
 
 CrossEditor::~CrossEditor()
@@ -35,7 +37,7 @@ void CrossEditor::Update(float sec){
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
-	ui.sceneView->shutDown();
+	ui.glHandler->ShutDown();
 	QSettings settings("CrossEditor");
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
@@ -73,6 +75,15 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 	msgBox.exec();
 }
 
+void CrossEditor::OnScreenChanged(Screen* screen){
+	SceneView* sv = dynamic_cast<SceneView*>(screen);
+	if(sv){
+		static S32 del = -1;
+		ui.sceneExplorerTree->EntityGrabFocus.Disconnect(del);
+		del = ui.sceneExplorerTree->EntityGrabFocus.Connect(sv, &SceneView::OnEntityGrabFocus);
+	}
+}
+
 void CrossEditor::OnNewSceneClick(){
 	ui.sceneExplorerTree->reset();
 	SetScene(new SceneView());
@@ -92,4 +103,18 @@ void CrossEditor::OnFileExplorerClick(){
 
 void CrossEditor::OnSceneExplorerClick(){
 	ui.sceneExplorer->show();
+}
+
+void CrossEditor::keyPressEvent(QKeyEvent* key) {
+	Key k = (Key)key->nativeVirtualKey();
+	if(k < Key::MAX_KEY_NUM) {
+		input->KeyPressed(k);
+	}
+}
+
+void CrossEditor::keyReleaseEvent(QKeyEvent* key) {
+	Key k = (Key)key->nativeVirtualKey();
+	if(k < Key::MAX_KEY_NUM) {
+		input->KeyReleased(k);
+	}
 }

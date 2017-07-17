@@ -29,7 +29,7 @@ enum class Key{
 	RETURN		= 0x0D,
 	SHIFT		= 0x10,
 	CONTROL		= 0x11,
-	MENU		= 0x12,
+	ALT			= 0x12,
 	PAUSE		= 0x13,
 	ESCAPE		= 0x1B,
 	SPACE		= 0x20,
@@ -121,6 +121,8 @@ class Input{
 public:
 	struct Action{
 		Vector2D pos;
+		//on mobile devices used for touches, 
+		//on desctop used for mouse buttons, 0 - lmb, 1 - rmb
 		S32 id;
 	};
 	/* Scaled in screen coordinates input */

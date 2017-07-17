@@ -15,19 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SceneView.h"
-#include "Input.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
-#include "Sprite.h"
-#include "Camera2D.h"
-#include "Game.h"
-#include "Material.h"
-#include "VertexBuffer.h"
-#include "Shaders/LightShader.h"
-#include "Light.h"
+#include "System.h"
 #include "Entity.h"
-
-#include <math.h>
 
 SceneView::SceneView()
 { }
@@ -42,7 +31,34 @@ void SceneView::Stop(){
 
 void SceneView::Update(float sec){
 	FreeCameraScene::Update(sec);
-	if(input->IsPressed(Key::W)){
-		throw CrossException("Imput working");
+}
+
+void SceneView::ActionDown(Input::Action a){
+	FreeCameraScene::ActionDown(a);
+	if(a.id == 2){
+		pos = a.pos;
 	}
+}
+
+void SceneView::ActionMove(Input::Action a){
+	if(a.id == 0 && input->IsPressed(Key::ALT)){
+		LookAtCamera(true);
+		FreeCameraScene::ActionMove(a);
+	}
+	if(a.id == 1) {
+		LookAtCamera(false);
+		FreeCameraScene::ActionMove(a);
+	}
+	if(a.id == 2){
+		LookAtCamera(false);
+		Vector2D delta = pos - a.pos;
+		pos = a.pos;
+		MoveCameraUp(delta.y / 1500.f);
+		MoveRight(delta.x / 1500.f);
+	}
+}
+
+void SceneView::OnEntityGrabFocus(Entity* e){
+	LookAtCamera(e->GetPosition());
+	GetCamera()->LookAt(e->GetPosition());
 }

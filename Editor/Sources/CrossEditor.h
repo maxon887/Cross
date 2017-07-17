@@ -25,6 +25,8 @@ public:
 	void RestoreSettings();
 	void ExceptionMsgBox(const char* msg);
 
+	void OnScreenChanged(Screen* screen);
+
 	void OnNewSceneClick();
 	void OnSaveAsClick();
 
@@ -33,6 +35,8 @@ public:
 
 protected:
 	void closeEvent(QCloseEvent* eve);
+	void keyPressEvent(QKeyEvent* key) override;
+	void keyReleaseEvent(QKeyEvent* key) override;
 
 private:
 	Ui::CrossEditorClass ui;

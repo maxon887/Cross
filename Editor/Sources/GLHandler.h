@@ -15,18 +15,21 @@ public:
 	GLHandler(QWidget* parent = 0);
 	~GLHandler();
 
-	void initializeGL();
-	void update();
-	void paintGL();
-	void resizeGL(int w, int h);
-	void shutDown();
+	void initializeGL() override;
+	void paintGL() override;
+	void resizeGL(int w, int h) override;
 
-	void mousePressEvent(QMouseEvent* eve);
-	void mouseMoveEvent(QMouseEvent* eve);
-	void mouseReleaseEvent(QMouseEvent* eve);
+	void mousePressEvent(QMouseEvent* eve) override;
+	void mouseMoveEvent(QMouseEvent* eve) override;
+	void mouseReleaseEvent(QMouseEvent* eve) override;
 
-	void keyPressEvent(QKeyEvent* key) override;
-	void keyReleaseEvent(QKeyEvent* key) override;
+	void wheelEvent(QWheelEvent* wheel) override;
+
+	void Update();
+	void ShutDown();
+
+protected:
+	S32 MouseButtonID(QMouseEvent* e);
 };
 
 #endif // !GL_HANDLER

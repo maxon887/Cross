@@ -22,9 +22,9 @@ void PropertiesView::OnScreenChanged(Screen*){
 	entity_component->hide();
 }
 
-void PropertiesView::OnEntitySelected(const QModelIndex &index) {
+void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
-	selected_entity = (Entity*)index.internalPointer();
+	selected_entity = entity;
 	entity_component->show();
 	entity_component->SetEntity(selected_entity);
 }

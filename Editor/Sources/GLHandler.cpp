@@ -34,7 +34,7 @@ void GLHandler::initializeGL(){
 		game->SetScreen(game->GetStartScreen());
 
 		auto pTimer = new QTimer(this);
-		connect(pTimer, &QTimer::timeout, this, &GLHandler::update); 
+		connect(pTimer, &QTimer::timeout, this, &GLHandler::Update); 
 		pTimer->start(1000 / 60.0);
 	}catch(Exception &exc){
 		string msg = string(exc.message) +
@@ -44,7 +44,7 @@ void GLHandler::initializeGL(){
 	}
 }
 
-void GLHandler::update(){
+void GLHandler::Update(){
 	QOpenGLWidget::update();
 }
 
@@ -67,7 +67,7 @@ void GLHandler::resizeGL(int w, int h){
 	//game->WindowResized(w, h);
 }
 
-void GLHandler::shutDown(){
+void GLHandler::ShutDown(){
 	try{
 		game->GetCurrentScreen()->Stop();
 		game->Stop();
@@ -84,27 +84,50 @@ void GLHandler::shutDown(){
 
 void GLHandler::mousePressEvent(QMouseEvent* eve){
 	setFocus();
-	input->TargetActionDown((float)eve->x(), (float)eve->y(), 0);
+	U32 id = MouseButtonID(eve);
+	input->TargetActionDown((float)eve->x(), (float)eve->y(), id);
 }
 
 void GLHandler::mouseMoveEvent(QMouseEvent* eve){
-	input->TargetActionMove((float)eve->x(), (float)eve->y(), 0);
-}
-
-void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
-	input->TargetActionUp((float)eve->x(), (float)eve->y(), 0);
-}
-
-void GLHandler::keyPressEvent(QKeyEvent* key){
-	Key k = (Key)key->nativeVirtualKey();
-	if(k < Key::MAX_KEY_NUM){
-		input->KeyPressed(k);
+	S32 id = MouseButtonID(eve);
+	if(id >= 0){
+		input->TargetActionMove((float)eve->x(), (float)eve->y(), id);
 	}
 }
 
-void GLHandler::keyReleaseEvent(QKeyEvent* key){
-	Key k = (Key)key->nativeVirtualKey();
-	if(k < Key::MAX_KEY_NUM) {
-		input->KeyReleased(k);
+void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
+	S32 id = 0;
+	switch(eve->button()) {
+	case Qt::LeftButton:
+		id = 0;
+		break;
+	case Qt::RightButton:
+		id = 1;
+		break;
+	case Qt::MidButton:
+		id = 2;
+		break;
+	}
+	input->TargetActionUp((float)eve->x(), (float)eve->y(), id);
+}
+
+void GLHandler::wheelEvent(QWheelEvent* wheel){
+	if(wheel->delta() > 0){
+		input->MouseWheelUp();
+	}else{
+		input->MouseWheelDown();
+	}
+}
+
+S32 GLHandler::MouseButtonID(QMouseEvent* e){
+	switch(e->buttons())	{
+	case Qt::LeftButton:
+		return 0;
+	case Qt::RightButton:
+		return 1;
+	case Qt::MidButton:
+		return 2;
+	default:
+		return -1;
 	}
 }

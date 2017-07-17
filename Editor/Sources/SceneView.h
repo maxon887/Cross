@@ -32,4 +32,12 @@ public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
+
+	void ActionDown(Input::Action action) override;
+	void ActionMove(Input::Action action) override;
+
+	void OnEntityGrabFocus(Entity* entity);
+
+private:
+	Vector2D pos;
 };
