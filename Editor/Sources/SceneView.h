@@ -36,8 +36,16 @@ public:
 	void ActionDown(Input::Action action) override;
 	void ActionMove(Input::Action action) override;
 
+	void OnEntitySelected(Entity* entity);
 	void OnEntityGrabFocus(Entity* entity);
 
 private:
 	Vector2D pos;
+
+	Shader* selection_shader		= NULL;
+	Material* selection_material	= NULL;
+	Entity* selected_entity			= NULL;
+
+	void Draw(Entity* e);
+	void EnableMesh(Entity* e, bool value);
 };

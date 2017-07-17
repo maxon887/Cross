@@ -41,12 +41,15 @@ public:
 	Component* GetComponent(Component::Type type);
 	Transformable* GetTransform();
 	Vector3D GetPosition() const;
+	bool IsEnabled();
+	void Enable(bool enable);
 
 private:
 	friend Entity;
 
 	Type type;
 	Entity* entity	= NULL;
+	bool enabled	= true;
 };
 
 }

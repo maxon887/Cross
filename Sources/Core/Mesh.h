@@ -33,7 +33,10 @@ public:
 	~Mesh();
 
 	void Update(float sec) override;
-	void Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilBehvaiour);
+	void Draw();
+	void Draw(Material* material);
+	void Draw(	const Matrix& globalModel, Material* material, 
+				Graphics3D::StencilBehaviour stencilBehvaiour);
 
 	void TransferVideoData();
 	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);

@@ -63,5 +63,5 @@ void Skybox::Draw(){
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
 	Mesh* mesh = (Mesh*)box->GetChildren().front()->GetComponent(Component::Type::MESH);
-	mesh->Draw(mvp, Graphics3D::StencilBehaviour::IGNORED);
+	mesh->Draw(mvp, material, Graphics3D::StencilBehaviour::IGNORED);
 }

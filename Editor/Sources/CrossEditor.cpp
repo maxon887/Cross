@@ -78,9 +78,12 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 void CrossEditor::OnScreenChanged(Screen* screen){
 	SceneView* sv = dynamic_cast<SceneView*>(screen);
 	if(sv){
-		static S32 del = -1;
-		ui.sceneExplorerTree->EntityGrabFocus.Disconnect(del);
-		del = ui.sceneExplorerTree->EntityGrabFocus.Connect(sv, &SceneView::OnEntityGrabFocus);
+		static S32 grabFocusDel = -1;
+		static S32 entitySelectedDel = -1;
+		ui.sceneExplorerTree->EntityGrabFocus.Disconnect(grabFocusDel);
+		ui.sceneExplorerTree->EntitySelected.Disconnect(entitySelectedDel);
+		grabFocusDel = ui.sceneExplorerTree->EntityGrabFocus.Connect(sv, &SceneView::OnEntityGrabFocus);
+		entitySelectedDel = ui.sceneExplorerTree->EntitySelected.Connect(sv, &SceneView::OnEntitySelected);
 	}
 }
 

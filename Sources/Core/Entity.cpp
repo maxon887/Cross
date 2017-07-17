@@ -51,7 +51,7 @@ void Entity::Remove(){
 
 void Entity::Update(float sec){
 	for(Component* c : components){
-		if(c){
+		if(c && c->IsEnabled()){
 			c->Update(sec);
 		}
 	}

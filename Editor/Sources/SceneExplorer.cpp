@@ -6,6 +6,7 @@
 #include "CrossEditor.h"
 
 #include <QHeaderView.h>
+#include <QMouseEvent>
 
 QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) const {
 	if(!hasIndex(row, column, parent)){
@@ -122,4 +123,15 @@ void SceneExplorer::OnItemClick(QModelIndex index){
 void SceneExplorer::OnItemDoubleClick(QModelIndex index){
 	Entity* selected = (Entity*)index.internalPointer();
 	EntityGrabFocus(selected);
+}
+
+void SceneExplorer::mousePressEvent(QMouseEvent* e){
+	QTreeView::mousePressEvent(e);
+	QModelIndex index = indexAt(e->pos());
+	if(index.row() == -1 && index.column() == -1) {
+		clearSelection();
+		const QModelIndex index;
+		selectionModel()->setCurrentIndex(index, QItemSelectionModel::Select);
+		EntitySelected(NULL);
+	}
 }

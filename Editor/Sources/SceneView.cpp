@@ -17,12 +17,18 @@
 #include "SceneView.h"
 #include "System.h"
 #include "Entity.h"
+#include "GraphicsGL.h"
+#include "Material.h"
+#include "Mesh.h"
 
 SceneView::SceneView()
 { }
 
 void SceneView::Start() {
 	FreeCameraScene::Start();
+	selection_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	selection_shader->Compile();
+	selection_material = new Material(selection_shader);
 }
 
 void SceneView::Stop(){
@@ -31,6 +37,9 @@ void SceneView::Stop(){
 
 void SceneView::Update(float sec){
 	FreeCameraScene::Update(sec);
+	if(selected_entity){
+		Draw(selected_entity);
+	}
 }
 
 void SceneView::ActionDown(Input::Action a){
@@ -58,7 +67,37 @@ void SceneView::ActionMove(Input::Action a){
 	}
 }
 
+void SceneView::OnEntitySelected(Entity* e){
+	if(selected_entity) {
+		EnableMesh(selected_entity, true);
+	}
+	if(e){
+		EnableMesh(e, false);
+		selected_entity = e;
+	}
+}
+
 void SceneView::OnEntityGrabFocus(Entity* e){
 	LookAtCamera(e->GetPosition());
 	GetCamera()->LookAt(e->GetPosition());
+}
+
+void SceneView::Draw(Entity* e){
+	Mesh* mesh = (Mesh*)e->GetComponent(Component::MESH);
+	if(mesh){
+		mesh->Draw(selection_material);
+	}
+	for(Entity* child : e->GetChildren()){
+		Draw(child);
+	}
+}
+
+void SceneView::EnableMesh(Entity *e, bool value){
+	Mesh* mesh = (Mesh*)e->GetComponent(Component::MESH);
+	if(mesh) {
+		mesh->Enable(value);
+	}
+	for(Entity* child : e->GetChildren()) {
+		EnableMesh(child, value);
+	}
 }

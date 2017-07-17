@@ -54,10 +54,19 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Update(float sec){
-	Draw(GetEntity()->GetWorldMatrix(), Graphics3D::StencilBehaviour::IGNORED);
+	Draw();
 }
 
-void Mesh::Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilBehvaiour) {
+void Mesh::Draw(Material* mat){
+	Draw(GetEntity()->GetWorldMatrix(), mat, Graphics3D::StencilBehaviour::IGNORED);
+}
+
+void Mesh::Draw(){
+	Draw(GetEntity()->GetWorldMatrix(), material, Graphics3D::StencilBehaviour::IGNORED);
+}
+
+void Mesh::Draw(const Matrix& globalModel, Material* material,
+				Graphics3D::StencilBehaviour stencilBehvaiour) {
 	if(!initialized) {
 		throw CrossException("Before draw mesh needs to be initialized");
 	}

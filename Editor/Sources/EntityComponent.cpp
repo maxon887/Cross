@@ -37,9 +37,11 @@ void EntityComponent::Update(float sec){
 }
 
 void EntityComponent::SetEntity(Entity* entity){
+	this->entity = entity;
 	if(entity){
-		this->entity = entity;
 		setTitle(entity->GetName().c_str());
+	}else{
+		hide();
 	}
 }
 

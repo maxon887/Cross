@@ -35,6 +35,7 @@ private:
 
 	void OnItemClick(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
+	void mousePressEvent(QMouseEvent* e) override;
 };
 
 #endif

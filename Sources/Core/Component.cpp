@@ -50,3 +50,11 @@ Transformable* Component::GetTransform(){
 Vector3D Component::GetPosition() const{
 	return entity->GetPosition();
 }
+
+bool Component::IsEnabled(){
+	return enabled;
+}
+
+void Component::Enable(bool e){
+	this->enabled = e;
+}
