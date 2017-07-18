@@ -23,6 +23,8 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	
 	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
+
+	setWindowTitle(QString("Cross Editor - Untitled*"));
 }
 
 CrossEditor::~CrossEditor()
@@ -89,13 +91,17 @@ void CrossEditor::OnScreenChanged(Screen* screen){
 
 void CrossEditor::OnNewSceneClick(){
 	ui.sceneExplorerTree->reset();
+	setWindowTitle(QString("Cross Editor - Untitled*"));
 	SetScene(new SceneView());
 }
 
 void CrossEditor::OnSaveAsClick(){
 	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()) + scene_file;
 	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
+	QFileInfo file(filePath);
 	if(filePath != ""){
+		setWindowTitle(QString("Cross Editor - ") + QString(file.baseName()));
+		game->GetCurrentScene()->SetName(file.baseName().toStdString().c_str());
 		game->GetCurrentScene()->Save(filePath.toStdString());
 	}
 }

@@ -26,6 +26,7 @@ SceneView::SceneView()
 
 void SceneView::Start() {
 	FreeCameraScene::Start();
+	SetAmbientColor(Color::White);
 	selection_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	selection_shader->Compile();
 	selection_material = new Material(selection_shader);
