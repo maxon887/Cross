@@ -39,9 +39,9 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 		if(fileInfo.suffix() == "scn"){
 			editor->LoadScene(filepath);
 		}else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
-			Entity* model = gfx3D->LoadModel(filepath.toStdString());
-			gfx3D->AdjustMaterial(model, gfx3D->GetDefaultMaterial()->Clone());
-			editor->GetCurrentScene()->AddEntity(model);
+			Model* model = gfx3D->LoadModel(filepath.toStdString());
+			gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
+			editor->GetCurrentScene()->AddModel(model);
 		}
 	}catch(Exception ex){
 		editor->ExceptionMsgBox(ex.message);

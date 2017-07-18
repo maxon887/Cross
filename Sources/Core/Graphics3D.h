@@ -26,6 +26,13 @@ namespace cross{
 
 class MultiLightShader;
 
+class Model {
+public:
+	string filename;
+	Dictionary<S32, Mesh*> meshes;
+	Entity* hierarchy;
+};
+
 /*	Class responsible for 3D objects drawing 
 	and model loading */
 class Graphics3D{
@@ -48,7 +55,7 @@ public:
 
 	void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 	Entity* LoadPrimitive(Primitives primitive);
-	Entity* LoadModel(const string& filename, bool initialize = true);
+	Model* LoadModel(const string& filename, bool initialize = true);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
 	Material* GetDefaultMaterial();
 
@@ -60,8 +67,10 @@ protected:
 	bool initialize_in_load				= true;
 	Array<Entity*> primitives			= Array<Entity*>(COUNT, NULL);
 
-	void ProcessScene(Entity* model, File* sceneFile);
-	void ProcessNode(Entity* model, aiNode* node);
+	S32 mesh_id = 0;
+
+	void ProcessScene(Model* model, Entity* root, File* sceneFile);
+	void ProcessNode(Model* model, Entity* entity, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
 
 };

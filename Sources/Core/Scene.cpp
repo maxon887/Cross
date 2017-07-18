@@ -22,6 +22,7 @@
 #include "Light.h"
 #include "Entity.h"
 #include "Material.h"
+#include "Mesh.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Shaders/MultiLightShader.h"
@@ -210,57 +211,21 @@ void Scene::Load(const string& file){
 				materialXML = materialXML->NextSiblingElement("Material");
 			}
 		}
+		//models loading
+		XMLElement* modelsXML = scene->FirstChildElement("Models");
+		if(modelsXML){
+			XMLElement* modelXML = modelsXML->FirstChildElement("Model");
+			U32 id = modelXML->IntAttribute("id");
+			const char* filename = modelXML->Attribute("file");
+			Model* model = gfx3D->LoadModel(filename);
+			models[id] = model;
+		}
 		//objects loading
 		XMLElement* objectsXML = scene->FirstChildElement("Objects");
 		if(objectsXML){
 			XMLElement* objectXML = objectsXML->FirstChildElement("Object");
 			while(objectXML){
-				const char* name = objectXML->Attribute("name");
-				const char* file = objectXML->Attribute("file");
-				Entity* entity = NULL;
-				if(file){
-					int materialID = objectXML->IntAttribute("material", -1);
-
-					entity = gfx3D->LoadModel(file);
-					if(materialID != -1){
-						gfx3D->AdjustMaterial(entity, materials[materialID]);
-					}else{
-						gfx3D->AdjustMaterial(entity, gfx3D->GetDefaultMaterial());
-					}
-				}else{
-					entity = new Entity();
-				}
-				entity->SetName(name);
-
-				XMLElement* posXML = objectXML->FirstChildElement("Position");
-				if(posXML){
-					double x = posXML->DoubleAttribute("x");
-					double y = posXML->DoubleAttribute("y");
-					double z = posXML->DoubleAttribute("z");
-					Vector3D pos((float)x, (float)y, (float)z);
-					entity->SetPosition(pos);
-				}
-
-				XMLElement* componentsXML = objectXML->FirstChildElement("Components");
-				if(componentsXML){
-					XMLElement* componentXML = componentsXML->FirstChildElement("Component");
-					while(componentXML){
-						const char* name = componentXML->Attribute("name");
-						if(strcmp(name, "Light") == 0){
-							const char* type = componentXML->Attribute("type");
-							if(strcmp(type, "Point") == 0){
-								Light* light = new Light(Light::Type::POINT);
-								entity->AddComponent(light);
-							}else{
-								throw CrossException("Unknown light type");
-							}
-						}else{
-							throw CrossException("Unknown component");
-						}
-						componentXML = componentXML->NextSiblingElement();
-					}
-				}
-				AddEntity(entity);
+				LoadEntity(root, objectXML);
 				objectXML = objectXML->NextSiblingElement("Object");
 			}
 		}
@@ -422,6 +387,27 @@ void Scene::Save(const string& filename){
 		sceneXML->LinkEndChild(materialsXML);
 	}
 
+	if(models.size() > 0){
+		XMLElement* modelsXML = doc.NewElement("Models");
+		for(pair<S32, Model*> pair : models){
+			XMLElement* modelXML = doc.NewElement("Model");
+			S32 id = pair.first;
+			Model* model = pair.second;
+			modelXML->SetAttribute("id", id);
+			modelXML->SetAttribute("file", model->filename.c_str());
+			modelsXML->LinkEndChild(modelXML);
+		}
+		sceneXML->LinkEndChild(modelsXML);
+	}
+
+	if(root->children.size() > 0){
+		XMLElement* objectsXML = doc.NewElement("Objects");
+		for(Entity* entity : root->children){
+			SaveEntity(entity, objectsXML, &doc);
+		}
+		sceneXML->LinkEndChild(objectsXML);
+	}
+
 	XMLPrinter printer;
 	doc.Accept(&printer);
 	File gameConfig;
@@ -472,6 +458,12 @@ void Scene::AddEntity(Entity* entity){
 	EntityAdded(entity);//trigger
 }
 
+void Scene::AddModel(Model* model){
+	models[model_id] = model;
+	model_id++;
+	AddEntity(model->hierarchy);
+}
+
 Entity* Scene::RemoveEntity(const string& name){
 	return root->RemoveChild(name);
 }
@@ -513,4 +505,121 @@ S32 Scene::FindTextureID(Texture* texture){
 void Scene::WindowResizeHandle(S32 width, S32 height){
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
+}
+
+void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
+	const char* name = objectXML->Attribute("name");
+	Entity* entity = new Entity();
+	parent->AddChild(entity);
+	entity->SetName(name);
+
+	XMLElement* posXML = objectXML->FirstChildElement("Position");
+	if(posXML) {
+		double x = posXML->DoubleAttribute("x");
+		double y = posXML->DoubleAttribute("y");
+		double z = posXML->DoubleAttribute("z");
+		Vector3D pos((float)x, (float)y, (float)z);
+		entity->SetPosition(pos);
+	}
+	XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
+	if(rotXML){
+		double x = rotXML->DoubleAttribute("x");
+		double y = rotXML->DoubleAttribute("y");
+		double z = rotXML->DoubleAttribute("z");
+		double angle = rotXML->DoubleAttribute("axis");
+		Quaternion rot(Vector3D((float)x, (float)y, (float)z), angle);
+		entity->SetRotate(rot);
+	}
+	XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
+	if(scaleXML){
+		double x = scaleXML->DoubleAttribute("x");
+		double y = scaleXML->DoubleAttribute("y");
+		double z = scaleXML->DoubleAttribute("z");
+		Vector3D scale((float)x, (float)y, (float)z);
+		entity->SetScale(scale);
+	}
+
+	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
+	if(componentsXML) {
+		XMLElement* meshXML = componentsXML->FirstChildElement("Mesh");
+		if(meshXML) {
+			S32 id = meshXML->IntAttribute("id");
+			S32 modelID = meshXML->IntAttribute("modelID");
+			Model* model = models[modelID];
+			Mesh* mesh = model->meshes[id]->Clone();
+			mesh->SetMaterial(gfx3D->GetDefaultMaterial());
+			entity->AddComponent(mesh);
+		}
+	}
+
+	XMLElement* childrenXML = objectXML->FirstChildElement("Children");
+	if(childrenXML){
+		XMLElement* childXML = childrenXML->FirstChildElement("Object");
+		while(childXML){
+			LoadEntity(entity, childXML);
+			childXML = childXML->NextSiblingElement("Object");
+		}
+	}
+}
+
+void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
+	XMLElement* objectXML = doc->NewElement("Object");
+	objectXML->SetAttribute("name", entity->GetName().c_str());
+	
+	XMLElement* posXML = doc->NewElement("Position");
+	Vector3D pos = entity->GetPosition();
+	posXML->SetAttribute("x", pos.x);
+	posXML->SetAttribute("y", pos.y);
+	posXML->SetAttribute("z", pos.z);
+	objectXML->LinkEndChild(posXML);
+
+	XMLElement* rotXML = doc->NewElement("Rotation");
+	Quaternion rot = entity->GetRotate().GetNormalized();
+	Vector3D axis = rot.GetAxis();
+	float angle = rot.GetAngle();
+	rotXML->SetAttribute("x", axis.x);
+	rotXML->SetAttribute("y", axis.y);
+	rotXML->SetAttribute("z", axis.z);
+	rotXML->SetAttribute("angle", angle);
+	objectXML->LinkEndChild(rotXML);
+
+	XMLElement* scaleXML = doc->NewElement("Scale");
+	Vector3D scale = entity->GetScale();
+	scaleXML->SetAttribute("x", scale.x);
+	scaleXML->SetAttribute("y", scale.y);
+	scaleXML->SetAttribute("z", scale.z);
+	objectXML->LinkEndChild(scaleXML);
+
+	Mesh* mesh = (Mesh*)entity->GetComponent(Component::MESH);
+	if(mesh){
+		XMLElement* componentsXML = doc->NewElement("Components");
+		pair<S32, S32> ids = GetModelMeshID(mesh);
+		XMLElement* meshXML = doc->NewElement("Mesh");
+		meshXML->SetAttribute("id", ids.second);
+		meshXML->SetAttribute("modelID", ids.first);
+		componentsXML->LinkEndChild(meshXML);
+		objectXML->LinkEndChild(componentsXML);
+	}
+
+	if(entity->children.size() > 0){
+		XMLElement* childrenXML = doc->NewElement("Children");
+		for(Entity* child : entity->children){
+			SaveEntity(child, childrenXML, doc);
+		}
+		objectXML->LinkEndChild(childrenXML);
+	}
+	parent->LinkEndChild(objectXML);
+}
+
+pair<S32, S32> Scene::GetModelMeshID(Mesh* mesh){
+	for(pair<S32, Model*> p : models){
+		S32 id = p.first;
+		Model* model = p.second;
+		for(pair<S32, Mesh*> p2 : model->meshes){
+			if(p2.second == mesh){
+				return pair<S32, S32>(id, p2.first);
+			}
+		}
+	}
+	throw CrossException("Can not find mesh ids");
 }

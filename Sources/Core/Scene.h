@@ -18,6 +18,14 @@
 #include "Cross.h"
 #include "Screen.h"
 #include "Input.h"
+#include "Graphics3D.h"
+
+namespace tinyxml2{
+
+class XMLElement;
+class XMLDocument;
+
+}
 
 namespace cross{
 
@@ -50,6 +58,7 @@ public:
 	Entity* GetEntity(const string& name);
 	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
+	void AddModel(Model* model);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
 	/* Returns all available light on scene. */
@@ -63,6 +72,8 @@ protected:
 	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
 	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
 	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();
+	Dictionary<S32, Model*> models			= Dictionary<S32, Model*>();
+	S32 model_id							= 0;
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= NULL;
 
@@ -73,10 +84,15 @@ protected:
 	S32 FindTextureID(Texture* texture);
 
 private:
-	static const U32 scene_loader_version	= 11;
+	static const U32 scene_loader_version	= 12;
 	string name								= "";
     U64 resize_del							= -1;
+
 	void WindowResizeHandle(S32 width, S32 height);
+	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
+	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
+
+	pair<S32, S32> GetModelMeshID(Mesh* mesh);
 };
 
 }

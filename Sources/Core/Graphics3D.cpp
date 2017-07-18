@@ -75,6 +75,8 @@ void Graphics3D::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c
 }
 
 Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
+	throw CrossException("Does not implement yet");
+	/*
 	if(primitives[primitive]){
 		return primitives[primitive]->Clone();
 	}else{
@@ -92,16 +94,22 @@ Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
 			throw CrossException("Unknown primitive type");
 		}
 		return LoadPrimitive(primitive);
-	}
+	}*/
 }
 
-Entity* Graphics3D::LoadModel(const string& filename, bool initialize){
-	initialize_in_load = initialize;
+Model* Graphics3D::LoadModel(const string& filename, bool initialize){
 	Debugger::Instance()->SetTimeCheck();
-	Entity* model = new Entity();
+
+	initialize_in_load = initialize;
+	mesh_id = 0;
+	Model* model = new Model();
+	model->filename = filename;
+	Entity* root = new Entity();
+	model->hierarchy = root;
 	File* file = sys->LoadAssetFile(filename);
-	ProcessScene(model, file);
+	ProcessScene(model, root, file);
 	delete file;
+
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	sys->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
@@ -132,21 +140,21 @@ Material* Graphics3D::GetDefaultMaterial(){
 	return default_material;
 }
 
-void Graphics3D::ProcessScene(Entity* model, File* file){
+void Graphics3D::ProcessScene(Model* model, Entity* root, File* file){
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		throw CrossException("Assimp Error: %s", importer.GetErrorString());
 	}
-	aiNode* root = current_scene->mRootNode;
-	if(root->mNumChildren == 1){
-		ProcessNode(model, root->mChildren[0]);
+	aiNode* aiRoot = current_scene->mRootNode;
+	if(aiRoot->mNumChildren == 1){
+		ProcessNode(model, root, aiRoot->mChildren[0]);
 	}else{
 		throw CrossException("Failed to load model. Unknown number of root childerns");
 	}
 }
 
-void Graphics3D::ProcessNode(Entity* entity, aiNode* node){
+void Graphics3D::ProcessNode(Model* model, Entity* entity, aiNode* node){
 	entity->SetName(node->mName.C_Str());
 
 	Matrix modelMat = Matrix::Zero;
@@ -158,13 +166,15 @@ void Graphics3D::ProcessNode(Entity* entity, aiNode* node){
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
 		Mesh* crMesh = ProcessMesh(aiMesh);
+		model->meshes[mesh_id] = crMesh;
+		mesh_id++;
 		entity->AddComponent(crMesh);
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
 		Entity* child = new Entity();
 		child->SetParent(entity);
-		ProcessNode(child, node->mChildren[i]);
+		ProcessNode(model, child, node->mChildren[i]);
 		entity->AddChild(child);
 	}
 }
