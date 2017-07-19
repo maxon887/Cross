@@ -10,7 +10,6 @@
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)
 {
-	//QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
 	file_system = new QFileSystemModel(this);
 	setModel(file_system);
 
@@ -34,7 +33,6 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
-	//reset();
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){

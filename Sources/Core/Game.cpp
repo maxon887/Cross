@@ -53,6 +53,7 @@ void Game::Start(){
 
 void Game::Stop(){
 	gfxGL->Stop();
+	current_screen = NULL;
 }
 
 void Game::SetScreen(Screen* screen){

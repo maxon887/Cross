@@ -115,7 +115,14 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="SceneExplorer" name="sceneExplorerTree"/>
+      <widget class="SceneExplorer" name="sceneExplorerTree">
+       <property name="editTriggers">
+        <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+       <property name="uniformRowHeights">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

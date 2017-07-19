@@ -33,7 +33,7 @@ QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) co
 }
 
 QModelIndex SceneModel::parent(const QModelIndex& index) const {
-	if(!index.isValid()){
+	if(!index.isValid() || !game->GetCurrentScreen()){
 		return QModelIndex();
 	}
 	Entity* childEntity = static_cast<Entity*>(index.internalPointer());
@@ -80,11 +80,25 @@ QVariant SceneModel::data(const QModelIndex& index, int role) const {
 	if(!index.isValid()){
 		return QVariant();
 	}
-	if(role != Qt::DisplayRole){
+	if(role != Qt::DisplayRole && role != Qt::EditRole){
 		return QVariant();
 	}
 	Entity* entity = static_cast<Entity*>(index.internalPointer());
 	return QVariant(QString(entity->GetName().c_str()));
+}
+
+Qt::ItemFlags SceneModel::flags(const QModelIndex& index) const {
+	return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+}
+
+bool SceneModel::setData(const QModelIndex &index, const QVariant &value, int role) {
+	if(role != Qt::EditRole){
+		return false;
+	}
+	Entity* entity = (Entity*)index.internalPointer();
+	entity->SetName(value.toString().toStdString());
+	emit dataChanged(index, index);
+	return true;
 }
 
 SceneExplorer::SceneExplorer(QWidget* parent) :
@@ -97,6 +111,7 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 
 	connect(this, &QTreeView::clicked, this, &SceneExplorer::OnItemClick);
 	connect(this, &QTreeView::doubleClicked, this, &SceneExplorer::OnItemDoubleClick);
+	connect(scene_model, &SceneModel::dataChanged, this, &SceneExplorer::OnItemChanged);
 }
 
 SceneExplorer::~SceneExplorer(){
@@ -123,6 +138,11 @@ void SceneExplorer::OnItemClick(QModelIndex index){
 void SceneExplorer::OnItemDoubleClick(QModelIndex index){
 	Entity* selected = (Entity*)index.internalPointer();
 	EntityGrabFocus(selected);
+}
+
+void SceneExplorer::OnItemChanged(QModelIndex top, QModelIndex bot){
+	Entity* entity = (Entity*)top.internalPointer();
+	EntityChanged(entity);
 }
 
 void SceneExplorer::mousePressEvent(QMouseEvent* e){

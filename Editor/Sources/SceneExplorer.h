@@ -16,6 +16,9 @@ public:
 	int rowCount(const QModelIndex& parent) const override;
 	int columnCount(const QModelIndex& parent) const override;
 	QVariant data(const QModelIndex& index, int role) const override;
+
+	Qt::ItemFlags flags(const QModelIndex& index) const override;
+	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 };
 
 class SceneExplorer : public QTreeView {
@@ -23,6 +26,7 @@ class SceneExplorer : public QTreeView {
 public:
 	Event<Entity*> EntitySelected;
 	Event<Entity*> EntityGrabFocus;
+	Event<Entity*> EntityChanged;
 
 	SceneExplorer(QWidget* parent = 0);
 	~SceneExplorer();
@@ -33,8 +37,10 @@ public:
 private:
 	SceneModel* scene_model;
 
+
 	void OnItemClick(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
+	void OnItemChanged(QModelIndex top, QModelIndex bot);
 	void mousePressEvent(QMouseEvent* e) override;
 };
 

@@ -29,6 +29,12 @@ void PropertiesView::OnEntitySelected(Entity* entity) {
 	entity_component->SetEntity(selected_entity);
 }
 
+void PropertiesView::OnEntityChanged(Entity* entity){
+	if(entity == selected_entity){
+		entity_component->SetEntity(selected_entity);
+	}
+}
+
 void PropertiesView::showEvent(QShowEvent *event) {
 	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
 	entity_component = findChild<EntityComponent*>();

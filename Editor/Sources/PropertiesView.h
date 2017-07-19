@@ -20,6 +20,7 @@ public:
 
 	void OnScreenChanged(Screen*);
 	void OnEntitySelected(Entity* entity);
+	void OnEntityChanged(Entity* entity);
 
 protected:
 	void showEvent(QShowEvent *event);

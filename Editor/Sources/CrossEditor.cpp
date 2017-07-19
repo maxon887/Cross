@@ -25,6 +25,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	
 	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
+	ui.sceneExplorerTree->EntityChanged.Connect(ui.propertiesView, &PropertiesView::OnEntityChanged);
 
 	setWindowTitle(QString("Cross Editor - Untitled*"));
 }
@@ -42,6 +43,7 @@ void CrossEditor::Update(float sec){
 
 void CrossEditor::closeEvent(QCloseEvent* eve){
 	ui.glHandler->ShutDown();
+	ui.sceneExplorerTree->reset();
 	QSettings settings("CrossEditor");
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
