@@ -91,6 +91,7 @@ void CrossEditor::OnScreenChanged(Screen* screen){
 
 void CrossEditor::OnNewSceneClick(){
 	ui.sceneExplorerTree->reset();
+	scene_file = "Untitled";
 	setWindowTitle(QString("Cross Editor - Untitled*"));
 	SetScene(new SceneView());
 }

@@ -526,7 +526,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
 		double x = rotXML->DoubleAttribute("x");
 		double y = rotXML->DoubleAttribute("y");
 		double z = rotXML->DoubleAttribute("z");
-		double angle = rotXML->DoubleAttribute("axis");
+		double angle = rotXML->DoubleAttribute("angle");
 		Quaternion rot(Vector3D((float)x, (float)y, (float)z), angle);
 		entity->SetRotate(rot);
 	}

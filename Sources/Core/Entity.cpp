@@ -169,14 +169,6 @@ Matrix Entity::GetWorldMatrix(){
 	}
 }
 
-Vector3D Entity::GetPosition() const{
-	if(parent){
-		return parent->GetModelMatrix() * Transformable::GetPosition();
-	}else{
-		return Transformable::GetPosition();
-	}
-}
-
 Vector3D Entity::GetDirection() const{
 	if(parent) {
 		return parent->GetModelMatrix() * Transformable::GetDirection();

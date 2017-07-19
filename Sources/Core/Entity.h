@@ -43,7 +43,6 @@ public:
 	Entity* Clone();
 	//Not optimized function
 	Matrix GetWorldMatrix();
-	Vector3D GetPosition() const;
 	Vector3D GetDirection() const;
 
 private:
