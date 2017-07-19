@@ -82,6 +82,10 @@ void WINSystem::Log(const char* msg){
 	OutputDebugStringA("\n");
 }
 
+void WINSystem::SetAssetPath(const string& path){
+	assets_path = path;
+}
+
 void WINSystem::Sleep(float milis){
 	IntSleep((int)(milis + .5));
 }

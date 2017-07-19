@@ -17,6 +17,8 @@ public:
 	FileExplorer(QWidget* parent = 0);
 	~FileExplorer();
 
+	void SetupProjectDirectory(QString dir);
+
 private:
 	CrossEditor* cross_editor;
 	QFileSystemModel* file_system;

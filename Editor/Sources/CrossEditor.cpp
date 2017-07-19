@@ -1,6 +1,7 @@
 #include "CrossEditor.h"
 #include "SceneView.h"
 #include "System.h"
+#include "Platform/Windows/WINSystem.h"
 
 #include <QSettings.h>
 #include <QFileDialog.h>
@@ -16,10 +17,11 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	editor = this;
 	game = editor;
 	ui.setupUi(this);
-	connect(ui.actionNew_Scene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
-	connect(ui.actionSave_As, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
-	connect(ui.actionFile_Explorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
-	connect(ui.actionScene_Explorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
+	connect(ui.actionNewScene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
+	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
+	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
+	connect(ui.actionFileExplorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
+	connect(ui.actionSceneExplorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
 	
 	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
@@ -104,6 +106,20 @@ void CrossEditor::OnSaveAsClick(){
 		setWindowTitle(QString("Cross Editor - ") + QString(file.baseName()));
 		game->GetCurrentScene()->SetName(file.baseName().toStdString().c_str());
 		game->GetCurrentScene()->Save(filePath.toStdString());
+	}
+}
+
+void CrossEditor::OnSetupProjectDirectoryClick(){
+	QString path = QFileDialog::getExistingDirectory(this, "Setup Project Directory", QDir::currentPath());
+	path += "/";
+	WINSystem* winSys = dynamic_cast<WINSystem*>(sys);
+	if(path != ""){
+		if(winSys){
+			winSys->SetAssetPath(path.toStdString());
+			ui.fileExplorerTree->SetupProjectDirectory(path);
+		}else{
+			throw CrossException("You are not under Windows opertating system");
+		}
 	}
 }
 

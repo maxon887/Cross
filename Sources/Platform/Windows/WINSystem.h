@@ -27,10 +27,12 @@ public:
 	WINSystem(HWND wnd = 0);
 	~WINSystem();
 
-	string AssetsPath();
-	string DataPath();
-	U64 GetTime();
-	void Log(const char* msg);
+	string AssetsPath() override;
+	string DataPath() override;
+	U64 GetTime() override;
+	void Log(const char* msg) override;
+
+	void SetAssetPath(const string& path);
 	void Sleep(float milis);
 	void ShowMessage(const string& msg);
 	void FullScreen(bool yes);
@@ -44,7 +46,7 @@ public:
 	
 private:
 	HWND wnd			= 0;
-	char* assets_path	= "";
+	string assets_path	= "";
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;

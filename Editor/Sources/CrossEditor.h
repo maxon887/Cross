@@ -29,6 +29,7 @@ public:
 
 	void OnNewSceneClick();
 	void OnSaveAsClick();
+	void OnSetupProjectDirectoryClick();
 
 	void OnFileExplorerClick();
 	void OnSceneExplorerClick();

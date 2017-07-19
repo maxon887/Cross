@@ -10,11 +10,11 @@
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)
 {
-	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	//QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
 	file_system = new QFileSystemModel(this);
-	file_system->setRootPath(path);
 	setModel(file_system);
-	setRootIndex(file_system->index(path));
+
+	SetupProjectDirectory(QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()));
 
 	hideColumn(2);
 	hideColumn(3);
@@ -29,6 +29,12 @@ FileExplorer::FileExplorer(QWidget* parent) :
 FileExplorer::~FileExplorer(){
 	delete file_system;
 	disconnect(this, &QTreeView::doubleClicked, this, &FileExplorer::OnItemDoubleClick);
+}
+
+void FileExplorer::SetupProjectDirectory(QString dir){
+	file_system->setRootPath(dir);
+	setRootIndex(file_system->index(dir));
+	//reset();
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){
