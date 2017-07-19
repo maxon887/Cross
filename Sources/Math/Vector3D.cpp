@@ -88,9 +88,11 @@ void Vector3D::Normaize(){
 Vector3D Vector3D::GetNormalized() const{
 	Vector3D result;
 	float len = Length();
-	result.x = x / len;
-	result.y = y / len;
-	result.z = z / len;
+	if(len > 0){
+		result.x = x / len;
+		result.y = y / len;
+		result.z = z / len;
+	}
 	return result;
 }
 

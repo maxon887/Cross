@@ -136,9 +136,11 @@ Matrix Quaternion::GetMatrix() const{
 Vector3D Quaternion::GetAxis() const{
 	Vector3D axis;
 	float sinA = sqrt(1.f - w * w);
-	axis.x = x / sinA;
-	axis.y = y / sinA;
-	axis.z = z / sinA;
+	if(sinA > 0){
+		axis.x = x / sinA;
+		axis.y = y / sinA;
+		axis.z = z / sinA;
+	}
 	return axis;
 }
 
