@@ -42,7 +42,6 @@ Game::Game() {
 
 Game::~Game(){
 	sys->LogIt("Game::~Game");
-	delete current_screen;
 	delete config;
 	delete input;
 }
@@ -53,6 +52,7 @@ void Game::Start(){
 
 void Game::Stop(){
 	gfxGL->Stop();
+	delete current_screen;
 	current_screen = NULL;
 }
 

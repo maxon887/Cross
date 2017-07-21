@@ -24,8 +24,9 @@ public:
 	void Update(float sec) override;
 
 private:
-	Shader* shader;
-	Texture* diffuse_texture;
-	Texture* specular_map;
-	Material* material;
+	Shader* shader				= NULL;
+	Texture* diffuse_texture	= NULL;
+	Texture* specular_map		= NULL;
+	Material* material			= NULL;
+	Entity* cube				= NULL;
 };

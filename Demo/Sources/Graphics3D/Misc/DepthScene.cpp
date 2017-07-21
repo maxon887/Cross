@@ -37,12 +37,12 @@ void DepthScene::Start(){
 	shader->Compile();
 
 	car_mat = new Material(shader);
-	Entity* camaro = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* camaro = LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	
 	road_mat = new Material(shader);
-	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* road = LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
 	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);

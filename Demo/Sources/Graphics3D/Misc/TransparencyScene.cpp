@@ -51,7 +51,7 @@ void TransparencyScene::Start(){
 	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
-	Entity* road = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* road = LoadPrimitive(Graphics3D::Primitives::PLANE);
 	road->SetScale(15.f);
 	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
@@ -64,7 +64,7 @@ void TransparencyScene::Start(){
 	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	grass_shader->Compile();
 	grass_diffuse = gfx2D->LoadTexture("gfx3D/GrassDiffuse.png");
-	Entity* grass = gfx3D->LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* grass = LoadPrimitive(Graphics3D::Primitives::PLANE);
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
 	grass_mat->TransparencyEnabled(true);
@@ -92,7 +92,7 @@ void TransparencyScene::Start(){
 	sphere_mat->SetPropertyValue("Transparency", 0.5f);
 	sphere_mat->TransparencyEnabled(true);
 
-	Entity* sphere = gfx3D->LoadPrimitive(Graphics3D::Primitives::SPHERE);
+	Entity* sphere = LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	gfx3D->AdjustMaterial(sphere, sphere_mat, true);
 	AddEntity(sphere);
 	sphere->SetPosition(Vector3D(0.f, 1.f, 0.f));

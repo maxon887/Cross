@@ -74,29 +74,6 @@ void Graphics3D::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
 
-Entity* Graphics3D::LoadPrimitive(Graphics3D::Primitives primitive){
-	throw CrossException("Does not implement yet");
-	/*
-	if(primitives[primitive]){
-		return primitives[primitive]->Clone();
-	}else{
-		switch(primitive) {
-		case cross::Graphics3D::CUBE:
-			primitives[primitive] = LoadModel("Engine/Models/Cube.obj", true);
-			break;
-		case cross::Graphics3D::SPHERE:
-			primitives[primitive] = LoadModel("Engine/Models/Sphere.obj", true);
-			break;
-		case cross::Graphics3D::PLANE:
-			primitives[primitive] = LoadModel("Engine/Models/Plane.obj", true);
-			break;
-		default:
-			throw CrossException("Unknown primitive type");
-		}
-		return LoadPrimitive(primitive);
-	}*/
-}
-
 Model* Graphics3D::LoadModel(const string& filename, bool initialize){
 	Debugger::Instance()->SetTimeCheck();
 

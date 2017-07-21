@@ -62,6 +62,9 @@ void Scene::Stop(){
 	for(pair<S32, Material*> pair : materials){
 		delete pair.second;
 	}
+	for(pair<S32, Model*> pair : models){
+		delete pair.second;
+	}
 	delete camera;
 	delete root;
 	Screen::Stop();
@@ -461,7 +464,25 @@ void Scene::AddEntity(Entity* entity){
 void Scene::AddModel(Model* model){
 	models[model_id] = model;
 	model_id++;
-	AddEntity(model->hierarchy);
+}
+
+Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
+	switch(primitive) {
+	case cross::Graphics3D::CUBE:
+		return LoadModel("Engine/Models/Cube.obj");
+	case cross::Graphics3D::SPHERE:
+		return LoadModel("Engine/Models/Sphere.obj");
+	case cross::Graphics3D::PLANE:
+		return LoadModel("Engine/Models/Plane.obj");
+	default:
+		throw CrossException("Unknown primitive type");
+	}
+}
+
+Entity* Scene::LoadModel(const string& filename){
+	Model* model = gfx3D->LoadModel(filename);
+	AddModel(model);
+	return model->hierarchy;
 }
 
 Entity* Scene::RemoveEntity(const string& name){
@@ -527,7 +548,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
 		double y = rotXML->DoubleAttribute("y");
 		double z = rotXML->DoubleAttribute("z");
 		double angle = rotXML->DoubleAttribute("angle");
-		Quaternion rot(Vector3D((float)x, (float)y, (float)z), angle);
+		Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
 		entity->SetRotate(rot);
 	}
 	XMLElement* scaleXML = objectXML->FirstChildElement("Scale");

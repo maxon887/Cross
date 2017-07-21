@@ -69,7 +69,7 @@ void MultiLightScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	Entity* cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
 	gfx3D->AdjustMaterial(cube, material);
 	
 	for(U32 i = 0; i < 50; ++i){
@@ -78,7 +78,6 @@ void MultiLightScene::Start(){
 		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		AddEntity(clone);
 	}
-	delete cube;
 }
 
 void MultiLightScene::Stop(){
@@ -86,6 +85,7 @@ void MultiLightScene::Stop(){
 	delete specular_map;
 	delete diffuse_texture;
 	delete shader;
+	delete cube;
 	CameraControlsScene::Stop();
 }
 

@@ -57,12 +57,16 @@ void Mesh::Update(float sec){
 	Draw();
 }
 
-void Mesh::Draw(Material* mat){
-	Draw(GetEntity()->GetWorldMatrix(), mat, Graphics3D::StencilBehaviour::IGNORED);
+void Mesh::Draw() {
+	Draw(material);
 }
 
-void Mesh::Draw(){
-	Draw(GetEntity()->GetWorldMatrix(), material, Graphics3D::StencilBehaviour::IGNORED);
+void Mesh::Draw(Material* mat){
+	if(GetEntity()){
+		Draw(GetEntity()->GetWorldMatrix(), mat, Graphics3D::StencilBehaviour::IGNORED);
+	}else{
+		Draw(Matrix::Identity, mat, Graphics3D::StencilBehaviour::IGNORED);
+	}
 }
 
 void Mesh::Draw(const Matrix& globalModel, Material* material,

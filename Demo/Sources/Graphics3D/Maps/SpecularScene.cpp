@@ -28,6 +28,7 @@ void SpecularScene::Start(){
 	//lights
 	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
+	light->SetName("Light");
 	AddEntity(light);
 
 	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
@@ -46,7 +47,7 @@ void SpecularScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess", 64.f);
-	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }

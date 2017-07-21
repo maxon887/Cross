@@ -53,7 +53,7 @@ void NormalScene::Start(){
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
 	material->SetPropertyValue("Normal Map", normal);
-	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }

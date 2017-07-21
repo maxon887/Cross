@@ -43,9 +43,9 @@ void DiffuseScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
-	Entity* revolver = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	gfx3D->AdjustMaterial(revolver, material);
-	AddEntity(revolver);
+	Entity* camaro = LoadModel("gfx3D/Camaro/Camaro.fbx");
+	gfx3D->AdjustMaterial(camaro, material);
+	AddEntity(camaro);
 }
 
 void DiffuseScene::Stop(){

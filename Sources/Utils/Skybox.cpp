@@ -30,7 +30,7 @@ using namespace cross;
 Skybox::Skybox(Cubemap* cubemap) :
 	cubemap(cubemap)
 {
-	box = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	box = game->GetCurrentScene()->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	box->SetScale(config->GetViewDistance());
 
 	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");

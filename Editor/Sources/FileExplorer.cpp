@@ -46,6 +46,7 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 			Model* model = gfx3D->LoadModel(filepath.toStdString());
 			gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
 			editor->GetCurrentScene()->AddModel(model);
+			editor->GetCurrentScene()->AddEntity(model->hierarchy);
 		}
 	}catch(Exception ex){
 		editor->ExceptionMsgBox(ex.message);

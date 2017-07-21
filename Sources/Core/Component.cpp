@@ -32,11 +32,7 @@ Component::Type Component::GetType() const{
 }
 
 Entity* Component::GetEntity(){
-	if(entity){
-		return entity;
-	}else{
-		throw CrossException("Component not initialized");
-	}
+	return entity;
 }
 
 Component* Component::GetComponent(Component::Type type){

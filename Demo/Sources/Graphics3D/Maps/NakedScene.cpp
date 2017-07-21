@@ -38,7 +38,7 @@ void NakedScene::Start(){
 	material->SetPropertyValue("Diffuse Color", Color::White);
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
-	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = LoadModel("gfx3D/Camaro/Camaro.fbx");
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }

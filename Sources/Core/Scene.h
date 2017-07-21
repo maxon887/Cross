@@ -59,6 +59,8 @@ public:
 	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
 	void AddModel(Model* model);
+	Entity* LoadPrimitive(Graphics3D::Primitives primitive);
+	Entity* LoadModel(const string& filename);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
 	/* Returns all available light on scene. */

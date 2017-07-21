@@ -40,7 +40,7 @@ void MaterialScene::Start(){
 	material->SetPropertyValue("Diffuse Color", Color::Red);
 	material->SetPropertyValue("Specular Color", Color::White);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
 	gfx3D->AdjustMaterial(cube, material);
 	AddEntity(cube);
 
