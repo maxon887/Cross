@@ -14,43 +14,45 @@ PropertiesView::~PropertiesView() { }
 
 void PropertiesView::Update(float sec){
 	if(selected_entity){
-		entity_component->Update(sec);
+		for(ComponentView* v : entity_components){
+			v->Update(sec);
+		}
 	}
 }
 
 void PropertiesView::OnScreenChanged(Screen*){
 	selected_entity = NULL;
-	entity_component->hide();
-	mesh_component->hide();
+	for(ComponentView* v : entity_components) {
+		v->hide();
+	}
 }
 
 void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
 	selected_entity = entity;
-	if(entity){
-		entity_component->show();
-		entity_component->SetEntity(entity);
-
-		Mesh* mesh = entity->GetComponent<Mesh>();
-		if(mesh){
-			mesh_component->show();
+	for(ComponentView* v : entity_components){
+		if(selected_entity){
+			v->show();
+			v->OnEntitySelected(entity);
+		}else{
+			v->hide();
 		}
-	}else{
-		entity_component->hide();
-		mesh_component->hide();
 	}
 }
 
 void PropertiesView::OnEntityChanged(Entity* entity){
 	if(entity == selected_entity){
-		entity_component->SetEntity(selected_entity);
+		for(ComponentView* v : entity_components) {
+			v->OnEntitySelected(entity);
+		}
 	}
 }
 
 void PropertiesView::showEvent(QShowEvent *event) {
 	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
-	entity_component = findChild<EntityComponent*>();
-	entity_component->hide();
-	mesh_component = findChild<MeshComponent*>();
-	mesh_component->hide();
+	entity_components.push_back(findChild<EntityComponent*>());
+	entity_components.push_back(findChild<MeshComponent*>());
+	for(ComponentView* v : entity_components) {
+		v->hide();
+	}
 }

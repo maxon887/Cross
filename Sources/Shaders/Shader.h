@@ -78,6 +78,7 @@ public:
 	virtual void TransferLightData(const List<Light*>& lights);
 
 	bool IsCompiled() const;
+	string& GetFilename();
 
 	void AddVersion(const string& version);
 	void AddMacro(const string& makro, bool system = false);
@@ -134,6 +135,7 @@ private:
 	File* vertex_file			= NULL;
 	File* fragment_file			= NULL;
 	U32 makro_len				= 0;
+	string filename				= "";
 
 	GLuint CompileShader(GLuint type, File* file);
 	void CompileProgram();

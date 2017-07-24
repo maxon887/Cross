@@ -285,6 +285,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MeshComponent.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\ComponentView.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ComponentView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ComponentView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -312,6 +321,9 @@
       <Filter>Editor</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\MeshComponent.h">
+      <Filter>Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\ComponentView.h">
       <Filter>Editor</Filter>
     </CustomBuild>
   </ItemGroup>

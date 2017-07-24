@@ -2,25 +2,24 @@
 #define ENTITY_COMPONENT
 
 #include "Cross.h"
-
-#include <QGroupBox.h>
+#include "ComponentView.h"
 
 class QLineEdit;
 
 using namespace cross;
 
-class EntityComponent : public QGroupBox
+class EntityComponent : public ComponentView
 {
 	Q_OBJECT
 public:
 	EntityComponent(QWidget* parent = 0);
 	~EntityComponent();
 
-	void Update(float sec);
-	void SetEntity(Entity* entity);
+	void OnEntitySelected(Entity* e) override;
+	void Update(float sec) override;
 
 protected:
-	void showEvent(QShowEvent *event);
+	void showEvent(QShowEvent *e) override;
 
 private:
 	Entity* entity		= NULL;

@@ -5,10 +5,15 @@
 #include <QDoubleValidator>
 
 EntityComponent::EntityComponent(QWidget* parent) :
-	QGroupBox(parent)
+	ComponentView(parent)
 { }
 
 EntityComponent::~EntityComponent() { }
+
+void EntityComponent::OnEntitySelected(Entity* entity) {
+	this->entity = entity;
+	setTitle(entity->GetName().c_str());
+}
 
 void EntityComponent::Update(float sec){
 	if(!posX->hasFocus()){
@@ -36,12 +41,8 @@ void EntityComponent::Update(float sec){
 	}
 }
 
-void EntityComponent::SetEntity(Entity* entity){
-	this->entity = entity;
-	setTitle(entity->GetName().c_str());
-}
-
 void EntityComponent::showEvent(QShowEvent *event){
+	ComponentView::showEvent(event);
 	QValidator* validator = new QDoubleValidator(-1000.0, 1000.0, 10, this);
 	posX = findChild<QLineEdit*>("posX");
 	posX->setValidator(validator);

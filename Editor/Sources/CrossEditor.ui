@@ -251,7 +251,7 @@
         <item>
          <widget class="QLabel" name="materialLabel">
           <property name="text">
-           <string>Material - Name</string>
+           <string>Shader - FileName</string>
           </property>
          </widget>
         </item>

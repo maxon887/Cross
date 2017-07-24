@@ -141,6 +141,7 @@ void Shader::TransferLightData(const List<Light*>& lights){
 }
 
 void Shader::Compile(){
+	filename = File::FileFromPath(vertex_file->name);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = NULL;
@@ -176,6 +177,10 @@ void Shader::Compile(){
 
 bool Shader::IsCompiled() const{
 	return compiled;
+}
+
+string& Shader::GetFilename(){
+	return filename;
 }
 
 void Shader::AddVersion(const string& ver){
