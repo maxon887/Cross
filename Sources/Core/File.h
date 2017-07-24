@@ -22,6 +22,15 @@ namespace cross{
 	To load File see System class */
 class File{
 public:
+	/* Returns directory from full filename */
+	static string PathFromFile(const string& filePath);
+	/* Return naked filename from filepath */
+	static string FileFromPath(const string& filename);
+	/* Returns extencsion from filename or full file path */
+	static string ExtensionFromFile(const string& file);
+	/* Returns raw file name without extencion (ex "log" for "log.txt") */
+	static string FileWithoutExtension(const string& file);
+
 	~File();
 
 	string name	= string();

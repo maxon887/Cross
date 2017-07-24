@@ -136,33 +136,6 @@ float System::GetAspectRatio() const{
 	return GetWindowWidth() / (float)GetWindowHeight();
 }
 
-string System::PathFromFile(const string& filePath) const{
-	const size_t last_slash_idx = filePath.rfind('/');
-	if(std::string::npos != last_slash_idx){
-		return filePath.substr(0, last_slash_idx);
-	}else{
-		throw CrossException("Wrong path format");
-	}
-}
-
-string System::FileFromPath(const string& filename) const{
-	const size_t last_slash_idx = filename.rfind('/');
-	if(std::string::npos != last_slash_idx) {
-		return filename.substr(last_slash_idx, filename.size());
-	} else {
-		throw CrossException("Wrong path format");
-	}
-}
-
-string System::ExtensionFromFile(const string& file) const{
-	return file.substr(file.find_last_of(".") +1);
-}
-
-string System::FileWithoutExtension(const string& file) const{
-	size_t lastindex = file.find_last_of("."); 
-	return file.substr(0, lastindex); 
-}
-
 void System::SetWindowSize(S32 width, S32 height){
 	Orientation prevO = GetDeviceOrientation();
 	window_width = width;

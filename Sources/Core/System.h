@@ -67,13 +67,6 @@ public:
     Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio() const;
-	/* Returns directory from full filename */
-	string PathFromFile(const string& filePath) const;
-	string FileFromPath(const string& filename) const;
-	/* Returns extencsion from filename or full file path */
-	string ExtensionFromFile(const string& file) const;
-	/* Returns raw file name without extencion (ex "log" for "log.txt") */
-	string FileWithoutExtension(const string& file) const;
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
 

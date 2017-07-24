@@ -18,6 +18,33 @@
 
 using namespace cross;
 
+string File::PathFromFile(const string& filePath) {
+	const size_t last_slash_idx = filePath.rfind('/');
+	if(std::string::npos != last_slash_idx) {
+		return filePath.substr(0, last_slash_idx);
+	} else {
+		throw CrossException("Wrong path format");
+	}
+}
+
+string File::FileFromPath(const string& filename) {
+	const size_t last_slash_idx = filename.rfind('/');
+	if(std::string::npos != last_slash_idx) {
+		return filename.substr(last_slash_idx, filename.size());
+	} else {
+		throw CrossException("Wrong path format");
+	}
+}
+
+string File::ExtensionFromFile(const string& file) {
+	return file.substr(file.find_last_of(".") + 1);
+}
+
+string File::FileWithoutExtension(const string& file) {
+	size_t lastindex = file.find_last_of(".");
+	return file.substr(0, lastindex);
+}
+
 File::~File(){
 	if(data){
 		delete[] data;
