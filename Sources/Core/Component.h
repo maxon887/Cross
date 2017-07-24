@@ -22,13 +22,7 @@ namespace cross{
 
 class Component{
 public:
-	enum Type{
-		MESH,
-		LIGHT,
-		COUNT
-	};
-
-	Component(Type type);
+	Component() = default;
 	virtual ~Component() { };
 
 	virtual void Initialize() { }
@@ -36,9 +30,7 @@ public:
 	virtual void Update(float sec) { }
 	virtual Component* Clone() const;
 
-	Type GetType() const;
 	Entity* GetEntity();
-	Component* GetComponent(Component::Type type);
 	Transformable* GetTransform();
 	Vector3D GetPosition() const;
 	bool IsEnabled();
@@ -47,7 +39,6 @@ public:
 private:
 	friend Entity;
 
-	Type type;
 	Entity* entity	= NULL;
 	bool enabled	= true;
 };

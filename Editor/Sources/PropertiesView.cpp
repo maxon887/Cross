@@ -1,6 +1,8 @@
 #include "PropertiesView.h"
 #include "EntityComponent.h"
+#include "MeshComponent.h"
 #include "CrossEditor.h"
+#include "Entity.h"
 
 #include <QTreeView.h>
 
@@ -18,15 +20,25 @@ void PropertiesView::Update(float sec){
 
 void PropertiesView::OnScreenChanged(Screen*){
 	selected_entity = NULL;
-	entity_component->SetEntity(NULL);
 	entity_component->hide();
+	mesh_component->hide();
 }
 
 void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
 	selected_entity = entity;
-	entity_component->show();
-	entity_component->SetEntity(selected_entity);
+	if(entity){
+		entity_component->show();
+		entity_component->SetEntity(entity);
+
+		Mesh* mesh = entity->GetComponent<Mesh>();
+		if(mesh){
+			mesh_component->show();
+		}
+	}else{
+		entity_component->hide();
+		mesh_component->hide();
+	}
 }
 
 void PropertiesView::OnEntityChanged(Entity* entity){
@@ -39,4 +51,6 @@ void PropertiesView::showEvent(QShowEvent *event) {
 	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
 	entity_component = findChild<EntityComponent*>();
 	entity_component->hide();
+	mesh_component = findChild<MeshComponent*>();
+	mesh_component->hide();
 }

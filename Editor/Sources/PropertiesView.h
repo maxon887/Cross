@@ -8,6 +8,7 @@
 using namespace cross;
 
 class EntityComponent;
+class MeshComponent;
 
 class PropertiesView : public QDockWidget
 {
@@ -28,6 +29,7 @@ protected:
 private:
 	Entity* selected_entity				= NULL;
 	EntityComponent* entity_component	= NULL;
+	MeshComponent* mesh_component		= NULL;
 };
 
 #endif

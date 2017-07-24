@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Component.h"
 #include "Transformable.h"
 
 namespace cross{
@@ -31,7 +30,7 @@ public:
 	void SetName(const string& name);
 	const string& GetName() const;
 	void AddComponent(Component* component);
-	Component* GetComponent(Component::Type type);
+	template<class T> T* GetComponent();
 	Entity* GetParent();
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
@@ -48,10 +47,20 @@ public:
 private:
 	CROSS_FRIENDLY
 
-	string name						= string();
-	Array<Component*> components	= Array<Component*>(Component::COUNT, NULL);
-	Entity* parent					= NULL;
-	List<Entity*> children			= List<Entity*>();
+	string name								= string();
+	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
+	Entity* parent							= NULL;
+	List<Entity*> children					= List<Entity*>();
 };
+
+template<class T>
+T* Entity::GetComponent(){
+	auto it = components.find(typeid(T).hash_code());
+	if(it != components.end()){
+		return (T*)(*it).second;
+	}else{
+		return NULL;
+	}
+}
 
 }

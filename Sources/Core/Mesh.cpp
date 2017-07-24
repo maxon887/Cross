@@ -25,8 +25,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 using namespace cross;
 
-Mesh::Mesh() :
-	Component(Component::Type::MESH)
+Mesh::Mesh() 
 { }
 
 Mesh::Mesh(const Mesh& obj) :

@@ -38,11 +38,7 @@ void EntityComponent::Update(float sec){
 
 void EntityComponent::SetEntity(Entity* entity){
 	this->entity = entity;
-	if(entity){
-		setTitle(entity->GetName().c_str());
-	}else{
-		hide();
-	}
+	setTitle(entity->GetName().c_str());
 }
 
 void EntityComponent::showEvent(QShowEvent *event){

@@ -113,9 +113,9 @@ void CrossEditor::OnSaveAsClick(){
 
 void CrossEditor::OnSetupProjectDirectoryClick(){
 	QString path = QFileDialog::getExistingDirectory(this, "Setup Project Directory", QDir::currentPath());
-	path += "/";
-	WINSystem* winSys = dynamic_cast<WINSystem*>(sys);
 	if(path != ""){
+		path += "/";
+		WINSystem* winSys = dynamic_cast<WINSystem*>(sys);
 		if(winSys){
 			winSys->SetAssetPath(path.toStdString());
 			ui.fileExplorerTree->SetupProjectDirectory(path);

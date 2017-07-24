@@ -21,7 +21,6 @@
 using namespace cross;
 
 Light::Light(Type type):
-	Component(Component::LIGHT),
 	type(type)
 { }
 

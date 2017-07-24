@@ -84,7 +84,7 @@ void SceneView::OnEntityGrabFocus(Entity* e){
 }
 
 void SceneView::Draw(Entity* e){
-	Mesh* mesh = (Mesh*)e->GetComponent(Component::MESH);
+	Mesh* mesh = e->GetComponent<Mesh>();
 	if(mesh){
 		mesh->Draw(selection_material);
 	}
@@ -94,7 +94,7 @@ void SceneView::Draw(Entity* e){
 }
 
 void SceneView::EnableMesh(Entity *e, bool value){
-	Mesh* mesh = (Mesh*)e->GetComponent(Component::MESH);
+	Mesh* mesh = e->GetComponent<Mesh>();
 	if(mesh) {
 		mesh->Enable(value);
 	}

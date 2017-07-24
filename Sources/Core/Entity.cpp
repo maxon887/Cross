@@ -20,7 +20,8 @@
 using namespace cross;
 
 Entity::~Entity(){
-	for(Component* component : components) {
+	for(pair<U64, Component*> p : components) {
+		Component* component = p.second;
 		if(component) {
 			component->Remove();
 			delete component;
@@ -39,7 +40,8 @@ void Entity::Initialize(){
 }
 
 void Entity::Remove(){
-	for(Component* c : components) {
+	for(pair<U64, Component*> p : components) {
+		Component* c = p.second;
 		if(c) {
 			c->Remove();
 		}
@@ -50,8 +52,9 @@ void Entity::Remove(){
 }
 
 void Entity::Update(float sec){
-	for(Component* c : components){
-		if(c && c->IsEnabled()){
+	for(pair<U64, Component*> p : components) {
+		Component* c = p.second;
+		if(c->IsEnabled()){
 			c->Update(sec);
 		}
 	}
@@ -69,17 +72,9 @@ const string& Entity::GetName() const{
 }
 
 void Entity::AddComponent(Component* component){
-	if(components[component->GetType()] == NULL){
-		components[component->GetType()] = component;
-		component->entity = this;
-		component->Initialize();
-	}else{
-		throw CrossException("Entity already have same component");
-	}
-}
-
-Component* Entity::GetComponent(Component::Type type) {
-	return components[type];
+	component->entity = this;
+	components[typeid(*component).hash_code()] = component;
+	component->Initialize();
 }
 
 Entity* Entity::GetParent(){
@@ -147,11 +142,10 @@ Entity* Entity::RemoveChild(const string& name){
 Entity* Entity::Clone(){
 	Entity* clone = new Entity();
 	clone->name = this->name + "_copy";
-	for(U32 i = 0; i < Component::Type::COUNT; ++i){
-		if(this->components[i]){
-			clone->components[i] = this->components[i]->Clone();
-			clone->components[i]->entity = clone;
-		}
+	for(pair<U64, Component*> pair : components){
+		Component* component = pair.second;
+		clone->components[typeid(component).hash_code()] = component->Clone();
+		clone->components[typeid(component).hash_code()]->entity = clone;
 	}
 	for(Entity* child : children){
 		Entity* cloneChild = child->Clone();

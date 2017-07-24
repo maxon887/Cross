@@ -611,7 +611,7 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	scaleXML->SetAttribute("z", scale.z);
 	objectXML->LinkEndChild(scaleXML);
 
-	Mesh* mesh = (Mesh*)entity->GetComponent(Component::MESH);
+	Mesh* mesh = entity->GetComponent<Mesh>();
 	if(mesh){
 		XMLElement* componentsXML = doc->NewElement("Components");
 		pair<S32, S32> ids = GetModelMeshID(mesh);

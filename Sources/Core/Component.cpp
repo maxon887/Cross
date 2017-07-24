@@ -19,24 +19,12 @@
 
 using namespace cross;
 
-Component::Component(Type type) :
-	type(type)
-{ }
-
 Component* Component::Clone() const{
 	throw CrossException("Unimplemented Component::Clone");
 }
 
-Component::Type Component::GetType() const{
-	return type;
-}
-
 Entity* Component::GetEntity(){
 	return entity;
-}
-
-Component* Component::GetComponent(Component::Type type){
-	return entity->GetComponent(type);
 }
 
 Transformable* Component::GetTransform(){
