@@ -15,15 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "ApocalypseScene.h"
-#include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
-#include "Light.h"
-#include "Shaders/MultiLightShader.h"
-#include "Game.h"
-#include "Material.h"
-#include "Texture.h"
-#include "Entity.h"
 
 void ApocalypseScene::Start(){
 	CameraControlsScene::Start();

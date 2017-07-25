@@ -73,9 +73,7 @@ public:
 	virtual ~Shader();
 
 	virtual void Compile();
-
-	virtual bool UseLights();
-	virtual void TransferLightData(const List<Light*>& lights);
+	virtual void OnDraw() { }
 
 	bool IsCompiled() const;
 	string& GetFilename();

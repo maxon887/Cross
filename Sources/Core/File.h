@@ -19,7 +19,7 @@
 
 namespace cross{
 /*	Container class for data loaded from file system 
-	To load File see System class */
+	To load use System class */
 class File{
 public:
 	/* Returns directory from full filename */

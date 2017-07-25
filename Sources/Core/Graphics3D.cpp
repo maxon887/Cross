@@ -26,7 +26,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include "Shaders/Shader.h"
-#include "Shaders/MultiLightShader.h"
+#include "Shaders/LightsShader.h"
 #include "Material.h"
 #include "Entity.h"
 
@@ -105,7 +105,7 @@ void Graphics3D::AdjustMaterial(Entity* model, Material* material, bool faceCull
 
 Material* Graphics3D::GetDefaultMaterial(){
 	if(!default_material){
-		default_shader = new MultiLightShader();
+		default_shader = new LightsShader();
 		default_shader->AddProperty("Diffuse Color", "uDiffuseColor");
 		default_shader->AddProperty("Specular", "uSpecular", 2.f);
 		default_shader->AddProperty("Shininess", "uShininess", 64.f);

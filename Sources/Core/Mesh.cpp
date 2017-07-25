@@ -156,9 +156,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	}
 	material->active_texture_slot = 0;
 
-	if(shader->UseLights()) {
-		shader->TransferLightData(scene->GetLights());
-	}
+	shader->OnDraw();
 
 	//binding attributes
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));

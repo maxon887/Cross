@@ -72,13 +72,7 @@
     <ClCompile Include="..\Sources\Libs\SOIL\stb_image_aug.c">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Shaders\MultiLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Shaders\Shader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Shaders\LightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Audio.cpp">
@@ -294,6 +288,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ComponentView.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Shaders\LightsShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -346,13 +346,7 @@
     <ClInclude Include="..\Sources\Libs\SOIL\stbi_DDS_aug_c.h">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Shaders\MultiLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Shaders\Shader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Shaders\LightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Audio.h">
@@ -501,6 +495,12 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Libs\TinyXML2\tinyxml2.h">
       <Filter>Cross\Libs\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Shaders\LightsShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Shaders\SingleLightShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

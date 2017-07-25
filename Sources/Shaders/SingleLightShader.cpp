@@ -14,17 +14,19 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/LightShader.h"
+#include "Shaders/SingleLightShader.h"
 #include "Light.h"
 #include "Entity.h"
+#include "Game.h"
+#include "Scene.h"
 
 using namespace cross;
 
-LightShader::LightShader(const string& vertex, const string& fragment) :
+SingleLightShader::SingleLightShader(const string& vertex, const string& fragment) :
 	Shader(vertex, fragment)
 { }
 
-void LightShader::Compile(){
+void SingleLightShader::Compile(){
 	Shader::Compile();
 	light_attribs.position = glGetUniformLocation(program, "uLight.position");
 	light_attribs.direction = glGetUniformLocation(program, "uLight.direction");
@@ -34,11 +36,8 @@ void LightShader::Compile(){
 	light_attribs.outer_cut_off = glGetUniformLocation(program, "uLight.outer_cut_off");
 }
 
-bool LightShader::UseLights(){
-	return true;
-}
-
-void LightShader::TransferLightData(const List<Light*>& lights){
+void SingleLightShader::OnDraw(){
+	const List<Light*>& lights = game->GetCurrentScene()->GetLights();
 	if(lights.size() > 1){
 		throw CrossException("Scene contains more than 1 light source");
 	}

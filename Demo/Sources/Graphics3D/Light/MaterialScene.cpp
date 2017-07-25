@@ -20,7 +20,7 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/LightShader.h"
+#include "Shaders/SingleLightShader.h"
 #include "Camera.h"
 
 void MaterialScene::Start(){
@@ -31,7 +31,7 @@ void MaterialScene::Start(){
 	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
 	//scene setups
-	shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	shader = new SingleLightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
 	shader->AddProperty("Diffuse Color", "uColor");
 	shader->AddProperty("Specular Color", "uSpecularColor");
 	shader->AddProperty("Shininess", "uShininess");

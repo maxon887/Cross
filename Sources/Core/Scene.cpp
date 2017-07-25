@@ -25,7 +25,7 @@
 #include "Mesh.h"
 #include "Graphics2D.h"
 #include "Graphics3D.h"
-#include "Shaders/MultiLightShader.h"
+#include "Shaders/LightsShader.h"
 #include "File.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
@@ -124,12 +124,12 @@ void Scene::Load(const string& file){
 		if(shadersXML){
 			XMLElement* shaderXML = shadersXML->FirstChildElement("Shader");
 			while(shaderXML){
-				MultiLightShader* shader = NULL;
+				LightsShader* shader = NULL;
 				int id = shaderXML->IntAttribute("id");
 				const char* useLightsStr = shaderXML->Attribute("multiLight");
 				bool multiLight = strcmp(useLightsStr, "true") == 0;
 				if(multiLight){
-					shader = new MultiLightShader();
+					shader = new LightsShader();
 				}else{
 					throw CrossException("Do not implement yet");
 				}
@@ -292,7 +292,7 @@ void Scene::Save(const string& filename){
 			Shader* shader = pair.second;
 			XMLElement* shaderXML= doc.NewElement("Shader");
 			shaderXML->SetAttribute("id", id);
-			if(dynamic_cast<MultiLightShader*>(shader)){
+			if(dynamic_cast<LightsShader*>(shader)){
 				shaderXML->SetAttribute("multiLight", true);
 			}
 			if(shader->macrosies.size() > 0){

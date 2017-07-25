@@ -19,7 +19,7 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/LightShader.h"
+#include "Shaders/SingleLightShader.h"
 #include "Graphics2D.h"
 #include "Camera.h"
 
@@ -34,7 +34,7 @@ void DirectionalLightScene::Start(){
 	light->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	AddEntity(light);
 
-	shader = new LightShader("gfx3D/shaders/directional_light.vert", "gfx3D/shaders/directional_light.frag");
+	shader = new SingleLightShader("gfx3D/shaders/directional_light.vert", "gfx3D/shaders/directional_light.frag");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");

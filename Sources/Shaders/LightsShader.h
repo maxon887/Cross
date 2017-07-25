@@ -19,16 +19,21 @@
 
 namespace cross{
 
-class LightShader : public Shader{
+class LightsShader : public Shader{
 public:
-	LightUniforms light_attribs = LightUniforms();
-
-	LightShader(const string& vertex, const string& fragment);
+	LightsShader();
+	LightsShader(const string& vert, const string& frag);
 
 	void Compile() override;
+	void Compile(const List<Light*>& lights);
+	void Compile(U32 pointCount, U32 spotCount, U32 directionalCount);
 
-	bool UseLights() override;
-	void TransferLightData(const List<Light*>& lights) override;
+	void OnDraw() override;
+
+private:
+	Array<LightUniforms> uPointLights		= Array<LightUniforms>();
+	Array<LightUniforms> uDirectionalLights = Array<LightUniforms>();
+	Array<LightUniforms> uSpotLights		= Array<LightUniforms>();
 };
 
 }

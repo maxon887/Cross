@@ -118,9 +118,9 @@
     <ClCompile Include="..\Sources\Math\Vector3D.cpp" />
     <ClCompile Include="..\Sources\Math\Vector4D.cpp" />
     <ClCompile Include="..\Sources\Platform\Windows\WINSystem.cpp" />
-    <ClCompile Include="..\Sources\Shaders\LightShader.cpp" />
-    <ClCompile Include="..\Sources\Shaders\MultiLightShader.cpp" />
+    <ClCompile Include="..\Sources\Shaders\LightsShader.cpp" />
     <ClCompile Include="..\Sources\Shaders\Shader.cpp" />
+    <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp" />
     <ClCompile Include="..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp" />
@@ -240,9 +240,9 @@
     <ClInclude Include="..\Sources\Math\Vector3D.h" />
     <ClInclude Include="..\Sources\Math\Vector4D.h" />
     <ClInclude Include="..\Sources\Platform\Windows\WINSystem.h" />
-    <ClInclude Include="..\Sources\Shaders\LightShader.h" />
-    <ClInclude Include="..\Sources\Shaders\MultiLightShader.h" />
+    <ClInclude Include="..\Sources\Shaders\LightsShader.h" />
     <ClInclude Include="..\Sources\Shaders\Shader.h" />
+    <ClInclude Include="..\Sources\Shaders\SingleLightShader.h" />
     <ClInclude Include="..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\Sources\Utils\Button.h" />
     <ClInclude Include="..\Sources\Utils\Cubemap.h" />

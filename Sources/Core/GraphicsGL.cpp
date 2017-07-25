@@ -21,7 +21,7 @@
 #include "Game.h"
 #include "File.h"
 #include "Shaders/Shader.h"
-#include "Shaders/MultiLightShader.h"
+#include "Shaders/LightsShader.h"
 #include "Config.h"
 
 #include <algorithm>
@@ -226,7 +226,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::MULTI_LIGHT:
-		shader = new MultiLightShader();
+		shader = new LightsShader();
 		shader->AddProperty("Transparency", "uTransparency", 1.f);
 		break;
 	default:

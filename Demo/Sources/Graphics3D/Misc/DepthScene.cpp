@@ -20,7 +20,6 @@
 #include "Graphics3D.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/MultiLightShader.h"
 #include "Game.h"
 #include "Material.h"
 #include "Texture.h"

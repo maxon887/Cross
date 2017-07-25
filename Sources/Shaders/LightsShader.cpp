@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Shaders/MultiLightShader.h"
+#include "Shaders/LightsShader.h"
 #include "Light.h"
 #include "Game.h"
 #include "Scene.h"
@@ -22,19 +22,19 @@
 
 using namespace cross;
 
-MultiLightShader::MultiLightShader() :
-	MultiLightShader("Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
+LightsShader::LightsShader() :
+	LightsShader("Engine/Shaders/multi_light.vert", "Engine/Shaders/multi_light.frag")
 { }
 
-MultiLightShader::MultiLightShader(const string& vert, const string& frag) :
+LightsShader::LightsShader(const string& vert, const string& frag) :
 	Shader(vert, frag)
 { }
 
-void MultiLightShader::Compile(){
+void LightsShader::Compile(){
 	Compile(game->GetCurrentScene()->GetLights());
 }
 
-void MultiLightShader::Compile(const List<Light*>& lights){
+void LightsShader::Compile(const List<Light*>& lights){
 	int pointCount = 0;
 	int spotCount = 0;
 	int directionalCount = 0;
@@ -61,7 +61,10 @@ void MultiLightShader::Compile(const List<Light*>& lights){
 	Compile(pointCount, spotCount, directionalCount);
 }
 
-void MultiLightShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
+void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
+	uPointLights.clear();
+	uDirectionalLights.clear();
+	uPointLights.clear();
 	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount, true);
 	AddMacro("POINT_LIGHT_COUNT", pointCount, true);
 	AddMacro("SPOT_LIGHT_COUNT", spotCount, true);
@@ -69,33 +72,36 @@ void MultiLightShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCou
 	Shader::Compile();
 	for(U32 i = 0; i < pointCount; ++i) {
 		string structName = "uPointLights[" + to_string(i) + "]";
-		uPointLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uPointLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uPointLights[i].intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
+		LightUniforms uniforms;
+		uniforms.position = glGetUniformLocation(program, string(structName + ".position").c_str());
+		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
+		uniforms.intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
+		uPointLights.push_back(uniforms);
 	}
 
 	for(U32 i = 0; i < directionalCount; ++i) {
 		string structName = "uDirectionalLights[" + to_string(i) + "]";
-		uDirectionalLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uDirectionalLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
+		LightUniforms uniforms;
+		uniforms.direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
+		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
+		uDirectionalLights.push_back(uniforms);
 	}
 
 	for(U32 i = 0; i < spotCount; ++i) {
 		string structName = "uSpotLights[" + to_string(i) + "]";
-		uSpotLights[i].position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uSpotLights[i].direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uSpotLights[i].color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uSpotLights[i].intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
-		uSpotLights[i].cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
-		uSpotLights[i].outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
+		LightUniforms uniforms;
+		uniforms.position = glGetUniformLocation(program, string(structName + ".position").c_str());
+		uniforms.direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
+		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
+		uniforms.intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
+		uniforms.cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
+		uniforms.outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
+		uSpotLights.push_back(uniforms);
 	}
 }
 
-bool MultiLightShader::UseLights(){
-	return true;
-}
-
-void MultiLightShader::TransferLightData(const List<Light*>& lights){
+void LightsShader::OnDraw(){
+	const List<Light*>& lights = game->GetCurrentScene()->GetLights();
 	int pointCount = 0;
 	int spotCount = 0;
 	int directionalCount = 0;

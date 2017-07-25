@@ -132,16 +132,8 @@ Shader::~Shader(){
 	}
 }
 
-bool Shader::UseLights(){
-	return false;
-}
-
-void Shader::TransferLightData(const List<Light*>& lights){
-	throw CrossException("Lighting does not supported by this shader");
-}
-
 void Shader::Compile(){
-	filename = File::FileFromPath(vertex_file->name);
+	filename = File::FileWithoutExtension(File::FileFromPath(vertex_file->name));
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = NULL;

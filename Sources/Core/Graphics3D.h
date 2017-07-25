@@ -24,7 +24,7 @@ struct aiScene;
 
 namespace cross{
 
-class MultiLightShader;
+class LightsShader;
 
 class Model {
 public:
@@ -60,7 +60,7 @@ public:
 
 protected:
 	Shader* simple_shader				= NULL;
-	MultiLightShader* default_shader	= NULL;
+	LightsShader* default_shader		= NULL;
 	Material* default_material			= NULL;
 	const aiScene* current_scene		= NULL;
 	bool initialize_in_load				= true;

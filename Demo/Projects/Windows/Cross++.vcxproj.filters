@@ -274,12 +274,6 @@
     <ClCompile Include="..\..\..\Sources\Platform\Windows\WINSystem.cpp">
       <Filter>Cross\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Shaders\LightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Shaders\MultiLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
@@ -306,6 +300,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Libs\TinyXML2\tinyxml2.cpp">
       <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Shaders\SingleLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Shaders\LightsShader.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -538,12 +538,6 @@
     <ClInclude Include="..\..\..\Sources\Platform\Windows\WINSystem.h">
       <Filter>Cross\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Shaders\LightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Shaders\MultiLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
@@ -570,6 +564,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Libs\TinyXML2\tinyxml2.h">
       <Filter>Cross\Libs\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Shaders\SingleLightShader.h">
+      <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Shaders\LightsShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

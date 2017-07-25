@@ -19,26 +19,14 @@
 
 namespace cross{
 
-class MultiLightShader : public Shader{
+class SingleLightShader : public Shader{
 public:
-	static const U32 MaxPointLights = 16;
-	static const U32 MaxDirectionalLights = 4;
-	static const U32 MaxSpotLights = 8;
+	LightUniforms light_attribs = LightUniforms();
 
-	MultiLightShader();
-	MultiLightShader(const string& vert, const string& frag);
+	SingleLightShader(const string& vertex, const string& fragment);
 
 	void Compile() override;
-	void Compile(const List<Light*>& lights);
-	void Compile(U32 pointCount, U32 spotCount, U32 directionalCount);
-
-	bool UseLights() override;
-	void TransferLightData(const List<Light*>& lights) override;
-
-private:
-	Array<LightUniforms> uPointLights = Array<LightUniforms>(MaxPointLights);
-	Array<LightUniforms> uDirectionalLights = Array<LightUniforms>(MaxDirectionalLights);
-	Array<LightUniforms> uSpotLights = Array<LightUniforms>(MaxSpotLights);
+	void OnDraw() override;
 };
 
 }

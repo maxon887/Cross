@@ -19,7 +19,7 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/LightShader.h"
+#include "Shaders/SingleLightShader.h"
 #include "Graphics2D.h"
 #include "Camera.h"
 	
@@ -36,7 +36,7 @@ void SpotLightScene::Start(){
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	shader = new LightShader("gfx3D/shaders/spot_light.vert", "gfx3D/shaders/spot_light.frag");
+	shader = new SingleLightShader("gfx3D/shaders/spot_light.vert", "gfx3D/shaders/spot_light.frag");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");

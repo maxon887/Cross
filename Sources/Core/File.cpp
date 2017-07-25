@@ -30,7 +30,7 @@ string File::PathFromFile(const string& filePath) {
 string File::FileFromPath(const string& filename) {
 	const size_t last_slash_idx = filename.rfind('/');
 	if(std::string::npos != last_slash_idx) {
-		return filename.substr(last_slash_idx, filename.size());
+		return filename.substr(last_slash_idx + 1, filename.size());
 	} else {
 		throw CrossException("Wrong path format");
 	}
