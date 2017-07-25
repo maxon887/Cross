@@ -35,7 +35,7 @@ public:
 	void OnSceneExplorerClick();
 
 protected:
-	void closeEvent(QCloseEvent* eve);
+	void closeEvent(QCloseEvent* eve) override;
 	void keyPressEvent(QKeyEvent* key) override;
 	void keyReleaseEvent(QKeyEvent* key) override;
 

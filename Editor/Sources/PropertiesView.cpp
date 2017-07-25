@@ -1,14 +1,19 @@
 #include "PropertiesView.h"
-#include "EntityComponent.h"
-#include "MeshComponent.h"
+#include "PropertiesViews/EntityComponent.h"
+#include "PropertiesViews/MeshComponent.h"
 #include "CrossEditor.h"
 #include "Entity.h"
+#include "File.h"
 
 #include <QTreeView.h>
 
 PropertiesView::PropertiesView(QWidget* parent) :
 	QDockWidget(parent)
-{ }
+{ 
+	file_properties_widget = new QWidget(this);
+	Ui::FilePropertiesClass ui;
+	ui.setupUi(file_properties_widget);
+}
 
 PropertiesView::~PropertiesView() { }
 
@@ -29,6 +34,7 @@ void PropertiesView::OnScreenChanged(Screen*){
 
 void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
+	shader_properties->hide();
 	selected_entity = entity;
 	for(ComponentView* v : entity_components){
 		if(selected_entity){
@@ -48,6 +54,18 @@ void PropertiesView::OnEntityChanged(Entity* entity){
 	}
 }
 
+void PropertiesView::OnFileSelected(string filename){
+	for(ComponentView* view : entity_components){
+		view->hide();
+	}
+	string ext = File::ExtensionFromFile(filename);
+	if(ext == "she"){
+		shader_properties->show();
+	}else{
+		shader_properties->hide();
+	}
+}
+
 void PropertiesView::showEvent(QShowEvent *event) {
 	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
 	entity_components.push_back(findChild<EntityComponent*>());
@@ -55,4 +73,8 @@ void PropertiesView::showEvent(QShowEvent *event) {
 	for(ComponentView* v : entity_components) {
 		v->hide();
 	}
+
+	QWidget* layout = findChild<QWidget*>("layout");
+	shader_properties = file_properties_widget->findChild<ShaderView*>();
+	shader_properties->setParent(layout);
 }

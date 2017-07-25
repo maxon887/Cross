@@ -22,6 +22,7 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	header()->setSectionResizeMode(0, QHeaderView::Stretch);
 	header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
+	connect(this, &QTreeView::clicked, this, &FileExplorer::OnItemSelected);
 	connect(this, &QTreeView::doubleClicked, this, &FileExplorer::OnItemDoubleClick);
 }
 
@@ -33,6 +34,13 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
+}
+
+void FileExplorer::OnItemSelected(QModelIndex index){
+	QFileInfo fileInfo = file_system->fileInfo(index);
+	QDir root = file_system->rootDirectory();
+	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
+	FileSelected(filepath.toStdString());
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){

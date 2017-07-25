@@ -58,6 +58,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Editor\PropertiesViews">
+      <UniqueIdentifier>{c6318a1e-a9e2-42ac-afda-0fb735f9c380}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_CrossEditor.cpp">
@@ -258,29 +261,17 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PropertiesView.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\EntityComponent.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_EntityComponent.cpp">
-      <Filter>Editor\Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_EntityComponent.cpp">
-      <Filter>Editor\Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Libs\TinyXML2\tinyxml2.cpp">
       <Filter>Cross\Libs\TinyXML</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\MeshComponent.cpp">
-      <Filter>Editor</Filter>
+    <ClCompile Include="..\Sources\Shaders\LightsShader.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MeshComponent.cpp">
-      <Filter>Editor\Generated Files\Debug</Filter>
+    <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MeshComponent.cpp">
-      <Filter>Editor\Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\ComponentView.cpp">
-      <Filter>Editor</Filter>
+    <ClCompile Include="Sources\PropertiesViews\ComponentView.cpp">
+      <Filter>Editor\PropertiesViews</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ComponentView.cpp">
       <Filter>Editor\Generated Files\Debug</Filter>
@@ -288,11 +279,32 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ComponentView.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Shaders\LightsShader.cpp">
-      <Filter>Cross\Shaders</Filter>
+    <ClCompile Include="Sources\PropertiesViews\EntityComponent.cpp">
+      <Filter>Editor\PropertiesViews</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
+    <ClCompile Include="GeneratedFiles\Debug\moc_EntityComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_EntityComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertiesViews\MeshComponent.cpp">
+      <Filter>Editor\PropertiesViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MeshComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MeshComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertiesViews\ShaderView.cpp">
+      <Filter>Editor\PropertiesViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ShaderView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ShaderView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,14 +329,20 @@
     <CustomBuild Include="Sources\PropertiesView.h">
       <Filter>Editor</Filter>
     </CustomBuild>
-    <CustomBuild Include="Sources\EntityComponent.h">
+    <CustomBuild Include="Sources\FileProperties.ui">
       <Filter>Editor</Filter>
     </CustomBuild>
-    <CustomBuild Include="Sources\MeshComponent.h">
-      <Filter>Editor</Filter>
+    <CustomBuild Include="Sources\PropertiesViews\ComponentView.h">
+      <Filter>Editor\PropertiesViews</Filter>
     </CustomBuild>
-    <CustomBuild Include="Sources\ComponentView.h">
-      <Filter>Editor</Filter>
+    <CustomBuild Include="Sources\PropertiesViews\EntityComponent.h">
+      <Filter>Editor\PropertiesViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertiesViews\MeshComponent.h">
+      <Filter>Editor\PropertiesViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertiesViews\ShaderView.h">
+      <Filter>Editor\PropertiesViews</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -501,6 +519,9 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Shaders\SingleLightShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_FileProperties.h">
+      <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

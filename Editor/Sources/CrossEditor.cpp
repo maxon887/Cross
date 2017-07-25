@@ -26,6 +26,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
 	ui.sceneExplorerTree->EntityChanged.Connect(ui.propertiesView, &PropertiesView::OnEntityChanged);
+	ui.fileExplorerTree->FileSelected.Connect(ui.propertiesView, &PropertiesView::OnFileSelected);
 
 	setWindowTitle(QString("Cross Editor - Untitled*"));
 }
