@@ -74,7 +74,15 @@ void PropertiesView::showEvent(QShowEvent *event) {
 		v->hide();
 	}
 
-	QWidget* layout = findChild<QWidget*>("layout");
-	shader_properties = file_properties_widget->findChild<ShaderView*>();
-	shader_properties->setParent(layout);
+	if(!shader_properties){
+		shader_properties = file_properties_widget->findChild<ShaderView*>();
+		QWidget* parentWiget = findChild<QWidget*>("layout");
+		shader_properties->setParent(parentWiget);
+		QVBoxLayout* hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
+		if(hBox){
+			hBox->insertWidget(0, shader_properties);
+		}else{
+			parentWiget->layout()->addWidget(shader_properties);
+		}
+	}
 }

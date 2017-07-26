@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>667</width>
+    <width>671</width>
     <height>663</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <item>
     <widget class="ShaderView" name="shaderProperties">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -27,25 +27,211 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="vertexLayout">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="vertexLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>136</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string>Vertex File:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit"/>
+         <widget class="QLineEdit" name="vertexFile"/>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="vertexBtn">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>31</height>
+           </size>
+          </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Load</string>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="fragmentLayout">
+        <item>
+         <widget class="QLabel" name="fragmentLabel">
+          <property name="text">
+           <string>Fragment File:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="fragmentBile"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="fragmentBtn">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>31</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Load</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="macrosies">
+        <property name="title">
+         <string>Macrosies:</string>
+        </property>
+        <layout class="QVBoxLayout" name="macrosiesLayout">
+         <item>
+          <layout class="QHBoxLayout" name="macroLayout">
+           <item>
+            <widget class="QLineEdit" name="macro"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="removeMacroBtn">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>31</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>remove</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="addElementLayout">
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="addMacroBtn">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>31</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>add</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="properties">
+        <property name="title">
+         <string>Properties:</string>
+        </property>
+        <layout class="QVBoxLayout" name="propertiesLayout">
+         <item>
+          <layout class="QHBoxLayout" name="propertyLayout">
+           <item>
+            <widget class="QLabel" name="nameLabel">
+             <property name="text">
+              <string>Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="propertyName"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="glNameLabel">
+             <property name="text">
+              <string>glName:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="glName"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="removePropertyBtn">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>31</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>remove</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="addElementLayout_2">
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="addPropertyBtn">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>31</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>add</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>
