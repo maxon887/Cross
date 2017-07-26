@@ -18,15 +18,13 @@ public:
 	PropertiesView(QWidget* parent = 0);
 	~PropertiesView();
 
+	void OnUIInitialized();
 	void Update(float sec);
 
 	void OnScreenChanged(Screen*);
 	void OnEntitySelected(Entity* entity);
 	void OnEntityChanged(Entity* entity);
 	void OnFileSelected(string filename);
-
-protected:
-	void showEvent(QShowEvent *event);
 
 private:
 	Entity* selected_entity					= NULL;

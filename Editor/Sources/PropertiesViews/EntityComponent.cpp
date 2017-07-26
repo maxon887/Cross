@@ -10,39 +10,7 @@ EntityComponent::EntityComponent(QWidget* parent) :
 
 EntityComponent::~EntityComponent() { }
 
-void EntityComponent::OnEntitySelected(Entity* entity) {
-	this->entity = entity;
-	setTitle(entity->GetName().c_str());
-}
-
-void EntityComponent::Update(float sec){
-	if(!posX->hasFocus()){
-		posX->setText(QString::number(entity->GetPosition().x));
-	}
-	if(!posY->hasFocus()){
-		posY->setText(QString::number(entity->GetPosition().y));
-	}
-	if(!posZ->hasFocus()){
-		posZ->setText(QString::number(entity->GetPosition().z));
-	}
-
-	if(!rotX->hasFocus() && !rotY->hasFocus() && !rotZ->hasFocus() && !angle->hasFocus()){
-		UpdateRotatioon();
-	}
-
-	if(!scaleX->hasFocus()){
-		scaleX->setText(QString::number(entity->GetScale().x));
-	}
-	if(!scaleY->hasFocus()){
-		scaleY->setText(QString::number(entity->GetScale().y));
-	}
-	if(!scaleZ->hasFocus()){
-		scaleZ->setText(QString::number(entity->GetScale().z));
-	}
-}
-
-void EntityComponent::showEvent(QShowEvent *event){
-	ComponentView::showEvent(event);
+void EntityComponent::Initialize(){
 	QValidator* validator = new QDoubleValidator(-1000.0, 1000.0, 10, this);
 	posX = findChild<QLineEdit*>("posX");
 	posX->setValidator(validator);
@@ -77,6 +45,37 @@ void EntityComponent::showEvent(QShowEvent *event){
 	connect(scaleX, &QLineEdit::returnPressed, this, &EntityComponent::ScaleChanged);
 	connect(scaleX, &QLineEdit::returnPressed, this, &EntityComponent::ScaleChanged);
 	connect(scaleX, &QLineEdit::returnPressed, this, &EntityComponent::ScaleChanged);
+}
+
+void EntityComponent::OnEntitySelected(Entity* entity) {
+	this->entity = entity;
+	setTitle(entity->GetName().c_str());
+}
+
+void EntityComponent::Update(float sec){
+	if(!posX->hasFocus()){
+		posX->setText(QString::number(entity->GetPosition().x));
+	}
+	if(!posY->hasFocus()){
+		posY->setText(QString::number(entity->GetPosition().y));
+	}
+	if(!posZ->hasFocus()){
+		posZ->setText(QString::number(entity->GetPosition().z));
+	}
+
+	if(!rotX->hasFocus() && !rotY->hasFocus() && !rotZ->hasFocus() && !angle->hasFocus()){
+		UpdateRotatioon();
+	}
+
+	if(!scaleX->hasFocus()){
+		scaleX->setText(QString::number(entity->GetScale().x));
+	}
+	if(!scaleY->hasFocus()){
+		scaleY->setText(QString::number(entity->GetScale().y));
+	}
+	if(!scaleZ->hasFocus()){
+		scaleZ->setText(QString::number(entity->GetScale().z));
+	}
 }
 
 void EntityComponent::PositionChanged(){

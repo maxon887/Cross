@@ -13,6 +13,8 @@ class ShaderView : public QGroupBox
 public:
 	ShaderView(QWidget* parent = 0);
 	~ShaderView();
+
+	void Initialize();
 };
 
 #endif

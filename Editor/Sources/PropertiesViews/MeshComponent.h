@@ -16,10 +16,8 @@ public:
 	MeshComponent(QWidget* parent = 0);
 	~MeshComponent();
 
+	void Initialize() override;
 	void OnEntitySelected(Entity* e) override;
-
-protected:
-	void showEvent(QShowEvent *e);
 
 private:
 	QLabel* shader_filename = NULL;

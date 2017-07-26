@@ -15,11 +15,9 @@ public:
 	EntityComponent(QWidget* parent = 0);
 	~EntityComponent();
 
+	void Initialize() override;
 	void OnEntitySelected(Entity* e) override;
 	void Update(float sec) override;
-
-protected:
-	void showEvent(QShowEvent *e) override;
 
 private:
 	Entity* entity		= NULL;

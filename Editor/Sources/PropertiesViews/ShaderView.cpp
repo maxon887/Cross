@@ -5,3 +5,7 @@ ShaderView::ShaderView(QWidget* parent) :
 { }
 
 ShaderView::~ShaderView() { }
+
+void ShaderView::Initialize(){
+
+}

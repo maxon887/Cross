@@ -17,11 +17,9 @@ public:
 	ComponentView(QWidget* parent = 0);
 	virtual ~ComponentView();
 
+	virtual void Initialize() { }
 	virtual void OnEntitySelected(Entity* e) { }
 	virtual void Update(float sec) { }
-
-private:
-	QLabel* shader_filename = NULL;
 };
 
 #endif

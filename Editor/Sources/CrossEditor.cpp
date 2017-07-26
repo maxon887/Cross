@@ -17,6 +17,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	editor = this;
 	game = editor;
 	ui.setupUi(this);
+	UIInitialized();//trigger
 	connect(ui.actionNewScene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
 	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
 	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);

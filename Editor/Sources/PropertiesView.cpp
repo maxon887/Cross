@@ -10,12 +10,36 @@
 PropertiesView::PropertiesView(QWidget* parent) :
 	QDockWidget(parent)
 { 
+	editor->UIInitialized.Connect(this, &PropertiesView::OnUIInitialized);
+	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
+}
+
+PropertiesView::~PropertiesView() { 
+	delete file_properties_widget;
+}
+
+void PropertiesView::OnUIInitialized(){
+	entity_components.push_back(findChild<EntityComponent*>());
+	entity_components.push_back(findChild<MeshComponent*>());
+	for(ComponentView* v : entity_components) {
+		v->Initialize();
+		v->hide();
+	}
+
 	file_properties_widget = new QWidget(this);
 	Ui::FilePropertiesClass ui;
 	ui.setupUi(file_properties_widget);
+	shader_properties = file_properties_widget->findChild<ShaderView*>();
+	QWidget* parentWiget = findChild<QWidget*>("layout");
+	shader_properties->setParent(parentWiget);
+	QVBoxLayout* hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
+	if(hBox) {
+		hBox->insertWidget(0, shader_properties);
+	} else {
+		parentWiget->layout()->addWidget(shader_properties);
+	}
+	shader_properties->Initialize();
 }
-
-PropertiesView::~PropertiesView() { }
 
 void PropertiesView::Update(float sec){
 	if(selected_entity){
@@ -63,26 +87,5 @@ void PropertiesView::OnFileSelected(string filename){
 		shader_properties->show();
 	}else{
 		shader_properties->hide();
-	}
-}
-
-void PropertiesView::showEvent(QShowEvent *event) {
-	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
-	entity_components.push_back(findChild<EntityComponent*>());
-	entity_components.push_back(findChild<MeshComponent*>());
-	for(ComponentView* v : entity_components) {
-		v->hide();
-	}
-
-	if(!shader_properties){
-		shader_properties = file_properties_widget->findChild<ShaderView*>();
-		QWidget* parentWiget = findChild<QWidget*>("layout");
-		shader_properties->setParent(parentWiget);
-		QVBoxLayout* hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
-		if(hBox){
-			hBox->insertWidget(0, shader_properties);
-		}else{
-			parentWiget->layout()->addWidget(shader_properties);
-		}
 	}
 }

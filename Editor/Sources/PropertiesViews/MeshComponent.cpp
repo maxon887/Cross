@@ -11,6 +11,10 @@ MeshComponent::MeshComponent(QWidget* parent) :
 
 MeshComponent::~MeshComponent() { }
 
+void MeshComponent::Initialize() {
+	shader_filename = findChild<QLabel*>();
+}
+
 void MeshComponent::OnEntitySelected(Entity* entity){
 	Mesh* mesh = entity->GetComponent<Mesh>();
 	if(mesh){
@@ -20,9 +24,4 @@ void MeshComponent::OnEntitySelected(Entity* entity){
 	}else{
 		hide();
 	}
-}
-
-void MeshComponent::showEvent(QShowEvent *e){
-	ComponentView::showEvent(e);
-	shader_filename = findChild<QLabel*>();
 }

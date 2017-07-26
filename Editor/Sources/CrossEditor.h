@@ -15,6 +15,8 @@ class CrossEditor : public QMainWindow,
 {
 	Q_OBJECT
 public:
+	Event<> UIInitialized;
+
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
 
