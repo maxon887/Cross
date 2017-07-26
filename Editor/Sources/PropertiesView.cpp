@@ -85,6 +85,7 @@ void PropertiesView::OnFileSelected(string filename){
 	string ext = File::ExtensionFromFile(filename);
 	if(ext == "she"){
 		shader_properties->show();
+		shader_properties->OnFileSelected(filename);
 	}else{
 		shader_properties->hide();
 	}
