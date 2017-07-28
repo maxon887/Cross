@@ -101,11 +101,23 @@ void ShaderView::OnFileSelected(const string& filepath){
 		while(propertyXML){
 			const char* name = propertyXML->Attribute("name");
 			const char* glName = propertyXML->Attribute("glName");
+			const char* type = propertyXML->Attribute("type");
 			QWidget* propertyLayout = OnAddPropertyClicked();
 			QLineEdit* propertyName = propertyLayout->findChild<QLineEdit*>("propertyName");
 			QLineEdit* propertyGLName = propertyLayout->findChild<QLineEdit*>("propertyGLName");
+			QComboBox* propertyType = propertyLayout->findChild<QComboBox*>("propertyType");
 			propertyName->setText(name);
 			propertyGLName->setText(glName);
+			if(strcmp(type, "Int") == 0){
+				propertyType->setCurrentIndex(0);
+			}else if(strcmp(type, "Float") == 0){
+				propertyType->setCurrentIndex(1);
+			}else if(strcmp(type, "Texture") == 0){
+				propertyType->setCurrentIndex(2);
+			}else{
+				throw CrossException("Unknown shader parametr");
+			}
+
 			propertyXML = propertyXML->NextSiblingElement("Property");
 		}
 	}
@@ -153,8 +165,9 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	QLabel* typeLabel = new QLabel(propertyLayoutWidget);
 	typeLabel->setText("Type:");
 	QComboBox* typeBox = new QComboBox(propertyLayoutWidget);
-	typeBox->addItem("Float");
+	typeBox->setObjectName("propertyType");
 	typeBox->addItem("Int");
+	typeBox->addItem("Float");
 	typeBox->addItem("Texture");
 
 	QPushButton* removeBtn = new QPushButton(propertyLayoutWidget);
