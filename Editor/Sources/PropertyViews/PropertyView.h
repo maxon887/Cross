@@ -5,17 +5,14 @@
 
 #include <QGroupBox.h>
 
-class QLineEdit;
-class QLabel;
-
 using namespace cross;
 
-class ComponentView : public QGroupBox
+class PropertyView : public QGroupBox
 {
 	Q_OBJECT
 public:
-	ComponentView(QWidget* parent = 0);
-	virtual ~ComponentView();
+	PropertyView(QWidget* parent = 0) : QGroupBox(parent) { }
+	virtual ~PropertyView() { }
 
 	virtual void Initialize() { }
 	virtual void OnEntitySelected(Entity* e) { }

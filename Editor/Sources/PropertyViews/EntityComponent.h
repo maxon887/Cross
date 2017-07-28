@@ -2,18 +2,18 @@
 #define ENTITY_COMPONENT
 
 #include "Cross.h"
-#include "ComponentView.h"
+#include "PropertyView.h"
 
 class QLineEdit;
 
 using namespace cross;
 
-class EntityComponent : public ComponentView
+class EntityComponent : public PropertyView
 {
 	Q_OBJECT
 public:
-	EntityComponent(QWidget* parent = 0);
-	~EntityComponent();
+	EntityComponent(QWidget* parent = 0) : PropertyView(parent) { }
+	~EntityComponent() override { }
 
 	void Initialize() override;
 	void OnEntitySelected(Entity* e) override;

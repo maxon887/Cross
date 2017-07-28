@@ -4,12 +4,6 @@
 #include <QLineEdit>
 #include <QDoubleValidator>
 
-EntityComponent::EntityComponent(QWidget* parent) :
-	ComponentView(parent)
-{ }
-
-EntityComponent::~EntityComponent() { }
-
 void EntityComponent::Initialize(){
 	QValidator* validator = new QDoubleValidator(-1000.0, 1000.0, 10, this);
 	posX = findChild<QLineEdit*>("posX");

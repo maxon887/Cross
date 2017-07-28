@@ -5,12 +5,6 @@
 #include "Shaders/Shader.h"
 #include <QLabel.h>
 
-MeshComponent::MeshComponent(QWidget* parent) :
-	ComponentView(parent)
-{ }
-
-MeshComponent::~MeshComponent() { }
-
 void MeshComponent::Initialize() {
 	shader_filename = findChild<QLabel*>();
 }

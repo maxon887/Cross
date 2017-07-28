@@ -8,7 +8,7 @@
 
 using namespace cross;
 
-class ComponentView;
+class PropertyView;
 class ShaderView;
 
 class PropertiesView : public QDockWidget
@@ -28,7 +28,7 @@ public:
 
 private:
 	Entity* selected_entity					= NULL;
-	Array<ComponentView*> entity_components = Array<ComponentView*>();
+	Array<PropertyView*> entity_components = Array<PropertyView*>();
 	QWidget* file_properties_widget			= NULL;
 	ShaderView* shader_properties			= NULL;
 };

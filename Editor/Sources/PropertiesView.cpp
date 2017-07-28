@@ -19,7 +19,7 @@ PropertiesView::~PropertiesView() {
 void PropertiesView::OnUIInitialized(){
 	entity_components.push_back(findChild<EntityComponent*>());
 	entity_components.push_back(findChild<MeshComponent*>());
-	for(ComponentView* v : entity_components) {
+	for(PropertyView* v : entity_components) {
 		v->Initialize();
 		v->hide();
 	}
@@ -42,7 +42,7 @@ void PropertiesView::OnUIInitialized(){
 
 void PropertiesView::Update(float sec){
 	if(selected_entity){
-		for(ComponentView* v : entity_components){
+		for(PropertyView* v : entity_components){
 			v->Update(sec);
 		}
 	}
@@ -50,7 +50,7 @@ void PropertiesView::Update(float sec){
 
 void PropertiesView::OnScreenChanged(Screen*){
 	selected_entity = NULL;
-	for(ComponentView* v : entity_components) {
+	for(PropertyView* v : entity_components) {
 		v->hide();
 	}
 }
@@ -59,7 +59,7 @@ void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
 	shader_properties->hide();
 	selected_entity = entity;
-	for(ComponentView* v : entity_components){
+	for(PropertyView* v : entity_components){
 		if(selected_entity){
 			v->show();
 			v->OnEntitySelected(entity);
@@ -71,14 +71,14 @@ void PropertiesView::OnEntitySelected(Entity* entity) {
 
 void PropertiesView::OnEntityChanged(Entity* entity){
 	if(entity == selected_entity){
-		for(ComponentView* v : entity_components) {
+		for(PropertyView* v : entity_components) {
 			v->OnEntitySelected(entity);
 		}
 	}
 }
 
 void PropertiesView::OnFileSelected(string filename){
-	for(ComponentView* view : entity_components){
+	for(PropertyView* view : entity_components){
 		view->hide();
 	}
 	string ext = File::ExtensionFromFile(filename);

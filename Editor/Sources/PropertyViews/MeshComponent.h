@@ -2,19 +2,19 @@
 #define MESH_COMPONENT
 
 #include "Cross.h"
-#include "ComponentView.h"
+#include "PropertyView.h"
 
 class QLineEdit;
 class QLabel;
 
 using namespace cross;
 
-class MeshComponent : public ComponentView
+class MeshComponent : public PropertyView
 {
 	Q_OBJECT
 public:
-	MeshComponent(QWidget* parent = 0);
-	~MeshComponent();
+	MeshComponent(QWidget* parent = 0) : PropertyView(parent) { }
+	~MeshComponent() override { }
 
 	void Initialize() override;
 	void OnEntitySelected(Entity* e) override;
