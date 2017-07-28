@@ -15,11 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SceneView.h"
+#include "GraphicsGL.h"
 #include "System.h"
 #include "Entity.h"
-#include "GraphicsGL.h"
 #include "Material.h"
 #include "Mesh.h"
+#include "Camera.h"
 
 SceneView::SceneView()
 { }

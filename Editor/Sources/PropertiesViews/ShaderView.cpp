@@ -1,10 +1,15 @@
 #include "ShaderView.h"
 #include "File.h"
 
+#include "Libs/TinyXML2/tinyxml2.h"
+
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLineEdit>
 #include <QLabel>
+
+using namespace cross;
+using namespace tinyxml2;
 
 ShaderView::ShaderView(QWidget* parent) :
 	QGroupBox(parent)
@@ -13,6 +18,13 @@ ShaderView::ShaderView(QWidget* parent) :
 ShaderView::~ShaderView() { }
 
 void ShaderView::Initialize(){
+	vertex_file = findChild<QLineEdit*>("vertexFile");
+	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
+	connect(loadVertexFileBtn, &QPushButton::clicked, this, &ShaderView::OnVertexFileClicked);
+	fragment_file = findChild<QLineEdit*>("fragmentFile");
+	QPushButton* loadFragmentFileBtn = findChild<QPushButton*>("fragmentBtn");
+	connect(loadFragmentFileBtn, &QPushButton::clicked, this, &ShaderView::OnFragmentFileClicked);
+
 	macrosies_box = findChild<QGroupBox*>("macrosies");
 	QPushButton* addMacroBtn = macrosies_box->findChild<QPushButton*>("addMacroBtn");
 	connect(addMacroBtn, &QPushButton::clicked, this, &ShaderView::OnAddMacroClicked);
@@ -24,6 +36,8 @@ void ShaderView::Initialize(){
 void ShaderView::OnFileSelected(const string& filepath){
 	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
 	setTitle(QString("Shader: ") + filename.c_str());
+
+	XMLDocument doc;
 }
 
 void ShaderView::OnAddMacroClicked(){
@@ -87,4 +101,12 @@ void ShaderView::OnRemoveClicked(){
 	macrosies_box->layout()->removeWidget(parent);
 
 	delete parent;
+}
+
+void ShaderView::OnVertexFileClicked(){
+
+}
+
+void ShaderView::OnFragmentFileClicked(){
+
 }

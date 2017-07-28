@@ -5,7 +5,8 @@
 #include "Scene.h"
 #include "Material.h"
 
-#include <QHeaderView.h>
+#include <QHeaderView>
+#include <QFileSystemModel>
 
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)

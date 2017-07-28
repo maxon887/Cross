@@ -6,10 +6,6 @@
 
 #include <QMainWindow>
 
-class SceneView;
-
-extern CrossEditor* editor;
-
 class CrossEditor : public QMainWindow, 
 					public Game
 {
@@ -46,5 +42,7 @@ private:
 	QString scene_file;
 
 };
+
+extern CrossEditor* editor;
 
 #endif // !CROSS_EDITOR

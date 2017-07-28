@@ -5,9 +5,7 @@
 
 #include <QGroupBox.h>
 
-using namespace cross;
-
-class QHBoxLayout;
+class QLineEdit;
 
 class ShaderView : public QGroupBox
 {
@@ -22,6 +20,11 @@ public:
 private:
 	QGroupBox* macrosies_box		= NULL;
 	QGroupBox* properties_box		= NULL;
+	QLineEdit* vertex_file			= NULL;
+	QLineEdit* fragment_file		= NULL;
+
+	void OnVertexFileClicked();
+	void OnFragmentFileClicked();
 
 	void OnAddMacroClicked();
 	void OnAddPropertyClicked();

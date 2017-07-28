@@ -5,11 +5,10 @@
 #include "Event.h"
 
 #include <QTreeView>
-#include <QFileSystemModel>
 
 using namespace cross;
 
-class CrossEditor;
+class QFileSystemModel;
 
 class FileExplorer : public QTreeView
 {
@@ -23,7 +22,6 @@ public:
 	void SetupProjectDirectory(QString dir);
 
 private:
-	CrossEditor* cross_editor;
 	QFileSystemModel* file_system;
 
 	void OnItemSelected(QModelIndex index);

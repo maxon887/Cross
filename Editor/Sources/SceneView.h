@@ -16,11 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Scene.h"
-#include "Camera.h"
 #include "Input.h"
-#include "Utils/Button.h"
-#include "Utils/ToggleButton.h"
 #include "Utils/FreeCameraScene.h"
 
 using namespace cross;
