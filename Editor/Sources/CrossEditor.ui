@@ -337,13 +337,13 @@
   <customwidget>
    <class>EntityComponent</class>
    <extends>QGroupBox</extends>
-   <header>PropertiesViews/EntityComponent.h</header>
+   <header>PropertyViews/EntityComponent.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>MeshComponent</class>
    <extends>QGroupBox</extends>
-   <header>PropertiesViews/MeshComponent.h</header>
+   <header>PropertyViews/MeshComponent.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

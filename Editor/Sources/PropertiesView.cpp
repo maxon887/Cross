@@ -1,6 +1,4 @@
 #include "PropertiesView.h"
-#include "PropertiesViews/EntityComponent.h"
-#include "PropertiesViews/MeshComponent.h"
 #include "CrossEditor.h"
 #include "Entity.h"
 #include "File.h"

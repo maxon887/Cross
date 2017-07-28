@@ -198,7 +198,7 @@
   <customwidget>
    <class>ShaderView</class>
    <extends>QGroupBox</extends>
-   <header>PropertiesViews/ShaderView.h</header>
+   <header>PropertyViews/ShaderView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
