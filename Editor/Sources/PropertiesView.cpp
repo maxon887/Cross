@@ -39,6 +39,7 @@ void PropertiesView::OnUIInitialized(){
 		parentWiget->layout()->addWidget(shader_properties);
 	}
 	shader_properties->Initialize();
+	shader_properties->hide();
 }
 
 void PropertiesView::Update(float sec){

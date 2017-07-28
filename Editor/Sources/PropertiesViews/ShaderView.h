@@ -21,12 +21,11 @@ public:
 	
 private:
 	QGroupBox* macrosies_box		= NULL;
-	QHBoxLayout* macro_template		= NULL;
 	QGroupBox* properties_box		= NULL;
-	QHBoxLayout* property_template	= NULL;
 
 	void OnAddMacroClicked();
 	void OnAddPropertyClicked();
+	void OnRemoveClicked();
 };
 
 #endif
