@@ -81,7 +81,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="fragmentBile"/>
+         <widget class="QLineEdit" name="fragmentFile"/>
         </item>
         <item>
          <widget class="QPushButton" name="fragmentBtn">

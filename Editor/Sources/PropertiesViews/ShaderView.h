@@ -23,10 +23,12 @@ private:
 	QLineEdit* vertex_file			= NULL;
 	QLineEdit* fragment_file		= NULL;
 
+	void Clear();
+
 	void OnVertexFileClicked();
 	void OnFragmentFileClicked();
 
-	void OnAddMacroClicked();
+	QWidget* OnAddMacroClicked();
 	void OnAddPropertyClicked();
 	void OnRemoveClicked();
 };
