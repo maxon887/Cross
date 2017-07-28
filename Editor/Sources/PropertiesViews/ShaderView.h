@@ -29,7 +29,7 @@ private:
 	void OnFragmentFileClicked();
 
 	QWidget* OnAddMacroClicked();
-	void OnAddPropertyClicked();
+	QWidget* OnAddPropertyClicked();
 	void OnRemoveClicked();
 };
 

@@ -25,8 +25,8 @@ void PropertiesView::OnUIInitialized(){
 		v->Initialize();
 		v->hide();
 	}
-
-	file_properties_widget = new QWidget(this);
+	
+	file_properties_widget = new QWidget();
 	Ui::FilePropertiesClass ui;
 	ui.setupUi(file_properties_widget);
 	shader_properties = file_properties_widget->findChild<ShaderView*>();

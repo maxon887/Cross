@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QLabel>
+#include <QComboBox>
 
 using namespace cross;
 using namespace tinyxml2;
@@ -40,6 +41,12 @@ void ShaderView::Clear(){
 		delete macroLayout;
 		macroLayout = macrosies_box->findChild<QWidget*>("macroLayout");
 	} while(macroLayout);
+
+	QWidget* propertyLayout = NULL;
+	do {
+		delete propertyLayout;
+		propertyLayout = properties_box->findChild<QWidget*>("propertyLayout");
+	} while(propertyLayout);
 }
 
 void ShaderView::OnVertexFileClicked() {
@@ -88,6 +95,20 @@ void ShaderView::OnFileSelected(const string& filepath){
 			macroXML = macroXML->NextSiblingElement("Macro");
 		}
 	}
+	XMLElement* propertiesXML = shaderXML->FirstChildElement("Properties");
+	if(propertiesXML){
+		XMLElement* propertyXML = propertiesXML->FirstChildElement("Property");
+		while(propertyXML){
+			const char* name = propertyXML->Attribute("name");
+			const char* glName = propertyXML->Attribute("glName");
+			QWidget* propertyLayout = OnAddPropertyClicked();
+			QLineEdit* propertyName = propertyLayout->findChild<QLineEdit*>("propertyName");
+			QLineEdit* propertyGLName = propertyLayout->findChild<QLineEdit*>("propertyGLName");
+			propertyName->setText(name);
+			propertyGLName->setText(glName);
+			propertyXML = propertyXML->NextSiblingElement("Property");
+		}
+	}
 }
 
 QWidget* ShaderView::OnAddMacroClicked(){
@@ -115,17 +136,27 @@ QWidget* ShaderView::OnAddMacroClicked(){
 	return macroLayoutWidget;
 }
 
-void ShaderView::OnAddPropertyClicked(){
+QWidget* ShaderView::OnAddPropertyClicked(){
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
+	propertyLayoutWidget->setObjectName("propertyLayout");
 	QHBoxLayout* propertyLayout = new QHBoxLayout(propertyLayoutWidget);
 	propertyLayout->setSpacing(12);
 	propertyLayout->setMargin(0);
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setText("Name:");
 	QLineEdit* propertyNameEdit = new QLineEdit(propertyLayoutWidget);
+	propertyNameEdit->setObjectName("propertyName");
 	QLabel* propertyGLNameLabel = new QLabel(propertyLayoutWidget);
 	propertyGLNameLabel->setText("glName:");
 	QLineEdit* propertyGLNameEdit = new QLineEdit(propertyLayoutWidget);
+	propertyGLNameEdit->setObjectName("propertyGLName");
+	QLabel* typeLabel = new QLabel(propertyLayoutWidget);
+	typeLabel->setText("Type:");
+	QComboBox* typeBox = new QComboBox(propertyLayoutWidget);
+	typeBox->addItem("Float");
+	typeBox->addItem("Int");
+	typeBox->addItem("Texture");
+
 	QPushButton* removeBtn = new QPushButton(propertyLayoutWidget);
 	removeBtn->setText("remove");
 	removeBtn->setFixedWidth(100);
@@ -136,6 +167,8 @@ void ShaderView::OnAddPropertyClicked(){
 	propertyLayout->addWidget(propertyNameEdit);
 	propertyLayout->addWidget(propertyGLNameLabel);
 	propertyLayout->addWidget(propertyGLNameEdit);
+	propertyLayout->addWidget(typeLabel);
+	propertyLayout->addWidget(typeBox);
 	propertyLayout->addWidget(removeBtn);
 
 	QVBoxLayout* groupBoxLayout = dynamic_cast<QVBoxLayout*>(properties_box->layout());
@@ -146,6 +179,8 @@ void ShaderView::OnAddPropertyClicked(){
 	propertyGLNameLabel->show();
 	propertyGLNameEdit->show();
 	removeBtn->show();
+
+	return propertyLayoutWidget;
 }
 
 void ShaderView::OnRemoveClicked(){
