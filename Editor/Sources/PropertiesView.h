@@ -2,14 +2,12 @@
 #define PROPERTIES_VIEW
 
 #include "Cross.h"
-#include "ui_FileProperties.h"
 
 #include <QDockWidget.h>
 
 using namespace cross;
 
 class PropertyView;
-class ShaderView;
 
 class PropertiesView : public QDockWidget
 {
@@ -29,8 +27,6 @@ public:
 private:
 	Entity* selected_entity					= NULL;
 	Array<PropertyView*> entity_components = Array<PropertyView*>();
-	QWidget* file_properties_widget			= NULL;
-	ShaderView* shader_properties			= NULL;
 };
 
 #endif

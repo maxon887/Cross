@@ -2,16 +2,15 @@
 #define SHADER_VIEW
 
 #include "Cross.h"
-
-#include <QGroupBox.h>
+#include "PropertyView.h"
 
 class QLineEdit;
 
-class ShaderView : public QGroupBox
+class ShaderView : public PropertyView
 {
 	Q_OBJECT
 public:
-	ShaderView(QWidget* parent = 0) : QGroupBox(parent) { }
+	ShaderView(QWidget* parent = 0) : PropertyView(parent) { }
 	~ShaderView() override { }
 
 	void Initialize();

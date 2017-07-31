@@ -4,6 +4,7 @@
 #include "File.h"
 
 #include "ui_EntityComponent.h"
+#include "ui_ShaderView.h"
 
 #include <QTreeView.h>
 
@@ -15,37 +16,30 @@ PropertiesView::PropertiesView(QWidget* parent) :
 }
 
 PropertiesView::~PropertiesView() { 
-	delete file_properties_widget;
 }
 
 void PropertiesView::OnUIInitialized(){
-	entity_components.push_back(findChild<MeshComponent*>());
-	
+	QWidget* layoutWidget = findChild<QWidget*>("layout");
+	QVBoxLayout* layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
+
 	QWidget* entityComponentClass = new QWidget(this);
 	Ui::EntityComponentClass entityComponentUI;
 	entityComponentUI.setupUi(entityComponentClass);
-	QWidget* parentWiget = findChild<QWidget*>("layout");
-	QVBoxLayout* hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
-	hBox->insertWidget(0, entityComponentClass);
+	layout->insertWidget(0, entityComponentClass);
 	EntityComponent* entityComponent = entityComponentClass->findChild<EntityComponent*>("entityComponent");
 	entity_components.push_back(entityComponent);
+
+	QWidget* shaderViewClass = new QWidget(this);
+	Ui::ShaderViewClass shaderViewUI;
+	shaderViewUI.setupUi(shaderViewClass);
+	layout->insertWidget(layout->count() - 1, shaderViewClass);
+	ShaderView* shaderView = shaderViewClass->findChild<ShaderView*>("shaderView");
+	entity_components.push_back(shaderView);
 
 	for(PropertyView* v : entity_components) {
 		v->Initialize();
 		v->hide();
 	}
-	
-	file_properties_widget = new QWidget();
-	Ui::FilePropertiesClass ui;
-	ui.setupUi(file_properties_widget);
-	shader_properties = file_properties_widget->findChild<ShaderView*>();
-	parentWiget = findChild<QWidget*>("layout");
-	shader_properties->setParent(parentWiget);
-	hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
-	hBox->insertWidget(0, shader_properties);
-
-	shader_properties->Initialize();
-	shader_properties->hide();
 }
 
 void PropertiesView::Update(float sec){
@@ -65,7 +59,6 @@ void PropertiesView::OnScreenChanged(Screen*){
 
 void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
-	shader_properties->hide();
 	selected_entity = entity;
 	for(PropertyView* v : entity_components){
 		if(selected_entity){
@@ -87,13 +80,6 @@ void PropertiesView::OnEntityChanged(Entity* entity){
 
 void PropertiesView::OnFileSelected(string filename){
 	for(PropertyView* view : entity_components){
-		view->hide();
-	}
-	string ext = File::ExtensionFromFile(filename);
-	if(ext == "she"){
-		shader_properties->show();
-		shader_properties->OnFileSelected(filename);
-	}else{
-		shader_properties->hide();
+		view->OnFileSelected(filename);
 	}
 }

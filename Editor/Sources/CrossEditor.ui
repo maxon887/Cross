@@ -137,22 +137,6 @@
    <widget class="QWidget" name="layout">
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="MeshComponent" name="meshComponent">
-       <property name="title">
-        <string>Mesh</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <widget class="QLabel" name="materialLabel">
-          <property name="text">
-           <string>Shader - FileName</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -226,12 +210,6 @@
    <class>PropertiesView</class>
    <extends>QDockWidget</extends>
    <header>PropertiesView.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MeshComponent</class>
-   <extends>QGroupBox</extends>
-   <header>PropertyViews/MeshComponent.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

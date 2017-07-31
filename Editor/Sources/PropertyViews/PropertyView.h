@@ -15,7 +15,8 @@ public:
 	virtual ~PropertyView() { }
 
 	virtual void Initialize() { }
-	virtual void OnEntitySelected(Entity* e) { }
+	virtual void OnEntitySelected(Entity* e);
+	virtual void OnFileSelected(const string& filename);
 	virtual void Update(float sec) { }
 };
 

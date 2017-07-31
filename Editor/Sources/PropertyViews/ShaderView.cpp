@@ -52,6 +52,10 @@ void ShaderView::OnFragmentFileClicked() {
 }
 
 void ShaderView::OnFileSelected(const string& filepath){
+	if(File::ExtensionFromFile(filepath) != "she") {
+		PropertyView::OnFileSelected(filepath);
+		return;
+	}
 	Clear();
 
 	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
@@ -115,6 +119,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 			propertyXML = propertyXML->NextSiblingElement("Property");
 		}
 	}
+
+	show();
 }
 
 QWidget* ShaderView::OnAddMacroClicked(){
