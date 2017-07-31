@@ -306,6 +306,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ShaderView.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\MaterialView.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaterialView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaterialView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -345,6 +354,12 @@
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\ShaderView.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MaterialView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MaterialView.ui">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -527,6 +542,9 @@
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_ShaderView.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MaterialView.h">
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

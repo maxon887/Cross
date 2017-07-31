@@ -5,6 +5,7 @@
 
 #include "ui_EntityComponent.h"
 #include "ui_ShaderView.h"
+#include "ui_MaterialView.h"
 
 #include <QTreeView.h>
 
@@ -27,16 +28,23 @@ void PropertiesView::OnUIInitialized(){
 	entityComponentUI.setupUi(entityComponentClass);
 	layout->insertWidget(0, entityComponentClass);
 	EntityComponent* entityComponent = entityComponentClass->findChild<EntityComponent*>("entityComponent");
-	entity_components.push_back(entityComponent);
+	views.push_back(entityComponent);
 
 	QWidget* shaderViewClass = new QWidget(this);
 	Ui::ShaderViewClass shaderViewUI;
 	shaderViewUI.setupUi(shaderViewClass);
 	layout->insertWidget(layout->count() - 1, shaderViewClass);
 	ShaderView* shaderView = shaderViewClass->findChild<ShaderView*>("shaderView");
-	entity_components.push_back(shaderView);
+	views.push_back(shaderView);
 
-	for(PropertyView* v : entity_components) {
+	QWidget* materialViewClass = new QWidget(this);
+	Ui::MaterialViewClass materialViewUI;
+	materialViewUI.setupUi(materialViewClass);
+	layout->insertWidget(layout->count() - 1, materialViewClass);
+	MaterialView* materialView = materialViewClass->findChild<MaterialView*>("materialView");
+	views.push_back(materialView);
+
+	for(PropertyView* v : views) {
 		v->Initialize();
 		v->hide();
 	}
@@ -44,7 +52,7 @@ void PropertiesView::OnUIInitialized(){
 
 void PropertiesView::Update(float sec){
 	if(selected_entity){
-		for(PropertyView* v : entity_components){
+		for(PropertyView* v : views){
 			v->Update(sec);
 		}
 	}
@@ -52,7 +60,7 @@ void PropertiesView::Update(float sec){
 
 void PropertiesView::OnScreenChanged(Screen*){
 	selected_entity = NULL;
-	for(PropertyView* v : entity_components) {
+	for(PropertyView* v : views) {
 		v->hide();
 	}
 }
@@ -60,7 +68,7 @@ void PropertiesView::OnScreenChanged(Screen*){
 void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
 	selected_entity = entity;
-	for(PropertyView* v : entity_components){
+	for(PropertyView* v : views){
 		if(selected_entity){
 			v->show();
 			v->OnEntitySelected(entity);
@@ -72,14 +80,14 @@ void PropertiesView::OnEntitySelected(Entity* entity) {
 
 void PropertiesView::OnEntityChanged(Entity* entity){
 	if(entity == selected_entity){
-		for(PropertyView* v : entity_components) {
+		for(PropertyView* v : views) {
 			v->OnEntitySelected(entity);
 		}
 	}
 }
 
 void PropertiesView::OnFileSelected(string filename){
-	for(PropertyView* view : entity_components){
+	for(PropertyView* view : views){
 		view->OnFileSelected(filename);
 	}
 }

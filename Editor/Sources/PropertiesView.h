@@ -26,7 +26,7 @@ public:
 
 private:
 	Entity* selected_entity					= NULL;
-	Array<PropertyView*> entity_components = Array<PropertyView*>();
+	Array<PropertyView*> views				= Array<PropertyView*>();
 };
 
 #endif
