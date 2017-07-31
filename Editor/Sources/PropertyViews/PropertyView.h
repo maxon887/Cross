@@ -1,5 +1,5 @@
-#ifndef COMPONENT_VIEW
-#define COMPONENT_VIEW
+#ifndef PROPERTY_VIEW
+#define PROPERTY_VIEW
 
 #include "Cross.h"
 

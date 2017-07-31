@@ -13,12 +13,6 @@
 using namespace cross;
 using namespace tinyxml2;
 
-ShaderView::ShaderView(QWidget* parent) :
-	QGroupBox(parent)
-{ }
-
-ShaderView::~ShaderView() { }
-
 void ShaderView::Initialize(){
 	vertex_file = findChild<QLineEdit*>("vertexFile");
 	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");

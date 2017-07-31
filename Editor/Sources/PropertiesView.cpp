@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "File.h"
 
+#include "ui_EntityComponent.h"
+
 #include <QTreeView.h>
 
 PropertiesView::PropertiesView(QWidget* parent) :
@@ -17,8 +19,17 @@ PropertiesView::~PropertiesView() {
 }
 
 void PropertiesView::OnUIInitialized(){
-	entity_components.push_back(findChild<EntityComponent*>());
 	entity_components.push_back(findChild<MeshComponent*>());
+	
+	QWidget* entityComponentClass = new QWidget(this);
+	Ui::EntityComponentClass entityComponentUI;
+	entityComponentUI.setupUi(entityComponentClass);
+	QWidget* parentWiget = findChild<QWidget*>("layout");
+	QVBoxLayout* hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
+	hBox->insertWidget(0, entityComponentClass);
+	EntityComponent* entityComponent = entityComponentClass->findChild<EntityComponent*>("entityComponent");
+	entity_components.push_back(entityComponent);
+
 	for(PropertyView* v : entity_components) {
 		v->Initialize();
 		v->hide();
@@ -28,14 +39,11 @@ void PropertiesView::OnUIInitialized(){
 	Ui::FilePropertiesClass ui;
 	ui.setupUi(file_properties_widget);
 	shader_properties = file_properties_widget->findChild<ShaderView*>();
-	QWidget* parentWiget = findChild<QWidget*>("layout");
+	parentWiget = findChild<QWidget*>("layout");
 	shader_properties->setParent(parentWiget);
-	QVBoxLayout* hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
-	if(hBox) {
-		hBox->insertWidget(0, shader_properties);
-	} else {
-		parentWiget->layout()->addWidget(shader_properties);
-	}
+	hBox = dynamic_cast<QVBoxLayout*>(parentWiget->layout());
+	hBox->insertWidget(0, shader_properties);
+
 	shader_properties->Initialize();
 	shader_properties->hide();
 }

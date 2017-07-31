@@ -11,8 +11,8 @@ class ShaderView : public QGroupBox
 {
 	Q_OBJECT
 public:
-	ShaderView(QWidget* parent = 0);
-	~ShaderView();
+	ShaderView(QWidget* parent = 0) : QGroupBox(parent) { }
+	~ShaderView() override { }
 
 	void Initialize();
 	void OnFileSelected(const string& filename);

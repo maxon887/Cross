@@ -341,6 +341,9 @@
     <CustomBuild Include="Sources\PropertyViews\PropertyView.h">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
+    <CustomBuild Include="EntityComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h">
@@ -518,6 +521,9 @@
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_FileProperties.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_EntityComponent.h">
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
