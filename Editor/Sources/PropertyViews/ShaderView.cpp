@@ -11,6 +11,10 @@
 
 using namespace cross;
 
+ShaderView::~ShaderView(){
+	delete shader;
+}
+
 void ShaderView::Initialize(){
 	vertex_file = findChild<QLineEdit*>("vertexFile");
 	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
