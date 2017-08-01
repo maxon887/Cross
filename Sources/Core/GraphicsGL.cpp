@@ -236,17 +236,6 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	return shader;
 }
 
-Shader* GraphicsGL::LoadShader(const string& filename){
-	size_t hash = std::hash<std::string>{}(filename);
-	auto shaders = game->GetCurrentScene()->shaders;
-	auto found = shaders.find(hash);
-	if(found != shaders.end()){
-		return (*found).second;
-	}else{
-
-	}
-}
-
 Texture* GraphicsGL::GetColorBuffer(){
 	if(config->IsOffscreenRender()){
 		if(!colorbuffer_texture){

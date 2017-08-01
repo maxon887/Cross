@@ -11,16 +11,20 @@ class MaterialView : public PropertyView
 	Q_OBJECT
 public:
 	MaterialView(QWidget* parent = 0) : PropertyView(parent) { }
-	~MaterialView() override { }
+	~MaterialView() override;
 
 	void Initialize();
 	void OnFileSelected(const string& filename);
 	
 private:
-	QLabel* shader				= NULL;
+	Shader* shader				= NULL;
+
+	QLabel* shaderLabel			= NULL;
 	QGroupBox* properties_box	= NULL;
 
-	void CreateProperty(const string& name);
+	void Clear();
+
+	QWidget* CreateProperty(const string& name);
 };
 
 #endif

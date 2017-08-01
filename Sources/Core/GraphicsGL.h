@@ -80,7 +80,6 @@ public:
 	U32 GetShaderVersion() const;
 	void UseShader(Shader* shaders);
 	Shader* GetShader(DefaultShader type);
-	Shader* LoadShader(const string& filename);
 
 	Texture* GetColorBuffer();
 

@@ -71,8 +71,6 @@ public:
 	Color GetAmbientColor() const;
 
 protected:
-	CROSS_FRIENDLY
-
 	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
 	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
 	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();

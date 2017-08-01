@@ -232,9 +232,15 @@ Shader::Shader(const string& vertexFile, const string& fragmentFile) {
 }
 
 Shader::~Shader(){
-	SAFE(glDeleteShader(vertex_shader));
-	SAFE(glDeleteShader(fragment_shader));
-	SAFE(glDeleteProgram(program));
+	if(vertex_shader){
+		SAFE(glDeleteShader(vertex_shader));
+	}
+	if(fragment_shader){
+		SAFE(glDeleteShader(fragment_shader));
+	}	
+	if(program){
+		SAFE(glDeleteProgram(program));
+	}
 	delete vertex_file;
 	delete fragment_file;
 	for(Shader::Property* prop : properties){
