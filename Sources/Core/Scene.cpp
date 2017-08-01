@@ -539,11 +539,8 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 			prop->SetValue((float)value);
 			} break;
 		case Shader::Property::COLOR:{
-			double r = propertyXML->DoubleAttribute("r");
-			double g = propertyXML->DoubleAttribute("g");
-			double b = propertyXML->DoubleAttribute("b");
-			double a = propertyXML->DoubleAttribute("a");
-			Color color((float)r, (float)g, (float)b, (float)a);
+			const char* value = propertyXML->Attribute("value");
+			Color color(value);
 			prop->SetValue(color);
 			} break;
 		case Shader::Property::SAMPLER:{

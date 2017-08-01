@@ -91,6 +91,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 		case Shader::Property::Type::SAMPLER:
 			propertyType->setCurrentIndex(2);
 			break;
+		case Shader::Property::Type::COLOR:
+			propertyType->setCurrentIndex(3);
 		default:
 			sys->LogIt("Property type not supported");
 			break;
@@ -134,32 +136,32 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	propertyLayout->setMargin(0);
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setText("Name:");
+	propertyLayout->addWidget(propertyNameLabel);
 	QLineEdit* propertyNameEdit = new QLineEdit(propertyLayoutWidget);
 	propertyNameEdit->setObjectName("propertyName");
+	propertyLayout->addWidget(propertyNameEdit);
 	QLabel* propertyGLNameLabel = new QLabel(propertyLayoutWidget);
 	propertyGLNameLabel->setText("glName:");
+	propertyLayout->addWidget(propertyGLNameLabel);
 	QLineEdit* propertyGLNameEdit = new QLineEdit(propertyLayoutWidget);
 	propertyGLNameEdit->setObjectName("propertyGLName");
+	propertyLayout->addWidget(propertyGLNameEdit);
 	QLabel* typeLabel = new QLabel(propertyLayoutWidget);
 	typeLabel->setText("Type:");
+	propertyLayout->addWidget(typeLabel);
 	QComboBox* typeBox = new QComboBox(propertyLayoutWidget);
 	typeBox->setObjectName("propertyType");
 	typeBox->addItem("Int");
 	typeBox->addItem("Float");
 	typeBox->addItem("Texture");
+	typeBox->addItem("Color");
+	propertyLayout->addWidget(typeBox);
 
 	QPushButton* removeBtn = new QPushButton(propertyLayoutWidget);
 	removeBtn->setText("remove");
 	removeBtn->setFixedWidth(100);
 	removeBtn->setFixedHeight(31);
 	connect(removeBtn, &QPushButton::clicked, this, &ShaderView::OnRemoveClicked);
-
-	propertyLayout->addWidget(propertyNameLabel);
-	propertyLayout->addWidget(propertyNameEdit);
-	propertyLayout->addWidget(propertyGLNameLabel);
-	propertyLayout->addWidget(propertyGLNameEdit);
-	propertyLayout->addWidget(typeLabel);
-	propertyLayout->addWidget(typeBox);
 	propertyLayout->addWidget(removeBtn);
 
 	QVBoxLayout* groupBoxLayout = dynamic_cast<QVBoxLayout*>(properties_box->layout());

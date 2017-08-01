@@ -1,3 +1,3 @@
 <Material shader="Cube.she">
-	<Property name="Color" r="1.0" g="0.0" b="0.0" a="1.0" />
+	<Property name="Color" value="FF0000FF" />
 </Material>

@@ -43,10 +43,18 @@ void EntityComponent::Initialize(){
 
 void EntityComponent::OnEntitySelected(Entity* entity) {
 	this->entity = entity;
-	setTitle(entity->GetName().c_str());
+	if(entity){
+		show();
+		setTitle(entity->GetName().c_str());
+	}else{
+		hide();
+	}
 }
 
-void EntityComponent::Update(float sec){
+void EntityComponent::Update(float sec) {
+	if(!entity) {
+		return;
+	}
 	if(!posX->hasFocus()){
 		posX->setText(QString::number(entity->GetPosition().x));
 	}

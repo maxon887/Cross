@@ -67,15 +67,10 @@ void PropertiesView::OnScreenChanged(Screen*){
 
 void PropertiesView::OnEntitySelected(Entity* entity) {
 	show();
-	selected_entity = entity;
 	for(PropertyView* v : views){
-		if(selected_entity){
-			v->show();
-			v->OnEntitySelected(entity);
-		}else{
-			v->hide();
-		}
+		v->OnEntitySelected(entity);
 	}
+	selected_entity = entity;
 }
 
 void PropertiesView::OnEntityChanged(Entity* entity){

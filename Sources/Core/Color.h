@@ -37,6 +37,7 @@ public:
 	Color(int r, int g, int b);
 	Color(float r, float g, float b, float a);
 	Color(int r, int g, int b, int a);
+	Color(const char* hex);
 
 	const float* GetData() const;
 

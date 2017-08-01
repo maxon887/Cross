@@ -64,10 +64,22 @@ void MaterialView::OnFileSelected(const string& filepath){
 
 	for(Shader::Property* prop : shader->GetProperties()){
 		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());
-		auto value = xmlValues.find(prop->GetName());
-		if(value != xmlValues.end()){
-			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
-			valueBox->setText((*value).second.c_str());
+		switch(prop->GetType())	{
+		case Shader::Property::Type::SAMPLER: {
+			break;
+		}
+		case Shader::Property::Type::INT:
+		case Shader::Property::Type::FLOAT:
+		case Shader::Property::Type::COLOR:	{
+			auto value = xmlValues.find(prop->GetName());
+			if(value != xmlValues.end()) {
+				QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
+				valueBox->setText((*value).second.c_str());
+			}
+			break;
+		}
+		default:
+			break;
 		}
 	}
 
@@ -94,15 +106,52 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	propertyNameLabel->setFixedWidth(250);
 	propertyLayout->addWidget(propertyNameLabel);
 
-	if(type == Shader::Property::FLOAT || type == Shader::Property::INT) {
+	switch(type) {
+	case cross::Shader::Property::SAMPLER: {
+		QLineEdit* filename = new QLineEdit(propertyLayoutWidget);
+		filename->setObjectName("filename");
+		propertyLayout->addWidget(filename);
+		break;
+	}
+	case cross::Shader::Property::FLOAT: {
 		QSlider* valueSlider = new QSlider(propertyLayoutWidget);
 		valueSlider->setOrientation(Qt::Horizontal);
 		propertyLayout->addWidget(valueSlider);
-	}
 
-	QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
-	valueBox->setObjectName("valueBox");
-	propertyLayout->addWidget(valueBox);
+		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
+		valueBox->setObjectName("valueBox");
+		propertyLayout->addWidget(valueBox);
+		break;
+	}
+	case cross::Shader::Property::INT: {
+		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
+		valueBox->setObjectName("valueBox");
+		propertyLayout->addWidget(valueBox);
+		break;
+	}
+	case cross::Shader::Property::COLOR: {
+		QWidget* colorPicker = new QWidget(propertyLayoutWidget);
+		QPalette pal = palette();
+		pal.setColor(QPalette::Background, Qt::red);
+		colorPicker->setAutoFillBackground(true);
+		colorPicker->setPalette(pal);
+		colorPicker->setFixedWidth(60);
+		colorPicker->setFixedHeight(31);
+		colorPicker->show();
+		propertyLayout->addWidget(colorPicker);
+
+		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
+		valueBox->setObjectName("valueBox");
+		propertyLayout->addWidget(valueBox);
+		valueBox->setFixedWidth(100);
+
+		QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding);
+		propertyLayout->addItem(spacer);
+		break;
+	}
+	default:
+		break;
+	}
 
 	QVBoxLayout* groupBoxLayout = dynamic_cast<QVBoxLayout*>(properties_box->layout());
 	groupBoxLayout->insertWidget(groupBoxLayout->count() - 1, propertyLayoutWidget);
