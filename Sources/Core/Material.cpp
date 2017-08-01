@@ -22,12 +22,8 @@ using namespace cross;
 Material::Material(Shader* shader) :
 	shader(shader)
 {
-	if(shader->IsCompiled()){
-		for(Shader::Property* prop : shader->properties){
-			properties.push_back(new Shader::Property(*prop));
-		}
-	}else{
-		throw CrossException("Material must use compilded shader");
+	for(Shader::Property* prop : shader->properties){
+		properties.push_back(new Shader::Property(*prop));
 	}
 }
 

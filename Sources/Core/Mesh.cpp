@@ -113,7 +113,12 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 
 	for(Shader::Property* prop : material->properties) {
 		if(prop->glId == -1) {
-			throw CrossException("Broken shader property");
+			//late shader compilation produce this
+			Shader::Property* shaderProp = shader->GetProperty(prop->GetName());
+			prop->glId = shaderProp->GetID();
+			if(prop->glId == -1) {
+				throw CrossException("Broken shader property");
+			}
 		}
 		if(prop->value == NULL) {
 			throw CrossException("Property '%s' value not assigned", prop->name.c_str());

@@ -140,6 +140,10 @@ void Scene::Load(const string& file){
 	}else{
 		throw CrossException("Can not load scene. Wrong file format");
 	}
+
+	for(pair<S32, Shader*> pair : shaders){
+		pair.second->Compile();
+	}
 }
 
 void Scene::Save(const string& filename){
@@ -563,7 +567,6 @@ Shader* Scene::GetShader(const string& shaderfile){
 		return (*shaderIt).second;
 	} else {
 		Shader* shader = new Shader(shaderfile);
-		shader->Compile();
 		shaders[shaderHash] = shader;
 		return shader;
 	}
