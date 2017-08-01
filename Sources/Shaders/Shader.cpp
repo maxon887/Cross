@@ -54,6 +54,16 @@ Shader::Property::~Property(){
 	}
 }
 
+void Shader::Property::SetValue(S32 v){
+	if(type == Property::UNKNOWN) {
+		type = INT;
+		RealocateIfNeeded(sizeof(U32));
+		memcpy(value, &v, size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
+}
+
 void Shader::Property::SetValue(U32 v){
 	if(type == Property::UNKNOWN){
 		type = INT;
@@ -154,6 +164,10 @@ string& Shader::Property::GetName(){
 
 string& Shader::Property::GetGLName(){
 	return glName;
+}
+
+void* Shader::Property::GetValue(){
+	return value;
 }
 
 void Shader::Property::RealocateIfNeeded(U32 newSize){

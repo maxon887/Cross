@@ -165,11 +165,6 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	QVBoxLayout* groupBoxLayout = dynamic_cast<QVBoxLayout*>(properties_box->layout());
 	groupBoxLayout->insertWidget(groupBoxLayout->count() - 1, propertyLayoutWidget);
 	propertyLayoutWidget->show();
-	propertyNameLabel->show();
-	propertyNameEdit->show();
-	propertyGLNameLabel->show();
-	propertyGLNameEdit->show();
-	removeBtn->show();
 
 	return propertyLayoutWidget;
 }

@@ -33,6 +33,7 @@ public:
 
 	Shader::Property* GetProperty(const string& name);
 	Shader::Property* GetProperty(GLuint glID);
+	Array<Shader::Property*>& GetProperties();
 	void SetPropertyValue(const string& name, U32 value);
 	void SetPropertyValue(const string& name, float value);
 	void SetPropertyValue(const string& name, const Color& value);

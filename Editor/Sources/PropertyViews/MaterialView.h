@@ -3,6 +3,7 @@
 
 #include "Cross.h"
 #include "PropertyView.h"
+#include "Shaders/Shader.h"
 
 class QLabel;
 
@@ -24,7 +25,7 @@ private:
 
 	void Clear();
 
-	QWidget* CreateProperty(const string& name);
+	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
 };
 
 #endif

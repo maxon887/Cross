@@ -77,6 +77,10 @@ Shader::Property* Material::GetProperty(GLuint glID){
 	throw CrossException("Can not find property by ID(%d)", glID);
 }
 
+Array<Shader::Property*>& Material::GetProperties(){
+	return properties;
+}
+
 void Material::SetPropertyValue(const string& name, U32 value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);

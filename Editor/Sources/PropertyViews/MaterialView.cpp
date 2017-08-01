@@ -8,6 +8,7 @@
 
 #include <QLabel>
 #include <QLineEdit>
+#include <QSlider>
 #include <QHBoxLayout>
 
 using namespace cross;
@@ -51,15 +52,23 @@ void MaterialView::OnFileSelected(const string& filepath){
 	shader = new Shader(shaderfilename);
 	
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
-	Array<pair<const char*, const char*> > matProperties;
+	Dictionary<string, string> xmlValues;
 	while(propertyXML){
 		const char* name = propertyXML->Attribute("name");
 		const char* value = propertyXML->Attribute("value");
+
+		xmlValues[name] = value;
+
 		propertyXML = propertyXML->NextSiblingElement("Property");
 	}
 
 	for(Shader::Property* prop : shader->GetProperties()){
-		QWidget* propLayput = CreateProperty(prop->GetName());
+		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());
+		auto value = xmlValues.find(prop->GetName());
+		if(value != xmlValues.end()){
+			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
+			valueBox->setText((*value).second.c_str());
+		}
 	}
 
 	show();
@@ -73,21 +82,30 @@ void MaterialView::Clear(){
 	} while(propertyLayout);
 }
 
-QWidget* MaterialView::CreateProperty(const string& name){
+QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type type){
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
 	propertyLayoutWidget->setObjectName("propertyLayout");
 	QHBoxLayout* propertyLayout = new QHBoxLayout(propertyLayoutWidget);
 	propertyLayout->setSpacing(12);
 	propertyLayout->setMargin(0);
+
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setText(name.c_str());
-	QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
+	propertyNameLabel->setFixedWidth(250);
 	propertyLayout->addWidget(propertyNameLabel);
+
+	if(type == Shader::Property::FLOAT || type == Shader::Property::INT) {
+		QSlider* valueSlider = new QSlider(propertyLayoutWidget);
+		valueSlider->setOrientation(Qt::Horizontal);
+		propertyLayout->addWidget(valueSlider);
+	}
+
+	QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
+	valueBox->setObjectName("valueBox");
 	propertyLayout->addWidget(valueBox);
 
 	QVBoxLayout* groupBoxLayout = dynamic_cast<QVBoxLayout*>(properties_box->layout());
 	groupBoxLayout->insertWidget(groupBoxLayout->count() - 1, propertyLayoutWidget);
-
 
 	propertyLayoutWidget->show();
 

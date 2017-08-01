@@ -43,6 +43,7 @@ public:
 		Property(const Property& obj);
 		~Property();
 
+		void SetValue(S32 v);
 		void SetValue(U32 v);
 		void SetValue(float v);
 		void SetValue(const Color& v);
@@ -58,6 +59,7 @@ public:
 		Type GetType() const;
 		string& GetName();
 		string& GetGLName();
+		void* GetValue();
 
 	private:
 		CROSS_FRIENDLY
