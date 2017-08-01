@@ -90,8 +90,13 @@ private:
 	string name								= "";
     U64 resize_del							= -1;
 
-	void WindowResizeHandle(S32 width, S32 height);
 	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
+	Material* GetMaterial(const string& xmlFile);
+	Material* LoadMaterialFromXML(const string& xmlFile);
+	Shader* GetShader(const string& shaderFile);
+	Texture* GetTexture(const string& textureFile);
+
+	void WindowResizeHandle(S32 width, S32 height);
 	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	pair<S32, S32> GetModelMeshID(Mesh* mesh);

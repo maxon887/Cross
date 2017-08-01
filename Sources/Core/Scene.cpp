@@ -119,101 +119,6 @@ void Scene::Load(const string& file){
 				directionalLightCount = directionalXML->IntAttribute("count");
 			}
 		}
-		//shaders loading
-		XMLElement* shadersXML = scene->FirstChildElement("Shaders");
-		if(shadersXML){
-			XMLElement* shaderXML = shadersXML->FirstChildElement("Shader");
-			while(shaderXML){
-				LightsShader* shader = NULL;
-				int id = shaderXML->IntAttribute("id");
-				const char* useLightsStr = shaderXML->Attribute("multiLight");
-				bool multiLight = strcmp(useLightsStr, "true") == 0;
-				if(multiLight){
-					shader = new LightsShader();
-				}else{
-					throw CrossException("Do not implement yet");
-				}
-				XMLElement* macrosies = shaderXML->FirstChildElement("Macrosies");
-				if(macrosies){
-					XMLElement* macro = macrosies->FirstChildElement("Macro");
-					while(macro){
-						const char* text = macro->GetText();
-						shader->AddMacro(text);
-						macro = macro->NextSiblingElement("Macro");
-					}
-				}
-				XMLElement* properties = shaderXML->FirstChildElement("Properties");
-				if(properties){
-					XMLElement* property = properties->FirstChildElement("Property");
-					while(property){
-						const char* name = property->Attribute("name");
-						const char* glName = property->Attribute("glName");
-						const char* defVal = property->Attribute("default");
-						if(defVal){
-							float def = (float)atof(defVal);
-							shader->AddProperty(name, glName, def);
-						}else{
-							shader->AddProperty(name, glName);
-						}
-						property = property->NextSiblingElement("Property");
-					}
-				}
-
-				shader->Compile(pointLightCount, spotLightCount, directionalLightCount);
-				shaders[id] = shader;
-				shaderXML = shaderXML->NextSiblingElement("Shader");
-			}
-		}
-		//textures loading
-		XMLElement* texturesXML = scene->FirstChildElement("Textures");
-		if(texturesXML){
-			XMLElement* textureXML = texturesXML->FirstChildElement("Texture");
-			while(textureXML){
-				int id = textureXML->IntAttribute("id");
-				const char* file = textureXML->Attribute("file");
-				Texture* texture = gfx2D->LoadTexture(file);
-				textures[id] = texture;
-				textureXML = textureXML->NextSiblingElement("Texture");
-			}
-		}
-		//materials loading
-		XMLElement* materialsXML = scene->FirstChildElement("Materials");
-		if(materialsXML){
-			XMLElement* materialXML = materialsXML->FirstChildElement("Material");
-			while(materialXML){
-				int id = materialXML->IntAttribute("id");
-				int shaderID = materialXML->IntAttribute("shader");
-				Material* material = new Material(shaders[shaderID]);
-				XMLElement* property = materialXML->FirstChildElement("Property");
-				while(property){
-					const char* type = property->Attribute("type");
-					const char* name = property->Attribute("name");
-
-					if(strcmp(type, "Texture") == 0){
-						int textureID = property->IntAttribute("value");
-						material->SetPropertyValue(name, textures[textureID]);
-					}else if(strcmp(type, "Float") == 0){
-						double val = property->DoubleAttribute("value");
-						material->SetPropertyValue(name, (float)val);
-					}else if(strcmp(type, "Color") == 0){
-						XMLElement* colorXML = property->FirstChildElement("Color");
-						double r = colorXML->DoubleAttribute("r");
-						double g = colorXML->DoubleAttribute("g");
-						double b = colorXML->DoubleAttribute("b");
-						double a = colorXML->DoubleAttribute("a");
-						Color c((float)r, (float)g, (float)b, (float)a);
-						material->SetPropertyValue(name, c);
-					}else{
-						throw CrossException("Unknown material property type");
-					}
-
-					property = property->NextSiblingElement("Property");
-				}
-
-				materials[id] = material;
-				materialXML = materialXML->NextSiblingElement("Material");
-			}
-		}
 		//models loading
 		XMLElement* modelsXML = scene->FirstChildElement("Models");
 		if(modelsXML){
@@ -523,12 +428,7 @@ S32 Scene::FindTextureID(Texture* texture){
 	return -1;
 }
 
-void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
-	camera->SetProjectionMatrix(projection);
-}
-
-void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
+void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	const char* name = objectXML->Attribute("name");
 	Entity* entity = new Entity();
 	parent->AddChild(entity);
@@ -543,7 +443,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
 		entity->SetPosition(pos);
 	}
 	XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
-	if(rotXML){
+	if(rotXML) {
 		double x = rotXML->DoubleAttribute("x");
 		double y = rotXML->DoubleAttribute("y");
 		double z = rotXML->DoubleAttribute("z");
@@ -552,7 +452,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
 		entity->SetRotate(rot);
 	}
 	XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
-	if(scaleXML){
+	if(scaleXML) {
 		double x = scaleXML->DoubleAttribute("x");
 		double y = scaleXML->DoubleAttribute("y");
 		double z = scaleXML->DoubleAttribute("z");
@@ -566,21 +466,124 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML){
 		if(meshXML) {
 			S32 id = meshXML->IntAttribute("id");
 			S32 modelID = meshXML->IntAttribute("modelID");
+
 			Model* model = models[modelID];
 			Mesh* mesh = model->meshes[id]->Clone();
-			mesh->SetMaterial(gfx3D->GetDefaultMaterial());
+
+			string materialFile = meshXML->Attribute("material");
+			if(materialFile != ""){
+				Material* mat = GetMaterial(materialFile);
+				mesh->SetMaterial(mat);
+			}else{
+				mesh->SetMaterial(gfx3D->GetDefaultMaterial());
+			}
 			entity->AddComponent(mesh);
 		}
 	}
 
 	XMLElement* childrenXML = objectXML->FirstChildElement("Children");
-	if(childrenXML){
+	if(childrenXML) {
 		XMLElement* childXML = childrenXML->FirstChildElement("Object");
-		while(childXML){
+		while(childXML) {
 			LoadEntity(entity, childXML);
 			childXML = childXML->NextSiblingElement("Object");
 		}
 	}
+}
+
+Material* Scene::GetMaterial(const string& xmlFile) {
+	S32 matHash = std::hash<string>{}(xmlFile);
+	auto matIt = materials.find(matHash);
+	if(matIt != materials.end()) {
+		return (*matIt).second;
+	} else {
+		Material* mat = LoadMaterialFromXML(xmlFile);
+		materials[matHash] = mat;
+		return mat;
+	}
+}
+
+Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
+	string path = sys->AssetsPath() + xmlFile;
+	XMLDocument doc;
+	XMLError error = doc.LoadFile(path.c_str());
+	if(error != XML_SUCCESS) {
+		if(error == XML_ERROR_FILE_NOT_FOUND) {
+			throw CrossException("File not found %s", path.c_str());
+		} else {
+			throw CrossException("Can not parse XML document");
+		}
+	}
+
+	XMLElement* materialXML = doc.FirstChildElement("Material");
+	const char* shaderfilename = materialXML->Attribute("shader");
+	Shader* shader = GetShader(shaderfilename);
+	Material* material = new Material(shader);
+
+	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
+	while(propertyXML) {
+		const char* name = propertyXML->Attribute("name");
+
+		Shader::Property* prop = material->GetProperty(name);
+		switch(prop->GetType())	{
+		case Shader::Property::INT:{
+			int value = propertyXML->IntAttribute("value");
+			prop->SetValue(value);
+			} break;
+		case Shader::Property::FLOAT:{
+			double value = propertyXML->DoubleAttribute("value");
+			prop->SetValue((float)value);
+			} break;
+		case Shader::Property::COLOR:{
+			double r = propertyXML->DoubleAttribute("r");
+			double g = propertyXML->DoubleAttribute("g");
+			double b = propertyXML->DoubleAttribute("b");
+			double a = propertyXML->DoubleAttribute("a");
+			Color color((float)r, (float)g, (float)b, (float)a);
+			prop->SetValue(color);
+			} break;
+		case Shader::Property::SAMPLER:{
+			const char* textureFilename = propertyXML->Attribute("value");
+			Texture* texture = GetTexture(textureFilename);
+			prop->SetValue(texture);
+			} break;
+		default:
+			throw CrossException("Unsupported property type");
+		}
+		propertyXML = propertyXML->NextSiblingElement("Property");
+	}
+
+	return material;
+}
+
+Shader* Scene::GetShader(const string& shaderfile){
+	S32 shaderHash = std::hash<string>{}(shaderfile);
+	auto shaderIt = shaders.find(shaderHash);
+	if(shaderIt != shaders.end()) {
+		return (*shaderIt).second;
+	} else {
+		Shader* shader = new Shader(shaderfile);
+		shader->Compile();
+		shaders[shaderHash] = shader;
+		return shader;
+	}
+}
+
+Texture* Scene::GetTexture(const string& textureFile) {
+	S32 textureHash = std::hash<string>{}(textureFile);
+	auto textureIt = textures.find(textureHash);
+	if(textureIt != textures.end()) {
+		return (*textureIt).second;
+	} else {
+		Texture* texture = gfx2D->LoadTexture(textureFile);
+		textures[textureHash] = texture;
+		return texture;
+	}
+}
+
+void Scene::WindowResizeHandle(S32 width, S32 height){
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	camera->SetProjectionMatrix(projection);
 }
 
 void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){

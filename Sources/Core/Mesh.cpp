@@ -129,6 +129,9 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		case Shader::Property::MAT4:
 			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
 			break;
+		case Shader::Property::COLOR:
+			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
+			break;
 		case Shader::Property::VEC4:
 			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
 			break;

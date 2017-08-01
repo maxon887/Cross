@@ -34,6 +34,7 @@ public:
 			VEC2,
 			FLOAT,
 			INT,
+			COLOR,
 			CUBEMAP,
 			UNKNOWN,
 		};

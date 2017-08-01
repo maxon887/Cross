@@ -55,95 +55,59 @@ Shader::Property::~Property(){
 }
 
 void Shader::Property::SetValue(S32 v){
-	if(type == Property::UNKNOWN) {
-		type = INT;
-		RealocateIfNeeded(sizeof(U32));
-		memcpy(value, &v, size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = INT;
+	RealocateIfNeeded(sizeof(U32));
+	memcpy(value, &v, size);
 }
 
 void Shader::Property::SetValue(U32 v){
-	if(type == Property::UNKNOWN){
-		type = INT;
-		RealocateIfNeeded(sizeof(U32));
-		memcpy(value, &v, size);
-	}else{
-		throw CrossException("Property type already defined");
-	}
+	type = INT;
+	RealocateIfNeeded(sizeof(U32));
+	memcpy(value, &v, size);
 }
 
 void Shader::Property::SetValue(float v){
-	if(type == Property::UNKNOWN) {
-		type = FLOAT;
-		RealocateIfNeeded(sizeof(float));
-		memcpy(value, &v, size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = FLOAT;
+	RealocateIfNeeded(sizeof(float));
+	memcpy(value, &v, size);
 }
 
 void Shader::Property::SetValue(const Color& v){
-	if(type == Property::UNKNOWN) {
-		type = VEC4;
-		RealocateIfNeeded(sizeof(Color));
-		memcpy(value, v.GetData(), size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = COLOR;
+	RealocateIfNeeded(sizeof(Color));
+	memcpy(value, v.GetData(), size);
 }
 
 void Shader::Property::SetValue(const Vector3D& v){
-	if(type == Property::UNKNOWN) {
-		type = VEC3;
-		RealocateIfNeeded(sizeof(Vector3D));
-		memcpy(value, v.GetData(), size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = VEC3;
+	RealocateIfNeeded(sizeof(Vector3D));
+	memcpy(value, v.GetData(), size);
 }
 
 void Shader::Property::SetValue(const Vector4D& v){
-	if(type == Property::UNKNOWN) {
-		type = VEC4;
-		RealocateIfNeeded(sizeof(Vector4D));
-		memcpy(value, v.GetData(), size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = VEC4;
+	RealocateIfNeeded(sizeof(Vector4D));
+	memcpy(value, v.GetData(), size);
 }
 
 void Shader::Property::SetValue(Matrix& v){
-	if(type == Property::UNKNOWN) {
-		type = MAT4;
-		RealocateIfNeeded(sizeof(float) * 16);
-		memcpy(value, v.GetData(), size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = MAT4;
+	RealocateIfNeeded(sizeof(float) * 16);
+	memcpy(value, v.GetData(), size);
 }
 
 void Shader::Property::SetValue(Texture* v){
-	if(type == Property::UNKNOWN) {
-		type = SAMPLER;
-		GLuint textureID = v->GetID();
-		RealocateIfNeeded(sizeof(GLuint));
-		memcpy(value, &textureID, size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = SAMPLER;
+	GLuint textureID = v->GetID();
+	RealocateIfNeeded(sizeof(GLuint));
+	memcpy(value, &textureID, size);
 }
 
 void Shader::Property::SetValue(Cubemap* cubemap){
-	if(type == Property::UNKNOWN) {
-		type = CUBEMAP;
-		GLuint textureID = cubemap->GetTextureID();
-		RealocateIfNeeded(sizeof(GLuint));
-		memcpy(value, &textureID, size);
-	} else {
-		throw CrossException("Property type already defined");
-	}
+	type = CUBEMAP;
+	GLuint textureID = cubemap->GetTextureID();
+	RealocateIfNeeded(sizeof(GLuint));
+	memcpy(value, &textureID, size);
 }
 
 Shader::Property* Shader::Property::Clone() const{
@@ -227,8 +191,10 @@ Shader::Shader(const string& xmlFile){
 				prop = new Property(name, glName, Property::FLOAT);
 			} else if(strcmp(type, "Texture") == 0) {
 				prop = new Property(name, glName, Property::SAMPLER);
+			} else if(strcmp(type, "Color") == 0) {
+				prop = new Property(name, glName, Property::COLOR);
 			} else {
-				throw CrossException("Unknown shader parametr");
+				throw CrossException("Unknown property type");
 			}
 			AddProperty(prop);
 

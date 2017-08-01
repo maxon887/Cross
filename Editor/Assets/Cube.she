@@ -1,12 +1,7 @@
 <Shader>
-	<Vertex filename="Engine/Shaders/multi_light.vert"/>
-	<Fragment filename="Engine/Shaders/multi_light.vert"/>
-	<Macrosies>
-		<Macro>USE_DIFFUSE_MAP</Macro>
-	</Macrosies>
+	<Vertex filename="Engine/Shaders/simple.vert"/>
+	<Fragment filename="Engine/Shaders/simple.frag"/>
 	<Properties>
-		<Property name="Diffuse Texture" 		glName="uDiffuseTexture" type="Texture"/>
-		<Property name="Specular Multiplier" 	glName="uSpecularMultiplier" type="Float" default="1.0" />
-		<Property name="Shininess Multiplier" 	glName="uShininessMultiplier" type="Float" default="1.0" />
+		<Property name="Color" glName="uColor" type="Color"/>
 	</Properties>
 </Shader>
