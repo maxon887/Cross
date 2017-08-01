@@ -1,7 +1,5 @@
-<Material>
-	<Property type="Texture" name="Diffuse Texture" value="0" />
-	<Property type="Texture" name="Specular Map" value="1" />
-	<Property type="Texture" name="Shininess Map" value="2" />
-	<Property type="Float" name="Shininess Multiplier" value="64.0" />
-	<Property type="Float" name="Specular Multiplier" value="2.0" />
+<Material shader="Cube.she">
+	<Property name="Diffuse Texture" value="ContainerDiffuse.png" />
+	<Property name="Shininess Multiplier" value="64.0" />
+	<Property name="Specular Multiplier" value="2.0" />
 </Material>

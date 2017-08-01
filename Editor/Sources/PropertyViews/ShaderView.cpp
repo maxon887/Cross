@@ -1,8 +1,7 @@
 #include "ShaderView.h"
 #include "File.h"
 #include "System.h"
-
-#include "Libs/TinyXML2/tinyxml2.h"
+#include "Shaders/Shader.h"
 
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -11,7 +10,6 @@
 #include <QComboBox>
 
 using namespace cross;
-using namespace tinyxml2;
 
 void ShaderView::Initialize(){
 	vertex_file = findChild<QLineEdit*>("vertexFile");
@@ -61,63 +59,39 @@ void ShaderView::OnFileSelected(const string& filepath){
 	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
 	setTitle(QString("Shader: ") + filename.c_str());
 
+	delete shader;
+	shader = new Shader(filepath);
+	vertex_file->setText(shader->GetVertexFilename().c_str());
+	fragment_file->setText(shader->GetFragmentFilename().c_str());
 
-	string path = sys->AssetsPath() + filepath;
-	XMLDocument doc;
-	XMLError error = doc.LoadFile(path.c_str());
-	if(error != XML_SUCCESS) {
-		if(error == XML_ERROR_FILE_NOT_FOUND) {
-			throw CrossException("File not found %s", path.c_str());
-		} else {
-			throw CrossException("Can not parse XML document");
-		}
+	for(string macro : shader->GetMacrosies()){
+		QWidget* macroLayout = OnAddMacroClicked();
+		QLineEdit* macroText = macroLayout->findChild<QLineEdit*>("macroText");
+		macroText->setText(macro.c_str());
 	}
 
-	XMLElement* shaderXML = doc.FirstChildElement("Shader");
-	XMLElement* vertexXML = shaderXML->FirstChildElement("Vertex");
-	const char* vertex = vertexXML->Attribute("filename");
-	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
-	const char* fragment = fragmentXML->Attribute("filename");
-
-	vertex_file->setText(vertex);
-	fragment_file->setText(fragment);
-
-	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
-	if(macrosiesXML){
-		XMLElement* macroXML = macrosiesXML->FirstChildElement("Macro");
-		while(macroXML){
-			const char* text = macroXML->GetText();
-			QWidget* macroLayoutWidget = OnAddMacroClicked();
-			QLineEdit* macroText = macroLayoutWidget->findChild<QLineEdit*>("macroText");
-			macroText->setText(text);
-			macroXML = macroXML->NextSiblingElement("Macro");
+	for(Shader::Property* prop : shader->GetProperties()){
+		QWidget* propLayout = OnAddPropertyClicked();
+		QLineEdit* propertyName = propLayout->findChild<QLineEdit*>("propertyName");
+		QLineEdit* propertyGLName = propLayout->findChild<QLineEdit*>("propertyGLName");
+		QComboBox* propertyType = propLayout->findChild<QComboBox*>("propertyType");
+		propertyName->setText(prop->GetName().c_str());
+		propertyGLName->setText(prop->GetGLName().c_str());
+		switch(prop->GetType()) {
+		case Shader::Property::Type::INT:
+			propertyType->setCurrentIndex(0);
+			break;
+		case Shader::Property::Type::FLOAT:
+			propertyType->setCurrentIndex(1);
+			break;
+		case Shader::Property::Type::SAMPLER:
+			propertyType->setCurrentIndex(2);
+			break;
+		default:
+			sys->LogIt("Property type not supported");
+			break;
 		}
-	}
-	XMLElement* propertiesXML = shaderXML->FirstChildElement("Properties");
-	if(propertiesXML){
-		XMLElement* propertyXML = propertiesXML->FirstChildElement("Property");
-		while(propertyXML){
-			const char* name = propertyXML->Attribute("name");
-			const char* glName = propertyXML->Attribute("glName");
-			const char* type = propertyXML->Attribute("type");
-			QWidget* propertyLayout = OnAddPropertyClicked();
-			QLineEdit* propertyName = propertyLayout->findChild<QLineEdit*>("propertyName");
-			QLineEdit* propertyGLName = propertyLayout->findChild<QLineEdit*>("propertyGLName");
-			QComboBox* propertyType = propertyLayout->findChild<QComboBox*>("propertyType");
-			propertyName->setText(name);
-			propertyGLName->setText(glName);
-			if(strcmp(type, "Int") == 0){
-				propertyType->setCurrentIndex(0);
-			}else if(strcmp(type, "Float") == 0){
-				propertyType->setCurrentIndex(1);
-			}else if(strcmp(type, "Texture") == 0){
-				propertyType->setCurrentIndex(2);
-			}else{
-				throw CrossException("Unknown shader parametr");
-			}
 
-			propertyXML = propertyXML->NextSiblingElement("Property");
-		}
 	}
 
 	show();

@@ -20,7 +20,16 @@
 #include "Texture.h"
 #include "Utils/Cubemap.h"
 
+#include "Libs/TinyXML2/tinyxml2.h"
+
 using namespace cross;
+using namespace tinyxml2;
+
+Shader::Property::Property(const string& name, const string& glName, Shader::Property::Type type):
+	name(name),
+	glName(glName),
+	type(type)
+{ }
 
 Shader::Property::Property(const string& name, const string& glName):
 	name(name),
@@ -46,53 +55,85 @@ Shader::Property::~Property(){
 }
 
 void Shader::Property::SetValue(U32 v){
-	type = INT;
-	RealocateIfNeeded(sizeof(U32));
-	memcpy(value, &v, size);
+	if(type == Property::UNKNOWN){
+		type = INT;
+		RealocateIfNeeded(sizeof(U32));
+		memcpy(value, &v, size);
+	}else{
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(float v){
-	type = FLOAT;
-	RealocateIfNeeded(sizeof(float));
-	memcpy(value, &v, size);
+	if(type == Property::UNKNOWN) {
+		type = FLOAT;
+		RealocateIfNeeded(sizeof(float));
+		memcpy(value, &v, size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(const Color& v){
-	type = VEC4;
-	RealocateIfNeeded(sizeof(Color));
-	memcpy(value, v.GetData(), size);
+	if(type == Property::UNKNOWN) {
+		type = VEC4;
+		RealocateIfNeeded(sizeof(Color));
+		memcpy(value, v.GetData(), size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(const Vector3D& v){
-	type = VEC3;
-	RealocateIfNeeded(sizeof(Vector3D));
-	memcpy(value, v.GetData(), size);
+	if(type == Property::UNKNOWN) {
+		type = VEC3;
+		RealocateIfNeeded(sizeof(Vector3D));
+		memcpy(value, v.GetData(), size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(const Vector4D& v){
-	type = VEC4;
-	RealocateIfNeeded(sizeof(Vector4D));
-	memcpy(value, v.GetData(), size);
+	if(type == Property::UNKNOWN) {
+		type = VEC4;
+		RealocateIfNeeded(sizeof(Vector4D));
+		memcpy(value, v.GetData(), size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(Matrix& v){
-	type = MAT4;
-	RealocateIfNeeded(sizeof(float) * 16);
-	memcpy(value, v.GetData(), size);
+	if(type == Property::UNKNOWN) {
+		type = MAT4;
+		RealocateIfNeeded(sizeof(float) * 16);
+		memcpy(value, v.GetData(), size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(Texture* v){
-	type = SAMPLER;
-	GLuint textureID = v->GetID();
-	RealocateIfNeeded(sizeof(GLuint));
-	memcpy(value, &textureID, size);
+	if(type == Property::UNKNOWN) {
+		type = SAMPLER;
+		GLuint textureID = v->GetID();
+		RealocateIfNeeded(sizeof(GLuint));
+		memcpy(value, &textureID, size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 void Shader::Property::SetValue(Cubemap* cubemap){
-	type = CUBEMAP;
-	GLuint textureID = cubemap->GetTextureID();
-	RealocateIfNeeded(sizeof(GLuint));
-	memcpy(value, &textureID, size);
+	if(type == Property::UNKNOWN) {
+		type = CUBEMAP;
+		GLuint textureID = cubemap->GetTextureID();
+		RealocateIfNeeded(sizeof(GLuint));
+		memcpy(value, &textureID, size);
+	} else {
+		throw CrossException("Property type already defined");
+	}
 }
 
 Shader::Property* Shader::Property::Clone() const{
@@ -103,6 +144,18 @@ GLuint Shader::Property::GetID() const{
 	return glId;
 }
 
+Shader::Property::Type Shader::Property::GetType() const{
+	return type;
+}
+
+string& Shader::Property::GetName(){
+	return name;
+}
+
+string& Shader::Property::GetGLName(){
+	return glName;
+}
+
 void Shader::Property::RealocateIfNeeded(U32 newSize){
 	if(size < newSize){
 		size = newSize;
@@ -110,6 +163,63 @@ void Shader::Property::RealocateIfNeeded(U32 newSize){
 			delete[] value;
 		}
 		value = new Byte[newSize];
+	}
+}
+
+Shader::Shader(const string& xmlFile){
+	string path = sys->AssetsPath() + xmlFile;
+	XMLDocument doc;
+	XMLError error = doc.LoadFile(path.c_str());
+	if(error != XML_SUCCESS) {
+		if(error == XML_ERROR_FILE_NOT_FOUND) {
+			throw CrossException("File not found %s", path.c_str());
+		} else {
+			throw CrossException("Can not parse XML document");
+		}
+	}
+
+	XMLElement* shaderXML = doc.FirstChildElement("Shader");
+	XMLElement* vertexXML = shaderXML->FirstChildElement("Vertex");
+	const char* vertexFile = vertexXML->Attribute("filename");
+	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
+	const char* fragmentFile = fragmentXML->Attribute("filename");
+	vertex_file = sys->LoadAssetFile(vertexFile);
+	fragment_file = sys->LoadAssetFile(fragmentFile);
+	if(gfxGL->GetShaderVersion() >= 130) {
+		AddVersion("130");
+	}
+
+	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
+	if(macrosiesXML) {
+		XMLElement* macroXML = macrosiesXML->FirstChildElement("Macro");
+		while(macroXML) {
+			const char* text = macroXML->GetText();
+			AddMacro(text);
+			macroXML = macroXML->NextSiblingElement("Macro");
+		}
+	}
+	XMLElement* propertiesXML = shaderXML->FirstChildElement("Properties");
+	if(propertiesXML) {
+		XMLElement* propertyXML = propertiesXML->FirstChildElement("Property");
+		while(propertyXML) {
+			const char* name = propertyXML->Attribute("name");
+			const char* glName = propertyXML->Attribute("glName");
+			const char* type = propertyXML->Attribute("type");
+
+			Property* prop = NULL;
+			if(strcmp(type, "Int") == 0) {
+				prop = new Property(name, glName, Property::INT);
+			} else if(strcmp(type, "Float") == 0) {
+				prop = new Property(name, glName, Property::FLOAT);
+			} else if(strcmp(type, "Texture") == 0) {
+				prop = new Property(name, glName, Property::SAMPLER);
+			} else {
+				throw CrossException("Unknown shader parametr");
+			}
+			AddProperty(prop);
+
+			propertyXML = propertyXML->NextSiblingElement("Property");
+		}
 	}
 }
 
@@ -175,6 +285,22 @@ string& Shader::GetFilename(){
 	return filename;
 }
 
+string& Shader::GetVertexFilename(){
+	if(!IsCompiled()){
+		return vertex_file->name;
+	}else{
+		throw CrossException("Can not obtain vertex filename from compiled shader");
+	}
+}
+
+string& Shader::GetFragmentFilename() {
+	if(!IsCompiled()) {
+		return fragment_file->name;
+	} else {
+		throw CrossException("Can not obtain fragment filename from compiled shader");
+	}
+}
+
 void Shader::AddVersion(const string& ver){
 	if(compiled) {
 		throw CrossException("Shader already compiled");
@@ -206,6 +332,10 @@ void Shader::AddMacro(const string& makro, int value, bool system){
 	if(!system) {
 		throw CrossException("Do not implement yet");
 	}
+}
+
+Array<string>& Shader::GetMacrosies(){
+	return user_macro;
 }
 
 void Shader::AddProperty(const string& name, const string& glName){
@@ -251,6 +381,10 @@ Shader::Property* Shader::GetProperty(const string& name){
 		}
 	}
 	throw CrossException("Can not find property");
+}
+
+Array<Shader::Property*>& Shader::GetProperties(){
+	return properties;
 }
 
 bool Shader::HaveProperty(const string& name) const{

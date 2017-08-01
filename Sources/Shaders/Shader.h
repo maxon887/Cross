@@ -26,6 +26,19 @@ class Shader{
 public:
 	class Property{
 	public:
+		enum Type {
+			SAMPLER,
+			MAT4,
+			VEC4,
+			VEC3,
+			VEC2,
+			FLOAT,
+			INT,
+			CUBEMAP,
+			UNKNOWN,
+		};
+
+		Property(const string& name, const string& glName, Type type);
 		Property(const string& name, const string& glName);
 		Property(const Property& obj);
 		~Property();
@@ -42,21 +55,12 @@ public:
 		Property* Clone() const;
 
 		GLuint GetID() const;
+		Type GetType() const;
+		string& GetName();
+		string& GetGLName();
 
 	private:
 		CROSS_FRIENDLY
-
-		enum Type{
-			SAMPLER,
-			MAT4,
-			VEC4,
-			VEC3,
-			VEC2,
-			FLOAT,
-			INT,
-			CUBEMAP,
-			UNKNOWN,
-		};
 
 		void RealocateIfNeeded(U32 newSIze);
 
@@ -69,6 +73,7 @@ public:
 		bool original	= true;
 	};
 
+	Shader(const string& xmlFile);
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
@@ -77,10 +82,14 @@ public:
 
 	bool IsCompiled() const;
 	string& GetFilename();
+	string& GetVertexFilename();
+	string& GetFragmentFilename();
 
 	void AddVersion(const string& version);
 	void AddMacro(const string& makro, bool system = false);
 	void AddMacro(const string& makro, int value, bool system = false);
+	Array<string>& GetMacrosies();
+
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, float defValue);
@@ -88,6 +97,7 @@ public:
 	void AddProperty(const string& name, const string& glName, const Vector3D& vec);
 	void AddProperty(Property* prop);
 	Property* GetProperty(const string& name);
+	Array<Property*>& GetProperties();
 	bool HaveProperty(const string& name) const;
 
 protected:

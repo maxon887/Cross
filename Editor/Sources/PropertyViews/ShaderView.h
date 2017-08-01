@@ -17,6 +17,8 @@ public:
 	void OnFileSelected(const string& filename);
 	
 private:
+	Shader* shader					= NULL;
+
 	QGroupBox* macrosies_box		= NULL;
 	QGroupBox* properties_box		= NULL;
 	QLineEdit* vertex_file			= NULL;

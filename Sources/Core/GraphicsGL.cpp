@@ -23,6 +23,7 @@
 #include "Shaders/Shader.h"
 #include "Shaders/LightsShader.h"
 #include "Config.h"
+#include "Scene.h"
 
 #include <algorithm>
 
@@ -233,6 +234,17 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		throw CrossException("Unknown shader type");
 	}
 	return shader;
+}
+
+Shader* GraphicsGL::LoadShader(const string& filename){
+	size_t hash = std::hash<std::string>{}(filename);
+	auto shaders = game->GetCurrentScene()->shaders;
+	auto found = shaders.find(hash);
+	if(found != shaders.end()){
+		return (*found).second;
+	}else{
+
+	}
 }
 
 Texture* GraphicsGL::GetColorBuffer(){

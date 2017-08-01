@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
-    <height>357</height>
+    <width>861</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,9 +35,24 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Shader: name</string>
+      <string>Material: name</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="shaderLabel">
+        <property name="text">
+         <string>Shader - shaderfilename</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="properties">
+        <property name="title">
+         <string>Properties</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

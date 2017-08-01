@@ -4,6 +4,8 @@
 #include "Cross.h"
 #include "PropertyView.h"
 
+class QLabel;
+
 class MaterialView : public PropertyView
 {
 	Q_OBJECT
@@ -15,6 +17,10 @@ public:
 	void OnFileSelected(const string& filename);
 	
 private:
+	QLabel* shader				= NULL;
+	QGroupBox* properties_box	= NULL;
+
+	void CreateProperty(const string& name);
 };
 
 #endif
