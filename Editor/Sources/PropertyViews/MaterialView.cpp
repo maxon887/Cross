@@ -13,6 +13,8 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QSlider>
+#include <QPushButton>
+#include <QColorDialog>
 #include <QHBoxLayout>
 
 using namespace cross;
@@ -24,10 +26,22 @@ MaterialView::~MaterialView(){
 void MaterialView::Initialize(){
 	shaderLabel = findChild<QLabel*>("shaderLabel");
 	properties_box = findChild<QGroupBox*>("properties");
+
+	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
+	color_dialog->setWindowFlags(color_dialog->windowFlags() | Qt::WindowStaysOnTopHint);
+	connect(color_dialog, &QColorDialog::currentColorChanged, this, &MaterialView::OnCurrentColorChanged);
+	connect(color_dialog, &QColorDialog::colorSelected, this, &MaterialView::OnColorSelected);
+	connect(color_dialog, &QColorDialog::rejected, this, &MaterialView::OnColorRejected);
+}
+
+void MaterialView::OnEntitySelected(Entity* e){
+	color_dialog->hide();
+	PropertyView::OnEntitySelected(e);
 }
 
 void MaterialView::OnFileSelected(const string& filepath){
 	if(File::ExtensionFromFile(filepath) != "mat") {
+		color_dialog->hide();
 		PropertyView::OnFileSelected(filepath);
 		return;
 	}
@@ -60,23 +74,13 @@ void MaterialView::OnFileSelected(const string& filepath){
 		case Shader::Property::Type::COLOR: {
 			Color c(0.f);
 			c.SetData((const char*)prop->GetValue());
-			int rInt = c.R * 255;
-			int gInt = c.G * 255;
-			int bInt = c.B * 255;
-			int aInt = c.A * 255;
 
-			std::stringstream ss;
-			ss << std::hex;
-			ss << std::setw(2) << std::setfill('0') << rInt;
-			ss << std::setw(2) << std::setfill('0') << gInt;
-			ss << std::setw(2) << std::setfill('0') << bInt;
-			ss << std::setw(2) << std::setfill('0') << aInt;
-			string text = ss.str();
-			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
+			QPushButton* colorPicker = propLayout->findChild<QPushButton*>("colorPicker");
+			QString colorStyle = "background-color: ";
+			colorPicker->setStyleSheet(colorStyle + QColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255).name());
 
 			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
-			valueBox->setText(text.c_str());
-
+			valueBox->setText(GetColorStr(c).c_str());
 			break;
 		}
 		default:
@@ -96,13 +100,13 @@ void MaterialView::Clear(){
 }
 
 void MaterialView::OnValueChanged(){
-	QLineEdit* valueBox = dynamic_cast<QLineEdit*>(sender());
-	QWidget* parent = dynamic_cast<QWidget*>(valueBox->parent());
+	QWidget* parent = dynamic_cast<QWidget*>(sender()->parent());
 	QLabel* nameLabel = parent->findChild<QLabel*>("nameLabel");
 	
 	Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
 	switch(prop->GetType())	{
 	case Shader::Property::COLOR: {
+		QLineEdit* valueBox = parent->findChild<QLineEdit*>("valueBox");
 		Color c(valueBox->text().toStdString().c_str());
 		prop->SetValue(c);
 		break;
@@ -110,6 +114,70 @@ void MaterialView::OnValueChanged(){
 	default:
 		throw CrossException("Unsupported property type");
 	}
+}
+
+void MaterialView::OnColorPickerClicked(){
+	current_property_layout = dynamic_cast<QWidget*>(sender()->parent());
+	QLabel* nameLabel = current_property_layout->findChild<QLabel*>("nameLabel");
+	current_property = material->GetProperty(nameLabel->text().toStdString());
+
+	Color c(0.f);
+	c.SetData((const char*)current_property->GetValue());
+	QColor qcolor(c.R * 255, c.G * 255, c.B * 255, c.A * 255);
+	color_dialog->setCurrentColor(qcolor);
+	color_dialog->move(mapToGlobal(nameLabel->pos()));
+	color_dialog->show();
+	color_dialog->raise();
+}
+
+void MaterialView::OnCurrentColorChanged(const QColor& c){
+	if(current_property){
+		Color color(c.red(), c.green(), c.blue(), c.alpha());
+		current_property->SetValue(color);
+	}
+}
+
+void MaterialView::OnColorSelected(const QColor& c){
+	if(current_property) {
+		Color color(c.red(), c.green(), c.blue(), c.alpha());
+		current_property->SetValue(color);
+
+		QPushButton* colorPicker = current_property_layout->findChild<QPushButton*>("colorPicker");
+		QString colorStyle = "background-color: ";
+		colorPicker->setStyleSheet(colorStyle + c.name());
+
+		QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
+		valueBox->setText(GetColorStr(color).c_str());
+
+		current_property_layout = NULL;
+		current_property = NULL;
+	}
+}
+
+void MaterialView::OnColorRejected(){
+	QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
+	Color c(valueBox->text().toStdString().c_str());
+	current_property->SetValue(c);
+	current_property_layout = NULL;
+	current_property = NULL;
+}
+
+string MaterialView::GetColorStr(const Color& c){
+	int rInt = c.R * 255;
+	int gInt = c.G * 255;
+	int bInt = c.B * 255;
+	int aInt = c.A * 255;
+
+	std::stringstream ss;
+	ss << std::hex;
+	ss << std::setw(2) << std::setfill('0') << rInt;
+	ss << std::setw(2) << std::setfill('0') << gInt;
+	ss << std::setw(2) << std::setfill('0') << bInt;
+	ss << std::setw(2) << std::setfill('0') << aInt;
+	string text = ss.str();
+	std::transform(text.begin(), text.end(), text.begin(), ::toupper);
+
+	return text;
 }
 
 QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type type){
@@ -149,18 +217,16 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 		break;
 	}
 	case cross::Shader::Property::COLOR: {
-		QWidget* colorPicker = new QWidget(propertyLayoutWidget);
-		QPalette pal = palette();
-		pal.setColor(QPalette::Background, Qt::red);
-		colorPicker->setAutoFillBackground(true);
-		colorPicker->setPalette(pal);
+		QPushButton* colorPicker = new QPushButton(propertyLayoutWidget);
+		colorPicker->setObjectName("colorPicker");
 		colorPicker->setFixedWidth(60);
 		colorPicker->setFixedHeight(31);
-		colorPicker->show();
+		connect(colorPicker, &QPushButton::clicked, this, &MaterialView::OnColorPickerClicked);
 		propertyLayout->addWidget(colorPicker);
 
 		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
 		valueBox->setObjectName("valueBox");
+		valueBox->setInputMask("HHHHHHHH");
 		valueBox->setFixedWidth(100);
 		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
 		propertyLayout->addWidget(valueBox);
