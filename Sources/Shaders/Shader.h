@@ -58,8 +58,8 @@ public:
 
 		GLuint GetID() const;
 		Type GetType() const;
-		string& GetName();
-		string& GetGLName();
+		const string& GetName() const;
+		const string& GetGLName() const;
 		void* GetValue();
 
 	private:

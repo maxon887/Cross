@@ -78,6 +78,10 @@ Color::Color(const char* hex){
 	A = aInt / 255.f;
 }
 
+void Color::SetData(const char* data){
+	memcpy(&R, data, sizeof(Color));
+}
+
 const float* Color::GetData() const{
 	return &R;
 }

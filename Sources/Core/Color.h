@@ -39,6 +39,7 @@ public:
 	Color(int r, int g, int b, int a);
 	Color(const char* hex);
 
+	void SetData(const char* data);
 	const float* GetData() const;
 
 	bool operator == (const Color &c) const;

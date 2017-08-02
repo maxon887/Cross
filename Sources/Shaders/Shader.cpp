@@ -122,11 +122,11 @@ Shader::Property::Type Shader::Property::GetType() const{
 	return type;
 }
 
-string& Shader::Property::GetName(){
+const string& Shader::Property::GetName() const{
 	return name;
 }
 
-string& Shader::Property::GetGLName(){
+const string& Shader::Property::GetGLName() const{
 	return glName;
 }
 

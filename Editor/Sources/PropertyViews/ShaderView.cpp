@@ -97,7 +97,6 @@ void ShaderView::OnFileSelected(const string& filepath){
 			sys->LogIt("Property type not supported");
 			break;
 		}
-
 	}
 
 	show();

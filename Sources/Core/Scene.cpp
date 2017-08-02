@@ -255,16 +255,17 @@ void Scene::Save(const string& filename){
 			S32 shaderID = FindShaderID(material->GetShader());
 			materialXML->SetAttribute("shader", shaderID);
 
-			for(Shader::Property* prop : material->properties){
+			for(Shader::Property* prop : material->properties) {
 				XMLElement* propertyXML = doc.NewElement("Property");
 				switch(prop->type) {
-				case Shader::Property::SAMPLER:{
+				case Shader::Property::SAMPLER: {
 					propertyXML->SetAttribute("type", "Texture");
 					propertyXML->SetAttribute("name", prop->name.c_str());
 					Texture* usedTexture = gfx2D->FindTextureByGLID(*(GLuint*)prop->value);
 					S32 textureId = FindTextureID(usedTexture);
-					propertyXML->SetAttribute("value", textureId);}
+					propertyXML->SetAttribute("value", textureId);
 					break;
+				}
 				case Shader::Property::MAT4:
 					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
 					break;
@@ -410,6 +411,42 @@ Color Scene::GetAmbientColor() const{
 	return ambient_color;
 }
 
+Material* Scene::GetMaterial(const string& xmlFile) {
+	S32 matHash = std::hash<string>{}(xmlFile);
+	auto matIt = materials.find(matHash);
+	if(matIt != materials.end()) {
+		return (*matIt).second;
+	} else {
+		Material* mat = LoadMaterialFromXML(xmlFile);
+		materials[matHash] = mat;
+		return mat;
+	}
+}
+
+Shader* Scene::GetShader(const string& shaderfile) {
+	S32 shaderHash = std::hash<string>{}(shaderfile);
+	auto shaderIt = shaders.find(shaderHash);
+	if(shaderIt != shaders.end()) {
+		return (*shaderIt).second;
+	} else {
+		Shader* shader = new Shader(shaderfile);
+		shaders[shaderHash] = shader;
+		return shader;
+	}
+}
+
+Texture* Scene::GetTexture(const string& textureFile) {
+	S32 textureHash = std::hash<string>{}(textureFile);
+	auto textureIt = textures.find(textureHash);
+	if(textureIt != textures.end()) {
+		return (*textureIt).second;
+	} else {
+		Texture* texture = gfx2D->LoadTexture(textureFile);
+		textures[textureHash] = texture;
+		return texture;
+	}
+}
+
 void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
 }
@@ -495,18 +532,6 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	}
 }
 
-Material* Scene::GetMaterial(const string& xmlFile) {
-	S32 matHash = std::hash<string>{}(xmlFile);
-	auto matIt = materials.find(matHash);
-	if(matIt != materials.end()) {
-		return (*matIt).second;
-	} else {
-		Material* mat = LoadMaterialFromXML(xmlFile);
-		materials[matHash] = mat;
-		return mat;
-	}
-}
-
 Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 	string path = sys->AssetsPath() + xmlFile;
 	XMLDocument doc;
@@ -555,30 +580,6 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 	}
 
 	return material;
-}
-
-Shader* Scene::GetShader(const string& shaderfile){
-	S32 shaderHash = std::hash<string>{}(shaderfile);
-	auto shaderIt = shaders.find(shaderHash);
-	if(shaderIt != shaders.end()) {
-		return (*shaderIt).second;
-	} else {
-		Shader* shader = new Shader(shaderfile);
-		shaders[shaderHash] = shader;
-		return shader;
-	}
-}
-
-Texture* Scene::GetTexture(const string& textureFile) {
-	S32 textureHash = std::hash<string>{}(textureFile);
-	auto textureIt = textures.find(textureHash);
-	if(textureIt != textures.end()) {
-		return (*textureIt).second;
-	} else {
-		Texture* texture = gfx2D->LoadTexture(textureFile);
-		textures[textureHash] = texture;
-		return texture;
-	}
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){

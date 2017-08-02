@@ -47,6 +47,7 @@ public:
 	void Load(const string& file);
 	/* Loads scene in to file */
 	void Save(const string& file);
+	/* Removes all loaded stuff from scene include textures, material, shader and entities */
 	void Clear();
 	/* Returns root scene entity*/
 	Entity* GetRoot();
@@ -69,6 +70,12 @@ public:
 	void SetAmbientColor(const Color& color);
 	/* Returns ambient scene light intensity */
 	Color GetAmbientColor() const;
+	/* Obtain loaded into scene material or load it by self in other way */
+	Material* GetMaterial(const string& xmlFile);
+	/* Obtain loaded into scene shader or load it by self in other way */
+	Shader* GetShader(const string& shaderFile);
+	/* Obtain loaded into scene texture or load it by self in other way */
+	Texture* GetTexture(const string& textureFile);
 
 protected:
 	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
@@ -91,10 +98,7 @@ private:
     U64 resize_del							= -1;
 
 	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
-	Material* GetMaterial(const string& xmlFile);
 	Material* LoadMaterialFromXML(const string& xmlFile);
-	Shader* GetShader(const string& shaderFile);
-	Texture* GetTexture(const string& textureFile);
 
 	void WindowResizeHandle(S32 width, S32 height);
 	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);

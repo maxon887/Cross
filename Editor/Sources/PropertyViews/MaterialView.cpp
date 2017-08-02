@@ -3,8 +3,12 @@
 #include "System.h"
 #include "Shaders/Shader.h"
 #include "Material.h"
+#include "Game.h"
+#include "Scene.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
+
+#include <iomanip>
 
 #include <QLabel>
 #include <QLineEdit>
@@ -15,7 +19,6 @@ using namespace cross;
 using namespace tinyxml2;
 
 MaterialView::~MaterialView(){
-	delete shader;
 }
 
 void MaterialView::Initialize(){
@@ -44,38 +47,36 @@ void MaterialView::OnFileSelected(const string& filepath){
 		}
 	}
 
-	XMLElement* materialXML = doc.FirstChildElement("Material");
-	const char* shaderfilename = materialXML->Attribute("shader");
-	shaderLabel->setText(QString("Shader - ") + shaderfilename);
+	material = game->GetCurrentScene()->GetMaterial(filepath);
 
-	delete shader;
-	shader = new Shader(shaderfilename);
-	
-	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
-	Dictionary<string, string> xmlValues;
-	while(propertyXML){
-		const char* name = propertyXML->Attribute("name");
-		const char* value = propertyXML->Attribute("value");
-
-		xmlValues[name] = value;
-
-		propertyXML = propertyXML->NextSiblingElement("Property");
-	}
-
-	for(Shader::Property* prop : shader->GetProperties()){
+	for(Shader::Property* prop : material->GetProperties()) {
 		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());
-		switch(prop->GetType())	{
+		switch(prop->GetType()) {
 		case Shader::Property::Type::SAMPLER: {
 			break;
 		}
 		case Shader::Property::Type::INT:
 		case Shader::Property::Type::FLOAT:
-		case Shader::Property::Type::COLOR:	{
-			auto value = xmlValues.find(prop->GetName());
-			if(value != xmlValues.end()) {
-				QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
-				valueBox->setText((*value).second.c_str());
-			}
+		case Shader::Property::Type::COLOR: {
+			Color c(0.f);
+			c.SetData((const char*)prop->GetValue());
+			int rInt = c.R * 255;
+			int gInt = c.G * 255;
+			int bInt = c.B * 255;
+			int aInt = c.A * 255;
+
+			std::stringstream ss;
+			ss << std::hex;
+			ss << std::setw(2) << std::setfill('0') << rInt;
+			ss << std::setw(2) << std::setfill('0') << gInt;
+			ss << std::setw(2) << std::setfill('0') << bInt;
+			ss << std::setw(2) << std::setfill('0') << aInt;
+			string text = ss.str();
+			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
+
+			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
+			valueBox->setText(text.c_str());
+
 			break;
 		}
 		default:
@@ -94,6 +95,23 @@ void MaterialView::Clear(){
 	} while(propertyLayout);
 }
 
+void MaterialView::OnValueChanged(){
+	QLineEdit* valueBox = dynamic_cast<QLineEdit*>(sender());
+	QWidget* parent = dynamic_cast<QWidget*>(valueBox->parent());
+	QLabel* nameLabel = parent->findChild<QLabel*>("nameLabel");
+	
+	Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
+	switch(prop->GetType())	{
+	case Shader::Property::COLOR: {
+		Color c(valueBox->text().toStdString().c_str());
+		prop->SetValue(c);
+		break;
+	}
+	default:
+		throw CrossException("Unsupported property type");
+	}
+}
+
 QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type type){
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
 	propertyLayoutWidget->setObjectName("propertyLayout");
@@ -102,6 +120,7 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	propertyLayout->setMargin(0);
 
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
+	propertyNameLabel->setObjectName("nameLabel");
 	propertyNameLabel->setText(name.c_str());
 	propertyNameLabel->setFixedWidth(250);
 	propertyLayout->addWidget(propertyNameLabel);
@@ -142,8 +161,10 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 
 		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
 		valueBox->setObjectName("valueBox");
-		propertyLayout->addWidget(valueBox);
 		valueBox->setFixedWidth(100);
+		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
+		propertyLayout->addWidget(valueBox);
+		
 
 		QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding);
 		propertyLayout->addItem(spacer);

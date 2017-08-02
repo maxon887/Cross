@@ -18,12 +18,14 @@ public:
 	void OnFileSelected(const string& filename);
 	
 private:
-	Shader* shader				= NULL;
+	Material* material			= NULL;
 
 	QLabel* shaderLabel			= NULL;
 	QGroupBox* properties_box	= NULL;
 
 	void Clear();
+
+	void OnValueChanged();
 
 	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
 };
