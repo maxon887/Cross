@@ -51,6 +51,7 @@ public:
 	Array<GLushort>& GetIndices();
 
 	Mesh* Clone() const override;
+	bool IsEqual(Mesh* other) const;
 
 protected:
 	CROSS_FRIENDLY

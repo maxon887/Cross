@@ -376,6 +376,10 @@ void Scene::AddModel(Model* model){
 	model_id++;
 }
 
+Model* Scene::GetModel(S32 id){
+	return models[id];
+}
+
 Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
 	switch(primitive) {
 	case cross::Graphics3D::CUBE:
@@ -445,6 +449,19 @@ Texture* Scene::GetTexture(const string& textureFile) {
 		textures[textureHash] = texture;
 		return texture;
 	}
+}
+
+pair<S32, S32> Scene::GetModelMeshID(Mesh* mesh) {
+	for(pair<S32, Model*> p : models) {
+		S32 id = p.first;
+		Model* model = p.second;
+		for(pair<S32, Mesh*> p2 : model->meshes) {
+			if(p2.second->IsEqual(mesh)) {
+				return pair<S32, S32>(id, p2.first);
+			}
+		}
+	}
+	throw CrossException("Can not find mesh ids");
 }
 
 void Scene::SetAmbientColor(const Color& color){
@@ -634,17 +651,4 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 		objectXML->LinkEndChild(childrenXML);
 	}
 	parent->LinkEndChild(objectXML);
-}
-
-pair<S32, S32> Scene::GetModelMeshID(Mesh* mesh){
-	for(pair<S32, Model*> p : models){
-		S32 id = p.first;
-		Model* model = p.second;
-		for(pair<S32, Mesh*> p2 : model->meshes){
-			if(p2.second == mesh){
-				return pair<S32, S32>(id, p2.first);
-			}
-		}
-	}
-	throw CrossException("Can not find mesh ids");
 }

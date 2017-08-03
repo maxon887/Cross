@@ -23,7 +23,7 @@ private:
 	Material* material					= NULL;
 	Shader::Property* current_property	= NULL;
 
-	QLabel* shaderLabel					= NULL;
+	QLabel* shader_label				= NULL;
 	QGroupBox* properties_box			= NULL;
 
 	QColorDialog* color_dialog			= NULL;

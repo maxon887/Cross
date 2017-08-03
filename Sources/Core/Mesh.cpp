@@ -304,3 +304,7 @@ Array<GLushort>& Mesh::GetIndices() {
 Mesh* Mesh::Clone() const{
 	return new Mesh(*this);
 }
+
+bool Mesh::IsEqual(Mesh* other) const {
+	return this->VBO == other->VBO && this->EBO == other->EBO;
+}

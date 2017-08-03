@@ -24,7 +24,7 @@ MaterialView::~MaterialView(){
 }
 
 void MaterialView::Initialize(){
-	shaderLabel = findChild<QLabel*>("shaderLabel");
+	shader_label = findChild<QLabel*>("shaderLabel");
 	properties_box = findChild<QGroupBox*>("properties");
 
 	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
@@ -62,6 +62,7 @@ void MaterialView::OnFileSelected(const string& filepath){
 	}
 
 	material = game->GetCurrentScene()->GetMaterial(filepath);
+	shader_label->setText(QString("Shader - ") + material->GetShader()->GetFilename().c_str());
 
 	for(Shader::Property* prop : material->GetProperties()) {
 		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());

@@ -145,6 +145,7 @@ void Shader::Property::RealocateIfNeeded(U32 newSize){
 }
 
 Shader::Shader(const string& xmlFile){
+	filename = xmlFile;
 	string path = sys->AssetsPath() + xmlFile;
 	XMLDocument doc;
 	XMLError error = doc.LoadFile(path.c_str());

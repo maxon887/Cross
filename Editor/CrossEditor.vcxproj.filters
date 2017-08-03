@@ -362,6 +362,9 @@
     <CustomBuild Include="Sources\PropertyViews\MaterialView.ui">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MeshComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h">
@@ -545,6 +548,9 @@
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_MaterialView.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MeshComponent.h">
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

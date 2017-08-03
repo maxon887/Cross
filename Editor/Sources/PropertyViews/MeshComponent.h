@@ -4,7 +4,6 @@
 #include "Cross.h"
 #include "PropertyView.h"
 
-class QLineEdit;
 class QLabel;
 
 using namespace cross;
@@ -20,7 +19,8 @@ public:
 	void OnEntitySelected(Entity* e) override;
 
 private:
-	QLabel* shader_filename = NULL;
+	QLabel* model_label		= NULL;
+	QLabel* material_label	= NULL;
 };
 
 #endif

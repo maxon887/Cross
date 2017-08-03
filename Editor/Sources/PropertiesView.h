@@ -8,6 +8,7 @@
 using namespace cross;
 
 class PropertyView;
+class QVBoxLayout;
 
 class PropertiesView : public QDockWidget
 {
@@ -27,6 +28,20 @@ public:
 private:
 	Entity* selected_entity					= NULL;
 	Array<PropertyView*> views				= Array<PropertyView*>();
+	QVBoxLayout* layout						= NULL;
+
+	template<class View, class UI>
+	void CreateView(const QString& name);
 };
+
+template<class View, class UI>
+void PropertiesView::CreateView(const QString& name){
+	QWidget* container = new QWidget(this);
+	UI ui;
+	ui.setupUi(container);
+	layout->insertWidget(layout->count() - 1, container);
+	View* view = container->findChild<View*>(name);
+	views.push_back(view);
+}
 
 #endif

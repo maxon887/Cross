@@ -6,6 +6,7 @@
 #include "ui_EntityComponent.h"
 #include "ui_ShaderView.h"
 #include "ui_MaterialView.h"
+#include "ui_MeshComponent.h"
 
 #include <QTreeView.h>
 
@@ -21,28 +22,11 @@ PropertiesView::~PropertiesView() {
 
 void PropertiesView::OnUIInitialized(){
 	QWidget* layoutWidget = findChild<QWidget*>("layout");
-	QVBoxLayout* layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
-
-	QWidget* entityComponentClass = new QWidget(this);
-	Ui::EntityComponentClass entityComponentUI;
-	entityComponentUI.setupUi(entityComponentClass);
-	layout->insertWidget(0, entityComponentClass);
-	EntityComponent* entityComponent = entityComponentClass->findChild<EntityComponent*>("entityComponent");
-	views.push_back(entityComponent);
-
-	QWidget* shaderViewClass = new QWidget(this);
-	Ui::ShaderViewClass shaderViewUI;
-	shaderViewUI.setupUi(shaderViewClass);
-	layout->insertWidget(layout->count() - 1, shaderViewClass);
-	ShaderView* shaderView = shaderViewClass->findChild<ShaderView*>("shaderView");
-	views.push_back(shaderView);
-
-	QWidget* materialViewClass = new QWidget(this);
-	Ui::MaterialViewClass materialViewUI;
-	materialViewUI.setupUi(materialViewClass);
-	layout->insertWidget(layout->count() - 1, materialViewClass);
-	MaterialView* materialView = materialViewClass->findChild<MaterialView*>("materialView");
-	views.push_back(materialView);
+	layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
+	CreateView<EntityComponent, Ui::EntityComponentClass>("entityComponent");
+	CreateView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
+	CreateView<ShaderView, Ui::ShaderViewClass>("shaderView");
+	CreateView<MaterialView, Ui::MaterialViewClass>("materialView");
 
 	for(PropertyView* v : views) {
 		v->Initialize();

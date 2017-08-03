@@ -146,7 +146,7 @@ private:
 	File* vertex_file			= NULL;
 	File* fragment_file			= NULL;
 	U32 makro_len				= 0;
-	string filename				= "";
+	string filename				= "noname";
 
 	GLuint CompileShader(GLuint type, File* file);
 	void CompileProgram();

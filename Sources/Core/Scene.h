@@ -60,6 +60,7 @@ public:
 	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
 	void AddModel(Model* model);
+	Model* GetModel(S32 id);
 	Entity* LoadPrimitive(Graphics3D::Primitives primitive);
 	Entity* LoadModel(const string& filename);
 	/* Removes entity from scene by name */
@@ -76,6 +77,8 @@ public:
 	Shader* GetShader(const string& shaderFile);
 	/* Obtain loaded into scene texture or load it by self in other way */
 	Texture* GetTexture(const string& textureFile);
+	/* First id for model in scene second id for mesh id in the model */
+	pair<S32, S32> GetModelMeshID(Mesh* mesh);
 
 protected:
 	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
@@ -102,8 +105,6 @@ private:
 
 	void WindowResizeHandle(S32 width, S32 height);
 	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
-
-	pair<S32, S32> GetModelMeshID(Mesh* mesh);
 };
 
 }
