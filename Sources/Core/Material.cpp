@@ -55,6 +55,10 @@ Shader* Material::GetShader() {
 	}
 }
 
+const string& Material::GetFilename() const {
+	return filename;
+}
+
 Shader::Property* Material::GetProperty(const string& name){
 	for(Shader::Property* prop : properties){
 		if(prop->name == name){
@@ -153,4 +157,8 @@ void Material::TransparencyEnabled(bool yes){
 
 Material* Material::Clone() const{
 	return new Material(*this);
+}
+
+void Material::SetName(const string& name) {
+	filename = name;
 }

@@ -50,6 +50,8 @@ public:
 	VertexBuffer* GetVertexBuffer();
 	Array<GLushort>& GetIndices();
 
+	U32 GetPolyCount() const;
+
 	Mesh* Clone() const override;
 	bool IsEqual(Mesh* other) const;
 

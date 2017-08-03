@@ -565,6 +565,7 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 	const char* shaderfilename = materialXML->Attribute("shader");
 	Shader* shader = GetShader(shaderfilename);
 	Material* material = new Material(shader);
+	material->SetName(xmlFile);
 
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {

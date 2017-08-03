@@ -301,6 +301,10 @@ Array<GLushort>& Mesh::GetIndices() {
 	return indices;
 }
 
+U32 Mesh::GetPolyCount() const {
+	return index_count;
+}
+
 Mesh* Mesh::Clone() const{
 	return new Mesh(*this);
 }

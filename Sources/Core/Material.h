@@ -31,6 +31,8 @@ public:
 	void SetShader(Shader* shader);
 	Shader* GetShader();
 
+	const string& GetFilename() const;
+
 	Shader::Property* GetProperty(const string& name);
 	Shader::Property* GetProperty(GLuint glID);
 	Array<Shader::Property*>& GetProperties();
@@ -56,12 +58,14 @@ public:
 private:
 	CROSS_FRIENDLY
 
+	string filename						= "noname";
 	Shader* shader						= NULL;
 	U32 active_texture_slot				= 0;
 	bool transparency					= false;
 	Array<Shader::Property*> properties = Array<Shader::Property*>();
 
 	Material(const Material& obj);
+	void SetName(const string& filename);
 };
 
 }
