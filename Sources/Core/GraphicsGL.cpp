@@ -214,16 +214,16 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	Shader* shader = NULL;
 	switch(type) {
 	case DefaultShader::SIMPLE:
-		shader = new Shader("Engine/Shaders/simple.vert", "Engine/Shaders/simple.frag");
+		shader = new Shader("Engine/Shaders/Simple.vtx", "Engine/Shaders/Simple.fgm");
 		shader->AddProperty("Color", "uColor", Color::White);
 		break;
 	case DefaultShader::MONOCHROME:
-		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+		shader = new Shader("Engine/Shaders/Texture.vtx", "Engine/Shaders/Texture.fgm");
 		shader->AddMacro("MONOCHROME");
 		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::TEXTURE:
-		shader = new Shader("Engine/Shaders/texture.vert", "Engine/Shaders/texture.frag");
+		shader = new Shader("Engine/Shaders/Texture.vtx", "Engine/Shaders/Texture.fgm");
 		shader->AddProperty("Texture", "uTexture");
 		break;
 	case DefaultShader::MULTI_LIGHT:

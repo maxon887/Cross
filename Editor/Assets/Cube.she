@@ -1,6 +1,6 @@
 <Shader>
-	<Vertex filename="Engine/Shaders/simple.vert"/>
-	<Fragment filename="Engine/Shaders/simple.frag"/>
+	<Vertex filename="Engine/Shaders/Simple.vtx"/>
+	<Fragment filename="Engine/Shaders/Simple.fgm"/>
 	<Properties>
 		<Property name="Color" glName="uColor" type="Color"/>
 	</Properties>

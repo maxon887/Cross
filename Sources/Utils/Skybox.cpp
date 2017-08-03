@@ -33,7 +33,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 	box = game->GetCurrentScene()->LoadPrimitive(Graphics3D::Primitives::CUBE);
 	box->SetScale(config->GetViewDistance());
 
-	shader = new Shader("Engine/Shaders/skybox.vert", "Engine/Shaders/skybox.frag");
+	shader = new Shader("Engine/Shaders/Light.vtx", "Engine/Shaders/Light.fgm");
 	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "cubemap");
 	cubemapProp->SetValue(cubemap);
 	shader->AddProperty(cubemapProp);
