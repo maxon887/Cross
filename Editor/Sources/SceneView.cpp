@@ -31,6 +31,7 @@ void SceneView::Start() {
 	selection_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	selection_shader->Compile();
 	selection_material = new Material(selection_shader);
+	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
 }
 
 void SceneView::Stop(){
@@ -75,8 +76,8 @@ void SceneView::OnEntitySelected(Entity* e){
 	}
 	if(e){
 		EnableMesh(e, false);
-		selected_entity = e;
 	}
+	selected_entity = e;
 }
 
 void SceneView::OnEntityGrabFocus(Entity* e){
@@ -87,7 +88,11 @@ void SceneView::OnEntityGrabFocus(Entity* e){
 void SceneView::Draw(Entity* e){
 	Mesh* mesh = e->GetComponent<Mesh>();
 	if(mesh){
-		mesh->Draw(selection_material);
+		Vector3D defaultScale = e->GetScale();
+		mesh->Draw(mesh->GetMaterial(), Graphics3D::StencilBehaviour::WRITE);
+		e->SetScale(defaultScale * 1.1f);
+		mesh->Draw(selection_material, Graphics3D::StencilBehaviour::READ);
+		e->SetScale(defaultScale);
 	}
 	for(Entity* child : e->GetChildren()){
 		Draw(child);

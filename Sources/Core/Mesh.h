@@ -35,6 +35,7 @@ public:
 	void Update(float sec) override;
 	void Draw();
 	void Draw(Material* material);
+	void Draw(Material* material, Graphics3D::StencilBehaviour sten);
 	void Draw(	const Matrix& globalModel, Material* material, 
 				Graphics3D::StencilBehaviour stencilBehvaiour);
 

@@ -49,7 +49,7 @@ public:
 	void Save(const string& file);
 	/* Removes all loaded stuff from scene include textures, material, shader and entities */
 	void Clear();
-	/* Returns root scene entity*/
+	/* Returns root scene entity */
 	Entity* GetRoot();
 	/* Returns scene 3D camera */
 	Camera* GetCamera();

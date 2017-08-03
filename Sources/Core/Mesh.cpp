@@ -60,11 +60,15 @@ void Mesh::Draw() {
 	Draw(material);
 }
 
-void Mesh::Draw(Material* mat){
-	if(GetEntity()){
-		Draw(GetEntity()->GetWorldMatrix(), mat, Graphics3D::StencilBehaviour::IGNORED);
-	}else{
-		Draw(Matrix::Identity, mat, Graphics3D::StencilBehaviour::IGNORED);
+void Mesh::Draw(Material* mat) {
+	Draw(mat, Graphics3D::StencilBehaviour::IGNORED);
+}
+
+void Mesh::Draw(Material* mat, Graphics3D::StencilBehaviour sten) {
+	if(GetEntity()) {
+		Draw(GetEntity()->GetWorldMatrix(), mat, sten);
+	} else {
+		Draw(Matrix::Identity, mat, sten);
 	}
 }
 
