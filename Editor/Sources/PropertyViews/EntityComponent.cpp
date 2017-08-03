@@ -1,5 +1,6 @@
 #include "EntityComponent.h"
 #include "Entity.h"
+#include "../CrossEditor.h"
 
 #include <QLineEdit>
 #include <QDoubleValidator>
@@ -86,6 +87,7 @@ void EntityComponent::PositionChanged(){
 	pos.y = posY->text().toFloat();
 	pos.z = posZ->text().toFloat();
 	entity->SetPosition(pos);
+	editor->SomethingChanged();//trigger
 }
 
 void EntityComponent::RotationChanged(){
@@ -97,6 +99,7 @@ void EntityComponent::RotationChanged(){
 	Quaternion rotation(axis, a);
 	entity->SetRotate(rotation);
 	UpdateRotatioon();
+	editor->SomethingChanged();//trigger
 }
 
 void EntityComponent::ScaleChanged(){
@@ -105,6 +108,7 @@ void EntityComponent::ScaleChanged(){
 	scale.y = scaleY->text().toFloat();
 	scale.z = scaleZ->text().toFloat();
 	entity->SetScale(scale);
+	editor->SomethingChanged();//trigger
 }
 
 void EntityComponent::UpdateRotatioon(){

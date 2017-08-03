@@ -12,6 +12,7 @@ class CrossEditor : public QMainWindow,
 	Q_OBJECT
 public:
 	Event<> UIInitialized;
+	Event<> SomethingChanged;
 
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
@@ -31,6 +32,9 @@ public:
 
 	void OnFileExplorerClick();
 	void OnSceneExplorerClick();
+
+	void OnSceneLoaded(Scene* scene);
+	void OnSomethingChanged();
 
 protected:
 	void closeEvent(QCloseEvent* eve) override;

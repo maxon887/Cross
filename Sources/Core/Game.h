@@ -27,6 +27,7 @@ class Game{
 public:
 	/* Occurs when someone call SetScreen() */
 	Event<Screen*> ScreenChanged;
+	Event<Scene*> SceneLoaded;
 
 	/* Returns Screen from what game need to be start */
 	virtual Screen* GetStartScreen() = 0;

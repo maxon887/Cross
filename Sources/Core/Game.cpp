@@ -155,6 +155,7 @@ void Game::LoadNextScreen(){
 	current_screen->Start();
 	if(scene_file != ""){
 		((Scene*)current_screen)->Load(scene_file);
+		SceneLoaded((Scene*)current_screen);
 	}
 	timestamp = sys->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
