@@ -230,7 +230,6 @@ Shader::~Shader(){
 }
 
 void Shader::Compile(){
-	filename = File::FileWithoutExtension(File::FileFromPath(vertex_file->name));
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = NULL;

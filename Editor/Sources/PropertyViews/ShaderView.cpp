@@ -29,6 +29,13 @@ void ShaderView::Initialize(){
 	properties_box = findChild<QGroupBox*>("properties");
 	QPushButton* addPropertyBtn = properties_box->findChild<QPushButton*>("addPropertyBtn");
 	connect(addPropertyBtn, &QPushButton::clicked, this, &ShaderView::OnAddPropertyClicked);
+
+	apply_btn = findChild<QPushButton*>("applyBtn");
+	apply_btn->setDisabled(true);
+	connect(apply_btn, &QPushButton::clicked, this, &ShaderView::OnApplyClick);
+	revert_btn = findChild<QPushButton*>("revertBtn");
+	revert_btn->setDisabled(true);
+	connect(revert_btn, &QPushButton::clicked, this, &ShaderView::OnRevertClick);
 }
 
 void ShaderView::Clear(){
@@ -177,4 +184,17 @@ void ShaderView::OnRemoveClicked(){
 	macrosies_box->layout()->removeWidget(parent);
 
 	delete parent;
+}
+
+void ShaderView::OnSomethingChanged(){
+	apply_btn->setDisabled(false);
+	revert_btn->setDisabled(false);
+}
+
+void ShaderView::OnApplyClick(){
+
+}
+
+void ShaderView::OnRevertClick(){
+
 }

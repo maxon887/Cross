@@ -5,6 +5,7 @@
 #include "PropertyView.h"
 
 class QLineEdit;
+class QPushButton;
 
 class ShaderView : public PropertyView
 {
@@ -23,6 +24,8 @@ private:
 	QGroupBox* properties_box		= NULL;
 	QLineEdit* vertex_file			= NULL;
 	QLineEdit* fragment_file		= NULL;
+	QPushButton* apply_btn			= NULL;
+	QPushButton* revert_btn			= NULL;
 
 	void Clear();
 
@@ -32,6 +35,11 @@ private:
 	QWidget* OnAddMacroClicked();
 	QWidget* OnAddPropertyClicked();
 	void OnRemoveClicked();
+
+	void OnSomethingChanged();
+
+	void OnApplyClick();
+	void OnRevertClick();
 };
 
 #endif
