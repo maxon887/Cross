@@ -17,9 +17,11 @@ ShaderView::~ShaderView(){
 
 void ShaderView::Initialize(){
 	vertex_file = findChild<QLineEdit*>("vertexFile");
+	connect(vertex_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
 	connect(loadVertexFileBtn, &QPushButton::clicked, this, &ShaderView::OnVertexFileClicked);
 	fragment_file = findChild<QLineEdit*>("fragmentFile");
+	connect(fragment_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* loadFragmentFileBtn = findChild<QPushButton*>("fragmentBtn");
 	connect(loadFragmentFileBtn, &QPushButton::clicked, this, &ShaderView::OnFragmentFileClicked);
 
@@ -71,7 +73,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 	setTitle(QString("Shader: ") + filename.c_str());
 
 	delete shader;
-	shader = new Shader(filepath);
+	shader = new Shader();
+	shader->Load(filepath);
 	vertex_file->setText(shader->GetVertexFilename().c_str());
 	fragment_file->setText(shader->GetFragmentFilename().c_str());
 
@@ -105,6 +108,9 @@ void ShaderView::OnFileSelected(const string& filepath){
 			break;
 		}
 	}
+
+	apply_btn->setDisabled(true);
+	revert_btn->setDisabled(true);
 
 	show();
 }
@@ -192,9 +198,10 @@ void ShaderView::OnSomethingChanged(){
 }
 
 void ShaderView::OnApplyClick(){
-
+	shader->Save(shader->GetFilename());
+	OnRevertClick();
 }
 
 void ShaderView::OnRevertClick(){
-
+	OnFileSelected(string(shader->GetFilename()));
 }

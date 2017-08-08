@@ -76,10 +76,12 @@ public:
 		bool original	= true;
 	};
 
-	Shader(const string& xmlFile);
+	Shader() = default;
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
+	virtual void Load(const string& file);
+	virtual void Save(const string& file);
 	virtual void Compile();
 	virtual void OnDraw() { }
 

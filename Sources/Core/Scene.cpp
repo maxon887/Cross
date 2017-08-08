@@ -323,12 +323,12 @@ void Scene::Save(const string& filename){
 
 	XMLPrinter printer;
 	doc.Accept(&printer);
-	File gameConfig;
-	gameConfig.name = filename;
-	gameConfig.size = printer.CStrSize();
-	gameConfig.data = (Byte*)printer.CStr();
-	sys->SaveFile(&gameConfig);
-	gameConfig.data = NULL;
+	File saveFile;
+	saveFile.name = filename;
+	saveFile.size = printer.CStrSize();
+	saveFile.data = (Byte*)printer.CStr();
+	sys->SaveFile(&saveFile);
+	saveFile.data = NULL;
 }
 
 void Scene::Clear(){
@@ -433,7 +433,8 @@ Shader* Scene::GetShader(const string& shaderfile) {
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
 	} else {
-		Shader* shader = new Shader(shaderfile);
+		Shader* shader = new Shader();
+		shader->Load(shaderfile);
 		shaders[shaderHash] = shader;
 		return shader;
 	}

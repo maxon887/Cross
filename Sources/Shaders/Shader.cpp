@@ -144,9 +144,34 @@ void Shader::Property::RealocateIfNeeded(U32 newSize){
 	}
 }
 
-Shader::Shader(const string& xmlFile){
-	filename = xmlFile;
-	string path = sys->AssetsPath() + xmlFile;
+Shader::Shader(const string& vertexFile, const string& fragmentFile) {
+	vertex_file = sys->LoadAssetFile(vertexFile);
+	fragment_file = sys->LoadAssetFile(fragmentFile);
+	if(gfxGL->GetShaderVersion() >= 130) {
+		AddVersion("130");
+	}
+}
+
+Shader::~Shader(){
+	if(vertex_shader){
+		SAFE(glDeleteShader(vertex_shader));
+	}
+	if(fragment_shader){
+		SAFE(glDeleteShader(fragment_shader));
+	}	
+	if(program){
+		SAFE(glDeleteProgram(program));
+	}
+	delete vertex_file;
+	delete fragment_file;
+	for(Shader::Property* prop : properties){
+		delete prop;
+	}
+}
+
+void Shader::Load(const string& file){
+	filename = file;
+	string path = sys->AssetsPath() + file;
 	XMLDocument doc;
 	XMLError error = doc.LoadFile(path.c_str());
 	if(error != XML_SUCCESS) {
@@ -204,29 +229,51 @@ Shader::Shader(const string& xmlFile){
 	}
 }
 
-Shader::Shader(const string& vertexFile, const string& fragmentFile) {
-	vertex_file = sys->LoadAssetFile(vertexFile);
-	fragment_file = sys->LoadAssetFile(fragmentFile);
-	if(gfxGL->GetShaderVersion() >= 130) {
-		AddVersion("130");
-	}
-}
+void Shader::Save(const string& file){
+	XMLDocument doc;
 
-Shader::~Shader(){
-	if(vertex_shader){
-		SAFE(glDeleteShader(vertex_shader));
+	XMLElement* shaderXML = doc.NewElement("Shader");
+	doc.LinkEndChild(shaderXML);
+
+	XMLElement* vertexXML = doc.NewElement("Vertex");
+	vertexXML->SetAttribute("file", vertex_file->name.c_str());
+	shaderXML->LinkEndChild(vertexXML);
+
+	XMLElement* fragmentXML = doc.NewElement("Fragment");
+	fragmentXML->SetAttribute("file", fragment_file->name.c_str());
+	shaderXML->LinkEndChild(fragmentXML);
+
+	XMLElement* propertiesXML = doc.NewElement("Properties");
+	shaderXML->LinkEndChild(propertiesXML);
+
+	for(Property* prop : properties){
+		XMLElement* propertyXML = doc.NewElement("Property");
+		propertyXML->SetAttribute("name", prop->GetName().c_str());
+		propertyXML->SetAttribute("glName", prop->GetGLName().c_str());
+		switch(prop->GetType())	{
+		case Property::FLOAT:
+			propertyXML->SetAttribute("type", "Float");
+			break;
+		case Property::INT:
+			propertyXML->SetAttribute("type", "Int");
+			break;
+		case Property::COLOR:
+			propertyXML->SetAttribute("type", "Color");
+			break;
+		default:
+			break;
+		}
+		propertiesXML->LinkEndChild(propertyXML);
 	}
-	if(fragment_shader){
-		SAFE(glDeleteShader(fragment_shader));
-	}	
-	if(program){
-		SAFE(glDeleteProgram(program));
-	}
-	delete vertex_file;
-	delete fragment_file;
-	for(Shader::Property* prop : properties){
-		delete prop;
-	}
+
+	XMLPrinter printer;
+	doc.Accept(&printer);
+	File saveFile;
+	saveFile.name = file;
+	saveFile.size = printer.CStrSize();
+	saveFile.data = (Byte*)printer.CStr();
+	sys->SaveFile(&saveFile);
+	saveFile.data = NULL;
 }
 
 void Shader::Compile(){
