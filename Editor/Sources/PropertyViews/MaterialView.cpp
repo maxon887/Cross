@@ -71,7 +71,9 @@ void MaterialView::OnFileSelected(const string& filepath){
 			break;
 		}
 		case Shader::Property::Type::INT:
+			break;
 		case Shader::Property::Type::FLOAT:
+			break;
 		case Shader::Property::Type::COLOR: {
 			Color c(0.f);
 			c.SetData((const char*)prop->GetValue());

@@ -2,6 +2,8 @@
 #include "File.h"
 #include "System.h"
 #include "Shaders/Shader.h"
+#include "Game.h"
+#include "Scene.h"
 
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -12,7 +14,6 @@
 using namespace cross;
 
 ShaderView::~ShaderView(){
-	delete shader;
 }
 
 void ShaderView::Initialize(){
@@ -72,9 +73,7 @@ void ShaderView::OnFileSelected(const string& filepath){
 	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
 	setTitle(QString("Shader: ") + filename.c_str());
 
-	delete shader;
-	shader = new Shader();
-	shader->Load(filepath);
+	shader = game->GetCurrentScene()->GetShader(filepath);
 	vertex_file->setText(shader->GetVertexFilename().c_str());
 	fragment_file->setText(shader->GetFragmentFilename().c_str());
 
@@ -246,6 +245,7 @@ void ShaderView::OnApplyClick(){
 
 	shader->Save(shader->GetFilename());
 	OnRevertClick();
+	game->GetCurrentScene()->RefreshMaterials();
 }
 
 void ShaderView::OnRevertClick(){

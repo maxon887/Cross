@@ -465,6 +465,12 @@ pair<S32, S32> Scene::GetModelMeshID(Mesh* mesh) {
 	throw CrossException("Can not find mesh ids");
 }
 
+void Scene::RefreshMaterials(){
+	for(pair<S32, Material*> pair : materials){
+		pair.second->Refresh();
+	}
+}
+
 void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
 }

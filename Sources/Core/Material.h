@@ -32,6 +32,7 @@ public:
 	Shader* GetShader();
 
 	const string& GetFilename() const;
+	void Refresh();
 
 	Shader::Property* GetProperty(const string& name);
 	Shader::Property* GetProperty(GLuint glID);

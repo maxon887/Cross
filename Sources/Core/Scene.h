@@ -80,6 +80,8 @@ public:
 	/* First id for model in scene second id for mesh id in the model */
 	pair<S32, S32> GetModelMeshID(Mesh* mesh);
 
+	void RefreshMaterials();
+
 protected:
 	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
 	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();

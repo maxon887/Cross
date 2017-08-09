@@ -22,9 +22,7 @@ using namespace cross;
 Material::Material(Shader* shader) :
 	shader(shader)
 {
-	for(Shader::Property* prop : shader->properties){
-		properties.push_back(new Shader::Property(*prop));
-	}
+	Refresh();
 }
 
 Material::Material(const Material& obj) :
@@ -57,6 +55,17 @@ Shader* Material::GetShader() {
 
 const string& Material::GetFilename() const {
 	return filename;
+}
+
+void Material::Refresh() {
+	for(Shader::Property* prop : properties){
+		delete prop;
+	}
+	properties.clear();
+
+	for(Shader::Property* prop : shader->properties) {
+		properties.push_back(new Shader::Property(*prop));
+	}
 }
 
 Shader::Property* Material::GetProperty(const string& name){
