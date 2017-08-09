@@ -35,6 +35,7 @@ private:
 
 	void Clear();
 	void OnValueChanged();
+	void OnSomethingChanged();
 	//color options
 	void OnColorPickerClicked();
 	void OnCurrentColorChanged(const QColor& color);

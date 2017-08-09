@@ -77,6 +77,9 @@ public:
 	Shader* GetShader(const string& shaderFile);
 	/* Obtain loaded into scene texture or load it by self in other way */
 	Texture* GetTexture(const string& textureFile);
+
+	Material* LoadMaterialFromXML(const string& xmlFile);
+	void SaveMaterialToXML(Material* mat, const string& xmlFile);
 	/* First id for model in scene second id for mesh id in the model */
 	pair<S32, S32> GetModelMeshID(Mesh* mesh);
 
@@ -103,7 +106,6 @@ private:
     U64 resize_del							= -1;
 
 	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
-	Material* LoadMaterialFromXML(const string& xmlFile);
 
 	void WindowResizeHandle(S32 width, S32 height);
 	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);

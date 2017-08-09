@@ -28,6 +28,9 @@
 #include "Shaders/LightsShader.h"
 #include "File.h"
 
+#include <iomanip>
+#include <algorithm>
+
 #include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
@@ -606,6 +609,52 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 	}
 
 	return material;
+}
+
+void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
+	XMLDocument doc;
+	XMLElement* materialXML = doc.NewElement("Material");
+	materialXML->SetAttribute("shader", mat->GetShader()->GetFilename().c_str());
+	doc.LinkEndChild(materialXML);
+
+	for(Shader::Property* prop : mat->properties) {
+		XMLElement* propertyXML = doc.NewElement("Property");
+		propertyXML->SetAttribute("name", prop->GetName().c_str());
+		switch(prop->GetType())	{
+		case Shader::Property::Type::COLOR: {
+			Color c(0.f);
+			c.SetData((const char*)prop->GetValue());
+
+			int rInt = c.R * 255;
+			int gInt = c.G * 255;
+			int bInt = c.B * 255;
+			int aInt = c.A * 255;
+
+			std::stringstream ss;
+			ss << std::hex;
+			ss << std::setw(2) << std::setfill('0') << rInt;
+			ss << std::setw(2) << std::setfill('0') << gInt;
+			ss << std::setw(2) << std::setfill('0') << bInt;
+			ss << std::setw(2) << std::setfill('0') << aInt;
+			string text = ss.str();
+			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
+			propertyXML->SetAttribute("value", text.c_str());
+			break;
+		}
+		default:
+			break;
+		}
+		materialXML->LinkEndChild(propertyXML);
+	}
+
+	XMLPrinter printer;
+	doc.Accept(&printer);
+	File saveFile;
+	saveFile.name = sys->AssetsPath() + xmlFile;
+	saveFile.size = printer.CStrSize();
+	saveFile.data = (Byte*)printer.CStr();
+	sys->SaveFile(&saveFile);
+	saveFile.data = NULL;
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){

@@ -131,6 +131,11 @@ void MaterialView::OnValueChanged(){
 	revert_btn->setDisabled(false);
 }
 
+void MaterialView::OnSomethingChanged() {
+	apply_btn->setDisabled(false);
+	revert_btn->setDisabled(false);
+}
+
 void MaterialView::OnColorPickerClicked(){
 	current_property_layout = dynamic_cast<QWidget*>(sender()->parent());
 	QLabel* nameLabel = current_property_layout->findChild<QLabel*>("nameLabel");
@@ -244,6 +249,7 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 		valueBox->setInputMask("HHHHHHHH");
 		valueBox->setFixedWidth(100);
 		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
+		connect(valueBox, &QLineEdit::textChanged, this, &MaterialView::OnSomethingChanged);
 		propertyLayout->addWidget(valueBox);
 		
 		QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding);
@@ -268,13 +274,22 @@ void MaterialView::OnApplyClick() {
 		QLabel* nameLabel = propertyL->findChild<QLabel*>("nameLabel");
 		Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
 		switch(prop->GetType())	{
-
+		case Shader::Property::Type::COLOR: {
+			QLineEdit* valueBox = propertyL->findChild<QLineEdit*>("valueBox");
+			if(valueBox->hasAcceptableInput()) {
+				prop->SetValue(Color(valueBox->text().toStdString().c_str()));
+			}
+			break;
+		}
 		default:
 			break;
 		}
 	}
+
+	game->GetCurrentScene()->SaveMaterialToXML(material, material->GetFilename());
+	OnRevertClick();
 }
 
 void MaterialView::OnRevertClick() {
-
+	OnFileSelected(string(material->GetFilename()));
 }
