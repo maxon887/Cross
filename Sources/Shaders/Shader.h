@@ -88,12 +88,15 @@ public:
 	bool IsCompiled() const;
 	string& GetFilename();
 	string& GetVertexFilename();
+	void SetVertexFilename(const string& filename);
 	string& GetFragmentFilename();
+	void SetFragmentFilename(const string& filename);
 
 	void AddVersion(const string& version);
 	void AddMacro(const string& makro, bool system = false);
 	void AddMacro(const string& makro, int value, bool system = false);
 	Array<string>& GetMacrosies();
+	void ClearMacrosies();
 
 	void AddProperty(const string& name, const string& glName);
 	void AddProperty(const string& glName, float defValue);
@@ -103,6 +106,7 @@ public:
 	void AddProperty(Property* prop);
 	Property* GetProperty(const string& name);
 	Array<Property*>& GetProperties();
+	void ClearProperties();
 	bool HaveProperty(const string& name) const;
 
 protected:
@@ -145,6 +149,8 @@ protected:
 private:
 	GLuint vertex_shader		= 0;
 	GLuint fragment_shader		= 0;
+	string vertex_filename		= "";
+	string fragment_filename	= "";
 	File* vertex_file			= NULL;
 	File* fragment_file			= NULL;
 	U32 makro_len				= 0;

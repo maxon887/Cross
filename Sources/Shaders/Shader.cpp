@@ -145,8 +145,8 @@ void Shader::Property::RealocateIfNeeded(U32 newSize){
 }
 
 Shader::Shader(const string& vertexFile, const string& fragmentFile) {
-	vertex_file = sys->LoadAssetFile(vertexFile);
-	fragment_file = sys->LoadAssetFile(fragmentFile);
+	vertex_filename = vertexFile;
+	fragment_filename = fragmentFile;
 	if(gfxGL->GetShaderVersion() >= 130) {
 		AddVersion("130");
 	}
@@ -187,8 +187,8 @@ void Shader::Load(const string& file){
 	const char* vertexFile = vertexXML->Attribute("filename");
 	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
 	const char* fragmentFile = fragmentXML->Attribute("filename");
-	vertex_file = sys->LoadAssetFile(vertexFile);
-	fragment_file = sys->LoadAssetFile(fragmentFile);
+	vertex_filename = vertexFile;
+	fragment_filename = fragmentFile;
 	if(gfxGL->GetShaderVersion() >= 130) {
 		AddVersion("130");
 	}
@@ -236,12 +236,20 @@ void Shader::Save(const string& file){
 	doc.LinkEndChild(shaderXML);
 
 	XMLElement* vertexXML = doc.NewElement("Vertex");
-	vertexXML->SetAttribute("file", vertex_file->name.c_str());
+	vertexXML->SetAttribute("filename", vertex_filename.c_str());
 	shaderXML->LinkEndChild(vertexXML);
 
 	XMLElement* fragmentXML = doc.NewElement("Fragment");
-	fragmentXML->SetAttribute("file", fragment_file->name.c_str());
+	fragmentXML->SetAttribute("filename", fragment_filename.c_str());
 	shaderXML->LinkEndChild(fragmentXML);
+
+	XMLElement* macrosiesXML = doc.NewElement("Macrosies");
+	shaderXML->LinkEndChild(macrosiesXML);
+	for(const string& macro : user_macro){
+		XMLElement* macroXML = doc.NewElement("Macro");
+		macroXML->SetText(macro.c_str());
+		macrosiesXML->LinkEndChild(macroXML);
+	}
 
 	XMLElement* propertiesXML = doc.NewElement("Properties");
 	shaderXML->LinkEndChild(propertiesXML);
@@ -260,8 +268,11 @@ void Shader::Save(const string& file){
 		case Property::COLOR:
 			propertyXML->SetAttribute("type", "Color");
 			break;
-		default:
+		case Property::SAMPLER:
+			propertyXML->SetAttribute("type", "Texture");
 			break;
+		default:
+			throw CrossException("Unknown property type to save");
 		}
 		propertiesXML->LinkEndChild(propertyXML);
 	}
@@ -269,7 +280,7 @@ void Shader::Save(const string& file){
 	XMLPrinter printer;
 	doc.Accept(&printer);
 	File saveFile;
-	saveFile.name = file;
+	saveFile.name = sys->AssetsPath() + file;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	sys->SaveFile(&saveFile);
@@ -277,9 +288,11 @@ void Shader::Save(const string& file){
 }
 
 void Shader::Compile(){
+	vertex_file = sys->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = NULL;
+	fragment_file = sys->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
 	fragment_file = NULL;
@@ -319,19 +332,19 @@ string& Shader::GetFilename(){
 }
 
 string& Shader::GetVertexFilename(){
-	if(!IsCompiled()){
-		return vertex_file->name;
-	}else{
-		throw CrossException("Can not obtain vertex filename from compiled shader");
-	}
+	return vertex_filename;
+}
+
+void Shader::SetVertexFilename(const string& filename){
+	vertex_filename = filename;
 }
 
 string& Shader::GetFragmentFilename() {
-	if(!IsCompiled()) {
-		return fragment_file->name;
-	} else {
-		throw CrossException("Can not obtain fragment filename from compiled shader");
-	}
+	return fragment_filename;
+}
+
+void Shader::SetFragmentFilename(const string& filename){
+	fragment_filename = filename;
 }
 
 void Shader::AddVersion(const string& ver){
@@ -369,6 +382,10 @@ void Shader::AddMacro(const string& makro, int value, bool system){
 
 Array<string>& Shader::GetMacrosies(){
 	return user_macro;
+}
+
+void Shader::ClearMacrosies(){
+	user_macro.clear();
 }
 
 void Shader::AddProperty(const string& name, const string& glName){
@@ -418,6 +435,13 @@ Shader::Property* Shader::GetProperty(const string& name){
 
 Array<Shader::Property*>& Shader::GetProperties(){
 	return properties;
+}
+
+void Shader::ClearProperties(){
+	for(Property* p : properties){
+		delete p;
+	}
+	properties.clear();
 }
 
 bool Shader::HaveProperty(const string& name) const{

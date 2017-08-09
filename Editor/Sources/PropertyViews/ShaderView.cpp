@@ -123,6 +123,7 @@ QWidget* ShaderView::OnAddMacroClicked(){
 	macroLayout->setMargin(0);
 	QLineEdit* macroText = new QLineEdit(macroLayoutWidget);
 	macroText->setObjectName("macroText");
+	connect(macroText, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* removeBtn = new QPushButton(macroLayoutWidget);
 	removeBtn->setText("remove");
 	removeBtn->setFixedWidth(100);
@@ -136,6 +137,8 @@ QWidget* ShaderView::OnAddMacroClicked(){
 	macroLayoutWidget->show();
 	macroText->show();
 	removeBtn->show();
+
+	OnSomethingChanged();//trigger
 
 	return macroLayoutWidget;
 }
@@ -151,18 +154,21 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	propertyLayout->addWidget(propertyNameLabel);
 	QLineEdit* propertyNameEdit = new QLineEdit(propertyLayoutWidget);
 	propertyNameEdit->setObjectName("propertyName");
+	connect(propertyNameEdit, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	propertyLayout->addWidget(propertyNameEdit);
 	QLabel* propertyGLNameLabel = new QLabel(propertyLayoutWidget);
 	propertyGLNameLabel->setText("glName:");
 	propertyLayout->addWidget(propertyGLNameLabel);
 	QLineEdit* propertyGLNameEdit = new QLineEdit(propertyLayoutWidget);
 	propertyGLNameEdit->setObjectName("propertyGLName");
+	connect(propertyGLNameEdit, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	propertyLayout->addWidget(propertyGLNameEdit);
 	QLabel* typeLabel = new QLabel(propertyLayoutWidget);
 	typeLabel->setText("Type:");
 	propertyLayout->addWidget(typeLabel);
 	QComboBox* typeBox = new QComboBox(propertyLayoutWidget);
 	typeBox->setObjectName("propertyType");
+	connect(typeBox, &QComboBox::currentTextChanged, this, &ShaderView::OnSomethingChanged);
 	typeBox->addItem("Int");
 	typeBox->addItem("Float");
 	typeBox->addItem("Texture");
@@ -179,6 +185,8 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	QVBoxLayout* groupBoxLayout = dynamic_cast<QVBoxLayout*>(properties_box->layout());
 	groupBoxLayout->insertWidget(groupBoxLayout->count() - 1, propertyLayoutWidget);
 	propertyLayoutWidget->show();
+
+	OnSomethingChanged();//trigger
 
 	return propertyLayoutWidget;
 }
@@ -198,6 +206,42 @@ void ShaderView::OnSomethingChanged(){
 }
 
 void ShaderView::OnApplyClick(){
+	shader->SetVertexFilename(vertex_file->text().toStdString());
+	shader->SetFragmentFilename(fragment_file->text().toStdString());
+
+	shader->ClearMacrosies();
+	QList<QWidget*> macrosies = macrosies_box->findChildren<QWidget*>("macroLayout");
+	for(QWidget* macroL : macrosies){
+		QLineEdit* macroEdit = macroL->findChild<QLineEdit*>("macroText");
+		shader->AddMacro(macroEdit->text().toStdString());
+	}
+
+	shader->ClearProperties();
+	QList<QWidget*> properties = properties_box->findChildren<QWidget*>("propertyLayout");
+	for(QWidget* propertyL : properties){
+		QLineEdit* propertyName = propertyL->findChild<QLineEdit*>("propertyName");
+		QLineEdit* propertyGLName = propertyL->findChild<QLineEdit*>("propertyGLName");
+		QComboBox* propertyType = propertyL->findChild<QComboBox*>("propertyType");
+		string name = propertyName->text().toStdString();
+		string glName = propertyGLName->text().toStdString();
+		switch(propertyType->currentIndex()) {
+		case 0://Int 
+			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::INT));
+			break;
+		case 1://Float
+			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::FLOAT));
+			break;
+		case 2://Texture
+			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::SAMPLER));
+			break;
+		case 3://Color
+			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::COLOR));
+			break;
+		default:
+			break;
+		}
+	}
+
 	shader->Save(shader->GetFilename());
 	OnRevertClick();
 }
