@@ -47,7 +47,7 @@ public:
 	void SetRotationZ(float angle);
 	Matrix GetTransposed() const;
 	Matrix GetInversed() const;
-	float* GetData();
+	const float* GetData() const;
 
 	Matrix		operator + (float s) const;
 	Matrix		operator - (float s) const;

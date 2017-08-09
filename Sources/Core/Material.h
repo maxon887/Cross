@@ -51,6 +51,7 @@ public:
 	void SetPropertyValue(GLuint glID, Vector4D& value);
 	void SetPropertyValue(GLuint glID, Matrix& value);
 	void SetPropertyValue(GLuint glID, Texture* value);
+	bool HaveProperty(const string& name);
 
 	void TransparencyEnabled(bool yes);
 

@@ -87,7 +87,7 @@ Matrix Matrix::CreatePerspectiveProjection(float fov, float aspect, float near, 
 	return m;
 }
 
-float* Matrix::GetData(){
+const float* Matrix::GetData() const{
 	return (float*)m;
 }
 

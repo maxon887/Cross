@@ -13,9 +13,6 @@
 
 using namespace cross;
 
-ShaderView::~ShaderView(){
-}
-
 void ShaderView::Initialize(){
 	vertex_file = findChild<QLineEdit*>("vertexFile");
 	connect(vertex_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);

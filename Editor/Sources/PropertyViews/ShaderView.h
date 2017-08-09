@@ -12,7 +12,7 @@ class ShaderView : public PropertyView
 	Q_OBJECT
 public:
 	ShaderView(QWidget* parent = 0) : PropertyView(parent) { }
-	~ShaderView() override;
+	~ShaderView() override = default;
 
 	void Initialize();
 	void OnFileSelected(const string& filename);

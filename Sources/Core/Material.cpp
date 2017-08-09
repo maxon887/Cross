@@ -160,6 +160,15 @@ void Material::SetPropertyValue(GLuint glID, Texture* value){
 	prop->SetValue(value);
 }
 
+bool Material::HaveProperty(const string& name) {
+	for(Shader::Property* prop : properties) {
+		if(prop->name == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void Material::TransparencyEnabled(bool yes){
 	transparency = yes;
 }

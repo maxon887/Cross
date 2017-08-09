@@ -32,6 +32,13 @@ void MaterialView::Initialize(){
 	connect(color_dialog, &QColorDialog::currentColorChanged, this, &MaterialView::OnCurrentColorChanged);
 	connect(color_dialog, &QColorDialog::colorSelected, this, &MaterialView::OnColorSelected);
 	connect(color_dialog, &QColorDialog::rejected, this, &MaterialView::OnColorRejected);
+
+	apply_btn = findChild<QPushButton*>("applyBtn");
+	apply_btn->setDisabled(true);
+	connect(apply_btn, &QPushButton::clicked, this, &MaterialView::OnApplyClick);
+	revert_btn = findChild<QPushButton*>("revertBtn");
+	revert_btn->setDisabled(true);
+	connect(revert_btn, &QPushButton::clicked, this, &MaterialView::OnRevertClick);
 }
 
 void MaterialView::OnEntitySelected(Entity* e){
@@ -91,6 +98,8 @@ void MaterialView::OnFileSelected(const string& filepath){
 		}
 	}
 
+	apply_btn->setDisabled(true);
+	revert_btn->setDisabled(true);
 	show();
 }
 
@@ -117,6 +126,9 @@ void MaterialView::OnValueChanged(){
 	default:
 		throw CrossException("Unsupported property type");
 	}
+
+	apply_btn->setDisabled(false);
+	revert_btn->setDisabled(false);
 }
 
 void MaterialView::OnColorPickerClicked(){
@@ -234,7 +246,6 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
 		propertyLayout->addWidget(valueBox);
 		
-
 		QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding);
 		propertyLayout->addItem(spacer);
 		break;
@@ -249,4 +260,21 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	propertyLayoutWidget->show();
 
 	return propertyLayoutWidget;
+}
+
+void MaterialView::OnApplyClick() {
+	QList<QWidget*> properties = properties_box->findChildren<QWidget*>("propertyLayout");
+	for(QWidget* propertyL : properties) {
+		QLabel* nameLabel = propertyL->findChild<QLabel*>("nameLabel");
+		Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
+		switch(prop->GetType())	{
+
+		default:
+			break;
+		}
+	}
+}
+
+void MaterialView::OnRevertClick() {
+
 }

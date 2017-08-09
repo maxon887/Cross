@@ -50,7 +50,7 @@ public:
 		void SetValue(const Color& v);
 		void SetValue(const Vector3D& v);
 		void SetValue(const Vector4D& v);
-		void SetValue(Matrix& v);
+		void SetValue(const Matrix& v);
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
 

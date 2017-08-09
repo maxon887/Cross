@@ -577,29 +577,30 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {
 		const char* name = propertyXML->Attribute("name");
-
-		Shader::Property* prop = material->GetProperty(name);
-		switch(prop->GetType())	{
-		case Shader::Property::INT:{
-			int value = propertyXML->IntAttribute("value");
-			prop->SetValue(value);
-			} break;
-		case Shader::Property::FLOAT:{
-			double value = propertyXML->DoubleAttribute("value");
-			prop->SetValue((float)value);
-			} break;
-		case Shader::Property::COLOR:{
-			const char* value = propertyXML->Attribute("value");
-			Color color(value);
-			prop->SetValue(color);
-			} break;
-		case Shader::Property::SAMPLER:{
-			const char* textureFilename = propertyXML->Attribute("value");
-			Texture* texture = GetTexture(textureFilename);
-			prop->SetValue(texture);
-			} break;
-		default:
-			throw CrossException("Unsupported property type");
+		if(material->HaveProperty(name)){
+			Shader::Property* prop = material->GetProperty(name);
+			switch(prop->GetType())	{
+			case Shader::Property::INT:{
+				int value = propertyXML->IntAttribute("value");
+				prop->SetValue(value);
+				} break;
+			case Shader::Property::FLOAT:{
+				double value = propertyXML->DoubleAttribute("value");
+				prop->SetValue((float)value);
+				} break;
+			case Shader::Property::COLOR:{
+				const char* value = propertyXML->Attribute("value");
+				Color color(value);
+				prop->SetValue(color);
+				} break;
+			case Shader::Property::SAMPLER:{
+				const char* textureFilename = propertyXML->Attribute("value");
+				Texture* texture = GetTexture(textureFilename);
+				prop->SetValue(texture);
+				} break;
+			default:
+				throw CrossException("Unsupported property type");
+			}
 		}
 		propertyXML = propertyXML->NextSiblingElement("Property");
 	}

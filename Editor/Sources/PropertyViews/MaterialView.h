@@ -7,6 +7,7 @@
 
 class QLabel;
 class QColorDialog;
+class QPushButton;
 
 class MaterialView : public PropertyView
 {
@@ -25,13 +26,16 @@ private:
 
 	QLabel* shader_label				= NULL;
 	QGroupBox* properties_box			= NULL;
-
+	//color options
 	QColorDialog* color_dialog			= NULL;
 	QWidget* current_property_layout	= NULL;
 
-	void Clear();
+	QPushButton* apply_btn				= NULL;
+	QPushButton* revert_btn				= NULL;
 
+	void Clear();
 	void OnValueChanged();
+	//color options
 	void OnColorPickerClicked();
 	void OnCurrentColorChanged(const QColor& color);
 	void OnColorSelected(const QColor& color);
@@ -39,6 +43,9 @@ private:
 	string GetColorStr(const Color& color);
 
 	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
+
+	void OnApplyClick();
+	void OnRevertClick();
 };
 
 #endif

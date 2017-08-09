@@ -29,7 +29,41 @@ Shader::Property::Property(const string& name, const string& glName, Shader::Pro
 	name(name),
 	glName(glName),
 	type(type)
-{ }
+{
+	switch(type) {
+	case cross::Shader::Property::SAMPLER:
+		SetValue((Texture*)NULL);
+		break;
+	case cross::Shader::Property::MAT4:
+		SetValue(Matrix::Identity);
+		break;
+	case cross::Shader::Property::VEC4:
+		SetValue(Vector4D());
+		break;
+	case cross::Shader::Property::VEC3:
+		SetValue(Vector3D());
+		break;
+	case cross::Shader::Property::VEC2:
+		SetValue(Vector2D());
+		break;
+	case cross::Shader::Property::FLOAT:
+		SetValue(0.f);
+		break;
+	case cross::Shader::Property::INT:
+		SetValue(0);
+		break;
+	case cross::Shader::Property::COLOR:
+		SetValue(Color("FF00FFFF"));
+		break;
+	case cross::Shader::Property::CUBEMAP:
+		SetValue((Cubemap*)NULL);
+		break;
+	case cross::Shader::Property::UNKNOWN:
+		break;
+	default:
+		break;
+	}
+}
 
 Shader::Property::Property(const string& name, const string& glName):
 	name(name),
@@ -44,8 +78,10 @@ Shader::Property::Property(const Shader::Property& obj):
 	size(obj.size),
 	original(false)
 {
-	value = new Byte[obj.size];
-	memcpy(value, obj.value, obj.size);
+	if(obj.size != 0) {
+		value = new Byte[obj.size];
+		memcpy(value, obj.value, obj.size);
+	}
 }
 
 Shader::Property::~Property(){
@@ -90,7 +126,7 @@ void Shader::Property::SetValue(const Vector4D& v){
 	memcpy(value, v.GetData(), size);
 }
 
-void Shader::Property::SetValue(Matrix& v){
+void Shader::Property::SetValue(const Matrix& v){
 	type = MAT4;
 	RealocateIfNeeded(sizeof(float) * 16);
 	memcpy(value, v.GetData(), size);
