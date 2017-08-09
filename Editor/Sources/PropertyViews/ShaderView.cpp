@@ -138,7 +138,7 @@ QWidget* ShaderView::OnAddMacroClicked(){
 	macroText->show();
 	removeBtn->show();
 
-	OnSomethingChanged();//trigger
+	OnSomethingChanged();
 
 	return macroLayoutWidget;
 }
@@ -186,7 +186,7 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	groupBoxLayout->insertWidget(groupBoxLayout->count() - 1, propertyLayoutWidget);
 	propertyLayoutWidget->show();
 
-	OnSomethingChanged();//trigger
+	OnSomethingChanged();
 
 	return propertyLayoutWidget;
 }
@@ -198,6 +198,8 @@ void ShaderView::OnRemoveClicked(){
 	macrosies_box->layout()->removeWidget(parent);
 
 	delete parent;
+
+	OnSomethingChanged();
 }
 
 void ShaderView::OnSomethingChanged(){
