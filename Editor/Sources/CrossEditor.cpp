@@ -1,6 +1,7 @@
 #include "CrossEditor.h"
 #include "SceneView.h"
 #include "System.h"
+#include "Shaders/Shader.h"
 #include "Platform/Windows/WINSystem.h"
 
 #include <QSettings.h>
@@ -126,6 +127,10 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 			throw CrossException("You are not under Windows opertating system");
 		}
 	}
+}
+
+void CrossEditor::OnNewShaderClick() {
+	Shader* newShader = new Shader();
 }
 
 void CrossEditor::OnFileExplorerClick(){

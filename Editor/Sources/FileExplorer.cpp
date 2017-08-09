@@ -4,14 +4,17 @@
 #include "Graphics3D.h"
 #include "Scene.h"
 #include "Material.h"
+#include "File.h"
 
 #include <QHeaderView>
 #include <QFileSystemModel>
+#include <QContextMenuEvent>
 
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)
 {
 	file_system = new QFileSystemModel(this);
+	file_system->setReadOnly(false);
 	setModel(file_system);
 
 	SetupProjectDirectory(QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()));
@@ -25,6 +28,13 @@ FileExplorer::FileExplorer(QWidget* parent) :
 
 	connect(this, &QTreeView::clicked, this, &FileExplorer::OnItemSelected);
 	connect(this, &QTreeView::doubleClicked, this, &FileExplorer::OnItemDoubleClick);
+
+	//context menu creating
+	context_menu = new QMenu(this);
+	QAction* newShader = new QAction(context_menu);
+	newShader->setText("New Shader");
+	connect(newShader, &QAction::triggered, this, &FileExplorer::OnNewShaderClick);
+	context_menu->addAction(newShader);
 }
 
 FileExplorer::~FileExplorer(){
@@ -35,6 +45,10 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
+}
+
+void FileExplorer::contextMenuEvent(QContextMenuEvent *event) {
+	context_menu->exec(event->globalPos());
 }
 
 void FileExplorer::OnItemSelected(QModelIndex index){
@@ -63,5 +77,18 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 		}
 	}catch(Exception ex){
 		editor->ExceptionMsgBox(ex.message);
+	}
+}
+
+void FileExplorer::OnNewShaderClick(){
+	QModelIndexList indexes = selectedIndexes();
+	if(indexes.size() > 0){
+		QFileInfo fileInfo = file_system->fileInfo(indexes[0]);
+	}else{
+		Shader* newShader = new Shader();
+		newShader->Save("New Shader.she");
+		QString absolutePath = file_system->rootDirectory().absolutePath() + "/New Shader.she";
+		QModelIndex index = file_system->index(absolutePath);
+		edit(index);
 	}
 }

@@ -55,6 +55,8 @@
     <addaction name="actionNewScene"/>
     <addaction name="actionSaveSceneAs"/>
     <addaction name="actionSetupProjectDirectory"/>
+    <addaction name="separator"/>
+    <addaction name="actionNewShader"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -88,7 +90,11 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="FileExplorer" name="fileExplorerTree"/>
+      <widget class="FileExplorer" name="fileExplorerTree">
+       <property name="editTriggers">
+        <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -186,6 +192,11 @@
   <action name="actionSetupProjectDirectory">
    <property name="text">
     <string>Setup Project Directory</string>
+   </property>
+  </action>
+  <action name="actionNewShader">
+   <property name="text">
+    <string>New Shader</string>
    </property>
   </action>
  </widget>

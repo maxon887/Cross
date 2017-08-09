@@ -21,11 +21,17 @@ public:
 
 	void SetupProjectDirectory(QString dir);
 
+protected:
+	void contextMenuEvent(QContextMenuEvent *event) override;
+
 private:
-	QFileSystemModel* file_system;
+	QFileSystemModel* file_system	= NULL;
+	QMenu* context_menu				= NULL;
 
 	void OnItemSelected(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
+
+	void OnNewShaderClick();
 };
 
 #endif
