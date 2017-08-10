@@ -31,10 +31,19 @@ FileExplorer::FileExplorer(QWidget* parent) :
 
 	//context menu creating
 	context_menu = new QMenu(this);
+
+	QAction* newFolder = new QAction(context_menu);
+	newFolder->setText("New Folder");
+	connect(newFolder, &QAction::triggered, this, &FileExplorer::OnNewFolderClick);
+	context_menu->addAction(newFolder);
 	QAction* newShader = new QAction(context_menu);
 	newShader->setText("New Shader");
 	connect(newShader, &QAction::triggered, this, &FileExplorer::OnNewShaderClick);
 	context_menu->addAction(newShader);
+	QAction* deleteAction = new QAction(context_menu);
+	deleteAction->setText("Delete");
+	connect(deleteAction, &QAction::triggered, this, &FileExplorer::OnDeleteClick);
+	context_menu->addAction(deleteAction);
 }
 
 FileExplorer::~FileExplorer(){
@@ -80,15 +89,54 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	}
 }
 
-void FileExplorer::OnNewShaderClick(){
-	QModelIndexList indexes = selectedIndexes();
-	if(indexes.size() > 0){
-		QFileInfo fileInfo = file_system->fileInfo(indexes[0]);
-	}else{
-		Shader* newShader = new Shader();
-		newShader->Save("New Shader.she");
-		QString absolutePath = file_system->rootDirectory().absolutePath() + "/New Shader.she";
-		QModelIndex index = file_system->index(absolutePath);
-		edit(index);
+void FileExplorer::OnNewFolderClick(){
+	QString selectedDir = GetSelectedDirectory();
+	
+	QString baseName = "/New Folder";
+	QDir dir = selectedDir + baseName;
+	int nameNumber = 0;
+	while(dir.exists()){
+		nameNumber++;
+		dir = selectedDir + baseName + " " + QString::number(nameNumber);
 	}
+	dir.mkdir(dir.absolutePath());
+	QModelIndex index = file_system->index(dir.absolutePath());
+	edit(index);
+}
+
+void FileExplorer::OnNewShaderClick(){
+	QString selectedDir = GetSelectedDirectory();
+
+	QString baseName = "/New Shader";
+	QString shaderName = baseName + ".she";
+	QFile shaderFile = selectedDir + shaderName;
+	int nameNumber = 0;
+	while(shaderFile.exists()) {
+		nameNumber++;
+		shaderName = baseName + " " + QString::number(nameNumber) + ".she";
+		shaderFile.setFileName(selectedDir + shaderName);
+	}
+
+	Shader* newShader = new Shader();
+	newShader->Save(shaderFile.fileName().toStdString());
+	QModelIndex index = file_system->index(shaderFile.fileName());
+	edit(index);
+}
+
+void FileExplorer::OnDeleteClick(){
+
+}
+
+QString FileExplorer::GetSelectedDirectory(){
+	QString root = file_system->rootDirectory().absolutePath();
+	QModelIndexList indexes = selectedIndexes();
+	if(indexes.size() > 0) {
+		QFileInfo fileInfo = file_system->fileInfo(indexes.first());
+		if(fileInfo.isFile()){
+			root = fileInfo.absolutePath();
+		}else{
+			root = fileInfo.absoluteFilePath();
+		}
+	}
+	return root;
 }

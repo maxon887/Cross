@@ -31,7 +31,11 @@ private:
 	void OnItemSelected(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
 
+	void OnNewFolderClick();
 	void OnNewShaderClick();
+	void OnDeleteClick();
+
+	QString GetSelectedDirectory();
 };
 
 #endif

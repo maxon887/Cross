@@ -240,7 +240,7 @@ void ShaderView::OnApplyClick(){
 		}
 	}
 
-	shader->Save(shader->GetFilename());
+	shader->Save(sys->AssetsPath() + shader->GetFilename());
 	OnRevertClick();
 	game->GetCurrentScene()->RefreshMaterials();
 }

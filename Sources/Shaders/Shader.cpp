@@ -316,7 +316,7 @@ void Shader::Save(const string& file){
 	XMLPrinter printer;
 	doc.Accept(&printer);
 	File saveFile;
-	saveFile.name = sys->AssetsPath() + file;
+	saveFile.name = file;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	sys->SaveFile(&saveFile);
