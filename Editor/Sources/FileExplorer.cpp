@@ -124,7 +124,17 @@ void FileExplorer::OnNewShaderClick(){
 }
 
 void FileExplorer::OnDeleteClick(){
-
+	QModelIndexList indexes = selectedIndexes();
+	for(QModelIndex index : indexes){
+		QFileInfo fileInfo = file_system->fileInfo(index);
+		QString path = fileInfo.absoluteFilePath();
+		QDir dir(path);
+		if(fileInfo.isFile()) {
+			dir.remove(path);
+		} else {
+			dir.removeRecursively();
+		}
+	}
 }
 
 QString FileExplorer::GetSelectedDirectory(){
