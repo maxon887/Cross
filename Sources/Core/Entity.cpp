@@ -19,6 +19,11 @@
 
 using namespace cross;
 
+Entity::Entity(const string& name) :
+	Transformable(),
+	name(name)
+{ }
+
 Entity::~Entity(){
 	for(pair<U64, Component*> p : components) {
 		Component* component = p.second;

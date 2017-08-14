@@ -22,6 +22,8 @@ namespace cross{
 
 class Entity : public Transformable {
 public:
+	Entity() = default;
+	Entity(const string& name);
 	~Entity();
 
 	void Initialize();

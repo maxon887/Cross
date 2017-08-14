@@ -29,7 +29,6 @@ public:
 	void OnNewSceneClick();
 	void OnSaveAsClick();
 	void OnSetupProjectDirectoryClick();
-	void OnNewShaderClick();
 
 	void OnFileExplorerClick();
 	void OnSceneExplorerClick();

@@ -19,6 +19,8 @@ public:
 
 	Qt::ItemFlags flags(const QModelIndex& index) const override;
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+
+	QModelIndex AddEntity(Entity* entity, QModelIndex parent);
 };
 
 class SceneExplorer : public QTreeView {
@@ -34,14 +36,19 @@ public:
 	void OnScreenChanged(Screen* scene);
 	void OnEntityAdded(Entity* entity);
 
+protected:
+	void contextMenuEvent(QContextMenuEvent *event) override;
+
 private:
 	SceneModel* scene_model;
-
+	QMenu* context_menu					= NULL;
 
 	void OnItemClick(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
 	void OnItemChanged(QModelIndex top, QModelIndex bot);
 	void mousePressEvent(QMouseEvent* e) override;
+
+	void OnCreateEntity();
 };
 
 #endif

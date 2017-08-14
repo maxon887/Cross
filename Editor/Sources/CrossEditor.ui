@@ -55,8 +55,6 @@
     <addaction name="actionNewScene"/>
     <addaction name="actionSaveSceneAs"/>
     <addaction name="actionSetupProjectDirectory"/>
-    <addaction name="separator"/>
-    <addaction name="actionNewShader"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -127,6 +125,9 @@
       <widget class="SceneExplorer" name="sceneExplorerTree">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
        </property>
        <property name="uniformRowHeights">
         <bool>false</bool>

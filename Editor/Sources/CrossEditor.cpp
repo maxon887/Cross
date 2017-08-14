@@ -129,10 +129,6 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 	}
 }
 
-void CrossEditor::OnNewShaderClick() {
-	Shader* newShader = new Shader();
-}
-
 void CrossEditor::OnFileExplorerClick(){
 	ui.fileExplorer->show();
 }
