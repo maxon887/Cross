@@ -9,6 +9,7 @@ using namespace cross;
 
 class PropertyView;
 class QVBoxLayout;
+class QMenu;
 
 class PropertiesView : public QDockWidget
 {
@@ -25,13 +26,19 @@ public:
 	void OnEntityChanged(Entity* entity);
 	void OnFileSelected(string filename);
 
+protected:
+	void contextMenuEvent(QContextMenuEvent *event) override;
+
 private:
 	Entity* selected_entity					= NULL;
 	Array<PropertyView*> views				= Array<PropertyView*>();
 	QVBoxLayout* layout						= NULL;
+	QMenu* context_menu						= NULL;
 
 	template<class View, class UI>
 	void CreateView(const QString& name);
+
+	void OnAddComponent();
 };
 
 template<class View, class UI>

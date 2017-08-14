@@ -16,11 +16,7 @@ void MeshComponent::Initialize() {
 	face_culling_box = findChild<QCheckBox*>("faceCulling");
 }
 
-void MeshComponent::OnEntitySelected(Entity* entity){
-	if(!entity){
-		PropertyView::OnEntitySelected(entity);
-		return;
-	}
+void MeshComponent::Show(Entity* entity){
 	Mesh* mesh = entity->GetComponent<Mesh>();
 	if(!mesh){
 		PropertyView::OnEntitySelected(entity);

@@ -8,13 +8,20 @@
 #include "ui_MaterialView.h"
 #include "ui_MeshComponent.h"
 
-#include <QTreeView.h>
+#include <QTreeView>
+#include <QContextMenuEvent>
 
 PropertiesView::PropertiesView(QWidget* parent) :
 	QDockWidget(parent)
 { 
 	editor->UIInitialized.Connect(this, &PropertiesView::OnUIInitialized);
 	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
+
+	context_menu = new QMenu(this);
+	QAction* addComponent = new QAction(context_menu);
+	addComponent->setText("Add Component");
+	connect(addComponent, &QAction::triggered, this, &PropertiesView::OnAddComponent);
+	context_menu->addAction(addComponent);
 }
 
 PropertiesView::~PropertiesView() { 
@@ -69,4 +76,12 @@ void PropertiesView::OnFileSelected(string filename){
 	for(PropertyView* view : views){
 		view->OnFileSelected(filename);
 	}
+}
+
+void PropertiesView::contextMenuEvent(QContextMenuEvent *event) {
+	context_menu->exec(event->globalPos());
+}
+
+void PropertiesView::OnAddComponent(){
+
 }

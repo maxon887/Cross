@@ -82,6 +82,15 @@ void Entity::AddComponent(Component* component){
 	component->Initialize();
 }
 
+void Entity::RemoveComponent(Component* component){
+	component->Remove();
+	components.erase(typeid(*component).hash_code());
+}
+
+Component* Entity::GetComponent(U64 type) {
+	return components[type];
+}
+
 Entity* Entity::GetParent(){
 	return parent;
 }

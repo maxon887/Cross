@@ -32,7 +32,9 @@ public:
 	void SetName(const string& name);
 	const string& GetName() const;
 	void AddComponent(Component* component);
+	void RemoveComponent(Component* component);
 	template<class T> T* GetComponent();
+	Component* GetComponent(U64 type);
 	Entity* GetParent();
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);

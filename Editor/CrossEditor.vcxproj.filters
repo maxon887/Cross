@@ -365,6 +365,9 @@
     <CustomBuild Include="Sources\PropertyViews\MeshComponent.ui">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\ComponentView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h">
