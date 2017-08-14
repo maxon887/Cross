@@ -137,8 +137,18 @@ Entity* Entity::RemoveChild(const string& name){
 			c->Remove();
 			children.erase(it);
 			return c;
-		}else{
-			return c->RemoveChild(name);
+		}
+	}
+	return NULL;
+}
+
+Entity* Entity::RemoveChild(Entity* child){
+	for(auto it = children.begin(); it != children.end(); it++) {
+		Entity* c = (*it);
+		if(c == child) {
+			c->Remove();
+			children.erase(it);
+			return c;
 		}
 	}
 	return NULL;

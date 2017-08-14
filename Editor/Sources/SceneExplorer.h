@@ -21,6 +21,7 @@ public:
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
 	QModelIndex AddEntity(Entity* entity, QModelIndex parent);
+	void RemoveEntity(QModelIndex index);
 };
 
 class SceneExplorer : public QTreeView {
@@ -49,6 +50,7 @@ private:
 	void mousePressEvent(QMouseEvent* e) override;
 
 	void OnCreateEntity();
+	void OnDeleteEntity();
 };
 
 #endif

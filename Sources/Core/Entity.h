@@ -41,6 +41,7 @@ public:
 	Entity* FindChild(U32 index);
 	Entity* FindChild(const string& name);
 	Entity* RemoveChild(const string& nane);
+	Entity* RemoveChild(Entity* child);
 	Entity* Clone();
 	//Not optimized function
 	Matrix GetWorldMatrix();

@@ -124,6 +124,18 @@ QModelIndex SceneModel::AddEntity(Entity* entity, QModelIndex parent){
 	return QModelIndex();
 }
 
+void SceneModel::RemoveEntity(QModelIndex index){
+	QModelIndex p = index.parent();
+	beginRemoveRows(index.parent(), 0, rowCount(index.parent()));
+
+	Entity* entity = (Entity*)index.internalPointer();
+	Entity* parent = entity->GetParent();
+	parent->RemoveChild(entity);
+	delete entity;
+
+	endRemoveRows();
+}
+
 SceneExplorer::SceneExplorer(QWidget* parent) :
 	QTreeView(parent)
 {
@@ -142,6 +154,10 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 	createEntity->setText("Create Entity");
 	connect(createEntity, &QAction::triggered, this, &SceneExplorer::OnCreateEntity);
 	context_menu->addAction(createEntity);
+	QAction* deleteEntity = new QAction(context_menu);
+	deleteEntity->setText("Delete Entity");
+	connect(deleteEntity, &QAction::triggered, this, &SceneExplorer::OnDeleteEntity);
+	context_menu->addAction(deleteEntity);
 }
 
 SceneExplorer::~SceneExplorer(){
@@ -192,7 +208,7 @@ void SceneExplorer::mousePressEvent(QMouseEvent* e){
 
 void SceneExplorer::OnCreateEntity(){
 	QModelIndexList selected = selectedIndexes();
-
+	EntitySelected(NULL);
 	Entity* newEntity = new Entity("New Entity");
 	if(selected.size() > 0){
 		QModelIndex newIndex = scene_model->AddEntity(newEntity, selected[0]);
@@ -200,5 +216,12 @@ void SceneExplorer::OnCreateEntity(){
 	}else{
 		QModelIndex newIndex = scene_model->AddEntity(newEntity, QModelIndex());
 		edit(newIndex);
+	}
+}
+
+void SceneExplorer::OnDeleteEntity(){
+	QModelIndexList selected = selectedIndexes();
+	if(selected.size() > 0) {
+		scene_model->RemoveEntity(selected[0]);
 	}
 }
