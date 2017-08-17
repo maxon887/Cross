@@ -49,7 +49,15 @@ void ComponentView<ComponentType>::OnEntitySelected(Entity* entity) {
 		PropertyView::OnEntitySelected(entity);
 	} else {
 		selected_entity = entity;
-		Show(entity);
+
+		ComponentType* component = entity->GetComponent<ComponentType>();
+		if(!component) {
+			PropertyView::OnEntitySelected(entity);
+			return;
+		}
+		show();//qt
+
+		Show(entity);//cross
 	}
 }
 

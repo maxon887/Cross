@@ -30,7 +30,7 @@ public:
 		SPOT
 	};
 
-	Light(Type type);
+	Light(Type type = POINT);
 	virtual ~Light() { };
 
 	void Initialize() override;

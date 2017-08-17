@@ -7,6 +7,7 @@
 #include "ui_ShaderView.h"
 #include "ui_MaterialView.h"
 #include "ui_MeshComponent.h"
+#include "ui_LightComponent.h"
 
 #include <QTreeView>
 #include <QContextMenuEvent>
@@ -21,10 +22,10 @@ PropertiesView::PropertiesView(QWidget* parent) :
 	QMenu* addComponent = new QMenu("Add Component", context_menu);
 	context_menu->addMenu(addComponent);
 
-	QAction* addMesh = new QAction(addComponent);
-	addMesh->setText("Mesh");
-	connect(addMesh, &QAction::triggered, this, &PropertiesView::OnAddComponent<Mesh>);
-	addComponent->addAction(addMesh);
+	QAction* addLight = new QAction(addComponent);
+	addLight->setText("Light");
+	connect(addLight, &QAction::triggered, this, &PropertiesView::OnAddComponent<Light>);
+	addComponent->addAction(addLight);
 }
 
 PropertiesView::~PropertiesView() { 
@@ -35,6 +36,7 @@ void PropertiesView::OnUIInitialized(){
 	layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
 	CreateView<EntityComponent, Ui::EntityComponentClass>("entityComponent");
 	CreateView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
+	CreateView<LightComponent, Ui::LightComponentClass>("lightComponent");
 	CreateView<ShaderView, Ui::ShaderViewClass>("shaderView");
 	CreateView<MaterialView, Ui::MaterialViewClass>("materialView");
 

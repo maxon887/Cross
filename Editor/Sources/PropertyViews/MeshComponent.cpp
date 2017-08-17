@@ -18,12 +18,6 @@ void MeshComponent::Initialize() {
 
 void MeshComponent::Show(Entity* entity){
 	Mesh* mesh = entity->GetComponent<Mesh>();
-	if(!mesh){
-		PropertyView::OnEntitySelected(entity);
-		return;
-	}
-	show();
-
 	pair<S32, S32> pair = game->GetCurrentScene()->GetModelMeshID(mesh);
 	Model* model = game->GetCurrentScene()->GetModel(pair.first);
 	model_label->setText(model->filename.c_str());

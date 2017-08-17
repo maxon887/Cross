@@ -2,6 +2,7 @@
 #define PROPERTIES_VIEW
 
 #include "Cross.h"
+#include "Light.h"
 
 #include <QDockWidget.h>
 

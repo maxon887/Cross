@@ -315,6 +315,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MaterialView.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\LightComponent.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_LightComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_LightComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -366,6 +375,12 @@
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\ComponentView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\LightComponent.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\LightComponent.ui">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -554,6 +569,9 @@
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_MeshComponent.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_LightComponent.h">
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
