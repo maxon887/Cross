@@ -18,10 +18,13 @@ PropertiesView::PropertiesView(QWidget* parent) :
 	editor->ScreenChanged.Connect(this, &PropertiesView::OnScreenChanged);
 
 	context_menu = new QMenu(this);
-	QAction* addComponent = new QAction(context_menu);
-	addComponent->setText("Add Component");
-	connect(addComponent, &QAction::triggered, this, &PropertiesView::OnAddComponent);
-	context_menu->addAction(addComponent);
+	QMenu* addComponent = new QMenu("Add Component", context_menu);
+	context_menu->addMenu(addComponent);
+
+	QAction* addMesh = new QAction(addComponent);
+	addMesh->setText("Mesh");
+	connect(addMesh, &QAction::triggered, this, &PropertiesView::OnAddComponent<Mesh>);
+	addComponent->addAction(addMesh);
 }
 
 PropertiesView::~PropertiesView() { 
@@ -79,9 +82,7 @@ void PropertiesView::OnFileSelected(string filename){
 }
 
 void PropertiesView::contextMenuEvent(QContextMenuEvent *event) {
-	context_menu->exec(event->globalPos());
-}
-
-void PropertiesView::OnAddComponent(){
-
+	if(selected_entity){
+		context_menu->exec(event->globalPos());
+	}
 }
