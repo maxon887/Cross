@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QComboBox>
+#include <QFileDialog>
 
 using namespace cross;
 
@@ -53,11 +54,23 @@ void ShaderView::Clear(){
 }
 
 void ShaderView::OnVertexFileClicked() {
-
+	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString filePath = QFileDialog::getOpenFileName(this, "Select Vertex File", path, "Vertex File (*.vtx)");
+	if(!filePath.isEmpty()) {
+		QDir root = path;
+		QString filepath = root.relativeFilePath(filePath);
+		vertex_file->setText(filepath);
+	}
 }
 
 void ShaderView::OnFragmentFileClicked() {
-
+	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString filePath = QFileDialog::getOpenFileName(this, "Select Fragment File", path, "Fragment File (*.fgm)");
+	if(!filePath.isEmpty()) {
+		QDir root = path;
+		QString filepath = root.relativeFilePath(filePath);
+		fragment_file->setText(filepath);
+	}
 }
 
 void ShaderView::OnFileSelected(const string& filepath){

@@ -41,6 +41,56 @@
       <property name="spacing">
        <number>12</number>
       </property>
+      <item>
+       <layout class="QHBoxLayout" name="typeLayout">
+        <item>
+         <widget class="QLabel" name="typeLabel">
+          <property name="text">
+           <string>Type:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="typeBox"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="colorLayout">
+        <item>
+         <widget class="QLabel" name="colorLabel">
+          <property name="text">
+           <string>Color:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="colorBtn">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="intensityLayout">
+        <item>
+         <widget class="QLabel" name="intenstyLabel">
+          <property name="text">
+           <string>Intensity:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="intensitySlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
