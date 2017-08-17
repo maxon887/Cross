@@ -43,14 +43,11 @@ Material::~Material(){
 
 void Material::SetShader(Shader* shader){
 	this->shader = shader;
+	Refresh();
 }
 
 Shader* Material::GetShader() {
-	if(shader) {
-		return shader;
-	} else {
-		throw CrossException("Current material does not contain shader");
-	}
+	return shader;
 }
 
 const string& Material::GetFilename() const {

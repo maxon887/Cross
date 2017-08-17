@@ -33,9 +33,11 @@ private:
 
 	void OnNewFolderClick();
 	void OnNewShaderClick();
+	void OnNewMaterialClick();
 	void OnDeleteClick();
 
 	QString GetSelectedDirectory();
+	QString GetAllowedName(const QString& dir, const QString& baseName, const QString& extension);
 };
 
 #endif

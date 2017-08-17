@@ -39,11 +39,43 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QLabel" name="shaderLabel">
-        <property name="text">
-         <string>Shader - shaderfilename</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="shaderLayout">
+        <item>
+         <widget class="QLabel" name="shaderLabel">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Shader:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="shaderEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="loadBtn">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>31</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>31</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Load</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QGroupBox" name="properties">

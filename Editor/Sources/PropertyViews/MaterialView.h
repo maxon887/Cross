@@ -6,6 +6,7 @@
 #include "Shaders/Shader.h"
 
 class QLabel;
+class QLineEdit;
 class QColorDialog;
 class QPushButton;
 
@@ -25,6 +26,7 @@ private:
 	Shader::Property* current_property	= NULL;
 
 	QLabel* shader_label				= NULL;
+	QLineEdit* shader_edit				= NULL;
 	QGroupBox* properties_box			= NULL;
 	//color options
 	QColorDialog* color_dialog			= NULL;
@@ -45,6 +47,7 @@ private:
 
 	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
 
+	void OnLoadShaderClick();
 	void OnApplyClick();
 	void OnRevertClick();
 };

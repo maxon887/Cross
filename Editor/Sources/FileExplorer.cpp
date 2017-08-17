@@ -9,6 +9,7 @@
 #include <QHeaderView>
 #include <QFileSystemModel>
 #include <QContextMenuEvent>
+#include <QDesktopServices>
 
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)
@@ -40,6 +41,10 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	newShader->setText("New Shader");
 	connect(newShader, &QAction::triggered, this, &FileExplorer::OnNewShaderClick);
 	context_menu->addAction(newShader);
+	QAction* newMaterial = new QAction(context_menu);
+	newMaterial->setText("New Material");
+	connect(newMaterial, &QAction::triggered, this, &FileExplorer::OnNewMaterialClick);
+	context_menu->addAction(newMaterial);
 	QAction* deleteAction = new QAction(context_menu);
 	deleteAction->setText("Delete");
 	connect(deleteAction, &QAction::triggered, this, &FileExplorer::OnDeleteClick);
@@ -83,6 +88,8 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 			gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
 			editor->GetCurrentScene()->AddModel(model);
 			editor->GetCurrentScene()->AddEntity(model->hierarchy);
+		} else {
+			QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
 		}
 	}catch(Exception ex){
 		editor->ExceptionMsgBox(ex.message);
@@ -106,20 +113,23 @@ void FileExplorer::OnNewFolderClick(){
 
 void FileExplorer::OnNewShaderClick(){
 	QString selectedDir = GetSelectedDirectory();
-
-	QString baseName = "/New Shader";
-	QString shaderName = baseName + ".she";
-	QFile shaderFile = selectedDir + shaderName;
-	int nameNumber = 0;
-	while(shaderFile.exists()) {
-		nameNumber++;
-		shaderName = baseName + " " + QString::number(nameNumber) + ".she";
-		shaderFile.setFileName(selectedDir + shaderName);
-	}
+	QString filename = GetAllowedName(selectedDir, "/New Shader", ".sha");
 
 	Shader* newShader = new Shader();
-	newShader->Save(shaderFile.fileName().toStdString());
-	QModelIndex index = file_system->index(shaderFile.fileName());
+	newShader->Save(filename.toStdString());
+	delete newShader;
+	QModelIndex index = file_system->index(filename);
+	edit(index);
+}
+
+void FileExplorer::OnNewMaterialClick() {
+	QString selectedDir = GetSelectedDirectory();
+	QString filename = GetAllowedName(selectedDir, "/New Material", ".mat");
+
+	Material* newMaterial = new Material();
+	game->GetCurrentScene()->SaveMaterialToXML(newMaterial, filename.toStdString());
+	delete newMaterial;
+	QModelIndex index = file_system->index(filename);
 	edit(index);
 }
 
@@ -149,4 +159,16 @@ QString FileExplorer::GetSelectedDirectory(){
 		}
 	}
 	return root;
+}
+
+QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName, const QString& extension){
+	QString filename = baseName + extension;
+	QFile file = dir + filename;
+	int nameNumber = 0;
+	while(file.exists()) {
+		nameNumber++;
+		filename = baseName + " " + QString::number(nameNumber) + extension;
+		file.setFileName(dir + filename);
+	}
+	return file.fileName();
 }

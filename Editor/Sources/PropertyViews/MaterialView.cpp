@@ -16,6 +16,7 @@
 #include <QPushButton>
 #include <QColorDialog>
 #include <QHBoxLayout>
+#include <QFileDialog>
 
 using namespace cross;
 using namespace tinyxml2;
@@ -25,7 +26,10 @@ MaterialView::~MaterialView(){
 
 void MaterialView::Initialize(){
 	shader_label = findChild<QLabel*>("shaderLabel");
+	shader_edit = findChild<QLineEdit*>("shaderEdit");
 	properties_box = findChild<QGroupBox*>("properties");
+	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
+	connect(loadBtn, &QPushButton::clicked, this, &MaterialView::OnLoadShaderClick);
 
 	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
 	color_dialog->setWindowFlags(color_dialog->windowFlags() | Qt::WindowStaysOnTopHint);
@@ -69,7 +73,11 @@ void MaterialView::OnFileSelected(const string& filepath){
 	}
 
 	material = game->GetCurrentScene()->GetMaterial(filepath);
-	shader_label->setText(QString("Shader - ") + material->GetShader()->GetFilename().c_str());
+	if(material->GetShader()){
+		shader_edit->setText(material->GetShader()->GetFilename().c_str());
+	}else{
+		shader_edit->clear();
+	}
 
 	for(Shader::Property* prop : material->GetProperties()) {
 		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());
@@ -268,6 +276,16 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	return propertyLayoutWidget;
 }
 
+void MaterialView::OnLoadShaderClick() {
+	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString filePath = QFileDialog::getOpenFileName(this, "Select Shader File", path, "Shader File (*.sha)");
+	if(!filePath.isEmpty()) {
+		QDir root = path;
+		QString filepath = root.relativeFilePath(filePath);
+		shader_edit->setText(filepath);
+	}
+}
+
 void MaterialView::OnApplyClick() {
 	QList<QWidget*> properties = properties_box->findChildren<QWidget*>("propertyLayout");
 	for(QWidget* propertyL : properties) {
@@ -286,7 +304,7 @@ void MaterialView::OnApplyClick() {
 		}
 	}
 
-	game->GetCurrentScene()->SaveMaterialToXML(material, material->GetFilename());
+	game->GetCurrentScene()->SaveMaterialToXML(material, sys->AssetsPath() + material->GetFilename());
 	OnRevertClick();
 }
 

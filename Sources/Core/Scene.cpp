@@ -571,11 +571,15 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 		}
 	}
 
+	Material* material = new Material();
+	material->SetName(xmlFile);
+
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	const char* shaderfilename = materialXML->Attribute("shader");
-	Shader* shader = GetShader(shaderfilename);
-	Material* material = new Material(shader);
-	material->SetName(xmlFile);
+	if(shaderfilename[0]) {
+		Shader* shader = GetShader(shaderfilename);
+		material->SetShader(shader);
+	}
 
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {
@@ -614,7 +618,11 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
 	XMLDocument doc;
 	XMLElement* materialXML = doc.NewElement("Material");
-	materialXML->SetAttribute("shader", mat->GetShader()->GetFilename().c_str());
+	if(mat->GetShader()){
+		materialXML->SetAttribute("shader", mat->GetShader()->GetFilename().c_str());
+	}else{
+		materialXML->SetAttribute("shader", "");
+	}
 	doc.LinkEndChild(materialXML);
 
 	for(Shader::Property* prop : mat->properties) {
@@ -650,7 +658,7 @@ void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
 	XMLPrinter printer;
 	doc.Accept(&printer);
 	File saveFile;
-	saveFile.name = sys->AssetsPath() + xmlFile;
+	saveFile.name = xmlFile;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	sys->SaveFile(&saveFile);

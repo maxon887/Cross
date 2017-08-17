@@ -25,6 +25,8 @@ namespace cross{
 	specular streight, transparency, all textures types etc.*/
 class Material{
 public:
+
+	Material() = default;
 	Material(Shader* shader);
 	~Material();
 

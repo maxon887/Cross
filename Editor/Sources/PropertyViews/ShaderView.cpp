@@ -74,7 +74,7 @@ void ShaderView::OnFragmentFileClicked() {
 }
 
 void ShaderView::OnFileSelected(const string& filepath){
-	if(File::ExtensionFromFile(filepath) != "she") {
+	if(File::ExtensionFromFile(filepath) != "sha") {
 		PropertyView::OnFileSelected(filepath);
 		return;
 	}
