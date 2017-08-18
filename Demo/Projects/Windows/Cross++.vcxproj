@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;CROSS_DEBUG;OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
