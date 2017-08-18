@@ -33,7 +33,7 @@ AndroidSystem::~AndroidSystem(){
 }
 
 string AndroidSystem::AssetsPath(){
-	return "This platform do not specify application assets folder.\nAll assets needs to be load through asset manager";
+	return "This platform do not specify application assets folder.All assets needs to be load through asset manager";
 }
 
 string AndroidSystem::DataPath(){
@@ -44,7 +44,7 @@ void AndroidSystem::Log(const char* str){
 	LOGI("%s", str);
 }
 
-File* AndroidSystem::LoadFile(const string& filename) {
+File* AndroidSystem::LoadAssetFile(const string& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
     if(!asset){
 		throw CrossException("Can't load asset %s", filename.c_str());

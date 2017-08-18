@@ -23,7 +23,7 @@ file(GLOB CROSS_SRC
     "../../../../Sources/Internals/*.cpp"
     "../../../../Sources/Utils/*.cpp"
     "../../../../Sources/Libs/SOIL/*.c"
-    "../../../../Sources/Libs/TinyXML/*.cpp"
+    "../../../../Sources/Libs/TinyXML2/*.cpp"
     "../../../../Sources/Platform/*.cpp"
     "../../../../Sources/Platform/Android/*.cpp"
 

@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "Transformable.h"
 
+#include <typeinfo>
+
 namespace cross{
 
 class Entity : public Transformable {

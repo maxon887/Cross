@@ -31,11 +31,13 @@ public:
     AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
 	~AndroidSystem();
 
-	string AssetsPath();
-	string DataPath();
-	void Log(const char* msg);
-	File* LoadFile(const string& filename);
-	U64 GetTime();
+	string AssetsPath() override;
+	string DataPath() override;
+	void Log(const char* msg) override;
+	U64 GetTime() override;
+
+	File* LoadAssetFile(const string& filename) override;
+
 	void PromtToExit();
     void RequestOrientation(Orientation orientation);
 	void MessageBox(string message);

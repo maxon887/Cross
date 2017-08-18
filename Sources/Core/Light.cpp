@@ -18,6 +18,8 @@
 #include "Game.h"
 #include "Scene.h"
 
+#include  <algorithm>
+
 using namespace cross;
 
 Light::Light(Type type):

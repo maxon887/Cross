@@ -17,6 +17,8 @@
 #include "Color.h"
 #include "Cross.h"
 
+#include <cstdlib>
+
 using namespace cross;
 
 const Color Color::Red(1.f, 0.f, 0.f);
@@ -65,13 +67,13 @@ Color::Color(int r, int g, int b, int a) :
 
 Color::Color(const char* hex){
 	string rStr = string(hex + 0, hex + 2);
-	S32 rInt = std::stoul(rStr, NULL, 16);
+	S32 rInt = std::strtol(rStr.c_str(), NULL, 16);
 	string gStr = string(hex + 2, hex + 4);
-	S32 gInt = std::stoul(gStr, NULL, 16);
+	S32 gInt = std::strtol(rStr.c_str(), NULL, 16);
 	string bStr = string(hex + 4, hex + 6);
-	S32 bInt = std::stoul(bStr, NULL, 16);
+	S32 bInt = std::strtol(rStr.c_str(), NULL, 16);
 	string aStr = string(hex + 6, hex + 8);
-	S32 aInt = std::stoul(aStr, NULL, 16);
+	S32 aInt = std::strtol(rStr.c_str(), NULL, 16);
 	R = rInt / 255.f;
 	G = gInt / 255.f;
 	B = bInt / 255.f;
