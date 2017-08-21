@@ -153,6 +153,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      * to skip dead paths (e.g. after an assertion evaluated to false). */
 #   define AI_WONT_RETURN __declspec(noreturn)
 
+#elif defined(IOS)
+
+#   define AI_WONT_RETURN
+
+#   define ASSIMP_API __attribute__ ((visibility("default")))
+#   define ASSIMP_API_WINONLY
+#   define AI_FORCE_INLINE inline
+
 #elif defined(SWIG)
 
     /* Do nothing, the relevant defines are all in AssimpSwigPort.i */

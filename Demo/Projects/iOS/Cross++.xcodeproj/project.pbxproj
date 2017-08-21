@@ -1188,6 +1188,7 @@
 					"$(SRCROOT)/../../../Sources/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
+					"$(SRCROOT)/../../../Sources/Libs/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1214,6 +1215,7 @@
 					"$(SRCROOT)/../../../Sources/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
+					"$(SRCROOT)/../../../Sources/Libs/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
