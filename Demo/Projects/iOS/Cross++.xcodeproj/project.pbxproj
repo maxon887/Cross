@@ -62,12 +62,11 @@
 		9DDFFF251F46EF1700A6E782 /* FreeCameraScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFED91F46EF1700A6E782 /* FreeCameraScene.cpp */; };
 		9DDFFF261F46EF1700A6E782 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEDB1F46EF1700A6E782 /* Skybox.cpp */; };
 		9DDFFF271F46EF1700A6E782 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEDD1F46EF1700A6E782 /* ToggleButton.cpp */; };
-		9DDFFF391F46F5C900A6E782 /* libassimp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF381F46F5C900A6E782 /* libassimp.a */; };
 		9DDFFF3F1F46F5CF00A6E782 /* libfmod_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */; };
 		9DDFFF401F46F5CF00A6E782 /* libfmod_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3B1F46F5CF00A6E782 /* libfmod_iphonesimulator.a */; };
-		9DDFFF411F46F5CF00A6E782 /* libfmodL_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3C1F46F5CF00A6E782 /* libfmodL_iphoneos.a */; };
-		9DDFFF421F46F5CF00A6E782 /* libfmodL_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3D1F46F5CF00A6E782 /* libfmodL_iphonesimulator.a */; };
 		9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */; };
+		9DFE61781F4C3E7C00418EC2 /* libassimp_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */; };
+		9DFE617A1F4C3E7C00418EC2 /* libassimp_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */; };
 		D44F10911E09C18F00870451 /* MaterialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10871E09C18F00870451 /* MaterialScene.cpp */; };
@@ -329,6 +328,13 @@
 		9DDFFF3C1F46F5CF00A6E782 /* libfmodL_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphoneos.a; sourceTree = "<group>"; };
 		9DDFFF3D1F46F5CF00A6E782 /* libfmodL_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphonesimulator.a; sourceTree = "<group>"; };
 		9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFreetype2.a; sourceTree = "<group>"; };
+		9DFE616C1F4C363D00418EC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9DFE616D1F4C363D00418EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9DFE616E1F4C363D00418EC2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9DFE616F1F4C364600418EC2 /* libassimpIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimpIOS.a; sourceTree = "<group>"; };
+		9DFE61711F4C3A2200418EC2 /* libassimp_iphones.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphones.a; sourceTree = "<group>"; };
+		9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphonesimulator.a; sourceTree = "<group>"; };
+		9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneos.a; sourceTree = "<group>"; };
 		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionalLightScene.cpp; path = Graphics3D/Light/DirectionalLightScene.cpp; sourceTree = "<group>"; };
 		D44F10861E09C18F00870451 /* DirectionalLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectionalLightScene.h; path = Graphics3D/Light/DirectionalLightScene.h; sourceTree = "<group>"; };
@@ -402,16 +408,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DDFFF391F46F5C900A6E782 /* libassimp.a in Frameworks */,
+				9DFE617A1F4C3E7C00418EC2 /* libassimp_iphoneos.a in Frameworks */,
+				9DFE61781F4C3E7C00418EC2 /* libassimp_iphonesimulator.a in Frameworks */,
 				D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */,
-				9DDFFF421F46F5CF00A6E782 /* libfmodL_iphonesimulator.a in Frameworks */,
 				9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
 				9DDFFF3F1F46F5CF00A6E782 /* libfmod_iphoneos.a in Frameworks */,
 				D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */,
 				D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */,
 				9DDFFF401F46F5CF00A6E782 /* libfmod_iphonesimulator.a in Frameworks */,
-				9DDFFF411F46F5CF00A6E782 /* libfmodL_iphoneos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +784,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		9DFE616B1F4C363D00418EC2 /* Cross++ */ = {
+			isa = PBXGroup;
+			children = (
+				9DFE616C1F4C363D00418EC2 /* Images.xcassets */,
+				9DFE616D1F4C363D00418EC2 /* Info.plist */,
+				9DFE616E1F4C363D00418EC2 /* main.m */,
+			);
+			path = "Cross++";
+			sourceTree = "<group>";
+		};
 		D44F10951E09C19900870451 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,6 +829,11 @@
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */,
+				9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */,
+				9DFE61711F4C3A2200418EC2 /* libassimp_iphones.a */,
+				9DFE616F1F4C364600418EC2 /* libassimpIOS.a */,
+				9DFE616B1F4C363D00418EC2 /* Cross++ */,
 				9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */,
 				9DDFFF3B1F46F5CF00A6E782 /* libfmod_iphonesimulator.a */,
 				9DDFFF3C1F46F5CF00A6E782 /* libfmodL_iphoneos.a */,
@@ -1197,7 +1217,7 @@
 				OTHER_LDFLAGS = (
 					"-lfmod_$PLATFORM_NAME",
 					"-lFreetype2",
-					"-lassimp",
+					"-lassimp_$PLATFORM_NAME",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -1224,7 +1244,7 @@
 				OTHER_LDFLAGS = (
 					"-lfmod_$PLATFORM_NAME",
 					"-lFreetype2",
-					"-lassimp",
+					"-lassimp_$PLATFORM_NAME",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s arm64";
