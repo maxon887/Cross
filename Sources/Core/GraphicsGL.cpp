@@ -122,7 +122,7 @@ void GraphicsGL::Start(){
 	if(config->IsOffscreenRender()){
 		SAFE(glGenFramebuffers(1, &framebuffer));
 
-		GeneradeFramebuffer();
+		GenerateFramebuffer();
 
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		//quad setub
@@ -153,8 +153,8 @@ void GraphicsGL::Stop(){
 
 void GraphicsGL::PreProcessFrame(){
 	if(config->IsOffscreenRender()){
-		if(regenerade_framebuffer){
-			GeneradeFramebuffer();
+		if(regenerate_framebuffer){
+			GenerateFramebuffer();
 		}
 		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 		SAFE(glViewport(0, 0, sys->GetWindowWidth() / 2, sys->GetWindowHeight() / 2));
@@ -259,7 +259,7 @@ void GraphicsGL::UseShader(Shader* shader){
 	}
 }
 
-void GraphicsGL::GeneradeFramebuffer(){
+void GraphicsGL::GenerateFramebuffer(){
 	SAFE(glDeleteBuffers(1, &framebuffer));
 	SAFE(glDeleteBuffers(1, &colorbuffer));
 	SAFE(glDeleteBuffers(1, &depthbuffer));
@@ -267,7 +267,7 @@ void GraphicsGL::GeneradeFramebuffer(){
 		delete colorbuffer_texture;
 		colorbuffer_texture = NULL;
 	}
-	//generade color buffer
+	//generate color buffer
 	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
 	//generate color buffer
 	bufferWidth = sys->GetWindowWidth() / 2;
@@ -284,7 +284,7 @@ void GraphicsGL::GeneradeFramebuffer(){
 	SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
 	SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth, bufferHeight));
 	SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
-	regenerade_framebuffer = false;
+	regenerate_framebuffer = false;
 
 	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
 		throw CrossException("Can not initialize second frame buffer");
@@ -294,7 +294,7 @@ void GraphicsGL::GeneradeFramebuffer(){
 void GraphicsGL::WindowResizeHandle(S32 width, S32 height){
 	SAFE(glViewport(0, 0, width, height));
 	if(config->IsOffscreenRender()){
-		//GeneradeFramebuffer();
-		regenerade_framebuffer = true;
+		//GenerateFramebuffer();
+		regenerate_framebuffer = true;
 	}
 }
