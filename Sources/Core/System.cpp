@@ -103,6 +103,11 @@ void System::SaveDataFile(File* file){
 	SaveFile(file);
 }
 
+void System::Messagebox(const string& title, const string& msg) {
+	LogIt("\t" + title);
+	LogIt(msg);
+}
+
 void System::LogIt(const char* format, ...){
 	va_list params;
 	char buffer[4096];
@@ -110,6 +115,10 @@ void System::LogIt(const char* format, ...){
 	vsprintf(buffer, format, params);
 	Log(buffer);
 	va_end(params);
+}
+
+void System::LogIt(const string& msg){
+	LogIt(msg.c_str());
 }
 
 void System::LogIt(const Vector3D& vector){
@@ -144,4 +153,31 @@ void System::SetWindowSize(S32 width, S32 height){
 	if(prevO != GetDeviceOrientation()){
 		OrientationChanged(GetDeviceOrientation());
 	}
+}
+
+void System::Assert(bool condition, const char* msg, const char* file, int line) {
+#ifdef CROSS_DEBUG
+	if(condition == false){
+		string str = msg;
+		str += "\n";
+		str += "File: ";
+		str += file;
+		str += "\n";
+		str += "Line: " + to_string(line);
+		Messagebox("Assertion Failed", str.c_str());
+	}
+#else
+	auto it = asserts_hashes.find(line);
+	if(it == asserts_hashes.end()) {
+		asserts_hashes.insert(line);
+		LogIt("\tAssertion Failed");
+		string str = msg;
+		str += "\n";
+		str += "File: ";
+		str += file;
+		str += "\n";
+		str += "Line: " + to_string(line);
+		LogIt(str.c_str());
+	}
+#endif
 }

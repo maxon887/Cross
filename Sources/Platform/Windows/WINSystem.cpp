@@ -61,6 +61,11 @@ WINSystem::WINSystem(HWND wnd) :
 
 WINSystem::~WINSystem(){ }
 
+void WINSystem::Log(const char* msg) {
+	OutputDebugStringA(msg);
+	OutputDebugStringA("\n");
+}
+
 string WINSystem::AssetsPath(){
 	return assets_path;
 }
@@ -77,11 +82,6 @@ U64 WINSystem::GetTime(){
 	return (crt.QuadPart * 1000000) / freq.QuadPart;
 }
 
-void WINSystem::Log(const char* msg){
-	OutputDebugStringA(msg);
-	OutputDebugStringA("\n");
-}
-
 void WINSystem::SetAssetPath(const string& path){
 	assets_path = path;
 }
@@ -90,11 +90,12 @@ void WINSystem::Sleep(float milis){
 	IntSleep((int)(milis + .5));
 }
 
-void WINSystem::ShowMessage(const string& msg){
+void WINSystem::Messagebox(const string& title, const string& msg){
 	if(wnd){
-		MessageBoxA(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
 	}else{
-		LogIt(msg.c_str());
+		LogIt("HWND == null");
+		System::Messagebox(title, msg);
 	}
 }
 

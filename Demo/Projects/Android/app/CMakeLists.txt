@@ -85,6 +85,7 @@ target_link_libraries( # Specifies the target library.
 include_directories(../../../../Sources)
 include_directories(../../../../Sources/Core)
 include_directories(../../../Sources)
+include_directories(../../../../Sources/Libs)
 include_directories(../../../../Sources/Libs/FreeType)
 include_directories(../../../../Sources/Libs/FreeType/freetype2)
 include_directories(../../../../Sources/Libs/TinyXML)

@@ -32,16 +32,16 @@ AndroidSystem::~AndroidSystem(){
     LOGI("AndroidSystem::~AndroidSystem");
 }
 
+void AndroidSystem::Log(const char* str){
+    LOGI("%s", str);
+}
+
 string AndroidSystem::AssetsPath(){
 	return "This platform do not specify application assets folder.All assets needs to be load through asset manager";
 }
 
 string AndroidSystem::DataPath(){
 	return data_path;
-}
-
-void AndroidSystem::Log(const char* str){
-	LOGI("%s", str);
 }
 
 File* AndroidSystem::LoadAssetFile(const string& filename) {
@@ -80,11 +80,11 @@ void AndroidSystem::RequestOrientation(Orientation orientation) {
     env->CallVoidMethod(cross_activity, methodID, orientation);
 }
 
-void AndroidSystem::MessageBox(string message) {
+void AndroidSystem::Messagebox(const string& title, const string& message) {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
-    jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;)V");
-    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(message.c_str()));
+    jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;Ljava/lang/String;)V");
+    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title.c_str()), env->NewStringUTF(message.c_str()));
 }
 
 void AndroidSystem::Exit() {

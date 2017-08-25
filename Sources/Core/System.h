@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "Event.h"
 
+#define CROSS_ASSERT(condition, message) sys->Assert(condition, message, __FILE__, __LINE__)
+
 namespace cross {
 	
 /* Class for platform specific functional */
@@ -31,6 +33,7 @@ public:
 	};
 	/* Occurs when window size changed */
 	Event<S32, S32> WindowResized;
+	/* Occurs when window orintaton changed */
 	Event<System::Orientation> OrientationChanged;
 	/* Print message in console. See LogIt() if you need formated output */
 	virtual void Log(const char* msg) = 0;
@@ -42,6 +45,7 @@ public:
 	virtual U64 GetTime() = 0;
 
 	virtual ~System() { }
+
 	/* Load file from absolute path */
 	virtual File* LoadFile(const string& filename);
 	/* Load file from game asset directory */
@@ -52,6 +56,8 @@ public:
 	virtual void SaveFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
+	/* Show sync messagebox(platform dependet) */
+	virtual void Messagebox(const string& title, const string& msg);
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis) { };
 	/* Ask user about exit from application */
@@ -59,6 +65,7 @@ public:
 	virtual void PromtToExit() { };
 	/* Print message in console. */
 	void LogIt(const char* format, ...);
+	void LogIt(const string& msg);
 	void LogIt(const Vector3D& vector);
 	/* Returns window width in pixels. Don't miss wiht Screen::GetWidth() */
 	S32 GetWindowWidth() const;
@@ -69,10 +76,13 @@ public:
 	float GetAspectRatio() const;
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
+	/* Trigger assertion message if condition if false) */
+	void Assert(bool condition, const char* msg, const char* file, int line);
 
 private:
 	S32 window_width	= -1;
 	S32 window_height	= -1;
+	Set<int> asserts_hashes;
 };
     
 }

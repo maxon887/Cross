@@ -153,7 +153,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      * to skip dead paths (e.g. after an assertion evaluated to false). */
 #   define AI_WONT_RETURN __declspec(noreturn)
 
-#elif defined(IOS)
+#elif defined(IOS) || defined(ANDROID)
 
 #   define AI_WONT_RETURN
 

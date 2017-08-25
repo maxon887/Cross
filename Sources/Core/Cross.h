@@ -15,6 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+
+#if defined(__APPLE__) || defined(__APPLE_CC__)
+#	define IOS 1
+#endif
+
+#if defined(_DEBUG) || ! defined(NDEBUG)
+#   define CROSS_DEBUG
+#endif
+
 #include "Internals/MemoryManager.h"
 #include "Internals/Exception.h"
 #include "Math/All.h"
@@ -24,6 +33,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <set>
 
 namespace cross{
 
@@ -43,6 +53,8 @@ template<typename Type>
 using List = std::list<Type>;
 template<typename Key, typename Value>
 using Dictionary = std::map<Key, Value>;
+template<typename Type>
+using Set = std::set<Type>;
 
 class Game;
 class System;
@@ -100,7 +112,3 @@ friend Sound;			\
 friend Input;			\
 friend Config;			\
 friend Scene;
-
-#if defined(__APPLE__) || defined(__APPLE_CC__)
-#define IOS true
-#endif

@@ -190,6 +190,9 @@ void MainScreen::Stop(){
 void MainScreen::Update(float sec){
 	ScrollScreen::Update(sec);
 	current_menu->Update(sec);
+
+	//sys->Assert("Test assert message");
+	//CROSS_ASSERT(false, "Test assert message");
 }
 
 void MainScreen::SetMenu(Menu* menu){

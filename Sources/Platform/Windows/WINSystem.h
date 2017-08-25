@@ -27,14 +27,14 @@ public:
 	WINSystem(HWND wnd = 0);
 	~WINSystem();
 
+	void Log(const char* msg) override;
 	string AssetsPath() override;
 	string DataPath() override;
 	U64 GetTime() override;
-	void Log(const char* msg) override;
 
 	void SetAssetPath(const string& path);
-	void Sleep(float milis);
-	void ShowMessage(const string& msg);
+	void Sleep(float milis) override;
+	void Messagebox(const string& title, const string& msg) override;
 	void FullScreen(bool yes);
 	void ResizeWindow(int posX, int posY, int width, int height);
 

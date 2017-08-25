@@ -151,7 +151,7 @@ void* Main(void* self){
                      +"\nFile: " + string(exc.filename) +
                      +"\nLine: " + to_string(exc.line);
         LOGE("%s", msg.c_str());
-        ((AndroidSystem *) sys)->MessageBox(msg);
+        ((AndroidSystem *) sys)->Messagebox("Uncatched Exception", msg);
     }
     if(app_state == APP_EXIT){
         ((AndroidSystem *) sys)->Exit();

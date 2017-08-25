@@ -14,11 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#ifdef CROSS_DEBUG
 #include "Cross.h"
 #include "MemoryManager.h"
 
 #include <stdarg.h>
+
+#ifdef CROSS_DEBUG
 
 using namespace cross;
 

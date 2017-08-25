@@ -24,6 +24,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private static final String TAG 	= "CrossJava";
 	private Cross cross 				= null;
 	private AssetManager asset_manager 	= null;
+	private Object lock					= new Object();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -169,26 +170,31 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 	}
 
-	public void MessageBox(String msg){
+	public void MessageBox(String title, String msg) throws InterruptedException {
+		final String thrTitle = title;
 		final String thrMsg = msg;
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				AlertDialog.Builder builder  = new AlertDialog.Builder(CrossActivity.this);
-				builder.setIcon(android.R.drawable.ic_dialog_alert);
-				builder.setMessage(thrMsg);
-				builder.setTitle("Unhandled exception");
-				builder.setCancelable(false);
-				builder.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								FMOD.close();
-								System.exit(0);
-							}
-						});
-				builder.create().show();
-			}
-		});
+		synchronized (lock) {
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					AlertDialog.Builder builder = new AlertDialog.Builder(CrossActivity.this);
+					builder.setIcon(android.R.drawable.ic_dialog_alert);
+					builder.setMessage(thrMsg);
+					builder.setTitle(thrTitle);
+					builder.setCancelable(false);
+					builder.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									synchronized (lock) {
+										lock.notify();
+									}
+								}
+							});
+					builder.create().show();
+				}
+			});
+			lock.wait();
+		}
 	}
 
     public void RequestOrientation(int o){
