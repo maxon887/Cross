@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D4A56CC1F51A89800CCC09D /* libassimp_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */; };
+		9D4A56CF1F51A8E400CCC09D /* libassimp_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */; };
 		9DDFFEDF1F46EF1700A6E782 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFDD61F46EF1700A6E782 /* Audio.cpp */; };
 		9DDFFEE01F46EF1700A6E782 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFDD81F46EF1700A6E782 /* Camera.cpp */; };
 		9DDFFEE11F46EF1700A6E782 /* Camera2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFDDA1F46EF1700A6E782 /* Camera2D.cpp */; };
@@ -65,8 +67,6 @@
 		9DDFFF3F1F46F5CF00A6E782 /* libfmod_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */; };
 		9DDFFF401F46F5CF00A6E782 /* libfmod_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3B1F46F5CF00A6E782 /* libfmod_iphonesimulator.a */; };
 		9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */; };
-		9DFE61781F4C3E7C00418EC2 /* libassimp_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */; };
-		9DFE617A1F4C3E7C00418EC2 /* libassimp_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */; };
 		D44F10911E09C18F00870451 /* MaterialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10871E09C18F00870451 /* MaterialScene.cpp */; };
@@ -105,6 +105,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneosimulator.a; sourceTree = "<group>"; };
 		9DDFFDD61F46EF1700A6E782 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		9DDFFDD71F46EF1700A6E782 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		9DDFFDD81F46EF1700A6E782 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -408,8 +409,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DFE617A1F4C3E7C00418EC2 /* libassimp_iphoneos.a in Frameworks */,
-				9DFE61781F4C3E7C00418EC2 /* libassimp_iphonesimulator.a in Frameworks */,
+				9D4A56CF1F51A8E400CCC09D /* libassimp_iphonesimulator.a in Frameworks */,
+				9D4A56CC1F51A89800CCC09D /* libassimp_iphoneos.a in Frameworks */,
 				D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */,
 				9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
@@ -829,6 +830,7 @@
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */,
 				9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */,
 				9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */,
 				9DFE61711F4C3A2200418EC2 /* libassimp_iphones.a */,
@@ -1214,6 +1216,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lfmod_$PLATFORM_NAME",
 					"-lFreetype2",
