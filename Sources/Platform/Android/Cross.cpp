@@ -30,8 +30,7 @@
 #include <android/native_window_jni.h>
 #include <android/asset_manager_jni.h>
 
-#include <pthread.h>
-#include <mutex>
+#include <thread>
 
 using namespace cross;
 
@@ -53,13 +52,13 @@ enum WindowState{
 CrossEGL* crossEGL          = NULL;
 ApplicationState app_state  = APP_INIT;
 WindowState wnd_state       = WND_NONE;
-pthread_t   threadID;
+std::thread gl_thread;
 std::mutex  app_mutex;
 std::mutex  pause_mutex;
 int screen_width            = 0;
 int screen_height           = 0;
 
-void* Main(void* self){
+void Main(){
     LOGI("Main()");
     try {
         while (app_state != APP_EXIT) {
@@ -173,7 +172,7 @@ extern "C"{
             crossActivity = env->NewGlobalRef(crossActivity);
             sys = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();
-            pthread_create(&threadID, 0, Main, NULL);
+            gl_thread = std::thread(Main);
         }else{
             LOGE("Attempt to initialize game second time");
         }
