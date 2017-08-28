@@ -39,7 +39,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
         surfaceView.setFocusable(true);
         surfaceView.setFocusableInTouchMode(true);
         surfaceView.getHolder().addCallback(this);
-		SetupViewFlags(surfaceView);
 		setContentView(surfaceView);
 		System.loadLibrary("fmod");
 		System.loadLibrary("freetype2");
@@ -67,8 +66,18 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	protected void onResume() {
 		Log.d(TAG, "onResume");
 		super.onResume();
-		View view = getWindow().getDecorView();
-		SetupViewFlags(view);	//needs there to prevent android from creating nav bar
+		//needs there to prevent android from creating nav bar
+		if(Build.VERSION.SDK_INT >= 14) {
+			View view = getWindow().getDecorView();
+			int flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+			if(Build.VERSION.SDK_INT >= 16) {
+				flags |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+				if(Build.VERSION.SDK_INT >= 19) {
+					flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+				}
+			}
+			view.setSystemUiVisibility(flags);
+		}
 		cross.OnResume();
 	}
 
@@ -228,18 +237,5 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 				System.exit(0);
 			}
 		});
-	}
-
-	private void SetupViewFlags(View v){
-		if(Build.VERSION.SDK_INT >= 14) {
-			int flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-			if(Build.VERSION.SDK_INT >= 16) {
-				flags |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-				if(Build.VERSION.SDK_INT >= 19) {
-					flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-				}
-			}
-			v.setSystemUiVisibility(flags);
-		}
 	}
 }
