@@ -8,7 +8,7 @@
         android:theme="@android:style/Theme">
         <activity
             android:name="com.cross.CrossActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,7 +5,6 @@ import org.fmod.FMOD;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
@@ -22,9 +21,9 @@ import android.view.View;
 
 public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private static final String TAG 	= "CrossJava";
+	private final Object lock			= new Object();
 	private Cross cross 				= null;
 	private AssetManager asset_manager 	= null;
-	private Object lock					= new Object();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
         surfaceView.setFocusable(true);
         surfaceView.setFocusableInTouchMode(true);
         surfaceView.getHolder().addCallback(this);
+		SetupViewFlags(surfaceView);
 		setContentView(surfaceView);
 		System.loadLibrary("fmod");
 		System.loadLibrary("freetype2");
@@ -67,6 +67,8 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	protected void onResume() {
 		Log.d(TAG, "onResume");
 		super.onResume();
+		View view = getWindow().getDecorView();
+		SetupViewFlags(view);	//needs there to prevent android from creating nav bar
 		cross.OnResume();
 	}
 
@@ -82,21 +84,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		Log.d(TAG, "onStop");
 		super.onStop();
 	}
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            if (Build.VERSION.SDK_INT >= 11) {
-                View decorView = getWindow().getDecorView();
-                decorView.setSystemUiVisibility(  View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                                                | View.SYSTEM_UI_FLAG_FULLSCREEN);
-            }
-        }
-    }
 
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -241,5 +228,18 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 				System.exit(0);
 			}
 		});
+	}
+
+	private void SetupViewFlags(View v){
+		if(Build.VERSION.SDK_INT >= 14) {
+			int flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+			if(Build.VERSION.SDK_INT >= 16) {
+				flags |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+				if(Build.VERSION.SDK_INT >= 19) {
+					flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+				}
+			}
+			v.setSystemUiVisibility(flags);
+		}
 	}
 }
