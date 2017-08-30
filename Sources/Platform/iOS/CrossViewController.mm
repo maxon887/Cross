@@ -29,6 +29,8 @@
 
 using namespace cross;
 
+CrossViewController* instance = nil;
+
 @interface CrossViewController()
 
 - (S32)getTouchID:(UITouch*) touch;
@@ -43,8 +45,13 @@ using namespace cross;
 
 @synthesize CrossPaused;
 
++ (CrossViewController*)Instance{
+    return instance;
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
+    instance = self;
     self.preferredFramesPerSecond = 60;
     self.view.multipleTouchEnabled = YES;
     CrossPaused = NO;

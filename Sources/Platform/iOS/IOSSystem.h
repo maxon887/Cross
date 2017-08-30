@@ -25,9 +25,11 @@ public:
     IOSSystem();
     ~IOSSystem();
     
-    string AssetsPath();
-    string DataPath();
-    void Log(const char* msg);
-    U64 GetTime();
-    virtual void RequestOrientation(Orientation orientation);
+    void Log(const char* msg) override;
+    string AssetsPath() override;
+    string DataPath() override;
+    U64 GetTime() override;
+    
+    void RequestOrientation(Orientation orientation) override;
+    void Messagebox(const string& title, const string& message) override;
 };

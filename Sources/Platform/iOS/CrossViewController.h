@@ -21,4 +21,6 @@
 
 @property (atomic) BOOL CrossPaused;
 
++(CrossViewController*)Instance;
+
 @end
