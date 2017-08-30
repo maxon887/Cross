@@ -54,7 +54,6 @@ CrossViewController* instance = nil;
     instance = self;
     self.preferredFramesPerSecond = 60;
     self.view.multipleTouchEnabled = YES;
-    CrossPaused = NO;
     for(int i = 0; i < MAX_TOUCHES; ++i){
         touchIDs[i] = NULL;
     }
@@ -66,34 +65,22 @@ CrossViewController* instance = nil;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
     view.drawableStencilFormat = GLKViewDrawableStencilFormat8;
     screenScale = [[UIScreen mainScreen] scale];
-    
-    try{
-        sys = new IOSSystem();
-        game = CrossMain();
-        audio = new Audio();
-        gfxGL = new GraphicsGL();
-        gfx2D = new Graphics2D();
-        gfx3D = new Graphics3D();
-        game->Start();
-        game->SetScreen(game->GetStartScreen());
-    }catch(Exception &exc){
-        CrossPaused = YES;
-        string msg = string(exc.message) +
-        +"\nFile: " + string(exc.filename) +
-        +"\nLine: " + to_string(exc.line);
-        NSLog(@"%@", [NSString stringWithFormat:@"\nUnhandled Exception:\n\t%s", msg.c_str()]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unhandled Exception"
-                                                        message:[NSString stringWithFormat:@"%s", msg.c_str()]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+    CrossPaused = NO;
 }
 
 - (void)update{
     try{
         if(!CrossPaused){
+            if(!sys){
+                sys = new IOSSystem();
+                game = CrossMain();
+                audio = new Audio();
+                gfxGL = new GraphicsGL();
+                gfx2D = new Graphics2D();
+                gfx3D = new Graphics3D();
+                game->Start();
+                game->SetScreen(game->GetStartScreen());
+            }
             game->EngineUpdate();
         }
     } catch(Exception &exc) {
