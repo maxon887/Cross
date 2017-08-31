@@ -81,7 +81,7 @@ GraphicsGL::GraphicsGL() {
 		strV.erase(remove(strV.begin(), strV.end(), '.'));
 		shaders_version = atoi(strV.c_str());
     
-        CROSS_ASSERT(false, "Bad assertion in graphics initialization");
+        //CROSS_ASSERT(false, "Bad assertion in graphics initialization");
 
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
