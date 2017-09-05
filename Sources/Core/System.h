@@ -18,7 +18,7 @@
 #include "Cross.h"
 #include "Event.h"
 
-#define CROSS_ASSERT(condition, message) sys->Assert(condition, message, __FILE__, __LINE__)
+#define CROSS_ASSERT(condition, message, ...) sys->Assert(__FILE__, __LINE__, condition, message, ##__VA_ARGS__)
 
 namespace cross {
 	
@@ -77,7 +77,7 @@ public:
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
 	/* Trigger assertion message if condition if false) */
-	void Assert(bool condition, const char* msg, const char* file, int line);
+	void Assert(const char* filename, unsigned int line, bool condition, const char* msg, ...);
 
 private:
 	S32 window_width	= -1;

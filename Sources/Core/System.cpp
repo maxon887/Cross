@@ -30,6 +30,7 @@ File* System::LoadFile(const string& filename){
 	//C realization
 #ifdef C_IMP
 	FILE* f = fopen(filename.c_str(), "rb");
+	CROSS_ASSERT(f, "Can not open file %s", file->name.c_str());
 	if(f){
 		fseek(f, 0, SEEK_END);
 		file->size = ftell(f);
@@ -155,29 +156,35 @@ void System::SetWindowSize(S32 width, S32 height){
 	}
 }
 
-void System::Assert(bool condition, const char* msg, const char* file, int line) {
+void System::Assert(const char* filename, unsigned int line, bool condition, const char* msg, ...) {
+	if(condition == false) {
+		va_list params;
+		char buffer[4096];
+		va_start(params, msg);
+		vsprintf(buffer, msg, params);
+		Log(buffer);
+		va_end(params);
 #ifdef CROSS_DEBUG
-	if(condition == false){
-		string str = msg;
+		string str = buffer;
 		str += "\n";
 		str += "File: ";
-		str += file;
+		str += filename;
 		str += "\n";
 		str += "Line: " + to_string(line);
 		Messagebox("Assertion Failed", str.c_str());
-	}
 #else
-	auto it = asserts_hashes.find(line);
-	if(it == asserts_hashes.end()) {
-		asserts_hashes.insert(line);
-		LogIt("\tAssertion Failed");
-		string str = msg;
-		str += "\n";
-		str += "File: ";
-		str += file;
-		str += "\n";
-		str += "Line: " + to_string(line);
-		LogIt(str.c_str());
-	}
+		auto it = asserts_hashes.find(line);
+		if(it == asserts_hashes.end()) {
+			asserts_hashes.insert(line);
+			LogIt("\tAssertion Failed");
+			string str = msg;
+			str += "\n";
+			str += "File: ";
+			str += file;
+			str += "\n";
+			str += "Line: " + to_string(line);
+			LogIt(str.c_str());
+		}
 #endif
+	}
 }
