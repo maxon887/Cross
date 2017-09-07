@@ -7,7 +7,7 @@ Example which shows how to use fundamental engine features located in Games/Demo
 ### Features
 1. Text, Sprites drawing. Sprite animation. UI.
 2. 
-Point Lights ![Alt text](/Release/Screenshot07.png?raw=true "Optional Title")
+Point Lights ![Alt text](https://raw.githubusercontent.com/maxon887/Cross/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot08.png?raw=true "Optional Title")
 Directional Lights ![Alt text](/Release/Screenshot06.png?raw=true "Optional Title")
 Spot Lights ![Alt text](/Release/Screenshot08.png?raw=true "Optional Title")
 3. Model loading. Materials systmem. Basic scene managment. 
