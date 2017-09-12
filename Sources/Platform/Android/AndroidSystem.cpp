@@ -46,16 +46,12 @@ string AndroidSystem::DataPath(){
 
 File* AndroidSystem::LoadAssetFile(const string& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
-    if(!asset){
-		throw CrossException("Can't load asset %s", filename.c_str());
-    }
+    CROSS_RETURN(asset, NULL, "Can not open file %s", filename.c_str());
     File* file = new File();
     file->size = AAsset_getLength(asset);
     file->data = new Byte[file->size];
     int read = AAsset_read(asset, file->data, file->size);
-    if(read <= 0){
-        throw CrossException("Can't load asset %s", filename.c_str());
-    }
+    CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
     AAsset_close(asset);
     return file;
 }

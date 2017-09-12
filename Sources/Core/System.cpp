@@ -18,85 +18,38 @@
 #include "File.h"
 
 #include <stdarg.h>
-#include <fstream>
-
-#define C_IMP
 
 using namespace cross;
 
 File* System::LoadFile(const string& filename){
+	FILE* f = fopen(filename.c_str(), "rb");
+	CROSS_RETURN(f, NULL, "Can not open file %s", filename.c_str());
 	File* file = new File();
 	file->name = filename;
-	//C realization
-#ifdef C_IMP
-	FILE* f = fopen(filename.c_str(), "rb");
-	CROSS_ASSERT(f, "Can not open file %s", file->name.c_str());
-	if(f){
-		fseek(f, 0, SEEK_END);
-		file->size = ftell(f);
-		fseek(f, 0, SEEK_SET);
-		file->data = new Byte[file->size];
-		if(file->size == fread(file->data, sizeof(Byte), file->size, f)){
-			fclose(f);
-			return file;
-		}else{
-			throw CrossException("Can not read file %s", file->name.c_str());
-		}
-	}else{
-		throw CrossException("Can not open file %s", file->name.c_str());
-	}
-#endif
-	//C++ implementation
-#ifdef CPP_IMP
-	file->name = filename;
-	ifstream fileStream(filename, istream::binary);
-	if(fileStream.is_open()) {
-		fileStream.seekg(0, fileStream.end);
-		file->size = (size_t)fileStream.tellg();
-		fileStream.seekg(0, fileStream.beg);
-		file->data = new Byte[file->size];
-		memset(file->data, 0, file->size);
-		fileStream.read((char*)file->data, file->size);
-		fileStream.close();
-		return file;
-	}else{
-		throw CrossException("Can not open file %s", file->name.c_str());
-	}
-#endif
+	fseek(f, 0, SEEK_END);
+	file->size = ftell(f);
+	fseek(f, 0, SEEK_SET);
+	file->data = new Byte[file->size];
+	U32 read = fread(file->data, sizeof(Byte), file->size, f);
+	CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
+	fclose(f);
+	return file;
 }
 
 File* System::LoadAssetFile(const string& filename){
 	return LoadFile(AssetsPath() + filename);
 }
 
-File* System::LoadDataFile(const string &filename){
+File* System::LoadDataFile(const string& filename){
 	return LoadFile(DataPath() + filename);
 }
 
 void System::SaveFile(File* file){
-#ifdef C_IMP
 	FILE* f = fopen(file->name.c_str(), "w");
-	if(f) {
-		if(file->size == fwrite(file->data, 1, file->size, f)){
-			fclose(f);
-		}else{
-			throw CrossException("Can not write to file %s", file->name.c_str());
-		}
-	}else{
-		throw CrossException("Can not open file for writing: %s", file->name.c_str());
-	}
-#endif // C_IMP
-
-#ifdef CPP_IMP
-	string filePath = DataPath() + file->name;
-	ofstream fileStream(filePath, istream::binary);
-	if(fileStream.is_open()) {
-		fileStream.write((char*)file->data, file->size);
-		fileStream.close();
-	} else {
-		throw CrossException("Can not open file stream: %s", filePath.c_str());
-	}
-#endif // CPP_IMP
+	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.c_str());
+	U32 written = fwrite(file->data, 1, file->size, f);
+	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.c_str());
+	fclose(f);
 }
 
 void System::SaveDataFile(File* file){
@@ -156,35 +109,33 @@ void System::SetWindowSize(S32 width, S32 height){
 	}
 }
 
-void System::Assert(const char* filename, unsigned int line, bool condition, const char* msg, ...) {
-	if(condition == false) {
-		va_list params;
-		char buffer[4096];
-		va_start(params, msg);
-		vsprintf(buffer, msg, params);
-		Log(buffer);
-		va_end(params);
+void System::Assert(const char* filename, unsigned int line, const char* msg, ...) {
+	va_list params;
+	char buffer[4096];
+	va_start(params, msg);
+	vsprintf(buffer, msg, params);
+	Log(buffer);
+	va_end(params);
 #ifdef CROSS_DEBUG
-		string str = buffer;
+	string str = buffer;
+	str += "\n";
+	str += "File: ";
+	str += filename;
+	str += "\n";
+	str += "Line: " + to_string(line);
+	Messagebox("Assertion Failed", str.c_str());
+#else
+	auto it = asserts_hashes.find(line);
+	if(it == asserts_hashes.end()) {
+		asserts_hashes.insert(line);
+		LogIt("\tAssertion Failed");
+		string str = msg;
 		str += "\n";
 		str += "File: ";
-		str += filename;
+		str += file;
 		str += "\n";
 		str += "Line: " + to_string(line);
-		Messagebox("Assertion Failed", str.c_str());
-#else
-		auto it = asserts_hashes.find(line);
-		if(it == asserts_hashes.end()) {
-			asserts_hashes.insert(line);
-			LogIt("\tAssertion Failed");
-			string str = msg;
-			str += "\n";
-			str += "File: ";
-			str += file;
-			str += "\n";
-			str += "Line: " + to_string(line);
-			LogIt(str.c_str());
-		}
-#endif
+		LogIt(str.c_str());
 	}
+#endif
 }

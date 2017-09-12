@@ -50,14 +50,14 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 		case GL_INVALID_FRAMEBUFFER_OPERATION:  
 			strcpy(error, "INVALID_FRAMEBUFFER_OPERATION");  
 			break;
-		default: strcpy(error, "Unknown error");  
+		default: 
+			strcpy(error, "Unknown error");  
 			break;
 		}
-		sys->LogIt("[ERROR] Rendering error number: %s in %s : %d", error, file, line);
-		//throw CrossException("OpenGL error: %s in %s : %d", error, file, line);
+		CROSS_ASSERT(true, "Rendering error number: %s in %s : %d", error, file, line);
 		delete[] error;
 		err = glGetError();
-}
+	}
 }
 
 GraphicsGL::GraphicsGL() {
@@ -69,9 +69,7 @@ GraphicsGL::GraphicsGL() {
 		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
 		glGetIntegerv(GL_MINOR_VERSION, &minorV);
 		sys->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
-		if(glewInit()) {
-			throw CrossException("Unable to initialize GLEW");
-		}
+		CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #else
 		sys->LogIt("\tUsed OpenGL ES 2.0");
 #endif
@@ -80,9 +78,7 @@ GraphicsGL::GraphicsGL() {
 		string strV((const char*)shaderVersion);
 		strV.erase(remove(strV.begin(), strV.end(), '.'));
 		shaders_version = atoi(strV.c_str());
-    
-        //CROSS_ASSERT(false, "Bad assertion in graphics initialization");
-
+		
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
 		sys->LogIt("\tMax Vetex Uniforms: %d", value);
@@ -99,7 +95,7 @@ GraphicsGL::GraphicsGL() {
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
 		sys->LogIt("\tMax Texture Units: %d", value);
 
-		cross::sys->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
+		sys->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
 		if(config->IsOffscreenRender()){
 			offscreen_shader = GetShader(DefaultShader::TEXTURE);
@@ -174,32 +170,21 @@ void GraphicsGL::PostProcessFrame(){
 		SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
 
 		UseShader(offscreen_shader);
-		if(offscreen_shader->uColor != -1){
-			SAFE(glUniform4fv(offscreen_shader->uColor, 1, Color::White.GetData()));
-		}else{
-			throw CrossException("Textured shader doesn't have color uniform");
-		}
+		CROSS_ASSERT(offscreen_shader->uColor != -1, "Textured shader doesn't have color uniform");
+		SAFE(glUniform4fv(offscreen_shader->uColor, 1, Color::White.GetData()));
 
-		if(offscreen_shader->aPosition != -1){
-			SAFE(glEnableVertexAttribArray(offscreen_shader->aPosition));
-			SAFE(glVertexAttribPointer(offscreen_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
-		}else{
-			throw CrossException("Textured shader doesn't have verteces position coordinates");
-		}
+		CROSS_ASSERT(offscreen_shader->aPosition != -1, "Textured shader doesn't have verteces position coordinates");
+		SAFE(glEnableVertexAttribArray(offscreen_shader->aPosition));
+		SAFE(glVertexAttribPointer(offscreen_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
+		
 
-		if(offscreen_shader->aTexCoords != -1){
-			SAFE(glEnableVertexAttribArray(offscreen_shader->aTexCoords));
-			SAFE(glVertexAttribPointer(offscreen_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
-		}else{
-			throw CrossException("Textured shader doesn't have texure coordinates");
-		}
+		CROSS_ASSERT(offscreen_shader->aTexCoords != -1, "Textured shader doesn't have texure coordinates");
+		SAFE(glEnableVertexAttribArray(offscreen_shader->aTexCoords));
+		SAFE(glVertexAttribPointer(offscreen_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
 
-		if(offscreen_shader->uMVP != -1){
-			Matrix mvp = Matrix::Identity;
-			SAFE(glUniformMatrix4fv(offscreen_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-		}else{
-			throw CrossException("Textured shader doesn't have MVP matrix");
-		}
+		CROSS_ASSERT(offscreen_shader->uMVP != -1, "Textured shader doesn't have MVP matrix");
+		Matrix mvp = Matrix::Identity;
+		SAFE(glUniformMatrix4fv(offscreen_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 
 		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO));
 		SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0));
@@ -216,7 +201,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	Shader* shader = NULL;
 	switch(type) {
 	case DefaultShader::SIMPLE:
-		shader = new Shader("Engine/Shaders/Simple.vtx", "Engine/Shaders/Simple.fgm");
+		shader = new Shader("Engine/Shaders/Simple2.vtx", "Engine/Shaders/Simple.fgm");
 		shader->AddProperty("Color", "uColor", Color::White);
 		break;
 	case DefaultShader::MONOCHROME:
@@ -233,32 +218,23 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		shader->AddProperty("Transparency", "uTransparency", 1.f);
 		break;
 	default:
-		throw CrossException("Unknown shader type");
+		CROSS_RETURN(true, NULL, "Unknown shader type");
 	}
 	return shader;
 }
 
 Texture* GraphicsGL::GetColorBuffer(){
-	if(config->IsOffscreenRender()){
-		if(!colorbuffer_texture){
-			colorbuffer_texture = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
-		}
-		return colorbuffer_texture;
-	}else{
-		throw CrossException("You can obtain colorbuffer only if postprocess using");
+	CROSS_ASSERT(config->IsOffscreenRender(), "You obtain collorbuffer without postprocess using");
+	if(!colorbuffer_texture){
+		colorbuffer_texture = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
 	}
+	return colorbuffer_texture;
 }
 
 void GraphicsGL::UseShader(Shader* shader){
-	if(shader){
-		if(shader->IsCompiled()){
-			SAFE(glUseProgram(shader->GetProgram()));
-		}else{
-			throw CrossException("Shader not compiled");
-		}
-	}else{
-		throw CrossException("Attempt to draw with NULL shader");
-	}
+	CROSS_FAIL(shader, "Attempt to draw with NULL shader");
+	CROSS_FAIL(shader->IsCompiled(), "Attempt to draw with not compiled shader");
+	SAFE(glUseProgram(shader->GetProgram()));
 }
 
 void GraphicsGL::GenerateFramebuffer(){
@@ -289,7 +265,7 @@ void GraphicsGL::GenerateFramebuffer(){
 	regenerate_framebuffer = false;
 
 	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-		throw CrossException("Can not initialize second frame buffer");
+		CROSS_ASSERT(true, "Can not initialize second frame buffer");
 	}
 }
 

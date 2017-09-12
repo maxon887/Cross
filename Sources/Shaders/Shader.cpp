@@ -494,6 +494,10 @@ GLuint Shader::GetProgram() const{
 }
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
+	CROSS_ASSERT(file, "Attempt to compile shader without a file");
+	if(!file) {
+		return 0;
+	}
 	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for null terminated string
 
 	int curPos = 0;

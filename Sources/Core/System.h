@@ -18,7 +18,27 @@
 #include "Cross.h"
 #include "Event.h"
 
-#define CROSS_ASSERT(condition, message, ...) sys->Assert(__FILE__, __LINE__, condition, message, ##__VA_ARGS__)
+#define CROSS_ASSERT(condition, message, ...)						\
+if(!condition) {											\
+	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
+}
+
+#define CROSS_FAIL(condition, message, ...)							\
+if(!condition) {											\
+	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
+	return;															\
+}
+
+#define CROSS_RETURN(condition, value, message, ...)				\
+if(!condition) {											\
+	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
+	return value;													\
+}
+
+#define CROSS_EXCEPTION(condition, message, ...)					\
+if(!condition) {											\
+	throw CrossException(message, ##__VA_ARGS__);					\
+}
 
 namespace cross {
 	
@@ -77,7 +97,7 @@ public:
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
 	/* Trigger assertion message if condition if false) */
-	void Assert(const char* filename, unsigned int line, bool condition, const char* msg, ...);
+	void Assert(const char* filename, unsigned int line, const char* msg, ...);
 
 private:
 	S32 window_width	= -1;
