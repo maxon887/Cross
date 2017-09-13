@@ -314,6 +314,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode til
 			newTexture = LoadKTXTexture(filename + ".ktx", filter);
 #endif
 		}
+		CROSS_RETURN(newTexture, NULL, "Can not load texture %s", filename.c_str());
 		newTexture->SetTilingMode(tillingMode);
 		float loadTime = Debugger::Instance()->GetTimeCheck();
 		sys->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
@@ -332,7 +333,7 @@ Texture* Graphics2D::FindTextureByGLID(GLuint glId){
 			return pair.first;
 		}
 	}
-	return NULL;
+	CROSS_RETURN(false, NULL, "Can not find texture by GL ID");
 }
 
 void Graphics2D::SaveTexture(Texture* texture, const string& filename){
@@ -346,7 +347,7 @@ void Graphics2D::SaveTexture(Texture* texture, const string& filename){
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 	sys->SaveFile(&file);
 #else
-	throw CrossException("SaveTexture does not support by current graphics API");
+	CROSS_ASSERT(false, "SaveTexture does not support by current graphics API");
 #endif
 }
 
@@ -374,9 +375,7 @@ Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& he
 	File* textureFile = sys->LoadAssetFile(filename);
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
-	if(image == NULL){
-		throw CrossException("SOL can't convert file:\n Pay attention on image color channels");
-	}
+	CROSS_RETURN(image, NULL, "SOL can't convert file:\n Pay attention on image color channels");
 	int newWidth = 1;
 	int newHeight = 1;
 	while(newWidth < width) {
@@ -452,9 +451,7 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 	for(U32 i = 1; i < ktx.numberOfMipmapLevels; i++){
 		U32 padding = 3 - ((imageSize + 3) % 4);
 
-		if(padding != 0){
-			throw CrossException("Not zero padding");
-		}
+		CROSS_RETURN(padding != 0, NULL, "Not zero padding");
 
 		mipmapW /= 2;
 		mipmapH /= 2;
@@ -485,7 +482,7 @@ Texture* Graphics2D::CreateTexture(U32 channels, U32 width, U32 height, Texture:
 		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0));
 		break;
 	default:
-		throw CrossException("Wrong texture channel count");
+		CROSS_RETURN(false, NULL, "Can not create texture. Wrong texture channel count");
 	}
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
@@ -519,7 +516,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
 			break;
 		default:
-			throw CrossException("Wrong texture channel count");
+			CROSS_RETURN(false, NULL, "Can not create texture. Wrong texture channel count");
 		}
 	}else{
 		switch(compression) {
@@ -530,7 +527,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
             SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, width, height, 0, dataLength, data));
         }break;
 #else
-			throw CrossException("ETC1 compression not supported by current platform");
+			CROSS_RETURN(false, NULL, "Can not create texture. ETC1 compression not supported by current platform");
 #endif
 		default:
 			break;
@@ -574,21 +571,18 @@ void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* textu
 	XMLElement* element;
 
 	root = doc.FirstChildElement("TextureAtlas");
-	if(root){
-		element = root->FirstChildElement("sprite");
-		while(element){
-			string name = element->Attribute("n");
-			float xPos = (float)atof(element->Attribute("x"));
-			float yPos = (float)atof(element->Attribute("y"));
-			float width = (float)atof(element->Attribute("w"));
-			float height = (float)atof(element->Attribute("h"));
-			Rect rect(xPos, yPos, width, height);
-			Sprite* sprite = new Sprite(texture, rect);
-			output[name] = sprite;
-			element = element->NextSiblingElement("sprite");
-		}
-	}else{
-		throw CrossException("XML empty root element");
+	CROSS_FAIL(root, "XML empty root element");
+	element = root->FirstChildElement("sprite");
+	while(element){
+		string name = element->Attribute("n");
+		float xPos = (float)atof(element->Attribute("x"));
+		float yPos = (float)atof(element->Attribute("y"));
+		float width = (float)atof(element->Attribute("w"));
+		float height = (float)atof(element->Attribute("h"));
+		Rect rect(xPos, yPos, width, height);
+		Sprite* sprite = new Sprite(texture, rect);
+		output[name] = sprite;
+		element = element->NextSiblingElement("sprite");
 	}
 }
 

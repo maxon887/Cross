@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Texture.h"
+#include "System.h"
 #include "Graphics2D.h"
 
 using namespace cross;
@@ -74,7 +75,7 @@ void Texture::SetTilingMode(Texture::TilingMode mode){
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
 		break;
 	default:
-		throw CrossException("Unknown tiling mode");
+		CROSS_ASSERT(false, "Unknown tiling mode");
 	}
 }
 
@@ -90,7 +91,7 @@ void Texture::AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, T
 		SAFE(glTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
 		break;
 	default:
-		throw CrossException("Unsupported compression format");
+		CROSS_ASSERT(false, "Unsupported compression format");
 	}
 
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
@@ -119,6 +120,6 @@ void Texture::ApplyFilter(Filter filter){
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	default:
-		throw CrossException("Wrong texture filter type");
+		CROSS_ASSERT(false, "Wrong texture filter type");
 	}
 }

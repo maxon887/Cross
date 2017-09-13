@@ -89,59 +89,54 @@ void Scene::Load(const string& file){
 	XMLError error = doc.LoadFile(path.c_str());
 	if(error != XML_SUCCESS){
 		if(error == XML_ERROR_FILE_NOT_FOUND){
-			throw CrossException("File not found %s", file.c_str());
+			CROSS_FAIL(false, "File not found %s", file.c_str());
 		}else{
-			throw CrossException("Can not parse XML document");
+			CROSS_FAIL(false, "Can not parse XML document");
 		}
 	}
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
-	if(scene){
-		name = scene->Attribute("name");
-		SetName(name);
-		int version = scene->IntAttribute("version");
-		if(version > scene_loader_version){
-			throw CrossException("Scene loader version missmatch");
+	CROSS_FAIL(scene, "Can not load scene. Root node Scene not found");
+	name = scene->Attribute("name");
+	SetName(name);
+	int version = scene->IntAttribute("version");
+	CROSS_ASSERT(version > scene_loader_version, "Scene loader version missmatch");
+	//general lighting information
+	int pointLightCount = 0;
+	int spotLightCount = 0;
+	int directionalLightCount = 0;
+	XMLElement* lightXML = scene->FirstChildElement("Light");
+	if(lightXML){
+		XMLElement* pointXML = lightXML->FirstChildElement("Point");
+		if(pointXML){
+			pointLightCount = pointXML->IntAttribute("count");
 		}
-		//general lighting information
-		int pointLightCount = 0;
-		int spotLightCount = 0;
-		int directionalLightCount = 0;
-		XMLElement* lightXML = scene->FirstChildElement("Light");
-		if(lightXML){
-			XMLElement* pointXML = lightXML->FirstChildElement("Point");
-			if(pointXML){
-				pointLightCount = pointXML->IntAttribute("count");
-			}
-			XMLElement* spotXML = lightXML->FirstChildElement("Spot");
-			if(spotXML) {
-				spotLightCount = spotXML->IntAttribute("count");
-			}
-			XMLElement* directionalXML = lightXML->FirstChildElement("Directional");
-			if(directionalXML) {
-				directionalLightCount = directionalXML->IntAttribute("count");
-			}
+		XMLElement* spotXML = lightXML->FirstChildElement("Spot");
+		if(spotXML) {
+			spotLightCount = spotXML->IntAttribute("count");
 		}
-		//models loading
-		XMLElement* modelsXML = scene->FirstChildElement("Models");
-		if(modelsXML){
-			XMLElement* modelXML = modelsXML->FirstChildElement("Model");
-			U32 id = modelXML->IntAttribute("id");
-			const char* filename = modelXML->Attribute("file");
-			Model* model = gfx3D->LoadModel(filename);
-			models[id] = model;
+		XMLElement* directionalXML = lightXML->FirstChildElement("Directional");
+		if(directionalXML) {
+			directionalLightCount = directionalXML->IntAttribute("count");
 		}
-		//objects loading
-		XMLElement* objectsXML = scene->FirstChildElement("Objects");
-		if(objectsXML){
-			XMLElement* objectXML = objectsXML->FirstChildElement("Object");
-			while(objectXML){
-				LoadEntity(root, objectXML);
-				objectXML = objectXML->NextSiblingElement("Object");
-			}
+	}
+	//models loading
+	XMLElement* modelsXML = scene->FirstChildElement("Models");
+	if(modelsXML){
+		XMLElement* modelXML = modelsXML->FirstChildElement("Model");
+		U32 id = modelXML->IntAttribute("id");
+		const char* filename = modelXML->Attribute("file");
+		Model* model = gfx3D->LoadModel(filename);
+		models[id] = model;
+	}
+	//objects loading
+	XMLElement* objectsXML = scene->FirstChildElement("Objects");
+	if(objectsXML){
+		XMLElement* objectXML = objectsXML->FirstChildElement("Object");
+		while(objectXML){
+			LoadEntity(root, objectXML);
+			objectXML = objectXML->NextSiblingElement("Object");
 		}
-	}else{
-		throw CrossException("Can not load scene. Wrong file format");
 	}
 
 	for(pair<S32, Shader*> pair : shaders){
@@ -270,16 +265,16 @@ void Scene::Save(const string& filename){
 					break;
 				}
 				case Shader::Property::MAT4:
-					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
 					break;
 				case Shader::Property::VEC4:
-					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
 					break;
 				case Shader::Property::VEC3:
-					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
 					break;
 				case Shader::Property::VEC2:
-					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
 					break;
 				case Shader::Property::FLOAT:
 					propertyXML->SetAttribute("type", "Float");
@@ -287,13 +282,13 @@ void Scene::Save(const string& filename){
 					propertyXML->SetAttribute("value", *(float*)prop->value);
 					break;
 				case Shader::Property::INT:
-					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
 					break;
 				case Shader::Property::CUBEMAP:
-					throw CrossException("Property don't supported by loader version %d", scene_loader_version);
+					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
 					break;
 				default:
-					throw CrossException("Unknown material property");
+					CROSS_ASSERT(false, "Unknown material property");
 					break;
 				}
 				materialXML->LinkEndChild(propertyXML);
@@ -365,7 +360,7 @@ Entity* Scene::GetEntity(const string& name){
 	if(child){
 		return child;
 	}
-	throw CrossException("Can not find entity %s", name.c_str());
+	CROSS_RETURN(false, NULL, "Can not find entity %s", name.c_str());
 }
 
 void Scene::AddEntity(Entity* entity){
@@ -392,7 +387,7 @@ Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
 	case cross::Graphics3D::PLANE:
 		return LoadModel("Engine/Models/Plane.obj");
 	default:
-		throw CrossException("Unknown primitive type");
+		CROSS_RETURN(false, NULL, "Unknown primitive type");
 	}
 }
 
@@ -465,7 +460,8 @@ pair<S32, S32> Scene::GetModelMeshID(Mesh* mesh) {
 			}
 		}
 	}
-	throw CrossException("Can not find mesh ids");
+	pair<S32, S32> p;
+	CROSS_RETURN(false, p, "Can not find mesh ids");
 }
 
 void Scene::RefreshMaterials(){
@@ -484,7 +480,7 @@ S32 Scene::FindShaderID(Shader* shader){
 			return pair.first;
 		}
 	}
-	return -1;
+	CROSS_RETURN(false, -1, "Can not find shader id");
 }
 
 S32 Scene::FindTextureID(Texture* texture){
@@ -493,7 +489,7 @@ S32 Scene::FindTextureID(Texture* texture){
 			return pair.first;
 		}
 	}
-	return -1;
+	CROSS_RETURN(false, -1, "Can not find texture id");
 }
 
 void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
@@ -563,13 +559,13 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 	string path = sys->AssetsPath() + xmlFile;
 	XMLDocument doc;
 	XMLError error = doc.LoadFile(path.c_str());
-	if(error != XML_SUCCESS) {
-		if(error == XML_ERROR_FILE_NOT_FOUND) {
-			throw CrossException("File not found %s", path.c_str());
-		} else {
-			throw CrossException("Can not parse XML document");
+	if(error != XML_SUCCESS){
+		if(error == XML_ERROR_FILE_NOT_FOUND){
+			CROSS_RETURN(false, NULL, "File not found %s", xmlFile.c_str());
+		}else{
+			CROSS_RETURN(false, NULL, "Can not parse XML document");
 		}
-	}
+	}	
 
 	Material* material = new Material();
 	material->SetName(xmlFile);
@@ -606,7 +602,7 @@ Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
 				prop->SetValue(texture);
 				} break;
 			default:
-				throw CrossException("Unsupported property type");
+				CROSS_ASSERT(false, "Unsupported property type");
 			}
 		}
 		propertyXML = propertyXML->NextSiblingElement("Property");

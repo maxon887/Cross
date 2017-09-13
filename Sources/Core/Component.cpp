@@ -15,12 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Component.h"
+#include "System.h"
 #include "Entity.h"
 
 using namespace cross;
 
 Component* Component::Clone() const{
-	throw CrossException("Unimplemented Component::Clone");
+	CROSS_RETURN(false, NULL, "Clone function does not implemented in this component");
 }
 
 Entity* Component::GetEntity(){

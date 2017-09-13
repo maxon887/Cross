@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Entity.h"
+#include "System.h"
 #include "Component.h"
 
 using namespace cross;
@@ -116,13 +117,10 @@ void Entity::RemoveChildren(){
 }
 
 Entity* Entity::FindChild(U32 index){
-	if(index < children.size()){
-		auto it = children.begin();
-		std::advance(it, index);
-		return *it;
-	}else{
-		throw CrossException("Out of bounds");
-	}
+	CROSS_RETURN(index < children.size(), NULL, "Out of bounds");
+	auto it = children.begin();
+	std::advance(it, index);
+	return *it;
 }
 
 Entity* Entity::FindChild(const string& name){

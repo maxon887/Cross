@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Light.h"
 #include "Game.h"
+#include "System.h"
 #include "Scene.h"
 
 #include  <algorithm>
@@ -30,9 +31,7 @@ void Light::Initialize(){
 	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
-	if(it != lights.end()) {
-		throw CrossException("Current light already in the scene");
-	}
+	CROSS_ASSERT((bool)(it != lights.end()), "Current light already in the scene");
 	lights.push_back(this);
 }
 

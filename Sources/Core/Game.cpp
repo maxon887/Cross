@@ -78,11 +78,8 @@ Screen* Game::GetCurrentScreen(){
 }
 
 Scene* Game::GetCurrentScene(){
-	if(current_screen->IsScene()){
-		return (Scene*)current_screen;
-	}else{
-		throw CrossException("Current game state does not have 3D scene");
-	}
+	CROSS_EXCEPTION(current_screen->IsScene(), "Current game state does not have 3D scene");
+	return (Scene*)current_screen;
 }
 
 void Game::Suspend(){

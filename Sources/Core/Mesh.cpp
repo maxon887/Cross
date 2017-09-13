@@ -15,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
+#include "System.h"
 #include "VertexBuffer.h"
 #include "Scene.h"
 #include "Texture.h"
@@ -74,12 +75,8 @@ void Mesh::Draw(Material* mat, Graphics3D::StencilBehaviour sten) {
 
 void Mesh::Draw(const Matrix& globalModel, Material* material,
 				Graphics3D::StencilBehaviour stencilBehvaiour) {
-	if(!initialized) {
-		throw CrossException("Before draw mesh needs to be initialized");
-	}
-	if(material == nullptr) {
-		throw CrossException("Current mesh does not have material");
-	}
+	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
+	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
 	gfxGL->UseShader(shader);
 
@@ -120,13 +117,9 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			//late shader compilation produce this
 			Shader::Property* shaderProp = shader->GetProperty(prop->GetName());
 			prop->glId = shaderProp->GetID();
-			if(prop->glId == -1) {
-				throw CrossException("Broken shader property");
-			}
+			CROSS_FAIL(prop->glId != -1, "Broken shader property");
 		}
-		if(prop->value == NULL) {
-			throw CrossException("Property '%s' value not assigned", prop->name.c_str());
-		}
+		CROSS_FAIL(prop->value, "Property '%s' value does not assigned", prop->name.c_str());
 
 		switch(prop->type) {
 		case Shader::Property::SAMPLER:
@@ -163,7 +156,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			material->active_texture_slot++;
 			break;
 		default:
-			throw CrossException("Unknown property type(%s)", prop->name.c_str());
+			CROSS_ASSERT(false, "Unknown property type(%s)", prop->name.c_str());
 		}
 	}
 	material->active_texture_slot = 0;
@@ -179,36 +172,24 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuf->GetPossitionsOffset())));
 	}
 	if(shader->aTexCoords != -1) {
-		if(vertexBuf->HasTextureCoordinates()) {
-			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
-		} else {
-			throw CrossException("Current mesh does not contain texture coordinates");
-		}
+		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
+		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
-		if(vertexBuf->HasNormals()) {
-			SAFE(glEnableVertexAttribArray(shader->aNormal));
-			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
-		} else {
-			throw CrossException("Current mesh does not countain normals");
-		}
+		CROSS_FAIL(vertexBuf->HasNormals(), "Current mesh does not countain normals");
+		SAFE(glEnableVertexAttribArray(shader->aNormal));
+		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
 	}
 	if(shader->aTangent != -1) {
-		if(vertexBuf->HasTangents()) {
-			SAFE(glEnableVertexAttribArray(shader->aTangent));
-			SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
-		} else {
-			throw CrossException("Current mesh does not contain tangents");
-		}
+		CROSS_FAIL(vertexBuf->HasTangents(), "Current mesh does not contain tangents");
+		SAFE(glEnableVertexAttribArray(shader->aTangent));
+		SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
 	}
 	if(shader->aBitangent != -1) {
-		if(vertexBuf->HasBitangents()) {
-			SAFE(glEnableVertexAttribArray(shader->aBitangent));
-			SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
-		} else {
-			throw CrossException("Current mesh does not contain bitangents");
-		}
+		CROSS_FAIL(vertexBuf->HasBitangents(), "Current mesh does not contain bitangents");
+		SAFE(glEnableVertexAttribArray(shader->aBitangent));
+		SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
 	}
 
 	//drawing
@@ -234,7 +215,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	case Graphics3D::StencilBehaviour::IGNORED:
 		break;
 	default:
-		throw CrossException("Unknow stecil behaviour");
+		CROSS_ASSERT(false, "Unknow stecil behaviour");
 	}
 	//alpha blending
 	if(material->transparency) {

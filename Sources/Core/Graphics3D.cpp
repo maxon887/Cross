@@ -121,14 +121,11 @@ void Graphics3D::ProcessScene(Model* model, Entity* root, File* file){
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
-		throw CrossException("Assimp Error: %s", importer.GetErrorString());
+		CROSS_FAIL(false, "Assimp Error: %s", importer.GetErrorString());
 	}
 	aiNode* aiRoot = current_scene->mRootNode;
-	if(aiRoot->mNumChildren == 1){
-		ProcessNode(model, root, aiRoot->mChildren[0]);
-	}else{
-		throw CrossException("Failed to load model. Unknown number of root childerns");
-	}
+	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
+	ProcessNode(model, root, aiRoot->mChildren[0]);
 }
 
 void Graphics3D::ProcessNode(Model* model, Entity* entity, aiNode* node){

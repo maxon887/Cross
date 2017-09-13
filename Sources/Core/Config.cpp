@@ -115,34 +115,33 @@ void Config::LoadGameConfig(){
 	doc.LoadFile(path.c_str());
 
 	XMLElement* root = doc.FirstChildElement("GameConfig");
-	if(root){
-		XMLElement* element = root->FirstChildElement("Property");
-		while(element){
-			string name = element->Attribute("name");
-			string strValue = element->Attribute("value");
+	CROSS_FAIL(root, "Failed to fined GameConfig root element");
+	XMLElement* element = root->FirstChildElement("Property");
+	while(element){
+		string name = element->Attribute("name");
+		string strValue = element->Attribute("value");
 
-			if(name == "Orientation"){
-				orientation = (System::Orientation)atoi(strValue.c_str());
-			}
-
-			if(name == "UseCompressedTextures"){
-				use_compressed_textures = strValue == "true" ? true : false;
-			}
-
-			if(name == "TextureFilter"){
-				texture_filter = (Texture::Filter)atoi(strValue.c_str());
-			}
-
-			if(name == "ViewDistance"){
-				view_distance = (float)atof(strValue.c_str());
-			}
-
-			if(name == "OffscreenRender"){
-				offscreen_render = strValue == "true" ? true : false;
-			}
-
-			element = element->NextSiblingElement("Property");
+		if(name == "Orientation"){
+			orientation = (System::Orientation)atoi(strValue.c_str());
 		}
+
+		if(name == "UseCompressedTextures"){
+			use_compressed_textures = strValue == "true" ? true : false;
+		}
+
+		if(name == "TextureFilter"){
+			texture_filter = (Texture::Filter)atoi(strValue.c_str());
+		}
+
+		if(name == "ViewDistance"){
+			view_distance = (float)atof(strValue.c_str());
+		}
+
+		if(name == "OffscreenRender"){
+			offscreen_render = strValue == "true" ? true : false;
+		}
+
+		element = element->NextSiblingElement("Property");
 	}
 }
 
@@ -156,14 +155,13 @@ void Config::LoadUserConfig(){
 	XMLElement* element;
 
 	root = doc.FirstChildElement("UserConfig");
-	if(root){
-		element = root->FirstChildElement("Property");
-		while(element){
-			string name = element->Attribute("name");
-			string value = element->Attribute("value");
-			user_prefs[name] = value;
-			element = element->NextSiblingElement("Property");
-		}
+	CROSS_FAIL(root, "Failed to fined UserConfig root element");
+	element = root->FirstChildElement("Property");
+	while(element){
+		string name = element->Attribute("name");
+		string value = element->Attribute("value");
+		user_prefs[name] = value;
+		element = element->NextSiblingElement("Property");
 	}
 }
 

@@ -19,24 +19,24 @@
 #include "Event.h"
 
 #define CROSS_ASSERT(condition, message, ...)						\
-if(!condition) {											\
+if(!(condition)) {													\
 	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
 }
 
 #define CROSS_FAIL(condition, message, ...)							\
-if(!condition) {											\
+if(!(condition)) {													\
 	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
 	return;															\
 }
 
 #define CROSS_RETURN(condition, value, message, ...)				\
-if(!condition) {											\
+if(!(condition)) {													\
 	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
 	return value;													\
 }
 
 #define CROSS_EXCEPTION(condition, message, ...)					\
-if(!condition) {											\
+if(!(condition)) {													\
 	throw CrossException(message, ##__VA_ARGS__);					\
 }
 

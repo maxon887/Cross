@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Material.h"
+#include "System.h"
 #include "Shaders/Shader.h"
 
 using namespace cross;
@@ -71,7 +72,7 @@ Shader::Property* Material::GetProperty(const string& name){
 			return prop;
 		}
 	}
-	throw CrossException("Can not find property '%s'", name.c_str());
+	CROSS_RETURN(false, NULL, "Can not find property '%s'", name.c_str());
 }
 
 Shader::Property* Material::GetProperty(GLuint glID){
@@ -80,7 +81,7 @@ Shader::Property* Material::GetProperty(GLuint glID){
 			return prop;
 		}
 	}
-	throw CrossException("Can not find property by ID(%d)", glID);
+	CROSS_RETURN(false, NULL, "Can not find property by ID(%d)", glID);
 }
 
 Array<Shader::Property*>& Material::GetProperties(){

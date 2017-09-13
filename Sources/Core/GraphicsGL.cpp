@@ -54,7 +54,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 			strcpy(error, "Unknown error");  
 			break;
 		}
-		CROSS_ASSERT(true, "Rendering error number: %s in %s : %d", error, file, line);
+		CROSS_ASSERT(false, "Rendering error number: %s in %s : %d", error, file, line);
 		delete[] error;
 		err = glGetError();
 	}
@@ -201,7 +201,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 	Shader* shader = NULL;
 	switch(type) {
 	case DefaultShader::SIMPLE:
-		shader = new Shader("Engine/Shaders/Simple2.vtx", "Engine/Shaders/Simple.fgm");
+		shader = new Shader("Engine/Shaders/Simple.vtx", "Engine/Shaders/Simple.fgm");
 		shader->AddProperty("Color", "uColor", Color::White);
 		break;
 	case DefaultShader::MONOCHROME:
@@ -218,7 +218,7 @@ Shader* GraphicsGL::GetShader(DefaultShader type){
 		shader->AddProperty("Transparency", "uTransparency", 1.f);
 		break;
 	default:
-		CROSS_RETURN(true, NULL, "Unknown shader type");
+		CROSS_RETURN(false, NULL, "Unknown shader type");
 	}
 	return shader;
 }
@@ -265,7 +265,7 @@ void GraphicsGL::GenerateFramebuffer(){
 	regenerate_framebuffer = false;
 
 	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-		CROSS_ASSERT(true, "Can not initialize second frame buffer");
+		CROSS_ASSERT(false, "Can not initialize second frame buffer");
 	}
 }
 

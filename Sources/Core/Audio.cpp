@@ -36,9 +36,7 @@ Audio::Audio() {
 	result = fmod_system->getVersion(&version);
 	ERRCHECK(result);
 
-	if(version < FMOD_VERSION){
-		throw CrossException("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
-	}
+	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 
 	result = fmod_system->init(32, FMOD_INIT_NORMAL, NULL);
 	ERRCHECK(result);
@@ -46,15 +44,10 @@ Audio::Audio() {
 
 Audio::~Audio(){
 	result = fmod_system->close();
-	if(result != FMOD_OK){
-		sys->LogIt("Error while closing FMOD system");
-	}
+	CROSS_ASSERT(result != FMOD_OK, "Error while closing FMOD system");
 }
 
 Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
-	if(sys == NULL){
-		throw CrossException("Audio not initialized");
-	}
 	Sound* sound = new Sound();
 
 	FMOD_MODE mode = 0;

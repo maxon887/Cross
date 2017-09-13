@@ -91,7 +91,7 @@ const float* Color::GetData() const{
 bool Color::operator==(const Color &c) const{
 	if(	this->R == c.R &&
 		this->G == c.G &&
-		this->B == c.B){
+		this->B == c.B ){
 		return true;
 	}else{
 		return false;

@@ -21,7 +21,10 @@
 #include "Libs/FMOD/fmod.hpp"
 #include "Libs/FMOD/fmod_errors.h"
 
-#define ERRCHECK(_result) if(_result != FMOD_OK) { throw CrossException("FMOD error %d - %s", _result, FMOD_ErrorString(_result)); }
+#define ERRCHECK(_result) \
+if(_result != FMOD_OK) { \
+	CROSS_ASSERT(false, "FMOD error %d - %s", _result, FMOD_ErrorString(_result)); \
+}
 
 using namespace cross;
 
@@ -39,9 +42,7 @@ Sound::~Sound(){
 	}else{
 		result = channel->stop();
 	}
-	if(result != FMOD_OK){
-		sys->LogIt("Error while destroing Sound");
-	}
+	CROSS_ASSERT(result == FMOD_OK, "Error while destroing Sound");
 }
 
 void Sound::Play(){
