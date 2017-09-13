@@ -66,9 +66,9 @@ void MaterialView::OnFileSelected(const string& filepath){
 	XMLError error = doc.LoadFile(path.c_str());
 	if(error != XML_SUCCESS) {
 		if(error == XML_ERROR_FILE_NOT_FOUND) {
-			throw CrossException("File not found %s", path.c_str());
+			CROSS_FAIL(false, "File not found %s", path.c_str());
 		} else {
-			throw CrossException("Can not parse XML document");
+			CROSS_FAIL(false, "Can not parse XML document");
 		}
 	}
 
@@ -132,7 +132,7 @@ void MaterialView::OnValueChanged(){
 		break;
 	}
 	default:
-		throw CrossException("Unsupported property type");
+		CROSS_FAIL(false, "Unsupported property type");
 	}
 
 	apply_btn->setDisabled(false);

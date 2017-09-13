@@ -120,12 +120,9 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 	if(path != ""){
 		path += "/";
 		WINSystem* winSys = dynamic_cast<WINSystem*>(sys);
-		if(winSys){
-			winSys->SetAssetPath(path.toStdString());
-			ui.fileExplorerTree->SetupProjectDirectory(path);
-		}else{
-			throw CrossException("You are not under Windows opertating system");
-		}
+		CROSS_FAIL(winSys, "You are not under Windows opertating system");
+		winSys->SetAssetPath(path.toStdString());
+		ui.fileExplorerTree->SetupProjectDirectory(path);
 	}
 }
 

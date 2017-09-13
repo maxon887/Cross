@@ -2,6 +2,7 @@
 #define COMPONENT_VIEW
 
 #include "Cross.h"
+#include "System.h"
 #include "PropertyView.h"
 #include "Entity.h"
 
@@ -69,12 +70,10 @@ void ComponentView<ComponentType>::contextMenuEvent(QContextMenuEvent *event) {
 template<class ComponentType>
 void ComponentView<ComponentType>::OnRemove() {
 	Component* component = selected_entity->GetComponent<ComponentType>();
-	if(component) {
-		selected_entity->RemoveComponent(component);
-		Show(selected_entity);
-	} else {
-		throw CrossException("Selected entity does not have this component");
-	}
+	CROSS_FAIL(component, "Selected entity does not have this component");
+	selected_entity->RemoveComponent(component);
+	Show(selected_entity);
+	
 }
 
 #endif
