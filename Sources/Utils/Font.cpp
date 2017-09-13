@@ -57,14 +57,10 @@ Font::Font(string filename, float size, Color color) :
 	FT_Error error;
 	if(library == NULL){
 		error = FT_Init_FreeType(&library);
-		if(error){
-			throw CrossException("Error initializing FreeType library");
-		}
+		CROSS_FAIL(!error, "Error initializing FreeType library");
 	}
 	error = FT_New_Memory_Face(library, file->data, file->size, 0, &face);
-	if(error){
-		throw CrossException("The font file could be opened and read, but it appears");
-	}
+	CROSS_FAIL(!error, "The font file could be opened and read, but it appears");
 	SetSize(size);
 }
 
@@ -97,14 +93,10 @@ float Font::GetSize() const{
 void Font::SetSize(float size){
 	this->size = size;
 	FT_Error error = FT_Set_Pixel_Sizes(face, 0, (FT_UInt)size);
-	if(error){
-		throw CrossException("Error in set char size");
-	}
+	CROSS_FAIL(!error, "Error in set char size");
 	if(IsFixedWidth()){
 		FT_Error error = FT_Load_Char(face, 0x41, FT_LOAD_RENDER);
-		if(error){
-			throw CrossException("Can't load glyph");
-		}
+		CROSS_FAIL(!error, "Can't load glyph");
 		char_width = (float)(face->glyph->advance.x >> 6);
 	}
 	Cache();
@@ -119,11 +111,8 @@ bool Font::IsFixedWidth() const{
 }
 
 float Font::GetCharWidth() const{
-	if(IsFixedWidth()){
-		return char_width;
-	}else{
-		throw CrossException("Char width can be obtained only for monospace fonts");
-	}
+	CROSS_RETURN(IsFixedWidth(), 0.0f, "Char width can be obtained only for monospace fonts");
+	return char_width;
 }
 
 Sprite* Font::GetChar(char c){

@@ -121,15 +121,12 @@ JNIEnv* AndroidSystem::GetJNIEnv(){
     	return env;
     case JNI_EDETACHED:
 		LogIt("Attempt to attach thread to JVM");
-		if (jvm->AttachCurrentThread(&env, NULL) != 0) {
-			throw CrossException("Failed to attach thread");
-		}
+        CROSS_RETURN(jvm->AttachCurrentThread(&env, NULL) == 0, NULL, "Failed to attach thread")
 		return env;
     case JNI_EVERSION:
-    	throw CrossException("Java environment: version not supported");
-
+        CROSS_RETURN(false, NULL, "Java environment: version not supported");
     default:
-    	throw CrossException("Unknown JNI state");
+        CROSS_RETURN(false, NULL, "Unknown JNI state");
     }
 }
 

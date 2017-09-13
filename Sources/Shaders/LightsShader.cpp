@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shaders/LightsShader.h"
+#include "System.h"
 #include "Light.h"
 #include "Game.h"
 #include "Scene.h"
@@ -50,12 +51,12 @@ void LightsShader::Compile(const List<Light*>& lights){
 			directionalCount++;
 		}break;
 		default:
-			throw CrossException("Unknown light type");
+			CROSS_ASSERT(false, "Unknown light type");
 		}
 	}
 
 	if(!pointCount && !spotCount && !directionalCount){
-		throw CrossException("Current shader required at leas 1 light from scene");
+		CROSS_FAIL(false, "Current shader required at leas 1 light from scene");
 	}
 
 	Compile(pointCount, spotCount, directionalCount);
@@ -128,7 +129,7 @@ void LightsShader::OnDraw(){
 			directionalCount++;
 			break;
 		default:
-			throw CrossException("Unknown light type");
+			CROSS_ASSERT(false, "Unknown light type");
 		}
 	}
 }

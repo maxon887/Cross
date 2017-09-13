@@ -629,10 +629,10 @@ void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
 			Color c(0.f);
 			c.SetData((const char*)prop->GetValue());
 
-			int rInt = c.R * 255;
-			int gInt = c.G * 255;
-			int bInt = c.B * 255;
-			int aInt = c.A * 255;
+			int rInt = (int)(c.R * 255);
+			int gInt = (int)(c.G * 255);
+			int bInt = (int)(c.B * 255);
+			int aInt = (int)(c.A * 255);
 
 			std::stringstream ss;
 			ss << std::hex;

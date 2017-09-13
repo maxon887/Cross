@@ -64,12 +64,9 @@ void Main(){
         while (app_state != APP_EXIT) {
             switch (app_state) {
                 case APP_INIT: {
-                    if (!crossEGL) {
-                        crossEGL = new CrossEGL();
-                        app_state = APP_START;
-                    } else {
-                        throw CrossException("Application try to initialize second time");
-                    }
+                    CROSS_EXCEPTION(!crossEGL, "Application try to initialize second time");
+                    crossEGL = new CrossEGL();
+                    app_state = APP_START;
                     break;
                 }
                 case APP_START: {

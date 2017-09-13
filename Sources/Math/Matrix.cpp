@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Matrix.h"
 #include "Cross.h"
+#include "System.h"
 
 using namespace cross;
 
@@ -325,8 +326,7 @@ Matrix Matrix::GetInversed() const{
 
 	det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
 
-	if(det == 0)
-		throw CrossException("Determinant equal 0");
+	CROSS_RETURN(det != 0, Matrix::Identity, "Determinant equal 0");
 
 	det = 1.0f / det;
 

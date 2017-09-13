@@ -55,7 +55,7 @@ WINSystem::WINSystem(HWND wnd) :
 	} else if(DirectoryExists(editorAsset)){
 		assets_path = editorAsset;
 	} else {
-		throw CrossException("Can't find Assets folder");
+		CROSS_ASSERT(false, "Can't find Assets folder");
 	}
 }
 
@@ -114,20 +114,17 @@ void WINSystem::FullScreen(bool yes){
 }
 
 void WINSystem::ResizeWindow(int posX, int posY, int width, int height){
-	if(wnd && !fullscreen){
-		window_pos_x = posX;
-		window_pos_y = posY;
-		SetWindowSize(width, height);
-		RECT rcClient, rcWind;
-		POINT ptDiff;
-		GetClientRect(wnd, &rcClient);
-		GetWindowRect(wnd, &rcWind);
-		ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
-		ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
-		MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
-	}else{
-		throw CrossException("Zero WND. Can not resize native window");
-	}
+	CROSS_FAIL(wnd && !fullscreen, "Zero WND. Can not resize native window");
+	window_pos_x = posX;
+	window_pos_y = posY;
+	SetWindowSize(width, height);
+	RECT rcClient, rcWind;
+	POINT ptDiff;
+	GetClientRect(wnd, &rcClient);
+	GetWindowRect(wnd, &rcWind);
+	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
+	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
+	MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
 }
 
 void WINSystem::SetWND(HWND wnd){

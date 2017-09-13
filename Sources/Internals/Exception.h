@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#define CrossException(message, ...) Exception(__FILE__, __LINE__, message, ##__VA_ARGS__)
+#define CrossException2(message, ...) Exception(__FILE__, __LINE__, message, ##__VA_ARGS__)
 
 namespace cross{
 

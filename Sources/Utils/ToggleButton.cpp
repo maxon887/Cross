@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "ToggleButton.h"
+#include "System.h"
 #include "Graphics2D.h"
 
 using namespace cross;
@@ -38,9 +39,7 @@ ToggleButton::ToggleButton(Vector2D location, Sprite* on, Sprite* off)
 }
 
 void ToggleButton::Update(){
-	if(!located) {
-		throw CrossException("Button must be located first");
-	}
+	CROSS_FAIL(located, "Button must be located first")
 
 	if(state)
 		gfx2D->DrawSprite(location, on);

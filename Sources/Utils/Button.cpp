@@ -104,9 +104,7 @@ void Button::Update(float sec) {
 	if(!visible){
 		return;
 	}
-	if(!located) {
-		throw CrossException("Button must be located first");
-	}
+	CROSS_FAIL(located, "Button must be located first");
 
 	if(visible){
 		if(is_pressed) {

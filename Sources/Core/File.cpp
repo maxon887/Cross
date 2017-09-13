@@ -15,16 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "File.h"
+#include "System.h"
 
 using namespace cross;
 
 string File::PathFromFile(const string& filePath) {
 	const size_t last_slash_idx = filePath.rfind('/');
-	if(std::string::npos != last_slash_idx) {
-		return filePath.substr(0, last_slash_idx);
-	} else {
-		throw CrossException("Wrong path format");
-	}
+	CROSS_RETURN(std::string::npos != last_slash_idx, "", "Wrong path format");
+	return filePath.substr(0, last_slash_idx);
 }
 
 string File::FileFromPath(const string& filename) {

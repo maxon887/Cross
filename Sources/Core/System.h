@@ -37,7 +37,7 @@ if(!(condition)) {													\
 
 #define CROSS_EXCEPTION(condition, message, ...)					\
 if(!(condition)) {													\
-	throw CrossException(message, ##__VA_ARGS__);					\
+	throw CrossException2(message, ##__VA_ARGS__);					\
 }
 
 namespace cross {

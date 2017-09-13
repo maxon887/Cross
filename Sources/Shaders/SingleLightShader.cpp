@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shaders/SingleLightShader.h"
+#include "System.h"
 #include "Light.h"
 #include "Entity.h"
 #include "Game.h"
@@ -38,12 +39,7 @@ void SingleLightShader::Compile(){
 
 void SingleLightShader::OnDraw(){
 	const List<Light*>& lights = game->GetCurrentScene()->GetLights();
-	if(lights.size() > 1){
-		throw CrossException("Scene contains more than 1 light source");
-	}
-	if(lights.size() == 0){
-		throw CrossException("Scene must have one light source");
-	}
+	CROSS_FAIL(lights.size() == 1, "Scene must have one light source");
 	Light* light = lights.front();
 
 	if(light_attribs.position != -1){

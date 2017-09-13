@@ -212,13 +212,14 @@ void Shader::Load(const string& file){
 	XMLError error = doc.LoadFile(path.c_str());
 	if(error != XML_SUCCESS) {
 		if(error == XML_ERROR_FILE_NOT_FOUND) {
-			throw CrossException("File not found %s", path.c_str());
+			CROSS_FAIL(false, "File not found %s", path.c_str());
 		} else {
-			throw CrossException("Can not parse XML document");
+			CROSS_FAIL(false, "Can not parse XML document");
 		}
 	}
 
 	XMLElement* shaderXML = doc.FirstChildElement("Shader");
+	CROSS_FAIL(shaderXML, "Can not find node Shader in XML file");
 	XMLElement* vertexXML = shaderXML->FirstChildElement("Vertex");
 	const char* vertexFile = vertexXML->Attribute("filename");
 	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
@@ -256,7 +257,7 @@ void Shader::Load(const string& file){
 			} else if(strcmp(type, "Color") == 0) {
 				prop = new Property(name, glName, Property::COLOR);
 			} else {
-				throw CrossException("Unknown property type");
+				CROSS_ASSERT(false, "Unknown property type");
 			}
 			AddProperty(prop);
 
@@ -308,7 +309,7 @@ void Shader::Save(const string& file){
 			propertyXML->SetAttribute("type", "Texture");
 			break;
 		default:
-			throw CrossException("Unknown property type to save");
+			CROSS_ASSERT(false, "Unknown property type to save");
 		}
 		propertiesXML->LinkEndChild(propertyXML);
 	}
@@ -352,9 +353,7 @@ void Shader::Compile(){
 
 	for(Shader::Property* prop : properties){
 		prop->glId = glGetUniformLocation(program, prop->glName.c_str());
-		if(prop->glId == -1){
-			throw CrossException("Property %s does not contains in the shader", prop->glName.c_str());
-		}
+		CROSS_FAIL(prop->glId != -1, "Property %s does not contains in the shader", prop->glName.c_str());
 	}
 	compiled = true;
 }
@@ -384,18 +383,14 @@ void Shader::SetFragmentFilename(const string& filename){
 }
 
 void Shader::AddVersion(const string& ver){
-	if(compiled) {
-		throw CrossException("Shader already compiled");
-	}
+	CROSS_FAIL(!compiled, "Shader already compiled");
 	string fullStr = "#version " + ver + "\n";
 	macrosies.push_back(fullStr);
 	makro_len += fullStr.length();
 }
 
 void Shader::AddMacro(const string& makro, bool system){
-	if(compiled){
-		throw CrossException("Shader already compiled");
-	}
+	CROSS_FAIL(!compiled, "Shader already compiled");
 	string makroString = "#define " + makro + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
@@ -405,14 +400,12 @@ void Shader::AddMacro(const string& makro, bool system){
 }
 
 void Shader::AddMacro(const string& makro, int value, bool system){
-	if(compiled){
-		throw CrossException("Shader already compiled");
-	}
+	CROSS_FAIL(!compiled, "Shader already compiled");
 	string makroString = "#define " + makro + " " + to_string(value) + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.length();
 	if(!system) {
-		throw CrossException("Do not implement yet");
+		CROSS_ASSERT(false, "Do not implement yet");
 	}
 }
 
@@ -451,12 +444,8 @@ void Shader::AddProperty(const string& name, const string& glName, const Vector3
 }
 
 void Shader::AddProperty(Shader::Property* prop){
-	if(compiled){
-		throw CrossException("Shader already compiled");
-	}
-	if(HaveProperty(prop->name)){
-		throw CrossException("Shader already contain that property");
-	}
+	CROSS_FAIL(!compiled, "Shader already compiled");
+	CROSS_FAIL(!HaveProperty(prop->name), "Shader already contain that property");
 	properties.push_back(prop);
 }
 
@@ -466,7 +455,7 @@ Shader::Property* Shader::GetProperty(const string& name){
 			return prop;
 		}
 	}
-	throw CrossException("Can not find property");
+	CROSS_RETURN(false, NULL, "Can not find property");
 }
 
 Array<Shader::Property*>& Shader::GetProperties(){
@@ -524,7 +513,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 
 		char* log = new char[len + 1];
 		glGetShaderInfoLog(handle, len, &len, log);
-		throw CrossException("Shader: %s\n%sShader", file->name.c_str(), log);
+		CROSS_RETURN(false, 0, "Shader: %s\n%sShader", file->name.c_str(), log);
 	} else {
 #ifdef CROSS_DEBUG
 		GLsizei len;
@@ -552,6 +541,6 @@ void Shader::CompileProgram(){
 
 		char* log = new char[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
-		throw CrossException("Shader program compilation failed:\n %s", log);
+		CROSS_FAIL(false, "Shader program compilation failed:\n %s", log);
 	}
 }
