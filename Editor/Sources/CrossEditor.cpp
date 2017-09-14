@@ -56,16 +56,9 @@ void CrossEditor::closeEvent(QCloseEvent* eve){
 }
 
 void CrossEditor::LoadScene(QString& scenePath){
-	try{
-		scene_file = scenePath;
-		ui.sceneExplorerTree->clearSelection();
-		SetScene(new SceneView(), scenePath.toStdString());
-	}catch(Exception exc){
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		ExceptionMsgBox(msg.c_str());
-	}
+	scene_file = scenePath;
+	ui.sceneExplorerTree->clearSelection();
+	SetScene(new SceneView(), scenePath.toStdString());
 }
 
 void CrossEditor::RestoreSettings(){

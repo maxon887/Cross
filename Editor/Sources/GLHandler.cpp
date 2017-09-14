@@ -22,26 +22,19 @@ GLHandler::~GLHandler()
 { }
 
 void GLHandler::initializeGL(){
-	try{
-		WINSystem* launcherWIN = (WINSystem*)sys;
-		QSize size = this->frameSize();
-		launcherWIN->SetWindowSize(size.width(), size.height());
+	WINSystem* launcherWIN = (WINSystem*)sys;
+	QSize size = this->frameSize();
+	launcherWIN->SetWindowSize(size.width(), size.height());
 	
-		gfxGL = new GraphicsGL();
-		gfx2D = new Graphics2D();
-		gfx3D = new Graphics3D();
-		game->Start();
-		game->SetScreen(game->GetStartScreen());
+	gfxGL = new GraphicsGL();
+	gfx2D = new Graphics2D();
+	gfx3D = new Graphics3D();
+	game->Start();
+	game->SetScreen(game->GetStartScreen());
 
-		auto pTimer = new QTimer(this);
-		connect(pTimer, &QTimer::timeout, this, &GLHandler::Update); 
-		pTimer->start(1000 / 60.0);
-	}catch(Exception &exc){
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		((CrossEditor*)game)->ExceptionMsgBox(msg.c_str());
-	}
+	auto pTimer = new QTimer(this);
+	connect(pTimer, &QTimer::timeout, this, &GLHandler::Update); 
+	pTimer->start(1000 / 60.0);
 }
 
 void GLHandler::Update(){
@@ -49,15 +42,7 @@ void GLHandler::Update(){
 }
 
 void GLHandler::paintGL(){
-	try{
-		game->EngineUpdate();
-	} catch(Exception &exc) {
-		((CrossEditor*)game)->OnNewSceneClick();
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		((CrossEditor*)game)->ExceptionMsgBox(msg.c_str());
-	}
+	game->EngineUpdate();
 }
 
 void GLHandler::resizeGL(int w, int h){
@@ -68,18 +53,11 @@ void GLHandler::resizeGL(int w, int h){
 }
 
 void GLHandler::ShutDown(){
-	try{
-		game->GetCurrentScreen()->Stop();
-		game->Stop();
-		delete gfx3D;
-		delete gfx2D;
-		delete gfxGL;
-	} catch(Exception &exc) {
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		((CrossEditor*)game)->ExceptionMsgBox(msg.c_str());
-	}
+	game->GetCurrentScreen()->Stop();
+	game->Stop();
+	delete gfx3D;
+	delete gfx2D;
+	delete gfxGL;
 }
 
 void GLHandler::mousePressEvent(QMouseEvent* eve){

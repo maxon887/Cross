@@ -69,30 +69,23 @@ void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	QDir root = file_system->rootDirectory();
 	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
-	try{
-		FileSelected(filepath.toStdString());
-	}catch(Exception ex){
-		editor->ExceptionMsgBox(ex.message);
-	}
+	FileSelected(filepath.toStdString());
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	QDir root = file_system->rootDirectory();
 	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
-	try{
-		if(fileInfo.suffix() == "scn"){
-			editor->LoadScene(filepath);
-		}else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
-			Model* model = gfx3D->LoadModel(filepath.toStdString());
-			gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
-			editor->GetCurrentScene()->AddModel(model);
-			editor->GetCurrentScene()->AddEntity(model->hierarchy);
-		} else {
-			QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-		}
-	}catch(Exception ex){
-		editor->ExceptionMsgBox(ex.message);
+	if(fileInfo.suffix() == "scn") {
+		editor->LoadScene(filepath);
+	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
+		Model* model = gfx3D->LoadModel(filepath.toStdString());
+		gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
+		editor->GetCurrentScene()->AddModel(model);
+		editor->GetCurrentScene()->AddEntity(model->hierarchy);
+	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
+	} else {
+		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
 	}
 }
 
