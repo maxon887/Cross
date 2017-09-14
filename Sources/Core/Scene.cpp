@@ -149,7 +149,7 @@ void Scene::Save(const string& filename){
 
 	XMLElement* sceneXML = doc.NewElement("Scene");
 	sceneXML->SetAttribute("name", GetName().c_str());
-	sceneXML->SetAttribute("version", scene_loader_version);
+	sceneXML->SetAttribute("version", scene_saver_version);
 	doc.LinkEndChild(sceneXML);
 
 	//light sorting

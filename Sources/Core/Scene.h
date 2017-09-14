@@ -102,6 +102,7 @@ protected:
 
 private:
 	static const U32 scene_loader_version	= 12;
+	static const U32 scene_saver_version	= 12;
 	string name								= "";
     U64 resize_del							= -1;
 
