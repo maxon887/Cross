@@ -26,6 +26,8 @@ private:
 	QLabel* poly_count_label	= NULL;
 	QLineEdit* material_value	= NULL;
 	QCheckBox* face_culling_box = NULL;
+
+	void OnLoadClick();
 };
 
 #endif

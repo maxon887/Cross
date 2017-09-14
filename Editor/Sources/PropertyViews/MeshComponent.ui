@@ -113,6 +113,19 @@
         <item>
          <widget class="QLineEdit" name="materialValue"/>
         </item>
+        <item>
+         <widget class="QPushButton" name="loadBtn">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>31</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Load</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
