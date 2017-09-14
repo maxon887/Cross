@@ -192,44 +192,6 @@ void Scene::Save(const string& filename){
 		sceneXML->LinkEndChild(lightXML);
 	}
 
-	if(shaders.size() > 0){
-		XMLElement* shadersXML = doc.NewElement("Shaders");
-		for(pair<S32, Shader*> pair : shaders){
-			S32 id = pair.first;
-			Shader* shader = pair.second;
-			XMLElement* shaderXML= doc.NewElement("Shader");
-			shaderXML->SetAttribute("id", id);
-			if(dynamic_cast<LightsShader*>(shader)){
-				shaderXML->SetAttribute("multiLight", true);
-			}
-			if(shader->macrosies.size() > 0){
-				XMLElement* macrosiesXML = doc.NewElement("Macrosies");
-				for(const string& macro : shader->user_macro){
-					XMLElement* macroXML = doc.NewElement("Macro");
-					macroXML->SetText(macro.c_str());
-					macrosiesXML->LinkEndChild(macroXML);
-				}
-				shaderXML->LinkEndChild(macrosiesXML);
-				XMLElement* propertiesXML = doc.NewElement("Properties");
-				for(Shader::Property* prop : shader->properties){
-					XMLElement* propertyXML = doc.NewElement("Property");
-					propertyXML->SetAttribute("name", prop->name.c_str());
-					propertyXML->SetAttribute("glName", prop->glName.c_str());
-					if(prop->value != NULL){
-						if(prop->type == Shader::Property::FLOAT){
-							propertyXML->SetAttribute("default", *(float*)(prop->value));
-						}
-					}
-					propertiesXML->LinkEndChild(propertyXML);
-				}
-				shaderXML->LinkEndChild(propertiesXML);
-			}
-			shadersXML->LinkEndChild(shaderXML);
-		}
-
-		sceneXML->LinkEndChild(shadersXML);
-	}
-
 	if(textures.size() > 0){
 		XMLElement* texturesXML = doc.NewElement("Textures");
 		for(pair<S32, Texture*> pair : textures){
@@ -241,61 +203,6 @@ void Scene::Save(const string& filename){
 			texturesXML->LinkEndChild(textureXML);
 		}
 		sceneXML->LinkEndChild(texturesXML);
-	}
-
-	if(materials.size() > 0){
-		XMLElement* materialsXML = doc.NewElement("Materials");
-		for(pair<S32, Material*> pair : materials){
-			S32 id = pair.first;
-			Material* material = pair.second;
-			XMLElement* materialXML = doc.NewElement("Material");
-			materialXML->SetAttribute("id", id);
-			S32 shaderID = FindShaderID(material->GetShader());
-			materialXML->SetAttribute("shader", shaderID);
-
-			for(Shader::Property* prop : material->properties) {
-				XMLElement* propertyXML = doc.NewElement("Property");
-				switch(prop->type) {
-				case Shader::Property::SAMPLER: {
-					propertyXML->SetAttribute("type", "Texture");
-					propertyXML->SetAttribute("name", prop->name.c_str());
-					Texture* usedTexture = gfx2D->FindTextureByGLID(*(GLuint*)prop->value);
-					S32 textureId = FindTextureID(usedTexture);
-					propertyXML->SetAttribute("value", textureId);
-					break;
-				}
-				case Shader::Property::MAT4:
-					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
-					break;
-				case Shader::Property::VEC4:
-					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
-					break;
-				case Shader::Property::VEC3:
-					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
-					break;
-				case Shader::Property::VEC2:
-					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
-					break;
-				case Shader::Property::FLOAT:
-					propertyXML->SetAttribute("type", "Float");
-					propertyXML->SetAttribute("name", prop->name.c_str());
-					propertyXML->SetAttribute("value", *(float*)prop->value);
-					break;
-				case Shader::Property::INT:
-					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
-					break;
-				case Shader::Property::CUBEMAP:
-					CROSS_ASSERT(false, "Property don't supported by loader version %d", scene_loader_version);
-					break;
-				default:
-					CROSS_ASSERT(false, "Unknown material property");
-					break;
-				}
-				materialXML->LinkEndChild(propertyXML);
-			}
-			materialsXML->LinkEndChild(materialXML);
-		}
-		sceneXML->LinkEndChild(materialsXML);
 	}
 
 	if(models.size() > 0){
@@ -646,7 +553,7 @@ void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
 			break;
 		}
 		default:
-			break;
+			CROSS_ASSERT(false, "Unknown material property to save");
 		}
 		materialXML->LinkEndChild(propertyXML);
 	}
@@ -701,6 +608,7 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 		XMLElement* meshXML = doc->NewElement("Mesh");
 		meshXML->SetAttribute("id", ids.second);
 		meshXML->SetAttribute("modelID", ids.first);
+		meshXML->SetAttribute("material", mesh->GetMaterial()->GetFilename().c_str());
 		componentsXML->LinkEndChild(meshXML);
 		objectXML->LinkEndChild(componentsXML);
 	}
