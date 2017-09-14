@@ -47,8 +47,10 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	context_menu->addAction(newMaterial);
 	QAction* deleteAction = new QAction(context_menu);
 	deleteAction->setText("Delete");
+	deleteAction->setShortcut(QKeySequence::Delete);
 	connect(deleteAction, &QAction::triggered, this, &FileExplorer::OnDeleteClick);
 	context_menu->addAction(deleteAction);
+	addAction(deleteAction);
 }
 
 FileExplorer::~FileExplorer(){
@@ -61,8 +63,8 @@ void FileExplorer::SetupProjectDirectory(QString dir){
 	setRootIndex(file_system->index(dir));
 }
 
-void FileExplorer::contextMenuEvent(QContextMenuEvent *event) {
-	context_menu->exec(event->globalPos());
+void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
+	context_menu->exec(eve->globalPos());
 }
 
 void FileExplorer::OnItemSelected(QModelIndex index){

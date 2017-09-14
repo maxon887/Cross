@@ -92,6 +92,7 @@ bool SceneModel::setData(const QModelIndex &index, const QVariant &value, int ro
 	}
 	Entity* entity = (Entity*)index.internalPointer();
 	entity->SetName(value.toString().toStdString());
+	editor->SomethingChanged();
 	emit dataChanged(index, index);
 	return true;
 }
@@ -197,13 +198,14 @@ void SceneExplorer::mousePressEvent(QMouseEvent* e){
 		clearSelection();
 		const QModelIndex index;
 		selectionModel()->setCurrentIndex(index, QItemSelectionModel::Select);
-		EntitySelected(NULL);
+		EntitySelected(NULL);	//trigger
 	}
 }
 
 void SceneExplorer::OnCreateEntity(){
 	QModelIndexList selected = selectedIndexes();
-	EntitySelected(NULL);
+	EntitySelected(NULL);		//trigger
+	editor->SomethingChanged();	//trigger
 	Entity* newEntity = new Entity("New Entity");
 	if(selected.size() > 0){
 		QModelIndex newIndex = scene_model->AddEntity(newEntity, selected[0]);
@@ -218,5 +220,6 @@ void SceneExplorer::OnDeleteEntity(){
 	QModelIndexList selected = selectedIndexes();
 	if(selected.size() > 0) {
 		scene_model->RemoveEntity(selected[0]);
+		editor->SomethingChanged();	//trigger
 	}
 }

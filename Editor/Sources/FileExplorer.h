@@ -22,7 +22,7 @@ public:
 	void SetupProjectDirectory(QString dir);
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *eve) override;
 
 private:
 	QFileSystemModel* file_system	= NULL;
