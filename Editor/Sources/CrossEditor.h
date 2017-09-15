@@ -6,13 +6,15 @@
 
 #include <QMainWindow>
 
+class Action;
+
 class CrossEditor : public QMainWindow, 
 					public Game
 {
 	Q_OBJECT
 public:
 	Event<> UIInitialized;
-	Event<> SomethingChanged;
+	Event<Action*> SomethingChanged;
 
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
@@ -34,7 +36,7 @@ public:
 	void OnSceneExplorerClick();
 
 	void OnSceneLoaded(Scene* scene);
-	void OnSomethingChanged();
+	void OnSomethingChanged(Action* a);
 
 protected:
 	void closeEvent(QCloseEvent* eve) override;

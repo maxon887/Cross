@@ -1,6 +1,7 @@
 #include "EntityComponent.h"
 #include "Entity.h"
 #include "../CrossEditor.h"
+#include "../History.h"
 
 #include <QLineEdit>
 #include <QDoubleValidator>
@@ -82,15 +83,17 @@ void EntityComponent::Update(float sec) {
 }
 
 void EntityComponent::PositionChanged(){
+	EntityChanged* action = new EntityChanged(entity);
 	Vector3D pos;
 	pos.x = posX->text().toFloat();
 	pos.y = posY->text().toFloat();
 	pos.z = posZ->text().toFloat();
 	entity->SetPosition(pos);
-	editor->SomethingChanged();//trigger
+	editor->SomethingChanged(action);//trigger
 }
 
 void EntityComponent::RotationChanged(){
+	EntityChanged* action = new EntityChanged(entity);
 	Vector3D axis;
 	axis.x = rotX->text().toFloat();
 	axis.y = rotY->text().toFloat();
@@ -99,16 +102,17 @@ void EntityComponent::RotationChanged(){
 	Quaternion rotation(axis, a);
 	entity->SetRotate(rotation);
 	UpdateRotatioon();
-	editor->SomethingChanged();//trigger
+	editor->SomethingChanged(action);//trigger
 }
 
 void EntityComponent::ScaleChanged(){
+	EntityChanged* action = new EntityChanged(entity);
 	Vector3D scale;
 	scale.x = scaleX->text().toFloat();
 	scale.y = scaleY->text().toFloat();
 	scale.z = scaleZ->text().toFloat();
 	entity->SetScale(scale);
-	editor->SomethingChanged();//trigger
+	editor->SomethingChanged(action);//trigger
 }
 
 void EntityComponent::UpdateRotatioon(){

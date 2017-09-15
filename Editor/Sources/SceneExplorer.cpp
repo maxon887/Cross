@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Entity.h"
 #include "System.h"
+#include "History.h"
 #include "CrossEditor.h"
 
 #include <QHeaderView.h>
@@ -91,8 +92,9 @@ bool SceneModel::setData(const QModelIndex &index, const QVariant &value, int ro
 		return false;
 	}
 	Entity* entity = (Entity*)index.internalPointer();
+	EntityChanged* action = new EntityChanged(entity);
 	entity->SetName(value.toString().toStdString());
-	editor->SomethingChanged();
+	editor->SomethingChanged(action);
 	emit dataChanged(index, index);
 	return true;
 }
@@ -126,8 +128,9 @@ void SceneModel::RemoveEntity(QModelIndex index){
 
 	Entity* entity = (Entity*)index.internalPointer();
 	Entity* parent = entity->GetParent();
+	EntityDeleted* action = new EntityDeleted(entity);
 	parent->RemoveChild(entity);
-	delete entity;
+	editor->SomethingChanged(action);	//trigger
 
 	endRemoveRows();
 }
@@ -205,8 +208,9 @@ void SceneExplorer::mousePressEvent(QMouseEvent* e){
 void SceneExplorer::OnCreateEntity(){
 	QModelIndexList selected = selectedIndexes();
 	EntitySelected(NULL);		//trigger
-	editor->SomethingChanged();	//trigger
 	Entity* newEntity = new Entity("New Entity");
+	EntityCreated* action = new EntityCreated(newEntity);
+	editor->SomethingChanged(action);	//trigger
 	if(selected.size() > 0){
 		QModelIndex newIndex = scene_model->AddEntity(newEntity, selected[0]);
 		edit(newIndex);
@@ -220,6 +224,5 @@ void SceneExplorer::OnDeleteEntity(){
 	QModelIndexList selected = selectedIndexes();
 	if(selected.size() > 0) {
 		scene_model->RemoveEntity(selected[0]);
-		editor->SomethingChanged();	//trigger
 	}
 }

@@ -127,7 +127,7 @@ void CrossEditor::OnSceneExplorerClick(){
 	ui.sceneExplorer->show();
 }
 
-void CrossEditor::OnSomethingChanged(){
+void CrossEditor::OnSomethingChanged(Action* action){
 	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName().c_str() + QString("*"));
 }
 

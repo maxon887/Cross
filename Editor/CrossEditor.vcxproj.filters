@@ -324,6 +324,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_LightComponent.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\History.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -573,6 +576,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_LightComponent.h">
       <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\History.h">
+      <Filter>Editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
