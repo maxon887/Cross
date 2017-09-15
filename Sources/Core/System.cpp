@@ -110,24 +110,24 @@ void System::SetWindowSize(S32 width, S32 height){
 }
 
 void System::Assert(const char* filename, unsigned int line, const char* msg, ...) {
-	va_list params;
-	char buffer[4096];
-	va_start(params, msg);
-	vsprintf(buffer, msg, params);
-	Log(buffer);
-	va_end(params);
-#ifdef CROSS_DEBUG
-	string str = buffer;
-	str += "\n";
-	str += "File: ";
-	str += filename;
-	str += "\n";
-	str += "Line: " + to_string(line);
-	Messagebox("Assertion Failed", str.c_str());
-#else
 	auto it = asserts_hashes.find(line);
 	if(it == asserts_hashes.end()) {
 		asserts_hashes.insert(line);
+		va_list params;
+		char buffer[4096];
+		va_start(params, msg);
+		vsprintf(buffer, msg, params);
+		Log(buffer);
+		va_end(params);
+#ifdef CROSS_DEBUG
+		string str = buffer;
+		str += "\n";
+		str += "File: ";
+		str += filename;
+		str += "\n";
+		str += "Line: " + to_string(line);
+		Messagebox("Assertion Failed", str.c_str());
+#else
 		LogIt("\tAssertion Failed");
 		string str = msg;
 		str += "\n";
@@ -136,6 +136,6 @@ void System::Assert(const char* filename, unsigned int line, const char* msg, ..
 		str += "\n";
 		str += "Line: " + to_string(line);
 		LogIt(str.c_str());
-	}
 #endif
+	}
 }

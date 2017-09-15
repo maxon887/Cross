@@ -138,10 +138,6 @@ void Scene::Load(const string& file){
 			objectXML = objectXML->NextSiblingElement("Object");
 		}
 	}
-
-	for(pair<S32, Shader*> pair : shaders){
-		pair.second->Compile();
-	}
 }
 
 void Scene::Save(const string& filename){
@@ -327,7 +323,9 @@ Material* Scene::GetMaterial(const string& xmlFile) {
 		return (*matIt).second;
 	} else {
 		Material* mat = LoadMaterialFromXML(xmlFile);
-		materials[matHash] = mat;
+		if(mat) {
+			materials[matHash] = mat;
+		}
 		return mat;
 	}
 }
@@ -340,6 +338,7 @@ Shader* Scene::GetShader(const string& shaderfile) {
 	} else {
 		Shader* shader = new Shader();
 		shader->Load(shaderfile);
+		shader->Compile();
 		shaders[shaderHash] = shader;
 		return shader;
 	}

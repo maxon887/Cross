@@ -28,7 +28,9 @@ void MeshComponent::Show(Entity* entity){
 
 	poly_count_label->setText(QString::number(mesh->GetPolyCount()));
 
-	material_value->setText(mesh->GetMaterial()->GetFilename().c_str());
+	if(mesh->GetMaterial()) {
+		material_value->setText(mesh->GetMaterial()->GetFilename().c_str());
+	}
 
 	face_culling_box->setChecked(mesh->IsFaceCullingEnabled());
 }
