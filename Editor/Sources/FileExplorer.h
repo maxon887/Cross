@@ -27,6 +27,7 @@ protected:
 private:
 	QFileSystemModel* file_system	= NULL;
 	QMenu* context_menu				= NULL;
+	QModelIndexList clipboard;
 
 	void OnItemSelected(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
@@ -34,6 +35,8 @@ private:
 	void OnNewFolderClick();
 	void OnNewShaderClick();
 	void OnNewMaterialClick();
+	void OnCopyClick();
+	void OnPasteClick();
 	void OnDeleteClick();
 
 	QString GetSelectedDirectory();

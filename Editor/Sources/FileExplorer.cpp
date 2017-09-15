@@ -20,6 +20,7 @@ FileExplorer::FileExplorer(QWidget* parent) :
 
 	SetupProjectDirectory(QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()));
 
+	hideColumn(1);
 	hideColumn(2);
 	hideColumn(3);
 	
@@ -45,6 +46,18 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	newMaterial->setText("New Material");
 	connect(newMaterial, &QAction::triggered, this, &FileExplorer::OnNewMaterialClick);
 	context_menu->addAction(newMaterial);
+	QAction* copyAction = new QAction(context_menu);
+	copyAction->setText("Copy");
+	copyAction->setShortcut(QKeySequence::Copy);
+	connect(copyAction, &QAction::triggered, this, &FileExplorer::OnCopyClick);
+	context_menu->addAction(copyAction);
+	addAction(copyAction);
+	QAction* pasteAction = new QAction(context_menu);
+	pasteAction->setText("Paste");
+	pasteAction->setShortcut(QKeySequence::Paste);
+	connect(pasteAction, &QAction::triggered, this, &FileExplorer::OnPasteClick);
+	context_menu->addAction(pasteAction);
+	addAction(pasteAction);
 	QAction* deleteAction = new QAction(context_menu);
 	deleteAction->setText("Delete");
 	deleteAction->setShortcut(QKeySequence::Delete);
@@ -108,7 +121,7 @@ void FileExplorer::OnNewFolderClick(){
 
 void FileExplorer::OnNewShaderClick(){
 	QString selectedDir = GetSelectedDirectory();
-	QString filename = GetAllowedName(selectedDir, "/New Shader", ".sha");
+	QString filename = GetAllowedName(selectedDir, "New Shader", ".sha");
 
 	Shader* newShader = new Shader();
 	newShader->Save(filename.toStdString());
@@ -119,7 +132,7 @@ void FileExplorer::OnNewShaderClick(){
 
 void FileExplorer::OnNewMaterialClick() {
 	QString selectedDir = GetSelectedDirectory();
-	QString filename = GetAllowedName(selectedDir, "/New Material", ".mat");
+	QString filename = GetAllowedName(selectedDir, "New Material", ".mat");
 
 	Material* newMaterial = new Material();
 	game->GetCurrentScene()->SaveMaterialToXML(newMaterial, filename.toStdString());
@@ -128,9 +141,26 @@ void FileExplorer::OnNewMaterialClick() {
 	edit(index);
 }
 
-void FileExplorer::OnDeleteClick(){
+void FileExplorer::OnCopyClick() {
+	clipboard = selectedIndexes();
+}
+
+void FileExplorer::OnPasteClick() {
+	QString selectedDir = GetSelectedDirectory();
+	for(QModelIndex index : clipboard) {
+		QFileInfo fileInfo = file_system->fileInfo(index);
+		QString path = fileInfo.absoluteFilePath();
+		QString originName = fileInfo.baseName();
+		QString originExt = "." + fileInfo.suffix();
+		QString filename = GetAllowedName(selectedDir, originName, originExt);
+		bool result = QFile::copy(path, filename);
+		CROSS_ASSERT(result, "Can not copy file");
+	}
+}
+
+void FileExplorer::OnDeleteClick() {
 	QModelIndexList indexes = selectedIndexes();
-	for(QModelIndex index : indexes){
+	for(QModelIndex index : indexes) {
 		QFileInfo fileInfo = file_system->fileInfo(index);
 		QString path = fileInfo.absoluteFilePath();
 		QDir dir(path);
@@ -158,12 +188,12 @@ QString FileExplorer::GetSelectedDirectory(){
 
 QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName, const QString& extension){
 	QString filename = baseName + extension;
-	QFile file = dir + filename;
+	QFile file = dir + "/" + filename;
 	int nameNumber = 0;
 	while(file.exists()) {
 		nameNumber++;
 		filename = baseName + " " + QString::number(nameNumber) + extension;
-		file.setFileName(dir + filename);
+		file.setFileName(dir + "/" + filename);
 	}
 	return file.fileName();
 }
