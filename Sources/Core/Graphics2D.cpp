@@ -385,7 +385,7 @@ Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& he
 		newHeight *= 2;
 	}
 	if(newWidth != width || newHeight != height){
-		sys->LogIt("Not power of 2 texture. Performance issue!");
+		CROSS_ASSERT(true, "Not power of 2 texture. Performance issue!");
 		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
 		for(int i = 0; i < height; i++){
 			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);

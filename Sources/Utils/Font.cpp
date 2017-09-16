@@ -153,7 +153,8 @@ void Font::Cache(){
 													Texture::Filter::LINEAR,
 													Texture::Compression::NONE,
 													Texture::TilingMode::CLAMP_TO_EDGE,
-													false);
+													false );
+		texture->SetName("Char" + to_string(i) + "Texture");
 		textures[i] = texture;
 		Rect region(0, 0, (float)bmpWidth, (float)bmpHeight);
 		Vector2D pivot(-bearingX, bmpHeight - bearingY);
@@ -168,6 +169,7 @@ void Font::KillTextures(){
 	for(Texture* texture : textures){
 		delete texture;
 	}
+	textures.clear();
 }
 
 Font* Font::Clone() const{

@@ -46,7 +46,7 @@ void CrossEditor::Update(float sec){
 	ui.propertiesView->Update(sec);
 }
 
-void CrossEditor::closeEvent(QCloseEvent* eve){
+void CrossEditor::closeEvent(QCloseEvent* eve) {
 	ui.glHandler->ShutDown();
 	ui.sceneExplorerTree->reset();
 	QSettings settings("CrossEditor");

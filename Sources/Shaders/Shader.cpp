@@ -207,16 +207,11 @@ Shader::~Shader(){
 
 void Shader::Load(const string& file){
 	filename = file;
-	string path = sys->AssetsPath() + file;
+	File* xmlFile = sys->LoadAssetFile(file);
+	CROSS_FAIL(xmlFile, "Can not load shader xml file");
 	XMLDocument doc;
-	XMLError error = doc.LoadFile(path.c_str());
-	if(error != XML_SUCCESS) {
-		if(error == XML_ERROR_FILE_NOT_FOUND) {
-			CROSS_FAIL(false, "File not found %s", path.c_str());
-		} else {
-			CROSS_FAIL(false, "Can not parse XML document");
-		}
-	}
+	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 
 	XMLElement* shaderXML = doc.FirstChildElement("Shader");
 	CROSS_FAIL(shaderXML, "Can not find node Shader in XML file");
@@ -334,8 +329,9 @@ void Shader::Compile(){
 	delete fragment_file;
 	fragment_file = NULL;
 	program = glCreateProgram();
-	glAttachShader(program, vertex_shader);
-	glAttachShader(program, fragment_shader);
+	CROSS_FAIL(vertex_shader && fragment_shader, "One or more of shaders files not compiled");
+	SAFE(glAttachShader(program, vertex_shader));
+	SAFE(glAttachShader(program, fragment_shader));
 	CompileProgram();
 
 	aPosition = glGetAttribLocation(program, "aPosition");
@@ -483,10 +479,7 @@ GLuint Shader::GetProgram() const{
 }
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
-	CROSS_ASSERT(file, "Attempt to compile shader without a file");
-	if(!file) {
-		return 0;
-	}
+	CROSS_RETURN(file, 0, "Attempt to compile shader without a file");
 	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for null terminated string
 
 	int curPos = 0;
