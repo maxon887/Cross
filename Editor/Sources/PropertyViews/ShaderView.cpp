@@ -124,6 +124,12 @@ void ShaderView::OnFileSelected(const string& filepath){
 	show();
 }
 
+void ShaderView::showEvent(QShowEvent* event) {
+	QLabel* vertexLabel = findChild<QLabel*>("vertexLabel");
+	QLabel* fragmentLabel = findChild<QLabel*>("fragmentLabel");
+	vertexLabel->setMinimumWidth(fragmentLabel->size().width());
+}
+
 QWidget* ShaderView::OnAddMacroClicked(){
 	QWidget* macroLayoutWidget = new QWidget(macrosies_box);
 	macroLayoutWidget->setObjectName("macroLayout");

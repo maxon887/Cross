@@ -16,6 +16,9 @@ public:
 
 	void Initialize();
 	void OnFileSelected(const string& filename);
+
+protected:
+	void showEvent(QShowEvent* event) override;
 	
 private:
 	Shader* shader					= NULL;

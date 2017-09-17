@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>707</width>
-    <height>411</height>
+    <height>248</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,22 +43,10 @@
         <item>
          <widget class="QLabel" name="vertexLabel">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>136</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
           </property>
           <property name="text">
            <string>Vertex File:</string>
@@ -88,7 +76,7 @@
         <item>
          <widget class="QLabel" name="fragmentLabel">
           <property name="text">
-           <string>Fragment File:</string>
+           <string>Fragment File:  </string>
           </property>
          </widget>
         </item>
