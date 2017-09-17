@@ -317,29 +317,29 @@ Color Scene::GetAmbientColor() const{
 }
 
 Material* Scene::GetMaterial(const string& xmlFile) {
-	S32 matHash = std::hash<string>{}(xmlFile);
-	auto matIt = materials.find(matHash);
+	S32 hash = std::hash<string>{}(xmlFile);
+	auto matIt = materials.find(hash);
 	if(matIt != materials.end()) {
 		return (*matIt).second;
 	} else {
 		Material* mat = LoadMaterialFromXML(xmlFile);
 		if(mat) {
-			materials[matHash] = mat;
+			materials[hash] = mat;
 		}
 		return mat;
 	}
 }
 
 Shader* Scene::GetShader(const string& shaderfile) {
-	S32 shaderHash = std::hash<string>{}(shaderfile);
-	auto shaderIt = shaders.find(shaderHash);
+	S32 hash = std::hash<string>{}(shaderfile);
+	auto shaderIt = shaders.find(hash);
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
 	} else {
 		Shader* shader = new Shader();
 		shader->Load(shaderfile);
 		shader->Compile();
-		shaders[shaderHash] = shader;
+		shaders[hash] = shader;
 		return shader;
 	}
 }

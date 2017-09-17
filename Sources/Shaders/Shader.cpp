@@ -146,6 +146,10 @@ void Shader::Property::SetValue(Cubemap* cubemap){
 	memcpy(value, &textureID, size);
 }
 
+void Shader::Property::SetValue(Byte* data) {
+	memcpy(value, data, size);
+}
+
 Shader::Property* Shader::Property::Clone() const{
 	return new Shader::Property(*this);
 }

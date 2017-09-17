@@ -53,6 +53,7 @@ public:
 		void SetValue(const Matrix& v);
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
+		void SetValue(Byte* data);
 
 		Property* Clone() const;
 
