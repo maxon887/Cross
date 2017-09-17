@@ -82,18 +82,11 @@ void Scene::SetName(const string& name){
 }
 
 void Scene::Load(const string& file){
-	string path = "";
-	path = sys->AssetsPath() + file;
-
+	File* xmlFile = sys->LoadAssetFile(file);
+	CROSS_FAIL(xmlFile, "Can not load scene xml file");
 	XMLDocument doc;
-	XMLError error = doc.LoadFile(path.c_str());
-	if(error != XML_SUCCESS){
-		if(error == XML_ERROR_FILE_NOT_FOUND){
-			CROSS_FAIL(false, "File not found %s", file.c_str());
-		}else{
-			CROSS_FAIL(false, "Can not parse XML document");
-		}
-	}
+	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
 	CROSS_FAIL(scene, "Can not load scene. Root node Scene not found");
@@ -461,20 +454,15 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	}
 }
 
-Material* Scene::LoadMaterialFromXML(const string& xmlFile) {
-	string path = sys->AssetsPath() + xmlFile;
+Material* Scene::LoadMaterialFromXML(const string& file) {
+	File* xmlFile = sys->LoadAssetFile(file);
+	CROSS_RETURN(xmlFile, NULL, "Can not load material xml file");
 	XMLDocument doc;
-	XMLError error = doc.LoadFile(path.c_str());
-	if(error != XML_SUCCESS){
-		if(error == XML_ERROR_FILE_NOT_FOUND){
-			CROSS_RETURN(false, NULL, "File not found %s", xmlFile.c_str());
-		}else{
-			CROSS_RETURN(false, NULL, "Can not parse XML document");
-		}
-	}	
+	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	CROSS_RETURN(error == XML_SUCCESS, NULL, "Can not parse shader xml file");
 
 	Material* material = new Material();
-	material->SetName(xmlFile);
+	material->SetName(file);
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	const char* shaderfilename = materialXML->Attribute("shader");
