@@ -67,6 +67,7 @@ enum class DefaultShader{
 class GraphicsGL{
 public:
 	static void CheckGLError(const char* file, U32 line);
+	static void ClearGLErrorBuffer();
 
 	GraphicsGL();
 	~GraphicsGL();

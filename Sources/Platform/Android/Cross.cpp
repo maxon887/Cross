@@ -112,6 +112,8 @@ void Main(){
                     }else{
                         crossEGL->DestroyContext(false);
                         bool success = crossEGL->CreateContext(false);
+                        //after destroyed drawing surface GL stack may contain some error
+                        GraphicsGL::ClearGLErrorBuffer();
                         if (success) {
                             LOGI("Window recreaded");
                             wnd_state = WND_ACTIVE;

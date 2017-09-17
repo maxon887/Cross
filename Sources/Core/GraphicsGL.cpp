@@ -30,8 +30,7 @@
 using namespace cross;
 
 void GraphicsGL::CheckGLError(const char* file, U32 line) {
-	GLenum err;
-	err = glGetError();
+	GLenum err = glGetError();
 	while(err != GL_NO_ERROR) {
 		char* error = new char[255];
 		switch(err) {
@@ -58,6 +57,13 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 		delete[] error;
 		err = glGetError();
 	}
+}
+
+void GraphicsGL::ClearGLErrorBuffer() {
+    GLenum err = glGetError();
+    while(err != GL_NO_ERROR) {
+        err = glGetError();
+    }
 }
 
 GraphicsGL::GraphicsGL() {
