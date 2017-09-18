@@ -460,7 +460,7 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 		offset += sizeof(U32);
 		memcpy(imageData, file->data + offset, imageSize);
 		offset += imageSize;
-		texture->AddMipmapLelel(i, imageSize, imageData, mipmapW, mipmapH, Texture::Compression::ETC1);
+		texture->AddMipmapLevel(i, imageSize, imageData, mipmapW, mipmapH, Texture::Compression::ETC1);
 	}
 	delete imageData;
 	return texture;

@@ -79,7 +79,7 @@ void Texture::SetTilingMode(Texture::TilingMode mode){
 	}
 }
 
-void Texture::AddMipmapLelel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp){
+void Texture::AddMipmapLevel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp){
 	SAFE(glBindTexture(GL_TEXTURE_2D, id));
 	switch(comp) {
 	case cross::Texture::Compression::ETC1:
