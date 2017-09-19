@@ -83,7 +83,9 @@ void ShaderView::OnFileSelected(const string& filepath){
 	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
 	setTitle(QString("Shader: ") + filename.c_str());
 
-	shader = game->GetCurrentScene()->GetShader(filepath);
+	delete shader;
+	shader = new Shader();
+	shader->Load(filepath);
 	vertex_file->setText(shader->GetVertexFilename().c_str());
 	fragment_file->setText(shader->GetFragmentFilename().c_str());
 

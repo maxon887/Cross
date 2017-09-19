@@ -72,8 +72,7 @@ void ComponentView<ComponentType>::OnRemove() {
 	Component* component = selected_entity->GetComponent<ComponentType>();
 	CROSS_FAIL(component, "Selected entity does not have this component");
 	selected_entity->RemoveComponent(component);
-	Show(selected_entity);
-	
+	hide();
 }
 
 #endif

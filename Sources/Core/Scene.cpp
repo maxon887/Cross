@@ -90,8 +90,7 @@ void Scene::Load(const string& file){
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
 	CROSS_FAIL(scene, "Can not load scene. Root node Scene not found");
-	name = scene->Attribute("name");
-	SetName(name);
+	SetName(File::FileWithoutExtension(file));
 	int version = scene->IntAttribute("version");
 	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version missmatch");
 	//general lighting information
@@ -119,8 +118,12 @@ void Scene::Load(const string& file){
 		XMLElement* modelXML = modelsXML->FirstChildElement("Model");
 		U32 id = modelXML->IntAttribute("id");
 		const char* filename = modelXML->Attribute("file");
-		Model* model = gfx3D->LoadModel(filename);
-		models[id] = model;
+		if(filename) {
+			Model* model = gfx3D->LoadModel(filename);
+			models[id] = model;
+		} else {
+			CROSS_ASSERT(false, "Attribute 'filename' not contain in model node");
+		}
 	}
 	//objects loading
 	XMLElement* objectsXML = scene->FirstChildElement("Objects");
@@ -137,7 +140,6 @@ void Scene::Save(const string& filename){
 	XMLDocument doc;
 
 	XMLElement* sceneXML = doc.NewElement("Scene");
-	sceneXML->SetAttribute("name", GetName().c_str());
 	sceneXML->SetAttribute("version", scene_saver_version);
 	doc.LinkEndChild(sceneXML);
 
@@ -393,6 +395,7 @@ S32 Scene::FindTextureID(Texture* texture){
 
 void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	const char* name = objectXML->Attribute("name");
+	CROSS_FAIL(name, "Attribute 'name' not contain in Entity node");
 	Entity* entity = new Entity();
 	parent->AddChild(entity);
 	entity->SetName(name);
@@ -433,8 +436,8 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 			Model* model = models[modelID];
 			Mesh* mesh = model->meshes[id]->Clone();
 
-			string materialFile = meshXML->Attribute("material");
-			if(materialFile != ""){
+			const char* materialFile = meshXML->Attribute("material");
+			if(materialFile){
 				Material* mat = GetMaterial(materialFile);
 				mesh->SetMaterial(mat);
 			}else{
@@ -466,7 +469,8 @@ Material* Scene::LoadMaterialFromXML(const string& file) {
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	const char* shaderfilename = materialXML->Attribute("shader");
-	if(shaderfilename[0]) {
+	CROSS_ASSERT(shaderfilename, "Material file not contain 'shader' filename");
+	if(shaderfilename) {
 		Shader* shader = GetShader(shaderfilename);
 		material->SetShader(shader);
 	}
@@ -474,6 +478,7 @@ Material* Scene::LoadMaterialFromXML(const string& file) {
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {
 		const char* name = propertyXML->Attribute("name");
+		CROSS_RETURN(name, NULL, "Property without name");
 		if(material->HaveProperty(name)){
 			Shader::Property* prop = material->GetProperty(name);
 			switch(prop->GetType())	{

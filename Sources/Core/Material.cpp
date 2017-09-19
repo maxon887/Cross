@@ -167,7 +167,11 @@ bool Material::HaveProperty(const string& name) {
 	return false;
 }
 
-void Material::TransparencyEnabled(bool yes){
+bool Material::GetTransparency() {
+	return transparency;
+}
+
+void Material::SetTransparency(bool yes){
 	transparency = yes;
 }
 

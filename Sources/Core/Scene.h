@@ -101,8 +101,8 @@ protected:
 	S32 FindTextureID(Texture* texture);
 
 private:
-	static const U32 scene_loader_version	= 12;
-	static const U32 scene_saver_version	= 12;
+	static const U32 scene_loader_version	= 13;
+	static const U32 scene_saver_version	= 13;
 	string name								= "";
     U64 resize_del							= -1;
 

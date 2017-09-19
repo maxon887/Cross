@@ -244,6 +244,7 @@ void MaterialView::OnApplyClick() {
 
 void MaterialView::OnRevertClick() {
 	material->SetShader(original->GetShader());
+	material->SetTransparency(original->GetTransparency());
 	Array<Shader::Property*>& originalProps = original->GetProperties();
 	Array<Shader::Property*>& materialProps = material->GetProperties();
 	for(U32 i = 0; i < materialProps.size(); i++) {

@@ -55,7 +55,8 @@ public:
 	void SetPropertyValue(GLuint glID, Texture* value);
 	bool HaveProperty(const string& name);
 
-	void TransparencyEnabled(bool yes);
+	bool GetTransparency();
+	void SetTransparency(bool yes);
 
 	Material* Clone() const;
 
