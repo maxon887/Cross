@@ -22,8 +22,6 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	connect(ui.actionNewScene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
 	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
 	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
-	connect(ui.actionFileExplorer, &QAction::triggered, this, &CrossEditor::OnFileExplorerClick);
-	connect(ui.actionSceneExplorer, &QAction::triggered, this, &CrossEditor::OnSceneExplorerClick);
 	
 	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
@@ -117,14 +115,6 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 		winSys->SetAssetPath(path.toStdString());
 		ui.fileExplorerTree->SetupProjectDirectory(path);
 	}
-}
-
-void CrossEditor::OnFileExplorerClick(){
-	ui.fileExplorer->show();
-}
-
-void CrossEditor::OnSceneExplorerClick(){
-	ui.sceneExplorer->show();
 }
 
 void CrossEditor::OnSomethingChanged(Action* action){

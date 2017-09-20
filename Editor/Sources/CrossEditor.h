@@ -32,9 +32,6 @@ public:
 	void OnSaveAsClick();
 	void OnSetupProjectDirectoryClick();
 
-	void OnFileExplorerClick();
-	void OnSceneExplorerClick();
-
 	void OnSceneLoaded(Scene* scene);
 	void OnSomethingChanged(Action* a);
 
