@@ -41,6 +41,22 @@
 
 using namespace cross;
 
+Model::~Model() {
+	delete hierarchy;
+}
+
+const string& Model::GetFilename() const {
+	return filename;
+}
+
+Entity* Model::GetHierarchy() const {
+	return hierarchy->Clone();
+}
+
+Mesh* Model::GetMesh(S32 id) {
+	return meshes[id]->Clone();
+}
+
 Graphics3D::Graphics3D() {
 	sys->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
@@ -139,7 +155,7 @@ void Graphics3D::ProcessNode(Model* model, Entity* entity, aiNode* node){
 
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
-		Mesh* crMesh = ProcessMesh(aiMesh);
+		Mesh* crMesh = ProcessMesh(model, aiMesh);
 		model->meshes[mesh_id] = crMesh;
 		mesh_id++;
 		entity->AddComponent(crMesh);
@@ -153,7 +169,7 @@ void Graphics3D::ProcessNode(Model* model, Entity* entity, aiNode* node){
 	}
 }
 
-Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
+Mesh* Graphics3D::ProcessMesh(Model* model, aiMesh* mesh){
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	if(mesh->mTextureCoords[0]){
 		vertexBuffer->UVEnabled(true);
@@ -195,7 +211,7 @@ Mesh* Graphics3D::ProcessMesh(aiMesh* mesh){
 		}
 	}
 	sys->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
-	Mesh* crsMesh = new Mesh();
+	Mesh* crsMesh = new Mesh(model);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(initialize_in_load){

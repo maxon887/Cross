@@ -26,7 +26,8 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 
 using namespace cross;
 
-Mesh::Mesh() 
+Mesh::Mesh(Model* model) :
+	model(model)
 { }
 
 Mesh::Mesh(const Mesh& obj) :
@@ -34,7 +35,7 @@ Mesh::Mesh(const Mesh& obj) :
 	VBO(obj.VBO),
 	EBO(obj.EBO),
 	vertex_buffer(obj.vertex_buffer),
-	index_count(obj.index_count),
+	model(obj.model),
 	material(obj.material),
 	indices(obj.indices),
 	initialized(obj.initialized),
@@ -223,7 +224,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_SHORT, 0));
+	SAFE(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -232,8 +233,6 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 }
 
 void Mesh::TransferVideoData() {
-	index_count = indices.size();
-
 	SAFE(glGenBuffers(1, &VBO));
 	SAFE(glGenBuffers(1, &EBO));
 
@@ -286,8 +285,16 @@ Array<GLushort>& Mesh::GetIndices() {
 	return indices;
 }
 
+S32 Mesh::GetID() const {
+	return id;
+}
+
+Model* Mesh::GetModel() {
+	return model;
+}
+
 U32 Mesh::GetPolyCount() const {
-	return index_count;
+	return indices.size();
 }
 
 Mesh* Mesh::Clone() const{

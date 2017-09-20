@@ -96,8 +96,9 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 		editor->LoadScene(filepath);
 	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
 		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
-		gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
-		game->GetCurrentScene()->AddEntity(model->hierarchy->Clone());
+		Entity* modelHierarchy = model->GetHierarchy();
+		gfx3D->AdjustMaterial(modelHierarchy, gfx3D->GetDefaultMaterial()->Clone());
+		game->GetCurrentScene()->AddEntity(modelHierarchy);
 	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
 	} else {
 		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));

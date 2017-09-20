@@ -66,7 +66,6 @@ void Scene::Stop(){
 		delete pair.second;
 	}
 	for(pair<S32, Model*> pair : models){
-		delete pair.second->hierarchy;
 		delete pair.second;
 	}
 	delete camera;
@@ -204,7 +203,7 @@ void Scene::Save(const string& filename){
 			S32 id = pair.first;
 			Model* model = pair.second;
 			modelXML->SetAttribute("id", id);
-			modelXML->SetAttribute("file", model->filename.c_str());
+			modelXML->SetAttribute("file", model->GetFilename().c_str());
 			modelsXML->LinkEndChild(modelXML);
 		}
 		sceneXML->LinkEndChild(modelsXML);
@@ -268,18 +267,14 @@ void Scene::AddEntity(Entity* entity){
 	EntityAdded(entity);//trigger
 }
 
-Model* Scene::GetModel(S32 id){
-	return models[id];
-}
-
 Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
 	switch(primitive) {
 	case cross::Graphics3D::CUBE:
-		return GetModel("Engine/Models/Cube.obj")->hierarchy;
+		return GetModel("Engine/Models/Cube.obj")->GetHierarchy();
 	case cross::Graphics3D::SPHERE:
-		return GetModel("Engine/Models/Sphere.obj")->hierarchy;
+		return GetModel("Engine/Models/Sphere.obj")->GetHierarchy();
 	case cross::Graphics3D::PLANE:
-		return GetModel("Engine/Models/Plane.obj")->hierarchy;
+		return GetModel("Engine/Models/Plane.obj")->GetHierarchy();
 	default:
 		CROSS_RETURN(false, NULL, "Unknown primitive type");
 	}
@@ -353,20 +348,6 @@ Model* Scene::GetModel(const string& modelFile) {
 	}
 }
 
-pair<S32, S32> Scene::GetModelMeshID(Mesh* mesh) {
-	for(pair<S32, Model*> p : models) {
-		S32 id = p.first;
-		Model* model = p.second;
-		for(pair<S32, Mesh*> p2 : model->meshes) {
-			if(p2.second->IsEqual(mesh)) {
-				return pair<S32, S32>(id, p2.first);
-			}
-		}
-	}
-	pair<S32, S32> p;
-	CROSS_RETURN(false, p, "Can not find mesh ids");
-}
-
 void Scene::RefreshMaterials(){
 	for(pair<S32, Material*> pair : materials){
 		pair.second->Refresh();
@@ -433,10 +414,10 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 		XMLElement* meshXML = componentsXML->FirstChildElement("Mesh");
 		if(meshXML) {
 			S32 id = meshXML->IntAttribute("id");
-			S32 modelID = meshXML->IntAttribute("modelID");
+			const char* modelfilename = meshXML->Attribute("model");
 
-			Model* model = models[modelID];
-			Mesh* mesh = model->meshes[id]->Clone();
+			Model* model = GetModel(modelfilename);
+			Mesh* mesh = model->GetMesh(id);
 
 			const char* materialFile = meshXML->Attribute("material");
 			if(materialFile){
@@ -598,10 +579,9 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	Mesh* mesh = entity->GetComponent<Mesh>();
 	if(mesh){
 		XMLElement* componentsXML = doc->NewElement("Components");
-		pair<S32, S32> ids = GetModelMeshID(mesh);
 		XMLElement* meshXML = doc->NewElement("Mesh");
-		meshXML->SetAttribute("id", ids.second);
-		meshXML->SetAttribute("modelID", ids.first);
+		meshXML->SetAttribute("id", mesh->GetID());
+		meshXML->SetAttribute("model", mesh->GetModel()->GetFilename().c_str());
 		meshXML->SetAttribute("material", mesh->GetMaterial()->GetFilename().c_str());
 		componentsXML->LinkEndChild(meshXML);
 		objectXML->LinkEndChild(componentsXML);

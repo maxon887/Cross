@@ -55,9 +55,7 @@ public:
 	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
-	Texture* FindTextureByGLID(GLuint glId);
 	void SaveTexture(Texture* texture, const string& filename);
-	void ReleaseTexture(const string& filename, GLuint* id);
 	Texture* CreateTexture(U32 channels, U32 width, U32 height, Texture::Filter filter);
 	Texture* CreateTexture(	Byte* data,
 							U32 channels,
@@ -82,7 +80,6 @@ private:
 	Font* default_font			= NULL;
 	Camera2D* camera			= NULL;
 	Camera2D* default_camera	= NULL;
-	List<pair<Texture*, S32>> loaded_textures;
 };
 
 }

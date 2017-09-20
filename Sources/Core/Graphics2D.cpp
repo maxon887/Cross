@@ -292,48 +292,23 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::Filter filter)
 }
 
 Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed){
-	auto it = loaded_textures.begin();
-	for( ; it != loaded_textures.end(); it++){
-		if( (*it).first->GetName() == filename ){
-			break;
-		}
-	}
-
-	if(it != loaded_textures.end()){
-		(*it).second++;
-		return (*it).first->Clone();
+	Texture* texture = NULL;
+	Debugger::Instance()->SetTimeCheck();
+	if(!compressed){
+		texture = LoadRAWTexture(filename, filter);
 	}else{
-		Texture* newTexture = NULL;
-		Debugger::Instance()->SetTimeCheck();
-		if(!compressed){
-			newTexture = LoadRAWTexture(filename, filter);
-		}else{
 #if defined(WIN) || defined(IOS)
-			newTexture = LoadRAWTexture(filename + ".png", filter);
+		texture = LoadRAWTexture(filename + ".png", filter);
 #elif ANDROID
-			newTexture = LoadKTXTexture(filename + ".ktx", filter);
+		texture = LoadKTXTexture(filename + ".ktx", filter);
 #endif
-		}
-		CROSS_RETURN(newTexture, NULL, "Can not load texture %s", filename.c_str());
-		newTexture->SetTilingMode(tillingMode);
-		float loadTime = Debugger::Instance()->GetTimeCheck();
-		sys->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
-
-		pair<Texture*, S32> pair;
-		pair.first = newTexture;
-		pair.second = 1;
-		loaded_textures.push_back(pair);
-		return newTexture->Clone();
 	}
-}
+	CROSS_RETURN(texture, NULL, "Can not load texture %s", filename.c_str());
+	texture->SetTilingMode(tillingMode);
+	float loadTime = Debugger::Instance()->GetTimeCheck();
+	sys->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 
-Texture* Graphics2D::FindTextureByGLID(GLuint glId){
-	for(pair<Texture*, S32> pair : loaded_textures){
-		if(pair.first->GetID() == glId){
-			return pair.first;
-		}
-	}
-	CROSS_RETURN(false, NULL, "Can not find texture by GL ID");
+	return texture->Clone();
 }
 
 void Graphics2D::SaveTexture(Texture* texture, const string& filename){
@@ -349,26 +324,6 @@ void Graphics2D::SaveTexture(Texture* texture, const string& filename){
 #else
 	CROSS_ASSERT(false, "SaveTexture does not support by current graphics API");
 #endif
-}
-
-void Graphics2D::ReleaseTexture(const string& filename, GLuint* id){
-	auto it = loaded_textures.begin();
-	for( ; it != loaded_textures.end(); it++){
-		if( (*it).first->GetName() == filename ){
-			break;
-		}
-	}
-
-	if(it != loaded_textures.end()){
-		(*it).second--;
-		if((*it).second <= 0){
-			Texture* texture = (*it).first;
-			loaded_textures.erase(it);
-			delete texture;
-		}
-	}else{
-		SAFE(glDeleteTextures(1, id));
-	}
 }
 
 Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& height, int& channels){

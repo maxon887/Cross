@@ -22,9 +22,8 @@ void MeshComponent::Initialize() {
 
 void MeshComponent::Show(Entity* entity){
 	Mesh* mesh = entity->GetComponent<Mesh>();
-	pair<S32, S32> pair = game->GetCurrentScene()->GetModelMeshID(mesh);
-	Model* model = game->GetCurrentScene()->GetModel(pair.first);
-	model_label->setText(model->filename.c_str());
+
+	model_label->setText(mesh->GetModel()->GetFilename().c_str());
 
 	poly_count_label->setText(QString::number(mesh->GetPolyCount()));
 

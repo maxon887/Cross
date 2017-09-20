@@ -59,7 +59,6 @@ public:
 	Entity* GetEntity(const string& name);
 	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
-	Model* GetModel(S32 id);
 	Entity* LoadPrimitive(Graphics3D::Primitives primitive);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
@@ -78,8 +77,6 @@ public:
 	Model* GetModel(const string& modelFile);
 
 	void SaveMaterialToXML(Material* mat, const string& xmlFile);
-	/* First id for model in scene second id for mesh id in the model */
-	pair<S32, S32> GetModelMeshID(Mesh* mesh);
 
 	void RefreshMaterials();
 
@@ -98,8 +95,8 @@ protected:
 	S32 FindTextureID(Texture* texture);
 
 private:
-	static const U32 scene_loader_version	= 13;
-	static const U32 scene_saver_version	= 13;
+	static const U32 scene_loader_version	= 14;
+	static const U32 scene_saver_version	= 14;
 	string name								= "";
     U64 resize_del							= -1;
 

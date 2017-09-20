@@ -36,7 +36,7 @@ Texture::Texture(GLuint id, U32 width, U32 height, U32 channels, Filter filter) 
 }
 
 Texture::~Texture(){
-	gfx2D->ReleaseTexture(name, &id);
+	SAFE(glDeleteTextures(1, &id));
 }
 
 GLuint Texture::GetID() const{

@@ -166,8 +166,8 @@ Entity* Entity::Clone(){
 	clone->name = this->name + "_copy";
 	for(pair<U64, Component*> pair : components){
 		Component* component = pair.second;
-		clone->components[typeid(component).hash_code()] = component->Clone();
-		clone->components[typeid(component).hash_code()]->entity = clone;
+		clone->components[typeid(*component).hash_code()] = component->Clone();
+		clone->components[typeid(*component).hash_code()]->entity = clone;
 	}
 	for(Entity* child : children){
 		Entity* cloneChild = child->Clone();

@@ -28,6 +28,15 @@ class LightsShader;
 
 class Model {
 public:
+	~Model();
+
+	const string& GetFilename() const;
+	Entity* GetHierarchy() const;
+	Mesh* GetMesh(S32 id);
+
+public:
+	friend Graphics3D;
+
 	string filename;
 	Dictionary<S32, Mesh*> meshes;
 	Entity* hierarchy;
@@ -70,7 +79,7 @@ protected:
 
 	void ProcessScene(Model* model, Entity* root, File* sceneFile);
 	void ProcessNode(Model* model, Entity* entity, aiNode* node);
-	Mesh* ProcessMesh(aiMesh* mesh);
+	Mesh* ProcessMesh(Model* model, aiMesh* mesh);
 
 };
 

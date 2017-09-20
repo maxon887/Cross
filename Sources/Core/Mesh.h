@@ -29,7 +29,8 @@ class VertexBuffer;
 	Mesh also contains its materials which need to properly draw it on Scene */
 class Mesh : public Component{
 public:
-	Mesh();
+	Mesh() = default;
+	Mesh(Model* model);
 	~Mesh();
 
 	void Update(float sec) override;
@@ -51,6 +52,8 @@ public:
 	VertexBuffer* GetVertexBuffer();
 	Array<GLushort>& GetIndices();
 
+	S32 GetID() const;
+	Model* GetModel();
 	U32 GetPolyCount() const;
 
 	Mesh* Clone() const override;
@@ -61,11 +64,12 @@ protected:
 
 	GLuint VBO					= 0;
 	GLuint EBO					= 0;
-
 	VertexBuffer* vertex_buffer = NULL;
 	Array<GLushort> indices		= Array<GLushort>();
+
+	S32 id						= -1;
+	Model* model				= NULL;
 	Material* material			= NULL;
-	U32 index_count				= 0;
 	bool original				= true;
 	bool initialized			= false;
 	bool face_culling			= true;
