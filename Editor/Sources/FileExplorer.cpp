@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Material.h"
 #include "File.h"
+#include "Entity.h"
 
 #include <QHeaderView>
 #include <QFileSystemModel>
@@ -94,10 +95,9 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	if(fileInfo.suffix() == "scn") {
 		editor->LoadScene(filepath);
 	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
-		Model* model = gfx3D->LoadModel(filepath.toStdString());
+		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
 		gfx3D->AdjustMaterial(model->hierarchy, gfx3D->GetDefaultMaterial()->Clone());
-		editor->GetCurrentScene()->AddModel(model);
-		editor->GetCurrentScene()->AddEntity(model->hierarchy);
+		game->GetCurrentScene()->AddEntity(model->hierarchy->Clone());
 	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
 	} else {
 		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));

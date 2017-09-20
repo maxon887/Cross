@@ -66,6 +66,7 @@ void Scene::Stop(){
 		delete pair.second;
 	}
 	for(pair<S32, Model*> pair : models){
+		delete pair.second->hierarchy;
 		delete pair.second;
 	}
 	delete camera;
@@ -267,11 +268,6 @@ void Scene::AddEntity(Entity* entity){
 	EntityAdded(entity);//trigger
 }
 
-void Scene::AddModel(Model* model){
-	models[model_id] = model;
-	model_id++;
-}
-
 Model* Scene::GetModel(S32 id){
 	return models[id];
 }
@@ -279,20 +275,14 @@ Model* Scene::GetModel(S32 id){
 Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
 	switch(primitive) {
 	case cross::Graphics3D::CUBE:
-		return LoadModel("Engine/Models/Cube.obj");
+		return GetModel("Engine/Models/Cube.obj")->hierarchy;
 	case cross::Graphics3D::SPHERE:
-		return LoadModel("Engine/Models/Sphere.obj");
+		return GetModel("Engine/Models/Sphere.obj")->hierarchy;
 	case cross::Graphics3D::PLANE:
-		return LoadModel("Engine/Models/Plane.obj");
+		return GetModel("Engine/Models/Plane.obj")->hierarchy;
 	default:
 		CROSS_RETURN(false, NULL, "Unknown primitive type");
 	}
-}
-
-Entity* Scene::LoadModel(const string& filename){
-	Model* model = gfx3D->LoadModel(filename);
-	AddModel(model);
-	return model->hierarchy;
 }
 
 Entity* Scene::RemoveEntity(const string& name){
@@ -340,14 +330,26 @@ Shader* Scene::GetShader(const string& shaderfile) {
 }
 
 Texture* Scene::GetTexture(const string& textureFile) {
-	S32 textureHash = std::hash<string>{}(textureFile);
-	auto textureIt = textures.find(textureHash);
+	S32 hash = std::hash<string>{}(textureFile);
+	auto textureIt = textures.find(hash);
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
 	} else {
 		Texture* texture = gfx2D->LoadTexture(textureFile);
-		textures[textureHash] = texture;
+		textures[hash] = texture;
 		return texture;
+	}
+}
+
+Model* Scene::GetModel(const string& modelFile) {
+	S32 hash = std::hash<string>{}(modelFile);
+	auto modelIt = models.find(hash);
+	if(modelIt != models.end()) {
+		return (*modelIt).second;
+	} else {
+		Model* model = gfx3D->LoadModel(modelFile);
+		models[hash] = model;
+		return model;
 	}
 }
 

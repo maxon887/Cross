@@ -59,10 +59,8 @@ public:
 	Entity* GetEntity(const string& name);
 	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
-	void AddModel(Model* model);
 	Model* GetModel(S32 id);
 	Entity* LoadPrimitive(Graphics3D::Primitives primitive);
-	Entity* LoadModel(const string& filename);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
 	/* Returns all available light on scene. */
@@ -77,8 +75,8 @@ public:
 	Shader* GetShader(const string& shaderFile);
 	/* Obtain loaded into scene texture or load it by self in other way */
 	Texture* GetTexture(const string& textureFile);
+	Model* GetModel(const string& modelFile);
 
-	Material* LoadMaterialFromXML(const string& xmlFile);
 	void SaveMaterialToXML(Material* mat, const string& xmlFile);
 	/* First id for model in scene second id for mesh id in the model */
 	pair<S32, S32> GetModelMeshID(Mesh* mesh);
@@ -90,7 +88,6 @@ protected:
 	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
 	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();
 	Dictionary<S32, Model*> models			= Dictionary<S32, Model*>();
-	S32 model_id							= 0;
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= NULL;
 
@@ -107,6 +104,7 @@ private:
     U64 resize_del							= -1;
 
 	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
+	Material* LoadMaterialFromXML(const string& xmlFile);
 
 	void WindowResizeHandle(S32 width, S32 height);
 	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
