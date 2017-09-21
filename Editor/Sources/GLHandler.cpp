@@ -1,7 +1,7 @@
 #include "GLHandler.h"
 
 #include "CrossEditor.h"
-#include "Platform/Windows/WINSystem.h"
+#include "ESystem.h"
 #include "Game.h"
 #include "Graphics3D.h"
 #include "Graphics2D.h"
@@ -22,19 +22,21 @@ GLHandler::~GLHandler()
 { }
 
 void GLHandler::initializeGL(){
-	WINSystem* launcherWIN = (WINSystem*)sys;
-	QSize size = this->frameSize();
-	launcherWIN->SetWindowSize(size.width(), size.height());
+	ESystem* esystem = (ESystem*)sys;
+	if(!esystem->IsPaused()) {
+		QSize size = this->frameSize();
+		esystem->SetWindowSize(size.width(), size.height());
 	
-	gfxGL = new GraphicsGL();
-	gfx2D = new Graphics2D();
-	gfx3D = new Graphics3D();
-	game->Start();
-	game->SetScreen(game->GetStartScreen());
+		gfxGL = new GraphicsGL();
+		gfx2D = new Graphics2D();
+		gfx3D = new Graphics3D();
+		game->Start();
+		game->SetScreen(game->GetStartScreen());
 
-	auto pTimer = new QTimer(this);
-	connect(pTimer, &QTimer::timeout, this, &GLHandler::Update); 
-	pTimer->start(1000 / 60.0);
+		auto pTimer = new QTimer(this);
+		connect(pTimer, &QTimer::timeout, this, &GLHandler::Update); 
+		pTimer->start(1000 / 60.0);
+	}
 }
 
 void GLHandler::Update(){
@@ -42,7 +44,10 @@ void GLHandler::Update(){
 }
 
 void GLHandler::paintGL(){
-	game->EngineUpdate();
+	ESystem* esystem = (ESystem*)sys;
+	if(!esystem->IsPaused()) {
+		game->EngineUpdate();
+	}
 }
 
 void GLHandler::resizeGL(int w, int h){

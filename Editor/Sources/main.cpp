@@ -1,5 +1,5 @@
 #include "CrossEditor.h"
-#include "Platform/Windows/WINSystem.h"
+#include "ESystem.h"
 
 #include <QtWidgets/QApplication>
 
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	format.setProfile(QSurfaceFormat::CoreProfile);
 	QSurfaceFormat::setDefaultFormat(format);
 
-	WINSystem* winsys = new WINSystem();
+	ESystem* winsys = new ESystem();
 	sys = winsys;
 	CrossEditor w;
 	winsys->SetWND((HWND)w.winId());

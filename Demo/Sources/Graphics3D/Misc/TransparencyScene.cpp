@@ -67,7 +67,7 @@ void TransparencyScene::Start(){
 	Entity* grass = LoadPrimitive(Graphics3D::Primitives::PLANE);
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
-	grass_mat->TransparencyEnabled(true);
+	grass_mat->SetTransparency(true);
 	grass->SetRotateX(90.f);
 	AddEntity(grass);
 
@@ -90,7 +90,7 @@ void TransparencyScene::Start(){
 
 	sphere_mat = new Material(sphere_shader);
 	sphere_mat->SetPropertyValue("Transparency", 0.5f);
-	sphere_mat->TransparencyEnabled(true);
+	sphere_mat->SetTransparency(true);
 
 	Entity* sphere = LoadPrimitive(Graphics3D::Primitives::SPHERE);
 	gfx3D->AdjustMaterial(sphere, sphere_mat, true);

@@ -36,7 +36,7 @@ void DepthScene::Start(){
 	shader->Compile();
 
 	car_mat = new Material(shader);
-	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->hierarchy;
+	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
 	gfx3D->AdjustMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	

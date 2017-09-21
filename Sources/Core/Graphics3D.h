@@ -34,7 +34,7 @@ public:
 	Entity* GetHierarchy() const;
 	Mesh* GetMesh(S32 id);
 
-public:
+private:
 	friend Graphics3D;
 
 	string filename;

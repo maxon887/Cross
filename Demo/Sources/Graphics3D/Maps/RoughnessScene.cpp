@@ -49,7 +49,7 @@ void RoughnessScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse);
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
-	Entity* model = LoadModel("gfx3D/Camaro/Camaro.fbx");
+	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
 	gfx3D->AdjustMaterial(model, material);
 	AddEntity(model);
 }

@@ -20,18 +20,18 @@
 
 #define CROSS_ASSERT(condition, message, ...)						\
 if(!(condition)) {													\
-	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
+	sys->Alert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
 }
 
 #define CROSS_FAIL(condition, message, ...)							\
 if(!(condition)) {													\
-	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
+	sys->Alert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
 	return;															\
 }
 
 #define CROSS_RETURN(condition, value, message, ...)				\
 if(!(condition)) {													\
-	sys->Assert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
+	sys->Alert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
 	return value;													\
 }
 
@@ -76,6 +76,10 @@ public:
 	virtual void SaveFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
+	/* Returns true if system should skip this message in further use */
+	virtual bool Alert(const string& msg);
+	/* Notify system that some thing goes wrong */
+	virtual void Alert(const char* filename, unsigned int line, const char* msg, ...);
 	/* Show sync messagebox(platform dependet) */
 	virtual void Messagebox(const string& title, const string& msg);
 	/* Force current thread to sleep */
@@ -96,8 +100,6 @@ public:
 	float GetAspectRatio() const;
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
-	/* Trigger assertion message if condition if false) */
-	void Assert(const char* filename, unsigned int line, const char* msg, ...);
 
 private:
 	S32 window_width	= -1;

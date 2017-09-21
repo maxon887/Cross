@@ -327,6 +327,9 @@
     <ClCompile Include="Sources\History.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\ESystem.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -578,6 +581,9 @@
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Sources\History.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\ESystem.h">
       <Filter>Editor</Filter>
     </ClInclude>
   </ItemGroup>
