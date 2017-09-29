@@ -24,7 +24,7 @@ using namespace cross;
 void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
 	va_list args;
 	va_start(args, msg);
-	system->Alert(filename, line, msg, args);
+    system->Alert(filename, line, msg, args);
 }
 
 File* System::LoadFile(const string& filename){

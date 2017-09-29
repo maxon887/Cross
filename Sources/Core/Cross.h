@@ -26,7 +26,7 @@
 
 #include <cstdint>
 
-#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
+//#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
 
 namespace cross {
 	typedef int8_t		S8;
@@ -69,6 +69,8 @@ if(!(condition)) {													\
 #include <set>
 
 #include "Experimental/ArraySTD.h"
+
+#define system sys
 
 namespace cross{
 

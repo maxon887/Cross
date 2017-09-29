@@ -69,32 +69,18 @@ CrossViewController* instance = nil;
 }
 
 - (void)update{
-    try{
-        if(!CrossPaused){
-            if(!sys){
-                sys = new IOSSystem();
-                game = CrossMain();
-                audio = new Audio();
-                gfxGL = new GraphicsGL();
-                gfx2D = new Graphics2D();
-                gfx3D = new Graphics3D();
-                game->Start();
-                game->SetScreen(game->GetStartScreen());
-            }
-            game->EngineUpdate();
+    if(!CrossPaused){
+        if(!sys){
+            sys = new IOSSystem();
+            game = CrossMain();
+            audio = new Audio();
+            gfxGL = new GraphicsGL();
+            gfx2D = new Graphics2D();
+            gfx3D = new Graphics3D();
+            game->Start();
+            game->SetScreen(game->GetStartScreen());
         }
-    } catch(Exception &exc) {
-        CrossPaused = YES;
-        string msg = string(exc.message) +
-        +"\nFile: " + string(exc.filename) +
-        +"\nLine: " + to_string(exc.line);
-        NSLog(@"%@", [NSString stringWithFormat:@"\nUnhandled Exception:\n\t%s", msg.c_str()]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unhandled Exception"
-                                                        message:[NSString stringWithFormat:@"%s", msg.c_str()]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        game->EngineUpdate();
     }
 }
 
