@@ -217,12 +217,6 @@
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Internals\Debugger.cpp">
-      <Filter>Cross\Internals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Internals\Exception.cpp">
-      <Filter>Cross\Internals</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
@@ -306,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Shaders\LightsShader.cpp">
       <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp">
+      <Filter>Cross\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -472,12 +469,6 @@
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Internals\Debugger.h">
-      <Filter>Cross\Internals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Internals\Exception.h">
-      <Filter>Cross\Internals</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
@@ -570,6 +561,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Shaders\LightsShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Debugger.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

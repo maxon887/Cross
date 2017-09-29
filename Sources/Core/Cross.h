@@ -26,6 +26,8 @@
 
 #include <cstdint>
 
+#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
+
 namespace cross {
 	typedef int8_t		S8;
 	typedef uint8_t		U8;
