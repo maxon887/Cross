@@ -21,6 +21,12 @@
 
 using namespace cross;
 
+void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
+	va_list args;
+	va_start(args, msg);
+	sys->Alert(filename, line, msg, args);
+}
+
 File* System::LoadFile(const string& filename){
 	FILE* f = fopen(filename.c_str(), "rb");
 	CROSS_RETURN(f, NULL, "Can not open file %s", filename.c_str());
@@ -62,15 +68,12 @@ bool System::Alert(const string& msg) {
 	return false;
 }
 
-void System::Alert(const char* filename, unsigned int line, const char* msg, ...) {
+void System::Alert(const char* filename, unsigned int line, const char* msg, va_list list) {
 	auto it = asserts_hashes.find(line);
 	if(it == asserts_hashes.end()) {
-		va_list params;
 		char buffer[4096];
-		va_start(params, msg);
-		vsprintf(buffer, msg, params);
+		vsprintf(buffer, msg, list);
 		Log(buffer);
-		va_end(params);
 #ifdef CROSS_DEBUG
 		string str = buffer;
 		str += "\n";

@@ -15,17 +15,37 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-
-#define CrossException2(message, ...) Exception(__FILE__, __LINE__, message, ##__VA_ARGS__)
+#include <vector>
 
 namespace cross{
 
-class Exception{
+template<class Type>
+class ArraySTD : public std::vector<Type> {
 public:
-	Exception(const char* filename, unsigned int line, const char* message, ...);
-	char message[4096];
-	const char* filename;
-	unsigned int line;
+	ArraySTD();
+	ArraySTD(U32 capacity);
+	ArraySTD(U32 capacity, const Type& init);
+	ArraySTD(std::initializer_list<Type> list);
 };
 
-};
+template<class Type>
+ArraySTD<Type>::ArraySTD() :
+	std::vector<Type>()
+{ }
+
+template<class Type>
+ArraySTD<Type>::ArraySTD(U32 capacity) :
+	std::vector<Type>(capacity)
+{ }
+
+template<class Type>
+ArraySTD<Type>::ArraySTD(U32 capacity, const Type& init) :
+	std::vector<Type>(capacity, init)
+{ }
+
+template<class Type>
+ArraySTD<Type>::ArraySTD(std::initializer_list<Type> list) :
+	std::vector<Type>(list)
+{ }
+
+}

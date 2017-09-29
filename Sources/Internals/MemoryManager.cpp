@@ -125,7 +125,7 @@ void MemoryManager::Free(void* address){
 				return;
 			}
 		}
-		Log("Attempt to delete bad pointer\n");
+		CROSS_ASSERT(false, "Attempt to delete bad pointer\n");
 	}else{
 		free(address);
 	}
@@ -143,6 +143,7 @@ unsigned long MemoryManager::Dump(){
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
+	CROSS_ASSERT(totalBytes == 0, "Memory lick detected");
 	return totalBytes;
 }
 
@@ -158,12 +159,10 @@ void MemoryManager::SanityCheck(){
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-			//throw CrossException("Sanity Check failed");
+			CROSS_ASSERT(false, "Sanity Check failed");
 		}
 	}
-	if(count > 0){
-		Log("Total: %d corrupted buffers\n", count);
-	}
+	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: %d corrupted buffers\n", count);
 }
 
 void MemoryManager::Log(const char* msg, ...){

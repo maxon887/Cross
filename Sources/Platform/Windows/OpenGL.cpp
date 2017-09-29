@@ -25,8 +25,9 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Screen.h"
-#include "Internals/Debugger.h"
+#include "Utils/Debugger.h"
 #include "Audio.h"
+#include "Internals/MemoryManager.h"
 #include "resource.h"
 
 using namespace cross;
@@ -47,102 +48,92 @@ void ShowLastError(){
 int OpenGL_Main(){
 	HWND wnd = WinCreate();
 	MSG msg;
-	try{
-		WINSystem* winSys = new WINSystem(wnd);
-		sys = winSys;
-		sys->LogIt("OpenGL API");
-		game = CrossMain();
 
-		int winX = config->GetInt("WIN_POS_X", 0);
-		int winY = config->GetInt("WIN_POS_Y", 0);
-		int winWidth = config->GetInt("WIN_WIDTH", 500);
-		int winHeight = config->GetInt("WIN_HEIGHT", 500);
-		winSys->ResizeWindow(winX, winY, winWidth, winHeight);
-		input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
+	WINSystem* winSys = new WINSystem(wnd);
+	sys = winSys;
+	sys->LogIt("OpenGL API");
+	game = CrossMain();
 
-		PIXELFORMATDESCRIPTOR pfd;
-		ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
-		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-		pfd.nVersion = 1;
-		pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-		pfd.iPixelType = PFD_TYPE_RGBA;
-		pfd.cColorBits = 32;
-		pfd.cDepthBits = 24;
-		pfd.cStencilBits = 8;
+	int winX = config->GetInt("WIN_POS_X", 0);
+	int winY = config->GetInt("WIN_POS_Y", 0);
+	int winWidth = config->GetInt("WIN_WIDTH", 500);
+	int winHeight = config->GetInt("WIN_HEIGHT", 500);
+	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
+	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
-		HDC dc;
-		HGLRC renderContext;
-		S32 pixelFormat;
-		DWORD error;
+	PIXELFORMATDESCRIPTOR pfd;
+	ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
+	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+	pfd.nVersion = 1;
+	pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	pfd.iPixelType = PFD_TYPE_RGBA;
+	pfd.cColorBits = 32;
+	pfd.cDepthBits = 24;
+	pfd.cStencilBits = 8;
 
-		dc = GetDC(wnd);
-		if(!dc)
-			ShowLastError();
+	HDC dc;
+	HGLRC renderContext;
+	S32 pixelFormat;
+	DWORD error;
 
-		pixelFormat = ChoosePixelFormat(dc, &pfd);
-		if(!pixelFormat)
-			ShowLastError();
+	dc = GetDC(wnd);
+	if(!dc)
+		ShowLastError();
 
-		error = SetPixelFormat(dc, pixelFormat, &pfd);
-		if(!error)
-			ShowLastError();
+	pixelFormat = ChoosePixelFormat(dc, &pfd);
+	if(!pixelFormat)
+		ShowLastError();
 
-		renderContext = wglCreateContext(dc);
-		if(!renderContext)
-			ShowLastError();
+	error = SetPixelFormat(dc, pixelFormat, &pfd);
+	if(!error)
+		ShowLastError();
 
-		error = wglMakeCurrent(dc, renderContext);
-		if(!error)
-			ShowLastError();
+	renderContext = wglCreateContext(dc);
+	if(!renderContext)
+		ShowLastError();
 
-		ShowWindow(wnd, TRUE);
+	error = wglMakeCurrent(dc, renderContext);
+	if(!error)
+		ShowLastError();
 
-		audio = new Audio();
-		gfxGL = new GraphicsGL();
-		gfx2D = new Graphics2D();
-		gfx3D = new Graphics3D();
-		game->Start();
-		game->SetScreen(game->GetStartScreen());
+	ShowWindow(wnd, TRUE);
 
-		ZeroMemory(&msg, sizeof(MSG));
-		while(msg.message != WM_QUIT) {
-			if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-			game->EngineUpdate();
-			SwapBuffers(dc);
+	audio = new Audio();
+	gfxGL = new GraphicsGL();
+	gfx2D = new Graphics2D();
+	gfx3D = new Graphics3D();
+	game->Start();
+	game->SetScreen(game->GetStartScreen());
+
+	ZeroMemory(&msg, sizeof(MSG));
+	while(msg.message != WM_QUIT) {
+		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
-		game->GetCurrentScreen()->Stop();
-		game->Stop();
-		Debugger::Release();
-		delete gfx3D;
-		delete gfx2D;
-		delete gfxGL;
-		delete game;
-		delete audio;
-		delete sys;
-#ifdef CROSS_DEBUG
-		unsigned long leaked = MemoryManager::Instance()->Dump();
-		if(leaked > 0) {
-			char buf[256];
-			sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
-			OutputDebugString(buf);
-			return -1;
-		} else {
-			OutputDebugString("No memory leak detected\n");
-		}
-#endif // CROSS_DEBUG
-
-	} catch(Exception &exc) {
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		OutputDebugString(msg.c_str());
-		MessageBox(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
-		return 0;
+		game->EngineUpdate();
+		SwapBuffers(dc);
 	}
-
+	game->GetCurrentScreen()->Stop();
+	game->Stop();
+	Debugger::Release();
+	delete gfx3D;
+	delete gfx2D;
+	delete gfxGL;
+	delete game;
+	delete audio;
+	delete sys;
+#ifdef CROSS_DEBUG
+	unsigned long leaked = MemoryManager::Instance()->Dump();
+	if(leaked > 0) {
+		char buf[256];
+		sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
+		OutputDebugString(buf);
+		return -1;
+	} else {
+		OutputDebugString("No memory leak detected\n");
+	}
+#endif // CROSS_DEBUG
 	return msg.wParam;
 }
 

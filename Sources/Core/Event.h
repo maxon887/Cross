@@ -22,8 +22,6 @@ namespace cross{
 template<class... Args>
 class Event{
 public:
-    typedef uint64_t U64;
-
     void Emit(Args... p);
 
     U64 Connect(std::function<void(Args...)> const& func);

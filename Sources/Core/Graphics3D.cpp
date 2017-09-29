@@ -20,7 +20,7 @@
 #include "System.h"
 #include "Mesh.h"
 #include "File.h"
-#include "Internals/Debugger.h"
+#include "Utils/Debugger.h"
 #include "Scene.h"
 #include "Light.h"
 #include "Game.h"

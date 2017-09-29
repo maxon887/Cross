@@ -24,31 +24,54 @@
 #   define CROSS_DEBUG
 #endif
 
+#include <cstdint>
+
+namespace cross {
+	typedef int8_t		S8;
+	typedef uint8_t		U8;
+	typedef int16_t		S16;
+	typedef uint16_t	U16;
+	typedef int32_t		S32;
+	typedef uint32_t	U32;
+	typedef int64_t		S64;
+	typedef uint64_t	U64;
+	typedef uint8_t		Byte;
+}
+
+void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
+
+#define CROSS_ASSERT(condition, message, ...)						\
+if(!(condition)) {													\
+	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
+}
+
+#define CROSS_FAIL(condition, message, ...)							\
+if(!(condition)) {													\
+	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
+	return;															\
+}
+
+#define CROSS_RETURN(condition, value, message, ...)				\
+if(!(condition)) {													\
+	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
+	return value;													\
+}
+
 #include "Internals/MemoryManager.h"
-#include "Internals/Exception.h"
 #include "Math/All.h"
 #include "Color.h"
 
 #include <string>
-#include <vector>
 #include <list>
 #include <map>
 #include <set>
 
+#include "Experimental/ArraySTD.h"
+
 namespace cross{
 
-typedef int8_t		S8;
-typedef uint8_t		U8;
-typedef int16_t		S16;
-typedef uint16_t	U16;
-typedef int32_t		S32;
-typedef uint32_t	U32;
-typedef int64_t		S64;
-typedef uint64_t	U64;
-typedef uint8_t		Byte;
-
 template<typename Type>
-using Array = std::vector<Type>;
+using Array = ArraySTD<Type>;
 template<typename Type>
 using List = std::list<Type>;
 template<typename Key, typename Value>

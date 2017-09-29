@@ -18,28 +18,6 @@
 #include "Cross.h"
 #include "Event.h"
 
-#define CROSS_ASSERT(condition, message, ...)						\
-if(!(condition)) {													\
-	sys->Alert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
-}
-
-#define CROSS_FAIL(condition, message, ...)							\
-if(!(condition)) {													\
-	sys->Alert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
-	return;															\
-}
-
-#define CROSS_RETURN(condition, value, message, ...)				\
-if(!(condition)) {													\
-	sys->Alert(__FILE__, __LINE__, message, ##__VA_ARGS__);		\
-	return value;													\
-}
-
-#define CROSS_EXCEPTION(condition, message, ...)					\
-if(!(condition)) {													\
-	throw CrossException2(message, ##__VA_ARGS__);					\
-}
-
 namespace cross {
 	
 /* Class for platform specific functional */
@@ -79,7 +57,7 @@ public:
 	/* Returns true if system should skip this message in further use */
 	virtual bool Alert(const string& msg);
 	/* Notify system that some thing goes wrong */
-	virtual void Alert(const char* filename, unsigned int line, const char* msg, ...);
+	virtual void Alert(const char* filename, unsigned int line, const char* msg, va_list list);
 	/* Show sync messagebox(platform dependet) */
 	virtual void Messagebox(const string& title, const string& msg);
 	/* Force current thread to sleep */

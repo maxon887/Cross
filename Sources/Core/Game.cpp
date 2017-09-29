@@ -19,7 +19,7 @@
 #include "Input.h"
 #include "Config.h"
 #include "Scene.h"
-#include "Internals/Debugger.h"
+#include "Utils/Debugger.h"
 #include "Graphics2D.h"
 #include "Audio.h"
 
@@ -78,7 +78,7 @@ Screen* Game::GetCurrentScreen(){
 }
 
 Scene* Game::GetCurrentScene(){
-	CROSS_EXCEPTION(current_screen->IsScene(), "Current game state does not have 3D scene");
+	CROSS_RETURN(current_screen->IsScene(), NULL, "Current game state does not have 3D scene");
 	return (Scene*)current_screen;
 }
 

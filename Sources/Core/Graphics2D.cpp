@@ -17,7 +17,7 @@
 #include "Graphics2D.h"
 #include "GraphicsGL.h"
 #include "System.h"
-#include "Internals/Debugger.h"
+#include "Utils/Debugger.h"
 #include "Sprite.h"
 #include "Utils/Font.h"
 #include "Camera2D.h"
@@ -308,7 +308,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode til
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	sys->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 
-	return texture->Clone();
+	return texture;
 }
 
 void Graphics2D::SaveTexture(Texture* texture, const string& filename){
