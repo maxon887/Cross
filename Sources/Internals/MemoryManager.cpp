@@ -143,7 +143,8 @@ unsigned long MemoryManager::Dump(){
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
-	CROSS_ASSERT(totalBytes == 0, "Memory lick detected");
+	Log("Memory lick detected(%u bytes)\n", totalBytes);
+	CROSS_ASSERT(totalBytes == 0, "Memory lick detected(%ud bytes)", totalBytes);
 	return totalBytes;
 }
 

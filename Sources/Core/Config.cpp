@@ -109,13 +109,15 @@ const string& Config::GetString(const string& key) const{
 }
 
 void Config::LoadGameConfig(){
-    string path = sys->DataPath() + "GameConfig.xml";
-
+	File* xmlFile = sys->LoadAssetFile("GameConfig.xml");
+	CROSS_FAIL(xmlFile, "Can not load scene xml file");
 	XMLDocument doc;
-	doc.LoadFile(path.c_str());
+	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
+	delete xmlFile;
 
 	XMLElement* root = doc.FirstChildElement("GameConfig");
-	CROSS_FAIL(root, "Failed to fined GameConfig root element");
+	CROSS_FAIL(root, "Failed to find GameConfig root element");
 	XMLElement* element = root->FirstChildElement("Property");
 	while(element){
 		string name = element->Attribute("name");

@@ -87,6 +87,7 @@ void Scene::Load(const string& file){
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
+	delete xmlFile;
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
 	CROSS_FAIL(scene, "Can not load scene. Root node Scene not found");
