@@ -24,7 +24,7 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Config.h"
-#include "Internals/Debugger.h"
+#include "Utils/Debugger.h"
 #include "Platform/CrossEGL.h"
 
 #include <android/native_window_jni.h>
@@ -60,116 +60,106 @@ int screen_height           = 0;
 
 void Main(){
     LOGI("Main()");
-    try {
-        while (app_state != APP_EXIT) {
-            switch (app_state) {
-                case APP_INIT: {
-                    CROSS_EXCEPTION(!crossEGL, "Application try to initialize second time");
-                    crossEGL = new CrossEGL();
-                    app_state = APP_START;
-                    break;
-                }
-                case APP_START: {
-                    if (wnd_state == WND_ACTIVE) {
-                        game = CrossMain();
-                        gfxGL = new GraphicsGL();
-                        gfx2D = new Graphics2D();
-                        gfx3D = new Graphics3D();
-                        game->Start();
-                        game->SetScreen(game->GetStartScreen());
-                        app_state = APP_RUNNING;
-                    }
-                    break;
-                }
-                case APP_RUNNING:{
-					pause_mutex.lock();
-                    game->EngineUpdate();
-					pause_mutex.unlock();
-                    break;
-                }
-                case APP_PAUSED:{
-                    pause_mutex.lock();
-                    sys->Sleep(16);
-                    pause_mutex.unlock();
-                    break;
-                }
+    while (app_state != APP_EXIT) {
+        switch (app_state) {
+            case APP_INIT: {
+                CROSS_ASSERT(!crossEGL, "Application try to initialize second time");
+                crossEGL = new CrossEGL();
+                app_state = APP_START;
+                break;
             }
-            switch (wnd_state) {
-                case WND_NONE:
-                    break;
-                case WND_CREATE:{
-                    app_mutex.lock();
-                    if(!crossEGL->IsContextCreated()) {
-                        bool success = crossEGL->CreateContext(true);
-                        if (success) {
-                            LOGI("Window create success");
-                            wnd_state = WND_ACTIVE;
-                            sys->SetWindowSize(screen_width, screen_height);
-                        } else {
-                            LOGI("Can not create native window");
-                            app_state = APP_EXIT;
-                        }
-                    }else{
-                        crossEGL->DestroyContext(false);
-                        bool success = crossEGL->CreateContext(false);
-                        //after destroyed drawing surface GL stack may contain some error
-                        GraphicsGL::ClearGLErrorBuffer();
-                        if (success) {
-                            LOGI("Window recreaded");
-                            wnd_state = WND_ACTIVE;
-                            app_state = APP_RUNNING;
-                            sys->SetWindowSize(screen_width, screen_height);
-                        } else {
-                            LOGI("Can not recread native window");
-                            app_state = APP_EXIT;
-                        }
-                    }
-                    app_mutex.unlock();
-                    break;
+            case APP_START: {
+                if (wnd_state == WND_ACTIVE) {
+                    game = CrossMain();
+                    gfxGL = new GraphicsGL();
+                    gfx2D = new Graphics2D();
+                    gfx3D = new Graphics3D();
+                    game->Start();
+                    game->SetScreen(game->GetStartScreen());
+                    app_state = APP_RUNNING;
                 }
-                case WND_RELEASE:
-                    break;
-                case WND_ACTIVE:
-                    crossEGL->SwapBuffers();
-                    break;
+                break;
+            }
+            case APP_RUNNING:{
+                pause_mutex.lock();
+                game->EngineUpdate();
+                pause_mutex.unlock();
+                break;
+            }
+            case APP_PAUSED:{
+                pause_mutex.lock();
+                system->Sleep(16);
+                pause_mutex.unlock();
+                break;
             }
         }
-        //exit application
-        game->GetCurrentScreen()->Stop();
-        game->Stop();
-        Debugger::Release();
-        delete gfx3D;
-        delete gfx2D;
-        delete gfxGL;
-        delete game;
-        sys->LogIt("Saved!");
-        delete sys;
-    } catch (Exception& exc){
-        string msg = string(exc.message) +
-                     +"\nFile: " + string(exc.filename) +
-                     +"\nLine: " + to_string(exc.line);
-        LOGE("%s", msg.c_str());
-        ((AndroidSystem *) sys)->Messagebox("Uncatched Exception", msg);
+        switch (wnd_state) {
+            case WND_NONE:
+                break;
+            case WND_CREATE:{
+                app_mutex.lock();
+                if(!crossEGL->IsContextCreated()) {
+                    bool success = crossEGL->CreateContext(true);
+                    if (success) {
+                        LOGI("Window create success");
+                        wnd_state = WND_ACTIVE;
+                        system->SetWindowSize(screen_width, screen_height);
+                    } else {
+                        LOGI("Can not create native window");
+                        app_state = APP_EXIT;
+                    }
+                }else{
+                    crossEGL->DestroyContext(false);
+                    bool success = crossEGL->CreateContext(false);
+                    //after destroyed drawing surface GL stack may contain some error
+                    GraphicsGL::ClearGLErrorBuffer();
+                    if (success) {
+                        LOGI("Window recreaded");
+                        wnd_state = WND_ACTIVE;
+                        app_state = APP_RUNNING;
+                        system->SetWindowSize(screen_width, screen_height);
+                    } else {
+                        LOGI("Can not recread native window");
+                        app_state = APP_EXIT;
+                    }
+                }
+                app_mutex.unlock();
+                break;
+            }
+            case WND_RELEASE:
+                break;
+            case WND_ACTIVE:
+                crossEGL->SwapBuffers();
+                break;
+        }
     }
+    //exit application
+    game->GetCurrentScreen()->Stop();
+    game->Stop();
+    Debugger::Release();
+    delete gfx3D;
+    delete gfx2D;
+    delete gfxGL;
+    delete game;
     if(app_state == APP_EXIT){
-        ((AndroidSystem *) sys)->Exit();
+        ((AndroidSystem *) system)->Exit();
     }else {
-        ((AndroidSystem *) sys)->DetachFromJVM();
-		delete sys;
+        ((AndroidSystem *) system)->DetachFromJVM();
+		delete system;
     }
 }
 
 extern "C"{
 	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
 		LOGI("Cross_OnCreate");
-        if(!sys) {
+        if(!system) {
             AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
             string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
-            sys = new AndroidSystem(env, crossActivity, mng, stdDataPath);
+            system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();
             gl_thread = std::thread(Main);
         }else{
