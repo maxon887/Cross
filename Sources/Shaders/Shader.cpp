@@ -211,7 +211,7 @@ Shader::~Shader(){
 
 void Shader::Load(const string& file){
 	filename = file;
-	File* xmlFile = sys->LoadAssetFile(file);
+	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load shader xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
@@ -319,16 +319,16 @@ void Shader::Save(const string& file){
 	saveFile.name = file;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	sys->SaveFile(&saveFile);
+	system->SaveFile(&saveFile);
 	saveFile.data = NULL;
 }
 
 void Shader::Compile(){
-	vertex_file = sys->LoadAssetFile(vertex_filename);
+	vertex_file = system->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = NULL;
-	fragment_file = sys->LoadAssetFile(fragment_filename);
+	fragment_file = system->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
 	fragment_file = NULL;
@@ -519,7 +519,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
-			sys->LogIt("Shader compilation:\n%s", log);
+			system->LogIt("Shader compilation:\n%s", log);
 			delete[] log;
 		}
 #endif

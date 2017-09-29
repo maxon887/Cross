@@ -109,7 +109,7 @@ class Component;
 class Collider;
 
 extern Game*		game;
-extern System*		sys;
+extern System*		system;
 extern GraphicsGL*	gfxGL;
 extern Graphics2D*	gfx2D;
 extern Graphics3D*	gfx3D;

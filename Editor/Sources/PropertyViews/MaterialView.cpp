@@ -208,7 +208,7 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 }
 
 void MaterialView::OnLoadShaderClick() {
-	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Shader File", path, "Shader File (*.sha)");
 	if(!filePath.isEmpty()) {
 		QDir root = path;
@@ -238,7 +238,7 @@ void MaterialView::OnApplyClick() {
 		}
 	}
 
-	game->GetCurrentScene()->SaveMaterialToXML(material, sys->AssetsPath() + material->GetFilename());
+	game->GetCurrentScene()->SaveMaterialToXML(material, system->AssetsPath() + material->GetFilename());
 	OnFileSelected(material->GetFilename());
 }
 

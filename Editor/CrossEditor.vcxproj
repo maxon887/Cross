@@ -103,8 +103,6 @@
     <ClCompile Include="..\Sources\Core\Transformable.cpp" />
     <ClCompile Include="..\Sources\Core\UI.cpp" />
     <ClCompile Include="..\Sources\Core\VertexBuffer.cpp" />
-    <ClCompile Include="..\Sources\Internals\Debugger.cpp" />
-    <ClCompile Include="..\Sources\Internals\Exception.cpp" />
     <ClCompile Include="..\Sources\Internals\MemoryManager.cpp" />
     <ClCompile Include="..\Sources\Libs\SOIL\image_helper.c" />
     <ClCompile Include="..\Sources\Libs\SOIL\SOIL.c" />
@@ -124,6 +122,7 @@
     <ClCompile Include="..\Sources\Utils\Animation.cpp" />
     <ClCompile Include="..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp" />
+    <ClCompile Include="..\Sources\Utils\Debugger.cpp" />
     <ClCompile Include="..\Sources\Utils\DebugScene.cpp" />
     <ClCompile Include="..\Sources\Utils\Font.cpp" />
     <ClCompile Include="..\Sources\Utils\FreeCameraScene.cpp" />
@@ -245,8 +244,6 @@
     <ClInclude Include="..\Sources\Core\Transformable.h" />
     <ClInclude Include="..\Sources\Core\UI.h" />
     <ClInclude Include="..\Sources\Core\VertexBuffer.h" />
-    <ClInclude Include="..\Sources\Internals\Debugger.h" />
-    <ClInclude Include="..\Sources\Internals\Exception.h" />
     <ClInclude Include="..\Sources\Internals\MemoryManager.h" />
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h" />
     <ClInclude Include="..\Sources\Libs\SOIL\image_helper.h" />
@@ -269,6 +266,7 @@
     <ClInclude Include="..\Sources\Utils\Animation.h" />
     <ClInclude Include="..\Sources\Utils\Button.h" />
     <ClInclude Include="..\Sources\Utils\Cubemap.h" />
+    <ClInclude Include="..\Sources\Utils\Debugger.h" />
     <ClInclude Include="..\Sources\Utils\DebugScene.h" />
     <ClInclude Include="..\Sources\Utils\Font.h" />
     <ClInclude Include="..\Sources\Utils\FreeCameraScene.h" />

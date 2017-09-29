@@ -95,7 +95,7 @@ void CrossEditor::OnNewSceneClick(){
 }
 
 void CrossEditor::OnSaveAsClick(){
-	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()) + scene_file;
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()) + scene_file;
 	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
 	if(filePath != ""){
 		scene_file = filePath;
@@ -110,7 +110,7 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 	QString path = QFileDialog::getExistingDirectory(this, "Setup Project Directory", QDir::currentPath());
 	if(path != ""){
 		path += "/";
-		WINSystem* winSys = dynamic_cast<WINSystem*>(sys);
+		WINSystem* winSys = dynamic_cast<WINSystem*>(system);
 		CROSS_FAIL(winSys, "You are not under Windows opertating system");
 		winSys->SetAssetPath(path.toStdString());
 		ui.fileExplorerTree->SetupProjectDirectory(path);

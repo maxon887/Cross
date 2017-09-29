@@ -46,36 +46,36 @@ void CrossEGL::UnbindWindow() {
 #endif // ANDROID
         native_window = NULL;
     }else{
-        sys->LogIt("Native window doesn't created");
+        system->LogIt("Native window doesn't created");
     }
 }
 
 bool CrossEGL::CreateContext(bool createDisplay) {
-    sys->LogIt("CrossEGL::CreateContext");
+    system->LogIt("CrossEGL::CreateContext");
     if(context_created){
-        sys->LogIt("Context already created");
+        system->LogIt("Context already created");
         return false;
     }
     if(createDisplay) {
         display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
         if (display == EGL_NO_DISPLAY) {
-            sys->LogIt("NativeSurface::CreateDisplay failed. Reason: eglGetDisplay failed.");
+            system->LogIt("NativeSurface::CreateDisplay failed. Reason: eglGetDisplay failed.");
             return false;
         }
         if (!eglInitialize(display, 0, 0)) {
-            sys->LogIt("NativeSurface::CreateDisplay failed. Reason: eglInitialize failed.");
+            system->LogIt("NativeSurface::CreateDisplay failed. Reason: eglInitialize failed.");
             return false;
         }
         EGLint mathConfigNum;
         if (!eglChooseConfig(display, config_attribs, &config, 1, &mathConfigNum)) {
-            sys->LogIt("NativeSurface::CreateContext failed. Reason: eglChooseConfig failed.");
+            system->LogIt("NativeSurface::CreateContext failed. Reason: eglChooseConfig failed.");
             return false;
         }
 #ifdef ANDROID
 		//new stuff
 		EGLint format;
         if (!eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format)) {
-            sys->LogIt("eglGetConfigAttrib() returned error %d", eglGetError());
+            system->LogIt("eglGetConfigAttrib() returned error %d", eglGetError());
             return false;
         }
 		ANativeWindow_setBuffersGeometry(native_window, 0, 0, format);
@@ -84,20 +84,20 @@ bool CrossEGL::CreateContext(bool createDisplay) {
     //create surface
     surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), NULL);
     if(surface == EGL_NO_SURFACE){
-        sys->LogIt("eglCreateWindowSurface failed");
+        system->LogIt("eglCreateWindowSurface failed");
         return false;
     }
     //create context
     if(createDisplay) {
         context = eglCreateContext(display, config, context, context_attribs);
         if (context == EGL_NO_CONTEXT) {
-            sys->LogIt("eglCreateContext failed");
+            system->LogIt("eglCreateContext failed");
             return false;
         }
     }
 
     if(!eglMakeCurrent(display, surface, surface, context)){
-        sys->LogIt("eglMakeCurrent failed.");
+        system->LogIt("eglMakeCurrent failed.");
         return false;
     }
     context_created = true;
@@ -105,7 +105,7 @@ bool CrossEGL::CreateContext(bool createDisplay) {
 }
 
 void CrossEGL::DestroyContext(bool destroyDisplay) {
-    sys->LogIt("CrossEGL::DestroyContext");
+    system->LogIt("CrossEGL::DestroyContext");
     if(display){
         eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 
@@ -134,7 +134,7 @@ bool CrossEGL::IsContextCreated() {
 
 void CrossEGL::SwapBuffers() {
     if(!eglSwapBuffers(display, surface)){
-        sys->LogIt("eglSwapBuffers failed");
+        system->LogIt("eglSwapBuffers failed");
     }
 }
 

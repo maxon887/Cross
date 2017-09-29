@@ -25,7 +25,7 @@
 #include "Graphics3D.h"
 #include "Config.h"
 #include "Audio.h"
-#include "Internals/Debugger.h"
+#include "Utils/Debugger.h"
 #include "Platform/CrossEGL.h"
 
 #include <time.h>
@@ -36,72 +36,63 @@ CrossEGL* crossEGL = NULL;
 
 int GLES_Main(){
 
-	try{
-		crossEGL = new CrossEGL();
-		crossEGL->BindWindow(WinCreate());
+	crossEGL = new CrossEGL();
+	crossEGL->BindWindow(WinCreate());
 
-		srand((U32)time(0));
-		WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
-		sys = winSys;
-		game = CrossMain();
-		input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
+	srand((U32)time(0));
+	WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
+	cross::system = winSys;
+	game = CrossMain();
+	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
-		int winX = config->GetInt("WIN_POS_X", 0);
-		int winY = config->GetInt("WIN_POS_Y", 0);
-		int winWidth = config->GetInt("WIN_WIDTH", 500);
-		int winHeight = config->GetInt("WIN_HEIGHT", 500);
-		winSys->ResizeWindow(winX, winY, winWidth, winHeight);
+	int winX = config->GetInt("WIN_POS_X", 0);
+	int winY = config->GetInt("WIN_POS_Y", 0);
+	int winWidth = config->GetInt("WIN_WIDTH", 500);
+	int winHeight = config->GetInt("WIN_HEIGHT", 500);
+	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 
-		crossEGL->CreateContext(true);
+	crossEGL->CreateContext(true);
 
-		ShowWindow(crossEGL->GetWindow(), TRUE);
+	ShowWindow(crossEGL->GetWindow(), TRUE);
 
-		audio = new Audio();
-		gfxGL = new GraphicsGL();
-		gfx2D = new Graphics2D();
-		gfx3D = new Graphics3D();
-		game->Start();
-		game->SetScreen(game->GetStartScreen());
+	audio = new Audio();
+	gfxGL = new GraphicsGL();
+	gfx2D = new Graphics2D();
+	gfx3D = new Graphics3D();
+	game->Start();
+	game->SetScreen(game->GetStartScreen());
 
-		MSG msg;
-		ZeroMemory(&msg, sizeof(MSG));
-		while(msg.message != WM_QUIT) {
-			if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-			game->EngineUpdate();
-			crossEGL->SwapBuffers();
+	MSG msg;
+	ZeroMemory(&msg, sizeof(MSG));
+	while(msg.message != WM_QUIT) {
+		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
+		game->EngineUpdate();
+		crossEGL->SwapBuffers();
+	}
 
-		game->GetCurrentScreen()->Stop();
-		game->Stop();
-		Debugger::Release();
-		delete gfx3D;
-		delete gfx2D;
-		delete gfxGL;
-		crossEGL->DestroyContext(true);
-		delete crossEGL;
-		delete audio;
-		delete game;
-		delete sys;
+	game->GetCurrentScreen()->Stop();
+	game->Stop();
+	Debugger::Release();
+	delete gfx3D;
+	delete gfx2D;
+	delete gfxGL;
+	crossEGL->DestroyContext(true);
+	delete crossEGL;
+	delete audio;
+	delete game;
+	delete cross::system;
 
-		unsigned long leaked = MemoryManager::Instance()->Dump();
-		if(leaked > 0) {
-			char buf[256];
-			sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
-			OutputDebugString(buf);
-			return -1;
-		} else {
-			OutputDebugString("No memory leak detected\n");
-		}
-	} catch(Exception &exc) {
-		string msg = string(exc.message) +
-			+"\nFile: " + string(exc.filename) +
-			+"\nLine: " + to_string(exc.line);
-		OutputDebugString(msg.c_str());
-		MessageBox(crossEGL->GetWindow(), msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
+	unsigned long leaked = MemoryManager::Instance()->Dump();
+	if(leaked > 0) {
+		char buf[256];
+		sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
+		OutputDebugString(buf);
 		return -1;
+	} else {
+		OutputDebugString("No memory leak detected\n");
 	}
 	return 0;
 }

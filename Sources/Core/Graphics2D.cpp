@@ -63,7 +63,7 @@ struct KTX{
 };
 
 Graphics2D::Graphics2D() {
-	sys->LogIt("Graphics2D::Graphics2D()");
+	system->LogIt("Graphics2D::Graphics2D()");
 	texture_shader = gfxGL->GetShader(DefaultShader::TEXTURE);
 	texture_shader->Compile();
 	font_shader = gfxGL->GetShader(DefaultShader::MONOCHROME);
@@ -75,7 +75,7 @@ Graphics2D::Graphics2D() {
 }
 
 Graphics2D::~Graphics2D(){
-	sys->LogIt("Graphics2D::~Graphics2D");
+	system->LogIt("Graphics2D::~Graphics2D");
 	delete default_font;
 	delete default_camera;
 	delete texture_shader;
@@ -306,7 +306,7 @@ Texture* Graphics2D::LoadTexture(const string& filename, Texture::TilingMode til
 	CROSS_RETURN(texture, NULL, "Can not load texture %s", filename.c_str());
 	texture->SetTilingMode(tillingMode);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	sys->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+	system->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 
 	return texture;
 }
@@ -320,14 +320,14 @@ void Graphics2D::SaveTexture(Texture* texture, const string& filename){
 	SAFE(glBindTexture(GL_TEXTURE_2D, texture->GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	sys->SaveFile(&file);
+	system->SaveFile(&file);
 #else
 	CROSS_ASSERT(false, "SaveTexture does not support by current graphics API");
 #endif
 }
 
 Byte* Graphics2D::LoadRawTextureData(const string& filename, int& width, int& height, int& channels){
-	File* textureFile = sys->LoadAssetFile(filename);
+	File* textureFile = system->LoadAssetFile(filename);
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	CROSS_RETURN(image, NULL, "SOL can't convert file:\n Pay attention on image color channels");
@@ -372,7 +372,7 @@ Texture* Graphics2D::LoadRAWTexture(const string& filename, Texture::Filter filt
 }
 
 Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filter){
-	File* file = sys->LoadAssetFile(filename);
+	File* file = system->LoadAssetFile(filename);
 
 	PKM pkm;
 	U32 offset = sizeof(PKM);
@@ -384,7 +384,7 @@ Texture* Graphics2D::LoadPKMTexture(const string& filename, Texture::Filter filt
 }
 
 Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filter){
-	File* file = sys->LoadAssetFile(filename);
+	File* file = system->LoadAssetFile(filename);
 
 	KTX ktx;
 	U32 offset = sizeof(KTX);
@@ -512,7 +512,7 @@ Texture* Graphics2D::CreateTexture(	Byte* data,
 }
 
 void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename){
-	File* xmlFile = sys->LoadAssetFile(xmlFilename);
+	File* xmlFile = system->LoadAssetFile(xmlFilename);
 	XMLDocument doc;
 	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
 	memcpy(source, xmlFile->data, xmlFile->size);

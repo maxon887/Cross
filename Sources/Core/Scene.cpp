@@ -42,10 +42,10 @@ void Scene::Start(){
 	root = new Entity();
 	root->SetName("Root");
 
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
 
-	resize_del = sys->WindowResized.Connect(this, &Scene::WindowResizeHandle);
+	resize_del = system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
 void Scene::Update(float sec){
@@ -55,7 +55,7 @@ void Scene::Update(float sec){
 }
 
 void Scene::Stop(){
-	sys->WindowResized.Disconnect(resize_del);
+	system->WindowResized.Disconnect(resize_del);
 	for(pair<S32, Shader*> pair : shaders){
 		delete pair.second;
 	}
@@ -82,7 +82,7 @@ void Scene::SetName(const string& name){
 }
 
 void Scene::Load(const string& file){
-	File* xmlFile = sys->LoadAssetFile(file);
+	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
@@ -224,7 +224,7 @@ void Scene::Save(const string& filename){
 	saveFile.name = filename;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	sys->SaveFile(&saveFile);
+	system->SaveFile(&saveFile);
 	saveFile.data = NULL;
 }
 
@@ -250,7 +250,7 @@ Entity* Scene::GetRoot(){
 }
 
 void Scene::SetCameraViewDistance(float distance){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, distance);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, distance);
 	camera->SetProjectionMatrix(projection);
 }
 
@@ -442,7 +442,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 }
 
 Material* Scene::LoadMaterialFromXML(const string& file) {
-	File* xmlFile = sys->LoadAssetFile(file);
+	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, NULL, "Can not load material xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
@@ -540,12 +540,12 @@ void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
 	saveFile.name = xmlFile;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	sys->SaveFile(&saveFile);
+	system->SaveFile(&saveFile);
 	saveFile.data = NULL;
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, sys->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }
 

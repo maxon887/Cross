@@ -57,7 +57,7 @@ bool Screen::IsScene() const{
 }
 
 float Screen::GetScaleFactor(){
-	return (float)sys->GetWindowWidth() / GetWidth();
+	return (float)system->GetWindowWidth() / GetWidth();
 }
 
 void Screen::SetBackground(const Color& c){

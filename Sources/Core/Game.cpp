@@ -26,7 +26,7 @@
 using namespace cross;
 
 Game*		cross::game		= NULL;
-System*		cross::sys		= NULL;
+System*		cross::system	= NULL;
 Audio*		cross::audio	= NULL;
 GraphicsGL* cross::gfxGL	= NULL;
 Graphics2D* cross::gfx2D	= NULL;
@@ -35,13 +35,13 @@ Input*		cross::input	= NULL;
 Config*		cross::config	= NULL;
 
 Game::Game() {
-	sys->LogIt("Game::Game()");
+	system->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
 }
 
 Game::~Game(){
-	sys->LogIt("Game::~Game");
+	system->LogIt("Game::~Game");
 	delete config;
 	delete input;
 }
@@ -83,7 +83,7 @@ Scene* Game::GetCurrentScene(){
 }
 
 void Game::Suspend(){
-	sys->LogIt("Game::Suspend");
+	system->LogIt("Game::Suspend");
 	audio->Suspend();
 	if(current_screen != nullptr) {
 		current_screen->Suspend();
@@ -91,9 +91,9 @@ void Game::Suspend(){
 }
 
 void Game::Resume(){
-	sys->LogIt("Game::Resume");
+	system->LogIt("Game::Resume");
 	audio->Resume();
-	timestamp = sys->GetTime();
+	timestamp = system->GetTime();
 	if(current_screen != nullptr) {
 		current_screen->Resume();
 	}
@@ -104,7 +104,7 @@ float Game::GetRunTime() const{
 }
 
 void Game::EngineUpdate(){
-	U64 now = sys->GetTime();
+	U64 now = system->GetTime();
 	U64 updateTime = now - timestamp;
 	float secTime = (float)(updateTime / 1000000.);
 	timestamp = now;
@@ -123,14 +123,14 @@ void Game::EngineUpdate(){
 	gfxGL->PostProcessFrame();
 
 	Debugger::Instance()->Update((float)updateTime);
-	U64 cpuTime = sys->GetTime() - timestamp;
+	U64 cpuTime = system->GetTime() - timestamp;
 	Debugger::Instance()->SetCPUTime((float)cpuTime);
 	/*
 	float milis = cpuTime / 1000.f;
 	if(milis < 5){
-		sys->Sleep(5 - milis);
+		system->Sleep(5 - milis);
 	}*/
-	//sys->Sleep(160.f);
+	//system->Sleep(160.f);
 }
 
 void Game::Exit(){
@@ -140,7 +140,7 @@ void Game::Exit(){
 }
 
 void Game::LoadNextScreen(){
-	sys->LogIt("Game::LoadNextScreen()");
+	system->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 
 	if(current_screen){
@@ -154,8 +154,8 @@ void Game::LoadNextScreen(){
 		((Scene*)current_screen)->Load(scene_file);
 		SceneLoaded((Scene*)current_screen);
 	}
-	timestamp = sys->GetTime();
+	timestamp = system->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	sys->LogIt("Screen(no name) loaded in %0.1fms", loadTime);
+	system->LogIt("Screen(no name) loaded in %0.1fms", loadTime);
 	ScreenChanged(current_screen);
 }

@@ -36,7 +36,7 @@ void Input::TouchEnabled(bool enabled){
 Vector2D Input::TargetToWordConvert(float x, float y) const{
 	Vector2D result;
 	Camera2D* cam = gfx2D->GetCamera();
-	float scaleFactor = sys->GetWindowWidth() / cam->GetViewWidth();
+	float scaleFactor = system->GetWindowWidth() / cam->GetViewWidth();
 	result.x = x / scaleFactor;
 	result.y = cam->GetViewHeight() - y / scaleFactor;
 	result.x += cam->GetPosition().x;

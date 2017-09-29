@@ -35,7 +35,7 @@ void MeshComponent::Show(Entity* entity){
 }
 
 void MeshComponent::OnLoadClick(){
-	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Material File", path, "Material File (*.mat)");
 	if(!filePath.isEmpty()) {
 		QDir root = path;

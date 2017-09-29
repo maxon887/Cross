@@ -58,10 +58,10 @@ Mesh* Model::GetMesh(S32 id) {
 }
 
 Graphics3D::Graphics3D() {
-	sys->LogIt("Graphics3D::Graphics3D()");
+	system->LogIt("Graphics3D::Graphics3D()");
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
-	sys->LogIt("\tUse assimp version %d.%d", major, minor);
+	system->LogIt("\tUse assimp version %d.%d", major, minor);
 	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	simple_shader->Compile();
 }
@@ -99,12 +99,12 @@ Model* Graphics3D::LoadModel(const string& filename, bool initialize){
 	model->filename = filename;
 	Entity* root = new Entity();
 	model->hierarchy = root;
-	File* file = sys->LoadAssetFile(filename);
+	File* file = system->LoadAssetFile(filename);
 	ProcessScene(model, root, file);
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	sys->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+	system->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 	return model;
 }
 
@@ -210,7 +210,7 @@ Mesh* Graphics3D::ProcessMesh(Model* model, aiMesh* mesh){
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	sys->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
+	system->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
 	Mesh* crsMesh = new Mesh(model);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;

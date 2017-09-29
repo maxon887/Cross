@@ -22,20 +22,20 @@
 using namespace cross;
 
 Camera2D::Camera2D() {
-	view_width = (float)sys->GetWindowWidth();
-	view_height = (float)sys->GetWindowHeight();
+	view_width = (float)system->GetWindowWidth();
+	view_height = (float)system->GetWindowHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
-    resize_del = sys->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
+    resize_del = system->WindowResized.Connect(this, &Camera2D::WindowResizedHandle);
 }
 
 Camera2D::~Camera2D() {
-	sys->WindowResized.Disconnect(resize_del);
+	system->WindowResized.Disconnect(resize_del);
 }
 
 void Camera2D::SetViewWidth(float width) {
 	this->view_width = width;
-	float scale = (float)sys->GetWindowWidth() / view_width;
-	view_height = (float)sys->GetWindowHeight() / scale;
+	float scale = (float)system->GetWindowWidth() / view_width;
+	view_height = (float)system->GetWindowHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
@@ -48,15 +48,15 @@ float Camera2D::GetViewHeight() const{
 }
 
 void Camera2D::WindowResizedHandle(S32 width, S32 height) {
-	view_width = (float)sys->GetWindowWidth();
-	view_height = (float)sys->GetWindowHeight();
+	view_width = (float)system->GetWindowWidth();
+	view_height = (float)system->GetWindowHeight();
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }
 
 //do we really need this method?
 void Camera2D::WindowRisezedHandleCust(S32 width, S32 height) {
-	sys->LogIt("TargetWidth - %d", sys->GetWindowWidth());
-	float scale = (float)sys->GetWindowWidth() / view_width;
-	view_height = (float)sys->GetWindowHeight() / scale;
+	system->LogIt("TargetWidth - %d", system->GetWindowWidth());
+	float scale = (float)system->GetWindowWidth() / view_width;
+	view_height = (float)system->GetWindowHeight() / scale;
 	projection = Matrix::CreateOrthogonalProjection(0, view_width, 0, view_height, 1, -1);
 }

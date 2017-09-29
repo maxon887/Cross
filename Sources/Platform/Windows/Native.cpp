@@ -84,7 +84,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;
 		int y = HIWORD(lParam) - 30;
-		WINSystem* winSys = (WINSystem*)sys;
+		WINSystem* winSys = (WINSystem*)cross::system;
 		winSys->SetWindowPosition(x, y);
 		break;
 	}
@@ -93,7 +93,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		int width = winRect.right - winRect.left;
 		int height = winRect.bottom - winRect.top;
 		if(width > 0 && height > 0){
-			WINSystem* winSys = (WINSystem*)sys;
+			WINSystem* winSys = (WINSystem*)cross::system;
 			winSys->SetWindowSize(width, height);
 		}
 		break;

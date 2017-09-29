@@ -30,7 +30,7 @@ using namespace cross;
 static FMOD_RESULT result;
 
 Audio::Audio() {
-	sys->LogIt("Audio::Audio()");
+	system->LogIt("Audio::Audio()");
 	result = FMOD::System_Create(&fmod_system);
 	ERRCHECK(result);
 
@@ -64,7 +64,7 @@ Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 #ifdef ANDROID
 	string absPath = "file:///android_asset/" + path;
 #else
-	string absPath = sys->AssetsPath() + "/" + path;
+	string absPath = system->AssetsPath() + "/" + path;
 #endif
 	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound->sound);
     ERRCHECK(result);

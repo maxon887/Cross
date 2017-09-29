@@ -19,7 +19,7 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	file_system->setReadOnly(false);
 	setModel(file_system);
 
-	SetupProjectDirectory(QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str()));
+	SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()));
 
 	hideColumn(1);
 	hideColumn(2);

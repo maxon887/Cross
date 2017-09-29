@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	QSurfaceFormat::setDefaultFormat(format);
 
 	ESystem* winsys = new ESystem();
-	sys = winsys;
+	system = winsys;
 	CrossEditor w;
 	winsys->SetWND((HWND)w.winId());
 	w.RestoreSettings();

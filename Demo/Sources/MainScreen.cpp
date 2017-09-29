@@ -52,7 +52,7 @@ void MainScreen::Start(){
 	Sprite* buttonSprite = demo->GetCommonSprite("ButtonTemplate.png");
 	Sprite* buttonSpritePressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
 
-	resize_del = sys->WindowResized.Connect(this, &MainScreen::WindowResizedHandle);
+	resize_del = system->WindowResized.Connect(this, &MainScreen::WindowResizedHandle);
 
 	font = new Font("Engine/Fonts/VeraMonoBold.ttf", 80, Color(0.f, 0.f, 0.f, 0.70f));
 
@@ -184,7 +184,7 @@ void MainScreen::Stop(){
 	delete graphics3D_simple;
 	delete graphics3D_misc;
 	delete font;
-    sys->WindowResized.Disconnect(resize_del);
+    system->WindowResized.Disconnect(resize_del);
 }
 
 void MainScreen::Update(float sec){

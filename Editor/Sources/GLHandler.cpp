@@ -22,7 +22,7 @@ GLHandler::~GLHandler()
 { }
 
 void GLHandler::initializeGL(){
-	ESystem* esystem = (ESystem*)sys;
+	ESystem* esystem = (ESystem*)system;
 	if(!esystem->IsPaused()) {
 		QSize size = this->frameSize();
 		esystem->SetWindowSize(size.width(), size.height());
@@ -44,14 +44,14 @@ void GLHandler::Update(){
 }
 
 void GLHandler::paintGL(){
-	ESystem* esystem = (ESystem*)sys;
+	ESystem* esystem = (ESystem*)system;
 	if(!esystem->IsPaused()) {
 		game->EngineUpdate();
 	}
 }
 
 void GLHandler::resizeGL(int w, int h){
-	WINSystem* winLanch = (WINSystem*)sys;
+	WINSystem* winLanch = (WINSystem*)system;
 	winLanch->SetWindowSize(w, h);
 	//TODO resizing
 	//game->WindowResized(w, h);

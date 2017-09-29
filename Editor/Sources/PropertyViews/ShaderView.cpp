@@ -54,7 +54,7 @@ void ShaderView::Clear(){
 }
 
 void ShaderView::OnVertexFileClicked() {
-	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Vertex File", path, "Vertex File (*.vtx)");
 	if(!filePath.isEmpty()) {
 		QDir root = path;
@@ -64,7 +64,7 @@ void ShaderView::OnVertexFileClicked() {
 }
 
 void ShaderView::OnFragmentFileClicked() {
-	QString path = QDir::currentPath() + "/" + QString(sys->AssetsPath().c_str());
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Fragment File", path, "Fragment File (*.fgm)");
 	if(!filePath.isEmpty()) {
 		QDir root = path;
@@ -115,7 +115,7 @@ void ShaderView::OnFileSelected(const string& filepath){
 		case Shader::Property::Type::COLOR:
 			propertyType->setCurrentIndex(3);
 		default:
-			sys->LogIt("Property type not supported");
+			system->LogIt("Property type not supported");
 			break;
 		}
 	}
@@ -261,7 +261,7 @@ void ShaderView::OnApplyClick(){
 		}
 	}
 
-	shader->Save(sys->AssetsPath() + shader->GetFilename());
+	shader->Save(system->AssetsPath() + shader->GetFilename());
 	OnRevertClick();
 	game->GetCurrentScene()->RefreshMaterials();
 }

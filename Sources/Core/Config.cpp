@@ -109,8 +109,8 @@ const string& Config::GetString(const string& key) const{
 }
 
 void Config::LoadGameConfig(){
-	File* xmlFile = sys->LoadAssetFile("GameConfig.xml");
-	CROSS_FAIL(xmlFile, "Can not load scene xml file");
+	File* xmlFile = system->LoadAssetFile("GameConfig.xml");
+	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
@@ -148,7 +148,7 @@ void Config::LoadGameConfig(){
 }
 
 void Config::LoadUserConfig(){
-    string path = sys->DataPath() + "UserConfig.xml";
+    string path = system->DataPath() + "UserConfig.xml";
 
 	XMLDocument doc;
 	doc.LoadFile(path.c_str());
@@ -205,7 +205,7 @@ void Config::SaveGameConfig(){
 	gameConfig.name = "GameConfig.xml";
 	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
-	sys->SaveDataFile(&gameConfig);
+	system->SaveDataFile(&gameConfig);
 	gameConfig.data = NULL;
 }
 
@@ -230,6 +230,6 @@ void Config::SaveUserConfig(){
 	userConfig.name = "UserConfig.xml";
 	userConfig.size = printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
-	sys->SaveDataFile(&userConfig);
+	system->SaveDataFile(&userConfig);
 	userConfig.data = NULL;
 }
