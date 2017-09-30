@@ -17,7 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "ScrollScreen.h"
-#include "Utils/Button.h"
 #include "Menu.h"
 
 using namespace cross;
@@ -29,31 +28,22 @@ public:
 	void Update(float sec) override;
 
 private:
-	Font* font;
+	Font* font				= NULL;
 
-	Menu* current_menu;
+	Menu* current_menu		= NULL;
 
-	Menu* main_menu;
-	Menu* graphics2D_menu;
-	Menu* graphics3D_menu;
+	Menu* main_menu			= NULL;
+	Menu* graphics2D_menu	= NULL;
+	Menu* graphics3D_menu	= NULL;
 
-	Menu* graphics3D_simple;
-	Menu* graphics3D_light;
-	Menu* graphics3D_maps;
-	Menu* graphics3D_misc;
+	Menu* graphics3D_simple = NULL;
+	Menu* graphics3D_light	= NULL;
+	Menu* graphics3D_maps	= NULL;
+	Menu* graphics3D_misc	= NULL;
 
 	void SetMenu(Menu* newMenu);
 
 	//connections
-    U64 resize_del;
+    U64 resize_del			= 0;
 	void WindowResizedHandle(S32 width, S32 height);
-
-	//main menu
-	void OnGraphics2DClick();
-	void OnGraphics3DClick();
-	//graphics 3d menu
-	void OnSimpleClick();
-	void OnLightClick();
-	void OnMapsClick();
-	void OnMiscClick();
 };

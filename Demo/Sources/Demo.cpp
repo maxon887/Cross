@@ -61,16 +61,14 @@ void Demo::Stop(){
 }
 
 void Demo::Update(float sec){
-	float height = gfx2D->GetCamera()->GetViewHeight();
-	height += gfx2D->GetCamera()->GetPosition().y;
+	float height = GetCurrentScreen()->GetCamera()->GetViewHeight();
+	height += GetCurrentScreen()->GetCamera()->GetPosition().y;
 	Vector2D location(back_btn->GetWidth()/2.f, height - back_btn->GetHeight()/2.f);
     back_btn->SetLocation(location);
 	back_btn->Update(sec);
 }
 
 Screen* Demo::GetStartScreen(){
-	camera->SetPosition(Vector3D::Zero);
-	gfx2D->SetCamera(camera);
 	return new MainScreen();
 }
 

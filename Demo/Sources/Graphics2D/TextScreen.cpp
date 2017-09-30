@@ -22,7 +22,7 @@
 #include "Utils/Debugger.h"
 
 void TextScreen::Start(){
-	debug_font = new Font("Engine/Fonts/VeraMonoBold.ttf", 50, Color::Red);
+	Screen::Start();
 	font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 }
 
@@ -31,37 +31,28 @@ void TextScreen::Stop(){
 		delete scrChar;
 	}
 	delete font;
-	delete debug_font;
+	Screen::Stop();
 }
 
 void TextScreen::Update(float sec){
+	Screen::Update(sec);
 	for(ScreenChar* scrChar : chars){
 		font->SetColor(scrChar->color);
 		gfx2D->DrawText(scrChar->positon, scrChar->str, font);
 	}
-	AddChar();
-}
-
-void TextScreen::AddChar(){
-	float fps = Debugger::Instance()->GetFPS();
-	if(fps > 40.f){
-		for(U32 i = 0; i < 10; i++){
-			float size = Random(10.f, 80.f);
-			Vector2D position;
-			position.x = Random(-size, GetWidth());
-			position.y = Random(-size, GetHeight());
-			Color color(Random(1.f), Random(1.f), Random(1.f));
-			char c = Random(65, 122);
-			string str(1, c);
-			ScreenChar* screenChar = new ScreenChar();
-			screenChar->positon = position;
-			screenChar->color = color;
-			screenChar->str = str;
-			screenChar->size = size;
-			chars.push_back(screenChar);
-		}
-	} else{
-		string message = "Chars drawn " + to_string(chars.size());
-		gfx2D->DrawText(Vector2D(0.f, 10.f), message, debug_font);
+	if(chars.size() < 200) {
+		float size = Random(10.f, 80.f);
+		Vector2D position;
+		position.x = Random(-size, GetWidth());
+		position.y = Random(-size, GetHeight());
+		Color color(Random(1.f), Random(1.f), Random(1.f));
+		char c = Random(65, 122);
+		string str(1, c);
+		ScreenChar* screenChar = new ScreenChar();
+		screenChar->positon = position;
+		screenChar->color = color;
+		screenChar->str = str;
+		screenChar->size = size;
+		chars.push_back(screenChar);
 	}
 }

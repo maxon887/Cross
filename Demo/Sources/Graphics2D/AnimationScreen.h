@@ -14,20 +14,18 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-	
 #pragma once
-
 #include "Screen.h"
 #include "Utils/Animation.h"
-#include "Input.h"
 
 using namespace cross;
 
 class AnimationScreen : public Screen{
 public:
-	void Start();
-	void Stop();
-    void Update(float sec);
+	void Start() override;
+	void Stop() override;
+    void Update(float sec) override;
+
 private:
 	Texture* texture;
 	Animation* spider_run_anim;

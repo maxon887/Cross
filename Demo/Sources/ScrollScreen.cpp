@@ -61,11 +61,10 @@ void ScrollScreen::ActionMove(Input::Action action){
 	diff.y = -diff.y;
 	touch = action.pos;
 
-	Camera2D* cam = gfx2D->GetCamera();
-	Vector2D camPos = Vector2D(cam->GetPosition().x, cam->GetPosition().y);
+	Vector2D camPos = Vector2D(camera2D->GetPosition().x, camera2D->GetPosition().y);
 	camPos += diff;
-	float camW = cam->GetViewWidth();
-	float camH = cam->GetViewHeight();
+	float camW = camera2D->GetViewWidth();
+	float camH = camera2D->GetViewHeight();
 
 	if(camPos.x < 0) {
 		camPos.x = 0;
@@ -80,7 +79,7 @@ void ScrollScreen::ActionMove(Input::Action action){
 		camPos.y = GetHeight() - camH;
 	}
 
-	cam->SetPosition(camPos);
+	camera2D->SetPosition(camPos);
 }
 
 void ScrollScreen::ActionUp(Input::Action action){

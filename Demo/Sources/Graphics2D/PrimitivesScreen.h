@@ -17,16 +17,18 @@
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
-#include "Utils/Font.h"
-#include "Input.h"
 
 using namespace cross;
 
-class PrimitivesScreen : public Screen{
+class PrimitivesScreen : public Screen {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
+
+	void ActionDown(Input::Action action) override;
+	void ActionMove(Input::Action action) override;
+	void ActionUp(Input::Action action) override;
 
 private:
 	class Entity{
@@ -93,12 +95,4 @@ private:
 	Entity::Type entity_type;
 
 	void GenerateEntity();
-
-    U64 down_del;
-    U64 move_del;
-    U64 up_del;
-
-	void OnActionDown(Input::Action action);
-	void OnActionMove(Input::Action action);
-	void OnActionUp(Input::Action action);
 };
