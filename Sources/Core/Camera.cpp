@@ -29,7 +29,7 @@ Camera::Camera() {
 }
 
 void Camera::Update(float sec){
-	RecalView();
+	RecalcView();
 }
 
 const Matrix& Camera::GetViewMatrix() const{
@@ -44,7 +44,7 @@ const Matrix& Camera::GetProjectionMatrix() const{
 	return projection;
 }
 
-void Camera::RecalView(){
+void Camera::RecalcView(){
 	view = Matrix::Identity;
 	Vector3D direction = GetDirection();
 	view.m[2][0] = -direction.x;

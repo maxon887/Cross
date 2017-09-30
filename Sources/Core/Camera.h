@@ -36,7 +36,7 @@ protected:
 	Matrix view			= Matrix::Identity;
 	Matrix projection	= Matrix::Identity;
 
-	void RecalView();
+	void RecalcView();
 };
 
 };

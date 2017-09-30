@@ -29,10 +29,6 @@ public:
 
 	void Update(float sec);
 
-	void SetCamera(Camera2D* camera);
-	Camera2D* GetCamera();
-	Camera2D* GetDefaultCamera();
-
 	void DrawPoint(Vector2D pos, Color color);
 	void DrawLine(Vector2D p1, Vector2D p2, Color color);
 	void DrawRect(Rect rect, Color color);
@@ -78,8 +74,6 @@ private:
 	Shader* font_shader			= NULL;
 	Shader* simple_shader		= NULL;
 	Font* default_font			= NULL;
-	Camera2D* camera			= NULL;
-	Camera2D* default_camera	= NULL;
 };
 
 }

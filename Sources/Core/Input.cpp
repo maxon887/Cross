@@ -18,6 +18,8 @@
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "System.h"
+#include "Game.h"
+#include "Scene.h"
 
 using namespace cross;
 
@@ -35,7 +37,7 @@ void Input::TouchEnabled(bool enabled){
 
 Vector2D Input::TargetToWordConvert(float x, float y) const{
 	Vector2D result;
-	Camera2D* cam = gfx2D->GetCamera();
+	Camera2D* cam = game->GetCurrentScreen()->GetCamera();
 	float scaleFactor = system->GetWindowWidth() / cam->GetViewWidth();
 	result.x = x / scaleFactor;
 	result.y = cam->GetViewHeight() - y / scaleFactor;

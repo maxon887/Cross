@@ -53,6 +53,7 @@ public:
 	virtual void ActionMove(Input::Action action) { };
 	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action) { };
+	Camera2D* GetCamera();
 	/* Returns true if current screen is actually a 3D scene */
 	bool IsScene() const;
 	/* Reflect ratio between screen and target device width */
@@ -67,6 +68,7 @@ public:
 protected:
 	bool is_scene					= false;
 	bool enable_inputs				= true;
+	Camera2D* camera2D				= NULL;
 
 private:
 	Array<bool> actionIDs			= Array<bool>(MAX_ACTIONS, false);
