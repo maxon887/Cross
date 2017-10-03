@@ -94,6 +94,9 @@
     <ClCompile Include="..\..\..\Sources\Core\UI.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\stb_image_aug.c" />
@@ -180,6 +183,12 @@
     <ClInclude Include="..\..\..\Sources\Core\UI.h" />
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imconfig.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_internal.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_rect_pack.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_textedit.h" />
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\SOIL.h" />

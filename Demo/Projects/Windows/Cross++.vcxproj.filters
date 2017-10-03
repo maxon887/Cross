@@ -58,6 +58,9 @@
     <Filter Include="Cross\Core">
       <UniqueIdentifier>{475abeb6-dd54-470f-af9f-ac6856413a61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Libs\ImGui">
+      <UniqueIdentifier>{2c6f2133-0408-4f6f-9b5c-30c527371693}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -303,6 +306,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui.cpp">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_demo.cpp">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_draw.cpp">
+      <Filter>Cross\Libs\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -564,6 +576,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imconfig.h">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui.h">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_internal.h">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_rect_pack.h">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_textedit.h">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_truetype.h">
+      <Filter>Cross\Libs\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
