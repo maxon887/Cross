@@ -357,14 +357,12 @@ void NewFrame()
 	ImGuiIO& io = ImGui::GetIO();
 
 	// Setup display size (every frame to accommodate for window resizing)
-	//int w, h;
-	//int display_w, display_h;
-	//glfwGetWindowSize(g_Window, &w, &h);
-	//glfwGetFramebufferSize(g_Window, &display_w, &display_h);
-	io.DisplaySize = ImVec2((float)system->GetWindowWidth(), (float)system->GetWindowHeight());
-	//io.DisplayFramebufferScale = ImVec2(w > 0 ? ((float)display_w / w) : 0, h > 0 ? ((float)display_h / h) : 0);
-	io.DisplayFramebufferScale = ImVec2(system->GetWindowWidth() / game->GetCurrentScreen()->GetWidth(),
-		system->GetWindowHeight() / game->GetCurrentScreen()->GetHeight());
+	int windowWidth = system->GetWindowWidth();
+	int windowHeight = system->GetWindowHeight();
+	float width = game->GetCurrentScreen()->GetWidth();
+	float height = game->GetCurrentScreen()->GetHeight();
+	io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);
+	io.DisplayFramebufferScale = ImVec2(windowWidth / width, windowHeight / height);
 
 	// Setup time step
 	double current_time = game->GetRunTime();
