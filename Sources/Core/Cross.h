@@ -70,7 +70,9 @@ if(!(condition)) {													\
 
 #include "Experimental/ArraySTD.h"
 
-#define system sys
+#if !defined(ANDROID)
+#	define system sys
+#endif
 
 namespace cross{
 
