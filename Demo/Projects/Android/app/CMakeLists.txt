@@ -24,6 +24,7 @@ file(GLOB CROSS_SRC
     "../../../../Sources/Utils/*.cpp"
     "../../../../Sources/Libs/SOIL/*.c"
     "../../../../Sources/Libs/TinyXML2/*.cpp"
+    "../../../../Sources/Libs/ImGui/*.cpp"
     "../../../../Sources/Platform/*.cpp"
     "../../../../Sources/Platform/Android/*.cpp"
 
