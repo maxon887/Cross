@@ -131,6 +131,10 @@ void WINSystem::SetWND(HWND wnd){
 	this->wnd = wnd;
 }
 
+HWND WINSystem::GetHWND() {
+	return wnd;
+}
+
 void WINSystem::SetWindowPosition(int x, int y){
 	window_pos_x = x;
 	window_pos_y = y;

@@ -40,6 +40,7 @@ public:
 
 public:
 	void SetWND(HWND wnd);
+	HWND GetHWND();
 	void SetWindowPosition(int x, int y);
 
 	void KeyReleasedHandle(Key key);
