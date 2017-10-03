@@ -17,7 +17,8 @@
 #include "MainScreen.h"
 #include "Game.h"
 #include "GraphicsGL.h"
-#include "Platform/Windows/WINSystem.h"
+#include "System.h"
+//#include "Platform/Windows/WINSystem.h"
 
 #include "Libs/ImGui/imgui.h"
 
@@ -45,11 +46,11 @@ void RenderDrawLists(ImDrawData* draw_data)
 	glActiveTexture(GL_TEXTURE0);
 	GLint last_program; glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
 	GLint last_texture; glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
-	GLint last_sampler; glGetIntegerv(GL_SAMPLER_BINDING, &last_sampler);
+	//GLint last_sampler; glGetIntegerv(GL_SAMPLER_BINDING, &last_sampler);
 	GLint last_array_buffer; glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
 	GLint last_element_array_buffer; glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &last_element_array_buffer);
-	GLint last_vertex_array; glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
-	GLint last_polygon_mode[2]; glGetIntegerv(GL_POLYGON_MODE, last_polygon_mode);
+	//GLint last_vertex_array; glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
+	//GLint last_polygon_mode[2]; glGetIntegerv(GL_POLYGON_MODE, last_polygon_mode);
 	GLint last_viewport[4]; glGetIntegerv(GL_VIEWPORT, last_viewport);
 	GLint last_scissor_box[4]; glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box);
 	GLenum last_blend_src_rgb; glGetIntegerv(GL_BLEND_SRC_RGB, (GLint*)&last_blend_src_rgb);
@@ -64,13 +65,13 @@ void RenderDrawLists(ImDrawData* draw_data)
 	GLboolean last_enable_scissor_test = glIsEnabled(GL_SCISSOR_TEST);
 
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
-	glEnable(GL_BLEND);
+	SAFE(glEnable(GL_BLEND));
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_SCISSOR_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	// Setup viewport, orthographic projection matrix
 	glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height);
@@ -84,8 +85,22 @@ void RenderDrawLists(ImDrawData* draw_data)
 	glUseProgram(g_ShaderHandle);
 	glUniform1i(g_AttribLocationTex, 0);
 	glUniformMatrix4fv(g_AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
-	glBindVertexArray(g_VaoHandle);
-	glBindSampler(0, 0); // Rely on combined texture/sampler state.
+
+	//glBindVertexArray(g_VaoHandle);
+	//glBindSampler(0, 0); // Rely on combined texture/sampler state.
+	glBindBuffer(GL_ARRAY_BUFFER, g_VboHandle);
+	glEnableVertexAttribArray(g_AttribLocationPosition);
+	glEnableVertexAttribArray(g_AttribLocationUV);
+	glEnableVertexAttribArray(g_AttribLocationColor);
+
+#define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
+	glVertexAttribPointer(g_AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
+	glVertexAttribPointer(g_AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
+	glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+#undef OFFSETOF
+
+
+
 
 	for(int n = 0; n < draw_data->CmdListsCount; n++)
 	{
@@ -117,9 +132,9 @@ void RenderDrawLists(ImDrawData* draw_data)
 	// Restore modified GL state
 	glUseProgram(last_program);
 	glBindTexture(GL_TEXTURE_2D, last_texture);
-	glBindSampler(0, last_sampler);
+	//glBindSampler(0, last_sampler);
 	glActiveTexture(last_active_texture);
-	glBindVertexArray(last_vertex_array);
+	//glBindVertexArray(last_vertex_array);
 	glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, last_element_array_buffer);
 	glBlendEquationSeparate(last_blend_equation_rgb, last_blend_equation_alpha);
@@ -128,7 +143,7 @@ void RenderDrawLists(ImDrawData* draw_data)
 	if(last_enable_cull_face) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
 	if(last_enable_depth_test) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
 	if(last_enable_scissor_test) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, last_polygon_mode[0]);
+	//glPolygonMode(GL_FRONT_AND_BACK, last_polygon_mode[0]);
 	glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
 	glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]);
 }
@@ -164,8 +179,8 @@ bool Init()
 	//io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
 	//io.ClipboardUserData = g_Window;
 #ifdef _WIN32
-	WINSystem* winSys = (WINSystem*)system;
-	io.ImeWindowHandle = winSys->GetHWND();
+	//WINSystem* winSys = (WINSystem*)system;
+	//io.ImeWindowHandle = winSys->GetHWND();
 #endif
 	/*
 	if(install_callbacks)
@@ -209,18 +224,18 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 {
 	// Backup GL state
 	GLint last_texture, last_array_buffer, last_vertex_array;
-	glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
-	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
-	glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
+	SAFE(glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture));
+	SAFE(glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer));
+	//glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
 
 	const GLchar *vertex_shader =
-		"#version 330\n"
+		"precision mediump float;\n"
 		"uniform mat4 ProjMtx;\n"
-		"in vec2 Position;\n"
-		"in vec2 UV;\n"
-		"in vec4 Color;\n"
-		"out vec2 Frag_UV;\n"
-		"out vec4 Frag_Color;\n"
+		"attribute vec2 Position;\n"
+		"attribute vec2 UV;\n"
+		"attribute vec4 Color;\n"
+		"varying vec2 Frag_UV;\n"
+		"varying vec4 Frag_Color;\n"
 		"void main()\n"
 		"{\n"
 		"	Frag_UV = UV;\n"
@@ -229,14 +244,13 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 		"}\n";
 
 	const GLchar* fragment_shader =
-		"#version 330\n"
+		"precision mediump float;\n"
 		"uniform sampler2D Texture;\n"
-		"in vec2 Frag_UV;\n"
-		"in vec4 Frag_Color;\n"
-		"out vec4 Out_Color;\n"
+		"varying vec2 Frag_UV;\n"
+		"varying vec4 Frag_Color;\n"
 		"void main()\n"
 		"{\n"
-		"	Out_Color = Frag_Color * texture( Texture, Frag_UV.st);\n"
+		"	gl_FragColor = Frag_Color * texture2D( Texture, Frag_UV.st);\n"
 		"}\n";
 
 	g_ShaderHandle = glCreateProgram();
@@ -244,11 +258,64 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 	g_FragHandle = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(g_VertHandle, 1, &vertex_shader, 0);
 	glShaderSource(g_FragHandle, 1, &fragment_shader, 0);
-	glCompileShader(g_VertHandle);
-	glCompileShader(g_FragHandle);
-	glAttachShader(g_ShaderHandle, g_VertHandle);
-	glAttachShader(g_ShaderHandle, g_FragHandle);
-	glLinkProgram(g_ShaderHandle);
+	SAFE(glCompileShader(g_VertHandle));
+	GLint compiled;
+	glGetShaderiv(g_VertHandle, GL_COMPILE_STATUS, &compiled);
+	if(!compiled) {
+		GLsizei len;
+		glGetShaderiv(g_VertHandle, GL_INFO_LOG_LENGTH, &len);
+
+		char* log = new char[len + 1];
+		glGetShaderInfoLog(g_VertHandle, len, &len, log);
+		//CROSS_RETURN(false, false, "Shader: %s\n%sShader", file->name.c_str(), log);
+	} else {
+#ifdef CROSS_DEBUG
+		GLsizei len;
+		glGetShaderiv(g_VertHandle, GL_INFO_LOG_LENGTH, &len);
+		if(len > 1) {
+			char* log = new char[len + 1];
+			glGetShaderInfoLog(g_VertHandle, len, &len, log);
+			log[len] = 0;
+			system->LogIt("Shader compilation:\n%s", log);
+			delete[] log;
+		}
+#endif
+	}
+	SAFE(glCompileShader(g_FragHandle));
+	glGetShaderiv(g_FragHandle, GL_COMPILE_STATUS, &compiled);
+	if(!compiled) {
+		GLsizei len;
+		glGetShaderiv(g_FragHandle, GL_INFO_LOG_LENGTH, &len);
+
+		char* log = new char[len + 1];
+		glGetShaderInfoLog(g_FragHandle, len, &len, log);
+		CROSS_RETURN(false, false, "Shader: n%sShader", log);
+	} else {
+#ifdef CROSS_DEBUG
+		GLsizei len;
+		glGetShaderiv(g_FragHandle, GL_INFO_LOG_LENGTH, &len);
+		if(len > 1) {
+			char* log = new char[len + 1];
+			glGetShaderInfoLog(g_FragHandle, len, &len, log);
+			log[len] = 0;
+			system->LogIt("Shader compilation:\n%s", log);
+			delete[] log;
+		}
+#endif
+	}
+	SAFE(glAttachShader(g_ShaderHandle, g_VertHandle));
+	SAFE(glAttachShader(g_ShaderHandle, g_FragHandle));
+	SAFE(glLinkProgram(g_ShaderHandle));
+	GLint linked;
+	glGetProgramiv(g_ShaderHandle, GL_LINK_STATUS, &linked);
+	if(!linked) {
+		GLsizei len;
+		glGetProgramiv(g_ShaderHandle, GL_INFO_LOG_LENGTH, &len);
+
+		char* log = new char[len + 1];
+		glGetProgramInfoLog(g_ShaderHandle, len, &len, log);
+		CROSS_RETURN(false, false, "Shader program compilation failed:\n %s", log);
+	}
 
 	g_AttribLocationTex = glGetUniformLocation(g_ShaderHandle, "Texture");
 	g_AttribLocationProjMtx = glGetUniformLocation(g_ShaderHandle, "ProjMtx");
@@ -256,12 +323,12 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 	g_AttribLocationUV = glGetAttribLocation(g_ShaderHandle, "UV");
 	g_AttribLocationColor = glGetAttribLocation(g_ShaderHandle, "Color");
 
-	glGenBuffers(1, &g_VboHandle);
+	SAFE(glGenBuffers(1, &g_VboHandle));
 	glGenBuffers(1, &g_ElementsHandle);
 
-	glGenVertexArrays(1, &g_VaoHandle);
-	glBindVertexArray(g_VaoHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, g_VboHandle);
+	//glGenVertexArrays(1, &g_VaoHandle);
+	//glBindVertexArray(g_VaoHandle);
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, g_VboHandle));
 	glEnableVertexAttribArray(g_AttribLocationPosition);
 	glEnableVertexAttribArray(g_AttribLocationUV);
 	glEnableVertexAttribArray(g_AttribLocationColor);
@@ -276,8 +343,8 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 
 	// Restore modified GL state
 	glBindTexture(GL_TEXTURE_2D, last_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
-	glBindVertexArray(last_vertex_array);
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer));
+	//glBindVertexArray(last_vertex_array);
 
 	return true;
 }
