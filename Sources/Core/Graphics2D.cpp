@@ -198,7 +198,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 	}else{
 		SAFE(glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2));
 	}
-	delete buffer;
+	delete[] buffer;
 }
 
 void Graphics2D::DrawText(Vector2D pos, const string& textStr){
@@ -417,7 +417,7 @@ Texture* Graphics2D::LoadKTXTexture(const string& filename, Texture::Filter filt
 		offset += imageSize;
 		texture->AddMipmapLevel(i, imageSize, imageData, mipmapW, mipmapH, Texture::Compression::ETC1);
 	}
-	delete imageData;
+	delete[] imageData;
 	return texture;
 }
 

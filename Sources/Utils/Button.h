@@ -49,7 +49,7 @@ public:
 	float GetHeight() const;
 	Sprite* GetUpImage() const;
 	Sprite* GetDownImage() const;
-	Rect GetRect() const;
+	Rect GetRect() const override;
 	Vector2D GetCenter() const;
 	void Locate(Vector2D loc, float width, float heiht);
 	void Locate(Rect rect);

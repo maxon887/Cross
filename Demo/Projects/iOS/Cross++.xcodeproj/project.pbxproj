@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D4A56CC1F51A89800CCC09D /* libassimp_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */; };
-		9D4A56CF1F51A8E400CCC09D /* libassimp_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */; };
 		9DB52F4D1F7E98B00051E62E /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DB52F4B1F7E98B00051E62E /* Debugger.cpp */; };
 		9DDFFEDF1F46EF1700A6E782 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFDD61F46EF1700A6E782 /* Audio.cpp */; };
 		9DDFFEE01F46EF1700A6E782 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFDD81F46EF1700A6E782 /* Camera.cpp */; };
@@ -36,10 +34,10 @@
 		9DDFFEF61F46EF1700A6E782 /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE061F46EF1700A6E782 /* UI.cpp */; };
 		9DDFFEF71F46EF1700A6E782 /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE081F46EF1700A6E782 /* VertexBuffer.cpp */; };
 		9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */; };
-		9DDFFF021F46EF1700A6E782 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7B1F46EF1700A6E782 /* image_helper.c */; };
-		9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7D1F46EF1700A6E782 /* SOIL.c */; };
-		9DDFFF041F46EF1700A6E782 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7F1F46EF1700A6E782 /* stb_image_aug.c */; };
-		9DDFFF051F46EF1700A6E782 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE841F46EF1700A6E782 /* tinyxml2.cpp */; };
+		9DDFFF021F46EF1700A6E782 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7B1F46EF1700A6E782 /* image_helper.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7D1F46EF1700A6E782 /* SOIL.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		9DDFFF041F46EF1700A6E782 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7F1F46EF1700A6E782 /* stb_image_aug.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		9DDFFF051F46EF1700A6E782 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE841F46EF1700A6E782 /* tinyxml2.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		9DDFFF061F46EF1700A6E782 /* All.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE871F46EF1700A6E782 /* All.cpp */; };
 		9DDFFF071F46EF1700A6E782 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE891F46EF1700A6E782 /* Matrix.cpp */; };
 		9DDFFF081F46EF1700A6E782 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE8B1F46EF1700A6E782 /* Quaternion.cpp */; };
@@ -49,8 +47,8 @@
 		9DDFFF0C1F46EF1700A6E782 /* Vector4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE931F46EF1700A6E782 /* Vector4D.cpp */; };
 		9DDFFF131F46EF1700A6E782 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA31F46EF1700A6E782 /* AppDelegate.mm */; };
 		9DDFFF141F46EF1700A6E782 /* CrossViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA51F46EF1700A6E782 /* CrossViewController.mm */; };
-		9DDFFF151F46EF1700A6E782 /* IOSSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */; };
-		9DDFFF161F46EF1700A6E782 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA91F46EF1700A6E782 /* iRate.m */; };
+		9DDFFF151F46EF1700A6E782 /* IOSSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */; settings = {COMPILER_FLAGS = "-Wno-deprecated-declarations"; }; };
+		9DDFFF161F46EF1700A6E782 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA91F46EF1700A6E782 /* iRate.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		9DDFFF171F46EF1700A6E782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DDFFEAA1F46EF1700A6E782 /* Main.storyboard */; };
 		9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */; };
 		9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECA1F46EF1700A6E782 /* Shader.cpp */; };
@@ -63,8 +61,6 @@
 		9DDFFF251F46EF1700A6E782 /* FreeCameraScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFED91F46EF1700A6E782 /* FreeCameraScene.cpp */; };
 		9DDFFF261F46EF1700A6E782 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEDB1F46EF1700A6E782 /* Skybox.cpp */; };
 		9DDFFF271F46EF1700A6E782 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEDD1F46EF1700A6E782 /* ToggleButton.cpp */; };
-		9DDFFF3F1F46F5CF00A6E782 /* libfmod_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */; };
-		9DDFFF401F46F5CF00A6E782 /* libfmod_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3B1F46F5CF00A6E782 /* libfmod_iphonesimulator.a */; };
 		9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D44F10901E09C18F00870451 /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D44F10851E09C18F00870451 /* DirectionalLightScene.cpp */; };
@@ -406,15 +402,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D4A56CF1F51A8E400CCC09D /* libassimp_iphonesimulator.a in Frameworks */,
-				9D4A56CC1F51A89800CCC09D /* libassimp_iphoneos.a in Frameworks */,
 				D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */,
 				9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
-				9DDFFF3F1F46F5CF00A6E782 /* libfmod_iphoneos.a in Frameworks */,
 				D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */,
 				D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */,
-				9DDFFF401F46F5CF00A6E782 /* libfmod_iphonesimulator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1207,7 +1199,7 @@
 					"$(SRCROOT)/../../../Sources/Libs/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1235,7 +1227,7 @@
 					"$(SRCROOT)/../../../Sources/Libs/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				OTHER_LDFLAGS = (

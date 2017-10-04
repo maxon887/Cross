@@ -170,7 +170,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	U32 vertexSize = vertexBuf->VertexSize();
 	if(shader->aPosition != -1) {
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuf->GetPossitionsOffset())));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPossitionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
 		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
@@ -224,7 +224,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, 0));
+	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -255,7 +255,7 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
 	}
 
-	U32 indsOffset = indices.size();
+	U32 indsOffset = (U32)indices.size();
 	for(U32 i = 0; i < inds.size(); ++i) {
 		indices.push_back(indsOffset + inds[i]);
 	}
@@ -294,7 +294,7 @@ Model* Mesh::GetModel() {
 }
 
 U32 Mesh::GetPolyCount() const {
-	return indices.size();
+	return (U32)indices.size();
 }
 
 Mesh* Mesh::Clone() const{

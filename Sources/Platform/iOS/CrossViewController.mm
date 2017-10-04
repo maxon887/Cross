@@ -85,9 +85,9 @@ CrossViewController* instance = nil;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    S32 width = size.width * screenScale;
-    S32 height = size.height * screenScale;
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    S32 width = size.width * scale;
+    S32 height = size.height * scale;
     sys->SetWindowSize(width, height);
 }
 
@@ -100,6 +100,8 @@ CrossViewController* instance = nil;
                 return UIInterfaceOrientationMaskLandscape;
             case System::Orientation::PORTRAIT:
                 return UIInterfaceOrientationMaskPortrait;
+            default:
+                CROSS_RETURN(false, 0, "Unknown screen orientation");
         }
     }
     return UIInterfaceOrientationMaskAll;

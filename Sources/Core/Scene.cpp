@@ -155,8 +155,8 @@ void Scene::Save(const string& filename){
 			pointCount++;
 			break;
 		case Light::DIRECTIONAL:
+                directionCount++;
 			break;
-			directionCount++;
 		case Light::SPOT:
 			spotCount++;
 			break;
@@ -298,7 +298,7 @@ Color Scene::GetAmbientColor() const{
 }
 
 Material* Scene::GetMaterial(const string& xmlFile) {
-	S32 hash = std::hash<string>{}(xmlFile);
+	U32 hash = (U32)std::hash<string>{}(xmlFile);
 	auto matIt = materials.find(hash);
 	if(matIt != materials.end()) {
 		return (*matIt).second;
@@ -312,7 +312,7 @@ Material* Scene::GetMaterial(const string& xmlFile) {
 }
 
 Shader* Scene::GetShader(const string& shaderfile) {
-	S32 hash = std::hash<string>{}(shaderfile);
+	U32 hash = (U32)std::hash<string>{}(shaderfile);
 	auto shaderIt = shaders.find(hash);
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
@@ -326,7 +326,7 @@ Shader* Scene::GetShader(const string& shaderfile) {
 }
 
 Texture* Scene::GetTexture(const string& textureFile) {
-	S32 hash = std::hash<string>{}(textureFile);
+	U32 hash = (U32)std::hash<string>{}(textureFile);
 	auto textureIt = textures.find(hash);
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
@@ -338,7 +338,7 @@ Texture* Scene::GetTexture(const string& textureFile) {
 }
 
 Model* Scene::GetModel(const string& modelFile) {
-	S32 hash = std::hash<string>{}(modelFile);
+	U32 hash = (U32)std::hash<string>{}(modelFile);
 	auto modelIt = models.find(hash);
 	if(modelIt != models.end()) {
 		return (*modelIt).second;

@@ -33,10 +33,10 @@ File* System::LoadFile(const string& filename){
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
-	file->size = ftell(f);
+	file->size = (U32)ftell(f);
 	fseek(f, 0, SEEK_SET);
 	file->data = new Byte[file->size];
-	U32 read = fread(file->data, sizeof(Byte), file->size, f);
+	U64 read = fread(file->data, sizeof(Byte), file->size, f);
 	CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
 	fclose(f);
 	return file;
@@ -53,7 +53,7 @@ File* System::LoadDataFile(const string& filename){
 void System::SaveFile(File* file){
 	FILE* f = fopen(file->name.c_str(), "w");
 	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.c_str());
-	U32 written = fwrite(file->data, 1, file->size, f);
+	U64 written = fwrite(file->data, 1, file->size, f);
 	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.c_str());
 	fclose(f);
 }

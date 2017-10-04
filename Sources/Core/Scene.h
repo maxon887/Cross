@@ -81,10 +81,10 @@ public:
 	void RefreshMaterials();
 
 protected:
-	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
-	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
-	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();
-	Dictionary<S32, Model*> models			= Dictionary<S32, Model*>();
+	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();
+	Dictionary<U32, Texture*> textures		= Dictionary<U32, Texture*>();
+	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
+	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= NULL;
 

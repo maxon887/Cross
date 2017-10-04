@@ -66,7 +66,7 @@ void Menu::SetImages(Sprite* up, Sprite* down){
 }
 
 U32 Menu::Count(){
-	return buttons.size();
+	return (U32)buttons.size();
 }
 
 void Menu::Clear(){
@@ -92,7 +92,7 @@ float Menu::GetHeight(){
 void Menu::Locate(){
 	if(resizeble){
 		menu_height = game->GetCurrentScreen()->GetHeight();
-		S32 devider = buttons.size() + 1;
+		S32 devider = (S32)buttons.size() + 1;
 		offset = (menu_height + button_height) / devider;
 
 		Vector2D pos(game->GetCurrentScreen()->GetWidth() / 2.f, menu_height - (offset - button_height/2.f));
