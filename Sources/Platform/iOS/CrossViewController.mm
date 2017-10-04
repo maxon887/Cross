@@ -85,10 +85,12 @@ CrossViewController* instance = nil;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    CGFloat scale = [[UIScreen mainScreen] scale];
-    S32 width = size.width * scale;
-    S32 height = size.height * scale;
-    sys->SetWindowSize(width, height);
+    if(system){
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        S32 width = size.width * scale;
+        S32 height = size.height * scale;
+        system->SetWindowSize(width, height);
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations{
