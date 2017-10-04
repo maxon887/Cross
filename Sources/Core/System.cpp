@@ -90,7 +90,7 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 		string str = msg;
 		str += "\n";
 		str += "File: ";
-		str += file;
+		str += filename;
 		str += "\n";
 		str += "Line: " + to_string(line);
 		LogIt(str.c_str());

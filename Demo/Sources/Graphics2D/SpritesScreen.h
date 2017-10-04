@@ -20,16 +20,14 @@
 
 using namespace cross;
 
-class SpritesScreen : public Screen{
+class SpritesScreen : public Screen {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
+
 private:
 	Array<Vector2D> positions;
 	Array<Vector2D> velocities;
-	Sprite* awesome_face;
-	Font* debug_font;
-
-	void PushSprite();
+	Sprite* awesome_face = NULL;
 };

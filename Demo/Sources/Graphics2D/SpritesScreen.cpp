@@ -16,23 +16,31 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SpritesScreen.h"
 #include "Graphics2D.h"
-#include "Input.h"
 #include "Demo.h"
 #include "Sprite.h"
-#include "Utils/Debugger.h"
-#include "Utils/Font.h"
 
 void SpritesScreen::Start(){
+	Screen::Start();
 	awesome_face = demo->GetCommonSprite("AwesomeFace.png");
-	debug_font = new Font("Engine/Fonts/VeraMonoBold.ttf", 50, Color::Red);
+	for(U32 i = 0; i < 20; i++) {
+		Vector2D position;
+		position.x = Random(5 + awesome_face->GetWidth() / 2, GetWidth() - 5 - awesome_face->GetWidth() / 2);
+		position.y = Random(5 + awesome_face->GetHeight() / 2, GetHeight() - 5 - awesome_face->GetHeight() / 2);
+		positions.push_back(position);
+		Vector2D velocity;
+		velocity.x = Random(-3.f, 3.f);
+		velocity.y = Random(-3.f, 3.f);
+		velocities.push_back(velocity);
+	}
 }
 
 void SpritesScreen::Stop(){
-	delete debug_font;
 	delete awesome_face;
+	Screen::Stop();
 }
 
 void SpritesScreen::Update(float sec){
+	Screen::Update(sec);
 	for(U32 i = 0; i < positions.size(); i++){
 		positions[i] += velocities[i] * sec * 100;
 		float spriteWidth = awesome_face->GetWidth()/2;
@@ -45,25 +53,5 @@ void SpritesScreen::Update(float sec){
 			velocities[i].y *= -1;
 		}
 		gfx2D->DrawSprite(positions[i], awesome_face);
-	}
-	PushSprite();
-}
-
-void SpritesScreen::PushSprite(){
-	float fps = Debugger::Instance()->GetFPS();
-	if(fps > 40.f){
-		for(U32 i = 0; i < 20; i++){
-			Vector2D position;
-			position.x = Random(5 + awesome_face->GetWidth() / 2, GetWidth() - 5 - awesome_face->GetWidth() / 2);
-			position.y = Random(5 + awesome_face->GetHeight() / 2, GetHeight() - 5 - awesome_face->GetHeight() / 2);
-			positions.push_back(position);
-			Vector2D velocity;
-			velocity.x = Random(-3.f, 3.f);
-			velocity.y = Random(-3.f, 3.f);
-			velocities.push_back(velocity);
-		}
-	}else{
-		string message = "Sprites Drawn " + to_string(positions.size());
-		gfx2D->DrawText(Vector2D(0.f, 10.f), message, debug_font);
 	}
 }

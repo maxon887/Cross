@@ -15,11 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
-#include "Graphics2D.h"
+#include "Demo.h"
 #include "System.h"
 #include "Sprite.h"
-#include "AudioScreen.h"
 #include "Camera2D.h"
+#include "Utils/Font.h"
 #include "Graphics2D/PrimitivesScreen.h"
 #include "Graphics2D/AnimationScreen.h"
 #include "Graphics2D/SpritesScreen.h"
@@ -41,8 +41,7 @@
 #include "Graphics3D/Misc/TransparencyScene.h"
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
-#include "Demo.h"
-#include "Event.h"
+#include "AudioScreen.h"
 
 void MainScreen::Start(){
 	ScrollScreen::Start();
@@ -62,8 +61,8 @@ void MainScreen::Start(){
 	Button* graphics2Dbtn		= new Button("Graphics 2D", font->Clone());
 	Button* graphics3Dbtn		= new Button("Graphics 3D", font->Clone());
 	Button* audioBtn			= new Button("Audio", font->Clone());
-	graphics2Dbtn->Clicked.Connect(this, &MainScreen::OnGraphics2DClick);
-	graphics3Dbtn->Clicked.Connect(this, &MainScreen::OnGraphics3DClick);
+	graphics2Dbtn->Clicked.Connect([this]() { SetMenu(graphics2D_menu); });
+	graphics3Dbtn->Clicked.Connect([this]() { SetMenu(graphics3D_menu); });
 	audioBtn->Clicked.Connect([](){ game->SetScreen(new AudioScreen()); });
 	main_menu->AddButton(graphics2Dbtn);
 	main_menu->AddButton(graphics3Dbtn);
@@ -90,10 +89,10 @@ void MainScreen::Start(){
 	Button* lightBtn			= new Button("Light", font->Clone());
 	Button* mapsBtn				= new Button("Maps", font->Clone());
 	Button* miscBtn				= new Button("Misc", font->Clone());
-	simpleBtn->Clicked.Connect(this, &MainScreen::OnSimpleClick);
-	lightBtn->Clicked.Connect(this, &MainScreen::OnLightClick);
-	mapsBtn->Clicked.Connect(this, &MainScreen::OnMapsClick);
-	miscBtn->Clicked.Connect(this, &MainScreen::OnMiscClick);
+	simpleBtn->Clicked.Connect([this]() { SetMenu(graphics3D_simple); });
+	lightBtn->Clicked.Connect([this]() { SetMenu(graphics3D_light); });
+	mapsBtn->Clicked.Connect([this]() { SetMenu(graphics3D_maps); });
+	miscBtn->Clicked.Connect([this]() { SetMenu(graphics3D_misc); });
 	graphics3D_menu->AddButton(simpleBtn);
 	graphics3D_menu->AddButton(lightBtn);
 	graphics3D_menu->AddButton(mapsBtn);
@@ -195,8 +194,8 @@ void MainScreen::Update(float sec){
 void MainScreen::SetMenu(Menu* menu){
 	SetHeight(menu->GetHeight());
 	Vector2D camPos(0.f, 0.f);
-	camPos.y = GetHeight() - gfx2D->GetCamera()->GetViewHeight();
-	gfx2D->GetCamera()->SetPosition(camPos);
+	camPos.y = GetHeight() - camera2D->GetViewHeight();
+	camera2D->SetPosition(camPos);
 
 	current_menu->Active(false);
 	menu->Active(true);
@@ -205,30 +204,4 @@ void MainScreen::SetMenu(Menu* menu){
 
 void MainScreen::WindowResizedHandle(S32 width, S32 height){
 	ResetScreenSize();
-}
-
-//main menu
-void MainScreen::OnGraphics2DClick(){
-	SetMenu(graphics2D_menu);
-}
-
-void MainScreen::OnGraphics3DClick(){
-	SetMenu(graphics3D_menu);
-}
-
-//graphics 3D menu
-void MainScreen::OnSimpleClick(){
-	SetMenu(graphics3D_simple);
-}
-
-void MainScreen::OnLightClick(){
-	SetMenu(graphics3D_light);
-}
-
-void MainScreen::OnMapsClick(){
-	SetMenu(graphics3D_maps);
-}
-
-void MainScreen::OnMiscClick(){
-	SetMenu(graphics3D_misc);
 }

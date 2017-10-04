@@ -15,25 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PrimitivesScreen.h"
-#include "Input.h"
 #include "Graphics2D.h"
 #include "Game.h"
-#include "System.h"
-#include "Sprite.h"
 
 void PrimitivesScreen::Start(){
 	Screen::Start();
 	generate_entities = false;
 	SetBackground(Color::Black);
-	down_del = input->ActionDown.Connect(this, &PrimitivesScreen::OnActionDown);
-	move_del = input->ActionMove.Connect(this, &PrimitivesScreen::OnActionMove);
-	up_del = input->ActionUp.Connect(this, &PrimitivesScreen::OnActionUp);
 }
 
 void PrimitivesScreen::Stop(){
-	input->ActionDown.Disconnect(down_del);
-	input->ActionMove.Disconnect(move_del);
-	input->ActionUp.Disconnect(up_del);
 	for(auto iter = entities.begin(); iter != entities.end();) {
 		Entity* entity = (*iter);
 		delete entity;
@@ -86,19 +77,18 @@ void PrimitivesScreen::GenerateEntity(){
 	entities.push_back(entity);
 }
 
-void PrimitivesScreen::OnActionDown(Input::Action action){
+void PrimitivesScreen::ActionDown(Input::Action action){
 	generate_entities = true;
 	spawn = action.pos;
 }
 
-void PrimitivesScreen::OnActionMove(Input::Action action){
+void PrimitivesScreen::ActionMove(Input::Action action){
 	spawn = action.pos;
 }
 
-void PrimitivesScreen::OnActionUp(Input::Action action){
+void PrimitivesScreen::ActionUp(Input::Action action){
 	generate_entities = false;
 	entity_type = (Entity::Type)((entity_type+1) % Entity::Type::NONE);
-
 }
 
 PrimitivesScreen::Entity::Entity(Vector2D pos) :

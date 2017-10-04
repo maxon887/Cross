@@ -27,15 +27,13 @@ struct ScreenChar{
 	string str;
 };
 
-class TextScreen : public Screen{
+class TextScreen : public Screen {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Font* font;
-	Font* debug_font;
-	Array<ScreenChar*> chars;
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
-	void AddChar();
+private:
+	Font* font = NULL;
+	Array<ScreenChar*> chars;
 };

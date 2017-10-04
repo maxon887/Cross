@@ -25,6 +25,8 @@
 #include "Texture.h"
 #include "Shaders/Shader.h"
 #include "Config.h"
+#include "Game.h"
+#include "Screen.h"
 
 #include "Libs/SOIL/SOIL.h"
 #include "Libs/FreeType/ft2build.h"
@@ -71,37 +73,19 @@ Graphics2D::Graphics2D() {
 	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	simple_shader->Compile();
 	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
-	default_camera = new Camera2D();
 }
 
 Graphics2D::~Graphics2D(){
 	system->LogIt("Graphics2D::~Graphics2D");
 	delete default_font;
-	delete default_camera;
 	delete texture_shader;
 	delete font_shader;
 	delete simple_shader;
 }
 
-void Graphics2D::SetCamera(Camera2D* camera){
-	this->camera = camera;
-}
-
-Camera2D* Graphics2D::GetCamera() {
-	if(camera) {
-		return camera;
-	} else {
-		return default_camera;
-	}
-}
-
-Camera2D* Graphics2D::GetDefaultCamera(){
-	return default_camera;
-}
-
 void Graphics2D::DrawPoint(Vector2D pos, Color color){
 	gfxGL->UseShader(simple_shader);
-	Camera* cam = GetCamera();
+	Camera* cam = game->GetCurrentScreen()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -114,7 +98,7 @@ void Graphics2D::DrawPoint(Vector2D pos, Color color){
 void Graphics2D::DrawLine(Vector2D p1, Vector2D p2, Color color){
 	gfxGL->UseShader(simple_shader);
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
-	Camera* cam = GetCamera();
+	Camera* cam = game->GetCurrentScreen()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -135,7 +119,7 @@ void Graphics2D::DrawRect(Rect rect, Color color, bool filled){
                              rect.x, rect.y + rect.height,
                              rect.x + rect.width, rect.y + rect.height};
 
-	Camera* cam = GetCamera();
+	Camera* cam = game->GetCurrentScreen()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -186,7 +170,7 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 		buffer[idx++] = outer_x;
 		buffer[idx++] = outer_y;
 	}
-	Camera* cam = GetCamera();
+	Camera* cam = game->GetCurrentScreen()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -242,7 +226,7 @@ void Graphics2D::DrawSprite(Vector2D pos, Sprite* sprite){
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, bool monochrome){
-	DrawSprite(sprite, color, GetCamera(), monochrome);
+	DrawSprite(sprite, color, game->GetCurrentScreen()->GetCamera(), monochrome);
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome){
@@ -543,7 +527,6 @@ void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* textu
 
 void Graphics2D::Update(float sec){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	GetCamera()->Update(sec);
 }
 
 Font* Graphics2D::GetDefaultFont(){

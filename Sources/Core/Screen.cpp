@@ -23,6 +23,7 @@
 using namespace cross;
 
 void Screen::Start(){
+	camera2D = new Camera2D();
     down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
     move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
     up_del = input->ActionUp.Connect(this, &Screen::ActionUpHandle);
@@ -36,20 +37,26 @@ void Screen::Stop(){
 		delete ui;
 	}
 	guis.clear();
+	delete camera2D;
 }
 
 void Screen::LateUpdate(float sec){
+	camera2D->Update(sec);
 	for(UI* ui : guis){
 		ui->Update(sec);
 	}
 }
 
 float Screen::GetWidth(){
-	return gfx2D->GetCamera()->GetViewWidth();
+	return camera2D->GetViewWidth();
 }
 
 float Screen::GetHeight(){
-	return gfx2D->GetCamera()->GetViewHeight();
+	return camera2D->GetViewHeight();
+}
+
+Camera2D* Screen::GetCamera() {
+	return camera2D;
 }
 
 bool Screen::IsScene() const{
