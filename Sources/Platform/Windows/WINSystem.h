@@ -31,6 +31,7 @@ public:
 	string AssetsPath() override;
 	string DataPath() override;
 	U64 GetTime() override;
+	float GetScreenDPI() override;
 
 	void SetAssetPath(const string& path);
 	void Sleep(float milis) override;

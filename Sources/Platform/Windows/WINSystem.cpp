@@ -82,6 +82,15 @@ U64 WINSystem::GetTime(){
 	return (crt.QuadPart * 1000000) / freq.QuadPart;
 }
 
+float WINSystem::GetScreenDPI() {
+	SetProcessDPIAware(); //true
+	HDC screen = GetDC(NULL);
+	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
+	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
+	ReleaseDC(NULL, screen);
+	return (hPixelsPerInch + vPixelsPerInch) * 0.5f;
+}
+
 void WINSystem::SetAssetPath(const string& path){
 	assets_path = path;
 }

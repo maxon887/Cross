@@ -146,6 +146,9 @@ void RenderDrawLists(ImDrawData* draw_data)
 	//glPolygonMode(GL_FRONT_AND_BACK, last_polygon_mode[0]);
 	glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
 	glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]);
+
+	float DPI = system->GetScreenDPI();
+	system->LogIt("DPI - %f", DPI);
 }
 
 bool Init()

@@ -41,6 +41,7 @@ public:
 	virtual string DataPath() = 0;
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
+	virtual float GetScreenDPI() = 0;
 
 	virtual ~System() { }
 
