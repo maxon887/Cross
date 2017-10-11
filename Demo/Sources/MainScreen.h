@@ -25,4 +25,21 @@ public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
+
+private:
+	U64 down_del = 0;
+	U64 up_del = 0;
+	U64 move_del = 0;
+
+	Vector2D action_pos;
+	bool action_down = false;
+
+	void ActionDownHandle(Input::Action action);
+	void ActionMoveHandle(Input::Action action);
+	void ActionUpHandle(Input::Action action);
+
+	bool Init();
+	void NewFrame();
+	bool CreateDeviceObjects();
+	bool CreateFontsTexture();
 };

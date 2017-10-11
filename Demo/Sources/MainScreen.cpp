@@ -151,7 +151,7 @@ void RenderDrawLists(ImDrawData* draw_data)
 	system->LogIt("DPI - %f", DPI);
 }
 
-bool Init()
+bool MainScreen::Init()
 {
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -197,7 +197,7 @@ bool Init()
 	return true;
 }
 
-bool ImGui_ImplGlfwGL3_CreateFontsTexture()
+bool MainScreen::CreateFontsTexture()
 {
 	// Build texture atlas
 	ImGuiIO& io = ImGui::GetIO();
@@ -223,7 +223,7 @@ bool ImGui_ImplGlfwGL3_CreateFontsTexture()
 	return true;
 }
 
-bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
+bool MainScreen::CreateDeviceObjects()
 {
 	// Backup GL state
 	GLint last_texture, last_array_buffer, last_vertex_array;
@@ -342,7 +342,7 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 	glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
 
-	ImGui_ImplGlfwGL3_CreateFontsTexture();
+	CreateFontsTexture();
 
 	// Restore modified GL state
 	glBindTexture(GL_TEXTURE_2D, last_texture);
@@ -352,10 +352,10 @@ bool ImGui_ImplGlfwGL3_CreateDeviceObjects()
 	return true;
 }
 
-void NewFrame()
+void MainScreen::NewFrame()
 {
 	if(!g_FontTexture)
-		ImGui_ImplGlfwGL3_CreateDeviceObjects();
+		CreateDeviceObjects();
 
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -372,30 +372,12 @@ void NewFrame()
 	io.DeltaTime = g_Time > 0.0 ? (float)(current_time - g_Time) : (float)(1.0f / 60.0f);
 	g_Time = current_time;
 
-	// Setup inputs
-	// (we already got mouse wheel, keyboard keys & characters from glfw callbacks polled in glfwPollEvents())
-	/*
-	if(glfwGetWindowAttrib(g_Window, GLFW_FOCUSED))
-	{
-		if(io.WantMoveMouse)
-		{
-			glfwSetCursorPos(g_Window, (double)io.MousePos.x, (double)io.MousePos.y);   // Set mouse position if requested by io.WantMoveMouse flag (used when io.NavMovesTrue is enabled by user and using directional navigation)
-		} else
-		{
-			double mouse_x, mouse_y;
-			glfwGetCursorPos(g_Window, &mouse_x, &mouse_y);
-			io.MousePos = ImVec2((float)mouse_x, (float)mouse_y);   // Get mouse position in screen coordinates (set to -1,-1 if no mouse / on another screen, etc.)
-		}
-	} else
-	{
-		io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
+	if(action_down) {
+		io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
+		io.MouseDown[0] = true;
+	}else{
+		io.MouseDown[0] = false;
 	}
-
-	for(int i = 0; i < 3; i++)
-	{
-		io.MouseDown[i] = g_MousePressed[i] || glfwGetMouseButton(g_Window, i) != 0;    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
-		g_MousePressed[i] = false;
-	}*/
 
 	io.MouseWheel = g_MouseWheel;
 	g_MouseWheel = 0.0f;
@@ -410,6 +392,9 @@ void NewFrame()
 void MainScreen::Start(){
 	Screen::Start();
 	SetBackground(Color(0.3f));
+	down_del = input->ActionDown.Connect(this, &MainScreen::ActionDownHandle);
+	move_del = input->ActionMove.Connect(this, &MainScreen::ActionMoveHandle);
+	up_del = input->ActionUp.Connect(this, &MainScreen::ActionUpHandle);
 	Init();
 }
 
@@ -451,4 +436,18 @@ void MainScreen::Update(float sec){
 	}
 
 	ImGui::Render();
+}
+
+void MainScreen::ActionDownHandle(Input::Action action) {
+	action_down = true;
+	action_pos = action.pos;
+}
+
+void MainScreen::ActionMoveHandle(Input::Action action) {
+	action_pos = action.pos;
+}
+
+void MainScreen::ActionUpHandle(Input::Action action) {
+	action_down = false;
+	action_pos = action.pos;
 }
