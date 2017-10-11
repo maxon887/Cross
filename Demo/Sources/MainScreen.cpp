@@ -201,6 +201,11 @@ bool MainScreen::CreateFontsTexture()
 {
 	// Build texture atlas
 	ImGuiIO& io = ImGui::GetIO();
+
+	ImFontConfig font;
+	font.SizePixels = system->GetScreenDPI() / 96.0 * 13.0;
+	io.Fonts->AddFontDefault(&font);
+
 	unsigned char* pixels;
 	int width, height;
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
@@ -395,6 +400,7 @@ void MainScreen::Start(){
 	down_del = input->ActionDown.Connect(this, &MainScreen::ActionDownHandle);
 	move_del = input->ActionMove.Connect(this, &MainScreen::ActionMoveHandle);
 	up_del = input->ActionUp.Connect(this, &MainScreen::ActionUpHandle);
+
 	Init();
 }
 

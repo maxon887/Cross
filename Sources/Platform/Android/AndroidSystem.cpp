@@ -62,6 +62,10 @@ U64 AndroidSystem::GetTime(){
 	return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
+float AndroidSystem::GetScreenDPI() {
+    return 460.0f;
+}
+
 void AndroidSystem::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);

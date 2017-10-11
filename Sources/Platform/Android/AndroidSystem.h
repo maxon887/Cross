@@ -35,6 +35,7 @@ public:
 	string AssetsPath() override;
 	string DataPath() override;
 	U64 GetTime() override;
+	float GetScreenDPI() override;
 
 	File* LoadAssetFile(const string& filename) override;
 

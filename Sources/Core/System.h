@@ -41,6 +41,7 @@ public:
 	virtual string DataPath() = 0;
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
+	/* This is approximate value. Real devices does not know their screen sizes */
 	virtual float GetScreenDPI() = 0;
 
 	virtual ~System() { }
