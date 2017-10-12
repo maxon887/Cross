@@ -132,6 +132,7 @@ protected:
 	//general attributes
 	GLint aPosition				= -1;
 	GLint aTexCoords			= -1;
+	GLint aColor				= -1;
 	GLint aNormal				= -1;
 	GLint aTangent				= -1;
 	GLint aBitangent			= -1;

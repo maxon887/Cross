@@ -20,25 +20,13 @@
 #include "System.h"
 #include "GraphicsGL.h"
 #include "Game.h"
+#include "Shaders/Shader.h"
 
 #include "Libs/ImGui/imgui.h"
 
 using namespace cross;
 
-S32 shader_program = 0;
-S32 vertex_shader = 0;
-S32	fragment_shader = 0;
-
-S32 texture_loc = 0;
-S32 proj_mtx_loc = 0;
-S32 position_loc = 0;
-S32	uv_loc = 0;
-S32 color_loc = 0;
-
-U32 vertex_buffer = 0;
-U32 index_buffer = 0;
-
-void RenderUI(ImDrawData* draw_data) {
+void Screen::RenderUI(ImDrawData* draw_data) {
 	// Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
 	ImGuiIO& io = ImGui::GetIO();
 	int fb_width = (int)(io.DisplaySize.x * io.DisplayFramebufferScale.x);
@@ -88,21 +76,21 @@ void RenderUI(ImDrawData* draw_data) {
 		{ 0.0f,                  0.0f,                  -1.0f, 0.0f },
 		{ -1.0f,                  1.0f,                   0.0f, 1.0f },
 	};
-	glUseProgram(shader_program);
-	glUniform1i(texture_loc, 0);
-	glUniformMatrix4fv(proj_mtx_loc, 1, GL_FALSE, &ortho_projection[0][0]);
+	gfxGL->UseShader(ui_shader);
+	//glUniform1i(texture_loc, 0);
+	glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, &ortho_projection[0][0]);
 
 	//glBindVertexArray(g_VaoHandle);
 	//glBindSampler(0, 0); // Rely on combined texture/sampler state.
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-	glEnableVertexAttribArray(position_loc);
-	glEnableVertexAttribArray(uv_loc);
-	glEnableVertexAttribArray(color_loc);
+	glEnableVertexAttribArray(ui_shader->aPosition);
+	glEnableVertexAttribArray(ui_shader->aTexCoords);
+	glEnableVertexAttribArray(ui_shader->aColor);
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-	glVertexAttribPointer(position_loc, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
-	glVertexAttribPointer(uv_loc, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
-	glVertexAttribPointer(color_loc, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+	glVertexAttribPointer(ui_shader->aPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
+	glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
+	glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
 
 	for(int n = 0; n < draw_data->CmdListsCount; n++)
@@ -157,7 +145,7 @@ void Screen::Start(){
     move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
     up_del = input->ActionUp.Connect(this, &Screen::ActionUpHandle);
 
-		ImGuiIO& io = ImGui::GetIO();
+	ImGuiIO& io = ImGui::GetIO();
 
 	/*
 	io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;                         // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
@@ -181,7 +169,7 @@ void Screen::Start(){
 	io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 	*/
 
-	io.RenderDrawListsFn = RenderUI;       // Alternatively you can set this to NULL and call ImGui::GetDrawData() after ImGui::Render() to get the same ImDrawData pointer.
+	//io.RenderDrawListsFn = RenderUI;       // Alternatively you can set this to NULL and call ImGui::GetDrawData() after ImGui::Render() to get the same ImDrawData pointer.
 	//io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
 	//io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
 	//io.ClipboardUserData = g_Window;
@@ -204,6 +192,7 @@ void Screen::Stop(){
     input->ActionMove.Disconnect(move_del);
     input->ActionUp.Disconnect(up_del);
 	delete camera2D;
+	delete ui_shader;
 }
 
 void Screen::Update(float sec) {
@@ -212,6 +201,9 @@ void Screen::Update(float sec) {
 
 void Screen::LateUpdate(float sec){
 	camera2D->Update(sec);
+	ImGui::Render();
+	ImDrawData* drawData = ImGui::GetDrawData();
+	RenderUI(drawData);
 }
 
 float Screen::GetWidth(){
@@ -279,100 +271,8 @@ bool Screen::CreateDeviceObjects()
 	SAFE(glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer));
 	//glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
 
-	const GLchar* vertex_source =
-		"precision mediump float;\n"
-		"uniform mat4 ProjMtx;\n"
-		"attribute vec2 Position;\n"
-		"attribute vec2 UV;\n"
-		"attribute vec4 Color;\n"
-		"varying vec2 Frag_UV;\n"
-		"varying vec4 Frag_Color;\n"
-		"void main()\n"
-		"{\n"
-		"	Frag_UV = UV;\n"
-		"	Frag_Color = Color;\n"
-		"	gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
-		"}\n";
-
-	const GLchar* fragment_source =
-		"precision mediump float;\n"
-		"uniform sampler2D Texture;\n"
-		"varying vec2 Frag_UV;\n"
-		"varying vec4 Frag_Color;\n"
-		"void main()\n"
-		"{\n"
-		"	gl_FragColor = Frag_Color * texture2D( Texture, Frag_UV.st);\n"
-		"}\n";
-
-	shader_program = glCreateProgram();
-	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(vertex_shader, 1, &vertex_source, 0);
-	glShaderSource(fragment_shader, 1, &fragment_source, 0);
-	SAFE(glCompileShader(vertex_shader));
-	GLint compiled;
-	glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &compiled);
-	if(!compiled) {
-		GLsizei len;
-		glGetShaderiv(vertex_shader, GL_INFO_LOG_LENGTH, &len);
-
-		char* log = new char[len + 1];
-		glGetShaderInfoLog(vertex_shader, len, &len, log);
-		//CROSS_RETURN(false, false, "Shader: %s\n%sShader", file->name.c_str(), log);
-	} else {
-#ifdef CROSS_DEBUG
-		GLsizei len;
-		glGetShaderiv(vertex_shader, GL_INFO_LOG_LENGTH, &len);
-		if(len > 1) {
-			char* log = new char[len + 1];
-			glGetShaderInfoLog(vertex_shader, len, &len, log);
-			log[len] = 0;
-			system->LogIt("Shader compilation:\n%s", log);
-			delete[] log;
-		}
-#endif
-	}
-	SAFE(glCompileShader(fragment_shader));
-	glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &compiled);
-	if(!compiled) {
-		GLsizei len;
-		glGetShaderiv(fragment_shader, GL_INFO_LOG_LENGTH, &len);
-
-		char* log = new char[len + 1];
-		glGetShaderInfoLog(fragment_shader, len, &len, log);
-		CROSS_RETURN(false, false, "Shader: n%sShader", log);
-	} else {
-#ifdef CROSS_DEBUG
-		GLsizei len;
-		glGetShaderiv(fragment_shader, GL_INFO_LOG_LENGTH, &len);
-		if(len > 1) {
-			char* log = new char[len + 1];
-			glGetShaderInfoLog(fragment_shader, len, &len, log);
-			log[len] = 0;
-			system->LogIt("Shader compilation:\n%s", log);
-			delete[] log;
-		}
-#endif
-	}
-	SAFE(glAttachShader(shader_program, vertex_shader));
-	SAFE(glAttachShader(shader_program, fragment_shader));
-	SAFE(glLinkProgram(shader_program));
-	GLint linked;
-	glGetProgramiv(shader_program, GL_LINK_STATUS, &linked);
-	if(!linked) {
-		GLsizei len;
-		glGetProgramiv(shader_program, GL_INFO_LOG_LENGTH, &len);
-
-		char* log = new char[len + 1];
-		glGetProgramInfoLog(shader_program, len, &len, log);
-		CROSS_RETURN(false, false, "Shader program compilation failed:\n %s", log);
-	}
-
-	texture_loc = glGetUniformLocation(shader_program, "Texture");
-	proj_mtx_loc = glGetUniformLocation(shader_program, "ProjMtx");
-	position_loc = glGetAttribLocation(shader_program, "Position");
-	uv_loc = glGetAttribLocation(shader_program, "UV");
-	color_loc = glGetAttribLocation(shader_program, "Color");
+	ui_shader = new Shader("Engine/Shaders/UI.vtx", "Engine/Shaders/UI.fgm");
+	ui_shader->Compile();
 
 	SAFE(glGenBuffers(1, &vertex_buffer));
 	glGenBuffers(1, &index_buffer);
@@ -380,14 +280,14 @@ bool Screen::CreateDeviceObjects()
 	//glGenVertexArrays(1, &g_VaoHandle);
 	//glBindVertexArray(g_VaoHandle);
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
-	glEnableVertexAttribArray(position_loc);
-	glEnableVertexAttribArray(uv_loc);
-	glEnableVertexAttribArray(color_loc);
+	glEnableVertexAttribArray(ui_shader->aPosition);
+	glEnableVertexAttribArray(ui_shader->aTexCoords);
+	glEnableVertexAttribArray(ui_shader->aColor);
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-	glVertexAttribPointer(position_loc, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
-	glVertexAttribPointer(uv_loc, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
-	glVertexAttribPointer(color_loc, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+	glVertexAttribPointer(ui_shader->aPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
+	glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
+	glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
 
 	CreateFontsTexture();
@@ -413,7 +313,7 @@ bool Screen::CreateFontsTexture()
 	int width, height;
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 
-															  // Upload texture to graphics system
+	// Upload texture to graphics system
 	GLint last_texture;
 	glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
 	glGenTextures(1, &font_texture);

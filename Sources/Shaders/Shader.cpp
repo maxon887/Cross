@@ -340,6 +340,7 @@ void Shader::Compile(){
 
 	aPosition = glGetAttribLocation(program, "aPosition");
 	aTexCoords = glGetAttribLocation(program, "aTexCoords");
+	aColor = glGetAttribLocation(program, "aColor");
 	aNormal = glGetAttribLocation(program, "aNormal");
 	aTangent = glGetAttribLocation(program, "aTangent");
 	aBitangent = glGetAttribLocation(program, "aBitangent");

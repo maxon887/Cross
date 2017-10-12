@@ -140,4 +140,5 @@ friend Audio;			\
 friend Sound;			\
 friend Input;			\
 friend Config;			\
-friend Scene;
+friend Scene;			\
+friend Screen;

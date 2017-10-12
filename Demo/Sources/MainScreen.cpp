@@ -73,7 +73,6 @@ void MainScreen::Update(float sec){
 		ImGui::ShowTestWindow(&show_test_window);
 	}
 	*/
-	ImGui::Render();
 }
 
 void MainScreen::ActionDownHandle(Input::Action action) {

@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "Input.h"
 
+struct ImDrawData;
+
 namespace cross {
 
 #define MAX_ACTIONS 20
@@ -69,10 +71,15 @@ protected:
 
 private:
 	U32 font_texture				= 0;
+	Shader* ui_shader = NULL;
+
+	U32 vertex_buffer = 0;
+	U32 index_buffer = 0;
 
 	Vector2D action_pos;
 	bool action_down = false;
 
+	void RenderUI(ImDrawData*);
 	void NewFrame(float sec);
 	bool CreateDeviceObjects();
 	bool CreateFontsTexture();
