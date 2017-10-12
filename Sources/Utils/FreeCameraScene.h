@@ -61,11 +61,9 @@ protected:
 	Vector2D touch_position		= Vector2D();
 	Vector3D target				= Vector3D(0);
 
-    U64 wheel_up_del			= -1;
-    U64 wheel_down_del			= -1;
+    U64 wheel_roll			= 0;
 
-	void MouseWheelUp();
-	void MouseWheelDown();
+	void MouseWheelRoll(float delta);
 };
 
 }

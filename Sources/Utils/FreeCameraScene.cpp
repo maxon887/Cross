@@ -32,13 +32,11 @@ void FreeCameraScene::Start() {
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	debug_font = gfx2D->GetDefaultFont()->Clone();
 	debug_font->SetSize(25.f);
-	wheel_up_del = input->MouseWheelUp.Connect(this, &FreeCameraScene::MouseWheelUp);
-	wheel_down_del = input->MouseWheelDown.Connect(this, &FreeCameraScene::MouseWheelDown);
+	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
 void FreeCameraScene::Stop(){
-    input->MouseWheelUp.Disconnect(wheel_up_del);
-    input->MouseWheelDown.Disconnect(wheel_down_del);
+    input->MouseWheelRoll.Disconnect(wheel_roll);
 
 	delete debug_font;
 
@@ -209,10 +207,6 @@ bool FreeCameraScene::IsLookAtCamera() const{
 	return look_at;
 }
 
-void FreeCameraScene::MouseWheelUp(){
-	MoveForward(0.1f);
-}
-
-void FreeCameraScene::MouseWheelDown(){
-	MoveBackward(0.1f);
+void FreeCameraScene::MouseWheelRoll(float delta) {
+	MoveForward(0.1f * delta / 120.f);
 }

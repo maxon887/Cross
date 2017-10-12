@@ -71,39 +71,35 @@ protected:
 
 private:
 	U32 font_texture				= 0;
-	Shader* ui_shader = NULL;
+	Shader* ui_shader				= NULL;
 
-	U32 vertex_buffer = 0;
-	U32 index_buffer = 0;
+	U32 vertex_buffer				= 0;
+	U32 index_buffer				= 0;
 
-	Vector2D action_pos;
-	bool action_down = false;
-	float mouse_wheel = 0.0f;
+	Vector2D action_pos				= Vector2D(0.f, 0.f);
+	Array<bool> actions				= Array<bool>(MAX_ACTIONS, false);
+	float mouse_wheel				= 0.0f;
 
 	void RenderUI(ImDrawData*);
 	bool CreateDeviceObjects();
 	bool CreateFontsTexture();
 
-	U64 down_del = 0;
-	U64 up_del = 0;
-	U64 move_del = 0;
-
+	U64 down_del					= 0;
+	U64 up_del						= 0;
+	U64 move_del					= 0;
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
 
-	U64 key_pressed_del = 0;
-	U64 key_released_del = 0;
-	U64 char_enter_del = 0;
-
+	U64 key_pressed_del				= 0;
+	U64 key_released_del			= 0;
+	U64 char_enter_del				= 0;
 	void KeyPressed(Key key);
 	void KeyReleased(Key key);
 	void CharEnter(char c);
 
-	U64 wheel_up = 0;
-	U64 wheel_down = 0;
-	void WheelUp();
-	void WheelDown();
+	U64 wheel_roll					= 0;
+	void WheelRoll(float delta);
 };
     
 }

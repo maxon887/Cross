@@ -35,12 +35,6 @@ void MainScreen::Stop(){
 
 void MainScreen::Update(float sec){
 	Screen::Update(sec);
-	bool open;
-	//ImGui::Begin("Main Window", &open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
-	//	ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse);
-	//ImGui::SetWindowPos(ImVec2(0, 0));
-	//ImGui::SetWindowSize(ImVec2(GetWidth(), GetHeight()));
-	//ImGui::SetCursorPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f));
 	ImGui::Begin("Demo");
 
 	ImGui::Button("Graphics", ImVec2(ImGui::GetWindowWidth(), 0));

@@ -34,8 +34,7 @@ void Screen::Start(){
 	key_pressed_del = input->KeyPressed.Connect(this, &Screen::KeyPressed);
 	key_released_del = input->KeyReleased.Connect(this, &Screen::KeyReleased);
 	char_enter_del = input->CharEnter.Connect(this, &Screen::CharEnter);
-	wheel_down = input->MouseWheelDown.Connect(this, &Screen::WheelDown);
-	wheel_up = input->MouseWheelUp.Connect(this, &Screen::WheelUp);
+	wheel_roll = input->MouseWheelRoll.Connect(this, &Screen::WheelRoll);
 
 	ImGuiIO& io = ImGui::GetIO();
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
@@ -74,8 +73,7 @@ void Screen::Stop(){
 	input->KeyPressed.Disconnect(key_pressed_del);
 	input->KeyReleased.Disconnect(key_released_del);
 	input->CharEnter.Disconnect(char_enter_del);
-	input->MouseWheelDown.Disconnect(wheel_down);
-	input->MouseWheelUp.Disconnect(wheel_up);
+	input->MouseWheelRoll.Disconnect(wheel_roll);
 	delete camera2D;
 	delete ui_shader;
 }
@@ -96,15 +94,16 @@ void Screen::Update(float sec) {
 	// Setup time step
 	io.DeltaTime = sec;
 
-	io.MouseDown[0] = action_down;
-	if(action_down) {
+	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
+	for(U32 i = 0; i < actions.size(); i++) {
+		io.MouseDown[i] = actions[i];
+	}
+	if(actions[0]) {	//for mobile input
 		io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
 	}
 
 	io.MouseWheel = mouse_wheel;
 	mouse_wheel = 0.f;
-	// Hide OS mouse cursor if ImGui is drawing it
-	//glfwSetInputMode(g_Window, GLFW_CURSOR, io.MouseDrawCursor ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
 
 	// Start the frame
 	ImGui::NewFrame();
@@ -227,12 +226,6 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 
 bool Screen::CreateDeviceObjects()
 {
-	// Backup GL state
-	GLint last_texture, last_array_buffer, last_vertex_array;
-	SAFE(glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture));
-	SAFE(glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer));
-	//glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
-
 	ui_shader = new Shader("Engine/Shaders/UI.vtx", "Engine/Shaders/UI.fgm");
 	ui_shader->Compile();
 
@@ -253,12 +246,6 @@ bool Screen::CreateDeviceObjects()
 #undef OFFSETOF
 
 	CreateFontsTexture();
-
-	// Restore modified GL state
-	glBindTexture(GL_TEXTURE_2D, last_texture);
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer));
-	//glBindVertexArray(last_vertex_array);
-
 	return true;
 }
 
@@ -298,7 +285,7 @@ bool Screen::CreateFontsTexture()
 
 void Screen::ActionDownHandle(Input::Action action){
 	if(enable_inputs){
-		action_down = true;
+		actions[action.id] = true;
 		action_pos = action.pos;
 		ActionDown(action);
 	}
@@ -313,7 +300,7 @@ void Screen::ActionMoveHandle(Input::Action action){
 
 void Screen::ActionUpHandle(Input::Action action){
 	if(enable_inputs){
-		action_down = false;
+		actions[action.id] = false;
 		action_pos = action.pos;
 		ActionUp(action);
 	}
@@ -334,10 +321,6 @@ void Screen::CharEnter(char c) {
 	io.AddInputCharacter(c);
 }
 
-void Screen::WheelDown() {
-	mouse_wheel += 1.f;	// Use fractional mouse wheel, 1.0 unit 5 lines.
-}
-
-void Screen::WheelUp() {
-	mouse_wheel -= 1.f;
+void Screen::WheelRoll(float delta) {
+	mouse_wheel += delta / 120.f;	// Use fractional mouse wheel, 1.0 unit 5 lines.
 }

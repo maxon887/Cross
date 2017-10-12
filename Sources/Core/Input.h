@@ -139,8 +139,8 @@ public:
 	Event<Key> KeyReleased;
 	Event<char> CharEnter;
 	/* Mouse Wheel events */
-	Event<> MouseWheelUp;
-	Event<> MouseWheelDown;
+	Event<float> MouseWheelRoll;
+	Vector2D MousePosition;
 	/* Checks if specific key pressed */
 	bool IsPressed(Key key) const;
 	/* Enables disables all touches */
