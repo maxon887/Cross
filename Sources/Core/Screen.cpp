@@ -26,6 +26,103 @@
 
 using namespace cross;
 
+void Screen::Start(){
+	camera2D = new Camera2D();
+    down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
+    move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
+    up_del = input->ActionUp.Connect(this, &Screen::ActionUpHandle);
+	key_pressed_del = input->KeyPressed.Connect(this, &Screen::KeyPressed);
+	key_released_del = input->KeyReleased.Connect(this, &Screen::KeyReleased);
+	char_enter_del = input->CharEnter.Connect(this, &Screen::CharEnter);
+
+	ImGuiIO& io = ImGui::GetIO();
+	
+	io.KeyMap[ImGuiKey_Tab] = (int)Key::TAB;                         // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
+	io.KeyMap[ImGuiKey_LeftArrow] = (int)Key::LEFT;
+	io.KeyMap[ImGuiKey_RightArrow] = (int)Key::RIGHT;
+	io.KeyMap[ImGuiKey_UpArrow] = (int)Key::UP;
+	io.KeyMap[ImGuiKey_DownArrow] = (int)Key::DOWN;
+	io.KeyMap[ImGuiKey_PageUp] = (int)Key::PAGE_UP;
+	io.KeyMap[ImGuiKey_PageDown] = (int)Key::PAGE_DOWN;
+	io.KeyMap[ImGuiKey_Home] = (int)Key::HOME;
+	//io.KeyMap[ImGuiKey_End] = (int)Key::E;
+	io.KeyMap[ImGuiKey_Delete] = (int)Key::DEL;
+	io.KeyMap[ImGuiKey_Backspace] = (int)Key::BACK;
+	io.KeyMap[ImGuiKey_Escape] = (int)Key::ESCAPE;
+	io.KeyMap[ImGuiKey_A] = (int)Key::A;
+	io.KeyMap[ImGuiKey_C] = (int)Key::C;
+	io.KeyMap[ImGuiKey_V] = (int)Key::V;
+	io.KeyMap[ImGuiKey_X] = (int)Key::X;
+	io.KeyMap[ImGuiKey_Y] = (int)Key::Y;
+	io.KeyMap[ImGuiKey_Z] = (int)Key::Z;
+
+	//io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
+	//io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
+	//io.ClipboardUserData = g_Window;
+#ifdef _WIN32
+	//WINSystem* winSys = (WINSystem*)system;
+	//io.ImeWindowHandle = winSys->GetHWND();
+#endif
+	/*
+	if(install_callbacks)
+	{
+		glfwSetMouseButtonCallback(window, ImGui_ImplGlfwGL3_MouseButtonCallback);
+		glfwSetScrollCallback(window, ImGui_ImplGlfwGL3_ScrollCallback);
+		glfwSetKeyCallback(window, ImGui_ImplGlfwGL3_KeyCallback);
+		glfwSetCharCallback(window, ImGui_ImplGlfwGL3_CharCallback);
+	}*/
+}
+
+void Screen::Stop(){
+    input->ActionDown.Disconnect(down_del);
+    input->ActionMove.Disconnect(move_del);
+    input->ActionUp.Disconnect(up_del);
+	input->KeyPressed.Disconnect(key_pressed_del);
+	input->KeyReleased.Disconnect(key_released_del);
+	input->CharEnter.Disconnect(char_enter_del);
+	delete camera2D;
+	delete ui_shader;
+}
+
+void Screen::Update(float sec) {
+	NewFrame(sec);
+}
+
+void Screen::LateUpdate(float sec){
+	camera2D->Update(sec);
+	ImGui::Render();
+	ImDrawData* drawData = ImGui::GetDrawData();
+	RenderUI(drawData);
+}
+
+float Screen::GetWidth(){
+	return camera2D->GetViewWidth();
+}
+
+float Screen::GetHeight(){
+	return camera2D->GetViewHeight();
+}
+
+Camera2D* Screen::GetCamera() {
+	return camera2D;
+}
+
+bool Screen::IsScene() const{
+	return is_scene;
+}
+
+float Screen::GetScaleFactor(){
+	return (float)system->GetWindowWidth() / GetWidth();
+}
+
+void Screen::SetBackground(const Color& c){
+	glClearColor(c.R, c.G, c.B, 1.f);
+}
+
+void Screen::EnableInputs(bool enable){
+	enable_inputs = enable;
+}
+
 void Screen::RenderUI(ImDrawData* draw_data) {
 	// Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
 	ImGuiIO& io = ImGui::GetIO();
@@ -137,101 +234,6 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	//glPolygonMode(GL_FRONT_AND_BACK, last_polygon_mode[0]);
 	glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
 	glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]);
-}
-
-void Screen::Start(){
-	camera2D = new Camera2D();
-    down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
-    move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
-    up_del = input->ActionUp.Connect(this, &Screen::ActionUpHandle);
-
-	ImGuiIO& io = ImGui::GetIO();
-
-	/*
-	io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;                         // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
-	io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
-	io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
-	io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
-	io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
-	io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
-	io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
-	io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
-	io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
-	io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
-	io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-	io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
-	io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
-	io.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
-	io.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
-	io.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
-	io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
-	io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
-	io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
-	*/
-
-	//io.RenderDrawListsFn = RenderUI;       // Alternatively you can set this to NULL and call ImGui::GetDrawData() after ImGui::Render() to get the same ImDrawData pointer.
-	//io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
-	//io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
-	//io.ClipboardUserData = g_Window;
-#ifdef _WIN32
-	//WINSystem* winSys = (WINSystem*)system;
-	//io.ImeWindowHandle = winSys->GetHWND();
-#endif
-	/*
-	if(install_callbacks)
-	{
-		glfwSetMouseButtonCallback(window, ImGui_ImplGlfwGL3_MouseButtonCallback);
-		glfwSetScrollCallback(window, ImGui_ImplGlfwGL3_ScrollCallback);
-		glfwSetKeyCallback(window, ImGui_ImplGlfwGL3_KeyCallback);
-		glfwSetCharCallback(window, ImGui_ImplGlfwGL3_CharCallback);
-	}*/
-}
-
-void Screen::Stop(){
-    input->ActionDown.Disconnect(down_del);
-    input->ActionMove.Disconnect(move_del);
-    input->ActionUp.Disconnect(up_del);
-	delete camera2D;
-	delete ui_shader;
-}
-
-void Screen::Update(float sec) {
-	NewFrame(sec);
-}
-
-void Screen::LateUpdate(float sec){
-	camera2D->Update(sec);
-	ImGui::Render();
-	ImDrawData* drawData = ImGui::GetDrawData();
-	RenderUI(drawData);
-}
-
-float Screen::GetWidth(){
-	return camera2D->GetViewWidth();
-}
-
-float Screen::GetHeight(){
-	return camera2D->GetViewHeight();
-}
-
-Camera2D* Screen::GetCamera() {
-	return camera2D;
-}
-
-bool Screen::IsScene() const{
-	return is_scene;
-}
-
-float Screen::GetScaleFactor(){
-	return (float)system->GetWindowWidth() / GetWidth();
-}
-
-void Screen::SetBackground(const Color& c){
-	glClearColor(c.R, c.G, c.B, 1.f);
-}
-
-void Screen::EnableInputs(bool enable){
-	enable_inputs = enable;
 }
 
 void Screen::NewFrame(float sec)
@@ -352,4 +354,19 @@ void Screen::ActionUpHandle(Input::Action action){
 		action_pos = action.pos;
 		ActionUp(action);
 	}
+}
+
+void Screen::KeyPressed(Key key) {
+	ImGuiIO& io = ImGui::GetIO();
+	io.KeysDown[(int)key] = true;
+}
+
+void Screen::KeyReleased(Key key) {
+	ImGuiIO& io = ImGui::GetIO();
+	io.KeysDown[(int)key] = false;
+}
+
+void Screen::CharEnter(char c) {
+	ImGuiIO& io = ImGui::GetIO();
+	io.AddInputCharacter(c);
 }

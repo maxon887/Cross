@@ -81,7 +81,7 @@ void Demo::OnBackClick(){
 }
 
 void Demo::OnKeyPressed(Key key){
-	if(key == Key::ESCAPE || key == Key::BACK){
+	if(key == Key::ESCAPE){
 		SetScreen(GetStartScreen());
 	}
 }

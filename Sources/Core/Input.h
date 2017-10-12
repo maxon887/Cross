@@ -136,6 +136,7 @@ public:
 	/* Keyboard events */
 	Event<Key> KeyPressed;
 	Event<Key> KeyReleased;
+	Event<char> CharEnter;
 	/* Mouse Wheel events */
 	Event<> MouseWheelUp;
 	Event<> MouseWheelDown;

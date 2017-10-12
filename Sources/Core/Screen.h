@@ -91,6 +91,14 @@ private:
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
+
+	U64 key_pressed_del = 0;
+	U64 key_released_del = 0;
+	U64 char_enter_del = 0;
+
+	void KeyPressed(Key key);
+	void KeyReleased(Key key);
+	void CharEnter(char c);
 };
     
 }

@@ -81,6 +81,9 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_KEYUP:
 		input->KeyReleased((cross::Key)wParam);
 		break;
+	case WM_CHAR:
+		input->CharEnter(wParam);
+		break;
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;
 		int y = HIWORD(lParam) - 30;
