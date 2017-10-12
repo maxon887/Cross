@@ -35,6 +35,7 @@ enum class Key{
 	SPACE		= 0x20,
 	PAGE_UP		= 0x21,
 	PAGE_DOWN	= 0x22,
+	END			= 0x23,
 	HOME		= 0x24,
 	LEFT		= 0x25,
 	UP			= 0x26,

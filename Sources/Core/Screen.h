@@ -80,7 +80,6 @@ private:
 	bool action_down = false;
 
 	void RenderUI(ImDrawData*);
-	void NewFrame(float sec);
 	bool CreateDeviceObjects();
 	bool CreateFontsTexture();
 
