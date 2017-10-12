@@ -38,8 +38,6 @@ private:
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
 
-	bool Init();
-	void NewFrame();
 	bool CreateDeviceObjects();
 	bool CreateFontsTexture();
 };

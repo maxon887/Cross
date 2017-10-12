@@ -36,7 +36,7 @@ public:
 	/* Called when screen about to change on new one */
 	virtual void Stop();
 	/* Called every frame update. Ideally 60 times per second(60fps) */
-	virtual void Update(float sec) { };
+	virtual void Update(float sec);
 	/* Called after regularly Screen::Update()  */
 	virtual void LateUpdate(float sec);
 	/* Called when game need to be suspend like lost focus or input phone call */
@@ -60,9 +60,6 @@ public:
 	float GetScaleFactor();
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
-	/* New UI element will auto update and covers area from touches */
-	void AddUI(UI* element);
-	void EnableUI(bool enable);
 	void EnableInputs(bool enable);
 
 protected:
@@ -71,18 +68,22 @@ protected:
 	Camera2D* camera2D				= NULL;
 
 private:
-	Array<bool> actionIDs			= Array<bool>(MAX_ACTIONS, false);
-	Array<UI*> guis					= Array<UI*>();
+	U32 font_texture				= 0;
 
-    U64 down_del					= 0;
-    U64 up_del						= 0;
-    U64 move_del					= 0;
+	Vector2D action_pos;
+	bool action_down = false;
+
+	void NewFrame(float sec);
+	bool CreateDeviceObjects();
+	bool CreateFontsTexture();
+
+	U64 down_del = 0;
+	U64 up_del = 0;
+	U64 move_del = 0;
 
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
-
-	bool OnGuiArea(Vector2D pos) const;
 };
     
 }

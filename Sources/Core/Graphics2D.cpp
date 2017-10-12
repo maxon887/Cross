@@ -505,7 +505,6 @@ void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* textu
 	delete xmlFile;
 	delete[] source;
 
-	//TiXmlHandle xmlDoc(&xml);
 	XMLElement* root;
 	XMLElement* element;
 
