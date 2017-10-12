@@ -99,9 +99,6 @@ void RenderDrawLists(ImDrawData* draw_data)
 	glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
 
-
-
-
 	for(int n = 0; n < draw_data->CmdListsCount; n++)
 	{
 		const ImDrawList* cmd_list = draw_data->CmdLists[n];
@@ -203,7 +200,7 @@ bool MainScreen::CreateFontsTexture()
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImFontConfig font;
-	font.SizePixels = system->GetScreenDPI() / 96.0 * 13.0;
+	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
 	io.Fonts->AddFontDefault(&font);
 
 	unsigned char* pixels;
@@ -416,6 +413,15 @@ void MainScreen::Update(float sec){
 	Screen::Update(sec);
 	NewFrame();
 
+
+	ImGui::Begin("Main Window");
+	ImGui::SetWindowPos(ImVec2(0, 0));
+	ImGui::SetWindowSize(ImVec2(GetWidth(), GetHeight()));
+	ImGui::SetCursorPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f));
+	ImGui::Button("GUI");
+	ImGui::End();
+
+	/*
 	{
 		static float f = 0.0f;
 		ImGui::Text("Hello, world!");
@@ -440,7 +446,7 @@ void MainScreen::Update(float sec){
 		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 		ImGui::ShowTestWindow(&show_test_window);
 	}
-
+	*/
 	ImGui::Render();
 }
 

@@ -12,7 +12,6 @@ public:
 	void Update(float sec);
 
 private:
-	Menu* audio_menu;
 	Sprite* button_sprite;
 	Sprite* button_sprite_pressed;
 	Sound* bck_music;

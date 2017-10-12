@@ -2,7 +2,6 @@
 #include "Demo.h"
 #include "Sprite.h"
 #include "Utils/ToggleButton.h"
-#include "Menu.h"
 #include "Audio.h"
 #include "Sound.h"
 
@@ -17,7 +16,6 @@ void AudioScreen::Start(){
 	SetBackground(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = demo->GetCommonSprite("ButtonTemplate.png");
 	button_sprite_pressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
-	audio_menu = new Menu(true);
 	Button* soundBtn = new Button("Sound");
 	soundBtn->SetImages(button_sprite->Clone(), nullptr);
 	ToggleButton* loopBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
@@ -27,9 +25,6 @@ void AudioScreen::Start(){
 	soundBtn->Clicked.Connect(this, &AudioScreen::OnSoundButtonClick);
 	loopBtn->Clicked.Connect(this, &AudioScreen::OnLoopButttonClick);
 	streamBtn->Clicked.Connect(this, &AudioScreen::OnStreamButtonClick);
-	audio_menu->AddButton(soundBtn);
-	audio_menu->AddButton(loopBtn);
-	audio_menu->AddButton(streamBtn);
 
 	bck_music = audio->LoadSound("Audio/Music.mp3", true, true);
 	jaguar = audio->LoadSound("Audio/Jaguar.wav", false, false);
@@ -40,11 +35,9 @@ void AudioScreen::Stop(){
 	delete bck_music;
 	delete jaguar;
 	delete truck;
-	delete audio_menu;
 }
 
 void AudioScreen::Update(float sec){
-	audio_menu->Update(sec);
 
 	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
 		game->SetScreen(game->GetStartScreen());

@@ -25,7 +25,7 @@ namespace cross {
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.
    Whitch will be loaded through Game::GetStartScreen() function */
-class Screen{
+class Screen {
 public:
 	/* Occurs when virtual screen space changed */
 	Event<float, float> SizeChanged;

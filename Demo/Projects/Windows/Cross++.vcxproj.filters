@@ -73,9 +73,6 @@
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Menu.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\ScrollScreen.cpp">
-      <Filter>Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
@@ -316,6 +310,9 @@
     <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_draw.cpp">
       <Filter>Cross\Libs\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\UIScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -326,9 +323,6 @@
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Menu.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h">
@@ -342,9 +336,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h">
       <Filter>Demo\Graphics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\ScrollScreen.h">
-      <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>
@@ -594,6 +585,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_truetype.h">
       <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UIScreen.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

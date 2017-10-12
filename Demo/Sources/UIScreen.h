@@ -16,30 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Screen.h"
-#include "Input.h"
 
 using namespace cross;
 
-class ScrollScreen : public Screen{
+class UIScreen : public Screen{
 public:
 	void Start() override;
 	void Stop() override;
-
-	float GetWidth() override;
-	float GetHeight() override;
-
-	void SetWidth(float width);
-	void SetHeight(float height);
-
-	void ResetScreenSize();
-
-private:
-	float width;
-	float height;
-	Vector2D touch;
-
-	void ActionDown(Input::Action action) override;
-	void ActionMove(Input::Action action) override;
-	void ActionUp(Input::Action action) override;
-
+	void Update(float sec) override;
 };
