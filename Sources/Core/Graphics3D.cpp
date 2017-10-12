@@ -136,6 +136,7 @@ Material* Graphics3D::GetDefaultMaterial(){
 void Graphics3D::ProcessScene(Model* model, Entity* root, File* file){
 	Assimp::Importer importer;
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	//current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_JoinIdenticalVertices);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode){
 		CROSS_FAIL(false, "Assimp Error: %s", importer.GetErrorString());
 	}
@@ -204,9 +205,12 @@ Mesh* Graphics3D::ProcessMesh(Model* model, aiMesh* mesh){
 		}
 	}
 
+	U32 size = vertexBuffer->GetDataSize();
+
 	Array<GLushort> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i){
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j){
+			system->LogIt("%d ", mesh->mFaces[i].mIndices[j]);
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}

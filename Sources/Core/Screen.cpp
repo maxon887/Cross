@@ -34,6 +34,8 @@ void Screen::Start(){
 	key_pressed_del = input->KeyPressed.Connect(this, &Screen::KeyPressed);
 	key_released_del = input->KeyReleased.Connect(this, &Screen::KeyReleased);
 	char_enter_del = input->CharEnter.Connect(this, &Screen::CharEnter);
+	wheel_down = input->MouseWheelDown.Connect(this, &Screen::WheelDown);
+	wheel_up = input->MouseWheelUp.Connect(this, &Screen::WheelUp);
 
 	ImGuiIO& io = ImGui::GetIO();
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
@@ -72,6 +74,8 @@ void Screen::Stop(){
 	input->KeyPressed.Disconnect(key_pressed_del);
 	input->KeyReleased.Disconnect(key_released_del);
 	input->CharEnter.Disconnect(char_enter_del);
+	input->MouseWheelDown.Disconnect(wheel_down);
+	input->MouseWheelUp.Disconnect(wheel_up);
 	delete camera2D;
 	delete ui_shader;
 }
@@ -97,6 +101,8 @@ void Screen::Update(float sec) {
 		io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
 	}
 
+	io.MouseWheel = mouse_wheel;
+	mouse_wheel = 0.f;
 	// Hide OS mouse cursor if ImGui is drawing it
 	//glfwSetInputMode(g_Window, GLFW_CURSOR, io.MouseDrawCursor ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
 
@@ -264,6 +270,9 @@ bool Screen::CreateFontsTexture()
 	ImFontConfig font;
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
 	io.Fonts->AddFontDefault(&font);
+	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
+	io.Fonts->AddFontDefault(&font);
+
 
 	unsigned char* pixels;
 	int width, height;
@@ -323,4 +332,12 @@ void Screen::KeyReleased(Key key) {
 void Screen::CharEnter(char c) {
 	ImGuiIO& io = ImGui::GetIO();
 	io.AddInputCharacter(c);
+}
+
+void Screen::WheelDown() {
+	mouse_wheel += 1.f;	// Use fractional mouse wheel, 1.0 unit 5 lines.
+}
+
+void Screen::WheelUp() {
+	mouse_wheel -= 1.f;
 }

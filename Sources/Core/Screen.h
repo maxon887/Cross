@@ -78,6 +78,7 @@ private:
 
 	Vector2D action_pos;
 	bool action_down = false;
+	float mouse_wheel = 0.0f;
 
 	void RenderUI(ImDrawData*);
 	bool CreateDeviceObjects();
@@ -98,6 +99,11 @@ private:
 	void KeyPressed(Key key);
 	void KeyReleased(Key key);
 	void CharEnter(char c);
+
+	U64 wheel_up = 0;
+	U64 wheel_down = 0;
+	void WheelUp();
+	void WheelDown();
 };
     
 }
