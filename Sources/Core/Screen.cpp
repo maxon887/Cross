@@ -256,9 +256,9 @@ bool Screen::CreateFontsTexture()
 
 	ImFontConfig font;
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
-	io.Fonts->AddFontDefault(&font);
+	font_normal = io.Fonts->AddFontDefault(&font);
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
-	io.Fonts->AddFontDefault(&font);
+	font_big = io.Fonts->AddFontDefault(&font);
 
 
 	unsigned char* pixels;

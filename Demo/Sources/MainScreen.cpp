@@ -36,11 +36,12 @@ void MainScreen::Stop(){
 void MainScreen::Update(float sec){
 	Screen::Update(sec);
 	ImGui::Begin("Demo");
+	ImGui::PushFont(font_big);
+	ImGui::Button("Graphics", ImVec2(-1, 0));
 
-	ImGui::Button("Graphics", ImVec2(ImGui::GetWindowWidth(), 0));
-
-	if(ImGui::Button("GUI", ImVec2(ImGui::GetWindowWidth(), 0))) {
+	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new UIScreen());
 	}
+	ImGui::PopFont();
 	ImGui::End();
 }

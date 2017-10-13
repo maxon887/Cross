@@ -19,6 +19,7 @@
 #include "Input.h"
 
 struct ImDrawData;
+struct ImFont;
 
 namespace cross {
 
@@ -68,6 +69,8 @@ protected:
 	bool is_scene					= false;
 	bool enable_inputs				= true;
 	Camera2D* camera2D				= NULL;
+	ImFont* font_normal = NULL;
+	ImFont* font_big = NULL;
 
 private:
 	U32 font_texture				= 0;
