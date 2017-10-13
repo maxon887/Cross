@@ -261,6 +261,8 @@ bool Screen::CreateFontsTexture()
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
 	font_big = io.Fonts->AddFontDefault(&font);
 	io.Fonts->AddFontFromFileTTF("c:/GameDev/Cross/Demo/Assets/Engine/Fonts/VeraMono.ttf", 26.0f);
+	File* customFont = system->LoadAssetFile("Engine/Fonts/VeraMono.ttf");
+	io.Fonts->AddFontFromFileTTF("c:/GameDev/Cross/Demo/Assets/Engine/Fonts/VeraMono.ttf", 26.0f);
 
 
 	unsigned char* pixels;
