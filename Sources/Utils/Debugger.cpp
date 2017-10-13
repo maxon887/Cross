@@ -53,7 +53,7 @@ Debugger::Debugger() {
 			if(system->GetWindowWidth() < 700){
 				debugger_font->SetSize(37.f);
 			}else{
-				debugger_font->SetSize(17.f);
+				debugger_font->SetSize(13.f);
 			}
 			break;
 		}

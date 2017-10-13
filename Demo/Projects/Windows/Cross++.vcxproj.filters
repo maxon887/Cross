@@ -313,6 +313,9 @@
     <ClCompile Include="..\..\Sources\UIScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.cpp">
+      <Filter>Cross\Libs\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -588,6 +591,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\UIScreen.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.h">
+      <Filter>Cross\Libs\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

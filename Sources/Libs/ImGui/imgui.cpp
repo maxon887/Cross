@@ -2286,8 +2286,10 @@ void ImGui::NewFrame()
     if (g.SettingsDirtyTimer > 0.0f)
     {
         g.SettingsDirtyTimer -= g.IO.DeltaTime;
-        if (g.SettingsDirtyTimer <= 0.0f)
+        if (g.SettingsDirtyTimer <= 0.0f){
+			
             SaveIniSettingsToDisk(g.IO.IniFilename);
+		}
     }
 
     // Find the window we are hovering. Child windows can extend beyond the limit of their parent so we need to derive HoveredRootWindow from HoveredWindow

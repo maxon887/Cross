@@ -23,6 +23,7 @@
 #include "Shaders/Shader.h"
 
 #include "Libs/ImGui/imgui.h"
+#include "Libs/ImGui/imgui_freetype.h"
 
 using namespace cross;
 
@@ -253,16 +254,18 @@ bool Screen::CreateFontsTexture()
 {
 	// Build texture atlas
 	ImGuiIO& io = ImGui::GetIO();
-
+	io.Fonts->Clear();
 	ImFontConfig font;
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
 	font_normal = io.Fonts->AddFontDefault(&font);
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
 	font_big = io.Fonts->AddFontDefault(&font);
+	io.Fonts->AddFontFromFileTTF("c:/GameDev/Cross/Demo/Assets/Engine/Fonts/VeraMono.ttf", 26.0f);
 
 
 	unsigned char* pixels;
 	int width, height;
+	ImGuiFreeType::BuildFontAtlas(io.Fonts);
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 
 	// Upload texture to graphics system
