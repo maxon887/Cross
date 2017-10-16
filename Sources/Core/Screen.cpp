@@ -291,6 +291,7 @@ bool Screen::CreateFontsTexture()
     SAFE(glBindTexture(GL_TEXTURE_2D, font_texture));
     SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    system->LogIt("Width - %d, Height - %d", width, height);
     SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
 
 	// Store our identifier

@@ -1101,7 +1101,7 @@ const char FONT_ATLAS_DEFAULT_TEX_DATA_PIXELS[FONT_ATLAS_DEFAULT_TEX_DATA_W_HALF
 ImFontAtlas::ImFontAtlas()
 {
     TexID = NULL;
-    TexDesiredWidth = 0;
+    TexDesiredWidth = 1024;
     TexGlyphPadding = 1;
     TexPixelsAlpha8 = NULL;
     TexPixelsRGBA32 = NULL;
