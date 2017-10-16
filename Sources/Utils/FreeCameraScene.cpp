@@ -20,7 +20,6 @@
 #include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Sprite.h"
-#include "Utils/Font.h"
 #include "Camera2D.h"
 
 using namespace cross;
@@ -30,15 +29,11 @@ void FreeCameraScene::Start() {
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
 	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
-	debug_font = gfx2D->GetDefaultFont()->Clone();
-	debug_font->SetSize(25.f);
 	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
 void FreeCameraScene::Stop(){
     input->MouseWheelRoll.Disconnect(wheel_roll);
-
-	delete debug_font;
 
 	Scene::Stop();
 }
@@ -60,17 +55,6 @@ void FreeCameraScene::Update(float sec){
 	if(input->IsPressed(Key::DOWN)) {
 		LookUp(sec);
 	}
-
-	//debug camera
-#ifndef ANDROID
-	char buffer[256];
-	Vector3D camPos = camera->GetPosition();
-	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
-	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f), buffer, debug_font);
-	Vector3D camDir = camera->GetDirection();
-	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
-	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
-#endif // !ANDROID
 }
 
 void FreeCameraScene::MoveForward(float sec){

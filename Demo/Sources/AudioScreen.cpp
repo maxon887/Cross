@@ -16,12 +16,10 @@ void AudioScreen::Start(){
 	SetBackground(Color(0.25f, 0.25f, 0.25f));
 	button_sprite = demo->GetCommonSprite("ButtonTemplate.png");
 	button_sprite_pressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
-	Button* soundBtn = new Button("Sound");
+	Button* soundBtn = new Button();
 	soundBtn->SetImages(button_sprite->Clone(), nullptr);
 	ToggleButton* loopBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
-	loopBtn->SetText("Loop");
 	ToggleButton* streamBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
-	streamBtn->SetText("Stream");
 	soundBtn->Clicked.Connect(this, &AudioScreen::OnSoundButtonClick);
 	loopBtn->Clicked.Connect(this, &AudioScreen::OnLoopButttonClick);
 	streamBtn->Clicked.Connect(this, &AudioScreen::OnStreamButtonClick);

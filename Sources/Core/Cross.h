@@ -98,7 +98,6 @@ class Sound;
 class Screen;
 class Scene;
 class File;
-class Font;
 class Camera;
 class Camera2D;
 class Shader;

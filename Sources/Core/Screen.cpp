@@ -21,9 +21,16 @@
 #include "GraphicsGL.h"
 #include "Game.h"
 #include "Shaders/Shader.h"
+#include "File.h"
+
+#if defined(USE_FREETYPE) && defined(WIN)
+#	pragma comment(lib, "freetype.lib")
+#endif
 
 #include "Libs/ImGui/imgui.h"
-#include "Libs/ImGui/imgui_freetype.h"
+#ifdef USE_FREETYPE
+#	include "Libs/ImGui/imgui_freetype.h"
+#endif
 
 using namespace cross;
 
@@ -260,14 +267,19 @@ bool Screen::CreateFontsTexture()
 	font_normal = io.Fonts->AddFontDefault(&font);
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
 	font_big = io.Fonts->AddFontDefault(&font);
-	io.Fonts->AddFontFromFileTTF("c:/GameDev/Cross/Demo/Assets/Engine/Fonts/VeraMono.ttf", 26.0f);
-	File* customFont = system->LoadAssetFile("Engine/Fonts/VeraMono.ttf");
-	io.Fonts->AddFontFromFileTTF("c:/GameDev/Cross/Demo/Assets/Engine/Fonts/VeraMono.ttf", 26.0f);
 
+/*	Custom font loading
+	ImFontConfig customFontConfig;
+	customFontConfig.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
+	customFontConfig.FontDataOwnedByAtlas = false;
+	File* customFont = system->LoadAssetFile("Engine/Fonts/VeraMono.ttf");
+	io.Fonts->AddFontFromMemoryTTF(customFont->data, customFont->size, customFontConfig.SizePixels, &customFontConfig);*/
 
 	unsigned char* pixels;
 	int width, height;
+#ifdef USE_FREETYPE
 	ImGuiFreeType::BuildFontAtlas(io.Fonts);
+#endif
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 
 	// Upload texture to graphics system

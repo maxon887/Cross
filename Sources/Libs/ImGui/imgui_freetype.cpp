@@ -10,7 +10,7 @@
 // Todo/Bugs:
 // - Font size has lots of waste.
 // - FreeType's memory allocator is not overridden.
-
+#ifdef USE_FREETYPE
 #include "imgui_freetype.h"
 #include "imgui_internal.h"   // ImMin,ImMax,ImFontAtlasBuild*,
 #include <stdint.h>
@@ -364,3 +364,5 @@ bool ImGuiFreeType::BuildFontAtlas(ImFontAtlas* atlas, unsigned int extra_flags)
 
     return true;
 }
+
+#endif

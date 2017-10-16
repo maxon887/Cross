@@ -19,7 +19,6 @@
 #include "System.h"
 #include "Utils/Debugger.h"
 #include "Sprite.h"
-#include "Utils/Font.h"
 #include "Camera2D.h"
 #include "File.h"
 #include "Texture.h"
@@ -29,11 +28,7 @@
 #include "Screen.h"
 
 #include "Libs/SOIL/SOIL.h"
-#include "Libs/FreeType/ft2build.h"
 #include "Libs/TinyXML2/tinyxml2.h"
-
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
 
 using namespace cross;
 using namespace tinyxml2;
@@ -72,12 +67,10 @@ Graphics2D::Graphics2D() {
 	font_shader->Compile();
 	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
 	simple_shader->Compile();
-	this->default_font = new Font("Engine/Fonts/VeraMono.ttf", 50, Color::White);
 }
 
 Graphics2D::~Graphics2D(){
 	system->LogIt("Graphics2D::~Graphics2D");
-	delete default_font;
 	delete texture_shader;
 	delete font_shader;
 	delete simple_shader;
@@ -183,37 +176,6 @@ void Graphics2D::DrawCircle(Vector2D center, float radius, Color color, bool fil
 		SAFE(glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2));
 	}
 	delete buffer;
-}
-
-void Graphics2D::DrawText(Vector2D pos, const string& textStr){
-	DrawText(pos, textStr.c_str(), this->default_font);
-}
-
-void Graphics2D::DrawText(Vector2D pos, const string& text, Font* font){
-	DrawText(pos, text.c_str(), font);
-}
-
-void Graphics2D::DrawText(Vector2D pos, const string& text, Font* font, const Color& color){
-	DrawText(pos, text.c_str(), font, color);
-}
-
-void Graphics2D::DrawText(Vector2D pos, const char* text){
-	DrawText(pos, text, this->default_font);
-}
-
-void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font){
-	DrawText(pos, text, font, font->GetColor());
-}
-
-void Graphics2D::DrawText(Vector2D pos, const char* text, Font* font, const Color& color) {
-	while(*text) {
-		Sprite* ch = font->GetChar(*text);
-		float advance = font->GetCharWidthAdvance(*text);
-		ch->SetPosition(pos);
-		DrawSprite(ch, color, true);
-		pos.x += advance;
-		text++;
-	}
 }
 
 void Graphics2D::DrawSprite(Sprite* sprite){
@@ -526,8 +488,4 @@ void Graphics2D::LoadSprites(Dictionary<string, Sprite*>& output, Texture* textu
 
 void Graphics2D::Update(float sec){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-}
-
-Font* Graphics2D::GetDefaultFont(){
-	return default_font;
 }

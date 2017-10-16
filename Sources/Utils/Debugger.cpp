@@ -20,7 +20,6 @@
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "Game.h"
-#include "Utils/Font.h"
 #include "Screen.h"
 
 using namespace cross;
@@ -46,19 +45,6 @@ Debugger::Debugger() {
 	params[RUN_TIME]	= true;
 	params[INPUT]		= true;
 
-	for(int i = 0; i < Parameter::NONE; i++){
-		//if any of debug parameters enabled create debug font
-		if(params[i]){
-			debugger_font = gfx2D->GetDefaultFont()->Clone();
-			if(system->GetWindowWidth() < 700){
-				debugger_font->SetSize(37.f);
-			}else{
-				debugger_font->SetSize(13.f);
-			}
-			break;
-		}
-	}
-
 	if(params[Parameter::INPUT]){
 		input->ActionDown.Connect(this, &Debugger::OnActionDown);
 		input->ActionMove.Connect(this, &Debugger::OnActionMove);
@@ -66,9 +52,8 @@ Debugger::Debugger() {
 	}
 }
 
-Debugger::~Debugger(){
-	delete debugger_font;
-}
+Debugger::~Debugger()
+{ }
 
 void Debugger::SetTimeCheck() {
 	U64 checkTime = system->GetTime();
@@ -90,49 +75,6 @@ void Debugger::Update(float micro){
 	}else{
 		update_sum += micro;
 		update_counter++;
-	}
-
-	S32 optionPosition = 1;
-	float height = game->GetCurrentScreen()->GetCamera()->GetViewHeight();
-	height += game->GetCurrentScreen()->GetCamera()->GetPosition().y;
-	char outputString[256];
-	if(params[Parameter::FPS] == true){
-		if(update_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "FPS: -", debugger_font);
-		}else{
-			sprintf(outputString, "FPS: %0.1f", 1000.f / update_time);
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		}
-		optionPosition++;
-	}
-	if(params[Parameter::UPDATE_TIME] == true){
-		sprintf(outputString, "Update Time: %0.1fms", update_time);
-		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		optionPosition++;
-	}
-	if(params[Parameter::CPU_TIME] == true){
-		if(cpu_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "CPU Time: -", debugger_font);
-		}else{
-			sprintf(outputString, "CPU Time: %0.1fms", cpu_time);
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		}
-		optionPosition++;
-	}
-	if(params[Parameter::RUN_TIME] == true){
-		sprintf(outputString, "Run time: %0.2fsec", game->GetRunTime());
-		gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		optionPosition++;
-	}
-	if(params[Parameter::INPUT] == true){
-		if(touch_down) {
-			sprintf(outputString, "Input x: %f y: %f", touch_pos.x, touch_pos.y);
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		} else {
-			sprintf(outputString, "Input Up");
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		}
-		optionPosition++;
 	}
 }
 

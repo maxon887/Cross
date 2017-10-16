@@ -25,10 +25,6 @@ class Button : public UI{
 public:
 	Event<> Clicked;
 
-	Button(Rect area, string text);
-	Button(Vector2D location, string text);
-	Button(string text);
-	Button(string text, Font* font);
 	Button(Rect area);
 	Button(Vector2D location);
 	Button();
@@ -37,7 +33,6 @@ public:
 	void Update(float sec) override;
 
 	void SetLocation(Vector2D location);
-	void SetText(string text);
 	void SetImages(Sprite* up, Sprite* down);
 	void SetImages(Sprite* up);
 	void SetSounds(Sound* push, Sound* pull);
@@ -69,7 +64,6 @@ protected:
 	Sound* push_sound		= NULL;
 	Sound* pull_sound		= NULL;
 	Color color				= Color::White;
-	Font* font				= NULL;
 	string label_text		= string();
 	Vector2D text_size		= Vector2D();
 

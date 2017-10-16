@@ -36,12 +36,6 @@ public:
 	void DrawCircle(Vector2D center, float radius, Color color);
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled);
 	void DrawCircle(Vector2D center, float radius, Color color, bool filled, U32 accuracy);
-	void DrawText(Vector2D pos, const string& text);
-	void DrawText(Vector2D pos, const string& str, Font* font);
-	void DrawText(Vector2D pos, const string& text, Font* font, const Color& color);
-	void DrawText(Vector2D pos, const char* text);
-	void DrawText(Vector2D pos, const char* str, Font* font);
-	void DrawText(Vector2D pos, const char* str, Font* font, const Color& color);
 	void DrawSprite(Sprite* sprite);
 	void DrawSprite(Vector2D pos, Sprite* sprite);
 	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
@@ -62,7 +56,6 @@ public:
 							Texture::TilingMode tilingMode,
 							bool generateMipmaps );
 	void LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xml);
-	Font* GetDefaultFont();
 
 	Byte* LoadRawTextureData(const string& filename, int& width, int& height, int& channels);
 	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
@@ -73,7 +66,6 @@ private:
 	Shader* texture_shader		= NULL;
 	Shader* font_shader			= NULL;
 	Shader* simple_shader		= NULL;
-	Font* default_font			= NULL;
 };
 
 }

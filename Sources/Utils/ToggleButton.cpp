@@ -45,11 +45,6 @@ void ToggleButton::Update(){
 		gfx2D->DrawSprite(location, on);
 	else
 		gfx2D->DrawSprite(location, off);
-
-	if(label_text.size()) {
-		gfx2D->DrawText(Vector2D(area.x + area.width / 2 - text_size.x / 2,
-			area.y + area.height / 2 - text_size.y / 2 + 10), label_text);
-	}
 }
 
 bool ToggleButton::GetState() const{

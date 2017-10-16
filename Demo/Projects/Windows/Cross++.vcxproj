@@ -48,7 +48,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;freetype.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -64,7 +64,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>fmod_vc.lib;freetype.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -122,7 +122,6 @@
     <ClCompile Include="..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\Font.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp" />
@@ -131,7 +130,6 @@
     <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
@@ -217,7 +215,6 @@
     <ClInclude Include="..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\Font.h" />
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h" />
@@ -226,7 +223,6 @@
     <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h" />
-    <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />

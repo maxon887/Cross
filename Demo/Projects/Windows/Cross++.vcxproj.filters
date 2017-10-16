@@ -82,9 +82,6 @@
     <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp">
       <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics2D\TextScreen.cpp">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClCompile>
@@ -271,22 +268,13 @@
     <ClCompile Include="..\..\..\Sources\Utils\Animation.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Button.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Font.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Libs\TinyXML2\tinyxml2.cpp">
@@ -316,6 +304,12 @@
     <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.cpp">
       <Filter>Cross\Libs\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Button.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -335,9 +329,6 @@
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics2D\TextScreen.h">
       <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
@@ -541,22 +532,13 @@
     <ClInclude Include="..\..\..\Sources\Utils\Animation.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Button.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Font.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Libs\TinyXML2\tinyxml2.h">
@@ -594,6 +576,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.h">
       <Filter>Cross\Libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Button.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
+      <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

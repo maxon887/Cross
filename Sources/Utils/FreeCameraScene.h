@@ -55,8 +55,6 @@ protected:
 	float angular_speed			= 45.f;
 	float orbit_distance		= 5.f;
 
-	Font* debug_font			= NULL;
-
 	S32 handled_action			= -1;
 	Vector2D touch_position		= Vector2D();
 	Vector3D target				= Vector3D(0);

@@ -46,8 +46,6 @@ private:
 
 	Array<U64> time_checks			= Array<U64>();
 
-	Font* debugger_font				= NULL;
-
 	Array<bool> params				= Array<bool>(Parameter::NONE, false);
 
 	float cpu_time					= 0;

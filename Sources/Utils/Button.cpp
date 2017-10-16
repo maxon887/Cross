@@ -19,7 +19,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics2D.h"
 #include "Input.h"
 #include "Sprite.h"
-#include "Utils/Font.h"
 #include "System.h"
 #include "Sound.h"
 
@@ -27,37 +26,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #define VERTICAL_PADDING 25.f
 
 using namespace cross;
-
-Button::Button(Rect area, string text) :
-	Button()
-{
-	Locate(area);
-	font = gfx2D->GetDefaultFont()->Clone();
-	FitText(text);
-}
-
-Button::Button(Vector2D location, string text) :
-	Button()
-{
-	font = gfx2D->GetDefaultFont()->Clone();
-	FitText(text);
-	Locate(location, text_size.x + HORIZONTAL_PADDING, text_size.y + VERTICAL_PADDING);
-}
-
-Button::Button(string text) :
-	Button()
-{
-	font = gfx2D->GetDefaultFont()->Clone();
-	FitText(text);
-}
-
-Button::Button(string text, Font* font) :
-	Button()
-{
-	this->font = font;
-	FitText(text);
-}
-
 
 Button::Button(Rect area) :
 	Button()
@@ -84,9 +52,6 @@ Button::~Button() {
 	}
 	if (up_image != nullptr) {
 		delete up_image;
-	}
-	if (font != nullptr) {
-		delete font;
 	}
 	if(push_sound != nullptr) {
 		delete push_sound;
@@ -123,14 +88,6 @@ void Button::Update(float sec) {
 			}
 		}
 	}
-
-
-	if(!label_text.empty()) {
-		Vector2D textPos;
-		textPos.x = area.x + area.width / 2 - text_size.x / 2;
-		textPos.y = area.y + area.height / 2 - text_size.y / 2;
-		gfx2D->DrawText(textPos, label_text, font);
-	}
 	
 	//debug active area
 	//gfx2D->DrawRect(area, Color::Red);
@@ -138,13 +95,6 @@ void Button::Update(float sec) {
 
 void Button::SetLocation(Vector2D location) {
 	Locate(location, area.width, area.height);
-}
-
-void Button::SetText(string text) {
-	if(!font){
-		font = gfx2D->GetDefaultFont()->Clone();
-	}
-	FitText(text);
 }
 
 void Button::SetImages(Sprite * up, Sprite * down) {
@@ -230,12 +180,6 @@ void Button::FitText(string text) {
 		//	);
 		throw CrossException("Not Implemented");
 	}*/
-
-	if (!label_text.empty()) {
-		text_size.x = font->GetCharWidth() * label_text.size();
-		text_size.y = font->GetSize();
-	}
-	
 }
 
 void Button::Locate(Vector2D loc, float width, float height) {
