@@ -41,9 +41,10 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
         surfaceView.getHolder().addCallback(this);
 		setContentView(surfaceView);
 		System.loadLibrary("fmod");
-		System.loadLibrary("freetype2");
         System.loadLibrary("assimp");
 		System.loadLibrary("cross");
+		//optional library
+		//System.loadLibrary("freetype2");
 		cross = new Cross();
 
 		FMOD.init(this);

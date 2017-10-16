@@ -71,17 +71,15 @@ set_target_properties( freetype2 PROPERTIES IMPORTED_LOCATION
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       cross
-
-                       # Links the target library to the log library
-                       # included in the NDK.
-                       ${log-lib}
-                       android
-                       GLESv2
-                        EGL
-                        fmod
-                        assimp
-                        freetype2)
+						cross
+						${log-lib}
+						android
+						GLESv2
+						EGL
+						fmod
+						assimp
+						#freetype2
+						)
 
 include_directories(../../../../Sources)
 include_directories(../../../../Sources/Core)

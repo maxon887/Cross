@@ -164,7 +164,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	GLint last_viewport[4]; glGetIntegerv(GL_VIEWPORT, last_viewport);
 	GLint last_scissor_box[4]; glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box);
 
-	glActiveTexture(GL_TEXTURE0);
+	SAFE(glActiveTexture(GL_TEXTURE0));
 
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
 	SAFE(glEnable(GL_BLEND));
@@ -185,17 +185,17 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	};
 	gfxGL->UseShader(ui_shader);
 	//glUniform1i(texture_loc, 0);
-	glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, &ortho_projection[0][0]);
+	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, &ortho_projection[0][0]));
 
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-	glEnableVertexAttribArray(ui_shader->aPosition);
-	glEnableVertexAttribArray(ui_shader->aTexCoords);
-	glEnableVertexAttribArray(ui_shader->aColor);
+    SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
+    SAFE(glEnableVertexAttribArray(ui_shader->aPosition));
+    SAFE(glEnableVertexAttribArray(ui_shader->aTexCoords));
+    SAFE(glEnableVertexAttribArray(ui_shader->aColor));
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-	glVertexAttribPointer(ui_shader->aPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
-	glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
-	glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+    SAFE(glVertexAttribPointer(ui_shader->aPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos)));
+    SAFE(glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv)));
+    SAFE(glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col)));
 #undef OFFSETOF
 
 	for(int n = 0; n < draw_data->CmdListsCount; n++)
@@ -203,11 +203,11 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 		const ImDrawList* cmd_list = draw_data->CmdLists[n];
 		const ImDrawIdx* idx_buffer_offset = 0;
 
-		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-		glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)cmd_list->VtxBuffer.Size * sizeof(ImDrawVert), (const GLvoid*)cmd_list->VtxBuffer.Data, GL_STREAM_DRAW);
+        SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
+        SAFE(glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)cmd_list->VtxBuffer.Size * sizeof(ImDrawVert), (const GLvoid*)cmd_list->VtxBuffer.Data, GL_STREAM_DRAW));
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)cmd_list->IdxBuffer.Size * sizeof(ImDrawIdx), (const GLvoid*)cmd_list->IdxBuffer.Data, GL_STREAM_DRAW);
+        SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
+        SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)cmd_list->IdxBuffer.Size * sizeof(ImDrawIdx), (const GLvoid*)cmd_list->IdxBuffer.Data, GL_STREAM_DRAW));
 
 		for(int cmd_i = 0; cmd_i < cmd_list->CmdBuffer.Size; cmd_i++)
 		{
@@ -217,9 +217,9 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 				pcmd->UserCallback(cmd_list, pcmd);
 			} else
 			{
-				glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId);
-				glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
-				glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset);
+            SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId));
+            SAFE(glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y)));
+            SAFE(glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset));
 			}
 			idx_buffer_offset += pcmd->ElemCount;
 		}
@@ -228,8 +228,8 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_SCISSOR_TEST));
 
-	glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
-	glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]);
+    SAFE(glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]));
+    SAFE(glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]));
 }
 
 bool Screen::CreateDeviceObjects()
@@ -238,19 +238,19 @@ bool Screen::CreateDeviceObjects()
 	ui_shader->Compile();
 
 	SAFE(glGenBuffers(1, &vertex_buffer));
-	glGenBuffers(1, &index_buffer);
+    SAFE(glGenBuffers(1, &index_buffer));
 
 	//glGenVertexArrays(1, &g_VaoHandle);
 	//glBindVertexArray(g_VaoHandle);
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
-	glEnableVertexAttribArray(ui_shader->aPosition);
-	glEnableVertexAttribArray(ui_shader->aTexCoords);
-	glEnableVertexAttribArray(ui_shader->aColor);
+    SAFE(glEnableVertexAttribArray(ui_shader->aPosition));
+    SAFE(glEnableVertexAttribArray(ui_shader->aTexCoords));
+    SAFE(glEnableVertexAttribArray(ui_shader->aColor));
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-	glVertexAttribPointer(ui_shader->aPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
-	glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
-	glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+    SAFE(glVertexAttribPointer(ui_shader->aPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos)));
+    SAFE(glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv)));
+    SAFE(glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col)));
 #undef OFFSETOF
 
 	CreateFontsTexture();
@@ -284,18 +284,20 @@ bool Screen::CreateFontsTexture()
 
 	// Upload texture to graphics system
 	GLint last_texture;
-	glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
-	glGenTextures(1, &font_texture);
-	glBindTexture(GL_TEXTURE_2D, font_texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	SAFE(glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture));
+
+    SAFE(glActiveTexture(GL_TEXTURE0));
+    SAFE(glGenTextures(1, &font_texture));
+    SAFE(glBindTexture(GL_TEXTURE_2D, font_texture));
+    SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
 
 	// Store our identifier
 	io.Fonts->TexID = (void *)(intptr_t)font_texture;
 
 	// Restore state
-	glBindTexture(GL_TEXTURE_2D, last_texture);
+    SAFE(glBindTexture(GL_TEXTURE_2D, last_texture));
 
 	return true;
 }
