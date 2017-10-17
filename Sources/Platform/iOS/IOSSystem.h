@@ -29,6 +29,7 @@ public:
     string AssetsPath() override;
     string DataPath() override;
     U64 GetTime() override;
+    float GetScreenDPI() override;
     
     void RequestOrientation(Orientation orientation) override;
     void Messagebox(const string& title, const string& message) override;

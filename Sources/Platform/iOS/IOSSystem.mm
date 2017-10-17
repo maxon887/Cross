@@ -70,6 +70,10 @@ U64 IOSSystem::GetTime(){
     return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
+float IOSSystem::GetScreenDPI(){
+    return 200.f;
+}
+
 void IOSSystem::RequestOrientation(cross::System::Orientation orientation){
     [UIViewController attemptRotationToDeviceOrientation];
 }
