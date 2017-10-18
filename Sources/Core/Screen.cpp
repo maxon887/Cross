@@ -174,18 +174,9 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_DEPTH_TEST));
 	SAFE(glEnable(GL_SCISSOR_TEST));
 	
-	// Setup viewport, orthographic projection matrix
-	//glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height);
-	const float ortho_projection[4][4] =
-	{
-		{ 2.0f / io.DisplaySize.x, 0.0f,                   0.0f, 0.0f },
-		{ 0.0f,                  2.0f / -io.DisplaySize.y, 0.0f, 0.0f },
-		{ 0.0f,                  0.0f,                  -1.0f, 0.0f },
-		{ -1.0f,                  1.0f,                   0.0f, 1.0f },
-	};
 	gfxGL->UseShader(ui_shader);
-	//glUniform1i(texture_loc, 0);
-	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, &ortho_projection[0][0]));
+	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
+	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
     SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
     SAFE(glEnableVertexAttribArray(ui_shader->aPosition));
