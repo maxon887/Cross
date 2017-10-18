@@ -267,16 +267,7 @@ bool Screen::CreateFontsTexture()
 	font_normal = io.Fonts->AddFontDefault(&font);
 	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
 	font_big = io.Fonts->AddFontDefault(&font);
-
-#ifdef USE_FREETYPE
-	ImFontConfig customFontConfig;
-	customFontConfig.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
-	customFontConfig.FontDataOwnedByAtlas = false;
-	File* customFont = system->LoadAssetFile("Engine/Fonts/VeraMono.ttf");
-	io.Fonts->AddFontFromMemoryTTF(customFont->data, customFont->size, customFontConfig.SizePixels, &customFontConfig);
-#endif // USE_FREETYPE
 	
-
 	unsigned char* pixels;
 	int width, height;
 #ifdef USE_FREETYPE
