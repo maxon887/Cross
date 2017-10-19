@@ -25,4 +25,7 @@ public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
+
+private:
+	ImFont* font_big = NULL;
 };

@@ -24,6 +24,7 @@ struct ImFont;
 namespace cross {
 
 #define MAX_ACTIONS 20
+#define DEFAULT_FONT_SIZE 13.f
 
 /* Class reflect particular game scene. Like menu, level 1 etc.
    Every game must implement at least one Screen class.
@@ -69,11 +70,9 @@ protected:
 	bool is_scene					= false;
 	bool enable_inputs				= true;
 	Camera2D* camera2D				= NULL;
-	ImFont* font_normal = NULL;
-	ImFont* font_big = NULL;
+	ImFont* font					= NULL;
 
 private:
-	U32 font_texture				= 0;
 	Shader* ui_shader				= NULL;
 
 	U32 vertex_buffer				= 0;

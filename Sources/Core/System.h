@@ -19,6 +19,8 @@
 #include "Event.h"
 
 namespace cross {
+
+#define DEFAULT_SCREEN_DPI 96.f
 	
 /* Class for platform specific functional */
 class System{

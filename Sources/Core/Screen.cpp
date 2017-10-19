@@ -72,6 +72,9 @@ void Screen::Start(){
 	//WINSystem* winSys = (WINSystem*)system;
 	//io.ImeWindowHandle = winSys->GetHWND();
 #endif
+
+	CreateDeviceObjects();
+	CreateFontsTexture();
 }
 
 void Screen::Stop(){
@@ -87,10 +90,6 @@ void Screen::Stop(){
 }
 
 void Screen::Update(float sec) {
-	if(!font_texture) {
-		CreateDeviceObjects();
-	}
-
 	ImGuiIO& io = ImGui::GetIO();
 
 	// Setup display size (every frame to accommodate for window resizing)
@@ -175,7 +174,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	SAFE(glEnable(GL_SCISSOR_TEST));
 	
 	gfxGL->UseShader(ui_shader);
-	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
+	static const Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
 	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
     SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
@@ -231,8 +230,6 @@ bool Screen::CreateDeviceObjects()
 	SAFE(glGenBuffers(1, &vertex_buffer));
     SAFE(glGenBuffers(1, &index_buffer));
 
-	//glGenVertexArrays(1, &g_VaoHandle);
-	//glBindVertexArray(g_VaoHandle);
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
     SAFE(glEnableVertexAttribArray(ui_shader->aPosition));
     SAFE(glEnableVertexAttribArray(ui_shader->aTexCoords));
@@ -243,8 +240,6 @@ bool Screen::CreateDeviceObjects()
     SAFE(glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv)));
     SAFE(glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col)));
 #undef OFFSETOF
-
-	CreateFontsTexture();
 	return true;
 }
 
@@ -253,11 +248,9 @@ bool Screen::CreateFontsTexture()
 	// Build texture atlas
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->Clear();
-	ImFontConfig font;
-	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f;
-	font_normal = io.Fonts->AddFontDefault(&font);
-	font.SizePixels = system->GetScreenDPI() / 96.0f * 13.0f * 2.0f;
-	font_big = io.Fonts->AddFontDefault(&font);
+	ImFontConfig fontConfig;
+	fontConfig.SizePixels = system->GetScreenDPI() / DEFAULT_SCREEN_DPI * DEFAULT_FONT_SIZE;
+	font = io.Fonts->AddFontDefault(&fontConfig);
 	
 	unsigned char* pixels;
 	int width, height;
@@ -266,24 +259,17 @@ bool Screen::CreateFontsTexture()
 #endif
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 
-	// Upload texture to graphics system
-	GLint last_texture;
-	SAFE(glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture));
-
+	GLuint font_texture;
     SAFE(glActiveTexture(GL_TEXTURE0));
     SAFE(glGenTextures(1, &font_texture));
     SAFE(glBindTexture(GL_TEXTURE_2D, font_texture));
     SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    system->LogIt("Width - %d, Height - %d", width, height);
+    system->LogIt("Font created with texture %d x %d", width, height);
     SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
 
 	// Store our identifier
 	io.Fonts->TexID = (void *)(intptr_t)font_texture;
-
-	// Restore state
-    SAFE(glBindTexture(GL_TEXTURE_2D, last_texture));
-
 	return true;
 }
 
