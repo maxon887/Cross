@@ -103,11 +103,6 @@ GraphicsGL::GraphicsGL() {
 
 		system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
-		if(config->IsOffscreenRender()){
-			offscreen_shader = GetShader(DefaultShader::TEXTURE);
-			offscreen_shader->Compile();
-		}
-
 		SAFE(glCullFace(GL_FRONT));
 }
 
@@ -124,6 +119,9 @@ GraphicsGL::~GraphicsGL(){
 
 void GraphicsGL::Start(){
 	if(config->IsOffscreenRender()){
+		offscreen_shader = GetShader(DefaultShader::TEXTURE);
+		offscreen_shader->Compile();
+
 		SAFE(glGenFramebuffers(1, &framebuffer));
 
 		GenerateFramebuffer();

@@ -67,11 +67,6 @@ Graphics3D::Graphics3D() {
 }
 
 Graphics3D::~Graphics3D(){
-	for(U32 i = 0; i < Primitives::COUNT; ++i){
-		if(primitives[i]){
-			delete primitives[i];
-		}
-	}
 	delete default_material;
 	delete default_shader;
 	delete simple_shader;

@@ -222,8 +222,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
     SAFE(glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]));
 }
 
-bool Screen::CreateDeviceObjects()
-{
+bool Screen::CreateDeviceObjects() {
 	ui_shader = new Shader("Engine/Shaders/UI.vtx", "Engine/Shaders/UI.fgm");
 	ui_shader->Compile();
 

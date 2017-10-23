@@ -73,7 +73,6 @@ protected:
 	Material* default_material			= NULL;
 	const aiScene* current_scene		= NULL;
 	bool initialize_in_load				= true;
-	Array<Entity*> primitives			= Array<Entity*>(COUNT, NULL);
 
 	S32 mesh_id = 0;
 

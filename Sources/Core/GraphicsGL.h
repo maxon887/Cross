@@ -29,8 +29,6 @@
 #pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "opengl32.lib")
 #endif
-#undef LoadImage
-#undef DrawText
 #elif ANDROID
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
@@ -63,7 +61,7 @@ enum class DefaultShader{
 };
 
 /*	Class containing specific OpengGL features,
-	offscreen rendering and default shaders */
+	off screen rendering and default shaders */
 class GraphicsGL{
 public:
 	static void CheckGLError(const char* file, U32 line);
