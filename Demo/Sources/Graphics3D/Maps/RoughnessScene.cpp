@@ -17,12 +17,12 @@
 #include "RoughnessScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
 #include "Shaders/LightsShader.h"
+#include "Texture.h"
 
 void RoughnessScene::Start(){
 	CameraControlsScene::Start();
@@ -43,9 +43,12 @@ void RoughnessScene::Start(){
 	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 64.f);
 	shader->Compile();
 
-	diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png", Texture::TilingMode::REPEAT);
-	specular = gfx2D->LoadTexture("gfx3D/Camaro/Specular.png", Texture::TilingMode::REPEAT);
-	roughness = gfx2D->LoadTexture("gfx3D/Camaro/Shininess.png", Texture::TilingMode::REPEAT);
+	diffuse = GetTexture("gfx3D/Camaro/Diffuse.png");
+	diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
+	specular = GetTexture("gfx3D/Camaro/Specular.png");
+	specular->SetTilingMode(Texture::TilingMode::REPEAT);
+	roughness = GetTexture("gfx3D/Camaro/Shininess.png");
+	roughness->SetTilingMode(Texture::TilingMode::REPEAT);
 
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", diffuse);

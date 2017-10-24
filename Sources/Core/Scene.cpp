@@ -23,7 +23,6 @@
 #include "Entity.h"
 #include "Material.h"
 #include "Mesh.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Shaders/LightsShader.h"
 #include "File.h"
@@ -310,7 +309,8 @@ Texture* Scene::GetTexture(const string& textureFile) {
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
 	} else {
-		Texture* texture = gfx2D->LoadTexture(textureFile);
+		Texture* texture = new Texture();
+		texture->Load(textureFile);
 		textures[hash] = texture;
 		return texture;
 	}

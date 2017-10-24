@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MultiLightScene.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Light.h"
 #include "Material.h"
@@ -66,8 +65,8 @@ void MultiLightScene::Start(){
 	shader->Compile();
 	
 	material = new Material(shader);
-	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
-	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png");
+	diffuse_texture = GetTexture("gfx3D/ContainerDiffuse.png");
+	specular_map = GetTexture("gfx3D/ContainerSpecular.png");
 	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);

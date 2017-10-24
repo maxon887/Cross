@@ -17,6 +17,7 @@
 #pragma once
 #include "Utils/FreeCameraScene.h"
 #include "Utils/ToggleButton.h"
+#include "Utils/Sprite.h"
 
 using namespace cross;
 

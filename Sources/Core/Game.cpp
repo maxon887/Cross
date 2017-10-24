@@ -20,7 +20,6 @@
 #include "Config.h"
 #include "Scene.h"
 #include "Utils/Debugger.h"
-#include "Graphics2D.h"
 #include "Audio.h"
 
 using namespace cross;
@@ -29,7 +28,6 @@ Game*		cross::game		= NULL;
 System*		cross::system	= NULL;
 Audio*		cross::audio	= NULL;
 GraphicsGL* cross::gfxGL	= NULL;
-Graphics2D* cross::gfx2D	= NULL;
 Graphics3D* cross::gfx3D	= NULL;
 Input*		cross::input	= NULL;
 Config*		cross::config	= NULL;
@@ -116,7 +114,7 @@ void Game::EngineUpdate(){
 
 	input->Update();
 	gfxGL->PreProcessFrame();
-	gfx2D->Update(secTime);
+	SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 	game->GetCurrentScreen()->Update(secTime);
 	game->GetCurrentScreen()->LateUpdate(secTime);
 	game->Update(secTime);

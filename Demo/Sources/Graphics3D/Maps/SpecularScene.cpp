@@ -17,7 +17,6 @@
 #include "SpecularScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
@@ -42,8 +41,8 @@ void SpecularScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
-	specular = gfx2D->LoadTexture("gfx3D/Camaro/Specular.png");
+	diffuse = GetTexture("gfx3D/Camaro/Diffuse.png");
+	specular = GetTexture("gfx3D/Camaro/Specular.png");
 
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", diffuse);

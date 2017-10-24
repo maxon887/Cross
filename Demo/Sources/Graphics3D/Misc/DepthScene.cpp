@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "DepthScene.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Entity.h"
 #include "Light.h"

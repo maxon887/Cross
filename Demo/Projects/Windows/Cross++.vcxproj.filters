@@ -163,9 +163,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Game.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\Graphics2D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Graphics3D.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -416,9 +413,6 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Game.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\Graphics2D.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Graphics3D.h">

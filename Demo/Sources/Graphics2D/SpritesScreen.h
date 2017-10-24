@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
+#include "Utils/Sprite.h"
 
 using namespace cross;
 

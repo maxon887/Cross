@@ -15,9 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "AnimationScreen.h"
-#include "Graphics2D.h"
 #include "Utils/Animation.h"
 #include "Utils/Sprite.h"
+#include "Utils/PrimitiveDrawer.h"
+#include "Texture.h"
 
 void AnimationScreen::Start(){
 	Screen::Start();
@@ -28,9 +29,11 @@ void AnimationScreen::Start(){
 	turn_left = true;
 	SetBackground(Color(0.25f, 0.25f, 0.25f));
 
-	texture = gfx2D->LoadTexture("gfx2D/Spider.png", Texture::TilingMode::CLAMP_TO_EDGE, Texture::Filter::LINEAR, false);
+	//texture = GetTexture("gfx2D/Spider.png");
+	texture->SetTilingMode(Texture::CLAMP_TO_EDGE);
+	texture->SetFilter(Texture::Filter::LINEAR);
 	Dictionary<string, Sprite*> sprites;
-	gfx2D->LoadSprites(sprites, texture, "gfx2D/Spider.xml");
+	PrimitiveDrawer::LoadSprites(sprites, texture, "gfx2D/Spider.xml");
 
 	spider_body = sprites["Body.png"];
 	spider_head = sprites["Head.png"];

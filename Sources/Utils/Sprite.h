@@ -18,9 +18,10 @@
 #include "Cross.h"
 #include "GraphicsGL.h"
 #include "Transformable.h"
-#include "PrimitiveDrawer.h"
 
 namespace cross {
+
+class PrimitiveDrawer;
 
 /* Used for 2D drawing. Contain original texture sprite location and pivot */
 class Sprite : public Transformable{

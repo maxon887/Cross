@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Input.h"
-#include "Graphics2D.h"
 #include "Camera2D.h"
 #include "System.h"
 #include "Game.h"

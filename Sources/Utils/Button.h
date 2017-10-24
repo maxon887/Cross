@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Input.h"
+#include "Utils/Sprite.h"
 
 namespace cross {
 

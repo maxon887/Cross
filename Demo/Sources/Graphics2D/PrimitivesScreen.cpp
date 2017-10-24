@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PrimitivesScreen.h"
 #include "Utils/PrimitiveDrawer.h"
-#include "Graphics2D.h"
 #include "Game.h"
 
 void PrimitivesScreen::Start(){

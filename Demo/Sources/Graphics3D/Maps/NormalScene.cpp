@@ -17,7 +17,6 @@
 #include "NormalScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
@@ -45,10 +44,10 @@ void NormalScene::Start(){
 	shader->AddProperty("Normal Map", "uNormalMap");
 	shader->Compile();
 
-	diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
-	specular = gfx2D->LoadTexture("gfx3D/Camaro/Specular.png");
-	roughness = gfx2D->LoadTexture("gfx3D/Camaro/Shininess.png");
-	normal = gfx2D->LoadTexture("gfx3D/Camaro/Normal.png");
+	diffuse = GetTexture("gfx3D/Camaro/Diffuse.png");
+	specular = GetTexture("gfx3D/Camaro/Specular.png");
+	roughness = GetTexture("gfx3D/Camaro/Shininess.png");
+	normal = GetTexture("gfx3D/Camaro/Normal.png");
 
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", diffuse);

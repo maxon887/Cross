@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "ToggleButton.h"
 #include "System.h"
-#include "Graphics2D.h"
 #include "Utils/PrimitiveDrawer.h"
 
 using namespace cross;

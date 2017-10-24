@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
 #include "VertexBuffer.h"
 #include "System.h"
 #include "Game.h"
@@ -202,9 +201,12 @@ U32 GraphicsGL::GetShaderVersion() const {
 }
 
 Texture* GraphicsGL::GetColorBuffer(){
+	CROSS_RETURN(false, NULL, "GetColorBuffer does not working properly!");
 	CROSS_ASSERT(config->IsOffscreenRender(), "You obtain collorbuffer without postprocess using");
 	if(!colorbuffer_texture){
-		colorbuffer_texture = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
+		//colorbuffer_texture = new Texture();
+		//colorbuffer_texture->Create(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
+		//colorbuffer_texture = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
 	}
 	return colorbuffer_texture;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Screen.h"
+#include "Utils/Sprite.h"
 
 using namespace cross;
 

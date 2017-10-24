@@ -32,7 +32,7 @@ void SkyboxScene::Start(){
 	skybox = new Skybox(cubemap);
 	shader = GetShader("Engine/Shaders/Texture.sha");
 	material = new Material(shader);
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	texture = GetTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
 	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
 	gfx3D->AdjustMaterial(cube, material);

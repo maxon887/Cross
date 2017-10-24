@@ -20,7 +20,6 @@
 #include "Entity.h"
 #include "Light.h"
 #include "Shaders/SingleLightShader.h"
-#include "Graphics2D.h"
 #include "Camera.h"
 	
 void PointLightScene::Start(){
@@ -38,8 +37,8 @@ void PointLightScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = new Material(shader);
-	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
-	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png");
+	diffuse_texture = GetTexture("gfx3D/ContainerDiffuse.png");
+	specular_map = GetTexture("gfx3D/ContainerSpecular.png");
 	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);

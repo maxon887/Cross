@@ -88,12 +88,10 @@ using Set = std::set<Type>;
 class Game;
 class System;
 class GraphicsGL;
-class Graphics2D;
 class Graphics3D;
 class Input;
 class Config;
 class Audio;
-class Sprite;
 class Sound;
 class Screen;
 class Scene;
@@ -106,7 +104,6 @@ class Material;
 class Mesh;
 class Texture;
 class Light;
-class UI;
 class Cubemap;
 class Component;
 class Collider;
@@ -114,7 +111,6 @@ class Collider;
 extern Game*		game;
 extern System*		system;
 extern GraphicsGL*	gfxGL;
-extern Graphics2D*	gfx2D;
 extern Graphics3D*	gfx3D;
 extern Audio*		audio;
 extern Input*		input;
@@ -131,7 +127,6 @@ friend Shader;			\
 friend Material;		\
 friend Mesh;			\
 friend GraphicsGL;		\
-friend Graphics2D;		\
 friend Graphics3D;		\
 friend Game;			\
 friend System;			\

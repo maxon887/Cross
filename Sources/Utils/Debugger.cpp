@@ -17,7 +17,6 @@
 #include "Debugger.h"
 #include "System.h"
 #include "Input.h"
-#include "Graphics2D.h"
 #include "Camera2D.h"
 #include "Game.h"
 #include "Screen.h"

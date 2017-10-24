@@ -77,7 +77,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\File.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Game.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\Graphics2D.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Input.cpp" />
@@ -164,7 +163,6 @@
     <ClInclude Include="..\..\..\Sources\Core\Event.h" />
     <ClInclude Include="..\..\..\Sources\Core\File.h" />
     <ClInclude Include="..\..\..\Sources\Core\Game.h" />
-    <ClInclude Include="..\..\..\Sources\Core\Graphics2D.h" />
     <ClInclude Include="..\..\..\Sources\Core\Graphics3D.h" />
     <ClInclude Include="..\..\..\Sources\Core\GraphicsGL.h" />
     <ClInclude Include="..\..\..\Sources\Core\Input.h" />

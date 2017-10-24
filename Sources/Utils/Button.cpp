@@ -16,11 +16,11 @@ You should have received a copy of the GNU General Public License
 along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Button.h"
 #include "Audio.h"
-#include "Graphics2D.h"
 #include "Input.h"
 #include "Sprite.h"
 #include "System.h"
 #include "Sound.h"
+#include "Utils/PrimitiveDrawer.h"
 
 #define HORIZONTAL_PADDING 50.f
 #define VERTICAL_PADDING 25.f

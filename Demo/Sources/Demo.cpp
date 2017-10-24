@@ -16,10 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
 #include "MainScreen.h"
-#include "Graphics2D.h"
 #include "Camera2D.h"
 #include "System.h"
+#include "Texture.h"
 #include "Utils/Sprite.h"
+#include "Utils/PrimitiveDrawer.h"
 
 Demo* demo = NULL;
 
@@ -32,8 +33,9 @@ void Demo::Start(){
 	system->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
-	common_texture = gfx2D->LoadTexture("gfx2D/Common.png", Texture::TilingMode::CLAMP_TO_EDGE, Texture::Filter::LINEAR, false);
-	gfx2D->LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
+	common_texture = new Texture();
+	common_texture->Load("gfx2D/Common.png", Texture::TilingMode::CLAMP_TO_EDGE, Texture::Filter::LINEAR, false);
+	PrimitiveDrawer::LoadSprites(common_sprites, common_texture, "gfx2D/Common.xml");
 
 	camera = new Camera2D();
 	camera->SetViewWidth(1600.f);

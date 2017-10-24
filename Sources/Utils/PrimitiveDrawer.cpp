@@ -24,8 +24,13 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Sprite.h"
 #include "Texture.h"
 #include "Scene.h"
+#include "System.h"
+#include "File.h"
+
+#include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
+using namespace tinyxml2;
 
 void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
 	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Simple.sha");
@@ -173,6 +178,35 @@ void PrimitiveDrawer::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, boo
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
+}
+
+void PrimitiveDrawer::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename) {
+	File* xmlFile = system->LoadAssetFile(xmlFilename);
+	XMLDocument doc;
+	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
+	memcpy(source, xmlFile->data, xmlFile->size);
+	source[xmlFile->size] = 0;
+	doc.Parse((const char*)source, xmlFile->size);
+	delete xmlFile;
+	delete[] source;
+
+	XMLElement* root;
+	XMLElement* element;
+
+	root = doc.FirstChildElement("TextureAtlas");
+	CROSS_FAIL(root, "XML empty root element");
+	element = root->FirstChildElement("sprite");
+	while(element) {
+		string name = element->Attribute("n");
+		float xPos = (float)atof(element->Attribute("x"));
+		float yPos = (float)atof(element->Attribute("y"));
+		float width = (float)atof(element->Attribute("w"));
+		float height = (float)atof(element->Attribute("h"));
+		Rect rect(xPos, yPos, width, height);
+		Sprite* sprite = new Sprite(texture, rect);
+		output[name] = sprite;
+		element = element->NextSiblingElement("sprite");
+	}
 }
 
 void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {

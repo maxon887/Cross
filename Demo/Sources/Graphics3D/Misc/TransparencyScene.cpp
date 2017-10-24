@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TransparencyScene.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
 #include "Graphics3D.h"
 #include "Entity.h"
 #include "Light.h"
@@ -47,7 +46,7 @@ void TransparencyScene::Start(){
 	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	road_shader->Compile();
 	
-	road_diffuse = gfx2D->LoadTexture("gfx3D/RoadDiffuse.png");
+	road_diffuse = GetTexture("gfx3D/RoadDiffuse.png");
 	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
@@ -65,7 +64,7 @@ void TransparencyScene::Start(){
 	grass_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	grass_shader->Compile();
-	grass_diffuse = gfx2D->LoadTexture("gfx3D/GrassDiffuse.png");
+	grass_diffuse = GetTexture("gfx3D/GrassDiffuse.png");
 	Entity* grass = LoadPrimitive(Graphics3D::Primitives::PLANE);
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);

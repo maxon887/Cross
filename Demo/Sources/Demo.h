@@ -17,6 +17,7 @@
 #pragma once
 #include "Game.h"
 #include "Utils/Button.h"
+#include "Utils/Sprite.h"
 
 using namespace cross;
 
