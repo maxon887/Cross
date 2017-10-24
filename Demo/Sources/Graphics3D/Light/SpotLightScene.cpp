@@ -21,6 +21,7 @@
 #include "Shaders/SingleLightShader.h"
 #include "Camera.h"
 #include "Mesh.h"
+#include "Texture.h"
 	
 void SpotLightScene::Start(){
 	CameraControlsScene::Start();

@@ -21,6 +21,7 @@
 #include "Camera.h"
 #include "Shaders/LightsShader.h"
 #include "Mesh.h"
+#include "Texture.h"
 
 void MultiLightScene::Start(){
 	CameraControlsScene::Start();

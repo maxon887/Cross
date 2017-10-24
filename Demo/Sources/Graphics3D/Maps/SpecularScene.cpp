@@ -21,6 +21,7 @@
 #include "Game.h"
 #include "Entity.h"
 #include "Shaders/LightsShader.h"
+#include "Texture.h"
 
 void SpecularScene::Start(){
 	CameraControlsScene::Start();
