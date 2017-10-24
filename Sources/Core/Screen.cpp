@@ -21,6 +21,7 @@
 #include "Game.h"
 #include "Shaders/Shader.h"
 #include "File.h"
+#include "Texture.h"
 
 #if defined(USE_FREETYPE) && defined(WIN)
 #	pragma comment(lib, "freetype.lib")
@@ -85,6 +86,7 @@ void Screen::Stop(){
 	input->CharEnter.Disconnect(char_enter_del);
 	input->MouseWheelRoll.Disconnect(wheel_roll);
 	delete camera2D;
+	delete font_texture;
 	for(pair<S32, Shader*> pair : shaders) {
 		delete pair.second;
 	}
@@ -204,8 +206,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
     SAFE(glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col)));
 #undef OFFSETOF
 
-	for(int n = 0; n < draw_data->CmdListsCount; n++)
-	{
+	for(int n = 0; n < draw_data->CmdListsCount; n++) {
 		const ImDrawList* cmd_list = draw_data->CmdLists[n];
 		const ImDrawIdx* idx_buffer_offset = 0;
 
@@ -215,17 +216,14 @@ void Screen::RenderUI(ImDrawData* draw_data) {
         SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
         SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)cmd_list->IdxBuffer.Size * sizeof(ImDrawIdx), (const GLvoid*)cmd_list->IdxBuffer.Data, GL_STREAM_DRAW));
 
-		for(int cmd_i = 0; cmd_i < cmd_list->CmdBuffer.Size; cmd_i++)
-		{
+		for(int cmd_i = 0; cmd_i < cmd_list->CmdBuffer.Size; cmd_i++) {
 			const ImDrawCmd* pcmd = &cmd_list->CmdBuffer[cmd_i];
-			if(pcmd->UserCallback)
-			{
+			if(pcmd->UserCallback) {
 				pcmd->UserCallback(cmd_list, pcmd);
-			} else
-			{
-            SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId));
-            SAFE(glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y)));
-            SAFE(glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset));
+			} else {
+				SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId));
+				SAFE(glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y)));
+				SAFE(glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset));
 			}
 			idx_buffer_offset += pcmd->ElemCount;
 		}
@@ -257,8 +255,7 @@ bool Screen::CreateDeviceObjects() {
 	return true;
 }
 
-bool Screen::CreateFontsTexture()
-{
+bool Screen::CreateFontsTexture() {
 	// Build texture atlas
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->Clear();
@@ -272,22 +269,17 @@ bool Screen::CreateFontsTexture()
 	ImGuiFreeType::BuildFontAtlas(io.Fonts);
 #endif
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
-
-	GLuint font_texture;
-    SAFE(glActiveTexture(GL_TEXTURE0));
-    SAFE(glGenTextures(1, &font_texture));
-    SAFE(glBindTexture(GL_TEXTURE_2D, font_texture));
-    SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-    SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    system->LogIt("Font created with texture %d x %d", width, height);
-    SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
-
+	font_texture = new Texture();
+	font_texture->Create(	pixels, 4, width, height, 
+							Texture::Filter::LINEAR, 
+							Texture::Compression::NONE, 
+							Texture::TilingMode::CLAMP_TO_EDGE, false);
 	// Store our identifier
-	io.Fonts->TexID = (void *)(intptr_t)font_texture;
+	io.Fonts->TexID = (void *)(intptr_t)font_texture->GetID();
 	return true;
 }
 
-void Screen::ActionDownHandle(Input::Action action){
+void Screen::ActionDownHandle(Input::Action action) {
 	if(enable_inputs){
 		actions[action.id] = true;
 		action_pos = action.pos;
@@ -295,14 +287,14 @@ void Screen::ActionDownHandle(Input::Action action){
 	}
 }
 
-void Screen::ActionMoveHandle(Input::Action action){
+void Screen::ActionMoveHandle(Input::Action action) {
 	if(enable_inputs){
 		action_pos = action.pos;
 		ActionMove(action);
 	}
 }
 
-void Screen::ActionUpHandle(Input::Action action){
+void Screen::ActionUpHandle(Input::Action action) {
 	if(enable_inputs){
 		actions[action.id] = false;
 		action_pos = action.pos;

@@ -50,6 +50,15 @@ public:
 	void Load(const string& filename, Texture::Filter filter);
 	void Load(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
 	void Save(const string& filename);
+	void Create(U32 channels, U32 width, U32 height, Texture::Filter filter);
+	void Create(Byte* data,
+				U32 channels,
+				U32 width,
+				U32 height,
+				Texture::Filter filter,
+				Texture::Compression compression,
+				Texture::TilingMode tilingMode,
+				bool generateMipmaps);
 
 	U32 GetWidth() const;
 	U32 GetHeight() const;
@@ -74,16 +83,6 @@ private:
 	void LoadRAW(const string& filename, Texture::Filter filter);
 	void LoadPKM(const string& filename, Texture::Filter filter);
 	void LoadKTX(const string& filename, Texture::Filter filter);
-
-	void Create(U32 channels, U32 width, U32 height, Texture::Filter filter);
-	void Create(	Byte* data,
-							U32 channels,
-							U32 width,
-							U32 height,
-							Texture::Filter filter,
-							Texture::Compression compression,
-							Texture::TilingMode tilingMode,
-							bool generateMipmaps);
 };
 
 }

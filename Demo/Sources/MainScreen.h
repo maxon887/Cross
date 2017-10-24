@@ -27,5 +27,6 @@ public:
 	void Update(float sec) override;
 
 private:
-	ImFont* font_big = NULL;
+	ImFont* font_big			= NULL;
+	Texture* big_font_texture	= NULL;
 };

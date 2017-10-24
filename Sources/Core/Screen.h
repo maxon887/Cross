@@ -77,6 +77,7 @@ protected:
 private:
 	Dictionary<S32,Shader*> shaders = Dictionary<S32, Shader*>();
 	Shader* ui_shader				= NULL;
+	Texture* font_texture			= NULL;
 
 	U32 vertex_buffer				= 0;
 	U32 index_buffer				= 0;
