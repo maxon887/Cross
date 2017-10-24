@@ -86,7 +86,10 @@ void Screen::Stop(){
 	input->CharEnter.Disconnect(char_enter_del);
 	input->MouseWheelRoll.Disconnect(wheel_roll);
 	delete camera2D;
-	delete ui_shader;
+	for(pair<S32, Shader*> pair : shaders) {
+		delete pair.second;
+	}
+	shaders.clear();
 }
 
 void Screen::Update(float sec) {
@@ -149,6 +152,20 @@ void Screen::SetBackground(const Color& c){
 
 void Screen::EnableInputs(bool enable){
 	enable_inputs = enable;
+}
+
+Shader* Screen::GetShader(const string& shaderfile) {
+	S32 hash = std::hash<string>{}(shaderfile);
+	auto shaderIt = shaders.find(hash);
+	if(shaderIt != shaders.end()) {
+		return (*shaderIt).second;
+	} else {
+		Shader* shader = new Shader();
+		shader->Load(shaderfile);
+		shader->Compile();
+		shaders[hash] = shader;
+		return shader;
+	}
 }
 
 void Screen::RenderUI(ImDrawData* draw_data) {
@@ -223,8 +240,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 }
 
 bool Screen::CreateDeviceObjects() {
-	ui_shader = new Shader("Engine/Shaders/UI.vtx", "Engine/Shaders/UI.fgm");
-	ui_shader->Compile();
+	ui_shader = GetShader("Engine/Shaders/UI.sha");
 
 	SAFE(glGenBuffers(1, &vertex_buffer));
     SAFE(glGenBuffers(1, &index_buffer));

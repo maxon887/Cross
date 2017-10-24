@@ -17,6 +17,7 @@
 #include "ToggleButton.h"
 #include "System.h"
 #include "Graphics2D.h"
+#include "Utils/PrimitiveDrawer.h"
 
 using namespace cross;
 
@@ -42,9 +43,9 @@ void ToggleButton::Update(){
 	CROSS_FAIL(located, "Button must be located first")
 
 	if(state)
-		gfx2D->DrawSprite(location, on);
+		PrimitiveDrawer::DrawSprite(location, on);
 	else
-		gfx2D->DrawSprite(location, off);
+		PrimitiveDrawer::DrawSprite(location, off);
 }
 
 bool ToggleButton::GetState() const{

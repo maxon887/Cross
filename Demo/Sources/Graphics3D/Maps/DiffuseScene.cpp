@@ -22,6 +22,7 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/LightsShader.h"
 
 void DiffuseScene::Start(){
 	CameraControlsScene::Start();
@@ -30,7 +31,8 @@ void DiffuseScene::Start(){
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular", "uSpecular");

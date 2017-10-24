@@ -56,9 +56,6 @@ void Scene::Update(float sec){
 
 void Scene::Stop(){
 	system->WindowResized.Disconnect(resize_del);
-	for(pair<S32, Shader*> pair : shaders){
-		delete pair.second;
-	}
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
 	}
@@ -239,10 +236,6 @@ void Scene::Clear(){
 		delete pair.second;
 	}
 	textures.clear();
-	for(pair<S32, Shader*> pair : shaders) {
-		delete pair.second;
-	}
-	shaders.clear();
 }
 
 Entity* Scene::GetRoot(){
@@ -311,20 +304,6 @@ Material* Scene::GetMaterial(const string& xmlFile) {
 	}
 }
 
-Shader* Scene::GetShader(const string& shaderfile) {
-	S32 hash = std::hash<string>{}(shaderfile);
-	auto shaderIt = shaders.find(hash);
-	if(shaderIt != shaders.end()) {
-		return (*shaderIt).second;
-	} else {
-		Shader* shader = new Shader();
-		shader->Load(shaderfile);
-		shader->Compile();
-		shaders[hash] = shader;
-		return shader;
-	}
-}
-
 Texture* Scene::GetTexture(const string& textureFile) {
 	S32 hash = std::hash<string>{}(textureFile);
 	auto textureIt = textures.find(hash);
@@ -357,15 +336,6 @@ void Scene::RefreshMaterials(){
 
 void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
-}
-
-S32 Scene::FindShaderID(Shader* shader){
-	for(pair<S32, Shader*> pair : shaders){
-		if(pair.second == shader){
-			return pair.first;
-		}
-	}
-	CROSS_RETURN(false, -1, "Can not find shader id");
 }
 
 S32 Scene::FindTextureID(Texture* texture){

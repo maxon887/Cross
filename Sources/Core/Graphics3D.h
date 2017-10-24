@@ -62,13 +62,11 @@ public:
 	Graphics3D();
 	~Graphics3D();
 
-	void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 	Model* LoadModel(const string& filename, bool initialize = true);
 	void AdjustMaterial(Entity* model, Material* material, bool faceCulling = true);
 	Material* GetDefaultMaterial();
 
 protected:
-	Shader* simple_shader				= NULL;
 	LightsShader* default_shader		= NULL;
 	Material* default_material			= NULL;
 	const aiScene* current_scene		= NULL;

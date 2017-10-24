@@ -65,6 +65,8 @@ public:
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
 	void EnableInputs(bool enable);
+	/* Obtain loaded into scene shader or load it by self in other way */
+	Shader* GetShader(const string& shaderFile);
 
 protected:
 	bool is_scene					= false;
@@ -73,6 +75,7 @@ protected:
 	ImFont* font					= NULL;
 
 private:
+	Dictionary<S32,Shader*> shaders = Dictionary<S32, Shader*>();
 	Shader* ui_shader				= NULL;
 
 	U32 vertex_buffer				= 0;

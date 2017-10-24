@@ -119,7 +119,7 @@ GraphicsGL::~GraphicsGL(){
 
 void GraphicsGL::Start(){
 	if(config->IsOffscreenRender()){
-		offscreen_shader = GetShader(DefaultShader::TEXTURE);
+		offscreen_shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Texture.sha");
 		offscreen_shader->Compile();
 
 		SAFE(glGenFramebuffers(1, &framebuffer));
@@ -199,32 +199,6 @@ void GraphicsGL::PostProcessFrame(){
 
 U32 GraphicsGL::GetShaderVersion() const {
 	return shaders_version;
-}
-
-Shader* GraphicsGL::GetShader(DefaultShader type){
-	Shader* shader = NULL;
-	switch(type) {
-	case DefaultShader::SIMPLE:
-		shader = new Shader("Engine/Shaders/Simple.vtx", "Engine/Shaders/Simple.fgm");
-		shader->AddProperty("Color", "uColor", Color::White);
-		break;
-	case DefaultShader::MONOCHROME:
-		shader = new Shader("Engine/Shaders/Texture.vtx", "Engine/Shaders/Texture.fgm");
-		shader->AddMacro("MONOCHROME");
-		shader->AddProperty("Texture", "uTexture");
-		break;
-	case DefaultShader::TEXTURE:
-		shader = new Shader("Engine/Shaders/Texture.vtx", "Engine/Shaders/Texture.fgm");
-		shader->AddProperty("Texture", "uTexture");
-		break;
-	case DefaultShader::MULTI_LIGHT:
-		shader = new LightsShader();
-		shader->AddProperty("Transparency", "uTransparency", 1.f);
-		break;
-	default:
-		CROSS_RETURN(false, NULL, "Unknown shader type");
-	}
-	return shader;
 }
 
 Texture* GraphicsGL::GetColorBuffer(){

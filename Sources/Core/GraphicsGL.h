@@ -52,14 +52,6 @@
 
 namespace cross{
 
-enum class DefaultShader{
-	TEXTURE,
-	MONOCHROME,		//same as TEXTURE but only R channel used
-	SIMPLE,
-	MULTI_LIGHT,
-	NONE
-};
-
 /*	Class containing specific OpengGL features,
 	off screen rendering and default shaders */
 class GraphicsGL{
@@ -78,7 +70,6 @@ public:
 
 	U32 GetShaderVersion() const;
 	void UseShader(Shader* shaders);
-	Shader* GetShader(DefaultShader type);
 
 	Texture* GetColorBuffer();
 

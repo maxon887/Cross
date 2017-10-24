@@ -21,6 +21,7 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/LightsShader.h"
 
 void NakedScene::Start(){
 	CameraControlsScene::Start();
@@ -29,7 +30,8 @@ void NakedScene::Start(){
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddProperty("Diffuse Color", "uDiffuseColor");
 	shader->AddProperty("Specular", "uSpecular");
 	shader->AddProperty("Shininess", "uShininess");

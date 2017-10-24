@@ -39,10 +39,6 @@ Texture::~Texture(){
 	SAFE(glDeleteTextures(1, &id));
 }
 
-GLuint Texture::GetID() const{
-	return id;
-}
-
 U32 Texture::GetWidth() const{
 	return width;
 }
@@ -53,6 +49,10 @@ U32 Texture::GetHeight() const{
 
 U32 Texture::GetChannels() const{
 	return channels;
+}
+
+GLuint Texture::GetID() const {
+	return id;
 }
 
 void Texture::SetName(const string& name){

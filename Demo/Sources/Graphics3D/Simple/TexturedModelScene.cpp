@@ -22,8 +22,7 @@
 
 void TexturedModelScene::Start(){
 	CameraControlsScene::Start();
-	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
-	shader->Compile();
+	shader = GetShader("Engine/Shaders/Texture.sha");
 	material = new Material(shader);
 	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);

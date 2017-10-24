@@ -62,27 +62,11 @@ Graphics3D::Graphics3D() {
 	U32 major = aiGetVersionMajor();
 	U32 minor = aiGetVersionMinor();
 	system->LogIt("\tUse assimp version %d.%d", major, minor);
-	simple_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	simple_shader->Compile();
 }
 
 Graphics3D::~Graphics3D(){
 	delete default_material;
 	delete default_shader;
-	delete simple_shader;
-}
-
-void Graphics3D::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {
-	gfxGL->UseShader(simple_shader);
-	static const float vertices[6] = { p1.x, p1.y, p1.z, p2.x, p2.y, p2.z };
-	Camera* cam = game->GetCurrentScene()->GetCamera();
-	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
-	mvp = mvp.GetTransposed();
-	SAFE(glUniformMatrix4fv(simple_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glVertexAttribPointer(simple_shader->aPosition, 3, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(simple_shader->uColor, 1, c.GetData()));
-	SAFE(glEnableVertexAttribArray(simple_shader->aPosition));
-	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
 
 Model* Graphics3D::LoadModel(const string& filename, bool initialize){

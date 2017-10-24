@@ -48,6 +48,7 @@ public:
 	U32 GetWidth() const;
 	U32 GetHeight() const;
 	U32 GetChannels() const;
+	GLuint GetID() const;
 	void SetName(const string& name);
 	const string& GetName() const;
 	void SetTilingMode(TilingMode mode);
@@ -63,7 +64,6 @@ private:
 	U32 height		= 0;
 	U32 channels	= 0;
 
-	GLuint GetID() const;
 	void ApplyFilter(Filter filter);
 };
 

@@ -87,11 +87,9 @@
     <ClCompile Include="..\..\..\Sources\Core\Scene.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Screen.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Sound.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\Sprite.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\System.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Texture.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Transformable.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\UI.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />
     <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui.cpp" />
@@ -123,7 +121,9 @@
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
+    <ClCompile Include="..\..\..\Sources\Utils\Sprite.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
@@ -174,11 +174,9 @@
     <ClInclude Include="..\..\..\Sources\Core\Scene.h" />
     <ClInclude Include="..\..\..\Sources\Core\Screen.h" />
     <ClInclude Include="..\..\..\Sources\Core\Sound.h" />
-    <ClInclude Include="..\..\..\Sources\Core\Sprite.h" />
     <ClInclude Include="..\..\..\Sources\Core\System.h" />
     <ClInclude Include="..\..\..\Sources\Core\Texture.h" />
     <ClInclude Include="..\..\..\Sources\Core\Transformable.h" />
-    <ClInclude Include="..\..\..\Sources\Core\UI.h" />
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h" />
     <ClInclude Include="..\..\..\Sources\Libs\ImGui\imconfig.h" />
@@ -216,7 +214,9 @@
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h" />
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
+    <ClInclude Include="..\..\..\Sources\Utils\Sprite.h" />
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />

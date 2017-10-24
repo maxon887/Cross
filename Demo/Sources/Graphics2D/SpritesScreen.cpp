@@ -17,7 +17,8 @@
 #include "SpritesScreen.h"
 #include "Graphics2D.h"
 #include "Demo.h"
-#include "Sprite.h"
+#include "Utils/Sprite.h"
+#include "Utils/PrimitiveDrawer.h"
 
 void SpritesScreen::Start(){
 	Screen::Start();
@@ -52,6 +53,6 @@ void SpritesScreen::Update(float sec){
 		if((positions[i].y - spriteHeight) <= 0 || (positions[i].y + spriteHeight) >= GetHeight()){
 			velocities[i].y *= -1;
 		}
-		gfx2D->DrawSprite(positions[i], awesome_face);
+		PrimitiveDrawer::DrawSprite(positions[i], awesome_face);
 	}
 }

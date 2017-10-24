@@ -77,6 +77,21 @@ public:
 		bool original	= true;
 	};
 
+	//general attributes
+	GLint aPosition = -1;
+	GLint aTexCoords = -1;
+	GLint aColor = -1;
+	GLint aNormal = -1;
+	GLint aTangent = -1;
+	GLint aBitangent = -1;
+	//general uniforms
+	GLint uMVP = -1;
+	GLint uModelMatrix = -1;
+	GLint uNormalMatrix = -1;
+	GLint uCameraPosition = -1;
+	GLint uAmbientLight = -1;
+	GLint uColor = -1;
+
 	Shader() = default;
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
@@ -129,20 +144,6 @@ protected:
 	Array<string> macrosies		= Array<string>();
 	Array<string> user_macro	= Array<string>();
 	bool compiled				= false;
-	//general attributes
-	GLint aPosition				= -1;
-	GLint aTexCoords			= -1;
-	GLint aColor				= -1;
-	GLint aNormal				= -1;
-	GLint aTangent				= -1;
-	GLint aBitangent			= -1;
-	//general uniforms
-	GLint uMVP					= -1;
-	GLint uModelMatrix			= -1;
-	GLint uNormalMatrix			= -1;
-	GLint uCameraPosition		= -1;
-	GLint uAmbientLight			= -1;
-	GLint uColor				= -1;
 	//custom uniforms
 	Array<Property*> properties	= Array<Property*>();
 

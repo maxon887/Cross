@@ -22,6 +22,7 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/LightsShader.h"
 
 void SpecularScene::Start(){
 	CameraControlsScene::Start();
@@ -31,7 +32,8 @@ void SpecularScene::Start(){
 	light->SetName("Light");
 	AddEntity(light);
 
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");

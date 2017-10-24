@@ -39,8 +39,7 @@ Button::Button(Vector2D location) :
 	Locate(location, HORIZONTAL_PADDING, VERTICAL_PADDING);
 }
 
-Button::Button() :
-	UI()
+Button::Button()
 {
 	down_del = input->ActionDown.Connect(this, &Button::ActionDownHandler);
 	up_del = input->ActionUp.Connect(this, &Button::ActionUpHandler);
@@ -75,14 +74,14 @@ void Button::Update(float sec) {
 		if(is_pressed) {
 			if(down_image != nullptr) {
 				down_image->SetPosition(location);
-				gfx2D->DrawSprite(down_image, color, false);
+				PrimitiveDrawer::DrawSprite(down_image, color, false);
 			} else if(up_image == nullptr) {
 				//gfx2D->DrawRect(area, Color::Red, true);
 			}
 		} else {
 			if(up_image != nullptr) {
 				up_image->SetPosition(location);
-				gfx2D->DrawSprite(up_image, color, false);
+				PrimitiveDrawer::DrawSprite(up_image, color, false);
 			} else {
 				//gfx2D->DrawRect(area, Color::Blue, true);
 			}
@@ -230,7 +229,7 @@ void Button::ActionUpHandler(Input::Action action) {
 			//}
 			if (OnLocation(action.pos)) {
 				if (down_image != nullptr) {
-					gfx2D->DrawSprite(location, down_image);
+					PrimitiveDrawer::DrawSprite(location, down_image);
 				}
 				if (pull_sound != nullptr) {
 					pull_sound->Play();
@@ -239,4 +238,9 @@ void Button::ActionUpHandler(Input::Action action) {
 			}
 		}
 	}
+}
+
+
+bool Button::OnLocation(Vector2D p) const {
+	return PointInRect(p, GetRect());
 }

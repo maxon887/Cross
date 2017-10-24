@@ -31,36 +31,37 @@ Shader::Property::Property(const string& name, const string& glName, Shader::Pro
 	type(type)
 {
 	switch(type) {
-	case cross::Shader::Property::SAMPLER:
-		SetValue((Texture*)NULL);
+	case Shader::Property::SAMPLER:
+		type = SAMPLER;
+		RealocateIfNeeded(sizeof(GLuint));	
 		break;
-	case cross::Shader::Property::MAT4:
+	case Shader::Property::MAT4:
 		SetValue(Matrix::Identity);
 		break;
-	case cross::Shader::Property::VEC4:
+	case Shader::Property::VEC4:
 		SetValue(Vector4D());
 		break;
-	case cross::Shader::Property::VEC3:
+	case Shader::Property::VEC3:
 		SetValue(Vector3D());
 		break;
-	case cross::Shader::Property::VEC2:
+	case Shader::Property::VEC2:
 		SetValue(Vector2D());
 		break;
-	case cross::Shader::Property::FLOAT:
+	case Shader::Property::FLOAT:
 		SetValue(0.f);
 		break;
-	case cross::Shader::Property::INT:
+	case Shader::Property::INT:
 		SetValue(0);
 		break;
-	case cross::Shader::Property::COLOR:
+	case Shader::Property::COLOR:
 		SetValue(Color("FF00FFFF"));
 		break;
-	case cross::Shader::Property::CUBEMAP:
+	case Shader::Property::CUBEMAP:
 		SetValue((Cubemap*)NULL);
 		break;
-	case cross::Shader::Property::UNKNOWN:
-		break;
+	case Shader::Property::UNKNOWN:
 	default:
+		CROSS_ASSERT(false, "Unknown shader property type");
 		break;
 	}
 }
@@ -216,6 +217,7 @@ void Shader::Load(const string& file){
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
+	delete xmlFile;
 
 	XMLElement* shaderXML = doc.FirstChildElement("Shader");
 	CROSS_FAIL(shaderXML, "Can not find node Shader in XML file");

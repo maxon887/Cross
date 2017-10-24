@@ -70,8 +70,6 @@ public:
 	Color GetAmbientColor() const;
 	/* Obtain loaded into scene material or load it by self in other way */
 	Material* GetMaterial(const string& xmlFile);
-	/* Obtain loaded into scene shader or load it by self in other way */
-	Shader* GetShader(const string& shaderFile);
 	/* Obtain loaded into scene texture or load it by self in other way */
 	Texture* GetTexture(const string& textureFile);
 	Model* GetModel(const string& modelFile);
@@ -81,7 +79,6 @@ public:
 	void RefreshMaterials();
 
 protected:
-	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
 	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
 	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();
 	Dictionary<S32, Model*> models			= Dictionary<S32, Model*>();
@@ -91,7 +88,6 @@ protected:
 	Camera* camera							= NULL;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
-	S32 FindShaderID(Shader* shader);
 	S32 FindTextureID(Texture* texture);
 
 private:

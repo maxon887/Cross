@@ -19,7 +19,7 @@
 #include "Graphics2D.h"
 #include "Camera2D.h"
 #include "System.h"
-#include "Sprite.h"
+#include "Utils/Sprite.h"
 
 Demo* demo = NULL;
 

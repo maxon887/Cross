@@ -37,7 +37,8 @@ void TransparencyScene::Start(){
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	road_shader = (LightsShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	road_shader = new LightsShader();
+	road_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	road_shader->AddMacro("USE_DIFFUSE_MAP");
 	road_shader->AddMacro("USE_TILLING_FACTOR");
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
@@ -56,7 +57,8 @@ void TransparencyScene::Start(){
 	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
 
-	grass_shader = (LightsShader*)gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	grass_shader = new LightsShader();
+	grass_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	grass_shader->AddMacro("USE_DIFFUSE_MAP");
 	grass_shader->AddMacro("USE_CUTOUT");
 	grass_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
@@ -82,7 +84,8 @@ void TransparencyScene::Start(){
 		AddEntity(clone);
 	}
 
-	sphere_shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	sphere_shader = new LightsShader();
+	sphere_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	sphere_shader->AddProperty("Color", "uDiffuseColor", Color::Blue);
 	sphere_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	sphere_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);

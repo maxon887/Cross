@@ -88,7 +88,7 @@ float WINSystem::GetScreenDPI() {
 	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
 	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
 	ReleaseDC(NULL, screen);
-	return (hPixelsPerInch + vPixelsPerInch) * 0.5f;
+	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
 void WINSystem::SetAssetPath(const string& path){

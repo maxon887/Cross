@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PrimitivesScreen.h"
+#include "Utils/PrimitiveDrawer.h"
 #include "Graphics2D.h"
 #include "Game.h"
 
@@ -108,7 +109,7 @@ PrimitivesScreen::Point::Point(Vector2D pos) :
 { }
 
 void PrimitivesScreen::Point::Draw(){
-	gfx2D->DrawPoint(position, color);
+	PrimitiveDrawer::DrawPoint(position, color);
 }
 
 bool PrimitivesScreen::Point::IsVisible(){
@@ -127,7 +128,7 @@ PrimitivesScreen::Circle::Circle(Vector2D pos) :
 }
 
 void PrimitivesScreen::Circle::Draw(){
-	gfx2D->DrawCircle(position, radius, color);
+	PrimitiveDrawer::DrawCircle(position, radius, color);
 }
 
 bool PrimitivesScreen::Circle::IsVisible(){
@@ -149,7 +150,7 @@ PrimitivesScreen::Line::Line(Vector2D pos) :
 }
 
 void PrimitivesScreen::Line::Draw(){
-	gfx2D->DrawLine(position, second_pos, color);
+	PrimitiveDrawer::DrawLine(position, second_pos, color);
 }
 
 bool PrimitivesScreen::Line::IsVisible(){
@@ -189,7 +190,7 @@ PrimitivesScreen::Rectangle::Rectangle(Vector2D pos) :
 }
 
 void PrimitivesScreen::Rectangle::Draw(){
-	gfx2D->DrawRect(Rect(position, width, height), color);
+	PrimitiveDrawer::DrawRect(Rect(position, width, height), color);
 }
 
 bool PrimitivesScreen::Rectangle::IsVisible(){

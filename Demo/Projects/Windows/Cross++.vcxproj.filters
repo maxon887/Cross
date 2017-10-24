@@ -193,9 +193,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Sound.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\Sprite.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\System.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -203,9 +200,6 @@
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Transformable.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\UI.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp">
@@ -308,6 +302,12 @@
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Utils\Sprite.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
   </ItemGroup>
@@ -448,9 +448,6 @@
     <ClInclude Include="..\..\..\Sources\Core\Sound.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\Sprite.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\System.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -458,9 +455,6 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Transformable.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\UI.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h">
@@ -581,6 +575,12 @@
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Utils\Sprite.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
   </ItemGroup>

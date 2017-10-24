@@ -1,6 +1,6 @@
 #include "AudioScreen.h"
 #include "Demo.h"
-#include "Sprite.h"
+#include "Utils/Sprite.h"
 #include "Utils/ToggleButton.h"
 #include "Audio.h"
 #include "Sound.h"

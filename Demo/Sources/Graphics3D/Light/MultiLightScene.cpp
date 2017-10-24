@@ -21,6 +21,7 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Camera.h"
+#include "Shaders/LightsShader.h"
 
 void MultiLightScene::Start(){
 	CameraControlsScene::Start();
@@ -55,7 +56,8 @@ void MultiLightScene::Start(){
 		AddEntity(light);
 	}
 	
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");

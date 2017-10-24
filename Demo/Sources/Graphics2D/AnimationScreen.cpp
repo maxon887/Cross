@@ -17,7 +17,7 @@
 #include "AnimationScreen.h"
 #include "Graphics2D.h"
 #include "Utils/Animation.h"
-#include "Sprite.h"
+#include "Utils/Sprite.h"
 
 void AnimationScreen::Start(){
 	Screen::Start();
@@ -60,7 +60,7 @@ void AnimationScreen::Update(float sec){
 
 	if(run_time >= 0) {
 		run_time -= sec;
-		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_run_anim->GetImage());
+		PrimitiveDrawer::DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_run_anim->GetImage());
 		if(run_time < 0){
 			thinking_time = 1.3f;
 		}
@@ -78,8 +78,8 @@ void AnimationScreen::Update(float sec){
 				turn_left = true;
 		}
 		spider_head->SetRotate(head_angle);
-		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_body);
-		gfx2D->DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2 - 32), spider_head);
+		PrimitiveDrawer::DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2), spider_body);
+		PrimitiveDrawer::DrawSprite(Vector2D(GetWidth() / 2, GetHeight() / 2 - 32), spider_head);
 		if(thinking_time < 0){
 			run_time = 3.5f;
 			head_angle = 0;

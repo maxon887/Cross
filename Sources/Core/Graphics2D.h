@@ -29,18 +29,6 @@ public:
 
 	void Update(float sec);
 
-	void DrawPoint(Vector2D pos, Color color);
-	void DrawLine(Vector2D p1, Vector2D p2, Color color);
-	void DrawRect(Rect rect, Color color);
-	void DrawRect(Rect rect, Color color, bool filled);
-	void DrawCircle(Vector2D center, float radius, Color color);
-	void DrawCircle(Vector2D center, float radius, Color color, bool filled);
-	void DrawCircle(Vector2D center, float radius, Color color, bool filled, U32 accuracy);
-	void DrawSprite(Sprite* sprite);
-	void DrawSprite(Vector2D pos, Sprite* sprite);
-	void DrawSprite(Sprite* sprite, Color color, bool monochrome);
-	void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
-
 	Texture* LoadTexture(const string& filename);
 	Texture* LoadTexture(const string& filename, Texture::TilingMode tillingMode);
 	Texture* LoadTexture(const string& filename, Texture::Filter filter);
@@ -61,11 +49,6 @@ public:
 	Texture* LoadRAWTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadPKMTexture(const string& filename, Texture::Filter filter);
 	Texture* LoadKTXTexture(const string& filename, Texture::Filter filter);
-
-private:
-	Shader* texture_shader		= NULL;
-	Shader* font_shader			= NULL;
-	Shader* simple_shader		= NULL;
 };
 
 }

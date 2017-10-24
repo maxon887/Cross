@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "CameraControlsScene.h"
 #include "Demo.h"
-#include "Sprite.h"
+#include "Utils/Sprite.h"
 #include "Camera.h"
 
 void CameraControlsScene::Start(){

@@ -22,8 +22,7 @@
 
 void SolidModelScene::Start(){
 	CameraControlsScene::Start();
-	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	shader->Compile();
+	shader = GetShader("Engine/Shaders/Simple.sha");
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
 	Entity* cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
