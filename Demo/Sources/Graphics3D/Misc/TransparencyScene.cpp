@@ -16,13 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TransparencyScene.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Shaders/LightsShader.h"
 #include "Game.h"
 #include "Material.h"
 #include "Texture.h"
+#include "Mesh.h"
 
 void TransparencyScene::Start(){
 	CameraControlsScene::Start();
@@ -51,9 +51,9 @@ void TransparencyScene::Start(){
 	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
-	Entity* road = LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* road = LoadPrimitive(Model::Primitive::PLANE);
+	road->GetComponent<Mesh>()->SetMaterial(road_mat);
 	road->SetScale(15.f);
-	gfx3D->AdjustMaterial(road, road_mat, false);
 	AddEntity(road);
 
 	grass_shader = new LightsShader();
@@ -65,14 +65,13 @@ void TransparencyScene::Start(){
 	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	grass_shader->Compile();
 	grass_diffuse = GetTexture("gfx3D/GrassDiffuse.png");
-	Entity* grass = LoadPrimitive(Graphics3D::Primitives::PLANE);
+	Entity* grass = LoadPrimitive(Model::Primitive::PLANE);
 	grass_mat = new Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", grass_diffuse);
 	grass_mat->SetTransparency(true);
+	grass->GetComponent<Mesh>()->SetMaterial(grass_mat);
 	grass->SetRotateX(90.f);
 	AddEntity(grass);
-
-	gfx3D->AdjustMaterial(grass, grass_mat, false);
 
 	for(U32 i = 0; i < 10; ++i){
 		Entity* clone = grass->Clone();
@@ -94,8 +93,8 @@ void TransparencyScene::Start(){
 	sphere_mat->SetPropertyValue("Transparency", 0.5f);
 	sphere_mat->SetTransparency(true);
 
-	Entity* sphere = LoadPrimitive(Graphics3D::Primitives::SPHERE);
-	gfx3D->AdjustMaterial(sphere, sphere_mat, true);
+	Entity* sphere = LoadPrimitive(Model::Primitive::SPHERE);
+	sphere->GetComponent<Mesh>()->SetMaterial(sphere_mat);
 	AddEntity(sphere);
 	sphere->SetPosition(Vector3D(0.f, 1.f, 0.f));
 }

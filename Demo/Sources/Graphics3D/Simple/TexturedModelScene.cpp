@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TexturedModelScene.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Entity.h"
 #include "Texture.h"
+#include "Mesh.h"
 
 void TexturedModelScene::Start(){
 	CameraControlsScene::Start();
@@ -26,8 +26,8 @@ void TexturedModelScene::Start(){
 	material = new Material(shader);
 	texture = GetTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
-	Entity* cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 }
 

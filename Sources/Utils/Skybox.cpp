@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Skybox.h"
-#include "Graphics3D.h"
 #include "Shaders/Shader.h"
 #include "Entity.h"
 #include "Material.h"
@@ -30,7 +29,7 @@ using namespace cross;
 Skybox::Skybox(Cubemap* cubemap) :
 	cubemap(cubemap)
 {
-	box = game->GetCurrentScene()->LoadPrimitive(Graphics3D::Primitives::CUBE);
+	box = game->GetCurrentScene()->LoadPrimitive(Model::Primitive::CUBE);
 	box->SetScale(config->GetViewDistance());
 
 	shader = new Shader("Engine/Shaders/Light.vtx", "Engine/Shaders/Light.fgm");
@@ -43,7 +42,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 	mvpID = customMVPProp->GetID();
 
 	material = new Material(shader);
-	gfx3D->AdjustMaterial(box, material, false);
+	box->GetComponent<Mesh>()->SetMaterial(material);
 }
 
 Skybox::~Skybox(){
@@ -63,5 +62,5 @@ void Skybox::Draw(){
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
 	Mesh* mesh = box->GetChildren().front()->GetComponent<Mesh>();
-	mesh->Draw(mvp, material, Graphics3D::StencilBehaviour::IGNORED);
+	mesh->Draw(mvp, material, Mesh::StencilBehaviour::IGNORED);
 }

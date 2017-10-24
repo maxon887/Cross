@@ -17,7 +17,6 @@
 #include "DiffuseScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
@@ -45,7 +44,7 @@ void DiffuseScene::Start(){
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
 	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	gfx3D->AdjustMaterial(camaro, material);
+	CROSS_ASSERT(false, "Needs to set recurcive material function analog");
 	AddEntity(camaro);
 }
 

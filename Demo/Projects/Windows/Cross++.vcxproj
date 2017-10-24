@@ -77,12 +77,12 @@
     <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\File.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Game.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\Graphics3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Input.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Light.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Material.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Mesh.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Model.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Scene.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Screen.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Sound.cpp" />
@@ -163,12 +163,12 @@
     <ClInclude Include="..\..\..\Sources\Core\Event.h" />
     <ClInclude Include="..\..\..\Sources\Core\File.h" />
     <ClInclude Include="..\..\..\Sources\Core\Game.h" />
-    <ClInclude Include="..\..\..\Sources\Core\Graphics3D.h" />
     <ClInclude Include="..\..\..\Sources\Core\GraphicsGL.h" />
     <ClInclude Include="..\..\..\Sources\Core\Input.h" />
     <ClInclude Include="..\..\..\Sources\Core\Light.h" />
     <ClInclude Include="..\..\..\Sources\Core\Material.h" />
     <ClInclude Include="..\..\..\Sources\Core\Mesh.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Model.h" />
     <ClInclude Include="..\..\..\Sources\Core\Scene.h" />
     <ClInclude Include="..\..\..\Sources\Core\Screen.h" />
     <ClInclude Include="..\..\..\Sources\Core\Sound.h" />

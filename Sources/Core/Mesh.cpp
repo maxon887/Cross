@@ -63,10 +63,10 @@ void Mesh::Draw() {
 }
 
 void Mesh::Draw(Material* mat) {
-	Draw(mat, Graphics3D::StencilBehaviour::IGNORED);
+	Draw(mat, StencilBehaviour::IGNORED);
 }
 
-void Mesh::Draw(Material* mat, Graphics3D::StencilBehaviour sten) {
+void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 	if(GetEntity()) {
 		Draw(GetEntity()->GetWorldMatrix(), mat, sten);
 	} else {
@@ -75,7 +75,7 @@ void Mesh::Draw(Material* mat, Graphics3D::StencilBehaviour sten) {
 }
 
 void Mesh::Draw(const Matrix& globalModel, Material* material,
-				Graphics3D::StencilBehaviour stencilBehvaiour) {
+				StencilBehaviour stencilBehvaiour) {
 	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
 	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
@@ -203,17 +203,17 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	}
 	//stencil test
 	switch(stencilBehvaiour) {
-	case Graphics3D::StencilBehaviour::WRITE:
+	case StencilBehaviour::WRITE:
 		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 		SAFE(glStencilFunc(GL_ALWAYS, 1, 0xFF));
 		break;
-	case Graphics3D::StencilBehaviour::READ:
+	case StencilBehaviour::READ:
 		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilFunc(GL_NOTEQUAL, 1, 0xFF));
 		SAFE(glStencilMask(0xFF));
 		break;
-	case Graphics3D::StencilBehaviour::IGNORED:
+	case StencilBehaviour::IGNORED:
 		break;
 	default:
 		CROSS_ASSERT(false, "Unknow stecil behaviour");

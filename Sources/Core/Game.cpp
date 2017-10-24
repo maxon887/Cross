@@ -28,7 +28,6 @@ Game*		cross::game		= NULL;
 System*		cross::system	= NULL;
 Audio*		cross::audio	= NULL;
 GraphicsGL* cross::gfxGL	= NULL;
-Graphics3D* cross::gfx3D	= NULL;
 Input*		cross::input	= NULL;
 Config*		cross::config	= NULL;
 

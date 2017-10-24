@@ -15,12 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MultiLightScene.h"
-#include "Graphics3D.h"
 #include "Light.h"
 #include "Material.h"
 #include "Entity.h"
 #include "Camera.h"
 #include "Shaders/LightsShader.h"
+#include "Mesh.h"
 
 void MultiLightScene::Start(){
 	CameraControlsScene::Start();
@@ -70,8 +70,8 @@ void MultiLightScene::Start(){
 	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
 	material->SetPropertyValue("Specular Map", specular_map);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	
 	for(U32 i = 0; i < 50; ++i){
 		Entity* clone = cube->Clone();

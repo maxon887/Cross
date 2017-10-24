@@ -17,7 +17,6 @@
 #include "NakedScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
@@ -41,7 +40,7 @@ void NakedScene::Start(){
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
 	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	gfx3D->AdjustMaterial(model, material);
+	CROSS_ASSERT(false, "Needs to set recurcive material function analog");
 	AddEntity(model);
 }
 

@@ -15,18 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SolidModelScene.h"
-#include "Graphics3D.h"
 #include "GraphicsGL.h"
 #include "Material.h"
 #include "Entity.h"
+#include "Mesh.h"
 
 void SolidModelScene::Start(){
 	CameraControlsScene::Start();
 	shader = GetShader("Engine/Shaders/Simple.sha");
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
-	Entity* cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 }
 

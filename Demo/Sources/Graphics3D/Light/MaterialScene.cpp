@@ -16,12 +16,12 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MaterialScene.h"
 #include "Game.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Shaders/SingleLightShader.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 void MaterialScene::Start(){
 	CameraControlsScene::Start();
@@ -40,8 +40,8 @@ void MaterialScene::Start(){
 	material->SetPropertyValue("Diffuse Color", Color::Red);
 	material->SetPropertyValue("Specular Color", Color::White);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 
 	cube->SetScale(Vector3D(0.73f, 1.0f, 0.55f));

@@ -17,7 +17,6 @@
 #include "RoughnessScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
@@ -55,7 +54,7 @@ void RoughnessScene::Start(){
 	material->SetPropertyValue("Specular Map", specular);
 	material->SetPropertyValue("Shininess Map", roughness);
 	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	gfx3D->AdjustMaterial(model, material);
+	CROSS_ASSERT(false, "Needs to set recurcive material function analog");
 	AddEntity(model);
 }
 

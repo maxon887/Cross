@@ -18,7 +18,7 @@
 #include "Cross.h"
 #include "Screen.h"
 #include "Input.h"
-#include "Graphics3D.h"
+#include "Model.h"
 
 namespace tinyxml2{
 
@@ -59,7 +59,7 @@ public:
 	Entity* GetEntity(const string& name);
 	/* Adds entity object to the scene */
 	void AddEntity(Entity* entity);
-	Entity* LoadPrimitive(Graphics3D::Primitives primitive);
+	Entity* LoadPrimitive(Model::Primitive primitive);
 	/* Removes entity from scene by name */
 	Entity* RemoveEntity(const string& name);
 	/* Returns all available light on scene. */

@@ -18,7 +18,6 @@
 #include "Material.h"
 #include "VertexBuffer.h"
 #include "Mesh.h"
-#include "Graphics3D.h"
 
 void TriangleScene::Start(){
 	CameraControlsScene::Start();

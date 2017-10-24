@@ -163,9 +163,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Game.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\Graphics3D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\GraphicsGL.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -307,6 +304,9 @@
     <ClCompile Include="..\..\..\Sources\Utils\Sprite.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Core\Model.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -413,9 +413,6 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Game.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\Graphics3D.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\GraphicsGL.h">
@@ -576,6 +573,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Sprite.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\Model.h">
+      <Filter>Cross\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

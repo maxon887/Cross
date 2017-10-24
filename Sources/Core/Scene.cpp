@@ -23,7 +23,6 @@
 #include "Entity.h"
 #include "Material.h"
 #include "Mesh.h"
-#include "Graphics3D.h"
 #include "Shaders/LightsShader.h"
 #include "File.h"
 
@@ -116,7 +115,8 @@ void Scene::Load(const string& file){
 		U32 id = modelXML->IntAttribute("id");
 		const char* filename = modelXML->Attribute("file");
 		if(filename) {
-			Model* model = gfx3D->LoadModel(filename);
+			Model* model = new Model();
+			model->Load(filename);
 			models[id] = model;
 		} else {
 			CROSS_ASSERT(false, "Attribute 'filename' not contain in model node");
@@ -260,13 +260,13 @@ void Scene::AddEntity(Entity* entity){
 	EntityAdded(entity);//trigger
 }
 
-Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
+Entity* Scene::LoadPrimitive(Model::Primitive primitive){
 	switch(primitive) {
-	case cross::Graphics3D::CUBE:
+	case Model::CUBE:
 		return GetModel("Engine/Models/Cube.obj")->GetHierarchy();
-	case cross::Graphics3D::SPHERE:
+	case Model::SPHERE:
 		return GetModel("Engine/Models/Sphere.obj")->GetHierarchy();
-	case cross::Graphics3D::PLANE:
+	case Model::PLANE:
 		return GetModel("Engine/Models/Plane.obj")->GetHierarchy();
 	default:
 		CROSS_RETURN(false, NULL, "Unknown primitive type");
@@ -322,7 +322,8 @@ Model* Scene::GetModel(const string& modelFile) {
 	if(modelIt != models.end()) {
 		return (*modelIt).second;
 	} else {
-		Model* model = gfx3D->LoadModel(modelFile);
+		Model* model = new Model();
+		model->Load(modelFile);
 		models[hash] = model;
 		return model;
 	}
@@ -395,7 +396,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 				Material* mat = GetMaterial(materialFile);
 				mesh->SetMaterial(mat);
 			}else{
-				mesh->SetMaterial(gfx3D->GetDefaultMaterial());
+				mesh->SetMaterial(GetMaterial("Engine/Default.mat"));
 			}
 			entity->AddComponent(mesh);
 		}

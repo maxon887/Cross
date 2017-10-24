@@ -21,7 +21,6 @@
 #include "Screen.h"
 #include "WINSystem.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Config.h"
 #include "Audio.h"
 #include "Utils/Debugger.h"
@@ -56,7 +55,6 @@ int GLES_Main(){
 
 	audio = new Audio();
 	gfxGL = new GraphicsGL();
-	gfx3D = new Graphics3D();
 	game->Start();
 	game->SetScreen(game->GetStartScreen());
 
@@ -74,7 +72,6 @@ int GLES_Main(){
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
 	Debugger::Release();
-	delete gfx3D;
 	delete gfxGL;
 	crossEGL->DestroyContext(true);
 	delete crossEGL;
