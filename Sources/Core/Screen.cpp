@@ -75,6 +75,9 @@ void Screen::Start(){
 
 	CreateDeviceObjects();
 	CreateFontsTexture();
+
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
 }
 
 void Screen::Stop(){

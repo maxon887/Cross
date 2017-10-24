@@ -28,5 +28,6 @@ public:
 
 private:
 	ImFont* font_big			= NULL;
+	ImFont* font_medium			= NULL;
 	Texture* big_font_texture	= NULL;
 };

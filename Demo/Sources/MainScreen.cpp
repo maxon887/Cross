@@ -20,6 +20,7 @@
 #include "System.h"
 #include "UIScreen.h"
 #include "Texture.h"
+#include "Graphics3D/Simple/TriangleScene.h"
 
 #include "Libs/ImGui/imgui.h"
 
@@ -54,13 +55,34 @@ void MainScreen::Stop(){
 
 void MainScreen::Update(float sec){
 	Screen::Update(sec);
-	ImGui::Begin("Demo");
 	ImGui::PushFont(font_big);
-	ImGui::Button("Graphics", ImVec2(-1, 0));
+	ImVec2 textSize = ImGui::CalcTextSize("Graphics");
+
+	ImGui::SetNextWindowSize(ImVec2(textSize.x * 2.f, textSize.y * 2.f * 2.f), ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+	ImGui::Begin("Demo");
+
+	if(ImGui::CollapsingHeader("Graphics")) {
+		if(ImGui::TreeNode("Simple")) {
+			ImGui::MenuButton("Triangle");
+			ImGui::MenuButton("Solid Model");
+			ImGui::MenuButton("Textured Model");
+			ImGui::TreePop();
+		}
+		if(ImGui::TreeNode("Light")) {
+			ImGui::TreePop();
+		}
+		if(ImGui::TreeNode("Maps")) {
+			ImGui::TreePop();
+		}
+		if(ImGui::TreeNode("Misc")) {
+			ImGui::TreePop();
+		}
+	}
 
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new UIScreen());
 	}
-	ImGui::PopFont();
 	ImGui::End();
+	ImGui::PopFont();
 }
