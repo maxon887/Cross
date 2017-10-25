@@ -78,6 +78,7 @@ void Screen::Start(){
 
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
+	//style.ScrollbarSize = 40.f;
 }
 
 void Screen::Stop(){

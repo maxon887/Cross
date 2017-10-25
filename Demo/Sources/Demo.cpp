@@ -40,20 +40,11 @@ void Demo::Start(){
 	camera = new Camera2D();
 	camera->SetViewWidth(1600.f);
 
-	back_btn = new Button();
-    Sprite* arrowReleased = GetCommonSprite("ArrowUp.png");
-    Sprite* arrowPressed = GetCommonSprite("ArrowDown.png");
-    arrowReleased->SetRotate(180.f);
-    arrowPressed->SetRotate(180.f);
-    back_btn->SetImages(arrowReleased, arrowPressed);
-
-	back_btn->Clicked.Connect(this, &Demo::OnBackClick);
 	input->KeyPressed.Connect(this, &Demo::OnKeyPressed);
 }
 
 void Demo::Stop(){
 	system->LogIt("Demo::Stop()");
-	delete back_btn;
 	delete camera;
 	for(std::pair<string, Sprite*> pair: common_sprites){
 		delete pair.second;
@@ -65,9 +56,6 @@ void Demo::Stop(){
 void Demo::Update(float sec){
 	float height = GetCurrentScreen()->GetCamera()->GetViewHeight();
 	height += GetCurrentScreen()->GetCamera()->GetPosition().y;
-	Vector2D location(back_btn->GetWidth()/2.f, height - back_btn->GetHeight()/2.f);
-    back_btn->SetLocation(location);
-	back_btn->Update(sec);
 }
 
 Screen* Demo::GetStartScreen(){

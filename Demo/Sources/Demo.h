@@ -37,7 +37,6 @@ public:
 
 private:
 	Camera2D* camera;
-    Button* back_btn;
 	Texture* common_texture;
 	Dictionary<string, Sprite*> common_sprites;
 
