@@ -108,14 +108,15 @@ void Screen::Update(float sec) {
 	// Setup time step
 	io.DeltaTime = sec;
 
+#if defined(WIN)
 	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
-	for(U32 i = 0; i < actions.size(); i++) {
-		io.MouseDown[i] = actions[i];
-	}
-	if(actions[0]) {	//for mobile input
-		io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
-	}
-
+#else
+    io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
+#endif
+    for(U32 i = 0; i < actions.size(); i++) {
+        io.MouseDown[i] = actions[i];
+    }
+    
 	io.MouseWheel = mouse_wheel;
 	mouse_wheel = 0.f;
 

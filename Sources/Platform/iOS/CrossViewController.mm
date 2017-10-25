@@ -19,8 +19,6 @@
 #include "IOSSystem.h"
 #include "Audio.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Input.h"
 #include "Game.h"
 #include "Config.h"
@@ -70,13 +68,11 @@ CrossViewController* instance = nil;
 
 - (void)update{
     if(!CrossPaused){
-        if(!sys){
-            sys = new IOSSystem();
+        if(!system){
+            system = new IOSSystem();
             game = CrossMain();
             audio = new Audio();
             gfxGL = new GraphicsGL();
-            gfx2D = new Graphics2D();
-            gfx3D = new Graphics3D();
             game->Start();
             game->SetScreen(game->GetStartScreen());
         }
@@ -85,10 +81,12 @@ CrossViewController* instance = nil;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    S32 width = size.width * screenScale;
-    S32 height = size.height * screenScale;
-    sys->SetWindowSize(width, height);
+    if(system){
+        CGFloat screenScale = [[UIScreen mainScreen] scale];
+        S32 width = size.width * screenScale;
+        S32 height = size.height * screenScale;
+        system->SetWindowSize(width, height);
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations{
