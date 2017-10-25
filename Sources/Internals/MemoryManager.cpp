@@ -28,7 +28,6 @@ using namespace cross;
 
 #ifdef WIN
 #   include "Windows.h"
-#endif
 
 #undef new
 
@@ -63,6 +62,8 @@ void operator delete[](void* p){
 void operator delete[](void* p, char* filename, unsigned long line){
 	MemoryManager::Instance()->Free(p);
 }
+
+#endif
 
 const unsigned long		MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;

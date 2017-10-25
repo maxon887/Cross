@@ -113,7 +113,7 @@ void Screen::Update(float sec) {
 #else
     io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
 #endif
-    for(U32 i = 0; i < actions.size(); i++) {
+    for(U32 i = 0; i < 5; i++) {
         io.MouseDown[i] = actions[i];
     }
     
