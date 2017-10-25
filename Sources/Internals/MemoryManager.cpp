@@ -18,6 +18,7 @@
 #include "MemoryManager.h"
 
 #include <stdarg.h>
+#include <stdlib.h>
 
 #ifdef CROSS_DEBUG
 
