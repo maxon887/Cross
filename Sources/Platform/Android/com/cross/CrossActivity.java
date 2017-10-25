@@ -10,6 +10,7 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -166,6 +167,11 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
             return false;
 		}
 	}
+
+	public int GetScreenDPI(){
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        return metrics.densityDpi;
+    }
 
 	public void MessageBox(String title, String msg) throws InterruptedException {
 		final String thrTitle = title;

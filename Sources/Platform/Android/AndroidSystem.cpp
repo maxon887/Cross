@@ -63,7 +63,10 @@ U64 AndroidSystem::GetTime(){
 }
 
 float AndroidSystem::GetScreenDPI() {
-    return 460.0f;
+    JNIEnv* env = GetJNIEnv();
+    jclass clazz = env->GetObjectClass(cross_activity);
+    jmethodID methodID = env->GetMethodID(clazz, "GetScreenDPI", "()I");
+    return (float)env->CallIntMethod(cross_activity, methodID);
 }
 
 void AndroidSystem::PromtToExit(){
