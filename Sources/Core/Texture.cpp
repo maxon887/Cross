@@ -20,6 +20,8 @@
 #include "Utils/Debugger.h"
 #include "File.h"
 
+#include <stdlib.h>
+
 #include "Libs/SOIL/SOIL.h"
 
 using namespace cross;
@@ -109,7 +111,7 @@ void Texture::Load(const string& filename, Texture::TilingMode tillingMode, Text
 #if defined(WIN) || defined(IOS)
 		LoadRAW(filename + ".png", filter);
 #elif ANDROID
-		LoadKTXT(filename + ".ktx", filter);
+		LoadKTX(filename + ".ktx", filter);
 #endif
 	}
 	SetTilingMode(tillingMode);
