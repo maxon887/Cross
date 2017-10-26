@@ -265,9 +265,11 @@ bool Screen::CreateFontsTexture() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->Clear();
 	ImFontConfig fontConfig;
-	fontConfig.SizePixels = system->GetScreenDPI() / DEFAULT_SCREEN_DPI * DEFAULT_FONT_SIZE;
+    float fontScale = (int)(system->GetScreenDPI() / DEFAULT_SCREEN_DPI + 0.5f);
+    CROSS_ASSERT(fontScale != 0, "Font scale == 0");
+	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	font = io.Fonts->AddFontDefault(&fontConfig);
-	
+	io.Fonts->AddFontDefault(&fontConfig);
 	unsigned char* pixels;
 	int width, height;
 #ifdef USE_FREETYPE
@@ -276,7 +278,7 @@ bool Screen::CreateFontsTexture() {
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	font_texture = new Texture();
 	font_texture->Create(	pixels, 4, width, height, 
-							Texture::Filter::LINEAR, 
+							Texture::Filter::LINEAR,
 							Texture::Compression::NONE, 
 							Texture::TilingMode::CLAMP_TO_EDGE, false);
 	// Store our identifier
