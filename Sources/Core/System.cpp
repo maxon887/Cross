@@ -103,6 +103,10 @@ void System::Messagebox(const string& title, const string& msg) {
 	LogIt(msg);
 }
 
+bool System::IsMobile() {
+	return false;
+}
+
 void System::LogIt(const char* format, ...){
 	va_list params;
 	char buffer[4096];

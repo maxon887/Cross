@@ -20,7 +20,11 @@
 
 namespace cross {
 
-#define DEFAULT_SCREEN_DPI 96.f
+#ifdef WIN
+#	define DEFAULT_SCREEN_DPI 96.f
+#else
+#	define DEFAULT_SCREEN_DPI 160.f
+#endif
 	
 /* Class for platform specific functional */
 class System{
@@ -68,6 +72,7 @@ public:
 	virtual void Sleep(float milis) { };
 	/* Ask user about exit from application */
     virtual void RequestOrientation(Orientation orientation) { };
+	virtual bool IsMobile();
 	virtual void PromtToExit() { };
 	/* Print message in console. */
 	void LogIt(const char* format, ...);

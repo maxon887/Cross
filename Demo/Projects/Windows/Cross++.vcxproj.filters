@@ -307,6 +307,9 @@
     <ClCompile Include="..\..\..\Sources\Core\Model.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\MenuBar.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -576,6 +579,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Model.h">
       <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\MenuBar.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

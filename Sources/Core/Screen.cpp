@@ -22,6 +22,9 @@
 #include "Shaders/Shader.h"
 #include "File.h"
 #include "Texture.h"
+#ifdef WIN
+#	include "Platform/Windows/WINSystem.h"
+#endif
 
 #if defined(USE_FREETYPE) && defined(WIN)
 #	pragma comment(lib, "freetype.lib")
@@ -69,16 +72,26 @@ void Screen::Start(){
 	//io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
 	//io.ClipboardUserData = g_Window;
 #ifdef _WIN32
-	//WINSystem* winSys = (WINSystem*)system;
-	//io.ImeWindowHandle = winSys->GetHWND();
+	WINSystem* winSys = (WINSystem*)system;
+	io.ImeWindowHandle = winSys->GetHWND();
 #endif
 
 	CreateDeviceObjects();
 	CreateFontsTexture();
 
 	ImGuiStyle& style = ImGui::GetStyle();
+	style.IndentSpacing = 0.f;
 	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
-	//style.ScrollbarSize = 40.f;
+	if(system->IsMobile()) {
+		style.WindowRounding = 0.f;
+        style.ScrollbarSize = 10 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.ScrollbarRounding = 3 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.ItemSpacing.x = 3 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.ItemSpacing.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+        style.WindowPadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+        style.WindowPadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.FramePadding.y = 8 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+	}
 }
 
 void Screen::Stop(){
@@ -265,17 +278,17 @@ bool Screen::CreateFontsTexture() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->Clear();
 	ImFontConfig fontConfig;
-    float fontScale = (int)(system->GetScreenDPI() / DEFAULT_SCREEN_DPI + 0.5f);
+    float fontScale = (float)(int)(system->GetScreenDPI() / DEFAULT_SCREEN_DPI + 0.5f);
     CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	font = io.Fonts->AddFontDefault(&fontConfig);
-	io.Fonts->AddFontDefault(&fontConfig);
 	unsigned char* pixels;
 	int width, height;
 #ifdef USE_FREETYPE
 	ImGuiFreeType::BuildFontAtlas(io.Fonts);
 #endif
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
+	system->LogIt("Creating font texture(%dx%d)", width, height);
 	font_texture = new Texture();
 	font_texture->Create(	pixels, 4, width, height, 
 							Texture::Filter::LINEAR,

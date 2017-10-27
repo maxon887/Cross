@@ -42,6 +42,7 @@ public:
 	void PromtToExit();
     void RequestOrientation(Orientation orientation);
 	void Messagebox(const string& title, const string& message) override;
+    bool IsMobile() override;
 	void Exit();
 	void Sleep(float milis);
     void CallActivityVoidMethod(const string& methodName);

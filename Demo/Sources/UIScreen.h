@@ -16,12 +16,17 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Screen.h"
+#include "MenuBar.h"
 
 using namespace cross;
 
-class UIScreen : public Screen{
+class UIScreen : public MenuBar{
 public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
+
+private:
+	bool show_test_window = true;
+	bool show_another_window = false;
 };

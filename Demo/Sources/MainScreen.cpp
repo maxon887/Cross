@@ -25,43 +25,32 @@
 #include "Libs/ImGui/imgui.h"
 
 void MainScreen::Start(){
-	Screen::Start();
+	MenuBar::Start();
 	SetBackground(Color(0.3f));
-
-	ImGuiIO& io = ImGui::GetIO();
-	ImFontConfig fontConfig;
-	fontConfig.SizePixels = system->GetScreenDPI() / DEFAULT_SCREEN_DPI * DEFAULT_FONT_SIZE * 2;
-	font_big = io.Fonts->AddFontDefault(&fontConfig);
-
-	unsigned char* pixels;
-	int width, height;
-#ifdef USE_FREETYPE
-	ImGuiFreeType::BuildFontAtlas(io.Fonts);
-#endif
-	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
-	big_font_texture = new Texture();
-	big_font_texture->Create(	pixels, 4, width, height,
-								Texture::Filter::LINEAR,
-								Texture::Compression::NONE,
-								Texture::TilingMode::CLAMP_TO_EDGE, false);
-	// Store our identifier
-	io.Fonts->TexID = (void *)(intptr_t)big_font_texture->GetID();
 }
 
 void MainScreen::Stop(){
-	delete big_font_texture;
-	Screen::Stop();
+	MenuBar::Stop();
 }
 
 void MainScreen::Update(float sec){
-	Screen::Update(sec);
+	MenuBar::Update(sec);
+	MenuBar::ShowMenu();
 	ImGui::PushFont(font_big);
-	ImVec2 textSize = ImGui::CalcTextSize("Graphics");
 
-	ImGui::SetNextWindowSize(ImVec2(textSize.x * 2.f, textSize.y * 2.f * 2.f), ImGuiCond_FirstUseEver);
-	ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
-	ImGui::Begin("Demo");
-
+	if(!system->IsMobile()) {
+		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, GetHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+		ImGui::Begin("Demo");
+	} else {
+		ImGui::SetNextWindowSize(ImVec2(GetWidth(), GetHeight() - menu_height));
+		ImGui::SetNextWindowPos(ImVec2(0, menu_height));
+		ImGui::Begin("Demo", 0, ImGuiWindowFlags_NoCollapse |
+								ImGuiWindowFlags_NoMove |
+								ImGuiWindowFlags_NoTitleBar |
+								ImGuiWindowFlags_NoResize |
+								ImGuiWindowFlags_NoBringToFrontOnFocus);
+	}
 	if(ImGui::CollapsingHeader("Graphics")) {
 		if(ImGui::TreeNode("Simple")) {
 			ImGui::MenuButton("Triangle");
@@ -79,7 +68,6 @@ void MainScreen::Update(float sec){
 			ImGui::TreePop();
 		}
 	}
-
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new UIScreen());
 	}

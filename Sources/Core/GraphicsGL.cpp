@@ -86,7 +86,7 @@ GraphicsGL::GraphicsGL() {
 		
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
-		system->LogIt("\tMax Vetex Uniforms: %d", value);
+		system->LogIt("\tMax Vertex Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
 		system->LogIt("\tMax Fragment Uniforms: %d", value);
@@ -99,6 +99,8 @@ GraphicsGL::GraphicsGL() {
 
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
 		system->LogIt("\tMax Texture Units: %d", value);
+
+		system->LogIt("\tDevice DPI - %f", system->GetScreenDPI());
 
 		system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 

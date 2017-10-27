@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\Sources\MenuBar.cpp" />
     <ClCompile Include="..\..\Sources\UIScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -240,6 +241,7 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\Sources\MenuBar.h" />
     <ClInclude Include="..\..\Sources\UIScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

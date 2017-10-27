@@ -90,6 +90,10 @@ void AndroidSystem::Messagebox(const string& title, const string& message) {
     env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title.c_str()), env->NewStringUTF(message.c_str()));
 }
 
+bool AndroidSystem::IsMobile() {
+    return true;
+}
+
 void AndroidSystem::Exit() {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);

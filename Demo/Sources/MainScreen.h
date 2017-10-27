@@ -17,17 +17,13 @@
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
+#include "MenuBar.h"
 
 using namespace cross;
 
-class MainScreen : public Screen {
+class MainScreen : public MenuBar {
 public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
-
-private:
-	ImFont* font_big			= NULL;
-	ImFont* font_medium			= NULL;
-	Texture* big_font_texture	= NULL;
 };
