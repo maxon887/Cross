@@ -90,7 +90,7 @@ void Screen::Start(){
 		style.ItemSpacing.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
         style.WindowPadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
         style.WindowPadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.FramePadding.y = 8 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.FramePadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 	}
 }
 
