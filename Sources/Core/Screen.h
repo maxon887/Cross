@@ -57,6 +57,10 @@ public:
 	virtual void ActionMove(Input::Action action) { };
 	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action) { };
+
+	const string& GetName() const;
+	void SetName(const string& name);
+
 	Camera2D* GetCamera();
 	/* Returns true if current screen is actually a 3D scene */
 	bool IsScene() const;
@@ -75,6 +79,7 @@ protected:
 	ImFont* font					= NULL;
 
 private:
+	string name						= "noname";
 	Dictionary<S32,Shader*> shaders = Dictionary<S32, Shader*>();
 	Shader* ui_shader				= NULL;
 	Texture* font_texture			= NULL;

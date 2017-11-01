@@ -19,14 +19,17 @@
 #include "Libs/ImGui/imgui.h"
 
 void UIScreen::Start() {
-	MenuBar::Start();
+	Screen::Start();
+	MenuBar::Init();
 }
 
 void UIScreen::Stop() {
-	MenuBar::Stop();
+	MenuBar::Release();
+	Screen::Stop();
 }
 
 void UIScreen::Update(float sec) {
+	Screen::Update(sec);
 	MenuBar::Update(sec);
 	MenuBar::ShowMenu();
 

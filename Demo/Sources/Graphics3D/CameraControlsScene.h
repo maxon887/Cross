@@ -21,21 +21,12 @@
 
 using namespace cross;
 
-class CameraControlsScene : public FreeCameraScene{
+class CameraControlsScene : public FreeCameraScene {
 public:
 	virtual void Start() override;
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
 private:
-	//UI
-	Sprite* arrow_released;
-	Sprite* arrow_pressed;
-	Button* left_btn;
-	Button* right_btn;
-	Button* up_btn;
-	Button* down_btn;
-	ToggleButton* eye_btn;
-
 	void OnEyeClick();
 };

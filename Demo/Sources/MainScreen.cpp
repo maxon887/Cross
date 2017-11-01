@@ -25,15 +25,19 @@
 #include "Libs/ImGui/imgui.h"
 
 void MainScreen::Start(){
-	MenuBar::Start();
+	Screen::Start();
+	MenuBar::Init();
+	SetName("Main");
 	SetBackground(Color(0.3f));
 }
 
 void MainScreen::Stop(){
-	MenuBar::Stop();
+	MenuBar::Release();
+	Screen::Stop();
 }
 
 void MainScreen::Update(float sec){
+	Screen::Update(sec);
 	MenuBar::Update(sec);
 	MenuBar::ShowMenu();
 	ImGui::PushFont(font_big);
@@ -53,7 +57,9 @@ void MainScreen::Update(float sec){
 	}
 	if(ImGui::CollapsingHeader("Graphics")) {
 		if(ImGui::TreeNode("Simple")) {
-			ImGui::MenuButton("Triangle");
+			if(ImGui::MenuButton("Triangle")) {
+				game->SetScreen(new TriangleScene());
+			}
 			ImGui::MenuButton("Solid Model");
 			ImGui::MenuButton("Textured Model");
 			ImGui::TreePop();

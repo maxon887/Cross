@@ -68,14 +68,6 @@ void Scene::Stop(){
 	Screen::Stop();
 }
 
-const string& Scene::GetName() const{
-	return name;
-}
-
-void Scene::SetName(const string& name){
-	this->name = name;
-}
-
 void Scene::Load(const string& file){
 	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load scene xml file");

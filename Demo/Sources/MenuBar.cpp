@@ -21,8 +21,7 @@
 
 #include "Libs/ImGui/imgui.h"
 
-void MenuBar::Start() {
-	Screen::Start();
+void MenuBar::Init() {
 
 	ImGuiIO& io = ImGui::GetIO();
 	ImFontConfig fontConfig;
@@ -46,13 +45,11 @@ void MenuBar::Start() {
 	io.Fonts->TexID = (void *)(intptr_t)big_font_texture->GetID();
 }
 
-void MenuBar::Stop() {
+void MenuBar::Release() {
 	delete big_font_texture;
-	Screen::Stop();
 }
 
 void MenuBar::Update(float sec) {
-	Screen::Update(sec);
 	if(show_style_editor){
 		ImGui::Begin("Style Editor", &show_style_editor);
 		ImGui::ShowStyleEditor();
@@ -66,15 +63,12 @@ void MenuBar::ShowMenu() {
 	}
 	if(ImGui::BeginMainMenuBar())
 	{
-		if(ImGui::BeginMenu("Menu"))
+		if(ImGui::Button("Back"))
 		{
-			if(ImGui::MenuItem("Style Editor")) {
-				show_style_editor = true;
-			}
-			if(ImGui::MenuItem("Back")) {
-				game->SetScreen(game->GetStartScreen());
-			}
-			ImGui::EndMenu();
+			game->SetScreen(game->GetStartScreen());
+		}
+		if(ImGui::Button("Style Editor")) {
+			show_style_editor = true;
 		}
         ImGuiStyle& style = ImGui::GetStyle();
 		ImVec2 size = ImGui::GetItemRectSize();

@@ -153,6 +153,14 @@ float Screen::GetHeight(){
 	return camera2D->GetViewHeight();
 }
 
+const string& Screen::GetName() const {
+	return name;
+}
+
+void Screen::SetName(const string& name) {
+	this->name = name;
+}
+
 Camera2D* Screen::GetCamera() {
 	return camera2D;
 }

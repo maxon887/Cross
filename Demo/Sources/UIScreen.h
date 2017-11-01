@@ -20,7 +20,8 @@
 
 using namespace cross;
 
-class UIScreen : public MenuBar{
+class UIScreen : public Screen,
+				 public MenuBar{
 public:
 	void Start() override;
 	void Stop() override;

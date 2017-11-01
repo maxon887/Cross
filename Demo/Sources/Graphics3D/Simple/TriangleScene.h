@@ -17,14 +17,17 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics3D/CameraControlsScene.h"
+#include "MenuBar.h"
 
 using namespace cross;
 
-class TriangleScene : public CameraControlsScene{
+class TriangleScene : public CameraControlsScene,
+					  public MenuBar {
 public:
 	void Start();
 	void Stop();
 	void Update(float sec);
+
 private:
 	Shader* shader;
 	Material* material;

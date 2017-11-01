@@ -20,13 +20,14 @@
 
 using namespace cross;
 
-class MenuBar : public Screen {
+class MenuBar {
 public:
-	void Start() override;
-	void Stop() override;
-	void Update(float sec) override;
+	void Init();
+	void Release();
+	void Update(float sec);
 
 	void ShowMenu();
+
 protected:
 	ImFont* font_big			= NULL;
 	Texture* big_font_texture	= NULL;

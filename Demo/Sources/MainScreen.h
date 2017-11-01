@@ -21,7 +21,8 @@
 
 using namespace cross;
 
-class MainScreen : public MenuBar {
+class MainScreen : public Screen,
+				   public MenuBar {
 public:
 	void Start() override;
 	void Stop() override;

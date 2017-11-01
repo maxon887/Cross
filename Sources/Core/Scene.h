@@ -41,8 +41,6 @@ public:
 	/* Called every frame update. */
 	virtual void Update(float sec) override;
 
-	const string& GetName() const;
-	void SetName(const string& name);
 	/* Loads scene from file(.scn) */
 	void Load(const string& file);
 	/* Loads scene in to file */
@@ -93,7 +91,6 @@ protected:
 private:
 	static const U32 scene_loader_version	= 14;
 	static const U32 scene_saver_version	= 14;
-	string name								= "";
     U64 resize_del							= -1;
 
 	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
