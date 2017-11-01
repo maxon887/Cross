@@ -21,6 +21,7 @@
 #include "UIScreen.h"
 #include "Texture.h"
 #include "Graphics3D/Simple/TriangleScene.h"
+#include "AudioScreen.h"
 
 #include "Libs/ImGui/imgui.h"
 
@@ -78,7 +79,7 @@ void MainScreen::Update(float sec){
 		}
 	}
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
-		
+		game->SetScreen(new AudioScreen());
 	}
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new UIScreen());

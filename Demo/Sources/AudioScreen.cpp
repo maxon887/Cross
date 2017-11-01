@@ -1,29 +1,15 @@
 #include "AudioScreen.h"
-#include "Demo.h"
-#include "Utils/Sprite.h"
-#include "Utils/ToggleButton.h"
 #include "Audio.h"
 #include "Sound.h"
+#include "System.h"
+
+#include "Libs/ImGui/imgui.h"
 
 using namespace cross;
 
 void AudioScreen::Start(){
-	bck_music = NULL;
-	jaguar = NULL;
-	truck = NULL;
-	is_bck_playing = false;
-
-	SetBackground(Color(0.25f, 0.25f, 0.25f));
-	button_sprite = demo->GetCommonSprite("ButtonTemplate.png");
-	button_sprite_pressed = demo->GetCommonSprite("ButtonTemplatePressed.png");
-	Button* soundBtn = new Button();
-	soundBtn->SetImages(button_sprite->Clone(), nullptr);
-	ToggleButton* loopBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
-	ToggleButton* streamBtn = new ToggleButton(button_sprite->Clone(), button_sprite_pressed->Clone());
-	soundBtn->Clicked.Connect(this, &AudioScreen::OnSoundButtonClick);
-	loopBtn->Clicked.Connect(this, &AudioScreen::OnLoopButttonClick);
-	streamBtn->Clicked.Connect(this, &AudioScreen::OnStreamButtonClick);
-
+	Screen::Start();
+	MenuBar::Init();
 	bck_music = audio->LoadSound("Audio/Music.mp3", true, true);
 	jaguar = audio->LoadSound("Audio/Jaguar.wav", false, false);
 	truck = audio->LoadSound("Audio/Truck.wav", true, false);
@@ -33,33 +19,56 @@ void AudioScreen::Stop(){
 	delete bck_music;
 	delete jaguar;
 	delete truck;
+	MenuBar::Release();
+	Screen::Stop();
 }
 
 void AudioScreen::Update(float sec){
+	Screen::Update(sec);
+	MenuBar::Update(sec);
+	MenuBar::ShowMenu();
 
-	if(input->IsPressed(Key::ESCAPE) || input->IsPressed(Key::BACK)) {
-		game->SetScreen(game->GetStartScreen());
-	}
-}
+	ImGui::PushFont(font_big);
 
-void AudioScreen::OnSoundButtonClick(){
-	jaguar->Play();
-}
-
-void AudioScreen::OnLoopButttonClick(){
-	if(truck->IsPlaying()) {
-		truck->Stop();
+	if(!system->IsMobile()) {
+		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, GetHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+		ImGui::Begin("Audio");
 	} else {
-		truck->Play();
+		ImGui::SetNextWindowSize(ImVec2(GetWidth(), GetHeight() - menu_height));
+		ImGui::SetNextWindowPos(ImVec2(0, menu_height));
+		ImGui::Begin("Audio", 0,	ImGuiWindowFlags_NoCollapse |
+									ImGuiWindowFlags_NoMove |
+									ImGuiWindowFlags_NoTitleBar |
+									ImGuiWindowFlags_NoResize |
+									ImGuiWindowFlags_NoBringToFrontOnFocus);
 	}
-}
 
-void AudioScreen::OnStreamButtonClick(){
-	if(is_bck_playing){
-		bck_music->Pause();
-		is_bck_playing = false;
-	}else{
-		bck_music->Play();
-		is_bck_playing = true;
+	ImGui::PushFont(font);
+	ImGui::Text("Cross++ use FMOD for sound playing. Click button for play an example.");
+	ImGui::PopFont();
+
+	if(ImGui::Button("Simple Sound", ImVec2(-1, 0))) {
+		jaguar->Play();
 	}
+	if(ImGui::Button("Loop", ImVec2(-1, 0))) {
+		if(truck->IsPlaying()) {
+			truck->Stop();
+		} else {
+			truck->Play();
+		}
+	}
+	if(ImGui::Button("Stream", ImVec2(-1, 0))) {
+		if(is_bck_playing) {
+			bck_music->Pause();
+			is_bck_playing = false;
+		} else {
+			bck_music->Play();
+			is_bck_playing = true;
+		}
+	}
+
+	ImGui::End();
+
+	ImGui::PopFont();
 }

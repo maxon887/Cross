@@ -1,27 +1,20 @@
 #pragma once
 #include "Screen.h"
-#include "Utils/Sprite.h"
+#include "MenuBar.h"
 
 using namespace cross;
 
-class Menu;
-
-class AudioScreen :	public Screen{
+class AudioScreen :	public Screen,
+					public MenuBar {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
 private:
-	Sprite* button_sprite;
-	Sprite* button_sprite_pressed;
-	Sound* bck_music;
-	Sound* jaguar;
-	Sound* truck;
-	bool is_bck_playing;
-
-	void OnSoundButtonClick();
-	void OnLoopButttonClick();
-	void OnStreamButtonClick();
+	Sound* bck_music		= NULL;
+	Sound* jaguar			= NULL;
+	Sound* truck			= NULL;
+	bool is_bck_playing		= false;
 };
 

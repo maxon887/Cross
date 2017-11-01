@@ -92,6 +92,7 @@ void Screen::Start(){
 		style.FramePadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.FramePadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.IndentSpacing = 25 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.GrabRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.GrabMinSize = 20 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 	}
 }
