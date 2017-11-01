@@ -41,9 +41,9 @@ void MainScreen::Update(float sec){
 	MenuBar::Update(sec);
 	MenuBar::ShowMenu();
 
-	ImGuiStyle& style = ImGui::GetStyle();
-
 	ImGui::PushFont(font_big);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
 
 	if(!system->IsMobile()) {
 		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, GetHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
@@ -85,4 +85,6 @@ void MainScreen::Update(float sec){
 	}
 	ImGui::End();
 	ImGui::PopFont();
+
+	ImGui::PopStyleVar();
 }

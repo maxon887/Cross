@@ -82,15 +82,17 @@ void Screen::Start(){
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
 	if(system->IsMobile()) {
-		style.WindowRounding = 0.f;
-        style.ScrollbarSize = 10 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.ScrollbarRounding = 3 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.ItemSpacing.x = 3 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.WindowRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+        style.ScrollbarSize = 20 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.ScrollbarRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.ItemSpacing.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.ItemSpacing.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
         style.WindowPadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
         style.WindowPadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.FramePadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.FramePadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.IndentSpacing = 25 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.GrabMinSize = 20 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 	}
 }
 
