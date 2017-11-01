@@ -40,6 +40,9 @@ void MainScreen::Update(float sec){
 	Screen::Update(sec);
 	MenuBar::Update(sec);
 	MenuBar::ShowMenu();
+
+	ImGuiStyle& style = ImGui::GetStyle();
+
 	ImGui::PushFont(font_big);
 
 	if(!system->IsMobile()) {
@@ -55,7 +58,7 @@ void MainScreen::Update(float sec){
 								ImGuiWindowFlags_NoResize |
 								ImGuiWindowFlags_NoBringToFrontOnFocus);
 	}
-	if(ImGui::CollapsingHeader("Graphics")) {
+	if(ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_DefaultOpen)) {
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
 				game->SetScreen(new TriangleScene());
@@ -73,6 +76,9 @@ void MainScreen::Update(float sec){
 		if(ImGui::TreeNode("Misc")) {
 			ImGui::TreePop();
 		}
+	}
+	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
+		
 	}
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new UIScreen());

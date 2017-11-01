@@ -63,12 +63,14 @@ void MenuBar::ShowMenu() {
 	}
 	if(ImGui::BeginMainMenuBar())
 	{
-		if(ImGui::Button("Back"))
-		{
+		if(ImGui::Button("Back"))		{
 			game->SetScreen(game->GetStartScreen());
 		}
-		if(ImGui::Button("Style Editor")) {
-			show_style_editor = true;
+		if(ImGui::BeginMenu("Help")) {
+			if(ImGui::MenuItem("Style Editor")) {
+				show_style_editor = true;
+			}
+			ImGui::EndMenu();
 		}
         ImGuiStyle& style = ImGui::GetStyle();
 		ImVec2 size = ImGui::GetItemRectSize();

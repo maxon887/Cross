@@ -80,7 +80,6 @@ void Screen::Start(){
 	CreateFontsTexture();
 
 	ImGuiStyle& style = ImGui::GetStyle();
-	style.IndentSpacing = 0.f;
 	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
 	if(system->IsMobile()) {
 		style.WindowRounding = 0.f;
@@ -91,6 +90,7 @@ void Screen::Start(){
         style.WindowPadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
         style.WindowPadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 		style.FramePadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.IndentSpacing = 25 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
 	}
 }
 
