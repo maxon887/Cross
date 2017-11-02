@@ -37,7 +37,7 @@ public:
 	};
 	/* Occurs when window size changed */
 	Event<S32, S32> WindowResized;
-	/* Occurs when window orintaton changed */
+	/* Occurs when window orientation changed */
 	Event<System::Orientation> OrientationChanged;
 	/* Print message in console. See LogIt() if you need formated output */
 	virtual void Log(const char* msg) = 0;
@@ -66,14 +66,16 @@ public:
 	virtual bool Alert(const string& msg);
 	/* Notify system that some thing goes wrong */
 	virtual void Alert(const char* filename, unsigned int line, const char* msg, va_list list);
-	/* Show sync messagebox(platform dependet) */
+	/* Show sync messagebox(platform dependent) */
 	virtual void Messagebox(const string& title, const string& msg);
 	/* Force current thread to sleep */
-	virtual void Sleep(float milis) { };
+	virtual void Sleep(float milis) { }
 	/* Ask user about exit from application */
-    virtual void RequestOrientation(Orientation orientation) { };
+    virtual void RequestOrientation(Orientation orientation) { }
 	virtual bool IsMobile();
-	virtual void PromtToExit() { };
+	virtual void PromtToExit() { }
+	virtual string GetClipboard() { return "Clipboard does not implemented"; }
+	virtual void SetClipboard(const string& data) { }
 	/* Print message in console. */
 	void LogIt(const char* format, ...);
 	void LogIt(const string& msg);

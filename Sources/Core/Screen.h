@@ -79,7 +79,10 @@ protected:
 	ImFont* font					= NULL;
 
 private:
+	static const char* GetClipboardString(void* userData);
+
 	string name						= "noname";
+	string clipboard				= "";
 	Dictionary<S32,Shader*> shaders = Dictionary<S32, Shader*>();
 	Shader* ui_shader				= NULL;
 	Texture* font_texture			= NULL;

@@ -91,6 +91,18 @@ float WINSystem::GetScreenDPI() {
 	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
+string WINSystem::GetClipboard() {
+	CROSS_RETURN(OpenClipboard(NULL), "", "Can not open clipboard data");
+	HANDLE hData = GetClipboardData(CF_TEXT);
+	CROSS_RETURN(hData, "", "Clipboard data == null");
+	char* text = static_cast<char*>(GlobalLock(hData));
+	CROSS_RETURN(text, "", "Text pointer == null");
+	clipboard = text;
+	GlobalUnlock(hData);
+	CloseClipboard();
+	return clipboard;
+}
+
 void WINSystem::SetAssetPath(const string& path){
 	assets_path = path;
 }

@@ -32,6 +32,7 @@ public:
 	string DataPath() override;
 	U64 GetTime() override;
 	float GetScreenDPI() override;
+	string GetClipboard() override;
 
 	void SetAssetPath(const string& path);
 	void Sleep(float milis) override;
@@ -49,6 +50,7 @@ public:
 private:
 	HWND wnd			= 0;
 	string assets_path	= "";
+	string clipboard	= "";
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;

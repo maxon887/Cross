@@ -37,6 +37,11 @@
 
 using namespace cross;
 
+const char* Screen::GetClipboardString(void* userData) {
+	game->GetCurrentScreen()->clipboard = system->GetClipboard();
+	return game->GetCurrentScreen()->clipboard.c_str();
+}
+
 void Screen::Start(){
 	camera2D = new Camera2D();
     down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
@@ -69,7 +74,7 @@ void Screen::Start(){
 	io.KeyMap[ImGuiKey_Z] = (int)Key::Z;
 
 	//io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
-	//io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
+	io.GetClipboardTextFn = GetClipboardString;
 	//io.ClipboardUserData = g_Window;
 #ifdef _WIN32
 	WINSystem* winSys = (WINSystem*)system;
@@ -81,6 +86,8 @@ void Screen::Start(){
 
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
+	//style.Colors[ImGuiCol_WindowBg] = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+
 	if(system->IsMobile()) {
 		style.WindowRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
         style.ScrollbarSize = 20 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
@@ -336,11 +343,29 @@ void Screen::ActionUpHandle(Input::Action action) {
 void Screen::KeyPressed(Key key) {
 	ImGuiIO& io = ImGui::GetIO();
 	io.KeysDown[(int)key] = true;
+	if(key == Key::CONTROL) {
+		io.KeyCtrl = true;
+	}
+	if(key == Key::SHIFT) {
+		io.KeyShift = true;
+	}
+	if(key == Key::ALT) {
+		io.KeyAlt = true;
+	}
 }
 
 void Screen::KeyReleased(Key key) {
 	ImGuiIO& io = ImGui::GetIO();
 	io.KeysDown[(int)key] = false;
+	if(key == Key::CONTROL) {
+		io.KeyCtrl = false;
+	}
+	if(key == Key::SHIFT) {
+		io.KeyShift = false;
+	}
+	if(key == Key::ALT) {
+		io.KeyAlt = false;
+	}
 }
 
 void Screen::CharEnter(char c) {
