@@ -44,13 +44,12 @@ void MainScreen::Update(float sec){
 
 	ImGui::PushFont(font_big);
 
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
-
 	if(!system->IsMobile()) {
 		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, GetHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
 		ImGui::Begin("Demo");
 	} else {
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
 		ImGui::SetNextWindowSize(ImVec2(GetWidth(), GetHeight() - menu_height));
 		ImGui::SetNextWindowPos(ImVec2(0, menu_height));
 		ImGui::Begin("Demo", 0, ImGuiWindowFlags_NoCollapse |
@@ -64,17 +63,60 @@ void MainScreen::Update(float sec){
 			if(ImGui::MenuButton("Triangle")) {
 				game->SetScreen(new TriangleScene());
 			}
-			ImGui::MenuButton("Solid Model");
-			ImGui::MenuButton("Textured Model");
+			if(ImGui::MenuButton("Solid Model")) {
+			
+			}
+			if(ImGui::MenuButton("Textured Model")) {
+
+			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Light")) {
+			if(ImGui::MenuButton("Material")) {
+
+			}
+			if(ImGui::MenuButton("Directional Light")) {
+
+			}
+			if(ImGui::MenuButton("Point Light")) {
+
+			}
+			if(ImGui::MenuButton("Spot Light")) {
+
+			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Maps")) {
+			if(ImGui::MenuButton("Naked")) {
+
+			}
+			if(ImGui::MenuButton("Diffuse")) {
+
+			}
+			if(ImGui::MenuButton("Specular")) {
+
+			}
+			if(ImGui::MenuButton("Roughness")) {
+
+			}
+			if(ImGui::MenuButton("Normal")) {
+
+			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Misc")) {
+			if(ImGui::MenuButton("Depth Test")) {
+
+			}
+			if(ImGui::MenuButton("Transparency")) {
+
+			}
+			if(ImGui::MenuButton("Skybox")) {
+
+			}
+			if(ImGui::MenuButton("Apocalypse Scene")) {
+
+			}
 			ImGui::TreePop();
 		}
 	}
@@ -86,6 +128,7 @@ void MainScreen::Update(float sec){
 	}
 	ImGui::End();
 	ImGui::PopFont();
-
-	ImGui::PopStyleVar();
+	if(system->IsMobile()) {
+		ImGui::PopStyleVar();
+	}
 }

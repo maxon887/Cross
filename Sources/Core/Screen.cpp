@@ -365,14 +365,19 @@ void Screen::ActionDownHandle(Input::Action action) {
 	if(enable_inputs){
 		actions[action.id] = true;
 		action_pos = action.pos;
-		ActionDown(action);
+		if(!ImGui::IsMouseHoveringAnyWindow()) {
+			ActionDown(action);
+		}
 	}
 }
 
 void Screen::ActionMoveHandle(Input::Action action) {
 	if(enable_inputs){
 		action_pos = action.pos;
-		ActionMove(action);
+		ImGuiIO& io = ImGui::GetIO();
+		if(!ImGui::IsMouseHoveringAnyWindow()) {
+			ActionMove(action);
+		}
 	}
 }
 
@@ -380,7 +385,10 @@ void Screen::ActionUpHandle(Input::Action action) {
 	if(enable_inputs){
 		actions[action.id] = false;
 		action_pos = action.pos;
-		ActionUp(action);
+		ImGuiIO& io = ImGui::GetIO();
+		if(!ImGui::IsMouseHoveringAnyWindow()) {
+			ActionUp(action);
+		}
 	}
 }
 

@@ -20,6 +20,7 @@
 #include "Texture.h"
 
 #include "Libs/ImGui/imgui.h"
+#include "Libs/ImGui/imgui_freetype.h"
 #include "Libs/ImGui/imgui_internal.h"
 
 void MenuBar::Init() {
@@ -50,8 +51,8 @@ void MenuBar::Release() {
 }
 
 void MenuBar::Update(float sec) {
-	if(show_style_editor){
-		ImGui::Begin("Style Editor", &show_style_editor);
+	if(show_style_editor) {
+		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
@@ -78,7 +79,9 @@ void MenuBar::ShowMenu() {
 			ImGui::PopStyleVar();
 			ImGui::PopItemFlag();
 		}
-		ImGui::SameLine(ImGui::GetWindowWidth() - ImGui::CalcTextSize("Help").x * 1.5f);
+		
+		ImVec2 cursor = ImGui::GetCursorPos();
+		ImGui::SameLine(ImGui::GetWindowWidth() - cursor.x);
 		if(ImGui::BeginMenu("Help")) {
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;

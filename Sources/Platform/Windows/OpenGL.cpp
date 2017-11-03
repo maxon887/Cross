@@ -22,8 +22,6 @@
 #include "Game.h"
 #include "Input.h"
 #include "Config.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Screen.h"
 #include "Utils/Debugger.h"
 #include "Audio.h"
@@ -100,8 +98,6 @@ int OpenGL_Main(){
 
 	audio = new Audio();
 	gfxGL = new GraphicsGL();
-	gfx2D = new Graphics2D();
-	gfx3D = new Graphics3D();
 	game->Start();
 	game->SetScreen(game->GetStartScreen());
 
@@ -117,8 +113,6 @@ int OpenGL_Main(){
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
 	Debugger::Release();
-	delete gfx3D;
-	delete gfx2D;
 	delete gfxGL;
 	delete game;
 	delete audio;

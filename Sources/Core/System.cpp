@@ -104,7 +104,7 @@ void System::Messagebox(const string& title, const string& msg) {
 }
 
 bool System::IsMobile() {
-	return true;
+	return false;
 }
 
 void System::LogIt(const char* format, ...){
