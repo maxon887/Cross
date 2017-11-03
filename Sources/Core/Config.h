@@ -59,6 +59,9 @@ protected:
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();
 
 	const string& GetString(const string& key) const;
+
+private:
+	const string empty = "";
 };
     
 }

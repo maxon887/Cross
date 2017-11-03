@@ -103,7 +103,6 @@ const string& Config::GetString(const string& key) const{
 	if(entry != user_prefs.end()){
 		return (*entry).second;
 	}else{
-		static const string empty = "";
 		return empty;
 	}
 }
