@@ -63,9 +63,11 @@ void MenuBar::ShowMenu() {
 	}
 	if(ImGui::BeginMainMenuBar())
 	{
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.90f, 0.52f, 0.24f, 0.0f));
 		if(ImGui::Button("Back"))		{
 			game->SetScreen(game->GetStartScreen());
 		}
+		ImGui::PopStyleColor();
 		if(ImGui::BeginMenu("Help")) {
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;

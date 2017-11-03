@@ -85,8 +85,52 @@ void Screen::Start(){
 	CreateFontsTexture();
 
 	ImGuiStyle& style = ImGui::GetStyle();
-	style.Colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
-	//style.Colors[ImGuiCol_WindowBg] = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+	ImVec4* colors = ImGui::GetStyle().Colors;
+	colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
+	colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+	colors[ImGuiCol_WindowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.70f);
+	colors[ImGuiCol_ChildWindowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
+	colors[ImGuiCol_Border] = ImVec4(0.70f, 0.70f, 0.70f, 0.40f);
+	colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	colors[ImGuiCol_FrameBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.30f);
+	colors[ImGuiCol_FrameBgHovered] = ImVec4(0.90f, 0.80f, 0.80f, 0.40f);
+	colors[ImGuiCol_FrameBgActive] = ImVec4(0.90f, 0.65f, 0.65f, 0.45f);
+	colors[ImGuiCol_TitleBg] = ImVec4(0.56f, 0.25f, 0.01f, 0.87f);
+	colors[ImGuiCol_TitleBgActive] = ImVec4(0.67f, 0.29f, 0.00f, 0.87f);
+	colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.56f, 0.25f, 0.01f, 0.87f);
+	colors[ImGuiCol_MenuBarBg] = ImVec4(0.90f, 0.52f, 0.24f, 0.67f);
+	colors[ImGuiCol_ScrollbarBg] = ImVec4(0.30f, 0.20f, 0.20f, 0.60f);
+	colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.80f, 0.40f, 0.40f, 0.30f);
+	colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.52f, 0.25f, 0.25f, 0.80f);
+	colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.62f, 0.00f, 0.00f, 0.87f);
+	colors[ImGuiCol_ComboBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.99f);
+	colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 0.50f);
+	colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
+	colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
+	colors[ImGuiCol_Button] = ImVec4(0.75f, 0.20f, 0.30f, 0.60f);
+	colors[ImGuiCol_ButtonHovered] = ImVec4(0.77f, 0.06f, 0.19f, 0.60f);
+	colors[ImGuiCol_ButtonActive] = ImVec4(0.62f, 0.00f, 0.00f, 0.87f);
+	colors[ImGuiCol_Header] = ImVec4(0.43f, 0.43f, 0.15f, 0.87f);
+	colors[ImGuiCol_HeaderHovered] = ImVec4(0.57f, 0.57f, 0.12f, 0.87f);
+	colors[ImGuiCol_HeaderActive] = ImVec4(0.71f, 0.72f, 0.00f, 0.87f);
+	colors[ImGuiCol_Separator] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+	colors[ImGuiCol_SeparatorHovered] = ImVec4(0.60f, 0.60f, 0.70f, 1.00f);
+	colors[ImGuiCol_SeparatorActive] = ImVec4(0.70f, 0.70f, 0.90f, 1.00f);
+	colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
+	colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
+	colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.90f);
+	colors[ImGuiCol_CloseButton] = ImVec4(1.00f, 0.54f, 0.00f, 0.50f);
+	colors[ImGuiCol_CloseButtonHovered] = ImVec4(1.00f, 0.54f, 0.00f, 0.50f);
+	colors[ImGuiCol_CloseButtonActive] = ImVec4(1.00f, 0.00f, 0.00f, 1.00f);
+	colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+	colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+	colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+	colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+	colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
+	colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+
+
 
 	if(system->IsMobile()) {
 		style.WindowRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
