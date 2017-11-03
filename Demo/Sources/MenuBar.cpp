@@ -20,9 +20,9 @@
 #include "Texture.h"
 
 #include "Libs/ImGui/imgui.h"
+#include "Libs/ImGui/imgui_internal.h"
 
 void MenuBar::Init() {
-
 	ImGuiIO& io = ImGui::GetIO();
 	ImFontConfig fontConfig;
 	fontConfig.SizePixels = io.Fonts->Fonts[0]->FontSize * 2.f;
@@ -63,11 +63,22 @@ void MenuBar::ShowMenu() {
 	}
 	if(ImGui::BeginMainMenuBar())
 	{
+		bool mainScreen = false;
+		if(game->GetCurrentScreen()->GetName() == "Main") {
+			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.0f);
+			mainScreen = true;
+		}
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.90f, 0.52f, 0.24f, 0.0f));
-		if(ImGui::Button("Back"))		{
+		if(ImGui::Button("Back")) {
 			game->SetScreen(game->GetStartScreen());
 		}
 		ImGui::PopStyleColor();
+		if(mainScreen) {
+			ImGui::PopStyleVar();
+			ImGui::PopItemFlag();
+		}
+		ImGui::SameLine(ImGui::GetWindowWidth() - ImGui::CalcTextSize("Help").x * 1.5f);
 		if(ImGui::BeginMenu("Help")) {
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;
