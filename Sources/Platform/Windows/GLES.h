@@ -16,4 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
 #pragma once
 
+namespace cross{
+	class CrossEGL;
+}
+extern cross::CrossEGL* crossEGL;
+
 int GLES_Main();

@@ -138,6 +138,10 @@ void Game::EngineUpdate(){
 	//system->Sleep(160.f);
 }
 
+bool Game::IsSuspended() const {
+	return suspended;
+}
+
 void Game::Exit(){
 #ifdef WIN
 	exit(0);

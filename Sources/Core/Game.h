@@ -59,6 +59,7 @@ public:
     void Exit();
 	/* Engine specific */
 	void EngineUpdate();
+	bool IsSuspended() const;
 
 protected:
 	Screen* current_screen	= NULL;

@@ -22,6 +22,8 @@
 #include "Config.h"
 #include "resource.h"
 #include "WINSystem.h"
+#include "GLES.h"
+#include "Platform/CrossEGL.h"
 
 using namespace cross;
 
@@ -135,6 +137,14 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		game->Suspend();
 		break;
 	case WM_SETFOCUS:
+#ifdef GLES
+		if(!crossEGL->IsContextCreated()) {
+			crossEGL->CreateContext(true);
+		} else {
+			crossEGL->DestroyContext(false);
+			crossEGL->CreateContext(false);
+		}
+#endif
 		game->Resume();
 		break;
 	case WM_CLOSE: {
