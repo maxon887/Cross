@@ -65,8 +65,6 @@ bool CrossEGL::CreateContext(bool createDisplay) {
 		EGLint format;
 		CROSS_RETURN(eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format), false, 
 			"eglGetConfigAttrib() returned error %d", eglGetError());
-            return false;
-        }
 		ANativeWindow_setBuffersGeometry(native_window, 0, 0, format);
 #endif // ANDROID
     }
