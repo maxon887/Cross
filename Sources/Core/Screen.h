@@ -31,9 +31,6 @@ namespace cross {
    Whitch will be loaded through Game::GetStartScreen() function */
 class Screen {
 public:
-	/* Occurs when virtual screen space changed */
-	Event<float, float> SizeChanged;
-
 	virtual ~Screen() { };
 	/* Called before screen show up. */
 	virtual void Start();

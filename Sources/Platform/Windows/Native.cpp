@@ -135,6 +135,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		game->Suspend();
 		break;
 	case WM_SETFOCUS:
+		game->Resume();
 		break;
 	case WM_CLOSE: {
 		RECT winRect = GetLocalCoordinates(wnd);

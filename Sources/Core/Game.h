@@ -66,6 +66,7 @@ protected:
 	string scene_file		= "";
 	U64 timestamp			= 0;
 	U64 run_time			= 0;
+	bool suspended			= false;
 
 	void LoadNextScreen();
 };

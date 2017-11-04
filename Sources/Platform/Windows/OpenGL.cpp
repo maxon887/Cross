@@ -49,7 +49,6 @@ int OpenGL_Main(){
 
 	WINSystem* winSys = new WINSystem(wnd);
 	system = winSys;
-	system->LogIt("OpenGL API");
 	game = CrossMain();
 
 	int winX = config->GetInt("WIN_POS_X", 0);

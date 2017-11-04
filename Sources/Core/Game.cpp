@@ -81,7 +81,10 @@ Scene* Game::GetCurrentScene(){
 
 void Game::Suspend(){
 	system->LogIt("Game::Suspend");
-	audio->Suspend();
+	suspended = true;
+	if(audio) {
+		audio->Suspend();
+	}
 	if(current_screen != nullptr) {
 		current_screen->Suspend();
 	}
@@ -89,9 +92,12 @@ void Game::Suspend(){
 
 void Game::Resume(){
 	system->LogIt("Game::Resume");
-	audio->Resume();
+	suspended = false;
+	if(audio) {
+		audio->Resume();
+	}
 	timestamp = system->GetTime();
-	if(current_screen != nullptr) {
+	if(current_screen) {
 		current_screen->Resume();
 	}
 }
@@ -101,27 +107,29 @@ float Game::GetRunTime() const{
 }
 
 void Game::EngineUpdate(){
-	U64 now = system->GetTime();
-	U64 updateTime = now - timestamp;
-	float secTime = (float)(updateTime / 1000000.);
-	timestamp = now;
-	run_time += updateTime;
+	if(!suspended) {
+		U64 now = system->GetTime();
+		U64 updateTime = now - timestamp;
+		float secTime = (float)(updateTime / 1000000.);
+		timestamp = now;
+		run_time += updateTime;
 
-	if(next_screen){
-		LoadNextScreen();
+		if(next_screen) {
+			LoadNextScreen();
+		}
+
+		input->Update();
+		gfxGL->PreProcessFrame();
+		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+		game->GetCurrentScreen()->Update(secTime);
+		game->GetCurrentScreen()->LateUpdate(secTime);
+		game->Update(secTime);
+		gfxGL->PostProcessFrame();
+
+		Debugger::Instance()->Update((float)updateTime);
+		U64 cpuTime = system->GetTime() - timestamp;
+		Debugger::Instance()->SetCPUTime((float)cpuTime);
 	}
-
-	input->Update();
-	gfxGL->PreProcessFrame();
-	SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
-	game->GetCurrentScreen()->Update(secTime);
-	game->GetCurrentScreen()->LateUpdate(secTime);
-	game->Update(secTime);
-	gfxGL->PostProcessFrame();
-
-	Debugger::Instance()->Update((float)updateTime);
-	U64 cpuTime = system->GetTime() - timestamp;
-	Debugger::Instance()->SetCPUTime((float)cpuTime);
 	/*
 	float milis = cpuTime / 1000.f;
 	if(milis < 5){

@@ -215,7 +215,6 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 		return;
 	draw_data->ScaleClipRects(io.DisplayFramebufferScale);
 	
-	GLint last_viewport[4]; glGetIntegerv(GL_VIEWPORT, last_viewport);
 	GLint last_scissor_box[4]; glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box);
 
 	SAFE(glActiveTexture(GL_TEXTURE0));
@@ -229,7 +228,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	SAFE(glEnable(GL_SCISSOR_TEST));
 	
 	gfxGL->UseShader(ui_shader);
-	static const Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
+	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
 	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
     SAFE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
@@ -269,7 +268,6 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_SCISSOR_TEST));
 
-    SAFE(glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]));
     SAFE(glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]));
 }
 
