@@ -33,4 +33,5 @@ protected:
 	Texture* big_font_texture	= NULL;
 	float menu_height			= 0;
 	bool show_style_editor		= false;
+	bool show_about				= false;
 };

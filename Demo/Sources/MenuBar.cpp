@@ -56,6 +56,13 @@ void MenuBar::Update(float sec) {
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
+	if(show_about) {
+		ImGui::Begin("About", &show_about, ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::Text("Cross++, v%s", cross::version);
+		ImGui::Separator();
+		ImGui::Text("By Maksim Lukyanov");
+		ImGui::End();
+	}
 }
 
 void MenuBar::ShowMenu() {
@@ -85,6 +92,9 @@ void MenuBar::ShowMenu() {
 		if(ImGui::BeginMenu("Help")) {
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;
+			}
+			if(ImGui::MenuItem("About")) {
+				show_about = true;
 			}
 			ImGui::EndMenu();
 		}
