@@ -18,6 +18,7 @@
 #include "System.h"
 #include "Game.h"
 #include "Texture.h"
+#include "Utils/Debugger.h"
 
 #include "Libs/ImGui/imgui.h"
 #include "Libs/ImGui/imgui_freetype.h"
@@ -63,6 +64,12 @@ void MenuBar::Update(float sec) {
 		ImGui::Text("By Maksim Lukyanov");
 		ImGui::End();
 	}
+    if(show_stats) {
+        ImGui::Begin("Stats", &show_stats);
+        ImGui::Text("%.1f FPS(%.2f ms/frame)", Debugger::Instance()->GetFPS(), Debugger::Instance()->GetUpdateTime());
+        ImGui::Text("CPU Time - %.2f ms", Debugger::Instance()->GetCPUTime());
+        ImGui::End();
+    }
 }
 
 void MenuBar::ShowMenu() {
@@ -90,6 +97,9 @@ void MenuBar::ShowMenu() {
 		ImVec2 cursor = ImGui::GetCursorPos();
 		ImGui::SameLine(ImGui::GetWindowWidth() - cursor.x);
 		if(ImGui::BeginMenu("Help")) {
+            if(ImGui::MenuItem("Stats")) {
+                show_stats = true;
+            }
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;
 			}

@@ -108,6 +108,7 @@ class Light;
 class Cubemap;
 class Component;
 class Collider;
+class Transformable;
 
 extern Game*		game;
 extern System*		system;

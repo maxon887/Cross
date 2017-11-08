@@ -37,23 +37,6 @@ void Debugger::Release(){
 	instance = NULL;
 }
 
-Debugger::Debugger() {
-	params[FPS]			= true;
-	params[UPDATE_TIME]	= true;
-	params[CPU_TIME]	= true;
-	params[RUN_TIME]	= true;
-	params[INPUT]		= true;
-
-	if(params[Parameter::INPUT]){
-		input->ActionDown.Connect(this, &Debugger::OnActionDown);
-		input->ActionMove.Connect(this, &Debugger::OnActionMove);
-		input->ActionUp.Connect(this, &Debugger::OnActionUp);
-	}
-}
-
-Debugger::~Debugger()
-{ }
-
 void Debugger::SetTimeCheck() {
 	U64 checkTime = system->GetTime();
 	time_checks.push_back(checkTime);
@@ -88,19 +71,14 @@ void Debugger::SetCPUTime(float micro) {
 	}
 }
 
-float Debugger::GetFPS() const{
+float Debugger::GetCPUTime() const {
+    return cpu_time;
+}
+
+float Debugger::GetUpdateTime() const {
+    return update_time;
+}
+
+float Debugger::GetFPS() const {
 	return 1000.f / update_time;
-}
-
-void Debugger::OnActionDown(Input::Action action) {
-	touch_down = true;
-	touch_pos = action.pos;
-}
-
-void Debugger::OnActionUp(Input::Action action) {
-	touch_down = false;
-}
-
-void Debugger::OnActionMove(Input::Action action) {
-	touch_pos = action.pos;
 }
