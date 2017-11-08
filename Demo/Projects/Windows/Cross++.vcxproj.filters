@@ -19,9 +19,6 @@
     <Filter Include="Cross\Shaders">
       <UniqueIdentifier>{0339447c-d355-47b0-9d8b-a80353255f60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Graphics2D">
-      <UniqueIdentifier>{22f427a0-3bad-4d14-b5b9-128218b78dd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Demo\Graphics3D">
       <UniqueIdentifier>{e2bb383f-7353-4c96-b961-b48bbccd78f2}</UniqueIdentifier>
     </Filter>
@@ -72,15 +69,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics2D\AnimationScreen.cpp">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics2D\PrimitivesScreen.cpp">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics2D\SpritesScreen.cpp">
-      <Filter>Demo\Graphics2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
@@ -321,15 +309,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h">
       <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics2D\AnimationScreen.h">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics2D\PrimitivesScreen.h">
-      <Filter>Demo\Graphics2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics2D\SpritesScreen.h">
-      <Filter>Demo\Graphics2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>

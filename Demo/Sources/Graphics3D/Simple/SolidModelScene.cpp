@@ -15,14 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SolidModelScene.h"
-#include "GraphicsGL.h"
 #include "Material.h"
-#include "Entity.h"
 #include "Mesh.h"
+#include "Entity.h"
 
 void SolidModelScene::Start(){
 	CameraControlsScene::Start();
-	shader = GetShader("Engine/Shaders/Simple.sha");
+	MenuBar::Init();
+	Shader* shader = GetShader("Engine/Shaders/Simple.sha");
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
 	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
@@ -32,10 +32,12 @@ void SolidModelScene::Start(){
 
 void SolidModelScene::Stop(){
 	delete material;
-	delete shader;
+	MenuBar::Release();
 	CameraControlsScene::Stop();
 }
 
 void SolidModelScene::Update(float sec){
 	CameraControlsScene::Update(sec);
+	MenuBar::Update(sec);
+	MenuBar::ShowMenu();
 }

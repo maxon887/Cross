@@ -29,7 +29,5 @@ public:
 	void Update(float sec);
 
 private:
-	Shader* shader;
-	Material* material;
 	Mesh* triangle;
 };

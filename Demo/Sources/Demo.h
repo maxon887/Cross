@@ -16,30 +16,20 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Game.h"
-#include "Utils/Button.h"
-#include "Utils/Sprite.h"
+#include "Input.h"
 
 using namespace cross;
 
 class Demo;
 extern Demo* demo;
 
-class Demo : public Game{
+class Demo : public Game {
 public:
-	Demo();
-
 	void Start() override;
 	void Stop() override;
-	void Update(float sec) override;
 	Screen* GetStartScreen() override;
 
-	Sprite* GetCommonSprite(string name);
-
 private:
-	Camera2D* camera;
-	Texture* common_texture;
-	Dictionary<string, Sprite*> common_sprites;
-
 	void OnBackClick();
 	void OnKeyPressed(Key key);
 };

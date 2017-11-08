@@ -21,6 +21,21 @@
 #include "UIScreen.h"
 #include "Texture.h"
 #include "Graphics3D/Simple/TriangleScene.h"
+#include "Graphics3D/Simple/SolidModelScene.h"
+#include "Graphics3D/Simple/TexturedModelScene.h"
+#include "Graphics3D/Light/MaterialScene.h"
+#include "Graphics3D/Light/DirectionalLightScene.h"
+#include "Graphics3D/Light/PointLightScene.h"
+#include "Graphics3D/Light/SpotLightScene.h"
+#include "Graphics3D/Maps/NakedScene.h"
+#include "Graphics3D/Maps/DiffuseScene.h"
+#include "Graphics3D/Maps/SpecularScene.h"
+#include "Graphics3D/Maps/RoughnessScene.h"
+#include "Graphics3D/Maps/NormalScene.h"
+#include "Graphics3D/Misc/DepthScene.h"
+#include "Graphics3D/Misc/TransparencyScene.h"
+#include "Graphics3D/Misc/SkyboxScene.h"
+#include "Graphics3D/Misc/ApocalypseScene.h"
 #include "AudioScreen.h"
 
 #include "Libs/ImGui/imgui.h"
@@ -64,58 +79,58 @@ void MainScreen::Update(float sec){
 				game->SetScreen(new TriangleScene());
 			}
 			if(ImGui::MenuButton("Solid Model")) {
-			
+                game->SetScreen(new SolidModelScene());
 			}
 			if(ImGui::MenuButton("Textured Model")) {
-
+                game->SetScreen(new TexturedModelScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Light")) {
 			if(ImGui::MenuButton("Material")) {
-
+                game->SetScreen(new MaterialScene());
 			}
 			if(ImGui::MenuButton("Directional Light")) {
-
+                game->SetScreen(new DirectionalLightScene());
 			}
 			if(ImGui::MenuButton("Point Light")) {
-
+                game->SetScreen(new PointLightScene());
 			}
 			if(ImGui::MenuButton("Spot Light")) {
-
+                game->SetScreen(new SpotLightScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Maps")) {
 			if(ImGui::MenuButton("Naked")) {
-
+                game->SetScreen(new NakedScene());
 			}
 			if(ImGui::MenuButton("Diffuse")) {
-
+                game->SetScreen(new DiffuseScene());
 			}
 			if(ImGui::MenuButton("Specular")) {
-
+                game->SetScreen(new SpecularScene());
 			}
 			if(ImGui::MenuButton("Roughness")) {
-
+                game->SetScreen(new RoughnessScene());
 			}
 			if(ImGui::MenuButton("Normal")) {
-
+                game->SetScreen(new NormalScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Misc")) {
 			if(ImGui::MenuButton("Depth Test")) {
-
+                game->SetScreen(new DepthScene());
 			}
 			if(ImGui::MenuButton("Transparency")) {
-
+                game->SetScreen(new TransparencyScene());
 			}
 			if(ImGui::MenuButton("Skybox")) {
-
+                game->SetScreen(new SkyboxScene());
 			}
 			if(ImGui::MenuButton("Apocalypse Scene")) {
-
+                game->SetScreen(new ApocalypseScene());
 			}
 			ImGui::TreePop();
 		}

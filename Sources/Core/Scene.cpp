@@ -409,6 +409,7 @@ Material* Scene::LoadMaterialFromXML(const string& file) {
 	CROSS_RETURN(xmlFile, NULL, "Can not load material xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	delete xmlFile;
 	CROSS_RETURN(error == XML_SUCCESS, NULL, "Can not parse shader xml file");
 
 	Material* material = new Material();

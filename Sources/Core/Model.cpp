@@ -101,6 +101,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 }
 
 Mesh* Model::ProcessMesh(aiMesh* mesh) {
+    system->LogIt("MESH LOADING NOT OPTIMIZED, FIX THIS!!!!!");
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	if(mesh->mTextureCoords[0]) {
 		vertexBuffer->UVEnabled(true);
@@ -140,7 +141,6 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 	Array<GLushort> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i) {
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j) {
-			system->LogIt("%d ", mesh->mFaces[i].mIndices[j]);
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}

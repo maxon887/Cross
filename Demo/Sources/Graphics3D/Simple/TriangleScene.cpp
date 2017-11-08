@@ -23,9 +23,7 @@ void TriangleScene::Start(){
 	CameraControlsScene::Start();
 	MenuBar::Init();
 
-	shader = GetShader("Engine/Shaders/Simple.sha");
-	material = new Material(shader);
-	material->SetPropertyValue("Color", Color::Red);
+	Material* material = GetMaterial("Materials/SimpleRed.mat");
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	
@@ -48,7 +46,6 @@ void TriangleScene::Start(){
 
 void TriangleScene::Stop(){
 	delete triangle;
-	delete material;
 	MenuBar::Release();
 	CameraControlsScene::Stop();
 }
