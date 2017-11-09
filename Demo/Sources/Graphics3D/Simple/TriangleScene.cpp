@@ -20,7 +20,7 @@
 #include "Mesh.h"
 
 void TriangleScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	Material* material = GetMaterial("Materials/SimpleRed.mat");
 
@@ -45,10 +45,10 @@ void TriangleScene::Start(){
 
 void TriangleScene::Stop(){
 	delete triangle;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void TriangleScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	triangle->Draw();
 }

@@ -25,7 +25,7 @@
 #include "Mesh.h"
 
 void DepthScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	SetAmbientColor(Color(0.1f));
 
@@ -50,9 +50,9 @@ void DepthScene::Stop(){
 	delete road_mat;
 	delete car_mat;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void DepthScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

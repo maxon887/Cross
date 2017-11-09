@@ -21,7 +21,7 @@ namespace cross{
 
 class Component {
 public:
-	virtual ~Component() { };
+	virtual ~Component() { }
 
 	virtual void Initialize() { }
 	virtual void Remove() { }

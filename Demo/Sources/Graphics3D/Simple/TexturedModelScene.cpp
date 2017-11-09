@@ -21,7 +21,7 @@
 #include "Mesh.h"
 
 void TexturedModelScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	shader = GetShader("Engine/Shaders/Texture.sha");
 	material = new Material(shader);
 	texture = GetTexture("gfx3D/ContainerDiffuse.png");
@@ -35,9 +35,9 @@ void TexturedModelScene::Stop(){
 	delete material;
 	delete texture;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void TexturedModelScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

@@ -31,7 +31,7 @@ public:
 	};
 
 	Light(Type type = POINT);
-	virtual ~Light() { };
+	virtual ~Light() { }
 
 	void Initialize() override;
 	void Remove() override;

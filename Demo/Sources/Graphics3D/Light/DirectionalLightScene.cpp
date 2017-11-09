@@ -24,7 +24,7 @@
 #include "Texture.h"
 
 void DirectionalLightScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 
@@ -62,9 +62,9 @@ void DirectionalLightScene::Stop(){
 	delete specular_map;
 	delete diffuse_texture;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void DirectionalLightScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

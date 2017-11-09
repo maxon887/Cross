@@ -59,9 +59,6 @@ private:
 	bool CreateFontsTexture();
 	void RenderUI(ImDrawData*);
 
-	void OnBackClick();
-	void OnKeyPressed(Key key);
-
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);

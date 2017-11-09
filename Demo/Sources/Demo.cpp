@@ -279,16 +279,6 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	SAFE(glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]));
 }
 
-void Demo::OnBackClick() {
-    SetScreen(GetStartScreen());
-}
-
-void Demo::OnKeyPressed(Key key) {
-	if(key == Key::ESCAPE || key == Key::BACK) {
-		SetScreen(GetStartScreen());
-	}
-}
-
 void Demo::ActionDownHandle(Input::Action action) {
 	actions[action.id] = true;
 	action_pos = action.pos;
@@ -316,6 +306,10 @@ void Demo::KeyPressed(Key key) {
 	}
 	if(key == Key::ALT) {
 		io.KeyAlt = true;
+	}
+
+	if(key == Key::ESCAPE || key == Key::BACK) {
+		SetScreen(GetStartScreen());
 	}
 }
 

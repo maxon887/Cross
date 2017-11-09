@@ -20,7 +20,7 @@
 #include "Entity.h"
 
 void SolidModelScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	Shader* shader = GetShader("Engine/Shaders/Simple.sha");
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
@@ -31,9 +31,9 @@ void SolidModelScene::Start(){
 
 void SolidModelScene::Stop(){
 	delete material;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void SolidModelScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

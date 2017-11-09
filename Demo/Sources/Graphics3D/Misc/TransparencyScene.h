@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Graphics3D/DemoScene.h"
 #include "Utils/Skybox.h"
 
-class TransparencyScene : public CameraControlsScene{
+class TransparencyScene : public DemoScene{
 public:
 	void Start();
 	void Stop();

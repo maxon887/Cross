@@ -126,7 +126,7 @@
     <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp" />
+    <ClCompile Include="..\..\Sources\Graphics3D\DemoScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
@@ -216,7 +216,7 @@
     <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h" />
+    <ClInclude Include="..\..\Sources\Graphics3D\DemoScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />

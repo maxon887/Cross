@@ -121,9 +121,6 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Maps\NormalScene.cpp">
       <Filter>Demo\Graphics3D\Maps</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\CameraControlsScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Audio.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -298,6 +295,9 @@
     <ClCompile Include="..\..\Sources\MenuBar.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Graphics3D\DemoScene.cpp">
+      <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -360,9 +360,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Maps\NormalScene.h">
       <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\CameraControlsScene.h">
-      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Audio.h">
       <Filter>Cross\Core</Filter>
@@ -561,6 +558,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\MenuBar.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Graphics3D\DemoScene.h">
+      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@
 #include "Texture.h"
 
 void DiffuseScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	//lights
 	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
@@ -53,10 +53,10 @@ void DiffuseScene::Stop(){
 	delete material;
 	delete diffuse;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void DiffuseScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

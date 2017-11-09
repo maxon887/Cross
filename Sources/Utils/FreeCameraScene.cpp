@@ -144,34 +144,6 @@ void FreeCameraScene::LookUp(float sec){
 	}
 }
 
-void FreeCameraScene::ActionDown(Input::Action action){
-	if(handled_action == -1){
-		handled_action = action.id;
-		touch_position = action.pos;
-	}
-}
-
-void FreeCameraScene::ActionMove(Input::Action action){
-	if(handled_action == action.id){
-		Vector2D deltaPosition = touch_position - action.pos;
-		touch_position = action.pos;
-		Quaternion rotateU = Quaternion(Vector3D::Up, deltaPosition.x / 10.f);
-		Quaternion rotateR = Quaternion(camera->GetRight(), -deltaPosition.y / 10.f);
-		camera->SetRotate(rotateU * rotateR * Quaternion(camera->GetRotation()));
-		if(look_at){				//free camera
-			camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
-		}else{
-			target = camera->GetPosition() + camera->GetDirection() * orbit_distance;
-		}
-	}
-}
-
-void FreeCameraScene::ActionUp(Input::Action action){
-	if(handled_action == action.id){
-		handled_action = -1;
-	}
-}
-
 void FreeCameraScene::LookAtCamera(bool enabled){
 	if(enabled){
 		look_at = true;

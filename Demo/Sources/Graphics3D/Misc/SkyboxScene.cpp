@@ -21,7 +21,7 @@
 #include "Mesh.h"
 
 void SkyboxScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	
 	Cubemap* cubemap = new Cubemap( "gfx3D/Skybox/right.png",
 									"gfx3D/Skybox/left.png",
@@ -41,10 +41,10 @@ void SkyboxScene::Start(){
 
 void SkyboxScene::Stop(){
 
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void SkyboxScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	skybox->Draw();
 }

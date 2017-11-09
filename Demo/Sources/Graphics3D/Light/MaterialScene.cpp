@@ -24,7 +24,7 @@
 #include "Mesh.h"
 
 void MaterialScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	//light setups
 	Entity* light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
@@ -50,10 +50,10 @@ void MaterialScene::Start(){
 void MaterialScene::Stop(){
 	delete material;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void MaterialScene::Update(float sec){
 	cube->SetRotateY(game->GetRunTime() * 15.f);
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

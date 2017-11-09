@@ -24,7 +24,7 @@
 #include "Texture.h"
 
 void MultiLightScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 	
@@ -88,9 +88,9 @@ void MultiLightScene::Stop(){
 	delete diffuse_texture;
 	delete shader;
 	delete cube;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void MultiLightScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

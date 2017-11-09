@@ -25,7 +25,7 @@
 #include "Mesh.h"
 
 void TransparencyScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	SetAmbientColor(Color(0.15f));
 
@@ -108,10 +108,10 @@ void TransparencyScene::Stop(){
 	delete road_mat;
 	delete road_diffuse;
 	delete road_shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void TransparencyScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

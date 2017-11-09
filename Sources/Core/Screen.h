@@ -27,7 +27,7 @@ namespace cross {
    Whitch will be loaded through Game::GetStartScreen() function */
 class Screen {
 public:
-	virtual ~Screen() { };
+	virtual ~Screen() { }
 	/* Called before screen show up. */
 	virtual void Start();
 	/* Called when screen about to change on new one */
@@ -37,19 +37,13 @@ public:
 	/* Called after regularly Screen::Update()  */
 	virtual void PostUpdate(float sec);
 	/* Called when game need to be suspend like lost focus or input phone call */
-	virtual void Suspend() { };
+	virtual void Suspend() { }
 	/* Called when game about show again after suspending */
-	virtual void Resume() { };
+	virtual void Resume() { }
 	/* Return virtual game width for 2D drawing */
 	virtual float GetWidth();
 	/* Return virtual game height for 2D drawing */
 	virtual float GetHeight();
-	/* Handle input action down that not drop on UI elements */
-	virtual void ActionDown(Input::Action action) { };
-	/* Handle input action move that not drop on UI elements */
-	virtual void ActionMove(Input::Action action) { };
-	/* Handle input action up that not drop on UI elements */
-	virtual void ActionUp(Input::Action action) { };
 
 	const string& GetName() const;
 	void SetName(const string& name);

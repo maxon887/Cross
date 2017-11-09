@@ -24,7 +24,7 @@
 #include "Texture.h"
 	
 void SpotLightScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(-8.f, 0.f, -15.f));
 
@@ -64,9 +64,9 @@ void SpotLightScene::Stop(){
 	delete diffuse_texture;
 	delete shader;
 	delete cube;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void SpotLightScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

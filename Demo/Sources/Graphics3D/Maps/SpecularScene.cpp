@@ -24,7 +24,7 @@
 #include "Texture.h"
 
 void SpecularScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	//lights
 	light = new Entity();
 	light->AddComponent(new Light(Light::Type::POINT));
@@ -58,10 +58,10 @@ void SpecularScene::Stop(){
 	delete specular;
 	delete diffuse;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void SpecularScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

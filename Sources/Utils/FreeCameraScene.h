@@ -27,10 +27,6 @@ public:
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
-	virtual void ActionDown(Input::Action action) override;
-	virtual void ActionMove(Input::Action action) override;
-	virtual void ActionUp(Input::Action action) override;
-
 	void LookAtCamera(bool enbled);
 	void LookAtCamera(const Vector3D& target);
 	bool IsLookAtCamera() const;
@@ -55,8 +51,6 @@ protected:
 	float angular_speed			= 45.f;
 	float orbit_distance		= 5.f;
 
-	S32 handled_action			= -1;
-	Vector2D touch_position		= Vector2D();
 	Vector3D target				= Vector3D(0);
 
     U64 wheel_roll			= 0;

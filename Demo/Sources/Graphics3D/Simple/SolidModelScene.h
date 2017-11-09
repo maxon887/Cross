@@ -16,9 +16,9 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Graphics3D/CameraControlsScene.h"
+#include "Graphics3D/DemoScene.h"
 
-class SolidModelScene : public CameraControlsScene {
+class SolidModelScene : public DemoScene {
 public:
 	void Start();
 	void Stop();
