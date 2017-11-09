@@ -22,6 +22,8 @@
 
 namespace cross {
 
+#define MAX_ACTIONS 20
+
 enum class Key{
 	BACK		= 0x08,
 	TAB			= 0x09,

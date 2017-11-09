@@ -1,11 +1,9 @@
 #pragma once
 #include "Screen.h"
-#include "MenuBar.h"
 
 using namespace cross;
 
-class AudioScreen :	public Screen,
-					public MenuBar {
+class AudioScreen :	public Screen {
 public:
 	void Start() override;
 	void Stop() override;

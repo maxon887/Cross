@@ -20,18 +20,14 @@
 
 void UIScreen::Start() {
 	Screen::Start();
-	MenuBar::Init();
 }
 
 void UIScreen::Stop() {
-	MenuBar::Release();
 	Screen::Stop();
 }
 
 void UIScreen::Update(float sec) {
 	Screen::Update(sec);
-	MenuBar::Update(sec);
-	MenuBar::ShowMenu();
 
 	static float f = 0.0f;
 	ImGui::Text("Hello, world!");

@@ -16,21 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Screen.h"
-
-using namespace cross;
 
 class MenuBar {
 public:
-	void Init();
-	void Release();
 	void Update(float sec);
 
 	void ShowMenu();
+	float GetHeight() const;
 
 protected:
-	ImFont* font_big			= NULL;
-	Texture* big_font_texture	= NULL;
 	float menu_height			= 0;
 	bool show_style_editor		= false;
 	bool show_about				= false;

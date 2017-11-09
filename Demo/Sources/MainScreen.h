@@ -17,12 +17,10 @@
 #pragma once
 #include "Cross.h"
 #include "Screen.h"
-#include "MenuBar.h"
 
 using namespace cross;
 
-class MainScreen : public Screen,
-				   public MenuBar {
+class MainScreen : public Screen {
 public:
 	void Start() override;
 	void Stop() override;

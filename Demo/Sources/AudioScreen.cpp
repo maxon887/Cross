@@ -1,4 +1,6 @@
 #include "AudioScreen.h"
+#include "Demo.h"
+#include "MenuBar.h"
 #include "Audio.h"
 #include "Sound.h"
 #include "System.h"
@@ -9,7 +11,6 @@ using namespace cross;
 
 void AudioScreen::Start(){
 	Screen::Start();
-	MenuBar::Init();
 	bck_music = audio->LoadSound("Audio/Music.mp3", true, true);
 	jaguar = audio->LoadSound("Audio/Jaguar.wav", false, false);
 	truck = audio->LoadSound("Audio/Truck.wav", true, false);
@@ -19,24 +20,21 @@ void AudioScreen::Stop(){
 	delete bck_music;
 	delete jaguar;
 	delete truck;
-	MenuBar::Release();
 	Screen::Stop();
 }
 
 void AudioScreen::Update(float sec){
 	Screen::Update(sec);
-	MenuBar::Update(sec);
-	MenuBar::ShowMenu();
 
-	ImGui::PushFont(font_big);
+	ImGui::PushFont(demo->big_font);
 
 	if(!system->IsMobile()) {
-		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, GetHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, GetHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, system->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, system->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
 		ImGui::Begin("Audio");
 	} else {
-		ImGui::SetNextWindowSize(ImVec2(GetWidth(), GetHeight() - menu_height));
-		ImGui::SetNextWindowPos(ImVec2(0, menu_height));
+		ImGui::SetNextWindowSize(ImVec2(GetWidth(), system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
+		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		ImGui::Begin("Audio", 0,	ImGuiWindowFlags_NoCollapse |
 									ImGuiWindowFlags_NoMove |
 									ImGuiWindowFlags_NoTitleBar |
@@ -44,9 +42,9 @@ void AudioScreen::Update(float sec){
 									ImGuiWindowFlags_NoBringToFrontOnFocus);
 	}
 
-	ImGui::PushFont(font);
+	//ImGui::PushFont(font);
 	ImGui::Text("Cross++ use FMOD for sound playing. Click button for play an example.");
-	ImGui::PopFont();
+	//ImGui::PopFont();
 
 	if(ImGui::Button("Simple Sound", ImVec2(-1, 0))) {
 		jaguar->Play();

@@ -55,7 +55,7 @@ void Game::Stop() {
 
 void Game::SetScreen(Screen* screen) {
 	next_screen = screen;
-	if(!current_screen) {	//in this case we need momentaly load new screen
+	if(!current_screen) {	//in this case we need momently load new screen
 		LoadNextScreen();
 	}
 	scene_file = "";
@@ -120,8 +120,9 @@ void Game::EngineUpdate() {
 
 		input->Update();
 		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+		game->PreUpdate(secTime);
 		game->GetCurrentScreen()->Update(secTime);
-		game->GetCurrentScreen()->LateUpdate(secTime);
+		game->GetCurrentScreen()->PostUpdate(secTime);
 		game->Update(secTime);
 
 		Debugger::Instance()->Update((float)updateTime);

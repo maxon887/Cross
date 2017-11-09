@@ -17,10 +17,8 @@
 #pragma once
 #include "Cross.h"
 #include "Graphics3D/CameraControlsScene.h"
-#include "MenuBar.h"
 
-class SolidModelScene : public CameraControlsScene,
-						public MenuBar {
+class SolidModelScene : public CameraControlsScene {
 public:
 	void Start();
 	void Stop();

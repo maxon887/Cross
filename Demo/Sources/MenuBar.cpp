@@ -16,7 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MenuBar.h"
 #include "System.h"
-#include "Game.h"
+#include "Demo.h"
+#include "Screen.h"
 #include "Texture.h"
 #include "Utils/Debugger.h"
 
@@ -24,32 +25,6 @@
 #include "Libs/ImGui/imgui_freetype.h"
 #include "Libs/ImGui/imgui_internal.h"
 
-void MenuBar::Init() {
-	ImGuiIO& io = ImGui::GetIO();
-	ImFontConfig fontConfig;
-	fontConfig.SizePixels = io.Fonts->Fonts[0]->FontSize * 2.f;
-	font_big = io.Fonts->AddFontDefault(&fontConfig);
-
-	unsigned char* pixels;
-	int width, height;
-#ifdef USE_FREETYPE
-	ImGuiFreeType::BuildFontAtlas(io.Fonts);
-#endif
-	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
-	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-	big_font_texture = new Texture();
-	system->LogIt("Creating second font texture(%dx%d)", width, height);
-	big_font_texture->Create(pixels, 4, width, height,
-		Texture::Filter::LINEAR,
-		Texture::Compression::NONE,
-		Texture::TilingMode::CLAMP_TO_EDGE, false);
-	// Store our identifier
-	io.Fonts->TexID = (void *)(intptr_t)big_font_texture->GetID();
-}
-
-void MenuBar::Release() {
-	delete big_font_texture;
-}
 
 void MenuBar::Update(float sec) {
 	if(show_style_editor) {
@@ -74,7 +49,7 @@ void MenuBar::Update(float sec) {
 
 void MenuBar::ShowMenu() {
 	if(system->IsMobile()) {
-		ImGui::PushFont(font_big);
+		ImGui::PushFont(demo->big_font);
 	}
 	if(ImGui::BeginMainMenuBar())
 	{
@@ -116,4 +91,8 @@ void MenuBar::ShowMenu() {
 	if(system->IsMobile()) {
 		ImGui::PopFont();
 	}
+}
+
+float MenuBar::GetHeight() const {
+	return menu_height;
 }

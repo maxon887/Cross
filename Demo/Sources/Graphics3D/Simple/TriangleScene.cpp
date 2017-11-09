@@ -21,7 +21,6 @@
 
 void TriangleScene::Start(){
 	CameraControlsScene::Start();
-	MenuBar::Init();
 
 	Material* material = GetMaterial("Materials/SimpleRed.mat");
 
@@ -46,13 +45,10 @@ void TriangleScene::Start(){
 
 void TriangleScene::Stop(){
 	delete triangle;
-	MenuBar::Release();
 	CameraControlsScene::Stop();
 }
 
 void TriangleScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	MenuBar::Update(sec);
-	MenuBar::ShowMenu();
 	triangle->Draw();
 }

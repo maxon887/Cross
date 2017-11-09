@@ -15,11 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
-#include "Game.h"
+#include "Demo.h"
 #include "GraphicsGL.h"
 #include "System.h"
 #include "UIScreen.h"
 #include "Texture.h"
+#include "MenuBar.h"
 #include "Graphics3D/Simple/TriangleScene.h"
 #include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"
@@ -42,22 +43,18 @@
 
 void MainScreen::Start(){
 	Screen::Start();
-	MenuBar::Init();
 	SetName("Main");
 	SetBackground(Color(0.3f));
 }
 
 void MainScreen::Stop(){
-	MenuBar::Release();
 	Screen::Stop();
 }
 
 void MainScreen::Update(float sec){
 	Screen::Update(sec);
-	MenuBar::Update(sec);
-	MenuBar::ShowMenu();
 
-	ImGui::PushFont(font_big);
+	ImGui::PushFont(demo->big_font);
 
 	if(!system->IsMobile()) {
 		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, GetHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
@@ -65,8 +62,8 @@ void MainScreen::Update(float sec){
 		ImGui::Begin("Demo");
 	} else {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
-		ImGui::SetNextWindowSize(ImVec2(GetWidth(), GetHeight() - menu_height));
-		ImGui::SetNextWindowPos(ImVec2(0, menu_height));
+		ImGui::SetNextWindowSize(ImVec2(GetWidth(), GetHeight() - demo->GetMenuBar()->GetHeight()));
+		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		ImGui::Begin("Demo", 0, ImGuiWindowFlags_NoCollapse |
 								ImGuiWindowFlags_NoMove |
 								ImGuiWindowFlags_NoTitleBar |

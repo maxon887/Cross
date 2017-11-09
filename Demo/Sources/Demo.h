@@ -20,16 +20,55 @@
 
 using namespace cross;
 
+struct ImDrawData;
+struct ImFont;
+
 class Demo;
+class MenuBar;
+
 extern Demo* demo;
 
 class Demo : public Game {
 public:
+	ImFont* normal_font		= NULL;
+	ImFont* big_font		= NULL;
+
 	void Start() override;
 	void Stop() override;
+	void PreUpdate(float sec) override;
+	void Update(float sec) override;
 	Screen* GetStartScreen() override;
 
+	MenuBar* GetMenuBar();
+
 private:
+	static const char* GetClipboardString(void* userData);
+
+	MenuBar* menu			= NULL;
+	Shader* ui_shader		= NULL;
+	Texture* font_texture	= NULL;
+	string clipboard		= "";
+	U32 vertex_buffer		= 0;
+	U32 index_buffer		= 0;
+
+	Vector2D action_pos		= Vector2D(0.f, 0.f);
+	Array<bool> actions		= Array<bool>(MAX_ACTIONS, false);
+	float mouse_wheel		= 0.0f;
+
+	bool CreateDeviceObjects();
+	bool CreateFontsTexture();
+	void RenderUI(ImDrawData*);
+
 	void OnBackClick();
 	void OnKeyPressed(Key key);
+
+	void ActionDownHandle(Input::Action action);
+	void ActionMoveHandle(Input::Action action);
+	void ActionUpHandle(Input::Action action);
+
+	void KeyPressed(Key key);
+	void KeyReleased(Key key);
+	void CharEnter(char c);
+
+	void WheelRoll(float delta);
 };

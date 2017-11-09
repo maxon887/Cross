@@ -21,7 +21,6 @@
 
 void SolidModelScene::Start(){
 	CameraControlsScene::Start();
-	MenuBar::Init();
 	Shader* shader = GetShader("Engine/Shaders/Simple.sha");
 	material = new Material(shader);
 	material->SetPropertyValue("Color", Color::Green);
@@ -32,12 +31,9 @@ void SolidModelScene::Start(){
 
 void SolidModelScene::Stop(){
 	delete material;
-	MenuBar::Release();
 	CameraControlsScene::Stop();
 }
 
 void SolidModelScene::Update(float sec){
 	CameraControlsScene::Update(sec);
-	MenuBar::Update(sec);
-	MenuBar::ShowMenu();
 }
