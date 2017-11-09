@@ -37,49 +37,49 @@ Game::Game() {
 	config = new Config();
 }
 
-Game::~Game(){
+Game::~Game() {
 	system->LogIt("Game::~Game");
 	delete config;
 	delete input;
 }
 
-void Game::Start(){
+void Game::Start() {
 	gfxGL->Start();
 }
 
-void Game::Stop(){
+void Game::Stop() {
 	gfxGL->Stop();
 	delete current_screen;
 	current_screen = NULL;
 }
 
-void Game::SetScreen(Screen* screen){
+void Game::SetScreen(Screen* screen) {
 	next_screen = screen;
-	if(!current_screen){	//in this case we need momentaly load new screen
+	if(!current_screen) {	//in this case we need momentaly load new screen
 		LoadNextScreen();
 	}
 	scene_file = "";
 }
 
-void Game::SetScene(Scene* scene){
+void Game::SetScene(Scene* scene) {
 	SetScreen(scene);
 }
 
-void Game::SetScene(Scene* scene, const string& filename){
+void Game::SetScene(Scene* scene, const string& filename) {
 	SetScreen(scene);
 	scene_file = filename;
 }
 
-Screen* Game::GetCurrentScreen(){
+Screen* Game::GetCurrentScreen() {
 	return current_screen;
 }
 
-Scene* Game::GetCurrentScene(){
+Scene* Game::GetCurrentScene() {
 	CROSS_RETURN(current_screen->IsScene(), NULL, "Current game state does not have 3D scene");
 	return (Scene*)current_screen;
 }
 
-void Game::Suspend(){
+void Game::Suspend() {
 	system->LogIt("Game::Suspend");
 	suspended = true;
 	if(audio) {
@@ -90,7 +90,7 @@ void Game::Suspend(){
 	}
 }
 
-void Game::Resume(){
+void Game::Resume() {
 	system->LogIt("Game::Resume");
 	suspended = false;
 	if(audio) {
@@ -102,11 +102,11 @@ void Game::Resume(){
 	}
 }
 
-float Game::GetRunTime() const{
+float Game::GetRunTime() const {
 	return (float)(run_time / 1000000.f);
 }
 
-void Game::EngineUpdate(){
+void Game::EngineUpdate() {
 	if(!suspended) {
 		U64 now = system->GetTime();
 		U64 updateTime = now - timestamp;
@@ -119,12 +119,10 @@ void Game::EngineUpdate(){
 		}
 
 		input->Update();
-		gfxGL->PreProcessFrame();
 		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 		game->GetCurrentScreen()->Update(secTime);
 		game->GetCurrentScreen()->LateUpdate(secTime);
 		game->Update(secTime);
-		gfxGL->PostProcessFrame();
 
 		Debugger::Instance()->Update((float)updateTime);
 		U64 cpuTime = system->GetTime() - timestamp;
@@ -148,7 +146,7 @@ void Game::Exit(){
 #endif // WIN
 }
 
-void Game::LoadNextScreen(){
+void Game::LoadNextScreen() {
 	system->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 

@@ -16,23 +16,19 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Debugger.h"
 #include "System.h"
-#include "Input.h"
-#include "Camera2D.h"
-#include "Game.h"
-#include "Screen.h"
 
 using namespace cross;
 
 Debugger* Debugger::instance = NULL;
 
-Debugger* Debugger::Instance(){
+Debugger* Debugger::Instance() {
 	if(!instance){
 		instance = new Debugger();
 	}
 	return instance;
 }
 
-void Debugger::Release(){
+void Debugger::Release() {
 	delete instance;
 	instance = NULL;
 }
@@ -49,7 +45,7 @@ float Debugger::GetTimeCheck() {
 	return (now - checkTime) / 1000.f;
 }
 
-void Debugger::Update(float micro){
+void Debugger::Update(float micro) {
 	if(update_counter == 20){
 		update_counter = 0;
 		update_time = update_sum / 20.f / 1000.f;

@@ -43,7 +43,7 @@ const char* Screen::GetClipboardString(void* userData) {
 	return game->GetCurrentScreen()->clipboard.c_str();
 }
 
-void Screen::Start(){
+void Screen::Start() {
 	camera2D = new Camera2D();
     down_del = input->ActionDown.Connect(this, &Screen::ActionDownHandle);
     move_del = input->ActionMove.Connect(this, &Screen::ActionMoveHandle);
@@ -105,7 +105,7 @@ void Screen::Start(){
 	}
 }
 
-void Screen::Stop(){
+void Screen::Stop() {
     input->ActionDown.Disconnect(down_del);
     input->ActionMove.Disconnect(move_del);
     input->ActionUp.Disconnect(up_del);
@@ -129,8 +129,6 @@ void Screen::Update(float sec) {
 	int windowHeight = system->GetWindowHeight();
 	io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);
 	io.DisplayFramebufferScale = ImVec2(windowWidth / GetWidth(), windowHeight / GetHeight());
-
-	// Setup time step
 	io.DeltaTime = sec;
 
 #if defined(WIN)
@@ -149,18 +147,18 @@ void Screen::Update(float sec) {
 	ImGui::NewFrame();
 }
 
-void Screen::LateUpdate(float sec){
+void Screen::LateUpdate(float sec) {
 	camera2D->Update(sec);
 	ImGui::Render();
 	ImDrawData* drawData = ImGui::GetDrawData();
 	RenderUI(drawData);
 }
 
-float Screen::GetWidth(){
+float Screen::GetWidth() {
 	return camera2D->GetViewWidth();
 }
 
-float Screen::GetHeight(){
+float Screen::GetHeight() {
 	return camera2D->GetViewHeight();
 }
 
@@ -176,19 +174,19 @@ Camera2D* Screen::GetCamera() {
 	return camera2D;
 }
 
-bool Screen::IsScene() const{
+bool Screen::IsScene() const {
 	return is_scene;
 }
 
-float Screen::GetScaleFactor(){
+float Screen::GetScaleFactor() {
 	return (float)system->GetWindowWidth() / GetWidth();
 }
 
-void Screen::SetBackground(const Color& c){
+void Screen::SetBackground(const Color& c) {
 	glClearColor(c.R, c.G, c.B, 1.f);
 }
 
-void Screen::EnableInputs(bool enable){
+void Screen::EnableInputs(bool enable) {
 	enable_inputs = enable;
 }
 
@@ -227,7 +225,7 @@ void Screen::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_DEPTH_TEST));
 	SAFE(glEnable(GL_SCISSOR_TEST));
 	
-	gfxGL->UseShader(ui_shader);
+	ui_shader->Use();
 	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
 	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
@@ -291,7 +289,6 @@ bool Screen::CreateDeviceObjects() {
 }
 
 bool Screen::CreateFontsTexture() {
-	// Build texture atlas
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->Clear();
 	ImFontConfig fontConfig;
@@ -304,7 +301,8 @@ bool Screen::CreateFontsTexture() {
 #ifdef USE_FREETYPE
 	ImGuiFreeType::BuildFontAtlas(io.Fonts);
 #endif
-	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
+	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
+	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 	system->LogIt("Creating font texture(%dx%d)", width, height);
 	font_texture = new Texture();
 	font_texture->Create(	pixels, 4, width, height, 
@@ -317,7 +315,7 @@ bool Screen::CreateFontsTexture() {
 }
 
 void Screen::ActionDownHandle(Input::Action action) {
-	if(enable_inputs){
+	if(enable_inputs) {
 		actions[action.id] = true;
 		action_pos = action.pos;
 		if(!ImGui::IsMouseHoveringAnyWindow()) {
@@ -327,7 +325,7 @@ void Screen::ActionDownHandle(Input::Action action) {
 }
 
 void Screen::ActionMoveHandle(Input::Action action) {
-	if(enable_inputs){
+	if(enable_inputs) {
 		action_pos = action.pos;
 		ImGuiIO& io = ImGui::GetIO();
 		if(!ImGui::IsMouseHoveringAnyWindow()) {
@@ -337,7 +335,7 @@ void Screen::ActionMoveHandle(Input::Action action) {
 }
 
 void Screen::ActionUpHandle(Input::Action action) {
-	if(enable_inputs){
+	if(enable_inputs) {
 		actions[action.id] = false;
 		action_pos = action.pos;
 		ImGuiIO& io = ImGui::GetIO();

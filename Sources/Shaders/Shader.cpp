@@ -361,6 +361,11 @@ void Shader::Compile(){
 	compiled = true;
 }
 
+void Shader::Use() {
+	CROSS_FAIL(IsCompiled(), "Attempt to draw with not compiled shader");
+	SAFE(glUseProgram(GetProgram()));
+}
+
 bool Shader::IsCompiled() const{
 	return compiled;
 }

@@ -79,7 +79,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
 	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
-	gfxGL->UseShader(shader);
+	shader->Use();
 
 	Scene* scene = game->GetCurrentScene();
 	//binding uniforms

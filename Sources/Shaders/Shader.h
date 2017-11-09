@@ -96,6 +96,7 @@ public:
 	Shader(const string& vertexFile, const string& fragmentFile);
 	virtual ~Shader();
 
+	virtual void Use();
 	virtual void Load(const string& file);
 	virtual void Save(const string& file);
 	virtual void Compile();

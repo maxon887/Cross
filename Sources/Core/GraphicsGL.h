@@ -60,34 +60,14 @@ public:
 	static void ClearGLErrorBuffer();
 
 	GraphicsGL();
-	~GraphicsGL();
 
 	void Start();
 	void Stop();
 
-	void PreProcessFrame();
-	void PostProcessFrame();
-
 	U32 GetShaderVersion() const;
-	void UseShader(Shader* shaders);
-
-	Texture* GetColorBuffer();
 
 private:
 	U32 shaders_version				= 100;
-	//off screen rendering components
-	GLuint framebuffer				= 0;
-	GLuint colorbuffer				= 0;
-	GLuint depthbuffer				= 0;
-	GLuint quadVBO					= 0;
-	GLuint quadEBO					= 0;
-	int bufferWidth					= -1;
-	int bufferHeight				= -1;
-	Shader* offscreen_shader		= NULL;
-	Texture* colorbuffer_texture	= NULL;
-	bool regenerate_framebuffer		= false;
-
-	void GenerateFramebuffer();
 
 	void WindowResizeHandle(S32 width, S32 height);
 };
