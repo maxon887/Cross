@@ -32,10 +32,6 @@ void Screen::Start() {
 
 void Screen::Stop() {
 	delete camera2D;
-	for(pair<S32, Shader*> pair : shaders) {
-		delete pair.second;
-	}
-	shaders.clear();
 }
 
 void Screen::Update(float sec) {
@@ -43,14 +39,6 @@ void Screen::Update(float sec) {
 
 void Screen::PostUpdate(float sec) {
 	camera2D->Update(sec);
-}
-
-float Screen::GetWidth() {
-	return camera2D->GetViewWidth();
-}
-
-float Screen::GetHeight() {
-	return camera2D->GetViewHeight();
 }
 
 const string& Screen::GetName() const {
@@ -69,28 +57,10 @@ bool Screen::IsScene() const {
 	return is_scene;
 }
 
-float Screen::GetScaleFactor() {
-	return (float)system->GetWindowWidth() / GetWidth();
-}
-
 void Screen::SetBackground(const Color& c) {
 	glClearColor(c.R, c.G, c.B, 1.f);
 }
 
 void Screen::EnableInputs(bool enable) {
 	enable_inputs = enable;
-}
-
-Shader* Screen::GetShader(const string& shaderfile) {
-	S32 hash = std::hash<string>{}(shaderfile);
-	auto shaderIt = shaders.find(hash);
-	if(shaderIt != shaders.end()) {
-		return (*shaderIt).second;
-	} else {
-		Shader* shader = new Shader();
-		shader->Load(shaderfile);
-		shader->Compile();
-		shaders[hash] = shader;
-		return shader;
-	}
 }

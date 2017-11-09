@@ -33,7 +33,7 @@ using namespace cross;
 using namespace tinyxml2;
 
 void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
-	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Simple.sha");
+	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	Camera* cam = game->GetCurrentScreen()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
@@ -46,7 +46,7 @@ void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
 }
 
 void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, const Color& color) {
-	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Simple.sha");
+	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
 	Camera* cam = game->GetCurrentScreen()->GetCamera();
@@ -64,7 +64,7 @@ void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color) {
 }
 
 void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color, bool filled) {
-	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Simple.sha");
+	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[4 * 2] = { rect.x, rect.y,
 		rect.x + rect.width, rect.y,
@@ -97,7 +97,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 }
 
 void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Color& color, bool filled, U32 accuracy) {
-	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Simple.sha");
+	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	U32 vertexCount = accuracy;
 
@@ -152,7 +152,7 @@ void PrimitiveDrawer::DrawSprite(Sprite* sprite, Color color, bool monochrome) {
 }
 
 void PrimitiveDrawer::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome) {
-	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Texture.sha");
+	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Texture.sha");
 	shader->Use();
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
 	SAFE(glActiveTexture(GL_TEXTURE0));
@@ -209,7 +209,7 @@ void PrimitiveDrawer::LoadSprites(Dictionary<string, Sprite*>& output, Texture* 
 }
 
 void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {
-	Shader* shader = game->GetCurrentScreen()->GetShader("Engine/Shaders/Simple.sha");
+	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	static const float vertices[6] = { p1.x, p1.y, p1.z, p2.x, p2.y, p2.z };
 	Camera* cam = game->GetCurrentScene()->GetCamera();

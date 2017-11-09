@@ -29,11 +29,11 @@ void AudioScreen::Update(float sec){
 	ImGui::PushFont(demo->big_font);
 
 	if(!system->IsMobile()) {
-		ImGui::SetNextWindowSize(ImVec2(GetWidth() / 3.f, system->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowPos(ImVec2(GetWidth() / 2.f, system->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+		ImGui::SetNextWindowSize(ImVec2(system->GetWindowWidth() / 3.f, system->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 2.f, system->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
 		ImGui::Begin("Audio");
 	} else {
-		ImGui::SetNextWindowSize(ImVec2(GetWidth(), system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
+		ImGui::SetNextWindowSize(ImVec2(system->GetWindowWidth(), system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
 		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		ImGui::Begin("Audio", 0,	ImGuiWindowFlags_NoCollapse |
 									ImGuiWindowFlags_NoMove |

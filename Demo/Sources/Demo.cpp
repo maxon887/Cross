@@ -33,6 +33,8 @@
 #	include "Libs/ImGui/imgui_freetype.h"
 #endif
 
+#define DEFAULT_FONT_SIZE 13.f
+
 Demo* demo = NULL;
 
 const char* Demo::GetClipboardString(void* userData) {

@@ -63,6 +63,9 @@ void Scene::Stop(){
 	for(pair<S32, Model*> pair : models){
 		delete pair.second;
 	}
+	for(pair<S32, Shader*> pair : shaders) {
+		delete pair.second;
+	}
 	delete camera;
 	delete root;
 	Screen::Stop();
@@ -279,6 +282,20 @@ Camera* Scene::GetCamera(){
 
 Color Scene::GetAmbientColor() const{
 	return ambient_color;
+}
+
+Shader* Scene::GetShader(const string& shaderfile) {
+	S32 hash = std::hash<string>{}(shaderfile);
+	auto shaderIt = shaders.find(hash);
+	if(shaderIt != shaders.end()) {
+		return (*shaderIt).second;
+	} else {
+		Shader* shader = new Shader();
+		shader->Load(shaderfile);
+		shader->Compile();
+		shaders[hash] = shader;
+		return shader;
+	}
 }
 
 Material* Scene::GetMaterial(const string& xmlFile) {

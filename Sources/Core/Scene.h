@@ -66,6 +66,8 @@ public:
 	void SetAmbientColor(const Color& color);
 	/* Returns ambient scene light intensity */
 	Color GetAmbientColor() const;
+	/* Obtain loaded into scene shader or load it by self in other way */
+	Shader* GetShader(const string& shaderfile);
 	/* Obtain loaded into scene material or load it by self in other way */
 	Material* GetMaterial(const string& xmlFile);
 	/* Obtain loaded into scene texture or load it by self in other way */
@@ -77,6 +79,7 @@ public:
 	void RefreshMaterials();
 
 protected:
+	Dictionary<S32, Shader*> shaders		= Dictionary<S32, Shader*>();
 	Dictionary<S32, Texture*> textures		= Dictionary<S32, Texture*>();
 	Dictionary<S32, Material*> materials	= Dictionary<S32, Material*>();
 	Dictionary<S32, Model*> models			= Dictionary<S32, Model*>();
