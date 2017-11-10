@@ -34,6 +34,9 @@ public:
 	virtual void ActionUp(Input::Action action);
 
 private:
+	//used same concept as on the Input class
+	List<pair<Input::Action, int> > action_stack;
+
 	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();
 

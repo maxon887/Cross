@@ -131,7 +131,7 @@ void Demo::PreUpdate(float sec) {
 #if defined(WIN)
 	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
 #else
-	io.MousePos = ImVec2(action_pos.x, GetHeight() - action_pos.y);
+	io.MousePos = ImVec2(action_pos.x, system->GetWindowHeight() - action_pos.y);
 #endif
 	for(U32 i = 0; i < 5; i++) {
 		io.MouseDown[i] = actions[i];
@@ -288,13 +288,11 @@ void Demo::ActionDownHandle(Input::Action action) {
 
 void Demo::ActionMoveHandle(Input::Action action) {
 	action_pos = action.pos;
-	ImGuiIO& io = ImGui::GetIO();
 }
 
 void Demo::ActionUpHandle(Input::Action action) {
 	actions[action.id] = false;
 	action_pos = action.pos;
-	ImGuiIO& io = ImGui::GetIO();
 }
 
 void Demo::KeyPressed(Key key) {

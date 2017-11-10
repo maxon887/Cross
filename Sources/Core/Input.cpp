@@ -34,7 +34,7 @@ void Input::TouchEnabled(bool enabled){
     touch_enabled = enabled;
 }
 
-Vector2D Input::TargetToWordConvert(float x, float y) const{
+Vector2D Input::TargetToWordConvert(float x, float y) const {
 	Vector2D result;
 	Camera2D* cam = game->GetCurrentScreen()->GetCamera();
 	float scaleFactor = system->GetWindowWidth() / cam->GetViewWidth();
