@@ -20,6 +20,7 @@
 #include "Config.h"
 #include "Shaders/Shader.h"
 #include "MenuBar.h"
+#include "Utils/Debugger.h"
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"
 #endif
@@ -225,10 +226,7 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 		return;
 	draw_data->ScaleClipRects(io.DisplayFramebufferScale);
 
-	GLint last_scissor_box[4]; glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box);
-
 	SAFE(glActiveTexture(GL_TEXTURE0));
-
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
 	SAFE(glEnable(GL_BLEND));
 	SAFE(glBlendEquation(GL_FUNC_ADD));
@@ -236,8 +234,9 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
 	SAFE(glEnable(GL_SCISSOR_TEST));
-
+	
 	ui_shader->Use();
+	
 	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
 	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
@@ -251,7 +250,6 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	SAFE(glVertexAttribPointer(ui_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv)));
 	SAFE(glVertexAttribPointer(ui_shader->aColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col)));
 #undef OFFSETOF
-
 	for(int n = 0; n < draw_data->CmdListsCount; n++) {
 		const ImDrawList* cmd_list = draw_data->CmdLists[n];
 		const ImDrawIdx* idx_buffer_offset = 0;
@@ -278,7 +276,12 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_SCISSOR_TEST));
 
-	SAFE(glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]));
+	static GLsizei scissorBox[4];
+	scissorBox[0] = 0;
+	scissorBox[1] = 0;
+	scissorBox[2] = system->GetWindowWidth();
+	scissorBox[3] = system->GetWindowHeight();
+	SAFE(glScissor(scissorBox[0], scissorBox[1], scissorBox[2], scissorBox[3]));
 }
 
 void Demo::ActionDownHandle(Input::Action action) {
