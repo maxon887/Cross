@@ -49,11 +49,11 @@ protected:
 
 	float liner_speed			= 5.f;
 	float angular_speed			= 45.f;
-	float orbit_distance		= 5.f;
+	float orbit_distance		= 3.f;
 
 	Vector3D target				= Vector3D(0);
 
-    U64 wheel_roll			= 0;
+    U64 wheel_roll				= 0;
 
 	void MouseWheelRoll(float delta);
 };

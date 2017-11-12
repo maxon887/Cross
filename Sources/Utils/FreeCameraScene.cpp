@@ -24,15 +24,11 @@ using namespace cross;
 
 void FreeCameraScene::Start() {
 	Scene::Start();
-
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
-	GetCamera()->GetTransform()->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
 void FreeCameraScene::Stop(){
     input->MouseWheelRoll.Disconnect(wheel_roll);
-
 	Scene::Stop();
 }
 
