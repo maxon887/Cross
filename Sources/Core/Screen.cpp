@@ -15,31 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Screen.h"
-#include "Camera2D.h"
-#include "System.h"
 #include "GraphicsGL.h"
-#include "Game.h"
-#include "Shaders/Shader.h"
-#include "File.h"
-#include "Texture.h"
-#include "Config.h"
 
 using namespace cross;
-
-void Screen::Start() {
-	camera2D = new Camera2D();
-}
-
-void Screen::Stop() {
-	delete camera2D;
-}
-
-void Screen::Update(float sec) {
-}
-
-void Screen::PostUpdate(float sec) {
-	camera2D->Update(sec);
-}
 
 const string& Screen::GetName() const {
 	return name;
@@ -49,18 +27,10 @@ void Screen::SetName(const string& name) {
 	this->name = name;
 }
 
-Camera2D* Screen::GetCamera() {
-	return camera2D;
-}
-
 bool Screen::IsScene() const {
 	return is_scene;
 }
 
 void Screen::SetBackground(const Color& c) {
 	glClearColor(c.R, c.G, c.B, 1.f);
-}
-
-void Screen::EnableInputs(bool enable) {
-	enable_inputs = enable;
 }

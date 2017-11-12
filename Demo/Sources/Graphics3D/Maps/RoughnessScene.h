@@ -25,9 +25,6 @@ public:
 
 private:
 	Shader* shader;
-	Texture* diffuse;
-	Texture* specular;
-	Texture* roughness;
 	Material* material;
 	Entity* light;
 };

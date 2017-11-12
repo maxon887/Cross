@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Component.h"
 #include "Entity.h"
+#include "Transform.h"
 
 using namespace cross;
 
@@ -23,12 +24,16 @@ Entity* Component::GetEntity() {
 	return entity;
 }
 
-Transformable* Component::GetTransform() {
-	return entity;
+Transform* Component::GetTransform() {
+	return entity->GetTransform();
 }
 
 Vector3D Component::GetPosition() const {
-	return entity->GetPosition();
+	return entity->GetTransform()->GetPosition();
+}
+
+void Component::SetPosition(const Vector3D& pos) {
+	entity->GetTransform()->SetPosition(pos);
 }
 
 bool Component::IsEnabled() const {

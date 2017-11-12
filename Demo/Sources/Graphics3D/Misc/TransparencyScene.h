@@ -28,8 +28,6 @@ private:
 	Shader* road_shader;
 	Shader* grass_shader;
 	Shader* sphere_shader;
-	Texture* road_diffuse;
-	Texture* grass_diffuse;
 	Material* road_mat;
 	Material* grass_mat;
 	Material* sphere_mat;

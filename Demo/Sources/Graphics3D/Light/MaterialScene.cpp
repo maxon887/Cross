@@ -22,13 +22,14 @@
 #include "Shaders/SingleLightShader.h"
 #include "Camera.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 void MaterialScene::Start(){
 	DemoScene::Start();
 	//light setups
-	Entity* light = new Entity();
+	Entity* light = new Entity("PointLight");
+	light->AddComponent(new Transform(Vector3D(10.f, 7.f, -5.f)));
 	light->AddComponent(new Light(Light::Type::POINT));
-	light->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
 	//scene setups
 	shader = new SingleLightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
@@ -44,7 +45,7 @@ void MaterialScene::Start(){
 	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 
-	cube->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
+	cube->GetTransform()->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
 }
 
 void MaterialScene::Stop(){
@@ -54,6 +55,6 @@ void MaterialScene::Stop(){
 }
 
 void MaterialScene::Update(float sec){
-	cube->SetRotateY(game->GetRunTime() * 15.f);
+	cube->GetTransform()->SetRotateY(game->GetRunTime() * 15.f);
 	DemoScene::Update(sec);
 }

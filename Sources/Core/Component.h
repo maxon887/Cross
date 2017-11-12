@@ -29,8 +29,9 @@ public:
 	virtual Component* Clone() const = 0;
 
 	Entity* GetEntity();
-	Transformable* GetTransform();
+	Transform* GetTransform();
 	Vector3D GetPosition() const;
+	void SetPosition(const Vector3D& pos);
 	bool IsEnabled() const;
 	void Enable(bool enable);
 

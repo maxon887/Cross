@@ -25,6 +25,7 @@
 #include "Mesh.h"
 #include "Shaders/LightsShader.h"
 #include "File.h"
+#include "Transform.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -37,25 +38,28 @@ using namespace tinyxml2;
 void Scene::Start() {
 	Screen::Start();
 	is_scene = true;
-	root = new Entity();
-	root->SetName("Root");
+	root = new Entity("Root");
+	root->AddComponent(new Transform());
 
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
+	Entity* camEntity = new Entity("Camera");
+	camEntity->AddComponent(new Transform(Vector3D(0.f, 0.f, -1.f)));
+	camEntity->GetTransform()->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	camEntity->AddComponent(camera);
+	AddEntity(camEntity);
 
 	resize_del = system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
 void Scene::Update(float sec) {
 	Screen::Update(sec);
-	camera->Update(sec);
 	root->Update(sec);
 }
 
 void Scene::Stop() {
 	system->WindowResized.Disconnect(resize_del);
 	delete root;
-	delete camera;
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
 	}
@@ -360,38 +364,42 @@ S32 Scene::FindTextureID(Texture* texture){
 void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	const char* name = objectXML->Attribute("name");
 	CROSS_FAIL(name, "Attribute 'name' not contain in Entity node");
-	Entity* entity = new Entity();
+	Entity* entity = new Entity(name);
 	parent->AddChild(entity);
-	entity->SetName(name);
-
-	XMLElement* posXML = objectXML->FirstChildElement("Position");
-	if(posXML) {
-		double x = posXML->DoubleAttribute("x");
-		double y = posXML->DoubleAttribute("y");
-		double z = posXML->DoubleAttribute("z");
-		Vector3D pos((float)x, (float)y, (float)z);
-		entity->SetPosition(pos);
-	}
-	XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
-	if(rotXML) {
-		double x = rotXML->DoubleAttribute("x");
-		double y = rotXML->DoubleAttribute("y");
-		double z = rotXML->DoubleAttribute("z");
-		double angle = rotXML->DoubleAttribute("angle");
-		Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
-		entity->SetRotate(rot);
-	}
-	XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
-	if(scaleXML) {
-		double x = scaleXML->DoubleAttribute("x");
-		double y = scaleXML->DoubleAttribute("y");
-		double z = scaleXML->DoubleAttribute("z");
-		Vector3D scale((float)x, (float)y, (float)z);
-		entity->SetScale(scale);
-	}
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
 	if(componentsXML) {
+		XMLElement* transform = componentsXML->FirstChildElement("Transform");
+		if(transform) {
+			XMLElement* posXML = objectXML->FirstChildElement("Position");
+			if(posXML) {
+				double x = posXML->DoubleAttribute("x");
+				double y = posXML->DoubleAttribute("y");
+				double z = posXML->DoubleAttribute("z");
+				Vector3D pos((float)x, (float)y, (float)z);
+				//entity->SetPosition(pos);
+				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+			}
+			XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
+			if(rotXML) {
+				double x = rotXML->DoubleAttribute("x");
+				double y = rotXML->DoubleAttribute("y");
+				double z = rotXML->DoubleAttribute("z");
+				double angle = rotXML->DoubleAttribute("angle");
+				Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
+				//entity->SetRotate(rot);
+				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+			}
+			XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
+			if(scaleXML) {
+				double x = scaleXML->DoubleAttribute("x");
+				double y = scaleXML->DoubleAttribute("y");
+				double z = scaleXML->DoubleAttribute("z");
+				Vector3D scale((float)x, (float)y, (float)z);
+				//entity->SetScale(scale);
+				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+			}
+		}
 		XMLElement* meshXML = componentsXML->FirstChildElement("Mesh");
 		if(meshXML) {
 			S32 id = meshXML->IntAttribute("id");
@@ -535,14 +543,14 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	objectXML->SetAttribute("name", entity->GetName().c_str());
 	
 	XMLElement* posXML = doc->NewElement("Position");
-	Vector3D pos = entity->GetPosition();
+	Vector3D pos = entity->GetTransform()->GetPosition();
 	posXML->SetAttribute("x", pos.x);
 	posXML->SetAttribute("y", pos.y);
 	posXML->SetAttribute("z", pos.z);
 	objectXML->LinkEndChild(posXML);
 
 	XMLElement* rotXML = doc->NewElement("Rotation");
-	Quaternion rot = entity->GetRotate().GetNormalized();
+	Quaternion rot = entity->GetTransform()->GetRotate().GetNormalized();
 	Vector3D axis = rot.GetAxis();
 	float angle = rot.GetAngle();
 	rotXML->SetAttribute("x", axis.x);
@@ -552,7 +560,7 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	objectXML->LinkEndChild(rotXML);
 
 	XMLElement* scaleXML = doc->NewElement("Scale");
-	Vector3D scale = entity->GetScale();
+	Vector3D scale = entity->GetTransform()->GetScale();
 	scaleXML->SetAttribute("x", scale.x);
 	scaleXML->SetAttribute("y", scale.y);
 	scaleXML->SetAttribute("z", scale.z);

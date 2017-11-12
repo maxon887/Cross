@@ -19,9 +19,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Screen.h"
 #include "Camera.h"
-#include "Camera2D.h"
 #include "Shaders/Shader.h"
-#include "Sprite.h"
 #include "Texture.h"
 #include "Scene.h"
 #include "System.h"
@@ -35,7 +33,7 @@ using namespace tinyxml2;
 void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
-	Camera* cam = game->GetCurrentScreen()->GetCamera();
+	Camera* cam = game->GetCurrentScene()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -49,7 +47,7 @@ void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, const Col
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
-	Camera* cam = game->GetCurrentScreen()->GetCamera();
+	Camera* cam = game->GetCurrentScene()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -71,7 +69,7 @@ void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color, bool filled
 		rect.x, rect.y + rect.height,
 		rect.x + rect.width, rect.y + rect.height };
 
-	Camera* cam = game->GetCurrentScreen()->GetCamera();
+	Camera* cam = game->GetCurrentScene()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -123,7 +121,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 		buffer[idx++] = outer_x;
 		buffer[idx++] = outer_y;
 	}
-	Camera* cam = game->GetCurrentScreen()->GetCamera();
+	Camera* cam = game->GetCurrentScene()->GetCamera();
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
@@ -136,76 +134,6 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 		SAFE(glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2));
 	}
 	delete buffer;
-}
-
-void PrimitiveDrawer::DrawSprite(Sprite* sprite) {
-	DrawSprite(sprite, sprite->GetColor(), false);
-}
-
-void PrimitiveDrawer::DrawSprite(Vector2D pos, Sprite* sprite) {
-	sprite->SetPosition(pos);
-	DrawSprite(sprite, sprite->GetColor(), false);
-}
-
-void PrimitiveDrawer::DrawSprite(Sprite* sprite, Color color, bool monochrome) {
-	DrawSprite(sprite, color, game->GetCurrentScreen()->GetCamera(), monochrome);
-}
-
-void PrimitiveDrawer::DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome) {
-	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Texture.sha");
-	shader->Use();
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, sprite->VBO));
-	SAFE(glActiveTexture(GL_TEXTURE0));
-	SAFE(glBindTexture(GL_TEXTURE_2D, sprite->GetTexture()->GetID()));
-
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-
-	SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-	SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
-
-	SAFE(glEnable(GL_BLEND));
-	SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * sprite->GetModelMatrix();
-	mvp = mvp.GetTransposed();
-	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
-	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
-
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sprite->EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0));
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	SAFE(glDisable(GL_BLEND));
-}
-
-void PrimitiveDrawer::LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xmlFilename) {
-	File* xmlFile = system->LoadAssetFile(xmlFilename);
-	XMLDocument doc;
-	Byte* source = new Byte[xmlFile->size + 1]; // +1 for null terminated string
-	memcpy(source, xmlFile->data, xmlFile->size);
-	source[xmlFile->size] = 0;
-	doc.Parse((const char*)source, xmlFile->size);
-	delete xmlFile;
-	delete[] source;
-
-	XMLElement* root;
-	XMLElement* element;
-
-	root = doc.FirstChildElement("TextureAtlas");
-	CROSS_FAIL(root, "XML empty root element");
-	element = root->FirstChildElement("sprite");
-	while(element) {
-		string name = element->Attribute("n");
-		float xPos = (float)atof(element->Attribute("x"));
-		float yPos = (float)atof(element->Attribute("y"));
-		float width = (float)atof(element->Attribute("w"));
-		float height = (float)atof(element->Attribute("h"));
-		Rect rect(xPos, yPos, width, height);
-		Sprite* sprite = new Sprite(texture, rect);
-		output[name] = sprite;
-		element = element->NextSiblingElement("sprite");
-	}
 }
 
 void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {

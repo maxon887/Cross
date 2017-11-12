@@ -22,11 +22,13 @@
 #include "Entity.h"
 #include "Shaders/LightsShader.h"
 #include "Texture.h"
+#include "Transform.h"
 
 void RoughnessScene::Start(){
 	DemoScene::Start();
 	//lights
-	light = new Entity();
+	light = new Entity("Point Light");
+	light->AddComponent(new Transform());
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -42,32 +44,22 @@ void RoughnessScene::Start(){
 	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 64.f);
 	shader->Compile();
 
-	diffuse = GetTexture("gfx3D/Camaro/Diffuse.png");
-	diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	specular = GetTexture("gfx3D/Camaro/Specular.png");
-	specular->SetTilingMode(Texture::TilingMode::REPEAT);
-	roughness = GetTexture("gfx3D/Camaro/Shininess.png");
-	roughness->SetTilingMode(Texture::TilingMode::REPEAT);
-
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", diffuse);
-	material->SetPropertyValue("Specular Map", specular);
-	material->SetPropertyValue("Shininess Map", roughness);
+	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/Camaro/Diffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("gfx3D/Camaro/Specular.png"));
+	material->SetPropertyValue("Shininess Map", GetTexture("gfx3D/Camaro/Shininess.png"));
 	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	CROSS_ASSERT(false, "Needs to set recurcive material function analog");
+	ApplyMaterial(model, material);
 	AddEntity(model);
 }
 
 void RoughnessScene::Stop(){
 	delete material;
-	delete roughness;
-	delete specular;
-	delete diffuse;
 	delete shader;
 	DemoScene::Stop();
 }
 
 void RoughnessScene::Update(float sec){
 	DemoScene::Update(sec);
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

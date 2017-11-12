@@ -22,13 +22,15 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Transform.h"
 	
 void PointLightScene::Start(){
 	DemoScene::Start();
 
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -8.f));
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 
-	Entity* light = new Entity();
+	Entity* light = new Entity("PointLight");
+	light->AddComponent(new Transform());
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -46,8 +48,8 @@ void PointLightScene::Start(){
 
 	for(U32 i = 0; i < 50; ++i){
 		Entity* clone = cube->Clone();
-		clone->SetPosition(Vector3D(Random(-15.f, 15.f), Random(-15.f, 15.f), Random(-15.f, 15.f)));
-		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
+		clone->GetTransform()->SetPosition(Vector3D(Random(-15.f, 15.f), Random(-15.f, 15.f), Random(-15.f, 15.f)));
+		clone->GetTransform()->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		AddEntity(clone);
 	}
 }

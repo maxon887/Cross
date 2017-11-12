@@ -22,6 +22,7 @@
 #include "Shaders/LightsShader.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Transform.h"
 
 void MultiLightScene::Start(){
 	DemoScene::Start();
@@ -29,28 +30,28 @@ void MultiLightScene::Start(){
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 	
 	for(U32 i = 0; i < 8; ++i){
-		Entity* light = new Entity();
+		Entity* light = new Entity("PointLight_" + to_string(i));
 		Light* lightComponent = new Light(Light::Type::POINT);
-		light->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
+		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		lightComponent->SetColor(Color::Red);
 		light->AddComponent(lightComponent);
 		AddEntity(light);
 	}
 	
 	for(U32 i = 0; i < 1; ++i){
-		Entity* light = new Entity();
+		Entity* light = new Entity("DirectionalLight_" + to_string(i));
 		Light* lightComponent = new Light(Light::Type::DIRECTIONAL);
-		light->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
+		light->GetTransform()->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
 		lightComponent->SetColor(Color::Green);
 		light->AddComponent(lightComponent);
 		AddEntity(light);
 	}
 	
 	for(U32 i = 0; i < 4; ++i){
-		Entity* light = new Entity();
+		Entity* light = new Entity("SpotLight_" + to_string(i));
 		Light* lightComponent = new Light(Light::Type::SPOT);
-		light->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
-		light->LookAt(Vector3D(0.f));
+		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
+		light->GetTransform()->LookAt(Vector3D(0.f));
 		lightComponent->SetColor(Color::Blue);
 		light->AddComponent(lightComponent);
 		AddEntity(light);
@@ -76,8 +77,8 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 50; ++i){
 		Entity* clone = cube->Clone();
-		clone->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
-		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
+		clone->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
+		clone->GetTransform()->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		AddEntity(clone);
 	}
 }

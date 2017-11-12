@@ -70,7 +70,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Sources\Core\Audio.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\Camera2D.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Color.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Component.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Config.cpp" />
@@ -88,7 +87,7 @@
     <ClCompile Include="..\..\..\Sources\Core\Sound.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\System.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Texture.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\Transformable.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Transform.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />
     <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui.cpp" />
@@ -115,15 +114,11 @@
     <ClCompile Include="..\..\..\Sources\Shaders\SingleLightShader.cpp" />
     <ClCompile Include="..\..\..\Sources\Shaders\LightsShader.cpp" />
     <ClCompile Include="..\..\..\Sources\Shaders\Shader.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\Animation.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\Sprite.cpp" />
-    <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\DemoScene.cpp" />
@@ -152,7 +147,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Core\Audio.h" />
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
-    <ClInclude Include="..\..\..\Sources\Core\Camera2D.h" />
     <ClInclude Include="..\..\..\Sources\Core\Color.h" />
     <ClInclude Include="..\..\..\Sources\Core\Component.h" />
     <ClInclude Include="..\..\..\Sources\Core\Config.h" />
@@ -172,7 +166,7 @@
     <ClInclude Include="..\..\..\Sources\Core\Sound.h" />
     <ClInclude Include="..\..\..\Sources\Core\System.h" />
     <ClInclude Include="..\..\..\Sources\Core\Texture.h" />
-    <ClInclude Include="..\..\..\Sources\Core\Transformable.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Transform.h" />
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h" />
     <ClInclude Include="..\..\..\Sources\Libs\ImGui\imconfig.h" />
@@ -205,15 +199,11 @@
     <ClInclude Include="..\..\..\Sources\Shaders\SingleLightShader.h" />
     <ClInclude Include="..\..\..\Sources\Shaders\LightsShader.h" />
     <ClInclude Include="..\..\..\Sources\Shaders\Shader.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\Animation.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\Button.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h" />
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\Sprite.h" />
-    <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\DemoScene.h" />

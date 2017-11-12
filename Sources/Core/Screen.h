@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Input.h"
 
 namespace cross {
 
@@ -27,13 +26,13 @@ class Screen {
 public:
 	virtual ~Screen() { }
 	/* Called before screen show up. */
-	virtual void Start();
+	virtual void Start() { }
 	/* Called when screen about to change on new one */
-	virtual void Stop();
+	virtual void Stop() { }
 	/* Called every frame update. Ideally 60 times per second(60fps) */
-	virtual void Update(float sec);
+	virtual void Update(float sec) { }
 	/* Called after regularly Screen::Update()  */
-	virtual void PostUpdate(float sec);
+	virtual void PostUpdate(float sec) { }
 	/* Called when game need to be suspend like lost focus or input phone call */
 	virtual void Suspend() { }
 	/* Called when game about show again after suspending */
@@ -41,18 +40,13 @@ public:
 
 	const string& GetName() const;
 	void SetName(const string& name);
-
-	Camera2D* GetCamera();
 	/* Returns true if current screen is actually a 3D scene */
 	bool IsScene() const;
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
-	void EnableInputs(bool enable);
 
 protected:
 	bool is_scene					= false;
-	bool enable_inputs				= true;
-	Camera2D* camera2D				= NULL;
 
 private:
 	string name						= "noname";

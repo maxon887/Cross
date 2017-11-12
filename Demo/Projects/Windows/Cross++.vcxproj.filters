@@ -127,9 +127,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\Camera2D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Color.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -176,9 +173,6 @@
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Texture.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\Transformable.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp">
@@ -238,9 +232,6 @@
     <ClCompile Include="..\..\..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Animation.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -277,16 +268,7 @@
     <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.cpp">
       <Filter>Cross\Libs\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Button.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\ToggleButton.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\Sprite.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Model.cpp">
@@ -297,6 +279,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\DemoScene.cpp">
       <Filter>Demo\Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Core\Transform.cpp">
+      <Filter>Cross\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +352,6 @@
     <ClInclude Include="..\..\..\Sources\Core\Camera.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\Camera2D.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Color.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -422,9 +404,6 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Texture.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\Transformable.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h">
@@ -493,9 +472,6 @@
     <ClInclude Include="..\..\..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Animation.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -541,16 +517,7 @@
     <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.h">
       <Filter>Cross\Libs\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Button.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\ToggleButton.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\Sprite.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Model.h">
@@ -561,6 +528,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\DemoScene.h">
       <Filter>Demo\Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\Transform.h">
+      <Filter>Cross\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

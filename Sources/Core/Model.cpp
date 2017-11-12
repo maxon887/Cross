@@ -20,6 +20,7 @@
 #include "System.h"
 #include "File.h"
 #include "VertexBuffer.h"
+#include "Transform.h"
 #include "Utils/Debugger.h"
 
 #define SWIG
@@ -41,7 +42,7 @@ void Model::Load(const string& filename, bool initialize) {
 	initialize_in_load = initialize;
 	mesh_id = 0;
 	this->filename = filename;
-	Entity* root = new Entity();
+	Entity* root = new Entity("ModelRoot");
 	hierarchy = root;
 	File* file = system->LoadAssetFile(filename);
 	ProcessScene(root, file);
@@ -72,17 +73,18 @@ void Model::ProcessScene(Entity* root, File* file) {
 	}
 	aiNode* aiRoot = current_scene->mRootNode;
 	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
+	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
 	ProcessNode(root, aiRoot->mChildren[0]);
 }
 
 void Model::ProcessNode(Entity* entity, aiNode* node) {
-	entity->SetName(node->mName.C_Str());
-
 	Matrix modelMat = Matrix::Zero;
 	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-	entity->SetPosition(modelMat.GetTranslation());
-	entity->SetScale(modelMat.GetScale());
-	entity->SetRotate(modelMat.GetRotation());
+	Transform* transform = new Transform();
+	transform->SetPosition(modelMat.GetTranslation());
+	transform->SetScale(modelMat.GetScale());
+	transform->SetRotate(modelMat.GetRotation());
+	entity->AddComponent(transform);
 
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
@@ -93,7 +95,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
-		Entity* child = new Entity();
+		Entity* child = new Entity(node->mChildren[i]->mName.C_Str());
 		child->SetParent(entity);
 		ProcessNode(child, node->mChildren[i]);
 		entity->AddChild(child);

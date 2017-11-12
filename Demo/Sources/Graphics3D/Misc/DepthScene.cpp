@@ -23,6 +23,7 @@
 #include "Texture.h"
 #include "Config.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 void DepthScene::Start(){
 	DemoScene::Start();
@@ -36,12 +37,12 @@ void DepthScene::Start(){
 
 	car_mat = new Material(shader);
 	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	CROSS_ASSERT(false, "Needs to set recurcive material function analog");
+	ApplyMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	
 	road_mat = new Material(shader);
 	Entity* road = LoadPrimitive(Model::Primitive::PLANE);
-	road->SetScale(15.f);
+	road->GetTransform()->SetScale(15.f);
 	road->GetComponent<Mesh>()->SetMaterial(road_mat);
 	AddEntity(road);
 }

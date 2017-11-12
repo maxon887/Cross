@@ -17,7 +17,7 @@
 #pragma once
 #include "Graphics3D/DemoScene.h"
 
-class SpecularScene : public DemoScene{
+class SpecularScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
@@ -25,8 +25,6 @@ public:
 
 private:
 	Shader* shader;
-	Texture* diffuse;
-	Texture* specular;
 	Material* material;
 	Entity* light;
 };

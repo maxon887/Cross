@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Utils/Sprite.h"
 
 namespace cross {
 
@@ -30,12 +29,6 @@ public:
 	static void DrawCircle(const Vector2D& center, float radius, const Color& color);
 	static void DrawCircle(const Vector2D& center, float radius, const Color& color, bool filled);
 	static void DrawCircle(const Vector2D& center, float radius, const Color& color, bool filled, U32 accuracy);
-	//temporary sprites stuff
-	static void DrawSprite(Sprite* sprite);
-	static void DrawSprite(Vector2D pos, Sprite* sprite);
-	static void DrawSprite(Sprite* sprite, Color color, bool monochrome);
-	static void DrawSprite(Sprite* sprite, Color color, Camera2D* cam, bool monochrome);
-	static void LoadSprites(Dictionary<string, Sprite*>& output, Texture* texture, string xml);
 	//3d drawing
 	static void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 };

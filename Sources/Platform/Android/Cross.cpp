@@ -56,7 +56,7 @@ std::mutex  pause_mutex;
 int screen_width            = 0;
 int screen_height           = 0;
 
-void Main(){
+void Main() {
     LOGI("Main()");
     while (app_state != APP_EXIT) {
         switch (app_state) {
@@ -76,13 +76,13 @@ void Main(){
                 }
                 break;
             }
-            case APP_RUNNING:{
+            case APP_RUNNING: {
                 pause_mutex.lock();
                 game->EngineUpdate();
                 pause_mutex.unlock();
                 break;
             }
-            case APP_PAUSED:{
+            case APP_PAUSED: {
                 pause_mutex.lock();
                 system->Sleep(16);
                 pause_mutex.unlock();
@@ -92,7 +92,7 @@ void Main(){
         switch (wnd_state) {
             case WND_NONE:
                 break;
-            case WND_CREATE:{
+            case WND_CREATE: {
                 app_mutex.lock();
                 if(!crossEGL->IsContextCreated()) {
                     bool success = crossEGL->CreateContext(true);

@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "FreeCameraScene.h"
+#include "Camera.h"
 #include "System.h"
 #include "Input.h"
-#include "Sprite.h"
-#include "Camera2D.h"
+#include "Transform.h"
 
 using namespace cross;
 
@@ -26,7 +26,7 @@ void FreeCameraScene::Start() {
 	Scene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
-	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	GetCamera()->GetTransform()->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
@@ -58,40 +58,40 @@ void FreeCameraScene::Update(float sec){
 void FreeCameraScene::MoveForward(float sec){
 	if(look_at){
 		orbit_distance -= liner_speed * sec;
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
+		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetDirection() * liner_speed * sec);
 	}
 }
 
 void FreeCameraScene::MoveBackward(float sec){
 	if(look_at){
 		orbit_distance += liner_speed * sec;
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() - camera->GetDirection() * liner_speed * sec);
+		camera->SetPosition(camera->GetPosition() - camera->GetTransform()->GetDirection() * liner_speed * sec);
 	}
 }
 
 void FreeCameraScene::MoveRight(float sec){
 	if(look_at){
 		Quaternion rotateU = Quaternion(Vector3D::Up, -sec * angular_speed);
-		camera->SetRotate(rotateU * Quaternion(camera->GetRotation()));
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->GetTransform()->SetRotate(rotateU * Quaternion(camera->GetTransform()->GetRotation()));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() + camera->GetRight() * liner_speed * sec);
-		target += camera->GetRight() * liner_speed * sec;
+		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetRight() * liner_speed * sec);
+		target += camera->GetTransform()->GetRight() * liner_speed * sec;
 	}
 }
 
 void FreeCameraScene::MoveLeft(float sec){
 	if(look_at){
 		Quaternion rotateU = Quaternion(Vector3D::Up, sec * angular_speed);
-		camera->SetRotate(rotateU * Quaternion(camera->GetRotation()));
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->GetTransform()->SetRotate(rotateU * Quaternion(camera->GetTransform()->GetRotation()));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() - camera->GetRight() * liner_speed * sec);
-		target -= camera->GetRight() * liner_speed * sec;
+		camera->SetPosition(camera->GetPosition() - camera->GetTransform()->GetRight() * liner_speed * sec);
+		target -= camera->GetTransform()->GetRight() * liner_speed * sec;
 	}
 }
 
@@ -111,36 +111,36 @@ void FreeCameraScene::MoveDown(float sec){
 
 void FreeCameraScene::MoveCameraUp(float sec){
 	if(!look_at){
-		camera->SetPosition(camera->GetPosition() + camera->GetUp() * liner_speed * sec);
-		target += camera->GetUp() * liner_speed * sec;
+		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetUp() * liner_speed * sec);
+		target += camera->GetTransform()->GetUp() * liner_speed * sec;
 	}
 }
 
 void FreeCameraScene::LookLeft(float sec){
-	camera->SetRotate(Quaternion(Vector3D::Up, sec * angular_speed) * Quaternion(camera->GetRotation()));
+	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
 void FreeCameraScene::LookRight(float sec){
-	camera->SetRotate(Quaternion(Vector3D::Up, -sec * angular_speed) * Quaternion(camera->GetRotation()));
+	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, -sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
 void FreeCameraScene::LookDown(float sec){
-	camera->SetRotate(Quaternion(camera->GetRight(), sec * angular_speed) * Quaternion(camera->GetRotation()));
+	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
 void FreeCameraScene::LookUp(float sec){
-	camera->SetRotate(Quaternion(camera->GetRight(), -sec * angular_speed) * Quaternion(camera->GetRotation()));
+	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), -sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 

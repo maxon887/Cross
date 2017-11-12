@@ -17,7 +17,7 @@
 #pragma once
 #include "Graphics3D/DemoScene.h"
 
-class NormalScene : public DemoScene{
+class NormalScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
@@ -25,10 +25,6 @@ public:
 
 private:
 	Shader* shader;
-	Texture* diffuse;
-	Texture* specular;
-	Texture* roughness;
-	Texture* normal;
 	Material* material;
 	Entity* light;
 };

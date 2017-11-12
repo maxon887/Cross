@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Camera.h"
+#include "Transform.h"
 
 using namespace cross;
 
@@ -24,12 +25,12 @@ Camera::Camera(Matrix projection) :
 	SetProjectionMatrix(projection);
 }
 
-Camera::Camera() {
-	SetDirection(Vector3D(0.f, 0.f, 1.f));
-}
-
 void Camera::Update(float sec){
 	RecalcView();
+}
+
+Component* Camera::Clone() const {
+	return new Camera(*this);
 }
 
 const Matrix& Camera::GetViewMatrix() const{
@@ -46,15 +47,15 @@ const Matrix& Camera::GetProjectionMatrix() const{
 
 void Camera::RecalcView(){
 	view = Matrix::Identity;
-	Vector3D direction = GetDirection();
+	Vector3D direction = GetTransform()->GetDirection();
 	view.m[2][0] = -direction.x;
 	view.m[2][1] = -direction.y;
 	view.m[2][2] = -direction.z;
-	Vector3D right = GetRight();
+	Vector3D right = GetTransform()->GetRight();
 	view.m[0][0] = right.x;
 	view.m[0][1] = right.y;
 	view.m[0][2] = right.z;
-	Vector3D up = GetUp();
+	Vector3D up = GetTransform()->GetUp();
 	view.m[1][0] = up.x;
 	view.m[1][1] = up.y;
 	view.m[1][2] = up.z;

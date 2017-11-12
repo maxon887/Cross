@@ -21,6 +21,7 @@
 #include "System.h"
 #include "Entity.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 #include "Libs/ImGui/imgui.h"
 
@@ -78,12 +79,12 @@ void DemoScene::ActionMove(Input::Action action) {
 		Vector2D deltaPosition = touch_position - action.pos;
 		touch_position = action.pos;
 		Quaternion rotateU = Quaternion(Vector3D::Up, deltaPosition.x / 10.f);
-		Quaternion rotateR = Quaternion(camera->GetRight(), -deltaPosition.y / 10.f);
-		camera->SetRotate(rotateU * rotateR * Quaternion(camera->GetRotation()));
+		Quaternion rotateR = Quaternion(camera->GetTransform()->GetRight(), -deltaPosition.y / 10.f);
+		camera->GetTransform()->SetRotate(rotateU * rotateR * Quaternion(camera->GetTransform()->GetRotation()));
 		if(look_at) {				//free camera
-			camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+			camera->GetTransform()->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 		} else {
-			target = camera->GetPosition() + camera->GetDirection() * orbit_distance;
+			target = camera->GetPosition() + camera->GetTransform()->GetDirection() * orbit_distance;
 		}
 	}
 }

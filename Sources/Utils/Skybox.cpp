@@ -23,6 +23,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 using namespace cross;
 
@@ -30,7 +31,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 	cubemap(cubemap)
 {
 	box = game->GetCurrentScene()->LoadPrimitive(Model::Primitive::CUBE);
-	box->SetScale(config->GetViewDistance());
+	box->GetTransform()->SetScale(config->GetViewDistance());
 
 	shader = new Shader("Engine/Shaders/Light.vtx", "Engine/Shaders/Light.fgm");
 	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "cubemap");
@@ -58,7 +59,7 @@ void Skybox::Draw(){
 	view.m[0][3] = 0.f;
 	view.m[1][3] = 0.f;
 	view.m[2][3] = 0.f;
-	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetModelMatrix();
+	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetTransform()->GetModelMatrix();
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
 	Mesh* mesh = box->GetChildren().front()->GetComponent<Mesh>();

@@ -22,11 +22,13 @@
 #include "Entity.h"
 #include "Shaders/LightsShader.h"
 #include "Texture.h"
+#include "Transform.h"
 
 void DiffuseScene::Start(){
 	DemoScene::Start();
 	//lights
-	light = new Entity();
+	light = new Entity("PointLight");
+	light->AddComponent(new Transform());
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
@@ -38,25 +40,22 @@ void DiffuseScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	diffuse = GetTexture("gfx3D/Camaro/Diffuse.png");
-
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", diffuse);
+	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/Camaro/Diffuse.png"));
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
 	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	CROSS_ASSERT(false, "Needs to set recurcive material function analog");
+	ApplyMaterial(camaro, material);
 	AddEntity(camaro);
 }
 
 void DiffuseScene::Stop(){
 	delete material;
-	delete diffuse;
 	delete shader;
 	DemoScene::Stop();
 }
 
 void DiffuseScene::Update(float sec){
 	DemoScene::Update(sec);
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }
