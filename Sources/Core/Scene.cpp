@@ -54,6 +54,8 @@ void Scene::Update(float sec) {
 
 void Scene::Stop() {
 	system->WindowResized.Disconnect(resize_del);
+	delete root;
+	delete camera;
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
 	}
@@ -66,8 +68,6 @@ void Scene::Stop() {
 	for(pair<S32, Shader*> pair : shaders) {
 		delete pair.second;
 	}
-	delete camera;
-	delete root;
 	Screen::Stop();
 }
 

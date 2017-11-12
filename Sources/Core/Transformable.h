@@ -21,7 +21,7 @@ namespace cross{
 
 /* With this class you can add spatial properties to any game object.
    Then rotate, scale and move object in world space. */
-class Transformable{
+class Transformable {
 public:
 	void SetPosition(const Vector2D& pos);
 	void SetPosition(const Vector3D& pos);

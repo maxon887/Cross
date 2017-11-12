@@ -49,8 +49,8 @@ Mesh::Mesh(const Mesh& obj) :
 Mesh::~Mesh() {
 	delete vertex_buffer;
 	if(original && initialized) {
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
+		SAFE(glDeleteBuffers(1, &VBO));
+		SAFE(glDeleteBuffers(1, &EBO));
 	}
 }
 

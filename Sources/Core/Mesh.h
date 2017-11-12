@@ -26,7 +26,7 @@ class VertexBuffer;
 
 /*	Mesh is smallest 3d entity in game. Which consist of polygons.
 	Mesh also contains its materials which need to properly draw it on Scene */
-class Mesh : public Component{
+class Mesh : public Component {
 public:
 	enum StencilBehaviour {
 		WRITE,
