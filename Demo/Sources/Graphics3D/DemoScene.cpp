@@ -19,6 +19,8 @@
 #include "Camera.h"
 #include "Input.h"
 #include "System.h"
+#include "Entity.h"
+#include "Mesh.h"
 
 #include "Libs/ImGui/imgui.h"
 
@@ -89,6 +91,15 @@ void DemoScene::ActionMove(Input::Action action) {
 void DemoScene::ActionUp(Input::Action action) {
 	if(handled_action == action.id) {
 		handled_action = -1;
+	}
+}
+
+void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
+	if(entity->GetComponent<Mesh>()) {
+		entity->GetComponent<Mesh>()->SetMaterial(mat);
+	}
+	for(Entity* child : entity->GetChildren()) {
+		ApplyMaterial(child, mat);
 	}
 }
 

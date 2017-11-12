@@ -17,15 +17,14 @@
 #pragma once
 #include "Graphics3D/DemoScene.h"
 
-class SpotLightScene : public DemoScene{
+class SpotLightScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
+
 private:
 	Shader* shader				= NULL;
-	Texture* diffuse_texture	= NULL;
-	Texture* specular_map		= NULL;
 	Material* material			= NULL;
 	Entity* cube				= NULL;
 };

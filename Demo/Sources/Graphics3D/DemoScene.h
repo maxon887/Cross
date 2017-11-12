@@ -33,6 +33,9 @@ public:
 	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action);
 
+protected:
+	void ApplyMaterial(Entity* entity, Material* mat);
+
 private:
 	//used same concept as on the Input class
 	List<pair<Input::Action, int> > action_stack;

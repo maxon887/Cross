@@ -22,10 +22,8 @@
 
 void TexturedModelScene::Start(){
 	DemoScene::Start();
-	shader = GetShader("Engine/Shaders/Texture.sha");
-	material = new Material(shader);
-	texture = GetTexture("gfx3D/ContainerDiffuse.png");
-	material->SetPropertyValue("Texture", texture);
+	material = new Material(GetShader("Engine/Shaders/Texture.sha"));
+	material->SetPropertyValue("Texture", GetTexture("gfx3D/ContainerDiffuse.png"));
 	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
@@ -33,8 +31,6 @@ void TexturedModelScene::Start(){
 
 void TexturedModelScene::Stop(){
 	delete material;
-	delete texture;
-	delete shader;
 	DemoScene::Stop();
 }
 

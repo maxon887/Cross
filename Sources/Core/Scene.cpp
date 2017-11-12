@@ -34,7 +34,7 @@
 using namespace cross;
 using namespace tinyxml2;
 
-void Scene::Start(){
+void Scene::Start() {
 	Screen::Start();
 	is_scene = true;
 	root = new Entity();
@@ -46,13 +46,13 @@ void Scene::Start(){
 	resize_del = system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
-void Scene::Update(float sec){
+void Scene::Update(float sec) {
 	Screen::Update(sec);
 	camera->Update(sec);
 	root->Update(sec);
 }
 
-void Scene::Stop(){
+void Scene::Stop() {
 	system->WindowResized.Disconnect(resize_del);
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
@@ -71,7 +71,7 @@ void Scene::Stop(){
 	Screen::Stop();
 }
 
-void Scene::Load(const string& file){
+void Scene::Load(const string& file) {
 	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load scene xml file");
 	XMLDocument doc;
@@ -128,7 +128,7 @@ void Scene::Load(const string& file){
 	}
 }
 
-void Scene::Save(const string& filename){
+void Scene::Save(const string& filename) {
 	XMLDocument doc;
 
 	XMLElement* sceneXML = doc.NewElement("Scene");
@@ -219,7 +219,7 @@ void Scene::Save(const string& filename){
 	saveFile.data = NULL;
 }
 
-void Scene::Clear(){
+void Scene::Clear() {
 	root->RemoveChildren();
 	lights.clear();
 	for(pair<S32, Material*> pair : materials){
@@ -232,16 +232,16 @@ void Scene::Clear(){
 	textures.clear();
 }
 
-Entity* Scene::GetRoot(){
+Entity* Scene::GetRoot() {
 	return root;
 }
 
-void Scene::SetCameraViewDistance(float distance){
+void Scene::SetCameraViewDistance(float distance) {
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, distance);
 	camera->SetProjectionMatrix(projection);
 }
 
-Entity* Scene::GetEntity(const string& name){
+Entity* Scene::GetEntity(const string& name) {
 	Entity* child = root->FindChild(name);
 	if(child){
 		return child;
@@ -249,13 +249,13 @@ Entity* Scene::GetEntity(const string& name){
 	CROSS_RETURN(false, NULL, "Can not find entity %s", name.c_str());
 }
 
-void Scene::AddEntity(Entity* entity){
+void Scene::AddEntity(Entity* entity) {
 	entity->Initialize();
 	root->AddChild(entity);
 	EntityAdded(entity);//trigger
 }
 
-Entity* Scene::LoadPrimitive(Model::Primitive primitive){
+Entity* Scene::LoadPrimitive(Model::Primitive primitive) {
 	switch(primitive) {
 	case Model::CUBE:
 		return GetModel("Engine/Models/Cube.obj")->GetHierarchy();
@@ -268,19 +268,19 @@ Entity* Scene::LoadPrimitive(Model::Primitive primitive){
 	}
 }
 
-Entity* Scene::RemoveEntity(const string& name){
+Entity* Scene::RemoveEntity(const string& name) {
 	return root->RemoveChild(name);
 }
 
-List<Light*>& Scene::GetLights(){
+List<Light*>& Scene::GetLights() {
 	return lights;
 }
 
-Camera* Scene::GetCamera(){
+Camera* Scene::GetCamera() {
 	return camera;
 }
 
-Color Scene::GetAmbientColor() const{
+Color Scene::GetAmbientColor() const {
 	return ambient_color;
 }
 
