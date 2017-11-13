@@ -49,6 +49,8 @@ int GLES_Main(){
 	int winHeight = config->GetInt("WIN_HEIGHT", 500);
 	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 
+	crossEGL->CreateContext(true);
+
 	ShowWindow(crossEGL->GetWindow(), TRUE);
 
 	audio = new Audio();
@@ -73,6 +75,7 @@ int GLES_Main(){
 	game->Stop();
 	Debugger::Release();
 	delete gfxGL;
+	crossEGL->DestroyContext(true);
 	delete crossEGL;
 	delete audio;
 	delete game;

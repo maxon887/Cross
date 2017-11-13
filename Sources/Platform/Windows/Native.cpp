@@ -134,18 +134,22 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	}
 	case WM_KILLFOCUS:
-		game->Suspend();
+		if(game) {
+			game->Suspend();
+		}
 		break;
 	case WM_SETFOCUS:
+		if(game) {
 #ifdef GLES
-		if(!crossEGL->IsContextCreated()) {
-			crossEGL->CreateContext(true);
-		} else {
-			crossEGL->DestroyContext(false);
-			crossEGL->CreateContext(false);
-		}
+			if(!crossEGL->IsContextCreated()) {
+				crossEGL->CreateContext(true);
+			} else {
+				crossEGL->DestroyContext(false);
+				crossEGL->CreateContext(false);
+			}
 #endif
-		game->Resume();
+			game->Resume();
+		}
 		break;
 	case WM_CLOSE: {
 		RECT winRect = GetLocalCoordinates(wnd);
