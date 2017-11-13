@@ -2,7 +2,7 @@
 #include "Demo.h"
 #include "Platform/Windows/WINSystem.h"
 
-Game* CrossMain(){
+Game* CrossMain() {
 	Game* demo = new Demo();
 	return demo;
 }
