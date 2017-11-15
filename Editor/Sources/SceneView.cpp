@@ -21,6 +21,7 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "Camera.h"
+#include "Transform.h"
 
 SceneView::SceneView()
 { }
@@ -28,13 +29,18 @@ SceneView::SceneView()
 void SceneView::Start() {
 	FreeCameraScene::Start();
 	SetAmbientColor(Color::White);
-	selection_shader = gfxGL->GetShader(DefaultShader::SIMPLE);
+	selection_shader = GetShader("Engine/Shaders/Simple.sha");
 	selection_shader->Compile();
 	selection_material = new Material(selection_shader);
 	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
+
+	action_down_del = input->ActionDown.Connect(this, &SceneView::OnActionDown);
+	action_move_del = input->ActionMove.Connect(this, &SceneView::OnActionMove);
 }
 
 void SceneView::Stop(){
+	input->ActionDown.Disconnect(action_down_del);
+	input->ActionMove.Disconnect(action_move_del);
 	FreeCameraScene::Stop();
 }
 
@@ -45,21 +51,18 @@ void SceneView::Update(float sec){
 	}
 }
 
-void SceneView::ActionDown(Input::Action a){
-	FreeCameraScene::ActionDown(a);
+void SceneView::OnActionDown(Input::Action a){
 	if(a.id == 2){
 		pos = a.pos;
 	}
 }
 
-void SceneView::ActionMove(Input::Action a){
+void SceneView::OnActionMove(Input::Action a){
 	if(a.id == 0 && input->IsPressed(Key::ALT)){
 		LookAtCamera(true);
-		FreeCameraScene::ActionMove(a);
 	}
 	if(a.id == 1) {
 		LookAtCamera(false);
-		FreeCameraScene::ActionMove(a);
 	}
 	if(a.id == 2){
 		LookAtCamera(false);
@@ -81,18 +84,18 @@ void SceneView::OnEntitySelected(Entity* e){
 }
 
 void SceneView::OnEntityGrabFocus(Entity* e){
-	LookAtCamera(e->GetPosition());
-	GetCamera()->LookAt(e->GetPosition());
+	LookAtCamera(e->GetTransform()->GetPosition());
+	GetCamera()->GetTransform()->LookAt(e->GetTransform()->GetPosition());
 }
 
 void SceneView::Draw(Entity* e){
 	Mesh* mesh = e->GetComponent<Mesh>();
 	if(mesh){
-		Vector3D defaultScale = e->GetScale();
-		mesh->Draw(mesh->GetMaterial(), Graphics3D::StencilBehaviour::WRITE);
-		e->SetScale(defaultScale * 1.1f);
-		mesh->Draw(selection_material, Graphics3D::StencilBehaviour::READ);
-		e->SetScale(defaultScale);
+		Vector3D defaultScale = e->GetTransform()->GetScale();
+		mesh->Draw(mesh->GetMaterial(), Mesh::StencilBehaviour::WRITE);
+		e->GetTransform()->SetScale(defaultScale * 1.1f);
+		mesh->Draw(selection_material, Mesh::StencilBehaviour::READ);
+		e->GetTransform()->SetScale(defaultScale);
 	}
 	for(Entity* child : e->GetChildren()){
 		Draw(child);

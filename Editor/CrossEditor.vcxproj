@@ -80,28 +80,24 @@
   <ItemGroup>
     <ClCompile Include="..\Sources\Core\Audio.cpp" />
     <ClCompile Include="..\Sources\Core\Camera.cpp" />
-    <ClCompile Include="..\Sources\Core\Camera2D.cpp" />
     <ClCompile Include="..\Sources\Core\Color.cpp" />
     <ClCompile Include="..\Sources\Core\Component.cpp" />
     <ClCompile Include="..\Sources\Core\Config.cpp" />
     <ClCompile Include="..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\Sources\Core\File.cpp" />
     <ClCompile Include="..\Sources\Core\Game.cpp" />
-    <ClCompile Include="..\Sources\Core\Graphics2D.cpp" />
-    <ClCompile Include="..\Sources\Core\Graphics3D.cpp" />
     <ClCompile Include="..\Sources\Core\GraphicsGL.cpp" />
     <ClCompile Include="..\Sources\Core\Input.cpp" />
     <ClCompile Include="..\Sources\Core\Light.cpp" />
     <ClCompile Include="..\Sources\Core\Material.cpp" />
     <ClCompile Include="..\Sources\Core\Mesh.cpp" />
+    <ClCompile Include="..\Sources\Core\Model.cpp" />
     <ClCompile Include="..\Sources\Core\Scene.cpp" />
     <ClCompile Include="..\Sources\Core\Screen.cpp" />
     <ClCompile Include="..\Sources\Core\Sound.cpp" />
-    <ClCompile Include="..\Sources\Core\Sprite.cpp" />
     <ClCompile Include="..\Sources\Core\System.cpp" />
     <ClCompile Include="..\Sources\Core\Texture.cpp" />
-    <ClCompile Include="..\Sources\Core\Transformable.cpp" />
-    <ClCompile Include="..\Sources\Core\UI.cpp" />
+    <ClCompile Include="..\Sources\Core\Transform.cpp" />
     <ClCompile Include="..\Sources\Core\VertexBuffer.cpp" />
     <ClCompile Include="..\Sources\Internals\MemoryManager.cpp" />
     <ClCompile Include="..\Sources\Libs\SOIL\image_helper.c" />
@@ -119,15 +115,10 @@
     <ClCompile Include="..\Sources\Shaders\LightsShader.cpp" />
     <ClCompile Include="..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp" />
-    <ClCompile Include="..\Sources\Utils\Animation.cpp" />
-    <ClCompile Include="..\Sources\Utils\Button.cpp" />
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp" />
     <ClCompile Include="..\Sources\Utils\Debugger.cpp" />
-    <ClCompile Include="..\Sources\Utils\DebugScene.cpp" />
-    <ClCompile Include="..\Sources\Utils\Font.cpp" />
     <ClCompile Include="..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\Sources\Utils\Skybox.cpp" />
-    <ClCompile Include="..\Sources\Utils\ToggleButton.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_CrossEditor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -219,7 +210,6 @@
   <ItemGroup>
     <ClInclude Include="..\Sources\Core\Audio.h" />
     <ClInclude Include="..\Sources\Core\Camera.h" />
-    <ClInclude Include="..\Sources\Core\Camera2D.h" />
     <ClInclude Include="..\Sources\Core\Color.h" />
     <ClInclude Include="..\Sources\Core\Component.h" />
     <ClInclude Include="..\Sources\Core\Config.h" />
@@ -228,21 +218,18 @@
     <ClInclude Include="..\Sources\Core\Event.h" />
     <ClInclude Include="..\Sources\Core\File.h" />
     <ClInclude Include="..\Sources\Core\Game.h" />
-    <ClInclude Include="..\Sources\Core\Graphics2D.h" />
-    <ClInclude Include="..\Sources\Core\Graphics3D.h" />
     <ClInclude Include="..\Sources\Core\GraphicsGL.h" />
     <ClInclude Include="..\Sources\Core\Input.h" />
     <ClInclude Include="..\Sources\Core\Light.h" />
     <ClInclude Include="..\Sources\Core\Material.h" />
     <ClInclude Include="..\Sources\Core\Mesh.h" />
+    <ClInclude Include="..\Sources\Core\Model.h" />
     <ClInclude Include="..\Sources\Core\Scene.h" />
     <ClInclude Include="..\Sources\Core\Screen.h" />
     <ClInclude Include="..\Sources\Core\Sound.h" />
-    <ClInclude Include="..\Sources\Core\Sprite.h" />
     <ClInclude Include="..\Sources\Core\System.h" />
     <ClInclude Include="..\Sources\Core\Texture.h" />
-    <ClInclude Include="..\Sources\Core\Transformable.h" />
-    <ClInclude Include="..\Sources\Core\UI.h" />
+    <ClInclude Include="..\Sources\Core\Transform.h" />
     <ClInclude Include="..\Sources\Core\VertexBuffer.h" />
     <ClInclude Include="..\Sources\Internals\MemoryManager.h" />
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h" />
@@ -263,15 +250,10 @@
     <ClInclude Include="..\Sources\Shaders\LightsShader.h" />
     <ClInclude Include="..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\Sources\Shaders\SingleLightShader.h" />
-    <ClInclude Include="..\Sources\Utils\Animation.h" />
-    <ClInclude Include="..\Sources\Utils\Button.h" />
     <ClInclude Include="..\Sources\Utils\Cubemap.h" />
     <ClInclude Include="..\Sources\Utils\Debugger.h" />
-    <ClInclude Include="..\Sources\Utils\DebugScene.h" />
-    <ClInclude Include="..\Sources\Utils\Font.h" />
     <ClInclude Include="..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\Sources\Utils\Skybox.h" />
-    <ClInclude Include="..\Sources\Utils\ToggleButton.h" />
     <ClInclude Include="GeneratedFiles\ui_CrossEditor.h" />
     <CustomBuild Include="Sources\SceneExplorer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

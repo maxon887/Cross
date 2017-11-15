@@ -21,16 +21,13 @@
 
 using namespace cross;
 
-class SceneView : public FreeCameraScene{
+class SceneView : public FreeCameraScene {
 public:
 	SceneView();
 
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
-
-	void ActionDown(Input::Action action) override;
-	void ActionMove(Input::Action action) override;
 
 	void OnEntitySelected(Entity* entity);
 	void OnEntityGrabFocus(Entity* entity);
@@ -44,4 +41,9 @@ private:
 
 	void Draw(Entity* e);
 	void EnableMesh(Entity* e, bool value);
+
+	U64 action_down_del = 0;
+	U64 action_move_del = 0;
+	void OnActionDown(Input::Action action);
+	void OnActionMove(Input::Action action);
 };

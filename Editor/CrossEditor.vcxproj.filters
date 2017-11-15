@@ -84,9 +84,6 @@
     <ClCompile Include="..\Sources\Core\Camera.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Core\Camera2D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\Color.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -103,12 +100,6 @@
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Game.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Graphics2D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Graphics3D.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\GraphicsGL.cpp">
@@ -135,19 +126,10 @@
     <ClCompile Include="..\Sources\Core\Sound.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Core\Sprite.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\System.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Texture.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Transformable.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\UI.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\VertexBuffer.cpp">
@@ -180,28 +162,13 @@
     <ClCompile Include="..\Sources\Math\Vector4D.cpp">
       <Filter>Cross\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Animation.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Button.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\DebugScene.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Font.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Utils\FreeCameraScene.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Utils\Skybox.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\ToggleButton.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Sources\CrossEditor.cpp">
@@ -327,6 +294,12 @@
     <ClCompile Include="..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Core\Model.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Transform.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -415,9 +388,6 @@
     <ClInclude Include="..\Sources\Core\Camera.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Camera2D.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\Color.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -440,12 +410,6 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Game.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\Graphics2D.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\Graphics3D.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\GraphicsGL.h">
@@ -472,19 +436,10 @@
     <ClInclude Include="..\Sources\Core\Sound.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Sprite.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\System.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Texture.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\Transformable.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\UI.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\VertexBuffer.h">
@@ -517,28 +472,13 @@
     <ClInclude Include="..\Sources\Math\Vector4D.h">
       <Filter>Cross\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Animation.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Button.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Utils\Cubemap.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\DebugScene.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Font.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\FreeCameraScene.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\Skybox.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\ToggleButton.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CrossEditor.h">
@@ -579,6 +519,12 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\Debugger.h">
       <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Model.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Transform.h">
+      <Filter>Cross\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
