@@ -108,6 +108,8 @@ float Game::GetRunTime() const {
 
 void Game::EngineUpdate() {
 	if(!suspended) {
+		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+
 		U64 now = system->GetTime();
 		U64 updateTime = now - timestamp;
 		float secTime = (float)(updateTime / 1000000.);
@@ -119,7 +121,6 @@ void Game::EngineUpdate() {
 		}
 
 		input->Update();
-		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 		game->PreUpdate(secTime);
 		game->GetCurrentScreen()->Update(secTime);
 		game->GetCurrentScreen()->PostUpdate(secTime);
