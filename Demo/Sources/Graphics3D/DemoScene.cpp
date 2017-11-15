@@ -23,7 +23,7 @@
 #include "Mesh.h"
 #include "Transform.h"
 
-#include "Libs/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui.h"
 
 void DemoScene::Start(){
 	FreeCameraScene::Start();

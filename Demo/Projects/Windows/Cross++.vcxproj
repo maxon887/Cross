@@ -115,10 +115,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Transform.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\image_helper.c" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\SOIL.c" />
     <ClCompile Include="..\..\..\Sources\Libs\SOIL\stb_image_aug.c" />
@@ -166,6 +162,10 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\MenuBar.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\Sources\UIScreen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -194,13 +194,6 @@
     <ClInclude Include="..\..\..\Sources\Core\Transform.h" />
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imconfig.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_freetype.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\imgui_internal.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_rect_pack.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_textedit.h" />
-    <ClInclude Include="..\..\..\Sources\Libs\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_DXT.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\image_helper.h" />
     <ClInclude Include="..\..\..\Sources\Libs\SOIL\SOIL.h" />
@@ -251,6 +244,13 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\MenuBar.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_internal.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_rect_pack.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
+    <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\Sources\UIScreen.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

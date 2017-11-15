@@ -21,9 +21,9 @@
 #include "Texture.h"
 #include "Utils/Debugger.h"
 
-#include "Libs/ImGui/imgui.h"
-#include "Libs/ImGui/imgui_freetype.h"
-#include "Libs/ImGui/imgui_internal.h"
+#include "ThirdParty/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui_freetype.h"
+#include "ThirdParty/ImGui/imgui_internal.h"
 
 void MenuBar::Update(float sec) {
 	if(show_style_editor) {

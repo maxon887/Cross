@@ -29,9 +29,9 @@
 #	pragma comment(lib, "freetype.lib")
 #endif
 
-#include "Libs/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui.h"
 #ifdef USE_FREETYPE
-#	include "Libs/ImGui/imgui_freetype.h"
+#	include "ThirdParty/ImGui/imgui_freetype.h"
 #endif
 
 #define DEFAULT_FONT_SIZE 13.f

@@ -5,7 +5,7 @@
 #include "Sound.h"
 #include "System.h"
 
-#include "Libs/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui.h"
 
 using namespace cross;
 

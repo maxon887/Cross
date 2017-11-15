@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "UIScreen.h"
 
-#include "Libs/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui.h"
 
 void UIScreen::Start() {
 	Screen::Start();

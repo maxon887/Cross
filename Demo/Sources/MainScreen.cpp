@@ -39,7 +39,7 @@
 #include "Graphics3D/Misc/ApocalypseScene.h"
 #include "AudioScreen.h"
 
-#include "Libs/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui.h"
 
 void MainScreen::Start(){
 	Screen::Start();
