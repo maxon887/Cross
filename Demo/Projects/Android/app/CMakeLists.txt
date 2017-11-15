@@ -11,12 +11,12 @@ cmake_minimum_required(VERSION 3.4.1)
 
 file(GLOB CROSS_SRC
     "../../../Sources/*.cpp"
-    "../../../Sources/Graphics2D/*.cpp"
     "../../../Sources/Graphics3D/*.cpp"
     "../../../Sources/Graphics3D/Simple/*.cpp"
     "../../../Sources/Graphics3D/Light/*.cpp"
     "../../../Sources/Graphics3D/Maps/*.cpp"
     "../../../Sources/Graphics3D/Misc/*.cpp"
+    "../../../Sources/ThirdParty/ImGui/*.cpp"
     "../../../../Sources/Core/*.cpp"
     "../../../../Sources/Math/*.cpp"
     "../../../../Sources/Shaders/*.cpp"
@@ -24,7 +24,6 @@ file(GLOB CROSS_SRC
     "../../../../Sources/Utils/*.cpp"
     "../../../../Sources/Libs/SOIL/*.c"
     "../../../../Sources/Libs/TinyXML2/*.cpp"
-    "../../../../Sources/Libs/ImGui/*.cpp"
     "../../../../Sources/Platform/*.cpp"
     "../../../../Sources/Platform/Android/*.cpp"
 
