@@ -31,6 +31,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 8; ++i){
 		Entity* light = new Entity("PointLight_" + to_string(i));
+        light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::POINT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		lightComponent->SetColor(Color::Red);
@@ -40,6 +41,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 1; ++i){
 		Entity* light = new Entity("DirectionalLight_" + to_string(i));
+        light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::DIRECTIONAL);
 		light->GetTransform()->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
 		lightComponent->SetColor(Color::Green);
@@ -49,6 +51,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 4; ++i){
 		Entity* light = new Entity("SpotLight_" + to_string(i));
+        light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::SPOT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		light->GetTransform()->LookAt(Vector3D(0.f));
@@ -67,10 +70,8 @@ void MultiLightScene::Start(){
 	shader->Compile();
 	
 	material = new Material(shader);
-	diffuse_texture = GetTexture("gfx3D/ContainerDiffuse.png");
-	specular_map = GetTexture("gfx3D/ContainerSpecular.png");
-	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
-	material->SetPropertyValue("Specular Map", specular_map);
+	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/ContainerDiffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("gfx3D/ContainerSpecular.png"));
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
@@ -85,8 +86,6 @@ void MultiLightScene::Start(){
 
 void MultiLightScene::Stop(){
 	delete material;
-	delete specular_map;
-	delete diffuse_texture;
 	delete shader;
 	delete cube;
 	DemoScene::Stop();

@@ -55,6 +55,5 @@ void MaterialScene::Stop(){
 }
 
 void MaterialScene::Update(float sec){
-	cube->GetTransform()->SetRotateY(game->GetRunTime() * 15.f);
 	DemoScene::Update(sec);
 }

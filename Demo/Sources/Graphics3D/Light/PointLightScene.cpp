@@ -27,7 +27,7 @@
 void PointLightScene::Start(){
 	DemoScene::Start();
 
-	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -8.f));
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -30.0f));
 
 	Entity* light = new Entity("PointLight");
 	light->AddComponent(new Transform());

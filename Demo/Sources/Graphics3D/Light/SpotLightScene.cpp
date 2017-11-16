@@ -28,6 +28,7 @@ void SpotLightScene::Start(){
 	DemoScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(-8.f, 0.f, -15.f));
+    GetCamera()->GetTransform()->LookAt(Vector3D::Zero);
 
 	Entity* light = new Entity("SpotLight");
 	light->AddComponent(new Transform());

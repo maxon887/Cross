@@ -28,6 +28,7 @@
 #include "Graphics3D/Light/DirectionalLightScene.h"
 #include "Graphics3D/Light/PointLightScene.h"
 #include "Graphics3D/Light/SpotLightScene.h"
+#include "Graphics3D/Light/MultiLightScene.h"
 #include "Graphics3D/Maps/NakedScene.h"
 #include "Graphics3D/Maps/DiffuseScene.h"
 #include "Graphics3D/Maps/SpecularScene.h"
@@ -96,6 +97,9 @@ void MainScreen::Update(float sec){
 			if(ImGui::MenuButton("Spot Light")) {
                 game->SetScreen(new SpotLightScene());
 			}
+            if(ImGui::MenuButton("Multi-Light")) {
+                game->SetScreen(new MultiLightScene());
+            }
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Maps")) {

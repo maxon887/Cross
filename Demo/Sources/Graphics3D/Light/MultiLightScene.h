@@ -24,8 +24,6 @@ public:
 	void Update(float sec) override;
 protected:
 	Shader* shader				= NULL;
-	Texture* diffuse_texture	= NULL;
-	Texture* specular_map		= NULL;
 	Material* material			= NULL;
 	Entity* cube				= NULL;
 };
