@@ -23,9 +23,12 @@
 #include "Shaders/LightsShader.h"
 #include "Texture.h"
 #include "Transform.h"
+#include "Camera.h"
 
 void NormalScene::Start(){
 	DemoScene::Start();
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
+	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
 	//lights
 	light = new Entity("PointLight");
 	light->AddComponent(new Transform());

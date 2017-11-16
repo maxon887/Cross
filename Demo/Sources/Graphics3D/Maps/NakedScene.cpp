@@ -22,11 +22,14 @@
 #include "Entity.h"
 #include "Shaders/LightsShader.h"
 #include "Transform.h"
+#include "System.h"
 #include "Camera.h"
 
 void NakedScene::Start(){
 	DemoScene::Start();
-    GetCamera()->GetTransform()->LookAt(Vector3D(0.f, 0.5f, 0.f));
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
+	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
+	
 	//lights
 	light = new Entity("PointLight");
 	light->AddComponent(new Transform());

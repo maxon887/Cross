@@ -27,12 +27,12 @@ void FreeCameraScene::Start() {
 	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
-void FreeCameraScene::Stop(){
+void FreeCameraScene::Stop() {
     input->MouseWheelRoll.Disconnect(wheel_roll);
 	Scene::Stop();
 }
 
-void FreeCameraScene::Update(float sec){
+void FreeCameraScene::Update(float sec) {
 	Scene::Update(sec);
 	Vector3D tgv = target - GetCamera()->GetPosition();
 	orbit_distance = tgv.Length();
@@ -50,7 +50,7 @@ void FreeCameraScene::Update(float sec){
 		LookUp(sec);
 	}
 }
-
+ 
 void FreeCameraScene::MoveForward(float sec){
 	if(look_at){
 		orbit_distance -= liner_speed * sec;
@@ -60,7 +60,7 @@ void FreeCameraScene::MoveForward(float sec){
 	}
 }
 
-void FreeCameraScene::MoveBackward(float sec){
+void FreeCameraScene::MoveBackward(float sec) {
 	if(look_at){
 		orbit_distance += liner_speed * sec;
 		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
@@ -69,7 +69,7 @@ void FreeCameraScene::MoveBackward(float sec){
 	}
 }
 
-void FreeCameraScene::MoveRight(float sec){
+void FreeCameraScene::MoveRight(float sec) {
 	if(look_at){
 		Quaternion rotateU = Quaternion(Vector3D::Up, -sec * angular_speed);
 		camera->GetTransform()->SetRotate(rotateU * Quaternion(camera->GetTransform()->GetRotation()));
@@ -80,7 +80,7 @@ void FreeCameraScene::MoveRight(float sec){
 	}
 }
 
-void FreeCameraScene::MoveLeft(float sec){
+void FreeCameraScene::MoveLeft(float sec) {
 	if(look_at){
 		Quaternion rotateU = Quaternion(Vector3D::Up, sec * angular_speed);
 		camera->GetTransform()->SetRotate(rotateU * Quaternion(camera->GetTransform()->GetRotation()));
@@ -91,56 +91,56 @@ void FreeCameraScene::MoveLeft(float sec){
 	}
 }
 
-void FreeCameraScene::MoveUp(float sec){
+void FreeCameraScene::MoveUp(float sec) {
 	if(!look_at){
 		camera->SetPosition(camera->GetPosition() + Vector3D::Up * liner_speed * sec);
 		target += Vector3D::Up * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::MoveDown(float sec){
+void FreeCameraScene::MoveDown(float sec) {
 	if(!look_at){
 		camera->SetPosition(camera->GetPosition() - Vector3D::Up * liner_speed * sec);
 		target -= Vector3D::Up * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::MoveCameraUp(float sec){
+void FreeCameraScene::MoveCameraUp(float sec) {
 	if(!look_at){
 		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetUp() * liner_speed * sec);
 		target += camera->GetTransform()->GetUp() * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::LookLeft(float sec){
+void FreeCameraScene::LookLeft(float sec) {
 	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
 		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookRight(float sec){
+void FreeCameraScene::LookRight(float sec) {
 	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, -sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
 		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookDown(float sec){
+void FreeCameraScene::LookDown(float sec) {
 	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
 		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookUp(float sec){
+void FreeCameraScene::LookUp(float sec) {
 	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), -sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
 		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookAtCamera(bool enabled){
+void FreeCameraScene::LookAtCamera(bool enabled) {
 	if(enabled){
 		look_at = true;
 	}else{
@@ -148,12 +148,13 @@ void FreeCameraScene::LookAtCamera(bool enabled){
 	}
 }
 
-void FreeCameraScene::LookAtCamera(const Vector3D& target){
+void FreeCameraScene::LookAtCamera(const Vector3D& target) {
 	look_at = true;
 	this->target = target;
+	GetCamera()->GetTransform()->LookAt(target);
 }
 
-bool FreeCameraScene::IsLookAtCamera() const{
+bool FreeCameraScene::IsLookAtCamera() const {
 	return look_at;
 }
 
