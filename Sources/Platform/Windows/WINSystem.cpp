@@ -103,21 +103,25 @@ string WINSystem::GetClipboard() {
 	return clipboard;
 }
 
-void WINSystem::SetAssetPath(const string& path){
-	assets_path = path;
-}
-
-void WINSystem::Sleep(float milis){
-	IntSleep((int)(milis + .5));
-}
-
-void WINSystem::Messagebox(const string& title, const string& msg){
-	if(wnd){
+void WINSystem::Messagebox(const string& title, const string& msg) {
+	if(wnd) {
 		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
-	}else{
+	} else {
 		LogIt("HWND == null");
 		System::Messagebox(title, msg);
 	}
+}
+
+void WINSystem::Sleep(float milis) {
+	IntSleep((int)(milis + .5));
+}
+
+bool WINSystem::IsMobile() {
+	return config->GetBool("EMULATE_MOBILE", false);
+}
+
+void WINSystem::SetAssetPath(const string& path){
+	assets_path = path;
 }
 
 void WINSystem::FullScreen(bool yes){

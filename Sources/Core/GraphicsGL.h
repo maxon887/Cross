@@ -17,13 +17,13 @@
 #pragma once
 #include "Cross.h"
 
-#ifdef WIN
+#if defined(WIN) || defined(EDITOR)
 #ifdef GLES
-#include "Platform\Windows\GLES2\gl2.h"
-#include "Platform\Windows\EGL\egl.h"
+#include "Platform/Windows/GLES2/gl2.h"
+#include "Platform/Windows/EGL/egl.h"
 #else
-#include "Platform\Windows\glew\glew.h"
-#include "Platform\Windows\glew\wglew.h"
+#include "Platform/Windows/glew/glew.h"
+#include "Platform/Windows/glew/wglew.h"
 #endif
 #elif ANDROID
 #include <GLES2/gl2.h>

@@ -28,86 +28,86 @@ Config::Config() {
 	LoadUserConfig();
 }
 
-Config::~Config(){
+Config::~Config() {
 	SaveGameConfig();
 	SaveUserConfig();
 }
 
-void Config::SetString(const string& key, const string& value){
+void Config::SetString(const string& key, const string& value) {
 	user_prefs[key] = value;
 }
 
-void Config::SetInt(const string& key, S32 value){
+void Config::SetInt(const string& key, S32 value) {
 	SetString(key, to_string(value));
 }
 
-void Config::SetFloat(const string& key, float value){
+void Config::SetFloat(const string& key, float value) {
 	SetString(key, to_string(value));
 }
 
-void Config::SetBool(const string& key, bool value){
+void Config::SetBool(const string& key, bool value) {
 	SetInt(key, value);
 }
 
-string Config::GetString(const string& key, const string& def) const{
+string Config::GetString(const string& key, const string& def) const {
 	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return strValue;
 }
 
-S32 Config::GetInt(const string& key, S32 def) const{
+S32 Config::GetInt(const string& key, S32 def) const {
 	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return atoi(strValue.c_str());
 }
 
-float Config::GetFloat(const string& key, float def) const{
+float Config::GetFloat(const string& key, float def) const {
 	string strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return (float)atof(strValue.c_str());
 }
 
-bool Config::GetBool(const string& key, bool def) const{
+bool Config::GetBool(const string& key, bool def) const {
 	return GetInt(key, def) != 0;
 }
 
-System::Orientation Config::GetOrientation() const{
+System::Orientation Config::GetOrientation() const {
 	return orientation;
 }
 
-void Config::SetOrientation(System::Orientation ori){
+void Config::SetOrientation(System::Orientation ori) {
 	orientation = ori;
 }
 
-bool Config::UseCompressedTextures() const{
+bool Config::UseCompressedTextures() const {
 	return use_compressed_textures;
 }
 
-Texture::Filter Config::GetTextureFilter() const{
+Texture::Filter Config::GetTextureFilter() const {
 	return texture_filter;
 }
 
-float Config::GetViewDistance() const{
+float Config::GetViewDistance() const {
 	return view_distance;
 }
 
-bool Config::IsOffscreenRender() const{
+bool Config::IsOffscreenRender() const {
 	return offscreen_render;
 }
 
-const string& Config::GetString(const string& key) const{
+const string& Config::GetString(const string& key) const {
 	auto entry = user_prefs.find(key);
-	if(entry != user_prefs.end()){
+	if(entry != user_prefs.end()) {
 		return (*entry).second;
-	}else{
+	} else {
 		return empty;
 	}
 }
 
-void Config::LoadGameConfig(){
+void Config::LoadGameConfig() {
 	File* xmlFile = system->LoadAssetFile("GameConfig.xml");
 	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
@@ -118,27 +118,27 @@ void Config::LoadGameConfig(){
 	XMLElement* root = doc.FirstChildElement("GameConfig");
 	CROSS_FAIL(root, "Failed to find GameConfig root element");
 	XMLElement* element = root->FirstChildElement("Property");
-	while(element){
+	while(element) {
 		string name = element->Attribute("name");
 		string strValue = element->Attribute("value");
 
-		if(name == "Orientation"){
+		if(name == "Orientation") {
 			orientation = (System::Orientation)atoi(strValue.c_str());
 		}
 
-		if(name == "UseCompressedTextures"){
+		if(name == "UseCompressedTextures") {
 			use_compressed_textures = strValue == "true" ? true : false;
 		}
 
-		if(name == "TextureFilter"){
+		if(name == "TextureFilter") {
 			texture_filter = (Texture::Filter)atoi(strValue.c_str());
 		}
 
-		if(name == "ViewDistance"){
+		if(name == "ViewDistance") {
 			view_distance = (float)atof(strValue.c_str());
 		}
 
-		if(name == "OffscreenRender"){
+		if(name == "OffscreenRender") {
 			offscreen_render = strValue == "true" ? true : false;
 		}
 
@@ -146,7 +146,7 @@ void Config::LoadGameConfig(){
 	}
 }
 
-void Config::LoadUserConfig(){
+void Config::LoadUserConfig() {
     string path = system->DataPath() + "UserConfig.xml";
 
 	XMLDocument doc;
@@ -166,7 +166,7 @@ void Config::LoadUserConfig(){
 	}
 }
 
-void Config::SaveGameConfig(){
+void Config::SaveGameConfig() {
 	XMLDocument doc;
 
 	XMLElement* element = doc.NewElement("GameConfig");
@@ -208,7 +208,7 @@ void Config::SaveGameConfig(){
 	gameConfig.data = NULL;
 }
 
-void Config::SaveUserConfig(){
+void Config::SaveUserConfig() {
 	XMLDocument doc;
 
 	XMLElement* element = doc.NewElement("UserConfig");

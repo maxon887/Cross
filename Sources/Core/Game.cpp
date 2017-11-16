@@ -44,11 +44,9 @@ Game::~Game() {
 }
 
 void Game::Start() {
-	gfxGL->Start();
 }
 
 void Game::Stop() {
-	gfxGL->Stop();
 	delete current_screen;
 	current_screen = NULL;
 }
