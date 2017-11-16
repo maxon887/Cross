@@ -21,13 +21,9 @@
 #ifdef GLES
 #include "Platform\Windows\GLES2\gl2.h"
 #include "Platform\Windows\EGL\egl.h"
-#pragma comment(lib, "libEGL.lib")
-#pragma comment(lib, "libGLESv2.lib")
 #else
 #include "Platform\Windows\glew\glew.h"
 #include "Platform\Windows\glew\wglew.h"
-#pragma comment(lib, "glew32.lib")
-#pragma comment(lib, "opengl32.lib")
 #endif
 #elif ANDROID
 #include <GLES2/gl2.h>
@@ -35,9 +31,6 @@
 #include <GLES2/gl2platform.h>
 #elif IOS
 #import <OpenGLES/ES2/glext.h>
-#elif EDITOR
-#include "Platform\Windows\glew\glew.h"
-#include "Platform\Windows\glew\wglew.h"
 #endif
 
 #if defined(CROSS_DEBUG)
@@ -52,17 +45,13 @@
 
 namespace cross{
 
-/*	Class containing specific OpengGL features,
-	off screen rendering and default shaders */
-class GraphicsGL{
+/*	Class containing specific OpengGL features */
+class GraphicsGL {
 public:
 	static void CheckGLError(const char* file, U32 line);
 	static void ClearGLErrorBuffer();
 
 	GraphicsGL();
-
-	void Start();
-	void Stop();
 
 	U32 GetShaderVersion() const;
 

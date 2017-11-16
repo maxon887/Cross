@@ -23,7 +23,7 @@ namespace cross {
 
 /*	Configuration manager. This class provide interface 
 	for saving and loading data in non-volatile device memory. */
-class Config{
+class Config {
 public:
 	Config();
 	~Config();

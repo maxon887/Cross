@@ -100,14 +100,6 @@ GraphicsGL::GraphicsGL() {
 		SAFE(glCullFace(GL_FRONT));
 }
 
-void GraphicsGL::Start() {
-
-}
-
-void GraphicsGL::Stop() {
-
-}
-
 U32 GraphicsGL::GetShaderVersion() const {
 	return shaders_version;
 }

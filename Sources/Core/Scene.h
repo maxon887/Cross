@@ -31,7 +31,7 @@ namespace cross{
 
 /*	This class designed for managing 3D space. 
 	Models, Meshes, Lights can exists only in Scene */
-class Scene : public Screen{
+class Scene : public Screen {
 public:
 	Event<Entity*> EntityAdded;
 	/* Called before scene show up. */

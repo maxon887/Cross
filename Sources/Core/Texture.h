@@ -22,21 +22,21 @@ namespace cross{
 /*	This class represents image data loaded to gpu.
 	If you need to load Texture from file use Graphics2D class.
 	Textures needed to create sprites and 3D models propertie maps */
-class Texture{
+class Texture {
 public:
-	enum Filter{
+	enum Filter {
 		NEAREST,
 		LINEAR,
 		BILINEAR,
 		TRILINEAR
 	};
 
-	enum TilingMode{
+	enum TilingMode {
 		CLAMP_TO_EDGE,
 		REPEAT
 	};
 
-	enum Compression{
+	enum Compression {
 		ETC1,
 		NONE
 	};

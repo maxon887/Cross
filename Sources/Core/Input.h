@@ -24,7 +24,7 @@ namespace cross {
 
 #define MAX_ACTIONS 20
 
-enum class Key{
+enum class Key {
 	BACK		= 0x08,
 	TAB			= 0x09,
 	CLEAR		= 0x0C,
@@ -120,9 +120,9 @@ enum class Key{
 
 /*	Class responsible for user input. 
 	Handle touches, clicks and key events */
-class Input{
+class Input {
 public:
-	struct Action{
+	struct Action {
 		Vector2D pos;
 		//on mobile devices used for touches, 
 		//on desctop used for mouse buttons, 0 - lmb, 1 - rmb

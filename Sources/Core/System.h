@@ -27,9 +27,9 @@ namespace cross {
 #endif
 	
 /* Class for platform specific functional */
-class System{
+class System {
 public:
-	enum Orientation{
+	enum Orientation {
 		LANDSCAPE,
 		PORTRAIT,
 		AUTO,

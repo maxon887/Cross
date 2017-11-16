@@ -25,7 +25,7 @@
 #include "System.h"
 #include "Camera.h"
 
-void NakedScene::Start(){
+void NakedScene::Start() {
 	DemoScene::Start();
 	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
 	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
@@ -51,13 +51,13 @@ void NakedScene::Start(){
 	AddEntity(model);
 }
 
-void NakedScene::Stop(){
+void NakedScene::Stop() {
 	delete material;
 	delete shader;
 	DemoScene::Stop();
 }
 
-void NakedScene::Update(float sec){
+void NakedScene::Update(float sec) {
 	DemoScene::Update(sec);
 	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

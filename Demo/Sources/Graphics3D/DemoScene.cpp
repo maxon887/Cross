@@ -25,7 +25,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void DemoScene::Start(){
+void DemoScene::Start() {
 	FreeCameraScene::Start();
 	camera->SetPosition(Vector3D(0.f, 0.f, -3.0f));
 	action_down_del = input->ActionDown.Connect(this, &DemoScene::ActionDownHandle);
@@ -35,14 +35,14 @@ void DemoScene::Start(){
 	OnEyeClick();
 }
 
-void DemoScene::Stop(){
+void DemoScene::Stop() {
 	input->ActionDown.Disconnect(action_down_del);
 	input->ActionMove.Disconnect(action_move_del);
 	input->ActionUp.Disconnect(action_up_del);
 	FreeCameraScene::Stop();
 }
 
-void DemoScene::Update(float sec){
+void DemoScene::Update(float sec) {
 	while(!action_stack.empty()) {
 		Input::Action action = action_stack.front().first;
 		int actionState = action_stack.front().second;

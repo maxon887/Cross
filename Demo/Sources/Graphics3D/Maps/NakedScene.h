@@ -17,7 +17,7 @@
 #pragma once
 #include "Graphics3D/DemoScene.h"
 
-class NakedScene : public DemoScene{
+class NakedScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;

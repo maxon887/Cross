@@ -20,7 +20,7 @@
 namespace cross{
 /*	Container class for data loaded from file system 
 	To load use System class */
-class File{
+class File {
 public:
 	/* Returns directory from full filename */
 	static string PathFromFile(const string& filePath);

@@ -42,7 +42,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void MainScreen::Start(){
+void MainScreen::Start() {
 	Screen::Start();
 	SetName("Main");
 	SetBackground(Color(0.3f));
@@ -52,7 +52,7 @@ void MainScreen::Stop(){
 	Screen::Stop();
 }
 
-void MainScreen::Update(float sec){
+void MainScreen::Update(float sec) {
 	Screen::Update(sec);
 
 	ImGui::PushFont(demo->big_font);

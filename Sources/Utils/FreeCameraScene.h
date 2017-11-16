@@ -21,7 +21,7 @@
 
 namespace cross{
 
-class FreeCameraScene : public Scene{
+class FreeCameraScene : public Scene {
 public:
 	virtual void Start() override;
 	virtual void Stop() override;
