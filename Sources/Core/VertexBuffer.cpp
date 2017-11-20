@@ -83,7 +83,7 @@ Byte* VertexBuffer::GetData(){
 }
 
 U32 VertexBuffer::GetDataSize() const{
-	return data.size();
+    return (U32)data.size();
 }
 
 void VertexBuffer::Free(){

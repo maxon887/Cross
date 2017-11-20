@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+	/*	Copyright © 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -73,7 +73,7 @@ public:
 		string glName	= string();
 		GLint glId		= -1;
 		U32 size		= 0;
-		void* value		= NULL;
+		Byte* value		= NULL;
 		bool original	= true;
 	};
 
