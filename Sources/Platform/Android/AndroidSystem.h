@@ -40,13 +40,13 @@ public:
 	File* LoadAssetFile(const string& filename) override;
 
 	void PromtToExit();
-    void RequestOrientation(Orientation orientation);
+	void RequestOrientation(Orientation orientation);
 	void Messagebox(const string& title, const string& message) override;
-    bool IsMobile() override;
+	bool IsMobile() override;
 	void Exit();
 	void Sleep(float milis);
-    void CallActivityVoidMethod(const string& methodName);
-    void CallActivityVoidMethod(const string& methodName, const string& parameter);
+	void CallActivityVoidMethod(const string& methodName);
+	void CallActivityVoidMethod(const string& methodName, const string& parameter);
 	
 public:
 	void DetachFromJVM();

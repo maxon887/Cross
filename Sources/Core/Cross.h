@@ -129,7 +129,7 @@ friend Shader;			\
 friend Material;		\
 friend Mesh;			\
 friend GraphicsGL;		\
-friend Graphics3D;		\
+
 friend Game;			\
 friend System;			\
 friend Audio;			\

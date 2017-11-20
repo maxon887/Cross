@@ -63,10 +63,10 @@ U64 AndroidSystem::GetTime(){
 }
 
 float AndroidSystem::GetScreenDPI() {
-    JNIEnv* env = GetJNIEnv();
-    jclass clazz = env->GetObjectClass(cross_activity);
-    jmethodID methodID = env->GetMethodID(clazz, "GetScreenDPI", "()I");
-    return (float)env->CallIntMethod(cross_activity, methodID);
+	JNIEnv* env = GetJNIEnv();
+	jclass clazz = env->GetObjectClass(cross_activity);
+	jmethodID methodID = env->GetMethodID(clazz, "GetScreenDPI", "()I");
+	return (float)env->CallIntMethod(cross_activity, methodID);
 }
 
 void AndroidSystem::PromtToExit(){
@@ -92,7 +92,7 @@ void AndroidSystem::Messagebox(const string& title, const string& message) {
 
 bool AndroidSystem::IsMobile() {
     return true;
-}
+
 
 void AndroidSystem::Exit() {
     JNIEnv* env = GetJNIEnv();
