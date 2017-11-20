@@ -63,7 +63,7 @@ void MainScreen::Update(float sec) {
 		ImGui::Begin("Demo");
 	} else {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
-		ImGui::SetNextWindowSize(ImVec2(system->GetWindowWidth(), system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
+		ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
 		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		ImGui::Begin("Demo", 0, ImGuiWindowFlags_NoCollapse |
 								ImGuiWindowFlags_NoMove |

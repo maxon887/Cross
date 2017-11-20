@@ -15,16 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MaterialScene.h"
-#include "Game.h"
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Shaders/SingleLightShader.h"
-#include "Camera.h"
 #include "Mesh.h"
 #include "Transform.h"
 
-void MaterialScene::Start(){
+void MaterialScene::Start() {
 	DemoScene::Start();
 	//light setups
 	Entity* light = new Entity("PointLight");
@@ -41,19 +39,15 @@ void MaterialScene::Start(){
 	material->SetPropertyValue("Diffuse Color", Color::Red);
 	material->SetPropertyValue("Specular Color", Color::White);
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	cube = LoadPrimitive(Model::Primitive::CUBE);
+	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 
 	cube->GetTransform()->SetScale(Vector3D(0.73f, 1.0f, 0.55f));
 }
 
-void MaterialScene::Stop(){
+void MaterialScene::Stop() {
 	delete material;
 	delete shader;
 	DemoScene::Stop();
-}
-
-void MaterialScene::Update(float sec){
-	DemoScene::Update(sec);
 }

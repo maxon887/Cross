@@ -90,7 +90,3 @@ void MultiLightScene::Stop(){
 	delete cube;
 	DemoScene::Stop();
 }
-
-void MultiLightScene::Update(float sec){
-	DemoScene::Update(sec);
-}

@@ -60,7 +60,3 @@ void PointLightScene::Stop(){
 	delete cube;
 	DemoScene::Stop();
 }
-
-void PointLightScene::Update(float sec){
-	DemoScene::Update(sec);
-}

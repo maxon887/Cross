@@ -72,7 +72,7 @@ public:
 	virtual void Sleep(float milis) { }
 	/* Ask user about exit from application */
     virtual void RequestOrientation(Orientation orientation) { }
-	virtual bool IsMobile();
+	virtual bool IsMobile() { return false; }
 	virtual void PromtToExit() { }
 	virtual string GetClipboard() { return "Clipboard does not implemented"; }
 	virtual void SetClipboard(const string& data) { }

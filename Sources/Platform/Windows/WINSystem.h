@@ -22,10 +22,10 @@
 
 namespace cross{
 
-class WINSystem : public System{
+class WINSystem : public System {
 public:
 	WINSystem(HWND wnd = 0);
-	~WINSystem();
+	~WINSystem() { }
 
 	void Log(const char* msg) override;
 	string AssetsPath() override;

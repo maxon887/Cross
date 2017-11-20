@@ -17,15 +17,13 @@
 #pragma once
 #include "Graphics3D/DemoScene.h"
 
-class DirectionalLightScene : public DemoScene{
+class DirectionalLightScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
-	void Update(float sec) override;
 
 private:
 	Shader* shader				= NULL;
 	Material* material			= NULL;
 	Entity* cube				= NULL;
-	float shininess				= 1.f;
 };

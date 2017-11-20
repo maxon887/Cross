@@ -21,7 +21,6 @@
 #include "Shaders/SingleLightShader.h"
 #include "Camera.h"
 #include "Mesh.h"
-#include "Texture.h"
 #include "Transform.h"
 
 void DirectionalLightScene::Start(){
@@ -59,8 +58,4 @@ void DirectionalLightScene::Stop(){
 	delete material;
 	delete shader;
 	DemoScene::Stop();
-}
-
-void DirectionalLightScene::Update(float sec){
-	DemoScene::Update(sec);
 }

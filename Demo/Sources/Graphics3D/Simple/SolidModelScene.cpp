@@ -19,21 +19,10 @@
 #include "Mesh.h"
 #include "Entity.h"
 
-void SolidModelScene::Start(){
+void SolidModelScene::Start() {
 	DemoScene::Start();
-	Shader* shader = GetShader("Engine/Shaders/Simple.sha");
-	material = new Material(shader);
-	material->SetPropertyValue("Color", Color::Green);
+	Material* mat = GetMaterial("Materials/SimpleGreen.mat");
 	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
-	cube->GetComponent<Mesh>()->SetMaterial(material);
+	cube->GetComponent<Mesh>()->SetMaterial(mat);
 	AddEntity(cube);
-}
-
-void SolidModelScene::Stop(){
-	delete material;
-	DemoScene::Stop();
-}
-
-void SolidModelScene::Update(float sec){
-	DemoScene::Update(sec);
 }

@@ -17,7 +17,6 @@
 #include "TexturedModelScene.h"
 #include "Material.h"
 #include "Entity.h"
-#include "Texture.h"
 #include "Mesh.h"
 
 void TexturedModelScene::Start(){
@@ -32,8 +31,4 @@ void TexturedModelScene::Start(){
 void TexturedModelScene::Stop(){
 	delete material;
 	DemoScene::Stop();
-}
-
-void TexturedModelScene::Update(float sec){
-	DemoScene::Update(sec);
 }

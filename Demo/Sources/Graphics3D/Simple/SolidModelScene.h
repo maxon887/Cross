@@ -20,10 +20,5 @@
 
 class SolidModelScene : public DemoScene {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-
-private:
-	Material* material;
+	void Start() override;
 };

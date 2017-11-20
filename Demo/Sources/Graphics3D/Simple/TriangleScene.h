@@ -18,13 +18,11 @@
 #include "Cross.h"
 #include "Graphics3D/DemoScene.h"
 
-using namespace cross;
-
 class TriangleScene : public DemoScene {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
 private:
 	Mesh* triangle;

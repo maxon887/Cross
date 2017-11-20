@@ -65,7 +65,3 @@ void SpotLightScene::Stop(){
 	delete cube;
 	DemoScene::Stop();
 }
-
-void SpotLightScene::Update(float sec){
-	DemoScene::Update(sec);
-}

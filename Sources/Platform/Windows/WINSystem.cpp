@@ -24,14 +24,14 @@
 
 using namespace cross;
 
-bool DirectoryExists(const char* szPath){
+bool DirectoryExists(const char* szPath) {
   DWORD dwAttrib = GetFileAttributesA(szPath);
 
   return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
          (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-void IntSleep(int milis){
+void IntSleep(int milis) {
 	Sleep(milis);
 }
 
@@ -59,18 +59,16 @@ WINSystem::WINSystem(HWND wnd) :
 	}
 }
 
-WINSystem::~WINSystem(){ }
-
 void WINSystem::Log(const char* msg) {
 	OutputDebugStringA(msg);
 	OutputDebugStringA("\n");
 }
 
-string WINSystem::AssetsPath(){
+string WINSystem::AssetsPath() {
 	return assets_path;
 }
 
-string WINSystem::DataPath(){
+string WINSystem::DataPath() {
 	return DATA_PATH;
 }
 
@@ -152,7 +150,7 @@ void WINSystem::ResizeWindow(int posX, int posY, int width, int height){
 	MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
 }
 
-void WINSystem::SetWND(HWND wnd){
+void WINSystem::SetWND(HWND wnd) {
 	this->wnd = wnd;
 }
 
@@ -160,12 +158,12 @@ HWND WINSystem::GetHWND() {
 	return wnd;
 }
 
-void WINSystem::SetWindowPosition(int x, int y){
+void WINSystem::SetWindowPosition(int x, int y) {
 	window_pos_x = x;
 	window_pos_y = y;
 }
 
-void WINSystem::KeyReleasedHandle(Key key){
+void WINSystem::KeyReleasedHandle(Key key) {
 	switch(key)	{
 	case Key::F1:	//16:9
 		ResizeWindow(window_pos_x, window_pos_y, 960, 540);

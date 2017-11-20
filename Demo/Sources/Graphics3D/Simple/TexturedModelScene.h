@@ -19,9 +19,8 @@
 
 class TexturedModelScene : public DemoScene{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
 
 private:
 	Material* material;

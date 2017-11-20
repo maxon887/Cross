@@ -33,7 +33,7 @@ void AudioScreen::Update(float sec){
 		ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 2.f, system->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
 		ImGui::Begin("Audio");
 	} else {
-		ImGui::SetNextWindowSize(ImVec2(system->GetWindowWidth(), system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
+		ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
 		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		ImGui::Begin("Audio", 0,	ImGuiWindowFlags_NoCollapse |
 									ImGuiWindowFlags_NoMove |

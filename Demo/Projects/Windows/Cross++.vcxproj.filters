@@ -58,6 +58,9 @@
     <Filter Include="Demo\ThirdParty">
       <UniqueIdentifier>{8a64ba9f-c0ef-46a1-89e1-b3d54e843afb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\ThirdParty\ImGui">
+      <UniqueIdentifier>{edbd5ed5-fece-4b60-bc2b-e87030e41451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -272,16 +275,16 @@
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -512,25 +515,25 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_internal.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_rect_pack.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h">
-      <Filter>Demo\ThirdParty</Filter>
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
