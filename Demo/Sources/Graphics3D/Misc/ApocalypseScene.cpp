@@ -17,15 +17,15 @@
 #include "ApocalypseScene.h"
 
 void ApocalypseScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	SetAmbientColor(Color(0.1f));
 	Load("Apocalypse.scn");
 }
 
 void ApocalypseScene::Stop(){
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void ApocalypseScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

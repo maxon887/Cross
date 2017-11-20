@@ -51,7 +51,7 @@ File* System::LoadDataFile(const string& filename){
 }
 
 void System::SaveFile(File* file){
-	FILE* f = fopen(file->name.c_str(), "w");
+	FILE* f = fopen(file->name.c_str(), "wb");
 	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.c_str());
 	U64 written = fwrite(file->data, 1, file->size, f);
 	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.c_str());

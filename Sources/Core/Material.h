@@ -23,9 +23,8 @@ namespace cross{
 /*	This class need to configure visual property of an 3D object. 
 	Can be created only from Shader. Consists property like 
 	specular streight, transparency, all textures types etc.*/
-class Material{
+class Material {
 public:
-
 	Material() = default;
 	Material(Shader* shader);
 	~Material();

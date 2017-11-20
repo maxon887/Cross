@@ -16,21 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Input.h"
 
 namespace cross{
 
-class Debugger{
+class Debugger {
 public:
-	enum Parameter{
-		FPS,
-		UPDATE_TIME,
-		CPU_TIME,
-		RUN_TIME,
-		INPUT,
-		NONE
-	};
-
 	static Debugger* Instance();
 	static void Release();
 
@@ -39,16 +29,14 @@ public:
 	void SetTimeCheck();
 	float GetTimeCheck();
 	void SetCPUTime(float sec);
+    float GetCPUTime() const;
+    float GetUpdateTime() const;
 	float GetFPS() const;
 
 private:
 	static Debugger* instance;
 
 	Array<U64> time_checks			= Array<U64>();
-
-	Font* debugger_font				= NULL;
-
-	Array<bool> params				= Array<bool>(Parameter::NONE, false);
 
 	float cpu_time					= 0;
 	float cpu_sum					= 0;
@@ -58,16 +46,8 @@ private:
 	float update_sum				= 0;
 	int update_counter				= 0;
 
-	bool touches					= false;
-	Vector2D touch_pos				= Vector2D(0);
-	bool touch_down					= false;
-
-	Debugger();
-	~Debugger();
-
-	void OnActionDown(Input::Action action);
-	void OnActionUp(Input::Action action);
-	void OnActionMove(Input::Action action);
+	Debugger() { }
+	~Debugger() { }
 };
     
 }

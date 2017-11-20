@@ -19,7 +19,7 @@
 
 namespace cross{
 
-class VertexBuffer{
+class VertexBuffer {
 public:
 	bool HasTextureCoordinates() const;
 	bool HasNormals() const;

@@ -23,7 +23,7 @@ namespace cross {
 
 /*	Configuration manager. This class provide interface 
 	for saving and loading data in non-volatile device memory. */
-class Config{
+class Config {
 public:
 	Config();
 	~Config();
@@ -59,6 +59,9 @@ protected:
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();
 
 	const string& GetString(const string& key) const;
+
+private:
+	const string empty = "";
 };
     
 }

@@ -16,58 +16,21 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Debugger.h"
 #include "System.h"
-#include "Input.h"
-#include "Graphics2D.h"
-#include "Camera2D.h"
-#include "Game.h"
-#include "Utils/Font.h"
-#include "Screen.h"
 
 using namespace cross;
 
 Debugger* Debugger::instance = NULL;
 
-Debugger* Debugger::Instance(){
+Debugger* Debugger::Instance() {
 	if(!instance){
 		instance = new Debugger();
 	}
 	return instance;
 }
 
-void Debugger::Release(){
+void Debugger::Release() {
 	delete instance;
 	instance = NULL;
-}
-
-Debugger::Debugger() {
-	params[FPS]			= true;
-	params[UPDATE_TIME]	= true;
-	params[CPU_TIME]	= true;
-	params[RUN_TIME]	= true;
-	params[INPUT]		= true;
-
-	for(int i = 0; i < Parameter::NONE; i++){
-		//if any of debug parameters enabled create debug font
-		if(params[i]){
-			debugger_font = gfx2D->GetDefaultFont()->Clone();
-			if(system->GetWindowWidth() < 700){
-				debugger_font->SetSize(37.f);
-			}else{
-				debugger_font->SetSize(17.f);
-			}
-			break;
-		}
-	}
-
-	if(params[Parameter::INPUT]){
-		input->ActionDown.Connect(this, &Debugger::OnActionDown);
-		input->ActionMove.Connect(this, &Debugger::OnActionMove);
-		input->ActionUp.Connect(this, &Debugger::OnActionUp);
-	}
-}
-
-Debugger::~Debugger(){
-	delete debugger_font;
 }
 
 void Debugger::SetTimeCheck() {
@@ -82,7 +45,7 @@ float Debugger::GetTimeCheck() {
 	return (now - checkTime) / 1000.f;
 }
 
-void Debugger::Update(float micro){
+void Debugger::Update(float micro) {
 	if(update_counter == 20){
 		update_counter = 0;
 		update_time = update_sum / 20.f / 1000.f;
@@ -90,49 +53,6 @@ void Debugger::Update(float micro){
 	}else{
 		update_sum += micro;
 		update_counter++;
-	}
-
-	S32 optionPosition = 1;
-	float height = game->GetCurrentScreen()->GetCamera()->GetViewHeight();
-	height += game->GetCurrentScreen()->GetCamera()->GetPosition().y;
-	char outputString[256];
-	if(params[Parameter::FPS] == true){
-		if(update_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "FPS: -", debugger_font);
-		}else{
-			sprintf(outputString, "FPS: %0.1f", 1000.f / update_time);
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		}
-		optionPosition++;
-	}
-	if(params[Parameter::UPDATE_TIME] == true){
-		sprintf(outputString, "Update Time: %0.1fms", update_time);
-		gfx2D->DrawText(Vector2D(0.f, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		optionPosition++;
-	}
-	if(params[Parameter::CPU_TIME] == true){
-		if(cpu_time == 0){
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), "CPU Time: -", debugger_font);
-		}else{
-			sprintf(outputString, "CPU Time: %0.1fms", cpu_time);
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		}
-		optionPosition++;
-	}
-	if(params[Parameter::RUN_TIME] == true){
-		sprintf(outputString, "Run time: %0.2fsec", game->GetRunTime());
-		gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		optionPosition++;
-	}
-	if(params[Parameter::INPUT] == true){
-		if(touch_down) {
-			sprintf(outputString, "Input x: %f y: %f", touch_pos.x, touch_pos.y);
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		} else {
-			sprintf(outputString, "Input Up");
-			gfx2D->DrawText(Vector2D(0, height - debugger_font->GetSize() * optionPosition), outputString, debugger_font);
-		}
-		optionPosition++;
 	}
 }
 
@@ -147,19 +67,14 @@ void Debugger::SetCPUTime(float micro) {
 	}
 }
 
-float Debugger::GetFPS() const{
+float Debugger::GetCPUTime() const {
+    return cpu_time;
+}
+
+float Debugger::GetUpdateTime() const {
+    return update_time;
+}
+
+float Debugger::GetFPS() const {
 	return 1000.f / update_time;
-}
-
-void Debugger::OnActionDown(Input::Action action) {
-	touch_down = true;
-	touch_pos = action.pos;
-}
-
-void Debugger::OnActionUp(Input::Action action) {
-	touch_down = false;
-}
-
-void Debugger::OnActionMove(Input::Action action) {
-	touch_pos = action.pos;
 }

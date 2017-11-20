@@ -17,11 +17,11 @@
 #include "SkyboxScene.h"
 #include "Shaders/Shader.h"
 #include "Material.h"
-#include "Graphics3D.h"
 #include "Entity.h"
+#include "Mesh.h"
 
 void SkyboxScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 	
 	Cubemap* cubemap = new Cubemap( "gfx3D/Skybox/right.png",
 									"gfx3D/Skybox/left.png",
@@ -30,22 +30,21 @@ void SkyboxScene::Start(){
 									"gfx3D/Skybox/back.png",
 									"gfx3D/Skybox/front.png" );
 	skybox = new Skybox(cubemap);
-	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
-	shader->Compile();
+	shader = GetShader("Engine/Shaders/Texture.sha");
 	material = new Material(shader);
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	texture = GetTexture("gfx3D/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
-	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 }
 
 void SkyboxScene::Stop(){
 
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void SkyboxScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	skybox->Draw();
 }

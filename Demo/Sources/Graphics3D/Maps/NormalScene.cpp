@@ -17,20 +17,26 @@
 #include "NormalScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/LightsShader.h"
+#include "Texture.h"
+#include "Transform.h"
+#include "Camera.h"
 
 void NormalScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
+	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
 	//lights
-	light = new Entity();
+	light = new Entity("PointLight");
+	light->AddComponent(new Transform());
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddMacro("USE_SHININESS_MAP");
@@ -43,32 +49,23 @@ void NormalScene::Start(){
 	shader->AddProperty("Normal Map", "uNormalMap");
 	shader->Compile();
 
-	diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png");
-	specular = gfx2D->LoadTexture("gfx3D/Camaro/Specular.png");
-	roughness = gfx2D->LoadTexture("gfx3D/Camaro/Shininess.png");
-	normal = gfx2D->LoadTexture("gfx3D/Camaro/Normal.png");
-
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", diffuse);
-	material->SetPropertyValue("Specular Map", specular);
-	material->SetPropertyValue("Shininess Map", roughness);
-	material->SetPropertyValue("Normal Map", normal);
+	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/Camaro/Diffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("gfx3D/Camaro/Specular.png"));
+	material->SetPropertyValue("Shininess Map", GetTexture("gfx3D/Camaro/Shininess.png"));
+	material->SetPropertyValue("Normal Map", GetTexture("gfx3D/Camaro/Normal.png"));
 	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	gfx3D->AdjustMaterial(model, material);
+	ApplyMaterial(model, material);
 	AddEntity(model);
 }
 
 void NormalScene::Stop(){
 	delete material;
-	delete normal;
-	delete roughness;
-	delete specular;
-	delete diffuse;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void NormalScene::Update(float sec){
-	CameraControlsScene::Update(sec);
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+	DemoScene::Update(sec);
+	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

@@ -24,14 +24,14 @@
 
 using namespace cross;
 
-bool DirectoryExists(const char* szPath){
+bool DirectoryExists(const char* szPath) {
   DWORD dwAttrib = GetFileAttributesA(szPath);
 
   return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
          (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-void IntSleep(int milis){
+void IntSleep(int milis) {
 	Sleep(milis);
 }
 
@@ -59,18 +59,16 @@ WINSystem::WINSystem(HWND wnd) :
 	}
 }
 
-WINSystem::~WINSystem(){ }
-
 void WINSystem::Log(const char* msg) {
 	OutputDebugStringA(msg);
 	OutputDebugStringA("\n");
 }
 
-string WINSystem::AssetsPath(){
+string WINSystem::AssetsPath() {
 	return assets_path;
 }
 
-string WINSystem::DataPath(){
+string WINSystem::DataPath() {
 	return DATA_PATH;
 }
 
@@ -82,21 +80,46 @@ U64 WINSystem::GetTime(){
 	return (crt.QuadPart * 1000000) / freq.QuadPart;
 }
 
-void WINSystem::SetAssetPath(const string& path){
-	assets_path = path;
+float WINSystem::GetScreenDPI() {
+	SetProcessDPIAware(); //true
+	HDC screen = GetDC(NULL);
+	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
+	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
+	ReleaseDC(NULL, screen);
+	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
-void WINSystem::Sleep(float milis){
-	IntSleep((int)(milis + .5));
+string WINSystem::GetClipboard() {
+	CROSS_RETURN(OpenClipboard(NULL), "", "Can not open clipboard data");
+	HANDLE hData = GetClipboardData(CF_TEXT);
+	CROSS_RETURN(hData, "", "Clipboard data == null");
+	char* text = static_cast<char*>(GlobalLock(hData));
+	CROSS_RETURN(text, "", "Text pointer == null");
+	clipboard = text;
+	GlobalUnlock(hData);
+	CloseClipboard();
+	return clipboard;
 }
 
-void WINSystem::Messagebox(const string& title, const string& msg){
-	if(wnd){
+void WINSystem::Messagebox(const string& title, const string& msg) {
+	if(wnd) {
 		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
-	}else{
+	} else {
 		LogIt("HWND == null");
 		System::Messagebox(title, msg);
 	}
+}
+
+void WINSystem::Sleep(float milis) {
+	IntSleep((int)(milis + .5));
+}
+
+bool WINSystem::IsMobile() {
+	return config->GetBool("EMULATE_MOBILE", false);
+}
+
+void WINSystem::SetAssetPath(const string& path){
+	assets_path = path;
 }
 
 void WINSystem::FullScreen(bool yes){
@@ -127,16 +150,20 @@ void WINSystem::ResizeWindow(int posX, int posY, int width, int height){
 	MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
 }
 
-void WINSystem::SetWND(HWND wnd){
+void WINSystem::SetWND(HWND wnd) {
 	this->wnd = wnd;
 }
 
-void WINSystem::SetWindowPosition(int x, int y){
+HWND WINSystem::GetHWND() {
+	return wnd;
+}
+
+void WINSystem::SetWindowPosition(int x, int y) {
 	window_pos_x = x;
 	window_pos_y = y;
 }
 
-void WINSystem::KeyReleasedHandle(Key key){
+void WINSystem::KeyReleasedHandle(Key key) {
 	switch(key)	{
 	case Key::F1:	//16:9
 		ResizeWindow(window_pos_x, window_pos_y, 960, 540);

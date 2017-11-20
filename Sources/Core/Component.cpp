@@ -15,31 +15,31 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Component.h"
-#include "System.h"
 #include "Entity.h"
+#include "Transform.h"
 
 using namespace cross;
 
-Component* Component::Clone() const{
-	CROSS_RETURN(false, NULL, "Clone function does not implemented in this component");
-}
-
-Entity* Component::GetEntity(){
+Entity* Component::GetEntity() {
 	return entity;
 }
 
-Transformable* Component::GetTransform(){
-	return entity;
+Transform* Component::GetTransform() {
+	return entity->GetTransform();
 }
 
-Vector3D Component::GetPosition() const{
-	return entity->GetPosition();
+Vector3D Component::GetPosition() const {
+	return entity->GetTransform()->GetPosition();
 }
 
-bool Component::IsEnabled(){
+void Component::SetPosition(const Vector3D& pos) {
+	entity->GetTransform()->SetPosition(pos);
+}
+
+bool Component::IsEnabled() const {
 	return enabled;
 }
 
-void Component::Enable(bool e){
+void Component::Enable(bool e) {
 	this->enabled = e;
 }

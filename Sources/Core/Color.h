@@ -18,7 +18,7 @@
 
 namespace cross {
 
-class Color{
+class Color {
 public:
 	static const Color Red;
 	static const Color Green;

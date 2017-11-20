@@ -3,8 +3,6 @@
 #include "CrossEditor.h"
 #include "ESystem.h"
 #include "Game.h"
-#include "Graphics3D.h"
-#include "Graphics2D.h"
 #include "SceneView.h"
 
 #include <QMouseEvent>
@@ -28,8 +26,6 @@ void GLHandler::initializeGL(){
 		esystem->SetWindowSize(size.width(), size.height());
 	
 		gfxGL = new GraphicsGL();
-		gfx2D = new Graphics2D();
-		gfx3D = new Graphics3D();
 		game->Start();
 		game->SetScreen(game->GetStartScreen());
 
@@ -60,8 +56,6 @@ void GLHandler::resizeGL(int w, int h){
 void GLHandler::ShutDown(){
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
-	delete gfx3D;
-	delete gfx2D;
 	delete gfxGL;
 }
 
@@ -95,15 +89,15 @@ void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
 }
 
 void GLHandler::wheelEvent(QWheelEvent* wheel){
-	if(wheel->delta() > 0){
-		input->MouseWheelUp();
-	}else{
-		input->MouseWheelDown();
+	if(wheel->delta() > 0) {
+		input->MouseWheelRoll(+15.f);
+	} else {
+		input->MouseWheelRoll(-15.f);
 	}
 }
 
 S32 GLHandler::MouseButtonID(QMouseEvent* e){
-	switch(e->buttons())	{
+	switch(e->buttons()) {
 	case Qt::LeftButton:
 		return 0;
 	case Qt::RightButton:

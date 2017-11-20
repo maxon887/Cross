@@ -22,6 +22,8 @@
 #include "Config.h"
 #include "resource.h"
 #include "WINSystem.h"
+#include "GLES.h"
+#include "Platform/CrossEGL.h"
 
 using namespace cross;
 
@@ -50,10 +52,28 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
         input->TargetActionDown(targetX, targetY, 0);
 		break;
 	}
+	case WM_RBUTTONDOWN:{
+		SetCapture(wnd);
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = true;
+		input->TargetActionDown(targetX, targetY, 1);
+		break;
+	}
+	case WM_MBUTTONDOWN:{
+		SetCapture(wnd);
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = true;
+		input->TargetActionDown(targetX, targetY, 2);
+		break;
+	}
 	case WM_MOUSEMOVE:{
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		input->MousePosition.x = targetX;
+		input->MousePosition.y = targetY;
 		if(mouseDown){
-			float targetX = (short)LOWORD(lParam);
-			float targetY = (short)HIWORD(lParam);
 			input->TargetActionMove(targetX, targetY, 0);
 		}
 		break;
@@ -66,13 +86,25 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->TargetActionUp(targetX, targetY, 0);
 		break;
 	}
+	case WM_RBUTTONUP: {
+		ReleaseCapture();
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = false;
+		input->TargetActionUp(targetX, targetY, 1);
+		break;
+	}
+	case WM_MBUTTONUP: {
+		ReleaseCapture();
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = false;
+		input->TargetActionUp(targetX, targetY, 2);
+		break;
+	}
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
-		if(delta < 0){
-			input->MouseWheelUp();
-		}else{
-			input->MouseWheelDown();
-		}
+		input->MouseWheelRoll((float)delta);
 		break;
 	}
 	case WM_KEYDOWN:
@@ -80,6 +112,9 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	case WM_KEYUP:
 		input->KeyReleased((cross::Key)wParam);
+		break;
+	case WM_CHAR:
+		input->CharEnter(wParam);
 		break;
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;
@@ -99,9 +134,22 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		break;
 	}
 	case WM_KILLFOCUS:
-		game->Suspend();
+		if(game) {
+			game->Suspend();
+		}
 		break;
 	case WM_SETFOCUS:
+		if(game) {
+#ifdef GLES
+			if(!crossEGL->IsContextCreated()) {
+				crossEGL->CreateContext(true);
+			} else {
+				crossEGL->DestroyContext(false);
+				crossEGL->CreateContext(false);
+			}
+#endif
+			game->Resume();
+		}
 		break;
 	case WM_CLOSE: {
 		RECT winRect = GetLocalCoordinates(wnd);

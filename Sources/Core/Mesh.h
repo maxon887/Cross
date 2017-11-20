@@ -16,9 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Transformable.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Component.h"
 
 namespace cross{
@@ -27,8 +25,14 @@ class VertexBuffer;
 
 /*	Mesh is smallest 3d entity in game. Which consist of polygons.
 	Mesh also contains its materials which need to properly draw it on Scene */
-class Mesh : public Component{
+class Mesh : public Component {
 public:
+	enum StencilBehaviour {
+		WRITE,
+		READ,
+		IGNORED
+	};
+
 	Mesh() = default;
 	Mesh(Model* model);
 	~Mesh();
@@ -36,9 +40,8 @@ public:
 	void Update(float sec) override;
 	void Draw();
 	void Draw(Material* material);
-	void Draw(Material* material, Graphics3D::StencilBehaviour sten);
-	void Draw(	const Matrix& globalModel, Material* material, 
-				Graphics3D::StencilBehaviour stencilBehvaiour);
+	void Draw(Material* material, StencilBehaviour sten);
+	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehvaiour);
 
 	void TransferVideoData();
 	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);

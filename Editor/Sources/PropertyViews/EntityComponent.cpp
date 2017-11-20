@@ -1,5 +1,6 @@
 #include "EntityComponent.h"
 #include "Entity.h"
+#include "Transform.h"
 #include "../CrossEditor.h"
 #include "../History.h"
 
@@ -58,13 +59,13 @@ void EntityComponent::Update(float sec) {
 		return;
 	}
 	if(!posX->hasFocus()){
-		posX->setText(QString::number(entity->GetPosition().x));
+		posX->setText(QString::number(entity->GetTransform()->GetPosition().x));
 	}
 	if(!posY->hasFocus()){
-		posY->setText(QString::number(entity->GetPosition().y));
+		posY->setText(QString::number(entity->GetTransform()->GetPosition().y));
 	}
 	if(!posZ->hasFocus()){
-		posZ->setText(QString::number(entity->GetPosition().z));
+		posZ->setText(QString::number(entity->GetTransform()->GetPosition().z));
 	}
 
 	if(!rotX->hasFocus() && !rotY->hasFocus() && !rotZ->hasFocus() && !angle->hasFocus()){
@@ -72,13 +73,13 @@ void EntityComponent::Update(float sec) {
 	}
 
 	if(!scaleX->hasFocus()){
-		scaleX->setText(QString::number(entity->GetScale().x));
+		scaleX->setText(QString::number(entity->GetTransform()->GetScale().x));
 	}
 	if(!scaleY->hasFocus()){
-		scaleY->setText(QString::number(entity->GetScale().y));
+		scaleY->setText(QString::number(entity->GetTransform()->GetScale().y));
 	}
 	if(!scaleZ->hasFocus()){
-		scaleZ->setText(QString::number(entity->GetScale().z));
+		scaleZ->setText(QString::number(entity->GetTransform()->GetScale().z));
 	}
 }
 
@@ -88,7 +89,7 @@ void EntityComponent::PositionChanged(){
 	pos.x = posX->text().toFloat();
 	pos.y = posY->text().toFloat();
 	pos.z = posZ->text().toFloat();
-	entity->SetPosition(pos);
+	entity->GetTransform()->SetPosition(pos);
 	editor->SomethingChanged(action);//trigger
 }
 
@@ -100,7 +101,7 @@ void EntityComponent::RotationChanged(){
 	axis.z = rotZ->text().toFloat();
 	float a = angle->text().toFloat();
 	Quaternion rotation(axis, a);
-	entity->SetRotate(rotation);
+	entity->GetTransform()->SetRotate(rotation);
 	UpdateRotatioon();
 	editor->SomethingChanged(action);//trigger
 }
@@ -111,12 +112,12 @@ void EntityComponent::ScaleChanged(){
 	scale.x = scaleX->text().toFloat();
 	scale.y = scaleY->text().toFloat();
 	scale.z = scaleZ->text().toFloat();
-	entity->SetScale(scale);
+	entity->GetTransform()->SetScale(scale);
 	editor->SomethingChanged(action);//trigger
 }
 
 void EntityComponent::UpdateRotatioon(){
-	Quaternion rotation = entity->GetRotate().GetNormalized();
+	Quaternion rotation = entity->GetTransform()->GetRotate().GetNormalized();
 	Vector3D axis = rotation.GetAxis();
 	rotX->setText(QString::number(axis.x));
 	rotY->setText(QString::number(axis.y));

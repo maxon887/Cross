@@ -17,19 +17,27 @@
 #include "NakedScene.h"
 #include "Light.h"
 #include "GraphicsGL.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/LightsShader.h"
+#include "Transform.h"
+#include "System.h"
+#include "Camera.h"
 
-void NakedScene::Start(){
-	CameraControlsScene::Start();
+void NakedScene::Start() {
+	DemoScene::Start();
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
+	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
+	
 	//lights
-	light = new Entity();
+	light = new Entity("PointLight");
+	light->AddComponent(new Transform());
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddProperty("Diffuse Color", "uDiffuseColor");
 	shader->AddProperty("Specular", "uSpecular");
 	shader->AddProperty("Shininess", "uShininess");
@@ -39,17 +47,17 @@ void NakedScene::Start(){
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
 	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	gfx3D->AdjustMaterial(model, material);
+	ApplyMaterial(model, material);
 	AddEntity(model);
 }
 
-void NakedScene::Stop(){
+void NakedScene::Stop() {
 	delete material;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
-void NakedScene::Update(float sec){
-	CameraControlsScene::Update(sec);
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+void NakedScene::Update(float sec) {
+	DemoScene::Update(sec);
+	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

@@ -16,17 +16,18 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Transformable.h"
+#include "Component.h"
 
-namespace cross{
+namespace cross {
 
 /* Base class for cameras. Used for calculation projection and view matrices. */
-class Camera : public Transformable{
+class Camera : public Component {
 public:
 	Camera(Matrix projection);
-	Camera();
+	Camera() = default;
 
-	virtual void Update(float sec);
+	void Update(float sec) override;
+	Component* Clone() const override;
 
 	const Matrix& GetViewMatrix() const;
 	void SetProjectionMatrix(const Matrix& projection);

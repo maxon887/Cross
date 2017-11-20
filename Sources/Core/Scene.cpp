@@ -23,10 +23,9 @@
 #include "Entity.h"
 #include "Material.h"
 #include "Mesh.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Shaders/LightsShader.h"
 #include "File.h"
+#include "Transform.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -36,29 +35,31 @@
 using namespace cross;
 using namespace tinyxml2;
 
-void Scene::Start(){
+void Scene::Start() {
 	Screen::Start();
 	is_scene = true;
-	root = new Entity();
-	root->SetName("Root");
+	root = new Entity("Root");
+	root->AddComponent(new Transform());
 
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
+	Entity* camEntity = new Entity("Camera");
+	camEntity->AddComponent(new Transform(Vector3D(0.f, 0.f, -1.f)));
+	camEntity->GetTransform()->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	camEntity->AddComponent(camera);
+	AddEntity(camEntity);
 
 	resize_del = system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
-void Scene::Update(float sec){
+void Scene::Update(float sec) {
 	Screen::Update(sec);
-	camera->Update(sec);
 	root->Update(sec);
 }
 
-void Scene::Stop(){
+void Scene::Stop() {
 	system->WindowResized.Disconnect(resize_del);
-	for(pair<S32, Shader*> pair : shaders){
-		delete pair.second;
-	}
+	delete root;
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
 	}
@@ -68,20 +69,13 @@ void Scene::Stop(){
 	for(pair<S32, Model*> pair : models){
 		delete pair.second;
 	}
-	delete camera;
-	delete root;
+	for(pair<S32, Shader*> pair : shaders) {
+		delete pair.second;
+	}
 	Screen::Stop();
 }
 
-const string& Scene::GetName() const{
-	return name;
-}
-
-void Scene::SetName(const string& name){
-	this->name = name;
-}
-
-void Scene::Load(const string& file){
+void Scene::Load(const string& file) {
 	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load scene xml file");
 	XMLDocument doc;
@@ -120,7 +114,8 @@ void Scene::Load(const string& file){
 		U32 id = modelXML->IntAttribute("id");
 		const char* filename = modelXML->Attribute("file");
 		if(filename) {
-			Model* model = gfx3D->LoadModel(filename);
+			Model* model = new Model();
+			model->Load(filename);
 			models[id] = model;
 		} else {
 			CROSS_ASSERT(false, "Attribute 'filename' not contain in model node");
@@ -137,7 +132,7 @@ void Scene::Load(const string& file){
 	}
 }
 
-void Scene::Save(const string& filename){
+void Scene::Save(const string& filename) {
 	XMLDocument doc;
 
 	XMLElement* sceneXML = doc.NewElement("Scene");
@@ -155,8 +150,8 @@ void Scene::Save(const string& filename){
 			pointCount++;
 			break;
 		case Light::DIRECTIONAL:
-                directionCount++;
 			break;
+			directionCount++;
 		case Light::SPOT:
 			spotCount++;
 			break;
@@ -228,7 +223,7 @@ void Scene::Save(const string& filename){
 	saveFile.data = NULL;
 }
 
-void Scene::Clear(){
+void Scene::Clear() {
 	root->RemoveChildren();
 	lights.clear();
 	for(pair<S32, Material*> pair : materials){
@@ -239,22 +234,18 @@ void Scene::Clear(){
 		delete pair.second;
 	}
 	textures.clear();
-	for(pair<S32, Shader*> pair : shaders) {
-		delete pair.second;
-	}
-	shaders.clear();
 }
 
-Entity* Scene::GetRoot(){
+Entity* Scene::GetRoot() {
 	return root;
 }
 
-void Scene::SetCameraViewDistance(float distance){
+void Scene::SetCameraViewDistance(float distance) {
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, distance);
 	camera->SetProjectionMatrix(projection);
 }
 
-Entity* Scene::GetEntity(const string& name){
+Entity* Scene::GetEntity(const string& name) {
 	Entity* child = root->FindChild(name);
 	if(child){
 		return child;
@@ -262,57 +253,43 @@ Entity* Scene::GetEntity(const string& name){
 	CROSS_RETURN(false, NULL, "Can not find entity %s", name.c_str());
 }
 
-void Scene::AddEntity(Entity* entity){
+void Scene::AddEntity(Entity* entity) {
 	entity->Initialize();
 	root->AddChild(entity);
 	EntityAdded(entity);//trigger
 }
 
-Entity* Scene::LoadPrimitive(Graphics3D::Primitives primitive){
+Entity* Scene::LoadPrimitive(Model::Primitive primitive) {
 	switch(primitive) {
-	case cross::Graphics3D::CUBE:
+	case Model::CUBE:
 		return GetModel("Engine/Models/Cube.obj")->GetHierarchy();
-	case cross::Graphics3D::SPHERE:
+	case Model::SPHERE:
 		return GetModel("Engine/Models/Sphere.obj")->GetHierarchy();
-	case cross::Graphics3D::PLANE:
+	case Model::PLANE:
 		return GetModel("Engine/Models/Plane.obj")->GetHierarchy();
 	default:
 		CROSS_RETURN(false, NULL, "Unknown primitive type");
 	}
 }
 
-Entity* Scene::RemoveEntity(const string& name){
+Entity* Scene::RemoveEntity(const string& name) {
 	return root->RemoveChild(name);
 }
 
-List<Light*>& Scene::GetLights(){
+List<Light*>& Scene::GetLights() {
 	return lights;
 }
 
-Camera* Scene::GetCamera(){
+Camera* Scene::GetCamera() {
 	return camera;
 }
 
-Color Scene::GetAmbientColor() const{
+Color Scene::GetAmbientColor() const {
 	return ambient_color;
 }
 
-Material* Scene::GetMaterial(const string& xmlFile) {
-	U32 hash = (U32)std::hash<string>{}(xmlFile);
-	auto matIt = materials.find(hash);
-	if(matIt != materials.end()) {
-		return (*matIt).second;
-	} else {
-		Material* mat = LoadMaterialFromXML(xmlFile);
-		if(mat) {
-			materials[hash] = mat;
-		}
-		return mat;
-	}
-}
-
 Shader* Scene::GetShader(const string& shaderfile) {
-	U32 hash = (U32)std::hash<string>{}(shaderfile);
+	S32 hash = std::hash<string>{}(shaderfile);
 	auto shaderIt = shaders.find(hash);
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
@@ -325,25 +302,41 @@ Shader* Scene::GetShader(const string& shaderfile) {
 	}
 }
 
+Material* Scene::GetMaterial(const string& xmlFile) {
+	S32 hash = std::hash<string>{}(xmlFile);
+	auto matIt = materials.find(hash);
+	if(matIt != materials.end()) {
+		return (*matIt).second;
+	} else {
+		Material* mat = LoadMaterialFromXML(xmlFile);
+		if(mat) {
+			materials[hash] = mat;
+		}
+		return mat;
+	}
+}
+
 Texture* Scene::GetTexture(const string& textureFile) {
-	U32 hash = (U32)std::hash<string>{}(textureFile);
+	S32 hash = std::hash<string>{}(textureFile);
 	auto textureIt = textures.find(hash);
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
 	} else {
-		Texture* texture = gfx2D->LoadTexture(textureFile);
+		Texture* texture = new Texture();
+		texture->Load(textureFile);
 		textures[hash] = texture;
 		return texture;
 	}
 }
 
 Model* Scene::GetModel(const string& modelFile) {
-	U32 hash = (U32)std::hash<string>{}(modelFile);
+	S32 hash = std::hash<string>{}(modelFile);
 	auto modelIt = models.find(hash);
 	if(modelIt != models.end()) {
 		return (*modelIt).second;
 	} else {
-		Model* model = gfx3D->LoadModel(modelFile);
+		Model* model = new Model();
+		model->Load(modelFile);
 		models[hash] = model;
 		return model;
 	}
@@ -359,15 +352,6 @@ void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
 }
 
-S32 Scene::FindShaderID(Shader* shader){
-	for(pair<S32, Shader*> pair : shaders){
-		if(pair.second == shader){
-			return pair.first;
-		}
-	}
-	CROSS_RETURN(false, -1, "Can not find shader id");
-}
-
 S32 Scene::FindTextureID(Texture* texture){
 	for(pair<S32, Texture*> pair : textures) {
 		if(pair.second->name == texture->name) {
@@ -380,38 +364,42 @@ S32 Scene::FindTextureID(Texture* texture){
 void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	const char* name = objectXML->Attribute("name");
 	CROSS_FAIL(name, "Attribute 'name' not contain in Entity node");
-	Entity* entity = new Entity();
+	Entity* entity = new Entity(name);
 	parent->AddChild(entity);
-	entity->SetName(name);
-
-	XMLElement* posXML = objectXML->FirstChildElement("Position");
-	if(posXML) {
-		double x = posXML->DoubleAttribute("x");
-		double y = posXML->DoubleAttribute("y");
-		double z = posXML->DoubleAttribute("z");
-		Vector3D pos((float)x, (float)y, (float)z);
-		entity->SetPosition(pos);
-	}
-	XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
-	if(rotXML) {
-		double x = rotXML->DoubleAttribute("x");
-		double y = rotXML->DoubleAttribute("y");
-		double z = rotXML->DoubleAttribute("z");
-		double angle = rotXML->DoubleAttribute("angle");
-		Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
-		entity->SetRotate(rot);
-	}
-	XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
-	if(scaleXML) {
-		double x = scaleXML->DoubleAttribute("x");
-		double y = scaleXML->DoubleAttribute("y");
-		double z = scaleXML->DoubleAttribute("z");
-		Vector3D scale((float)x, (float)y, (float)z);
-		entity->SetScale(scale);
-	}
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
 	if(componentsXML) {
+		XMLElement* transform = componentsXML->FirstChildElement("Transform");
+		if(transform) {
+			XMLElement* posXML = objectXML->FirstChildElement("Position");
+			if(posXML) {
+				double x = posXML->DoubleAttribute("x");
+				double y = posXML->DoubleAttribute("y");
+				double z = posXML->DoubleAttribute("z");
+				Vector3D pos((float)x, (float)y, (float)z);
+				//entity->SetPosition(pos);
+				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+			}
+			XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
+			if(rotXML) {
+				double x = rotXML->DoubleAttribute("x");
+				double y = rotXML->DoubleAttribute("y");
+				double z = rotXML->DoubleAttribute("z");
+				double angle = rotXML->DoubleAttribute("angle");
+				Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
+				//entity->SetRotate(rot);
+				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+			}
+			XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
+			if(scaleXML) {
+				double x = scaleXML->DoubleAttribute("x");
+				double y = scaleXML->DoubleAttribute("y");
+				double z = scaleXML->DoubleAttribute("z");
+				Vector3D scale((float)x, (float)y, (float)z);
+				//entity->SetScale(scale);
+				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+			}
+		}
 		XMLElement* meshXML = componentsXML->FirstChildElement("Mesh");
 		if(meshXML) {
 			S32 id = meshXML->IntAttribute("id");
@@ -425,7 +413,7 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 				Material* mat = GetMaterial(materialFile);
 				mesh->SetMaterial(mat);
 			}else{
-				mesh->SetMaterial(gfx3D->GetDefaultMaterial());
+				mesh->SetMaterial(GetMaterial("Engine/Default.mat"));
 			}
 			entity->AddComponent(mesh);
 		}
@@ -446,6 +434,7 @@ Material* Scene::LoadMaterialFromXML(const string& file) {
 	CROSS_RETURN(xmlFile, NULL, "Can not load material xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	delete xmlFile;
 	CROSS_RETURN(error == XML_SUCCESS, NULL, "Can not parse shader xml file");
 
 	Material* material = new Material();
@@ -554,14 +543,14 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	objectXML->SetAttribute("name", entity->GetName().c_str());
 	
 	XMLElement* posXML = doc->NewElement("Position");
-	Vector3D pos = entity->GetPosition();
+	Vector3D pos = entity->GetTransform()->GetPosition();
 	posXML->SetAttribute("x", pos.x);
 	posXML->SetAttribute("y", pos.y);
 	posXML->SetAttribute("z", pos.z);
 	objectXML->LinkEndChild(posXML);
 
 	XMLElement* rotXML = doc->NewElement("Rotation");
-	Quaternion rot = entity->GetRotate().GetNormalized();
+	Quaternion rot = entity->GetTransform()->GetRotate().GetNormalized();
 	Vector3D axis = rot.GetAxis();
 	float angle = rot.GetAngle();
 	rotXML->SetAttribute("x", axis.x);
@@ -571,7 +560,7 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	objectXML->LinkEndChild(rotXML);
 
 	XMLElement* scaleXML = doc->NewElement("Scale");
-	Vector3D scale = entity->GetScale();
+	Vector3D scale = entity->GetTransform()->GetScale();
 	scaleXML->SetAttribute("x", scale.x);
 	scaleXML->SetAttribute("y", scale.y);
 	scaleXML->SetAttribute("z", scale.z);

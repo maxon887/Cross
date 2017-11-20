@@ -24,7 +24,7 @@ namespace FMOD{
 
 namespace cross{
 /* This class needed for unique audio entity manipulations (aka play, stop) */
-class Sound{
+class Sound {
 public:
 	Sound() = default;
 	~Sound();

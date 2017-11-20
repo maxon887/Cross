@@ -15,23 +15,26 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SpotLightScene.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Shaders/SingleLightShader.h"
-#include "Graphics2D.h"
 #include "Camera.h"
+#include "Mesh.h"
+#include "Texture.h"
+#include "Transform.h"
 	
 void SpotLightScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(-8.f, 0.f, -15.f));
+    GetCamera()->GetTransform()->LookAt(Vector3D::Zero);
 
-	Entity* light = new Entity();
+	Entity* light = new Entity("SpotLight");
+	light->AddComponent(new Transform());
 	Light* lightComponent = new Light(Light::Type::SPOT);
-	light->SetPosition(Vector3D(0.f, 0.f, -8.f));
-	light->LookAt(Vector3D(0.f));
+	light->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -8.f));
+	light->GetTransform()->LookAt(Vector3D(0.f));
 	lightComponent->SetCutOff(20.f);
 	light->AddComponent(lightComponent);
 	AddEntity(light);
@@ -42,31 +45,23 @@ void SpotLightScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = new Material(shader);
-	diffuse_texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
-	specular_map = gfx2D->LoadTexture("gfx3D/ContainerSpecular.png");
-	material->SetPropertyValue("Diffuse Texture", diffuse_texture);
-	material->SetPropertyValue("Specular Map", specular_map);
+	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/ContainerDiffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("gfx3D/ContainerSpecular.png"));
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
-	cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 
 	for(U32 i = 0; i < 40; ++i){
 		Entity* clone = cube->Clone();
-		clone->SetPosition(Vector3D(Random(-5.f, 5.f), Random(-5.f, 5.f), Random(-5.f, 5.f)));
-		clone->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
+		clone->GetTransform()->SetPosition(Vector3D(Random(-5.f, 5.f), Random(-5.f, 5.f), Random(-5.f, 5.f)));
+		clone->GetTransform()->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		AddEntity(clone);
 	}
 }
 
 void SpotLightScene::Stop(){
 	delete material;
-	delete specular_map;
-	delete diffuse_texture;
 	delete shader;
 	delete cube;
-	CameraControlsScene::Stop();
-}
-
-void SpotLightScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Stop();
 }

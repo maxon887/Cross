@@ -17,22 +17,24 @@
 #include "History.h"
 #include "Entity.h"
 #include "System.h"
+#include "Transform.h"
 
-EntityChanged::EntityChanged(Entity* entity) {
+EntityChanged::EntityChanged(Entity* entity) 
+{
 	original = entity;
 
 	name = entity->GetName();
-	pos = entity->GetPosition();
-	scale = entity->GetScale();
-	rot = entity->GetRotate();
+	pos = entity->GetTransform()->GetPosition();
+	scale = entity->GetTransform()->GetScale();
+	rot = entity->GetTransform()->GetRotate();
 }
 
 void EntityChanged::RestoreChanges() {
 	CROSS_FAIL(original, "Original entity has been deleted");
 	original->SetName(name);
-	original->SetPosition(pos);
-	original->SetScale(scale);
-	original->SetRotate(rot);
+	original->GetTransform()->SetPosition(pos);
+	original->GetTransform()->SetScale(scale);
+	original->GetTransform()->SetRotate(rot);
 }
 
 EntityCreated::EntityCreated(Entity* entity) {

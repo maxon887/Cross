@@ -17,29 +17,20 @@
 #pragma once
 #include "Cross.h"
 
-#ifdef WIN
+#if defined(WIN) || defined(EDITOR)
 #ifdef GLES
-#include "Platform\Windows\GLES2\gl2.h"
-#include "Platform\Windows\EGL\egl.h"
-#pragma comment(lib, "libEGL.lib")
-#pragma comment(lib, "libGLESv2.lib")
+#include "Platform/Windows/GLES2/gl2.h"
+#include "Platform/Windows/EGL/egl.h"
 #else
-#include "Platform\Windows\glew\glew.h"
-#include "Platform\Windows\glew\wglew.h"
-#pragma comment(lib, "glew32.lib")
-#pragma comment(lib, "opengl32.lib")
+#include "Platform/Windows/glew/glew.h"
+#include "Platform/Windows/glew/wglew.h"
 #endif
-#undef LoadImage
-#undef DrawText
 #elif ANDROID
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <GLES2/gl2platform.h>
 #elif IOS
 #import <OpenGLES/ES2/glext.h>
-#elif EDITOR
-#include "Platform\Windows\glew\glew.h"
-#include "Platform\Windows\glew\wglew.h"
 #endif
 
 #if defined(CROSS_DEBUG)
@@ -54,51 +45,18 @@
 
 namespace cross{
 
-enum class DefaultShader{
-	TEXTURE,
-	MONOCHROME,		//same as TEXTURE but only R channel used
-	SIMPLE,
-	MULTI_LIGHT,
-	NONE
-};
-
-/*	Class containing specific OpengGL features,
-	offscreen rendering and default shaders */
-class GraphicsGL{
+/*	Class containing specific OpengGL features */
+class GraphicsGL {
 public:
 	static void CheckGLError(const char* file, U32 line);
 	static void ClearGLErrorBuffer();
 
 	GraphicsGL();
-	~GraphicsGL();
-
-	void Start();
-	void Stop();
-
-	void PreProcessFrame();
-	void PostProcessFrame();
 
 	U32 GetShaderVersion() const;
-	void UseShader(Shader* shaders);
-	Shader* GetShader(DefaultShader type);
-
-	Texture* GetColorBuffer();
 
 private:
 	U32 shaders_version				= 100;
-	//off screen rendering components
-	GLuint framebuffer				= 0;
-	GLuint colorbuffer				= 0;
-	GLuint depthbuffer				= 0;
-	GLuint quadVBO					= 0;
-	GLuint quadEBO					= 0;
-	int bufferWidth					= -1;
-	int bufferHeight				= -1;
-	Shader* offscreen_shader		= NULL;
-	Texture* colorbuffer_texture	= NULL;
-	bool regenerate_framebuffer		= false;
-
-	void GenerateFramebuffer();
 
 	void WindowResizeHandle(S32 width, S32 height);
 };

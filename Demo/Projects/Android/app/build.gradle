@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.littleman.cross"
@@ -10,6 +10,11 @@ android {
         versionCode 300
         versionName "3.0.0"
         productFlavors {
+            armeabi {
+                ndk {
+                    abiFilter "armeabi"
+                }
+            }
             armV7 {
                 ndk {
                     abiFilter "armeabi-v7a"
@@ -27,6 +32,7 @@ android {
             }
             fat {
                 ndk {
+                    abiFilter "armeabi"
                     abiFilter "armeabi-v7a"
                     abiFilter "arm64-v8a"
                     abiFilter "x86"

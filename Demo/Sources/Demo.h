@@ -16,30 +16,56 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Game.h"
-#include "Utils/Button.h"
+#include "Input.h"
 
 using namespace cross;
 
+struct ImDrawData;
+struct ImFont;
+
 class Demo;
+class MenuBar;
+
 extern Demo* demo;
 
-class Demo : public Game{
+class Demo : public Game {
 public:
-	Demo();
+	ImFont* normal_font		= NULL;
+	ImFont* big_font		= NULL;
 
 	void Start() override;
 	void Stop() override;
+	void PreUpdate(float sec) override;
 	void Update(float sec) override;
 	Screen* GetStartScreen() override;
 
-	Sprite* GetCommonSprite(string name);
+	MenuBar* GetMenuBar();
 
 private:
-	Camera2D* camera;
-    Button* back_btn;
-	Texture* common_texture;
-	Dictionary<string, Sprite*> common_sprites;
+	static const char* GetClipboardString(void* userData);
 
-	void OnBackClick();
-	void OnKeyPressed(Key key);
+	MenuBar* menu			= NULL;
+	Shader* ui_shader		= NULL;
+	Texture* font_texture	= NULL;
+	string clipboard		= "";
+	U32 vertex_buffer		= 0;
+	U32 index_buffer		= 0;
+
+	Vector2D action_pos		= Vector2D(0.f, 0.f);
+	Array<bool> actions		= Array<bool>(MAX_ACTIONS, false);
+	float mouse_wheel		= 0.0f;
+
+	bool CreateDeviceObjects();
+	bool CreateFontsTexture();
+	void RenderUI(ImDrawData*);
+
+	void ActionDownHandle(Input::Action action);
+	void ActionMoveHandle(Input::Action action);
+	void ActionUpHandle(Input::Action action);
+
+	void KeyPressed(Key key);
+	void KeyReleased(Key key);
+	void CharEnter(char c);
+
+	void WheelRoll(float delta);
 };

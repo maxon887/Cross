@@ -22,24 +22,29 @@
 
 namespace cross{
 
-class WINSystem : public System{
+class WINSystem : public System {
 public:
 	WINSystem(HWND wnd = 0);
-	~WINSystem();
+	~WINSystem() { }
 
 	void Log(const char* msg) override;
 	string AssetsPath() override;
 	string DataPath() override;
 	U64 GetTime() override;
+	float GetScreenDPI() override;
+	string GetClipboard() override;
+
+	void Messagebox(const string& title, const string& msg) override;
+	void Sleep(float milis) override;
+	bool IsMobile() override;
 
 	void SetAssetPath(const string& path);
-	void Sleep(float milis) override;
-	void Messagebox(const string& title, const string& msg) override;
 	void FullScreen(bool yes);
 	void ResizeWindow(int posX, int posY, int width, int height);
 
 public:
 	void SetWND(HWND wnd);
+	HWND GetHWND();
 	void SetWindowPosition(int x, int y);
 
 	void KeyReleasedHandle(Key key);
@@ -47,6 +52,7 @@ public:
 private:
 	HWND wnd			= 0;
 	string assets_path	= "";
+	string clipboard	= "";
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;

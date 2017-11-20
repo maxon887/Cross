@@ -20,7 +20,7 @@
 
 using namespace cross;
 
-class IOSSystem : public System{
+class IOSSystem : public System {
 public:
     IOSSystem();
     ~IOSSystem();
@@ -29,7 +29,9 @@ public:
     string AssetsPath() override;
     string DataPath() override;
     U64 GetTime() override;
+    float GetScreenDPI() override;
     
     void RequestOrientation(Orientation orientation) override;
+    bool IsMobile() override;
     void Messagebox(const string& title, const string& message) override;
 };

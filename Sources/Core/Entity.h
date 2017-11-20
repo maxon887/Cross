@@ -16,15 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Transformable.h"
 
 #include <typeinfo>
 
 namespace cross{
 
-class Entity : public Transformable {
+class Entity {
 public:
-	Entity() = default;
 	Entity(const string& name);
 	~Entity();
 
@@ -37,6 +35,7 @@ public:
 	void RemoveComponent(Component* component);
 	template<class T> T* GetComponent();
 	Component* GetComponent(U64 type);
+	Transform* GetTransform();
 	Entity* GetParent();
 	void SetParent(Entity* parent);
 	void AddChild(Entity* child);
@@ -49,7 +48,7 @@ public:
 	Entity* Clone();
 	//Not optimized function
 	Matrix GetWorldMatrix();
-	Vector3D GetDirection() const;
+	Vector3D GetDirection();
 
 private:
 	CROSS_FRIENDLY

@@ -15,14 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Cross.h"
+#include "Graphics3D/DemoScene.h"
 
-class SolidModelScene : public CameraControlsScene{
+class SolidModelScene : public DemoScene {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
-private:
-	Shader* shader;
-	Material* material;
+	void Start() override;
 };

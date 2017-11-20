@@ -21,15 +21,11 @@
 
 namespace cross{
 
-class FreeCameraScene : public Scene{
+class FreeCameraScene : public Scene {
 public:
 	virtual void Start() override;
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
-
-	virtual void ActionDown(Input::Action action) override;
-	virtual void ActionMove(Input::Action action) override;
-	virtual void ActionUp(Input::Action action) override;
 
 	void LookAtCamera(bool enbled);
 	void LookAtCamera(const Vector3D& target);
@@ -53,19 +49,13 @@ protected:
 
 	float liner_speed			= 5.f;
 	float angular_speed			= 45.f;
-	float orbit_distance		= 5.f;
+	float orbit_distance		= 3.f;
 
-	Font* debug_font			= NULL;
-
-	S32 handled_action			= -1;
-	Vector2D touch_position		= Vector2D();
 	Vector3D target				= Vector3D(0);
 
-    U64 wheel_up_del			= -1;
-    U64 wheel_down_del			= -1;
+    U64 wheel_roll				= 0;
 
-	void MouseWheelUp();
-	void MouseWheelDown();
+	void MouseWheelRoll(float delta);
 };
 
 }

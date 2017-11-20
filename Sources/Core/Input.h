@@ -22,7 +22,9 @@
 
 namespace cross {
 
-enum class Key{
+#define MAX_ACTIONS 20
+
+enum class Key {
 	BACK		= 0x08,
 	TAB			= 0x09,
 	CLEAR		= 0x0C,
@@ -35,6 +37,7 @@ enum class Key{
 	SPACE		= 0x20,
 	PAGE_UP		= 0x21,
 	PAGE_DOWN	= 0x22,
+	END			= 0x23,
 	HOME		= 0x24,
 	LEFT		= 0x25,
 	UP			= 0x26,
@@ -117,9 +120,9 @@ enum class Key{
 
 /*	Class responsible for user input. 
 	Handle touches, clicks and key events */
-class Input{
+class Input {
 public:
-	struct Action{
+	struct Action {
 		Vector2D pos;
 		//on mobile devices used for touches, 
 		//on desctop used for mouse buttons, 0 - lmb, 1 - rmb
@@ -136,9 +139,10 @@ public:
 	/* Keyboard events */
 	Event<Key> KeyPressed;
 	Event<Key> KeyReleased;
+	Event<char> CharEnter;
 	/* Mouse Wheel events */
-	Event<> MouseWheelUp;
-	Event<> MouseWheelDown;
+	Event<float> MouseWheelRoll;
+	Vector2D MousePosition;
 	/* Checks if specific key pressed */
 	bool IsPressed(Key key) const;
 	/* Enables disables all touches */

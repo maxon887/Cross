@@ -15,8 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Input.h"
-#include "Graphics2D.h"
-#include "Camera2D.h"
+#include "Camera.h"
 #include "System.h"
 #include "Game.h"
 #include "Scene.h"
@@ -35,14 +34,10 @@ void Input::TouchEnabled(bool enabled){
     touch_enabled = enabled;
 }
 
-Vector2D Input::TargetToWordConvert(float x, float y) const{
+Vector2D Input::TargetToWordConvert(float x, float y) const {
 	Vector2D result;
-	Camera2D* cam = game->GetCurrentScreen()->GetCamera();
-	float scaleFactor = system->GetWindowWidth() / cam->GetViewWidth();
-	result.x = x / scaleFactor;
-	result.y = cam->GetViewHeight() - y / scaleFactor;
-	result.x += cam->GetPosition().x;
-	result.y += cam->GetPosition().y;
+	result.x = x;
+	result.y = system->GetWindowHeight() - y;
 	return result;
 }
 

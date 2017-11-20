@@ -15,9 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Graphics3D/DemoScene.h"
 
-class SpecularScene : public CameraControlsScene{
+class SpecularScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
@@ -25,8 +25,6 @@ public:
 
 private:
 	Shader* shader;
-	Texture* diffuse;
-	Texture* specular;
 	Material* material;
 	Entity* light;
 };

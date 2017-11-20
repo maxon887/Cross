@@ -15,15 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "VertexBuffer.h"
 #include "System.h"
-#include "Game.h"
-#include "File.h"
-#include "Shaders/Shader.h"
-#include "Shaders/LightsShader.h"
-#include "Config.h"
-#include "Scene.h"
 
 #include <algorithm>
 
@@ -87,7 +79,7 @@ GraphicsGL::GraphicsGL() {
 		
 		GLint value;
 		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
-		system->LogIt("\tMax Vetex Uniforms: %d", value);
+		system->LogIt("\tMax Vertex Uniforms: %d", value);
 
 		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
 		system->LogIt("\tMax Fragment Uniforms: %d", value);
@@ -101,184 +93,17 @@ GraphicsGL::GraphicsGL() {
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
 		system->LogIt("\tMax Texture Units: %d", value);
 
+		system->LogIt("\tDevice DPI - %f", system->GetScreenDPI());
+
 		system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
-		if(config->IsOffscreenRender()){
-			offscreen_shader = GetShader(DefaultShader::TEXTURE);
-			offscreen_shader->Compile();
-		}
-
 		SAFE(glCullFace(GL_FRONT));
-}
-
-GraphicsGL::~GraphicsGL(){
-	SAFE(glDeleteBuffers(1, &quadVBO));
-	SAFE(glDeleteBuffers(1, &quadEBO));
-	if(config->IsOffscreenRender()){
-		delete offscreen_shader;
-		SAFE(glDeleteBuffers(1, &framebuffer));
-		SAFE(glDeleteBuffers(1, &colorbuffer));
-		SAFE(glDeleteBuffers(1, &depthbuffer));
-	}
-}
-
-void GraphicsGL::Start(){
-	if(config->IsOffscreenRender()){
-		SAFE(glGenFramebuffers(1, &framebuffer));
-
-		GenerateFramebuffer();
-
-		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-		//quad setub
-		static const float quadVertices[] = {
-			-1.0f, -1.0f,		0.f, 0.f,
-			 1.0f, -1.0f,		1.f, 0.f,
-			 1.0f,  1.0f,		1.f, 1.f,
-			-1.0f,  1.0f,		0.f, 1.f,
-		};
-		SAFE(glGenBuffers(1, &quadVBO));
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, quadVBO));
-		SAFE(glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW));
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-
-		static const GLushort quadIndices[] = { 0, 1, 2, 0, 2, 3 };
-		SAFE(glGenBuffers(1, &quadEBO));
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO));
-		SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(quadIndices), quadIndices, GL_STATIC_DRAW));
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-	}
-}
-
-void GraphicsGL::Stop(){
-	if(colorbuffer_texture){
-		delete colorbuffer_texture;
-	}
-}
-
-void GraphicsGL::PreProcessFrame(){
-	if(config->IsOffscreenRender()){
-		if(regenerate_framebuffer){
-			GenerateFramebuffer();
-		}
-		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-		SAFE(glViewport(0, 0, system->GetWindowWidth() / 2, system->GetWindowHeight() / 2));
-	}
-}
-
-void GraphicsGL::PostProcessFrame(){
-	if(config->IsOffscreenRender()){
-		//binding default frame buffer
-		SAFE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-		SAFE(glViewport(0, 0, system->GetWindowWidth(), system->GetWindowHeight()));
-		//drawing color buffer
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, quadVBO));
-		SAFE(glActiveTexture(GL_TEXTURE0));
-		SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
-
-		UseShader(offscreen_shader);
-		CROSS_ASSERT(offscreen_shader->uColor != -1, "Textured shader doesn't have color uniform");
-		SAFE(glUniform4fv(offscreen_shader->uColor, 1, Color::White.GetData()));
-
-		CROSS_ASSERT(offscreen_shader->aPosition != -1, "Textured shader doesn't have verteces position coordinates");
-		SAFE(glEnableVertexAttribArray(offscreen_shader->aPosition));
-		SAFE(glVertexAttribPointer(offscreen_shader->aPosition, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0));
-		
-
-		CROSS_ASSERT(offscreen_shader->aTexCoords != -1, "Textured shader doesn't have texure coordinates");
-		SAFE(glEnableVertexAttribArray(offscreen_shader->aTexCoords));
-		SAFE(glVertexAttribPointer(offscreen_shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLfloat*)0 + 2));
-
-		CROSS_ASSERT(offscreen_shader->uMVP != -1, "Textured shader doesn't have MVP matrix");
-		Matrix mvp = Matrix::Identity;
-		SAFE(glUniformMatrix4fv(offscreen_shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO));
-		SAFE(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0));
-		SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-		SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	}
 }
 
 U32 GraphicsGL::GetShaderVersion() const {
 	return shaders_version;
 }
 
-Shader* GraphicsGL::GetShader(DefaultShader type){
-	Shader* shader = NULL;
-	switch(type) {
-	case DefaultShader::SIMPLE:
-		shader = new Shader("Engine/Shaders/Simple.vtx", "Engine/Shaders/Simple.fgm");
-		shader->AddProperty("Color", "uColor", Color::White);
-		break;
-	case DefaultShader::MONOCHROME:
-		shader = new Shader("Engine/Shaders/Texture.vtx", "Engine/Shaders/Texture.fgm");
-		shader->AddMacro("MONOCHROME");
-		shader->AddProperty("Texture", "uTexture");
-		break;
-	case DefaultShader::TEXTURE:
-		shader = new Shader("Engine/Shaders/Texture.vtx", "Engine/Shaders/Texture.fgm");
-		shader->AddProperty("Texture", "uTexture");
-		break;
-	case DefaultShader::MULTI_LIGHT:
-		shader = new LightsShader();
-		shader->AddProperty("Transparency", "uTransparency", 1.f);
-		break;
-	default:
-		CROSS_RETURN(false, NULL, "Unknown shader type");
-	}
-	return shader;
-}
-
-Texture* GraphicsGL::GetColorBuffer(){
-	CROSS_ASSERT(config->IsOffscreenRender(), "You obtain collorbuffer without postprocess using");
-	if(!colorbuffer_texture){
-		colorbuffer_texture = new Texture(colorbuffer, bufferWidth, bufferHeight, 4, Texture::Filter::NEAREST);
-	}
-	return colorbuffer_texture;
-}
-
-void GraphicsGL::UseShader(Shader* shader){
-	CROSS_FAIL(shader, "Attempt to draw with NULL shader");
-	CROSS_FAIL(shader->IsCompiled(), "Attempt to draw with not compiled shader");
-	SAFE(glUseProgram(shader->GetProgram()));
-}
-
-void GraphicsGL::GenerateFramebuffer(){
-	SAFE(glDeleteBuffers(1, &framebuffer));
-	SAFE(glDeleteBuffers(1, &colorbuffer));
-	SAFE(glDeleteBuffers(1, &depthbuffer));
-	if(colorbuffer_texture){
-		delete colorbuffer_texture;
-		colorbuffer_texture = NULL;
-	}
-	//generate color buffer
-	SAFE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffer));
-	//generate color buffer
-	bufferWidth = system->GetWindowWidth() / 2;
-	bufferHeight = system->GetWindowHeight() / 2;
-
-	SAFE(glGenTextures(1, &colorbuffer));
-	SAFE(glBindTexture(GL_TEXTURE_2D, colorbuffer));
-	SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bufferWidth, bufferHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
-	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-	SAFE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-	SAFE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0));
-	//generate depth buffer
-	SAFE(glGenRenderbuffers(1, &depthbuffer));
-	SAFE(glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer));
-	SAFE(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth, bufferHeight));
-	SAFE(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer));
-	regenerate_framebuffer = false;
-
-	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-		CROSS_ASSERT(false, "Can not initialize second frame buffer");
-	}
-}
-
-void GraphicsGL::WindowResizeHandle(S32 width, S32 height){
+void GraphicsGL::WindowResizeHandle(S32 width, S32 height) {
 	SAFE(glViewport(0, 0, width, height));
-	if(config->IsOffscreenRender()){
-		//GenerateFramebuffer();
-		regenerate_framebuffer = true;
-	}
 }

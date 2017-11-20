@@ -18,15 +18,11 @@
 #include "Material.h"
 #include "VertexBuffer.h"
 #include "Mesh.h"
-#include "Graphics3D.h"
 
 void TriangleScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
-	shader = gfxGL->GetShader(DefaultShader::SIMPLE);
-	shader->Compile();
-	material = new Material(shader);
-	material->SetPropertyValue("Color", Color::Red);
+	Material* material = GetMaterial("Materials/SimpleRed.mat");
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	
@@ -49,12 +45,10 @@ void TriangleScene::Start(){
 
 void TriangleScene::Stop(){
 	delete triangle;
-	delete material;
-	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void TriangleScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 	triangle->Draw();
 }

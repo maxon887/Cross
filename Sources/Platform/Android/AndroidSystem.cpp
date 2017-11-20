@@ -62,6 +62,13 @@ U64 AndroidSystem::GetTime(){
 	return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
+float AndroidSystem::GetScreenDPI() {
+	JNIEnv* env = GetJNIEnv();
+	jclass clazz = env->GetObjectClass(cross_activity);
+	jmethodID methodID = env->GetMethodID(clazz, "GetScreenDPI", "()I");
+	return (float)env->CallIntMethod(cross_activity, methodID);
+}
+
 void AndroidSystem::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
@@ -82,6 +89,10 @@ void AndroidSystem::Messagebox(const string& title, const string& message) {
     jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;Ljava/lang/String;)V");
     env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title.c_str()), env->NewStringUTF(message.c_str()));
 }
+
+bool AndroidSystem::IsMobile() {
+    return true;
+
 
 void AndroidSystem::Exit() {
     JNIEnv* env = GetJNIEnv();

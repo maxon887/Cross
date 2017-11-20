@@ -15,37 +15,24 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "FreeCameraScene.h"
+#include "Camera.h"
 #include "System.h"
 #include "Input.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
-#include "Sprite.h"
-#include "Utils/Font.h"
-#include "Camera2D.h"
+#include "Transform.h"
 
 using namespace cross;
 
 void FreeCameraScene::Start() {
 	Scene::Start();
-
-	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -orbit_distance));
-	GetCamera()->SetDirection(Vector3D(0.f, 0.f, 1.f));
-	debug_font = gfx2D->GetDefaultFont()->Clone();
-	debug_font->SetSize(25.f);
-	wheel_up_del = input->MouseWheelUp.Connect(this, &FreeCameraScene::MouseWheelUp);
-	wheel_down_del = input->MouseWheelDown.Connect(this, &FreeCameraScene::MouseWheelDown);
+	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
-void FreeCameraScene::Stop(){
-    input->MouseWheelUp.Disconnect(wheel_up_del);
-    input->MouseWheelDown.Disconnect(wheel_down_del);
-
-	delete debug_font;
-
+void FreeCameraScene::Stop() {
+    input->MouseWheelRoll.Disconnect(wheel_roll);
 	Scene::Stop();
 }
 
-void FreeCameraScene::Update(float sec){
+void FreeCameraScene::Update(float sec) {
 	Scene::Update(sec);
 	Vector3D tgv = target - GetCamera()->GetPosition();
 	orbit_distance = tgv.Length();
@@ -62,137 +49,98 @@ void FreeCameraScene::Update(float sec){
 	if(input->IsPressed(Key::DOWN)) {
 		LookUp(sec);
 	}
-
-	//debug camera
-#ifndef ANDROID
-	char buffer[256];
-	Vector3D camPos = camera->GetPosition();
-	sprintf(buffer, "Camera Position: %f, %f, %f", camPos.x, camPos.y, camPos.z);
-	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f), buffer, debug_font);
-	Vector3D camDir = camera->GetDirection();
-	sprintf(buffer, "Camera Direction: %f, %f, %f", camDir.x, camDir.y, camDir.z);
-	gfx2D->DrawText(Vector2D(GetWidth()/2.f, 3.f + debug_font->GetSize()), buffer, debug_font);
-#endif // !ANDROID
 }
-
+ 
 void FreeCameraScene::MoveForward(float sec){
 	if(look_at){
 		orbit_distance -= liner_speed * sec;
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() + camera->GetDirection() * liner_speed * sec);
+		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetDirection() * liner_speed * sec);
 	}
 }
 
-void FreeCameraScene::MoveBackward(float sec){
+void FreeCameraScene::MoveBackward(float sec) {
 	if(look_at){
 		orbit_distance += liner_speed * sec;
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() - camera->GetDirection() * liner_speed * sec);
+		camera->SetPosition(camera->GetPosition() - camera->GetTransform()->GetDirection() * liner_speed * sec);
 	}
 }
 
-void FreeCameraScene::MoveRight(float sec){
+void FreeCameraScene::MoveRight(float sec) {
 	if(look_at){
 		Quaternion rotateU = Quaternion(Vector3D::Up, -sec * angular_speed);
-		camera->SetRotate(rotateU * Quaternion(camera->GetRotation()));
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->GetTransform()->SetRotate(rotateU * Quaternion(camera->GetTransform()->GetRotation()));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() + camera->GetRight() * liner_speed * sec);
-		target += camera->GetRight() * liner_speed * sec;
+		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetRight() * liner_speed * sec);
+		target += camera->GetTransform()->GetRight() * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::MoveLeft(float sec){
+void FreeCameraScene::MoveLeft(float sec) {
 	if(look_at){
 		Quaternion rotateU = Quaternion(Vector3D::Up, sec * angular_speed);
-		camera->SetRotate(rotateU * Quaternion(camera->GetRotation()));
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->GetTransform()->SetRotate(rotateU * Quaternion(camera->GetTransform()->GetRotation()));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}else{
-		camera->SetPosition(camera->GetPosition() - camera->GetRight() * liner_speed * sec);
-		target -= camera->GetRight() * liner_speed * sec;
+		camera->SetPosition(camera->GetPosition() - camera->GetTransform()->GetRight() * liner_speed * sec);
+		target -= camera->GetTransform()->GetRight() * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::MoveUp(float sec){
+void FreeCameraScene::MoveUp(float sec) {
 	if(!look_at){
 		camera->SetPosition(camera->GetPosition() + Vector3D::Up * liner_speed * sec);
 		target += Vector3D::Up * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::MoveDown(float sec){
+void FreeCameraScene::MoveDown(float sec) {
 	if(!look_at){
 		camera->SetPosition(camera->GetPosition() - Vector3D::Up * liner_speed * sec);
 		target -= Vector3D::Up * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::MoveCameraUp(float sec){
+void FreeCameraScene::MoveCameraUp(float sec) {
 	if(!look_at){
-		camera->SetPosition(camera->GetPosition() + camera->GetUp() * liner_speed * sec);
-		target += camera->GetUp() * liner_speed * sec;
+		camera->SetPosition(camera->GetPosition() + camera->GetTransform()->GetUp() * liner_speed * sec);
+		target += camera->GetTransform()->GetUp() * liner_speed * sec;
 	}
 }
 
-void FreeCameraScene::LookLeft(float sec){
-	camera->SetRotate(Quaternion(Vector3D::Up, sec * angular_speed) * Quaternion(camera->GetRotation()));
+void FreeCameraScene::LookLeft(float sec) {
+	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookRight(float sec){
-	camera->SetRotate(Quaternion(Vector3D::Up, -sec * angular_speed) * Quaternion(camera->GetRotation()));
+void FreeCameraScene::LookRight(float sec) {
+	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, -sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookDown(float sec){
-	camera->SetRotate(Quaternion(camera->GetRight(), sec * angular_speed) * Quaternion(camera->GetRotation()));
+void FreeCameraScene::LookDown(float sec) {
+	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::LookUp(float sec){
-	camera->SetRotate(Quaternion(camera->GetRight(), -sec * angular_speed) * Quaternion(camera->GetRotation()));
+void FreeCameraScene::LookUp(float sec) {
+	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), -sec * angular_speed) * Quaternion(camera->GetTransform()->GetRotation()));
 	if(look_at){
-		camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
+		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 	}
 }
 
-void FreeCameraScene::ActionDown(Input::Action action){
-	if(handled_action == -1){
-		handled_action = action.id;
-		touch_position = action.pos;
-	}
-}
-
-void FreeCameraScene::ActionMove(Input::Action action){
-	if(handled_action == action.id){
-		Vector2D deltaPosition = touch_position - action.pos;
-		touch_position = action.pos;
-		Quaternion rotateU = Quaternion(Vector3D::Up, deltaPosition.x / 10.f);
-		Quaternion rotateR = Quaternion(camera->GetRight(), -deltaPosition.y / 10.f);
-		camera->SetRotate(rotateU * rotateR * Quaternion(camera->GetRotation()));
-		if(look_at){				//free camera
-			camera->SetPosition(target + camera->GetDirection() * orbit_distance * (-1));
-		}else{
-			target = camera->GetPosition() + camera->GetDirection() * orbit_distance;
-		}
-	}
-}
-
-void FreeCameraScene::ActionUp(Input::Action action){
-	if(handled_action == action.id){
-		handled_action = -1;
-	}
-}
-
-void FreeCameraScene::LookAtCamera(bool enabled){
+void FreeCameraScene::LookAtCamera(bool enabled) {
 	if(enabled){
 		look_at = true;
 	}else{
@@ -200,19 +148,16 @@ void FreeCameraScene::LookAtCamera(bool enabled){
 	}
 }
 
-void FreeCameraScene::LookAtCamera(const Vector3D& target){
+void FreeCameraScene::LookAtCamera(const Vector3D& target) {
 	look_at = true;
 	this->target = target;
+	GetCamera()->GetTransform()->LookAt(target);
 }
 
-bool FreeCameraScene::IsLookAtCamera() const{
+bool FreeCameraScene::IsLookAtCamera() const {
 	return look_at;
 }
 
-void FreeCameraScene::MouseWheelUp(){
-	MoveForward(0.1f);
-}
-
-void FreeCameraScene::MouseWheelDown(){
-	MoveBackward(0.1f);
+void FreeCameraScene::MouseWheelRoll(float delta) {
+	MoveForward(0.1f * delta / 120.f);
 }

@@ -22,35 +22,52 @@ namespace cross{
 /*	This class represents image data loaded to gpu.
 	If you need to load Texture from file use Graphics2D class.
 	Textures needed to create sprites and 3D models propertie maps */
-class Texture{
+class Texture {
 public:
-	enum Filter{
+	enum Filter {
 		NEAREST,
 		LINEAR,
 		BILINEAR,
 		TRILINEAR
 	};
 
-	enum TilingMode{
+	enum TilingMode {
 		CLAMP_TO_EDGE,
 		REPEAT
 	};
 
-	enum Compression{
+	enum Compression {
 		ETC1,
 		NONE
 	};
 
-	Texture(GLuint id, U32 width, U32 height);
-	Texture(GLuint id, U32 width, U32 height, U32 channels, Filter filter);
+	static Byte* LoadRawData(const string& filename, int& width, int& height, int& channels);
+
 	~Texture();
+
+	void Load(const string& filename);
+	void Load(const string& filename, Texture::TilingMode tillingMode);
+	void Load(const string& filename, Texture::Filter filter);
+	void Load(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
+	void Save(const string& filename);
+	void Create(U32 channels, U32 width, U32 height, Texture::Filter filter);
+	void Create(Byte* data,
+				U32 channels,
+				U32 width,
+				U32 height,
+				Texture::Filter filter,
+				Texture::Compression compression,
+				Texture::TilingMode tilingMode,
+				bool generateMipmaps);
 
 	U32 GetWidth() const;
 	U32 GetHeight() const;
 	U32 GetChannels() const;
+	GLuint GetID() const;
 	void SetName(const string& name);
 	const string& GetName() const;
 	void SetTilingMode(TilingMode mode);
+	void SetFilter(Filter filter);
 	void AddMipmapLevel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp);
 	Texture* Clone() const;
 
@@ -63,8 +80,9 @@ private:
 	U32 height		= 0;
 	U32 channels	= 0;
 
-	GLuint GetID() const;
-	void ApplyFilter(Filter filter);
+	void LoadRAW(const string& filename, Texture::Filter filter);
+	void LoadPKM(const string& filename, Texture::Filter filter);
+	void LoadKTX(const string& filename, Texture::Filter filter);
 };
 
 }

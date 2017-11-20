@@ -16,17 +16,17 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "DepthScene.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Game.h"
 #include "Material.h"
 #include "Texture.h"
 #include "Config.h"
+#include "Mesh.h"
+#include "Transform.h"
 
 void DepthScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
 
 	SetAmbientColor(Color(0.1f));
 
@@ -37,13 +37,13 @@ void DepthScene::Start(){
 
 	car_mat = new Material(shader);
 	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
-	gfx3D->AdjustMaterial(camaro, car_mat);
+	ApplyMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	
 	road_mat = new Material(shader);
-	Entity* road = LoadPrimitive(Graphics3D::Primitives::PLANE);
-	road->SetScale(15.f);
-	gfx3D->AdjustMaterial(road, road_mat, false);
+	Entity* road = LoadPrimitive(Model::Primitive::PLANE);
+	road->GetTransform()->SetScale(15.f);
+	road->GetComponent<Mesh>()->SetMaterial(road_mat);
 	AddEntity(road);
 }
 
@@ -51,9 +51,9 @@ void DepthScene::Stop(){
 	delete road_mat;
 	delete car_mat;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void DepthScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Update(sec);
 }

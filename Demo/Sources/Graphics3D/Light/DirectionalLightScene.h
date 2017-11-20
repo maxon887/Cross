@@ -15,19 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Graphics3D/DemoScene.h"
 
-class DirectionalLightScene : public CameraControlsScene{
+class DirectionalLightScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
-	void Update(float sec) override;
 
 private:
 	Shader* shader				= NULL;
-	Texture* diffuse_texture	= NULL;
-	Texture* specular_map		= NULL;
 	Material* material			= NULL;
 	Entity* cube				= NULL;
-	float shininess				= 1.f;
 };

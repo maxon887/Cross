@@ -1,7 +1,6 @@
 #include "FileExplorer.h"
 #include "System.h"
 #include "CrossEditor.h"
-#include "Graphics3D.h"
 #include "Scene.h"
 #include "Material.h"
 #include "File.h"
@@ -97,7 +96,8 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
 		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
 		Entity* modelHierarchy = model->GetHierarchy();
-		gfx3D->AdjustMaterial(modelHierarchy, gfx3D->GetDefaultMaterial()->Clone());
+		//gfx3D->AdjustMaterial(modelHierarchy, gfx3D->GetDefaultMaterial()->Clone());
+		CROSS_ASSERT(false, "Adjust Material function requared");
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
 	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
 	} else {

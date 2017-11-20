@@ -21,8 +21,6 @@
 #include "Screen.h"
 #include "Audio.h"
 #include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Config.h"
 #include "Utils/Debugger.h"
 #include "Platform/CrossEGL.h"
@@ -58,7 +56,7 @@ std::mutex  pause_mutex;
 int screen_width            = 0;
 int screen_height           = 0;
 
-void Main(){
+void Main() {
     LOGI("Main()");
     while (app_state != APP_EXIT) {
         switch (app_state) {
@@ -72,21 +70,19 @@ void Main(){
                 if (wnd_state == WND_ACTIVE) {
                     game = CrossMain();
                     gfxGL = new GraphicsGL();
-                    gfx2D = new Graphics2D();
-                    gfx3D = new Graphics3D();
                     game->Start();
                     game->SetScreen(game->GetStartScreen());
                     app_state = APP_RUNNING;
                 }
                 break;
             }
-            case APP_RUNNING:{
+            case APP_RUNNING: {
                 pause_mutex.lock();
                 game->EngineUpdate();
                 pause_mutex.unlock();
                 break;
             }
-            case APP_PAUSED:{
+            case APP_PAUSED: {
                 pause_mutex.lock();
                 system->Sleep(16);
                 pause_mutex.unlock();
@@ -96,7 +92,7 @@ void Main(){
         switch (wnd_state) {
             case WND_NONE:
                 break;
-            case WND_CREATE:{
+            case WND_CREATE: {
                 app_mutex.lock();
                 if(!crossEGL->IsContextCreated()) {
                     bool success = crossEGL->CreateContext(true);
@@ -137,8 +133,6 @@ void Main(){
     game->GetCurrentScreen()->Stop();
     game->Stop();
     Debugger::Release();
-    delete gfx3D;
-    delete gfx2D;
     delete gfxGL;
     delete game;
     if(app_state == APP_EXIT){

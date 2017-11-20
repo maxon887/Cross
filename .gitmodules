@@ -1,0 +1,6 @@
+[submodule "Sources/Libs/ImGui"]
+	path = Sources/Libs/ImGui
+	url = https://github.com/maxon887/imgui.git
+[submodule "Demo/Sources/ThirdParty/ImGui"]
+	path = Demo/Sources/ThirdParty/ImGui
+	url = https://github.com/maxon887/imgui.git

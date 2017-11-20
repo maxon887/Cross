@@ -88,38 +88,35 @@ using Set = std::set<Type>;
 class Game;
 class System;
 class GraphicsGL;
-class Graphics2D;
 class Graphics3D;
 class Input;
 class Config;
 class Audio;
-class Sprite;
 class Sound;
 class Screen;
 class Scene;
 class File;
-class Font;
 class Camera;
 class Camera2D;
 class Shader;
 class Entity;
 class Material;
 class Mesh;
+class Model;
 class Texture;
 class Light;
-class UI;
 class Cubemap;
 class Component;
 class Collider;
+class Transform;
 
 extern Game*		game;
 extern System*		system;
 extern GraphicsGL*	gfxGL;
-extern Graphics2D*	gfx2D;
-extern Graphics3D*	gfx3D;
 extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
+static const char*	version = "4.0.0";
 
 }
 
@@ -132,12 +129,12 @@ friend Shader;			\
 friend Material;		\
 friend Mesh;			\
 friend GraphicsGL;		\
-friend Graphics2D;		\
-friend Graphics3D;		\
+
 friend Game;			\
 friend System;			\
 friend Audio;			\
 friend Sound;			\
 friend Input;			\
 friend Config;			\
-friend Scene;
+friend Scene;			\
+friend Screen;

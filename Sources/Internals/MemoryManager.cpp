@@ -19,6 +19,7 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <mutex>
 
 #ifdef CROSS_DEBUG
 
@@ -27,43 +28,64 @@ using namespace cross;
 #define START_MEMORY_OBJECTS_ARRAY_CAPACITY 100
 
 #ifdef WIN
-#include "Windows.h"
+#   include "Windows.h"
+#endif
 
 #undef new
 
+std::mutex mut;
+
 void* operator new(size_t size){
-	return MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.unlock();
+	return result;
 }
 
 void* operator new(size_t size, char* filename, unsigned long line){
-	return MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.unlock();
+	return result;
 }
 
 void* operator new[](size_t size){
-	return MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.unlock();
+	return result;
 }
 
 void* operator new[](size_t size, char* filename, unsigned long line){
-	return MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.unlock();
+	return result;
 }
 
 void operator delete(void* p){
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
 
 void operator delete(void* p, char* filename, unsigned long line){
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
 
 void operator delete[](void* p){
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
 
 void operator delete[](void* p, char* filename, unsigned long line){
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
-
-#endif
 
 const unsigned long		MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;

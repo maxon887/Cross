@@ -15,30 +15,20 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TexturedModelScene.h"
-#include "Graphics3D.h"
-#include "Graphics2D.h"
 #include "Material.h"
 #include "Entity.h"
+#include "Mesh.h"
 
 void TexturedModelScene::Start(){
-	CameraControlsScene::Start();
-	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
-	shader->Compile();
-	material = new Material(shader);
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
-	material->SetPropertyValue("Texture", texture);
-	Entity* cube = LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	DemoScene::Start();
+	material = new Material(GetShader("Engine/Shaders/Texture.sha"));
+	material->SetPropertyValue("Texture", GetTexture("gfx3D/ContainerDiffuse.png"));
+	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 }
 
 void TexturedModelScene::Stop(){
 	delete material;
-	delete texture;
-	delete shader;
-	CameraControlsScene::Stop();
-}
-
-void TexturedModelScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+	DemoScene::Stop();
 }

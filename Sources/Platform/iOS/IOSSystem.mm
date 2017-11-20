@@ -70,8 +70,20 @@ U64 IOSSystem::GetTime(){
     return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
+float IOSSystem::GetScreenDPI() {
+    float scale = 1;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        scale = [[UIScreen mainScreen] scale];
+    }
+    return 160 * scale;
+}
+
 void IOSSystem::RequestOrientation(cross::System::Orientation orientation){
     [UIViewController attemptRotationToDeviceOrientation];
+}
+
+bool IOSSystem::IsMobile() {
+    return true;
 }
 
 void IOSSystem::Messagebox(const string& title, const string& message){

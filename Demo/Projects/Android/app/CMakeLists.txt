@@ -11,12 +11,12 @@ cmake_minimum_required(VERSION 3.4.1)
 
 file(GLOB CROSS_SRC
     "../../../Sources/*.cpp"
-    "../../../Sources/Graphics2D/*.cpp"
     "../../../Sources/Graphics3D/*.cpp"
     "../../../Sources/Graphics3D/Simple/*.cpp"
     "../../../Sources/Graphics3D/Light/*.cpp"
     "../../../Sources/Graphics3D/Maps/*.cpp"
     "../../../Sources/Graphics3D/Misc/*.cpp"
+    "../../../Sources/ThirdParty/ImGui/*.cpp"
     "../../../../Sources/Core/*.cpp"
     "../../../../Sources/Math/*.cpp"
     "../../../../Sources/Shaders/*.cpp"
@@ -70,17 +70,15 @@ set_target_properties( freetype2 PROPERTIES IMPORTED_LOCATION
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       cross
-
-                       # Links the target library to the log library
-                       # included in the NDK.
-                       ${log-lib}
-                       android
-                       GLESv2
-                        EGL
-                        fmod
-                        assimp
-                        freetype2)
+						cross
+						${log-lib}
+						android
+						GLESv2
+						EGL
+						fmod
+						assimp
+						#freetype2
+						)
 
 include_directories(../../../../Sources)
 include_directories(../../../../Sources/Core)

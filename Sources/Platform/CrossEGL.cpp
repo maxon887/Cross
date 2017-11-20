@@ -52,54 +52,32 @@ void CrossEGL::UnbindWindow() {
 
 bool CrossEGL::CreateContext(bool createDisplay) {
     system->LogIt("CrossEGL::CreateContext");
-    if(context_created){
-        system->LogIt("Context already created");
-        return false;
-    }
+	CROSS_RETURN(!context_created, false, "Context already created");
     if(createDisplay) {
         display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-        if (display == EGL_NO_DISPLAY) {
-            system->LogIt("NativeSurface::CreateDisplay failed. Reason: eglGetDisplay failed.");
-            return false;
-        }
-        if (!eglInitialize(display, 0, 0)) {
-            system->LogIt("NativeSurface::CreateDisplay failed. Reason: eglInitialize failed.");
-            return false;
-        }
-        EGLint mathConfigNum;
-        if (!eglChooseConfig(display, config_attribs, &config, 1, &mathConfigNum)) {
-            system->LogIt("NativeSurface::CreateContext failed. Reason: eglChooseConfig failed.");
-            return false;
-        }
+		CROSS_RETURN(display != EGL_NO_DISPLAY, false, "NativeSurface::CreateDisplay failed. Reason: eglGetDisplay failed.");
+		CROSS_RETURN(eglInitialize(display, 0, 0), false, "NativeSurface::CreateDisplay failed. Reason: eglInitialize failed.");
+		EGLint mathConfigNum;
+		CROSS_RETURN(eglChooseConfig(display, config_attribs, &config, 1, &mathConfigNum), false,
+			"NativeSurface::CreateContext failed. Reason: eglChooseConfig failed.");
 #ifdef ANDROID
 		//new stuff
 		EGLint format;
-        if (!eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format)) {
-            system->LogIt("eglGetConfigAttrib() returned error %d", eglGetError());
-            return false;
-        }
+		CROSS_RETURN(eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format), false, 
+			"eglGetConfigAttrib() returned error %d", eglGetError());
 		ANativeWindow_setBuffersGeometry(native_window, 0, 0, format);
 #endif // ANDROID
     }
     //create surface
     surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), NULL);
-    if(surface == EGL_NO_SURFACE){
-        system->LogIt("eglCreateWindowSurface failed");
-        return false;
-    }
+    CROSS_RETURN(surface != EGL_NO_SURFACE, false, "eglCreateWindowSurface failed");
     //create context
     if(createDisplay) {
         context = eglCreateContext(display, config, context, context_attribs);
-        if (context == EGL_NO_CONTEXT) {
-            system->LogIt("eglCreateContext failed");
-            return false;
-        }
+		CROSS_RETURN(context != EGL_NO_CONTEXT, false, "eglCreateContext failed");
     }
 
-    if(!eglMakeCurrent(display, surface, surface, context)){
-        system->LogIt("eglMakeCurrent failed.");
-        return false;
-    }
+    CROSS_RETURN(eglMakeCurrent(display, surface, surface, context), false, "eglMakeCurrent failed.");
     context_created = true;
     return context_created;
 }

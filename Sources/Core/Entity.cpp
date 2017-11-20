@@ -17,11 +17,11 @@
 #include "Entity.h"
 #include "System.h"
 #include "Component.h"
+#include "Transform.h"
 
 using namespace cross;
 
 Entity::Entity(const string& name) :
-	Transformable(),
 	name(name)
 { }
 
@@ -90,6 +90,12 @@ void Entity::RemoveComponent(Component* component){
 
 Component* Entity::GetComponent(U64 type) {
 	return components[type];
+}
+
+Transform* Entity::GetTransform() {
+	CROSS_RETURN(components.find(typeid(Transform).hash_code()) != components.end(), NULL, 
+		"Entity %s does't contains Tranform component", name.c_str());
+	return GetComponent<Transform>();
 }
 
 Entity* Entity::GetParent(){
@@ -162,8 +168,7 @@ Entity* Entity::RemoveChild(Entity* child){
 }
 
 Entity* Entity::Clone(){
-	Entity* clone = new Entity();
-	clone->name = this->name + "_copy";
+	Entity* clone = new Entity(this->name + "_copy");
 	for(pair<U64, Component*> pair : components){
 		Component* component = pair.second;
 		clone->components[typeid(*component).hash_code()] = component->Clone();
@@ -179,16 +184,16 @@ Entity* Entity::Clone(){
 
 Matrix Entity::GetWorldMatrix(){
 	if(parent){
-		return parent->GetModelMatrix() * GetModelMatrix();
+		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetModelMatrix();
 	}else{
-		return GetModelMatrix();
+		return GetTransform()->GetModelMatrix();
 	}
 }
 
-Vector3D Entity::GetDirection() const{
+Vector3D Entity::GetDirection(){
 	if(parent) {
-		return parent->GetModelMatrix() * Transformable::GetDirection();
+		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
 	} else {
-		return Transformable::GetDirection();
+		return GetTransform()->GetDirection();
 	}
 }
