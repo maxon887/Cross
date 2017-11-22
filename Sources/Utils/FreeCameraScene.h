@@ -53,8 +53,6 @@ protected:
 
 	Vector3D target				= Vector3D(0);
 
-    U64 wheel_roll				= 0;
-
 	void MouseWheelRoll(float delta);
 };
 

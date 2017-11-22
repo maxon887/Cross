@@ -43,10 +43,6 @@ private:
 	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();
 
-	U64 action_down_del		= 0;
-	U64 action_move_del		= 0;
-	U64 action_up_del		= 0;
-
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);

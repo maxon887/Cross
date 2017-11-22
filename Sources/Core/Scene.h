@@ -94,7 +94,6 @@ protected:
 private:
 	static const U32 scene_loader_version	= 14;
 	static const U32 scene_saver_version	= 14;
-    U64 resize_del							= -1;
 
 	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	Material* LoadMaterialFromXML(const string& xmlFile);

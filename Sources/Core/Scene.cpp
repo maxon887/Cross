@@ -49,7 +49,7 @@ void Scene::Start() {
 	camEntity->AddComponent(camera);
 	AddEntity(camEntity);
 
-	resize_del = system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
+	system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
 
 void Scene::Update(float sec) {
@@ -58,7 +58,7 @@ void Scene::Update(float sec) {
 }
 
 void Scene::Stop() {
-	system->WindowResized.Disconnect(resize_del);
+	system->WindowResized.Disconnect(this, &Scene::WindowResizeHandle);
 	delete root;
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;

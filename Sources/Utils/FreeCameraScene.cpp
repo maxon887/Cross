@@ -24,11 +24,11 @@ using namespace cross;
 
 void FreeCameraScene::Start() {
 	Scene::Start();
-	wheel_roll = input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
+	input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
 }
 
 void FreeCameraScene::Stop() {
-    input->MouseWheelRoll.Disconnect(wheel_roll);
+    input->MouseWheelRoll.Disconnect(this, &FreeCameraScene::MouseWheelRoll);
 	Scene::Stop();
 }
 
