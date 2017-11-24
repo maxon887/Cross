@@ -21,11 +21,13 @@ public:
 	Screen* GetStartScreen() override;
 	void Update(float sec) override;
 
+	SceneExplorer* GetSceneExplorer();
+	PropertiesView* GetPropertyView();
+	FileExplorer* GetFileExplorer();
+
 	void LoadScene(QString& fileInfo);
 	void RestoreSettings();
 	void ExceptionMsgBox(const char* msg);
-
-	void OnScreenChanged(Screen* screen);
 
 	void OnNewSceneClick();
 	void OnSaveAsClick();
