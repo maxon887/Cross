@@ -1,4 +1,4 @@
-#include "EntityComponent.h"
+#include "TransformComponent.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "../CrossEditor.h"
@@ -7,7 +7,7 @@
 #include <QLineEdit>
 #include <QDoubleValidator>
 
-void EntityComponent::Initialize(){
+void TransformComponent::Initialize(){
 	QValidator* validator = new QDoubleValidator(-1000.0, 1000.0, 10, this);
 	posX = findChild<QLineEdit*>("posX");
 	posX->setValidator(validator);
@@ -30,21 +30,21 @@ void EntityComponent::Initialize(){
 	scaleZ = findChild<QLineEdit*>("scaleZ");
 	scaleZ->setValidator(validator);
 
-	connect(posX, &QLineEdit::returnPressed, this, &EntityComponent::PositionChanged);
-	connect(posY, &QLineEdit::returnPressed, this, &EntityComponent::PositionChanged);
-	connect(posZ, &QLineEdit::returnPressed, this, &EntityComponent::PositionChanged);
+	connect(posX, &QLineEdit::returnPressed, this, &TransformComponent::PositionChanged);
+	connect(posY, &QLineEdit::returnPressed, this, &TransformComponent::PositionChanged);
+	connect(posZ, &QLineEdit::returnPressed, this, &TransformComponent::PositionChanged);
 
-	connect(rotX, &QLineEdit::returnPressed, this, &EntityComponent::RotationChanged);
-	connect(rotY, &QLineEdit::returnPressed, this, &EntityComponent::RotationChanged);
-	connect(rotZ, &QLineEdit::returnPressed, this, &EntityComponent::RotationChanged);
-	connect(angle, &QLineEdit::returnPressed, this, &EntityComponent::RotationChanged);
+	connect(rotX, &QLineEdit::returnPressed, this, &TransformComponent::RotationChanged);
+	connect(rotY, &QLineEdit::returnPressed, this, &TransformComponent::RotationChanged);
+	connect(rotZ, &QLineEdit::returnPressed, this, &TransformComponent::RotationChanged);
+	connect(angle, &QLineEdit::returnPressed, this, &TransformComponent::RotationChanged);
 
-	connect(scaleX, &QLineEdit::returnPressed, this, &EntityComponent::ScaleChanged);
-	connect(scaleX, &QLineEdit::returnPressed, this, &EntityComponent::ScaleChanged);
-	connect(scaleX, &QLineEdit::returnPressed, this, &EntityComponent::ScaleChanged);
+	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
+	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
+	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
 }
 
-void EntityComponent::OnEntitySelected(Entity* entity) {
+void TransformComponent::OnEntitySelected(Entity* entity) {
 	this->entity = entity;
 	if(entity){
 		show();
@@ -54,7 +54,7 @@ void EntityComponent::OnEntitySelected(Entity* entity) {
 	}
 }
 
-void EntityComponent::Update(float sec) {
+void TransformComponent::Update(float sec) {
 	if(!entity) {
 		return;
 	}
@@ -83,7 +83,7 @@ void EntityComponent::Update(float sec) {
 	}
 }
 
-void EntityComponent::PositionChanged(){
+void TransformComponent::PositionChanged(){
 	EntityChanged* action = new EntityChanged(entity);
 	Vector3D pos;
 	pos.x = posX->text().toFloat();
@@ -93,7 +93,7 @@ void EntityComponent::PositionChanged(){
 	editor->SomethingChanged(action);//trigger
 }
 
-void EntityComponent::RotationChanged(){
+void TransformComponent::RotationChanged(){
 	EntityChanged* action = new EntityChanged(entity);
 	Vector3D axis;
 	axis.x = rotX->text().toFloat();
@@ -106,7 +106,7 @@ void EntityComponent::RotationChanged(){
 	editor->SomethingChanged(action);//trigger
 }
 
-void EntityComponent::ScaleChanged(){
+void TransformComponent::ScaleChanged(){
 	EntityChanged* action = new EntityChanged(entity);
 	Vector3D scale;
 	scale.x = scaleX->text().toFloat();
@@ -116,7 +116,7 @@ void EntityComponent::ScaleChanged(){
 	editor->SomethingChanged(action);//trigger
 }
 
-void EntityComponent::UpdateRotatioon(){
+void TransformComponent::UpdateRotatioon(){
 	Quaternion rotation = entity->GetTransform()->GetRotate().GetNormalized();
 	Vector3D axis = rotation.GetAxis();
 	rotX->setText(QString::number(axis.x));

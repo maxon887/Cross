@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "File.h"
 
-#include "ui_EntityComponent.h"
+#include "ui_TransformComponent.h"
 #include "ui_ShaderView.h"
 #include "ui_MaterialView.h"
 #include "ui_MeshComponent.h"
@@ -34,7 +34,7 @@ PropertiesView::~PropertiesView() {
 void PropertiesView::OnUIInitialized(){
 	QWidget* layoutWidget = findChild<QWidget*>("layout");
 	layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
-	CreateView<EntityComponent, Ui::EntityComponentClass>("entityComponent");
+	CreateView<TransformComponent, Ui::TransformComponentClass>("transformComponent");
 	CreateView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
 	CreateView<LightComponent, Ui::LightComponentClass>("lightComponent");
 	CreateView<ShaderView, Ui::ShaderViewClass>("shaderView");

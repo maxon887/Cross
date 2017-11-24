@@ -231,15 +231,6 @@
     <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\PropertyViews\EntityComponent.cpp">
-      <Filter>Editor\PropertyViews</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_EntityComponent.cpp">
-      <Filter>Editor\Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_EntityComponent.cpp">
-      <Filter>Editor\Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\PropertyViews\MeshComponent.cpp">
       <Filter>Editor\PropertyViews</Filter>
     </ClCompile>
@@ -300,6 +291,15 @@
     <ClCompile Include="..\Sources\Core\Transform.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TransformComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TransformComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\TransformComponent.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -322,12 +322,6 @@
     </CustomBuild>
     <CustomBuild Include="Sources\PropertiesView.h">
       <Filter>Editor</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Sources\PropertyViews\EntityComponent.h">
-      <Filter>Editor\PropertyViews</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Sources\PropertyViews\EntityComponent.ui">
-      <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\MeshComponent.h">
       <Filter>Editor\PropertyViews</Filter>
@@ -357,6 +351,12 @@
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\LightComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\TransformComponent.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\TransformComponent.ui">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -496,9 +496,6 @@
     <ClInclude Include="..\Sources\Shaders\SingleLightShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_EntityComponent.h">
-      <Filter>Editor\Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_ShaderView.h">
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
@@ -525,6 +522,9 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Transform.h">
       <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_TransformComponent.h">
+      <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
