@@ -92,7 +92,7 @@ void AndroidSystem::Messagebox(const string& title, const string& message) {
 
 bool AndroidSystem::IsMobile() {
     return true;
-
+}
 
 void AndroidSystem::Exit() {
     JNIEnv* env = GetJNIEnv();
