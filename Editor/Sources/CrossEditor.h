@@ -17,7 +17,6 @@ public:
 	Event<Action*> SomethingChanged;
 
 	CrossEditor(QWidget *parent = 0);
-	~CrossEditor();
 
 	Screen* GetStartScreen() override;
 	void Update(float sec) override;

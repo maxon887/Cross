@@ -23,9 +23,6 @@
 #include "Camera.h"
 #include "Transform.h"
 
-SceneView::SceneView()
-{ }
-
 void SceneView::Start() {
 	FreeCameraScene::Start();
 	SetAmbientColor(Color::White);
@@ -34,13 +31,13 @@ void SceneView::Start() {
 	selection_material = new Material(selection_shader);
 	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
 
-	action_down_del = input->ActionDown.Connect(this, &SceneView::OnActionDown);
-	action_move_del = input->ActionMove.Connect(this, &SceneView::OnActionMove);
+	input->ActionDown.Connect(this, &SceneView::OnActionDown);
+	input->ActionMove.Connect(this, &SceneView::OnActionMove);
 }
 
 void SceneView::Stop(){
-	input->ActionDown.Disconnect(action_down_del);
-	input->ActionMove.Disconnect(action_move_del);
+	input->ActionDown.Disconnect(this, &SceneView::OnActionDown);
+	input->ActionMove.Disconnect(this, &SceneView::OnActionMove);
 	FreeCameraScene::Stop();
 }
 

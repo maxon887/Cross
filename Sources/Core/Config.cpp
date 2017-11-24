@@ -147,22 +147,27 @@ void Config::LoadGameConfig() {
 }
 
 void Config::LoadUserConfig() {
-    string path = system->DataPath() + "UserConfig.xml";
+	if(system->IsDataFileExists("UserConfig.xml")) {
+		File* xmlFile = system->LoadDataFile("UserConfig.xml");
+		CROSS_FAIL(xmlFile, "Can not load UserConfig xml file");
 
-	XMLDocument doc;
-	doc.LoadFile(path.c_str());
+		XMLDocument doc;
+		XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 
-	XMLElement* root;
-	XMLElement* element;
+		XMLElement* root;
+		XMLElement* element;
 
-	root = doc.FirstChildElement("UserConfig");
-	CROSS_FAIL(root, "Failed to fined UserConfig root element");
-	element = root->FirstChildElement("Property");
-	while(element){
-		string name = element->Attribute("name");
-		string value = element->Attribute("value");
-		user_prefs[name] = value;
-		element = element->NextSiblingElement("Property");
+		root = doc.FirstChildElement("UserConfig");
+		CROSS_FAIL(root, "Failed to fined UserConfig root element");
+		element = root->FirstChildElement("Property");
+		while(element){
+			string name = element->Attribute("name");
+			string value = element->Attribute("value");
+			user_prefs[name] = value;
+			element = element->NextSiblingElement("Property");
+		}
+	} else {
+		system->LogIt("UserConfig file don't exists if it is not a first launch consider this like a bug");
 	}
 }
 

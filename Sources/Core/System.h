@@ -62,6 +62,7 @@ public:
 	virtual void SaveFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
+	virtual bool IsDataFileExists(const string& filename);
 	/* Returns true if system should skip this message in further use */
 	virtual bool Alert(const string& msg);
 	/* Notify system that some thing goes wrong */
