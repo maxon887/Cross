@@ -25,7 +25,7 @@ Entity::Entity(const string& name) :
 	name(name)
 { }
 
-Entity::~Entity(){
+Entity::~Entity() {
 	for(pair<U64, Component*> p : components) {
 		Component* component = p.second;
 		if(component) {
@@ -33,14 +33,14 @@ Entity::~Entity(){
 			delete component;
 		}
 	}
-	for(Entity* c : children){
+	for(Entity* c : children) {
 		delete c;
 	}
 	children.clear();
 }
 
-void Entity::Initialize(){
-	for(Entity* c : children){
+void Entity::Initialize() {
+	for(Entity* c : children) {
 		c->Initialize();
 	}
 }
@@ -57,27 +57,27 @@ void Entity::Remove(){
 	}
 }
 
-void Entity::Update(float sec){
+void Entity::Update(float sec) {
 	for(pair<U64, Component*> p : components) {
 		Component* c = p.second;
 		if(c->IsEnabled()){
 			c->Update(sec);
 		}
 	}
-	for(Entity* c : children){
+	for(Entity* c : children) {
 		c->Update(sec);
 	}
 }
 
-void Entity::SetName(const string& name){
+void Entity::SetName(const string& name) {
 	this->name = name;
 }
 
-const string& Entity::GetName() const{
+const string& Entity::GetName() const {
 	return name;
 }
 
-void Entity::AddComponent(Component* component){
+void Entity::AddComponent(Component* component) {
 	component->entity = this;
 	components[typeid(*component).hash_code()] = component;
 	component->Initialize();
@@ -98,31 +98,31 @@ Transform* Entity::GetTransform() {
 	return GetComponent<Transform>();
 }
 
-Entity* Entity::GetParent(){
+Entity* Entity::GetParent() {
 	return parent;
 }
 
-void Entity::SetParent(Entity* p){
+void Entity::SetParent(Entity* p) {
 	parent = p;
 }
 
-void Entity::AddChild(Entity* child){
+void Entity::AddChild(Entity* child) {
 	child->SetParent(this);
 	children.push_back(child);
 }
 
-List<Entity*>& Entity::GetChildren(){
+List<Entity*>& Entity::GetChildren() {
 	return children;
 }
 
-void Entity::RemoveChildren(){
+void Entity::RemoveChildren() {
 	for(Entity* c : children) {
 		delete c;
 	}
 	children.clear();
 }
 
-Entity* Entity::FindChild(U32 index){
+Entity* Entity::FindChild(U32 index) {
 	CROSS_RETURN(index < children.size(), NULL, "Out of bounds");
 	auto it = children.begin();
 	std::advance(it, index);
