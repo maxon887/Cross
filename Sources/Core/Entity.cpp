@@ -168,7 +168,7 @@ Entity* Entity::RemoveChild(Entity* child){
 }
 
 Entity* Entity::Clone(){
-	Entity* clone = new Entity(this->name + "_copy");
+	Entity* clone = new Entity(this->name);
 	for(pair<U64, Component*> pair : components){
 		Component* component = pair.second;
 		clone->components[typeid(*component).hash_code()] = component->Clone();

@@ -75,12 +75,14 @@ void MultiLightScene::Start(){
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
-	
+	Entity* cubes = new Entity("Cubes");
+	cubes->AddComponent(new Transform());
+	AddEntity(cubes);
 	for(U32 i = 0; i < 50; ++i){
 		Entity* clone = cube->Clone();
 		clone->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		clone->GetTransform()->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
-		AddEntity(clone);
+		cubes->AddChild(clone);
 	}
 }
 
