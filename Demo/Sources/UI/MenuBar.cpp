@@ -20,6 +20,7 @@
 #include "Screen.h"
 #include "Texture.h"
 #include "UI/Hierarchy.h"
+#include "UI/TransformView.h"
 #include "Utils/Debugger.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -27,16 +28,20 @@
 #include "ThirdParty/ImGui/imgui_internal.h"
 
 MenuBar::MenuBar() {
-	hierarchy = new Hierarchy();
+	views.push_back(new Hierarchy());
+	views.push_back(new TransformView());
 }
 
 MenuBar::~MenuBar() {
-	delete hierarchy;
+	for(View* v : views) {
+		delete v;
+	}
+	views.clear();
 }
 
 void MenuBar::Update(float sec) {
-	if(show_hierarchy) {
-		hierarchy->Show(&show_hierarchy);
+	for(View* v : views) {
+		v->Update();
 	}
 	if(show_style_editor) {
 		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
@@ -80,8 +85,10 @@ void MenuBar::ShowMenu() {
 			ImGui::PopItemFlag();
 		} else {
 			if(ImGui::BeginMenu("View")) {
-				if(ImGui::MenuItem("Hierarchy")) {
-					show_hierarchy = true;
+				for(View* v : views) {
+					if(ImGui::MenuItem(v->GetName().c_str())) {
+						v->Show();
+					}
 				}
 				ImGui::EndMenu();
 			}

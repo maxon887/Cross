@@ -292,6 +292,12 @@
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\TransformView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\View.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -542,6 +548,12 @@
       <Filter>Demo\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\MenuBar.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\TransformView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\View.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>

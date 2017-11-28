@@ -153,6 +153,7 @@ void Config::LoadUserConfig() {
 
 		XMLDocument doc;
 		XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+		delete xmlFile;
 
 		XMLElement* root;
 		XMLElement* element;

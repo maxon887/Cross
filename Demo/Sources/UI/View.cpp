@@ -14,28 +14,26 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
+#include "View.h"
 
-class View;
+#include "ThirdParty/ImGui/imgui.h"
 
-using namespace cross;
+View::View(string name) :
+	name(name)
+{ }
 
-class MenuBar {
-public:
-	MenuBar();
-	~MenuBar();
+void View::Show() {
+	visible = true;
+}
 
-	void Update(float sec);
+void View::Update() {
+	if(visible) {
+		ImGui::Begin(name.c_str(), &visible);
+		Content();
+		ImGui::End();
+	}
+}
 
-	void ShowMenu();
-	float GetHeight() const;
-
-protected:
-	float menu_height			= 0;
-	bool show_style_editor		= false;
-	bool show_about				= false;
-    bool show_stats             = false;
-
-	Array<View*> views;
-};
+const string& View::GetName() const {
+	return name;
+}

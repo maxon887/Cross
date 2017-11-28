@@ -17,25 +17,20 @@
 #pragma once
 #include "Cross.h"
 
-class View;
-
 using namespace cross;
 
-class MenuBar {
+class View {
 public:
-	MenuBar();
-	~MenuBar();
+	View(string name);
 
-	void Update(float sec);
+	virtual void Content() { }
 
-	void ShowMenu();
-	float GetHeight() const;
+	void Show();
+	void Update();
 
-protected:
-	float menu_height			= 0;
-	bool show_style_editor		= false;
-	bool show_about				= false;
-    bool show_stats             = false;
+	const string& GetName() const;
 
-	Array<View*> views;
+private:
+	string name = "View";
+	bool visible = false;
 };

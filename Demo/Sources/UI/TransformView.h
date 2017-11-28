@@ -16,26 +16,11 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-
-class View;
+#include "UI/View.h"
 
 using namespace cross;
 
-class MenuBar {
+class TransformView : public View {
 public:
-	MenuBar();
-	~MenuBar();
-
-	void Update(float sec);
-
-	void ShowMenu();
-	float GetHeight() const;
-
-protected:
-	float menu_height			= 0;
-	bool show_style_editor		= false;
-	bool show_about				= false;
-    bool show_stats             = false;
-
-	Array<View*> views;
+	TransformView() : View("Transform") { }
 };

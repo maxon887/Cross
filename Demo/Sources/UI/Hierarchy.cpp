@@ -21,14 +21,12 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void Hierarchy::Show(bool* open) {
-	ImGui::Begin("Hierarchy", open);
+void Hierarchy::Content() {
 	if(game->GetCurrentScreen()->IsScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);
 		}
 	}
-	ImGui::End();
 }
 
 void Hierarchy::BuildNode(Entity* entity) {

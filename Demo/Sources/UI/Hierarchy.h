@@ -16,12 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "UI/View.h"
 
 using namespace cross;
 
-class Hierarchy {
+class Hierarchy : public View{
 public:
-	void Show(bool* open);
+	Hierarchy() : View("Hierarchy") { }
+
+	void Content() override;
 	
 private:
 	Entity* selected_entity = NULL;
