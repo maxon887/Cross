@@ -20,7 +20,7 @@
 #include "System.h"
 #include "UIScreen.h"
 #include "Texture.h"
-#include "MenuBar.h"
+#include "UI/MenuBar.h"
 #include "Graphics3D/Simple/TriangleScene.h"
 #include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"

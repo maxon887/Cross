@@ -17,16 +17,14 @@
 #pragma once
 #include "Cross.h"
 
-class MenuBar {
+using namespace cross;
+
+class Hierarchy {
 public:
-	void Update(float sec);
+	void Show(bool* open);
+	
+private:
+	Entity* selected_entity = NULL;
 
-	void ShowMenu();
-	float GetHeight() const;
-
-protected:
-	float menu_height			= 0;
-	bool show_style_editor		= false;
-	bool show_about				= false;
-    bool show_stats             = false;
+	void BuildNode(Entity* entity);
 };

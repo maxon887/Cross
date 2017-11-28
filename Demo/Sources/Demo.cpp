@@ -19,7 +19,7 @@
 #include "System.h"
 #include "Config.h"
 #include "Shaders/Shader.h"
-#include "MenuBar.h"
+#include "UI/MenuBar.h"
 #include "Utils/Debugger.h"
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"

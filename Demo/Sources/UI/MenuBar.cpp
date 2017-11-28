@@ -19,13 +19,25 @@
 #include "Demo.h"
 #include "Screen.h"
 #include "Texture.h"
+#include "UI/Hierarchy.h"
 #include "Utils/Debugger.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 #include "ThirdParty/ImGui/imgui_freetype.h"
 #include "ThirdParty/ImGui/imgui_internal.h"
 
+MenuBar::MenuBar() {
+	hierarchy = new Hierarchy();
+}
+
+MenuBar::~MenuBar() {
+	delete hierarchy;
+}
+
 void MenuBar::Update(float sec) {
+	if(show_hierarchy) {
+		hierarchy->Show(&show_hierarchy);
+	}
 	if(show_style_editor) {
 		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
 		ImGui::ShowStyleEditor();
@@ -66,10 +78,17 @@ void MenuBar::ShowMenu() {
 		if(mainScreen) {
 			ImGui::PopStyleVar();
 			ImGui::PopItemFlag();
+		} else {
+			if(ImGui::BeginMenu("View")) {
+				if(ImGui::MenuItem("Hierarchy")) {
+					show_hierarchy = true;
+				}
+				ImGui::EndMenu();
+			}
 		}
 		
-		ImVec2 cursor = ImGui::GetCursorPos();
-		ImGui::SameLine(ImGui::GetWindowWidth() - cursor.x);
+		ImVec2 helpSize = ImGui::CalcTextSize("Help");
+		ImGui::SameLine(ImGui::GetWindowWidth() - helpSize.x * 2.f);
 		if(ImGui::BeginMenu("Help")) {
             if(ImGui::MenuItem("Stats")) {
                 show_stats = true;
