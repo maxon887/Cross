@@ -17,11 +17,14 @@
 #pragma once
 #include "Cross.h"
 #include "UI/View.h"
+#include "Event.h"
 
 using namespace cross;
 
 class Hierarchy : public View{
 public:
+	Event<Entity*> EntitySelected;
+
 	Hierarchy() : View("Hierarchy") { }
 
 	void Content() override;

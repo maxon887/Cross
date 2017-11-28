@@ -45,6 +45,7 @@ void Hierarchy::BuildNode(Entity* entity) {
 	bool open = ImGui::TreeNodeEx(entity->GetName().c_str(), flags);
 	if(ImGui::IsItemClicked()) {
 		selected_entity = entity;
+		EntitySelected(entity);
 	}
 	if(open && !isLeaf) {
 		for(Entity* child : entity->GetChildren()) {

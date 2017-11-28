@@ -22,5 +22,14 @@ using namespace cross;
 
 class TransformView : public View {
 public:
-	TransformView() : View("Transform") { }
+	TransformView();
+
+	void Content() override;
+
+	void OnEntitySelected(Entity* entity);
+
+private:
+	Entity* selected_entity = NULL;
+
+	void OnScreenChanged(Screen* screen);
 };

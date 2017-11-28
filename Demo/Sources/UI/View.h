@@ -22,6 +22,7 @@ using namespace cross;
 class View {
 public:
 	View(string name);
+	virtual ~View() { }
 
 	virtual void Content() { }
 

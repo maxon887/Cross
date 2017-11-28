@@ -28,8 +28,11 @@
 #include "ThirdParty/ImGui/imgui_internal.h"
 
 MenuBar::MenuBar() {
-	views.push_back(new Hierarchy());
-	views.push_back(new TransformView());
+	Hierarchy* hierarchy = new Hierarchy();
+	TransformView* transform = new TransformView();
+	hierarchy->EntitySelected.Connect(transform, &TransformView::OnEntitySelected);
+	views.push_back(hierarchy);
+	views.push_back(transform);
 }
 
 MenuBar::~MenuBar() {
