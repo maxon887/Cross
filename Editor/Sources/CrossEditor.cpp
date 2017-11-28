@@ -23,7 +23,6 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
 	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
 	
-	this->ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
 	ui.sceneExplorerTree->EntityChanged.Connect(ui.propertiesView, &PropertiesView::OnEntityChanged);
 	ui.fileExplorerTree->FileSelected.Connect(ui.propertiesView, &PropertiesView::OnFileSelected);
@@ -33,15 +32,24 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	SceneLoaded.Connect(this, &CrossEditor::OnSceneLoaded);
 }
 
-CrossEditor::~CrossEditor()
-{ }
-
 Screen* CrossEditor::GetStartScreen(){
 	return new SceneView();
 }
 
 void CrossEditor::Update(float sec){
 	ui.propertiesView->Update(sec);
+}
+
+SceneExplorer* CrossEditor::GetSceneExplorer() {
+	return ui.sceneExplorerTree;
+}
+
+PropertiesView* CrossEditor::GetPropertyView() {
+	return ui.propertiesView;
+}
+
+FileExplorer* CrossEditor::GetFileExplorer() {
+	return ui.fileExplorerTree;
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve) {
@@ -73,18 +81,6 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 	msgBox.setInformativeText(msg);
 	msgBox.setIcon(QMessageBox::Icon::Critical);
 	msgBox.exec();
-}
-
-void CrossEditor::OnScreenChanged(Screen* screen){
-	SceneView* sv = dynamic_cast<SceneView*>(screen);
-	if(sv){
-		static S32 grabFocusDel = -1;
-		static S32 entitySelectedDel = -1;
-		ui.sceneExplorerTree->EntityGrabFocus.Disconnect(grabFocusDel);
-		ui.sceneExplorerTree->EntitySelected.Disconnect(entitySelectedDel);
-		grabFocusDel = ui.sceneExplorerTree->EntityGrabFocus.Connect(sv, &SceneView::OnEntityGrabFocus);
-		entitySelectedDel = ui.sceneExplorerTree->EntitySelected.Connect(sv, &SceneView::OnEntitySelected);
-	}
 }
 
 void CrossEditor::OnNewSceneClick(){

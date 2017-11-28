@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SceneView.h"
+#include "CrossEditor.h"
 #include "GraphicsGL.h"
 #include "System.h"
 #include "Entity.h"
@@ -22,9 +23,6 @@
 #include "Mesh.h"
 #include "Camera.h"
 #include "Transform.h"
-
-SceneView::SceneView()
-{ }
 
 void SceneView::Start() {
 	FreeCameraScene::Start();
@@ -34,25 +32,31 @@ void SceneView::Start() {
 	selection_material = new Material(selection_shader);
 	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
 
-	action_down_del = input->ActionDown.Connect(this, &SceneView::OnActionDown);
-	action_move_del = input->ActionMove.Connect(this, &SceneView::OnActionMove);
+	input->ActionDown.Connect(this, &SceneView::OnActionDown);
+	input->ActionMove.Connect(this, &SceneView::OnActionMove);
+
+	editor->GetSceneExplorer()->EntityGrabFocus.Connect(this, &SceneView::OnEntityGrabFocus);
+	editor->GetSceneExplorer()->EntitySelected.Connect(this, &SceneView::OnEntitySelected);
 }
 
-void SceneView::Stop(){
-	input->ActionDown.Disconnect(action_down_del);
-	input->ActionMove.Disconnect(action_move_del);
+void SceneView::Stop() {
+	editor->GetSceneExplorer()->EntityGrabFocus.Disconnect(this, &SceneView::OnEntityGrabFocus);
+	editor->GetSceneExplorer()->EntitySelected.Disconnect(this, &SceneView::OnEntitySelected);
+
+	input->ActionDown.Disconnect(this, &SceneView::OnActionDown);
+	input->ActionMove.Disconnect(this, &SceneView::OnActionMove);
 	FreeCameraScene::Stop();
 }
 
-void SceneView::Update(float sec){
+void SceneView::Update(float sec) {
 	FreeCameraScene::Update(sec);
 	if(selected_entity){
 		Draw(selected_entity);
 	}
 }
 
-void SceneView::OnActionDown(Input::Action a){
-	if(a.id == 2){
+void SceneView::OnActionDown(Input::Action a) {
+	if(a.id == 2) {
 		pos = a.pos;
 	}
 }
@@ -73,22 +77,22 @@ void SceneView::OnActionMove(Input::Action a){
 	}
 }
 
-void SceneView::OnEntitySelected(Entity* e){
+void SceneView::OnEntitySelected(Entity* e) {
 	if(selected_entity) {
 		EnableMesh(selected_entity, true);
 	}
-	if(e){
+	if(e) {
 		EnableMesh(e, false);
 	}
 	selected_entity = e;
 }
 
-void SceneView::OnEntityGrabFocus(Entity* e){
+void SceneView::OnEntityGrabFocus(Entity* e) {
 	LookAtCamera(e->GetTransform()->GetPosition());
 	GetCamera()->GetTransform()->LookAt(e->GetTransform()->GetPosition());
 }
 
-void SceneView::Draw(Entity* e){
+void SceneView::Draw(Entity* e) {
 	Mesh* mesh = e->GetComponent<Mesh>();
 	if(mesh){
 		Vector3D defaultScale = e->GetTransform()->GetScale();
@@ -102,7 +106,7 @@ void SceneView::Draw(Entity* e){
 	}
 }
 
-void SceneView::EnableMesh(Entity *e, bool value){
+void SceneView::EnableMesh(Entity *e, bool value) {
 	Mesh* mesh = e->GetComponent<Mesh>();
 	if(mesh) {
 		mesh->Enable(value);

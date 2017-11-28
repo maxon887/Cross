@@ -1,19 +1,20 @@
-#ifndef ENTITY_COMPONENT
-#define ENTITY_COMPONENT
+#ifndef TRANSFORM_COMPONENT
+#define TRANSFORM_COMPONENT
 
 #include "Cross.h"
-#include "PropertyView.h"
+#include "ComponentView.h"
+#include "Transform.h"
 
 class QLineEdit;
 
 using namespace cross;
 
-class EntityComponent : public PropertyView
+class TransformComponent : public ComponentView<Transform>
 {
 	Q_OBJECT
 public:
-	EntityComponent(QWidget* parent = 0) : PropertyView(parent) { }
-	~EntityComponent() override { }
+	TransformComponent(QWidget* parent = 0) : ComponentView(parent) { }
+	~TransformComponent() override { }
 
 	void Initialize() override;
 	void OnEntitySelected(Entity* e) override;

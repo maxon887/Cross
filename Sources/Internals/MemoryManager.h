@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#ifdef CROSS_DEBUG
+#if defined(CROSS_DEBUG) && !defined(EDITOR)
 #ifdef WIN
 
 void* operator new(size_t size);

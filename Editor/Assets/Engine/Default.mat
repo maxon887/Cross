@@ -1,0 +1,3 @@
+<Material shader="Engine/Shaders/Light.sha">
+	<Property name="Diffuse Color" value="FF888888"/>
+</Material>

@@ -369,36 +369,35 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
 	if(componentsXML) {
-		XMLElement* transform = componentsXML->FirstChildElement("Transform");
-		if(transform) {
-			XMLElement* posXML = objectXML->FirstChildElement("Position");
+		XMLElement* transformXML = componentsXML->FirstChildElement("Transform");
+		if(transformXML) {
+			Transform* transform = new Transform();
+			XMLElement* posXML = transformXML->FirstChildElement("Position");
 			if(posXML) {
 				double x = posXML->DoubleAttribute("x");
 				double y = posXML->DoubleAttribute("y");
 				double z = posXML->DoubleAttribute("z");
 				Vector3D pos((float)x, (float)y, (float)z);
-				//entity->SetPosition(pos);
-				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+				transform->SetPosition(pos);
 			}
-			XMLElement* rotXML = objectXML->FirstChildElement("Rotation");
+			XMLElement* rotXML = transformXML->FirstChildElement("Rotation");
 			if(rotXML) {
 				double x = rotXML->DoubleAttribute("x");
 				double y = rotXML->DoubleAttribute("y");
 				double z = rotXML->DoubleAttribute("z");
 				double angle = rotXML->DoubleAttribute("angle");
 				Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
-				//entity->SetRotate(rot);
-				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+				transform->SetRotate(rot);
 			}
-			XMLElement* scaleXML = objectXML->FirstChildElement("Scale");
+			XMLElement* scaleXML = transformXML->FirstChildElement("Scale");
 			if(scaleXML) {
 				double x = scaleXML->DoubleAttribute("x");
 				double y = scaleXML->DoubleAttribute("y");
 				double z = scaleXML->DoubleAttribute("z");
 				Vector3D scale((float)x, (float)y, (float)z);
-				//entity->SetScale(scale);
-				CROSS_ASSERT(false, "Loading from scene file does not forking for now");
+				transform->SetScale(scale);
 			}
+			entity->AddComponent(transform);
 		}
 		XMLElement* meshXML = componentsXML->FirstChildElement("Mesh");
 		if(meshXML) {

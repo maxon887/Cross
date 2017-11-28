@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <mutex>
 
-#ifdef CROSS_DEBUG
+#if defined(CROSS_DEBUG) && !defined(EDITOR)
 
 using namespace cross;
 
