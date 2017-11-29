@@ -16,20 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "UI/View.h"
+#include "UI/ComponentView.h"
 
 using namespace cross;
 
-class TransformView : public View {
+class TransformView : public ComponentView<Transform> {
 public:
-	TransformView();
+	TransformView() : ComponentView("Tranform") { }
 
-	void Content() override;
-
-	void OnEntitySelected(Entity* entity);
-
-private:
-	Entity* selected_entity = NULL;
-
-	void OnScreenChanged(Screen* screen);
+	void Content(Transform* tranform) override;
 };

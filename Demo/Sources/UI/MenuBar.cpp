@@ -30,7 +30,7 @@
 MenuBar::MenuBar() {
 	Hierarchy* hierarchy = new Hierarchy();
 	TransformView* transform = new TransformView();
-	hierarchy->EntitySelected.Connect(transform, &TransformView::OnEntitySelected);
+	hierarchy->EntitySelected.Connect((ComponentView<Transform>*)transform, &ComponentView<Transform>::OnEntitySelected);
 	views.push_back(hierarchy);
 	views.push_back(transform);
 }

@@ -166,6 +166,7 @@
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\Sources\UIScreen.cpp" />
+    <ClCompile Include="..\..\Sources\UI\ComponentView.cpp" />
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
     <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\Sources\UIScreen.h" />
+    <ClInclude Include="..\..\Sources\UI\ComponentView.h" />
     <ClInclude Include="..\..\Sources\UI\View.h" />
     <ClInclude Include="..\..\Sources\UI\Hierarchy.h" />
     <ClInclude Include="..\..\Sources\UI\MenuBar.h" />
