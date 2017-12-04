@@ -43,7 +43,7 @@ template<class ComponentType>
 ComponentView<ComponentType>::ComponentView(const string& name) :
 	View(name) 
 {
-	game->ScreenChanged.Connect(this, &TransformView::OnScreenChanged);
+	game->ScreenChanged.Connect(this, &ComponentView::OnScreenChanged);
 }
 
 template<class ComponentType>

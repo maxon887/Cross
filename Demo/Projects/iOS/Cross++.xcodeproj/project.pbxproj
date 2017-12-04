@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D1C72951FD56AA200D4D986 /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C728F1FD56AA200D4D986 /* MenuBar.cpp */; };
+		9D1C72961FD56AA200D4D986 /* TransformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C72901FD56AA200D4D986 /* TransformView.cpp */; };
+		9D1C72971FD56AA200D4D986 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C72931FD56AA200D4D986 /* View.cpp */; };
+		9D1C72981FD56AA200D4D986 /* Hierarchy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C72941FD56AA200D4D986 /* Hierarchy.cpp */; };
 		9D4A56CC1F51A89800CCC09D /* libassimp_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */; };
 		9D4A56CF1F51A8E400CCC09D /* libassimp_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */; };
 		9D54BB651FBC4316009E8469 /* AudioScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB321FBC4316009E8469 /* AudioScreen.cpp */; };
@@ -30,7 +34,6 @@
 		9D54BB771FBC4316009E8469 /* TexturedModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB5B1FBC4316009E8469 /* TexturedModelScene.cpp */; };
 		9D54BB781FBC4316009E8469 /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB5D1FBC4316009E8469 /* TriangleScene.cpp */; };
 		9D54BB791FBC4316009E8469 /* MainScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB5F1FBC4316009E8469 /* MainScreen.cpp */; };
-		9D54BB7A1FBC4316009E8469 /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB611FBC4316009E8469 /* MenuBar.cpp */; };
 		9D54BB7B1FBC4316009E8469 /* UIScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB631FBC4316009E8469 /* UIScreen.cpp */; };
 		9D54BBA91FBC433C009E8469 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB7D1FBC433C009E8469 /* Audio.cpp */; };
 		9D54BBAA1FBC433C009E8469 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB7F1FBC433C009E8469 /* Camera.cpp */; };
@@ -96,6 +99,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D1C728C1FD56AA200D4D986 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../UI/View.h; sourceTree = "<group>"; };
+		9D1C728D1FD56AA200D4D986 /* Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hierarchy.h; path = ../UI/Hierarchy.h; sourceTree = "<group>"; };
+		9D1C728E1FD56AA200D4D986 /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuBar.h; path = ../UI/MenuBar.h; sourceTree = "<group>"; };
+		9D1C728F1FD56AA200D4D986 /* MenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuBar.cpp; path = ../UI/MenuBar.cpp; sourceTree = "<group>"; };
+		9D1C72901FD56AA200D4D986 /* TransformView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransformView.cpp; path = ../UI/TransformView.cpp; sourceTree = "<group>"; };
+		9D1C72911FD56AA200D4D986 /* TransformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransformView.h; path = ../UI/TransformView.h; sourceTree = "<group>"; };
+		9D1C72921FD56AA200D4D986 /* ComponentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComponentView.h; path = ../UI/ComponentView.h; sourceTree = "<group>"; };
+		9D1C72931FD56AA200D4D986 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../UI/View.cpp; sourceTree = "<group>"; };
+		9D1C72941FD56AA200D4D986 /* Hierarchy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hierarchy.cpp; path = ../UI/Hierarchy.cpp; sourceTree = "<group>"; };
 		9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneosimulator.a; sourceTree = "<group>"; };
 		9D54BB321FBC4316009E8469 /* AudioScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioScreen.cpp; sourceTree = "<group>"; };
 		9D54BB331FBC4316009E8469 /* AudioScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioScreen.h; sourceTree = "<group>"; };
@@ -139,8 +151,6 @@
 		9D54BB5E1FBC4316009E8469 /* TriangleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleScene.h; sourceTree = "<group>"; };
 		9D54BB5F1FBC4316009E8469 /* MainScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainScreen.cpp; sourceTree = "<group>"; };
 		9D54BB601FBC4316009E8469 /* MainScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreen.h; sourceTree = "<group>"; };
-		9D54BB611FBC4316009E8469 /* MenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuBar.cpp; sourceTree = "<group>"; };
-		9D54BB621FBC4316009E8469 /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBar.h; sourceTree = "<group>"; };
 		9D54BB631FBC4316009E8469 /* UIScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIScreen.cpp; sourceTree = "<group>"; };
 		9D54BB641FBC4316009E8469 /* UIScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScreen.h; sourceTree = "<group>"; };
 		9D54BB7D1FBC433C009E8469 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
@@ -400,18 +410,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D1C728B1FD56A7800D4D986 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9D1C72921FD56AA200D4D986 /* ComponentView.h */,
+				9D1C72941FD56AA200D4D986 /* Hierarchy.cpp */,
+				9D1C728D1FD56AA200D4D986 /* Hierarchy.h */,
+				9D1C728F1FD56AA200D4D986 /* MenuBar.cpp */,
+				9D1C728E1FD56AA200D4D986 /* MenuBar.h */,
+				9D1C72901FD56AA200D4D986 /* TransformView.cpp */,
+				9D1C72911FD56AA200D4D986 /* TransformView.h */,
+				9D1C72931FD56AA200D4D986 /* View.cpp */,
+				9D1C728C1FD56AA200D4D986 /* View.h */,
+			);
+			name = UI;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		9D54BB311FBC4316009E8469 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9D1C728B1FD56A7800D4D986 /* UI */,
+				9D54BB361FBC4316009E8469 /* Graphics3D */,
 				9D54BB321FBC4316009E8469 /* AudioScreen.cpp */,
 				9D54BB331FBC4316009E8469 /* AudioScreen.h */,
 				9D54BB341FBC4316009E8469 /* Demo.cpp */,
 				9D54BB351FBC4316009E8469 /* Demo.h */,
-				9D54BB361FBC4316009E8469 /* Graphics3D */,
 				9D54BB5F1FBC4316009E8469 /* MainScreen.cpp */,
 				9D54BB601FBC4316009E8469 /* MainScreen.h */,
-				9D54BB611FBC4316009E8469 /* MenuBar.cpp */,
-				9D54BB621FBC4316009E8469 /* MenuBar.h */,
 				9D54BB631FBC4316009E8469 /* UIScreen.cpp */,
 				9D54BB641FBC4316009E8469 /* UIScreen.h */,
 			);
@@ -998,7 +1024,9 @@
 				9DDFFF041F46EF1700A6E782 /* stb_image_aug.c in Sources */,
 				9D54BB6F1FBC4316009E8469 /* NormalScene.cpp in Sources */,
 				9D54BB6D1FBC4316009E8469 /* DiffuseScene.cpp in Sources */,
+				9D1C72951FD56AA200D4D986 /* MenuBar.cpp in Sources */,
 				9DDFFF081F46EF1700A6E782 /* Quaternion.cpp in Sources */,
+				9D1C72961FD56AA200D4D986 /* TransformView.cpp in Sources */,
 				9D54BBBD1FBC433C009E8469 /* VertexBuffer.cpp in Sources */,
 				9D54BBB41FBC433C009E8469 /* Material.cpp in Sources */,
 				9D54BBCD1FBC435B009E8469 /* Skybox.cpp in Sources */,
@@ -1043,7 +1071,6 @@
 				9D54BB711FBC4316009E8469 /* SpecularScene.cpp in Sources */,
 				9D54BBCB1FBC435B009E8469 /* FreeCameraScene.cpp in Sources */,
 				9D54BBBA1FBC433C009E8469 /* System.cpp in Sources */,
-				9D54BB7A1FBC4316009E8469 /* MenuBar.cpp in Sources */,
 				9D54BB6A1FBC4316009E8469 /* MultiLightScene.cpp in Sources */,
 				9DC347AB1F962A620085AF91 /* imgui.cpp in Sources */,
 				9DDFFF0C1F46EF1700A6E782 /* Vector4D.cpp in Sources */,
@@ -1061,6 +1088,8 @@
 				9D54BBB61FBC433C009E8469 /* Model.cpp in Sources */,
 				9D54BBB01FBC433C009E8469 /* Game.cpp in Sources */,
 				9D54BBB21FBC433C009E8469 /* Input.cpp in Sources */,
+				9D1C72971FD56AA200D4D986 /* View.cpp in Sources */,
+				9D1C72981FD56AA200D4D986 /* Hierarchy.cpp in Sources */,
 				9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */,
 				9DDFFF0B1F46EF1700A6E782 /* Vector3D.cpp in Sources */,
 				9D54BBB91FBC433C009E8469 /* Sound.cpp in Sources */,

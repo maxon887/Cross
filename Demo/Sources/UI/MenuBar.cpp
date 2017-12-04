@@ -19,6 +19,7 @@
 #include "Demo.h"
 #include "Screen.h"
 #include "Texture.h"
+#include "Transform.h"
 #include "UI/Hierarchy.h"
 #include "UI/TransformView.h"
 #include "Utils/Debugger.h"
