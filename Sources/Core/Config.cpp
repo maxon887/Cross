@@ -154,6 +154,7 @@ void Config::LoadUserConfig() {
 		XMLDocument doc;
 		XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 		delete xmlFile;
+        CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 
 		XMLElement* root;
 		XMLElement* element;

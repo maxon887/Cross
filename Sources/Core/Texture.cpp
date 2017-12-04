@@ -270,7 +270,7 @@ void Texture::LoadKTX(const string& filename, Texture::Filter filter) {
 		offset += imageSize;
 		AddMipmapLevel(i, imageSize, imageData, mipmapW, mipmapH, Texture::Compression::ETC1);
 	}
-	delete imageData;
+	delete[] imageData;
 }
 
 void Texture::Create(U32 channels, U32 width, U32 height, Texture::Filter filter) {

@@ -98,6 +98,8 @@ CrossViewController* instance = nil;
                 return UIInterfaceOrientationMaskLandscape;
             case System::Orientation::PORTRAIT:
                 return UIInterfaceOrientationMaskPortrait;
+            default:
+                CROSS_RETURN(false, 0, "Unknown device orientation");
         }
     }
     return UIInterfaceOrientationMaskAll;

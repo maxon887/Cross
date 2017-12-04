@@ -138,8 +138,6 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 		}
 	}
 
-	U32 size = vertexBuffer->GetDataSize();
-
 	Array<GLushort> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i) {
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j) {

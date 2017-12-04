@@ -22,9 +22,9 @@ void* operator new(size_t size);
 void* operator new(size_t size, char* filename, unsigned long line);
 void* operator new[](size_t size);
 void* operator new[](size_t size, char* filename, unsigned long line);
-void operator delete(void* p);
+void operator delete(void* p) noexcept;
 void operator delete(void* p, char* filename, unsigned long line);
-void operator delete[](void* p);
+void operator delete[](void* p) noexcept;
 void operator delete[](void* p, char* filename, unsigned long line);
 
 #define new new(__FILE__, __LINE__)
@@ -35,15 +35,15 @@ namespace cross{
 
 struct MemoryObject{
 	void* address;
-	unsigned int size;
-	char* filename;
-	unsigned int line;
+	unsigned long size;
+	const char* filename;
+	unsigned long line;
 };
 
 class MemoryManager{
 public:
 	static MemoryManager* Instance();
-	void* Alloc(unsigned int size, char* filename, unsigned int line);
+	void* Alloc(unsigned long size, const char* filename, unsigned long line);
 	void Free(void* address);
 	unsigned long Dump();
 	

@@ -63,7 +63,7 @@ void* operator new[](size_t size, char* filename, unsigned long line){
 	return result;
 }
 
-void operator delete(void* p){
+void operator delete(void* p) noexcept {
 	mut.lock();
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
@@ -75,7 +75,7 @@ void operator delete(void* p, char* filename, unsigned long line){
 	mut.unlock();
 }
 
-void operator delete[](void* p){
+void operator delete[](void* p) noexcept {
 	mut.lock();
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
@@ -107,7 +107,7 @@ MemoryManager::~MemoryManager(){
 	dead = true;
 }
 
-void* MemoryManager::Alloc(unsigned int size, char* filename, unsigned int line){
+void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned long line){
 	if(!dead){
 
 		if(object_count > capacity - 1){

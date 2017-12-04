@@ -68,7 +68,7 @@
 		9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */; };
 		9DDFFF021F46EF1700A6E782 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7B1F46EF1700A6E782 /* image_helper.c */; };
 		9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7D1F46EF1700A6E782 /* SOIL.c */; };
-		9DDFFF041F46EF1700A6E782 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7F1F46EF1700A6E782 /* stb_image_aug.c */; };
+		9DDFFF041F46EF1700A6E782 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7F1F46EF1700A6E782 /* stb_image_aug.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		9DDFFF051F46EF1700A6E782 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE841F46EF1700A6E782 /* tinyxml2.cpp */; };
 		9DDFFF061F46EF1700A6E782 /* All.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE871F46EF1700A6E782 /* All.cpp */; };
 		9DDFFF071F46EF1700A6E782 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE891F46EF1700A6E782 /* Matrix.cpp */; };

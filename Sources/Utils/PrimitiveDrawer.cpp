@@ -133,7 +133,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 	} else {
 		SAFE(glDrawArrays(GL_LINE_LOOP, 2, vertexCount - 2));
 	}
-	delete buffer;
+	delete[] buffer;
 }
 
 void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {
