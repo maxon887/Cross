@@ -298,9 +298,6 @@
     <ClCompile Include="..\..\Sources\UI\View.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\ComponentView.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">

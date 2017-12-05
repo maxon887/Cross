@@ -66,7 +66,9 @@ float AndroidSystem::GetScreenDPI() {
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "GetScreenDPI", "()I");
-	return (float)env->CallIntMethod(cross_activity, methodID);
+	float dpi = (float)env->CallIntMethod(cross_activity, methodID);
+    env->DeleteLocalRef(clazz);
+    return dpi;
 }
 
 void AndroidSystem::PromtToExit(){
@@ -74,6 +76,7 @@ void AndroidSystem::PromtToExit(){
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
 	env->CallVoidMethod(cross_activity, methodID);
+    env->DeleteLocalRef(clazz);
 }
 
 void AndroidSystem::RequestOrientation(Orientation orientation) {
@@ -81,6 +84,7 @@ void AndroidSystem::RequestOrientation(Orientation orientation) {
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "RequestOrientation", "(I)V");
     env->CallVoidMethod(cross_activity, methodID, orientation);
+    env->DeleteLocalRef(clazz);
 }
 
 void AndroidSystem::Messagebox(const string& title, const string& message) {
@@ -88,6 +92,7 @@ void AndroidSystem::Messagebox(const string& title, const string& message) {
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;Ljava/lang/String;)V");
     env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title.c_str()), env->NewStringUTF(message.c_str()));
+    env->DeleteLocalRef(clazz);
 }
 
 bool AndroidSystem::IsMobile() {
@@ -99,6 +104,7 @@ void AndroidSystem::Exit() {
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "Exit", "()V");
     env->CallVoidMethod(cross_activity, methodID);
+    env->DeleteLocalRef(clazz);
     jvm->DetachCurrentThread();
 }
 

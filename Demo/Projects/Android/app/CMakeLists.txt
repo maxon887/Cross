@@ -17,6 +17,7 @@ file(GLOB CROSS_SRC
     "../../../Sources/Graphics3D/Maps/*.cpp"
     "../../../Sources/Graphics3D/Misc/*.cpp"
     "../../../Sources/ThirdParty/ImGui/*.cpp"
+    "../../../Sources/UI/*.cpp"
     "../../../../Sources/Core/*.cpp"
     "../../../../Sources/Math/*.cpp"
     "../../../../Sources/Shaders/*.cpp"

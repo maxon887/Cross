@@ -166,7 +166,6 @@
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\Sources\UIScreen.cpp" />
-    <ClCompile Include="..\..\Sources\UI\ComponentView.cpp" />
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
     <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />

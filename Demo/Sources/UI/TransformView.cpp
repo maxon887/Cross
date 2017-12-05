@@ -24,14 +24,37 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 void TransformView::WillContent() {
-	ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f, (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()) / 3.f));
-	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 3.f * 2.f, demo->GetMenuBar()->GetHeight()));
+	ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f, 
+							(float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()) / 3.f),
+							ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 3.f * 2.f, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
 }
 
-void TransformView::Content(Transform* tranform) {
+void TransformView::Content(Transform* transform) {
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(system->GetScreenDPI() / DEFAULT_SCREEN_DPI, system->GetScreenDPI() / DEFAULT_SCREEN_DPI));
+
 	float posVec[3];
-	memcpy(posVec, tranform->GetPosition().GetData(), 3 * sizeof(float));
+	memcpy(posVec, transform->GetPosition().GetData(), sizeof(Vector3D));
 	if(ImGui::DragFloat3("Position", posVec, 0.1f)) {
-		tranform->SetPosition(Vector3D(posVec[0], posVec[1], posVec[2]));
+		transform->SetPosition(Vector3D(posVec[0], posVec[1], posVec[2]));
 	}
+
+	float scaleVec[3];
+	memcpy(scaleVec, transform->GetScale().GetData(), sizeof(Vector3D));
+	if(ImGui::DragFloat3("Scale", scaleVec, 0.05f)) {
+		transform->SetScale(Vector3D(scaleVec[0], scaleVec[1], scaleVec[2]));
+	}
+
+	Quaternion rotation = transform->GetRotate();
+	float rotAxis[3];
+	memcpy(rotAxis, rotation.GetAxis().GetData(), sizeof(Vector3D));
+	if(ImGui::DragFloat3("Axis", rotAxis, 0.1f)) {
+		transform->SetRotate(Vector3D(rotAxis[0], rotAxis[1], rotAxis[2]), rotation.GetAngle());
+	}
+	float angle = transform->GetRotate().GetAngle();
+	if(ImGui::SliderFloat("Angle", &angle, 0.0f, 360.f)) {
+		transform->SetRotate(rotation.GetAxis(), angle);
+	}
+
+	ImGui::PopStyleVar();
 }
