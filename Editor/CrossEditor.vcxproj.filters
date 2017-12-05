@@ -526,5 +526,8 @@
     <ClInclude Include="GeneratedFiles\ui_TransformComponent.h">
       <Filter>Editor\Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Sources\Core\ComponentFactory.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

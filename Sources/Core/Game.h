@@ -20,6 +20,8 @@
 
 namespace cross{
 
+class ComponentFactory;
+
 /*	Core game class. Designed for contains function and fields shared between multiple Screens.
 	Every game at least must override GetStartScreen() function
 	in order to inform engine from which Screen it should start */
@@ -28,9 +30,6 @@ public:
 	/* Occurs when someone call SetScreen() */
 	Event<Screen*> ScreenChanged;
 	Event<Scene*> SceneLoaded;
-
-	/* Returns Screen from what game need to be start */
-	virtual Screen* GetStartScreen() = 0;
 
 	Game();
 	virtual ~Game();
@@ -56,21 +55,24 @@ public:
 	Screen* GetCurrentScreen();
 	/* Returns active game Scene if available */
 	Scene* GetCurrentScene();
+	/* Returns component factory for custom Components registration */
+	ComponentFactory* GetComponentFactory();
 	/* Exit from application */
-    void Exit();
+	void Exit();
 	/* Engine specific */
 	void EngineUpdate();
 	bool IsSuspended() const;
 
 protected:
-	Screen* current_screen	= NULL;
-	Screen* next_screen		= NULL;
-	string scene_file		= "";
-	U64 timestamp			= 0;
-	U64 run_time			= 0;
-	bool suspended			= false;
+	ComponentFactory* component_factory = NULL;
+	Screen* current_screen				= NULL;
+	Screen* next_screen					= NULL;
+	string scene_file					= "";
+	U64 timestamp						= 0;
+	U64 run_time						= 0;
+	bool suspended						= false;
 
 	void LoadNextScreen();
 };
-    
+
 }

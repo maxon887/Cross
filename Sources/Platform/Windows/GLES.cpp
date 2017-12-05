@@ -56,7 +56,6 @@ int GLES_Main(){
 	audio = new Audio();
 	gfxGL = new GraphicsGL();
 	game->Start();
-	game->SetScreen(game->GetStartScreen());
 
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));

@@ -34,6 +34,8 @@ namespace cross{
 class Scene : public Screen {
 public:
 	Event<Entity*> EntityAdded;
+
+	Scene();
 	/* Called before scene show up. */
 	virtual void Start() override;
 	/* Called when scene about to change on new one */
@@ -41,8 +43,8 @@ public:
 	/* Called every frame update. */
 	virtual void Update(float sec) override;
 
-	/* Loads scene from file(.scn) */
-	void Load(const string& file);
+	/* Loads scene from file(.scn). Returns true if succeed */
+	bool Load(const string& file);
 	/* Loads scene in to file */
 	void Save(const string& file);
 	/* Removes all loaded stuff from scene include textures, material, shader and entities */
@@ -95,7 +97,7 @@ private:
 	static const U32 scene_loader_version	= 14;
 	static const U32 scene_saver_version	= 14;
 
-	void LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
+	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	Material* LoadMaterialFromXML(const string& xmlFile);
 
 	void WindowResizeHandle(S32 width, S32 height);

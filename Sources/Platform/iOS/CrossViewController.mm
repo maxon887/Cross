@@ -74,7 +74,6 @@ CrossViewController* instance = nil;
             audio = new Audio();
             gfxGL = new GraphicsGL();
             game->Start();
-            game->SetScreen(game->GetStartScreen());
         }
         game->EngineUpdate();
     }

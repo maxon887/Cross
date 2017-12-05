@@ -32,10 +32,6 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	SceneLoaded.Connect(this, &CrossEditor::OnSceneLoaded);
 }
 
-Screen* CrossEditor::GetStartScreen(){
-	return new SceneView();
-}
-
 void CrossEditor::Update(float sec){
 	ui.propertiesView->Update(sec);
 }

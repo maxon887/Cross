@@ -23,6 +23,7 @@
 #include "UI/Hierarchy.h"
 #include "UI/TransformView.h"
 #include "Utils/Debugger.h"
+#include "MainScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 #include "ThirdParty/ImGui/imgui_freetype.h"
@@ -82,7 +83,7 @@ void MenuBar::ShowMenu() {
 		}
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.90f, 0.52f, 0.24f, 0.0f));
 		if(ImGui::Button("Back")) {
-			game->SetScreen(game->GetStartScreen());
+			game->SetScreen(new MainScreen());
 		}
 		ImGui::PopStyleColor();
 		if(mainScreen) {

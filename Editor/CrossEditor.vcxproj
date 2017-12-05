@@ -212,6 +212,7 @@
     <ClInclude Include="..\Sources\Core\Camera.h" />
     <ClInclude Include="..\Sources\Core\Color.h" />
     <ClInclude Include="..\Sources\Core\Component.h" />
+    <ClInclude Include="..\Sources\Core\ComponentFactory.h" />
     <ClInclude Include="..\Sources\Core\Config.h" />
     <ClInclude Include="..\Sources\Core\Cross.h" />
     <ClInclude Include="..\Sources\Core\Entity.h" />

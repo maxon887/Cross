@@ -24,27 +24,14 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Camera.h"
 
+#include "Libs/TinyXML2/tinyxml2.h"
+
 using namespace cross;
+using namespace tinyxml2;
 
 Mesh::Mesh(Model* model) :
 	model(model)
 { }
-
-Mesh::Mesh(const Mesh& obj) :
-	Component(obj),
-	VBO(obj.VBO),
-	EBO(obj.EBO),
-	vertex_buffer(obj.vertex_buffer),
-	model(obj.model),
-	material(obj.material),
-	indices(obj.indices),
-	initialized(obj.initialized),
-	face_culling(obj.face_culling),
-	original(false)
-{
-	vertex_buffer = obj.vertex_buffer->Clone();
-	
-}
 
 Mesh::~Mesh() {
 	delete vertex_buffer;
@@ -56,6 +43,28 @@ Mesh::~Mesh() {
 
 void Mesh::Update(float sec){
 	Draw();
+}
+
+Mesh* Mesh::Clone() const {
+	Mesh* mesh = new Mesh();
+	mesh->Copy(this);
+	return mesh;
+}
+
+void Mesh::Load(XMLElement* xml, Scene* scene) {
+	S32 id = xml->IntAttribute("id");
+	const char* modelfilename = xml->Attribute("model");
+
+	Model* model = scene->GetModel(modelfilename);
+	Copy(model->GetMesh(id));
+
+	const char* materialFile = xml->Attribute("material");
+	if(materialFile) {
+		Material* mat = scene->GetMaterial(materialFile);
+		SetMaterial(mat);
+	} else {
+		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+	}
 }
 
 void Mesh::Draw() {
@@ -297,10 +306,20 @@ U32 Mesh::GetPolyCount() const {
 	return (U32)indices.size();
 }
 
-Mesh* Mesh::Clone() const{
-	return new Mesh(*this);
-}
-
 bool Mesh::IsEqual(Mesh* other) const {
 	return this->VBO == other->VBO && this->EBO == other->EBO;
+}
+
+void Mesh::Copy(const Mesh* m) {
+	VBO = m->VBO;
+	EBO = m->EBO;
+	vertex_buffer = m->vertex_buffer;
+	model = m->model;
+	material = m->material;
+	indices = m->indices;
+	initialized = m->initialized;
+	face_culling = m->face_culling;
+	original = false;
+
+	vertex_buffer = m->vertex_buffer->Clone();
 }

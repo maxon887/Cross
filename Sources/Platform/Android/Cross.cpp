@@ -71,7 +71,6 @@ void Main() {
                     game = CrossMain();
                     gfxGL = new GraphicsGL();
                     game->Start();
-                    game->SetScreen(game->GetStartScreen());
                     app_state = APP_RUNNING;
                 }
                 break;

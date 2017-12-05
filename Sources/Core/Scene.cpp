@@ -26,6 +26,7 @@
 #include "Shaders/LightsShader.h"
 #include "File.h"
 #include "Transform.h"
+#include "ComponentFactory.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -35,11 +36,14 @@
 using namespace cross;
 using namespace tinyxml2;
 
-void Scene::Start() {
-	Screen::Start();
+Scene::Scene() : Screen() {
 	is_scene = true;
 	root = new Entity("Root");
 	root->AddComponent(new Transform());
+}
+
+void Scene::Start() {
+	Screen::Start();
 
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
 	camera = new Camera(projection);
@@ -75,16 +79,16 @@ void Scene::Stop() {
 	Screen::Stop();
 }
 
-void Scene::Load(const string& file) {
+bool Scene::Load(const string& file) {
 	File* xmlFile = system->LoadAssetFile(file);
-	CROSS_FAIL(xmlFile, "Can not load scene xml file");
+	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
-	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
+	CROSS_RETURN(error == XML_SUCCESS, false, "Can not parse shader xml file");
 	delete xmlFile;
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
-	CROSS_FAIL(scene, "Can not load scene. Root node Scene not found");
+	CROSS_RETURN(scene, false, "Can not load scene. Root node Scene not found");
 	SetName(File::FileWithoutExtension(file));
 	int version = scene->IntAttribute("version");
 	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version missmatch");
@@ -126,10 +130,12 @@ void Scene::Load(const string& file) {
 	if(objectsXML){
 		XMLElement* objectXML = objectsXML->FirstChildElement("Object");
 		while(objectXML){
-			LoadEntity(root, objectXML);
+			CROSS_RETURN(LoadEntity(root, objectXML), false, "Can't load entity");
 			objectXML = objectXML->NextSiblingElement("Object");
 		}
 	}
+
+	return true;
 }
 
 void Scene::Save(const string& filename) {
@@ -361,60 +367,22 @@ S32 Scene::FindTextureID(Texture* texture){
 	CROSS_RETURN(false, -1, "Can not find texture id");
 }
 
-void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
+bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	const char* name = objectXML->Attribute("name");
-	CROSS_FAIL(name, "Attribute 'name' not contain in Entity node");
+	CROSS_RETURN(name, false, "Attribute 'name' not contain in Entity node");
 	Entity* entity = new Entity(name);
 	parent->AddChild(entity);
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
 	if(componentsXML) {
-		XMLElement* transformXML = componentsXML->FirstChildElement("Transform");
-		if(transformXML) {
-			Transform* transform = new Transform();
-			XMLElement* posXML = transformXML->FirstChildElement("Position");
-			if(posXML) {
-				double x = posXML->DoubleAttribute("x");
-				double y = posXML->DoubleAttribute("y");
-				double z = posXML->DoubleAttribute("z");
-				Vector3D pos((float)x, (float)y, (float)z);
-				transform->SetPosition(pos);
-			}
-			XMLElement* rotXML = transformXML->FirstChildElement("Rotation");
-			if(rotXML) {
-				double x = rotXML->DoubleAttribute("x");
-				double y = rotXML->DoubleAttribute("y");
-				double z = rotXML->DoubleAttribute("z");
-				double angle = rotXML->DoubleAttribute("angle");
-				Quaternion rot(Vector3D((float)x, (float)y, (float)z), (float)angle);
-				transform->SetRotate(rot);
-			}
-			XMLElement* scaleXML = transformXML->FirstChildElement("Scale");
-			if(scaleXML) {
-				double x = scaleXML->DoubleAttribute("x");
-				double y = scaleXML->DoubleAttribute("y");
-				double z = scaleXML->DoubleAttribute("z");
-				Vector3D scale((float)x, (float)y, (float)z);
-				transform->SetScale(scale);
-			}
-			entity->AddComponent(transform);
-		}
-		XMLElement* meshXML = componentsXML->FirstChildElement("Mesh");
-		if(meshXML) {
-			S32 id = meshXML->IntAttribute("id");
-			const char* modelfilename = meshXML->Attribute("model");
-
-			Model* model = GetModel(modelfilename);
-			Mesh* mesh = model->GetMesh(id);
-
-			const char* materialFile = meshXML->Attribute("material");
-			if(materialFile){
-				Material* mat = GetMaterial(materialFile);
-				mesh->SetMaterial(mat);
-			}else{
-				mesh->SetMaterial(GetMaterial("Engine/Default.mat"));
-			}
-			entity->AddComponent(mesh);
+		ComponentFactory* factory = game->GetComponentFactory();
+		XMLElement* componentXML = componentsXML->FirstChildElement();
+		while(componentXML) {
+			Component* component = factory->Create(componentXML->Name());
+			CROSS_RETURN(component, false, "Can't create component of type %s", componentXML->Name());
+			component->Load(componentXML, this);
+			entity->AddComponent(component);
+			componentXML = componentXML->NextSiblingElement();
 		}
 	}
 
@@ -422,10 +390,12 @@ void Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	if(childrenXML) {
 		XMLElement* childXML = childrenXML->FirstChildElement("Object");
 		while(childXML) {
-			LoadEntity(entity, childXML);
+			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '%s'", parent->GetName().c_str());
 			childXML = childXML->NextSiblingElement("Object");
 		}
 	}
+
+	return true;
 }
 
 Material* Scene::LoadMaterialFromXML(const string& file) {

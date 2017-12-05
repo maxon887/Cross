@@ -61,7 +61,7 @@ Entity* Model::GetHierarchy() const {
 }
 
 Mesh* Model::GetMesh(S32 id) {
-	return meshes[id]->Clone();
+	return meshes[id];
 }
 
 void Model::ProcessScene(Entity* root, File* file) {

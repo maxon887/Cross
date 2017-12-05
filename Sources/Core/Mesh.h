@@ -38,6 +38,9 @@ public:
 	~Mesh();
 
 	void Update(float sec) override;
+	Mesh* Clone() const override;
+	void Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+
 	void Draw();
 	void Draw(Material* material);
 	void Draw(Material* material, StencilBehaviour sten);
@@ -59,7 +62,6 @@ public:
 	Model* GetModel();
 	U32 GetPolyCount() const;
 
-	Mesh* Clone() const override;
 	bool IsEqual(Mesh* other) const;
 
 protected:
@@ -77,7 +79,7 @@ protected:
 	bool initialized			= false;
 	bool face_culling			= true;
 
-	Mesh(const Mesh& obj);
+	void Copy(const Mesh* m);
 };
 
 }

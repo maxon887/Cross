@@ -37,7 +37,6 @@ public:
 	void Stop() override;
 	void PreUpdate(float sec) override;
 	void Update(float sec) override;
-	Screen* GetStartScreen() override;
 
 	MenuBar* GetMenuBar();
 

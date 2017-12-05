@@ -18,7 +18,6 @@ public:
 
 	CrossEditor(QWidget *parent = 0);
 
-	Screen* GetStartScreen() override;
 	void Update(float sec) override;
 
 	SceneExplorer* GetSceneExplorer();

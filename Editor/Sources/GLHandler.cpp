@@ -27,7 +27,6 @@ void GLHandler::initializeGL(){
 	
 		gfxGL = new GraphicsGL();
 		game->Start();
-		game->SetScreen(game->GetStartScreen());
 
 		auto pTimer = new QTimer(this);
 		connect(pTimer, &QTimer::timeout, this, &GLHandler::Update); 

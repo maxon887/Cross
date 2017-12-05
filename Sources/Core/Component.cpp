@@ -20,6 +20,18 @@
 
 using namespace cross;
 
+Component* Component::Clone() const {
+	CROSS_RETURN(false, NULL, "Can't clone component. Inherited class doesn't implement Clone() function");
+}
+
+void Component::Load(tinyxml2::XMLElement*, Scene*) {
+	CROSS_ASSERT(false, "Can't load component. Inherited class doesn't implement Load() function");
+}
+
+void Component::Save(tinyxml2::XMLElement*, tinyxml2::XMLDocument*) {
+	CROSS_ASSERT(false, "Can't save component. Inherited class doesn't implement Save() function");
+}
+
 Entity* Component::GetEntity() {
 	return entity;
 }

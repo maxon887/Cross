@@ -108,6 +108,8 @@ void Demo::Start() {
 	}
 
 	menu = new MenuBar();
+
+	SetScreen(new MainScreen());
 }
 
 void Demo::Stop() {
@@ -154,10 +156,6 @@ void Demo::Update(float sec) {
 	ImGui::Render();
 	ImDrawData* drawData = ImGui::GetDrawData();
 	RenderUI(drawData);
-}
-
-Screen* Demo::GetStartScreen() {
-	return new MainScreen();
 }
 
 MenuBar* Demo::GetMenuBar() {
@@ -312,7 +310,7 @@ void Demo::KeyPressed(Key key) {
 	}
 
 	if(key == Key::ESCAPE || key == Key::BACK) {
-		SetScreen(GetStartScreen());
+		SetScreen(new MainScreen());
 	}
 }
 

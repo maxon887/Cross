@@ -98,7 +98,6 @@ int OpenGL_Main(){
 	audio = new Audio();
 	gfxGL = new GraphicsGL();
 	game->Start();
-	game->SetScreen(game->GetStartScreen());
 
 	ZeroMemory(&msg, sizeof(MSG));
 	while(msg.message != WM_QUIT) {

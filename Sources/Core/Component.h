@@ -17,6 +17,11 @@
 #pragma once
 #include "Cross.h"
 
+namespace tinyxml2 {
+	class XMLElement;
+	class XMLDocument;
+}
+
 namespace cross{
 
 class Component {
@@ -26,7 +31,10 @@ public:
 	virtual void Initialize() { }
 	virtual void Remove() { }
 	virtual void Update(float sec) { }
-	virtual Component* Clone() const = 0;
+
+	virtual Component* Clone() const;
+	virtual void Load(tinyxml2::XMLElement* xml, Scene* laodingScene);
+	virtual void Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	Entity* GetEntity();
 	Transform* GetTransform();

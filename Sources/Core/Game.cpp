@@ -21,6 +21,9 @@
 #include "Scene.h"
 #include "Utils/Debugger.h"
 #include "Audio.h"
+#include "ComponentFactory.h"
+#include "Transform.h"
+#include "Mesh.h"
 
 using namespace cross;
 
@@ -35,15 +38,19 @@ Game::Game() {
 	system->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
+	component_factory = new ComponentFactory();
 }
 
 Game::~Game() {
 	system->LogIt("Game::~Game");
+	delete component_factory;
 	delete config;
 	delete input;
 }
 
 void Game::Start() {
+	component_factory->Register<Transform>("Transform");
+	component_factory->Register<Mesh>("Mesh");
 }
 
 void Game::Stop() {
@@ -56,7 +63,6 @@ void Game::SetScreen(Screen* screen) {
 	if(!current_screen) {	//in this case we need momently load new screen
 		LoadNextScreen();
 	}
-	scene_file = "";
 }
 
 void Game::SetScene(Scene* scene) {
@@ -64,8 +70,8 @@ void Game::SetScene(Scene* scene) {
 }
 
 void Game::SetScene(Scene* scene, const string& filename) {
-	SetScreen(scene);
 	scene_file = filename;
+	SetScreen(scene);
 }
 
 Screen* Game::GetCurrentScreen() {
@@ -73,8 +79,14 @@ Screen* Game::GetCurrentScreen() {
 }
 
 Scene* Game::GetCurrentScene() {
-	CROSS_RETURN(current_screen->IsScene(), NULL, "Current game state does not have 3D scene");
+	if(current_screen) {
+		CROSS_RETURN(current_screen->IsScene(), NULL, "Current game state does not have 3D scene");
+	}
 	return (Scene*)current_screen;
+}
+
+ComponentFactory* Game::GetComponentFactory() {
+	return component_factory;
 }
 
 void Game::Suspend() {
@@ -120,9 +132,11 @@ void Game::EngineUpdate() {
 
 		input->Update();
 		game->PreUpdate(secTime);
-        game->GetCurrentScreen()->PreUpdate(secTime);
-		game->GetCurrentScreen()->Update(secTime);
-		game->GetCurrentScreen()->PostUpdate(secTime);
+		if(game->GetCurrentScreen()) {
+			game->GetCurrentScreen()->PreUpdate(secTime);
+			game->GetCurrentScreen()->Update(secTime);
+			game->GetCurrentScreen()->PostUpdate(secTime);
+		}
 		game->Update(secTime);
 
 		Debugger::Instance()->Update((float)updateTime);
@@ -151,19 +165,30 @@ void Game::LoadNextScreen() {
 	system->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 
-	if(current_screen){
+	if(current_screen) {
 		current_screen->Stop();
 		delete current_screen;
+		current_screen = NULL;
 	}
-	current_screen = next_screen;
+	bool result = true;
+	if(scene_file != "") {
+		result = ((Scene*)next_screen)->Load(scene_file);
+		if(result) {
+			SceneLoaded((Scene*)next_screen);
+		}
+	}
+
+	if(result) {
+		current_screen = next_screen;
+		current_screen->Start();
+	} else {
+		CROSS_ASSERT(false, "Can not load Screen '%s'", next_screen->GetName().c_str());
+		current_screen = NULL;
+	}
 	next_screen = NULL;
-	current_screen->Start();
-	if(scene_file != ""){
-		((Scene*)current_screen)->Load(scene_file);
-		SceneLoaded((Scene*)current_screen);
-	}
+
 	timestamp = system->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen->GetName().c_str(), loadTime);
+	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen == NULL? "" : current_screen->GetName().c_str(), loadTime);
 	ScreenChanged(current_screen);
 }
