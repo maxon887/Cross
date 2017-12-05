@@ -16,34 +16,43 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Camera.h"
 #include "Transform.h"
+#include "Scene.h"
+#include "System.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
 using namespace tinyxml2;
 
-Camera::Camera(Matrix projection) :
-	Camera()
-{
-	SetProjectionMatrix(projection);
-}
-
 void Camera::Update(float sec){
 	RecalcView();
 }
 
-bool Load(XMLElement* xml, Scene* laodingScene) {
+bool Camera::Load(XMLElement* xml, Scene* loadingScene) {
+	CROSS_RETURN(!loadingScene->GetCamera(), false, "Loading Scene already have another camera");
+
+	view_distance = xml->DoubleAttribute("distance", 120.f);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, view_distance);
+	SetProjectionMatrix(projection);
+
+	loadingScene->SetCamera(this);
+
 	return true;
 }
 
 bool Camera::Save(XMLElement* xml, XMLDocument* doc) {
 	XMLElement* cameraXML = doc->NewElement("Camera");
+	cameraXML->SetAttribute("distance", view_distance);
 	xml->LinkEndChild(cameraXML);
 	return true;
 }
 
 Component* Camera::Clone() const {
 	return new Camera(*this);
+}
+
+float Camera::GetViewDistance() const {
+	return view_distance;
 }
 
 const Matrix& Camera::GetViewMatrix() const{

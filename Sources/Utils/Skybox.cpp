@@ -18,7 +18,6 @@
 #include "Shaders/Shader.h"
 #include "Entity.h"
 #include "Material.h"
-#include "Config.h"
 #include "Game.h"
 #include "Scene.h"
 #include "Camera.h"
@@ -31,7 +30,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 	cubemap(cubemap)
 {
 	box = game->GetCurrentScene()->LoadPrimitive(Model::Primitive::CUBE);
-	box->GetTransform()->SetScale(config->GetViewDistance());
+	box->GetTransform()->SetScale(game->GetCurrentScene()->GetCamera()->GetViewDistance());
 
 	shader = new Shader("Engine/Shaders/Light.vtx", "Engine/Shaders/Light.fgm");
 	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "cubemap");

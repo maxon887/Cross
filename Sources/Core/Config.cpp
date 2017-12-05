@@ -90,10 +90,6 @@ Texture::Filter Config::GetTextureFilter() const {
 	return texture_filter;
 }
 
-float Config::GetViewDistance() const {
-	return view_distance;
-}
-
 bool Config::IsOffscreenRender() const {
 	return offscreen_render;
 }
@@ -132,10 +128,6 @@ void Config::LoadGameConfig() {
 
 		if(name == "TextureFilter") {
 			texture_filter = (Texture::Filter)atoi(strValue.c_str());
-		}
-
-		if(name == "ViewDistance") {
-			view_distance = (float)atof(strValue.c_str());
 		}
 
 		if(name == "OffscreenRender") {
@@ -192,11 +184,6 @@ void Config::SaveGameConfig() {
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
 	property->SetAttribute("value", to_string(texture_filter).c_str());
-	element->LinkEndChild(property);
-
-	property = doc.NewElement("Property");
-	property->SetAttribute("name", "ViewDistance");
-	property->SetAttribute("value", to_string(view_distance).c_str());
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");

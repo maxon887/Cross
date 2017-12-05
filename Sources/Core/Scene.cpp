@@ -18,7 +18,6 @@
 #include "Camera.h"
 #include "Game.h"
 #include "System.h"
-#include "Config.h"
 #include "Light.h"
 #include "Entity.h"
 #include "Material.h"
@@ -27,6 +26,7 @@
 #include "File.h"
 #include "Transform.h"
 #include "ComponentFactory.h"
+#include "Texture.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -44,14 +44,6 @@ Scene::Scene() : Screen() {
 
 void Scene::Start() {
 	Screen::Start();
-
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
-	camera = new Camera(projection);
-	Entity* camEntity = new Entity("Camera");
-	camEntity->AddComponent(new Transform(Vector3D(0.f, 0.f, -1.f)));
-	camEntity->GetTransform()->SetDirection(Vector3D(0.f, 0.f, 1.f));
-	camEntity->AddComponent(camera);
-	AddEntity(camEntity);
 
 	system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
 }
@@ -220,11 +212,6 @@ Entity* Scene::GetRoot() {
 	return root;
 }
 
-void Scene::SetCameraViewDistance(float distance) {
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, distance);
-	camera->SetProjectionMatrix(projection);
-}
-
 Entity* Scene::GetEntity(const string& name) {
 	Entity* child = root->FindChild(name);
 	if(child){
@@ -262,6 +249,10 @@ List<Light*>& Scene::GetLights() {
 
 Camera* Scene::GetCamera() {
 	return camera;
+}
+
+void Scene::SetCamera(Camera* cam) {
+	this->camera = cam;
 }
 
 Color Scene::GetAmbientColor() const {
@@ -477,7 +468,7 @@ void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
 }
 
 void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, config->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, camera->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }
 

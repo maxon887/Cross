@@ -2,6 +2,5 @@
 <GameConfig>
 	<Property name="UseCompressedTextures" value="false"/>
 	<Property name="TextureFilter" value="BILINEAR"/>
-	<Property name="ViewDistance" value="50.0"/>
 	<Property name="OffscreenRender" value="false"/>
 </GameConfig>

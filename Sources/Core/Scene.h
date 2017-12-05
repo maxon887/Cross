@@ -53,8 +53,7 @@ public:
 	Entity* GetRoot();
 	/* Returns scene 3D camera */
 	Camera* GetCamera();
-	/* Reset camera view distance. Can affect on performance */
-	void SetCameraViewDistance(float distance);
+	void SetCamera(Camera* cam);
 	/* Finds specific entity on the scene by name */
 	Entity* GetEntity(const string& name);
 	/* Adds entity object to the scene */

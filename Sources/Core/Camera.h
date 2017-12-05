@@ -23,14 +23,12 @@ namespace cross {
 /* Base class for cameras. Used for calculation projection and view matrices. */
 class Camera : public Component {
 public:
-	Camera(Matrix projection);
-	Camera() = default;
-
 	void Update(float sec) override;
 	Component* Clone() const override;
 	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
 	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
+	float GetViewDistance() const;
 	const Matrix& GetViewMatrix() const;
 	void SetProjectionMatrix(const Matrix& projection);
 	const Matrix& GetProjectionMatrix() const;
@@ -38,6 +36,7 @@ public:
 protected:
 	Matrix view			= Matrix::Identity;
 	Matrix projection	= Matrix::Identity;
+	float view_distance = 100.f;
 
 	void RecalcView();
 };

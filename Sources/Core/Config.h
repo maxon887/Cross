@@ -41,7 +41,6 @@ public:
 	void SetOrientation(System::Orientation orientation);
 	bool UseCompressedTextures() const;
 	Texture::Filter GetTextureFilter() const;
-	float GetViewDistance() const;
 	bool IsOffscreenRender() const;
 
 	void SaveGameConfig();
@@ -53,7 +52,6 @@ protected:
 	System::Orientation orientation		= System::AUTO;
 	bool use_compressed_textures		= false;
 	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
-	float view_distance					= 300.f;
 	bool offscreen_render				= false;
 
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();
