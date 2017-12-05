@@ -17,6 +17,7 @@
 #pragma once
 #include "Scene.h"
 #include "Utils/FreeCameraScene.h"
+#include "System.h"
 
 using namespace cross;
 
@@ -46,6 +47,8 @@ private:
 	void ActionDownHandle(Input::Action action);
 	void ActionMoveHandle(Input::Action action);
 	void ActionUpHandle(Input::Action action);
+
+	void OnOrientationChanged(System::Orientation o);
 
 	void OnEyeClick();
 };

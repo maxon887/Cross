@@ -31,11 +31,17 @@ void DemoScene::Start() {
 	input->ActionDown.Connect(this, &DemoScene::ActionDownHandle);
 	input->ActionMove.Connect(this, &DemoScene::ActionMoveHandle);
 	input->ActionUp.Connect(this, &DemoScene::ActionUpHandle);
+	system->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 
 	OnEyeClick();
+	
+	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
+		OnOrientationChanged(System::Orientation::PORTRAIT);
+	}
 }
 
 void DemoScene::Stop() {
+	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
 	input->ActionDown.Disconnect(this, &DemoScene::ActionDownHandle);
 	input->ActionMove.Disconnect(this, &DemoScene::ActionMoveHandle);
 	input->ActionUp.Disconnect(this, &DemoScene::ActionUpHandle);
@@ -114,6 +120,16 @@ void DemoScene::ActionMoveHandle(Input::Action action) {
 
 void DemoScene::ActionUpHandle(Input::Action action) {
 	action_stack.push_back(pair<Input::Action, int>(action, 2));
+}
+
+void DemoScene::OnOrientationChanged(System::Orientation o) {
+	Vector3D camPos = camera->GetPosition();
+	Vector3D camDir = camera->GetTransform()->GetDirection();
+	if(o == System::Orientation::PORTRAIT) {
+		camera->SetPosition(camPos - camDir * 2);
+	} else {
+		camera->SetPosition(camPos + camDir * 2);
+	}
 }
 
 void DemoScene::OnEyeClick(){
