@@ -150,7 +150,7 @@ void Scene::Save(const string& filename) {
 	U32 pointCount = 0;
 	U32 directionCount = 0;
 	U32 spotCount = 0;
-	for(Light* light : lights){
+	for(Light* light : lights) {
 		switch(light->GetType()) {
 		case Light::POINT:
 			pointCount++;
@@ -165,19 +165,19 @@ void Scene::Save(const string& filename) {
 			break;
 		}
 	}
-	if(pointCount || directionCount || spotCount){
+	if(pointCount || directionCount || spotCount) {
 		XMLElement* lightXML = doc.NewElement("Light");
 		if(pointCount > 0){
 			XMLElement* pointXML = doc.NewElement("Point");
 			pointXML->SetAttribute("count", pointCount);
 			lightXML->LinkEndChild(pointXML);
 		}
-		if(directionCount > 0){
+		if(directionCount > 0) {
 			XMLElement* directionalXML = doc.NewElement("Directional");
 			directionalXML->SetAttribute("count", directionCount);
 			lightXML->LinkEndChild(directionalXML);
 		}
-		if(spotCount > 0){
+		if(spotCount > 0) {
 			XMLElement* spotXML = doc.NewElement("Spot");
 			spotXML->SetAttribute("count", spotCount);
 			lightXML->LinkEndChild(spotXML);
@@ -185,36 +185,10 @@ void Scene::Save(const string& filename) {
 		sceneXML->LinkEndChild(lightXML);
 	}
 
-	if(textures.size() > 0){
-		XMLElement* texturesXML = doc.NewElement("Textures");
-		for(pair<S32, Texture*> pair : textures){
-			S32 id = pair.first;
-			Texture* texture = pair.second;
-			XMLElement* textureXML = doc.NewElement("Texture");
-			textureXML->SetAttribute("id", id);
-			textureXML->SetAttribute("file", texture->GetName().c_str());
-			texturesXML->LinkEndChild(textureXML);
-		}
-		sceneXML->LinkEndChild(texturesXML);
-	}
-
-	if(models.size() > 0){
-		XMLElement* modelsXML = doc.NewElement("Models");
-		for(pair<S32, Model*> pair : models){
-			XMLElement* modelXML = doc.NewElement("Model");
-			S32 id = pair.first;
-			Model* model = pair.second;
-			modelXML->SetAttribute("id", id);
-			modelXML->SetAttribute("file", model->GetFilename().c_str());
-			modelsXML->LinkEndChild(modelXML);
-		}
-		sceneXML->LinkEndChild(modelsXML);
-	}
-
-	if(root->children.size() > 0){
+	if(root->children.size() > 0) {
 		XMLElement* objectsXML = doc.NewElement("Objects");
 		for(Entity* entity : root->children){
-			SaveEntity(entity, objectsXML, &doc);
+			CROSS_FAIL(SaveEntity(entity, objectsXML, &doc), "Can not save entity");
 		}
 		sceneXML->LinkEndChild(objectsXML);
 	}
@@ -380,7 +354,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 		while(componentXML) {
 			Component* component = factory->Create(componentXML->Name());
 			CROSS_RETURN(component, false, "Can't create component of type %s", componentXML->Name());
-			component->Load(componentXML, this);
+			CROSS_RETURN(component->Load(componentXML, this), false, "Can't load component of type '%s'", componentXML->Name());
 			entity->AddComponent(component);
 			componentXML = componentXML->NextSiblingElement();
 		}
@@ -507,42 +481,16 @@ void Scene::WindowResizeHandle(S32 width, S32 height){
 	camera->SetProjectionMatrix(projection);
 }
 
-void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
+bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	XMLElement* objectXML = doc->NewElement("Object");
 	objectXML->SetAttribute("name", entity->GetName().c_str());
-	
-	XMLElement* posXML = doc->NewElement("Position");
-	Vector3D pos = entity->GetTransform()->GetPosition();
-	posXML->SetAttribute("x", pos.x);
-	posXML->SetAttribute("y", pos.y);
-	posXML->SetAttribute("z", pos.z);
-	objectXML->LinkEndChild(posXML);
 
-	XMLElement* rotXML = doc->NewElement("Rotation");
-	Quaternion rot = entity->GetTransform()->GetRotate().GetNormalized();
-	Vector3D axis = rot.GetAxis();
-	float angle = rot.GetAngle();
-	rotXML->SetAttribute("x", axis.x);
-	rotXML->SetAttribute("y", axis.y);
-	rotXML->SetAttribute("z", axis.z);
-	rotXML->SetAttribute("angle", angle);
-	objectXML->LinkEndChild(rotXML);
-
-	XMLElement* scaleXML = doc->NewElement("Scale");
-	Vector3D scale = entity->GetTransform()->GetScale();
-	scaleXML->SetAttribute("x", scale.x);
-	scaleXML->SetAttribute("y", scale.y);
-	scaleXML->SetAttribute("z", scale.z);
-	objectXML->LinkEndChild(scaleXML);
-
-	Mesh* mesh = entity->GetComponent<Mesh>();
-	if(mesh){
+	Array<Component*>& components = entity->GetComponents();
+	if(components.size() > 0) {
 		XMLElement* componentsXML = doc->NewElement("Components");
-		XMLElement* meshXML = doc->NewElement("Mesh");
-		meshXML->SetAttribute("id", mesh->GetID());
-		meshXML->SetAttribute("model", mesh->GetModel()->GetFilename().c_str());
-		meshXML->SetAttribute("material", mesh->GetMaterial()->GetFilename().c_str());
-		componentsXML->LinkEndChild(meshXML);
+		for(Component* component : components) {
+			CROSS_RETURN(component->Save(componentsXML, doc), false, "Can't save entity component");
+		}
 		objectXML->LinkEndChild(componentsXML);
 	}
 
@@ -554,4 +502,5 @@ void Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 		objectXML->LinkEndChild(childrenXML);
 	}
 	parent->LinkEndChild(objectXML);
+	return true;
 }

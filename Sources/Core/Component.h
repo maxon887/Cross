@@ -33,8 +33,8 @@ public:
 	virtual void Update(float sec) { }
 
 	virtual Component* Clone() const;
-	virtual void Load(tinyxml2::XMLElement* xml, Scene* laodingScene);
-	virtual void Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
+	virtual bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene);
+	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	Entity* GetEntity();
 	Transform* GetTransform();

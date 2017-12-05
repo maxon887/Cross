@@ -145,7 +145,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 		}
 	}
 	system->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
-	Mesh* crsMesh = new Mesh(this);
+	Mesh* crsMesh = new Mesh(this, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(initialize_in_load) {

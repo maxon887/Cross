@@ -92,6 +92,14 @@ Component* Entity::GetComponent(U64 type) {
 	return components[type];
 }
 
+Array<Component*> Entity::GetComponents() {
+	Array<Component*> result;
+	for(pair<U64, Component*> pair : components) {
+		result.push_back(pair.second);
+	}
+	return result;
+}
+
 Transform* Entity::GetTransform() {
 	CROSS_RETURN(components.find(typeid(Transform).hash_code()) != components.end(), NULL, 
 		"Entity %s does't contains Tranform component", name.c_str());

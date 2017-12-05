@@ -29,8 +29,9 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 using namespace cross;
 using namespace tinyxml2;
 
-Mesh::Mesh(Model* model) :
-	model(model)
+Mesh::Mesh(Model* model, S32 id) :
+	model(model),
+	id(id)
 { }
 
 Mesh::~Mesh() {
@@ -51,9 +52,11 @@ Mesh* Mesh::Clone() const {
 	return mesh;
 }
 
-void Mesh::Load(XMLElement* xml, Scene* scene) {
-	S32 id = xml->IntAttribute("id");
+bool Mesh::Load(XMLElement* xml, Scene* scene) {
+	S32 id = xml->IntAttribute("id", -1);
+	CROSS_RETURN(id != -1, false, "Attribute 'id' not found");
 	const char* modelfilename = xml->Attribute("model");
+	CROSS_RETURN(modelfilename, false, "Attribute 'model' not found");
 
 	Model* model = scene->GetModel(modelfilename);
 	Copy(model->GetMesh(id));
@@ -65,6 +68,16 @@ void Mesh::Load(XMLElement* xml, Scene* scene) {
 	} else {
 		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
 	}
+	return true;
+}
+
+bool Mesh::Save(XMLElement* xml, XMLDocument* doc) {
+	XMLElement* meshXML = doc->NewElement("Mesh");
+	meshXML->SetAttribute("id", GetID());
+	meshXML->SetAttribute("model", GetModel()->GetFilename().c_str());
+	meshXML->SetAttribute("material", GetMaterial()->GetFilename().c_str());
+	xml->LinkEndChild(meshXML);
+	return true;
 }
 
 void Mesh::Draw() {
@@ -314,6 +327,7 @@ void Mesh::Copy(const Mesh* m) {
 	VBO = m->VBO;
 	EBO = m->EBO;
 	vertex_buffer = m->vertex_buffer;
+	id = m->id;
 	model = m->model;
 	material = m->material;
 	indices = m->indices;

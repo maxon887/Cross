@@ -34,12 +34,13 @@ public:
 	};
 
 	Mesh() = default;
-	Mesh(Model* model);
+	Mesh(Model* model, S32 id);
 	~Mesh();
 
 	void Update(float sec) override;
 	Mesh* Clone() const override;
-	void Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
 	void Draw();
 	void Draw(Material* material);

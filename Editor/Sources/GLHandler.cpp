@@ -53,7 +53,9 @@ void GLHandler::resizeGL(int w, int h){
 }
 
 void GLHandler::ShutDown(){
-	game->GetCurrentScreen()->Stop();
+	if(game->GetCurrentScene()) {
+		game->GetCurrentScreen()->Stop();
+	}
 	game->Stop();
 	delete gfxGL;
 }

@@ -29,12 +29,13 @@ public:
 	void Initialize();
 	void Remove();
 	void Update(float sec);
-	void SetName(const string& name);
 	const string& GetName() const;
+	void SetName(const string& name);
 	void AddComponent(Component* component);
 	void RemoveComponent(Component* component);
 	template<class T> T* GetComponent();
 	Component* GetComponent(U64 type);
+	Array<Component*> GetComponents();
 	Transform* GetTransform();
 	Entity* GetParent();
 	void SetParent(Entity* parent);

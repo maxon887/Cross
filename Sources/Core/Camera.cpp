@@ -17,7 +17,10 @@
 #include "Camera.h"
 #include "Transform.h"
 
+#include "Libs/TinyXML2/tinyxml2.h"
+
 using namespace cross;
+using namespace tinyxml2;
 
 Camera::Camera(Matrix projection) :
 	Camera()
@@ -27,6 +30,16 @@ Camera::Camera(Matrix projection) :
 
 void Camera::Update(float sec){
 	RecalcView();
+}
+
+bool Load(XMLElement* xml, Scene* laodingScene) {
+	return true;
+}
+
+bool Camera::Save(XMLElement* xml, XMLDocument* doc) {
+	XMLElement* cameraXML = doc->NewElement("Camera");
+	xml->LinkEndChild(cameraXML);
+	return true;
 }
 
 Component* Camera::Clone() const {

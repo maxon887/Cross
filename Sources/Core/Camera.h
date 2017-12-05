@@ -28,6 +28,8 @@ public:
 
 	void Update(float sec) override;
 	Component* Clone() const override;
+	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
 	const Matrix& GetViewMatrix() const;
 	void SetProjectionMatrix(const Matrix& projection);

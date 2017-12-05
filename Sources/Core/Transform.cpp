@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Transform.h"
+#include "Entity.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -29,7 +30,7 @@ Component* Transform::Clone() const {
 	return new Transform(*this);
 }
 
-void Transform::Load(tinyxml2::XMLElement* xml, Scene*) {
+bool Transform::Load(tinyxml2::XMLElement* xml, Scene*) {
 	XMLElement* posXML = xml->FirstChildElement("Position");
 	if(posXML) {
 		double x = posXML->DoubleAttribute("x");
@@ -52,6 +53,38 @@ void Transform::Load(tinyxml2::XMLElement* xml, Scene*) {
 		double z = scaleXML->DoubleAttribute("z");
 		SetScale(Vector3D((float)x, (float)y, (float)z));
 	}
+	return true;
+}
+
+bool Transform::Save(XMLElement* xml, XMLDocument* doc) {
+	XMLElement* transformXML = doc->NewElement("Transform");
+
+	XMLElement* posXML = doc->NewElement("Position");
+	Vector3D pos = GetEntity()->GetTransform()->GetPosition();
+	posXML->SetAttribute("x", pos.x);
+	posXML->SetAttribute("y", pos.y);
+	posXML->SetAttribute("z", pos.z);
+	transformXML->LinkEndChild(posXML);
+
+	XMLElement* rotXML = doc->NewElement("Rotation");
+	Quaternion rot = GetEntity()->GetTransform()->GetRotate().GetNormalized();
+	Vector3D axis = rot.GetAxis();
+	float angle = rot.GetAngle();
+	rotXML->SetAttribute("x", axis.x);
+	rotXML->SetAttribute("y", axis.y);
+	rotXML->SetAttribute("z", axis.z);
+	rotXML->SetAttribute("angle", angle);
+	transformXML->LinkEndChild(rotXML);
+
+	XMLElement* scaleXML = doc->NewElement("Scale");
+	Vector3D scale = GetEntity()->GetTransform()->GetScale();
+	scaleXML->SetAttribute("x", scale.x);
+	scaleXML->SetAttribute("y", scale.y);
+	scaleXML->SetAttribute("z", scale.z);
+	transformXML->LinkEndChild(scaleXML);
+
+	xml->LinkEndChild(transformXML);
+	return true;
 }
 
 void Transform::SetPosition(const Vector2D& pos){

@@ -94,14 +94,14 @@ protected:
 	S32 FindTextureID(Texture* texture);
 
 private:
-	static const U32 scene_loader_version	= 14;
-	static const U32 scene_saver_version	= 14;
+	static const U32 scene_loader_version	= 15;
+	static const U32 scene_saver_version	= 15;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	Material* LoadMaterialFromXML(const string& xmlFile);
 
 	void WindowResizeHandle(S32 width, S32 height);
-	void SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
+	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 };
 
 }

@@ -28,7 +28,8 @@ public:
 	Transform(const Vector3D& position);
 
 	Component* Clone() const override;
-	void Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
 	void SetPosition(const Vector2D& pos);
 	void SetPosition(const Vector3D& pos);
