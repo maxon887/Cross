@@ -41,7 +41,7 @@ private:
 
 template<class ComponentType>
 ComponentView<ComponentType>::ComponentView(const string& name) :
-	View(name) 
+	View(name)
 {
 	game->ScreenChanged.Connect(this, &ComponentView::OnScreenChanged);
 }

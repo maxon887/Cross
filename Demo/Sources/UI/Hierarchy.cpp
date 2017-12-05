@@ -16,10 +16,17 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Hierarchy.h"
 #include "Entity.h"
-#include "Game.h"
+#include "Demo.h"
 #include "Scene.h"
+#include "MenuBar.h"
+#include "System.h"
 
 #include "ThirdParty/ImGui/imgui.h"
+
+void Hierarchy::WillContent() {
+	ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f, (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
+	ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
+}
 
 void Hierarchy::Content() {
 	if(game->GetCurrentScreen()->IsScene()) {

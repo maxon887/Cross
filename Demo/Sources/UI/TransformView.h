@@ -24,5 +24,6 @@ class TransformView : public ComponentView<Transform> {
 public:
 	TransformView() : ComponentView("Tranform") { }
 
+	void WillContent() override;
 	void Content(Transform* tranform) override;
 };

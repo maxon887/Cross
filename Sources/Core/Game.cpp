@@ -120,6 +120,7 @@ void Game::EngineUpdate() {
 
 		input->Update();
 		game->PreUpdate(secTime);
+        game->GetCurrentScreen()->PreUpdate(secTime);
 		game->GetCurrentScreen()->Update(secTime);
 		game->GetCurrentScreen()->PostUpdate(secTime);
 		game->Update(secTime);

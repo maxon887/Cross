@@ -17,8 +17,16 @@
 #include "TransformView.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "System.h"
+#include "Demo.h"
+#include "MenuBar.h"
 
 #include "ThirdParty/ImGui/imgui.h"
+
+void TransformView::WillContent() {
+	ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f, (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()) / 3.f));
+	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 3.f * 2.f, demo->GetMenuBar()->GetHeight()));
+}
 
 void TransformView::Content(Transform* tranform) {
 	float posVec[3];

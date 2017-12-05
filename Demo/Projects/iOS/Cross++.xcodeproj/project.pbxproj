@@ -83,7 +83,6 @@
 		9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */; };
 		9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECA1F46EF1700A6E782 /* Shader.cpp */; };
 		9DDFFF1F1F46EF1700A6E782 /* SingleLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */; };
-		9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */; };
 		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
@@ -95,15 +94,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D1C728C1FD56AA200D4D986 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../UI/View.h; sourceTree = "<group>"; };
-		9D1C728D1FD56AA200D4D986 /* Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hierarchy.h; path = ../UI/Hierarchy.h; sourceTree = "<group>"; };
-		9D1C728E1FD56AA200D4D986 /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuBar.h; path = ../UI/MenuBar.h; sourceTree = "<group>"; };
-		9D1C728F1FD56AA200D4D986 /* MenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuBar.cpp; path = ../UI/MenuBar.cpp; sourceTree = "<group>"; };
-		9D1C72901FD56AA200D4D986 /* TransformView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransformView.cpp; path = ../UI/TransformView.cpp; sourceTree = "<group>"; };
-		9D1C72911FD56AA200D4D986 /* TransformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransformView.h; path = ../UI/TransformView.h; sourceTree = "<group>"; };
-		9D1C72921FD56AA200D4D986 /* ComponentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComponentView.h; path = ../UI/ComponentView.h; sourceTree = "<group>"; };
-		9D1C72931FD56AA200D4D986 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../UI/View.cpp; sourceTree = "<group>"; };
-		9D1C72941FD56AA200D4D986 /* Hierarchy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hierarchy.cpp; path = ../UI/Hierarchy.cpp; sourceTree = "<group>"; };
+		9D1C728C1FD56AA200D4D986 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../UI/View.h; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C728D1FD56AA200D4D986 /* Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hierarchy.h; path = ../UI/Hierarchy.h; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C728E1FD56AA200D4D986 /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuBar.h; path = ../UI/MenuBar.h; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C728F1FD56AA200D4D986 /* MenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuBar.cpp; path = ../UI/MenuBar.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C72901FD56AA200D4D986 /* TransformView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransformView.cpp; path = ../UI/TransformView.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C72911FD56AA200D4D986 /* TransformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransformView.h; path = ../UI/TransformView.h; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C72921FD56AA200D4D986 /* ComponentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComponentView.h; path = ../UI/ComponentView.h; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C72931FD56AA200D4D986 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../UI/View.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		9D1C72941FD56AA200D4D986 /* Hierarchy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hierarchy.cpp; path = ../UI/Hierarchy.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneosimulator.a; sourceTree = "<group>"; };
 		9D54BB321FBC4316009E8469 /* AudioScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioScreen.cpp; sourceTree = "<group>"; };
 		9D54BB331FBC4316009E8469 /* AudioScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioScreen.h; sourceTree = "<group>"; };
@@ -392,7 +391,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */,
-				9DDFFF431F46F5CF00A6E782 /* libFreetype2.a in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
 				D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */,
 				D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */,
@@ -1215,7 +1213,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lfmod_$PLATFORM_NAME",
-					"-lFreetype2",
 					"-lassimp_$PLATFORM_NAME",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cross;
@@ -1247,7 +1244,6 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				OTHER_LDFLAGS = (
 					"-lfmod_$PLATFORM_NAME",
-					"-lFreetype2",
 					"-lassimp_$PLATFORM_NAME",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cross;

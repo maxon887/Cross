@@ -29,9 +29,11 @@ public:
 	virtual void Start() { }
 	/* Called when screen about to change on new one */
 	virtual void Stop() { }
+    /* Called before regular Screen::Update() */
+    virtual void PreUpdate(float sec) { }
 	/* Called every frame update. Ideally 60 times per second(60fps) */
 	virtual void Update(float sec) { }
-	/* Called after regularly Screen::Update()  */
+	/* Called after regular Screen::Update() */
 	virtual void PostUpdate(float sec) { }
 	/* Called when game need to be suspend like lost focus or input phone call */
 	virtual void Suspend() { }

@@ -24,6 +24,7 @@ public:
 	View(string name);
 	virtual ~View() { }
 
+    virtual void WillContent() { }
 	virtual void Content() { }
 
 	void Show();

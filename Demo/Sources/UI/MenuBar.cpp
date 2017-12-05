@@ -45,6 +45,7 @@ MenuBar::~MenuBar() {
 
 void MenuBar::Update(float sec) {
 	for(View* v : views) {
+        v->WillContent();
 		v->Update();
 	}
 	if(show_style_editor) {

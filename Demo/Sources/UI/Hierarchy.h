@@ -27,6 +27,7 @@ public:
 
 	Hierarchy() : View("Hierarchy") { }
 
+    void WillContent() override;
 	void Content() override;
 	
 private:
