@@ -42,13 +42,8 @@ public:
 
 	const string& GetName() const;
 	void SetName(const string& name);
-	/* Returns true if current screen is actually a 3D scene */
-	bool IsScene() const;
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
-
-protected:
-	bool is_scene					= false;
 
 private:
 	string name						= "noname";

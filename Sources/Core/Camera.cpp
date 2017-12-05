@@ -31,7 +31,7 @@ void Camera::Update(float sec){
 bool Camera::Load(XMLElement* xml, Scene* loadingScene) {
 	CROSS_RETURN(!loadingScene->GetCamera(), false, "Loading Scene already have another camera");
 
-	view_distance = xml->DoubleAttribute("distance", 120.f);
+	view_distance = (float)xml->DoubleAttribute("distance", 120.f);
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, view_distance);
 	SetProjectionMatrix(projection);
 

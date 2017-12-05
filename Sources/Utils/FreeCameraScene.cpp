@@ -22,6 +22,10 @@
 
 using namespace cross;
 
+FreeCameraScene::FreeCameraScene(const string& filename) :
+	Scene(filename)
+{ }
+
 void FreeCameraScene::Start() {
 	Scene::Start();
 	input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);

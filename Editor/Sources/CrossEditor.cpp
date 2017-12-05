@@ -29,7 +29,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 
 	setWindowTitle(QString("Cross Editor - Untitled*"));
 	SomethingChanged.Connect(this, &CrossEditor::OnSomethingChanged);
-	SceneLoaded.Connect(this, &CrossEditor::OnSceneLoaded);
+	ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 }
 
 void CrossEditor::Update(float sec){
@@ -60,7 +60,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 void CrossEditor::LoadScene(QString& scenePath){
 	scene_file = scenePath;
 	ui.sceneExplorerTree->clearSelection();
-	SetScene(new SceneView(), scenePath.toStdString());
+	SetScreen(new SceneView(scenePath.toStdString()));
 }
 
 void CrossEditor::RestoreSettings(){
@@ -83,7 +83,7 @@ void CrossEditor::OnNewSceneClick(){
 	ui.sceneExplorerTree->reset();
 	scene_file = "Untitled";
 	setWindowTitle(QString("Cross Editor - Untitled*"));
-	SetScene(new SceneView());
+	SetScreen(new SceneView());
 }
 
 void CrossEditor::OnSaveAsClick(){
@@ -113,8 +113,8 @@ void CrossEditor::OnSomethingChanged(Action* action){
 	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName().c_str() + QString("*"));
 }
 
-void CrossEditor::OnSceneLoaded(Scene* scene){
-	setWindowTitle(QString("Cross Editor - ") + scene->GetName().c_str());
+void CrossEditor::OnScreenChanged(Screen* screen){
+	setWindowTitle(QString("Cross Editor - ") + screen->GetName().c_str());
 }
 
 void CrossEditor::keyPressEvent(QKeyEvent* key) {

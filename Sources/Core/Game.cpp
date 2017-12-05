@@ -67,24 +67,12 @@ void Game::SetScreen(Screen* screen) {
 	}
 }
 
-void Game::SetScene(Scene* scene) {
-	SetScreen(scene);
-}
-
-void Game::SetScene(Scene* scene, const string& filename) {
-	scene_file = filename;
-	SetScreen(scene);
-}
-
 Screen* Game::GetCurrentScreen() {
 	return current_screen;
 }
 
 Scene* Game::GetCurrentScene() {
-	if(current_screen) {
-		CROSS_RETURN(current_screen->IsScene(), NULL, "Current game state does not have 3D scene");
-	}
-	return (Scene*)current_screen;
+	return dynamic_cast<Scene*>(game->GetCurrentScreen());
 }
 
 ComponentFactory* Game::GetComponentFactory() {
@@ -172,22 +160,10 @@ void Game::LoadNextScreen() {
 		delete current_screen;
 		current_screen = NULL;
 	}
-	bool result = true;
-	if(scene_file != "") {
-		result = ((Scene*)next_screen)->Load(scene_file);
-		if(result) {
-			SceneLoaded((Scene*)next_screen);
-		}
-	}
 
-	if(result) {
-		current_screen = next_screen;
-		current_screen->Start();
-	} else {
-		CROSS_ASSERT(false, "Can not load Screen '%s'", next_screen->GetName().c_str());
-		current_screen = NULL;
-	}
+	current_screen = next_screen;
 	next_screen = NULL;
+	current_screen->Start();
 
 	timestamp = system->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();

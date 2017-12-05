@@ -32,7 +32,7 @@ public:
 	void OnSaveAsClick();
 	void OnSetupProjectDirectoryClick();
 
-	void OnSceneLoaded(Scene* scene);
+	void OnScreenChanged(Screen* screen);
 	void OnSomethingChanged(Action* a);
 
 protected:

@@ -31,7 +31,7 @@ void Hierarchy::WillContent() {
 }
 
 void Hierarchy::Content() {
-	if(game->GetCurrentScreen()->IsScene()) {
+	if(game->GetCurrentScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);
 		}

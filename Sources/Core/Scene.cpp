@@ -36,8 +36,14 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Scene::Scene() : Screen() {
-	is_scene = true;
+Scene::Scene() : 
+	Scene("")
+{ }
+
+Scene::Scene(const string& filename) : 
+	Screen(),
+	filename(filename)
+{
 	root = new Entity("Root");
 	root->AddComponent(new Transform());
 }
@@ -46,6 +52,10 @@ void Scene::Start() {
 	Screen::Start();
 
 	system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
+
+	if(filename != "") {
+		CROSS_ASSERT(Load(filename), "Screen '%s' was not loaded correctly", GetName().c_str());
+	}
 }
 
 void Scene::Update(float sec) {

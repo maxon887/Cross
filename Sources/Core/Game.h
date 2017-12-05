@@ -29,7 +29,6 @@ class Game {
 public:
 	/* Occurs when someone call SetScreen() */
 	Event<Screen*> ScreenChanged;
-	Event<Scene*> SceneLoaded;
 
 	Game();
 	virtual ~Game();
@@ -46,8 +45,6 @@ public:
 	virtual void Resume();
     /* Will change current Screen at the end of frame. Old Screen will be deleted */
     virtual void SetScreen(Screen* screen);
-	virtual void SetScene(Scene* scene);
-	virtual void SetScene(Scene* scene, const string& filename);
 
 	/* Returns time in sec since game start */
 	float GetRunTime() const;
@@ -67,7 +64,6 @@ protected:
 	ComponentFactory* component_factory = NULL;
 	Screen* current_screen				= NULL;
 	Screen* next_screen					= NULL;
-	string scene_file					= "";
 	U64 timestamp						= 0;
 	U64 run_time						= 0;
 	bool suspended						= false;

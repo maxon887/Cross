@@ -27,10 +27,6 @@ void Screen::SetName(const string& name) {
 	this->name = name;
 }
 
-bool Screen::IsScene() const {
-	return is_scene;
-}
-
 void Screen::SetBackground(const Color& c) {
 	glClearColor(c.R, c.G, c.B, 1.f);
 }

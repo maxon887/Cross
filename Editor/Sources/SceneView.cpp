@@ -24,6 +24,14 @@
 #include "Camera.h"
 #include "Transform.h"
 
+SceneView::SceneView() :
+	FreeCameraScene("")
+{ }
+
+SceneView::SceneView(const string& filename) :
+	FreeCameraScene(filename)
+{ }
+
 void SceneView::Start() {
 	FreeCameraScene::Start();
 	SetAmbientColor(Color::White);

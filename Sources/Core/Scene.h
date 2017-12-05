@@ -36,6 +36,7 @@ public:
 	Event<Entity*> EntityAdded;
 
 	Scene();
+	Scene(const string& filename);
 	/* Called before scene show up. */
 	virtual void Start() override;
 	/* Called when scene about to change on new one */
@@ -86,6 +87,7 @@ protected:
 	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= NULL;
+	string filename							= "";
 
 	Camera* camera							= NULL;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
