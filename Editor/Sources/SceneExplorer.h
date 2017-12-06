@@ -41,7 +41,7 @@ protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
-	SceneModel* scene_model;
+	SceneModel* scene_model				= NULL;
 	QMenu* context_menu					= NULL;
 
 	void OnItemClick(QModelIndex index);

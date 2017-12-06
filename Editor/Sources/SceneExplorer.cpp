@@ -148,7 +148,7 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 	connect(scene_model, &SceneModel::dataChanged, this, &SceneExplorer::OnItemChanged);
 
 	context_menu = new QMenu(this);
-
+	context_menu->setEnabled(false);
 	QAction* createEntity = new QAction(context_menu);
 	createEntity->setText("Create Entity");
 	connect(createEntity, &QAction::triggered, this, &SceneExplorer::OnCreateEntity);
@@ -167,6 +167,9 @@ void SceneExplorer::OnScreenChanged(Screen* screen){
 	Scene* scene = dynamic_cast<Scene*>(screen);
 	if(scene){
 		scene->EntityAdded.Connect(this, &SceneExplorer::OnEntityAdded);
+		context_menu->setEnabled(true);
+	} else {
+		context_menu->setEnabled(false);
 	}
 	reset();
 }
