@@ -50,23 +50,33 @@ FileExplorer* CrossEditor::GetFileExplorer() {
 
 void CrossEditor::closeEvent(QCloseEvent* eve) {
 	ui.glHandler->ShutDown();
-	ui.sceneExplorerTree->reset();
+	GetSceneExplorer()->reset();
 	QSettings settings("CrossEditor");
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
+
+	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
+	settings.setValue("projectDirectory", winSys->AssetsPath().c_str());
+
 	QMainWindow::closeEvent(eve);
 }
 
-void CrossEditor::LoadScene(QString& scenePath){
+void CrossEditor::LoadScene(QString& scenePath) {
 	scene_file = scenePath;
-	ui.sceneExplorerTree->clearSelection();
+	GetSceneExplorer()->clearSelection();
 	SetScreen(new SceneView(scenePath.toStdString()));
 }
 
-void CrossEditor::RestoreSettings(){
+void CrossEditor::RestoreSettings() {
+	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
 	QSettings settings("CrossEditor");
-	if(settings.contains("geometry")){
+	if(settings.contains("geometry")) {
 		setGeometry(settings.value("geometry").value<QRect>());
+	}
+	if(settings.contains("projectDirectory")) {
+		QString projectDirectory = settings.value("projectDirectory").toString();
+		winSys->SetAssetPath(projectDirectory.toStdString().c_str());
+		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
 	}
 	restoreState(settings.value("windowState").toByteArray());
 }
@@ -80,7 +90,7 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 }
 
 void CrossEditor::OnNewSceneClick(){
-	ui.sceneExplorerTree->reset();
+	GetSceneExplorer()->reset();
 	scene_file = "Untitled";
 	setWindowTitle(QString("Cross Editor - Untitled*"));
 	SetScreen(new SceneView());
@@ -105,7 +115,7 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 		WINSystem* winSys = dynamic_cast<WINSystem*>(system);
 		CROSS_FAIL(winSys, "You are not under Windows opertating system");
 		winSys->SetAssetPath(path.toStdString());
-		ui.fileExplorerTree->SetupProjectDirectory(path);
+		GetFileExplorer()->SetupProjectDirectory(path);
 	}
 }
 

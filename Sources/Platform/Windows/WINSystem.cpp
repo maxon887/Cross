@@ -72,7 +72,7 @@ string WINSystem::DataPath() {
 	return DATA_PATH;
 }
 
-U64 WINSystem::GetTime(){
+U64 WINSystem::GetTime() {
 	LARGE_INTEGER freq;
 	LARGE_INTEGER crt;
 	QueryPerformanceFrequency(&freq);
@@ -122,7 +122,7 @@ void WINSystem::SetAssetPath(const string& path){
 	assets_path = path;
 }
 
-void WINSystem::FullScreen(bool yes){
+void WINSystem::FullScreen(bool yes) {
 	if(yes){
 		HDC dc = GetDC(wnd);
 		int fullscreenWidth = GetDeviceCaps(dc, HORZRES);
@@ -136,7 +136,7 @@ void WINSystem::FullScreen(bool yes){
 	}
 }
 
-void WINSystem::ResizeWindow(int posX, int posY, int width, int height){
+void WINSystem::ResizeWindow(int posX, int posY, int width, int height) {
 	CROSS_FAIL(wnd && !fullscreen, "Zero WND. Can not resize native window");
 	window_pos_x = posX;
 	window_pos_y = posY;
