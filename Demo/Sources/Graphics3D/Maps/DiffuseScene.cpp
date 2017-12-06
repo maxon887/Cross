@@ -44,10 +44,10 @@ void DiffuseScene::Start(){
 	shader->Compile();
 
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/Camaro/Diffuse.png"));
+	material->SetPropertyValue("Diffuse Texture", GetTexture("Models/Camaro/Diffuse.png"));
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);
-	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
+	Entity* camaro = GetModel("Models/Camaro/Camaro.fbx")->GetHierarchy();
 	ApplyMaterial(camaro, material);
 	AddEntity(camaro);
 }

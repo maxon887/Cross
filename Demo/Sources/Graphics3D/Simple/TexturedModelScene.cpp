@@ -22,7 +22,7 @@
 void TexturedModelScene::Start(){
 	DemoScene::Start();
 	material = new Material(GetShader("Engine/Shaders/Texture.sha"));
-	material->SetPropertyValue("Texture", GetTexture("gfx3D/ContainerDiffuse.png"));
+	material->SetPropertyValue("Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);

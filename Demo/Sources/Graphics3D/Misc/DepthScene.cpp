@@ -30,13 +30,13 @@ void DepthScene::Start(){
 
 	SetAmbientColor(Color(0.1f));
 
-	shader = new Shader("gfx3D/shaders/depth_test.vert", "gfx3D/shaders/depth_test.frag");
+	shader = new Shader("Shaders/depth_test.vert", "Shaders/depth_test.frag");
 	shader->AddProperty("uFar", 30.f);
 	shader->AddProperty("uNear", 0.1f);
 	shader->Compile();
 
 	car_mat = new Material(shader);
-	Entity* camaro = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
+	Entity* camaro = GetModel("Models/Camaro/Camaro.fbx")->GetHierarchy();
 	ApplyMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	

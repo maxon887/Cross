@@ -39,14 +39,14 @@ void SpotLightScene::Start(){
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	shader = new SingleLightShader("gfx3D/shaders/spot_light.vert", "gfx3D/shaders/spot_light.frag");
+	shader = new SingleLightShader("Shaders/spot_light.vert", "Shaders/spot_light.frag");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/ContainerDiffuse.png"));
-	material->SetPropertyValue("Specular Map", GetTexture("gfx3D/ContainerSpecular.png"));
+	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("Textures/ContainerSpecular.png"));
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);

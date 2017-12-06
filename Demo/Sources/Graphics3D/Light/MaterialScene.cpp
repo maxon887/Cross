@@ -30,7 +30,7 @@ void MaterialScene::Start() {
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 	//scene setups
-	shader = new SingleLightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	shader = new SingleLightShader("Shaders/specular.vert", "Shaders/specular.frag");
 	shader->AddProperty("Diffuse Color", "uColor");
 	shader->AddProperty("Specular Color", "uSpecularColor");
 	shader->AddProperty("Shininess", "uShininess");

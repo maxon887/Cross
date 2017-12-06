@@ -46,10 +46,10 @@ void SpecularScene::Start() {
 	shader->Compile();
 
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/Camaro/Diffuse.png"));
-	material->SetPropertyValue("Specular Map", GetTexture("gfx3D/Camaro/Specular.png"));
+	material->SetPropertyValue("Diffuse Texture", GetTexture("Models/Camaro/Diffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("Models/Camaro/Specular.png"));
 	material->SetPropertyValue("Shininess", 64.f);
-	Entity* model = GetModel("gfx3D/Camaro/Camaro.fbx")->GetHierarchy();
+	Entity* model = GetModel("Models/Camaro/Camaro.fbx")->GetHierarchy();
 	ApplyMaterial(model, material);
 	AddEntity(model);
 }
