@@ -38,7 +38,9 @@ using namespace tinyxml2;
 
 Scene::Scene() : 
 	Scene("")
-{ }
+{
+	CreateDefaultCamera();
+}
 
 Scene::Scene(const string& filename) : 
 	Screen(),
@@ -111,20 +113,6 @@ bool Scene::Load(const string& file) {
 		XMLElement* directionalXML = lightXML->FirstChildElement("Directional");
 		if(directionalXML) {
 			directionalLightCount = directionalXML->IntAttribute("count");
-		}
-	}
-	//models loading
-	XMLElement* modelsXML = scene->FirstChildElement("Models");
-	if(modelsXML){
-		XMLElement* modelXML = modelsXML->FirstChildElement("Model");
-		U32 id = modelXML->IntAttribute("id");
-		const char* filename = modelXML->Attribute("file");
-		if(filename) {
-			Model* model = new Model();
-			model->Load(filename);
-			models[id] = model;
-		} else {
-			CROSS_ASSERT(false, "Attribute 'filename' not contain in model node");
 		}
 	}
 	//objects loading
@@ -504,4 +492,17 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	}
 	parent->LinkEndChild(objectXML);
 	return true;
+}
+
+void Scene::CreateDefaultCamera() {
+	Entity* camEntity = new Entity("Camera");
+	Transform* transComp = new Transform(Vector3D(0.f, 0.f, -2.f));
+	transComp->SetDirection(Vector3D(0.f, 0.f, 1.f));
+	Camera* camComp = new Camera();
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, 100.f);
+	camComp->SetProjectionMatrix(projection);
+	camEntity->AddComponent(transComp);
+	camEntity->AddComponent(camComp);
+	AddEntity(camEntity);
+	camera = camComp;
 }

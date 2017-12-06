@@ -23,6 +23,7 @@ namespace cross{
 
 class FreeCameraScene : public Scene {
 public:
+	FreeCameraScene() = default;
 	FreeCameraScene(const string& filename);
 
 	virtual void Start() override;

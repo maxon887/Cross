@@ -95,7 +95,7 @@ protected:
 	S32 FindTextureID(Texture* texture);
 
 private:
-	static const U32 scene_loader_version	= 15;
+	static const U32 scene_loader_version	= 16;
 	static const U32 scene_saver_version	= 15;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
@@ -103,6 +103,8 @@ private:
 
 	void WindowResizeHandle(S32 width, S32 height);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
+
+	void CreateDefaultCamera();
 };
 
 }
