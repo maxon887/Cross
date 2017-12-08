@@ -39,7 +39,6 @@ private:
 	template<class View, class UI>
 	void CreateView(const QString& name);
 
-	template<class ComponentType>
 	void OnAddComponent();
 };
 
@@ -51,17 +50,6 @@ void PropertiesView::CreateView(const QString& name){
 	layout->insertWidget(layout->count() - 1, container);
 	View* view = container->findChild<View*>(name);
 	views.push_back(view);
-}
-
-template<class ComponentType>
-void PropertiesView::OnAddComponent(){
-	ComponentType* component = selected_entity->GetComponent<ComponentType>();
-	if(!component){
-		selected_entity->AddComponent(new ComponentType());
-		OnEntitySelected(selected_entity);
-	} else {
-		editor->ExceptionMsgBox("Entity already have this component");
-	}
 }
 
 #endif

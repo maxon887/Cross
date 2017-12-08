@@ -35,6 +35,14 @@ public:
 		return functions[name]();
 	}
 
+	Array<string> GetRegisteredComponentsName() {
+		Array<string> names;
+		for(std::pair<string, std::function<Component*()>> pair : functions) {
+			names.push_back(pair.first);
+		}
+		return names;
+	}
+
 private:
 	Dictionary<string, std::function<Component*()>> functions;
 };

@@ -40,6 +40,9 @@ Game::Game() {
 	input = new Input();
 	config = new Config();
 	component_factory = new ComponentFactory();
+	component_factory->Register<Transform>("Transform");
+	component_factory->Register<Mesh>("Mesh");
+	component_factory->Register<Camera>("Camera");
 }
 
 Game::~Game() {
@@ -49,10 +52,7 @@ Game::~Game() {
 	delete input;
 }
 
-void Game::Start() {
-	component_factory->Register<Transform>("Transform");
-	component_factory->Register<Mesh>("Mesh");
-	component_factory->Register<Camera>("Camera");
+void Game::Start()  {
 }
 
 void Game::Stop() {

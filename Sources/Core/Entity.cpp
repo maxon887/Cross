@@ -78,8 +78,10 @@ const string& Entity::GetName() const {
 }
 
 void Entity::AddComponent(Component* component) {
+	U64 hash = typeid(*component).hash_code();
+	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
 	component->entity = this;
-	components[typeid(*component).hash_code()] = component;
+	components[hash] = component;
 	component->Initialize();
 }
 

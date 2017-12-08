@@ -2,6 +2,7 @@
 #include "CrossEditor.h"
 #include "Entity.h"
 #include "File.h"
+#include "ComponentFactory.h"
 
 #include "ui_TransformComponent.h"
 #include "ui_ShaderView.h"
@@ -22,10 +23,13 @@ PropertiesView::PropertiesView(QWidget* parent) :
 	QMenu* addComponent = new QMenu("Add Component", context_menu);
 	context_menu->addMenu(addComponent);
 
-	QAction* addLight = new QAction(addComponent);
-	addLight->setText("Light");
-	connect(addLight, &QAction::triggered, this, &PropertiesView::OnAddComponent<Light>);
-	addComponent->addAction(addLight);
+	Array<string> names = game->GetComponentFactory()->GetRegisteredComponentsName();
+	for(const string name : names) {
+		QAction* compAction = new QAction(addComponent);
+		compAction->setText(name.c_str());
+		connect(compAction, &QAction::triggered, this, &PropertiesView::OnAddComponent);
+		addComponent->addAction(compAction);
+	}
 }
 
 PropertiesView::~PropertiesView() { 
@@ -87,4 +91,11 @@ void PropertiesView::contextMenuEvent(QContextMenuEvent *event) {
 	if(selected_entity){
 		context_menu->exec(event->globalPos());
 	}
+}
+
+void PropertiesView::OnAddComponent() {
+	QAction* action = dynamic_cast<QAction*>(sender());
+	Component* component = game->GetComponentFactory()->Create(action->text().toStdString());
+	selected_entity->AddComponent(component);
+	OnEntitySelected(selected_entity);
 }
