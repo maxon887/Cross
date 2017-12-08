@@ -38,7 +38,7 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Entity Name</string>
+      <string>Transform</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
@@ -141,7 +141,7 @@
   <customwidget>
    <class>TransformComponent</class>
    <extends>QGroupBox</extends>
-   <header>PropertyViews/TransformComponent.h</header>
+   <header>TransformComponent.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

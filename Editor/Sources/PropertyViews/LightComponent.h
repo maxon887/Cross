@@ -14,8 +14,7 @@ public:
 	LightComponent(QWidget* parent = 0) : ComponentView(parent) { }
 	~LightComponent() override { }
 
-	void Initialize() override;
-	void Show(Entity* e) override;
+	void Show(Light* light) { }
 };
 
 #endif

@@ -17,11 +17,9 @@ public:
 	~TransformComponent() override { }
 
 	void Initialize() override;
-	void OnEntitySelected(Entity* e) override;
 	void Update(float sec) override;
 
 private:
-	Entity* entity		= NULL;
 	QLineEdit* posX		= NULL;
 	QLineEdit* posY		= NULL;
 	QLineEdit* posZ		= NULL;

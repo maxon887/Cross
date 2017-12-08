@@ -4,11 +4,9 @@
 #include "File.h"
 #include "ComponentFactory.h"
 
-#include "ui_TransformComponent.h"
+#include "ui_EntityView.h"
 #include "ui_ShaderView.h"
 #include "ui_MaterialView.h"
-#include "ui_MeshComponent.h"
-#include "ui_LightComponent.h"
 
 #include <QTreeView>
 #include <QContextMenuEvent>
@@ -38,11 +36,12 @@ PropertiesView::~PropertiesView() {
 void PropertiesView::OnUIInitialized(){
 	QWidget* layoutWidget = findChild<QWidget*>("layout");
 	layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
-	CreateView<TransformComponent, Ui::TransformComponentClass>("transformComponent");
-	CreateView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
-	CreateView<LightComponent, Ui::LightComponentClass>("lightComponent");
+	CreateView<EntityView, Ui::EntityViewClass>("entityView");
 	CreateView<ShaderView, Ui::ShaderViewClass>("shaderView");
 	CreateView<MaterialView, Ui::MaterialViewClass>("materialView");
+	//CreateView<TransformComponent, Ui::TransformComponentClass>("transformComponent");
+	//CreateView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
+	//CreateView<LightComponent, Ui::LightComponentClass>("lightComponent");
 
 	for(PropertyView* v : views) {
 		v->Initialize();

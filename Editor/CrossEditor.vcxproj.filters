@@ -291,14 +291,23 @@
     <ClCompile Include="..\Sources\Core\Transform.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\EntityView.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_EntityView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_EntityView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\TransformComponent.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_TransformComponent.cpp">
       <Filter>Editor\Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_TransformComponent.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\PropertyViews\TransformComponent.cpp">
-      <Filter>Editor\PropertyViews</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +360,12 @@
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\LightComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\EntityView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\EntityView.ui">
       <Filter>Editor\PropertyViews</Filter>
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\TransformComponent.h">
@@ -523,11 +538,14 @@
     <ClInclude Include="..\Sources\Core\Transform.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_TransformComponent.h">
-      <Filter>Editor\Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\ComponentFactory.h">
       <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_EntityView.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_TransformComponent.h">
+      <Filter>Editor\Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,28 +2,27 @@
 #define COMPONENT_VIEW
 
 #include "Cross.h"
-#include "System.h"
-#include "PropertyView.h"
 #include "Entity.h"
+#include "PropertyView.h"
 
-#include <QAction>
+#include <QGroupBox>
 #include <QMenu>
 #include <QContextMenuEvent>
 
 using namespace cross;
 
-template<class ComponentType>
-class ComponentView : public PropertyView 
+template<class T>
+class ComponentView : public PropertyView
 {
 public:
 	ComponentView(QWidget* parent = 0);
 
-	virtual void Show(Entity* entity) { }
+	virtual void Show(T* e) { }
 
-	void OnEntitySelected(Entity* entity) override;
+	virtual bool OnComponentSelected(Component* c);
 
 protected:
-	Entity* selected_entity = NULL;
+	T* component = NULL;
 
 	void contextMenuEvent(QContextMenuEvent *event) override;
 
@@ -33,8 +32,8 @@ private:
 	void OnRemove();
 };
 
-template<class ComponentType>
-ComponentView<ComponentType>::ComponentView(QWidget* parent) :
+template<class T>
+ComponentView<T>::ComponentView(QWidget* parent) :
 	PropertyView(parent)
 {
 	context_menu = new QMenu(this);
@@ -44,34 +43,25 @@ ComponentView<ComponentType>::ComponentView(QWidget* parent) :
 	context_menu->addAction(remove);
 }
 
-template<class ComponentType>
-void ComponentView<ComponentType>::OnEntitySelected(Entity* entity) {
-	if(!entity) {
-		PropertyView::OnEntitySelected(entity);
+template<class T>
+bool ComponentView<T>::OnComponentSelected(Component* c) {
+	component = dynamic_cast<T*>(c);
+	if(component) {
+		Show(component);
+		return true;
 	} else {
-		selected_entity = entity;
-
-		ComponentType* component = entity->GetComponent<ComponentType>();
-		if(!component) {
-			PropertyView::OnEntitySelected(entity);
-			return;
-		}
-		show();//qt
-
-		Show(entity);//cross
+		return false;
 	}
 }
 
-template<class ComponentType>
-void ComponentView<ComponentType>::contextMenuEvent(QContextMenuEvent *event) {
+template<class T>
+void ComponentView<T>::contextMenuEvent(QContextMenuEvent *event) {
 	context_menu->exec(event->globalPos());
 }
 
-template<class ComponentType>
-void ComponentView<ComponentType>::OnRemove() {
-	Component* component = selected_entity->GetComponent<ComponentType>();
-	CROSS_FAIL(component, "Selected entity does not have this component");
-	selected_entity->RemoveComponent(component);
+template<class T>
+void ComponentView<T>::OnRemove() {
+	component->GetEntity()->RemoveComponent(component);
 	hide();
 }
 

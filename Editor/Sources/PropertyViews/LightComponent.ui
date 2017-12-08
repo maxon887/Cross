@@ -100,7 +100,7 @@
   <customwidget>
    <class>LightComponent</class>
    <extends>QGroupBox</extends>
-   <header>PropertyViews/LightComponent.h</header>
+   <header>LightComponent.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

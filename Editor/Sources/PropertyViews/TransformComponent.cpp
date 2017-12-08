@@ -44,28 +44,18 @@ void TransformComponent::Initialize(){
 	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
 }
 
-void TransformComponent::OnEntitySelected(Entity* entity) {
-	this->entity = entity;
-	if(entity){
-		show();
-		setTitle(entity->GetName().c_str());
-	}else{
-		hide();
-	}
-}
-
 void TransformComponent::Update(float sec) {
-	if(!entity) {
+	if(!component) {
 		return;
 	}
 	if(!posX->hasFocus()){
-		posX->setText(QString::number(entity->GetTransform()->GetPosition().x));
+		posX->setText(QString::number(component->GetPosition().x));
 	}
 	if(!posY->hasFocus()){
-		posY->setText(QString::number(entity->GetTransform()->GetPosition().y));
+		posY->setText(QString::number(component->GetPosition().y));
 	}
 	if(!posZ->hasFocus()){
-		posZ->setText(QString::number(entity->GetTransform()->GetPosition().z));
+		posZ->setText(QString::number(component->GetPosition().z));
 	}
 
 	if(!rotX->hasFocus() && !rotY->hasFocus() && !rotZ->hasFocus() && !angle->hasFocus()){
@@ -73,51 +63,51 @@ void TransformComponent::Update(float sec) {
 	}
 
 	if(!scaleX->hasFocus()){
-		scaleX->setText(QString::number(entity->GetTransform()->GetScale().x));
+		scaleX->setText(QString::number(component->GetScale().x));
 	}
 	if(!scaleY->hasFocus()){
-		scaleY->setText(QString::number(entity->GetTransform()->GetScale().y));
+		scaleY->setText(QString::number(component->GetScale().y));
 	}
 	if(!scaleZ->hasFocus()){
-		scaleZ->setText(QString::number(entity->GetTransform()->GetScale().z));
+		scaleZ->setText(QString::number(component->GetScale().z));
 	}
 }
 
 void TransformComponent::PositionChanged(){
-	EntityChanged* action = new EntityChanged(entity);
+	EntityChanged* action = new EntityChanged(component->GetEntity());
 	Vector3D pos;
 	pos.x = posX->text().toFloat();
 	pos.y = posY->text().toFloat();
 	pos.z = posZ->text().toFloat();
-	entity->GetTransform()->SetPosition(pos);
+	component->SetPosition(pos);
 	editor->SomethingChanged(action);//trigger
 }
 
 void TransformComponent::RotationChanged(){
-	EntityChanged* action = new EntityChanged(entity);
+	EntityChanged* action = new EntityChanged(component->GetEntity());
 	Vector3D axis;
 	axis.x = rotX->text().toFloat();
 	axis.y = rotY->text().toFloat();
 	axis.z = rotZ->text().toFloat();
 	float a = angle->text().toFloat();
 	Quaternion rotation(axis, a);
-	entity->GetTransform()->SetRotate(rotation);
+	component->SetRotate(rotation);
 	UpdateRotatioon();
 	editor->SomethingChanged(action);//trigger
 }
 
 void TransformComponent::ScaleChanged(){
-	EntityChanged* action = new EntityChanged(entity);
+	EntityChanged* action = new EntityChanged(component->GetEntity());
 	Vector3D scale;
 	scale.x = scaleX->text().toFloat();
 	scale.y = scaleY->text().toFloat();
 	scale.z = scaleZ->text().toFloat();
-	entity->GetTransform()->SetScale(scale);
+	component->SetScale(scale);
 	editor->SomethingChanged(action);//trigger
 }
 
 void TransformComponent::UpdateRotatioon(){
-	Quaternion rotation = entity->GetTransform()->GetRotate().GetNormalized();
+	Quaternion rotation = component->GetRotate().GetNormalized();
 	Vector3D axis = rotation.GetAxis();
 	rotX->setText(QString::number(axis.x));
 	rotY->setText(QString::number(axis.y));

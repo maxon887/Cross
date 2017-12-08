@@ -161,7 +161,7 @@
   <customwidget>
    <class>MeshComponent</class>
    <extends>QGroupBox</extends>
-   <header>PropertyViews/MeshComponent.h</header>
+   <header>MeshComponent.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

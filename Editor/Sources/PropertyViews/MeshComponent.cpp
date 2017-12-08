@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Material.h"
+#include "System.h"
 
 #include <QLabel.h>
 #include <QLineEdit>
@@ -20,9 +21,7 @@ void MeshComponent::Initialize() {
 	connect(loadBtn, &QPushButton::clicked, this, &MeshComponent::OnLoadClick);
 }
 
-void MeshComponent::Show(Entity* entity){
-	Mesh* mesh = entity->GetComponent<Mesh>();
-
+void MeshComponent::Show(Mesh* mesh) {
 	model_label->setText(mesh->GetModel()->GetFilename().c_str());
 
 	poly_count_label->setText(QString::number(mesh->GetPolyCount()));
@@ -34,7 +33,7 @@ void MeshComponent::Show(Entity* entity){
 	face_culling_box->setChecked(mesh->IsFaceCullingEnabled());
 }
 
-void MeshComponent::OnLoadClick(){
+void MeshComponent::OnLoadClick() {
 	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Material File", path, "Material File (*.mat)");
 	if(!filePath.isEmpty()) {
@@ -44,7 +43,6 @@ void MeshComponent::OnLoadClick(){
 		
 		Scene* scene = game->GetCurrentScene();
 		Material* newMaterial = scene->GetMaterial(filepath.toStdString());
-		Mesh* mesh = selected_entity->GetComponent<Mesh>();
-		mesh->SetMaterial(newMaterial);
+		component->SetMaterial(newMaterial);
 	}
 }

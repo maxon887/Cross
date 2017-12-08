@@ -17,6 +17,7 @@ public:
 	virtual void Initialize() { }
 	virtual void OnEntitySelected(Entity* e);
 	virtual void OnFileSelected(const string& filename);
+	virtual bool OnComponentSelected(Component* c) { return false; }
 	virtual void Update(float sec) { }
 };
 

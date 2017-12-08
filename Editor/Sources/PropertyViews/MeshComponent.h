@@ -19,7 +19,7 @@ public:
 	~MeshComponent() override { }
 
 	void Initialize() override;
-	void Show(Entity* e) override;
+	void Show(Mesh* e) override;
 
 private:
 	QLabel* model_label			= NULL;
