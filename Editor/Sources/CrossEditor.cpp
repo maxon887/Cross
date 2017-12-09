@@ -89,7 +89,14 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 	msgBox.exec();
 }
 
-void CrossEditor::OnNewSceneClick(){
+void CrossEditor::AdjustSize(QWidget* widget) {
+	QSize maxSize = widget->maximumSize() * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+	QSize minSize = widget->minimumSize() * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+	widget->setMaximumSize(maxSize);
+	widget->setMinimumSize(minSize);
+}
+
+void CrossEditor::OnNewSceneClick() {
 	GetSceneExplorer()->reset();
 	scene_file = "Untitled";
 	setWindowTitle(QString("Cross Editor - Untitled*"));

@@ -27,6 +27,7 @@ public:
 	void LoadScene(QString& fileInfo);
 	void RestoreSettings();
 	void ExceptionMsgBox(const char* msg);
+	void AdjustSize(QWidget* widget);
 
 	void OnNewSceneClick();
 	void OnSaveAsClick();

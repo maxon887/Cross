@@ -1,7 +1,7 @@
 #include "MeshComponent.h"
 #include "Entity.h"
 #include "Mesh.h"
-#include "Game.h"
+#include "../CrossEditor.h"
 #include "Scene.h"
 #include "Material.h"
 #include "System.h"
@@ -13,18 +13,23 @@
 #include <QFileDialog>
 
 void MeshComponent::Initialize() {
-	model_label = findChild<QLabel*>("modelLabel");
-	poly_count_label = findChild<QLabel*>("polyCountLabel");
+	model_value = findChild<QLabel*>("modelValue");
+	poly_count_value = findChild<QLabel*>("polyCountLabel");
 	material_value = findChild<QLineEdit*>("materialValue");
 	face_culling_box = findChild<QCheckBox*>("faceCulling");
 	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
 	connect(loadBtn, &QPushButton::clicked, this, &MeshComponent::OnLoadClick);
+
+	editor->AdjustSize(findChild<QLabel*>("modelLabel"));
+	editor->AdjustSize(findChild<QLabel*>("polyCountLabel"));
+	editor->AdjustSize(findChild<QLabel*>("materialLabel"));
+	editor->AdjustSize(findChild<QLabel*>("faceCullingLabel"));
 }
 
 void MeshComponent::Show(Mesh* mesh) {
-	model_label->setText(mesh->GetModel()->GetFilename().c_str());
+	model_value->setText(mesh->GetModel()->GetFilename().c_str());
 
-	poly_count_label->setText(QString::number(mesh->GetPolyCount()));
+	poly_count_value->setText(QString::number(mesh->GetPolyCount()));
 
 	if(mesh->GetMaterial()) {
 		material_value->setText(mesh->GetMaterial()->GetFilename().c_str());

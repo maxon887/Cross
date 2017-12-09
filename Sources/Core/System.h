@@ -20,7 +20,7 @@
 
 namespace cross {
 
-#ifdef WIN
+#if defined(WIN) || defined(EDITOR)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
 #	define DEFAULT_SCREEN_DPI 160.f
