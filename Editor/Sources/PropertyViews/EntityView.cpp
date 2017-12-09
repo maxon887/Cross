@@ -24,6 +24,11 @@ void EntityView::OnEntitySelected(Entity* e) {
 	for(PropertyView* v : component_views) {
 		v->hide();
 	}
+	for(QGroupBox* unknownBox : unknown_components) {
+		view_layout->removeWidget(unknownBox);
+		delete unknownBox;
+	}
+	unknown_components.clear();
 	if(e) {
 		setTitle(e->GetName().c_str());
 		show();
@@ -38,11 +43,11 @@ void EntityView::OnEntitySelected(Entity* e) {
 				}
 			}
 			if(!viewFound) {
-				CROSS_ASSERT(false, "Unknown component found");
-				/*
+				//CROSS_ASSERT(false, "Unknown component found");
 				QGroupBox* unknownComponentBox = new QGroupBox(this);
 				unknownComponentBox->setTitle("Unknown Component");
-				view_layout->insertWidget(view_layout->count() - 1, unknownComponentBox);*/
+				view_layout->insertWidget(view_layout->count() - 1, unknownComponentBox);
+				unknown_components.push_back(unknownComponentBox);
 			}
 		}
 	} else {

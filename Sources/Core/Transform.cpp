@@ -87,12 +87,12 @@ bool Transform::Save(XMLElement* xml, XMLDocument* doc) {
 	return true;
 }
 
-void Transform::SetPosition(const Vector2D& pos){
+void Transform::SetPosition(const Vector2D& pos) {
 	translate.SetTranslation(pos);
 	recalc_model = true;
 }
 
-void Transform::SetPosition(const Vector3D& pos){
+void Transform::SetPosition(const Vector3D& pos) {
 	translate.SetTranslation(pos);
 	recalc_model = true;
 }
@@ -106,22 +106,22 @@ Vector3D Transform::GetPosition() const {
 	return Vector3D(translate.m[0][3], translate.m[1][3], translate.m[2][3]);
 }
 
-void Transform::SetScale(float factor){
+void Transform::SetScale(float factor) {
 	scale.SetScale(factor);
 	recalc_model = true;
 }
 
-void Transform::SetScale(const Vector2D& scaleVec){
+void Transform::SetScale(const Vector2D& scaleVec) {
 	scale.SetScale(scaleVec);
 	recalc_model = true;
 }
 
-void Transform::SetScale(const Vector3D& scaleVec){
+void Transform::SetScale(const Vector3D& scaleVec) {
 	scale.SetScale(scaleVec);
 	recalc_model = true;
 }
 
-void Transform::SetScale(const Matrix& scale){
+void Transform::SetScale(const Matrix& scale) {
 	this->scale = scale;
 	recalc_model = true;
 }
@@ -130,37 +130,37 @@ Vector3D Transform::GetScale() const{
 	return Vector3D(scale.m[0][0], scale.m[1][1], scale.m[2][2]);
 }
 
-void Transform::SetRotateX(float angle){
+void Transform::SetRotateX(float angle) {
 	rotate.SetRotationX(angle);
 	recalc_model = true;
 }
 
-void Transform::SetRotateY(float angle){
+void Transform::SetRotateY(float angle) {
 	rotate.SetRotationY(angle);
 	recalc_model = true;
 }
 
-void Transform::SetRotateZ(float angle){
+void Transform::SetRotateZ(float angle) {
 	rotate.SetRotationZ(angle);
 	recalc_model = true;
 }
 
-void Transform::SetRotate(const Vector3D& axis, float angle){
+void Transform::SetRotate(const Vector3D& axis, float angle) {
 	Quaternion quat(axis, angle);
 	SetRotate(quat);
 }
 
-void Transform::SetRotate(const Quaternion& quat){
+void Transform::SetRotate(const Quaternion& quat) {
 	this->rotate = quat.GetMatrix();
 	recalc_model = true;
 }
 
-void Transform::SetRotate(const Matrix& rot){
+void Transform::SetRotate(const Matrix& rot) {
 	this->rotate = rot;
 	recalc_model = true;
 }
 
-Quaternion Transform::GetRotate() const{
+Quaternion Transform::GetRotate() const {
 	return Quaternion(rotate);
 }
 
@@ -187,32 +187,32 @@ void Transform::LookAt(const Vector3D& object){
 	recalc_model = true;
 }
 
-void Transform::SetDirection(const Vector3D& direction){
+void Transform::SetDirection(const Vector3D& direction) {
 	Vector3D lookAt = this->GetPosition() + direction;
 	LookAt(lookAt);
 }
 
-Vector3D Transform::GetDirection() const{
+Vector3D Transform::GetDirection() const {
 	return GetForward();
 }
 
-Vector3D Transform::GetForward() const{
+Vector3D Transform::GetForward() const {
 	return rotate * Vector3D::Forward;
 }
 
-Vector3D Transform::GetRight() const{
+Vector3D Transform::GetRight() const {
 	return rotate * Vector3D::Right;
 }
 
-Vector3D Transform::GetUp() const{
+Vector3D Transform::GetUp() const {
 	return rotate * Vector3D::Up;
 }
 
-Matrix Transform::GetRotation() const{
+Matrix Transform::GetRotation() const {
 	return rotate;
 }
 
-Matrix& Transform::GetModelMatrix(){
+Matrix& Transform::GetModelMatrix() {
 	if(recalc_model){
 		model = translate * rotate * scale;
 		recalc_model = false;

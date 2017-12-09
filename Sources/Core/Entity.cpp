@@ -103,8 +103,8 @@ Array<Component*> Entity::GetComponents() {
 }
 
 Transform* Entity::GetTransform() {
-	CROSS_RETURN(components.find(typeid(Transform).hash_code()) != components.end(), NULL, 
-		"Entity %s does't contains Tranform component", name.c_str());
+	CROSS_RETURN(components.find(typeid(Transform).hash_code()) != components.end(), NULL,
+		"Entity '%s' does't contains Tranform component", name.c_str());
 	return GetComponent<Transform>();
 }
 
@@ -192,9 +192,9 @@ Entity* Entity::Clone(){
 	return clone;
 }
 
-Matrix Entity::GetWorldMatrix(){
+Matrix Entity::GetWorldMatrix() {
 	if(parent){
-		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetModelMatrix();
+		return parent->GetWorldMatrix() * GetTransform()->GetModelMatrix();
 	}else{
 		return GetTransform()->GetModelMatrix();
 	}

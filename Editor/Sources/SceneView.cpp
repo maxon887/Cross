@@ -109,12 +109,13 @@ void SceneView::OnEntityGrabFocus(Entity* e) {
 
 void SceneView::Draw(Entity* e) {
 	Mesh* mesh = e->GetComponent<Mesh>();
-	if(mesh){
-		Vector3D defaultScale = e->GetTransform()->GetScale();
+	Transform* transform = e->GetComponent<Transform>();
+	if(mesh && transform){
+		Vector3D defaultScale = transform->GetScale();
 		mesh->Draw(mesh->GetMaterial(), Mesh::StencilBehaviour::WRITE);
-		e->GetTransform()->SetScale(defaultScale * 1.1f);
+		transform->SetScale(defaultScale * 1.1f);
 		mesh->Draw(selection_material, Mesh::StencilBehaviour::READ);
-		e->GetTransform()->SetScale(defaultScale);
+		transform->SetScale(defaultScale);
 	}
 	for(Entity* child : e->GetChildren()){
 		Draw(child);

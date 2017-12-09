@@ -45,8 +45,9 @@ ComponentView<T>::ComponentView(QWidget* parent) :
 
 template<class T>
 bool ComponentView<T>::OnComponentSelected(Component* c) {
-	component = dynamic_cast<T*>(c);
-	if(component) {
+	T* comp = dynamic_cast<T*>(c);
+	if(comp) {
+		component = comp;
 		Show(component);
 		return true;
 	} else {

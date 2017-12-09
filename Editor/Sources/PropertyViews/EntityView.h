@@ -19,6 +19,7 @@ public:
 private:
 	Array<PropertyView*> component_views;
 	QVBoxLayout* view_layout = NULL;
+	Array<QGroupBox*> unknown_components;
 
 	template<class View, class UI>
 	void AddComponentView(const QString& name);
