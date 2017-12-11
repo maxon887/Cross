@@ -45,9 +45,15 @@
        <layout class="QHBoxLayout" name="positionLayout">
         <item>
          <widget class="QLabel" name="positionLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>50</width>
             <height>0</height>
            </size>
           </property>
@@ -60,6 +66,9 @@
          <widget class="QLineEdit" name="posX">
           <property name="inputMask">
            <string/>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -76,14 +85,14 @@
         <item>
          <widget class="QLabel" name="rotationLabel">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>50</width>
             <height>0</height>
            </size>
           </property>
@@ -110,9 +119,15 @@
        <layout class="QHBoxLayout" name="scaleLayout">
         <item>
          <widget class="QLabel" name="scaleLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>50</width>
             <height>0</height>
            </size>
           </property>
