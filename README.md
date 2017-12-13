@@ -1,20 +1,26 @@
 # Cross++
-Is a lightweight cross-platform game engine. Written mostly on C++. Biggest advantage of this framework that is not require high skill qualification to work with. You can write you scripts on C++ in favorite VisualStudio or Xcode. Only needed to transfer *.h files and binary libraries in to new project. Currently supported platforms windows, android, iOS.
+Is a lightweight cross-platform game engine. Written mostly on C++.
 
-### Source Example
-Example which shows how to use fundamental engine features located in Games/Demo/ directory. VisualStudio project and other located in Games/Demo/Platform/Windows/ directories.
+### Demo
+Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 
 ### Features
-1. Text, Sprites drawing. Sprite animation. UI.
-2. 
-Point Lights ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot07.png?raw=true "Optional Title")
-Directional Lights ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot06.png?raw=true "Optional Title")
-Spot Lights ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot08.png?raw=true "Optional Title")
-3. Model loading. Materials systmem. Basic scene managment. 
+1. Currently supported platforms Windows, iOS, Android.
+2. Entity-Component system and scene management.
+3. Renderer with materials, lighting and model loading.
+4. Lightweight and fast. Distributable binaries and assets weight around 1.5mb.
+5. Crossp-platform input system.
+6. Audio system.
+7. Documented most part of code.
+8. Base scene editor
+9. Many useful interesting features like: Event System, Assert System, Memory Manager.
+
+### Screenshot Gallery
+![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot07.png?raw=true "Optional Title")
+![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot06.png?raw=true "Optional Title")
+![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot08.png?raw=true "Optional Title")
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot01.png?raw=true "Optional Title")
-Diffuse + Specular + Shininess maps support
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot04.png?raw=true "Optional Title")
-Normal map support
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot05.png?raw=true "Optional Title")
 
 ### 1.0 New Game Creation
