@@ -9,7 +9,7 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 2. Entity-Component system and scene management.
 3. Renderer with materials, lighting and model loading.
 4. Lightweight and fast. Distributable binaries and assets weight around 1.5mb.
-5. Crossp latform input system.
+5. Crossp-platform input system.
 6. Audio system.
 7. Documented most part of code.
 8. Base scene editor
