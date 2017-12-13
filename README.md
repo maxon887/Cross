@@ -2,17 +2,18 @@
 Is a lightweight cross-platform game engine. Written mostly on C++.
 
 ### Demo
-Demo project can be found in Demo/Projects/{TargetPlatfor} directroy.
+Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 
 ### Features
-1. Currently supported platfors Windows, iOS, Android.
-2. Entity-Component system and scene managment.
+1. Currently supported platforms Windows, iOS, Android.
+2. Entity-Component system and scene management.
 3. Renderer with materials, lighting and model loading.
-4. Crossplatform imput system.
-5. Audio system.
-6. Documented most part of code.
-7. Base scene editor
-8. Many usefull enterestiong features like: Event System, Assert System, Memory Manager.
+4. Lightweight and fast. Distributable binaries and assets weight around 1.5mb.
+5. Crossp latform input system.
+6. Audio system.
+7. Documented most part of code.
+8. Base scene editor
+9. Many useful interesting features like: Event System, Assert System, Memory Manager.
 
 ### Screenshot Gallery
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot07.png?raw=true "Optional Title")
