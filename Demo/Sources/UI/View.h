@@ -26,6 +26,7 @@ public:
 
     virtual void WillContent() { }
 	virtual void Content() { }
+	virtual void DidContent() { }
 
 	void Show();
 	void Update();

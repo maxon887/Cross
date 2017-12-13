@@ -28,9 +28,11 @@ void View::Show() {
 
 void View::Update() {
 	if(visible) {
+		WillContent();
 		ImGui::Begin(name.c_str(), &visible);
 		Content();
 		ImGui::End();
+		DidContent();
 	}
 }
 
