@@ -25,15 +25,19 @@ public:
 	virtual ~View() { }
 
     virtual void WillContent() { }
-	virtual void Content() { }
+	virtual void Content(float sec) { }
 	virtual void DidContent() { }
 
 	void Show();
-	void Update();
+	void Update(float sec);
 
 	const string& GetName() const;
+
+protected:
+	void SetWindowFlags(U32 flags);
 
 private:
 	string name = "View";
 	bool visible = false;
+	U32 flags = 0;
 };

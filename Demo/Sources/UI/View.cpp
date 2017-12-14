@@ -26,11 +26,11 @@ void View::Show() {
 	visible = true;
 }
 
-void View::Update() {
+void View::Update(float sec) {
 	if(visible) {
 		WillContent();
-		ImGui::Begin(name.c_str(), &visible);
-		Content();
+		ImGui::Begin(name.c_str(), &visible, flags);
+		Content(sec);
 		ImGui::End();
 		DidContent();
 	}
@@ -38,4 +38,8 @@ void View::Update() {
 
 const string& View::GetName() const {
 	return name;
+}
+
+void View::SetWindowFlags(U32 f) {
+	this->flags = f;
 }

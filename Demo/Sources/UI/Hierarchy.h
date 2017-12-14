@@ -28,7 +28,7 @@ public:
 	Hierarchy() : View("Hierarchy") { }
 
     void WillContent() override;
-	void Content() override;
+	void Content(float sec) override;
 	void DidContent() override;
 	
 private:

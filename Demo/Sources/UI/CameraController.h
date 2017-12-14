@@ -24,5 +24,6 @@ class CameraController : public View {
 public:
 	CameraController() : View("Camera") { }
 
-	void Content() override;
+	void WillContent() override;
+	void Content(float sec) override;
 };

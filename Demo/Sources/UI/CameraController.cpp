@@ -15,22 +15,61 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "CameraController.h"
+#include "Game.h"
+#include "System.h"
+#include "Camera.h"
+#include "Utils/FreeCameraScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void CameraController::Content() {
+static float window_width = 225.f;
+static float window_height = 200.f;
+
+void CameraController::WillContent() {
+	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
+	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() - window_width, system->GetWindowHeight() - window_height));
+
+	SetWindowFlags(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+}
+
+void CameraController::Content(float sec) {
+	const ImVec2 cursor = ImGui::GetCursorScreenPos();
+
 	float value = 0.f;
 	ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, 40);
-	ImGui::VSliderFloat("", ImVec2(35.f, 180.f), &value, -1.f, 1.f, "%.2f");
+	ImGui::VSliderFloat("", ImVec2(35.f, 190.f), &value, -1.f, 1.f, "%.2f");
 	ImGui::PopStyleVar();
 
+	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
+	if(scene) {
+		bool lookAt = scene->IsLookAtCamera();
+		ImGui::SetCursorPos(ImVec2(47.f, 5.f));
+		if(ImGui::Checkbox("Look At", &lookAt)) {
+			scene->LookAtCamera(lookAt);
+		}
+	}
+
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
-	const ImVec2 p = ImGui::GetCursorScreenPos();
 	const ImVec2 w = ImGui::GetWindowSize();
-	float r = 160.0f;
-	float x = p.x - 16.0f + w.x - r;
-	float y = p.y - 40.0f + w.y - r - 180.f;
+	float radius = 80.0f;
+	float x = cursor.x - 16.0f + w.x - radius;
+	float y = cursor.y - 16.0f + w.y - radius;
 	float spacing = 8.0f;
 	const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
-	drawList->AddCircle(ImVec2(x + r*0.5f, y + r*0.5f), r*0.5f, col32, 30, 4);
+	drawList->AddCircle(ImVec2(x, y), radius, col32, 30, 4);
+
+	ImGuiIO &io = ImGui::GetIO();
+	Vector2D toRadius = Vector2D(x, y) - Vector2D(io.MousePos.x, io.MousePos.y);
+	if(toRadius.Length() < radius) {
+		if(io.MouseDown[0]) {
+			const ImU32 red32 = ImColor(1.f, 0.f, 0.0f);
+			drawList->AddCircle(ImVec2(io.MousePos.x, io.MousePos.y), 6, red32, 12, 4);
+
+			toRadius.x /= radius;
+			toRadius.y /= radius;
+
+			scene->MoveForward(toRadius.y * sec);
+			scene->MoveLeft(toRadius.x * sec);
+		}
+	}
 }

@@ -44,7 +44,7 @@ void Hierarchy::DidContent() {
 	}
 }
 
-void Hierarchy::Content() {
+void Hierarchy::Content(float sec) {
 	if(game->GetCurrentScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);

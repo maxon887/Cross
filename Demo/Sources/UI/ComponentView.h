@@ -29,7 +29,7 @@ public:
 
 	virtual void Content(ComponentType* component) { }
 
-	void Content() override;
+	void Content(float sec) override;
 
 	void OnEntitySelected(Entity* entity);
 
@@ -47,7 +47,7 @@ ComponentView<ComponentType>::ComponentView(const string& name) :
 }
 
 template<class ComponentType>
-void ComponentView<ComponentType>::Content() {
+void ComponentView<ComponentType>::Content(float sec) {
 	if(selected_entity && selected_entity->GetComponent<ComponentType>()) {
 		Content(selected_entity->GetComponent<ComponentType>());
 	}
