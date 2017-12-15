@@ -23,6 +23,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Material.h"
 #include "Game.h"
 #include "Camera.h"
+#include "Transform.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 

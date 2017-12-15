@@ -474,7 +474,7 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 	XMLElement* objectXML = doc->NewElement("Object");
 	objectXML->SetAttribute("name", entity->GetName().c_str());
 
-	Array<Component*>& components = entity->GetComponents();
+	const Array<Component*>& components = entity->GetComponents();
 	if(components.size() > 0) {
 		XMLElement* componentsXML = doc->NewElement("Components");
 		for(Component* component : components) {
