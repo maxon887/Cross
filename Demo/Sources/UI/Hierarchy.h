@@ -21,14 +21,15 @@
 
 using namespace cross;
 
-class Hierarchy : public View{
+class Hierarchy : public View {
 public:
 	Event<Entity*> EntitySelected;
 
 	Hierarchy() : View("Hierarchy") { }
 
     void WillContent() override;
-	void Content() override;
+	void Content(float sec) override;
+	void DidContent() override;
 	
 private:
 	Entity* selected_entity = NULL;

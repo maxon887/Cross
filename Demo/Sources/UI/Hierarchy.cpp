@@ -24,13 +24,27 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 void Hierarchy::WillContent() {
-	ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f, 
-							(float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
-							ImGuiCond_FirstUseEver);
-	ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
+	if(system->IsMobile()) {
+		ImGui::PushFont(demo->big_font);
+		if(system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
+			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f,
+				(float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
+				ImGuiCond_FirstUseEver);
+			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
+		} else {
+			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
+			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
+		}
+	}
 }
 
-void Hierarchy::Content() {
+void Hierarchy::DidContent() {
+	if(system->IsMobile()) {
+		ImGui::PopFont();
+	}
+}
+
+void Hierarchy::Content(float sec) {
 	if(game->GetCurrentScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);

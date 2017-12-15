@@ -20,6 +20,7 @@
 #include "Screen.h"
 #include "Texture.h"
 #include "Transform.h"
+#include "UI/CameraController.h"
 #include "UI/Hierarchy.h"
 #include "UI/TransformView.h"
 #include "Utils/Debugger.h"
@@ -30,9 +31,11 @@
 #include "ThirdParty/ImGui/imgui_internal.h"
 
 MenuBar::MenuBar() {
+	CameraController* cameraController = new CameraController();
 	Hierarchy* hierarchy = new Hierarchy();
 	TransformView* transform = new TransformView();
 	hierarchy->EntitySelected.Connect((ComponentView<Transform>*)transform, &ComponentView<Transform>::OnEntitySelected);
+	views.push_back(cameraController);
 	views.push_back(hierarchy);
 	views.push_back(transform);
 }
@@ -46,8 +49,7 @@ MenuBar::~MenuBar() {
 
 void MenuBar::Update(float sec) {
 	for(View* v : views) {
-        v->WillContent();
-		v->Update();
+		v->Update(sec);
 	}
 	if(show_style_editor) {
 		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));

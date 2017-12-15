@@ -14,32 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#pragma once
+#include "Cross.h"
 #include "View.h"
 
-#include "ThirdParty/ImGui/imgui.h"
+using namespace cross;
 
-View::View(string name) :
-	name(name)
-{ }
+class CameraController : public View {
+public:
+	CameraController() : View("Camera") { }
 
-void View::Show() {
-	visible = true;
-}
-
-void View::Update(float sec) {
-	if(visible) {
-		WillContent();
-		ImGui::Begin(name.c_str(), &visible, flags);
-		Content(sec);
-		ImGui::End();
-		DidContent();
-	}
-}
-
-const string& View::GetName() const {
-	return name;
-}
-
-void View::SetWindowFlags(U32 f) {
-	this->flags = f;
-}
+	void WillContent() override;
+	void Content(float sec) override;
+};
