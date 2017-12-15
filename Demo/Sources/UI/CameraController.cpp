@@ -33,43 +33,50 @@ void CameraController::WillContent() {
 }
 
 void CameraController::Content(float sec) {
-	const ImVec2 cursor = ImGui::GetCursorScreenPos();
-
-	float value = 0.f;
-	ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, 40);
-	ImGui::VSliderFloat("", ImVec2(35.f, 190.f), &value, -1.f, 1.f, "%.2f");
-	ImGui::PopStyleVar();
-
 	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(scene) {
-		bool lookAt = scene->IsLookAtCamera();
+		const ImVec2 cursor = ImGui::GetCursorScreenPos();
+		float value = 0.f;
+		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, 40);
+		ImGui::VSliderFloat("", ImVec2(35.f, 190.f), &value, -1.f, 1.f, "%.2f");
+		ImGui::PopStyleVar();
+
 		ImGui::SetCursorPos(ImVec2(47.f, 5.f));
+		bool lookAt = scene->IsLookAtCamera();
 		if(ImGui::Checkbox("Look At", &lookAt)) {
 			scene->LookAtCamera(lookAt);
 		}
-	}
 
-	ImDrawList* drawList = ImGui::GetWindowDrawList();
-	const ImVec2 w = ImGui::GetWindowSize();
-	float radius = 80.0f;
-	float x = cursor.x - 16.0f + w.x - radius;
-	float y = cursor.y - 16.0f + w.y - radius;
-	float spacing = 8.0f;
-	const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
-	drawList->AddCircle(ImVec2(x, y), radius, col32, 30, 4);
+		ImDrawList* drawList = ImGui::GetWindowDrawList();
+		const ImVec2 w = ImGui::GetWindowSize();
+		float radius = 80.0f;
+		Vector2D center(cursor.x - 16.0f + w.x - radius, cursor.y - 16.0f + w.y - radius);
+		const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
+		drawList->AddCircle(center, radius, col32, 30, 4);
 
-	ImGuiIO &io = ImGui::GetIO();
-	Vector2D toRadius = Vector2D(x, y) - Vector2D(io.MousePos.x, io.MousePos.y);
-	if(toRadius.Length() < radius) {
-		if(io.MouseDown[0]) {
-			const ImU32 red32 = ImColor(1.f, 0.f, 0.0f);
-			drawList->AddCircle(ImVec2(io.MousePos.x, io.MousePos.y), 6, red32, 12, 4);
+		ImGuiIO &io = ImGui::GetIO();
+		Vector2D mousePos = io.MousePos;
+		Vector2D centerMouse = mousePos - center;
 
-			toRadius.x /= radius;
-			toRadius.y /= radius;
-
-			scene->MoveForward(toRadius.y * sec);
-			scene->MoveLeft(toRadius.x * sec);
+		if(io.MouseReleased[0]) {
+			nav_pressed = false;
 		}
+
+		if(centerMouse.Length() < radius || nav_pressed) {
+			if(centerMouse.Length() > radius) {
+				centerMouse = centerMouse.GetNormalized() * radius;
+			}
+			if(io.MouseDown[0]) {
+				nav_pressed = true;
+				const ImU32 red32 = ImColor(1.f, 0.f, 0.0f);
+				drawList->AddCircle(center + centerMouse, 6, red32, 12, 4);
+
+				centerMouse /= radius;
+
+				scene->MoveForward(-centerMouse.y * sec);
+				scene->MoveRight(centerMouse.x * sec);
+			}
+		}
+
 	}
 }

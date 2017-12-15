@@ -26,4 +26,7 @@ public:
 
 	void WillContent() override;
 	void Content(float sec) override;
+
+private:
+	bool nav_pressed = false;
 };
