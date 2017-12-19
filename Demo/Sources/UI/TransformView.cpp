@@ -31,7 +31,7 @@ void TransformView::WillContent() {
 }
 
 void TransformView::Content(Transform* transform) {
-	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(system->GetScreenDPI() / DEFAULT_SCREEN_DPI, system->GetScreenDPI() / DEFAULT_SCREEN_DPI));
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(system->GetScreenScale(), system->GetScreenScale()));
 
 	float posVec[3];
 	memcpy(posVec, transform->GetPosition().GetData(), sizeof(Vector3D));

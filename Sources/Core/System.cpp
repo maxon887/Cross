@@ -19,6 +19,12 @@
 
 #include <stdarg.h>
 
+#if defined(WIN) || defined(EDITOR)
+#	define DEFAULT_SCREEN_DPI 96.f
+#else
+#	define DEFAULT_SCREEN_DPI 160.f
+#endif
+
 using namespace cross;
 
 void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
@@ -113,6 +119,10 @@ void System::Messagebox(const string& title, const string& msg) {
 	LogIt(msg);
 }
 
+float System::GetScreenDPI() {
+	return DEFAULT_SCREEN_DPI;
+}
+
 void System::LogIt(const char* format, ...) {
 	va_list params;
 	char buffer[4096];
@@ -128,6 +138,10 @@ void System::LogIt(const string& msg) {
 
 void System::LogIt(const Vector3D& vector) {
 	LogIt("X - %0.3f, Y - %0.3f, Z - %0.3f", vector.x, vector.y, vector.z);
+}
+
+float System::GetScreenScale() {
+	return GetScreenDPI() / DEFAULT_SCREEN_DPI;
 }
 
 S32 System::GetWindowWidth() const {

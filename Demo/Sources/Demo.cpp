@@ -93,18 +93,18 @@ void Demo::Start() {
 	ImGui::UseStyle(config->GetInt("IMGUI_STYLE", 0));
 
 	if(system->IsMobile()) {
-		style.WindowRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.ScrollbarSize = 20 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.ScrollbarRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.ItemSpacing.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.ItemSpacing.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.WindowPadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.WindowPadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.FramePadding.x = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.FramePadding.y = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.IndentSpacing = 25 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.GrabRounding = 5 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
-		style.GrabMinSize = 20 * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+		style.WindowRounding = 5 * system->GetScreenScale();
+		style.ScrollbarSize = 20 * system->GetScreenScale();
+		style.ScrollbarRounding = 5 * system->GetScreenScale();
+		style.ItemSpacing.x = 5 * system->GetScreenScale();
+		style.ItemSpacing.y = 5 * system->GetScreenScale();
+		style.WindowPadding.x = 5 * system->GetScreenScale();
+		style.WindowPadding.y = 5 * system->GetScreenScale();
+		style.FramePadding.x = 5 * system->GetScreenScale();
+		style.FramePadding.y = 5 * system->GetScreenScale();
+		style.IndentSpacing = 25 * system->GetScreenScale();
+		style.GrabRounding = 5 * system->GetScreenScale();
+		style.GrabMinSize = 20 * system->GetScreenScale();
 	}
 
 	menu = new MenuBar();
@@ -188,7 +188,7 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->Clear();
 
 	ImFontConfig fontConfig;
-	float fontScale = (float)(int)(system->GetScreenDPI() / DEFAULT_SCREEN_DPI + 0.5f);
+	float fontScale = (float)(int)(system->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);

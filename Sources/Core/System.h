@@ -19,12 +19,6 @@
 #include "Event.h"
 
 namespace cross {
-
-#if defined(WIN) || defined(EDITOR)
-#	define DEFAULT_SCREEN_DPI 96.f
-#else
-#	define DEFAULT_SCREEN_DPI 160.f
-#endif
 	
 /* Class for platform specific functional */
 class System {
@@ -47,8 +41,6 @@ public:
 	virtual string DataPath() = 0;
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
-	/* This is approximate value. Real devices does not know their screen sizes */
-	virtual float GetScreenDPI() = 0;
 
 	virtual ~System() { }
 
@@ -74,6 +66,8 @@ public:
 	/* Ask user about exit from application */
     virtual void RequestOrientation(Orientation orientation) { }
 	virtual bool IsMobile() { return false; }
+	/* This is approximate value. Real devices does not know their screen sizes */
+	virtual float GetScreenDPI();
 	virtual void PromtToExit() { }
 	virtual string GetClipboard() { return "Clipboard does not implemented"; }
 	virtual void SetClipboard(const string& data) { }
@@ -81,6 +75,8 @@ public:
 	void LogIt(const char* format, ...);
 	void LogIt(const string& msg);
 	void LogIt(const Vector3D& vector);
+	/* How much screen elements must be increased on decreast due to device DPI */
+	float GetScreenScale();
 	/* Returns window width in pixels. Don't miss wiht Screen::GetWidth() */
 	S32 GetWindowWidth() const;
 	/* Returns window Height in pixels. Don't miss wiht Screen::GetHeight() */
