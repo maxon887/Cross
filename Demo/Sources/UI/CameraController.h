@@ -25,6 +25,7 @@ public:
 	CameraController();
 
 	void WillContent() override;
+	void DidContent() override;
 	void Content(float sec) override;
 
 private:

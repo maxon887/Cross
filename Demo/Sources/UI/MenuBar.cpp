@@ -85,6 +85,9 @@ void MenuBar::ShowMenu() {
 		}
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.90f, 0.52f, 0.24f, 0.0f));
 		if(ImGui::Button("Back")) {
+			for(View* v : views) {
+				v->Hide();
+			}
 			game->SetScreen(new MainScreen());
 		}
 		ImGui::PopStyleColor();

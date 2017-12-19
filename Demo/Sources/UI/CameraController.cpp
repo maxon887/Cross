@@ -35,6 +35,12 @@ void CameraController::WillContent() {
 	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() - window_width, system->GetWindowHeight() - window_height));
 
 	SetWindowFlags(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.5f);
+}
+
+void CameraController::DidContent() {
+	ImGui::PopStyleVar();
 }
 
 void CameraController::Content(float sec) {
@@ -43,7 +49,10 @@ void CameraController::Content(float sec) {
 		const ImVec2 cursor = ImGui::GetCursorScreenPos();
 		float value = 0.f;
 		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(40.f));
-		ImGui::VSliderFloat("", ImVec2(SCALED(35.f), SCALED(190.f)), &value, -1.f, 1.f, "%.2f");
+		if(ImGui::VSliderFloat("", ImVec2(SCALED(35.f), SCALED(190.f)), &value, -1.f, 1.f, "%.2f")) {
+			scene->MoveUp(value * sec);
+		}
+
 		ImGui::PopStyleVar();
 
 		ImGui::SetCursorPos(ImVec2(SCALED(47.f), SCALED(5.f)));

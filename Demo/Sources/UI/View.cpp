@@ -26,6 +26,10 @@ void View::Show() {
 	visible = true;
 }
 
+void View::Hide() {
+	visible = false;
+}
+
 void View::Update(float sec) {
 	if(visible) {
 		WillContent();

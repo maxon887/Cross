@@ -29,6 +29,7 @@ public:
 	virtual void DidContent() { }
 
 	void Show();
+	void Hide();
 	void Update(float sec);
 
 	const string& GetName() const;
