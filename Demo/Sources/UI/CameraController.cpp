@@ -22,8 +22,13 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-static float window_width = 225.f;
-static float window_height = 200.f;
+#define SCALED(x) x * system->GetScreenScale()
+
+CameraController::CameraController() : View("Camera")
+{
+	window_width = SCALED(225.f);
+	window_height = SCALED(200.f);
+}
 
 void CameraController::WillContent() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
@@ -37,11 +42,11 @@ void CameraController::Content(float sec) {
 	if(scene) {
 		const ImVec2 cursor = ImGui::GetCursorScreenPos();
 		float value = 0.f;
-		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, 40);
-		ImGui::VSliderFloat("", ImVec2(35.f, 190.f), &value, -1.f, 1.f, "%.2f");
+		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(40.f));
+		ImGui::VSliderFloat("", ImVec2(SCALED(35.f), SCALED(190.f)), &value, -1.f, 1.f, "%.2f");
 		ImGui::PopStyleVar();
 
-		ImGui::SetCursorPos(ImVec2(47.f, 5.f));
+		ImGui::SetCursorPos(ImVec2(SCALED(47.f), SCALED(5.f)));
 		bool lookAt = scene->IsLookAtCamera();
 		if(ImGui::Checkbox("Look At", &lookAt)) {
 			scene->LookAtCamera(lookAt);
@@ -49,10 +54,10 @@ void CameraController::Content(float sec) {
 
 		ImDrawList* drawList = ImGui::GetWindowDrawList();
 		const ImVec2 w = ImGui::GetWindowSize();
-		float radius = 80.0f;
-		Vector2D center(cursor.x - 16.0f + w.x - radius, cursor.y - 16.0f + w.y - radius);
+		float radius = SCALED(80.0f);
+		Vector2D center(cursor.x - SCALED(16.0f) + w.x - radius, cursor.y - SCALED(16.0f) + w.y - radius);
 		const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
-		drawList->AddCircle(center, radius, col32, 30, 4);
+		drawList->AddCircle(center, radius, col32, 30, SCALED(4.f));
 
 		ImGuiIO &io = ImGui::GetIO();
 		Vector2D mousePos = io.MousePos;
@@ -69,7 +74,7 @@ void CameraController::Content(float sec) {
 			if(io.MouseDown[0]) {
 				nav_pressed = true;
 				const ImU32 red32 = ImColor(1.f, 0.f, 0.0f);
-				drawList->AddCircle(center + centerMouse, 6, red32, 12, 4);
+				drawList->AddCircle(center + centerMouse, SCALED(6.f), red32, 12, SCALED(4.f));
 
 				centerMouse /= radius;
 

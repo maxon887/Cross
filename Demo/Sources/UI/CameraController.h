@@ -22,11 +22,14 @@ using namespace cross;
 
 class CameraController : public View {
 public:
-	CameraController() : View("Camera") { }
+	CameraController();
 
 	void WillContent() override;
 	void Content(float sec) override;
 
 private:
 	bool nav_pressed = false;
+
+	float window_width = -1;
+	float window_height = -1;
 };
