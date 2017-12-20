@@ -24,9 +24,13 @@ class CameraController : public View {
 public:
 	CameraController();
 
+	void Shown() override;
+
 	void WillContent() override;
 	void DidContent() override;
 	void Content(float sec) override;
+
+	bool MobileOnly() override;
 
 private:
 	bool nav_pressed = false;

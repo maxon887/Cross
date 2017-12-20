@@ -30,6 +30,13 @@ CameraController::CameraController() : View("Camera")
 	window_height = SCALED(200.f);
 }
 
+void CameraController::Shown() {
+	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
+	if(scene) {
+		scene->LookAtCamera(false);
+	}
+}
+
 void CameraController::WillContent() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
 	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() - window_width, system->GetWindowHeight() - window_height));
@@ -93,4 +100,8 @@ void CameraController::Content(float sec) {
 		}
 
 	}
+}
+
+bool CameraController::MobileOnly() {
+	return true;
 }

@@ -24,12 +24,18 @@ public:
 	View(string name);
 	virtual ~View() { }
 
+	virtual void Shown() { }
+	virtual void Hidden() { }
+
     virtual void WillContent() { }
 	virtual void Content(float sec) { }
 	virtual void DidContent() { }
 
+	virtual bool MobileOnly() { return false; }
+
 	void Show();
 	void Hide();
+	bool IsVisible() const;
 	void Update(float sec);
 
 	const string& GetName() const;

@@ -24,10 +24,16 @@ View::View(string name) :
 
 void View::Show() {
 	visible = true;
+	Shown();
 }
 
 void View::Hide() {
 	visible = false;
+	Hidden();
+}
+
+bool View::IsVisible() const {
+	return visible;
 }
 
 void View::Update(float sec) {

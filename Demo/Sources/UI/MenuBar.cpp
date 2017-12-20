@@ -97,8 +97,15 @@ void MenuBar::ShowMenu() {
 		} else {
 			if(ImGui::BeginMenu("View")) {
 				for(View* v : views) {
-					if(ImGui::MenuItem(v->GetName().c_str())) {
-						v->Show();
+					if(system->IsMobile() || !v->MobileOnly()) {
+						bool selected = v->IsVisible();
+						if(ImGui::MenuItem(v->GetName().c_str(), "", &selected)) {
+							if(selected) {
+								v->Show();
+							} else {
+								v->Hide();
+							}
+						}
 					}
 				}
 				ImGui::EndMenu();
