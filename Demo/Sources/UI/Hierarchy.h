@@ -33,6 +33,10 @@ public:
 	
 private:
 	Entity* selected_entity = NULL;
+	float lerp_time = 0.f;
+	Vector3D destanation;
+	Quaternion orientation;
 
+	void LookAtObject();
 	void BuildNode(Entity* entity);
 };

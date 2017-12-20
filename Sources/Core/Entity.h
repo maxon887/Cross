@@ -33,6 +33,7 @@ public:
 	void SetName(const string& name);
 	void AddComponent(Component* component);
 	void RemoveComponent(Component* component);
+	template<class T> bool HasComponent() const;
 	template<class T> T* GetComponent();
 	Component* GetComponent(U64 type);
 	Array<Component*> GetComponents();
@@ -59,6 +60,11 @@ private:
 	Entity* parent							= NULL;
 	List<Entity*> children					= List<Entity*>();
 };
+
+template<class T>
+bool Entity::HasComponent() const {
+	return components.find(typeid(T).hash_code()) != components.end();
+}
 
 template<class T>
 T* Entity::GetComponent(){
