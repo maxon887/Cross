@@ -70,15 +70,15 @@ void TransparencyScene::Start(){
 	grass_mat->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/GrassDiffuse.png"));
 	grass_mat->SetTransparency(true);
 	grass->GetComponent<Mesh>()->SetMaterial(grass_mat);
-	grass->GetTransform()->SetRotateX(90.f);
+	grass->GetTransform()->SetRotate(Quaternion(Vector3D::Up, 0.f));
 	AddEntity(grass);
 
 	for(U32 i = 0; i < 10; ++i){
 		Entity* clone = grass->Clone();
-		clone->GetTransform()->SetRotateX(90.f);
+		clone->GetTransform()->SetRotate(Quaternion(Vector3D::Up, 0.f));
 		clone->GetTransform()->SetPosition(Vector3D(Random(-5.f, 5.f), .5f, Random(-5.f, 5.f)));
 		Quaternion quat(Vector3D::Up, Random(360.f));
-		clone->GetTransform()->SetRotate(quat * clone->GetTransform()->GetRotation());
+		clone->GetTransform()->SetRotate(quat);
 		AddEntity(clone);
 	}
 

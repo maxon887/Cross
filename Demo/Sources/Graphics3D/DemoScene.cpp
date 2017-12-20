@@ -86,7 +86,7 @@ void DemoScene::ActionMove(Input::Action action) {
 		touch_position = action.pos;
 		Quaternion rotateU = Quaternion(Vector3D::Up, deltaPosition.x / 10.f);
 		Quaternion rotateR = Quaternion(camera->GetTransform()->GetRight(), -deltaPosition.y / 10.f);
-		camera->GetTransform()->SetRotate(rotateU * rotateR * Quaternion(camera->GetTransform()->GetRotation()));
+		camera->GetTransform()->SetRotate(rotateU * rotateR * camera->GetTransform()->GetRotate());
 		if(look_at) {				//free camera
 			camera->GetTransform()->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 		} else {

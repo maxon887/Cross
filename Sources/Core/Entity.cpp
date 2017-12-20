@@ -103,8 +103,7 @@ Array<Component*> Entity::GetComponents() {
 }
 
 Transform* Entity::GetTransform() {
-	CROSS_RETURN(components.find(typeid(Transform).hash_code()) != components.end(), NULL,
-		"Entity '%s' does't contains Tranform component", name.c_str());
+	CROSS_RETURN(HasComponent<Transform>(), NULL, "Entity '%s' does't contains Tranform component", name.c_str());
 	return GetComponent<Transform>();
 }
 

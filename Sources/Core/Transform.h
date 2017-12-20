@@ -42,9 +42,6 @@ public:
 	void SetScale(const Matrix& scale);
 	Vector3D GetScale() const;
 
-	void SetRotateX(float angle);
-	void SetRotateY(float angle);
-	void SetRotateZ(float angle);
 	void SetRotate(const Vector3D& axis, float angle);
 	void SetRotate(const Quaternion& quat);
 	void SetRotate(const Matrix& rotation);
@@ -58,8 +55,6 @@ public:
 	Vector3D GetRight() const;
 	Vector3D GetUp() const;
 
-	Matrix GetRotation() const;
-
 	Matrix& GetModelMatrix();
 
 	void SetModelMatrix(const Matrix& model);
@@ -67,7 +62,7 @@ public:
 protected:
 	Matrix model		= Matrix::Identity;
 	Matrix translate	= Matrix::Identity;
-	Matrix rotate		= Matrix::Identity;
+	Quaternion rotate	= Quaternion::Identity;
 	Matrix scale		= Matrix::Identity;
 	bool recalc_model	= true;
 };

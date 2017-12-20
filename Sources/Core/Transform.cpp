@@ -130,21 +130,6 @@ Vector3D Transform::GetScale() const{
 	return Vector3D(scale.m[0][0], scale.m[1][1], scale.m[2][2]);
 }
 
-void Transform::SetRotateX(float angle) {
-	rotate.SetRotationX(angle);
-	recalc_model = true;
-}
-
-void Transform::SetRotateY(float angle) {
-	rotate.SetRotationY(angle);
-	recalc_model = true;
-}
-
-void Transform::SetRotateZ(float angle) {
-	rotate.SetRotationZ(angle);
-	recalc_model = true;
-}
-
 void Transform::SetRotate(const Vector3D& axis, float angle) {
 	Quaternion quat(axis, angle);
 	SetRotate(quat);
@@ -161,7 +146,7 @@ void Transform::SetRotate(const Matrix& rot) {
 }
 
 Quaternion Transform::GetRotate() const {
-	return Quaternion(rotate);
+	return rotate;
 }
 
 void Transform::LookAt(const Vector3D& object){
@@ -170,19 +155,21 @@ void Transform::LookAt(const Vector3D& object){
 	Vector3D right = Vector3D::Cross(Vector3D::Up, forward).GetNormalized();
 	Vector3D up =  Vector3D::Cross(forward, right).GetNormalized();
 
-	rotate = Matrix::Identity;
+	Matrix rot = Matrix::Identity;
 
-	rotate.m[0][0] = right.x;
-    rotate.m[1][0] = right.y;
-    rotate.m[2][0] = right.z;
+	rot.m[0][0] = right.x;
+	rot.m[1][0] = right.y;
+	rot.m[2][0] = right.z;
 
-    rotate.m[0][1] = up.x;
-    rotate.m[1][1] = up.y;
-    rotate.m[2][1] = up.z;
+	rot.m[0][1] = up.x;
+	rot.m[1][1] = up.y;
+	rot.m[2][1] = up.z;
 
-    rotate.m[0][2] = forward.x;
-    rotate.m[1][2] = forward.y;
-    rotate.m[2][2] = forward.z;
+	rot.m[0][2] = forward.x;
+	rot.m[1][2] = forward.y;
+	rot.m[2][2] = forward.z;
+
+	this->rotate = rot;
 	
 	recalc_model = true;
 }
@@ -208,13 +195,9 @@ Vector3D Transform::GetUp() const {
 	return rotate * Vector3D::Up;
 }
 
-Matrix Transform::GetRotation() const {
-	return rotate;
-}
-
 Matrix& Transform::GetModelMatrix() {
 	if(recalc_model){
-		model = translate * rotate * scale;
+		model = translate * rotate.GetMatrix() * scale;
 		recalc_model = false;
 	}
 	return model;
