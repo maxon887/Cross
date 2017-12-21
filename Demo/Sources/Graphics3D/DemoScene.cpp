@@ -53,20 +53,20 @@ void DemoScene::Update(float sec) {
 		Input::Action action = action_stack.front().first;
 		int actionState = action_stack.front().second;
 		action_stack.pop_front();
-		if (!ImGui::IsMouseHoveringAnyWindow())	{
-			switch(actionState) {
-			case 0:
+		switch(actionState) {
+		case 0:
+			if(!ImGui::IsMouseHoveringAnyWindow()) {
 				ActionDown(action);
-				break;
-			case 1:
-				ActionMove(action);
-				break;
-			case 2:
-				ActionUp(action);
-				break;
-			default:
-				break;
 			}
+			break;
+		case 1:
+			ActionMove(action);
+			break;
+		case 2:
+			ActionUp(action);
+			break;
+		default:
+			break;
 		}
 	}
 
