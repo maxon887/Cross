@@ -53,6 +53,14 @@ void FreeCameraScene::Update(float sec) {
 	if(input->IsPressed(Key::DOWN)) {
 		LookUp(sec);
 	}
+
+	if(lerp_time > 0) {
+		Vector3D pos = Lerp(camera->GetPosition(), destanation, 1.f - lerp_time);
+		Quaternion rot = Lerp(camera->GetTransform()->GetRotate(), orientation, 1.f - lerp_time);
+		camera->SetPosition(pos);
+		camera->GetTransform()->SetRotate(rot);
+		lerp_time -= sec;
+	}
 }
  
 void FreeCameraScene::MoveForward(float sec){
@@ -155,7 +163,15 @@ void FreeCameraScene::LookAtCamera(bool enabled) {
 void FreeCameraScene::LookAtCamera(const Vector3D& target) {
 	look_at = true;
 	this->target = target;
-	GetCamera()->GetTransform()->LookAt(target);
+	lerp_time = 1;
+	Vector3D camObjVec = target - camera->GetPosition();
+	Vector3D offset = camObjVec - camObjVec.GetNormalized() * 3.f;
+	destanation = camera->GetPosition() + offset;
+
+	Transform trans;
+	trans.SetPosition(destanation);
+	trans.LookAt(target);
+	orientation = trans.GetRotate();
 }
 
 bool FreeCameraScene::IsLookAtCamera() const {

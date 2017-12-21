@@ -22,6 +22,7 @@
 #include "System.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "Utils/FreeCameraScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -52,28 +53,12 @@ void Hierarchy::Content(float sec) {
 			BuildNode(child);
 		}
 	}
-	if(lerp_time > 0) {
-		Camera* cam = game->GetCurrentScene()->GetCamera();
-		Vector3D pos = Lerp(cam->GetPosition(), destanation, 1.f - lerp_time);
-		Quaternion rot = Lerp(cam->GetTransform()->GetRotate(), orientation, 1.f - lerp_time);
-		cam->SetPosition(pos);
-		cam->GetTransform()->SetRotate(rot);
-		lerp_time -= sec;
-	}
 }
 
 void Hierarchy::LookAtObject() {
+	FreeCameraScene* scene = static_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(!selected_entity->HasComponent<Camera>()) {
-		lerp_time = 1;
-		Camera* cam = game->GetCurrentScene()->GetCamera();
-		Vector3D camObjVec = selected_entity->GetTransform()->GetPosition() - cam->GetPosition();
-		Vector3D offset = camObjVec - camObjVec.GetNormalized() * 3.f;
-		destanation = cam->GetPosition() + offset;
-
-		Transform trans;
-		trans.SetPosition(destanation);
-		trans.LookAt(selected_entity->GetTransform()->GetPosition());
-		orientation = trans.GetRotate();
+		scene->LookAtCamera(selected_entity->GetTransform()->GetPosition());
 	}
 }
 

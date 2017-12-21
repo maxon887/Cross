@@ -54,7 +54,10 @@ protected:
 	float angular_speed			= 45.f;
 	float orbit_distance		= 3.f;
 
-	Vector3D target				= Vector3D(0);
+	float lerp_time				= 0.f;
+	Vector3D target				= Vector3D::Zero;
+	Vector3D destanation		= Vector3D::Zero;
+	Quaternion orientation		= Quaternion::Identity;
 
 	void MouseWheelRoll(float delta);
 };
