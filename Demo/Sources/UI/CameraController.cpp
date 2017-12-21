@@ -53,17 +53,22 @@ void CameraController::DidContent() {
 void CameraController::Content(float sec) {
 	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(scene) {
-		const ImVec2 cursor = ImGui::GetCursorScreenPos();
-		float value = 0.f;
+		bool lookAt = scene->IsLookAtCamera();
+		const ImVec2 cursor = ImGui::GetCursorScreenPos(); //must sit exactly there, before any drawings started
+
+		float sliderValue = 0.f;
 		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(40.f));
-		if(ImGui::VSliderFloat("", ImVec2(SCALED(35.f), SCALED(190.f)), &value, -1.f, 1.f, "%.2f")) {
-			scene->MoveUp(value * sec);
+		if(ImGui::VSliderFloat("", ImVec2(SCALED(35.f), SCALED(190.f)), &sliderValue, -1.f, 1.f, "%.2f")) {
+			if(!lookAt) {
+				scene->MoveUp(sliderValue * sec);
+			} else {
+				scene->MoveForward(sliderValue * sec);
+			}
 		}
 
 		ImGui::PopStyleVar();
 
 		ImGui::SetCursorPos(ImVec2(SCALED(47.f), SCALED(5.f)));
-		bool lookAt = scene->IsLookAtCamera();
 		if(ImGui::Checkbox("Look At", &lookAt)) {
 			scene->LookAtCamera(lookAt);
 		}
@@ -93,9 +98,13 @@ void CameraController::Content(float sec) {
 				drawList->AddCircle(center + centerMouse, SCALED(6.f), red32, 12, SCALED(4.f));
 
 				centerMouse /= radius;
-
-				scene->MoveForward(-centerMouse.y * sec);
-				scene->MoveRight(centerMouse.x * sec);
+				if(!lookAt) {
+					scene->MoveForward(-centerMouse.y * sec);
+					scene->MoveRight(centerMouse.x * sec);
+				} else {
+					scene->LookUp(-centerMouse.y * sec * 2.f);
+					scene->MoveRight(-centerMouse.x * sec * 2.f);
+				}
 			}
 		}
 
