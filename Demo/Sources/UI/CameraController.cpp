@@ -26,8 +26,8 @@
 
 CameraController::CameraController() : View("Camera")
 {
-	window_width = SCALED(225.f);
-	window_height = SCALED(200.f);
+	window_width = SCALED(170.f);
+	window_height = SCALED(160.f);
 }
 
 void CameraController::Shown() {
@@ -57,8 +57,8 @@ void CameraController::Content(float sec) {
 		const ImVec2 cursor = ImGui::GetCursorScreenPos(); //must sit exactly there, before any drawings started
 
 		float sliderValue = 0.f;
-		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(40.f));
-		if(ImGui::VSliderFloat("", ImVec2(SCALED(35.f), SCALED(190.f)), &sliderValue, -1.f, 1.f, "%.2f")) {
+		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(25.f));
+		if(ImGui::VSliderFloat("", ImVec2(SCALED(25.f), SCALED(150.f)), &sliderValue, -1.f, 1.f, "")) {
 			if(!lookAt) {
 				scene->MoveUp(sliderValue * sec);
 			} else {
@@ -68,14 +68,14 @@ void CameraController::Content(float sec) {
 
 		ImGui::PopStyleVar();
 
-		ImGui::SetCursorPos(ImVec2(SCALED(47.f), SCALED(5.f)));
+		ImGui::SetCursorPos(ImVec2(SCALED(37.f), SCALED(5.f)));
 		if(ImGui::Checkbox("Look At", &lookAt)) {
 			scene->LookAtCamera(lookAt);
 		}
 
 		ImDrawList* drawList = ImGui::GetWindowDrawList();
 		const ImVec2 w = ImGui::GetWindowSize();
-		float radius = SCALED(80.0f);
+		float radius = SCALED(60.0f);
 		Vector2D center(cursor.x - SCALED(16.0f) + w.x - radius, cursor.y - SCALED(16.0f) + w.y - radius);
 		const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
 		drawList->AddCircle(center, radius, col32, 30, SCALED(4.f));
