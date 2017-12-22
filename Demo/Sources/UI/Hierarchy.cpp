@@ -28,13 +28,13 @@
 
 void Hierarchy::WillContent() {
 	if(system->IsMobile()) {
-		ImGui::PushFont(demo->big_font);
 		if(system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f,
 				(float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
 				ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
 		} else {
+			ImGui::PushFont(demo->big_font);
 			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
 			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		}
@@ -43,7 +43,9 @@ void Hierarchy::WillContent() {
 
 void Hierarchy::DidContent() {
 	if(system->IsMobile()) {
-		ImGui::PopFont();
+		if(system->GetDeviceOrientation() != System::Orientation::LANDSCAPE) {
+			ImGui::PopFont();
+		}
 	}
 }
 
@@ -63,6 +65,13 @@ void Hierarchy::LookAtObject() {
 }
 
 void Hierarchy::BuildNode(Entity* entity) {
+
+	if(system->IsMobile() && system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
+		ImGui::PushFont(demo->normal_font);
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
+		ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, SCALED(10.f));
+	}
+
 	static const ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 	ImGuiTreeNodeFlags selected = entity == selected_entity ? ImGuiTreeNodeFlags_Selected : 0;
@@ -86,5 +95,10 @@ void Hierarchy::BuildNode(Entity* entity) {
 			BuildNode(child);
 		}
 		ImGui::TreePop();
+	}
+
+	if(system->IsMobile() && system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
+		ImGui::PopFont();
+		ImGui::PopStyleVar(2);
 	}
 }

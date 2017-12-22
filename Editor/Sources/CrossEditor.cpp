@@ -90,10 +90,10 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 }
 
 void CrossEditor::AdjustSize(QWidget* widget) {
-	QSize maxSize = widget->maximumSize() * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+	QSize maxSize = widget->maximumSize() * system->GetScreenScale();
 	if(maxSize.width() < 0) maxSize.setWidth(MAXINT);
 	if(maxSize.height() < 0) maxSize.setHeight(MAXINT);
-	QSize minSize = widget->minimumSize() * system->GetScreenDPI() / DEFAULT_SCREEN_DPI;
+	QSize minSize = widget->minimumSize() * system->GetScreenScale();
 	widget->setMaximumSize(maxSize);
 	widget->setMinimumSize(minSize);
 }

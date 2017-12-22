@@ -74,7 +74,7 @@ void SceneView::OnActionMove(Input::Action a) {
 		LookAtCamera(true);
 		Quaternion rotateU = Quaternion(Vector3D::Up, delta.x / 10.f);
 		Quaternion rotateR = Quaternion(camera->GetTransform()->GetRight(), -delta.y / 10.f);
-		camera->GetTransform()->SetRotate(rotateU * rotateR * Quaternion(camera->GetTransform()->GetRotation()));
+		camera->GetTransform()->SetRotate(rotateU * rotateR * camera->GetTransform()->GetRotate());
 		if(look_at) {				//free camera
 			camera->GetTransform()->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
 		} else {

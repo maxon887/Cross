@@ -191,6 +191,9 @@ bool Demo::CreateFontsTexture() {
 	float fontScale = (float)(int)(system->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
+	small_font = io.Fonts->AddFontDefault(&fontConfig);
+
+	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 1.5f;
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 2.f;

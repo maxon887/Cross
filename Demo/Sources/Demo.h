@@ -18,6 +18,8 @@
 #include "Game.h"
 #include "Input.h"
 
+#define SCALED(x) x * system->GetScreenScale()
+
 using namespace cross;
 
 struct ImDrawData;
@@ -30,6 +32,7 @@ extern Demo* demo;
 
 class Demo : public Game {
 public:
+	ImFont* small_font		= NULL;
 	ImFont* normal_font		= NULL;
 	ImFont* big_font		= NULL;
 

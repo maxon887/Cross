@@ -15,14 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "CameraController.h"
-#include "Game.h"
+#include "Demo.h"
 #include "System.h"
 #include "Camera.h"
 #include "Utils/FreeCameraScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
-
-#define SCALED(x) x * system->GetScreenScale()
 
 CameraController::CameraController() : View("Camera")
 {
