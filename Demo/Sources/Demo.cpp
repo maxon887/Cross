@@ -90,7 +90,8 @@ void Demo::Start() {
 
 
 	ImGuiStyle& style = ImGui::GetStyle();
-	ImGui::UseStyle(config->GetInt("IMGUI_STYLE", 0));
+	//ImGui::UseStyle(config->GetInt("IMGUI_STYLE", 0));
+	CROSS_ASSERT(false, "UseStyle not implemented");
 
 	if(system->IsMobile()) {
 		style.WindowRounding = 5 * system->GetScreenScale();
@@ -191,12 +192,24 @@ bool Demo::CreateFontsTexture() {
 	float fontScale = (float)(int)(system->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
+	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
+	strcat(fontConfig.Name, "ProggyClean.ttf, ");
+	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
+	strcat(fontConfig.Name, "px");
 	small_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 1.5f;
+	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
+	strcat(fontConfig.Name, "ProggyClean.ttf, ");
+	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
+	strcat(fontConfig.Name, "px");
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 2.f;
+	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
+	strcat(fontConfig.Name, "ProggyClean.ttf, ");
+	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
+	strcat(fontConfig.Name, "px");
 	big_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	unsigned char* pixels;

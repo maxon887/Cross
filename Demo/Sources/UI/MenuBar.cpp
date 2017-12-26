@@ -28,7 +28,6 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 #include "ThirdParty/ImGui/imgui_freetype.h"
-#include "ThirdParty/ImGui/imgui_internal.h"
 
 MenuBar::MenuBar() {
 	CameraController* cameraController = new CameraController();
@@ -79,7 +78,7 @@ void MenuBar::ShowMenu() {
 	{
 		bool mainScreen = false;
 		if(game->GetCurrentScreen()->GetName() == "Main") {
-			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+			//ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.0f);
 			mainScreen = true;
 		}
@@ -93,7 +92,7 @@ void MenuBar::ShowMenu() {
 		ImGui::PopStyleColor();
 		if(mainScreen) {
 			ImGui::PopStyleVar();
-			ImGui::PopItemFlag();
+			//ImGui::PopItemFlag();
 		} else {
 			if(ImGui::BeginMenu("View")) {
 				for(View* v : views) {
