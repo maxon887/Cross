@@ -89,11 +89,10 @@ void Demo::Start() {
 	CreateFontsTexture();
 
 
-	ImGuiStyle& style = ImGui::GetStyle();
-	//ImGui::UseStyle(config->GetInt("IMGUI_STYLE", 0));
-	CROSS_ASSERT(false, "UseStyle not implemented");
+	ImGui::LoadStyle();
 
 	if(system->IsMobile()) {
+		ImGuiStyle& style = ImGui::GetStyle();
 		style.WindowRounding = 5 * system->GetScreenScale();
 		style.ScrollbarSize = 20 * system->GetScreenScale();
 		style.ScrollbarRounding = 5 * system->GetScreenScale();
