@@ -44,7 +44,8 @@ protected:
 	void SetWindowFlags(U32 flags);
 
 private:
-	string name = "View";
+	string landscape_name = "View";
+	string portrait_name = "View ";
 	bool visible = false;
 	U32 flags = 0;
 };

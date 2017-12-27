@@ -14,28 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "Cross.h"
+#include "Stats.h"
+#include "Utils/Debugger.h"
 
-class View;
+#include "ThirdParty/ImGui/imgui.h"
 
-using namespace cross;
-
-class MenuBar {
-public:
-	MenuBar();
-	~MenuBar();
-
-	void Update(float sec);
-
-	void ShowMenu();
-	float GetHeight() const;
-
-protected:
-	float menu_height			= 0;
-	bool show_style_editor		= false;
-
-	Array<View*> views;
-	View* stats					= NULL;
-	View* about					= NULL;
-};
+void Stats::Content(float sec) {
+	ImGui::Text("%.1f FPS(%.2f ms/frame)", Debugger::Instance()->GetFPS(), Debugger::Instance()->GetUpdateTime());
+	ImGui::Text("CPU Time - %.2f ms", Debugger::Instance()->GetCPUTime());
+}

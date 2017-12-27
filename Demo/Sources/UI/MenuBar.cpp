@@ -23,6 +23,8 @@
 #include "UI/CameraController.h"
 #include "UI/Hierarchy.h"
 #include "UI/TransformView.h"
+#include "UI/Stats.h"
+#include "UI/About.h"
 #include "Utils/Debugger.h"
 #include "MainScreen.h"
 
@@ -37,6 +39,9 @@ MenuBar::MenuBar() {
 	views.push_back(cameraController);
 	views.push_back(hierarchy);
 	views.push_back(transform);
+
+	stats = new Stats();
+	about = new About();
 }
 
 MenuBar::~MenuBar() {
@@ -44,6 +49,9 @@ MenuBar::~MenuBar() {
 		delete v;
 	}
 	views.clear();
+
+	delete stats;
+	delete about;
 }
 
 void MenuBar::Update(float sec) {
@@ -55,19 +63,9 @@ void MenuBar::Update(float sec) {
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
-	if(show_about) {
-		ImGui::Begin("About", &show_about, ImGuiWindowFlags_AlwaysAutoResize);
-		ImGui::Text("Cross++, v%s", cross::version);
-		ImGui::Separator();
-		ImGui::Text("By Maksim Lukyanov");
-		ImGui::End();
-	}
-    if(show_stats) {
-        ImGui::Begin("Stats", &show_stats);
-        ImGui::Text("%.1f FPS(%.2f ms/frame)", Debugger::Instance()->GetFPS(), Debugger::Instance()->GetUpdateTime());
-        ImGui::Text("CPU Time - %.2f ms", Debugger::Instance()->GetCPUTime());
-        ImGui::End();
-    }
+	
+	stats->Update(sec);
+	about->Update(sec);
 }
 
 void MenuBar::ShowMenu() {
@@ -115,13 +113,13 @@ void MenuBar::ShowMenu() {
 		ImGui::SameLine(ImGui::GetWindowWidth() - helpSize.x * 2.f);
 		if(ImGui::BeginMenu("Help")) {
             if(ImGui::MenuItem("Stats")) {
-                show_stats = true;
+				stats->Show();
             }
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;
 			}
 			if(ImGui::MenuItem("About")) {
-				show_about = true;
+				about->Show();
 			}
 			ImGui::EndMenu();
 		}

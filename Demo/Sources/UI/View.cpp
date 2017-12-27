@@ -15,12 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "View.h"
+#include "System.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
-View::View(string name) :
-	name(name)
-{ }
+View::View(string name)
+{
+	landscape_name = name;
+	portrait_name = name + " ";
+}
 
 void View::Show() {
 	visible = true;
@@ -38,8 +41,21 @@ bool View::IsVisible() const {
 
 void View::Update(float sec) {
 	if(visible) {
+		const char* name = landscape_name.c_str();
+		switch(system->GetDeviceOrientation()) {
+		case System::Orientation::LANDSCAPE:
+			name = landscape_name.c_str();
+			break;
+		case System::Orientation::PORTRAIT:
+			name = portrait_name.c_str();
+			break;
+		default:
+			CROSS_FAIL(false, "Unknown device orientation");
+			break;
+		}
+
 		WillContent();
-		ImGui::Begin(name.c_str(), &visible, flags);
+		ImGui::Begin(name, &visible, flags);
 		Content(sec);
 		ImGui::End();
 		DidContent();
@@ -47,7 +63,7 @@ void View::Update(float sec) {
 }
 
 const string& View::GetName() const {
-	return name;
+	return landscape_name;
 }
 
 void View::SetWindowFlags(U32 f) {
