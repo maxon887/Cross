@@ -34,24 +34,17 @@ public:
 	void LookAtCamera(const Vector3D& target);
 	bool IsLookAtCamera() const;
 
-	void MoveForward(float sec);
-	void MoveBackward(float sec);
-	void MoveLeft(float sec);
-	void MoveRight(float sec);
-	void MoveUp(float sec);
-	void MoveDown(float sec);
-	void MoveCameraUp(float sec);
+	void MoveForward(float distance);
+	void MoveRight(float distance);
+	void MoveUp(float distance);
+	void MoveCameraUp(float distance);
 	
-	void LookRight(float sec);
-	void LookLeft(float sec);
-	void LookDown(float sec);
-	void LookUp(float sec);
+	void LookRight(float degree);
+	void LookUp(float degree);
 
 protected:
 	bool look_at				= true;
 
-	float liner_speed			= 5.f;
-	float angular_speed			= 45.f;
 	float orbit_distance		= 3.f;
 
 	float lerp_time				= 0.f;

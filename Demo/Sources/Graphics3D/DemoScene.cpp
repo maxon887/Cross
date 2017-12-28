@@ -28,9 +28,11 @@
 void DemoScene::Start() {
 	FreeCameraScene::Start();
 	camera->SetPosition(Vector3D(0.f, 0.f, -3.0f));
-	input->ActionDown.Connect(this, &DemoScene::ActionDownHandle);
-	input->ActionMove.Connect(this, &DemoScene::ActionMoveHandle);
-	input->ActionUp.Connect(this, &DemoScene::ActionUpHandle);
+	input->ActionDown.Connect(this, &DemoScene::OnActionDown);
+	input->ActionMove.Connect(this, &DemoScene::OnActionMove);
+	input->ActionUp.Connect(this, &DemoScene::OnActionUp);
+	input->KeyPressed.Connect(this, &DemoScene::OnKeyPressed);
+	input->KeyReleased.Connect(this, &DemoScene::OnKeyReleased);
 	system->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 
 	OnEyeClick();
@@ -42,13 +44,35 @@ void DemoScene::Start() {
 
 void DemoScene::Stop() {
 	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
-	input->ActionDown.Disconnect(this, &DemoScene::ActionDownHandle);
-	input->ActionMove.Disconnect(this, &DemoScene::ActionMoveHandle);
-	input->ActionUp.Disconnect(this, &DemoScene::ActionUpHandle);
+	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
+	input->KeyPressed.Disconnect(this, &DemoScene::OnKeyReleased);
+	input->ActionDown.Disconnect(this, &DemoScene::OnActionDown);
+	input->ActionMove.Disconnect(this, &DemoScene::OnActionMove);
+	input->ActionUp.Disconnect(this, &DemoScene::OnActionUp);
 	FreeCameraScene::Stop();
 }
 
 void DemoScene::Update(float sec) {
+
+	if(input->IsPressed(Key::W)) {
+		FreeCameraScene::MoveForward(camera_speed * sec);
+	}
+	if(input->IsPressed(Key::S)) {
+		FreeCameraScene::MoveForward(-camera_speed * sec);
+	}
+	if(input->IsPressed(Key::D)) {
+		FreeCameraScene::MoveRight(camera_speed * sec);
+	}
+	if(input->IsPressed(Key::A)) {
+		FreeCameraScene::MoveRight(-camera_speed * sec);
+	}
+	if(input->IsPressed(Key::SHIFT)) {
+		FreeCameraScene::MoveUp(camera_speed * sec);
+	}
+	if(input->IsPressed(Key::CONTROL)) {
+		FreeCameraScene::MoveUp(-camera_speed * sec);
+	}
+
 	while(!action_stack.empty()) {
 		Input::Action action = action_stack.front().first;
 		int actionState = action_stack.front().second;
@@ -84,14 +108,8 @@ void DemoScene::ActionMove(Input::Action action) {
 	if(handled_action == action.id) {
 		Vector2D deltaPosition = touch_position - action.pos;
 		touch_position = action.pos;
-		Quaternion rotateU = Quaternion(Vector3D::Up, deltaPosition.x / 10.f);
-		Quaternion rotateR = Quaternion(camera->GetTransform()->GetRight(), -deltaPosition.y / 10.f);
-		camera->GetTransform()->SetRotate(rotateU * rotateR * camera->GetTransform()->GetRotate());
-		if(look_at) {				//free camera
-			camera->GetTransform()->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
-		} else {
-			target = camera->GetPosition() + camera->GetTransform()->GetDirection() * orbit_distance;
-		}
+		FreeCameraScene::LookRight(deltaPosition.x / 10.f);
+		FreeCameraScene::LookUp(deltaPosition.y / 10.f);
 	}
 }
 
@@ -110,16 +128,28 @@ void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
 	}
 }
 
-void DemoScene::ActionDownHandle(Input::Action action) {
+void DemoScene::OnActionDown(Input::Action action) {
 	action_stack.push_back(pair<Input::Action, int>(action, 0));
 }
 
-void DemoScene::ActionMoveHandle(Input::Action action) {
+void DemoScene::OnActionMove(Input::Action action) {
 	action_stack.push_back(pair<Input::Action, int>(action, 1));
 }
 
-void DemoScene::ActionUpHandle(Input::Action action) {
+void DemoScene::OnActionUp(Input::Action action) {
 	action_stack.push_back(pair<Input::Action, int>(action, 2));
+}
+
+void DemoScene::OnKeyPressed(Key key) {
+	if(key == Key::ALT) {
+		FreeCameraScene::LookAtCamera(false);
+	}
+}
+
+void DemoScene::OnKeyReleased(Key key) {
+	if(key == Key::ALT) {
+		FreeCameraScene::LookAtCamera(true);
+	}
 }
 
 void DemoScene::OnOrientationChanged(System::Orientation o) {

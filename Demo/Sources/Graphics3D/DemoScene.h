@@ -38,15 +38,18 @@ protected:
 	void ApplyMaterial(Entity* entity, Material* mat);
 
 private:
+	const float camera_speed = 5.f;
 	//used same concept as on the Input class
 	List<pair<Input::Action, int> > action_stack;
 
 	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();
 
-	void ActionDownHandle(Input::Action action);
-	void ActionMoveHandle(Input::Action action);
-	void ActionUpHandle(Input::Action action);
+	void OnActionDown(Input::Action action);
+	void OnActionMove(Input::Action action);
+	void OnActionUp(Input::Action action);
+	void OnKeyPressed(Key key);
+	void OnKeyReleased(Key key);
 
 	void OnOrientationChanged(System::Orientation o);
 
