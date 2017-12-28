@@ -18,6 +18,8 @@
 #include "Material.h"
 #include "VertexBuffer.h"
 #include "Mesh.h"
+#include "Entity.h"
+#include "Transform.h"
 
 void TriangleScene::Start(){
 	DemoScene::Start();
@@ -35,20 +37,15 @@ void TriangleScene::Start(){
 
 	const Array<GLushort> indices = { 0, 1, 2 };
 
-	triangle = new Mesh();
+	Mesh* triangle = new Mesh();
 	triangle->PushData(vertexBuffer, indices);
 	triangle->TransferVideoData();
 	triangle->SetMaterial(material);
 	triangle->SetFaceCullingEnabled(false);
     delete vertexBuffer;
-}
 
-void TriangleScene::Stop(){
-	delete triangle;
-	DemoScene::Stop();
-}
-
-void TriangleScene::Update(float sec){
-	DemoScene::Update(sec);
-	triangle->Draw();
+	Entity* entity = new Entity("Triangle");
+	entity->AddComponent(new Transform());
+	entity->AddComponent(triangle);
+	AddEntity(entity);
 }
