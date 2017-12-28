@@ -27,7 +27,7 @@
 
 void DemoScene::Start() {
 	FreeCameraScene::Start();
-	camera->SetPosition(Vector3D(0.f, 0.f, -3.0f));
+	LookAtCamera(Vector3D::Zero);
 	input->ActionDown.Connect(this, &DemoScene::OnActionDown);
 	input->ActionMove.Connect(this, &DemoScene::OnActionMove);
 	input->ActionUp.Connect(this, &DemoScene::OnActionUp);

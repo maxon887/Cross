@@ -34,6 +34,7 @@ SceneView::SceneView(const string& filename) :
 
 void SceneView::Start() {
 	FreeCameraScene::Start();
+	FreeCameraScene::LookAtCamera(Vector3D::Zero);
 	SetAmbientColor(Color::White);
 	selection_shader = GetShader("Engine/Shaders/Simple.sha");
 	selection_shader->Compile();
@@ -71,24 +72,18 @@ void SceneView::OnActionMove(Input::Action a) {
 	Vector2D delta = pos - a.pos;
 	pos = a.pos;
 	if(a.id == 0) {
-		LookAtCamera(true);
-		Quaternion rotateU = Quaternion(Vector3D::Up, delta.x / 10.f);
-		Quaternion rotateR = Quaternion(camera->GetTransform()->GetRight(), -delta.y / 10.f);
-		camera->GetTransform()->SetRotate(rotateU * rotateR * camera->GetTransform()->GetRotate());
-		if(look_at) {				//free camera
-			camera->GetTransform()->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
-		} else {
-			target = camera->GetPosition() + camera->GetTransform()->GetDirection() * orbit_distance;
-		}
+		FreeCameraScene::LookAtCamera(true);
+		FreeCameraScene::LookRight(delta.x / 1000.f);
+		FreeCameraScene::LookUp(delta.y / 1000.f);
 	}
 	if(a.id == 1) {
-		LookAtCamera(false);
-		MoveForward(delta.y / 1000.f);
+		FreeCameraScene::LookAtCamera(false);
+		FreeCameraScene::MoveForward(delta.y / 1000.f);
 	}
 	if(a.id == 2){
-		LookAtCamera(false);
-		MoveCameraUp(delta.y / 1500.f);
-		MoveRight(delta.x / 1500.f);
+		FreeCameraScene::LookAtCamera(false);
+		FreeCameraScene::MoveCameraUp(delta.y / 1500.f);
+		FreeCameraScene::MoveRight(delta.x / 1500.f);
 	}
 }
 
