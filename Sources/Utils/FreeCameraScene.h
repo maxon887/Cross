@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Scene.h"
 #include "Input.h"
+#include "Transform.h"
 
 namespace cross{
 
@@ -45,12 +46,11 @@ public:
 protected:
 	bool look_at				= true;
 
-	float orbit_distance		= 3.f;
+	const float focus_distance	= 3.f;
 
 	float lerp_time				= 0.f;
 	Vector3D target				= Vector3D::Zero;
-	Vector3D destanation		= Vector3D::Zero;
-	Quaternion orientation		= Quaternion::Identity;
+	Transform destanation		= Transform();
 
 	void MouseWheelRoll(float delta);
 };

@@ -45,7 +45,7 @@ void DemoScene::Start() {
 void DemoScene::Stop() {
 	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
 	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
-	input->KeyPressed.Disconnect(this, &DemoScene::OnKeyReleased);
+	input->KeyPressed.Disconnect(this, &DemoScene::OnKeyPressed);
 	input->ActionDown.Disconnect(this, &DemoScene::OnActionDown);
 	input->ActionMove.Disconnect(this, &DemoScene::OnActionMove);
 	input->ActionUp.Disconnect(this, &DemoScene::OnActionUp);

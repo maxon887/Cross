@@ -38,53 +38,54 @@ void FreeCameraScene::Stop() {
 
 void FreeCameraScene::Update(float sec) {
 	Scene::Update(sec);
-	Vector3D tgv = target - GetCamera()->GetPosition();
-	orbit_distance = tgv.Length();
 
 	if(lerp_time > 0) {
-		Vector3D pos = Lerp(camera->GetPosition(), destanation, 1.f - lerp_time);
-		Quaternion rot = Lerp(camera->GetTransform()->GetRotate(), orientation, 1.f - lerp_time);
+		Vector3D pos = Lerp(camera->GetPosition(), destanation.GetPosition(), 1.f - lerp_time);
+		Quaternion rot = Lerp(camera->GetTransform()->GetRotate(), destanation.GetRotate(), 1.f - lerp_time);
 		camera->SetPosition(pos);
 		camera->GetTransform()->SetRotate(rot);
 		lerp_time -= sec;
+	} else {
+		camera->SetPosition(destanation.GetPosition());
+		camera->GetTransform()->SetRotate(destanation.GetRotate());
 	}
 }
  
 void FreeCameraScene::MoveForward(float distance){
-	Vector3D path = camera->GetTransform()->GetDirection() * distance;
-	camera->SetPosition(camera->GetPosition() + path);
+	Vector3D path = destanation.GetDirection() * distance;
+	destanation.SetPosition(destanation.GetPosition() + path);
 	target += path;
 }
 
 void FreeCameraScene::MoveRight(float distance) {
-	Vector3D path = camera->GetTransform()->GetRight() * distance;
-	camera->SetPosition(camera->GetPosition() + path);
+	Vector3D path = destanation.GetRight() * distance;
+	destanation.SetPosition(destanation.GetPosition() + path);
 	target += path;
 }
 
 void FreeCameraScene::MoveUp(float distance) {
 	Vector3D path = Vector3D::Up * distance;
-	camera->SetPosition(camera->GetPosition() + path);
+	destanation.SetPosition(destanation.GetPosition() + path);
 	target += path;
 }
 
 void FreeCameraScene::MoveCameraUp(float distance) {
-	Vector3D path = camera->GetTransform()->GetUp() * distance;
-	camera->SetPosition(camera->GetPosition() + path);
+	Vector3D path = destanation.GetUp() * distance;
+	destanation.SetPosition(destanation.GetPosition() + path);
 	target += path;
 }
 
 void FreeCameraScene::LookRight(float degree) {
-	camera->GetTransform()->SetRotate(Quaternion(Vector3D::Up, degree) * camera->GetTransform()->GetRotate());
-	if(look_at){
-		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
+	destanation.SetRotate(Quaternion(Vector3D::Up, degree) * destanation.GetRotate());
+	if(look_at) {
+		destanation.SetPosition(target + destanation.GetForward() * focus_distance * (-1.f));
 	}
 }
 
 void FreeCameraScene::LookUp(float degree) {
-	camera->GetTransform()->SetRotate(Quaternion(camera->GetTransform()->GetRight(), -degree) * camera->GetTransform()->GetRotate());
-	if(look_at){
-		camera->SetPosition(target + camera->GetTransform()->GetDirection() * orbit_distance * (-1));
+	destanation.SetRotate(Quaternion(destanation.GetRight(), -degree) * destanation.GetRotate());
+	if(look_at) {
+		destanation.SetPosition(target + destanation.GetForward() * focus_distance * (-1.f));
 	}
 }
 
@@ -99,15 +100,12 @@ void FreeCameraScene::LookAtCamera(bool enabled) {
 void FreeCameraScene::LookAtCamera(const Vector3D& target) {
 	look_at = true;
 	this->target = target;
-	lerp_time = 1;
+	lerp_time = 1.f;
 	Vector3D camObjVec = target - camera->GetPosition();
-	Vector3D offset = camObjVec - camObjVec.GetNormalized() * 3.f;
-	destanation = camera->GetPosition() + offset;
+	Vector3D offset = camObjVec - camObjVec.GetNormalized() * focus_distance;
+	destanation.SetPosition(camera->GetPosition() + offset);
 
-	Transform trans;
-	trans.SetPosition(destanation);
-	trans.LookAt(target);
-	orientation = trans.GetRotate();
+	destanation.LookAt(target);
 }
 
 bool FreeCameraScene::IsLookAtCamera() const {
