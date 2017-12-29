@@ -60,7 +60,7 @@ void CameraController::Content(float sec) {
 			if(!lookAt) {
 				scene->MoveUp(sliderValue * sec);
 			} else {
-				scene->MoveForward(sliderValue * sec);
+				scene->MoveForward(sliderValue * sec, false);
 			}
 		}
 

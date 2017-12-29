@@ -35,7 +35,7 @@ public:
 	void LookAtCamera(const Vector3D& target);
 	bool IsLookAtCamera() const;
 
-	void MoveForward(float distance);
+	void MoveForward(float distance, bool transferTarget = true);
 	void MoveRight(float distance);
 	void MoveUp(float distance);
 	void MoveCameraUp(float distance);

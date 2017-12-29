@@ -51,10 +51,12 @@ void FreeCameraScene::Update(float sec) {
 	}
 }
  
-void FreeCameraScene::MoveForward(float distance){
+void FreeCameraScene::MoveForward(float distance, bool transferTraget){
 	Vector3D path = destanation.GetDirection() * distance;
 	destanation.SetPosition(destanation.GetPosition() + path);
-	target += path;
+	if(transferTraget) {
+		target += path;
+	}
 }
 
 void FreeCameraScene::MoveRight(float distance) {
@@ -78,14 +80,16 @@ void FreeCameraScene::MoveCameraUp(float distance) {
 void FreeCameraScene::LookRight(float degree) {
 	destanation.SetRotate(Quaternion(Vector3D::Up, degree) * destanation.GetRotate());
 	if(look_at) {
-		destanation.SetPosition(target + destanation.GetForward() * focus_distance * (-1.f));
+		float distance = Vector3D(target - destanation.GetPosition()).Length();
+		destanation.SetPosition(target + destanation.GetForward() * distance * (-1.f));
 	}
 }
 
 void FreeCameraScene::LookUp(float degree) {
 	destanation.SetRotate(Quaternion(destanation.GetRight(), -degree) * destanation.GetRotate());
 	if(look_at) {
-		destanation.SetPosition(target + destanation.GetForward() * focus_distance * (-1.f));
+		float distance = Vector3D(target - destanation.GetPosition()).Length();
+		destanation.SetPosition(target + destanation.GetForward() * distance * (-1.f));
 	}
 }
 
@@ -113,5 +117,5 @@ bool FreeCameraScene::IsLookAtCamera() const {
 }
 
 void FreeCameraScene::MouseWheelRoll(float delta) {
-	MoveForward(0.1f * delta / 120.f);
+	MoveForward(0.1f * delta / 120.f, false);
 }
