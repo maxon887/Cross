@@ -18,7 +18,7 @@
 #include "Graphics3D/DemoScene.h"
 #include "Utils/Skybox.h"
 
-class SkyboxScene : public DemoScene{
+class SkyboxScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
@@ -26,9 +26,5 @@ public:
 
 private:
 	Skybox* skybox;
-	
-	Shader* shader;
-	Texture* texture;
 	Material* material;
-	Entity* cube;
 };

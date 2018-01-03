@@ -45,49 +45,12 @@ void Entity::Initialize() {
 	}
 }
 
-void Entity::Remove(){
-	for(pair<U64, Component*> p : components) {
-		Component* c = p.second;
-		if(c) {
-			c->Remove();
-		}
-	}
-	for(Entity* c : children) {
-		c->Remove();
-	}
-}
-
-void Entity::Update(float sec) {
-	for(pair<U64, Component*> p : components) {
-		Component* c = p.second;
-		if(c->IsEnabled()){
-			c->Update(sec);
-		}
-	}
-	for(Entity* c : children) {
-		c->Update(sec);
-	}
-}
-
-void Entity::SetName(const string& name) {
-	this->name = name;
-}
-
 const string& Entity::GetName() const {
 	return name;
 }
 
-void Entity::AddComponent(Component* component) {
-	U64 hash = typeid(*component).hash_code();
-	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
-	component->entity = this;
-	components[hash] = component;
-	component->Initialize();
-}
-
-void Entity::RemoveComponent(Component* component){
-	component->Remove();
-	components.erase(typeid(*component).hash_code());
+void Entity::SetName(const string& name) {
+	this->name = name;
 }
 
 Component* Entity::GetComponent(U64 type) {
@@ -107,6 +70,19 @@ Transform* Entity::GetTransform() {
 	return GetComponent<Transform>();
 }
 
+void Entity::AddComponent(Component* component) {
+	U64 hash = typeid(*component).hash_code();
+	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
+	component->entity = this;
+	components[hash] = component;
+	component->Initialize();
+}
+
+void Entity::RemoveComponent(Component* component){
+	component->Remove();
+	components.erase(typeid(*component).hash_code());
+}
+
 Entity* Entity::GetParent() {
 	return parent;
 }
@@ -115,13 +91,13 @@ void Entity::SetParent(Entity* p) {
 	parent = p;
 }
 
+List<Entity*>& Entity::GetChildren() {
+	return children;
+}
+
 void Entity::AddChild(Entity* child) {
 	child->SetParent(this);
 	children.push_back(child);
-}
-
-List<Entity*>& Entity::GetChildren() {
-	return children;
 }
 
 void Entity::RemoveChildren() {
@@ -204,5 +180,29 @@ Vector3D Entity::GetDirection(){
 		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
 	} else {
 		return GetTransform()->GetDirection();
+	}
+}
+
+void Entity::Remove() {
+	for(pair<U64, Component*> p : components) {
+		Component* c = p.second;
+		if(c) {
+			c->Remove();
+		}
+	}
+	for(Entity* c : children) {
+		c->Remove();
+	}
+}
+
+void Entity::Update(float sec) {
+	for(pair<U64, Component*> p : components) {
+		Component* c = p.second;
+		if(c->IsEnabled()) {
+			c->Update(sec);
+		}
+	}
+	for(Entity* c : children) {
+		c->Update(sec);
 	}
 }

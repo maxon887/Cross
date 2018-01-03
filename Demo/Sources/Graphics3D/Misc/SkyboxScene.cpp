@@ -30,12 +30,12 @@ void SkyboxScene::Start() {
 									"Textures/Skybox/back.png",
 									"Textures/Skybox/front.png" );
 	skybox = new Skybox(cubemap);
-	shader = GetShader("Engine/Shaders/Texture.sha");
+
+	Shader* shader = GetShader("Engine/Shaders/Texture.sha");
 	material = new Material(shader);
-	texture = GetTexture("Textures/ContainerDiffuse.png");
+	Texture* texture = GetTexture("Textures/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
-	cube = LoadPrimitive(Model::Primitive::CUBE);
-	cube->SetName("Skybox");
+	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 }

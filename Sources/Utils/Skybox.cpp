@@ -48,14 +48,14 @@ Skybox::Skybox(Cubemap* cubemap) :
 	mesh->SetFaceCullingEnabled(false);
 }
 
-Skybox::~Skybox(){
+Skybox::~Skybox() {
 	delete cubemap;
 	delete shader;
 	delete material;
 	delete box;
 }
 
-void Skybox::Draw(){
+void Skybox::Draw() {
 	Camera* cam = game->GetCurrentScene()->GetCamera();
 	Matrix view = cam->GetViewMatrix();
 	view.m[0][3] = 0.f;
