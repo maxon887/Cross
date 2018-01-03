@@ -452,7 +452,7 @@ void Shader::AddProperty(const string& name, const string& glName, const Vector3
 }
 
 void Shader::AddProperty(Shader::Property* prop){
-	CROSS_FAIL(!compiled, "Shader already compiled");
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(prop->name), "Shader already contain that property");
 	properties.push_back(prop);
 }

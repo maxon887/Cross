@@ -32,8 +32,9 @@ Skybox::Skybox(Cubemap* cubemap) :
 	box = game->GetCurrentScene()->LoadPrimitive(Model::Primitive::CUBE);
 	box->GetTransform()->SetScale(game->GetCurrentScene()->GetCamera()->GetViewDistance());
 
-	shader = new Shader("Engine/Shaders/Light.vtx", "Engine/Shaders/Light.fgm");
-	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "cubemap");
+	//shader = new LightsShader("Engine/Shaders/Sources/Light.vtx", "Engine/Shaders/Sources/Light.fgm");
+	shader = new Shader("Engine/Shaders/Sources/Skybox.vtx", "Engine/Shaders/Sources/Skybox.fgm");
+	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "uCubemap");
 	cubemapProp->SetValue(cubemap);
 	shader->AddProperty(cubemapProp);
 	Shader::Property* customMVPProp = new Shader::Property("Custom MVP", "uCustomMVP");
@@ -42,7 +43,9 @@ Skybox::Skybox(Cubemap* cubemap) :
 	mvpID = customMVPProp->GetID();
 
 	material = new Material(shader);
-	box->GetComponent<Mesh>()->SetMaterial(material);
+	Mesh* mesh = box->GetComponent<Mesh>();
+	mesh->SetMaterial(material);
+	mesh->SetFaceCullingEnabled(false);
 }
 
 Skybox::~Skybox(){
@@ -61,6 +64,6 @@ void Skybox::Draw(){
 	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetTransform()->GetModelMatrix();
 	mvp = mvp.GetTransposed();
 	material->SetPropertyValue(mvpID, mvp);
-	Mesh* mesh = box->GetChildren().front()->GetComponent<Mesh>();
+	Mesh* mesh = box->GetComponent<Mesh>();
 	mesh->Draw(mvp, material, Mesh::StencilBehaviour::IGNORED);
 }

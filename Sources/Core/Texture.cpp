@@ -54,6 +54,7 @@ struct KTX {
 
 Byte* Texture::LoadRawData(const string& filename, int& width, int& height, int& channels) {
 	File* textureFile = system->LoadAssetFile(filename);
+	CROSS_RETURN(textureFile, NULL, "Can not load raw texture. File not found");
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	CROSS_RETURN(image, NULL, "SOL can't convert file:\n Pay attention on image color channels");
@@ -222,6 +223,7 @@ Texture* Texture::Clone() const{
 void Texture::LoadRAW(const string& filename, Texture::Filter filter) {
 	int width, height, channels;
 	Byte* image = LoadRawData(filename, width, height, channels);
+	CROSS_FAIL(image, "Texture can not be loaded. File not found");
 
 	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
 	Create(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
