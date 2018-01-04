@@ -19,19 +19,19 @@
 
 namespace cross {
 
-/* Class reflect particular game scene. Like menu, level 1 etc.
-   Every game must implement at least one Screen class.
-   Whitch will be loaded through Game::GetStartScreen() function */
+/*	Abstract concept of a game Screen. Can be used for creating fundamental bases for 2D drawings, 3D scenes, splash screens etc.
+	This is the basic structure managed by the Game class. It's react on all crucial game events, updated and utilized by Game.
+	Screens can be set and obtained by Game::SetScreen and Game::GetCurrentScreen */
 class Screen {
 public:
 	virtual ~Screen() { }
-	/* Called before screen show up. */
+	/* Called before screen show up */
 	virtual void Start() { }
-	/* Called when screen about to change on new one */
+	/* Called when screen about to change */
 	virtual void Stop() { }
     /* Called before regular Screen::Update() */
     virtual void PreUpdate(float sec) { }
-	/* Called every frame update. Ideally 60 times per second(60fps) */
+	/* Called every frame update. Usually 60 times per second(60fps) */
 	virtual void Update(float sec) { }
 	/* Called after regular Screen::Update() */
 	virtual void PostUpdate(float sec) { }
@@ -40,7 +40,9 @@ public:
 	/* Called when game about show again after suspending */
 	virtual void Resume() { }
 
+	/* Returns name of the Screen. Screens can be named to provide some uniquely behavior among same classes */
 	const string& GetName() const;
+	/* Sets name of this Screen. Can be set in a constructor or by loading from file for example */
 	void SetName(const string& name);
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);

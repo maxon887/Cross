@@ -28,5 +28,5 @@ void Screen::SetName(const string& name) {
 }
 
 void Screen::SetBackground(const Color& c) {
-	glClearColor(c.R, c.G, c.B, 1.f);
+	SAFE(glClearColor(c.R, c.G, c.B, 1.f));
 }

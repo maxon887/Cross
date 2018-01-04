@@ -44,8 +44,8 @@
 
 void MainScreen::Start() {
 	Screen::Start();
-	SetName("Main");
-	SetBackground(Color(0.3f));
+	Screen::SetName("Main");
+	Screen::SetBackground(Color(0.3f));
 }
 
 void MainScreen::Stop(){
