@@ -238,7 +238,7 @@ void MaterialView::OnApplyClick() {
 		}
 	}
 
-	game->GetCurrentScene()->SaveMaterialToXML(material, system->AssetsPath() + material->GetFilename());
+	material->Save(system->AssetsPath() + material->GetFilename());
 	OnFileSelected(material->GetFilename());
 }
 

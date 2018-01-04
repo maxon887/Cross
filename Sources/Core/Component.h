@@ -24,24 +24,39 @@ namespace tinyxml2 {
 
 namespace cross{
 
+/*	Components used for create Entity special behavior. For example components can be renderable, physic behavior, sound etc.
+	User components must be register by ComponentFactory. Components have save life time as an Entity */
 class Component {
 public:
 	virtual ~Component() { }
 
+	/* Will be called on component after component was added to an Entity */
 	virtual void Initialize() { }
+	/* Will be called after component was removed from Entity or on the death of Entity*/
 	virtual void Remove() { }
+	/* Will be called every game cycle. WARTING! Components update order unpredictable */
 	virtual void Update(float sec) { }
 
+	/* Clone whole component. Must be implemented in order to support Entity copy and spawn operations */
 	virtual Component* Clone() const;
+	/* Load Component from XML document. Must be implemented to support Component loading from Scene file */
 	virtual bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene);
+	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
-	Entity* GetEntity();
-	Transform* GetTransform();
-	Vector3D GetPosition() const;
-	void SetPosition(const Vector3D& pos);
+	/* Returns true if Component behavior is enabled */
 	bool IsEnabled() const;
+	/* Enables or disables Component behavior */
 	void Enable(bool enable);
+
+	/* Returns Entity that owns this Component */
+	Entity* GetEntity();
+	/* Returns Entity's Transform Component if has some */
+	Transform* GetTransform();
+	/* Returns Entity's Transform's position vector */
+	Vector3D GetPosition() const;
+	/* Set position into into Entity's Transform Component */
+	void SetPosition(const Vector3D& pos);
 
 private:
 	friend Entity;

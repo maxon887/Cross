@@ -136,7 +136,7 @@ void FileExplorer::OnNewMaterialClick() {
 	QString filename = GetAllowedName(selectedDir, "New Material", ".mat");
 
 	Material* newMaterial = new Material();
-	game->GetCurrentScene()->SaveMaterialToXML(newMaterial, filename.toStdString());
+	newMaterial->Save(filename.toStdString());
 	delete newMaterial;
 	QModelIndex index = file_system->index(filename);
 	edit(index);

@@ -58,9 +58,9 @@ public:
 	void AddChild(Entity* child);
 	/* Removes all children held by this Entity */
 	void RemoveChildren();
-	/* Returns Entity's child by it's index position in Entity's child container */
+	/* Returns Entity's child by its index position in Entity's child container */
 	Entity* FindChild(U32 index);
-	/* Returns Entity's child by it's name */
+	/* Returns Entity's child by its name */
 	Entity* FindChild(const string& name);
 	/* Removes child from Entity by name. Returns live child in case of success or null if child not found. Returned child must be utilized by hand. */
 	Entity* RemoveChild(const string& nane);

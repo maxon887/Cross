@@ -29,56 +29,61 @@ class XMLDocument;
 
 namespace cross{
 
-/*	This class designed for managing 3D space. 
-	Models, Meshes, Lights can exists only in Scene */
+/*	Scene is place where all Entities live. Scene manages Entity live time, update cycles, utilization.
+	Second main task of this class is resource management.Textures, Models, Shaders, Materials also stored there. 
+	You can obtain requared resource by calling Get[ResourceName]() function.
+	You don't need to call Entity's or resource destructors manually */
 class Scene : public Screen {
 public:
+	/* Occurs when new Entity added into the Scene */
 	Event<Entity*> EntityAdded;
 
 	Scene();
 	Scene(const string& filename);
-	/* Called before scene show up. */
+
+	/* Called once before scene show up. */
 	virtual void Start() override;
-	/* Called when scene about to change on new one */
+	/* Called once when scene about to change on new one */
 	virtual void Stop() override;
 	/* Called every frame update. */
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
 	bool Load(const string& file);
-	/* Loads scene in to file */
+	/* Save scene into file */
 	void Save(const string& file);
-	/* Removes all loaded stuff from scene include textures, material, shader and entities */
+	/* Removes all loaded stuff from scene (Textures, Materials, Shader, Models and Entities) */
 	void Clear();
-	/* Returns root scene entity */
+	/* Returns root Scene Entity */
 	Entity* GetRoot();
-	/* Returns scene 3D camera */
+	/* Returns scene main 3D camera */
 	Camera* GetCamera();
+	/* Sets main 3D camera for this Scene */
 	void SetCamera(Camera* cam);
-	/* Finds specific entity on the scene by name */
+	/* Finds specific entity on this Scene by name */
 	Entity* GetEntity(const string& name);
-	/* Adds entity object to the scene */
+	/* Adds an entity into the Scene */
 	void AddEntity(Entity* entity);
+	/* Loads primitive model as Entity with Mesh Component included */
 	Entity* LoadPrimitive(Model::Primitive primitive);
-	/* Removes entity from scene by name */
+	/* Removes entity from this Scene by name. Returns founded Entity or null otherwise. Entity won't we destructed */
 	Entity* RemoveEntity(const string& name);
-	/* Returns all available light on scene. */
+	/* Returns all available Lights on the Scene. */
 	List<Light*>& GetLights();
-	/* Sets up ambient scene light intensity */
+	/* Sets up ambient Scene Light Color */
 	void SetAmbientColor(const Color& color);
-	/* Returns ambient scene light intensity */
+	/* Returns ambient Scene Light Color */
 	Color GetAmbientColor() const;
-	/* Obtain loaded into scene shader or load it by self in other way */
+	/* Obtain loaded into scene Shader or load it by self in other way */
 	Shader* GetShader(const string& shaderfile);
-	/* Obtain loaded into scene material or load it by self in other way */
+	/* Obtain loaded into scene Material or load it by self in other way */
 	Material* GetMaterial(const string& xmlFile);
-	/* Obtain loaded into scene texture or load it by self in other way */
+	/* Obtain loaded into scene Texture or load it by self in other way */
 	Texture* GetTexture(const string& textureFile);
+	/* Obtain loaded into scene Model or load it by self in other way */
 	Model* GetModel(const string& modelFile);
-
-	void SaveMaterialToXML(Material* mat, const string& xmlFile);
-
-	void RefreshMaterials();
+	/* Resets all materials to default state */
+	void ResetMaterials();
 
 protected:
 	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();
@@ -92,17 +97,14 @@ protected:
 	Camera* camera							= NULL;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
-	S32 FindTextureID(Texture* texture);
-
 private:
 	static const U32 scene_loader_version	= 16;
 	static const U32 scene_saver_version	= 15;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
-	Material* LoadMaterialFromXML(const string& xmlFile);
-
-	void WindowResizeHandle(S32 width, S32 height);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
+
+	void OnWindowResize(S32 width, S32 height);
 
 	void CreateDefaultCamera();
 };

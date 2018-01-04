@@ -28,9 +28,6 @@
 #include "ComponentFactory.h"
 #include "Texture.h"
 
-#include <iomanip>
-#include <algorithm>
-
 #include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
@@ -53,7 +50,7 @@ Scene::Scene(const string& filename) :
 void Scene::Start() {
 	Screen::Start();
 
-	system->WindowResized.Connect(this, &Scene::WindowResizeHandle);
+	system->WindowResized.Connect(this, &Scene::OnWindowResize);
 
 	if(filename != "") {
 		CROSS_ASSERT(Load(filename), "Screen '%s' was not loaded correctly", GetName().c_str());
@@ -66,7 +63,7 @@ void Scene::Update(float sec) {
 }
 
 void Scene::Stop() {
-	system->WindowResized.Disconnect(this, &Scene::WindowResizeHandle);
+	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
 	for(pair<S32, Texture*> pair : textures){
 		delete pair.second;
@@ -277,7 +274,8 @@ Material* Scene::GetMaterial(const string& xmlFile) {
 	if(matIt != materials.end()) {
 		return (*matIt).second;
 	} else {
-		Material* mat = LoadMaterialFromXML(xmlFile);
+		Material* mat = new Material();
+		mat->Load(xmlFile);
 		if(mat) {
 			materials[hash] = mat;
 		}
@@ -311,23 +309,14 @@ Model* Scene::GetModel(const string& modelFile) {
 	}
 }
 
-void Scene::RefreshMaterials(){
+void Scene::ResetMaterials(){
 	for(pair<S32, Material*> pair : materials){
-		pair.second->Refresh();
+		pair.second->Reset();
 	}
 }
 
 void Scene::SetAmbientColor(const Color& color){
 	this->ambient_color = color;
-}
-
-S32 Scene::FindTextureID(Texture* texture){
-	for(pair<S32, Texture*> pair : textures) {
-		if(pair.second->name == texture->name) {
-			return pair.first;
-		}
-	}
-	CROSS_RETURN(false, -1, "Can not find texture id");
 }
 
 bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
@@ -361,116 +350,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	return true;
 }
 
-Material* Scene::LoadMaterialFromXML(const string& file) {
-	File* xmlFile = system->LoadAssetFile(file);
-	CROSS_RETURN(xmlFile, NULL, "Can not load material xml file");
-	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
-	delete xmlFile;
-	CROSS_RETURN(error == XML_SUCCESS, NULL, "Can not parse shader xml file");
-
-	Material* material = new Material();
-	material->SetName(file);
-
-	XMLElement* materialXML = doc.FirstChildElement("Material");
-	const char* shaderfilename = materialXML->Attribute("shader");
-	CROSS_ASSERT(shaderfilename, "Material file not contain 'shader' filename");
-	if(shaderfilename) {
-		Shader* shader = GetShader(shaderfilename);
-		material->SetShader(shader);
-	}
-
-	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
-	while(propertyXML) {
-		const char* name = propertyXML->Attribute("name");
-		CROSS_RETURN(name, NULL, "Property without name");
-		if(material->HaveProperty(name)){
-			Shader::Property* prop = material->GetProperty(name);
-			switch(prop->GetType())	{
-			case Shader::Property::INT:{
-				int value = propertyXML->IntAttribute("value");
-				prop->SetValue(value);
-				} break;
-			case Shader::Property::FLOAT:{
-				double value = propertyXML->DoubleAttribute("value");
-				prop->SetValue((float)value);
-				} break;
-			case Shader::Property::COLOR:{
-				const char* value = propertyXML->Attribute("value");
-				Color color(value);
-				prop->SetValue(color);
-				} break;
-			case Shader::Property::SAMPLER:{
-				const char* textureFilename = propertyXML->Attribute("value");
-				Texture* texture = GetTexture(textureFilename);
-				prop->SetValue(texture);
-				} break;
-			default:
-				CROSS_ASSERT(false, "Unsupported property type");
-			}
-		}
-		propertyXML = propertyXML->NextSiblingElement("Property");
-	}
-
-	return material;
-}
-
-void Scene::SaveMaterialToXML(Material* mat, const string& xmlFile){
-	XMLDocument doc;
-	XMLElement* materialXML = doc.NewElement("Material");
-	if(mat->GetShader()){
-		materialXML->SetAttribute("shader", mat->GetShader()->GetFilename().c_str());
-	}else{
-		materialXML->SetAttribute("shader", "");
-	}
-	doc.LinkEndChild(materialXML);
-
-	for(Shader::Property* prop : mat->properties) {
-		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop->GetName().c_str());
-		switch(prop->GetType())	{
-		case Shader::Property::Type::COLOR: {
-			Color c(0.f);
-			c.SetData((const char*)prop->GetValue());
-
-			int rInt = (int)(c.R * 255);
-			int gInt = (int)(c.G * 255);
-			int bInt = (int)(c.B * 255);
-			int aInt = (int)(c.A * 255);
-
-			std::stringstream ss;
-			ss << std::hex;
-			ss << std::setw(2) << std::setfill('0') << rInt;
-			ss << std::setw(2) << std::setfill('0') << gInt;
-			ss << std::setw(2) << std::setfill('0') << bInt;
-			ss << std::setw(2) << std::setfill('0') << aInt;
-			string text = ss.str();
-			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-			propertyXML->SetAttribute("value", text.c_str());
-			break;
-		}
-		default:
-			CROSS_ASSERT(false, "Unknown material property to save");
-		}
-		materialXML->LinkEndChild(propertyXML);
-	}
-
-	XMLPrinter printer;
-	doc.Accept(&printer);
-	File saveFile;
-	saveFile.name = xmlFile;
-	saveFile.size = printer.CStrSize();
-	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
-	saveFile.data = NULL;
-}
-
-void Scene::WindowResizeHandle(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, camera->GetViewDistance());
-	camera->SetProjectionMatrix(projection);
-}
-
-bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
+bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 	XMLElement* objectXML = doc->NewElement("Object");
 	objectXML->SetAttribute("name", entity->GetName().c_str());
 
@@ -483,15 +363,20 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc){
 		objectXML->LinkEndChild(componentsXML);
 	}
 
-	if(entity->children.size() > 0){
+	if(entity->children.size() > 0) {
 		XMLElement* childrenXML = doc->NewElement("Children");
-		for(Entity* child : entity->children){
+		for(Entity* child : entity->children) {
 			SaveEntity(child, childrenXML, doc);
 		}
 		objectXML->LinkEndChild(childrenXML);
 	}
 	parent->LinkEndChild(objectXML);
 	return true;
+}
+
+void Scene::OnWindowResize(S32 width, S32 height){
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, camera->GetViewDistance());
+	camera->SetProjectionMatrix(projection);
 }
 
 void Scene::CreateDefaultCamera() {

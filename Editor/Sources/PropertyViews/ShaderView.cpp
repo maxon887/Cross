@@ -263,7 +263,7 @@ void ShaderView::OnApplyClick(){
 
 	shader->Save(system->AssetsPath() + shader->GetFilename());
 	OnRevertClick();
-	game->GetCurrentScene()->RefreshMaterials();
+	game->GetCurrentScene()->ResetMaterials();
 }
 
 void ShaderView::OnRevertClick(){

@@ -32,6 +32,14 @@ bool Component::Save(tinyxml2::XMLElement*, tinyxml2::XMLDocument*) {
 	CROSS_RETURN(false, false, "Can't save component. Inherited class doesn't implement Save() function");
 }
 
+bool Component::IsEnabled() const {
+	return enabled;
+}
+
+void Component::Enable(bool e) {
+	this->enabled = e;
+}
+
 Entity* Component::GetEntity() {
 	return entity;
 }
@@ -46,12 +54,4 @@ Vector3D Component::GetPosition() const {
 
 void Component::SetPosition(const Vector3D& pos) {
 	entity->GetTransform()->SetPosition(pos);
-}
-
-bool Component::IsEnabled() const {
-	return enabled;
-}
-
-void Component::Enable(bool e) {
-	this->enabled = e;
 }
