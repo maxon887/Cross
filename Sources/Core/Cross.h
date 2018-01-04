@@ -116,7 +116,7 @@ extern GraphicsGL*	gfxGL;
 extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
-static const char*	version = "4.0.0";
+static const char*	version = "4.0.1";
 
 }
 
