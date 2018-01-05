@@ -94,12 +94,13 @@ public:
 	/* Engine specific */
 	void SetWindowSize(S32 width, S32 height);
 
+protected:
+	virtual void Messagebox(const string& title, const string& msg);
+
 private:
 	S32 window_width	= -1;
 	S32 window_height	= -1;
 	Set<int> asserts_hashes;
-
-	virtual void Messagebox(const string& title, const string& msg);
 };
 	
 }

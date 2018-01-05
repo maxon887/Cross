@@ -63,13 +63,13 @@ void GLHandler::ShutDown(){
 void GLHandler::mousePressEvent(QMouseEvent* eve){
 	setFocus();
 	U32 id = MouseButtonID(eve);
-	input->TargetActionDown((float)eve->x(), (float)eve->y(), id);
+	input->TargetActionDown.Emit((float)eve->x(), (float)eve->y(), id);
 }
 
 void GLHandler::mouseMoveEvent(QMouseEvent* eve){
 	S32 id = MouseButtonID(eve);
 	if(id >= 0){
-		input->TargetActionMove((float)eve->x(), (float)eve->y(), id);
+		input->TargetActionMove.Emit((float)eve->x(), (float)eve->y(), id);
 	}
 }
 
@@ -86,14 +86,14 @@ void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
 		id = 2;
 		break;
 	}
-	input->TargetActionUp((float)eve->x(), (float)eve->y(), id);
+	input->TargetActionUp.Emit((float)eve->x(), (float)eve->y(), id);
 }
 
 void GLHandler::wheelEvent(QWheelEvent* wheel){
 	if(wheel->delta() > 0) {
-		input->MouseWheelRoll(+15.f);
+		input->MouseWheelRoll.Emit(+15.f);
 	} else {
-		input->MouseWheelRoll(-15.f);
+		input->MouseWheelRoll.Emit(-15.f);
 	}
 }
 

@@ -84,7 +84,7 @@ void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	QDir root = file_system->rootDirectory();
 	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
-	FileSelected(filepath.toStdString());
+	FileSelected.Emit(filepath.toStdString());
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index){

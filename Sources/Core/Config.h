@@ -56,6 +56,12 @@ public:
 	/* Returns true if offsecreen render enabled */
 	bool IsOffscreenRender() const;
 
+	/* Engine specific*/
+	void SaveGameConfig();
+	void SaveUserConfig();
+	void LoadGameConfig();
+	void LoadUserConfig();
+
 protected:
 	System::Orientation orientation		= System::AUTO;
 	bool use_compressed_textures		= false;
@@ -65,11 +71,6 @@ protected:
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();
 
 	const string& GetString(const string& key) const;
-
-	void SaveGameConfig();
-	void SaveUserConfig();
-	void LoadGameConfig();
-	void LoadUserConfig();
 
 private:
 	const string empty = "";

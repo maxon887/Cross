@@ -84,7 +84,7 @@ void TransformComponent::PositionChanged(){
 	pos.y = posY->text().toFloat();
 	pos.z = posZ->text().toFloat();
 	component->SetPosition(pos);
-	editor->SomethingChanged(action);//trigger
+	editor->SomethingChanged.Emit(action);
 }
 
 void TransformComponent::RotationChanged(){
@@ -97,7 +97,7 @@ void TransformComponent::RotationChanged(){
 	Quaternion rotation(axis, a);
 	component->SetRotate(rotation);
 	UpdateRotatioon();
-	editor->SomethingChanged(action);//trigger
+	editor->SomethingChanged.Emit(action);
 }
 
 void TransformComponent::ScaleChanged(){
@@ -107,7 +107,7 @@ void TransformComponent::ScaleChanged(){
 	scale.y = scaleY->text().toFloat();
 	scale.z = scaleZ->text().toFloat();
 	component->SetScale(scale);
-	editor->SomethingChanged(action);//trigger
+	editor->SomethingChanged.Emit(action);
 }
 
 void TransformComponent::UpdateRotatioon(){

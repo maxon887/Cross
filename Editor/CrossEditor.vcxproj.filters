@@ -309,6 +309,9 @@
     <ClCompile Include="..\Sources\Internals\GraphicsGL.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Core\ComponentFactory.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">

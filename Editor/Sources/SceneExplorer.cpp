@@ -94,7 +94,7 @@ bool SceneModel::setData(const QModelIndex &index, const QVariant &value, int ro
 	Entity* entity = (Entity*)index.internalPointer();
 	EntityChanged* action = new EntityChanged(entity);
 	entity->SetName(value.toString().toStdString());
-	editor->SomethingChanged(action);
+	editor->SomethingChanged.Emit(action);
 	emit dataChanged(index, index);
 	return true;
 }
@@ -130,7 +130,7 @@ void SceneModel::RemoveEntity(QModelIndex index){
 	Entity* parent = entity->GetParent();
 	EntityDeleted* action = new EntityDeleted(entity);
 	parent->RemoveChild(entity);
-	editor->SomethingChanged(action);	//trigger
+	editor->SomethingChanged.Emit(action);
 
 	endRemoveRows();
 }
@@ -184,17 +184,17 @@ void SceneExplorer::contextMenuEvent(QContextMenuEvent *event) {
 
 void SceneExplorer::OnItemClick(QModelIndex index){
 	Entity* selected = (Entity*)index.internalPointer();
-	EntitySelected(selected);
+	EntitySelected.Emit(selected);
 }
 
 void SceneExplorer::OnItemDoubleClick(QModelIndex index){
 	Entity* selected = (Entity*)index.internalPointer();
-	EntityGrabFocus(selected);
+	EntityGrabFocus.Emit(selected);
 }
 
 void SceneExplorer::OnItemChanged(QModelIndex top, QModelIndex bot){
 	Entity* entity = (Entity*)top.internalPointer();
-	EntityChanged(entity);
+	EntityChanged.Emit(entity);
 }
 
 void SceneExplorer::mousePressEvent(QMouseEvent* e){
@@ -204,16 +204,16 @@ void SceneExplorer::mousePressEvent(QMouseEvent* e){
 		clearSelection();
 		const QModelIndex index;
 		selectionModel()->setCurrentIndex(index, QItemSelectionModel::Select);
-		EntitySelected(NULL);	//trigger
+		EntitySelected.Emit(NULL);
 	}
 }
 
 void SceneExplorer::OnCreateEntity(){
 	QModelIndexList selected = selectedIndexes();
-	EntitySelected(NULL);		//trigger
+	EntitySelected.Emit(NULL);		//trigger
 	Entity* newEntity = new Entity("New Entity");
 	EntityCreated* action = new EntityCreated(newEntity);
-	editor->SomethingChanged(action);	//trigger
+	editor->SomethingChanged.Emit(action);	//trigger
 	if(selected.size() > 0){
 		QModelIndex newIndex = scene_model->AddEntity(newEntity, selected[0]);
 		edit(newIndex);

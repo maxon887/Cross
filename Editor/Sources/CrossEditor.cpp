@@ -18,7 +18,7 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	editor = this;
 	game = editor;
 	ui.setupUi(this);
-	UIInitialized();//trigger
+	UIInitialized.Emit();
 	connect(ui.actionNewScene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
 	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
 	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
@@ -139,13 +139,13 @@ void CrossEditor::OnScreenChanged(Screen* screen){
 void CrossEditor::keyPressEvent(QKeyEvent* key) {
 	Key k = (Key)key->nativeVirtualKey();
 	if(k < Key::MAX_KEY_NUM) {
-		input->KeyPressed(k);
+		input->KeyPressed.Emit(k);
 	}
 }
 
 void CrossEditor::keyReleaseEvent(QKeyEvent* key) {
 	Key k = (Key)key->nativeVirtualKey();
 	if(k < Key::MAX_KEY_NUM) {
-		input->KeyReleased(k);
+		input->KeyReleased.Emit(k);
 	}
 }
