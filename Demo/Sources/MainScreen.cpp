@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
 #include "Demo.h"
 #include "System.h"
@@ -76,61 +76,61 @@ void MainScreen::Update(float sec) {
 				game->SetScreen(new TriangleScene());
 			}
 			if(ImGui::MenuButton("Solid Model")) {
-                game->SetScreen(new SolidModelScene());
+				game->SetScreen(new SolidModelScene());
 			}
 			if(ImGui::MenuButton("Textured Model")) {
-                game->SetScreen(new TexturedModelScene());
+				game->SetScreen(new TexturedModelScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Light")) {
 			if(ImGui::MenuButton("Material")) {
-                game->SetScreen(new MaterialScene());
+				game->SetScreen(new MaterialScene());
 			}
 			if(ImGui::MenuButton("Directional Light")) {
-                game->SetScreen(new DirectionalLightScene());
+				game->SetScreen(new DirectionalLightScene());
 			}
 			if(ImGui::MenuButton("Point Light")) {
-                game->SetScreen(new PointLightScene());
+				game->SetScreen(new PointLightScene());
 			}
 			if(ImGui::MenuButton("Spot Light")) {
-                game->SetScreen(new SpotLightScene());
+				game->SetScreen(new SpotLightScene());
 			}
-            if(ImGui::MenuButton("Multi-Light")) {
-                game->SetScreen(new MultiLightScene());
-            }
+			if(ImGui::MenuButton("Multi-Light")) {
+				game->SetScreen(new MultiLightScene());
+			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Maps")) {
 			if(ImGui::MenuButton("Naked")) {
-                game->SetScreen(new NakedScene());
+				game->SetScreen(new NakedScene());
 			}
 			if(ImGui::MenuButton("Diffuse")) {
-                game->SetScreen(new DiffuseScene());
+				game->SetScreen(new DiffuseScene());
 			}
 			if(ImGui::MenuButton("Specular")) {
-                game->SetScreen(new SpecularScene());
+				game->SetScreen(new SpecularScene());
 			}
 			if(ImGui::MenuButton("Roughness")) {
-                game->SetScreen(new RoughnessScene());
+				game->SetScreen(new RoughnessScene());
 			}
 			if(ImGui::MenuButton("Normal")) {
-                game->SetScreen(new NormalScene());
+				game->SetScreen(new NormalScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Misc")) {
 			if(ImGui::MenuButton("Depth Test")) {
-                game->SetScreen(new DepthScene());
+				game->SetScreen(new DepthScene());
 			}
 			if(ImGui::MenuButton("Transparency")) {
-                game->SetScreen(new TransparencyScene());
+				game->SetScreen(new TransparencyScene());
 			}
 			if(ImGui::MenuButton("Skybox")) {
-                game->SetScreen(new SkyboxScene());
+				game->SetScreen(new SkyboxScene());
 			}
 			if(ImGui::MenuButton("Apocalypse Scene")) {
-                game->SetScreen(new ApocalypseScene());
+				game->SetScreen(new ApocalypseScene());
 			}
 			ImGui::TreePop();
 		}

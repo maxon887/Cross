@@ -577,6 +577,9 @@
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />

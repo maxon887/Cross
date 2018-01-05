@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MenuBar.h"
 #include "System.h"
 #include "Demo.h"
@@ -112,9 +112,9 @@ void MenuBar::ShowMenu() {
 		ImVec2 helpSize = ImGui::CalcTextSize("Help");
 		ImGui::SameLine(ImGui::GetWindowWidth() - helpSize.x * 2.f);
 		if(ImGui::BeginMenu("Help")) {
-            if(ImGui::MenuItem("Stats")) {
+			if(ImGui::MenuItem("Stats")) {
 				stats->Show();
-            }
+			}
 			if(ImGui::MenuItem("Style Editor")) {
 				show_style_editor = true;
 			}
@@ -123,7 +123,7 @@ void MenuBar::ShowMenu() {
 			}
 			ImGui::EndMenu();
 		}
-        ImGuiStyle& style = ImGui::GetStyle();
+		ImGuiStyle& style = ImGui::GetStyle();
 		ImVec2 size = ImGui::GetItemRectSize();
 		menu_height = size.y +style.FramePadding.y * 2.f - style.ItemSpacing.y * 2.f;// +style.ItemSpacing.y;
 		ImGui::EndMainMenuBar();

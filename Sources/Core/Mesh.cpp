@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
-This file is part of Cross++ Game Engine.
+	This file is part of Cross++ Game Engine.
 
-Cross++ Game Engine is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-Cross++ is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
 #include "System.h"
 #include "VertexBuffer.h"
@@ -189,7 +189,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	shader->OnDraw();
 
 	//binding attributes
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
 	VertexBuffer* vertexBuf = vertex_buffer;
 	U32 vertexSize = vertexBuf->VertexSize();
 	if(shader->aPosition != -1) {
@@ -247,7 +247,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glEnable(GL_BLEND));
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
 	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
@@ -260,11 +260,11 @@ void Mesh::TransferVideoData() {
 	SAFE(glGenBuffers(1, (GLuint*)&VBO));
 	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
 	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 

@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "GraphicsGL.h"
 #include "System.h"
 
@@ -26,17 +26,17 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 	while(err != GL_NO_ERROR) {
 		char* error = new char[255];
 		switch(err) {
-		case GL_INVALID_OPERATION:    
-			strcpy(error, "INVALID_OPERATION");      
+		case GL_INVALID_OPERATION:	
+			strcpy(error, "INVALID_OPERATION");	  
 			break;
-		case GL_INVALID_ENUM:     
+		case GL_INVALID_ENUM:	 
 			strcpy(error, "INVALID_ENUM");
 			break;
-		case GL_INVALID_VALUE:     
-			strcpy(error, "INVALID_VALUE");         
+		case GL_INVALID_VALUE:	 
+			strcpy(error, "INVALID_VALUE");		 
 			break;
-		case GL_OUT_OF_MEMORY:     
-			strcpy(error, "OUT_OF_MEMORY");          
+		case GL_OUT_OF_MEMORY:	 
+			strcpy(error, "OUT_OF_MEMORY");		  
 			break;
 		case GL_INVALID_FRAMEBUFFER_OPERATION:  
 			strcpy(error, "INVALID_FRAMEBUFFER_OPERATION");  
@@ -52,10 +52,10 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 }
 
 void GraphicsGL::ClearGLErrorBuffer() {
-    GLenum err = glGetError();
-    while(err != GL_NO_ERROR) {
-        err = glGetError();
-    }
+	GLenum err = glGetError();
+	while(err != GL_NO_ERROR) {
+		err = glGetError();
+	}
 }
 
 GraphicsGL::GraphicsGL() {

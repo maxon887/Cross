@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
 #include "Event.h"
@@ -49,7 +49,7 @@ public:
 	/* Load file from game asset directory */
 	virtual File* LoadAssetFile(const string& filename);
 	/* Load file from data directory */
-    virtual File* LoadDataFile(const string& filename);
+	virtual File* LoadDataFile(const string& filename);
 	/* Save file by absolute folder */
 	virtual void SaveFile(File* file);
 	/* Save file to data folder */
@@ -64,7 +64,7 @@ public:
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis) { }
 	/* Ask user about exit from application */
-    virtual void RequestOrientation(Orientation orientation) { }
+	virtual void RequestOrientation(Orientation orientation) { }
 	virtual bool IsMobile() { return false; }
 	/* This is approximate value. Real devices does not know their screen sizes */
 	virtual float GetScreenDPI();
@@ -81,7 +81,7 @@ public:
 	S32 GetWindowWidth() const;
 	/* Returns window Height in pixels. Don't miss wiht Screen::GetHeight() */
 	S32 GetWindowHeight() const;
-    Orientation GetDeviceOrientation() const;
+	Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio() const;
 	/* Engine specific */
@@ -92,5 +92,5 @@ private:
 	S32 window_height	= -1;
 	Set<int> asserts_hashes;
 };
-    
+	
 }

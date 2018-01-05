@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MultiLightScene.h"
 #include "Light.h"
 #include "Material.h"
@@ -31,7 +31,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 8; ++i){
 		Entity* light = new Entity("PointLight_" + to_string(i));
-        light->AddComponent(new Transform());
+		light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::POINT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		lightComponent->SetColor(Color::Red);
@@ -41,7 +41,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 1; ++i){
 		Entity* light = new Entity("DirectionalLight_" + to_string(i));
-        light->AddComponent(new Transform());
+		light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::DIRECTIONAL);
 		light->GetTransform()->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
 		lightComponent->SetColor(Color::Green);
@@ -51,7 +51,7 @@ void MultiLightScene::Start(){
 	
 	for(U32 i = 0; i < 4; ++i){
 		Entity* light = new Entity("SpotLight_" + to_string(i));
-        light->AddComponent(new Transform());
+		light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::SPOT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		light->GetTransform()->LookAt(Vector3D(0.f));
