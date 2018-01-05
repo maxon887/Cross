@@ -28,27 +28,38 @@ public:
 	Config();
 	~Config();
 
-	/* Custom user properties */
+	/* Save custom user property as string */
 	void SetString(const string& key, const string& value);
+	/* Save custom user property as integer value */
 	void SetInt(const string& key, S32 value);
+	/* Save custom user property as float value */
 	void SetFloat(const string& key, float value);
+	/* Save custom user property as boolean value */
 	void SetBool(const string& key, bool value);
+	/* Gets custom user property as string */
 	string GetString(const string& key, const string& def) const;
+	/* Gets custom user property as integer */
 	S32 GetInt(const string& key, S32 def) const;
+	/* Gets custom user property as float */
 	float GetFloat(const string& key, float def) const;
+	/* Gets custom user property as bool */
 	bool GetBool(const string& key, bool def) const;
 
-
+	/* Gets application orientation */
 	System::Orientation GetOrientation() const;
+	/* Sets application orientation */
 	void SetOrientation(System::Orientation orientation);
+	/* Returns true if engine suppose to use compressed textures */
 	bool UseCompressedTextures() const;
+	/* Returns texture filter that should be applied by default */
 	Texture::Filter GetTextureFilter() const;
+	/* Returns true if offsecreen render enabled */
 	bool IsOffscreenRender() const;
 
 protected:
 	System::Orientation orientation		= System::AUTO;
-	bool use_compressed_textures = false;
-	Texture::Filter texture_filter = Texture::Filter::NEAREST;
+	bool use_compressed_textures		= false;
+	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
 	bool offscreen_render				= false;
 
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();

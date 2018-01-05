@@ -56,13 +56,13 @@ void Input::Update(){
 		action.pos = TargetToWordConvert(action.pos.x, action.pos.y);
 		switch(actionState)	{
 		case 0:
-			ActionDown(action);
+			ActionDown.Emit(action);
 			break;
 		case 1:
-			ActionMove(action);
+			ActionMove.Emit(action);
 			break;
 		case 2:
-			ActionUp(action);
+			ActionUp.Emit(action);
 			break;
 		default:
 			break;

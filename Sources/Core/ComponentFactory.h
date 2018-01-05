@@ -23,28 +23,25 @@ namespace cross{
 
 class Component;
 
+/*	This class needed for custom Component registration. 
+	All Component types must be register in order to support loading from scene XML files.
+	Register your Components before any Scene::Load() calls */
 class ComponentFactory {
 public:
-	template<class T>
-	void Register(const string& name) {
-		functions.insert(std::make_pair(name, []() -> Component* { return new T(); }));
-	}
-
-	Component* Create(const string& name) {
-		CROSS_RETURN(functions.find(name) != functions.end(), NULL, "Component %s didn't register in the factory", name.c_str());
-		return functions[name]();
-	}
-
-	Array<string> GetRegisteredComponentsName() {
-		Array<string> names;
-		for(std::pair<string, std::function<Component*()>> pair : functions) {
-			names.push_back(pair.first);
-		}
-		return names;
-	}
+	/* Registers Component Type. Provide a name by which Component will be loaded from XML file (and visually presented in some causes) */
+	template<class T> void Register(const string& name);
+	/* Creates successor by name of Component of one of registered classes */
+	Component* Create(const string& name);
+	/* Obtains all registered Components types */
+	Array<string> GetRegisteredComponentsName();
 
 private:
 	Dictionary<string, std::function<Component*()>> functions;
 };
 
+template<class T>
+void ComponentFactory::Register(const string& name) {
+	functions.insert(std::make_pair(name, []() -> Component* { return new T(); }));
 }
+
+};

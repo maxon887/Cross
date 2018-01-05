@@ -54,10 +54,6 @@ U32 VertexBuffer::GetBitangentsOffset() const{
 	return GetTangentsOffset() + (bitangents_enabled ? 3 : 0);
 }
 
-U32 VertexBuffer::VertexSize() const{
-	return (GetBitangentsOffset() + 3) * sizeof(float);
-}
-
 void VertexBuffer::UVEnabled(bool enabled){
 	uv_enabled = enabled;
 }
@@ -74,16 +70,20 @@ void VertexBuffer::BitangentsEnabled(bool enabled){
 	bitangents_enabled = enabled;
 }
 
+U32 VertexBuffer::VertexSize() const {
+	return (GetBitangentsOffset() + 3) * sizeof(float);
+}
+
+U32 VertexBuffer::GetDataSize() const {
+	return (U32)data.size();
+}
+
 void VertexBuffer::PushData(const Byte* bytes, U32 size){
 	data.insert(data.end(), bytes, bytes+size);
 }
 
 Byte* VertexBuffer::GetData(){
 	return data.data();
-}
-
-U32 VertexBuffer::GetDataSize() const{
-	return (U32)data.size();
 }
 
 void VertexBuffer::Free(){

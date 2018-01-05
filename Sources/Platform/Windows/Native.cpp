@@ -49,7 +49,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		input->TargetActionDown(targetX, targetY, 0);
+		input->TargetActionDown.Emit(targetX, targetY, 0);
 		break;
 	}
 	case WM_RBUTTONDOWN:{
@@ -57,7 +57,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		input->TargetActionDown(targetX, targetY, 1);
+		input->TargetActionDown.Emit(targetX, targetY, 1);
 		break;
 	}
 	case WM_MBUTTONDOWN:{
@@ -65,7 +65,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-		input->TargetActionDown(targetX, targetY, 2);
+		input->TargetActionDown.Emit(targetX, targetY, 2);
 		break;
 	}
 	case WM_MOUSEMOVE:{
@@ -74,7 +74,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->MousePosition.x = targetX;
 		input->MousePosition.y = targetY;
 		if(mouseDown){
-			input->TargetActionMove(targetX, targetY, 0);
+			input->TargetActionMove.Emit(targetX, targetY, 0);
 		}
 		break;
 	}
@@ -83,7 +83,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		input->TargetActionUp(targetX, targetY, 0);
+		input->TargetActionUp.Emit(targetX, targetY, 0);
 		break;
 	}
 	case WM_RBUTTONUP: {
@@ -91,7 +91,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		input->TargetActionUp(targetX, targetY, 1);
+		input->TargetActionUp.Emit(targetX, targetY, 1);
 		break;
 	}
 	case WM_MBUTTONUP: {
@@ -99,24 +99,24 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		input->TargetActionUp(targetX, targetY, 2);
+		input->TargetActionUp.Emit(targetX, targetY, 2);
 		break;
 	}
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
-		input->MouseWheelRoll((float)delta);
+		input->MouseWheelRoll.Emit((float)delta);
 		break;
 	}
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:
-		input->KeyPressed((cross::Key)wParam);
+		input->KeyPressed.Emit((cross::Key)wParam);
 		break;
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
-		input->KeyReleased((cross::Key)wParam);
+		input->KeyReleased.Emit((cross::Key)wParam);
 		break;
 	case WM_CHAR:
-		input->CharEnter(wParam);
+		input->CharEnter.Emit(wParam);
 		break;
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;

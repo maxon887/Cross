@@ -218,7 +218,7 @@ Entity* Scene::GetEntity(const string& name) {
 void Scene::AddEntity(Entity* entity) {
 	entity->Initialize();
 	root->AddChild(entity);
-	EntityAdded(entity);//trigger
+	EntityAdded.Emit(entity);//trigger
 }
 
 Entity* Scene::LoadPrimitive(Model::Primitive primitive) {

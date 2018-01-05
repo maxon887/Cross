@@ -19,27 +19,50 @@
 
 namespace cross{
 
+/*	Container for vertex data. Used to transfer vertex data between CPU and GPU memory.
+	Can be filled dynamically. Supports various vertex properties */
 class VertexBuffer {
 public:
+	/* Returns true if VertexBuffer has UV coordinates in its vertex data */
 	bool HasTextureCoordinates() const;
+	/* Returns true if VertexBuffer has normals in its vertex data */
 	bool HasNormals() const;
+	/* Returns true if VertexBuffer has tangents in its vertex data */
 	bool HasTangents() const;
+	/* Returns true if VertexBuffer has bitangents in its vertex data */
 	bool HasBitangents() const;
-	U32 GetPossitionsOffset() const;
-	U32 GetTextureCoordinatesOffset() const;
-	U32 GetNormalsOffset() const;
-	U32 GetTangentsOffset() const;
-	U32 GetBitangentsOffset() const;
-	U32 VertexSize() const;
 
+	/* Gets offset of position data into vertex memory*/
+	U32 GetPossitionsOffset() const;
+	/* Gets offset of position UV coordinates into vertex memory*/
+	U32 GetTextureCoordinatesOffset() const;
+	/* Gets offset of normals data into vertex memory*/
+	U32 GetNormalsOffset() const;
+	/* Gets offset of tangents data into vertex memory*/
+	U32 GetTangentsOffset() const;
+	/* Gets offset of bitangents data into vertex memory*/
+	U32 GetBitangentsOffset() const;
+
+	/* Enables or disables texture coordinates in offset calculations */
 	void UVEnabled(bool enabled);
+	/* Enables or disables normals in offset calculations */
 	void NarmalsEnabled(bool enabled);
+	/* Enables or disables tangents in offset calculations */
 	void TangentsEnabled(bool enabled);
+	/* Enables or disables bitangents in offset calculations */
 	void BitangentsEnabled(bool enabled);
-	void PushData(const Byte* data, U32 size);
-	Byte* GetData();
+
+	/* Returns size of one vertex */
+	U32 VertexSize() const;
+	/* Returns size of a hole vertex buffer */
 	U32 GetDataSize() const;
+	/* Pushes data into internal memory which will be considered as vertex data */
+	void PushData(const Byte* data, U32 size);
+	/* Returns flat vertex data. Ready to transfer into GPU*/
+	Byte* GetData();
+	/* Releases vertex data alloceted on CPU */
 	void Free();
+	/* Creates copy of this class and copy all its vertex data */
 	VertexBuffer* Clone() const;
 
 private:

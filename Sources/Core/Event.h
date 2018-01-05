@@ -19,27 +19,29 @@
 
 namespace cross{
 
+/*	Event provides functional for object to notify other instances when something of interest happened.
+	Class that want to notify of something must call Emit() function of Event the rest object which was
+	interested in particular Event must subscribed for this event by calling Connect() function */
 template<class... Args>
 class Event {
 public:
+	/* Notifies all subscribers than something of interest has happened by calling their functions provided in Connect() function */
 	void Emit(Args... p);
 
-	void Connect(U64 hash, std::function<void(Args...)> const& func);
-	template<class Clazz>
-	void Connect(Clazz* obj, void(Clazz::*func)(Args...));
-	template<class Clazz>
-	void Connect(Clazz* obj, void(Clazz::*func)(Args...) const);
-	template<class Clazz>
-	void Disconnect(Clazz* obj, void(Clazz::*func)(Args...));
+	/* Subscribes current object on this Event. Object must provide its class function which will be called when Event Occurs */
+	template<class Clazz> void Connect(Clazz* obj, void(Clazz::*func)(Args...));
+	/* Subscribes current object on this Event. Object must provide its const class function which will be called when Event Occurs */
+	template<class Clazz> void Connect(Clazz* obj, void(Clazz::*func)(Args...) const);
+	/* Unsubscribes current object from this Event. IMPORTANT! All objects must be disconnected from Events before they die */
+	template<class Clazz> void Disconnect(Clazz* obj, void(Clazz::*func)(Args...));
+	/* Disconnect all subscribers from this Event */
 	void DisconnectAll();
-
-	void operator () (Args...);
 
 private:
 	std::map<U64, std::function<void(Args...)>> connections;
 
-	template<class Clazz>
-	U64 Hash(Clazz* obj, void(Clazz::*func)(Args...));
+	template<class Clazz> U64 Hash(Clazz* obj, void(Clazz::*func)(Args...));
+	void Connect(U64 hash, std::function<void(Args...)> const& func);
 };
 
 //implementation
@@ -48,11 +50,6 @@ void Event<Args...>::Emit(Args... p) {
 	for (auto it : connections) {
 		it.second(p...);
 	}
-}
-
-template<class... Args>
-void Event<Args...>::Connect(U64 hash, std::function<void(Args...)> const& func) {
-	connections.insert(std::make_pair(hash, func));
 }
 
 template<class... Args>
@@ -81,15 +78,15 @@ void Event<Args...>::DisconnectAll() {
 }
 
 template<class... Args>
-void Event<Args...>::operator () (Args... args) {
-	Emit(args...);
-}
-
-template<class... Args>
 template<class Clazz>
 U64 Event<Args...>::Hash(Clazz* obj, void(Clazz::*func)(Args...)) {
 	void* fPointer = (void*&)func;
 	return (U64)obj + (U64)fPointer;
+}
+
+template<class... Args>
+void Event<Args...>::Connect(U64 hash, std::function<void(Args...)> const& func) {
+	connections.insert(std::make_pair(hash, func));
 }
 
 };

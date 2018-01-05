@@ -114,6 +114,10 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 	}
 }
 
+void System::Sleep(float milis) {
+	CROSS_ASSERT(false, "Function System::Speep() does not implemented");
+}
+
 void System::Messagebox(const string& title, const string& msg) {
 	LogIt("\t" + title);
 	LogIt(msg);
@@ -121,6 +125,15 @@ void System::Messagebox(const string& title, const string& msg) {
 
 float System::GetScreenDPI() {
 	return DEFAULT_SCREEN_DPI;
+}
+
+string System::GetClipboard() {
+	CROSS_ASSERT(false, "System::GetClipboard() does not implemented");
+	return "";
+}
+
+void System::SetClipboard(const string& data) {
+	CROSS_ASSERT(false, "System::SetClipboard() does not implemented");
 }
 
 void System::LogIt(const char* format, ...) {
@@ -168,8 +181,8 @@ void System::SetWindowSize(S32 width, S32 height) {
 	Orientation prevO = GetDeviceOrientation();
 	window_width = width;
 	window_height = height;
-	WindowResized(width, height);
+	WindowResized.Emit(width, height);
 	if(prevO != GetDeviceOrientation()){
-		OrientationChanged(GetDeviceOrientation());
+		OrientationChanged.Emit(GetDeviceOrientation());
 	}
 }

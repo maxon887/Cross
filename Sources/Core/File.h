@@ -18,17 +18,18 @@
 #include "Cross.h"
 
 namespace cross{
-/*	Container class for data loaded from file system 
-	To load use System class */
+
+/*	Container class for data loaded from file system.
+	To load a File use System class */
 class File {
 public:
 	/* Returns directory from full filename */
 	static string PathFromFile(const string& filePath);
 	/* Return naked filename from filepath */
 	static string FileFromPath(const string& filename);
-	/* Returns extencsion from filename or full file path */
+	/* Returns extension from filename or full file path */
 	static string ExtensionFromFile(const string& file);
-	/* Returns raw file name without extencion (ex "log" for "log.txt") */
+	/* Returns raw file name without extension (ex "log" for "log.txt") */
 	static string FileWithoutExtension(const string& file);
 
 	~File();

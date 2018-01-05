@@ -87,7 +87,7 @@ void Hierarchy::BuildNode(Entity* entity) {
 	bool open = ImGui::TreeNodeEx(entity->GetName().c_str(), flags);
 	if(ImGui::IsItemClicked()) {
 		selected_entity = entity;
-		EntitySelected(entity);
+		EntitySelected.Emit(entity);
 		LookAtObject();
 	}
 	if(open && !isLeaf) {

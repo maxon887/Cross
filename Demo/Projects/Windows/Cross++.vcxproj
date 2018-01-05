@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Color.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Component.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Config.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\File.cpp" />

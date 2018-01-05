@@ -20,7 +20,7 @@
 
 namespace cross {
 	
-/* Class for platform specific functional */
+/*	Provides platform specific functional. Use this class for logging, file access and other platform specific function */
 class System {
 public:
 	enum Orientation {
@@ -33,6 +33,9 @@ public:
 	Event<S32, S32> WindowResized;
 	/* Occurs when window orientation changed */
 	Event<System::Orientation> OrientationChanged;
+
+	virtual ~System() { }
+
 	/* Print message in console. See LogIt() if you need formated output */
 	virtual void Log(const char* msg) = 0;
 	/* Returns path to the application assets folder */
@@ -41,8 +44,6 @@ public:
 	virtual string DataPath() = 0;
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
-
-	virtual ~System() { }
 
 	/* Load file from absolute path */
 	virtual File* LoadFile(const string& filename);
@@ -54,33 +55,39 @@ public:
 	virtual void SaveFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
+	/* Checks if file exists in provided path */
 	virtual bool IsDataFileExists(const string& filename);
-	/* Returns true if system should skip this message in further use */
+	/* Notifies user that something happened by system message. Returns true if system should skip this message in further use */
 	virtual bool Alert(const string& msg);
-	/* Notify system that some thing goes wrong */
+	/* Notifies user that something happened by system message. Usually something bad. Use it at last case */
 	virtual void Alert(const char* filename, unsigned int line, const char* msg, va_list list);
-	/* Show sync messagebox(platform dependent) */
-	virtual void Messagebox(const string& title, const string& msg);
 	/* Force current thread to sleep */
-	virtual void Sleep(float milis) { }
-	/* Ask user about exit from application */
+	virtual void Sleep(float milis);
+	/* Requests to set required orientation. Can not to be set if system not allow to change orientation */
 	virtual void RequestOrientation(Orientation orientation) { }
+	/* Returns true if current working platform is mobile one */
 	virtual bool IsMobile() { return false; }
-	/* This is approximate value. Real devices does not know their screen sizes */
+	/* Returns device screen DPI. This is approximate value. Real devices does not know their screen sizes */
 	virtual float GetScreenDPI();
+	/* Ask user about exit from application */
 	virtual void PromtToExit() { }
-	virtual string GetClipboard() { return "Clipboard does not implemented"; }
-	virtual void SetClipboard(const string& data) { }
-	/* Print message in console. */
+	/* Obtains clipboard data as text if available */
+	virtual string GetClipboard();
+	/* Sets current string int clipboard buffer */
+	virtual void SetClipboard(const string& data);
+	/* Prints message with formated input */
 	void LogIt(const char* format, ...);
+	/* Prints string */
 	void LogIt(const string& msg);
+	/* Prints vector */
 	void LogIt(const Vector3D& vector);
-	/* How much screen elements must be increased on decreast due to device DPI */
+	/* How much screen elements must be increased or decreased due to device DPI */
 	float GetScreenScale();
-	/* Returns window width in pixels. Don't miss wiht Screen::GetWidth() */
+	/* Returns window width in pixels */
 	S32 GetWindowWidth() const;
-	/* Returns window Height in pixels. Don't miss wiht Screen::GetHeight() */
+	/* Returns window height in pixels */
 	S32 GetWindowHeight() const;
+	/* Returns current device orientation */
 	Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio() const;
@@ -91,6 +98,8 @@ private:
 	S32 window_width	= -1;
 	S32 window_height	= -1;
 	Set<int> asserts_hashes;
+
+	virtual void Messagebox(const string& title, const string& msg);
 };
 	
 }

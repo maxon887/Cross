@@ -307,6 +307,9 @@
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
