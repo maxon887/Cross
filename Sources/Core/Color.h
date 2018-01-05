@@ -18,6 +18,7 @@
 
 namespace cross {
 
+/*	Color will be stored in 4 channels with float point	precision */
 class Color {
 public:
 	static const Color Red;
@@ -28,6 +29,7 @@ public:
 	static const Color Yellow;
 	static const Color Purple;
 
+	/* Returns random color */
 	static Color Random();
 
 	float R, G, B, A;
@@ -39,7 +41,9 @@ public:
 	Color(int r, int g, int b, int a);
 	Color(const char* hex);
 
+	/* Fill Color with flat data */
 	void SetData(const char* data);
+	/* Returns flat Color's data with sizeof 4 * float */
 	const float* GetData() const;
 
 	bool operator == (const Color &c) const;

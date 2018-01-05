@@ -2,7 +2,7 @@
 #define GL_HANDLER
 
 #include "Cross.h"
-#include "GraphicsGL.h"
+#include "Internals/GraphicsGL.h"
 
 #include <QOpenGLWidget>
 

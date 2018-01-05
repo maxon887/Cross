@@ -78,7 +78,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Sources\Core\Audio.cpp" />
     <ClCompile Include="..\Sources\Core\Camera.cpp" />
     <ClCompile Include="..\Sources\Core\Color.cpp" />
     <ClCompile Include="..\Sources\Core\Component.cpp" />
@@ -86,7 +85,6 @@
     <ClCompile Include="..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\Sources\Core\File.cpp" />
     <ClCompile Include="..\Sources\Core\Game.cpp" />
-    <ClCompile Include="..\Sources\Core\GraphicsGL.cpp" />
     <ClCompile Include="..\Sources\Core\Input.cpp" />
     <ClCompile Include="..\Sources\Core\Light.cpp" />
     <ClCompile Include="..\Sources\Core\Material.cpp" />
@@ -99,6 +97,8 @@
     <ClCompile Include="..\Sources\Core\Texture.cpp" />
     <ClCompile Include="..\Sources\Core\Transform.cpp" />
     <ClCompile Include="..\Sources\Core\VertexBuffer.cpp" />
+    <ClCompile Include="..\Sources\Internals\Audio.cpp" />
+    <ClCompile Include="..\Sources\Internals\GraphicsGL.cpp" />
     <ClCompile Include="..\Sources\Internals\MemoryManager.cpp" />
     <ClCompile Include="..\Sources\Libs\SOIL\image_helper.c" />
     <ClCompile Include="..\Sources\Libs\SOIL\SOIL.c" />
@@ -215,7 +215,6 @@
     <ClCompile Include="Sources\SceneView.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Sources\Core\Audio.h" />
     <ClInclude Include="..\Sources\Core\Camera.h" />
     <ClInclude Include="..\Sources\Core\Color.h" />
     <ClInclude Include="..\Sources\Core\Component.h" />
@@ -226,7 +225,6 @@
     <ClInclude Include="..\Sources\Core\Event.h" />
     <ClInclude Include="..\Sources\Core\File.h" />
     <ClInclude Include="..\Sources\Core\Game.h" />
-    <ClInclude Include="..\Sources\Core\GraphicsGL.h" />
     <ClInclude Include="..\Sources\Core\Input.h" />
     <ClInclude Include="..\Sources\Core\Light.h" />
     <ClInclude Include="..\Sources\Core\Material.h" />
@@ -239,6 +237,8 @@
     <ClInclude Include="..\Sources\Core\Texture.h" />
     <ClInclude Include="..\Sources\Core\Transform.h" />
     <ClInclude Include="..\Sources\Core\VertexBuffer.h" />
+    <ClInclude Include="..\Sources\Internals\Audio.h" />
+    <ClInclude Include="..\Sources\Internals\GraphicsGL.h" />
     <ClInclude Include="..\Sources\Internals\MemoryManager.h" />
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h" />
     <ClInclude Include="..\Sources\Libs\SOIL\image_helper.h" />

@@ -27,6 +27,7 @@ class Config {
 public:
 	Config();
 	~Config();
+
 	/* Custom user properties */
 	void SetString(const string& key, const string& value);
 	void SetInt(const string& key, S32 value);
@@ -36,27 +37,28 @@ public:
 	S32 GetInt(const string& key, S32 def) const;
 	float GetFloat(const string& key, float def) const;
 	bool GetBool(const string& key, bool def) const;
-	/* Game config properties */
+
+
 	System::Orientation GetOrientation() const;
 	void SetOrientation(System::Orientation orientation);
 	bool UseCompressedTextures() const;
 	Texture::Filter GetTextureFilter() const;
 	bool IsOffscreenRender() const;
 
-	void SaveGameConfig();
-	void SaveUserConfig();
-	void LoadGameConfig();
-	void LoadUserConfig();
-
 protected:
 	System::Orientation orientation		= System::AUTO;
-	bool use_compressed_textures		= false;
-	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
+	bool use_compressed_textures = false;
+	Texture::Filter texture_filter = Texture::Filter::NEAREST;
 	bool offscreen_render				= false;
 
 	Dictionary<string, string> user_prefs = Dictionary<string, string>();
 
 	const string& GetString(const string& key) const;
+
+	void SaveGameConfig();
+	void SaveUserConfig();
+	void LoadGameConfig();
+	void LoadUserConfig();
 
 private:
 	const string empty = "";

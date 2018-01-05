@@ -59,12 +59,12 @@ const Matrix& Camera::GetViewMatrix() const{
 	return view;
 }
 
-void Camera::SetProjectionMatrix(const Matrix& projection){
-	this->projection = projection;
+const Matrix& Camera::GetProjectionMatrix() const {
+	return projection;
 }
 
-const Matrix& Camera::GetProjectionMatrix() const{
-	return projection;
+void Camera::SetProjectionMatrix(const Matrix& projection){
+	this->projection = projection;
 }
 
 void Camera::RecalcView(){

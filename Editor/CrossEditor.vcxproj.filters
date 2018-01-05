@@ -78,9 +78,6 @@
     <ClCompile Include="..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Core\Audio.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\Camera.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -100,9 +97,6 @@
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Game.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\GraphicsGL.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Input.cpp">
@@ -309,6 +303,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_TransformComponent.cpp">
       <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Internals\Audio.cpp">
+      <Filter>Cross\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Internals\GraphicsGL.cpp">
+      <Filter>Cross\Internals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -397,9 +397,6 @@
     <ClInclude Include="..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Audio.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\Camera.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -425,9 +422,6 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Game.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\GraphicsGL.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Input.h">
@@ -546,6 +540,12 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_TransformComponent.h">
       <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Internals\Audio.h">
+      <Filter>Cross\Internals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Internals\GraphicsGL.h">
+      <Filter>Cross\Internals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
