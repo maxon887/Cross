@@ -17,16 +17,17 @@
 #pragma once
 #include "Cross.h"
 
-namespace FMOD{
+namespace FMOD {
 	class Sound;
 	class Channel;
 }
 
 namespace cross{
+
 /* This class needed for unique audio entity manipulations (aka play, stop) */
 class Sound {
 public:
-	Sound() = default;
+	Sound(const string& path, bool loop, bool isStream);
 	~Sound();
 
 	void Play();

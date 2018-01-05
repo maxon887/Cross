@@ -17,7 +17,7 @@
 #import "CrossViewController.h"
 #include "Cross.h"
 #include "IOSSystem.h"
-#include "Audio.h"
+#include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 #include "Input.h"
 #include "Game.h"

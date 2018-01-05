@@ -15,20 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Sound.h"
-#include "Audio.h"
+#include "Internals/Audio.h"
 #include "System.h"
 
 #include "Libs/FMOD/fmod.hpp"
 #include "Libs/FMOD/fmod_errors.h"
 
-#define ERRCHECK(_result) \
-if(_result != FMOD_OK) { \
-	CROSS_ASSERT(false, "FMOD error %d - %s", _result, FMOD_ErrorString(_result)); \
-}
-
 using namespace cross;
 
 static FMOD_RESULT result;
+
+Sound::Sound(const string& path, bool loop, bool stream) {
+	sound = audio->LoadSound(path, loop, stream);
+}
 
 Sound::Sound(const Sound& obj) :
 	sound(obj.sound),
@@ -36,7 +35,7 @@ Sound::Sound(const Sound& obj) :
 	original(false)
 { }
 
-Sound::~Sound(){
+Sound::~Sound() {
 	if(original){
 		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
 	}else{
@@ -45,27 +44,27 @@ Sound::~Sound(){
 	CROSS_ASSERT(result == FMOD_OK, "Error while destroing Sound");
 }
 
-void Sound::Play(){
+void Sound::Play() {
 	result = audio->fmod_system->playSound(sound, 0, false, &channel);
 	ERRCHECK(result);
 	audio->fmod_system->update();
 }
 
-void Sound::Pause(){
+void Sound::Pause() {
 	result = channel->setPaused(true);
 	ERRCHECK(result);
 }
 
-void Sound::Resume(){
+void Sound::Resume() {
 	result = channel->setPaused(false);
 	ERRCHECK(result);
 }
 
-void Sound::Stop(){
+void Sound::Stop() {
 	channel->stop();
 }
 
-bool Sound::IsPlaying() const{
+bool Sound::IsPlaying() const {
 	bool playing;
 	result = channel->isPlaying(&playing);
 	if ((result != FMOD_OK) && (result != FMOD_ERR_INVALID_HANDLE) && (result != FMOD_ERR_CHANNEL_STOLEN)) {
@@ -74,6 +73,6 @@ bool Sound::IsPlaying() const{
 	return playing;
 }
 
-Sound* Sound::Clone() const{
+Sound* Sound::Clone() const {
 	return new Sound(*this);
 }

@@ -19,7 +19,7 @@
 #include "Input.h"
 #include "AndroidSystem.h"
 #include "Screen.h"
-#include "Audio.h"
+#include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 #include "Config.h"
 #include "Utils/Debugger.h"

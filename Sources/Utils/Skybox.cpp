@@ -63,7 +63,7 @@ void Skybox::Draw() {
 	view.m[2][3] = 0.f;
 	Matrix mvp = cam->GetProjectionMatrix() * view * box->GetTransform()->GetModelMatrix();
 	mvp = mvp.GetTransposed();
-	material->SetPropertyValue(mvpID, mvp);
+	material->SetPropertyValue((GLuint)mvpID, mvp);
 	Mesh* mesh = box->GetComponent<Mesh>();
 	mesh->Draw(mvp, material, Mesh::StencilBehaviour::IGNORED);
 }

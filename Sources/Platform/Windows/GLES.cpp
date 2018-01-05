@@ -16,13 +16,13 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #ifdef GLES
 #include "GLES.h"
+#include "Internals/GraphicsGL.h"
+#include "Internals/Audio.h"
 #include "Native.h"
 #include "Game.h"
 #include "Screen.h"
 #include "WINSystem.h"
-#include "GraphicsGL.h"
 #include "Config.h"
-#include "Audio.h"
 #include "Utils/Debugger.h"
 #include "Platform/CrossEGL.h"
 

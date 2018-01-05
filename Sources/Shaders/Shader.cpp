@@ -135,15 +135,15 @@ void Shader::Property::SetValue(const Matrix& v){
 
 void Shader::Property::SetValue(Texture* v){
 	type = SAMPLER;
-	GLuint textureID = v->GetID();
-	RealocateIfNeeded(sizeof(GLuint));
+	U64 textureID = v->GetID();
+	RealocateIfNeeded(sizeof(U64));
 	memcpy(value, &textureID, size);
 }
 
 void Shader::Property::SetValue(Cubemap* cubemap){
 	type = CUBEMAP;
-	GLuint textureID = cubemap->GetTextureID();
-	RealocateIfNeeded(sizeof(GLuint));
+	U64 textureID = cubemap->GetTextureID();
+	RealocateIfNeeded(sizeof(U64));
 	memcpy(value, &textureID, size);
 }
 

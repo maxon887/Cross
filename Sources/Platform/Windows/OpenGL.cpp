@@ -19,12 +19,12 @@
 #include "Native.h"
 #include "WINSystem.h"
 #include "Internals/GraphicsGL.h"
+#include "Internals/Audio.h"
 #include "Game.h"
 #include "Input.h"
 #include "Config.h"
 #include "Screen.h"
 #include "Utils/Debugger.h"
-#include "Audio.h"
 #include "Internals/MemoryManager.h"
 #include "resource.h"
 

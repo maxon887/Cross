@@ -118,36 +118,45 @@ enum class Key {
 	MAX_KEY_NUM = 0xFF
 };
 
-/*	Class responsible for user input. 
-	Handle touches, clicks and key events */
+/*	Class responsible for user input. Handles touches, clicks and key events */
 class Input {
 public:
+	/* Represent user input Action like touch or click */
 	struct Action {
+		/* Action position on the screen */
 		Vector2D pos;
-		//on mobile devices used for touches, 
-		//on desctop used for mouse buttons, 0 - lmb, 1 - rmb
+		/* On mobile devices used for fingers count, on desktop used for mouse buttons, 0 - lmb, 1 - rmb */
 		S32 id;
 	};
-	/* Scaled in screen coordinates input */
+
+	/* Occurs when user action started */
 	Event<Action> ActionDown;
+	/* Occurs when user action changed its position */
 	Event<Action> ActionMove;
+	/* Occurs when user action released */
 	Event<Action> ActionUp;
-	/* Raw device inputs in pixels */
-	Event<float, float, S32> TargetActionDown;
-	Event<float, float, S32> TargetActionMove;
-	Event<float, float, S32> TargetActionUp;
-	/* Keyboard events */
+
+	/* Occurs when keyboard button pressed */
 	Event<Key> KeyPressed;
+	/* Occurs when keyboard button released */
 	Event<Key> KeyReleased;
+	/* Occurs when char must be placed, for ex multiple chars can be placed by long press key button in some platforms */
 	Event<char> CharEnter;
-	/* Mouse Wheel events */
+
+	/* Occurs when mouse wheel rolled*/
 	Event<float> MouseWheelRoll;
+	/* Reflects current mouse position on the screen */
 	Vector2D MousePosition;
 	/* Checks if specific key pressed */
 	bool IsPressed(Key key) const;
 	/* Enables disables all touches */
 	void TouchEnabled(bool enabled);
+
 	/* Engine specific */
+	Event<float, float, S32> TargetActionDown;
+	Event<float, float, S32> TargetActionMove;
+	Event<float, float, S32> TargetActionUp;
+
 	void Update();
 
 protected:

@@ -1,7 +1,6 @@
 #include "AudioScreen.h"
 #include "Demo.h"
 #include "UI/MenuBar.h"
-#include "Audio.h"
 #include "Sound.h"
 #include "System.h"
 
@@ -11,9 +10,9 @@ using namespace cross;
 
 void AudioScreen::Start(){
 	Screen::Start();
-	bck_music = audio->LoadSound("Audio/Music.mp3", true, true);
-	jaguar = audio->LoadSound("Audio/Jaguar.wav", false, false);
-	truck = audio->LoadSound("Audio/Truck.wav", true, false);
+	bck_music = new Sound("Audio/Music.mp3", true, true);
+	jaguar = new Sound("Audio/Jaguar.wav", false, false);
+	truck = new Sound("Audio/Truck.wav", true, false);
 }
 
 void AudioScreen::Stop(){
