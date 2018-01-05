@@ -172,7 +172,7 @@ void Material::Reset() {
 	}
 	properties.clear();
 
-	for(Shader::Property* prop : shader->properties) {
+	for(Shader::Property* prop : shader->GetProperties()) {
 		properties.push_back(new Shader::Property(*prop));
 	}
 }

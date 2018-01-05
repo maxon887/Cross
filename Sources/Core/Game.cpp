@@ -76,9 +76,16 @@ ComponentFactory* Game::GetComponentFactory() {
 void Game::Suspend() {
 	system->LogIt("Game::Suspend");
 	suspended = true;
+
 	if(audio) {
 		audio->Suspend();
 	}
+
+	if(config) {
+		config->SaveGameConfig();
+		config->SaveUserConfig();
+	}
+
 	if(current_screen != nullptr) {
 		current_screen->Suspend();
 	}

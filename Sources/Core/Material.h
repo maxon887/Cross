@@ -61,12 +61,12 @@ public:
 
 	Material* Clone() const;
 
-private:
-	CROSS_FRIENDLY
+engine:
+	U32 active_texture_slot = 0;
 
+private:
 	string filename						= "noname";
 	Shader* shader						= NULL;
-	U32 active_texture_slot				= 0;
 	bool transparency					= false;
 	Array<Shader::Property*> properties = Array<Shader::Property*>();
 

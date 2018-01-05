@@ -137,7 +137,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glUniform4fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(Shader::Property* prop : material->properties) {
+	for(Shader::Property* prop : material->GetProperties()) {
 		if(prop->glId == -1) {
 			//late shader compilation produce this
 			Shader::Property* shaderProp = shader->GetProperty(prop->GetName());
@@ -181,7 +181,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			material->active_texture_slot++;
 			break;
 		default:
-			CROSS_ASSERT(false, "Unknown property type(%s)", prop->name.c_str());
+			CROSS_ASSERT(false, "Unknown property type(%s)", prop->GetName().c_str());
 		}
 	}
 	material->active_texture_slot = 0;

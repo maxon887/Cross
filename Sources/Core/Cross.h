@@ -16,31 +16,12 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#if defined(__APPLE__) || defined(__APPLE_CC__)
-#	define IOS 1
-#endif
-
 #if defined(_DEBUG) || ! defined(NDEBUG)
 #   define CROSS_DEBUG
 #endif
 
-#include <cstdint>
-
-//#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
-
-namespace cross {
-	typedef int8_t		S8;
-	typedef uint8_t		U8;
-	typedef int16_t		S16;
-	typedef uint16_t	U16;
-	typedef int32_t		S32;
-	typedef uint32_t	U32;
-	typedef int64_t		S64;
-	typedef uint64_t	U64;
-	typedef uint8_t		Byte;
-}
-
-void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
+/*	Access modifier that allow usage only inside engine classes */
+#define engine protected: CROSS_FRIENDLY protected
 
 #define CROSS_ASSERT(condition, message, ...)						\
 if(!(condition)) {													\
@@ -59,6 +40,28 @@ if(!(condition)) {													\
 	return value;													\
 }
 
+#if defined(__APPLE__) || defined(__APPLE_CC__)
+#	define IOS 1
+#endif
+
+#include <cstdint>
+
+#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
+
+namespace cross {
+	typedef int8_t		S8;
+	typedef uint8_t		U8;
+	typedef int16_t		S16;
+	typedef uint16_t	U16;
+	typedef int32_t		S32;
+	typedef uint32_t	U32;
+	typedef int64_t		S64;
+	typedef uint64_t	U64;
+	typedef uint8_t		Byte;
+}
+
+void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
+
 #include "Internals/MemoryManager.h"
 #include "Math/All.h"
 #include "Color.h"
@@ -69,10 +72,6 @@ if(!(condition)) {													\
 #include <set>
 
 #include "Experimental/ArraySTD.h"
-
-#if !defined(ANDROID)
-#	define system sys
-#endif
 
 namespace cross{
 
@@ -120,6 +119,7 @@ static const char*	version = "4.0.1";
 
 }
 
+/*	This function must implement every game */
 cross::Game* CrossMain();
 
 using namespace std;
@@ -136,4 +136,4 @@ friend Sound;			\
 friend Input;			\
 friend Config;			\
 friend Scene;			\
-friend Screen;
+friend Screen;			

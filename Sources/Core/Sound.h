@@ -45,8 +45,6 @@ public:
 	Sound* Clone() const;
 
 private:
-	CROSS_FRIENDLY
-
 	FMOD::Sound* sound		= NULL;
 	FMOD::Channel* channel	= NULL;
 	bool original			= true;

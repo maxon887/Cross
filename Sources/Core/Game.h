@@ -58,6 +58,7 @@ public:
 	Scene* GetCurrentScene();
 	/* Returns component factory for custom Components registration */
 	ComponentFactory* GetComponentFactory();
+
 	/* Engine specific */
 	void EngineUpdate();
 	bool IsSuspended() const;

@@ -152,22 +152,23 @@ public:
 	/* Enables disables all touches */
 	void TouchEnabled(bool enabled);
 
-	/* Engine specific */
+	/* Occurs instantly when user action started. Can be even in other thread. Do not use this */
 	Event<float, float, S32> TargetActionDown;
+	/* Occurs instantly when user action changed its position. Can be even in other thread. Do not use this */
 	Event<float, float, S32> TargetActionMove;
+	/* Occurs instantly when user action released. Can be even in other thread. Do not use this */
 	Event<float, float, S32> TargetActionUp;
+
+engine:
+	Input();
 
 	void Update();
 
 protected:
-	CROSS_FRIENDLY
-
 	std::mutex input_mutex;
 	bool touch_enabled			= true;
 	Array<bool> pressed_keys	= Array<bool>((U32)Key::MAX_KEY_NUM, false);
 	List<pair<Input::Action, int> > action_stack;
-
-	Input();
 
 	Vector2D TargetToWordConvert(float x, float y) const;
 

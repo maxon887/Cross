@@ -63,17 +63,17 @@ public:
 		const string& GetGLName() const;
 		void* GetValue();
 
-	private:
-		CROSS_FRIENDLY
+	engine:
+		GLint glId = -1;
+		Type type = UNKNOWN;
+		Byte* value = NULL;
 
+	private:
 		void RealocateIfNeeded(U32 newSIze);
 
 		string name		= string();
-		Type type		= UNKNOWN;
 		string glName	= string();
-		GLint glId		= -1;
 		U32 size		= 0;
-		Byte* value		= NULL;
 		bool original	= true;
 	};
 
@@ -127,8 +127,6 @@ public:
 	bool HaveProperty(const string& name) const;
 
 protected:
-	CROSS_FRIENDLY
-
 	class LightUniforms{
 	public:
 		GLint position			= -1;

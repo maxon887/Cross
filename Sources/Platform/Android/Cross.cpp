@@ -191,10 +191,6 @@ extern "C"{
         if(game){
             game->Suspend();
         }
-        if(config){
-            config->SaveGameConfig();
-            config->SaveUserConfig();
-        }
 	}
 
 	void Java_com_cross_Cross_OnExit(JNIEnv *env, jobject thiz){

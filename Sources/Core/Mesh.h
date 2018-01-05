@@ -64,9 +64,7 @@ public:
 
 	bool IsEqual(Mesh* other) const;
 
-protected:
-	CROSS_FRIENDLY
-
+private:
 	U64 VBO						= 0;
 	U64 EBO						= 0;
 	VertexBuffer* vertex_buffer = NULL;

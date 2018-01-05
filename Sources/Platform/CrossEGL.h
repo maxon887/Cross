@@ -1,5 +1,8 @@
 #pragma once
 #if !(defined OPENGL)
+
+#undef engine
+
 #include <EGL/egl.h>
 
 #ifdef WIN

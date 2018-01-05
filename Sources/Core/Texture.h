@@ -72,8 +72,6 @@ public:
 	Texture* Clone() const;
 
 private:
-	CROSS_FRIENDLY
-
 	string name		= "noname";
 	U64 id			= 0;
 	U32 width		= 0;

@@ -91,7 +91,7 @@ public:
 	Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio() const;
-	/* Engine specific */
+	/* Sets physical device screen size */
 	void SetWindowSize(S32 width, S32 height);
 
 protected:

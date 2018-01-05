@@ -45,6 +45,10 @@ Audio::~Audio() {
 	CROSS_ASSERT(result != FMOD_OK, "Error while closing FMOD system");
 }
 
+FMOD::System* Audio::GetSystem() {
+	return fmod_system;
+}
+
 FMOD::Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 	FMOD_MODE mode = 0;
 	if(loop){
