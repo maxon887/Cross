@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cubemap.h"
 #include "Texture.h"
+#include "Internals/GraphicsGL.h"
 
 using namespace cross;
 
@@ -26,9 +27,9 @@ Cubemap::Cubemap(	const string& right,
 					const string& back,
 					const string& front)
 {
-	SAFE(glGenTextures(1, &textureID));
+	SAFE(glGenTextures(1, (GLuint*)&textureID));
 	SAFE(glActiveTexture(GL_TEXTURE0));
-	SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, textureID));
+	SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)textureID));
 
 	int width, height, channels;
 	Byte* image;
@@ -61,9 +62,9 @@ Cubemap::Cubemap(	const string& right,
 }
 
 Cubemap::~Cubemap(){
-	SAFE(glDeleteTextures(1, &textureID));
+	SAFE(glDeleteTextures(1, (GLuint*)&textureID));
 }
 
-GLuint Cubemap::GetTextureID() const{
+U64 Cubemap::GetTextureID() const{
 	return textureID;
 }

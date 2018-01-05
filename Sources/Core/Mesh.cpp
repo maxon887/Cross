@@ -38,8 +38,8 @@ Mesh::Mesh(Model* model, S32 id) :
 Mesh::~Mesh() {
 	delete vertex_buffer;
 	if(original && initialized) {
-		SAFE(glDeleteBuffers(1, &VBO));
-		SAFE(glDeleteBuffers(1, &EBO));
+		SAFE(glDeleteBuffers(1, (GLuint*)&VBO));
+		SAFE(glDeleteBuffers(1, (GLuint*)&EBO));
 	}
 }
 
@@ -257,8 +257,8 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 }
 
 void Mesh::TransferVideoData() {
-	SAFE(glGenBuffers(1, &VBO));
-	SAFE(glGenBuffers(1, &EBO));
+	SAFE(glGenBuffers(1, (GLuint*)&VBO));
+	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));

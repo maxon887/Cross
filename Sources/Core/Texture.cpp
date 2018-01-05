@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Texture.h"
+#include "Internals/GraphicsGL.h"
 #include "System.h"
 #include "Config.h"
 #include "Utils/Debugger.h"
@@ -88,7 +89,7 @@ Byte* Texture::LoadRawData(const string& filename, int& width, int& height, int&
 }
 
 Texture::~Texture(){
-	SAFE(glDeleteTextures(1, &id));
+	SAFE(glDeleteTextures(1, (GLuint*)&id));
 }
 
 void Texture::Load(const string& filename) {
@@ -126,7 +127,7 @@ void Texture::Save(const string& filename) {
 	file.name = filename;
 	file.size = GetWidth() * GetHeight() * GetChannels();
 	file.data = new Byte[file.size * GetChannels()];
-	SAFE(glBindTexture(GL_TEXTURE_2D, GetID()));
+	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
 	system->SaveFile(&file);
@@ -147,7 +148,7 @@ U32 Texture::GetChannels() const{
 	return channels;
 }
 
-GLuint Texture::GetID() const {
+U64 Texture::GetID() const {
 	return id;
 }
 
@@ -160,7 +161,7 @@ const string& Texture::GetName() const{
 }
 
 void Texture::SetTilingMode(Texture::TilingMode mode){
-	SAFE(glBindTexture(GL_TEXTURE_2D, id));
+	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)id));
 	switch(mode) {
 	case cross::Texture::TilingMode::CLAMP_TO_EDGE:
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
@@ -199,7 +200,7 @@ void Texture::SetFilter(Filter filter) {
 }
 
 void Texture::AddMipmapLevel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, Texture::Compression comp){
-	SAFE(glBindTexture(GL_TEXTURE_2D, id));
+	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)id));
 	switch(comp) {
 	case cross::Texture::Compression::ETC1:
 #ifdef ANDROID

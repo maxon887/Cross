@@ -18,7 +18,7 @@
 #include "Cross.h"
 #include "Native.h"
 #include "WINSystem.h"
-#include "GraphicsGL.h"
+#include "Internals/GraphicsGL.h"
 #include "Game.h"
 #include "Input.h"
 #include "Config.h"

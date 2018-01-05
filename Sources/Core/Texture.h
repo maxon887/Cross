@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "GraphicsGL.h"
+#include "Cross.h"
 
 namespace cross{
 
@@ -63,7 +63,7 @@ public:
 	U32 GetWidth() const;
 	U32 GetHeight() const;
 	U32 GetChannels() const;
-	GLuint GetID() const;
+	U64 GetID() const;
 	void SetName(const string& name);
 	const string& GetName() const;
 	void SetTilingMode(TilingMode mode);
@@ -75,7 +75,7 @@ private:
 	CROSS_FRIENDLY
 
 	string name		= "noname";
-	GLuint id		= 0;
+	U64 id			= 0;
 	U32 width		= 0;
 	U32 height		= 0;
 	U32 channels	= 0;

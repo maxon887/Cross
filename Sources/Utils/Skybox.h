@@ -32,7 +32,7 @@ private:
 	Shader* shader		= NULL;
 	Material* material	= NULL;
 	Entity* box			= NULL;
-	GLuint mvpID		= 0;
+	U64 mvpID			= 0;
 };
 
 }

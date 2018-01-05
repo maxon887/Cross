@@ -22,9 +22,9 @@ namespace cross{
 
 class ComponentFactory;
 
-/*	Core game class. Designed for contains function and fields shared between multiple Screens.
-	Every game at least must override GetStartScreen() function
-	in order to inform engine from which Screen it should start */
+/*	Core engine component. It manages Screen's behavior, generic application events and data.
+	You can inherit this class to put custom initialization/deinitialization code inside Start()/Stop() functions
+	or in case where you need update something despite of Screens replacement */
 class Game {
 public:
 	/* Occurs when someone call SetScreen() */
@@ -32,18 +32,22 @@ public:
 
 	Game();
 	virtual ~Game();
-	/* Called when core modules initialized. Before first Screen()::Start() function. */
-	virtual void Start();
-	/* Called before release all engine resources */
-	virtual void Stop();
+
+	/* Called once when core modules initialized. Before first Screen()::Start() function. */
+	virtual void Start() { }
+	/* Called once before release all engine resources */
+	virtual void Stop() { }
+	/* Called before regular Game::Update() */
 	virtual void PreUpdate(float sec) { }
+	/* Called every frame update. Be aware this Update will be called in any game Screen */
 	virtual void Update(float sec) { }
+	/* Called after regular Game::Update() */
 	virtual void PostUpdate(float sec) { }
 	/* Called when game needs to be paused. For example input call or window lost focus */
 	virtual void Suspend();
 	/* Called when game needs to be restored from previous interrupt. See Suspend() */
 	virtual void Resume();
-    /* Will change current Screen at the end of frame. Old Screen will be deleted */
+    /* Will change current Screen at the end of current frame. Old Screen will be deleted */
     virtual void SetScreen(Screen* screen);
 
 	/* Returns time in sec since game start */
@@ -54,8 +58,6 @@ public:
 	Scene* GetCurrentScene();
 	/* Returns component factory for custom Components registration */
 	ComponentFactory* GetComponentFactory();
-	/* Exit from application */
-	void Exit();
 	/* Engine specific */
 	void EngineUpdate();
 	bool IsSuspended() const;

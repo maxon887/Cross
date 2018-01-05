@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "TransparencyScene.h"
-#include "GraphicsGL.h"
 #include "Entity.h"
 #include "Light.h"
 #include "Shaders/LightsShader.h"

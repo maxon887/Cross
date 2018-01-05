@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "GraphicsGL.h"
 #include "Component.h"
 
 namespace cross{
@@ -48,7 +47,7 @@ public:
 	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehvaiour);
 
 	void TransferVideoData();
-	void PushData(VertexBuffer* vertexBuffer, const Array<GLushort>& indices);
+	void PushData(VertexBuffer* vertexBuffer, const Array<U16>& indices);
 
 	void SetMaterial(Material* material);
 	Material* GetMaterial();
@@ -57,7 +56,7 @@ public:
 	bool IsFaceCullingEnabled() const;
 
 	VertexBuffer* GetVertexBuffer();
-	Array<GLushort>& GetIndices();
+	Array<U16>& GetIndices();
 
 	S32 GetID() const;
 	Model* GetModel();
@@ -68,10 +67,10 @@ public:
 protected:
 	CROSS_FRIENDLY
 
-	GLuint VBO					= 0;
-	GLuint EBO					= 0;
+	U64 VBO						= 0;
+	U64 EBO						= 0;
 	VertexBuffer* vertex_buffer = NULL;
-	Array<GLushort> indices		= Array<GLushort>();
+	Array<U16> indices			= Array<U16>();
 
 	S32 id						= -1;
 	Model* model				= NULL;

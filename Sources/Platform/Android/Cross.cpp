@@ -20,7 +20,7 @@
 #include "AndroidSystem.h"
 #include "Screen.h"
 #include "Audio.h"
-#include "GraphicsGL.h"
+#include "Internals/GraphicsGL.h"
 #include "Config.h"
 #include "Utils/Debugger.h"
 #include "Platform/CrossEGL.h"

@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "NakedScene.h"
 #include "Light.h"
-#include "GraphicsGL.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"

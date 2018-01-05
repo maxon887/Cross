@@ -39,12 +39,12 @@ public:
 
 	File* LoadAssetFile(const string& filename) override;
 
-	void PromtToExit();
-	void RequestOrientation(Orientation orientation);
+	void PromtToExit() override;
+	void RequestOrientation(Orientation orientation) override;
 	void Messagebox(const string& title, const string& message) override;
 	bool IsMobile() override;
 	void Exit();
-	void Sleep(float milis);
+	void Sleep(float milis) override;
 	void CallActivityVoidMethod(const string& methodName);
 	void CallActivityVoidMethod(const string& methodName, const string& parameter);
 	

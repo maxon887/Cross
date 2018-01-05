@@ -138,7 +138,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 		}
 	}
 
-	Array<GLushort> indices;
+	Array<U16> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i) {
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j) {
 			indices.push_back(mesh->mFaces[i].mIndices[j]);

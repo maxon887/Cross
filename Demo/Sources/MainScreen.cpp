@@ -16,7 +16,6 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "MainScreen.h"
 #include "Demo.h"
-#include "GraphicsGL.h"
 #include "System.h"
 #include "UIScreen.h"
 #include "Texture.h"

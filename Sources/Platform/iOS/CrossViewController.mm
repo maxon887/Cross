@@ -18,7 +18,7 @@
 #include "Cross.h"
 #include "IOSSystem.h"
 #include "Audio.h"
-#include "GraphicsGL.h"
+#include "Internals/GraphicsGL.h"
 #include "Input.h"
 #include "Game.h"
 #include "Config.h"

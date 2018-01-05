@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "System.h"
+#include "Internals/GraphicsGL.h"
 #include "Input.h"
 #include "Config.h"
 #include "Scene.h"
@@ -50,14 +51,7 @@ Game::~Game() {
 	delete component_factory;
 	delete config;
 	delete input;
-}
-
-void Game::Start()  {
-}
-
-void Game::Stop() {
 	delete current_screen;
-	current_screen = NULL;
 }
 
 void Game::SetScreen(Screen* screen) {
@@ -143,12 +137,6 @@ void Game::EngineUpdate() {
 
 bool Game::IsSuspended() const {
 	return suspended;
-}
-
-void Game::Exit(){
-#ifdef WIN
-	exit(0);
-#endif // WIN
 }
 
 void Game::LoadNextScreen() {
