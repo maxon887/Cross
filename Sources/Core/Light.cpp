@@ -16,7 +16,6 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Light.h"
 #include "Game.h"
-#include "System.h"
 #include "Scene.h"
 
 #include  <algorithm>
@@ -27,7 +26,7 @@ Light::Light(Type type):
 	type(type)
 { }
 
-void Light::Initialize(){
+void Light::Initialize() {
 	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
@@ -35,7 +34,7 @@ void Light::Initialize(){
 	lights.push_back(this);
 }
 
-void Light::Remove(){
+void Light::Remove() {
 	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
@@ -44,38 +43,38 @@ void Light::Remove(){
 	}
 }
 
-Color Light::GetColor() const{
+Color Light::GetColor() const {
 	return color;
 }
 
-void Light::SetColor(const Color& color){
+void Light::SetColor(const Color& color) {
 	this->color = color;
 }
 
-Light* Light::Clone() const{
+Light* Light::Clone() const {
 	return new Light(*this);
 }
 
-Light::Type Light::GetType() const{
+Light::Type Light::GetType() const {
 	return type;
 }
 
-float Light::GetIntensity() const{
+float Light::GetIntensity() const {
 	return intensity;
 }
 
-void Light::SetIntensity(float inten){
+void Light::SetIntensity(float inten) {
 	intensity = inten;
 }
 
-void Light::SetCutOff(float cut_off){
+void Light::SetCutOff(float cut_off) {
 	this->cut_off = cut_off;
 }
 
-float Light::GetCutOff() const{
+float Light::GetCutOff() const {
 	return cut_off;
 }
 
-float Light::GetOuterCutOff() const{
+float Light::GetOuterCutOff() const {
 	return cut_off + 10.f;
 }
