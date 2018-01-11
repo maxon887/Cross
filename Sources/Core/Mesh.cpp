@@ -243,7 +243,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		CROSS_ASSERT(false, "Unknow stecil behaviour");
 	}
 	//alpha blending
-	if(material->transparency) {
+	if(material->IsTransparent()) {
 		SAFE(glEnable(GL_BLEND));
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}

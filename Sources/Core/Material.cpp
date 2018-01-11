@@ -16,7 +16,6 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Material.h"
 #include "System.h"
-#include "Shaders/Shader.h"
 #include "File.h"
 #include "Scene.h"
 #include "Game.h"
@@ -38,7 +37,7 @@ Material::Material(Shader* shader) :
 Material::Material(const Material& obj) :
 	shader(obj.shader),
 	active_texture_slot(obj.active_texture_slot),
-	transparency(obj.transparency)
+	transparent(obj.transparent)
 { 
 	for(Shader::Property* prop : obj.properties){
 		properties.push_back(prop->Clone());
@@ -174,6 +173,15 @@ void Material::Reset() {
 	}
 }
 
+bool Material::HaveProperty(const string& name) {
+	for(Shader::Property* prop : properties) {
+		if(prop->name == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
 Shader::Property* Material::GetProperty(const string& name){
 	for(Shader::Property* prop : properties){
 		if(prop->name == name){
@@ -183,7 +191,7 @@ Shader::Property* Material::GetProperty(const string& name){
 	CROSS_RETURN(false, NULL, "Can not find property '%s'", name.c_str());
 }
 
-Shader::Property* Material::GetProperty(GLuint glID){
+Shader::Property* Material::GetProperty(U64 glID){
 	for(Shader::Property* prop : properties){
 		if(prop->glId == glID){
 			return prop;
@@ -231,56 +239,47 @@ void Material::SetPropertyValue(const string& name, Texture* value){
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, S32 value){
+void Material::SetPropertyValue(U64 glID, S32 value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, float value){
+void Material::SetPropertyValue(U64 glID, float value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, const Color& value){
+void Material::SetPropertyValue(U64 glID, const Color& value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, Vector3D& value){
+void Material::SetPropertyValue(U64 glID, Vector3D& value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, Vector4D& value){
+void Material::SetPropertyValue(U64 glID, Vector4D& value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, Matrix& value){
+void Material::SetPropertyValue(U64 glID, Matrix& value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, Texture* value){
+void Material::SetPropertyValue(U64 glID, Texture* value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }
 
-bool Material::HaveProperty(const string& name) {
-	for(Shader::Property* prop : properties) {
-		if(prop->name == name) {
-			return true;
-		}
-	}
-	return false;
+bool Material::IsTransparent() {
+	return transparent;
 }
 
-bool Material::GetTransparency() {
-	return transparency;
-}
-
-void Material::SetTransparency(bool yes){
-	transparency = yes;
+void Material::EnableTransparent(bool yes){
+	transparent = yes;
 }
 
 Material* Material::Clone() const{
