@@ -22,9 +22,9 @@ namespace cross{
 
 /*	This class needed to link gpu shader input data to engine cpu core. 
 	Needed to create any kind of material */
-class Shader{
+class Shader {
 public:
-	class Property{
+	class Property {
 	public:
 		enum Type {
 			SAMPLER,
@@ -39,21 +39,19 @@ public:
 			UNKNOWN,
 		};
 
-		Property(const string& name, const string& glName, Type type);
 		Property(const string& name, const string& glName);
+		Property(const string& name, const string& glName, Type type);
 		Property(const Property& obj);
-		~Property();
 
 		void SetValue(S32 v);
-		void SetValue(U32 v);
 		void SetValue(float v);
 		void SetValue(const Color& v);
+		void SetValue(const Vector2D& v);
 		void SetValue(const Vector3D& v);
 		void SetValue(const Vector4D& v);
 		void SetValue(const Matrix& v);
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
-		void SetValue(Byte* data);
 
 		Property* Clone() const;
 
@@ -61,20 +59,29 @@ public:
 		Type GetType() const;
 		const string& GetName() const;
 		const string& GetGLName() const;
-		void* GetValue();
 
 	engine:
 		GLint glId = -1;
 		Type type = UNKNOWN;
-		Byte* value = NULL;
+
+		union Value {
+			S32 s32;
+			float f;
+			Color color;
+			Vector2D vec2;
+			Vector3D vec3;
+			Vector4D vec4;
+			Matrix mat;
+			Texture* texture;
+			Cubemap* cubemap;
+
+			Value() { memset(this, 0, sizeof(Value)); }
+
+		} value;
 
 	private:
-		void RealocateIfNeeded(U32 newSIze);
-
 		string name		= string();
 		string glName	= string();
-		U32 size		= 0;
-		bool original	= true;
 	};
 
 	//general attributes

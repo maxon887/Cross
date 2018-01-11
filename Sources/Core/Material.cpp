@@ -131,13 +131,10 @@ void Material::Save(const string& filename) {
 		propertyXML->SetAttribute("name", prop->GetName().c_str());
 		switch(prop->GetType()) {
 		case Shader::Property::Type::COLOR: {
-			Color c(0.f);
-			c.SetData((const char*)prop->GetValue());
-
-			int rInt = (int)(c.R * 255);
-			int gInt = (int)(c.G * 255);
-			int bInt = (int)(c.B * 255);
-			int aInt = (int)(c.A * 255);
+			int rInt = (int)(prop->value.color.R * 255);
+			int gInt = (int)(prop->value.color.G * 255);
+			int bInt = (int)(prop->value.color.B * 255);
+			int aInt = (int)(prop->value.color.A * 255);
 
 			std::stringstream ss;
 			ss << std::hex;
@@ -199,7 +196,7 @@ Array<Shader::Property*>& Material::GetProperties(){
 	return properties;
 }
 
-void Material::SetPropertyValue(const string& name, U32 value){
+void Material::SetPropertyValue(const string& name, S32 value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
@@ -234,7 +231,7 @@ void Material::SetPropertyValue(const string& name, Texture* value){
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(GLuint glID, U32 value){
+void Material::SetPropertyValue(GLuint glID, S32 value){
 	Shader::Property* prop = GetProperty(glID);
 	prop->SetValue(value);
 }

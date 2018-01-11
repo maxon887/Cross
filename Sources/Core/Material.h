@@ -40,14 +40,14 @@ public:
 	Shader::Property* GetProperty(const string& name);
 	Shader::Property* GetProperty(GLuint glID);
 	Array<Shader::Property*>& GetProperties();
-	void SetPropertyValue(const string& name, U32 value);
+	void SetPropertyValue(const string& name, S32 value);
 	void SetPropertyValue(const string& name, float value);
 	void SetPropertyValue(const string& name, const Color& value);
 	void SetPropertyValue(const string& name, Vector3D& value);
 	void SetPropertyValue(const string& name, Vector4D& value);
 	void SetPropertyValue(const string& name, Matrix& value);
 	void SetPropertyValue(const string& name, Texture* value);
-	void SetPropertyValue(GLuint glID, U32 value);
+	void SetPropertyValue(GLuint glID, S32 value);
 	void SetPropertyValue(GLuint glID, float value);
 	void SetPropertyValue(GLuint glID, const Color& value);
 	void SetPropertyValue(GLuint glID, Vector3D& value);

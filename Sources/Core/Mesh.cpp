@@ -24,6 +24,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "Utils/Cubemap.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -144,39 +145,38 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			prop->glId = shaderProp->GetID();
 			CROSS_FAIL(prop->glId != -1, "Broken shader property");
 		}
-		CROSS_FAIL(prop->value, "Property '%s' value does not assigned", prop->name.c_str());
 
 		switch(prop->type) {
 		case Shader::Property::SAMPLER:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, *(GLuint*)prop->value));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop->value.texture->GetID()));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
 		case Shader::Property::MAT4:
-			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
+			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, prop->value.mat.GetData()));
 			break;
 		case Shader::Property::COLOR:
-			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
+			SAFE(glUniform4fv(prop->glId, 1, prop->value.color.GetData()));
 			break;
 		case Shader::Property::VEC4:
-			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
+			SAFE(glUniform4fv(prop->glId, 1, prop->value.vec4.GetData()));
 			break;
 		case Shader::Property::VEC3:
-			SAFE(glUniform3fv(prop->glId, 1, (GLfloat*)prop->value));
+			SAFE(glUniform3fv(prop->glId, 1, prop->value.vec3.GetData()));
 			break;
 		case Shader::Property::VEC2:
-			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)prop->value));
+			SAFE(glUniform2fv(prop->glId, 1, prop->value.vec2.GetData()));
 			break;
 		case Shader::Property::FLOAT:
-			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
+			SAFE(glUniform1f(prop->glId, prop->value.f));
 			break;
 		case Shader::Property::INT:
-			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
+			SAFE(glUniform1i(prop->glId, prop->value.s32));
 			break;
 		case Shader::Property::CUBEMAP:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, *(GLuint*)prop->value));
+			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)prop->value.cubemap->GetTextureID()));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
