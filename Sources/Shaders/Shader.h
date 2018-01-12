@@ -26,32 +26,57 @@ class Shader {
 public:
 	class Property {
 	public:
+
 		enum Type {
-			SAMPLER,
-			MAT4,
-			VEC4,
-			VEC3,
-			VEC2,
-			FLOAT,
 			INT,
+			FLOAT,
 			COLOR,
+			VEC3,
+			MAT4,
+			TEXTURE,
 			CUBEMAP,
 			UNKNOWN,
 		};
 
+		union Value {
+			S32 s32;
+			float f;
+			Color color;
+			Vector3D vec3;
+			Matrix mat;
+			Texture* texture;
+			Cubemap* cubemap;
+
+			Value() { memset(this, 0, sizeof(Value)); }
+			Value(S32 v) : s32(v) { }
+			Value(float v) : f(v) { }
+			Value(const Color& v) : color(v) { }
+			Value(const Vector3D& v) : vec3(v) { }
+			Value(const Matrix& v) : mat(v) { }
+			Value(Texture* v) : texture(v) { }
+			Value(Cubemap* v) : cubemap(v) { }
+		};
+
 		Property(const string& name, const string& glName);
 		Property(const string& name, const string& glName, Type type);
+		Property(const string& name, const string& glName, S32 value);
+		Property(const string& name, const string& glName, float value);
+		Property(const string& name, const string& glName, const Color& value);
+		Property(const string& name, const string& glName, const Vector3D& value);
+		Property(const string& name, const string& glName, const Matrix& value);
+		Property(const string& name, const string& glName, Texture* value);
+		Property(const string& name, const string& glName, Cubemap* value);
 		Property(const Property& obj);
 
 		void SetValue(S32 v);
 		void SetValue(float v);
 		void SetValue(const Color& v);
-		void SetValue(const Vector2D& v);
 		void SetValue(const Vector3D& v);
-		void SetValue(const Vector4D& v);
 		void SetValue(const Matrix& v);
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
+		void SetValue(const Value& value);
+		const Value& GetValue() const;
 
 		Property* Clone() const;
 
@@ -60,24 +85,11 @@ public:
 		const string& GetName() const;
 		const string& GetGLName() const;
 
-	engine:
+	engineonly:
 		GLint glId = -1;
 		Type type = UNKNOWN;
 
-		union Value {
-			S32 s32;
-			float f;
-			Color color;
-			Vector2D vec2;
-			Vector3D vec3;
-			Vector4D vec4;
-			Matrix mat;
-			Texture* texture;
-			Cubemap* cubemap;
-
-			Value() { memset(this, 0, sizeof(Value)); }
-
-		} value;
+		Value value;
 
 	private:
 		string name		= string();
@@ -123,18 +135,19 @@ public:
 	void ClearMacrosies();
 
 	void AddProperty(const string& name, const string& glName);
-	void AddProperty(const string& glName, float defValue);
+	void AddProperty(const string& name, const string& glName, Property::Type type);
 	void AddProperty(const string& name, const string& glName, float defValue);
 	void AddProperty(const string& name, const string& glName, const Color& color);
 	void AddProperty(const string& name, const string& glName, const Vector3D& vec);
-	void AddProperty(Property* prop);
+	void AddProperty(const string& name, const string& glName, Cubemap* cubemap);
+	void AddProperty(const Property& prop);
 	Property* GetProperty(const string& name);
-	Array<Property*>& GetProperties();
+	Array<Property>& GetProperties();
 	void ClearProperties();
 	bool HaveProperty(const string& name) const;
 
 protected:
-	class LightUniforms{
+	class LightUniforms {
 	public:
 		GLint position			= -1;
 		GLint direction			= -1;
@@ -151,7 +164,7 @@ protected:
 	Array<string> user_macro	= Array<string>();
 	bool compiled				= false;
 	//custom uniforms
-	Array<Property*> properties	= Array<Property*>();
+	Array<Property> properties	= Array<Property>();
 
 	GLuint GetProgram() const;
 

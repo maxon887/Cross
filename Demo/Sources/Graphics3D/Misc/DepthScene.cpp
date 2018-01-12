@@ -30,8 +30,8 @@ void DepthScene::Start(){
 	SetAmbientColor(Color(0.1f));
 
 	shader = new Shader("Shaders/depth_test.vert", "Shaders/depth_test.frag");
-	shader->AddProperty("uFar", 30.f);
-	shader->AddProperty("uNear", 0.1f);
+	shader->AddProperty("Far", "uFar", 30.f);
+	shader->AddProperty("Near", "uNear", 0.1f);
 	shader->Compile();
 
 	car_mat = new Material(shader);

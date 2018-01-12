@@ -147,7 +147,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		}
 
 		switch(prop->type) {
-		case Shader::Property::SAMPLER:
+		case Shader::Property::TEXTURE:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
 			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop->value.texture->GetID()));
 			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
@@ -159,14 +159,8 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		case Shader::Property::COLOR:
 			SAFE(glUniform4fv(prop->glId, 1, prop->value.color.GetData()));
 			break;
-		case Shader::Property::VEC4:
-			SAFE(glUniform4fv(prop->glId, 1, prop->value.vec4.GetData()));
-			break;
 		case Shader::Property::VEC3:
 			SAFE(glUniform3fv(prop->glId, 1, prop->value.vec3.GetData()));
-			break;
-		case Shader::Property::VEC2:
-			SAFE(glUniform2fv(prop->glId, 1, prop->value.vec2.GetData()));
 			break;
 		case Shader::Property::FLOAT:
 			SAFE(glUniform1f(prop->glId, prop->value.f));

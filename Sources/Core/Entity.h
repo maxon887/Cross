@@ -74,7 +74,7 @@ public:
 	/* Returns Entity's world direction vector. Not fast function (all parents directions must be multiplied and must exist) */
 	Vector3D GetDirection();
 
-engine:
+engineonly:
 	void Initialize();
 	void Remove();
 	void Update(float sec);

@@ -21,7 +21,7 @@
 #endif
 
 /*	Access modifier that allow usage only inside engine classes */
-#define engine protected: CROSS_FRIENDLY protected
+#define engineonly protected: CROSS_FRIENDLY protected
 
 #define CROSS_ASSERT(condition, message, ...)						\
 if(!(condition)) {													\

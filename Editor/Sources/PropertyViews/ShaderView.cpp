@@ -95,21 +95,21 @@ void ShaderView::OnFileSelected(const string& filepath){
 		macroText->setText(macro.c_str());
 	}
 
-	for(Shader::Property* prop : shader->GetProperties()){
+	for(const Shader::Property& prop : shader->GetProperties()){
 		QWidget* propLayout = OnAddPropertyClicked();
 		QLineEdit* propertyName = propLayout->findChild<QLineEdit*>("propertyName");
 		QLineEdit* propertyGLName = propLayout->findChild<QLineEdit*>("propertyGLName");
 		QComboBox* propertyType = propLayout->findChild<QComboBox*>("propertyType");
-		propertyName->setText(prop->GetName().c_str());
-		propertyGLName->setText(prop->GetGLName().c_str());
-		switch(prop->GetType()) {
+		propertyName->setText(prop.GetName().c_str());
+		propertyGLName->setText(prop.GetGLName().c_str());
+		switch(prop.GetType()) {
 		case Shader::Property::Type::INT:
 			propertyType->setCurrentIndex(0);
 			break;
 		case Shader::Property::Type::FLOAT:
 			propertyType->setCurrentIndex(1);
 			break;
-		case Shader::Property::Type::SAMPLER:
+		case Shader::Property::Type::TEXTURE:
 			propertyType->setCurrentIndex(2);
 			break;
 		case Shader::Property::Type::COLOR:
@@ -245,16 +245,16 @@ void ShaderView::OnApplyClick(){
 		string glName = propertyGLName->text().toStdString();
 		switch(propertyType->currentIndex()) {
 		case 0://Int 
-			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::INT));
+			shader->AddProperty(name, glName, Shader::Property::INT);
 			break;
 		case 1://Float
-			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::FLOAT));
+			shader->AddProperty(name, glName, Shader::Property::FLOAT);
 			break;
 		case 2://Texture
-			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::SAMPLER));
+			shader->AddProperty(name, glName, Shader::Property::TEXTURE);
 			break;
 		case 3://Color
-			shader->AddProperty(new Shader::Property(name, glName, Shader::Property::COLOR));
+			shader->AddProperty(name, glName, Shader::Property::COLOR);
 			break;
 		default:
 			break;

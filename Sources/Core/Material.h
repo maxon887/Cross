@@ -88,7 +88,7 @@ public:
 	/* Clone this material with all properties and Shader pointer (won't be copeid) */
 	Material* Clone() const;
 
-engine:
+engineonly:
 	U32 active_texture_slot = 0;
 
 private:

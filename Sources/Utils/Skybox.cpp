@@ -34,13 +34,12 @@ Skybox::Skybox(Cubemap* cubemap) :
 
 	//shader = new LightsShader("Engine/Shaders/Sources/Light.vtx", "Engine/Shaders/Sources/Light.fgm");
 	shader = new Shader("Engine/Shaders/Sources/Skybox.vtx", "Engine/Shaders/Sources/Skybox.fgm");
-	Shader::Property* cubemapProp = new Shader::Property("Cubemap", "uCubemap");
-	cubemapProp->SetValue(cubemap);
-	shader->AddProperty(cubemapProp);
-	Shader::Property* customMVPProp = new Shader::Property("Custom MVP", "uCustomMVP");
+	
+	shader->AddProperty("Cubemap", "uCubemap", cubemap);
+	Shader::Property customMVPProp("Custom MVP", "uCustomMVP");
 	shader->AddProperty(customMVPProp);
 	shader->Compile();
-	mvpID = customMVPProp->GetID();
+	mvpID = customMVPProp.GetID();
 
 	material = new Material(shader);
 	Mesh* mesh = box->GetComponent<Mesh>();

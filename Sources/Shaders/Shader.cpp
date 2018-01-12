@@ -36,6 +36,55 @@ Shader::Property::Property(const string& name, const string& glName, Type t) :
 	type(t)
 { }
 
+Shader::Property::Property(const string& name, const string& glName, S32 value) :
+	name(name),
+	glName(glName),
+	type(INT),
+	value(value)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName, float value) :
+	name(name),
+	glName(glName),
+	type(FLOAT),
+	value(value)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName, const Color& value) :
+	name(name),
+	glName(glName),
+	type(COLOR),
+	value(value)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName, const Vector3D& value) :
+	name(name),
+	glName(glName),
+	type(VEC3),
+	value(value)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName, const Matrix& value) :
+	name(name),
+	glName(glName),
+	type(MAT4),
+	value(value)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName, Texture* value) :
+	name(name),
+	glName(glName),
+	type(TEXTURE),
+	value(value)
+{ }
+
+Shader::Property::Property(const string& name, const string& glName, Cubemap* value) :
+	name(name),
+	glName(glName),
+	type(CUBEMAP),
+	value(value)
+{ }
+
 Shader::Property::Property(const Shader::Property& obj):
 	name(obj.name),
 	type(obj.type),
@@ -59,19 +108,9 @@ void Shader::Property::SetValue(const Color& v) {
 	value.color = v;
 }
 
-void Shader::Property::SetValue(const Vector2D& v) {
-	type = VEC2;
-	value.vec2 = v;
-}
-
 void Shader::Property::SetValue(const Vector3D& v) {
 	type = VEC3;
 	value.vec3 = v;
-}
-
-void Shader::Property::SetValue(const Vector4D& v) {
-	type = VEC4;
-	value.vec4 = v;
 }
 
 void Shader::Property::SetValue(const Matrix& v) {
@@ -80,13 +119,21 @@ void Shader::Property::SetValue(const Matrix& v) {
 }
 
 void Shader::Property::SetValue(Texture* v) {
-	type = SAMPLER;
+	type = TEXTURE;
 	value.texture = v;
 }
 
 void Shader::Property::SetValue(Cubemap* v) {
 	type = CUBEMAP;
 	value.cubemap = v;
+}
+
+void Shader::Property::SetValue(const Value& v) {
+	value = v;
+}
+
+const Shader::Property::Value& Shader::Property::GetValue() const {
+	return value;
 }
 
 Shader::Property* Shader::Property::Clone() const {
@@ -129,9 +176,6 @@ Shader::~Shader() {
 	}
 	delete vertex_file;
 	delete fragment_file;
-	for(Shader::Property* prop : properties){
-		delete prop;
-	}
 }
 
 void Shader::Load(const string& file) {
@@ -172,19 +216,17 @@ void Shader::Load(const string& file) {
 			const char* glName = propertyXML->Attribute("glName");
 			const char* type = propertyXML->Attribute("type");
 
-			Property* prop = NULL;
 			if(strcmp(type, "Int") == 0) {
-				prop = new Property(name, glName, Property::INT);
+				AddProperty(name, glName, Property::INT);
 			} else if(strcmp(type, "Float") == 0) {
-				prop = new Property(name, glName, Property::FLOAT);
+				AddProperty(name, glName, Property::FLOAT);
 			} else if(strcmp(type, "Texture") == 0) {
-				prop = new Property(name, glName, Property::SAMPLER);
+				AddProperty(name, glName, Property::TEXTURE);
 			} else if(strcmp(type, "Color") == 0) {
-				prop = new Property(name, glName, Property::COLOR);
+				AddProperty(name, glName, Property::COLOR);
 			} else {
 				CROSS_ASSERT(false, "Unknown property type");
 			}
-			AddProperty(prop);
 
 			propertyXML = propertyXML->NextSiblingElement("Property");
 		}
@@ -216,11 +258,11 @@ void Shader::Save(const string& file) {
 	XMLElement* propertiesXML = doc.NewElement("Properties");
 	shaderXML->LinkEndChild(propertiesXML);
 
-	for(Property* prop : properties){
+	for(const Property& prop : properties){
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop->GetName().c_str());
-		propertyXML->SetAttribute("glName", prop->GetGLName().c_str());
-		switch(prop->GetType())	{
+		propertyXML->SetAttribute("name", prop.GetName().c_str());
+		propertyXML->SetAttribute("glName", prop.GetGLName().c_str());
+		switch(prop.GetType())	{
 		case Property::FLOAT:
 			propertyXML->SetAttribute("type", "Float");
 			break;
@@ -230,7 +272,7 @@ void Shader::Save(const string& file) {
 		case Property::COLOR:
 			propertyXML->SetAttribute("type", "Color");
 			break;
-		case Property::SAMPLER:
+		case Property::TEXTURE:
 			propertyXML->SetAttribute("type", "Texture");
 			break;
 		default:
@@ -278,9 +320,9 @@ void Shader::Compile() {
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
 	uColor = glGetUniformLocation(program, "uColor");
 
-	for(Shader::Property* prop : properties){
-		prop->glId = glGetUniformLocation(program, prop->glName.c_str());
-		CROSS_FAIL(prop->glId != -1, "Property %s does not contains in the shader", prop->glName.c_str());
+	for(Property& prop : properties){
+		prop.glId = glGetUniformLocation(program, prop.glName.c_str());
+		CROSS_FAIL(prop.glId != -1, "Property %s does not contains in the shader", prop.glName.c_str());
 	}
 	compiled = true;
 }
@@ -350,60 +392,67 @@ void Shader::ClearMacrosies() {
 }
 
 void Shader::AddProperty(const string& name, const string& glName) {
-	AddProperty(new Property(name, glName));
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
+	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
+	properties.emplace_back(name, glName);
 }
 
-void Shader::AddProperty(const string& glName, float defValue) {
-	AddProperty(glName, glName, defValue);
+void Shader::AddProperty(const string& name, const string& glName, Shader::Property::Type type) {
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
+	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
+	properties.emplace_back(name, glName, type);
 }
 
 void Shader::AddProperty(const string& name, const string& glName, float defValue) {
-	Property* prop = new Property(name, glName);
-	prop->SetValue(defValue);
-	AddProperty(prop);
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
+	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
+	properties.emplace_back(name, glName, defValue);
 }
 
 void Shader::AddProperty(const string& name, const string& glName, const Color& defValue) {
-	Property* prop = new Property(name, glName);
-	prop->SetValue(defValue);
-	AddProperty(prop);
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
+	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
+	properties.emplace_back(name, glName, defValue);
 }
 
 void Shader::AddProperty(const string& name, const string& glName, const Vector3D& defValue) {
-	Property* prop = new Property(name, glName);
-	prop->SetValue(defValue);
-	AddProperty(prop);
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
+	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
+	properties.emplace_back(name, glName, defValue);
 }
 
-void Shader::AddProperty(Shader::Property* prop) {
+void Shader::AddProperty(const string& name, const string& glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(prop->name), "Shader already contain that property");
+	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
+	properties.emplace_back(name, glName, defValue);
+}
+
+void Shader::AddProperty(const Property& prop) {
+	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
+	CROSS_FAIL(!HaveProperty(prop.name), "Shader already contain that property");
 	properties.push_back(prop);
 }
 
 Shader::Property* Shader::GetProperty(const string& name) {
-	for(Property* prop : properties){
-		if(prop->name == name){
-			return prop;
+	for(Property& prop : properties){
+		if(prop.name == name){
+			return &prop;
 		}
 	}
 	CROSS_RETURN(false, NULL, "Can not find property");
 }
 
-Array<Shader::Property*>& Shader::GetProperties(){
+Array<Shader::Property>& Shader::GetProperties(){
 	return properties;
 }
 
 void Shader::ClearProperties() {
-	for(Property* p : properties){
-		delete p;
-	}
 	properties.clear();
 }
 
 bool Shader::HaveProperty(const string& name) const {
-	for(Property* prop : properties){
-		if(prop->name == name){
+	for(const Property& prop : properties) {
+		if(prop.name == name) {
 			return true;
 		}
 	}
@@ -427,7 +476,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 
 	memcpy(source + curPos, file->data, file->size);
 	source[makro_len + file->size] = 0;
-	//shader compilling part
+	//shader compiling part
 	GLuint handle = glCreateShader(type);
 	glShaderSource(handle, 1, (const char**)&source, NULL);
 	delete[] source;

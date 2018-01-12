@@ -101,7 +101,7 @@ void Material::Load(const string& filename) {
 				Color color(value);
 				prop->SetValue(color);
 			} break;
-			case Shader::Property::SAMPLER: {
+			case Shader::Property::TEXTURE: {
 				const char* textureFilename = propertyXML->Attribute("value");
 				Texture* texture = game->GetCurrentScene()->GetTexture(textureFilename);
 				prop->SetValue(texture);
@@ -168,8 +168,8 @@ void Material::Reset() {
 	}
 	properties.clear();
 
-	for(Shader::Property* prop : shader->GetProperties()) {
-		properties.push_back(new Shader::Property(*prop));
+	for(const Shader::Property& prop : shader->GetProperties()) {
+		properties.push_back(new Shader::Property(prop));
 	}
 }
 

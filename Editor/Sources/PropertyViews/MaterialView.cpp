@@ -89,7 +89,7 @@ void MaterialView::RefreshProperties() {
 	for(Shader::Property* prop : material->GetProperties()) {
 		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());
 		switch(prop->GetType()) {
-		case Shader::Property::Type::SAMPLER: {
+		case Shader::Property::Type::TEXTURE: {
 			break;
 		}
 		case Shader::Property::Type::INT:
@@ -97,11 +97,10 @@ void MaterialView::RefreshProperties() {
 		case Shader::Property::Type::FLOAT:
 			break;
 		case Shader::Property::Type::COLOR: {
-			Color c(0.f);
-			c.SetData((const char*)prop->GetValue());
-
 			QPushButton* colorPicker = propLayout->findChild<QPushButton*>("colorPicker");
 			QString colorStyle = "background-color: ";
+			const Color& c = prop->GetValue().color;
+			QColor qColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255);
 			colorPicker->setStyleSheet(colorStyle + QColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255).name());
 
 			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
@@ -153,7 +152,7 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	propertyLayout->addWidget(propertyNameLabel);
 
 	switch(type) {
-	case cross::Shader::Property::SAMPLER: {
+	case cross::Shader::Property::TEXTURE: {
 		QLineEdit* filename = new QLineEdit(propertyLayoutWidget);
 		filename->setObjectName("filename");
 		propertyLayout->addWidget(filename);
@@ -244,11 +243,11 @@ void MaterialView::OnApplyClick() {
 
 void MaterialView::OnRevertClick() {
 	material->SetShader(original->GetShader());
-	material->SetTransparency(original->GetTransparency());
+	material->EnableTransparent(original->IsTransparent());
 	Array<Shader::Property*>& originalProps = original->GetProperties();
 	Array<Shader::Property*>& materialProps = material->GetProperties();
 	for(U32 i = 0; i < materialProps.size(); i++) {
-		materialProps[i]->SetValue((Byte*)originalProps[i]->GetValue());
+		materialProps[i]->SetValue(originalProps[i]->GetValue());
 	}
 	OnFileSelected(string(material->GetFilename()));
 }
@@ -258,8 +257,7 @@ void MaterialView::OnColorPickerClicked(){
 	QLabel* nameLabel = current_property_layout->findChild<QLabel*>("nameLabel");
 	current_property = material->GetProperty(nameLabel->text().toStdString());
 
-	Color c(0.f);
-	c.SetData((const char*)current_property->GetValue());
+	const Color& c = current_property->GetValue().color;
 	QColor qcolor(c.R * 255, c.G * 255, c.B * 255, c.A * 255);
 	color_dialog->setCurrentColor(qcolor);
 	color_dialog->move(mapToGlobal(nameLabel->pos()));

@@ -56,7 +56,7 @@ public:
 	/* Returns true if offsecreen render enabled */
 	bool IsOffscreenRender() const;
 
-engine:
+engineonly:
 	void SaveGameConfig();
 	void SaveUserConfig();
 	void LoadGameConfig();
