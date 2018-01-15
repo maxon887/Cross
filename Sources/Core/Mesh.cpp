@@ -287,12 +287,12 @@ Material* Mesh::GetMaterial() {
 	return material;
 }
 
-void Mesh::SetFaceCullingEnabled(bool enabled){
-	face_culling = enabled;
+bool Mesh::IsFaceCullingEnabled() const {
+	return face_culling;
 }
 
-bool Mesh::IsFaceCullingEnabled() const{
-	return face_culling;
+void Mesh::EnableFaceCulling(bool yes) {
+	face_culling = yes;
 }
 
 VertexBuffer* Mesh::GetVertexBuffer() {

@@ -44,7 +44,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 	material = new Material(shader);
 	Mesh* mesh = box->GetComponent<Mesh>();
 	mesh->SetMaterial(material);
-	mesh->SetFaceCullingEnabled(false);
+	mesh->EnableFaceCulling(false);
 }
 
 Skybox::~Skybox() {

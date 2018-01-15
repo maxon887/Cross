@@ -263,7 +263,7 @@ bool Material::IsTransparent() {
 	return transparent;
 }
 
-void Material::EnableTransparent(bool yes){
+void Material::EnableTransparency(bool yes){
 	transparent = yes;
 }
 

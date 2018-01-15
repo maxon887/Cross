@@ -22,13 +22,17 @@ namespace cross{
 
 class VertexBuffer;
 
-/*	Mesh is smallest 3d entity in game. Which consist of polygons.
-	Mesh also contains its materials which need to properly draw it on Scene */
+/*	A polygon Mesh is a collection of vertices and indices that defines the shape of a polyhedral object.
+	To draw a Mesh it must have Material applied. Meshes can be loaded by Scene::GetModel() function */
 class Mesh : public Component {
 public:
+	/*	Determines how Mesh will interact with stencil buffer while drawing */
 	enum StencilBehaviour {
+		/*	Mesh will write value into stencil buffer on Draw() */
 		WRITE,
+		/*	Mesh will try to read value from stencil buffer on Draw() */
 		READ,
+		/*	Mesh don't use stencil buffer. Default behavior */
 		IGNORED
 	};
 
@@ -36,32 +40,52 @@ public:
 	Mesh(Model* model, S32 id);
 	~Mesh();
 
+	/* Will be drawn on update */
 	void Update(float sec) override;
+	/* Creates new Mesh from this Mesh's data */
 	Mesh* Clone() const override;
+	/* Loads Mesh Component from XML node */
 	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	/* Saves Mesh Component into XML document */
 	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
+	/* Draws Mesh on scene */
 	void Draw();
+	/* Draws Mesh on scene with provided material */
 	void Draw(Material* material);
+	/* Draws Mesh on scene with special stencil behavior */
 	void Draw(Material* material, StencilBehaviour sten);
+	/* Draws Mesh on scene with provided MVP matrix and others parameters */
 	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehvaiour);
 
+	/* Transfers Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
 	void TransferVideoData();
+	/* Add new data to this Mesh or push it on top if have some */
 	void PushData(VertexBuffer* vertexBuffer, const Array<U16>& indices);
 
+	/* Sets Material for this mesh. Material must be set in order to draw Mesh */
 	void SetMaterial(Material* material);
+	/* Gets Material applied for this Mesh */
 	Material* GetMaterial();
 
-	void SetFaceCullingEnabled(bool enabled);
+	/* Returns true if face culling enabled */
 	bool IsFaceCullingEnabled() const;
+	/* Enables face culling for mesh. If enabled triangles that oriented not in view won't be drawn */
+	void EnableFaceCulling(bool yes);
 
+	/* Returns vertex buffer of this Mesh. Can be empty if data already transferred into GPU */
 	VertexBuffer* GetVertexBuffer();
+	/* Returns array of indices for this Mesh */
 	Array<U16>& GetIndices();
 
+	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
 	S32 GetID() const;
+	/* Returns Model object from which this Mesh was loaded or null if mesh was created not from Model */
 	Model* GetModel();
+	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
 
+	/* Returns true if this mesh equal to other */
 	bool IsEqual(Mesh* other) const;
 
 private:

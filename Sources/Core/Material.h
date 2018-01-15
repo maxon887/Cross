@@ -82,9 +82,9 @@ public:
 	/* Returns true if this Material supports transparency */
 	bool IsTransparent();
 	/* Enables transparency property for current Material */
-	void EnableTransparent(bool yes);
+	void EnableTransparency(bool yes);
 
-	/* Clone this material with all properties and Shader pointer (won't be copeid) */
+	/* Clone this material with all properties and Shader pointer (won't be copied) */
 	Material* Clone() const;
 
 engineonly:

@@ -86,9 +86,9 @@ void MaterialView::Clear(){
 }
 
 void MaterialView::RefreshProperties() {
-	for(Shader::Property* prop : material->GetProperties()) {
-		QWidget* propLayout = CreateProperty(prop->GetName(), prop->GetType());
-		switch(prop->GetType()) {
+	for(const Shader::Property& prop : material->GetProperties()) {
+		QWidget* propLayout = CreateProperty(prop.GetName(), prop.GetType());
+		switch(prop.GetType()) {
 		case Shader::Property::Type::TEXTURE: {
 			break;
 		}
@@ -99,7 +99,7 @@ void MaterialView::RefreshProperties() {
 		case Shader::Property::Type::COLOR: {
 			QPushButton* colorPicker = propLayout->findChild<QPushButton*>("colorPicker");
 			QString colorStyle = "background-color: ";
-			const Color& c = prop->GetValue().color;
+			const Color& c = prop.GetValue().color;
 			QColor qColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255);
 			colorPicker->setStyleSheet(colorStyle + QColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255).name());
 
@@ -243,12 +243,10 @@ void MaterialView::OnApplyClick() {
 
 void MaterialView::OnRevertClick() {
 	material->SetShader(original->GetShader());
-	material->EnableTransparent(original->IsTransparent());
-	Array<Shader::Property*>& originalProps = original->GetProperties();
-	Array<Shader::Property*>& materialProps = material->GetProperties();
-	for(U32 i = 0; i < materialProps.size(); i++) {
-		materialProps[i]->SetValue(originalProps[i]->GetValue());
-	}
+	material->EnableTransparency(original->IsTransparent());
+	Array<Shader::Property>& originalProps = original->GetProperties();
+	Array<Shader::Property>& materialProps = material->GetProperties();
+	materialProps = originalProps;
 	OnFileSelected(string(material->GetFilename()));
 }
 
