@@ -138,44 +138,44 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glUniform4fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(Shader::Property* prop : material->GetProperties()) {
-		if(prop->glId == -1) {
-			//late shader compilation produce this
-			Shader::Property* shaderProp = shader->GetProperty(prop->GetName());
-			prop->glId = shaderProp->GetID();
-			CROSS_FAIL(prop->glId != -1, "Broken shader property");
+	for(Shader::Property& prop : material->GetProperties()) {
+		if(prop.glId == -1) {
+			//late shader compilation produce this, trying to assign compiled id to the material id
+			Shader::Property* shaderProp = shader->GetProperty(prop.GetName());
+			prop.glId = shaderProp->GetID();
+			CROSS_FAIL(prop.glId != -1, "Broken shader property");
 		}
 
-		switch(prop->type) {
+		switch(prop.type) {
 		case Shader::Property::TEXTURE:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop->value.texture->GetID()));
-			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop.value.texture->GetID()));
+			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
 		case Shader::Property::MAT4:
-			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, prop->value.mat.GetData()));
+			SAFE(glUniformMatrix4fv(prop.glId, 1, GL_FALSE, prop.value.mat.GetData()));
 			break;
 		case Shader::Property::COLOR:
-			SAFE(glUniform4fv(prop->glId, 1, prop->value.color.GetData()));
+			SAFE(glUniform4fv(prop.glId, 1, prop.value.color.GetData()));
 			break;
 		case Shader::Property::VEC3:
-			SAFE(glUniform3fv(prop->glId, 1, prop->value.vec3.GetData()));
+			SAFE(glUniform3fv(prop.glId, 1, prop.value.vec3.GetData()));
 			break;
 		case Shader::Property::FLOAT:
-			SAFE(glUniform1f(prop->glId, prop->value.f));
+			SAFE(glUniform1f(prop.glId, prop.value.f));
 			break;
 		case Shader::Property::INT:
-			SAFE(glUniform1i(prop->glId, prop->value.s32));
+			SAFE(glUniform1i(prop.glId, prop.value.s32));
 			break;
 		case Shader::Property::CUBEMAP:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)prop->value.cubemap->GetTextureID()));
-			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)prop.value.cubemap->GetTextureID()));
+			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
 		default:
-			CROSS_ASSERT(false, "Unknown property type(%s)", prop->GetName().c_str());
+			CROSS_ASSERT(false, "Unknown property type(%s)", prop.GetName().c_str());
 		}
 	}
 	material->active_texture_slot = 0;

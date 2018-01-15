@@ -27,7 +27,6 @@ class Material {
 public:
 	Material() = default;
 	Material(Shader* shader);
-	~Material();
 
 	/* Sets Shader to Material to be draw with. All previous one properties will be deleted */
 	void SetShader(Shader* shader);
@@ -50,7 +49,7 @@ public:
 	/* Returns Material property by internal graphics ID or null if can't find */
 	Shader::Property* GetProperty(U64 glID);
 	/* Returns all available Material property */
-	Array<Shader::Property*>& GetProperties();
+	Array<Shader::Property>& GetProperties();
 	/* Sets integer property value by name */
 	void SetPropertyValue(const string& name, S32 value);
 	/* Sets float property value by name */
@@ -94,8 +93,8 @@ engineonly:
 private:
 	string filename						= "noname";
 	Shader* shader						= NULL;
-	bool transparent = false;
-	Array<Shader::Property*> properties = Array<Shader::Property*>();
+	bool transparent					= false;
+	Array<Shader::Property> properties	= Array<Shader::Property>();
 
 	Material(const Material& obj);
 	void SetName(const string& filename);

@@ -37,18 +37,9 @@ Material::Material(Shader* shader) :
 Material::Material(const Material& obj) :
 	shader(obj.shader),
 	active_texture_slot(obj.active_texture_slot),
-	transparent(obj.transparent)
-{ 
-	for(Shader::Property* prop : obj.properties){
-		properties.push_back(prop->Clone());
-	}
-}
-
-Material::~Material(){
-	for(Shader::Property* prop : properties){
-		delete prop;
-	}
-}
+	transparent(obj.transparent),
+	properties(obj.properties)
+{ }
 
 void Material::SetShader(Shader* shader){
 	this->shader = shader;
@@ -125,15 +116,15 @@ void Material::Save(const string& filename) {
 	}
 	doc.LinkEndChild(materialXML);
 
-	for(Shader::Property* prop : properties) {
+	for(const Shader::Property& prop : properties) {
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop->GetName().c_str());
-		switch(prop->GetType()) {
+		propertyXML->SetAttribute("name", prop.GetName().c_str());
+		switch(prop.GetType()) {
 		case Shader::Property::Type::COLOR: {
-			int rInt = (int)(prop->value.color.R * 255);
-			int gInt = (int)(prop->value.color.G * 255);
-			int bInt = (int)(prop->value.color.B * 255);
-			int aInt = (int)(prop->value.color.A * 255);
+			int rInt = (int)(prop.value.color.R * 255);
+			int gInt = (int)(prop.value.color.G * 255);
+			int bInt = (int)(prop.value.color.B * 255);
+			int aInt = (int)(prop.value.color.A * 255);
 
 			std::stringstream ss;
 			ss << std::hex;
@@ -163,19 +154,13 @@ void Material::Save(const string& filename) {
 }
 
 void Material::Reset() {
-	for(Shader::Property* prop : properties){
-		delete prop;
-	}
 	properties.clear();
-
-	for(const Shader::Property& prop : shader->GetProperties()) {
-		properties.push_back(new Shader::Property(prop));
-	}
+	properties = shader->GetProperties();
 }
 
 bool Material::HaveProperty(const string& name) {
-	for(Shader::Property* prop : properties) {
-		if(prop->name == name) {
+	for(const Shader::Property& prop : properties) {
+		if(prop.name == name) {
 			return true;
 		}
 	}
@@ -183,24 +168,24 @@ bool Material::HaveProperty(const string& name) {
 }
 
 Shader::Property* Material::GetProperty(const string& name){
-	for(Shader::Property* prop : properties){
-		if(prop->name == name){
-			return prop;
+	for(Shader::Property& prop : properties){
+		if(prop.name == name){
+			return &prop;
 		}
 	}
 	CROSS_RETURN(false, NULL, "Can not find property '%s'", name.c_str());
 }
 
 Shader::Property* Material::GetProperty(U64 glID){
-	for(Shader::Property* prop : properties){
-		if(prop->glId == glID){
-			return prop;
+	for(Shader::Property& prop : properties){
+		if(prop.glId == glID){
+			return &prop;
 		}
 	}
 	CROSS_RETURN(false, NULL, "Can not find property by ID(%d)", glID);
 }
 
-Array<Shader::Property*>& Material::GetProperties(){
+Array<Shader::Property>& Material::GetProperties(){
 	return properties;
 }
 
