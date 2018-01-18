@@ -26,7 +26,6 @@
 #include "File.h"
 #include "Transform.h"
 #include "ComponentFactory.h"
-#include "Texture.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -294,6 +293,17 @@ Texture* Scene::GetTexture(const string& textureFile) {
 		textures[hash] = texture;
 		return texture;
 	}
+}
+
+Texture* Scene::GetTexture(const string& textureFile, Texture::Filter filter) {
+	S32 hash = (S32)std::hash<string>{}(textureFile);
+	auto textureIt = textures.find(hash);
+	CROSS_RETURN(textureIt == textures.end(), NULL, "Texture already loaded. Can't load it second time");
+
+	Texture* texture = new Texture();
+	texture->Load(textureFile, filter);
+	textures[hash] = texture;
+	return texture;
 }
 
 Model* Scene::GetModel(const string& modelFile) {

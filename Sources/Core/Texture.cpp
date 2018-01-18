@@ -92,6 +92,30 @@ Texture::~Texture(){
 	SAFE(glDeleteTextures(1, (GLuint*)&id));
 }
 
+const string& Texture::GetName() const {
+	return name;
+}
+
+void Texture::SetName(const string& name) {
+	this->name = name;
+}
+
+U32 Texture::GetWidth() const {
+	return width;
+}
+
+U32 Texture::GetHeight() const {
+	return height;
+}
+
+U32 Texture::GetChannels() const {
+	return channels;
+}
+
+U64 Texture::GetID() const {
+	return id;
+}
+
 void Texture::Load(const string& filename) {
 	Load(filename, config->GetTextureFilter());
 }
@@ -136,30 +160,6 @@ void Texture::Save(const string& filename) {
 #endif
 }
 
-U32 Texture::GetWidth() const{
-	return width;
-}
-
-U32 Texture::GetHeight() const{
-	return height;
-}
-
-U32 Texture::GetChannels() const{
-	return channels;
-}
-
-U64 Texture::GetID() const {
-	return id;
-}
-
-void Texture::SetName(const string& name){
-	this->name = name;
-}
-
-const string& Texture::GetName() const{
-	return name;
-}
-
 void Texture::SetTilingMode(Texture::TilingMode mode){
 	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)id));
 	switch(mode) {
@@ -187,10 +187,12 @@ void Texture::SetFilter(Filter filter) {
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	case cross::Texture::Filter::BILINEAR:
+		CROSS_ASSERT(mip_maps, "Current texture does not have mip maps to apply this filter");
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
 	case cross::Texture::Filter::TRILINEAR:
+		CROSS_ASSERT(mip_maps, "Current texture does not have mip maps to apply this filter");
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
 		SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		break;
@@ -361,6 +363,7 @@ void Texture::Create(	Byte* data,
 
 	if(generateMipmaps) {
 		SAFE(glGenerateMipmap(GL_TEXTURE_2D));
+		mip_maps = true;
 	}
 	this->id = id;
 	this->width = width;

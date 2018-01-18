@@ -19,6 +19,7 @@
 #include "Screen.h"
 #include "Input.h"
 #include "Model.h"
+#include "Texture.h"
 
 namespace tinyxml2{
 
@@ -80,6 +81,8 @@ public:
 	Material* GetMaterial(const string& xmlFile);
 	/* Obtain loaded into scene Texture or load it by self in other way */
 	Texture* GetTexture(const string& textureFile);
+	/* Loads texture with provided filter */
+	Texture* GetTexture(const string& textureFile, Texture::Filter filter);
 	/* Obtain loaded into scene Model or load it by self in other way */
 	Model* GetModel(const string& modelFile);
 	/* Resets all materials to default state */
