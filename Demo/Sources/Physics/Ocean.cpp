@@ -57,14 +57,14 @@ Ocean::Spring::Spring(Vector3D ancor, RigidBody* obj, float restLength) :
 	fixed(true)
 { }
 
-void Ocean::Spring::Update(){
-	if(fixed){
+void Ocean::Spring::Update() {
+	if(fixed) {
 		Vector3D dir = p1->GetPosition() - ancor;
 		float dL = dir.Length() - rest_length;
 
 		p1->ApplyForce(dir.GetNormalized() * -dL * coef);
 		PrimitiveDrawer::DrawLine(p1->GetPosition(), ancor, Color::Red);
-	}else{
+	} else {
 		Vector3D dir = p1->GetPosition() - p2->GetPosition();
 		float dL = dir.Length() - rest_length;
 
@@ -87,29 +87,24 @@ void Ocean::Start() {
 	AddEntity(light);
 	
 	//*********************BALLS SHADER**********************
-	/*
-	ball_shader = new LightShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
-	ball_shader->AddProperty("Diffuse Color", "uColor");
-	ball_shader->AddProperty("Specular Color", "uSpecularColor");
-	ball_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
-	ball_shader->Compile();*/
 	ball_shader = new SingleLightShader("Shaders/specular.vert", "Shaders/specular.frag");
 	ball_shader->AddProperty("Diffuse Color", "uColor");
 	ball_shader->AddProperty("Specular Color", "uSpecularColor");
 	ball_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	ball_shader->Compile();
+
 	//*********************RED BALL**********************
 	red_mat = new Material(ball_shader);
 	red_mat->SetPropertyValue("Diffuse Color", Color::Red);
 	red_mat->SetPropertyValue("Specular Color", Color::White);
 
-	
 	Entity* redBall = LoadPrimitive(Model::SPHERE);
 	redBall->GetTransform()->SetPosition(Vector3D(-1.f, 5.f, 0.f));
 	ApplyMaterial(redBall, red_mat);
-	RigidBody* rigid = new RigidBody();
-	rigid->SetVelocity(Vector3D(5.f, 5.f, 0.f));
-	redBall->AddComponent(rigid);
+	RigidBody* redRigid = new RigidBody();
+	redRigid->SetDumping(0.2f);
+	redRigid->SetVelocity(Vector3D(5.f, 5.f, 0.f));
+	redBall->AddComponent(redRigid);
 	redBall->AddComponent(new Buoyant());
 	AddEntity(redBall);
 	//*********************GREEN BALL**********************
@@ -120,7 +115,10 @@ void Ocean::Start() {
 	Entity* greenBall = LoadPrimitive(Model::SPHERE);
 	greenBall->GetTransform()->SetPosition(Vector3D(4.f, 4.f, 0.f));
 	ApplyMaterial(greenBall, green_mat);
-	greenBall->AddComponent(new RigidBody(1.f));
+	RigidBody* greenRigid = new RigidBody();
+	greenRigid->SetMass(1.f);
+	greenRigid->SetDumping(0.2f);
+	greenBall->AddComponent(greenRigid);
 	greenBall->AddComponent(new Buoyant());
 	AddEntity(greenBall);
 
@@ -137,10 +135,12 @@ void Ocean::Start() {
 	ApplyMaterial(b1, orange_mat);
 	ApplyMaterial(b2, orange_mat);
 	RigidBody* b1RigidBody = new RigidBody();
+	b1RigidBody->SetAcceleration(0.2f);
 	b1RigidBody->SetVelocity(Vector3D(0.f, 3.f, 0.f));
 	b1->AddComponent(b1RigidBody);
 	b1->AddComponent(new Buoyant());
 	RigidBody* b2RigidBody = new RigidBody();
+	b2RigidBody->SetDumping(0.2f);
 	b2RigidBody->SetVelocity(Vector3D(0.f, 3.f, 3.f));
 	b2->AddComponent(b2RigidBody);
 	b2->AddComponent(new Buoyant());
@@ -156,6 +156,7 @@ void Ocean::Start() {
 	ApplyMaterial(hookedBall, white_mat);
 	hookedBall->GetTransform()->SetPosition(Vector3D(7.f, 5.f, 0.f));
 	RigidBody* hookedRB = new RigidBody(2.f);
+	hookedRB->SetDumping(0.2f);
 	hookedBall->AddComponent(hookedRB);
 	hookedBall->AddComponent(new Buoyant());
 	fixed_spring = new Spring(Vector3D(9.f, 8.f, 0.f), hookedRB, 2.f);
@@ -192,7 +193,7 @@ void Ocean::Stop() {
 }
 
 void Ocean::Update(float sec) {
+	DemoScene::Update(sec);
 	free_spring->Update();
 	fixed_spring->Update();
-	DemoScene::Update(sec);
 }

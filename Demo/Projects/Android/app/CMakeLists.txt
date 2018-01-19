@@ -19,7 +19,6 @@ file(GLOB CROSS_SRC
     "../../../Sources/Physics/*.cpp"
     "../../../Sources/ThirdParty/ImGui/*.cpp"
     "../../../Sources/UI/*.cpp"
-    "../../../../Sources/Shaders/*.cpp"
     "../../../../Sources/Core/*.cpp"
     "../../../../Sources/Math/*.cpp"
     "../../../../Sources/Shaders/*.cpp"
