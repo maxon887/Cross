@@ -35,28 +35,28 @@ using namespace cross;
 
 std::mutex mut;
 
-void* operator new(size_t size){
+void* operator new(size_t size) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
 	mut.unlock();
 	return result;
 }
 
-void* operator new(size_t size, char* filename, unsigned long line){
+void* operator new(size_t size, char* filename, unsigned long line) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
 	mut.unlock();
 	return result;
 }
 
-void* operator new[](size_t size){
+void* operator new[](size_t size) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
 	mut.unlock();
 	return result;
 }
 
-void* operator new[](size_t size, char* filename, unsigned long line){
+void* operator new[](size_t size, char* filename, unsigned long line) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
 	mut.unlock();
@@ -69,7 +69,7 @@ void operator delete(void* p) noexcept {
 	mut.unlock();
 }
 
-void operator delete(void* p, char* filename, unsigned long line){
+void operator delete(void* p, char* filename, unsigned long line) {
 	mut.lock();
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
@@ -81,7 +81,7 @@ void operator delete[](void* p) noexcept {
 	mut.unlock();
 }
 
-void operator delete[](void* p, char* filename, unsigned long line){
+void operator delete[](void* p, char* filename, unsigned long line) {
 	mut.lock();
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
@@ -91,7 +91,7 @@ const unsigned long		MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;
 MemoryManager			MemoryManager::instance;
 
-MemoryManager* MemoryManager::Instance(){
+MemoryManager* MemoryManager::Instance() {
 	return &instance;
 }
 
@@ -107,7 +107,7 @@ MemoryManager::~MemoryManager(){
 	dead = true;
 }
 
-void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned long line){
+void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned long line) {
 	if(!dead){
 
 		if(object_count > capacity - 1){
@@ -132,7 +132,7 @@ void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned lo
 	}
 }
 
-void MemoryManager::Free(void* address){
+void MemoryManager::Free(void* address) {
 	if(!dead){
 		SanityCheck();
 		if(address == NULL){
@@ -154,10 +154,10 @@ void MemoryManager::Free(void* address){
 	}
 }
 
-unsigned long MemoryManager::Dump(){
+unsigned long MemoryManager::Dump() {
 	SanityCheck();
 	unsigned long totalBytes = 0;
-	for(unsigned int i = 0; i < object_count; i++){
+	for(unsigned int i = 0; i < object_count; i++) {
 		Log("%4d. 0x%08X: %d bytes(%s: %d)\n",
 			i,
 			(unsigned long)alloc_objects[i].address,
@@ -171,12 +171,20 @@ unsigned long MemoryManager::Dump(){
 	return totalBytes;
 }
 
+unsigned long MemoryManager::AllocatedMemory() const {
+	unsigned long size = 0;
+	for(unsigned int i = 0; i <object_count; i++) {
+		size += alloc_objects[i].size;
+	}
+	return size;
+}
+
 void MemoryManager::SanityCheck(){
 	int count = 0;
-	for(unsigned int i = 0; i < object_count; ++i){
+	for(unsigned int i = 0; i < object_count; ++i) {
 		char* temp = (char*)alloc_objects[i].address;
 		temp += alloc_objects[i].size;
-		if(memcmp(temp, &check_code, 4) != 0){
+		if(memcmp(temp, &check_code, 4) != 0) {
 			Log("Memory corrupted at 0x%08X: %d bytes(%s: %d)\n",
 				(unsigned long)alloc_objects[i].address,
 				alloc_objects[i].size,
@@ -189,7 +197,7 @@ void MemoryManager::SanityCheck(){
 	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: %d corrupted buffers\n", count);
 }
 
-void MemoryManager::Log(const char* msg, ...){
+void MemoryManager::Log(const char* msg, ...) {
 	va_list params;
 	char buffer[4096];
 	va_start(params, msg);

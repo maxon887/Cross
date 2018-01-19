@@ -42,7 +42,9 @@ void Log::Content(float sec) {
 			line = line_end && line_end[1] ? line_end + 1 : NULL;
 		}
 	} else {
-		ImGui::TextUnformatted(system->GetLogBuffer().data());
+		if(system->GetLogBuffer().size() > 0) {
+			ImGui::TextUnformatted(system->GetLogBuffer().data());
+		}
 	}
 
 	if(scroll_to_bottom) {

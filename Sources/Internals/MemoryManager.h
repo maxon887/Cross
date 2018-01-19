@@ -33,19 +33,21 @@ void operator delete[](void* p, char* filename, unsigned long line);
 
 namespace cross{
 
-struct MemoryObject{
+struct MemoryObject {
 	void* address;
 	unsigned long size;
 	const char* filename;
 	unsigned long line;
 };
 
-class MemoryManager{
+class MemoryManager {
 public:
 	static MemoryManager* Instance();
 	void* Alloc(unsigned long size, const char* filename, unsigned long line);
 	void Free(void* address);
 	unsigned long Dump();
+
+	unsigned long AllocatedMemory() const;
 	
 private:
 	static const unsigned long check_code;
