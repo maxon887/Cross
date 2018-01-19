@@ -15,25 +15,22 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
-#include "Shaders/MultiLightShader.h"
+#include "Graphics3D/DemoScene.h"
+#include "Shaders/LightsShader.h"
 #include "Entity.h"
 
-class Ocean : public CameraControlsScene {
+class Ocean : public DemoScene {
 public:
 	virtual void Start();
 	virtual void Stop();
 	virtual void Update(float sec);
 
 private:
-	class BuoyantEntity : public Entity{
+	class Buoyant : public Component {
 	public:
-		BuoyantEntity(Entity* e);
-		virtual ~BuoyantEntity() { }
-
-		virtual void AddComponent(Component* component);
-		virtual void Update(float sec);
+		void Update(float sec) override;
 	};
+
 	class Spring {
 	public:
 		float coef = 3.f;
@@ -43,14 +40,15 @@ private:
 		Spring(Vector3D ancor, RigidBody* obj, float restLength);
 
 		void Update();
+
 	private:
 		bool fixed;
 		Vector3D ancor;
-		RigidBody* p1;
-		RigidBody* p2;
+		RigidBody* p1 = NULL;
+		RigidBody* p2 = NULL;
 	};
 	//road
-	MultiLightShader* water_shader;
+	LightsShader* water_shader;
 	Material* water_mat;
 	//balls
 	Shader* ball_shader;

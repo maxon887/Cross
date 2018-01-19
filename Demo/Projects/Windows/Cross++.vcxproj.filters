@@ -67,6 +67,9 @@
     <Filter Include="Cross\Physics">
       <UniqueIdentifier>{e7eca6f7-d46c-4777-bca4-f1861c846474}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Physics">
+      <UniqueIdentifier>{23dd8e9c-ce12-45ab-a486-58dff1106c6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -324,6 +327,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp">
       <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
+      <Filter>Demo\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -609,6 +615,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h">
       <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Physics\Ocean.h">
+      <Filter>Demo\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

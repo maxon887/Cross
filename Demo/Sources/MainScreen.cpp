@@ -37,6 +37,10 @@
 #include "Graphics3D/Misc/TransparencyScene.h"
 #include "Graphics3D/Misc/SkyboxScene.h"
 #include "Graphics3D/Misc/ApocalypseScene.h"
+#include "Physics/Ocean.h"
+//#include "Physics/HardConstraints.h"
+//#include "Physics/Bridge.h"
+//#include "Physics/Suppressors.h"
 #include "AudioScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -131,6 +135,22 @@ void MainScreen::Update(float sec) {
 			}
 			if(ImGui::MenuButton("Apocalypse Scene")) {
 				game->SetScreen(new ApocalypseScene());
+			}
+			ImGui::TreePop();
+		}
+
+		if(ImGui::TreeNode("Physics")) {
+			if(ImGui::MenuButton("Ocean")) {
+				game->SetScreen(new Ocean());
+			}
+			if(ImGui::MenuButton("HardConstraints")) {
+				//game->SetScreen(new HardConstraints());
+			}
+			if(ImGui::MenuButton("Bridge")) {
+				//game->SetScreen(new Bridge());
+			}
+			if(ImGui::MenuButton("Suppressors")) {
+				//game->SetScreen(new Suppressors());
 			}
 			ImGui::TreePop();
 		}
