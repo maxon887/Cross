@@ -17,15 +17,6 @@
 #include "Log.h"
 #include "System.h"
 
-Log::Log() : View("Log")
-{
-	system->Logged.Connect(this, &Log::OnLogged);
-}
-
-Log::~Log() {
-	system->Logged.Disconnect(this, &Log::OnLogged);
-}
-
 void Log::WillContent() {
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
 }
@@ -41,17 +32,17 @@ void Log::Content(float sec) {
 	if(copy) ImGui::LogToClipboard();
 
 	if(filter.IsActive()) {
-		const char* buf_begin = buffer.begin();
+		const char* buf_begin = system->GetLogBuffer().data();
 		const char* line = buf_begin;
-		for(int line_no = 0; line != NULL; line_no++)
-		{
+		for(int line_no = 0; line != NULL; line_no++) {
 			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : NULL;
-			if(filter.PassFilter(line, line_end))
+			if(filter.PassFilter(line, line_end)) {
 				ImGui::TextUnformatted(line, line_end);
+			}
 			line = line_end && line_end[1] ? line_end + 1 : NULL;
 		}
 	} else {
-		ImGui::TextUnformatted(buffer.begin());
+		ImGui::TextUnformatted(system->GetLogBuffer().data());
 	}
 
 	if(scroll_to_bottom) {
@@ -59,20 +50,9 @@ void Log::Content(float sec) {
 	}
 	scroll_to_bottom = false;
 	ImGui::EndChild();
-	//ImGui::End();
 }
 
 void Log::Clear() {
-	buffer.clear();
+	system->GetLogBuffer().clear();
 	lineoffset.clear();
-}
-
-void Log::OnLogged(const char* msg) {
-	int old_size = buffer.size();
-	buffer.appendf(msg);
-	buffer.appendf("\n");
-	for(int new_size = buffer.size(); old_size < new_size; old_size++)
-		if(buffer[old_size] == '\n')
-			lineoffset.push_back(old_size);
-	scroll_to_bottom = true;
 }

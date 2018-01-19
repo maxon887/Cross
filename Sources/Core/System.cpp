@@ -142,13 +142,20 @@ void System::LogIt(const char* format, ...) {
 	va_start(params, format);
 	vsprintf(buffer, format, params);
 	Log(buffer);
-	Logged.Emit(buffer);
+#ifdef CROSS_DEBUG
+	auto iter = log_buffer.end();
+	if(log_buffer.size() != 0) {
+		log_buffer.pop_back();
+	}
+	log_buffer.insert(log_buffer.end(), buffer, buffer + strlen(buffer));
+	log_buffer.push_back('\n');
+	log_buffer.push_back(0);
+#endif // CROSS_DEBUG
 	va_end(params);
 }
 
 void System::LogIt(const string& msg) {
 	LogIt(msg.c_str());
-	Logged.Emit(msg.c_str());
 }
 
 void System::LogIt(const Vector3D& vector) {
@@ -177,6 +184,10 @@ System::Orientation System::GetDeviceOrientation() const {
 
 float System::GetAspectRatio() const {
 	return GetWindowWidth() / (float)GetWindowHeight();
+}
+
+Array<char>& System::GetLogBuffer() {
+	return log_buffer;
 }
 
 void System::SetWindowSize(S32 width, S32 height) {

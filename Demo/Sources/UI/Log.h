@@ -24,19 +24,15 @@ using namespace cross;
 
 class Log : public View {
 public:
-	Log();
-	~Log();
+	Log() : View("Log") { }
 
 	void WillContent() override;
 	void Content(float sec) override;
 
 private:
-	ImGuiTextBuffer		buffer;
 	ImGuiTextFilter     filter;
 	ImVector<int>		lineoffset;        // Index to lines offset
 	bool				scroll_to_bottom = true;
 
 	void Clear();
-
-	void OnLogged(const char* msg);
 };

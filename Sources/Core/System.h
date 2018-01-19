@@ -33,8 +33,6 @@ public:
 	Event<S32, S32> WindowResized;
 	/* Occurs when window orientation changed */
 	Event<System::Orientation> OrientationChanged;
-	/* Occurs when something was logged */
-	Event<const char*> Logged;
 
 	virtual ~System() { }
 
@@ -95,6 +93,8 @@ public:
 	float GetAspectRatio() const;
 	/* Sets physical device screen size */
 	void SetWindowSize(S32 width, S32 height);
+	/* Returns all messages that was logged. Works only in debug builds */
+	Array<char>& GetLogBuffer();
 
 protected:
 	virtual void Messagebox(const string& title, const string& msg);
@@ -103,6 +103,8 @@ private:
 	S32 window_width	= -1;
 	S32 window_height	= -1;
 	Set<int> asserts_hashes;
+
+	Array<char> log_buffer;
 };
 	
 }
