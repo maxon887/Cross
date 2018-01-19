@@ -138,23 +138,28 @@ void MainScreen::Update(float sec) {
 			}
 			ImGui::TreePop();
 		}
-
-		if(ImGui::TreeNode("Physics")) {
-			if(ImGui::MenuButton("Ocean")) {
-				game->SetScreen(new Ocean());
-			}
-			if(ImGui::MenuButton("HardConstraints")) {
-				//game->SetScreen(new HardConstraints());
-			}
-			if(ImGui::MenuButton("Bridge")) {
-				//game->SetScreen(new Bridge());
-			}
-			if(ImGui::MenuButton("Suppressors")) {
-				//game->SetScreen(new Suppressors());
-			}
-			ImGui::TreePop();
-		}
 	}
+
+	if(ImGui::CollapsingHeader("Physics")) {
+		//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(SCALED(100.f), 30.f));
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		ImGui::Indent(style.IndentSpacing);
+		if(ImGui::MenuButton("Ocean")) {
+			game->SetScreen(new Ocean());
+		}
+		if(ImGui::MenuButton("HardConstraints")) {
+			//game->SetScreen(new HardConstraints());
+		}
+		if(ImGui::MenuButton("Bridge")) {
+			//game->SetScreen(new Bridge());
+		}
+		if(ImGui::MenuButton("Suppressors")) {
+			//game->SetScreen(new Suppressors());
+		}
+		ImGui::Indent(-style.IndentSpacing);
+	}
+
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
 		game->SetScreen(new AudioScreen());
 	}

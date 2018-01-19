@@ -26,14 +26,6 @@
 #include "Physics/RigidBody.h"
 #include "Utils/PrimitiveDrawer.h"
 
-/*
-void Ocean::BuoyantEntity::AddComponent(Component* newOne) {
-	if(newOne->GetType() == Component::Type::RIGIDBODY){
-		((RigidBody*)(newOne))->SetDumping(0.2f);
-	}
-	Entity::AddComponent(newOne);
-}*/
-
 void Ocean::Buoyant::Update(float sec) {
 	if(GetTransform()->GetPosition().y <= 0.f) {
 		RigidBody* rb = GetEntity()->GetComponent<RigidBody>();
