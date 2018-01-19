@@ -23,6 +23,7 @@
 #include "UI/CameraController.h"
 #include "UI/Hierarchy.h"
 #include "UI/TransformView.h"
+#include "UI/Log.h"
 #include "UI/Stats.h"
 #include "UI/About.h"
 #include "Utils/Debugger.h"
@@ -40,6 +41,7 @@ MenuBar::MenuBar() {
 	views.push_back(hierarchy);
 	views.push_back(transform);
 
+	log = new Log();
 	stats = new Stats();
 	about = new About();
 }
@@ -50,8 +52,9 @@ MenuBar::~MenuBar() {
 	}
 	views.clear();
 
-	delete stats;
 	delete about;
+	delete stats;
+	delete log;
 }
 
 void MenuBar::Update(float sec) {
@@ -64,6 +67,7 @@ void MenuBar::Update(float sec) {
 		ImGui::End();
 	}
 	
+	log->Update(sec);
 	stats->Update(sec);
 	about->Update(sec);
 }
@@ -112,6 +116,9 @@ void MenuBar::ShowMenu() {
 		ImVec2 helpSize = ImGui::CalcTextSize("Help");
 		ImGui::SameLine(ImGui::GetWindowWidth() - helpSize.x * 2.f);
 		if(ImGui::BeginMenu("Help")) {
+			if(ImGui::MenuItem("Log")) {
+				log->Show();
+			}
 			if(ImGui::MenuItem("Stats")) {
 				stats->Show();
 			}

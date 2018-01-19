@@ -142,11 +142,13 @@ void System::LogIt(const char* format, ...) {
 	va_start(params, format);
 	vsprintf(buffer, format, params);
 	Log(buffer);
+	Logged.Emit(buffer);
 	va_end(params);
 }
 
 void System::LogIt(const string& msg) {
 	LogIt(msg.c_str());
+	Logged.Emit(msg.c_str());
 }
 
 void System::LogIt(const Vector3D& vector) {

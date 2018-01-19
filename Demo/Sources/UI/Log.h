@@ -16,27 +16,27 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "View.h"
 
-class View;
+#include "ThirdParty/ImGui/imgui.h"
 
 using namespace cross;
 
-class MenuBar {
+class Log : public View {
 public:
-	MenuBar();
-	~MenuBar();
+	Log();
+	~Log();
 
-	void Update(float sec);
+	void WillContent() override;
+	void Content(float sec) override;
 
-	void ShowMenu();
-	float GetHeight() const;
+private:
+	ImGuiTextBuffer		buffer;
+	ImGuiTextFilter     filter;
+	ImVector<int>		lineoffset;        // Index to lines offset
+	bool				scroll_to_bottom = true;
 
-protected:
-	float menu_height			= 0;
-	bool show_style_editor		= false;
+	void Clear();
 
-	Array<View*> views;
-	View* log					= NULL;
-	View* stats					= NULL;
-	View* about					= NULL;
+	void OnLogged(const char* msg);
 };

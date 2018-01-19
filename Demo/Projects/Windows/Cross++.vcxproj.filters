@@ -310,6 +310,9 @@
     <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Log.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -582,6 +585,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h">
       <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Log.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

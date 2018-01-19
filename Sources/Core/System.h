@@ -33,6 +33,8 @@ public:
 	Event<S32, S32> WindowResized;
 	/* Occurs when window orientation changed */
 	Event<System::Orientation> OrientationChanged;
+	/* Occurs when something was logged */
+	Event<const char*> Logged;
 
 	virtual ~System() { }
 

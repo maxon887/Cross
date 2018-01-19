@@ -169,6 +169,7 @@
     <ClCompile Include="..\..\Sources\UIScreen.cpp" />
     <ClCompile Include="..\..\Sources\UI\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Log.cpp" />
     <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
     <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="..\..\Sources\UI\About.h" />
     <ClInclude Include="..\..\Sources\UI\CameraController.h" />
     <ClInclude Include="..\..\Sources\UI\ComponentView.h" />
+    <ClInclude Include="..\..\Sources\UI\Log.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />
     <ClInclude Include="..\..\Sources\UI\View.h" />
     <ClInclude Include="..\..\Sources\UI\Hierarchy.h" />
