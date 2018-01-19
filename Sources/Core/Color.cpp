@@ -1,21 +1,23 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Color.h"
 #include "Cross.h"
+
+#include <cstdlib>
 
 using namespace cross;
 
@@ -63,6 +65,25 @@ Color::Color(int r, int g, int b, int a) :
 	A(a / 255.f)
 { }
 
+Color::Color(const char* hex){
+	string rStr = string(hex + 0, hex + 2);
+	U64 rInt = std::strtol(rStr.c_str(), NULL, 16);
+	string gStr = string(hex + 2, hex + 4);
+	U64 gInt = std::strtol(gStr.c_str(), NULL, 16);
+	string bStr = string(hex + 4, hex + 6);
+	U64 bInt = std::strtol(bStr.c_str(), NULL, 16);
+	string aStr = string(hex + 6, hex + 8);
+	U64 aInt = std::strtol(aStr.c_str(), NULL, 16);
+	R = rInt / 255.f;
+	G = gInt / 255.f;
+	B = bInt / 255.f;
+	A = aInt / 255.f;
+}
+
+void Color::SetData(const char* data){
+	memcpy(&R, data, sizeof(Color));
+}
+
 const float* Color::GetData() const{
 	return &R;
 }
@@ -70,7 +91,7 @@ const float* Color::GetData() const{
 bool Color::operator==(const Color &c) const{
 	if(	this->R == c.R &&
 		this->G == c.G &&
-		this->B == c.B){
+		this->B == c.B ){
 		return true;
 	}else{
 		return false;

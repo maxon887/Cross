@@ -11,23 +11,24 @@ cmake_minimum_required(VERSION 3.4.1)
 
 file(GLOB CROSS_SRC
     "../../../Sources/*.cpp"
-    "../../../Sources/Graphics2D/*.cpp"
     "../../../Sources/Graphics3D/*.cpp"
     "../../../Sources/Graphics3D/Simple/*.cpp"
     "../../../Sources/Graphics3D/Light/*.cpp"
     "../../../Sources/Graphics3D/Maps/*.cpp"
     "../../../Sources/Graphics3D/Misc/*.cpp"
     "../../../Sources/Physics/*.cpp"
-    "../../../../../Sources/Core/*.cpp"
-    "../../../../../Sources/Math/*.cpp"
-    "../../../../../Sources/Shaders/*.cpp"
-    "../../../../../Sources/Physics/*.cpp"
-    "../../../../../Sources/Internals/*.cpp"
-    "../../../../../Sources/Utils/*.cpp"
-    "../../../../../Sources/Libs/SOIL/*.c"
-    "../../../../../Sources/Libs/TinyXML/*.cpp"
-    "../../../../../Sources/Platform/*.cpp"
-    "../../../../../Sources/Platform/Android/*.cpp"
+    "../../../Sources/ThirdParty/ImGui/*.cpp"
+    "../../../Sources/UI/*.cpp"
+    "../../../../Sources/Shaders/*.cpp"
+    "../../../../Sources/Core/*.cpp"
+    "../../../../Sources/Math/*.cpp"
+    "../../../../Sources/Shaders/*.cpp"
+    "../../../../Sources/Internals/*.cpp"
+    "../../../../Sources/Utils/*.cpp"
+    "../../../../Sources/Libs/SOIL/*.c"
+    "../../../../Sources/Libs/TinyXML2/*.cpp"
+    "../../../../Sources/Platform/*.cpp"
+    "../../../../Sources/Platform/Android/*.cpp"
 
 )
 
@@ -72,21 +73,20 @@ set_target_properties( freetype2 PROPERTIES IMPORTED_LOCATION
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       cross
-
-                       # Links the target library to the log library
-                       # included in the NDK.
-                       ${log-lib}
-                       android
-                       GLESv2
-                        EGL
-                        fmod
-                        assimp
-                        freetype2)
+						cross
+						${log-lib}
+						android
+						GLESv2
+						EGL
+						fmod
+						assimp
+						#freetype2
+						)
 
 include_directories(../../../../Sources)
 include_directories(../../../../Sources/Core)
 include_directories(../../../Sources)
+include_directories(../../../../Sources/Libs)
 include_directories(../../../../Sources/Libs/FreeType)
 include_directories(../../../../Sources/Libs/FreeType/freetype2)
 include_directories(../../../../Sources/Libs/TinyXML)

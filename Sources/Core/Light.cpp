@@ -1,52 +1,40 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Light.h"
 #include "Game.h"
 #include "Scene.h"
 
+#include  <algorithm>
+
 using namespace cross;
 
 Light::Light(Type type):
-	Component(Component::LIGHT),
-	type(type),
-	color(Color::White),
-	intensity(0.01f), //aroud 15m to max distance
-	cut_off(30.f)
+	type(type)
 { }
 
-Light::Light(Light& obj):
-	Component(Component::LIGHT),
-	type(obj.type),
-	color(obj.color),
-	intensity(obj.intensity), //aroud 15m to max distance
-	cut_off(obj.cut_off)
-{ }
-
-void Light::Initialize(){
+void Light::Initialize() {
 	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
-	if(it != lights.end()) {
-		throw CrossException("Current light already in the scene");
-	}
+	CROSS_ASSERT(it == lights.end(), "Current light already in the scene");
 	lights.push_back(this);
 }
 
-void Light::Remove(){
+void Light::Remove() {
 	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
@@ -55,38 +43,38 @@ void Light::Remove(){
 	}
 }
 
-Color Light::GetColor() const{
+Color Light::GetColor() const {
 	return color;
 }
 
-void Light::SetColor(const Color& color){
+void Light::SetColor(const Color& color) {
 	this->color = color;
 }
 
-Light* Light::Clone(){
+Light* Light::Clone() const {
 	return new Light(*this);
 }
 
-Light::Type Light::GetType() const{
+Light::Type Light::GetType() const {
 	return type;
 }
 
-float Light::GetIntensity() const{
+float Light::GetIntensity() const {
 	return intensity;
 }
 
-void Light::SetIntensity(float inten){
+void Light::SetIntensity(float inten) {
 	intensity = inten;
 }
 
-void Light::SetCutOff(float cut_off){
+void Light::SetCutOff(float cut_off) {
 	this->cut_off = cut_off;
 }
 
-float Light::GetCutOff() const{
+float Light::GetCutOff() const {
 	return cut_off;
 }
 
-float Light::GetOuterCutOff() const{
+float Light::GetOuterCutOff() const {
 	return cut_off + 10.f;
 }

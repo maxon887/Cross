@@ -1,20 +1,21 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
-This file is part of Cross++ Game Engine.
+	This file is part of Cross++ Game Engine.
 
-Cross++ Game Engine is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-Cross++ is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
+#include "System.h"
 #include "VertexBuffer.h"
 #include "Scene.h"
 #include "Texture.h"
@@ -22,53 +23,88 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Material.h"
 #include "Game.h"
 #include "Camera.h"
+#include "Transform.h"
+#include "Utils/Cubemap.h"
+
+#include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
+using namespace tinyxml2;
 
-Mesh::Mesh() :
-	Component(Component::Type::MESH),
-	vertex_buffer(NULL),
-	material(NULL),
-	original(true),
-	initialized(false),
-	face_culling(true)
+Mesh::Mesh(Model* model, S32 id) :
+	model(model),
+	id(id)
 { }
-
-Mesh::Mesh(Mesh& obj) :
-	Component(Component::Type::MESH),
-	index_count(obj.index_count),
-	indices(obj.indices),
-	material(obj.material), //warning pointer copy!
-	VBO(obj.VBO),
-	EBO(obj.EBO),
-	initialized(obj.initialized),
-	face_culling(obj.face_culling),
-	original(false)
-{
-	vertex_buffer = obj.vertex_buffer->Clone();
-}
 
 Mesh::~Mesh() {
 	delete vertex_buffer;
 	if(original && initialized) {
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
+		SAFE(glDeleteBuffers(1, (GLuint*)&VBO));
+		SAFE(glDeleteBuffers(1, (GLuint*)&EBO));
 	}
 }
 
 void Mesh::Update(float sec){
-	Draw(GetEntity()->GetWorldMatrix(), Graphics3D::StencilBehaviour::IGNORED);
+	Draw();
 }
 
-void Mesh::Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilBehvaiour) {
-	if(!initialized) {
-		throw CrossException("Before draw mesh needs to be initialized");
+Mesh* Mesh::Clone() const {
+	Mesh* mesh = new Mesh();
+	mesh->Copy(this);
+	return mesh;
+}
+
+bool Mesh::Load(XMLElement* xml, Scene* scene) {
+	S32 id = xml->IntAttribute("id", -1);
+	CROSS_RETURN(id != -1, false, "Attribute 'id' not found");
+	const char* modelfilename = xml->Attribute("model");
+	CROSS_RETURN(modelfilename, false, "Attribute 'model' not found");
+
+	Model* model = scene->GetModel(modelfilename);
+	Copy(model->GetMesh(id));
+
+	const char* materialFile = xml->Attribute("material");
+	if(materialFile) {
+		Material* mat = scene->GetMaterial(materialFile);
+		SetMaterial(mat);
+	} else {
+		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
 	}
-	if(material == nullptr) {
-		throw CrossException("Current mesh does not have material");
+	return true;
+}
+
+bool Mesh::Save(XMLElement* xml, XMLDocument* doc) {
+	XMLElement* meshXML = doc->NewElement("Mesh");
+	meshXML->SetAttribute("id", GetID());
+	meshXML->SetAttribute("model", GetModel()->GetFilename().c_str());
+	meshXML->SetAttribute("material", GetMaterial()->GetFilename().c_str());
+	xml->LinkEndChild(meshXML);
+	return true;
+}
+
+void Mesh::Draw() {
+	Draw(material);
+}
+
+void Mesh::Draw(Material* mat) {
+	Draw(mat, StencilBehaviour::IGNORED);
+}
+
+void Mesh::Draw(Material* mat, StencilBehaviour sten) {
+	if(GetEntity()) {
+		CROSS_FAIL(GetEntity()->GetComponent<Transform>(), "Can not draw mesh without transform");
+		Draw(GetEntity()->GetWorldMatrix(), mat, sten);
+	} else {
+		Draw(Matrix::Identity, mat, sten);
 	}
+}
+
+void Mesh::Draw(const Matrix& globalModel, Material* material,
+				StencilBehaviour stencilBehvaiour) {
+	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
+	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
-	gfxGL->UseShader(shader);
+	shader->Use();
 
 	Scene* scene = game->GetCurrentScene();
 	//binding uniforms
@@ -102,94 +138,77 @@ void Mesh::Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilB
 		SAFE(glUniform4fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(Shader::Property* prop : material->properties) {
-		if(prop->glId == -1) {
-			throw CrossException("Broken shader property");
-		}
-		if(prop->value == NULL) {
-			throw CrossException("Property '%s' value not assigned", prop->name.c_str());
+	for(Shader::Property& prop : material->GetProperties()) {
+		if(prop.glId == -1) {
+			//late shader compilation produce this, trying to assign compiled id to the material id
+			Shader::Property* shaderProp = shader->GetProperty(prop.GetName());
+			prop.glId = shaderProp->GetID();
+			CROSS_FAIL(prop.glId != -1, "Broken shader property");
 		}
 
-		switch(prop->type) {
-		case Shader::Property::SAMPLER:
+		switch(prop.type) {
+		case Shader::Property::TEXTURE:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, *(GLuint*)prop->value));
-			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop.value.texture->GetID()));
+			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
 		case Shader::Property::MAT4:
-			SAFE(glUniformMatrix4fv(prop->glId, 1, GL_FALSE, (GLfloat*)prop->value));
+			SAFE(glUniformMatrix4fv(prop.glId, 1, GL_FALSE, prop.value.mat.GetData()));
 			break;
-		case Shader::Property::VEC4:
-			SAFE(glUniform4fv(prop->glId, 1, (GLfloat*)prop->value));
+		case Shader::Property::COLOR:
+			SAFE(glUniform4fv(prop.glId, 1, prop.value.color.GetData()));
 			break;
 		case Shader::Property::VEC3:
-			SAFE(glUniform3fv(prop->glId, 1, (GLfloat*)prop->value));
-			break;
-		case Shader::Property::VEC2:
-			SAFE(glUniform2fv(prop->glId, 1, (GLfloat*)prop->value));
+			SAFE(glUniform3fv(prop.glId, 1, prop.value.vec3.GetData()));
 			break;
 		case Shader::Property::FLOAT:
-			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
+			SAFE(glUniform1f(prop.glId, prop.value.f));
 			break;
 		case Shader::Property::INT:
-			SAFE(glUniform1f(prop->glId, *(GLfloat*)(prop->value)));
+			SAFE(glUniform1i(prop.glId, prop.value.s32));
 			break;
 		case Shader::Property::CUBEMAP:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, *(GLuint*)prop->value));
-			SAFE(glUniform1i(prop->glId, material->active_texture_slot));
+			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)prop.value.cubemap->GetTextureID()));
+			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
 			material->active_texture_slot++;
 			break;
 		default:
-			throw CrossException("Unknown property type(%s)", prop->name.c_str());
+			CROSS_ASSERT(false, "Unknown property type(%s)", prop.GetName().c_str());
 		}
 	}
 	material->active_texture_slot = 0;
 
-	if(shader->UseLights()) {
-		shader->TransferLightData(scene->GetLights());
-	}
+	shader->OnDraw();
 
 	//binding attributes
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
 	VertexBuffer* vertexBuf = vertex_buffer;
 	U32 vertexSize = vertexBuf->VertexSize();
 	if(shader->aPosition != -1) {
 		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)(0 + vertexBuf->GetPossitionsOffset())));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPossitionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
-		if(vertexBuf->HasTextureCoordinates()) {
-			SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-			SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
-		} else {
-			throw CrossException("Current mesh does not contain texture coordinates");
-		}
+		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
+		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
-		if(vertexBuf->HasNormals()) {
-			SAFE(glEnableVertexAttribArray(shader->aNormal));
-			SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
-		} else {
-			throw CrossException("Current mesh does not countain normals");
-		}
+		CROSS_FAIL(vertexBuf->HasNormals(), "Current mesh does not countain normals");
+		SAFE(glEnableVertexAttribArray(shader->aNormal));
+		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
 	}
 	if(shader->aTangent != -1) {
-		if(vertexBuf->HasTangents()) {
-			SAFE(glEnableVertexAttribArray(shader->aTangent));
-			SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
-		} else {
-			throw CrossException("Current mesh does not contain tangents");
-		}
+		CROSS_FAIL(vertexBuf->HasTangents(), "Current mesh does not contain tangents");
+		SAFE(glEnableVertexAttribArray(shader->aTangent));
+		SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
 	}
 	if(shader->aBitangent != -1) {
-		if(vertexBuf->HasBitangents()) {
-			SAFE(glEnableVertexAttribArray(shader->aBitangent));
-			SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
-		} else {
-			throw CrossException("Current mesh does not contain bitangents");
-		}
+		CROSS_FAIL(vertexBuf->HasBitangents(), "Current mesh does not contain bitangents");
+		SAFE(glEnableVertexAttribArray(shader->aBitangent));
+		SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
 	}
 
 	//drawing
@@ -202,28 +221,28 @@ void Mesh::Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilB
 	}
 	//stencil test
 	switch(stencilBehvaiour) {
-	case Graphics3D::StencilBehaviour::WRITE:
+	case StencilBehaviour::WRITE:
 		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 		SAFE(glStencilFunc(GL_ALWAYS, 1, 0xFF));
 		break;
-	case Graphics3D::StencilBehaviour::READ:
+	case StencilBehaviour::READ:
 		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilFunc(GL_NOTEQUAL, 1, 0xFF));
 		SAFE(glStencilMask(0xFF));
 		break;
-	case Graphics3D::StencilBehaviour::IGNORED:
+	case StencilBehaviour::IGNORED:
 		break;
 	default:
-		throw CrossException("Unknow stecil behaviour");
+		CROSS_ASSERT(false, "Unknow stecil behaviour");
 	}
 	//alpha blending
-	if(material->transparency) {
+	if(material->IsTransparent()) {
 		SAFE(glEnable(GL_BLEND));
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_SHORT, 0));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
+	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -232,16 +251,14 @@ void Mesh::Draw(const Matrix& globalModel, Graphics3D::StencilBehaviour stencilB
 }
 
 void Mesh::TransferVideoData() {
-	index_count = indices.size();
+	SAFE(glGenBuffers(1, (GLuint*)&VBO));
+	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
-	SAFE(glGenBuffers(1, &VBO));
-	SAFE(glGenBuffers(1, &EBO));
-
-	SAFE(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
 	SAFE(glBufferData(GL_ARRAY_BUFFER, vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
-	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
 	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
@@ -256,7 +273,7 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
 	}
 
-	U32 indsOffset = indices.size();
+	U32 indsOffset = (U32)indices.size();
 	for(U32 i = 0; i < inds.size(); ++i) {
 		indices.push_back(indsOffset + inds[i]);
 	}
@@ -270,12 +287,12 @@ Material* Mesh::GetMaterial() {
 	return material;
 }
 
-void Mesh::SetFaceCullingEnabled(bool enabled){
-	face_culling = enabled;
+bool Mesh::IsFaceCullingEnabled() const {
+	return face_culling;
 }
 
-bool Mesh::IsFaceCullingEnabled(){
-	return face_culling;
+void Mesh::EnableFaceCulling(bool yes) {
+	face_culling = yes;
 }
 
 VertexBuffer* Mesh::GetVertexBuffer() {
@@ -286,6 +303,33 @@ Array<GLushort>& Mesh::GetIndices() {
 	return indices;
 }
 
-Mesh* Mesh::Clone() {
-	return new Mesh(*this);
+S32 Mesh::GetID() const {
+	return id;
+}
+
+Model* Mesh::GetModel() {
+	return model;
+}
+
+U32 Mesh::GetPolyCount() const {
+	return (U32)indices.size();
+}
+
+bool Mesh::IsEqual(Mesh* other) const {
+	return this->VBO == other->VBO && this->EBO == other->EBO;
+}
+
+void Mesh::Copy(const Mesh* m) {
+	VBO = m->VBO;
+	EBO = m->EBO;
+	vertex_buffer = m->vertex_buffer;
+	id = m->id;
+	model = m->model;
+	material = m->material;
+	indices = m->indices;
+	initialized = m->initialized;
+	face_culling = m->face_culling;
+	original = false;
+
+	vertex_buffer = m->vertex_buffer->Clone();
 }

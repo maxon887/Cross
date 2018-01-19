@@ -6,21 +6,6 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Generated Files">
-      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
-      <Extensions>moc;h;cpp</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{5f41a83a-cee6-4ca2-8190-e3f9266ff20c}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{916cb2b0-a180-4ed9-a7a3-479d621751fe}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
     <Filter Include="Cross">
       <UniqueIdentifier>{a2daed85-d070-44cd-a6a3-3eaeb74480f2}</UniqueIdentifier>
     </Filter>
@@ -58,13 +43,28 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;cxx;c;def</Extensions>
     </Filter>
-    <Filter Include="Cross\Physics">
-      <UniqueIdentifier>{65b52e08-ed46-4a22-a3fe-caf98c39d047}</UniqueIdentifier>
+    <Filter Include="Editor\Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Editor\Generated Files\Debug">
+      <UniqueIdentifier>{5f41a83a-cee6-4ca2-8190-e3f9266ff20c}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Editor\Generated Files\Release">
+      <UniqueIdentifier>{916cb2b0-a180-4ed9-a7a3-479d621751fe}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Editor\PropertyViews">
+      <UniqueIdentifier>{c6318a1e-a9e2-42ac-afda-0fb735f9c380}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_CrossEditor.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Editor\Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Libs\SOIL\image_helper.c">
       <Filter>Cross\Libs\SOIL</Filter>
@@ -75,34 +75,10 @@
     <ClCompile Include="..\Sources\Libs\SOIL\stb_image_aug.c">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinystr.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinyxml.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinyxmlerror.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Libs\TinyXML\tinyxmlparser.cpp">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Shaders\MultiLightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Shaders\Shader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Shaders\LightShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Audio.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\Camera.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Camera2D.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Color.cpp">
@@ -121,15 +97,6 @@
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Game.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Graphics2D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\Graphics3D.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\GraphicsGL.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Input.cpp">
@@ -153,29 +120,14 @@
     <ClCompile Include="..\Sources\Core\Sound.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Core\Sprite.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\System.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Texture.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Core\Transformable.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Core\UI.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\VertexBuffer.cpp">
       <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Internals\Debugger.cpp">
-      <Filter>Cross\Internals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Internals\Exception.cpp">
-      <Filter>Cross\Internals</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Internals\MemoryManager.cpp">
       <Filter>Cross\Internals</Filter>
@@ -204,19 +156,7 @@
     <ClCompile Include="..\Sources\Math\Vector4D.cpp">
       <Filter>Cross\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Animation.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Button.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Utils\Cubemap.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\DebugScene.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Utils\Font.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Utils\FreeCameraScene.cpp">
@@ -225,35 +165,32 @@
     <ClCompile Include="..\Sources\Utils\Skybox.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Utils\ToggleButton.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\CrossEditor.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_CrossEditor.cpp">
-      <Filter>Generated Files\Debug</Filter>
+      <Filter>Editor\Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_CrossEditor.cpp">
-      <Filter>Generated Files\Release</Filter>
+      <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Sources\FileExplorer.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_FileExplorer.cpp">
-      <Filter>Generated Files\Debug</Filter>
+      <Filter>Editor\Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_FileExplorer.cpp">
-      <Filter>Generated Files\Release</Filter>
+      <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Sources\GLHandler.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GLHandler.cpp">
-      <Filter>Generated Files\Debug</Filter>
+      <Filter>Editor\Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_GLHandler.cpp">
-      <Filter>Generated Files\Release</Filter>
+      <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Sources\main.cpp">
       <Filter>Editor</Filter>
@@ -265,22 +202,115 @@
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SceneExplorer.cpp">
-      <Filter>Generated Files\Debug</Filter>
+      <Filter>Editor\Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SceneExplorer.cpp">
-      <Filter>Generated Files\Release</Filter>
+      <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Physics\Collider.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="Sources\PropertiesView.cpp">
+      <Filter>Editor</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Physics\Collision.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertiesView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Physics\Physics.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertiesView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Physics\RigidBody.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="..\Sources\Libs\TinyXML2\tinyxml2.cpp">
+      <Filter>Cross\Libs\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Shaders\LightsShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Shaders\SingleLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\MeshComponent.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MeshComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MeshComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\PropertyView.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\ShaderView.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ShaderView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ShaderView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\MaterialView.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaterialView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaterialView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\LightComponent.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_LightComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_LightComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\History.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\ESystem.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Utils\Debugger.cpp">
+      <Filter>Cross\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Model.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Transform.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\EntityView.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_EntityView.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_EntityView.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\TransformComponent.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TransformComponent.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TransformComponent.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Internals\Audio.cpp">
+      <Filter>Cross\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Internals\GraphicsGL.cpp">
+      <Filter>Cross\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\ComponentFactory.cpp">
+      <Filter>Cross\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +332,51 @@
     <CustomBuild Include="Sources\SceneExplorer.h">
       <Filter>Editor</Filter>
     </CustomBuild>
+    <CustomBuild Include="Sources\PropertiesView.h">
+      <Filter>Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MeshComponent.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\PropertyView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\ShaderView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\ShaderView.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MaterialView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MaterialView.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\MeshComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\ComponentView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\LightComponent.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\LightComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\EntityView.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\EntityView.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\TransformComponent.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\TransformComponent.ui">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\Libs\SOIL\image_DXT.h">
@@ -322,28 +397,10 @@
     <ClInclude Include="..\Sources\Libs\SOIL\stbi_DDS_aug_c.h">
       <Filter>Cross\Libs\SOIL</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Libs\TinyXML\tinystr.h">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Libs\TinyXML\tinyxml.h">
-      <Filter>Cross\Libs\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Shaders\MultiLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Shaders\Shader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Shaders\LightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\Audio.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\Camera.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\Camera2D.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Color.h">
@@ -370,15 +427,6 @@
     <ClInclude Include="..\Sources\Core\Game.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Graphics2D.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\Graphics3D.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\GraphicsGL.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\Input.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -400,29 +448,14 @@
     <ClInclude Include="..\Sources\Core\Sound.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Sprite.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\System.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Texture.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Transformable.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Core\UI.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\VertexBuffer.h">
       <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Internals\Debugger.h">
-      <Filter>Cross\Internals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Internals\Exception.h">
-      <Filter>Cross\Internals</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Internals\MemoryManager.h">
       <Filter>Cross\Internals</Filter>
@@ -451,19 +484,7 @@
     <ClInclude Include="..\Sources\Math\Vector4D.h">
       <Filter>Cross\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Animation.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Button.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Utils\Cubemap.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\DebugScene.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\Utils\Font.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Utils\FreeCameraScene.h">
@@ -472,26 +493,62 @@
     <ClInclude Include="..\Sources\Utils\Skybox.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Utils\ToggleButton.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CrossEditor.h">
-      <Filter>Generated Files</Filter>
+      <Filter>Editor\Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Sources\SceneView.h">
       <Filter>Editor</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Physics\Collider.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\Sources\Libs\TinyXML2\tinyxml2.h">
+      <Filter>Cross\Libs\TinyXML</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Physics\Collision.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\Sources\Shaders\LightsShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Physics\Physics.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\Sources\Shaders\SingleLightShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Physics\RigidBody.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="GeneratedFiles\ui_ShaderView.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MaterialView.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MeshComponent.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_LightComponent.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\History.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\ESystem.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Utils\Debugger.h">
+      <Filter>Cross\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Model.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Transform.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\ComponentFactory.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_EntityView.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_TransformComponent.h">
+      <Filter>Editor\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Internals\Audio.h">
+      <Filter>Cross\Internals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Internals\GraphicsGL.h">
+      <Filter>Cross\Internals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

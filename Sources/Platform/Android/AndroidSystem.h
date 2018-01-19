@@ -31,18 +31,22 @@ public:
     AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
 	~AndroidSystem();
 
-	string AssetsPath();
-	string DataPath();
-	void Log(const char* msg);
-	File* LoadFile(const string& filename);
-	U64 GetTime();
-	void PromtToExit();
-    void RequestOrientation(Orientation orientation);
-	void MessageBox(string message);
+	void Log(const char* msg) override;
+	string AssetsPath() override;
+	string DataPath() override;
+	U64 GetTime() override;
+	float GetScreenDPI() override;
+
+	File* LoadAssetFile(const string& filename) override;
+
+	void PromtToExit() override;
+	void RequestOrientation(Orientation orientation) override;
+	void Messagebox(const string& title, const string& message) override;
+	bool IsMobile() override;
 	void Exit();
-	void Sleep(float milis);
-    void CallActivityVoidMethod(const string& methodName);
-    void CallActivityVoidMethod(const string& methodName, const string& parameter);
+	void Sleep(float milis) override;
+	void CallActivityVoidMethod(const string& methodName);
+	void CallActivityVoidMethod(const string& methodName, const string& parameter);
 	
 public:
 	void DetachFromJVM();

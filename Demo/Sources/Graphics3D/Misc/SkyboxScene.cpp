@@ -1,51 +1,52 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SkyboxScene.h"
 #include "Shaders/Shader.h"
 #include "Material.h"
-#include "Graphics3D.h"
 #include "Entity.h"
+#include "Mesh.h"
 
-void SkyboxScene::Start(){
-	CameraControlsScene::Start();
+void SkyboxScene::Start() {
+	DemoScene::Start();
 	
-	Cubemap* cubemap = new Cubemap( "gfx3D/Skybox/right.png",
-									"gfx3D/Skybox/left.png",
-									"gfx3D/Skybox/up.png",
-									"gfx3D/Skybox/down.png",
-									"gfx3D/Skybox/back.png",
-									"gfx3D/Skybox/front.png" );
+	Cubemap* cubemap = new Cubemap( "Textures/Skybox/right.png",
+									"Textures/Skybox/left.png",
+									"Textures/Skybox/up.png",
+									"Textures/Skybox/down.png",
+									"Textures/Skybox/back.png",
+									"Textures/Skybox/front.png" );
 	skybox = new Skybox(cubemap);
-	shader = gfxGL->GetShader(DefaultShader::TEXTURE);
-	shader->Compile();
+
+	Shader* shader = GetShader("Engine/Shaders/Texture.sha");
 	material = new Material(shader);
-	texture = gfx2D->LoadTexture("gfx3D/ContainerDiffuse.png");
+	Texture* texture = GetTexture("Textures/ContainerDiffuse.png");
 	material->SetPropertyValue("Texture", texture);
-	cube = gfx3D->LoadPrimitive(Graphics3D::Primitives::CUBE);
-	gfx3D->AdjustMaterial(cube, material);
+	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
+	cube->GetComponent<Mesh>()->SetMaterial(material);
 	AddEntity(cube);
 }
 
-void SkyboxScene::Stop(){
-
-	CameraControlsScene::Stop();
+void SkyboxScene::Stop() {
+	delete skybox;
+	delete material;
+	DemoScene::Stop();
 }
 
-void SkyboxScene::Update(float sec){
-	CameraControlsScene::Update(sec);
+void SkyboxScene::Update(float sec) {
+	DemoScene::Update(sec);
 	skybox->Draw();
 }

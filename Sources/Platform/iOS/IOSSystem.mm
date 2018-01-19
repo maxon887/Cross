@@ -15,12 +15,25 @@
  You should have received a copy of the GNU General Public License
  along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #import <UIKit/UIKit.h>
+#import "CrossViewController.h"
 #include "IOSSystem.h"
 #include "Audio.h"
 #include "File.h"
 
 #include <sys/time.h>
 #include <fstream>
+
+@interface MessageboxDelegate : NSObject
+
+@end
+
+@implementation MessageboxDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [CrossViewController Instance].CrossPaused = NO;
+}
+
+@end
 
 IOSSystem::IOSSystem(){
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -32,6 +45,10 @@ IOSSystem::IOSSystem(){
 
 IOSSystem::~IOSSystem(){
     delete audio;
+}
+
+void IOSSystem::Log(const char* str){
+    NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
 }
 
 string IOSSystem::AssetsPath(){
@@ -47,16 +64,41 @@ string IOSSystem::DataPath(){
     return cPath + "/";
 }
 
-void IOSSystem::Log(const char* str){
-    NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
-}
-
 U64 IOSSystem::GetTime(){
     struct timeval ptv;
     gettimeofday(&ptv, NULL);
     return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
+float IOSSystem::GetScreenDPI() {
+    float scale = 1;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        scale = [[UIScreen mainScreen] scale];
+    }
+    return 160 * scale;
+}
+
 void IOSSystem::RequestOrientation(cross::System::Orientation orientation){
     [UIViewController attemptRotationToDeviceOrientation];
 }
+
+bool IOSSystem::IsMobile() {
+    return true;
+}
+
+void IOSSystem::Messagebox(const string& title, const string& message){
+    CrossViewController* viewController = [CrossViewController Instance];
+    viewController.CrossPaused = YES;
+    
+    MessageboxDelegate* del = [[MessageboxDelegate alloc] init];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%s", title.c_str()]
+                                                    message:[NSString stringWithFormat:@"%s", message.c_str()]
+                                                   delegate:del
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    while(viewController.CrossPaused){
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+

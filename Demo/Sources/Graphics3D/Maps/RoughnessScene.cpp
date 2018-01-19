@@ -1,36 +1,41 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "RoughnessScene.h"
 #include "Light.h"
-#include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/LightsShader.h"
+#include "Texture.h"
+#include "Transform.h"
+#include "Camera.h"
 
 void RoughnessScene::Start(){
-	CameraControlsScene::Start();
+	DemoScene::Start();
+	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
+	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
 	//lights
-	light = new Entity();
+	light = new Entity("Point Light");
+	light->AddComponent(new Transform());
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfxGL->GetShader(DefaultShader::MULTI_LIGHT);
+	shader = new LightsShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddMacro("USE_SHININESS_MAP");
@@ -41,29 +46,22 @@ void RoughnessScene::Start(){
 	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 64.f);
 	shader->Compile();
 
-	diffuse = gfx2D->LoadTexture("gfx3D/Camaro/Diffuse.png", Texture::TilingMode::REPEAT);
-	specular = gfx2D->LoadTexture("gfx3D/Camaro/Specular.png", Texture::TilingMode::REPEAT);
-	roughness = gfx2D->LoadTexture("gfx3D/Camaro/Shininess.png", Texture::TilingMode::REPEAT);
-
 	material = new Material(shader);
-	material->SetPropertyValue("Diffuse Texture", diffuse);
-	material->SetPropertyValue("Specular Map", specular);
-	material->SetPropertyValue("Shininess Map", roughness);
-	Entity* model = gfx3D->LoadModel("gfx3D/Camaro/Camaro.fbx");
-	gfx3D->AdjustMaterial(model, material);
+	material->SetPropertyValue("Diffuse Texture", GetTexture("Models/Camaro/Diffuse.png"));
+	material->SetPropertyValue("Specular Map", GetTexture("Models/Camaro/Specular.png"));
+	material->SetPropertyValue("Shininess Map", GetTexture("Models/Camaro/Shininess.png"));
+	Entity* model = GetModel("Models/Camaro/Camaro.fbx")->GetHierarchy();
+	ApplyMaterial(model, material);
 	AddEntity(model);
 }
 
 void RoughnessScene::Stop(){
 	delete material;
-	delete roughness;
-	delete specular;
-	delete diffuse;
 	delete shader;
-	CameraControlsScene::Stop();
+	DemoScene::Stop();
 }
 
 void RoughnessScene::Update(float sec){
-	CameraControlsScene::Update(sec);
-	light->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+	DemoScene::Update(sec);
+	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
 }

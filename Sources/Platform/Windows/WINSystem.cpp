@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "WINSystem.h"
 #include "File.h"
 #include "Config.h"
@@ -24,22 +24,19 @@
 
 using namespace cross;
 
-bool DirectoryExists(const char* szPath){
+bool DirectoryExists(const char* szPath) {
   DWORD dwAttrib = GetFileAttributesA(szPath);
 
   return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
-         (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+		 (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-void IntSleep(int milis){
+void IntSleep(int milis) {
 	Sleep(milis);
 }
 
 WINSystem::WINSystem(HWND wnd) :
-	wnd(wnd),
-	window_pos_x(0),
-	window_pos_y(0),
-	fullscreen(false)
+	wnd(wnd)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	if(!DirectoryExists(DATA_PATH)){
@@ -58,21 +55,24 @@ WINSystem::WINSystem(HWND wnd) :
 	} else if(DirectoryExists(editorAsset)){
 		assets_path = editorAsset;
 	} else {
-		throw CrossException("Can't find Assets folder");
+		CROSS_ASSERT(false, "Can't find Assets folder");
 	}
 }
 
-WINSystem::~WINSystem(){ }
+void WINSystem::Log(const char* msg) {
+	OutputDebugStringA(msg);
+	OutputDebugStringA("\n");
+}
 
-string WINSystem::AssetsPath(){
+string WINSystem::AssetsPath() {
 	return assets_path;
 }
 
-string WINSystem::DataPath(){
+string WINSystem::DataPath() {
 	return DATA_PATH;
 }
 
-U64 WINSystem::GetTime(){
+U64 WINSystem::GetTime() {
 	LARGE_INTEGER freq;
 	LARGE_INTEGER crt;
 	QueryPerformanceFrequency(&freq);
@@ -80,24 +80,49 @@ U64 WINSystem::GetTime(){
 	return (crt.QuadPart * 1000000) / freq.QuadPart;
 }
 
-void WINSystem::Log(const char* msg){
-	OutputDebugStringA(msg);
-	OutputDebugStringA("\n");
+float WINSystem::GetScreenDPI() {
+	SetProcessDPIAware(); //true
+	HDC screen = GetDC(NULL);
+	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
+	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
+	ReleaseDC(NULL, screen);
+	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
-void WINSystem::Sleep(float milis){
-	IntSleep((int)(milis + .5));
+string WINSystem::GetClipboard() {
+	CROSS_RETURN(OpenClipboard(NULL), "", "Can not open clipboard data");
+	HANDLE hData = GetClipboardData(CF_TEXT);
+	CROSS_RETURN(hData, "", "Clipboard data == null");
+	char* text = static_cast<char*>(GlobalLock(hData));
+	CROSS_RETURN(text, "", "Text pointer == null");
+	clipboard = text;
+	GlobalUnlock(hData);
+	CloseClipboard();
+	return clipboard;
 }
 
-void WINSystem::ShowMessage(const string& msg){
-	if(wnd){
-		MessageBoxA(wnd, msg.c_str(), "Unhandled Exception", MB_OK | MB_ICONEXCLAMATION);
-	}else{
-		LogIt(msg.c_str());
+void WINSystem::Messagebox(const string& title, const string& msg) {
+	if(wnd) {
+		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
+	} else {
+		LogIt("HWND == null");
+		System::Messagebox(title, msg);
 	}
 }
 
-void WINSystem::FullScreen(bool yes){
+void WINSystem::Sleep(float milis) {
+	IntSleep((int)(milis + .5));
+}
+
+bool WINSystem::IsMobile() {
+	return config->GetBool("EMULATE_MOBILE", false);
+}
+
+void WINSystem::SetAssetPath(const string& path){
+	assets_path = path;
+}
+
+void WINSystem::FullScreen(bool yes) {
 	if(yes){
 		HDC dc = GetDC(wnd);
 		int fullscreenWidth = GetDeviceCaps(dc, HORZRES);
@@ -106,41 +131,39 @@ void WINSystem::FullScreen(bool yes){
 		int refreshRate = GetDeviceCaps(dc, VREFRESH);
 
 		EnterFullscreen(wnd, fullscreenHeight, fullscreenWidth, colourBits, refreshRate);
-		//glViewport(0, 0, fullscreenHeight, fullscreenWidth);
-
-
 	}else{
 		ExitFullscreen(wnd, config->GetInt("WIN_POS_X", 0), config->GetInt("WIN_POS_Y", 0), config->GetInt("WIN_WIDTH", 500), config->GetInt("WIN_HEIGHT", 500), 0, 0);
 	}
 }
 
-void WINSystem::ResizeWindow(int posX, int posY, int width, int height){
-	if(wnd && !fullscreen){
-		window_pos_x = posX;
-		window_pos_y = posY;
-		SetWindowSize(width, height);
-		RECT rcClient, rcWind;
-		POINT ptDiff;
-		GetClientRect(wnd, &rcClient);
-		GetWindowRect(wnd, &rcWind);
-		ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
-		ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
-		MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
-	}else{
-		throw CrossException("Zero WND. Can not resize native window");
-	}
+void WINSystem::ResizeWindow(int posX, int posY, int width, int height) {
+	CROSS_FAIL(wnd && !fullscreen, "Zero WND. Can not resize native window");
+	window_pos_x = posX;
+	window_pos_y = posY;
+	SetWindowSize(width, height);
+	RECT rcClient, rcWind;
+	POINT ptDiff;
+	GetClientRect(wnd, &rcClient);
+	GetWindowRect(wnd, &rcWind);
+	ptDiff.x = (rcWind.right - rcWind.left) - rcClient.right;
+	ptDiff.y = (rcWind.bottom - rcWind.top) - rcClient.bottom;
+	MoveWindow(wnd, posX, posY, width + ptDiff.x, height + ptDiff.y, TRUE);
 }
 
-void WINSystem::SetWND(HWND wnd){
+void WINSystem::SetWND(HWND wnd) {
 	this->wnd = wnd;
 }
 
-void WINSystem::SetWindowPosition(int x, int y){
+HWND WINSystem::GetHWND() {
+	return wnd;
+}
+
+void WINSystem::SetWindowPosition(int x, int y) {
 	window_pos_x = x;
 	window_pos_y = y;
 }
 
-void WINSystem::KeyReleasedHandle(Key key){
+void WINSystem::KeyReleasedHandle(Key key) {
 	switch(key)	{
 	case Key::F1:	//16:9
 		ResizeWindow(window_pos_x, window_pos_y, 960, 540);

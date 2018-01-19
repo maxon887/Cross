@@ -32,30 +32,26 @@ AndroidSystem::~AndroidSystem(){
     LOGI("AndroidSystem::~AndroidSystem");
 }
 
+void AndroidSystem::Log(const char* str){
+    LOGI("%s", str);
+}
+
 string AndroidSystem::AssetsPath(){
-	return "This platform do not specify application assets folder.\nAll assets needs to be load through asset manager";
+	return "This platform do not specify application assets folder.All assets needs to be load through asset manager";
 }
 
 string AndroidSystem::DataPath(){
 	return data_path;
 }
 
-void AndroidSystem::Log(const char* str){
-	LOGI("%s", str);
-}
-
-File* AndroidSystem::LoadFile(const string& filename) {
+File* AndroidSystem::LoadAssetFile(const string& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
-    if(!asset){
-		throw CrossException("Can't load asset %s", filename.c_str());
-    }
+    CROSS_RETURN(asset, NULL, "Can not open file %s", filename.c_str());
     File* file = new File();
     file->size = AAsset_getLength(asset);
     file->data = new Byte[file->size];
     int read = AAsset_read(asset, file->data, file->size);
-    if(read <= 0){
-        throw CrossException("Can't load asset %s", filename.c_str());
-    }
+    CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
     AAsset_close(asset);
     return file;
 }
@@ -66,11 +62,21 @@ U64 AndroidSystem::GetTime(){
 	return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
 
+float AndroidSystem::GetScreenDPI() {
+	JNIEnv* env = GetJNIEnv();
+	jclass clazz = env->GetObjectClass(cross_activity);
+	jmethodID methodID = env->GetMethodID(clazz, "GetScreenDPI", "()I");
+	float dpi = (float)env->CallIntMethod(cross_activity, methodID);
+    env->DeleteLocalRef(clazz);
+    return dpi;
+}
+
 void AndroidSystem::PromtToExit(){
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");
 	env->CallVoidMethod(cross_activity, methodID);
+    env->DeleteLocalRef(clazz);
 }
 
 void AndroidSystem::RequestOrientation(Orientation orientation) {
@@ -78,13 +84,19 @@ void AndroidSystem::RequestOrientation(Orientation orientation) {
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "RequestOrientation", "(I)V");
     env->CallVoidMethod(cross_activity, methodID, orientation);
+    env->DeleteLocalRef(clazz);
 }
 
-void AndroidSystem::MessageBox(string message) {
+void AndroidSystem::Messagebox(const string& title, const string& message) {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
-    jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;)V");
-    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(message.c_str()));
+    jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;Ljava/lang/String;)V");
+    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title.c_str()), env->NewStringUTF(message.c_str()));
+    env->DeleteLocalRef(clazz);
+}
+
+bool AndroidSystem::IsMobile() {
+    return true;
 }
 
 void AndroidSystem::Exit() {
@@ -92,6 +104,7 @@ void AndroidSystem::Exit() {
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "Exit", "()V");
     env->CallVoidMethod(cross_activity, methodID);
+    env->DeleteLocalRef(clazz);
     jvm->DetachCurrentThread();
 }
 
@@ -125,15 +138,12 @@ JNIEnv* AndroidSystem::GetJNIEnv(){
     	return env;
     case JNI_EDETACHED:
 		LogIt("Attempt to attach thread to JVM");
-		if (jvm->AttachCurrentThread(&env, NULL) != 0) {
-			throw CrossException("Failed to attach thread");
-		}
+        CROSS_RETURN(jvm->AttachCurrentThread(&env, NULL) == 0, NULL, "Failed to attach thread")
 		return env;
     case JNI_EVERSION:
-    	throw CrossException("Java environment: version not supported");
-
+        CROSS_RETURN(false, NULL, "Java environment: version not supported");
     default:
-    	throw CrossException("Unknown JNI state");
+        CROSS_RETURN(false, NULL, "Unknown JNI state");
     }
 }
 

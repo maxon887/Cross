@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
 #include "Event.h"
@@ -22,19 +22,22 @@
 
 namespace cross {
 
-enum class Key{
+#define MAX_ACTIONS 20
+
+enum class Key {
 	BACK		= 0x08,
 	TAB			= 0x09,
 	CLEAR		= 0x0C,
 	RETURN		= 0x0D,
 	SHIFT		= 0x10,
 	CONTROL		= 0x11,
-	MENU		= 0x12,
+	ALT			= 0x12,
 	PAUSE		= 0x13,
 	ESCAPE		= 0x1B,
 	SPACE		= 0x20,
 	PAGE_UP		= 0x21,
 	PAGE_DOWN	= 0x22,
+	END			= 0x23,
 	HOME		= 0x24,
 	LEFT		= 0x25,
 	UP			= 0x26,
@@ -115,46 +118,59 @@ enum class Key{
 	MAX_KEY_NUM = 0xFF
 };
 
-/*	Class responsible for user input. 
-	Handle touches, clicks and key events */
-class Input{
+/*	Class responsible for user input. Handles touches, clicks and key events */
+class Input {
 public:
-	struct Action{
+	/* Represent user input Action like touch or click */
+	struct Action {
+		/* Action position on the screen */
 		Vector2D pos;
+		/* On mobile devices used for fingers count, on desktop used for mouse buttons, 0 - lmb, 1 - rmb */
 		S32 id;
 	};
-    
-    void TouchEnabled(bool enabled);
-	/* Scaled in screen coordinates input */
+
+	/* Occurs when user action started */
 	Event<Action> ActionDown;
+	/* Occurs when user action changed its position */
 	Event<Action> ActionMove;
+	/* Occurs when user action released */
 	Event<Action> ActionUp;
-	/* Raw device inputs in pixels */
-	Event<float, float, S32> TargetActionDown;
-	Event<float, float, S32> TargetActionMove;
-	Event<float, float, S32> TargetActionUp;
-	/* Keyboard events */
+
+	/* Occurs when keyboard button pressed */
 	Event<Key> KeyPressed;
+	/* Occurs when keyboard button released */
 	Event<Key> KeyReleased;
-	/* Mouse Wheel events */
-	Event<> MouseWheelUp;
-	Event<> MouseWheelDown;
-	/* Checks if specific key pressed*/
-	bool IsPressed(Key key);
-	/* Engine specific */
+	/* Occurs when char must be placed, for ex multiple chars can be placed by long press key button in some platforms */
+	Event<char> CharEnter;
+
+	/* Occurs when mouse wheel rolled*/
+	Event<float> MouseWheelRoll;
+	/* Reflects current mouse position on the screen */
+	Vector2D MousePosition;
+	/* Checks if specific key pressed */
+	bool IsPressed(Key key) const;
+	/* Enables disables all touches */
+	void TouchEnabled(bool enabled);
+
+	/* Occurs instantly when user action started. Can be even in other thread. Do not use this */
+	Event<float, float, S32> TargetActionDown;
+	/* Occurs instantly when user action changed its position. Can be even in other thread. Do not use this */
+	Event<float, float, S32> TargetActionMove;
+	/* Occurs instantly when user action released. Can be even in other thread. Do not use this */
+	Event<float, float, S32> TargetActionUp;
+
+engineonly:
+	Input();
+
 	void Update();
 
 protected:
-	CROSS_FRIENDLY
-
-	std::mutex  input_mutex;
-    bool touch_enabled;
-	bool pressed_keys[(U32)Key::MAX_KEY_NUM];
+	std::mutex input_mutex;
+	bool touch_enabled			= true;
+	Array<bool> pressed_keys	= Array<bool>((U32)Key::MAX_KEY_NUM, false);
 	List<pair<Input::Action, int> > action_stack;
 
-	Input();
-
-	Vector2D TargetToWordConvert(float x, float y);
+	Vector2D TargetToWordConvert(float x, float y) const;
 
 	void TargetActionDonwHandle(float x, float y, S32 actionID);
 	void TargetActionMoveHandle(float x, float y, S32 actionID);

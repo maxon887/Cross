@@ -1,67 +1,91 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#ifdef CROSS_DEBUG
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 #include "MemoryManager.h"
 
 #include <stdarg.h>
+#include <stdlib.h>
+#include <mutex>
+
+#if defined(CROSS_DEBUG) && !defined(EDITOR)
 
 using namespace cross;
 
 #define START_MEMORY_OBJECTS_ARRAY_CAPACITY 100
 
 #ifdef WIN
-#include "Windows.h"
+#   include "Windows.h"
+#endif
 
 #undef new
 
+std::mutex mut;
+
 void* operator new(size_t size){
-	return MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.unlock();
+	return result;
 }
 
 void* operator new(size_t size, char* filename, unsigned long line){
-	return MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.unlock();
+	return result;
 }
 
 void* operator new[](size_t size){
-	return MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
+	mut.unlock();
+	return result;
 }
 
 void* operator new[](size_t size, char* filename, unsigned long line){
-	return MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.unlock();
+	return result;
 }
 
-void operator delete(void* p){
+void operator delete(void* p) noexcept {
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
 
 void operator delete(void* p, char* filename, unsigned long line){
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
 
-void operator delete[](void* p){
+void operator delete[](void* p) noexcept {
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
 
 void operator delete[](void* p, char* filename, unsigned long line){
+	mut.lock();
 	MemoryManager::Instance()->Free(p);
+	mut.unlock();
 }
-
-#endif
 
 const unsigned long		MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;
@@ -83,7 +107,7 @@ MemoryManager::~MemoryManager(){
 	dead = true;
 }
 
-void* MemoryManager::Alloc(unsigned int size, char* filename, unsigned int line){
+void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned long line){
 	if(!dead){
 
 		if(object_count > capacity - 1){
@@ -112,7 +136,7 @@ void MemoryManager::Free(void* address){
 	if(!dead){
 		SanityCheck();
 		if(address == NULL){
-			throw CrossException("Null pointer deletion");
+			return;
 		}
 		for(unsigned int i = 0; i < object_count; i++){
 			if(alloc_objects[i].address == address){
@@ -124,7 +148,7 @@ void MemoryManager::Free(void* address){
 				return;
 			}
 		}
-		throw CrossException("Attempt to delete bad pointer");
+		CROSS_ASSERT(false, "Attempt to delete bad pointer\n");
 	}else{
 		free(address);
 	}
@@ -142,6 +166,8 @@ unsigned long MemoryManager::Dump(){
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
+	Log("Memory lick detected(%u bytes)\n", totalBytes);
+	CROSS_ASSERT(totalBytes == 0, "Memory lick detected(%ud bytes)", totalBytes);
 	return totalBytes;
 }
 
@@ -157,12 +183,10 @@ void MemoryManager::SanityCheck(){
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-			//throw CrossException("Sanity Check failed");
+			CROSS_ASSERT(false, "Sanity Check failed");
 		}
 	}
-	if(count > 0){
-		Log("Total: %d corrupted buffers\n", count);
-	}
+	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: %d corrupted buffers\n", count);
 }
 
 void MemoryManager::Log(const char* msg, ...){

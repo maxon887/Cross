@@ -1,5 +1,8 @@
 #pragma once
 #if !(defined OPENGL)
+
+#undef engine
+
 #include <EGL/egl.h>
 
 #ifdef WIN
@@ -13,25 +16,25 @@ namespace cross{
 
 class CrossEGL {
 public:
-    CrossEGL();
+	CrossEGL();
 
-    void BindWindow(NATIVE_WINDOW wnd);
+	void BindWindow(NATIVE_WINDOW wnd);
 	NATIVE_WINDOW GetWindow();
-    void UnbindWindow();
-    bool CreateContext(bool createDisplay);
-    void DestroyContext(bool destroyDisplay);
-    bool IsContextCreated();
+	void UnbindWindow();
+	bool CreateContext(bool createDisplay);
+	void DestroyContext(bool destroyDisplay);
+	bool IsContextCreated();
 
-    void SwapBuffers();
+	void SwapBuffers();
 
 private:
-    NATIVE_WINDOW  native_window;
+	NATIVE_WINDOW  native_window;
 
-    bool        context_created;
-    EGLConfig   config;
-    EGLDisplay  display;
-    EGLSurface  surface;
-    EGLContext  context;
+	bool		context_created;
+	EGLConfig   config;
+	EGLDisplay  display;
+	EGLSurface  surface;
+	EGLContext  context;
 };
 
 }

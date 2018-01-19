@@ -22,7 +22,7 @@ namespace cross{
 
 class Collider : public Component {
 public:
-	Collider();
+	Collider() { }
 };
 
 }

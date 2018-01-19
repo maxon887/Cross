@@ -17,10 +17,8 @@
 #import "CrossViewController.h"
 #include "Cross.h"
 #include "IOSSystem.h"
-#include "Audio.h"
-#include "GraphicsGL.h"
-#include "Graphics2D.h"
-#include "Graphics3D.h"
+#include "Internals/Audio.h"
+#include "Internals/GraphicsGL.h"
 #include "Input.h"
 #include "Game.h"
 #include "Config.h"
@@ -28,6 +26,8 @@
 #define MAX_TOUCHES 11
 
 using namespace cross;
+
+CrossViewController* instance = nil;
 
 @interface CrossViewController()
 
@@ -43,11 +43,15 @@ using namespace cross;
 
 @synthesize CrossPaused;
 
++ (CrossViewController*)Instance{
+    return instance;
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
+    instance = self;
     self.preferredFramesPerSecond = 60;
     self.view.multipleTouchEnabled = YES;
-    CrossPaused = NO;
     for(int i = 0; i < MAX_TOUCHES; ++i){
         touchIDs[i] = NULL;
     }
@@ -59,56 +63,29 @@ using namespace cross;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
     view.drawableStencilFormat = GLKViewDrawableStencilFormat8;
     screenScale = [[UIScreen mainScreen] scale];
-    
-    try{
-        sys = new IOSSystem();
-        game = CrossMain();
-        audio = new Audio();
-        gfxGL = new GraphicsGL();
-        gfx2D = new Graphics2D();
-        gfx3D = new Graphics3D();
-        game->Start();
-        game->SetScreen(game->GetStartScreen());
-    }catch(Exception &exc){
-        CrossPaused = YES;
-        string msg = string(exc.message) +
-        +"\nFile: " + string(exc.filename) +
-        +"\nLine: " + to_string(exc.line);
-        NSLog(@"%@", [NSString stringWithFormat:@"\nUnhandled Exception:\n\t%s", msg.c_str()]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unhandled Exception"
-                                                        message:[NSString stringWithFormat:@"%s", msg.c_str()]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+    CrossPaused = NO;
 }
 
 - (void)update{
-    try{
-        if(!CrossPaused){
-            game->EngineUpdate();
+    if(!CrossPaused){
+        if(!system){
+            system = new IOSSystem();
+            game = CrossMain();
+            audio = new Audio();
+            gfxGL = new GraphicsGL();
+            game->Start();
         }
-    } catch(Exception &exc) {
-        CrossPaused = YES;
-        string msg = string(exc.message) +
-        +"\nFile: " + string(exc.filename) +
-        +"\nLine: " + to_string(exc.line);
-        NSLog(@"%@", [NSString stringWithFormat:@"\nUnhandled Exception:\n\t%s", msg.c_str()]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unhandled Exception"
-                                                        message:[NSString stringWithFormat:@"%s", msg.c_str()]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        game->EngineUpdate();
     }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    S32 width = size.width * screenScale;
-    S32 height = size.height * screenScale;
-    sys->SetWindowSize(width, height);
+    if(system){
+        CGFloat screenScale = [[UIScreen mainScreen] scale];
+        S32 width = size.width * screenScale;
+        S32 height = size.height * screenScale;
+        system->SetWindowSize(width, height);
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations{
@@ -120,6 +97,8 @@ using namespace cross;
                 return UIInterfaceOrientationMaskLandscape;
             case System::Orientation::PORTRAIT:
                 return UIInterfaceOrientationMaskPortrait;
+            default:
+                CROSS_RETURN(false, 0, "Unknown device orientation");
         }
     }
     return UIInterfaceOrientationMaskAll;

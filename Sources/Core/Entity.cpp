@@ -1,157 +1,117 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Entity.h"
+#include "System.h"
 #include "Component.h"
+#include "Transform.h"
 
 using namespace cross;
 
-Entity::Entity() :
-	name(""),
-	parent(NULL),
-	children(0)
-{
-	memset(components, 0, sizeof(components));
-}
+Entity::Entity(const string& name) :
+	name(name)
+{ }
 
-Entity::Entity(Entity& e) :
-	name(e.name + "_clone"),
-	parent(NULL)
-{
-	memset(components, 0, sizeof(components));
-	for(U32 i = 0; i < Component::Type::COUNT; ++i){
-		if(e.components[i]){
-			this->components[i] = e.components[i]->Clone();
-			this->components[i]->entity = this;
-		}
-	}
-	for(Entity* child : e.children){
-		Entity* cloneChild = child->Clone();
-		cloneChild->parent = this;
-		this->AddChild(cloneChild);
-	}
-}
-
-Entity::~Entity(){
-	for(Component* component : components) {
+Entity::~Entity() {
+	for(pair<U64, Component*> p : components) {
+		Component* component = p.second;
 		if(component) {
 			component->Remove();
 			delete component;
 		}
 	}
-	for(Entity* c : children){
+	for(Entity* c : children) {
 		delete c;
 	}
 	children.clear();
 }
 
-void Entity::Initialize(){
-	for(Component* c : components){
-		if(c){
-			c->Initialize();
-		}
-	}
-	for(Entity* c : children){
+void Entity::Initialize() {
+	for(Entity* c : children) {
 		c->Initialize();
 	}
 }
 
-void Entity::Remove(){
-	for(Component* c : components) {
-		if(c) {
-			c->Remove();
-		}
-	}
-	for(Entity* c : children) {
-		c->Remove();
-	}
-}
-
-void Entity::Update(float sec){
-	for(Component* c : components){
-		if(c){
-			c->Update(sec);
-		}
-	}
-	for(Entity* c : children){
-		c->Update(sec);
-	}
-}
-
-void Entity::SetName(const string& name){
-	this->name = name;
-}
-
-const string& Entity::GetName(){
+const string& Entity::GetName() const {
 	return name;
 }
 
-void Entity::AddComponent(Component* component){
-	if(components[component->GetType()] == NULL){
-		components[component->GetType()] = component;
-		component->entity = this;
-	}else{
-		throw CrossException("Entity already have same component");
+void Entity::SetName(const string& name) {
+	this->name = name;
+}
+
+Component* Entity::GetComponent(U64 type) {
+	return components[type];
+}
+
+Array<Component*> Entity::GetComponents() {
+	Array<Component*> result;
+	for(pair<U64, Component*> pair : components) {
+		result.push_back(pair.second);
 	}
+	return result;
 }
 
-bool Entity::HasComponent(Component::Type type){
-	return (bool)(components[type]);
+Transform* Entity::GetTransform() {
+	CROSS_RETURN(HasComponent<Transform>(), NULL, "Entity '%s' does't contains Tranform component", name.c_str());
+	return GetComponent<Transform>();
 }
 
-Component* Entity::GetComponent(Component::Type type) {
-	if(components[type]){
-		return components[type];
-	}else{
-		throw CrossException("Can not obtain component");
-	}
+void Entity::AddComponent(Component* component) {
+	U64 hash = typeid(*component).hash_code();
+	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
+	component->entity = this;
+	components[hash] = component;
+	component->Initialize();
 }
 
-Entity* Entity::GetParent(){
+void Entity::RemoveComponent(Component* component){
+	component->Remove();
+	components.erase(typeid(*component).hash_code());
+}
+
+Entity* Entity::GetParent() {
 	return parent;
 }
 
-void Entity::SetParent(Entity* p){
+void Entity::SetParent(Entity* p) {
 	parent = p;
 }
 
-void Entity::AddChild(Entity* child){
+List<Entity*>& Entity::GetChildren() {
+	return children;
+}
+
+void Entity::AddChild(Entity* child) {
 	child->SetParent(this);
 	children.push_back(child);
 }
 
-List<Entity*>& Entity::GetChildren(){
-	return children;
-}
-
-void Entity::RemoveChildren(){
+void Entity::RemoveChildren() {
 	for(Entity* c : children) {
 		delete c;
 	}
 	children.clear();
 }
 
-Entity* Entity::FindChild(U32 index){
-	if(index < children.size()){
-		auto it = children.begin();
-		std::advance(it, index);
-		return *it;
-	}else{
-		throw CrossException("Out of bounds");
-	}
+Entity* Entity::FindChild(U32 index) {
+	CROSS_RETURN(index < children.size(), NULL, "Out of bounds");
+	auto it = children.begin();
+	std::advance(it, index);
+	return *it;
 }
 
 Entity* Entity::FindChild(const string& name){
@@ -175,21 +135,29 @@ Entity* Entity::RemoveChild(const string& name){
 			c->Remove();
 			children.erase(it);
 			return c;
-		}else{
-			return c->RemoveChild(name);
+		}
+	}
+	return NULL;
+}
+
+Entity* Entity::RemoveChild(Entity* child){
+	for(auto it = children.begin(); it != children.end(); it++) {
+		Entity* c = (*it);
+		if(c == child) {
+			c->Remove();
+			children.erase(it);
+			return c;
 		}
 	}
 	return NULL;
 }
 
 Entity* Entity::Clone(){
-	Entity* clone = new Entity();
-	clone->name = this->name + "_copy";
-	for(U32 i = 0; i < Component::Type::COUNT; ++i){
-		if(this->components[i]){
-			clone->components[i] = this->components[i]->Clone();
-			clone->components[i]->entity = clone;
-		}
+	Entity* clone = new Entity(this->name);
+	for(pair<U64, Component*> pair : components){
+		Component* component = pair.second;
+		clone->components[typeid(*component).hash_code()] = component->Clone();
+		clone->components[typeid(*component).hash_code()]->entity = clone;
 	}
 	for(Entity* child : children){
 		Entity* cloneChild = child->Clone();
@@ -199,26 +167,42 @@ Entity* Entity::Clone(){
 	return clone;
 }
 
-Matrix Entity::GetWorldMatrix(){
+Matrix Entity::GetWorldMatrix() {
 	if(parent){
-		return parent->GetModelMatrix() * GetModelMatrix();
+		return parent->GetWorldMatrix() * GetTransform()->GetModelMatrix();
 	}else{
-		return GetModelMatrix();
-	}
-}
-
-Vector3D Entity::GetPosition(){
-	if(parent){
-		return parent->GetModelMatrix() * Transformable::GetPosition();
-	}else{
-		return Transformable::GetPosition();
+		return GetTransform()->GetModelMatrix();
 	}
 }
 
 Vector3D Entity::GetDirection(){
 	if(parent) {
-		return parent->GetModelMatrix() * Transformable::GetDirection();
+		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
 	} else {
-		return Transformable::GetDirection();
+		return GetTransform()->GetDirection();
+	}
+}
+
+void Entity::Remove() {
+	for(pair<U64, Component*> p : components) {
+		Component* c = p.second;
+		if(c) {
+			c->Remove();
+		}
+	}
+	for(Entity* c : children) {
+		c->Remove();
+	}
+}
+
+void Entity::Update(float sec) {
+	for(pair<U64, Component*> p : components) {
+		Component* c = p.second;
+		if(c->IsEnabled()) {
+			c->Update(sec);
+		}
+	}
+	for(Entity* c : children) {
+		c->Update(sec);
 	}
 }

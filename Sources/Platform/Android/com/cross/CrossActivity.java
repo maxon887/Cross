@@ -5,12 +5,12 @@ import org.fmod.FMOD;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -22,6 +22,7 @@ import android.view.View;
 
 public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	private static final String TAG 	= "CrossJava";
+	private final Object lock			= new Object();
 	private Cross cross 				= null;
 	private AssetManager asset_manager 	= null;
 
@@ -41,9 +42,10 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
         surfaceView.getHolder().addCallback(this);
 		setContentView(surfaceView);
 		System.loadLibrary("fmod");
-		System.loadLibrary("freetype2");
         System.loadLibrary("assimp");
 		System.loadLibrary("cross");
+		//optional library
+		//System.loadLibrary("freetype2");
 		cross = new Cross();
 
 		FMOD.init(this);
@@ -66,6 +68,18 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	protected void onResume() {
 		Log.d(TAG, "onResume");
 		super.onResume();
+		//needs there to prevent android from creating nav bar
+		if(Build.VERSION.SDK_INT >= 14) {
+			View view = getWindow().getDecorView();
+			int flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+			if(Build.VERSION.SDK_INT >= 16) {
+				flags |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+				if(Build.VERSION.SDK_INT >= 19) {
+					flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+				}
+			}
+			view.setSystemUiVisibility(flags);
+		}
 		cross.OnResume();
 	}
 
@@ -81,21 +95,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		Log.d(TAG, "onStop");
 		super.onStop();
 	}
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            if (Build.VERSION.SDK_INT >= 11) {
-                View decorView = getWindow().getDecorView();
-                decorView.setSystemUiVisibility(  View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                                                | View.SYSTEM_UI_FLAG_FULLSCREEN);
-            }
-        }
-    }
 
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -169,26 +168,36 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		}
 	}
 
-	public void MessageBox(String msg){
+	public int GetScreenDPI(){
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        return metrics.densityDpi;
+    }
+
+	public void MessageBox(String title, String msg) throws InterruptedException {
+		final String thrTitle = title;
 		final String thrMsg = msg;
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				AlertDialog.Builder builder  = new AlertDialog.Builder(CrossActivity.this);
-				builder.setIcon(android.R.drawable.ic_dialog_alert);
-				builder.setMessage(thrMsg);
-				builder.setTitle("Unhandled exception");
-				builder.setCancelable(false);
-				builder.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								FMOD.close();
-								System.exit(0);
-							}
-						});
-				builder.create().show();
-			}
-		});
+		synchronized (lock) {
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					AlertDialog.Builder builder = new AlertDialog.Builder(CrossActivity.this);
+					builder.setIcon(android.R.drawable.ic_dialog_alert);
+					builder.setMessage(thrMsg);
+					builder.setTitle(thrTitle);
+					builder.setCancelable(false);
+					builder.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									synchronized (lock) {
+										lock.notify();
+									}
+								}
+							});
+					builder.create().show();
+				}
+			});
+			lock.wait();
+		}
 	}
 
     public void RequestOrientation(int o){

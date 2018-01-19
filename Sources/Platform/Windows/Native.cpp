@@ -1,19 +1,19 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Native.h"
 #include "Cross.h"
 #include "Game.h"
@@ -22,6 +22,8 @@
 #include "Config.h"
 #include "resource.h"
 #include "WINSystem.h"
+#include "GLES.h"
+#include "Platform/CrossEGL.h"
 
 using namespace cross;
 
@@ -47,14 +49,32 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = true;
-        input->TargetActionDown(targetX, targetY, 0);
+		input->TargetActionDown.Emit(targetX, targetY, 0);
+		break;
+	}
+	case WM_RBUTTONDOWN:{
+		SetCapture(wnd);
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = true;
+		input->TargetActionDown.Emit(targetX, targetY, 1);
+		break;
+	}
+	case WM_MBUTTONDOWN:{
+		SetCapture(wnd);
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = true;
+		input->TargetActionDown.Emit(targetX, targetY, 2);
 		break;
 	}
 	case WM_MOUSEMOVE:{
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		input->MousePosition.x = targetX;
+		input->MousePosition.y = targetY;
 		if(mouseDown){
-			float targetX = (short)LOWORD(lParam);
-			float targetY = (short)HIWORD(lParam);
-			input->TargetActionMove(targetX, targetY, 0);
+			input->TargetActionMove.Emit(targetX, targetY, 0);
 		}
 		break;
 	}
@@ -63,28 +83,47 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		mouseDown = false;
-		input->TargetActionUp(targetX, targetY, 0);
+		input->TargetActionUp.Emit(targetX, targetY, 0);
+		break;
+	}
+	case WM_RBUTTONUP: {
+		ReleaseCapture();
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = false;
+		input->TargetActionUp.Emit(targetX, targetY, 1);
+		break;
+	}
+	case WM_MBUTTONUP: {
+		ReleaseCapture();
+		float targetX = (short)LOWORD(lParam);
+		float targetY = (short)HIWORD(lParam);
+		mouseDown = false;
+		input->TargetActionUp.Emit(targetX, targetY, 2);
 		break;
 	}
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
-		if(delta < 0){
-			input->MouseWheelUp();
-		}else{
-			input->MouseWheelDown();
-		}
+		input->MouseWheelRoll.Emit((float)delta);
 		break;
 	}
 	case WM_KEYDOWN:
-        input->KeyPressed((cross::Key)wParam);
+        input->KeyPressed.Emit((cross::Key)wParam);
+		break;
+	case WM_SYSKEYDOWN:
+		input->KeyPressed.Emit((cross::Key)wParam);
 		break;
 	case WM_KEYUP:
-		input->KeyReleased((cross::Key)wParam);
+	case WM_SYSKEYUP:
+		input->KeyReleased.Emit((cross::Key)wParam);
+		break;
+	case WM_CHAR:
+		input->CharEnter.Emit(wParam);
 		break;
 	case WM_MOVE:{
 		int x = LOWORD(lParam) - 8;
 		int y = HIWORD(lParam) - 30;
-		WINSystem* winSys = (WINSystem*)sys;
+		WINSystem* winSys = (WINSystem*)cross::system;
 		winSys->SetWindowPosition(x, y);
 		break;
 	}
@@ -93,15 +132,28 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		int width = winRect.right - winRect.left;
 		int height = winRect.bottom - winRect.top;
 		if(width > 0 && height > 0){
-			WINSystem* winSys = (WINSystem*)sys;
+			WINSystem* winSys = (WINSystem*)cross::system;
 			winSys->SetWindowSize(width, height);
 		}
 		break;
 	}
 	case WM_KILLFOCUS:
-		game->Suspend();
+		if(game) {
+			game->Suspend();
+		}
 		break;
 	case WM_SETFOCUS:
+		if(game) {
+#ifdef GLES
+			if(!crossEGL->IsContextCreated()) {
+				crossEGL->CreateContext(true);
+			} else {
+				crossEGL->DestroyContext(false);
+				crossEGL->CreateContext(false);
+			}
+#endif
+			game->Resume();
+		}
 		break;
 	case WM_CLOSE: {
 		RECT winRect = GetLocalCoordinates(wnd);

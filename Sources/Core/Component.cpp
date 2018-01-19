@@ -1,57 +1,57 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Component.h"
 #include "Entity.h"
+#include "Transform.h"
 
 using namespace cross;
 
-Component::Component(Type type) :
-	type(type),
-	entity(NULL)
-{ }
-
-Component* Component::Clone(){
-	throw CrossException("Unimplemented Component::Clone");
+Component* Component::Clone() const {
+	CROSS_RETURN(false, NULL, "Can't clone component. Inherited class doesn't implement Clone() function");
 }
 
-Component::Type Component::GetType() const{
-	return type;
+bool Component::Load(tinyxml2::XMLElement*, Scene*) {
+	CROSS_RETURN(false, false, "Can't load component. Inherited class doesn't implement Load() function");
 }
 
-Entity* Component::GetEntity(){
-	if(entity){
-		return entity;
-	}else{
-		throw CrossException("Component not initialized");
-	}
+bool Component::Save(tinyxml2::XMLElement*, tinyxml2::XMLDocument*) {
+	CROSS_RETURN(false, false, "Can't save component. Inherited class doesn't implement Save() function");
 }
 
-bool Component::HasComponent(Component::Type type){
-	return GetEntity()->HasComponent(type);
+bool Component::IsEnabled() const {
+	return enabled;
 }
 
-Component* Component::GetComponent(Component::Type type){
-	return GetEntity()->GetComponent(type);
+void Component::Enable(bool e) {
+	this->enabled = e;
 }
 
-Vector3D Component::GetPosition(){
-	return GetEntity()->GetPosition();
+Entity* Component::GetEntity() {
+	return entity;
 }
 
-void Component::SetPosition(const Vector3D& pos){
-	GetEntity()->SetPosition(pos);
+Transform* Component::GetTransform() {
+	return entity->GetTransform();
+}
+
+Vector3D Component::GetPosition() const {
+	return entity->GetTransform()->GetPosition();
+}
+
+void Component::SetPosition(const Vector3D& pos) {
+	entity->GetTransform()->SetPosition(pos);
 }

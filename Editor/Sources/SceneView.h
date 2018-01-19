@@ -16,23 +16,33 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Scene.h"
-#include "Camera.h"
 #include "Input.h"
-#include "Utils/Button.h"
-#include "Utils/ToggleButton.h"
 #include "Utils/FreeCameraScene.h"
 
 using namespace cross;
 
-class SceneView : public FreeCameraScene{
+class SceneView : public FreeCameraScene {
 public:
 	SceneView();
+	SceneView(const string& filename);
 
-	virtual void Start();
-	virtual void Stop();
-	virtual void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
+
+	void OnEntitySelected(Entity* entity);
+	void OnEntityGrabFocus(Entity* entity);
 
 private:
+	Vector2D pos;
 
+	Shader* selection_shader		= NULL;
+	Material* selection_material	= NULL;
+	Entity* selected_entity			= NULL;
+
+	void Draw(Entity* e);
+	void EnableMesh(Entity* e, bool value);
+
+	void OnActionDown(Input::Action action);
+	void OnActionMove(Input::Action action);
 };

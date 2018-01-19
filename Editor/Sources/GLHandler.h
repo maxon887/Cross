@@ -2,7 +2,7 @@
 #define GL_HANDLER
 
 #include "Cross.h"
-#include "GraphicsGL.h"
+#include "Internals/GraphicsGL.h"
 
 #include <QOpenGLWidget>
 
@@ -15,15 +15,21 @@ public:
 	GLHandler(QWidget* parent = 0);
 	~GLHandler();
 
-	void initializeGL();
-	void update();
-	void paintGL();
-	void resizeGL(int w, int h);
-	void shutDown();
+	void initializeGL() override;
+	void paintGL() override;
+	void resizeGL(int w, int h) override;
 
-	void mousePressEvent(QMouseEvent* eve);
-	void mouseMoveEvent(QMouseEvent* eve);
-	void mouseReleaseEvent(QMouseEvent* eve);
+	void mousePressEvent(QMouseEvent* eve) override;
+	void mouseMoveEvent(QMouseEvent* eve) override;
+	void mouseReleaseEvent(QMouseEvent* eve) override;
+
+	void wheelEvent(QWheelEvent* wheel) override;
+
+	void Update();
+	void ShutDown();
+
+protected:
+	S32 MouseButtonID(QMouseEvent* e);
 };
 
 #endif // !GL_HANDLER

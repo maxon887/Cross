@@ -1,21 +1,22 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright © 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
-    Cross++ Game Engine is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Cross++ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Matrix.h"
 #include "Cross.h"
+#include "System.h"
 
 using namespace cross;
 
@@ -87,7 +88,7 @@ Matrix Matrix::CreatePerspectiveProjection(float fov, float aspect, float near, 
 	return m;
 }
 
-float* Matrix::GetData(){
+const float* Matrix::GetData() const{
 	return (float*)m;
 }
 
@@ -102,7 +103,7 @@ void Matrix::SetTranslation(const Vector3D &trans){
 	m[2][3] = trans.z;
 }
 
-Matrix Matrix::GetTranslation(){
+Matrix Matrix::GetTranslation() const{
 	Matrix res(Matrix::Identity);
 	res.m[0][3] = m[0][3];
 	res.m[1][3] = m[1][3];
@@ -110,11 +111,42 @@ Matrix Matrix::GetTranslation(){
 	return res;
 }
 
-Matrix Matrix::GetRotation(){
+Matrix Matrix::GetScale() const{
+	float scaleX = Vector3D(m[0][0], m[0][1], m[0][2]).Length();
+	float scaleY = Vector3D(m[1][0], m[1][1], m[1][2]).Length();
+	float scaleZ = Vector3D(m[2][0], m[2][1], m[2][2]).Length();
+	Matrix res(Matrix::Identity);
+	res.m[0][0] = scaleX;
+	res.m[1][1] = scaleY;
+	res.m[2][2] = scaleZ;
+	return res;
+}
+
+Matrix Matrix::GetRotation() const{
+	float scaleX = Vector3D(m[0][0], m[0][1], m[0][2]).Length();
+	float scaleY = Vector3D(m[1][0], m[1][1], m[1][2]).Length();
+	float scaleZ = Vector3D(m[2][0], m[2][1], m[2][2]).Length();
 	Matrix res(*this);
 	res.m[0][3] = 0;
 	res.m[1][3] = 0;
 	res.m[2][3] = 0;
+	res.m[3][3] = 1.f;
+	res.m[3][2] = 0;
+	res.m[3][1] = 0;
+	res.m[3][0] = 0;
+
+	res.m[0][0] /= scaleX;
+	res.m[1][0] /= scaleX;
+	res.m[2][0] /= scaleX;
+
+	res.m[0][1] /= scaleY;
+	res.m[1][1] /= scaleY;
+	res.m[2][1] /= scaleY;
+
+	res.m[0][2] /= scaleZ;
+	res.m[1][2] /= scaleZ;
+	res.m[2][2] /= scaleZ;
+
 	return res;
 }
 
@@ -294,8 +326,7 @@ Matrix Matrix::GetInversed() const{
 
 	det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
 
-	if(det == 0)
-		throw CrossException("Determinant equal 0");
+	CROSS_RETURN(det != 0, Matrix::Identity, "Determinant equal 0");
 
 	det = 1.0f / det;
 
@@ -376,7 +407,6 @@ bool Matrix::operator == (const Matrix& mat) const{
 				return false;
 			}
 		}
-	
 	}
 	return true;
 }
