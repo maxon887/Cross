@@ -28,12 +28,12 @@
 #define PI (3.141592653589793f)
 
 #if defined(ANDROID)
-inline std::string to_stringAndroid(int i) {
+inline std::String to_StringAndroid(int i) {
 	char buff[1024];
 	sprintf(buff, "%i", i);
-	return std::string(buff);
+	return std::String(buff);
 }
-#define  to_string to_stringAndroid
+#define  to_String to_StringAndroid
 #endif
 
 namespace cross {

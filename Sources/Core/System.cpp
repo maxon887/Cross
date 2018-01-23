@@ -33,7 +33,7 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
 	system->Alert(filename, line, msg, args);
 }
 
-File* System::LoadFile(const string& filename) {
+File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.c_str(), "rb");
 	CROSS_RETURN(f, null, "Can not open file %s", filename.c_str());
 	File* file = new File();
@@ -48,11 +48,11 @@ File* System::LoadFile(const string& filename) {
 	return file;
 }
 
-File* System::LoadAssetFile(const string& filename) {
+File* System::LoadAssetFile(const String& filename) {
 	return LoadFile(AssetsPath() + filename);
 }
 
-File* System::LoadDataFile(const string& filename) {
+File* System::LoadDataFile(const String& filename) {
 	return LoadFile(DataPath() + filename);
 }
 
@@ -69,8 +69,8 @@ void System::SaveDataFile(File* file) {
 	SaveFile(file);
 }
 
-bool System::IsDataFileExists(const string& filename) {
-	string fullpath = DataPath() + filename;
+bool System::IsDataFileExists(const String& filename) {
+	String fullpath = DataPath() + filename;
 	FILE* f = fopen(fullpath.c_str(), "r");
 	bool result = f != null;
 	if(result) {
@@ -79,7 +79,7 @@ bool System::IsDataFileExists(const string& filename) {
 	return result;
 }
 
-bool System::Alert(const string& msg) {
+bool System::Alert(const String& msg) {
 	Messagebox("Something goes wrong", msg.c_str());
 	return false;
 }
@@ -91,7 +91,7 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 		vsprintf(buffer, msg, list);
 		Log(buffer);
 #ifdef CROSS_DEBUG
-		string str = buffer;
+		String str = buffer;
 		str += "\n";
 		str += "File: ";
 		str += filename;
@@ -103,12 +103,12 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 #else
 		asserts_hashes.insert(line);
 		LogIt("\tAssertion Failed");
-		string str = msg;
+		String str = msg;
 		str += "\n";
 		str += "File: ";
 		str += filename;
 		str += "\n";
-		str += "Line: " + to_string(line);
+		str += "Line: " + to_String(line);
 		LogIt(str.c_str());
 #endif
 	}
@@ -118,7 +118,7 @@ void System::Sleep(float milis) {
 	CROSS_ASSERT(false, "Function System::Speep() does not implemented");
 }
 
-void System::Messagebox(const string& title, const string& msg) {
+void System::Messagebox(const String& title, const String& msg) {
 	LogIt("\t" + title);
 	LogIt(msg);
 }
@@ -127,12 +127,12 @@ float System::GetScreenDPI() {
 	return DEFAULT_SCREEN_DPI;
 }
 
-string System::GetClipboard() {
+String System::GetClipboard() {
 	CROSS_ASSERT(false, "System::GetClipboard() does not implemented");
 	return "";
 }
 
-void System::SetClipboard(const string& data) {
+void System::SetClipboard(const String& data) {
 	CROSS_ASSERT(false, "System::SetClipboard() does not implemented");
 }
 
@@ -154,7 +154,7 @@ void System::LogIt(const char* format, ...) {
 	va_end(params);
 }
 
-void System::LogIt(const string& msg) {
+void System::LogIt(const String& msg) {
 	LogIt(msg.c_str());
 }
 

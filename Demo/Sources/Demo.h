@@ -49,7 +49,7 @@ private:
 	MenuBar* menu			= null;
 	Shader* ui_shader		= null;
 	Texture* font_texture	= null;
-	string clipboard		= "";
+	String clipboard		= "";
 	U32 vertex_buffer		= 0;
 	U32 index_buffer		= 0;
 

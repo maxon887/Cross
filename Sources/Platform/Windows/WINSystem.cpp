@@ -64,11 +64,11 @@ void WINSystem::Log(const char* msg) {
 	OutputDebugStringA("\n");
 }
 
-string WINSystem::AssetsPath() {
+String WINSystem::AssetsPath() {
 	return assets_path;
 }
 
-string WINSystem::DataPath() {
+String WINSystem::DataPath() {
 	return DATA_PATH;
 }
 
@@ -89,7 +89,7 @@ float WINSystem::GetScreenDPI() {
 	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
-string WINSystem::GetClipboard() {
+String WINSystem::GetClipboard() {
 	CROSS_RETURN(OpenClipboard(null), "", "Can not open clipboard data");
 	HANDLE hData = GetClipboardData(CF_TEXT);
 	CROSS_RETURN(hData, "", "Clipboard data == null");
@@ -101,7 +101,7 @@ string WINSystem::GetClipboard() {
 	return clipboard;
 }
 
-void WINSystem::Messagebox(const string& title, const string& msg) {
+void WINSystem::Messagebox(const String& title, const String& msg) {
 	if(wnd) {
 		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
 	} else {
@@ -118,7 +118,7 @@ bool WINSystem::IsMobile() {
 	return config->GetBool("EMULATE_MOBILE", false);
 }
 
-void WINSystem::SetAssetPath(const string& path){
+void WINSystem::SetAssetPath(const String& path){
 	assets_path = path;
 }
 

@@ -21,7 +21,7 @@
 
 using namespace cross;
 
-Entity::Entity(const string& name) :
+Entity::Entity(const String& name) :
 	name(name)
 { }
 
@@ -45,11 +45,11 @@ void Entity::Initialize() {
 	}
 }
 
-const string& Entity::GetName() const {
+const String& Entity::GetName() const {
 	return name;
 }
 
-void Entity::SetName(const string& name) {
+void Entity::SetName(const String& name) {
 	this->name = name;
 }
 
@@ -114,7 +114,7 @@ Entity* Entity::FindChild(U32 index) {
 	return *it;
 }
 
-Entity* Entity::FindChild(const string& name){
+Entity* Entity::FindChild(const String& name){
 	for(Entity* child : children){
 		if(child->GetName() == name){
 			return child;
@@ -128,7 +128,7 @@ Entity* Entity::FindChild(const string& name){
 	return null;
 }
 
-Entity* Entity::RemoveChild(const string& name){
+Entity* Entity::RemoveChild(const String& name){
 	for(auto it = children.begin(); it != children.end(); it++){
 		Entity* c = (*it);
 		if(c->GetName() == name){

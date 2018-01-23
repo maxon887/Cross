@@ -22,7 +22,7 @@
 
 using namespace cross;
 
-FreeCameraScene::FreeCameraScene(const string& filename) :
+FreeCameraScene::FreeCameraScene(const String& filename) :
 	Scene(filename)
 { }
 

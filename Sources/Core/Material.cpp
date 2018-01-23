@@ -50,11 +50,11 @@ Shader* Material::GetShader() {
 	return shader;
 }
 
-const string& Material::GetFilename() const {
+const String& Material::GetFilename() const {
 	return filename;
 }
 
-void Material::Load(const string& filename) {
+void Material::Load(const String& filename) {
 	File* xmlFile = system->LoadAssetFile(filename);
 	CROSS_FAIL(xmlFile, "Can't load material. File not fount");
 	XMLDocument doc;
@@ -106,7 +106,7 @@ void Material::Load(const string& filename) {
 
 }
 
-void Material::Save(const string& filename) {
+void Material::Save(const String& filename) {
 	XMLDocument doc;
 	XMLElement* materialXML = doc.NewElement("Material");
 	if(GetShader()) {
@@ -132,7 +132,7 @@ void Material::Save(const string& filename) {
 			ss << std::setw(2) << std::setfill('0') << gInt;
 			ss << std::setw(2) << std::setfill('0') << bInt;
 			ss << std::setw(2) << std::setfill('0') << aInt;
-			string text = ss.str();
+			String text = ss.str();
 			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
 			propertyXML->SetAttribute("value", text.c_str());
 			break;
@@ -158,7 +158,7 @@ void Material::Reset() {
 	properties = shader->GetProperties();
 }
 
-bool Material::HaveProperty(const string& name) {
+bool Material::HaveProperty(const String& name) {
 	for(const Shader::Property& prop : properties) {
 		if(prop.name == name) {
 			return true;
@@ -167,7 +167,7 @@ bool Material::HaveProperty(const string& name) {
 	return false;
 }
 
-Shader::Property* Material::GetProperty(const string& name){
+Shader::Property* Material::GetProperty(const String& name){
 	for(Shader::Property& prop : properties){
 		if(prop.name == name){
 			return &prop;
@@ -189,37 +189,37 @@ Array<Shader::Property>& Material::GetProperties(){
 	return properties;
 }
 
-void Material::SetPropertyValue(const string& name, S32 value){
+void Material::SetPropertyValue(const String& name, S32 value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const string& name, float value){
+void Material::SetPropertyValue(const String& name, float value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const string& name, const Color& value){
+void Material::SetPropertyValue(const String& name, const Color& value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const string& name, Vector3D& value){
+void Material::SetPropertyValue(const String& name, Vector3D& value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const string& name, Vector4D& value){
+void Material::SetPropertyValue(const String& name, Vector4D& value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const string& name, Matrix& value){
+void Material::SetPropertyValue(const String& name, Matrix& value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const string& name, Texture* value){
+void Material::SetPropertyValue(const String& name, Texture* value){
 	Shader::Property* prop = GetProperty(name);
 	prop->SetValue(value);
 }
@@ -271,6 +271,6 @@ Material* Material::Clone() const{
 	return new Material(*this);
 }
 
-void Material::SetName(const string& name) {
+void Material::SetName(const String& name) {
 	filename = name;
 }

@@ -34,36 +34,36 @@ public:
 	Shader* GetShader();
 
 	/* Returns filename of file from which this Material was loaded */
-	const string& GetFilename() const;
+	const String& GetFilename() const;
 	/* Loads Material from file. Expects .mat file extension */
-	void Load(const string& filename);
+	void Load(const String& filename);
 	/* Saves this Material to a material file (.mat extension) */
-	void Save(const string& filename);
+	void Save(const String& filename);
 	/* Resets current material properties to the Shader's default */
 	void Reset();
 
 	/* Checks if this Material contains provided property */
-	bool HaveProperty(const string& name);
+	bool HaveProperty(const String& name);
 	/* Returns Material property by name or null if can't find*/
-	Shader::Property* GetProperty(const string& name);
+	Shader::Property* GetProperty(const String& name);
 	/* Returns Material property by internal graphics ID or null if can't find */
 	Shader::Property* GetProperty(U64 glID);
 	/* Returns all available Material property */
 	Array<Shader::Property>& GetProperties();
 	/* Sets integer property value by name */
-	void SetPropertyValue(const string& name, S32 value);
+	void SetPropertyValue(const String& name, S32 value);
 	/* Sets float property value by name */
-	void SetPropertyValue(const string& name, float value);
+	void SetPropertyValue(const String& name, float value);
 	/* Sets Color property value by name */
-	void SetPropertyValue(const string& name, const Color& value);
+	void SetPropertyValue(const String& name, const Color& value);
 	/* Sets 3d vector property value by name */
-	void SetPropertyValue(const string& name, Vector3D& value);
+	void SetPropertyValue(const String& name, Vector3D& value);
 	/* Sets 4d vector property value by name */
-	void SetPropertyValue(const string& name, Vector4D& value);
+	void SetPropertyValue(const String& name, Vector4D& value);
 	/* Sets matrix property value by name */
-	void SetPropertyValue(const string& name, Matrix& value);
+	void SetPropertyValue(const String& name, Matrix& value);
 	/* Sets texture property value by name */
-	void SetPropertyValue(const string& name, Texture* value);
+	void SetPropertyValue(const String& name, Texture* value);
 	/* Sets integer property value by graphics ID */
 	void SetPropertyValue(U64 glID, S32 value);
 	/* Sets float property value by graphics ID */
@@ -91,13 +91,13 @@ engineonly:
 	U32 active_texture_slot = 0;
 
 private:
-	string filename						= "noname";
+	String filename						= "noname";
 	Shader* shader						= null;
 	bool transparent					= false;
 	Array<Shader::Property> properties	= Array<Shader::Property>();
 
 	Material(const Material& obj);
-	void SetName(const string& filename);
+	void SetName(const String& filename);
 };
 
 }

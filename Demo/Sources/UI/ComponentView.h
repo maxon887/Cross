@@ -25,7 +25,7 @@ using namespace cross;
 template<class ComponentType>
 class ComponentView : public View {
 public:
-	ComponentView(const string& name);
+	ComponentView(const String& name);
 
 	virtual void Content(ComponentType* component) { }
 
@@ -40,7 +40,7 @@ private:
 };
 
 template<class ComponentType>
-ComponentView<ComponentType>::ComponentView(const string& name) :
+ComponentView<ComponentType>::ComponentView(const String& name) :
 	View(name)
 {
 	game->ScreenChanged.Connect(this, &ComponentView::OnScreenChanged);

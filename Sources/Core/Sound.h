@@ -28,7 +28,7 @@ namespace cross{
 	Underneath Audio system will try to use default system playback device */
 class Sound {
 public:
-	Sound(const string& file, bool loop, bool isStream);
+	Sound(const String& file, bool loop, bool isStream);
 	~Sound();
 
 	/* Will play audio file which was provided as a constructor parameter */

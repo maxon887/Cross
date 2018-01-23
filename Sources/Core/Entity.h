@@ -25,13 +25,13 @@ namespace cross{
 	Almost any object exiting on a scene must be an Entity. All Entities stores in Scene in the Tree-like structure */
 class Entity {
 public:
-	Entity(const string& name);
+	Entity(const String& name);
 	~Entity();
 
 	/* Returns name of the object. Entity can be found by name in Scene or in other Entity's children by GetEntity() or FindChild() */
-	const string& GetName() const;
+	const String& GetName() const;
 	/* Sets name of the object. Rewrites name given by constructor */
-	void SetName(const string& name);
+	void SetName(const String& name);
 
 	/* Checks if Entity contains certain component T */
 	template<class T> bool HasComponent() const;
@@ -61,9 +61,9 @@ public:
 	/* Returns Entity's child by its index position in Entity's child container */
 	Entity* FindChild(U32 index);
 	/* Returns Entity's child by its name */
-	Entity* FindChild(const string& name);
+	Entity* FindChild(const String& name);
 	/* Removes child from Entity by name. Returns live child in case of success or null if child not found. Returned child must be utilized by hand. */
-	Entity* RemoveChild(const string& nane);
+	Entity* RemoveChild(const String& nane);
 	/* Removes specific child from Entity. Returns the same object in case of success or null if child not found. Appropriate child's Remove() will be called. */
 	Entity* RemoveChild(Entity* child);
 	/* Clone this entity with all it's components and children */
@@ -80,7 +80,7 @@ engineonly:
 	void Update(float sec);
 
 private:
-	string name								= string();
+	String name								= String();
 	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
 	Entity* parent							= null;
 	List<Entity*> children					= List<Entity*>();

@@ -23,7 +23,7 @@
 
 using namespace cross;
 
-SingleLightShader::SingleLightShader(const string& vertex, const string& fragment) :
+SingleLightShader::SingleLightShader(const String& vertex, const String& fragment) :
 	Shader(vertex, fragment)
 { }
 

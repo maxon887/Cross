@@ -22,7 +22,7 @@ namespace cross{
 class LightsShader : public Shader{
 public:
 	LightsShader();
-	LightsShader(const string& vert, const string& frag);
+	LightsShader(const String& vert, const String& frag);
 
 	void Compile() override;
 	void Compile(const List<Light*>& lights);

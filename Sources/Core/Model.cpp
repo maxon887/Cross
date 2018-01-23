@@ -36,7 +36,7 @@ Model::~Model() {
 	delete hierarchy;
 }
 
-void Model::Load(const string& filename, bool initialize) {
+void Model::Load(const String& filename, bool initialize) {
 	Debugger::Instance()->SetTimeCheck();
 
 	initialize_in_load = initialize;
@@ -52,7 +52,7 @@ void Model::Load(const string& filename, bool initialize) {
 	system->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 }
 
-const string& Model::GetFilename() const {
+const String& Model::GetFilename() const {
 	return filename;
 }
 

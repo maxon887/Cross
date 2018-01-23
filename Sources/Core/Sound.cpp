@@ -25,7 +25,7 @@ using namespace cross;
 
 static FMOD_RESULT result;
 
-Sound::Sound(const string& path, bool loop, bool stream) {
+Sound::Sound(const String& path, bool loop, bool stream) {
 	sound = audio->LoadSound(path, loop, stream);
 }
 

@@ -18,14 +18,14 @@
 
 using namespace cross;
 
-Component* ComponentFactory::Create(const string& name) {
+Component* ComponentFactory::Create(const String& name) {
 	CROSS_RETURN(functions.find(name) != functions.end(), null, "Component %s didn't register in the factory", name.c_str());
 	return functions[name]();
 }
 
-Array<string> ComponentFactory::GetRegisteredComponentsName() {
-	Array<string> names;
-	for(std::pair<string, std::function<Component*()>> pair : functions) {
+Array<String> ComponentFactory::GetRegisteredComponentsName() {
+	Array<String> names;
+	for(std::pair<String, std::function<Component*()>> pair : functions) {
 		names.push_back(pair.first);
 	}
 	return names;

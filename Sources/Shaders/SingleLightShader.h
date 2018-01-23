@@ -23,7 +23,7 @@ class SingleLightShader : public Shader{
 public:
 	LightUniforms light_attribs = LightUniforms();
 
-	SingleLightShader(const string& vertex, const string& fragment);
+	SingleLightShader(const String& vertex, const String& fragment);
 
 	void Compile() override;
 	void OnDraw() override;

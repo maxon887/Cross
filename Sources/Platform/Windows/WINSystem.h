@@ -28,17 +28,17 @@ public:
 	~WINSystem() { }
 
 	void Log(const char* msg) override;
-	string AssetsPath() override;
-	string DataPath() override;
+	String AssetsPath() override;
+	String DataPath() override;
 	U64 GetTime() override;
 	float GetScreenDPI() override;
-	string GetClipboard() override;
+	String GetClipboard() override;
 
-	void Messagebox(const string& title, const string& msg) override;
+	void Messagebox(const String& title, const String& msg) override;
 	void Sleep(float milis) override;
 	bool IsMobile() override;
 
-	void SetAssetPath(const string& path);
+	void SetAssetPath(const String& path);
 	void FullScreen(bool yes);
 	void ResizeWindow(int posX, int posY, int width, int height);
 
@@ -51,8 +51,8 @@ public:
 	
 private:
 	HWND wnd			= 0;
-	string assets_path	= "";
-	string clipboard	= "";
+	String assets_path	= "";
+	String clipboard	= "";
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;

@@ -53,7 +53,7 @@ struct KTX {
 	U32 bytesOfKeyValueData;
 };
 
-Byte* Texture::LoadRawData(const string& filename, int& width, int& height, int& channels) {
+Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
 	File* textureFile = system->LoadAssetFile(filename);
 	CROSS_RETURN(textureFile, null, "Can not load raw texture. File not found");
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
@@ -92,11 +92,11 @@ Texture::~Texture(){
 	SAFE(glDeleteTextures(1, (GLuint*)&id));
 }
 
-const string& Texture::GetName() const {
+const String& Texture::GetName() const {
 	return name;
 }
 
-void Texture::SetName(const string& name) {
+void Texture::SetName(const String& name) {
 	this->name = name;
 }
 
@@ -116,19 +116,19 @@ U64 Texture::GetID() const {
 	return id;
 }
 
-void Texture::Load(const string& filename) {
+void Texture::Load(const String& filename) {
 	Load(filename, config->GetTextureFilter());
 }
 
-void Texture::Load(const string& filename, Texture::TilingMode tillingMode) {
+void Texture::Load(const String& filename, Texture::TilingMode tillingMode) {
 	Load(filename, tillingMode, config->GetTextureFilter(), config->UseCompressedTextures());
 }
 
-void Texture::Load(const string& filename, Texture::Filter filter) {
+void Texture::Load(const String& filename, Texture::Filter filter) {
 	Load(filename, Texture::TilingMode::CLAMP_TO_EDGE, filter, config->UseCompressedTextures());
 }
 
-void Texture::Load(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed) {
+void Texture::Load(const String& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed) {
 	name = filename;
 	Debugger::Instance()->SetTimeCheck();
 	if(!compressed) {
@@ -145,7 +145,7 @@ void Texture::Load(const string& filename, Texture::TilingMode tillingMode, Text
 	system->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
 }
 
-void Texture::Save(const string& filename) {
+void Texture::Save(const String& filename) {
 #ifdef OPENGL
 	File file;
 	file.name = filename;
@@ -223,7 +223,7 @@ Texture* Texture::Clone() const{
 	return new Texture(*this);
 }
 
-void Texture::LoadRAW(const string& filename, Texture::Filter filter) {
+void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
 	int width, height, channels;
 	Byte* image = LoadRawData(filename, width, height, channels);
 	CROSS_FAIL(image, "Texture can not be loaded. File not found");
@@ -232,7 +232,7 @@ void Texture::LoadRAW(const string& filename, Texture::Filter filter) {
 	Create(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
 }
 
-void Texture::LoadPKM(const string& filename, Texture::Filter filter) {
+void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
 	File* file = system->LoadAssetFile(filename);
 
 	PKM pkm;
@@ -242,7 +242,7 @@ void Texture::LoadPKM(const string& filename, Texture::Filter filter) {
 	Create(file->data + offset, 3, pkm.extendedWidth, pkm.extendedHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
 }
 
-void Texture::LoadKTX(const string& filename, Texture::Filter filter) {
+void Texture::LoadKTX(const String& filename, Texture::Filter filter) {
 	File* file = system->LoadAssetFile(filename);
 
 	KTX ktx;

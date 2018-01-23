@@ -68,7 +68,7 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 #include "Math/All.h"
 #include "Color.h"
 
-#include <string>
+#include <String>
 #include <list>
 #include <map>
 #include <set>
@@ -86,6 +86,8 @@ typedef uint32_t	U32;
 typedef int64_t		S64;
 typedef uint64_t	U64;
 typedef uint8_t		Byte;
+
+typedef std::string	String;
 
 template<typename Type>
 using Array = ArraySTD<Type>;

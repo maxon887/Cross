@@ -29,18 +29,18 @@ class Component;
 class ComponentFactory {
 public:
 	/* Registers Component Type. Provide a name by which Component will be loaded from XML file (and visually presented in some causes) */
-	template<class T> void Register(const string& name);
+	template<class T> void Register(const String& name);
 	/* Creates successor by name of Component of one of registered classes */
-	Component* Create(const string& name);
+	Component* Create(const String& name);
 	/* Obtains all registered Components types */
-	Array<string> GetRegisteredComponentsName();
+	Array<String> GetRegisteredComponentsName();
 
 private:
-	Dictionary<string, std::function<Component*()>> functions;
+	Dictionary<String, std::function<Component*()>> functions;
 };
 
 template<class T>
-void ComponentFactory::Register(const string& name) {
+void ComponentFactory::Register(const String& name) {
 	functions.insert(std::make_pair(name, []() -> Component* { return new T(); }));
 }
 

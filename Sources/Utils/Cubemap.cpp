@@ -20,12 +20,12 @@
 
 using namespace cross;
 
-Cubemap::Cubemap(	const string& right,
-					const string& left,
-					const string& top,
-					const string& bottom,
-					const string& back,
-					const string& front)
+Cubemap::Cubemap(	const String& right,
+					const String& left,
+					const String& top,
+					const String& bottom,
+					const String& back,
+					const String& front)
 {
 	SAFE(glGenTextures(1, (GLuint*)&textureID));
 	SAFE(glActiveTexture(GL_TEXTURE0));

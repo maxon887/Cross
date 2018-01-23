@@ -33,44 +33,44 @@ Config::~Config() {
 	SaveUserConfig();
 }
 
-void Config::SetString(const string& key, const string& value) {
+void Config::SetString(const String& key, const String& value) {
 	user_prefs[key] = value;
 }
 
-void Config::SetInt(const string& key, S32 value) {
+void Config::SetInt(const String& key, S32 value) {
 	SetString(key, to_string(value));
 }
 
-void Config::SetFloat(const string& key, float value) {
+void Config::SetFloat(const String& key, float value) {
 	SetString(key, to_string(value));
 }
 
-void Config::SetBool(const string& key, bool value) {
+void Config::SetBool(const String& key, bool value) {
 	SetInt(key, value);
 }
 
-string Config::GetString(const string& key, const string& def) const {
-	string strValue = GetString(key);
+String Config::GetString(const String& key, const String& def) const {
+	String strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return strValue;
 }
 
-S32 Config::GetInt(const string& key, S32 def) const {
-	string strValue = GetString(key);
+S32 Config::GetInt(const String& key, S32 def) const {
+	String strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return atoi(strValue.c_str());
 }
 
-float Config::GetFloat(const string& key, float def) const {
-	string strValue = GetString(key);
+float Config::GetFloat(const String& key, float def) const {
+	String strValue = GetString(key);
 	if(strValue.empty())
 		return def;
 	return (float)atof(strValue.c_str());
 }
 
-bool Config::GetBool(const string& key, bool def) const {
+bool Config::GetBool(const String& key, bool def) const {
 	return GetInt(key, def) != 0;
 }
 
@@ -94,7 +94,7 @@ bool Config::IsOffscreenRender() const {
 	return offscreen_render;
 }
 
-const string& Config::GetString(const string& key) const {
+const String& Config::GetString(const String& key) const {
 	auto entry = user_prefs.find(key);
 	if(entry != user_prefs.end()) {
 		return (*entry).second;
@@ -115,8 +115,8 @@ void Config::LoadGameConfig() {
 	CROSS_FAIL(root, "Failed to find GameConfig root element");
 	XMLElement* element = root->FirstChildElement("Property");
 	while(element) {
-		string name = element->Attribute("name");
-		string strValue = element->Attribute("value");
+		String name = element->Attribute("name");
+		String strValue = element->Attribute("value");
 
 		if(name == "Orientation") {
 			orientation = (System::Orientation)atoi(strValue.c_str());
@@ -155,8 +155,8 @@ void Config::LoadUserConfig() {
 		CROSS_FAIL(root, "Failed to fined UserConfig root element");
 		element = root->FirstChildElement("Property");
 		while(element){
-			string name = element->Attribute("name");
-			string value = element->Attribute("value");
+			String name = element->Attribute("name");
+			String value = element->Attribute("value");
 			user_prefs[name] = value;
 			element = element->NextSiblingElement("Property");
 		}

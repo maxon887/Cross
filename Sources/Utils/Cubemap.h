@@ -23,12 +23,12 @@ namespace cross{
 	Created by 6 faces(top, right, back etc.) */
 class Cubemap {
 public:
-	Cubemap(const string& right,
-			const string& left,
-			const string& top,
-			const string& bottom,
-			const string& back,
-			const string& front);
+	Cubemap(const String& right,
+			const String& left,
+			const String& top,
+			const String& bottom,
+			const String& back,
+			const String& front);
 	~Cubemap();
 
 	U64 GetTextureID() const;

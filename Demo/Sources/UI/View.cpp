@@ -19,7 +19,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-View::View(string name)
+View::View(String name)
 {
 	landscape_name = name;
 	portrait_name = name + " ";
@@ -62,7 +62,7 @@ void View::Update(float sec) {
 	}
 }
 
-const string& View::GetName() const {
+const String& View::GetName() const {
 	return landscape_name;
 }
 

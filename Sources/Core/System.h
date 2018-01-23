@@ -39,26 +39,26 @@ public:
 	/* Print message in console. See LogIt() if you need formated output */
 	virtual void Log(const char* msg) = 0;
 	/* Returns path to the application assets folder */
-	virtual string AssetsPath() = 0;
+	virtual String AssetsPath() = 0;
 	/* Returns path to the application data folder */
-	virtual string DataPath() = 0;
+	virtual String DataPath() = 0;
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
 
 	/* Load file from absolute path */
-	virtual File* LoadFile(const string& filename);
+	virtual File* LoadFile(const String& filename);
 	/* Load file from game asset directory */
-	virtual File* LoadAssetFile(const string& filename);
+	virtual File* LoadAssetFile(const String& filename);
 	/* Load file from data directory */
-	virtual File* LoadDataFile(const string& filename);
+	virtual File* LoadDataFile(const String& filename);
 	/* Save file by absolute folder */
 	virtual void SaveFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
 	/* Checks if file exists in provided path */
-	virtual bool IsDataFileExists(const string& filename);
+	virtual bool IsDataFileExists(const String& filename);
 	/* Notifies user that something happened by system message. Returns true if system should skip this message in further use */
-	virtual bool Alert(const string& msg);
+	virtual bool Alert(const String& msg);
 	/* Notifies user that something happened by system message. Usually something bad. Use it at last case */
 	virtual void Alert(const char* filename, unsigned int line, const char* msg, va_list list);
 	/* Force current thread to sleep */
@@ -72,13 +72,13 @@ public:
 	/* Ask user about exit from application */
 	virtual void PromtToExit() { }
 	/* Obtains clipboard data as text if available */
-	virtual string GetClipboard();
-	/* Sets current string int clipboard buffer */
-	virtual void SetClipboard(const string& data);
+	virtual String GetClipboard();
+	/* Sets current String int clipboard buffer */
+	virtual void SetClipboard(const String& data);
 	/* Prints message with formated input */
 	void LogIt(const char* format, ...);
-	/* Prints string */
-	void LogIt(const string& msg);
+	/* Prints String */
+	void LogIt(const String& msg);
 	/* Prints vector */
 	void LogIt(const Vector3D& vector);
 	/* How much screen elements must be increased or decreased due to device DPI */
@@ -97,7 +97,7 @@ public:
 	Array<char>& GetLogBuffer();
 
 protected:
-	virtual void Messagebox(const string& title, const string& msg);
+	virtual void Messagebox(const String& title, const String& msg);
 
 private:
 	S32 window_width	= -1;

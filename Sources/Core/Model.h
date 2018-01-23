@@ -38,16 +38,16 @@ public:
 	~Model();
 
 	/* Loads Model from file. Used by engine. Use Scene::GetModel*/
-	void Load(const string& filename, bool initialize = true);
+	void Load(const String& filename, bool initialize = true);
 	/* Returns model's filename if was loaded from file */
-	const string& GetFilename() const;
+	const String& GetFilename() const;
 	/* Returns model's object hierarchy as Entity hierarchy */
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
 	Mesh* GetMesh(S32 id);
 
 private:
-	string filename;
+	String filename;
 	Dictionary<S32, Mesh*> meshes;
 	Entity* hierarchy;
 

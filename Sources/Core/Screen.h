@@ -41,14 +41,14 @@ public:
 	virtual void Resume() { }
 
 	/* Returns name of the Screen. Screens can be named to provide some uniquely behavior among same classes */
-	const string& GetName() const;
+	const String& GetName() const;
 	/* Sets name of this Screen. Can be set in a constructor or by loading from file for example */
-	void SetName(const string& name);
+	void SetName(const String& name);
 	/* Set background color for areas than not covered any other stuff */
 	void SetBackground(const Color& background);
 
 private:
-	string name						= "noname";
+	String name						= "noname";
 };
 	
 }

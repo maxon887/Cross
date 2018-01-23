@@ -40,7 +40,7 @@ public:
 	Event<Entity*> EntityAdded;
 
 	Scene();
-	Scene(const string& filename);
+	Scene(const String& filename);
 
 	/* Called once before scene show up. */
 	virtual void Start() override;
@@ -50,9 +50,9 @@ public:
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
-	bool Load(const string& file);
+	bool Load(const String& file);
 	/* Save scene into file */
-	void Save(const string& file);
+	void Save(const String& file);
 	/* Removes all loaded stuff from scene (Textures, Materials, Shader, Models and Entities) */
 	void Clear();
 	/* Returns root Scene Entity */
@@ -62,13 +62,13 @@ public:
 	/* Sets main 3D camera for this Scene */
 	void SetCamera(Camera* cam);
 	/* Finds specific entity on this Scene by name */
-	Entity* GetEntity(const string& name);
+	Entity* GetEntity(const String& name);
 	/* Adds an entity into the Scene */
 	void AddEntity(Entity* entity);
 	/* Loads primitive model as Entity with Mesh Component included */
 	Entity* LoadPrimitive(Model::Primitive primitive);
 	/* Removes entity from this Scene by name. Returns founded Entity or null otherwise. Entity won't we destructed */
-	Entity* RemoveEntity(const string& name);
+	Entity* RemoveEntity(const String& name);
 	/* Returns all available Lights on the Scene. */
 	List<Light*>& GetLights();
 	/* Sets up ambient Scene Light Color */
@@ -76,15 +76,15 @@ public:
 	/* Returns ambient Scene Light Color */
 	Color GetAmbientColor() const;
 	/* Obtain loaded into scene Shader or load it by self in other way */
-	Shader* GetShader(const string& shaderfile);
+	Shader* GetShader(const String& shaderfile);
 	/* Obtain loaded into scene Material or load it by self in other way */
-	Material* GetMaterial(const string& xmlFile);
+	Material* GetMaterial(const String& xmlFile);
 	/* Obtain loaded into scene Texture or load it by self in other way */
-	Texture* GetTexture(const string& textureFile);
+	Texture* GetTexture(const String& textureFile);
 	/* Loads texture with provided filter */
-	Texture* GetTexture(const string& textureFile, Texture::Filter filter);
+	Texture* GetTexture(const String& textureFile, Texture::Filter filter);
 	/* Obtain loaded into scene Model or load it by self in other way */
-	Model* GetModel(const string& modelFile);
+	Model* GetModel(const String& modelFile);
 	/* Resets all materials to default state */
 	void ResetMaterials();
 
@@ -95,7 +95,7 @@ protected:
 	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= null;
-	string filename							= "";
+	String filename							= "";
 
 	Camera* camera							= null;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);

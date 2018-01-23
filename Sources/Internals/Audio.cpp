@@ -49,7 +49,7 @@ FMOD::System* Audio::GetSystem() {
 	return fmod_system;
 }
 
-FMOD::Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
+FMOD::Sound* Audio::LoadSound(const String& path, bool loop, bool stream) {
 	FMOD_MODE mode = 0;
 	if(loop){
 		mode = FMOD_LOOP_NORMAL;
@@ -60,9 +60,9 @@ FMOD::Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 		mode |= FMOD_CREATESTREAM;
 	}
 #ifdef ANDROID
-	string absPath = "file:///android_asset/" + path;
+	String absPath = "file:///android_asset/" + path;
 #else
-	string absPath = system->AssetsPath() + "/" + path;
+	String absPath = system->AssetsPath() + "/" + path;
 #endif
 	FMOD::Sound* sound = null;
 	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound);

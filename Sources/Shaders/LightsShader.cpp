@@ -27,7 +27,7 @@ LightsShader::LightsShader() :
 	LightsShader("Engine/Shaders/Sources/Light.vtx", "Engine/Shaders/Sources/Light.fgm")
 { }
 
-LightsShader::LightsShader(const string& vert, const string& frag) :
+LightsShader::LightsShader(const String& vert, const String& frag) :
 	Shader(vert, frag)
 { }
 
@@ -72,31 +72,31 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 
 	Shader::Compile();
 	for(U32 i = 0; i < pointCount; ++i) {
-		string structName = "uPointLights[" + to_string(i) + "]";
+		String structName = "uPointLights[" + to_string(i) + "]";
 		LightUniforms uniforms;
-		uniforms.position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uniforms.intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
+		uniforms.position = glGetUniformLocation(program, String(structName + ".position").c_str());
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color").c_str());
+		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity").c_str());
 		uPointLights.push_back(uniforms);
 	}
 
 	for(U32 i = 0; i < directionalCount; ++i) {
-		string structName = "uDirectionalLights[" + to_string(i) + "]";
+		String structName = "uDirectionalLights[" + to_string(i) + "]";
 		LightUniforms uniforms;
-		uniforms.direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
+		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").c_str());
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color").c_str());
 		uDirectionalLights.push_back(uniforms);
 	}
 
 	for(U32 i = 0; i < spotCount; ++i) {
-		string structName = "uSpotLights[" + to_string(i) + "]";
+		String structName = "uSpotLights[" + to_string(i) + "]";
 		LightUniforms uniforms;
-		uniforms.position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uniforms.direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uniforms.intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
-		uniforms.cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
-		uniforms.outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
+		uniforms.position = glGetUniformLocation(program, String(structName + ".position").c_str());
+		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").c_str());
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color").c_str());
+		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity").c_str());
+		uniforms.cut_off = glGetUniformLocation(program, String(structName + ".cut_off").c_str());
+		uniforms.outer_cut_off = glGetUniformLocation(program, String(structName + ".outer_cut_off").c_str());
 		uSpotLights.push_back(uniforms);
 	}
 }

@@ -48,14 +48,14 @@ public:
 		NONE
 	};
 	/* Loads raw texture data from file */
-	static Byte* LoadRawData(const string& filename, int& width, int& height, int& channels);
+	static Byte* LoadRawData(const String& filename, int& width, int& height, int& channels);
 
 	~Texture();
 
 	/* Returns texture name of its file name */
-	const string& GetName() const;
+	const String& GetName() const;
 	/* Sets texture name */
-	void SetName(const string& name);
+	void SetName(const String& name);
 
 	/* Returns Texture width */
 	U32 GetWidth() const;
@@ -67,15 +67,15 @@ public:
 	U64 GetID() const;
 
 	/* Loads Texture from file */
-	void Load(const string& filename);
+	void Load(const String& filename);
 	/* Loads Texture from file with provided tilling mode */
-	void Load(const string& filename, Texture::TilingMode tillingMode);
+	void Load(const String& filename, Texture::TilingMode tillingMode);
 	/* Loads Texture from file with provided filter */
-	void Load(const string& filename, Texture::Filter filter);
+	void Load(const String& filename, Texture::Filter filter);
 	/* Loads Texture from file with provided filter, compression and tilling mode */
-	void Load(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
+	void Load(const String& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
 	/* Save texture into a file */
-	void Save(const string& filename);
+	void Save(const String& filename);
 	/* Creates empty Texture and allocates data for it */
 	void Create(U32 channels, U32 width, U32 height, Texture::Filter filter);
 	/* Creates Texture from raw data with provided attributes */
@@ -98,16 +98,16 @@ public:
 	Texture* Clone() const;
 
 private:
-	string name		= "noname";
+	String name		= "noname";
 	U64 id			= 0;
 	U32 width		= 0;
 	U32 height		= 0;
 	U32 channels	= 0;
 	bool mip_maps	= false;
 
-	void LoadRAW(const string& filename, Texture::Filter filter);
-	void LoadPKM(const string& filename, Texture::Filter filter);
-	void LoadKTX(const string& filename, Texture::Filter filter);
+	void LoadRAW(const String& filename, Texture::Filter filter);
+	void LoadPKM(const String& filename, Texture::Filter filter);
+	void LoadKTX(const String& filename, Texture::Filter filter);
 };
 
 }

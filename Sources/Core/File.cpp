@@ -19,13 +19,13 @@
 
 using namespace cross;
 
-string File::PathFromFile(const string& filePath) {
+String File::PathFromFile(const String& filePath) {
 	const size_t last_slash_idx = filePath.rfind('/');
 	CROSS_RETURN(std::string::npos != last_slash_idx, "", "Wrong path format");
 	return filePath.substr(0, last_slash_idx);
 }
 
-string File::FileFromPath(const string& filename) {
+String File::FileFromPath(const String& filename) {
 	const size_t last_slash_idx = filename.rfind('/');
 	if(std::string::npos != last_slash_idx) {
 		return filename.substr(last_slash_idx + 1, filename.size());
@@ -34,11 +34,11 @@ string File::FileFromPath(const string& filename) {
 	}
 }
 
-string File::ExtensionFromFile(const string& file) {
+String File::ExtensionFromFile(const String& file) {
 	return file.substr(file.find_last_of(".") + 1);
 }
 
-string File::FileWithoutExtension(const string& file) {
+String File::FileWithoutExtension(const String& file) {
 	size_t lastindex = file.find_last_of(".");
 	return file.substr(0, lastindex);
 }

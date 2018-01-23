@@ -36,7 +36,7 @@ public:
 	~Audio();
 
 	FMOD::System* GetSystem();
-	FMOD::Sound* LoadSound(const string& path, bool loop, bool isStream);
+	FMOD::Sound* LoadSound(const String& path, bool loop, bool isStream);
 	void Suspend();
 	void Resume();
 

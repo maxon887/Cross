@@ -73,7 +73,7 @@ GraphicsGL::GraphicsGL() {
 #endif
 		const Byte* shaderVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
 		system->LogIt("\tSupported shader version %s", shaderVersion);
-		string strV((const char*)shaderVersion);
+		String strV((const char*)shaderVersion);
 		strV.erase(remove(strV.begin(), strV.end(), '.'));
 		shaders_version = atoi(strV.c_str());
 		
