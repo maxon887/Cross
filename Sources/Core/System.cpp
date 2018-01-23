@@ -143,6 +143,10 @@ void System::LogIt(const char* format, ...) {
 	vsprintf(buffer, format, params);
 	Log(buffer);
 #ifdef CROSS_DEBUG
+	if(log_buffer.size() > 8192) {
+		log_buffer.erase(log_buffer.begin(), log_buffer.begin() + 1024);
+	}
+
 	auto iter = log_buffer.end();
 	if(log_buffer.size() != 0) {
 		log_buffer.pop_back();
