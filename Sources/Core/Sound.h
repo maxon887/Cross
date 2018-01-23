@@ -45,8 +45,8 @@ public:
 	Sound* Clone() const;
 
 private:
-	FMOD::Sound* sound		= NULL;
-	FMOD::Channel* channel	= NULL;
+	FMOD::Sound* sound		= null;
+	FMOD::Channel* channel	= null;
 	bool original			= true;
 
 	Sound(const Sound& obj);

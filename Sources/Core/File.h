@@ -35,7 +35,7 @@ public:
 	~File();
 
 	string name	= string();
-	Byte* data	= NULL;
+	Byte* data	= null;
 	U32 size	= 0;
 };
 

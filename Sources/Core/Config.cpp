@@ -199,7 +199,7 @@ void Config::SaveGameConfig() {
 	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
 	system->SaveDataFile(&gameConfig);
-	gameConfig.data = NULL;
+	gameConfig.data = null;
 }
 
 void Config::SaveUserConfig() {
@@ -224,5 +224,5 @@ void Config::SaveUserConfig() {
 	userConfig.size = printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
 	system->SaveDataFile(&userConfig);
-	userConfig.data = NULL;
+	userConfig.data = null;
 }

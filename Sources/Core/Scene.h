@@ -94,10 +94,10 @@ protected:
 	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
 	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
 	List<Light*> lights						= List<Light*>();
-	Entity* root							= NULL;
+	Entity* root							= null;
 	string filename							= "";
 
-	Camera* camera							= NULL;
+	Camera* camera							= null;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
 private:

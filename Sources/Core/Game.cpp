@@ -29,12 +29,12 @@
 
 using namespace cross;
 
-Game*		cross::game		= NULL;
-System*		cross::system	= NULL;
-Audio*		cross::audio	= NULL;
-GraphicsGL* cross::gfxGL	= NULL;
-Input*		cross::input	= NULL;
-Config*		cross::config	= NULL;
+Game*		cross::game		= null;
+System*		cross::system	= null;
+Audio*		cross::audio	= null;
+GraphicsGL* cross::gfxGL	= null;
+Input*		cross::input	= null;
+Config*		cross::config	= null;
 
 Game::Game() {
 	system->LogIt("Game::Game()");
@@ -86,7 +86,7 @@ void Game::Suspend() {
 		config->SaveUserConfig();
 	}
 
-	if(current_screen != nullptr) {
+	if(current_screen != null) {
 		current_screen->Suspend();
 	}
 }
@@ -153,15 +153,15 @@ void Game::LoadNextScreen() {
 	if(current_screen) {
 		current_screen->Stop();
 		delete current_screen;
-		current_screen = NULL;
+		current_screen = null;
 	}
 
 	current_screen = next_screen;
-	next_screen = NULL;
+	next_screen = null;
 	current_screen->Start();
 
 	timestamp = system->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen == NULL? "" : current_screen->GetName().c_str(), loadTime);
+	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen == null? "" : current_screen->GetName().c_str(), loadTime);
 	ScreenChanged.Emit(current_screen);
 }

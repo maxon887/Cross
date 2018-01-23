@@ -21,7 +21,7 @@
 using namespace cross;
 
 Component* Component::Clone() const {
-	CROSS_RETURN(false, NULL, "Can't clone component. Inherited class doesn't implement Clone() function");
+	CROSS_RETURN(false, null, "Can't clone component. Inherited class doesn't implement Clone() function");
 }
 
 bool Component::Load(tinyxml2::XMLElement*, Scene*) {

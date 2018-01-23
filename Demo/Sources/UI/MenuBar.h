@@ -36,7 +36,7 @@ protected:
 	bool show_style_editor		= false;
 
 	Array<View*> views;
-	View* log					= NULL;
-	View* stats					= NULL;
-	View* about					= NULL;
+	View* log					= null;
+	View* stats					= null;
+	View* about					= null;
 };

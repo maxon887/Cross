@@ -10,9 +10,9 @@ public:
 	void Update(float sec) override;
 
 private:
-	Sound* bck_music		= NULL;
-	Sound* jaguar			= NULL;
-	Sound* truck			= NULL;
+	Sound* bck_music		= null;
+	Sound* jaguar			= null;
+	Sound* truck			= null;
 	bool is_bck_playing		= false;
 };
 

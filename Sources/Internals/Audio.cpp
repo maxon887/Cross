@@ -36,7 +36,7 @@ Audio::Audio() {
 
 	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 
-	result = fmod_system->init(32, FMOD_INIT_NORMAL, NULL);
+	result = fmod_system->init(32, FMOD_INIT_NORMAL, null);
 	ERRCHECK(result);
 }
 
@@ -64,7 +64,7 @@ FMOD::Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 #else
 	string absPath = system->AssetsPath() + "/" + path;
 #endif
-	FMOD::Sound* sound = NULL;
+	FMOD::Sound* sound = null;
 	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound);
 	ERRCHECK(result);
 

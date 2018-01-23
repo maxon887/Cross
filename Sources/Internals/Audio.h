@@ -41,7 +41,7 @@ public:
 	void Resume();
 
 private:
-	FMOD::System* fmod_system = NULL;
+	FMOD::System* fmod_system = null;
 };
 
 }

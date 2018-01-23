@@ -173,8 +173,8 @@ private:
 	GLuint fragment_shader		= 0;
 	string vertex_filename		= "";
 	string fragment_filename	= "";
-	File* vertex_file			= NULL;
-	File* fragment_file			= NULL;
+	File* vertex_file			= null;
+	File* fragment_file			= null;
 	U32 makro_len				= 0;
 	string filename				= "noname";
 

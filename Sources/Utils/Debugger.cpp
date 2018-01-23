@@ -19,7 +19,7 @@
 
 using namespace cross;
 
-Debugger* Debugger::instance = NULL;
+Debugger* Debugger::instance = null;
 
 Debugger* Debugger::Instance() {
 	if(!instance){
@@ -30,7 +30,7 @@ Debugger* Debugger::Instance() {
 
 void Debugger::Release() {
 	delete instance;
-	instance = NULL;
+	instance = null;
 }
 
 void Debugger::SetTimeCheck() {

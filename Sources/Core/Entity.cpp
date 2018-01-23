@@ -66,7 +66,7 @@ Array<Component*> Entity::GetComponents() {
 }
 
 Transform* Entity::GetTransform() {
-	CROSS_RETURN(HasComponent<Transform>(), NULL, "Entity '%s' does't contains Tranform component", name.c_str());
+	CROSS_RETURN(HasComponent<Transform>(), null, "Entity '%s' does't contains Tranform component", name.c_str());
 	return GetComponent<Transform>();
 }
 
@@ -108,7 +108,7 @@ void Entity::RemoveChildren() {
 }
 
 Entity* Entity::FindChild(U32 index) {
-	CROSS_RETURN(index < children.size(), NULL, "Out of bounds");
+	CROSS_RETURN(index < children.size(), null, "Out of bounds");
 	auto it = children.begin();
 	std::advance(it, index);
 	return *it;
@@ -125,7 +125,7 @@ Entity* Entity::FindChild(const string& name){
 			}
 		}
 	}
-	return NULL;
+	return null;
 }
 
 Entity* Entity::RemoveChild(const string& name){
@@ -137,7 +137,7 @@ Entity* Entity::RemoveChild(const string& name){
 			return c;
 		}
 	}
-	return NULL;
+	return null;
 }
 
 Entity* Entity::RemoveChild(Entity* child){
@@ -149,7 +149,7 @@ Entity* Entity::RemoveChild(Entity* child){
 			return c;
 		}
 	}
-	return NULL;
+	return null;
 }
 
 Entity* Entity::Clone(){

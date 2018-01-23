@@ -91,12 +91,12 @@ public:
 private:
 	U64 VBO						= 0;
 	U64 EBO						= 0;
-	VertexBuffer* vertex_buffer = NULL;
+	VertexBuffer* vertex_buffer = null;
 	Array<U16> indices			= Array<U16>();
 
 	S32 id						= -1;
-	Model* model				= NULL;
-	Material* material			= NULL;
+	Model* model				= null;
+	Material* material			= null;
 	bool original				= true;
 	bool initialized			= false;
 	bool face_culling			= true;

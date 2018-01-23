@@ -150,7 +150,7 @@ void Material::Save(const string& filename) {
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	system->SaveFile(&saveFile);
-	saveFile.data = NULL;
+	saveFile.data = null;
 }
 
 void Material::Reset() {
@@ -173,7 +173,7 @@ Shader::Property* Material::GetProperty(const string& name){
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, NULL, "Can not find property '%s'", name.c_str());
+	CROSS_RETURN(false, null, "Can not find property '%s'", name.c_str());
 }
 
 Shader::Property* Material::GetProperty(U64 glID){
@@ -182,7 +182,7 @@ Shader::Property* Material::GetProperty(U64 glID){
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, NULL, "Can not find property by ID(%d)", glID);
+	CROSS_RETURN(false, null, "Can not find property by ID(%d)", glID);
 }
 
 Array<Shader::Property>& Material::GetProperties(){

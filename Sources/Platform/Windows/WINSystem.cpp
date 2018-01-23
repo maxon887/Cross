@@ -40,7 +40,7 @@ WINSystem::WINSystem(HWND wnd) :
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	if(!DirectoryExists(DATA_PATH)){
-		CreateDirectoryA(DATA_PATH, NULL);
+		CreateDirectoryA(DATA_PATH, null);
 	}
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
@@ -82,15 +82,15 @@ U64 WINSystem::GetTime() {
 
 float WINSystem::GetScreenDPI() {
 	SetProcessDPIAware(); //true
-	HDC screen = GetDC(NULL);
+	HDC screen = GetDC(null);
 	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
 	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
-	ReleaseDC(NULL, screen);
+	ReleaseDC(null, screen);
 	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
 string WINSystem::GetClipboard() {
-	CROSS_RETURN(OpenClipboard(NULL), "", "Can not open clipboard data");
+	CROSS_RETURN(OpenClipboard(null), "", "Can not open clipboard data");
 	HANDLE hData = GetClipboardData(CF_TEXT);
 	CROSS_RETURN(hData, "", "Clipboard data == null");
 	char* text = static_cast<char*>(GlobalLock(hData));
@@ -200,7 +200,7 @@ bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHe
 	DEVMODE fullscreenSettings;
 	bool isChangeSuccessful;
 
-	EnumDisplaySettings(NULL, 0, &fullscreenSettings);
+	EnumDisplaySettings(null, 0, &fullscreenSettings);
 	fullscreenSettings.dmPelsWidth = fullscreenWidth;
 	fullscreenSettings.dmPelsHeight = fullscreenHeight;
 	fullscreenSettings.dmBitsPerPel = colourBits;
@@ -221,7 +221,7 @@ bool WINSystem::ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowed
 
 	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_LEFT);
 	SetWindowLongPtr(hwnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
-	isChangeSuccessful = ChangeDisplaySettings(NULL, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
+	isChangeSuccessful = ChangeDisplaySettings(null, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
 	SetWindowPos(hwnd, HWND_NOTOPMOST, windowX, windowY, windowedWidth + windowedPaddingX, windowedHeight + windowedPaddingY, SWP_SHOWWINDOW);
 	ShowWindow(hwnd, SW_RESTORE);
 

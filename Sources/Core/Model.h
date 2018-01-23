@@ -51,9 +51,9 @@ private:
 	Dictionary<S32, Mesh*> meshes;
 	Entity* hierarchy;
 
-	const aiScene* current_scene = NULL;
-	bool initialize_in_load = true;
-	S32 mesh_id = 0;
+	const aiScene* current_scene	= null;
+	bool initialize_in_load			= true;
+	S32 mesh_id						= 0;
 
 	void ProcessScene(Entity* root, File* sceneFile);
 	void ProcessNode(Entity* entity, aiNode* node);

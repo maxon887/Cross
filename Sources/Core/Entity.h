@@ -82,7 +82,7 @@ engineonly:
 private:
 	string name								= string();
 	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
-	Entity* parent							= NULL;
+	Entity* parent							= null;
 	List<Entity*> children					= List<Entity*>();
 };
 
@@ -97,7 +97,7 @@ T* Entity::GetComponent(){
 	if(it != components.end()) {
 		return (T*)(*it).second;
 	} else {
-		return NULL;
+		return null;
 	}
 }
 

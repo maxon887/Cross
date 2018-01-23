@@ -28,10 +28,10 @@ public:
 	void Draw();
 
 private:
-	Cubemap* cubemap	= NULL;
-	Shader* shader		= NULL;
-	Material* material	= NULL;
-	Entity* box			= NULL;
+	Cubemap* cubemap	= null;
+	Shader* shader		= null;
+	Material* material	= null;
+	Entity* box			= null;
 	U64 mvpID			= 0;
 };
 

@@ -288,18 +288,18 @@ void Shader::Save(const string& file) {
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	system->SaveFile(&saveFile);
-	saveFile.data = NULL;
+	saveFile.data = null;
 }
 
 void Shader::Compile() {
 	vertex_file = system->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
-	vertex_file = NULL;
+	vertex_file = null;
 	fragment_file = system->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
-	fragment_file = NULL;
+	fragment_file = null;
 	program = glCreateProgram();
 	CROSS_FAIL(vertex_shader && fragment_shader, "One or more of shaders files not compiled");
 	SAFE(glAttachShader(program, vertex_shader));
@@ -439,7 +439,7 @@ Shader::Property* Shader::GetProperty(const string& name) {
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, NULL, "Can not find property");
+	CROSS_RETURN(false, null, "Can not find property");
 }
 
 Array<Shader::Property>& Shader::GetProperties(){
@@ -478,9 +478,9 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 	source[makro_len + file->size] = 0;
 	//shader compiling part
 	GLuint handle = glCreateShader(type);
-	glShaderSource(handle, 1, (const char**)&source, NULL);
+	glShaderSource(handle, 1, (const char**)&source, null);
 	delete[] source;
-	source = NULL;
+	source = null;
 
 	glCompileShader(handle);
 	GLint compiled;

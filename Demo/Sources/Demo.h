@@ -32,9 +32,9 @@ extern Demo* demo;
 
 class Demo : public Game {
 public:
-	ImFont* small_font		= NULL;
-	ImFont* normal_font		= NULL;
-	ImFont* big_font		= NULL;
+	ImFont* small_font		= null;
+	ImFont* normal_font		= null;
+	ImFont* big_font		= null;
 
 	void Start() override;
 	void Stop() override;
@@ -46,9 +46,9 @@ public:
 private:
 	static const char* GetClipboardString(void* userData);
 
-	MenuBar* menu			= NULL;
-	Shader* ui_shader		= NULL;
-	Texture* font_texture	= NULL;
+	MenuBar* menu			= null;
+	Shader* ui_shader		= null;
+	Texture* font_texture	= null;
 	string clipboard		= "";
 	U32 vertex_buffer		= 0;
 	U32 index_buffer		= 0;

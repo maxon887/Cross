@@ -64,9 +64,9 @@ public:
 	bool IsSuspended() const;
 
 protected:
-	ComponentFactory* component_factory = NULL;
-	Screen* current_screen				= NULL;
-	Screen* next_screen					= NULL;
+	ComponentFactory* component_factory = null;
+	Screen* current_screen				= null;
+	Screen* next_screen					= null;
 	U64 timestamp						= 0;
 	U64 run_time						= 0;
 	bool suspended						= false;

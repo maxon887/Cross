@@ -61,7 +61,7 @@ public:
 private:
 	friend Entity;
 
-	Entity* entity	= NULL;
+	Entity* entity	= null;
 	bool enabled	= true;
 };
 

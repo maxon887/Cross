@@ -92,7 +92,7 @@ engineonly:
 
 private:
 	string filename						= "noname";
-	Shader* shader						= NULL;
+	Shader* shader						= null;
 	bool transparent					= false;
 	Array<Shader::Property> properties	= Array<Shader::Property>();
 

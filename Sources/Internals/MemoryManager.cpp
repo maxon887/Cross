@@ -135,7 +135,7 @@ void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned lo
 void MemoryManager::Free(void* address) {
 	if(!dead){
 		SanityCheck();
-		if(address == NULL){
+		if(address == null){
 			return;
 		}
 		for(unsigned int i = 0; i < object_count; i++){
