@@ -589,6 +589,12 @@
     <ClInclude Include="..\..\Sources\UI\Log.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Experimental\Array.h">
+      <Filter>Cross\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Experimental\String.h">
+      <Filter>Cross\Experimental</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cross++.rc" />
