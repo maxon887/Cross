@@ -191,71 +191,85 @@ Array<Shader::Property>& Material::GetProperties(){
 
 void Material::SetPropertyValue(const String& name, S32 value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, float value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, const Color& value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Vector3D& value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Vector4D& value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Matrix& value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Texture* value){
 	Shader::Property* prop = GetProperty(name);
+	CROSS_FAIL(prop, "Value %s does not exists", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, S32 value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, float value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, const Color& value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Vector3D& value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Vector4D& value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Matrix& value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Texture* value){
 	Shader::Property* prop = GetProperty(glID);
+	CROSS_FAIL(prop, "Value %d does not exists", glID);
 	prop->SetValue(value);
 }
 
