@@ -14,22 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#pragma once
-#include "F:\Trash\StringTest\StringTest\StringTest\BaseTypes.h"
+#include "String.h"
 
+#include <string.h>
 
-namespace cross {
+using namespace cross;
 
-class String {
-public:
-	String();
-	String(const char* cstr);
-	~String();
+String::String() : String("") { }
 
-	const char* CStr() const;
+String::String(const char* cstr) {
+	U32 size = strlen(cstr);
+	data = new char[size + 1];
+	memcpy(data, cstr, size);
+	data[size] = '\0';
+}
 
-private:
-	char* data = null;
-};
+String::~String() {
+	delete data;
+}
 
+const char* String::CStr() const {
+	return data;
 }
