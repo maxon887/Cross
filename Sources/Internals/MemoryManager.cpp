@@ -166,8 +166,8 @@ unsigned long MemoryManager::Dump() {
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
-	Log("Memory lick detected(%u bytes)\n", totalBytes);
-	CROSS_ASSERT(totalBytes == 0, "Memory lick detected(%ud bytes)", totalBytes);
+	Log("Memory leak detected(%u bytes)\n", totalBytes);
+	CROSS_ASSERT(totalBytes == 0, "Memory leak detected(%ud bytes)", totalBytes);
 	return totalBytes;
 }
 
