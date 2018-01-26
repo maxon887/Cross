@@ -24,12 +24,18 @@ class String {
 public:
 	String();
 	String(const char* cstr);
+	String(const String& str);
 	~String();
 
+	U32 Length() const;
 	const char* CStr() const;
+
+	String& operator = (const char* other);
+	String& operator = (const String& other);
 
 private:
 	char* data = null;
+	U32 length = 0;
 };
 
 }

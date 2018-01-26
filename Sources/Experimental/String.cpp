@@ -23,16 +23,49 @@ using namespace cross;
 String::String() : String("") { }
 
 String::String(const char* cstr) {
-	U32 size = strlen(cstr);
-	data = new char[size + 1];
-	memcpy(data, cstr, size);
-	data[size] = '\0';
+	length = strlen(cstr);
+	data = new char[length + 1];
+	memcpy(data, cstr, length);
+	data[length] = '\0';
+}
+
+String::String(const String& str) :
+	length(str.length)
+{
+	data = new char[length + 1];
+	memcpy(data, str.data, str.length + 1);
 }
 
 String::~String() {
-	delete data;
+	delete[] data;
+}
+
+U32 String::Length() const {
+	return length;
 }
 
 const char* String::CStr() const {
 	return data;
+}
+
+String& String::operator = (const char* cstr) {
+	S32 cLen = strlen(cstr);
+	if(length < cLen) {
+		delete[] data;
+		data = new char[cLen + 1];
+	}
+	length = cLen;
+	memcpy(data, cstr, length);
+	data[length] = '\0';
+	return *this;
+}
+
+String& String::operator = (const String& other) {
+	if(length < other.length) {
+		delete[] data;
+		data = new char[other.length + 1];
+	}
+	length = other.length;
+	memcpy(data, other.data, other.length + 1);
+	return *this;
 }
