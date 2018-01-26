@@ -48,7 +48,7 @@ android {
             }
         }
     }
-
+	/* Uncomment for release signed builds
     signingConfigs {
         release {
             storeFile file("d:/littlekeystore")
@@ -56,13 +56,13 @@ android {
             keyAlias "littel man"
             keyPassword '**********'
         }
-    }
+    }*/
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
         }
     }
     sourceSets {
