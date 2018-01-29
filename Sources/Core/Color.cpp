@@ -67,13 +67,13 @@ Color::Color(int r, int g, int b, int a) :
 
 Color::Color(const char* hex){
 	String rStr = String(hex + 0, hex + 2);
-	U64 rInt = std::strtol(rStr.c_str(), null, 16);
+	U64 rInt = std::strtol(rStr.c_str(), nullptr, 16);
 	String gStr = String(hex + 2, hex + 4);
-	U64 gInt = std::strtol(gStr.c_str(), null, 16);
+	U64 gInt = std::strtol(gStr.c_str(), nullptr, 16);
 	String bStr = String(hex + 4, hex + 6);
-	U64 bInt = std::strtol(bStr.c_str(), null, 16);
+	U64 bInt = std::strtol(bStr.c_str(), nullptr, 16);
 	String aStr = String(hex + 6, hex + 8);
-	U64 aInt = std::strtol(aStr.c_str(), null, 16);
+	U64 aInt = std::strtol(aStr.c_str(), nullptr, 16);
 	R = rInt / 255.f;
 	G = gInt / 255.f;
 	B = bInt / 255.f;

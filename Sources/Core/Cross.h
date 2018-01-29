@@ -20,8 +20,6 @@
 #   define CROSS_DEBUG
 #endif
 
-#define null nullptr
-
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 

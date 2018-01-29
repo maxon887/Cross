@@ -67,7 +67,7 @@ public:
 	void AddEntity(Entity* entity);
 	/* Loads primitive model as Entity with Mesh Component included */
 	Entity* LoadPrimitive(Model::Primitive primitive);
-	/* Removes entity from this Scene by name. Returns founded Entity or null otherwise. Entity won't we destructed */
+	/* Removes entity from this Scene by name. Returns founded Entity or nullptr otherwise. Entity won't we destructed */
 	Entity* RemoveEntity(const String& name);
 	/* Returns all available Lights on the Scene. */
 	List<Light*>& GetLights();
@@ -94,10 +94,10 @@ protected:
 	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
 	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
 	List<Light*> lights						= List<Light*>();
-	Entity* root							= null;
+	Entity* root							= nullptr;
 	String filename							= "";
 
-	Camera* camera							= null;
+	Camera* camera							= nullptr;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
 private:

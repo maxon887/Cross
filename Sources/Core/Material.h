@@ -44,9 +44,9 @@ public:
 
 	/* Checks if this Material contains provided property */
 	bool HaveProperty(const String& name);
-	/* Returns Material property by name or null if can't find*/
+	/* Returns Material property by name or nullptr if can't find*/
 	Shader::Property* GetProperty(const String& name);
-	/* Returns Material property by internal graphics ID or null if can't find */
+	/* Returns Material property by internal graphics ID or nullptr if can't find */
 	Shader::Property* GetProperty(U64 glID);
 	/* Returns all available Material property */
 	Array<Shader::Property>& GetProperties();
@@ -92,7 +92,7 @@ engineonly:
 
 private:
 	String filename						= "noname";
-	Shader* shader						= null;
+	Shader* shader						= nullptr;
 	bool transparent					= false;
 	Array<Shader::Property> properties	= Array<Shader::Property>();
 

@@ -34,7 +34,7 @@ public:
 	void OnEntitySelected(Entity* entity);
 
 private:
-	Entity* selected_entity = null;
+	Entity* selected_entity = nullptr;
 
 	void OnScreenChanged(Screen* screen);
 };
@@ -60,5 +60,5 @@ void ComponentView<ComponentType>::OnEntitySelected(Entity* entity) {
 
 template<class ComponentType>
 void ComponentView<ComponentType>::OnScreenChanged(Screen* screen) {
-	selected_entity = null;
+	selected_entity = nullptr;
 }

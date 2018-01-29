@@ -51,7 +51,7 @@ private:
 	Dictionary<S32, Mesh*> meshes;
 	Entity* hierarchy;
 
-	const aiScene* current_scene	= null;
+	const aiScene* current_scene	= nullptr;
 	bool initialize_in_load			= true;
 	S32 mesh_id						= 0;
 

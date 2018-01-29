@@ -173,8 +173,8 @@ private:
 	GLuint fragment_shader		= 0;
 	String vertex_filename		= "";
 	String fragment_filename	= "";
-	File* vertex_file			= null;
-	File* fragment_file			= null;
+	File* vertex_file			= nullptr;
+	File* fragment_file			= nullptr;
 	U32 makro_len				= 0;
 	String filename				= "noname";
 

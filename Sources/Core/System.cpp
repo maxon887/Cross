@@ -35,7 +35,7 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
 
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.c_str(), "rb");
-	CROSS_RETURN(f, null, "Can not open file %s", filename.c_str());
+	CROSS_RETURN(f, nullptr, "Can not open file %s", filename.c_str());
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
@@ -72,7 +72,7 @@ void System::SaveDataFile(File* file) {
 bool System::IsDataFileExists(const String& filename) {
 	String fullpath = DataPath() + filename;
 	FILE* f = fopen(fullpath.c_str(), "r");
-	bool result = f != null;
+	bool result = f != nullptr;
 	if(result) {
 		fclose(f);
 	}

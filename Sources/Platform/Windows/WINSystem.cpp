@@ -40,7 +40,7 @@ WINSystem::WINSystem(HWND wnd) :
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
 	if(!DirectoryExists(DATA_PATH)){
-		CreateDirectoryA(DATA_PATH, null);
+		CreateDirectoryA(DATA_PATH, nullptr);
 	}
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
@@ -82,19 +82,19 @@ U64 WINSystem::GetTime() {
 
 float WINSystem::GetScreenDPI() {
 	SetProcessDPIAware(); //true
-	HDC screen = GetDC(null);
+	HDC screen = GetDC(nullptr);
 	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
 	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
-	ReleaseDC(null, screen);
+	ReleaseDC(nullptr, screen);
 	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
 String WINSystem::GetClipboard() {
-	CROSS_RETURN(OpenClipboard(null), "", "Can not open clipboard data");
+	CROSS_RETURN(OpenClipboard(nullptr), "", "Can not open clipboard data");
 	HANDLE hData = GetClipboardData(CF_TEXT);
-	CROSS_RETURN(hData, "", "Clipboard data == null");
+	CROSS_RETURN(hData, "", "Clipboard data == nullptr");
 	char* text = static_cast<char*>(GlobalLock(hData));
-	CROSS_RETURN(text, "", "Text pointer == null");
+	CROSS_RETURN(text, "", "Text pointer == nullptr");
 	clipboard = text;
 	GlobalUnlock(hData);
 	CloseClipboard();
@@ -105,7 +105,7 @@ void WINSystem::Messagebox(const String& title, const String& msg) {
 	if(wnd) {
 		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
 	} else {
-		LogIt("HWND == null");
+		LogIt("HWND == nullptr");
 		System::Messagebox(title, msg);
 	}
 }
@@ -200,7 +200,7 @@ bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHe
 	DEVMODE fullscreenSettings;
 	bool isChangeSuccessful;
 
-	EnumDisplaySettings(null, 0, &fullscreenSettings);
+	EnumDisplaySettings(nullptr, 0, &fullscreenSettings);
 	fullscreenSettings.dmPelsWidth = fullscreenWidth;
 	fullscreenSettings.dmPelsHeight = fullscreenHeight;
 	fullscreenSettings.dmBitsPerPel = colourBits;
@@ -221,7 +221,7 @@ bool WINSystem::ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowed
 
 	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_LEFT);
 	SetWindowLongPtr(hwnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
-	isChangeSuccessful = ChangeDisplaySettings(null, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
+	isChangeSuccessful = ChangeDisplaySettings(nullptr, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
 	SetWindowPos(hwnd, HWND_NOTOPMOST, windowX, windowY, windowedWidth + windowedPaddingX, windowedHeight + windowedPaddingY, SWP_SHOWWINDOW);
 	ShowWindow(hwnd, SW_RESTORE);
 

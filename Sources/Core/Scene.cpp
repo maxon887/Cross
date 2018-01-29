@@ -186,7 +186,7 @@ void Scene::Save(const String& filename) {
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	system->SaveFile(&saveFile);
-	saveFile.data = null;
+	saveFile.data = nullptr;
 }
 
 void Scene::Clear() {
@@ -211,7 +211,7 @@ Entity* Scene::GetEntity(const String& name) {
 	if(child){
 		return child;
 	}
-	CROSS_RETURN(false, null, "Can not find entity %s", name.c_str());
+	CROSS_RETURN(false, nullptr, "Can not find entity %s", name.c_str());
 }
 
 void Scene::AddEntity(Entity* entity) {
@@ -229,7 +229,7 @@ Entity* Scene::LoadPrimitive(Model::Primitive primitive) {
 	case Model::PLANE:
 		return GetModel("Engine/Models/Plane.obj")->GetHierarchy();
 	default:
-		CROSS_RETURN(false, null, "Unknown primitive type");
+		CROSS_RETURN(false, nullptr, "Unknown primitive type");
 	}
 }
 
@@ -298,7 +298,7 @@ Texture* Scene::GetTexture(const String& textureFile) {
 Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 	S32 hash = (S32)std::hash<String>{}(textureFile);
 	auto textureIt = textures.find(hash);
-	CROSS_RETURN(textureIt == textures.end(), null, "Texture already loaded. Can't load it second time");
+	CROSS_RETURN(textureIt == textures.end(), nullptr, "Texture already loaded. Can't load it second time");
 
 	Texture* texture = new Texture();
 	texture->Load(textureFile, filter);

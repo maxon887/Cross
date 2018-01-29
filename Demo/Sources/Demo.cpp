@@ -36,7 +36,7 @@
 
 #define DEFAULT_FONT_SIZE 13.f
 
-Demo* demo = null;
+Demo* demo = nullptr;
 
 const char* Demo::GetClipboardString(void* userData) {
 	demo->clipboard = system->GetClipboard();

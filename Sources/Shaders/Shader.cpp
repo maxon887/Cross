@@ -288,18 +288,18 @@ void Shader::Save(const String& file) {
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	system->SaveFile(&saveFile);
-	saveFile.data = null;
+	saveFile.data = nullptr;
 }
 
 void Shader::Compile() {
 	vertex_file = system->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
-	vertex_file = null;
+	vertex_file = nullptr;
 	fragment_file = system->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
-	fragment_file = null;
+	fragment_file = nullptr;
 	program = glCreateProgram();
 	CROSS_FAIL(vertex_shader && fragment_shader, "One or more of shaders files not compiled");
 	SAFE(glAttachShader(program, vertex_shader));
@@ -439,7 +439,7 @@ Shader::Property* Shader::GetProperty(const String& name) {
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, null, "Can not find property");
+	CROSS_RETURN(false, nullptr, "Can not find property");
 }
 
 Array<Shader::Property>& Shader::GetProperties(){
@@ -465,7 +465,7 @@ GLuint Shader::GetProgram() const {
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
 	CROSS_RETURN(file, 0, "Attempt to compile shader without a file");
-	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for null terminated String
+	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for nullptr terminated String
 
 	int curPos = 0;
 	for(String makro : macrosies){
@@ -478,9 +478,9 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 	source[makro_len + file->size] = 0;
 	//shader compiling part
 	GLuint handle = glCreateShader(type);
-	glShaderSource(handle, 1, (const char**)&source, null);
+	glShaderSource(handle, 1, (const char**)&source, nullptr);
 	delete[] source;
-	source = null;
+	source = nullptr;
 
 	glCompileShader(handle);
 	GLint compiled;
