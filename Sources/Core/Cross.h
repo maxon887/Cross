@@ -77,16 +77,6 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 
 namespace cross{
 
-typedef int8_t		S8;
-typedef uint8_t		U8;
-typedef int16_t		S16;
-typedef uint16_t	U16;
-typedef int32_t		S32;
-typedef uint32_t	U32;
-typedef int64_t		S64;
-typedef uint64_t	U64;
-typedef uint8_t		Byte;
-
 typedef std::string	String;
 
 template<typename Type>
@@ -101,7 +91,6 @@ using Set = std::set<Type>;
 class Game;
 class System;
 class GraphicsGL;
-class Graphics3D;
 class Input;
 class Config;
 class Audio;
@@ -110,7 +99,6 @@ class Screen;
 class Scene;
 class File;
 class Camera;
-class Camera2D;
 class Shader;
 class Entity;
 class Material;
@@ -118,10 +106,9 @@ class Mesh;
 class Model;
 class Texture;
 class Light;
-class Cubemap;
 class Component;
-class Collider;
 class Transform;
+class Cubemap;
 
 extern Game*		game;
 extern System*		system;
