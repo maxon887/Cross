@@ -19,7 +19,7 @@
 #include "Vector4D.h"
 
 #include <math.h>
-#include <String.h>
+#include <string.h>
 
 using namespace cross;
 

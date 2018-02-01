@@ -18,7 +18,7 @@
 #include "Game.h"
 #include "Input.h"
 
-#define SCALED(x) x * system->GetScreenScale()
+#define SCALED(x) x * cross::system->GetScreenScale()
 
 using namespace cross;
 

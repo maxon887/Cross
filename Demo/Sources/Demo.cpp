@@ -36,6 +36,8 @@
 
 #define DEFAULT_FONT_SIZE 13.f
 
+using namespace cross;
+
 Demo* demo = nullptr;
 
 const char* Demo::GetClipboardString(void* userData) {

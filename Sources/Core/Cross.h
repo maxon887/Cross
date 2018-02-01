@@ -46,8 +46,6 @@ if(!(condition)) {													\
 
 #include <cstdint>
 
-#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
-
 namespace cross {
 	typedef int8_t		S8;
 	typedef uint8_t		U8;
@@ -66,12 +64,16 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 #include "Math/All.h"
 #include "Color.h"
 
-#include <String>
+#include <string>
 #include <list>
 #include <map>
 #include <set>
 
 #include "Experimental/ArraySTD.h"
+
+#if !defined(ANDROID)
+#   define system cross_system
+#endif
 
 namespace cross{
 
