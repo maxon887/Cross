@@ -21,7 +21,7 @@ namespace cross{
 class Vector2D;
 class Vector4D;
 
-class Vector3D{
+class Vector3D {
 public:
 	static const Vector3D Zero;
 	static const Vector3D Up;

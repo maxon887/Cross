@@ -28,7 +28,7 @@ const Vector3D Vector3D::Up(0.f, 1.f, 0.f);
 const Vector3D Vector3D::Forward(0.f, 0.f, 1.f);
 const Vector3D Vector3D::Right(1.f, 0.f, 0.f);
 
-Vector3D Vector3D::Cross(const Vector3D& left, const Vector3D& right){
+Vector3D Vector3D::Cross(const Vector3D& left, const Vector3D& right) {
 	Vector3D result;
 	result.x = left.y * right.z - left.z * right.y;
 	result.y = left.z * right.x - left.x * right.z;
@@ -36,14 +36,14 @@ Vector3D Vector3D::Cross(const Vector3D& left, const Vector3D& right){
 	return result;
 }
 
-float Vector3D::Dot(const Vector3D& left, const Vector3D& right){
+float Vector3D::Dot(const Vector3D& left, const Vector3D& right) {
 	return left.x * right.x + left.y * right.y + left.z * right.z;
 }
 
 Vector3D::Vector3D():
-	x(0.0f),
-	y(0.0f),
-	z(0.0f)
+	x(0.f),
+	y(0.f),
+	z(0.f)
 { }
 
 Vector3D::Vector3D(float value):
@@ -74,7 +74,7 @@ Vector3D::Vector3D(const Vector4D &vec):
 	z(vec.z)
 { }
 
-float Vector3D::Length() const{
+float Vector3D::Length() const {
 	return (float)sqrt(x*x + y*y + z*z);
 }
 
@@ -85,8 +85,8 @@ void Vector3D::Normaize(){
 	this->z = z / len;
 }
 
-Vector3D Vector3D::GetNormalized() const{
-	Vector3D result;
+Vector3D Vector3D::GetNormalized() const {
+	Vector3D result = Vector3D::Zero;
 	float len = Length();
 	if(len > 0){
 		result.x = x / len;
@@ -96,13 +96,13 @@ Vector3D Vector3D::GetNormalized() const{
 	return result;
 }
 
-bool Vector3D::IsNormalized() const{
+bool Vector3D::IsNormalized() const {
 	float len = Length();
-	return len > 0.999 && len < 1.001;
+	return len > 0.999f && len < 1.001f;
 }
 
-Vector3D Vector3D::GetTruncated(float len) const{
-	if(this->Length() > len){
+Vector3D Vector3D::GetTruncated(float len) const {
+	if(this->Length() > len) {
 		Vector3D result;
 		result = this->GetNormalized();
 		result *= len;
@@ -111,69 +111,69 @@ Vector3D Vector3D::GetTruncated(float len) const{
 	return *this;
 }
 
-const float* Vector3D::GetData() const{
+const float* Vector3D::GetData() const {
 	return &x;
 }
 
-void Vector3D::SetData(const float* data){
+void Vector3D::SetData(const float* data) {
 	memcpy(&x, data, sizeof(float) * 3);
 }
 
-bool Vector3D::operator == (const Vector3D& v2) const{
-	if(this->x == v2.x && this->y == v2.y && this->z == v2.z){
+bool Vector3D::operator == (const Vector3D& v2) const {
+	if(this->x == v2.x && this->y == v2.y && this->z == v2.z) {
 		return true;
-	}else{
+	} else {
 		return false;
 	}
 }
 
-bool Vector3D::operator != (const Vector3D& v2) const{
+bool Vector3D::operator != (const Vector3D& v2) const {
 	return !(*this == v2);
 }
 
-Vector3D Vector3D::operator + (const Vector3D& right) const{
+Vector3D Vector3D::operator + (const Vector3D& right) const {
 	Vector3D res(*this);
 	res += right;
 	return res;
 }
 
-Vector3D Vector3D::operator - (const Vector3D& right) const{
+Vector3D Vector3D::operator - (const Vector3D& right) const {
 	Vector3D res(*this);
 	res -= right;
 	return res;
 }
 
-Vector3D Vector3D::operator * (float right) const{
+Vector3D Vector3D::operator * (float right) const {
 	Vector3D res(*this);
 	res *= right;
 	return res;
 }
 
-Vector3D Vector3D::operator / (float right) const{
+Vector3D Vector3D::operator / (float right) const {
 	Vector3D res(*this);
 	res /= right;
 	return res;
 }
 
-void Vector3D::operator += (const Vector3D &v2){
+void Vector3D::operator += (const Vector3D &v2) {
 	this->x += v2.x;
 	this->y += v2.y;
 	this->z += v2.z;
 }
 
-void Vector3D::operator -= (const Vector3D &v2){
+void Vector3D::operator -= (const Vector3D &v2) {
 	this->x -= v2.x;
 	this->y -= v2.y;
 	this->z -= v2.z;
 }
 
-void Vector3D::operator *= (float v){
+void Vector3D::operator *= (float v) {
 	this->x *= v;
 	this->y *= v;
 	this->z *= v;
 }
 
-void Vector3D::operator /= (float v){
+void Vector3D::operator /= (float v) {
 	this->x /= v;
 	this->y /= v;
 	this->z /= v;
