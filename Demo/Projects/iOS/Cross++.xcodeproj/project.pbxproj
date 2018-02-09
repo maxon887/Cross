@@ -1258,7 +1258,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				VALID_ARCHS = "armv7 armv7s arm64";
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -1289,7 +1289,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				VALID_ARCHS = "armv7 armv7s arm64";
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};
