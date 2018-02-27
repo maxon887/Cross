@@ -4,9 +4,9 @@ Is a lightweight cross-platform game engine. Written mostly on C++.
 ### Build Status
 
 
-| Windows    |
-| ---------- |
-| [![Win Build](https://ci.appveyor.com/api/projects/status/fmigb2qi7di0pqmq?svg=true)](https://ci.appveyor.com/project/maxon887/cross) |
+| Windows    | iOS |
+| ---------- | --- |
+| [![Win Build](https://ci.appveyor.com/api/projects/status/fmigb2qi7di0pqmq?svg=true)](https://ci.appveyor.com/project/maxon887/cross) | [![iOS Build](https://travis-ci.org/maxon887/Cross.svg?branch=Main)](https://travis-ci.org/maxon887/Cross) |
 
 ### Demo
 Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
