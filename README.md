@@ -1,6 +1,16 @@
 # Cross++
 Is a lightweight cross-platform game engine. Written mostly on C++.
 
+### Build Status
+.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/fmigb2qi7di0pqmq?svg=true
+  :target: https://ci.appveyor.com/project/maxon887/cross
+
+==========
+Windows
+==========
+|AppVeyor|
+==========
+
 ### Demo
 Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 
