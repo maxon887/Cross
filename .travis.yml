@@ -1,2 +1,4 @@
 language: objective-c
-script: xcodebuild
+script:
+- cd Demo/Projects/iOS/
+- xcodebuild
