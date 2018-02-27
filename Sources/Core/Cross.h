@@ -139,3 +139,12 @@ friend Input;			\
 friend Config;			\
 friend Scene;			\
 friend Screen;			
+
+#if defined(ANDROID)
+inline cross::String to_StringAndroid(int i) {
+    char buff[1024];
+    sprintf(buff, "%i", i);
+    return cross::String(buff);
+}
+#define  to_string to_StringAndroid
+#endif
