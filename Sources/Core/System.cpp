@@ -18,6 +18,7 @@
 #include "File.h"
 
 #include <stdarg.h>
+#include <cstring>
 
 #if defined(WIN) || defined(EDITOR)
 #	define DEFAULT_SCREEN_DPI 96.f
