@@ -35,7 +35,6 @@ matrix:
         - rm android-ndk-r16b-linux-x86_64.zip
         - export ANDROID_NDK_HOME=`pwd`/android-ndk-r16b
       install:
-        - echo y | sdkmanager 'ndk-bundle'
         - echo y | sdkmanager 'cmake;3.6.4111459'
       script:
         - cd Demo/Projects/Android/
