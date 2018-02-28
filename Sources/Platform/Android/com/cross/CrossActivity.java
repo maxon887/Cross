@@ -28,7 +28,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		!!!BRAKE!!!
 		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 
