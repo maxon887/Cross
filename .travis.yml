@@ -29,6 +29,10 @@ matrix:
           # if you need to run emulator(s) during your tests
           - sys-img-armeabi-v7a-android-26
           - sys-img-armeabi-v7a-android-17
+        licenses:
+          - android-sdk-preview-license-.+
+          - android-sdk-license-.+
+          - google-gdk-license-.+
       #before_install:
         #- rm -fr $HOME/android-ndk-r16b
         #- curl -L http://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip -O
