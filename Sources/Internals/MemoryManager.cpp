@@ -20,6 +20,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <mutex>
+#include <cstring>
 
 #if defined(CROSS_DEBUG) && !defined(EDITOR)
 
