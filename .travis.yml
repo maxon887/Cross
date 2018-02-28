@@ -29,4 +29,5 @@ matrix:
           - sys-img-armeabi-v7a-android-26
           - sys-img-armeabi-v7a-android-17
       script:
-         - ./Demo/Projects/Android/gradlew assembleDebug
+         - cd Demo/Projects/Android/
+         - ./gradlew assembleDebug
