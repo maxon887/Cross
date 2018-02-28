@@ -34,6 +34,7 @@ matrix:
         - unzip -oq android-ndk-r16b-linux-x86_64.zip
         - rm android-ndk-r16b-linux-x86_64.zip
         - export ANDROID_NDK_HOME=`pwd`/android-ndk-r16b
+        - yes | sdkmanager --licenses
       script:
          - cd Demo/Projects/Android/
          - ./gradlew assembleDebug
