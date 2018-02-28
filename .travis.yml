@@ -31,7 +31,7 @@ matrix:
         licenses:
           - android-sdk-preview-license-.+
           - android-sdk-license-.+
-      - google-gdk-license-.+
+          - google-gdk-license-.+
       script:
          - cd Demo/Projects/Android/
          - ./gradlew assembleDebug
