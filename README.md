@@ -10,7 +10,7 @@ Is a lightweight cross-platform game engine. Written mostly on C++.
 
 [WB1]: https://ci.appveyor.com/api/projects/status/fmigb2qi7di0pqmq?svg=true
 [WB2]: https://ci.appveyor.com/project/maxon887/cross
-[IOS1]: https://travis-matrix-badges.herokuapp.com/repos/bjfish/grails-ci-build-matrix-example/branches/master/1
+[IOS1]: https://travis-matrix-badges.herokuapp.com/repos/maxon887/Cross/branches/Main/1
 [TRAV]: https://travis-ci.org/maxon887/Cross
 [AND1]: https://travis-matrix-badges.herokuapp.com/repos/maxon887/Cross/branches/Main/2
 
