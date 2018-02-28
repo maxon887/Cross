@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "System.h"
 
+#include <cstring>
+
 using namespace cross;
 
 const Matrix Matrix::Zero = Matrix::CreateZero();

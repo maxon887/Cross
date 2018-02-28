@@ -22,6 +22,7 @@
 #include "File.h"
 
 #include <stdlib.h>
+#include <cstring>
 
 #include "Libs/SOIL/SOIL.h"
 
