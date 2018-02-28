@@ -145,7 +145,6 @@ void Main() {
 extern "C"{
 	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
 		LOGI("Cross_OnCreate");
-        !!!BRAKE!!!
         if(!system) {
             AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
