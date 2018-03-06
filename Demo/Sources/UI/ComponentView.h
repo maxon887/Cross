@@ -28,6 +28,7 @@ public:
 	ComponentView(const String& name);
 
 	virtual void Content(ComponentType* component) { }
+	virtual void EntitySelected(Entity* newEntity) { }
 
 	void Content(float sec) override;
 
@@ -56,6 +57,7 @@ void ComponentView<ComponentType>::Content(float sec) {
 template<class ComponentType>
 void ComponentView<ComponentType>::OnEntitySelected(Entity* entity) {
 	selected_entity = entity;
+	EntitySelected(entity);
 }
 
 template<class ComponentType>

@@ -45,16 +45,18 @@ void TransformView::Content(Transform* transform) {
 		transform->SetScale(Vector3D(scaleVec[0], scaleVec[1], scaleVec[2]));
 	}
 
-	Quaternion rotation = transform->GetRotate();
-	float rotAxis[3];
-	memcpy(rotAxis, rotation.GetAxis().GetData(), sizeof(Vector3D));
-	if(ImGui::DragFloat3("Axis", rotAxis, 0.1f)) {
-		transform->SetRotate(Vector3D(rotAxis[0], rotAxis[1], rotAxis[2]), rotation.GetAngle());
+	if(ImGui::DragFloat3("Axis", axis.GetData(), 0.1f)) {
+		transform->SetRotate(axis, angle);
 	}
-	float angle = transform->GetRotate().GetAngle();
 	if(ImGui::SliderFloat("Angle", &angle, 0.0f, 360.f)) {
-		transform->SetRotate(rotation.GetAxis(), angle);
+		transform->SetRotate(axis, angle);
 	}
 
 	ImGui::PopStyleVar();
+}
+
+void TransformView::EntitySelected(Entity* newEntity) {
+	Transform* tr = newEntity->GetComponent<Transform>();
+	axis = tr->GetRotate().GetAxis();
+	angle = tr->GetRotate().GetAngle();
 }

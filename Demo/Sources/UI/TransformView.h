@@ -26,4 +26,9 @@ public:
 
 	void WillContent() override;
 	void Content(Transform* tranform) override;
+	void EntitySelected(Entity* newEntity) override;
+
+private:
+	Vector3D axis = Vector3D::Zero;
+	float angle = 0.f;
 };

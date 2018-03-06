@@ -46,6 +46,35 @@ Quaternion::Quaternion(const Vector3D& inAxis, float angle) {
 }
 
 Quaternion::Quaternion(const Matrix& m) {
+	float trace = m.m[0][0] + m.m[1][1] + m.m[2][2];
+	if(trace > 0) {
+		float s = 0.5f / sqrtf(trace + 1.0f);
+		this->w = 0.25f / s;
+		this->x = (m.m[1][2] - m.m[2][1]) * s;
+		this->y = (m.m[2][0] - m.m[0][2]) * s;
+		this->z = (m.m[0][1] - m.m[1][0]) * s;
+	} else {
+		if(m.m[0][0] > m.m[1][1] && m.m[0][0] > m.m[2][2]) {
+			float s = 2.0f * sqrtf(1.0f + m.m[0][0] - m.m[1][1] - m.m[2][2]);
+			this->w = (m.m[1][2] - m.m[2][1]) / s;
+			this->x = 0.25f * s;
+			this->y = (m.m[1][0] + m.m[0][1]) / s;
+			this->z = (m.m[2][0] + m.m[0][2]) / s;
+		} else if(m.m[1][1] > m.m[2][2]) {
+			float s = 2.0f * sqrtf(1.0f + m.m[1][1] - m.m[0][0] - m.m[2][2]);
+			this->w = (m.m[2][0] - m.m[0][2]) / s;
+			this->x = (m.m[1][0] + m.m[0][1]) / s;
+			this->y = 0.25f * s;
+			this->z = (m.m[2][1] + m.m[1][2]) / s;
+		} else {
+			float s = 2.0f * sqrtf(1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1]);
+			this->w = (m.m[0][1] - m.m[1][0]) / s;
+			this->x = (m.m[2][0] + m.m[0][2]) / s;
+			this->y = (m.m[2][1] + m.m[1][2]) / s;
+			this->z = 0.25f * s;
+		}
+	}
+	/*
 	float tr = m.m[0][0] + m.m[1][1] + m.m[2][2]; // trace of m.martix
 	if (tr > 0.0f) {	 // if trace positive than "w" is biggest com.mponent
 		this->x = m.m[1][2] - m.m[2][1];
@@ -69,7 +98,7 @@ Quaternion::Quaternion(const Matrix& m) {
 		this->y = m.m[2][1] + m.m[1][2];
 		this->z = 1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1];
 		this->w = m.m[0][1] - m.m[1][0];
-	}
+	}*/
 }
 
 void Quaternion::Scale(float scale) {
