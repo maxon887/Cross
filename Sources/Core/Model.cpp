@@ -66,8 +66,8 @@ Mesh* Model::GetMesh(S32 id) {
 
 void Model::ProcessScene(Entity* root, File* file) {
 	Assimp::Importer importer;
-	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	//current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_JoinIdenticalVertices);
+	//current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
 		CROSS_FAIL(false, "Assimp Error: %s", importer.GetErrorString());
 	}
@@ -103,7 +103,6 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 }
 
 Mesh* Model::ProcessMesh(aiMesh* mesh) {
-	system->LogIt("MESH LOADING NOT OPTIMIZED, FIX THIS!!!!!");
 	VertexBuffer* vertexBuffer = new VertexBuffer();
 	if(mesh->mTextureCoords[0]) {
 		vertexBuffer->UVEnabled(true);
@@ -144,7 +143,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	system->LogIt("Mesh loaded with %d polygons", mesh->mNumFaces);
+	system->LogIt("\tMesh loaded with %d polygons and %d bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
 	Mesh* crsMesh = new Mesh(this, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
