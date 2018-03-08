@@ -22,20 +22,6 @@
 
 using namespace cross;
 
-FreeCameraScene::FreeCameraScene(const String& filename) :
-	Scene(filename)
-{ }
-
-void FreeCameraScene::Start() {
-	Scene::Start();
-	input->MouseWheelRoll.Connect(this, &FreeCameraScene::MouseWheelRoll);
-}
-
-void FreeCameraScene::Stop() {
-	input->MouseWheelRoll.Disconnect(this, &FreeCameraScene::MouseWheelRoll);
-	Scene::Stop();
-}
-
 void FreeCameraScene::Update(float sec) {
 	Scene::Update(sec);
 
@@ -114,8 +100,4 @@ void FreeCameraScene::LookAtCamera(const Vector3D& target) {
 
 bool FreeCameraScene::IsLookAtCamera() const {
 	return look_at;
-}
-
-void FreeCameraScene::MouseWheelRoll(float delta) {
-	MoveForward(0.1f * delta / 120.f, false);
 }

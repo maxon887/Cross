@@ -53,5 +53,5 @@ private:
 
 	void OnOrientationChanged(System::Orientation o);
 
-	void OnEyeClick();
+	void MouseWheelRoll(float delta);
 };

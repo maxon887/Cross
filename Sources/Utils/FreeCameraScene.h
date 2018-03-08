@@ -24,11 +24,6 @@ namespace cross{
 
 class FreeCameraScene : public Scene {
 public:
-	FreeCameraScene() = default;
-	FreeCameraScene(const String& filename);
-
-	virtual void Start() override;
-	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
 	void LookAtCamera(bool enbled);
@@ -51,8 +46,6 @@ protected:
 	float lerp_time				= 0.f;
 	Vector3D target				= Vector3D::Zero;
 	Transform destanation		= Transform();
-
-	void MouseWheelRoll(float delta);
 };
 
 }
