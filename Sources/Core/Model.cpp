@@ -36,16 +36,24 @@ Model::~Model() {
 	delete hierarchy;
 }
 
-void Model::Load(const String& filename, bool initialize) {
+void Model::Load(const String& filename) {
+	Load(filename, false);
+}
+
+void Model::Load(const String& filename, bool calcTangents) {
+	Load(filename, calcTangents, true);
+}
+
+void Model::Load(const String& filename, bool calcTangents, bool transferVideoData) {
 	Debugger::Instance()->SetTimeCheck();
 
-	initialize_in_load = initialize;
+	transfer_video = transferVideoData;
 	mesh_id = 0;
 	this->filename = filename;
 	Entity* root = new Entity("ModelRoot");
 	hierarchy = root;
 	File* file = system->LoadAssetFile(filename);
-	ProcessScene(root, file);
+	ProcessScene(root, file, calcTangents);
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
@@ -64,10 +72,13 @@ Mesh* Model::GetMesh(S32 id) {
 	return meshes[id];
 }
 
-void Model::ProcessScene(Entity* root, File* file) {
+void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
-	//current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	current_scene = importer.ReadFileFromMemory(file->data, file->size, aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate);
+	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;
+	if(calcTangents) {
+		flags |= aiProcess_CalcTangentSpace;
+	}
+	current_scene = importer.ReadFileFromMemory(file->data, file->size, flags);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
 		CROSS_FAIL(false, "Assimp Error: %s", importer.GetErrorString());
 	}
@@ -147,7 +158,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 	Mesh* crsMesh = new Mesh(this, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
-	if(initialize_in_load) {
+	if(transfer_video) {
 		crsMesh->TransferVideoData();
 	}
 	return crsMesh;

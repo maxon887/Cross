@@ -53,7 +53,7 @@ void NormalScene::Start(){
 	material->SetPropertyValue("Specular Map", GetTexture("Models/Camaro/Specular.png"));
 	material->SetPropertyValue("Shininess Map", GetTexture("Models/Camaro/Shininess.png"));
 	material->SetPropertyValue("Normal Map", GetTexture("Models/Camaro/Normal.png"));
-	Entity* model = GetModel("Models/Camaro/Camaro.fbx")->GetHierarchy();
+	Entity* model = GetModel("Models/Camaro/Camaro.fbx", true)->GetHierarchy();
 	ApplyMaterial(model, material);
 	AddEntity(model);
 }

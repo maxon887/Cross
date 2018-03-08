@@ -306,14 +306,14 @@ Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 	return texture;
 }
 
-Model* Scene::GetModel(const String& modelFile) {
+Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) {
 	S32 hash = (S32)std::hash<String>{}(modelFile);
 	auto modelIt = models.find(hash);
 	if(modelIt != models.end()) {
 		return (*modelIt).second;
 	} else {
 		Model* model = new Model();
-		model->Load(modelFile);
+		model->Load(modelFile, calcTangents);
 		models[hash] = model;
 		return model;
 	}

@@ -84,7 +84,7 @@ public:
 	/* Loads texture with provided filter */
 	Texture* GetTexture(const String& textureFile, Texture::Filter filter);
 	/* Obtain loaded into scene Model or load it by self in other way */
-	Model* GetModel(const String& modelFile);
+	Model* GetModel(const String& modelFile, bool calcTangents = false);
 	/* Resets all materials to default state */
 	void ResetMaterials();
 
