@@ -22,6 +22,10 @@
 
 using namespace cross;
 
+FreeCameraScene::FreeCameraScene(const String& filename)
+	: Scene(filename)
+{ }
+
 void FreeCameraScene::Update(float sec) {
 	Scene::Update(sec);
 

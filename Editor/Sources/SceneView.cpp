@@ -24,7 +24,7 @@
 #include "Transform.h"
 
 SceneView::SceneView() :
-	FreeCameraScene("")
+	FreeCameraScene()
 { }
 
 SceneView::SceneView(const string& filename) :

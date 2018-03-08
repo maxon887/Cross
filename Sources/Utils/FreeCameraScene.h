@@ -24,6 +24,9 @@ namespace cross{
 
 class FreeCameraScene : public Scene {
 public:
+	FreeCameraScene() = default;
+	FreeCameraScene(const String& filename);
+
 	virtual void Update(float sec) override;
 
 	void LookAtCamera(bool enbled);

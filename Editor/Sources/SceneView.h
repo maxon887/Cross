@@ -24,7 +24,7 @@ using namespace cross;
 class SceneView : public FreeCameraScene {
 public:
 	SceneView();
-	SceneView(const string& filename);
+	SceneView(const String& filename);
 
 	void Start() override;
 	void Stop() override;
