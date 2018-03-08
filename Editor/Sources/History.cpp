@@ -24,17 +24,23 @@ EntityChanged::EntityChanged(Entity* entity)
 	original = entity;
 
 	name = entity->GetName();
-	pos = entity->GetTransform()->GetPosition();
-	scale = entity->GetTransform()->GetScale();
-	rot = entity->GetTransform()->GetRotate();
+	Transform* transform = entity->GetComponent<Transform>();
+	if(transform) {
+		pos = transform->GetPosition();
+		scale = transform->GetScale();
+		rot = transform->GetRotate();
+	}
 }
 
 void EntityChanged::RestoreChanges() {
 	CROSS_FAIL(original, "Original entity has been deleted");
 	original->SetName(name);
-	original->GetTransform()->SetPosition(pos);
-	original->GetTransform()->SetScale(scale);
-	original->GetTransform()->SetRotate(rot);
+	Transform* transform = original->GetComponent<Transform>();
+	if(transform) {
+		transform->SetPosition(pos);
+		transform->SetScale(scale);
+		transform->SetRotate(rot);
+	}
 }
 
 EntityCreated::EntityCreated(Entity* entity) {

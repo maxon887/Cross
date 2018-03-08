@@ -27,7 +27,9 @@ void MeshComponent::Initialize() {
 }
 
 void MeshComponent::Show(Mesh* mesh) {
-	model_value->setText(mesh->GetModel()->GetFilename().c_str());
+	if(mesh->GetModel()) {
+		model_value->setText(mesh->GetModel()->GetFilename().c_str());
+	}
 
 	poly_count_value->setText(QString::number(mesh->GetPolyCount()));
 

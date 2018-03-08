@@ -41,15 +41,18 @@ void GLHandler::Update(){
 void GLHandler::paintGL(){
 	ESystem* esystem = (ESystem*)system;
 	if(!esystem->IsPaused()) {
-		game->EngineUpdate();
+		if(!skip_repainting) {
+			game->EngineUpdate();
+		} else {
+			skip_repainting = false;
+		}
 	}
 }
 
 void GLHandler::resizeGL(int w, int h){
 	WINSystem* winLanch = (WINSystem*)system;
 	winLanch->SetWindowSize(w, h);
-	//TODO resizing
-	//game->WindowResized(w, h);
+	skip_repainting = true;
 }
 
 void GLHandler::ShutDown(){

@@ -30,6 +30,9 @@ public:
 
 protected:
 	S32 MouseButtonID(QMouseEvent* e);
+
+private:
+	bool skip_repainting = false;
 };
 
 #endif // !GL_HANDLER

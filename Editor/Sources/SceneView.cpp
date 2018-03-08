@@ -97,8 +97,10 @@ void SceneView::OnEntitySelected(Entity* e) {
 }
 
 void SceneView::OnEntityGrabFocus(Entity* e) {
-	LookAtCamera(e->GetTransform()->GetPosition());
-	GetCamera()->GetTransform()->LookAt(e->GetTransform()->GetPosition());
+	Transform* transform = e->GetComponent<Transform>();
+	if(transform) {
+		LookAtCamera(e->GetTransform()->GetPosition());
+	}
 }
 
 void SceneView::Draw(Entity* e) {
