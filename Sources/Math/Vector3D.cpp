@@ -78,7 +78,7 @@ float Vector3D::Length() const {
 	return (float)sqrt(x*x + y*y + z*z);
 }
 
-void Vector3D::Normaize(){
+void Vector3D::Normaize() {
 	float len = Length();
 	this->x = x / len;
 	this->y = y / len;
