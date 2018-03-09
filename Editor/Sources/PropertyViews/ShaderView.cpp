@@ -143,8 +143,8 @@ QWidget* ShaderView::OnAddMacroClicked(){
 	connect(macroText, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* removeBtn = new QPushButton(macroLayoutWidget);
 	removeBtn->setText("remove");
-	removeBtn->setFixedWidth(100);
-	removeBtn->setFixedHeight(31);
+	removeBtn->setFixedWidth(75);
+	removeBtn->setFixedHeight(23);
 	connect(removeBtn, &QPushButton::clicked, this, &ShaderView::OnRemoveClicked);
 	macroLayout->addWidget(macroText);
 	macroLayout->addWidget(removeBtn);
@@ -194,8 +194,8 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 
 	QPushButton* removeBtn = new QPushButton(propertyLayoutWidget);
 	removeBtn->setText("remove");
-	removeBtn->setFixedWidth(100);
-	removeBtn->setFixedHeight(31);
+	removeBtn->setFixedWidth(75);
+	removeBtn->setFixedHeight(23);
 	connect(removeBtn, &QPushButton::clicked, this, &ShaderView::OnRemoveClicked);
 	propertyLayout->addWidget(removeBtn);
 

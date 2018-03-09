@@ -87,7 +87,7 @@ void FileExplorer::OnItemSelected(QModelIndex index){
 	FileSelected.Emit(filepath.toStdString());
 }
 
-void FileExplorer::OnItemDoubleClick(QModelIndex index){
+void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	QDir root = file_system->rootDirectory();
 	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
@@ -96,16 +96,14 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index){
 	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
 		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
 		Entity* modelHierarchy = model->GetHierarchy();
-		//gfx3D->AdjustMaterial(modelHierarchy, gfx3D->GetDefaultMaterial()->Clone());
-		CROSS_ASSERT(false, "Adjust Material function requared");
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
-	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
+	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha") {
 	} else {
 		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
 	}
 }
 
-void FileExplorer::OnNewFolderClick(){
+void FileExplorer::OnNewFolderClick() {
 	QString selectedDir = GetSelectedDirectory();
 	
 	QString baseName = "/New Folder";

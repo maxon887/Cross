@@ -43,6 +43,7 @@ void SceneView::Start() {
 	input->ActionDown.Connect(this, &SceneView::OnActionDown);
 	input->ActionMove.Connect(this, &SceneView::OnActionMove);
 
+	EntityAdded.Connect(this, &SceneView::OnEntityAdded);
 	editor->GetSceneExplorer()->EntityGrabFocus.Connect(this, &SceneView::OnEntityGrabFocus);
 	editor->GetSceneExplorer()->EntitySelected.Connect(this, &SceneView::OnEntitySelected);
 }
@@ -50,6 +51,7 @@ void SceneView::Start() {
 void SceneView::Stop() {
 	editor->GetSceneExplorer()->EntityGrabFocus.Disconnect(this, &SceneView::OnEntityGrabFocus);
 	editor->GetSceneExplorer()->EntitySelected.Disconnect(this, &SceneView::OnEntitySelected);
+	EntityAdded.Disconnect(this, &SceneView::OnEntityAdded);
 
 	input->ActionDown.Disconnect(this, &SceneView::OnActionDown);
 	input->ActionMove.Disconnect(this, &SceneView::OnActionMove);
@@ -84,6 +86,10 @@ void SceneView::OnActionMove(Input::Action a) {
 		FreeCameraScene::MoveCameraUp(delta.y / 1500.f);
 		FreeCameraScene::MoveRight(delta.x / 1500.f);
 	}
+}
+
+void SceneView::OnEntityAdded(Entity* e) {
+	ApplyMaterial(e, GetMaterial("Engine/Default.mat"));
 }
 
 void SceneView::OnEntitySelected(Entity* e) {
@@ -125,5 +131,14 @@ void SceneView::EnableMesh(Entity *e, bool value) {
 	}
 	for(Entity* child : e->GetChildren()) {
 		EnableMesh(child, value);
+	}
+}
+
+void SceneView::ApplyMaterial(Entity* entity, Material* mat) {
+	if(entity->GetComponent<Mesh>()) {
+		entity->GetComponent<Mesh>()->SetMaterial(mat);
+	}
+	for(Entity* child : entity->GetChildren()) {
+		ApplyMaterial(child, mat);
 	}
 }
