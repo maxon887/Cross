@@ -34,6 +34,9 @@ public:
 	SceneExplorer(QWidget* parent = 0);
 	~SceneExplorer();
 
+	void dragEnterEvent(QDragEnterEvent *event) override;
+	void dragMoveEvent(QDragMoveEvent *event) override;
+
 	void OnScreenChanged(Screen* scene);
 	void OnEntityAdded(Entity* entity);
 
@@ -43,6 +46,7 @@ protected:
 private:
 	SceneModel* scene_model				= NULL;
 	QMenu* context_menu					= NULL;
+	bool drop_approved					= false;
 
 	void OnItemClick(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);

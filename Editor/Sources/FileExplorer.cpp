@@ -93,7 +93,7 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
 	if(fileInfo.suffix() == "scn") {
 		editor->LoadScene(filepath);
-	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
+	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx") {
 		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
 		Entity* modelHierarchy = model->GetHierarchy();
 		game->GetCurrentScene()->AddEntity(modelHierarchy);

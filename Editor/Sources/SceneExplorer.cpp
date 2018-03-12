@@ -8,6 +8,7 @@
 
 #include <QHeaderView.h>
 #include <QMouseEvent>
+#include <QMimeData>
 
 QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) const {
 	if(!hasIndex(row, column, parent)){
@@ -161,6 +162,25 @@ SceneExplorer::SceneExplorer(QWidget* parent) :
 
 SceneExplorer::~SceneExplorer(){
 	delete scene_model;
+}
+
+void SceneExplorer::dragEnterEvent(QDragEnterEvent *event) {
+	drop_approved = false;
+	const QMimeData* data = event->mimeData();
+	QList<QUrl> urls = data->urls();
+	for(const QUrl url : urls) {
+		QString filename = url.fileName();
+		if(filename.endsWith(".obj") || filename.endsWith(".fbx")) {
+			event->accept();
+			drop_approved = true;
+		}
+	}
+}
+
+void SceneExplorer::dragMoveEvent(QDragMoveEvent *event) {
+	if(drop_approved) {
+		event->accept();
+	}
 }
 
 void SceneExplorer::OnScreenChanged(Screen* screen){

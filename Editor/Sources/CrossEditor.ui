@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>1391</width>
-     <height>38</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -93,6 +93,12 @@
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
        </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DragOnly</enum>
+       </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::ExtendedSelection</enum>
        </property>
@@ -126,6 +132,9 @@
       <widget class="SceneExplorer" name="sceneExplorerTree">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DropOnly</enum>
        </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::SingleSelection</enum>
