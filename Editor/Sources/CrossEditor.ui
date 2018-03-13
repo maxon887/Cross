@@ -76,6 +76,9 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>1</number>
+     </property>
      <property name="leftMargin">
       <number>0</number>
      </property>
@@ -104,7 +107,24 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="ProjectDirectoryLabel" name="projectDirectoryLabel">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="text">
+        <string>ProjectDirectory</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+    <zorder>projectDirectoryLabel</zorder>
+    <zorder>fileExplorerTree</zorder>
    </widget>
   </widget>
   <widget class="QDockWidget" name="sceneExplorer">
@@ -259,6 +279,11 @@
    <extends>QDockWidget</extends>
    <header>PropertiesView.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ProjectDirectoryLabel</class>
+   <extends>QLabel</extends>
+   <header>FileExplorer.h</header>
   </customwidget>
  </customwidgets>
  <resources>

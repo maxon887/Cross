@@ -74,6 +74,7 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
+	ProjectDirectoryChanged.Emit(dir);
 }
 
 void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
@@ -195,4 +196,21 @@ QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName
 		file.setFileName(dir + "/" + filename);
 	}
 	return file.fileName();
+}
+
+ProjectDirectoryLabel::ProjectDirectoryLabel(QWidget* parent)
+	: QLabel(parent)
+{
+	FileExplorer* fileExplorer = editor->GetFileExplorer();
+	fileExplorer->ProjectDirectoryChanged.Connect(this, &ProjectDirectoryLabel::OnProjectDirectoryChanged);
+
+	// set black background
+	QPalette pal = palette();
+	pal.setColor(QPalette::Background, QColor(218, 218, 218));
+	setAutoFillBackground(true);
+	setPalette(pal);
+}
+
+void ProjectDirectoryLabel::OnProjectDirectoryChanged(QString path) {
+	setText(path);
 }
