@@ -77,21 +77,24 @@ void FileExplorer::SetupProjectDirectory(QString dir){
 	ProjectDirectoryChanged.Emit(dir);
 }
 
+QString FileExplorer::GetRelativePath(const QString& absolutePath) {
+	QDir root = file_system->rootDirectory();
+	return root.relativeFilePath(absolutePath);
+}
+
 void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
 	context_menu->exec(eve->globalPos());
 }
 
 void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	QDir root = file_system->rootDirectory();
-	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
+	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
 	FileSelected.Emit(filepath.toStdString());
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	QDir root = file_system->rootDirectory();
-	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
+	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
 	if(fileInfo.suffix() == "scn") {
 		editor->LoadScene(filepath);
 	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx") {

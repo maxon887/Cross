@@ -111,8 +111,6 @@ void Material::Save(const String& filename) {
 	XMLElement* materialXML = doc.NewElement("Material");
 	if(GetShader()) {
 		materialXML->SetAttribute("shader", GetShader()->GetFilename().c_str());
-	} else {
-		materialXML->SetAttribute("shader", "");
 	}
 	doc.LinkEndChild(materialXML);
 

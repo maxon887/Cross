@@ -48,7 +48,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="shaderEdit"/>
+         <widget class="FileHandler" name="shaderEdit"/>
         </item>
         <item>
          <widget class="QPushButton" name="loadBtn">
@@ -122,6 +122,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>FileHandler</class>
+   <extends>QLineEdit</extends>
+   <header>PropertyViews/FileHandler.h</header>
+  </customwidget>
   <customwidget>
    <class>MaterialView</class>
    <extends>QGroupBox</extends>

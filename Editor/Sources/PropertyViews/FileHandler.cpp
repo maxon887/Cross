@@ -1,13 +1,25 @@
 #include "FileHandler.h"
-#include "Cross.h"
+#include "../CrossEditor.h"
 
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QMessageBox>
+#include <QFileInfo>
 
 FileHandler::FileHandler(QWidget* parent)
 	: QLineEdit(parent)
 { }
+
+QString FileHandler::GetFile() {
+	return file_path;
+}
+
+void FileHandler::SetFile(const QString& filename) {
+	file_path = filename;
+	QFileInfo info = QFileInfo(filename);
+	setText(info.fileName());
+	FileChanged.Emit(filename);
+}
 
 void FileHandler::SetFileExtension(const QString& ext) {
 	file_extension = ext;
@@ -51,5 +63,9 @@ void FileHandler::dragMoveEvent(QDragMoveEvent *event) {
 }
 
 void FileHandler::dropEvent(QDropEvent *event) {
-
+	const QMimeData* data = event->mimeData();
+	QList<QUrl> urls = data->urls();
+	QString filename = urls.at(0).toLocalFile();
+	filename = editor->GetFileExplorer()->GetRelativePath(filename);
+	SetFile(filename);
 }

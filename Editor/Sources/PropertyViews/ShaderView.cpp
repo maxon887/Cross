@@ -17,12 +17,14 @@
 using namespace cross;
 
 void ShaderView::Initialize(){
-	vertex_file = findChild<FileHandler*>("vertexFile");
-	connect(vertex_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
+	vertex_handler = findChild<FileHandler*>("vertexFile");
+	vertex_handler->SetFileExtension("vtx");
+	connect(vertex_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
 	connect(loadVertexFileBtn, &QPushButton::clicked, this, &ShaderView::OnVertexFileClicked);
-	fragment_file = findChild<FileHandler*>("fragmentFile");
-	connect(fragment_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
+	fragment_handler = findChild<FileHandler*>("fragmentFile");
+	fragment_handler->SetFileExtension("fgm");
+	connect(fragment_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* loadFragmentFileBtn = findChild<QPushButton*>("fragmentBtn");
 	connect(loadFragmentFileBtn, &QPushButton::clicked, this, &ShaderView::OnFragmentFileClicked);
 
@@ -63,7 +65,7 @@ void ShaderView::OnVertexFileClicked() {
 	if(!filePath.isEmpty()) {
 		QDir root = path;
 		QString filepath = root.relativeFilePath(filePath);
-		vertex_file->setText(filepath);
+		vertex_handler->SetFile(filepath);
 	}
 }
 
@@ -73,7 +75,7 @@ void ShaderView::OnFragmentFileClicked() {
 	if(!filePath.isEmpty()) {
 		QDir root = path;
 		QString filepath = root.relativeFilePath(filePath);
-		fragment_file->setText(filepath);
+		fragment_handler->SetFile(filepath);
 	}
 }
 
@@ -90,8 +92,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 	delete shader;
 	shader = new Shader();
 	shader->Load(filepath);
-	vertex_file->setText(shader->GetVertexFilename().c_str());
-	fragment_file->setText(shader->GetFragmentFilename().c_str());
+	vertex_handler->SetFile(shader->GetVertexFilename().c_str());
+	fragment_handler->SetFile(shader->GetFragmentFilename().c_str());
 
 	for(string macro : shader->GetMacrosies()){
 		QWidget* macroLayout = OnAddMacroClicked();
@@ -229,8 +231,8 @@ void ShaderView::OnSomethingChanged(){
 }
 
 void ShaderView::OnApplyClick(){
-	shader->SetVertexFilename(vertex_file->text().toStdString());
-	shader->SetFragmentFilename(fragment_file->text().toStdString());
+	shader->SetVertexFilename(vertex_handler->GetFile().toStdString());
+	shader->SetFragmentFilename(fragment_handler->GetFile().toStdString());
 
 	shader->ClearMacrosies();
 	QList<QWidget*> macrosies = macrosies_box->findChildren<QWidget*>("macroLayout");

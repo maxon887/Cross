@@ -25,8 +25,8 @@ private:
 
 	QGroupBox* macrosies_box		= NULL;
 	QGroupBox* properties_box		= NULL;
-	FileHandler* vertex_file			= NULL;
-	FileHandler* fragment_file		= NULL;
+	FileHandler* vertex_handler		= NULL;
+	FileHandler* fragment_handler	= NULL;
 	QPushButton* apply_btn			= NULL;
 	QPushButton* revert_btn			= NULL;
 

@@ -54,7 +54,11 @@
          </widget>
         </item>
         <item>
-         <widget class="FileHandler" name="vertexFile"/>
+         <widget class="FileHandler" name="vertexFile">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="vertexBtn">
@@ -81,7 +85,11 @@
          </widget>
         </item>
         <item>
-         <widget class="FileHandler" name="fragmentFile"/>
+         <widget class="FileHandler" name="fragmentFile">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="fragmentBtn">

@@ -22,6 +22,7 @@ public:
 	~FileExplorer();
 
 	void SetupProjectDirectory(QString dir);
+	QString GetRelativePath(const QString& absolutePath);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *eve) override;
