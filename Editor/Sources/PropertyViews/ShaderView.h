@@ -4,7 +4,7 @@
 #include "Cross.h"
 #include "PropertyView.h"
 
-class QLineEdit;
+class FileHandler;
 class QPushButton;
 
 class ShaderView : public PropertyView
@@ -19,18 +19,14 @@ public:
 
 protected:
 	void showEvent(QShowEvent* event) override;
-	
-	void dragEnterEvent(QDragEnterEvent *event) override;
-	void dragMoveEvent(QDragMoveEvent *event) override;
-	void dropEvent(QDropEvent* event) override;
 
 private:
 	Shader* shader					= NULL;
 
 	QGroupBox* macrosies_box		= NULL;
 	QGroupBox* properties_box		= NULL;
-	QLineEdit* vertex_file			= NULL;
-	QLineEdit* fragment_file		= NULL;
+	FileHandler* vertex_file			= NULL;
+	FileHandler* fragment_file		= NULL;
 	QPushButton* apply_btn			= NULL;
 	QPushButton* revert_btn			= NULL;
 

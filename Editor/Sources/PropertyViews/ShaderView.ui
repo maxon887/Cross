@@ -54,7 +54,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="vertexFile"/>
+         <widget class="FileHandler" name="vertexFile"/>
         </item>
         <item>
          <widget class="QPushButton" name="vertexBtn">
@@ -81,7 +81,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="fragmentFile"/>
+         <widget class="FileHandler" name="fragmentFile"/>
         </item>
         <item>
          <widget class="QPushButton" name="fragmentBtn">
@@ -236,6 +236,11 @@
    <extends>QGroupBox</extends>
    <header>PropertyViews/ShaderView.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FileHandler</class>
+   <extends>QLineEdit</extends>
+   <header>PropertyViews/FileHandler.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -4,10 +4,10 @@
 #include "Shaders/Shader.h"
 #include "Game.h"
 #include "Scene.h"
+#include "FileHandler.h"
 
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QLineEdit>
 #include <QLabel>
 #include <QComboBox>
 #include <QFileDialog>
@@ -17,11 +17,11 @@
 using namespace cross;
 
 void ShaderView::Initialize(){
-	vertex_file = findChild<QLineEdit*>("vertexFile");
+	vertex_file = findChild<FileHandler*>("vertexFile");
 	connect(vertex_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
 	connect(loadVertexFileBtn, &QPushButton::clicked, this, &ShaderView::OnVertexFileClicked);
-	fragment_file = findChild<QLineEdit*>("fragmentFile");
+	fragment_file = findChild<FileHandler*>("fragmentFile");
 	connect(fragment_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* loadFragmentFileBtn = findChild<QPushButton*>("fragmentBtn");
 	connect(loadFragmentFileBtn, &QPushButton::clicked, this, &ShaderView::OnFragmentFileClicked);
@@ -134,37 +134,6 @@ void ShaderView::showEvent(QShowEvent* event) {
 	QLabel* vertexLabel = findChild<QLabel*>("vertexLabel");
 	QLabel* fragmentLabel = findChild<QLabel*>("fragmentLabel");
 	vertexLabel->setMinimumWidth(fragmentLabel->size().width());
-}
-
-void ShaderView::dragEnterEvent(QDragEnterEvent *event) {
-	const QMimeData* data = event->mimeData();
-	QList<QUrl> urls = data->urls();
-	if(urls.size() == 1) {
-		QString filename = urls.at(0).fileName();
-		if(filename.endsWith(".vtx") || filename.endsWith(".fgm")) {
-			event->accept();
-		}
-	}
-}
-
-void ShaderView::dragMoveEvent(QDragMoveEvent *event) {
-	QString filename = event->mimeData()->urls().at(0).fileName();
-	QWidget* widget = childAt(event->pos());
-	if(widget) {
-		if(widget->objectName() == "vertexFile" && filename.endsWith(".vtx")) {
-			event->accept();
-			return;
-		}
-		if(widget->objectName() == "fragmentFile" && filename.endsWith(".fgm")) {
-			event->accept();
-			return;
-		}
-	}
-	event->ignore();
-}
-
-void ShaderView::dropEvent(QDropEvent *event) {
-
 }
 
 QWidget* ShaderView::OnAddMacroClicked(){
