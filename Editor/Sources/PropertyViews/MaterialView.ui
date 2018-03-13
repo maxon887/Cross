@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
+    <width>222</width>
     <height>128</height>
    </rect>
   </property>
@@ -48,7 +48,11 @@
          </widget>
         </item>
         <item>
-         <widget class="FileHandler" name="shaderEdit"/>
+         <widget class="FileHandler" name="shaderEdit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="loadBtn">
