@@ -100,11 +100,12 @@ void GLHandler::dragEnterEvent(QDragEnterEvent *event) {
 	QList<QUrl> urls = data->urls();
 	for(const QUrl& url : urls) {
 		QString filename = url.fileName();
-		if(filename.endsWith(".obj") || filename.endsWith(".fbx")) {
-			event->accept();
-			drop_approved = true;
+		if(!filename.endsWith(".obj") && !filename.endsWith(".fbx")) {
+			return;
 		}
 	}
+	event->accept();
+	drop_approved = true;
 }
 
 void GLHandler::dragMoveEvent(QDragMoveEvent *event) {

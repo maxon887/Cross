@@ -164,29 +164,6 @@ SceneExplorer::~SceneExplorer(){
 	delete scene_model;
 }
 
-void SceneExplorer::dragEnterEvent(QDragEnterEvent *event) {
-	drop_approved = false;
-	const QMimeData* data = event->mimeData();
-	QList<QUrl> urls = data->urls();
-	for(const QUrl url : urls) {
-		QString filename = url.fileName();
-		if(filename.endsWith(".obj") || filename.endsWith(".fbx")) {
-			event->accept();
-			drop_approved = true;
-		}
-	}
-}
-
-void SceneExplorer::dragMoveEvent(QDragMoveEvent *event) {
-	if(drop_approved) {
-		event->accept();
-	}
-}
-
-void SceneExplorer::dropEvent(QDropEvent* event) {
-
-}
-
 void SceneExplorer::OnScreenChanged(Screen* screen){
 	Scene* scene = dynamic_cast<Scene*>(screen);
 	if(scene){

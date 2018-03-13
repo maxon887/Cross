@@ -11,6 +11,8 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QFileDialog>
+#include <QDragEnterEvent>
+#include <QMimeData>
 
 using namespace cross;
 
@@ -37,6 +39,8 @@ void ShaderView::Initialize(){
 	revert_btn = findChild<QPushButton*>("revertBtn");
 	revert_btn->setDisabled(true);
 	connect(revert_btn, &QPushButton::clicked, this, &ShaderView::OnRevertClick);
+
+	setAcceptDrops(true);
 }
 
 void ShaderView::Clear(){
@@ -130,6 +134,37 @@ void ShaderView::showEvent(QShowEvent* event) {
 	QLabel* vertexLabel = findChild<QLabel*>("vertexLabel");
 	QLabel* fragmentLabel = findChild<QLabel*>("fragmentLabel");
 	vertexLabel->setMinimumWidth(fragmentLabel->size().width());
+}
+
+void ShaderView::dragEnterEvent(QDragEnterEvent *event) {
+	const QMimeData* data = event->mimeData();
+	QList<QUrl> urls = data->urls();
+	if(urls.size() == 1) {
+		QString filename = urls.at(0).fileName();
+		if(filename.endsWith(".vtx") || filename.endsWith(".fgm")) {
+			event->accept();
+		}
+	}
+}
+
+void ShaderView::dragMoveEvent(QDragMoveEvent *event) {
+	QString filename = event->mimeData()->urls().at(0).fileName();
+	QWidget* widget = childAt(event->pos());
+	if(widget) {
+		if(widget->objectName() == "vertexFile" && filename.endsWith(".vtx")) {
+			event->accept();
+			return;
+		}
+		if(widget->objectName() == "fragmentFile" && filename.endsWith(".fgm")) {
+			event->accept();
+			return;
+		}
+	}
+	event->ignore();
+}
+
+void ShaderView::dropEvent(QDropEvent *event) {
+
 }
 
 QWidget* ShaderView::OnAddMacroClicked(){
