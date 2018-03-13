@@ -53,6 +53,7 @@ void Model::Load(const String& filename, bool calcTangents, bool transferVideoDa
 	Entity* root = new Entity("ModelRoot");
 	hierarchy = root;
 	File* file = system->LoadAssetFile(filename);
+	CROSS_FAIL(file, "Can not load model file");
 	ProcessScene(root, file, calcTangents);
 	delete file;
 

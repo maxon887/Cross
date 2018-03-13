@@ -23,6 +23,10 @@ public:
 	void mouseMoveEvent(QMouseEvent* eve) override;
 	void mouseReleaseEvent(QMouseEvent* eve) override;
 
+	void dragEnterEvent(QDragEnterEvent *event) override;
+	void dragMoveEvent(QDragMoveEvent *event) override;
+	void dropEvent(QDropEvent *event) override;
+
 	void wheelEvent(QWheelEvent* wheel) override;
 
 	void Update();
@@ -33,6 +37,7 @@ protected:
 
 private:
 	bool skip_repainting = false;
+	bool drop_approved = false;
 };
 
 #endif // !GL_HANDLER

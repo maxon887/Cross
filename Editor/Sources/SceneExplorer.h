@@ -36,6 +36,7 @@ public:
 
 	void dragEnterEvent(QDragEnterEvent *event) override;
 	void dragMoveEvent(QDragMoveEvent *event) override;
+	void dropEvent(QDropEvent* event) override;
 
 	void OnScreenChanged(Screen* scene);
 	void OnEntityAdded(Entity* entity);

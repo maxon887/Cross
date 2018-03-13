@@ -183,6 +183,10 @@ void SceneExplorer::dragMoveEvent(QDragMoveEvent *event) {
 	}
 }
 
+void SceneExplorer::dropEvent(QDropEvent* event) {
+
+}
+
 void SceneExplorer::OnScreenChanged(Screen* screen){
 	Scene* scene = dynamic_cast<Scene*>(screen);
 	if(scene){
