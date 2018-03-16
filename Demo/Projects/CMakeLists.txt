@@ -10,6 +10,7 @@ file(GLOB SRC
     ../../Sources/Shaders/*.*
     ../../Sources/Internals/*.*
     ../../Sources/Utils/*.*
+    ../../Sources/Platform/MacOS/*.*
     ../../Sources/Libs/SOIL/*.*
     ../../Sources/Libs/TinyXML2/*.*
 
