@@ -161,10 +161,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #   define ASSIMP_API_WINONLY
 #   define AI_FORCE_INLINE inline
 
-#elif defined(SWIG)
-
-    /* Do nothing, the relevant defines are all in AssimpSwigPort.i */
-
 #else
 
 #   define AI_WONT_RETURN
@@ -172,6 +168,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #   define ASSIMP_API __attribute__ ((visibility("default")))
 #   define ASSIMP_API_WINONLY
 #   define AI_FORCE_INLINE inline
+
 #endif // (defined _MSC_VER)
 
 #ifdef __GNUC__

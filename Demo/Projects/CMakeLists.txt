@@ -32,14 +32,16 @@ find_package (OpenGL REQUIRED)
 target_link_libraries (${PROJECT_NAME}
         ${GLEW_LIBRARIES}
         ${OPENGL_gl_LIBRARY}
-        /usr/local/lib/libGLFW.dylib)
+        /usr/local/lib/libGLFW.dylib
+        /Users/m_lukyanov/GameDev/Cross/Demo/Projects/MacOS/libassimpMAC.dylib
+        /Users/m_lukyanov/GameDev/Cross/Demo/Projects/MacOS/libfmod.dylib )
 
-    include_directories(../Sources)
-    include_directories(../../Sources)
-    include_directories(../../Sources/Core)
-    include_directories(../../Sources/Libs)
-    include_directories(../../Sources/Libs/FreeType)
-    include_directories(../../Sources/Libs/FreeType/freetype2)
-    include_directories(../../Sources/Libs/TinyXML)
-    include_directories(../../Sources/Libs/Assimp)
-    include_directories(../../Sources/Libs/SOIL)
+include_directories(../Sources)
+include_directories(../../Sources)
+include_directories(../../Sources/Core)
+include_directories(../../Sources/Libs)
+include_directories(../../Sources/Libs/FreeType)
+include_directories(../../Sources/Libs/FreeType/freetype2)
+include_directories(../../Sources/Libs/TinyXML)
+include_directories(../../Sources/Libs/Assimp)
+include_directories(../../Sources/Libs/SOIL)
