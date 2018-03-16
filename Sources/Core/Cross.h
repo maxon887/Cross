@@ -43,10 +43,10 @@ if(!(condition)) {													\
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 #   define APPLE true
 #   include "TargetConditionals.h"
-#   ifdef TARGET_OS_MAC
-#       define MACOS true
-#   else
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #       define IOS true
+#   else
+#       define MACOS true
 #   endif
 #endif
 

@@ -23,10 +23,10 @@
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
     //#include <Carbon/Carbon.h>
 #   include "TargetConditionals.h"
-#   ifdef TARGET_OS_MAC
-#       include <GL/glew.h>
-#   else
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #       include <OpenGLES/ES1/gl.h>
+#   else
+#       include <GL/glew.h>
 #   endif
 
     #define APIENTRY
