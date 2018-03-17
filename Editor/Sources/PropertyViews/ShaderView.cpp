@@ -20,13 +20,9 @@ void ShaderView::Initialize(){
 	vertex_handler = findChild<FileHandler*>("vertexFile");
 	vertex_handler->SetFileExtension("vtx");
 	connect(vertex_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
-	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
-	connect(loadVertexFileBtn, &QPushButton::clicked, this, &ShaderView::OnVertexFileClicked);
 	fragment_handler = findChild<FileHandler*>("fragmentFile");
 	fragment_handler->SetFileExtension("fgm");
 	connect(fragment_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
-	QPushButton* loadFragmentFileBtn = findChild<QPushButton*>("fragmentBtn");
-	connect(loadFragmentFileBtn, &QPushButton::clicked, this, &ShaderView::OnFragmentFileClicked);
 
 	macrosies_box = findChild<QGroupBox*>("macrosies");
 	QPushButton* addMacroBtn = macrosies_box->findChild<QPushButton*>("addMacroBtn");
@@ -57,26 +53,6 @@ void ShaderView::Clear(){
 		delete propertyLayout;
 		propertyLayout = properties_box->findChild<QWidget*>("propertyLayout");
 	} while(propertyLayout);
-}
-
-void ShaderView::OnVertexFileClicked() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Vertex File", path, "Vertex File (*.vtx)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		vertex_handler->SetFile(filepath);
-	}
-}
-
-void ShaderView::OnFragmentFileClicked() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Fragment File", path, "Fragment File (*.fgm)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		fragment_handler->SetFile(filepath);
-	}
 }
 
 void ShaderView::OnFileSelected(const string& filepath){
@@ -170,7 +146,7 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
 	propertyLayoutWidget->setObjectName("propertyLayout");
 	QHBoxLayout* propertyLayout = new QHBoxLayout(propertyLayoutWidget);
-	propertyLayout->setSpacing(12);
+	propertyLayout->setSpacing(6);
 	propertyLayout->setMargin(0);
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setText("Name:");
@@ -200,7 +176,7 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 
 	QPushButton* removeBtn = new QPushButton(propertyLayoutWidget);
 	removeBtn->setText("remove");
-	removeBtn->setFixedWidth(75);
+	removeBtn->setFixedWidth(50);
 	removeBtn->setFixedHeight(23);
 	connect(removeBtn, &QPushButton::clicked, this, &ShaderView::OnRemoveClicked);
 	propertyLayout->addWidget(removeBtn);
