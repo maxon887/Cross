@@ -42,7 +42,7 @@ Audio::Audio() {
 
 Audio::~Audio() {
 	result = fmod_system->close();
-	CROSS_ASSERT(result != FMOD_OK, "Error while closing FMOD system");
+    CROSS_ASSERT(result == FMOD_OK, "Error while closing FMOD system");
 }
 
 FMOD::System* Audio::GetSystem() {

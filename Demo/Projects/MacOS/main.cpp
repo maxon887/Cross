@@ -1,4 +1,5 @@
 #include "Platform/MacOS/MacSystme.h"
+#include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 
 #include <iostream>
@@ -42,6 +43,8 @@ int main() {
     //}
     
     glViewport(0, 0, screenWidth, screenHeight);
+
+    audio = new Audio();
     
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
@@ -52,5 +55,6 @@ int main() {
 
     glfwTerminate();
 
+    delete audio;
     delete system;
 }
