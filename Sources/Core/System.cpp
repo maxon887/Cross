@@ -120,8 +120,7 @@ void System::Sleep(float milis) {
 }
 
 void System::Messagebox(const String& title, const String& msg) {
-	LogIt("\t" + title);
-	LogIt(msg);
+    LogIt("System message box not implemented. Can not show message to user");
 }
 
 float System::GetScreenDPI() {

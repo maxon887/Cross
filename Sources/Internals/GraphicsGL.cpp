@@ -63,12 +63,12 @@ GraphicsGL::GraphicsGL() {
 		system->LogIt("GraphicsGL::GraphicsGL()");
 
 #if defined(OPENGL) || defined(EDITOR)
-		GLint magorV;
-		GLint minorV;
-		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
-		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		system->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
 		CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
+        GLint magorV;
+        GLint minorV;
+        SAFE(glGetIntegerv(GL_MAJOR_VERSION, &magorV));
+        SAFE(glGetIntegerv(GL_MINOR_VERSION, &minorV));
+        system->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
 #else
 		system->LogIt("\tUsed OpenGL ES 2.0");
 #endif
@@ -79,19 +79,19 @@ GraphicsGL::GraphicsGL() {
 		shaders_version = atoi(strV.c_str());
 		
 		GLint value;
-		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
+        SAFE(glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value));
 		system->LogIt("\tMax Vertex Uniforms: %d", value);
 
-		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
+        SAFE(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value));
 		system->LogIt("\tMax Fragment Uniforms: %d", value);
 
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value);
+        SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
 		system->LogIt("\tMax Vertex Attributes: %d", value);
 
-		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
+        SAFE(glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value));
 		system->LogIt("\tMax Texture Size: %d", value);
 
-		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
+        SAFE(glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value));
 		system->LogIt("\tMax Texture Units: %d", value);
 
 		system->LogIt("\tDevice DPI - %f", system->GetScreenDPI());

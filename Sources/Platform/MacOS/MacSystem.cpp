@@ -5,7 +5,7 @@
 using namespace cross;
 
 void MacSystem::Log(const char *msg) {
-    printf("%s", msg);
+    printf("%s\n", msg);
 }
 
 String MacSystem::AssetsPath() {

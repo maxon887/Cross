@@ -25,8 +25,10 @@ int main() {
 
     glfwSetErrorCallback(GLFWErrorCallback);
 
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Cross++", NULL, NULL);
     if(!window){
@@ -38,13 +40,10 @@ int main() {
     
     glfwMakeContextCurrent(window);
     
-    //if(glewInit()){
-    //    std::cout<<"Failed to initialize GLEW"<<std::endl;
-    //}
-    
-    glViewport(0, 0, screenWidth, screenHeight);
+    //glViewport(0, 0, screenWidth, screenHeight);
 
     audio = new Audio();
+    gfxGL = new GraphicsGL();
     
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
@@ -55,6 +54,7 @@ int main() {
 
     glfwTerminate();
 
+    delete gfxGL;
     delete audio;
     delete system;
 }
