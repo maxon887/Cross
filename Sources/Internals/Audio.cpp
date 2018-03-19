@@ -34,6 +34,8 @@ Audio::Audio() {
 	result = fmod_system->getVersion(&version);
 	ERRCHECK(result);
 
+	system->LogIt("FMOD Version - %08x", version);
+
 	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 
 	result = fmod_system->init(32, FMOD_INIT_NORMAL, nullptr);
