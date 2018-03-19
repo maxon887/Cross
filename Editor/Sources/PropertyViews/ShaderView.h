@@ -32,9 +32,6 @@ private:
 
 	void Clear();
 
-	void OnVertexFileClicked();
-	void OnFragmentFileClicked();
-
 	QWidget* OnAddMacroClicked();
 	QWidget* OnAddPropertyClicked();
 	void OnRemoveClicked();

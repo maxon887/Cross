@@ -18,8 +18,6 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	file_system->setReadOnly(false);
 	setModel(file_system);
 
-	SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()));
-
 	hideColumn(1);
 	hideColumn(2);
 	hideColumn(3);
@@ -103,7 +101,9 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
 	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha") {
 	} else {
-		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		if(fileInfo.isFile()) {
+			QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		}
 	}
 }
 
