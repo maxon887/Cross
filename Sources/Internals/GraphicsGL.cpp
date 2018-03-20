@@ -20,6 +20,13 @@
 #include <algorithm>
 #include <cstring>
 
+#include <GL/glew.h>
+#include <OpenGL/glext.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/gltypes.h>
+#include <GLFW/glfw3.h>
+
 using namespace cross;
 
 void GraphicsGL::CheckGLError(const char* file, U32 line) {
@@ -63,18 +70,13 @@ GraphicsGL::GraphicsGL() {
 		system->LogIt("GraphicsGL::GraphicsGL()");
 
 #if defined(OPENGL) || defined(EDITOR)
-		CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
-        GLint magorV;
-        GLint minorV;
-        SAFE(glGetIntegerv(GL_MAJOR_VERSION, &magorV));
-        SAFE(glGetIntegerv(GL_MINOR_VERSION, &minorV));
-        system->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
-#else
-		system->LogIt("\tUsed OpenGL ES 2.0");
+        CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #endif
-		const Byte* shaderVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
-		system->LogIt("\tSupported shader version %s", shaderVersion);
-		String strV((const char*)shaderVersion);
+        system->LogIt("\tRenderer - %s", glGetString(GL_RENDERER));
+        system->LogIt("\tOpenGL version - %s", glGetString(GL_VERSION));
+        const Byte* shaderVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
+        system->LogIt("\tGLSL version - %s", shaderVersion);
+        String strV((const char*)shaderVersion);
 		strV.erase(remove(strV.begin(), strV.end(), '.'));
 		shaders_version = atoi(strV.c_str());
 		
