@@ -159,9 +159,7 @@ const String& Shader::Property::GetGLName() const {
 Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
-	if(gfxGL->GetShaderVersion() >= 130) {
-		AddVersion("130");
-	}
+	AddVersion(gfxGL->GetShaderVersion());
 }
 
 Shader::~Shader() {
@@ -195,9 +193,7 @@ void Shader::Load(const String& file) {
 	const char* fragmentFile = fragmentXML->Attribute("filename");
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
-	if(gfxGL->GetShaderVersion() >= 130) {
-		AddVersion("130");
-	}
+	AddVersion(gfxGL->GetShaderVersion());
 
 	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
 	if(macrosiesXML) {

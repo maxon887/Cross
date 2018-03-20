@@ -55,10 +55,10 @@ public:
 
 	GraphicsGL();
 
-	U32 GetShaderVersion() const;
+	const String& GetShaderVersion() const;
 
 private:
-	U32 shaders_version				= 100;
+	String shader_version = "100";
 
 	void WindowResizeHandle(S32 width, S32 height);
 };
