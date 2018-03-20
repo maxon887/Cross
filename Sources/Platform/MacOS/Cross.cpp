@@ -1,6 +1,7 @@
 #include "Platform/MacOS/MacSystme.h"
 #include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
+#include "Game.h"
 
 #include <iostream>
 
@@ -25,10 +26,10 @@ int main() {
 
     glfwSetErrorCallback(GLFWErrorCallback);
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Cross++", NULL, NULL);
     if(!window){
@@ -44,16 +45,20 @@ int main() {
 
     audio = new Audio();
     gfxGL = new GraphicsGL();
+    game = CrossMain();
+    game->Start();
     
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
-        glClearColor(0.5f, 0.2f, 0.2f, 1.f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        game->EngineUpdate();
+        //glClearColor(0.5f, 0.2f, 0.2f, 1.f);
+        //glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(window);
     }
 
     glfwTerminate();
 
+    delete game;
     delete gfxGL;
     delete audio;
     delete system;
