@@ -20,13 +20,6 @@
 #include <algorithm>
 #include <cstring>
 
-#include <GL/glew.h>
-#include <OpenGL/glext.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/OpenGL.h>
-#include <OpenGL/gltypes.h>
-#include <GLFW/glfw3.h>
-
 using namespace cross;
 
 void GraphicsGL::CheckGLError(const char* file, U32 line) {
