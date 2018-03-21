@@ -88,7 +88,6 @@
 		9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECA1F46EF1700A6E782 /* Shader.cpp */; };
 		9DDFFF1F1F46EF1700A6E782 /* SingleLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */; };
 		9DE5C0441FEBDF1300DBB6B5 /* CameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DE5C0421FEBDF1300DBB6B5 /* CameraController.cpp */; };
-		D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4317A821B37FB4000CBB5E0 /* main.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
@@ -386,7 +385,6 @@
 		9DFE61711F4C3A2200418EC2 /* libassimp_iphones.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphones.a; sourceTree = "<group>"; };
 		9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphonesimulator.a; sourceTree = "<group>"; };
 		9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneos.a; sourceTree = "<group>"; };
-		D4317A821B37FB4000CBB5E0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D46920931DD68C4F00CF949F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D46920951DD68E6800CF949F /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
 		D46920971DD6909300CF949F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -956,7 +954,6 @@
 				D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */,
 				D46A23491AF9EF8400B77AC8 /* Products */,
 				D46A234D1AF9EF8400B77AC8 /* main.m */,
-				D4317A821B37FB4000CBB5E0 /* main.cpp */,
 				D46A234C1AF9EF8400B77AC8 /* Info.plist */,
 				D46A23581AF9EF8400B77AC8 /* Images.xcassets */,
 				9D54BB311FBC4316009E8469 /* Sources */,
@@ -1088,7 +1085,6 @@
 				9D54BBAA1FBC433C009E8469 /* Camera.cpp in Sources */,
 				9DDFFF051F46EF1700A6E782 /* tinyxml2.cpp in Sources */,
 				9DDFFF0A1F46EF1700A6E782 /* Vector2D.cpp in Sources */,
-				D4317A831B37FB4000CBB5E0 /* main.cpp in Sources */,
 				9D54BB721FBC4316009E8469 /* ApocalypseScene.cpp in Sources */,
 				9D5884DC20236236002820F2 /* Audio.cpp in Sources */,
 				9D54BB781FBC4316009E8469 /* TriangleScene.cpp in Sources */,
