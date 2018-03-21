@@ -175,7 +175,6 @@
     <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
     <ClCompile Include="..\..\Sources\UI\TransformView.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />

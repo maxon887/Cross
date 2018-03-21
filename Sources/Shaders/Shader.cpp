@@ -156,14 +156,9 @@ const String& Shader::Property::GetGLName() const {
 	return glName;
 }
 
-Shader::Shader() {
-    AddVersion(gfxGL->GetShaderVersion());
-}
-
 Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
-	AddVersion(gfxGL->GetShaderVersion());
 }
 
 Shader::~Shader() {
@@ -357,7 +352,7 @@ void Shader::SetFragmentFilename(const String& filename) {
 
 void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	String fullStr = "#version " + ver + "\n";
+	String fullStr = "#version " + ver + " es\n";
 	macrosies.push_back(fullStr);
 	makro_len += fullStr.length();
 }
@@ -468,7 +463,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     if(type == GL_FRAGMENT_SHADER) {
         CROSS_RETURN(!compiled, 0, "Shader already compiled");
         String fullStr = "precision mediump float;\n";
-        macrosies.insert(macrosies.begin(), fullStr);
+		macrosies.push_back(fullStr);
         makro_len += fullStr.length();
     }
 #endif
