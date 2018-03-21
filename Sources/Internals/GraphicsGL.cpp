@@ -71,7 +71,7 @@ GraphicsGL::GraphicsGL() {
 	const char* shaderVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 	system->LogIt("\tGLSL version - %s", shaderVersion);
 
-	String shader_version = shaderVersion;
+    shader_version = shaderVersion;
 	shader_version.erase(remove(shader_version.begin(), shader_version.end(), '.'));
 	std::size_t const n = shader_version.find_first_of("0123456789");
 	if (n != std::string::npos) {

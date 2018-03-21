@@ -113,7 +113,7 @@ public:
 	GLint uAmbientLight = -1;
 	GLint uColor = -1;
 
-	Shader() = default;
+    Shader();
 	Shader(const String& vertexFile, const String& fragmentFile);
 	virtual ~Shader();
 

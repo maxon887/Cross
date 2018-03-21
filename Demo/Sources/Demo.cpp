@@ -45,6 +45,10 @@ const char* Demo::GetClipboardString(void* userData) {
 	return demo->clipboard.c_str();
 }
 
+Game* CrossMain() {
+    return new Demo();
+}
+
 void Demo::Start() {
 	Game::Start();
 	system->LogIt("Demo::Start()");
@@ -89,7 +93,6 @@ void Demo::Start() {
 
 	CreateDeviceObjects();
 	CreateFontsTexture();
-
 
 	ImGui::LoadStyle();
 

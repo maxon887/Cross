@@ -156,6 +156,10 @@ const String& Shader::Property::GetGLName() const {
 	return glName;
 }
 
+Shader::Shader() {
+    AddVersion(gfxGL->GetShaderVersion());
+}
+
 Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
@@ -192,8 +196,7 @@ void Shader::Load(const String& file) {
 	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
 	const char* fragmentFile = fragmentXML->Attribute("filename");
 	vertex_filename = vertexFile;
-	fragment_filename = fragmentFile;
-	AddVersion(gfxGL->GetShaderVersion());
+    fragment_filename = fragmentFile;
 
 	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
 	if(macrosiesXML) {
@@ -461,8 +464,16 @@ GLuint Shader::GetProgram() const {
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
 	CROSS_RETURN(file, 0, "Attempt to compile shader without a file");
-	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for nullptr terminated String
+#ifndef MACOS
+    if(type == GL_FRAGMENT_SHADER) {
+        CROSS_RETURN(!compiled, 0, "Shader already compiled");
+        String fullStr = "precision mediump float;\n";
+        macrosies.insert(macrosies.begin(), fullStr);
+        makro_len += fullStr.length();
+    }
+#endif
 
+	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for nullptr terminated String
 	int curPos = 0;
 	for(String makro : macrosies){
 		const char* charMakro = makro.c_str();

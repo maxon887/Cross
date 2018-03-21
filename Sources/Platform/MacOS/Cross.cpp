@@ -10,11 +10,12 @@
 using namespace std;
 using namespace cross;
 
-const GLuint width = 800;
-const GLuint height = 600;
-
 void GLFWErrorCallback(int error, const char* description) {
     cout << "GLFW Error occured - " << error << "\n\t" << description << endl;
+}
+
+void GLFWResizeCallback(GLFWwindow* win, int width, int height) {
+    system->SetWindowSize(width, height);
 }
 
 int main() {
@@ -26,22 +27,24 @@ int main() {
 
     glfwSetErrorCallback(GLFWErrorCallback);
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "Cross++", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Cross++", NULL, NULL);
     if(!window){
         cout<<"Failed to create GLFW window"<<endl;
     }
+    glfwSetFramebufferSizeCallback(window, GLFWResizeCallback);
+
+
     int screenWidth;
     int screenHeight;
     glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+    system->SetWindowSize(screenWidth, screenHeight);
     
     glfwMakeContextCurrent(window);
-    
-    //glViewport(0, 0, screenWidth, screenHeight);
 
     audio = new Audio();
     gfxGL = new GraphicsGL();
@@ -51,8 +54,6 @@ int main() {
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
         game->EngineUpdate();
-        //glClearColor(0.5f, 0.2f, 0.2f, 1.f);
-        //glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(window);
     }
 

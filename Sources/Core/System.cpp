@@ -170,10 +170,12 @@ float System::GetScreenScale() {
 }
 
 S32 System::GetWindowWidth() const {
+    CROSS_RETURN(window_width != -1, -1, "Window size not specified");
 	return window_width;
 }
 
 S32 System::GetWindowHeight() const {
+    CROSS_RETURN(window_height != -1, -1, "Window size not specified");
 	return window_height;
 }
 
