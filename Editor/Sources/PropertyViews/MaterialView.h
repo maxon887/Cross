@@ -44,7 +44,6 @@ private:
 
 	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
 
-	void OnLoadShaderClick();
 	void OnApplyClick();
 	void OnRevertClick();
 	//color options

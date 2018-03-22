@@ -87,6 +87,8 @@ public:
 	Model* GetModel(const String& modelFile, bool calcTangents = false);
 	/* Resets all materials to default state */
 	void ResetMaterials();
+	/* Resets all shaders to default state */
+	void ResetShaders();
 
 protected:
 	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();

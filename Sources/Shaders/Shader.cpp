@@ -162,17 +162,7 @@ Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 }
 
 Shader::~Shader() {
-	if(vertex_shader){
-		SAFE(glDeleteShader(vertex_shader));
-	}
-	if(fragment_shader){
-		SAFE(glDeleteShader(fragment_shader));
-	}	
-	if(program){
-		SAFE(glDeleteProgram(program));
-	}
-	delete vertex_file;
-	delete fragment_file;
+	FreeResources();
 }
 
 void Shader::Load(const String& file) {
@@ -319,6 +309,13 @@ void Shader::Compile() {
 		CROSS_FAIL(prop.glId != -1, "Property %s does not contains in the shader", prop.glName.c_str());
 	}
 	compiled = true;
+}
+
+void Shader::ReCompile() {
+	FreeResources();
+	compiled = false;
+	Load(GetFilename());
+	Compile();
 }
 
 void Shader::Use() {
@@ -523,4 +520,19 @@ void Shader::CompileProgram() {
 		glGetProgramInfoLog(program, len, &len, log);
 		CROSS_FAIL(false, "Shader program compilation failed:\n %s", log);
 	}
+}
+
+void Shader::FreeResources() {
+	properties.clear();
+	if(vertex_shader) {
+		SAFE(glDeleteShader(vertex_shader));
+	}
+	if(fragment_shader) {
+		SAFE(glDeleteShader(fragment_shader));
+	}
+	if(program) {
+		SAFE(glDeleteProgram(program));
+	}
+	delete vertex_file;
+	delete fragment_file;
 }

@@ -319,13 +319,20 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 	}
 }
 
-void Scene::ResetMaterials(){
-	for(pair<S32, Material*> pair : materials){
+void Scene::ResetMaterials() {
+	for(pair<S32, Material*> pair : materials) {
 		pair.second->Reset();
 	}
 }
 
-void Scene::SetAmbientColor(const Color& color){
+void Scene::ResetShaders() {
+	for(pair<S32, Shader*> pair : shaders) {
+		Shader* shader = pair.second;
+		shader->ReCompile();
+	}
+}
+
+void Scene::SetAmbientColor(const Color& color) {
 	this->ambient_color = color;
 }
 

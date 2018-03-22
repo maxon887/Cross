@@ -245,6 +245,7 @@ void ShaderView::OnApplyClick(){
 
 	shader->Save(system->AssetsPath() + shader->GetFilename());
 	OnRevertClick();
+	game->GetCurrentScene()->ResetShaders();
 	game->GetCurrentScene()->ResetMaterials();
 }
 

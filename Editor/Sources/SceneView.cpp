@@ -36,7 +36,6 @@ void SceneView::Start() {
 	FreeCameraScene::LookAtCamera(Vector3D::Zero);
 	SetAmbientColor(Color::White);
 	selection_shader = GetShader("Engine/Shaders/Simple.sha");
-	selection_shader->Compile();
 	selection_material = new Material(selection_shader);
 	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
 

@@ -123,6 +123,7 @@ public:
 	virtual void Compile();
 	virtual void OnDraw() { }
 
+	void ReCompile();
 	bool IsCompiled() const;
 	String& GetFilename();
 	String& GetVertexFilename();
@@ -182,6 +183,7 @@ private:
 
 	GLuint CompileShader(GLuint type, File* file);
 	void CompileProgram();
+	void FreeResources();
 };
 
 }

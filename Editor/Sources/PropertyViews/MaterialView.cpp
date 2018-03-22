@@ -32,8 +32,6 @@ void MaterialView::Initialize(){
 	shader_handler->SetFileExtension("sha");
 	shader_handler->FileChanged.Connect(this, &MaterialView::OnShaderChanged);
 	properties_box = findChild<QGroupBox*>("properties");
-	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
-	connect(loadBtn, &QPushButton::clicked, this, &MaterialView::OnLoadShaderClick);
 
 	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
 	color_dialog->setWindowFlags(color_dialog->windowFlags() | Qt::WindowStaysOnTopHint);
@@ -215,19 +213,6 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	propertyLayoutWidget->show();
 
 	return propertyLayoutWidget;
-}
-
-void MaterialView::OnLoadShaderClick() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Shader File", path, "Shader File (*.sha)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		shader_handler->SetFile(filepath);
-		Shader* newShader = game->GetCurrentScene()->GetShader(filepath.toStdString().c_str());
-		material->SetShader(newShader);
-		RefreshProperties();
-	}
 }
 
 void MaterialView::OnApplyClick() {
