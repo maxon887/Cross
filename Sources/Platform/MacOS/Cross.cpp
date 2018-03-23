@@ -69,6 +69,14 @@ int main() {
     int screenHeight;
     glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
     system->SetWindowSize(screenWidth, screenHeight);
+
+    int widthMM, heightMM;
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
+    float dpi = mode->width * 2.f / (widthMM / 25.4);
+    MacSystem* macSystem = (MacSystem*)system;
+    macSystem->SetScreenDPI(dpi);
     
     glfwMakeContextCurrent(window);
 

@@ -20,7 +20,7 @@
 #include <stdarg.h>
 #include <cstring>
 
-#if defined(WIN) || defined(EDITOR)
+#if defined(WIN) || defined(EDITOR) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
 #	define DEFAULT_SCREEN_DPI 160.f

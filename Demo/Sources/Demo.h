@@ -57,7 +57,7 @@ private:
 	Array<bool> actions		= Array<bool>(MAX_ACTIONS, false);
 	float mouse_wheel		= 0.0f;
 
-	bool CreateDeviceObjects();
+    bool CreateUIShaders();
 	bool CreateFontsTexture();
 	void RenderUI(ImDrawData*);
 

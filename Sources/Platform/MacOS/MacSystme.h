@@ -9,6 +9,12 @@ public:
     String AssetsPath() override;
     String DataPath() override;
     U64 GetTime() override;
+    float GetScreenDPI() override;
+
+    void SetScreenDPI(float dpi);
+
+private:
+    float dpi = 96.f;
 };
 
 }

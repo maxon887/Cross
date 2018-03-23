@@ -21,3 +21,11 @@ U64 MacSystem::GetTime() {
     gettimeofday(&ptv, NULL);
     return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }
+
+float MacSystem::GetScreenDPI() {
+    return dpi;
+}
+
+void MacSystem::SetScreenDPI(float newDPI) {
+    dpi = newDPI;
+}
