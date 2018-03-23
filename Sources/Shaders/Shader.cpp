@@ -456,7 +456,7 @@ GLuint Shader::GetProgram() const {
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
 	CROSS_RETURN(file, 0, "Attempt to compile shader without a file");
-#ifndef MACOS
+#if defined(IOS) || defined(ANDROID) || defined(GLES)
     if(type == GL_FRAGMENT_SHADER) {
         CROSS_RETURN(!compiled, 0, "Shader already compiled");
         String fullStr = "precision mediump float;\n";
@@ -499,7 +499,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
-			system->LogIt("Shader compilation:\n%s", log);
+			CROSS_ASSERT(false, "Shader compilation:\n%s", log);
 			delete[] log;
 		}
 #endif
