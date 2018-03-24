@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
+    <width>504</width>
     <height>248</height>
    </rect>
   </property>
@@ -54,18 +54,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="vertexFile"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="vertexBtn">
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Load</string>
+         <widget class="FileHandler" name="vertexFile">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -81,18 +72,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="fragmentFile"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="fragmentBtn">
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Load</string>
+         <widget class="FileHandler" name="fragmentFile">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -236,6 +218,11 @@
    <extends>QGroupBox</extends>
    <header>PropertyViews/ShaderView.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FileHandler</class>
+   <extends>QLineEdit</extends>
+   <header>PropertyViews/FileHandler.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

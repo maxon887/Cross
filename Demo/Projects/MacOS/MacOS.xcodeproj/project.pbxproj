@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D20BAB51EEAC1E700A19CDB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D20BAB41EEAC1E700A19CDB /* main.cpp */; };
 		9D20BABD1EEAC2FF00A19CDB /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D20BABC1EEAC2FF00A19CDB /* OpenGL.framework */; };
 		9D20BABF1EEAC39400A19CDB /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D20BABE1EEAC39400A19CDB /* libGLEW.2.0.0.dylib */; };
 		9D20BAC11EEAC3AB00A19CDB /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D20BAC01EEAC3AB00A19CDB /* libglfw.3.2.dylib */; };
+		9D592DA0205BAE7C00F83DEF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D592D9F205BAE7C00F83DEF /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,10 +27,10 @@
 
 /* Begin PBXFileReference section */
 		9D20BAB11EEAC1E700A19CDB /* MacOS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacOS; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D20BAB41EEAC1E700A19CDB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9D20BABC1EEAC2FF00A19CDB /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		9D20BABE1EEAC39400A19CDB /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		9D20BAC01EEAC3AB00A19CDB /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		9D592D9F205BAE7C00F83DEF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 		9D20BAB31EEAC1E700A19CDB /* MacOS */ = {
 			isa = PBXGroup;
 			children = (
-				9D20BAB41EEAC1E700A19CDB /* main.cpp */,
+				9D592D9F205BAE7C00F83DEF /* main.cpp */,
 			);
 			path = MacOS;
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D20BAB51EEAC1E700A19CDB /* main.cpp in Sources */,
+				9D592DA0205BAE7C00F83DEF /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +283,7 @@
 				9D20BABA1EEAC1E700A19CDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

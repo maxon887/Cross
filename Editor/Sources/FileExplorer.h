@@ -5,6 +5,7 @@
 #include "Event.h"
 
 #include <QTreeView>
+#include <QLabel>
 
 using namespace cross;
 
@@ -15,11 +16,13 @@ class FileExplorer : public QTreeView
 	Q_OBJECT
 public:
 	Event<string> FileSelected;
+	Event<QString> ProjectDirectoryChanged;
 
 	FileExplorer(QWidget* parent = 0);
 	~FileExplorer();
 
 	void SetupProjectDirectory(QString dir);
+	QString GetRelativePath(const QString& absolutePath);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *eve) override;
@@ -41,6 +44,15 @@ private:
 
 	QString GetSelectedDirectory();
 	QString GetAllowedName(const QString& dir, const QString& baseName, const QString& extension);
+};
+
+class ProjectDirectoryLabel : public QLabel
+{
+public:
+	ProjectDirectoryLabel(QWidget* parent);
+
+private:
+	void OnProjectDirectoryChanged(QString path);
 };
 
 #endif

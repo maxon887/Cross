@@ -22,6 +22,7 @@
 #include "File.h"
 
 #include <stdlib.h>
+#include <cstring>
 
 #include "Libs/SOIL/SOIL.h"
 
@@ -55,10 +56,10 @@ struct KTX {
 
 Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
 	File* textureFile = system->LoadAssetFile(filename);
-	CROSS_RETURN(textureFile, null, "Can not load raw texture. File not found");
+	CROSS_RETURN(textureFile, nullptr, "Can not load raw texture. File not found");
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
-	CROSS_RETURN(image, null, "SOL can't convert file:\n Pay attention on image color channels");
+	CROSS_RETURN(image, nullptr, "SOL can't convert file:\n Pay attention on image color channels");
 	int newWidth = 1;
 	int newHeight = 1;
 	while(newWidth < width) {
@@ -264,7 +265,7 @@ void Texture::LoadKTX(const String& filename, Texture::Filter filter) {
 	for(U32 i = 1; i < ktx.numberOfMipmapLevels; i++) {
 		U32 padding = 3 - ((imageSize + 3) % 4);
 
-		CROSS_ASSERT(padding != 0, null, "Not zero padding");
+		CROSS_ASSERT(padding != 0, nullptr, "Not zero padding");
 
 		mipmapW /= 2;
 		mipmapH /= 2;
@@ -294,7 +295,7 @@ void Texture::Create(U32 channels, U32 width, U32 height, Texture::Filter filter
 		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0));
 		break;
 	default:
-		CROSS_ASSERT(false, null, "Can not create texture. Wrong texture channel count");
+		CROSS_ASSERT(false, nullptr, "Can not create texture. Wrong texture channel count");
 	}
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
@@ -330,7 +331,7 @@ void Texture::Create(	Byte* data,
 			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
 			break;
 		default:
-			CROSS_ASSERT(false, null, "Can not create texture. Wrong texture channel count");
+			CROSS_ASSERT(false, nullptr, "Can not create texture. Wrong texture channel count");
 		}
 	} else {
 		switch(compression) {
@@ -341,7 +342,7 @@ void Texture::Create(	Byte* data,
 			SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, width, height, 0, dataLength, data));
 		}break;
 #else
-			CROSS_ASSERT(false, null, "Can not create texture. ETC1 compression not supported by current platform");
+			CROSS_ASSERT(false, nullptr, "Can not create texture. ETC1 compression not supported by current platform");
 #endif
 		default:
 			break;

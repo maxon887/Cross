@@ -30,7 +30,10 @@
 #include <GLES2/gl2platform.h>
 #elif IOS
 #import <OpenGLES/ES2/glext.h>
+#elif MACOS
+#include <GL/glew.h>
 #endif
+
 
 #if defined(CROSS_DEBUG)
 #define SAFE(X) \
@@ -52,10 +55,10 @@ public:
 
 	GraphicsGL();
 
-	U32 GetShaderVersion() const;
+	const String& GetShaderVersion() const;
 
 private:
-	U32 shaders_version				= 100;
+	String shader_version = "100";
 
 	void WindowResizeHandle(S32 width, S32 height);
 };

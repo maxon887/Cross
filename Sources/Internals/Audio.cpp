@@ -34,15 +34,17 @@ Audio::Audio() {
 	result = fmod_system->getVersion(&version);
 	ERRCHECK(result);
 
+	system->LogIt("FMOD Version - %08x", version);
+
 	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
 
-	result = fmod_system->init(32, FMOD_INIT_NORMAL, null);
+	result = fmod_system->init(32, FMOD_INIT_NORMAL, nullptr);
 	ERRCHECK(result);
 }
 
 Audio::~Audio() {
 	result = fmod_system->close();
-	CROSS_ASSERT(result != FMOD_OK, "Error while closing FMOD system");
+    CROSS_ASSERT(result == FMOD_OK, "Error while closing FMOD system");
 }
 
 FMOD::System* Audio::GetSystem() {
@@ -64,7 +66,7 @@ FMOD::Sound* Audio::LoadSound(const String& path, bool loop, bool stream) {
 #else
 	String absPath = system->AssetsPath() + "/" + path;
 #endif
-	FMOD::Sound* sound = null;
+	FMOD::Sound* sound = nullptr;
 	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound);
 	ERRCHECK(result);
 

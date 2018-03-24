@@ -35,7 +35,7 @@ public:
 	~File();
 
 	String name	= String();
-	Byte* data	= null;
+	Byte* data	= nullptr;
 	U32 size	= 0;
 };
 

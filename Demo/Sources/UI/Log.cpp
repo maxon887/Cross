@@ -34,12 +34,12 @@ void Log::Content(float sec) {
 	if(filter.IsActive()) {
 		const char* buf_begin = system->GetLogBuffer().data();
 		const char* line = buf_begin;
-		for(int line_no = 0; line != null; line_no++) {
-			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : null;
+		for(int line_no = 0; line != nullptr; line_no++) {
+			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : nullptr;
 			if(filter.PassFilter(line, line_end)) {
 				ImGui::TextUnformatted(line, line_end);
 			}
-			line = line_end && line_end[1] ? line_end + 1 : null;
+			line = line_end && line_end[1] ? line_end + 1 : nullptr;
 		}
 	} else {
 		if(system->GetLogBuffer().size() > 0) {

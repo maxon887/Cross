@@ -1,6 +1,20 @@
 # Cross++
 Is a lightweight cross-platform game engine. Written mostly on C++.
 
+### Build Status
+
+
+| Windows            | iOS                  | Android            |
+| ------------------ | -------------------- | ------------------ |
+| [![Win][WB1]][WB2] | [![iOS][IOS1]][TRAV] |[![AND][AND1]][TRAV] |
+
+[WB1]: https://ci.appveyor.com/api/projects/status/fmigb2qi7di0pqmq?svg=true
+[WB2]: https://ci.appveyor.com/project/maxon887/cross
+[IOS1]: https://travis-matrix-badges.herokuapp.com/repos/maxon887/Cross/branches/Main/1
+[TRAV]: https://travis-ci.org/maxon887/Cross
+[AND1]: https://travis-matrix-badges.herokuapp.com/repos/maxon887/Cross/branches/Main/2
+
+
 ### Demo
 Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 

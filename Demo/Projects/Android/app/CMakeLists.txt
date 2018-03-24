@@ -30,14 +30,8 @@ file(GLOB CROSS_SRC
 
 )
 
-add_library( # Sets the name of the library.
-             cross
-             # Sets the library as a shared library.
+add_library( cross
              SHARED
-             # Provides a relative path to your source file(s).
-             # Associated headers in the same location as their source
-             # file are automatically included.
-             src/main/jni/main.cpp
              ${CROSS_SRC} )
 
 # Searches for a specified prebuilt library and stores the path as a

@@ -24,7 +24,7 @@ public:
 	void Stop() override;
 
 private:
-	Shader* shader				= null;
-	Material* material			= null;
-	Entity* cube				= null;
+	Shader* shader				= nullptr;
+	Material* material			= nullptr;
+	Entity* cube				= nullptr;
 };

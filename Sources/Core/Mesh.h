@@ -80,7 +80,7 @@ public:
 
 	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
 	S32 GetID() const;
-	/* Returns Model object from which this Mesh was loaded or null if mesh was created not from Model */
+	/* Returns Model object from which this Mesh was loaded or nullptr if mesh was created not from Model */
 	Model* GetModel();
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
@@ -91,12 +91,12 @@ public:
 private:
 	U64 VBO						= 0;
 	U64 EBO						= 0;
-	VertexBuffer* vertex_buffer = null;
+	VertexBuffer* vertex_buffer = nullptr;
 	Array<U16> indices			= Array<U16>();
 
 	S32 id						= -1;
-	Model* model				= null;
-	Material* material			= null;
+	Model* model				= nullptr;
+	Material* material			= nullptr;
 	bool original				= true;
 	bool initialized			= false;
 	bool face_culling			= true;

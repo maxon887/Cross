@@ -27,9 +27,12 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	ui.sceneExplorerTree->EntityChanged.Connect(ui.propertiesView, &PropertiesView::OnEntityChanged);
 	ui.fileExplorerTree->FileSelected.Connect(ui.propertiesView, &PropertiesView::OnFileSelected);
 
-	setWindowTitle(QString("Cross Editor - Untitled*"));
 	SomethingChanged.Connect(this, &CrossEditor::OnSomethingChanged);
 	ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
+}
+
+void CrossEditor::Start() {
+	OnNewSceneClick();
 }
 
 void CrossEditor::Update(float sec){
@@ -51,7 +54,7 @@ FileExplorer* CrossEditor::GetFileExplorer() {
 void CrossEditor::closeEvent(QCloseEvent* eve) {
 	ui.glHandler->ShutDown();
 	GetSceneExplorer()->reset();
-	QSettings settings("CrossEditor");
+	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
 
@@ -69,7 +72,8 @@ void CrossEditor::LoadScene(QString& scenePath) {
 
 void CrossEditor::RestoreSettings() {
 	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-	QSettings settings("CrossEditor");
+	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
+	QString file = settings.fileName();
 	if(settings.contains("geometry")) {
 		setGeometry(settings.value("geometry").value<QRect>());
 	}
@@ -77,6 +81,8 @@ void CrossEditor::RestoreSettings() {
 		QString projectDirectory = settings.value("projectDirectory").toString();
 		winSys->SetAssetPath(projectDirectory.toStdString().c_str());
 		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
+	} else {
+		GetFileExplorer()->SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()));
 	}
 	restoreState(settings.value("windowState").toByteArray());
 }

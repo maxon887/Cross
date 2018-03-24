@@ -24,7 +24,7 @@
 #include "Transform.h"
 
 SceneView::SceneView() :
-	FreeCameraScene("")
+	FreeCameraScene()
 { }
 
 SceneView::SceneView(const string& filename) :
@@ -36,13 +36,13 @@ void SceneView::Start() {
 	FreeCameraScene::LookAtCamera(Vector3D::Zero);
 	SetAmbientColor(Color::White);
 	selection_shader = GetShader("Engine/Shaders/Simple.sha");
-	selection_shader->Compile();
 	selection_material = new Material(selection_shader);
 	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
 
 	input->ActionDown.Connect(this, &SceneView::OnActionDown);
 	input->ActionMove.Connect(this, &SceneView::OnActionMove);
 
+	EntityAdded.Connect(this, &SceneView::OnEntityAdded);
 	editor->GetSceneExplorer()->EntityGrabFocus.Connect(this, &SceneView::OnEntityGrabFocus);
 	editor->GetSceneExplorer()->EntitySelected.Connect(this, &SceneView::OnEntitySelected);
 }
@@ -50,6 +50,7 @@ void SceneView::Start() {
 void SceneView::Stop() {
 	editor->GetSceneExplorer()->EntityGrabFocus.Disconnect(this, &SceneView::OnEntityGrabFocus);
 	editor->GetSceneExplorer()->EntitySelected.Disconnect(this, &SceneView::OnEntitySelected);
+	EntityAdded.Disconnect(this, &SceneView::OnEntityAdded);
 
 	input->ActionDown.Disconnect(this, &SceneView::OnActionDown);
 	input->ActionMove.Disconnect(this, &SceneView::OnActionMove);
@@ -86,6 +87,10 @@ void SceneView::OnActionMove(Input::Action a) {
 	}
 }
 
+void SceneView::OnEntityAdded(Entity* e) {
+	ApplyMaterial(e, GetMaterial("Engine/Default.mat"));
+}
+
 void SceneView::OnEntitySelected(Entity* e) {
 	if(selected_entity) {
 		EnableMesh(selected_entity, true);
@@ -97,8 +102,10 @@ void SceneView::OnEntitySelected(Entity* e) {
 }
 
 void SceneView::OnEntityGrabFocus(Entity* e) {
-	LookAtCamera(e->GetTransform()->GetPosition());
-	GetCamera()->GetTransform()->LookAt(e->GetTransform()->GetPosition());
+	Transform* transform = e->GetComponent<Transform>();
+	if(transform) {
+		LookAtCamera(e->GetTransform()->GetPosition());
+	}
 }
 
 void SceneView::Draw(Entity* e) {
@@ -123,5 +130,14 @@ void SceneView::EnableMesh(Entity *e, bool value) {
 	}
 	for(Entity* child : e->GetChildren()) {
 		EnableMesh(child, value);
+	}
+}
+
+void SceneView::ApplyMaterial(Entity* entity, Material* mat) {
+	if(entity->GetComponent<Mesh>()) {
+		entity->GetComponent<Mesh>()->SetMaterial(mat);
+	}
+	for(Entity* child : entity->GetChildren()) {
+		ApplyMaterial(child, mat);
 	}
 }

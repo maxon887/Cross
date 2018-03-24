@@ -18,8 +18,6 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	file_system->setReadOnly(false);
 	setModel(file_system);
 
-	SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()));
-
 	hideColumn(1);
 	hideColumn(2);
 	hideColumn(3);
@@ -74,6 +72,12 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
+	ProjectDirectoryChanged.Emit(dir);
+}
+
+QString FileExplorer::GetRelativePath(const QString& absolutePath) {
+	QDir root = file_system->rootDirectory();
+	return root.relativeFilePath(absolutePath);
 }
 
 void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
@@ -82,30 +86,28 @@ void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
 
 void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	QDir root = file_system->rootDirectory();
-	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
+	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
 	FileSelected.Emit(filepath.toStdString());
 }
 
-void FileExplorer::OnItemDoubleClick(QModelIndex index){
+void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	QDir root = file_system->rootDirectory();
-	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
+	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
 	if(fileInfo.suffix() == "scn") {
 		editor->LoadScene(filepath);
-	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
+	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx") {
 		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
 		Entity* modelHierarchy = model->GetHierarchy();
-		//gfx3D->AdjustMaterial(modelHierarchy, gfx3D->GetDefaultMaterial()->Clone());
-		CROSS_ASSERT(false, "Adjust Material function requared");
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
-	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
+	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha") {
 	} else {
-		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		if(fileInfo.isFile()) {
+			QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		}
 	}
 }
 
-void FileExplorer::OnNewFolderClick(){
+void FileExplorer::OnNewFolderClick() {
 	QString selectedDir = GetSelectedDirectory();
 	
 	QString baseName = "/New Folder";
@@ -197,4 +199,21 @@ QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName
 		file.setFileName(dir + "/" + filename);
 	}
 	return file.fileName();
+}
+
+ProjectDirectoryLabel::ProjectDirectoryLabel(QWidget* parent)
+	: QLabel(parent)
+{
+	FileExplorer* fileExplorer = editor->GetFileExplorer();
+	fileExplorer->ProjectDirectoryChanged.Connect(this, &ProjectDirectoryLabel::OnProjectDirectoryChanged);
+
+	// set black background
+	QPalette pal = palette();
+	pal.setColor(QPalette::Background, QColor(218, 218, 218));
+	setAutoFillBackground(true);
+	setPalette(pal);
+}
+
+void ProjectDirectoryLabel::OnProjectDirectoryChanged(QString path) {
+	setText(path);
 }

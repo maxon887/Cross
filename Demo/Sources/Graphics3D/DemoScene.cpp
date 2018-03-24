@@ -33,9 +33,10 @@ void DemoScene::Start() {
 	input->ActionUp.Connect(this, &DemoScene::OnActionUp);
 	input->KeyPressed.Connect(this, &DemoScene::OnKeyPressed);
 	input->KeyReleased.Connect(this, &DemoScene::OnKeyReleased);
+	input->MouseWheelRoll.Connect(this, &DemoScene::MouseWheelRoll);
 	system->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 
-	OnEyeClick();
+	LookAtCamera(true);
 	
 	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
@@ -44,6 +45,7 @@ void DemoScene::Start() {
 
 void DemoScene::Stop() {
 	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
+	input->MouseWheelRoll.Disconnect(this, &DemoScene::MouseWheelRoll);
 	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
 	input->KeyPressed.Disconnect(this, &DemoScene::OnKeyPressed);
 	input->ActionDown.Disconnect(this, &DemoScene::OnActionDown);
@@ -162,6 +164,8 @@ void DemoScene::OnOrientationChanged(System::Orientation o) {
 	}
 }
 
-void DemoScene::OnEyeClick(){
-	LookAtCamera(true);
+void DemoScene::MouseWheelRoll(float delta) {
+	if(!ImGui::IsMouseHoveringAnyWindow()) {
+		MoveForward(0.1f * delta / 120.f, false);
+	}
 }

@@ -55,10 +55,12 @@ public:
 	Texture::Filter GetTextureFilter() const;
 	/* Returns true if offsecreen render enabled */
 	bool IsOffscreenRender() const;
+    
+//internals
+    void SaveGameConfig();
+    void SaveUserConfig();
 
 engineonly:
-	void SaveGameConfig();
-	void SaveUserConfig();
 	void LoadGameConfig();
 	void LoadUserConfig();
 

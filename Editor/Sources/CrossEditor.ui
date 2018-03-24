@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1391</width>
-    <height>1259</height>
+    <width>956</width>
+    <height>647</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,8 +44,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1391</width>
-     <height>38</height>
+     <width>956</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -76,6 +76,9 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>1</number>
+     </property>
      <property name="leftMargin">
       <number>0</number>
      </property>
@@ -93,12 +96,35 @@
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
        </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DragOnly</enum>
+       </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::ExtendedSelection</enum>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="ProjectDirectoryLabel" name="projectDirectoryLabel">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="text">
+        <string>ProjectDirectory</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+    <zorder>projectDirectoryLabel</zorder>
+    <zorder>fileExplorerTree</zorder>
    </widget>
   </widget>
   <widget class="QDockWidget" name="sceneExplorer">
@@ -126,6 +152,9 @@
       <widget class="SceneExplorer" name="sceneExplorerTree">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DropOnly</enum>
        </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::SingleSelection</enum>
@@ -250,6 +279,11 @@
    <extends>QDockWidget</extends>
    <header>PropertiesView.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ProjectDirectoryLabel</class>
+   <extends>QLabel</extends>
+   <header>FileExplorer.h</header>
   </customwidget>
  </customwidgets>
  <resources>
