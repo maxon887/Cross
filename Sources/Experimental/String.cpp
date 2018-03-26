@@ -16,7 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "String.h"
 
-#include <string.h>
+#include <cstring>
+#include <stdlib.h>
 
 using namespace cross;
 
@@ -25,8 +26,7 @@ String::String() : String("") { }
 String::String(const char* cstr) {
 	length = strlen(cstr);
 	data = new char[length + 1];
-	memcpy(data, cstr, length);
-	data[length] = '\0';
+	memcpy(data, cstr, length + 1);
 }
 
 String::String(const String& str) :
@@ -34,6 +34,19 @@ String::String(const String& str) :
 {
 	data = new char[length + 1];
 	memcpy(data, str.data, str.length + 1);
+}
+
+String::String(S32 number) {
+	U32 digits = 0;
+	if(number < 0) digits++;
+	S32 val = number;
+	while(val) {
+		val /= 10;
+		digits++;
+	}
+	data = new char[digits + 1];
+	length = digits;
+	_itoa(number, data, 10);
 }
 
 String::~String() {
@@ -44,8 +57,16 @@ U32 String::Length() const {
 	return length;
 }
 
-const char* String::CStr() const {
+const char* String::ToCStr() const {
 	return data;
+}
+
+S32 String::ToInt() const {
+	return atoi(data);
+}
+
+float String::ToFloat() const {
+	return atof(data);
 }
 
 String& String::operator = (const char* cstr) {
@@ -55,8 +76,7 @@ String& String::operator = (const char* cstr) {
 		data = new char[cLen + 1];
 	}
 	length = cLen;
-	memcpy(data, cstr, length);
-	data[length] = '\0';
+	memcpy(data, cstr, length + 1);
 	return *this;
 }
 

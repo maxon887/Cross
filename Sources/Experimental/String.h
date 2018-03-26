@@ -15,8 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "F:\Trash\StringTest\StringTest\StringTest\BaseTypes.h"
-
+#include "BaseTypes.h"
 
 namespace cross {
 
@@ -25,10 +24,13 @@ public:
 	String();
 	String(const char* cstr);
 	String(const String& str);
+	String(S32 number);
 	~String();
 
 	U32 Length() const;
-	const char* CStr() const;
+	const char* ToCStr() const;
+	S32 ToInt() const;
+	float ToFloat() const;
 
 	String& operator = (const char* other);
 	String& operator = (const String& other);
