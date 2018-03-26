@@ -18,6 +18,7 @@
 
 #include <cstring>
 #include <stdlib.h>
+#include <stdio.h>
 
 using namespace cross;
 
@@ -25,28 +26,37 @@ String::String() : String("") { }
 
 String::String(const char* cstr) {
 	length = strlen(cstr);
+	capacity = length;
 	data = new char[length + 1];
 	memcpy(data, cstr, length + 1);
 }
 
 String::String(const String& str) :
-	length(str.length)
+	length(str.length),
+	capacity(str.capacity)
 {
 	data = new char[length + 1];
 	memcpy(data, str.data, str.length + 1);
 }
 
 String::String(S32 number) {
-	U32 digits = 0;
-	if(number < 0) digits++;
-	S32 val = number;
-	while(val) {
-		val /= 10;
-		digits++;
-	}
-	data = new char[digits + 1];
-	length = digits;
-	_itoa(number, data, 10);
+	const U32 max_int_len = 12;	//max possible 32 bit int value
+	data = new char[max_int_len];
+	length = sprintf(data, "%d", number);
+	capacity = length;
+
+	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
+	CROSS_ASSERT(length < max_int_len, "More data written in buffer than was allocated");
+}
+
+String::String(float number) {
+	const U32 max_float_len = 50;
+	data = new char[max_float_len];
+	length = sprintf(data, "%f", number);
+	capacity = length;
+
+	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
+	CROSS_ASSERT(length < max_float_len, "More data written in buffer than was allocated");
 }
 
 String::~String() {
@@ -55,6 +65,10 @@ String::~String() {
 
 U32 String::Length() const {
 	return length;
+}
+
+U32 String::Capacity() const {
+	return capacity;
 }
 
 const char* String::ToCStr() const {
@@ -71,9 +85,10 @@ float String::ToFloat() const {
 
 String& String::operator = (const char* cstr) {
 	S32 cLen = strlen(cstr);
-	if(length < cLen) {
+	if(capacity < cLen) {
 		delete[] data;
 		data = new char[cLen + 1];
+		capacity = cLen;
 	}
 	length = cLen;
 	memcpy(data, cstr, length + 1);
@@ -81,9 +96,10 @@ String& String::operator = (const char* cstr) {
 }
 
 String& String::operator = (const String& other) {
-	if(length < other.length) {
+	if(capacity < other.length) {
 		delete[] data;
 		data = new char[other.length + 1];
+		capacity = other.length;
 	}
 	length = other.length;
 	memcpy(data, other.data, other.length + 1);

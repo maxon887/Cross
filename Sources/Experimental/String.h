@@ -25,9 +25,11 @@ public:
 	String(const char* cstr);
 	String(const String& str);
 	String(S32 number);
+	String(float number);
 	~String();
 
 	U32 Length() const;
+	U32 Capacity() const;
 	const char* ToCStr() const;
 	S32 ToInt() const;
 	float ToFloat() const;
@@ -36,8 +38,9 @@ public:
 	String& operator = (const String& other);
 
 private:
-	char* data = null;
+	char* data = nullptr;
 	U32 length = 0;
+	U32 capacity = 0;
 };
 
 }
