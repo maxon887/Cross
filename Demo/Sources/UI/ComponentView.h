@@ -28,13 +28,14 @@ public:
 	ComponentView(const String& name);
 
 	virtual void Content(ComponentType* component) { }
+	virtual void EntitySelected(Entity* newEntity) { }
 
 	void Content(float sec) override;
 
 	void OnEntitySelected(Entity* entity);
 
 private:
-	Entity* selected_entity = null;
+	Entity* selected_entity = nullptr;
 
 	void OnScreenChanged(Screen* screen);
 };
@@ -56,9 +57,10 @@ void ComponentView<ComponentType>::Content(float sec) {
 template<class ComponentType>
 void ComponentView<ComponentType>::OnEntitySelected(Entity* entity) {
 	selected_entity = entity;
+	EntitySelected(entity);
 }
 
 template<class ComponentType>
 void ComponentView<ComponentType>::OnScreenChanged(Screen* screen) {
-	selected_entity = null;
+	selected_entity = nullptr;
 }

@@ -1,5 +1,3 @@
-precision mediump float;
-
 struct Light{
 	vec3 direction;
 	vec4 color;

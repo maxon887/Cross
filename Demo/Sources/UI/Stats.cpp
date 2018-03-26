@@ -32,7 +32,7 @@ void Stats::Content(float sec) {
 	U64 memory = MemoryManager::Instance()->AllocatedMemory();
 	if(memory > 10 * 1024) {
 		if(memory > 10 * 1024 * 1024) {
-			ImGui::Text("Memory Used - %.2f mb", memory / (1024 * 1024));
+			ImGui::Text("Memory Used - %.2f mb", memory / (1024.f * 1024.f));
 		} else {
 			ImGui::Text("Memory Used - %.2f kb", memory / 1024.f);
 		}

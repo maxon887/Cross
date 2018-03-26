@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
+    <width>222</width>
     <height>128</height>
    </rect>
   </property>
@@ -48,12 +48,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="shaderEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="loadBtn">
-          <property name="text">
-           <string>Load</string>
+         <widget class="FileHandler" name="shaderEdit">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -122,6 +119,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>FileHandler</class>
+   <extends>QLineEdit</extends>
+   <header>PropertyViews/FileHandler.h</header>
+  </customwidget>
   <customwidget>
    <class>MaterialView</class>
    <extends>QGroupBox</extends>

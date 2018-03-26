@@ -32,7 +32,7 @@ public:
 	void DidContent() override;
 	
 private:
-	Entity* selected_entity = null;
+	Entity* selected_entity = nullptr;
 
 	void LookAtObject();
 	void BuildNode(Entity* entity);

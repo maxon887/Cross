@@ -267,7 +267,7 @@ void Mesh::TransferVideoData() {
 }
 
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
-	if(vertex_buffer == null) {
+	if(vertex_buffer == nullptr) {
 		vertex_buffer = buffer->Clone();
 	} else {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());

@@ -28,7 +28,7 @@ void main() {
 #else
 	vTexCoords = aTexCoords;
 #endif
-	vNormal = normalize(mat3(uNormalMatrix) * aNormal);
+	vNormal = normalize(vec3(uNormalMatrix * vec4(aNormal, 1.0)));
 	vFragPosition = vec3(uModelMatrix * vec4(aPosition, 1.0));
 	vViewDirection = normalize(uCameraPosition - vFragPosition);
 	gl_Position = uMVP * vec4(aPosition, 1.0);

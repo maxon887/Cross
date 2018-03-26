@@ -169,7 +169,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 }
 
 HWND WinCreate(){
-	HINSTANCE instance = GetModuleHandle(null);
+	HINSTANCE instance = GetModuleHandle(nullptr);
 	WNDCLASSEX wc;
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -177,10 +177,10 @@ HWND WinCreate(){
 	wc.hIcon = (HICON)LoadImageA(instance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 64, 64, 0);
 	wc.lpfnWndProc = WinProc;
 	wc.hInstance = instance;
-	wc.hCursor = LoadCursor(null, IDC_ARROW);
+	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wc.lpszClassName = "Cross++";
 	RegisterClassEx(&wc);
 	
-	HWND hwnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, null, null, instance, null);
+	HWND hwnd = CreateWindow(wc.lpszClassName, "Cross++", WS_OVERLAPPEDWINDOW, 300, 0, 0, 0, nullptr, nullptr, instance, nullptr);
 	return hwnd;
 }

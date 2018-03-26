@@ -5,6 +5,8 @@
 #include "Material.h"
 #include "Game.h"
 #include "Scene.h"
+#include "FileHandler.h"
+#include "../CrossEditor.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -26,10 +28,10 @@ MaterialView::~MaterialView(){
 
 void MaterialView::Initialize(){
 	shader_label = findChild<QLabel*>("shaderLabel");
-	shader_edit = findChild<QLineEdit*>("shaderEdit");
+	shader_handler = findChild<FileHandler*>("shaderEdit");
+	shader_handler->SetFileExtension("sha");
+	shader_handler->FileChanged.Connect(this, &MaterialView::OnShaderChanged);
 	properties_box = findChild<QGroupBox*>("properties");
-	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
-	connect(loadBtn, &QPushButton::clicked, this, &MaterialView::OnLoadShaderClick);
 
 	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
 	color_dialog->setWindowFlags(color_dialog->windowFlags() | Qt::WindowStaysOnTopHint);
@@ -65,9 +67,9 @@ void MaterialView::OnFileSelected(const string& filepath){
 	delete original;
 	original = material->Clone();
 	if(material->GetShader()){
-		shader_edit->setText(material->GetShader()->GetFilename().c_str());
+		shader_handler->SetFile(material->GetShader()->GetFilename().c_str());
 	}else{
-		shader_edit->clear();
+		shader_handler->clear();
 	}
 
 	RefreshProperties();
@@ -83,6 +85,13 @@ void MaterialView::Clear(){
 		delete propertyLayout;
 		propertyLayout = properties_box->findChild<QWidget*>("propertyLayout");
 	} while(propertyLayout);
+}
+
+void MaterialView::OnShaderChanged(QString filename) {
+	Shader* newShader = game->GetCurrentScene()->GetShader(filename.toStdString().c_str());
+	material->SetShader(newShader);
+	RefreshProperties();
+	OnSomethingChanged();
 }
 
 void MaterialView::RefreshProperties() {
@@ -148,7 +157,6 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setObjectName("nameLabel");
 	propertyNameLabel->setText(name.c_str());
-	propertyNameLabel->setFixedWidth(250);
 	propertyLayout->addWidget(propertyNameLabel);
 
 	switch(type) {
@@ -177,15 +185,16 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	case cross::Shader::Property::COLOR: {
 		QPushButton* colorPicker = new QPushButton(propertyLayoutWidget);
 		colorPicker->setObjectName("colorPicker");
-		colorPicker->setFixedWidth(60);
-		colorPicker->setFixedHeight(31);
+		colorPicker->setFixedWidth(40);
+		colorPicker->setFixedHeight(20);
 		connect(colorPicker, &QPushButton::clicked, this, &MaterialView::OnColorPickerClicked);
 		propertyLayout->addWidget(colorPicker);
 
 		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
 		valueBox->setObjectName("valueBox");
 		valueBox->setInputMask("HHHHHHHH");
-		valueBox->setFixedWidth(100);
+		valueBox->setFixedWidth(60);
+		editor->AdjustSize(valueBox);
 		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
 		connect(valueBox, &QLineEdit::textChanged, this, &MaterialView::OnSomethingChanged);
 		propertyLayout->addWidget(valueBox);
@@ -204,19 +213,6 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	propertyLayoutWidget->show();
 
 	return propertyLayoutWidget;
-}
-
-void MaterialView::OnLoadShaderClick() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Shader File", path, "Shader File (*.sha)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		shader_edit->setText(filepath);
-		Shader* newShader = game->GetCurrentScene()->GetShader(filepath.toStdString().c_str());
-		material->SetShader(newShader);
-		RefreshProperties();
-	}
 }
 
 void MaterialView::OnApplyClick() {

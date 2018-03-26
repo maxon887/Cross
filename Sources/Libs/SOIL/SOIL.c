@@ -16,20 +16,25 @@
 #define SOIL_CHECK_FOR_GL_ERRORS 0
 
 #ifdef _WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#include <windows.h>
-	#include <wingdi.h>
-	#include <GL/gl.h>
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #include <wingdi.h>
+    #include <GL/gl.h>
 #elif defined(__APPLE__) || defined(__APPLE_CC__)
-	/*	I can't test this Apple stuff!	*/
-    #include <OpenGLES/ES1/gl.h>
-	//#include <Carbon/Carbon.h>
-	#define APIENTRY
+    //#include <Carbon/Carbon.h>
+#   include "TargetConditionals.h"
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#       include <OpenGLES/ES1/gl.h>
+#   else
+#       include <GL/glew.h>
+#   endif
+
+    #define APIENTRY
 #elif defined(ANDROID) || defined(__ANDROID__)
-	#include <GLES/gl.h>
+    #include <GLES/gl.h>
 #else
-	#include <GL/gl.h>
-	#include <GL/glx.h>
+    #include <GL/gl.h>
+    #include <GL/glx.h>
 #endif
 
 #include "SOIL.h"

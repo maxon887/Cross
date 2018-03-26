@@ -35,20 +35,20 @@ public:
 
 	/* Checks if Entity contains certain component T */
 	template<class T> bool HasComponent() const;
-	/* Returns certain component T contained in this Entity or null if component not found */
+	/* Returns certain component T contained in this Entity or nullptr if component not found */
 	template<class T> T* GetComponent();
-	/* Returns component by id contained in this Entity or null if component not found */
+	/* Returns component by id contained in this Entity or nullptr if component not found */
 	Component* GetComponent(U64 type);
 	/* Returns all components contained in this Entity */
 	Array<Component*> GetComponents();
-	/* Returns Transform component contained in this Entity or null if Transform not found */
+	/* Returns Transform component contained in this Entity or nullptr if Transform not found */
 	Transform* GetTransform();
 	/* Adds component to the current Entity component stack. Components with the same name can't be added twice */
 	void AddComponent(Component* component);
 	/* Removes component from Entity. Approprite Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
 	
-	/* Returns parent of the Entity or null if Entity doesn't have a parent (for root entity for ex) */
+	/* Returns parent of the Entity or nullptr if Entity doesn't have a parent (for root entity for ex) */
 	Entity* GetParent();
 	/* Sets parent for this Entity */
 	void SetParent(Entity* parent);
@@ -62,9 +62,9 @@ public:
 	Entity* FindChild(U32 index);
 	/* Returns Entity's child by its name */
 	Entity* FindChild(const String& name);
-	/* Removes child from Entity by name. Returns live child in case of success or null if child not found. Returned child must be utilized by hand. */
+	/* Removes child from Entity by name. Returns live child in case of success or nullptr if child not found. Returned child must be utilized by hand. */
 	Entity* RemoveChild(const String& nane);
-	/* Removes specific child from Entity. Returns the same object in case of success or null if child not found. Appropriate child's Remove() will be called. */
+	/* Removes specific child from Entity. Returns the same object in case of success or nullptr if child not found. Appropriate child's Remove() will be called. */
 	Entity* RemoveChild(Entity* child);
 	/* Clone this entity with all it's components and children */
 	Entity* Clone();
@@ -82,7 +82,7 @@ engineonly:
 private:
 	String name								= String();
 	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
-	Entity* parent							= null;
+	Entity* parent							= nullptr;
 	List<Entity*> children					= List<Entity*>();
 };
 
@@ -97,7 +97,7 @@ T* Entity::GetComponent(){
 	if(it != components.end()) {
 		return (T*)(*it).second;
 	} else {
-		return null;
+		return nullptr;
 	}
 }
 

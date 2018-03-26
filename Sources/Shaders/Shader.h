@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "Internals/GraphicsGL.h"
 
+#include <cstring>
+
 namespace cross{
 
 /*	This class needed to link gpu shader input data to engine cpu core. 
@@ -121,6 +123,7 @@ public:
 	virtual void Compile();
 	virtual void OnDraw() { }
 
+	void ReCompile();
 	bool IsCompiled() const;
 	String& GetFilename();
 	String& GetVertexFilename();
@@ -173,13 +176,14 @@ private:
 	GLuint fragment_shader		= 0;
 	String vertex_filename		= "";
 	String fragment_filename	= "";
-	File* vertex_file			= null;
-	File* fragment_file			= null;
+	File* vertex_file			= nullptr;
+	File* fragment_file			= nullptr;
 	U32 makro_len				= 0;
 	String filename				= "noname";
 
 	GLuint CompileShader(GLuint type, File* file);
 	void CompileProgram();
+	void FreeResources();
 };
 
 }

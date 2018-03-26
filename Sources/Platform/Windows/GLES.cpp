@@ -30,7 +30,7 @@
 
 using namespace cross;
 
-CrossEGL* crossEGL = null;
+CrossEGL* crossEGL = nullptr;
 
 int GLES_Main(){
 
@@ -60,7 +60,7 @@ int GLES_Main(){
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 	while(msg.message != WM_QUIT) {
-		while(PeekMessage(&msg, null, 0, 0, PM_REMOVE)){
+		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}

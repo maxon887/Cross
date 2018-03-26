@@ -19,7 +19,7 @@
 using namespace cross;
 
 Component* ComponentFactory::Create(const String& name) {
-	CROSS_RETURN(functions.find(name) != functions.end(), null, "Component %s didn't register in the factory", name.c_str());
+	CROSS_RETURN(functions.find(name) != functions.end(), nullptr, "Component %s didn't register in the factory", name.c_str());
 	return functions[name]();
 }
 

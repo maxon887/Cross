@@ -20,8 +20,6 @@
 #   define CROSS_DEBUG
 #endif
 
-#define null nullptr
-
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 
@@ -43,12 +41,16 @@ if(!(condition)) {													\
 }
 
 #if defined(__APPLE__) || defined(__APPLE_CC__)
-#	define IOS 1
+#   define APPLE true
+#   include "TargetConditionals.h"
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#       define IOS true
+#   else
+#       define MACOS true
+#   endif
 #endif
 
 #include <cstdint>
-
-#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
 
 namespace cross {
 	typedef int8_t		S8;
@@ -68,12 +70,16 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 #include "Math/All.h"
 #include "Color.h"
 
-#include <String>
+#include <string>
 #include <list>
 #include <map>
 #include <set>
 
 #include "Experimental/ArraySTD.h"
+
+#if !defined(ANDROID)
+#   define system cross_system
+#endif
 
 namespace cross{
 
@@ -91,7 +97,6 @@ using Set = std::set<Type>;
 class Game;
 class System;
 class GraphicsGL;
-class Graphics3D;
 class Input;
 class Config;
 class Audio;
@@ -100,7 +105,6 @@ class Screen;
 class Scene;
 class File;
 class Camera;
-class Camera2D;
 class Shader;
 class Entity;
 class Material;
@@ -108,10 +112,9 @@ class Mesh;
 class Model;
 class Texture;
 class Light;
-class Cubemap;
 class Component;
-class Collider;
 class Transform;
+class Cubemap;
 
 extern Game*		game;
 extern System*		system;
@@ -142,3 +145,12 @@ friend Input;			\
 friend Config;			\
 friend Scene;			\
 friend Screen;			
+
+#if defined(ANDROID)
+inline cross::String to_StringAndroid(int i) {
+    char buff[1024];
+    sprintf(buff, "%i", i);
+    return cross::String(buff);
+}
+#define  to_string to_StringAndroid
+#endif

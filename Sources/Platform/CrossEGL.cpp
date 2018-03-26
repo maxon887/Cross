@@ -44,7 +44,7 @@ void CrossEGL::UnbindWindow() {
 #ifdef ANDROID
 		ANativeWindow_release(native_window);
 #endif // ANDROID
-		native_window = null;
+		native_window = nullptr;
 	}else{
 		system->LogIt("Native window doesn't created");
 	}
@@ -69,7 +69,7 @@ bool CrossEGL::CreateContext(bool createDisplay) {
 #endif // ANDROID
 	}
 	//create surface
-	surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), null);
+	surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), nullptr);
 	CROSS_RETURN(surface != EGL_NO_SURFACE, false, "eglCreateWindowSurface failed");
 	//create context
 	if(createDisplay) {

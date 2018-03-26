@@ -18,7 +18,7 @@
 #include "Game.h"
 #include "Input.h"
 
-#define SCALED(x) x * system->GetScreenScale()
+#define SCALED(x) x * cross::system->GetScreenScale()
 
 using namespace cross;
 
@@ -32,9 +32,9 @@ extern Demo* demo;
 
 class Demo : public Game {
 public:
-	ImFont* small_font		= null;
-	ImFont* normal_font		= null;
-	ImFont* big_font		= null;
+	ImFont* small_font		= nullptr;
+	ImFont* normal_font		= nullptr;
+	ImFont* big_font		= nullptr;
 
 	void Start() override;
 	void Stop() override;
@@ -46,9 +46,9 @@ public:
 private:
 	static const char* GetClipboardString(void* userData);
 
-	MenuBar* menu			= null;
-	Shader* ui_shader		= null;
-	Texture* font_texture	= null;
+	MenuBar* menu			= nullptr;
+	Shader* ui_shader		= nullptr;
+	Texture* font_texture	= nullptr;
 	String clipboard		= "";
 	U32 vertex_buffer		= 0;
 	U32 index_buffer		= 0;
@@ -57,7 +57,7 @@ private:
 	Array<bool> actions		= Array<bool>(MAX_ACTIONS, false);
 	float mouse_wheel		= 0.0f;
 
-	bool CreateDeviceObjects();
+    bool CreateUIShaders();
 	bool CreateFontsTexture();
 	void RenderUI(ImDrawData*);
 

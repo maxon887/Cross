@@ -24,12 +24,13 @@ using namespace cross;
 class SceneView : public FreeCameraScene {
 public:
 	SceneView();
-	SceneView(const string& filename);
+	SceneView(const String& filename);
 
 	void Start() override;
 	void Stop() override;
 	void Update(float sec) override;
 
+	void OnEntityAdded(Entity* entity);
 	void OnEntitySelected(Entity* entity);
 	void OnEntityGrabFocus(Entity* entity);
 
@@ -42,6 +43,7 @@ private:
 
 	void Draw(Entity* e);
 	void EnableMesh(Entity* e, bool value);
+	void ApplyMaterial(Entity* entity, Material* mat);
 
 	void OnActionDown(Input::Action action);
 	void OnActionMove(Input::Action action);

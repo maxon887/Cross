@@ -186,7 +186,7 @@ void Scene::Save(const String& filename) {
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
 	system->SaveFile(&saveFile);
-	saveFile.data = null;
+	saveFile.data = nullptr;
 }
 
 void Scene::Clear() {
@@ -211,7 +211,7 @@ Entity* Scene::GetEntity(const String& name) {
 	if(child){
 		return child;
 	}
-	CROSS_RETURN(false, null, "Can not find entity %s", name.c_str());
+	CROSS_RETURN(false, nullptr, "Can not find entity %s", name.c_str());
 }
 
 void Scene::AddEntity(Entity* entity) {
@@ -229,7 +229,7 @@ Entity* Scene::LoadPrimitive(Model::Primitive primitive) {
 	case Model::PLANE:
 		return GetModel("Engine/Models/Plane.obj")->GetHierarchy();
 	default:
-		CROSS_RETURN(false, null, "Unknown primitive type");
+		CROSS_RETURN(false, nullptr, "Unknown primitive type");
 	}
 }
 
@@ -298,7 +298,7 @@ Texture* Scene::GetTexture(const String& textureFile) {
 Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 	S32 hash = (S32)std::hash<String>{}(textureFile);
 	auto textureIt = textures.find(hash);
-	CROSS_RETURN(textureIt == textures.end(), null, "Texture already loaded. Can't load it second time");
+	CROSS_RETURN(textureIt == textures.end(), nullptr, "Texture already loaded. Can't load it second time");
 
 	Texture* texture = new Texture();
 	texture->Load(textureFile, filter);
@@ -306,26 +306,33 @@ Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 	return texture;
 }
 
-Model* Scene::GetModel(const String& modelFile) {
+Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) {
 	S32 hash = (S32)std::hash<String>{}(modelFile);
 	auto modelIt = models.find(hash);
 	if(modelIt != models.end()) {
 		return (*modelIt).second;
 	} else {
 		Model* model = new Model();
-		model->Load(modelFile);
+		model->Load(modelFile, calcTangents);
 		models[hash] = model;
 		return model;
 	}
 }
 
-void Scene::ResetMaterials(){
-	for(pair<S32, Material*> pair : materials){
+void Scene::ResetMaterials() {
+	for(pair<S32, Material*> pair : materials) {
 		pair.second->Reset();
 	}
 }
 
-void Scene::SetAmbientColor(const Color& color){
+void Scene::ResetShaders() {
+	for(pair<S32, Shader*> pair : shaders) {
+		Shader* shader = pair.second;
+		shader->ReCompile();
+	}
+}
+
+void Scene::SetAmbientColor(const Color& color) {
 	this->ambient_color = color;
 }
 

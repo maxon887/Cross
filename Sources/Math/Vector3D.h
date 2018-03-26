@@ -21,7 +21,7 @@ namespace cross{
 class Vector2D;
 class Vector4D;
 
-class Vector3D{
+class Vector3D {
 public:
 	static const Vector3D Zero;
 	static const Vector3D Up;
@@ -47,7 +47,7 @@ public:
 	Vector3D GetNormalized() const;
 	bool IsNormalized() const;
 	Vector3D GetTruncated(float len) const;
-	const float* GetData() const;
+	float* GetData();
 	void SetData(const float* data);
 
 	bool operator == (const Vector3D& v2) const;

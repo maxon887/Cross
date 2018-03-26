@@ -36,11 +36,17 @@
 
 #define DEFAULT_FONT_SIZE 13.f
 
-Demo* demo = null;
+using namespace cross;
+
+Demo* demo = nullptr;
 
 const char* Demo::GetClipboardString(void* userData) {
 	demo->clipboard = system->GetClipboard();
 	return demo->clipboard.c_str();
+}
+
+Game* CrossMain() {
+    return new Demo();
 }
 
 void Demo::Start() {
@@ -85,9 +91,8 @@ void Demo::Start() {
 	io.ImeWindowHandle = winSys->GetHWND();
 #endif
 
-	CreateDeviceObjects();
+    CreateUIShaders();
 	CreateFontsTexture();
-
 
 	ImGui::LoadStyle();
 
@@ -162,7 +167,7 @@ MenuBar* Demo::GetMenuBar() {
 	return menu;
 }
 
-bool Demo::CreateDeviceObjects() {
+bool Demo::CreateUIShaders() {
 	ui_shader = new Shader();
 	ui_shader->Load("Engine/Shaders/UI.sha");
 	ui_shader->Compile();

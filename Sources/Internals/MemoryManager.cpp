@@ -20,6 +20,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <mutex>
+#include <cstring>
 
 #if defined(CROSS_DEBUG) && !defined(EDITOR)
 
@@ -135,7 +136,7 @@ void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned lo
 void MemoryManager::Free(void* address) {
 	if(!dead){
 		SanityCheck();
-		if(address == null){
+		if(address == nullptr){
 			return;
 		}
 		for(unsigned int i = 0; i < object_count; i++){

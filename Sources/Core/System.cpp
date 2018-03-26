@@ -18,8 +18,9 @@
 #include "File.h"
 
 #include <stdarg.h>
+#include <cstring>
 
-#if defined(WIN) || defined(EDITOR)
+#if defined(WIN) || defined(EDITOR) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
 #	define DEFAULT_SCREEN_DPI 160.f
@@ -35,7 +36,7 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
 
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.c_str(), "rb");
-	CROSS_RETURN(f, null, "Can not open file %s", filename.c_str());
+	CROSS_RETURN(f, nullptr, "Can not open file %s", filename.c_str());
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
@@ -72,7 +73,7 @@ void System::SaveDataFile(File* file) {
 bool System::IsDataFileExists(const String& filename) {
 	String fullpath = DataPath() + filename;
 	FILE* f = fopen(fullpath.c_str(), "r");
-	bool result = f != null;
+	bool result = f != nullptr;
 	if(result) {
 		fclose(f);
 	}
@@ -108,7 +109,7 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 		str += "File: ";
 		str += filename;
 		str += "\n";
-		str += "Line: " + to_String(line);
+		str += "Line: " + to_string(line);
 		LogIt(str.c_str());
 #endif
 	}
@@ -119,8 +120,7 @@ void System::Sleep(float milis) {
 }
 
 void System::Messagebox(const String& title, const String& msg) {
-	LogIt("\t" + title);
-	LogIt(msg);
+    LogIt("System message box not implemented. Can not show message to user");
 }
 
 float System::GetScreenDPI() {
@@ -143,7 +143,10 @@ void System::LogIt(const char* format, ...) {
 	vsprintf(buffer, format, params);
 	Log(buffer);
 #ifdef CROSS_DEBUG
-	auto iter = log_buffer.end();
+	if(log_buffer.size() > 8192) {
+		log_buffer.erase(log_buffer.begin(), log_buffer.begin() + 1024);
+	}
+
 	if(log_buffer.size() != 0) {
 		log_buffer.pop_back();
 	}
@@ -167,10 +170,12 @@ float System::GetScreenScale() {
 }
 
 S32 System::GetWindowWidth() const {
+    CROSS_RETURN(window_width != -1, -1, "Window size not specified");
 	return window_width;
 }
 
 S32 System::GetWindowHeight() const {
+    CROSS_RETURN(window_height != -1, -1, "Window size not specified");
 	return window_height;
 }
 

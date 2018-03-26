@@ -34,13 +34,13 @@ void ShowLastError(){
 	DWORD error = GetLastError();
 	LPTSTR str;
 	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		null,
+		nullptr,
 		error,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),							  // Default language
 		(LPTSTR)&str,
 		0,
-		null);
-	MessageBox(null, str, "Error", MB_OK);
+		nullptr);
+	MessageBox(nullptr, str, "Error", MB_OK);
 }
 
 int OpenGL_Main(){
@@ -101,7 +101,7 @@ int OpenGL_Main(){
 
 	ZeroMemory(&msg, sizeof(MSG));
 	while(msg.message != WM_QUIT) {
-		while(PeekMessage(&msg, null, 0, 0, PM_REMOVE)){
+		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
