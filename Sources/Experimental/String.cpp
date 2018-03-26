@@ -105,3 +105,58 @@ String& String::operator = (const String& other) {
 	memcpy(data, other.data, other.length + 1);
 	return *this;
 }
+
+bool String::operator == (const char* other) const {
+	return strcmp(data, other) == 0;
+}
+
+bool String::operator != (const char* other) const {
+	return !(*this == other);
+}
+
+bool String::operator == (const String& other) const {
+	return strcmp(data, other.data) == 0;
+}
+
+bool String::operator != (const String& other) const {
+	return !(*this == other);
+}
+
+void String::operator += (const char* other) {
+	int otherLen = strlen(other);
+	int requiredLen = length + otherLen;
+	if(requiredLen > capacity) {
+		char* newData = new char[requiredLen + 1];
+		memcpy(newData, data, length);
+		delete[] data;
+		data = newData;
+		capacity = requiredLen;
+	}
+	memcpy(data + length, other, otherLen + 1);
+	length = requiredLen;
+}
+
+String String::operator + (const char* other) const {
+	String result = *this;
+	result += other;
+	return result;
+}
+
+void String::operator += (const String& other) {
+	int requiredLen = length + other.length;
+	if(requiredLen > capacity) {
+		char* newData = new char[requiredLen + 1];
+		memcpy(newData, data, length);
+		delete[] data;
+		data = newData;
+		capacity = requiredLen;
+	}
+	memcpy(data + length, other.data, other.length + 1);
+	length = requiredLen;
+}
+
+String String::operator + (const String& other) const {
+	String result = *this;
+	result += other;
+	return result;
+}

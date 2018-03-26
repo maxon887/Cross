@@ -37,6 +37,16 @@ public:
 	String& operator = (const char* other);
 	String& operator = (const String& other);
 
+	bool operator == (const char* other) const;
+	bool operator != (const char* other) const;
+	bool operator == (const String& other) const;
+	bool operator != (const String& other) const;
+
+	void operator += (const char* other);
+	String operator + (const char* other) const;
+	void operator += (const String& other);
+	String operator + (const String& other) const;
+
 private:
 	char* data = nullptr;
 	U32 length = 0;
