@@ -72,14 +72,14 @@ GraphicsGL::GraphicsGL() {
 	system->LogIt("\tGLSL version - %s", shaderVersion);
 
     shader_version = shaderVersion;
-	shader_version.erase(remove(shader_version.begin(), shader_version.end(), '.'));
-	std::size_t const n = shader_version.find_first_of("0123456789");
+	std::size_t const n = shader_version.find_first_of("0123456789.");
 	if (n != std::string::npos) {
-		std::size_t const m = shader_version.find_first_not_of("0123456789", n);
+		std::size_t const m = shader_version.find_first_not_of("0123456789.", n);
 		shader_version = shader_version.substr(n, m != std::string::npos ? m-n : m);
 	} else {
 		CROSS_ASSERT(false, "Can not obtain shader version");
 	}
+	shader_version.erase(remove(shader_version.begin(), shader_version.end(), '.'));
 	
 	GLint value;
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value));
