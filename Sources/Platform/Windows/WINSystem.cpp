@@ -103,7 +103,7 @@ String WINSystem::GetClipboard() {
 
 void WINSystem::Messagebox(const String& title, const String& msg) {
 	if(wnd) {
-		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(wnd, msg.ToCStr(), title.ToCStr(), MB_OK | MB_ICONEXCLAMATION);
 	} else {
 		LogIt("HWND == nullptr");
 		System::Messagebox(title, msg);

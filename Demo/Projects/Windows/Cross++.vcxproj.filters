@@ -312,6 +312,9 @@
     <ClCompile Include="..\..\Sources\UI\Log.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Experimental\String.cpp">
+      <Filter>Cross\Experimental</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">

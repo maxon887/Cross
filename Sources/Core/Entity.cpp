@@ -66,7 +66,7 @@ Array<Component*> Entity::GetComponents() {
 }
 
 Transform* Entity::GetTransform() {
-	CROSS_RETURN(HasComponent<Transform>(), nullptr, "Entity '%s' does't contains Tranform component", name.c_str());
+	CROSS_RETURN(HasComponent<Transform>(), nullptr, "Entity '%s' does't contains Tranform component", name.ToCStr());
 	return GetComponent<Transform>();
 }
 

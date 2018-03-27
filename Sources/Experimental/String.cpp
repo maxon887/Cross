@@ -14,6 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+//#include "BaseTypes.h"
+#include "Cross.h"
 #include "String.h"
 
 #include <cstring>
@@ -31,6 +33,24 @@ String::String(const char* cstr) {
 	memcpy(data, cstr, length + 1);
 }
 
+String::String(const char* cstr, U32 len, U32 cap) :
+	length(len),
+	capacity(cap)
+{
+	data = new char[capacity + 1];
+	memcpy(data, cstr, length + 1);
+}
+
+String::String(const char* begin, const char* end) {
+	const char* iter = begin;
+	while(iter != end) {
+		length++;
+	}
+	capacity = length;
+	data = new char[capacity + 1];
+	memcpy(data, begin, length + 1);
+}
+
 String::String(const String& str) :
 	length(str.length),
 	capacity(str.capacity)
@@ -41,6 +61,16 @@ String::String(const String& str) :
 
 String::String(S32 number) {
 	const U32 max_int_len = 12;	//max possible 32 bit int value
+	data = new char[max_int_len];
+	length = sprintf(data, "%d", number);
+	capacity = length;
+
+	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
+	CROSS_ASSERT(length < max_int_len, "More data written in buffer than was allocated");
+}
+
+String::String(U32 number) {
+	const U32 max_int_len = 11;
 	data = new char[max_int_len];
 	length = sprintf(data, "%d", number);
 	capacity = length;
@@ -80,11 +110,11 @@ S32 String::ToInt() const {
 }
 
 float String::ToFloat() const {
-	return atof(data);
+	return (float)atof(data);
 }
 
 String& String::operator = (const char* cstr) {
-	S32 cLen = strlen(cstr);
+	U32 cLen = strlen(cstr);
 	if(capacity < cLen) {
 		delete[] data;
 		data = new char[cLen + 1];
@@ -123,8 +153,8 @@ bool String::operator != (const String& other) const {
 }
 
 void String::operator += (const char* other) {
-	int otherLen = strlen(other);
-	int requiredLen = length + otherLen;
+	U32 otherLen = strlen(other);
+	U32 requiredLen = length + otherLen;
 	if(requiredLen > capacity) {
 		char* newData = new char[requiredLen + 1];
 		memcpy(newData, data, length);
@@ -136,14 +166,8 @@ void String::operator += (const char* other) {
 	length = requiredLen;
 }
 
-String String::operator + (const char* other) const {
-	String result = *this;
-	result += other;
-	return result;
-}
-
 void String::operator += (const String& other) {
-	int requiredLen = length + other.length;
+	U32 requiredLen = length + other.length;
 	if(requiredLen > capacity) {
 		char* newData = new char[requiredLen + 1];
 		memcpy(newData, data, length);
@@ -155,8 +179,29 @@ void String::operator += (const String& other) {
 	length = requiredLen;
 }
 
-String String::operator + (const String& other) const {
-	String result = *this;
-	result += other;
+namespace cross {
+
+String operator + (const String& left, const char* right) {
+	U32 cstrLen = strlen(right);
+	U32 capacity = cstrLen + left.length;
+	String result(left.ToCStr(), left.length, capacity);
+	result += right;
 	return result;
+}
+
+String operator + (const char* left, const String& right) {
+	U32 cstrLen = strlen(left);
+	U32 capacity = cstrLen + right.length;
+	String result(left, cstrLen, capacity);
+	result += right;
+	return result;
+}
+
+String operator + (const String& left, const String& right) {
+	U32 capacity = left.length + right.length;
+	String result(left.ToCStr(), left.length, capacity);
+	result += right;
+	return result;
+}
+
 }

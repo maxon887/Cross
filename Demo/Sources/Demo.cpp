@@ -42,7 +42,7 @@ Demo* demo = nullptr;
 
 const char* Demo::GetClipboardString(void* userData) {
 	demo->clipboard = system->GetClipboard();
-	return demo->clipboard.c_str();
+	return demo->clipboard.ToCStr();
 }
 
 Game* CrossMain() {
@@ -198,21 +198,21 @@ bool Demo::CreateFontsTexture() {
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
 	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
+	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).ToCStr());
 	strcat(fontConfig.Name, "px");
 	small_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 1.5f;
 	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
 	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
+	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).ToCStr());
 	strcat(fontConfig.Name, "px");
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 2.f;
 	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
 	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
+	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).ToCStr());
 	strcat(fontConfig.Name, "px");
 	big_font = io.Fonts->AddFontDefault(&fontConfig);
 

@@ -30,7 +30,7 @@ void MultiLightScene::Start(){
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 	
 	for(U32 i = 0; i < 8; ++i){
-		Entity* light = new Entity("PointLight_" + to_string(i));
+		Entity* light = new Entity("PointLight_" + String(i));
 		light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::POINT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));

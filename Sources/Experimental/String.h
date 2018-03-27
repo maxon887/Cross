@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "BaseTypes.h"
 
 namespace cross {
 
@@ -23,8 +22,10 @@ class String {
 public:
 	String();
 	String(const char* cstr);
+	String(const char* begin, const char* end);
 	String(const String& str);
 	String(S32 number);
+	String(U32 number);
 	String(float number);
 	~String();
 
@@ -43,14 +44,17 @@ public:
 	bool operator != (const String& other) const;
 
 	void operator += (const char* other);
-	String operator + (const char* other) const;
 	void operator += (const String& other);
-	String operator + (const String& other) const;
+	friend String operator + (const String& left, const char* right);
+	friend String operator + (const char* left, const String& right);
+	friend String operator + (const String& left, const String& right);
 
 private:
 	char* data = nullptr;
 	U32 length = 0;
 	U32 capacity = 0;
+
+	String(const char* cstr, U32 length, U32 capacity);
 };
 
 }

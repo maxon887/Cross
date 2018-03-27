@@ -58,7 +58,7 @@ void Model::Load(const String& filename, bool calcTangents, bool transferVideoDa
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Model(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+	system->LogIt("Model(%s) loaded in %0.1fms", filename.ToCStr(), loadTime);
 }
 
 const String& Model::GetFilename() const {
@@ -85,7 +85,7 @@ void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	}
 	aiNode* aiRoot = current_scene->mRootNode;
 	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
-	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
+	root->SetName(aiRoot->mChildren[0]->mName.ToCStr());
 	ProcessNode(root, aiRoot->mChildren[0]);
 }
 
@@ -107,7 +107,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
-		Entity* child = new Entity(node->mChildren[i]->mName.C_Str());
+		Entity* child = new Entity(node->mChildren[i]->mName.ToCStr());
 		child->SetParent(entity);
 		ProcessNode(child, node->mChildren[i]);
 		entity->AddChild(child);

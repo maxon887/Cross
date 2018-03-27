@@ -41,13 +41,13 @@ bool View::IsVisible() const {
 
 void View::Update(float sec) {
 	if(visible) {
-		const char* name = landscape_name.c_str();
+		const char* name = landscape_name.ToCStr();
 		switch(system->GetDeviceOrientation()) {
 		case System::Orientation::LANDSCAPE:
-			name = landscape_name.c_str();
+			name = landscape_name.ToCStr();
 			break;
 		case System::Orientation::PORTRAIT:
-			name = portrait_name.c_str();
+			name = portrait_name.ToCStr();
 			break;
 		default:
 			CROSS_FAIL(false, "Unknown device orientation");

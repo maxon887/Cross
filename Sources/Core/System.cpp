@@ -35,8 +35,8 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
 }
 
 File* System::LoadFile(const String& filename) {
-	FILE* f = fopen(filename.c_str(), "rb");
-	CROSS_RETURN(f, nullptr, "Can not open file %s", filename.c_str());
+	FILE* f = fopen(filename.ToCStr(), "rb");
+	CROSS_RETURN(f, nullptr, "Can not open file %s", filename.ToCStr());
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
@@ -44,7 +44,7 @@ File* System::LoadFile(const String& filename) {
 	fseek(f, 0, SEEK_SET);
 	file->data = new Byte[file->size];
 	U64 read = fread(file->data, sizeof(Byte), file->size, f);
-	CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
+	CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.ToCStr());
 	fclose(f);
 	return file;
 }
@@ -58,10 +58,10 @@ File* System::LoadDataFile(const String& filename) {
 }
 
 void System::SaveFile(File* file) {
-	FILE* f = fopen(file->name.c_str(), "wb");
-	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.c_str());
+	FILE* f = fopen(file->name.ToCStr(), "wb");
+	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.ToCStr());
 	U64 written = fwrite(file->data, 1, file->size, f);
-	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.c_str());
+	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.ToCStr());
 	fclose(f);
 }
 
@@ -72,7 +72,7 @@ void System::SaveDataFile(File* file) {
 
 bool System::IsDataFileExists(const String& filename) {
 	String fullpath = DataPath() + filename;
-	FILE* f = fopen(fullpath.c_str(), "r");
+	FILE* f = fopen(fullpath.ToCStr(), "r");
 	bool result = f != nullptr;
 	if(result) {
 		fclose(f);
@@ -81,7 +81,7 @@ bool System::IsDataFileExists(const String& filename) {
 }
 
 bool System::Alert(const String& msg) {
-	Messagebox("Something goes wrong", msg.c_str());
+	Messagebox("Something goes wrong", msg.ToCStr());
 	return false;
 }
 
@@ -110,7 +110,7 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 		str += filename;
 		str += "\n";
 		str += "Line: " + to_string(line);
-		LogIt(str.c_str());
+		LogIt(str.ToCStr());
 #endif
 	}
 }
@@ -158,7 +158,7 @@ void System::LogIt(const char* format, ...) {
 }
 
 void System::LogIt(const String& msg) {
-	LogIt(msg.c_str());
+	LogIt(msg.ToCStr());
 }
 
 void System::LogIt(const Vector3D& vector) {

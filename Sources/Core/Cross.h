@@ -76,6 +76,7 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 #include <set>
 
 #include "Experimental/ArraySTD.h"
+#include "Experimental/String.h"
 
 #if !defined(ANDROID)
 #   define system cross_system
@@ -83,7 +84,7 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 
 namespace cross{
 
-typedef std::string	String;
+//typedef std::string	String;
 
 template<typename Type>
 using Array = ArraySTD<Type>;

@@ -113,6 +113,7 @@
     <ClCompile Include="..\..\..\Sources\Core\Texture.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Transform.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Sources\Experimental\String.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />

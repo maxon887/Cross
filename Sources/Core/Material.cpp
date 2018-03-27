@@ -110,13 +110,13 @@ void Material::Save(const String& filename) {
 	XMLDocument doc;
 	XMLElement* materialXML = doc.NewElement("Material");
 	if(GetShader()) {
-		materialXML->SetAttribute("shader", GetShader()->GetFilename().c_str());
+		materialXML->SetAttribute("shader", GetShader()->GetFilename().ToCStr());
 	}
 	doc.LinkEndChild(materialXML);
 
 	for(const Shader::Property& prop : properties) {
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop.GetName().c_str());
+		propertyXML->SetAttribute("name", prop.GetName().ToCStr());
 		switch(prop.GetType()) {
 		case Shader::Property::Type::COLOR: {
 			int rInt = (int)(prop.value.color.R * 255);
@@ -132,7 +132,7 @@ void Material::Save(const String& filename) {
 			ss << std::setw(2) << std::setfill('0') << aInt;
 			String text = ss.str();
 			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-			propertyXML->SetAttribute("value", text.c_str());
+			propertyXML->SetAttribute("value", text.ToCStr());
 			break;
 		}
 		default:
@@ -171,7 +171,7 @@ Shader::Property* Material::GetProperty(const String& name){
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, nullptr, "Can not find property '%s'", name.c_str());
+	CROSS_RETURN(false, nullptr, "Can not find property '%s'", name.ToCStr());
 }
 
 Shader::Property* Material::GetProperty(U64 glID){
@@ -189,43 +189,43 @@ Array<Shader::Property>& Material::GetProperties(){
 
 void Material::SetPropertyValue(const String& name, S32 value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, float value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, const Color& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Vector3D& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Vector4D& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Matrix& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Texture* value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name.c_str());
+	CROSS_FAIL(prop, "Can not set property '%s'", name.ToCStr());
 	prop->SetValue(value);
 }
 

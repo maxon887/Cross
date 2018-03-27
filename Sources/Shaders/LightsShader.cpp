@@ -74,29 +74,29 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 	for(U32 i = 0; i < pointCount; ++i) {
 		String structName = "uPointLights[" + to_string(i) + "]";
 		LightUniforms uniforms;
-		uniforms.position = glGetUniformLocation(program, String(structName + ".position").c_str());
-		uniforms.color = glGetUniformLocation(program, String(structName + ".color").c_str());
-		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity").c_str());
+		uniforms.position = glGetUniformLocation(program, String(structName + ".position").ToCStr());
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color").ToCStr());
+		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity").ToCStr());
 		uPointLights.push_back(uniforms);
 	}
 
 	for(U32 i = 0; i < directionalCount; ++i) {
 		String structName = "uDirectionalLights[" + to_string(i) + "]";
 		LightUniforms uniforms;
-		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").c_str());
-		uniforms.color = glGetUniformLocation(program, String(structName + ".color").c_str());
+		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").ToCStr());
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color").ToCStr());
 		uDirectionalLights.push_back(uniforms);
 	}
 
 	for(U32 i = 0; i < spotCount; ++i) {
 		String structName = "uSpotLights[" + to_string(i) + "]";
 		LightUniforms uniforms;
-		uniforms.position = glGetUniformLocation(program, String(structName + ".position").c_str());
-		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").c_str());
-		uniforms.color = glGetUniformLocation(program, String(structName + ".color").c_str());
-		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity").c_str());
-		uniforms.cut_off = glGetUniformLocation(program, String(structName + ".cut_off").c_str());
-		uniforms.outer_cut_off = glGetUniformLocation(program, String(structName + ".outer_cut_off").c_str());
+		uniforms.position = glGetUniformLocation(program, String(structName + ".position").ToCStr());
+		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").ToCStr());
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color").ToCStr());
+		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity").ToCStr());
+		uniforms.cut_off = glGetUniformLocation(program, String(structName + ".cut_off").ToCStr());
+		uniforms.outer_cut_off = glGetUniformLocation(program, String(structName + ".outer_cut_off").ToCStr());
 		uSpotLights.push_back(uniforms);
 	}
 }
