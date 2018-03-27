@@ -40,6 +40,7 @@ public:
 	void Uppercase();
 	void Lowercase();
 	void Remove(const char* subStr);
+	void Cut(U32 first, U32 last);
 	const char* ToCStr() const;
 	S32 ToInt() const;
 	float ToFloat() const;
