@@ -97,6 +97,35 @@ U32 String::Length() const {
 	return length;
 }
 
+U32 String::Capacity() const {
+	return capacity;
+}
+
+S32 String::Find(const char* subStr) {
+	char* result = strstr(data, subStr);
+	if(result) {
+		return result - data;
+	} else {
+		return -1;
+	}
+}
+
+S32 String::FindFirstOf(const char* sequence) {
+	U32 occurence = strcspn(data, sequence);
+	if(occurence == length) {
+		return -1;
+	}
+	return occurence;
+}
+
+S32 String::FindNonFirstOf(const char* sequence) {
+	U32 occurence = strspn(data, sequence);
+	if(occurence == length) {
+		return -1;
+	}
+	return occurence;
+}
+
 void String::Remove(const char* subStr) {
 	char* begin = strstr(data, subStr);
 	if(begin) {
@@ -106,10 +135,6 @@ void String::Remove(const char* subStr) {
 		length -= cLen;
 		Remove(subStr);
 	}
-}
-
-U32 String::Capacity() const {
-	return capacity;
 }
 
 const char* String::ToCStr() const {
