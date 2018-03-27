@@ -14,8 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-//#include "BaseTypes.h"
-#include "Cross.h"
+#include "BaseTypes.h"
+//#include "Cross.h"
 #include "String.h"
 
 #include <cstring>
@@ -95,6 +95,17 @@ String::~String() {
 
 U32 String::Length() const {
 	return length;
+}
+
+void String::Remove(const char* subStr) {
+	char* begin = strstr(data, subStr);
+	if(begin) {
+		U32 cLen = strlen(subStr);
+		U32 size = length - (begin - data);
+		memcpy(begin, begin + cLen, size + 1);
+		length -= cLen;
+		Remove(subStr);
+	}
 }
 
 U32 String::Capacity() const {

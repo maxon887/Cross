@@ -30,6 +30,7 @@ public:
 	~String();
 
 	U32 Length() const;
+	void Remove(const char* subStr);
 	U32 Capacity() const;
 	const char* ToCStr() const;
 	S32 ToInt() const;
