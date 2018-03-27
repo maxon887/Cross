@@ -21,6 +21,7 @@
 #include <cstring>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
 using namespace cross;
 
@@ -101,7 +102,7 @@ U32 String::Capacity() const {
 	return capacity;
 }
 
-S32 String::Find(const char* subStr) {
+S32 String::Find(const char* subStr) const {
 	char* result = strstr(data, subStr);
 	if(result) {
 		return result - data;
@@ -110,20 +111,44 @@ S32 String::Find(const char* subStr) {
 	}
 }
 
-S32 String::FindFirstOf(const char* sequence) {
-	U32 occurence = strcspn(data, sequence);
-	if(occurence == length) {
-		return -1;
-	}
-	return occurence;
+S32 String::FindFirstOf(const char* sequence) const {
+	return FindFirstOf(sequence, 0);
 }
 
-S32 String::FindNonFirstOf(const char* sequence) {
-	U32 occurence = strspn(data, sequence);
+S32 String::FindFirstOf(const char* sequence, U32 startPos) const {
+	U32 occurence = strcspn(data + startPos, sequence);
 	if(occurence == length) {
 		return -1;
 	}
-	return occurence;
+	return startPos + occurence;
+}
+
+S32 String::FindNonFirstOf(const char* sequence) const {
+	return FindNonFirstOf(sequence, 0);
+}
+
+S32 String::FindNonFirstOf(const char* sequence, U32 startPos) const {
+	U32 occurence = strspn(data + startPos, sequence);
+	if(occurence == length) {
+		return -1;
+	}
+	return startPos + occurence;
+}
+
+void String::Uppercase() {
+	char* start = data;
+	while(*start) {
+		*start = toupper(*start);
+		start++;
+	}
+}
+
+void String::Lowercase() {
+	char* start = data;
+	while(*start) {
+		*start = tolower(*start);
+		start++;
+	}
 }
 
 void String::Remove(const char* subStr) {

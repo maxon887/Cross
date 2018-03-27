@@ -31,10 +31,14 @@ public:
 
 	U32 Length() const;
 	U32 Capacity() const;
-	/* Returns position of a first occurrence of subStr in this String or -1 if wan't found */
-	S32 Find(const char* subStr);
-	S32 FindFirstOf(const char* sequence);
-	S32 FindNonFirstOf(const char* sequence);
+	/* Returns position of a first occurrence of subStr in this String or -1 if wasn't found */
+	S32 Find(const char* subStr) const;
+	S32 FindFirstOf(const char* sequence) const;
+	S32 FindFirstOf(const char* sequence, U32 startPos) const;
+	S32 FindNonFirstOf(const char* sequence) const;
+	S32 FindNonFirstOf(const char* sequence, U32 startPos) const;
+	void Uppercase();
+	void Lowercase();
 	void Remove(const char* subStr);
 	const char* ToCStr() const;
 	S32 ToInt() const;
