@@ -14,8 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-//#include "BaseTypes.h"
-#include "Cross.h"
+#include "BaseTypes.h"
+//#include "Cross.h"
 #include "String.h"
 
 #include <cstring>
@@ -25,7 +25,13 @@
 
 using namespace cross;
 
-String::String() : String("") { }
+String::String() :
+	length(0),
+	capacity(0)
+{
+	data = new char[capacity + 1];
+	data[0] = '\0';
+}
 
 String::String(const char* cstr) {
 	length = strlen(cstr);
@@ -173,11 +179,19 @@ const char* String::ToCStr() const {
 }
 
 S32 String::ToInt() const {
-	return atoi(data);
+	char* endp;
+	S32 value = strtol(data, &endp, 10);
+	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to integer failed");
+	CROSS_ASSERT(*endp != '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected");
+	return value;
 }
 
 float String::ToFloat() const {
-	return (float)atof(data);
+	char* endp;
+	float value = strtof(data, &endp);
+	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to float failed");
+	CROSS_ASSERT(*endp != '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected");
+	return value;
 }
 
 String& String::operator = (const char* cstr) {
