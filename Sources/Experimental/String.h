@@ -36,6 +36,10 @@ public:
 	U32 Capacity() const;
 	/* Cleans all charactes in this string without momory reallocation */
 	void Clean();
+	/* Returns true if string is empty */
+	bool IsEmpty() const;
+	/* Calculates has from current String */
+	U64 Hash() const;
 	/* Returns position of a first occurrence of char c in this String or -1 if wasn't found */
 	S32 Find(char c) const;
 	/* Returns position of a first occurrence of subStr in this String or -1 if wasn't found */
@@ -55,9 +59,11 @@ public:
 	/* Converts this string to lowercase */
 	void Lowercase();
 	/* Removes first occurrence of subStr in current String */
-	void Remove(const char* subStr);
+	bool Remove(const char* subStr);
 	/* Removes all characters before first argument and after last from current String */
 	void Cut(U32 first, U32 last);
+	/* Returns cut String from first character to last by arguments */
+	String SubString(U32 first, U32 last) const;
 	/* Returns data pointer on this String */
 	char* ToCStr() const;
 	/* Converts this String to integer type and returns it */
@@ -79,11 +85,10 @@ public:
 
 	void operator += (const char* other);
 	void operator += (const String& other);
+
 	friend String operator + (const String& left, const char* right);
 	friend String operator + (const char* left, const String& right);
 	friend String operator + (const String& left, const String& right);
-	template<class Convertable>
-	friend String operator + (const String& left, const Convertable& right);
 
 private:
 	char* data = nullptr;
@@ -93,9 +98,5 @@ private:
 	String(const char* cstr, U32 length, U32 capacity);
 };
 
-template<class Convertable>
-String operator + (const String& left, const Convertable& right) {
-	return left + String(right);
-}
 
 }

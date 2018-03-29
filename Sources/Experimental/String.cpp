@@ -128,6 +128,20 @@ void String::Clean() {
 	*data = '\0';
 }
 
+bool String::IsEmpty() const {
+	return length == 0;
+}
+
+U64 String::Hash() const {
+	U64 hash = 5381;
+	int c;
+	char* str = data;
+	while(c = *str++) {
+		hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+	}
+	return hash;
+}
+
 S32 String::Find(char c) const {
 	char* result = strchr(data, c);
 	if(result) {
@@ -195,7 +209,7 @@ void String::Lowercase() {
 	}
 }
 
-void String::Remove(const char* subStr) {
+bool String::Remove(const char* subStr) {
 	char* begin = strstr(data, subStr);
 	if(begin) {
 		U32 cLen = strlen(subStr);
@@ -203,13 +217,24 @@ void String::Remove(const char* subStr) {
 		memcpy(begin, begin + cLen, size + 1);
 		length -= cLen;
 		Remove(subStr);
+		return true;
 	}
+	return false;
 }
 
 void String::Cut(U32 first, U32 last) {
 	length = last - first;
 	memcpy(data, data + first, length);
 	data[length] = '\0';
+}
+
+String String::SubString(U32 first, U32 last) const {
+	U32 len = last - first;
+	String result("", 0, len);
+	char* newData = result.ToCStr();
+	memcpy(newData, data + first, len);
+	newData[len] = '\0';
+	return result;
 }
 
 char* String::ToCStr() const {

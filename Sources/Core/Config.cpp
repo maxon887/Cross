@@ -38,11 +38,11 @@ void Config::SetString(const String& key, const String& value) {
 }
 
 void Config::SetInt(const String& key, S32 value) {
-	SetString(key, to_string(value));
+	SetString(key, String(value));
 }
 
 void Config::SetFloat(const String& key, float value) {
-	SetString(key, to_string(value));
+	SetString(key, String(value));
 }
 
 void Config::SetBool(const String& key, bool value) {
@@ -51,21 +51,21 @@ void Config::SetBool(const String& key, bool value) {
 
 String Config::GetString(const String& key, const String& def) const {
 	String strValue = GetString(key);
-	if(strValue.empty())
+	if(strValue.IsEmpty())
 		return def;
 	return strValue;
 }
 
 S32 Config::GetInt(const String& key, S32 def) const {
 	String strValue = GetString(key);
-	if(strValue.empty())
+	if(strValue.IsEmpty())
 		return def;
 	return atoi(strValue.ToCStr());
 }
 
 float Config::GetFloat(const String& key, float def) const {
 	String strValue = GetString(key);
-	if(strValue.empty())
+	if(strValue.IsEmpty())
 		return def;
 	return (float)atof(strValue.ToCStr());
 }
@@ -173,7 +173,7 @@ void Config::SaveGameConfig() {
 
 	XMLElement* property = doc.NewElement("Property");
 	property->SetAttribute("name", "Orientation");
-	property->SetAttribute("value", to_string(orientation).ToCStr());
+	property->SetAttribute("value", String(orientation).ToCStr());
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -183,7 +183,7 @@ void Config::SaveGameConfig() {
 
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
-	property->SetAttribute("value", to_string(texture_filter).ToCStr());
+	property->SetAttribute("value", String(texture_filter).ToCStr());
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");

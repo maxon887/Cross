@@ -88,9 +88,8 @@ void Material::Load(const String& filename) {
 				prop->SetValue((float)value);
 			} break;
 			case Shader::Property::COLOR: {
-				const char* value = propertyXML->Attribute("value");
-				Color color(value);
-				prop->SetValue(color);
+				String value = propertyXML->Attribute("value");
+				prop->SetValue(value.ToColor());
 			} break;
 			case Shader::Property::TEXTURE: {
 				const char* textureFilename = propertyXML->Attribute("value");

@@ -254,7 +254,7 @@ Color Scene::GetAmbientColor() const {
 }
 
 Shader* Scene::GetShader(const String& shaderfile) {
-	S32 hash = (S32)std::hash<String>{}(shaderfile);
+	U64 hash = shaderfile.Hash();
 	auto shaderIt = shaders.find(hash);
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
@@ -268,7 +268,7 @@ Shader* Scene::GetShader(const String& shaderfile) {
 }
 
 Material* Scene::GetMaterial(const String& xmlFile) {
-	S32 hash = (S32)std::hash<String>{}(xmlFile);
+	U64 hash = xmlFile.Hash();
 	auto matIt = materials.find(hash);
 	if(matIt != materials.end()) {
 		return (*matIt).second;
@@ -283,7 +283,7 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 }
 
 Texture* Scene::GetTexture(const String& textureFile) {
-	S32 hash = (S32)std::hash<String>{}(textureFile);
+	U64 hash = textureFile.Hash();
 	auto textureIt = textures.find(hash);
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
@@ -296,7 +296,7 @@ Texture* Scene::GetTexture(const String& textureFile) {
 }
 
 Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
-	S32 hash = (S32)std::hash<String>{}(textureFile);
+	U64 hash = textureFile.Hash();
 	auto textureIt = textures.find(hash);
 	CROSS_RETURN(textureIt == textures.end(), nullptr, "Texture already loaded. Can't load it second time");
 
@@ -307,7 +307,7 @@ Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 }
 
 Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) {
-	S32 hash = (S32)std::hash<String>{}(modelFile);
+	U64 hash = modelFile.Hash();
 	auto modelIt = models.find(hash);
 	if(modelIt != models.end()) {
 		return (*modelIt).second;

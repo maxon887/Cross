@@ -66,21 +66,6 @@ Color::Color(int r, int g, int b, int a) :
 	A(a / 255.f)
 { }
 
-Color::Color(const char* hex){
-	String rStr = String(hex + 0, hex + 2);
-	U64 rInt = std::strtol(rStr.ToCStr(), nullptr, 16);
-	String gStr = String(hex + 2, hex + 4);
-	U64 gInt = std::strtol(gStr.ToCStr(), nullptr, 16);
-	String bStr = String(hex + 4, hex + 6);
-	U64 bInt = std::strtol(bStr.ToCStr(), nullptr, 16);
-	String aStr = String(hex + 6, hex + 8);
-	U64 aInt = std::strtol(aStr.ToCStr(), nullptr, 16);
-	R = rInt / 255.f;
-	G = gInt / 255.f;
-	B = bInt / 255.f;
-	A = aInt / 255.f;
-}
-
 void Color::SetData(const char* data){
 	memcpy(&R, data, sizeof(Color));
 }
