@@ -124,7 +124,7 @@ extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
 
-static const char*	version = "4.0.1";
+static const char*	version = "4.0.2";
 
 }
 
@@ -146,12 +146,3 @@ friend Input;			\
 friend Config;			\
 friend Scene;			\
 friend Screen;			
-
-#if defined(ANDROID)
-inline cross::String to_StringAndroid(int i) {
-    char buff[1024];
-    sprintf(buff, "%i", i);
-    return cross::String(buff);
-}
-#define  to_string to_StringAndroid
-#endif

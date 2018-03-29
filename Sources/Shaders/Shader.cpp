@@ -351,14 +351,14 @@ void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String fullStr = "#version " + ver + " es\n";
 	macrosies.push_back(fullStr);
-	makro_len += fullStr.length();
+	makro_len += fullStr.Length();
 }
 
 void Shader::AddMacro(const String& makro, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + "\n";
 	macrosies.push_back(makroString);
-	makro_len += makroString.length();
+	makro_len += makroString.Length();
 	if(!system){
 		user_macro.push_back(makro);
 	}
@@ -366,9 +366,9 @@ void Shader::AddMacro(const String& makro, bool system) {
 
 void Shader::AddMacro(const String& makro, int value, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	String makroString = "#define " + makro + " " + to_string(value) + "\n";
+	String makroString = "#define " + makro + " " + value + "\n";
 	macrosies.push_back(makroString);
-	makro_len += makroString.length();
+	makro_len += makroString.Length();
 	if(!system) {
 		CROSS_ASSERT(false, "Do not implement yet");
 	}
@@ -461,25 +461,30 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
         CROSS_RETURN(!compiled, 0, "Shader already compiled");
         String fullStr = "precision mediump float;\n";
 		macrosies.push_back(fullStr);
-        makro_len += fullStr.length();
+        makro_len += fullStr.Length();
     }
 #endif
 
-	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for nullptr terminated String
-	int curPos = 0;
-	for(String makro : macrosies){
-		const char* charMakro = makro.ToCStr();
-		memcpy(source + curPos, charMakro, makro.length());
-		curPos += makro.length();
+	//Byte* source = new Byte[makro_len + file->size + 1]; // +1 for nullptr terminated String
+	//int curPos = 0;
+	String source;
+	for(String makro : macrosies) {
+		source += makro;
+		//const char* charMakro = makro.ToCStr();
+		//memcpy(source + curPos, charMakro, makro.Length());
+		//curPos += makro.Length();
 	}
 
-	memcpy(source + curPos, file->data, file->size);
-	source[makro_len + file->size] = 0;
+	//memcpy(source + curPos, file->data, file->size);
+	source += (char*)file->data;
+	source += "";
+
+	//source[makro_len + file->size] = 0;
 	//shader compiling part
 	GLuint handle = glCreateShader(type);
-	glShaderSource(handle, 1, (const char**)&source, nullptr);
-	delete[] source;
-	source = nullptr;
+	glShaderSource(handle, 1, (const char**)source.ToCStr(), nullptr);
+	//delete[] source;
+	//source = nullptr;
 
 	glCompileShader(handle);
 	GLint compiled;

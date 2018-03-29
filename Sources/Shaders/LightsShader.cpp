@@ -72,7 +72,7 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 
 	Shader::Compile();
 	for(U32 i = 0; i < pointCount; ++i) {
-		String structName = "uPointLights[" + to_string(i) + "]";
+		String structName = "uPointLights[" + String(i) + "]";
 		LightUniforms uniforms;
 		uniforms.position = glGetUniformLocation(program, String(structName + ".position").ToCStr());
 		uniforms.color = glGetUniformLocation(program, String(structName + ".color").ToCStr());
@@ -81,7 +81,7 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 	}
 
 	for(U32 i = 0; i < directionalCount; ++i) {
-		String structName = "uDirectionalLights[" + to_string(i) + "]";
+		String structName = "uDirectionalLights[" + String(i) + "]";
 		LightUniforms uniforms;
 		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").ToCStr());
 		uniforms.color = glGetUniformLocation(program, String(structName + ".color").ToCStr());
@@ -89,7 +89,7 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 	}
 
 	for(U32 i = 0; i < spotCount; ++i) {
-		String structName = "uSpotLights[" + to_string(i) + "]";
+		String structName = "uSpotLights[" + String(i) + "]";
 		LightUniforms uniforms;
 		uniforms.position = glGetUniformLocation(program, String(structName + ".position").ToCStr());
 		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction").ToCStr());

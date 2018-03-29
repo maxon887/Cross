@@ -85,7 +85,7 @@ void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	}
 	aiNode* aiRoot = current_scene->mRootNode;
 	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
-	root->SetName(aiRoot->mChildren[0]->mName.ToCStr());
+	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
 	ProcessNode(root, aiRoot->mChildren[0]);
 }
 
@@ -107,7 +107,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
-		Entity* child = new Entity(node->mChildren[i]->mName.ToCStr());
+		Entity* child = new Entity(node->mChildren[i]->mName.C_Str());
 		child->SetParent(entity);
 		ProcessNode(child, node->mChildren[i]);
 		entity->AddChild(child);

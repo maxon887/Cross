@@ -40,7 +40,7 @@ void MultiLightScene::Start(){
 	}
 	
 	for(U32 i = 0; i < 1; ++i){
-		Entity* light = new Entity("DirectionalLight_" + to_string(i));
+		Entity* light = new Entity("DirectionalLight_" + String(i));
 		light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::DIRECTIONAL);
 		light->GetTransform()->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
@@ -50,7 +50,7 @@ void MultiLightScene::Start(){
 	}
 	
 	for(U32 i = 0; i < 4; ++i){
-		Entity* light = new Entity("SpotLight_" + to_string(i));
+		Entity* light = new Entity("SpotLight_" + String(i));
 		light->AddComponent(new Transform());
 		Light* lightComponent = new Light(Light::Type::SPOT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));

@@ -14,8 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "BaseTypes.h"
-//#include "Cross.h"
+//#include "BaseTypes.h"
+#include "Cross.h"
 #include "String.h"
 
 #include <cstring>
@@ -110,6 +110,11 @@ U32 String::Capacity() const {
 	return capacity;
 }
 
+void String::Clean() {
+	length = 0;
+	*data = '\0';
+}
+
 S32 String::Find(const char* subStr) const {
 	char* result = strstr(data, subStr);
 	if(result) {
@@ -176,7 +181,7 @@ void String::Cut(U32 first, U32 last) {
 	data[length] = '\0';
 }
 
-const char* String::ToCStr() const {
+char* String::ToCStr() const {
 	return data;
 }
 

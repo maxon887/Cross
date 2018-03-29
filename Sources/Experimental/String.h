@@ -31,6 +31,7 @@ public:
 
 	U32 Length() const;
 	U32 Capacity() const;
+	void Clean();
 	/* Returns position of a first occurrence of subStr in this String or -1 if wasn't found */
 	S32 Find(const char* subStr) const;
 	S32 FindFirstOf(const char* sequence) const;
@@ -41,7 +42,7 @@ public:
 	void Lowercase();
 	void Remove(const char* subStr);
 	void Cut(U32 first, U32 last);
-	const char* ToCStr() const;
+	char* ToCStr() const;
 	S32 ToInt() const;
 	float ToFloat() const;
 

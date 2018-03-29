@@ -196,24 +196,20 @@ bool Demo::CreateFontsTexture() {
 	float fontScale = (float)(int)(system->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
-	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
-	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).ToCStr());
-	strcat(fontConfig.Name, "px");
+	String fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
+	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	small_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 1.5f;
-	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
-	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).ToCStr());
-	strcat(fontConfig.Name, "px");
+	fontName.Clean();
+	fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
+	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 2.f;
-	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
-	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).ToCStr());
-	strcat(fontConfig.Name, "px");
+	fontName.Clean();
+	fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
+	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	big_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	unsigned char* pixels;
