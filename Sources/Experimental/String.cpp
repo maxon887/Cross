@@ -34,6 +34,7 @@ String::String() :
 }
 
 String::String(const char* cstr) {
+	CROSS_ASSERT(cstr, "Attempt to create a String from null pointer");
 	length = strlen(cstr);
 	capacity = length;
 	data = new char[length + 1];
@@ -44,6 +45,7 @@ String::String(const char* cstr, U32 len, U32 cap) :
 	length(len),
 	capacity(cap)
 {
+	CROSS_ASSERT(cstr, "Attempt to create a String from null pointer");
 	data = new char[capacity + 1];
 	memcpy(data, cstr, length + 1);
 }
@@ -181,16 +183,16 @@ const char* String::ToCStr() const {
 S32 String::ToInt() const {
 	char* endp;
 	S32 value = strtol(data, &endp, 10);
-	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to integer failed");
-	CROSS_ASSERT(*endp != '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected");
+	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to integer failed", data);
+	CROSS_ASSERT(*endp == '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
 }
 
 float String::ToFloat() const {
 	char* endp;
 	float value = strtof(data, &endp);
-	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to float failed");
-	CROSS_ASSERT(*endp != '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected");
+	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to float failed", data);
+	CROSS_ASSERT(*endp == '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
 }
 

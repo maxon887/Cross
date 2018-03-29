@@ -58,6 +58,8 @@ public:
 	friend String operator + (const String& left, const char* right);
 	friend String operator + (const char* left, const String& right);
 	friend String operator + (const String& left, const String& right);
+	template<class Convertable>
+	friend String operator + (const String& left, const Convertable& right);
 
 private:
 	char* data = nullptr;
@@ -66,5 +68,10 @@ private:
 
 	String(const char* cstr, U32 length, U32 capacity);
 };
+
+template<class Convertable>
+String operator + (const String& left, const Convertable& right) {
+	return left + String(right);
+}
 
 }
