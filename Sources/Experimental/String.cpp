@@ -14,8 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "BaseTypes.h"
-//#include "Cross.h"
+//#include "BaseTypes.h"
+#include "Cross.h"
 #include "String.h"
 
 #include <cstring>
@@ -128,8 +128,26 @@ void String::Clean() {
 	*data = '\0';
 }
 
+S32 String::Find(char c) const {
+	char* result = strchr(data, c);
+	if(result) {
+		return result - data;
+	} else {
+		return -1;
+	}
+}
+
 S32 String::Find(const char* subStr) const {
 	char* result = strstr(data, subStr);
+	if(result) {
+		return result - data;
+	} else {
+		return -1;
+	}
+}
+
+S32 String::FindLast(char c) const {
+	char* result = strrchr(data, c);
 	if(result) {
 		return result - data;
 	} else {

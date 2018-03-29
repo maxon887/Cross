@@ -30,23 +30,43 @@ public:
 	String(const Color& color);
 	~String();
 
+	/* Return lenth of the string. Number of placed characters spots */
 	U32 Length() const;
+	/* Return count of charactes that can be placed without string memory allocation */
 	U32 Capacity() const;
+	/* Cleans all charactes in this string without momory reallocation */
 	void Clean();
+	/* Returns position of a first occurrence of char c in this String or -1 if wasn't found */
+	S32 Find(char c) const;
 	/* Returns position of a first occurrence of subStr in this String or -1 if wasn't found */
 	S32 Find(const char* subStr) const;
+	/* Returns position of a last occurrence of char in this String or -1 if wasn't found */
+	S32 FindLast(char c) const;
+	/* Returns first occurrence of any character in provided sequence */
 	S32 FindFirstOf(const char* sequence) const;
+	/* Returns first occurrence of any character in provided sequence started from specific position */
 	S32 FindFirstOf(const char* sequence, U32 startPos) const;
+	/* Returns first occurrence of not of any character in provided sequence */
 	S32 FindNonFirstOf(const char* sequence) const;
+	/* Returns first occurrence of not of any character in provided sequence started from specific position */
 	S32 FindNonFirstOf(const char* sequence, U32 startPos) const;
+	/* Converts this string to uppercase */
 	void Uppercase();
+	/* Converts this string to lowercase */
 	void Lowercase();
+	/* Removes first occurrence of subStr in current String */
 	void Remove(const char* subStr);
+	/* Removes all characters before first argument and after last from current String */
 	void Cut(U32 first, U32 last);
+	/* Returns data pointer on this String */
 	char* ToCStr() const;
+	/* Converts this String to integer type and returns it */
 	S32 ToInt() const;
+	/* Converts this String to integer type. Assumed that number storred in provided base */
 	S32 ToInt(U32 base) const;
+	/* Converts this String to float type and returns it */
 	float ToFloat() const;
+	/* Converts this String to Color object and returns it */
 	Color ToColor() const;
 
 	String& operator = (const char* other);
