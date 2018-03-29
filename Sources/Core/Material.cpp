@@ -119,20 +119,8 @@ void Material::Save(const String& filename) {
 		propertyXML->SetAttribute("name", prop.GetName().ToCStr());
 		switch(prop.GetType()) {
 		case Shader::Property::Type::COLOR: {
-			int rInt = (int)(prop.value.color.R * 255);
-			int gInt = (int)(prop.value.color.G * 255);
-			int bInt = (int)(prop.value.color.B * 255);
-			int aInt = (int)(prop.value.color.A * 255);
-
-			std::stringstream ss;
-			ss << std::hex;
-			ss << std::setw(2) << std::setfill('0') << rInt;
-			ss << std::setw(2) << std::setfill('0') << gInt;
-			ss << std::setw(2) << std::setfill('0') << bInt;
-			ss << std::setw(2) << std::setfill('0') << aInt;
-			String text = ss.str();
-			std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-			propertyXML->SetAttribute("value", text.ToCStr());
+			String color = prop.value.color;
+			propertyXML->SetAttribute("value", color.ToCStr());
 			break;
 		}
 		default:

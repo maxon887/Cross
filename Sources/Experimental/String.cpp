@@ -14,8 +14,8 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-//#include "BaseTypes.h"
-#include "Cross.h"
+#include "BaseTypes.h"
+//#include "Cross.h"
 #include "String.h"
 
 #include <cstring>
@@ -96,6 +96,19 @@ String::String(float number) {
 
 	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
 	CROSS_ASSERT(length < max_float_len, "More data written in buffer than was allocated");
+}
+
+String::String(const Color& color) :
+	length(8),
+	capacity(8)
+{
+	data = new char[capacity + 1];
+	U32 written = sprintf(data, "%02X%02X%02X%02X",
+		(int)(color.R * 255),
+		(int)(color.G * 255),
+		(int)(color.B * 255),
+		(int)(color.A * 255));
+	CROSS_ASSERT(written == 8, "Conversion from Color to String failed");
 }
 
 String::~String() {
@@ -186,8 +199,12 @@ char* String::ToCStr() const {
 }
 
 S32 String::ToInt() const {
+	return ToInt(10);
+}
+
+S32 String::ToInt(U32 base) const {
 	char* endp;
-	S32 value = strtol(data, &endp, 10);
+	S32 value = strtol(data, &endp, base);
 	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to integer failed", data);
 	CROSS_ASSERT(*endp == '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
@@ -199,6 +216,19 @@ float String::ToFloat() const {
 	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to float failed", data);
 	CROSS_ASSERT(*endp == '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
+}
+
+Color String::ToColor() const {
+	String rStr = String(data + 0, data + 2);
+	U64 rInt = rStr.ToInt(16);
+	String gStr = String(data + 2, data + 4);
+	U64 gInt = gStr.ToInt(16);
+	String bStr = String(data + 4, data + 6);
+	U64 bInt = bStr.ToInt(16);
+	String aStr = String(data + 6, data + 8);
+	U64 aInt = aStr.ToInt(16);
+	Color result(rInt / 255.f, gInt / 255.f, bInt / 255.f, aInt / 255.f);
+	return result;
 }
 
 String& String::operator = (const char* cstr) {

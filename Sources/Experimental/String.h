@@ -27,6 +27,7 @@ public:
 	String(S32 number);
 	String(U32 number);
 	String(float number);
+	String(const Color& color);
 	~String();
 
 	U32 Length() const;
@@ -44,7 +45,9 @@ public:
 	void Cut(U32 first, U32 last);
 	char* ToCStr() const;
 	S32 ToInt() const;
+	S32 ToInt(U32 base) const;
 	float ToFloat() const;
+	Color ToColor() const;
 
 	String& operator = (const char* other);
 	String& operator = (const String& other);
