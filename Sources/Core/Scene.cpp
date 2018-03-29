@@ -64,16 +64,16 @@ void Scene::Update(float sec) {
 void Scene::Stop() {
 	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
-	for(pair<S32, Texture*> pair : textures){
+	for(pair<U64, Texture*> pair : textures){
 		delete pair.second;
 	}
-	for(pair<S32, Material*> pair : materials){
+	for(pair<U64, Material*> pair : materials){
 		delete pair.second;
 	}
-	for(pair<S32, Model*> pair : models){
+	for(pair<U64, Model*> pair : models){
 		delete pair.second;
 	}
-	for(pair<S32, Shader*> pair : shaders) {
+	for(pair<U64, Shader*> pair : shaders) {
 		delete pair.second;
 	}
 	Screen::Stop();
@@ -192,11 +192,11 @@ void Scene::Save(const String& filename) {
 void Scene::Clear() {
 	root->RemoveChildren();
 	lights.clear();
-	for(pair<S32, Material*> pair : materials){
+	for(pair<U64, Material*> pair : materials){
 		delete pair.second;
 	}
 	materials.clear();
-	for(pair<S32, Texture*> pair : textures) {
+	for(pair<U64, Texture*> pair : textures) {
 		delete pair.second;
 	}
 	textures.clear();
@@ -320,13 +320,13 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 }
 
 void Scene::ResetMaterials() {
-	for(pair<S32, Material*> pair : materials) {
+	for(pair<U64, Material*> pair : materials) {
 		pair.second->Reset();
 	}
 }
 
 void Scene::ResetShaders() {
-	for(pair<S32, Shader*> pair : shaders) {
+	for(pair<U64, Shader*> pair : shaders) {
 		Shader* shader = pair.second;
 		shader->ReCompile();
 	}

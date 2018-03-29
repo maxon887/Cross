@@ -465,26 +465,16 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     }
 #endif
 
-	//Byte* source = new Byte[makro_len + file->size + 1]; // +1 for nullptr terminated String
-	//int curPos = 0;
 	String source;
 	for(String makro : macrosies) {
 		source += makro;
-		//const char* charMakro = makro.ToCStr();
-		//memcpy(source + curPos, charMakro, makro.Length());
-		//curPos += makro.Length();
 	}
 
-	//memcpy(source + curPos, file->data, file->size);
-	source += (char*)file->data;
-	source += "";
+	source += String((char*)file->data, (char*)(file->data + file->size));
 
-	//source[makro_len + file->size] = 0;
-	//shader compiling part
 	GLuint handle = glCreateShader(type);
-	glShaderSource(handle, 1, (const char**)source.ToCStr(), nullptr);
-	//delete[] source;
-	//source = nullptr;
+	char* cptr = source.ToCStr();
+	glShaderSource(handle, 1, (const char**)&cptr, nullptr);
 
 	glCompileShader(handle);
 	GLint compiled;

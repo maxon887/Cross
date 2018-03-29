@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-//#include "BaseTypes.h"
 #include "Cross.h"
 #include "String.h"
 
@@ -54,10 +53,12 @@ String::String(const char* begin, const char* end) {
 	const char* iter = begin;
 	while(iter != end) {
 		length++;
+		iter++;
 	}
 	capacity = length;
 	data = new char[capacity + 1];
 	memcpy(data, begin, length + 1);
+	data[length] = '\0';
 }
 
 String::String(const String& str) :
@@ -363,6 +364,14 @@ String operator + (const String& left, const String& right) {
 	String result(left.ToCStr(), left.length, capacity);
 	result += right;
 	return result;
+}
+
+bool operator < (const String& left, const String& right) {
+	S32 res = strcmp(left.ToCStr(), right.ToCStr());
+	if(res < 0) {
+		return true;
+	}
+	return false;
 }
 
 }

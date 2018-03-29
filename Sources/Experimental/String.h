@@ -90,6 +90,8 @@ public:
 	friend String operator + (const char* left, const String& right);
 	friend String operator + (const String& left, const String& right);
 
+	friend bool operator < (const String& left, const String& right);
+
 private:
 	char* data = nullptr;
 	U32 length = 0;
