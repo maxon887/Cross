@@ -18,6 +18,10 @@
 #if defined(CROSS_DEBUG) && !defined(EDITOR)
 #ifdef WIN
 
+#define CROSS_ALLOC(size) MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__)
+#define CROSS_REALLOC(pointer, size) MemoryManager::Instance()->ReAlloc(pointer, size, __FILE__, __LINE__)
+#define CROSS_FREE(pointer) MemoryManager::Instance()->Free(pointer)
+
 void* operator new(size_t size);
 void* operator new(size_t size, char* filename, unsigned long line);
 void* operator new[](size_t size);
@@ -44,6 +48,7 @@ class MemoryManager {
 public:
 	static MemoryManager* Instance();
 	void* Alloc(unsigned long size, const char* filename, unsigned long line);
+	void* ReAlloc(void* pointer, unsigned long size, const char* filename, unsigned long line);
 	void Free(void* address);
 	unsigned long Dump();
 
@@ -62,6 +67,7 @@ private:
 	~MemoryManager();
 
 	void SanityCheck();
+	MemoryObject& FindObject(void* address);
 	void Log(const char* msg, ...);
 };
 

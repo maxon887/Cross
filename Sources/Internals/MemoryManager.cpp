@@ -133,6 +133,23 @@ void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned lo
 	}
 }
 
+void* MemoryManager::ReAlloc(void* pointer, unsigned long size, const char* filename, unsigned long line) {
+	if(!dead) {
+		SanityCheck();
+
+		MemoryObject& obj = FindObject(pointer);
+		obj.address = realloc(pointer, size + 4);
+		obj.filename = filename;
+		obj.size = size;
+
+		memcpy((char*)obj.address + size, &check_code, 4);
+
+		return obj.address;
+	} else {
+		return realloc(pointer, size);
+	}
+}
+
 void MemoryManager::Free(void* address) {
 	if(!dead){
 		SanityCheck();
@@ -196,6 +213,15 @@ void MemoryManager::SanityCheck(){
 		}
 	}
 	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: %d corrupted buffers\n", count);
+}
+
+MemoryObject& MemoryManager::FindObject(void* address) {
+	for(unsigned int i = 0; i < object_count; ++i) {
+		if(alloc_objects[i].address == address) {
+			return alloc_objects[i];
+		}
+	}
+	CROSS_ASSERT(false, "Can not find memory object");
 }
 
 void MemoryManager::Log(const char* msg, ...) {

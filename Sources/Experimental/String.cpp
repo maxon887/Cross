@@ -28,7 +28,7 @@ String::String() :
 	length(0),
 	capacity(0)
 {
-	data = new char[capacity + 1];
+	data = (char*)CROSS_ALLOC(capacity + 1);
 	data[0] = '\0';
 }
 
@@ -36,7 +36,7 @@ String::String(const char* cstr) {
 	CROSS_ASSERT(cstr, "Attempt to create a String from null pointer");
 	length = strlen(cstr);
 	capacity = length;
-	data = new char[length + 1];
+	data = (char*)CROSS_ALLOC(capacity + 1);
 	memcpy(data, cstr, length + 1);
 }
 
@@ -45,7 +45,7 @@ String::String(const char* cstr, U32 len, U32 cap) :
 	capacity(cap)
 {
 	CROSS_ASSERT(cstr, "Attempt to create a String from null pointer");
-	data = new char[capacity + 1];
+	data = (char*)CROSS_ALLOC(capacity + 1);
 	memcpy(data, cstr, length + 1);
 }
 
@@ -56,7 +56,7 @@ String::String(const char* begin, const char* end) {
 		iter++;
 	}
 	capacity = length;
-	data = new char[capacity + 1];
+	data = (char*)CROSS_ALLOC(capacity + 1);
 	memcpy(data, begin, length + 1);
 	data[length] = '\0';
 }
@@ -65,7 +65,7 @@ String::String(const String& str) :
 	length(str.length),
 	capacity(str.capacity)
 {
-	data = new char[length + 1];
+	data = (char*)CROSS_ALLOC(capacity + 1);
 	memcpy(data, str.data, str.length + 1);
 }
 
@@ -82,7 +82,7 @@ String::String(String&& str) :
 
 String::String(S32 number) {
 	const U32 max_int_len = 12;	//max possible 32 bit int value
-	data = new char[max_int_len];
+	data = (char*)CROSS_ALLOC(max_int_len);
 	length = sprintf(data, "%d", number);
 	capacity = length;
 
@@ -92,7 +92,7 @@ String::String(S32 number) {
 
 String::String(U32 number) {
 	const U32 max_int_len = 11;
-	data = new char[max_int_len];
+	data = (char*)CROSS_ALLOC(max_int_len);
 	length = sprintf(data, "%d", number);
 	capacity = length;
 
@@ -102,7 +102,7 @@ String::String(U32 number) {
 
 String::String(float number) {
 	const U32 max_float_len = 50;
-	data = new char[max_float_len];
+	data = (char*)CROSS_ALLOC(max_float_len);
 	length = sprintf(data, "%f", number);
 	capacity = length;
 
@@ -114,7 +114,7 @@ String::String(const Color& color) :
 	length(8),
 	capacity(8)
 {
-	data = new char[capacity + 1];
+	data = (char*)CROSS_ALLOC(capacity + 1);
 	U32 written = sprintf(data, "%02X%02X%02X%02X",
 		(int)(color.R * 255),
 		(int)(color.G * 255),
@@ -124,7 +124,7 @@ String::String(const Color& color) :
 }
 
 String::~String() {
-	delete[] data;
+	CROSS_FREE(data);
 }
 
 U32 String::Length() const {
@@ -289,8 +289,7 @@ Color String::ToColor() const {
 String& String::operator = (const char* cstr) {
 	U32 cLen = strlen(cstr);
 	if(capacity < cLen) {
-		delete[] data;
-		data = new char[cLen + 1];
+		data = (char*)CROSS_REALLOC(data, cLen + 1);
 		capacity = cLen;
 	}
 	length = cLen;
@@ -300,8 +299,7 @@ String& String::operator = (const char* cstr) {
 
 String& String::operator = (const String& other) {
 	if(capacity < other.length) {
-		delete[] data;
-		data = new char[other.length + 1];
+		data = (char*)CROSS_REALLOC(data, other.length + 1);
 		capacity = other.length;
 	}
 	length = other.length;
@@ -310,7 +308,7 @@ String& String::operator = (const String& other) {
 }
 
 String& String::operator = (String&& other) {
-	delete[] data;
+	CROSS_FREE(data);
 	data = other.data;
 	length = other.length;
 	capacity = other.capacity;
@@ -340,10 +338,7 @@ void String::operator += (const char* other) {
 	U32 otherLen = strlen(other);
 	U32 requiredLen = length + otherLen;
 	if(requiredLen > capacity) {
-		char* newData = new char[requiredLen + 1];
-		memcpy(newData, data, length);
-		delete[] data;
-		data = newData;
+		data = (char*)CROSS_REALLOC(data, requiredLen + 1);
 		capacity = requiredLen;
 	}
 	memcpy(data + length, other, otherLen + 1);
@@ -353,10 +348,7 @@ void String::operator += (const char* other) {
 void String::operator += (const String& other) {
 	U32 requiredLen = length + other.length;
 	if(requiredLen > capacity) {
-		char* newData = new char[requiredLen + 1];
-		memcpy(newData, data, length);
-		delete[] data;
-		data = newData;
+		data = (char*)CROSS_REALLOC(data, requiredLen + 1);
 		capacity = requiredLen;
 	}
 	memcpy(data + length, other.data, other.length + 1);

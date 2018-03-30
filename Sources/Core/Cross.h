@@ -70,7 +70,6 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 #include "Math/All.h"
 #include "Color.h"
 
-#include <string>
 #include <list>
 #include <map>
 #include <set>
