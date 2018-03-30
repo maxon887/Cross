@@ -69,7 +69,7 @@ public:
 	char* ToCStr() const;
 	/* Converts this String to integer type and returns it */
 	S32 ToInt() const;
-	/* Converts this String to integer type. Assumed that number storred in provided base */
+	/* Converts this String to integer type. Assumed that number stored in provided base */
 	S32 ToInt(U32 base) const;
 	/* Converts this String to float type and returns it */
 	float ToFloat() const;
@@ -87,6 +87,8 @@ public:
 
 	void operator += (const char* other);
 	void operator += (const String& other);
+
+	operator const char* () const;
 
 	friend String operator + (const String& left, const char* right);
 	friend String operator + (const char* left, const String& right);

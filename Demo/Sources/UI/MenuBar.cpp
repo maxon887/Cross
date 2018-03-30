@@ -100,7 +100,7 @@ void MenuBar::ShowMenu() {
 				for(View* v : views) {
 					if(system->IsMobile() || !v->MobileOnly()) {
 						bool selected = v->IsVisible();
-						if(ImGui::MenuItem(v->GetName().ToCStr(), "", &selected)) {
+						if(ImGui::MenuItem(v->GetName(), "", &selected)) {
 							if(selected) {
 								v->Show();
 							} else {

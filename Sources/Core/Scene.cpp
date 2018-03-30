@@ -52,7 +52,7 @@ void Scene::Start() {
 	system->WindowResized.Connect(this, &Scene::OnWindowResize);
 
 	if(filename != "") {
-		CROSS_ASSERT(Load(filename), "Screen '%s' was not loaded correctly", GetName().ToCStr());
+		CROSS_ASSERT(Load(filename), "Screen '%s' was not loaded correctly", GetName());
 	}
 }
 
@@ -211,7 +211,7 @@ Entity* Scene::GetEntity(const String& name) {
 	if(child){
 		return child;
 	}
-	CROSS_RETURN(false, nullptr, "Can not find entity %s", name.ToCStr());
+	CROSS_RETURN(false, nullptr, "Can not find entity %s", name);
 }
 
 void Scene::AddEntity(Entity* entity) {
@@ -359,7 +359,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	if(childrenXML) {
 		XMLElement* childXML = childrenXML->FirstChildElement("Object");
 		while(childXML) {
-			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '%s'", parent->GetName().ToCStr());
+			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '%s'", parent->GetName());
 			childXML = childXML->NextSiblingElement("Object");
 		}
 	}
@@ -369,7 +369,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 
 bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 	XMLElement* objectXML = doc->NewElement("Object");
-	objectXML->SetAttribute("name", entity->GetName().ToCStr());
+	objectXML->SetAttribute("name", entity->GetName());
 
 	const Array<Component*>& components = entity->GetComponents();
 	if(components.size() > 0) {

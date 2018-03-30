@@ -224,18 +224,18 @@ void Shader::Save(const String& file) {
 	doc.LinkEndChild(shaderXML);
 
 	XMLElement* vertexXML = doc.NewElement("Vertex");
-	vertexXML->SetAttribute("filename", vertex_filename.ToCStr());
+	vertexXML->SetAttribute("filename", vertex_filename);
 	shaderXML->LinkEndChild(vertexXML);
 
 	XMLElement* fragmentXML = doc.NewElement("Fragment");
-	fragmentXML->SetAttribute("filename", fragment_filename.ToCStr());
+	fragmentXML->SetAttribute("filename", fragment_filename);
 	shaderXML->LinkEndChild(fragmentXML);
 
 	XMLElement* macrosiesXML = doc.NewElement("Macrosies");
 	shaderXML->LinkEndChild(macrosiesXML);
 	for(const String& macro : user_macro){
 		XMLElement* macroXML = doc.NewElement("Macro");
-		macroXML->SetText(macro.ToCStr());
+		macroXML->SetText(macro);
 		macrosiesXML->LinkEndChild(macroXML);
 	}
 
@@ -244,8 +244,8 @@ void Shader::Save(const String& file) {
 
 	for(const Property& prop : properties){
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop.GetName().ToCStr());
-		propertyXML->SetAttribute("glName", prop.GetGLName().ToCStr());
+		propertyXML->SetAttribute("name", prop.GetName());
+		propertyXML->SetAttribute("glName", prop.GetGLName());
 		switch(prop.GetType())	{
 		case Property::FLOAT:
 			propertyXML->SetAttribute("type", "Float");
@@ -305,8 +305,8 @@ void Shader::Compile() {
 	uColor = glGetUniformLocation(program, "uColor");
 
 	for(Property& prop : properties){
-		prop.glId = glGetUniformLocation(program, prop.glName.ToCStr());
-		CROSS_FAIL(prop.glId != -1, "Property %s does not contains in the shader", prop.glName.ToCStr());
+		prop.glId = glGetUniformLocation(program, prop.glName);
+		CROSS_FAIL(prop.glId != -1, "Property %s does not contains in the shader", prop.glName);
 	}
 	compiled = true;
 }
@@ -366,7 +366,7 @@ void Shader::AddMacro(const String& makro, bool system) {
 
 void Shader::AddMacro(const String& makro, int value, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	String makroString = "#define " + makro + " " + value + "\n";
+	String makroString = "#define " + makro + " " + String(value) + "\n";
 	macrosies.push_back(makroString);
 	makro_len += makroString.Length();
 	if(!system) {
@@ -485,7 +485,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 
 		char* log = new char[len + 1];
 		glGetShaderInfoLog(handle, len, &len, log);
-		CROSS_RETURN(false, 0, "Shader: %s\n%sShader", file->name.ToCStr(), log);
+		CROSS_RETURN(false, 0, "Shader: %s\n%sShader", file->name, log);
 	} else {
 #ifdef CROSS_DEBUG
 		GLsizei len;

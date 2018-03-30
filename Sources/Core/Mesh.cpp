@@ -76,8 +76,8 @@ bool Mesh::Load(XMLElement* xml, Scene* scene) {
 bool Mesh::Save(XMLElement* xml, XMLDocument* doc) {
 	XMLElement* meshXML = doc->NewElement("Mesh");
 	meshXML->SetAttribute("id", GetID());
-	meshXML->SetAttribute("model", GetModel()->GetFilename().ToCStr());
-	meshXML->SetAttribute("material", GetMaterial()->GetFilename().ToCStr());
+	meshXML->SetAttribute("model", GetModel()->GetFilename());
+	meshXML->SetAttribute("material", GetMaterial()->GetFilename());
 	xml->LinkEndChild(meshXML);
 	return true;
 }
@@ -175,7 +175,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			material->active_texture_slot++;
 			break;
 		default:
-			CROSS_ASSERT(false, "Unknown property type(%s)", prop.GetName().ToCStr());
+			CROSS_ASSERT(false, "Unknown property type(%s)", prop.GetName());
 		}
 	}
 	material->active_texture_slot = 0;

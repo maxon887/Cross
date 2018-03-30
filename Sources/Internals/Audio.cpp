@@ -67,7 +67,7 @@ FMOD::Sound* Audio::LoadSound(const String& path, bool loop, bool stream) {
 	String absPath = system->AssetsPath() + "/" + path;
 #endif
 	FMOD::Sound* sound = nullptr;
-	result = fmod_system->createSound(absPath.ToCStr(), mode, 0, &sound);
+	result = fmod_system->createSound(absPath, mode, 0, &sound);
 	ERRCHECK(result);
 
 	return sound;

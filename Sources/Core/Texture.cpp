@@ -143,7 +143,7 @@ void Texture::Load(const String& filename, Texture::TilingMode tillingMode, Text
 	}
 	SetTilingMode(tillingMode);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Texture(%s) loaded in %0.1fms", filename.ToCStr(), loadTime);
+	system->LogIt("Texture(%s) loaded in %0.1fms", filename, loadTime);
 }
 
 void Texture::Save(const String& filename) {

@@ -355,6 +355,10 @@ void String::operator += (const String& other) {
 	length = requiredLen;
 }
 
+String::operator const char * () const {
+	return data;
+}
+
 namespace cross {
 
 String operator + (const String& left, const char* right) {

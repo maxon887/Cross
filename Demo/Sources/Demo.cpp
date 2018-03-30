@@ -42,7 +42,7 @@ Demo* demo = nullptr;
 
 const char* Demo::GetClipboardString(void* userData) {
 	demo->clipboard = system->GetClipboard();
-	return demo->clipboard.ToCStr();
+	return demo->clipboard;
 }
 
 Game* CrossMain() {

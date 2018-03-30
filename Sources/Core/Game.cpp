@@ -162,6 +162,6 @@ void Game::LoadNextScreen() {
 
 	timestamp = system->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen == nullptr? "" : current_screen->GetName().ToCStr(), loadTime);
+	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen == nullptr? "" : current_screen->GetName(), loadTime);
 	ScreenChanged.Emit(current_screen);
 }

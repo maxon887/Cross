@@ -58,7 +58,7 @@ void Model::Load(const String& filename, bool calcTangents, bool transferVideoDa
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Model(%s) loaded in %0.1fms", filename.ToCStr(), loadTime);
+	system->LogIt("Model(%s) loaded in %0.1fms", filename, loadTime);
 }
 
 const String& Model::GetFilename() const {

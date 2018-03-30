@@ -60,14 +60,14 @@ S32 Config::GetInt(const String& key, S32 def) const {
 	String strValue = GetString(key);
 	if(strValue.IsEmpty())
 		return def;
-	return atoi(strValue.ToCStr());
+	return strValue.ToInt();
 }
 
 float Config::GetFloat(const String& key, float def) const {
 	String strValue = GetString(key);
 	if(strValue.IsEmpty())
 		return def;
-	return (float)atof(strValue.ToCStr());
+	return strValue.ToFloat();
 }
 
 bool Config::GetBool(const String& key, bool def) const {
@@ -119,7 +119,7 @@ void Config::LoadGameConfig() {
 		String strValue = element->Attribute("value");
 
 		if(name == "Orientation") {
-			orientation = (System::Orientation)atoi(strValue.ToCStr());
+			orientation = (System::Orientation)strValue.ToInt();
 		}
 
 		if(name == "UseCompressedTextures") {
@@ -127,7 +127,7 @@ void Config::LoadGameConfig() {
 		}
 
 		if(name == "TextureFilter") {
-			texture_filter = (Texture::Filter)atoi(strValue.ToCStr());
+			texture_filter = (Texture::Filter)strValue.ToInt();
 		}
 
 		if(name == "OffscreenRender") {
@@ -173,7 +173,7 @@ void Config::SaveGameConfig() {
 
 	XMLElement* property = doc.NewElement("Property");
 	property->SetAttribute("name", "Orientation");
-	property->SetAttribute("value", String(orientation).ToCStr());
+	property->SetAttribute("value", String(orientation));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -183,7 +183,7 @@ void Config::SaveGameConfig() {
 
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
-	property->SetAttribute("value", String(texture_filter).ToCStr());
+	property->SetAttribute("value", String(texture_filter));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -211,8 +211,8 @@ void Config::SaveUserConfig() {
 	XMLElement* property;
 	for(auto pair : user_prefs){
 		property = doc.NewElement("Property");
-		property->SetAttribute("name", pair.first.ToCStr());
-		property->SetAttribute("value", pair.second.ToCStr());
+		property->SetAttribute("name", pair.first);
+		property->SetAttribute("value", pair.second);
 		element->LinkEndChild(property);  
 	}
 	
