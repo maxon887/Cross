@@ -24,17 +24,18 @@ public:
 	String(const char* cstr);
 	String(const char* begin, const char* end);
 	String(const String& str);
+	String(String&& str);
 	String(S32 number);
 	String(U32 number);
 	String(float number);
 	String(const Color& color);
 	~String();
 
-	/* Return lenth of the string. Number of placed characters spots */
+	/* Return length of the string. Number of placed characters spots */
 	U32 Length() const;
-	/* Return count of charactes that can be placed without string memory allocation */
+	/* Return count of characters that can be placed without string memory allocation */
 	U32 Capacity() const;
-	/* Cleans all charactes in this string without momory reallocation */
+	/* Cleans all characters in this string without memory reallocation */
 	void Clean();
 	/* Returns true if string is empty */
 	bool IsEmpty() const;
@@ -77,6 +78,7 @@ public:
 
 	String& operator = (const char* other);
 	String& operator = (const String& other);
+	String& operator = (String&& other);
 
 	bool operator == (const char* other) const;
 	bool operator != (const char* other) const;

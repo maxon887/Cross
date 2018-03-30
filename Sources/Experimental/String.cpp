@@ -69,6 +69,17 @@ String::String(const String& str) :
 	memcpy(data, str.data, str.length + 1);
 }
 
+String::String(String&& str) :
+	length(str.length),
+	capacity(str.capacity),
+	data(str.data)
+{
+	str.length = 0;
+	str.capacity = 0;
+	str.data = nullptr;
+}
+
+
 String::String(S32 number) {
 	const U32 max_int_len = 12;	//max possible 32 bit int value
 	data = new char[max_int_len];
@@ -295,6 +306,17 @@ String& String::operator = (const String& other) {
 	}
 	length = other.length;
 	memcpy(data, other.data, other.length + 1);
+	return *this;
+}
+
+String& String::operator = (String&& other) {
+	delete[] data;
+	data = other.data;
+	length = other.length;
+	capacity = other.capacity;
+	other.data = nullptr;
+	other.length = 0;
+	other.capacity = 0;
 	return *this;
 }
 
