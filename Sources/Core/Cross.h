@@ -25,18 +25,18 @@
 
 #define CROSS_ASSERT(condition, message, ...)									\
 if(!(condition)) {																\
-	cross::cross_system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
 }
 
 #define CROSS_FAIL(condition, message, ...)										\
 if(!(condition)) {																\
-	cross::cross_system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
 	return;																		\
 }
 
 #define CROSS_RETURN(condition, value, message, ...)							\
 if(!(condition)) {																\
-	cross::cross_system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
 	return value;																\
 }
 

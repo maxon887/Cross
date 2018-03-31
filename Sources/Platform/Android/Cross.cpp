@@ -150,7 +150,7 @@ extern "C"{
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
-            string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
+            String stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
             system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();

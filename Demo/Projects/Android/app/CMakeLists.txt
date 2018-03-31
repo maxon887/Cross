@@ -22,6 +22,7 @@ file(GLOB CROSS_SRC
     "../../../../Sources/Math/*.cpp"
     "../../../../Sources/Shaders/*.cpp"
     "../../../../Sources/Internals/*.cpp"
+    "../../../../Sources/Experimental/*.cpp"
     "../../../../Sources/Utils/*.cpp"
     "../../../../Sources/Libs/SOIL/*.c"
     "../../../../Sources/Libs/TinyXML2/*.cpp"
