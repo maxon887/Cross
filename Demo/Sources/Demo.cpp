@@ -46,9 +46,6 @@ const char* Demo::GetClipboardString(void* userData) {
 }
 
 Game* CrossMain() {
-	String str(2.353f, "%0.1f", 12);
-	String formatted = String::Format("Vector(#, #, #)", 2, 6, 2.34f);
-
     return new Demo();
 }
 

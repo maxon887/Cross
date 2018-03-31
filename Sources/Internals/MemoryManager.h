@@ -16,11 +16,12 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #if defined(CROSS_DEBUG) && !defined(EDITOR)
-#ifdef WIN
 
 #define CROSS_ALLOC(size) MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__)
 #define CROSS_REALLOC(pointer, size) MemoryManager::Instance()->ReAlloc(pointer, size, __FILE__, __LINE__)
 #define CROSS_FREE(pointer) MemoryManager::Instance()->Free(pointer)
+
+#ifdef WIN
 
 void* operator new(size_t size);
 void* operator new(size_t size, char* filename, unsigned long line);

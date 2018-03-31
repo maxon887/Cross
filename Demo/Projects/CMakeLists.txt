@@ -49,3 +49,4 @@ include_directories(../../Sources/Libs/Assimp)
 include_directories(../../Sources/Libs/SOIL)
 
 add_definitions(-DOPENGL)
+add_definitions(-DMACOS)

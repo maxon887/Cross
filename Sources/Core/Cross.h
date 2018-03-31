@@ -41,6 +41,7 @@ if(!(condition)) {																\
 }
 
 #include <cstdint>
+#include <cassert>
 
 namespace cross {
 	typedef int8_t		S8;

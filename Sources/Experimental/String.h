@@ -119,7 +119,8 @@ private:
 template<class First, class... Args>
 String String::Format(const String& format, First value, Args... args) {
 	S32 spot = format.Find('#');
-	CROSS_ASSERT(spot != -1, "Formatter error. More values provied than expected");
+	//CROSS_ASSERT(spot != -1, "Formatter error. More values provied than expected");
+	assert(spot != -1);
 	String result = format;
 	result.Remove('#');
 	result.Insert(spot, String(value));
@@ -132,8 +133,10 @@ String::String(Value value, const char* format, U32 bufferSize) {
 	length = sprintf(data, format, value);
 	capacity = bufferSize;
 
-	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
-	CROSS_ASSERT(length < bufferSize, "More data written in buffer than was allocated");
+	//Convertion from integer to string failed"
+	assert(length > 0);
+	//More data written in buffer than was allocated"
+	assert(length < bufferSize);
 }
 
 }
