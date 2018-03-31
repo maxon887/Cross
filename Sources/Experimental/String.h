@@ -31,6 +31,8 @@ public:
 	String(String&& str);
 	String(S32 number);
 	String(U32 number);
+	String(S64 number);
+	String(U64 number);
 	String(float number);
 	String(const Color& color);
 	template<class Value>
@@ -42,7 +44,7 @@ public:
 	/* Return count of characters that can be placed without string memory allocation */
 	U32 Capacity() const;
 	/* Cleans all characters in this string without memory reallocation */
-	void Clean();
+	void Clear();
 	/* Returns true if string is empty */
 	bool IsEmpty() const;
 	/* Calculates has from current String */

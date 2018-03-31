@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
-#include "String.h"
+#include "System.h"
 
 #include <cstring>
 #include <stdlib.h>
@@ -87,7 +87,11 @@ String::String(String&& str) :
 
 String::String(S32 number) : String(number, "%d", 12) { }
 
-String::String(U32 number) : String(number, "%d", 11) { }
+String::String(U32 number) : String(number, "%u", 11) { }
+
+String::String(S64 number) : String(number, "%dll", 50) { }
+
+String::String(U64 number) : String(number, "%ull", 50) { }
 
 String::String(float number) : String(number, "%f", 50) { }
 
@@ -116,7 +120,7 @@ U32 String::Capacity() const {
 	return capacity;
 }
 
-void String::Clean() {
+void String::Clear() {
 	length = 0;
 	*data = '\0';
 }
@@ -262,16 +266,16 @@ S32 String::ToInt() const {
 S32 String::ToInt(U32 base) const {
 	char* endp;
 	S32 value = strtol(data, &endp, base);
-	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to integer failed", data);
-	CROSS_ASSERT(*endp == '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected", data);
+	CROSS_RETURN(endp != data, 0, "Conversion from string '#' to integer failed", data);
+	CROSS_ASSERT(*endp == '\0', "String '#' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
 }
 
 float String::ToFloat() const {
 	char* endp;
 	float value = strtof(data, &endp);
-	CROSS_RETURN(endp != data, 0, "Conversion from string '%s' to float failed", data);
-	CROSS_ASSERT(*endp == '\0', "String '%s' contains unrecognized symbols. Conversion result may be unexpected", data);
+	CROSS_RETURN(endp != data, 0, "Conversion from string '#' to float failed", data);
+	CROSS_ASSERT(*endp == '\0', "String '#' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
 }
 

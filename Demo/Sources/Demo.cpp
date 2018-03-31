@@ -204,13 +204,13 @@ bool Demo::CreateFontsTexture() {
 	small_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 1.5f;
-	fontName.Clean();
+	fontName.Clear();
 	fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
 	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 2.f;
-	fontName.Clean();
+	fontName.Clear();
 	fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
 	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	big_font = io.Fonts->AddFontDefault(&fontConfig);
@@ -222,7 +222,7 @@ bool Demo::CreateFontsTexture() {
 #endif
 	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-	system->LogIt("Creating font texture(%dx%d)", width, height);
+	system->LogIt("Creating font texture(#x#)", width, height);
 	font_texture = new Texture();
 	font_texture->Create(pixels, 4, width, height,
 		Texture::Filter::LINEAR,

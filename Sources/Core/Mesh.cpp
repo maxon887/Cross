@@ -175,7 +175,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			material->active_texture_slot++;
 			break;
 		default:
-			CROSS_ASSERT(false, "Unknown property type(%s)", prop.GetName());
+			CROSS_ASSERT(false, "Unknown property type(#)", prop.GetName());
 		}
 	}
 	material->active_texture_slot = 0;

@@ -17,6 +17,7 @@
 #include "Light.h"
 #include "Game.h"
 #include "Scene.h"
+#include "System.h"
 
 #include  <algorithm>
 

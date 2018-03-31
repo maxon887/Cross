@@ -23,32 +23,22 @@
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 
-#define CROSS_ASSERT(condition, message, ...)						\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
+#define CROSS_ASSERT(condition, message, ...)									\
+if(!(condition)) {																\
+	cross::cross_system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
 }
 
-#define CROSS_FAIL(condition, message, ...)							\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
-	return;															\
+#define CROSS_FAIL(condition, message, ...)										\
+if(!(condition)) {																\
+	cross::cross_system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	return;																		\
 }
 
-#define CROSS_RETURN(condition, value, message, ...)				\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
-	return value;													\
+#define CROSS_RETURN(condition, value, message, ...)							\
+if(!(condition)) {																\
+	cross::cross_system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	return value;																\
 }
-
-#if defined(__APPLE__) || defined(__APPLE_CC__)
-#   define APPLE true
-#   include "TargetConditionals.h"
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#       define IOS true
-#   else
-#       define MACOS true
-#   endif
-#endif
 
 #include <cstdint>
 
@@ -63,8 +53,6 @@ namespace cross {
 	typedef uint64_t	U64;
 	typedef uint8_t		Byte;
 }
-
-void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 
 #include "Internals/MemoryManager.h"
 #include "Math/All.h"
@@ -82,8 +70,6 @@ void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
 #endif
 
 namespace cross{
-
-//typedef std::string	String;
 
 template<typename Type>
 using Array = ArraySTD<Type>;
