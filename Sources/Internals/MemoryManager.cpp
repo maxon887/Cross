@@ -221,7 +221,8 @@ MemoryObject& MemoryManager::FindObject(void* address) {
 			return alloc_objects[i];
 		}
 	}
-	CROSS_ASSERT(false, "Can not find memory object");
+	static MemoryObject bad_object;
+	CROSS_RETURN(false, bad_object, "Can not find memory object");
 }
 
 void MemoryManager::Log(const char* msg, ...) {

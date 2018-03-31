@@ -24,6 +24,12 @@
 
 using namespace cross;
 
+String String::Format(const String& format) {
+	S32 spot = format.Find('#');
+	CROSS_ASSERT(spot == -1, "Formatter error. Less values provied than expected");
+	return format;
+}
+
 String::String() :
 	length(0),
 	capacity(0)
@@ -79,36 +85,11 @@ String::String(String&& str) :
 	str.data = nullptr;
 }
 
+String::String(S32 number) : String(number, "%d", 12) { }
 
-String::String(S32 number) {
-	const U32 max_int_len = 12;	//max possible 32 bit int value
-	data = (char*)CROSS_ALLOC(max_int_len);
-	length = sprintf(data, "%d", number);
-	capacity = length;
+String::String(U32 number) : String(number, "%d", 11) { }
 
-	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
-	CROSS_ASSERT(length < max_int_len, "More data written in buffer than was allocated");
-}
-
-String::String(U32 number) {
-	const U32 max_int_len = 11;
-	data = (char*)CROSS_ALLOC(max_int_len);
-	length = sprintf(data, "%d", number);
-	capacity = length;
-
-	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
-	CROSS_ASSERT(length < max_int_len, "More data written in buffer than was allocated");
-}
-
-String::String(float number) {
-	const U32 max_float_len = 50;
-	data = (char*)CROSS_ALLOC(max_float_len);
-	length = sprintf(data, "%f", number);
-	capacity = length;
-
-	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
-	CROSS_ASSERT(length < max_float_len, "More data written in buffer than was allocated");
-}
+String::String(float number) : String(number, "%f", 50) { }
 
 String::String(const Color& color) :
 	length(8),
@@ -228,7 +209,16 @@ bool String::Remove(const char* subStr) {
 		U32 size = length - (begin - data);
 		memcpy(begin, begin + cLen, size + 1);
 		length -= cLen;
-		Remove(subStr);
+		return true;
+	}
+	return false;
+}
+
+bool String::Remove(char c) {
+	S32 res = Find(c);
+	if(res != -1) {
+		memcpy(data + res, data + res + 1, length - res);
+		length--;
 		return true;
 	}
 	return false;
@@ -240,9 +230,21 @@ void String::Cut(U32 first, U32 last) {
 	data[length] = '\0';
 }
 
+void String::Insert(U32 pos, const String& str) {
+	U32 newLen = length + str.length;
+	if(capacity < newLen) {
+		data = (char*)CROSS_REALLOC(data, newLen + 1);
+		capacity = newLen;
+	}
+	String temp = SubString(pos, length);
+	memcpy(data + pos, str.ToCStr(), str.length);
+	memcpy(data + pos + str.length, temp.ToCStr(), temp.length + 1);
+	length += str.length;
+}
+
 String String::SubString(U32 first, U32 last) const {
 	U32 len = last - first;
-	String result("", 0, len);
+	String result("", len, len);
 	char* newData = result.ToCStr();
 	memcpy(newData, data + first, len);
 	newData[len] = '\0';

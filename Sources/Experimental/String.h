@@ -20,6 +20,10 @@ namespace cross {
 
 class String {
 public:
+	static String Format(const String& fromat);
+	template<class First, class... Args>
+	static String Format(const String& format, First value, Args... args);
+
 	String();
 	String(const char* cstr);
 	String(const char* begin, const char* end);
@@ -29,6 +33,8 @@ public:
 	String(U32 number);
 	String(float number);
 	String(const Color& color);
+	template<class Value>
+	String(Value value, const char* format, U32 bufferSize);
 	~String();
 
 	/* Return length of the string. Number of placed characters spots */
@@ -61,8 +67,12 @@ public:
 	void Lowercase();
 	/* Removes first occurrence of subStr in current String */
 	bool Remove(const char* subStr);
+	/* Removes first occurrence of character in current String */
+	bool Remove(char c);
 	/* Removes all characters before first argument and after last from current String */
 	void Cut(U32 first, U32 last);
+	/* Inserts provided String in the midle of current string at postion */
+	void Insert(U32 position, const String& str);
 	/* Returns cut String from first character to last by arguments */
 	String SubString(U32 first, U32 last) const;
 	/* Returns data pointer on this String */
@@ -104,5 +114,24 @@ private:
 	String(const char* cstr, U32 length, U32 capacity);
 };
 
+template<class First, class... Args>
+String String::Format(const String& format, First value, Args... args) {
+	S32 spot = format.Find('#');
+	CROSS_ASSERT(spot != -1, "Formatter error. More values provied than expected");
+	String result = format;
+	result.Remove('#');
+	result.Insert(spot, String(value));
+	return Format(result, args...);
+}
+
+template<class Value>
+String::String(Value value, const char* format, U32 bufferSize) {
+	data = (char*)CROSS_ALLOC(bufferSize + 1);
+	length = sprintf(data, format, value);
+	capacity = bufferSize;
+
+	CROSS_ASSERT(length > 0, "Convertion from integer to string failed");
+	CROSS_ASSERT(length < bufferSize, "More data written in buffer than was allocated");
+}
 
 }
