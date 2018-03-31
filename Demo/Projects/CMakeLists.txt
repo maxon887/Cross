@@ -9,6 +9,7 @@ file(GLOB SRC
     ../../Sources/Math/*.*
     ../../Sources/Shaders/*.*
 	../../Sources/Internals/*.*
+	../../Sources/Experimental/*.*
     ../../Sources/Utils/*.*
     ../../Sources/Platform/MacOS/*.*
     ../../Sources/Libs/SOIL/*.*
