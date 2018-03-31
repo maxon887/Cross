@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 #include "MemoryManager.h"
+#include "System.h"
 
 #include <stdarg.h>
 #include <stdlib.h>
@@ -174,7 +175,7 @@ void MemoryManager::Free(void* address) {
 
 unsigned long MemoryManager::Dump() {
 	SanityCheck();
-	unsigned long totalBytes = 0;
+	U64 totalBytes = 0;
 	for(unsigned int i = 0; i < object_count; i++) {
 		Log("%4d. 0x%08X: %d bytes(%s: %d)\n",
 			i,
@@ -185,7 +186,7 @@ unsigned long MemoryManager::Dump() {
 		totalBytes += alloc_objects[i].size;
 	}
 	Log("Memory leak detected(%u bytes)\n", totalBytes);
-	CROSS_ASSERT(totalBytes == 0, "Memory leak detected(%ud bytes)", totalBytes);
+	CROSS_ASSERT(totalBytes == 0, "Memory leak detected(%ud bytes)", String(totalBytes, "%ud", 20));
 	return totalBytes;
 }
 
@@ -212,7 +213,7 @@ void MemoryManager::SanityCheck(){
 			CROSS_ASSERT(false, "Sanity Check failed");
 		}
 	}
-	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: %d corrupted buffers\n", count);
+	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: # corrupted buffers\n", count);
 }
 
 MemoryObject& MemoryManager::FindObject(void* address) {
@@ -221,7 +222,8 @@ MemoryObject& MemoryManager::FindObject(void* address) {
 			return alloc_objects[i];
 		}
 	}
-	CROSS_ASSERT(false, "Can not find memory object");
+	static MemoryObject bad_object;
+	CROSS_RETURN(false, bad_object, "Can not find memory object");
 }
 
 void MemoryManager::Log(const char* msg, ...) {

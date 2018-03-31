@@ -46,7 +46,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 			strcpy(error, "Unknown error");  
 			break;
 		}
-		CROSS_ASSERT(false, "Rendering error number: %s in %s : %d", error, file, line);
+		CROSS_ASSERT(false, "Rendering error number: # in # : #", error, file, line);
 		delete[] error;
 		err = glGetError();
 	}
@@ -66,8 +66,8 @@ GraphicsGL::GraphicsGL() {
 	CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #endif
 
-	system->LogIt("\tRenderer - %s", glGetString(GL_RENDERER));
-	system->LogIt("\tOpenGL version - %s", glGetString(GL_VERSION));
+	system->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
+	system->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
 	shader_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 	system->LogIt("\tGLSL version - " + shader_version);
 
@@ -86,21 +86,21 @@ GraphicsGL::GraphicsGL() {
 	
 	GLint value;
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value));
-	system->LogIt("\tMax Vertex Uniforms: %d", value);
+	system->LogIt("\tMax Vertex Uniforms: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value));
-	system->LogIt("\tMax Fragment Uniforms: %d", value);
+	system->LogIt("\tMax Fragment Uniforms: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
-	system->LogIt("\tMax Vertex Attributes: %d", value);
+	system->LogIt("\tMax Vertex Attributes: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value));
-	system->LogIt("\tMax Texture Size: %d", value);
+	system->LogIt("\tMax Texture Size: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value));
-	system->LogIt("\tMax Texture Units: %d", value);
+	system->LogIt("\tMax Texture Units: #", value);
 
-	system->LogIt("\tDevice DPI - %f", system->GetScreenDPI());
+	system->LogIt("\tDevice DPI - #", system->GetScreenDPI());
 
 	system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 

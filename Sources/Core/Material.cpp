@@ -158,7 +158,7 @@ Shader::Property* Material::GetProperty(const String& name){
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, nullptr, "Can not find property '%s'", name);
+	CROSS_RETURN(false, nullptr, "Can not find property '#'", name);
 }
 
 Shader::Property* Material::GetProperty(U64 glID){
@@ -167,7 +167,7 @@ Shader::Property* Material::GetProperty(U64 glID){
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, nullptr, "Can not find property by ID(%d)", glID);
+	CROSS_RETURN(false, nullptr, "Can not find property by ID(#)", glID);
 }
 
 Array<Shader::Property>& Material::GetProperties(){
@@ -176,85 +176,85 @@ Array<Shader::Property>& Material::GetProperties(){
 
 void Material::SetPropertyValue(const String& name, S32 value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, float value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, const Color& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Vector3D& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Vector4D& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Matrix& value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(const String& name, Texture* value){
 	Shader::Property* prop = GetProperty(name);
-	CROSS_FAIL(prop, "Can not set property '%s'", name);
+	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, S32 value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, float value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, const Color& value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Vector3D& value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Vector4D& value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Matrix& value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
 void Material::SetPropertyValue(U64 glID, Texture* value){
 	Shader::Property* prop = GetProperty(glID);
-	CROSS_FAIL(prop, "Can not set property by id(%d)", glID);
+	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 

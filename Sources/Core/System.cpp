@@ -28,15 +28,9 @@
 
 using namespace cross;
 
-void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
-	va_list args;
-	va_start(args, msg);
-	system->Alert(filename, line, msg, args);
-}
-
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
-	CROSS_RETURN(f, nullptr, "Can not open file %s", filename.ToCStr());
+	CROSS_RETURN(f, nullptr, "Can not open file #", filename.ToCStr());
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
@@ -44,7 +38,7 @@ File* System::LoadFile(const String& filename) {
 	fseek(f, 0, SEEK_SET);
 	file->data = new Byte[file->size];
 	U64 read = fread(file->data, sizeof(Byte), file->size, f);
-	CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.ToCStr());
+	CROSS_ASSERT(file->size == read, "File # not read properly", file->name.ToCStr());
 	fclose(f);
 	return file;
 }
@@ -59,9 +53,9 @@ File* System::LoadDataFile(const String& filename) {
 
 void System::SaveFile(File* file) {
 	FILE* f = fopen(file->name.ToCStr(), "wb");
-	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.ToCStr());
+	CROSS_FAIL(f, "Can not open file for writing: #", file->name.ToCStr());
 	U64 written = fwrite(file->data, 1, file->size, f);
-	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.ToCStr());
+	CROSS_ASSERT(file->size == written, "Can not write to file #", file->name.ToCStr());
 	fclose(f);
 }
 
@@ -84,7 +78,7 @@ bool System::Alert(const String& msg) {
 	Messagebox("Something goes wrong", msg.ToCStr());
 	return false;
 }
-
+/*
 void System::Alert(const char* filename, unsigned int line, const char* msg, va_list list) {
 	auto it = asserts_hashes.find(line);
 	if(it == asserts_hashes.end()) {
@@ -115,7 +109,7 @@ void System::Alert(const char* filename, unsigned int line, const char* msg, va_
 		LogIt(str.ToCStr());
 #endif
 	}
-}
+}*/
 
 void System::Sleep(float milis) {
 	CROSS_ASSERT(false, "Function System::Speep() does not implemented");
@@ -136,35 +130,6 @@ String System::GetClipboard() {
 
 void System::SetClipboard(const String& data) {
 	CROSS_ASSERT(false, "System::SetClipboard() does not implemented");
-}
-
-void System::LogIt(const char* format, ...) {
-	va_list params;
-	char buffer[4096];
-	va_start(params, format);
-	vsprintf(buffer, format, params);
-	Log(buffer);
-#ifdef CROSS_DEBUG
-	if(log_buffer.size() > 8192) {
-		log_buffer.erase(log_buffer.begin(), log_buffer.begin() + 1024);
-	}
-
-	if(log_buffer.size() != 0) {
-		log_buffer.pop_back();
-	}
-	log_buffer.insert(log_buffer.end(), buffer, buffer + strlen(buffer));
-	log_buffer.push_back('\n');
-	log_buffer.push_back(0);
-#endif // CROSS_DEBUG
-	va_end(params);
-}
-
-void System::LogIt(const String& msg) {
-	LogIt(msg.ToCStr());
-}
-
-void System::LogIt(const Vector3D& vector) {
-	LogIt("X - %0.3f, Y - %0.3f, Z - %0.3f", vector.x, vector.y, vector.z);
 }
 
 float System::GetScreenScale() {
@@ -193,7 +158,7 @@ float System::GetAspectRatio() const {
 	return GetWindowWidth() / (float)GetWindowHeight();
 }
 
-Array<char>& System::GetLogBuffer() {
+String& System::GetLogBuffer() {
 	return log_buffer;
 }
 

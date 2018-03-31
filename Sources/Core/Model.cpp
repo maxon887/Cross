@@ -58,7 +58,7 @@ void Model::Load(const String& filename, bool calcTangents, bool transferVideoDa
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Model(%s) loaded in %0.1fms", filename, loadTime);
+	system->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 }
 
 const String& Model::GetFilename() const {
@@ -81,7 +81,7 @@ void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	}
 	current_scene = importer.ReadFileFromMemory(file->data, file->size, flags);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
-		CROSS_FAIL(false, "Assimp Error: %s", importer.GetErrorString());
+		CROSS_FAIL(false, "Assimp Error: #", importer.GetErrorString());
 	}
 	aiNode* aiRoot = current_scene->mRootNode;
 	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
@@ -155,7 +155,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 			indices.push_back(mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	system->LogIt("\tMesh loaded with %d polygons and %d bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
+	system->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
 	Mesh* crsMesh = new Mesh(this, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;

@@ -52,7 +52,7 @@ void Scene::Start() {
 	system->WindowResized.Connect(this, &Scene::OnWindowResize);
 
 	if(filename != "") {
-		CROSS_ASSERT(Load(filename), "Screen '%s' was not loaded correctly", GetName());
+		CROSS_ASSERT(Load(filename), "Screen '#' was not loaded correctly", GetName());
 	}
 }
 
@@ -211,7 +211,7 @@ Entity* Scene::GetEntity(const String& name) {
 	if(child){
 		return child;
 	}
-	CROSS_RETURN(false, nullptr, "Can not find entity %s", name);
+	CROSS_RETURN(false, nullptr, "Can not find entity #", name);
 }
 
 void Scene::AddEntity(Entity* entity) {
@@ -348,8 +348,8 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 		XMLElement* componentXML = componentsXML->FirstChildElement();
 		while(componentXML) {
 			Component* component = factory->Create(componentXML->Name());
-			CROSS_RETURN(component, false, "Can't create component of type %s", componentXML->Name());
-			CROSS_RETURN(component->Load(componentXML, this), false, "Can't load component of type '%s'", componentXML->Name());
+			CROSS_RETURN(component, false, "Can't create component of type #", componentXML->Name());
+			CROSS_RETURN(component->Load(componentXML, this), false, "Can't load component of type '#'", componentXML->Name());
 			entity->AddComponent(component);
 			componentXML = componentXML->NextSiblingElement();
 		}
@@ -359,7 +359,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	if(childrenXML) {
 		XMLElement* childXML = childrenXML->FirstChildElement("Object");
 		while(childXML) {
-			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '%s'", parent->GetName());
+			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '#'", parent->GetName());
 			childXML = childXML->NextSiblingElement("Object");
 		}
 	}

@@ -306,7 +306,7 @@ void Shader::Compile() {
 
 	for(Property& prop : properties){
 		prop.glId = glGetUniformLocation(program, prop.glName);
-		CROSS_FAIL(prop.glId != -1, "Property %s does not contains in the shader", prop.glName);
+		CROSS_FAIL(prop.glId != -1, "Property # does not contains in the shader", prop.glName);
 	}
 	compiled = true;
 }
@@ -471,6 +471,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 	}
 
 	source += String((char*)file->data, (char*)(file->data + file->size));
+	//source += "Sdwqr213424";
 
 	GLuint handle = glCreateShader(type);
 	char* cptr = source.ToCStr();
@@ -485,7 +486,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 
 		char* log = new char[len + 1];
 		glGetShaderInfoLog(handle, len, &len, log);
-		CROSS_RETURN(false, 0, "Shader: %s\n%sShader", file->name, log);
+		CROSS_RETURN(false, 0, "Shader: #\n#Shader", file->name, log);
 	} else {
 #ifdef CROSS_DEBUG
 		GLsizei len;
@@ -494,7 +495,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
-			CROSS_ASSERT(false, "Shader compilation:\n%s", log);
+			CROSS_ASSERT(false, "Shader compilation:\n#", log);
 			delete[] log;
 		}
 #endif
@@ -513,7 +514,7 @@ void Shader::CompileProgram() {
 
 		char* log = new char[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
-		CROSS_FAIL(false, "Shader program compilation failed:\n %s", log);
+		CROSS_FAIL(false, "Shader program compilation failed:\n #", log);
 	}
 }
 

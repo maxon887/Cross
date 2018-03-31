@@ -73,4 +73,10 @@ private:
 
 }
 
-#endif // CROSS_DEBUG
+#else
+
+#define CROSS_ALLOC(size) malloc(size)
+#define CROSS_REALLOC(pointer, size) realloc(pointer, size)
+#define CROSS_FREE(pointer) free(pointer)
+
+#endif

@@ -15,6 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Component.h"
+#include "System.h"
 #include "Entity.h"
 #include "Transform.h"
 
