@@ -26,12 +26,12 @@ public:
     ~IOSSystem();
     
     void Log(const char* msg) override;
-    string AssetsPath() override;
-    string DataPath() override;
+    String AssetsPath() override;
+    String DataPath() override;
     U64 GetTime() override;
     float GetScreenDPI() override;
     
     void RequestOrientation(Orientation orientation) override;
     bool IsMobile() override;
-    void Messagebox(const string& title, const string& message) override;
+    void Messagebox(const String& title, const String& message) override;
 };

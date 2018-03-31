@@ -16,6 +16,11 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #if defined(CROSS_DEBUG) && !defined(EDITOR)
+
+#define CROSS_ALLOC(size) MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__)
+#define CROSS_REALLOC(pointer, size) MemoryManager::Instance()->ReAlloc(pointer, size, __FILE__, __LINE__)
+#define CROSS_FREE(pointer) MemoryManager::Instance()->Free(pointer)
+
 #ifdef WIN
 
 void* operator new(size_t size);
@@ -30,10 +35,6 @@ void operator delete[](void* p, char* filename, unsigned long line);
 #define new new(__FILE__, __LINE__)
 
 #endif
-
-#define CROSS_ALLOC(size) MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__)
-#define CROSS_REALLOC(pointer, size) MemoryManager::Instance()->ReAlloc(pointer, size, __FILE__, __LINE__)
-#define CROSS_FREE(pointer) MemoryManager::Instance()->Free(pointer)
 
 namespace cross{
 

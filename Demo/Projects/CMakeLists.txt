@@ -9,6 +9,7 @@ file(GLOB SRC
     ../../Sources/Math/*.*
     ../../Sources/Shaders/*.*
 	../../Sources/Internals/*.*
+	../../Sources/Experimental/*.*
     ../../Sources/Utils/*.*
     ../../Sources/Platform/MacOS/*.*
     ../../Sources/Libs/SOIL/*.*
@@ -48,3 +49,4 @@ include_directories(../../Sources/Libs/Assimp)
 include_directories(../../Sources/Libs/SOIL)
 
 add_definitions(-DOPENGL)
+add_definitions(-DMACOS)

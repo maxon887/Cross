@@ -68,7 +68,10 @@ template<class... Args>
 template<class Clazz>
 void Event<Args...>::Disconnect(Clazz* obj, void(Clazz::*func)(Args...)) {
 	U64 hash = Hash(obj, func);
-	CROSS_FAIL(connections.find(hash) != connections.end(), "Function does not connected");
+	//Function does not connected
+	if(connections.find(hash) == connections.end()) {
+		assert(false);
+	}
 	connections.erase(hash);
 }
 

@@ -74,7 +74,11 @@ GraphicsGL::GraphicsGL() {
 	S32 first = shader_version.FindFirstOf("0123456789.");
 	if(first != -1) {
 		S32 last = shader_version.FindNonFirstOf("0123456789.", first);
-		shader_version.Cut(first, last);
+		if(last != -1) {
+			shader_version.Cut(first, last);
+		} else {
+			shader_version.Cut(first, shader_version.Length());
+		}
 	} else {
 		CROSS_ASSERT(false, "Can not obtain shader version");
 	}
