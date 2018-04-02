@@ -46,7 +46,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 			strcpy(error, "Unknown error");  
 			break;
 		}
-		CROSS_ASSERT(false, "Rendering error number: %s in %s : %d", error, file, line);
+		CROSS_ASSERT(false, "Rendering error number: # in # : #", error, file, line);
 		delete[] error;
 		err = glGetError();
 	}
@@ -66,38 +66,41 @@ GraphicsGL::GraphicsGL() {
 	CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #endif
 
-	system->LogIt("\tRenderer - %s", glGetString(GL_RENDERER));
-	system->LogIt("\tOpenGL version - %s", glGetString(GL_VERSION));
-	const char* shaderVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-	system->LogIt("\tGLSL version - %s", shaderVersion);
+	system->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
+	system->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
+	shader_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+	system->LogIt("\tGLSL version - " + shader_version);
 
-    shader_version = shaderVersion;
-	std::size_t const n = shader_version.find_first_of("0123456789.");
-	if (n != std::string::npos) {
-		std::size_t const m = shader_version.find_first_not_of("0123456789.", n);
-		shader_version = shader_version.substr(n, m != std::string::npos ? m-n : m);
+	S32 first = shader_version.FindFirstOf("0123456789.");
+	if(first != -1) {
+		S32 last = shader_version.FindNonFirstOf("0123456789.", first);
+		if(last != -1) {
+			shader_version.Cut(first, last);
+		} else {
+			shader_version.Cut(first, shader_version.Length());
+		}
 	} else {
 		CROSS_ASSERT(false, "Can not obtain shader version");
 	}
-	shader_version.erase(remove(shader_version.begin(), shader_version.end(), '.'));
+	shader_version.Remove(".");
 	
 	GLint value;
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value));
-	system->LogIt("\tMax Vertex Uniforms: %d", value);
+	system->LogIt("\tMax Vertex Uniforms: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value));
-	system->LogIt("\tMax Fragment Uniforms: %d", value);
+	system->LogIt("\tMax Fragment Uniforms: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
-	system->LogIt("\tMax Vertex Attributes: %d", value);
+	system->LogIt("\tMax Vertex Attributes: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value));
-	system->LogIt("\tMax Texture Size: %d", value);
+	system->LogIt("\tMax Texture Size: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value));
-	system->LogIt("\tMax Texture Units: %d", value);
+	system->LogIt("\tMax Texture Units: #", value);
 
-	system->LogIt("\tDevice DPI - %f", system->GetScreenDPI());
+	system->LogIt("\tDevice DPI - #", system->GetScreenDPI());
 
 	system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 

@@ -16,6 +16,11 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #if defined(CROSS_DEBUG) && !defined(EDITOR)
+
+#define CROSS_ALLOC(size) MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__)
+#define CROSS_REALLOC(pointer, size) MemoryManager::Instance()->ReAlloc(pointer, size, __FILE__, __LINE__)
+#define CROSS_FREE(pointer) MemoryManager::Instance()->Free(pointer)
+
 #ifdef WIN
 
 void* operator new(size_t size);
@@ -44,6 +49,7 @@ class MemoryManager {
 public:
 	static MemoryManager* Instance();
 	void* Alloc(unsigned long size, const char* filename, unsigned long line);
+	void* ReAlloc(void* pointer, unsigned long size, const char* filename, unsigned long line);
 	void Free(void* address);
 	unsigned long Dump();
 
@@ -62,9 +68,16 @@ private:
 	~MemoryManager();
 
 	void SanityCheck();
+	MemoryObject& FindObject(void* address);
 	void Log(const char* msg, ...);
 };
 
 }
 
-#endif // CROSS_DEBUG
+#else
+
+#define CROSS_ALLOC(size) malloc(size)
+#define CROSS_REALLOC(pointer, size) realloc(pointer, size)
+#define CROSS_FREE(pointer) free(pointer)
+
+#endif

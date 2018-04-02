@@ -15,11 +15,12 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "ComponentFactory.h"
+#include "System.h"
 
 using namespace cross;
 
 Component* ComponentFactory::Create(const String& name) {
-	CROSS_RETURN(functions.find(name) != functions.end(), nullptr, "Component %s didn't register in the factory", name.c_str());
+	CROSS_RETURN(functions.find(name) != functions.end(), nullptr, "Component # didn't register in the factory", name);
 	return functions[name]();
 }
 

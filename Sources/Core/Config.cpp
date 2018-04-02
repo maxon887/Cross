@@ -38,11 +38,11 @@ void Config::SetString(const String& key, const String& value) {
 }
 
 void Config::SetInt(const String& key, S32 value) {
-	SetString(key, to_string(value));
+	SetString(key, String(value));
 }
 
 void Config::SetFloat(const String& key, float value) {
-	SetString(key, to_string(value));
+	SetString(key, String(value));
 }
 
 void Config::SetBool(const String& key, bool value) {
@@ -51,23 +51,23 @@ void Config::SetBool(const String& key, bool value) {
 
 String Config::GetString(const String& key, const String& def) const {
 	String strValue = GetString(key);
-	if(strValue.empty())
+	if(strValue.IsEmpty())
 		return def;
 	return strValue;
 }
 
 S32 Config::GetInt(const String& key, S32 def) const {
 	String strValue = GetString(key);
-	if(strValue.empty())
+	if(strValue.IsEmpty())
 		return def;
-	return atoi(strValue.c_str());
+	return strValue.ToInt();
 }
 
 float Config::GetFloat(const String& key, float def) const {
 	String strValue = GetString(key);
-	if(strValue.empty())
+	if(strValue.IsEmpty())
 		return def;
-	return (float)atof(strValue.c_str());
+	return strValue.ToFloat();
 }
 
 bool Config::GetBool(const String& key, bool def) const {
@@ -119,7 +119,7 @@ void Config::LoadGameConfig() {
 		String strValue = element->Attribute("value");
 
 		if(name == "Orientation") {
-			orientation = (System::Orientation)atoi(strValue.c_str());
+			orientation = (System::Orientation)strValue.ToInt();
 		}
 
 		if(name == "UseCompressedTextures") {
@@ -127,7 +127,7 @@ void Config::LoadGameConfig() {
 		}
 
 		if(name == "TextureFilter") {
-			texture_filter = (Texture::Filter)atoi(strValue.c_str());
+			texture_filter = (Texture::Filter)strValue.ToInt();
 		}
 
 		if(name == "OffscreenRender") {
@@ -173,7 +173,7 @@ void Config::SaveGameConfig() {
 
 	XMLElement* property = doc.NewElement("Property");
 	property->SetAttribute("name", "Orientation");
-	property->SetAttribute("value", to_string(orientation).c_str());
+	property->SetAttribute("value", String(orientation));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -183,7 +183,7 @@ void Config::SaveGameConfig() {
 
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
-	property->SetAttribute("value", to_string(texture_filter).c_str());
+	property->SetAttribute("value", String(texture_filter));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -211,8 +211,8 @@ void Config::SaveUserConfig() {
 	XMLElement* property;
 	for(auto pair : user_prefs){
 		property = doc.NewElement("Property");
-		property->SetAttribute("name", pair.first.c_str());
-		property->SetAttribute("value", pair.second.c_str());
+		property->SetAttribute("name", pair.first);
+		property->SetAttribute("value", pair.second);
 		element->LinkEndChild(property);  
 	}
 	

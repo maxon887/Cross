@@ -51,16 +51,16 @@ void IOSSystem::Log(const char* str){
     NSLog(@"%@", [NSString stringWithFormat:@"%s", str]);
 }
 
-string IOSSystem::AssetsPath(){
+String IOSSystem::AssetsPath(){
     NSString* path = [[NSBundle mainBundle] bundlePath];
-    string cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    String cPath = [path cStringUsingEncoding:[NSString defaultCStringEncoding]];
     return cPath + "/Assets/";
 }
 
-string IOSSystem::DataPath(){
+String IOSSystem::DataPath(){
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    string cPath = [basePath cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    String cPath = [basePath cStringUsingEncoding:[NSString defaultCStringEncoding]];
     return cPath + "/";
 }
 
@@ -86,13 +86,13 @@ bool IOSSystem::IsMobile() {
     return true;
 }
 
-void IOSSystem::Messagebox(const string& title, const string& message){
+void IOSSystem::Messagebox(const String& title, const String& message){
     CrossViewController* viewController = [CrossViewController Instance];
     viewController.CrossPaused = YES;
     
     MessageboxDelegate* del = [[MessageboxDelegate alloc] init];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%s", title.c_str()]
-                                                    message:[NSString stringWithFormat:@"%s", message.c_str()]
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%s", title.ToCStr()]
+                                                    message:[NSString stringWithFormat:@"%s", message.ToCStr()]
                                                    delegate:del
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];

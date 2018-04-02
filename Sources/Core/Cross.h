@@ -23,34 +23,25 @@
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 
-#define CROSS_ASSERT(condition, message, ...)						\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
+#define CROSS_ASSERT(condition, message, ...)									\
+if(!(condition)) {																\
+	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
 }
 
-#define CROSS_FAIL(condition, message, ...)							\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
-	return;															\
+#define CROSS_FAIL(condition, message, ...)										\
+if(!(condition)) {																\
+	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	return;																		\
 }
 
-#define CROSS_RETURN(condition, value, message, ...)				\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
-	return value;													\
+#define CROSS_RETURN(condition, value, message, ...)							\
+if(!(condition)) {																\
+	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);		\
+	return value;																\
 }
-
-#if defined(__APPLE__) || defined(__APPLE_CC__)
-#   define APPLE true
-#   include "TargetConditionals.h"
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#       define IOS true
-#   else
-#       define MACOS true
-#   endif
-#endif
 
 #include <cstdint>
+#include <cassert>
 
 namespace cross {
 	typedef int8_t		S8;
@@ -64,26 +55,22 @@ namespace cross {
 	typedef uint8_t		Byte;
 }
 
-void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
-
 #include "Internals/MemoryManager.h"
 #include "Math/All.h"
 #include "Color.h"
 
-#include <string>
 #include <list>
 #include <map>
 #include <set>
 
 #include "Experimental/ArraySTD.h"
+#include "Experimental/String.h"
 
 #if !defined(ANDROID)
 #   define system cross_system
 #endif
 
 namespace cross{
-
-typedef std::string	String;
 
 template<typename Type>
 using Array = ArraySTD<Type>;
@@ -123,7 +110,7 @@ extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
 
-static const char*	version = "4.0.1";
+static const char*	version = "4.0.2";
 
 }
 
@@ -145,12 +132,3 @@ friend Input;			\
 friend Config;			\
 friend Scene;			\
 friend Screen;			
-
-#if defined(ANDROID)
-inline cross::String to_StringAndroid(int i) {
-    char buff[1024];
-    sprintf(buff, "%i", i);
-    return cross::String(buff);
-}
-#define  to_string to_StringAndroid
-#endif

@@ -59,8 +59,6 @@ public:
 	virtual bool IsDataFileExists(const String& filename);
 	/* Notifies user that something happened by system message. Returns true if system should skip this message in further use */
 	virtual bool Alert(const String& msg);
-	/* Notifies user that something happened by system message. Usually something bad. Use it at last case */
-	virtual void Alert(const char* filename, unsigned int line, const char* msg, va_list list);
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis);
 	/* Requests to set required orientation. Can not to be set if system not allow to change orientation */
@@ -75,12 +73,12 @@ public:
 	virtual String GetClipboard();
 	/* Sets current String int clipboard buffer */
 	virtual void SetClipboard(const String& data);
-	/* Prints message with formated input */
-	void LogIt(const char* format, ...);
 	/* Prints String */
-	void LogIt(const String& msg);
-	/* Prints vector */
-	void LogIt(const Vector3D& vector);
+	template<class... Args>
+	void LogIt(const String& msg, Args... args);
+	/* Notifies user that something happened by system message. Usually something bad. Use it at last case */
+	template<class... Args>
+	void Alert(const String& message, const char* filename, U32 line, Args... args);
 	/* How much screen elements must be increased or decreased due to device DPI */
 	float GetScreenScale();
 	/* Returns window width in pixels */
@@ -94,7 +92,7 @@ public:
 	/* Sets physical device screen size */
 	void SetWindowSize(S32 width, S32 height);
 	/* Returns all messages that was logged. Works only in debug builds */
-	Array<char>& GetLogBuffer();
+	String& GetLogBuffer();
 
 protected:
 	virtual void Messagebox(const String& title, const String& msg);
@@ -102,9 +100,47 @@ protected:
 private:
 	S32 window_width	= -1;
 	S32 window_height	= -1;
-	Set<int> asserts_hashes;
+	Set<U64> asserts_hashes;
 
-	Array<char> log_buffer;
+	String log_buffer;
 };
+
+template<class... Args>
+void System::LogIt(const String& message, Args... args) {
+	String formatted = String::Format(message, args...);
+	Log(formatted.ToCStr());
+
+#ifdef CROSS_DEBUG
+	if(log_buffer.Length() > 8192) {
+		log_buffer.Cut(1024, log_buffer.Length());
+	}
+
+	log_buffer += formatted;
+	log_buffer += "\n";
+#endif // CROSS_DEBUG
+}
+
+template<class... Args>
+void System::Alert(const String& message, const char* filename, U32 line, Args... args) {
+	U64 hash = message.Hash();
+	auto found = asserts_hashes.find(hash);
+	if(found == asserts_hashes.end()) {
+		String formatted = String::Format(message, args...);
+		formatted += "\n";
+		formatted += "File: ";
+		formatted += filename;
+		formatted += "\n";
+		formatted += "Line: ";
+		formatted += line;
+		Log(formatted);
+#ifdef CROSS_DEBUG
+		if(Alert(formatted)) {
+			asserts_hashes.insert(hash);
+		}
+#else
+		asserts_hashes.insert(hash);
+#endif
+	}
+}
 	
 }

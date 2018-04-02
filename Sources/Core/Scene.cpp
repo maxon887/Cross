@@ -52,7 +52,7 @@ void Scene::Start() {
 	system->WindowResized.Connect(this, &Scene::OnWindowResize);
 
 	if(filename != "") {
-		CROSS_ASSERT(Load(filename), "Screen '%s' was not loaded correctly", GetName().c_str());
+		CROSS_ASSERT(Load(filename), "Screen '#' was not loaded correctly", GetName());
 	}
 }
 
@@ -64,16 +64,16 @@ void Scene::Update(float sec) {
 void Scene::Stop() {
 	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
-	for(pair<S32, Texture*> pair : textures){
+	for(pair<U64, Texture*> pair : textures){
 		delete pair.second;
 	}
-	for(pair<S32, Material*> pair : materials){
+	for(pair<U64, Material*> pair : materials){
 		delete pair.second;
 	}
-	for(pair<S32, Model*> pair : models){
+	for(pair<U64, Model*> pair : models){
 		delete pair.second;
 	}
-	for(pair<S32, Shader*> pair : shaders) {
+	for(pair<U64, Shader*> pair : shaders) {
 		delete pair.second;
 	}
 	Screen::Stop();
@@ -192,11 +192,11 @@ void Scene::Save(const String& filename) {
 void Scene::Clear() {
 	root->RemoveChildren();
 	lights.clear();
-	for(pair<S32, Material*> pair : materials){
+	for(pair<U64, Material*> pair : materials){
 		delete pair.second;
 	}
 	materials.clear();
-	for(pair<S32, Texture*> pair : textures) {
+	for(pair<U64, Texture*> pair : textures) {
 		delete pair.second;
 	}
 	textures.clear();
@@ -211,7 +211,7 @@ Entity* Scene::GetEntity(const String& name) {
 	if(child){
 		return child;
 	}
-	CROSS_RETURN(false, nullptr, "Can not find entity %s", name.c_str());
+	CROSS_RETURN(false, nullptr, "Can not find entity #", name);
 }
 
 void Scene::AddEntity(Entity* entity) {
@@ -254,7 +254,7 @@ Color Scene::GetAmbientColor() const {
 }
 
 Shader* Scene::GetShader(const String& shaderfile) {
-	S32 hash = (S32)std::hash<String>{}(shaderfile);
+	U64 hash = shaderfile.Hash();
 	auto shaderIt = shaders.find(hash);
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
@@ -268,7 +268,7 @@ Shader* Scene::GetShader(const String& shaderfile) {
 }
 
 Material* Scene::GetMaterial(const String& xmlFile) {
-	S32 hash = (S32)std::hash<String>{}(xmlFile);
+	U64 hash = xmlFile.Hash();
 	auto matIt = materials.find(hash);
 	if(matIt != materials.end()) {
 		return (*matIt).second;
@@ -283,7 +283,7 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 }
 
 Texture* Scene::GetTexture(const String& textureFile) {
-	S32 hash = (S32)std::hash<String>{}(textureFile);
+	U64 hash = textureFile.Hash();
 	auto textureIt = textures.find(hash);
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
@@ -296,7 +296,7 @@ Texture* Scene::GetTexture(const String& textureFile) {
 }
 
 Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
-	S32 hash = (S32)std::hash<String>{}(textureFile);
+	U64 hash = textureFile.Hash();
 	auto textureIt = textures.find(hash);
 	CROSS_RETURN(textureIt == textures.end(), nullptr, "Texture already loaded. Can't load it second time");
 
@@ -307,7 +307,7 @@ Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 }
 
 Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) {
-	S32 hash = (S32)std::hash<String>{}(modelFile);
+	U64 hash = modelFile.Hash();
 	auto modelIt = models.find(hash);
 	if(modelIt != models.end()) {
 		return (*modelIt).second;
@@ -320,13 +320,13 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 }
 
 void Scene::ResetMaterials() {
-	for(pair<S32, Material*> pair : materials) {
+	for(pair<U64, Material*> pair : materials) {
 		pair.second->Reset();
 	}
 }
 
 void Scene::ResetShaders() {
-	for(pair<S32, Shader*> pair : shaders) {
+	for(pair<U64, Shader*> pair : shaders) {
 		Shader* shader = pair.second;
 		shader->ReCompile();
 	}
@@ -348,8 +348,8 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 		XMLElement* componentXML = componentsXML->FirstChildElement();
 		while(componentXML) {
 			Component* component = factory->Create(componentXML->Name());
-			CROSS_RETURN(component, false, "Can't create component of type %s", componentXML->Name());
-			CROSS_RETURN(component->Load(componentXML, this), false, "Can't load component of type '%s'", componentXML->Name());
+			CROSS_RETURN(component, false, "Can't create component of type #", componentXML->Name());
+			CROSS_RETURN(component->Load(componentXML, this), false, "Can't load component of type '#'", componentXML->Name());
 			entity->AddComponent(component);
 			componentXML = componentXML->NextSiblingElement();
 		}
@@ -359,7 +359,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	if(childrenXML) {
 		XMLElement* childXML = childrenXML->FirstChildElement("Object");
 		while(childXML) {
-			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '%s'", parent->GetName().c_str());
+			CROSS_RETURN(LoadEntity(entity, childXML), false, "Can't load child of entity '#'", parent->GetName());
 			childXML = childXML->NextSiblingElement("Object");
 		}
 	}
@@ -369,7 +369,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 
 bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 	XMLElement* objectXML = doc->NewElement("Object");
-	objectXML->SetAttribute("name", entity->GetName().c_str());
+	objectXML->SetAttribute("name", entity->GetName());
 
 	const Array<Component*>& components = entity->GetComponents();
 	if(components.size() > 0) {

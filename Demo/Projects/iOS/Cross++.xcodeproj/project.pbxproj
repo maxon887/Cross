@@ -67,6 +67,7 @@
 		9D6DDCF51FF63B6B009DD71C /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDD1FF63B6B009DD71C /* imgui_demo.cpp */; };
 		9D6DDCF61FF63B6B009DD71C /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDE1FF63B6B009DD71C /* imgui_draw.cpp */; };
 		9D6DDCF71FF63B6B009DD71C /* imgui_freetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDF1FF63B6B009DD71C /* imgui_freetype.cpp */; };
+		9DCEB9BE206FAE28006B2C6B /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DCEB9BD206FAE28006B2C6B /* String.cpp */; };
 		9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */; };
 		9DDFFF021F46EF1700A6E782 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7B1F46EF1700A6E782 /* image_helper.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7D1F46EF1700A6E782 /* SOIL.c */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -225,6 +226,8 @@
 		9D6DDCE41FF63B6B009DD71C /* stb_rect_pack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_rect_pack.h; sourceTree = "<group>"; };
 		9D6DDCE51FF63B6B009DD71C /* stb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_textedit.h; sourceTree = "<group>"; };
 		9D6DDCE61FF63B6B009DD71C /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
+		9DCEB9BC206FAE28006B2C6B /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
+		9DCEB9BD206FAE28006B2C6B /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		9DDFFE0B1F46EF1700A6E782 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
 		9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryManager.cpp; sourceTree = "<group>"; };
 		9DDFFE121F46EF1700A6E782 /* MemoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryManager.h; sourceTree = "<group>"; };
@@ -645,6 +648,8 @@
 		9DDFFE0A1F46EF1700A6E782 /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
+				9DCEB9BD206FAE28006B2C6B /* String.cpp */,
+				9DCEB9BC206FAE28006B2C6B /* String.h */,
 				9DDFFE0B1F46EF1700A6E782 /* Array.h */,
 			);
 			path = Experimental;
@@ -1048,6 +1053,7 @@
 				9D54BB6D1FBC4316009E8469 /* DiffuseScene.cpp in Sources */,
 				9D1C72951FD56AA200D4D986 /* MenuBar.cpp in Sources */,
 				9DDFFF081F46EF1700A6E782 /* Quaternion.cpp in Sources */,
+				9DCEB9BE206FAE28006B2C6B /* String.cpp in Sources */,
 				9D1C72961FD56AA200D4D986 /* TransformView.cpp in Sources */,
 				9D54BBBD1FBC433C009E8469 /* VertexBuffer.cpp in Sources */,
 				9D54BBB41FBC433C009E8469 /* Material.cpp in Sources */,
@@ -1235,6 +1241,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AQNAZWX3GB;
 				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					IOS,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
 					"$(SRCROOT)/../../../Sources/",
@@ -1267,6 +1278,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AQNAZWX3GB;
 				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = IOS;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
 					"$(SRCROOT)/../../../Sources/",

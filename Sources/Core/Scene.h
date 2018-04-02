@@ -91,10 +91,10 @@ public:
 	void ResetShaders();
 
 protected:
-	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();
-	Dictionary<U32, Texture*> textures		= Dictionary<U32, Texture*>();
-	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
-	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
+	Dictionary<U64, Shader*> shaders		= Dictionary<U64, Shader*>();
+	Dictionary<U64, Texture*> textures		= Dictionary<U64, Texture*>();
+	Dictionary<U64, Material*> materials	= Dictionary<U64, Material*>();
+	Dictionary<U64, Model*> models			= Dictionary<U64, Model*>();
 	List<Light*> lights						= List<Light*>();
 	Entity* root							= nullptr;
 	String filename							= "";

@@ -19,7 +19,7 @@
 
 #define ERRCHECK(_result) \
 if(_result != FMOD_OK) { \
-	CROSS_ASSERT(false, "FMOD error %d - %s", _result, FMOD_ErrorString(_result)); \
+	CROSS_ASSERT(false, "FMOD error # - #", _result, FMOD_ErrorString(_result)); \
 }
 
 namespace FMOD{

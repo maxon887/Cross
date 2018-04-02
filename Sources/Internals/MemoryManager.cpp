@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 #include "MemoryManager.h"
+#include "System.h"
 
 #include <stdarg.h>
 #include <stdlib.h>
@@ -133,6 +134,23 @@ void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned lo
 	}
 }
 
+void* MemoryManager::ReAlloc(void* pointer, unsigned long size, const char* filename, unsigned long line) {
+	if(!dead) {
+		SanityCheck();
+
+		MemoryObject& obj = FindObject(pointer);
+		obj.address = realloc(pointer, size + 4);
+		obj.filename = filename;
+		obj.size = size;
+
+		memcpy((char*)obj.address + size, &check_code, 4);
+
+		return obj.address;
+	} else {
+		return realloc(pointer, size);
+	}
+}
+
 void MemoryManager::Free(void* address) {
 	if(!dead){
 		SanityCheck();
@@ -157,7 +175,7 @@ void MemoryManager::Free(void* address) {
 
 unsigned long MemoryManager::Dump() {
 	SanityCheck();
-	unsigned long totalBytes = 0;
+	U64 totalBytes = 0;
 	for(unsigned int i = 0; i < object_count; i++) {
 		Log("%4d. 0x%08X: %d bytes(%s: %d)\n",
 			i,
@@ -167,8 +185,8 @@ unsigned long MemoryManager::Dump() {
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
-	Log("Memory lick detected(%u bytes)\n", totalBytes);
-	CROSS_ASSERT(totalBytes == 0, "Memory lick detected(%ud bytes)", totalBytes);
+	Log("Memory leak detected(%u bytes)\n", totalBytes);
+	CROSS_ASSERT(totalBytes == 0, "Memory leak detected(%ud bytes)", String(totalBytes, "%ud", 20));
 	return totalBytes;
 }
 
@@ -195,7 +213,17 @@ void MemoryManager::SanityCheck(){
 			CROSS_ASSERT(false, "Sanity Check failed");
 		}
 	}
-	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: %d corrupted buffers\n", count);
+	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: # corrupted buffers\n", count);
+}
+
+MemoryObject& MemoryManager::FindObject(void* address) {
+	for(unsigned int i = 0; i < object_count; ++i) {
+		if(alloc_objects[i].address == address) {
+			return alloc_objects[i];
+		}
+	}
+	static MemoryObject bad_object;
+	CROSS_RETURN(false, bad_object, "Can not find memory object");
 }
 
 void MemoryManager::Log(const char* msg, ...) {
