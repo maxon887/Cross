@@ -54,6 +54,35 @@ struct KTX {
 	U32 bytesOfKeyValueData;
 };
 
+String Texture::FilterToString(Filter filter) {
+	switch(filter) {
+	case Filter::NEAREST:
+		return "NEAREST";
+	case Filter::LINEAR:
+		return "LINEAR";
+	case Filter::BILINEAR:
+		return "BILINEAR";
+	case Filter::TRILINEAR:
+		return "TRILINEAR";
+	default:
+		CROSS_RETURN(false, "", "Unknown texture filter");
+	}
+}
+
+Texture::Filter Texture::StringToFilter(const String& string) {
+	if(string == "NEAREST") {
+		return Filter::NEAREST;
+	} else if(string == "LINEAR") {
+		return Filter::LINEAR;
+	} else if(string == "BILINEAR") {
+		return Filter::BILINEAR;
+	} else if(string == "TRILINEAR") {
+		return Filter::TRILINEAR;
+	} else {
+		CROSS_RETURN(false, Filter::NEAREST, "Unknown texture filter string '#'", string);
+	}
+}
+
 Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
 	File* textureFile = system->LoadAssetFile(filename);
 	CROSS_RETURN(textureFile, nullptr, "Can not load raw texture. File not found");

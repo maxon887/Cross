@@ -35,6 +35,8 @@ public:
 		/* Mipmaps levels and pixels will be linearly interpolated */
 		TRILINEAR
 	};
+	static String FilterToString(Filter filter);
+	static Filter StringToFilter(const String& string);
 	/* Specify how pixels will be picked up outside of 1, 1 uv coordinates */
 	enum TilingMode {
 		/* Similar to the edge pixels */

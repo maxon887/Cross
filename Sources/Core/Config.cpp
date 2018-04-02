@@ -127,7 +127,7 @@ void Config::LoadGameConfig() {
 		}
 
 		if(name == "TextureFilter") {
-			texture_filter = (Texture::Filter)strValue.ToInt();
+			texture_filter = Texture::StringToFilter(strValue);
 		}
 
 		if(name == "OffscreenRender") {
@@ -183,7 +183,7 @@ void Config::SaveGameConfig() {
 
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
-	property->SetAttribute("value", String(texture_filter));
+	property->SetAttribute("value", Texture::FilterToString(texture_filter));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
