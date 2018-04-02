@@ -15,7 +15,7 @@ public:
 	~ShaderView() override = default;
 
 	void Initialize();
-	void OnFileSelected(const string& filename);
+	void OnFileSelected(const String& filename);
 
 protected:
 	void showEvent(QShowEvent* event) override;

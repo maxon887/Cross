@@ -15,7 +15,7 @@ class FileExplorer : public QTreeView
 {
 	Q_OBJECT
 public:
-	Event<string> FileSelected;
+	Event<QString> FileSelected;
 	Event<QString> ProjectDirectoryChanged;
 
 	FileExplorer(QWidget* parent = 0);

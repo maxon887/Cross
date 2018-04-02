@@ -55,7 +55,7 @@ void ShaderView::Clear(){
 	} while(propertyLayout);
 }
 
-void ShaderView::OnFileSelected(const string& filepath){
+void ShaderView::OnFileSelected(const String& filepath){
 	if(File::ExtensionFromFile(filepath) != "sha") {
 		PropertyView::OnFileSelected(filepath);
 		return;
@@ -68,8 +68,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 	delete shader;
 	shader = new Shader();
 	shader->Load(filepath);
-	vertex_handler->SetFile(shader->GetVertexFilename().c_str());
-	fragment_handler->SetFile(shader->GetFragmentFilename().c_str());
+	vertex_handler->SetFile(shader->GetVertexFilename().ToCStr());
+	fragment_handler->SetFile(shader->GetFragmentFilename().ToCStr());
 
 	for(string macro : shader->GetMacrosies()){
 		QWidget* macroLayout = OnAddMacroClicked();
@@ -82,8 +82,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 		QLineEdit* propertyName = propLayout->findChild<QLineEdit*>("propertyName");
 		QLineEdit* propertyGLName = propLayout->findChild<QLineEdit*>("propertyGLName");
 		QComboBox* propertyType = propLayout->findChild<QComboBox*>("propertyType");
-		propertyName->setText(prop.GetName().c_str());
-		propertyGLName->setText(prop.GetGLName().c_str());
+		propertyName->setText(prop.GetName().ToCStr());
+		propertyGLName->setText(prop.GetGLName().ToCStr());
 		switch(prop.GetType()) {
 		case Shader::Property::Type::INT:
 			propertyType->setCurrentIndex(0);
@@ -207,14 +207,14 @@ void ShaderView::OnSomethingChanged(){
 }
 
 void ShaderView::OnApplyClick(){
-	shader->SetVertexFilename(vertex_handler->GetFile().toStdString());
-	shader->SetFragmentFilename(fragment_handler->GetFile().toStdString());
+	shader->SetVertexFilename(vertex_handler->GetFile().toLatin1().data());
+	shader->SetFragmentFilename(fragment_handler->GetFile().toLatin1().data());
 
 	shader->ClearMacrosies();
 	QList<QWidget*> macrosies = macrosies_box->findChildren<QWidget*>("macroLayout");
 	for(QWidget* macroL : macrosies){
 		QLineEdit* macroEdit = macroL->findChild<QLineEdit*>("macroText");
-		shader->AddMacro(macroEdit->text().toStdString());
+		shader->AddMacro(macroEdit->text().toLatin1().data());
 	}
 
 	shader->ClearProperties();
@@ -223,8 +223,8 @@ void ShaderView::OnApplyClick(){
 		QLineEdit* propertyName = propertyL->findChild<QLineEdit*>("propertyName");
 		QLineEdit* propertyGLName = propertyL->findChild<QLineEdit*>("propertyGLName");
 		QComboBox* propertyType = propertyL->findChild<QComboBox*>("propertyType");
-		string name = propertyName->text().toStdString();
-		string glName = propertyGLName->text().toStdString();
+		String name = propertyName->text().toLatin1().data();
+		String glName = propertyGLName->text().toLatin1().data();
 		switch(propertyType->currentIndex()) {
 		case 0://Int 
 			shader->AddProperty(name, glName, Shader::Property::INT);
@@ -250,5 +250,5 @@ void ShaderView::OnApplyClick(){
 }
 
 void ShaderView::OnRevertClick(){
-	OnFileSelected(string(shader->GetFilename()));
+	OnFileSelected(shader->GetFilename());
 }

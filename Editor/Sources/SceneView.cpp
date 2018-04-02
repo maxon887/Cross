@@ -27,7 +27,7 @@ SceneView::SceneView() :
 	FreeCameraScene()
 { }
 
-SceneView::SceneView(const string& filename) :
+SceneView::SceneView(const String& filename) :
 	FreeCameraScene(filename)
 { }
 
@@ -37,7 +37,7 @@ void SceneView::Start() {
 	SetAmbientColor(Color::White);
 	selection_shader = GetShader("Engine/Shaders/Simple.sha");
 	selection_material = new Material(selection_shader);
-	selection_material->SetPropertyValue("Color", Color("0011FFFF"));
+	selection_material->SetPropertyValue("Color", String("0011FFFF").ToColor());
 
 	input->ActionDown.Connect(this, &SceneView::OnActionDown);
 	input->ActionMove.Connect(this, &SceneView::OnActionMove);

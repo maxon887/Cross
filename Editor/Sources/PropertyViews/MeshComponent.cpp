@@ -28,20 +28,20 @@ void MeshComponent::Initialize() {
 
 void MeshComponent::Show(Mesh* mesh) {
 	if(mesh->GetModel()) {
-		model_value->setText(mesh->GetModel()->GetFilename().c_str());
+		model_value->setText(mesh->GetModel()->GetFilename().ToCStr());
 	}
 
 	poly_count_value->setText(QString::number(mesh->GetPolyCount()));
 
 	if(mesh->GetMaterial()) {
-		material_value->setText(mesh->GetMaterial()->GetFilename().c_str());
+		material_value->setText(mesh->GetMaterial()->GetFilename().ToCStr());
 	}
 
 	face_culling_box->setChecked(mesh->IsFaceCullingEnabled());
 }
 
 void MeshComponent::OnLoadClick() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().ToCStr());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Material File", path, "Material File (*.mat)");
 	if(!filePath.isEmpty()) {
 		QDir root = path;
@@ -49,7 +49,7 @@ void MeshComponent::OnLoadClick() {
 		material_value->setText(filepath);
 		
 		Scene* scene = game->GetCurrentScene();
-		Material* newMaterial = scene->GetMaterial(filepath.toStdString());
+		Material* newMaterial = scene->GetMaterial(filepath.toLatin1().data());
 		component->SetMaterial(newMaterial);
 	}
 }

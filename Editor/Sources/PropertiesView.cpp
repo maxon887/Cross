@@ -21,10 +21,10 @@ PropertiesView::PropertiesView(QWidget* parent) :
 	QMenu* addComponent = new QMenu("Add Component", context_menu);
 	context_menu->addMenu(addComponent);
 
-	Array<string> names = game->GetComponentFactory()->GetRegisteredComponentsName();
-	for(const string name : names) {
+	Array<String> names = game->GetComponentFactory()->GetRegisteredComponentsName();
+	for(const String name : names) {
 		QAction* compAction = new QAction(addComponent);
-		compAction->setText(name.c_str());
+		compAction->setText(name.ToCStr());
 		connect(compAction, &QAction::triggered, this, &PropertiesView::OnAddComponent);
 		addComponent->addAction(compAction);
 	}
@@ -80,9 +80,9 @@ void PropertiesView::OnEntityChanged(Entity* entity){
 	}
 }
 
-void PropertiesView::OnFileSelected(string filename){
+void PropertiesView::OnFileSelected(QString filename){
 	for(PropertyView* view : views){
-		view->OnFileSelected(filename);
+		view->OnFileSelected(filename.toLatin1().data());
 	}
 }
 
@@ -94,7 +94,7 @@ void PropertiesView::contextMenuEvent(QContextMenuEvent *event) {
 
 void PropertiesView::OnAddComponent() {
 	QAction* action = dynamic_cast<QAction*>(sender());
-	Component* component = game->GetComponentFactory()->Create(action->text().toStdString());
+	Component* component = game->GetComponentFactory()->Create(action->text().toLatin1().data());
 	selected_entity->AddComponent(component);
 	OnEntitySelected(selected_entity);
 }

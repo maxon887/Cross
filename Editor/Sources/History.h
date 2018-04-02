@@ -32,7 +32,7 @@ public:
 private:
 	Entity* original	= NULL;
 
-	string name;
+	String name;
 	Vector3D pos;
 	Vector3D scale;
 	Quaternion rot;

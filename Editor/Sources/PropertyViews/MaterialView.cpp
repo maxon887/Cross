@@ -52,7 +52,7 @@ void MaterialView::OnEntitySelected(Entity* e){
 	PropertyView::OnEntitySelected(e);
 }
 
-void MaterialView::OnFileSelected(const string& filepath){
+void MaterialView::OnFileSelected(const String& filepath){
 	if(File::ExtensionFromFile(filepath) != "mat") {
 		color_dialog->hide();
 		PropertyView::OnFileSelected(filepath);
@@ -67,7 +67,7 @@ void MaterialView::OnFileSelected(const string& filepath){
 	delete original;
 	original = material->Clone();
 	if(material->GetShader()){
-		shader_handler->SetFile(material->GetShader()->GetFilename().c_str());
+		shader_handler->SetFile(material->GetShader()->GetFilename().ToCStr());
 	}else{
 		shader_handler->clear();
 	}
@@ -126,12 +126,11 @@ void MaterialView::OnValueChanged(){
 	QWidget* parent = dynamic_cast<QWidget*>(sender()->parent());
 	QLabel* nameLabel = parent->findChild<QLabel*>("nameLabel");
 	
-	Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
+	Shader::Property* prop = material->GetProperty(nameLabel->text().toLatin1().data());
 	switch(prop->GetType())	{
 	case Shader::Property::COLOR: {
 		QLineEdit* valueBox = parent->findChild<QLineEdit*>("valueBox");
-		Color c(valueBox->text().toStdString().c_str());
-		prop->SetValue(c);
+		prop->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
 		break;
 	}
 	default:
@@ -147,7 +146,7 @@ void MaterialView::OnSomethingChanged() {
 	revert_btn->setDisabled(false);
 }
 
-QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type type) {
+QWidget* MaterialView::CreateProperty(const String& name, Shader::Property::Type type) {
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
 	propertyLayoutWidget->setObjectName("propertyLayout");
 	QHBoxLayout* propertyLayout = new QHBoxLayout(propertyLayoutWidget);
@@ -156,7 +155,7 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setObjectName("nameLabel");
-	propertyNameLabel->setText(name.c_str());
+	propertyNameLabel->setText(name.ToCStr());
 	propertyLayout->addWidget(propertyNameLabel);
 
 	switch(type) {
@@ -219,12 +218,12 @@ void MaterialView::OnApplyClick() {
 	QList<QWidget*> properties = properties_box->findChildren<QWidget*>("propertyLayout");
 	for(QWidget* propertyL : properties) {
 		QLabel* nameLabel = propertyL->findChild<QLabel*>("nameLabel");
-		Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
+		Shader::Property* prop = material->GetProperty(nameLabel->text().toLatin1().data());
 		switch(prop->GetType()) {
 		case Shader::Property::Type::COLOR: {
 			QLineEdit* valueBox = propertyL->findChild<QLineEdit*>("valueBox");
 			if(valueBox->hasAcceptableInput()) {
-				prop->SetValue(Color(valueBox->text().toStdString().c_str()));
+				prop->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
 			}
 			break;
 		}
@@ -243,13 +242,13 @@ void MaterialView::OnRevertClick() {
 	Array<Shader::Property>& originalProps = original->GetProperties();
 	Array<Shader::Property>& materialProps = material->GetProperties();
 	materialProps = originalProps;
-	OnFileSelected(string(material->GetFilename()));
+	OnFileSelected(material->GetFilename());
 }
 
 void MaterialView::OnColorPickerClicked(){
 	current_property_layout = dynamic_cast<QWidget*>(sender()->parent());
 	QLabel* nameLabel = current_property_layout->findChild<QLabel*>("nameLabel");
-	current_property = material->GetProperty(nameLabel->text().toStdString());
+	current_property = material->GetProperty(nameLabel->text().toLatin1().data());
 
 	const Color& c = current_property->GetValue().color;
 	QColor qcolor(c.R * 255, c.G * 255, c.B * 255, c.A * 255);
@@ -285,8 +284,7 @@ void MaterialView::OnColorSelected(const QColor& c){
 
 void MaterialView::OnColorRejected(){
 	QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
-	Color c(valueBox->text().toStdString().c_str());
-	current_property->SetValue(c);
+	current_property->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
 	current_property_layout = NULL;
 	current_property = NULL;
 }

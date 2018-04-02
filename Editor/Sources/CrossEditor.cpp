@@ -59,7 +59,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 	settings.setValue("windowState", saveState());
 
 	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-	settings.setValue("projectDirectory", winSys->AssetsPath().c_str());
+	settings.setValue("projectDirectory", winSys->AssetsPath().ToCStr());
 
 	QMainWindow::closeEvent(eve);
 }
@@ -67,7 +67,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 void CrossEditor::LoadScene(QString& scenePath) {
 	scene_file = scenePath;
 	GetSceneExplorer()->clearSelection();
-	SetScreen(new SceneView(scenePath.toStdString()));
+	SetScreen(new SceneView(scenePath.toLatin1().data()));
 }
 
 void CrossEditor::RestoreSettings() {
@@ -82,7 +82,7 @@ void CrossEditor::RestoreSettings() {
 		winSys->SetAssetPath(projectDirectory.toStdString().c_str());
 		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
 	} else {
-		GetFileExplorer()->SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()));
+		GetFileExplorer()->SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().ToCStr()));
 	}
 	restoreState(settings.value("windowState").toByteArray());
 }
@@ -112,14 +112,14 @@ void CrossEditor::OnNewSceneClick() {
 }
 
 void CrossEditor::OnSaveAsClick(){
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()) + scene_file;
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath()) + scene_file;
 	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
 	if(filePath != ""){
 		scene_file = filePath;
 		QFileInfo file(filePath);
 		setWindowTitle(QString("Cross Editor - ") + QString(file.baseName()));
 		game->GetCurrentScene()->SetName(file.baseName().toStdString().c_str());
-		game->GetCurrentScene()->Save(filePath.toStdString());
+		game->GetCurrentScene()->Save(filePath.toLatin1().data());
 	}
 }
 
@@ -129,17 +129,17 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 		path += "/";
 		WINSystem* winSys = dynamic_cast<WINSystem*>(system);
 		CROSS_FAIL(winSys, "You are not under Windows opertating system");
-		winSys->SetAssetPath(path.toStdString());
+		winSys->SetAssetPath(path.toLatin1().data());
 		GetFileExplorer()->SetupProjectDirectory(path);
 	}
 }
 
 void CrossEditor::OnSomethingChanged(Action* action){
-	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName().c_str() + QString("*"));
+	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName() + QString("*"));
 }
 
 void CrossEditor::OnScreenChanged(Screen* screen){
-	setWindowTitle(QString("Cross Editor - ") + screen->GetName().c_str());
+	setWindowTitle(QString("Cross Editor - ") + screen->GetName());
 }
 
 void CrossEditor::keyPressEvent(QKeyEvent* key) {

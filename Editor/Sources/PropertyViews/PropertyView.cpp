@@ -6,7 +6,7 @@ void PropertyView::OnEntitySelected(Entity* e){
 	}
 }
 
-void PropertyView::OnFileSelected(const string& filename){
+void PropertyView::OnFileSelected(const String& filename){
 	if(isVisible()){
 		hide();
 	}

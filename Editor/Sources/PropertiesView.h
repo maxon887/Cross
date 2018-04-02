@@ -25,7 +25,7 @@ public:
 	void OnScreenChanged(Screen*);
 	void OnEntitySelected(Entity* entity);
 	void OnEntityChanged(Entity* entity);
-	void OnFileSelected(string filename);
+	void OnFileSelected(QString filename);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;

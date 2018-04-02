@@ -87,7 +87,7 @@ void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
 void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
-	FileSelected.Emit(filepath.toStdString());
+	FileSelected.Emit(filepath);
 }
 
 void FileExplorer::OnItemDoubleClick(QModelIndex index) {
@@ -96,7 +96,7 @@ void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 	if(fileInfo.suffix() == "scn") {
 		editor->LoadScene(filepath);
 	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx") {
-		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
+		Model* model = game->GetCurrentScene()->GetModel(filepath.toLatin1().data());
 		Entity* modelHierarchy = model->GetHierarchy();
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
 	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha") {
@@ -127,7 +127,7 @@ void FileExplorer::OnNewShaderClick(){
 	QString filename = GetAllowedName(selectedDir, "New Shader", ".sha");
 
 	Shader* newShader = new Shader();
-	newShader->Save(filename.toStdString());
+	newShader->Save(filename.toLatin1().data());
 	delete newShader;
 	QModelIndex index = file_system->index(filename);
 	edit(index);
@@ -138,7 +138,7 @@ void FileExplorer::OnNewMaterialClick() {
 	QString filename = GetAllowedName(selectedDir, "New Material", ".mat");
 
 	Material* newMaterial = new Material();
-	newMaterial->Save(filename.toStdString());
+	newMaterial->Save(filename.toLatin1().data());
 	delete newMaterial;
 	QModelIndex index = file_system->index(filename);
 	edit(index);

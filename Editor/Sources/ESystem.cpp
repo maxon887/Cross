@@ -19,12 +19,12 @@
 
 #include <QMessageBox>
 
-bool ESystem::Alert(const string& msg) {
+bool ESystem::Alert(const String& msg) {
 	paused = true;
 
 	QMessageBox msgBox;
 	msgBox.setText("Something goes wrong");
-	msgBox.setInformativeText(msg.c_str());
+	msgBox.setInformativeText(msg.ToCStr());
 	msgBox.setIcon(QMessageBox::Icon::Critical);
 
 	msgBox.addButton("Ok", QMessageBox::ButtonRole::RejectRole);

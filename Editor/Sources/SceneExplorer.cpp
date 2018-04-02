@@ -81,7 +81,7 @@ QVariant SceneModel::data(const QModelIndex& index, int role) const {
 		return QVariant();
 	}
 	Entity* entity = static_cast<Entity*>(index.internalPointer());
-	return QVariant(QString(entity->GetName().c_str()));
+	return QVariant(QString(entity->GetName().ToCStr()));
 }
 
 Qt::ItemFlags SceneModel::flags(const QModelIndex& index) const {
@@ -94,7 +94,7 @@ bool SceneModel::setData(const QModelIndex &index, const QVariant &value, int ro
 	}
 	Entity* entity = (Entity*)index.internalPointer();
 	EntityChanged* action = new EntityChanged(entity);
-	entity->SetName(value.toString().toStdString());
+	entity->SetName(value.toString().toLatin1().data());
 	editor->SomethingChanged.Emit(action);
 	emit dataChanged(index, index);
 	return true;

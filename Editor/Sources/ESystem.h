@@ -21,7 +21,7 @@ using namespace cross;
 
 class ESystem : public WINSystem {
 public:
-	bool Alert(const string& msg) override;
+	bool Alert(const String& msg) override;
 
 	bool IsPaused();
 

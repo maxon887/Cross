@@ -30,7 +30,7 @@ void EntityView::OnEntitySelected(Entity* e) {
 	}
 	unknown_components.clear();
 	if(e) {
-		setTitle(e->GetName().c_str());
+		setTitle(e->GetName().ToCStr());
 		show();
 
 		for(Component* component : e->GetComponents()) {

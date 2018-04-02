@@ -19,7 +19,7 @@ public:
 
 	void Initialize();
 	void OnEntitySelected(Entity* e) override;
-	void OnFileSelected(const string& filename) override;
+	void OnFileSelected(const String& filename) override;
 	
 private:
 	Material* material					= NULL;
@@ -42,7 +42,7 @@ private:
 	void OnValueChanged();
 	void OnSomethingChanged();
 
-	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
+	QWidget* CreateProperty(const String& name, Shader::Property::Type type);
 
 	void OnApplyClick();
 	void OnRevertClick();

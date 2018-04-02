@@ -119,7 +119,7 @@ void GLHandler::dropEvent(QDropEvent *event) {
 	QList<QUrl> urls = data->urls();
 	for(const QUrl& url : urls) {
 		QString filename = url.fileName();
-		Model* model = game->GetCurrentScene()->GetModel(filename.toStdString());
+		Model* model = game->GetCurrentScene()->GetModel(filename.toLatin1().data());
 		Entity* modelHierarchy = model->GetHierarchy();
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
 	}
