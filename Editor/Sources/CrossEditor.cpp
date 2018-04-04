@@ -53,7 +53,6 @@ FileExplorer* CrossEditor::GetFileExplorer() {
 
 void CrossEditor::closeEvent(QCloseEvent* eve) {
 	ui.glHandler->ShutDown();
-	GetSceneExplorer()->reset();
 	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
