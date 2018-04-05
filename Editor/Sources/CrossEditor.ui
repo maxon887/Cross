@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Cross Editor</string>
   </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="leftMargin">
