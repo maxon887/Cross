@@ -22,7 +22,8 @@ public:
 	~FileExplorer();
 
 	void SetupProjectDirectory(QString dir);
-	QString GetRelativePath(const QString& absolutePath);
+	QString GetProjectDirectory() const;
+	QString GetRelativePath(const QString& absolutePath) const;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *eve) override;

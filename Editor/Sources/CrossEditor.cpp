@@ -56,9 +56,10 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
-
+	 
 	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-	settings.setValue("projectDirectory", winSys->AssetsPath().ToCStr());
+	QString projectDir = GetFileExplorer()->GetProjectDirectory();
+	settings.setValue("projectDirectory", projectDir);
 
 	QMainWindow::closeEvent(eve);
 }
@@ -95,7 +96,8 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 }
 
 void CrossEditor::AdjustSize(QWidget* widget) {
-	QSize maxSize = widget->maximumSize() * system->GetScreenScale();
+	QSize maxSize = widget->maximumSize();
+	maxSize.setWidth(maxSize.width() * system->GetScreenScale());
 	if(maxSize.width() < 0) maxSize.setWidth(MAXINT);
 	if(maxSize.height() < 0) maxSize.setHeight(MAXINT);
 	QSize minSize = widget->minimumSize() * system->GetScreenScale();

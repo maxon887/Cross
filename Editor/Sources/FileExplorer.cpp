@@ -75,7 +75,11 @@ void FileExplorer::SetupProjectDirectory(QString dir){
 	ProjectDirectoryChanged.Emit(dir);
 }
 
-QString FileExplorer::GetRelativePath(const QString& absolutePath) {
+QString FileExplorer::GetProjectDirectory() const {
+	return file_system->rootPath() + "/";
+}
+
+QString FileExplorer::GetRelativePath(const QString& absolutePath) const {
 	QDir root = file_system->rootDirectory();
 	return root.relativeFilePath(absolutePath);
 }
