@@ -39,9 +39,6 @@ void PropertiesView::OnUIInitialized(){
 	CreateView<EntityView, Ui::EntityViewClass>("entityView");
 	CreateView<ShaderView, Ui::ShaderViewClass>("shaderView");
 	CreateView<MaterialView, Ui::MaterialViewClass>("materialView");
-	//CreateView<TransformComponent, Ui::TransformComponentClass>("transformComponent");
-	//CreateView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
-	//CreateView<LightComponent, Ui::LightComponentClass>("lightComponent");
 
 	for(PropertyView* v : views) {
 		v->Initialize();
