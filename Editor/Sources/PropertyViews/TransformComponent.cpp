@@ -42,10 +42,6 @@ void TransformComponent::Initialize(){
 	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
 	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
 	connect(scaleX, &QLineEdit::returnPressed, this, &TransformComponent::ScaleChanged);
-
-	editor->AdjustSize(findChild<QWidget*>("positionLabel"));
-	editor->AdjustSize(findChild<QWidget*>("rotationLabel"));
-	editor->AdjustSize(findChild<QWidget*>("scaleLabel"));
 }
 
 void TransformComponent::Update(float sec) {

@@ -19,11 +19,6 @@ void MeshComponent::Initialize() {
 	face_culling_box = findChild<QCheckBox*>("faceCulling");
 	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
 	connect(loadBtn, &QPushButton::clicked, this, &MeshComponent::OnLoadClick);
-
-	editor->AdjustSize(findChild<QLabel*>("modelLabel"));
-	editor->AdjustSize(findChild<QLabel*>("polyCountLabel"));
-	editor->AdjustSize(findChild<QLabel*>("materialLabel"));
-	editor->AdjustSize(findChild<QLabel*>("faceCullingLabel"));
 }
 
 void MeshComponent::Show(Mesh* mesh) {

@@ -193,7 +193,6 @@ QWidget* MaterialView::CreateProperty(const String& name, Shader::Property::Type
 		valueBox->setObjectName("valueBox");
 		valueBox->setInputMask("HHHHHHHH");
 		valueBox->setFixedWidth(60);
-		editor->AdjustSize(valueBox);
 		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
 		connect(valueBox, &QLineEdit::textChanged, this, &MaterialView::OnSomethingChanged);
 		propertyLayout->addWidget(valueBox);

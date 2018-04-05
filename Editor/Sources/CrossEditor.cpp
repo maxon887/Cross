@@ -95,16 +95,6 @@ void CrossEditor::ExceptionMsgBox(const char* msg) {
 	msgBox.exec();
 }
 
-void CrossEditor::AdjustSize(QWidget* widget) {
-	QSize maxSize = widget->maximumSize();
-	maxSize.setWidth(maxSize.width() * system->GetScreenScale());
-	if(maxSize.width() < 0) maxSize.setWidth(MAXINT);
-	if(maxSize.height() < 0) maxSize.setHeight(MAXINT);
-	QSize minSize = widget->minimumSize() * system->GetScreenScale();
-	widget->setMaximumSize(maxSize);
-	widget->setMinimumSize(minSize);
-}
-
 void CrossEditor::OnNewSceneClick() {
 	GetSceneExplorer()->reset();
 	scene_file = "Untitled";
