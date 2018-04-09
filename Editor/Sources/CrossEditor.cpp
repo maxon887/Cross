@@ -19,13 +19,13 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	game = editor;
 	ui.setupUi(this);
 	UIInitialized.Emit();
-	connect(ui.actionNewScene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
-	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
-	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
+	connect(ui.new_scene_action, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
+	connect(ui.save_scene_as_action, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
+	connect(ui.setup_project_directory_action, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
 	
-	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
-	ui.sceneExplorerTree->EntityChanged.Connect(ui.propertiesView, &PropertiesView::OnEntityChanged);
-	ui.fileExplorerTree->FileSelected.Connect(ui.propertiesView, &PropertiesView::OnFileSelected);
+	ui.scene_explorer->EntitySelected.Connect(ui.properties_view, &PropertiesView::OnEntitySelected);
+	ui.scene_explorer->EntityChanged.Connect(ui.properties_view, &PropertiesView::OnEntityChanged);
+	ui.file_explorer->FileSelected.Connect(ui.properties_view, &PropertiesView::OnFileSelected);
 
 	SomethingChanged.Connect(this, &CrossEditor::OnSomethingChanged);
 	ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
@@ -36,23 +36,23 @@ void CrossEditor::Start() {
 }
 
 void CrossEditor::Update(float sec){
-	ui.propertiesView->Update(sec);
+	ui.properties_view->Update(sec);
 }
 
 SceneExplorer* CrossEditor::GetSceneExplorer() {
-	return ui.sceneExplorerTree;
+	return ui.scene_explorer;
 }
 
 PropertiesView* CrossEditor::GetPropertyView() {
-	return ui.propertiesView;
+	return ui.properties_view;
 }
 
 FileExplorer* CrossEditor::GetFileExplorer() {
-	return ui.fileExplorerTree;
+	return ui.file_explorer;
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve) {
-	ui.glHandler->ShutDown();
+	ui.gl_handler->ShutDown();
 	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());

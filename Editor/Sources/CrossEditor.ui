@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CrossEditorClass</class>
- <widget class="QMainWindow" name="CrossEditorClass">
+ <class>CrossEditorUI</class>
+ <widget class="QMainWindow" name="CrossEditorUI">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
   <property name="dockNestingEnabled">
    <bool>true</bool>
   </property>
-  <widget class="QWidget" name="centralWidget">
+  <widget class="QWidget" name="central_layout">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="leftMargin">
      <number>0</number>
@@ -31,7 +31,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="GLHandler" name="glHandler">
+     <widget class="GLHandler" name="gl_handler">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -42,7 +42,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="QMenuBar" name="menu">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -51,33 +51,33 @@
      <height>38</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="file_menu">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNewScene"/>
-    <addaction name="actionSaveSceneAs"/>
-    <addaction name="actionSetupProjectDirectory"/>
+    <addaction name="new_scene_action"/>
+    <addaction name="save_scene_as_action"/>
+    <addaction name="setup_project_directory_action"/>
    </widget>
-   <widget class="QMenu" name="menuView">
+   <widget class="QMenu" name="view_menu">
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionFileExplorer"/>
-    <addaction name="actionSceneExplorer"/>
-    <addaction name="actionProperties"/>
+    <addaction name="file_explorer_action"/>
+    <addaction name="scene_explorer_action"/>
+    <addaction name="properties_action"/>
    </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuView"/>
+   <addaction name="file_menu"/>
+   <addaction name="view_menu"/>
   </widget>
-  <widget class="QDockWidget" name="fileExplorer">
+  <widget class="QDockWidget" name="file_explorer_dock">
    <property name="windowTitle">
     <string>File Explorer</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="file_explorer_layout">
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">
       <number>1</number>
@@ -95,7 +95,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="FileExplorer" name="fileExplorerTree">
+      <widget class="FileExplorer" name="file_explorer">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
        </property>
@@ -111,7 +111,7 @@
       </widget>
      </item>
      <item>
-      <widget class="ProjectDirectoryLabel" name="projectDirectoryLabel">
+      <widget class="ProjectDirectoryLabel" name="project_directory_laybel">
        <property name="font">
         <font>
          <pointsize>7</pointsize>
@@ -126,18 +126,18 @@
       </widget>
      </item>
     </layout>
-    <zorder>projectDirectoryLabel</zorder>
-    <zorder>fileExplorerTree</zorder>
+    <zorder>project_directory_laybel</zorder>
+    <zorder>file_explorer</zorder>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="sceneExplorer">
+  <widget class="QDockWidget" name="scene_explorer_dock">
    <property name="windowTitle">
     <string>Scene Explorer</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2">
+   <widget class="QWidget" name="scene_explorer_layout">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <property name="leftMargin">
       <number>0</number>
@@ -152,7 +152,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="SceneExplorer" name="sceneExplorerTree">
+      <widget class="SceneExplorer" name="scene_explorer">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
        </property>
@@ -170,14 +170,14 @@
     </layout>
    </widget>
   </widget>
-  <widget class="PropertiesView" name="propertiesView">
+  <widget class="PropertiesView" name="properties_view">
    <property name="windowTitle">
     <string>Properties</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="layout">
+   <widget class="QWidget" name="properties_view_layout">
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <property name="spacing">
       <number>0</number>
@@ -195,7 +195,7 @@
       <number>0</number>
      </property>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="properties_view_spacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -221,7 +221,7 @@
     <string>Load Scene</string>
    </property>
   </action>
-  <action name="actionFileExplorer">
+  <action name="file_explorer_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -232,7 +232,7 @@
     <string>File Explorer</string>
    </property>
   </action>
-  <action name="actionSceneExplorer">
+  <action name="scene_explorer_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -243,17 +243,17 @@
     <string>Scene Explorer</string>
    </property>
   </action>
-  <action name="actionSaveSceneAs">
+  <action name="save_scene_as_action">
    <property name="text">
     <string>Save Scene As</string>
    </property>
   </action>
-  <action name="actionNewScene">
+  <action name="new_scene_action">
    <property name="text">
     <string>New Scene</string>
    </property>
   </action>
-  <action name="actionSetupProjectDirectory">
+  <action name="setup_project_directory_action">
    <property name="text">
     <string>Setup Project Directory</string>
    </property>
@@ -263,7 +263,7 @@
     <string>New Shader</string>
    </property>
   </action>
-  <action name="actionProperties">
+  <action name="properties_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -309,9 +309,9 @@
  </resources>
  <connections>
   <connection>
-   <sender>actionFileExplorer</sender>
+   <sender>file_explorer_action</sender>
    <signal>toggled(bool)</signal>
-   <receiver>fileExplorer</receiver>
+   <receiver>file_explorer_dock</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -325,9 +325,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionProperties</sender>
+   <sender>properties_action</sender>
    <signal>toggled(bool)</signal>
-   <receiver>propertiesView</receiver>
+   <receiver>properties_view</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -341,9 +341,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionSceneExplorer</sender>
+   <sender>scene_explorer_action</sender>
    <signal>toggled(bool)</signal>
-   <receiver>sceneExplorer</receiver>
+   <receiver>scene_explorer_dock</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -357,9 +357,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>fileExplorer</sender>
+   <sender>file_explorer_dock</sender>
    <signal>visibilityChanged(bool)</signal>
-   <receiver>actionFileExplorer</receiver>
+   <receiver>file_explorer_action</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -373,9 +373,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>propertiesView</sender>
+   <sender>properties_view</sender>
    <signal>visibilityChanged(bool)</signal>
-   <receiver>actionProperties</receiver>
+   <receiver>properties_action</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -389,9 +389,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>sceneExplorer</sender>
+   <sender>scene_explorer_dock</sender>
    <signal>visibilityChanged(bool)</signal>
-   <receiver>actionSceneExplorer</receiver>
+   <receiver>scene_explorer_action</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">

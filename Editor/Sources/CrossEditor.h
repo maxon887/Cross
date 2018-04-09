@@ -42,7 +42,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent* key) override;
 
 private:
-	Ui::CrossEditorClass ui;
+	Ui::CrossEditorUI ui;
 	QString scene_file;
 
 };
