@@ -51,7 +51,6 @@ private:
 	void OnCurrentColorChanged(const QColor& color);
 	void OnColorSelected(const QColor& color);
 	void OnColorRejected();
-	string GetColorStr(const Color& color);
 };
 
 #endif

@@ -33,7 +33,7 @@ void MaterialView::Initialize(){
 	shader_handler->FileChanged.Connect(this, &MaterialView::OnShaderChanged);
 	properties_box = findChild<QGroupBox*>("properties");
 
-	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
+	color_dialog = new QColorDialog(this);
 	color_dialog->setWindowFlags(color_dialog->windowFlags() | Qt::WindowStaysOnTopHint);
 	connect(color_dialog, &QColorDialog::currentColorChanged, this, &MaterialView::OnCurrentColorChanged);
 	connect(color_dialog, &QColorDialog::colorSelected, this, &MaterialView::OnColorSelected);
@@ -113,7 +113,7 @@ void MaterialView::RefreshProperties() {
 			colorPicker->setStyleSheet(colorStyle + QColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255).name());
 
 			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
-			valueBox->setText(GetColorStr(c).c_str());
+			valueBox->setText(String(c).ToCStr());
 			break;
 		}
 		default:
@@ -274,7 +274,7 @@ void MaterialView::OnColorSelected(const QColor& c){
 		colorPicker->setStyleSheet(colorStyle + c.name());
 
 		QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
-		valueBox->setText(GetColorStr(color).c_str());
+		valueBox->setText(String(color).ToCStr());
 
 		current_property_layout = NULL;
 		current_property = NULL;
@@ -286,22 +286,4 @@ void MaterialView::OnColorRejected(){
 	current_property->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
 	current_property_layout = NULL;
 	current_property = NULL;
-}
-
-string MaterialView::GetColorStr(const Color& c){
-	int rInt = c.R * 255;
-	int gInt = c.G * 255;
-	int bInt = c.B * 255;
-	int aInt = c.A * 255;
-
-	std::stringstream ss;
-	ss << std::hex;
-	ss << std::setw(2) << std::setfill('0') << rInt;
-	ss << std::setw(2) << std::setfill('0') << gInt;
-	ss << std::setw(2) << std::setfill('0') << bInt;
-	ss << std::setw(2) << std::setfill('0') << aInt;
-	string text = ss.str();
-	std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-
-	return text;
 }
