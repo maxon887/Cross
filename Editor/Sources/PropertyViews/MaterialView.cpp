@@ -27,8 +27,8 @@ MaterialView::~MaterialView(){
 }
 
 void MaterialView::Initialize(){
-	shader_label = findChild<QLabel*>("shaderLabel");
-	shader_handler = findChild<FileHandler*>("shaderEdit");
+	shader_label = findChild<QLabel*>("shader_label");
+	shader_handler = findChild<FileHandler*>("shader_file");
 	shader_handler->SetFileExtension("sha");
 	shader_handler->FileChanged.Connect(this, &MaterialView::OnShaderChanged);
 	properties_box = findChild<QGroupBox*>("properties");
@@ -39,10 +39,10 @@ void MaterialView::Initialize(){
 	connect(color_dialog, &QColorDialog::colorSelected, this, &MaterialView::OnColorSelected);
 	connect(color_dialog, &QColorDialog::rejected, this, &MaterialView::OnColorRejected);
 
-	apply_btn = findChild<QPushButton*>("applyBtn");
+	apply_btn = findChild<QPushButton*>("apply_button");
 	apply_btn->setDisabled(true);
 	connect(apply_btn, &QPushButton::clicked, this, &MaterialView::OnApplyClick);
-	revert_btn = findChild<QPushButton*>("revertBtn");
+	revert_btn = findChild<QPushButton*>("revert_button");
 	revert_btn->setDisabled(true);
 	connect(revert_btn, &QPushButton::clicked, this, &MaterialView::OnRevertClick);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TransformComponentClass</class>
- <widget class="QWidget" name="TransformComponentClass">
+ <class>TransformComponentUI</class>
+ <widget class="QWidget" name="TransformComponentUI">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -30,7 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="TransformComponent" name="transformComponent">
+    <widget class="TransformComponent" name="transform">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -42,9 +42,9 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <layout class="QHBoxLayout" name="positionLayout">
+       <layout class="QHBoxLayout" name="position_layout">
         <item>
-         <widget class="QLabel" name="positionLabel">
+         <widget class="QLabel" name="position_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -81,9 +81,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="rotationLayout">
+       <layout class="QHBoxLayout" name="rotation_layout">
         <item>
-         <widget class="QLabel" name="rotationLabel">
+         <widget class="QLabel" name="rotation_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -116,9 +116,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="scaleLayout">
+       <layout class="QHBoxLayout" name="scale_layout">
         <item>
-         <widget class="QLabel" name="scaleLabel">
+         <widget class="QLabel" name="scale_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
             <horstretch>0</horstretch>

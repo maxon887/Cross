@@ -13,17 +13,17 @@
 #include <QFileDialog>
 
 void MeshComponent::Initialize() {
-	model_value = findChild<QLabel*>("modelValue");
-	poly_count_value = findChild<QLabel*>("polyCountLabel");
-	material_value = findChild<QLineEdit*>("materialValue");
-	face_culling_box = findChild<QCheckBox*>("faceCulling");
-	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
+	filename_label = findChild<QLabel*>("filename_label");
+	poly_count_value = findChild<QLabel*>("polycount_value");
+	material_value = findChild<QLineEdit*>("material_file");
+	face_culling_box = findChild<QCheckBox*>("face_culling");
+	QPushButton* loadBtn = findChild<QPushButton*>("load_button");
 	connect(loadBtn, &QPushButton::clicked, this, &MeshComponent::OnLoadClick);
 }
 
 void MeshComponent::Show(Mesh* mesh) {
 	if(mesh->GetModel()) {
-		model_value->setText(mesh->GetModel()->GetFilename().ToCStr());
+		filename_label->setText(mesh->GetModel()->GetFilename().ToCStr());
 	}
 
 	poly_count_value->setText(QString::number(mesh->GetPolyCount()));

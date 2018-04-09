@@ -2,7 +2,7 @@
 #define PROPERTIES_VIEW
 
 #include "Cross.h"
-#include "Light.h"
+#include "System.h"
 
 #include <QDockWidget.h>
 
@@ -42,13 +42,14 @@ private:
 	void OnAddComponent();
 };
 
-template<class View, class UI>
+template<class View, class UIClass>
 void PropertiesView::CreateView(const QString& name){
 	QWidget* container = new QWidget(this);
-	UI ui;
+	UIClass ui;
 	ui.setupUi(container);
 	layout->insertWidget(layout->count() - 1, container);
 	View* view = container->findChild<View*>(name);
+	CROSS_FAIL(view, "View '#' not found", name.toLatin1().data());
 	views.push_back(view);
 }
 

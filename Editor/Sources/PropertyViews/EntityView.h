@@ -4,7 +4,7 @@
 #include "Cross.h"
 #include "PropertyView.h"
 
-#include <QVBoxLayout>
+class QVBoxLayout;
 
 class EntityView : public PropertyView
 {

@@ -36,9 +36,9 @@ PropertiesView::~PropertiesView() {
 void PropertiesView::OnUIInitialized(){
 	QWidget* layoutWidget = findChild<QWidget*>("properties_view_layout");
 	layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
-	CreateView<EntityView, Ui::EntityViewClass>("entityView");
-	CreateView<ShaderView, Ui::ShaderViewClass>("shaderView");
-	CreateView<MaterialView, Ui::MaterialViewClass>("materialView");
+	CreateView<EntityView, Ui::EntityViewUI>("entity_view");
+	CreateView<ShaderView, Ui::ShaderViewUI>("shader_view");
+	CreateView<MaterialView, Ui::MaterialViewUI>("material_view");
 
 	for(PropertyView* v : views) {
 		v->Initialize();

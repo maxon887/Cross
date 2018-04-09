@@ -17,10 +17,10 @@
 using namespace cross;
 
 void ShaderView::Initialize(){
-	vertex_handler = findChild<FileHandler*>("vertexFile");
+	vertex_handler = findChild<FileHandler*>("vertex_file");
 	vertex_handler->SetFileExtension("vtx");
 	connect(vertex_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
-	fragment_handler = findChild<FileHandler*>("fragmentFile");
+	fragment_handler = findChild<FileHandler*>("fragment_file");
 	fragment_handler->SetFileExtension("fgm");
 	connect(fragment_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 
@@ -31,10 +31,10 @@ void ShaderView::Initialize(){
 	QPushButton* addPropertyBtn = properties_box->findChild<QPushButton*>("addPropertyBtn");
 	connect(addPropertyBtn, &QPushButton::clicked, this, &ShaderView::OnAddPropertyClicked);
 
-	apply_btn = findChild<QPushButton*>("applyBtn");
+	apply_btn = findChild<QPushButton*>("apply_button");
 	apply_btn->setDisabled(true);
 	connect(apply_btn, &QPushButton::clicked, this, &ShaderView::OnApplyClick);
-	revert_btn = findChild<QPushButton*>("revertBtn");
+	revert_btn = findChild<QPushButton*>("revert_button");
 	revert_btn->setDisabled(true);
 	connect(revert_btn, &QPushButton::clicked, this, &ShaderView::OnRevertClick);
 
