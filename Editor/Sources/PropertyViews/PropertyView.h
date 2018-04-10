@@ -3,7 +3,7 @@
 
 #include "Cross.h"
 
-#include <QGroupBox.h>
+#include <QGroupBox>
 
 using namespace cross;
 

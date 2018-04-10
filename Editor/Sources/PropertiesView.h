@@ -4,7 +4,7 @@
 #include "Cross.h"
 #include "System.h"
 
-#include <QDockWidget.h>
+#include <QDockWidget>
 
 using namespace cross;
 

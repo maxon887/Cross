@@ -60,8 +60,8 @@ void MaterialView::OnFileSelected(const String& filepath){
 	}
 	Clear();
 
-	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
-	setTitle(QString("Material: ") + filename.c_str());
+	String filename = File::FileFromPath(File::FileWithoutExtension(filepath));
+	setTitle(QString("Material: ") + filename.ToCStr());
 
 	material = game->GetCurrentScene()->GetMaterial(filepath);
 	delete original;
