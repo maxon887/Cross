@@ -17,7 +17,7 @@
 #pragma once
 #include "Cross.h"
 
-#if defined(WIN) || defined(EDITOR)
+#ifdef WIN
 #ifdef GLES
 #include "Platform/Windows/GLES2/gl2.h"
 #else
@@ -32,6 +32,8 @@
 #import <OpenGLES/ES2/glext.h>
 #elif MACOS
 #include <GL/glew.h>
+#elif EDITOR
+#include <QtOpenGL>
 #endif
 
 

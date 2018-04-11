@@ -1,4 +1,4 @@
-#include "MacSystme.h"
+#include "MacSystem.h"
 
 #include <sys/time.h>
 
@@ -9,7 +9,7 @@ void MacSystem::Log(const char *msg) {
 }
 
 String MacSystem::AssetsPath() {
-    return "../../../Assets/";
+	return assets_path;
 }
 
 String MacSystem::DataPath() {
@@ -28,4 +28,8 @@ float MacSystem::GetScreenDPI() {
 
 void MacSystem::SetScreenDPI(float newDPI) {
     dpi = newDPI;
+}
+
+void MacSystem::SetAssetPath(const String &path) {
+	assets_path = path;
 }

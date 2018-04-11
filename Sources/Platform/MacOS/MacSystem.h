@@ -12,9 +12,12 @@ public:
     float GetScreenDPI() override;
 
     void SetScreenDPI(float dpi);
+	void SetAssetPath(const String& path);
 
 private:
     float dpi = 96.f;
+
+	String assets_path = "../../../Assets/";
 };
 
 }

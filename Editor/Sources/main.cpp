@@ -18,7 +18,9 @@ int main(int argc, char *argv[])
 	ESystem* winsys = new ESystem();
 	system = winsys;
 	CrossEditor w;
+#ifdef WIN
 	winsys->SetWND((HWND)w.winId());
+#endif
 	w.RestoreSettings();
 	w.show();
 	return a.exec();

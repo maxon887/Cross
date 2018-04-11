@@ -5,11 +5,11 @@
 #include "System.h"
 
 #include <QDockWidget>
+#include <QVBoxLayout>
 
 using namespace cross;
 
 class PropertyView;
-class QVBoxLayout;
 class QMenu;
 
 class PropertiesView : public QDockWidget

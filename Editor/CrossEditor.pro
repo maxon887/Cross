@@ -18,7 +18,8 @@ LIBS += -lGLEW -lGL
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS \
-			MAC_OS
+			MAC_OS \
+			EDITOR
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -32,6 +33,7 @@ INCLUDEPATH += \
 	../Sources/Math/ \
 	../Sources/Shaders/ \
 	../Sources/Utils/ \
+	../Sources/Libs/ \
 	Sources/ \
 	Sources/PropertyViews
 
@@ -215,7 +217,6 @@ HEADERS += \
     ../Sources/Math/Vector2D.h \
     ../Sources/Math/Vector3D.h \
     ../Sources/Math/Vector4D.h \
-    ../Sources/Platform/MacOS/MacSystme.h \
     ../Sources/Shaders/LightsShader.h \
     ../Sources/Shaders/Shader.h \
     ../Sources/Shaders/SingleLightShader.h \
@@ -223,7 +224,8 @@ HEADERS += \
     ../Sources/Utils/Debugger.h \
     ../Sources/Utils/FreeCameraScene.h \
     ../Sources/Utils/PrimitiveDrawer.h \
-	../Sources/Utils/Skybox.h
+	../Sources/Utils/Skybox.h \
+    ../Sources/Platform/MacOS/MacSystem.h
 
 FORMS += \
     Sources/PropertyViews/EntityView.ui \

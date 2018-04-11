@@ -2,7 +2,7 @@
 #include "SceneView.h"
 #include "System.h"
 #include "Shaders/Shader.h"
-#include "Platform/Windows/WINSystem.h"
+#include "ESystem.h"
 
 #include <QSettings.h>
 #include <QFileDialog.h>
@@ -56,8 +56,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
-	 
-	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
+
 	QString projectDir = GetFileExplorer()->GetProjectDirectory();
 	settings.setValue("projectDirectory", projectDir);
 
@@ -71,7 +70,7 @@ void CrossEditor::LoadScene(QString& scenePath) {
 }
 
 void CrossEditor::RestoreSettings() {
-	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
+	ESystem* esystem = dynamic_cast<ESystem*>(system);
 	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	QString file = settings.fileName();
 	if(settings.contains("geometry")) {
@@ -79,7 +78,7 @@ void CrossEditor::RestoreSettings() {
 	}
 	if(settings.contains("projectDirectory")) {
 		QString projectDirectory = settings.value("projectDirectory").toString();
-		winSys->SetAssetPath(projectDirectory.toStdString().c_str());
+		esystem->SetAssetPath(projectDirectory.toStdString().c_str());
 		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
 	} else {
 		GetFileExplorer()->SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().ToCStr()));
@@ -118,9 +117,8 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 	QString path = QFileDialog::getExistingDirectory(this, "Setup Project Directory", QDir::currentPath());
 	if(path != ""){
 		path += "/";
-		WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-		CROSS_FAIL(winSys, "You are not under Windows opertating system");
-		winSys->SetAssetPath(path.toLatin1().data());
+		ESystem* esystem = dynamic_cast<ESystem*>(system);
+		esystem->SetAssetPath(path.toLatin1().data());
 		GetFileExplorer()->SetupProjectDirectory(path);
 	}
 }
