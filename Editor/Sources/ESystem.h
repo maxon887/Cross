@@ -31,7 +31,7 @@ private:
 	bool paused = false;
 };
 
-#elif MAC_OS
+#elif MACOS
 #include "Platform/MacOS/MacSystem.h"
 
 using namespace cross;
