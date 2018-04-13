@@ -17,7 +17,7 @@ public:
 private:
     float dpi = 96.f;
 
-	String assets_path = "../../../Assets/";
+	String assets_path = "Assets/";
 };
 
 }

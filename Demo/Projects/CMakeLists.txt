@@ -59,3 +59,5 @@ add_custom_command(TARGET Demo POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
 		"${PROJECT_SOURCE_DIR}/../../Binaries/MacOS/libassimpMAC.dylib"
 		"${CMAKE_CURRENT_BINARY_DIR}/libassimpMAC.dylib")
+
+file(COPY "${PROJECT_SOURCE_DIR}/../Assets/" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/Assets/")
