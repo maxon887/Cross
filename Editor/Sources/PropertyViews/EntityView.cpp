@@ -4,8 +4,6 @@
 #include "ui_TransformComponent.h"
 #include "ui_MeshComponent.h"
 
-#include <QVBoxLayout>
-
 EntityView::EntityView(QWidget* parent) : 
 	PropertyView(parent) 
 { }

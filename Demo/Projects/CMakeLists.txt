@@ -50,3 +50,12 @@ include_directories(../../Sources/Libs/SOIL)
 
 add_definitions(-DOPENGL)
 add_definitions(-DMACOS)
+
+add_custom_command(TARGET Demo POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${PROJECT_SOURCE_DIR}/MacOS/libfmod.dylib"
+		"${CMAKE_CURRENT_BINARY_DIR}/libfmod.dylib")
+add_custom_command(TARGET Demo POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${PROJECT_SOURCE_DIR}/MacOS/libassimpMAC.dylib"
+		"${CMAKE_CURRENT_BINARY_DIR}/libassimpMAC.dylib")

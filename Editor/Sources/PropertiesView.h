@@ -4,12 +4,12 @@
 #include "Cross.h"
 #include "System.h"
 
-#include <QDockWidget.h>
+#include <QDockWidget>
+#include <QVBoxLayout>
 
 using namespace cross;
 
 class PropertyView;
-class QVBoxLayout;
 class QMenu;
 
 class PropertiesView : public QDockWidget

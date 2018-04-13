@@ -51,9 +51,8 @@ void GLHandler::paintGL(){
 	}
 }
 
-void GLHandler::resizeGL(int w, int h){
-	WINSystem* winLanch = (WINSystem*)system;
-	winLanch->SetWindowSize(w, h);
+void GLHandler::resizeGL(int w, int h) {
+	system->SetWindowSize(w, h);
 	skip_repainting = true;
 }
 

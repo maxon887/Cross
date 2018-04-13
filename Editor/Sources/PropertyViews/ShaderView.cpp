@@ -62,8 +62,8 @@ void ShaderView::OnFileSelected(const String& filepath){
 	}
 	Clear();
 
-	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
-	setTitle(QString("Shader: ") + filename.c_str());
+	String filename = File::FileFromPath(File::FileWithoutExtension(filepath));
+	setTitle(QString("Shader: ") + filename.ToCStr());
 
 	delete shader;
 	shader = new Shader();
@@ -71,10 +71,10 @@ void ShaderView::OnFileSelected(const String& filepath){
 	vertex_handler->SetFile(shader->GetVertexFilename().ToCStr());
 	fragment_handler->SetFile(shader->GetFragmentFilename().ToCStr());
 
-	for(string macro : shader->GetMacrosies()){
+	for(String macro : shader->GetMacrosies()){
 		QWidget* macroLayout = OnAddMacroClicked();
 		QLineEdit* macroText = macroLayout->findChild<QLineEdit*>("macroText");
-		macroText->setText(macro.c_str());
+		macroText->setText(macro.ToCStr());
 	}
 
 	for(const Shader::Property& prop : shader->GetProperties()){

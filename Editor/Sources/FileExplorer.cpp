@@ -195,7 +195,7 @@ QString FileExplorer::GetSelectedDirectory(){
 
 QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName, const QString& extension){
 	QString filename = baseName + extension;
-	QFile file = dir + "/" + filename;
+	QFile file(dir + "/" + filename);
 	int nameNumber = 0;
 	while(file.exists()) {
 		nameNumber++;
