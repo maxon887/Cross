@@ -63,6 +63,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>fmod_vc.lib;assimp.lib;libEGL.lib;libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'">
     <ClCompile>
@@ -75,6 +81,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -91,6 +102,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />

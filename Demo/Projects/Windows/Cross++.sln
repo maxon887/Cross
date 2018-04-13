@@ -16,8 +16,8 @@ Global
 		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.DebugGLES|Win32.Build.0 = DebugGLES|Win32
 		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.DebugOpenGL|Win32.ActiveCfg = DebugOpenGL|Win32
 		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.DebugOpenGL|Win32.Build.0 = DebugOpenGL|Win32
-		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.Release|Win32.ActiveCfg = DebugGLES|Win32
-		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.Release|Win32.Build.0 = DebugGLES|Win32
+		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.Release|Win32.ActiveCfg = Release|Win32
+		{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
