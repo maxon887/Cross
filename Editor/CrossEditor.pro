@@ -11,6 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CrossEditor
 TEMPLATE = app
 
+LIBS += ../Demo/Projects/MacOS/libfmod.dylib \
+		../Demo/Projects/MacOS/libassimpMAC.dylib
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -83,8 +86,7 @@ SOURCES += \
     ../Sources/Libs/Assimp/matrix4x4.inl \
     ../Sources/Libs/Assimp/quaternion.inl \
     ../Sources/Libs/Assimp/vector2.inl \
-    ../Sources/Libs/Assimp/vector3.inl \
-    ../Sources/Libs/ImGui/extra_fonts/binary_to_compressed_c.cpp \
+	../Sources/Libs/Assimp/vector3.inl \
     ../Sources/Libs/TinyXML2/tinyxml2.cpp \
     ../Sources/Math/All.cpp \
     ../Sources/Math/Matrix.cpp \
