@@ -35,8 +35,8 @@ target_link_libraries (${PROJECT_NAME}
         ${GLEW_LIBRARIES}
         ${OPENGL_gl_LIBRARY}
         /usr/local/lib/libGLFW.dylib
-        /Users/m_lukyanov/GameDev/Cross/Demo/Projects/MacOS/libassimpMAC.dylib
-        /Users/m_lukyanov/GameDev/Cross/Demo/Projects/MacOS/libfmod.dylib )
+		"${CMAKE_SOURCE_DIR}/../../Binaries/MacOS/libassimpMAC.dylib"
+		"${CMAKE_SOURCE_DIR}/../../Binaries/MacOS/libfmod.dylib" )
 
 include_directories(../Sources)
 include_directories(../../Sources)
@@ -53,9 +53,9 @@ add_definitions(-DMACOS)
 
 add_custom_command(TARGET Demo POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		"${PROJECT_SOURCE_DIR}/MacOS/libfmod.dylib"
+		"${PROJECT_SOURCE_DIR}/../../Binaries/MacOS/libfmod.dylib"
 		"${CMAKE_CURRENT_BINARY_DIR}/libfmod.dylib")
 add_custom_command(TARGET Demo POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		"${PROJECT_SOURCE_DIR}/MacOS/libassimpMAC.dylib"
+		"${PROJECT_SOURCE_DIR}/../../Binaries/MacOS/libassimpMAC.dylib"
 		"${CMAKE_CURRENT_BINARY_DIR}/libassimpMAC.dylib")
