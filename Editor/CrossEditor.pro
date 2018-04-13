@@ -11,14 +11,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CrossEditor
 TEMPLATE = app
 
-LIBS += -lGLEW -lGL
-
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS \
-			MAC_OS \
+			MACOS \
 			EDITOR
 
 # You can also make your code fail to compile if you use deprecated APIs.
@@ -35,7 +33,8 @@ INCLUDEPATH += \
 	../Sources/Utils/ \
 	../Sources/Libs/ \
 	Sources/ \
-	Sources/PropertyViews
+	Sources/PropertyViews \
+	/usr/local/include/
 
 SOURCES += \
     Sources/PropertyViews/EntityView.cpp \
@@ -94,7 +93,6 @@ SOURCES += \
     ../Sources/Math/Vector2D.cpp \
     ../Sources/Math/Vector3D.cpp \
     ../Sources/Math/Vector4D.cpp \
-    ../Sources/Platform/MacOS/Cross.cpp \
     ../Sources/Platform/MacOS/MacSystem.cpp \
     ../Sources/Shaders/LightsShader.cpp \
     ../Sources/Shaders/Shader.cpp \
@@ -106,7 +104,8 @@ SOURCES += \
     ../Sources/Utils/Skybox.cpp \
     ../Sources/Libs/SOIL/image_helper.c \
     ../Sources/Libs/SOIL/SOIL.c \
-    ../Sources/Libs/SOIL/stb_image_aug.c
+    ../Sources/Libs/SOIL/stb_image_aug.c \
+    Sources/ESystem.cpp
 
 HEADERS += \
     Sources/PropertyViews/ComponentView.h \
