@@ -5,8 +5,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CrossEditor
 TEMPLATE = app
 
-LIBS += "$$PWD/../Binaries/MacOS/libfmod.dylib" \
-		"$$PWD/../Binaries/MacOS/libassimpMAC.dylib"
+macx: LIBS += -L$${OUT_PWD}/CrossEditor.app/Contents/MacOS -lfmod
 
 message("Project Directory = $${PWD}")
 message("Build Directory = $${OUT_PWD}")
