@@ -2,6 +2,7 @@
 #include "ESystem.h"
 
 #include <QtWidgets/QApplication>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
@@ -17,11 +18,14 @@ int main(int argc, char *argv[])
 
 	ESystem* winsys = new ESystem();
 	system = winsys;
+
 	CrossEditor w;
 #ifdef WIN
 	winsys->SetWND((HWND)w.winId());
 #endif
 	w.RestoreSettings();
-	w.show();
+	QTimer timer;
+	timer.connect(&timer, &QTimer::timeout, &w, &CrossEditor::show);
+	timer.start(0);
 	return a.exec();
 }
