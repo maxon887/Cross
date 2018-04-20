@@ -35,7 +35,7 @@ void CrossEditor::Start() {
 	OnNewSceneClick();
 }
 
-void CrossEditor::Update(float sec){
+void CrossEditor::Update(float sec) {
 	ui.properties_view->Update(sec);
 }
 
@@ -61,6 +61,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 	settings.setValue("projectDirectory", projectDir);
 
 	QMainWindow::closeEvent(eve);
+	qApp->quit();
 }
 
 void CrossEditor::LoadScene(QString& scenePath) {
@@ -101,7 +102,7 @@ void CrossEditor::OnNewSceneClick() {
 	SetScreen(new SceneView());
 }
 
-void CrossEditor::OnSaveAsClick(){
+void CrossEditor::OnSaveAsClick() {
 	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath()) + scene_file;
 	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
 	if(filePath != ""){
@@ -113,7 +114,7 @@ void CrossEditor::OnSaveAsClick(){
 	}
 }
 
-void CrossEditor::OnSetupProjectDirectoryClick(){
+void CrossEditor::OnSetupProjectDirectoryClick() {
 	QString path = QFileDialog::getExistingDirectory(this, "Setup Project Directory", QDir::currentPath());
 	if(path != ""){
 		path += "/";
@@ -123,11 +124,11 @@ void CrossEditor::OnSetupProjectDirectoryClick(){
 	}
 }
 
-void CrossEditor::OnSomethingChanged(Action* action){
+void CrossEditor::OnSomethingChanged(Action* action) {
 	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName() + QString("*"));
 }
 
-void CrossEditor::OnScreenChanged(Screen* screen){
+void CrossEditor::OnScreenChanged(Screen* screen) {
 	setWindowTitle(QString("Cross Editor - ") + screen->GetName());
 }
 

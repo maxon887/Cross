@@ -41,7 +41,7 @@ void GLHandler::Update(){
 }
 
 void GLHandler::paintGL(){
-	ESystem* esystem = (ESystem*)system;
+	ESystem* esystem = dynamic_cast<ESystem*>(system);
 	if(!esystem->IsPaused()) {
 		if(!skip_repainting) {
 			game->EngineUpdate();

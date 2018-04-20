@@ -64,6 +64,7 @@ void Scene::Update(float sec) {
 void Scene::Stop() {
 	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
+	root = nullptr;
 	for(pair<U64, Texture*> pair : textures){
 		delete pair.second;
 	}

@@ -62,7 +62,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)..\Binaries\Windows\assimp.dll" "$(OutDir)" /D
-xcopy "$(ProjectDir)..\Binaries\Windows\fmod.dll" "$(OutDir)" /D</Command>
+xcopy "$(ProjectDir)..\Binaries\Windows\fmod.dll" "$(OutDir)" /D
+xcopy "$(ProjectDir)..\Binaries\Windows\glew32.dll" "$(OutDir)" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
