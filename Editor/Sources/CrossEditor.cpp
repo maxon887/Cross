@@ -7,12 +7,12 @@
 
 #include "ui_CrossEditor.h"
 
-#include <QSettings.h>
+#include <QSettings>
 #include <QMessageBox>
 #include <QKeyEvent>
 #include <QDir>
 
-CrossEditor* editor = NULL;
+CrossEditor* editor = nullptr;
 
 CrossEditor::CrossEditor(QWidget *parent) :
 	QMainWindow(parent),

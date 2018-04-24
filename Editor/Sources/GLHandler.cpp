@@ -56,7 +56,7 @@ void GLHandler::resizeGL(int w, int h) {
 	skip_repainting = true;
 }
 
-void GLHandler::ShutDown(){
+void GLHandler::ShutDown() {
 	if(game->GetCurrentScene()) {
 		game->GetCurrentScreen()->Stop();
 	}
@@ -64,20 +64,20 @@ void GLHandler::ShutDown(){
 	delete gfxGL;
 }
 
-void GLHandler::mousePressEvent(QMouseEvent* eve){
+void GLHandler::mousePressEvent(QMouseEvent* eve) {
 	setFocus();
 	U32 id = MouseButtonID(eve);
 	input->TargetActionDown.Emit((float)eve->x(), (float)eve->y(), id);
 }
 
-void GLHandler::mouseMoveEvent(QMouseEvent* eve){
+void GLHandler::mouseMoveEvent(QMouseEvent* eve) {
 	S32 id = MouseButtonID(eve);
-	if(id >= 0){
+	if(id >= 0) {
 		input->TargetActionMove.Emit((float)eve->x(), (float)eve->y(), id);
 	}
 }
 
-void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
+void GLHandler::mouseReleaseEvent(QMouseEvent* eve) {
 	S32 id = 0;
 	switch(eve->button()) {
 	case Qt::LeftButton:
