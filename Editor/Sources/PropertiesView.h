@@ -16,8 +16,9 @@ class PropertiesView : public QDockWidget
 {
 	Q_OBJECT
 public:
+	Event<bool> VisibilityChanged;
+
 	PropertiesView(QWidget* parent = 0);
-	~PropertiesView();
 
 	void OnUIInitialized();
 	void Update(float sec);
@@ -29,12 +30,14 @@ public:
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
+	void hideEvent(QHideEvent *eve) override;
+	void showEvent(QShowEvent *eve) override;
 
 private:
-	Entity* selected_entity					= NULL;
+	Entity* selected_entity					= nullptr;
 	Array<PropertyView*> views				= Array<PropertyView*>();
-	QVBoxLayout* layout						= NULL;
-	QMenu* context_menu						= NULL;
+	QVBoxLayout* layout						= nullptr;
+	QMenu* context_menu						= nullptr;
 
 	template<class View, class UI>
 	void CreateView(const QString& name);

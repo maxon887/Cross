@@ -80,7 +80,7 @@ void MaterialView::OnFileSelected(const String& filepath){
 }
 
 void MaterialView::Clear(){
-	QWidget* propertyLayout = NULL;
+	QWidget* propertyLayout = nullptr;
 	do {
 		delete propertyLayout;
 		propertyLayout = properties_box->findChild<QWidget*>("propertyLayout");
@@ -276,14 +276,14 @@ void MaterialView::OnColorSelected(const QColor& c){
 		QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
 		valueBox->setText(String(color).ToCStr());
 
-		current_property_layout = NULL;
-		current_property = NULL;
+		current_property_layout = nullptr;
+		current_property = nullptr;
 	}
 }
 
 void MaterialView::OnColorRejected(){
 	QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
 	current_property->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
-	current_property_layout = NULL;
-	current_property = NULL;
+	current_property_layout = nullptr;
+	current_property = nullptr;
 }

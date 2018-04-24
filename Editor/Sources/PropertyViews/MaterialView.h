@@ -22,19 +22,19 @@ public:
 	void OnFileSelected(const String& filename) override;
 	
 private:
-	Material* material					= NULL;
-	Material* original					= NULL;
-	Shader::Property* current_property	= NULL;
+	Material* material					= nullptr;
+	Material* original					= nullptr;
+	Shader::Property* current_property	= nullptr;
 
-	QLabel* shader_label				= NULL;
-	FileHandler* shader_handler			= NULL;
-	QGroupBox* properties_box			= NULL;
+	QLabel* shader_label				= nullptr;
+	FileHandler* shader_handler			= nullptr;
+	QGroupBox* properties_box			= nullptr;
 	//color options
-	QColorDialog* color_dialog			= NULL;
-	QWidget* current_property_layout	= NULL;
+	QColorDialog* color_dialog			= nullptr;
+	QWidget* current_property_layout	= nullptr;
 
-	QPushButton* apply_btn				= NULL;
-	QPushButton* revert_btn				= NULL;
+	QPushButton* apply_btn				= nullptr;
+	QPushButton* revert_btn				= nullptr;
 
 	void Clear();
 	void OnShaderChanged(QString filename);

@@ -11,10 +11,21 @@
 Menu::Menu(QWidget* parent) :
 	QMenuBar(parent)
 {
+	editor->UIInitialized.Connect(this, &Menu::OnUIInitialized);
+}
+
+void Menu::OnUIInitialized() {
 	Ui::CrossEditorUI *ui = editor->GetUI();
 	connect(ui->new_scene_action, &QAction::triggered, this, &Menu::OnNewSceneClick);
 	connect(ui->save_scene_as_action, &QAction::triggered, this, &Menu::OnSaveAsClick);
 	connect(ui->setup_project_directory_action, &QAction::triggered, this, &Menu::OnSetupProjectDirectoryClick);
+
+	connect(ui->file_explorer_action, &QAction::triggered, this, &Menu::OnFileExplorerTriggered);
+	ui->file_explorer->VisibilityChanged.Connect(this, &Menu::OnFileExplorerVisibilityChanged);
+	connect(ui->scene_explorer_action, &QAction::triggered, this, &Menu::OnSceneExplorerTriggered);
+	ui->scene_explorer->VisibilityChanged.Connect(this, &Menu::OnSceneExplorerVisibilityChanged);
+	connect(ui->properties_action, &QAction::triggered, this, &Menu::OnPropertiesViewTriggered);
+	ui->properties_view->VisibilityChanged.Connect(this, &Menu::OnPropertiesViewVisibilityChanged);
 }
 
 void Menu::OnNewSceneClick() {
@@ -42,4 +53,28 @@ void Menu::OnSetupProjectDirectoryClick() {
 		esystem->SetAssetPath(path.toLatin1().data());
 		editor->GetFileExplorer()->SetupProjectDirectory(path);
 	}
+}
+
+void Menu::OnFileExplorerTriggered(bool visibility) {
+	editor->GetUI()->file_explorer_dock->setVisible(visibility);
+}
+
+void Menu::OnFileExplorerVisibilityChanged(bool visibility) {
+	editor->GetUI()->file_explorer_action->setChecked(visibility);
+}
+
+void Menu::OnSceneExplorerTriggered(bool visibility) {
+	editor->GetUI()->scene_explorer_dock->setVisible(visibility);
+}
+
+void Menu::OnSceneExplorerVisibilityChanged(bool visibility) {
+	editor->GetUI()->scene_explorer_action->setChecked(visibility);
+}
+
+void Menu::OnPropertiesViewTriggered(bool visibility) {
+	editor->GetUI()->properties_view->setVisible(visibility);
+}
+
+void Menu::OnPropertiesViewVisibilityChanged(bool visibility) {
+	editor->GetUI()->properties_action->setChecked(visibility);
 }

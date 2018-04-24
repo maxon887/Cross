@@ -184,6 +184,14 @@ void SceneExplorer::contextMenuEvent(QContextMenuEvent *event) {
 	context_menu->exec(event->globalPos());
 }
 
+void SceneExplorer::hideEvent(QHideEvent *eve) {
+	VisibilityChanged.Emit(false);
+}
+
+void SceneExplorer::showEvent(QShowEvent *eve) {
+	VisibilityChanged.Emit(true);
+}
+
 void SceneExplorer::OnItemClick(QModelIndex index){
 	Entity* selected = (Entity*)index.internalPointer();
 	EntitySelected.Emit(selected);

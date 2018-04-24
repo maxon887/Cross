@@ -62,7 +62,6 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 	settings.setValue("ProjectDirectory", projectDir);
 
 	QMainWindow::closeEvent(eve);
-	delete ui;
 	qApp->quit();
 }
 

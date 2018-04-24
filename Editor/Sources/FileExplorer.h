@@ -17,6 +17,7 @@ class FileExplorer : public QTreeView
 public:
 	Event<QString> FileSelected;
 	Event<QString> ProjectDirectoryChanged;
+	Event<bool> VisibilityChanged;
 
 	FileExplorer(QWidget* parent = 0);
 	~FileExplorer();
@@ -27,10 +28,12 @@ public:
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *eve) override;
+	void hideEvent(QHideEvent *eve) override;
+	void showEvent(QShowEvent *eve) override;
 
 private:
-	QFileSystemModel* file_system	= NULL;
-	QMenu* context_menu				= NULL;
+	QFileSystemModel* file_system	= nullptr;
+	QMenu* context_menu				= nullptr;
 	QModelIndexList clipboard;
 
 	void OnItemSelected(QModelIndex index);

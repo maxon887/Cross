@@ -89,6 +89,14 @@ void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
 	context_menu->exec(eve->globalPos());
 }
 
+void FileExplorer::hideEvent(QHideEvent *eve) {
+	VisibilityChanged.Emit(false);
+}
+
+void FileExplorer::showEvent(QShowEvent *eve) {
+	VisibilityChanged.Emit(true);
+}
+
 void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
 	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());

@@ -31,9 +31,6 @@ PropertiesView::PropertiesView(QWidget* parent) :
 	}
 }
 
-PropertiesView::~PropertiesView() { 
-}
-
 void PropertiesView::OnUIInitialized(){
 	QWidget* layoutWidget = findChild<QWidget*>("properties_view_layout");
 	layout = dynamic_cast<QVBoxLayout*>(layoutWidget->layout());
@@ -89,6 +86,15 @@ void PropertiesView::contextMenuEvent(QContextMenuEvent *event) {
 		context_menu->exec(event->globalPos());
 	}
 }
+
+void PropertiesView::hideEvent(QHideEvent *eve) {
+	VisibilityChanged.Emit(false);
+}
+
+void PropertiesView::showEvent(QShowEvent *eve) {
+	VisibilityChanged.Emit(true);
+}
+
 
 void PropertiesView::OnAddComponent() {
 	QAction* action = dynamic_cast<QAction*>(sender());
