@@ -132,7 +132,13 @@ void System::Alert(const String& message, const char* filename, U32 line, Args..
 		formatted += "\n";
 		formatted += "Line: ";
 		formatted += line;
-		Log(formatted);
+
+		String logged = "==========ASSERT!==========";
+		logged += "\n";
+		logged += formatted;
+		logged += "\n";
+		logged += "===========================";
+		Log(logged);
 #ifdef CROSS_DEBUG
 		if(Alert(formatted)) {
 			asserts_hashes.insert(hash);

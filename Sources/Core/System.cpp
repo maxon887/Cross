@@ -30,7 +30,7 @@ using namespace cross;
 
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
-	CROSS_RETURN(f, nullptr, "Can not open file #", filename.ToCStr());
+	CROSS_RETURN(f, nullptr, "Can not open file '#'", filename.ToCStr());
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
@@ -53,9 +53,9 @@ File* System::LoadDataFile(const String& filename) {
 
 void System::SaveFile(File* file) {
 	FILE* f = fopen(file->name.ToCStr(), "wb");
-	CROSS_FAIL(f, "Can not open file for writing: #", file->name.ToCStr());
+	CROSS_FAIL(f, "Can not open file for writing: '#'", file->name.ToCStr());
 	U64 written = fwrite(file->data, 1, file->size, f);
-	CROSS_ASSERT(file->size == written, "Can not write to file #", file->name.ToCStr());
+	CROSS_ASSERT(file->size == written, "Can not write to file '#'", file->name.ToCStr());
 	fclose(f);
 }
 
