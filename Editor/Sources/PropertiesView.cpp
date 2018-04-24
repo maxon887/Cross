@@ -9,6 +9,7 @@
 #include "ui_MaterialView.h"
 
 #include <QTreeView>
+#include <QMenu>
 #include <QContextMenuEvent>
 
 PropertiesView::PropertiesView(QWidget* parent) :

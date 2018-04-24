@@ -2,6 +2,7 @@
 #include "ESystem.h"
 
 #include <QtWidgets/QApplication>
+#include <QSurface>
 #include <QTimer>
 
 int main(int argc, char *argv[])

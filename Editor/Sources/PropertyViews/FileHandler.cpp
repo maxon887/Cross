@@ -1,5 +1,6 @@
 #include "FileHandler.h"
-#include "../CrossEditor.h"
+#include "FileExplorer.h"
+#include "CrossEditor.h"
 
 #include <QDragEnterEvent>
 #include <QMimeData>

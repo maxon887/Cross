@@ -10,6 +10,7 @@
 #include <QFileSystemModel>
 #include <QContextMenuEvent>
 #include <QDesktopServices>
+#include <QMenu>
 
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)

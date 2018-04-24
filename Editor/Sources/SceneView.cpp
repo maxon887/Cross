@@ -16,6 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SceneView.h"
 #include "CrossEditor.h"
+#include "SceneExplorer.h"
 #include "System.h"
 #include "Entity.h"
 #include "Material.h"

@@ -9,6 +9,7 @@
 #include <QHeaderView.h>
 #include <QMouseEvent>
 #include <QMimeData>
+#include <QMenu>
 
 QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) const {
 	if(!hasIndex(row, column, parent)){

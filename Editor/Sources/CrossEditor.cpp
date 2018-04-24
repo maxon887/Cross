@@ -4,6 +4,8 @@
 #include "Shaders/Shader.h"
 #include "ESystem.h"
 
+#include "ui_CrossEditor.h"
+
 #include <QSettings.h>
 #include <QFileDialog.h>
 #include <QMessageBox>
@@ -17,15 +19,16 @@ CrossEditor::CrossEditor(QWidget *parent) :
 {
 	editor = this;
 	game = editor;
-	ui.setupUi(this);
+	ui = new Ui::CrossEditorUI();
+	ui->setupUi(this);
 	UIInitialized.Emit();
-	connect(ui.new_scene_action, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
-	connect(ui.save_scene_as_action, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
-	connect(ui.setup_project_directory_action, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
+	connect(ui->new_scene_action, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
+	connect(ui->save_scene_as_action, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
+	connect(ui->setup_project_directory_action, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
 	
-	ui.scene_explorer->EntitySelected.Connect(ui.properties_view, &PropertiesView::OnEntitySelected);
-	ui.scene_explorer->EntityChanged.Connect(ui.properties_view, &PropertiesView::OnEntityChanged);
-	ui.file_explorer->FileSelected.Connect(ui.properties_view, &PropertiesView::OnFileSelected);
+	ui->scene_explorer->EntitySelected.Connect(ui->properties_view, &PropertiesView::OnEntitySelected);
+	ui->scene_explorer->EntityChanged.Connect(ui->properties_view, &PropertiesView::OnEntityChanged);
+	ui->file_explorer->FileSelected.Connect(ui->properties_view, &PropertiesView::OnFileSelected);
 
 	SomethingChanged.Connect(this, &CrossEditor::OnSomethingChanged);
 	ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
@@ -36,23 +39,23 @@ void CrossEditor::Start() {
 }
 
 void CrossEditor::Update(float sec) {
-	ui.properties_view->Update(sec);
+	ui->properties_view->Update(sec);
 }
 
 SceneExplorer* CrossEditor::GetSceneExplorer() {
-	return ui.scene_explorer;
+	return ui->scene_explorer;
 }
 
 PropertiesView* CrossEditor::GetPropertyView() {
-	return ui.properties_view;
+	return ui->properties_view;
 }
 
 FileExplorer* CrossEditor::GetFileExplorer() {
-	return ui.file_explorer;
+	return ui->file_explorer;
 }
 
 void CrossEditor::closeEvent(QCloseEvent* eve) {
-	ui.gl_handler->ShutDown();
+	ui->gl_handler->ShutDown();
 	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
 	settings.setValue("geometry", QVariant(geometry()));
 	settings.setValue("windowState", saveState());
@@ -61,6 +64,7 @@ void CrossEditor::closeEvent(QCloseEvent* eve) {
 	settings.setValue("projectDirectory", projectDir);
 
 	QMainWindow::closeEvent(eve);
+	delete ui;
 	qApp->quit();
 }
 

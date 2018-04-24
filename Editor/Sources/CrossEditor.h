@@ -2,11 +2,19 @@
 #define CROSS_EDITOR
 
 #include "Game.h"
-#include "ui_CrossEditor.h"
 
 #include <QMainWindow>
 
 class Action;
+class SceneExplorer;
+class PropertiesView;
+class FileExplorer;
+
+namespace Ui {
+class CrossEditorUI;
+}
+
+using namespace cross;
 
 class CrossEditor : public QMainWindow, 
 					public Game
@@ -42,9 +50,8 @@ protected:
 	void keyReleaseEvent(QKeyEvent* key) override;
 
 private:
-	Ui::CrossEditorUI ui;
+	Ui::CrossEditorUI* ui;
 	QString scene_file;
-
 };
 
 extern CrossEditor* editor;
