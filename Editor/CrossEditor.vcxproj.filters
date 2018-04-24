@@ -327,6 +327,15 @@
     <ClCompile Include="..\Sources\Experimental\String.cpp">
       <Filter>Cross\Experimental</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Menu.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Menu.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Menu.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -394,6 +403,9 @@
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\FileHandler.h">
       <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\Menu.h">
+      <Filter>Editor</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

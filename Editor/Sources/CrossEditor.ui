@@ -42,13 +42,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menu">
+  <widget class="Menu" name="menu">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>956</width>
-     <height>38</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
@@ -302,6 +302,11 @@
    <class>ProjectDirectoryLabel</class>
    <extends>QLabel</extends>
    <header>FileExplorer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Menu</class>
+   <extends>QMenuBar</extends>
+   <header location="global">Menu.h</header>
   </customwidget>
  </customwidgets>
  <resources>

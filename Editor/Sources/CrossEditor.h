@@ -6,6 +6,7 @@
 #include <QMainWindow>
 
 class Action;
+class Menu;
 class SceneExplorer;
 class PropertiesView;
 class FileExplorer;
@@ -26,20 +27,15 @@ public:
 
 	CrossEditor(QWidget *parent = 0);
 
-	void Start() override;
 	void Update(float sec) override;
 
 	SceneExplorer* GetSceneExplorer();
 	PropertiesView* GetPropertyView();
 	FileExplorer* GetFileExplorer();
+	Ui::CrossEditorUI* GetUI();
 
 	void LoadScene(QString& fileInfo);
 	void RestoreSettings();
-	void ExceptionMsgBox(const char* msg);
-
-	void OnNewSceneClick();
-	void OnSaveAsClick();
-	void OnSetupProjectDirectoryClick();
 
 	void OnScreenChanged(Screen* screen);
 	void OnSomethingChanged(Action* a);
@@ -50,8 +46,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent* key) override;
 
 private:
-	Ui::CrossEditorUI* ui;
-	QString scene_file;
+	Ui::CrossEditorUI* ui = nullptr;
 };
 
 extern CrossEditor* editor;
