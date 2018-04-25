@@ -32,6 +32,10 @@ CrossEditor::CrossEditor(QWidget *parent) :
 	ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 }
 
+CrossEditor::~CrossEditor() {
+	delete ui;
+}
+
 void CrossEditor::Update(float sec) {
 	ui->properties_view->Update(sec);
 }

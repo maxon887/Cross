@@ -22,10 +22,13 @@ void Menu::OnUIInitialized() {
 
 	connect(ui->file_explorer_action, &QAction::triggered, this, &Menu::OnFileExplorerTriggered);
 	ui->file_explorer->VisibilityChanged.Connect(this, &Menu::OnFileExplorerVisibilityChanged);
+	ui->file_explorer_action->setChecked(editor->GetFileExplorer()->isVisible());
 	connect(ui->scene_explorer_action, &QAction::triggered, this, &Menu::OnSceneExplorerTriggered);
 	ui->scene_explorer->VisibilityChanged.Connect(this, &Menu::OnSceneExplorerVisibilityChanged);
+	ui->scene_explorer_action->setChecked(editor->GetSceneExplorer()->isVisible());
 	connect(ui->properties_action, &QAction::triggered, this, &Menu::OnPropertiesViewTriggered);
 	ui->properties_view->VisibilityChanged.Connect(this, &Menu::OnPropertiesViewVisibilityChanged);
+	ui->properties_action->setChecked(editor->GetPropertyView()->isVisible());
 }
 
 void Menu::OnNewSceneClick() {

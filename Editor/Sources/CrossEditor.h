@@ -26,6 +26,7 @@ public:
 	Event<Action*> SomethingChanged;
 
 	CrossEditor(QWidget *parent = 0);
+	~CrossEditor();
 
 	void Update(float sec) override;
 
