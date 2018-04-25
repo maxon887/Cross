@@ -6,6 +6,7 @@ TARGET = CrossEditor
 TEMPLATE = app
 
 macx: LIBS += -L$${OUT_PWD}/CrossEditor.app/Contents/MacOS -lfmod
+macx: LIBS += -L$${OUT_PWD}/CrossEditor.app/Contents/MacOS -lassimpMAC
 
 message("Project Directory = $${PWD}")
 message("Build Directory = $${OUT_PWD}")
@@ -51,6 +52,7 @@ SOURCES += \
     Sources/PropertiesView.cpp \
     Sources/SceneExplorer.cpp \
     Sources/SceneView.cpp \
+	Sources/Menu.cpp \
     ../Sources/Core/Camera.cpp \
     ../Sources/Core/Color.cpp \
     ../Sources/Core/Component.cpp \
@@ -122,6 +124,7 @@ HEADERS += \
     Sources/PropertiesView.h \
     Sources/SceneExplorer.h \
     Sources/SceneView.h \
+	Sources/Menu.h \
     ../Sources/Core/Camera.h \
     ../Sources/Core/Color.h \
     ../Sources/Core/Component.h \

@@ -281,9 +281,11 @@ void MaterialView::OnColorSelected(const QColor& c){
 	}
 }
 
-void MaterialView::OnColorRejected(){
-	QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
-	current_property->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
-	current_property_layout = nullptr;
-	current_property = nullptr;
+void MaterialView::OnColorRejected() {
+	if(current_property) {
+		QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
+		current_property->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
+		current_property_layout = nullptr;
+		current_property = nullptr;
+	}
 }
