@@ -56,7 +56,17 @@ public:
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
 	/* Checks if file exists in provided path */
+	virtual bool IsFileExists(const String& filename);
+	/* Checks if file exists in assets directory */
+	virtual bool IsAssetFileExists(const String& filename);
+	/* Checks if file exists in data directory */
 	virtual bool IsDataFileExists(const String& filename);
+	/* Checks if folder exists in provided path */
+	virtual bool IsDirectoryExists(const String& filepath);
+	/* Checks if folder exists in assets path */
+	virtual bool IsAssetDirectoryExists(const String& filepath);
+	/* Checks if folder exists in data path */
+	virtual bool IsDataDirectoryExists(const String& filepath);
 	/* Notifies user that something happened by system message. Returns true if system should skip this message in further use */
 	virtual bool Alert(const String& msg);
 	/* Force current thread to sleep */

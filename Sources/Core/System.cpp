@@ -64,9 +64,8 @@ void System::SaveDataFile(File* file) {
 	SaveFile(file);
 }
 
-bool System::IsDataFileExists(const String& filename) {
-	String fullpath = DataPath() + filename;
-	FILE* f = fopen(fullpath.ToCStr(), "r");
+bool System::IsFileExists(const String& filename) {
+	FILE* f = fopen(filename.ToCStr(), "r");
 	bool result = f != nullptr;
 	if(result) {
 		fclose(f);
@@ -74,42 +73,39 @@ bool System::IsDataFileExists(const String& filename) {
 	return result;
 }
 
+bool System::IsAssetFileExists(const String& filename) {
+	return IsFileExists(AssetsPath() + filename);
+}
+
+bool System::IsDataFileExists(const String& filename) {
+	return IsFileExists(DataPath() + filename);
+}
+
+bool System::IsDirectoryExists(const String& filepath) {
+	struct stat info;
+	if(stat(filepath.ToCStr() , &info)) {
+		if(info.st_mode & S_IFDIR) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+
+bool System::IsAssetDirectoryExists(const String& filepath) {
+	return IsDirectoryExists(AssetsPath() + filepath);
+}
+
+bool System::IsDataDirectoryExists(const String& filepath) {
+	return IsDirectoryExists(DataPath() + filepath);
+}
+
 bool System::Alert(const String& msg) {
 	Messagebox("Something goes wrong", msg.ToCStr());
 	return false;
 }
-/*
-void System::Alert(const char* filename, unsigned int line, const char* msg, va_list list) {
-	auto it = asserts_hashes.find(line);
-	if(it == asserts_hashes.end()) {
-		char buffer[4096];
-		vsprintf(buffer, msg, list);
-		Log(buffer);
-#ifdef CROSS_DEBUG
-		String str = buffer;
-		str += "\n";
-		str += "File: ";
-		str += filename;
-		str += "\n";
-		str += "Line: ";
-		str += line;
-		if(Alert(str)) {
-			asserts_hashes.insert(line);
-		}
-#else
-		asserts_hashes.insert(line);
-		LogIt("\tAssertion Failed");
-		String str = msg;
-		str += "\n";
-		str += "File: ";
-		str += filename;
-		str += "\n";
-		str += "Line: ";
-		str += line;
-		LogIt(str.ToCStr());
-#endif
-	}
-}*/
 
 void System::Sleep(float milis) {
 	CROSS_ASSERT(false, "Function System::Speep() does not implemented");

@@ -36,6 +36,14 @@ CrossEditor::~CrossEditor() {
 	delete ui;
 }
 
+void CrossEditor::Start() {
+	Game::Start();
+	CROSS_FAIL(system->IsAssetDirectoryExists("Engine"), 
+		"Folder 'Engine' does not exists in project directory :\n  '#'\nEditor will not work properly",
+		GetFileExplorer()->GetProjectDirectory().toLatin1().data());
+	SetScreen(new SceneView());
+}
+
 void CrossEditor::Update(float sec) {
 	ui->properties_view->Update(sec);
 }
@@ -82,7 +90,7 @@ void CrossEditor::RestoreSettings() {
 		setGeometry(settings.value("Geometry").value<QRect>());
 	}
 	if(settings.contains("ProjectDirectory")) {
-		QString projectDirectory = settings.value("projectDirectory").toString();
+		QString projectDirectory = settings.value("ProjectDirectory").toString();
 		esystem->SetAssetPath(projectDirectory.toStdString().c_str());
 		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
 	} else {

@@ -6,7 +6,6 @@
 #include <QMainWindow>
 
 class Action;
-class Menu;
 class SceneExplorer;
 class PropertiesView;
 class FileExplorer;
@@ -28,6 +27,7 @@ public:
 	CrossEditor(QWidget *parent = 0);
 	~CrossEditor();
 
+	void Start() override;
 	void Update(float sec) override;
 
 	SceneExplorer* GetSceneExplorer();

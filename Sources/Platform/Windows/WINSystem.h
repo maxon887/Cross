@@ -35,6 +35,7 @@ public:
 	String GetClipboard() override;
 
 	void Messagebox(const String& title, const String& msg) override;
+	bool IsDirectoryExists(const String& filepath) override;
 	void Sleep(float milis) override;
 	bool IsMobile() override;
 

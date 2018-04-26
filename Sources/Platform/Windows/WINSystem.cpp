@@ -110,6 +110,13 @@ void WINSystem::Messagebox(const String& title, const String& msg) {
 	}
 }
 
+bool WINSystem::IsDirectoryExists(const String& filepath) {
+	DWORD dwAttrib = GetFileAttributesA(filepath.ToCStr());
+
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
+		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
 void WINSystem::Sleep(float milis) {
 	IntSleep((int)(milis + .5));
 }
