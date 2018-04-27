@@ -17,6 +17,7 @@
 #include "System.h"
 #include "File.h"
 
+#include <sys/stat.h>
 #include <stdarg.h>
 #include <cstring>
 
