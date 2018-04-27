@@ -24,42 +24,36 @@ class Function<Ret(Input...)> {
 public:
 
 	template<class Lambda>
-	Function(Lambda& lamb) {
-		this->lambda = new Lambda(lamb);
-		//this->lambda = &lamb;
-
-		executer = [](void* l, Input... args) -> Ret {
-			return ((Lambda*)l)->operator()(args...);
-		};
+	Function(Lambda& other) {
+		Init(other);
 	};
 
-	template<class Clazz>
-	Function(Clazz* obj, Ret(Clazz::*meth)(Input... args)) {
-		method = new Function([obj, meth]() {
+	template<class Class>
+	Function(Class* obj, Ret(Class::*meth)(Input... args)) {
+		Init([obj, meth]() {
 			(obj->*meth)(args...);
 		});
 	}
 
-	Function(const Function& other) {
-
-	}
-
 	~Function() {
 		delete lambda;
-		delete method;
 	}
 
 	Ret operator ()(Input... args) {
-		if(method) {
-			return (*method)(args...);
-		} else if(lambda) {
-			executer(lambda, args...);
-		}
+		assert(lambda);
+		executer(lambda, args...);
 	}
 
 private:
 	void* lambda = nullptr;
-	void(*copy)(void*);
 	Ret(*executer)(void*, Input...);
-	Function* method = nullptr;
+
+	template<class Lambda>
+	void Init(Lambda& other) {
+		lambda = new Lambda(other);
+
+		executer = [](void* lamb, Input... args) -> Ret {
+			return ((Lambda*)lamb)->operator()(args...);
+		};
+	}
 };
