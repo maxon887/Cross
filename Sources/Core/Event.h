@@ -15,7 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include <functional>
+#include "Function.h"
 
 namespace cross{
 
@@ -38,10 +38,10 @@ public:
 	void DisconnectAll();
 
 private:
-	std::map<U64, std::function<void(Args...)>> connections;
+	std::map<U64, Function<void(Args...)>> connections;
 
 	template<class Clazz> U64 Hash(Clazz* obj, void(Clazz::*func)(Args...));
-	void Connect(U64 hash, std::function<void(Args...)> const& func);
+	void Connect(U64 hash, Function<void(Args...)> const& func);
 };
 
 //implementation
@@ -55,13 +55,13 @@ void Event<Args...>::Emit(Args... p) {
 template<class... Args>
 template<class Clazz>
 void Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...)) {
-	return Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
+	Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
 }
 
 template<class... Args>
 template<class Clazz>
 void Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...) const) {
-	return Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
+	Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
 }
 
 template<class... Args>
@@ -88,7 +88,7 @@ U64 Event<Args...>::Hash(Clazz* obj, void(Clazz::*func)(Args...)) {
 }
 
 template<class... Args>
-void Event<Args...>::Connect(U64 hash, std::function<void(Args...)> const& func) {
+void Event<Args...>::Connect(U64 hash, Function<void(Args...)> const& func) {
 	connections.insert(std::make_pair(hash, func));
 }
 
