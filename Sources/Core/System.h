@@ -116,9 +116,9 @@ private:
 };
 
 template<class... Args>
-void System::LogIt(const String& message, Args... args) {
-	String formatted = String::Format(message, args...);
-	Log(formatted.ToCStr());
+void System::LogIt(const String& format, Args... args) {
+	String formatted = String::Format(format, args...);
+	Log(formatted);
 
 #ifdef CROSS_DEBUG
 	if(log_buffer.Length() > 8192) {

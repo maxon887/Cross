@@ -35,6 +35,9 @@ private:
 	QFileSystemModel* file_system	= nullptr;
 	QMenu* context_menu				= nullptr;
 	QModelIndexList clipboard;
+	QAction* open_with				= nullptr;
+	QAction* copy					= nullptr;
+	QAction* paiste					= nullptr;
 
 	void OnItemSelected(QModelIndex index);
 	void OnItemDoubleClick(QModelIndex index);
@@ -42,6 +45,7 @@ private:
 	void OnNewFolderClick();
 	void OnNewShaderClick();
 	void OnNewMaterialClick();
+	void OnOpenWith();
 	void OnCopyClick();
 	void OnPasteClick();
 	void OnDeleteClick();

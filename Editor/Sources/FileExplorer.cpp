@@ -45,18 +45,22 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	newMaterial->setText("New Material");
 	connect(newMaterial, &QAction::triggered, this, &FileExplorer::OnNewMaterialClick);
 	context_menu->addAction(newMaterial);
-	QAction* copyAction = new QAction(context_menu);
-	copyAction->setText("Copy");
-	copyAction->setShortcut(QKeySequence::Copy);
-	connect(copyAction, &QAction::triggered, this, &FileExplorer::OnCopyClick);
-	context_menu->addAction(copyAction);
-	addAction(copyAction);
-	QAction* pasteAction = new QAction(context_menu);
-	pasteAction->setText("Paste");
-	pasteAction->setShortcut(QKeySequence::Paste);
-	connect(pasteAction, &QAction::triggered, this, &FileExplorer::OnPasteClick);
-	context_menu->addAction(pasteAction);
-	addAction(pasteAction);
+	open_with = new QAction(context_menu);
+	open_with->setText("Open With...");
+	connect(open_with, &QAction::triggered, this, &FileExplorer::OnOpenWith);
+	context_menu->addAction(open_with);
+	copy = new QAction(context_menu);
+	copy->setText("Copy");
+	copy->setShortcut(QKeySequence::Copy);
+	connect(copy, &QAction::triggered, this, &FileExplorer::OnCopyClick);
+	context_menu->addAction(copy);
+	addAction(copy);
+	paiste = new QAction(context_menu);
+	paiste->setText("Paste");
+	paiste->setShortcut(QKeySequence::Paste);
+	connect(paiste, &QAction::triggered, this, &FileExplorer::OnPasteClick);
+	context_menu->addAction(paiste);
+	addAction(paiste);
 	QAction* deleteAction = new QAction(context_menu);
 	deleteAction->setText("Delete");
 	deleteAction->setShortcut(QKeySequence::Delete);
@@ -91,6 +95,21 @@ QString FileExplorer::GetRelativePath(const QString& absolutePath) const {
 }
 
 void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
+	QModelIndexList selectedFiles = selectedIndexes();
+	if(selectedFiles.size() == 1) {
+		open_with->setEnabled(true);
+	} else {
+		open_with->setEnabled(false);
+	}
+
+	//if(selectedFiles.size() >=
+	
+	if(clipboard.size() > 0) {
+		paiste->setEnabled(true);
+	} else {
+		paiste->setEnabled(false);
+	}
+
 	context_menu->exec(eve->globalPos());
 }
 
@@ -160,6 +179,14 @@ void FileExplorer::OnNewMaterialClick() {
 	delete newMaterial;
 	QModelIndex index = file_system->index(filename);
 	edit(index);
+}
+
+void FileExplorer::OnOpenWith() {
+	QModelIndexList selectedFiles = selectedIndexes();
+	QFileInfo fileInfo = file_system->fileInfo(selectedFiles[0]);
+	if(fileInfo.isFile()) {
+		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+	}
 }
 
 void FileExplorer::OnCopyClick() {
