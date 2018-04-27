@@ -109,8 +109,8 @@ void ShaderView::OnFileSelected(const String& filepath){
 }
 
 void ShaderView::showEvent(QShowEvent* event) {
-	QLabel* vertexLabel = findChild<QLabel*>("vertexLabel");
-	QLabel* fragmentLabel = findChild<QLabel*>("fragmentLabel");
+	QLabel* vertexLabel = findChild<QLabel*>("vertex_label");
+	QLabel* fragmentLabel = findChild<QLabel*>("fragment_label");
 	vertexLabel->setMinimumWidth(fragmentLabel->size().width());
 }
 

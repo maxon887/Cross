@@ -73,6 +73,11 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
+
+	CROSS_ASSERT(system->IsAssetDirectoryExists("Engine"),
+		"Folder 'Engine' does not exists in project directory :\n  '#'\nEditor will not work properly",
+		GetProjectDirectory().toLatin1().data());
+
 	ProjectDirectoryChanged.Emit(dir);
 }
 

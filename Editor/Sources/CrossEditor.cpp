@@ -38,9 +38,6 @@ CrossEditor::~CrossEditor() {
 
 void CrossEditor::Start() {
 	Game::Start();
-	CROSS_FAIL(system->IsAssetDirectoryExists("Engine"), 
-		"Folder 'Engine' does not exists in project directory :\n  '#'\nEditor will not work properly",
-		GetFileExplorer()->GetProjectDirectory().toLatin1().data());
 	SetScreen(new SceneView());
 }
 

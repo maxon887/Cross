@@ -276,10 +276,12 @@ void Shader::Save(const String& file) {
 }
 
 void Shader::Compile() {
+	CROSS_FAIL(vertex_filename != "", "Can not compile shader without vertex file");
 	vertex_file = system->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = nullptr;
+	CROSS_FAIL(fragment_filename != "", "Can not compile shader without fragment file");
 	fragment_file = system->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
