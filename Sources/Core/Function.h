@@ -19,36 +19,17 @@
 template<class T>
 class Function;
 
+/*	Function class needed for lazy binding. For example you can bind a function or method 
+	to this class object and call it later. */
 template<class Ret, class... Input>
 class Function<Ret(Input...)> {
 public:
+	template<class Lambda>	Function(const Lambda& lambda);
+	template<class Class>	Function(Class* obj, Ret(Class::*meth)(Input... args));
+							Function(const Function& other);
+							~Function();
 
-	template<class Lambda>
-	Function(const Lambda& other) {
-		Init(other);
-	};
-
-	template<class Class>
-	Function(Class* obj, Ret(Class::*meth)(Input... args)) {
-		Init([obj, meth](Input... args) {
-			(obj->*meth)(args...);
-		});
-	}
-
-	Function(const Function& other) {
-		lambda = other.copier(other.lambda);
-		executer = other.executer;
-		copier = other.copier;
-	}
-
-	~Function() {
-		delete lambda;
-	}
-
-	Ret operator ()(Input... args) {
-		assert(lambda);
-		executer(lambda, args...);
-	}
+	Ret operator ()(Input... args);
 
 private:
 	void* lambda = nullptr;
@@ -56,15 +37,51 @@ private:
 	void*(*copier)(void*);
 
 	template<class Lambda>
-	void Init(const Lambda& other) {
-		lambda = new Lambda(other);
-
-		executer = [](void* lamb, Input... args) -> Ret {
-			return ((Lambda*)lamb)->operator()(args...);
-		};
-
-		copier = [](void* source) -> void* {
-			return new Lambda(*(Lambda*)source);
-		};
-	}
+	void Init(const Lambda& other);
 };
+
+template<class Ret, class... Input>
+template<class Lambda>
+Function<Ret(Input...)>::Function(const Lambda& lambda) {
+	Init(lambda);
+}
+
+template<class Ret, class... Input>
+template<class Class>
+Function<Ret(Input...)>::Function(Class* obj, Ret(Class::*meth)(Input... args)) {
+	Init([obj, meth](Input... args) {
+		(obj->*meth)(args...);
+	});
+}
+
+template<class Ret, class... Input>
+Function<Ret(Input...)>::Function(const Function& other) {
+	lambda = other.copier(other.lambda);
+	executer = other.executer;
+	copier = other.copier;
+}
+
+template<class Ret, class... Input>
+Function<Ret(Input...)>::~Function() {
+	delete lambda;
+}
+
+template<class Ret, class... Input>
+Ret Function<Ret(Input...)>::operator()(Input... args) {
+	assert(lambda);
+	executer(lambda, args...);
+}
+
+template<class Ret, class... Input>
+template<class Lambda>
+void Function<Ret(Input...)>::Init(const Lambda& other) {
+	lambda = new Lambda(other);
+
+	executer = [](void* lamb, Input... args) -> Ret {
+		return ((Lambda*)lamb)->operator()(args...);
+	};
+
+	copier = [](void* source) -> void* {
+		return new Lambda(*(Lambda*)source);
+	};
+}

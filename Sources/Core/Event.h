@@ -29,11 +29,11 @@ public:
 	void Emit(Args... args);
 
 	/* Subscribes current object on this Event. Object must provide its class function which will be called when Event Occurs */
-	template<class Clazz> void Connect(Clazz* obj, void(Clazz::*func)(Args...));
+	template<class Class> void Connect(Class* obj, void(Class::*func)(Args...));
 	/* Subscribes current object on this Event. Object must provide its const class function which will be called when Event Occurs */
-	template<class Clazz> void Connect(Clazz* obj, void(Clazz::*func)(Args...) const);
+	template<class Class> void Connect(Class* obj, void(Class::*func)(Args...) const);
 	/* Unsubscribes current object from this Event. IMPORTANT! All objects must be disconnected from Events before they die */
-	template<class Clazz> void Disconnect(Clazz* obj, void(Clazz::*func)(Args...));
+	template<class Class> void Disconnect(Class* obj, void(Class::*func)(Args...));
 	/* Disconnect all subscribers from this Event */
 	void DisconnectAll();
 
@@ -53,20 +53,20 @@ void Event<Args...>::Emit(Args... args) {
 }
 
 template<class... Args>
-template<class Clazz>
-void Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...)) {
+template<class Class>
+void Event<Args...>::Connect(Class* obj, void(Class::*func)(Args...)) {
 	Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
 }
 
 template<class... Args>
-template<class Clazz>
-void Event<Args...>::Connect(Clazz* obj, void(Clazz::*func)(Args...) const) {
+template<class Class>
+void Event<Args...>::Connect(Class* obj, void(Class::*func)(Args...) const) {
 	Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
 }
 
 template<class... Args>
-template<class Clazz>
-void Event<Args...>::Disconnect(Clazz* obj, void(Clazz::*func)(Args...)) {
+template<class Class>
+void Event<Args...>::Disconnect(Class* obj, void(Class::*func)(Args...)) {
 	U64 hash = Hash(obj, func);
 	//Function does not connected
 	if(connections.find(hash) == connections.end()) {
@@ -81,8 +81,8 @@ void Event<Args...>::DisconnectAll() {
 }
 
 template<class... Args>
-template<class Clazz>
-U64 Event<Args...>::Hash(Clazz* obj, void(Clazz::*func)(Args...)) {
+template<class Class>
+U64 Event<Args...>::Hash(Class* obj, void(Class::*func)(Args...)) {
 	void* fPointer = (void*&)func;
 	return (U64)obj + (U64)fPointer;
 }
