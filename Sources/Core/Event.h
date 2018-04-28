@@ -26,7 +26,7 @@ template<class... Args>
 class Event {
 public:
 	/* Notifies all subscribers than something of interest has happened by calling their functions provided in Connect() function */
-	void Emit(Args... p);
+	void Emit(Args... args);
 
 	/* Subscribes current object on this Event. Object must provide its class function which will be called when Event Occurs */
 	template<class Clazz> void Connect(Clazz* obj, void(Clazz::*func)(Args...));
@@ -41,14 +41,14 @@ private:
 	std::map<U64, Function<void(Args...)>> connections;
 
 	template<class Clazz> U64 Hash(Clazz* obj, void(Clazz::*func)(Args...));
-	void Connect(U64 hash, Function<void(Args...)> const& func);
+	void Connect(U64 hash, const Function<void(Args...)>& func);
 };
 
 //implementation
 template<class... Args>
-void Event<Args...>::Emit(Args... p) {
+void Event<Args...>::Emit(Args... args) {
 	for (auto it : connections) {
-		it.second(p...);
+		it.second(args...);
 	}
 }
 
@@ -88,7 +88,7 @@ U64 Event<Args...>::Hash(Clazz* obj, void(Clazz::*func)(Args...)) {
 }
 
 template<class... Args>
-void Event<Args...>::Connect(U64 hash, Function<void(Args...)> const& func) {
+void Event<Args...>::Connect(U64 hash, const Function<void(Args...)>& func) {
 	connections.insert(std::make_pair(hash, func));
 }
 

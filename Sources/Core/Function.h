@@ -24,13 +24,13 @@ class Function<Ret(Input...)> {
 public:
 
 	template<class Lambda>
-	Function(Lambda& other) {
+	Function(const Lambda& other) {
 		Init(other);
 	};
 
 	template<class Class>
 	Function(Class* obj, Ret(Class::*meth)(Input... args)) {
-		Init([obj, meth]() {
+		Init([obj, meth](Input... args) {
 			(obj->*meth)(args...);
 		});
 	}
@@ -49,7 +49,7 @@ private:
 	Ret(*executer)(void*, Input...);
 
 	template<class Lambda>
-	void Init(Lambda& other) {
+	void Init(const Lambda& other) {
 		lambda = new Lambda(other);
 
 		executer = [](void* lamb, Input... args) -> Ret {
