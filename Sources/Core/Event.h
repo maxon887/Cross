@@ -55,13 +55,13 @@ void Event<Args...>::Emit(Args... args) {
 template<class... Args>
 template<class Class>
 void Event<Args...>::Connect(Class* obj, void(Class::*func)(Args...)) {
-	Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
+	Connect(Hash(obj, func), Function<void(Args...)>(obj, func));
 }
 
 template<class... Args>
 template<class Class>
 void Event<Args...>::Connect(Class* obj, void(Class::*func)(Args...) const) {
-	Connect(Hash(obj, func), [=](Args... args) { (obj->*func)(args...); });
+	Connect(Hash(obj, func), Function<void(Args...)>(obj, func));
 }
 
 template<class... Args>
