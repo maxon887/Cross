@@ -35,6 +35,12 @@ public:
 		});
 	}
 
+	Function(const Function& other) {
+		lambda = other.copier(other.lambda);
+		executer = other.executer;
+		copier = other.copier;
+	}
+
 	~Function() {
 		delete lambda;
 	}
@@ -47,6 +53,7 @@ public:
 private:
 	void* lambda = nullptr;
 	Ret(*executer)(void*, Input...);
+	void*(*copier)(void*);
 
 	template<class Lambda>
 	void Init(const Lambda& other) {
@@ -54,6 +61,10 @@ private:
 
 		executer = [](void* lamb, Input... args) -> Ret {
 			return ((Lambda*)lamb)->operator()(args...);
+		};
+
+		copier = [](void* source) -> void* {
+			return new Lambda(*(Lambda*)source);
 		};
 	}
 };
