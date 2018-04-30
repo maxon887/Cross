@@ -315,6 +315,9 @@
     <ClCompile Include="..\..\..\Sources\Experimental\String.cpp">
       <Filter>Cross\Experimental</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\FilesView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -599,6 +602,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Experimental\Function.h">
       <Filter>Cross\Experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\FilesView.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
