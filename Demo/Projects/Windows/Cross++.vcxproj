@@ -203,7 +203,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Entity.h" />
     <ClInclude Include="..\..\..\Sources\Core\Event.h" />
     <ClInclude Include="..\..\..\Sources\Core\File.h" />
-    <ClInclude Include="..\..\..\Sources\Core\Function.h" />
     <ClInclude Include="..\..\..\Sources\Core\Game.h" />
     <ClInclude Include="..\..\..\Sources\Core\Input.h" />
     <ClInclude Include="..\..\..\Sources\Core\Light.h" />
@@ -218,6 +217,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Transform.h" />
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
     <ClInclude Include="..\..\..\Sources\Experimental\Array.h" />
+    <ClInclude Include="..\..\..\Sources\Experimental\Function.h" />
     <ClInclude Include="..\..\..\Sources\Experimental\String.h" />
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h" />
     <ClInclude Include="..\..\..\Sources\Internals\GraphicsGL.h" />

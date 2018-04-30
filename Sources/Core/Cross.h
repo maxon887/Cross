@@ -65,6 +65,7 @@ namespace cross {
 
 #include "Experimental/ArraySTD.h"
 #include "Experimental/String.h"
+#include "Experimental/Function.h"
 
 #if !defined(ANDROID)
 #   define system cross_system
