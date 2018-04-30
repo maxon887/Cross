@@ -16,10 +16,6 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#if defined(_DEBUG) || ! defined(NDEBUG)
-#   define CROSS_DEBUG
-#endif
-
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 

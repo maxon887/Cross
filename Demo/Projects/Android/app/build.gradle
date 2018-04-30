@@ -64,6 +64,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //signingConfig signingConfigs.release
         }
+        debug {
+            externalNativeBuild {
+                cmake {
+                    cppFlags += "-DCROSS_DEBUG"
+                }
+            }
+        }
     }
     sourceSets {
         main.assets.srcDirs += '../../../Assets'
