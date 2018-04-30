@@ -35,6 +35,7 @@ private:
 	void* lambda = nullptr;
 	Ret(*executer)(void*, Input...);
 	void*(*copier)(void*);
+	void(*deleter)(void*);
 
 	template<class Lambda>
 	void Init(const Lambda& other);
@@ -59,11 +60,12 @@ Function<Ret(Input...)>::Function(const Function& other) {
 	lambda = other.copier(other.lambda);
 	executer = other.executer;
 	copier = other.copier;
+	deleter = other.deleter;
 }
 
 template<class Ret, class... Input>
 Function<Ret(Input...)>::~Function() {
-	delete lambda;
+	deleter(lambda);
 }
 
 template<class Ret, class... Input>
@@ -83,5 +85,9 @@ void Function<Ret(Input...)>::Init(const Lambda& other) {
 
 	copier = [](void* source) -> void* {
 		return new Lambda(*(Lambda*)source);
+	};
+
+	deleter = [](void* lamb) {
+		delete (Lambda*)lamb;
 	};
 }
