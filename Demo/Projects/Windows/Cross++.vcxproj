@@ -203,6 +203,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Entity.h" />
     <ClInclude Include="..\..\..\Sources\Core\Event.h" />
     <ClInclude Include="..\..\..\Sources\Core\File.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Function.h" />
     <ClInclude Include="..\..\..\Sources\Core\Game.h" />
     <ClInclude Include="..\..\..\Sources\Core\Input.h" />
     <ClInclude Include="..\..\..\Sources\Core\Light.h" />

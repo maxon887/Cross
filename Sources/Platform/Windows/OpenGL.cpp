@@ -104,6 +104,7 @@ int OpenGL_Main(){
 		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if(msg.message == WM_QUIT) break;
 		}
 		game->EngineUpdate();
 		SwapBuffers(dc);
