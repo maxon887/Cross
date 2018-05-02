@@ -17,6 +17,7 @@
 #include "MenuBar.h"
 #include "System.h"
 #include "Demo.h"
+#include "Transform.h"
 #include "UI/CameraController.h"
 #include "UI/Hierarchy.h"
 #include "UI/FilesView.h"
