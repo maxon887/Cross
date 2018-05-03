@@ -67,6 +67,10 @@ public:
 	virtual bool IsAssetDirectoryExists(const String& filepath);
 	/* Checks if folder exists in data path */
 	virtual bool IsDataDirectoryExists(const String& filepath);
+	/* Returns all sub folders in provided directory */
+	virtual Array<String> GetSubDirectories(const String& filepath);
+	/* Returns all files contain in provided directory */
+	virtual Array<String> GetFilesInDirectory(const String& filepath);
 	/* Notifies user that something happened by system message. Returns true if system should skip this message in further use */
 	virtual bool Alert(const String& msg);
 	/* Force current thread to sleep */

@@ -10,6 +10,8 @@ public:
     String DataPath() override;
     U64 GetTime() override;
     float GetScreenDPI() override;
+	Array<String> GetSubDirectories(const String &filepath) override;
+	Array<String> GetFilesInDirectory(const String &filepath) override;
 
     void SetScreenDPI(float dpi);
 	void SetAssetPath(const String& path);

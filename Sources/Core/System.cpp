@@ -17,10 +17,6 @@
 #include "System.h"
 #include "File.h"
 
-#include <sys/stat.h>
-#include <stdarg.h>
-#include <cstring>
-
 #if defined(WIN) || defined(EDITOR) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
@@ -83,16 +79,7 @@ bool System::IsDataFileExists(const String& filename) {
 }
 
 bool System::IsDirectoryExists(const String& filepath) {
-	struct stat info;
-	if(stat(filepath.ToCStr() , &info)) {
-		if(info.st_mode & S_IFDIR) {
-			return true;
-		} else {
-			return false;
-		}
-	} else {
-		return false;
-	}
+	CROSS_RETURN(false, false, "System::IsDirectoryExists() does not implemented for current platform");
 }
 
 bool System::IsAssetDirectoryExists(const String& filepath) {
@@ -103,13 +90,21 @@ bool System::IsDataDirectoryExists(const String& filepath) {
 	return IsDirectoryExists(DataPath() + filepath);
 }
 
+Array<String> System::GetSubDirectories(const String &filepath) {
+	CROSS_RETURN(false, Array<String>(), "System::GetSubDirectories() does not implemented for current platform");
+}
+
+Array<String> System::GetFilesInDirectory(const String& filepath) {
+	CROSS_RETURN(false, Array<String>(), "System::GetFilesInDirectory() does not implemented for current platform");
+}
+
 bool System::Alert(const String& msg) {
 	Messagebox("Something goes wrong", msg.ToCStr());
 	return false;
 }
 
 void System::Sleep(float milis) {
-	CROSS_ASSERT(false, "Function System::Speep() does not implemented");
+	CROSS_ASSERT(false, "System::Speep() does not implemented for current platform");
 }
 
 void System::Messagebox(const String& title, const String& msg) {
@@ -121,12 +116,12 @@ float System::GetScreenDPI() {
 }
 
 String System::GetClipboard() {
-	CROSS_ASSERT(false, "System::GetClipboard() does not implemented");
+	CROSS_ASSERT(false, "System::GetClipboard() does not implemented for current platform");
 	return "";
 }
 
 void System::SetClipboard(const String& data) {
-	CROSS_ASSERT(false, "System::SetClipboard() does not implemented");
+	CROSS_ASSERT(false, "System::SetClipboard() does not implemented for current platform");
 }
 
 float System::GetScreenScale() {

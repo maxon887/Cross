@@ -19,7 +19,10 @@
 
 class FilesView : public View {
 public:
-	FilesView() : View("Files") { }
+	FilesView();
 
 	void Content(float sec) override;
+
+private:
+	void BuildNote(const String& name, bool isFolder);
 };

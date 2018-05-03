@@ -50,6 +50,7 @@ include_directories(../../Sources/Libs/SOIL)
 
 add_definitions(-DOPENGL)
 add_definitions(-DMACOS)
+add_definitions(-DCROSS_DEBUG)
 
 add_custom_command(TARGET Demo POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different

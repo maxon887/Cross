@@ -1,6 +1,7 @@
 #include "MacSystem.h"
 
 #include <sys/time.h>
+#include <dirent.h>
 
 using namespace cross;
 
@@ -24,6 +25,33 @@ U64 MacSystem::GetTime() {
 
 float MacSystem::GetScreenDPI() {
     return dpi;
+}
+
+Array<String> MacSystem::GetSubDirectories(const String &filepath) {
+	Array<String> files;
+	DIR* dir = opendir(filepath);
+	dirent* dr = nullptr;
+	while((dr = readdir(dir)) != nullptr) {
+		String name = dr->d_name;
+		if(dr->d_type == DT_DIR && name != "." && name != "..") {
+			files.push_back(name);
+		}
+	}
+	closedir(dir);
+	return files;
+}
+
+Array<String> MacSystem::GetFilesInDirectory(const String &filepath) {
+	Array<String> files;
+	DIR* dir = opendir(filepath);
+	dirent* dr = nullptr;
+	while((dr = readdir(dir)) != nullptr) {
+		if(dr->d_type != DT_DIR) {
+			files.push_back(dr->d_name);
+		}
+	}
+	closedir(dir);
+	return files;
 }
 
 void MacSystem::SetScreenDPI(float newDPI) {

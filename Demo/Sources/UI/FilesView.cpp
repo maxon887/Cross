@@ -15,7 +15,41 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "FilesView.h"
+#include "System.h"
+
+#include "ThirdParty/ImGui/imgui.h"
+
+FilesView::FilesView() : View("Files") { }
 
 void FilesView::Content(float sec) {
+	Array<String> folders = system->GetSubDirectories(system->AssetsPath());
+	for(const String& name : folders) {
+		BuildNote(name, true);
+	}
+	Array<String> files = system->GetFilesInDirectory(system->AssetsPath());
+	for(const String& name : files) {
+		BuildNote(name, false);
+	}
+}
 
+void FilesView::BuildNote(const String &name, bool isFolder) {
+	static const ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+
+	if(!isFolder) {
+		ImGui::TreeNodeEx(name, leaf_flags);
+	} else {
+		bool open = ImGui::TreeNodeEx(name, node_flags);
+		if(open) {
+			Array<String> folders = system->GetSubDirectories(system->AssetsPath() + "/" + name);
+			for(const String& name : folders) {
+				BuildNote(name, true);
+			}
+			Array<String> files = system->GetFilesInDirectory(system->AssetsPath() + "/" + name);
+			for(const String& name : files) {
+				BuildNote(name, false);
+			}
+			ImGui::TreePop();
+		}
+	}
 }
