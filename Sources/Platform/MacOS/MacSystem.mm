@@ -1,5 +1,7 @@
 #include "MacSystem.h"
 
+#import <Cocoa/Cocoa.h>
+
 #include <sys/time.h>
 #include <dirent.h>
 
@@ -55,9 +57,15 @@ Array<String> MacSystem::GetFilesInDirectory(const String &filepath) {
 }
 
 void MacSystem::Messagebox(const String &title, const String &msg) {
-	if(message_box_callback) {
-		message_box_callback(title, msg);
-	}
+	NSAlert *alert = [[NSAlert alloc] init];
+
+	[alert setMessageText:[NSString stringWithCString:title.ToCStr()
+								  encoding:[NSString defaultCStringEncoding]]];
+	[alert setInformativeText:[NSString stringWithCString:msg.ToCStr()
+									  encoding:[NSString defaultCStringEncoding]]];
+
+	[alert runModal];
+	[alert release];
 }
 
 void MacSystem::SetScreenDPI(float newDPI) {
@@ -66,8 +74,4 @@ void MacSystem::SetScreenDPI(float newDPI) {
 
 void MacSystem::SetAssetPath(const String &path) {
 	assets_path = path;
-}
-
-void MacSystem::SetMessageBoxCallback(const Function<void (const String &, const String &)> &callback) {
-	message_box_callback = callback;
 }

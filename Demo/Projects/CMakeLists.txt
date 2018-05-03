@@ -30,10 +30,12 @@ add_executable(${PROJECT_NAME} ${SRC})
 
 find_package (GLEW REQUIRED)
 find_package (OpenGL REQUIRED)
+FIND_LIBRARY(COCOA_LIBRARY Cocoa)
 
 target_link_libraries (${PROJECT_NAME}
         ${GLEW_LIBRARIES}
         ${OPENGL_gl_LIBRARY}
+		${COCOA_LIBRARY}
         /usr/local/lib/libGLFW.dylib
 		"${CMAKE_SOURCE_DIR}/../../Binaries/MacOS/libassimpMAC.dylib"
 		"${CMAKE_SOURCE_DIR}/../../Binaries/MacOS/libfmod.dylib" )
