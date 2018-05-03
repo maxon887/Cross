@@ -103,12 +103,12 @@ bool System::Alert(const String& msg) {
 	return false;
 }
 
-void System::Sleep(float milis) {
-	CROSS_ASSERT(false, "System::Speep() does not implemented for current platform");
+void System::Messagebox(const String& title, const String& msg) {
+	LogIt("System message box not implemented. Can not show message to user");
 }
 
-void System::Messagebox(const String& title, const String& msg) {
-    LogIt("System message box not implemented. Can not show message to user");
+void System::Sleep(float milis) {
+	CROSS_ASSERT(false, "System::Speep() does not implemented for current platform");
 }
 
 float System::GetScreenDPI() {

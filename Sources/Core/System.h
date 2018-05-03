@@ -73,6 +73,8 @@ public:
 	virtual Array<String> GetFilesInDirectory(const String& filepath);
 	/* Notifies user that something happened by system message. Returns true if system should skip this message in further use */
 	virtual bool Alert(const String& msg);
+	/* Shows system information message */
+	virtual void Messagebox(const String& title, const String& msg);
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis);
 	/* Requests to set required orientation. Can not to be set if system not allow to change orientation */
@@ -107,9 +109,6 @@ public:
 	void SetWindowSize(S32 width, S32 height);
 	/* Returns all messages that was logged. Works only in debug builds */
 	String& GetLogBuffer();
-
-protected:
-	virtual void Messagebox(const String& title, const String& msg);
 
 private:
 	S32 window_width	= -1;
