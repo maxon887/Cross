@@ -24,12 +24,14 @@ class Function;
 template<class Ret, class... Input>
 class Function<Ret(Input...)> {
 public:
+							Function() = default;
 	template<class Lambda>	Function(const Lambda& lambda);
 	template<class Class>	Function(Class* obj, Ret(Class::*meth)(Input... args));
 							Function(const Function& other);
 							~Function();
 
 	Ret operator ()(Input... args);
+	operator bool() const;
 
 private:
 	void* lambda = nullptr;
@@ -65,13 +67,20 @@ Function<Ret(Input...)>::Function(const Function& other) {
 
 template<class Ret, class... Input>
 Function<Ret(Input...)>::~Function() {
-	deleter(lambda);
+	if(lambda) {
+		deleter(lambda);
+	}
 }
 
 template<class Ret, class... Input>
 Ret Function<Ret(Input...)>::operator()(Input... args) {
 	assert(lambda);
 	executer(lambda, args...);
+}
+
+template<class Ret, class... Input>
+Function<Ret(Input...)>::operator bool() const {
+	return lambda != nullptr;
 }
 
 template<class Ret, class... Input>

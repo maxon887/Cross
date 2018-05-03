@@ -12,14 +12,18 @@ public:
     float GetScreenDPI() override;
 	Array<String> GetSubDirectories(const String &filepath) override;
 	Array<String> GetFilesInDirectory(const String &filepath) override;
+	void Messagebox(const String &title, const String &msg) override;
 
     void SetScreenDPI(float dpi);
 	void SetAssetPath(const String& path);
+	void SetMessageBoxCallback(const Function<void(const String&, const String&)>& callback);
 
 private:
     float dpi = 96.f;
 
 	String assets_path = "Assets/";
+
+	Function<void(const String&, const String&)> message_box_callback;
 };
 
 }

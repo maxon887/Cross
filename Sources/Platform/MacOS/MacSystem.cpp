@@ -54,10 +54,20 @@ Array<String> MacSystem::GetFilesInDirectory(const String &filepath) {
 	return files;
 }
 
+void MacSystem::Messagebox(const String &title, const String &msg) {
+	if(message_box_callback) {
+		message_box_callback(title, msg);
+	}
+}
+
 void MacSystem::SetScreenDPI(float newDPI) {
     dpi = newDPI;
 }
 
 void MacSystem::SetAssetPath(const String &path) {
 	assets_path = path;
+}
+
+void MacSystem::SetMessageBoxCallback(const Function<void (const String &, const String &)> &callback) {
+	message_box_callback = callback;
 }
