@@ -51,10 +51,10 @@ int OpenGL_Main(){
 	system = winSys;
 	game = CrossMain();
 
-	int winX = config->GetInt("WIN_POS_X", 0);
-	int winY = config->GetInt("WIN_POS_Y", 0);
-	int winWidth = config->GetInt("WIN_WIDTH", 500);
-	int winHeight = config->GetInt("WIN_HEIGHT", 500);
+	int winX = config->GetInt("WIN_POS_X", 100);
+	int winY = config->GetInt("WIN_POS_Y", 100);
+	int winWidth = config->GetInt("WIN_WIDTH", 960);
+	int winHeight = config->GetInt("WIN_HEIGHT", 512);
 	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 

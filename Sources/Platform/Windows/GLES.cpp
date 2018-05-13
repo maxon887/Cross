@@ -43,10 +43,10 @@ int GLES_Main(){
 	game = CrossMain();
 	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
-	int winX = config->GetInt("WIN_POS_X", 0);
-	int winY = config->GetInt("WIN_POS_Y", 0);
-	int winWidth = config->GetInt("WIN_WIDTH", 500);
-	int winHeight = config->GetInt("WIN_HEIGHT", 500);
+	int winX = config->GetInt("WIN_POS_X", 100);
+	int winY = config->GetInt("WIN_POS_Y", 100);
+	int winWidth = config->GetInt("WIN_WIDTH", 960);
+	int winHeight = config->GetInt("WIN_HEIGHT", 512);
 	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 
 	crossEGL->CreateContext(true);
@@ -63,6 +63,7 @@ int GLES_Main(){
 		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if(msg.message == WM_QUIT) break;
 		}
 		game->EngineUpdate();
 		if(!game->IsSuspended()) {
