@@ -36,6 +36,8 @@ public:
 
 	void Messagebox(const String& title, const String& msg) override;
 	bool IsDirectoryExists(const String& filepath) override;
+	Array<String> GetSubDirectories(const String& filepath) override;
+	Array<String> GetFilesInDirectory(const String& directory) override;
 	void Sleep(float milis) override;
 	bool IsMobile() override;
 

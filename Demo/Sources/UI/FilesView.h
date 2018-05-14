@@ -24,5 +24,5 @@ public:
 	void Content(float sec) override;
 
 private:
-	void BuildNote(const String& name, bool isFolder);
+	void BuildNote(const String& name, const String& path, bool isFolder);
 };

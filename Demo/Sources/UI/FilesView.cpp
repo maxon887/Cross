@@ -22,17 +22,18 @@
 FilesView::FilesView() : View("Files") { }
 
 void FilesView::Content(float sec) {
-	Array<String> folders = system->GetSubDirectories(system->AssetsPath());
+	String path = system->AssetsPath();
+	Array<String> folders = system->GetSubDirectories(path);
 	for(const String& name : folders) {
-		BuildNote(name, true);
+		BuildNote(name, path, true);
 	}
-	Array<String> files = system->GetFilesInDirectory(system->AssetsPath());
+	Array<String> files = system->GetFilesInDirectory(path);
 	for(const String& name : files) {
-		BuildNote(name, false);
+		BuildNote(name, path, false);
 	}
 }
 
-void FilesView::BuildNote(const String &name, bool isFolder) {
+void FilesView::BuildNote(const String& name, const String& path, bool isFolder) {
 	static const ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
@@ -41,13 +42,14 @@ void FilesView::BuildNote(const String &name, bool isFolder) {
 	} else {
 		bool open = ImGui::TreeNodeEx(name, node_flags);
 		if(open) {
-			Array<String> folders = system->GetSubDirectories(system->AssetsPath() + "/" + name);
-			for(const String& name : folders) {
-				BuildNote(name, true);
+			String newPath = path + name + "/";
+			Array<String> folders = system->GetSubDirectories(newPath);
+			for(const String& folder : folders) {
+				BuildNote(folder, newPath, true);
 			}
-			Array<String> files = system->GetFilesInDirectory(system->AssetsPath() + "/" + name);
+			Array<String> files = system->GetFilesInDirectory(newPath);
 			for(const String& name : files) {
-				BuildNote(name, false);
+				BuildNote(name, newPath, false);
 			}
 			ImGui::TreePop();
 		}

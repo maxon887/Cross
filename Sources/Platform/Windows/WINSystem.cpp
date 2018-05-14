@@ -25,7 +25,7 @@
 using namespace cross;
 
 bool DirectoryExists(const char* szPath) {
-  DWORD dwAttrib = GetFileAttributesA(szPath);
+  DWORD dwAttrib = GetFileAttributes(szPath);
 
   return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
 		 (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
@@ -111,10 +111,50 @@ void WINSystem::Messagebox(const String& title, const String& msg) {
 }
 
 bool WINSystem::IsDirectoryExists(const String& filepath) {
-	DWORD dwAttrib = GetFileAttributesA(filepath.ToCStr());
+	DWORD dwAttrib = GetFileAttributes(filepath);
 
 	return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
 		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+Array<String> WINSystem::GetSubDirectories(const String& filepath) {
+	Array<String> result;
+
+	HANDLE file = nullptr;
+	WIN32_FIND_DATA data;
+	file = FindFirstFile(filepath + "*", &data);
+	if(file != INVALID_HANDLE_VALUE) {
+		do {
+			String filename = data.cFileName;
+			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY
+				&& filename != "." && filename != "..") {
+				result.push_back(data.cFileName);
+			}
+		} while(FindNextFile(file, &data));
+		FindClose(file);
+	}
+
+	return result;
+}
+
+Array<String> WINSystem::GetFilesInDirectory(const String& directory) {
+	Array<String> result;
+
+	HANDLE file = nullptr;
+	WIN32_FIND_DATA data;
+	file = FindFirstFile(directory + "*", &data);
+	if(file != INVALID_HANDLE_VALUE) {
+		do {
+			String filename = data.cFileName;
+			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
+				&& filename != "." && filename != "..") {
+				result.push_back(data.cFileName);
+			}
+		} while(FindNextFile(file, &data));
+		FindClose(file);
+	}
+
+	return result;
 }
 
 void WINSystem::Sleep(float milis) {
