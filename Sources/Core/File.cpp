@@ -22,7 +22,7 @@ using namespace cross;
 String File::PathFromFile(const String& filename) {
 	S32 lastSlash = filename.FindLast('/');
 	CROSS_RETURN(lastSlash != -1, "", "Wrong path format");
-	return filename.SubString(0, lastSlash);
+	return filename.SubString(0, lastSlash + 1);
 }
 
 String File::FileFromPath(const String& filename) {

@@ -71,6 +71,8 @@ public:
 	bool Remove(const char* subStr);
 	/* Removes first occurrence of character in current String */
 	bool Remove(char c);
+	/* Replaces all occurrencies of 'from' string to 'to' string */
+	bool Replace(const char* from, const char* to);
 	/* Removes all characters before first argument and after last from current String */
 	void Cut(U32 first, U32 last);
 	/* Inserts provided String in the midle of current string at postion */
@@ -119,7 +121,7 @@ private:
 template<class First, class... Args>
 String String::Format(const String& format, First value, Args... args) {
 	S32 spot = format.Find('#');
-	//CROSS_ASSERT(spot != -1, "Formatter error. More values provied than expected");
+	//More values provied than expected
 	assert(spot != -1);
 	String result = format;
 	result.Remove('#');
@@ -133,9 +135,9 @@ String::String(Value value, const char* format, U32 bufferSize) {
 	length = sprintf(data, format, value);
 	capacity = bufferSize;
 
-	//Convertion from integer to string failed"
+	//Convertion from integer to string failed
 	assert(length > 0);
-	//More data written in buffer than was allocated"
+	//More data written in buffer than was allocated
 	assert(length < bufferSize);
 }
 

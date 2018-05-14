@@ -47,7 +47,7 @@ void MainScreen::Start() {
 	Screen::SetBackground(Color(0.3f));
 }
 
-void MainScreen::Stop(){
+void MainScreen::Stop() {
 	Screen::Stop();
 }
 

@@ -228,6 +228,18 @@ bool String::Remove(char c) {
 	return false;
 }
 
+bool String::Replace(const char* from, const char* to) {
+	bool result = false;
+	S32 spot = Find(from);
+	while(spot != -1) {
+		result = true;
+		Remove(from);
+		Insert(spot, to);
+		spot = Find(from);
+	}
+	return result;
+}
+
 void String::Cut(U32 first, U32 last) {
 	length = last - first;
 	memcpy(data, data + first, length);
