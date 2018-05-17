@@ -1254,9 +1254,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
 					"$(SRCROOT)/../../../Sources/",
+					"$(SRCROOT)/../../../Sources/Libs/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
-					"$(SRCROOT)/../../../Sources/Libs/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1287,9 +1287,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
 					"$(SRCROOT)/../../../Sources/",
+					"$(SRCROOT)/../../../Sources/Libs/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
-					"$(SRCROOT)/../../../Sources/Libs/",
 				);
 				INFOPLIST_FILE = "Cross++/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

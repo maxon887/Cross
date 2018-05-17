@@ -65,7 +65,7 @@ void MacSystem::Messagebox(const String &title, const String &msg) {
 									  encoding:[NSString defaultCStringEncoding]]];
 
 	[alert runModal];
-	[alert release];
+	//[alert release];
 }
 
 void MacSystem::SetScreenDPI(float newDPI) {
