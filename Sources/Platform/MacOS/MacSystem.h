@@ -1,3 +1,4 @@
+
 #pragma once
 #include "System.h"
 
@@ -5,6 +6,8 @@ namespace cross {
 
 class MacSystem : public System {
 public:
+    MacSystem();
+    
     void Log(const char* msg) override;
     String AssetsPath() override;
     String DataPath() override;
@@ -20,7 +23,7 @@ public:
 private:
     float dpi = 96.f;
 
-	String assets_path = "Assets/";
+	String assets_path = "";
 };
 
 }

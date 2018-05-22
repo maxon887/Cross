@@ -7,6 +7,16 @@
 
 using namespace cross;
 
+MacSystem::MacSystem() {
+    if(IsDirectoryExists("Assets/")) {
+        assets_path = "Assets/";
+    } else if(IsDirectoryExists("../Resources/Assets/")) {
+        assets_path = "../Resources/Assets/";
+    } else {
+        CROSS_ASSERT(false, "Can not find Assets directory");
+    }
+}
+
 void MacSystem::Log(const char *msg) {
     printf("%s\n", msg);
 }
