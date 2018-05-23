@@ -42,8 +42,8 @@ void GLFWMouseButtonCallback(GLFWwindow* window, int button, int action, int mod
     }
 }
 
-int main() {
-    system = new MacSystem();
+int main(int c,char **args) {
+    system = new MacSystem(args[0]);
 
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;

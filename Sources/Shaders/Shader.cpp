@@ -473,8 +473,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 	}
 
 	source += String((char*)file->data, (char*)(file->data + file->size));
-	//source += "Sdwqr213424";
-
+    
 	GLuint handle = glCreateShader(type);
 	char* cptr = source.ToCStr();
 	glShaderSource(handle, 1, (const char**)&cptr, nullptr);

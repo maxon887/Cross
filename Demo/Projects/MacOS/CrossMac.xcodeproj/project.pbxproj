@@ -1281,6 +1281,7 @@
 					CROSS_DEBUG,
 					"DEBUG=1",
 					"$(inherited)",
+					OPENGL,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
@@ -1316,7 +1317,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = AQNAZWX3GB;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = MACOS;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MACOS,
+					OPENGL,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
 					"$(SRCROOT)/../../../Sources/",

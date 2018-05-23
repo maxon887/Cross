@@ -210,7 +210,8 @@ void MemoryManager::SanityCheck(){
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-			CROSS_ASSERT(false, "Sanity Check failed");
+            //Sanity Check failed
+			assert(false);
 		}
 	}
 	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: # corrupted buffers\n", count);

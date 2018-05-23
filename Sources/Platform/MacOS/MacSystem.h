@@ -1,4 +1,3 @@
-
 #pragma once
 #include "System.h"
 
@@ -6,13 +5,15 @@ namespace cross {
 
 class MacSystem : public System {
 public:
-    MacSystem();
+    MacSystem(const String& workingDir);
     
     void Log(const char* msg) override;
     String AssetsPath() override;
     String DataPath() override;
     U64 GetTime() override;
     float GetScreenDPI() override;
+    bool IsFileExists(const String &filepath) override;
+    bool IsDirectoryExists(const String &filepath) override;
 	Array<String> GetSubDirectories(const String &filepath) override;
 	Array<String> GetFilesInDirectory(const String &filepath) override;
 	void Messagebox(const String &title, const String &msg) override;
@@ -23,6 +24,7 @@ public:
 private:
     float dpi = 96.f;
 
+    String working_dir = "";
 	String assets_path = "";
 };
 

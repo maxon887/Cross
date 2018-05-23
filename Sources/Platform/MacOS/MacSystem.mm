@@ -1,5 +1,7 @@
 #include "MacSystem.h"
 
+#include "File.h"
+
 #import <Cocoa/Cocoa.h>
 
 #include <sys/time.h>
@@ -7,7 +9,8 @@
 
 using namespace cross;
 
-MacSystem::MacSystem() {
+MacSystem::MacSystem(const String& workingDir) {
+    working_dir = File::PathFromFile(workingDir);
     if(IsDirectoryExists("Assets/")) {
         assets_path = "Assets/";
     } else if(IsDirectoryExists("../Resources/Assets/")) {
@@ -39,11 +42,35 @@ float MacSystem::GetScreenDPI() {
     return dpi;
 }
 
+bool MacSystem::IsFileExists(const cross::String &filepath) {
+    //DIR* file = opendir(filepath);
+    return false;
+}
+
+bool MacSystem::IsDirectoryExists(const cross::String &filepath) {
+    DIR* dir = opendir(working_dir + filepath);
+    dirent* dr = nullptr;
+    if(dir && (dr = readdir(dir))) {
+        if(dr->d_type == DT_DIR) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        CROSS_ASSERT(errno == ENOENT, "IsDirectoryExists() error code - #\nDescription - #", errno, strerror(errno));
+        return false;
+    }
+}
+
 Array<String> MacSystem::GetSubDirectories(const String &filepath) {
 	Array<String> files;
 	DIR* dir = opendir(filepath);
+    if(!dir) {
+        CROSS_ASSERT(errno == ENOENT, "GetSubDirectories() error code - #\nDescription - #", errno, strerror(errno));
+        return files;
+    }
 	dirent* dr = nullptr;
-	while((dr = readdir(dir)) != nullptr) {
+	while(dir && (dr = readdir(dir))) {
 		String name = dr->d_name;
 		if(dr->d_type == DT_DIR && name != "." && name != "..") {
 			files.push_back(name);
@@ -56,8 +83,13 @@ Array<String> MacSystem::GetSubDirectories(const String &filepath) {
 Array<String> MacSystem::GetFilesInDirectory(const String &filepath) {
 	Array<String> files;
 	DIR* dir = opendir(filepath);
+    if(!dir) {
+        CROSS_ASSERT(errno == ENOENT, "GetSubDirectories() error code - #\nDescription - #", errno, strerror(errno));
+        return files;
+    }
+    
 	dirent* dr = nullptr;
-	while((dr = readdir(dir)) != nullptr) {
+	while(dir && (dr = readdir(dir))) {
 		if(dr->d_type != DT_DIR) {
 			files.push_back(dr->d_name);
 		}
