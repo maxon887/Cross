@@ -53,7 +53,9 @@ include_directories(../../Sources/Libs/SOIL)
 
 add_definitions(-DOPENGL)
 add_definitions(-DMACOS)
-add_definitions(-DCROSS_DEBUG)
+IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	add_definitions(-DCROSS_DEBUG)
+ENDIF()
 
 add_custom_command(TARGET Demo POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
