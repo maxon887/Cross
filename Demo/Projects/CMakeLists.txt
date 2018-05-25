@@ -40,6 +40,7 @@ target_link_libraries (${PROJECT_NAME}
 		"${CMAKE_SOURCE_DIR}/../../Binaries/MacOS/libassimpMAC.dylib"
 		"${CMAKE_SOURCE_DIR}/../../Binaries/MacOS/libfmod.dylib" )
 
+include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(../Sources)
 include_directories(../../Sources)
 include_directories(../../Sources/Core)
