@@ -23,7 +23,7 @@
 #include <mutex>
 #include <cstring>
 
-#if defined(CROSS_DEBUG) && !defined(EDITOR)
+#ifdef CROSS_MEMORY_PROFILE
 
 using namespace cross;
 
@@ -44,7 +44,7 @@ void* operator new(size_t size) {
 	return result;
 }
 
-void* operator new(size_t size, char* filename, unsigned long line) {
+void* operator new(size_t size, char* filename, U64 line) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
 	mut.unlock();
@@ -58,7 +58,7 @@ void* operator new[](size_t size) {
 	return result;
 }
 
-void* operator new[](size_t size, char* filename, unsigned long line) {
+void* operator new[](size_t size, char* filename, U64 line) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
 	mut.unlock();
@@ -71,7 +71,7 @@ void operator delete(void* p) noexcept {
 	mut.unlock();
 }
 
-void operator delete(void* p, char* filename, unsigned long line) {
+void operator delete(void* p, char* filename, U64 line) {
 	mut.lock();
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
@@ -83,13 +83,13 @@ void operator delete[](void* p) noexcept {
 	mut.unlock();
 }
 
-void operator delete[](void* p, char* filename, unsigned long line) {
+void operator delete[](void* p, char* filename, U64 line) {
 	mut.lock();
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
 }
 
-const unsigned long		MemoryManager::check_code	= 0x12345678;
+const U64				MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;
 MemoryManager			MemoryManager::instance;
 
@@ -102,24 +102,24 @@ MemoryManager::MemoryManager():
 {
 	dead = false;
 	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
-	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * capacity);
+	alloc_objects = (MemoryObject*)malloc((size_t)(sizeof(MemoryObject) * capacity));
 }
 
 MemoryManager::~MemoryManager(){
 	dead = true;
 }
 
-void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned long line) {
+void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 	if(!dead){
 
 		if(object_count > capacity - 1){
 			capacity *= 2;
-			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * capacity);
+			alloc_objects = (MemoryObject*)realloc(alloc_objects, (size_t)(sizeof(MemoryObject) * capacity));
 		}
 
 		SanityCheck();
 
-		alloc_objects[object_count].address = malloc(size + 4);
+		alloc_objects[object_count].address = malloc((size_t)(size + 4));
 		alloc_objects[object_count].filename = filename;
 		alloc_objects[object_count].line = line;
 		alloc_objects[object_count].size = size;
@@ -130,16 +130,16 @@ void* MemoryManager::Alloc(unsigned long size, const char* filename, unsigned lo
 	
 		return alloc_objects[object_count++].address;
 	}else{
-		return malloc(size);
+		return malloc((size_t)size);
 	}
 }
 
-void* MemoryManager::ReAlloc(void* pointer, unsigned long size, const char* filename, unsigned long line) {
+void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 line) {
 	if(!dead) {
 		SanityCheck();
 
 		MemoryObject& obj = FindObject(pointer);
-		obj.address = realloc(pointer, size + 4);
+		obj.address = realloc(pointer, (size_t)(size + 4));
 		obj.filename = filename;
 		obj.size = size;
 
@@ -147,7 +147,7 @@ void* MemoryManager::ReAlloc(void* pointer, unsigned long size, const char* file
 
 		return obj.address;
 	} else {
-		return realloc(pointer, size);
+		return realloc(pointer, (size_t)size);
 	}
 }
 
@@ -173,7 +173,7 @@ void MemoryManager::Free(void* address) {
 	}
 }
 
-unsigned long MemoryManager::Dump() {
+U64 MemoryManager::Dump() {
 	SanityCheck();
 	U64 totalBytes = 0;
 	for(unsigned int i = 0; i < object_count; i++) {
@@ -185,22 +185,21 @@ unsigned long MemoryManager::Dump() {
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
-	Log("Memory leak detected(%u bytes)\n", totalBytes);
 	CROSS_ASSERT(totalBytes == 0, "Memory leak detected(%ud bytes)", String(totalBytes, "%ud", 20));
 	return totalBytes;
 }
 
-unsigned long MemoryManager::AllocatedMemory() const {
-	unsigned long size = 0;
-	for(unsigned int i = 0; i <object_count; i++) {
+U64 MemoryManager::AllocatedMemory() const {
+	U64 size = 0;
+	for(U64 i = 0; i < object_count; i++) {
 		size += alloc_objects[i].size;
 	}
 	return size;
 }
 
-void MemoryManager::SanityCheck(){
-	int count = 0;
-	for(unsigned int i = 0; i < object_count; ++i) {
+void MemoryManager::SanityCheck() {
+	U64 count = 0;
+	for(U64 i = 0; i < object_count; ++i) {
 		char* temp = (char*)alloc_objects[i].address;
 		temp += alloc_objects[i].size;
 		if(memcmp(temp, &check_code, 4) != 0) {
@@ -210,7 +209,7 @@ void MemoryManager::SanityCheck(){
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-            //Sanity Check failed
+			//Sanity Check failed
 			assert(false);
 		}
 	}

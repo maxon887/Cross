@@ -116,17 +116,17 @@ int OpenGL_Main(){
 	delete game;
 	delete audio;
 	delete system;
-#ifdef CROSS_DEBUG
-	unsigned long leaked = MemoryManager::Instance()->Dump();
+#ifdef CROSS_MEMORY_PROFILE
+	U64 leaked = MemoryManager::Instance()->Dump();
 	if(leaked > 0) {
 		char buf[256];
-		sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
+		sprintf(buf, "Memory leak.Total bytes = %llu\n", leaked);
 		OutputDebugString(buf);
 		return -1;
 	} else {
 		OutputDebugString("No memory leak detected\n");
 	}
-#endif // CROSS_DEBUG
+#endif // CROSS_MEMORY_PROFILE
 	return msg.wParam;
 }
 

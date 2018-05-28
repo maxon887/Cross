@@ -28,7 +28,7 @@ void Stats::WillContent() {
 void Stats::Content(float sec) {
 	ImGui::Text("FPS - %.1f(%.2f ms)", Debugger::Instance()->GetFPS(), Debugger::Instance()->GetUpdateTime());
 	ImGui::Text("CPU Time - %.2f ms", Debugger::Instance()->GetCPUTime());
-#ifdef CROSS_DEBUG
+#ifdef CROSS_MEMORY_PROFILE
 	U64 memory = MemoryManager::Instance()->AllocatedMemory();
 	if(memory > 10 * 1024) {
 		if(memory > 10 * 1024 * 1024) {
