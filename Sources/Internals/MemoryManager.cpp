@@ -15,6 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
+#ifdef CROSS_MEMORY_PROFILE
+
 #include "MemoryManager.h"
 #include "System.h"
 
@@ -22,8 +24,6 @@
 #include <stdlib.h>
 #include <mutex>
 #include <cstring>
-
-#ifdef CROSS_MEMORY_PROFILE
 
 using namespace cross;
 
@@ -123,11 +123,11 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 		alloc_objects[object_count].filename = filename;
 		alloc_objects[object_count].line = line;
 		alloc_objects[object_count].size = size;
-	
+
 		char* temp = (char*)alloc_objects[object_count].address;
 		temp += size;
 		memcpy(temp, &check_code, 4);
-	
+
 		return alloc_objects[object_count++].address;
 	}else{
 		return malloc((size_t)size);
@@ -181,7 +181,7 @@ U64 MemoryManager::Dump() {
 			i,
 			(unsigned long)alloc_objects[i].address,
 			alloc_objects[i].size,
-			alloc_objects[i].filename, 
+			alloc_objects[i].filename,
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
@@ -237,4 +237,19 @@ void MemoryManager::Log(const char* msg, ...) {
 	va_end(params);
 }
 
-#endif // CROSS_DEBUG
+#else
+#include <stdlib.h>
+
+void* StaticAlloc(cross::U64 size) {
+	return malloc((size_t)size);
+}
+
+void* StaticReAlloc(void* pointer, cross::U64 size) {
+	return realloc(pointer, (size_t)size);
+}
+void StaticFree(void* pointer) {
+	free(pointer);
+}
+
+
+#endif

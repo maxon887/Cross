@@ -50,7 +50,7 @@ public:
 	U64 Dump();
 
 	U64 AllocatedMemory() const;
-	
+
 private:
 	static const U64 check_code;
 	static bool dead;
@@ -72,8 +72,12 @@ private:
 
 #else
 
-#define CROSS_ALLOC(size) malloc(size)
-#define CROSS_REALLOC(pointer, size) realloc(pointer, size)
-#define CROSS_FREE(pointer) free(pointer)
+void* StaticAlloc(cross::U64 size);
+void* StaticReAlloc(void* pointer, cross::U64 size);
+void StaticFree(void* pointer);
+
+#define CROSS_ALLOC(size) StaticAlloc(size)
+#define CROSS_REALLOC(pointer, size) StaticReAlloc(pointer, size)
+#define CROSS_FREE(pointer) StaticFree(pointer)
 
 #endif
