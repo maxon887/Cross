@@ -13,7 +13,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "System.h"
 #include "File.h"
 
@@ -90,7 +90,7 @@ bool System::IsDataDirectoryExists(const String& filepath) {
 	return IsDirectoryExists(DataPath() + filepath);
 }
 
-Array<String> System::GetSubDirectories(const String &filepath) {
+Array<String> System::GetSubDirectories(const String& filepath) {
 	CROSS_RETURN(false, Array<String>(), "System::GetSubDirectories() does not implemented for current platform");
 }
 

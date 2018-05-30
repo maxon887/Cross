@@ -21,8 +21,21 @@ class FilesView : public View {
 public:
 	FilesView();
 
+	void Shown() override;
+
 	void Content(float sec) override;
 
 private:
-	void BuildNote(const String& name, const String& path, bool isFolder);
+	struct Node {
+		String path = "";
+		String name = "";
+		bool initialized = false;
+		Array<String> files;
+		Array<Node> folders;
+	};
+
+	Node file_tree;
+
+	void InitNode(Node& node);
+	void BuildNote(Node& node);
 };

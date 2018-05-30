@@ -105,14 +105,14 @@ MemoryManager::MemoryManager():
 	alloc_objects = (MemoryObject*)malloc((size_t)(sizeof(MemoryObject) * capacity));
 }
 
-MemoryManager::~MemoryManager(){
+MemoryManager::~MemoryManager() {
 	dead = true;
 }
 
 void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
-	if(!dead){
+	if(!dead) {
 
-		if(object_count > capacity - 1){
+		if(object_count > capacity - 1) {
 			capacity *= 2;
 			alloc_objects = (MemoryObject*)realloc(alloc_objects, (size_t)(sizeof(MemoryObject) * capacity));
 		}
@@ -129,7 +129,7 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 		memcpy(temp, &check_code, 4);
 
 		return alloc_objects[object_count++].address;
-	}else{
+	} else {
 		return malloc((size_t)size);
 	}
 }
@@ -152,15 +152,15 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 }
 
 void MemoryManager::Free(void* address) {
-	if(!dead){
+	if(!dead) {
 		SanityCheck();
-		if(address == nullptr){
+		if(address == nullptr) {
 			return;
 		}
-		for(unsigned int i = 0; i < object_count; i++){
-			if(alloc_objects[i].address == address){
+		for(U64 i = 0; i < object_count; i++) {
+			if(alloc_objects[i].address == address) {
 				free(address);
-				if(i != object_count - 1){
+				if(i != object_count - 1) {
 					memcpy(alloc_objects + i, alloc_objects + object_count - 1, sizeof(MemoryObject));
 				}
 				object_count--;
@@ -168,7 +168,7 @@ void MemoryManager::Free(void* address) {
 			}
 		}
 		CROSS_ASSERT(false, "Attempt to delete bad pointer\n");
-	}else{
+	} else {
 		free(address);
 	}
 }
@@ -176,8 +176,8 @@ void MemoryManager::Free(void* address) {
 U64 MemoryManager::Dump() {
 	SanityCheck();
 	U64 totalBytes = 0;
-	for(unsigned int i = 0; i < object_count; i++) {
-		Log("%4d. 0x%08X: %d bytes(%s: %d)\n",
+	for(U64 i = 0; i < object_count; i++) {
+		Log("%4llu. 0x%08X: %llu bytes(%s: %llu)\n",
 			i,
 			(unsigned long)alloc_objects[i].address,
 			alloc_objects[i].size,
@@ -185,7 +185,10 @@ U64 MemoryManager::Dump() {
 			alloc_objects[i].line);
 		totalBytes += alloc_objects[i].size;
 	}
-	CROSS_ASSERT(totalBytes == 0, "Memory leak detected(%ud bytes)", String(totalBytes, "%ud", 20));
+	if(totalBytes != 0) {
+		Log("Memory leak detected(%llu bytes)\n", totalBytes);
+		assert(false);
+	}
 	return totalBytes;
 }
 
@@ -209,7 +212,7 @@ void MemoryManager::SanityCheck() {
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-			//Sanity Check failed
+			Log("Sanity Check failed");
 			assert(false);
 		}
 	}
@@ -217,7 +220,7 @@ void MemoryManager::SanityCheck() {
 }
 
 MemoryObject& MemoryManager::FindObject(void* address) {
-	for(unsigned int i = 0; i < object_count; ++i) {
+	for(U64 i = 0; i < object_count; ++i) {
 		if(alloc_objects[i].address == address) {
 			return alloc_objects[i];
 		}

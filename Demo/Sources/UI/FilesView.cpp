@@ -21,37 +21,45 @@
 
 FilesView::FilesView() : View("Files") { }
 
-void FilesView::Content(float sec) {
-	String path = system->AssetsPath();
-	Array<String> folders = system->GetSubDirectories(path);
-	for(const String& name : folders) {
-		BuildNote(name, path, true);
-	}
-	Array<String> files = system->GetFilesInDirectory(path);
-	for(const String& name : files) {
-		BuildNote(name, path, false);
+void FilesView::Shown() {
+	if(!file_tree.initialized) {
+		file_tree.path = system->AssetsPath();
+		InitNode(file_tree);
 	}
 }
 
-void FilesView::BuildNote(const String& name, const String& path, bool isFolder) {
+void FilesView::Content(float sec) {
+	BuildNote(file_tree);
+}
+
+void FilesView::InitNode(Node& node) {
+	String path = node.path + node.name + "/";
+	Array<String> folders = system->GetSubDirectories(path);
+	for(const String& folder : folders) {
+		Node newNode;
+		newNode.path = path;
+		newNode.name = folder;
+		node.folders.push_back(newNode);
+	}
+	node.files = system->GetFilesInDirectory(path);
+	node.initialized = true;
+}
+
+void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
-	if(!isFolder) {
-		ImGui::TreeNodeEx(name, leaf_flags);
-	} else {
-		bool open = ImGui::TreeNodeEx(name, node_flags);
+	for(Node& child : node.folders) {
+		bool open = ImGui::TreeNodeEx(child.name, node_flags);
 		if(open) {
-			String newPath = path + name + "/";
-			Array<String> folders = system->GetSubDirectories(newPath);
-			for(const String& folder : folders) {
-				BuildNote(folder, newPath, true);
+			if(!child.initialized) {
+				InitNode(child);
 			}
-			Array<String> files = system->GetFilesInDirectory(newPath);
-			for(const String& name : files) {
-				BuildNote(name, newPath, false);
-			}
+			BuildNote(child);
 			ImGui::TreePop();
 		}
+	}
+	for(const String& file : node.files) {
+		ImGui::TreeNodeEx(file, leaf_flags);
 	}
 }
