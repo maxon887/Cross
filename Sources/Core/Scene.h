@@ -31,8 +31,8 @@ class XMLDocument;
 namespace cross{
 
 /*	Scene is place where all Entities live. Scene manages Entity live time, update cycles, utilization.
-	Second main task of this class is resource management.Textures, Models, Shaders, Materials also stored there. 
-	You can obtain requared resource by calling Get[ResourceName]() function.
+	Second main task of this class is resource management.Textures, Models, Shaders, Materials also stored there.
+	You can obtain required resource by calling Get[ResourceName]() function.
 	You don't need to call Entity's or resource destructors manually */
 class Scene : public Screen {
 public:
