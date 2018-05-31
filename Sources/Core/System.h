@@ -19,7 +19,7 @@
 #include "Event.h"
 
 namespace cross {
-	
+
 /*	Provides platform specific functional. Use this class for logging, file access and other platform specific function */
 class System {
 public:
@@ -36,7 +36,7 @@ public:
 
 	virtual ~System() { }
 
-	/* Print message in console. See LogIt() if you need formated output */
+	/* Print message in console. See LogIt() if you need formatted output */
 	virtual void Log(const char* msg) = 0;
 	/* Returns path to the application assets folder */
 	virtual String AssetsPath() = 0;
@@ -161,5 +161,5 @@ void System::Alert(const String& message, const char* filename, U32 line, Args..
 #endif
 	}
 }
-	
+
 }

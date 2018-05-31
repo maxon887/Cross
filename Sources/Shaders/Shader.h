@@ -22,7 +22,7 @@
 
 namespace cross{
 
-/*	This class needed to link gpu shader input data to engine cpu core. 
+/*	This class needed to link gpu shader input data to engine cpu core.
 	Needed to create any kind of material */
 class Shader {
 public:
@@ -82,7 +82,7 @@ public:
 
 		Property* Clone() const;
 
-		GLuint GetID() const;
+		GLint GetID() const;
 		Type GetType() const;
 		const String& GetName() const;
 		const String& GetGLName() const;
@@ -157,7 +157,7 @@ protected:
 		GLint color				= -1;
 
 		GLint intensity			= -1;
-	
+
 		GLint cut_off			= -1;
 		GLint outer_cut_off		= -1;
 	};

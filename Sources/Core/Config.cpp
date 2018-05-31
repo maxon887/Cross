@@ -107,7 +107,7 @@ void Config::LoadGameConfig() {
 	File* xmlFile = system->LoadAssetFile("GameConfig.xml");
 	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 	delete xmlFile;
 
@@ -144,7 +144,7 @@ void Config::LoadUserConfig() {
 		CROSS_FAIL(xmlFile, "Can not load UserConfig xml file");
 
 		XMLDocument doc;
-		XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+		XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
 		delete xmlFile;
 		CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 
@@ -154,7 +154,7 @@ void Config::LoadUserConfig() {
 		root = doc.FirstChildElement("UserConfig");
 		CROSS_FAIL(root, "Failed to fined UserConfig root element");
 		element = root->FirstChildElement("Property");
-		while(element){
+		while(element) {
 			String name = element->Attribute("name");
 			String value = element->Attribute("value");
 			user_prefs[name] = value;
@@ -196,7 +196,7 @@ void Config::SaveGameConfig() {
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = "GameConfig.xml";
-	gameConfig.size = (U32)printer.CStrSize();
+	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
 	system->SaveDataFile(&gameConfig);
 	gameConfig.data = nullptr;
@@ -221,7 +221,7 @@ void Config::SaveUserConfig() {
 	doc.Accept(&printer);
 	File userConfig;
 	userConfig.name = "UserConfig.xml";
-	userConfig.size = (U32)printer.CStrSize();
+	userConfig.size = printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
 	system->SaveDataFile(&userConfig);
 	userConfig.data = nullptr;

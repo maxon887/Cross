@@ -140,7 +140,7 @@ Shader::Property* Shader::Property::Clone() const {
 	return new Shader::Property(*this);
 }
 
-GLuint Shader::Property::GetID() const {
+GLint Shader::Property::GetID() const {
 	return glId;
 }
 
@@ -170,7 +170,7 @@ void Shader::Load(const String& file) {
 	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load shader xml file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 	delete xmlFile;
 
@@ -298,7 +298,7 @@ void Shader::Compile() {
 	aNormal = glGetAttribLocation(program, "aNormal");
 	aTangent = glGetAttribLocation(program, "aTangent");
 	aBitangent = glGetAttribLocation(program, "aBitangent");
-	
+
 	uMVP = glGetUniformLocation(program, "uMVP");
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
@@ -473,7 +473,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 	}
 
 	source += String((char*)file->data, (char*)(file->data + file->size));
-    
+
 	GLuint handle = glCreateShader(type);
 	char* cptr = source.ToCStr();
 	glShaderSource(handle, 1, (const char**)&cptr, nullptr);

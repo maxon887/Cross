@@ -63,7 +63,7 @@ public:
 	/* Returns Entity's child by its name */
 	Entity* FindChild(const String& name);
 	/* Removes child from Entity by name. Returns live child in case of success or nullptr if child not found. Returned child must be utilized by hand. */
-	Entity* RemoveChild(const String& nane);
+	Entity* RemoveChild(const String& name);
 	/* Removes specific child from Entity. Returns the same object in case of success or nullptr if child not found. Appropriate child's Remove() will be called. */
 	Entity* RemoveChild(Entity* child);
 	/* Clone this entity with all it's components and children */
@@ -92,7 +92,7 @@ bool Entity::HasComponent() const {
 }
 
 template<class T>
-T* Entity::GetComponent(){
+T* Entity::GetComponent() {
 	auto it = components.find(typeid(T).hash_code());
 	if(it != components.end()) {
 		return (T*)(*it).second;

@@ -45,7 +45,7 @@ public:
 	/* Creates new Mesh from this Mesh's data */
 	Mesh* Clone() const override;
 	/* Loads Mesh Component from XML node */
-	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene) override;
 	/* Saves Mesh Component into XML document */
 	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
