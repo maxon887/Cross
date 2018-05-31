@@ -28,7 +28,6 @@
 #include "Libs/Assimp/Importer.hpp"
 #include "Libs/Assimp/scene.h"
 #include "Libs/Assimp/postprocess.h"
-#include "Libs/Assimp/version.h"
 
 using namespace cross;
 
@@ -120,7 +119,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 		vertexBuffer->UVEnabled(true);
 	}
 	if(mesh->mNormals) {
-		vertexBuffer->NarmalsEnabled(true);
+		vertexBuffer->NormalsEnabled(true);
 	}
 	if(mesh->mTangents) {
 		vertexBuffer->TangentsEnabled(true);
@@ -152,7 +151,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 	Array<U16> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i) {
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j) {
-			indices.push_back(mesh->mFaces[i].mIndices[j]);
+			indices.push_back((U16)mesh->mFaces[i].mIndices[j]);
 		}
 	}
 	system->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());

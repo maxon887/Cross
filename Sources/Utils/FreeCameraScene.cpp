@@ -40,7 +40,7 @@ void FreeCameraScene::Update(float sec) {
 		camera->GetTransform()->SetRotate(destanation.GetRotate());
 	}
 }
- 
+
 void FreeCameraScene::MoveForward(float distance, bool transferTraget){
 	Vector3D path = destanation.GetDirection() * distance;
 	destanation.SetPosition(destanation.GetPosition() + path);
@@ -84,11 +84,7 @@ void FreeCameraScene::LookUp(float degree) {
 }
 
 void FreeCameraScene::LookAtCamera(bool enabled) {
-	if(enabled){
-		look_at = true;
-	}else{
-		look_at = false;
-	}
+	look_at = enabled;
 }
 
 void FreeCameraScene::LookAtCamera(const Vector3D& target) {

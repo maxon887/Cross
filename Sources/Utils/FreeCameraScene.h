@@ -29,7 +29,7 @@ public:
 
 	virtual void Update(float sec) override;
 
-	void LookAtCamera(bool enbled);
+	void LookAtCamera(bool enabled);
 	void LookAtCamera(const Vector3D& target);
 	bool IsLookAtCamera() const;
 
@@ -37,7 +37,7 @@ public:
 	void MoveRight(float distance);
 	void MoveUp(float distance);
 	void MoveCameraUp(float distance);
-	
+
 	void LookRight(float degree);
 	void LookUp(float degree);
 

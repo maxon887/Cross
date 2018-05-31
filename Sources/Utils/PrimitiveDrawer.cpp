@@ -17,15 +17,10 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PrimitiveDrawer.h"
 #include "Internals/GraphicsGL.h"
 #include "Game.h"
-#include "Screen.h"
 #include "Camera.h"
 #include "Shaders/Shader.h"
 #include "Texture.h"
 #include "Scene.h"
-#include "System.h"
-#include "File.h"
-
-#include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
 using namespace tinyxml2;
@@ -37,9 +32,9 @@ void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
+	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_POINTS, 0, 1));
 }
 
@@ -51,9 +46,9 @@ void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, const Col
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
+	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
 
@@ -73,9 +68,9 @@ void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color, bool filled
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
+	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glEnable(GL_BLEND));
 	if(filled) {
 		static GLushort indices[] = { 0, 1, 2, 3 };
@@ -115,8 +110,8 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 		float rad = percent * 2 * PI;
 
 		//Vertex position
-		float outer_x = center.x + radius * cos(rad);
-		float outer_y = center.y + radius * sin(rad);
+		float outer_x = center.x + radius * cosf(rad);
+		float outer_y = center.y + radius * sinf(rad);
 
 		buffer[idx++] = outer_x;
 		buffer[idx++] = outer_y;
@@ -125,9 +120,9 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glVertexAttribPointer(shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
+	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
 	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	if(filled) {
 		SAFE(glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount));
 	} else {
@@ -144,8 +139,8 @@ void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Col
 	Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix();
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
-	SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, 0, vertices));
+	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, 0, vertices));
 	SAFE(glUniform4fv(shader->uColor, 1, c.GetData()));
-	SAFE(glEnableVertexAttribArray(shader->aPosition));
+	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }

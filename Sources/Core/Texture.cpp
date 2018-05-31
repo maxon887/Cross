@@ -99,17 +99,17 @@ Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int&
 	}
 	if(newWidth != width || newHeight != height) {
 		CROSS_ASSERT(true, "Not power of 2 texture. Performance issue!");
-		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
+		Byte* newImage = (Byte*)malloc((Size)(channels * newWidth * newHeight));
 		for(int i = 0; i < height; i++) {
-			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
+			memcpy(newImage + i * newWidth * channels, image + i * width * channels, (Size)(width * channels));
 			//Clamp to edge effect
 			if(newWidth > width) {
-				memcpy(newImage + i * newWidth * channels + width * channels, image + i * width * channels, channels);
+				memcpy(newImage + i * newWidth * channels + width * channels, image + i * width * channels, (Size)channels);
 			}
 		}
 		//Clamp to edge effect
 		if(newHeight > height) {
-			memcpy(newImage + height * channels * newWidth, image + (height - 1) * width * channels, width * channels);
+			memcpy(newImage + height * channels * newWidth, image + (height - 1) * width * channels, (Size)width * channels);
 		}
 		width = newWidth;
 		height = newHeight;
@@ -259,7 +259,7 @@ void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
 	CROSS_FAIL(image, "Texture can not be loaded. File not found");
 
 	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
-	Create(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
+	Create(image, (U32)channels, (U32)width, (U32)height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
 }
 
 void Texture::LoadPKM(const String& filename, Texture::Filter filter) {

@@ -35,8 +35,6 @@ public:
 		/* Mipmaps levels and pixels will be linearly interpolated */
 		TRILINEAR
 	};
-	static String FilterToString(Filter filter);
-	static Filter StringToFilter(const String& string);
 	/* Specify how pixels will be picked up outside of 1, 1 uv coordinates */
 	enum TilingMode {
 		/* Similar to the edge pixels */
@@ -49,6 +47,10 @@ public:
 		ETC1,
 		NONE
 	};
+	/* Converts Filter enum to cross String */
+	static String FilterToString(Filter filter);
+	/* Converts readable String to Filter enum value */
+	static Filter StringToFilter(const String& string);
 	/* Loads raw texture data from file */
 	static Byte* LoadRawData(const String& filename, int& width, int& height, int& channels);
 

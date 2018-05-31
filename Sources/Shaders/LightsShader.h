@@ -26,7 +26,7 @@ public:
 
 	void Compile() override;
 	void Compile(const List<Light*>& lights);
-	void Compile(U32 pointCount, U32 spotCount, U32 directionalCount);
+	void Compile(S32 pointCount, S32 spotCount, S32 directionalCount);
 
 	void OnDraw() override;
 

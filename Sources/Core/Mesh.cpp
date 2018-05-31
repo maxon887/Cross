@@ -100,7 +100,7 @@ void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 }
 
 void Mesh::Draw(const Matrix& globalModel, Material* material,
-				StencilBehaviour stencilBehvaiour) {
+				StencilBehaviour stencilBehaviour) {
 	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
 	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
@@ -187,28 +187,28 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	VertexBuffer* vertexBuf = vertex_buffer;
 	U32 vertexSize = vertexBuf->VertexSize();
 	if(shader->aPosition != -1) {
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPossitionsOffset()));
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
+		SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPositionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
 		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
-		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aTexCoords));
+		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
 		CROSS_FAIL(vertexBuf->HasNormals(), "Current mesh does not countain normals");
-		SAFE(glEnableVertexAttribArray(shader->aNormal));
-		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aNormal));
+		SAFE(glVertexAttribPointer((GLuint)shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
 	}
 	if(shader->aTangent != -1) {
 		CROSS_FAIL(vertexBuf->HasTangents(), "Current mesh does not contain tangents");
-		SAFE(glEnableVertexAttribArray(shader->aTangent));
-		SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aTangent));
+		SAFE(glVertexAttribPointer((GLuint)shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
 	}
 	if(shader->aBitangent != -1) {
 		CROSS_FAIL(vertexBuf->HasBitangents(), "Current mesh does not contain bitangents");
-		SAFE(glEnableVertexAttribArray(shader->aBitangent));
-		SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aBitangent));
+		SAFE(glVertexAttribPointer((GLuint)shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
 	}
 
 	//drawing
@@ -220,7 +220,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glEnable(GL_CULL_FACE));
 	}
 	//stencil test
-	switch(stencilBehvaiour) {
+	switch(stencilBehaviour) {
 	case StencilBehaviour::WRITE:
 		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
@@ -255,11 +255,11 @@ void Mesh::TransferVideoData() {
 	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
-	SAFE(glBufferData(GL_ARRAY_BUFFER, vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
+	SAFE(glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
+	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
 	vertex_buffer->Free();
@@ -273,7 +273,7 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
 	}
 
-	U32 indsOffset = (U32)indices.size();
+	U16 indsOffset = (U16)indices.size();
 	for(U32 i = 0; i < inds.size(); ++i) {
 		indices.push_back(indsOffset + inds[i]);
 	}

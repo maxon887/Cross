@@ -62,7 +62,7 @@ void LightsShader::Compile(const List<Light*>& lights){
 	Compile(pointCount, spotCount, directionalCount);
 }
 
-void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
+void LightsShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCount){
 	uPointLights.clear();
 	uDirectionalLights.clear();
 	uPointLights.clear();
@@ -71,7 +71,7 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 	AddMacro("SPOT_LIGHT_COUNT", spotCount, true);
 
 	Shader::Compile();
-	for(U32 i = 0; i < pointCount; ++i) {
+	for(S32 i = 0; i < pointCount; ++i) {
 		String structName = "uPointLights[" + String(i) + "]";
 		LightUniforms uniforms;
 		uniforms.position = glGetUniformLocation(program, String(structName + ".position"));
@@ -80,7 +80,7 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 		uPointLights.push_back(uniforms);
 	}
 
-	for(U32 i = 0; i < directionalCount; ++i) {
+	for(S32 i = 0; i < directionalCount; ++i) {
 		String structName = "uDirectionalLights[" + String(i) + "]";
 		LightUniforms uniforms;
 		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction"));
@@ -88,7 +88,7 @@ void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
 		uDirectionalLights.push_back(uniforms);
 	}
 
-	for(U32 i = 0; i < spotCount; ++i) {
+	for(S32 i = 0; i < spotCount; ++i) {
 		String structName = "uSpotLights[" + String(i) + "]";
 		LightUniforms uniforms;
 		uniforms.position = glGetUniformLocation(program, String(structName + ".position"));
@@ -119,8 +119,8 @@ void LightsShader::OnDraw(){
 			SAFE(glUniform4fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].intensity, light->GetIntensity()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetEntity()->GetDirection().GetData()));
-			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, cos(light->GetCutOff() / 180.f * PI)));
-			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, cos(light->GetOuterCutOff() / 180.f * PI)));
+			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, cosf(light->GetCutOff() / 180.f * PI)));
+			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, cosf(light->GetOuterCutOff() / 180.f * PI)));
 			spotCount++;
 		}break;
 		case Light::Type::DIRECTIONAL:

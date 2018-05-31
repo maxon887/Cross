@@ -243,12 +243,12 @@ void MemoryManager::Log(const char* msg, ...) {
 #else
 #include <stdlib.h>
 
-void* StaticAlloc(cross::U64 size) {
-	return malloc(size);
+void* StaticAlloc(cross::S64 size) {
+	return malloc((cross::Size)size);
 }
 
-void* StaticReAlloc(void* pointer, cross::U64 size) {
-	return realloc(pointer, size);
+void* StaticReAlloc(void* pointer, cross::S64 size) {
+	return realloc(pointer, (cross::Size)size);
 }
 void StaticFree(void* pointer) {
 	free(pointer);

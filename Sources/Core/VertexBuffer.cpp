@@ -34,12 +34,12 @@ bool VertexBuffer::HasBitangents() const{
 	return bitangents_enabled;
 }
 
-U32 VertexBuffer::GetPossitionsOffset() const{
+U32 VertexBuffer::GetPositionsOffset() const{
 	return 0;
 }
 
 U32 VertexBuffer::GetTextureCoordinatesOffset() const{
-	return GetPossitionsOffset() + (uv_enabled ? 3 : 0);
+	return GetPositionsOffset() + (uv_enabled ? 3 : 0);
 }
 
 U32 VertexBuffer::GetNormalsOffset() const{
@@ -58,7 +58,7 @@ void VertexBuffer::UVEnabled(bool enabled){
 	uv_enabled = enabled;
 }
 
-void VertexBuffer::NarmalsEnabled(bool enabled){
+void VertexBuffer::NormalsEnabled(bool enabled){
 	normals_enabled = enabled;
 }
 

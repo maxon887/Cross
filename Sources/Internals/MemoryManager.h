@@ -72,8 +72,8 @@ private:
 
 #else
 
-void* StaticAlloc(cross::U64 size);
-void* StaticReAlloc(void* pointer, cross::U64 size);
+void* StaticAlloc(cross::S64 size);
+void* StaticReAlloc(void* pointer, cross::S64 size);
 void StaticFree(void* pointer);
 
 #define CROSS_ALLOC(size) StaticAlloc(size)

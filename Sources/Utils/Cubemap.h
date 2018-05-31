@@ -19,7 +19,7 @@
 
 namespace cross{
 
-/*	Special type of texture which represents 360 observible texutre. 
+/*	Special type of texture which represents 360 observable texture.
 	Created by 6 faces(top, right, back etc.) */
 class Cubemap {
 public:

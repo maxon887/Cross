@@ -18,8 +18,6 @@
 #include "Cross.h"
 #include "Internals/GraphicsGL.h"
 
-#include <cstring>
-
 namespace cross{
 
 /*	This class needed to link gpu shader input data to engine cpu core.
@@ -132,8 +130,8 @@ public:
 	void SetFragmentFilename(const String& filename);
 
 	void AddVersion(const String& version);
-	void AddMacro(const String& makro, bool system = false);
-	void AddMacro(const String& makro, int value, bool system = false);
+	void AddMacro(const String& macro, bool system = false);
+	void AddMacro(const String& macro, int value, bool system = false);
 	Array<String>& GetMacrosies();
 	void ClearMacrosies();
 

@@ -43,16 +43,16 @@ String::String(const char* cstr) {
 	length = strlen(cstr);
 	capacity = length;
 	data = (char*)CROSS_ALLOC(capacity + 1);
-	memcpy(data, cstr, length + 1);
+	memcpy(data, cstr, (Size)length + 1);
 }
 
-String::String(const char* cstr, U32 len, U32 cap) :
+String::String(const char* cstr, S32 len, S32 cap) :
 	length(len),
 	capacity(cap)
 {
 	CROSS_ASSERT(cstr, "Attempt to create a String from null pointer");
 	data = (char*)CROSS_ALLOC(capacity + 1);
-	memcpy(data, cstr, length + 1);
+	memcpy(data, cstr, (Size)length + 1);
 }
 
 String::String(const char* begin, const char* end) {
@@ -63,7 +63,7 @@ String::String(const char* begin, const char* end) {
 	}
 	capacity = length;
 	data = (char*)CROSS_ALLOC(capacity + 1);
-	memcpy(data, begin, length + 1);
+	memcpy(data, begin, (Size)length + 1);
 	data[length] = '\0';
 }
 
@@ -72,7 +72,7 @@ String::String(const String& str) :
 	capacity(str.capacity)
 {
 	data = (char*)CROSS_ALLOC(capacity + 1);
-	memcpy(data, str.data, str.length + 1);
+	memcpy(data, str.data, (Size)str.length + 1);
 }
 
 String::String(String&& str) :
@@ -100,7 +100,7 @@ String::String(const Color& color) :
 	capacity(8)
 {
 	data = (char*)CROSS_ALLOC(capacity + 1);
-	U32 written = sprintf(data, "%02X%02X%02X%02X",
+	S32 written = sprintf(data, "%02X%02X%02X%02X",
 		(int)(color.R * 255),
 		(int)(color.G * 255),
 		(int)(color.B * 255),
@@ -112,11 +112,11 @@ String::~String() {
 	CROSS_FREE(data);
 }
 
-U32 String::Length() const {
+S32 String::Length() const {
 	return length;
 }
 
-U32 String::Capacity() const {
+S32 String::Capacity() const {
 	return capacity;
 }
 
@@ -133,7 +133,7 @@ U64 String::Hash() const {
 	U64 hash = 5381;
 	int c;
 	char* str = data;
-	while(c = *str++) {
+	while((c = *str++)) {
 		hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 	}
 	return hash;
@@ -142,7 +142,7 @@ U64 String::Hash() const {
 S32 String::Find(char c) const {
 	char* result = strchr(data, c);
 	if(result) {
-		return result - data;
+		return (S32)(result - data);
 	} else {
 		return -1;
 	}
@@ -151,7 +151,7 @@ S32 String::Find(char c) const {
 S32 String::Find(const char* subStr) const {
 	char* result = strstr(data, subStr);
 	if(result) {
-		return result - data;
+		return (S32)(result - data);
 	} else {
 		return -1;
 	}
@@ -160,7 +160,7 @@ S32 String::Find(const char* subStr) const {
 S32 String::FindLast(char c) const {
 	char* result = strrchr(data, c);
 	if(result) {
-		return result - data;
+		return (S32)(result - data);
 	} else {
 		return -1;
 	}
@@ -170,19 +170,19 @@ S32 String::FindFirstOf(const char* sequence) const {
 	return FindFirstOf(sequence, 0);
 }
 
-S32 String::FindFirstOf(const char* sequence, U32 startPos) const {
-	U32 occurence = strcspn(data + startPos, sequence);
-	if(occurence == length) {
+S32 String::FindFirstOf(const char* sequence, S32 startPos) const {
+	S32 occurrence = strcspn(data + startPos, sequence);
+	if(occurrence == length) {
 		return -1;
 	}
-	return startPos + occurence;
+	return startPos + occurrence;
 }
 
 S32 String::FindNonFirstOf(const char* sequence) const {
 	return FindNonFirstOf(sequence, 0);
 }
 
-S32 String::FindNonFirstOf(const char* sequence, U32 startPos) const {
+S32 String::FindNonFirstOf(const char* sequence, S32 startPos) const {
 	U32 occurence = strspn(data + startPos, sequence);
 	if(occurence == length) {
 		return -1;
@@ -193,7 +193,7 @@ S32 String::FindNonFirstOf(const char* sequence, U32 startPos) const {
 void String::Uppercase() {
 	char* start = data;
 	while(*start) {
-		*start = toupper(*start);
+		*start = (char)toupper(*start);
 		start++;
 	}
 }
@@ -201,7 +201,7 @@ void String::Uppercase() {
 void String::Lowercase() {
 	char* start = data;
 	while(*start) {
-		*start = tolower(*start);
+		*start = (char)tolower(*start);
 		start++;
 	}
 }
@@ -221,7 +221,7 @@ bool String::Remove(const char* subStr) {
 bool String::Remove(char c) {
 	S32 res = Find(c);
 	if(res != -1) {
-		memcpy(data + res, data + res + 1, length - res);
+		memcpy(data + res, data + res + 1, (Size)length - res);
 		length--;
 		return true;
 	}
@@ -240,21 +240,21 @@ bool String::Replace(const char* from, const char* to) {
 	return result;
 }
 
-void String::Cut(U32 first, U32 last) {
+void String::Cut(S32 first, S32 last) {
 	length = last - first;
-	memcpy(data, data + first, length);
+	memcpy(data, data + first, (Size)length);
 	data[length] = '\0';
 }
 
 void String::Insert(S32 pos, const String& str) {
-	U32 newLen = length + str.length;
+	S32 newLen = length + str.length;
 	if(capacity < newLen) {
 		data = (char*)CROSS_REALLOC(data, newLen + 1);
 		capacity = newLen;
 	}
 	String temp = SubString(pos, length);
-	memcpy(data + pos, str.ToCStr(), str.length);
-	memcpy(data + pos + str.length, temp.ToCStr(), temp.length + 1);
+	memcpy(data + pos, str.ToCStr(), (Size)str.length);
+	memcpy(data + pos + str.length, temp.ToCStr(), (Size)temp.length + 1);
 	length += str.length;
 }
 
@@ -262,7 +262,7 @@ String String::SubString(S32 first, S32 last) const {
 	S32 len = last - first;
 	String result("", len, len);
 	char* newData = result.ToCStr();
-	memcpy(newData, data + first, len);
+	memcpy(newData, data + first, (Size)len);
 	newData[len] = '\0';
 	return result;
 }
@@ -293,25 +293,25 @@ float String::ToFloat() const {
 
 Color String::ToColor() const {
 	String rStr = String(data + 0, data + 2);
-	U64 rInt = rStr.ToInt(16);
+	S32 rInt = rStr.ToInt(16);
 	String gStr = String(data + 2, data + 4);
-	U64 gInt = gStr.ToInt(16);
+	S32 gInt = gStr.ToInt(16);
 	String bStr = String(data + 4, data + 6);
-	U64 bInt = bStr.ToInt(16);
+	S32 bInt = bStr.ToInt(16);
 	String aStr = String(data + 6, data + 8);
-	U64 aInt = aStr.ToInt(16);
+	S32 aInt = aStr.ToInt(16);
 	Color result(rInt / 255.f, gInt / 255.f, bInt / 255.f, aInt / 255.f);
 	return result;
 }
 
 String& String::operator = (const char* cstr) {
-	U32 cLen = strlen(cstr);
+	S32 cLen = strlen(cstr);
 	if(capacity < cLen) {
 		data = (char*)CROSS_REALLOC(data, cLen + 1);
 		capacity = cLen;
 	}
 	length = cLen;
-	memcpy(data, cstr, length + 1);
+	memcpy(data, cstr, (Size)length + 1);
 	return *this;
 }
 
@@ -321,7 +321,7 @@ String& String::operator = (const String& other) {
 		capacity = other.length;
 	}
 	length = other.length;
-	memcpy(data, other.data, other.length + 1);
+	memcpy(data, other.data, (Size)other.length + 1);
 	return *this;
 }
 
@@ -353,23 +353,23 @@ bool String::operator != (const String& other) const {
 }
 
 void String::operator += (const char* other) {
-	U32 otherLen = strlen(other);
-	U32 requiredLen = length + otherLen;
+	S32 otherLen = strlen(other);
+	S32 requiredLen = length + otherLen;
 	if(requiredLen > capacity) {
 		data = (char*)CROSS_REALLOC(data, requiredLen + 1);
 		capacity = requiredLen;
 	}
-	memcpy(data + length, other, otherLen + 1);
+	memcpy(data + length, other, (Size)otherLen + 1);
 	length = requiredLen;
 }
 
 void String::operator += (const String& other) {
-	U32 requiredLen = length + other.length;
+	S32 requiredLen = length + other.length;
 	if(requiredLen > capacity) {
 		data = (char*)CROSS_REALLOC(data, requiredLen + 1);
 		capacity = requiredLen;
 	}
-	memcpy(data + length, other.data, other.length + 1);
+	memcpy(data + length, other.data, (Size)other.length + 1);
 	length = requiredLen;
 }
 
@@ -396,7 +396,7 @@ String operator + (const char* left, const String& right) {
 }
 
 String operator + (const String& left, const String& right) {
-	U32 capacity = left.length + right.length;
+	S32 capacity = left.length + right.length;
 	String result(left.ToCStr(), left.length, capacity);
 	result += right;
 	return result;
@@ -404,10 +404,7 @@ String operator + (const String& left, const String& right) {
 
 bool operator < (const String& left, const String& right) {
 	S32 res = strcmp(left.ToCStr(), right.ToCStr());
-	if(res < 0) {
-		return true;
-	}
-	return false;
+	return res < 0;
 }
 
 }

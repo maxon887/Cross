@@ -36,13 +36,13 @@ public:
 	String(float number);
 	String(const Color& color);
 	template<class Value>
-	String(Value value, const char* format, U32 bufferSize);
+	String(Value value, const char* format, S32 bufferSize);
 	~String();
 
 	/* Return length of the string. Number of placed characters spots */
-	U32 Length() const;
+	S32 Length() const;
 	/* Return count of characters that can be placed without string memory allocation */
-	U32 Capacity() const;
+	S32 Capacity() const;
 	/* Cleans all characters in this string without memory reallocation */
 	void Clear();
 	/* Returns true if string is empty */
@@ -58,11 +58,11 @@ public:
 	/* Returns first occurrence of any character in provided sequence */
 	S32 FindFirstOf(const char* sequence) const;
 	/* Returns first occurrence of any character in provided sequence started from specific position */
-	S32 FindFirstOf(const char* sequence, U32 startPos) const;
+	S32 FindFirstOf(const char* sequence, S32 startPos) const;
 	/* Returns first occurrence of not of any character in provided sequence */
 	S32 FindNonFirstOf(const char* sequence) const;
 	/* Returns first occurrence of not of any character in provided sequence started from specific position */
-	S32 FindNonFirstOf(const char* sequence, U32 startPos) const;
+	S32 FindNonFirstOf(const char* sequence, S32 startPos) const;
 	/* Converts this string to uppercase */
 	void Uppercase();
 	/* Converts this string to lowercase */
@@ -74,7 +74,7 @@ public:
 	/* Replaces all occurrences of 'from' string to 'to' string */
 	bool Replace(const char* from, const char* to);
 	/* Removes all characters before first argument and after last from current String */
-	void Cut(U32 first, U32 last);
+	void Cut(S32 first, S32 last);
 	/* Inserts provided String in the middle of current string at position */
 	void Insert(S32 position, const String& str);
 	/* Returns cut String from first character to last by arguments */
@@ -112,16 +112,16 @@ public:
 
 private:
 	char* data = nullptr;
-	U32 length = 0;
-	U32 capacity = 0;
+	S32 length = 0;
+	S32 capacity = 0;
 
-	String(const char* cstr, U32 length, U32 capacity);
+	String(const char* cstr, S32 length, S32 capacity);
 };
 
 template<class First, class... Args>
 String String::Format(const String& format, First value, Args... args) {
 	S32 spot = format.Find('#');
-	//More values provied than expected
+	//More values provided than expected
 	assert(spot != -1);
 	String result = format;
 	result.Remove('#');
@@ -130,12 +130,12 @@ String String::Format(const String& format, First value, Args... args) {
 }
 
 template<class Value>
-String::String(Value value, const char* format, U32 bufferSize) {
+String::String(Value value, const char* format, S32 bufferSize) {
 	data = (char*)CROSS_ALLOC(bufferSize + 1);
 	length = sprintf(data, format, value);
 	capacity = bufferSize;
 
-	//Convertion from integer to string failed
+	//Conversion from integer to string failed
 	assert(length > 0);
 	//More data written in buffer than was allocated
 	assert(length < bufferSize);

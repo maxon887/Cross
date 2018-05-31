@@ -32,13 +32,13 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Scene::Scene() : 
+Scene::Scene() :
 	Scene("")
 {
 	CreateDefaultCamera();
 }
 
-Scene::Scene(const String& filename) : 
+Scene::Scene(const String& filename) :
 	Screen(),
 	filename(filename)
 {
@@ -276,9 +276,7 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 	} else {
 		Material* mat = new Material();
 		mat->Load(xmlFile);
-		if(mat) {
-			materials[hash] = mat;
-		}
+		materials[hash] = mat;
 		return mat;
 	}
 }

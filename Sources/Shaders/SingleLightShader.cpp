@@ -56,9 +56,9 @@ void SingleLightShader::OnDraw(){
 		SAFE(glUniform3fv(light_attribs.direction, 1, light->GetEntity()->GetDirection().GetData()));
 	}
 	if(light_attribs.cut_off != -1){
-		SAFE(glUniform1f(light_attribs.cut_off, cos(light->GetCutOff()/180.f * PI)));
+		SAFE(glUniform1f(light_attribs.cut_off, cosf(light->GetCutOff()/180.f * PI)));
 	}
 	if(light_attribs.outer_cut_off != -1){
-		SAFE(glUniform1f(light_attribs.outer_cut_off, cos(light->GetOuterCutOff()/180.f * PI)));
+		SAFE(glUniform1f(light_attribs.outer_cut_off, cosf(light->GetOuterCutOff()/180.f * PI)));
 	}
 }

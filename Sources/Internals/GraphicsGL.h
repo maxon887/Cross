@@ -49,7 +49,7 @@
 
 namespace cross{
 
-/*	Class containing specific OpengGL features */
+/*	Class containing specific OpenGL features */
 class GraphicsGL {
 public:
 	static void CheckGLError(const char* file, U32 line);
