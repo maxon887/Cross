@@ -23,6 +23,8 @@
 #include "Utils/Debugger.h"
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"
+#elif ANDROID
+#	include "Platform/Android/AndroidSystem.h"
 #endif
 
 #if defined(USE_FREETYPE) && defined(WIN)
@@ -248,9 +250,9 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
 	SAFE(glEnable(GL_SCISSOR_TEST));
-	
+
 	ui_shader->Use();
-	
+
 	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
 	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
@@ -326,6 +328,12 @@ void Demo::KeyPressed(Key key) {
 	}
 
 	if(key == Key::ESCAPE || key == Key::BACK) {
+#ifdef ANDROID
+		if (static_cast<MainScreen*>(GetCurrentScreen())) {
+			((AndroidSystem*)system)->PromtToExit();
+			return;
+		}
+#endif
 		SetScreen(new MainScreen());
 	}
 }
