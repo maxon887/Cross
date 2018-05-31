@@ -34,13 +34,6 @@ void operator delete[](void* p, char* filename, cross::U64 line);
 
 namespace cross{
 
-struct MemoryObject {
-	void* address;
-	U64 size;
-	const char* filename;
-	U64 line;
-};
-
 class MemoryManager {
 public:
 	static MemoryManager* Instance();
@@ -52,6 +45,13 @@ public:
 	U64 AllocatedMemory() const;
 
 private:
+	struct MemoryObject {
+		void* address;
+		U64 size;
+		const char* filename;
+		U64 line;
+	};
+
 	static const U64 check_code;
 	static bool dead;
 	static MemoryManager instance;

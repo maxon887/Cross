@@ -170,7 +170,7 @@ void Shader::Load(const String& file) {
 	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load shader xml file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 	delete xmlFile;
 

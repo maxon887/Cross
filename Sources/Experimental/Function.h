@@ -75,7 +75,7 @@ Function<Ret(Input...)>::~Function() {
 template<class Ret, class... Input>
 Ret Function<Ret(Input...)>::operator()(Input... args) {
 	assert(lambda);
-	executer(lambda, args...);
+	return executer(lambda, args...);
 }
 
 template<class Ret, class... Input>

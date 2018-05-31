@@ -15,9 +15,9 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
-#ifdef CROSS_MEMORY_PROFILE
-
 #include "MemoryManager.h"
+
+#ifdef CROSS_MEMORY_PROFILE
 #include "System.h"
 
 #include <stdarg.h>
@@ -102,7 +102,7 @@ MemoryManager::MemoryManager():
 {
 	dead = false;
 	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
-	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * capacity);
+	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * (Size)capacity);
 }
 
 MemoryManager::~MemoryManager() {
@@ -114,12 +114,12 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 
 		if(object_count > capacity - 1) {
 			capacity *= 2;
-			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * capacity);
+			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * (Size)capacity);
 		}
 
 		SanityCheck();
 
-		alloc_objects[object_count].address = malloc(size + 4);
+		alloc_objects[object_count].address = malloc((Size)(size + 4));
 		alloc_objects[object_count].filename = filename;
 		alloc_objects[object_count].line = line;
 		alloc_objects[object_count].size = size;
@@ -130,7 +130,7 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 
 		return alloc_objects[object_count++].address;
 	} else {
-		return malloc(size);
+		return malloc((Size)size);
 	}
 }
 
@@ -139,7 +139,7 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 		SanityCheck();
 
 		MemoryObject& obj = FindObject(pointer);
-		obj.address = realloc(pointer, size + 4);
+		obj.address = realloc(pointer, (Size)(size + 4));
 		obj.filename = filename;
 		obj.size = size;
 
@@ -147,7 +147,7 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 
 		return obj.address;
 	} else {
-		return realloc(pointer, size);
+		return realloc(pointer, (Size)size);
 	}
 }
 
@@ -219,7 +219,7 @@ void MemoryManager::SanityCheck() {
 	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: # corrupted buffers\n", count);
 }
 
-MemoryObject& MemoryManager::FindObject(void* address) {
+MemoryManager::MemoryObject& MemoryManager::FindObject(void* address) {
 	for(U64 i = 0; i < object_count; ++i) {
 		if(alloc_objects[i].address == address) {
 			return alloc_objects[i];

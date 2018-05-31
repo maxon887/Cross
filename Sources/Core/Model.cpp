@@ -79,7 +79,7 @@ void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	if(calcTangents) {
 		flags |= aiProcess_CalcTangentSpace;
 	}
-	current_scene = importer.ReadFileFromMemory(file->data, file->size, flags);
+	current_scene = importer.ReadFileFromMemory(file->data, (Size)file->size, flags);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
 		CROSS_FAIL(false, "Assimp Error: #", importer.GetErrorString());
 	}

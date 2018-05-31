@@ -49,6 +49,7 @@ namespace cross {
 	typedef int64_t		S64;
 	typedef uint64_t	U64;
 	typedef uint8_t		Byte;
+	typedef size_t		Size;
 }
 
 #include "Internals/MemoryManager.h"

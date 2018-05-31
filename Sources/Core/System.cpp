@@ -33,8 +33,8 @@ File* System::LoadFile(const String& filename) {
 	fseek(f, 0, SEEK_END);
 	file->size = (U32)ftell(f);
 	fseek(f, 0, SEEK_SET);
-	file->data = new Byte[file->size];
-	U64 read = fread(file->data, sizeof(Byte), file->size, f);
+	file->data = new Byte[(Size)file->size];
+	U64 read = fread(file->data, sizeof(Byte), (Size)file->size, f);
 	CROSS_ASSERT(file->size == read, "File # not read properly", file->name.ToCStr());
 	fclose(f);
 	return file;
@@ -51,7 +51,7 @@ File* System::LoadDataFile(const String& filename) {
 void System::SaveFile(File* file) {
 	FILE* f = fopen(file->name.ToCStr(), "wb");
 	CROSS_FAIL(f, "Can not open file for writing: '#'", file->name.ToCStr());
-	U64 written = fwrite(file->data, 1, file->size, f);
+	U64 written = fwrite(file->data, 1, (Size)file->size, f);
 	CROSS_ASSERT(file->size == written, "Can not write to file '#'", file->name.ToCStr());
 	fclose(f);
 }

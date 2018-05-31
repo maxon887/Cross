@@ -86,7 +86,7 @@ Texture::Filter Texture::StringToFilter(const String& string) {
 Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
 	File* textureFile = system->LoadAssetFile(filename);
 	CROSS_RETURN(textureFile, nullptr, "Can not load raw texture. File not found");
-	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
+	Byte* image = SOIL_load_image_from_memory(textureFile->data, (int)textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
 	CROSS_RETURN(image, nullptr, "SOL can't convert file:\n Pay attention on image color channels");
 	int newWidth = 1;
@@ -180,7 +180,7 @@ void Texture::Save(const String& filename) {
 	File file;
 	file.name = filename;
 	file.size = GetWidth() * GetHeight() * GetChannels();
-	file.data = new Byte[file.size * GetChannels()];
+	file.data = new Byte[(Size)file.size * GetChannels()];
 	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));

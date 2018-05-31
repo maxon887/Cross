@@ -84,7 +84,7 @@ bool Scene::Load(const String& file) {
 	File* xmlFile = system->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	CROSS_RETURN(error == XML_SUCCESS, false, "Can not parse shader xml file");
 	delete xmlFile;
 
