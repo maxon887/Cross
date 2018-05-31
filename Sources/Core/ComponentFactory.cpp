@@ -26,7 +26,7 @@ Component* ComponentFactory::Create(const String& name) {
 
 Array<String> ComponentFactory::GetRegisteredComponentsName() {
 	Array<String> names;
-	for(std::pair<String, std::function<Component*()>> pair : functions) {
+	for(std::pair<String, Function<Component*()>> pair : functions) {
 		names.push_back(pair.first);
 	}
 	return names;

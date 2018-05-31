@@ -16,14 +16,13 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-
-#include <functional>
+#include "Experimental/Function.h"
 
 namespace cross{
 
 class Component;
 
-/*	This class needed for custom Component registration. 
+/*	This class needed for custom Component registration.
 	All Component types must be register in order to support loading from scene XML files.
 	Register your Components before any Scene::Load() calls */
 class ComponentFactory {
@@ -36,7 +35,7 @@ public:
 	Array<String> GetRegisteredComponentsName();
 
 private:
-	Dictionary<String, std::function<Component*()>> functions;
+	Dictionary<String, Function<Component*()>> functions;
 };
 
 template<class T>
