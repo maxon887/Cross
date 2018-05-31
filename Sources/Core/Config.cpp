@@ -107,7 +107,7 @@ void Config::LoadGameConfig() {
 	File* xmlFile = system->LoadAssetFile("GameConfig.xml");
 	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 	delete xmlFile;
 
@@ -144,7 +144,7 @@ void Config::LoadUserConfig() {
 		CROSS_FAIL(xmlFile, "Can not load UserConfig xml file");
 
 		XMLDocument doc;
-		XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
+		XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 		delete xmlFile;
 		CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 

@@ -102,7 +102,7 @@ MemoryManager::MemoryManager():
 {
 	dead = false;
 	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
-	alloc_objects = (MemoryObject*)malloc((size_t)(sizeof(MemoryObject) * capacity));
+	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * capacity);
 }
 
 MemoryManager::~MemoryManager() {
@@ -114,12 +114,12 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 
 		if(object_count > capacity - 1) {
 			capacity *= 2;
-			alloc_objects = (MemoryObject*)realloc(alloc_objects, (size_t)(sizeof(MemoryObject) * capacity));
+			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * capacity);
 		}
 
 		SanityCheck();
 
-		alloc_objects[object_count].address = malloc((size_t)(size + 4));
+		alloc_objects[object_count].address = malloc(size + 4);
 		alloc_objects[object_count].filename = filename;
 		alloc_objects[object_count].line = line;
 		alloc_objects[object_count].size = size;
@@ -130,7 +130,7 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 
 		return alloc_objects[object_count++].address;
 	} else {
-		return malloc((size_t)size);
+		return malloc(size);
 	}
 }
 
@@ -139,7 +139,7 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 		SanityCheck();
 
 		MemoryObject& obj = FindObject(pointer);
-		obj.address = realloc(pointer, (size_t)(size + 4));
+		obj.address = realloc(pointer, size + 4);
 		obj.filename = filename;
 		obj.size = size;
 
@@ -147,7 +147,7 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 
 		return obj.address;
 	} else {
-		return realloc(pointer, (size_t)size);
+		return realloc(pointer, size);
 	}
 }
 
@@ -244,11 +244,11 @@ void MemoryManager::Log(const char* msg, ...) {
 #include <stdlib.h>
 
 void* StaticAlloc(cross::U64 size) {
-	return malloc((size_t)size);
+	return malloc(size);
 }
 
 void* StaticReAlloc(void* pointer, cross::U64 size) {
-	return realloc(pointer, (size_t)size);
+	return realloc(pointer, size);
 }
 void StaticFree(void* pointer) {
 	free(pointer);

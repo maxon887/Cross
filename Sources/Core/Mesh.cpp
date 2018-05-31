@@ -187,28 +187,28 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	VertexBuffer* vertexBuf = vertex_buffer;
 	U32 vertexSize = vertexBuf->VertexSize();
 	if(shader->aPosition != -1) {
-		SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
-		SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPossitionsOffset()));
+		SAFE(glEnableVertexAttribArray(shader->aPosition));
+		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPossitionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
 		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
-		SAFE(glEnableVertexAttribArray((GLuint)shader->aTexCoords));
-		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
+		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
+		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
 		CROSS_FAIL(vertexBuf->HasNormals(), "Current mesh does not countain normals");
-		SAFE(glEnableVertexAttribArray((GLuint)shader->aNormal));
-		SAFE(glVertexAttribPointer((GLuint)shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
+		SAFE(glEnableVertexAttribArray(shader->aNormal));
+		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
 	}
 	if(shader->aTangent != -1) {
 		CROSS_FAIL(vertexBuf->HasTangents(), "Current mesh does not contain tangents");
-		SAFE(glEnableVertexAttribArray((GLuint)shader->aTangent));
-		SAFE(glVertexAttribPointer((GLuint)shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
+		SAFE(glEnableVertexAttribArray(shader->aTangent));
+		SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
 	}
 	if(shader->aBitangent != -1) {
 		CROSS_FAIL(vertexBuf->HasBitangents(), "Current mesh does not contain bitangents");
-		SAFE(glEnableVertexAttribArray((GLuint)shader->aBitangent));
-		SAFE(glVertexAttribPointer((GLuint)shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
+		SAFE(glEnableVertexAttribArray(shader->aBitangent));
+		SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
 	}
 
 	//drawing

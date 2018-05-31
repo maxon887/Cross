@@ -58,7 +58,7 @@ void Material::Load(const String& filename) {
 	File* xmlFile = system->LoadAssetFile(filename);
 	CROSS_FAIL(xmlFile, "Can't load material. File not fount");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
 	delete xmlFile;
 	CROSS_FAIL(error == XML_SUCCESS, "Can't parse material xml file");
 
