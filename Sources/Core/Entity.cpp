@@ -78,7 +78,7 @@ void Entity::AddComponent(Component* component) {
 	component->Initialize();
 }
 
-void Entity::RemoveComponent(Component* component){
+void Entity::RemoveComponent(Component* component) {
 	component->Remove();
 	components.erase(typeid(*component).hash_code());
 }
@@ -114,13 +114,13 @@ Entity* Entity::FindChild(U32 index) {
 	return *it;
 }
 
-Entity* Entity::FindChild(const String& name){
-	for(Entity* child : children){
-		if(child->GetName() == name){
+Entity* Entity::FindChild(const String& name) {
+	for(Entity* child : children) {
+		if(child->GetName() == name) {
 			return child;
-		}else{
+		} else {
 			child = child->FindChild(name);
-			if(child){
+			if(child) {
 				return child;
 			}
 		}
@@ -128,10 +128,10 @@ Entity* Entity::FindChild(const String& name){
 	return nullptr;
 }
 
-Entity* Entity::RemoveChild(const String& name){
-	for(auto it = children.begin(); it != children.end(); it++){
+Entity* Entity::RemoveChild(const String& name) {
+	for(auto it = children.begin(); it != children.end(); it++) {
 		Entity* c = (*it);
-		if(c->GetName() == name){
+		if(c->GetName() == name) {
 			c->Remove();
 			children.erase(it);
 			return c;
@@ -140,7 +140,7 @@ Entity* Entity::RemoveChild(const String& name){
 	return nullptr;
 }
 
-Entity* Entity::RemoveChild(Entity* child){
+Entity* Entity::RemoveChild(Entity* child) {
 	for(auto it = children.begin(); it != children.end(); it++) {
 		Entity* c = (*it);
 		if(c == child) {
@@ -152,7 +152,7 @@ Entity* Entity::RemoveChild(Entity* child){
 	return nullptr;
 }
 
-Entity* Entity::Clone(){
+Entity* Entity::Clone() {
 	Entity* clone = new Entity(this->name);
 	for(pair<U64, Component*> pair : components){
 		Component* component = pair.second;
@@ -175,7 +175,7 @@ Matrix Entity::GetWorldMatrix() {
 	}
 }
 
-Vector3D Entity::GetDirection(){
+Vector3D Entity::GetDirection() {
 	if(parent) {
 		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
 	} else {

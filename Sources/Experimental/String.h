@@ -20,7 +20,7 @@ namespace cross {
 
 class String {
 public:
-	static String Format(const String& fromat);
+	static String Format(const String& format);
 	template<class First, class... Args>
 	static String Format(const String& format, First value, Args... args);
 
@@ -71,14 +71,14 @@ public:
 	bool Remove(const char* subStr);
 	/* Removes first occurrence of character in current String */
 	bool Remove(char c);
-	/* Replaces all occurrencies of 'from' string to 'to' string */
+	/* Replaces all occurrences of 'from' string to 'to' string */
 	bool Replace(const char* from, const char* to);
 	/* Removes all characters before first argument and after last from current String */
 	void Cut(U32 first, U32 last);
-	/* Inserts provided String in the midle of current string at postion */
-	void Insert(U32 position, const String& str);
+	/* Inserts provided String in the middle of current string at position */
+	void Insert(S32 position, const String& str);
 	/* Returns cut String from first character to last by arguments */
-	String SubString(U32 first, U32 last) const;
+	String SubString(S32 first, S32 last) const;
 	/* Returns data pointer on this String */
 	char* ToCStr() const;
 	/* Converts this String to integer type and returns it */

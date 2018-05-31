@@ -114,7 +114,7 @@ enum class Key {
 	F11			= 0x7A,
 	F12			= 0x7B,
 	NUMLOC		= 0x90,
-	
+
 	MAX_KEY_NUM = 0xFF
 };
 
@@ -172,7 +172,7 @@ protected:
 
 	Vector2D TargetToWordConvert(float x, float y) const;
 
-	void TargetActionDonwHandle(float x, float y, S32 actionID);
+	void TargetActionDownHandle(float x, float y, S32 actionID);
 	void TargetActionMoveHandle(float x, float y, S32 actionID);
 	void TargetActionUpHandle(float x, float y, S32 actionID);
 	void KeyPressedHandle(Key key);

@@ -435,7 +435,7 @@ Shader::Property* Shader::GetProperty(const String& name) {
 	CROSS_RETURN(false, nullptr, "Can not find property");
 }
 
-Array<Shader::Property>& Shader::GetProperties(){
+Array<Shader::Property>& Shader::GetProperties() {
 	return properties;
 }
 

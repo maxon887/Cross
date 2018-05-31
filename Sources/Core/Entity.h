@@ -45,9 +45,9 @@ public:
 	Transform* GetTransform();
 	/* Adds component to the current Entity component stack. Components with the same name can't be added twice */
 	void AddComponent(Component* component);
-	/* Removes component from Entity. Approprite Remove() will be called on Component object */
+	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
-	
+
 	/* Returns parent of the Entity or nullptr if Entity doesn't have a parent (for root entity for ex) */
 	Entity* GetParent();
 	/* Sets parent for this Entity */

@@ -42,7 +42,7 @@ String File::FileWithoutExtension(const String& filename) {
 	return filename.SubString(0, filename.FindLast('.'));
 }
 
-File::~File(){
+File::~File() {
 	if(data){
 		delete[] data;
 	}

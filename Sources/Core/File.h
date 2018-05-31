@@ -36,7 +36,7 @@ public:
 
 	String name	= String();
 	Byte* data	= nullptr;
-	U32 size	= 0;
+	S64 size	= 0;
 };
 
 }

@@ -17,9 +17,6 @@
 #include "Color.h"
 #include "Cross.h"
 
-#include <cstdlib>
-#include <cstring>
-
 using namespace cross;
 
 const Color Color::Red(1.f, 0.f, 0.f);
@@ -74,16 +71,12 @@ const float* Color::GetData() const{
 	return &R;
 }
 
-bool Color::operator==(const Color &c) const{
-	if(	this->R == c.R &&
-		this->G == c.G &&
-		this->B == c.B ){
-		return true;
-	}else{
-		return false;
-	}
+bool Color::operator == (const Color &c) const{
+	return	this->R == c.R &&
+			this->G == c.G &&
+			this->B == c.B;
 }
 
-bool Color::operator!=(const Color &c) const{
+bool Color::operator != (const Color &c) const{
 	return !((*this) == c);
 }

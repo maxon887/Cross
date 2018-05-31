@@ -123,7 +123,7 @@ void Config::LoadGameConfig() {
 		}
 
 		if(name == "UseCompressedTextures") {
-			use_compressed_textures = strValue == "true" ? true : false;
+			use_compressed_textures = strValue == "true";
 		}
 
 		if(name == "TextureFilter") {
@@ -131,7 +131,7 @@ void Config::LoadGameConfig() {
 		}
 
 		if(name == "OffscreenRender") {
-			offscreen_render = strValue == "true" ? true : false;
+			offscreen_render = strValue == "true";
 		}
 
 		element = element->NextSiblingElement("Property");
@@ -192,11 +192,11 @@ void Config::SaveGameConfig() {
 	element->LinkEndChild(property);
 
 	XMLPrinter printer;
-	
+
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = "GameConfig.xml";
-	gameConfig.size = printer.CStrSize();
+	gameConfig.size = (U32)printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
 	system->SaveDataFile(&gameConfig);
 	gameConfig.data = nullptr;
@@ -213,15 +213,15 @@ void Config::SaveUserConfig() {
 		property = doc.NewElement("Property");
 		property->SetAttribute("name", pair.first);
 		property->SetAttribute("value", pair.second);
-		element->LinkEndChild(property);  
+		element->LinkEndChild(property);
 	}
-	
+
 	XMLPrinter printer;
-	
+
 	doc.Accept(&printer);
 	File userConfig;
 	userConfig.name = "UserConfig.xml";
-	userConfig.size = printer.CStrSize();
+	userConfig.size = (U32)printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
 	system->SaveDataFile(&userConfig);
 	userConfig.data = nullptr;

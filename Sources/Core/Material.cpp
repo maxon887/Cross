@@ -41,7 +41,7 @@ Material::Material(const Material& obj) :
 	properties(obj.properties)
 { }
 
-void Material::SetShader(Shader* shader){
+void Material::SetShader(Shader* shader) {
 	this->shader = shader;
 	Reset();
 }
@@ -58,7 +58,7 @@ void Material::Load(const String& filename) {
 	File* xmlFile = system->LoadAssetFile(filename);
 	CROSS_FAIL(xmlFile, "Can't load material. File not fount");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (size_t)xmlFile->size);
 	delete xmlFile;
 	CROSS_FAIL(error == XML_SUCCESS, "Can't parse material xml file");
 
@@ -152,7 +152,7 @@ bool Material::HaveProperty(const String& name) {
 	return false;
 }
 
-Shader::Property* Material::GetProperty(const String& name){
+Shader::Property* Material::GetProperty(const String& name) {
 	for(Shader::Property& prop : properties){
 		if(prop.name == name){
 			return &prop;
@@ -161,7 +161,7 @@ Shader::Property* Material::GetProperty(const String& name){
 	CROSS_RETURN(false, nullptr, "Can not find property '#'", name);
 }
 
-Shader::Property* Material::GetProperty(U64 glID){
+Shader::Property* Material::GetProperty(U64 glID) {
 	for(Shader::Property& prop : properties){
 		if(prop.glId == glID){
 			return &prop;
@@ -170,89 +170,89 @@ Shader::Property* Material::GetProperty(U64 glID){
 	CROSS_RETURN(false, nullptr, "Can not find property by ID(#)", glID);
 }
 
-Array<Shader::Property>& Material::GetProperties(){
+Array<Shader::Property>& Material::GetProperties() {
 	return properties;
 }
 
-void Material::SetPropertyValue(const String& name, S32 value){
+void Material::SetPropertyValue(const String& name, S32 value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const String& name, float value){
+void Material::SetPropertyValue(const String& name, float value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const String& name, const Color& value){
+void Material::SetPropertyValue(const String& name, const Color& value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const String& name, Vector3D& value){
+void Material::SetPropertyValue(const String& name, Vector3D& value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const String& name, Vector4D& value){
+void Material::SetPropertyValue(const String& name, Vector4D& value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const String& name, Matrix& value){
+void Material::SetPropertyValue(const String& name, Matrix& value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(const String& name, Texture* value){
+void Material::SetPropertyValue(const String& name, Texture* value) {
 	Shader::Property* prop = GetProperty(name);
 	CROSS_FAIL(prop, "Can not set property '#'", name);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, S32 value){
+void Material::SetPropertyValue(U64 glID, S32 value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, float value){
+void Material::SetPropertyValue(U64 glID, float value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, const Color& value){
+void Material::SetPropertyValue(U64 glID, const Color& value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, Vector3D& value){
+void Material::SetPropertyValue(U64 glID, Vector3D& value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, Vector4D& value){
+void Material::SetPropertyValue(U64 glID, Vector4D& value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, Matrix& value){
+void Material::SetPropertyValue(U64 glID, Matrix& value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
 }
 
-void Material::SetPropertyValue(U64 glID, Texture* value){
+void Material::SetPropertyValue(U64 glID, Texture* value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
@@ -262,11 +262,11 @@ bool Material::IsTransparent() {
 	return transparent;
 }
 
-void Material::EnableTransparency(bool yes){
+void Material::EnableTransparency(bool yes) {
 	transparent = yes;
 }
 
-Material* Material::Clone() const{
+Material* Material::Clone() const {
 	return new Material(*this);
 }
 

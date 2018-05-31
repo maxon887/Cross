@@ -21,7 +21,7 @@
 namespace cross {
 
 /*	3D Camera Component. At least one camera must be set into Scene by SetCamera() in order to render a Scene.
-	Camera can't be used untill SetProjectionMatrix() is called.
+	Camera can't be used until SetProjectionMatrix() is called.
 	Camera Component can't be used with Entity without Transform Component */
 class Camera : public Component {
 public:
@@ -30,7 +30,7 @@ public:
 	/* Save copy of Camera Component */
 	Component* Clone() const override;
 	/* Loads Camera Component from XML document */
-	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
+	bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene) override;
 	/* Saves Camera Component into XML document */
 	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 

@@ -34,13 +34,13 @@ public:
 	virtual void Initialize() { }
 	/* Will be called after component was removed from Entity or on the death of Entity*/
 	virtual void Remove() { }
-	/* Will be called every game cycle. WARTING! Components update order unpredictable */
+	/* Will be called every game cycle. WARNING! Components update order unpredictable */
 	virtual void Update(float sec) { }
 
 	/* Clone whole component. Must be implemented in order to support Entity copy and spawn operations */
 	virtual Component* Clone() const;
 	/* Load Component from XML document. Must be implemented to support Component loading from Scene file */
-	virtual bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene);
+	virtual bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene);
 	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 

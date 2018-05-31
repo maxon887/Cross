@@ -21,7 +21,7 @@
 
 namespace cross {
 
-/*	Configuration manager. This class provide interface 
+/*	Configuration manager. This class provide interface
 	for saving and loading data in non-volatile device memory. */
 class Config {
 public:
@@ -53,9 +53,9 @@ public:
 	bool UseCompressedTextures() const;
 	/* Returns texture filter that should be applied by default */
 	Texture::Filter GetTextureFilter() const;
-	/* Returns true if offsecreen render enabled */
+	/* Returns true if offscreen render enabled */
 	bool IsOffscreenRender() const;
-    
+
 //internals
     void SaveGameConfig();
     void SaveUserConfig();
@@ -77,5 +77,5 @@ protected:
 private:
 	const String empty = "";
 };
-	
+
 }

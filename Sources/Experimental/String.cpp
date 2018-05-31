@@ -246,7 +246,7 @@ void String::Cut(U32 first, U32 last) {
 	data[length] = '\0';
 }
 
-void String::Insert(U32 pos, const String& str) {
+void String::Insert(S32 pos, const String& str) {
 	U32 newLen = length + str.length;
 	if(capacity < newLen) {
 		data = (char*)CROSS_REALLOC(data, newLen + 1);
@@ -258,8 +258,8 @@ void String::Insert(U32 pos, const String& str) {
 	length += str.length;
 }
 
-String String::SubString(U32 first, U32 last) const {
-	U32 len = last - first;
+String String::SubString(S32 first, S32 last) const {
+	S32 len = last - first;
 	String result("", len, len);
 	char* newData = result.ToCStr();
 	memcpy(newData, data + first, len);
