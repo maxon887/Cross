@@ -89,6 +89,8 @@ public:
 	virtual String GetClipboard();
 	/* Sets current String int clipboard buffer */
 	virtual void SetClipboard(const String& data);
+	/* Tries to open file with appropriate external program */
+	virtual void OpenFileExternal(const String& filename);
 	/* Prints String */
 	template<class... Args>
 	void LogIt(const String& msg, Args... args);

@@ -133,13 +133,12 @@ void Game::EngineUpdate() {
 		Debugger::Instance()->Update((float)updateTime);
 		U64 cpuTime = system->GetTime() - timestamp;
 		Debugger::Instance()->SetCPUTime((float)cpuTime);
+
+		float milis = cpuTime / 1000.f;
+		if(milis < 5) {
+			system->Sleep(5 - milis);
+		}
 	}
-	/*
-	float milis = cpuTime / 1000.f;
-	if(milis < 5){
-		system->Sleep(5 - milis);
-	}*/
-	//system->Sleep(160.f);
 }
 
 bool Game::IsSuspended() const {

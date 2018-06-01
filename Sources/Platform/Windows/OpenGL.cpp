@@ -30,7 +30,7 @@
 
 using namespace cross;
 
-void ShowLastError(){
+void ShowLastError() {
 	DWORD error = GetLastError();
 	LPTSTR str;
 	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
@@ -43,7 +43,7 @@ void ShowLastError(){
 	MessageBox(nullptr, str, "Error", MB_OK);
 }
 
-int OpenGL_Main(){
+int OpenGL_Main() {
 	HWND wnd = WinCreate();
 	MSG msg;
 

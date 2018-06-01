@@ -23,7 +23,8 @@ FilesView::FilesView() : View("Files") { }
 
 void FilesView::Shown() {
 	if(!file_tree.initialized) {
-		file_tree.path = system->AssetsPath();
+		String assPath = system->AssetsPath();
+		file_tree.path = assPath.SubString(0, assPath.Length() - 1);
 		InitNode(file_tree);
 	}
 }
@@ -61,5 +62,9 @@ void FilesView::BuildNote(Node& node) {
 	}
 	for(const String& file : node.files) {
 		ImGui::TreeNodeEx(file, leaf_flags);
+		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+			String filename = node.path + node.name + "/" + file;
+			system->OpenFileExternal(filename);
+		}
 	}
 }

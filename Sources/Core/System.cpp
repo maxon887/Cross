@@ -124,6 +124,10 @@ void System::SetClipboard(const String& data) {
 	CROSS_ASSERT(false, "System::SetClipboard() does not implemented for current platform");
 }
 
+void System::OpenFileExternal(const String& filename) {
+	CROSS_ASSERT(false, "System::OpenFileWithExternalEditor() does not implemented for current platform");
+}
+
 float System::GetScreenScale() {
 	return GetScreenDPI() / DEFAULT_SCREEN_DPI;
 }

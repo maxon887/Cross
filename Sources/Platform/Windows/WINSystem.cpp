@@ -39,20 +39,20 @@ WINSystem::WINSystem(HWND wnd) :
 	wnd(wnd)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
-	if(!DirectoryExists(DATA_PATH)){
+	if(!DirectoryExists(DATA_PATH)) {
 		CreateDirectoryA(DATA_PATH, nullptr);
 	}
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
 	char* debugAssetAlt = "../../Assets/";
 	char* editorAsset = "../Demo/Assets/";
-	if(DirectoryExists(releaseAsset)){
+	if(DirectoryExists(releaseAsset)) {
 		assets_path = releaseAsset;
-	} else if(DirectoryExists(debugAsset)){
+	} else if(DirectoryExists(debugAsset)) {
 		assets_path = debugAsset;
-	} else if(DirectoryExists(debugAssetAlt)){
+	} else if(DirectoryExists(debugAssetAlt)) {
 		assets_path = debugAssetAlt;
-	} else if(DirectoryExists(editorAsset)){
+	} else if(DirectoryExists(editorAsset)) {
 		assets_path = editorAsset;
 	} else {
 		CROSS_ASSERT(false, "Can't find Assets folder");
@@ -165,7 +165,14 @@ bool WINSystem::IsMobile() {
 	return config->GetBool("EMULATE_MOBILE", false);
 }
 
-void WINSystem::SetAssetPath(const String& path){
+void WINSystem::OpenFileExternal(const String& filename) {
+	char szFileName[MAX_PATH + 1];
+	GetCurrentDirectoryA(MAX_PATH + 1, szFileName);
+	String fullpath = String(szFileName) + "\\" + filename;
+	HINSTANCE result = ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
+}
+
+void WINSystem::SetAssetPath(const String& path) {
 	assets_path = path;
 }
 

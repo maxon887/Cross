@@ -21,6 +21,9 @@ using namespace cross;
 
 String File::PathFromFile(const String& filename) {
 	S32 lastSlash = filename.FindLast('/');
+	if(lastSlash == -1) {
+		lastSlash = filename.FindLast('\\');
+	}
 	CROSS_RETURN(lastSlash != -1, "", "Wrong path format");
 	return filename.SubString(0, lastSlash + 1);
 }

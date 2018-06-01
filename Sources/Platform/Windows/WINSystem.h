@@ -40,6 +40,7 @@ public:
 	Array<String> GetFilesInDirectory(const String& directory) override;
 	void Sleep(float milis) override;
 	bool IsMobile() override;
+	void OpenFileExternal(const String& filename) override;
 
 	void SetAssetPath(const String& path);
 	void FullScreen(bool yes);
