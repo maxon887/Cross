@@ -14,7 +14,7 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Hierarchy.h"
+#include "SceneView.h"
 #include "Entity.h"
 #include "Demo.h"
 #include "Scene.h"
@@ -26,7 +26,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void Hierarchy::WillContent() {
+void SceneView::WillContent() {
 	if(system->IsMobile()) {
 		if(system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f,
@@ -41,7 +41,7 @@ void Hierarchy::WillContent() {
 	}
 }
 
-void Hierarchy::DidContent() {
+void SceneView::DidContent() {
 	if(system->IsMobile()) {
 		if(system->GetDeviceOrientation() != System::Orientation::LANDSCAPE) {
 			ImGui::PopFont();
@@ -49,7 +49,11 @@ void Hierarchy::DidContent() {
 	}
 }
 
-void Hierarchy::Content(float sec) {
+Entity* SceneView::GetSelectedEntity() {
+	return selected_entity;
+}
+
+void SceneView::Content(float sec) {
 	if(game->GetCurrentScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);
@@ -57,14 +61,14 @@ void Hierarchy::Content(float sec) {
 	}
 }
 
-void Hierarchy::LookAtObject() {
+void SceneView::LookAtObject() {
 	FreeCameraScene* scene = static_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(!selected_entity->HasComponent<Camera>()) {
 		scene->LookAtCamera(selected_entity->GetTransform()->GetPosition());
 	}
 }
 
-void Hierarchy::BuildNode(Entity* entity) {
+void SceneView::BuildNode(Entity* entity) {
 
 	if(system->IsMobile() && system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 		ImGui::PushFont(demo->normal_font);

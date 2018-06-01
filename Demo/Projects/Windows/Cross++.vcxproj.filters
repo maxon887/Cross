@@ -279,9 +279,6 @@
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
@@ -316,6 +313,12 @@
       <Filter>Cross\Experimental</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\UI\FilesView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\SceneView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -558,9 +561,6 @@
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\Hierarchy.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\MenuBar.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
@@ -604,6 +604,12 @@
       <Filter>Cross\Experimental</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\FilesView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\SceneView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\ComponentsView.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -59,16 +59,16 @@ void MainScreen::Update(float sec) {
 	if(!system->IsMobile()) {
 		ImGui::SetNextWindowSize(ImVec2(system->GetWindowWidth() / 3.f, system->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 2.f, system->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
-		ImGui::Begin("Demo");
+		ImGui::Begin("Demo Scenes");
 	} else {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
 		ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
 		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
-		ImGui::Begin("Demo", 0, ImGuiWindowFlags_NoCollapse |
-								ImGuiWindowFlags_NoMove |
-								ImGuiWindowFlags_NoTitleBar |
-								ImGuiWindowFlags_NoResize |
-								ImGuiWindowFlags_NoBringToFrontOnFocus);
+		ImGui::Begin("Demo Scenes", 0,	ImGuiWindowFlags_NoCollapse |
+										ImGuiWindowFlags_NoMove |
+										ImGuiWindowFlags_NoTitleBar |
+										ImGuiWindowFlags_NoResize |
+										ImGuiWindowFlags_NoBringToFrontOnFocus);
 	}
 	if(ImGui::CollapsingHeader("Graphics", ImGuiTreeNodeFlags_DefaultOpen)) {
 		if(ImGui::TreeNode("Simple")) {

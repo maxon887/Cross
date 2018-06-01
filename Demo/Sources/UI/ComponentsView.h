@@ -15,25 +15,16 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
 #include "UI/View.h"
-#include "Event.h"
 
-using namespace cross;
+class SceneView;
 
-class Hierarchy : public View {
+class ComponentsView : public View {
 public:
-	Event<Entity*> EntitySelected;
+	ComponentsView(SceneView* sceneView);
 
-	Hierarchy() : View("Hierarchy") { }
-
-	void WillContent() override;
 	void Content(float sec) override;
-	void DidContent() override;
-	
-private:
-	Entity* selected_entity = nullptr;
 
-	void LookAtObject();
-	void BuildNode(Entity* entity);
+private:
+	SceneView* scene_view = nullptr;
 };
