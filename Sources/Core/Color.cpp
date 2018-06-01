@@ -17,6 +17,8 @@
 #include "Color.h"
 #include "Cross.h"
 
+#include <cstring>
+
 using namespace cross;
 
 const Color Color::Red(1.f, 0.f, 0.f);
