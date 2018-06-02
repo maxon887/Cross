@@ -38,6 +38,7 @@ if(!(condition)) {																\
 
 #include <cstdint>
 #include <cassert>
+#include <cstdlib>
 
 namespace cross {
 	typedef int8_t		S8;
@@ -64,9 +65,7 @@ namespace cross {
 #include "Experimental/String.h"
 #include "Experimental/Function.h"
 
-#if !defined(ANDROID)
-#   define system cross_system
-#endif
+#define system cross_system
 
 namespace cross{
 
@@ -129,4 +128,4 @@ friend Sound;			\
 friend Input;			\
 friend Config;			\
 friend Scene;			\
-friend Screen;			
+friend Screen;
