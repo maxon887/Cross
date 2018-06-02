@@ -59,6 +59,8 @@ public:
 	Entity* GetRoot();
 	/* Returns scene main 3D camera */
 	Camera* GetCamera();
+	/* Returns name of scene file if exists */
+	String GetFilename() const;
 	/* Sets main 3D camera for this Scene */
 	void SetCamera(Camera* cam);
 	/* Finds specific entity on this Scene by name */
@@ -91,13 +93,14 @@ public:
 	void ResetShaders();
 
 protected:
+	Entity* root							= nullptr;
+	String filename							= "";
+
 	Dictionary<U64, Shader*> shaders		= Dictionary<U64, Shader*>();
 	Dictionary<U64, Texture*> textures		= Dictionary<U64, Texture*>();
 	Dictionary<U64, Material*> materials	= Dictionary<U64, Material*>();
 	Dictionary<U64, Model*> models			= Dictionary<U64, Model*>();
 	List<Light*> lights						= List<Light*>();
-	Entity* root							= nullptr;
-	String filename							= "";
 
 	Camera* camera							= nullptr;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);

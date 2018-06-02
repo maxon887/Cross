@@ -246,6 +246,10 @@ Camera* Scene::GetCamera() {
 	return camera;
 }
 
+String Scene::GetFilename() const {
+	return filename;
+}
+
 void Scene::SetCamera(Camera* cam) {
 	this->camera = cam;
 }

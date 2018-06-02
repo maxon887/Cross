@@ -128,6 +128,10 @@ void System::OpenFileExternal(const String& filename) {
 	CROSS_ASSERT(false, "System::OpenFileWithExternalEditor() does not implemented for current platform");
 }
 
+String System::OpenFileDialog(bool saveDialog /* = false */) {
+	CROSS_RETURN(false, "", "System::OpenFileDialog() does not implemented for current platform");
+}
+
 float System::GetScreenScale() {
 	return GetScreenDPI() / DEFAULT_SCREEN_DPI;
 }

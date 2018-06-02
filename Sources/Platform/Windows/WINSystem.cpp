@@ -172,6 +172,39 @@ void WINSystem::OpenFileExternal(const String& filename) {
 	HINSTANCE result = ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
 }
 
+String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
+	char szFile[512];
+	OPENFILENAME ofn;
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFile;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = sizeof(szFile);
+	ofn.lpstrFilter = "Scene File\0*.scn\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+
+	String initPath = system->AssetsPath();
+	initPath.Replace("/", "\\");
+	ofn.lpstrInitialDir = initPath;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+	if(saveDialog) {
+		GetSaveFileName(&ofn);
+	} else {
+		GetOpenFileName(&ofn);
+	}
+	String filepath = szFile;
+	filepath.Replace("\\", "/");
+	String filename = File::FileFromPath(filepath);
+	String ext = File::ExtensionFromFile(filename);
+	if(ext == filename) {
+		filepath += ".scn";
+	}
+	return filepath;
+}
+
 void WINSystem::SetAssetPath(const String& path) {
 	assets_path = path;
 }

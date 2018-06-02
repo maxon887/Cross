@@ -27,6 +27,7 @@
 #include "UI/Stats.h"
 #include "UI/About.h"
 #include "MainScreen.h"
+#include "Scene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -85,12 +86,25 @@ void MenuBar::ShowMenu() {
 			mainScreen = true;
 		}
 
-		if(!mainScreen) {
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.90f, 0.52f, 0.24f, 0.0f));
-			if(ImGui::Button("Back")) {
+		if(ImGui::BeginMenu("File")) {
+			if(ImGui::MenuItem("Open Scene")) {
+				system->OpenFileDialog();
+			}
+
+			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
+				String filename = game->GetCurrentScene()->GetFilename();
+				if(filename == "") {
+					filename = system->OpenFileDialog(true);
+				}
+				game->GetCurrentScene()->Save(filename);
+			}
+
+			if(ImGui::MenuItem("Close Scene", 0, false, game->GetCurrentScreen()->GetName() != "Main")) {
 				game->SetScreen(new MainScreen());
 			}
-			ImGui::PopStyleColor();
+
+
+			ImGui::EndMenu();
 		}
 
 		if(ImGui::BeginMenu("View")) {
