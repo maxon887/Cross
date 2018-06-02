@@ -36,8 +36,8 @@ public:
 		IGNORED
 	};
 
-	Mesh() = default;
-	Mesh(Model* model, S32 id);
+	Mesh();
+	Mesh(const String& modelfilename, S32 id);
 	~Mesh();
 
 	/* Will be drawn on update */
@@ -46,8 +46,6 @@ public:
 	Mesh* Clone() const override;
 	/* Loads Mesh Component from XML node */
 	bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene) override;
-	/* Saves Mesh Component into XML document */
-	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
 	/* Draws Mesh on scene */
 	void Draw();
@@ -80,8 +78,6 @@ public:
 
 	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
 	S32 GetID() const;
-	/* Returns Model object from which this Mesh was loaded or nullptr if mesh was created not from Model */
-	Model* GetModel();
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
 
@@ -89,17 +85,18 @@ public:
 	bool IsEqual(Mesh* other) const;
 
 private:
-	U64 VBO						= 0;
-	U64 EBO						= 0;
-	VertexBuffer* vertex_buffer = nullptr;
-	Array<U16> indices			= Array<U16>();
+	Property<S32> id					= Property<S32>(this, "ID", -1);
+	Property<String> model				= Property<String>(this, "Model");;
+	Property<String> material_filename	= Property<String>(this, "MaterialFilename");
 
-	S32 id						= -1;
-	Model* model				= nullptr;
-	Material* material			= nullptr;
-	bool original				= true;
-	bool initialized			= false;
-	bool face_culling			= true;
+	U64 VBO								= 0;
+	U64 EBO								= 0;
+	VertexBuffer* vertex_buffer			= nullptr;
+	Array<U16> indices					= Array<U16>();
+	Material* material					= nullptr;
+	bool original						= true;
+	bool initialized					= false;
+	bool face_culling					= true;
 
 	void Copy(const Mesh* m);
 };

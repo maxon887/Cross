@@ -24,20 +24,16 @@ namespace cross{
 	Children objects will be have related to parent properties and will be transformed with parents */
 class Transform : public Component {
 public:
-	Transform() = default;
+	Transform();
 	Transform(const Vector3D& position);
 
 	/* Full by per element object copy operation */
 	Component* Clone() const override;
 	/* Loads Transform Component from XML node */
 	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
-	/* Saves Transform Component into XML document */
-	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
 	/* Returns position of this object in a related to parent world coordinates */
 	Vector3D GetPosition() const;
-	/* Sets position of this object by 2D vector */
-	void SetPosition(const Vector2D& pos);
 	/* Sets position of this object by 3D vector */
 	void SetPosition(const Vector3D& pos);
 	/* Sets position of this object by translation Matrix */
@@ -81,9 +77,9 @@ public:
 	Matrix& GetModelMatrix();
 
 protected:
-	Vector3D position	= Vector3D::Zero;
-	Quaternion rotation = Quaternion::Identity;
-	Vector3D scale		= Vector3D(1.f);
+	Property<Vector3D> position		= Property<Vector3D>(this, "Position", Vector3D::Zero);
+	Property<Quaternion> rotation	= Property<Quaternion>(this, "Rotation", Quaternion::Identity);
+	Property<Vector3D> scale		= Property<Vector3D>(this, "Scale", Vector3D(1.f));
 
 	Matrix model		= Matrix::Identity;
 	bool recalc_model	= true;

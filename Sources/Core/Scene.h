@@ -104,7 +104,7 @@ protected:
 
 private:
 	static const U32 scene_loader_version	= 16;
-	static const U32 scene_saver_version	= 15;
+	static const U32 scene_saver_version	= 17;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);

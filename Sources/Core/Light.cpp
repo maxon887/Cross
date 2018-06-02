@@ -23,7 +23,8 @@
 
 using namespace cross;
 
-Light::Light(Type type):
+Light::Light(Type type) :
+	Component("Light"),
 	type(type)
 { }
 

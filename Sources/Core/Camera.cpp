@@ -24,6 +24,9 @@
 using namespace cross;
 using namespace tinyxml2;
 
+Camera::Camera() : Component("Camera")
+{ }
+
 void Camera::Update(float sec){
 	RecalcView();
 }
@@ -37,13 +40,6 @@ bool Camera::Load(XMLElement* xml, Scene* loadingScene) {
 
 	loadingScene->SetCamera(this);
 
-	return true;
-}
-
-bool Camera::Save(XMLElement* xml, XMLDocument* doc) {
-	XMLElement* cameraXML = doc->NewElement("Camera");
-	cameraXML->SetAttribute("distance", view_distance);
-	xml->LinkEndChild(cameraXML);
 	return true;
 }
 

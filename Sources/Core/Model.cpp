@@ -155,7 +155,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 		}
 	}
 	system->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
-	Mesh* crsMesh = new Mesh(this, mesh_id);
+	Mesh* crsMesh = new Mesh(filename, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(transfer_video) {

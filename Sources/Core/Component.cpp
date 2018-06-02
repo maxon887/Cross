@@ -19,7 +19,14 @@
 #include "Entity.h"
 #include "Transform.h"
 
+#include "Libs/TinyXML2/tinyxml2.h"
+
 using namespace cross;
+using namespace tinyxml2;
+
+Component::Component(const String& name) :
+	name(name)
+{ }
 
 Component* Component::Clone() const {
 	CROSS_RETURN(false, nullptr, "Can't clone component. Inherited class doesn't implement Clone() function");
@@ -29,8 +36,13 @@ bool Component::Load(tinyxml2::XMLElement*, Scene*) {
 	CROSS_RETURN(false, false, "Can't load component. Inherited class doesn't implement Load() function");
 }
 
-bool Component::Save(tinyxml2::XMLElement*, tinyxml2::XMLDocument*) {
-	CROSS_RETURN(false, false, "Can't save component. Inherited class doesn't implement Save() function");
+bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+	XMLElement* componentXML = doc->NewElement(name);
+	for(BaseProperty* prop : properties) {
+		prop->Save(componentXML, doc);
+	}
+	parent->LinkEndChild(componentXML);
+	return true;
 }
 
 bool Component::IsEnabled() const {

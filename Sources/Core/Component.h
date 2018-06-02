@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Property.h"
 
 namespace tinyxml2 {
 	class XMLElement;
@@ -28,6 +29,7 @@ namespace cross{
 	User components must be register by ComponentFactory. Components have save life time as an Entity */
 class Component {
 public:
+	Component(const String& name);
 	virtual ~Component() { }
 
 	/* Will be called on component after component was added to an Entity */
@@ -40,7 +42,7 @@ public:
 	/* Clone whole component. Must be implemented in order to support Entity copy and spawn operations */
 	virtual Component* Clone() const;
 	/* Load Component from XML document. Must be implemented to support Component loading from Scene file */
-	virtual bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene);
+	virtual bool Load(tinyxml2::XMLElement* parent, Scene* loadingScene);
 	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
@@ -60,9 +62,12 @@ public:
 
 private:
 	friend Entity;
+	friend BaseProperty;
 
+	String name		= "noname";
 	Entity* entity	= nullptr;
 	bool enabled	= true;
+	Array<BaseProperty*> properties;
 };
 
 }

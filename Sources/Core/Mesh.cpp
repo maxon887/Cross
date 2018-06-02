@@ -31,10 +31,15 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Mesh::Mesh(Model* model, S32 id) :
-	model(model),
-	id(id)
+Mesh::Mesh() : Component("Mesh")
 { }
+
+Mesh::Mesh(const String& modelfilename, S32 id) : 
+	Component("Mesh")
+{
+	this->id = id;
+	this->model = modelfilename;
+}
 
 Mesh::~Mesh() {
 	delete vertex_buffer;
@@ -70,15 +75,6 @@ bool Mesh::Load(XMLElement* xml, Scene* scene) {
 	} else {
 		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
 	}
-	return true;
-}
-
-bool Mesh::Save(XMLElement* xml, XMLDocument* doc) {
-	XMLElement* meshXML = doc->NewElement("Mesh");
-	meshXML->SetAttribute("id", GetID());
-	meshXML->SetAttribute("model", GetModel()->GetFilename());
-	meshXML->SetAttribute("material", GetMaterial()->GetFilename());
-	xml->LinkEndChild(meshXML);
 	return true;
 }
 
@@ -305,10 +301,6 @@ Array<GLushort>& Mesh::GetIndices() {
 
 S32 Mesh::GetID() const {
 	return id;
-}
-
-Model* Mesh::GetModel() {
-	return model;
 }
 
 U32 Mesh::GetPolyCount() const {

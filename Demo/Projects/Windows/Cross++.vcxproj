@@ -122,6 +122,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Core\Material.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Mesh.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Model.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Property.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Scene.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Screen.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Sound.cpp" />
@@ -194,6 +195,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\UI\SceneView.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
     <ClCompile Include="..\..\Sources\UI\TransformView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\VisualProperty.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
@@ -211,6 +213,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Material.h" />
     <ClInclude Include="..\..\..\Sources\Core\Mesh.h" />
     <ClInclude Include="..\..\..\Sources\Core\Model.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Property.h" />
     <ClInclude Include="..\..\..\Sources\Core\Scene.h" />
     <ClInclude Include="..\..\..\Sources\Core\Screen.h" />
     <ClInclude Include="..\..\..\Sources\Core\Sound.h" />
@@ -292,6 +295,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\UI\SceneView.h" />
     <ClInclude Include="..\..\Sources\UI\MenuBar.h" />
     <ClInclude Include="..\..\Sources\UI\TransformView.h" />
+    <ClInclude Include="..\..\Sources\UI\VisualProperty.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
