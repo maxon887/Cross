@@ -324,9 +324,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Property.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\VisualProperty.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -620,9 +617,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Property.h">
       <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\VisualProperty.h">
-      <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
