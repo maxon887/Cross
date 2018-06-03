@@ -18,6 +18,7 @@
 #include "System.h"
 #include "Component.h"
 #include "Transform.h"
+#include "Game.h"
 
 using namespace cross;
 
@@ -71,11 +72,25 @@ Transform* Entity::GetTransform() {
 }
 
 void Entity::AddComponent(Component* component) {
+	AddComponent(component, true);
+}
+
+void Entity::AddComponent(Component* component, bool initialize) {
 	U64 hash = typeid(*component).hash_code();
 	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
 	component->entity = this;
 	components[hash] = component;
-	component->Initialize();
+	if(initialize) {
+		component->Initialize(game->GetCurrentScene());
+	}
+}
+
+void Entity::AddComponent(Component* component, Scene* scene) {
+	U64 hash = typeid(*component).hash_code();
+	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
+	component->entity = this;
+	components[hash] = component;
+	component->Initialize(scene);
 }
 
 void Entity::RemoveComponent(Component* component) {

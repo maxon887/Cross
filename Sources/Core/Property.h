@@ -68,8 +68,7 @@ void Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc)
 template<>
 inline void Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
-	XMLElement* propertyXML = doc->NewElement("Property");
-	propertyXML->SetAttribute("name", name);
+	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Int");
 	propertyXML->SetAttribute("value", value);
 	parent->LinkEndChild(propertyXML);
@@ -78,8 +77,7 @@ inline void Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocum
 template<>
 inline void Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
-	XMLElement* propertyXML = doc->NewElement("Property");
-	propertyXML->SetAttribute("name", name);
+	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Float");
 	propertyXML->SetAttribute("value", value);
 	parent->LinkEndChild(propertyXML);
@@ -88,8 +86,7 @@ inline void Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDoc
 template<>
 inline void Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
-	XMLElement* propertyXML = doc->NewElement("Property");
-	propertyXML->SetAttribute("name", name);
+	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "String");
 	propertyXML->SetAttribute("value", value);
 	parent->LinkEndChild(propertyXML);
@@ -98,8 +95,7 @@ inline void Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDo
 template<>
 inline void Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
-	XMLElement* propertyXML = doc->NewElement("Property");
-	propertyXML->SetAttribute("name", name);
+	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Vector3D");
 	propertyXML->SetAttribute("x", value.x);
 	propertyXML->SetAttribute("y", value.y);
@@ -110,8 +106,8 @@ inline void Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XML
 template<>
 inline void Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
-	XMLElement* propertyXML = doc->NewElement("Property");
-	propertyXML->SetAttribute("name", name);
+	XMLElement* propertyXML = doc->NewElement(name);
+	//propertyXML->SetAttribute("name", name);
 	propertyXML->SetAttribute("type", "Quaternion");
 	propertyXML->SetAttribute("x", value.x);
 	propertyXML->SetAttribute("y", value.y);
@@ -126,15 +122,53 @@ void Property<T>::Load(tinyxml2::XMLElement* parent) {
 }
 
 template<>
+inline void Property<S32>::Load(tinyxml2::XMLElement* parent) {
+	using namespace tinyxml2;
+	XMLElement* propertyXML = parent->FirstChildElement(name);
+	String typeStr = propertyXML->Attribute("type");
+	CROSS_ASSERT(typeStr == "Int", "Loading attribute missmatch. Expected Int");
+	value = (S32)propertyXML->Int64Attribute("value");
+}
+
+template<>
+inline void Property<float>::Load(tinyxml2::XMLElement* parent) {
+	using namespace tinyxml2;
+	XMLElement* propertyXML = parent->FirstChildElement(name);
+	String typeStr = propertyXML->Attribute("type");
+	CROSS_ASSERT(typeStr == "Float", "Loading attribute missmatch. Expected Float");
+	value = propertyXML->FloatAttribute("value");
+}
+
+template<>
+inline void Property<String>::Load(tinyxml2::XMLElement* parent) {
+	using namespace tinyxml2;
+	XMLElement* propertyXML = parent->FirstChildElement(name);
+	String typeStr = propertyXML->Attribute("type");
+	CROSS_ASSERT(typeStr == "String", "Loading attribute missmatch. Expected String");
+	value = propertyXML->Attribute("value");
+}
+
+template<>
 inline void Property<Vector3D>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
-	XMLElement* propertyXML = parent->FirstChildElement("Property");
+	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_ASSERT(typeStr == "Vector3D", "Loading attribute missmatch. Expected Vector3D");
-	XMLElement* valuesXML = propertyXML->FirstChildElement("Values");
-	value.x = valuesXML->FloatAttribute("x");
-	value.y = valuesXML->FloatAttribute("y");
-	value.z = valuesXML->FloatAttribute("z");
+	value.x = propertyXML->FloatAttribute("x");
+	value.y = propertyXML->FloatAttribute("y");
+	value.z = propertyXML->FloatAttribute("z");
+}
+
+template<>
+inline void Property<Quaternion>::Load(tinyxml2::XMLElement* parent) {
+	using namespace tinyxml2;
+	XMLElement* propertyXML = parent->FirstChildElement(name);
+	String typeStr = propertyXML->Attribute("type");
+	CROSS_ASSERT(typeStr == "Quaternion", "Loading attribute missmatch. Expected Quaternion");
+	value.x = propertyXML->FloatAttribute("x");
+	value.y = propertyXML->FloatAttribute("y");
+	value.z = propertyXML->FloatAttribute("z");
+	value.w = propertyXML->FloatAttribute("w");
 }
 
 template<class T>

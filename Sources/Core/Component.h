@@ -33,7 +33,7 @@ public:
 	virtual ~Component() { }
 
 	/* Will be called on component after component was added to an Entity */
-	virtual void Initialize() { }
+	virtual void Initialize(Scene* scene) { }
 	/* Will be called after component was removed from Entity or on the death of Entity*/
 	virtual void Remove() { }
 	/* Will be called every game cycle. WARNING! Components update order unpredictable */
@@ -42,7 +42,7 @@ public:
 	/* Clone whole component. Must be implemented in order to support Entity copy and spawn operations */
 	virtual Component* Clone() const;
 	/* Load Component from XML document. Must be implemented to support Component loading from Scene file */
-	virtual bool Load(tinyxml2::XMLElement* parent, Scene* loadingScene);
+	virtual bool Load(tinyxml2::XMLElement* parent);
 	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 

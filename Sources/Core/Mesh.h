@@ -40,12 +40,11 @@ public:
 	Mesh(const String& modelfilename, S32 id);
 	~Mesh();
 
+	void Initialize(Scene* scene) override;
 	/* Will be drawn on update */
 	void Update(float sec) override;
 	/* Creates new Mesh from this Mesh's data */
 	Mesh* Clone() const override;
-	/* Loads Mesh Component from XML node */
-	bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene) override;
 
 	/* Draws Mesh on scene */
 	void Draw();
@@ -86,7 +85,7 @@ public:
 
 private:
 	Property<S32> id					= Property<S32>(this, "ID", -1);
-	Property<String> model				= Property<String>(this, "Model");;
+	Property<String> model_filename		= Property<String>(this, "Model");
 	Property<String> material_filename	= Property<String>(this, "MaterialFilename");
 
 	U64 VBO								= 0;

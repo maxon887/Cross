@@ -54,7 +54,7 @@ const String& Material::GetFilename() const {
 	return filename;
 }
 
-void Material::Load(const String& filename) {
+void Material::Load(const String& filename, Scene* scene) {
 	File* xmlFile = system->LoadAssetFile(filename);
 	CROSS_FAIL(xmlFile, "Can't load material. File not fount");
 	XMLDocument doc;
@@ -68,7 +68,7 @@ void Material::Load(const String& filename) {
 	const char* shaderfilename = materialXML->Attribute("shader");
 	CROSS_FAIL(shaderfilename, "Material file not contain 'shader' filename");
 	if(shaderfilename) {
-		Shader* shader = game->GetCurrentScene()->GetShader(shaderfilename);
+		Shader* shader = scene->GetShader(shaderfilename);
 		SetShader(shader);
 	}
 
@@ -93,7 +93,7 @@ void Material::Load(const String& filename) {
 			} break;
 			case Shader::Property::TEXTURE: {
 				const char* textureFilename = propertyXML->Attribute("value");
-				Texture* texture = game->GetCurrentScene()->GetTexture(textureFilename);
+				Texture* texture = scene->GetTexture(textureFilename);
 				prop->SetValue(texture);
 			} break;
 			default:

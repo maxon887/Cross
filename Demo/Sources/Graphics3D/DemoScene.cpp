@@ -27,6 +27,9 @@
 
 void DemoScene::Start() {
 	FreeCameraScene::Start();
+	if(!camera) {
+		CreateDefaultCamera();
+	}
 	LookAtCamera(Vector3D::Zero);
 	input->ActionDown.Connect(this, &DemoScene::OnActionDown);
 	input->ActionMove.Connect(this, &DemoScene::OnActionMove);

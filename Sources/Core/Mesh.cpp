@@ -38,7 +38,7 @@ Mesh::Mesh(const String& modelfilename, S32 id) :
 	Component("Mesh")
 {
 	this->id = id;
-	this->model = modelfilename;
+	this->model_filename = modelfilename;
 }
 
 Mesh::~Mesh() {
@@ -49,7 +49,19 @@ Mesh::~Mesh() {
 	}
 }
 
-void Mesh::Update(float sec){
+void Mesh::Initialize(Scene* scene) {
+	Model* model = scene->GetModel(model_filename);
+	Copy(model->GetMesh(id));
+
+	if(material_filename.value != "") {
+		Material* mat = scene->GetMaterial(material_filename);
+		SetMaterial(mat);
+	} else {
+		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+	}
+}
+
+void Mesh::Update(float sec) {
 	Draw();
 }
 
@@ -57,25 +69,6 @@ Mesh* Mesh::Clone() const {
 	Mesh* mesh = new Mesh();
 	mesh->Copy(this);
 	return mesh;
-}
-
-bool Mesh::Load(XMLElement* xml, Scene* scene) {
-	S32 id = xml->IntAttribute("id", -1);
-	CROSS_RETURN(id != -1, false, "Attribute 'id' not found");
-	const char* modelfilename = xml->Attribute("model");
-	CROSS_RETURN(modelfilename, false, "Attribute 'model' not found");
-
-	Model* model = scene->GetModel(modelfilename);
-	Copy(model->GetMesh(id));
-
-	const char* materialFile = xml->Attribute("material");
-	if(materialFile) {
-		Material* mat = scene->GetMaterial(materialFile);
-		SetMaterial(mat);
-	} else {
-		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
-	}
-	return true;
 }
 
 void Mesh::Draw() {
@@ -277,6 +270,7 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 
 void Mesh::SetMaterial(Material* mat) {
 	this->material = mat;
+	material_filename = mat->GetFilename();
 }
 
 Material* Mesh::GetMaterial() {
@@ -316,7 +310,7 @@ void Mesh::Copy(const Mesh* m) {
 	EBO = m->EBO;
 	vertex_buffer = m->vertex_buffer;
 	id = m->id;
-	model = m->model;
+	model_filename = m->model_filename;
 	material = m->material;
 	indices = m->indices;
 	initialized = m->initialized;

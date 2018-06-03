@@ -32,32 +32,6 @@ Component* Transform::Clone() const {
 	return new Transform(*this);
 }
 
-bool Transform::Load(tinyxml2::XMLElement* xml, Scene*) {
-	XMLElement* posXML = xml->FirstChildElement("Position");
-	if(posXML) {
-		double x = posXML->DoubleAttribute("x");
-		double y = posXML->DoubleAttribute("y");
-		double z = posXML->DoubleAttribute("z");
-		SetPosition(Vector3D((float)x, (float)y, (float)z));
-	}
-	XMLElement* rotXML = xml->FirstChildElement("Rotation");
-	if(rotXML) {
-		double x = rotXML->DoubleAttribute("x");
-		double y = rotXML->DoubleAttribute("y");
-		double z = rotXML->DoubleAttribute("z");
-		double angle = rotXML->DoubleAttribute("angle");
-		SetRotate(Quaternion(Vector3D((float)x, (float)y, (float)z), (float)angle));
-	}
-	XMLElement* scaleXML = xml->FirstChildElement("Scale");
-	if(scaleXML) {
-		double x = scaleXML->DoubleAttribute("x");
-		double y = scaleXML->DoubleAttribute("y");
-		double z = scaleXML->DoubleAttribute("z");
-		SetScale(Vector3D((float)x, (float)y, (float)z));
-	}
-	return true;
-}
-
 Vector3D Transform::GetPosition() const {
 	return position;
 }

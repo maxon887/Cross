@@ -29,8 +29,6 @@ public:
 
 	/* Full by per element object copy operation */
 	Component* Clone() const override;
-	/* Loads Transform Component from XML node */
-	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
 
 	/* Returns position of this object in a related to parent world coordinates */
 	Vector3D GetPosition() const;

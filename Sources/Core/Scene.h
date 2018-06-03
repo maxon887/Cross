@@ -40,7 +40,6 @@ public:
 	Event<Entity*> EntityAdded;
 
 	Scene();
-	Scene(const String& filename);
 
 	/* Called once before scene show up. */
 	virtual void Start() override;
@@ -50,7 +49,7 @@ public:
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
-	bool Load(const String& file);
+	bool Load(const String& file, bool assetPath = true);
 	/* Save scene into file */
 	void Save(const String& file);
 	/* Removes all loaded stuff from scene (Textures, Materials, Shader, Models and Entities) */
@@ -105,16 +104,16 @@ protected:
 	Camera* camera							= nullptr;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
+	void CreateDefaultCamera();
+
 private:
-	static const U32 scene_loader_version	= 16;
-	static const U32 scene_saver_version	= 17;
+	static const U32 scene_loader_version	= 18;
+	static const U32 scene_saver_version	= 18;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	void OnWindowResize(S32 width, S32 height);
-
-	void CreateDefaultCamera();
 };
 
 }

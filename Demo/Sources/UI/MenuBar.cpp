@@ -88,7 +88,14 @@ void MenuBar::ShowMenu() {
 
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("Open Scene")) {
-				system->OpenFileDialog();
+				String sceneFile = system->OpenFileDialog();
+				Scene* scene = new Scene();
+				if(!scene->Load(sceneFile, false)) {
+					delete scene;
+					CROSS_ASSERT(false, "Can not load scene file, sorry");
+				} else {
+					game->SetScreen(scene);
+				}
 			}
 
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {

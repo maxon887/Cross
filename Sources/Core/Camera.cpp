@@ -27,20 +27,15 @@ using namespace tinyxml2;
 Camera::Camera() : Component("Camera")
 { }
 
-void Camera::Update(float sec){
-	RecalcView();
-}
-
-bool Camera::Load(XMLElement* xml, Scene* loadingScene) {
-	CROSS_RETURN(!loadingScene->GetCamera(), false, "Loading Scene already have another camera");
-
-	view_distance = (float)xml->DoubleAttribute("distance", 120.f);
+void Camera::Initialize(Scene* scene) {
+	CROSS_ASSERT(!scene->GetCamera(), false, "Loading Scene already have another camera");
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, view_distance);
 	SetProjectionMatrix(projection);
+	scene->SetCamera(this);
+}
 
-	loadingScene->SetCamera(this);
-
-	return true;
+void Camera::Update(float sec){
+	RecalcView();
 }
 
 Component* Camera::Clone() const {

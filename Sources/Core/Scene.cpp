@@ -32,15 +32,7 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Scene::Scene() :
-	Scene("")
-{
-	CreateDefaultCamera();
-}
-
-Scene::Scene(const String& filename) :
-	Screen(),
-	filename(filename)
+Scene::Scene()
 {
 	root = new Entity("Root");
 	root->AddComponent(new Transform());
@@ -50,10 +42,6 @@ void Scene::Start() {
 	Screen::Start();
 
 	system->WindowResized.Connect(this, &Scene::OnWindowResize);
-
-	if(filename != "") {
-		CROSS_ASSERT(Load(filename), "Screen '#' was not loaded correctly", GetName());
-	}
 }
 
 void Scene::Update(float sec) {
@@ -65,13 +53,13 @@ void Scene::Stop() {
 	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
 	root = nullptr;
-	for(pair<U64, Texture*> pair : textures){
+	for(pair<U64, Texture*> pair : textures) {
 		delete pair.second;
 	}
-	for(pair<U64, Material*> pair : materials){
+	for(pair<U64, Material*> pair : materials) {
 		delete pair.second;
 	}
-	for(pair<U64, Model*> pair : models){
+	for(pair<U64, Model*> pair : models) {
 		delete pair.second;
 	}
 	for(pair<U64, Shader*> pair : shaders) {
@@ -80,8 +68,14 @@ void Scene::Stop() {
 	Screen::Stop();
 }
 
-bool Scene::Load(const String& file) {
-	File* xmlFile = system->LoadAssetFile(file);
+bool Scene::Load(const String& file, bool assetPath /* = true */) {
+	filename = file;
+	File* xmlFile = nullptr;
+	if(assetPath) {
+		xmlFile = system->LoadAssetFile(file);
+	} else {
+		xmlFile = system->LoadFile(file);
+	}
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -90,7 +84,7 @@ bool Scene::Load(const String& file) {
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
 	CROSS_RETURN(scene, false, "Can not load scene. Root node Scene not found");
-	SetName(File::FileWithoutExtension(file));
+	SetName(File::FileWithoutExtension(File::FileFromPath(file)));
 	int version = scene->IntAttribute("version");
 	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version missmatch");
 	//general lighting information
@@ -98,9 +92,9 @@ bool Scene::Load(const String& file) {
 	int spotLightCount = 0;
 	int directionalLightCount = 0;
 	XMLElement* lightXML = scene->FirstChildElement("Light");
-	if(lightXML){
+	if(lightXML) {
 		XMLElement* pointXML = lightXML->FirstChildElement("Point");
-		if(pointXML){
+		if(pointXML) {
 			pointLightCount = pointXML->IntAttribute("count");
 		}
 		XMLElement* spotXML = lightXML->FirstChildElement("Spot");
@@ -114,9 +108,9 @@ bool Scene::Load(const String& file) {
 	}
 	//objects loading
 	XMLElement* objectsXML = scene->FirstChildElement("Objects");
-	if(objectsXML){
+	if(objectsXML) {
 		XMLElement* objectXML = objectsXML->FirstChildElement("Object");
-		while(objectXML){
+		while(objectXML) {
 			CROSS_RETURN(LoadEntity(root, objectXML), false, "Can't load entity");
 			objectXML = objectXML->NextSiblingElement("Object");
 		}
@@ -279,7 +273,7 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 		return (*matIt).second;
 	} else {
 		Material* mat = new Material();
-		mat->Load(xmlFile);
+		mat->Load(xmlFile, this);
 		materials[hash] = mat;
 		return mat;
 	}
@@ -346,14 +340,14 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	parent->AddChild(entity);
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
+	ComponentFactory* factory = game->GetComponentFactory();
 	if(componentsXML) {
-		ComponentFactory* factory = game->GetComponentFactory();
 		XMLElement* componentXML = componentsXML->FirstChildElement();
 		while(componentXML) {
 			Component* component = factory->Create(componentXML->Name());
 			CROSS_RETURN(component, false, "Can't create component of type #", componentXML->Name());
-			CROSS_RETURN(component->Load(componentXML, this), false, "Can't load component of type '#'", componentXML->Name());
-			entity->AddComponent(component);
+			CROSS_RETURN(component->Load(componentXML), false, "Can't load component of type '#'", componentXML->Name());
+			entity->AddComponent(component, this);
 			componentXML = componentXML->NextSiblingElement();
 		}
 	}

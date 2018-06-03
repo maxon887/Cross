@@ -26,12 +26,12 @@ namespace cross {
 class Camera : public Component {
 public:
 	Camera();
+	/* Initializes Camera Component */
+	void Initialize(Scene* scene) override;
 	/* Updates Camera Component. Realized in order to recalculate view Matrix */
 	void Update(float sec) override;
 	/* Save copy of Camera Component */
 	Component* Clone() const override;
-	/* Loads Camera Component from XML document */
-	bool Load(tinyxml2::XMLElement* xml, Scene* loadingScene) override;
 
 	/* Returns Camera view distance. Object under that distance won't be rendered */
 	float GetViewDistance() const;
