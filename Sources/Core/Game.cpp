@@ -81,10 +81,10 @@ void Game::Suspend() {
 		audio->Suspend();
 	}
 
-	//if(config) {
-	//	config->SaveGameConfig();
-	//	config->SaveUserConfig();
-	//}
+	if(config) {
+		config->SaveGameConfig();
+		config->SaveUserConfig();
+	}
 
 	if(current_screen != nullptr) {
 		current_screen->Suspend();

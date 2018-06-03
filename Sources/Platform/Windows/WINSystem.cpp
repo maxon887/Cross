@@ -189,7 +189,7 @@ String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
 	String initPath = system->AssetsPath();
 	initPath.Replace("/", "\\");
 	ofn.lpstrInitialDir = initPath;
-	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 	if(saveDialog) {
 		GetSaveFileName(&ofn);
 	} else {
