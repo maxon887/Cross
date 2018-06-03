@@ -45,8 +45,6 @@ public:
 	Transform* GetTransform();
 	/* Adds component to the current Entity component stack. Components with the same name can't be added twice */
 	void AddComponent(Component* component);
-	/* Adds component to the current Entity component stack. With or without Component initialization */
-	void AddComponent(Component* component, bool initialize);
 	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
 	void AddComponent(Component* component, Scene* scene);
 	/* Removes component from Entity. Appropriate Remove() will be called on Component object */

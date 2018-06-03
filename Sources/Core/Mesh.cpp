@@ -50,14 +50,16 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Initialize(Scene* scene) {
-	Model* model = scene->GetModel(model_filename);
-	Copy(model->GetMesh(id));
+	if(!vertex_buffer) {
+		Model* model = scene->GetModel(model_filename);
+		Copy(model->GetMesh(id));
 
-	if(material_filename.value != "") {
-		Material* mat = scene->GetMaterial(material_filename);
-		SetMaterial(mat);
-	} else {
-		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+		if(material_filename.value != "") {
+			Material* mat = scene->GetMaterial(material_filename);
+			SetMaterial(mat);
+		} else {
+			SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+		}
 	}
 }
 

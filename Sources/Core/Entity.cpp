@@ -72,17 +72,7 @@ Transform* Entity::GetTransform() {
 }
 
 void Entity::AddComponent(Component* component) {
-	AddComponent(component, true);
-}
-
-void Entity::AddComponent(Component* component, bool initialize) {
-	U64 hash = typeid(*component).hash_code();
-	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
-	component->entity = this;
-	components[hash] = component;
-	if(initialize) {
-		component->Initialize(game->GetCurrentScene());
-	}
+	AddComponent(component, game->GetCurrentScene());
 }
 
 void Entity::AddComponent(Component* component, Scene* scene) {

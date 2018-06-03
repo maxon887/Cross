@@ -27,7 +27,7 @@
 #include "UI/Stats.h"
 #include "UI/About.h"
 #include "MainScreen.h"
-#include "Scene.h"
+#include "Graphics3D/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -89,7 +89,7 @@ void MenuBar::ShowMenu() {
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("Open Scene")) {
 				String sceneFile = system->OpenFileDialog();
-				Scene* scene = new Scene();
+				Scene* scene = new DemoScene();
 				if(!scene->Load(sceneFile, false)) {
 					delete scene;
 					CROSS_ASSERT(false, "Can not load scene file, sorry");
