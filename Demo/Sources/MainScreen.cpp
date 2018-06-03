@@ -21,7 +21,6 @@
 #include "Texture.h"
 #include "UI/MenuBar.h"
 #include "Graphics3D/Simple/TriangleScene.h"
-#include "Graphics3D/Simple/SolidModelScene.h"
 #include "Graphics3D/Simple/TexturedModelScene.h"
 #include "Graphics3D/Light/MaterialScene.h"
 #include "Graphics3D/Light/DirectionalLightScene.h"
@@ -76,7 +75,8 @@ void MainScreen::Update(float sec) {
 				game->SetScreen(new TriangleScene());
 			}
 			if(ImGui::MenuButton("Solid Model")) {
-				game->SetScreen(new SolidModelScene());
+				const String filename = "Scenes/Cube.scn";
+				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Textured Model")) {
 				game->SetScreen(new TexturedModelScene());
@@ -145,5 +145,16 @@ void MainScreen::Update(float sec) {
 	ImGui::PopFont();
 	if(system->IsMobile()) {
 		ImGui::PopStyleVar();
+	}
+}
+
+bool MainScreen::LoadScene(const String& filename) {
+	DemoScene* scene = new DemoScene();
+	if(scene->Load(filename)) {
+		game->SetScreen(scene);
+		return true;
+	} else {
+		delete scene;
+		return false;
 	}
 }

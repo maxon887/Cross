@@ -75,9 +75,6 @@
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp">
       <Filter>Demo\Graphics3D\Simple</Filter>
     </ClCompile>
@@ -335,9 +332,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h">
       <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
-      <Filter>Demo\Graphics3D\Simple</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h">
       <Filter>Demo\Graphics3D\Simple</Filter>

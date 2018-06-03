@@ -176,7 +176,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
@@ -271,7 +270,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />

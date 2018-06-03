@@ -196,6 +196,9 @@ String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
 		GetOpenFileName(&ofn);
 	}
 	String filepath = szFile;
+	if(filepath == "") {
+		return filepath;
+	}
 	filepath.Replace("\\", "/");
 	String filename = File::FileFromPath(filepath);
 	String ext = File::ExtensionFromFile(filename);

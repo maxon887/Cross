@@ -89,21 +89,22 @@ void MenuBar::ShowMenu() {
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("Open Scene")) {
 				String sceneFile = system->OpenFileDialog();
-				Scene* scene = new DemoScene();
-				if(!scene->Load(sceneFile, false)) {
-					delete scene;
-					CROSS_ASSERT(false, "Can not load scene file, sorry");
-				} else {
-					game->SetScreen(scene);
+				if(sceneFile != "") {
+					Scene* scene = new DemoScene();
+					if(!scene->Load(sceneFile, false)) {
+						delete scene;
+						CROSS_ASSERT(false, "Can not load scene file, sorry");
+					} else {
+						game->SetScreen(scene);
+					}
 				}
 			}
 
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
-				String filename = game->GetCurrentScene()->GetFilename();
-				if(filename == "") {
-					filename = system->OpenFileDialog(true);
+				String filename = system->OpenFileDialog(true);
+				if(filename != "") {
+					game->GetCurrentScene()->Save(filename);
 				}
-				game->GetCurrentScene()->Save(filename);
 			}
 
 			if(ImGui::MenuItem("Close Scene", 0, false, game->GetCurrentScreen()->GetName() != "Main")) {
