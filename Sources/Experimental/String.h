@@ -102,6 +102,7 @@ public:
 	void operator += (const char* other);
 	void operator += (const String& other);
 
+	operator char* ();
 	operator const char* () const;
 
 	friend String operator + (const String& left, const char* right);

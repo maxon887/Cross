@@ -373,6 +373,10 @@ void String::operator += (const String& other) {
 	length = requiredLen;
 }
 
+String::operator char * () {
+	return data;
+}
+
 String::operator const char * () const {
 	return data;
 }

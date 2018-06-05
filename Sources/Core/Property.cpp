@@ -19,6 +19,12 @@
 
 using namespace cross;
 
-void BaseProperty::Init(Component* comp) {
-	comp->properties.push_back(this);
+BaseProperty::BaseProperty(Component* owner, const String& name) :
+	name(name)
+{
+	owner->properties.push_back(this);
+}
+
+String BaseProperty::GetName() const {
+	return name;
 }

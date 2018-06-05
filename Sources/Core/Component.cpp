@@ -64,6 +64,10 @@ Entity* Component::GetEntity() {
 	return entity;
 }
 
+const Array<BaseProperty*>& Component::GetProperties() const {
+	return properties;
+}
+
 Transform* Component::GetTransform() {
 	return entity->GetTransform();
 }

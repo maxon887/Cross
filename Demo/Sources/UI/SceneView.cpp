@@ -58,6 +58,8 @@ void SceneView::Content(float sec) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);
 		}
+	} else {
+		selected_entity = nullptr;
 	}
 }
 
@@ -89,11 +91,13 @@ void SceneView::BuildNode(Entity* entity) {
 	}
 
 	bool open = ImGui::TreeNodeEx(entity->GetName(), flags);
+
 	if(ImGui::IsItemClicked()) {
 		selected_entity = entity;
 		EntitySelected.Emit(entity);
 		LookAtObject();
 	}
+
 	if(open && !isLeaf) {
 		for(Entity* child : entity->GetChildren()) {
 			BuildNode(child);

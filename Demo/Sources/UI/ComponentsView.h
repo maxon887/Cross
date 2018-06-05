@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "UI/View.h"
+#include "Property.h"
 
 class SceneView;
 
@@ -25,6 +26,8 @@ public:
 
 	void Content(float sec) override;
 
-private:
+protected:
 	SceneView* scene_view = nullptr;
+
+	void ShowProperty(BaseProperty* baseProperty);
 };

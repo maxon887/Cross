@@ -24,21 +24,24 @@ namespace cross{
 
 class BaseProperty {
 public:
+	BaseProperty(Component* owner, const String& name);
+
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) = 0;
 	virtual bool Load(tinyxml2::XMLElement* parent) = 0;
 
+	String GetName() const;
+
 protected:
-	void Init(Component* comp);
+	String name;
 };
 
 template<class T>
 class Property : public BaseProperty {
 public:
 	T value;
-	String name;
 
-	Property(Component* comp, const String& name);
-	Property(Component* comp, const String& name, const T& def);
+	Property(Component* owner, const String& name);
+	Property(Component* owner, const String& name, const T& def);
 
 	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override;
 	bool Load(tinyxml2::XMLElement* parent) override;
@@ -48,16 +51,15 @@ public:
 };
 
 template<class T>
-Property<T>::Property(Component* comp, const String& name) {
-	this->name = name;
-	Init(comp);
-}
+Property<T>::Property(Component* owner, const String& name) :
+	BaseProperty(owner, name)
+{ }
 
 template<class T>
-Property<T>::Property(Component* comp, const String& name, const T& def) {
+Property<T>::Property(Component* owner, const String& name, const T& def) :
+	BaseProperty(owner, name)
+{
 	this->value = def;
-	this->name = name;
-	Init(comp);
 }
 
 template<class T>

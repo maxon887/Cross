@@ -54,6 +54,8 @@ public:
 	String GetName() const;
 	/* Returns Entity that owns this Component */
 	Entity* GetEntity();
+	/* Returns component properties which will be saved on scene file */
+	const Array<BaseProperty*>& GetProperties() const;
 	/* Returns Entity's Transform Component if has some */
 	Transform* GetTransform();
 	/* Returns Entity's Transform's position vector */
