@@ -19,10 +19,10 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-View::View(String name)
+View::View(const String& name)
 {
-	landscape_name = name;
-	portrait_name = name + " ";
+	landscape_name = name + "##Landscape";
+	portrait_name = name + "##Portrait";
 }
 
 void View::Show() {

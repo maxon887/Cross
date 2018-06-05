@@ -34,7 +34,7 @@ Component* Component::Clone() const {
 
 bool Component::Load(tinyxml2::XMLElement* parent) {
 	for(BaseProperty* prop : properties) {
-		prop->Load(parent);
+		CROSS_RETURN(prop->Load(parent), false, "Can not load component '#'", GetName());
 	}
 	return true;
 }
@@ -42,7 +42,7 @@ bool Component::Load(tinyxml2::XMLElement* parent) {
 bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	XMLElement* componentXML = doc->NewElement(name);
 	for(BaseProperty* prop : properties) {
-		prop->Save(componentXML, doc);
+		CROSS_RETURN(prop->Save(componentXML, doc), false, "Can not save component '#'", GetName());
 	}
 	parent->LinkEndChild(componentXML);
 	return true;
@@ -54,6 +54,10 @@ bool Component::IsEnabled() const {
 
 void Component::Enable(bool e) {
 	this->enabled = e;
+}
+
+String Component::GetName() const {
+	return name;
 }
 
 Entity* Component::GetEntity() {

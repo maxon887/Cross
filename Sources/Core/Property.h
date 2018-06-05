@@ -24,8 +24,8 @@ namespace cross{
 
 class BaseProperty {
 public:
-	virtual void Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) = 0;
-	virtual void Load(tinyxml2::XMLElement* parent) = 0;
+	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) = 0;
+	virtual bool Load(tinyxml2::XMLElement* parent) = 0;
 
 protected:
 	void Init(Component* comp);
@@ -40,8 +40,8 @@ public:
 	Property(Component* comp, const String& name);
 	Property(Component* comp, const String& name, const T& def);
 
-	void Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override;
-	void Load(tinyxml2::XMLElement* parent) override;
+	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override;
+	bool Load(tinyxml2::XMLElement* parent) override;
 
 	T& operator = (const T& val);
 	operator T () const;
@@ -61,39 +61,42 @@ Property<T>::Property(Component* comp, const String& name, const T& def) {
 }
 
 template<class T>
-void Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
-	CROSS_ASSERT(false, "Unknown property type to save (#)", name);
+bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+	CROSS_RETURN(false, false, "Unknown property type to save (#)", name);
 }
 
 template<>
-inline void Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Int");
 	propertyXML->SetAttribute("value", value);
 	parent->LinkEndChild(propertyXML);
+	return true;
 }
 
 template<>
-inline void Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Float");
 	propertyXML->SetAttribute("value", value);
 	parent->LinkEndChild(propertyXML);
+	return true;
 }
 
 template<>
-inline void Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "String");
 	propertyXML->SetAttribute("value", value);
 	parent->LinkEndChild(propertyXML);
+	return true;
 }
 
 template<>
-inline void Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Vector3D");
@@ -101,74 +104,80 @@ inline void Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XML
 	propertyXML->SetAttribute("y", value.y);
 	propertyXML->SetAttribute("z", value.z);
 	parent->LinkEndChild(propertyXML);
+	return true;
 }
 
 template<>
-inline void Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
-	//propertyXML->SetAttribute("name", name);
 	propertyXML->SetAttribute("type", "Quaternion");
 	propertyXML->SetAttribute("x", value.x);
 	propertyXML->SetAttribute("y", value.y);
 	propertyXML->SetAttribute("z", value.z);
 	propertyXML->SetAttribute("w", value.w);
 	parent->LinkEndChild(propertyXML);
+	return true;
 }
 
 template<class T>
-void Property<T>::Load(tinyxml2::XMLElement* parent) {
-	CROSS_ASSERT(false, "Unknown property type to load(#)", name);
+bool Property<T>::Load(tinyxml2::XMLElement* parent) {
+	CROSS_RETURN(false, false, "Unknown property type to load(#)", name);
 }
 
 template<>
-inline void Property<S32>::Load(tinyxml2::XMLElement* parent) {
+inline bool Property<S32>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_ASSERT(typeStr == "Int", "Loading attribute missmatch. Expected Int");
+	CROSS_RETURN(typeStr == "Int", false, "Loading attribute missmatch. Expected Int");
 	value = (S32)propertyXML->Int64Attribute("value");
+	return true;
 }
 
 template<>
-inline void Property<float>::Load(tinyxml2::XMLElement* parent) {
+inline bool Property<float>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_ASSERT(typeStr == "Float", "Loading attribute missmatch. Expected Float");
+	CROSS_RETURN(typeStr == "Float", false, "Loading attribute missmatch. Expected Float");
 	value = propertyXML->FloatAttribute("value");
+	return true;
 }
 
 template<>
-inline void Property<String>::Load(tinyxml2::XMLElement* parent) {
+inline bool Property<String>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_ASSERT(typeStr == "String", "Loading attribute missmatch. Expected String");
+	CROSS_RETURN(typeStr == "String", false, "Loading attribute missmatch. Expected String");
 	value = propertyXML->Attribute("value");
+	return true;
 }
 
 template<>
-inline void Property<Vector3D>::Load(tinyxml2::XMLElement* parent) {
+inline bool Property<Vector3D>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_ASSERT(typeStr == "Vector3D", "Loading attribute missmatch. Expected Vector3D");
+	CROSS_RETURN(typeStr == "Vector3D", false, "Loading attribute missmatch. Expected Vector3D");
 	value.x = propertyXML->FloatAttribute("x");
 	value.y = propertyXML->FloatAttribute("y");
 	value.z = propertyXML->FloatAttribute("z");
+	return true;
 }
 
 template<>
-inline void Property<Quaternion>::Load(tinyxml2::XMLElement* parent) {
+inline bool Property<Quaternion>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_ASSERT(typeStr == "Quaternion", "Loading attribute missmatch. Expected Quaternion");
+	CROSS_RETURN(typeStr == "Quaternion", false, "Loading attribute missmatch. Expected Quaternion");
 	value.x = propertyXML->FloatAttribute("x");
 	value.y = propertyXML->FloatAttribute("y");
 	value.z = propertyXML->FloatAttribute("z");
 	value.w = propertyXML->FloatAttribute("w");
+	return true;
 }
 
 template<class T>
