@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "View.h"
 #include "System.h"
+#include "Config.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -23,6 +24,13 @@ View::View(String name)
 {
 	landscape_name = name;
 	portrait_name = name + " ";
+	String windowID = String::Format("VIEW_#_VISIBLE", GetName().Hash());
+	visible = config->GetBool(windowID, false);
+}
+
+View::~View() {
+	String windowID = String::Format("VIEW_#_VISIBLE", GetName().Hash());
+	config->SetBool(windowID, visible);
 }
 
 void View::Show() {

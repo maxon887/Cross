@@ -22,7 +22,7 @@ using namespace cross;
 class View {
 public:
 	View(String name);
-	virtual ~View() { }
+	virtual ~View();
 
 	virtual void Shown() { }
 	virtual void Hidden() { }

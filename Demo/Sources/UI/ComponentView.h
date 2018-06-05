@@ -22,12 +22,12 @@
 
 using namespace cross;
 
-template<class ComponentType>
+template<class T>
 class ComponentView : public View {
 public:
 	ComponentView(const String& name);
 
-	virtual void Content(ComponentType* component) { }
+	virtual void Content(T* component) { }
 	virtual void EntitySelected(Entity* newEntity) { }
 
 	void Content(float sec) override;
@@ -40,27 +40,27 @@ private:
 	void OnScreenChanged(Screen* screen);
 };
 
-template<class ComponentType>
-ComponentView<ComponentType>::ComponentView(const String& name) :
+template<class T>
+ComponentView<T>::ComponentView(const String& name) :
 	View(name)
 {
 	game->ScreenChanged.Connect(this, &ComponentView::OnScreenChanged);
 }
 
-template<class ComponentType>
-void ComponentView<ComponentType>::Content(float sec) {
-	if(selected_entity && selected_entity->GetComponent<ComponentType>()) {
-		Content(selected_entity->GetComponent<ComponentType>());
+template<class T>
+void ComponentView<T>::Content(float sec) {
+	if(selected_entity && selected_entity->GetComponent<T>()) {
+		Content(selected_entity->GetComponent<T>());
 	}
 }
 
-template<class ComponentType>
-void ComponentView<ComponentType>::OnEntitySelected(Entity* entity) {
+template<class T>
+void ComponentView<T>::OnEntitySelected(Entity* entity) {
 	selected_entity = entity;
 	EntitySelected(entity);
 }
 
-template<class ComponentType>
-void ComponentView<ComponentType>::OnScreenChanged(Screen* screen) {
+template<class T>
+void ComponentView<T>::OnScreenChanged(Screen* screen) {
 	selected_entity = nullptr;
 }
