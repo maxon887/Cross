@@ -21,7 +21,7 @@ using namespace cross;
 
 class View {
 public:
-	View(String name);
+	View(const String& name);
 	virtual ~View();
 
 	virtual void Shown() { }
@@ -44,8 +44,8 @@ protected:
 	void SetWindowFlags(U32 flags);
 
 private:
-	String landscape_name = "View";
-	String portrait_name = "View ";
+	String landscape_name = "View##Landscape";
+	String portrait_name = "View##Portrait";
 	bool visible = false;
 	U32 flags = 0;
 };

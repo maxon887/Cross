@@ -20,10 +20,10 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-View::View(String name)
+View::View(const String& name)
 {
-	landscape_name = name;
-	portrait_name = name + " ";
+	landscape_name = name + "##Landscape";
+	portrait_name = name + "##Portrait";
 	String windowID = String::Format("VIEW_#_VISIBLE", GetName().Hash());
 	visible = config->GetBool(windowID, false);
 }

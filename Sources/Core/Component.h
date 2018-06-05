@@ -50,7 +50,8 @@ public:
 	bool IsEnabled() const;
 	/* Enables or disables Component behavior */
 	void Enable(bool enable);
-
+	/* Returns Component's name */
+	String GetName() const;
 	/* Returns Entity that owns this Component */
 	Entity* GetEntity();
 	/* Returns Entity's Transform Component if has some */
