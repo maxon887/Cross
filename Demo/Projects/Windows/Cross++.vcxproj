@@ -193,7 +193,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
     <ClCompile Include="..\..\Sources\UI\SceneView.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
-    <ClCompile Include="..\..\Sources\UI\TransformView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
@@ -284,14 +284,13 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\UI\About.h" />
     <ClInclude Include="..\..\Sources\UI\CameraController.h" />
     <ClInclude Include="..\..\Sources\UI\ComponentsView.h" />
-    <ClInclude Include="..\..\Sources\UI\ComponentView.h" />
     <ClInclude Include="..\..\Sources\UI\FilesView.h" />
     <ClInclude Include="..\..\Sources\UI\Log.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />
     <ClInclude Include="..\..\Sources\UI\View.h" />
     <ClInclude Include="..\..\Sources\UI\SceneView.h" />
     <ClInclude Include="..\..\Sources\UI\MenuBar.h" />
-    <ClInclude Include="..\..\Sources\UI\TransformView.h" />
+    <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

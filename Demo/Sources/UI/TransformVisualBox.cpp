@@ -14,23 +14,14 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "TransformView.h"
+#include "TransformVisualBox.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "System.h"
-#include "Demo.h"
-#include "MenuBar.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void TransformView::WillContent() {
-	ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f, 
-							(float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight()) / 3.f),
-							ImGuiCond_FirstUseEver);
-	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 3.f * 2.f, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
-}
-
-void TransformView::Content(Transform* transform) {
+void TransformVisualBox::Show(Transform* transform) {
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(system->GetScreenScale(), system->GetScreenScale()));
 
 	float posVec[3];
@@ -55,7 +46,7 @@ void TransformView::Content(Transform* transform) {
 	ImGui::PopStyleVar();
 }
 
-void TransformView::EntitySelected(Entity* newEntity) {
+void TransformVisualBox::EntitySelected(Entity* newEntity) {
 	Transform* tr = newEntity->GetComponent<Transform>();
 	axis = tr->GetRotate().GetAxis();
 	angle = tr->GetRotate().GetAngle();

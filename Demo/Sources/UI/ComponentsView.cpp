@@ -18,6 +18,7 @@
 #include "SceneView.h"
 #include "Entity.h"
 #include "Component.h"
+#include "Transform.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -25,15 +26,20 @@ ComponentsView::ComponentsView(SceneView* sceneView) :
 	View("Components")
 {
 	scene_view = sceneView;
+	scene_view->EntitySelected.Connect(&tranform_box, &TransformVisualBox::EntitySelected);
 }
 
 void ComponentsView::Content(float sec) {
 	Entity* entity = scene_view->GetSelectedEntity();
 	if(entity) {
 		for(Component* component : entity->GetComponents()) {
-			if(ImGui::CollapsingHeader(component->GetName())) {
-				for(BaseProperty* prop : component->GetProperties()) {
-					ShowProperty(prop);
+			if(dynamic_cast<Transform*>(component)) {
+				tranform_box.Show((Transform*)component);
+			} else {
+				if(ImGui::CollapsingHeader(component->GetName())) {
+					for(BaseProperty* prop : component->GetProperties()) {
+						ShowProperty(prop);
+					}
 				}
 			}
 		}
@@ -58,7 +64,7 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 
 		Vector3D axis = prop->value.GetAxis();
 		float angle = prop->value.GetAngle();
-
+			
 		if(ImGui::DragFloat3("Axis", axis.GetData(), 0.1f)) {
 			//transform->SetRotate(axis, angle);
 		}

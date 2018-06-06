@@ -16,17 +16,13 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "UI/ComponentView.h"
 
 using namespace cross;
 
-class TransformView : public ComponentView<Transform> {
+class TransformVisualBox {
 public:
-	TransformView() : ComponentView("Tranform") { }
-
-	void WillContent() override;
-	void Content(Transform* tranform) override;
-	void EntitySelected(Entity* newEntity) override;
+	void Show(Transform* tranform);
+	void EntitySelected(Entity* newEntity);
 
 private:
 	Vector3D axis = Vector3D::Zero;

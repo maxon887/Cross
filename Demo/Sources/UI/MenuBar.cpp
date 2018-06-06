@@ -22,7 +22,6 @@
 #include "UI/SceneView.h"
 #include "UI/FilesView.h"
 #include "UI/ComponentsView.h"
-#include "UI/TransformView.h"
 #include "UI/Log.h"
 #include "UI/Stats.h"
 #include "UI/About.h"
@@ -36,13 +35,10 @@ MenuBar::MenuBar() {
 	FilesView* filesView = new FilesView();
 	SceneView* sceneView = new SceneView();
 	ComponentsView* componentsView = new ComponentsView(sceneView);
-	TransformView* transform = new TransformView();
-	sceneView->EntitySelected.Connect((ComponentView<Transform>*)transform, &ComponentView<Transform>::OnEntitySelected);
 	views.push_back(filesView);
 	views.push_back(sceneView);
 	views.push_back(componentsView);
 	views.push_back(cameraController);
-	views.push_back(transform);
 
 	log = new Log();
 	stats = new Stats();

@@ -17,6 +17,7 @@
 #pragma once
 #include "UI/View.h"
 #include "Property.h"
+#include "TransformVisualBox.h"
 
 class SceneView;
 
@@ -27,6 +28,7 @@ public:
 	void Content(float sec) override;
 
 protected:
+	TransformVisualBox tranform_box;
 	SceneView* scene_view = nullptr;
 
 	void ShowProperty(BaseProperty* baseProperty);

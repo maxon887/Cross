@@ -279,9 +279,6 @@
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\TransformView.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\View.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
@@ -320,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Property.cpp">
       <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -561,13 +561,7 @@
     <ClInclude Include="..\..\Sources\UI\MenuBar.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\TransformView.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\View.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\ComponentView.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\CameraController.h">
@@ -611,6 +605,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Property.h">
       <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
