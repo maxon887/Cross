@@ -76,7 +76,7 @@ public:
 
 protected:
 	Property<Vector3D> position		= Property<Vector3D>(this, "Position", Vector3D::Zero);
-	Property<Vector3D> scale = Property<Vector3D>(this, "Scale", Vector3D(1.f));
+	Property<Vector3D> scale 		= Property<Vector3D>(this, "Scale", Vector3D(1.f));
 	Property<Quaternion> rotation	= Property<Quaternion>(this, "Rotation", Quaternion::Identity);
 
 	Matrix model		= Matrix::Identity;

@@ -64,7 +64,7 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 
 		Vector3D axis = prop->value.GetAxis();
 		float angle = prop->value.GetAngle();
-			
+
 		if(ImGui::DragFloat3("Axis", axis.GetData(), 0.1f)) {
 			//transform->SetRotate(axis, angle);
 		}
@@ -73,6 +73,7 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		}
 
 	} else {
-		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), String::Format("Can not draw property '#'", baseProperty->GetName()));
+		String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
+		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), "%s", errStr.ToCStr());
 	}
 }
