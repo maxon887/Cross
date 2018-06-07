@@ -12,11 +12,12 @@ public:
     String DataPath() override;
     U64 GetTime() override;
     float GetScreenDPI() override;
-    bool IsFileExists(const String &filepath) override;
-    bool IsDirectoryExists(const String &filepath) override;
-	Array<String> GetSubDirectories(const String &filepath) override;
-	Array<String> GetFilesInDirectory(const String &filepath) override;
-	void Messagebox(const String &title, const String &msg) override;
+	bool IsFileExists(const String& filepath) override;
+	bool IsDirectoryExists(const String& filepath) override;
+	Array<String> GetSubDirectories(const String& filepath) override;
+	Array<String> GetFilesInDirectory(const String& filepath) override;
+	bool Alert(const String& msg) override;
+	void Messagebox(const String& title, const String& msg) override;
 
     void SetScreenDPI(float dpi);
 	void SetAssetPath(const String& path);

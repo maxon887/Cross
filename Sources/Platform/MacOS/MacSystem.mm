@@ -42,12 +42,12 @@ float MacSystem::GetScreenDPI() {
     return dpi;
 }
 
-bool MacSystem::IsFileExists(const cross::String &filepath) {
+bool MacSystem::IsFileExists(const cross::String& filepath) {
     //DIR* file = opendir(filepath);
     return false;
 }
 
-bool MacSystem::IsDirectoryExists(const cross::String &filepath) {
+bool MacSystem::IsDirectoryExists(const cross::String& filepath) {
     DIR* dir = opendir(working_dir + filepath);
     dirent* dr = nullptr;
     if(dir && (dr = readdir(dir))) {
@@ -62,7 +62,7 @@ bool MacSystem::IsDirectoryExists(const cross::String &filepath) {
     }
 }
 
-Array<String> MacSystem::GetSubDirectories(const String &filepath) {
+Array<String> MacSystem::GetSubDirectories(const String& filepath) {
 	Array<String> files;
 	DIR* dir = opendir(filepath);
     if(!dir) {
@@ -80,7 +80,7 @@ Array<String> MacSystem::GetSubDirectories(const String &filepath) {
 	return files;
 }
 
-Array<String> MacSystem::GetFilesInDirectory(const String &filepath) {
+Array<String> MacSystem::GetFilesInDirectory(const String& filepath) {
 	Array<String> files;
 	DIR* dir = opendir(filepath);
     if(!dir) {
@@ -98,7 +98,26 @@ Array<String> MacSystem::GetFilesInDirectory(const String &filepath) {
 	return files;
 }
 
-void MacSystem::Messagebox(const String &title, const String &msg) {
+bool MacSystem::Alert(const String& msg) {
+	NSAlert *alert = [[NSAlert alloc] init];
+	[alert setMessageText:[NSString stringWithCString:"Something goes wrong"
+								  encoding:[NSString defaultCStringEncoding]]];
+	[alert setInformativeText:[NSString stringWithCString:msg.ToCStr()
+									  encoding:[NSString defaultCStringEncoding]]];
+	[alert addButtonWithTitle:[NSString stringWithCString:"Ok"
+							   encoding:[NSString defaultCStringEncoding]]];
+	[alert addButtonWithTitle:[NSString stringWithCString:"Skip"
+							   encoding:[NSString defaultCStringEncoding]]];
+	NSModalResponse response = [alert runModal];
+	switch(response) {
+		case NSAlertSecondButtonReturn:
+			return true;
+		default:
+			return false;
+	}
+}
+
+void MacSystem::Messagebox(const String& title, const String& msg) {
 	NSAlert *alert = [[NSAlert alloc] init];
 
 	[alert setMessageText:[NSString stringWithCString:title.ToCStr()
@@ -107,13 +126,12 @@ void MacSystem::Messagebox(const String &title, const String &msg) {
 									  encoding:[NSString defaultCStringEncoding]]];
 
 	[alert runModal];
-	//[alert release];
 }
 
 void MacSystem::SetScreenDPI(float newDPI) {
     dpi = newDPI;
 }
 
-void MacSystem::SetAssetPath(const String &path) {
+void MacSystem::SetAssetPath(const String& path) {
 	assets_path = path;
 }
