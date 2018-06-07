@@ -78,7 +78,7 @@ public:
 	/* Force current thread to sleep */
 	virtual void Sleep(float milis);
 	/* Requests to set required orientation. Can not to be set if system not allow to change orientation */
-	virtual void RequestOrientation(Orientation orientation) { }
+	virtual void RequestOrientation(Orientation orientation);
 	/* Returns true if current working platform is mobile one */
 	virtual bool IsMobile() { return false; }
 	/* Returns device screen DPI. This is approximate value. Real devices does not know their screen sizes */

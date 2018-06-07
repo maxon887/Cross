@@ -17,6 +17,7 @@ public:
 	Array<String> GetFilesInDirectory(const String& filepath) override;
 	bool Alert(const String& msg) override;
 	void Messagebox(const String& title, const String& msg) override;
+	void Sleep(float milis) override;
 
     void SetScreenDPI(float dpi);
 	void SetAssetPath(const String& path);

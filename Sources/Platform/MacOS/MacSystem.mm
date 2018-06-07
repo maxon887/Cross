@@ -125,6 +125,10 @@ void MacSystem::Messagebox(const String& title, const String& msg) {
 	[alert runModal];
 }
 
+void MacSystem::Sleep(float milis) {
+	usleep(milis * 1000.f);
+}
+
 void MacSystem::SetScreenDPI(float newDPI) {
     dpi = newDPI;
 }

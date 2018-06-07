@@ -107,6 +107,10 @@ void System::Messagebox(const String& title, const String& msg) {
 	LogIt("System message box not implemented. Can not show message to user");
 }
 
+void System::RequestOrientation(Orientation orientation) {
+	CROSS_ASSERT(false, "System::RequestOrientation() does not implemented for current platform");
+}
+
 void System::Sleep(float milis) {
 	CROSS_ASSERT(false, "System::Speep() does not implemented for current platform");
 }
