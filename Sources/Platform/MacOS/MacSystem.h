@@ -11,8 +11,7 @@ public:
     String AssetsPath() override;
     String DataPath() override;
     U64 GetTime() override;
-    float GetScreenDPI() override;
-	bool IsFileExists(const String& filepath) override;
+	float GetScreenDPI() override;
 	bool IsDirectoryExists(const String& filepath) override;
 	Array<String> GetSubDirectories(const String& filepath) override;
 	Array<String> GetFilesInDirectory(const String& filepath) override;

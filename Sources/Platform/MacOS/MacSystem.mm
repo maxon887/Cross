@@ -42,11 +42,6 @@ float MacSystem::GetScreenDPI() {
     return dpi;
 }
 
-bool MacSystem::IsFileExists(const cross::String& filepath) {
-    //DIR* file = opendir(filepath);
-    return false;
-}
-
 bool MacSystem::IsDirectoryExists(const cross::String& filepath) {
     DIR* dir = opendir(working_dir + filepath);
     dirent* dr = nullptr;
@@ -110,6 +105,8 @@ bool MacSystem::Alert(const String& msg) {
 							   encoding:[NSString defaultCStringEncoding]]];
 	NSModalResponse response = [alert runModal];
 	switch(response) {
+		case NSAlertFirstButtonReturn:
+			return false;
 		case NSAlertSecondButtonReturn:
 			return true;
 		default:

@@ -134,9 +134,9 @@ void Game::EngineUpdate() {
 		U64 cpuTime = system->GetTime() - timestamp;
 		Debugger::Instance()->SetCPUTime((float)cpuTime);
 
-		float milis = cpuTime / 1000.f;
-		if(milis < 5) {
-			system->Sleep(5 - milis);
+		float milis = updateTime / 1000.f;
+		if(milis < 5.f) {
+			system->Sleep(5.f - milis);
 		}
 	}
 }

@@ -22,7 +22,7 @@ using namespace cross;
 Debugger* Debugger::instance = nullptr;
 
 Debugger* Debugger::Instance() {
-	if(!instance){
+	if(!instance) {
 		instance = new Debugger();
 	}
 	return instance;
@@ -46,22 +46,22 @@ float Debugger::GetTimeCheck() {
 }
 
 void Debugger::Update(float micro) {
-	if(update_counter == 20){
+	if(update_counter == 20) {
 		update_counter = 0;
 		update_time = update_sum / 20.f / 1000.f;
 		update_sum = 0;
-	}else{
+	} else {
 		update_sum += micro;
 		update_counter++;
 	}
 }
 
 void Debugger::SetCPUTime(float micro) {
-	if(cpu_counter == 20){
+	if(cpu_counter == 20) {
 		cpu_counter = 0;
 		cpu_time = cpu_sum / 20.0f / 1000.0f;
 		cpu_sum = 0;
-	}else{
+	} else {
 		cpu_sum += micro;
 		cpu_counter++;
 	}

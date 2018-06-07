@@ -89,9 +89,9 @@ String::String(S32 number) : String(number, "%d", 12) { }
 
 String::String(U32 number) : String(number, "%u", 11) { }
 
-String::String(S64 number) : String(number, "%dll", 50) { }
+String::String(S64 number) : String(number, "%lld", 50) { }
 
-String::String(U64 number) : String(number, "%ull", 50) { }
+String::String(U64 number) : String(number, "%llu", 50) { }
 
 String::String(float number) : String(number, "%f", 50) { }
 

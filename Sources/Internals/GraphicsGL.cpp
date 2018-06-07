@@ -85,12 +85,6 @@ GraphicsGL::GraphicsGL() {
 	shader_version.Remove(".");
 	
 	GLint value;
-	SAFE(glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value));
-	system->LogIt("\tMax Vertex Uniforms: #", value);
-
-	SAFE(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value));
-	system->LogIt("\tMax Fragment Uniforms: #", value);
-
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
 	system->LogIt("\tMax Vertex Attributes: #", value);
 
