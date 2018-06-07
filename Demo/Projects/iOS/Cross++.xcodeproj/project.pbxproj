@@ -13,7 +13,6 @@
 		9D40A8822099E8F000F6902F /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A8742099E8F000F6902F /* Log.cpp */; };
 		9D40A8832099E8F000F6902F /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A8762099E8F000F6902F /* MenuBar.cpp */; };
 		9D40A8842099E8F000F6902F /* Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A8782099E8F000F6902F /* Stats.cpp */; };
-		9D40A8852099E8F000F6902F /* TransformView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A87A2099E8F000F6902F /* TransformView.cpp */; };
 		9D40A8862099E8F000F6902F /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A87C2099E8F000F6902F /* View.cpp */; };
 		9D54BB651FBC4316009E8469 /* AudioScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB321FBC4316009E8469 /* AudioScreen.cpp */; };
 		9D54BB661FBC4316009E8469 /* Demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BB341FBC4316009E8469 /* Demo.cpp */; };
@@ -91,6 +90,7 @@
 		9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */; };
 		9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECA1F46EF1700A6E782 /* Shader.cpp */; };
 		9DDFFF1F1F46EF1700A6E782 /* SingleLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */; };
+		9DE0699F20C928AF007B9BA3 /* TransformVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DE0699E20C928AF007B9BA3 /* TransformVisualBox.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
 		D46A23591AF9EF8400B77AC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D46A23581AF9EF8400B77AC8 /* Images.xcassets */; };
 		D46A24051AF9F56300B77AC8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */; };
@@ -105,7 +105,6 @@
 		9D40A86C2099E8F000F6902F /* About.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
 		9D40A86D2099E8F000F6902F /* CameraController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraController.cpp; sourceTree = "<group>"; };
 		9D40A86E2099E8F000F6902F /* CameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
-		9D40A86F2099E8F000F6902F /* ComponentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentView.h; sourceTree = "<group>"; };
 		9D40A8702099E8F000F6902F /* FilesView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilesView.cpp; sourceTree = "<group>"; };
 		9D40A8712099E8F000F6902F /* FilesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesView.h; sourceTree = "<group>"; };
 		9D40A8742099E8F000F6902F /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
@@ -114,8 +113,6 @@
 		9D40A8772099E8F000F6902F /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBar.h; sourceTree = "<group>"; };
 		9D40A8782099E8F000F6902F /* Stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stats.cpp; sourceTree = "<group>"; };
 		9D40A8792099E8F000F6902F /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
-		9D40A87A2099E8F000F6902F /* TransformView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformView.cpp; sourceTree = "<group>"; };
-		9D40A87B2099E8F000F6902F /* TransformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformView.h; sourceTree = "<group>"; };
 		9D40A87C2099E8F000F6902F /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
 		9D40A87D2099E8F000F6902F /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
 		9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneosimulator.a; sourceTree = "<group>"; };
@@ -387,6 +384,8 @@
 		9DDFFF3C1F46F5CF00A6E782 /* libfmodL_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphoneos.a; sourceTree = "<group>"; };
 		9DDFFF3D1F46F5CF00A6E782 /* libfmodL_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphonesimulator.a; sourceTree = "<group>"; };
 		9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFreetype2.a; sourceTree = "<group>"; };
+		9DE0699D20C928AF007B9BA3 /* TransformVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformVisualBox.h; sourceTree = "<group>"; };
+		9DE0699E20C928AF007B9BA3 /* TransformVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformVisualBox.cpp; sourceTree = "<group>"; };
 		9DFE616C1F4C363D00418EC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9DFE616D1F4C363D00418EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DFE616E1F4C363D00418EC2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -425,6 +424,8 @@
 		9D40A86A2099E8F000F6902F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9DE0699E20C928AF007B9BA3 /* TransformVisualBox.cpp */,
+				9DE0699D20C928AF007B9BA3 /* TransformVisualBox.h */,
 				9DBEB34920C576C800D3E8C6 /* ComponentsView.cpp */,
 				9DBEB34A20C576C800D3E8C6 /* ComponentsView.h */,
 				9D40A86B2099E8F000F6902F /* About.cpp */,
@@ -433,7 +434,6 @@
 				9DBEB35020C5772300D3E8C6 /* SceneView.h */,
 				9D40A86D2099E8F000F6902F /* CameraController.cpp */,
 				9D40A86E2099E8F000F6902F /* CameraController.h */,
-				9D40A86F2099E8F000F6902F /* ComponentView.h */,
 				9D40A8702099E8F000F6902F /* FilesView.cpp */,
 				9D40A8712099E8F000F6902F /* FilesView.h */,
 				9D40A8742099E8F000F6902F /* Log.cpp */,
@@ -442,8 +442,6 @@
 				9D40A8772099E8F000F6902F /* MenuBar.h */,
 				9D40A8782099E8F000F6902F /* Stats.cpp */,
 				9D40A8792099E8F000F6902F /* Stats.h */,
-				9D40A87A2099E8F000F6902F /* TransformView.cpp */,
-				9D40A87B2099E8F000F6902F /* TransformView.h */,
 				9D40A87C2099E8F000F6902F /* View.cpp */,
 				9D40A87D2099E8F000F6902F /* View.h */,
 			);
@@ -1112,6 +1110,7 @@
 				9D54BB711FBC4316009E8469 /* SpecularScene.cpp in Sources */,
 				9D54BBCB1FBC435B009E8469 /* FreeCameraScene.cpp in Sources */,
 				9D54BBBA1FBC433C009E8469 /* System.cpp in Sources */,
+				9DE0699F20C928AF007B9BA3 /* TransformVisualBox.cpp in Sources */,
 				9D54BB6A1FBC4316009E8469 /* MultiLightScene.cpp in Sources */,
 				9D6DDCF41FF63B6B009DD71C /* imgui.cpp in Sources */,
 				9DDFFF0C1F46EF1700A6E782 /* Vector4D.cpp in Sources */,
@@ -1137,7 +1136,6 @@
 				9D54BBB91FBC433C009E8469 /* Sound.cpp in Sources */,
 				9D54BB7B1FBC4316009E8469 /* UIScreen.cpp in Sources */,
 				9D54BB681FBC4316009E8469 /* DirectionalLightScene.cpp in Sources */,
-				9D40A8852099E8F000F6902F /* TransformView.cpp in Sources */,
 				9D54BBB31FBC433C009E8469 /* Light.cpp in Sources */,
 				9D54BB6E1FBC4316009E8469 /* NakedScene.cpp in Sources */,
 			);
