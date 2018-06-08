@@ -57,6 +57,9 @@ void System::SaveFile(File* file) {
 }
 
 void System::SaveDataFile(File* file) {
+	if(!IsDirectoryExists(DataPath())) {
+		CreateDirectory(DataPath());
+	}
 	file->name = DataPath() + file->name;
 	SaveFile(file);
 }
@@ -88,6 +91,10 @@ bool System::IsAssetDirectoryExists(const String& filepath) {
 
 bool System::IsDataDirectoryExists(const String& filepath) {
 	return IsDirectoryExists(DataPath() + filepath);
+}
+
+void System::CreateDirectory(const String &dirname) {
+	CROSS_ASSERT(false, "System::CreateDirectory() does not implemented for current platform");
 }
 
 Array<String> System::GetSubDirectories(const String& filepath) {

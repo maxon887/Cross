@@ -5,6 +5,7 @@
 #import <Cocoa/Cocoa.h>
 
 #include <sys/time.h>
+#include <sys/stat.h>
 #include <dirent.h>
 
 using namespace cross;
@@ -55,6 +56,10 @@ bool MacSystem::IsDirectoryExists(const cross::String& filepath) {
         CROSS_ASSERT(errno == ENOENT, "IsDirectoryExists() error code - #\nDescription - #", errno, strerror(errno));
         return false;
     }
+}
+
+void MacSystem::CreateDirectory(const String &dirname) {
+	mkdir(dirname, 0775);
 }
 
 Array<String> MacSystem::GetSubDirectories(const String& filepath) {
