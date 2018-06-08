@@ -26,7 +26,7 @@
 #include "UI/Stats.h"
 #include "UI/About.h"
 #include "MainScreen.h"
-#include "Graphics3D/DemoScene.h"
+#include "Scenes/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 

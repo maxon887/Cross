@@ -15,22 +15,16 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/DemoScene.h"
+#include "Scenes/DemoScene.h"
 #include "Utils/Skybox.h"
 
-class TransparencyScene : public DemoScene{
+class SkyboxScene : public DemoScene {
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
 private:
-	Shader* road_shader;
-	Shader* grass_shader;
-	Shader* sphere_shader;
-	Material* road_mat;
-	Material* grass_mat;
-	Material* sphere_mat;
-
-	Entity* light;
+	Skybox* skybox;
+	Material* material;
 };

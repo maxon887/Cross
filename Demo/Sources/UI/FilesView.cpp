@@ -18,7 +18,7 @@
 #include "System.h"
 #include "File.h"
 #include "Game.h"
-#include "Graphics3D/DemoScene.h"
+#include "Scenes/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 

@@ -15,13 +15,11 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/DemoScene.h"
+#include "Scenes/DemoScene.h"
 
-class TexturedModelScene : public DemoScene{
+class ApocalypseScene : public DemoScene{
 public:
-	void Start() override;
-	void Stop() override;
-
-private:
-	Material* material;
+	void Start();
+	void Stop();
+	void Update(float sec);
 };
