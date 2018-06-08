@@ -69,9 +69,6 @@
     <ClCompile Include="..\..\Sources\Demo.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\MainScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
@@ -201,9 +198,6 @@
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UIScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -321,12 +315,15 @@
     <ClCompile Include="..\..\Sources\Scenes\Light\SpotLightScene.cpp">
       <Filter>Demo\Scenes\Light</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\ImGuiScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\LaunchView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\MainScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -474,9 +471,6 @@
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UIScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
@@ -608,6 +602,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Light\SpotLightScene.h">
       <Filter>Demo\Scenes\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\ImGuiScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\LaunchView.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

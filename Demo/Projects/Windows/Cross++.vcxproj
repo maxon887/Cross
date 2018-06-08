@@ -161,7 +161,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
-    <ClCompile Include="..\..\Sources\MainScreen.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp" />
@@ -183,11 +182,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
-    <ClCompile Include="..\..\Sources\UIScreen.cpp" />
+    <ClCompile Include="..\..\Sources\ImGuiScreen.cpp" />
     <ClCompile Include="..\..\Sources\UI\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
     <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp" />
     <ClCompile Include="..\..\Sources\UI\FilesView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\LaunchView.cpp" />
     <ClCompile Include="..\..\Sources\UI\Log.cpp" />
     <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
@@ -255,7 +255,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
-    <ClInclude Include="..\..\Sources\MainScreen.h" />
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h" />
@@ -280,11 +279,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_rect_pack.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
-    <ClInclude Include="..\..\Sources\UIScreen.h" />
+    <ClInclude Include="..\..\Sources\ImGuiScreen.h" />
     <ClInclude Include="..\..\Sources\UI\About.h" />
     <ClInclude Include="..\..\Sources\UI\CameraController.h" />
     <ClInclude Include="..\..\Sources\UI\ComponentsView.h" />
     <ClInclude Include="..\..\Sources\UI\FilesView.h" />
+    <ClInclude Include="..\..\Sources\UI\LaunchView.h" />
     <ClInclude Include="..\..\Sources\UI\Log.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />
     <ClInclude Include="..\..\Sources\UI\View.h" />

@@ -27,6 +27,7 @@ struct ImFont;
 
 class Demo;
 class MenuBar;
+class LaunchView;
 
 extern Demo* demo;
 
@@ -40,13 +41,17 @@ public:
 	void Stop() override;
 	void PreUpdate(float sec) override;
 	void Update(float sec) override;
+	void SetScreen(Screen* screen) override;
 
+	void ToMain();
+	LaunchView* GetLaunchView();
 	MenuBar* GetMenuBar();
 
 private:
 	static const char* GetClipboardString(void* userData);
 
 	MenuBar* menu			= nullptr;
+	LaunchView* launch_view = nullptr;
 	Shader* ui_shader		= nullptr;
 	Texture* font_texture	= nullptr;
 	String clipboard		= "";

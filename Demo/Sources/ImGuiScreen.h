@@ -15,37 +15,15 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Cross.h"
+#include "Screen.h"
 
 using namespace cross;
 
-class View {
+class ImGuiScreen : public Screen {
 public:
-	View(const String& name);
-	virtual ~View();
-
-	virtual void Shown() { }
-	virtual void Hidden() { }
-
-	virtual void WillContent() { }
-	virtual void Content(float sec) { }
-	virtual void DidContent() { }
-
-	virtual bool MobileOnly() { return false; }
-
-	void Show();
-	void Hide();
-	bool IsVisible() const;
-	void Update(float sec);
-
-	const String& GetName() const;
-
-protected:
-	void SetFlags(U32 flags);
+	void Update(float sec) override;
 
 private:
-	String landscape_name = "View##Landscape";
-	String portrait_name = "View##Portrait";
-	bool visible = false;
-	U32 flags = 0;
+	bool show_test_window = true;
+	bool show_another_window = false;
 };

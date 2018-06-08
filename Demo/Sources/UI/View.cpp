@@ -72,6 +72,6 @@ const String& View::GetName() const {
 	return landscape_name;
 }
 
-void View::SetWindowFlags(U32 f) {
+void View::SetFlags(U32 f) {
 	this->flags = f;
 }

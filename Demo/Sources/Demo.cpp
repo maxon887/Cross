@@ -15,11 +15,12 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
-#include "MainScreen.h"
+#include "Screen.h"
 #include "System.h"
 #include "Config.h"
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
+#include "UI/LaunchView.h"
 #include "Utils/Debugger.h"
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"
@@ -115,12 +116,14 @@ void Demo::Start() {
 	}
 
 	menu = new MenuBar();
+	launch_view = new LaunchView();
 
-	SetScreen(new MainScreen());
+	ToMain();
 }
 
 void Demo::Stop() {
 	system->LogIt("Demo::Stop()");
+	delete launch_view;
 	delete menu;
 	SAFE(glDeleteBuffers(1, &vertex_buffer));
 	SAFE(glDeleteBuffers(1, &index_buffer));
@@ -159,10 +162,28 @@ void Demo::Update(float sec) {
 
 	menu->Update(sec);
 	menu->ShowMenu();
+	launch_view->Update(sec);
 
 	ImGui::Render();
 	ImDrawData* drawData = ImGui::GetDrawData();
 	RenderUI(drawData);
+}
+
+void Demo::SetScreen(Screen* screen) {
+	launch_view->Hide();
+	Game::SetScreen(screen);
+}
+
+void Demo::ToMain() {
+	Screen* mainScreen = new Screen();
+	mainScreen->SetName("Main");
+	mainScreen->SetBackground(Color(0.3f));
+	SetScreen(mainScreen);
+	launch_view->Show();
+}
+
+LaunchView* Demo::GetLaunchView() {
+	return launch_view;
 }
 
 MenuBar* Demo::GetMenuBar() {
@@ -334,7 +355,7 @@ void Demo::KeyPressed(Key key) {
 			return;
 		}
 #endif
-		SetScreen(new MainScreen());
+		ToMain();
 	}
 }
 

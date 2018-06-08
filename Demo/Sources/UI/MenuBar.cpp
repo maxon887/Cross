@@ -25,7 +25,7 @@
 #include "UI/Log.h"
 #include "UI/Stats.h"
 #include "UI/About.h"
-#include "MainScreen.h"
+#include "UI/LaunchView.h"
 #include "Scenes/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -103,8 +103,8 @@ void MenuBar::ShowMenu() {
 				}
 			}
 
-			if(ImGui::MenuItem("Close Scene", 0, false, game->GetCurrentScreen()->GetName() != "Main")) {
-				game->SetScreen(new MainScreen());
+			if(ImGui::MenuItem("Back to Main", 0, false, !demo->GetLaunchView()->IsVisible())) {
+				demo->ToMain();
 			}
 
 

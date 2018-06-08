@@ -16,36 +16,18 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "View.h"
 
 using namespace cross;
 
-class View {
+class LaunchView : public View {
 public:
-	View(const String& name);
-	virtual ~View();
+	LaunchView();
 
-	virtual void Shown() { }
-	virtual void Hidden() { }
-
-	virtual void WillContent() { }
-	virtual void Content(float sec) { }
-	virtual void DidContent() { }
-
-	virtual bool MobileOnly() { return false; }
-
-	void Show();
-	void Hide();
-	bool IsVisible() const;
-	void Update(float sec);
-
-	const String& GetName() const;
-
-protected:
-	void SetFlags(U32 flags);
+	void WillContent() override;
+	void DidContent() override;
+	void Content(float sec) override;
 
 private:
-	String landscape_name = "View##Landscape";
-	String portrait_name = "View##Portrait";
-	bool visible = false;
-	U32 flags = 0;
+	bool LoadScene(const String& filename);
 };
