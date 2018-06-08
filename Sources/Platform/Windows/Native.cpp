@@ -21,9 +21,9 @@
 #include "Input.h"
 #include "Config.h"
 #include "resource.h"
-#include "WINSystem.h"
 #include "GLES.h"
 #include "Platform/CrossEGL.h"
+#include "WINSystem.h"
 
 using namespace cross;
 
@@ -104,7 +104,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	}
 	case WM_MOUSEWHEEL:{
 		short delta = (short)HIWORD(wParam); 
-		input->MouseWheelRoll.Emit((float)delta);
+		input->Scroll.Emit((float)delta / 120.f);
 		break;
 	}
 	case WM_KEYDOWN:

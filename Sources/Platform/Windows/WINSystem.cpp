@@ -18,18 +18,9 @@
 #include "File.h"
 #include "Config.h"
 
-#include <fstream>
-
 #define DATA_PATH "Data/"
 
 using namespace cross;
-
-bool DirectoryExists(const char* szPath) {
-  DWORD dwAttrib = GetFileAttributes(szPath);
-
-  return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
-		 (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
-}
 
 void IntSleep(int milis) {
 	Sleep(milis);
@@ -39,20 +30,17 @@ WINSystem::WINSystem(HWND wnd) :
 	wnd(wnd)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
-	if(!DirectoryExists(DATA_PATH)) {
-		CreateDirectoryA(DATA_PATH, nullptr);
-	}
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
 	char* debugAssetAlt = "../../Assets/";
 	char* editorAsset = "../Demo/Assets/";
-	if(DirectoryExists(releaseAsset)) {
+	if(IsDirectoryExists(releaseAsset)) {
 		assets_path = releaseAsset;
-	} else if(DirectoryExists(debugAsset)) {
+	} else if(IsDirectoryExists(debugAsset)) {
 		assets_path = debugAsset;
-	} else if(DirectoryExists(debugAssetAlt)) {
+	} else if(IsDirectoryExists(debugAssetAlt)) {
 		assets_path = debugAssetAlt;
-	} else if(DirectoryExists(editorAsset)) {
+	} else if(IsDirectoryExists(editorAsset)) {
 		assets_path = editorAsset;
 	} else {
 		CROSS_ASSERT(false, "Can't find Assets folder");
@@ -115,6 +103,10 @@ bool WINSystem::IsDirectoryExists(const String& filepath) {
 
 	return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
 		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+void WINSystem::CreateDirectory(const String& dirpath) {
+	CreateDirectoryA(dirpath, nullptr);
 }
 
 Array<String> WINSystem::GetSubDirectories(const String& filepath) {
