@@ -143,8 +143,8 @@ public:
 	/* Occurs when char must be placed, for ex multiple chars can be placed by long press key button in some platforms */
 	Event<char> CharEnter;
 
-	/* Occurs when mouse wheel rolled*/
-	Event<float> MouseWheelRoll;
+	/* Occurs when user scroll whether with a mouse wheel or touchpad gesture */
+	Event<float> Scroll;
 	/* Reflects current mouse position on the screen */
 	Vector2D MousePosition;
 	/* Checks if specific key pressed */

@@ -16,6 +16,9 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "FilesView.h"
 #include "System.h"
+#include "File.h"
+#include "Game.h"
+#include "Graphics3D/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -64,7 +67,22 @@ void FilesView::BuildNote(Node& node) {
 		ImGui::TreeNodeEx(file, leaf_flags);
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
 			String filename = node.path + node.name + "/" + file;
-			system->OpenFileExternal(filename);
+			FileDoubleClicked(filename);
 		}
+	}
+}
+
+void FilesView::FileDoubleClicked(const String& filename) {
+	String extencion = File::ExtensionFromFile(filename);
+	if(extencion == "scn") {
+		Scene* scene = new DemoScene();
+		if(!scene->Load(filename, false)) {
+			delete scene;
+			CROSS_ASSERT(false, "Can not load scene file, sorry");
+		} else {
+			game->SetScreen(scene);
+		}
+	} else {
+		system->OpenFileExternal(filename);
 	}
 }

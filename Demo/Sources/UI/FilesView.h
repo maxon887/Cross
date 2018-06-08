@@ -38,4 +38,5 @@ private:
 
 	void InitNode(Node& node);
 	void BuildNote(Node& node);
+	void FileDoubleClicked(const String& filename);
 };

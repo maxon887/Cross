@@ -46,6 +46,10 @@ void GLFWMouseButtonCallback(GLFWwindow* window, int button, int action, int mod
     }
 }
 
+void GLFWScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+	input->Scroll.Emit(yoffset);
+}
+
 int main(int c,char **args) {
     system = new MacSystem(args[0]);
 
@@ -67,6 +71,7 @@ int main(int c,char **args) {
     glfwSetFramebufferSizeCallback(window, GLFWResizeCallback);
     glfwSetCursorPosCallback(window, GLFWMouseMoveCallback);
     glfwSetMouseButtonCallback(window, GLFWMouseButtonCallback);
+	glfwSetScrollCallback(window, GLFWScrollCallback);
 
 
     int screenWidth;

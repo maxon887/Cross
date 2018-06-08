@@ -62,7 +62,7 @@ void Demo::Start() {
 	input->KeyPressed.Connect(this, &Demo::KeyPressed);
 	input->KeyReleased.Connect(this, &Demo::KeyReleased);
 	input->CharEnter.Connect(this, &Demo::CharEnter);
-	input->MouseWheelRoll.Connect(this, &Demo::WheelRoll);
+	input->Scroll.Connect(this, &Demo::WheelRoll);
 
 	ImGuiIO& io = ImGui::GetIO();
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
@@ -329,7 +329,7 @@ void Demo::KeyPressed(Key key) {
 
 	if(key == Key::ESCAPE || key == Key::BACK) {
 #ifdef ANDROID
-		if (static_cast<MainScreen*>(GetCurrentScreen())) {
+		if(static_cast<MainScreen*>(GetCurrentScreen())) {
 			((AndroidSystem*)system)->PromtToExit();
 			return;
 		}
@@ -358,5 +358,5 @@ void Demo::CharEnter(char c) {
 }
 
 void Demo::WheelRoll(float delta) {
-	mouse_wheel += delta / 120.f;	// Use fractional mouse wheel, 1.0 unit 5 lines.
+	mouse_wheel += delta;
 }
