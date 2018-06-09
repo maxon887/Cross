@@ -33,10 +33,10 @@ void ComponentsView::Content(float sec) {
 	Entity* entity = scene_view->GetSelectedEntity();
 	if(entity) {
 		for(Component* component : entity->GetComponents()) {
-			if(dynamic_cast<Transform*>(component)) {
-				tranform_box.Show((Transform*)component);
-			} else {
-				if(ImGui::CollapsingHeader(component->GetName())) {
+			if(ImGui::CollapsingHeader(component->GetName())) {
+				if(dynamic_cast<Transform*>(component)) {
+					tranform_box.Show((Transform*)component);
+				} else {
 					for(BaseProperty* prop : component->GetProperties()) {
 						ShowProperty(prop);
 					}
