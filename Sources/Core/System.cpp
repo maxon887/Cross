@@ -17,6 +17,8 @@
 #include "System.h"
 #include "File.h"
 
+#include <errno.h>
+
 #if defined(WIN) || defined(EDITOR) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
@@ -27,7 +29,8 @@ using namespace cross;
 
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
-	CROSS_RETURN(f, nullptr, "Can not open file '#'", filename.ToCStr());
+	CROSS_RETURN(f, nullptr, "Can not open file '#'\nerror code - #\nDescription - #",
+					filename.ToCStr(), errno, strerror(errno));
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
@@ -50,7 +53,8 @@ File* System::LoadDataFile(const String& filename) {
 
 void System::SaveFile(File* file) {
 	FILE* f = fopen(file->name.ToCStr(), "wb");
-	CROSS_FAIL(f, "Can not open file for writing: '#'", file->name.ToCStr());
+	CROSS_FAIL(f, "Can not open file for writing: '#'\nerror code - #\nDescription - #",
+				file->name.ToCStr(), errno, strerror(errno));
 	U64 written = fwrite(file->data, 1, (Size)file->size, f);
 	CROSS_ASSERT(file->size == written, "Can not write to file '#'", file->name.ToCStr());
 	fclose(f);

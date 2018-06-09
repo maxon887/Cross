@@ -11,11 +11,11 @@ cmake_minimum_required(VERSION 3.4.1)
 
 file(GLOB CROSS_SRC
     "../../../Sources/*.cpp"
-    "../../../Sources/Graphics3D/*.cpp"
-    "../../../Sources/Graphics3D/Simple/*.cpp"
-    "../../../Sources/Graphics3D/Light/*.cpp"
-    "../../../Sources/Graphics3D/Maps/*.cpp"
-    "../../../Sources/Graphics3D/Misc/*.cpp"
+    "../../../Sources/Scenes/*.cpp"
+    "../../../Sources/Scenes/Simple/*.cpp"
+    "../../../Sources/Scenes/Light/*.cpp"
+    "../../../Sources/Scenes/Maps/*.cpp"
+    "../../../Sources/Scenes/Misc/*.cpp"
     "../../../Sources/ThirdParty/ImGui/*.cpp"
     "../../../Sources/UI/*.cpp"
     "../../../../Sources/Core/*.cpp"

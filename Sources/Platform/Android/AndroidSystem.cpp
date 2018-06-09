@@ -16,7 +16,10 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "AndroidSystem.h"
 #include "File.h"
+
+#include <dirent.h>
 #include <unistd.h>
+#include <errno.h>
 
 using namespace cross;
 
@@ -54,6 +57,21 @@ File* AndroidSystem::LoadAssetFile(const String& filename) {
     CROSS_ASSERT(file->size == read, "File # not read properly", file->name);
     AAsset_close(asset);
     return file;
+}
+
+bool AndroidSystem::IsDirectoryExists(const String& dirname) {
+	DIR* dir = opendir(dirname);
+	dirent* dr = nullptr;
+	if(dir && (dr = readdir(dir))) {
+		if(dr->d_type == DT_DIR) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		CROSS_ASSERT(errno == ENOENT, "IsDirectoryExists() error code - #\nDescription - #", errno, strerror(errno));
+		return false;
+	}
 }
 
 U64 AndroidSystem::GetTime(){

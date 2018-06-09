@@ -350,7 +350,7 @@ void Demo::KeyPressed(Key key) {
 
 	if(key == Key::ESCAPE || key == Key::BACK) {
 #ifdef ANDROID
-		if(static_cast<MainScreen*>(GetCurrentScreen())) {
+		if(GetCurrentScreen()->GetName() == "Main") {
 			((AndroidSystem*)system)->PromtToExit();
 			return;
 		}
