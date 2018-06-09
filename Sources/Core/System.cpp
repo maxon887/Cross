@@ -18,6 +18,7 @@
 #include "File.h"
 
 #include <errno.h>
+#include <string.h>
 
 #if defined(WIN) || defined(EDITOR) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
