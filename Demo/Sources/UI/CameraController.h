@@ -30,7 +30,8 @@ public:
 	void DidContent() override;
 	void Content(float sec) override;
 
-	bool MobileOnly() override;
+	bool IsMenuVisible() override;
+	bool IsMenuAvailable() override;
 
 private:
 	bool nav_pressed = false;

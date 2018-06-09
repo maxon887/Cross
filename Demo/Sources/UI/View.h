@@ -31,7 +31,8 @@ public:
 	virtual void Content(float sec) { }
 	virtual void DidContent() { }
 
-	virtual bool MobileOnly() { return false; }
+	virtual bool IsMenuVisible() { return true; }
+	virtual bool IsMenuAvailable() { return true; }
 
 	void Show();
 	void Hide();

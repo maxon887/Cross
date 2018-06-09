@@ -49,6 +49,9 @@ void CameraController::DidContent() {
 }
 
 void CameraController::Content(float sec) {
+	if(!IsMenuAvailable()) {
+		Hide();
+	}
 	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(scene) {
 		bool lookAt = scene->IsLookAtCamera();
@@ -109,6 +112,10 @@ void CameraController::Content(float sec) {
 	}
 }
 
-bool CameraController::MobileOnly() {
-	return true;
+bool CameraController::IsMenuVisible() {
+	return system->IsMobile();
+}
+
+bool CameraController::IsMenuAvailable() {
+	return game->GetCurrentScene() != nullptr;
 }

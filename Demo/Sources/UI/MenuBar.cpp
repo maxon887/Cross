@@ -65,7 +65,7 @@ void MenuBar::Update(float sec) {
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
-	
+
 	log->Update(sec);
 	stats->Update(sec);
 	about->Update(sec);
@@ -113,9 +113,10 @@ void MenuBar::ShowMenu() {
 
 		if(ImGui::BeginMenu("View")) {
 			for(View* v : views) {
-				if(system->IsMobile() || !v->MobileOnly()) {
+				if(v->IsMenuVisible()) {
 					bool selected = v->IsVisible();
-					if(ImGui::MenuItem(v->GetName(), "", &selected)) {
+					bool available = v->IsMenuAvailable();
+					if(ImGui::MenuItem(v->GetName(), "", &selected, available)) {
 						if(selected) {
 							v->Show();
 						} else {
@@ -126,7 +127,7 @@ void MenuBar::ShowMenu() {
 			}
 			ImGui::EndMenu();
 		}
-		
+
 		ImVec2 helpSize = ImGui::CalcTextSize("Help");
 		ImGui::SameLine(ImGui::GetWindowWidth() - helpSize.x * 2.f);
 		if(ImGui::BeginMenu("Help")) {
