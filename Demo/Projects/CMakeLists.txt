@@ -16,11 +16,11 @@ file(GLOB SRC
     ../../Sources/Libs/TinyXML2/*.*
 
     ../Sources/*.*
-    ../Sources/Graphics3D/*.*
-    ../Sources/Graphics3D/Simple/*.*
-    ../Sources/Graphics3D/Light/*.*
-    ../Sources/Graphics3D/Maps/*.*
-    ../Sources/Graphics3D/Misc/*.*
+	../Sources/Scenes/*.*
+	../Sources/Scenes/Simple/*.*
+	../Sources/Scenes/Light/*.*
+	../Sources/Scenes/Maps/*.*
+	../Sources/Scenes/Misc/*.*
     ../Sources/ThirdParty/ImGui/*.*
     ../Sources/UI/*.*
 
@@ -28,9 +28,9 @@ file(GLOB SRC
 
 add_executable(${PROJECT_NAME} ${SRC})
 
-find_package (GLEW REQUIRED)
-find_package (OpenGL REQUIRED)
-FIND_LIBRARY(COCOA_LIBRARY Cocoa)
+find_package(GLEW REQUIRED)
+find_package(OpenGL REQUIRED)
+find_library(COCOA_LIBRARY Cocoa)
 
 target_link_libraries (${PROJECT_NAME}
         ${GLEW_LIBRARIES}
