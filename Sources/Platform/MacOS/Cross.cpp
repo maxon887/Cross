@@ -3,6 +3,7 @@
 #include "Internals/GraphicsGL.h"
 #include "Game.h"
 #include "Input.h"
+#include "Screen.h"
 
 #include <iostream>
 
@@ -99,6 +100,9 @@ int main(int c,char **args) {
         game->EngineUpdate();
         glfwSwapBuffers(window);
     }
+
+	game->GetCurrentScreen()->Stop();
+	game->Stop();
 
     glfwTerminate();
 

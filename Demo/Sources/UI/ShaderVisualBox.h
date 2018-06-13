@@ -15,32 +15,18 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "UI/View.h"
-#include "Event.h"
+#include "Cross.h"
 
-class FilesView : public View {
+using namespace cross;
+
+class ShaderVisualBox {
 public:
-	Event<String> FileSelected;
+	~ShaderVisualBox();
 
-	FilesView();
+	void Update();
 
-	void Shown() override;
-
-	void Content(float sec) override;
+	void OnFileSelected(String filename);
 
 private:
-	struct Node {
-		String path = "";
-		String name = "";
-		bool initialized = false;
-		Array<String> files;
-		Array<Node> folders;
-	};
-
-	Node file_tree;
-	String selected_path;
-
-	void InitNode(Node& node);
-	void BuildNote(Node& node);
-	void FileDoubleClicked(const String& filename);
+	Shader* shader = nullptr;
 };

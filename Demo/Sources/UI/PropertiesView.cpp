@@ -15,3 +15,13 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PropertiesView.h"
+#include "FilesView.h"
+
+PropertiesView::PropertiesView(FilesView *fv) : View("Properties")
+{
+	fv->FileSelected.Connect(&shaderVB, &ShaderVisualBox::OnFileSelected);
+}
+
+void PropertiesView::Content(float sec) {
+	shaderVB.Update();
+}

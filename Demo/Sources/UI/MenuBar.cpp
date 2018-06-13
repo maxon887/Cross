@@ -26,6 +26,7 @@
 #include "UI/Stats.h"
 #include "UI/About.h"
 #include "UI/LaunchView.h"
+#include "UI/PropertiesView.h"
 #include "Scenes/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -35,9 +36,11 @@ MenuBar::MenuBar() {
 	FilesView* filesView = new FilesView();
 	SceneView* sceneView = new SceneView();
 	ComponentsView* componentsView = new ComponentsView(sceneView);
+	PropertiesView* propertiesView = new PropertiesView(filesView);
 	views.push_back(filesView);
 	views.push_back(sceneView);
 	views.push_back(componentsView);
+	views.push_back(propertiesView);
 	views.push_back(cameraController);
 
 	log = new Log();

@@ -17,8 +17,16 @@
 #pragma once
 #include "Cross.h"
 #include "View.h"
+#include "ShaderVisualBox.h"
+
+class FilesView;
 
 class PropertiesView : public View {
 public:
-	PropertiesView() : View("Properties") { }
+	PropertiesView(FilesView* fv);
+
+	void Content(float sec) override;
+
+private:
+	ShaderVisualBox shaderVB;
 };

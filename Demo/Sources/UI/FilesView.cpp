@@ -20,6 +20,8 @@
 #include "Game.h"
 #include "Scenes/DemoScene.h"
 
+#include <algorithm>
+
 #include "ThirdParty/ImGui/imgui.h"
 
 FilesView::FilesView() : View("Files") { }
@@ -39,6 +41,7 @@ void FilesView::Content(float sec) {
 void FilesView::InitNode(Node& node) {
 	String path = node.path + node.name + "/";
 	Array<String> folders = system->GetSubDirectories(path);
+	sort(folders.begin(), folders.end());
 	for(const String& folder : folders) {
 		Node newNode;
 		newNode.path = path;
@@ -54,7 +57,15 @@ void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
 	for(Node& child : node.folders) {
-		bool open = ImGui::TreeNodeEx(child.name, node_flags);
+		String filepath = child.path + child.name;
+		ImGuiTreeNodeFlags flags = filepath == selected_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
+
+		bool open = ImGui::TreeNodeEx(child.name, flags);
+
+		if(ImGui::IsItemClicked()) {
+			selected_path = filepath;
+		}
+
 		if(open) {
 			if(!child.initialized) {
 				InitNode(child);
@@ -64,10 +75,15 @@ void FilesView::BuildNote(Node& node) {
 		}
 	}
 	for(const String& file : node.files) {
-		ImGui::TreeNodeEx(file, leaf_flags);
+		String filepath = node.path + node.name + "/" + file;
+		ImGuiTreeNodeFlags flags = filepath == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
+		ImGui::TreeNodeEx(file, flags);
+		if(ImGui::IsItemClicked()) {
+			selected_path = filepath;
+			FileSelected.Emit(filepath);
+		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
-			String filename = node.path + node.name + "/" + file;
-			FileDoubleClicked(filename);
+			FileDoubleClicked(filepath);
 		}
 	}
 }
