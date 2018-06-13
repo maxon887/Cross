@@ -31,11 +31,11 @@ void ShaderVisualBox::Update() {
 }
 
 void ShaderVisualBox::OnFileSelected(String filename) {
+	delete shader;
 	if(File::ExtensionFromFile(filename) == "sha") {
 		shader = new Shader();
 		shader->Load(filename);
 	} else {
-		delete shader;
 		shader = nullptr;
 	}
 }

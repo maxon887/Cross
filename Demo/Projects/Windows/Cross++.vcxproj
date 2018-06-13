@@ -189,6 +189,8 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\UI\FilesView.cpp" />
     <ClCompile Include="..\..\Sources\UI\LaunchView.cpp" />
     <ClCompile Include="..\..\Sources\UI\Log.cpp" />
+    <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
     <ClCompile Include="..\..\Sources\UI\SceneView.cpp" />
@@ -286,6 +288,8 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\UI\FilesView.h" />
     <ClInclude Include="..\..\Sources\UI\LaunchView.h" />
     <ClInclude Include="..\..\Sources\UI\Log.h" />
+    <ClInclude Include="..\..\Sources\UI\PropertiesView.h" />
+    <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />
     <ClInclude Include="..\..\Sources\UI\View.h" />
     <ClInclude Include="..\..\Sources\UI\SceneView.h" />

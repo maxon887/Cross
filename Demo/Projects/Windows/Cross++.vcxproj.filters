@@ -321,6 +321,12 @@
     <ClCompile Include="..\..\Sources\UI\LaunchView.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -607,6 +613,12 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\LaunchView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\PropertiesView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
