@@ -80,6 +80,7 @@ void FilesView::BuildNote(Node& node) {
 		ImGui::TreeNodeEx(file, flags);
 		if(ImGui::IsItemClicked()) {
 			selected_path = filepath;
+			filepath.Remove("Assets/");
 			FileSelected.Emit(filepath);
 		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {

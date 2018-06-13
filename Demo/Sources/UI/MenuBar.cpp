@@ -42,6 +42,11 @@ MenuBar::MenuBar() {
 	views.push_back(componentsView);
 	views.push_back(propertiesView);
 	views.push_back(cameraController);
+	for(View* v : views) {
+		if(v->IsVisible()) {
+			v->Shown();
+		}
+	}
 
 	log = new Log();
 	stats = new Stats();

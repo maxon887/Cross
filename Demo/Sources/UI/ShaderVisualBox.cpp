@@ -36,5 +36,6 @@ void ShaderVisualBox::OnFileSelected(String filename) {
 		shader->Load(filename);
 	} else {
 		delete shader;
+		shader = nullptr;
 	}
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D01239E20D1439D00885945 /* ShaderVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */; };
+		9D0123A120D143AD00885945 /* PropertiesView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D0123A020D143AD00885945 /* PropertiesView.cpp */; };
 		9D33C12F20D02B92007EF97F /* ImGuiScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */; };
 		9D33C15720D02B9F007EF97F /* NakedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13220D02B9F007EF97F /* NakedScene.cpp */; };
 		9D33C15820D02B9F007EF97F /* NormalScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13320D02B9F007EF97F /* NormalScene.cpp */; };
@@ -101,6 +103,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderVisualBox.cpp; sourceTree = "<group>"; };
+		9D01239D20D1439D00885945 /* ShaderVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderVisualBox.h; sourceTree = "<group>"; };
+		9D01239F20D143AC00885945 /* PropertiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertiesView.h; sourceTree = "<group>"; };
+		9D0123A020D143AD00885945 /* PropertiesView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertiesView.cpp; sourceTree = "<group>"; };
 		9D33C12D20D02B91007EF97F /* ImGuiScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImGuiScreen.h; sourceTree = "<group>"; };
 		9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiScreen.cpp; sourceTree = "<group>"; };
 		9D33C13220D02B9F007EF97F /* NakedScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NakedScene.cpp; sourceTree = "<group>"; };
@@ -497,6 +503,10 @@
 		9D40A86A2099E8F000F6902F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9D0123A020D143AD00885945 /* PropertiesView.cpp */,
+				9D01239F20D143AC00885945 /* PropertiesView.h */,
+				9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */,
+				9D01239D20D1439D00885945 /* ShaderVisualBox.h */,
 				9D33C16920D02BC6007EF97F /* LaunchView.cpp */,
 				9D33C16820D02BC6007EF97F /* LaunchView.h */,
 				9DE0699E20C928AF007B9BA3 /* TransformVisualBox.cpp */,
@@ -1085,6 +1095,7 @@
 				9D54BBCC1FBC435B009E8469 /* PrimitiveDrawer.cpp in Sources */,
 				9D54BBAC1FBC433C009E8469 /* Component.cpp in Sources */,
 				9D40A8822099E8F000F6902F /* Log.cpp in Sources */,
+				9D01239E20D1439D00885945 /* ShaderVisualBox.cpp in Sources */,
 				9D54BBC91FBC435B009E8469 /* Cubemap.cpp in Sources */,
 				9D33C16620D02B9F007EF97F /* PointLightScene.cpp in Sources */,
 				9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */,
@@ -1134,6 +1145,7 @@
 				9D5884DB20236236002820F2 /* GraphicsGL.cpp in Sources */,
 				9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */,
 				9DDFFF0B1F46EF1700A6E782 /* Vector3D.cpp in Sources */,
+				9D0123A120D143AD00885945 /* PropertiesView.cpp in Sources */,
 				9D54BBB91FBC433C009E8469 /* Sound.cpp in Sources */,
 				9D54BBB31FBC433C009E8469 /* Light.cpp in Sources */,
 				9D33C16420D02B9F007EF97F /* DirectionalLightScene.cpp in Sources */,
