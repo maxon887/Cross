@@ -35,6 +35,7 @@ public:
 	String(U64 number);
 	String(float number);
 	String(const Color& color);
+	String(const char* cstr, S32 length, S32 capacity);
 	template<class Value>
 	String(Value value, const char* format, S32 bufferSize);
 	~String();
@@ -115,8 +116,6 @@ private:
 	char* data = nullptr;
 	S32 length = 0;
 	S32 capacity = 0;
-
-	String(const char* cstr, S32 length, S32 capacity);
 };
 
 template<class First, class... Args>

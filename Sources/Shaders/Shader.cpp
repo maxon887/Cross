@@ -25,6 +25,47 @@
 using namespace cross;
 using namespace tinyxml2;
 
+String Shader::Property::TypeToString(Type t) {
+	switch (t) {
+	case Type::INT:
+		return "Int";
+	case Type::FLOAT:
+		return "Float";
+	case Type::COLOR:
+		return "Color";
+	case Type::VEC3:
+		return "Vector3D";
+	case Type::MAT4:
+		return "Matrix";
+	case Type::TEXTURE:
+		return "Texture";
+	case Type::CUBEMAP:
+		return "Cubemap";
+	default:
+		CROSS_RETURN(false, "", "Unknown Shader Property type");
+	}
+}
+
+Shader::Property::Type Shader::Property::StringToType(const String &type) {
+	if(type == "Int") {
+		return Type::INT;
+	} else if(type == "Float") {
+		return Type::FLOAT;
+	} else if(type == "Color") {
+		return Type::COLOR;
+	} else if(type == "Vector3D") {
+		return Type::VEC3;
+	} else if(type == "Matrix") {
+		return Type::MAT4;
+	} else if(type == "Texture") {
+		return Type::TEXTURE;
+	} else if(type == "Cubemap") {
+		return Type::CUBEMAP;
+	} else {
+		CROSS_RETURN(false, Type::UNKNOWN, "Unknow Shader Property '#'", type);
+	}
+}
+
 Shader::Property::Property(const String& name, const String& glName):
 	name(name),
 	glName(glName)
@@ -199,19 +240,7 @@ void Shader::Load(const String& file) {
 			const char* name = propertyXML->Attribute("name");
 			const char* glName = propertyXML->Attribute("glName");
 			const char* type = propertyXML->Attribute("type");
-
-			if(strcmp(type, "Int") == 0) {
-				AddProperty(name, glName, Property::INT);
-			} else if(strcmp(type, "Float") == 0) {
-				AddProperty(name, glName, Property::FLOAT);
-			} else if(strcmp(type, "Texture") == 0) {
-				AddProperty(name, glName, Property::TEXTURE);
-			} else if(strcmp(type, "Color") == 0) {
-				AddProperty(name, glName, Property::COLOR);
-			} else {
-				CROSS_ASSERT(false, "Unknown property type");
-			}
-
+			AddProperty(name, glName, Property::StringToType(type));
 			propertyXML = propertyXML->NextSiblingElement("Property");
 		}
 	}
@@ -246,22 +275,7 @@ void Shader::Save(const String& file) {
 		XMLElement* propertyXML = doc.NewElement("Property");
 		propertyXML->SetAttribute("name", prop.GetName());
 		propertyXML->SetAttribute("glName", prop.GetGLName());
-		switch(prop.GetType())	{
-		case Property::FLOAT:
-			propertyXML->SetAttribute("type", "Float");
-			break;
-		case Property::INT:
-			propertyXML->SetAttribute("type", "Int");
-			break;
-		case Property::COLOR:
-			propertyXML->SetAttribute("type", "Color");
-			break;
-		case Property::TEXTURE:
-			propertyXML->SetAttribute("type", "Texture");
-			break;
-		default:
-			CROSS_ASSERT(false, "Unknown property type to save");
-		}
+		propertyXML->SetAttribute("type", Property::TypeToString(prop.GetType()));
 		propertiesXML->LinkEndChild(propertyXML);
 	}
 

@@ -59,6 +59,9 @@ public:
 			Value(Cubemap* v) : cubemap(v) { }
 		};
 
+		static String TypeToString(Type t);
+		static Type StringToType(const String& type);
+
 		Property(const String& name, const String& glName);
 		Property(const String& name, const String& glName, Type type);
 		Property(const String& name, const String& glName, S32 value);

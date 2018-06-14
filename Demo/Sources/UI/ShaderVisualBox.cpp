@@ -20,13 +20,80 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
+ShaderVisualBox::ShaderVisualBox() {
+	for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
+		Shader::Property::Type type = (Shader::Property::Type)i;
+		type_names.push_back(Shader::Property::TypeToString(type));
+	}
+}
+
 ShaderVisualBox::~ShaderVisualBox() {
 	delete shader;
 }
 
 void ShaderVisualBox::Update() {
 	if(shader) {
-		ImGui::Text("Shader file selected");
+		//vertex file
+		ImGui::Text("Vertex File:");
+		ImGui::SameLine(250.f);
+		String vertexFile = shader->GetVertexFilename();
+		vertexFile = File::FileFromPath(vertexFile);
+		if(ImGui::Button(vertexFile)) {
+
+		}
+		//fragment file
+		ImGui::Text("Fragment File:");
+		ImGui::SameLine(250.f);
+		String fragmentFile = shader->GetFragmentFilename();
+		fragmentFile = File::FileFromPath(fragmentFile);
+		if(ImGui::Button(fragmentFile)) {
+
+		}
+
+		ImGui::Text("Properties");
+		ImGui::Separator();
+		ImGui::Columns(3, "ads", false);  // 3-ways, no border
+
+		ImGui::Text("Name"); ImGui::NextColumn();
+		ImGui::Text("glName"); ImGui::NextColumn();
+		ImGui::Text("Type"); ImGui::NextColumn();
+		ImGui::Separator();
+
+		String buffer("", 0, 256);
+		for(Shader::Property& prop : shader->GetProperties()) {
+			buffer = prop.GetName();
+			ImGui::PushItemWidth(-1);
+			ImGui::InputText("##Name", buffer.ToCStr(), buffer.Capacity());
+			ImGui::NextColumn();
+			buffer = prop.GetGLName();
+			ImGui::PushItemWidth(-1);
+			ImGui::InputText("##GlName", buffer.ToCStr(), buffer.Capacity());
+			ImGui::NextColumn();
+
+			char* values[Shader::Property::Type::UNKNOWN];
+			for(int i = 0; i < type_names.size(); i++) {
+				values[i] = type_names[i].ToCStr();
+			}
+
+			ImGui::PushItemWidth(-1);
+			if(ImGui::BeginCombo("", Shader::Property::TypeToString(prop.GetType()))) {
+
+				for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
+					Shader::Property::Type type = (Shader::Property::Type)i;
+					bool selected = type == prop.GetType();
+					if(ImGui::Selectable(values[i], selected)) {
+
+					}
+					//	current_item_2 = items[n];
+					//if (is_selected)
+					//	ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+				}
+
+				ImGui::EndCombo();
+			}
+			ImGui::NextColumn();
+		}
+		ImGui::Columns(1);
 	}
 }
 

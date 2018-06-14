@@ -21,6 +21,7 @@ using namespace cross;
 
 class ShaderVisualBox {
 public:
+	ShaderVisualBox();
 	~ShaderVisualBox();
 
 	void Update();
@@ -29,4 +30,5 @@ public:
 
 private:
 	Shader* shader = nullptr;
+	Array<String> type_names;
 };
