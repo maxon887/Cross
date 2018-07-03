@@ -18,32 +18,50 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "System.h"
+#include "Demo.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
 void TransformVisualBox::Show(Transform* transform) {
-	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(system->GetScreenScale(), system->GetScreenScale()));
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(1.f), SCALED(1.f)));
 
+	ImGui::NewLine();
+	ImGui::SameLine(SCALED(15.f));
+	ImGui::BeginGroup();
+
+	ImGui::Text("Position:");
+	ImGui::SameLine(SCALED(100.f));
 	float posVec[3];
 	memcpy(posVec, transform->GetPosition().GetData(), sizeof(Vector3D));
-	if(ImGui::DragFloat3("Position", posVec, 0.1f)) {
+	ImGui::PushItemWidth(-5.f);
+	if(ImGui::DragFloat3("##Position", posVec, 0.1f)) {
 		transform->SetPosition(Vector3D(posVec[0], posVec[1], posVec[2]));
 	}
 
+	ImGui::Text("Scale:");
+	ImGui::SameLine(SCALED(100.f));
 	float scaleVec[3];
 	memcpy(scaleVec, transform->GetScale().GetData(), sizeof(Vector3D));
-	if(ImGui::DragFloat3("Scale", scaleVec, 0.05f)) {
+	if(ImGui::DragFloat3("##Scale", scaleVec, 0.05f)) {
 		transform->SetScale(Vector3D(scaleVec[0], scaleVec[1], scaleVec[2]));
 	}
 
-	if(ImGui::DragFloat3("Axis", axis.GetData(), 0.1f)) {
+	ImGui::Text("Axis:");
+	ImGui::SameLine(SCALED(100.f));
+	if(ImGui::DragFloat3("##Axis", axis.GetData(), 0.1f)) {
 		transform->SetRotate(axis, angle);
 	}
-	if(ImGui::SliderFloat("Angle", &angle, 0.0f, 360.f)) {
+	ImGui::Text("Angle:");
+	ImGui::SameLine(SCALED(100.f));
+	if(ImGui::SliderFloat("##Angle", &angle, 0.0f, 360.f)) {
 		transform->SetRotate(axis, angle);
 	}
 
-	ImGui::PopStyleVar();
+	ImGui::EndGroup();
+
+	ImGui::PopItemWidth();
+
+	ImGui::PopStyleVar(1);
 }
 
 void TransformVisualBox::EntitySelected(Entity* newEntity) {

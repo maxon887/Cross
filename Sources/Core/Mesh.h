@@ -86,7 +86,7 @@ public:
 private:
 	Property<S32> id					= Property<S32>(this, "ID", -1);
 	Property<String> model_filename		= Property<String>(this, "Model");
-	Property<String> material_filename	= Property<String>(this, "MaterialFilename");
+	Property<String> material_filename	= Property<String>(this, "Material");
 
 	U64 VBO								= 0;
 	U64 EBO								= 0;

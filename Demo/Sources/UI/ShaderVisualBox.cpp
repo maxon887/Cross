@@ -40,7 +40,8 @@ void ShaderVisualBox::Update() {
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, spacing);
 
 		ImGui::PushFont(demo->big_font);
-		ImGui::SameLine(ImGui::GetWindowWidth() / 3);
+		ImVec2 textSize = ImGui::CalcTextSize("Shader File");
+		ImGui::SameLine(ImGui::GetWindowWidth() / 2.f - textSize.x / 2.f);
 		ImGui::Text("Shader File");
 		ImGui::PopFont();
 
@@ -85,7 +86,7 @@ void ShaderVisualBox::Update() {
 
 			float availableWidth = ImGui::GetColumnWidth();
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
-			if(ImGui::BeginCombo(String("##" + prop.GetName()).ToCStr(), Shader::Property::TypeToString(prop.GetType()))) {
+			if(ImGui::BeginCombo("##" + prop.GetName(), Shader::Property::TypeToString(prop.GetType()))) {
 
 				for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
 					Shader::Property::Type type = (Shader::Property::Type)i;

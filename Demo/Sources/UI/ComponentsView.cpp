@@ -19,6 +19,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "Transform.h"
+#include "Demo.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -33,15 +34,31 @@ void ComponentsView::Content(float sec) {
 	Entity* entity = scene_view->GetSelectedEntity();
 	if(entity) {
 		for(Component* component : entity->GetComponents()) {
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(4.f), SCALED(4.f)));
+
 			if(ImGui::CollapsingHeader(component->GetName())) {
+				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + SCALED(2.f));
+				ImGui::Separator();
+
 				if(dynamic_cast<Transform*>(component)) {
 					tranform_box.Show((Transform*)component);
 				} else {
+					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(1.f), SCALED(1.f)));
+					ImGui::NewLine();
+					ImGui::SameLine(SCALED(15.f));
+					ImGui::BeginGroup();
+
 					for(BaseProperty* prop : component->GetProperties()) {
 						ShowProperty(prop);
 					}
+
+					ImGui::EndGroup();
+					ImGui::PopStyleVar();
 				}
+				ImGui::Separator();
+				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + SCALED(8.f));
 			}
+			ImGui::PopStyleVar();
 		}
 	}
 }
@@ -49,13 +66,22 @@ void ComponentsView::Content(float sec) {
 void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 	if(dynamic_cast<Property<S32>*>(baseProperty)) {
 		Property<S32>* prop = (Property<S32>*)baseProperty;
-		ImGui::DragInt(prop->GetName(), &prop->value);
+		ImGui::Text(prop->GetName() + ":");
+		ImGui::SameLine(SCALED(100.f));
+		ImGui::PushItemWidth(SCALED(70.f));
+		ImGui::DragInt("##" + prop->GetName(), &prop->value);
 	} else if(dynamic_cast<Property<float>*>(baseProperty)) {
 		Property<float>* prop = (Property<float>*)baseProperty;
 		ImGui::DragFloat(prop->GetName(), &prop->value);
 	} else if(dynamic_cast<Property<String>*>(baseProperty)) {
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
+
 		Property<String>* prop = (Property<String>*)baseProperty;
-		ImGui::InputText(prop->GetName(), prop->value, prop->value.Length());
+		ImGui::Text(prop->GetName() + ":");
+		ImGui::SameLine(SCALED(100.f));
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), prop->value);
+
+		ImGui::PopStyleVar();
 	} else if(dynamic_cast<Property<Vector3D>*>(baseProperty)) {
 		Property<Vector3D>* prop = (Property<Vector3D>*)baseProperty;
 		ImGui::DragFloat3(prop->GetName(), (float*)prop->value.GetData(), 0.1f);
