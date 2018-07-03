@@ -35,6 +35,15 @@ ShaderVisualBox::~ShaderVisualBox() {
 
 void ShaderVisualBox::Update() {
 	if(shader) {
+		ImVec2 spacing = ImGui::GetStyle().ItemInnerSpacing;
+		spacing.x = 0;
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, spacing);
+
+		ImGui::PushFont(demo->big_font);
+		ImGui::SameLine(ImGui::GetWindowWidth() / 3);
+		ImGui::Text("Shader File");
+		ImGui::PopFont();
+
 		//vertex file
 		ImGui::Text("Vertex File:");
 		ImGui::SameLine(SCALED(120.f));
@@ -47,9 +56,11 @@ void ShaderVisualBox::Update() {
 		String fragmentFile = shader->GetFragmentFilename();
 		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), fragmentFile);
 
+		ImGui::NewLine();
+
 		ImGui::Text("Properties");
 		ImGui::Separator();
-		ImGui::Columns(3, "ads", false);  // 3-ways, no border
+		ImGui::Columns(3, "Properties", false);
 
 		ImGui::Text("Name"); ImGui::NextColumn();
 		ImGui::Text("glName"); ImGui::NextColumn();
@@ -72,7 +83,8 @@ void ShaderVisualBox::Update() {
 				values[i] = type_names[i].ToCStr();
 			}
 
-			ImGui::PushItemWidth(-1);
+			float availableWidth = ImGui::GetColumnWidth();
+			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
 			if(ImGui::BeginCombo(String("##" + prop.GetName()).ToCStr(), Shader::Property::TypeToString(prop.GetType()))) {
 
 				for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
@@ -88,9 +100,33 @@ void ShaderVisualBox::Update() {
 
 				ImGui::EndCombo();
 			}
+			ImGui::SameLine(availableWidth - SCALED(20.f));
+			if(ImGui::Button("-", ImVec2(-1, 0))) {
+
+			}
+
 			ImGui::NextColumn();
 		}
 		ImGui::Columns(1);
+
+		ImGui::PushItemWidth(-1);
+		if(ImGui::Button("New Property", ImVec2(-1, 0))) {
+
+		}
+
+		float availableWidth = ImGui::GetWindowWidth();
+		ImGui::NewLine();
+		ImGui::SameLine(availableWidth / 2);
+		if(ImGui::Button("Revert", ImVec2(availableWidth / 4 - SCALED(10.f), 0))) {
+
+		}
+		//ImGui::SameLine(availableWidth / 2 + SCALED(110.f));
+		ImGui::SameLine(availableWidth / 4 * 3);
+		if(ImGui::Button("Save", ImVec2(-1, 0))) {
+
+		}
+
+		ImGui::PopStyleVar();
 	}
 }
 
