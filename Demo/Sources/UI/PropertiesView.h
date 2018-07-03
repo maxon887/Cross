@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "View.h"
 #include "ShaderVisualBox.h"
+#include "MaterialVisualBox.h"
 
 class FilesView;
 
@@ -29,4 +30,5 @@ public:
 
 private:
 	ShaderVisualBox shaderVB;
+	MaterialVisualBox materialVB;
 };

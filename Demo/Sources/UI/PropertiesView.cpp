@@ -16,12 +16,16 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "PropertiesView.h"
 #include "FilesView.h"
+#include "Game.h"
 
 PropertiesView::PropertiesView(FilesView *fv) : View("Properties")
 {
 	fv->FileSelected.Connect(&shaderVB, &ShaderVisualBox::OnFileSelected);
+	fv->FileSelected.Connect(&materialVB, &MaterialVisualBox::OnFileSelected);
+	game->ScreenChanged.Connect(&materialVB, &MaterialVisualBox::OnScreenChanged);
 }
 
 void PropertiesView::Content(float sec) {
 	shaderVB.Update();
+	materialVB.Update();
 }

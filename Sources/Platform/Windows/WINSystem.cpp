@@ -160,8 +160,14 @@ bool WINSystem::IsMobile() {
 void WINSystem::OpenFileExternal(const String& filename) {
 	char szFileName[MAX_PATH + 1];
 	GetCurrentDirectoryA(MAX_PATH + 1, szFileName);
-	String fullpath = String(szFileName) + "\\" + filename;
-	HINSTANCE result = ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
+	String fullpath = String(szFileName) + "\\" + AssetsPath() + filename;
+	S32 result = (S32)ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
+	if(result < 32) {
+		LPSTR messageBuffer = nullptr;
+		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+		CROSS_ASSERT(false, String("Can not open file with external editor\nerror:") + messageBuffer);
+	}
 }
 
 String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {

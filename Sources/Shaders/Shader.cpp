@@ -173,7 +173,7 @@ void Shader::Property::SetValue(const Value& v) {
 	value = v;
 }
 
-const Shader::Property::Value& Shader::Property::GetValue() const {
+Shader::Property::Value& Shader::Property::GetValue() {
 	return value;
 }
 
@@ -318,7 +318,6 @@ void Shader::Compile() {
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
-	uColor = glGetUniformLocation(program, "uColor");
 
 	for(Property& prop : properties){
 		prop.glId = glGetUniformLocation(program, prop.glName);

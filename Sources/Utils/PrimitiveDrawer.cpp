@@ -25,7 +25,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 using namespace cross;
 using namespace tinyxml2;
 
-void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
+void PrimitiveDrawer::DrawPoint(const Vector2D& pos, Color& color) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	Camera* cam = game->GetCurrentScene()->GetCamera();
@@ -33,12 +33,12 @@ void PrimitiveDrawer::DrawPoint(const Vector2D& pos,const Color& color) {
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_POINTS, 0, 1));
 }
 
-void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, const Color& color) {
+void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, Color& color) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[4] = { p1.x, p1.y, p2.x, p2.y };
@@ -47,16 +47,16 @@ void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, const Col
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
 
-void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color) {
+void PrimitiveDrawer::DrawRect(const Rect& rect, Color& color) {
 	DrawRect(rect, color, false);
 }
 
-void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color, bool filled) {
+void PrimitiveDrawer::DrawRect(const Rect& rect, Color& color, bool filled) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[4 * 2] = { rect.x, rect.y,
@@ -69,7 +69,7 @@ void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color, bool filled
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glEnable(GL_BLEND));
 	if(filled) {
@@ -81,15 +81,15 @@ void PrimitiveDrawer::DrawRect(const Rect& rect, const Color& color, bool filled
 	}
 }
 
-void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Color& color) {
+void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& color) {
 	DrawCircle(center, radius, color, false);
 }
 
-void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Color& color, bool filled) {
+void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& color, bool filled) {
 	DrawCircle(center, radius, color, filled, 30);
 }
 
-void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Color& color, bool filled, U32 accuracy) {
+void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& color, bool filled, U32 accuracy) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	U32 vertexCount = accuracy;
@@ -121,7 +121,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
-	SAFE(glUniform4fv(shader->uColor, 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	if(filled) {
 		SAFE(glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount));
@@ -131,7 +131,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, const Col
 	delete[] buffer;
 }
 
-void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {
+void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, Color& c) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[6] = { p1.x, p1.y, p1.z, p2.x, p2.y, p2.z };
@@ -140,7 +140,7 @@ void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Col
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(shader->uColor, 1, c.GetData()));
+	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, c.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }

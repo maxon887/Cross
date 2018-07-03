@@ -69,7 +69,7 @@ void Color::SetData(const char* data){
 	memcpy(&R, data, sizeof(Color));
 }
 
-const float* Color::GetData() const{
+float* Color::GetData() {
 	return &R;
 }
 

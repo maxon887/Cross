@@ -43,7 +43,7 @@ public:
 	/* Fill Color with flat data */
 	void SetData(const char* data);
 	/* Returns flat Color's data with sizeof 4 * float */
-	const float* GetData() const;
+	float* GetData();
 
 	bool operator == (const Color &c) const;
 	bool operator != (const Color &c) const;

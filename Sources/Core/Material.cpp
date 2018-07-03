@@ -67,9 +67,14 @@ void Material::Load(const String& filename, Scene* scene) {
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	const char* shaderfilename = materialXML->Attribute("shader");
 	CROSS_FAIL(shaderfilename, "Material file not contain 'shader' filename");
-	if(shaderfilename) {
-		Shader* shader = scene->GetShader(shaderfilename);
-		SetShader(shader);
+
+	if(scene) {
+		shader = scene->GetShader(shaderfilename);
+		Reset();
+	} else {
+		shader = new Shader();
+		shader->Load(shaderfilename);
+		Reset();
 	}
 
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
@@ -93,6 +98,7 @@ void Material::Load(const String& filename, Scene* scene) {
 			} break;
 			case Shader::Property::TEXTURE: {
 				const char* textureFilename = propertyXML->Attribute("value");
+				CROSS_FAIL(scene, "Can not load material with texture without scene");
 				Texture* texture = scene->GetTexture(textureFilename);
 				prop->SetValue(texture);
 			} break;

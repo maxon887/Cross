@@ -81,7 +81,7 @@ public:
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
 		void SetValue(const Value& value);
-		const Value& GetValue() const;
+		Value& GetValue();
 
 		Property* Clone() const;
 
@@ -114,7 +114,6 @@ public:
 	GLint uNormalMatrix = -1;
 	GLint uCameraPosition = -1;
 	GLint uAmbientLight = -1;
-	GLint uColor = -1;
 
 	Shader() = default;
 	Shader(const String& vertexFile, const String& fragmentFile);
