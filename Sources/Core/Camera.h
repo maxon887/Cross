@@ -43,7 +43,7 @@ public:
 	void SetProjectionMatrix(const Matrix& projection);
 
 protected:
-	Property<float> view_distance = Property<float>(this, "ViewDistance", 100.f);
+	Property<float> view_distance	= Property<float>(this, "ViewDistance", 100.f);
 
 	Matrix view						= Matrix::Identity;
 	Matrix projection				= Matrix::Identity;
