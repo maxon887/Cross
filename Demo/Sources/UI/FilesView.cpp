@@ -18,6 +18,7 @@
 #include "System.h"
 #include "File.h"
 #include "Game.h"
+#include "Demo.h"
 #include "Scenes/DemoScene.h"
 
 #include <algorithm>
@@ -74,8 +75,10 @@ void FilesView::BuildNote(Node& node) {
 			ImGui::TreePop();
 		}
 	}
+
 	for(const String& file : node.files) {
 		String filepath = node.path + node.name + "/" + file;
+		String filesize = Demo::GetCompactSize(system->GetFileSize(filepath));
 		ImGuiTreeNodeFlags flags = filepath == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file, flags);
 		if(ImGui::IsItemClicked()) {
@@ -86,6 +89,10 @@ void FilesView::BuildNote(Node& node) {
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
 			FileDoubleClicked(filepath);
 		}
+
+		ImVec2 labelSize = ImGui::CalcTextSize(filesize);
+		ImGui::SameLine(ImGui::GetWindowWidth() - labelSize.x - SCALED(15.f));
+		ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.f), filesize);
 	}
 }
 
@@ -93,9 +100,8 @@ void FilesView::FileDoubleClicked(const String& filename) {
 	String extencion = File::ExtensionFromFile(filename);
 	if(extencion == "scn") {
 		Scene* scene = new DemoScene();
-		if(!scene->Load(filename, false)) {
+		if(!scene->Load(filename)) {
 			delete scene;
-			CROSS_ASSERT(false, "Can not load scene file, sorry");
 		} else {
 			game->SetScreen(scene);
 		}

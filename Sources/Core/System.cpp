@@ -82,6 +82,16 @@ bool System::IsAssetFileExists(const String& filename) {
 	return IsFileExists(AssetsPath() + filename);
 }
 
+U64 System::GetFileSize(const String& filename) {
+	FILE* f = fopen(filename.ToCStr(), "rb");
+	CROSS_RETURN(f, 0, "Can not open file '#'\nerror code - #\nDescription - #",
+		filename.ToCStr(), errno, strerror(errno));
+	fseek(f, 0, SEEK_END);
+	U64 size = ftell(f);
+	fclose(f);
+	return size;
+}
+
 bool System::IsDataFileExists(const String& filename) {
 	return IsFileExists(DataPath() + filename);
 }

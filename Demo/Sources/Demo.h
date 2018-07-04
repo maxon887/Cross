@@ -33,6 +33,8 @@ extern Demo* demo;
 
 class Demo : public Game {
 public:
+	static String GetCompactSize(U64 bytes);
+
 	ImFont* small_font		= nullptr;
 	ImFont* normal_font		= nullptr;
 	ImFont* big_font		= nullptr;

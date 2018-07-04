@@ -43,6 +43,16 @@ using namespace cross;
 
 Demo* demo = nullptr;
 
+String Demo::GetCompactSize(U64 bytes) {
+	if(bytes < 10 * 1024) {
+		return String(bytes) + " b";
+	} else if(bytes < 10 * 1024 * 1024) {
+		return String(bytes / 1024.f, "%.2f", 40) + " kb";
+	} else {
+		return String(bytes / (1024.f * 1024.f), "%.2f", 40) + " mb";
+	}
+}
+
 const char* Demo::GetClipboardString(void* userData) {
 	demo->clipboard = system->GetClipboard();
 	return demo->clipboard;

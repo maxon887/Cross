@@ -72,7 +72,10 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		ImGui::DragInt("##" + prop->GetName(), &prop->value);
 	} else if(dynamic_cast<Property<float>*>(baseProperty)) {
 		Property<float>* prop = (Property<float>*)baseProperty;
-		ImGui::DragFloat(prop->GetName(), &prop->value);
+		ImGui::Text(prop->GetName() + ":");
+		ImGui::SameLine(SCALED(100.f));
+		ImGui::PushItemWidth(SCALED(100.f));
+		ImGui::DragFloat("##" + prop->GetName(), &prop->value);
 	} else if(dynamic_cast<Property<String>*>(baseProperty)) {
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
 

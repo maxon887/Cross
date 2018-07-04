@@ -66,7 +66,6 @@ void MaterialVisualBox::Update() {
 		if(ImGui::Button("Revert", ImVec2(availableWidth / 4 - SCALED(10.f), 0))) {
 
 		}
-		//ImGui::SameLine(availableWidth / 2 + SCALED(110.f));
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
 

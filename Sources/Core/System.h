@@ -59,6 +59,8 @@ public:
 	virtual bool IsFileExists(const String& filename);
 	/* Checks if file exists in assets directory */
 	virtual bool IsAssetFileExists(const String& filename);
+	/* Returns file size */
+	virtual U64 GetFileSize(const String& filename);
 	/* Checks if file exists in data directory */
 	virtual bool IsDataFileExists(const String& filename);
 	/* Checks if folder exists in provided path */
