@@ -106,7 +106,7 @@ bool WINSystem::IsDirectoryExists(const String& filepath) {
 }
 
 void WINSystem::CreateDirectory(const String& dirpath) {
-	CreateDirectoryA(dirpath, nullptr);
+	CROSS_ASSERT(CreateDirectoryA(dirpath, nullptr), "Can not create directory");
 }
 
 Array<String> WINSystem::GetSubDirectories(const String& filepath) {

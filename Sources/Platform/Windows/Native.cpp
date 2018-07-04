@@ -137,6 +137,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	}
 	case WM_KILLFOCUS:
 		if(game) {
+			input->ResetKeys();
 			game->Suspend();
 		}
 		break;

@@ -108,8 +108,12 @@ bool System::IsDataDirectoryExists(const String& filepath) {
 	return IsDirectoryExists(DataPath() + filepath);
 }
 
-void System::CreateDirectory(const String &dirname) {
+void System::CreateDirectory(const String& dirname) {
 	CROSS_ASSERT(false, "System::CreateDirectory() does not implemented for current platform");
+}
+
+void System::CreateAssetDirectory(const String& dirname) {
+	CreateDirectory(AssetsPath() + "/" + dirname);
 }
 
 Array<String> System::GetSubDirectories(const String& filepath) {

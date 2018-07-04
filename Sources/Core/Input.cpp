@@ -70,6 +70,12 @@ void Input::Update() {
 	}
 }
 
+void Input::ResetKeys() {
+	for(int i = 0; i < pressed_keys.size(); ++i) {
+		pressed_keys[i] = false;
+	}
+}
+
 void Input::KeyPressedHandle(Key key) {
 	pressed_keys[(U32)key] = true;
 }

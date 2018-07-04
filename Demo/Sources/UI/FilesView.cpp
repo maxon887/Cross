@@ -37,6 +37,45 @@ void FilesView::Shown() {
 
 void FilesView::Content(float sec) {
 	BuildNote(file_tree);
+
+	static bool newFolder = false;
+	if(ImGui::BeginPopupContextWindow("FileOptions")) {
+		if(ImGui::MenuItem("New Folder")) {
+			newFolder = true;
+		}
+
+		ImGui::EndPopup();
+	}
+
+	if(newFolder) {
+		ImGui::OpenPopup("Folder Name");
+		newFolder = false;
+	}
+	if(ImGui::BeginPopupModal("Folder Name", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		static char buffer[256];
+		ImGui::Text("Enter folder name");
+		ImGui::SetKeyboardFocusHere(0);
+		ImGui::InputText("##FolderName", buffer, 256);
+
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
+			input->IsPressed(Key::ESCAPE)) {
+			ImGui::CloseCurrentPopup(); 
+		}
+		ImGui::SameLine();
+		if(ImGui::Button("Ok", ImVec2(120, 0)) || 
+			input->IsPressed(Key::RETURN)) {
+		
+			system->CreateAssetDirectory(buffer);
+
+			file_tree.files.clear();
+			file_tree.folders.clear();
+			InitNode(file_tree);
+
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
 }
 
 void FilesView::InitNode(Node& node) {

@@ -159,6 +159,8 @@ public:
 	/* Occurs instantly when user action released. Can be even in other thread. Do not use this */
 	Event<float, float, S32> TargetActionUp;
 
+	void ResetKeys();
+
 engineonly:
 	Input();
 
