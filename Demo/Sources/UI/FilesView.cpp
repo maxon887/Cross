@@ -137,7 +137,9 @@ void FilesView::ContextMenu() {
 	if(ImGui::BeginPopupModal("Folder Name", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		static char buffer[256];
 		ImGui::Text("Enter folder name");
-		ImGui::SetKeyboardFocusHere(0);
+		if(!ImGui::IsAnyItemActive()) {
+			ImGui::SetKeyboardFocusHere(0);
+		}
 		ImGui::InputText("##FolderName", buffer, 256);
 
 		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
