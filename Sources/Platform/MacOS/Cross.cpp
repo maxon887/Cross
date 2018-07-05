@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Input.h"
 #include "Screen.h"
+#include "Config.h"
 
 #include <iostream>
 
@@ -65,7 +66,7 @@ int main(int c,char **args) {
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Cross++", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 600, "Cross++", NULL, NULL);
     if(!window){
         cout<<"Failed to create GLFW window"<<endl;
     }
@@ -73,12 +74,6 @@ int main(int c,char **args) {
     glfwSetCursorPosCallback(window, GLFWMouseMoveCallback);
     glfwSetMouseButtonCallback(window, GLFWMouseButtonCallback);
 	glfwSetScrollCallback(window, GLFWScrollCallback);
-
-
-    int screenWidth;
-    int screenHeight;
-    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
-    system->SetWindowSize(screenWidth, screenHeight);
 
     int widthMM, heightMM;
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
@@ -93,6 +88,16 @@ int main(int c,char **args) {
     audio = new Audio();
     gfxGL = new GraphicsGL();
     game = CrossMain();
+
+	int width = config->GetInt("WindowWidth", 800);
+	int height = config->GetInt("WindowHeight", 600);
+	glfwSetWindowSize(window, width / 2.f, height / 2.f);
+	int posX = config->GetInt("WindowPosX", 200);
+	int posY = config->GetInt("WindowPosY", 100);
+	glfwSetWindowPos(window, posX, posY);
+	glfwGetFramebufferSize(window, &width, &height);
+	system->SetWindowSize(width, height);
+
     game->Start();
     
     while(!glfwWindowShouldClose(window)){
@@ -100,6 +105,12 @@ int main(int c,char **args) {
         game->EngineUpdate();
         glfwSwapBuffers(window);
     }
+
+	config->SetInt("WindowWidth", system->GetWindowWidth());
+	config->SetInt("WindowHeight", system->GetWindowHeight());
+	glfwGetWindowPos(window, &posX, &posY);
+	config->SetInt("WindowPosX", posX);
+	config->SetInt("WindowPosY", posY);
 
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
