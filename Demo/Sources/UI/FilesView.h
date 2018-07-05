@@ -38,9 +38,12 @@ private:
 	};
 
 	Node file_tree;
+	bool on_item_clicked = false;
 	String selected_path;
 
 	void InitNode(Node& node);
 	void BuildNote(Node& node);
 	void FileDoubleClicked(const String& filename);
+
+	void ContextMenu();
 };

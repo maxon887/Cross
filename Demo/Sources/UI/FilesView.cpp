@@ -36,46 +36,15 @@ void FilesView::Shown() {
 }
 
 void FilesView::Content(float sec) {
+	on_item_clicked = false;
 	BuildNote(file_tree);
 
-	static bool newFolder = false;
-	if(ImGui::BeginPopupContextWindow("FileOptions")) {
-		if(ImGui::MenuItem("New Folder")) {
-			newFolder = true;
-		}
-
-		ImGui::EndPopup();
+	if(!on_item_clicked && ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
+		selected_path = "";
+		FileSelected.Emit(selected_path);
 	}
 
-	if(newFolder) {
-		ImGui::OpenPopup("Folder Name");
-		newFolder = false;
-	}
-	if(ImGui::BeginPopupModal("Folder Name", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-		static char buffer[256];
-		ImGui::Text("Enter folder name");
-		ImGui::SetKeyboardFocusHere(0);
-		ImGui::InputText("##FolderName", buffer, 256);
-
-		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
-			input->IsPressed(Key::ESCAPE)) {
-			ImGui::CloseCurrentPopup(); 
-		}
-		ImGui::SameLine();
-		if(ImGui::Button("Ok", ImVec2(120, 0)) || 
-			input->IsPressed(Key::RETURN)) {
-		
-			system->CreateAssetDirectory(buffer);
-
-			file_tree.files.clear();
-			file_tree.folders.clear();
-			InitNode(file_tree);
-
-			ImGui::CloseCurrentPopup();
-		}
-
-		ImGui::EndPopup();
-	}
+	ContextMenu();
 }
 
 void FilesView::InitNode(Node& node) {
@@ -103,6 +72,7 @@ void FilesView::BuildNote(Node& node) {
 		bool open = ImGui::TreeNodeEx(child.name, flags);
 
 		if(ImGui::IsItemClicked()) {
+			on_item_clicked = true;
 			selected_path = filepath;
 		}
 
@@ -121,6 +91,7 @@ void FilesView::BuildNote(Node& node) {
 		ImGuiTreeNodeFlags flags = filepath == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file, flags);
 		if(ImGui::IsItemClicked()) {
+			on_item_clicked = true;
 			selected_path = filepath;
 			filepath.Remove(system->AssetsPath());
 			FileSelected.Emit(filepath);
@@ -146,5 +117,46 @@ void FilesView::FileDoubleClicked(const String& filename) {
 		}
 	} else {
 		system->OpenFileExternal(filename);
+	}
+}
+
+void FilesView::ContextMenu() {
+	static bool newFolder = false;
+	if(ImGui::BeginPopupContextWindow("FileOptions")) {
+		if(ImGui::MenuItem("New Folder")) {
+			newFolder = true;
+		}
+
+		ImGui::EndPopup();
+	}
+
+	if(newFolder) {
+		ImGui::OpenPopup("Folder Name");
+		newFolder = false;
+	}
+	if(ImGui::BeginPopupModal("Folder Name", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		static char buffer[256];
+		ImGui::Text("Enter folder name");
+		ImGui::SetKeyboardFocusHere(0);
+		ImGui::InputText("##FolderName", buffer, 256);
+
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
+			input->IsPressed(Key::ESCAPE)) {
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SameLine();
+		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
+			input->IsPressed(Key::RETURN)) {
+
+			system->CreateAssetDirectory(buffer);
+
+			file_tree.files.clear();
+			file_tree.folders.clear();
+			InitNode(file_tree);
+
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
 	}
 }
