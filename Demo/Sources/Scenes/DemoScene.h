@@ -39,6 +39,14 @@ protected:
 
 private:
 	const float camera_speed = 5.f;
+
+	Shader* gizmo_shader = nullptr;
+	Material* red_mat = nullptr;
+	Material* green_mat = nullptr;
+	Material* blue_mat = nullptr;
+	Model* arrow = nullptr;
+	Entity* transform_gizmo = nullptr;
+
 	//used same concept as on the Input class
 	List<pair<Input::Action, int> > action_stack;
 

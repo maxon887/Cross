@@ -32,6 +32,8 @@ public:
 	const String& GetName() const;
 	/* Sets name of the object. Rewrites name given by constructor */
 	void SetName(const String& name);
+	/* Used for forcly update Entity */
+	void Update(float sec);
 
 	/* Checks if Entity contains certain component T */
 	template<class T> bool HasComponent() const;
@@ -79,7 +81,6 @@ public:
 engineonly:
 	void Initialize();
 	void Remove();
-	void Update(float sec);
 
 private:
 	String name								= String();

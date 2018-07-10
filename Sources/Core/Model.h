@@ -45,7 +45,7 @@ public:
 	void Load(const String& filename, bool calcTangents, bool transferVideoData);
 	/* Returns model's filename if was loaded from file */
 	const String& GetFilename() const;
-	/* Returns model's object hierarchy as Entity hierarchy */
+	/* Returns model's object hierarchy as Entity hierarchy. Be aware its creates copy of whole entity */
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
 	Mesh* GetMesh(S32 id);
