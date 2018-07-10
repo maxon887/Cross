@@ -144,6 +144,7 @@ void DemoScene::Update(float sec) {
 
 	FreeCameraScene::Update(sec);
 
+	SAFE(glClear(GL_DEPTH_BUFFER_BIT));
 	transform_gizmo->Update(sec);
 }
 
