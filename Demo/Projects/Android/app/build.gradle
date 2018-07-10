@@ -10,11 +10,6 @@ android {
         versionCode 300
         versionName "3.0.0"
         productFlavors {
-            armeabi {
-                ndk {
-                    abiFilter "armeabi"
-                }
-            }
             armV7 {
                 ndk {
                     abiFilter "armeabi-v7a"
@@ -32,7 +27,6 @@ android {
             }
             fat {
                 ndk {
-                    abiFilter "armeabi"
                     abiFilter "armeabi-v7a"
                     abiFilter "arm64-v8a"
                     abiFilter "x86"
@@ -45,6 +39,7 @@ android {
                 cppFlags "-frtti"
                 cppFlags += " -fexceptions"
                 cppFlags += " -std=c++11"
+                cppFlags += " -Wno-error=format-security"
             }
         }
     }
