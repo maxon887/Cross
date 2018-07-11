@@ -91,6 +91,11 @@ void MenuBar::ShowMenu() {
 		}
 
 		if(ImGui::BeginMenu("File")) {
+			if(ImGui::MenuItem("New Scene")) {
+				Scene* scene = new DemoScene();
+				game->SetScreen(scene);
+			}
+
 			if(ImGui::MenuItem("Open Scene")) {
 				String sceneFile = system->OpenFileDialog();
 				if(sceneFile != "") {

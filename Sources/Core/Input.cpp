@@ -71,7 +71,7 @@ void Input::Update() {
 }
 
 void Input::ResetKeys() {
-	for(int i = 0; i < pressed_keys.size(); ++i) {
+	for(U32 i = 0; i < pressed_keys.size(); ++i) {
 		pressed_keys[i] = false;
 	}
 }

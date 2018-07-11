@@ -38,4 +38,5 @@ private:
 
 	void LookAtObject();
 	void BuildNode(Entity* entity);
+	void ContextMenu();
 };

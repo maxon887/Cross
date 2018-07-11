@@ -61,11 +61,13 @@ void SceneView::Content(float sec) {
 	} else {
 		selected_entity = nullptr;
 	}
+
+	ContextMenu();
 }
 
 void SceneView::LookAtObject() {
 	FreeCameraScene* scene = static_cast<FreeCameraScene*>(game->GetCurrentScene());
-	if(!selected_entity->HasComponent<Camera>()) {
+	if(!selected_entity->HasComponent<Camera>() && selected_entity->HasComponent<Transform>()) {
 		scene->LookAtCamera(selected_entity->GetTransform()->GetPosition());
 	}
 }
@@ -108,5 +110,17 @@ void SceneView::BuildNode(Entity* entity) {
 	if(system->IsMobile() && system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 		ImGui::PopFont();
 		ImGui::PopStyleVar(2);
+	}
+}
+
+void SceneView::ContextMenu() {
+	if(ImGui::BeginPopupContextWindow("SceneOptions")) {
+		bool enabled = game->GetCurrentScene() != nullptr ? true : false;
+		if(ImGui::MenuItem("New Entity", nullptr, false, enabled)) {
+			Entity* newEntity = new Entity("NewEntity");
+			game->GetCurrentScene()->AddEntity(newEntity);
+		}
+
+		ImGui::EndPopup();
 	}
 }
