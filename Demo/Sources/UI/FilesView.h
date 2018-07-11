@@ -38,7 +38,6 @@ private:
 	};
 
 	Node file_tree;
-	bool on_item_clicked = false;
 	String selected_path;
 
 	void InitNode(Node& node);

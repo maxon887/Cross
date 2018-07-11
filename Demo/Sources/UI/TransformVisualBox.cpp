@@ -65,9 +65,11 @@ void TransformVisualBox::Show(Transform* transform) {
 }
 
 void TransformVisualBox::EntitySelected(Entity* newEntity) {
-	Transform* tr = newEntity->GetComponent<Transform>();
-	if(tr) {
-		axis = tr->GetRotate().GetAxis();
-		angle = tr->GetRotate().GetAngle();
+	if(newEntity) {
+		Transform* tr = newEntity->GetComponent<Transform>();
+		if(tr) {
+			axis = tr->GetRotate().GetAxis();
+			angle = tr->GetRotate().GetAngle();
+		}
 	}
 }

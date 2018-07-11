@@ -61,6 +61,8 @@ void ComponentsView::Content(float sec) {
 			ImGui::PopStyleVar();
 		}
 	}
+
+	ContextMenu(entity);
 }
 
 void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
@@ -104,5 +106,17 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 	} else {
 		String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
 		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), "%s", errStr.ToCStr());
+	}
+}
+
+void ComponentsView::ContextMenu(Entity* selectedEntity) {
+	if(ImGui::BeginPopupContextWindow("ComponentsOptions")) {
+		bool enabled = selectedEntity != nullptr;
+		if(ImGui::BeginMenu("Add Component", enabled)) {
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndPopup();
 	}
 }

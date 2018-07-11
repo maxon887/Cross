@@ -62,6 +62,11 @@ void SceneView::Content(float sec) {
 		selected_entity = nullptr;
 	}
 
+	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
+		selected_entity = nullptr;
+		EntitySelected.Emit(selected_entity);
+	}
+
 	ContextMenu();
 }
 

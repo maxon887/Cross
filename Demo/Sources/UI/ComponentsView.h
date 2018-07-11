@@ -32,4 +32,6 @@ protected:
 	SceneView* scene_view = nullptr;
 
 	void ShowProperty(BaseProperty* baseProperty);
+
+	void ContextMenu(Entity* selectedEntity);
 };

@@ -36,10 +36,9 @@ void FilesView::Shown() {
 }
 
 void FilesView::Content(float sec) {
-	on_item_clicked = false;
 	BuildNote(file_tree);
 
-	if(!on_item_clicked && ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
+	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
 		selected_path = "";
 		FileSelected.Emit(selected_path);
 	}
@@ -72,7 +71,6 @@ void FilesView::BuildNote(Node& node) {
 		bool open = ImGui::TreeNodeEx(child.name, flags);
 
 		if(ImGui::IsItemClicked()) {
-			on_item_clicked = true;
 			selected_path = filepath;
 		}
 
@@ -91,7 +89,6 @@ void FilesView::BuildNote(Node& node) {
 		ImGuiTreeNodeFlags flags = filepath == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file, flags);
 		if(ImGui::IsItemClicked()) {
-			on_item_clicked = true;
 			selected_path = filepath;
 			filepath.Remove(system->AssetsPath());
 			FileSelected.Emit(filepath);
