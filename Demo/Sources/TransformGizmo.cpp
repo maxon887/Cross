@@ -5,6 +5,9 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Game.h"
+#include "Scene.h"
+#include "Camera.h"
 
 TransformGizmo::TransformGizmo() {
 	shader = new Shader();
@@ -54,4 +57,11 @@ TransformGizmo::~TransformGizmo() {
 void TransformGizmo::Update(float sec) {
 	SAFE(glClear(GL_DEPTH_BUFFER_BIT));
 	entity->Update(sec);
+
+	Camera* camera = game->GetCurrentScene()->GetCamera();
+	Vector3D camPos = camera->GetEntity()->GetComponent<Transform>()->GetPosition();
+	Vector3D gizmoPos = entity->GetComponent<Transform>()->GetPosition();
+	Vector3D diff = camPos - gizmoPos;
+	float scale = diff.Length() / ScaleFactor;
+	entity->GetComponent<Transform>()->SetScale(scale);
 }

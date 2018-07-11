@@ -5,6 +5,8 @@ using namespace cross;
 
 class TransformGizmo {
 public:
+	float ScaleFactor = 10.f;
+
 	TransformGizmo();
 	~TransformGizmo();
 
