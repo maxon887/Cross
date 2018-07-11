@@ -21,9 +21,6 @@
 #include "System.h"
 #include "Entity.h"
 #include "Mesh.h"
-#include "Transform.h"
-#include "Shaders/Shader.h"
-#include "Material.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -46,50 +43,9 @@ void DemoScene::Start() {
 	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
-
-	gizmo_shader = new Shader();
-	gizmo_shader->Load("Engine/Shaders/Simple.sha");
-	gizmo_shader->Compile();
-
-	red_mat = new Material(gizmo_shader);
-	red_mat->SetPropertyValue("Color", Color::Red);
-	green_mat = new Material(gizmo_shader);
-	green_mat->SetPropertyValue("Color", Color::Green);
-	blue_mat = new Material(gizmo_shader);
-	blue_mat->SetPropertyValue("Color", Color::Blue);
-
-	arrow = new Model();
-	arrow->Load("Editor/Models/Arrow.obj");
-
-	Entity* xArrow = arrow->GetHierarchy();
-	xArrow->SetName("XArrow");
-	xArrow->GetComponent<Mesh>()->SetMaterial(red_mat);
-	xArrow->GetComponent<Transform>()->SetRotate(Vector3D(0.f, 0.f, 1.f), 90.f);
-
-	Entity* yArrow = arrow->GetHierarchy();
-	yArrow->SetName("YArrow");
-	yArrow->GetComponent<Mesh>()->SetMaterial(green_mat);
-
-	Entity* zArrow = arrow->GetHierarchy();
-	zArrow->SetName("ZArrow");
-	zArrow->GetComponent<Mesh>()->SetMaterial(blue_mat);
-	zArrow->GetComponent<Transform>()->SetRotate(Vector3D(1.f, 0.f, 0.f), 90.f);
-
-	transform_gizmo = new Entity("TransformGizmo");
-	transform_gizmo->AddComponent(new Transform());
-	transform_gizmo->AddChild(xArrow);
-	transform_gizmo->AddChild(yArrow);
-	transform_gizmo->AddChild(zArrow);
 }
 
 void DemoScene::Stop() {
-	delete transform_gizmo;
-	delete arrow;
-	delete green_mat;
-	delete blue_mat;
-	delete red_mat;
-	delete gizmo_shader;
-
 	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
 	input->Scroll.Disconnect(this, &DemoScene::MouseWheelRoll);
 	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
@@ -144,8 +100,7 @@ void DemoScene::Update(float sec) {
 
 	FreeCameraScene::Update(sec);
 
-	SAFE(glClear(GL_DEPTH_BUFFER_BIT));
-	transform_gizmo->Update(sec);
+	transform_gizmo.Update(sec);
 }
 
 void DemoScene::ActionDown(Input::Action action) {

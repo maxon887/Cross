@@ -183,6 +183,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\Sources\ImGuiScreen.cpp" />
+    <ClCompile Include="..\..\Sources\TransformGizmo.cpp" />
     <ClCompile Include="..\..\Sources\UI\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
     <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp" />
@@ -283,6 +284,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\Sources\ImGuiScreen.h" />
+    <ClInclude Include="..\..\Sources\TransformGizmo.h" />
     <ClInclude Include="..\..\Sources\UI\About.h" />
     <ClInclude Include="..\..\Sources\UI\CameraController.h" />
     <ClInclude Include="..\..\Sources\UI\ComponentsView.h" />
