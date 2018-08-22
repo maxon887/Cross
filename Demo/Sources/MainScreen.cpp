@@ -39,7 +39,7 @@
 #include "Graphics3D/Misc/ApocalypseScene.h"
 #include "Physics/Ocean.h"
 #include "Physics/HardConstraints.h"
-//#include "Physics/Bridge.h"
+#include "Physics/Bridge.h"
 //#include "Physics/Suppressors.h"
 #include "AudioScreen.h"
 
@@ -152,7 +152,7 @@ void MainScreen::Update(float sec) {
 			game->SetScreen(new HardConstraints());
 		}
 		if(ImGui::MenuButton("Bridge")) {
-			//game->SetScreen(new Bridge());
+			game->SetScreen(new Bridge());
 		}
 		if(ImGui::MenuButton("Suppressors")) {
 			//game->SetScreen(new Suppressors());

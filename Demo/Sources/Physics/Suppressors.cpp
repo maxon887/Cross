@@ -23,11 +23,11 @@
 void Suppressors::Start(){
 	ApocalypseScene::Start();
 	GetCamera()->SetPosition(Vector3D(-3.2f, 2.1f, 4.4f));
-	GetCamera()->LookAt(Vector3D::Zero);
+	GetCamera()->GetEntity()->GetComponent<Transform>()->LookAt(Vector3D::Zero);
 
 	Entity* camaro = GetEntity("Axel");
 	//camaro->SetParent(NULL);
-	camaro->SetPosition(Vector3D(0.f, 10.f, 0.f));
+	camaro->GetComponent<Transform>()->SetPosition(Vector3D(0.f, 10.f, 0.f));
 	//RigidBody* camaroRigid = new RigidBody(1500.f);
 	//camaro->AddComponent(camaroRigid);
 }

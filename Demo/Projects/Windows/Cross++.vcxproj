@@ -166,8 +166,10 @@
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\MainScreen.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp" />
     <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp" />
     <ClCompile Include="..\..\Sources\Physics\Ocean.cpp" />
+    <ClCompile Include="..\..\Sources\Physics\Suppressors.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
@@ -261,8 +263,10 @@
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h" />
     <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\MainScreen.h" />
+    <ClInclude Include="..\..\Sources\Physics\Bridge.h" />
     <ClInclude Include="..\..\Sources\Physics\HardConstraints.h" />
     <ClInclude Include="..\..\Sources\Physics\Ocean.h" />
+    <ClInclude Include="..\..\Sources\Physics\Suppressors.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h" />

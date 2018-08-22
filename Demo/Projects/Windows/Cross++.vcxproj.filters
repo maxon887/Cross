@@ -334,6 +334,12 @@
     <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp">
       <Filter>Demo\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Physics\Suppressors.cpp">
+      <Filter>Demo\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -623,6 +629,12 @@
       <Filter>Demo\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Physics\HardConstraints.h">
+      <Filter>Demo\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Physics\Bridge.h">
+      <Filter>Demo\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Physics\Suppressors.h">
       <Filter>Demo\Physics</Filter>
     </ClInclude>
   </ItemGroup>

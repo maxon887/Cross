@@ -15,10 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Graphics3D/CameraControlsScene.h"
+#include "Graphics3D/DemoScene.h"
 #include "Physics/HardConstraints.h"
 
-class Bridge : public CameraControlsScene {
+class Bridge : public DemoScene {
 public:
 	virtual void Start();
 	virtual void Stop();
