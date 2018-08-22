@@ -15,10 +15,13 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+#include "Cross.h"
+#include "Graphics3D/DemoScene.h"
 #include "Entity.h"
-#include "Graphics3D/CameraControlsScene.h"
-#include "Shaders/MultiLightShader.h"
 #include "Physics/Physics.h"
+#include "Shaders/LightsShader.h"
+
+using namespace cross;
 
 class Connection{
 public:
@@ -80,7 +83,7 @@ private:
 	RigidBody* endB;
 };
 
-class HardConstraints : public CameraControlsScene,
+class HardConstraints : public DemoScene,
 						public CollisionProvider {
 public:
 	virtual void Start();
@@ -90,7 +93,7 @@ public:
 	virtual void Provide(Array<Collision>& collisions, Array<Collider*>& colliders);
 
 private:
-	MultiLightShader* road_shader;
+	Shader* road_shader;
 	Texture* road_diffuse;
 	Material* road_mat;
 
