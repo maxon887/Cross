@@ -117,15 +117,7 @@ int OpenGL_Main() {
 	delete audio;
 	delete system;
 #ifdef CROSS_MEMORY_PROFILE
-	U64 leaked = MemoryManager::Instance()->Dump();
-	if(leaked > 0) {
-		char buf[256];
-		sprintf(buf, "Memory leak.Total bytes = %llu\n", leaked);
-		OutputDebugString(buf);
-		return -1;
-	} else {
-		OutputDebugString("No memory leak detected\n");
-	}
+	MemoryManager::Instance()->Dump();
 #endif // CROSS_MEMORY_PROFILE
 	return msg.wParam;
 }

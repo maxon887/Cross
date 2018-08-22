@@ -187,6 +187,8 @@ U64 MemoryManager::Dump() {
 	if(totalBytes != 0) {
 		Log("Memory leak detected(%llu bytes)\n", totalBytes);
 		assert(false);
+	} else {
+		Log("No memory leak detected\n");
 	}
 	return totalBytes;
 }
