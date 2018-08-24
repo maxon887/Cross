@@ -1,11 +1,15 @@
 #include "Cross.h"
 #include "Internals/MemoryManager.h"
+
 #include "Array.h"
 
 #include <stdio.h>
 #include <vector>
 
 using namespace cross;
+
+template<class T>
+using ArrayTest = ArraySTD<T>;
 
 class Hard {
 public:
@@ -14,6 +18,8 @@ public:
 		data = new char[data_size];
 	}
 	Hard(const Hard& other) {
+		printf("Hard Copy Constructor\n");
+		data = new char[data_size];
 		memcpy(other.data, data, data_size);
 	}
 	~Hard() {
@@ -32,11 +38,10 @@ private:
 
 void Test() {
 	Hard hardOne;
-	Hard hardTwo;
-	hardTwo = hardOne;
+	Hard hardTwo = hardOne;
 
-	vector<Hard> vec(10);
-	vec[0] = hardTwo;
+	ArrayTest<Hard> array;
+	array.Add(hardOne);
 }
 
 void main() {
