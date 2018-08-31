@@ -330,6 +330,9 @@
     <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\StringTest.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -626,6 +629,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h">
       <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\StringTest.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

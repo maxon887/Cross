@@ -29,6 +29,7 @@ public:
 	void Update(float sec);
 
 	void ShowMenu();
+	void CloseAllViews();
 	float GetHeight() const;
 
 protected:

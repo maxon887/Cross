@@ -169,6 +169,12 @@ void MenuBar::ShowMenu() {
 	}
 }
 
+void MenuBar::CloseAllViews() {
+	for(View* v : views) {
+		v->Hide();
+	}
+}
+
 float MenuBar::GetHeight() const {
 	return menu_height;
 }
