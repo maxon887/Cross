@@ -112,6 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Sources\Experimental\String.cpp" />
     <ClCompile Include="..\..\Sources\Internals\MemoryManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

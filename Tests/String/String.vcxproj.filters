@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\Sources\Internals\MemoryManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Experimental\String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Internals\MemoryManager.h">
