@@ -94,7 +94,7 @@ void Material::Load(const String& filename, Scene* scene) {
 			} break;
 			case Shader::Property::COLOR: {
 				String value = propertyXML->Attribute("value");
-				prop->SetValue(value.ToColor());
+				prop->SetValue(Color(value));
 			} break;
 			case Shader::Property::TEXTURE: {
 				const char* textureFilename = propertyXML->Attribute("value");
@@ -124,7 +124,7 @@ void Material::Save(const String& filename) {
 		propertyXML->SetAttribute("name", prop.GetName());
 		switch(prop.GetType()) {
 		case Shader::Property::Type::COLOR: {
-			String color = prop.value.color;
+			String color = prop.value.color.ToString();
 			propertyXML->SetAttribute("value", color);
 			break;
 		}

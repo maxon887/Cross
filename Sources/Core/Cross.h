@@ -54,16 +54,16 @@ namespace cross {
 }
 
 #include "Internals/MemoryManager.h"
+#include "Experimental/String.h"
+#include "Experimental/ArraySTD.h"
+#include "Experimental/Function.h"
+
 #include "Math/All.h"
 #include "Color.h"
 
 #include <list>
 #include <map>
 #include <set>
-
-#include "Experimental/ArraySTD.h"
-#include "Experimental/String.h"
-#include "Experimental/Function.h"
 
 #define system cross_system
 

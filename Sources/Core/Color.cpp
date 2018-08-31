@@ -14,8 +14,8 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Color.h"
 #include "Cross.h"
+#include "Color.h"
 
 #include <cstring>
 
@@ -65,12 +65,28 @@ Color::Color(int r, int g, int b, int a) :
 	A(a / 255.f)
 { }
 
+Color::Color(const String& hex) {
+	String rStr = hex.SubString(0, 2);
+	R = rStr.ToInt(16) / 255.f;
+	String gStr = hex.SubString(2, 4);
+	G = gStr.ToInt(16) / 255.f;
+	String bStr = hex.SubString(4, 6);
+	B = bStr.ToInt(16) / 255.f;
+	String aStr = hex.SubString(6, 8);
+	A = aStr.ToInt(16) / 255.f;
+}
+
 void Color::SetData(const char* data){
 	memcpy(&R, data, sizeof(Color));
 }
 
 float* Color::GetData() {
 	return &R;
+}
+
+String Color::ToString() const {
+	String result = String(R, "%02X", 2) + String(G, "%02X", 2) + String(B, "%02X", 2) + String(A, "%02X", 2);
+	return result;
 }
 
 bool Color::operator == (const Color &c) const{
