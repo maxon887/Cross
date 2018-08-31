@@ -95,19 +95,6 @@ String::String(U64 number) : String(number, "%llu", 50) { }
 
 String::String(float number) : String(number, "%f", 50) { }
 
-String::String(const Color& color) :
-	length(8),
-	capacity(8)
-{
-	data = (char*)CROSS_ALLOC(capacity + 1);
-	S32 written = sprintf(data, "%02X%02X%02X%02X",
-		(int)(color.R * 255),
-		(int)(color.G * 255),
-		(int)(color.B * 255),
-		(int)(color.A * 255));
-	CROSS_ASSERT(written == 8, "Conversion from Color to String failed");
-}
-
 String::~String() {
 	CROSS_FREE(data);
 }
@@ -289,19 +276,6 @@ float String::ToFloat() const {
 	CROSS_RETURN(endp != data, 0, "Conversion from string '#' to float failed", data);
 	CROSS_ASSERT(*endp == '\0', "String '#' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
-}
-
-Color String::ToColor() const {
-	String rStr = String(data + 0, data + 2);
-	S32 rInt = rStr.ToInt(16);
-	String gStr = String(data + 2, data + 4);
-	S32 gInt = gStr.ToInt(16);
-	String bStr = String(data + 4, data + 6);
-	S32 bInt = bStr.ToInt(16);
-	String aStr = String(data + 6, data + 8);
-	S32 aInt = aStr.ToInt(16);
-	Color result(rInt / 255.f, gInt / 255.f, bInt / 255.f, aInt / 255.f);
-	return result;
 }
 
 String& String::operator = (const char* cstr) {

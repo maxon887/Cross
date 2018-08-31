@@ -34,7 +34,6 @@ public:
 	String(S64 number);
 	String(U64 number);
 	String(float number);
-	String(const Color& color);
 	String(const char* cstr, S32 length, S32 capacity);
 	template<class Value>
 	String(Value value, const char* format, S32 bufferSize);
@@ -88,8 +87,6 @@ public:
 	S32 ToInt(U32 base) const;
 	/* Converts this String to float type and returns it */
 	float ToFloat() const;
-	/* Converts this String to Color object and returns it */
-	Color ToColor() const;
 
 	String& operator = (const char* other);
 	String& operator = (const String& other);
