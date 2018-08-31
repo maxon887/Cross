@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9D01239E20D1439D00885945 /* ShaderVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */; };
 		9D0123A120D143AD00885945 /* PropertiesView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D0123A020D143AD00885945 /* PropertiesView.cpp */; };
+		9D1261382111E121005F9990 /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1261372111E121005F9990 /* MaterialVisualBox.cpp */; };
 		9D33C12F20D02B92007EF97F /* ImGuiScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */; };
 		9D33C15720D02B9F007EF97F /* NakedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13220D02B9F007EF97F /* NakedScene.cpp */; };
 		9D33C15820D02B9F007EF97F /* NormalScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13320D02B9F007EF97F /* NormalScene.cpp */; };
@@ -107,6 +108,8 @@
 		9D01239D20D1439D00885945 /* ShaderVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderVisualBox.h; sourceTree = "<group>"; };
 		9D01239F20D143AC00885945 /* PropertiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertiesView.h; sourceTree = "<group>"; };
 		9D0123A020D143AD00885945 /* PropertiesView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertiesView.cpp; sourceTree = "<group>"; };
+		9D1261362111E121005F9990 /* MaterialVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialVisualBox.h; sourceTree = "<group>"; };
+		9D1261372111E121005F9990 /* MaterialVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialVisualBox.cpp; sourceTree = "<group>"; };
 		9D33C12D20D02B91007EF97F /* ImGuiScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImGuiScreen.h; sourceTree = "<group>"; };
 		9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiScreen.cpp; sourceTree = "<group>"; };
 		9D33C13220D02B9F007EF97F /* NakedScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NakedScene.cpp; sourceTree = "<group>"; };
@@ -503,6 +506,8 @@
 		9D40A86A2099E8F000F6902F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9D1261372111E121005F9990 /* MaterialVisualBox.cpp */,
+				9D1261362111E121005F9990 /* MaterialVisualBox.h */,
 				9D0123A020D143AD00885945 /* PropertiesView.cpp */,
 				9D01239F20D143AC00885945 /* PropertiesView.h */,
 				9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */,
@@ -1098,6 +1103,7 @@
 				9D01239E20D1439D00885945 /* ShaderVisualBox.cpp in Sources */,
 				9D54BBC91FBC435B009E8469 /* Cubemap.cpp in Sources */,
 				9D33C16620D02B9F007EF97F /* PointLightScene.cpp in Sources */,
+				9D1261382111E121005F9990 /* MaterialVisualBox.cpp in Sources */,
 				9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */,
 				9D6DDCF71FF63B6B009DD71C /* imgui_freetype.cpp in Sources */,
 				9D40A8802099E8F000F6902F /* FilesView.cpp in Sources */,

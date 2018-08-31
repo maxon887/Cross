@@ -18,7 +18,6 @@
 #include "MemoryManager.h"
 
 #ifdef CROSS_MEMORY_PROFILE
-#include "System.h"
 
 #include <stdarg.h>
 #include <stdlib.h>
@@ -167,7 +166,7 @@ void MemoryManager::Free(void* address) {
 				return;
 			}
 		}
-		CROSS_ASSERT(false, "Attempt to delete bad pointer\n");
+		assert(false && "Attempt to delete bad pointer\n");
 	} else {
 		free(address);
 	}
@@ -188,6 +187,8 @@ U64 MemoryManager::Dump() {
 	if(totalBytes != 0) {
 		Log("Memory leak detected(%llu bytes)\n", totalBytes);
 		assert(false);
+	} else {
+		Log("No memory leak detected\n");
 	}
 	return totalBytes;
 }
@@ -212,11 +213,13 @@ void MemoryManager::SanityCheck() {
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-			Log("Sanity Check failed");
 			assert(false);
 		}
 	}
-	CROSS_ASSERT(count == 0,"Sanity Check failed\nTotal: # corrupted buffers\n", count);
+	if(count != 0) {
+		Log("Sanity Check failed\nTotal: %d corrupted buffers\n", count);
+		assert(false);
+	}
 }
 
 MemoryManager::MemoryObject& MemoryManager::FindObject(void* address) {
@@ -225,8 +228,9 @@ MemoryManager::MemoryObject& MemoryManager::FindObject(void* address) {
 			return alloc_objects[i];
 		}
 	}
+	assert(false && "Can not find memory object");
 	static MemoryObject bad_object;
-	CROSS_RETURN(false, bad_object, "Can not find memory object");
+	return bad_object;
 }
 
 void MemoryManager::Log(const char* msg, ...) {
