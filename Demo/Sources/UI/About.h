@@ -24,5 +24,5 @@ class About : public View {
 public:
 	About() : View("About") { }
 	
-	void Content(float sec) override;
+	void Update(float sec) override;
 };

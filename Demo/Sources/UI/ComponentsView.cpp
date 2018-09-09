@@ -30,7 +30,7 @@ ComponentsView::ComponentsView(SceneView* sceneView) :
 	scene_view->EntitySelected.Connect(&tranform_box, &TransformVisualBox::EntitySelected);
 }
 
-void ComponentsView::Content(float sec) {
+void ComponentsView::Update(float sec) {
 	Entity* entity = scene_view->GetSelectedEntity();
 	if(entity) {
 		for(Component* component : entity->GetComponents()) {

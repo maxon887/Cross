@@ -35,7 +35,7 @@ void CameraController::Shown() {
 	}
 }
 
-void CameraController::WillContent() {
+void CameraController::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
 	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() - window_width, system->GetWindowHeight() - window_height));
 
@@ -44,12 +44,8 @@ void CameraController::WillContent() {
 	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.5f);
 }
 
-void CameraController::DidContent() {
-	ImGui::PopStyleVar();
-}
-
-void CameraController::Content(float sec) {
-	if(!IsMenuAvailable()) {
+void CameraController::Update(float sec) {
+	if(!AvailableInMenu()) {
 		Hide();
 	}
 	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
@@ -112,10 +108,14 @@ void CameraController::Content(float sec) {
 	}
 }
 
-bool CameraController::IsMenuVisible() {
+void CameraController::PostUpdate() {
+	ImGui::PopStyleVar();
+}
+
+bool CameraController::VisibleInMenu() {
 	return system->IsMobile();
 }
 
-bool CameraController::IsMenuAvailable() {
+bool CameraController::AvailableInMenu() {
 	return game->GetCurrentScene() != nullptr;
 }

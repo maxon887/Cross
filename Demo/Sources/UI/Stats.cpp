@@ -21,11 +21,11 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void Stats::WillContent() {
+void Stats::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(SCALED(200), SCALED(90)), ImGuiCond_FirstUseEver);
 }
 
-void Stats::Content(float sec) {
+void Stats::Update(float sec) {
 	ImGui::Text("FPS - %.1f(%.2f ms)", Debugger::Instance()->GetFPS(), Debugger::Instance()->GetUpdateTime());
 	ImGui::Text("CPU Time - %.2f ms", Debugger::Instance()->GetCPUTime());
 #ifdef CROSS_MEMORY_PROFILE

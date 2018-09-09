@@ -43,7 +43,7 @@
 LaunchView::LaunchView() : View("Demos")
 { }
 
-void LaunchView::WillContent() {
+void LaunchView::PreUpdate() {
 	ImGui::PushFont(demo->big_font);
 
 	if(!system->IsMobile()) {
@@ -61,14 +61,7 @@ void LaunchView::WillContent() {
 	}
 }
 
-void LaunchView::DidContent() {
-	if(system->IsMobile()) {
-		ImGui::PopStyleVar();
-	}
-	ImGui::PopFont();
-}
-
-void LaunchView::Content(float sec) {
+void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
@@ -141,6 +134,13 @@ void LaunchView::Content(float sec) {
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new ImGuiScreen());
 	}
+}
+
+void LaunchView::PostUpdate() {
+	if(system->IsMobile()) {
+		ImGui::PopStyleVar();
+	}
+	ImGui::PopFont();
 }
 
 bool LaunchView::LoadScene(const String& filename) {

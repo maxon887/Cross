@@ -172,7 +172,7 @@ void Demo::Update(float sec) {
 
 	menu->Update(sec);
 	menu->ShowMenu();
-	launch_view->Update(sec);
+	launch_view->Run(sec);
 
 	ImGui::Render();
 	ImDrawData* drawData = ImGui::GetDrawData();

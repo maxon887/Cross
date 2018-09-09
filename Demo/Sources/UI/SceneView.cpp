@@ -26,7 +26,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void SceneView::WillContent() {
+void SceneView::PreUpdate() {
 	if(system->IsMobile()) {
 		if(system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f,
@@ -41,19 +41,7 @@ void SceneView::WillContent() {
 	}
 }
 
-void SceneView::DidContent() {
-	if(system->IsMobile()) {
-		if(system->GetDeviceOrientation() != System::Orientation::LANDSCAPE) {
-			ImGui::PopFont();
-		}
-	}
-}
-
-Entity* SceneView::GetSelectedEntity() {
-	return selected_entity;
-}
-
-void SceneView::Content(float sec) {
+void SceneView::Update(float sec) {
 	if(game->GetCurrentScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			BuildNode(child);
@@ -68,6 +56,18 @@ void SceneView::Content(float sec) {
 	}
 
 	ContextMenu();
+}
+
+void SceneView::PostUpdate() {
+	if(system->IsMobile()) {
+		if(system->GetDeviceOrientation() != System::Orientation::LANDSCAPE) {
+			ImGui::PopFont();
+		}
+	}
+}
+
+Entity* SceneView::GetSelectedEntity() {
+	return selected_entity;
 }
 
 void SceneView::LookAtObject() {

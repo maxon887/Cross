@@ -24,6 +24,6 @@ class Stats : public View {
 public:
 	Stats() : View("Stats") { }
 
-	void WillContent() override;
-	void Content(float sec) override;
+	void PreUpdate() override;
+	void Update(float sec) override;
 };
