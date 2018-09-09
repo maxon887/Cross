@@ -182,10 +182,10 @@ float StringTestView::ConcatenationStdStringTest() {
 			char chose = Random(0, 10);
 			switch(chose) {
 			case 0:
-				result += Random(0, 10000);
+				result += to_string(Random(0, 10000));
 				break;
 			case 1:
-				result += Random(0.f, 100000.f);
+				result += to_string(Random(0.f, 100000.f));
 				break;
 			case 2:
 				result += long_names_std[Random(0, long_names_count)];
@@ -276,7 +276,7 @@ StringTestView::StringTestView() :
 	}
 }
 
-void StringTestView::Content(float sec) {
+void StringTestView::Update(float sec) {
 	ImGui::Columns(4);
 	ImGui::Text("Test Name");
 	ImGui::NextColumn();

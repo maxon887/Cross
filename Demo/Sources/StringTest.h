@@ -8,7 +8,7 @@ class StringTestView : public View {
 public:
 	StringTestView();
 
-	void Content(float sec) override;
+	void Update(float sec) override;
 
 private:
 	static const S32 long_names_count = 7;
