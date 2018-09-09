@@ -26,7 +26,7 @@ public:
 
 	void Shown() override;
 
-	void Content(float sec) override;
+	void Update(float sec) override;
 
 private:
 	struct Node {

@@ -35,7 +35,7 @@ void FilesView::Shown() {
 	}
 }
 
-void FilesView::Content(float sec) {
+void FilesView::Update(float sec) {
 	BuildNote(file_tree);
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {

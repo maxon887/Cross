@@ -26,12 +26,12 @@ public:
 
 	void Shown() override;
 
-	void WillContent() override;
-	void DidContent() override;
-	void Content(float sec) override;
+	void PreUpdate() override;
+	void Update(float sec) override;
+	void PostUpdate() override;
 
-	bool IsMenuVisible() override;
-	bool IsMenuAvailable() override;
+	bool VisibleInMenu() override;
+	bool AvailableInMenu() override;
 
 private:
 	bool nav_pressed = false;

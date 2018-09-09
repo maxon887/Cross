@@ -25,7 +25,7 @@ PropertiesView::PropertiesView(FilesView *fv) : View("Properties")
 	game->ScreenChanged.Connect(&materialVB, &MaterialVisualBox::OnScreenChanged);
 }
 
-void PropertiesView::Content(float sec) {
+void PropertiesView::Update(float sec) {
 	shaderVB.Update();
 	materialVB.Update();
 }

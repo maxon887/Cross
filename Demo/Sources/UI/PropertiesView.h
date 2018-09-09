@@ -26,7 +26,7 @@ class PropertiesView : public View {
 public:
 	PropertiesView(FilesView* fv);
 
-	void Content(float sec) override;
+	void Update(float sec) override;
 
 private:
 	ShaderVisualBox shaderVB;

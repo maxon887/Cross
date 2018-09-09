@@ -27,9 +27,9 @@ public:
 
 	SceneView() : View("Scene") { }
 
-	void WillContent() override;
-	void Content(float sec) override;
-	void DidContent() override;
+	void PreUpdate() override;
+	void Update(float sec) override;
+	void PostUpdate() override;
 
 	Entity* GetSelectedEntity();
 	

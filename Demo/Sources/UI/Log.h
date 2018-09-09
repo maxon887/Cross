@@ -26,8 +26,8 @@ class Log : public View {
 public:
 	Log() : View("Log") { }
 
-	void WillContent() override;
-	void Content(float sec) override;
+	void PreUpdate() override;
+	void Update(float sec) override;
 
 private:
 	ImGuiTextFilter     filter;

@@ -25,7 +25,7 @@ class ComponentsView : public View {
 public:
 	ComponentsView(SceneView* sceneView);
 
-	void Content(float sec) override;
+	void Update(float sec) override;
 
 protected:
 	TransformVisualBox tranform_box;

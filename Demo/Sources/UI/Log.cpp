@@ -17,11 +17,11 @@
 #include "Log.h"
 #include "System.h"
 
-void Log::WillContent() {
+void Log::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
 }
 
-void Log::Content(float sec) {
+void Log::Update(float sec) {
 	if(ImGui::Button("Clear")) Clear();
 	ImGui::SameLine();
 	bool copy = ImGui::Button("Copy");

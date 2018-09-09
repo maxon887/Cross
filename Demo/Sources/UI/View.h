@@ -27,19 +27,19 @@ public:
 	virtual void Shown() { }
 	virtual void Hidden() { }
 
-	virtual void WillContent() { }
-	virtual void Content(float sec) { }
-	virtual void DidContent() { }
+	virtual void PreUpdate() { }
+	virtual void Update(float sec) { }
+	virtual void PostUpdate() { }
 
-	virtual bool IsMenuVisible() { return true; }
-	virtual bool IsMenuAvailable() { return true; }
+	virtual bool VisibleInMenu() { return true; }
+	virtual bool AvailableInMenu() { return true; }
 
 	void Show();
 	void Hide();
 	bool IsVisible() const;
-	void Update(float sec);
-
 	const String& GetName() const;
+
+	void Run(float sec);
 
 protected:
 	void SetFlags(U32 flags);

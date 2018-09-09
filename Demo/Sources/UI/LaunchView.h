@@ -24,9 +24,9 @@ class LaunchView : public View {
 public:
 	LaunchView();
 
-	void WillContent() override;
-	void DidContent() override;
-	void Content(float sec) override;
+	void PreUpdate() override;
+	void Update(float sec) override;
+	void PostUpdate() override;
 
 private:
 	bool LoadScene(const String& filename);

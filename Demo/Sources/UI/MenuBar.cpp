@@ -66,7 +66,7 @@ MenuBar::~MenuBar() {
 
 void MenuBar::Update(float sec) {
 	for(View* v : views) {
-		v->Update(sec);
+		v->Run(sec);
 	}
 	if(show_style_editor) {
 		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
@@ -74,9 +74,9 @@ void MenuBar::Update(float sec) {
 		ImGui::End();
 	}
 
-	log->Update(sec);
-	stats->Update(sec);
-	about->Update(sec);
+	log->Run(sec);
+	stats->Run(sec);
+	about->Run(sec);
 }
 
 void MenuBar::ShowMenu() {
@@ -126,9 +126,9 @@ void MenuBar::ShowMenu() {
 
 		if(ImGui::BeginMenu("View")) {
 			for(View* v : views) {
-				if(v->IsMenuVisible()) {
+				if(v->VisibleInMenu()) {
 					bool selected = v->IsVisible();
-					bool available = v->IsMenuAvailable();
+					bool available = v->AvailableInMenu();
 					if(ImGui::MenuItem(v->GetName(), "", &selected, available)) {
 						if(selected) {
 							v->Show();
