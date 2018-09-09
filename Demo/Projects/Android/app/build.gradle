@@ -38,8 +38,8 @@ android {
             cmake {
                 cppFlags "-frtti"
                 cppFlags += " -fexceptions"
-                cppFlags += " -std=c++11"
                 cppFlags += " -Wno-error=format-security"
+				arguments "-DANDROID_STL=c++_shared"
             }
         }
     }

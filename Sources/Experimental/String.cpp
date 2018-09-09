@@ -136,7 +136,11 @@ S32 String::Find(char c) const {
 }
 
 S32 String::Find(const char* subStr) const {
-	char* result = strstr(data, subStr);
+	return Find(subStr, 0);
+}
+
+S32 String::Find(const char* subStr, S32 startPos) const {
+	char* result = strstr(data + startPos, subStr);
 	if(result) {
 		return (S32)(result - data);
 	} else {
@@ -194,7 +198,11 @@ void String::Lowercase() {
 }
 
 bool String::Remove(const char* subStr) {
-	char* begin = strstr(data, subStr);
+	return Remove(subStr, 0);
+}
+
+bool String::Remove(const char* subStr, S32 startPos) {
+	char* begin = strstr(data + startPos, subStr);
 	if(begin) {
 		U32 cLen = strlen(subStr);
 		U32 size = length - (begin - data);
@@ -218,11 +226,14 @@ bool String::Remove(char c) {
 bool String::Replace(const char* from, const char* to) {
 	bool result = false;
 	S32 spot = Find(from);
+	S32 offset = 0;
+	String replaceTo = to;
 	while(spot != -1) {
 		result = true;
-		Remove(from);
-		Insert(spot, to);
-		spot = Find(from);
+		Remove(from, offset);
+		Insert(spot, replaceTo);
+		offset = spot + replaceTo.Length();
+		spot = Find(from, offset);
 	}
 	return result;
 }

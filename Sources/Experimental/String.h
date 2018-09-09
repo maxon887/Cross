@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
+#include <stdio.h>
+
 namespace cross {
 
 class String {
@@ -53,6 +55,8 @@ public:
 	S32 Find(char c) const;
 	/* Returns position of a first occurrence of subStr in this String or -1 if wasn't found */
 	S32 Find(const char* subStr) const;
+	/* Returns position of a first occurrence of subStr in this String or -1. start from startPos */
+	S32 Find(const char* subStr, S32 startPos) const;
 	/* Returns position of a last occurrence of char in this String or -1 if wasn't found */
 	S32 FindLast(char c) const;
 	/* Returns first occurrence of any character in provided sequence */
@@ -69,6 +73,8 @@ public:
 	void Lowercase();
 	/* Removes first occurrence of subStr in current String */
 	bool Remove(const char* subStr);
+	/* Removes first occurrence of subStr in current String start with pos*/
+	bool Remove(const char* subStr, S32 startPos);
 	/* Removes first occurrence of character in current String */
 	bool Remove(char c);
 	/* Replaces all occurrences of 'from' string to 'to' string */

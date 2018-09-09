@@ -36,6 +36,7 @@
 #include "Scenes/Misc/TransparencyScene.h"
 #include "Scenes/Misc/SkyboxScene.h"
 #include "Scenes/Misc/ApocalypseScene.h"
+#include "StringTest.h"
 #include "AudioScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -128,6 +129,16 @@ void LaunchView::Update(float sec) {
 			ImGui::TreePop();
 		}
 	}
+
+	if(ImGui::CollapsingHeader("Tests")) {
+		ImVec2 cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
+		if(ImGui::MenuButton("String Test")) {
+			game->SetScreen(new StringTest());
+		}
+	}
+
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
 		game->SetScreen(new AudioScreen());
 	}

@@ -19,33 +19,40 @@
 
 namespace cross{
 
-template<class Type>
-class ArraySTD : public std::vector<Type> {
+template<class T>
+class ArraySTD : public std::vector<T> {
 public:
 	ArraySTD();
 	ArraySTD(U32 capacity);
-	ArraySTD(U32 capacity, const Type& init);
-	ArraySTD(std::initializer_list<Type> list);
+	ArraySTD(U32 capacity, const T& init);
+	ArraySTD(std::initializer_list<T> list);
+
+	void Add(const T& item);
 };
 
-template<class Type>
-ArraySTD<Type>::ArraySTD() :
-	std::vector<Type>()
+template<class T>
+ArraySTD<T>::ArraySTD() :
+	std::vector<T>()
 { }
 
-template<class Type>
-ArraySTD<Type>::ArraySTD(U32 capacity) :
-	std::vector<Type>(capacity)
+template<class T>
+ArraySTD<T>::ArraySTD(U32 capacity) :
+	std::vector<T>(capacity)
 { }
 
-template<class Type>
-ArraySTD<Type>::ArraySTD(U32 capacity, const Type& init) :
-	std::vector<Type>(capacity, init)
+template<class T>
+ArraySTD<T>::ArraySTD(U32 capacity, const T& init) :
+	std::vector<T>(capacity, init)
 { }
 
-template<class Type>
-ArraySTD<Type>::ArraySTD(std::initializer_list<Type> list) :
-	std::vector<Type>(list)
+template<class T>
+ArraySTD<T>::ArraySTD(std::initializer_list<T> list) :
+	std::vector<T>(list)
 { }
+
+template<class T>
+void ArraySTD<T>::Add(const T& item) {
+	push_back(item);
+}
 
 }
