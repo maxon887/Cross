@@ -138,6 +138,9 @@ void LaunchView::Content(float sec) {
 	}
 
 	if(ImGui::CollapsingHeader("Tests")) {
+		ImVec2 cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
 		if(ImGui::MenuButton("String Test")) {
 			game->SetScreen(new StringTest());
 		}

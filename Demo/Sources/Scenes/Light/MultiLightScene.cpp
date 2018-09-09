@@ -28,7 +28,7 @@ void MultiLightScene::Start(){
 	DemoScene::Start();
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
-	
+
 	for(U32 i = 0; i < 8; ++i){
 		Entity* light = new Entity("PointLight_" + String(i));
 		light->AddComponent(new Transform());
@@ -38,7 +38,7 @@ void MultiLightScene::Start(){
 		light->AddComponent(lightComponent);
 		AddEntity(light);
 	}
-	
+
 	for(U32 i = 0; i < 1; ++i){
 		Entity* light = new Entity("DirectionalLight_" + String(i));
 		light->AddComponent(new Transform());
@@ -48,7 +48,7 @@ void MultiLightScene::Start(){
 		light->AddComponent(lightComponent);
 		AddEntity(light);
 	}
-	
+
 	for(U32 i = 0; i < 4; ++i){
 		Entity* light = new Entity("SpotLight_" + String(i));
 		light->AddComponent(new Transform());
@@ -59,7 +59,7 @@ void MultiLightScene::Start(){
 		light->AddComponent(lightComponent);
 		AddEntity(light);
 	}
-	
+
 	shader = new LightsShader();
 	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
@@ -68,7 +68,7 @@ void MultiLightScene::Start(){
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
-	
+
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	material->SetPropertyValue("Specular Map", GetTexture("Textures/ContainerSpecular.png"));
