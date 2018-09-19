@@ -69,6 +69,7 @@
 		9D6DDCF51FF63B6B009DD71C /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDD1FF63B6B009DD71C /* imgui_demo.cpp */; };
 		9D6DDCF61FF63B6B009DD71C /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDE1FF63B6B009DD71C /* imgui_draw.cpp */; };
 		9D6DDCF71FF63B6B009DD71C /* imgui_freetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDF1FF63B6B009DD71C /* imgui_freetype.cpp */; };
+		9D9C8032215242B00071C0A3 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C8031215242B00071C0A3 /* StringTest.cpp */; };
 		9DBEB34B20C576C800D3E8C6 /* ComponentsView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DBEB34920C576C800D3E8C6 /* ComponentsView.cpp */; };
 		9DBEB34E20C5770100D3E8C6 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DBEB34C20C5770100D3E8C6 /* Property.cpp */; };
 		9DBEB35120C5772300D3E8C6 /* SceneView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DBEB34F20C5772300D3E8C6 /* SceneView.cpp */; };
@@ -234,6 +235,8 @@
 		9D6DDCE41FF63B6B009DD71C /* stb_rect_pack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_rect_pack.h; sourceTree = "<group>"; };
 		9D6DDCE51FF63B6B009DD71C /* stb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_textedit.h; sourceTree = "<group>"; };
 		9D6DDCE61FF63B6B009DD71C /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
+		9D9C8030215242B00071C0A3 /* StringTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
+		9D9C8031215242B00071C0A3 /* StringTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringTest.cpp; sourceTree = "<group>"; };
 		9DBEB34920C576C800D3E8C6 /* ComponentsView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentsView.cpp; sourceTree = "<group>"; };
 		9DBEB34A20C576C800D3E8C6 /* ComponentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentsView.h; sourceTree = "<group>"; };
 		9DBEB34C20C5770100D3E8C6 /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
@@ -550,6 +553,8 @@
 				9D54BB331FBC4316009E8469 /* AudioScreen.h */,
 				9D54BB341FBC4316009E8469 /* Demo.cpp */,
 				9D54BB351FBC4316009E8469 /* Demo.h */,
+				9D9C8031215242B00071C0A3 /* StringTest.cpp */,
+				9D9C8030215242B00071C0A3 /* StringTest.h */,
 			);
 			name = Sources;
 			path = ../../Sources;
@@ -1091,6 +1096,7 @@
 				9D54BB651FBC4316009E8469 /* AudioScreen.cpp in Sources */,
 				D46A234E1AF9EF8400B77AC8 /* main.m in Sources */,
 				9D40A87E2099E8F000F6902F /* About.cpp in Sources */,
+				9D9C8032215242B00071C0A3 /* StringTest.cpp in Sources */,
 				9D54BBBB1FBC433C009E8469 /* Texture.cpp in Sources */,
 				9DBEB35120C5772300D3E8C6 /* SceneView.cpp in Sources */,
 				9D54BBAE1FBC433C009E8469 /* Entity.cpp in Sources */,
