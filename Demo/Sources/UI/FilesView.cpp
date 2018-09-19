@@ -145,7 +145,7 @@ void FilesView::ContextMenu() {
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
-			input->IsPressed(Key::RETURN)) {
+			input->IsPressed(Key::ENTER)) {
 
 			system->CreateAssetDirectory(buffer);
 
