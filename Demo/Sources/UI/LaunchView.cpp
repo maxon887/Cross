@@ -37,6 +37,7 @@
 #include "Scenes/Misc/SkyboxScene.h"
 #include "Scenes/Misc/ApocalypseScene.h"
 #include "StringTest.h"
+#include "ArrayTest.h"
 #include "AudioScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -136,6 +137,12 @@ void LaunchView::Update(float sec) {
 		ImGui::SetCursorPos(cursorPos);
 		if(ImGui::MenuButton("String Test")) {
 			game->SetScreen(new StringTest());
+		}
+		cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
+		if(ImGui::MenuButton("Array Test")) {
+			game->SetScreen(new ArrayTest());
 		}
 	}
 
