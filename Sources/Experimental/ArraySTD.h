@@ -28,6 +28,7 @@ public:
 	ArraySTD(std::initializer_list<T> list);
 
 	void Add(const T& item);
+	S32 Capacity() const;
 };
 
 template<class T>
@@ -53,6 +54,11 @@ ArraySTD<T>::ArraySTD(std::initializer_list<T> list) :
 template<class T>
 void ArraySTD<T>::Add(const T& item) {
 	push_back(item);
+}
+
+template<class T>
+S32 ArraySTD<T>::Capacity() const {
+	return capacity();
 }
 
 }

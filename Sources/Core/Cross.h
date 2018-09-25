@@ -70,7 +70,7 @@ namespace cross {
 namespace cross{
 
 template<typename Type>
-using Array = ArraySTD<Type>;
+//using Array = ArraySTD<Type>;
 template<typename Type>
 using List = std::list<Type>;
 template<typename Key, typename Value>

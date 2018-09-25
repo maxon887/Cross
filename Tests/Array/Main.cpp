@@ -8,8 +8,11 @@
 
 using namespace cross;
 
+//template<class T>
+//using ArrayTest = ArraySTD<T>;
+
 template<class T>
-using ArrayTest = ArraySTD<T>;
+using ArrayTest = cross::Array<T>;
 
 class Hard {
 public:
@@ -28,6 +31,7 @@ public:
 	}
 
 	void operator = (const Hard& other) {
+		printf("Hard Operator =\n");
 		memcpy(other.data, data, data_size);
 	}
 
@@ -36,16 +40,33 @@ private:
 	char* data = nullptr;
 };
 
-void Test() {
+void PrimitiveTest() {
+	ArrayTest<int> array;
+	printf("Initial Capacity - %d\n", array.Capacity());
+	array.Add(1);
+	printf("First Capacity - %d\n", array.Capacity());
+	array.Add(2);
+	printf("Second Capacity - %d\n", array.Capacity());
+	array.Add(3);
+	printf("Third Capacity - %d\n", array.Capacity());
+}
+
+void ObjectTest() {
 	Hard hardOne;
-	Hard hardTwo = hardOne;
 
 	ArrayTest<Hard> array;
+	printf("Initial Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
 	array.Add(hardOne);
+	printf("First Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
+	array.Add(hardOne);
+	printf("Second Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
+	array.Add(hardOne);
+	printf("Third Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
 }
 
 void main() {
-	Test();
+	//PrimitiveTest();
+	ObjectTest();
 	MemoryManager::Instance()->Dump();
 	getchar();
 }
