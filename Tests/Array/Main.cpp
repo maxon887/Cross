@@ -23,11 +23,24 @@ public:
 	Hard(const Hard& other) {
 		printf("Hard Copy Constructor\n");
 		data = new char[data_size];
-		memcpy(other.data, data, data_size);
+		memcpy(data, other.data, data_size);
+	}
+	Hard(Hard&& other) {
+		printf("Hard Move Constructor\n");
+		data = other.data;
+		other.data = nullptr;
 	}
 	~Hard() {
 		printf("Hard Destructor\n");
 		delete data;
+	}
+
+	void Set(const char* info) {
+		strcpy(data, info);
+	}
+
+	char* Get() {
+		return data;
 	}
 
 	void operator = (const Hard& other) {
@@ -36,11 +49,13 @@ public:
 	}
 
 private:
-	const int data_size = 10;
+	const int data_size = 25;
 	char* data = nullptr;
 };
 
 void PrimitiveTest() {
+	printf("========= Primitive Test ==========\n");
+
 	ArrayTest<int> array;
 	printf("Initial Capacity - %d\n", array.Capacity());
 	array.Add(1);
@@ -49,10 +64,15 @@ void PrimitiveTest() {
 	printf("Second Capacity - %d\n", array.Capacity());
 	array.Add(3);
 	printf("Third Capacity - %d\n", array.Capacity());
+
+	printf("Third Element is - %d\n", array[2]);
 }
 
 void ObjectTest() {
+	printf("========= Object Test ==========\n");
+
 	Hard hardOne;
+	hardOne.Set("Some Info");
 
 	ArrayTest<Hard> array;
 	printf("Initial Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
@@ -62,10 +82,19 @@ void ObjectTest() {
 	printf("Second Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
 	array.Add(hardOne);
 	printf("Third Capacity(%d) and Size(%d)\n", array.Capacity(), array.Size());
+
+	printf("First Object Contains (%s)\n", array[0].Get());
+
+	array[1].Set("Second Info");
+	array[2].Set("Another Useless Info");
+
+	for(int i = 0; i < array.Size(); i++) {
+		printf("%d element contains - %s\n", i, array[i].Get());
+	}
 }
 
 void main() {
-	//PrimitiveTest();
+	PrimitiveTest();
 	ObjectTest();
 	MemoryManager::Instance()->Dump();
 	getchar();

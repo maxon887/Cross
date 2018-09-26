@@ -27,6 +27,8 @@ public:
 	S32 Size() const;
 	S32 Capacity() const;
 
+	T& operator [] (S32 index);
+
 private:
 	S32 size		= 0;
 	S32 capacity	= 0;
@@ -68,6 +70,12 @@ S32 Array<T>::Size() const {
 template<class T>
 S32 Array<T>::Capacity() const {
 	return capacity;
+}
+
+template<class T>
+T& Array<T>::operator [] (S32 index) {
+	assert(index < size && index >= 0 && "index out of bounds");
+	return *(data + index);
 }
 
 #pragma pop_macro("new")
