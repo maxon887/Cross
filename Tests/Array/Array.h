@@ -27,6 +27,9 @@ public:
 	S32 Size() const;
 	S32 Capacity() const;
 
+	T* begin();
+	T* end();
+
 	T& operator [] (S32 index);
 
 private:
@@ -70,6 +73,16 @@ S32 Array<T>::Size() const {
 template<class T>
 S32 Array<T>::Capacity() const {
 	return capacity;
+}
+
+template<class T>
+T* Array<T>::begin() {
+	return data;
+}
+
+template<class T>
+T* Array<T>::end() {
+	return data + size;
 }
 
 template<class T>

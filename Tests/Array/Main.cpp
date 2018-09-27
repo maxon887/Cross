@@ -7,7 +7,7 @@
 #include <vector>
 
 using namespace cross;
-
+//
 //template<class T>
 //using ArrayTest = ArraySTD<T>;
 
@@ -91,6 +91,17 @@ void ObjectTest() {
 	for(int i = 0; i < array.Size(); i++) {
 		printf("%d element contains - %s\n", i, array[i].Get());
 	}
+
+	for(Hard& hard : array) {
+		printf("Interative loop - %s\n", hard.Get());
+	}
+
+	//ArrayTest<Hard>::Iterator iter;
+	//iter = array.Begin();
+	//while(iter != array.End()) {
+	//	printf("Interative loop - %s\n", (*iter).Get());
+	//	iter++;
+	//}
 }
 
 void main() {

@@ -22,6 +22,8 @@ namespace cross{
 template<class T>
 class ArraySTD : public std::vector<T> {
 public:
+	typedef typename vector<T>::iterator Iterator;
+
 	ArraySTD();
 	ArraySTD(U32 capacity);
 	ArraySTD(U32 capacity, const T& init);
@@ -30,6 +32,9 @@ public:
 	void Add(const T& item);
 	S32 Size() const;
 	S32 Capacity() const;
+
+	Iterator Begin();
+	Iterator End();
 };
 
 template<class T>
@@ -65,6 +70,16 @@ S32 ArraySTD<T>::Size() const {
 template<class T>
 S32 ArraySTD<T>::Capacity() const {
 	return capacity();
+}
+
+template<class T>
+typename ArraySTD<T>::Iterator ArraySTD<T>::Begin() {
+	return begin();
+}
+
+template<class T>
+typename ArraySTD<T>::Iterator ArraySTD<T>::End() {
+	return end();
 }
 
 }
