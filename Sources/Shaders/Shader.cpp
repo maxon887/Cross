@@ -365,24 +365,24 @@ void Shader::SetFragmentFilename(const String& filename) {
 void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String fullStr = "#version " + ver + " es\n";
-	macrosies.push_back(fullStr);
+	macrosies.Add(fullStr);
 	makro_len += fullStr.Length();
 }
 
 void Shader::AddMacro(const String& makro, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + "\n";
-	macrosies.push_back(makroString);
+	macrosies.Add(makroString);
 	makro_len += makroString.Length();
 	if(!system){
-		user_macro.push_back(makro);
+		user_macro.Add(makro);
 	}
 }
 
 void Shader::AddMacro(const String& makro, int value, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + " " + String(value) + "\n";
-	macrosies.push_back(makroString);
+	macrosies.Add(makroString);
 	makro_len += makroString.Length();
 	if(!system) {
 		CROSS_ASSERT(false, "Do not implement yet");
@@ -436,7 +436,7 @@ void Shader::AddProperty(const String& name, const String& glName, Cubemap* defV
 void Shader::AddProperty(const Property& prop) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(prop.name), "Shader already contain that property");
-	properties.push_back(prop);
+	properties.Add(prop);
 }
 
 Shader::Property* Shader::GetProperty(const String& name) {
@@ -475,7 +475,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     if(type == GL_FRAGMENT_SHADER) {
         CROSS_RETURN(!compiled, 0, "Shader already compiled");
         String fullStr = "precision mediump float;\n";
-		macrosies.push_back(fullStr);
+		macrosies.Add(fullStr);
         makro_len += fullStr.Length();
     }
 #endif

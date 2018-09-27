@@ -35,7 +35,7 @@ void Debugger::Release() {
 
 void Debugger::SetTimeCheck() {
 	U64 checkTime = system->GetTime();
-	time_checks.push_back(checkTime);
+	time_checks.Add(checkTime);
 }
 
 float Debugger::GetTimeCheck() {

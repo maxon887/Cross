@@ -32,7 +32,7 @@ void Light::Initialize(Scene* scene) {
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
 	CROSS_ASSERT(it == lights.end(), "Current light already in the scene");
-	lights.push_back(this);
+	lights.Add(this);
 }
 
 void Light::Remove() {

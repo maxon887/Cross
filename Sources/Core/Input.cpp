@@ -90,7 +90,7 @@ void Input::TargetActionDownHandle(float x, float y, S32 actionID) {
 		action.pos = Vector2D(x, y);
 		action.id = actionID;
 		input_mutex.lock();
-		action_stack.push_back(pair<Input::Action, int>(action, 0));
+		action_stack.Add(pair<Input::Action, int>(action, 0));
 		input_mutex.unlock();
 	}
 }
@@ -101,7 +101,7 @@ void Input::TargetActionMoveHandle(float x, float y, S32 actionID) {
 		action.pos = Vector2D(x, y);
 		action.id = actionID;
 		input_mutex.lock();
-		action_stack.push_back(pair<Input::Action, int>(action, 1));
+		action_stack.Add(pair<Input::Action, int>(action, 1));
 		input_mutex.unlock();
 	}
 }
@@ -112,7 +112,7 @@ void Input::TargetActionUpHandle(float x, float y, S32 actionID) {
 		action.pos = Vector2D(x, y);
 		action.id = actionID;
 		input_mutex.lock();
-		action_stack.push_back(pair<Input::Action, int>(action, 2));
+		action_stack.Add(pair<Input::Action, int>(action, 2));
 		input_mutex.unlock();
 	}
 }

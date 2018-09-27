@@ -120,7 +120,7 @@ Array<String> WINSystem::GetSubDirectories(const String& filepath) {
 			String filename = data.cFileName;
 			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY
 				&& filename != "." && filename != "..") {
-				result.push_back(data.cFileName);
+				result.Add(data.cFileName);
 			}
 		} while(FindNextFile(file, &data));
 		FindClose(file);
@@ -140,7 +140,7 @@ Array<String> WINSystem::GetFilesInDirectory(const String& directory) {
 			String filename = data.cFileName;
 			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
 				&& filename != "." && filename != "..") {
-				result.push_back(data.cFileName);
+				result.Add(data.cFileName);
 			}
 		} while(FindNextFile(file, &data));
 		FindClose(file);

@@ -77,7 +77,7 @@ void LightsShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCount){
 		uniforms.position = glGetUniformLocation(program, String(structName + ".position"));
 		uniforms.color = glGetUniformLocation(program, String(structName + ".color"));
 		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity"));
-		uPointLights.push_back(uniforms);
+		uPointLights.Add(uniforms);
 	}
 
 	for(S32 i = 0; i < directionalCount; ++i) {
@@ -85,7 +85,7 @@ void LightsShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCount){
 		LightUniforms uniforms;
 		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction"));
 		uniforms.color = glGetUniformLocation(program, String(structName + ".color"));
-		uDirectionalLights.push_back(uniforms);
+		uDirectionalLights.Add(uniforms);
 	}
 
 	for(S32 i = 0; i < spotCount; ++i) {
@@ -97,7 +97,7 @@ void LightsShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCount){
 		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity"));
 		uniforms.cut_off = glGetUniformLocation(program, String(structName + ".cut_off"));
 		uniforms.outer_cut_off = glGetUniformLocation(program, String(structName + ".outer_cut_off"));
-		uSpotLights.push_back(uniforms);
+		uSpotLights.Add(uniforms);
 	}
 }
 

@@ -262,7 +262,7 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 
 	U16 indsOffset = (U16)indices.size();
 	for(U32 i = 0; i < inds.size(); ++i) {
-		indices.push_back(indsOffset + inds[i]);
+		indices.Add(indsOffset + inds[i]);
 	}
 }
 

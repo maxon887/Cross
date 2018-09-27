@@ -134,15 +134,15 @@ void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
 }
 
 void DemoScene::OnActionDown(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 0));
+	action_stack.Add(pair<Input::Action, int>(action, 0));
 }
 
 void DemoScene::OnActionMove(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 1));
+	action_stack.Add(pair<Input::Action, int>(action, 1));
 }
 
 void DemoScene::OnActionUp(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 2));
+	action_stack.Add(pair<Input::Action, int>(action, 2));
 }
 
 void DemoScene::OnKeyPressed(Key key) {

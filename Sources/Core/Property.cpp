@@ -22,7 +22,7 @@ using namespace cross;
 BaseProperty::BaseProperty(Component* owner, const String& name) :
 	name(name)
 {
-	owner->properties.push_back(this);
+	owner->properties.Add(this);
 }
 
 String BaseProperty::GetName() const {

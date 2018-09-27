@@ -28,6 +28,8 @@ public:
 	void Add(const T& item);
 	S32 Size() const;
 	S32 Capacity() const;
+	void Clear();
+	T* GetData();
 
 	T* begin();
 	T* end();
@@ -85,6 +87,16 @@ S32 Array<T>::Size() const {
 template<class T>
 S32 Array<T>::Capacity() const {
 	return capacity;
+}
+
+template<class T>
+void Array<T>::Clear() {
+	size = 0;
+}
+
+template<class T>
+T* Array<T>::GetData() {
+	return data;
 }
 
 template<class T>
