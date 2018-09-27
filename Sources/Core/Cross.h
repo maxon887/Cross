@@ -55,7 +55,8 @@ namespace cross {
 
 #include "Internals/MemoryManager.h"
 #include "Experimental/String.h"
-#include "Experimental/ArraySTD.h"
+//#include "Experimental/ArraySTD.h"
+#include "Experimental/Array.h"
 #include "Experimental/Function.h"
 
 #include "Math/All.h"
@@ -69,7 +70,7 @@ namespace cross {
 
 namespace cross{
 
-template<typename Type>
+//template<typename Type>
 //using Array = ArraySTD<Type>;
 template<typename Type>
 using List = std::list<Type>;

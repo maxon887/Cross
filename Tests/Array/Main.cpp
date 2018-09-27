@@ -1,7 +1,7 @@
 #include "Cross.h"
 #include "Internals/MemoryManager.h"
 
-#include "Array.h"
+#include "../Sources/Experimental/Array.h"
 
 #include <stdio.h>
 #include <vector>
@@ -17,21 +17,21 @@ using ArrayTest = cross::Array<T>;
 class Hard {
 public:
 	Hard() {
-		printf("Hard Constructor\n");
+		//printf("Hard Constructor\n");
 		data = new char[data_size];
 	}
 	Hard(const Hard& other) {
-		printf("Hard Copy Constructor\n");
+		//printf("Hard Copy Constructor\n");
 		data = new char[data_size];
 		memcpy(data, other.data, data_size);
 	}
 	Hard(Hard&& other) {
-		printf("Hard Move Constructor\n");
+		//printf("Hard Move Constructor\n");
 		data = other.data;
 		other.data = nullptr;
 	}
 	~Hard() {
-		printf("Hard Destructor\n");
+		//printf("Hard Destructor\n");
 		delete data;
 	}
 
@@ -66,6 +66,13 @@ void PrimitiveTest() {
 	printf("Third Capacity - %d\n", array.Capacity());
 
 	printf("Third Element is - %d\n", array[2]);
+
+	ArrayTest<float> defValues(5, 3.14f);
+	defValues[3] = 6.26666f;
+
+	for(float f : defValues) {
+		printf("Interative float loop - %f\n", f);
+	}
 }
 
 void ObjectTest() {
@@ -94,6 +101,12 @@ void ObjectTest() {
 
 	for(Hard& hard : array) {
 		printf("Interative loop - %s\n", hard.Get());
+	}
+
+	ArrayTest<Hard> defValues(5, hardOne);
+	defValues[3].Set("Not the same info");
+	for(Hard copy : defValues) {
+		printf("Interative def values loop - %s\n", copy.Get());
 	}
 
 	//ArrayTest<Hard>::Iterator iter;
