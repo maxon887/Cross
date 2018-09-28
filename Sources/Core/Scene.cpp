@@ -369,7 +369,7 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 	objectXML->SetAttribute("name", entity->GetName());
 
 	const Array<Component*>& components = entity->GetComponents();
-	if(components.size() > 0) {
+	if(components.Size() > 0) {
 		XMLElement* componentsXML = doc->NewElement("Components");
 		for(Component* component : components) {
 			CROSS_RETURN(component->Save(componentsXML, doc), false, "Can't save entity component");

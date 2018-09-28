@@ -229,7 +229,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.size(), GL_UNSIGNED_SHORT, 0));
+	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.Size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -246,7 +246,7 @@ void Mesh::TransferVideoData() {
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
+	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)indices.Size() * sizeof(GLushort), indices.GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
 	vertex_buffer->Free();
@@ -260,8 +260,8 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
 	}
 
-	U16 indsOffset = (U16)indices.size();
-	for(U32 i = 0; i < inds.size(); ++i) {
+	U16 indsOffset = (U16)indices.Size();
+	for(S32 i = 0; i < inds.Size(); ++i) {
 		indices.Add(indsOffset + inds[i]);
 	}
 }
@@ -296,7 +296,7 @@ S32 Mesh::GetID() const {
 }
 
 U32 Mesh::GetPolyCount() const {
-	return (U32)indices.size();
+	return (U32)indices.Size();
 }
 
 bool Mesh::IsEqual(Mesh* other) const {

@@ -394,43 +394,43 @@ Array<String>& Shader::GetMacrosies() {
 }
 
 void Shader::ClearMacrosies() {
-	user_macro.clear();
+	user_macro.Clear();
 }
 
 void Shader::AddProperty(const String& name, const String& glName) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName);
+	properties.CreateInside(name, glName);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Shader::Property::Type type) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, type);
+	properties.CreateInside(name, glName, type);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, float defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Color& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Vector3D& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const Property& prop) {
@@ -453,7 +453,7 @@ Array<Shader::Property>& Shader::GetProperties() {
 }
 
 void Shader::ClearProperties() {
-	properties.clear();
+	properties.Clear();
 }
 
 bool Shader::HaveProperty(const String& name) const {
@@ -533,7 +533,7 @@ void Shader::CompileProgram() {
 }
 
 void Shader::FreeResources() {
-	properties.clear();
+	properties.Clear();
 	if(vertex_shader) {
 		SAFE(glDeleteShader(vertex_shader));
 	}

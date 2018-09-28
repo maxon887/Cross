@@ -28,20 +28,27 @@ public:
 	~Array();
 
 	void Add(const T& item);
+	template<class... Args>
+	void CreateInside(Args... args);
 	S32 Size() const;
 	S32 Capacity() const;
 	void Clear();
+	T& Last();
+	void RemoveLast();
 	T* GetData();
 
-	T* begin();
-	T* end();
+	T* begin() const;
+	T* end() const;
 
 	T& operator [] (S32 index);
+	const T& operator [] (S32 index) const;
 
 private:
 	S32 size		= 0;
 	S32 capacity	= 0;
 	T* data			= nullptr;
+
+	void ReallocateIfNeeded();
 };
 
 //implementation
@@ -81,15 +88,16 @@ Array<T>::~Array() {
 
 template<class T>
 void Array<T>::Add(const T& item) {
-	if(capacity == 0) {
-		capacity = 1;
-		data = (T*)CROSS_ALLOC(sizeof(T));
-	}
-	if(size >= capacity) {
-		capacity *= 2;
-		data = (T*)CROSS_REALLOC(data, sizeof(T) * capacity);
-	}
+	ReallocateIfNeeded();
 	new(data + size) T(item);
+	size++;
+}
+
+template<class T>
+template<class... Args>
+void Array<T>::CreateInside(Args... args) {
+	ReallocateIfNeeded();
+	new(data + size) T(args...);
 	size++;
 }
 
@@ -109,17 +117,27 @@ void Array<T>::Clear() {
 }
 
 template<class T>
+T& Array<T>::Last() {
+	return *(data + size - 1);
+}
+
+template<class T>
+void Array<T>::RemoveLast() {
+	size--;
+}
+
+template<class T>
 T* Array<T>::GetData() {
 	return data;
 }
 
 template<class T>
-T* Array<T>::begin() {
+T* Array<T>::begin() const {
 	return data;
 }
 
 template<class T>
-T* Array<T>::end() {
+T* Array<T>::end() const {
 	return data + size;
 }
 
@@ -127,6 +145,24 @@ template<class T>
 T& Array<T>::operator [] (S32 index) {
 	assert(index < size && index >= 0 && "index out of bounds");
 	return *(data + index);
+}
+
+template<class T>
+const T& Array<T>::operator [] (S32 index) const {
+	assert(index < size && index >= 0 && "index out of bounds");
+	return *(data + index);
+}
+
+template<class T>
+void Array<T>::ReallocateIfNeeded() {
+	if(capacity == 0) {
+		capacity = 1;
+		data = (T*)CROSS_ALLOC(sizeof(T));
+	}
+	if(size >= capacity) {
+		capacity *= 2;
+		data = (T*)CROSS_REALLOC(data, sizeof(T) * capacity);
+	}
 }
 
 #pragma pop_macro("new")

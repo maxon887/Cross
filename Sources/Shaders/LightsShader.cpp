@@ -63,9 +63,9 @@ void LightsShader::Compile(const List<Light*>& lights){
 }
 
 void LightsShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCount){
-	uPointLights.clear();
-	uDirectionalLights.clear();
-	uPointLights.clear();
+	uPointLights.Clear();
+	uDirectionalLights.Clear();
+	uPointLights.Clear();
 	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount, true);
 	AddMacro("POINT_LIGHT_COUNT", pointCount, true);
 	AddMacro("SPOT_LIGHT_COUNT", spotCount, true);

@@ -145,7 +145,7 @@ void Material::Save(const String& filename) {
 }
 
 void Material::Reset() {
-	properties.clear();
+	properties.Clear();
 	properties = shader->GetProperties();
 }
 

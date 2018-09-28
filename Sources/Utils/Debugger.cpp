@@ -40,8 +40,8 @@ void Debugger::SetTimeCheck() {
 
 float Debugger::GetTimeCheck() {
 	U64 now = system->GetTime();
-	U64 checkTime = time_checks.back();
-	time_checks.pop_back();
+	U64 checkTime = time_checks.Last();
+	time_checks.RemoveLast();
 	return (now - checkTime) / 1000.f;
 }
 
