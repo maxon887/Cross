@@ -73,6 +73,10 @@ void PrimitiveTest() {
 	for(float f : defValues) {
 		printf("Interative float loop - %f\n", f);
 	}
+
+	Array<int> inits = { 1, 2, 3, -5 };
+	printf("Second item is - (%d)", inits[1]);
+	printf("Fouth item is - (%d)", inits[3]);
 }
 
 void ObjectTest() {

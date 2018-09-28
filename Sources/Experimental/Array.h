@@ -21,8 +21,10 @@ namespace cross {
 template<class T>
 class Array {
 public:
-	Array() = default;
+	Array();
 	Array(S32 size, const T& defaultValue);
+	template<class... Args>
+	Array(Args... args);
 	~Array();
 
 	void Add(const T& item);
@@ -45,6 +47,18 @@ private:
 //implementation
 #pragma push_macro("new")
 #undef new
+
+template<class T>
+Array<T>::Array()
+{ }
+
+template<class T>
+template<class... Args>
+Array<T>::Array(Args... args) {
+	for(auto&& x : { args... }) {
+		Add(x);
+	}
+}
 
 template<class T>
 Array<T>::Array(S32 s, const T& defaultValue) {
