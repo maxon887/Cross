@@ -35,7 +35,10 @@ void TriangleScene::Start(){
 
 	vertexBuffer->PushData((Byte*)&verticesData[0], 3 * sizeof(Vector3D));
 
-	const Array<GLushort> indices = { 0, 1, 2 };
+	Array<GLushort> indices(3, 0);
+	indices.Add(0);
+	indices.Add(1);
+	indices.Add(2);
 
 	Mesh* triangle = new Mesh();
 	triangle->PushData(vertexBuffer, indices);

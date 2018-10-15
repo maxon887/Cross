@@ -102,7 +102,7 @@ List<Entity*>& Entity::GetChildren() {
 
 void Entity::AddChild(Entity* child) {
 	child->SetParent(this);
-	children.Add(child);
+	children.push_back(child);
 }
 
 void Entity::RemoveChildren() {
