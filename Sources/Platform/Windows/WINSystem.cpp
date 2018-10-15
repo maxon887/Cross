@@ -91,11 +91,13 @@ String WINSystem::GetClipboard() {
 
 bool WINSystem::Alert(const String& msg) {
 	if(wnd) {
-		String test = msg + "\n\nDo you wish to skip this alert in further?";
-		auto msgBoxResult = MessageBoxA(wnd, test.ToCStr(), "Something goes wrong", MB_YESNO | MB_ICONEXCLAMATION);
-		if(msgBoxResult == IDYES) {
+		auto msgBoxResult = MessageBoxA(wnd, msg.ToCStr(), "Something goes wrong", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION);
+		switch(msgBoxResult) {
+		case IDIGNORE:
 			return true;
-		} else {
+		case IDABORT:
+			*((unsigned int*)0) = 0xDEAD;
+		default:
 			return false;
 		}
 	} else {
