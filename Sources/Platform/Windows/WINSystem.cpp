@@ -89,6 +89,22 @@ String WINSystem::GetClipboard() {
 	return clipboard;
 }
 
+bool WINSystem::Alert(const String& msg) {
+	if(wnd) {
+		String test = msg + "\n\nDo you wish to skip this alert in further?";
+		auto msgBoxResult = MessageBoxA(wnd, test.ToCStr(), "Something goes wrong", MB_YESNO | MB_ICONEXCLAMATION);
+		if(msgBoxResult == IDYES) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		LogIt("HWND == nullptr");
+		System::Messagebox("Something goes wrong", msg);
+	}
+	return false;
+}
+
 void WINSystem::Messagebox(const String& title, const String& msg) {
 	if(wnd) {
 		MessageBoxA(wnd, msg.ToCStr(), title.ToCStr(), MB_OK | MB_ICONEXCLAMATION);
