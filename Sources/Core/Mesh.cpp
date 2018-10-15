@@ -50,16 +50,17 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Initialize(Scene* scene) {
-	CROSS_FAIL(id != -1, "Can not initialize Mesh with ID = -1");
-	CROSS_FAIL(!vertex_buffer, "Mesh VertexBuffer not clean");
-	Model* model = scene->GetModel(model_filename);
-	Copy(model->GetMesh(id));
+	if(!model_filename.value.IsEmpty()) {
+		CROSS_FAIL(id != -1, "Can not initialize Mesh with ID = -1");
+		Model* model = scene->GetModel(model_filename);
+		Copy(model->GetMesh(id));
 
-	if(material_filename.value != "") {
-		Material* mat = scene->GetMaterial(material_filename);
-		SetMaterial(mat);
-	} else {
-		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+		if(material_filename.value != "") {
+			Material* mat = scene->GetMaterial(material_filename);
+			SetMaterial(mat);
+		} else {
+			SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+		}
 	}
 }
 
