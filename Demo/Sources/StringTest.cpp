@@ -8,7 +8,7 @@
 
 using namespace cross;
 
-char* long_names[] = {
+const char* long_names[] = {
 	"This is the first of long string",
 	"Some useless information there",
 	"Shmerch sperch the plehtsm",
@@ -17,7 +17,7 @@ char* long_names[] = {
 	"Specially designe for the search test string, wich no one see",
 	"Bring me the fucking pen" };
 
-char* short_names[] = {
+const char* short_names[] = {
 	"e",
 	"Shmerch",
 	"hi",

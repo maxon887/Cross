@@ -52,6 +52,47 @@ void GLFWScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
 	input->Scroll.Emit(yoffset);
 }
 
+void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	Key mappedKey = Key::ESCAPE;
+	switch(key) {
+	case GLFW_KEY_ESCAPE:
+		mappedKey = Key::ESCAPE;
+		break;
+	case GLFW_KEY_ENTER:
+		mappedKey = Key::ENTER;
+		break;
+	case GLFW_KEY_TAB:
+		mappedKey = Key::TAB;
+		break;
+	case GLFW_KEY_BACKSPACE:
+		mappedKey = Key::BACK;
+		break;
+	case GLFW_KEY_INSERT:
+		mappedKey = Key::INSERT;
+		break;
+	case GLFW_KEY_DELETE:
+		mappedKey = Key::DEL;
+		break;
+	case GLFW_KEY_HOME:
+		mappedKey = Key::HOME;
+		break;
+	default:
+		return;
+	}
+	switch(action) {
+	case GLFW_PRESS:
+		input->KeyPressed.Emit(mappedKey);
+		break;
+	case GLFW_RELEASE:
+		input->KeyReleased.Emit(mappedKey);
+		break;
+	}
+}
+
+void GLFWCharCallback(GLFWwindow* window, unsigned int codepoint) {
+	input->CharEnter.Emit(codepoint);
+}
+
 int main(int c,char **args) {
     system = new MacSystem(args[0]);
 
@@ -74,6 +115,8 @@ int main(int c,char **args) {
     glfwSetCursorPosCallback(window, GLFWMouseMoveCallback);
     glfwSetMouseButtonCallback(window, GLFWMouseButtonCallback);
 	glfwSetScrollCallback(window, GLFWScrollCallback);
+	glfwSetKeyCallback(window, GLFWKeyCallback);
+	glfwSetCharCallback(window, GLFWCharCallback);
 
     int widthMM, heightMM;
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();

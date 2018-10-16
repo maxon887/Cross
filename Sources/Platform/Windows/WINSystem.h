@@ -35,6 +35,7 @@ public:
 	float GetScreenDPI() override;
 	String GetClipboard() override;
 
+	bool Alert(const String& msg) override;
 	void Messagebox(const String& title, const String& msg) override;
 	bool IsDirectoryExists(const String& filepath) override;
 	void CreateDirectory(const String& dirname) override;

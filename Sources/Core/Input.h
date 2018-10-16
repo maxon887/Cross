@@ -28,7 +28,7 @@ enum class Key {
 	BACK		= 0x08,
 	TAB			= 0x09,
 	CLEAR		= 0x0C,
-	RETURN		= 0x0D,
+	ENTER		= 0x0D,
 	SHIFT		= 0x10,
 	CONTROL		= 0x11,
 	ALT			= 0x12,

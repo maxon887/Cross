@@ -35,7 +35,7 @@ using namespace tinyxml2;
 Scene::Scene()
 {
 	root = new Entity("Root");
-	root->AddComponent(new Transform());
+	root->AddComponent(new Transform(), this);
 }
 
 void Scene::Start() {

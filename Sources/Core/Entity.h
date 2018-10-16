@@ -43,10 +43,12 @@ public:
 	Array<Component*> GetComponents();
 	/* Returns Transform component contained in this Entity or nullptr if Transform not found */
 	Transform* GetTransform();
-	/* Adds component to the current Entity component stack. Components with the same name can't be added twice */
+	/* Adds component to the current Entity component stack. Components with the same type can't be added twice */
 	void AddComponent(Component* component);
 	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
 	void AddComponent(Component* component, Scene* scene);
+	/* Adds component to the current Entity component stack. initilize = true if component should be initialized in place */
+	void AddComponent(Component* component, Scene* scene, bool initilize);
 	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
 
