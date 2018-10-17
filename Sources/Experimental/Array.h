@@ -22,6 +22,7 @@ template<class T>
 class Array {
 public:
 	Array();
+	Array(const Array<T>& other);
 	Array(S32 size, const T& defaultValue);
 	~Array();
 
@@ -30,6 +31,7 @@ public:
 	void CreateInside(Args... args);
 	S32 Size() const;
 	S32 Capacity() const;
+	void Reserve(S32 count);
 	void Clear();
 	T& Last();
 	void RemoveLast();
@@ -40,6 +42,7 @@ public:
 
 	T& operator [] (S32 index);
 	const T& operator [] (S32 index) const;
+	void operator = (const Array<T>& other);
 
 private:
 	S32 size		= 0;
@@ -47,6 +50,7 @@ private:
 	T* data			= nullptr;
 
 	void ReallocateIfNeeded();
+	void Copy(const Array<T>& other);
 };
 
 //implementation
@@ -56,6 +60,11 @@ private:
 template<class T>
 Array<T>::Array()
 { }
+
+template<class T>
+Array<T>::Array(const Array<T>& other) {
+	Copy(other);
+}
 
 template<class T>
 Array<T>::Array(S32 s, const T& defaultValue) {
@@ -73,7 +82,9 @@ Array<T>::~Array() {
 		T* obj = data + i;
 		obj->~T();
 	}
-	CROSS_FREE(data);
+	if(data) {
+		CROSS_FREE(data);
+	}
 }
 
 template<class T>
@@ -99,6 +110,18 @@ S32 Array<T>::Size() const {
 template<class T>
 S32 Array<T>::Capacity() const {
 	return capacity;
+}
+
+template<class T>
+void Array<T>::Reserve(S32 count) {
+	if(count > capacity) {
+		if(capacity == 0) {
+			data = (T*)CROSS_ALLOC(sizeof(T) * count);
+		} else {
+			data = (T*)CROSS_REALLOC(data, sizeof(T) * count);
+		}
+		capacity = count;
+	}
 }
 
 template<class T>
@@ -144,6 +167,11 @@ const T& Array<T>::operator [] (S32 index) const {
 }
 
 template<class T>
+void Array<T>::operator = (const Array<T>& other) {
+	Copy(other);
+}
+
+template<class T>
 void Array<T>::ReallocateIfNeeded() {
 	if(capacity == 0) {
 		capacity = 1;
@@ -152,6 +180,14 @@ void Array<T>::ReallocateIfNeeded() {
 	if(size >= capacity) {
 		capacity *= 2;
 		data = (T*)CROSS_REALLOC(data, sizeof(T) * capacity);
+	}
+}
+
+template<class T>
+void Array<T>::Copy(const Array<T>& other) {
+	Reserve(other.Size());
+	for(S32 i = 0; i < other.Size(); i++) {
+		Add(other[i]);
 	}
 }
 

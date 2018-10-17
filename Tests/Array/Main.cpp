@@ -74,9 +74,9 @@ void PrimitiveTest() {
 		printf("Interative float loop - %f\n", f);
 	}
 
-	Array<int> inits = { 1, 2, 3, -5 };
-	printf("Second item is - (%d)", inits[1]);
-	printf("Fouth item is - (%d)", inits[3]);
+	//Array<int> inits = { 1, 2, 3, -5 };
+	//printf("Second item is - (%d)", inits[1]);
+	//printf("Fouth item is - (%d)", inits[3]);
 }
 
 void ObjectTest() {
@@ -112,6 +112,9 @@ void ObjectTest() {
 	for(Hard copy : defValues) {
 		printf("Interative def values loop - %s\n", copy.Get());
 	}
+
+	Array<Hard> arrayCopy = array;
+	arrayCopy = defValues;
 
 	//ArrayTest<Hard>::Iterator iter;
 	//iter = array.Begin();
