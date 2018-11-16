@@ -53,6 +53,15 @@ private:
 	char* data = nullptr;
 };
 
+class Syntetic {
+public:
+	Syntetic(const std::string& info) :
+		info(info)
+	{ }
+private:
+	std::string info;
+};
+
 void PrimitiveTest() {
 	printf("========= Primitive Test ==========\n");
 
@@ -116,12 +125,10 @@ void ObjectTest() {
 	Array<Hard> arrayCopy = array;
 	arrayCopy = defValues;
 
-	//ArrayTest<Hard>::Iterator iter;
-	//iter = array.Begin();
-	//while(iter != array.End()) {
-	//	printf("Interative loop - %s\n", (*iter).Get());
-	//	iter++;
-	//}
+	printf("Lazy test\n");
+	Array<Syntetic> lazy;
+	lazy.Reserve(5);
+	lazy.CreateInside("some info");
 }
 
 void main() {

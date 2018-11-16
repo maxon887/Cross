@@ -126,6 +126,10 @@ void Array<T>::Reserve(S32 count) {
 
 template<class T>
 void Array<T>::Clear() {
+	for(S32 i = 0; i < size; i++) {
+		T* obj = data + i;
+		obj->~T();
+	}
 	size = 0;
 }
 
