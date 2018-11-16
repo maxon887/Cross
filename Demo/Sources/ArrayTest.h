@@ -9,21 +9,17 @@ using namespace cross;
 class Hard {
 public:
 	Hard() {
-		//printf("Hard Constructor\n");
 		data = new char[data_size];
 	}
 	Hard(const Hard& other) {
-		//printf("Hard Copy Constructor\n");
 		data = new char[data_size];
 		memcpy(data, other.data, data_size);
 	}
 	Hard(Hard&& other) {
-		//printf("Hard Move Constructor\n");
 		data = other.data;
 		other.data = nullptr;
 	}
 	~Hard() {
-		//printf("Hard Destructor\n");
 		delete data;
 	}
 

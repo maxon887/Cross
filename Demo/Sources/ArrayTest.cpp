@@ -327,11 +327,11 @@ float ArrayTestView::GettingRandomElementStdFunc(const std::vector<S32>& integer
 float ArrayTestView::IterrationCrossFunc(const Array<S32>& integers) {
 	Debugger::Instance()->SetTimeCheck();
 
-	int res;
+	int res = 0;
 	for(int v : integers) {
 		res += v;
 	}
-	printf("%f", res);
+	printf("%d", res);
 
 	return Debugger::Instance()->GetTimeCheck();
 }
@@ -339,7 +339,7 @@ float ArrayTestView::IterrationCrossFunc(const Array<S32>& integers) {
 float ArrayTestView::IterrationStdFunc(const std::vector<S32>& integers) {
 	Debugger::Instance()->SetTimeCheck();
 
-	int res;
+	int res = 0;
 	for(int v : integers) {
 		res += v;
 	}
