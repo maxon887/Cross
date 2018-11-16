@@ -129,6 +129,8 @@ void ObjectTest() {
 	Array<Syntetic> lazy;
 	lazy.Reserve(5);
 	lazy.CreateInside("some info");
+
+	Array<Syntetic> copyOfLazy = lazy;
 }
 
 void main() {

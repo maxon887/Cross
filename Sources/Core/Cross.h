@@ -16,6 +16,18 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
+// Available Macrosies.
+// Enable following macrosies on your compiler preprocessor level in order to accomplish described results */
+
+// CROSS_DEBUG - enables engine debug functional. Additional logs and error checking will be enabled. Should not be turn on on Release mode
+
+// CROSS_MEMORY_PROFILE - enables internal memory profiler. Which keep track of all c++ memory allocations and deallocations. 
+// This functional will help you not to forget call delete for your memory by asserting on the exit of application. For old style memory
+// malloc and free the are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macrosies. Should not be turn on on Release mode.
+
+// CROSS_STD_REPLACEMENT - replaces all basics std types for custom ones. In for performance and learning purposes. 
+
+
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 
@@ -54,8 +66,8 @@ namespace cross {
 }
 
 #include "Internals/MemoryManager.h"
+
 #include "Experimental/String.h"
-//#include "Experimental/ArraySTD.h"
 #include "Experimental/Array.h"
 #include "Experimental/Function.h"
 
@@ -70,8 +82,6 @@ namespace cross {
 
 namespace cross{
 
-//template<typename Type>
-//using Array = ArraySTD<Type>;
 template<typename Type>
 using List = std::list<Type>;
 template<typename Key, typename Value>
