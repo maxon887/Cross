@@ -31,6 +31,7 @@ public:
 	void CreateInside(Args... args);
 	S32 Size() const;
 	S32 Capacity() const;
+	S32 Find(const T& ref) const;
 	void Reserve(S32 count);
 	void Clear();
 	T& Last();
@@ -110,6 +111,16 @@ S32 Array<T>::Size() const {
 template<class T>
 S32 Array<T>::Capacity() const {
 	return capacity;
+}
+
+template<class T>
+S32 Array<T>::Find(const T& ref) const {
+	for(S32 i = 0; i < size; i++) {
+		if(data[i] == ref) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 template<class T>

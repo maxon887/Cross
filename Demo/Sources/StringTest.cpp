@@ -29,7 +29,7 @@ const char* short_names[] = {
 float StringTestView::CreateLongCrossStrings() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 10000; i++) {
+	for(int i = 0; i < 20000; i++) {
 		String test = long_names[Random(0, long_names_count)];
 	}
 
@@ -39,7 +39,7 @@ float StringTestView::CreateLongCrossStrings() {
 float StringTestView::CreateLongStdStrings() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 10000; i++) {
+	for(int i = 0; i < 20000; i++) {
 		std::string test = long_names[Random(0, long_names_count)];
 	}
 
@@ -49,7 +49,7 @@ float StringTestView::CreateLongStdStrings() {
 float StringTestView::CreateShortCrossStrings() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 10000; i++) {
+	for(int i = 0; i < 70000; i++) {
 		String test = short_names[Random(0, short_names_count)];
 	}
 
@@ -59,7 +59,7 @@ float StringTestView::CreateShortCrossStrings() {
 float StringTestView::CreateShortStdStrings() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 10000; i++) {
+	for(int i = 0; i < 70000; i++) {
 		std::string test = short_names[Random(0, short_names_count)];
 	}
 
@@ -137,7 +137,7 @@ float ConversionStdStringTest() {
 float StringTestView::ConcatenationCrossStringTest() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 1000; i++) {
+	for(int i = 0; i < 1300; i++) {
 		String result;
 		bool shouldGoNext = true;
 		while(shouldGoNext) {
@@ -175,7 +175,7 @@ float StringTestView::ConcatenationCrossStringTest() {
 float StringTestView::ConcatenationStdStringTest() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 1000; i++) {
+	for(int i = 0; i < 1300; i++) {
 		std::string result;
 		bool shouldGoNext = true;
 		while(shouldGoNext) {
@@ -213,7 +213,7 @@ float StringTestView::ConcatenationStdStringTest() {
 float StringTestView::FindCrossStringTest() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 500000; i++) {
+	for(int i = 0; i < 35000; i++) {
 		S32 result = long_names_cross[Random(0, long_names_count)].Find(short_names[Random(0, short_names_count + 1)]);
 	}
 
@@ -223,7 +223,7 @@ float StringTestView::FindCrossStringTest() {
 float StringTestView::FindStdStringTest() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 500000; i++) {
+	for(int i = 0; i < 35000; i++) {
 		long_names_std[Random(0, long_names_count)].find(short_names[Random(0, short_names_count + 1)]);
 	}
 
@@ -233,7 +233,7 @@ float StringTestView::FindStdStringTest() {
 float StringTestView::ReplaceCrossStringTest() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 5000; i++) {
+	for(int i = 0; i < 10000; i++) {
 		String test = long_names[Random(0, long_names_count)];
 		test.Replace(short_names[Random(0, short_names_count + 1)], short_names[Random(0, short_names_count + 1)]);
 	}
@@ -244,7 +244,7 @@ float StringTestView::ReplaceCrossStringTest() {
 float StringTestView::ReplaceStdStringTest() {
 	Debugger::Instance()->SetTimeCheck();
 
-	for(int i = 0; i < 5000; i++) {
+	for(int i = 0; i < 10000; i++) {
 		std::string test = long_names[Random(0, long_names_count)];
 		const char* from = short_names[Random(0, short_names_count + 1)];
 		const char* to = short_names[Random(0, short_names_count + 1)];
