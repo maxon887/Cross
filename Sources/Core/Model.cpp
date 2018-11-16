@@ -151,7 +151,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 	Array<U16> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i) {
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j) {
-			indices.push_back((U16)mesh->mFaces[i].mIndices[j]);
+			indices.Add((U16)mesh->mFaces[i].mIndices[j]);
 		}
 	}
 	system->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());

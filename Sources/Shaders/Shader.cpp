@@ -365,24 +365,24 @@ void Shader::SetFragmentFilename(const String& filename) {
 void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String fullStr = "#version " + ver + " es\n";
-	macrosies.push_back(fullStr);
+	macrosies.Add(fullStr);
 	makro_len += fullStr.Length();
 }
 
 void Shader::AddMacro(const String& makro, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + "\n";
-	macrosies.push_back(makroString);
+	macrosies.Add(makroString);
 	makro_len += makroString.Length();
 	if(!system){
-		user_macro.push_back(makro);
+		user_macro.Add(makro);
 	}
 }
 
 void Shader::AddMacro(const String& makro, int value, bool system) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + " " + String(value) + "\n";
-	macrosies.push_back(makroString);
+	macrosies.Add(makroString);
 	makro_len += makroString.Length();
 	if(!system) {
 		CROSS_ASSERT(false, "Do not implement yet");
@@ -394,49 +394,49 @@ Array<String>& Shader::GetMacrosies() {
 }
 
 void Shader::ClearMacrosies() {
-	user_macro.clear();
+	user_macro.Clear();
 }
 
 void Shader::AddProperty(const String& name, const String& glName) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName);
+	properties.CreateInside(name, glName);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Shader::Property::Type type) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, type);
+	properties.CreateInside(name, glName, type);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, float defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Color& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Vector3D& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const Property& prop) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(prop.name), "Shader already contain that property");
-	properties.push_back(prop);
+	properties.Add(prop);
 }
 
 Shader::Property* Shader::GetProperty(const String& name) {
@@ -453,7 +453,7 @@ Array<Shader::Property>& Shader::GetProperties() {
 }
 
 void Shader::ClearProperties() {
-	properties.clear();
+	properties.Clear();
 }
 
 bool Shader::HaveProperty(const String& name) const {
@@ -475,7 +475,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     if(type == GL_FRAGMENT_SHADER) {
         CROSS_RETURN(!compiled, 0, "Shader already compiled");
         String fullStr = "precision mediump float;\n";
-		macrosies.push_back(fullStr);
+		macrosies.Add(fullStr);
         makro_len += fullStr.Length();
     }
 #endif
@@ -533,7 +533,7 @@ void Shader::CompileProgram() {
 }
 
 void Shader::FreeResources() {
-	properties.clear();
+	properties.Clear();
 	if(vertex_shader) {
 		SAFE(glDeleteShader(vertex_shader));
 	}

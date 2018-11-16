@@ -27,7 +27,7 @@ void TriangleScene::Start(){
 	Material* material = GetMaterial("Materials/SimpleRed.mat");
 
 	VertexBuffer* vertexBuffer = new VertexBuffer();
-	
+
 	Vector3D verticesData[3];
 	verticesData[0].x = 0.0f;  verticesData[0].y = 1.f;  verticesData[0].z = 0.0f;
 	verticesData[1].x = 1.f;  verticesData[2].y = -1.f;  verticesData[2].z = 0.0f;
@@ -35,13 +35,17 @@ void TriangleScene::Start(){
 
 	vertexBuffer->PushData((Byte*)&verticesData[0], 3 * sizeof(Vector3D));
 
-	const Array<GLushort> indices = { 0, 1, 2 };
+	Array<GLushort> indices(3, 0);
+	indices.Add(0);
+	indices.Add(1);
+	indices.Add(2);
 
 	Mesh* triangle = new Mesh();
 	triangle->PushData(vertexBuffer, indices);
 	triangle->TransferVideoData();
 	triangle->SetMaterial(material);
 	triangle->EnableFaceCulling(false);
+	
 	delete vertexBuffer;
 
 	Entity* entity = new Entity("Triangle");

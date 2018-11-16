@@ -37,11 +37,11 @@ MenuBar::MenuBar() {
 	SceneView* sceneView = new SceneView();
 	ComponentsView* componentsView = new ComponentsView(sceneView);
 	PropertiesView* propertiesView = new PropertiesView(filesView);
-	views.push_back(filesView);
-	views.push_back(sceneView);
-	views.push_back(componentsView);
-	views.push_back(propertiesView);
-	views.push_back(cameraController);
+	views.Add(filesView);
+	views.Add(sceneView);
+	views.Add(componentsView);
+	views.Add(propertiesView);
+	views.Add(cameraController);
 	for(View* v : views) {
 		if(v->IsVisible()) {
 			v->Shown();
@@ -57,7 +57,7 @@ MenuBar::~MenuBar() {
 	for(View* v : views) {
 		delete v;
 	}
-	views.clear();
+	views.Clear();
 
 	delete about;
 	delete stats;

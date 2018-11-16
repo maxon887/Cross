@@ -26,8 +26,8 @@
     <ClInclude Include="..\..\Sources\Internals\MemoryManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Array.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\..\Sources\Experimental\Array.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

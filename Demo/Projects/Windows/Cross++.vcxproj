@@ -159,6 +159,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
+    <ClCompile Include="..\..\Sources\ArrayTest.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp" />
@@ -257,6 +258,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
+    <ClInclude Include="..\..\Sources\ArrayTest.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h" />

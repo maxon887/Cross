@@ -25,7 +25,7 @@
 ShaderVisualBox::ShaderVisualBox() {
 	for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
 		Shader::Property::Type type = (Shader::Property::Type)i;
-		type_names.push_back(Shader::Property::TypeToString(type));
+		type_names.Add(Shader::Property::TypeToString(type));
 	}
 }
 
@@ -80,7 +80,7 @@ void ShaderVisualBox::Update() {
 			ImGui::NextColumn();
 
 			char* values[Shader::Property::Type::UNKNOWN];
-			for(U32 i = 0; i < type_names.size(); i++) {
+			for(S32 i = 0; i < type_names.Size(); i++) {
 				values[i] = type_names[i].ToCStr();
 			}
 

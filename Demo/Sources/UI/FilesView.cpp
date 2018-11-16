@@ -54,7 +54,7 @@ void FilesView::InitNode(Node& node) {
 		Node newNode;
 		newNode.path = path;
 		newNode.name = folder;
-		node.folders.push_back(newNode);
+		node.folders.Add(newNode);
 	}
 	node.files = system->GetFilesInDirectory(path);
 	node.initialized = true;
@@ -149,8 +149,8 @@ void FilesView::ContextMenu() {
 
 			system->CreateAssetDirectory(buffer);
 
-			file_tree.files.clear();
-			file_tree.folders.clear();
+			file_tree.files.Clear();
+			file_tree.folders.Clear();
 			InitNode(file_tree);
 
 			ImGui::CloseCurrentPopup();

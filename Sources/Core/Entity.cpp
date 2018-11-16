@@ -61,7 +61,7 @@ Component* Entity::GetComponent(U64 type) {
 Array<Component*> Entity::GetComponents() {
 	Array<Component*> result;
 	for(pair<U64, Component*> pair : components) {
-		result.push_back(pair.second);
+		result.Add(pair.second);
 	}
 	return result;
 }
