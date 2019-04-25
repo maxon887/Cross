@@ -75,6 +75,7 @@ void Demo::Start() {
 	input->CharEnter.Connect(this, &Demo::CharEnter);
 	input->Scroll.Connect(this, &Demo::WheelRoll);
 
+	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
 	io.KeyMap[ImGuiKey_Tab] = (int)Key::TAB;

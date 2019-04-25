@@ -75,7 +75,7 @@ void CameraController::Update(float sec) {
 		float radius = SCALED(60.0f);
 		Vector2D center(cursor.x - SCALED(16.0f) + w.x - radius, cursor.y - SCALED(16.0f) + w.y - radius);
 		const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
-		drawList->AddCircle(center, radius, col32, 30, SCALED(4.f));
+		drawList->AddCircle(ImVec2(center.x, center.y), radius, col32, 30, SCALED(4.f));
 
 		ImGuiIO &io = ImGui::GetIO();
 		Vector2D mousePos = io.MousePos;
