@@ -35,6 +35,8 @@ public:
 	
 private:
 	Entity* selected_entity = nullptr;
+	bool editing = false;
+	bool clicked = false;
 
 	void LookAtObject();
 	void BuildNode(Entity* entity);

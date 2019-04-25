@@ -52,6 +52,7 @@ void SceneView::Update(float sec) {
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
 		selected_entity = nullptr;
+		editing = false;
 		EntitySelected.Emit(selected_entity);
 	}
 
@@ -97,12 +98,39 @@ void SceneView::BuildNode(Entity* entity) {
 		flags = leaf_flags | selected;
 	}
 
-	bool open = ImGui::TreeNodeEx(entity->GetName(), flags);
+	bool open = false;
+	if(editing && entity == selected_entity) {
+		ImVec2 cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
+		
+		String name("", 0, 255);
+		name = entity->GetName();
+		ImGui::InputText("", name.ToCStr(), name.Capacity());
+
+		if(!ImGui::IsItemActive() && !clicked) {
+			editing = false;
+		}
+
+		if(clicked) {
+			ImGui::SetKeyboardFocusHere();
+			clicked = false;
+		}
+
+	} else {
+		open = ImGui::TreeNodeEx(entity->GetName(), flags);
+	}
 
 	if(ImGui::IsItemClicked()) {
-		selected_entity = entity;
-		EntitySelected.Emit(entity);
-		LookAtObject();
+		clicked = true;
+		if(selected_entity == entity) {
+			editing = true;
+		} else {
+			selected_entity = entity;
+			editing = false;
+			EntitySelected.Emit(entity);
+			LookAtObject();
+		}
 	}
 
 	if(open && !isLeaf) {
