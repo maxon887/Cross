@@ -59,7 +59,7 @@ void CameraController::Update(float sec) {
 			if(!lookAt) {
 				scene->MoveUp(sliderValue * sec);
 			} else {
-				scene->MoveForward(sliderValue * sec, false);
+				scene->MoveCloser(sliderValue * sec);
 			}
 		}
 

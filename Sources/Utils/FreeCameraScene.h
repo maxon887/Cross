@@ -29,13 +29,14 @@ public:
 	virtual void Update(float sec) override;
 
 	void LookAtCamera(bool enabled);
-	void LookAtCamera(const Vector3D& target);
+	void LookAtTarget(const Vector3D& target, float distance = 3);
 	bool IsLookAtCamera() const;
 
-	void MoveForward(float distance, bool transferTarget = true);
+	void MoveForward(float distance);
 	void MoveRight(float distance);
 	void MoveUp(float distance);
 	void MoveCameraUp(float distance);
+	void MoveCloser(float ratio);	//how close you will be compared with current distance
 
 	void LookRight(float degree);
 	void LookUp(float degree);
@@ -43,11 +44,10 @@ public:
 protected:
 	bool look_at				= true;
 
-	const float focus_distance	= 3.f;
+	float focus_distance		= 3.f;
 
 	float lerp_time				= 0.f;
-	Vector3D target				= Vector3D::Zero;
-	Transform destanation		= Transform();
+	Transform destination		= Transform();
 };
 
 }

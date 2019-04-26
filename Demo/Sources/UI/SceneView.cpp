@@ -74,7 +74,7 @@ Entity* SceneView::GetSelectedEntity() {
 void SceneView::LookAtObject() {
 	FreeCameraScene* scene = static_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(!selected_entity->HasComponent<Camera>() && selected_entity->HasComponent<Transform>()) {
-		scene->LookAtCamera(selected_entity->GetTransform()->GetPosition());
+		scene->LookAtTarget(selected_entity->GetTransform()->GetPosition());
 	}
 }
 

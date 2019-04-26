@@ -27,7 +27,7 @@
 void NakedScene::Start() {
 	DemoScene::Start();
 	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
-	FreeCameraScene::LookAtCamera(Vector3D(0.f, 0.3f, 0.f));
+	FreeCameraScene::LookAtTarget(Vector3D(0.f, 0.3f, 0.f));
 	
 	//lights
 	light = new Entity("PointLight");

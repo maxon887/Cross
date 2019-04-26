@@ -30,7 +30,7 @@ void DemoScene::Start() {
 	if(!camera) {
 		CreateDefaultCamera();
 	}
-	LookAtCamera(Vector3D::Zero);
+
 	input->ActionDown.Connect(this, &DemoScene::OnActionDown);
 	input->ActionMove.Connect(this, &DemoScene::OnActionMove);
 	input->ActionUp.Connect(this, &DemoScene::OnActionUp);
@@ -39,6 +39,7 @@ void DemoScene::Start() {
 	input->Scroll.Connect(this, &DemoScene::MouseWheelRoll);
 	system->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 
+	LookAtTarget(Vector3D::Zero);
 	LookAtCamera(true);
 	
 	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
@@ -71,10 +72,10 @@ void DemoScene::Update(float sec) {
 	if(input->IsPressed(Key::A)) {
 		FreeCameraScene::MoveRight(-camera_speed * sec);
 	}
-	if(input->IsPressed(Key::SHIFT)) {
+	if(input->IsPressed(Key::E)) {
 		FreeCameraScene::MoveUp(camera_speed * sec);
 	}
-	if(input->IsPressed(Key::CONTROL)) {
+	if(input->IsPressed(Key::Q)) {
 		FreeCameraScene::MoveUp(-camera_speed * sec);
 	}
 
@@ -110,11 +111,23 @@ void DemoScene::ActionDown(Input::Action action) {
 }
 
 void DemoScene::ActionMove(Input::Action action) {
-	if(handled_action == action.id) {
-		Vector2D deltaPosition = touch_position - action.pos;
-		touch_position = action.pos;
-		FreeCameraScene::LookRight(deltaPosition.x / 10.f);
-		FreeCameraScene::LookUp(deltaPosition.y / 10.f);
+	Vector2D delta = touch_position - action.pos;
+	touch_position = action.pos;
+
+	if(handled_action == 0) {
+		LookAtCamera(true);
+		FreeCameraScene::LookRight(delta.x / 10.f);
+		FreeCameraScene::LookUp(delta.y / 10.f);
+	}
+	if(handled_action == 1) {
+		LookAtCamera(false);
+		FreeCameraScene::LookRight(delta.x / 10.f);
+		FreeCameraScene::LookUp(delta.y / 10.f);
+	}
+	if(handled_action == 2) {
+		delta /= 200.f;
+		MoveRight(delta.x);
+		MoveUp(delta.y);
 	}
 }
 
@@ -169,6 +182,6 @@ void DemoScene::OnOrientationChanged(System::Orientation o) {
 
 void DemoScene::MouseWheelRoll(float delta) {
 	if(!ImGui::IsMouseHoveringAnyWindow()) {
-		MoveForward(0.1f * delta, false);
+		MoveCloser(0.1f * delta);
 	}
 }
