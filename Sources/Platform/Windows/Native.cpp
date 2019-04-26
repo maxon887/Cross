@@ -43,8 +43,8 @@ RECT GetLocalCoordinates(HWND hWnd){
 	
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	static bool mouseDown = false;
-	switch(msg){
-	case WM_LBUTTONDOWN:{
+	switch(msg) {
+	case WM_LBUTTONDOWN: {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
@@ -52,7 +52,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->TargetActionDown.Emit(targetX, targetY, 0);
 		break;
 	}
-	case WM_RBUTTONDOWN:{
+	case WM_RBUTTONDOWN: {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
@@ -60,7 +60,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->TargetActionDown.Emit(targetX, targetY, 1);
 		break;
 	}
-	case WM_MBUTTONDOWN:{
+	case WM_MBUTTONDOWN: {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
@@ -68,7 +68,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->TargetActionDown.Emit(targetX, targetY, 2);
 		break;
 	}
-	case WM_MOUSEMOVE:{
+	case WM_MOUSEMOVE: {
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		input->MousePosition.x = targetX;
@@ -78,7 +78,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		}
 		break;
 	}
-	case WM_LBUTTONUP:{
+	case WM_LBUTTONUP: {
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
@@ -102,7 +102,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->TargetActionUp.Emit(targetX, targetY, 2);
 		break;
 	}
-	case WM_MOUSEWHEEL:{
+	case WM_MOUSEWHEEL: {
 		short delta = (short)HIWORD(wParam); 
 		input->Scroll.Emit((float)delta / 120.f);
 		break;
@@ -118,20 +118,30 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_CHAR:
 		input->CharEnter.Emit(wParam);
 		break;
-	case WM_MOVE:{
+	case WM_MOVE: {
 		int x = LOWORD(lParam) - 8;
 		int y = HIWORD(lParam) - 30;
 		WINSystem* winSys = (WINSystem*)cross::system;
 		winSys->SetWindowPosition(x, y);
 		break;
 	}
-	case WM_SIZE:{
+	case WM_SIZE: {
 		RECT winRect = GetLocalCoordinates(wnd);
 		int width = winRect.right - winRect.left;
 		int height = winRect.bottom - winRect.top;
 		if(width > 0 && height > 0){
 			WINSystem* winSys = (WINSystem*)cross::system;
 			winSys->SetWindowSize(width, height);
+		}
+		break;
+	}
+	case WM_GETMINMAXINFO: {
+		if(system) {
+			float windowsScale = system->GetScreenDPI() / USER_DEFAULT_SCREEN_DPI;
+			DefWindowProc(wnd, msg, wParam, lParam);
+			MINMAXINFO* pmmi = (MINMAXINFO*)lParam;
+			pmmi->ptMaxTrackSize.x *= windowsScale;
+			pmmi->ptMaxTrackSize.y *= windowsScale;
 		}
 		break;
 	}

@@ -60,7 +60,6 @@ public:
     void SaveGameConfig();
     void SaveUserConfig();
 
-engineonly:
 	void LoadGameConfig();
 	void LoadUserConfig();
 
