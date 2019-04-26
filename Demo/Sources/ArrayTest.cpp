@@ -343,7 +343,6 @@ float ArrayTestView::IterrationStdFunc(const std::vector<S32>& integers) {
 	for(int v : integers) {
 		res += v;
 	}
-	printf("%f", res);
 	return Debugger::Instance()->GetTimeCheck();
 }
 

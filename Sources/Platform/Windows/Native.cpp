@@ -140,8 +140,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 			float windowsScale = system->GetScreenDPI() / USER_DEFAULT_SCREEN_DPI;
 			DefWindowProc(wnd, msg, wParam, lParam);
 			MINMAXINFO* pmmi = (MINMAXINFO*)lParam;
-			pmmi->ptMaxTrackSize.x *= windowsScale;
-			pmmi->ptMaxTrackSize.y *= windowsScale;
+			pmmi->ptMaxTrackSize.x *= (long)windowsScale;
+			pmmi->ptMaxTrackSize.y *= (long)windowsScale;
 		}
 		break;
 	}

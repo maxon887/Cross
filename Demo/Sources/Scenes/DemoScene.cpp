@@ -59,24 +59,26 @@ void DemoScene::Stop() {
 }
 
 void DemoScene::Update(float sec) {
-
-	if(input->IsPressed(Key::W)) {
-		FreeCameraScene::MoveForward(camera_speed * sec);
-	}
-	if(input->IsPressed(Key::S)) {
-		FreeCameraScene::MoveForward(-camera_speed * sec);
-	}
-	if(input->IsPressed(Key::D)) {
-		FreeCameraScene::MoveRight(camera_speed * sec);
-	}
-	if(input->IsPressed(Key::A)) {
-		FreeCameraScene::MoveRight(-camera_speed * sec);
-	}
-	if(input->IsPressed(Key::E)) {
-		FreeCameraScene::MoveUp(camera_speed * sec);
-	}
-	if(input->IsPressed(Key::Q)) {
-		FreeCameraScene::MoveUp(-camera_speed * sec);
+	ImGuiIO& io = ImGui::GetIO();
+	if(!io.WantCaptureKeyboard) {
+		if(input->IsPressed(Key::W)) {
+			FreeCameraScene::MoveForward(camera_speed * sec);
+		}
+		if(input->IsPressed(Key::S)) {
+			FreeCameraScene::MoveForward(-camera_speed * sec);
+		}
+		if(input->IsPressed(Key::D)) {
+			FreeCameraScene::MoveRight(camera_speed * sec);
+		}
+		if(input->IsPressed(Key::A)) {
+			FreeCameraScene::MoveRight(-camera_speed * sec);
+		}
+		if(input->IsPressed(Key::E)) {
+			FreeCameraScene::MoveUp(camera_speed * sec);
+		}
+		if(input->IsPressed(Key::Q)) {
+			FreeCameraScene::MoveUp(-camera_speed * sec);
+		}
 	}
 
 	while(!action_stack.empty()) {

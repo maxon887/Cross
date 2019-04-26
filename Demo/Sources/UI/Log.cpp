@@ -47,6 +47,11 @@ void Log::Update(float sec) {
 		}
 	}
 
+	if(log_size != system->GetLogBuffer().Length()) {
+		scroll_to_bottom = true;
+		log_size = system->GetLogBuffer().Length();
+	}
+
 	if(scroll_to_bottom) {
 		ImGui::SetScrollHere(1.0f);
 	}
