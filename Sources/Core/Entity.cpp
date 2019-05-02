@@ -55,7 +55,11 @@ void Entity::SetName(const String& name) {
 }
 
 Component* Entity::GetComponent(U64 type) {
-	return components[type];
+	if(components.find(type) == components.end()) {
+		return nullptr;
+	} else {
+		return components[type];
+	}
 }
 
 Array<Component*> Entity::GetComponents() {
