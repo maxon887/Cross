@@ -25,7 +25,7 @@ class SceneView : public View {
 public:
 	Event<Entity*> EntitySelected;
 
-	SceneView() : View("Scene") { }
+	SceneView();
 
 	void PreUpdate() override;
 	void Update(float sec) override;
@@ -37,6 +37,8 @@ private:
 	Entity* selected_entity = nullptr;
 	bool editing = false;
 	bool clicked = false;
+
+	void OnSceneChanged(Screen* newScreen);
 
 	void LookAtObject();
 	void BuildNode(Entity* entity);

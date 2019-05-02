@@ -26,6 +26,11 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
+SceneView::SceneView() : View("Scene")
+{
+	game->ScreenChanged.Connect(this, &SceneView::OnSceneChanged);
+}
+
 void SceneView::PreUpdate() {
 	if(system->IsMobile()) {
 		if(system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
@@ -69,6 +74,10 @@ void SceneView::PostUpdate() {
 
 Entity* SceneView::GetSelectedEntity() {
 	return selected_entity;
+}
+
+void SceneView::OnSceneChanged(Screen*) {
+	selected_entity = nullptr;
 }
 
 void SceneView::LookAtObject() {

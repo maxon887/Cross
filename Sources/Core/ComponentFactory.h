@@ -27,7 +27,7 @@ class Component;
 	Register your Components before any Scene::Load() calls */
 class ComponentFactory {
 public:
-	/* Registers Component Type. Provide a name by which Component will be loaded from XML file (and visually presented in some causes) */
+	/* Registers Component Type. Provide a name by which Component will be loaded from XML file (and in other visual representations) */
 	template<class T> void Register(const String& name);
 	/* Creates successor by name of Component of one of registered classes */
 	Component* Create(const String& name);

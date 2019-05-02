@@ -20,6 +20,7 @@
 #include "Component.h"
 #include "Transform.h"
 #include "Demo.h"
+#include "ComponentFactory.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -113,6 +114,19 @@ void ComponentsView::ContextMenu(Entity* selectedEntity) {
 	if(ImGui::BeginPopupContextWindow("ComponentsOptions")) {
 		bool enabled = selectedEntity != nullptr;
 		if(ImGui::BeginMenu("Add Component", enabled)) {
+			ComponentFactory* factory = game->GetComponentFactory();
+			for(const String& componentName : factory->GetRegisteredComponentsName()) {
+				if(ImGui::MenuItem(componentName.ToCStr(), "", false)) {
+					Component* newComponent = factory->Create(componentName);
+					Entity* selectedEntity = scene_view->GetSelectedEntity();
+					if(selectedEntity->GetComponent(typeid(*newComponent).hash_code())) {
+						system->Messagebox("Error", "Component already exists");
+						delete newComponent;
+					} else {
+						selectedEntity->AddComponent(newComponent);
+					}
+				}
+			}
 
 			ImGui::EndMenu();
 		}
