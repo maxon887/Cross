@@ -103,10 +103,19 @@ void SceneView::BuildNode(Entity* entity) {
 		ImVec2 cursorPos = ImGui::GetCursorPos();
 		cursorPos.x += ImGui::GetStyle().IndentSpacing;
 		ImGui::SetCursorPos(cursorPos);
-		
-		String name("", 0, 255);
-		name = entity->GetName();
-		ImGui::InputText("", name.ToCStr(), name.Capacity());
+
+		char buffer[256];
+		strcpy(buffer, entity->GetName().ToCStr());
+		ImGui::InputText("", buffer, 256);
+
+		if(ImGui::IsKeyPressed(ImGuiKey_Escape)) {
+			editing = false;
+		}
+
+		if(ImGui::IsKeyPressed(ImGuiKey_Enter)) {
+			entity->SetName(buffer);
+			editing = false;
+		}
 
 		if(!ImGui::IsItemActive() && !clicked) {
 			editing = false;

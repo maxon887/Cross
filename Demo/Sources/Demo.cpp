@@ -88,7 +88,7 @@ void Demo::Start() {
 	io.KeyMap[ImGuiKey_Home] = (int)Key::HOME;
 	io.KeyMap[ImGuiKey_End] = (int)Key::END;
 	io.KeyMap[ImGuiKey_Delete] = (int)Key::DEL;
-	io.KeyMap[ImGuiKey_Backspace] = (int)Key::BACK;
+	io.KeyMap[ImGuiKey_Backspace] = (int)Key::BACKSPACE;
 	io.KeyMap[ImGuiKey_Escape] = (int)Key::ESCAPE;
 	io.KeyMap[ImGuiKey_A] = (int)Key::A;
 	io.KeyMap[ImGuiKey_C] = (int)Key::C;
@@ -359,15 +359,15 @@ void Demo::KeyPressed(Key key) {
 		io.KeyAlt = true;
 	}
 
-	if(key == Key::ESCAPE || key == Key::BACK) {
-#ifdef ANDROID
-		if(GetCurrentScreen()->GetName() == "Main") {
-			((AndroidSystem*)system)->PromtToExit();
-			return;
-		}
-#endif
-		ToMain();
-	}
+//	if(key == Key::ESCAPE || key == Key::BACK) {
+//#ifdef ANDROID
+//		if(GetCurrentScreen()->GetName() == "Main") {
+//			((AndroidSystem*)system)->PromtToExit();
+//			return;
+//		}
+//#endif
+//		ToMain();
+//	}
 }
 
 void Demo::KeyReleased(Key key) {
