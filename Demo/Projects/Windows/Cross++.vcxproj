@@ -17,6 +17,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}</ProjectGuid>
     <RootNamespace>Cross</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'" Label="Configuration">
@@ -193,6 +194,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\UI\LaunchView.cpp" />
     <ClCompile Include="..\..\Sources\UI\Log.cpp" />
     <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp" />
+    <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp" />
     <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
@@ -295,6 +297,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\UI\LaunchView.h" />
     <ClInclude Include="..\..\Sources\UI\Log.h" />
     <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h" />
+    <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\PropertiesView.h" />
     <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />

@@ -19,6 +19,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "Transform.h"
+#include "Mesh.h"
 #include "Demo.h"
 #include "ComponentFactory.h"
 
@@ -43,6 +44,8 @@ void ComponentsView::Update(float sec) {
 
 				if(dynamic_cast<Transform*>(component)) {
 					tranform_box.Show((Transform*)component);
+				} else if(dynamic_cast<Mesh*>(component)) {
+					mesh_box.Show((Mesh*)component);
 				} else {
 					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(1.f), SCALED(1.f)));
 					ImGui::NewLine();

@@ -55,8 +55,10 @@ public:
 	/* Draws Mesh on scene with provided MVP matrix and others parameters */
 	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehaviour);
 
-	/* Transfers Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
-	void TransferVideoData();
+	/* Initialize Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
+	void InitializeVideoData();
+	/* Copy video data from another mesh, VBO, EBO and indices */
+	void TransferVideoData(Mesh* mesh);
 	/* Add new data to this Mesh or push it on top if have some */
 	void PushData(VertexBuffer* vertexBuffer, const Array<U16>& indices);
 
@@ -77,6 +79,10 @@ public:
 
 	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
 	S32 GetID() const;
+	/* Returns filename of the model from which downloaded current Mesh */
+	String GetModelFileName() const;
+	/* Returns filename of material assosiated with current Mesh */
+	String GetMaterialFileName() const;
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
 

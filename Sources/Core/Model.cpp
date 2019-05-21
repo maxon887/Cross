@@ -43,10 +43,10 @@ void Model::Load(const String& filename, bool calcTangents) {
 	Load(filename, calcTangents, true);
 }
 
-void Model::Load(const String& filename, bool calcTangents, bool transferVideoData) {
+void Model::Load(const String& filename, bool calcTangents, bool initializeVideoData) {
 	Debugger::Instance()->SetTimeCheck();
 
-	transfer_video = transferVideoData;
+	initialize_video = initializeVideoData;
 	mesh_id = 0;
 	this->filename = filename;
 	Entity* root = new Entity("ModelRoot");
@@ -158,8 +158,8 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 	Mesh* crsMesh = new Mesh(filename, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
-	if(transfer_video) {
-		crsMesh->TransferVideoData();
+	if(initialize_video) {
+		crsMesh->InitializeVideoData();
 	}
 	return crsMesh;
 }

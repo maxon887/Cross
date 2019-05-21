@@ -339,6 +339,9 @@
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -641,6 +644,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\ArrayTest.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

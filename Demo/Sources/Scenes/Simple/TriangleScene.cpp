@@ -42,7 +42,7 @@ void TriangleScene::Start(){
 
 	Mesh* triangle = new Mesh();
 	triangle->PushData(vertexBuffer, indices);
-	triangle->TransferVideoData();
+	triangle->InitializeVideoData();
 	triangle->SetMaterial(material);
 	triangle->EnableFaceCulling(false);
 	

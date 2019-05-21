@@ -237,7 +237,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Mesh::TransferVideoData() {
+void Mesh::InitializeVideoData() {
 	SAFE(glGenBuffers(1, (GLuint*)&VBO));
 	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
@@ -251,6 +251,12 @@ void Mesh::TransferVideoData() {
 
 	vertex_buffer->Free();
 	initialized = true;
+}
+
+void Mesh::TransferVideoData(Mesh* mesh) {
+	VBO = mesh->VBO;
+	EBO = mesh->EBO;
+	indices = mesh->indices;
 }
 
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
@@ -293,6 +299,14 @@ Array<GLushort>& Mesh::GetIndices() {
 
 S32 Mesh::GetID() const {
 	return id;
+}
+
+String Mesh::GetModelFileName() const {
+	return model_filename.value;
+}
+
+String Mesh::GetMaterialFileName() const {
+	return material_filename.value;
 }
 
 U32 Mesh::GetPolyCount() const {
