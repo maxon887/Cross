@@ -100,7 +100,7 @@ void MenuBar::ShowMenu() {
 				String sceneFile = system->OpenFileDialog();
 				if(sceneFile != "") {
 					Scene* scene = new DemoScene();
-					if(!scene->Load(sceneFile, false)) {
+					if(!scene->Load(sceneFile)) {
 						delete scene;
 						CROSS_ASSERT(false, "Can not load scene file, sorry");
 					} else {

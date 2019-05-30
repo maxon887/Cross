@@ -18,7 +18,11 @@
 #include "File.h"
 #include "Config.h"
 
+#include "shlwapi.h"
+
 #define DATA_PATH "Data/"
+
+#pragma comment(lib, "Shlwapi.lib")
 
 using namespace cross;
 
@@ -215,13 +219,30 @@ String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
 	if(filepath == "") {
 		return filepath;
 	}
-	filepath.Replace("\\", "/");
-	String filename = File::FileFromPath(filepath);
-	String ext = File::ExtensionFromFile(filename);
-	if(ext == filename) {
-		filepath += ".scn";
-	}
-	return filepath;
+
+
+	//filepath.Replace("\\", "/");
+	//String filename = File::FileFromPath(filepath);
+	//String ext = File::ExtensionFromFile(filename);
+	//if(ext == filename) {
+	//	filepath += ".scn";
+	//}
+
+	char currentDir[512];
+	GetCurrentDirectory(511, currentDir);
+
+	char pathToAssets[512];
+	String winAssetsPath = AssetsPath();
+ 	winAssetsPath.Replace("/", "\\");
+	PathCombine(pathToAssets, currentDir, winAssetsPath);
+
+	char relativePath[512];
+	PathRelativePathTo(relativePath, pathToAssets, FILE_ATTRIBUTE_DIRECTORY, filepath, FILE_ATTRIBUTE_NORMAL);
+
+	String result = relativePath;
+	result.Replace("\\", "/");
+
+	return result;
 }
 
 void WINSystem::SetAssetPath(const String& path) {
