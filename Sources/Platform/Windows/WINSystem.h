@@ -44,7 +44,7 @@ public:
 	void Sleep(float milis) override;
 	bool IsMobile() override;
 	void OpenFileExternal(const String& filename) override;
-	String OpenFileDialog(bool saveDialog = false) override;
+	String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false) override;
 
 	void SetAssetPath(const String& path);
 	void FullScreen(bool yes);

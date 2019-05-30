@@ -98,7 +98,7 @@ public:
 	/* Tries to open file with appropriate external program */
 	virtual void OpenFileExternal(const String& filename);
 	/* Opens system window for choosing file */
-	virtual String OpenFileDialog(bool saveDialog = false);
+	virtual String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false);
 	/* Prints String */
 	template<class... Args>
 	void LogIt(const String& msg, Args... args);

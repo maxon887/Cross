@@ -97,7 +97,7 @@ void MenuBar::ShowMenu() {
 			}
 
 			if(ImGui::MenuItem("Open Scene")) {
-				String sceneFile = system->OpenFileDialog();
+				String sceneFile = system->OpenFileDialog("*.scn");
 				if(sceneFile != "") {
 					Scene* scene = new DemoScene();
 					if(!scene->Load(sceneFile)) {

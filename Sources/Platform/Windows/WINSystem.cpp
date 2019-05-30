@@ -192,7 +192,7 @@ void WINSystem::OpenFileExternal(const String& filename) {
 	}
 }
 
-String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
+String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDialog /* = false */) {
 	char szFile[512];
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn, sizeof(ofn));
@@ -201,7 +201,12 @@ String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
 	ofn.lpstrFile = szFile;
 	ofn.lpstrFile[0] = '\0';
 	ofn.nMaxFile = sizeof(szFile);
-	ofn.lpstrFilter = "Scene File\0*.scn\0";
+	char fileFilter[512];
+	memset(fileFilter, 0, 512);
+	strcpy(fileFilter, extension.ToCStr());
+	memcpy(fileFilter + strlen(fileFilter) + 1, extension.ToCStr(), extension.Length() + 1);
+	ofn.lpstrFilter = fileFilter;
+	//ofn.lpstrFilter = "File Type\0*.*\0";
 	ofn.nFilterIndex = 1;
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
@@ -219,14 +224,6 @@ String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
 	if(filepath == "") {
 		return filepath;
 	}
-
-
-	//filepath.Replace("\\", "/");
-	//String filename = File::FileFromPath(filepath);
-	//String ext = File::ExtensionFromFile(filename);
-	//if(ext == filename) {
-	//	filepath += ".scn";
-	//}
 
 	char currentDir[512];
 	GetCurrentDirectory(511, currentDir);
