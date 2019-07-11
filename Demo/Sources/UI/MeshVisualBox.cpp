@@ -42,16 +42,9 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	if(ImGui::Button(modelName)) {
 		modelName = system->OpenFileDialog();
 		if(!modelName.IsEmpty()) {
-			//mesh->SetModelFileName(modelName);
-
-
-			Model* newModel = game->GetCurrentScene()->GetModel(modelName);
-			if(newModel) {
-				Mesh* downloadedMesh = newModel->GetMesh(id);
-				mesh->TransferVideoData(downloadedMesh);
-			} else {
-				CROSS_ASSERT(false, "Can not load model #", modelName);
-			}
+			mesh->SetModelFileName(modelName);
+			mesh->SetID(0);
+			mesh->Initialize(game->GetCurrentScene());
 		}
 	}
 
