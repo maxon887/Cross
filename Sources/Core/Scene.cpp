@@ -279,6 +279,10 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 	}
 }
 
+Material* Scene::GetDefaultMaterial() {
+	return GetMaterial("Engine/Default.mat");
+}
+
 Texture* Scene::GetTexture(const String& textureFile) {
 	U64 hash = textureFile.Hash();
 	auto textureIt = textures.find(hash);

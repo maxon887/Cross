@@ -29,7 +29,7 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	S32 id = mesh->GetID();
 	ImGui::DragInt("## Group ID", &id);
 	if(id != mesh->GetID()) {
-		CROSS_ASSERT(false, "Mesh ID not editable yet");
+		//mesh->SetID(id);
 	}
 
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
@@ -42,8 +42,10 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	if(ImGui::Button(modelName)) {
 		modelName = system->OpenFileDialog();
 		if(!modelName.IsEmpty()) {
-			Model* newModel = game->GetCurrentScene()->GetModel(modelName);
+			//mesh->SetModelFileName(modelName);
 
+
+			Model* newModel = game->GetCurrentScene()->GetModel(modelName);
 			if(newModel) {
 				Mesh* downloadedMesh = newModel->GetMesh(id);
 				mesh->TransferVideoData(downloadedMesh);
@@ -59,7 +61,11 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	String materialFilename = mesh->GetMaterialFileName();
 	materialFilename = File::FileFromPath(materialFilename);
 	if(ImGui::Button(materialFilename)) {
-		system->OpenFileDialog();
+		materialFilename = system->OpenFileDialog();
+		if(!materialFilename.IsEmpty()) {
+			Material* selectedMaterial = game->GetCurrentScene()->GetMaterial(materialFilename);
+			mesh->SetMaterial(selectedMaterial);
+		}
 	}
 
 	ImGui::PopStyleVar();

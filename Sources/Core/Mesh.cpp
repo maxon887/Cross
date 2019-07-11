@@ -59,7 +59,7 @@ void Mesh::Initialize(Scene* scene) {
 			Material* mat = scene->GetMaterial(material_filename);
 			SetMaterial(mat);
 		} else {
-			SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+			SetMaterial(scene->GetDefaultMaterial());
 		}
 	}
 }

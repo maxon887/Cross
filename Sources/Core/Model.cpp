@@ -69,7 +69,11 @@ Entity* Model::GetHierarchy() const {
 }
 
 Mesh* Model::GetMesh(S32 id) {
-	return meshes[id];
+	if(meshes.find(id) != meshes.end()) {
+		return meshes[id];
+	} else {
+		return nullptr;
+	}
 }
 
 void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {

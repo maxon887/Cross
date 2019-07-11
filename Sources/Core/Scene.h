@@ -80,6 +80,8 @@ public:
 	Shader* GetShader(const String& shaderfile);
 	/* Obtain loaded into scene Material or load it by self in other way */
 	Material* GetMaterial(const String& xmlFile);
+	/* Returns default engine material */
+	Material* GetDefaultMaterial();
 	/* Obtain loaded into scene Texture or load it by self in other way */
 	Texture* GetTexture(const String& textureFile);
 	/* Loads texture with provided filter */
