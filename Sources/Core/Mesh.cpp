@@ -75,7 +75,9 @@ Mesh* Mesh::Clone() const {
 }
 
 void Mesh::Draw() {
-	Draw(material);
+	if(enabled) {
+		Draw(material);
+	}
 }
 
 void Mesh::Draw(Material* mat) {

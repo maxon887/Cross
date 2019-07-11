@@ -38,7 +38,15 @@ void ComponentsView::Update(float sec) {
 		for(Component* component : entity->GetComponents()) {
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(4.f), SCALED(4.f)));
 
-			if(ImGui::CollapsingHeader(component->GetName())) {
+			bool open = ImGui::CollapsingHeader(component->GetName(), ImGuiTreeNodeFlags_AllowItemOverlap);
+			ImGui::SameLine(ImGui::GetWindowWidth() - 35);
+			String checkboxHashName = "##EnableCheckbox" + component->GetName();
+			bool enabled = component->IsEnabled();
+			if(ImGui::Checkbox(checkboxHashName.ToCStr(), &enabled)) {
+				component->Enable(enabled);
+			}
+
+			if(open) {
 				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + SCALED(2.f));
 				ImGui::Separator();
 
@@ -122,6 +130,7 @@ void ComponentsView::ContextMenu(Entity* selectedEntity) {
 				if(ImGui::MenuItem(componentName.ToCStr(), "", false)) {
 					Component* newComponent = factory->Create(componentName);
 					Entity* selectedEntity = scene_view->GetSelectedEntity();
+					newComponent->Enable(false);
 					if(selectedEntity->GetComponent(typeid(*newComponent).hash_code())) {
 						system->Messagebox("Error", "Component already exists");
 						delete newComponent;

@@ -63,14 +63,16 @@ public:
 	/* Set position into into Entity's Transform Component */
 	void SetPosition(const Vector3D& pos);
 
-private:
+protected:
 	friend Entity;
 	friend BaseProperty;
 
-	String name		= "noname";
 	Entity* entity	= nullptr;
 	bool enabled	= true;
 	Array<BaseProperty*> properties;
+
+private:
+	String name = "noname";
 };
 
 }
