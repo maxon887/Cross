@@ -29,7 +29,15 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	S32 id = mesh->GetID();
 	ImGui::DragInt("## Group ID", &id);
 	if(id != mesh->GetID()) {
-		//mesh->SetID(id);
+		mesh->SetID(id);
+
+		Model* newModel = game->GetCurrentScene()->GetModel(mesh->GetModelFileName());
+		if(newModel) {
+			Mesh* downloadedMesh = newModel->GetMesh(id);
+			mesh->TransferVideoData(downloadedMesh);
+		} else {
+			CROSS_ASSERT(false, "Can not load model #", mesh->GetModelFileName());
+		}
 	}
 
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
@@ -42,16 +50,7 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	if(ImGui::Button(modelName)) {
 		modelName = system->OpenFileDialog();
 		if(!modelName.IsEmpty()) {
-			//mesh->SetModelFileName(modelName);
-
-
-			Model* newModel = game->GetCurrentScene()->GetModel(modelName);
-			if(newModel) {
-				Mesh* downloadedMesh = newModel->GetMesh(id);
-				mesh->TransferVideoData(downloadedMesh);
-			} else {
-				CROSS_ASSERT(false, "Can not load model #", modelName);
-			}
+			mesh->SetModelFileName(modelName);
 		}
 	}
 

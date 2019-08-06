@@ -259,6 +259,9 @@ void Mesh::TransferVideoData(Mesh* mesh) {
 	VBO = mesh->VBO;
 	EBO = mesh->EBO;
 	indices = mesh->indices;
+	initialized = mesh->initialized;
+	indices = mesh->indices;
+	vertex_buffer = mesh->vertex_buffer->Clone();
 }
 
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
@@ -303,8 +306,16 @@ S32 Mesh::GetID() const {
 	return id;
 }
 
+void Mesh::SetID(S32 index) {
+	id = index;
+}
+
 String Mesh::GetModelFileName() const {
 	return model_filename.value;
+}
+
+void Mesh::SetModelFileName(const String& filename) {
+	model_filename = filename;
 }
 
 String Mesh::GetMaterialFileName() const {
@@ -322,7 +333,6 @@ bool Mesh::IsEqual(Mesh* other) const {
 void Mesh::Copy(const Mesh* m) {
 	VBO = m->VBO;
 	EBO = m->EBO;
-	vertex_buffer = m->vertex_buffer;
 	id = m->id;
 	model_filename = m->model_filename;
 	material = m->material;

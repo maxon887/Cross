@@ -79,8 +79,12 @@ public:
 
 	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
 	S32 GetID() const;
+	/* Sets id of specific mesh group in model file*/
+	void SetID(S32 id);
 	/* Returns filename of the model from which downloaded current Mesh */
 	String GetModelFileName() const;
+	/* Sets filename from which current Mesh was loaded */
+	void SetModelFileName(const String& filename);
 	/* Returns filename of material assosiated with current Mesh */
 	String GetMaterialFileName() const;
 	/* Returns number of triangles in this Mesh */
