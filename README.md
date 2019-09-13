@@ -1,5 +1,5 @@
 # Cross++
-Is a lightweight cross-platform game engine. Written mostly on C++.
+Is a lightweight cross-platform game engine. Written mostly on C++. Main purpose of this engine to be easy to learn, read and understand.
 
 ### Build Status
 
