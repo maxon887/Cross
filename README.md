@@ -30,12 +30,10 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 9. Many useful interesting features like: Event System, Assert System, Memory Manager.
 
 ### Screenshot Gallery
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot07.png?raw=true "Optional Title")
+![Alt text](https://lh3.googleusercontent.com/BJFSvDKpm95iwEzEVnDBH3DsPA9TqqW0ogBlizwDwFtDTH3AATQy_7FC_esUYoqobu_yJl09GNjrsuS3DXR0GgEQr0oLUaEFF3M1bN_mcC_R0WQPpm6jlnjHVIhINZnxVxgZfQw-fG4UD4YutkxJrpc-KPYMcZJZHme2YaryJSrRFdPV1xwsbXiJ7m-dUvS-Hle7z6TWK_cMhb46zF8KjeGRgvJNFN2qPbMW5Fd5SmtDNNcP-src2qqPo9fK4ybVYsklr24ncflcagutl_XuCmBTzur0_85iYTqox_fxlzBBPV20uzkLEk95LLXOfIf2YlqRzR38VPIpBueuJqcdpFdchrzw4ry1mwgfa5UsAz7wZ1aprpRUSBgcpWeAsE4_kn-z3NoBpapzJ5jTT9zfMCPsounfzFV_fHULrzTzecDs8RX58E-7di4Qimv3peVVAyEKnxhvwCYrzLnrBxrKzawYsUvkZxPymonpen4B3BDBOwkr44Q2xz3yrGK3R6FuOVBR-jIymoTqUA8_HHFJ3a4_OGoc5JsBFI7uW6VWQeM_rpAt2PuxNzRZXdQCwk_56O6apB1a4Ij0tGiygl2ZCBDBLPwmovd3MMP89Nu8vDGuMtGXc0XJ4-uq8i6acn4uHHWrttVVqfFKl5GGsbDCIChkFK0rgJ9Bc6TSByB_JRfEhARfJb8HNCc=w1345-h785-no?raw=true "Optional Title")
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot06.png?raw=true "Optional Title")
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot08.png?raw=true "Optional Title")
 ![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot01.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot04.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot05.png?raw=true "Optional Title")
 
 ### 1.0 New Game Creation
 In order to create new game you must do 3 things.
