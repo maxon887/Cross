@@ -43,7 +43,11 @@ void ComponentsView::Update(float sec) {
 			String checkboxHashName = "##EnableCheckbox" + component->GetName();
 			bool enabled = component->IsEnabled();
 			if(ImGui::Checkbox(checkboxHashName.ToCStr(), &enabled)) {
-				component->Enable(enabled);
+				if(enabled) {
+					component->Enable();
+				} else {
+					component->Disable();
+				}
 			}
 
 			if(open) {
@@ -130,7 +134,7 @@ void ComponentsView::ContextMenu(Entity* selectedEntity) {
 				if(ImGui::MenuItem(componentName.ToCStr(), "", false)) {
 					Component* newComponent = factory->Create(componentName);
 					Entity* selectedEntity = scene_view->GetSelectedEntity();
-					newComponent->Enable(false);
+					newComponent->Disable();
 					if(selectedEntity->GetComponent(typeid(*newComponent).hash_code())) {
 						system->Messagebox("Error", "Component already exists");
 						delete newComponent;

@@ -74,6 +74,14 @@ Mesh* Mesh::Clone() const {
 	return mesh;
 }
 
+void Mesh::Enable() {
+	Entity* owner = GetEntity();
+	bool hasTransform = owner->GetComponent<Transform>();
+	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
+	
+	enabled = true;
+}
+
 void Mesh::Draw() {
 	if(enabled) {
 		Draw(material);

@@ -52,8 +52,12 @@ bool Component::IsEnabled() const {
 	return enabled;
 }
 
-void Component::Enable(bool e) {
-	this->enabled = e;
+void Component::Enable() {
+	enabled = true;
+}
+
+void Component::Disable() {
+	enabled = false;
 }
 
 String Component::GetName() const {
