@@ -78,6 +78,10 @@ Mesh* Model::GetMesh(S32 id) {
 	}
 }
 
+U32 Model::GetMeshesCount() const {
+	return meshes.size();
+}
+
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;

@@ -30,6 +30,7 @@ ComponentsView::ComponentsView(SceneView* sceneView) :
 {
 	scene_view = sceneView;
 	scene_view->EntitySelected.Connect(&tranform_box, &TransformVisualBox::EntitySelected);
+	scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
 }
 
 void ComponentsView::Update(float sec) {

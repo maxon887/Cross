@@ -49,6 +49,8 @@ public:
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
 	Mesh* GetMesh(S32 id);
+	/* Gets Meshes count */
+	U32 GetMeshesCount() const;
 
 private:
 	String filename;

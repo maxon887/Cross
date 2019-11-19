@@ -78,6 +78,8 @@ void Mesh::Enable() {
 	Entity* owner = GetEntity();
 	bool hasTransform = owner->GetComponent<Transform>();
 	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
+	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initalized");
+	CROSS_FAIL(material, "Cano not enable Mesh. Current Mesh doesn't have Material assigned");
 	
 	enabled = true;
 }
@@ -269,6 +271,7 @@ void Mesh::TransferVideoData(Mesh* mesh) {
 	indices = mesh->indices;
 	initialized = mesh->initialized;
 	indices = mesh->indices;
+	delete vertex_buffer;
 	vertex_buffer = mesh->vertex_buffer->Clone();
 }
 

@@ -19,26 +19,27 @@
 #include "Mesh.h"
 #include "File.h"
 #include "Scene.h"
+#include "Entity.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
 void MeshVisualBox::Show(Mesh* mesh) {
-	ImGui::Text("Group ID:");
+	ImGui::Text("Mesh ID:");
 	ImGui::SameLine(SCALED(100.f));
 	ImGui::PushItemWidth(SCALED(70.f));
-	S32 id = mesh->GetID();
-	ImGui::DragInt("## Group ID", &id);
-	if(id != mesh->GetID()) {
-		mesh->SetID(id);
 
-		Model* newModel = game->GetCurrentScene()->GetModel(mesh->GetModelFileName());
-		if(newModel) {
-			Mesh* downloadedMesh = newModel->GetMesh(id);
+	ImGui::DragInt("## Mesh ID", &MeshID, 0.1f, -1, MeshIDRange);
+	if(ImGui::IsItemDeactivated() && MeshID != mesh->GetID()) {
+		mesh->SetID(MeshID);
+		if(!mesh->GetModelFileName().IsEmpty()) {
+			Model* newModel = game->GetCurrentScene()->GetModel(mesh->GetModelFileName());
+			Mesh* downloadedMesh = newModel->GetMesh(MeshID);
 			if(downloadedMesh) {
 				mesh->TransferVideoData(downloadedMesh);
+			} else {
+				mesh->Disable();
+				mesh->SetID(-1);
 			}
-		} else {
-			CROSS_ASSERT(false, "Can not load model #", mesh->GetModelFileName());
 		}
 	}
 
@@ -52,7 +53,14 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	if(ImGui::Button(modelName)) {
 		modelName = system->OpenFileDialog();
 		if(!modelName.IsEmpty()) {
-			mesh->SetModelFileName(modelName);
+			
+			Model* newModel = game->GetCurrentScene()->GetModel(modelName);
+			if(newModel) {
+				mesh->SetModelFileName(modelName);
+				MeshIDRange = newModel->GetMeshesCount() - 1;
+			} else {
+				CROSS_ASSERT(false, "Can not load model #", mesh->GetModelFileName());
+			}
 		}
 	}
 
@@ -70,4 +78,15 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	}
 
 	ImGui::PopStyleVar();
+}
+
+void MeshVisualBox::EntitySelected(Entity* entity) {
+	if(entity) {
+		Mesh* mesh = entity->GetComponent<Mesh>();
+		if(mesh) {
+			MeshID = mesh->GetID();
+			Model* model = game->GetCurrentScene()->GetModel(mesh->GetModelFileName());
+			MeshIDRange = model->GetMeshesCount() - 1;
+		}
+	}
 }
