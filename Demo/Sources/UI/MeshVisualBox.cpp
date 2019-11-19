@@ -34,7 +34,9 @@ void MeshVisualBox::Show(Mesh* mesh) {
 		Model* newModel = game->GetCurrentScene()->GetModel(mesh->GetModelFileName());
 		if(newModel) {
 			Mesh* downloadedMesh = newModel->GetMesh(id);
-			mesh->TransferVideoData(downloadedMesh);
+			if(downloadedMesh) {
+				mesh->TransferVideoData(downloadedMesh);
+			}
 		} else {
 			CROSS_ASSERT(false, "Can not load model #", mesh->GetModelFileName());
 		}

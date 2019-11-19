@@ -35,15 +35,15 @@ Model::~Model() {
 	delete hierarchy;
 }
 
-void Model::Load(const String& filename) {
-	Load(filename, false);
+bool Model::Load(const String& filename) {
+	return Load(filename, false);
 }
 
-void Model::Load(const String& filename, bool calcTangents) {
-	Load(filename, calcTangents, true);
+bool Model::Load(const String& filename, bool calcTangents) {
+	return Load(filename, calcTangents, true);
 }
 
-void Model::Load(const String& filename, bool calcTangents, bool initializeVideoData) {
+bool Model::Load(const String& filename, bool calcTangents, bool initializeVideoData) {
 	Debugger::Instance()->SetTimeCheck();
 
 	initialize_video = initializeVideoData;
@@ -52,12 +52,14 @@ void Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	Entity* root = new Entity("ModelRoot");
 	hierarchy = root;
 	File* file = system->LoadAssetFile(filename);
-	CROSS_FAIL(file, "Can not load model file");
-	ProcessScene(root, file, calcTangents);
+	CROSS_RETURN(file, false, "Can not load model file");
+	bool result = ProcessScene(root, file, calcTangents);
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
 	system->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+
+	return result;
 }
 
 const String& Model::GetFilename() const {
@@ -76,7 +78,7 @@ Mesh* Model::GetMesh(S32 id) {
 	}
 }
 
-void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
+bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;
 	if(calcTangents) {
@@ -84,12 +86,13 @@ void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	}
 	current_scene = importer.ReadFileFromMemory(file->data, (Size)file->size, flags);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
-		CROSS_FAIL(false, "Assimp Error: #", importer.GetErrorString());
+		CROSS_RETURN(false, false, "Assimp Error: #", importer.GetErrorString());
 	}
 	aiNode* aiRoot = current_scene->mRootNode;
-	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
+	CROSS_RETURN(aiRoot->mNumChildren == 1, false, "Failed to load model. Unknown number of root childerns");
 	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
 	ProcessNode(root, aiRoot->mChildren[0]);
+	return true;
 }
 
 void Model::ProcessNode(Entity* entity, aiNode* node) {

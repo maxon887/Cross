@@ -314,9 +314,14 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 		return (*modelIt).second;
 	} else {
 		Model* model = new Model();
-		model->Load(modelFile, calcTangents);
-		models[hash] = model;
-		return model;
+		bool success = model->Load(modelFile, calcTangents);
+		if(success) {
+			models[hash] = model;
+			return model;
+		} else {
+			delete model;
+			return nullptr;
+		}
 	}
 }
 

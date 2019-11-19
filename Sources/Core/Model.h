@@ -38,11 +38,11 @@ public:
 	~Model();
 
 	/* Loads Model from file. Used by engine. Use Scene::GetModel */
-	void Load(const String& filename);
+	bool Load(const String& filename);
 	/* Loads Model from file and provides tangents data for model if needed */
-	void Load(const String& filename, bool calcTangents);
+	bool Load(const String& filename, bool calcTangents);
 	/* Loads Model, provides tangents data for model and can tasnfer model data to video memory */
-	void Load(const String& filename, bool calcTangents, bool initializeVideoData);
+	bool Load(const String& filename, bool calcTangents, bool initializeVideoData);
 	/* Returns model's filename if was loaded from file */
 	const String& GetFilename() const;
 	/* Returns model's object hierarchy as Entity hierarchy */
@@ -59,7 +59,7 @@ private:
 	bool initialize_video = true;
 	S32 mesh_id						= 0;
 
-	void ProcessScene(Entity* root, File* sceneFile, bool calcTangents);
+	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents);
 	void ProcessNode(Entity* entity, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
 };
