@@ -171,6 +171,12 @@ void SceneView::ContextMenu() {
 			Entity* newEntity = new Entity("NewEntity");
 			game->GetCurrentScene()->AddEntity(newEntity);
 		}
+		if(ImGui::MenuItem("Import Model", nullptr, false, enabled)) {
+			String filename = system->OpenFileDialog();
+			Model* model = game->GetCurrentScene()->GetModel(filename);
+			Entity* entity = model->GetHierarchy();
+			game->GetCurrentScene()->AddEntity(entity);
+		}
 
 		ImGui::EndPopup();
 	}
