@@ -65,6 +65,10 @@ void LaunchView::PreUpdate() {
 
 void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
+		if(ImGui::Button("New Scene", ImVec2(-1, 0))) {
+			Scene* scene = new DemoScene();
+			game->SetScreen(scene);
+		}
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
 				game->SetScreen(new TriangleScene());
@@ -145,7 +149,6 @@ void LaunchView::Update(float sec) {
 			game->SetScreen(new ArrayTest());
 		}
 	}
-
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
 		game->SetScreen(new AudioScreen());
 	}

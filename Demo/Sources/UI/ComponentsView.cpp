@@ -73,7 +73,9 @@ void ComponentsView::Update(float sec) {
 					ImGui::PopStyleVar();
 				}
 				//Component general menu
-				if(ImGui::TreeNode("Options")) {
+				String tagName = "Options ##";
+				tagName += (U64)component;
+				if(ImGui::TreeNode(tagName)) {
 					if(ImGui::MenuItem("Remove Component")) {
 						entity->RemoveComponent(component);
 					}
