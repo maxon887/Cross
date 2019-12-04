@@ -72,6 +72,13 @@ void ComponentsView::Update(float sec) {
 					ImGui::EndGroup();
 					ImGui::PopStyleVar();
 				}
+				//Component general menu
+				if(ImGui::TreeNode("Options")) {
+					if(ImGui::MenuItem("Remove Component")) {
+						entity->RemoveComponent(component);
+					}
+					ImGui::TreePop();
+				}
 				ImGui::Separator();
 				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + SCALED(8.f));
 			}

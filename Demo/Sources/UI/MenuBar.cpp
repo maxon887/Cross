@@ -110,7 +110,7 @@ void MenuBar::ShowMenu() {
 			}
 
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
-				String filename = system->OpenFileDialog(true);
+				String filename = system->OpenFileDialog("*.scn", true);
 				if(filename != "") {
 					game->GetCurrentScene()->Save(filename);
 				}
