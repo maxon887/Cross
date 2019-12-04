@@ -105,6 +105,8 @@ void Material::Load(const String& filename, Scene* scene) {
 			default:
 				CROSS_ASSERT(false, "Unsupported property type");
 			}
+		} else {
+			CROSS_ASSERT(false, "Material loading error. Shader # doesn't contain property '#'", shader->GetFilename(), name);
 		}
 		propertyXML = propertyXML->NextSiblingElement("Property");
 	}

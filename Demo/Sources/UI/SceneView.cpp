@@ -23,6 +23,7 @@
 #include "Camera.h"
 #include "Transform.h"
 #include "Utils/FreeCameraScene.h"
+#include "Scenes/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -176,10 +177,9 @@ void SceneView::ContextMenu() {
 			if(!filename.IsEmpty()) {
 				Model* model = game->GetCurrentScene()->GetModel(filename);
 				Entity* entity = model->GetHierarchy();
-				game->GetCurrentScene()->AddEntity(entity);
-				//DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
-				//demoScene->AddEntity(entity);
-				//demoScene->ApplyMaterial(entity, demoScene->GetDefaultMaterial());
+				DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
+				demoScene->ApplyMaterial(entity, demoScene->GetDefaultMaterial());
+				demoScene->AddEntity(entity);
 			}
 		}
 

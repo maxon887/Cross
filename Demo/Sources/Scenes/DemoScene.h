@@ -34,7 +34,6 @@ public:
 	/* Handle input action up that not drop on UI elements */
 	virtual void ActionUp(Input::Action action);
 
-protected:
 	void ApplyMaterial(Entity* entity, Material* mat);
 
 private:
