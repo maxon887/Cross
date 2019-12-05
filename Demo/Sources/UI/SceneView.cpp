@@ -184,10 +184,12 @@ void SceneView::ContextMenu() {
 			String filename = system->OpenFileDialog();
 			if(!filename.IsEmpty()) {
 				Model* model = game->GetCurrentScene()->GetModel(filename);
-				Entity* entity = model->GetHierarchy();
-				DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
-				demoScene->ApplyMaterial(entity, demoScene->GetDefaultMaterial());
-				demoScene->AddEntity(entity);
+				if(model) {
+					Entity* entity = model->GetHierarchy();
+					DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
+					demoScene->ApplyMaterial(entity, demoScene->GetDefaultMaterial());
+					demoScene->AddEntity(entity);
+				}
 			}
 		}
 
