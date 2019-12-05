@@ -217,6 +217,7 @@ String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDia
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 	if(saveDialog) {
 		GetSaveFileName(&ofn);
+		return szFile;
 	} else {
 		GetOpenFileName(&ofn);
 	}

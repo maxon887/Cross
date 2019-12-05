@@ -28,6 +28,7 @@
 #include "UI/LaunchView.h"
 #include "UI/PropertiesView.h"
 #include "Scenes/DemoScene.h"
+#include "File.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -112,6 +113,10 @@ void MenuBar::ShowMenu() {
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
 				String filename = system->OpenFileDialog("*.scn", true);
 				if(filename != "") {
+					String extencion = File::ExtensionFromFile(filename);
+					if(extencion.IsEmpty()) {
+						filename += ".scn";
+					}
 					game->GetCurrentScene()->Save(filename);
 				}
 			}
