@@ -68,7 +68,7 @@ public:
 	void AddEntity(Entity* entity);
 	/* Loads primitive model as Entity with Mesh Component included */
 	Entity* LoadPrimitive(Model::Primitive primitive);
-	/* Removes entity from this Scene by name. Returns founded Entity or nullptr otherwise. Entity won't we destructed */
+	/* Removes entity from Scene by name. Returns founded Entity or nullptr otherwise. Entity won't be destructed */
 	Entity* RemoveEntity(const String& name);
 	/* Returns all available Lights on the Scene. */
 	List<Light*>& GetLights();

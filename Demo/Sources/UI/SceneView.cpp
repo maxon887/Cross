@@ -167,12 +167,20 @@ void SceneView::BuildNode(Entity* entity) {
 
 void SceneView::ContextMenu() {
 	if(ImGui::BeginPopupContextWindow("SceneOptions")) {
-		bool enabled = game->GetCurrentScene() != nullptr ? true : false;
-		if(ImGui::MenuItem("New Entity", nullptr, false, enabled)) {
+		bool haveScene = game->GetCurrentScene() != nullptr;
+		if(ImGui::MenuItem("New Entity", nullptr, false, haveScene)) {
 			Entity* newEntity = new Entity("NewEntity");
 			game->GetCurrentScene()->AddEntity(newEntity);
 		}
-		if(ImGui::MenuItem("Import Model", nullptr, false, enabled)) {
+		bool entitySelected = haveScene && selected_entity != nullptr;
+		if(ImGui::MenuItem("Delete Entity", nullptr, false, entitySelected)) {
+			Entity* parent = selected_entity->GetParent();
+			parent->RemoveChild(selected_entity);
+			delete selected_entity;
+			selected_entity = nullptr;
+		}
+		ImGui::Separator();
+		if(ImGui::MenuItem("Import Model", nullptr, false, haveScene)) {
 			String filename = system->OpenFileDialog();
 			if(!filename.IsEmpty()) {
 				Model* model = game->GetCurrentScene()->GetModel(filename);

@@ -76,7 +76,7 @@ Mesh* Mesh::Clone() const {
 
 void Mesh::Enable() {
 	Entity* owner = GetEntity();
-	bool hasTransform = owner->GetComponent<Transform>();
+	bool hasTransform = owner->GetComponent<Transform>() != nullptr;
 	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
 	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initalized");
 	CROSS_FAIL(material, "Cano not enable Mesh. Current Mesh doesn't have Material assigned");
