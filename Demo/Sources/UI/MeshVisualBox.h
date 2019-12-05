@@ -22,9 +22,10 @@ using namespace cross;
 class MeshVisualBox {
 public:
 	void Show(Mesh* mesh);
-	void EntitySelected(Entity* entity);
 
-private:
-	S32 MeshID = -1;
-	U32 MeshIDRange = 0;
+//	void EntitySelected(Entity* entity);
+//
+//private:
+//	S32 MeshID = -1;
+//	U32 MeshIDRange = 0;
 };

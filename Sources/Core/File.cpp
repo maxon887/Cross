@@ -38,7 +38,12 @@ String File::FileFromPath(const String& filename) {
 }
 
 String File::ExtensionFromFile(const String& filename) {
-	return filename.SubString(filename.FindLast('.') + 1, filename.Length());
+	S32 lastDot = filename.FindLast('.');
+	if(lastDot != -1) {
+		return filename.SubString(lastDot + 1, filename.Length());
+	} else {
+		return "";
+	}
 }
 
 String File::FileWithoutExtension(const String& filename) {
