@@ -81,38 +81,26 @@ void DemoScene::Update(float sec) {
 		}
 	}
 
-	while(!action_stack.empty()) {
-		Input::Action action = action_stack.front().first;
-		int actionState = action_stack.front().second;
-		action_stack.pop_front();
-		switch(actionState) {
-		case 0:
-			if(!ImGui::IsMouseHoveringAnyWindow()) {
-				ActionDown(action);
-			}
-			break;
-		case 1:
-			ActionMove(action);
-			break;
-		case 2:
-			ActionUp(action);
-			break;
-		default:
-			break;
-		}
-	}
-
 	FreeCameraScene::Update(sec);
 }
 
-void DemoScene::ActionDown(Input::Action action) {
-	if(handled_action == -1) {
+void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
+	if(entity->GetComponent<Mesh>()) {
+		entity->GetComponent<Mesh>()->SetMaterial(mat);
+	}
+	for(Entity* child : entity->GetChildren()) {
+		ApplyMaterial(child, mat);
+	}
+}
+
+void DemoScene::OnActionDown(Input::Action action) {
+	if(handled_action == -1 && !ImGui::IsMouseHoveringAnyWindow()) {
 		handled_action = action.id;
 		touch_position = action.pos;
 	}
 }
 
-void DemoScene::ActionMove(Input::Action action) {
+void DemoScene::OnActionMove(Input::Action action) {
 	Vector2D delta = touch_position - action.pos;
 	touch_position = action.pos;
 
@@ -133,31 +121,10 @@ void DemoScene::ActionMove(Input::Action action) {
 	}
 }
 
-void DemoScene::ActionUp(Input::Action action) {
+void DemoScene::OnActionUp(Input::Action action) {
 	if(handled_action == action.id) {
 		handled_action = -1;
 	}
-}
-
-void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
-	if(entity->GetComponent<Mesh>()) {
-		entity->GetComponent<Mesh>()->SetMaterial(mat);
-	}
-	for(Entity* child : entity->GetChildren()) {
-		ApplyMaterial(child, mat);
-	}
-}
-
-void DemoScene::OnActionDown(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 0));
-}
-
-void DemoScene::OnActionMove(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 1));
-}
-
-void DemoScene::OnActionUp(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 2));
 }
 
 void DemoScene::OnKeyPressed(Key key) {

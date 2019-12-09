@@ -27,19 +27,10 @@ public:
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
-	/* Handle input action down that not drop on UI elements */
-	virtual void ActionDown(Input::Action action);
-	/* Handle input action move that not drop on UI elements */
-	virtual void ActionMove(Input::Action action);
-	/* Handle input action up that not drop on UI elements */
-	virtual void ActionUp(Input::Action action);
-
 	void ApplyMaterial(Entity* entity, Material* mat);
 
 private:
 	const float camera_speed = 5.f;
-	//used same concept as on the Input class
-	List<pair<Input::Action, int> > action_stack;
 
 	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();
