@@ -84,6 +84,9 @@ U32 Model::GetMeshesCount() const {
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
+	//this is some hack. it should use defined macro from assimp's config.h.in but somehow it wasn't trasferred to actual *.h file
+	importer.SetPropertyBool("IMPORT_FBX_PRESERVE_PIVOTS", false);
+
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;
 	if(calcTangents) {
 		flags |= aiProcess_CalcTangentSpace;
@@ -92,6 +95,7 @@ bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
 		CROSS_RETURN(false, false, "Assimp Error: #", importer.GetErrorString());
 	}
+
 	aiNode* aiRoot = current_scene->mRootNode;
 	CROSS_RETURN(aiRoot->mNumChildren == 1, false, "Failed to load model. Unknown number of root childerns");
 	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
