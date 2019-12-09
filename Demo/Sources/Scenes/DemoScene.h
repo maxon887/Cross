@@ -28,9 +28,14 @@ public:
 	virtual void Update(float sec) override;
 
 	void ApplyMaterial(Entity* entity, Material* mat);
-
+	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);
 private:
 	const float camera_speed = 5.f;
+
+	const String ArrowModelFile = "Models/Arrow.fbx";
+	bool draw_vector = false;
+	Entity* arrow = nullptr;
+	Material* arrow_mat = nullptr;
 
 	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();

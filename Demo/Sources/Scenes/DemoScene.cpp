@@ -22,6 +22,7 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Material.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -48,6 +49,11 @@ void DemoScene::Start() {
 }
 
 void DemoScene::Stop() {
+	delete arrow_mat;
+	if(arrow && arrow->GetParent() == nullptr) {
+		delete arrow;
+	}
+
 	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
 	input->Scroll.Disconnect(this, &DemoScene::MouseWheelRoll);
 	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
@@ -82,6 +88,14 @@ void DemoScene::Update(float sec) {
 	}
 
 	FreeCameraScene::Update(sec);
+
+	if(!draw_vector && arrow && arrow->GetParent()) {
+		arrow->GetParent()->RemoveChild(arrow);
+	}
+	draw_vector = false;
+
+
+	//DrawVector(Vector3D::Up, Vector3D::Zero);
 }
 
 void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
@@ -91,6 +105,20 @@ void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
 	for(Entity* child : entity->GetChildren()) {
 		ApplyMaterial(child, mat);
 	}
+}
+
+void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */) {
+	if(!arrow) {
+		arrow = GetModel(ArrowModelFile)->GetHierarchy();
+		arrow_mat = GetDefaultMaterial()->Clone();
+		arrow_mat->SetPropertyValue("Color", Color::Blue);
+		ApplyMaterial(arrow, arrow_mat);
+		AddEntity(arrow);
+	}
+	arrow->GetComponent<Transform>()->SetPosition(pos);
+	arrow->GetComponent<Transform>()->SetDirection(vec);
+	arrow->GetComponent<Transform>()->SetScale(vec.Length());
+	draw_vector = true;
 }
 
 void DemoScene::OnActionDown(Input::Action action) {
