@@ -95,9 +95,13 @@ bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	}
 
 	aiNode* aiRoot = current_scene->mRootNode;
-	CROSS_RETURN(aiRoot->mNumChildren == 1, false, "Failed to load model. Unknown number of root childerns");
-	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
-	ProcessNode(root, aiRoot->mChildren[0]);
+	if(aiRoot->mNumChildren == 1) {
+		root->SetName(aiRoot->mChildren[0]->mName.C_Str());
+		ProcessNode(root, aiRoot->mChildren[0]);
+	} else {
+		root->SetName(File::FileFromPath(File::FileWithoutExtension(file->name)));
+		ProcessNode(root, aiRoot);
+	}
 	return true;
 }
 
