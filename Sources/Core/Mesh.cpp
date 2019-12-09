@@ -213,7 +213,9 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	//drawing
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//depth test
-	SAFE(glEnable(GL_DEPTH_TEST));
+	if(IsDepthTestEnabled()) {
+		SAFE(glEnable(GL_DEPTH_TEST));
+	}
 	//face culling
 	if(IsFaceCullingEnabled()) {
 		SAFE(glEnable(GL_CULL_FACE));
@@ -295,6 +297,14 @@ void Mesh::SetMaterial(Material* mat) {
 
 Material* Mesh::GetMaterial() {
 	return material;
+}
+
+bool Mesh::IsDepthTestEnabled() const {
+	return depth_test;
+}
+
+void Mesh::EnableDepthTest(bool enable) {
+	depth_test = enable;
 }
 
 bool Mesh::IsFaceCullingEnabled() const {

@@ -69,6 +69,11 @@ public:
 	/* Gets Material applied for this Mesh */
 	Material* GetMaterial();
 
+	/* Returns true if depth test enabled */
+	bool IsDepthTestEnabled() const;
+	/* Enable depth test. If disabled geometry will be allowed to draw each on eachother */
+	void EnableDepthTest(bool enable);
+
 	/* Returns true if face culling enabled */
 	bool IsFaceCullingEnabled() const;
 	/* Enables face culling for mesh. If enabled triangles that oriented not in view won't be drawn */
@@ -107,6 +112,7 @@ private:
 	Material* material					= nullptr;
 	bool original						= true;
 	bool initialized					= false;
+	bool depth_test						= true;
 	bool face_culling					= true;
 
 	void Copy(const Mesh* m);

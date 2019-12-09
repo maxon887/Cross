@@ -27,7 +27,7 @@ public:
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
-	void ApplyMaterial(Entity* entity, Material* mat);
+	void ApplyMaterial(Entity* entity, Material* mat, bool depthTest = true);
 	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);
 private:
 	const float camera_speed = 5.f;
