@@ -84,8 +84,6 @@ U32 Model::GetMeshesCount() const {
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
-	//this is some hack. it should use defined macro from assimp's config.h.in but somehow it wasn't trasferred to actual *.h file
-	importer.SetPropertyBool("IMPORT_FBX_PRESERVE_PIVOTS", false);
 
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;
 	if(calcTangents) {
