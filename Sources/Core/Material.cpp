@@ -54,19 +54,19 @@ const String& Material::GetFilename() const {
 	return filename;
 }
 
-void Material::Load(const String& filename, Scene* scene) {
+bool Material::Load(const String& filename, Scene* scene) {
 	File* xmlFile = system->LoadAssetFile(filename);
-	CROSS_FAIL(xmlFile, "Can't load material. File not fount");
+	CROSS_RETURN(xmlFile, false, "Can't load material. File not fount");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	delete xmlFile;
-	CROSS_FAIL(error == XML_SUCCESS, "Can't parse material xml file");
+	CROSS_RETURN(error == XML_SUCCESS, false, "Can't parse material xml file");
 
 	SetName(filename);
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	const char* shaderfilename = materialXML->Attribute("shader");
-	CROSS_FAIL(shaderfilename, "Material file not contain 'shader' filename");
+	CROSS_RETURN(shaderfilename, false, "Material file not contain 'shader' filename");
 
 	if(scene) {
 		shader = scene->GetShader(shaderfilename);
@@ -80,7 +80,7 @@ void Material::Load(const String& filename, Scene* scene) {
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {
 		const char* name = propertyXML->Attribute("name");
-		CROSS_FAIL(name, "Property without name");
+		CROSS_RETURN(name, false, "Property without name");
 		if(HaveProperty(name)) {
 			Shader::Property* prop = GetProperty(name);
 			switch(prop->GetType()) {
@@ -98,7 +98,7 @@ void Material::Load(const String& filename, Scene* scene) {
 			} break;
 			case Shader::Property::TEXTURE: {
 				const char* textureFilename = propertyXML->Attribute("value");
-				CROSS_FAIL(scene, "Can not load material with texture without scene");
+				CROSS_RETURN(scene, false, "Can not load material with texture without scene");
 				Texture* texture = scene->GetTexture(textureFilename);
 				prop->SetValue(texture);
 			} break;
@@ -110,7 +110,7 @@ void Material::Load(const String& filename, Scene* scene) {
 		}
 		propertyXML = propertyXML->NextSiblingElement("Property");
 	}
-
+	return true;
 }
 
 void Material::Save(const String& filename) {

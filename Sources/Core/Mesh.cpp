@@ -57,7 +57,11 @@ void Mesh::Initialize(Scene* scene) {
 
 		if(material_filename.value != "") {
 			Material* mat = scene->GetMaterial(material_filename);
-			SetMaterial(mat);
+			if(mat) {
+				SetMaterial(mat);
+			} else {
+				Disable();
+			}
 		} else {
 			SetMaterial(scene->GetDefaultMaterial());
 		}

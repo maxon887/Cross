@@ -36,7 +36,7 @@ public:
 	/* Returns filename of file from which this Material was loaded */
 	const String& GetFilename() const;
 	/* Loads Material from file. Expects .mat file extension */
-	void Load(const String& filename, Scene* scene);
+	bool Load(const String& filename, Scene* scene);
 	/* Saves this Material to a material file (.mat extension) */
 	void Save(const String& filename);
 	/* Resets current material properties to the Shader's default */

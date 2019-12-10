@@ -273,9 +273,14 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 		return (*matIt).second;
 	} else {
 		Material* mat = new Material();
-		mat->Load(xmlFile, this);
-		materials[hash] = mat;
-		return mat;
+		bool success = mat->Load(xmlFile, this);
+		if(success) {
+			materials[hash] = mat;
+			return mat;
+		} else {
+			delete mat;
+			return nullptr;
+		}
 	}
 }
 
