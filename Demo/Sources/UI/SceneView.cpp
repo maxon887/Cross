@@ -66,7 +66,8 @@ void SceneView::Update(float sec) {
 
 	if(selected_entity && selected_entity->HasComponent<Transform>()) {
 		DemoScene* scene = static_cast<DemoScene*>(demo->GetCurrentScene());
-		scene->DrawVector(Vector3D::Forward, selected_entity->GetComponent<Transform>()->GetWorldPosition());
+		Transform* transform = selected_entity->GetComponent<Transform>();
+		scene->DrawVector(transform->GetDirection(), transform->GetWorldPosition());
 	}
 }
 
@@ -89,9 +90,8 @@ void SceneView::OnSceneChanged(Screen*) {
 void SceneView::LookAtObject() {
 	FreeCameraScene* scene = static_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(!selected_entity->HasComponent<Camera>() && selected_entity->HasComponent<Transform>()) {
-		//Transform* transform = selected_entity->GetComponent<Transform>();
-		//Matrix world = transform->GetWorldMatrix();
-		scene->LookAtTarget(selected_entity->GetTransform()->GetPosition());
+		Transform* transform = selected_entity->GetComponent<Transform>();
+		scene->LookAtTarget(transform->GetWorldPosition());
 	}
 }
 
