@@ -123,7 +123,8 @@ void SceneView::BuildNode(Entity* entity) {
 
 		char buffer[256];
 		strcpy(buffer, entity->GetName().ToCStr());
-		ImGui::InputText("", buffer, 256);
+		String label = "##" + entity->GetName();
+		ImGui::InputText(label.ToCStr(), buffer, 256);
 
 		if(ImGui::IsKeyPressed(ImGuiKey_Escape)) {
 			editing = false;
@@ -149,14 +150,13 @@ void SceneView::BuildNode(Entity* entity) {
 
 	if(ImGui::IsItemClicked()) {
 		clicked = true;
-		if(selected_entity == entity) {
-			editing = true;
-		} else {
-			selected_entity = entity;
+		if(selected_entity != entity) {
 			editing = false;
-			EntitySelected.Emit(entity);
-			LookAtObject();
 		}
+		selected_entity = entity;
+		editing = false;
+		EntitySelected.Emit(entity);
+		LookAtObject();
 	}
 
 	if(open && !isLeaf) {
@@ -185,6 +185,9 @@ void SceneView::ContextMenu() {
 			parent->RemoveChild(selected_entity);
 			delete selected_entity;
 			selected_entity = nullptr;
+		}
+		if(ImGui::MenuItem("Rename")) {
+			editing = true;
 		}
 		ImGui::Separator();
 		if(ImGui::MenuItem("Import Model", nullptr, false, haveScene)) {
