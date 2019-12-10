@@ -160,6 +160,7 @@ Entity* Entity::RemoveChild(Entity* child) {
 		Entity* c = (*it);
 		if(c == child) {
 			c->Remove();
+			c->SetParent(nullptr);
 			children.erase(it);
 			return c;
 		}
@@ -180,14 +181,6 @@ Entity* Entity::Clone() {
 		clone->AddChild(cloneChild);
 	}
 	return clone;
-}
-
-Matrix Entity::GetWorldMatrix() {
-	if(parent){
-		return parent->GetWorldMatrix() * GetTransform()->GetModelMatrix();
-	}else{
-		return GetTransform()->GetModelMatrix();
-	}
 }
 
 Vector3D Entity::GetDirection() {

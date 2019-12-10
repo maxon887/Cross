@@ -73,8 +73,6 @@ public:
 	/* Clone this entity with all it's components and children */
 	Entity* Clone();
 
-	/* Returns Entity's world transform Matrix. Not fast and save function (all parents matrices must be multiplied and must exists) */
-	Matrix GetWorldMatrix();
 	/* Returns Entity's world direction vector. Not fast function (all parents directions must be multiplied and must exist) */
 	Vector3D GetDirection();
 

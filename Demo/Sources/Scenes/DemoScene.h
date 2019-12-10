@@ -29,6 +29,7 @@ public:
 
 	void ApplyMaterial(Entity* entity, Material* mat, bool depthTest = true);
 	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);
+
 private:
 	const float camera_speed = 5.f;
 

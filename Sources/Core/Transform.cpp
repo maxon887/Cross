@@ -15,6 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Transform.h"
+#include "Entity.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -34,6 +35,15 @@ Component* Transform::Clone() const {
 
 Vector3D Transform::GetPosition() const {
 	return position;
+}
+
+Vector3D Transform::GetWorldPosition() {
+	Matrix world = GetWorldMatrix();
+	Vector3D pos;
+	pos.x = world.m[0][3];
+	pos.y = world.m[1][3];
+	pos.z = world.m[2][3];
+	return pos;
 }
 
 void Transform::SetPosition(const Vector3D& pos) {
@@ -149,4 +159,13 @@ Matrix& Transform::GetModelMatrix() {
 		recalc_model = false;
 	}
 	return model;
+}
+
+Matrix Transform::GetWorldMatrix() {
+	Entity* parent = GetEntity()->GetParent();
+	if(parent) {
+		return parent->GetComponent<Transform>()->GetWorldMatrix() * GetTransform()->GetModelMatrix();
+	} else {
+		return GetTransform()->GetModelMatrix();
+	}
 }

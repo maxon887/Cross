@@ -97,7 +97,7 @@ void Mesh::Draw(Material* mat) {
 void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 	if(GetEntity()) {
 		CROSS_FAIL(GetEntity()->GetComponent<Transform>(), "Can not draw mesh without transform");
-		Draw(GetEntity()->GetWorldMatrix(), mat, sten);
+		Draw(GetEntity()->GetComponent<Transform>()->GetWorldMatrix(), mat, sten);
 	} else {
 		Draw(Matrix::Identity, mat, sten);
 	}

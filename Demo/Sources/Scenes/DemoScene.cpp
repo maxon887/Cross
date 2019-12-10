@@ -114,6 +114,8 @@ void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */
 		arrow_mat = GetDefaultMaterial()->Clone();
 		arrow_mat->SetPropertyValue("Color", Color::Blue);
 		ApplyMaterial(arrow, arrow_mat, false);
+	}
+	if(!arrow->GetParent()) {
 		AddEntity(arrow);
 	}
 	arrow->GetComponent<Transform>()->SetPosition(pos);
