@@ -356,10 +356,12 @@ bool Mesh::IsEqual(Mesh* other) const {
 }
 
 void Mesh::Copy(const Mesh* m) {
-	VBO = m->VBO;
-	EBO = m->EBO;
 	id = m->id;
 	model_filename = m->model_filename;
+	material_filename = m->material_filename;
+
+	VBO = m->VBO;
+	EBO = m->EBO;
 	material = m->material;
 	indices = m->indices;
 	initialized = m->initialized;
