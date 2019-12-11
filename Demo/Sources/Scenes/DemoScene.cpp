@@ -46,6 +46,7 @@ void DemoScene::Start() {
 	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
+
 }
 
 void DemoScene::Stop() {
@@ -93,9 +94,6 @@ void DemoScene::Update(float sec) {
 		arrow->GetParent()->RemoveChild(arrow);
 	}
 	draw_vector = false;
-
-
-	//DrawVector(Vector3D::Up, Vector3D::Zero);
 }
 
 void DemoScene::Save(const String& file) {
