@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Game.h"
 #include "Demo.h"
+#include "Material.h"
 #include "Scenes/DemoScene.h"
 
 #include <algorithm>
@@ -119,9 +120,18 @@ void FilesView::FileDoubleClicked(const String& filename) {
 
 void FilesView::ContextMenu() {
 	static bool newFolder = false;
+	static bool deleteFile = false;
 	if(ImGui::BeginPopupContextWindow("FileOptions")) {
 		if(ImGui::MenuItem("New Folder")) {
 			newFolder = true;
+		}
+		//if(ImGui::MenuItem("New Material")) {
+		//	Material* mat = new Material();
+		//	String filename = selected_path + "/NewMaterial.mat";
+		//	mat->Save(filename);
+		//}
+		if(ImGui::MenuItem("Delete")) {
+			deleteFile = true;
 		}
 
 		ImGui::EndPopup();
@@ -156,6 +166,34 @@ void FilesView::ContextMenu() {
 			ImGui::CloseCurrentPopup();
 		}
 
+		ImGui::EndPopup();
+	}
+
+	if(deleteFile) {
+		ImGui::OpenPopup("Delete?");
+		deleteFile = false;
+	}
+	if(ImGui::BeginPopupModal("Delete?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Are you shure you what to delete this file?");
+		//ImGui::Separator();
+
+		//static int dummy_i = 0;
+		//ImGui::Combo("Combo", &dummy_i, "Delete\0Delete harder\0");
+
+		//static bool dont_ask_me_next_time = false;
+		//ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
+		//ImGui::Checkbox("Don't ask me next time", &dont_ask_me_next_time);
+		//ImGui::PopStyleVar();
+
+		if(ImGui::Button("OK", ImVec2(120, 0))) {
+			ImGui::CloseCurrentPopup(); 
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if(ImGui::Button("Cancel", ImVec2(120, 0))) {
+			ImGui::CloseCurrentPopup();
+		}
 		ImGui::EndPopup();
 	}
 }
