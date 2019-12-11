@@ -27,6 +27,8 @@ public:
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
+	virtual void Save(const String& file) override;
+
 	void ApplyMaterial(Entity* entity, Material* mat, bool depthTest = true);
 	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);
 

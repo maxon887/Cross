@@ -98,6 +98,13 @@ void DemoScene::Update(float sec) {
 	//DrawVector(Vector3D::Up, Vector3D::Zero);
 }
 
+void DemoScene::Save(const String& file) {
+	if(arrow && arrow->GetParent()) {
+		arrow->GetParent()->RemoveChild(arrow);
+	}
+	FreeCameraScene::Save(file);
+}
+
 void DemoScene::ApplyMaterial(Entity* entity, Material* mat, bool depthTest) {
 	if(entity->GetComponent<Mesh>()) {
 		entity->GetComponent<Mesh>()->SetMaterial(mat);
