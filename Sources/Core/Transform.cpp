@@ -137,6 +137,11 @@ Vector3D Transform::GetDirection() const {
 	return GetForward();
 }
 
+Vector3D Transform::GetWorldDirection() {
+	Matrix world = GetWorldMatrix();
+	return world.GetRotation() * Vector3D::Forward;
+}
+
 Vector3D Transform::GetForward() const {
 	return rotation.value * Vector3D::Forward;
 }

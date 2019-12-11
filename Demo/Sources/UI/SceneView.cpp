@@ -67,7 +67,7 @@ void SceneView::Update(float sec) {
 	if(selected_entity && selected_entity->HasComponent<Transform>()) {
 		DemoScene* scene = static_cast<DemoScene*>(demo->GetCurrentScene());
 		Transform* transform = selected_entity->GetComponent<Transform>();
-		scene->DrawVector(transform->GetDirection(), transform->GetWorldPosition());
+		scene->DrawVector(transform->GetWorldDirection(), transform->GetWorldPosition());
 	}
 }
 

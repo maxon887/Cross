@@ -64,6 +64,8 @@ public:
 
 	/* Returns object direction vector. Object forwarding direction */
 	Vector3D GetDirection() const;
+	/* Returns world direction vector */
+	Vector3D GetWorldDirection();
 	/* Returns object forward vector. Same as direction vector */
 	Vector3D GetForward() const;
 	/* Returns local object right axis */
