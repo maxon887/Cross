@@ -116,6 +116,10 @@ void System::CreateAssetDirectory(const String& dirname) {
 	CreateDirectory(AssetsPath() + "/" + dirname);
 }
 
+void System::Delete(const String& path) {
+	CROSS_FAIL(false, "System::Delete() does not implemented for current platform");
+}
+
 Array<String> System::GetSubDirectories(const String& filepath) {
 	CROSS_RETURN(false, Array<String>(), "System::GetSubDirectories() does not implemented for current platform");
 }

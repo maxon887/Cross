@@ -131,6 +131,33 @@ void WINSystem::CreateDirectory(const String& dirpath) {
 	CROSS_ASSERT(CreateDirectoryA(dirpath, nullptr), "Can not create directory");
 }
 
+void WINSystem::Delete(const String& path) {
+	if(IsDirectoryExists(path)) {
+		Array<String> files = GetFilesInDirectory(path + "/");
+		for(String& file : files) {
+			String filename = path + "/" + file;
+			if(!DeleteFile(path)) {
+				DWORD err = GetLastError();
+				String errorMessage = GetLastErrorString(err);
+				CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
+			}
+		}
+
+		Array<String> folders = GetSubDirectories(path + "/");
+		for(String& folder : folders) {
+			Delete(folder);
+		}
+
+		RemoveDirectory(path.ToCStr());
+	} else {//if it is not directory means that is file
+		if(!DeleteFile(path)) {
+			DWORD err = GetLastError();
+			String errorMessage = GetLastErrorString(err);
+			CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
+		}
+	}
+}
+
 Array<String> WINSystem::GetSubDirectories(const String& filepath) {
 	Array<String> result;
 
@@ -319,6 +346,19 @@ void WINSystem::KeyReleasedHandle(Key key) {
 	default:
 		break;
 	}
+}
+
+String WINSystem::GetLastErrorString(DWORD err) {
+	LPSTR messageBuffer = nullptr;
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+	std::string message(messageBuffer, size);
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return message.c_str();
 }
 
 bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate) {

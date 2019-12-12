@@ -61,6 +61,12 @@ void FilesView::InitNode(Node& node) {
 	node.initialized = true;
 }
 
+void FilesView::Refresh() {
+	file_tree.files.Clear();
+	file_tree.folders.Clear();
+	InitNode(file_tree);
+}
+
 void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
@@ -159,9 +165,7 @@ void FilesView::ContextMenu() {
 
 			system->CreateAssetDirectory(buffer);
 
-			file_tree.files.Clear();
-			file_tree.folders.Clear();
-			InitNode(file_tree);
+			Refresh();
 
 			ImGui::CloseCurrentPopup();
 		}
@@ -188,6 +192,8 @@ void FilesView::ContextMenu() {
 
 		if(ImGui::Button("OK", ImVec2(120, 0))) {
 			ImGui::CloseCurrentPopup(); 
+			system->Delete(selected_path);
+			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();
 		ImGui::SameLine();

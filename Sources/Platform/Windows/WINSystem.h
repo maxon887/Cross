@@ -39,6 +39,7 @@ public:
 	void Messagebox(const String& title, const String& msg) override;
 	bool IsDirectoryExists(const String& filepath) override;
 	void CreateDirectory(const String& dirname) override;
+	void Delete(const String& path) override;
 	Array<String> GetSubDirectories(const String& filepath) override;
 	Array<String> GetFilesInDirectory(const String& directory) override;
 	void Sleep(float milis) override;
@@ -64,6 +65,8 @@ private:
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;
+
+	String GetLastErrorString(DWORD err);
 
 	bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate);
 	bool ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowedWidth, int windowedHeight, int windowedPaddingX, int windowedPaddingY);

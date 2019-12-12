@@ -73,6 +73,8 @@ public:
 	virtual void CreateDirectory(const String& dirname);
 	/* Creates directory in game assets folder if available */
 	virtual void CreateAssetDirectory(const String& dirname);
+	/* Deletes file or folder with sub folders by path */
+	virtual void Delete(const String& path);
 	/* Returns all sub folders in provided directory */
 	virtual Array<String> GetSubDirectories(const String& filepath);
 	/* Returns all files contain in provided directory */

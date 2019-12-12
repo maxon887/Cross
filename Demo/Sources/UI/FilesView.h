@@ -41,6 +41,7 @@ private:
 	String selected_path;
 
 	void InitNode(Node& node);
+	void Refresh();
 	void BuildNote(Node& node);
 	void FileDoubleClicked(const String& filename);
 
