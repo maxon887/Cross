@@ -84,8 +84,12 @@ void MaterialVisualBox::OnFileSelected(String filename) {
 			loaded_from_scene = true;
 		} else {
 			mat = new Material();
-			mat->Load(filename, nullptr);
+			bool success = mat->Load(filename, nullptr);
 			loaded_from_scene = false;
+			if(!success) {
+				delete mat;
+				mat = nullptr;
+			}
 		}
 	} else {
 		mat = nullptr;

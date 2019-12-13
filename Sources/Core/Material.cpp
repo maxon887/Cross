@@ -116,9 +116,13 @@ bool Material::Load(const String& filename, Scene* scene) {
 void Material::Save(const String& filename) {
 	XMLDocument doc;
 	XMLElement* materialXML = doc.NewElement("Material");
+
+	String shaderName = "";
 	if(GetShader()) {
-		materialXML->SetAttribute("shader", GetShader()->GetFilename());
+		shaderName = GetShader()->GetFilename();
 	}
+	materialXML->SetAttribute("shader", shaderName);
+
 	doc.LinkEndChild(materialXML);
 
 	for(const Shader::Property& prop : properties) {
