@@ -34,13 +34,14 @@ void FilesView::Shown() {
 		file_tree.path = assPath.SubString(0, assPath.Length() - 1);
 		InitNode(file_tree);
 	}
+	selected_path = system->AssetsPath();
 }
 
 void FilesView::Update(float sec) {
 	BuildNote(file_tree);
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
-		selected_path = "";
+		selected_path = system->AssetsPath();
 		FileSelected.Emit(selected_path);
 	}
 
@@ -131,11 +132,13 @@ void FilesView::ContextMenu() {
 		if(ImGui::MenuItem("New Folder")) {
 			newFolder = true;
 		}
-		//if(ImGui::MenuItem("New Material")) {
-		//	Material* mat = new Material();
-		//	String filename = selected_path + "/NewMaterial.mat";
-		//	mat->Save(filename);
-		//}
+		if(ImGui::MenuItem("New Material")) {
+			Material* mat = new Material();
+			String filename = selected_path + "/NewMaterial.mat";
+			mat->Save(filename);
+			delete mat;
+			Refresh();
+		}
 		if(ImGui::MenuItem("Delete")) {
 			deleteFile = true;
 		}
@@ -193,6 +196,7 @@ void FilesView::ContextMenu() {
 		if(ImGui::Button("OK", ImVec2(120, 0))) {
 			ImGui::CloseCurrentPopup(); 
 			system->Delete(selected_path);
+			selected_path = system->AssetsPath();
 			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();
