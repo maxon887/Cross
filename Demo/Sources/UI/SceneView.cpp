@@ -148,7 +148,7 @@ void SceneView::BuildNode(Entity* entity) {
 		open = ImGui::TreeNodeEx(entity->GetName(), flags);
 	}
 
-	if(ImGui::IsItemClicked()) {
+	if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 		clicked = true;
 		if(selected_entity != entity) {
 			editing = false;

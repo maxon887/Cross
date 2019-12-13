@@ -77,7 +77,7 @@ void FilesView::BuildNote(Node& node) {
 
 		bool open = ImGui::TreeNodeEx(child.name, flags);
 
-		if(ImGui::IsItemClicked()) {
+		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 			selected_path = filepath;
 		}
 
@@ -95,7 +95,7 @@ void FilesView::BuildNote(Node& node) {
 		String filesize = Demo::GetCompactSize(system->GetFileSize(filepath));
 		ImGuiTreeNodeFlags flags = filepath == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file, flags);
-		if(ImGui::IsItemClicked()) {
+		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 			selected_path = filepath;
 			filepath.Remove(system->AssetsPath());
 			FileSelected.Emit(filepath);
