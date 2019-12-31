@@ -358,7 +358,8 @@ bool Mesh::IsEqual(Mesh* other) const {
 void Mesh::Copy(const Mesh* m) {
 	id = m->id;
 	model_filename = m->model_filename;
-	material_filename = m->material_filename;
+	//filename should not be copied for propper model loading, look Mesh::Initialize
+	//material_filename = m->material_filename;
 
 	VBO = m->VBO;
 	EBO = m->EBO;
