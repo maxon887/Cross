@@ -21,6 +21,7 @@
 #include "Demo.h"
 #include "Material.h"
 #include "Scenes/DemoScene.h"
+#include "FileUtils.h"
 
 #include <algorithm>
 
@@ -127,17 +128,14 @@ void FilesView::FileDoubleClicked(const String& filename) {
 
 void FilesView::ContextMenu() {
 	static bool newFolder = false;
+	static bool newMaterial = false;
 	static bool deleteFile = false;
 	if(ImGui::BeginPopupContextWindow("FileOptions")) {
 		if(ImGui::MenuItem("New Folder")) {
 			newFolder = true;
 		}
 		if(ImGui::MenuItem("New Material")) {
-			Material* mat = new Material();
-			String filename = selected_path + "/NewMaterial.mat";
-			mat->Save(filename);
-			delete mat;
-			Refresh();
+			newMaterial = true;
 		}
 		if(ImGui::MenuItem("Delete")) {
 			deleteFile = true;
@@ -176,6 +174,55 @@ void FilesView::ContextMenu() {
 		ImGui::EndPopup();
 	}
 
+	if(newMaterial) {
+		ImGui::OpenPopup("New Material");
+		newMaterial = false;
+	}
+	if(ImGui::BeginPopupModal("New Material", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		//Materia name
+		static char buffer[256];
+		ImGui::Text("Enter Material name");
+		//if(!ImGui::IsAnyItemActive()) {
+		//	ImGui::SetKeyboardFocusHere(0);
+		//}
+		ImGui::InputText("##MaterialName", buffer, 256);
+
+		//Combo box
+		ImGui::Text("Select Shader");
+		char* selectableItems[256];
+		Array<String> shaderPathes = FileUtils::GetAllFilesOfType("sha");
+		Array<String> shaderNames(shaderPathes.Size(), "");
+		for(int i = 0; i < shaderPathes.Size(); i++) {
+			shaderNames[i] = File::FileFromPath(shaderPathes[i]);
+			selectableItems[i] = shaderNames[i].ToCStr();
+		}
+		static int selectedShader = 0;
+		ImGui::Combo("ShaderFile", &selectedShader, selectableItems, shaderNames.Size());
+
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
+			input->IsPressed(Key::ESCAPE)) {
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SameLine();
+		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
+			input->IsPressed(Key::ENTER)) {
+
+			//Shader* newShader = new Shader();
+			//newShader->Load(shaderPathes[selectedShader]);
+			//newShader->Compile();
+			//Material* newMaterial = new Material(newShader);
+			//newMaterial->Save(selected_path + String(buffer));
+
+			//delete newMaterial;
+			//delete newShader;
+
+			Refresh();
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+
 	if(deleteFile) {
 		ImGui::OpenPopup("Delete?");
 		deleteFile = false;
@@ -197,6 +244,7 @@ void FilesView::ContextMenu() {
 			ImGui::CloseCurrentPopup(); 
 			system->Delete(selected_path);
 			selected_path = system->AssetsPath();
+			FileSelected.Emit(selected_path);
 			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();
