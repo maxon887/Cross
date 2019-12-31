@@ -348,6 +348,7 @@ String WINSystem::FromAbsoluteToAssetPath(const String& absolutePath) {
 
 	String result = relativePath;
 	result.Replace("\\", "/");
+	result.Remove("./");
 	return result;
 }
 
