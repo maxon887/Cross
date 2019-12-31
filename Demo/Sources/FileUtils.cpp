@@ -13,7 +13,9 @@ Array<String> FileUtils::GetAllFilesOfTypeInDirectory(const String& fileExtentio
 	Array<String> allFiles = system->GetFilesInDirectory(directory);
 	for(const String& file : allFiles) {
 		if(File::ExtensionFromFile(file) == fileExtention) {
-			result.Add(directory + file);
+			String relativeDir = directory;
+			relativeDir.Remove(system->AssetsPath());
+			result.Add(relativeDir + file);
 		}
 	}
 	return result;

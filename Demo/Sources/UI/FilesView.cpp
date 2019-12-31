@@ -207,14 +207,14 @@ void FilesView::ContextMenu() {
 		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
 			input->IsPressed(Key::ENTER)) {
 
-			//Shader* newShader = new Shader();
-			//newShader->Load(shaderPathes[selectedShader]);
-			//newShader->Compile();
-			//Material* newMaterial = new Material(newShader);
-			//newMaterial->Save(selected_path + String(buffer));
+			Shader* newShader = new Shader();
+			newShader->Load(shaderPathes[selectedShader]);
+			newShader->Compile();
+			Material* newMaterial = new Material(newShader);
+			newMaterial->Save(selected_path + String(buffer));
 
-			//delete newMaterial;
-			//delete newShader;
+			delete newMaterial;
+			delete newShader;
 
 			Refresh();
 			ImGui::CloseCurrentPopup();
