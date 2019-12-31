@@ -27,6 +27,7 @@ public:
 	~Array();
 
 	void Add(const T& item);
+	void Combine(const Array<T>& other);
 	template<class... Args>
 	void CreateInside(Args... args);
 	S32 Size() const;
@@ -93,6 +94,14 @@ void Array<T>::Add(const T& item) {
 	ReallocateIfNeeded();
 	new(data + size) T(item);
 	size++;
+}
+
+template<class T>
+void Array<T>::Combine(const Array<T>& other) {
+	Reserve(this->Size() + other.Size());
+	for(const T& elem : other) {
+		Add(elem);
+	}
 }
 
 template<class T>
@@ -200,10 +209,12 @@ void Array<T>::ReallocateIfNeeded() {
 
 template<class T>
 void Array<T>::Copy(const Array<T>& other) {
-	Reserve(other.Size());
-	for(S32 i = 0; i < other.Size(); i++) {
-		Add(other[i]);
-	}
+	Clear();
+	Combine(other);
+	//Reserve(other.Size());
+	//for(S32 i = 0; i < other.Size(); i++) {
+	//	Add(other[i]);
+	//}
 }
 
 #pragma pop_macro("new")

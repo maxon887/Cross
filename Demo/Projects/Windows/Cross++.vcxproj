@@ -168,6 +168,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\ArrayTest.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
+    <ClCompile Include="..\..\Sources\FileUtils.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp" />
@@ -269,6 +270,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\ArrayTest.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
+    <ClInclude Include="..\..\Sources\FileUtils.h" />
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h" />

@@ -342,6 +342,9 @@
     <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\FileUtils.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -647,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h">
       <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\FileUtils.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
