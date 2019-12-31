@@ -68,14 +68,10 @@ void Scene::Stop() {
 	Screen::Stop();
 }
 
-bool Scene::Load(const String& file, bool assetPath /* = true */) {
+bool Scene::Load(const String& file) {
 	filename = file;
 	File* xmlFile = nullptr;
-	if(assetPath) {
-		xmlFile = system->LoadAssetFile(file);
-	} else {
-		xmlFile = system->LoadFile(file);
-	}
+	xmlFile = system->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);

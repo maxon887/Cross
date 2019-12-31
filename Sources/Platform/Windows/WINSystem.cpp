@@ -207,9 +207,9 @@ bool WINSystem::IsMobile() {
 }
 
 void WINSystem::OpenFileExternal(const String& filename) {
-	char szFileName[MAX_PATH + 1];
-	GetCurrentDirectoryA(MAX_PATH + 1, szFileName);
-	String fullpath = String(szFileName) + "\\" + AssetsPath() + filename;
+	char charFilenameName[MAX_PATH + 1];
+	GetCurrentDirectoryA(MAX_PATH + 1, charFilenameName);
+	String fullpath = String(charFilenameName) + "\\" + AssetsPath() + filename;
 	S32 result = (S32)ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
 	if(result < 32) {
 		LPSTR messageBuffer = nullptr;
@@ -220,14 +220,14 @@ void WINSystem::OpenFileExternal(const String& filename) {
 }
 
 String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDialog /* = false */) {
-	char szFile[512];
+	char charFilename[512];
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn, sizeof(ofn));
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = NULL;
-	ofn.lpstrFile = szFile;
+	ofn.lpstrFile = charFilename;
 	ofn.lpstrFile[0] = '\0';
-	ofn.nMaxFile = sizeof(szFile);
+	ofn.nMaxFile = sizeof(charFilename);
 	char fileFilter[512];
 	memset(fileFilter, 0, 512);
 	strcpy(fileFilter, extension.ToCStr());
@@ -244,30 +244,16 @@ String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDia
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 	if(saveDialog) {
 		GetSaveFileName(&ofn);
-		return szFile;
+		return charFilename;
 	} else {
 		GetOpenFileName(&ofn);
 	}
-	String filepath = szFile;
+	String filepath = charFilename;
 	if(filepath == "") {
 		return filepath;
 	}
 
-	char currentDir[512];
-	GetCurrentDirectory(511, currentDir);
-
-	char pathToAssets[512];
-	String winAssetsPath = AssetsPath();
- 	winAssetsPath.Replace("/", "\\");
-	PathCombine(pathToAssets, currentDir, winAssetsPath);
-
-	char relativePath[512];
-	PathRelativePathTo(relativePath, pathToAssets, FILE_ATTRIBUTE_DIRECTORY, filepath, FILE_ATTRIBUTE_NORMAL);
-
-	String result = relativePath;
-	result.Replace("\\", "/");
-
-	return result;
+	return FromAbsoluteToAssetPath(filepath);
 }
 
 void WINSystem::SetAssetPath(const String& path) {
@@ -346,6 +332,23 @@ void WINSystem::KeyReleasedHandle(Key key) {
 	default:
 		break;
 	}
+}
+
+String WINSystem::FromAbsoluteToAssetPath(const String& absolutePath) {
+	char currentDir[512];
+	GetCurrentDirectory(511, currentDir);
+
+	char pathToAssets[512];
+	String winAssetsPath = AssetsPath();
+		winAssetsPath.Replace("/", "\\");
+	PathCombine(pathToAssets, currentDir, winAssetsPath);
+
+	char relativePath[512];
+	PathRelativePathTo(relativePath, pathToAssets, FILE_ATTRIBUTE_DIRECTORY, absolutePath, FILE_ATTRIBUTE_NORMAL);
+
+	String result = relativePath;
+	result.Replace("\\", "/");
+	return result;
 }
 
 String WINSystem::GetLastErrorString(DWORD err) {

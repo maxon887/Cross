@@ -49,7 +49,7 @@ public:
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
-	virtual bool Load(const String& file, bool assetPath = true);
+	virtual bool Load(const String& file);
 	/* Save scene into file */
 	virtual void Save(const String& file);
 

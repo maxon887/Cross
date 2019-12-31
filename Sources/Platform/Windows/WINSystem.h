@@ -66,6 +66,8 @@ private:
 	int window_pos_y	= 0;
 	bool fullscreen		= false;
 
+	String FromAbsoluteToAssetPath(const String& absolutePath);
+
 	String GetLastErrorString(DWORD err);
 
 	bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate);
