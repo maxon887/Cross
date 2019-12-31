@@ -141,7 +141,7 @@ String::String(Value value, const char* format, S32 bufferSize) {
 	//Conversion from integer to string failed
 	assert(length > 0);
 	//More data written in buffer than was allocated
-	assert(length < bufferSize);
+	assert(length <= bufferSize);
 }
 
 }

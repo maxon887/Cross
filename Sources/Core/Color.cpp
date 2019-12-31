@@ -85,7 +85,7 @@ float* Color::GetData() {
 }
 
 String Color::ToString() const {
-	String result = String(R, "%02X", 2) + String(G, "%02X", 2) + String(B, "%02X", 2) + String(A, "%02X", 2);
+	String result = String(int(R * 255), "%02X", 2) + String(int(G * 255), "%02X", 2) + String(int(B * 255), "%02X", 2) + String(int(A * 255), "%02X", 2);
 	return result;
 }
 

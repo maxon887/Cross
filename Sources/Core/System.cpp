@@ -61,10 +61,17 @@ void System::SaveFile(File* file) {
 	fclose(f);
 }
 
+void System::SaveAssetFile(File* file) {
+	/* Shitty code its rewrites original file path */
+	file->name = AssetsPath() + file->name;
+	SaveFile(file);
+}
+
 void System::SaveDataFile(File* file) {
 	if(!IsDirectoryExists(DataPath())) {
 		CreateDirectory(DataPath());
 	}
+	/* Shitty code its rewrites original file path */
 	file->name = DataPath() + file->name;
 	SaveFile(file);
 }

@@ -67,7 +67,7 @@ void MaterialVisualBox::Update() {
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
-
+			mat->Save(system->AssetsPath() + mat->GetFilename());
 		}
 	}
 }

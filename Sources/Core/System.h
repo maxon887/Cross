@@ -53,6 +53,8 @@ public:
 	virtual File* LoadDataFile(const String& filename);
 	/* Save file by absolute folder */
 	virtual void SaveFile(File* file);
+	/* Save file to asset folder */
+	virtual void SaveAssetFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
 	/* Checks if file exists in provided path */
