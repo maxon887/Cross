@@ -211,7 +211,7 @@ void FilesView::ContextMenu() {
 			newShader->Load(shaderPathes[selectedShader]);
 			newShader->Compile();
 			Material* newMaterial = new Material(newShader);
-			newMaterial->Save(selected_path + String(buffer));
+			newMaterial->Save(selected_path + String(buffer) + ".mat");
 
 			delete newMaterial;
 			delete newShader;
