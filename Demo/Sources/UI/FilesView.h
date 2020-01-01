@@ -32,8 +32,10 @@ private:
 	struct Node {
 		String path = "";
 		String name = "";
+		String full_path = "";
 		bool initialized = false;
-		Array<String> files;
+		//first string is filename second full paht + filename
+		Array<pair<String, String> > files;
 		Array<Node> folders;
 	};
 

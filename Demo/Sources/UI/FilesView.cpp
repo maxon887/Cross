@@ -57,9 +57,12 @@ void FilesView::InitNode(Node& node) {
 		Node newNode;
 		newNode.path = path;
 		newNode.name = folder;
+		newNode.full_path = path + folder;
 		node.folders.Add(newNode);
 	}
-	node.files = system->GetFilesInDirectory(path);
+	for(String& file : system->GetFilesInDirectory(path)) {
+		node.files.Add(pair<String, String>(file, node.path + node.name + "/" + file));
+	}
 	node.initialized = true;
 }
 
@@ -74,13 +77,12 @@ void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
 	for(Node& child : node.folders) {
-		String filepath = child.path + child.name;
-		ImGuiTreeNodeFlags flags = filepath == selected_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
+		ImGuiTreeNodeFlags flags = child.full_path == selected_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
 		bool open = ImGui::TreeNodeEx(child.name, flags);
 
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			selected_path = filepath;
+			selected_path = child.full_path;
 		}
 
 		if(open) {
@@ -92,23 +94,25 @@ void FilesView::BuildNote(Node& node) {
 		}
 	}
 
-	for(const String& file : node.files) {
-		String filepath = node.path + node.name + "/" + file;
-		String filesize = Demo::GetCompactSize(system->GetFileSize(filepath));
-		ImGuiTreeNodeFlags flags = filepath == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
-		ImGui::TreeNodeEx(file, flags);
+	for(const pair<String, String>& file : node.files) {
+		//String filesize = Demo::GetCompactSize(system->GetFileSize(filepath));
+		ImGuiTreeNodeFlags flags = file.second == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
+		ImGui::TreeNodeEx(file.first, flags);
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			selected_path = filepath;
+			selected_path = file.second;
+			String filepath = selected_path;
 			filepath.Remove(system->AssetsPath());
 			FileSelected.Emit(filepath);
 		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+			String filepath = selected_path;
+			filepath.Remove(system->AssetsPath());
 			FileDoubleClicked(filepath);
 		}
 
-		ImVec2 labelSize = ImGui::CalcTextSize(filesize);
-		ImGui::SameLine(ImGui::GetWindowWidth() - labelSize.x - SCALED(15.f));
-		ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.f), filesize);
+		//ImVec2 labelSize = ImGui::CalcTextSize(filesize);
+		//ImGui::SameLine(ImGui::GetWindowWidth() - labelSize.x - SCALED(15.f));
+		//ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.f), filesize);
 	}
 }
 
