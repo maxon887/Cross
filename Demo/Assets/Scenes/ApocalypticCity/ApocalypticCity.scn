@@ -3,9 +3,9 @@
         <Object name="Camera">
             <Components>
                 <Transform>
-                    <Position type="Vector3D" x="0.17835516" y="2.010015" z="3.6253204"/>
+                    <Position type="Vector3D" x="-0.65446091" y="1.3326125" z="2.1051707"/>
                     <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="0.0065557491" y="0.992392" z="-0.10679587" w="-0.060908109"/>
+                    <Rotation type="Quaternion" x="0.0055767517" y="0.99438572" z="-0.078926072" w="-0.070261799"/>
                 </Transform>
                 <Camera>
                     <ViewDistance type="Float" value="100"/>
@@ -269,7 +269,7 @@
                         <Mesh>
                             <ID type="Int" value="17"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
-                            <Material type="String" value="Engine/Default.mat"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/LianaMain.mat"/>
                         </Mesh>
                     </Components>
                 </Object>
@@ -287,7 +287,7 @@
                         </Mesh>
                     </Components>
                 </Object>
-                <Object name="Plane003">
+                <Object name="LianaMain">
                     <Components>
                         <Transform>
                             <Position type="Vector3D" x="0" y="0" z="0"/>
@@ -297,7 +297,7 @@
                         <Mesh>
                             <ID type="Int" value="19"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
-                            <Material type="String" value="Engine/Default.mat"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/LianaMain.mat"/>
                         </Mesh>
                     </Components>
                 </Object>

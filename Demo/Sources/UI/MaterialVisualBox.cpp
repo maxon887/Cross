@@ -39,6 +39,11 @@ void MaterialVisualBox::Update() {
 		String shaderFilename = mat->GetShader()->GetFilename();
 		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), shaderFilename);
 
+		bool trans = mat->IsTransparent();
+		if(ImGui::Checkbox("Transparent", &trans)) {
+			mat->SetTransparent(trans);
+		}
+
 		ImGui::NewLine();
 		ImGui::Text("Properties");
 		ImGui::Separator();

@@ -46,7 +46,7 @@ void TransparencyScene::Start(){
 	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	road_shader->Compile();
-	Texture* roadDiffuse = GetTexture("gfx3D/RoadDiffuse.png");
+	Texture* roadDiffuse = GetTexture("Textures/RoadDiffuse.png");
 	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", roadDiffuse);
@@ -66,7 +66,7 @@ void TransparencyScene::Start(){
 	grass_shader->Compile();
 	Entity* grass = LoadPrimitive(Model::Primitive::PLANE);
 	grass_mat = new Material(grass_shader);
-	grass_mat->SetPropertyValue("Diffuse Texture", GetTexture("gfx3D/GrassDiffuse.png"));
+	grass_mat->SetPropertyValue("Diffuse Texture", GetTexture("Textures/GrassDiffuse.png"));
 	grass_mat->EnableTransparency(true);
 	grass->GetComponent<Mesh>()->SetMaterial(grass_mat);
 	grass->GetTransform()->SetRotate(Quaternion(Vector3D::Up, 0.f));

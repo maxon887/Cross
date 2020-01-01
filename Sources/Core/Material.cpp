@@ -78,6 +78,14 @@ bool Material::Load(const String& filename, Scene* scene) {
 		Reset();
 	}
 
+	XMLElement* transparancyXML = materialXML->FirstChildElement("Transparent");
+	if(transparancyXML) {
+		String transText = transparancyXML->GetText();
+		if(transText == "True") {
+			transparent = true;
+		}
+	}
+
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {
 		const char* name = propertyXML->Attribute("name");
@@ -132,6 +140,12 @@ void Material::Save(const String& filename) {
 	materialXML->SetAttribute("shader", shaderName);
 
 	doc.LinkEndChild(materialXML);
+
+	if(IsTransparent()) {
+		XMLElement* transparancyXML = doc.NewElement("Transparent");
+		transparancyXML->SetText("True");
+		materialXML->LinkEndChild(transparancyXML);
+	}
 
 	for(const Shader::Property& prop : properties) {
 		XMLElement* propertyXML = doc.NewElement("Property");
@@ -285,6 +299,10 @@ void Material::SetPropertyValue(U64 glID, Texture* value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
+}
+
+void Material::SetTransparent(bool yes) {
+	transparent = yes;
 }
 
 bool Material::IsTransparent() {

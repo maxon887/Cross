@@ -79,6 +79,7 @@ public:
 	/* Sets texture property value by graphics ID */
 	void SetPropertyValue(U64 glID, Texture* value);
 
+	void SetTransparent(bool yes);
 	/* Returns true if this Material supports transparency */
 	bool IsTransparent();
 	/* Enables transparency property for current Material */
