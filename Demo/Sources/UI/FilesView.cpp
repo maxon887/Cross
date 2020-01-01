@@ -27,6 +27,8 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
+#undef CreateDirectory
+
 FilesView::FilesView() : View("Files") { }
 
 void FilesView::Shown() {
@@ -35,15 +37,15 @@ void FilesView::Shown() {
 		file_tree.path = assPath.SubString(0, assPath.Length() - 1);
 		InitNode(file_tree);
 	}
-	selected_path = system->AssetsPath();
+	current_path = system->AssetsPath();
 }
 
 void FilesView::Update(float sec) {
 	BuildNote(file_tree);
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
-		selected_path = system->AssetsPath();
-		FileSelected.Emit(selected_path);
+		current_path = system->AssetsPath();
+		FileSelected.Emit(current_path);
 	}
 
 	ContextMenu();
@@ -77,12 +79,12 @@ void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
 	for(Node& child : node.folders) {
-		ImGuiTreeNodeFlags flags = child.full_path == selected_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
+		ImGuiTreeNodeFlags flags = child.full_path == current_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
 		bool open = ImGui::TreeNodeEx(child.name, flags);
 
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			selected_path = child.full_path;
+			current_path = child.full_path;
 		}
 
 		if(open) {
@@ -96,16 +98,16 @@ void FilesView::BuildNote(Node& node) {
 
 	for(const pair<String, String>& file : node.files) {
 		//String filesize = Demo::GetCompactSize(system->GetFileSize(filepath));
-		ImGuiTreeNodeFlags flags = file.second == selected_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
+		ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file.first, flags);
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			selected_path = file.second;
-			String filepath = selected_path;
+			current_path = file.second;
+			String filepath = current_path;
 			filepath.Remove(system->AssetsPath());
 			FileSelected.Emit(filepath);
 		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
-			String filepath = selected_path;
+			String filepath = current_path;
 			filepath.Remove(system->AssetsPath());
 			FileDoubleClicked(filepath);
 		}
@@ -168,7 +170,7 @@ void FilesView::ContextMenu() {
 		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
 			input->IsPressed(Key::ENTER)) {
 
-			system->CreateAssetDirectory(buffer);
+			system->CreateDirectory(current_path + "/" + buffer);
 
 			Refresh();
 
@@ -212,7 +214,7 @@ void FilesView::ContextMenu() {
 			newShader->Load(shaderPathes[selectedShader]);
 			newShader->Compile();
 			Material* newMaterial = new Material(newShader);
-			newMaterial->Save(selected_path + "//" + String(buffer) + ".mat");
+			newMaterial->Save(current_path + "//" + String(buffer) + ".mat");
 
 			delete newMaterial;
 			delete newShader;
@@ -243,9 +245,9 @@ void FilesView::ContextMenu() {
 
 		if(ImGui::Button("OK", ImVec2(120, 0))) {
 			ImGui::CloseCurrentPopup(); 
-			system->Delete(selected_path);
-			selected_path = system->AssetsPath();
-			FileSelected.Emit(selected_path);
+			system->Delete(current_path);
+			current_path = system->AssetsPath();
+			FileSelected.Emit(current_path);
 			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();

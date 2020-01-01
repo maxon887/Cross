@@ -120,7 +120,7 @@ void System::CreateDirectory(const String& dirname) {
 }
 
 void System::CreateAssetDirectory(const String& dirname) {
-	CreateDirectory(AssetsPath() + "/" + dirname);
+	CreateDirectory(AssetsPath() + dirname);
 }
 
 void System::Delete(const String& path) {

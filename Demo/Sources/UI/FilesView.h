@@ -40,7 +40,7 @@ private:
 	};
 
 	Node file_tree;
-	String selected_path;
+	String current_path;
 
 	void InitNode(Node& node);
 	void Refresh();
