@@ -32,6 +32,7 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 9. Many useful interesting features like: Event System, Assert System, Memory Manager.
 
 ### Screenshot Gallery
+![Alt text](https://sun9-26.userapi.com/c200820/v200820675/27ebb/RgV5CjNc_7s.jpg)
 ![Alt text](https://sun9-62.userapi.com/c854220/v854220397/16e46b/XNA1LrNMHXg.jpg)
 ![Alt text](https://sun1-15.userapi.com/c854220/v854220397/16e475/lSKKtcGWBFw.jpg)
 ![Alt text](https://sun9-48.userapi.com/c854220/v854220397/16e47f/auU-Vc_2Lt4.jpg)
