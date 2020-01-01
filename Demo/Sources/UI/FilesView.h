@@ -42,6 +42,8 @@ private:
 	Node file_tree;
 	String current_path;
 
+	Array<String> all_shader_files;
+
 	void InitNode(Node& node);
 	void Refresh();
 	void BuildNote(Node& node);

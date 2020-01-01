@@ -156,6 +156,8 @@ void SceneView::BuildNode(Entity* entity) {
 		selected_entity = entity;
 		editing = false;
 		EntitySelected.Emit(entity);
+	}
+	if(ImGui::IsMouseDoubleClicked(0) && ImGui::IsItemHovered()) {
 		LookAtObject();
 	}
 

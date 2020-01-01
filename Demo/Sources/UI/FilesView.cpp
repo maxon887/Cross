@@ -183,6 +183,7 @@ void FilesView::ContextMenu() {
 	if(newMaterial) {
 		ImGui::OpenPopup("New Material");
 		newMaterial = false;
+		all_shader_files = FileUtils::GetAllFilesOfType("sha");
 	}
 	if(ImGui::BeginPopupModal("New Material", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		//Materia name
@@ -193,10 +194,9 @@ void FilesView::ContextMenu() {
 		//Combo box
 		ImGui::Text("Select Shader");
 		char* selectableItems[256];
-		Array<String> shaderPathes = FileUtils::GetAllFilesOfType("sha");
-		Array<String> shaderNames(shaderPathes.Size(), "");
-		for(int i = 0; i < shaderPathes.Size(); i++) {
-			shaderNames[i] = File::FileFromPath(shaderPathes[i]);
+		Array<String> shaderNames(all_shader_files.Size(), "");
+		for(int i = 0; i < all_shader_files.Size(); i++) {
+			shaderNames[i] = File::FileFromPath(all_shader_files[i]);
 			selectableItems[i] = shaderNames[i].ToCStr();
 		}
 		static int selectedShader = 0;
@@ -211,7 +211,7 @@ void FilesView::ContextMenu() {
 			input->IsPressed(Key::ENTER)) {
 
 			Shader* newShader = new Shader();
-			newShader->Load(shaderPathes[selectedShader]);
+			newShader->Load(all_shader_files[selectedShader]);
 			newShader->Compile();
 			Material* newMaterial = new Material(newShader);
 			newMaterial->Save(current_path + "//" + String(buffer) + ".mat");

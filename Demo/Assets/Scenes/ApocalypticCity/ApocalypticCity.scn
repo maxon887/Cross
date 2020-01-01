@@ -1,0 +1,364 @@
+<Scene version="18">
+    <Objects>
+        <Object name="Camera">
+            <Components>
+                <Transform>
+                    <Position type="Vector3D" x="0.17835516" y="2.010015" z="3.6253204"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0.0065557491" y="0.992392" z="-0.10679587" w="-0.060908109"/>
+                </Transform>
+                <Camera>
+                    <ViewDistance type="Float" value="100"/>
+                </Camera>
+            </Components>
+        </Object>
+        <Object name="ApocalypticCity">
+            <Components>
+                <Transform>
+                    <Position type="Vector3D" x="0" y="0" z="0"/>
+                    <Scale type="Vector3D" x="0.0099999998" y="0.0099999998" z="0.0099999998"/>
+                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                </Transform>
+            </Components>
+            <Children>
+                <Object name="facade1">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="0"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade1.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="rubbish_01">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="1"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="facade2">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="2"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade2.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="wire">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="3"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="facade005">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="4"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="sky">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="5"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Sky.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="road">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="6"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Road.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="posters_grass">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="7"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="cars">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="8"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Car.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="foreground">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="9"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="road_staff">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="10"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/RoadStuff.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="facade6">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="11"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="back_builds">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="12"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/BackgroundBuildings.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="outpost">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="13"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Outpost.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="facade3">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="14"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade3.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="facade005">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="15"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade5.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="wire">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="16"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="liana1">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="17"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Plane002">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="18"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Plane003">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="19"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Plane004">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="20"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Plane006">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="21"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Plane007">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="22"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Object005">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <ID type="Int" value="23"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Engine/Default.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+            </Children>
+        </Object>
+    </Objects>
+</Scene>
+ 
