@@ -24,10 +24,7 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 MaterialVisualBox::~MaterialVisualBox() {
-	if(!loaded_from_scene && mat) {
-		delete mat->GetShader();
-		delete mat;
-	}
+	DeleteMaterialIfNeeded();
 }
 
 void MaterialVisualBox::Update() {
@@ -50,9 +47,35 @@ void MaterialVisualBox::Update() {
 			ImGui::Text(prop.GetName());
 			ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 			switch(prop.GetType()) {
-			case Shader::Property::Type::COLOR:
+			case Shader::Property::Type::COLOR: {
 				ImGui::ColorEdit4(prop.GetName(), prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 				break;
+			}
+			case Shader::Property::Type::TEXTURE: {
+				String textureFilename = "No Texture selected";
+				Texture* texture = prop.GetValue().texture;
+				if(texture) {
+					textureFilename = texture->GetName();
+				}
+				
+				static bool selected = false;
+				if(ImGui::Selectable(textureFilename.ToCStr(), &selected)) {
+					selected = false;
+					textureFilename = system->OpenFileDialog();
+					if(textureFilename) {
+						if(game->GetCurrentScene()) {
+							prop.GetValue().texture = game->GetCurrentScene()->GetTexture(textureFilename);
+						} else {
+							delete texture;
+							texture = new Texture();
+							texture->Load(textureFilename);
+							prop.GetValue().texture = texture;
+						}
+					}
+				}
+
+				break;
+			}
 			default:
 				CROSS_ASSERT(false, "Can not display material property of type #", Shader::Property::TypeToString(prop.GetType()));
 				break;
@@ -73,10 +96,7 @@ void MaterialVisualBox::Update() {
 }
 
 void MaterialVisualBox::OnFileSelected(String filename) {
-	if(!loaded_from_scene && mat) {
-		delete mat->GetShader();
-		delete mat;
-	}
+	DeleteMaterialIfNeeded();
 	if(File::ExtensionFromFile(filename) == "mat") {
 		Scene* scene = game->GetCurrentScene();
 		if(scene) {
@@ -99,5 +119,17 @@ void MaterialVisualBox::OnFileSelected(String filename) {
 void MaterialVisualBox::OnScreenChanged(Screen* newScreen) {
 	if(loaded_from_scene) {
 		mat = nullptr;
+	}
+}
+
+void MaterialVisualBox::DeleteMaterialIfNeeded() {
+	if(!loaded_from_scene && mat) {
+		for(Shader::Property& prop : mat->GetProperties()) {
+			if(prop.GetType() == Shader::Property::Type::TEXTURE) {
+				delete prop.GetValue().texture;
+			}
+		}
+		delete mat->GetShader();
+		delete mat;
 	}
 }

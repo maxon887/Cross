@@ -182,9 +182,6 @@ void FilesView::ContextMenu() {
 		//Materia name
 		static char buffer[256];
 		ImGui::Text("Enter Material name");
-		//if(!ImGui::IsAnyItemActive()) {
-		//	ImGui::SetKeyboardFocusHere(0);
-		//}
 		ImGui::InputText("##MaterialName", buffer, 256);
 
 		//Combo box
@@ -211,7 +208,7 @@ void FilesView::ContextMenu() {
 			newShader->Load(shaderPathes[selectedShader]);
 			newShader->Compile();
 			Material* newMaterial = new Material(newShader);
-			newMaterial->Save(selected_path + String(buffer) + ".mat");
+			newMaterial->Save(selected_path + "//" + String(buffer) + ".mat");
 
 			delete newMaterial;
 			delete newShader;

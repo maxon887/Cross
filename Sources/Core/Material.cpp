@@ -98,10 +98,17 @@ bool Material::Load(const String& filename, Scene* scene) {
 				prop->SetValue(Color(value));
 			} break;
 			case Shader::Property::TEXTURE: {
-				const char* textureFilename = propertyXML->Attribute("value");
-				CROSS_RETURN(scene, false, "Can not load material with texture without scene");
-				Texture* texture = scene->GetTexture(textureFilename);
-				prop->SetValue(texture);
+				String textureFilename = propertyXML->Attribute("value");
+				if(!textureFilename.IsEmpty()) {
+					if(scene) {
+						Texture* texture = scene->GetTexture(textureFilename);
+						prop->SetValue(texture);
+					} else {
+						Texture* texture = new Texture();
+						texture->Load(textureFilename);
+						prop->SetValue(texture);
+					}
+				}
 			} break;
 			default:
 				CROSS_ASSERT(false, "Unsupported property type");
@@ -133,6 +140,15 @@ void Material::Save(const String& filename) {
 		case Shader::Property::Type::COLOR: {
 			String color = prop.value.color.ToString();
 			propertyXML->SetAttribute("value", color);
+			break;
+		}
+		case Shader::Property::Type::TEXTURE: {
+			Texture* texture = prop.value.texture;
+			if(texture && texture->GetName() != "") {
+				propertyXML->SetAttribute("value", texture->GetName());
+			} else {
+				propertyXML->SetAttribute("value", "");
+			}
 			break;
 		}
 		default:

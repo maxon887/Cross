@@ -31,4 +31,6 @@ public:
 private:
 	Material* mat = nullptr;
 	bool loaded_from_scene = false;
+
+	void DeleteMaterialIfNeeded();
 };
