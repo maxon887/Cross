@@ -267,14 +267,8 @@
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp">
       <Filter>Demo\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Scenes\Simple\TexturedModelScene.cpp">
-      <Filter>Demo\Scenes\Simple</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp">
       <Filter>Demo\Scenes\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Scenes\Misc\ApocalypseScene.cpp">
-      <Filter>Demo\Scenes\Misc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp">
       <Filter>Demo\Scenes\Misc</Filter>
@@ -579,14 +573,8 @@
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h">
       <Filter>Demo\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Scenes\Simple\TexturedModelScene.h">
-      <Filter>Demo\Scenes\Simple</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h">
       <Filter>Demo\Scenes\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Scenes\Misc\ApocalypseScene.h">
-      <Filter>Demo\Scenes\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h">
       <Filter>Demo\Scenes\Misc</Filter>

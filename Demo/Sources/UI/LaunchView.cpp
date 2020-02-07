@@ -21,7 +21,6 @@
 #include "Texture.h"
 #include "UI/MenuBar.h"
 #include "Scenes/Simple/TriangleScene.h"
-#include "Scenes/Simple/TexturedModelScene.h"
 #include "Scenes/Light/MaterialScene.h"
 #include "Scenes/Light/DirectionalLightScene.h"
 #include "Scenes/Light/PointLightScene.h"
@@ -35,7 +34,6 @@
 #include "Scenes/Misc/DepthScene.h"
 #include "Scenes/Misc/TransparencyScene.h"
 #include "Scenes/Misc/SkyboxScene.h"
-#include "Scenes/Misc/ApocalypseScene.h"
 #include "StringTest.h"
 #include "ArrayTest.h"
 #include "AudioScreen.h"
@@ -78,7 +76,12 @@ void LaunchView::Update(float sec) {
 				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Textured Model")) {
-				game->SetScreen(new TexturedModelScene());
+				const String filename = "Scenes/TexturedCube.scn";
+				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
+			}
+			if(ImGui::MenuButton("Apocalypse Scene")) {
+				const String filename = "Scenes/ApocalypticCity/ApocalypticCity.scn";
+				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			ImGui::TreePop();
 		}
@@ -127,9 +130,6 @@ void LaunchView::Update(float sec) {
 			}
 			if(ImGui::MenuButton("Skybox")) {
 				game->SetScreen(new SkyboxScene());
-			}
-			if(ImGui::MenuButton("Apocalypse Scene")) {
-				game->SetScreen(new ApocalypseScene());
 			}
 			ImGui::TreePop();
 		}

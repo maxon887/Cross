@@ -180,11 +180,9 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\Scenes\Maps\NormalScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Maps\RoughnessScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Maps\SpecularScene.cpp" />
-    <ClCompile Include="..\..\Sources\Scenes\Misc\ApocalypseScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
-    <ClCompile Include="..\..\Sources\Scenes\Simple\TexturedModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\StringTest.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
@@ -282,11 +280,9 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\Scenes\Maps\NormalScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Maps\RoughnessScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Maps\SpecularScene.h" />
-    <ClInclude Include="..\..\Sources\Scenes\Misc\ApocalypseScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
-    <ClInclude Include="..\..\Sources\Scenes\Simple\TexturedModelScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\StringTest.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
