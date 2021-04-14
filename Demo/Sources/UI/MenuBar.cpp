@@ -70,7 +70,7 @@ void MenuBar::Update(float sec) {
 		v->Run(sec);
 	}
 	if(show_style_editor) {
-		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
+		ImGui::Begin("Style Editor", &show_style_editor);// ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}

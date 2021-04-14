@@ -53,7 +53,7 @@ void Log::Update(float sec) {
 	}
 
 	if(scroll_to_bottom) {
-		ImGui::SetScrollHere(1.0f);
+		ImGui::SetScrollHereY(1.0f);
 	}
 	scroll_to_bottom = false;
 	ImGui::EndChild();

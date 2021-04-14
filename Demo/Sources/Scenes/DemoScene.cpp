@@ -130,7 +130,7 @@ void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */
 }
 
 void DemoScene::OnActionDown(Input::Action action) {
-	if(handled_action == -1 && !ImGui::IsMouseHoveringAnyWindow()) {
+	if(handled_action == -1 && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
 		handled_action = action.id;
 		touch_position = action.pos;
 	}
@@ -186,7 +186,7 @@ void DemoScene::OnOrientationChanged(System::Orientation o) {
 }
 
 void DemoScene::MouseWheelRoll(float delta) {
-	if(!ImGui::IsMouseHoveringAnyWindow()) {
+	if(!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
 		MoveCloser(0.1f * delta);
 	}
 }

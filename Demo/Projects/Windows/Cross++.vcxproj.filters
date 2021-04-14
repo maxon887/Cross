@@ -339,6 +339,9 @@
     <ClCompile Include="..\..\Sources\FileUtils.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp">
+      <Filter>Demo\ThirdParty\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">

@@ -191,6 +191,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\Sources\ImGuiScreen.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="..\..\Sources\UI\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
