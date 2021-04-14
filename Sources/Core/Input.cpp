@@ -37,7 +37,7 @@ void Input::TouchEnabled(bool enabled) {
 Vector2D Input::TargetToWordConvert(float x, float y) const {
 	Vector2D result;
 	result.x = x;
-	result.y = system->GetWindowHeight() - y;
+	result.y = os->GetWindowHeight() - y;
 	return result;
 }
 

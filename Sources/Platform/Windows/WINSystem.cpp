@@ -239,7 +239,7 @@ String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDia
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
 
-	String initPath = system->AssetsPath();
+	String initPath = os->AssetsPath();
 	initPath.Replace("/", "\\");
 	ofn.lpstrInitialDir = initPath;
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;

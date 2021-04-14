@@ -121,7 +121,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_MOVE: {
 		int x = LOWORD(lParam) - 8;
 		int y = HIWORD(lParam) - 30;
-		WINSystem* winSys = (WINSystem*)cross::system;
+		WINSystem* winSys = (WINSystem*)cross::os;
 		winSys->SetWindowPosition(x, y);
 		break;
 	}
@@ -130,14 +130,14 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		int width = winRect.right - winRect.left;
 		int height = winRect.bottom - winRect.top;
 		if(width > 0 && height > 0){
-			WINSystem* winSys = (WINSystem*)cross::system;
+			WINSystem* winSys = (WINSystem*)cross::os;
 			winSys->SetWindowSize(width, height);
 		}
 		break;
 	}
 	case WM_GETMINMAXINFO: {
-		if(system) {
-			float windowsScale = system->GetScreenDPI() / USER_DEFAULT_SCREEN_DPI;
+		if(os) {
+			float windowsScale = os->GetScreenDPI() / USER_DEFAULT_SCREEN_DPI;
 			DefWindowProc(wnd, msg, wParam, lParam);
 			MINMAXINFO* pmmi = (MINMAXINFO*)lParam;
 			pmmi->ptMaxTrackSize.x *= (long)windowsScale;

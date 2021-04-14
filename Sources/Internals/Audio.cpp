@@ -26,7 +26,7 @@ using namespace cross;
 static FMOD_RESULT result;
 
 Audio::Audio() {
-	system->LogIt("Audio::Audio()");
+	os->LogIt("Audio::Audio()");
 	result = FMOD::System_Create(&fmod_system);
 	ERRCHECK(result);
 
@@ -34,7 +34,7 @@ Audio::Audio() {
 	result = fmod_system->getVersion(&version);
 	ERRCHECK(result);
 
-	system->LogIt("FMOD Version - #", String(version, "%08x", 12));
+	os->LogIt("FMOD Version - #", String(version, "%08x", 12));
 
 	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version # doesn't match header version #", 
 		String(version, "%08x", 20), String(FMOD_VERSION, "%08x", 20));
@@ -65,7 +65,7 @@ FMOD::Sound* Audio::LoadSound(const String& path, bool loop, bool stream) {
 #ifdef ANDROID
 	String absPath = "file:///android_asset/" + path;
 #else
-	String absPath = system->AssetsPath() + "/" + path;
+	String absPath = os->AssetsPath() + "/" + path;
 #endif
 	FMOD::Sound* sound = nullptr;
 	result = fmod_system->createSound(absPath, mode, 0, &sound);

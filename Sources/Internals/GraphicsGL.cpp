@@ -60,16 +60,16 @@ void GraphicsGL::ClearGLErrorBuffer() {
 }
 
 GraphicsGL::GraphicsGL() {
-	system->LogIt("GraphicsGL::GraphicsGL()");
+	os->LogIt("GraphicsGL::GraphicsGL()");
 
 #if defined(OPENGL) || (defined(WIN) && defined(EDITOR))
 	CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #endif
 
-	system->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
-	system->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
+	os->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
+	os->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
 	shader_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-	system->LogIt("\tGLSL version - " + shader_version);
+	os->LogIt("\tGLSL version - " + shader_version);
 
 	S32 first = shader_version.FindFirstOf("0123456789.");
 	if(first != -1) {
@@ -86,17 +86,17 @@ GraphicsGL::GraphicsGL() {
 	
 	GLint value;
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
-	system->LogIt("\tMax Vertex Attributes: #", value);
+	os->LogIt("\tMax Vertex Attributes: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value));
-	system->LogIt("\tMax Texture Size: #", value);
+	os->LogIt("\tMax Texture Size: #", value);
 
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value));
-	system->LogIt("\tMax Texture Units: #", value);
+	os->LogIt("\tMax Texture Units: #", value);
 
-	system->LogIt("\tDevice DPI - #", system->GetScreenDPI());
+	os->LogIt("\tDevice DPI - #", os->GetScreenDPI());
 
-	system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
+	os->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
 	SAFE(glCullFace(GL_FRONT));
 }

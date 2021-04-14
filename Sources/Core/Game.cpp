@@ -30,14 +30,14 @@
 using namespace cross;
 
 Game*		cross::game		= nullptr;
-System*		cross::system	= nullptr;
+System*		cross::os	= nullptr;
 Audio*		cross::audio	= nullptr;
 GraphicsGL* cross::gfxGL	= nullptr;
 Input*		cross::input	= nullptr;
 Config*		cross::config	= nullptr;
 
 Game::Game() {
-	system->LogIt("Game::Game()");
+	os->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
 	component_factory = new ComponentFactory();
@@ -47,7 +47,7 @@ Game::Game() {
 }
 
 Game::~Game() {
-	system->LogIt("Game::~Game");
+	os->LogIt("Game::~Game");
 	delete component_factory;
 	delete config;
 	delete input;
@@ -74,7 +74,7 @@ ComponentFactory* Game::GetComponentFactory() {
 }
 
 void Game::Suspend() {
-	system->LogIt("Game::Suspend");
+	os->LogIt("Game::Suspend");
 	suspended = true;
 
 	if(audio) {
@@ -92,12 +92,12 @@ void Game::Suspend() {
 }
 
 void Game::Resume() {
-	system->LogIt("Game::Resume");
+	os->LogIt("Game::Resume");
 	suspended = false;
 	if(audio) {
 		audio->Resume();
 	}
-	timestamp = system->GetTime();
+	timestamp = os->GetTime();
 	if(current_screen) {
 		current_screen->Resume();
 	}
@@ -111,7 +111,7 @@ void Game::EngineUpdate() {
 	if(!suspended) {
 		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
-		U64 now = system->GetTime();
+		U64 now = os->GetTime();
 		U64 updateTime = now - timestamp;
 		float secTime = (float)(updateTime / 1000000.);
 		timestamp = now;
@@ -131,12 +131,12 @@ void Game::EngineUpdate() {
 		game->Update(secTime);
 
 		Debugger::Instance()->Update((float)updateTime);
-		U64 cpuTime = system->GetTime() - timestamp;
+		U64 cpuTime = os->GetTime() - timestamp;
 		Debugger::Instance()->SetCPUTime((float)cpuTime);
 
 		float milis = updateTime / 1000.f;
 		if(milis < 5.f) {
-			system->Sleep(5.f - milis);
+			os->Sleep(5.f - milis);
 		}
 	}
 }
@@ -146,7 +146,7 @@ bool Game::IsSuspended() const {
 }
 
 void Game::LoadNextScreen() {
-	system->LogIt("Game::LoadNextScreen()");
+	os->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 
 	if(current_screen) {
@@ -159,8 +159,8 @@ void Game::LoadNextScreen() {
 	next_screen = nullptr;
 	current_screen->Start();
 
-	timestamp = system->GetTime();
+	timestamp = os->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Screen(#) loaded in #ms", current_screen == nullptr? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
+	os->LogIt("Screen(#) loaded in #ms", current_screen == nullptr? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
 	ScreenChanged.Emit(current_screen);
 }

@@ -48,7 +48,7 @@ int OpenGL_Main() {
 	MSG msg;
 
 	WINSystem* winSys = new WINSystem(wnd);
-	system = winSys;
+	os = winSys;
 	game = CrossMain();
 
 	int winX = config->GetInt("WIN_POS_X", 100);
@@ -115,7 +115,7 @@ int OpenGL_Main() {
 	delete gfxGL;
 	delete game;
 	delete audio;
-	delete system;
+	delete os;
 #ifdef CROSS_MEMORY_PROFILE
 	MemoryManager::Instance()->Dump();
 #endif // CROSS_MEMORY_PROFILE

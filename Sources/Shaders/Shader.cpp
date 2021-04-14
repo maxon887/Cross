@@ -208,7 +208,7 @@ Shader::~Shader() {
 
 void Shader::Load(const String& file) {
 	filename = file;
-	File* xmlFile = system->LoadAssetFile(file);
+	File* xmlFile = os->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load shader xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -285,18 +285,18 @@ void Shader::Save(const String& file) {
 	saveFile.name = file;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
+	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
 }
 
 void Shader::Compile() {
 	CROSS_FAIL(vertex_filename != "", "Can not compile shader without vertex file");
-	vertex_file = system->LoadAssetFile(vertex_filename);
+	vertex_file = os->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = nullptr;
 	CROSS_FAIL(fragment_filename != "", "Can not compile shader without fragment file");
-	fragment_file = system->LoadAssetFile(fragment_filename);
+	fragment_file = os->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
 	fragment_file = nullptr;
@@ -369,22 +369,22 @@ void Shader::AddVersion(const String& ver) {
 	makro_len += fullStr.Length();
 }
 
-void Shader::AddMacro(const String& makro, bool system) {
+void Shader::AddMacro(const String& makro, bool os) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + "\n";
 	macrosies.Add(makroString);
 	makro_len += makroString.Length();
-	if(!system){
+	if(!os){
 		user_macro.Add(makro);
 	}
 }
 
-void Shader::AddMacro(const String& makro, int value, bool system) {
+void Shader::AddMacro(const String& makro, int value, bool os) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + " " + String(value) + "\n";
 	macrosies.Add(makroString);
 	makro_len += makroString.Length();
-	if(!system) {
+	if(!os) {
 		CROSS_ASSERT(false, "Do not implement yet");
 	}
 }

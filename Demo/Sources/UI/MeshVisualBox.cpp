@@ -51,7 +51,7 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	//String modelName = mesh->GetModelFileName();
 	//modelName = File::FileFromPath(modelName);
 	//if(ImGui::Button(modelName)) {
-	//	modelName = system->OpenFileDialog();
+	//	modelName = os->OpenFileDialog();
 	//	if(!modelName.IsEmpty()) {
 	//		
 	//		Model* newModel = game->GetCurrentScene()->GetModel(modelName);
@@ -70,7 +70,7 @@ void MeshVisualBox::Show(Mesh* mesh) {
 	String materialFilename = mesh->GetMaterialFileName();
 	materialFilename = File::FileFromPath(materialFilename);
 	if(ImGui::Button(materialFilename)) {
-		materialFilename = system->OpenFileDialog();
+		materialFilename = os->OpenFileDialog();
 		if(!materialFilename.IsEmpty()) {
 			Material* selectedMaterial = game->GetCurrentScene()->GetMaterial(materialFilename);
 			mesh->SetMaterial(selectedMaterial);

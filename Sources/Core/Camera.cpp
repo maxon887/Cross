@@ -29,7 +29,7 @@ Camera::Camera() : Component("Camera")
 
 void Camera::Initialize(Scene* scene) {
 	CROSS_ASSERT(!scene->GetCamera(), false, "Loading Scene already have another camera");
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, view_distance);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
 	SetProjectionMatrix(projection);
 	scene->SetCamera(this);
 }

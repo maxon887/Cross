@@ -34,12 +34,12 @@ void Debugger::Release() {
 }
 
 void Debugger::SetTimeCheck() {
-	U64 checkTime = system->GetTime();
+	U64 checkTime = os->GetTime();
 	time_checks.Add(checkTime);
 }
 
 float Debugger::GetTimeCheck() {
-	U64 now = system->GetTime();
+	U64 now = os->GetTime();
 	U64 checkTime = time_checks.Last();
 	time_checks.RemoveLast();
 	return (now - checkTime) / 1000.f;

@@ -54,7 +54,7 @@ const String& View::GetName() const {
 void View::Run(float sec) {
 	if(visible) {
 		PreUpdate();
-		switch(system->GetDeviceOrientation()) {
+		switch(os->GetDeviceOrientation()) {
 		case System::Orientation::LANDSCAPE:
 			ImGui::Begin(landscape_name, &visible, flags);
 			break;

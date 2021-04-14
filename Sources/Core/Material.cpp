@@ -55,7 +55,7 @@ const String& Material::GetFilename() const {
 }
 
 bool Material::Load(const String& filename, Scene* scene) {
-	File* xmlFile = system->LoadAssetFile(filename);
+	File* xmlFile = os->LoadAssetFile(filename);
 	CROSS_RETURN(xmlFile, false, "Can't load material. File not fount");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -177,7 +177,7 @@ void Material::Save(const String& filename) {
 	saveFile.name = filename;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
+	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
 }
 

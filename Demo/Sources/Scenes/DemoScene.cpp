@@ -38,12 +38,12 @@ void DemoScene::Start() {
 	input->KeyPressed.Connect(this, &DemoScene::OnKeyPressed);
 	input->KeyReleased.Connect(this, &DemoScene::OnKeyReleased);
 	input->Scroll.Connect(this, &DemoScene::MouseWheelRoll);
-	system->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
+	os->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 
 	LookAtTarget(Vector3D::Zero);
 	LookAtCamera(true);
 	
-	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
+	if(os->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
 
@@ -55,7 +55,7 @@ void DemoScene::Stop() {
 		delete arrow;
 	}
 
-	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
+	os->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
 	input->Scroll.Disconnect(this, &DemoScene::MouseWheelRoll);
 	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
 	input->KeyPressed.Disconnect(this, &DemoScene::OnKeyPressed);

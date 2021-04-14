@@ -66,7 +66,7 @@ void MaterialVisualBox::Update() {
 				static bool selected = false;
 				if(ImGui::Selectable(textureFilename.ToCStr(), &selected)) {
 					selected = false;
-					textureFilename = system->OpenFileDialog();
+					textureFilename = os->OpenFileDialog();
 					if(textureFilename) {
 						if(game->GetCurrentScene()) {
 							prop.GetValue().texture = game->GetCurrentScene()->GetTexture(textureFilename);
@@ -95,7 +95,7 @@ void MaterialVisualBox::Update() {
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
-			mat->Save(system->AssetsPath() + mat->GetFilename());
+			mat->Save(os->AssetsPath() + mat->GetFilename());
 		}
 	}
 }

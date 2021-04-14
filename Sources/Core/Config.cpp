@@ -104,7 +104,7 @@ const String& Config::GetString(const String& key) const {
 }
 
 void Config::LoadGameConfig() {
-	File* xmlFile = system->LoadAssetFile("GameConfig.xml");
+	File* xmlFile = os->LoadAssetFile("GameConfig.xml");
 	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -139,8 +139,8 @@ void Config::LoadGameConfig() {
 }
 
 void Config::LoadUserConfig() {
-	if(system->IsDataFileExists("UserConfig.xml")) {
-		File* xmlFile = system->LoadDataFile("UserConfig.xml");
+	if(os->IsDataFileExists("UserConfig.xml")) {
+		File* xmlFile = os->LoadDataFile("UserConfig.xml");
 		CROSS_FAIL(xmlFile, "Can not load UserConfig xml file");
 
 		XMLDocument doc;
@@ -161,7 +161,7 @@ void Config::LoadUserConfig() {
 			element = element->NextSiblingElement("Property");
 		}
 	} else {
-		system->LogIt("UserConfig file don't exists if it is not a first launch consider this like a bug");
+		os->LogIt("UserConfig file don't exists if it is not a first launch consider this like a bug");
 	}
 }
 
@@ -198,7 +198,7 @@ void Config::SaveGameConfig() {
 	gameConfig.name = "GameConfig.xml";
 	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
-	system->SaveDataFile(&gameConfig);
+	os->SaveDataFile(&gameConfig);
 	gameConfig.data = nullptr;
 }
 
@@ -223,6 +223,6 @@ void Config::SaveUserConfig() {
 	userConfig.name = "UserConfig.xml";
 	userConfig.size = printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
-	system->SaveDataFile(&userConfig);
+	os->SaveDataFile(&userConfig);
 	userConfig.data = nullptr;
 }

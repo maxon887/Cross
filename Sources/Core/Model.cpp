@@ -51,13 +51,13 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	this->filename = filename;
 	Entity* root = new Entity("ModelRoot");
 	hierarchy = root;
-	File* file = system->LoadAssetFile(filename);
+	File* file = os->LoadAssetFile(filename);
 	CROSS_RETURN(file, false, "Can not load model file");
 	bool result = ProcessScene(root, file, calcTangents);
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+	os->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 
 	return result;
 }
@@ -171,7 +171,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 			indices.Add((U16)mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	system->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
+	os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
 	Mesh* crsMesh = new Mesh(filename, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;

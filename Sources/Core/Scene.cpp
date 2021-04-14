@@ -41,7 +41,7 @@ Scene::Scene()
 void Scene::Start() {
 	Screen::Start();
 
-	system->WindowResized.Connect(this, &Scene::OnWindowResize);
+	os->WindowResized.Connect(this, &Scene::OnWindowResize);
 }
 
 void Scene::Update(float sec) {
@@ -50,7 +50,7 @@ void Scene::Update(float sec) {
 }
 
 void Scene::Stop() {
-	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
+	os->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
 	root = nullptr;
 	for(pair<U64, Texture*> pair : textures) {
@@ -71,7 +71,7 @@ void Scene::Stop() {
 bool Scene::Load(const String& file) {
 	filename = file;
 	File* xmlFile = nullptr;
-	xmlFile = system->LoadAssetFile(file);
+	xmlFile = os->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -176,7 +176,7 @@ void Scene::Save(const String& filename) {
 	saveFile.name = filename;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
+	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
 }
 
@@ -399,7 +399,7 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 }
 
 void Scene::OnWindowResize(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, camera->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, camera->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }
 
@@ -408,7 +408,7 @@ void Scene::CreateDefaultCamera() {
 	Transform* transComp = new Transform(Vector3D(0.f, 0.f, -2.f));
 	transComp->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	Camera* camComp = new Camera();
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, 100.f);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, 100.f);
 	camComp->SetProjectionMatrix(projection);
 	camEntity->AddComponent(transComp);
 	camEntity->AddComponent(camComp);

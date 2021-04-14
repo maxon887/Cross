@@ -54,7 +54,7 @@ String Demo::GetCompactSize(U64 bytes) {
 }
 
 const char* Demo::GetClipboardString(void* userData) {
-	demo->clipboard = system->GetClipboard();
+	demo->clipboard = os->GetClipboard();
 	return demo->clipboard;
 }
 
@@ -64,7 +64,7 @@ Game* CrossMain() {
 
 void Demo::Start() {
 	Game::Start();
-	system->LogIt("Demo::Start()");
+	os->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
 	input->ActionDown.Connect(this, &Demo::ActionDownHandle);
@@ -101,7 +101,7 @@ void Demo::Start() {
 	io.GetClipboardTextFn = GetClipboardString;
 	//io.ClipboardUserData = g_Window;
 #ifdef _WIN32
-	WINSystem* winSys = (WINSystem*)system;
+	WINSystem* winSys = (WINSystem*)os;
 	io.ImeWindowHandle = winSys->GetHWND();
 #endif
 
@@ -110,20 +110,20 @@ void Demo::Start() {
 
 	ImGui::LoadStyle();
 
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGuiStyle& style = ImGui::GetStyle();
-		style.WindowRounding = 5 * system->GetScreenScale();
-		style.ScrollbarSize = 20 * system->GetScreenScale();
-		style.ScrollbarRounding = 5 * system->GetScreenScale();
-		style.ItemSpacing.x = 5 * system->GetScreenScale();
-		style.ItemSpacing.y = 5 * system->GetScreenScale();
-		style.WindowPadding.x = 5 * system->GetScreenScale();
-		style.WindowPadding.y = 5 * system->GetScreenScale();
-		style.FramePadding.x = 5 * system->GetScreenScale();
-		style.FramePadding.y = 5 * system->GetScreenScale();
-		style.IndentSpacing = 25 * system->GetScreenScale();
-		style.GrabRounding = 5 * system->GetScreenScale();
-		style.GrabMinSize = 20 * system->GetScreenScale();
+		style.WindowRounding = 5 * os->GetScreenScale();
+		style.ScrollbarSize = 20 * os->GetScreenScale();
+		style.ScrollbarRounding = 5 * os->GetScreenScale();
+		style.ItemSpacing.x = 5 * os->GetScreenScale();
+		style.ItemSpacing.y = 5 * os->GetScreenScale();
+		style.WindowPadding.x = 5 * os->GetScreenScale();
+		style.WindowPadding.y = 5 * os->GetScreenScale();
+		style.FramePadding.x = 5 * os->GetScreenScale();
+		style.FramePadding.y = 5 * os->GetScreenScale();
+		style.IndentSpacing = 25 * os->GetScreenScale();
+		style.GrabRounding = 5 * os->GetScreenScale();
+		style.GrabMinSize = 20 * os->GetScreenScale();
 	}
 
 	menu = new MenuBar();
@@ -133,7 +133,7 @@ void Demo::Start() {
 }
 
 void Demo::Stop() {
-	system->LogIt("Demo::Stop()");
+	os->LogIt("Demo::Stop()");
 	delete launch_view;
 	delete menu;
 	SAFE(glDeleteBuffers(1, &vertex_buffer));
@@ -146,8 +146,8 @@ void Demo::Stop() {
 void Demo::PreUpdate(float sec) {
 	ImGuiIO& io = ImGui::GetIO();
 	// Setup display size (every frame to accommodate for window resizing)
-	int windowWidth = system->GetWindowWidth();
-	int windowHeight = system->GetWindowHeight();
+	int windowWidth = os->GetWindowWidth();
+	int windowHeight = os->GetWindowHeight();
 	io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);
 	io.DisplayFramebufferScale = ImVec2(1.f, 1.f);
 	io.DeltaTime = sec;
@@ -155,7 +155,7 @@ void Demo::PreUpdate(float sec) {
 #if defined(WIN)
 	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
 #else
-	io.MousePos = ImVec2(action_pos.x, system->GetWindowHeight() - action_pos.y);
+	io.MousePos = ImVec2(action_pos.x, os->GetWindowHeight() - action_pos.y);
 #endif
 	for(U32 i = 0; i < 5; i++) {
 		io.MouseDown[i] = actions[i];
@@ -227,7 +227,7 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->Clear();
 
 	ImFontConfig fontConfig;
-	float fontScale = (float)(int)(system->GetScreenScale() + 0.5f);
+	float fontScale = (float)(int)(os->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	String fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
@@ -253,7 +253,7 @@ bool Demo::CreateFontsTexture() {
 #endif
 	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-	system->LogIt("Creating font texture(#x#)", width, height);
+	os->LogIt("Creating font texture(#x#)", width, height);
 	font_texture = new Texture();
 	font_texture->Create(pixels, 4, width, height,
 		Texture::Filter::LINEAR,
@@ -327,8 +327,8 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	static GLsizei scissorBox[4];
 	scissorBox[0] = 0;
 	scissorBox[1] = 0;
-	scissorBox[2] = system->GetWindowWidth();
-	scissorBox[3] = system->GetWindowHeight();
+	scissorBox[2] = os->GetWindowWidth();
+	scissorBox[3] = os->GetWindowHeight();
 	SAFE(glScissor(scissorBox[0], scissorBox[1], scissorBox[2], scissorBox[3]));
 }
 
@@ -362,7 +362,7 @@ void Demo::KeyPressed(Key key) {
 //	if(key == Key::ESCAPE || key == Key::BACK) {
 //#ifdef ANDROID
 //		if(GetCurrentScreen()->GetName() == "Main") {
-//			((AndroidSystem*)system)->PromtToExit();
+//			((AndroidSystem*)os)->PromtToExit();
 //			return;
 //		}
 //#endif

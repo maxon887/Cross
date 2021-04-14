@@ -146,7 +146,7 @@ void ComponentsView::ContextMenu(Entity* selectedEntity) {
 					Entity* selectedEntity = scene_view->GetSelectedEntity();
 					newComponent->Disable();
 					if(selectedEntity->GetComponent(typeid(*newComponent).hash_code())) {
-						system->Messagebox("Error", "Component already exists");
+						os->Messagebox("Error", "Component already exists");
 						delete newComponent;
 					} else {
 						selectedEntity->AddComponent(newComponent);

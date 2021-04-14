@@ -134,8 +134,8 @@ public:
 	void SetFragmentFilename(const String& filename);
 
 	void AddVersion(const String& version);
-	void AddMacro(const String& macro, bool system = false);
-	void AddMacro(const String& macro, int value, bool system = false);
+	void AddMacro(const String& macro, bool os = false);
+	void AddMacro(const String& macro, int value, bool os = false);
 	Array<String>& GetMacrosies();
 	void ClearMacrosies();
 

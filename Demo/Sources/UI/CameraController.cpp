@@ -37,7 +37,7 @@ void CameraController::Shown() {
 
 void CameraController::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
-	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() - window_width, system->GetWindowHeight() - window_height));
+	ImGui::SetNextWindowPos(ImVec2(os->GetWindowWidth() - window_width, os->GetWindowHeight() - window_height));
 
 	SetFlags(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
@@ -113,7 +113,7 @@ void CameraController::PostUpdate() {
 }
 
 bool CameraController::VisibleInMenu() {
-	return system->IsMobile();
+	return os->IsMobile();
 }
 
 bool CameraController::AvailableInMenu() {

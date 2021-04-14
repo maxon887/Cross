@@ -33,18 +33,18 @@
 
 #define CROSS_ASSERT(condition, message, ...)									\
 if(!(condition)) {																\
-	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 }
 
 #define CROSS_FAIL(condition, message, ...)										\
 if(!(condition)) {																\
-	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 	return;																		\
 }
 
 #define CROSS_RETURN(condition, value, message, ...)							\
 if(!(condition)) {																\
-	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 	return value;																\
 }
 
@@ -78,8 +78,6 @@ namespace cross {
 #include <map>
 #include <set>
 
-#define system cross_system
-
 namespace cross{
 
 template<typename Type>
@@ -112,7 +110,7 @@ class Transform;
 class Cubemap;
 
 extern Game*		game;
-extern System*		system;
+extern System*		os;
 extern GraphicsGL*	gfxGL;
 extern Audio*		audio;
 extern Input*		input;

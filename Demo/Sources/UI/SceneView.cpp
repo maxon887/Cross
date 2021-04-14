@@ -33,15 +33,15 @@ SceneView::SceneView() : View("Scene")
 }
 
 void SceneView::PreUpdate() {
-	if(system->IsMobile()) {
-		if(system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
-			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth() / 3.f,
-				(float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
+	if(os->IsMobile()) {
+		if(os->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
+			ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth() / 3.f,
+				(float)(os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
 				ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
 		} else {
 			ImGui::PushFont(demo->big_font);
-			ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
+			ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth(), (float)(os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
 			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		}
 	}
@@ -72,8 +72,8 @@ void SceneView::Update(float sec) {
 }
 
 void SceneView::PostUpdate() {
-	if(system->IsMobile()) {
-		if(system->GetDeviceOrientation() != System::Orientation::LANDSCAPE) {
+	if(os->IsMobile()) {
+		if(os->GetDeviceOrientation() != System::Orientation::LANDSCAPE) {
 			ImGui::PopFont();
 		}
 	}
@@ -97,7 +97,7 @@ void SceneView::LookAtObject() {
 
 void SceneView::BuildNode(Entity* entity) {
 
-	if(system->IsMobile() && system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
+	if(os->IsMobile() && os->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 		ImGui::PushFont(demo->normal_font);
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.f, 0.f));
 		ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, SCALED(10.f));
@@ -168,7 +168,7 @@ void SceneView::BuildNode(Entity* entity) {
 		ImGui::TreePop();
 	}
 
-	if(system->IsMobile() && system->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
+	if(os->IsMobile() && os->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 		ImGui::PopFont();
 		ImGui::PopStyleVar(2);
 	}
@@ -193,7 +193,7 @@ void SceneView::ContextMenu() {
 		}
 		ImGui::Separator();
 		if(ImGui::MenuItem("Import Model", nullptr, false, haveScene)) {
-			String filename = system->OpenFileDialog();
+			String filename = os->OpenFileDialog();
 			if(!filename.IsEmpty()) {
 				Model* model = game->GetCurrentScene()->GetModel(filename);
 				if(model) {

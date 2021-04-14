@@ -25,7 +25,7 @@ namespace FMOD {
 namespace cross{
 
 /*	By this class you can play short sound from memory or stream music from hard drive.
-	Underneath Audio system will try to use default system playback device */
+	Underneath Audio os will try to use default os playback device */
 class Sound {
 public:
 	Sound(const String& file, bool loop, bool isStream);

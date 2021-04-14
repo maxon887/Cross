@@ -81,7 +81,7 @@ void MenuBar::Update(float sec) {
 }
 
 void MenuBar::ShowMenu() {
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGui::PushFont(demo->big_font);
 	}
 
@@ -98,7 +98,7 @@ void MenuBar::ShowMenu() {
 			}
 
 			if(ImGui::MenuItem("Open Scene")) {
-				String sceneFile = system->OpenFileDialog("*.scn");
+				String sceneFile = os->OpenFileDialog("*.scn");
 				if(sceneFile != "") {
 					Scene* scene = new DemoScene();
 					if(!scene->Load(sceneFile)) {
@@ -111,7 +111,7 @@ void MenuBar::ShowMenu() {
 			}
 
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
-				String filename = system->OpenFileDialog("*.scn", true);
+				String filename = os->OpenFileDialog("*.scn", true);
 				if(filename != "") {
 					String extencion = File::ExtensionFromFile(filename);
 					if(extencion.IsEmpty()) {
@@ -169,7 +169,7 @@ void MenuBar::ShowMenu() {
 		ImGui::EndMainMenuBar();
 	}
 
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGui::PopFont();
 	}
 }

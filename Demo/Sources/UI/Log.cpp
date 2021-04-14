@@ -32,7 +32,7 @@ void Log::Update(float sec) {
 	if(copy) ImGui::LogToClipboard();
 
 	if(filter.IsActive()) {
-		const char* buf_begin = system->GetLogBuffer();
+		const char* buf_begin = os->GetLogBuffer();
 		const char* line = buf_begin;
 		for(int line_no = 0; line != nullptr; line_no++) {
 			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : nullptr;
@@ -42,14 +42,14 @@ void Log::Update(float sec) {
 			line = line_end && line_end[1] ? line_end + 1 : nullptr;
 		}
 	} else {
-		if(system->GetLogBuffer().Length() > 0) {
-			ImGui::TextUnformatted(system->GetLogBuffer());
+		if(os->GetLogBuffer().Length() > 0) {
+			ImGui::TextUnformatted(os->GetLogBuffer());
 		}
 	}
 
-	if(log_size != system->GetLogBuffer().Length()) {
+	if(log_size != os->GetLogBuffer().Length()) {
 		scroll_to_bottom = true;
-		log_size = system->GetLogBuffer().Length();
+		log_size = os->GetLogBuffer().Length();
 	}
 
 	if(scroll_to_bottom) {
@@ -60,6 +60,6 @@ void Log::Update(float sec) {
 }
 
 void Log::Clear() {
-	system->GetLogBuffer().Clear();
+	os->GetLogBuffer().Clear();
 	lineoffset.clear();
 }

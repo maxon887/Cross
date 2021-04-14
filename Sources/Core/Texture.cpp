@@ -84,7 +84,7 @@ Texture::Filter Texture::StringToFilter(const String& string) {
 }
 
 Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
-	File* textureFile = system->LoadAssetFile(filename);
+	File* textureFile = os->LoadAssetFile(filename);
 	CROSS_RETURN(textureFile, nullptr, "Can not load raw texture. File not found");
 	Byte* image = SOIL_load_image_from_memory(textureFile->data, (int)textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
@@ -172,7 +172,7 @@ void Texture::Load(const String& filename, Texture::TilingMode tillingMode, Text
 	}
 	SetTilingMode(tillingMode);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Texture(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+	os->LogIt("Texture(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 }
 
 void Texture::Save(const String& filename) {
@@ -184,7 +184,7 @@ void Texture::Save(const String& filename) {
 	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	system->SaveFile(&file);
+	os->SaveFile(&file);
 #else
 	CROSS_ASSERT(false, "SaveTexture does not support by current graphics API");
 #endif
@@ -263,7 +263,7 @@ void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
 }
 
 void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
-	File* file = system->LoadAssetFile(filename);
+	File* file = os->LoadAssetFile(filename);
 
 	PKM pkm;
 	U32 offset = sizeof(PKM);
@@ -273,7 +273,7 @@ void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
 }
 
 void Texture::LoadKTX(const String& filename, Texture::Filter filter) {
-	File* file = system->LoadAssetFile(filename);
+	File* file = os->LoadAssetFile(filename);
 
 	KTX ktx;
 	U32 offset = sizeof(KTX);

@@ -33,18 +33,18 @@ FilesView::FilesView() : View("Files") { }
 
 void FilesView::Shown() {
 	if(!file_tree.initialized) {
-		String assPath = system->AssetsPath();
+		String assPath = os->AssetsPath();
 		file_tree.path = assPath.SubString(0, assPath.Length() - 1);
 		InitNode(file_tree);
 	}
-	current_path = system->AssetsPath();
+	current_path = os->AssetsPath();
 }
 
 void FilesView::Update(float sec) {
 	BuildNote(file_tree);
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
-		current_path = system->AssetsPath();
+		current_path = os->AssetsPath();
 		FileSelected.Emit(current_path);
 	}
 
@@ -53,7 +53,7 @@ void FilesView::Update(float sec) {
 
 void FilesView::InitNode(Node& node) {
 	String path = node.path + node.name + "/";
-	Array<String> folders = system->GetSubDirectories(path);
+	Array<String> folders = os->GetSubDirectories(path);
 	sort(folders.begin(), folders.end());
 	for(const String& folder : folders) {
 		Node newNode;
@@ -62,7 +62,7 @@ void FilesView::InitNode(Node& node) {
 		newNode.full_path = path + folder;
 		node.folders.Add(newNode);
 	}
-	for(String& file : system->GetFilesInDirectory(path)) {
+	for(String& file : os->GetFilesInDirectory(path)) {
 		node.files.Add(pair<String, String>(file, node.path + node.name + "/" + file));
 	}
 	node.initialized = true;
@@ -97,18 +97,18 @@ void FilesView::BuildNote(Node& node) {
 	}
 
 	for(const pair<String, String>& file : node.files) {
-		//String filesize = Demo::GetCompactSize(system->GetFileSize(filepath));
+		//String filesize = Demo::GetCompactSize(os->GetFileSize(filepath));
 		ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file.first, flags);
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 			current_path = file.second;
 			String filepath = current_path;
-			filepath.Remove(system->AssetsPath());
+			filepath.Remove(os->AssetsPath());
 			FileSelected.Emit(filepath);
 		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
 			String filepath = current_path;
-			filepath.Remove(system->AssetsPath());
+			filepath.Remove(os->AssetsPath());
 			FileDoubleClicked(filepath);
 		}
 
@@ -128,7 +128,7 @@ void FilesView::FileDoubleClicked(const String& filename) {
 			game->SetScreen(scene);
 		}
 	} else {
-		system->OpenFileExternal(filename);
+		os->OpenFileExternal(filename);
 	}
 }
 
@@ -170,7 +170,7 @@ void FilesView::ContextMenu() {
 		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
 			input->IsPressed(Key::ENTER)) {
 
-			system->CreateDirectory(current_path + "/" + buffer);
+			os->CreateDirectory(current_path + "/" + buffer);
 
 			Refresh();
 
@@ -245,8 +245,8 @@ void FilesView::ContextMenu() {
 
 		if(ImGui::Button("OK", ImVec2(120, 0))) {
 			ImGui::CloseCurrentPopup(); 
-			system->Delete(current_path);
-			current_path = system->AssetsPath();
+			os->Delete(current_path);
+			current_path = os->AssetsPath();
 			FileSelected.Emit(current_path);
 			Refresh();
 		}
