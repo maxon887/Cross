@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 This file is part of Cross++ Game Engine.
 
@@ -22,6 +22,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 using namespace cross;
 
 RigidBody::RigidBody() :
+	Component("RigidBody"),
 	velocity(Vector3D::Zero),
 	acceleration(Vector3D::Zero),
 	force(Vector3D::Zero),

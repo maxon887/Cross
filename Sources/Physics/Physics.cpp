@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 This file is part of Cross++ Game Engine.
 
@@ -31,11 +31,11 @@ void Physics::Update(float sec){
 		provider->Provide(collisions, colliders);
 	}
 	//collision resolving
-	U32 iterations = collisions.size() * 2;
+	U32 iterations = collisions.Size() * 2;
 	for(U32 i = 0; i < iterations; ++i){
 		float maxCV = 0;
 		int maxIndex = 0;
-		for(U32 j = 0; j < collisions.size(); ++j){
+		for(U32 j = 0; j < collisions.Size(); ++j){
 			float cv = CalcClosingVelocity(collisions[j]);
 			if(cv > maxCV){
 				maxCV = cv;
@@ -48,26 +48,26 @@ void Physics::Update(float sec){
 		ResolveCollision(sec, collisions[maxIndex]);
 		ResolveInterpenetration(collisions[maxIndex]);
 	}
-	collisions.clear();
+	collisions.Clear();
 }
 
 void Physics::Clear(){
-	rigidbodyes.clear();
-	collisions.clear();
-	colliders.clear();
-	collision_providers.clear();
+	rigidbodyes.Clear();
+	collisions.Clear();
+	colliders.Clear();
+	collision_providers.Clear();
 }
 
 void Physics::RegisterRigidBody(RigidBody* rigid){
-	rigidbodyes.push_back(rigid);
+	rigidbodyes.Add(rigid);
 }
 
 void Physics::RegisterCollider(Collider* collider){
-	colliders.push_back(collider);
+	colliders.Add(collider);
 }
 
 void Physics::RegisterCollisionProvider(CollisionProvider* provider){
-	collision_providers.push_back(provider);
+	collision_providers.Add(provider);
 }
 
 float Physics::CalcClosingVelocity(Collision& collision){

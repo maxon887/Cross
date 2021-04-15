@@ -152,6 +152,10 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Math\Vector2D.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Vector3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Vector4D.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp" />
+    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\CrossEGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\GLES.cpp" />
@@ -184,6 +188,10 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Physics\Bridge.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Physics\HardConstraints.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Physics\Ocean.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Physics\Suppressors.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\StringTest.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
@@ -253,6 +261,10 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Math\Vector2D.h" />
     <ClInclude Include="..\..\..\Sources\Math\Vector3D.h" />
     <ClInclude Include="..\..\..\Sources\Math\Vector4D.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\Collider.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\Collision.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\Physics.h" />
+    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h" />
     <ClInclude Include="..\..\..\Sources\Platform\CrossEGL.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\Native.h" />
@@ -285,6 +297,10 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Physics\Bridge.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Physics\HardConstraints.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Physics\Ocean.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Physics\Suppressors.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\StringTest.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />

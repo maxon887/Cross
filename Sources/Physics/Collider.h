@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 This file is part of Cross++ Game Engine.
 
@@ -22,7 +22,7 @@ namespace cross{
 
 class Collider : public Component {
 public:
-	Collider() { }
+	Collider();
 };
 
 }

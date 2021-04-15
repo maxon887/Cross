@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Graphics3D/DemoScene.h"
+#include "Scenes/DemoScene.h"
 #include "Entity.h"
 #include "Physics/Physics.h"
 #include "Shaders/LightsShader.h"

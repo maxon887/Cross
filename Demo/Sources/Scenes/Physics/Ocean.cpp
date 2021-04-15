@@ -26,6 +26,9 @@
 #include "Physics/RigidBody.h"
 #include "Utils/PrimitiveDrawer.h"
 
+Ocean::Buoyant::Buoyant() : Component("Buoyant")
+{ }
+
 void Ocean::Buoyant::Update(float sec) {
 	if(GetTransform()->GetPosition().y <= 0.f) {
 		RigidBody* rb = GetEntity()->GetComponent<RigidBody>();

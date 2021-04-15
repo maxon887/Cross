@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 This file is part of Cross++ Game Engine.
 
@@ -17,3 +17,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Physics/Collider.h"
 
 using namespace cross;
+
+Collider::Collider() : Component("Collider")
+{ }

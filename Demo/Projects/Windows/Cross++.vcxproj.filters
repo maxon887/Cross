@@ -64,6 +64,12 @@
     <Filter Include="Demo\Scenes\Maps">
       <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Scenes\Physics">
+      <UniqueIdentifier>{f939e7ff-9f85-41bb-bcc6-18d86ac7c95d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Physics">
+      <UniqueIdentifier>{143b6be7-41bf-43fb-95b3-1ff803d52436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Sources\Demo.cpp">
@@ -341,6 +347,30 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp">
       <Filter>Demo\ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Physics\Bridge.cpp">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Physics\HardConstraints.cpp">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Physics\Ocean.cpp">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Physics\Suppressors.cpp">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp">
+      <Filter>Cross\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp">
+      <Filter>Cross\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -644,6 +674,30 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\FileUtils.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Physics\Bridge.h">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Physics\HardConstraints.h">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Physics\Ocean.h">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Physics\Suppressors.h">
+      <Filter>Demo\Scenes\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Collider.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Collision.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\Physics.h">
+      <Filter>Cross\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h">
+      <Filter>Cross\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
