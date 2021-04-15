@@ -43,7 +43,7 @@ RigidBody::RigidBody(float mass) :
 	acceleration.y = -g;
 }
 
-void RigidBody::Initialize(){
+void RigidBody::Initialize(Scene*){
 	physics->RegisterRigidBody(this);
 }
 

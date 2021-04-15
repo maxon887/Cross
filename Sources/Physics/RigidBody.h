@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 This file is part of Cross++ Game Engine.
 
@@ -26,7 +26,7 @@ public:
 	RigidBody();
 	RigidBody(float mass);
 
-	virtual void Initialize();
+	void Initialize(Scene*) override;
 
 	void PFXUpdate(float sec);
 
