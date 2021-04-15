@@ -37,25 +37,31 @@ public:
 
 	~Model();
 
-	/* Loads Model from file. Used by engine. Use Scene::GetModel*/
-	void Load(const string& filename, bool initialize = true);
+	/* Loads Model from file. Used by engine. Use Scene::GetModel */
+	bool Load(const String& filename);
+	/* Loads Model from file and provides tangents data for model if needed */
+	bool Load(const String& filename, bool calcTangents);
+	/* Loads Model, provides tangents data for model and can tasnfer model data to video memory */
+	bool Load(const String& filename, bool calcTangents, bool initializeVideoData);
 	/* Returns model's filename if was loaded from file */
-	const string& GetFilename() const;
+	const String& GetFilename() const;
 	/* Returns model's object hierarchy as Entity hierarchy */
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
 	Mesh* GetMesh(S32 id);
+	/* Gets Meshes count */
+	U32 GetMeshesCount() const;
 
 private:
-	string filename;
+	String filename;
 	Dictionary<S32, Mesh*> meshes;
 	Entity* hierarchy;
 
-	const aiScene* current_scene = NULL;
-	bool initialize_in_load = true;
-	S32 mesh_id = 0;
+	const aiScene* current_scene	= nullptr;
+	bool initialize_video = true;
+	S32 mesh_id						= 0;
 
-	void ProcessScene(Entity* root, File* sceneFile);
+	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents);
 	void ProcessNode(Entity* entity, aiNode* node);
 	Mesh* ProcessMesh(aiMesh* mesh);
 };

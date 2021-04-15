@@ -24,19 +24,19 @@ namespace cross{
 class File {
 public:
 	/* Returns directory from full filename */
-	static string PathFromFile(const string& filePath);
+	static String PathFromFile(const String& filePath);
 	/* Return naked filename from filepath */
-	static string FileFromPath(const string& filename);
+	static String FileFromPath(const String& filename);
 	/* Returns extension from filename or full file path */
-	static string ExtensionFromFile(const string& file);
+	static String ExtensionFromFile(const String& file);
 	/* Returns raw file name without extension (ex "log" for "log.txt") */
-	static string FileWithoutExtension(const string& file);
+	static String FileWithoutExtension(const String& file);
 
 	~File();
 
-	string name	= string();
-	Byte* data	= NULL;
-	U32 size	= 0;
+	String name	= String();
+	Byte* data	= nullptr;
+	S64 size	= 0;
 };
 
 }

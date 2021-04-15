@@ -33,7 +33,7 @@ public:
 	bool HasBitangents() const;
 
 	/* Gets offset of position data into vertex memory*/
-	U32 GetPossitionsOffset() const;
+	U32 GetPositionsOffset() const;
 	/* Gets offset of position UV coordinates into vertex memory*/
 	U32 GetTextureCoordinatesOffset() const;
 	/* Gets offset of normals data into vertex memory*/
@@ -46,7 +46,7 @@ public:
 	/* Enables or disables texture coordinates in offset calculations */
 	void UVEnabled(bool enabled);
 	/* Enables or disables normals in offset calculations */
-	void NarmalsEnabled(bool enabled);
+	void NormalsEnabled(bool enabled);
 	/* Enables or disables tangents in offset calculations */
 	void TangentsEnabled(bool enabled);
 	/* Enables or disables bitangents in offset calculations */
@@ -60,7 +60,7 @@ public:
 	void PushData(const Byte* data, U32 size);
 	/* Returns flat vertex data. Ready to transfer into GPU*/
 	Byte* GetData();
-	/* Releases vertex data alloceted on CPU */
+	/* Releases vertex data allocated on CPU */
 	void Free();
 	/* Creates copy of this class and copy all its vertex data */
 	VertexBuffer* Clone() const;

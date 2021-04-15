@@ -31,10 +31,15 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Mesh::Mesh(Model* model, S32 id) :
-	model(model),
-	id(id)
+Mesh::Mesh() : Component("Mesh")
 { }
+
+Mesh::Mesh(const String& modelfilename, S32 id) : 
+	Component("Mesh")
+{
+	this->id = id;
+	this->model_filename = modelfilename;
+}
 
 Mesh::~Mesh() {
 	delete vertex_buffer;
@@ -44,7 +49,26 @@ Mesh::~Mesh() {
 	}
 }
 
-void Mesh::Update(float sec){
+void Mesh::Initialize(Scene* scene) {
+	if(!model_filename.value.IsEmpty()) {
+		CROSS_FAIL(id != -1, "Can not initialize Mesh with ID = -1");
+		Model* model = scene->GetModel(model_filename);
+		Copy(model->GetMesh(id));
+
+		if(material_filename.value != "") {
+			Material* mat = scene->GetMaterial(material_filename);
+			if(mat) {
+				SetMaterial(mat);
+			} else {
+				Disable();
+			}
+		} else {
+			SetMaterial(scene->GetDefaultMaterial());
+		}
+	}
+}
+
+void Mesh::Update(float sec) {
 	Draw();
 }
 
@@ -54,36 +78,20 @@ Mesh* Mesh::Clone() const {
 	return mesh;
 }
 
-bool Mesh::Load(XMLElement* xml, Scene* scene) {
-	S32 id = xml->IntAttribute("id", -1);
-	CROSS_RETURN(id != -1, false, "Attribute 'id' not found");
-	const char* modelfilename = xml->Attribute("model");
-	CROSS_RETURN(modelfilename, false, "Attribute 'model' not found");
-
-	Model* model = scene->GetModel(modelfilename);
-	Copy(model->GetMesh(id));
-
-	const char* materialFile = xml->Attribute("material");
-	if(materialFile) {
-		Material* mat = scene->GetMaterial(materialFile);
-		SetMaterial(mat);
-	} else {
-		SetMaterial(scene->GetMaterial("Engine/Default.mat"));
-	}
-	return true;
-}
-
-bool Mesh::Save(XMLElement* xml, XMLDocument* doc) {
-	XMLElement* meshXML = doc->NewElement("Mesh");
-	meshXML->SetAttribute("id", GetID());
-	meshXML->SetAttribute("model", GetModel()->GetFilename().c_str());
-	meshXML->SetAttribute("material", GetMaterial()->GetFilename().c_str());
-	xml->LinkEndChild(meshXML);
-	return true;
+void Mesh::Enable() {
+	Entity* owner = GetEntity();
+	bool hasTransform = owner->GetComponent<Transform>() != nullptr;
+	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
+	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initalized");
+	CROSS_FAIL(material, "Cano not enable Mesh. Current Mesh doesn't have Material assigned");
+	
+	enabled = true;
 }
 
 void Mesh::Draw() {
-	Draw(material);
+	if(enabled) {
+		Draw(material);
+	}
 }
 
 void Mesh::Draw(Material* mat) {
@@ -93,14 +101,14 @@ void Mesh::Draw(Material* mat) {
 void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 	if(GetEntity()) {
 		CROSS_FAIL(GetEntity()->GetComponent<Transform>(), "Can not draw mesh without transform");
-		Draw(GetEntity()->GetWorldMatrix(), mat, sten);
+		Draw(GetEntity()->GetComponent<Transform>()->GetWorldMatrix(), mat, sten);
 	} else {
 		Draw(Matrix::Identity, mat, sten);
 	}
 }
 
 void Mesh::Draw(const Matrix& globalModel, Material* material,
-				StencilBehaviour stencilBehvaiour) {
+				StencilBehaviour stencilBehaviour) {
 	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
 	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
@@ -128,10 +136,6 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 
 	if(shader->uCameraPosition != -1) {
 		SAFE(glUniform3fv(shader->uCameraPosition, 1, scene->GetCamera()->GetPosition().GetData()));
-	}
-
-	if(shader->uColor != -1) {
-		SAFE(glUniform4fv(shader->uColor, 1, Color::White.GetData()));
 	}
 
 	if(shader->uAmbientLight != -1) {
@@ -175,7 +179,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			material->active_texture_slot++;
 			break;
 		default:
-			CROSS_ASSERT(false, "Unknown property type(%s)", prop.GetName().c_str());
+			CROSS_ASSERT(false, "Unknown property type(#)", prop.GetName());
 		}
 	}
 	material->active_texture_slot = 0;
@@ -184,43 +188,44 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 
 	//binding attributes
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
-	VertexBuffer* vertexBuf = vertex_buffer;
-	U32 vertexSize = vertexBuf->VertexSize();
+	U32 vertexSize = vertex_buffer->VertexSize();
 	if(shader->aPosition != -1) {
-		SAFE(glEnableVertexAttribArray(shader->aPosition));
-		SAFE(glVertexAttribPointer(shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPossitionsOffset()));
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
+		SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetPositionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
-		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
-		SAFE(glEnableVertexAttribArray(shader->aTexCoords));
-		SAFE(glVertexAttribPointer(shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
+		CROSS_FAIL(vertex_buffer->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aTexCoords));
+		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
-		CROSS_FAIL(vertexBuf->HasNormals(), "Current mesh does not countain normals");
-		SAFE(glEnableVertexAttribArray(shader->aNormal));
-		SAFE(glVertexAttribPointer(shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
+		CROSS_FAIL(vertex_buffer->HasNormals(), "Current mesh does not countain normals");
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aNormal));
+		SAFE(glVertexAttribPointer((GLuint)shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetNormalsOffset()));
 	}
 	if(shader->aTangent != -1) {
-		CROSS_FAIL(vertexBuf->HasTangents(), "Current mesh does not contain tangents");
-		SAFE(glEnableVertexAttribArray(shader->aTangent));
-		SAFE(glVertexAttribPointer(shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
+		CROSS_FAIL(vertex_buffer->HasTangents(), "Current mesh does not contain tangents");
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aTangent));
+		SAFE(glVertexAttribPointer((GLuint)shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTangentsOffset()));
 	}
 	if(shader->aBitangent != -1) {
-		CROSS_FAIL(vertexBuf->HasBitangents(), "Current mesh does not contain bitangents");
-		SAFE(glEnableVertexAttribArray(shader->aBitangent));
-		SAFE(glVertexAttribPointer(shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
+		CROSS_FAIL(vertex_buffer->HasBitangents(), "Current mesh does not contain bitangents");
+		SAFE(glEnableVertexAttribArray((GLuint)shader->aBitangent));
+		SAFE(glVertexAttribPointer((GLuint)shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetBitangentsOffset()));
 	}
 
 	//drawing
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//depth test
-	SAFE(glEnable(GL_DEPTH_TEST));
+	if(IsDepthTestEnabled()) {
+		SAFE(glEnable(GL_DEPTH_TEST));
+	}
 	//face culling
 	if(IsFaceCullingEnabled()) {
 		SAFE(glEnable(GL_CULL_FACE));
 	}
 	//stencil test
-	switch(stencilBehvaiour) {
+	switch(stencilBehaviour) {
 	case StencilBehaviour::WRITE:
 		SAFE(glEnable(GL_STENCIL_TEST));
 		SAFE(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
@@ -234,7 +239,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	case StencilBehaviour::IGNORED:
 		break;
 	default:
-		CROSS_ASSERT(false, "Unknow stecil behaviour");
+		CROSS_ASSERT(false, "Unknown stencil behaviour");
 	}
 	//alpha blending
 	if(material->IsTransparent()) {
@@ -242,7 +247,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.size(), GL_UNSIGNED_SHORT, 0));
+	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.Size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -250,41 +255,60 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Mesh::TransferVideoData() {
+void Mesh::InitializeVideoData() {
 	SAFE(glGenBuffers(1, (GLuint*)&VBO));
 	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
-	SAFE(glBufferData(GL_ARRAY_BUFFER, vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
+	SAFE(glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)vertex_buffer->GetDataSize(), vertex_buffer->GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
+	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)indices.Size() * sizeof(GLushort), indices.GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
 	vertex_buffer->Free();
 	initialized = true;
 }
 
+void Mesh::TransferVideoData(Mesh* mesh) {
+	VBO = mesh->VBO;
+	EBO = mesh->EBO;
+	indices = mesh->indices;
+	initialized = mesh->initialized;
+	indices = mesh->indices;
+	delete vertex_buffer;
+	vertex_buffer = mesh->vertex_buffer->Clone();
+}
+
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
-	if(vertex_buffer == NULL) {
+	if(vertex_buffer == nullptr) {
 		vertex_buffer = buffer->Clone();
 	} else {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
 	}
 
-	U32 indsOffset = (U32)indices.size();
-	for(U32 i = 0; i < inds.size(); ++i) {
-		indices.push_back(indsOffset + inds[i]);
+	U16 indsOffset = (U16)indices.Size();
+	for(S32 i = 0; i < inds.Size(); ++i) {
+		indices.Add(indsOffset + inds[i]);
 	}
 }
 
 void Mesh::SetMaterial(Material* mat) {
 	this->material = mat;
+	material_filename = mat->GetFilename();
 }
 
 Material* Mesh::GetMaterial() {
 	return material;
+}
+
+bool Mesh::IsDepthTestEnabled() const {
+	return depth_test;
+}
+
+void Mesh::EnableDepthTest(bool enable) {
+	depth_test = enable;
 }
 
 bool Mesh::IsFaceCullingEnabled() const {
@@ -307,12 +331,24 @@ S32 Mesh::GetID() const {
 	return id;
 }
 
-Model* Mesh::GetModel() {
-	return model;
+void Mesh::SetID(S32 index) {
+	id = index;
+}
+
+String Mesh::GetModelFileName() const {
+	return model_filename.value;
+}
+
+void Mesh::SetModelFileName(const String& filename) {
+	model_filename = filename;
+}
+
+String Mesh::GetMaterialFileName() const {
+	return material_filename.value;
 }
 
 U32 Mesh::GetPolyCount() const {
-	return (U32)indices.size();
+	return (U32)indices.Size();
 }
 
 bool Mesh::IsEqual(Mesh* other) const {
@@ -320,11 +356,13 @@ bool Mesh::IsEqual(Mesh* other) const {
 }
 
 void Mesh::Copy(const Mesh* m) {
+	id = m->id;
+	model_filename = m->model_filename;
+	//filename should not be copied for propper model loading, look Mesh::Initialize
+	//material_filename = m->material_filename;
+
 	VBO = m->VBO;
 	EBO = m->EBO;
-	vertex_buffer = m->vertex_buffer;
-	id = m->id;
-	model = m->model;
 	material = m->material;
 	indices = m->indices;
 	initialized = m->initialized;

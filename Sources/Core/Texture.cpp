@@ -22,6 +22,7 @@
 #include "File.h"
 
 #include <stdlib.h>
+#include <cstring>
 
 #include "Libs/SOIL/SOIL.h"
 
@@ -53,12 +54,41 @@ struct KTX {
 	U32 bytesOfKeyValueData;
 };
 
-Byte* Texture::LoadRawData(const string& filename, int& width, int& height, int& channels) {
-	File* textureFile = system->LoadAssetFile(filename);
-	CROSS_RETURN(textureFile, NULL, "Can not load raw texture. File not found");
-	Byte* image = SOIL_load_image_from_memory(textureFile->data, textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
+String Texture::FilterToString(Filter filter) {
+	switch(filter) {
+	case Filter::NEAREST:
+		return "NEAREST";
+	case Filter::LINEAR:
+		return "LINEAR";
+	case Filter::BILINEAR:
+		return "BILINEAR";
+	case Filter::TRILINEAR:
+		return "TRILINEAR";
+	default:
+		CROSS_RETURN(false, "", "Unknown texture filter");
+	}
+}
+
+Texture::Filter Texture::StringToFilter(const String& string) {
+	if(string == "NEAREST") {
+		return Filter::NEAREST;
+	} else if(string == "LINEAR") {
+		return Filter::LINEAR;
+	} else if(string == "BILINEAR") {
+		return Filter::BILINEAR;
+	} else if(string == "TRILINEAR") {
+		return Filter::TRILINEAR;
+	} else {
+		CROSS_RETURN(false, Filter::NEAREST, "Unknown texture filter string '#'", string);
+	}
+}
+
+Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
+	File* textureFile = os->LoadAssetFile(filename);
+	CROSS_RETURN(textureFile, nullptr, "Can not load raw texture. File not found");
+	Byte* image = SOIL_load_image_from_memory(textureFile->data, (int)textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
 	delete textureFile;
-	CROSS_RETURN(image, NULL, "SOL can't convert file:\n Pay attention on image color channels");
+	CROSS_RETURN(image, nullptr, "SOL can't convert file:\n Pay attention on image color channels");
 	int newWidth = 1;
 	int newHeight = 1;
 	while(newWidth < width) {
@@ -69,17 +99,17 @@ Byte* Texture::LoadRawData(const string& filename, int& width, int& height, int&
 	}
 	if(newWidth != width || newHeight != height) {
 		CROSS_ASSERT(true, "Not power of 2 texture. Performance issue!");
-		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
+		Byte* newImage = (Byte*)malloc((Size)(channels * newWidth * newHeight));
 		for(int i = 0; i < height; i++) {
-			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
+			memcpy(newImage + i * newWidth * channels, image + i * width * channels, (Size)(width * channels));
 			//Clamp to edge effect
 			if(newWidth > width) {
-				memcpy(newImage + i * newWidth * channels + width * channels, image + i * width * channels, channels);
+				memcpy(newImage + i * newWidth * channels + width * channels, image + i * width * channels, (Size)channels);
 			}
 		}
 		//Clamp to edge effect
 		if(newHeight > height) {
-			memcpy(newImage + height * channels * newWidth, image + (height - 1) * width * channels, width * channels);
+			memcpy(newImage + height * channels * newWidth, image + (height - 1) * width * channels, (Size)width * channels);
 		}
 		width = newWidth;
 		height = newHeight;
@@ -92,11 +122,11 @@ Texture::~Texture(){
 	SAFE(glDeleteTextures(1, (GLuint*)&id));
 }
 
-const string& Texture::GetName() const {
+const String& Texture::GetName() const {
 	return name;
 }
 
-void Texture::SetName(const string& name) {
+void Texture::SetName(const String& name) {
 	this->name = name;
 }
 
@@ -116,19 +146,19 @@ U64 Texture::GetID() const {
 	return id;
 }
 
-void Texture::Load(const string& filename) {
+void Texture::Load(const String& filename) {
 	Load(filename, config->GetTextureFilter());
 }
 
-void Texture::Load(const string& filename, Texture::TilingMode tillingMode) {
+void Texture::Load(const String& filename, Texture::TilingMode tillingMode) {
 	Load(filename, tillingMode, config->GetTextureFilter(), config->UseCompressedTextures());
 }
 
-void Texture::Load(const string& filename, Texture::Filter filter) {
+void Texture::Load(const String& filename, Texture::Filter filter) {
 	Load(filename, Texture::TilingMode::CLAMP_TO_EDGE, filter, config->UseCompressedTextures());
 }
 
-void Texture::Load(const string& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed) {
+void Texture::Load(const String& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed) {
 	name = filename;
 	Debugger::Instance()->SetTimeCheck();
 	if(!compressed) {
@@ -142,19 +172,19 @@ void Texture::Load(const string& filename, Texture::TilingMode tillingMode, Text
 	}
 	SetTilingMode(tillingMode);
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Texture(%s) loaded in %0.1fms", filename.c_str(), loadTime);
+	os->LogIt("Texture(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 }
 
-void Texture::Save(const string& filename) {
+void Texture::Save(const String& filename) {
 #ifdef OPENGL
 	File file;
 	file.name = filename;
 	file.size = GetWidth() * GetHeight() * GetChannels();
-	file.data = new Byte[file.size * GetChannels()];
+	file.data = new Byte[(Size)file.size * GetChannels()];
 	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
-	system->SaveFile(&file);
+	os->SaveFile(&file);
 #else
 	CROSS_ASSERT(false, "SaveTexture does not support by current graphics API");
 #endif
@@ -223,17 +253,17 @@ Texture* Texture::Clone() const{
 	return new Texture(*this);
 }
 
-void Texture::LoadRAW(const string& filename, Texture::Filter filter) {
+void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
 	int width, height, channels;
 	Byte* image = LoadRawData(filename, width, height, channels);
 	CROSS_FAIL(image, "Texture can not be loaded. File not found");
 
 	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
-	Create(image, channels, width, height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
+	Create(image, (U32)channels, (U32)width, (U32)height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
 }
 
-void Texture::LoadPKM(const string& filename, Texture::Filter filter) {
-	File* file = system->LoadAssetFile(filename);
+void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
+	File* file = os->LoadAssetFile(filename);
 
 	PKM pkm;
 	U32 offset = sizeof(PKM);
@@ -242,8 +272,8 @@ void Texture::LoadPKM(const string& filename, Texture::Filter filter) {
 	Create(file->data + offset, 3, pkm.extendedWidth, pkm.extendedHeight, filter, Texture::Compression::ETC1, Texture::TilingMode::CLAMP_TO_EDGE, false);
 }
 
-void Texture::LoadKTX(const string& filename, Texture::Filter filter) {
-	File* file = system->LoadAssetFile(filename);
+void Texture::LoadKTX(const String& filename, Texture::Filter filter) {
+	File* file = os->LoadAssetFile(filename);
 
 	KTX ktx;
 	U32 offset = sizeof(KTX);
@@ -264,7 +294,7 @@ void Texture::LoadKTX(const string& filename, Texture::Filter filter) {
 	for(U32 i = 1; i < ktx.numberOfMipmapLevels; i++) {
 		U32 padding = 3 - ((imageSize + 3) % 4);
 
-		CROSS_ASSERT(padding != 0, NULL, "Not zero padding");
+		CROSS_ASSERT(padding != 0, nullptr, "Not zero padding");
 
 		mipmapW /= 2;
 		mipmapH /= 2;
@@ -294,7 +324,7 @@ void Texture::Create(U32 channels, U32 width, U32 height, Texture::Filter filter
 		SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0));
 		break;
 	default:
-		CROSS_ASSERT(false, NULL, "Can not create texture. Wrong texture channel count");
+		CROSS_ASSERT(false, nullptr, "Can not create texture. Wrong texture channel count");
 	}
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	SAFE(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
@@ -330,7 +360,7 @@ void Texture::Create(	Byte* data,
 			SAFE(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
 			break;
 		default:
-			CROSS_ASSERT(false, NULL, "Can not create texture. Wrong texture channel count");
+			CROSS_ASSERT(false, nullptr, "Can not create texture. Wrong texture channel count");
 		}
 	} else {
 		switch(compression) {
@@ -341,7 +371,7 @@ void Texture::Create(	Byte* data,
 			SAFE(glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_ETC1_RGB8_OES, width, height, 0, dataLength, data));
 		}break;
 #else
-			CROSS_ASSERT(false, NULL, "Can not create texture. ETC1 compression not supported by current platform");
+			CROSS_ASSERT(false, nullptr, "Can not create texture. ETC1 compression not supported by current platform");
 #endif
 		default:
 			break;

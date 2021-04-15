@@ -31,8 +31,8 @@ class XMLDocument;
 namespace cross{
 
 /*	Scene is place where all Entities live. Scene manages Entity live time, update cycles, utilization.
-	Second main task of this class is resource management.Textures, Models, Shaders, Materials also stored there. 
-	You can obtain requared resource by calling Get[ResourceName]() function.
+	Second main task of this class is resource management.Textures, Models, Shaders, Materials also stored there.
+	You can obtain required resource by calling Get[ResourceName]() function.
 	You don't need to call Entity's or resource destructors manually */
 class Scene : public Screen {
 public:
@@ -40,7 +40,6 @@ public:
 	Event<Entity*> EntityAdded;
 
 	Scene();
-	Scene(const string& filename);
 
 	/* Called once before scene show up. */
 	virtual void Start() override;
@@ -50,25 +49,28 @@ public:
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
-	bool Load(const string& file);
+	virtual bool Load(const String& file);
 	/* Save scene into file */
-	void Save(const string& file);
+	virtual void Save(const String& file);
+
 	/* Removes all loaded stuff from scene (Textures, Materials, Shader, Models and Entities) */
 	void Clear();
 	/* Returns root Scene Entity */
 	Entity* GetRoot();
 	/* Returns scene main 3D camera */
 	Camera* GetCamera();
+	/* Returns name of scene file if exists */
+	String GetFilename() const;
 	/* Sets main 3D camera for this Scene */
 	void SetCamera(Camera* cam);
 	/* Finds specific entity on this Scene by name */
-	Entity* GetEntity(const string& name);
+	Entity* GetEntity(const String& name);
 	/* Adds an entity into the Scene */
 	void AddEntity(Entity* entity);
 	/* Loads primitive model as Entity with Mesh Component included */
 	Entity* LoadPrimitive(Model::Primitive primitive);
-	/* Removes entity from this Scene by name. Returns founded Entity or null otherwise. Entity won't we destructed */
-	Entity* RemoveEntity(const string& name);
+	/* Removes entity from Scene by name. Returns founded Entity or nullptr otherwise. Entity won't be destructed */
+	Entity* RemoveEntity(const String& name);
 	/* Returns all available Lights on the Scene. */
 	List<Light*>& GetLights();
 	/* Sets up ambient Scene Light Color */
@@ -76,40 +78,45 @@ public:
 	/* Returns ambient Scene Light Color */
 	Color GetAmbientColor() const;
 	/* Obtain loaded into scene Shader or load it by self in other way */
-	Shader* GetShader(const string& shaderfile);
+	Shader* GetShader(const String& shaderfile);
 	/* Obtain loaded into scene Material or load it by self in other way */
-	Material* GetMaterial(const string& xmlFile);
+	Material* GetMaterial(const String& xmlFile);
+	/* Returns default engine material */
+	Material* GetDefaultMaterial();
 	/* Obtain loaded into scene Texture or load it by self in other way */
-	Texture* GetTexture(const string& textureFile);
+	Texture* GetTexture(const String& textureFile);
 	/* Loads texture with provided filter */
-	Texture* GetTexture(const string& textureFile, Texture::Filter filter);
+	Texture* GetTexture(const String& textureFile, Texture::Filter filter);
 	/* Obtain loaded into scene Model or load it by self in other way */
-	Model* GetModel(const string& modelFile);
+	Model* GetModel(const String& modelFile, bool calcTangents = false);
 	/* Resets all materials to default state */
 	void ResetMaterials();
+	/* Resets all shaders to default state */
+	void ResetShaders();
 
 protected:
-	Dictionary<U32, Shader*> shaders		= Dictionary<U32, Shader*>();
-	Dictionary<U32, Texture*> textures		= Dictionary<U32, Texture*>();
-	Dictionary<U32, Material*> materials	= Dictionary<U32, Material*>();
-	Dictionary<U32, Model*> models			= Dictionary<U32, Model*>();
-	List<Light*> lights						= List<Light*>();
-	Entity* root							= NULL;
-	string filename							= "";
+	Entity* root							= nullptr;
+	String filename							= "";
 
-	Camera* camera							= NULL;
+	Dictionary<U64, Shader*> shaders		= Dictionary<U64, Shader*>();
+	Dictionary<U64, Texture*> textures		= Dictionary<U64, Texture*>();
+	Dictionary<U64, Material*> materials	= Dictionary<U64, Material*>();
+	Dictionary<U64, Model*> models			= Dictionary<U64, Model*>();
+	List<Light*> lights						= List<Light*>();
+
+	Camera* camera							= nullptr;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
 
+	void CreateDefaultCamera();
+
 private:
-	static const U32 scene_loader_version	= 16;
-	static const U32 scene_saver_version	= 15;
+	static const U32 scene_loader_version	= 18;
+	static const U32 scene_saver_version	= 18;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	void OnWindowResize(S32 width, S32 height);
-
-	void CreateDefaultCamera();
 };
 
 }

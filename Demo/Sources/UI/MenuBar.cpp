@@ -17,29 +17,39 @@
 #include "MenuBar.h"
 #include "System.h"
 #include "Demo.h"
-#include "Screen.h"
-#include "Texture.h"
 #include "Transform.h"
 #include "UI/CameraController.h"
-#include "UI/Hierarchy.h"
-#include "UI/TransformView.h"
+#include "UI/SceneView.h"
+#include "UI/FilesView.h"
+#include "UI/ComponentsView.h"
+#include "UI/Log.h"
 #include "UI/Stats.h"
 #include "UI/About.h"
-#include "Utils/Debugger.h"
-#include "MainScreen.h"
+#include "UI/LaunchView.h"
+#include "UI/PropertiesView.h"
+#include "Scenes/DemoScene.h"
+#include "File.h"
 
 #include "ThirdParty/ImGui/imgui.h"
-#include "ThirdParty/ImGui/imgui_freetype.h"
 
 MenuBar::MenuBar() {
 	CameraController* cameraController = new CameraController();
-	Hierarchy* hierarchy = new Hierarchy();
-	TransformView* transform = new TransformView();
-	hierarchy->EntitySelected.Connect((ComponentView<Transform>*)transform, &ComponentView<Transform>::OnEntitySelected);
-	views.push_back(cameraController);
-	views.push_back(hierarchy);
-	views.push_back(transform);
+	FilesView* filesView = new FilesView();
+	SceneView* sceneView = new SceneView();
+	ComponentsView* componentsView = new ComponentsView(sceneView);
+	PropertiesView* propertiesView = new PropertiesView(filesView);
+	views.Add(filesView);
+	views.Add(sceneView);
+	views.Add(componentsView);
+	views.Add(propertiesView);
+	views.Add(cameraController);
+	for(View* v : views) {
+		if(v->IsVisible()) {
+			v->Shown();
+		}
+	}
 
+	log = new Log();
 	stats = new Stats();
 	about = new About();
 }
@@ -48,70 +58,100 @@ MenuBar::~MenuBar() {
 	for(View* v : views) {
 		delete v;
 	}
-	views.clear();
+	views.Clear();
 
-	delete stats;
 	delete about;
+	delete stats;
+	delete log;
 }
 
 void MenuBar::Update(float sec) {
 	for(View* v : views) {
-		v->Update(sec);
+		v->Run(sec);
 	}
 	if(show_style_editor) {
-		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
+		ImGui::Begin("Style Editor", &show_style_editor);// ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
-	
-	stats->Update(sec);
-	about->Update(sec);
+
+	log->Run(sec);
+	stats->Run(sec);
+	about->Run(sec);
 }
 
 void MenuBar::ShowMenu() {
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGui::PushFont(demo->big_font);
 	}
-	if(ImGui::BeginMainMenuBar())
-	{
+
+	if(ImGui::BeginMainMenuBar()) {
 		bool mainScreen = false;
 		if(game->GetCurrentScreen()->GetName() == "Main") {
-			//ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.0f);
 			mainScreen = true;
 		}
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.90f, 0.52f, 0.24f, 0.0f));
-		if(ImGui::Button("Back")) {
-			for(View* v : views) {
-				v->Hide();
+
+		if(ImGui::BeginMenu("File")) {
+			if(ImGui::MenuItem("New Scene")) {
+				Scene* scene = new DemoScene();
+				game->SetScreen(scene);
 			}
-			game->SetScreen(new MainScreen());
+
+			if(ImGui::MenuItem("Open Scene")) {
+				String sceneFile = os->OpenFileDialog("*.scn");
+				if(sceneFile != "") {
+					Scene* scene = new DemoScene();
+					if(!scene->Load(sceneFile)) {
+						delete scene;
+						CROSS_ASSERT(false, "Can not load scene file, sorry");
+					} else {
+						game->SetScreen(scene);
+					}
+				}
+			}
+
+			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
+				String filename = os->OpenFileDialog("*.scn", true);
+				if(filename != "") {
+					String extencion = File::ExtensionFromFile(filename);
+					if(extencion.IsEmpty()) {
+						filename += ".scn";
+					}
+					game->GetCurrentScene()->Save(filename);
+				}
+			}
+
+			if(ImGui::MenuItem("Back to Main", 0, false, !demo->GetLaunchView()->IsVisible())) {
+				demo->ToMain();
+			}
+
+
+			ImGui::EndMenu();
 		}
-		ImGui::PopStyleColor();
-		if(mainScreen) {
-			ImGui::PopStyleVar();
-			//ImGui::PopItemFlag();
-		} else {
-			if(ImGui::BeginMenu("View")) {
-				for(View* v : views) {
-					if(system->IsMobile() || !v->MobileOnly()) {
-						bool selected = v->IsVisible();
-						if(ImGui::MenuItem(v->GetName().c_str(), "", &selected)) {
-							if(selected) {
-								v->Show();
-							} else {
-								v->Hide();
-							}
+
+		if(ImGui::BeginMenu("View")) {
+			for(View* v : views) {
+				if(v->VisibleInMenu()) {
+					bool selected = v->IsVisible();
+					bool available = v->AvailableInMenu();
+					if(ImGui::MenuItem(v->GetName(), "", &selected, available)) {
+						if(selected) {
+							v->Show();
+						} else {
+							v->Hide();
 						}
 					}
 				}
-				ImGui::EndMenu();
 			}
+			ImGui::EndMenu();
 		}
-		
+
 		ImVec2 helpSize = ImGui::CalcTextSize("Help");
 		ImGui::SameLine(ImGui::GetWindowWidth() - helpSize.x * 2.f);
 		if(ImGui::BeginMenu("Help")) {
+			if(ImGui::MenuItem("Log")) {
+				log->Show();
+			}
 			if(ImGui::MenuItem("Stats")) {
 				stats->Show();
 			}
@@ -128,8 +168,15 @@ void MenuBar::ShowMenu() {
 		menu_height = size.y +style.FramePadding.y * 2.f - style.ItemSpacing.y * 2.f;// +style.ItemSpacing.y;
 		ImGui::EndMainMenuBar();
 	}
-	if(system->IsMobile()) {
+
+	if(os->IsMobile()) {
 		ImGui::PopFont();
+	}
+}
+
+void MenuBar::CloseAllViews() {
+	for(View* v : views) {
+		v->Hide();
 	}
 }
 

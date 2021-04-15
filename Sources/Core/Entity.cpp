@@ -18,10 +18,11 @@
 #include "System.h"
 #include "Component.h"
 #include "Transform.h"
+#include "Game.h"
 
 using namespace cross;
 
-Entity::Entity(const string& name) :
+Entity::Entity(const String& name) :
 	name(name)
 { }
 
@@ -45,40 +46,54 @@ void Entity::Initialize() {
 	}
 }
 
-const string& Entity::GetName() const {
+const String& Entity::GetName() const {
 	return name;
 }
 
-void Entity::SetName(const string& name) {
+void Entity::SetName(const String& name) {
 	this->name = name;
 }
 
 Component* Entity::GetComponent(U64 type) {
-	return components[type];
+	if(components.find(type) == components.end()) {
+		return nullptr;
+	} else {
+		return components[type];
+	}
 }
 
 Array<Component*> Entity::GetComponents() {
 	Array<Component*> result;
 	for(pair<U64, Component*> pair : components) {
-		result.push_back(pair.second);
+		result.Add(pair.second);
 	}
 	return result;
 }
 
 Transform* Entity::GetTransform() {
-	CROSS_RETURN(HasComponent<Transform>(), NULL, "Entity '%s' does't contains Tranform component", name.c_str());
+	CROSS_RETURN(HasComponent<Transform>(), nullptr, "Entity '#' does't contains Transform component", name);
 	return GetComponent<Transform>();
 }
 
 void Entity::AddComponent(Component* component) {
+	AddComponent(component, game->GetCurrentScene());
+}
+
+void Entity::AddComponent(Component* component, Scene* scene) {
+	AddComponent(component, scene, true);
+}
+
+void Entity::AddComponent(Component* component, Scene* scene, bool initialize) {
 	U64 hash = typeid(*component).hash_code();
 	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
 	component->entity = this;
 	components[hash] = component;
-	component->Initialize();
+	if(initialize) {
+		component->Initialize(scene);
+	}
 }
 
-void Entity::RemoveComponent(Component* component){
+void Entity::RemoveComponent(Component* component) {
 	component->Remove();
 	components.erase(typeid(*component).hash_code());
 }
@@ -108,51 +123,52 @@ void Entity::RemoveChildren() {
 }
 
 Entity* Entity::FindChild(U32 index) {
-	CROSS_RETURN(index < children.size(), NULL, "Out of bounds");
+	CROSS_RETURN(index < children.size(), nullptr, "Out of bounds");
 	auto it = children.begin();
 	std::advance(it, index);
 	return *it;
 }
 
-Entity* Entity::FindChild(const string& name){
-	for(Entity* child : children){
-		if(child->GetName() == name){
+Entity* Entity::FindChild(const String& name) {
+	for(Entity* child : children) {
+		if(child->GetName() == name) {
 			return child;
-		}else{
+		} else {
 			child = child->FindChild(name);
-			if(child){
+			if(child) {
 				return child;
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-Entity* Entity::RemoveChild(const string& name){
-	for(auto it = children.begin(); it != children.end(); it++){
+Entity* Entity::RemoveChild(const String& name) {
+	for(auto it = children.begin(); it != children.end(); it++) {
 		Entity* c = (*it);
-		if(c->GetName() == name){
+		if(c->GetName() == name) {
 			c->Remove();
 			children.erase(it);
 			return c;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-Entity* Entity::RemoveChild(Entity* child){
+Entity* Entity::RemoveChild(Entity* child) {
 	for(auto it = children.begin(); it != children.end(); it++) {
 		Entity* c = (*it);
 		if(c == child) {
 			c->Remove();
+			c->SetParent(nullptr);
 			children.erase(it);
 			return c;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-Entity* Entity::Clone(){
+Entity* Entity::Clone() {
 	Entity* clone = new Entity(this->name);
 	for(pair<U64, Component*> pair : components){
 		Component* component = pair.second;
@@ -167,15 +183,7 @@ Entity* Entity::Clone(){
 	return clone;
 }
 
-Matrix Entity::GetWorldMatrix() {
-	if(parent){
-		return parent->GetWorldMatrix() * GetTransform()->GetModelMatrix();
-	}else{
-		return GetTransform()->GetModelMatrix();
-	}
-}
-
-Vector3D Entity::GetDirection(){
+Vector3D Entity::GetDirection() {
 	if(parent) {
 		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
 	} else {

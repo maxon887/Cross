@@ -7,11 +7,13 @@
 
 #include <QMouseEvent>
 #include <QTimer>
+#include <QMimeData>
 
 GLHandler::GLHandler(QWidget* parent) :
 	QOpenGLWidget(parent)
 { 
 	setMouseTracking(true);
+	setAcceptDrops(true);
 	setFocus();
 }
 
@@ -39,20 +41,22 @@ void GLHandler::Update(){
 }
 
 void GLHandler::paintGL(){
-	ESystem* esystem = (ESystem*)system;
+	ESystem* esystem = dynamic_cast<ESystem*>(system);
 	if(!esystem->IsPaused()) {
-		game->EngineUpdate();
+		if(!skip_repainting) {
+			game->EngineUpdate();
+		} else {
+			skip_repainting = false;
+		}
 	}
 }
 
-void GLHandler::resizeGL(int w, int h){
-	WINSystem* winLanch = (WINSystem*)system;
-	winLanch->SetWindowSize(w, h);
-	//TODO resizing
-	//game->WindowResized(w, h);
+void GLHandler::resizeGL(int w, int h) {
+	system->SetWindowSize(w, h);
+	skip_repainting = true;
 }
 
-void GLHandler::ShutDown(){
+void GLHandler::ShutDown() {
 	if(game->GetCurrentScene()) {
 		game->GetCurrentScreen()->Stop();
 	}
@@ -60,20 +64,20 @@ void GLHandler::ShutDown(){
 	delete gfxGL;
 }
 
-void GLHandler::mousePressEvent(QMouseEvent* eve){
+void GLHandler::mousePressEvent(QMouseEvent* eve) {
 	setFocus();
 	U32 id = MouseButtonID(eve);
 	input->TargetActionDown.Emit((float)eve->x(), (float)eve->y(), id);
 }
 
-void GLHandler::mouseMoveEvent(QMouseEvent* eve){
+void GLHandler::mouseMoveEvent(QMouseEvent* eve) {
 	S32 id = MouseButtonID(eve);
-	if(id >= 0){
+	if(id >= 0) {
 		input->TargetActionMove.Emit((float)eve->x(), (float)eve->y(), id);
 	}
 }
 
-void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
+void GLHandler::mouseReleaseEvent(QMouseEvent* eve) {
 	S32 id = 0;
 	switch(eve->button()) {
 	case Qt::LeftButton:
@@ -87,6 +91,37 @@ void GLHandler::mouseReleaseEvent(QMouseEvent* eve){
 		break;
 	}
 	input->TargetActionUp.Emit((float)eve->x(), (float)eve->y(), id);
+}
+
+void GLHandler::dragEnterEvent(QDragEnterEvent *event) {
+	drop_approved = false;
+	const QMimeData* data = event->mimeData();
+	QList<QUrl> urls = data->urls();
+	for(const QUrl& url : urls) {
+		QString filename = url.fileName();
+		if(!filename.endsWith(".obj") && !filename.endsWith(".fbx")) {
+			return;
+		}
+	}
+	event->accept();
+	drop_approved = true;
+}
+
+void GLHandler::dragMoveEvent(QDragMoveEvent *event) {
+	if(drop_approved) {
+		event->accept();
+	}
+}
+
+void GLHandler::dropEvent(QDropEvent *event) {
+	const QMimeData* data = event->mimeData();
+	QList<QUrl> urls = data->urls();
+	for(const QUrl& url : urls) {
+		QString filename = url.fileName();
+		Model* model = game->GetCurrentScene()->GetModel(filename.toLatin1().data());
+		Entity* modelHierarchy = model->GetHierarchy();
+		game->GetCurrentScene()->AddEntity(modelHierarchy);
+	}
 }
 
 void GLHandler::wheelEvent(QWheelEvent* wheel){

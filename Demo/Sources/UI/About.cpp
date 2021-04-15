@@ -18,7 +18,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void About::Content(float sec) {
+void About::Update(float sec) {
 	ImGui::Text("Cross++, v%s", cross::version);
 	ImGui::Separator();
 	ImGui::Text("By Maksim Lukyanov");

@@ -35,20 +35,19 @@ void CameraController::Shown() {
 	}
 }
 
-void CameraController::WillContent() {
+void CameraController::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
-	ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() - window_width, system->GetWindowHeight() - window_height));
+	ImGui::SetNextWindowPos(ImVec2(os->GetWindowWidth() - window_width, os->GetWindowHeight() - window_height));
 
-	SetWindowFlags(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+	SetFlags(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
 	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.5f);
 }
 
-void CameraController::DidContent() {
-	ImGui::PopStyleVar();
-}
-
-void CameraController::Content(float sec) {
+void CameraController::Update(float sec) {
+	if(!AvailableInMenu()) {
+		Hide();
+	}
 	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
 	if(scene) {
 		bool lookAt = scene->IsLookAtCamera();
@@ -60,7 +59,7 @@ void CameraController::Content(float sec) {
 			if(!lookAt) {
 				scene->MoveUp(sliderValue * sec);
 			} else {
-				scene->MoveForward(sliderValue * sec, false);
+				scene->MoveCloser(sliderValue * sec);
 			}
 		}
 
@@ -76,7 +75,7 @@ void CameraController::Content(float sec) {
 		float radius = SCALED(60.0f);
 		Vector2D center(cursor.x - SCALED(16.0f) + w.x - radius, cursor.y - SCALED(16.0f) + w.y - radius);
 		const ImU32 col32 = ImColor(1.f, 1.f, 0.33f);
-		drawList->AddCircle(center, radius, col32, 30, SCALED(4.f));
+		drawList->AddCircle(ImVec2(center.x, center.y), radius, col32, 30, SCALED(4.f));
 
 		ImGuiIO &io = ImGui::GetIO();
 		Vector2D mousePos = io.MousePos;
@@ -109,6 +108,14 @@ void CameraController::Content(float sec) {
 	}
 }
 
-bool CameraController::MobileOnly() {
-	return true;
+void CameraController::PostUpdate() {
+	ImGui::PopStyleVar();
+}
+
+bool CameraController::VisibleInMenu() {
+	return os->IsMobile();
+}
+
+bool CameraController::AvailableInMenu() {
+	return game->GetCurrentScene() != nullptr;
 }

@@ -27,7 +27,7 @@ LightsShader::LightsShader() :
 	LightsShader("Engine/Shaders/Sources/Light.vtx", "Engine/Shaders/Sources/Light.fgm")
 { }
 
-LightsShader::LightsShader(const string& vert, const string& frag) :
+LightsShader::LightsShader(const String& vert, const String& frag) :
 	Shader(vert, frag)
 { }
 
@@ -62,42 +62,42 @@ void LightsShader::Compile(const List<Light*>& lights){
 	Compile(pointCount, spotCount, directionalCount);
 }
 
-void LightsShader::Compile(U32 pointCount, U32 spotCount, U32 directionalCount){
-	uPointLights.clear();
-	uDirectionalLights.clear();
-	uPointLights.clear();
+void LightsShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCount){
+	uPointLights.Clear();
+	uDirectionalLights.Clear();
+	uPointLights.Clear();
 	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount, true);
 	AddMacro("POINT_LIGHT_COUNT", pointCount, true);
 	AddMacro("SPOT_LIGHT_COUNT", spotCount, true);
 
 	Shader::Compile();
-	for(U32 i = 0; i < pointCount; ++i) {
-		string structName = "uPointLights[" + to_string(i) + "]";
+	for(S32 i = 0; i < pointCount; ++i) {
+		String structName = "uPointLights[" + String(i) + "]";
 		LightUniforms uniforms;
-		uniforms.position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uniforms.intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
-		uPointLights.push_back(uniforms);
+		uniforms.position = glGetUniformLocation(program, String(structName + ".position"));
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color"));
+		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity"));
+		uPointLights.Add(uniforms);
 	}
 
-	for(U32 i = 0; i < directionalCount; ++i) {
-		string structName = "uDirectionalLights[" + to_string(i) + "]";
+	for(S32 i = 0; i < directionalCount; ++i) {
+		String structName = "uDirectionalLights[" + String(i) + "]";
 		LightUniforms uniforms;
-		uniforms.direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uDirectionalLights.push_back(uniforms);
+		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction"));
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color"));
+		uDirectionalLights.Add(uniforms);
 	}
 
-	for(U32 i = 0; i < spotCount; ++i) {
-		string structName = "uSpotLights[" + to_string(i) + "]";
+	for(S32 i = 0; i < spotCount; ++i) {
+		String structName = "uSpotLights[" + String(i) + "]";
 		LightUniforms uniforms;
-		uniforms.position = glGetUniformLocation(program, string(structName + ".position").c_str());
-		uniforms.direction = glGetUniformLocation(program, string(structName + ".direction").c_str());
-		uniforms.color = glGetUniformLocation(program, string(structName + ".color").c_str());
-		uniforms.intensity = glGetUniformLocation(program, string(structName + ".intensity").c_str());
-		uniforms.cut_off = glGetUniformLocation(program, string(structName + ".cut_off").c_str());
-		uniforms.outer_cut_off = glGetUniformLocation(program, string(structName + ".outer_cut_off").c_str());
-		uSpotLights.push_back(uniforms);
+		uniforms.position = glGetUniformLocation(program, String(structName + ".position"));
+		uniforms.direction = glGetUniformLocation(program, String(structName + ".direction"));
+		uniforms.color = glGetUniformLocation(program, String(structName + ".color"));
+		uniforms.intensity = glGetUniformLocation(program, String(structName + ".intensity"));
+		uniforms.cut_off = glGetUniformLocation(program, String(structName + ".cut_off"));
+		uniforms.outer_cut_off = glGetUniformLocation(program, String(structName + ".outer_cut_off"));
+		uSpotLights.Add(uniforms);
 	}
 }
 
@@ -119,8 +119,8 @@ void LightsShader::OnDraw(){
 			SAFE(glUniform4fv(uSpotLights[spotCount].color, 1, light->GetColor().GetData()));
 			SAFE(glUniform1f(uSpotLights[spotCount].intensity, light->GetIntensity()));
 			SAFE(glUniform3fv(uSpotLights[spotCount].direction, 1, light->GetEntity()->GetDirection().GetData()));
-			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, cos(light->GetCutOff() / 180.f * PI)));
-			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, cos(light->GetOuterCutOff() / 180.f * PI)));
+			SAFE(glUniform1f(uSpotLights[spotCount].cut_off, cosf(light->GetCutOff() / 180.f * PI)));
+			SAFE(glUniform1f(uSpotLights[spotCount].outer_cut_off, cosf(light->GetOuterCutOff() / 180.f * PI)));
 			spotCount++;
 		}break;
 		case Light::Type::DIRECTIONAL:

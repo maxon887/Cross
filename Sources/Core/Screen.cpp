@@ -19,11 +19,11 @@
 
 using namespace cross;
 
-const string& Screen::GetName() const {
+const String& Screen::GetName() const {
 	return name;
 }
 
-void Screen::SetName(const string& name) {
+void Screen::SetName(const String& name) {
 	this->name = name;
 }
 

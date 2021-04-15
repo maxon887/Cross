@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Property.h"
 
 namespace tinyxml2 {
 	class XMLElement;
@@ -28,29 +29,35 @@ namespace cross{
 	User components must be register by ComponentFactory. Components have save life time as an Entity */
 class Component {
 public:
+	Component(const String& name);
 	virtual ~Component() { }
 
 	/* Will be called on component after component was added to an Entity */
-	virtual void Initialize() { }
+	virtual void Initialize(Scene* scene) { }
 	/* Will be called after component was removed from Entity or on the death of Entity*/
 	virtual void Remove() { }
-	/* Will be called every game cycle. WARTING! Components update order unpredictable */
+	/* Will be called every game cycle. WARNING! Components update order unpredictable */
 	virtual void Update(float sec) { }
 
 	/* Clone whole component. Must be implemented in order to support Entity copy and spawn operations */
 	virtual Component* Clone() const;
 	/* Load Component from XML document. Must be implemented to support Component loading from Scene file */
-	virtual bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene);
+	virtual bool Load(tinyxml2::XMLElement* parent);
 	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	/* Returns true if Component behavior is enabled */
-	bool IsEnabled() const;
-	/* Enables or disables Component behavior */
-	void Enable(bool enable);
-
+	virtual bool IsEnabled() const;
+	/* Enables Component behavior */
+	virtual void Enable();
+	/* Disables Component behaviour */
+	virtual void Disable();
+	/* Returns Component's name */
+	String GetName() const;
 	/* Returns Entity that owns this Component */
 	Entity* GetEntity();
+	/* Returns component properties which will be saved on scene file */
+	const Array<BaseProperty*>& GetProperties() const;
 	/* Returns Entity's Transform Component if has some */
 	Transform* GetTransform();
 	/* Returns Entity's Transform's position vector */
@@ -58,11 +65,16 @@ public:
 	/* Set position into into Entity's Transform Component */
 	void SetPosition(const Vector3D& pos);
 
-private:
+protected:
 	friend Entity;
+	friend BaseProperty;
 
-	Entity* entity	= NULL;
+	Entity* entity	= nullptr;
 	bool enabled	= true;
+	Array<BaseProperty*> properties;
+
+private:
+	String name = "noname";
 };
 
 }

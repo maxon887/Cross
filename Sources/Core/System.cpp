@@ -13,13 +13,14 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/	
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "System.h"
 #include "File.h"
 
-#include <stdarg.h>
+#include <errno.h>
+#include <string.h>
 
-#if defined(WIN) || defined(EDITOR)
+#if defined(WIN) || defined(EDITOR) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
 #	define DEFAULT_SCREEN_DPI 160.f
@@ -27,130 +28,149 @@
 
 using namespace cross;
 
-void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...) {
-	va_list args;
-	va_start(args, msg);
-	system->Alert(filename, line, msg, args);
-}
-
-File* System::LoadFile(const string& filename) {
-	FILE* f = fopen(filename.c_str(), "rb");
-	CROSS_RETURN(f, NULL, "Can not open file %s", filename.c_str());
+File* System::LoadFile(const String& filename) {
+	FILE* f = fopen(filename.ToCStr(), "rb");
+	CROSS_RETURN(f, nullptr, "Can not open file '#'\nerror code - #\nDescription - #",
+					filename.ToCStr(), errno, strerror(errno));
 	File* file = new File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
 	file->size = (U32)ftell(f);
 	fseek(f, 0, SEEK_SET);
-	file->data = new Byte[file->size];
-	U64 read = fread(file->data, sizeof(Byte), file->size, f);
-	CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
+	file->data = new Byte[(Size)file->size];
+	U64 read = fread(file->data, sizeof(Byte), (Size)file->size, f);
+	CROSS_ASSERT(file->size == read, "File # not read properly", file->name.ToCStr());
 	fclose(f);
 	return file;
 }
 
-File* System::LoadAssetFile(const string& filename) {
+File* System::LoadAssetFile(const String& filename) {
 	return LoadFile(AssetsPath() + filename);
 }
 
-File* System::LoadDataFile(const string& filename) {
+File* System::LoadDataFile(const String& filename) {
 	return LoadFile(DataPath() + filename);
 }
 
 void System::SaveFile(File* file) {
-	FILE* f = fopen(file->name.c_str(), "wb");
-	CROSS_FAIL(f, "Can not open file for writing: %s", file->name.c_str());
-	U64 written = fwrite(file->data, 1, file->size, f);
-	CROSS_ASSERT(file->size == written, "Can not write to file %s", file->name.c_str());
+	FILE* f = fopen(file->name.ToCStr(), "wb");
+	CROSS_FAIL(f, "Can not open file for writing: '#'\nerror code - #\nDescription - #",
+				file->name.ToCStr(), errno, strerror(errno));
+	U64 written = fwrite(file->data, 1, (Size)file->size, f);
+	CROSS_ASSERT(file->size == written, "Can not write to file '#'", file->name.ToCStr());
 	fclose(f);
 }
 
+void System::SaveAssetFile(File* file) {
+	/* Shitty code its rewrites original file path */
+	file->name = AssetsPath() + file->name;
+	SaveFile(file);
+}
+
 void System::SaveDataFile(File* file) {
+	if(!IsDirectoryExists(DataPath())) {
+		CreateDirectory(DataPath());
+	}
+	/* Shitty code its rewrites original file path */
 	file->name = DataPath() + file->name;
 	SaveFile(file);
 }
 
-bool System::IsDataFileExists(const string& filename) {
-	string fullpath = DataPath() + filename;
-	FILE* f = fopen(fullpath.c_str(), "r");
-	bool result = f != NULL;
+bool System::IsFileExists(const String& filename) {
+	FILE* f = fopen(filename.ToCStr(), "r");
+	bool result = f != nullptr;
 	if(result) {
 		fclose(f);
 	}
 	return result;
 }
 
-bool System::Alert(const string& msg) {
-	Messagebox("Something goes wrong", msg.c_str());
+bool System::IsAssetFileExists(const String& filename) {
+	return IsFileExists(AssetsPath() + filename);
+}
+
+U64 System::GetFileSize(const String& filename) {
+	FILE* f = fopen(filename.ToCStr(), "rb");
+	CROSS_RETURN(f, 0, "Can not open file '#'\nerror code - #\nDescription - #",
+		filename.ToCStr(), errno, strerror(errno));
+	fseek(f, 0, SEEK_END);
+	U64 size = ftell(f);
+	fclose(f);
+	return size;
+}
+
+bool System::IsDataFileExists(const String& filename) {
+	return IsFileExists(DataPath() + filename);
+}
+
+bool System::IsDirectoryExists(const String& filepath) {
+	CROSS_RETURN(false, false, "System::IsDirectoryExists() does not implemented for current platform");
+}
+
+bool System::IsAssetDirectoryExists(const String& filepath) {
+	return IsDirectoryExists(AssetsPath() + filepath);
+}
+
+bool System::IsDataDirectoryExists(const String& filepath) {
+	return IsDirectoryExists(DataPath() + filepath);
+}
+
+void System::CreateDirectory(const String& dirname) {
+	CROSS_ASSERT(false, "System::CreateDirectory() does not implemented for current platform");
+}
+
+void System::CreateAssetDirectory(const String& dirname) {
+	CreateDirectory(AssetsPath() + dirname);
+}
+
+void System::Delete(const String& path) {
+	CROSS_FAIL(false, "System::Delete() does not implemented for current platform");
+}
+
+Array<String> System::GetSubDirectories(const String& filepath) {
+	CROSS_RETURN(false, Array<String>(), "System::GetSubDirectories() does not implemented for current platform");
+}
+
+Array<String> System::GetFilesInDirectory(const String& filepath) {
+	CROSS_RETURN(false, Array<String>(), "System::GetFilesInDirectory() does not implemented for current platform");
+}
+
+bool System::Alert(const String& msg) {
+	Messagebox("Something goes wrong", msg.ToCStr());
 	return false;
 }
 
-void System::Alert(const char* filename, unsigned int line, const char* msg, va_list list) {
-	auto it = asserts_hashes.find(line);
-	if(it == asserts_hashes.end()) {
-		char buffer[4096];
-		vsprintf(buffer, msg, list);
-		Log(buffer);
-#ifdef CROSS_DEBUG
-		string str = buffer;
-		str += "\n";
-		str += "File: ";
-		str += filename;
-		str += "\n";
-		str += "Line: " + to_string(line);
-		if(Alert(str)) {
-			asserts_hashes.insert(line);
-		}
-#else
-		asserts_hashes.insert(line);
-		LogIt("\tAssertion Failed");
-		string str = msg;
-		str += "\n";
-		str += "File: ";
-		str += filename;
-		str += "\n";
-		str += "Line: " + to_string(line);
-		LogIt(str.c_str());
-#endif
-	}
+void System::Messagebox(const String& title, const String& msg) {
+	LogIt("System message box not implemented. Can not show message to user");
+}
+
+void System::RequestOrientation(Orientation orientation) {
+	CROSS_ASSERT(false, "System::RequestOrientation() does not implemented for current platform");
 }
 
 void System::Sleep(float milis) {
-	CROSS_ASSERT(false, "Function System::Speep() does not implemented");
-}
-
-void System::Messagebox(const string& title, const string& msg) {
-	LogIt("\t" + title);
-	LogIt(msg);
+	CROSS_ASSERT(false, "System::Speep() does not implemented for current platform");
 }
 
 float System::GetScreenDPI() {
 	return DEFAULT_SCREEN_DPI;
 }
 
-string System::GetClipboard() {
-	CROSS_ASSERT(false, "System::GetClipboard() does not implemented");
+String System::GetClipboard() {
+	CROSS_ASSERT(false, "System::GetClipboard() does not implemented for current platform");
 	return "";
 }
 
-void System::SetClipboard(const string& data) {
-	CROSS_ASSERT(false, "System::SetClipboard() does not implemented");
+void System::SetClipboard(const String& data) {
+	CROSS_ASSERT(false, "System::SetClipboard() does not implemented for current platform");
 }
 
-void System::LogIt(const char* format, ...) {
-	va_list params;
-	char buffer[4096];
-	va_start(params, format);
-	vsprintf(buffer, format, params);
-	Log(buffer);
-	va_end(params);
+void System::OpenFileExternal(const String& filename) {
+	CROSS_ASSERT(false, "System::OpenFileWithExternalEditor() does not implemented for current platform");
 }
 
-void System::LogIt(const string& msg) {
-	LogIt(msg.c_str());
-}
-
-void System::LogIt(const Vector3D& vector) {
-	LogIt("X - %0.3f, Y - %0.3f, Z - %0.3f", vector.x, vector.y, vector.z);
+String System::OpenFileDialog(const String& extension /* *.* */, bool saveDialog /* = false */) {
+	CROSS_RETURN(false, "", "System::OpenFileDialog() does not implemented for current platform");
 }
 
 float System::GetScreenScale() {
@@ -158,10 +178,12 @@ float System::GetScreenScale() {
 }
 
 S32 System::GetWindowWidth() const {
+    CROSS_RETURN(window_width != -1, -1, "Window size not specified");
 	return window_width;
 }
 
 S32 System::GetWindowHeight() const {
+    CROSS_RETURN(window_height != -1, -1, "Window size not specified");
 	return window_height;
 }
 
@@ -175,6 +197,10 @@ System::Orientation System::GetDeviceOrientation() const {
 
 float System::GetAspectRatio() const {
 	return GetWindowWidth() / (float)GetWindowHeight();
+}
+
+String& System::GetLogBuffer() {
+	return log_buffer;
 }
 
 void System::SetWindowSize(S32 width, S32 height) {

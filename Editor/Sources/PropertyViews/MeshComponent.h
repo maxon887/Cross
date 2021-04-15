@@ -22,7 +22,7 @@ public:
 	void Show(Mesh* e) override;
 
 private:
-	QLabel* model_value			= NULL;
+	QLabel* filename_label		= NULL;
 	QLabel* poly_count_value	= NULL;
 	QLineEdit* material_value	= NULL;
 	QCheckBox* face_culling_box = NULL;

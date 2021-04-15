@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "System.h"
 
+#include <cstring>
+
 using namespace cross;
 
 const Matrix Matrix::Zero = Matrix::CreateZero();
@@ -57,13 +59,13 @@ Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom,
 	m.m[3][1] = 0.0f;
 	m.m[3][2] = 0.0f;
 	m.m[3][3] = 1.0f;
-	
+
 	return m;
 }
 
 Matrix Matrix::CreatePerspectiveProjection(float fov, float aspect, float near, float far){
 	Matrix m;
-	float tanFov = tan(fov / 2);
+	float tanFov = tanf(fov / 2.f);
 
 	m.m[0][0] = 1.f / (aspect * tanFov);
 	m.m[0][1] = 0.0f;
@@ -169,8 +171,8 @@ void Matrix::SetScale(const Vector3D &scale){
 
 void Matrix::SetRotationX(float angle){
 	memcpy(m, Matrix::Identity.m, sizeof(Matrix));
-	float cosA = cos(angle / 180.f * PI);
-	float sinA = sin(angle / 180.f * PI);
+	float cosA = cosf(angle / 180.f * PI);
+	float sinA = sinf(angle / 180.f * PI);
 	m[1][1] = cosA;
 	m[1][2] = -sinA;
 	m[2][1] = sinA;
@@ -179,8 +181,8 @@ void Matrix::SetRotationX(float angle){
 
 void Matrix::SetRotationY(float angle){
 	memcpy(m, Matrix::Identity.m, sizeof(Matrix));
-	float cosA = cos(angle / 180.f * PI);
-	float sinA = sin(angle / 180.f * PI);
+	float cosA = cosf(angle / 180.f * PI);
+	float sinA = sinf(angle / 180.f * PI);
 	m[0][0] = cosA;
 	m[0][2] = sinA;
 	m[2][0] = -sinA;
@@ -189,8 +191,8 @@ void Matrix::SetRotationY(float angle){
 
 void Matrix::SetRotationZ(float angle){
 	memcpy(m, Matrix::Identity.m, sizeof(Matrix));
-	float cosA = cos(angle / 180.f * PI);
-	float sinA = sin(angle / 180.f * PI);
+	float cosA = cosf(angle / 180.f * PI);
+	float sinA = sinf(angle / 180.f * PI);
 	m[0][0] = cosA;
 	m[0][1] = -sinA;
 	m[1][0] = sinA;

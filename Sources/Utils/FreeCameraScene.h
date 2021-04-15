@@ -25,34 +25,29 @@ namespace cross{
 class FreeCameraScene : public Scene {
 public:
 	FreeCameraScene() = default;
-	FreeCameraScene(const string& filename);
 
-	virtual void Start() override;
-	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
-	void LookAtCamera(bool enbled);
-	void LookAtCamera(const Vector3D& target);
+	void LookAtCamera(bool enabled);
+	void LookAtTarget(const Vector3D& target, float distance = 3);
 	bool IsLookAtCamera() const;
 
-	void MoveForward(float distance, bool transferTarget = true);
+	void MoveForward(float distance);
 	void MoveRight(float distance);
 	void MoveUp(float distance);
 	void MoveCameraUp(float distance);
-	
+	void MoveCloser(float ratio);	//how close you will be compared with current distance
+
 	void LookRight(float degree);
 	void LookUp(float degree);
 
 protected:
 	bool look_at				= true;
 
-	const float focus_distance	= 3.f;
+	float focus_distance		= 3.f;
 
 	float lerp_time				= 0.f;
-	Vector3D target				= Vector3D::Zero;
-	Transform destanation		= Transform();
-
-	void MouseWheelRoll(float delta);
+	Transform destination		= Transform();
 };
 
 }

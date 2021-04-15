@@ -39,7 +39,7 @@ public:
 	virtual ~Light() { }
 
 	/* Initialize Light Component. Better add all Light to a Scene before any drawings started */
-	void Initialize() override;
+	void Initialize(Scene* scene) override;
 	/* Removes Light Component Entity and from all Scene light calculations */
 	void Remove() override;
 	/* Creates full copy of this Light */

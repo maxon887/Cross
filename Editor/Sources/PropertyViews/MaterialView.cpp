@@ -5,6 +5,8 @@
 #include "Material.h"
 #include "Game.h"
 #include "Scene.h"
+#include "FileHandler.h"
+#include "../CrossEditor.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -25,22 +27,22 @@ MaterialView::~MaterialView(){
 }
 
 void MaterialView::Initialize(){
-	shader_label = findChild<QLabel*>("shaderLabel");
-	shader_edit = findChild<QLineEdit*>("shaderEdit");
+	shader_label = findChild<QLabel*>("shader_label");
+	shader_handler = findChild<FileHandler*>("shader_file");
+	shader_handler->SetFileExtension("sha");
+	shader_handler->FileChanged.Connect(this, &MaterialView::OnShaderChanged);
 	properties_box = findChild<QGroupBox*>("properties");
-	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
-	connect(loadBtn, &QPushButton::clicked, this, &MaterialView::OnLoadShaderClick);
 
-	color_dialog = new QColorDialog(dynamic_cast<QPushButton*>(this));
+	color_dialog = new QColorDialog(this);
 	color_dialog->setWindowFlags(color_dialog->windowFlags() | Qt::WindowStaysOnTopHint);
 	connect(color_dialog, &QColorDialog::currentColorChanged, this, &MaterialView::OnCurrentColorChanged);
 	connect(color_dialog, &QColorDialog::colorSelected, this, &MaterialView::OnColorSelected);
 	connect(color_dialog, &QColorDialog::rejected, this, &MaterialView::OnColorRejected);
 
-	apply_btn = findChild<QPushButton*>("applyBtn");
+	apply_btn = findChild<QPushButton*>("apply_button");
 	apply_btn->setDisabled(true);
 	connect(apply_btn, &QPushButton::clicked, this, &MaterialView::OnApplyClick);
-	revert_btn = findChild<QPushButton*>("revertBtn");
+	revert_btn = findChild<QPushButton*>("revert_button");
 	revert_btn->setDisabled(true);
 	connect(revert_btn, &QPushButton::clicked, this, &MaterialView::OnRevertClick);
 }
@@ -50,7 +52,7 @@ void MaterialView::OnEntitySelected(Entity* e){
 	PropertyView::OnEntitySelected(e);
 }
 
-void MaterialView::OnFileSelected(const string& filepath){
+void MaterialView::OnFileSelected(const String& filepath){
 	if(File::ExtensionFromFile(filepath) != "mat") {
 		color_dialog->hide();
 		PropertyView::OnFileSelected(filepath);
@@ -58,16 +60,16 @@ void MaterialView::OnFileSelected(const string& filepath){
 	}
 	Clear();
 
-	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
-	setTitle(QString("Material: ") + filename.c_str());
+	String filename = File::FileFromPath(File::FileWithoutExtension(filepath));
+	setTitle(QString("Material: ") + filename.ToCStr());
 
 	material = game->GetCurrentScene()->GetMaterial(filepath);
 	delete original;
 	original = material->Clone();
 	if(material->GetShader()){
-		shader_edit->setText(material->GetShader()->GetFilename().c_str());
+		shader_handler->SetFile(material->GetShader()->GetFilename().ToCStr());
 	}else{
-		shader_edit->clear();
+		shader_handler->clear();
 	}
 
 	RefreshProperties();
@@ -78,11 +80,18 @@ void MaterialView::OnFileSelected(const string& filepath){
 }
 
 void MaterialView::Clear(){
-	QWidget* propertyLayout = NULL;
+	QWidget* propertyLayout = nullptr;
 	do {
 		delete propertyLayout;
 		propertyLayout = properties_box->findChild<QWidget*>("propertyLayout");
 	} while(propertyLayout);
+}
+
+void MaterialView::OnShaderChanged(QString filename) {
+	Shader* newShader = game->GetCurrentScene()->GetShader(filename.toStdString().c_str());
+	material->SetShader(newShader);
+	RefreshProperties();
+	OnSomethingChanged();
 }
 
 void MaterialView::RefreshProperties() {
@@ -104,7 +113,7 @@ void MaterialView::RefreshProperties() {
 			colorPicker->setStyleSheet(colorStyle + QColor(c.R * 255, c.G * 255, c.B * 255, c.A * 255).name());
 
 			QLineEdit* valueBox = propLayout->findChild<QLineEdit*>("valueBox");
-			valueBox->setText(GetColorStr(c).c_str());
+			valueBox->setText(String(c).ToCStr());
 			break;
 		}
 		default:
@@ -117,12 +126,11 @@ void MaterialView::OnValueChanged(){
 	QWidget* parent = dynamic_cast<QWidget*>(sender()->parent());
 	QLabel* nameLabel = parent->findChild<QLabel*>("nameLabel");
 	
-	Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
+	Shader::Property* prop = material->GetProperty(nameLabel->text().toLatin1().data());
 	switch(prop->GetType())	{
 	case Shader::Property::COLOR: {
 		QLineEdit* valueBox = parent->findChild<QLineEdit*>("valueBox");
-		Color c(valueBox->text().toStdString().c_str());
-		prop->SetValue(c);
+		prop->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
 		break;
 	}
 	default:
@@ -138,7 +146,7 @@ void MaterialView::OnSomethingChanged() {
 	revert_btn->setDisabled(false);
 }
 
-QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type type) {
+QWidget* MaterialView::CreateProperty(const String& name, Shader::Property::Type type) {
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
 	propertyLayoutWidget->setObjectName("propertyLayout");
 	QHBoxLayout* propertyLayout = new QHBoxLayout(propertyLayoutWidget);
@@ -147,8 +155,7 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setObjectName("nameLabel");
-	propertyNameLabel->setText(name.c_str());
-	propertyNameLabel->setFixedWidth(250);
+	propertyNameLabel->setText(name.ToCStr());
 	propertyLayout->addWidget(propertyNameLabel);
 
 	switch(type) {
@@ -177,15 +184,15 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	case cross::Shader::Property::COLOR: {
 		QPushButton* colorPicker = new QPushButton(propertyLayoutWidget);
 		colorPicker->setObjectName("colorPicker");
-		colorPicker->setFixedWidth(60);
-		colorPicker->setFixedHeight(31);
+		colorPicker->setFixedWidth(40);
+		colorPicker->setFixedHeight(20);
 		connect(colorPicker, &QPushButton::clicked, this, &MaterialView::OnColorPickerClicked);
 		propertyLayout->addWidget(colorPicker);
 
 		QLineEdit* valueBox = new QLineEdit(propertyLayoutWidget);
 		valueBox->setObjectName("valueBox");
 		valueBox->setInputMask("HHHHHHHH");
-		valueBox->setFixedWidth(100);
+		valueBox->setFixedWidth(60);
 		connect(valueBox, &QLineEdit::returnPressed, this, &MaterialView::OnValueChanged);
 		connect(valueBox, &QLineEdit::textChanged, this, &MaterialView::OnSomethingChanged);
 		propertyLayout->addWidget(valueBox);
@@ -206,29 +213,16 @@ QWidget* MaterialView::CreateProperty(const string& name, Shader::Property::Type
 	return propertyLayoutWidget;
 }
 
-void MaterialView::OnLoadShaderClick() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Shader File", path, "Shader File (*.sha)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		shader_edit->setText(filepath);
-		Shader* newShader = game->GetCurrentScene()->GetShader(filepath.toStdString().c_str());
-		material->SetShader(newShader);
-		RefreshProperties();
-	}
-}
-
 void MaterialView::OnApplyClick() {
 	QList<QWidget*> properties = properties_box->findChildren<QWidget*>("propertyLayout");
 	for(QWidget* propertyL : properties) {
 		QLabel* nameLabel = propertyL->findChild<QLabel*>("nameLabel");
-		Shader::Property* prop = material->GetProperty(nameLabel->text().toStdString());
+		Shader::Property* prop = material->GetProperty(nameLabel->text().toLatin1().data());
 		switch(prop->GetType()) {
 		case Shader::Property::Type::COLOR: {
 			QLineEdit* valueBox = propertyL->findChild<QLineEdit*>("valueBox");
 			if(valueBox->hasAcceptableInput()) {
-				prop->SetValue(Color(valueBox->text().toStdString().c_str()));
+				prop->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
 			}
 			break;
 		}
@@ -247,13 +241,13 @@ void MaterialView::OnRevertClick() {
 	Array<Shader::Property>& originalProps = original->GetProperties();
 	Array<Shader::Property>& materialProps = material->GetProperties();
 	materialProps = originalProps;
-	OnFileSelected(string(material->GetFilename()));
+	OnFileSelected(material->GetFilename());
 }
 
 void MaterialView::OnColorPickerClicked(){
 	current_property_layout = dynamic_cast<QWidget*>(sender()->parent());
 	QLabel* nameLabel = current_property_layout->findChild<QLabel*>("nameLabel");
-	current_property = material->GetProperty(nameLabel->text().toStdString());
+	current_property = material->GetProperty(nameLabel->text().toLatin1().data());
 
 	const Color& c = current_property->GetValue().color;
 	QColor qcolor(c.R * 255, c.G * 255, c.B * 255, c.A * 255);
@@ -280,35 +274,18 @@ void MaterialView::OnColorSelected(const QColor& c){
 		colorPicker->setStyleSheet(colorStyle + c.name());
 
 		QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
-		valueBox->setText(GetColorStr(color).c_str());
+		valueBox->setText(String(color).ToCStr());
 
-		current_property_layout = NULL;
-		current_property = NULL;
+		current_property_layout = nullptr;
+		current_property = nullptr;
 	}
 }
 
-void MaterialView::OnColorRejected(){
-	QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
-	Color c(valueBox->text().toStdString().c_str());
-	current_property->SetValue(c);
-	current_property_layout = NULL;
-	current_property = NULL;
-}
-
-string MaterialView::GetColorStr(const Color& c){
-	int rInt = c.R * 255;
-	int gInt = c.G * 255;
-	int bInt = c.B * 255;
-	int aInt = c.A * 255;
-
-	std::stringstream ss;
-	ss << std::hex;
-	ss << std::setw(2) << std::setfill('0') << rInt;
-	ss << std::setw(2) << std::setfill('0') << gInt;
-	ss << std::setw(2) << std::setfill('0') << bInt;
-	ss << std::setw(2) << std::setfill('0') << aInt;
-	string text = ss.str();
-	std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-
-	return text;
+void MaterialView::OnColorRejected() {
+	if(current_property) {
+		QLineEdit* valueBox = current_property_layout->findChild<QLineEdit*>("valueBox");
+		current_property->SetValue(String(valueBox->text().toLatin1().data()).ToColor());
+		current_property_layout = nullptr;
+		current_property = nullptr;
+	}
 }

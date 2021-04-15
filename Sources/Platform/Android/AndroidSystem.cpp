@@ -16,11 +16,15 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "AndroidSystem.h"
 #include "File.h"
+
+#include <dirent.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
 using namespace cross;
 
-AndroidSystem::AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath){
+AndroidSystem::AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, String dataPath){
     LOGI("AndroidSystem::AndroidSystem");
 	this->data_path = dataPath;
 	this->asset_manager = assManager;
@@ -36,24 +40,39 @@ void AndroidSystem::Log(const char* str){
     LOGI("%s", str);
 }
 
-string AndroidSystem::AssetsPath(){
+String AndroidSystem::AssetsPath(){
 	return "This platform do not specify application assets folder.All assets needs to be load through asset manager";
 }
 
-string AndroidSystem::DataPath(){
+String AndroidSystem::DataPath(){
 	return data_path;
 }
 
-File* AndroidSystem::LoadAssetFile(const string& filename) {
-    AAsset* asset = AAssetManager_open(asset_manager, filename.c_str(), AASSET_MODE_STREAMING);
-    CROSS_RETURN(asset, NULL, "Can not open file %s", filename.c_str());
+File* AndroidSystem::LoadAssetFile(const String& filename) {
+    AAsset* asset = AAssetManager_open(asset_manager, filename, AASSET_MODE_STREAMING);
+    CROSS_RETURN(asset, NULL, "Can not open file #", filename);
     File* file = new File();
     file->size = AAsset_getLength(asset);
     file->data = new Byte[file->size];
     int read = AAsset_read(asset, file->data, file->size);
-    CROSS_ASSERT(file->size == read, "File %s not read properly", file->name.c_str());
+    CROSS_ASSERT(file->size == read, "File # not read properly", file->name);
     AAsset_close(asset);
     return file;
+}
+
+bool AndroidSystem::IsDirectoryExists(const String& dirname) {
+	DIR* dir = opendir(dirname);
+	dirent* dr = nullptr;
+	if(dir && (dr = readdir(dir))) {
+		if(dr->d_type == DT_DIR) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		CROSS_ASSERT(errno == ENOENT, "IsDirectoryExists() error code - #\nDescription - #", errno, strerror(errno));
+		return false;
+	}
 }
 
 U64 AndroidSystem::GetTime(){
@@ -87,11 +106,11 @@ void AndroidSystem::RequestOrientation(Orientation orientation) {
     env->DeleteLocalRef(clazz);
 }
 
-void AndroidSystem::Messagebox(const string& title, const string& message) {
+void AndroidSystem::Messagebox(const String& title, const String& message) {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
     jmethodID methodID = env->GetMethodID(clazz, "MessageBox", "(Ljava/lang/String;Ljava/lang/String;)V");
-    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title.c_str()), env->NewStringUTF(message.c_str()));
+    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(title), env->NewStringUTF(message));
     env->DeleteLocalRef(clazz);
 }
 
@@ -112,18 +131,18 @@ void AndroidSystem::Sleep(float milis) {
     usleep(milis*1000);
 }
 
-void AndroidSystem::CallActivityVoidMethod(const string &methodName) {
+void AndroidSystem::CallActivityVoidMethod(const String &methodName) {
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
-    jmethodID methodID = env->GetMethodID(clazz, methodName.c_str(), "()V");
+    jmethodID methodID = env->GetMethodID(clazz, methodName, "()V");
     env->CallVoidMethod(cross_activity, methodID);
 }
 
-void AndroidSystem::CallActivityVoidMethod(const string& methodName, const string& parameter){
+void AndroidSystem::CallActivityVoidMethod(const String& methodName, const String& parameter){
     JNIEnv* env = GetJNIEnv();
     jclass clazz = env->GetObjectClass(cross_activity);
-    jmethodID methodID = env->GetMethodID(clazz, methodName.c_str(), "(Ljava/lang/String;)V");
-    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(parameter.c_str()));
+    jmethodID methodID = env->GetMethodID(clazz, methodName, "(Ljava/lang/String;)V");
+    env->CallVoidMethod(cross_activity, methodID, env->NewStringUTF(parameter));
 }
 
 void AndroidSystem::DetachFromJVM() {

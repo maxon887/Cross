@@ -18,18 +18,13 @@
 #include "File.h"
 #include "Config.h"
 
-#include <fstream>
+#include "shlwapi.h"
 
 #define DATA_PATH "Data/"
 
+#pragma comment(lib, "Shlwapi.lib")
+
 using namespace cross;
-
-bool DirectoryExists(const char* szPath) {
-  DWORD dwAttrib = GetFileAttributesA(szPath);
-
-  return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
-		 (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
-}
 
 void IntSleep(int milis) {
 	Sleep(milis);
@@ -39,20 +34,17 @@ WINSystem::WINSystem(HWND wnd) :
 	wnd(wnd)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
-	if(!DirectoryExists(DATA_PATH)){
-		CreateDirectoryA(DATA_PATH, NULL);
-	}
 	char* releaseAsset = "Assets/";
 	char* debugAsset = "../../../Assets/";
 	char* debugAssetAlt = "../../Assets/";
 	char* editorAsset = "../Demo/Assets/";
-	if(DirectoryExists(releaseAsset)){
+	if(IsDirectoryExists(releaseAsset)) {
 		assets_path = releaseAsset;
-	} else if(DirectoryExists(debugAsset)){
+	} else if(IsDirectoryExists(debugAsset)) {
 		assets_path = debugAsset;
-	} else if(DirectoryExists(debugAssetAlt)){
+	} else if(IsDirectoryExists(debugAssetAlt)) {
 		assets_path = debugAssetAlt;
-	} else if(DirectoryExists(editorAsset)){
+	} else if(IsDirectoryExists(editorAsset)) {
 		assets_path = editorAsset;
 	} else {
 		CROSS_ASSERT(false, "Can't find Assets folder");
@@ -64,11 +56,11 @@ void WINSystem::Log(const char* msg) {
 	OutputDebugStringA("\n");
 }
 
-string WINSystem::AssetsPath() {
+String WINSystem::AssetsPath() {
 	return assets_path;
 }
 
-string WINSystem::DataPath() {
+String WINSystem::DataPath() {
 	return DATA_PATH;
 }
 
@@ -82,32 +74,128 @@ U64 WINSystem::GetTime() {
 
 float WINSystem::GetScreenDPI() {
 	SetProcessDPIAware(); //true
-	HDC screen = GetDC(NULL);
+	HDC screen = GetDC(nullptr);
 	double hPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSX);
 	double vPixelsPerInch = GetDeviceCaps(screen, LOGPIXELSY);
-	ReleaseDC(NULL, screen);
+	ReleaseDC(nullptr, screen);
 	return (float)(hPixelsPerInch + vPixelsPerInch) * 0.5f;
 }
 
-string WINSystem::GetClipboard() {
-	CROSS_RETURN(OpenClipboard(NULL), "", "Can not open clipboard data");
+String WINSystem::GetClipboard() {
+	CROSS_RETURN(OpenClipboard(nullptr), "", "Can not open clipboard data");
 	HANDLE hData = GetClipboardData(CF_TEXT);
-	CROSS_RETURN(hData, "", "Clipboard data == null");
+	CROSS_RETURN(hData, "", "Clipboard data == nullptr");
 	char* text = static_cast<char*>(GlobalLock(hData));
-	CROSS_RETURN(text, "", "Text pointer == null");
+	CROSS_RETURN(text, "", "Text pointer == nullptr");
 	clipboard = text;
 	GlobalUnlock(hData);
 	CloseClipboard();
 	return clipboard;
 }
 
-void WINSystem::Messagebox(const string& title, const string& msg) {
+bool WINSystem::Alert(const String& msg) {
 	if(wnd) {
-		MessageBoxA(wnd, msg.c_str(), title.c_str(), MB_OK | MB_ICONEXCLAMATION);
+		auto msgBoxResult = MessageBoxA(wnd, msg.ToCStr(), "Something goes wrong", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION);
+		switch(msgBoxResult) {
+		case IDIGNORE:
+			return true;
+		case IDABORT:
+			*((unsigned int*)0) = 0xDEAD;
+		default:
+			return false;
+		}
 	} else {
-		LogIt("HWND == null");
+		LogIt("HWND == nullptr");
+		System::Messagebox("Something goes wrong", msg);
+	}
+	return false;
+}
+
+void WINSystem::Messagebox(const String& title, const String& msg) {
+	if(wnd) {
+		MessageBoxA(wnd, msg.ToCStr(), title.ToCStr(), MB_OK | MB_ICONEXCLAMATION);
+	} else {
+		LogIt("HWND == nullptr");
 		System::Messagebox(title, msg);
 	}
+}
+
+bool WINSystem::IsDirectoryExists(const String& filepath) {
+	DWORD dwAttrib = GetFileAttributes(filepath);
+
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
+		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+void WINSystem::CreateDirectory(const String& dirpath) {
+	CROSS_ASSERT(CreateDirectoryA(dirpath, nullptr), "Can not create directory");
+}
+
+void WINSystem::Delete(const String& path) {
+	if(IsDirectoryExists(path)) {
+		Array<String> files = GetFilesInDirectory(path + "/");
+		for(String& file : files) {
+			String filename = path + "/" + file;
+			if(!DeleteFile(path)) {
+				DWORD err = GetLastError();
+				String errorMessage = GetLastErrorString(err);
+				CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
+			}
+		}
+
+		Array<String> folders = GetSubDirectories(path + "/");
+		for(String& folder : folders) {
+			Delete(folder);
+		}
+
+		RemoveDirectory(path.ToCStr());
+	} else {//if it is not directory means that is file
+		if(!DeleteFile(path)) {
+			DWORD err = GetLastError();
+			String errorMessage = GetLastErrorString(err);
+			CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
+		}
+	}
+}
+
+Array<String> WINSystem::GetSubDirectories(const String& filepath) {
+	Array<String> result;
+
+	HANDLE file = nullptr;
+	WIN32_FIND_DATA data;
+	file = FindFirstFile(filepath + "*", &data);
+	if(file != INVALID_HANDLE_VALUE) {
+		do {
+			String filename = data.cFileName;
+			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY
+				&& filename != "." && filename != "..") {
+				result.Add(data.cFileName);
+			}
+		} while(FindNextFile(file, &data));
+		FindClose(file);
+	}
+
+	return result;
+}
+
+Array<String> WINSystem::GetFilesInDirectory(const String& directory) {
+	Array<String> result;
+
+	HANDLE file = nullptr;
+	WIN32_FIND_DATA data;
+	file = FindFirstFile(directory + "*", &data);
+	if(file != INVALID_HANDLE_VALUE) {
+		do {
+			String filename = data.cFileName;
+			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
+				&& filename != "." && filename != "..") {
+				result.Add(data.cFileName);
+			}
+		} while(FindNextFile(file, &data));
+		FindClose(file);
+	}
+
+	return result;
 }
 
 void WINSystem::Sleep(float milis) {
@@ -115,10 +203,61 @@ void WINSystem::Sleep(float milis) {
 }
 
 bool WINSystem::IsMobile() {
-	return config->GetBool("EMULATE_MOBILE", false);
+	//return config->GetBool("EMULATE_MOBILE", false);
+	return false;
 }
 
-void WINSystem::SetAssetPath(const string& path){
+void WINSystem::OpenFileExternal(const String& filename) {
+	char charFilenameName[MAX_PATH + 1];
+	GetCurrentDirectoryA(MAX_PATH + 1, charFilenameName);
+	String fullpath = String(charFilenameName) + "\\" + AssetsPath() + filename;
+	S32 result = (S32)ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
+	if(result < 32) {
+		LPSTR messageBuffer = nullptr;
+		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+		CROSS_ASSERT(false, String("Can not open file with external editor\nerror:") + messageBuffer);
+	}
+}
+
+String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDialog /* = false */) {
+	char charFilename[512];
+	OPENFILENAME ofn;
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = charFilename;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = sizeof(charFilename);
+	char fileFilter[512];
+	memset(fileFilter, 0, 512);
+	strcpy(fileFilter, extension.ToCStr());
+	memcpy(fileFilter + strlen(fileFilter) + 1, extension.ToCStr(), extension.Length() + 1);
+	ofn.lpstrFilter = fileFilter;
+	//ofn.lpstrFilter = "File Type\0*.*\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+
+	String initPath = os->AssetsPath();
+	initPath.Replace("/", "\\");
+	ofn.lpstrInitialDir = initPath;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+	if(saveDialog) {
+		GetSaveFileName(&ofn);
+		return charFilename;
+	} else {
+		GetOpenFileName(&ofn);
+	}
+	String filepath = charFilename;
+	if(filepath == "") {
+		return filepath;
+	}
+
+	return FromAbsoluteToAssetPath(filepath);
+}
+
+void WINSystem::SetAssetPath(const String& path) {
 	assets_path = path;
 }
 
@@ -196,11 +335,42 @@ void WINSystem::KeyReleasedHandle(Key key) {
 	}
 }
 
+String WINSystem::FromAbsoluteToAssetPath(const String& absolutePath) {
+	char currentDir[512];
+	GetCurrentDirectory(511, currentDir);
+
+	char pathToAssets[512];
+	String winAssetsPath = AssetsPath();
+		winAssetsPath.Replace("/", "\\");
+	PathCombine(pathToAssets, currentDir, winAssetsPath);
+
+	char relativePath[512];
+	PathRelativePathTo(relativePath, pathToAssets, FILE_ATTRIBUTE_DIRECTORY, absolutePath, FILE_ATTRIBUTE_NORMAL);
+
+	String result = relativePath;
+	result.Replace("\\", "/");
+	result.Remove("./");
+	return result;
+}
+
+String WINSystem::GetLastErrorString(DWORD err) {
+	LPSTR messageBuffer = nullptr;
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+	std::string message(messageBuffer, size);
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return message.c_str();
+}
+
 bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate) {
 	DEVMODE fullscreenSettings;
 	bool isChangeSuccessful;
 
-	EnumDisplaySettings(NULL, 0, &fullscreenSettings);
+	EnumDisplaySettings(nullptr, 0, &fullscreenSettings);
 	fullscreenSettings.dmPelsWidth = fullscreenWidth;
 	fullscreenSettings.dmPelsHeight = fullscreenHeight;
 	fullscreenSettings.dmBitsPerPel = colourBits;
@@ -221,7 +391,7 @@ bool WINSystem::ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowed
 
 	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_LEFT);
 	SetWindowLongPtr(hwnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
-	isChangeSuccessful = ChangeDisplaySettings(NULL, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
+	isChangeSuccessful = ChangeDisplaySettings(nullptr, CDS_RESET) == DISP_CHANGE_SUCCESSFUL;
 	SetWindowPos(hwnd, HWND_NOTOPMOST, windowX, windowY, windowedWidth + windowedPaddingX, windowedHeight + windowedPaddingY, SWP_SHOWWINDOW);
 	ShowWindow(hwnd, SW_RESTORE);
 

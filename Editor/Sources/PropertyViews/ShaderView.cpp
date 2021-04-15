@@ -4,25 +4,25 @@
 #include "Shaders/Shader.h"
 #include "Game.h"
 #include "Scene.h"
+#include "FileHandler.h"
 
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QLineEdit>
 #include <QLabel>
 #include <QComboBox>
 #include <QFileDialog>
+#include <QDragEnterEvent>
+#include <QMimeData>
 
 using namespace cross;
 
 void ShaderView::Initialize(){
-	vertex_file = findChild<QLineEdit*>("vertexFile");
-	connect(vertex_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
-	QPushButton* loadVertexFileBtn = findChild<QPushButton*>("vertexBtn");
-	connect(loadVertexFileBtn, &QPushButton::clicked, this, &ShaderView::OnVertexFileClicked);
-	fragment_file = findChild<QLineEdit*>("fragmentFile");
-	connect(fragment_file, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
-	QPushButton* loadFragmentFileBtn = findChild<QPushButton*>("fragmentBtn");
-	connect(loadFragmentFileBtn, &QPushButton::clicked, this, &ShaderView::OnFragmentFileClicked);
+	vertex_handler = findChild<FileHandler*>("vertex_file");
+	vertex_handler->SetFileExtension("vtx");
+	connect(vertex_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
+	fragment_handler = findChild<FileHandler*>("fragment_file");
+	fragment_handler->SetFileExtension("fgm");
+	connect(fragment_handler, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 
 	macrosies_box = findChild<QGroupBox*>("macrosies");
 	QPushButton* addMacroBtn = macrosies_box->findChild<QPushButton*>("addMacroBtn");
@@ -31,12 +31,14 @@ void ShaderView::Initialize(){
 	QPushButton* addPropertyBtn = properties_box->findChild<QPushButton*>("addPropertyBtn");
 	connect(addPropertyBtn, &QPushButton::clicked, this, &ShaderView::OnAddPropertyClicked);
 
-	apply_btn = findChild<QPushButton*>("applyBtn");
+	apply_btn = findChild<QPushButton*>("apply_button");
 	apply_btn->setDisabled(true);
 	connect(apply_btn, &QPushButton::clicked, this, &ShaderView::OnApplyClick);
-	revert_btn = findChild<QPushButton*>("revertBtn");
+	revert_btn = findChild<QPushButton*>("revert_button");
 	revert_btn->setDisabled(true);
 	connect(revert_btn, &QPushButton::clicked, this, &ShaderView::OnRevertClick);
+
+	setAcceptDrops(true);
 }
 
 void ShaderView::Clear(){
@@ -53,46 +55,26 @@ void ShaderView::Clear(){
 	} while(propertyLayout);
 }
 
-void ShaderView::OnVertexFileClicked() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Vertex File", path, "Vertex File (*.vtx)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		vertex_file->setText(filepath);
-	}
-}
-
-void ShaderView::OnFragmentFileClicked() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
-	QString filePath = QFileDialog::getOpenFileName(this, "Select Fragment File", path, "Fragment File (*.fgm)");
-	if(!filePath.isEmpty()) {
-		QDir root = path;
-		QString filepath = root.relativeFilePath(filePath);
-		fragment_file->setText(filepath);
-	}
-}
-
-void ShaderView::OnFileSelected(const string& filepath){
+void ShaderView::OnFileSelected(const String& filepath){
 	if(File::ExtensionFromFile(filepath) != "sha") {
 		PropertyView::OnFileSelected(filepath);
 		return;
 	}
 	Clear();
 
-	string filename = File::FileFromPath(File::FileWithoutExtension(filepath));
-	setTitle(QString("Shader: ") + filename.c_str());
+	String filename = File::FileFromPath(File::FileWithoutExtension(filepath));
+	setTitle(QString("Shader: ") + filename.ToCStr());
 
 	delete shader;
 	shader = new Shader();
 	shader->Load(filepath);
-	vertex_file->setText(shader->GetVertexFilename().c_str());
-	fragment_file->setText(shader->GetFragmentFilename().c_str());
+	vertex_handler->SetFile(shader->GetVertexFilename().ToCStr());
+	fragment_handler->SetFile(shader->GetFragmentFilename().ToCStr());
 
-	for(string macro : shader->GetMacrosies()){
+	for(String macro : shader->GetMacrosies()){
 		QWidget* macroLayout = OnAddMacroClicked();
 		QLineEdit* macroText = macroLayout->findChild<QLineEdit*>("macroText");
-		macroText->setText(macro.c_str());
+		macroText->setText(macro.ToCStr());
 	}
 
 	for(const Shader::Property& prop : shader->GetProperties()){
@@ -100,8 +82,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 		QLineEdit* propertyName = propLayout->findChild<QLineEdit*>("propertyName");
 		QLineEdit* propertyGLName = propLayout->findChild<QLineEdit*>("propertyGLName");
 		QComboBox* propertyType = propLayout->findChild<QComboBox*>("propertyType");
-		propertyName->setText(prop.GetName().c_str());
-		propertyGLName->setText(prop.GetGLName().c_str());
+		propertyName->setText(prop.GetName().ToCStr());
+		propertyGLName->setText(prop.GetGLName().ToCStr());
 		switch(prop.GetType()) {
 		case Shader::Property::Type::INT:
 			propertyType->setCurrentIndex(0);
@@ -127,8 +109,8 @@ void ShaderView::OnFileSelected(const string& filepath){
 }
 
 void ShaderView::showEvent(QShowEvent* event) {
-	QLabel* vertexLabel = findChild<QLabel*>("vertexLabel");
-	QLabel* fragmentLabel = findChild<QLabel*>("fragmentLabel");
+	QLabel* vertexLabel = findChild<QLabel*>("vertex_label");
+	QLabel* fragmentLabel = findChild<QLabel*>("fragment_label");
 	vertexLabel->setMinimumWidth(fragmentLabel->size().width());
 }
 
@@ -143,8 +125,8 @@ QWidget* ShaderView::OnAddMacroClicked(){
 	connect(macroText, &QLineEdit::textChanged, this, &ShaderView::OnSomethingChanged);
 	QPushButton* removeBtn = new QPushButton(macroLayoutWidget);
 	removeBtn->setText("remove");
-	removeBtn->setFixedWidth(100);
-	removeBtn->setFixedHeight(31);
+	removeBtn->setFixedWidth(75);
+	removeBtn->setFixedHeight(23);
 	connect(removeBtn, &QPushButton::clicked, this, &ShaderView::OnRemoveClicked);
 	macroLayout->addWidget(macroText);
 	macroLayout->addWidget(removeBtn);
@@ -164,7 +146,7 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 	QWidget* propertyLayoutWidget = new QWidget(properties_box);
 	propertyLayoutWidget->setObjectName("propertyLayout");
 	QHBoxLayout* propertyLayout = new QHBoxLayout(propertyLayoutWidget);
-	propertyLayout->setSpacing(12);
+	propertyLayout->setSpacing(6);
 	propertyLayout->setMargin(0);
 	QLabel* propertyNameLabel = new QLabel(propertyLayoutWidget);
 	propertyNameLabel->setText("Name:");
@@ -194,8 +176,8 @@ QWidget* ShaderView::OnAddPropertyClicked(){
 
 	QPushButton* removeBtn = new QPushButton(propertyLayoutWidget);
 	removeBtn->setText("remove");
-	removeBtn->setFixedWidth(100);
-	removeBtn->setFixedHeight(31);
+	removeBtn->setFixedWidth(50);
+	removeBtn->setFixedHeight(23);
 	connect(removeBtn, &QPushButton::clicked, this, &ShaderView::OnRemoveClicked);
 	propertyLayout->addWidget(removeBtn);
 
@@ -225,14 +207,14 @@ void ShaderView::OnSomethingChanged(){
 }
 
 void ShaderView::OnApplyClick(){
-	shader->SetVertexFilename(vertex_file->text().toStdString());
-	shader->SetFragmentFilename(fragment_file->text().toStdString());
+	shader->SetVertexFilename(vertex_handler->GetFile().toLatin1().data());
+	shader->SetFragmentFilename(fragment_handler->GetFile().toLatin1().data());
 
 	shader->ClearMacrosies();
 	QList<QWidget*> macrosies = macrosies_box->findChildren<QWidget*>("macroLayout");
 	for(QWidget* macroL : macrosies){
 		QLineEdit* macroEdit = macroL->findChild<QLineEdit*>("macroText");
-		shader->AddMacro(macroEdit->text().toStdString());
+		shader->AddMacro(macroEdit->text().toLatin1().data());
 	}
 
 	shader->ClearProperties();
@@ -241,8 +223,8 @@ void ShaderView::OnApplyClick(){
 		QLineEdit* propertyName = propertyL->findChild<QLineEdit*>("propertyName");
 		QLineEdit* propertyGLName = propertyL->findChild<QLineEdit*>("propertyGLName");
 		QComboBox* propertyType = propertyL->findChild<QComboBox*>("propertyType");
-		string name = propertyName->text().toStdString();
-		string glName = propertyGLName->text().toStdString();
+		String name = propertyName->text().toLatin1().data();
+		String glName = propertyGLName->text().toLatin1().data();
 		switch(propertyType->currentIndex()) {
 		case 0://Int 
 			shader->AddProperty(name, glName, Shader::Property::INT);
@@ -263,9 +245,10 @@ void ShaderView::OnApplyClick(){
 
 	shader->Save(system->AssetsPath() + shader->GetFilename());
 	OnRevertClick();
+	game->GetCurrentScene()->ResetShaders();
 	game->GetCurrentScene()->ResetMaterials();
 }
 
 void ShaderView::OnRevertClick(){
-	OnFileSelected(string(shader->GetFilename()));
+	OnFileSelected(shader->GetFilename());
 }

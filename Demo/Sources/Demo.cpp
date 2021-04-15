@@ -15,14 +15,17 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
-#include "MainScreen.h"
+#include "Screen.h"
 #include "System.h"
 #include "Config.h"
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
+#include "UI/LaunchView.h"
 #include "Utils/Debugger.h"
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"
+#elif ANDROID
+#	include "Platform/Android/AndroidSystem.h"
 #endif
 
 #if defined(USE_FREETYPE) && defined(WIN)
@@ -36,16 +39,32 @@
 
 #define DEFAULT_FONT_SIZE 13.f
 
-Demo* demo = NULL;
+using namespace cross;
+
+Demo* demo = nullptr;
+
+String Demo::GetCompactSize(U64 bytes) {
+	if(bytes < 10 * 1024) {
+		return String(bytes) + " b";
+	} else if(bytes < 10 * 1024 * 1024) {
+		return String(bytes / 1024.f, "%.2f", 40) + " kb";
+	} else {
+		return String(bytes / (1024.f * 1024.f), "%.2f", 40) + " mb";
+	}
+}
 
 const char* Demo::GetClipboardString(void* userData) {
-	demo->clipboard = system->GetClipboard();
-	return demo->clipboard.c_str();
+	demo->clipboard = os->GetClipboard();
+	return demo->clipboard;
+}
+
+Game* CrossMain() {
+    return new Demo();
 }
 
 void Demo::Start() {
 	Game::Start();
-	system->LogIt("Demo::Start()");
+	os->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
 	input->ActionDown.Connect(this, &Demo::ActionDownHandle);
@@ -54,8 +73,9 @@ void Demo::Start() {
 	input->KeyPressed.Connect(this, &Demo::KeyPressed);
 	input->KeyReleased.Connect(this, &Demo::KeyReleased);
 	input->CharEnter.Connect(this, &Demo::CharEnter);
-	input->MouseWheelRoll.Connect(this, &Demo::WheelRoll);
+	input->Scroll.Connect(this, &Demo::WheelRoll);
 
+	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
 	io.KeyMap[ImGuiKey_Tab] = (int)Key::TAB;
@@ -68,7 +88,7 @@ void Demo::Start() {
 	io.KeyMap[ImGuiKey_Home] = (int)Key::HOME;
 	io.KeyMap[ImGuiKey_End] = (int)Key::END;
 	io.KeyMap[ImGuiKey_Delete] = (int)Key::DEL;
-	io.KeyMap[ImGuiKey_Backspace] = (int)Key::BACK;
+	io.KeyMap[ImGuiKey_Backspace] = (int)Key::BACKSPACE;
 	io.KeyMap[ImGuiKey_Escape] = (int)Key::ESCAPE;
 	io.KeyMap[ImGuiKey_A] = (int)Key::A;
 	io.KeyMap[ImGuiKey_C] = (int)Key::C;
@@ -77,43 +97,44 @@ void Demo::Start() {
 	io.KeyMap[ImGuiKey_Y] = (int)Key::Y;
 	io.KeyMap[ImGuiKey_Z] = (int)Key::Z;
 
-	//io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
 	io.GetClipboardTextFn = GetClipboardString;
-	//io.ClipboardUserData = g_Window;
+
 #ifdef _WIN32
-	WINSystem* winSys = (WINSystem*)system;
-	io.ImeWindowHandle = winSys->GetHWND();
+	WINSystem* winSys = (WINSystem*)os;
 #endif
 
-	CreateDeviceObjects();
+    CreateUIShaders();
 	CreateFontsTexture();
-
 
 	ImGui::LoadStyle();
 
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGuiStyle& style = ImGui::GetStyle();
-		style.WindowRounding = 5 * system->GetScreenScale();
-		style.ScrollbarSize = 20 * system->GetScreenScale();
-		style.ScrollbarRounding = 5 * system->GetScreenScale();
-		style.ItemSpacing.x = 5 * system->GetScreenScale();
-		style.ItemSpacing.y = 5 * system->GetScreenScale();
-		style.WindowPadding.x = 5 * system->GetScreenScale();
-		style.WindowPadding.y = 5 * system->GetScreenScale();
-		style.FramePadding.x = 5 * system->GetScreenScale();
-		style.FramePadding.y = 5 * system->GetScreenScale();
-		style.IndentSpacing = 25 * system->GetScreenScale();
-		style.GrabRounding = 5 * system->GetScreenScale();
-		style.GrabMinSize = 20 * system->GetScreenScale();
+		style.WindowRounding = 5 * os->GetScreenScale();
+		style.ScrollbarSize = 20 * os->GetScreenScale();
+		style.ScrollbarRounding = 5 * os->GetScreenScale();
+		style.ItemSpacing.x = 5 * os->GetScreenScale();
+		style.ItemSpacing.y = 5 * os->GetScreenScale();
+		style.WindowPadding.x = 5 * os->GetScreenScale();
+		style.WindowPadding.y = 5 * os->GetScreenScale();
+		style.FramePadding.x = 5 * os->GetScreenScale();
+		style.FramePadding.y = 5 * os->GetScreenScale();
+		style.IndentSpacing = 25 * os->GetScreenScale();
+		style.GrabRounding = 5 * os->GetScreenScale();
+		style.GrabMinSize = 20 * os->GetScreenScale();
 	}
 
 	menu = new MenuBar();
+	launch_view = new LaunchView();
 
-	SetScreen(new MainScreen());
+	ToMain();
 }
 
 void Demo::Stop() {
-	system->LogIt("Demo::Stop()");
+	os->LogIt("Demo::Stop()");
+	delete launch_view;
 	delete menu;
 	SAFE(glDeleteBuffers(1, &vertex_buffer));
 	SAFE(glDeleteBuffers(1, &index_buffer));
@@ -125,8 +146,8 @@ void Demo::Stop() {
 void Demo::PreUpdate(float sec) {
 	ImGuiIO& io = ImGui::GetIO();
 	// Setup display size (every frame to accommodate for window resizing)
-	int windowWidth = system->GetWindowWidth();
-	int windowHeight = system->GetWindowHeight();
+	int windowWidth = os->GetWindowWidth();
+	int windowHeight = os->GetWindowHeight();
 	io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);
 	io.DisplayFramebufferScale = ImVec2(1.f, 1.f);
 	io.DeltaTime = sec;
@@ -134,7 +155,7 @@ void Demo::PreUpdate(float sec) {
 #if defined(WIN)
 	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
 #else
-	io.MousePos = ImVec2(action_pos.x, system->GetWindowHeight() - action_pos.y);
+	io.MousePos = ImVec2(action_pos.x, os->GetWindowHeight() - action_pos.y);
 #endif
 	for(U32 i = 0; i < 5; i++) {
 		io.MouseDown[i] = actions[i];
@@ -145,6 +166,7 @@ void Demo::PreUpdate(float sec) {
 
 	// Start the frame
 	ImGui::NewFrame();
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 }
 
 void Demo::Update(float sec) {
@@ -152,17 +174,35 @@ void Demo::Update(float sec) {
 
 	menu->Update(sec);
 	menu->ShowMenu();
+	launch_view->Run(sec);
 
 	ImGui::Render();
 	ImDrawData* drawData = ImGui::GetDrawData();
 	RenderUI(drawData);
 }
 
+void Demo::SetScreen(Screen* screen) {
+	launch_view->Hide();
+	Game::SetScreen(screen);
+}
+
+void Demo::ToMain() {
+	Screen* mainScreen = new Screen();
+	mainScreen->SetName("Main");
+	mainScreen->SetBackground(Color(0.3f));
+	SetScreen(mainScreen);
+	launch_view->Show();
+}
+
+LaunchView* Demo::GetLaunchView() {
+	return launch_view;
+}
+
 MenuBar* Demo::GetMenuBar() {
 	return menu;
 }
 
-bool Demo::CreateDeviceObjects() {
+bool Demo::CreateUIShaders() {
 	ui_shader = new Shader();
 	ui_shader->Load("Engine/Shaders/UI.sha");
 	ui_shader->Compile();
@@ -188,27 +228,23 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->Clear();
 
 	ImFontConfig fontConfig;
-	float fontScale = (float)(int)(system->GetScreenScale() + 0.5f);
+	float fontScale = (float)(int)(os->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
-	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
-	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
-	strcat(fontConfig.Name, "px");
+	String fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
+	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	small_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 1.5f;
-	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
-	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
-	strcat(fontConfig.Name, "px");
+	fontName.Clear();
+	fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
+	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	normal_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale * 2.f;
-	memset(fontConfig.Name, 0, sizeof(fontConfig.Name));
-	strcat(fontConfig.Name, "ProggyClean.ttf, ");
-	strcat(fontConfig.Name, to_string((int)fontConfig.SizePixels).c_str());
-	strcat(fontConfig.Name, "px");
+	fontName.Clear();
+	fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
+	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
 	big_font = io.Fonts->AddFontDefault(&fontConfig);
 
 	unsigned char* pixels;
@@ -218,7 +254,7 @@ bool Demo::CreateFontsTexture() {
 #endif
 	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-	system->LogIt("Creating font texture(%dx%d)", width, height);
+	os->LogIt("Creating font texture(#x#)", width, height);
 	font_texture = new Texture();
 	font_texture->Create(pixels, 4, width, height,
 		Texture::Filter::LINEAR,
@@ -228,7 +264,6 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->TexID = (void *)(intptr_t)font_texture->GetID();
 	return true;
 }
-
 
 void Demo::RenderUI(ImDrawData* draw_data) {
 	// Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
@@ -247,9 +282,9 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	SAFE(glDisable(GL_CULL_FACE));
 	SAFE(glDisable(GL_DEPTH_TEST));
 	SAFE(glEnable(GL_SCISSOR_TEST));
-	
+
 	ui_shader->Use();
-	
+
 	Matrix projection = Matrix::CreateOrthogonalProjection(0, io.DisplaySize.x, io.DisplaySize.y, 0, 1, -1);
 	SAFE(glUniformMatrix4fv(ui_shader->uMVP, 1, GL_FALSE, projection.GetTransposed().GetData()));
 
@@ -292,8 +327,8 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 	static GLsizei scissorBox[4];
 	scissorBox[0] = 0;
 	scissorBox[1] = 0;
-	scissorBox[2] = system->GetWindowWidth();
-	scissorBox[3] = system->GetWindowHeight();
+	scissorBox[2] = os->GetWindowWidth();
+	scissorBox[3] = os->GetWindowHeight();
 	SAFE(glScissor(scissorBox[0], scissorBox[1], scissorBox[2], scissorBox[3]));
 }
 
@@ -323,10 +358,6 @@ void Demo::KeyPressed(Key key) {
 	if(key == Key::ALT) {
 		io.KeyAlt = true;
 	}
-
-	if(key == Key::ESCAPE || key == Key::BACK) {
-		SetScreen(new MainScreen());
-	}
 }
 
 void Demo::KeyReleased(Key key) {
@@ -349,5 +380,5 @@ void Demo::CharEnter(char c) {
 }
 
 void Demo::WheelRoll(float delta) {
-	mouse_wheel += delta / 120.f;	// Use fractional mouse wheel, 1.0 unit 5 lines.
+	mouse_wheel += delta;
 }

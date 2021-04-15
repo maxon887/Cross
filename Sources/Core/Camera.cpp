@@ -24,27 +24,18 @@
 using namespace cross;
 using namespace tinyxml2;
 
+Camera::Camera() : Component("Camera")
+{ }
+
+void Camera::Initialize(Scene* scene) {
+	CROSS_ASSERT(!scene->GetCamera(), false, "Loading Scene already have another camera");
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
+	SetProjectionMatrix(projection);
+	scene->SetCamera(this);
+}
+
 void Camera::Update(float sec){
 	RecalcView();
-}
-
-bool Camera::Load(XMLElement* xml, Scene* loadingScene) {
-	CROSS_RETURN(!loadingScene->GetCamera(), false, "Loading Scene already have another camera");
-
-	view_distance = (float)xml->DoubleAttribute("distance", 120.f);
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, view_distance);
-	SetProjectionMatrix(projection);
-
-	loadingScene->SetCamera(this);
-
-	return true;
-}
-
-bool Camera::Save(XMLElement* xml, XMLDocument* doc) {
-	XMLElement* cameraXML = doc->NewElement("Camera");
-	cameraXML->SetAttribute("distance", view_distance);
-	xml->LinkEndChild(cameraXML);
-	return true;
 }
 
 Component* Camera::Clone() const {

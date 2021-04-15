@@ -27,15 +27,6 @@
 
 #define PI (3.141592653589793f)
 
-#if defined(ANDROID)
-inline std::string to_stringAndroid(int i) {
-	char buff[1024];
-	sprintf(buff, "%i", i);
-	return std::string(buff);
-}
-#define  to_string to_stringAndroid
-#endif
-
 namespace cross {
 
 int Random(int max);

@@ -21,7 +21,7 @@ namespace cross{
 class Vector3D;
 class Matrix;
 
-class Quaternion{
+class Quaternion {
 public:
 	static const Quaternion Identity;
 
@@ -50,7 +50,6 @@ public:
 	Quaternion operator * (float value) const;
 	Quaternion operator / (float value) const;
 
-private:
 	float x;
 	float y;
 	float z;

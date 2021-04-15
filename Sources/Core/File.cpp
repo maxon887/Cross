@@ -19,31 +19,38 @@
 
 using namespace cross;
 
-string File::PathFromFile(const string& filePath) {
-	const size_t last_slash_idx = filePath.rfind('/');
-	CROSS_RETURN(std::string::npos != last_slash_idx, "", "Wrong path format");
-	return filePath.substr(0, last_slash_idx);
+String File::PathFromFile(const String& filename) {
+	S32 lastSlash = filename.FindLast('/');
+	if(lastSlash == -1) {
+		lastSlash = filename.FindLast('\\');
+	}
+	CROSS_RETURN(lastSlash != -1, "", "Wrong path format");
+	return filename.SubString(0, lastSlash + 1);
 }
 
-string File::FileFromPath(const string& filename) {
-	const size_t last_slash_idx = filename.rfind('/');
-	if(std::string::npos != last_slash_idx) {
-		return filename.substr(last_slash_idx + 1, filename.size());
+String File::FileFromPath(const String& filename) {
+	S32 lastSlash = filename.FindLast('/');
+	if(lastSlash != -1) {
+		return filename.SubString(lastSlash + 1, filename.Length());
 	} else {
 		return filename;
 	}
 }
 
-string File::ExtensionFromFile(const string& file) {
-	return file.substr(file.find_last_of(".") + 1);
+String File::ExtensionFromFile(const String& filename) {
+	S32 lastDot = filename.FindLast('.');
+	if(lastDot != -1) {
+		return filename.SubString(lastDot + 1, filename.Length());
+	} else {
+		return "";
+	}
 }
 
-string File::FileWithoutExtension(const string& file) {
-	size_t lastindex = file.find_last_of(".");
-	return file.substr(0, lastindex);
+String File::FileWithoutExtension(const String& filename) {
+	return filename.SubString(0, filename.FindLast('.'));
 }
 
-File::~File(){
+File::~File() {
 	if(data){
 		delete[] data;
 	}

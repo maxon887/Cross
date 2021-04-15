@@ -19,9 +19,6 @@
     <Filter Include="Cross\Shaders">
       <UniqueIdentifier>{0339447c-d355-47b0-9d8b-a80353255f60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Graphics3D">
-      <UniqueIdentifier>{e2bb383f-7353-4c96-b961-b48bbccd78f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Experimental">
       <UniqueIdentifier>{090a0712-4ab6-4414-bd48-905c77498348}</UniqueIdentifier>
     </Filter>
@@ -34,20 +31,8 @@
     <Filter Include="Cross\Libs\TinyXML">
       <UniqueIdentifier>{143e55bb-db46-48b5-9f3e-51e7afb79a53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Graphics3D\Simple">
-      <UniqueIdentifier>{14bce2b9-46d5-4233-8bac-3494903e2f45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Demo\Graphics3D\Light">
-      <UniqueIdentifier>{88cb8396-bda3-4c0f-9852-078ed0f9239d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Math">
       <UniqueIdentifier>{c29fcd9b-dc4f-4506-bc92-e686220f618c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Demo\Graphics3D\Misc">
-      <UniqueIdentifier>{ac3cc46f-ab38-46b7-9e41-24a82b837ed0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Demo\Graphics3D\Maps">
-      <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cross\Internals">
       <UniqueIdentifier>{d6564650-e2ab-4b0f-9882-cac798a8120e}</UniqueIdentifier>
@@ -64,74 +49,28 @@
     <Filter Include="Demo\UI">
       <UniqueIdentifier>{7b5e3d86-4372-4fae-91e9-1569b1429ee9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\Physics">
-      <UniqueIdentifier>{e7eca6f7-d46c-4777-bca4-f1861c846474}</UniqueIdentifier>
+    <Filter Include="Demo\Scenes">
+      <UniqueIdentifier>{e2bb383f-7353-4c96-b961-b48bbccd78f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Demo\Physics">
-      <UniqueIdentifier>{23dd8e9c-ce12-45ab-a486-58dff1106c6c}</UniqueIdentifier>
+    <Filter Include="Demo\Scenes\Simple">
+      <UniqueIdentifier>{14bce2b9-46d5-4233-8bac-3494903e2f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Scenes\Light">
+      <UniqueIdentifier>{88cb8396-bda3-4c0f-9852-078ed0f9239d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Scenes\Misc">
+      <UniqueIdentifier>{ac3cc46f-ab38-46b7-9e41-24a82b837ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Scenes\Maps">
+      <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\MainScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\AudioScreen.cpp">
       <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\MaterialScene.cpp">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.cpp">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\SpecularScene.cpp">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.cpp">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NormalScene.cpp">
-      <Filter>Demo\Graphics3D\Maps</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp">
       <Filter>Cross\Core</Filter>
@@ -259,17 +198,11 @@
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UIScreen.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Model.cpp">
       <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Graphics3D\DemoScene.cpp">
-      <Filter>Demo\Graphics3D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Transform.cpp">
       <Filter>Cross\Core</Filter>
@@ -286,13 +219,7 @@
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\TransformView.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\UI\View.cpp">
@@ -316,92 +243,113 @@
     <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="..\..\Sources\UI\Log.cpp">
+      <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="..\..\..\Sources\Experimental\String.cpp">
+      <Filter>Cross\Experimental</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="..\..\Sources\UI\FilesView.cpp">
+      <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp">
-      <Filter>Cross\Physics</Filter>
+    <ClCompile Include="..\..\Sources\UI\SceneView.cpp">
+      <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp">
-      <Filter>Demo\Physics</Filter>
+    <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp">
+      <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp">
-      <Filter>Demo\Physics</Filter>
+    <ClCompile Include="..\..\..\Sources\Core\Property.cpp">
+      <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp">
-      <Filter>Demo\Physics</Filter>
+    <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Physics\Suppressors.cpp">
-      <Filter>Demo\Physics</Filter>
+    <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp">
+      <Filter>Demo\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp">
+      <Filter>Demo\Scenes\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Maps\DiffuseScene.cpp">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Maps\NakedScene.cpp">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Maps\NormalScene.cpp">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Maps\RoughnessScene.cpp">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Maps\SpecularScene.cpp">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Light\MultiLightScene.cpp">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Light\PointLightScene.cpp">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Light\SpotLightScene.cpp">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ImGuiScreen.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\LaunchView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\StringTest.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ArrayTest.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp">
+      <Filter>Demo\ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\FileUtils.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp">
+      <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
       <Filter>Demo</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\MainScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h">
       <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h">
-      <Filter>Demo\Graphics3D\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\MaterialScene.h">
-      <Filter>Demo\Graphics3D\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h">
-      <Filter>Demo\Graphics3D\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.h">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\SpecularScene.h">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.h">
-      <Filter>Demo\Graphics3D\Maps</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NormalScene.h">
-      <Filter>Demo\Graphics3D\Maps</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Camera.h">
       <Filter>Cross\Core</Filter>
@@ -544,17 +492,11 @@
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UIScreen.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Model.h">
       <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Graphics3D\DemoScene.h">
-      <Filter>Demo\Graphics3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Transform.h">
       <Filter>Cross\Core</Filter>
@@ -580,19 +522,10 @@
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\Hierarchy.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\MenuBar.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\TransformView.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\View.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\ComponentView.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\CameraController.h">
@@ -613,29 +546,104 @@
     <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\Collider.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\..\Sources\UI\Log.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\Collision.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\..\..\Sources\Experimental\Array.h">
+      <Filter>Cross\Experimental</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\Physics.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\..\..\Sources\Experimental\String.h">
+      <Filter>Cross\Experimental</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h">
-      <Filter>Cross\Physics</Filter>
+    <ClInclude Include="..\..\..\Sources\Experimental\Function.h">
+      <Filter>Cross\Experimental</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\Ocean.h">
-      <Filter>Demo\Physics</Filter>
+    <ClInclude Include="..\..\Sources\UI\FilesView.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\HardConstraints.h">
-      <Filter>Demo\Physics</Filter>
+    <ClInclude Include="..\..\Sources\UI\SceneView.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\Bridge.h">
-      <Filter>Demo\Physics</Filter>
+    <ClInclude Include="..\..\Sources\UI\ComponentsView.h">
+      <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Physics\Suppressors.h">
-      <Filter>Demo\Physics</Filter>
+    <ClInclude Include="..\..\..\Sources\Core\Property.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\DemoScene.h">
+      <Filter>Demo\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h">
+      <Filter>Demo\Scenes\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Maps\DiffuseScene.h">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Maps\NakedScene.h">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Maps\NormalScene.h">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Maps\RoughnessScene.h">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Maps\SpecularScene.h">
+      <Filter>Demo\Scenes\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Light\MultiLightScene.h">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Light\PointLightScene.h">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Light\SpotLightScene.h">
+      <Filter>Demo\Scenes\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\ImGuiScreen.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\LaunchView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\PropertiesView.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\StringTest.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\ArrayTest.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\FileUtils.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

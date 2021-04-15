@@ -20,7 +20,7 @@
 
 namespace cross{
 
-class Skybox{
+class Skybox {
 public:
 	Skybox(Cubemap* cubemap);
 	~Skybox();
@@ -28,11 +28,11 @@ public:
 	void Draw();
 
 private:
-	Cubemap* cubemap	= NULL;
-	Shader* shader		= NULL;
-	Material* material	= NULL;
-	Entity* box			= NULL;
-	U64 mvpID			= 0;
+	Cubemap* cubemap	= nullptr;
+	Shader* shader		= nullptr;
+	Material* material	= nullptr;
+	Entity* box			= nullptr;
+	S32 mvpID			= 0;
 };
 
 }

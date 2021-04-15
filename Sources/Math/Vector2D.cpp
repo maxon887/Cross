@@ -39,11 +39,11 @@ Vector2D::Vector2D(float x, float y):
 	y(y)
 { }
 
-float Vector2D::Length() const{
+float Vector2D::Length() const {
 	return (float)sqrt(x*x + y*y);
 }
 
-Vector2D Vector2D::GetNormalized() const{
+Vector2D Vector2D::GetNormalized() const {
 	Vector2D result;
 	float len = Length();
 	result.x  = x / len;
@@ -51,7 +51,7 @@ Vector2D Vector2D::GetNormalized() const{
 	return result;
 }
 
-Vector2D Vector2D::GetTruncated(float len) const{
+Vector2D Vector2D::GetTruncated(float len) const {
 	if(this->Length() > len){
 		Vector2D result;
 		result = this->GetNormalized();
@@ -61,11 +61,11 @@ Vector2D Vector2D::GetTruncated(float len) const{
 	return *this;
 }
 
-const float* Vector2D::GetData() const{
+const float* Vector2D::GetData() const {
 	return &x;
 }
 
-bool Vector2D::operator==(const Vector2D &v2) const{
+bool Vector2D::operator==(const Vector2D &v2) const {
 	if(this->x == v2.x && this->y && v2.y) {
 		return true;
 	} else {
@@ -73,43 +73,43 @@ bool Vector2D::operator==(const Vector2D &v2) const{
 	}
 }
 
-bool Vector2D::operator!=(const Vector2D &v2) const{
+bool Vector2D::operator!=(const Vector2D &v2) const {
 	return !((*this) == v2);
 }
 
-Vector2D Vector2D::operator+(const Vector2D &v2) const{
+Vector2D Vector2D::operator+(const Vector2D &v2) const {
 	return Vector2D(this->x + v2.x, this->y + v2.y);
 }
 
-Vector2D Vector2D::operator-(const Vector2D &v2) const{
+Vector2D Vector2D::operator-(const Vector2D &v2) const {
 	return Vector2D(this->x - v2.x, this->y - v2.y);
 }
 
-Vector2D Vector2D::operator*(float v) const{
+Vector2D Vector2D::operator*(float v) const {
 	return Vector2D(this->x * v, this->y * v);
 }
 
-Vector2D Vector2D::operator/(float v) const{
+Vector2D Vector2D::operator/(float v) const {
 	return Vector2D(this->x / v, this->y / v);
 }
 
 
-void Vector2D::operator+=(const Vector2D &v2){
+void Vector2D::operator+=(const Vector2D &v2) {
 	this->x += v2.x;
 	this->y += v2.y;
 }
 
-void Vector2D::operator-=(const Vector2D &v2){
+void Vector2D::operator-=(const Vector2D &v2) {
 	this->x -= v2.x;
 	this->y -= v2.y;
 }
 
-void Vector2D::operator*=(float v){
+void Vector2D::operator*=(float v) {
 	this->x *= v;
 	this->y *= v;
 }
 
-void Vector2D::operator/=(float v){
+void Vector2D::operator/=(float v) {
 	this->x /= v;
 	this->y /= v;
 }

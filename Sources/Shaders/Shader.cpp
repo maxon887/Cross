@@ -25,60 +25,101 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Shader::Property::Property(const string& name, const string& glName):
+String Shader::Property::TypeToString(Type t) {
+	switch (t) {
+	case Type::INT:
+		return "Int";
+	case Type::FLOAT:
+		return "Float";
+	case Type::COLOR:
+		return "Color";
+	case Type::VEC3:
+		return "Vector3D";
+	case Type::MAT4:
+		return "Matrix";
+	case Type::TEXTURE:
+		return "Texture";
+	case Type::CUBEMAP:
+		return "Cubemap";
+	default:
+		CROSS_RETURN(false, "", "Unknown Shader Property type");
+	}
+}
+
+Shader::Property::Type Shader::Property::StringToType(const String &type) {
+	if(type == "Int") {
+		return Type::INT;
+	} else if(type == "Float") {
+		return Type::FLOAT;
+	} else if(type == "Color") {
+		return Type::COLOR;
+	} else if(type == "Vector3D") {
+		return Type::VEC3;
+	} else if(type == "Matrix") {
+		return Type::MAT4;
+	} else if(type == "Texture") {
+		return Type::TEXTURE;
+	} else if(type == "Cubemap") {
+		return Type::CUBEMAP;
+	} else {
+		CROSS_RETURN(false, Type::UNKNOWN, "Unknow Shader Property '#'", type);
+	}
+}
+
+Shader::Property::Property(const String& name, const String& glName):
 	name(name),
 	glName(glName)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, Type t) :
+Shader::Property::Property(const String& name, const String& glName, Type t) :
 	name(name),
 	glName(glName),
 	type(t)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, S32 value) :
+Shader::Property::Property(const String& name, const String& glName, S32 value) :
 	name(name),
 	glName(glName),
 	type(INT),
 	value(value)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, float value) :
+Shader::Property::Property(const String& name, const String& glName, float value) :
 	name(name),
 	glName(glName),
 	type(FLOAT),
 	value(value)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, const Color& value) :
+Shader::Property::Property(const String& name, const String& glName, const Color& value) :
 	name(name),
 	glName(glName),
 	type(COLOR),
 	value(value)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, const Vector3D& value) :
+Shader::Property::Property(const String& name, const String& glName, const Vector3D& value) :
 	name(name),
 	glName(glName),
 	type(VEC3),
 	value(value)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, const Matrix& value) :
+Shader::Property::Property(const String& name, const String& glName, const Matrix& value) :
 	name(name),
 	glName(glName),
 	type(MAT4),
 	value(value)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, Texture* value) :
+Shader::Property::Property(const String& name, const String& glName, Texture* value) :
 	name(name),
 	glName(glName),
 	type(TEXTURE),
 	value(value)
 { }
 
-Shader::Property::Property(const string& name, const string& glName, Cubemap* value) :
+Shader::Property::Property(const String& name, const String& glName, Cubemap* value) :
 	name(name),
 	glName(glName),
 	type(CUBEMAP),
@@ -132,7 +173,7 @@ void Shader::Property::SetValue(const Value& v) {
 	value = v;
 }
 
-const Shader::Property::Value& Shader::Property::GetValue() const {
+Shader::Property::Value& Shader::Property::GetValue() {
 	return value;
 }
 
@@ -140,7 +181,7 @@ Shader::Property* Shader::Property::Clone() const {
 	return new Shader::Property(*this);
 }
 
-GLuint Shader::Property::GetID() const {
+GLint Shader::Property::GetID() const {
 	return glId;
 }
 
@@ -148,42 +189,29 @@ Shader::Property::Type Shader::Property::GetType() const {
 	return type;
 }
 
-const string& Shader::Property::GetName() const {
+const String& Shader::Property::GetName() const {
 	return name;
 }
 
-const string& Shader::Property::GetGLName() const {
+const String& Shader::Property::GetGLName() const {
 	return glName;
 }
 
-Shader::Shader(const string& vertexFile, const string& fragmentFile) {
+Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
-	if(gfxGL->GetShaderVersion() >= 130) {
-		AddVersion("130");
-	}
 }
 
 Shader::~Shader() {
-	if(vertex_shader){
-		SAFE(glDeleteShader(vertex_shader));
-	}
-	if(fragment_shader){
-		SAFE(glDeleteShader(fragment_shader));
-	}	
-	if(program){
-		SAFE(glDeleteProgram(program));
-	}
-	delete vertex_file;
-	delete fragment_file;
+	FreeResources();
 }
 
-void Shader::Load(const string& file) {
+void Shader::Load(const String& file) {
 	filename = file;
-	File* xmlFile = system->LoadAssetFile(file);
+	File* xmlFile = os->LoadAssetFile(file);
 	CROSS_FAIL(xmlFile, "Can not load shader xml file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 	delete xmlFile;
 
@@ -194,10 +222,7 @@ void Shader::Load(const string& file) {
 	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
 	const char* fragmentFile = fragmentXML->Attribute("filename");
 	vertex_filename = vertexFile;
-	fragment_filename = fragmentFile;
-	if(gfxGL->GetShaderVersion() >= 130) {
-		AddVersion("130");
-	}
+    fragment_filename = fragmentFile;
 
 	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
 	if(macrosiesXML) {
@@ -215,43 +240,31 @@ void Shader::Load(const string& file) {
 			const char* name = propertyXML->Attribute("name");
 			const char* glName = propertyXML->Attribute("glName");
 			const char* type = propertyXML->Attribute("type");
-
-			if(strcmp(type, "Int") == 0) {
-				AddProperty(name, glName, Property::INT);
-			} else if(strcmp(type, "Float") == 0) {
-				AddProperty(name, glName, Property::FLOAT);
-			} else if(strcmp(type, "Texture") == 0) {
-				AddProperty(name, glName, Property::TEXTURE);
-			} else if(strcmp(type, "Color") == 0) {
-				AddProperty(name, glName, Property::COLOR);
-			} else {
-				CROSS_ASSERT(false, "Unknown property type");
-			}
-
+			AddProperty(name, glName, Property::StringToType(type));
 			propertyXML = propertyXML->NextSiblingElement("Property");
 		}
 	}
 }
 
-void Shader::Save(const string& file) {
+void Shader::Save(const String& file) {
 	XMLDocument doc;
 
 	XMLElement* shaderXML = doc.NewElement("Shader");
 	doc.LinkEndChild(shaderXML);
 
 	XMLElement* vertexXML = doc.NewElement("Vertex");
-	vertexXML->SetAttribute("filename", vertex_filename.c_str());
+	vertexXML->SetAttribute("filename", vertex_filename);
 	shaderXML->LinkEndChild(vertexXML);
 
 	XMLElement* fragmentXML = doc.NewElement("Fragment");
-	fragmentXML->SetAttribute("filename", fragment_filename.c_str());
+	fragmentXML->SetAttribute("filename", fragment_filename);
 	shaderXML->LinkEndChild(fragmentXML);
 
 	XMLElement* macrosiesXML = doc.NewElement("Macrosies");
 	shaderXML->LinkEndChild(macrosiesXML);
-	for(const string& macro : user_macro){
+	for(const String& macro : user_macro){
 		XMLElement* macroXML = doc.NewElement("Macro");
-		macroXML->SetText(macro.c_str());
+		macroXML->SetText(macro);
 		macrosiesXML->LinkEndChild(macroXML);
 	}
 
@@ -260,24 +273,9 @@ void Shader::Save(const string& file) {
 
 	for(const Property& prop : properties){
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop.GetName().c_str());
-		propertyXML->SetAttribute("glName", prop.GetGLName().c_str());
-		switch(prop.GetType())	{
-		case Property::FLOAT:
-			propertyXML->SetAttribute("type", "Float");
-			break;
-		case Property::INT:
-			propertyXML->SetAttribute("type", "Int");
-			break;
-		case Property::COLOR:
-			propertyXML->SetAttribute("type", "Color");
-			break;
-		case Property::TEXTURE:
-			propertyXML->SetAttribute("type", "Texture");
-			break;
-		default:
-			CROSS_ASSERT(false, "Unknown property type to save");
-		}
+		propertyXML->SetAttribute("name", prop.GetName());
+		propertyXML->SetAttribute("glName", prop.GetGLName());
+		propertyXML->SetAttribute("type", Property::TypeToString(prop.GetType()));
 		propertiesXML->LinkEndChild(propertyXML);
 	}
 
@@ -287,19 +285,21 @@ void Shader::Save(const string& file) {
 	saveFile.name = file;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
-	saveFile.data = NULL;
+	os->SaveFile(&saveFile);
+	saveFile.data = nullptr;
 }
 
 void Shader::Compile() {
-	vertex_file = system->LoadAssetFile(vertex_filename);
+	CROSS_FAIL(vertex_filename != "", "Can not compile shader without vertex file");
+	vertex_file = os->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
-	vertex_file = NULL;
-	fragment_file = system->LoadAssetFile(fragment_filename);
+	vertex_file = nullptr;
+	CROSS_FAIL(fragment_filename != "", "Can not compile shader without fragment file");
+	fragment_file = os->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
-	fragment_file = NULL;
+	fragment_file = nullptr;
 	program = glCreateProgram();
 	CROSS_FAIL(vertex_shader && fragment_shader, "One or more of shaders files not compiled");
 	SAFE(glAttachShader(program, vertex_shader));
@@ -312,19 +312,25 @@ void Shader::Compile() {
 	aNormal = glGetAttribLocation(program, "aNormal");
 	aTangent = glGetAttribLocation(program, "aTangent");
 	aBitangent = glGetAttribLocation(program, "aBitangent");
-	
+
 	uMVP = glGetUniformLocation(program, "uMVP");
 	uModelMatrix = glGetUniformLocation(program, "uModelMatrix");
 	uNormalMatrix = glGetUniformLocation(program, "uNormalMatrix");
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
-	uColor = glGetUniformLocation(program, "uColor");
 
 	for(Property& prop : properties){
-		prop.glId = glGetUniformLocation(program, prop.glName.c_str());
-		CROSS_FAIL(prop.glId != -1, "Property %s does not contains in the shader", prop.glName.c_str());
+		prop.glId = glGetUniformLocation(program, prop.glName);
+		CROSS_FAIL(prop.glId != -1, "Property # does not contains in the shader", prop.glName);
 	}
 	compiled = true;
+}
+
+void Shader::ReCompile() {
+	FreeResources();
+	compiled = false;
+	Load(GetFilename());
+	Compile();
 }
 
 void Shader::Use() {
@@ -336,121 +342,121 @@ bool Shader::IsCompiled() const {
 	return compiled;
 }
 
-string& Shader::GetFilename(){
+String& Shader::GetFilename(){
 	return filename;
 }
 
-string& Shader::GetVertexFilename(){
+String& Shader::GetVertexFilename(){
 	return vertex_filename;
 }
 
-void Shader::SetVertexFilename(const string& filename) {
+void Shader::SetVertexFilename(const String& filename) {
 	vertex_filename = filename;
 }
 
-string& Shader::GetFragmentFilename() {
+String& Shader::GetFragmentFilename() {
 	return fragment_filename;
 }
 
-void Shader::SetFragmentFilename(const string& filename) {
+void Shader::SetFragmentFilename(const String& filename) {
 	fragment_filename = filename;
 }
 
-void Shader::AddVersion(const string& ver) {
+void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	string fullStr = "#version " + ver + "\n";
-	macrosies.push_back(fullStr);
-	makro_len += fullStr.length();
+	String fullStr = "#version " + ver + " es\n";
+	macrosies.Add(fullStr);
+	makro_len += fullStr.Length();
 }
 
-void Shader::AddMacro(const string& makro, bool system) {
+void Shader::AddMacro(const String& makro, bool os) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	string makroString = "#define " + makro + "\n";
-	macrosies.push_back(makroString);
-	makro_len += makroString.length();
-	if(!system){
-		user_macro.push_back(makro);
+	String makroString = "#define " + makro + "\n";
+	macrosies.Add(makroString);
+	makro_len += makroString.Length();
+	if(!os){
+		user_macro.Add(makro);
 	}
 }
 
-void Shader::AddMacro(const string& makro, int value, bool system) {
+void Shader::AddMacro(const String& makro, int value, bool os) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	string makroString = "#define " + makro + " " + to_string(value) + "\n";
-	macrosies.push_back(makroString);
-	makro_len += makroString.length();
-	if(!system) {
+	String makroString = "#define " + makro + " " + String(value) + "\n";
+	macrosies.Add(makroString);
+	makro_len += makroString.Length();
+	if(!os) {
 		CROSS_ASSERT(false, "Do not implement yet");
 	}
 }
 
-Array<string>& Shader::GetMacrosies() {
+Array<String>& Shader::GetMacrosies() {
 	return user_macro;
 }
 
 void Shader::ClearMacrosies() {
-	user_macro.clear();
+	user_macro.Clear();
 }
 
-void Shader::AddProperty(const string& name, const string& glName) {
+void Shader::AddProperty(const String& name, const String& glName) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName);
+	properties.CreateInside(name, glName);
 }
 
-void Shader::AddProperty(const string& name, const string& glName, Shader::Property::Type type) {
+void Shader::AddProperty(const String& name, const String& glName, Shader::Property::Type type) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, type);
+	properties.CreateInside(name, glName, type);
 }
 
-void Shader::AddProperty(const string& name, const string& glName, float defValue) {
+void Shader::AddProperty(const String& name, const String& glName, float defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
-void Shader::AddProperty(const string& name, const string& glName, const Color& defValue) {
+void Shader::AddProperty(const String& name, const String& glName, const Color& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
-void Shader::AddProperty(const string& name, const string& glName, const Vector3D& defValue) {
+void Shader::AddProperty(const String& name, const String& glName, const Vector3D& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
-void Shader::AddProperty(const string& name, const string& glName, Cubemap* defValue) {
+void Shader::AddProperty(const String& name, const String& glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const Property& prop) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(prop.name), "Shader already contain that property");
-	properties.push_back(prop);
+	properties.Add(prop);
 }
 
-Shader::Property* Shader::GetProperty(const string& name) {
+Shader::Property* Shader::GetProperty(const String& name) {
 	for(Property& prop : properties){
 		if(prop.name == name){
 			return &prop;
 		}
 	}
-	CROSS_RETURN(false, NULL, "Can not find property");
+	CROSS_RETURN(false, nullptr, "Can not find property");
 }
 
-Array<Shader::Property>& Shader::GetProperties(){
+Array<Shader::Property>& Shader::GetProperties() {
 	return properties;
 }
 
 void Shader::ClearProperties() {
-	properties.clear();
+	properties.Clear();
 }
 
-bool Shader::HaveProperty(const string& name) const {
+bool Shader::HaveProperty(const String& name) const {
 	for(const Property& prop : properties) {
 		if(prop.name == name) {
 			return true;
@@ -465,22 +471,25 @@ GLuint Shader::GetProgram() const {
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
 	CROSS_RETURN(file, 0, "Attempt to compile shader without a file");
-	Byte* source = new Byte[makro_len + file->size + 1]; // +1 for null terminated string
+#if defined(IOS) || defined(ANDROID) || defined(GLES)
+    if(type == GL_FRAGMENT_SHADER) {
+        CROSS_RETURN(!compiled, 0, "Shader already compiled");
+        String fullStr = "precision mediump float;\n";
+		macrosies.Add(fullStr);
+        makro_len += fullStr.Length();
+    }
+#endif
 
-	int curPos = 0;
-	for(string makro : macrosies){
-		const char* charMakro = makro.c_str();
-		memcpy(source + curPos, charMakro, makro.length());
-		curPos += makro.length();
+	String source;
+	for(String makro : macrosies) {
+		source += makro;
 	}
 
-	memcpy(source + curPos, file->data, file->size);
-	source[makro_len + file->size] = 0;
-	//shader compiling part
+	source += String((char*)file->data, (char*)(file->data + file->size));
+
 	GLuint handle = glCreateShader(type);
-	glShaderSource(handle, 1, (const char**)&source, NULL);
-	delete[] source;
-	source = NULL;
+	char* cptr = source.ToCStr();
+	glShaderSource(handle, 1, (const char**)&cptr, nullptr);
 
 	glCompileShader(handle);
 	GLint compiled;
@@ -491,7 +500,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 
 		char* log = new char[len + 1];
 		glGetShaderInfoLog(handle, len, &len, log);
-		CROSS_RETURN(false, 0, "Shader: %s\n%sShader", file->name.c_str(), log);
+		CROSS_RETURN(false, 0, "Shader: #\n#Shader", file->name, log);
 	} else {
 #ifdef CROSS_DEBUG
 		GLsizei len;
@@ -500,7 +509,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 			char* log = new char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
-			system->LogIt("Shader compilation:\n%s", log);
+			CROSS_ASSERT(false, "Shader compilation:\n#", log);
 			delete[] log;
 		}
 #endif
@@ -519,6 +528,21 @@ void Shader::CompileProgram() {
 
 		char* log = new char[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
-		CROSS_FAIL(false, "Shader program compilation failed:\n %s", log);
+		CROSS_FAIL(false, "Shader program compilation failed:\n #", log);
 	}
+}
+
+void Shader::FreeResources() {
+	properties.Clear();
+	if(vertex_shader) {
+		SAFE(glDeleteShader(vertex_shader));
+	}
+	if(fragment_shader) {
+		SAFE(glDeleteShader(fragment_shader));
+	}
+	if(program) {
+		SAFE(glDeleteProgram(program));
+	}
+	delete vertex_file;
+	delete fragment_file;
 }

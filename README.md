@@ -1,5 +1,21 @@
 # Cross++
-Is a lightweight cross-platform game engine. Written mostly on C++.
+Is a lightweight cross-platform game engine. Written mostly on C++. Main purpose of this engine to be easy to learn, read and understand.
+
+Questions can be asked via [facebook](https://www.facebook.com/profile.php?id=100001651879786)
+
+### Build Status
+
+
+| Windows            | iOS                  | Android            |
+| ------------------ | -------------------- | ------------------ |
+| [![Win][WB1]][WB2] | [![iOS][IOS1]][TRAV] |[![AND][AND1]][TRAV] |
+
+[WB1]: https://ci.appveyor.com/api/projects/status/fmigb2qi7di0pqmq?svg=true
+[WB2]: https://ci.appveyor.com/project/maxon887/cross
+[IOS1]: https://travis-matrix-badges.herokuapp.com/repos/maxon887/Cross/branches/Main/1
+[TRAV]: https://travis-ci.org/maxon887/Cross
+[AND1]: https://travis-matrix-badges.herokuapp.com/repos/maxon887/Cross/branches/Main/2
+
 
 ### Demo
 Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
@@ -16,12 +32,11 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 9. Many useful interesting features like: Event System, Assert System, Memory Manager.
 
 ### Screenshot Gallery
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot07.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot06.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot08.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot01.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot04.png?raw=true "Optional Title")
-![Alt text](https://github.com/maxon887/Cross/blob/0d9b437a067df05e3d42a8a4b4efef771fcac51c/Release/Screenshot05.png?raw=true "Optional Title")
+![Alt text](https://sun9-26.userapi.com/c200820/v200820675/27ebb/RgV5CjNc_7s.jpg)
+![Alt text](https://sun9-62.userapi.com/c854220/v854220397/16e46b/XNA1LrNMHXg.jpg)
+![Alt text](https://sun1-15.userapi.com/c854220/v854220397/16e475/lSKKtcGWBFw.jpg)
+![Alt text](https://sun9-48.userapi.com/c854220/v854220397/16e47f/auU-Vc_2Lt4.jpg)
+![Alt text](https://sun9-3.userapi.com/c854220/v854220397/16e489/kmXUu0yMCv4.jpg)
 
 ### 1.0 New Game Creation
 In order to create new game you must do 3 things.

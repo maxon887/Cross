@@ -25,10 +25,10 @@ namespace cross {
 #define MAX_ACTIONS 20
 
 enum class Key {
-	BACK		= 0x08,
+	BACKSPACE	= 0x08,
 	TAB			= 0x09,
 	CLEAR		= 0x0C,
-	RETURN		= 0x0D,
+	ENTER		= 0x0D,
 	SHIFT		= 0x10,
 	CONTROL		= 0x11,
 	ALT			= 0x12,
@@ -114,7 +114,8 @@ enum class Key {
 	F11			= 0x7A,
 	F12			= 0x7B,
 	NUMLOC		= 0x90,
-	
+
+	BACK		= 0xFE,
 	MAX_KEY_NUM = 0xFF
 };
 
@@ -143,8 +144,8 @@ public:
 	/* Occurs when char must be placed, for ex multiple chars can be placed by long press key button in some platforms */
 	Event<char> CharEnter;
 
-	/* Occurs when mouse wheel rolled*/
-	Event<float> MouseWheelRoll;
+	/* Occurs when user scroll whether with a mouse wheel or touchpad gesture */
+	Event<float> Scroll;
 	/* Reflects current mouse position on the screen */
 	Vector2D MousePosition;
 	/* Checks if specific key pressed */
@@ -159,6 +160,8 @@ public:
 	/* Occurs instantly when user action released. Can be even in other thread. Do not use this */
 	Event<float, float, S32> TargetActionUp;
 
+	void ResetKeys();
+
 engineonly:
 	Input();
 
@@ -172,7 +175,7 @@ protected:
 
 	Vector2D TargetToWordConvert(float x, float y) const;
 
-	void TargetActionDonwHandle(float x, float y, S32 actionID);
+	void TargetActionDownHandle(float x, float y, S32 actionID);
 	void TargetActionMoveHandle(float x, float y, S32 actionID);
 	void TargetActionUpHandle(float x, float y, S32 actionID);
 	void KeyPressedHandle(Key key);

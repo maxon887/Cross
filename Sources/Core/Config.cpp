@@ -33,44 +33,44 @@ Config::~Config() {
 	SaveUserConfig();
 }
 
-void Config::SetString(const string& key, const string& value) {
+void Config::SetString(const String& key, const String& value) {
 	user_prefs[key] = value;
 }
 
-void Config::SetInt(const string& key, S32 value) {
-	SetString(key, to_string(value));
+void Config::SetInt(const String& key, S32 value) {
+	SetString(key, String(value));
 }
 
-void Config::SetFloat(const string& key, float value) {
-	SetString(key, to_string(value));
+void Config::SetFloat(const String& key, float value) {
+	SetString(key, String(value));
 }
 
-void Config::SetBool(const string& key, bool value) {
+void Config::SetBool(const String& key, bool value) {
 	SetInt(key, value);
 }
 
-string Config::GetString(const string& key, const string& def) const {
-	string strValue = GetString(key);
-	if(strValue.empty())
+String Config::GetString(const String& key, const String& def) const {
+	String strValue = GetString(key);
+	if(strValue.IsEmpty())
 		return def;
 	return strValue;
 }
 
-S32 Config::GetInt(const string& key, S32 def) const {
-	string strValue = GetString(key);
-	if(strValue.empty())
+S32 Config::GetInt(const String& key, S32 def) const {
+	String strValue = GetString(key);
+	if(strValue.IsEmpty())
 		return def;
-	return atoi(strValue.c_str());
+	return strValue.ToInt();
 }
 
-float Config::GetFloat(const string& key, float def) const {
-	string strValue = GetString(key);
-	if(strValue.empty())
+float Config::GetFloat(const String& key, float def) const {
+	String strValue = GetString(key);
+	if(strValue.IsEmpty())
 		return def;
-	return (float)atof(strValue.c_str());
+	return strValue.ToFloat();
 }
 
-bool Config::GetBool(const string& key, bool def) const {
+bool Config::GetBool(const String& key, bool def) const {
 	return GetInt(key, def) != 0;
 }
 
@@ -94,7 +94,7 @@ bool Config::IsOffscreenRender() const {
 	return offscreen_render;
 }
 
-const string& Config::GetString(const string& key) const {
+const String& Config::GetString(const String& key) const {
 	auto entry = user_prefs.find(key);
 	if(entry != user_prefs.end()) {
 		return (*entry).second;
@@ -104,10 +104,10 @@ const string& Config::GetString(const string& key) const {
 }
 
 void Config::LoadGameConfig() {
-	File* xmlFile = system->LoadAssetFile("GameConfig.xml");
+	File* xmlFile = os->LoadAssetFile("GameConfig.xml");
 	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 	delete xmlFile;
 
@@ -115,23 +115,23 @@ void Config::LoadGameConfig() {
 	CROSS_FAIL(root, "Failed to find GameConfig root element");
 	XMLElement* element = root->FirstChildElement("Property");
 	while(element) {
-		string name = element->Attribute("name");
-		string strValue = element->Attribute("value");
+		String name = element->Attribute("name");
+		String strValue = element->Attribute("value");
 
 		if(name == "Orientation") {
-			orientation = (System::Orientation)atoi(strValue.c_str());
+			orientation = (System::Orientation)strValue.ToInt();
 		}
 
 		if(name == "UseCompressedTextures") {
-			use_compressed_textures = strValue == "true" ? true : false;
+			use_compressed_textures = strValue == "true";
 		}
 
 		if(name == "TextureFilter") {
-			texture_filter = (Texture::Filter)atoi(strValue.c_str());
+			texture_filter = Texture::StringToFilter(strValue);
 		}
 
 		if(name == "OffscreenRender") {
-			offscreen_render = strValue == "true" ? true : false;
+			offscreen_render = strValue == "true";
 		}
 
 		element = element->NextSiblingElement("Property");
@@ -139,12 +139,12 @@ void Config::LoadGameConfig() {
 }
 
 void Config::LoadUserConfig() {
-	if(system->IsDataFileExists("UserConfig.xml")) {
-		File* xmlFile = system->LoadDataFile("UserConfig.xml");
+	if(os->IsDataFileExists("UserConfig.xml")) {
+		File* xmlFile = os->LoadDataFile("UserConfig.xml");
 		CROSS_FAIL(xmlFile, "Can not load UserConfig xml file");
 
 		XMLDocument doc;
-		XMLError error = doc.Parse((const char*)xmlFile->data, xmlFile->size);
+		XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 		delete xmlFile;
 		CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
 
@@ -154,14 +154,14 @@ void Config::LoadUserConfig() {
 		root = doc.FirstChildElement("UserConfig");
 		CROSS_FAIL(root, "Failed to fined UserConfig root element");
 		element = root->FirstChildElement("Property");
-		while(element){
-			string name = element->Attribute("name");
-			string value = element->Attribute("value");
+		while(element) {
+			String name = element->Attribute("name");
+			String value = element->Attribute("value");
 			user_prefs[name] = value;
 			element = element->NextSiblingElement("Property");
 		}
 	} else {
-		system->LogIt("UserConfig file don't exists if it is not a first launch consider this like a bug");
+		os->LogIt("UserConfig file don't exists if it is not a first launch consider this like a bug");
 	}
 }
 
@@ -173,7 +173,7 @@ void Config::SaveGameConfig() {
 
 	XMLElement* property = doc.NewElement("Property");
 	property->SetAttribute("name", "Orientation");
-	property->SetAttribute("value", to_string(orientation).c_str());
+	property->SetAttribute("value", String(orientation));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -183,7 +183,7 @@ void Config::SaveGameConfig() {
 
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
-	property->SetAttribute("value", to_string(texture_filter).c_str());
+	property->SetAttribute("value", Texture::FilterToString(texture_filter));
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");
@@ -192,14 +192,14 @@ void Config::SaveGameConfig() {
 	element->LinkEndChild(property);
 
 	XMLPrinter printer;
-	
+
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = "GameConfig.xml";
 	gameConfig.size = printer.CStrSize();
 	gameConfig.data = (Byte*)printer.CStr();
-	system->SaveDataFile(&gameConfig);
-	gameConfig.data = NULL;
+	os->SaveDataFile(&gameConfig);
+	gameConfig.data = nullptr;
 }
 
 void Config::SaveUserConfig() {
@@ -211,18 +211,18 @@ void Config::SaveUserConfig() {
 	XMLElement* property;
 	for(auto pair : user_prefs){
 		property = doc.NewElement("Property");
-		property->SetAttribute("name", pair.first.c_str());
-		property->SetAttribute("value", pair.second.c_str());
-		element->LinkEndChild(property);  
+		property->SetAttribute("name", pair.first);
+		property->SetAttribute("value", pair.second);
+		element->LinkEndChild(property);
 	}
-	
+
 	XMLPrinter printer;
-	
+
 	doc.Accept(&printer);
 	File userConfig;
 	userConfig.name = "UserConfig.xml";
 	userConfig.size = printer.CStrSize();
 	userConfig.data = (Byte*)printer.CStr();
-	system->SaveDataFile(&userConfig);
-	userConfig.data = NULL;
+	os->SaveDataFile(&userConfig);
+	userConfig.data = nullptr;
 }

@@ -15,33 +15,61 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Component.h"
+#include "System.h"
 #include "Entity.h"
 #include "Transform.h"
 
+#include "Libs/TinyXML2/tinyxml2.h"
+
 using namespace cross;
+using namespace tinyxml2;
+
+Component::Component(const String& name) :
+	name(name)
+{ }
 
 Component* Component::Clone() const {
-	CROSS_RETURN(false, NULL, "Can't clone component. Inherited class doesn't implement Clone() function");
+	CROSS_RETURN(false, nullptr, "Can't clone component. Inherited class doesn't implement Clone() function");
 }
 
-bool Component::Load(tinyxml2::XMLElement*, Scene*) {
-	CROSS_RETURN(false, false, "Can't load component. Inherited class doesn't implement Load() function");
+bool Component::Load(tinyxml2::XMLElement* parent) {
+	for(BaseProperty* prop : properties) {
+		CROSS_RETURN(prop->Load(parent), false, "Can not load component '#'", GetName());
+	}
+	return true;
 }
 
-bool Component::Save(tinyxml2::XMLElement*, tinyxml2::XMLDocument*) {
-	CROSS_RETURN(false, false, "Can't save component. Inherited class doesn't implement Save() function");
+bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+	XMLElement* componentXML = doc->NewElement(name);
+	for(BaseProperty* prop : properties) {
+		CROSS_RETURN(prop->Save(componentXML, doc), false, "Can not save component '#'", GetName());
+	}
+	parent->LinkEndChild(componentXML);
+	return true;
 }
 
 bool Component::IsEnabled() const {
 	return enabled;
 }
 
-void Component::Enable(bool e) {
-	this->enabled = e;
+void Component::Enable() {
+	enabled = true;
+}
+
+void Component::Disable() {
+	enabled = false;
+}
+
+String Component::GetName() const {
+	return name;
 }
 
 Entity* Component::GetEntity() {
 	return entity;
+}
+
+const Array<BaseProperty*>& Component::GetProperties() const {
+	return properties;
 }
 
 Transform* Component::GetTransform() {

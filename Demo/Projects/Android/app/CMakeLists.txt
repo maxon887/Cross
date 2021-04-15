@@ -11,11 +11,11 @@ cmake_minimum_required(VERSION 3.4.1)
 
 file(GLOB CROSS_SRC
     "../../../Sources/*.cpp"
-    "../../../Sources/Graphics3D/*.cpp"
-    "../../../Sources/Graphics3D/Simple/*.cpp"
-    "../../../Sources/Graphics3D/Light/*.cpp"
-    "../../../Sources/Graphics3D/Maps/*.cpp"
-    "../../../Sources/Graphics3D/Misc/*.cpp"
+    "../../../Sources/Scenes/*.cpp"
+    "../../../Sources/Scenes/Simple/*.cpp"
+    "../../../Sources/Scenes/Light/*.cpp"
+    "../../../Sources/Scenes/Maps/*.cpp"
+    "../../../Sources/Scenes/Misc/*.cpp"
     "../../../Sources/Physics/*.cpp"
     "../../../Sources/ThirdParty/ImGui/*.cpp"
     "../../../Sources/UI/*.cpp"
@@ -23,6 +23,7 @@ file(GLOB CROSS_SRC
     "../../../../Sources/Math/*.cpp"
     "../../../../Sources/Shaders/*.cpp"
     "../../../../Sources/Internals/*.cpp"
+    "../../../../Sources/Experimental/*.cpp"
     "../../../../Sources/Utils/*.cpp"
     "../../../../Sources/Libs/SOIL/*.c"
     "../../../../Sources/Libs/TinyXML2/*.cpp"
@@ -31,14 +32,8 @@ file(GLOB CROSS_SRC
 
 )
 
-add_library( # Sets the name of the library.
-             cross
-             # Sets the library as a shared library.
+add_library( cross
              SHARED
-             # Provides a relative path to your source file(s).
-             # Associated headers in the same location as their source
-             # file are automatically included.
-             src/main/jni/main.cpp
              ${CROSS_SRC} )
 
 # Searches for a specified prebuilt library and stores the path as a

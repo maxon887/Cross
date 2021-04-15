@@ -8,6 +8,8 @@
 
 #include <QHeaderView.h>
 #include <QMouseEvent>
+#include <QMimeData>
+#include <QMenu>
 
 QModelIndex SceneModel::index(int row, int column, const QModelIndex& parent) const {
 	if(!hasIndex(row, column, parent)){
@@ -80,7 +82,7 @@ QVariant SceneModel::data(const QModelIndex& index, int role) const {
 		return QVariant();
 	}
 	Entity* entity = static_cast<Entity*>(index.internalPointer());
-	return QVariant(QString(entity->GetName().c_str()));
+	return QVariant(QString(entity->GetName().ToCStr()));
 }
 
 Qt::ItemFlags SceneModel::flags(const QModelIndex& index) const {
@@ -93,7 +95,7 @@ bool SceneModel::setData(const QModelIndex &index, const QVariant &value, int ro
 	}
 	Entity* entity = (Entity*)index.internalPointer();
 	EntityChanged* action = new EntityChanged(entity);
-	entity->SetName(value.toString().toStdString());
+	entity->SetName(value.toString().toLatin1().data());
 	editor->SomethingChanged.Emit(action);
 	emit dataChanged(index, index);
 	return true;
@@ -180,6 +182,14 @@ void SceneExplorer::OnEntityAdded(Entity* entity){
 
 void SceneExplorer::contextMenuEvent(QContextMenuEvent *event) {
 	context_menu->exec(event->globalPos());
+}
+
+void SceneExplorer::hideEvent(QHideEvent *eve) {
+	VisibilityChanged.Emit(false);
+}
+
+void SceneExplorer::showEvent(QShowEvent *eve) {
+	VisibilityChanged.Emit(true);
 }
 
 void SceneExplorer::OnItemClick(QModelIndex index){

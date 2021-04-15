@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MaterialViewClass</class>
- <widget class="QWidget" name="MaterialViewClass">
+ <class>MaterialViewUI</class>
+ <widget class="QWidget" name="MaterialViewUI">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>128</height>
+    <width>644</width>
+    <height>258</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="MaterialView" name="materialView">
+    <widget class="MaterialView" name="material_view">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -39,21 +39,18 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="shaderLayout">
+       <layout class="QHBoxLayout" name="shader_layout">
         <item>
-         <widget class="QLabel" name="shaderLabel">
+         <widget class="QLabel" name="shader_label">
           <property name="text">
            <string>Shader:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="shaderEdit"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="loadBtn">
-          <property name="text">
-           <string>Load</string>
+         <widget class="FileHandler" name="shader_file">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -68,12 +65,12 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="buttonsLayout">
+       <layout class="QHBoxLayout" name="buttons_layout">
         <property name="leftMargin">
          <number>0</number>
         </property>
         <item>
-         <spacer name="horizontalSpacer_3">
+         <spacer name="button_spacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -86,7 +83,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="revertBtn">
+         <widget class="QPushButton" name="revert_button">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -102,7 +99,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="applyBtn">
+         <widget class="QPushButton" name="apply_button">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -122,6 +119,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>FileHandler</class>
+   <extends>QLineEdit</extends>
+   <header>PropertyViews/FileHandler.h</header>
+  </customwidget>
   <customwidget>
    <class>MaterialView</class>
    <extends>QGroupBox</extends>

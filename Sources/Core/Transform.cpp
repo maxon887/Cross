@@ -15,81 +15,40 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Transform.h"
+#include "Entity.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;
 using namespace tinyxml2;
 
-Transform::Transform(const Vector3D& position) {
+Transform::Transform() : Component("Transform")
+{ }
+
+Transform::Transform(const Vector3D& position) : Component("Transform") {
 	SetPosition(position);
 }
 
 Component* Transform::Clone() const {
-	return new Transform(*this);
-}
-
-bool Transform::Load(tinyxml2::XMLElement* xml, Scene*) {
-	XMLElement* posXML = xml->FirstChildElement("Position");
-	if(posXML) {
-		double x = posXML->DoubleAttribute("x");
-		double y = posXML->DoubleAttribute("y");
-		double z = posXML->DoubleAttribute("z");
-		SetPosition(Vector3D((float)x, (float)y, (float)z));
-	}
-	XMLElement* rotXML = xml->FirstChildElement("Rotation");
-	if(rotXML) {
-		double x = rotXML->DoubleAttribute("x");
-		double y = rotXML->DoubleAttribute("y");
-		double z = rotXML->DoubleAttribute("z");
-		double angle = rotXML->DoubleAttribute("angle");
-		SetRotate(Quaternion(Vector3D((float)x, (float)y, (float)z), (float)angle));
-	}
-	XMLElement* scaleXML = xml->FirstChildElement("Scale");
-	if(scaleXML) {
-		double x = scaleXML->DoubleAttribute("x");
-		double y = scaleXML->DoubleAttribute("y");
-		double z = scaleXML->DoubleAttribute("z");
-		SetScale(Vector3D((float)x, (float)y, (float)z));
-	}
-	return true;
-}
-
-bool Transform::Save(XMLElement* xml, XMLDocument* doc) {
-	XMLElement* transformXML = doc->NewElement("Transform");
-
-	XMLElement* posXML = doc->NewElement("Position");
-	posXML->SetAttribute("x", position.x);
-	posXML->SetAttribute("y", position.y);
-	posXML->SetAttribute("z", position.z);
-	transformXML->LinkEndChild(posXML);
-
-	XMLElement* rotXML = doc->NewElement("Rotation");
-	Vector3D axis = rotation.GetAxis();
-	float angle = rotation.GetAngle();
-	rotXML->SetAttribute("x", axis.x);
-	rotXML->SetAttribute("y", axis.y);
-	rotXML->SetAttribute("z", axis.z);
-	rotXML->SetAttribute("angle", angle);
-	transformXML->LinkEndChild(rotXML);
-
-	XMLElement* scaleXML = doc->NewElement("Scale");
-	scaleXML->SetAttribute("x", scale.x);
-	scaleXML->SetAttribute("y", scale.y);
-	scaleXML->SetAttribute("z", scale.z);
-	transformXML->LinkEndChild(scaleXML);
-
-	xml->LinkEndChild(transformXML);
-	return true;
+	Transform* result = new Transform();
+	result->position = this->position;
+	result->scale = this->scale;
+	result->rotation = this->rotation;
+	result->recalc_model = true;
+	return result;
 }
 
 Vector3D Transform::GetPosition() const {
 	return position;
 }
 
-void Transform::SetPosition(const Vector2D& pos) {
-	position = pos;
-	recalc_model = true;
+Vector3D Transform::GetWorldPosition() {
+	Matrix world = GetWorldMatrix();
+	Vector3D pos;
+	pos.x = world.m[0][3];
+	pos.y = world.m[1][3];
+	pos.z = world.m[2][3];
+	return pos;
 }
 
 void Transform::SetPosition(const Vector3D& pos) {
@@ -98,9 +57,9 @@ void Transform::SetPosition(const Vector3D& pos) {
 }
 
 void Transform::SetPosition(const Matrix& pos) {
-	position.x = pos.m[0][3];
-	position.y = pos.m[1][3];
-	position.z = pos.m[2][3];
+	position.value.x = pos.m[0][3];
+	position.value.y = pos.m[1][3];
+	position.value.z = pos.m[2][3];
 	recalc_model = true;
 }
 
@@ -124,9 +83,9 @@ void Transform::SetScale(const Vector3D& scaleVec) {
 }
 
 void Transform::SetScale(const Matrix& scaleMat) {
-	scale.x = scaleMat.m[0][0];
-	scale.y = scaleMat.m[1][1];
-	scale.z = scaleMat.m[2][2];
+	scale.value.x = scaleMat.m[0][0];
+	scale.value.y = scaleMat.m[1][1];
+	scale.value.z = scaleMat.m[2][2];
 	recalc_model = true;
 }
 
@@ -178,16 +137,21 @@ Vector3D Transform::GetDirection() const {
 	return GetForward();
 }
 
+Vector3D Transform::GetWorldDirection() {
+	Matrix world = GetWorldMatrix();
+	return world.GetRotation() * Vector3D::Forward;
+}
+
 Vector3D Transform::GetForward() const {
-	return rotation * Vector3D::Forward;
+	return rotation.value * Vector3D::Forward;
 }
 
 Vector3D Transform::GetRight() const {
-	return rotation * Vector3D::Right;
+	return rotation.value * Vector3D::Right;
 }
 
 Vector3D Transform::GetUp() const {
-	return rotation * Vector3D::Up;
+	return rotation.value * Vector3D::Up;
 }
 
 void Transform::SetDirection(const Vector3D& direction) {
@@ -201,8 +165,17 @@ Matrix& Transform::GetModelMatrix() {
 		translate.SetTranslation(position);
 		Matrix scaleMat = Matrix::Identity;
 		scaleMat.SetScale(scale);
-		model = translate * rotation.GetMatrix() * scaleMat;
+		model = translate * rotation.value.GetMatrix() * scaleMat;
 		recalc_model = false;
 	}
 	return model;
+}
+
+Matrix Transform::GetWorldMatrix() {
+	Entity* parent = GetEntity()->GetParent();
+	if(parent) {
+		return parent->GetComponent<Transform>()->GetWorldMatrix() * GetTransform()->GetModelMatrix();
+	} else {
+		return GetTransform()->GetModelMatrix();
+	}
 }

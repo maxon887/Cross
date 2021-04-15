@@ -15,21 +15,23 @@
 
 #define SOIL_CHECK_FOR_GL_ERRORS 0
 
-#ifdef _WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#include <windows.h>
-	#include <wingdi.h>
-	#include <GL/gl.h>
-#elif defined(__APPLE__) || defined(__APPLE_CC__)
-	/*	I can't test this Apple stuff!	*/
-    #include <OpenGLES/ES1/gl.h>
-	//#include <Carbon/Carbon.h>
-	#define APIENTRY
-#elif defined(ANDROID) || defined(__ANDROID__)
-	#include <GLES/gl.h>
+#ifdef WIN
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #include <wingdi.h>
+    #include <GL/gl.h>
+
+#elif IOS
+#       include <OpenGLES/ES1/gl.h>
+#elif MACOS
+#       include <GL/glew.h>
+
+   // #define APIENTRY	??
+#elif ANDROID
+    #include <GLES/gl.h>
 #else
-	#include <GL/gl.h>
-	#include <GL/glx.h>
+    #include <GL/gl.h>
+    #include <GL/glx.h>
 #endif
 
 #include "SOIL.h"

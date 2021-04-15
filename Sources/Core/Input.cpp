@@ -22,31 +22,31 @@
 
 using namespace cross;
 
-Input::Input(){
+Input::Input() {
 	KeyPressed.Connect(this, &Input::KeyPressedHandle);
 	KeyReleased.Connect(this, &Input::KeyReleasedHandle);
-	TargetActionDown.Connect(this, &Input::TargetActionDonwHandle);
+	TargetActionDown.Connect(this, &Input::TargetActionDownHandle);
 	TargetActionMove.Connect(this, &Input::TargetActionMoveHandle);
 	TargetActionUp.Connect(this, &Input::TargetActionUpHandle);
 }
 
-void Input::TouchEnabled(bool enabled){
+void Input::TouchEnabled(bool enabled) {
 	touch_enabled = enabled;
 }
 
 Vector2D Input::TargetToWordConvert(float x, float y) const {
 	Vector2D result;
 	result.x = x;
-	result.y = system->GetWindowHeight() - y;
+	result.y = os->GetWindowHeight() - y;
 	return result;
 }
 
-bool Input::IsPressed(Key key) const{
+bool Input::IsPressed(Key key) const {
 	return pressed_keys[(U32)key];
 }
 
-void Input::Update(){
-	while(!action_stack.empty()){
+void Input::Update() {
+	while(!action_stack.empty()) {
 		input_mutex.lock();
 		Action action = action_stack.front().first;
 		int actionState = action_stack.front().second;
@@ -70,15 +70,23 @@ void Input::Update(){
 	}
 }
 
-void Input::KeyPressedHandle(Key key){
+void Input::ResetKeys() {
+	for(S32 i = 0; i < pressed_keys.Size(); ++i) {
+		if(pressed_keys[i]) {
+			KeyReleased.Emit((Key)i);
+		}
+	}
+}
+
+void Input::KeyPressedHandle(Key key) {
 	pressed_keys[(U32)key] = true;
 }
 
-void Input::KeyReleasedHandle(Key key){
+void Input::KeyReleasedHandle(Key key) {
 	pressed_keys[(U32)key] = false;
 }
 
-void Input::TargetActionDonwHandle(float x, float y, S32 actionID){
+void Input::TargetActionDownHandle(float x, float y, S32 actionID) {
 	if(touch_enabled){
 		Action action;
 		action.pos = Vector2D(x, y);
@@ -89,7 +97,7 @@ void Input::TargetActionDonwHandle(float x, float y, S32 actionID){
 	}
 }
 
-void Input::TargetActionMoveHandle(float x, float y, S32 actionID){
+void Input::TargetActionMoveHandle(float x, float y, S32 actionID) {
 	if(touch_enabled){
 		Action action;
 		action.pos = Vector2D(x, y);
@@ -100,7 +108,7 @@ void Input::TargetActionMoveHandle(float x, float y, S32 actionID){
 	}
 }
 
-void Input::TargetActionUpHandle(float x, float y, S32 actionID){
+void Input::TargetActionUpHandle(float x, float y, S32 actionID) {
 	if(touch_enabled){
 		Action action;
 		action.pos = Vector2D(x, y);

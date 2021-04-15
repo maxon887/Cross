@@ -44,14 +44,14 @@ void CrossEGL::UnbindWindow() {
 #ifdef ANDROID
 		ANativeWindow_release(native_window);
 #endif // ANDROID
-		native_window = NULL;
+		native_window = nullptr;
 	}else{
-		system->LogIt("Native window doesn't created");
+		os->LogIt("Native window doesn't created");
 	}
 }
 
 bool CrossEGL::CreateContext(bool createDisplay) {
-	system->LogIt("CrossEGL::CreateContext");
+	os->LogIt("CrossEGL::CreateContext");
 	CROSS_RETURN(!context_created, false, "Context already created");
 	if(createDisplay) {
 		display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
@@ -69,7 +69,7 @@ bool CrossEGL::CreateContext(bool createDisplay) {
 #endif // ANDROID
 	}
 	//create surface
-	surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), NULL);
+	surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)(native_window), nullptr);
 	CROSS_RETURN(surface != EGL_NO_SURFACE, false, "eglCreateWindowSurface failed");
 	//create context
 	if(createDisplay) {
@@ -83,7 +83,7 @@ bool CrossEGL::CreateContext(bool createDisplay) {
 }
 
 void CrossEGL::DestroyContext(bool destroyDisplay) {
-	system->LogIt("CrossEGL::DestroyContext");
+	os->LogIt("CrossEGL::DestroyContext");
 	if(display){
 		eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 
@@ -112,7 +112,7 @@ bool CrossEGL::IsContextCreated() {
 
 void CrossEGL::SwapBuffers() {
 	if(!eglSwapBuffers(display, surface)){
-		system->LogIt("eglSwapBuffers failed");
+		os->LogIt("eglSwapBuffers failed");
 	}
 }
 

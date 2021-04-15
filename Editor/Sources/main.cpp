@@ -2,9 +2,12 @@
 #include "ESystem.h"
 
 #include <QtWidgets/QApplication>
+#include <QSurface>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
+	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QApplication a(argc, argv);
 
 	QSurfaceFormat format;
@@ -16,9 +19,14 @@ int main(int argc, char *argv[])
 
 	ESystem* winsys = new ESystem();
 	system = winsys;
+
 	CrossEditor w;
+#ifdef WIN
 	winsys->SetWND((HWND)w.winId());
+#endif
 	w.RestoreSettings();
-	w.show();
+	QTimer timer;
+	timer.connect(&timer, &QTimer::timeout, &w, &CrossEditor::show);
+	timer.start(0);
 	return a.exec();
 }

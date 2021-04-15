@@ -40,47 +40,47 @@ Vector4D::Vector4D(const Vector3D& vec, float w):
 	w(w)
 { }
 
-const float* Vector4D::GetData() const{
+const float* Vector4D::GetData() const {
 	return &x;
 }
 
-Vector4D Vector4D::operator+(const Vector4D &v2) const{
+Vector4D Vector4D::operator+(const Vector4D &v2) const {
 	return Vector4D(this->x + v2.x, this->y + v2.y, this->z + v2.z, this->w + v2.w);
 }
 
-Vector4D Vector4D::operator-(const Vector4D &v2) const{
+Vector4D Vector4D::operator-(const Vector4D &v2) const {
 	return Vector4D(this->x - v2.x, this->y - v2.y, this->z - v2.z, this->w - v2.w);
 }
 
-Vector4D Vector4D::operator*(float v) const{
+Vector4D Vector4D::operator*(float v) const {
 	return Vector4D(this->x * v, this->y * v, this->z * v, this->w * v);
 }
 
-Vector4D Vector4D::operator/(float v) const{
+Vector4D Vector4D::operator/(float v) const {
 	return Vector4D(this->x / v, this->y / v, this->z / v, this->w / v);
 }
 
-void Vector4D::operator+=(const Vector4D &v2){
+void Vector4D::operator += (const Vector4D &v2) {
 	this->x += v2.x;
 	this->y += v2.y;
 	this->z += v2.z;
 	this->w += v2.w;
 }
 
-void Vector4D::operator-=(const Vector4D &v2){
+void Vector4D::operator -= (const Vector4D &v2) {
 	this->x -= v2.x;
 	this->y -= v2.y;
 	this->z -= v2.z;
 	this->w -= v2.w;
 }
 
-void Vector4D::operator*=(float v){
+void Vector4D::operator *= (float v) {
 	this->x *= v;
 	this->y *= v;
 	this->z *= v;
 }
 
-void Vector4D::operator/=(float v){
+void Vector4D::operator /= (float v) {
 	this->x /= v;
 	this->y /= v;
 	this->z /= v;

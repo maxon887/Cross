@@ -61,6 +61,9 @@
     <Filter Include="Editor\PropertyViews">
       <UniqueIdentifier>{c6318a1e-a9e2-42ac-afda-0fb735f9c380}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cross\Experimental">
+      <UniqueIdentifier>{be11851d-4fd7-4767-b4ed-40dabd4a7df0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_CrossEditor.cpp">
@@ -312,6 +315,27 @@
     <ClCompile Include="..\Sources\Core\ComponentFactory.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\PropertyViews\FileHandler.cpp">
+      <Filter>Editor\PropertyViews</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FileHandler.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FileHandler.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Experimental\String.cpp">
+      <Filter>Cross\Experimental</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Menu.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Menu.cpp">
+      <Filter>Editor\Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Menu.cpp">
+      <Filter>Editor\Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CrossEditor.qrc">
@@ -376,6 +400,12 @@
     </CustomBuild>
     <CustomBuild Include="Sources\PropertyViews\TransformComponent.ui">
       <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\PropertyViews\FileHandler.h">
+      <Filter>Editor\PropertyViews</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Sources\Menu.h">
+      <Filter>Editor</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -549,6 +579,9 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Internals\GraphicsGL.h">
       <Filter>Cross\Internals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Experimental\String.h">
+      <Filter>Cross\Experimental</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

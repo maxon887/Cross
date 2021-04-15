@@ -21,29 +21,29 @@
 
 namespace cross {
 
-/*	Configuration manager. This class provide interface 
+/*	Configuration manager. This class provide interface
 	for saving and loading data in non-volatile device memory. */
 class Config {
 public:
 	Config();
 	~Config();
 
-	/* Save custom user property as string */
-	void SetString(const string& key, const string& value);
+	/* Save custom user property as String */
+	void SetString(const String& key, const String& value);
 	/* Save custom user property as integer value */
-	void SetInt(const string& key, S32 value);
+	void SetInt(const String& key, S32 value);
 	/* Save custom user property as float value */
-	void SetFloat(const string& key, float value);
+	void SetFloat(const String& key, float value);
 	/* Save custom user property as boolean value */
-	void SetBool(const string& key, bool value);
-	/* Gets custom user property as string */
-	string GetString(const string& key, const string& def) const;
+	void SetBool(const String& key, bool value);
+	/* Gets custom user property as String */
+	String GetString(const String& key, const String& def) const;
 	/* Gets custom user property as integer */
-	S32 GetInt(const string& key, S32 def) const;
+	S32 GetInt(const String& key, S32 def) const;
 	/* Gets custom user property as float */
-	float GetFloat(const string& key, float def) const;
+	float GetFloat(const String& key, float def) const;
 	/* Gets custom user property as bool */
-	bool GetBool(const string& key, bool def) const;
+	bool GetBool(const String& key, bool def) const;
 
 	/* Gets application orientation */
 	System::Orientation GetOrientation() const;
@@ -53,12 +53,13 @@ public:
 	bool UseCompressedTextures() const;
 	/* Returns texture filter that should be applied by default */
 	Texture::Filter GetTextureFilter() const;
-	/* Returns true if offsecreen render enabled */
+	/* Returns true if offscreen render enabled */
 	bool IsOffscreenRender() const;
 
-engineonly:
-	void SaveGameConfig();
-	void SaveUserConfig();
+//internals
+    void SaveGameConfig();
+    void SaveUserConfig();
+
 	void LoadGameConfig();
 	void LoadUserConfig();
 
@@ -68,12 +69,12 @@ protected:
 	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
 	bool offscreen_render				= false;
 
-	Dictionary<string, string> user_prefs = Dictionary<string, string>();
+	Dictionary<String, String> user_prefs = Dictionary<String, String>();
 
-	const string& GetString(const string& key) const;
+	const String& GetString(const String& key) const;
 
 private:
-	const string empty = "";
+	const String empty = "";
 };
-	
+
 }

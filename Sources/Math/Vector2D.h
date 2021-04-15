@@ -18,7 +18,7 @@
 
 namespace cross{
 
-class Vector2D{
+class Vector2D {
 public:
 	static float Dot(const Vector2D& left, const Vector2D& right);
 
@@ -36,7 +36,7 @@ public:
 
 	bool operator == (const Vector2D &v2) const;
 	bool operator != (const Vector2D &v2) const;
-	
+
 	Vector2D operator + (const Vector2D &v2) const;
 	Vector2D operator - (const Vector2D &v2) const;
 	Vector2D operator * (float value) const;

@@ -13,33 +13,30 @@
 #include <QFileDialog>
 
 void MeshComponent::Initialize() {
-	model_value = findChild<QLabel*>("modelValue");
-	poly_count_value = findChild<QLabel*>("polyCountLabel");
-	material_value = findChild<QLineEdit*>("materialValue");
-	face_culling_box = findChild<QCheckBox*>("faceCulling");
-	QPushButton* loadBtn = findChild<QPushButton*>("loadBtn");
+	filename_label = findChild<QLabel*>("filename_label");
+	poly_count_value = findChild<QLabel*>("polycount_value");
+	material_value = findChild<QLineEdit*>("material_file");
+	face_culling_box = findChild<QCheckBox*>("face_culling");
+	QPushButton* loadBtn = findChild<QPushButton*>("load_button");
 	connect(loadBtn, &QPushButton::clicked, this, &MeshComponent::OnLoadClick);
-
-	editor->AdjustSize(findChild<QLabel*>("modelLabel"));
-	editor->AdjustSize(findChild<QLabel*>("polyCountLabel"));
-	editor->AdjustSize(findChild<QLabel*>("materialLabel"));
-	editor->AdjustSize(findChild<QLabel*>("faceCullingLabel"));
 }
 
 void MeshComponent::Show(Mesh* mesh) {
-	model_value->setText(mesh->GetModel()->GetFilename().c_str());
+	if(mesh->GetModel()) {
+		filename_label->setText(mesh->GetModel()->GetFilename().ToCStr());
+	}
 
 	poly_count_value->setText(QString::number(mesh->GetPolyCount()));
 
 	if(mesh->GetMaterial()) {
-		material_value->setText(mesh->GetMaterial()->GetFilename().c_str());
+		material_value->setText(mesh->GetMaterial()->GetFilename().ToCStr());
 	}
 
 	face_culling_box->setChecked(mesh->IsFaceCullingEnabled());
 }
 
 void MeshComponent::OnLoadClick() {
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str());
+	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().ToCStr());
 	QString filePath = QFileDialog::getOpenFileName(this, "Select Material File", path, "Material File (*.mat)");
 	if(!filePath.isEmpty()) {
 		QDir root = path;
@@ -47,7 +44,7 @@ void MeshComponent::OnLoadClick() {
 		material_value->setText(filepath);
 		
 		Scene* scene = game->GetCurrentScene();
-		Material* newMaterial = scene->GetMaterial(filepath.toStdString());
+		Material* newMaterial = scene->GetMaterial(filepath.toLatin1().data());
 		component->SetMaterial(newMaterial);
 	}
 }

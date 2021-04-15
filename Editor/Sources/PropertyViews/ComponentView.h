@@ -22,12 +22,12 @@ public:
 	virtual bool OnComponentSelected(Component* c);
 
 protected:
-	T* component = NULL;
+	T* component = nullptr;
 
 	void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
-	QMenu* context_menu		= NULL;
+	QMenu* context_menu		= nullptr;
 
 	void OnRemove();
 };

@@ -4,7 +4,7 @@
 #include "Cross.h"
 #include "PropertyView.h"
 
-class QLineEdit;
+class FileHandler;
 class QPushButton;
 
 class ShaderView : public PropertyView
@@ -15,25 +15,22 @@ public:
 	~ShaderView() override = default;
 
 	void Initialize();
-	void OnFileSelected(const string& filename);
+	void OnFileSelected(const String& filename);
 
 protected:
 	void showEvent(QShowEvent* event) override;
-	
+
 private:
 	Shader* shader					= NULL;
 
 	QGroupBox* macrosies_box		= NULL;
 	QGroupBox* properties_box		= NULL;
-	QLineEdit* vertex_file			= NULL;
-	QLineEdit* fragment_file		= NULL;
+	FileHandler* vertex_handler		= NULL;
+	FileHandler* fragment_handler	= NULL;
 	QPushButton* apply_btn			= NULL;
 	QPushButton* revert_btn			= NULL;
 
 	void Clear();
-
-	void OnVertexFileClicked();
-	void OnFragmentFileClicked();
 
 	QWidget* OnAddMacroClicked();
 	QWidget* OnAddPropertyClicked();

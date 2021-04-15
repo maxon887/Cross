@@ -30,6 +30,7 @@ public:
 	Event<Entity*> EntitySelected;
 	Event<Entity*> EntityGrabFocus;
 	Event<Entity*> EntityChanged;
+	Event<bool> VisibilityChanged;
 
 	SceneExplorer(QWidget* parent = 0);
 	~SceneExplorer();
@@ -39,6 +40,8 @@ public:
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
+	void hideEvent(QHideEvent *eve) override;
+	void showEvent(QShowEvent *eve) override;
 
 private:
 	SceneModel* scene_model				= NULL;

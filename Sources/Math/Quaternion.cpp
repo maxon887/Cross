@@ -34,11 +34,11 @@ Quaternion::Quaternion():
 	w(1.f)
 { }
 
-Quaternion::Quaternion(const Vector3D& inAxis, float angle) { 
+Quaternion::Quaternion(const Vector3D& inAxis, float angle) {
 	Vector3D axis = inAxis.GetNormalized();
 	float halfAngle = angle * 0.5f;
-	float cosA = cos(halfAngle / 180.f * PI);
-	float sinA = sin(halfAngle / 180.f * PI);
+	float cosA = cosf(halfAngle / 180.f * PI);
+	float sinA = sinf(halfAngle / 180.f * PI);
 	this->x = axis.x * sinA;
 	this->y = axis.y * sinA;
 	this->z = axis.z * sinA;
@@ -46,29 +46,33 @@ Quaternion::Quaternion(const Vector3D& inAxis, float angle) {
 }
 
 Quaternion::Quaternion(const Matrix& m) {
-	float tr = m.m[0][0] + m.m[1][1] + m.m[2][2]; // trace of m.martix
-	if (tr > 0.0f) {	 // if trace positive than "w" is biggest com.mponent
-		this->x = m.m[1][2] - m.m[2][1];
-		this->y = m.m[2][0] - m.m[0][2];
-		this->z = m.m[0][1] - m.m[1][0];
-		this->w = tr + 1.0f;
-	} else				 // Som.me of vector com.mponents is bigger
-	if( (m.m[0][0] > m.m[1][1] ) && ( m.m[0][0] > m.m[2][2]) ) {
-		this->x = 1.0f + m.m[0][0] - m.m[1][1] - m.m[2][2];
-		this->y = m.m[1][0] + m.m[0][1];
-		this->z = m.m[2][0] + m.m[0][2];
-		this->w = m.m[1][2] - m.m[2][1];
-	} else 
-	if ( m.m[1][1] > m.m[2][2] ) {
-		this->x = m.m[1][0] + m.m[0][1];
-		this->y = 1.0f + m.m[1][1] - m.m[0][0] - m.m[2][2];
-		this->z = m.m[2][1] + m.m[1][2];
-		this->w = m.m[2][0] - m.m[0][2];
+	float trace = m.m[0][0] + m.m[1][1] + m.m[2][2];
+	if(trace > 0) {
+		float s = 0.5f / sqrtf(trace + 1.0f);
+		this->w = 0.25f / s;
+		this->x = (m.m[1][2] - m.m[2][1]) * s;
+		this->y = (m.m[2][0] - m.m[0][2]) * s;
+		this->z = (m.m[0][1] - m.m[1][0]) * s;
 	} else {
-		this->x = m.m[2][0] + m.m[0][2];
-		this->y = m.m[2][1] + m.m[1][2];
-		this->z = 1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1];
-		this->w = m.m[0][1] - m.m[1][0];
+		if(m.m[0][0] > m.m[1][1] && m.m[0][0] > m.m[2][2]) {
+			float s = 2.0f * sqrtf(1.0f + m.m[0][0] - m.m[1][1] - m.m[2][2]);
+			this->w = (m.m[1][2] - m.m[2][1]) / s;
+			this->x = 0.25f * s;
+			this->y = (m.m[1][0] + m.m[0][1]) / s;
+			this->z = (m.m[2][0] + m.m[0][2]) / s;
+		} else if(m.m[1][1] > m.m[2][2]) {
+			float s = 2.0f * sqrtf(1.0f + m.m[1][1] - m.m[0][0] - m.m[2][2]);
+			this->w = (m.m[2][0] - m.m[0][2]) / s;
+			this->x = (m.m[1][0] + m.m[0][1]) / s;
+			this->y = 0.25f * s;
+			this->z = (m.m[2][1] + m.m[1][2]) / s;
+		} else {
+			float s = 2.0f * sqrtf(1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1]);
+			this->w = (m.m[0][1] - m.m[1][0]) / s;
+			this->x = (m.m[2][0] + m.m[0][2]) / s;
+			this->y = (m.m[2][1] + m.m[1][2]) / s;
+			this->z = 0.25f * s;
+		}
 	}
 }
 
@@ -84,7 +88,7 @@ float Quaternion::Norm() const {
 }
 
 float Quaternion::Length() const {
-	return sqrt(this->Norm());
+	return sqrtf(this->Norm());
 }
 
 Quaternion Quaternion::GetConjugated() const {
@@ -129,13 +133,13 @@ Matrix Quaternion::GetMatrix() const {
 	m.m[0][2] = xz - wy;
 	m.m[1][2] = yz + wx;
 	m.m[2][2] = 1.0f - (xx + yy);
-	
+
 	return m;
 }
 
 Vector3D Quaternion::GetAxis() const {
 	Vector3D axis;
-	float sinA = sqrt(1.f - w * w);
+	float sinA = sqrtf(1.f - w * w);
 	if(sinA > 0){
 		axis.x = x / sinA;
 		axis.y = y / sinA;
@@ -145,7 +149,7 @@ Vector3D Quaternion::GetAxis() const {
 }
 
 float Quaternion::GetAngle() const {
-	return 2 * acos(w) * 180.f / PI;
+	return 2 * acosf(w) * 180.f / PI;
 }
 
 Quaternion Quaternion::operator+(const Quaternion& q) const {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MeshComponentClass</class>
- <widget class="QWidget" name="MeshComponentClass">
+ <class>MeshComponentUI</class>
+ <widget class="QWidget" name="MeshComponentUI">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>323</width>
-    <height>121</height>
+    <width>339</width>
+    <height>196</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="MeshComponent" name="meshComponent">
+    <widget class="MeshComponent" name="mesh">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -42,9 +42,9 @@
        <number>6</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QHBoxLayout" name="model_layout">
         <item>
-         <widget class="QLabel" name="modelLabel">
+         <widget class="QLabel" name="model_label">
           <property name="maximumSize">
            <size>
             <width>80</width>
@@ -57,7 +57,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="modelValue">
+         <widget class="QLabel" name="filename_label">
           <property name="text">
            <string>modelfilename</string>
           </property>
@@ -66,9 +66,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="polycount_layout">
         <item>
-         <widget class="QLabel" name="polyCountLabel">
+         <widget class="QLabel" name="polycount_label">
           <property name="maximumSize">
            <size>
             <width>80</width>
@@ -81,7 +81,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="polyCountValue">
+         <widget class="QLabel" name="polycount_value">
           <property name="text">
            <string>0</string>
           </property>
@@ -90,9 +90,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="material_layout">
         <item>
-         <widget class="QLabel" name="materialLabel">
+         <widget class="QLabel" name="material_label">
           <property name="minimumSize">
            <size>
             <width>80</width>
@@ -111,10 +111,10 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="materialValue"/>
+         <widget class="QLineEdit" name="material_file"/>
         </item>
         <item>
-         <widget class="QPushButton" name="loadBtn">
+         <widget class="QPushButton" name="load_button">
           <property name="maximumSize">
            <size>
             <width>100</width>
@@ -129,9 +129,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="face_culling_layout">
         <item>
-         <widget class="QLabel" name="faceCullingLabel">
+         <widget class="QLabel" name="face_culling_label">
           <property name="maximumSize">
            <size>
             <width>80</width>
@@ -144,7 +144,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="faceCulling">
+         <widget class="QCheckBox" name="face_culling">
           <property name="text">
            <string/>
           </property>

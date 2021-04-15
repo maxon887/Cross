@@ -30,31 +30,31 @@
 
 using namespace cross;
 
-void ShowLastError(){
+void ShowLastError() {
 	DWORD error = GetLastError();
 	LPTSTR str;
 	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL,
+		nullptr,
 		error,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),							  // Default language
 		(LPTSTR)&str,
 		0,
-		NULL);
-	MessageBox(NULL, str, "Error", MB_OK);
+		nullptr);
+	MessageBox(nullptr, str, "Error", MB_OK);
 }
 
-int OpenGL_Main(){
+int OpenGL_Main() {
 	HWND wnd = WinCreate();
 	MSG msg;
 
 	WINSystem* winSys = new WINSystem(wnd);
-	system = winSys;
+	os = winSys;
 	game = CrossMain();
 
-	int winX = config->GetInt("WIN_POS_X", 0);
-	int winY = config->GetInt("WIN_POS_Y", 0);
-	int winWidth = config->GetInt("WIN_WIDTH", 500);
-	int winHeight = config->GetInt("WIN_HEIGHT", 500);
+	int winX = config->GetInt("WIN_POS_X", 100);
+	int winY = config->GetInt("WIN_POS_Y", 100);
+	int winWidth = config->GetInt("WIN_WIDTH", 960);
+	int winHeight = config->GetInt("WIN_HEIGHT", 512);
 	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
@@ -101,9 +101,10 @@ int OpenGL_Main(){
 
 	ZeroMemory(&msg, sizeof(MSG));
 	while(msg.message != WM_QUIT) {
-		while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if(msg.message == WM_QUIT) break;
 		}
 		game->EngineUpdate();
 		SwapBuffers(dc);
@@ -114,18 +115,10 @@ int OpenGL_Main(){
 	delete gfxGL;
 	delete game;
 	delete audio;
-	delete system;
-#ifdef CROSS_DEBUG
-	unsigned long leaked = MemoryManager::Instance()->Dump();
-	if(leaked > 0) {
-		char buf[256];
-		sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
-		OutputDebugString(buf);
-		return -1;
-	} else {
-		OutputDebugString("No memory leak detected\n");
-	}
-#endif // CROSS_DEBUG
+	delete os;
+#ifdef CROSS_MEMORY_PROFILE
+	MemoryManager::Instance()->Dump();
+#endif // CROSS_MEMORY_PROFILE
 	return msg.wParam;
 }
 

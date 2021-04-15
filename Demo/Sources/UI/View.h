@@ -21,31 +21,32 @@ using namespace cross;
 
 class View {
 public:
-	View(string name);
-	virtual ~View() { }
+	View(const String& name);
+	virtual ~View();
 
 	virtual void Shown() { }
 	virtual void Hidden() { }
 
-	virtual void WillContent() { }
-	virtual void Content(float sec) { }
-	virtual void DidContent() { }
+	virtual void PreUpdate() { }
+	virtual void Update(float sec) { }
+	virtual void PostUpdate() { }
 
-	virtual bool MobileOnly() { return false; }
+	virtual bool VisibleInMenu() { return true; }
+	virtual bool AvailableInMenu() { return true; }
 
 	void Show();
 	void Hide();
 	bool IsVisible() const;
-	void Update(float sec);
+	const String& GetName() const;
 
-	const string& GetName() const;
+	void Run(float sec);
 
 protected:
-	void SetWindowFlags(U32 flags);
+	void SetFlags(U32 flags);
 
 private:
-	string landscape_name = "View";
-	string portrait_name = "View ";
+	String landscape_name = "View##Landscape";
+	String portrait_name = "View##Portrait";
 	bool visible = false;
 	U32 flags = 0;
 };

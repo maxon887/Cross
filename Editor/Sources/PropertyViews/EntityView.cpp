@@ -3,7 +3,6 @@
 
 #include "ui_TransformComponent.h"
 #include "ui_MeshComponent.h"
-//#include "ui_LightComponent.h"
 
 EntityView::EntityView(QWidget* parent) : 
 	PropertyView(parent) 
@@ -11,8 +10,8 @@ EntityView::EntityView(QWidget* parent) :
 
 void EntityView::Initialize() {
 	view_layout = dynamic_cast<QVBoxLayout*>(this->layout());
-	AddComponentView<MeshComponent, Ui::MeshComponentClass>("meshComponent");
-	AddComponentView<TransformComponent, Ui::TransformComponentClass>("transformComponent");
+	AddComponentView<MeshComponent, Ui::MeshComponentUI>("mesh");
+	AddComponentView<TransformComponent, Ui::TransformComponentUI>("transform");
 
 	for(PropertyView* v : component_views) {
 		v->Initialize();
@@ -30,7 +29,7 @@ void EntityView::OnEntitySelected(Entity* e) {
 	}
 	unknown_components.clear();
 	if(e) {
-		setTitle(e->GetName().c_str());
+		setTitle(e->GetName().ToCStr());
 		show();
 
 		for(Component* component : e->GetComponents()) {

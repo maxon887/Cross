@@ -19,7 +19,7 @@
 
 #define ERRCHECK(_result) \
 if(_result != FMOD_OK) { \
-	CROSS_ASSERT(false, "FMOD error %d - %s", _result, FMOD_ErrorString(_result)); \
+	CROSS_ASSERT(false, "FMOD error # - #", _result, FMOD_ErrorString(_result)); \
 }
 
 namespace FMOD{
@@ -36,12 +36,12 @@ public:
 	~Audio();
 
 	FMOD::System* GetSystem();
-	FMOD::Sound* LoadSound(const string& path, bool loop, bool isStream);
+	FMOD::Sound* LoadSound(const String& path, bool loop, bool isStream);
 	void Suspend();
 	void Resume();
 
 private:
-	FMOD::System* fmod_system = NULL;
+	FMOD::System* fmod_system = nullptr;
 };
 
 }

@@ -25,30 +25,34 @@ namespace cross{
 	Almost any object exiting on a scene must be an Entity. All Entities stores in Scene in the Tree-like structure */
 class Entity {
 public:
-	Entity(const string& name);
+	Entity(const String& name);
 	~Entity();
 
 	/* Returns name of the object. Entity can be found by name in Scene or in other Entity's children by GetEntity() or FindChild() */
-	const string& GetName() const;
+	const String& GetName() const;
 	/* Sets name of the object. Rewrites name given by constructor */
-	void SetName(const string& name);
+	void SetName(const String& name);
 
 	/* Checks if Entity contains certain component T */
 	template<class T> bool HasComponent() const;
-	/* Returns certain component T contained in this Entity or null if component not found */
+	/* Returns certain component T contained in this Entity or nullptr if component not found */
 	template<class T> T* GetComponent();
-	/* Returns component by id contained in this Entity or null if component not found */
+	/* Returns component by id contained in this Entity or nullptr if component not found */
 	Component* GetComponent(U64 type);
 	/* Returns all components contained in this Entity */
 	Array<Component*> GetComponents();
-	/* Returns Transform component contained in this Entity or null if Transform not found */
+	/* Returns Transform component contained in this Entity or nullptr if Transform not found */
 	Transform* GetTransform();
-	/* Adds component to the current Entity component stack. Components with the same name can't be added twice */
+	/* Adds component to the current Entity component stack. Components with the same type can't be added twice */
 	void AddComponent(Component* component);
-	/* Removes component from Entity. Approprite Remove() will be called on Component object */
+	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
+	void AddComponent(Component* component, Scene* scene);
+	/* Adds component to the current Entity component stack. initilize = true if component should be initialized in place */
+	void AddComponent(Component* component, Scene* scene, bool initilize);
+	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
-	
-	/* Returns parent of the Entity or null if Entity doesn't have a parent (for root entity for ex) */
+
+	/* Returns parent of the Entity or nullptr if Entity doesn't have a parent (for root entity for ex) */
 	Entity* GetParent();
 	/* Sets parent for this Entity */
 	void SetParent(Entity* parent);
@@ -61,16 +65,14 @@ public:
 	/* Returns Entity's child by its index position in Entity's child container */
 	Entity* FindChild(U32 index);
 	/* Returns Entity's child by its name */
-	Entity* FindChild(const string& name);
-	/* Removes child from Entity by name. Returns live child in case of success or null if child not found. Returned child must be utilized by hand. */
-	Entity* RemoveChild(const string& nane);
-	/* Removes specific child from Entity. Returns the same object in case of success or null if child not found. Appropriate child's Remove() will be called. */
+	Entity* FindChild(const String& name);
+	/* Removes child from Entity by name. Returns live child in case of success or nullptr if child not found. Returned child must be utilized by hand. */
+	Entity* RemoveChild(const String& name);
+	/* Removes specific child from Entity. Returns the same object in case of success or nullptr if child not found. Appropriate child's Remove() will be called. */
 	Entity* RemoveChild(Entity* child);
 	/* Clone this entity with all it's components and children */
 	Entity* Clone();
 
-	/* Returns Entity's world transform Matrix. Not fast and save function (all parents matrices must be multiplied and must exists) */
-	Matrix GetWorldMatrix();
 	/* Returns Entity's world direction vector. Not fast function (all parents directions must be multiplied and must exist) */
 	Vector3D GetDirection();
 
@@ -80,9 +82,9 @@ engineonly:
 	void Update(float sec);
 
 private:
-	string name								= string();
+	String name								= String();
 	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
-	Entity* parent							= NULL;
+	Entity* parent							= nullptr;
 	List<Entity*> children					= List<Entity*>();
 };
 
@@ -92,12 +94,12 @@ bool Entity::HasComponent() const {
 }
 
 template<class T>
-T* Entity::GetComponent(){
+T* Entity::GetComponent() {
 	auto it = components.find(typeid(T).hash_code());
 	if(it != components.end()) {
 		return (T*)(*it).second;
 	} else {
-		return NULL;
+		return nullptr;
 	}
 }
 

@@ -14,10 +14,10 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Color.h"
 #include "Cross.h"
+#include "Color.h"
 
-#include <cstdlib>
+#include <cstring>
 
 using namespace cross;
 
@@ -65,39 +65,36 @@ Color::Color(int r, int g, int b, int a) :
 	A(a / 255.f)
 { }
 
-Color::Color(const char* hex){
-	string rStr = string(hex + 0, hex + 2);
-	U64 rInt = std::strtol(rStr.c_str(), NULL, 16);
-	string gStr = string(hex + 2, hex + 4);
-	U64 gInt = std::strtol(gStr.c_str(), NULL, 16);
-	string bStr = string(hex + 4, hex + 6);
-	U64 bInt = std::strtol(bStr.c_str(), NULL, 16);
-	string aStr = string(hex + 6, hex + 8);
-	U64 aInt = std::strtol(aStr.c_str(), NULL, 16);
-	R = rInt / 255.f;
-	G = gInt / 255.f;
-	B = bInt / 255.f;
-	A = aInt / 255.f;
+Color::Color(const String& hex) {
+	String rStr = hex.SubString(0, 2);
+	R = rStr.ToInt(16) / 255.f;
+	String gStr = hex.SubString(2, 4);
+	G = gStr.ToInt(16) / 255.f;
+	String bStr = hex.SubString(4, 6);
+	B = bStr.ToInt(16) / 255.f;
+	String aStr = hex.SubString(6, 8);
+	A = aStr.ToInt(16) / 255.f;
 }
 
 void Color::SetData(const char* data){
 	memcpy(&R, data, sizeof(Color));
 }
 
-const float* Color::GetData() const{
+float* Color::GetData() {
 	return &R;
 }
 
-bool Color::operator==(const Color &c) const{
-	if(	this->R == c.R &&
-		this->G == c.G &&
-		this->B == c.B ){
-		return true;
-	}else{
-		return false;
-	}
+String Color::ToString() const {
+	String result = String(int(R * 255), "%02X", 2) + String(int(G * 255), "%02X", 2) + String(int(B * 255), "%02X", 2) + String(int(A * 255), "%02X", 2);
+	return result;
 }
 
-bool Color::operator!=(const Color &c) const{
+bool Color::operator == (const Color &c) const{
+	return	this->R == c.R &&
+			this->G == c.G &&
+			this->B == c.B;
+}
+
+bool Color::operator != (const Color &c) const{
 	return !((*this) == c);
 }

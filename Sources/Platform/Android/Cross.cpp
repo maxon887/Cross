@@ -87,6 +87,8 @@ void Main() {
                 pause_mutex.unlock();
                 break;
             }
+			case APP_EXIT:
+				break;
         }
         switch (wnd_state) {
             case WND_NONE:
@@ -109,12 +111,12 @@ void Main() {
                     //after destroyed drawing surface GL stack may contain some error
                     GraphicsGL::ClearGLErrorBuffer();
                     if (success) {
-                        LOGI("Window recreaded");
+                        LOGI("Window recreated");
                         wnd_state = WND_ACTIVE;
                         app_state = APP_RUNNING;
                         system->SetWindowSize(screen_width, screen_height);
                     } else {
-                        LOGI("Can not recread native window");
+                        LOGI("Can not recreate native window");
                         app_state = APP_EXIT;
                     }
                 }
@@ -128,6 +130,8 @@ void Main() {
                 break;
         }
     }
+	system->LogIt("OnExit");
+
     //exit application
     game->GetCurrentScreen()->Stop();
     game->Stop();
@@ -150,7 +154,7 @@ extern "C"{
             if (!mng) {
                 LOGI("Error loading asset manager");
             }
-            string stdDataPath = env->GetStringUTFChars(dataPath, NULL);
+            String stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
             system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();

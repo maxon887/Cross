@@ -17,45 +17,47 @@
 #pragma once
 
 #include "System.h"
+
 #include <jni.h>
 #include <android/asset_manager.h>
-#include "android/log.h"
+#include <android/log.h>
 
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO, "Cross++", __VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, "CrossException", __VA_ARGS__)
 
 namespace cross{
 
-class AndroidSystem : public System{
+class AndroidSystem : public System {
 public:
-    AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, string dataPath);
+    AndroidSystem(JNIEnv* env, jobject crossActivity, AAssetManager* assManager, String dataPath);
 	~AndroidSystem();
 
 	void Log(const char* msg) override;
-	string AssetsPath() override;
-	string DataPath() override;
+	String AssetsPath() override;
+	String DataPath() override;
 	U64 GetTime() override;
 	float GetScreenDPI() override;
 
-	File* LoadAssetFile(const string& filename) override;
-
+	File* LoadAssetFile(const String& filename) override;
+	bool IsDirectoryExists(const String& dirname) override;
 	void PromtToExit() override;
 	void RequestOrientation(Orientation orientation) override;
-	void Messagebox(const string& title, const string& message) override;
+	void Messagebox(const String& title, const String& message) override;
 	bool IsMobile() override;
 	void Exit();
 	void Sleep(float milis) override;
-	void CallActivityVoidMethod(const string& methodName);
-	void CallActivityVoidMethod(const string& methodName, const string& parameter);
-	
+	void CallActivityVoidMethod(const String& methodName);
+	void CallActivityVoidMethod(const String& methodName, const String& parameter);
+
 public:
 	void DetachFromJVM();
 	JNIEnv* GetJNIEnv();
+
 private:
 	JavaVM* jvm;
 	jobject cross_activity;
 	AAssetManager* asset_manager;
-	string data_path;
+	String data_path;
 };
 
 }

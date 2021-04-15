@@ -16,37 +16,41 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-#if defined(_DEBUG) || ! defined(NDEBUG)
-#   define CROSS_DEBUG
-#endif
+// Available Macrosies.
+// Enable following macrosies on your compiler preprocessor level in order to accomplish described results */
+
+// CROSS_DEBUG - enables engine debug functional. Additional logs and error checking will be enabled. Should not be turn on on Release mode
+
+// CROSS_MEMORY_PROFILE - enables internal memory profiler. Which keep track of all c++ memory allocations and deallocations. 
+// This functional will help you not to forget call delete for your memory by asserting on the exit of application. For old style memory
+// malloc and free the are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macrosies. Should not be turn on on Release mode.
+
+// CROSS_STD_REPLACEMENT - replaces all basics std types for custom ones. In for performance and learning purposes. 
+
 
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 
-#define CROSS_ASSERT(condition, message, ...)						\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
+#define CROSS_ASSERT(condition, message, ...)									\
+if(!(condition)) {																\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 }
 
-#define CROSS_FAIL(condition, message, ...)							\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
-	return;															\
+#define CROSS_FAIL(condition, message, ...)										\
+if(!(condition)) {																\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	return;																		\
 }
 
-#define CROSS_RETURN(condition, value, message, ...)				\
-if(!(condition)) {													\
-	EvokeAlert(__FILE__, __LINE__, message, ##__VA_ARGS__);			\
-	return value;													\
+#define CROSS_RETURN(condition, value, message, ...)							\
+if(!(condition)) {																\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	return value;																\
 }
-
-#if defined(__APPLE__) || defined(__APPLE_CC__)
-#	define IOS 1
-#endif
 
 #include <cstdint>
-
-#undef _CRT_USE_WINAPI_FAMILY_DESKTOP_APP
+#include <cassert>
+#include <cstdlib>
 
 namespace cross {
 	typedef int8_t		S8;
@@ -58,35 +62,24 @@ namespace cross {
 	typedef int64_t		S64;
 	typedef uint64_t	U64;
 	typedef uint8_t		Byte;
+	typedef size_t		Size;
 }
 
-void EvokeAlert(const char* filename, unsigned int line, const char* msg, ...);
-
 #include "Internals/MemoryManager.h"
+
+#include "Experimental/String.h"
+#include "Experimental/Array.h"
+#include "Experimental/Function.h"
+
 #include "Math/All.h"
 #include "Color.h"
 
-#include <string>
 #include <list>
 #include <map>
 #include <set>
 
-#include "Experimental/ArraySTD.h"
-
 namespace cross{
 
-typedef int8_t		S8;
-typedef uint8_t		U8;
-typedef int16_t		S16;
-typedef uint16_t	U16;
-typedef int32_t		S32;
-typedef uint32_t	U32;
-typedef int64_t		S64;
-typedef uint64_t	U64;
-typedef uint8_t		Byte;
-
-template<typename Type>
-using Array = ArraySTD<Type>;
 template<typename Type>
 using List = std::list<Type>;
 template<typename Key, typename Value>
@@ -97,7 +90,6 @@ using Set = std::set<Type>;
 class Game;
 class System;
 class GraphicsGL;
-class Graphics3D;
 class Physics;
 class Input;
 class Config;
@@ -107,7 +99,6 @@ class Screen;
 class Scene;
 class File;
 class Camera;
-class Camera2D;
 class Shader;
 class Entity;
 class Material;
@@ -115,21 +106,21 @@ class Mesh;
 class Model;
 class Texture;
 class Light;
-class Cubemap;
 class Component;
+class Transform;
+class Cubemap;
 class RigidBody;
 class Collider;
-class Transform;
 
 extern Game*		game;
-extern System*		system;
+extern System*		os;
 extern GraphicsGL*	gfxGL;
 extern Physics*		physics;
 extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
 
-static const char*	version = "4.0.1";
+static const char*	version = "4.0.2";
 
 }
 
@@ -150,4 +141,4 @@ friend Sound;			\
 friend Input;			\
 friend Config;			\
 friend Scene;			\
-friend Screen;			
+friend Screen;

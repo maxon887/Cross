@@ -15,16 +15,34 @@
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
+
+#ifdef WIN
 #include "Platform/Windows/WINSystem.h"
 
 using namespace cross;
 
 class ESystem : public WINSystem {
 public:
-	bool Alert(const string& msg) override;
+	bool Alert(const String& msg) override;
 
 	bool IsPaused();
 
 private:
 	bool paused = false;
 };
+
+#elif MACOS
+#include "Platform/MacOS/MacSystem.h"
+
+using namespace cross;
+
+class ESystem : public MacSystem {
+public:
+	bool Alert(const String& msg) override;
+
+	bool IsPaused();
+
+private:
+	bool paused = false;
+};
+#endif

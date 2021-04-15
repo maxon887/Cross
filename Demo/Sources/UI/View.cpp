@@ -16,13 +16,21 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "View.h"
 #include "System.h"
+#include "Config.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
-View::View(string name)
+View::View(const String& name)
 {
-	landscape_name = name;
-	portrait_name = name + " ";
+	landscape_name = name + "##Landscape";
+	portrait_name = name + "##Portrait";
+	String windowID = String::Format("VIEW_#_VISIBLE", GetName().Hash());
+	visible = config->GetBool(windowID, false);
+}
+
+View::~View() {
+	String windowID = String::Format("VIEW_#_VISIBLE", GetName().Hash());
+	config->SetBool(windowID, visible);
 }
 
 void View::Show() {
@@ -39,33 +47,31 @@ bool View::IsVisible() const {
 	return visible;
 }
 
-void View::Update(float sec) {
+const String& View::GetName() const {
+	return landscape_name;
+}
+
+void View::Run(float sec) {
 	if(visible) {
-		const char* name = landscape_name.c_str();
-		switch(system->GetDeviceOrientation()) {
+		PreUpdate();
+		switch(os->GetDeviceOrientation()) {
 		case System::Orientation::LANDSCAPE:
-			name = landscape_name.c_str();
+			ImGui::Begin(landscape_name, &visible, flags);
 			break;
 		case System::Orientation::PORTRAIT:
-			name = portrait_name.c_str();
+			ImGui::Begin(portrait_name, &visible, flags);
 			break;
 		default:
 			CROSS_FAIL(false, "Unknown device orientation");
 			break;
 		}
 
-		WillContent();
-		ImGui::Begin(name, &visible, flags);
-		Content(sec);
+		Update(sec);
 		ImGui::End();
-		DidContent();
+		PostUpdate();
 	}
 }
 
-const string& View::GetName() const {
-	return landscape_name;
-}
-
-void View::SetWindowFlags(U32 f) {
+void View::SetFlags(U32 f) {
 	this->flags = f;
 }

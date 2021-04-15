@@ -21,18 +21,17 @@
 namespace cross {
 
 /*	3D Camera Component. At least one camera must be set into Scene by SetCamera() in order to render a Scene.
-	Camera can't be used untill SetProjectionMatrix() is called.
+	Camera can't be used until SetProjectionMatrix() is called.
 	Camera Component can't be used with Entity without Transform Component */
 class Camera : public Component {
 public:
+	Camera();
+	/* Initializes Camera Component */
+	void Initialize(Scene* scene) override;
 	/* Updates Camera Component. Realized in order to recalculate view Matrix */
 	void Update(float sec) override;
 	/* Save copy of Camera Component */
 	Component* Clone() const override;
-	/* Loads Camera Component from XML document */
-	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
-	/* Saves Camera Component into XML document */
-	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
 
 	/* Returns Camera view distance. Object under that distance won't be rendered */
 	float GetViewDistance() const;
@@ -44,9 +43,10 @@ public:
 	void SetProjectionMatrix(const Matrix& projection);
 
 protected:
-	Matrix view			= Matrix::Identity;
-	Matrix projection	= Matrix::Identity;
-	float view_distance = 100.f;
+	Property<float> view_distance	= Property<float>(this, "ViewDistance", 100.f);
+
+	Matrix view						= Matrix::Identity;
+	Matrix projection				= Matrix::Identity;
 
 	void RecalcView();
 };

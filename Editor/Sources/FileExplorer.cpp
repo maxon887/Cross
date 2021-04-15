@@ -10,6 +10,7 @@
 #include <QFileSystemModel>
 #include <QContextMenuEvent>
 #include <QDesktopServices>
+#include <QMenu>
 
 FileExplorer::FileExplorer(QWidget* parent) :
 	QTreeView(parent)
@@ -17,8 +18,6 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	file_system = new QFileSystemModel(this);
 	file_system->setReadOnly(false);
 	setModel(file_system);
-
-	SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()));
 
 	hideColumn(1);
 	hideColumn(2);
@@ -46,18 +45,22 @@ FileExplorer::FileExplorer(QWidget* parent) :
 	newMaterial->setText("New Material");
 	connect(newMaterial, &QAction::triggered, this, &FileExplorer::OnNewMaterialClick);
 	context_menu->addAction(newMaterial);
-	QAction* copyAction = new QAction(context_menu);
-	copyAction->setText("Copy");
-	copyAction->setShortcut(QKeySequence::Copy);
-	connect(copyAction, &QAction::triggered, this, &FileExplorer::OnCopyClick);
-	context_menu->addAction(copyAction);
-	addAction(copyAction);
-	QAction* pasteAction = new QAction(context_menu);
-	pasteAction->setText("Paste");
-	pasteAction->setShortcut(QKeySequence::Paste);
-	connect(pasteAction, &QAction::triggered, this, &FileExplorer::OnPasteClick);
-	context_menu->addAction(pasteAction);
-	addAction(pasteAction);
+	open_with = new QAction(context_menu);
+	open_with->setText("Open With...");
+	connect(open_with, &QAction::triggered, this, &FileExplorer::OnOpenWith);
+	context_menu->addAction(open_with);
+	copy = new QAction(context_menu);
+	copy->setText("Copy");
+	copy->setShortcut(QKeySequence::Copy);
+	connect(copy, &QAction::triggered, this, &FileExplorer::OnCopyClick);
+	context_menu->addAction(copy);
+	addAction(copy);
+	paiste = new QAction(context_menu);
+	paiste->setText("Paste");
+	paiste->setShortcut(QKeySequence::Paste);
+	connect(paiste, &QAction::triggered, this, &FileExplorer::OnPasteClick);
+	context_menu->addAction(paiste);
+	addAction(paiste);
 	QAction* deleteAction = new QAction(context_menu);
 	deleteAction->setText("Delete");
 	deleteAction->setShortcut(QKeySequence::Delete);
@@ -74,38 +77,74 @@ FileExplorer::~FileExplorer(){
 void FileExplorer::SetupProjectDirectory(QString dir){
 	file_system->setRootPath(dir);
 	setRootIndex(file_system->index(dir));
+
+	CROSS_ASSERT(system->IsAssetDirectoryExists("Engine"),
+		"Folder 'Engine' does not exists in project directory :\n  '#'\nEditor will not work properly",
+		GetProjectDirectory().toLatin1().data());
+
+	ProjectDirectoryChanged.Emit(dir);
+}
+
+QString FileExplorer::GetProjectDirectory() const {
+	return file_system->rootPath() + "/";
+}
+
+QString FileExplorer::GetRelativePath(const QString& absolutePath) const {
+	QDir root = file_system->rootDirectory();
+	return root.relativeFilePath(absolutePath);
 }
 
 void FileExplorer::contextMenuEvent(QContextMenuEvent *eve) {
+	QModelIndexList selectedFiles = selectedIndexes();
+	if(selectedFiles.size() == 1) {
+		open_with->setEnabled(true);
+	} else {
+		open_with->setEnabled(false);
+	}
+
+	//if(selectedFiles.size() >=
+	
+	if(clipboard.size() > 0) {
+		paiste->setEnabled(true);
+	} else {
+		paiste->setEnabled(false);
+	}
+
 	context_menu->exec(eve->globalPos());
+}
+
+void FileExplorer::hideEvent(QHideEvent *eve) {
+	VisibilityChanged.Emit(false);
+}
+
+void FileExplorer::showEvent(QShowEvent *eve) {
+	VisibilityChanged.Emit(true);
 }
 
 void FileExplorer::OnItemSelected(QModelIndex index){
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	QDir root = file_system->rootDirectory();
-	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
-	FileSelected.Emit(filepath.toStdString());
+	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
+	FileSelected.Emit(filepath);
 }
 
-void FileExplorer::OnItemDoubleClick(QModelIndex index){
+void FileExplorer::OnItemDoubleClick(QModelIndex index) {
 	QFileInfo fileInfo = file_system->fileInfo(index);
-	QDir root = file_system->rootDirectory();
-	QString filepath = root.relativeFilePath(fileInfo.absoluteFilePath());
+	QString filepath = GetRelativePath(fileInfo.absoluteFilePath());
 	if(fileInfo.suffix() == "scn") {
 		editor->LoadScene(filepath);
-	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx"){
-		Model* model = game->GetCurrentScene()->GetModel(filepath.toStdString());
+	} else if(fileInfo.suffix() == "obj" || fileInfo.suffix() == "fbx") {
+		Model* model = game->GetCurrentScene()->GetModel(filepath.toLatin1().data());
 		Entity* modelHierarchy = model->GetHierarchy();
-		//gfx3D->AdjustMaterial(modelHierarchy, gfx3D->GetDefaultMaterial()->Clone());
-		CROSS_ASSERT(false, "Adjust Material function requared");
 		game->GetCurrentScene()->AddEntity(modelHierarchy);
-	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha"){
+	} else if (fileInfo.suffix() == "mat" || fileInfo.suffix() == "sha") {
 	} else {
-		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		if(fileInfo.isFile()) {
+			QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+		}
 	}
 }
 
-void FileExplorer::OnNewFolderClick(){
+void FileExplorer::OnNewFolderClick() {
 	QString selectedDir = GetSelectedDirectory();
 	
 	QString baseName = "/New Folder";
@@ -125,7 +164,7 @@ void FileExplorer::OnNewShaderClick(){
 	QString filename = GetAllowedName(selectedDir, "New Shader", ".sha");
 
 	Shader* newShader = new Shader();
-	newShader->Save(filename.toStdString());
+	newShader->Save(filename.toLatin1().data());
 	delete newShader;
 	QModelIndex index = file_system->index(filename);
 	edit(index);
@@ -136,10 +175,18 @@ void FileExplorer::OnNewMaterialClick() {
 	QString filename = GetAllowedName(selectedDir, "New Material", ".mat");
 
 	Material* newMaterial = new Material();
-	newMaterial->Save(filename.toStdString());
+	newMaterial->Save(filename.toLatin1().data());
 	delete newMaterial;
 	QModelIndex index = file_system->index(filename);
 	edit(index);
+}
+
+void FileExplorer::OnOpenWith() {
+	QModelIndexList selectedFiles = selectedIndexes();
+	QFileInfo fileInfo = file_system->fileInfo(selectedFiles[0]);
+	if(fileInfo.isFile()) {
+		QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+	}
 }
 
 void FileExplorer::OnCopyClick() {
@@ -189,7 +236,7 @@ QString FileExplorer::GetSelectedDirectory(){
 
 QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName, const QString& extension){
 	QString filename = baseName + extension;
-	QFile file = dir + "/" + filename;
+	QFile file(dir + "/" + filename);
 	int nameNumber = 0;
 	while(file.exists()) {
 		nameNumber++;
@@ -197,4 +244,21 @@ QString FileExplorer::GetAllowedName(const QString& dir, const QString& baseName
 		file.setFileName(dir + "/" + filename);
 	}
 	return file.fileName();
+}
+
+ProjectDirectoryLabel::ProjectDirectoryLabel(QWidget* parent)
+	: QLabel(parent)
+{
+	FileExplorer* fileExplorer = editor->GetFileExplorer();
+	fileExplorer->ProjectDirectoryChanged.Connect(this, &ProjectDirectoryLabel::OnProjectDirectoryChanged);
+
+	// set black background
+	QPalette pal = palette();
+	pal.setColor(QPalette::Background, QColor(218, 218, 218));
+	setAutoFillBackground(true);
+	setPalette(pal);
+}
+
+void ProjectDirectoryLabel::OnProjectDirectoryChanged(QString path) {
+	setText(path);
 }

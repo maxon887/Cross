@@ -17,17 +17,18 @@
 #include "Light.h"
 #include "Game.h"
 #include "Scene.h"
+#include "System.h"
 
 #include  <algorithm>
 
 using namespace cross;
 
-Light::Light(Type type):
+Light::Light(Type type) :
+	Component("Light"),
 	type(type)
 { }
 
-void Light::Initialize() {
-	Scene* scene = game->GetCurrentScene();
+void Light::Initialize(Scene* scene) {
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
 	CROSS_ASSERT(it == lights.end(), "Current light already in the scene");

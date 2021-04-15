@@ -2,11 +2,19 @@
 #define CROSS_EDITOR
 
 #include "Game.h"
-#include "ui_CrossEditor.h"
 
 #include <QMainWindow>
 
 class Action;
+class SceneExplorer;
+class PropertiesView;
+class FileExplorer;
+
+namespace Ui {
+class CrossEditorUI;
+}
+
+using namespace cross;
 
 class CrossEditor : public QMainWindow, 
 					public Game
@@ -17,21 +25,18 @@ public:
 	Event<Action*> SomethingChanged;
 
 	CrossEditor(QWidget *parent = 0);
+	~CrossEditor();
 
+	void Start() override;
 	void Update(float sec) override;
 
 	SceneExplorer* GetSceneExplorer();
 	PropertiesView* GetPropertyView();
 	FileExplorer* GetFileExplorer();
+	Ui::CrossEditorUI* GetUI();
 
 	void LoadScene(QString& fileInfo);
 	void RestoreSettings();
-	void ExceptionMsgBox(const char* msg);
-	void AdjustSize(QWidget* widget);
-
-	void OnNewSceneClick();
-	void OnSaveAsClick();
-	void OnSetupProjectDirectoryClick();
 
 	void OnScreenChanged(Screen* screen);
 	void OnSomethingChanged(Action* a);
@@ -42,9 +47,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent* key) override;
 
 private:
-	Ui::CrossEditorClass ui;
-	QString scene_file;
-
+	Ui::CrossEditorUI* ui = nullptr;
 };
 
 extern CrossEditor* editor;

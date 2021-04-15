@@ -1,20 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.littleman.cross"
         minSdkVersion 9
         targetSdkVersion 26
         versionCode 300
         versionName "3.0.0"
+		flavorDimensions "default"
         productFlavors {
-            armeabi {
-                ndk {
-                    abiFilter "armeabi"
-                }
-            }
             armV7 {
                 ndk {
                     abiFilter "armeabi-v7a"
@@ -32,7 +27,6 @@ android {
             }
             fat {
                 ndk {
-                    abiFilter "armeabi"
                     abiFilter "armeabi-v7a"
                     abiFilter "arm64-v8a"
                     abiFilter "x86"
@@ -44,11 +38,12 @@ android {
             cmake {
                 cppFlags "-frtti"
                 cppFlags += " -fexceptions"
-                cppFlags += " -std=c++11"
+                cppFlags += " -Wno-error=format-security"
+				arguments "-DANDROID_STL=c++_shared"
             }
         }
     }
-
+	/* Uncomment for release signed builds
     signingConfigs {
         release {
             storeFile file("d:/littlekeystore")
@@ -56,13 +51,20 @@ android {
             keyAlias "littel man"
             keyPassword '**********'
         }
-    }
+    }*/
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
+        }
+        debug {
+            externalNativeBuild {
+                cmake {
+                    cppFlags += "-DCROSS_DEBUG"
+                }
+            }
         }
     }
     sourceSets {
@@ -78,6 +80,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+	implementation fileTree(include: ['*.jar'], dir: 'libs')
+	testImplementation 'junit:junit:4.12'
 }

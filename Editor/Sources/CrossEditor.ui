@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CrossEditorClass</class>
- <widget class="QMainWindow" name="CrossEditorClass">
+ <class>CrossEditorUI</class>
+ <widget class="QMainWindow" name="CrossEditorUI">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1391</width>
-    <height>1259</height>
+    <width>956</width>
+    <height>647</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Cross Editor</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="central_layout">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="leftMargin">
      <number>0</number>
@@ -28,7 +31,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="GLHandler" name="glHandler">
+     <widget class="GLHandler" name="gl_handler">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -39,43 +42,46 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="Menu" name="menu">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1391</width>
-     <height>38</height>
+     <width>956</width>
+     <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="file_menu">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNewScene"/>
-    <addaction name="actionSaveSceneAs"/>
-    <addaction name="actionSetupProjectDirectory"/>
+    <addaction name="new_scene_action"/>
+    <addaction name="save_scene_as_action"/>
+    <addaction name="setup_project_directory_action"/>
    </widget>
-   <widget class="QMenu" name="menuView">
+   <widget class="QMenu" name="view_menu">
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionFileExplorer"/>
-    <addaction name="actionSceneExplorer"/>
-    <addaction name="actionProperties"/>
+    <addaction name="file_explorer_action"/>
+    <addaction name="scene_explorer_action"/>
+    <addaction name="properties_action"/>
    </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuView"/>
+   <addaction name="file_menu"/>
+   <addaction name="view_menu"/>
   </widget>
-  <widget class="QDockWidget" name="fileExplorer">
+  <widget class="QDockWidget" name="file_explorer_dock">
    <property name="windowTitle">
     <string>File Explorer</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="file_explorer_layout">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>1</number>
+     </property>
      <property name="leftMargin">
       <number>0</number>
      </property>
@@ -89,26 +95,49 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="FileExplorer" name="fileExplorerTree">
+      <widget class="FileExplorer" name="file_explorer">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DragOnly</enum>
        </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::ExtendedSelection</enum>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="ProjectDirectoryLabel" name="project_directory_laybel">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="text">
+        <string>ProjectDirectory</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+    <zorder>project_directory_laybel</zorder>
+    <zorder>file_explorer</zorder>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="sceneExplorer">
+  <widget class="QDockWidget" name="scene_explorer_dock">
    <property name="windowTitle">
     <string>Scene Explorer</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2">
+   <widget class="QWidget" name="scene_explorer_layout">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <property name="leftMargin">
       <number>0</number>
@@ -123,9 +152,12 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="SceneExplorer" name="sceneExplorerTree">
+      <widget class="SceneExplorer" name="scene_explorer">
        <property name="editTriggers">
         <set>QAbstractItemView::SelectedClicked</set>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DropOnly</enum>
        </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::SingleSelection</enum>
@@ -138,17 +170,32 @@
     </layout>
    </widget>
   </widget>
-  <widget class="PropertiesView" name="propertiesView">
+  <widget class="PropertiesView" name="properties_view">
    <property name="windowTitle">
     <string>Properties</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="layout">
+   <widget class="QWidget" name="properties_view_layout">
     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>4</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="properties_view_spacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -174,7 +221,7 @@
     <string>Load Scene</string>
    </property>
   </action>
-  <action name="actionFileExplorer">
+  <action name="file_explorer_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -185,7 +232,7 @@
     <string>File Explorer</string>
    </property>
   </action>
-  <action name="actionSceneExplorer">
+  <action name="scene_explorer_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -196,17 +243,17 @@
     <string>Scene Explorer</string>
    </property>
   </action>
-  <action name="actionSaveSceneAs">
+  <action name="save_scene_as_action">
    <property name="text">
     <string>Save Scene As</string>
    </property>
   </action>
-  <action name="actionNewScene">
+  <action name="new_scene_action">
    <property name="text">
     <string>New Scene</string>
    </property>
   </action>
-  <action name="actionSetupProjectDirectory">
+  <action name="setup_project_directory_action">
    <property name="text">
     <string>Setup Project Directory</string>
    </property>
@@ -216,7 +263,7 @@
     <string>New Shader</string>
    </property>
   </action>
-  <action name="actionProperties">
+  <action name="properties_action">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -251,106 +298,19 @@
    <header>PropertiesView.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>ProjectDirectoryLabel</class>
+   <extends>QLabel</extends>
+   <header>FileExplorer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Menu</class>
+   <extends>QMenuBar</extends>
+   <header location="global">Menu.h</header>
+  </customwidget>
  </customwidgets>
  <resources>
   <include location="../CrossEditor.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>actionFileExplorer</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>fileExplorer</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>127</x>
-     <y>341</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionProperties</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>propertiesView</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1153</x>
-     <y>648</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSceneExplorer</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>sceneExplorer</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>127</x>
-     <y>955</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fileExplorer</sender>
-   <signal>visibilityChanged(bool)</signal>
-   <receiver>actionFileExplorer</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>127</x>
-     <y>341</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>propertiesView</sender>
-   <signal>visibilityChanged(bool)</signal>
-   <receiver>actionProperties</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1153</x>
-     <y>648</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>sceneExplorer</sender>
-   <signal>visibilityChanged(bool)</signal>
-   <receiver>actionSceneExplorer</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>127</x>
-     <y>955</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

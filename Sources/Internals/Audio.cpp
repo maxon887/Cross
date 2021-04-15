@@ -26,7 +26,7 @@ using namespace cross;
 static FMOD_RESULT result;
 
 Audio::Audio() {
-	system->LogIt("Audio::Audio()");
+	os->LogIt("Audio::Audio()");
 	result = FMOD::System_Create(&fmod_system);
 	ERRCHECK(result);
 
@@ -34,22 +34,25 @@ Audio::Audio() {
 	result = fmod_system->getVersion(&version);
 	ERRCHECK(result);
 
-	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
+	os->LogIt("FMOD Version - #", String(version, "%08x", 12));
 
-	result = fmod_system->init(32, FMOD_INIT_NORMAL, NULL);
+	CROSS_ASSERT(version > FMOD_VERSION, "FMOD lib version # doesn't match header version #", 
+		String(version, "%08x", 20), String(FMOD_VERSION, "%08x", 20));
+
+	result = fmod_system->init(32, FMOD_INIT_NORMAL, nullptr);
 	ERRCHECK(result);
 }
 
 Audio::~Audio() {
 	result = fmod_system->close();
-	CROSS_ASSERT(result != FMOD_OK, "Error while closing FMOD system");
+    CROSS_ASSERT(result == FMOD_OK, "Error while closing FMOD system");
 }
 
 FMOD::System* Audio::GetSystem() {
 	return fmod_system;
 }
 
-FMOD::Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
+FMOD::Sound* Audio::LoadSound(const String& path, bool loop, bool stream) {
 	FMOD_MODE mode = 0;
 	if(loop){
 		mode = FMOD_LOOP_NORMAL;
@@ -60,12 +63,12 @@ FMOD::Sound* Audio::LoadSound(const string& path, bool loop, bool stream) {
 		mode |= FMOD_CREATESTREAM;
 	}
 #ifdef ANDROID
-	string absPath = "file:///android_asset/" + path;
+	String absPath = "file:///android_asset/" + path;
 #else
-	string absPath = system->AssetsPath() + "/" + path;
+	String absPath = os->AssetsPath() + "/" + path;
 #endif
-	FMOD::Sound* sound = NULL;
-	result = fmod_system->createSound(absPath.c_str(), mode, 0, &sound);
+	FMOD::Sound* sound = nullptr;
+	result = fmod_system->createSound(absPath, mode, 0, &sound);
 	ERRCHECK(result);
 
 	return sound;

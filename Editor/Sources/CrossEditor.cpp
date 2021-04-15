@@ -2,14 +2,17 @@
 #include "SceneView.h"
 #include "System.h"
 #include "Shaders/Shader.h"
-#include "Platform/Windows/WINSystem.h"
+#include "ESystem.h"
+#include "Menu.h"
 
-#include <QSettings.h>
-#include <QFileDialog.h>
+#include "ui_CrossEditor.h"
+
+#include <QSettings>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QDir>
 
-CrossEditor* editor = NULL;
+CrossEditor* editor = nullptr;
 
 CrossEditor::CrossEditor(QWidget *parent) :
 	QMainWindow(parent),
@@ -17,123 +20,88 @@ CrossEditor::CrossEditor(QWidget *parent) :
 {
 	editor = this;
 	game = editor;
-	ui.setupUi(this);
+	ui = new Ui::CrossEditorUI();
+	ui->setupUi(this);
 	UIInitialized.Emit();
-	connect(ui.actionNewScene, &QAction::triggered, this, &CrossEditor::OnNewSceneClick);
-	connect(ui.actionSaveSceneAs, &QAction::triggered, this, &CrossEditor::OnSaveAsClick);
-	connect(ui.actionSetupProjectDirectory, &QAction::triggered, this, &CrossEditor::OnSetupProjectDirectoryClick);
 	
-	ui.sceneExplorerTree->EntitySelected.Connect(ui.propertiesView, &PropertiesView::OnEntitySelected);
-	ui.sceneExplorerTree->EntityChanged.Connect(ui.propertiesView, &PropertiesView::OnEntityChanged);
-	ui.fileExplorerTree->FileSelected.Connect(ui.propertiesView, &PropertiesView::OnFileSelected);
+	ui->scene_explorer->EntitySelected.Connect(ui->properties_view, &PropertiesView::OnEntitySelected);
+	ui->scene_explorer->EntityChanged.Connect(ui->properties_view, &PropertiesView::OnEntityChanged);
+	ui->file_explorer->FileSelected.Connect(ui->properties_view, &PropertiesView::OnFileSelected);
 
-	setWindowTitle(QString("Cross Editor - Untitled*"));
 	SomethingChanged.Connect(this, &CrossEditor::OnSomethingChanged);
 	ScreenChanged.Connect(this, &CrossEditor::OnScreenChanged);
 }
 
-void CrossEditor::Update(float sec){
-	ui.propertiesView->Update(sec);
+CrossEditor::~CrossEditor() {
+	delete ui;
 }
 
-SceneExplorer* CrossEditor::GetSceneExplorer() {
-	return ui.sceneExplorerTree;
-}
-
-PropertiesView* CrossEditor::GetPropertyView() {
-	return ui.propertiesView;
-}
-
-FileExplorer* CrossEditor::GetFileExplorer() {
-	return ui.fileExplorerTree;
-}
-
-void CrossEditor::closeEvent(QCloseEvent* eve) {
-	ui.glHandler->ShutDown();
-	GetSceneExplorer()->reset();
-	QSettings settings("CrossEditor");
-	settings.setValue("geometry", QVariant(geometry()));
-	settings.setValue("windowState", saveState());
-
-	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-	settings.setValue("projectDirectory", winSys->AssetsPath().c_str());
-
-	QMainWindow::closeEvent(eve);
-}
-
-void CrossEditor::LoadScene(QString& scenePath) {
-	scene_file = scenePath;
-	GetSceneExplorer()->clearSelection();
-	SetScreen(new SceneView(scenePath.toStdString()));
-}
-
-void CrossEditor::RestoreSettings() {
-	WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-	QSettings settings("CrossEditor");
-	if(settings.contains("geometry")) {
-		setGeometry(settings.value("geometry").value<QRect>());
-	}
-	if(settings.contains("projectDirectory")) {
-		QString projectDirectory = settings.value("projectDirectory").toString();
-		winSys->SetAssetPath(projectDirectory.toStdString().c_str());
-		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
-	}
-	restoreState(settings.value("windowState").toByteArray());
-}
-
-void CrossEditor::ExceptionMsgBox(const char* msg) {
-	QMessageBox msgBox;
-	msgBox.setText("Unhandled Exception");
-	msgBox.setInformativeText(msg);
-	msgBox.setIcon(QMessageBox::Icon::Critical);
-	msgBox.exec();
-}
-
-void CrossEditor::AdjustSize(QWidget* widget) {
-	QSize maxSize = widget->maximumSize() * system->GetScreenScale();
-	if(maxSize.width() < 0) maxSize.setWidth(MAXINT);
-	if(maxSize.height() < 0) maxSize.setHeight(MAXINT);
-	QSize minSize = widget->minimumSize() * system->GetScreenScale();
-	widget->setMaximumSize(maxSize);
-	widget->setMinimumSize(minSize);
-}
-
-void CrossEditor::OnNewSceneClick() {
-	GetSceneExplorer()->reset();
-	scene_file = "Untitled";
-	setWindowTitle(QString("Cross Editor - Untitled*"));
+void CrossEditor::Start() {
+	Game::Start();
 	SetScreen(new SceneView());
 }
 
-void CrossEditor::OnSaveAsClick(){
-	QString path = QDir::currentPath() + "/" + QString(system->AssetsPath().c_str()) + scene_file;
-	QString filePath = QFileDialog::getSaveFileName(this, "Save Scene", path, "Scene File (*.scn)");
-	if(filePath != ""){
-		scene_file = filePath;
-		QFileInfo file(filePath);
-		setWindowTitle(QString("Cross Editor - ") + QString(file.baseName()));
-		game->GetCurrentScene()->SetName(file.baseName().toStdString().c_str());
-		game->GetCurrentScene()->Save(filePath.toStdString());
+void CrossEditor::Update(float sec) {
+	ui->properties_view->Update(sec);
+}
+
+SceneExplorer* CrossEditor::GetSceneExplorer() {
+	return ui->scene_explorer;
+}
+
+PropertiesView* CrossEditor::GetPropertyView() {
+	return ui->properties_view;
+}
+
+FileExplorer* CrossEditor::GetFileExplorer() {
+	return ui->file_explorer;
+}
+
+Ui::CrossEditorUI* CrossEditor::GetUI() {
+	return ui;
+}
+
+void CrossEditor::closeEvent(QCloseEvent* eve) {
+	ui->gl_handler->ShutDown();
+	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
+	settings.setValue("Geometry", QVariant(geometry()));
+	settings.setValue("WindowState", saveState());
+
+	QString projectDir = GetFileExplorer()->GetProjectDirectory();
+	settings.setValue("ProjectDirectory", projectDir);
+
+	QMainWindow::closeEvent(eve);
+	qApp->quit();
+}
+
+void CrossEditor::LoadScene(QString& scenePath) {
+	GetSceneExplorer()->clearSelection();
+	SetScreen(new SceneView(scenePath.toLatin1().data()));
+}
+
+void CrossEditor::RestoreSettings() {
+	ESystem* esystem = dynamic_cast<ESystem*>(system);
+	QSettings settings("Data/EditorConfig.ini", QSettings::IniFormat);
+	QString file = settings.fileName();
+	if(settings.contains("Geometry")) {
+		setGeometry(settings.value("Geometry").value<QRect>());
 	}
-}
-
-void CrossEditor::OnSetupProjectDirectoryClick(){
-	QString path = QFileDialog::getExistingDirectory(this, "Setup Project Directory", QDir::currentPath());
-	if(path != ""){
-		path += "/";
-		WINSystem* winSys = dynamic_cast<WINSystem*>(system);
-		CROSS_FAIL(winSys, "You are not under Windows opertating system");
-		winSys->SetAssetPath(path.toStdString());
-		GetFileExplorer()->SetupProjectDirectory(path);
+	if(settings.contains("ProjectDirectory")) {
+		QString projectDirectory = settings.value("ProjectDirectory").toString();
+		esystem->SetAssetPath(projectDirectory.toStdString().c_str());
+		GetFileExplorer()->SetupProjectDirectory(projectDirectory);
+	} else {
+		GetFileExplorer()->SetupProjectDirectory(QDir::currentPath() + "/" + QString(system->AssetsPath().ToCStr()));
 	}
+	restoreState(settings.value("WindowState").toByteArray());
 }
 
-void CrossEditor::OnSomethingChanged(Action* action){
-	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName().c_str() + QString("*"));
+void CrossEditor::OnSomethingChanged(Action* action) {
+	setWindowTitle(QString("Cross Editor - ") + GetCurrentScene()->GetName() + QString("*"));
 }
 
-void CrossEditor::OnScreenChanged(Screen* screen){
-	setWindowTitle(QString("Cross Editor - ") + screen->GetName().c_str());
+void CrossEditor::OnScreenChanged(Screen* screen) {
+	setWindowTitle(QString("Cross Editor - ") + screen->GetName());
 }
 
 void CrossEditor::keyPressEvent(QKeyEvent* key) {

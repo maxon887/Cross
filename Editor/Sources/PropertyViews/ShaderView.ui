@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ShaderViewClass</class>
- <widget class="QWidget" name="ShaderViewClass">
+ <class>ShaderViewUI</class>
+ <widget class="QWidget" name="ShaderViewUI">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
-    <height>248</height>
+    <width>504</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="ShaderView" name="shaderView">
+    <widget class="ShaderView" name="shader_view">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -39,9 +39,9 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="vertexLayout">
+       <layout class="QHBoxLayout" name="vertex_layout">
         <item>
-         <widget class="QLabel" name="vertexLabel">
+         <widget class="QLabel" name="vertex_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -54,45 +54,27 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="vertexFile"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="vertexBtn">
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Load</string>
+         <widget class="FileHandler" name="vertex_file">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="fragmentLayout">
+       <layout class="QHBoxLayout" name="fragment_layout">
         <item>
-         <widget class="QLabel" name="fragmentLabel">
+         <widget class="QLabel" name="fragment_label">
           <property name="text">
            <string>Fragment File:  </string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="fragmentFile"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="fragmentBtn">
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Load</string>
+         <widget class="FileHandler" name="fragment_file">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -105,9 +87,9 @@
         </property>
         <layout class="QVBoxLayout" name="macrosiesLayout">
          <item>
-          <layout class="QHBoxLayout" name="addElementLayout">
+          <layout class="QHBoxLayout" name="add_element_layout">
            <item>
-            <spacer name="horizontalSpacer">
+            <spacer name="macro_spacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -120,7 +102,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="addMacroBtn">
+            <widget class="QPushButton" name="add_macro_button">
              <property name="maximumSize">
               <size>
                <width>100</width>
@@ -144,9 +126,9 @@
         </property>
         <layout class="QVBoxLayout" name="propertiesLayout">
          <item>
-          <layout class="QHBoxLayout" name="addElementLayout_2">
+          <layout class="QHBoxLayout" name="add_property_layout">
            <item>
-            <spacer name="horizontalSpacer_2">
+            <spacer name="property_spacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -159,7 +141,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="addPropertyBtn">
+            <widget class="QPushButton" name="add_property_button">
              <property name="maximumSize">
               <size>
                <width>100</width>
@@ -177,12 +159,12 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="buttonsLayout">
+       <layout class="QHBoxLayout" name="buttons_layout">
         <property name="leftMargin">
          <number>0</number>
         </property>
         <item>
-         <spacer name="horizontalSpacer_3">
+         <spacer name="buttons_spacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -195,7 +177,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="revertBtn">
+         <widget class="QPushButton" name="revert_button">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -211,7 +193,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="applyBtn">
+         <widget class="QPushButton" name="apply_button">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -236,6 +218,11 @@
    <extends>QGroupBox</extends>
    <header>PropertyViews/ShaderView.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FileHandler</class>
+   <extends>QLineEdit</extends>
+   <header>PropertyViews/FileHandler.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

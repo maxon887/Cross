@@ -29,6 +29,7 @@ public:
 	void Update(float sec);
 
 	void ShowMenu();
+	void CloseAllViews();
 	float GetHeight() const;
 
 protected:
@@ -36,6 +37,7 @@ protected:
 	bool show_style_editor		= false;
 
 	Array<View*> views;
-	View* stats					= NULL;
-	View* about					= NULL;
+	View* log					= nullptr;
+	View* stats					= nullptr;
+	View* about					= nullptr;
 };

@@ -36,18 +36,17 @@ public:
 		IGNORED
 	};
 
-	Mesh() = default;
-	Mesh(Model* model, S32 id);
+	Mesh();
+	Mesh(const String& modelfilename, S32 id);
 	~Mesh();
 
+	void Initialize(Scene* scene) override;
 	/* Will be drawn on update */
 	void Update(float sec) override;
 	/* Creates new Mesh from this Mesh's data */
 	Mesh* Clone() const override;
-	/* Loads Mesh Component from XML node */
-	bool Load(tinyxml2::XMLElement* xml, Scene* laodingScene) override;
-	/* Saves Mesh Component into XML document */
-	bool Save(tinyxml2::XMLElement* xml, tinyxml2::XMLDocument* doc) override;
+	/* Enables Mesh Component for drawing */
+	void Enable() override;
 
 	/* Draws Mesh on scene */
 	void Draw();
@@ -56,10 +55,12 @@ public:
 	/* Draws Mesh on scene with special stencil behavior */
 	void Draw(Material* material, StencilBehaviour sten);
 	/* Draws Mesh on scene with provided MVP matrix and others parameters */
-	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehvaiour);
+	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehaviour);
 
-	/* Transfers Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
-	void TransferVideoData();
+	/* Initialize Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
+	void InitializeVideoData();
+	/* Copy video data from another mesh, VBO, EBO and indices */
+	void TransferVideoData(Mesh* mesh);
 	/* Add new data to this Mesh or push it on top if have some */
 	void PushData(VertexBuffer* vertexBuffer, const Array<U16>& indices);
 
@@ -67,6 +68,11 @@ public:
 	void SetMaterial(Material* material);
 	/* Gets Material applied for this Mesh */
 	Material* GetMaterial();
+
+	/* Returns true if depth test enabled */
+	bool IsDepthTestEnabled() const;
+	/* Enable depth test. If disabled geometry will be allowed to draw each on eachother */
+	void EnableDepthTest(bool enable);
 
 	/* Returns true if face culling enabled */
 	bool IsFaceCullingEnabled() const;
@@ -80,8 +86,14 @@ public:
 
 	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
 	S32 GetID() const;
-	/* Returns Model object from which this Mesh was loaded or null if mesh was created not from Model */
-	Model* GetModel();
+	/* Sets id of specific mesh group in model file*/
+	void SetID(S32 id);
+	/* Returns filename of the model from which downloaded current Mesh */
+	String GetModelFileName() const;
+	/* Sets filename from which current Mesh was loaded */
+	void SetModelFileName(const String& filename);
+	/* Returns filename of material assosiated with current Mesh */
+	String GetMaterialFileName() const;
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
 
@@ -89,17 +101,19 @@ public:
 	bool IsEqual(Mesh* other) const;
 
 private:
-	U64 VBO						= 0;
-	U64 EBO						= 0;
-	VertexBuffer* vertex_buffer = NULL;
-	Array<U16> indices			= Array<U16>();
+	Property<S32> id					= Property<S32>(this, "ID", -1);
+	Property<String> model_filename		= Property<String>(this, "Model");
+	Property<String> material_filename	= Property<String>(this, "Material");
 
-	S32 id						= -1;
-	Model* model				= NULL;
-	Material* material			= NULL;
-	bool original				= true;
-	bool initialized			= false;
-	bool face_culling			= true;
+	U64 VBO								= 0;
+	U64 EBO								= 0;
+	VertexBuffer* vertex_buffer			= nullptr;
+	Array<U16> indices					= Array<U16>();
+	Material* material					= nullptr;
+	bool original						= true;
+	bool initialized					= false;
+	bool depth_test						= true;
+	bool face_culling					= true;
 
 	void Copy(const Mesh* m);
 };

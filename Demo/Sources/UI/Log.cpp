@@ -1,0 +1,65 @@
+/*	Copyright © 2018 Maksim Lukyanov
+
+	This file is part of Cross++ Game Engine.
+
+	Cross++ Game Engine is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	Cross++ is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#include "Log.h"
+#include "System.h"
+
+void Log::PreUpdate() {
+	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
+}
+
+void Log::Update(float sec) {
+	if(ImGui::Button("Clear")) Clear();
+	ImGui::SameLine();
+	bool copy = ImGui::Button("Copy");
+	ImGui::SameLine();
+	filter.Draw("Filter", -100.0f);
+	ImGui::Separator();
+	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+	if(copy) ImGui::LogToClipboard();
+
+	if(filter.IsActive()) {
+		const char* buf_begin = os->GetLogBuffer();
+		const char* line = buf_begin;
+		for(int line_no = 0; line != nullptr; line_no++) {
+			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : nullptr;
+			if(filter.PassFilter(line, line_end)) {
+				ImGui::TextUnformatted(line, line_end);
+			}
+			line = line_end && line_end[1] ? line_end + 1 : nullptr;
+		}
+	} else {
+		if(os->GetLogBuffer().Length() > 0) {
+			ImGui::TextUnformatted(os->GetLogBuffer());
+		}
+	}
+
+	if(log_size != os->GetLogBuffer().Length()) {
+		scroll_to_bottom = true;
+		log_size = os->GetLogBuffer().Length();
+	}
+
+	if(scroll_to_bottom) {
+		ImGui::SetScrollHereY(1.0f);
+	}
+	scroll_to_bottom = false;
+	ImGui::EndChild();
+}
+
+void Log::Clear() {
+	os->GetLogBuffer().Clear();
+	lineoffset.clear();
+}

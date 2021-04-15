@@ -17,24 +17,25 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}</ProjectGuid>
     <RootNamespace>Cross</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -57,24 +58,39 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GLES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GLES;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>fmod_vc.lib;assimp.lib;libEGL.lib;libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -84,6 +100,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -91,6 +109,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />
@@ -106,6 +129,7 @@
     <ClCompile Include="..\..\..\Sources\Core\Material.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Mesh.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Model.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Property.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Scene.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Screen.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Sound.cpp" />
@@ -113,6 +137,7 @@
     <ClCompile Include="..\..\..\Sources\Core\Texture.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Transform.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Sources\Experimental\String.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\GraphicsGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Internals\MemoryManager.cpp" />
@@ -127,10 +152,6 @@
     <ClCompile Include="..\..\..\Sources\Math\Vector2D.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Vector3D.cpp" />
     <ClCompile Include="..\..\..\Sources\Math\Vector4D.cpp" />
-    <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp" />
-    <ClCompile Include="..\..\..\Sources\Physics\Collision.cpp" />
-    <ClCompile Include="..\..\..\Sources\Physics\Physics.cpp" />
-    <ClCompile Include="..\..\..\Sources\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\CrossEGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\Cross.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\GLES.cpp" />
@@ -145,44 +166,48 @@
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
+    <ClCompile Include="..\..\Sources\ArrayTest.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\DemoScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\MultiLightScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\PointLightScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\MaterialScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Light\SpotLightScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NakedScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\NormalScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Maps\SpecularScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\DepthScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.cpp" />
-    <ClCompile Include="..\..\Sources\Graphics3D\Simple\TriangleScene.cpp" />
-    <ClCompile Include="..\..\Sources\MainScreen.cpp" />
-    <ClCompile Include="..\..\Sources\Physics\Bridge.cpp" />
-    <ClCompile Include="..\..\Sources\Physics\HardConstraints.cpp" />
-    <ClCompile Include="..\..\Sources\Physics\Ocean.cpp" />
-    <ClCompile Include="..\..\Sources\Physics\Suppressors.cpp" />
+    <ClCompile Include="..\..\Sources\FileUtils.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Light\MultiLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Light\PointLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Light\SpotLightScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Maps\DiffuseScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Maps\NakedScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Maps\NormalScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Maps\RoughnessScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Maps\SpecularScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
+    <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
+    <ClCompile Include="..\..\Sources\StringTest.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
-    <ClCompile Include="..\..\Sources\UIScreen.cpp" />
+    <ClCompile Include="..\..\Sources\ImGuiScreen.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="..\..\Sources\UI\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
+    <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\FilesView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\LaunchView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Log.cpp" />
+    <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp" />
+    <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp" />
+    <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
     <ClCompile Include="..\..\Sources\UI\View.cpp" />
-    <ClCompile Include="..\..\Sources\UI\Hierarchy.cpp" />
+    <ClCompile Include="..\..\Sources\UI\SceneView.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
-    <ClCompile Include="..\..\Sources\UI\TransformView.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
@@ -200,6 +225,7 @@
     <ClInclude Include="..\..\..\Sources\Core\Material.h" />
     <ClInclude Include="..\..\..\Sources\Core\Mesh.h" />
     <ClInclude Include="..\..\..\Sources\Core\Model.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Property.h" />
     <ClInclude Include="..\..\..\Sources\Core\Scene.h" />
     <ClInclude Include="..\..\..\Sources\Core\Screen.h" />
     <ClInclude Include="..\..\..\Sources\Core\Sound.h" />
@@ -207,6 +233,9 @@
     <ClInclude Include="..\..\..\Sources\Core\Texture.h" />
     <ClInclude Include="..\..\..\Sources\Core\Transform.h" />
     <ClInclude Include="..\..\..\Sources\Core\VertexBuffer.h" />
+    <ClInclude Include="..\..\..\Sources\Experimental\Array.h" />
+    <ClInclude Include="..\..\..\Sources\Experimental\Function.h" />
+    <ClInclude Include="..\..\..\Sources\Experimental\String.h" />
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h" />
     <ClInclude Include="..\..\..\Sources\Internals\GraphicsGL.h" />
     <ClInclude Include="..\..\..\Sources\Internals\MemoryManager.h" />
@@ -224,10 +253,6 @@
     <ClInclude Include="..\..\..\Sources\Math\Vector2D.h" />
     <ClInclude Include="..\..\..\Sources\Math\Vector3D.h" />
     <ClInclude Include="..\..\..\Sources\Math\Vector4D.h" />
-    <ClInclude Include="..\..\..\Sources\Physics\Collider.h" />
-    <ClInclude Include="..\..\..\Sources\Physics\Collision.h" />
-    <ClInclude Include="..\..\..\Sources\Physics\Physics.h" />
-    <ClInclude Include="..\..\..\Sources\Physics\RigidBody.h" />
     <ClInclude Include="..\..\..\Sources\Platform\CrossEGL.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\GLES.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\Native.h" />
@@ -242,31 +267,26 @@
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
+    <ClInclude Include="..\..\Sources\ArrayTest.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\DemoScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\DirectionalLightScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\MultiLightScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\PointLightScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\MaterialScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Light\SpotLightScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\DiffuseScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NakedScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\NormalScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\RoughnessScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Maps\SpecularScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\ApocalypseScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\DepthScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\SkyboxScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Misc\TransparencyScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\SolidModelScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TexturedModelScene.h" />
-    <ClInclude Include="..\..\Sources\Graphics3D\Simple\TriangleScene.h" />
-    <ClInclude Include="..\..\Sources\MainScreen.h" />
-    <ClInclude Include="..\..\Sources\Physics\Bridge.h" />
-    <ClInclude Include="..\..\Sources\Physics\HardConstraints.h" />
-    <ClInclude Include="..\..\Sources\Physics\Ocean.h" />
-    <ClInclude Include="..\..\Sources\Physics\Suppressors.h" />
+    <ClInclude Include="..\..\Sources\FileUtils.h" />
+    <ClInclude Include="..\..\Sources\Scenes\DemoScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Light\MultiLightScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Light\PointLightScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Light\SpotLightScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Maps\DiffuseScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Maps\NakedScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Maps\NormalScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Maps\RoughnessScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Maps\SpecularScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
+    <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
+    <ClInclude Include="..\..\Sources\StringTest.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h" />
@@ -274,15 +294,22 @@
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_rect_pack.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
-    <ClInclude Include="..\..\Sources\UIScreen.h" />
+    <ClInclude Include="..\..\Sources\ImGuiScreen.h" />
     <ClInclude Include="..\..\Sources\UI\About.h" />
     <ClInclude Include="..\..\Sources\UI\CameraController.h" />
-    <ClInclude Include="..\..\Sources\UI\ComponentView.h" />
+    <ClInclude Include="..\..\Sources\UI\ComponentsView.h" />
+    <ClInclude Include="..\..\Sources\UI\FilesView.h" />
+    <ClInclude Include="..\..\Sources\UI\LaunchView.h" />
+    <ClInclude Include="..\..\Sources\UI\Log.h" />
+    <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h" />
+    <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h" />
+    <ClInclude Include="..\..\Sources\UI\PropertiesView.h" />
+    <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />
     <ClInclude Include="..\..\Sources\UI\View.h" />
-    <ClInclude Include="..\..\Sources\UI\Hierarchy.h" />
+    <ClInclude Include="..\..\Sources\UI\SceneView.h" />
     <ClInclude Include="..\..\Sources\UI\MenuBar.h" />
-    <ClInclude Include="..\..\Sources\UI\TransformView.h" />
+    <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

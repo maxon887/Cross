@@ -30,7 +30,7 @@
 
 using namespace cross;
 
-CrossEGL* crossEGL = NULL;
+CrossEGL* crossEGL = nullptr;
 
 int GLES_Main(){
 
@@ -39,14 +39,14 @@ int GLES_Main(){
 
 	srand((U32)time(0));
 	WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
-	cross::system = winSys;
+	cross::os = winSys;
 	game = CrossMain();
 	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
 
-	int winX = config->GetInt("WIN_POS_X", 0);
-	int winY = config->GetInt("WIN_POS_Y", 0);
-	int winWidth = config->GetInt("WIN_WIDTH", 500);
-	int winHeight = config->GetInt("WIN_HEIGHT", 500);
+	int winX = config->GetInt("WIN_POS_X", 100);
+	int winY = config->GetInt("WIN_POS_Y", 100);
+	int winWidth = config->GetInt("WIN_WIDTH", 960);
+	int winHeight = config->GetInt("WIN_HEIGHT", 512);
 	winSys->ResizeWindow(winX, winY, winWidth, winHeight);
 
 	crossEGL->CreateContext(true);
@@ -60,9 +60,10 @@ int GLES_Main(){
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 	while(msg.message != WM_QUIT) {
-		while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if(msg.message == WM_QUIT) break;
 		}
 		game->EngineUpdate();
 		if(!game->IsSuspended()) {
@@ -78,17 +79,10 @@ int GLES_Main(){
 	delete crossEGL;
 	delete audio;
 	delete game;
-	delete cross::system;
-
-	unsigned long leaked = MemoryManager::Instance()->Dump();
-	if(leaked > 0) {
-		char buf[256];
-		sprintf(buf, "Memory leak.Total bytes = %d\n", leaked);
-		OutputDebugString(buf);
-		return -1;
-	} else {
-		OutputDebugString("No memory leak detected\n");
-	}
+	delete cross::os;
+#ifdef CROSS_MEMORY_PROFILE
+	MemoryManager::Instance()->Dump();
+#endif
 	return 0;
 }
 

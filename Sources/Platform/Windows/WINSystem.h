@@ -19,6 +19,7 @@
 #include "Input.h"
 
 #include <Windows.h>
+#undef CreateDirectory
 
 namespace cross{
 
@@ -28,17 +29,25 @@ public:
 	~WINSystem() { }
 
 	void Log(const char* msg) override;
-	string AssetsPath() override;
-	string DataPath() override;
+	String AssetsPath() override;
+	String DataPath() override;
 	U64 GetTime() override;
 	float GetScreenDPI() override;
-	string GetClipboard() override;
+	String GetClipboard() override;
 
-	void Messagebox(const string& title, const string& msg) override;
+	bool Alert(const String& msg) override;
+	void Messagebox(const String& title, const String& msg) override;
+	bool IsDirectoryExists(const String& filepath) override;
+	void CreateDirectory(const String& dirname) override;
+	void Delete(const String& path) override;
+	Array<String> GetSubDirectories(const String& filepath) override;
+	Array<String> GetFilesInDirectory(const String& directory) override;
 	void Sleep(float milis) override;
 	bool IsMobile() override;
+	void OpenFileExternal(const String& filename) override;
+	String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false) override;
 
-	void SetAssetPath(const string& path);
+	void SetAssetPath(const String& path);
 	void FullScreen(bool yes);
 	void ResizeWindow(int posX, int posY, int width, int height);
 
@@ -51,11 +60,15 @@ public:
 	
 private:
 	HWND wnd			= 0;
-	string assets_path	= "";
-	string clipboard	= "";
+	String assets_path	= "";
+	String clipboard	= "";
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;
+
+	String FromAbsoluteToAssetPath(const String& absolutePath);
+
+	String GetLastErrorString(DWORD err);
 
 	bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate);
 	bool ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowedWidth, int windowedHeight, int windowedPaddingX, int windowedPaddingY);

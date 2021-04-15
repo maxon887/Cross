@@ -18,6 +18,7 @@
 #include "System.h"
 
 #include <algorithm>
+#include <cstring>
 
 using namespace cross;
 
@@ -45,7 +46,7 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 			strcpy(error, "Unknown error");  
 			break;
 		}
-		CROSS_ASSERT(false, "Rendering error number: %s in %s : %d", error, file, line);
+		CROSS_ASSERT(false, "Rendering error number: # in # : #", error, file, line);
 		delete[] error;
 		err = glGetError();
 	}
@@ -59,49 +60,49 @@ void GraphicsGL::ClearGLErrorBuffer() {
 }
 
 GraphicsGL::GraphicsGL() {
-		system->LogIt("GraphicsGL::GraphicsGL()");
+	os->LogIt("GraphicsGL::GraphicsGL()");
 
-#if defined(OPENGL) || defined(EDITOR)
-		GLint magorV;
-		GLint minorV;
-		glGetIntegerv(GL_MAJOR_VERSION, &magorV);
-		glGetIntegerv(GL_MINOR_VERSION, &minorV);
-		system->LogIt("\tUsed OpenGL %d.%d", magorV, minorV);
-		CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
-#else
-		system->LogIt("\tUsed OpenGL ES 2.0");
+#if defined(OPENGL) || (defined(WIN) && defined(EDITOR))
+	CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #endif
-		const Byte* shaderVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
-		system->LogIt("\tSupported shader version %s", shaderVersion);
-		string strV((const char*)shaderVersion);
-		strV.erase(remove(strV.begin(), strV.end(), '.'));
-		shaders_version = atoi(strV.c_str());
-		
-		GLint value;
-		glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &value);
-		system->LogIt("\tMax Vertex Uniforms: %d", value);
 
-		glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &value);
-		system->LogIt("\tMax Fragment Uniforms: %d", value);
+	os->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
+	os->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
+	shader_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+	os->LogIt("\tGLSL version - " + shader_version);
 
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value);
-		system->LogIt("\tMax Vertex Attributes: %d", value);
+	S32 first = shader_version.FindFirstOf("0123456789.");
+	if(first != -1) {
+		S32 last = shader_version.FindNonFirstOf("0123456789.", first);
+		if(last != -1) {
+			shader_version.Cut(first, last);
+		} else {
+			shader_version.Cut(first, shader_version.Length());
+		}
+	} else {
+		CROSS_ASSERT(false, "Can not obtain shader version");
+	}
+	shader_version.Remove(".");
+	
+	GLint value;
+	SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
+	os->LogIt("\tMax Vertex Attributes: #", value);
 
-		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
-		system->LogIt("\tMax Texture Size: %d", value);
+	SAFE(glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value));
+	os->LogIt("\tMax Texture Size: #", value);
 
-		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value);
-		system->LogIt("\tMax Texture Units: %d", value);
+	SAFE(glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value));
+	os->LogIt("\tMax Texture Units: #", value);
 
-		system->LogIt("\tDevice DPI - %f", system->GetScreenDPI());
+	os->LogIt("\tDevice DPI - #", os->GetScreenDPI());
 
-		system->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
+	os->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
-		SAFE(glCullFace(GL_FRONT));
+	SAFE(glCullFace(GL_FRONT));
 }
 
-U32 GraphicsGL::GetShaderVersion() const {
-	return shaders_version;
+const String& GraphicsGL::GetShaderVersion() const {
+	return shader_version;
 }
 
 void GraphicsGL::WindowResizeHandle(S32 width, S32 height) {

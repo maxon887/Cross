@@ -30,16 +30,15 @@
 
 using namespace cross;
 
-Game*		cross::game		= NULL;
-System*		cross::system	= NULL;
-Audio*		cross::audio	= NULL;
-GraphicsGL* cross::gfxGL	= NULL;
+Game*		cross::game		= nullptr;
+System*		cross::os	= nullptr;
+Audio*		cross::audio	= nullptr;
+GraphicsGL* cross::gfxGL	= nullptr;
+Input*		cross::input	= nullptr;
+Config*		cross::config	= nullptr;
 Physics*	cross::physics	= NULL;
-Input*		cross::input	= NULL;
-Config*		cross::config	= NULL;
-
 Game::Game() {
-	system->LogIt("Game::Game()");
+	os->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
 	physics = new Physics();
@@ -50,7 +49,7 @@ Game::Game() {
 }
 
 Game::~Game() {
-	system->LogIt("Game::~Game");
+	os->LogIt("Game::~Game");
 	delete component_factory;
 	delete physics;
 	delete config;
@@ -78,7 +77,7 @@ ComponentFactory* Game::GetComponentFactory() {
 }
 
 void Game::Suspend() {
-	system->LogIt("Game::Suspend");
+	os->LogIt("Game::Suspend");
 	suspended = true;
 
 	if(audio) {
@@ -96,12 +95,12 @@ void Game::Suspend() {
 }
 
 void Game::Resume() {
-	system->LogIt("Game::Resume");
+	os->LogIt("Game::Resume");
 	suspended = false;
 	if(audio) {
 		audio->Resume();
 	}
-	timestamp = system->GetTime();
+	timestamp = os->GetTime();
 	if(current_screen) {
 		current_screen->Resume();
 	}
@@ -115,7 +114,7 @@ void Game::EngineUpdate() {
 	if(!suspended) {
 		SAFE(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
-		U64 now = system->GetTime();
+		U64 now = os->GetTime();
 		U64 updateTime = now - timestamp;
 		float secTime = (float)(updateTime / 1000000.);
 		timestamp = now;
@@ -136,15 +135,14 @@ void Game::EngineUpdate() {
 		game->Update(secTime);
 
 		Debugger::Instance()->Update((float)updateTime);
-		U64 cpuTime = system->GetTime() - timestamp;
+		U64 cpuTime = os->GetTime() - timestamp;
 		Debugger::Instance()->SetCPUTime((float)cpuTime);
+
+		float milis = updateTime / 1000.f;
+		if(milis < 5.f) {
+			os->Sleep(5.f - milis);
+		}
 	}
-	/*
-	float milis = cpuTime / 1000.f;
-	if(milis < 5){
-		system->Sleep(5 - milis);
-	}*/
-	//system->Sleep(160.f);
 }
 
 bool Game::IsSuspended() const {
@@ -152,22 +150,22 @@ bool Game::IsSuspended() const {
 }
 
 void Game::LoadNextScreen() {
-	system->LogIt("Game::LoadNextScreen()");
+	os->LogIt("Game::LoadNextScreen()");
 	Debugger::Instance()->SetTimeCheck();
 
 	if(current_screen) {
 		current_screen->Stop();
 		physics->Clear();
 		delete current_screen;
-		current_screen = NULL;
+		current_screen = nullptr;
 	}
 
 	current_screen = next_screen;
-	next_screen = NULL;
+	next_screen = nullptr;
 	current_screen->Start();
 
-	timestamp = system->GetTime();
+	timestamp = os->GetTime();
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Screen(%s) loaded in %0.1fms", current_screen == NULL? "" : current_screen->GetName().c_str(), loadTime);
+	os->LogIt("Screen(#) loaded in #ms", current_screen == nullptr? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
 	ScreenChanged.Emit(current_screen);
 }

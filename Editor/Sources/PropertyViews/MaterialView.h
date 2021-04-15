@@ -6,7 +6,7 @@
 #include "Shaders/Shader.h"
 
 class QLabel;
-class QLineEdit;
+class FileHandler;
 class QColorDialog;
 class QPushButton;
 
@@ -19,31 +19,31 @@ public:
 
 	void Initialize();
 	void OnEntitySelected(Entity* e) override;
-	void OnFileSelected(const string& filename) override;
+	void OnFileSelected(const String& filename) override;
 	
 private:
-	Material* material					= NULL;
-	Material* original					= NULL;
-	Shader::Property* current_property	= NULL;
+	Material* material					= nullptr;
+	Material* original					= nullptr;
+	Shader::Property* current_property	= nullptr;
 
-	QLabel* shader_label				= NULL;
-	QLineEdit* shader_edit				= NULL;
-	QGroupBox* properties_box			= NULL;
+	QLabel* shader_label				= nullptr;
+	FileHandler* shader_handler			= nullptr;
+	QGroupBox* properties_box			= nullptr;
 	//color options
-	QColorDialog* color_dialog			= NULL;
-	QWidget* current_property_layout	= NULL;
+	QColorDialog* color_dialog			= nullptr;
+	QWidget* current_property_layout	= nullptr;
 
-	QPushButton* apply_btn				= NULL;
-	QPushButton* revert_btn				= NULL;
+	QPushButton* apply_btn				= nullptr;
+	QPushButton* revert_btn				= nullptr;
 
 	void Clear();
+	void OnShaderChanged(QString filename);
 	void RefreshProperties();
 	void OnValueChanged();
 	void OnSomethingChanged();
 
-	QWidget* CreateProperty(const string& name, Shader::Property::Type type);
+	QWidget* CreateProperty(const String& name, Shader::Property::Type type);
 
-	void OnLoadShaderClick();
 	void OnApplyClick();
 	void OnRevertClick();
 	//color options
@@ -51,7 +51,6 @@ private:
 	void OnCurrentColorChanged(const QColor& color);
 	void OnColorSelected(const QColor& color);
 	void OnColorRejected();
-	string GetColorStr(const Color& color);
 };
 
 #endif
