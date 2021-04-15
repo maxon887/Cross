@@ -30,7 +30,7 @@ public:
 	static void DrawCircle(const Vector2D& center, float radius, Color& color, bool filled);
 	static void DrawCircle(const Vector2D& center, float radius, Color& color, bool filled, U32 accuracy);
 	//3d drawing
-	static void DrawLine(const Vector3D& p1, const Vector3D& p2, Color& c);
+	static void DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c);
 };
 	
 }

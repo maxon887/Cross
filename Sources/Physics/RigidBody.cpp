@@ -33,6 +33,7 @@ RigidBody::RigidBody() :
 }
 
 RigidBody::RigidBody(float mass) :
+	Component("RigidBody"),
 	acceleration(Vector3D::Zero),
 	force(Vector3D::Zero),
 	velocity(Vector3D::Zero),

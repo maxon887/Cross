@@ -357,9 +357,6 @@
     <ClCompile Include="..\..\Sources\Scenes\Physics\Ocean.cpp">
       <Filter>Demo\Scenes\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Scenes\Physics\Suppressors.cpp">
-      <Filter>Demo\Scenes\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Physics\Collider.cpp">
       <Filter>Cross\Physics</Filter>
     </ClCompile>
@@ -682,9 +679,6 @@
       <Filter>Demo\Scenes\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Physics\Ocean.h">
-      <Filter>Demo\Scenes\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Scenes\Physics\Suppressors.h">
       <Filter>Demo\Scenes\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Physics\Collider.h">

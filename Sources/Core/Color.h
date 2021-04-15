@@ -45,6 +45,8 @@ public:
 	void SetData(const char* data);
 	/* Returns flat Color's data with sizeof 4 * float */
 	float* GetData();
+	/* Returns flat Color's data with sizeof 4 * float */
+	const float* GetData() const;
 	/* Converts current color to String representation. Format FFFFFFFF */
 	String ToString() const;
 

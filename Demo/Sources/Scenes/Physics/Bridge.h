@@ -16,7 +16,7 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Scenes/DemoScene.h"
-#include "Physics/HardConstraints.h"
+#include "Scenes/Physics/HardConstraints.h"
 
 class Bridge : public DemoScene {
 public:

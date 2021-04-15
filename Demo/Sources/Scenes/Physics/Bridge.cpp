@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Physics/Bridge.h"
+#include "Scenes/Physics/Bridge.h"
 #include "Physics/RigidBody.h"
 #include "Camera.h"
 #include "Light.h"
@@ -30,7 +30,7 @@ void Bridge::Start(){
 	SetBackground(Color(0.15f));
 	GetCamera()->SetPosition(Vector3D(-4.f, 7.3f, -11.f));
 	GetCamera()->GetEntity()->GetComponent<Transform>()->LookAt(Vector3D(0.f, 4.f, 0.f));
-	LookAtCamera(Vector3D(0.f, 4.f, 0.f));
+	//LookAtCamera(Vector3D(0.f, 4.f, 0.f));???
 	//***************LIGHT*****************
 	Entity* light = new Entity("PointLight");
 	light->AddComponent(new Transform());
@@ -63,7 +63,7 @@ void Bridge::Start(){
 		entity->AddComponent(collider);
 
 		AddEntity(entity);
-		nodes.push_back(entity);
+		nodes.Add(entity);
 	}
 	//Create cabels
 	for(U32 i = 0; i < 10; i++){

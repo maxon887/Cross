@@ -1,4 +1,4 @@
-/*	Copyright © 2015 Lukyanau Maksim
+/*	Copyright Â© 2015 Lukyanau Maksim
 
 	This file is part of Cross++ Game Engine.
 
@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Physics/HardConstraints.h"
+#include "Scenes/Physics/HardConstraints.h"
 #include "Utils/PrimitiveDrawer.h"
 #include "Material.h"
 #include "Entity.h"
@@ -51,7 +51,7 @@ void CableConstraint::Provide(Array<Collision>& collisions, Array<Collider*>& co
 		float depth = BA.Length() - length;
 		float restitution = 0.5f;
 		Collision collision(body, normal, depth, restitution);
-		collisions.push_back(collision);
+		collisions.Add(collision);
 	}
 }
 
@@ -75,7 +75,7 @@ void Cable::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 		float depth = ab.Length() - length;
 		float restitution = 0.3f;
 		Collision collision(endA, endB, normal, depth, restitution);
-		collisions.push_back(collision);
+		collisions.Add(collision);
 	}
 }
 
@@ -107,7 +107,7 @@ void Rod::Provide(Array<Collision>& collisions, Array<Collider*>& colliders) {
 			depth *= -1.f;
 		}
 		Collision collision(endA, endB, normal, depth, restitution);
-		collisions.push_back(collision);
+		collisions.Add(collision);
 	}
 }
 
@@ -240,7 +240,7 @@ void HardConstraints::Provide(Array<Collision>& collisions, Array<Collider*>& co
 			float restitution = 1.f;
 			float depth = -collider->GetPosition().y;
 			Collision collision(rigid, normal, depth, restitution);
-			collisions.push_back(collision);
+			collisions.Add(collision);
 		}
 	}
 }

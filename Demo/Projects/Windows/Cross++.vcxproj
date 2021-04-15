@@ -191,7 +191,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\Scenes\Physics\Bridge.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Physics\HardConstraints.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Physics\Ocean.cpp" />
-    <ClCompile Include="..\..\Sources\Scenes\Physics\Suppressors.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\StringTest.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
@@ -300,7 +299,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\Scenes\Physics\Bridge.h" />
     <ClInclude Include="..\..\Sources\Scenes\Physics\HardConstraints.h" />
     <ClInclude Include="..\..\Sources\Scenes\Physics\Ocean.h" />
-    <ClInclude Include="..\..\Sources\Scenes\Physics\Suppressors.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\StringTest.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />

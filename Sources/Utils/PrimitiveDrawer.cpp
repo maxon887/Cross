@@ -131,7 +131,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& co
 	delete[] buffer;
 }
 
-void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, Color& c) {
+void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, const Color& c) {
 	Shader* shader = game->GetCurrentScene()->GetShader("Engine/Shaders/Simple.sha");
 	shader->Use();
 	float vertices[6] = { p1.x, p1.y, p1.z, p2.x, p2.y, p2.z };
