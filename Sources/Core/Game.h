@@ -20,7 +20,8 @@
 
 namespace cross{
 
-class ComponentFactory;
+template<class BaseClass>
+class Factory;
 
 /*	Core engine component. It manages Screen's behavior, generic application events and data.
 	You can inherit this class to put custom initialization/deinitialization code inside Start()/Stop() functions
@@ -57,19 +58,19 @@ public:
 	/* Returns active game Scene if available */
 	Scene* GetCurrentScene();
 	/* Returns component factory for custom Components registration */
-	ComponentFactory* GetComponentFactory();
+	Factory<Component>* GetComponentFactory();
 
 	/* Engine specific */
 	void EngineUpdate();
 	bool IsSuspended() const;
 
 protected:
-	ComponentFactory* component_factory = nullptr;
-	Screen* current_screen				= nullptr;
-	Screen* next_screen					= nullptr;
-	U64 timestamp						= 0;
-	U64 run_time						= 0;
-	bool suspended						= false;
+	Factory<Component>* component_factory	= nullptr;
+	Screen* current_screen					= nullptr;
+	Screen* next_screen						= nullptr;
+	U64 timestamp							= 0;
+	U64 run_time							= 0;
+	bool suspended							= false;
 
 	void LoadNextScreen();
 };

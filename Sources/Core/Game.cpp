@@ -22,7 +22,7 @@
 #include "Config.h"
 #include "Scene.h"
 #include "Utils/Debugger.h"
-#include "ComponentFactory.h"
+#include "Factory.h"
 #include "Transform.h"
 #include "Mesh.h"
 #include "Camera.h"
@@ -40,7 +40,7 @@ Game::Game() {
 	os->LogIt("Game::Game()");
 	input = new Input();
 	config = new Config();
-	component_factory = new ComponentFactory();
+	component_factory = new Factory<Component>();
 	component_factory->Register<Transform>("Transform");
 	component_factory->Register<Mesh>("Mesh");
 	component_factory->Register<Camera>("Camera");
@@ -69,7 +69,7 @@ Scene* Game::GetCurrentScene() {
 	return dynamic_cast<Scene*>(game->GetCurrentScreen());
 }
 
-ComponentFactory* Game::GetComponentFactory() {
+Factory<Component>* Game::GetComponentFactory() {
 	return component_factory;
 }
 

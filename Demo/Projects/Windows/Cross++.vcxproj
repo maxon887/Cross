@@ -119,7 +119,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Color.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Component.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Config.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\File.cpp" />
@@ -213,7 +212,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
     <ClInclude Include="..\..\..\Sources\Core\Color.h" />
     <ClInclude Include="..\..\..\Sources\Core\Component.h" />
-    <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Factory.h" />
     <ClInclude Include="..\..\..\Sources\Core\Config.h" />
     <ClInclude Include="..\..\..\Sources\Core\Cross.h" />
     <ClInclude Include="..\..\..\Sources\Core\Entity.h" />

@@ -19,7 +19,7 @@
 
 namespace cross{
 
-class SingleLightShader : public Shader{
+class SingleLightShader : public Shader {
 public:
 	LightUniforms light_attribs = LightUniforms();
 

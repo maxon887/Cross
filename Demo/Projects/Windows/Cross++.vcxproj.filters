@@ -240,9 +240,6 @@
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\Log.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
@@ -543,9 +540,6 @@
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\Log.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
@@ -644,6 +638,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\FileUtils.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\Factory.h">
+      <Filter>Cross\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

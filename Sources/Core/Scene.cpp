@@ -25,7 +25,7 @@
 #include "Shaders/LightsShader.h"
 #include "File.h"
 #include "Transform.h"
-#include "ComponentFactory.h"
+#include "Factory.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -350,7 +350,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	parent->AddChild(entity);
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
-	ComponentFactory* factory = game->GetComponentFactory();
+	Factory<Component>* factory = game->GetComponentFactory();
 	if(componentsXML) {
 		XMLElement* componentXML = componentsXML->FirstChildElement();
 		while(componentXML) {
