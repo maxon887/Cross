@@ -97,12 +97,12 @@ void Demo::Start() {
 	io.KeyMap[ImGuiKey_Y] = (int)Key::Y;
 	io.KeyMap[ImGuiKey_Z] = (int)Key::Z;
 
-	//io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
 	io.GetClipboardTextFn = GetClipboardString;
-	//io.ClipboardUserData = g_Window;
+
 #ifdef _WIN32
 	WINSystem* winSys = (WINSystem*)os;
-	io.ImeWindowHandle = winSys->GetHWND();
 #endif
 
     CreateUIShaders();
@@ -358,16 +358,6 @@ void Demo::KeyPressed(Key key) {
 	if(key == Key::ALT) {
 		io.KeyAlt = true;
 	}
-
-//	if(key == Key::ESCAPE || key == Key::BACK) {
-//#ifdef ANDROID
-//		if(GetCurrentScreen()->GetName() == "Main") {
-//			((AndroidSystem*)os)->PromtToExit();
-//			return;
-//		}
-//#endif
-//		ToMain();
-//	}
 }
 
 void Demo::KeyReleased(Key key) {
