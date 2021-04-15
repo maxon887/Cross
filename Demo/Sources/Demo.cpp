@@ -166,6 +166,7 @@ void Demo::PreUpdate(float sec) {
 
 	// Start the frame
 	ImGui::NewFrame();
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 }
 
 void Demo::Update(float sec) {
@@ -263,7 +264,6 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->TexID = (void *)(intptr_t)font_texture->GetID();
 	return true;
 }
-
 
 void Demo::RenderUI(ImDrawData* draw_data) {
 	// Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
