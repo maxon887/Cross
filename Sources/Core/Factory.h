@@ -35,7 +35,7 @@ public:
 	Array<String> GetRegisteredComponentsName();
 
 private:
-	Dictionary<String, Function<Component*()>> functions;
+	Dictionary<String, Function<BaseClass*()>> functions;
 };
 
 template<class BaseClass>
@@ -46,7 +46,7 @@ void Factory<BaseClass>::Register(const String& name) {
 
 template<class BaseClass>
 BaseClass* Factory<BaseClass>::Create(const String& name) {
-	CROSS_RETURN(functions.find(name) != functions.end(), nullptr, "Component # didn't register in the factory", name);
+	CROSS_RETURN(functions.find(name) != functions.end(), nullptr, "AdvancedClass # didn't register in the factory", name);
 	return functions[name]();
 }
 

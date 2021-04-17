@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Scene.h"
 #include "Game.h"
+#include "Graphics.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -73,8 +74,7 @@ bool Material::Load(const String& filename, Scene* scene) {
 		shader = scene->GetShader(shaderfilename);
 		Reset();
 	} else {
-		shader = new Shader();
-		shader->Load(shaderfilename);
+		shader = gfx->LoadShader(shaderfilename);
 		Reset();
 	}
 

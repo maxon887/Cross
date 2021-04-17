@@ -120,12 +120,10 @@ public:
 	virtual ~Shader();
 
 	virtual void Use();
-	virtual void Load(const String& file);
 	virtual void Save(const String& file);
 	virtual void Compile();
 	virtual void OnDraw() { }
 
-	void ReCompile();
 	bool IsCompiled() const;
 	String& GetFilename();
 	String& GetVertexFilename();

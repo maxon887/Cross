@@ -24,6 +24,5 @@ public:
 	void Stop() override;
 
 private:
-	Shader* shader;
 	Material* material;
 };

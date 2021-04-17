@@ -339,6 +339,9 @@
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Core\Graphics.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -640,6 +643,9 @@
       <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Factory.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\Graphics.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
   </ItemGroup>

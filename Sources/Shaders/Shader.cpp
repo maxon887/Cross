@@ -206,46 +206,6 @@ Shader::~Shader() {
 	FreeResources();
 }
 
-void Shader::Load(const String& file) {
-	filename = file;
-	File* xmlFile = os->LoadAssetFile(file);
-	CROSS_FAIL(xmlFile, "Can not load shader xml file");
-	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
-	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
-	delete xmlFile;
-
-	XMLElement* shaderXML = doc.FirstChildElement("Shader");
-	CROSS_FAIL(shaderXML, "Can not find node Shader in XML file");
-	XMLElement* vertexXML = shaderXML->FirstChildElement("Vertex");
-	const char* vertexFile = vertexXML->Attribute("filename");
-	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
-	const char* fragmentFile = fragmentXML->Attribute("filename");
-	vertex_filename = vertexFile;
-    fragment_filename = fragmentFile;
-
-	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
-	if(macrosiesXML) {
-		XMLElement* macroXML = macrosiesXML->FirstChildElement("Macro");
-		while(macroXML) {
-			const char* text = macroXML->GetText();
-			AddMacro(text);
-			macroXML = macroXML->NextSiblingElement("Macro");
-		}
-	}
-	XMLElement* propertiesXML = shaderXML->FirstChildElement("Properties");
-	if(propertiesXML) {
-		XMLElement* propertyXML = propertiesXML->FirstChildElement("Property");
-		while(propertyXML) {
-			const char* name = propertyXML->Attribute("name");
-			const char* glName = propertyXML->Attribute("glName");
-			const char* type = propertyXML->Attribute("type");
-			AddProperty(name, glName, Property::StringToType(type));
-			propertyXML = propertyXML->NextSiblingElement("Property");
-		}
-	}
-}
-
 void Shader::Save(const String& file) {
 	XMLDocument doc;
 
@@ -324,13 +284,6 @@ void Shader::Compile() {
 		CROSS_FAIL(prop.glId != -1, "Property # does not contains in the shader", prop.glName);
 	}
 	compiled = true;
-}
-
-void Shader::ReCompile() {
-	FreeResources();
-	compiled = false;
-	Load(GetFilename());
-	Compile();
 }
 
 void Shader::Use() {

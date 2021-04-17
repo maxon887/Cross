@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Demo.h"
 #include "System.h"
+#include "Graphics.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -134,8 +135,7 @@ void ShaderVisualBox::Update() {
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
 	if(File::ExtensionFromFile(filename) == "sha") {
-		shader = new Shader();
-		shader->Load(filename);
+		shader = gfx->LoadShader(filename);
 	} else {
 		shader = nullptr;
 	}

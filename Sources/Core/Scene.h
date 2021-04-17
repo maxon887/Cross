@@ -91,8 +91,6 @@ public:
 	Model* GetModel(const String& modelFile, bool calcTangents = false);
 	/* Resets all materials to default state */
 	void ResetMaterials();
-	/* Resets all shaders to default state */
-	void ResetShaders();
 
 protected:
 	Entity* root							= nullptr;

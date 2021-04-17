@@ -123,6 +123,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\File.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Game.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Graphics.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Input.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Light.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Material.cpp" />
@@ -219,6 +220,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Event.h" />
     <ClInclude Include="..\..\..\Sources\Core\File.h" />
     <ClInclude Include="..\..\..\Sources\Core\Game.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Graphics.h" />
     <ClInclude Include="..\..\..\Sources\Core\Input.h" />
     <ClInclude Include="..\..\..\Sources\Core\Light.h" />
     <ClInclude Include="..\..\..\Sources\Core\Material.h" />

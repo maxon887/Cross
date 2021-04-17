@@ -17,6 +17,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "System.h"
 #include "Light.h"
 #include "Entity.h"
@@ -254,8 +255,7 @@ Shader* Scene::GetShader(const String& shaderfile) {
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
 	} else {
-		Shader* shader = new Shader();
-		shader->Load(shaderfile);
+		Shader* shader = gfx->LoadShader(shaderfile);
 		shader->Compile();
 		shaders[hash] = shader;
 		return shader;
@@ -329,13 +329,6 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 void Scene::ResetMaterials() {
 	for(pair<U64, Material*> pair : materials) {
 		pair.second->Reset();
-	}
-}
-
-void Scene::ResetShaders() {
-	for(pair<U64, Shader*> pair : shaders) {
-		Shader* shader = pair.second;
-		shader->ReCompile();
 	}
 }
 

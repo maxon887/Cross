@@ -89,6 +89,7 @@ using Set = std::set<Type>;
 
 class Game;
 class System;
+class Graphics;
 class GraphicsGL;
 class Input;
 class Config;
@@ -111,6 +112,7 @@ class Cubemap;
 
 extern Game*		game;
 extern System*		os;
+extern Graphics*	gfx;
 extern GraphicsGL*	gfxGL;
 extern Audio*		audio;
 extern Input*		input;

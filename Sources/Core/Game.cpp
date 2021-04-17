@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "System.h"
+#include "Graphics.h"
 #include "Internals/GraphicsGL.h"
 #include "Internals/Audio.h"
 #include "Input.h"
@@ -30,7 +31,8 @@
 using namespace cross;
 
 Game*		cross::game		= nullptr;
-System*		cross::os	= nullptr;
+System*		cross::os		= nullptr;
+Graphics*	cross::gfx		= nullptr;
 Audio*		cross::audio	= nullptr;
 GraphicsGL* cross::gfxGL	= nullptr;
 Input*		cross::input	= nullptr;
@@ -38,6 +40,7 @@ Config*		cross::config	= nullptr;
 
 Game::Game() {
 	os->LogIt("Game::Game()");
+	gfx = new Graphics();
 	input = new Input();
 	config = new Config();
 	component_factory = new Factory<Component>();
@@ -52,6 +55,7 @@ Game::~Game() {
 	delete config;
 	delete input;
 	delete current_screen;
+	delete gfx;
 }
 
 void Game::SetScreen(Screen* screen) {

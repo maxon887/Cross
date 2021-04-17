@@ -15,6 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Demo.h"
+#include "Graphics.h"
 #include "Screen.h"
 #include "System.h"
 #include "Config.h"
@@ -203,8 +204,7 @@ MenuBar* Demo::GetMenuBar() {
 }
 
 bool Demo::CreateUIShaders() {
-	ui_shader = new Shader();
-	ui_shader->Load("Engine/Shaders/UI.sha");
+	ui_shader = gfx->LoadShader("Engine/Shaders/UI.sha");
 	ui_shader->Compile();
 
 	SAFE(glGenBuffers(1, &vertex_buffer));

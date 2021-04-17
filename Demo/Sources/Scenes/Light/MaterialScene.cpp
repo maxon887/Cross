@@ -30,11 +30,14 @@ void MaterialScene::Start() {
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 	//scene setups
-	shader = new SingleLightShader("Shaders/specular.vert", "Shaders/specular.frag");
-	shader->AddProperty("Diffuse Color", "uColor");
-	shader->AddProperty("Specular Color", "uSpecularColor");
-	shader->AddProperty("Shininess", "uShininess");
-	shader->Compile();
+	//shader = new SingleLightShader("Shaders/specular.vert", "Shaders/specular.frag");
+	//shader->AddProperty("Diffuse Color", "uColor");
+	//shader->AddProperty("Specular Color", "uSpecularColor");
+	//shader->AddProperty("Shininess", "uShininess");
+	//shader->Compile();
+
+	Shader* shader = GetShader("Shaders/Specular.sha");
+
 	material = new Material(shader);
 	material->SetPropertyValue("Diffuse Color", Color::Red);
 	material->SetPropertyValue("Specular Color", Color::White);
@@ -48,6 +51,5 @@ void MaterialScene::Start() {
 
 void MaterialScene::Stop() {
 	delete material;
-	delete shader;
 	DemoScene::Stop();
 }

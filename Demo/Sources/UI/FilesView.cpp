@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "FilesView.h"
 #include "System.h"
+#include "Graphics.h"
 #include "File.h"
 #include "Game.h"
 #include "Demo.h"
@@ -210,8 +211,7 @@ void FilesView::ContextMenu() {
 		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
 			input->IsPressed(Key::ENTER)) {
 
-			Shader* newShader = new Shader();
-			newShader->Load(all_shader_files[selectedShader]);
+			Shader* newShader = gfx->LoadShader(all_shader_files[selectedShader]);
 			newShader->Compile();
 			Material* newMaterial = new Material(newShader);
 			newMaterial->Save(current_path + "//" + String(buffer) + ".mat");
