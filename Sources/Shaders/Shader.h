@@ -126,6 +126,7 @@ public:
 
 	bool IsCompiled() const;
 	String& GetFilename();
+	void SetFilename(const String& filename);
 	String& GetVertexFilename();
 	void SetVertexFilename(const String& filename);
 	String& GetFragmentFilename();

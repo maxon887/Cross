@@ -299,6 +299,10 @@ String& Shader::GetFilename(){
 	return filename;
 }
 
+void Shader::SetFilename(const String& filename) {
+	this->filename = filename;
+}
+
 String& Shader::GetVertexFilename(){
 	return vertex_filename;
 }

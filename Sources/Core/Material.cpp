@@ -72,11 +72,10 @@ bool Material::Load(const String& filename, Scene* scene) {
 	delete shader;
 	if(scene) {
 		shader = scene->GetShader(shaderfilename);
-		Reset();
 	} else {
 		shader = gfx->LoadShader(shaderfilename);
-		Reset();
 	}
+	Reset();
 
 	XMLElement* transparancyXML = materialXML->FirstChildElement("Transparent");
 	if(transparancyXML) {

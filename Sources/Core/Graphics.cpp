@@ -54,6 +54,7 @@ Shader* Graphics::LoadShader(const String& shaderfile) {
 	} else {
 		shader = new Shader();
 	}
+	shader->SetFilename(shaderfile);
 
 	XMLElement* vertexXML = shaderXML->FirstChildElement("Vertex");
 	const char* vertexFile = vertexXML->Attribute("filename");
