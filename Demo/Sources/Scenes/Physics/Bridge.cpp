@@ -39,7 +39,7 @@ void Bridge::Start(){
 	AddEntity(light);
 
 	//***************PARTICLE*****************
-	particle_shader = new LightsShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	particle_shader = new LightsShader("Shaders/specular.vert", "Shaders/specular.frag");
 	particle_shader->AddProperty("Diffuse Color", "uColor");
 	particle_shader->AddProperty("Specular Color", "uSpecularColor");
 	particle_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);

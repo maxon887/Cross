@@ -94,7 +94,6 @@ public:
 
 private:
 	Shader* road_shader;
-	Texture* road_diffuse;
 	Material* road_mat;
 
 	Shader* particle_shader;

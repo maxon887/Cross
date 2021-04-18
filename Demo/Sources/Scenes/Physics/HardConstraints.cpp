@@ -132,7 +132,7 @@ void HardConstraints::Start(){
 	light->GetComponent<Transform>()->SetPosition(Vector3D(10.f, 7.f, -5.f));
 	AddEntity(light);
 	//***************PARTICLE*****************
-	particle_shader = new LightsShader("gfx3D/shaders/specular.vert", "gfx3D/shaders/specular.frag");
+	particle_shader = new LightsShader("Shaders/specular.vert", "Shaders/specular.frag");
 	particle_shader->AddProperty("Diffuse Color", "uColor");
 	particle_shader->AddProperty("Specular Color", "uSpecularColor");
 	particle_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
@@ -195,19 +195,20 @@ void HardConstraints::Start(){
 	AddEntity(rod);
 	physics->RegisterCollisionProvider(rod);
 	//***************ROAD*****************
-	road_shader = GetShader("Engine\Shaders\Light.sha");
+	road_shader = new LightsShader();
 	road_shader->AddMacro("USE_DIFFUSE_MAP");
 	road_shader->AddMacro("USE_TILLING_FACTOR");
 	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
+	road_shader->AddProperty("Transparency", "uTransparency");
 	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
 	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	road_shader->Compile();
 
-	road_diffuse = GetTexture("gfx3D/RoadDiffuse.png");
-	road_diffuse->SetTilingMode(Texture::TilingMode::REPEAT);
+	Texture* roadDiffuse = GetTexture("Textures/RoadDiffuse.png");
+	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
 	road_mat = new Material(road_shader);
-	road_mat->SetPropertyValue("Diffuse Texture", road_diffuse);
+	road_mat->SetPropertyValue("Diffuse Texture", roadDiffuse);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	road_mat->SetPropertyValue("Transparency", 0.75f);
 	road_mat->EnableTransparency(true);
@@ -223,7 +224,6 @@ void HardConstraints::Stop(){
 	delete particle_shader;
 	delete particle_mat;
 	delete road_mat;
-	delete road_diffuse;
 	delete road_shader;
 	DemoScene::Stop();
 }
