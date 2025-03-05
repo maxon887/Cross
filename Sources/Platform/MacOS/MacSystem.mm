@@ -7,7 +7,7 @@
 #pragma clang diagnostic pop
 #include <sys/time.h>
 #include <sys/stat.h>
-#include <dirent.h>
+#include <filesystem>
 
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
@@ -59,61 +59,37 @@ float MacSystem::GetScreenDPI() {
 }
 
 bool MacSystem::IsDirectoryExists(const cross::String& filepath) {
-    DIR* dir = opendir(working_dir + filepath);
-    dirent* dr = nullptr;
-    if(dir && (dr = readdir(dir))) {
-        if(dr->d_type == DT_DIR) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        CROSS_ASSERT(errno == ENOENT, "IsDirectoryExists() error code - #\nDescription - #", errno, strerror(errno));
-        return false;
-    }
+	String absolutePath = working_dir + filepath;
+	return std::filesystem::is_directory(absolutePath.ToCStr());
 }
 
 void MacSystem::CreateDirectory(const String &dirname) {
-	mkdir(dirname, 0775);
+	std::filesystem::create_directory(dirname.ToCStr());
 }
 
 void MacSystem::Delete(const String& path) {
-	remove(path);
+	std::filesystem::remove(path.ToCStr());
 }
 
 Array<String> MacSystem::GetSubDirectories(const String& filepath) {
 	Array<String> files;
-	DIR* dir = opendir(filepath);
-    if(!dir) {
-        CROSS_ASSERT(errno == ENOENT, "GetSubDirectories() error code - #\nDescription - #", errno, strerror(errno));
-        return files;
-    }
-	dirent* dr = nullptr;
-	while(dir && (dr = readdir(dir))) {
-		String name = dr->d_name;
-		if(dr->d_type == DT_DIR && name != "." && name != "..") {
-			files.Add(name);
+	for (const std::filesystem::directory_entry& dir : std::filesystem::directory_iterator{filepath.ToCStr()}) {
+		if(dir.is_directory()) {
+			auto path = std::filesystem::relative(dir, filepath.ToCStr());
+			files.Add(path.c_str());
 		}
 	}
-	closedir(dir);
 	return files;
 }
 
 Array<String> MacSystem::GetFilesInDirectory(const String& filepath) {
 	Array<String> files;
-	DIR* dir = opendir(filepath);
-    if(!dir) {
-        CROSS_ASSERT(errno == ENOENT, "GetSubDirectories() error code - #\nDescription - #", errno, strerror(errno));
-        return files;
-    }
-    
-	dirent* dr = nullptr;
-	while(dir && (dr = readdir(dir))) {
-		if(dr->d_type != DT_DIR) {
-			files.Add(dr->d_name);
+	for (const std::filesystem::directory_entry& dir : std::filesystem::directory_iterator{filepath.ToCStr()}) {
+		if(!dir.is_directory()) {
+			auto path = std::filesystem::relative(dir, filepath.ToCStr());
+			files.Add(path.c_str());
 		}
 	}
-	closedir(dir);
 	return files;
 }
 
