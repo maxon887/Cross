@@ -17,14 +17,12 @@
 #include "WINSystem.h"
 #include "File.h"
 #include "Config.h"
-
-#include "shlwapi.h"
+#include <filesystem>
 
 #define DATA_PATH "Data/"
 
-#pragma comment(lib, "Shlwapi.lib")
-
 using namespace cross;
+using namespace std;
 
 void IntSleep(int milis) {
 	Sleep(milis);
@@ -121,81 +119,38 @@ void WINSystem::Messagebox(const String& title, const String& msg) {
 }
 
 bool WINSystem::IsDirectoryExists(const String& filepath) {
-	DWORD dwAttrib = GetFileAttributes(filepath);
-
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
-		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+	String absolutePath = filepath;
+	return filesystem::is_directory(absolutePath.ToCStr());
 }
 
-void WINSystem::CreateDirectory(const String& dirpath) {
-	CROSS_ASSERT(CreateDirectoryA(dirpath, nullptr), "Can not create directory");
+void WINSystem::CreateDirectory(const String& dirname) {
+	filesystem::create_directory(dirname.ToCStr());
 }
 
 void WINSystem::Delete(const String& path) {
-	if(IsDirectoryExists(path)) {
-		Array<String> files = GetFilesInDirectory(path + "/");
-		for(String& file : files) {
-			String filename = path + "/" + file;
-			if(!DeleteFile(path)) {
-				DWORD err = GetLastError();
-				String errorMessage = GetLastErrorString(err);
-				CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
-			}
-		}
-
-		Array<String> folders = GetSubDirectories(path + "/");
-		for(String& folder : folders) {
-			Delete(folder);
-		}
-
-		RemoveDirectory(path.ToCStr());
-	} else {//if it is not directory means that is file
-		if(!DeleteFile(path)) {
-			DWORD err = GetLastError();
-			String errorMessage = GetLastErrorString(err);
-			CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
-		}
-	}
+	filesystem::remove(path.ToCStr());
 }
 
 Array<String> WINSystem::GetSubDirectories(const String& filepath) {
-	Array<String> result;
-
-	HANDLE file = nullptr;
-	WIN32_FIND_DATA data;
-	file = FindFirstFile(filepath + "*", &data);
-	if(file != INVALID_HANDLE_VALUE) {
-		do {
-			String filename = data.cFileName;
-			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY
-				&& filename != "." && filename != "..") {
-				result.Add(data.cFileName);
-			}
-		} while(FindNextFile(file, &data));
-		FindClose(file);
+	Array<String> files;
+	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
+		if(dir.is_directory()) {
+			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
+			files.Add(path.string().c_str());
+		}
 	}
-
-	return result;
+	return files;
 }
 
-Array<String> WINSystem::GetFilesInDirectory(const String& directory) {
-	Array<String> result;
-
-	HANDLE file = nullptr;
-	WIN32_FIND_DATA data;
-	file = FindFirstFile(directory + "*", &data);
-	if(file != INVALID_HANDLE_VALUE) {
-		do {
-			String filename = data.cFileName;
-			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
-				&& filename != "." && filename != "..") {
-				result.Add(data.cFileName);
-			}
-		} while(FindNextFile(file, &data));
-		FindClose(file);
+Array<String> WINSystem::GetFilesInDirectory(const String& filepath) {
+	Array<String> files;
+	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
+		if(!dir.is_directory()) {
+			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
+			files.Add(path.string().c_str());
+		}
 	}
-
-	return result;
+	return files;
 }
 
 void WINSystem::Sleep(float milis) {
@@ -341,7 +296,7 @@ String WINSystem::GetLastErrorString(DWORD err) {
 	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
 
-	std::string message(messageBuffer, size);
+	string message(messageBuffer, size);
 
 	//Free the buffer.
 	LocalFree(messageBuffer);

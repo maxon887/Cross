@@ -119,6 +119,7 @@
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -139,6 +140,7 @@ xcopy "$(ProjectDir)Binaries\x86\libEGL.dll" "$(ProjectDir)\$(Platform)\DebugGLE
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GLES;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -160,6 +162,7 @@ xcopy "$(ProjectDir)Binaries\x64\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Comma
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -180,6 +183,7 @@ xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugOpenG
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -202,6 +206,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Comma
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -226,6 +231,7 @@ xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\Release\" 
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
