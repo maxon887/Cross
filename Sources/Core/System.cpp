@@ -131,6 +131,9 @@ void System::Delete(const String& path) {
 
 Array<String> System::GetSubDirectories(const String& filepath) {
 	Array<String> files;
+    if(!IsDirectoryExists(filepath)) {
+        return files;
+    }
 	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
 		if(dir.is_directory()) {
 			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
@@ -142,6 +145,9 @@ Array<String> System::GetSubDirectories(const String& filepath) {
 
 Array<String> System::GetFilesInDirectory(const String& filepath) {
 	Array<String> files;
+    if(!IsDirectoryExists(filepath)) {
+        return files;
+    }
 	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
 		if(!dir.is_directory()) {
 			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());

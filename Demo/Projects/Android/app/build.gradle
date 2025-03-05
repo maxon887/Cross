@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-	ndkVersion '21.1.6352462'
+	ndkVersion '22.0.7026061'
     compileSdkVersion 26
 	namespace 'com.littleman.cross'
     defaultConfig {
         applicationId "com.littleman.cross"
-        minSdkVersion 9
+        minSdkVersion 16
         targetSdkVersion 33
         versionCode 300
         versionName "3.0.0"
