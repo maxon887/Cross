@@ -20,6 +20,7 @@
 #include "Game.h"
 
 using namespace cross;
+using namespace std;
 
 Entity::Entity(const String& name) :
 	name(name)

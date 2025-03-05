@@ -25,6 +25,8 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
+using namespace std;
+
 MaterialVisualBox::MaterialVisualBox() {
 	shader_selector = CREATE FileSelector("Shader", "sha");
 	shader_selector->FileSelected.Connect(this, &MaterialVisualBox::OnShaderSelected);

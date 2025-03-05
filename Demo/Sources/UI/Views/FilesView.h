@@ -37,7 +37,7 @@ private:
 		String full_path = "";
 		bool initialized = false;
 		//first string is filename second full path + filename
-		Array<pair<String, String> > files;
+		Array<std::pair<String, String> > files;
 		Array<Node> folders;
 	};
 

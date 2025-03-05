@@ -30,6 +30,7 @@
 
 using namespace cross;
 using namespace tinyxml2;
+using namespace std;
 
 Scene::Scene()
 {

@@ -9,6 +9,7 @@
 #include <string>
 
 using namespace cross;
+using namespace std;
 
 const char* long_names[] = {
 	"This is the first of long string",

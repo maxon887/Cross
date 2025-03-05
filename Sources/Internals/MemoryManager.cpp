@@ -19,8 +19,8 @@
 
 #ifdef CROSS_MEMORY_PROFILE
 
-#include <stdarg.h>
-#include <stdlib.h>
+#include <cstdarg>
+#include <cstdlib>
 #include <mutex>
 #include <cstring>
 

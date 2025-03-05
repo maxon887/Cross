@@ -30,6 +30,8 @@
 
 #undef CreateDirectory
 
+using namespace std;
+
 FilesView::FilesView() : View("Files", true) { }
 
 void FilesView::Shown() {

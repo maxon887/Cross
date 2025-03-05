@@ -120,8 +120,6 @@ static const char*	version = "4.0.2";
 /* Main function of the Cross Engine. This function must implement every game */
 cross::Game* CrossMain();
 
-using namespace std;
-
 #define CROSS_FRIENDLY	\
 friend Shader;			\
 friend Material;		\

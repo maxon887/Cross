@@ -21,6 +21,7 @@
 #include "Scene.h"
 
 using namespace cross;
+using namespace std;
 
 Input::Input() {
 	KeyPressed.Connect(this, &Input::KeyPressedHandle);

@@ -188,7 +188,7 @@ protected:
 	std::mutex input_mutex;
 	bool touch_enabled			= true;
 	Array<bool> pressed_keys	= Array<bool>((U32)Key::MAX_KEY_NUM, false);
-	List<pair<Input::Action, int> > action_stack;
+	List<std::pair<Input::Action, int> > action_stack;
 
 	Vector2D TargetToWordConvert(float x, float y) const;
 
