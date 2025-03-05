@@ -17,7 +17,6 @@
 #include "WINSystem.h"
 #include "File.h"
 #include "Config.h"
-#include <filesystem>
 
 #define DATA_PATH "Data/"
 
@@ -116,41 +115,6 @@ void WINSystem::Messagebox(const String& title, const String& msg) {
 		LogIt("HWND == nullptr");
 		System::Messagebox(title, msg);
 	}
-}
-
-bool WINSystem::IsDirectoryExists(const String& filepath) {
-	String absolutePath = filepath;
-	return filesystem::is_directory(absolutePath.ToCStr());
-}
-
-void WINSystem::CreateDirectory(const String& dirname) {
-	filesystem::create_directory(dirname.ToCStr());
-}
-
-void WINSystem::Delete(const String& path) {
-	filesystem::remove(path.ToCStr());
-}
-
-Array<String> WINSystem::GetSubDirectories(const String& filepath) {
-	Array<String> files;
-	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
-		if(dir.is_directory()) {
-			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
-			files.Add(path.string().c_str());
-		}
-	}
-	return files;
-}
-
-Array<String> WINSystem::GetFilesInDirectory(const String& filepath) {
-	Array<String> files;
-	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
-		if(!dir.is_directory()) {
-			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
-			files.Add(path.string().c_str());
-		}
-	}
-	return files;
 }
 
 void WINSystem::Sleep(float milis) {

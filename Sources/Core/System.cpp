@@ -19,6 +19,7 @@
 
 #include <errno.h>
 #include <string.h>
+#include <filesystem>
 
 #if defined(WIN) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
@@ -27,6 +28,7 @@
 #endif
 
 using namespace cross;
+using namespace std;
 
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
@@ -104,7 +106,7 @@ bool System::IsDataFileExists(const String& filename) {
 }
 
 bool System::IsDirectoryExists(const String& filepath) {
-	CROSS_RETURN(false, false, "System::IsDirectoryExists() does not implemented for current platform");
+	return filesystem::is_directory(filepath.ToCStr());
 }
 
 bool System::IsAssetDirectoryExists(const String& filepath) {
@@ -116,7 +118,7 @@ bool System::IsDataDirectoryExists(const String& filepath) {
 }
 
 void System::CreateDirectory(const String& dirname) {
-	CROSS_ASSERT(false, "System::CreateDirectory() does not implemented for current platform");
+	filesystem::create_directory(dirname.ToCStr());
 }
 
 void System::CreateAssetDirectory(const String& dirname) {
@@ -124,15 +126,29 @@ void System::CreateAssetDirectory(const String& dirname) {
 }
 
 void System::Delete(const String& path) {
-	CROSS_FAIL(false, "System::Delete() does not implemented for current platform");
+	filesystem::remove(path.ToCStr());
 }
 
 Array<String> System::GetSubDirectories(const String& filepath) {
-	CROSS_RETURN(false, Array<String>(), "System::GetSubDirectories() does not implemented for current platform");
+	Array<String> files;
+	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
+		if(dir.is_directory()) {
+			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
+			files.Add(path.string().c_str());
+		}
+	}
+	return files;
 }
 
 Array<String> System::GetFilesInDirectory(const String& filepath) {
-	CROSS_RETURN(false, Array<String>(), "System::GetFilesInDirectory() does not implemented for current platform");
+	Array<String> files;
+	for(const filesystem::directory_entry& dir : filesystem::directory_iterator{ filepath.ToCStr() }) {
+		if(!dir.is_directory()) {
+			filesystem::path path = filesystem::relative(dir, filepath.ToCStr());
+			files.Add(path.string().c_str());
+		}
+	}
+	return files;
 }
 
 bool System::Alert(const String& msg) {
