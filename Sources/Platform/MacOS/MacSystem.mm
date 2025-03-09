@@ -14,17 +14,17 @@
 using namespace cross;
 
 MacSystem::MacSystem(const String& executable) {
-    if(IsDirectoryExists("Assets/")) {
+    if(System::IsDirectoryExists("Assets/")) {
         assets_path = "Assets/";
-    } else if(IsDirectoryExists("../../../Assets/")) {
+    } else if(System::IsDirectoryExists("../../../Assets/")) {
         assets_path = "../../../Assets/";
-    } else if(IsDirectoryExists("../../../../Assets/")) {
+    } else if(System::IsDirectoryExists("../../../../Assets/")) {
         assets_path = "../../../../Assets/";
-    } else if(IsDirectoryExists("../../../../../Assets/")) {
+    } else if(System::IsDirectoryExists("../../../../../Assets/")) {
         assets_path = "../../../../../Assets/";
     } else {
 		String workingDir = File::PathFromFile(executable);
-		if(IsDirectoryExists(workingDir + "../Resources/Assets/")) {
+		if(System::IsDirectoryExists(workingDir + "../Resources/Assets/")) {
 			assets_path = workingDir + "../Resources/Assets/";
 		} else {
 			CROSS_ASSERT(false, "Can not find Assets directory");

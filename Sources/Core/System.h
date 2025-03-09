@@ -103,7 +103,7 @@ public:
 	virtual String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false);
 	/* Prints String */
 	template<class... Args>
-	void LogIt(const String& msg, Args... args);
+	void LogIt(const String& format, Args... args);
 	/* Notifies user that something happened by system message. Usually something bad. Use it at last case */
 	template<class... Args>
 	void Alert(const String& message, const char* filename, U32 line, Args... args);
