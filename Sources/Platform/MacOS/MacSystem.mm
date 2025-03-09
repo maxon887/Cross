@@ -13,12 +13,9 @@
 
 using namespace cross;
 
-MacSystem::MacSystem(const String& workingDir) {
-    working_dir = File::PathFromFile(workingDir);
+MacSystem::MacSystem(const String& executable) {
     if(IsDirectoryExists("Assets/")) {
         assets_path = "Assets/";
-    } else if(IsDirectoryExists("../Resources/Assets/")) {
-        assets_path = "../Resources/Assets/";
     } else if(IsDirectoryExists("../../../Assets/")) {
         assets_path = "../../../Assets/";
     } else if(IsDirectoryExists("../../../../Assets/")) {
@@ -26,7 +23,12 @@ MacSystem::MacSystem(const String& workingDir) {
     } else if(IsDirectoryExists("../../../../../Assets/")) {
         assets_path = "../../../../../Assets/";
     } else {
-        CROSS_ASSERT(false, "Can not find Assets directory");
+		String workingDir = File::PathFromFile(executable);
+		if(IsDirectoryExists(workingDir + "../Resources/Assets/")) {
+			assets_path = workingDir + "../Resources/Assets/";
+		} else {
+			CROSS_ASSERT(false, "Can not find Assets directory");
+		}
     }
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
@@ -56,41 +58,6 @@ U64 MacSystem::GetTime() {
 
 float MacSystem::GetScreenDPI() {
     return dpi;
-}
-
-bool MacSystem::IsDirectoryExists(const cross::String& filepath) {
-	String absolutePath = working_dir + filepath;
-	return std::filesystem::is_directory(absolutePath.ToCStr());
-}
-
-void MacSystem::CreateDirectory(const String &dirname) {
-	std::filesystem::create_directory(dirname.ToCStr());
-}
-
-void MacSystem::Delete(const String& path) {
-	std::filesystem::remove(path.ToCStr());
-}
-
-Array<String> MacSystem::GetSubDirectories(const String& filepath) {
-	Array<String> files;
-	for (const std::filesystem::directory_entry& dir : std::filesystem::directory_iterator{filepath.ToCStr()}) {
-		if(dir.is_directory()) {
-			auto path = std::filesystem::relative(dir, filepath.ToCStr());
-			files.Add(path.c_str());
-		}
-	}
-	return files;
-}
-
-Array<String> MacSystem::GetFilesInDirectory(const String& filepath) {
-	Array<String> files;
-	for (const std::filesystem::directory_entry& dir : std::filesystem::directory_iterator{filepath.ToCStr()}) {
-		if(!dir.is_directory()) {
-			auto path = std::filesystem::relative(dir, filepath.ToCStr());
-			files.Add(path.c_str());
-		}
-	}
-	return files;
 }
 
 bool MacSystem::Alert(const String& msg) {
