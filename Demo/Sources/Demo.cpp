@@ -241,7 +241,7 @@ ImGuiKey FromCrossKeyToImgui(Key key) {
 	case cross::Key::MAX_KEY_NUM:
 		return ImGuiKey_NamedKey_COUNT;
 	default:
-		break;
+		return ImGuiKey_None;
 	}
 }
 

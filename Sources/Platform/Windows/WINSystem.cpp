@@ -31,10 +31,10 @@ WINSystem::WINSystem(HWND wnd) :
 	wnd(wnd)
 {
 	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
-	char* releaseAsset = "Assets/";
-	char* debugAsset = "../../../Assets/";
-	char* debugAssetAlt = "../../Assets/";
-	char* editorAsset = "../Demo/Assets/";
+	const char* releaseAsset = "Assets/";
+	const char* debugAsset = "../../../Assets/";
+	const char* debugAssetAlt = "../../Assets/";
+	const char* editorAsset = "../Demo/Assets/";
 	if(IsDirectoryExists(releaseAsset)) {
 		assets_path = releaseAsset;
 	} else if(IsDirectoryExists(debugAsset)) {

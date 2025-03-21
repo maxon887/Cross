@@ -31,5 +31,5 @@ void Stats::Update(float sec) {
 #ifdef CROSS_MEMORY_PROFILE
 	U64 memory = MemoryManager::Instance()->AllocatedMemory();
 	ImGui::TextUnformatted("Memory Used - " + demo->GetCompactSize(memory));
-#endif // CROSS_DEBUG
+#endif
 }
