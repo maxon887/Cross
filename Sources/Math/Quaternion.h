@@ -1,4 +1,4 @@
-/*	Copyright © 2018 Maksim Lukyanov
+/*	Copyright Â© 2018 Maksim Lukyanov
 
 	This file is part of Cross++ Game Engine.
 
