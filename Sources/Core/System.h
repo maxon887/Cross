@@ -32,7 +32,7 @@ public:
 	/* Occurs when window orientation changed */
 	Event<System::Orientation> OrientationChanged;
 
-	virtual ~System() { }
+	virtual ~System() = default;
 
 	/* Print message in console. See LogIt() if you need formatted output */
 	virtual void Log(const char* msg) = 0;

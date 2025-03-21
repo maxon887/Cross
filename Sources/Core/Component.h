@@ -30,7 +30,7 @@ namespace cross{
 class Component {
 public:
 	Component(const String& name);
-	virtual ~Component() { }
+	virtual ~Component() = default;
 
 	/* Will be called on component after component was added to an Entity */
 	virtual void Initialize(Scene* scene) { }

@@ -24,7 +24,7 @@ namespace cross {
 	Screens can be set and obtained by Game::SetScreen and Game::GetCurrentScreen */
 class Screen {
 public:
-	virtual ~Screen() { }
+	virtual ~Screen() = default;
 	/* Called before screen show up */
 	virtual void Start() { }
 	/* Called when screen about to change */

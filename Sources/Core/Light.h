@@ -36,7 +36,6 @@ public:
 	};
 
 	Light(Type type = POINT);
-	virtual ~Light() { }
 
 	/* Initialize Light Component. Better add all Light to a Scene before any drawings started */
 	void Initialize(Scene* scene) override;
