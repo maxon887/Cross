@@ -88,11 +88,6 @@ void MenuBar::ShowMenu() {
 	}
 
 	if(ImGui::BeginMainMenuBar()) {
-		bool mainScreen = false;
-		if(game->GetCurrentScreen()->GetName() == "Main") {
-			mainScreen = true;
-		}
-
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("New Scene")) {
 				Scene* scene = CREATE DemoScene();
