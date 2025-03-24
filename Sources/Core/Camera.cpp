@@ -26,8 +26,8 @@ Camera::Camera() : Component("Camera")
 
 void Camera::Initialize(Scene* scene) {
 	CROSS_ASSERT(!scene->GetCamera(), false, "Loading Scene already have another camera");
-	Matrix perspectiveProjection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
-	SetProjectionMatrix(perspectiveProjection);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
+	SetProjectionMatrix(projection);
 	scene->SetCamera(this);
 }
 
@@ -51,8 +51,8 @@ const Matrix& Camera::GetProjectionMatrix() const {
 	return projection;
 }
 
-void Camera::SetProjectionMatrix(const Matrix& matrix){
-	this->projection = matrix;
+void Camera::SetProjectionMatrix(const Matrix& projection){
+	this->projection = projection;
 }
 
 void Camera::RecalcView(){

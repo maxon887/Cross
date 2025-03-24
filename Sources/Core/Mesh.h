@@ -53,7 +53,7 @@ public:
 	/* Draws Mesh on scene with special stencil behavior */
 	void Draw(Material* material, StencilBehaviour sten);
 	/* Draws Mesh on scene with provided MVP matrix and others parameters */
-	void Draw(const Matrix& globalModel, Material* drawingMaterial, StencilBehaviour stencilBehaviour);
+	void Draw(const Matrix& globalModel, Material* material, StencilBehaviour stencilBehaviour);
 
 	/* Initialize Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
 	void InitializeVideoData();

@@ -98,11 +98,11 @@ void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 	}
 }
 
-void Mesh::Draw(const Matrix& globalModel, Material* drawingMaterial,
+void Mesh::Draw(const Matrix& globalModel, Material* material,
 				StencilBehaviour stencilBehaviour) {
 	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
-	CROSS_FAIL(drawingMaterial, "Attempt to draw without drawingMaterial");
-	Shader* shader = drawingMaterial->GetShader();
+	CROSS_FAIL(material, "Attempt to draw without material");
+	Shader* shader = material->GetShader();
 	shader->Use();
 
 	Scene* scene = game->GetCurrentScene();
@@ -133,9 +133,9 @@ void Mesh::Draw(const Matrix& globalModel, Material* drawingMaterial,
 		SAFE(glUniform4fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(Shader::Property& prop : drawingMaterial->GetProperties()) {
+	for(Shader::Property& prop : material->GetProperties()) {
 		if(prop.glId == -1) {
-			//late shader compilation produce this, trying to assign compiled id to the drawingMaterial id
+			//late shader compilation produce this, trying to assign compiled id to the material id
 			Shader::Property* shaderProp = shader->GetProperty(prop.name);
 			prop.glId = shaderProp->GetID();
 			CROSS_FAIL(prop.glId != -1, "Broken shader property");
@@ -144,10 +144,10 @@ void Mesh::Draw(const Matrix& globalModel, Material* drawingMaterial,
 		switch(prop.type) {
 		case Shader::Property::TEXTURE:
 			if(prop.value.texture) {
-				SAFE(glActiveTexture(GL_TEXTURE0 + drawingMaterial->active_texture_slot));
+				SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
 				SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop.value.texture->GetID()));
-				SAFE(glUniform1i(prop.glId, drawingMaterial->active_texture_slot));
-				drawingMaterial->active_texture_slot++;
+				SAFE(glUniform1i(prop.glId, material->active_texture_slot));
+				material->active_texture_slot++;
 			}
 			break;
 		case Shader::Property::MAT4:
@@ -166,16 +166,16 @@ void Mesh::Draw(const Matrix& globalModel, Material* drawingMaterial,
 			SAFE(glUniform1i(prop.glId, prop.value.s32));
 			break;
 		case Shader::Property::CUBEMAP:
-			SAFE(glActiveTexture(GL_TEXTURE0 + drawingMaterial->active_texture_slot));
+			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
 			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)prop.value.cubemap->GetTextureID()));
-			SAFE(glUniform1i(prop.glId, drawingMaterial->active_texture_slot));
-			drawingMaterial->active_texture_slot++;
+			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
+			material->active_texture_slot++;
 			break;
 		default:
 			CROSS_ASSERT(false, "Unknown property type(#)", prop.name);
 		}
 	}
-	drawingMaterial->active_texture_slot = 0;
+	material->active_texture_slot = 0;
 
 	shader->OnDraw();
 
@@ -235,7 +235,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* drawingMaterial,
 		CROSS_ASSERT(false, "Unknown stencil behaviour");
 	}
 	//alpha blending
-	if(drawingMaterial->IsTransparent()) {
+	if(material->IsTransparent()) {
 		SAFE(glEnable(GL_BLEND));
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
