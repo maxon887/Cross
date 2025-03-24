@@ -16,7 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Vector2D.h"
 
-#include <math.h>
+#include <cmath>
 
 using namespace cross;
 

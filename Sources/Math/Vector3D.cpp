@@ -18,8 +18,8 @@
 #include "Vector2D.h"
 #include "Vector4D.h"
 
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 using namespace cross;
 

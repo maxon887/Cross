@@ -17,7 +17,7 @@
 #include "Quaternion.h"
 #include "Cross.h"
 
-#include <math.h>
+#include <cmath>
 
 using namespace cross;
 

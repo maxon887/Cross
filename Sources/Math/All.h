@@ -22,7 +22,7 @@
 #include "Matrix.h"
 #include "Quaternion.h"
 
-#include <math.h>
+#include <cmath>
 
 #define PI (3.141592653589793f)
 

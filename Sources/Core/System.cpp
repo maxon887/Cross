@@ -17,8 +17,8 @@
 #include "System.h"
 #include "File.h"
 
-#include <errno.h>
-#include <string.h>
+#include <cerrno>
+#include <cstring>
 #include <filesystem>
 
 #if defined(WIN) || defined(MACOS)
