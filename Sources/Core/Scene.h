@@ -49,9 +49,9 @@ public:
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
-	virtual bool Load(const String& file);
+	virtual bool Load(const String& filename);
 	/* Save scene into file */
-	virtual void Save(const String& file);
+	virtual void Save(const String& filename);
 
 	/* Removes all loaded stuff from scene (Textures, Materials, Shader, Models and Entities) */
 	void Clear();

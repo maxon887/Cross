@@ -68,9 +68,9 @@ void Scene::Stop() {
 	Screen::Stop();
 }
 
-bool Scene::Load(const String& file) {
-	filename = file;
-	File* xmlFile = os->LoadAssetFile(file);
+bool Scene::Load(const String& filename) {
+	this->filename = filename;
+	File* xmlFile = os->LoadAssetFile(filename);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -79,7 +79,7 @@ bool Scene::Load(const String& file) {
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
 	CROSS_RETURN(scene, false, "Can not load scene. Root node Scene not found");
-	SetName(File::FileWithoutExtension(File::FileFromPath(file)));
+	SetName(File::FileWithoutExtension(File::FileFromPath(filename)));
 	int version = scene->IntAttribute("version");
 	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version mismatch");
 
