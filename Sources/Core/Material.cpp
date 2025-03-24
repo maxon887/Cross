@@ -39,8 +39,8 @@ Material::Material(const Material& obj) :
 	properties(obj.properties)
 { }
 
-void Material::SetShader(Shader* shader) {
-	this->shader = shader;
+void Material::SetShader(Shader* newShader) {
+	this->shader = newShader;
 	Reset();
 }
 
@@ -52,15 +52,15 @@ const String& Material::GetFilename() const {
 	return filename;
 }
 
-bool Material::Load(const String& filename, Scene* scene) {
-	File* xmlFile = os->LoadAssetFile(filename);
+bool Material::Load(const String& file, Scene* scene) {
+	File* xmlFile = os->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, false, "Can't load material. File not fount");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	delete xmlFile;
 	CROSS_RETURN(error == XML_SUCCESS, false, "Can't parse material xml file");
 
-	SetName(filename);
+	filename = file;
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	String shaderfilename = materialXML->Attribute("shader");
@@ -127,7 +127,7 @@ bool Material::Load(const String& filename, Scene* scene) {
 	return true;
 }
 
-void Material::Save(const String& filename) {
+void Material::Save(const String& file) {
 	XMLDocument doc;
 	XMLElement* materialXML = doc.NewElement("Material");
 
@@ -180,7 +180,7 @@ void Material::Save(const String& filename) {
 	XMLPrinter printer;
 	doc.Accept(&printer);
 	File saveFile;
-	saveFile.name = filename;
+	saveFile.name = file;
 	saveFile.size = printer.CStrSize() - 1;//-1 because we don't need to save null-terminated string
 	saveFile.data = (Byte*)printer.CStr();
 	os->SaveFile(&saveFile);
@@ -321,8 +321,4 @@ void Material::EnableTransparency(bool yes) {
 
 Material* Material::Clone() const {
 	return CREATE Material(*this);
-}
-
-void Material::SetName(const String& name) {
-	filename = name;
 }

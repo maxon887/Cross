@@ -36,9 +36,9 @@ public:
 	/* Returns filename of file from which this Material was loaded */
 	const String& GetFilename() const;
 	/* Loads Material from file. Expects .mat file extension */
-	bool Load(const String& filename, Scene* scene);
+	bool Load(const String& file, Scene* scene);
 	/* Saves this Material to a material file (.mat extension) */
-	void Save(const String& filename);
+	void Save(const String& file);
 	/* Resets current material properties to the Shader's default */
 	void Reset();
 
@@ -98,7 +98,6 @@ private:
 	Array<Shader::Property> properties	= Array<Shader::Property>();
 
 	Material(const Material& obj);
-	void SetName(const String& filename);
 };
 
 }

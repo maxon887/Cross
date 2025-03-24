@@ -58,7 +58,7 @@ public:
 	void SetIntensity(float intensity);
 
 	/* Sets cut off angle for SPOT Light in degrees */
-	void SetCutOff(float cut_off);
+	void SetCutOff(float cutOff);
 	/* Returns SPOT Light cut off angle */
 	float GetCutOff() const;
 	/* Returns angle when SPOT Light will be completely cut off */

@@ -65,9 +65,9 @@ public:
 	/* Returns Entity's child by its index position in Entity's child container */
 	Entity* FindChild(U32 index);
 	/* Returns Entity's child by its name */
-	Entity* FindChild(const String& name);
+	Entity* FindChild(const String& childName);
 	/* Removes child from Entity by name. Returns live child in case of success or nullptr if child not found. Returned child must be utilized by hand. */
-	Entity* RemoveChild(const String& name);
+	Entity* RemoveChild(const String& childName);
 	/* Removes specific child from Entity. Returns the same object in case of success or nullptr if child not found. Appropriate child's Remove() will be called. */
 	Entity* RemoveChild(Entity* child);
 	/* Clone this entity with all it's components and children */

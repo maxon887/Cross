@@ -129,12 +129,12 @@ Entity* Entity::FindChild(U32 index) {
 	return *it;
 }
 
-Entity* Entity::FindChild(const String& name) {
+Entity* Entity::FindChild(const String& childName) {
 	for(Entity* child : children) {
-		if(child->GetName() == name) {
+		if(child->GetName() == childName) {
 			return child;
 		} else {
-			child = child->FindChild(name);
+			child = child->FindChild(childName);
 			if(child) {
 				return child;
 			}
@@ -143,10 +143,10 @@ Entity* Entity::FindChild(const String& name) {
 	return nullptr;
 }
 
-Entity* Entity::RemoveChild(const String& name) {
+Entity* Entity::RemoveChild(const String& childName) {
 	for(auto it = children.begin(); it != children.end(); it++) {
 		Entity* c = (*it);
-		if(c->GetName() == name) {
+		if(c->GetName() == childName) {
 			c->Remove();
 			children.erase(it);
 			return c;

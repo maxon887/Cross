@@ -68,8 +68,8 @@ void Light::SetIntensity(float inten) {
 	intensity = inten;
 }
 
-void Light::SetCutOff(float cut_off) {
-	this->cut_off = cut_off;
+void Light::SetCutOff(float cutOff) {
+	this->cut_off = cutOff;
 }
 
 float Light::GetCutOff() const {
