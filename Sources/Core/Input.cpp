@@ -31,19 +31,15 @@ Input::Input() {
 	TargetActionUp.Connect(this, &Input::TargetActionUpHandle);
 }
 
-void Input::TouchEnabled(bool enabled) {
-	touch_enabled = enabled;
-}
-
-Vector2D Input::TargetToWordConvert(float x, float y) const {
+Vector2D Input::TargetToWordConvert(float x, float y) {
 	Vector2D result;
 	result.x = x;
-	result.y = os->GetWindowHeight() - y;
+	result.y = (float)os->GetWindowHeight() - y;
 	return result;
 }
 
 bool Input::IsPressed(Key key) const {
-	return pressed_keys[(U32)key];
+	return pressed_keys[(S32)key];
 }
 
 void Input::Update() {
@@ -80,42 +76,36 @@ void Input::ResetKeys() {
 }
 
 void Input::KeyPressedHandle(Key key) {
-	pressed_keys[(U32)key] = true;
+	pressed_keys[(S32)key] = true;
 }
 
 void Input::KeyReleasedHandle(Key key) {
-	pressed_keys[(U32)key] = false;
+	pressed_keys[(S32)key] = false;
 }
 
 void Input::TargetActionDownHandle(float x, float y, S32 actionID) {
-	if(touch_enabled){
-		Action action;
-		action.pos = Vector2D(x, y);
-		action.id = actionID;
-		input_mutex.lock();
-		action_stack.push_back(pair<Input::Action, int>(action, 0));
-		input_mutex.unlock();
-	}
+	Action action;
+	action.pos = Vector2D(x, y);
+	action.id = actionID;
+	input_mutex.lock();
+	action_stack.emplace_back(action, 0);
+	input_mutex.unlock();
 }
 
 void Input::TargetActionMoveHandle(float x, float y, S32 actionID) {
-	if(touch_enabled){
-		Action action;
-		action.pos = Vector2D(x, y);
-		action.id = actionID;
-		input_mutex.lock();
-		action_stack.push_back(pair<Input::Action, int>(action, 1));
-		input_mutex.unlock();
-	}
+	Action action;
+	action.pos = Vector2D(x, y);
+	action.id = actionID;
+	input_mutex.lock();
+	action_stack.emplace_back(action, 1);
+	input_mutex.unlock();
 }
 
 void Input::TargetActionUpHandle(float x, float y, S32 actionID) {
-	if(touch_enabled){
-		Action action;
-		action.pos = Vector2D(x, y);
-		action.id = actionID;
-		input_mutex.lock();
-		action_stack.push_back(pair<Input::Action, int>(action, 2));
-		input_mutex.unlock();
-	}
+	Action action;
+	action.pos = Vector2D(x, y);
+	action.id = actionID;
+	input_mutex.lock();
+	action_stack.emplace_back(action, 2);
+	input_mutex.unlock();
 }

@@ -144,7 +144,7 @@ public:
 		/* Action position on the screen */
 		Vector2D pos;
 		/* On mobile devices used for fingers count, on desktop used for mouse buttons, 0 - lmb, 1 - rmb */
-		S32 id;
+		S32 id = -1;
 	};
 
 	/* Occurs when user action started */
@@ -167,8 +167,6 @@ public:
 	Vector2D MousePosition;
 	/* Checks if specific key pressed */
 	bool IsPressed(Key key) const;
-	/* Enables disables all touches */
-	void TouchEnabled(bool enabled);
 
 	/* Occurs instantly when user action started. Can be even in other thread. Do not use this */
 	Event<float, float, S32> TargetActionDown;
@@ -186,11 +184,10 @@ engineonly:
 
 protected:
 	std::mutex input_mutex;
-	bool touch_enabled			= true;
 	Array<bool> pressed_keys	= Array<bool>((U32)Key::MAX_KEY_NUM, false);
 	List<std::pair<Input::Action, int> > action_stack;
 
-	Vector2D TargetToWordConvert(float x, float y) const;
+	static Vector2D TargetToWordConvert(float x, float y);
 
 	void TargetActionDownHandle(float x, float y, S32 actionID);
 	void TargetActionMoveHandle(float x, float y, S32 actionID);
