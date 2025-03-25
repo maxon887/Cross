@@ -97,7 +97,7 @@ void MacSystem::Messagebox(const String& title, const String& msg) {
 }
 
 void MacSystem::Sleep(float milis) {
-	usleep(milis * 1000.f);
+	usleep((useconds_t)(milis * 1000.f));
 }
 
 String MacSystem::OpenFileDialog(const String& extension, bool saveDialog) {

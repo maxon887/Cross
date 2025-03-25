@@ -31,11 +31,11 @@ int cross::Random(int min, int max){
 }
 
 float cross::Random(float max){
-	return rand() / (RAND_MAX / max);
+	return (float)rand() / ((float)RAND_MAX / max);
 }
 
 float cross::Random(float min, float max){
-	return (min)+rand() / (RAND_MAX / (max - min));
+	return (min)+(float)rand() / ((float)RAND_MAX / (max - min));
 }
 
 float cross::Round(float val)

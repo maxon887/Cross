@@ -210,8 +210,8 @@ bool String::Remove(const char* subStr) {
 bool String::Remove(const char* subStr, S32 startPos) {
 	char* begin = strstr(data + startPos, subStr);
 	if(begin) {
-		U32 cLen = (U32)strlen(subStr);
-		U32 size = length - (S32)(begin - data);
+		S32 cLen = (S32)strlen(subStr);
+		S32 size = length - (S32)(begin - data);
 		memcpy(begin, begin + cLen, size + 1);
 		length -= cLen;
 		return true;
@@ -282,7 +282,7 @@ S32 String::ToInt() const {
 
 S32 String::ToInt(U32 base) const {
 	char* endp;
-	S32 value = (S32)strtol(data, &endp, base);
+	S32 value = (S32)strtol(data, &endp, (int)base);
 	CROSS_RETURN(endp != data, 0, "Conversion from string '#' to integer failed", data);
 	CROSS_ASSERT(*endp == '\0', "String '#' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
@@ -376,16 +376,16 @@ String::operator const char * () const {
 namespace cross {
 
 String operator + (const String& left, const char* right) {
-	U32 cstrLen = (U32)strlen(right);
-	U32 capacity = cstrLen + left.length;
+	S32 cstrLen = (S32)strlen(right);
+	S32 capacity = cstrLen + left.length;
 	String result(left.ToCStr(), left.length, capacity);
 	result += right;
 	return result;
 }
 
 String operator + (const char* left, const String& right) {
-	U32 cstrLen = (U32)strlen(left);
-	U32 capacity = cstrLen + right.length;
+	S32 cstrLen = (S32)strlen(left);
+	S32 capacity = cstrLen + right.length;
 	String result(left, cstrLen, capacity);
 	result += right;
 	return result;

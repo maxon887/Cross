@@ -36,12 +36,12 @@ void SceneView::PreUpdate() {
 	if(os->IsMobile()) {
 		if(os->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 			ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth() / 3.f,
-				(float)(os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
+				((float)os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())),
 				ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()), ImGuiCond_FirstUseEver);
 		} else {
 			ImGui::PushFont(demo->big_font);
-			ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth(), (float)(os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
+			ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth(), ((float)os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
 			ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		}
 	}

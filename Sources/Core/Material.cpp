@@ -311,7 +311,7 @@ void Material::SetTransparent(bool yes) {
 	transparent = yes;
 }
 
-bool Material::IsTransparent() {
+bool Material::IsTransparent() const {
 	return transparent;
 }
 

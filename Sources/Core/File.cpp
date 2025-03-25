@@ -61,7 +61,5 @@ String File::FromAbsoluteToAssetPath(const String &absolutePath) {
 }
 
 File::~File() {
-	if(data){
-		delete[] data;
-	}
+	delete[] data;
 }

@@ -42,7 +42,7 @@ float Debugger::GetTimeCheck() {
 	U64 now = os->GetTime();
 	U64 checkTime = time_checks.Last();
 	time_checks.RemoveLast();
-	return (now - checkTime) / 1000.f;
+	return (float)(now - checkTime) / 1000.f;
 }
 
 void Debugger::Update(float micro) {

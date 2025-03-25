@@ -45,9 +45,9 @@ Color::Color(float r, float g, float b):
 { }
 
 Color::Color(int r, int g, int b):
-	R(r / 255.f),
-	G(g / 255.f),
-	B(b / 255.f),
+	R((float)r / 255.f),
+	G((float)g / 255.f),
+	B((float)b / 255.f),
 	A(1.0f)
 { }
 
@@ -59,21 +59,21 @@ Color::Color(float r, float g, float b, float a) :
 { }
 
 Color::Color(int r, int g, int b, int a) :
-	R(r / 255.f),
-	G(g / 255.f),
-	B(b / 255.f),
-	A(a / 255.f)
+	R((float)r / 255.f),
+	G((float)g / 255.f),
+	B((float)b / 255.f),
+	A((float)a / 255.f)
 { }
 
 Color::Color(const String& hex) {
 	String rStr = hex.SubString(0, 2);
-	R = rStr.ToInt(16) / 255.f;
+	R = (float)rStr.ToInt(16) / 255.f;
 	String gStr = hex.SubString(2, 4);
-	G = gStr.ToInt(16) / 255.f;
+	G = (float)gStr.ToInt(16) / 255.f;
 	String bStr = hex.SubString(4, 6);
-	B = bStr.ToInt(16) / 255.f;
+	B = (float)bStr.ToInt(16) / 255.f;
 	String aStr = hex.SubString(6, 8);
-	A = aStr.ToInt(16) / 255.f;
+	A = (float)aStr.ToInt(16) / 255.f;
 }
 
 void Color::SetData(const char* data){

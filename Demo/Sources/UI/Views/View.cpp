@@ -56,10 +56,10 @@ void View::Run(float sec) {
 		PreUpdate();
 		switch(os->GetDeviceOrientation()) {
 		case System::Orientation::LANDSCAPE:
-			ImGui::Begin(landscape_name, &visible, flags);
+			ImGui::Begin(landscape_name, &visible, (ImGuiWindowFlags)flags);
 			break;
 		case System::Orientation::PORTRAIT:
-			ImGui::Begin(portrait_name, &visible, flags);
+			ImGui::Begin(portrait_name, &visible, (ImGuiWindowFlags)flags);
 			break;
 		default:
 			CROSS_FAIL(false, "Unknown device orientation");

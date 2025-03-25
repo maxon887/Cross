@@ -28,11 +28,11 @@ void AudioScreen::Update(float sec){
 	ImGui::PushFont(demo->big_font);
 
 	if(!os->IsMobile()) {
-		ImGui::SetNextWindowSize(ImVec2(os->GetWindowWidth() / 3.f, os->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowPos(ImVec2(os->GetWindowWidth() / 2.f, os->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+		ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth() / 3.f, (float)os->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2((float)os->GetWindowWidth() / 2.f, (float)os->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
 		ImGui::Begin("Audio");
 	} else {
-		ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth(), os->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
+		ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth(), (float)os->GetWindowHeight() - demo->GetMenuBar()->GetHeight()));
 		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		ImGui::Begin("Audio", 0,	ImGuiWindowFlags_NoCollapse |
 									ImGuiWindowFlags_NoMove |

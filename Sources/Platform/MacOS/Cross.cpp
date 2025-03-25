@@ -51,7 +51,7 @@ void GLFWMouseButtonCallback(GLFWwindow* window, int button, int action, int mod
 }
 
 void GLFWScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
-	input->Scroll.Emit(yoffset);
+	input->Scroll.Emit((float)yoffset);
 }
 
 void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -195,7 +195,7 @@ void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int 
 }
 
 void GLFWCharCallback(GLFWwindow* window, unsigned int codepoint) {
-	input->CharEnter.Emit(codepoint);
+	input->CharEnter.Emit((char)codepoint);
 }
 
 GLFWmonitor* GetMonitorForWindow(GLFWwindow* window) {
@@ -207,11 +207,11 @@ GLFWmonitor* GetMonitorForWindow(GLFWwindow* window) {
         int YPos = 0;
         glfwGetMonitorPos(monitor, &XPos, &YPos);
         const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-        Rect screenRect(XPos, YPos, mode->width, mode->height);
+        Rect screenRect((float)XPos, (float)YPos, (float)mode->width, (float)mode->height);
         int windowXPos = 0;
         int windowYPos = 0;
         glfwGetWindowPos(window, &windowXPos, &windowYPos);
-        if (PointInRect(Vector2D(windowXPos, windowYPos), screenRect)) {
+        if (PointInRect(Vector2D((float)windowXPos, (float)windowYPos), screenRect)) {
             return monitor;
         }
     }
@@ -257,7 +257,7 @@ int main(int c, char **args) {
     int frameHeight = 0;
 	glfwGetFramebufferSize(window, &frameWidth, &frameHeight);
 	cross::os->SetWindowSize(frameWidth, frameHeight);
-    frame_to_window_ratio = frameWidth / (float)windowWidth;
+    frame_to_window_ratio = (float)frameWidth / (float)windowWidth;
 
     int widthMM, heightMM;
     GLFWmonitor* monitor = GetMonitorForWindow(window);
@@ -268,7 +268,7 @@ int main(int c, char **args) {
 	os->LogIt("Monitor - #", monitorName);
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
-    float dpi = mode->width * frame_to_window_ratio / (widthMM / 25.4);
+    float dpi = (float)mode->width * frame_to_window_ratio / ((float)widthMM / 25.4f);
     MacSystem* macSystem = (MacSystem*)cross::os;
     macSystem->SetScreenDPI(dpi);
 #ifdef CROSS_CMAKE

@@ -106,7 +106,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& co
 	U32 outerVertexCount = vertexCount - 1;
 
 	for(U32 i = 0; i < outerVertexCount; ++i) {
-		float percent = (i / (float)(outerVertexCount - 1));
+		float percent = ((float)i / (float)(outerVertexCount - 1));
 		float rad = percent * 2 * PI;
 
 		//Vertex position

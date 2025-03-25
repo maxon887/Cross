@@ -81,7 +81,7 @@ public:
 
 	void SetTransparent(bool yes);
 	/* Returns true if this Material supports transparency */
-	bool IsTransparent();
+	bool IsTransparent() const;
 	/* Enables transparency property for current Material */
 	void EnableTransparency(bool yes);
 

@@ -249,9 +249,9 @@ String Demo::GetCompactSize(U64 bytes) {
 	if(bytes < 10 * 1024) {
 		return String(bytes) + " b";
 	} else if(bytes < 10 * 1024 * 1024) {
-		return String(bytes / 1024.f, "%.2f", 40) + " kb";
+		return String((float)bytes / 1024.f, "%.2f", 40) + " kb";
 	} else {
-		return String(bytes / (1024.f * 1024.f), "%.2f", 40) + " mb";
+		return String((float)bytes / (1024.f * 1024.f), "%.2f", 40) + " mb";
 	}
 }
 
@@ -337,9 +337,9 @@ void Demo::PreUpdate(float sec) {
 #if defined(WIN)
 	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
 #else
-	io.MousePos = ImVec2(action_pos.x, os->GetWindowHeight() - action_pos.y);
+	io.MousePos = ImVec2(action_pos.x, (float)os->GetWindowHeight() - action_pos.y);
 #endif
-	for(U32 i = 0; i < 5; i++) {
+	for(S32 i = 0; i < 5; i++) {
 		io.MouseDown[i] = actions[i];
 	}
 

@@ -218,7 +218,7 @@ System::Orientation System::GetDeviceOrientation() const {
 }
 
 float System::GetAspectRatio() const {
-	return GetWindowWidth() / (float)GetWindowHeight();
+	return (float)GetWindowWidth() / (float)GetWindowHeight();
 }
 
 String& System::GetLogBuffer() {

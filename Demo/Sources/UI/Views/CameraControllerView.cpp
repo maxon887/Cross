@@ -39,7 +39,7 @@ void CameraControllerView::Shown() {
 
 void CameraControllerView::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
-	ImGui::SetNextWindowPos(ImVec2(os->GetWindowWidth() - window_width, os->GetWindowHeight() - window_height));
+	ImGui::SetNextWindowPos(ImVec2((float)os->GetWindowWidth() - window_width, (float)os->GetWindowHeight() - window_height));
 
 	SetFlags(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 

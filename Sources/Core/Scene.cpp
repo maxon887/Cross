@@ -103,7 +103,7 @@ void Scene::Save(const String& filename) {
 	sceneXML->SetAttribute("version", scene_saver_version);
 	doc.LinkEndChild(sceneXML);
 
-	if(root->children.size() > 0) {
+	if(!root->children.empty()) {
 		XMLElement* objectsXML = doc.NewElement("Objects");
 		for(Entity* entity : root->children){
 			CROSS_FAIL(SaveEntity(entity, objectsXML, &doc), "Can not save entity");
@@ -320,7 +320,7 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 		objectXML->LinkEndChild(componentsXML);
 	}
 
-	if(entity->children.size() > 0) {
+	if(!entity->children.empty()) {
 		XMLElement* childrenXML = doc->NewElement("Children");
 		for(Entity* child : entity->children) {
 			SaveEntity(child, childrenXML, doc);

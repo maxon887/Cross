@@ -184,7 +184,7 @@ float StringTestView::ConversionCrossString() {
 	String float_static = "10.0";
 
 	for(int i = 0; i < 10000; i++) {
-		char choice = Random(0, 5);
+		char choice = (char)Random(0, 5);
 		switch(choice) {
 		case 0: {
 			String intStr = Random(0, 1000000);
@@ -218,7 +218,7 @@ float StringTestView::ConversionStdString() {
 	string float_static = "10.0";
 
 	for(int i = 0; i < 10000; i++) {
-		char choice = Random(0, 5);
+		char choice = (char)Random(0, 5);
 		switch(choice) {
 		case 0: {
 			string intStr = to_string( Random(0, 1000000) );
@@ -261,7 +261,7 @@ float StringTestView::ConcatenationCrossString() {
 		String result;
 		bool shouldGoNext = true;
 		while(shouldGoNext) {
-			char chose = Random(0, 10);
+			char chose = (char)Random(0, 10);
 			switch(chose) {
 			case 0:
 				result += longNames[Random(0, long_names_count)];
@@ -303,7 +303,7 @@ float StringTestView::ConcatenationStdString() {
 		std::string result;
 		bool shouldGoNext = true;
 		while(shouldGoNext) {
-			char chose = Random(0, 10);
+			char chose = (char)Random(0, 10);
 			switch(chose) {
 			case 0:
 				result += longNames[Random(0, long_names_count)];

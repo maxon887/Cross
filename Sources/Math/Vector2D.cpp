@@ -66,7 +66,7 @@ const float* Vector2D::GetData() const {
 }
 
 bool Vector2D::operator==(const Vector2D &v2) const {
-	if(this->x == v2.x && this->y && v2.y) {
+	if(this->x == v2.x && this->y == v2.y) {
 		return true;
 	} else {
 		return false;

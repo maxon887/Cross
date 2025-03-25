@@ -54,7 +54,7 @@ BaseClass* Factory<BaseClass>::Create(const String& name) {
 template<class BaseClass>
 Array<String> Factory<BaseClass>::GetRegisteredComponentsName() {
 	Array<String> names;
-	for(std::pair<String, Function<Component* ()>> pair : functions) {
+	for(const std::pair<String, Function<Component* ()>>& pair : functions) {
 		names.Add(pair.first);
 	}
 	return names;
