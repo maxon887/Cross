@@ -15,6 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shader.h"
+
+#include <utility>
 #include "System.h"
 #include "File.h"
 #include "Texture.h"
@@ -66,62 +68,62 @@ Shader::Property::Type Shader::Property::StringToType(const String &type) {
 	}
 }
 
-Shader::Property::Property(const String& name, const String& glName):
-	name(name),
-	glName(glName)
+Shader::Property::Property(String name, String glName):
+	name(std::move(name)),
+	glName(std::move(glName))
 { }
 
-Shader::Property::Property(const String& name, const String& glName, Type t) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, Type t) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(t)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, S32 value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, S32 value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(INT),
 	value(value)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, float value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, float value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(FLOAT),
 	value(value)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, const Color& value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, const Color& value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(COLOR),
 	value(value)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, const Vector3D& value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, const Vector3D& value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(VEC3),
 	value(value)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, const Matrix& value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, const Matrix& value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(MAT4),
 	value(value)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, Texture* value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, Texture* value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(TEXTURE),
 	value(value)
 { }
 
-Shader::Property::Property(const String& name, const String& glName, Cubemap* value) :
-	name(name),
-	glName(glName),
+Shader::Property::Property(String name, String glName, Cubemap* value) :
+	name(std::move(name)),
+	glName(std::move(glName)),
 	type(CUBEMAP),
 	value(value)
 { }
@@ -321,34 +323,34 @@ Array<String>& Shader::GetMacrosies() {
 	return macrosies;
 }
 
-void Shader::AddProperty(const String& name, const String& glName) {
+void Shader::AddProperty(String name, String glName) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(name, glName);
+	properties.CreateInside(std::move(name), std::move(glName));
 }
 
-void Shader::AddProperty(const String& name, const String& glName, Shader::Property::Type type) {
+void Shader::AddProperty(String name, String glName, Shader::Property::Type type) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(name, glName, type);
+	properties.CreateInside(std::move(name), std::move(glName), type);
 }
 
-void Shader::AddProperty(const String& name, const String& glName, float defValue) {
+void Shader::AddProperty(String name, String glName, float defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(name, glName, defValue);
+	properties.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(const String& name, const String& glName, const Color& defValue) {
+void Shader::AddProperty(String name, String glName, const Color& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(name, glName, defValue);
+	properties.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(const String& name, const String& glName, const Vector3D& defValue) {
+void Shader::AddProperty(String name, String glName, const Vector3D& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(name, glName, defValue);
+	properties.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(const String& name, const String& glName, Cubemap* defValue) {
+void Shader::AddProperty(String name, String glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(name, glName, defValue);
+	properties.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
 void Shader::AddProperty(const Property& prop) {

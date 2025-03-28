@@ -29,7 +29,7 @@ namespace cross{
 	User components must be register by ComponentFactory. Components have save life time as an Entity */
 class Component {
 public:
-	Component(const String& name);
+	Component(String name);
 	virtual ~Component() = default;
 
 	/* Will be called on component after component was added to an Entity */
@@ -62,7 +62,7 @@ public:
 	Transform* GetTransform();
 	/* Returns Entity's Transform's position vector */
 	Vector3D GetPosition() const;
-	/* Set position into into Entity's Transform Component */
+	/* Set position into Entity's Transform Component */
 	void SetPosition(const Vector3D& pos);
 
 protected:

@@ -24,7 +24,7 @@ namespace cross{
 
 class BaseProperty {
 public:
-	BaseProperty(Component* owner, const String& name);
+	BaseProperty(Component* owner, String name);
 
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) = 0;
 	virtual bool Load(tinyxml2::XMLElement* parent) = 0;
@@ -42,8 +42,8 @@ class Property : public BaseProperty {
 public:
 	T value;
 
-	Property(Component* owner, const String& name);
-	Property(Component* owner, const String& name, const T& def);
+	Property(Component* owner, String name);
+	Property(Component* owner, String name, const T& def);
 
 	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override;
 	bool Load(tinyxml2::XMLElement* parent) override;
@@ -53,13 +53,13 @@ public:
 };
 
 template<class T>
-Property<T>::Property(Component* owner, const String& name) :
-	BaseProperty(owner, name)
+Property<T>::Property(Component* owner, String name) :
+	BaseProperty(owner, std::move(name))
 { }
 
 template<class T>
-Property<T>::Property(Component* owner, const String& name, const T& def) :
-	BaseProperty(owner, name)
+Property<T>::Property(Component* owner, String name, const T& def) :
+	BaseProperty(owner, std::move(name))
 {
 	this->value = def;
 }

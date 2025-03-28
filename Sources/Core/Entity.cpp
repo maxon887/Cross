@@ -22,8 +22,8 @@
 using namespace cross;
 using namespace std;
 
-Entity::Entity(const String& name) :
-	name(name)
+Entity::Entity(String name) :
+	name(std::move(name))
 { }
 
 Entity::~Entity() {
@@ -50,8 +50,8 @@ const String& Entity::GetName() const {
 	return name;
 }
 
-void Entity::SetName(const String& name) {
-	this->name = name;
+void Entity::SetName(String name) {
+	this->name = std::move(name);
 }
 
 Component* Entity::GetComponent(U64 type) {

@@ -23,8 +23,8 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Component::Component(const String& name) :
-	name(name)
+Component::Component(String name) :
+	name(std::move(name))
 { }
 
 Component* Component::Clone() const {

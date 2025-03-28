@@ -66,15 +66,15 @@ public:
 		String glName	= String();
 		Type type = UNKNOWN;
 
-		Property(const String& name, const String& glName);
-		Property(const String& name, const String& glName, Type type);
-		Property(const String& name, const String& glName, S32 value);
-		Property(const String& name, const String& glName, float value);
-		Property(const String& name, const String& glName, const Color& value);
-		Property(const String& name, const String& glName, const Vector3D& value);
-		Property(const String& name, const String& glName, const Matrix& value);
-		Property(const String& name, const String& glName, Texture* value);
-		Property(const String& name, const String& glName, Cubemap* value);
+		Property(String name, String glName);
+		Property(String name, String glName, Type type);
+		Property(String name, String glName, S32 value);
+		Property(String name, String glName, float value);
+		Property(String name, String glName, const Color& value);
+		Property(String name, String glName, const Vector3D& value);
+		Property(String name, String glName, const Matrix& value);
+		Property(String name, String glName, Texture* value);
+		Property(String name, String glName, Cubemap* value);
 		Property(const Property& obj);
 
 		void SetValue(S32 v);
@@ -132,12 +132,12 @@ public:
 	void AddMacro(const String& macro, int value);
 	Array<String>& GetMacrosies();
 
-	void AddProperty(const String& name, const String& glName);
-	void AddProperty(const String& name, const String& glName, Property::Type type);
-	void AddProperty(const String& name, const String& glName, float defValue);
-	void AddProperty(const String& name, const String& glName, const Color& color);
-	void AddProperty(const String& name, const String& glName, const Vector3D& vec);
-	void AddProperty(const String& name, const String& glName, Cubemap* cubemap);
+	void AddProperty(String name, String glName);
+	void AddProperty(String name, String glName, Property::Type type);
+	void AddProperty(String name, String glName, float defValue);
+	void AddProperty(String name, String glName, const Color& color);
+	void AddProperty(String name, String glName, const Vector3D& vec);
+	void AddProperty(String name, String glName, Cubemap* cubemap);
 	void AddProperty(const Property& prop);
 	Property* GetProperty(const String& name);
 	Array<Property>& GetProperties();

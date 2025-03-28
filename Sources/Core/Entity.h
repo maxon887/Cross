@@ -25,13 +25,13 @@ namespace cross{
 	Almost any object exiting on a scene must be an Entity. All Entities stores in Scene in the Tree-like structure */
 class Entity {
 public:
-	Entity(const String& name);
+	Entity(String name);
 	~Entity();
 
 	/* Returns name of the object. Entity can be found by name in Scene or in other Entity's children by GetEntity() or FindChild() */
 	const String& GetName() const;
 	/* Sets name of the object. Rewrites name given by constructor */
-	void SetName(const String& name);
+	void SetName(String name);
 
 	/* Checks if Entity contains certain component T */
 	template<class T> bool HasComponent() const;

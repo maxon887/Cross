@@ -98,7 +98,6 @@ private:
 	Array<Shader::Property> properties	= Array<Shader::Property>();
 
 	Material(const Material& obj);
-	void SetName(const String& filename);
 };
 
 }

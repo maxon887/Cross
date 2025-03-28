@@ -53,14 +53,14 @@ const String& Material::GetFilename() const {
 }
 
 bool Material::Load(const String& filename, Scene* scene) {
+	this->filename = filename;
+
 	File* xmlFile = os->LoadAssetFile(filename);
 	CROSS_RETURN(xmlFile, false, "Can't load material. File not fount");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	delete xmlFile;
 	CROSS_RETURN(error == XML_SUCCESS, false, "Can't parse material xml file");
-
-	SetName(filename);
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	String shaderfilename = materialXML->Attribute("shader");
@@ -321,8 +321,4 @@ void Material::EnableTransparency(bool yes) {
 
 Material* Material::Clone() const {
 	return CREATE Material(*this);
-}
-
-void Material::SetName(const String& name) {
-	filename = name;
 }

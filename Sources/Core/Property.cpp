@@ -19,8 +19,8 @@
 
 using namespace cross;
 
-BaseProperty::BaseProperty(Component* owner, const String& name) :
-	name(name)
+BaseProperty::BaseProperty(Component* owner, String name) :
+	name(std::move(name))
 {
 	owner->properties.Add(this);
 }
