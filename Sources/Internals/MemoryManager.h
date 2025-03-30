@@ -45,7 +45,7 @@ public:
 	void* Alloc(U64 size, const char* filename, U64 line);
 	void* ReAlloc(void* pointer, U64 size, const char* filename, U64 line);
 	void Free(void* address);
-	U64 Dump();
+	void Dump();
 
 	U64 AllocatedMemory() const;
 

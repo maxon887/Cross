@@ -154,7 +154,7 @@ void MemoryManager::Free(void* address) {
 	}
 }
 
-U64 MemoryManager::Dump() {
+void MemoryManager::Dump() {
 	SanityCheck();
 	U64 totalBytes = 0;
 	for(U64 i = 0; i < object_count; i++) {
@@ -172,7 +172,6 @@ U64 MemoryManager::Dump() {
 	} else {
 		Log("No memory leak detected\n");
 	}
-	return totalBytes;
 }
 
 U64 MemoryManager::AllocatedMemory() const {
