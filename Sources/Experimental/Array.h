@@ -50,6 +50,7 @@ public:
 	T& operator [] (S32 index);
 	const T& operator [] (S32 index) const;
 	void operator = (const Array<T>& other);
+	void operator = (Array<T>&& other);
 
 private:
 	S32 size		= 0;
@@ -233,6 +234,19 @@ void Array<T>::operator = (const Array<T>& other) {
 }
 
 template<class T>
+void Array<T>::operator = (Array<T>&& other) {
+	Clear();
+	delete data;
+
+	this->size = other.size;
+	this->capacity = other.capacity;
+	this->data = other.data;
+	other.size = 0;
+	other.capacity = 0;
+	other.data = nullptr;
+}
+
+template<class T>
 void Array<T>::ReallocateIfNeeded() {
 	if(capacity == 0) {
 		capacity = 1;
@@ -248,10 +262,6 @@ template<class T>
 void Array<T>::Copy(const Array<T>& other) {
 	Clear();
 	Combine(other);
-	//Reserve(other.Size());
-	//for(S32 i = 0; i < other.Size(); i++) {
-	//	Add(other[i]);
-	//}
 }
 
 }
