@@ -23,6 +23,7 @@ class Array {
 public:
 	Array();
 	Array(const Array<T>& other);
+	Array(Array<T>&& other);
 	Array(S32 size, const T& defaultValue);
 	~Array();
 
@@ -68,6 +69,17 @@ Array<T>::Array()
 template<class T>
 Array<T>::Array(const Array<T>& other) {
 	Copy(other);
+}
+
+template<class T>
+Array<T>::Array(Array<T>&& other) :
+	size(other.size),
+	capacity(other.capacity),
+	data(other.data)
+{
+	other.size = 0;
+	other.capacity = 0;
+	other.data = nullptr;
 }
 
 template<class T>
