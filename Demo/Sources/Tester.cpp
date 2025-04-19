@@ -17,7 +17,15 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 
+#include "Scene.h"
+
 using namespace cross;
+
+void NeverUseSilecer() {
+	
+	Scene* s;
+	s->RemoveEntity("Some");
+}
 
 
 

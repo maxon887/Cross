@@ -69,7 +69,6 @@ void Scene::Stop() {
 }
 
 bool Scene::Load(const String& filename) {
-	this->filename = filename;
 	File* xmlFile = os->LoadAssetFile(filename);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
@@ -177,10 +176,6 @@ Camera* Scene::GetCamera() {
 	return camera;
 }
 
-String Scene::GetFilename() const {
-	return filename;
-}
-
 void Scene::SetCamera(Camera* cam) {
 	this->camera = cam;
 }
@@ -263,12 +258,6 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 			delete model;
 			return nullptr;
 		}
-	}
-}
-
-void Scene::ResetMaterials() {
-	for(pair<U64, Material*> pair : materials) {
-		pair.second->Reset();
 	}
 }
 

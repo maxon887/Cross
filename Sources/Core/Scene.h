@@ -42,11 +42,11 @@ public:
 	Scene();
 
 	/* Called once before scene show up. */
-	virtual void Start() override;
+	void Start() override;
 	/* Called once when scene about to change on new one */
-	virtual void Stop() override;
+	void Stop() override;
 	/* Called every frame update. */
-	virtual void Update(float sec) override;
+	void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
 	virtual bool Load(const String& filename);
@@ -59,8 +59,6 @@ public:
 	Entity* GetRoot();
 	/* Returns scene main 3D camera */
 	Camera* GetCamera();
-	/* Returns name of scene file if exists */
-	String GetFilename() const;
 	/* Sets main 3D camera for this Scene */
 	void SetCamera(Camera* cam);
 	/* Finds specific entity on this Scene by name */
@@ -89,12 +87,9 @@ public:
 	Texture* GetTexture(const String& textureFile, Texture::Filter filter);
 	/* Obtain loaded into scene Model or load it by self in other way */
 	Model* GetModel(const String& modelFile, bool calcTangents = false);
-	/* Resets all materials to default state */
-	void ResetMaterials();
 
 protected:
 	Entity* root							= nullptr;
-	String filename							= "";
 
 	Dictionary<U64, Shader*> shaders		= Dictionary<U64, Shader*>();
 	Dictionary<U64, Texture*> textures		= Dictionary<U64, Texture*>();
