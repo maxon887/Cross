@@ -24,7 +24,7 @@
 #include "Mesh.h"
 #include "Sound.h"
 #include "Texture.h"
-#include "Math.h"
+#include "Math/All.h"
 
 using namespace cross;
 
