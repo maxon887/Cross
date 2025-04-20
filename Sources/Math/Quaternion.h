@@ -24,7 +24,8 @@ class Matrix;
 class Quaternion {
 public:
 	static const Quaternion Identity;
-
+	/* Returns Cos of half angle between quaternions multiplied by their lengths.
+	 * In case of normalized quats you will get cos(Alpha/2) */
 	static float DotProduct(const Quaternion& left, const Quaternion& right);
 	/* Creates identity quaternion */
 	Quaternion();
@@ -36,6 +37,7 @@ public:
 	void Scale(float scale);
 	float Norm() const;  
 	float Length() const;
+	/* Creates quaternion with opposite rotation */
 	Quaternion GetConjugated() const;
 	Quaternion GetInversed() const;
 	Quaternion GetNormalized() const;

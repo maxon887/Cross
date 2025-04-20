@@ -107,7 +107,7 @@ void Transform::SetRotate(const Matrix& rot) {
 
 void Transform::LookAt(const Vector3D& object){
 	Vector3D forward = object - GetPosition();
-	forward.Normaize();
+	forward.Normalize();
 	Vector3D right = Vector3D::Cross(Vector3D::Up, forward).GetNormalized();
 	Vector3D up =  Vector3D::Cross(forward, right).GetNormalized();
 

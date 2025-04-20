@@ -57,7 +57,13 @@ void NeverUsedSilencer() {
 	Lerp(1, 2, 0.5);
 	Rect rect;
 	Vector2D v2;
+	Vector2D::Dot(v2, v2);
+	v2.GetTruncated(20);
 	Vector3D v3;
+	v3.GetTruncated(20.f);
+	v3.IsNormalized();
+	v3.SetData(nullptr);
+	Vector3D::Dot(v3, v3);
 	Matrix mat = Matrix::Identity;
 	PointInRect(v2, rect);
 	PointInCircle(v2, v2, 10.f);
@@ -71,4 +77,6 @@ void NeverUsedSilencer() {
 	mat.SetRotationY(90.f);
 	mat.SetRotationZ(90.f);
 	Quaternion quat;
+	Quaternion::DotProduct(quat, quat);
+	quat.GetNormalized();
 }
