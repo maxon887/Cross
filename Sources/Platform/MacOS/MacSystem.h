@@ -18,7 +18,6 @@ public:
 	String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false) override;
 
     void SetScreenDPI(float dpi);
-	void SetAssetPath(const String& path);
 	
 	void SetAppIcon();
 

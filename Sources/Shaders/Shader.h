@@ -64,7 +64,7 @@ public:
 
 		String name		= String();
 		String glName	= String();
-		Type type = UNKNOWN;
+		Type type 		= UNKNOWN;
 
 		Property(String name, String glName);
 		Property(String name, String glName, Type type);
@@ -84,7 +84,6 @@ public:
 		void SetValue(const Matrix& v);
 		void SetValue(Texture* texture);
 		void SetValue(Cubemap* cubemap);
-		void SetValue(const Value& value);
 		Value& GetValue();
 
 		Property* Clone() const;
@@ -141,7 +140,6 @@ public:
 	void AddProperty(const Property& prop);
 	Property* GetProperty(const String& name);
 	Array<Property>& GetProperties();
-	void ClearProperties();
 
 protected:
 	class LightUniforms {

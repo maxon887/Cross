@@ -19,12 +19,15 @@
 
 #include "Scene.h"
 #include "System.h"
+#include "Game.h"
 #include "Entity.h"
 #include "File.h"
 #include "Mesh.h"
 #include "Sound.h"
 #include "Texture.h"
 #include "Math/All.h"
+#include "Shaders/Shader.h"
+#include "Utils/PrimitiveDrawer.h"
 
 using namespace cross;
 
@@ -38,6 +41,10 @@ void NeverUsedSilencer() {
 	system->IsAssetFileExists("AssetFile");
 	system->RequestOrientation(System::Orientation::LANDSCAPE);
 	system->PromtToExit();
+	Game* game = nullptr;
+	game->Suspend();
+	game->Resume();
+	game->IsSuspended();
 	Color c = Color::Purple;
 	c.SetData(nullptr);
 	Entity* entity = nullptr;
@@ -79,4 +86,14 @@ void NeverUsedSilencer() {
 	Quaternion quat;
 	Quaternion::DotProduct(quat, quat);
 	quat.GetNormalized();
+	
+	Shader::Property prop("name", "glName");
+	Cubemap* cubemap = nullptr;
+	prop.SetValue(cubemap);
+	
+	PrimitiveDrawer::DrawPoint(v2, c);
+	PrimitiveDrawer::DrawRect(rect, c);
+	PrimitiveDrawer::DrawLine(v2, v2, c);
+	PrimitiveDrawer::DrawLine(v3, v3, c);
+	
 }

@@ -171,10 +171,6 @@ void Shader::Property::SetValue(Cubemap* v) {
 	value.cubemap = v;
 }
 
-void Shader::Property::SetValue(const Value& v) {
-	value = v;
-}
-
 Shader::Property::Value& Shader::Property::GetValue() {
 	return value;
 }
@@ -369,10 +365,6 @@ Shader::Property* Shader::GetProperty(const String& name) {
 
 Array<Shader::Property>& Shader::GetProperties() {
 	return properties;
-}
-
-void Shader::ClearProperties() {
-	properties.Clear();
 }
 
 GLuint Shader::GetProgram() const {
