@@ -20,15 +20,20 @@
 #include "Scene.h"
 #include "System.h"
 #include "Entity.h"
+#include "File.h"
+#include "Mesh.h"
+#include "Sound.h"
+#include "Texture.h"
+#include "Math.h"
 
 using namespace cross;
 
 void NeverUsedSilencer() {
-	
 	Scene* scene = nullptr;
 	scene->RemoveEntity("Some");
 	System* system = nullptr;
 	File* file = nullptr;
+	file->PathFromFile("SomePath");
 	system->SaveAssetFile(file);
 	system->IsAssetFileExists("AssetFile");
 	system->RequestOrientation(System::Orientation::LANDSCAPE);
@@ -36,6 +41,35 @@ void NeverUsedSilencer() {
 	Color c = Color::Purple;
 	c.SetData(nullptr);
 	Entity* entity = nullptr;
-	entity->FindChild("ChildsName");
+	entity->FindChild(0);
+	Event<> event;
+	event.DisconnectAll();
+	Mesh* mesh = nullptr;
+	mesh->GetPolyCount();
+	Sound* sound = nullptr;
+	sound->Resume();
+	Texture* texture = nullptr;
+	Array<int> arr;
+	arr.IsInRange(2);
+	String str;
+	str.FindNonFirstOf("");
 
+	Lerp(1, 2, 0.5);
+	Rect rect;
+	Vector2D v2;
+	Vector3D v3;
+	Matrix mat;
+	PointInRect(v2, rect);
+	PointInCircle(v2, v2, 10.f);
+	PointInTriangle(v2, v2, v2, v2);
+	DistanceSq(v2, v2);
+	DistanceSq(v3, v3);
+	Matrix::CreateTranslation(v3);
+	Matrix::CreateScale(v3);
+	mat.SetTranslation(v2);
+	mat.SetRotationX(90.f);
+	mat.SetRotationY(90.f);
+	mat.SetRotationZ(90.f);
+	Quaternion quat;
+	quat.
 }

@@ -83,8 +83,6 @@ public:
 	String GetMaterialFileName() const;
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
-	/* Returns true if this mesh equal to other */
-	bool IsEqual(Mesh* other) const;
 
 private:
 	Property<S32> group_id				= Property<S32>(this, "ID", -1);

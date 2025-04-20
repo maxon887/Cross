@@ -48,7 +48,6 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 
 	initialize_video = initializeVideoData;
 	mesh_id = 0;
-	this->filename = filename;
 	Entity* root = CREATE Entity("ModelRoot");
 	hierarchy = root;
 	File* file = os->LoadAssetFile(filename);
@@ -62,10 +61,6 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	return result;
 }
 
-const String& Model::GetFilename() const {
-	return filename;
-}
-
 Entity* Model::GetHierarchy() const {
 	return hierarchy->Clone();
 }
@@ -76,10 +71,6 @@ Mesh* Model::GetMesh(S32 id) {
 	} else {
 		return nullptr;
 	}
-}
-
-U32 Model::GetMeshesCount() const {
-	return (U32)meshes.size();
 }
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
@@ -97,15 +88,15 @@ bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	aiNode* aiRoot = current_scene->mRootNode;
 	if(aiRoot->mNumChildren == 1) {
 		root->SetName(aiRoot->mChildren[0]->mName.C_Str());
-		ProcessNode(root, aiRoot->mChildren[0]);
+		ProcessNode(root, aiRoot->mChildren[0], file->name);
 	} else {
 		root->SetName(File::FileFromPath(File::FileWithoutExtension(file->name)));
-		ProcessNode(root, aiRoot);
+		ProcessNode(root, aiRoot, file->name);
 	}
 	return true;
 }
 
-void Model::ProcessNode(Entity* entity, aiNode* node) {
+void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
 	Matrix modelMat = Matrix::Zero;
 	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
 	Transform* transform = CREATE Transform();
@@ -116,7 +107,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
-		Mesh* crMesh = ProcessMesh(aiMesh);
+		Mesh* crMesh = ProcessMesh(aiMesh, filename);
 		meshes[mesh_id] = crMesh;
 		mesh_id++;
 		entity->AddComponent(crMesh, nullptr, false);
@@ -125,12 +116,12 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
 		Entity* child = CREATE Entity(node->mChildren[i]->mName.C_Str());
 		child->SetParent(entity);
-		ProcessNode(child, node->mChildren[i]);
+		ProcessNode(child, node->mChildren[i], filename);
 		entity->AddChild(child);
 	}
 }
 
-Mesh* Model::ProcessMesh(aiMesh* mesh) {
+Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename) {
 	VertexBuffer* vertexBuffer = CREATE VertexBuffer();
 	if(mesh->mTextureCoords[0]) {
 		vertexBuffer->UVEnabled(true);

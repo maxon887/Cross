@@ -42,17 +42,12 @@ public:
 	bool Load(const String& filename, bool calcTangents);
 	/* Loads Model, provides tangents data for model and can transfer model data to video memory */
 	bool Load(const String& filename, bool calcTangents, bool initializeVideoData);
-	/* Returns model's filename if was loaded from file */
-	const String& GetFilename() const;
 	/* Returns model's object hierarchy as Entity hierarchy */
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
 	Mesh* GetMesh(S32 id);
-	/* Gets Meshes count */
-	U32 GetMeshesCount() const;
 
 private:
-	String filename;
 	Dictionary<S32, Mesh*> meshes;
 	Entity* hierarchy;
 
@@ -61,8 +56,8 @@ private:
 	S32 mesh_id						= 0;
 
 	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents);
-	void ProcessNode(Entity* entity, aiNode* node);
-	Mesh* ProcessMesh(aiMesh* mesh);
+	void ProcessNode(Entity* entity, aiNode* node, const String& filename);
+	Mesh* ProcessMesh(aiMesh* mesh, const String& filename);
 };
 
 }

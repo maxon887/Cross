@@ -318,10 +318,6 @@ U32 Mesh::GetPolyCount() const {
 	return (U32)indices.Size();
 }
 
-bool Mesh::IsEqual(Mesh* other) const {
-	return this->VBO == other->VBO && this->EBO == other->EBO;
-}
-
 void Mesh::Copy(const Mesh* m) {
 	group_id = m->group_id;
 	model_filename = m->model_filename;
