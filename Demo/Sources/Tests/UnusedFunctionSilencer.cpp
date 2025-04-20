@@ -58,7 +58,7 @@ void NeverUsedSilencer() {
 	Rect rect;
 	Vector2D v2;
 	Vector3D v3;
-	Matrix mat;
+	Matrix mat = Matrix::Identity;
 	PointInRect(v2, rect);
 	PointInCircle(v2, v2, 10.f);
 	PointInTriangle(v2, v2, v2, v2);
@@ -71,5 +71,4 @@ void NeverUsedSilencer() {
 	mat.SetRotationY(90.f);
 	mat.SetRotationZ(90.f);
 	Quaternion quat;
-	quat.
 }
