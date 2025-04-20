@@ -18,13 +18,20 @@
 #include "Cross.h"
 
 #include "Scene.h"
+#include "System.h"
 
 using namespace cross;
 
 void NeverUseSilecer() {
 	
-	Scene* s;
-	s->RemoveEntity("Some");
+	Scene* scene;
+	scene->RemoveEntity("Some");
+	System* system;
+	File* file;
+	system->SaveAssetFile(file);
+	system->IsAssetFileExists("AssetFile");
+	system->RequestOrientation(System::Orientation::LANDSCAPE);
+	system->PromtToExit();
 }
 
 

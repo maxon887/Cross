@@ -59,20 +59,12 @@ public:
 	virtual bool IsFileExists(const String& filename);
 	/* Checks if file exists in assets directory */
 	virtual bool IsAssetFileExists(const String& filename);
-	/* Returns file size */
-	virtual U64 GetFileSize(const String& filename);
 	/* Checks if file exists in data directory */
 	virtual bool IsDataFileExists(const String& filename);
 	/* Checks if folder exists in provided path */
 	virtual bool IsDirectoryExists(const String& filepath);
-	/* Checks if folder exists in assets path */
-	virtual bool IsAssetDirectoryExists(const String& filepath);
-	/* Checks if folder exists in data path */
-	virtual bool IsDataDirectoryExists(const String& filepath);
 	/* Creates folder in provided path */
 	virtual void CreateDirectory(const String& dirname);
-	/* Creates directory in game assets folder if available */
-	virtual void CreateAssetDirectory(const String& dirname);
 	/* Deletes file or folder with sub folders by path */
 	virtual void Delete(const String& path);
 	/* Returns all sub folders in provided directory */
@@ -95,8 +87,6 @@ public:
 	virtual void PromtToExit() { }
 	/* Obtains clipboard data as text if available */
 	virtual String GetClipboard();
-	/* Sets current String int clipboard buffer */
-	virtual void SetClipboard(const String& data);
 	/* Tries to open file with appropriate external program */
 	virtual void OpenFileExternal(const String& filename);
 	/* Opens system window for choosing file */

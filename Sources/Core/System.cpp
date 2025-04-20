@@ -91,16 +91,6 @@ bool System::IsAssetFileExists(const String& filename) {
 	return IsFileExists(AssetsPath() + filename);
 }
 
-U64 System::GetFileSize(const String& filename) {
-	FILE* f = fopen(filename.ToCStr(), "rb");
-	CROSS_RETURN(f, 0, "Can not open file '#'\nerror code - #\nDescription - #",
-		filename.ToCStr(), errno, strerror(errno));
-	fseek(f, 0, SEEK_END);
-	U64 size = ftell(f);
-	fclose(f);
-	return size;
-}
-
 bool System::IsDataFileExists(const String& filename) {
 	return IsFileExists(DataPath() + filename);
 }
@@ -109,20 +99,8 @@ bool System::IsDirectoryExists(const String& filepath) {
 	return filesystem::is_directory(filepath.ToCStr());
 }
 
-bool System::IsAssetDirectoryExists(const String& filepath) {
-	return IsDirectoryExists(AssetsPath() + filepath);
-}
-
-bool System::IsDataDirectoryExists(const String& filepath) {
-	return IsDirectoryExists(DataPath() + filepath);
-}
-
 void System::CreateDirectory(const String& dirname) {
 	filesystem::create_directory(dirname.ToCStr());
-}
-
-void System::CreateAssetDirectory(const String& dirname) {
-	CreateDirectory(AssetsPath() + dirname);
 }
 
 void System::Delete(const String& path) {
@@ -181,10 +159,6 @@ float System::GetScreenDPI() {
 String System::GetClipboard() {
 	CROSS_ASSERT(false, "System::GetClipboard() does not implemented for current platform");
 	return "";
-}
-
-void System::SetClipboard(const String& data) {
-	CROSS_ASSERT(false, "System::SetClipboard() does not implemented for current platform");
 }
 
 void System::OpenFileExternal(const String& filename) {
