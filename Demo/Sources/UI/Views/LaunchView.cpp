@@ -34,8 +34,8 @@
 #include "Scenes/Misc/DepthScene.h"
 #include "Scenes/Misc/TransparencyScene.h"
 #include "Scenes/Misc/SkyboxScene.h"
-#include "StringTest.h"
-#include "ArrayTest.h"
+#include "Tests/StringTest.h"
+#include "Tests/ArrayTest.h"
 #include "AudioScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"

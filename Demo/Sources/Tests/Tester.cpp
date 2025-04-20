@@ -17,24 +17,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 
-#include "Scene.h"
-#include "System.h"
-
 using namespace cross;
-
-void NeverUseSilecer() {
-	
-	Scene* scene;
-	scene->RemoveEntity("Some");
-	System* system;
-	File* file;
-	system->SaveAssetFile(file);
-	system->IsAssetFileExists("AssetFile");
-	system->RequestOrientation(System::Orientation::LANDSCAPE);
-	system->PromtToExit();
-}
-
-
 
 void RunTest()
 {

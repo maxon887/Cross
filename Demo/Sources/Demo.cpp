@@ -22,7 +22,7 @@
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
 #include "UI/Views/LaunchView.h"
-#include "Tester.h"
+#include "Tests/Tester.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
