@@ -67,6 +67,9 @@
     <Filter Include="Demo\UI\Views">
       <UniqueIdentifier>{280dfc66-2634-417f-bb2a-d16aca1c469a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Tests">
+      <UniqueIdentifier>{d8c3bb78-8bb2-459e-881d-3000d6558e15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Sources\Demo.cpp">
@@ -288,12 +291,6 @@
     <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\StringTest.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\ArrayTest.cpp">
-      <Filter>Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp">
       <Filter>Demo\ThirdParty\ImGui</Filter>
     </ClCompile>
@@ -308,9 +305,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Graphics.cpp">
       <Filter>Cross\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Tester.cpp">
-      <Filter>Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
@@ -350,6 +344,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\UI\Views\CameraControllerView.cpp">
       <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Tests\ArrayTest.cpp">
+      <Filter>Demo\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Tests\StringTest.cpp">
+      <Filter>Demo\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Tests\Tester.cpp">
+      <Filter>Demo\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Tests\UnusedFunctionSilencer.cpp">
+      <Filter>Demo\Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -603,12 +609,6 @@
     <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\StringTest.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\ArrayTest.h">
-      <Filter>Demo</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
@@ -620,9 +620,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Graphics.h">
       <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Tester.h">
-      <Filter>Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
@@ -662,6 +659,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\Views\CameraControllerView.h">
       <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Tests\ArrayTest.h">
+      <Filter>Demo\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Tests\StringTest.h">
+      <Filter>Demo\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Tests\Tester.h">
+      <Filter>Demo\Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

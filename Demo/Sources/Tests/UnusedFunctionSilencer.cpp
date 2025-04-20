@@ -19,20 +19,23 @@
 
 #include "Scene.h"
 #include "System.h"
+#include "Entity.h"
 
 using namespace cross;
 
-void NeverUseSilecer() {
+void NeverUsedSilencer() {
 	
-	Scene* scene;
+	Scene* scene = nullptr;
 	scene->RemoveEntity("Some");
-	System* system;
-	File* file;
+	System* system = nullptr;
+	File* file = nullptr;
 	system->SaveAssetFile(file);
 	system->IsAssetFileExists("AssetFile");
 	system->RequestOrientation(System::Orientation::LANDSCAPE);
 	system->PromtToExit();
 	Color c = Color::Purple;
 	c.SetData(nullptr);
+	Entity* entity = nullptr;
+	entity->FindChild("ChildsName");
 
 }

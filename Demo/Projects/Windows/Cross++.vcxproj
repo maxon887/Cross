@@ -295,7 +295,6 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
-    <ClCompile Include="..\..\Sources\ArrayTest.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\CameraController.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
@@ -315,8 +314,10 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
-    <ClCompile Include="..\..\Sources\StringTest.cpp" />
-    <ClCompile Include="..\..\Sources\Tester.cpp" />
+    <ClCompile Include="..\..\Sources\Tests\ArrayTest.cpp" />
+    <ClCompile Include="..\..\Sources\Tests\StringTest.cpp" />
+    <ClCompile Include="..\..\Sources\Tests\Tester.cpp" />
+    <ClCompile Include="..\..\Sources\Tests\UnusedFunctionSilencer.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
@@ -399,7 +400,6 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
-    <ClInclude Include="..\..\Sources\ArrayTest.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\CameraController.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
@@ -419,8 +419,9 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
-    <ClInclude Include="..\..\Sources\StringTest.h" />
-    <ClInclude Include="..\..\Sources\Tester.h" />
+    <ClInclude Include="..\..\Sources\Tests\ArrayTest.h" />
+    <ClInclude Include="..\..\Sources\Tests\StringTest.h" />
+    <ClInclude Include="..\..\Sources\Tests\Tester.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h" />
