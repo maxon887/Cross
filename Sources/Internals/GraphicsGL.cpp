@@ -51,6 +51,13 @@ void GraphicsGL::CheckGLError(const char* file, U32 line) {
 	}
 }
 
+void GraphicsGL::ClearGLErrorBuffer() {
+	GLenum err = glGetError();
+	while(err != GL_NO_ERROR) {
+		err = glGetError();
+	}
+}
+
 GraphicsGL::GraphicsGL() {
 	os->LogIt("GraphicsGL::GraphicsGL()");
 
