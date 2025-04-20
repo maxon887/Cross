@@ -30,16 +30,17 @@
 		507333002C385F9200E5D13D /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332EB2C385F9200E5D13D /* MenuBar.cpp */; };
 		507333042C385F9200E5D13D /* ShaderVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F32C385F9200E5D13D /* ShaderVisualBox.cpp */; };
 		507333072C385F9200E5D13D /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F62C385F9200E5D13D /* MeshVisualBox.cpp */; };
-		5073330F2C385FF600E5D13D /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507333092C385FF600E5D13D /* StringTest.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		507333102C385FF600E5D13D /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330C2C385FF600E5D13D /* FileUtils.cpp */; };
-		507333112C385FF600E5D13D /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330E2C385FF600E5D13D /* ArrayTest.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		5098D44D2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D44B2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp */; };
+		5098D44E2DB4EBDF000E9958 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4462DB4EBDF000E9958 /* ArrayTest.cpp */; };
+		5098D44F2DB4EBDF000E9958 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4482DB4EBDF000E9958 /* StringTest.cpp */; };
+		5098D4502DB4EBDF000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D44A2DB4EBDF000E9958 /* Tester.cpp */; };
 		509F17362D51D8800040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17352D51D8800040378F /* FileSelector.cpp */; };
 		50AB1F432D2D291600121DAB /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AB1F422D2D291600121DAB /* MultiLightShader.cpp */; };
 		50C9611A2C74CA6100764079 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
 		50C9611B2C74CA6900764079 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
 		50C9611C2C74CA9000764079 /* libfmod.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
 		50C9611D2C74CA9800764079 /* libassimpMAC.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
-		50FF82A12C7E5C5D00C94BFB /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FF82A02C7E5C5D00C94BFB /* Tester.cpp */; };
 		9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D32CDDC20B40B12004A4D7E /* Assets.xcassets */; };
 		9D32D0E120B40E27004A4D7E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF520B40E27004A4D7E /* Camera.cpp */; };
 		9D32D0E220B40E27004A4D7E /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF720B40E27004A4D7E /* Color.cpp */; };
@@ -156,12 +157,15 @@
 		507332F12C385F9200E5D13D /* MeshVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshVisualBox.h; sourceTree = "<group>"; };
 		507332F32C385F9200E5D13D /* ShaderVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderVisualBox.cpp; sourceTree = "<group>"; };
 		507332F62C385F9200E5D13D /* MeshVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshVisualBox.cpp; sourceTree = "<group>"; };
-		507333092C385FF600E5D13D /* StringTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringTest.cpp; sourceTree = "<group>"; };
-		5073330A2C385FF600E5D13D /* ArrayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
-		5073330B2C385FF600E5D13D /* StringTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
 		5073330C2C385FF600E5D13D /* FileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtils.cpp; sourceTree = "<group>"; };
 		5073330D2C385FF600E5D13D /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
-		5073330E2C385FF600E5D13D /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
+		5098D4452DB4EBDF000E9958 /* ArrayTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
+		5098D4462DB4EBDF000E9958 /* ArrayTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
+		5098D4472DB4EBDF000E9958 /* StringTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
+		5098D4482DB4EBDF000E9958 /* StringTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StringTest.cpp; sourceTree = "<group>"; };
+		5098D4492DB4EBDF000E9958 /* Tester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tester.h; sourceTree = "<group>"; };
+		5098D44A2DB4EBDF000E9958 /* Tester.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tester.cpp; sourceTree = "<group>"; };
+		5098D44B2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UnusedFunctionSilencer.cpp; sourceTree = "<group>"; };
 		509F17342D51D8800040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
 		509F17352D51D8800040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
 		50AB1F412D2D291600121DAB /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
@@ -170,8 +174,6 @@
 		50C961162C74CA5700764079 /* libassimpMAC.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libassimpMAC.dylib; sourceTree = "<group>"; };
 		50C961172C74CA5700764079 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmod.dylib; sourceTree = "<group>"; };
 		50C961182C74CA5700764079 /* libfmodL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodL.dylib; sourceTree = "<group>"; };
-		50FF829F2C7E5C5D00C94BFB /* Tester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tester.h; sourceTree = "<group>"; };
-		50FF82A02C7E5C5D00C94BFB /* Tester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tester.cpp; sourceTree = "<group>"; };
 		9D32CDD620B40B12004A4D7E /* CrossMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D32CDDC20B40B12004A4D7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D32CDE120B40B12004A4D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -424,6 +426,20 @@
 				5002023E2D3D009A0065374D /* CameraControllerView.cpp */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5098D44C2DB4EBDF000E9958 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5098D4452DB4EBDF000E9958 /* ArrayTest.h */,
+				5098D4462DB4EBDF000E9958 /* ArrayTest.cpp */,
+				5098D4472DB4EBDF000E9958 /* StringTest.h */,
+				5098D4482DB4EBDF000E9958 /* StringTest.cpp */,
+				5098D4492DB4EBDF000E9958 /* Tester.h */,
+				5098D44A2DB4EBDF000E9958 /* Tester.cpp */,
+				5098D44B2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		50C961192C74CA5700764079 /* Binaries */ = {
@@ -792,23 +808,18 @@
 		9D32D13620B40E47004A4D7E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5098D44C2DB4EBDF000E9958 /* Tests */,
 				9D33C0E320D02985007EF97F /* Scenes */,
 				9D32D16620B40E47004A4D7E /* ThirdParty */,
 				9D32D1B420B40E47004A4D7E /* UI */,
-				5073330E2C385FF600E5D13D /* ArrayTest.cpp */,
-				5073330A2C385FF600E5D13D /* ArrayTest.h */,
 				5073330C2C385FF600E5D13D /* FileUtils.cpp */,
 				5073330D2C385FF600E5D13D /* FileUtils.h */,
-				507333092C385FF600E5D13D /* StringTest.cpp */,
-				5073330B2C385FF600E5D13D /* StringTest.h */,
 				9D33C12B20D02B47007EF97F /* ImGuiScreen.cpp */,
 				9D33C12A20D02B47007EF97F /* ImGuiScreen.h */,
 				9D32D13720B40E47004A4D7E /* AudioScreen.cpp */,
 				9D32D13820B40E47004A4D7E /* AudioScreen.h */,
 				9D32D13920B40E47004A4D7E /* Demo.cpp */,
 				9D32D13A20B40E47004A4D7E /* Demo.h */,
-				50FF82A02C7E5C5D00C94BFB /* Tester.cpp */,
-				50FF829F2C7E5C5D00C94BFB /* Tester.h */,
 				5002023A2D3D00640065374D /* CameraController.h */,
 				5002023B2D3D00640065374D /* CameraController.cpp */,
 			);
@@ -1073,15 +1084,16 @@
 				9D32D12820B40E27004A4D7E /* MacSystem.mm in Sources */,
 				9D33C10B20D02985007EF97F /* NormalScene.cpp in Sources */,
 				9D32D13220B40E27004A4D7E /* Debugger.cpp in Sources */,
+				5098D44D2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp in Sources */,
+				5098D44E2DB4EBDF000E9958 /* ArrayTest.cpp in Sources */,
+				5098D44F2DB4EBDF000E9958 /* StringTest.cpp in Sources */,
+				5098D4502DB4EBDF000E9958 /* Tester.cpp in Sources */,
 				9D33C11820D02985007EF97F /* MaterialScene.cpp in Sources */,
-				50FF82A12C7E5C5D00C94BFB /* Tester.cpp in Sources */,
 				9D33C12920D02AA4007EF97F /* Property.cpp in Sources */,
 				9D32D0F720B40E27004A4D7E /* GraphicsGL.cpp in Sources */,
 				9D32D12720B40E27004A4D7E /* Cross.cpp in Sources */,
 				9D32D11620B40E27004A4D7E /* Matrix.cpp in Sources */,
-				5073330F2C385FF600E5D13D /* StringTest.cpp in Sources */,
 				9D32D0EC20B40E27004A4D7E /* Mesh.cpp in Sources */,
-				507333112C385FF600E5D13D /* ArrayTest.cpp in Sources */,
 				9D32D0EE20B40E27004A4D7E /* Scene.cpp in Sources */,
 				9D32D1CB20B40E47004A4D7E /* Demo.cpp in Sources */,
 				9D33C11A20D02985007EF97F /* SpotLightScene.cpp in Sources */,

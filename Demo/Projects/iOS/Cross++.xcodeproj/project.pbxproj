@@ -18,7 +18,6 @@
 		50051E0C2D36447800DC094B /* SceneView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DFF2D36447800DC094B /* SceneView.cpp */; };
 		50051E0D2D36447800DC094B /* Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051E012D36447800DC094B /* Stats.cpp */; };
 		50051E0E2D36447800DC094B /* ComponentsView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DF52D36447800DC094B /* ComponentsView.cpp */; };
-		501DBB7C2C7E5CA000B68D9E /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501DBB7A2C7E5CA000B68D9E /* Tester.cpp */; };
 		50424D282C57BC9D00CE0055 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D1B2C57BC9C00CE0055 /* imgui_widgets.cpp */; };
 		50424D292C57BC9D00CE0055 /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D1F2C57BC9D00CE0055 /* imgui_demo.cpp */; };
 		50424D2A2C57BC9D00CE0055 /* imgui_freetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D202C57BC9D00CE0055 /* imgui_freetype.cpp */; };
@@ -31,7 +30,10 @@
 		50424D562C57BDC300CE0055 /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D442C57BDC300CE0055 /* MeshVisualBox.cpp */; };
 		50424D592C57BDC300CE0055 /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */; };
 		50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */; };
-		50424D602C57BEE500CE0055 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */; };
+		5098D4592DB4EC30000E9958 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4542DB4EC30000E9958 /* StringTest.cpp */; };
+		5098D45A2DB4EC30000E9958 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4522DB4EC30000E9958 /* ArrayTest.cpp */; };
+		5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4562DB4EC30000E9958 /* Tester.cpp */; };
+		5098D45C2DB4EC30000E9958 /* UnusedFunctionSilencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */; };
 		509F17392D51D8D80040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17382D51D8D80040378F /* FileSelector.cpp */; };
 		50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */; };
 		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
@@ -79,7 +81,6 @@
 		9D54BBCD1FBC435B009E8469 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BBC71FBC435B009E8469 /* Skybox.cpp */; };
 		9D5884DB20236236002820F2 /* GraphicsGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884D720236236002820F2 /* GraphicsGL.cpp */; };
 		9D5884DC20236236002820F2 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884D920236236002820F2 /* Audio.cpp */; };
-		9D9C8032215242B00071C0A3 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C8031215242B00071C0A3 /* StringTest.cpp */; };
 		9DBEB34E20C5770100D3E8C6 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DBEB34C20C5770100D3E8C6 /* Property.cpp */; };
 		9DCEB9BE206FAE28006B2C6B /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DCEB9BD206FAE28006B2C6B /* String.cpp */; };
 		9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */; };
@@ -132,8 +133,6 @@
 		50051E012D36447800DC094B /* Stats.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stats.cpp; sourceTree = "<group>"; };
 		50051E022D36447800DC094B /* View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
 		50051E032D36447800DC094B /* View.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
-		501DBB7A2C7E5CA000B68D9E /* Tester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tester.cpp; sourceTree = "<group>"; };
-		501DBB7B2C7E5CA000B68D9E /* Tester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tester.h; sourceTree = "<group>"; };
 		50424D1B2C57BC9C00CE0055 /* imgui_widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_widgets.cpp; path = ThirdParty/ImGui/imgui_widgets.cpp; sourceTree = "<group>"; };
 		50424D1C2C57BC9C00CE0055 /* imstb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imstb_textedit.h; path = ThirdParty/ImGui/imstb_textedit.h; sourceTree = "<group>"; };
 		50424D1D2C57BC9C00CE0055 /* imgui_freetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imgui_freetype.h; path = ThirdParty/ImGui/imgui_freetype.h; sourceTree = "<group>"; };
@@ -159,8 +158,13 @@
 		50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialVisualBox.cpp; sourceTree = "<group>"; };
 		50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtils.cpp; sourceTree = "<group>"; };
 		50424D5C2C57BEBD00CE0055 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
-		50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
-		50424D5F2C57BEE500CE0055 /* ArrayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
+		5098D4512DB4EC30000E9958 /* ArrayTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
+		5098D4522DB4EC30000E9958 /* ArrayTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
+		5098D4532DB4EC30000E9958 /* StringTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
+		5098D4542DB4EC30000E9958 /* StringTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StringTest.cpp; sourceTree = "<group>"; };
+		5098D4552DB4EC30000E9958 /* Tester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tester.h; sourceTree = "<group>"; };
+		5098D4562DB4EC30000E9958 /* Tester.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tester.cpp; sourceTree = "<group>"; };
+		5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UnusedFunctionSilencer.cpp; sourceTree = "<group>"; };
 		509F17372D51D8D80040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
 		509F17382D51D8D80040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
 		50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
@@ -257,8 +261,6 @@
 		9D5884D820236236002820F2 /* GraphicsGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsGL.h; sourceTree = "<group>"; };
 		9D5884D920236236002820F2 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		9D5884DA20236236002820F2 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
-		9D9C8030215242B00071C0A3 /* StringTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
-		9D9C8031215242B00071C0A3 /* StringTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringTest.cpp; sourceTree = "<group>"; };
 		9DBEB34C20C5770100D3E8C6 /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
 		9DBEB34D20C5770100D3E8C6 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
 		9DCEB9BC206FAE28006B2C6B /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
@@ -492,6 +494,20 @@
 			name = ImGui;
 			sourceTree = "<group>";
 		};
+		5098D4582DB4EC30000E9958 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5098D4512DB4EC30000E9958 /* ArrayTest.h */,
+				5098D4522DB4EC30000E9958 /* ArrayTest.cpp */,
+				5098D4532DB4EC30000E9958 /* StringTest.h */,
+				5098D4542DB4EC30000E9958 /* StringTest.cpp */,
+				5098D4552DB4EC30000E9958 /* Tester.h */,
+				5098D4562DB4EC30000E9958 /* Tester.cpp */,
+				5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		9D33C13020D02B9F007EF97F /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,23 +600,18 @@
 		9D54BB311FBC4316009E8469 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5098D4582DB4EC30000E9958 /* Tests */,
 				9D40A86A2099E8F000F6902F /* UI */,
 				50424D192C57BC6800CE0055 /* ThirdParty */,
 				9D33C13020D02B9F007EF97F /* Scenes */,
 				9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */,
 				9D33C12D20D02B91007EF97F /* ImGuiScreen.h */,
-				50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */,
-				50424D5F2C57BEE500CE0055 /* ArrayTest.h */,
 				50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */,
 				50424D5C2C57BEBD00CE0055 /* FileUtils.h */,
 				9D54BB321FBC4316009E8469 /* AudioScreen.cpp */,
 				9D54BB331FBC4316009E8469 /* AudioScreen.h */,
 				9D54BB341FBC4316009E8469 /* Demo.cpp */,
 				9D54BB351FBC4316009E8469 /* Demo.h */,
-				9D9C8031215242B00071C0A3 /* StringTest.cpp */,
-				9D9C8030215242B00071C0A3 /* StringTest.h */,
-				501DBB7A2C7E5CA000B68D9E /* Tester.cpp */,
-				501DBB7B2C7E5CA000B68D9E /* Tester.h */,
 				500202372D3D00310065374D /* CameraController.h */,
 				500202382D3D00310065374D /* CameraController.cpp */,
 			);
@@ -1103,7 +1114,6 @@
 				50051E0C2D36447800DC094B /* SceneView.cpp in Sources */,
 				50051E0D2D36447800DC094B /* Stats.cpp in Sources */,
 				50051E0E2D36447800DC094B /* ComponentsView.cpp in Sources */,
-				9D9C8032215242B00071C0A3 /* StringTest.cpp in Sources */,
 				9D54BBBB1FBC433C009E8469 /* Texture.cpp in Sources */,
 				509F17392D51D8D80040378F /* FileSelector.cpp in Sources */,
 				9D54BBAE1FBC433C009E8469 /* Entity.cpp in Sources */,
@@ -1117,6 +1127,10 @@
 				9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */,
 				9D54BBB71FBC433C009E8469 /* Scene.cpp in Sources */,
 				50424D2D2C57BC9D00CE0055 /* imgui_draw.cpp in Sources */,
+				5098D4592DB4EC30000E9958 /* StringTest.cpp in Sources */,
+				5098D45A2DB4EC30000E9958 /* ArrayTest.cpp in Sources */,
+				5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */,
+				5098D45C2DB4EC30000E9958 /* UnusedFunctionSilencer.cpp in Sources */,
 				9D33C15720D02B9F007EF97F /* NakedScene.cpp in Sources */,
 				9D54BBB81FBC433C009E8469 /* Screen.cpp in Sources */,
 				9D54BBB51FBC433C009E8469 /* Mesh.cpp in Sources */,
@@ -1155,12 +1169,10 @@
 				9D54BBAD1FBC433C009E8469 /* Config.cpp in Sources */,
 				9D54BBAF1FBC433C009E8469 /* File.cpp in Sources */,
 				9D54BBB61FBC433C009E8469 /* Model.cpp in Sources */,
-				501DBB7C2C7E5CA000B68D9E /* Tester.cpp in Sources */,
 				9D54BBB01FBC433C009E8469 /* Game.cpp in Sources */,
 				9D54BBB21FBC433C009E8469 /* Input.cpp in Sources */,
 				9D33C16520D02B9F007EF97F /* MaterialScene.cpp in Sources */,
 				9D5884DB20236236002820F2 /* GraphicsGL.cpp in Sources */,
-				50424D602C57BEE500CE0055 /* ArrayTest.cpp in Sources */,
 				9DDFFF0B1F46EF1700A6E782 /* Vector3D.cpp in Sources */,
 				9D54BBB91FBC433C009E8469 /* Sound.cpp in Sources */,
 				9D54BBB31FBC433C009E8469 /* Light.cpp in Sources */,
