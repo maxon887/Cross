@@ -27,11 +27,11 @@ public:
 	//Service entities will not be shown on SceneView and will be removed before scene saving
 	Entity* service_root = nullptr;
 
-	virtual void Start() override;
-	virtual void Stop() override;
-	virtual void Update(float sec) override;
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
-	virtual void Save(const String& file) override;
+	void Save(const String& file) override;
 
 	void ApplyMaterial(Entity* entity, Material* mat, bool depthTest = true);
 	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);

@@ -31,10 +31,10 @@ CameraControllerView::CameraControllerView() : View("Camera")
 }
 
 void CameraControllerView::Shown() {
-	CameraController* cameraController = game->GetCurrentScene()->GetCamera()->GetEntity()->GetComponent<CameraController>();
-	if(cameraController) {
-		cameraController->LookAtCamera(false);
-	}
+//	CameraController* cameraController = game->GetCurrentScene()->GetCamera()->GetEntity()->GetComponent<CameraController>();
+//	if(cameraController) {
+//		cameraController->LookAtCamera(false);
+//	}
 }
 
 void CameraControllerView::PreUpdate() {
@@ -52,7 +52,8 @@ void CameraControllerView::Update(float sec) {
 	}
 	CameraController* cameraController = game->GetCurrentScene()->GetCamera()->GetEntity()->GetComponent<CameraController>();
 	if(cameraController) {
-		bool lookAt = cameraController->IsLookAtCamera();
+		//bool lookAt = cameraController->IsLookAtCamera();
+		bool lookAt = true;
 		const ImVec2 cursor = ImGui::GetCursorScreenPos(); //must sit exactly there, before any drawings started
 
 		float sliderValue = 0.f;
@@ -69,7 +70,8 @@ void CameraControllerView::Update(float sec) {
 
 		ImGui::SetCursorPos(ImVec2(SCALED(37.f), SCALED(5.f)));
 		if(ImGui::Checkbox("Look At", &lookAt)) {
-			cameraController->LookAtCamera(lookAt);
+			//cameraController->LookAtCamera(lookAt);
+			CROSS_ASSERT(false, "Unexpected behaviour");
 		}
 
 		ImDrawList* drawList = ImGui::GetWindowDrawList();

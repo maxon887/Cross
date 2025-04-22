@@ -107,7 +107,7 @@ void CameraController::MoveCloser(float ratio) {
 
 void CameraController::LookRight(float degree) {
 	destination.SetRotate(Quaternion(Vector3D::Up, degree) * destination.GetRotate());
-	if(look_at) {
+	if(mode == Mode::ORBIT) {
 		Camera* camera = game->GetCurrentScene()->GetCamera();
 		Vector3D target = camera->GetPosition() + camera->GetTransform()->GetForward() * focus_distance;
 		destination.SetPosition(target + destination.GetForward() * focus_distance * (-1.f));
@@ -116,19 +116,14 @@ void CameraController::LookRight(float degree) {
 
 void CameraController::LookUp(float degree) {
 	destination.SetRotate(Quaternion(destination.GetRight(), -degree) * destination.GetRotate());
-	if(look_at) {
+	if(mode == Mode::ORBIT) {
 		Camera* camera = game->GetCurrentScene()->GetCamera();
 		Vector3D target = camera->GetPosition() + camera->GetTransform()->GetForward() * focus_distance;
 		destination.SetPosition(target + destination.GetForward() * focus_distance * (-1.f));
 	}
 }
 
-void CameraController::LookAtCamera(bool enabled) {
-	look_at = enabled;
-}
-
 void CameraController::LookAtTarget(const Vector3D& target, float distance /* = 3*/) {
-	look_at = true;
 	lerp_time = 1.f;
 	focus_distance = distance;
 	Camera* camera = game->GetCurrentScene()->GetCamera();
@@ -139,53 +134,60 @@ void CameraController::LookAtTarget(const Vector3D& target, float distance /* = 
 	destination.LookAt(target);
 }
 
-bool CameraController::IsLookAtCamera() const {
-	return look_at;
-}
-
 void CameraController::OnActionDown(Input::Action action) {
-	if(handled_action == -1 && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
-		handled_action = action.id;
-		touch_position = action.pos;
+	if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
+		return;
+	}
+	camera_active = true;
+	if(action.id == 0) {
+		mode = Mode::ORBIT;
+	} else if(action.id	== 1) {
+		mode = Mode::FREE;
+	} else if(action.id == 2) {
+		mode = Mode::PAD;
 	}
 }
 
 void CameraController::OnActionMove(Input::Action action) {
 	Vector2D delta = touch_position - action.pos;
 	touch_position = action.pos;
-
-	if(handled_action == 0) {
-		LookAtCamera(true);
-		LookRight(delta.x / 10.f);
-		LookUp(delta.y / 10.f);
-	}
-	if(handled_action == 1) {
-		LookAtCamera(false);
-		LookRight(delta.x / 10.f);
-		LookUp(delta.y / 10.f);
-	}
-	if(handled_action == 2) {
-		delta /= 200.f;
-		MoveRight(delta.x);
-		MoveUp(delta.y);
+	
+	if(camera_active) {
+		if(mode == Mode::ORBIT || mode == Mode::FREE) {
+			LookRight(delta.x / 10.f);
+			LookUp(delta.y / 10.f);
+		}
+		if(mode == Mode::PAD) {
+			delta /= 200.f;
+			MoveRight(delta.x);
+			MoveUp(delta.y);
+		}
 	}
 }
 
 void CameraController::OnActionUp(Input::Action action) {
-	if(handled_action == action.id) {
-		handled_action = -1;
-	}
+	camera_active = false;
 }
 
 void CameraController::OnKeyPressed(Key key) {
-	if(key == Key::ALT) {
-		LookAtCamera(false);
+	if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
+		return;
+	}
+	if (key == Key::COMMAND || key == Key::CONTROL) {
+		mode = Mode::ORBIT;
+		camera_active = true;
+	} else if (key == Key::OPTION || key == Key::ALT) {
+		mode = Mode::FREE;
+		camera_active = true;
+	} else if (key == Key::SHIFT) {
+		mode = Mode::PAD;
+		camera_active = true;
 	}
 }
 
 void CameraController::OnKeyReleased(Key key) {
-	if(key == Key::ALT) {
-		LookAtCamera(true);
+	if (key == Key::COMMAND || key == Key::CONTROL || key == Key::OPTION || key == Key::ALT || key == Key::SHIFT) {
+		camera_active = false;
 	}
 }
 

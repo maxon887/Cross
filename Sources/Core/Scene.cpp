@@ -327,7 +327,7 @@ void Scene::OnWindowResize(S32 width, S32 height){
 
 void Scene::CreateDefaultCamera() {
 	Entity* camEntity = CREATE Entity("Camera");
-	Transform* transComp = CREATE Transform(Vector3D(0.f, 0.f, -2.f));
+	Transform* transComp = CREATE Transform(Vector3D(0.f, 0.f, -3.f));
 	transComp->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	Camera* camComp = CREATE Camera();
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, 100.f);

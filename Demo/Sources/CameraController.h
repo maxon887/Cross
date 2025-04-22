@@ -30,7 +30,6 @@ public:
 	void Remove() override;
 	void Update(float sec) override;
 	
-	void LookAtCamera(bool enabled);
 	void LookAtTarget(const Vector3D& target, float distance = 3);
 	bool IsLookAtCamera() const;
 
@@ -43,15 +42,21 @@ public:
 	void LookUp(float degree);
 
 protected:
+	enum Mode {
+		ORBIT,
+		FREE,
+		PAD
+	};
+		
 	const float camera_speed 	= 5.f;
-	bool look_at				= true;
+	
+	bool camera_active			= false;
+	Mode mode		 			= Mode::ORBIT;
 
 	float focus_distance		= 3.f;
-
 	float lerp_time				= 0.f;
 	Transform destination		= Transform();
 	
-	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();
 	
 	void OnActionDown(Input::Action action);
