@@ -16,10 +16,21 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "FileSelector.h"
 
 using namespace cross;
 
 class MeshVisualBox {
 public:
-	void Show(Mesh* mesh);
+	MeshVisualBox();
+	~MeshVisualBox();
+	
+	void Update();
+	
+	void EntitySelected(Entity* newEntity);
+	void MaterialSelected(String materialFile);
+	
+private:
+	Mesh* mesh = nullptr;
+	FileSelector* material_file = nullptr;
 };

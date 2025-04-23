@@ -141,6 +141,10 @@ void FileSelector::SetSelectedFile(const String &filename) {
 	FileSelected.Emit(filename);
 }
 
+void FileSelector::SetText(const String &messageText) {
+	current_input = messageText;
+}
+
 void FileSelector::ValueChanged() {
 	if(current_input == File::FileFromPath(selected_file)) {
 		suggested_names = all_names;
