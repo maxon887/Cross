@@ -42,13 +42,11 @@ RECT GetLocalCoordinates(HWND hWnd){
 }
 	
 LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
-	static bool mouseDown = false;
 	switch(msg) {
 	case WM_LBUTTONDOWN: {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		mouseDown = true;
 		input->TargetActionDown.Emit(targetX, targetY, 0);
 		break;
 	}
@@ -56,7 +54,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		mouseDown = true;
 		input->TargetActionDown.Emit(targetX, targetY, 1);
 		break;
 	}
@@ -64,7 +61,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		mouseDown = true;
 		input->TargetActionDown.Emit(targetX, targetY, 2);
 		break;
 	}
@@ -73,16 +69,13 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetY = (short)HIWORD(lParam);
 		input->MousePosition.x = targetX;
 		input->MousePosition.y = targetY;
-		if(mouseDown){
-			input->TargetActionMove.Emit(targetX, targetY, 0);
-		}
+		input->TargetActionMove.Emit(targetX, targetY, 0);
 		break;
 	}
 	case WM_LBUTTONUP: {
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		mouseDown = false;
 		input->TargetActionUp.Emit(targetX, targetY, 0);
 		break;
 	}
@@ -90,7 +83,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		mouseDown = false;
 		input->TargetActionUp.Emit(targetX, targetY, 1);
 		break;
 	}
@@ -98,7 +90,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		mouseDown = false;
 		input->TargetActionUp.Emit(targetX, targetY, 2);
 		break;
 	}
