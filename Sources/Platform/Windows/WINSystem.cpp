@@ -35,13 +35,13 @@ WINSystem::WINSystem(HWND wnd) :
 	const char* debugAsset = "../../../Assets/";
 	const char* debugAssetAlt = "../../Assets/";
 	const char* editorAsset = "../Demo/Assets/";
-	if(IsDirectoryExists(releaseAsset)) {
+	if(System::IsDirectoryExists(releaseAsset)) {
 		assets_path = releaseAsset;
-	} else if(IsDirectoryExists(debugAsset)) {
+	} else if(System::IsDirectoryExists(debugAsset)) {
 		assets_path = debugAsset;
-	} else if(IsDirectoryExists(debugAssetAlt)) {
+	} else if(System::IsDirectoryExists(debugAssetAlt)) {
 		assets_path = debugAssetAlt;
-	} else if(IsDirectoryExists(editorAsset)) {
+	} else if(System::IsDirectoryExists(editorAsset)) {
 		assets_path = editorAsset;
 	} else {
 		CROSS_ASSERT(false, "Can't find Assets folder");
@@ -97,7 +97,7 @@ bool WINSystem::Alert(const String& msg) {
 		case IDIGNORE:
 			return true;
 		case IDABORT:
-			*((unsigned int*)0) = 0xDEAD;
+			*((volatile unsigned int*)0) = 0xDEAD;
 		default:
 			return false;
 		}
@@ -118,11 +118,10 @@ void WINSystem::Messagebox(const String& title, const String& msg) {
 }
 
 void WINSystem::Sleep(float milis) {
-	IntSleep((int)(milis + .5));
+	IntSleep((int)(milis + .5f));
 }
 
 bool WINSystem::IsMobile() {
-	//return config->GetBool("EMULATE_MOBILE", false);
 	return false;
 }
 

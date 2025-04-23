@@ -99,9 +99,9 @@ Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int&
 	}
 	if(newWidth != width || newHeight != height) {
 		CROSS_ASSERT(true, "Not power of 2 texture. Performance issue!");
-		Byte* newImage = (Byte*)malloc((Size)(channels * newWidth * newHeight));
+		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
 		for(int i = 0; i < height; i++) {
-			memcpy(newImage + i * newWidth * channels, image + i * width * channels, (Size)(width * channels));
+			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
 			//Clamp to edge effect
 			if(newWidth > width) {
 				memcpy(newImage + i * newWidth * channels + width * channels, image + i * width * channels, (Size)channels);
@@ -175,7 +175,7 @@ void Texture::Load(const String& filename, Texture::TilingMode tillingMode, Text
 	os->LogIt("Texture(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 }
 
-void Texture::Save(const String& filename) {
+void Texture::Save(const String& filename) const {
 #ifdef OPENGL
 	File file;
 	file.name = filename;
@@ -265,7 +265,7 @@ void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
 void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
 	File* file = os->LoadAssetFile(filename);
 
-	PKM pkm;
+	PKM pkm{};
 	U32 offset = sizeof(PKM);
 	memcpy(&pkm, file->data, offset);
 
@@ -275,7 +275,7 @@ void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
 void Texture::LoadKTX(const String& filename, Texture::Filter filter) {
 	File* file = os->LoadAssetFile(filename);
 
-	KTX ktx;
+	KTX ktx{};
 	U32 offset = sizeof(KTX);
 	memcpy(&ktx, file->data, offset);
 

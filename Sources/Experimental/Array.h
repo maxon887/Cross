@@ -21,7 +21,7 @@ namespace cross {
 template<class T>
 class Array {
 public:
-	Array();
+	Array() = default;
 	Array(const Array<T>& other);
 	Array(Array<T>&& other);
 	Array(S32 size, const T& defaultValue);
@@ -62,10 +62,6 @@ private:
 };
 
 //implementation
-
-template<class T>
-Array<T>::Array()
-{ }
 
 template<class T>
 Array<T>::Array(const Array<T>& other) {

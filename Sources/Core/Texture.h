@@ -79,7 +79,7 @@ public:
 	/* Loads Texture from file with provided filter, compression and tilling mode */
 	void Load(const String& filename, Texture::TilingMode tillingMode, Texture::Filter filter, bool compressed);
 	/* Save texture into a file */
-	void Save(const String& filename);
+	void Save(const String& filename) const;
 	/* Creates empty Texture and allocates data for it */
 	void Create(U32 channels, U32 width, U32 height, Texture::Filter filter);
 	/* Creates Texture from raw data with provided attributes */
