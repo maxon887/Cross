@@ -164,7 +164,7 @@ void ShaderVisualBox::Update() {
 	}
 }
 
-void ShaderVisualBox::OnFileSelected(String filename) {
+void ShaderVisualBox::OnFileSelected(const String& filename) {
 	delete shader;
 	if(File::ExtensionFromFile(filename) == "sha") {
 		shader_filename = filename;

@@ -28,7 +28,7 @@ public:
 	void Update();
 	
 	void EntitySelected(Entity* newEntity);
-	void MaterialSelected(String materialFile);
+	void MaterialSelected(const String& materialFile);
 	
 private:
 	Mesh* mesh = nullptr;

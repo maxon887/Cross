@@ -22,7 +22,7 @@ using namespace cross;
 
 class FileSelector {
 public:
-	Event<String> FileSelected;
+	Event<const String&> FileSelected;
 	
 	FileSelector(const String& label, const String& fileExtension);
 	

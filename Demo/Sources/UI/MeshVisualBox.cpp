@@ -68,7 +68,7 @@ void MeshVisualBox::EntitySelected(Entity* newEntity) {
 	}
 }
 
-void MeshVisualBox::MaterialSelected(String materialFile) {
+void MeshVisualBox::MaterialSelected(const String& materialFile) {
 	if(materialFile != mesh->GetMaterialFileName()) {
 		mesh->SetMaterial(game->GetCurrentScene()->GetMaterial(materialFile));
 	}

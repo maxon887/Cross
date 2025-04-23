@@ -55,7 +55,6 @@ void NeverUsedSilencer() {
 	mesh->GetPolyCount();
 	Sound* sound = nullptr;
 	sound->Resume();
-	Texture* texture = nullptr;
 	Array<int> arr;
 	arr.IsInRange(2);
 	String str;

@@ -28,8 +28,8 @@ public:
 
 	void Update();
 
-	void OnFileSelected(String filename);
-	void OnShaderSelected(String filename);
+	void OnFileSelected(const String& filename);
+	void OnShaderSelected(const String& filename);
 	void OnScreenChanged(Screen* newScreen);
 
 private:

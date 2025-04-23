@@ -28,7 +28,7 @@ public:
 
 	void Update();
 
-	void OnFileSelected(String filename);
+	void OnFileSelected(const String& filename);
 
 private:
 	Shader* shader = nullptr;

@@ -20,7 +20,7 @@
 
 class FilesView : public View {
 public:
-	Event<String> FileSelected;
+	Event<const String&> FileSelected;
 
 	FilesView();
 

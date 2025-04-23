@@ -121,7 +121,7 @@ void MaterialVisualBox::Update() {
 	}
 }
 
-void MaterialVisualBox::OnFileSelected(String filename) {
+void MaterialVisualBox::OnFileSelected(const String& filename) {
 	DeleteMaterialIfNeeded();
 	if(File::ExtensionFromFile(filename) == "mat") {
 		Scene* scene = game->GetCurrentScene();
@@ -148,7 +148,7 @@ void MaterialVisualBox::OnFileSelected(String filename) {
 	}
 }
 
-void MaterialVisualBox::OnShaderSelected(String filename) {
+void MaterialVisualBox::OnShaderSelected(const String& filename) {
 	Shader* oldMaterialShader = mat->GetShader();
 	if(!filename.IsEmpty() && (!oldMaterialShader || filename != oldMaterialShader->GetFilename())) {
 		if(!loaded_from_scene) {
