@@ -19,12 +19,12 @@
 
 class DepthScene : public DemoScene{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
 private:
-	Shader* shader;
-	Material* car_mat;
-	Material* road_mat;
+	Shader* shader		= nullptr;
+	Material* car_mat	= nullptr;
+	Material* road_mat	= nullptr;
 };

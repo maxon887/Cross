@@ -24,7 +24,7 @@ public:
 	void Update(float sec) override;
 
 private:
-	Shader* shader;
-	Material* material;
-	Entity* light;
+	Shader* shader		= nullptr;
+	Material* material	= nullptr;
+	Entity* light		= nullptr;
 };

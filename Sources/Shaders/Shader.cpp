@@ -128,14 +128,6 @@ Shader::Property::Property(String name, String glName, Cubemap* value) :
 	value(value)
 { }
 
-Shader::Property::Property(const Shader::Property& obj):
-	name(obj.name),
-	type(obj.type),
-	glName(obj.glName),
-	glId(obj.glId),
-	value(obj.value)
-{ }
-
 void Shader::Property::SetValue(S32 v) {
 	type = INT;
 	value.s32 = v;

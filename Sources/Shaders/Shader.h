@@ -75,7 +75,7 @@ public:
 		Property(String name, String glName, const Matrix& value);
 		Property(String name, String glName, Texture* value);
 		Property(String name, String glName, Cubemap* value);
-		Property(const Property& obj);
+		Property(const Property& obj) = default;
 
 		void SetValue(S32 v);
 		void SetValue(float v);

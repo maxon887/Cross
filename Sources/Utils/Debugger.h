@@ -46,8 +46,8 @@ private:
 	float update_sum				= 0;
 	int update_counter				= 0;
 
-	Debugger() { }
-	~Debugger() { }
+	Debugger() = default;
+	~Debugger() = default;
 };
 	
 }

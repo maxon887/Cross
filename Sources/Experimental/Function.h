@@ -35,10 +35,10 @@ public:
 	operator bool() const;
 
 private:
-	void* lambda = nullptr;
-	Ret(*executer)(void*, Input...);
-	void*(*copier)(void*);
-	void(*deleter)(void*);
+	void* lambda 					= nullptr;
+	Ret(*executer)(void*, Input...) = nullptr;
+	void*(*copier)(void*) 			= nullptr;
+	void(*deleter)(void*)			= nullptr;
 
 	template<class Lambda>
 	void Init(const Lambda& other);

@@ -25,6 +25,6 @@ public:
 	void Update(float sec) override;
 
 private:
-	Skybox* skybox;
-	Material* material;
+	Skybox* skybox		= nullptr;
+	Material* material	= nullptr;
 };

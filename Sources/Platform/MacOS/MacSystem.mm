@@ -51,7 +51,7 @@ String MacSystem::DataPath() {
 }
 
 U64 MacSystem::GetTime() {
-    struct timeval ptv;
+    struct timeval ptv{};
     gettimeofday(&ptv, NULL);
     return (ptv.tv_usec + ptv.tv_sec * 1000000LL);
 }

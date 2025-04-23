@@ -112,7 +112,7 @@ void SceneView::BuildNode(Entity* entity) {
 	ImGuiTreeNodeFlags selected = entity == selected_entity ? ImGuiTreeNodeFlags_Selected : 0;
 
 	ImGuiTreeNodeFlags flags = 0;
-	bool isLeaf = entity->GetChildren().size() == 0;
+	bool isLeaf = entity->GetChildren().empty();
 	if(!isLeaf) {
 		flags = node_flags | selected;
 	} else {

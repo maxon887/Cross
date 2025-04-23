@@ -68,7 +68,7 @@ private:
 	static Matrix CreateZero();
 	static Matrix CreateIdentity();
 
-	Matrix() { };
+	Matrix() = default;
 };
 
 }

@@ -20,17 +20,17 @@
 
 class TransparencyScene : public DemoScene{
 public:
-	void Start();
-	void Stop();
-	void Update(float sec);
+	void Start() override;
+	void Stop() override;
+	void Update(float sec) override;
 
 private:
-	Shader* road_shader;
-	Shader* grass_shader;
-	Shader* sphere_shader;
-	Material* road_mat;
-	Material* grass_mat;
-	Material* sphere_mat;
+	Shader* road_shader		= nullptr;
+	Shader* grass_shader	= nullptr;
+	Shader* sphere_shader	= nullptr;
+	Material* road_mat		= nullptr;
+	Material* grass_mat		= nullptr;
+	Material* sphere_mat	= nullptr;
 
-	Entity* light;
+	Entity* light			= nullptr;
 };

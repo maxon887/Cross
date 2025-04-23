@@ -24,5 +24,5 @@ public:
 	void Stop() override;
 
 private:
-	Material* material;
+	Material* material = nullptr;
 };

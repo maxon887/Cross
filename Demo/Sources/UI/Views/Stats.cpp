@@ -30,6 +30,6 @@ void Stats::Update(float sec) {
 	ImGui::Text("CPU Time - %.2f ms", Debugger::Instance()->GetCPUTime());
 #ifdef CROSS_MEMORY_PROFILE
 	U64 memory = MemoryManager::Instance()->AllocatedMemory();
-	ImGui::TextUnformatted("Memory Used - " + demo->GetCompactSize(memory));
+	ImGui::TextUnformatted("Memory Used - " + Demo::GetCompactSize(memory));
 #endif
 }
