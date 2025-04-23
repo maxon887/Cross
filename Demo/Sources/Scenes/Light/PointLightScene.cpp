@@ -50,6 +50,7 @@ void PointLightScene::Start(){
 	cubes->AddComponent(CREATE Transform());
 	for(U32 i = 0; i < 50; ++i){
 		Entity* clone = cube->Clone();
+		clone->SetName(clone->GetName() + String(i));
 		clone->GetTransform()->SetPosition(Vector3D(Random(-15.f, 15.f), Random(-15.f, 15.f), Random(-15.f, 15.f)));
 		clone->GetTransform()->SetRotate(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)), Random(0.f, 360.f));
 		cubes->AddChild(clone);
