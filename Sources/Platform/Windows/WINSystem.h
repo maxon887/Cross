@@ -26,7 +26,6 @@ namespace cross{
 class WINSystem : public System {
 public:
 	WINSystem(HWND wnd = 0);
-	~WINSystem() { }
 
 	void Log(const char* msg) override;
 	String AssetsPath() override;
