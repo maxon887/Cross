@@ -35,6 +35,6 @@ private:
 	String shader_filename;
 	Array<String> type_names;
 
-	FileSelector* vertex_file_selector;
-	FileSelector* fragment_file_selector;
+	FileSelector* vertex_file_selector = nullptr;
+	FileSelector* fragment_file_selector = nullptr;
 };

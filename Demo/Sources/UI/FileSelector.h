@@ -30,6 +30,7 @@ public:
 	
 	String GetSelectedFile() const;
 	void SetSelectedFile(const String& filename);
+	void SetText(const String& messageText);
 	
 private:
 	Array<String> files_list;		//all potential raw file names that we are working with

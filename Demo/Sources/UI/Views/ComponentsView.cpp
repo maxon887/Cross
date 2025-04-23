@@ -30,7 +30,7 @@ ComponentsView::ComponentsView(SceneView* sceneView) :
 {
 	scene_view = sceneView;
 	scene_view->EntitySelected.Connect(&transform_box, &TransformVisualBox::EntitySelected);
-	//scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
+	scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
 }
 
 void ComponentsView::Update(float sec) {
@@ -56,9 +56,9 @@ void ComponentsView::Update(float sec) {
 				ImGui::Separator();
 
 				if(dynamic_cast<Transform*>(component)) {
-					transform_box.Show((Transform*)component);
+					transform_box.Update((Transform*)component);
 				} else if(dynamic_cast<Mesh*>(component)) {
-					mesh_box.Show((Mesh*)component);
+					mesh_box.Update();
 				} else {
 					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(1.f), SCALED(1.f)));
 					ImGui::NewLine();

@@ -21,7 +21,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-void TransformVisualBox::Show(Transform* transform) {
+void TransformVisualBox::Update(Transform* transform) {
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(1.f), SCALED(1.f)));
 
 	ImGui::NewLine();

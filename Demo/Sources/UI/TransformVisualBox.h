@@ -21,7 +21,7 @@ using namespace cross;
 
 class TransformVisualBox {
 public:
-	void Show(Transform* tranform);
+	void Update(Transform* tranform);
 	void EntitySelected(Entity* newEntity);
 
 private:
