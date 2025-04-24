@@ -40,6 +40,7 @@ void MeshVisualBox::Update() {
 		ImGui::Text("Model:");
 		ImGui::SameLine(SCALED(100.f));
 		String modelFile = mesh->GetModelFileName();
+		modelFile = File::FileFromPath(modelFile);
 		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", modelFile.ToCStr());
 		
 		ImGui::Text("Mesh Group ID: ");
