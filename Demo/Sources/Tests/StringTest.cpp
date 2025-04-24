@@ -8,6 +8,9 @@
 
 #include <string>
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnusedLocalVariable"
+
 using namespace cross;
 using namespace std;
 
@@ -15,9 +18,9 @@ const char* long_names[] = {
 	"This is the first of long string",
 	"Some useless information there",
 	"Shmerch sperch the plehtsm",
-	"Just enother usless text, wich no one see",
+	"Just another useless text, which no one see",
 	"Some times i think about what i do, and how the World will change in the future",
-	"Specially designe for the search test string, wich no one see",
+	"Specially design for the search test string, which no one see",
 	"Bring me the fucking pen" };
 const S32 long_names_count = 7;
 
@@ -418,3 +421,5 @@ void StringTest::Stop() {
 void StringTest::Update(float sec) {
 	view->Update(sec);
 }
+
+#pragma clang diagnostic pop

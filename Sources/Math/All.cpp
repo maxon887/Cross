@@ -38,9 +38,8 @@ float cross::Random(float min, float max){
 	return (min)+(float)rand() / ((float)RAND_MAX / (max - min));
 }
 
-float cross::Round(float val)
-{
-	return val > 0 ? (float)(int)(val + 0.5f) : (float)(int)(val - 0.5f);
+float cross::Round(float val) {
+	return round(val);
 }
 
 float cross::Lerp(float v1, float v2, float t){

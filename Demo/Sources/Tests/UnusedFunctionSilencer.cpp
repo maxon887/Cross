@@ -36,7 +36,7 @@ void NeverUsedSilencer() {
 	scene->RemoveEntity("Some");
 	System* system = nullptr;
 	File* file = nullptr;
-	file->PathFromFile("SomePath");
+	File::PathFromFile("SomePath");
 	system->SaveAssetFile(file);
 	system->IsAssetFileExists("AssetFile");
 	system->RequestOrientation(System::Orientation::LANDSCAPE);
