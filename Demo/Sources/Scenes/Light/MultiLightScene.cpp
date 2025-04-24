@@ -60,12 +60,12 @@ void MultiLightScene::Start(){
 	}
 
 	shader = CREATE MultiLightShader();
-	shader->AddProperty("Transparency", "uTransparency", 1.f);
+	shader->AddUniform("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
-	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Specular Map", "uSpecularMap");
-	shader->AddProperty("Shininess", "uShininess");
+	shader->AddUniform("Diffuse Texture", "uDiffuseTexture");
+	shader->AddUniform("Specular Map", "uSpecularMap");
+	shader->AddUniform("Shininess", "uShininess");
 	shader->Compile();
 
 	material = CREATE Material(shader);

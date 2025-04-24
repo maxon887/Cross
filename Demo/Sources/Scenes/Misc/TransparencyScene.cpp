@@ -37,13 +37,13 @@ void TransparencyScene::Start(){
 	AddEntity(light);
 
 	road_shader = CREATE MultiLightShader();
-	road_shader->AddProperty("Transparency", "uTransparency", 1.f);
+	road_shader->AddUniform("Transparency", "uTransparency", 1.f);
 	road_shader->AddMacro("USE_DIFFUSE_MAP");
 	road_shader->AddMacro("USE_TILLING_FACTOR");
-	road_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	road_shader->AddProperty("Tilling Factor", "uTillingFactor", 1.f);
-	road_shader->AddProperty("Specular", "uSpecular", 0.5f);
-	road_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
+	road_shader->AddUniform("Diffuse Texture", "uDiffuseTexture");
+	road_shader->AddUniform("Tilling Factor", "uTillingFactor", 1.f);
+	road_shader->AddUniform("Specular", "uSpecular", 0.5f);
+	road_shader->AddUniform("Shininess", "uShininess", 0.5f * 128.f);
 	road_shader->Compile();
 	Texture* roadDiffuse = GetTexture("Textures/RoadDiffuse.png");
 	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
@@ -56,12 +56,12 @@ void TransparencyScene::Start(){
 	AddEntity(road);
 
 	grass_shader = CREATE MultiLightShader();
-	grass_shader->AddProperty("Transparency", "uTransparency", 1.f);
+	grass_shader->AddUniform("Transparency", "uTransparency", 1.f);
 	grass_shader->AddMacro("USE_DIFFUSE_MAP");
 	grass_shader->AddMacro("USE_CUTOUT");
-	grass_shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	grass_shader->AddProperty("Specular", "uSpecular", 0.5f);
-	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
+	grass_shader->AddUniform("Diffuse Texture", "uDiffuseTexture");
+	grass_shader->AddUniform("Specular", "uSpecular", 0.5f);
+	grass_shader->AddUniform("Shininess", "uShininess", 0.5f * 128.f);
 	grass_shader->Compile();
 	Entity* grass = LoadPrimitive(Model::Primitive::PLANE);
 	grass_mat = CREATE Material(grass_shader);
@@ -81,10 +81,10 @@ void TransparencyScene::Start(){
 	}
 
 	sphere_shader = CREATE MultiLightShader();
-	sphere_shader->AddProperty("Transparency", "uTransparency", 1.f);
-	sphere_shader->AddProperty("Color", "uDiffuseColor", Color::Blue);
-	sphere_shader->AddProperty("Specular", "uSpecular", 0.5f);
-	sphere_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
+	sphere_shader->AddUniform("Transparency", "uTransparency", 1.f);
+	sphere_shader->AddUniform("Color", "uDiffuseColor", Color::Blue);
+	sphere_shader->AddUniform("Specular", "uSpecular", 0.5f);
+	sphere_shader->AddUniform("Shininess", "uShininess", 0.5f * 128.f);
 	sphere_shader->Compile();
 
 	sphere_mat = CREATE Material(sphere_shader);

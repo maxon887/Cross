@@ -35,15 +35,15 @@ void RoughnessScene::Start(){
 	AddEntity(light);
 
 	shader = CREATE MultiLightShader();
-	shader->AddProperty("Transparency", "uTransparency", 1.f);
+	shader->AddUniform("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddMacro("USE_SHININESS_MAP");
-	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Specular Map", "uSpecularMap");
-	shader->AddProperty("Specular Multiplier", "uSpecularMultiplier", 4.f);
-	shader->AddProperty("Shininess Map", "uShininessMap");
-	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 64.f);
+	shader->AddUniform("Diffuse Texture", "uDiffuseTexture");
+	shader->AddUniform("Specular Map", "uSpecularMap");
+	shader->AddUniform("Specular Multiplier", "uSpecularMultiplier", 4.f);
+	shader->AddUniform("Shininess Map", "uShininessMap");
+	shader->AddUniform("Shininess Multiplier", "uShininessMultiplier", 64.f);
 	shader->Compile();
 
 	material = CREATE Material(shader);

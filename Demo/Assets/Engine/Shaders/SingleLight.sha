@@ -1,7 +1,7 @@
 <Shader>
 	<Vertex filename="Engine/Shaders/Sources/SingleLight.vert"/>
 	<Fragment filename="Engine/Shaders/Sources/SingleLight.frag"/>
-	<Properties>
-		<Property name="Shininess" glName="uShininess" type="Float" value="64.0"/>
-	</Properties>
+	<Uniforms>
+		<Uniform name="Shininess" glName="uShininess" type="Float" value="64.0"/>
+	</Uniforms>
 </Shader>

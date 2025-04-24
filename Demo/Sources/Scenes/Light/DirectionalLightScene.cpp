@@ -35,9 +35,9 @@ void DirectionalLightScene::Start(){
 
 	shader = CREATE SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
 	shader->AddMacro("DIRECT_LIGHT");
-	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Specular Map", "uSpecularMap");
-	shader->AddProperty("Shininess", "uShininess");
+	shader->AddUniform("Diffuse Texture", "uDiffuseTexture");
+	shader->AddUniform("Specular Map", "uSpecularMap");
+	shader->AddUniform("Shininess", "uShininess");
 	shader->Compile();
 	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));

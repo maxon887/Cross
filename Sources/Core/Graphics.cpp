@@ -31,8 +31,7 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Graphics::Graphics()
-{
+Graphics::Graphics() {
 	shader_factory = CREATE Factory<Shader>();
 	shader_factory->Register<SingleLightShader>("SingleLightShader");
 }
@@ -49,8 +48,7 @@ void Graphics::Stop() {
 
 }
 
-void Graphics::Update()
-{
+void Graphics::Update() {
 	for(Mesh* mesh : opaque_meshes) {
 		mesh->Draw();
 	}
@@ -96,23 +94,22 @@ Shader* Graphics::LoadShader(const String& shaderfile) {
 			macroXML = macroXML->NextSiblingElement("Macro");
 		}
 	}
-	XMLElement* propertiesXML = shaderXML->FirstChildElement("Properties");
-	if(propertiesXML) {
-		XMLElement* propertyXML = propertiesXML->FirstChildElement("Property");
-		while(propertyXML) {
-			const char* name = propertyXML->Attribute("name");
-			const char* glName = propertyXML->Attribute("glName");
-			const char* type = propertyXML->Attribute("type");
-			shader->AddProperty(name, glName, Shader::Property::StringToType(type));
-			propertyXML = propertyXML->NextSiblingElement("Property");
+	XMLElement* uniformsXML = shaderXML->FirstChildElement("Uniforms");
+	if(uniformsXML) {
+		XMLElement* uniformXML = uniformsXML->FirstChildElement("Uniform");
+		while(uniformXML) {
+			const char* name = uniformXML->Attribute("name");
+			const char* glName = uniformXML->Attribute("glName");
+			const char* type = uniformXML->Attribute("type");
+			shader->AddUniform(name, glName, Shader::Uniform::StringToType(type));
+			uniformXML = uniformXML->NextSiblingElement("Uniform");
 		}
 	}
 
 	return shader;
 }
 
-void Graphics::OnScreenChanged(Screen* newScreen)
-{
+void Graphics::OnScreenChanged(Screen* newScreen) {
 	opaque_meshes.Clear();
 	transparent_meshes.Clear();
 	Scene* newScene = dynamic_cast<Scene*>(newScreen);
@@ -122,13 +119,11 @@ void Graphics::OnScreenChanged(Screen* newScreen)
 	}
 }
 
-void Graphics::OnEntityAdded(Entity* newEntity)
-{
+void Graphics::OnEntityAdded(Entity* newEntity) {
 	FindAllMeshes(newEntity);
 }
 
-void Graphics::FindAllMeshes(Entity* entity)
-{
+void Graphics::FindAllMeshes(Entity* entity) {
 	Mesh* mesh = entity->GetComponent<Mesh>();
 	if(mesh) {
 		if(mesh->GetMaterial()->IsTransparent()) {

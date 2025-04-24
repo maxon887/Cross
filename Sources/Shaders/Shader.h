@@ -26,7 +26,7 @@ namespace cross{
 	Needed to create any kind of material */
 class Shader {
 public:
-	class Property {
+	class Uniform {
 	public:
 
 		enum Type {
@@ -66,16 +66,16 @@ public:
 		String glName	= String();
 		Type type 		= UNKNOWN;
 
-		Property(String name, String glName);
-		Property(String name, String glName, Type type);
-		Property(String name, String glName, S32 value);
-		Property(String name, String glName, float value);
-		Property(String name, String glName, const Color& value);
-		Property(String name, String glName, const Vector3D& value);
-		Property(String name, String glName, const Matrix& value);
-		Property(String name, String glName, Texture* value);
-		Property(String name, String glName, Cubemap* value);
-		Property(const Property& obj) = default;
+		Uniform(String name, String glName);
+		Uniform(String name, String glName, Type type);
+		Uniform(String name, String glName, S32 value);
+		Uniform(String name, String glName, float value);
+		Uniform(String name, String glName, const Color& value);
+		Uniform(String name, String glName, const Vector3D& value);
+		Uniform(String name, String glName, const Matrix& value);
+		Uniform(String name, String glName, Texture* value);
+		Uniform(String name, String glName, Cubemap* value);
+		Uniform(const Uniform& obj) = default;
 
 		void SetValue(S32 v);
 		void SetValue(float v);
@@ -86,7 +86,7 @@ public:
 		void SetValue(Cubemap* cubemap);
 		Value& GetValue();
 
-		Property* Clone() const;
+		Uniform* Clone() const;
 
 		GLint GetID() const;
 
@@ -131,15 +131,15 @@ public:
 	void AddMacro(const String& macro, int value);
 	Array<String>& GetMacrosies();
 
-	void AddProperty(String name, String glName);
-	void AddProperty(String name, String glName, Property::Type type);
-	void AddProperty(String name, String glName, float defValue);
-	void AddProperty(String name, String glName, const Color& color);
-	void AddProperty(String name, String glName, const Vector3D& vec);
-	void AddProperty(String name, String glName, Cubemap* cubemap);
-	void AddProperty(const Property& prop);
-	Property* GetProperty(const String& name);
-	Array<Property>& GetProperties();
+	void AddUniform(String name, String glName);
+	void AddUniform(String name, String glName, Uniform::Type type);
+	void AddUniform(String name, String glName, float defValue);
+	void AddUniform(String name, String glName, const Color& color);
+	void AddUniform(String name, String glName, const Vector3D& vec);
+	void AddUniform(String name, String glName, Cubemap* cubemap);
+	void AddUniform(const Uniform& uni);
+	Uniform* GetUniform(const String& name);
+	Array<Uniform>& GetUniforms();
 
 protected:
 	class LightUniforms {
@@ -158,7 +158,7 @@ protected:
 	Array<String> macrosies		= Array<String>();
 	bool compiled				= false;
 	//custom uniforms
-	Array<Property> properties	= Array<Property>();
+	Array<Uniform> uniforms	= Array<Uniform>();
 
 	GLuint GetProgram() const;
 

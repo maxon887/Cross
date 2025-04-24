@@ -27,9 +27,9 @@
 ShaderVisualBox::ShaderVisualBox() {
 	vertex_file_selector = CREATE FileSelector("Vertex File", "vert");
 	fragment_file_selector = CREATE FileSelector("Fragment File", "frag");
-	for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
-		Shader::Property::Type type = (Shader::Property::Type)i;
-		type_names.Add(Shader::Property::TypeToString(type));
+	for(int i = 0; i < Shader::Uniform::Type::UNKNOWN; i++) {
+		Shader::Uniform::Type type = (Shader::Uniform::Type)i;
+		type_names.Add(Shader::Uniform::TypeToString(type));
 	}
 }
 
@@ -83,11 +83,11 @@ void ShaderVisualBox::Update() {
 			shader->GetMacrosies().Add(newMacroString);
 		}
 
-		//Properties block 
+		//Uniforms block 
 		ImGui::NewLine();
-		ImGui::Text("Properties");
+		ImGui::Text("Uniforms");
 		ImGui::Separator();
-		ImGui::Columns(3, "Properties", false);
+		ImGui::Columns(3, "Uniforms", false);
 
 		ImGui::Text("Name"); ImGui::NextColumn();
 		ImGui::Text("glName"); ImGui::NextColumn();
@@ -95,36 +95,36 @@ void ShaderVisualBox::Update() {
 		ImGui::Separator();
 
 		index = 0;
-		for(int i = 0; i < shader->GetProperties().Size(); i++) {
-			Shader::Property& prop = shader->GetProperties()[i];
-			ImGui::PushID(String::Format("PropertyNameID #", index++));
+		for(int i = 0; i < shader->GetUniforms().Size(); i++) {
+			Shader::Uniform& uni = shader->GetUniforms()[i];
+			ImGui::PushID(String::Format("UniformNameID #", index++));
 
-			buffer = prop.name;
+			buffer = uni.name;
 			ImGui::PushItemWidth(-1);
 			ImGui::InputText("##Name", buffer.ToCStr(), buffer.Capacity());
-			prop.name = buffer.ToCStr();
+			uni.name = buffer.ToCStr();
 
 			ImGui::NextColumn();
-			buffer = prop.glName;
+			buffer = uni.glName;
 			ImGui::PushItemWidth(-1);
 			ImGui::InputText("##GlName", buffer.ToCStr(), buffer.Capacity());
-			prop.glName = buffer.ToCStr();
+			uni.glName = buffer.ToCStr();
 			ImGui::NextColumn();
 
-			char* values[Shader::Property::Type::UNKNOWN];
+			char* values[Shader::Uniform::Type::UNKNOWN];
 			for(S32 i = 0; i < type_names.Size(); i++) {
 				values[i] = type_names[i].ToCStr();
 			}
 
 			availableWidth = ImGui::GetColumnWidth();
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
-			if(ImGui::BeginCombo("##Type", Shader::Property::TypeToString(prop.type))) {
+			if(ImGui::BeginCombo("##Type", Shader::Uniform::TypeToString(uni.type))) {
 
-				for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
-					Shader::Property::Type type = (Shader::Property::Type)i;
-					bool selected = type == prop.type;
+				for(int i = 0; i < Shader::Uniform::Type::UNKNOWN; i++) {
+					Shader::Uniform::Type type = (Shader::Uniform::Type)i;
+					bool selected = type == uni.type;
 					if(ImGui::Selectable(values[i], selected)) {
-						prop.type = type;
+						uni.type = type;
 					}
 				}
 
@@ -132,7 +132,7 @@ void ShaderVisualBox::Update() {
 			}
 			ImGui::SameLine(availableWidth - SCALED(20.f));
 			if(ImGui::Button("-", ImVec2(-1, 0))) {
-				shader->GetProperties().Remove(i);
+				shader->GetUniforms().Remove(i);
 				i--;
 			}
 
@@ -142,9 +142,9 @@ void ShaderVisualBox::Update() {
 		ImGui::Columns(1);
 
 		ImGui::PushItemWidth(-1);
-		if(ImGui::Button("New Property", ImVec2(-1, 0))) {
-			Shader::Property newProperty("NewProperty", "glNewProperty", Shader::Property::Type::INT);
-			shader->AddProperty(newProperty);
+		if(ImGui::Button("New Uniform", ImVec2(-1, 0))) {
+			Shader::Uniform newUniform("NewUniform", "glNewUniform", Shader::Uniform::Type::INT);
+			shader->AddUniform(newUniform);
 		}
 
 		availableWidth = ImGui::GetWindowWidth();

@@ -1,7 +1,7 @@
 <Shader>
     <Vertex filename="Engine/Shaders/Sources/Simple.vert"/>
     <Fragment filename="Engine/Shaders/Sources/Simple.frag"/>
-    <Properties>
-        <Property name="Color" glName="uColor" type="Color"/>
-    </Properties>
+    <Uniforms>
+        <Uniform name="Color" glName="uColor" type="Color"/>
+    </Uniforms>
 </Shader>

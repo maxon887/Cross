@@ -1,7 +1,7 @@
 <Shader>
     <Vertex filename="Engine/Shaders/Sources/Texture.vert"/>
     <Fragment filename="Engine/Shaders/Sources/Texture.frag"/>
-    <Properties>
-        <Property name="Texture" glName="uTexture" type="Texture"/>
-    </Properties>
+    <Uniforms>
+        <Uniform name="Texture" glName="uTexture" type="Texture"/>
+    </Uniforms>
 </Shader>

@@ -27,7 +27,7 @@
 using namespace cross;
 using namespace tinyxml2;
 
-String Shader::Property::TypeToString(Type t) {
+String Shader::Uniform::TypeToString(Type t) {
 	switch (t) {
 	case Type::INT:
 		return "Int";
@@ -44,11 +44,11 @@ String Shader::Property::TypeToString(Type t) {
 	case Type::CUBEMAP:
 		return "Cubemap";
 	default:
-		CROSS_RETURN(false, "", "Unknown Shader Property type");
+		CROSS_RETURN(false, "", "Unknown Shader Uniform type");
 	}
 }
 
-Shader::Property::Type Shader::Property::StringToType(const String &type) {
+Shader::Uniform::Type Shader::Uniform::StringToType(const String &type) {
 	if(type == "Int") {
 		return Type::INT;
 	} else if(type == "Float") {
@@ -64,114 +64,114 @@ Shader::Property::Type Shader::Property::StringToType(const String &type) {
 	} else if(type == "Cubemap") {
 		return Type::CUBEMAP;
 	} else {
-		CROSS_RETURN(false, Type::UNKNOWN, "Unknow Shader Property '#'", type);
+		CROSS_RETURN(false, Type::UNKNOWN, "Unknow Shader Uniform '#'", type);
 	}
 }
 
-Shader::Property::Property(String name, String glName):
+Shader::Uniform::Uniform(String name, String glName):
 	name(std::move(name)),
 	glName(std::move(glName))
 { }
 
-Shader::Property::Property(String name, String glName, Type t) :
+Shader::Uniform::Uniform(String name, String glName, Type t) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(t)
 { }
 
-Shader::Property::Property(String name, String glName, S32 value) :
+Shader::Uniform::Uniform(String name, String glName, S32 value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(INT),
 	value(value)
 { }
 
-Shader::Property::Property(String name, String glName, float value) :
+Shader::Uniform::Uniform(String name, String glName, float value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(FLOAT),
 	value(value)
 { }
 
-Shader::Property::Property(String name, String glName, const Color& value) :
+Shader::Uniform::Uniform(String name, String glName, const Color& value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(COLOR),
 	value(value)
 { }
 
-Shader::Property::Property(String name, String glName, const Vector3D& value) :
+Shader::Uniform::Uniform(String name, String glName, const Vector3D& value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(VEC3),
 	value(value)
 { }
 
-Shader::Property::Property(String name, String glName, const Matrix& value) :
+Shader::Uniform::Uniform(String name, String glName, const Matrix& value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(MAT4),
 	value(value)
 { }
 
-Shader::Property::Property(String name, String glName, Texture* value) :
+Shader::Uniform::Uniform(String name, String glName, Texture* value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(TEXTURE),
 	value(value)
 { }
 
-Shader::Property::Property(String name, String glName, Cubemap* value) :
+Shader::Uniform::Uniform(String name, String glName, Cubemap* value) :
 	name(std::move(name)),
 	glName(std::move(glName)),
 	type(CUBEMAP),
 	value(value)
 { }
 
-void Shader::Property::SetValue(S32 v) {
+void Shader::Uniform::SetValue(S32 v) {
 	type = INT;
 	value.s32 = v;
 }
 
-void Shader::Property::SetValue(float v) {
+void Shader::Uniform::SetValue(float v) {
 	type = FLOAT;
 	value.f = v;
 }
 
-void Shader::Property::SetValue(const Color& v) {
+void Shader::Uniform::SetValue(const Color& v) {
 	type = COLOR;
 	value.color = v;
 }
 
-void Shader::Property::SetValue(const Vector3D& v) {
+void Shader::Uniform::SetValue(const Vector3D& v) {
 	type = VEC3;
 	value.vec3 = v;
 }
 
-void Shader::Property::SetValue(const Matrix& v) {
+void Shader::Uniform::SetValue(const Matrix& v) {
 	type = MAT4;
 	value.mat = v;
 }
 
-void Shader::Property::SetValue(Texture* v) {
+void Shader::Uniform::SetValue(Texture* v) {
 	type = TEXTURE;
 	value.texture = v;
 }
 
-void Shader::Property::SetValue(Cubemap* v) {
+void Shader::Uniform::SetValue(Cubemap* v) {
 	type = CUBEMAP;
 	value.cubemap = v;
 }
 
-Shader::Property::Value& Shader::Property::GetValue() {
+Shader::Uniform::Value& Shader::Uniform::GetValue() {
 	return value;
 }
 
-Shader::Property* Shader::Property::Clone() const {
-	return CREATE Shader::Property(*this);
+Shader::Uniform* Shader::Uniform::Clone() const {
+	return CREATE Shader::Uniform(*this);
 }
 
-GLint Shader::Property::GetID() const {
+GLint Shader::Uniform::GetID() const {
 	return glId;
 }
 
@@ -206,15 +206,15 @@ void Shader::Save(const String& file) {
 		macrosiesXML->LinkEndChild(macroXML);
 	}
 
-	XMLElement* propertiesXML = doc.NewElement("Properties");
-	shaderXML->LinkEndChild(propertiesXML);
+	XMLElement* uniformsXML = doc.NewElement("Uniforms");
+	shaderXML->LinkEndChild(uniformsXML);
 
-	for(const Property& prop : properties){
-		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop.name);
-		propertyXML->SetAttribute("glName", prop.glName);
-		propertyXML->SetAttribute("type", Property::TypeToString(prop.type));
-		propertiesXML->LinkEndChild(propertyXML);
+	for(const Uniform& uni : uniforms){
+		XMLElement* uniformXML = doc.NewElement("Uniform");
+		uniformXML->SetAttribute("name", uni.name);
+		uniformXML->SetAttribute("glName", uni.glName);
+		uniformXML->SetAttribute("type", Uniform::TypeToString(uni.type));
+		uniformsXML->LinkEndChild(uniformXML);
 	}
 
 	XMLPrinter printer;
@@ -257,9 +257,9 @@ void Shader::Compile() {
 	uCameraPosition = glGetUniformLocation(program, "uCameraPosition");
 	uAmbientLight = glGetUniformLocation(program, "uAmbientLight");
 
-	for(Property& prop : properties){
-		prop.glId = glGetUniformLocation(program, prop.glName);
-		CROSS_FAIL(prop.glId != -1, "Property # does not contains in the shader", prop.glName);
+	for(Uniform& uni : uniforms){
+		uni.glId = glGetUniformLocation(program, uni.glName);
+		CROSS_FAIL(uni.glId != -1, "Uniform # does not contains in the shader", uni.glName);
 	}
 	compiled = true;
 }
@@ -311,52 +311,52 @@ Array<String>& Shader::GetMacrosies() {
 	return macrosies;
 }
 
-void Shader::AddProperty(String name, String glName) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(std::move(name), std::move(glName));
+void Shader::AddUniform(String name, String glName) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.CreateInside(std::move(name), std::move(glName));
 }
 
-void Shader::AddProperty(String name, String glName, Shader::Property::Type type) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(std::move(name), std::move(glName), type);
+void Shader::AddUniform(String name, String glName, Uniform::Type type) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.CreateInside(std::move(name), std::move(glName), type);
 }
 
-void Shader::AddProperty(String name, String glName, float defValue) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(std::move(name), std::move(glName), defValue);
+void Shader::AddUniform(String name, String glName, float defValue) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(String name, String glName, const Color& defValue) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(std::move(name), std::move(glName), defValue);
+void Shader::AddUniform(String name, String glName, const Color& defValue) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(String name, String glName, const Vector3D& defValue) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(std::move(name), std::move(glName), defValue);
+void Shader::AddUniform(String name, String glName, const Vector3D& defValue) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(String name, String glName, Cubemap* defValue) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.CreateInside(std::move(name), std::move(glName), defValue);
+void Shader::AddUniform(String name, String glName, Cubemap* defValue) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.CreateInside(std::move(name), std::move(glName), defValue);
 }
 
-void Shader::AddProperty(const Property& prop) {
-	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	properties.Add(prop);
+void Shader::AddUniform(const Uniform& uni) {
+	CROSS_FAIL(!compiled, "Can't add uniform to compiled shader");
+	uniforms.Add(uni);
 }
 
-Shader::Property* Shader::GetProperty(const String& name) {
-	for(Property& prop : properties){
-		if(prop.name == name){
-			return &prop;
+Shader::Uniform* Shader::GetUniform(const String& name) {
+	for(Uniform& uni : uniforms){
+		if(uni.name == name){
+			return &uni;
 		}
 	}
-	CROSS_RETURN(false, nullptr, "Can not find property");
+	CROSS_RETURN(false, nullptr, "Can not find uniform");
 }
 
-Array<Shader::Property>& Shader::GetProperties() {
-	return properties;
+Array<Shader::Uniform>& Shader::GetUniforms() {
+	return uniforms;
 }
 
 GLuint Shader::GetProgram() const {
@@ -425,7 +425,7 @@ void Shader::CompileProgram() {
 }
 
 void Shader::FreeResources() {
-	properties.Clear();
+	uniforms.Clear();
 	if(vertex_shader) {
 		SAFE(glDeleteShader(vertex_shader));
 	}

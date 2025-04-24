@@ -33,7 +33,7 @@ void PrimitiveDrawer::DrawPoint(const Vector2D& pos, Color& color) {
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, pos.GetData()));
-	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetUniform("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_POINTS, 0, 1));
 }
@@ -47,7 +47,7 @@ void PrimitiveDrawer::DrawLine(const Vector2D& p1, const Vector2D& p2, Color& co
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetUniform("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }
@@ -69,7 +69,7 @@ void PrimitiveDrawer::DrawRect(const Rect& rect, Color& color, bool filled) {
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetUniform("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glEnable(GL_BLEND));
 	if(filled) {
@@ -121,7 +121,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& co
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 2, GL_FLOAT, GL_FALSE, 0, buffer));
-	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, color.GetData()));
+	SAFE(glUniform4fv(shader->GetUniform("Color")->GetID(), 1, color.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	if(filled) {
 		SAFE(glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount));
@@ -140,7 +140,7 @@ void PrimitiveDrawer::DrawLine(const Vector3D& p1, const Vector3D& p2, Color& c)
 	mvp = mvp.GetTransposed();
 	SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
 	SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, 0, vertices));
-	SAFE(glUniform4fv(shader->GetProperty("Color")->GetID(), 1, c.GetData()));
+	SAFE(glUniform4fv(shader->GetUniform("Color")->GetID(), 1, c.GetData()));
 	SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
 	SAFE(glDrawArrays(GL_LINES, 0, 2));
 }

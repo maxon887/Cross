@@ -45,11 +45,11 @@ public:
 	/* Checks if this Material contains provided property */
 	bool HaveProperty(const String& name);
 	/* Returns Material property by name or nullptr if can't find*/
-	Shader::Property* GetProperty(const String& name);
+	Shader::Uniform* GetProperty(const String& name);
 	/* Returns Material property by internal graphics ID or nullptr if can't find */
-	Shader::Property* GetProperty(U64 glID);
+	Shader::Uniform* GetProperty(U64 glID);
 	/* Returns all available Material property */
-	Array<Shader::Property>& GetProperties();
+	Array<Shader::Uniform>& GetProperties();
 	/* Sets integer property value by name */
 	void SetPropertyValue(const String& name, S32 value);
 	/* Sets float property value by name */
@@ -95,7 +95,7 @@ private:
 	String filename						= "noname";
 	Shader* shader						= nullptr;
 	bool transparent					= false;
-	Array<Shader::Property> properties	= Array<Shader::Property>();
+	Array<Shader::Uniform> properties	= Array<Shader::Uniform>();
 
 	Material(const Material& obj);
 };

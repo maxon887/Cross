@@ -1,10 +1,10 @@
 <Shader>
 	<Vertex filename="Engine/Shaders/Sources/MultiLight.vert"/>
 	<Fragment filename="Engine/Shaders/Sources/MultiLight.frag"/>
-	<Properties>
-		<Property name="Transparency" glName="uTransparency" type="Float"/>
-		<Property name="Diffuse Color" glName="uDiffuseColor" type="Color"/>
-		<Property name="Specular" glName="uSpecular" type="Float" value="2.0"/>
-		<Property name="Shininess" glName="uShininess" type="Float" value="64.0"/>
-	</Properties>
+	<Uniforms>
+		<Uniform name="Transparency" glName="uTransparency" type="Float"/>
+		<Uniform name="Diffuse Color" glName="uDiffuseColor" type="Color"/>
+		<Uniform name="Specular" glName="uSpecular" type="Float" value="2.0"/>
+		<Uniform name="Shininess" glName="uShininess" type="Float" value="64.0"/>
+	</Uniforms>
 </Shader>

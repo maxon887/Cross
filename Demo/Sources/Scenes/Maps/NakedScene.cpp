@@ -36,10 +36,10 @@ void NakedScene::Start() {
 	AddEntity(light);
 
 	shader = CREATE MultiLightShader();
-	shader->AddProperty("Transparency", "uTransparency", 1.f);
-	shader->AddProperty("Diffuse Color", "uDiffuseColor");
-	shader->AddProperty("Specular", "uSpecular");
-	shader->AddProperty("Shininess", "uShininess");
+	shader->AddUniform("Transparency", "uTransparency", 1.f);
+	shader->AddUniform("Diffuse Color", "uDiffuseColor");
+	shader->AddUniform("Specular", "uSpecular");
+	shader->AddUniform("Shininess", "uShininess");
 	shader->Compile();
 	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Color", Color::White);

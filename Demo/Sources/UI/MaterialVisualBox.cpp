@@ -58,27 +58,27 @@ void MaterialVisualBox::Update() {
 		ImGui::Text("Properties");
 		ImGui::Separator();
 
-		for(Shader::Property& prop : mat->GetProperties()) {
+		for(Shader::Uniform& prop : mat->GetProperties()) {
 			switch(prop.type) {
-			case Shader::Property::Type::INT: {
+			case Shader::Uniform::Type::INT: {
 				ImGui::TextUnformatted(prop.name);
 				ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 				ImGui::DragInt("##IntProperty", &prop.GetValue().s32);
 				break;
 			}
-			case Shader::Property::Type::FLOAT: {
+			case Shader::Uniform::Type::FLOAT: {
 				ImGui::TextUnformatted(prop.name);
 				ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 				ImGui::DragFloat("##FloatProperty", &prop.GetValue().f, 0.1f);
 				break;
 			}
-			case Shader::Property::Type::COLOR: {
+			case Shader::Uniform::Type::COLOR: {
 				ImGui::TextUnformatted(prop.name);
 				ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 				ImGui::ColorEdit4(prop.name, prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 				break;
 			}
-			case Shader::Property::Type::TEXTURE: {
+			case Shader::Uniform::Type::TEXTURE: {
 				FileSelector* fileSelector = texture_selectors[prop.name];
 				if(fileSelector->Update()) {
 					String textureFilename = fileSelector->GetSelectedFile();
@@ -96,7 +96,7 @@ void MaterialVisualBox::Update() {
 				break;
 			}
 			default:
-				CROSS_ASSERT(false, "Can not display material property of type #", Shader::Property::TypeToString(prop.type));
+				CROSS_ASSERT(false, "Can not display material property of type #", Shader::Uniform::TypeToString(prop.type));
 				break;
 			}
 		}
@@ -171,8 +171,8 @@ void MaterialVisualBox::OnScreenChanged(Screen* newScreen) {
 
 void MaterialVisualBox::DeleteMaterialIfNeeded() {
 	if(!loaded_from_scene && mat) {
-		for(Shader::Property& prop : mat->GetProperties()) {
-			if(prop.type == Shader::Property::Type::TEXTURE) {
+		for(Shader::Uniform& prop : mat->GetProperties()) {
+			if(prop.type == Shader::Uniform::Type::TEXTURE) {
 				delete prop.GetValue().texture;
 			}
 		}
@@ -186,8 +186,8 @@ void MaterialVisualBox::CreateTextureSelectors() {
 		delete textureSelector.second;
 	}
 	texture_selectors.clear();
-	for(Shader::Property& prop : mat->GetProperties()) {
-		if(prop.type == Shader::Property::Type::TEXTURE) {
+	for(Shader::Uniform& prop : mat->GetProperties()) {
+		if(prop.type == Shader::Uniform::Type::TEXTURE) {
 			FileSelector* textureSelector = CREATE FileSelector(prop.name, "png");
 			texture_selectors[prop.name] = textureSelector;
 			if(prop.GetValue().texture) {

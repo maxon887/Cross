@@ -133,16 +133,16 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glUniform4fv(shader->uAmbientLight, 1, scene->GetAmbientColor().GetData()));
 	}
 
-	for(Shader::Property& prop : material->GetProperties()) {
+	for(Shader::Uniform& prop : material->GetProperties()) {
 		if(prop.glId == -1) {
 			//late shader compilation produce this, trying to assign compiled id to the material id
-			Shader::Property* shaderProp = shader->GetProperty(prop.name);
+			Shader::Uniform* shaderProp = shader->GetUniform(prop.name);
 			prop.glId = shaderProp->GetID();
 			CROSS_FAIL(prop.glId != -1, "Broken shader property");
 		}
 
 		switch(prop.type) {
-		case Shader::Property::TEXTURE:
+		case Shader::Uniform::TEXTURE:
 			if(prop.value.texture) {
 				SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
 				SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop.value.texture->GetID()));
@@ -150,22 +150,22 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 				material->active_texture_slot++;
 			}
 			break;
-		case Shader::Property::MAT4:
+		case Shader::Uniform::MAT4:
 			SAFE(glUniformMatrix4fv(prop.glId, 1, GL_FALSE, prop.value.mat.GetData()));
 			break;
-		case Shader::Property::COLOR:
+		case Shader::Uniform::COLOR:
 			SAFE(glUniform4fv(prop.glId, 1, prop.value.color.GetData()));
 			break;
-		case Shader::Property::VEC3:
+		case Shader::Uniform::VEC3:
 			SAFE(glUniform3fv(prop.glId, 1, prop.value.vec3.GetData()));
 			break;
-		case Shader::Property::FLOAT:
+		case Shader::Uniform::FLOAT:
 			SAFE(glUniform1f(prop.glId, prop.value.f));
 			break;
-		case Shader::Property::INT:
+		case Shader::Uniform::INT:
 			SAFE(glUniform1i(prop.glId, prop.value.s32));
 			break;
-		case Shader::Property::CUBEMAP:
+		case Shader::Uniform::CUBEMAP:
 			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
 			SAFE(glBindTexture(GL_TEXTURE_CUBE_MAP, (GLuint)prop.value.cubemap->GetTextureID()));
 			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
@@ -321,7 +321,7 @@ U32 Mesh::GetPolyCount() const {
 void Mesh::Copy(const Mesh* m) {
 	group_id = m->group_id;
 	model_filename = m->model_filename;
-	//filename should not be copied for propper model loading, look Mesh::Initialize
+	//filename should not be copied for proper model loading, look Mesh::Initialize
 	//material_filename = m->material_filename;
 
 	VBO = m->VBO;

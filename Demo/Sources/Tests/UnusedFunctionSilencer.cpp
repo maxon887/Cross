@@ -86,7 +86,7 @@ void NeverUsedSilencer() {
 	Quaternion::DotProduct(quat, quat);
 	quat.GetNormalized();
 	
-	Shader::Property prop("name", "glName");
+	Shader::Uniform prop("name", "glName");
 	Cubemap* cubemap = nullptr;
 	prop.SetValue(cubemap);
 	

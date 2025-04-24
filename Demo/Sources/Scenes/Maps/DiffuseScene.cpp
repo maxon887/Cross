@@ -35,11 +35,11 @@ void DiffuseScene::Start(){
 	AddEntity(light);
 
 	shader = CREATE MultiLightShader();
-	shader->AddProperty("Transparency", "uTransparency", 1.f);
+	shader->AddUniform("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
-	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
-	shader->AddProperty("Specular", "uSpecular");
-	shader->AddProperty("Shininess", "uShininess");
+	shader->AddUniform("Diffuse Texture", "uDiffuseTexture");
+	shader->AddUniform("Specular", "uSpecular");
+	shader->AddUniform("Shininess", "uShininess");
 	shader->Compile();
 
 	material = CREATE Material(shader);
