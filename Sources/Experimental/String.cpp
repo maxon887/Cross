@@ -231,6 +231,8 @@ bool String::Remove(char c) {
 
 bool String::Remove(S32 first, S32 last) {
 	memcpy(data + first, data + last, length - last);
+	length -= last - first;
+	data[length] = '\0';
 	return true;
 }
 
