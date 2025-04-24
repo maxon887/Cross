@@ -79,6 +79,8 @@ public:
 	bool Remove(const char* subStr, S32 startPos);
 	/* Removes first occurrence of character in current String */
 	bool Remove(char c);
+	/* Removes substring started from 'first' character and ended in 'last' */
+	bool Remove(S32 first, S32 last);
 	/* Replaces all occurrences of 'from' string to 'to' string */
 	bool Replace(const char* from, const char* to);
 	/* Removes all characters before first argument and after last from current String */

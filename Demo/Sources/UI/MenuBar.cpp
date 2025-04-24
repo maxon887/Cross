@@ -35,11 +35,11 @@
 
 MenuBar::MenuBar() {
 	CameraControllerView* cameraController = CREATE CameraControllerView();
-	FilesView* filesView = CREATE FilesView();
+	files_view = CREATE FilesView();
 	SceneView* sceneView = CREATE SceneView();
 	ComponentsView* componentsView = CREATE ComponentsView(sceneView);
-	PropertiesView* propertiesView = CREATE PropertiesView(filesView);
-	views.Add(filesView);
+	PropertiesView* propertiesView = CREATE PropertiesView(files_view);
+	views.Add(files_view);
 	views.Add(sceneView);
 	views.Add(componentsView);
 	views.Add(propertiesView);
@@ -179,6 +179,10 @@ void MenuBar::CloseAllViews() {
 
 float MenuBar::GetHeight() const {
 	return menu_height;
+}
+
+FilesView* MenuBar::GetFilesView() const {
+	return files_view;
 }
 
 void MenuBar::UpdateDocking() {

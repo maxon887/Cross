@@ -25,16 +25,16 @@ public:
 	FilesView();
 
 	void Shown() override;
-
 	void Update(float sec) override;
 
 	DockPosition GetDefaultDockPosition() const override { return DockPosition::LEFT; }
+	
+	void AskToShowFile(const String& filename);
 
 private:
 	struct Node {
-		String path = "";
 		String name = "";
-		String full_path = "";
+		String path = "";
 		bool initialized = false;
 		//first string is filename second full path + filename
 		Array<std::pair<String, String> > files;
@@ -48,6 +48,7 @@ private:
 	void Refresh();
 	void BuildNote(Node& node);
 	void FileDoubleClicked(const String& filename);
+	const Node& FindNodeForFile(String& leftoverPath, const Node& currentNode);
 
 	void ContextMenu();
 	

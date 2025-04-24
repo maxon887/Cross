@@ -18,6 +18,7 @@
 #include "Cross.h"
 
 class View;
+class FilesView;
 
 using namespace cross;
 
@@ -31,12 +32,14 @@ public:
 	void ShowMenu();
 	void CloseAllViews();
 	float GetHeight() const;
+	FilesView* GetFilesView() const;
 
 protected:
 	float menu_height			= 0;
 	bool show_style_editor		= false;
 
 	Array<View*> views;
+	FilesView* files_view		= nullptr;
 	View* log					= nullptr;
 	View* stats					= nullptr;
 	View* about					= nullptr;

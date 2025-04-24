@@ -20,12 +20,14 @@
 #include "Input.h"
 #include "Demo.h"
 #include "System.h"
+#include "MenuBar.h"
+#include "Views/FilesView.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 #include "ThirdParty/ImGui/imgui_internal.h"
 
 FileSelector::FileSelector(const String &label, const String &fileExtension) {
-	this->label = "    " + label;
+	this->label = "          " + label;
 	extensions.Add(fileExtension);
 	files_list = FileUtils::GetAllFilesOfType(fileExtension);
 	for(const String& filename : files_list) {
@@ -116,14 +118,23 @@ bool FileSelector::Update() {
 		ImGui::EndPopup();
 	}
 	float width = ImGui::CalcItemWidth();
-	ImGui::SameLine(width + 10);
-	ImGui::PushID(label);
-	if(ImGui::Button("?", ImVec2(SCALED(26), 0))) {
+	ImGui::SameLine(width + SCALED(5));
+	ImGui::PushID(label + "Add Button");
+	if(ImGui::Button("+", ImVec2(SCALED(26), 0))) {
 		String filename = os->OpenFileDialog();
 		if(!filename.IsEmpty()) {
 			SetSelectedFile(filename);
 			fileSelected = true;
 		}
+	}
+	ImGui::PopID();
+	ImGui::SameLine(width + SCALED(32));
+	ImGui::PushID(label + "Locate Button");
+	if(ImGui::Button("?", ImVec2(SCALED(26), 0))) {
+		//try to find file in FilesView
+		MenuBar* menuBar = demo->GetMenuBar();
+		FilesView* filesView = menuBar->GetFilesView();
+		filesView->AskToShowFile(selected_file);
 	}
 	ImGui::PopID();
 	return fileSelected;

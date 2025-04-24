@@ -36,8 +36,6 @@ FilesView::FilesView() : View("Files", true) { }
 
 void FilesView::Shown() {
 	if(!file_tree.initialized) {
-		String assPath = os->AssetsPath();
-		file_tree.path = assPath.SubString(0, assPath.Length() - 1);
 		InitNode(file_tree);
 	}
 	current_path = os->AssetsPath();
@@ -55,19 +53,23 @@ void FilesView::Update(float sec) {
 	ContextMenu();
 }
 
+void FilesView::AskToShowFile(const String& filename) {
+	String leftoverPath = filename;
+	const Node& fileNode = FindNodeForFile(leftoverPath, file_tree);
+	current_path = filename;
+}
+
 void FilesView::InitNode(Node& node) {
-	String path = node.path + node.name + "/";
-	Array<String> folders = os->GetSubDirectories(path);
+	Array<String> folders = os->GetSubDirectories(os->AssetsPath() + node.path);
 	sort(folders.begin(), folders.end());
 	for(const String& folder : folders) {
 		Node newNode;
-		newNode.path = path;
 		newNode.name = folder;
-		newNode.full_path = path + folder + "/";
+		newNode.path = node.path + folder + "/";
 		node.folders.Add(newNode);
 	}
-	for(String& file : os->GetFilesInDirectory(path)) {
-		node.files.Add(pair<String, String>(file, node.path + node.name + "/" + file));
+	for(String& file : os->GetFilesInDirectory(os->AssetsPath() + node.path)) {
+		node.files.Add(pair<String, String>(file, node.path + "/" + file));
 	}
 	node.initialized = true;
 }
@@ -83,12 +85,12 @@ void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 	//folders
 	for(Node& child : node.folders) {
-		ImGuiTreeNodeFlags flags = child.full_path == current_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
+		ImGuiTreeNodeFlags flags = child.path == current_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
 		bool open = ImGui::TreeNodeEx(child.name, flags);
 
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			current_path = child.full_path;
+			current_path = child.path;
 		}
 
 		if(open) {
@@ -112,12 +114,10 @@ void FilesView::BuildNote(Node& node) {
 		if((ImGui::IsMouseReleased(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 			current_path = file.second;
 			String filepath = current_path;
-			filepath.Remove(os->AssetsPath());
 			FileSelected.Emit(filepath);
 		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
 			String filepath = current_path;
-			filepath.Remove(os->AssetsPath());
 			FileDoubleClicked(filepath);
 		}
 	}
@@ -135,6 +135,33 @@ void FilesView::FileDoubleClicked(const String& filename) {
 	} else {
 		os->OpenFileExternal(filename);
 	}
+}
+
+const FilesView::Node& FilesView::FindNodeForFile(String& leftoverPath, const Node& currentNode) {
+	static const Node errorNode;
+	
+	S32 foundSlash = leftoverPath.Find("/");
+	if(foundSlash == -1) { //if there is no slash means we are currently looking at file, return it if we have corresponded node
+		for(const auto& file : currentNode.files) {
+			const String& filename = file.second;
+			if(filename == leftoverPath) {
+				return currentNode;
+			}
+		}
+		CROSS_RETURN(false, errorNode, "Can not find requested file");
+	} else if(foundSlash == 0) { //first character is slash just remove it and continue
+		leftoverPath.Remove("/");
+	} else { //we got folder. find it and get to next
+		String folderName = leftoverPath.SubString(0, foundSlash);
+		for(const auto& folder : currentNode.folders) {
+			if(folder.name == folderName) {
+				leftoverPath.Remove(0, foundSlash);
+				return FindNodeForFile(leftoverPath, folder);
+			}
+		}
+		CROSS_RETURN(false, errorNode, "Can not find requested file path");
+	}
+	CROSS_RETURN(false, errorNode, "Can not find requested file path");
 }
 
 void FilesView::ContextMenu() {

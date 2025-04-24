@@ -229,6 +229,11 @@ bool String::Remove(char c) {
 	return false;
 }
 
+bool String::Remove(S32 first, S32 last) {
+	memcpy(data + first, data + last, length - last);
+	return true;
+}
+
 bool String::Replace(const char* from, const char* to) {
 	bool result = false;
 	S32 spot = Find(from);
