@@ -40,7 +40,7 @@ public:
 
 	File* LoadAssetFile(const String& filename) override;
 	bool IsDirectoryExists(const String& dirname) override;
-	void PromtToExit() override;
+	void PromptToExit() override;
 	void RequestOrientation(Orientation orientation) override;
 	void Messagebox(const String& title, const String& message) override;
 	bool IsMobile() override;

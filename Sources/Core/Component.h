@@ -26,7 +26,7 @@ namespace tinyxml2 {
 namespace cross{
 
 /*	Components used for create Entity special behavior. For example components can be renderable, physic behavior, sound etc.
-	User components must be register by ComponentFactory. Components have save life time as an Entity */
+	User components must be registered by ComponentFactory. Components have save lifetime as an Entity */
 class Component {
 public:
 	Component(String name);
@@ -58,7 +58,7 @@ public:
 	Entity* GetEntity();
 	/* Returns component properties which will be saved on scene file */
 	const Array<BaseProperty*>& GetProperties() const;
-	/* Returns Entity's Transform Component if has some */
+	/* Returns Entity's Transform Component if it has some */
 	Transform* GetTransform();
 	/* Returns Entity's Transform's position vector */
 	Vector3D GetPosition() const;

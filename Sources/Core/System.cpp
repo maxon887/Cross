@@ -149,7 +149,7 @@ void System::RequestOrientation(Orientation orientation) {
 }
 
 void System::Sleep(float milis) {
-	CROSS_ASSERT(false, "System::Speep() does not implemented for current platform");
+	CROSS_ASSERT(false, "System::Sleep() does not implemented for current platform");
 }
 
 float System::GetScreenDPI() {

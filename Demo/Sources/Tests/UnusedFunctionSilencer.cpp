@@ -40,7 +40,7 @@ void NeverUsedSilencer() {
 	system->SaveAssetFile(file);
 	system->IsAssetFileExists("AssetFile");
 	system->RequestOrientation(System::Orientation::LANDSCAPE);
-	system->PromtToExit();
+	system->PromptToExit();
 	Game* game = nullptr;
 	game->Suspend();
 	game->Resume();

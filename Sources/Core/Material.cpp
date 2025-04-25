@@ -76,9 +76,9 @@ bool Material::Load(const String& filename, Scene* scene) {
 		Reset();
 	}
 
-	XMLElement* transparancyXML = materialXML->FirstChildElement("Transparent");
-	if(transparancyXML) {
-		String transText = transparancyXML->GetText();
+	XMLElement* transparencyXML = materialXML->FirstChildElement("Transparent");
+	if(transparencyXML) {
+		String transText = transparencyXML->GetText();
 		if(transText == "True") {
 			transparent = true;
 		}
@@ -140,9 +140,9 @@ void Material::Save(const String& filename) {
 	doc.LinkEndChild(materialXML);
 
 	if(IsTransparent()) {
-		XMLElement* transparancyXML = doc.NewElement("Transparent");
-		transparancyXML->SetText("True");
-		materialXML->LinkEndChild(transparancyXML);
+		XMLElement* transparencyXML = doc.NewElement("Transparent");
+		transparencyXML->SetText("True");
+		materialXML->LinkEndChild(transparencyXML);
 	}
 
 	for(const Shader::Uniform& prop : properties) {

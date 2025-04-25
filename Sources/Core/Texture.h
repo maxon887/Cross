@@ -21,7 +21,7 @@ namespace cross{
 
 /*	Texture is digital representation of the surface of an object. Like color, roughness etc.
 	Texture class also can be used to draw 2D images. Like sprites, buttons etc.
-	Texture life time managed by Scene. To load Texture you can use Scene::GetTexture(). Dublicated models won't be loaded */
+	Texture lifetime managed by Scene. To load Texture you can use Scene::GetTexture(). Duplicated models won't be loaded */
 class Texture {
 public:
 	/* Specify how pixel data will be gathered from image data */
@@ -35,7 +35,7 @@ public:
 		/* Mipmaps levels and pixels will be linearly interpolated */
 		TRILINEAR
 	};
-	/* Specify how pixels will be picked up outside of 1, 1 uv coordinates */
+	/* Specify how pixels will be picked up outside 1, 1 uv coordinates */
 	enum TilingMode {
 		/* Similar to the edge pixels */
 		CLAMP_TO_EDGE,

@@ -19,7 +19,7 @@
 template<class T>
 class Function;
 
-/*	Function class needed for lazy binding. For example you can bind a function or method 
+/*	Function class needed for lazy binding. For example, you can bind a function or method 
 	to this class object and call it later. */
 template<class Ret, class... Input>
 class Function<Ret(Input...)> {
@@ -36,7 +36,7 @@ public:
 
 private:
 	void* lambda 					= nullptr;
-	Ret(*executer)(void*, Input...) = nullptr;
+	Ret(*executor)(void*, Input...) = nullptr;
 	void*(*copier)(void*) 			= nullptr;
 	void(*deleter)(void*)			= nullptr;
 
@@ -61,7 +61,7 @@ Function<Ret(Input...)>::Function(Class* obj, Ret(Class::*meth)(Input... args)) 
 template<class Ret, class... Input>
 Function<Ret(Input...)>::Function(const Function& other) {
 	lambda = other.copier(other.lambda);
-	executer = other.executer;
+	executor = other.executor;
 	copier = other.copier;
 	deleter = other.deleter;
 }
@@ -69,11 +69,11 @@ Function<Ret(Input...)>::Function(const Function& other) {
 template<class Ret, class... Input>
 Function<Ret(Input...)>::Function(Function&& other) {
 	lambda = other.lambda;
-	executer = other.executer;
+	executor = other.executor;
 	copier = other.copier;
 	deleter = other.deleter;
 	other.lambda = nullptr;
-	other.executer = nullptr;
+	other.executor = nullptr;
 	other.copier = nullptr;
 	other.deleter = nullptr;
 }
@@ -88,7 +88,7 @@ Function<Ret(Input...)>::~Function() {
 template<class Ret, class... Input>
 Ret Function<Ret(Input...)>::operator()(Input... args) {
 	assert(lambda);
-	return executer(lambda, args...);
+	return executor(lambda, args...);
 }
 
 template<class Ret, class... Input>
@@ -101,7 +101,7 @@ template<class Lambda>
 void Function<Ret(Input...)>::Init(const Lambda& other) {
 	lambda = CREATE Lambda(other);
 
-	executer = [](void* lamb, Input... args) -> Ret {
+	executor = [](void* lamb, Input... args) -> Ret {
 		return ((Lambda*)lamb)->operator()(args...);
 	};
 

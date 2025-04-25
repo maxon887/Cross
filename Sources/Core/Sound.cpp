@@ -41,7 +41,7 @@ Sound::~Sound() {
 	}else{
 		result = channel->stop();
 	}
-	CROSS_ASSERT(result == FMOD_OK, "Error while destroing Sound");
+	CROSS_ASSERT(result == FMOD_OK, "Error while destroying Sound");
 }
 
 void Sound::Play() {

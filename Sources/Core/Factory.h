@@ -22,9 +22,9 @@
 namespace cross{
 
 /*	Generic Factory template. This will allow you to create successor classes by name.
-	This is usefull when you interested particyla class type but can not create it by your self.
-	f.e. engine Component system can create user component but it doesn't know about your components by default.
-	Because of that you need to register your components before do that. Or use this class in personal goals*/
+	This is useful when you are interested in particular class type but can not create it by your self.
+	f.e. engine Component system can create user component, but it doesn't know about your components by default.
+	Because of that you need to register your components before do that. Or use this class in your personal goals*/
 template<class BaseClass>
 class Factory {
 public:

@@ -47,8 +47,8 @@ public:
 	void AddComponent(Component* component);
 	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
 	void AddComponent(Component* component, Scene* scene);
-	/* Adds component to the current Entity component stack. initilize = true if component should be initialized in place */
-	void AddComponent(Component* component, Scene* scene, bool initilize);
+	/* Adds component to the current Entity component stack. initialize = true if component should be initialized in place */
+	void AddComponent(Component* component, Scene* scene, bool initialize);
 	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
 

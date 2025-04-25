@@ -217,7 +217,7 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
     }
 
 	public void PromtToExit() {
-		Log.d(TAG, "PromtToExit");
+		Log.d(TAG, "PromptToExit");
 
 		runOnUiThread(new Runnable() {
 			@Override

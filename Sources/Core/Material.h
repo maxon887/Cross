@@ -44,9 +44,9 @@ public:
 
 	/* Checks if this Material contains provided property */
 	bool HaveProperty(const String& name);
-	/* Returns Material property by name or nullptr if can't find*/
+	/* Returns Material property by name or nullptr if can't find it */
 	Shader::Uniform* GetProperty(const String& name);
-	/* Returns Material property by internal graphics ID or nullptr if can't find */
+	/* Returns Material property by internal graphics ID or nullptr if can't find it */
 	Shader::Uniform* GetProperty(U64 glID);
 	/* Returns all available Material property */
 	Array<Shader::Uniform>& GetProperties();

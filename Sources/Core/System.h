@@ -84,7 +84,7 @@ public:
 	/* Returns device screen DPI. This is approximate value. Real devices does not know their screen sizes */
 	virtual float GetScreenDPI();
 	/* Ask user about exit from application */
-	virtual void PromtToExit() { }
+	virtual void PromptToExit() { }
 	/* Obtains clipboard data as text if available */
 	virtual String GetClipboard();
 	/* Tries to open file with appropriate external program */

@@ -138,9 +138,9 @@ void ArrayTestView::Update(float sec) {
 
 	ImGui::Text("Iteration");
 	ImGui::NextColumn();
-	ImGui::Text("%f", IterrationCross);
+	ImGui::Text("%f", IterationCross);
 	ImGui::NextColumn();
-	ImGui::Text("%f", IterrationStd);
+	ImGui::Text("%f", IterationStd);
 	ImGui::NextColumn();
 	if(ImGui::Button("Run##7")) {
 		Array<S32> integers;
@@ -151,8 +151,8 @@ void ArrayTestView::Update(float sec) {
 		for(S32 i = 0; i < 5000000; i++) {
 			integersStd.push_back(Random(-1000000, 1000000));
 		}
-		IterrationCross = IterrationCrossFunc(integers);
-		IterrationStd = IterrationStdFunc(integersStd);
+		IterationCross = IterationCrossFunc(integers);
+		IterationStd = IterationStdFunc(integersStd);
 	}
 	ImGui::NextColumn();
 
@@ -165,7 +165,7 @@ void ArrayTestView::Update(float sec) {
 	summary += FindingCross;
 	summary += ReallocationCross;
 	summary += GettingRandomElementCross;
-	summary += IterrationCross;
+	summary += IterationCross;
 	ImGui::Text("%f", summary);
 	ImGui::NextColumn();
 	summary = 0;
@@ -175,7 +175,7 @@ void ArrayTestView::Update(float sec) {
 	summary += FindingStd;
 	summary += ReallocationStd;
 	summary += GettingRandomElementStd;
-	summary += IterrationStd;
+	summary += IterationStd;
 	ImGui::Text("%f", summary);
 	ImGui::NextColumn();
 	ImGui::NextColumn();
@@ -331,7 +331,7 @@ float ArrayTestView::GettingRandomElementStdFunc(const std::vector<S32>& integer
 	return Debugger::Instance()->GetTimeCheck();
 }
 
-float ArrayTestView::IterrationCrossFunc(const Array<S32>& integers) {
+float ArrayTestView::IterationCrossFunc(const Array<S32>& integers) {
 	Debugger::Instance()->SetTimeCheck();
 
 	int res = 0;
@@ -343,7 +343,7 @@ float ArrayTestView::IterrationCrossFunc(const Array<S32>& integers) {
 	return Debugger::Instance()->GetTimeCheck();
 }
 
-float ArrayTestView::IterrationStdFunc(const std::vector<S32>& integers) {
+float ArrayTestView::IterationStdFunc(const std::vector<S32>& integers) {
 	Debugger::Instance()->SetTimeCheck();
 
 	int res = 0;

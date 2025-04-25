@@ -136,8 +136,8 @@ void FilesView::BuildNote(Node& node) {
 }
 
 void FilesView::FileDoubleClicked(const String& filename) {
-	String extencion = File::ExtensionFromFile(filename);
-	if(extencion == "scn") {
+	String extension = File::ExtensionFromFile(filename);
+	if(extension == "scn") {
 		Scene* scene = CREATE DemoScene();
 		if(!scene->Load(filename)) {
 			delete scene;

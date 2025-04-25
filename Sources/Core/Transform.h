@@ -21,7 +21,7 @@
 namespace cross{
 
 /*	Adds spatial properties to an Entity. Like position, rotation and scale in virtual world.
-	Children objects will be have related to parent properties and will be transformed with parents */
+	Children objects will have related to parent properties and will be transformed with parents */
 class Transform : public Component {
 public:
 	Transform();
@@ -50,7 +50,7 @@ public:
 	/* Sets object scale by scale Matrix */
 	void SetScale(const Matrix& scale);
 
-	/* Returns object rotation as Quaternion. To get actuial axis and angle use Quaternion::GetAxis() and Quaternion::GetAngle() */
+	/* Returns object rotation as Quaternion. To get actual axis and angle use Quaternion::GetAxis() and Quaternion::GetAngle() */
 	Quaternion GetRotate() const;
 	/* Sets object rotation as axis and angle (in degrees) */
 	void SetRotate(const Vector3D& axis, float angle);
@@ -77,7 +77,7 @@ public:
 
 	/* Returns object models Matrix. Usually need for shader calculation */
 	Matrix& GetModelMatrix();
-	/* Returns world transform Matrix. Not fast and save function (all parents matrices must be multiplied and must exists) */
+	/* Returns world transform Matrix. Not fast and save function (all parents matrices must be multiplied and must exist) */
 	Matrix GetWorldMatrix();
 
 protected:

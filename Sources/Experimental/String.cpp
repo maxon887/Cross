@@ -25,7 +25,7 @@ using namespace cross;
 
 String String::Format(const String& format) {
 	S32 spot = format.Find('#');
-	CROSS_ASSERT(spot == -1, "Formatter error. Less values provied than expected");
+	CROSS_ASSERT(spot == -1, "Formatter error. Less values provided than expected");
 	return format;
 }
 
@@ -180,11 +180,11 @@ S32 String::FindNonFirstOf(const char* sequence) const {
 }
 
 S32 String::FindNonFirstOf(const char* sequence, S32 startPos) const {
-	S32 occurence = (S32)strspn(data + startPos, sequence);
-	if(occurence == length) {
+	S32 occurrence = (S32)strspn(data + startPos, sequence);
+	if(occurrence == length) {
 		return -1;
 	}
-	return startPos + occurence;
+	return startPos + occurrence;
 }
 
 void String::Uppercase() {

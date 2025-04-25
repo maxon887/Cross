@@ -35,7 +35,7 @@ public:
 	virtual void Update(float sec) { }
 	/* Called after regular Screen::Update() */
 	virtual void PostUpdate(float sec) { }
-	/* Called when game need to be suspend like lost focus or input phone call */
+	/* Called when game need to be suspended when lost focus or input phone call */
 	virtual void Suspend() { }
 	/* Called when game about show again after suspending */
 	virtual void Resume() { }

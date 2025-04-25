@@ -91,7 +91,7 @@ float AndroidSystem::GetScreenDPI() {
     return dpi;
 }
 
-void AndroidSystem::PromtToExit(){
+void AndroidSystem::PromptToExit() {
 	JNIEnv* env = GetJNIEnv();
 	jclass clazz = env->GetObjectClass(cross_activity);
 	jmethodID methodID = env->GetMethodID(clazz, "PromtToExit", "()V");

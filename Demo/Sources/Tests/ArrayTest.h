@@ -78,10 +78,10 @@ private:
 	float GettingRandomElementCrossFunc(const Array<S32>& integers);
 	float GettingRandomElementStdFunc(const std::vector<S32>& integers);
 
-	float IterrationCross = 0.f;
-	float IterrationStd = 0.f;
-	float IterrationCrossFunc(const Array<S32>& integers);
-	float IterrationStdFunc(const std::vector<S32>& integers);
+	float IterationCross = 0.f;
+	float IterationStd = 0.f;
+	float IterationCrossFunc(const Array<S32>& integers);
+	float IterationStdFunc(const std::vector<S32>& integers);
 };
 
 class ArrayTest : public Screen {

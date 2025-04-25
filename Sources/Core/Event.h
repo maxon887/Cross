@@ -20,7 +20,7 @@ namespace cross{
 
 /*	Event provides functional for object to notify other instances when something of interest happened.
 	Class that want to notify of something must call Emit() function of Event the rest object which was
-	interested in particular Event must subscribed for this event by calling Connect() function */
+	interested in particular Event must be subscribed for this event by calling Connect() function */
 template<class... Args>
 class Event {
 public:

@@ -57,7 +57,7 @@ public:
 
 	/* Initialize Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
 	void InitializeVideoData();
-	/* Add new data to this Mesh or push it on top if have some */
+	/* Add new data to this Mesh or push it on top if already have some */
 	void PushData(VertexBuffer* vertexBuffer, const Array<U16>& indices);
 
 	/* Sets Material for this mesh. Material must be set in order to draw Mesh */

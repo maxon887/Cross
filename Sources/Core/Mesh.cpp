@@ -73,7 +73,7 @@ void Mesh::Enable() {
 	Entity* owner = GetEntity();
 	bool hasTransform = owner->GetComponent<Transform>() != nullptr;
 	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
-	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initalized");
+	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initialized");
 	CROSS_FAIL(material, "Cano not enable Mesh. Current Mesh doesn't have Material assigned");
 	
 	enabled = true;
@@ -192,7 +192,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
-		CROSS_FAIL(vertex_buffer->HasNormals(), "Current mesh does not countain normals");
+		CROSS_FAIL(vertex_buffer->HasNormals(), "Current mesh does not contain normals");
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aNormal));
 		SAFE(glVertexAttribPointer((GLuint)shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetNormalsOffset()));
 	}

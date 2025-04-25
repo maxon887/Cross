@@ -87,7 +87,7 @@ void StringTestView::Update(float sec) {
 	}
 	ImGui::NextColumn();
 
-	ImGui::Text("Concatination");
+	ImGui::Text("Concatenation");
 	ImGui::NextColumn();
 	ImGui::Text("%f", cross_results[3]);
 	ImGui::NextColumn();

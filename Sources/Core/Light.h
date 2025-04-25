@@ -27,7 +27,7 @@ class Light : public Component {
 public:
 	/* Type of the Light Component. Describes how light will behave in scene */
 	enum Type {
-		/* Light spreads by Transforms's direction */
+		/* Light spreads by Transform's direction */
 		DIRECTIONAL,
 		/* Light spreads in all directions from Transform's position with some coefficient of fading */
 		POINT,
@@ -47,12 +47,12 @@ public:
 	/* Returns Type of this Light */
 	Type GetType() const;
 
-	/* Returns Color of this Light. By default color of the Light absolutely white */
+	/* Returns Color of this Light. By default, color of the Light absolutely white */
 	Color GetColor() const;
-	/* Sets Color of this Light. Some ambient effects can be achieved by coloring lights (f.e. some blue Color can be add for moon light)*/
+	/* Sets Color of this Light. Some ambient effects can be achieved by coloring lights (f.e. some blue Color can be added for moon light)*/
 	void SetColor(const Color& color);
 
-	/* Returns Light Intensity. By default 0.01, it around 15 meters for POINT Light */
+	/* Returns Light Intensity. By default, 0.01, it around 15 meters for POINT Light */
 	float GetIntensity() const;
 	/* Sets Light Intensity. Light intensity will affect on how bright objects will be under light and how far it will spread */
 	void SetIntensity(float intensity);

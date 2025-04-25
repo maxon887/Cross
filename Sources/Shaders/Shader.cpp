@@ -64,7 +64,7 @@ Shader::Uniform::Type Shader::Uniform::StringToType(const String &type) {
 	} else if(type == "Cubemap") {
 		return Type::CUBEMAP;
 	} else {
-		CROSS_RETURN(false, Type::UNKNOWN, "Unknow Shader Uniform '#'", type);
+		CROSS_RETURN(false, Type::UNKNOWN, "Unknown Shader Uniform '#'", type);
 	}
 }
 

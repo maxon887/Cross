@@ -8,11 +8,11 @@ Array<String> FileUtils::GetAllFilesOfType(const String& fileExtension) {
 	return aggregator;
 }
 
-Array<String> FileUtils::GetAllFilesOfTypeInDirectory(const String& fileExtention, const String& directory) {
+Array<String> FileUtils::GetAllFilesOfTypeInDirectory(const String& fileExtension, const String& directory) {
 	Array<String> result;
 	Array<String> allFiles = os->GetFilesInDirectory(directory);
 	for(const String& file : allFiles) {
-		if(File::ExtensionFromFile(file) == fileExtention) {
+		if(File::ExtensionFromFile(file) == fileExtension) {
 			String relativeDir = directory;
 			relativeDir.Remove(os->AssetsPath());
 			result.Add(relativeDir + file);
@@ -21,11 +21,11 @@ Array<String> FileUtils::GetAllFilesOfTypeInDirectory(const String& fileExtentio
 	return result;
 }
 
-void FileUtils::AssembleAllFilesOfType(const String& fileExtention, const String& directory, Array<String>& aggregator) {
-	Array<String> files = GetAllFilesOfTypeInDirectory(fileExtention, directory);
+void FileUtils::AssembleAllFilesOfType(const String& fileExtension, const String& directory, Array<String>& aggregator) {
+	Array<String> files = GetAllFilesOfTypeInDirectory(fileExtension, directory);
 	aggregator.Combine(files);
 	Array<String> subDirectories = os->GetSubDirectories(directory);
 	for(const String& subDir : subDirectories) {
-		AssembleAllFilesOfType(fileExtention, directory + subDir + "/", aggregator);
+		AssembleAllFilesOfType(fileExtension, directory + subDir + "/", aggregator);
 	}
 }

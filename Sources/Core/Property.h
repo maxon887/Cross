@@ -134,7 +134,7 @@ inline bool Property<S32>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_RETURN(typeStr == "Int", false, "Loading attribute missmatch. Expected Int");
+	CROSS_RETURN(typeStr == "Int", false, "Loading attribute mismatch. Expected Int");
 	value = (S32)propertyXML->Int64Attribute("value");
 	return true;
 }
@@ -144,7 +144,7 @@ inline bool Property<float>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_RETURN(typeStr == "Float", false, "Loading attribute missmatch. Expected Float");
+	CROSS_RETURN(typeStr == "Float", false, "Loading attribute mismatch. Expected Float");
 	value = propertyXML->FloatAttribute("value");
 	return true;
 }
@@ -154,7 +154,7 @@ inline bool Property<String>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_RETURN(typeStr == "String", false, "Loading attribute missmatch. Expected String");
+	CROSS_RETURN(typeStr == "String", false, "Loading attribute mismatch. Expected String");
 	value = propertyXML->Attribute("value");
 	return true;
 }
@@ -164,7 +164,7 @@ inline bool Property<Vector3D>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_RETURN(typeStr == "Vector3D", false, "Loading attribute missmatch. Expected Vector3D");
+	CROSS_RETURN(typeStr == "Vector3D", false, "Loading attribute mismatch. Expected Vector3D");
 	value.x = propertyXML->FloatAttribute("x");
 	value.y = propertyXML->FloatAttribute("y");
 	value.z = propertyXML->FloatAttribute("z");
@@ -176,7 +176,7 @@ inline bool Property<Quaternion>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
-	CROSS_RETURN(typeStr == "Quaternion", false, "Loading attribute missmatch. Expected Quaternion");
+	CROSS_RETURN(typeStr == "Quaternion", false, "Loading attribute mismatch. Expected Quaternion");
 	value.x = propertyXML->FloatAttribute("x");
 	value.y = propertyXML->FloatAttribute("y");
 	value.z = propertyXML->FloatAttribute("z");

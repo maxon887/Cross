@@ -18,7 +18,7 @@ Vector2D mouse_pos;
 float frame_to_window_ratio;
 
 void GLFWErrorCallback(int error, const char* description) {
-    cout << "GLFW Error occured - " << error << "\n\t" << description << endl;
+    cout << "GLFW Error occurred - " << error << "\n\t" << description << endl;
 }
 
 void GLFWResizeCallback(GLFWwindow* win, int width, int height) {

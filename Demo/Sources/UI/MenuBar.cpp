@@ -110,8 +110,8 @@ void MenuBar::ShowMenu() {
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
 				String filename = os->OpenFileDialog("*.scn", true);
 				if(filename != "") {
-					String extencion = File::ExtensionFromFile(filename);
-					if(extencion.IsEmpty()) {
+					String extension = File::ExtensionFromFile(filename);
+					if(extension.IsEmpty()) {
 						filename += ".scn";
 					}
 					game->GetCurrentScene()->Save(filename);
