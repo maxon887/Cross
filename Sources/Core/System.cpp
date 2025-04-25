@@ -79,12 +79,7 @@ void System::SaveDataFile(File* file) {
 }
 
 bool System::IsFileExists(const String& filename) {
-	FILE* f = fopen(filename.ToCStr(), "r");
-	bool result = f != nullptr;
-	if(result) {
-		fclose(f);
-	}
-	return result;
+	return filesystem::is_regular_file(filename.ToCStr());
 }
 
 bool System::IsAssetFileExists(const String& filename) {
@@ -100,11 +95,13 @@ bool System::IsDirectoryExists(const String& filepath) {
 }
 
 void System::CreateDirectory(const String& dirname) {
+	String path = File::PathFromFile(dirname);
+	CROSS_FAIL(IsDirectoryExists(path), "Can not create directory at the provided path: '#'", path);
 	filesystem::create_directory(dirname.ToCStr());
 }
 
 void System::Delete(const String& path) {
-	filesystem::remove(path.ToCStr());
+	filesystem::remove_all(path.ToCStr());
 }
 
 Array<String> System::GetSubDirectories(const String& filepath) {

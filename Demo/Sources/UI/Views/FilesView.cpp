@@ -38,7 +38,7 @@ void FilesView::Shown() {
 	if(!file_tree.initialized) {
 		InitNode(file_tree);
 	}
-	current_path = os->AssetsPath();
+	current_path = "";
 	game->ScreenChanged.Connect(this, &FilesView::OnScreenChanged);
 }
 
@@ -46,7 +46,7 @@ void FilesView::Update(float sec) {
 	BuildNote(file_tree);
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
-		current_path = os->AssetsPath();
+		current_path = "";
 		FileSelected.Emit(current_path);
 	}
 
@@ -54,6 +54,7 @@ void FilesView::Update(float sec) {
 }
 
 void FilesView::AskToShowFile(const String& filename) {
+	CROSS_FAIL(os->IsFileExists(filename), "Can not show file: '#'\nProbably file does not exists", filename);
 	String leftoverPath = filename;
 	ForceOpenPath(leftoverPath, file_tree);
 	current_path = filename;
@@ -200,18 +201,13 @@ void FilesView::ContextMenu() {
 		}
 		ImGui::InputText("##FolderName", buffer, 256);
 
-		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
-			input->IsPressed(Key::ESCAPE)) {
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) || input->IsPressed(Key::ESCAPE)) {
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SameLine();
-		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
-			input->IsPressed(Key::ENTER)) {
-
+		if(ImGui::Button("Ok", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
 			os->CreateDirectory(os->AssetsPath() + current_path + buffer);
-
 			Refresh();
-
 			ImGui::CloseCurrentPopup();
 		}
 
@@ -226,6 +222,9 @@ void FilesView::ContextMenu() {
 	if(ImGui::BeginPopupModal("New Shader", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		static char buffer[256];
 		ImGui::Text("Enter Shader name");
+		if(!ImGui::IsAnyItemActive()) {
+			ImGui::SetKeyboardFocusHere(0);
+		}
 		ImGui::InputText("##ShaderName", buffer, 256);
 
 		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
@@ -234,13 +233,18 @@ void FilesView::ContextMenu() {
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("Ok", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
-
+			if(os->IsFileExists(os->AssetsPath() + current_path)) { //we are currently looking at file. we need to obtain path from it
+				current_path = File::PathFromFile(current_path);
+			}
+			current_path += String(buffer) + ".sha";
+			
 			Shader* shader = CREATE Shader();
-			shader->Save(current_path + "//" + String(buffer) + ".sha");
+			shader->Save(os->AssetsPath() + current_path);
 			delete shader;
 
 			Refresh();
 			ImGui::CloseCurrentPopup();
+			FileSelected.Emit(current_path);
 		}
 		ImGui::EndPopup();
 	}
@@ -254,6 +258,9 @@ void FilesView::ContextMenu() {
 		//Material name
 		static char buffer[256];
 		ImGui::Text("Enter Material name");
+		if(!ImGui::IsAnyItemActive()) {
+			ImGui::SetKeyboardFocusHere(0);
+		}
 		ImGui::InputText("##MaterialName", buffer, 256);
 
 		if(ImGui::Button("Cancel", ImVec2(120, 0)) || input->IsPressed(Key::ESCAPE)) {
@@ -261,13 +268,18 @@ void FilesView::ContextMenu() {
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("Ok", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
+			if(os->IsFileExists(os->AssetsPath() + current_path)) { //we are currently looking at file. we need to obtain path from it
+				current_path = File::PathFromFile(current_path);
+			}
+			current_path += String(buffer) + ".mat";
+						
 			Material* material = CREATE Material();
-			material->Save(current_path + "//" + String(buffer) + ".mat");
-
+			material->Save(os->AssetsPath() + current_path);
 			delete material;
 
 			Refresh();
 			ImGui::CloseCurrentPopup();
+			FileSelected.Emit(current_path);
 		}
 
 		ImGui::EndPopup();
@@ -278,17 +290,17 @@ void FilesView::ContextMenu() {
 		deleteFile = false;
 	}
 	if(ImGui::BeginPopupModal("Delete?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-		ImGui::Text("Are you sure you what to delete this file?");
-		if(ImGui::Button("OK", ImVec2(120, 0))) {
+		ImGui::Text("Are you sure you what to delete this content?");
+		if(ImGui::Button("OK", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
 			ImGui::CloseCurrentPopup(); 
-			os->Delete(current_path);
-			current_path = os->AssetsPath();
+			os->Delete(os->AssetsPath() + current_path);
+			current_path = "";
 			FileSelected.Emit(current_path);
 			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();
 		ImGui::SameLine();
-		if(ImGui::Button("Cancel", ImVec2(120, 0))) {
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) || input->IsPressed(Key::ESCAPE)) {
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndPopup();
@@ -296,6 +308,6 @@ void FilesView::ContextMenu() {
 }
 
 void FilesView::OnScreenChanged(Screen* screen) {
-	current_path = os->AssetsPath();
+	current_path = "";
 	FileSelected.Emit(current_path);
 }

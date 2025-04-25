@@ -24,7 +24,9 @@ String File::PathFromFile(const String& filename) {
 	if(lastSlash == -1) {
 		lastSlash = filename.FindLast('\\');
 	}
-	CROSS_RETURN(lastSlash != -1, "", "Wrong path format");
+	if(lastSlash == -1) {
+		return "";
+	}
 	return filename.SubString(0, lastSlash + 1);
 }
 
