@@ -54,7 +54,7 @@ void FilesView::Update(float sec) {
 }
 
 void FilesView::AskToShowFile(const String& filename) {
-	CROSS_FAIL(os->IsFileExists(filename), "Can not show file: '#'\nProbably file does not exists", filename);
+	CROSS_FAIL(os->IsFileExists(os->AssetsPath() + filename), "Can not show file: '#'\nProbably file does not exists", filename);
 	String leftoverPath = filename;
 	ForceOpenPath(leftoverPath, file_tree);
 	current_path = filename;

@@ -27,7 +27,7 @@
 #include "ThirdParty/ImGui/imgui_internal.h"
 
 FileSelector::FileSelector(const String &label, const String &fileExtension) {
-	this->label = "          " + label;
+	this->label = label;
 	extensions.Add(fileExtension);
 	files_list = FileUtils::GetAllFilesOfType(fileExtension);
 	for(const String& filename : files_list) {
@@ -38,7 +38,11 @@ FileSelector::FileSelector(const String &label, const String &fileExtension) {
 
 bool FileSelector::Update() {
 	bool fileSelected = false;
-	if(ImGui::InputText(label.ToCStr(), current_input.ToCStr(), current_input.Capacity(), ImGuiInputTextFlags_AutoSelectAll)) {
+	float availableWidth = ImGui::GetWindowWidth();
+	float labelWidth = ImGui::CalcTextSize(label.ToCStr()).x + SCALED(10.f);
+	
+	ImGui::PushItemWidth(availableWidth - labelWidth - SCALED(74)); //74 = two buttons + spacing
+	if(ImGui::InputText("##InputText", current_input.ToCStr(), current_input.Capacity(), ImGuiInputTextFlags_AutoSelectAll)) {
 		ValueChanged();
 	}
 	
@@ -117,8 +121,21 @@ bool FileSelector::Update() {
             ImGui::CloseCurrentPopup();
 		ImGui::EndPopup();
 	}
-	float width = ImGui::CalcItemWidth();
-	ImGui::SameLine(width + SCALED(5));
+	
+	ImGui::SameLine(availableWidth - labelWidth);
+	ImGui::Text("%s", label.ToCStr());
+	
+	ImGui::SameLine(availableWidth - SCALED(32) - labelWidth);
+	ImGui::PushID(label + "Locate Button");
+	if(ImGui::Button("?", ImVec2(SCALED(26), 0))) {
+		//try to find file in FilesView
+		MenuBar* menuBar = demo->GetMenuBar();
+		FilesView* filesView = menuBar->GetFilesView();
+		filesView->AskToShowFile(selected_file);
+	}
+	ImGui::PopID();
+	
+	ImGui::SameLine(availableWidth - SCALED(64) - labelWidth);
 	ImGui::PushID(label + "Add Button");
 	if(ImGui::Button("+", ImVec2(SCALED(26), 0))) {
 		String filename = os->OpenFileDialog();
@@ -126,15 +143,6 @@ bool FileSelector::Update() {
 			SetSelectedFile(filename);
 			fileSelected = true;
 		}
-	}
-	ImGui::PopID();
-	ImGui::SameLine(width + SCALED(32));
-	ImGui::PushID(label + "Locate Button");
-	if(ImGui::Button("?", ImVec2(SCALED(26), 0))) {
-		//try to find file in FilesView
-		MenuBar* menuBar = demo->GetMenuBar();
-		FilesView* filesView = menuBar->GetFilesView();
-		filesView->AskToShowFile(selected_file);
 	}
 	ImGui::PopID();
 	return fileSelected;
