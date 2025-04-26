@@ -42,7 +42,7 @@ bool FileSelector::Update() {
 	float labelWidth = ImGui::CalcTextSize(label.ToCStr()).x + SCALED(10.f);
 	
 	ImGui::PushItemWidth(availableWidth - labelWidth - SCALED(74)); //74 = two buttons + spacing
-	if(ImGui::InputText("##InputText", current_input.ToCStr(), current_input.Capacity(), ImGuiInputTextFlags_AutoSelectAll)) {
+	if(ImGui::InputText("##InputText" + label, current_input.ToCStr(), current_input.Capacity(), ImGuiInputTextFlags_AutoSelectAll)) {
 		ValueChanged();
 	}
 	
