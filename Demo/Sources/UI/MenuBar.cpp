@@ -117,8 +117,12 @@ void MenuBar::ShowMenu() {
 					game->GetCurrentScene()->Save(filename);
 				}
 			}
-
-			if(ImGui::MenuItem("Back to Main", 0, false, !demo->GetLaunchView()->IsVisible())) {
+#ifdef MACOS
+			static const char* shortcut = "Cmd+X";
+#else
+			static const char* shortcut = "Ctrl+X";
+#endif
+			if(ImGui::MenuItem("Back to Main", shortcut, false, !demo->GetLaunchView()->IsVisible())) {
 				demo->ToMain();
 			}
 
