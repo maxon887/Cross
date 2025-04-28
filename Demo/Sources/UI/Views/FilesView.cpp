@@ -23,6 +23,7 @@
 #include "Material.h"
 #include "Scenes/DemoScene.h"
 #include "FileUtils.h"
+#include "Input.h"
 
 #include <algorithm>
 
@@ -168,10 +169,12 @@ void FilesView::ForceOpenPath(String& leftoverPath, Node& currentNode) {
 }
 
 void FilesView::ContextMenu() {
-	static bool newFolder = false;
-	static bool newShader = false;
-	static bool newMaterial = false;
-	static bool deleteFile = false;
+	bool newFolder = false;
+	bool newShader = false;
+	bool newMaterial = false;
+	bool deleteFile = false;
+	bool somethingSelected = !current_path.IsEmpty();
+	
 	if(ImGui::BeginPopupContextWindow("FileOptions")) {
 		if(ImGui::MenuItem("New Folder")) {
 			newFolder = true;
@@ -182,10 +185,13 @@ void FilesView::ContextMenu() {
 		if(ImGui::MenuItem("New Material")) {
 			newMaterial = true;
 		}
-		if(ImGui::MenuItem("Delete")) {
+		if(ImGui::MenuItem("Delete", "del, backspace", false, somethingSelected)) {
 			deleteFile = true;
 		}
 		ImGui::EndPopup();
+	}
+	if((input->IsPressed(Key::DEL) || input->IsPressed(Key::BACKSPACE)) && ImGui::IsWindowFocused() && somethingSelected) {
+		deleteFile = true;
 	}
 
 	//New Folder dialog

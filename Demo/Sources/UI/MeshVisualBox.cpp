@@ -36,17 +36,19 @@ void MeshVisualBox::Update() {
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
 
 	//model filename
-	if(!mesh->GetModelFileName().IsEmpty()) {
-		ImGui::Text("Model:");
-		ImGui::SameLine(SCALED(100.f));
-		String modelFile = mesh->GetModelFileName();
+	ImGui::Text("Model:");
+	ImGui::SameLine(SCALED(100.f));
+	String modelFile = mesh->GetModelFileName();
+	if(!modelFile.IsEmpty()) {
 		modelFile = File::FileFromPath(modelFile);
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", modelFile.ToCStr());
-		
-		ImGui::Text("Mesh Group ID: ");
-		ImGui::SameLine(SCALED(100.f));
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%i", mesh->GetID());
+	} else {
+		modelFile = "Runtime model";
 	}
+	ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", modelFile.ToCStr());
+	
+	ImGui::Text("Mesh Group ID: ");
+	ImGui::SameLine(SCALED(100.f));
+	ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%i", mesh->GetID());
 	
 	material_file->Update();
 
