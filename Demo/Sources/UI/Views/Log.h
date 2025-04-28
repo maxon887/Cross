@@ -31,7 +31,6 @@ public:
 
 private:
 	ImGuiTextFilter     filter;
-	ImVector<int>		lineoffset;        // Index to lines offset
 	U64					log_size = 0;
 	bool				scroll_to_bottom = true;
 

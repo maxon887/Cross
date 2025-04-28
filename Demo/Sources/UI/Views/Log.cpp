@@ -29,17 +29,21 @@ void Log::Update(float sec) {
 	filter.Draw("Filter", -100.0f);
 	ImGui::Separator();
 	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-	if(copy) ImGui::LogToClipboard();
+	if(copy) {
+		ImGui::LogToClipboard();
+	}
 
 	if(filter.IsActive()) {
-		const char* buf_begin = os->GetLogBuffer();
-		const char* line = buf_begin;
-		for(int line_no = 0; line != nullptr; line_no++) {
-			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : nullptr;
-			if(filter.PassFilter(line, line_end)) {
-				ImGui::TextUnformatted(line, line_end);
+		const char* line_start = os->GetLogBuffer();
+		const char* current = line_start;
+		while(*current != 0) {
+			if(*current == '\n') {
+				if(filter.PassFilter(line_start, current)) {
+					ImGui::TextUnformatted(line_start, current);
+				}
+				line_start = current + 1;
 			}
-			line = line_end && line_end[1] ? line_end + 1 : nullptr;
+			current++;
 		}
 	} else {
 		if(os->GetLogBuffer().Length() > 0) {
@@ -61,5 +65,4 @@ void Log::Update(float sec) {
 
 void Log::Clear() {
 	os->GetLogBuffer().Clear();
-	lineoffset.clear();
 }
