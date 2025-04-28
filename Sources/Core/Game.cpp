@@ -145,6 +145,7 @@ void Game::EngineUpdate() {
 			game->GetCurrentScreen()->PostUpdate(secTime);
 		}
 		game->Update(secTime);
+		game->PostUpdate(secTime);
 
 		Debugger::Instance()->Update((float)updateTime);
 		U64 cpuTime = os->GetTime() - timestamp;

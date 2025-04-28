@@ -43,6 +43,7 @@ public:
 	void Stop() override;
 	void PreUpdate(float sec) override;
 	void Update(float sec) override;
+	void PostUpdate(float sec) override;
 	void SetScreen(Screen* screen) override;
 
 	void ToMain();
@@ -50,20 +51,22 @@ public:
 	MenuBar* GetMenuBar();
 
 private:
+	static const int MaxInputActions = 5;
 	static const char* GetClipboardString(void* userData);
 
-	MenuBar* menu			= nullptr;
-	LaunchView* launch_view = nullptr;
-	Shader* ui_shader		= nullptr;
-	Texture* font_texture	= nullptr;
-	String clipboard		= "";
-	String imgui_filename	= "imgui.ini";
-	U32 vertex_buffer		= 0;
-	U32 index_buffer		= 0;
+	MenuBar* menu				= nullptr;
+	LaunchView* launch_view 	= nullptr;
+	Shader* ui_shader			= nullptr;
+	Texture* font_texture		= nullptr;
+	String clipboard			= "";
+	String imgui_filename		= "imgui.ini";
+	U32 vertex_buffer			= 0;
+	U32 index_buffer			= 0;
 
-	Vector2D action_pos		= Vector2D(0.f, 0.f);
-	Array<bool> actions		= Array<bool>(MAX_ACTIONS, false);
-	float mouse_wheel		= 0.0f;
+	Vector2D action_pos			= Vector2D(0.f, 0.f);
+	Array<bool> actions_down 	= Array<bool>(MaxInputActions, false);
+	Array<bool> actions_up		= Array<bool>(MaxInputActions, false);
+	float mouse_wheel			= 0.0f;
 
     bool CreateUIShaders();
 	bool CreateFontsTexture();

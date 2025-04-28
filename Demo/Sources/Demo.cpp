@@ -339,8 +339,8 @@ void Demo::PreUpdate(float sec) {
 #else
 	io.MousePos = ImVec2(action_pos.x, (float)os->GetWindowHeight() - action_pos.y);
 #endif
-	for(S32 i = 0; i < 5; i++) {
-		io.MouseDown[i] = actions[i];
+	for(S32 i = 0; i < MaxInputActions; i++) {
+		io.MouseDown[i] = actions_down[i];
 	}
 
 	io.MouseWheel = mouse_wheel;
@@ -360,6 +360,15 @@ void Demo::Update(float sec) {
 	ImGui::Render();
 	ImDrawData* drawData = ImGui::GetDrawData();
 	RenderUI(drawData);
+}
+
+void Demo::PostUpdate(float sec) {
+	for(int i = 0; i < MaxInputActions; i++) {
+		if(actions_up[i]) {
+			actions_down[i] = false;
+			actions_up[i] = false;
+		}
+	}
 }
 
 void Demo::SetScreen(Screen* screen) {
@@ -511,7 +520,7 @@ void Demo::RenderUI(ImDrawData* draw_data) {
 }
 
 void Demo::ActionDownHandle(Input::Action action) {
-	actions[action.id] = true;
+	actions_down[action.id] = true;
 	action_pos = action.pos;
 }
 
@@ -520,7 +529,7 @@ void Demo::ActionMoveHandle(Input::Action action) {
 }
 
 void Demo::ActionUpHandle(Input::Action action) {
-	actions[action.id] = false;
+	actions_up[action.id] = true;
 	action_pos = action.pos;
 }
 
