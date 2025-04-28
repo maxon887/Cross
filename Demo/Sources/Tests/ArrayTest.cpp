@@ -6,13 +6,6 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "performance-inefficient-vector-operation"
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-emplace"
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedLocalVariable"
-
 ArrayTestView::ArrayTestView() :
 	View("Array Test")
 { }
@@ -367,7 +360,3 @@ void ArrayTest::Stop() {
 void ArrayTest::Update(float sec) {
 	view->Update(sec);
 }
-
-#pragma clang diagnostic pop
-#pragma clang diagnostic pop
-#pragma clang diagnostic pop

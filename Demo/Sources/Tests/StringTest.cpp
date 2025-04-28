@@ -8,9 +8,6 @@
 
 #include <string>
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedLocalVariable"
-
 using namespace cross;
 using namespace std;
 
@@ -421,5 +418,3 @@ void StringTest::Stop() {
 void StringTest::Update(float sec) {
 	view->Update(sec);
 }
-
-#pragma clang diagnostic pop
