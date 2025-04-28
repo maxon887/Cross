@@ -40,7 +40,7 @@ void ComponentsView::Update(float sec) {
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(4.f), SCALED(4.f)));
 
 			bool open = ImGui::CollapsingHeader(component->GetName(), ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_DefaultOpen);
-			ImGui::SameLine(ImGui::GetWindowWidth() - 35);
+			ImGui::SameLine(ImGui::GetWindowWidth() - SCALED(25.f));
 			String checkboxHashName = "##EnableCheckbox" + component->GetName();
 			bool enabled = component->IsEnabled();
 			if(ImGui::Checkbox(checkboxHashName.ToCStr(), &enabled)) {
