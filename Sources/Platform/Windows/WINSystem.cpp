@@ -90,6 +90,16 @@ String WINSystem::GetClipboard() {
 	return clipboard;
 }
 
+void WINSystem::SetClipboard(const String& data) {
+	HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, data.Length());
+	memcpy(GlobalLock(hMem), data.ToCStr(), data.Length());
+	GlobalUnlock(hMem);
+	CROSS_FAIL(OpenClipboard(nullptr), "Can not open clipboard data");
+	EmptyClipboard();
+	SetClipboardData(CF_TEXT, hMem);
+	CloseClipboard();
+}
+
 bool WINSystem::Alert(const String& msg) {
 	if(wnd) {
 		auto msgBoxResult = MessageBoxA(wnd, msg.ToCStr(), "Something goes wrong", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION);

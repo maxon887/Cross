@@ -33,6 +33,7 @@ public:
 	U64 GetTime() override;
 	float GetScreenDPI() override;
 	String GetClipboard() override;
+	void SetClipboard(const String& data) override;
 
 	bool Alert(const String& msg) override;
 	void Messagebox(const String& title, const String& msg) override;
