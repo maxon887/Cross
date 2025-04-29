@@ -24,6 +24,7 @@ using namespace cross;
 
 struct ImDrawData;
 struct ImFont;
+struct ImGuiContext;
 
 class Demo;
 class MenuBar;
@@ -52,7 +53,8 @@ public:
 
 private:
 	static const int MaxInputActions = 5;
-	static const char* GetClipboardString(void* userData);
+	static const char* GetClipboardString(ImGuiContext* context);
+	static void SetClipboardString(ImGuiContext* context, const char* data);
 
 	MenuBar* menu				= nullptr;
 	LaunchView* launch_view 	= nullptr;

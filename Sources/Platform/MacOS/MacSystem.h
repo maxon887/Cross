@@ -15,6 +15,8 @@ public:
 	bool Alert(const String& msg) override;
 	void Messagebox(const String& title, const String& msg) override;
 	void Sleep(float milis) override;
+	String GetClipboard() override;
+	void SetClipboard(const String& data) override;
 	String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false) override;
 
     void SetScreenDPI(float dpi);

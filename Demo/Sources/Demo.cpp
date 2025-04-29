@@ -39,7 +39,7 @@ ImGuiKey FromCrossKeyToImgui(Key key) {
 	case cross::Key::TAB:
 		return ImGuiKey_Tab;
 	case cross::Key::COMMAND:
-		return ImGuiMod_Ctrl;
+		return ImGuiMod_Super;
 	case cross::Key::OPTION:
 		return ImGuiMod_Alt;
 	case cross::Key::CLEAR:
@@ -255,9 +255,14 @@ String Demo::GetCompactSize(U64 bytes) {
 	}
 }
 
-const char* Demo::GetClipboardString(void* userData) {
+const char* Demo::GetClipboardString(ImGuiContext* context) {
 	demo->clipboard = os->GetClipboard();
 	return demo->clipboard;
+}
+
+void Demo::SetClipboardString(ImGuiContext* context, const char* data) {
+	os->SetClipboard(data);
+	demo->clipboard = data;
 }
 
 Game* CrossMain() {
@@ -283,7 +288,9 @@ void Demo::Start() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.IniFilename = imgui_filename;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	io.GetClipboardTextFn = GetClipboardString;
+	ImGuiPlatformIO& platformIO = ImGui::GetPlatformIO();
+	platformIO.Platform_GetClipboardTextFn = GetClipboardString;
+	platformIO.Platform_SetClipboardTextFn = SetClipboardString;
 
     CreateUIShaders();
 	CreateFontsTexture();

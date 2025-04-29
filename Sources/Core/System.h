@@ -87,6 +87,8 @@ public:
 	virtual void PromptToExit() { }
 	/* Obtains clipboard data as text if available */
 	virtual String GetClipboard();
+	/* Put String data into OS clipboard */
+	virtual void SetClipboard(const String& data);
 	/* Tries to open file with appropriate external program */
 	virtual void OpenFileExternal(const String& filename);
 	/* Opens system window for choosing file */

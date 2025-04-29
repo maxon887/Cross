@@ -158,6 +158,10 @@ String System::GetClipboard() {
 	return "";
 }
 
+void System::SetClipboard(const cross::String &data) {
+	CROSS_ASSERT(false, "System::SetClipboard() does not implemented for current platform");
+}
+
 void System::OpenFileExternal(const String& filename) {
 	CROSS_ASSERT(false, "System::OpenFileWithExternalEditor() does not implemented for current platform");
 }

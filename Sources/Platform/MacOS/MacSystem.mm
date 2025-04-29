@@ -100,6 +100,19 @@ void MacSystem::Sleep(float milis) {
 	usleep((useconds_t)(milis * 1000.f));
 }
 
+String MacSystem::GetClipboard() {
+	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
+	NSString* clipboard = [pasteboard stringForType:NSPasteboardTypeString];
+	return [clipboard cStringUsingEncoding:[NSString defaultCStringEncoding]];
+}
+
+void MacSystem::SetClipboard(const String& data) {
+	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
+	[pasteboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+	NSString* nsString = [NSString stringWithCString:data];
+	[pasteboard setString:nsString forType:NSStringPboardType];
+}
+
 String MacSystem::OpenFileDialog(const String& extension, bool saveDialog) {
 	NSURL* fileURL = [[NSURL alloc] init];
 	if(!saveDialog) {
