@@ -24,14 +24,14 @@ void Log::PreUpdate() {
 void Log::Update(float sec) {
 	if(ImGui::Button("Clear")) Clear();
 	ImGui::SameLine();
-	bool copy = ImGui::Button("Copy");
+	if(ImGui::Button("Copy")) {
+		const String& logBuffer = os->GetLogBuffer();
+		os->SetClipboard(logBuffer);
+	}
 	ImGui::SameLine();
 	filter.Draw("Filter", -100.0f);
 	ImGui::Separator();
 	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-	if(copy) {
-		ImGui::LogToClipboard();
-	}
 
 	if(filter.IsActive()) {
 		const char* line_start = os->GetLogBuffer();
