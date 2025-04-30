@@ -39,6 +39,7 @@ FileSelector::FileSelector(const String &label, const String &fileExtension) {
 bool FileSelector::Update() {
 	bool fileSelected = false;
 	float availableWidth = ImGui::GetWindowWidth();
+	float availableHeight = ImGui::GetWindowHeight();
 	float labelWidth = ImGui::CalcTextSize(label.ToCStr()).x + SCALED(10.f);
 	
 	ImGui::PushItemWidth(availableWidth - labelWidth - SCALED(74)); //74 = two buttons + spacing
@@ -75,15 +76,17 @@ bool FileSelector::Update() {
 	}
 
 	// Position and size popup
-	ImGui::SetNextWindowPos(ImVec2(ImGui::GetItemRectMin().x, ImGui::GetItemRectMax().y + ImGui::GetStyle().ItemSpacing.y));
-	ImGui::SetNextWindowSize({ GImGui->LastItemData.NavRect.GetWidth(), 0 }, ImGuiCond_Appearing);
+	ImVec2 popupPosition;
+	popupPosition.x = ImGui::GetItemRectMin().x;
+	popupPosition.y = ImGui::GetItemRectMax().y + ImGui::GetStyle().ItemSpacing.y;
+	ImGui::SetNextWindowPos(popupPosition);
+	ImGui::SetNextWindowSize({ GImGui->LastItemData.NavRect.GetWidth(), availableHeight - popupPosition.y }, ImGuiCond_Appearing);
 	
 	ImGuiWindowFlags popupWindowFlags = ImGuiWindowFlags_NoTitleBar;
 	popupWindowFlags |= ImGuiWindowFlags_NoMove;
 	popupWindowFlags |= ImGuiWindowFlags_NoSavedSettings;
 	popupWindowFlags |= ImGuiWindowFlags_NoFocusOnAppearing;
 	popupWindowFlags |= ImGuiWindowFlags_ChildWindow;
-	popupWindowFlags |= ImGuiWindowFlags_NavFlattened;
 	popupWindowFlags |= ImGuiWindowFlags_NoNav;
 	if (ImGui::BeginPopupEx(ImGui::GetID(strID), popupWindowFlags)) {
 		for(int i = 0; i < suggested_names.Size(); i++) {
