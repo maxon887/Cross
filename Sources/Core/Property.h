@@ -59,10 +59,8 @@ Property<T>::Property(Component* owner, String name) :
 
 template<class T>
 Property<T>::Property(Component* owner, String name, const T& def) :
-	BaseProperty(owner, std::move(name))
-{
-	this->value = def;
-}
+	BaseProperty(owner, std::move(name)), value(def)
+{ }
 
 template<class T>
 bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {

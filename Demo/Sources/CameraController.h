@@ -48,7 +48,7 @@ protected:
 		PAD
 	};
 		
-	const float camera_speed 	= 5.f;
+	Property<float> camera_speed = Property<float>(this, "CameraSpeed", 5.f);
 	
 	bool camera_active			= false;
 	Mode mode		 			= Mode::ORBIT;

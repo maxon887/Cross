@@ -128,7 +128,11 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		if(ImGui::SliderFloat("Angle", &angle, 0.0f, 360.f)) {
 			//transform->SetRotate(axis, angle);
 		}
-
+	} else if(dynamic_cast<Property<Color>*>(baseProperty)) {
+			Property<Color>* prop = (Property<Color>*)baseProperty;
+			ImGui::TextUnformatted(prop->GetName() + ":");
+			ImGui::SameLine(SCALED(100.f));
+			ImGui::ColorEdit4(prop->GetName(), prop->value.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 	} else {
 		String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
 		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), "%s", errStr.ToCStr());

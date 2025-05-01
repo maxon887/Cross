@@ -77,10 +77,11 @@ bool FileSelector::Update() {
 
 	// Position and size popup
 	ImVec2 popupPosition;
+	ImVec2 winPos = ImGui::GetWindowPos();
 	popupPosition.x = ImGui::GetItemRectMin().x;
 	popupPosition.y = ImGui::GetItemRectMax().y + ImGui::GetStyle().ItemSpacing.y;
 	ImGui::SetNextWindowPos(popupPosition);
-	ImGui::SetNextWindowSize({ GImGui->LastItemData.NavRect.GetWidth(), availableHeight - popupPosition.y }, ImGuiCond_Appearing);
+	ImGui::SetNextWindowSize({ GImGui->LastItemData.NavRect.GetWidth(), availableHeight - (popupPosition.y - winPos.y) - SCALED(10.f) }, ImGuiCond_Appearing);
 	
 	ImGuiWindowFlags popupWindowFlags = ImGuiWindowFlags_NoTitleBar;
 	popupWindowFlags |= ImGuiWindowFlags_NoMove;

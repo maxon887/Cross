@@ -66,8 +66,8 @@ public:
 
 protected:
 	Type type;
-	Color color		= Color::White;
-	float intensity = 0.01f; //around 15m to max distance
+	Property<Color> color = Property<Color>(this, "Color", Color::White);
+	Property<float> intensity = Property<float>(this, "Intensity", 0.01f); //around 15m to max distance
 	float cut_off	= 30.f;
 };
 
