@@ -30,6 +30,9 @@ public:
 	void Remove() override;
 	void Update(float sec) override;
 	
+	//we need empty implementation of Save because we will add this component at run time and don't want it to be saved in scene file
+	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override { return true; }
+	
 	void LookAtTarget(const Vector3D& target, float distance = 3);
 	bool IsLookAtCamera() const;
 

@@ -99,6 +99,8 @@ void Entity::AddComponent(Component* component, Scene* scene, bool initialize) {
 			delete component;
 			return;
 		}
+	} else {
+		components[hash] = component;
 	}
 }
 

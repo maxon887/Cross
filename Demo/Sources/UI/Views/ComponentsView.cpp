@@ -147,7 +147,6 @@ void ComponentsView::ContextMenu(Entity* selectedEntity) {
 				ImGui::BeginDisabled(componentName == "Mesh");
 				if(ImGui::MenuItem(componentName.ToCStr(), "", false)) {
 					Component* newComponent = factory->Create(componentName);
-					newComponent->Disable();
 					if(selectedEntity->GetComponent(typeid(*newComponent).hash_code())) {
 						os->Messagebox("Error", "Component already exists");
 						delete newComponent;

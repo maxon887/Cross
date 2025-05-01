@@ -52,7 +52,7 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	hierarchy = root;
 	File* file = os->LoadAssetFile(filename);
 	CROSS_RETURN(file, false, "Can not load model file");
-	bool result = ProcessScene(root, file, calcTangents);
+	bool result = ProcessScene(root, file, calcTangents, filename);
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
@@ -73,7 +73,7 @@ Mesh* Model::GetMesh(S32 id) {
 	}
 }
 
-bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
+bool Model::ProcessScene(Entity* root, File* file, bool calcTangents, const String& filename) {
 	Assimp::Importer importer;
 
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_MakeLeftHanded;
@@ -88,10 +88,10 @@ bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	aiNode* aiRoot = current_scene->mRootNode;
 	if(aiRoot->mNumChildren == 1) {
 		root->SetName(aiRoot->mChildren[0]->mName.C_Str());
-		ProcessNode(root, aiRoot->mChildren[0], file->name);
+		ProcessNode(root, aiRoot->mChildren[0], filename);
 	} else {
-		root->SetName(File::FileFromPath(File::FileWithoutExtension(file->name)));
-		ProcessNode(root, aiRoot, file->name);
+		root->SetName(File::FileFromPath(File::FileWithoutExtension(filename)));
+		ProcessNode(root, aiRoot, filename);
 	}
 	return true;
 }

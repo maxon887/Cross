@@ -55,7 +55,7 @@ private:
 	bool initialize_video = true;
 	S32 mesh_id						= 0;
 
-	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents);
+	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents, const String& filename);
 	void ProcessNode(Entity* entity, aiNode* node, const String& filename);
 	Mesh* ProcessMesh(aiMesh* mesh, const String& filename);
 };
