@@ -40,7 +40,7 @@ public:
 	Mesh(const String& modelFile, S32 id);
 	~Mesh() override;
 
-	void Initialize(Scene* scene) override;
+	bool Initialize(Scene* scene) override;
 	/* Creates new Mesh from this Mesh's data */
 	Mesh* Clone() const override;
 	/* Enables Mesh Component for drawing */

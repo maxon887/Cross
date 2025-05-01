@@ -32,8 +32,8 @@ public:
 	Component(String name);
 	virtual ~Component() = default;
 
-	/* Will be called on component after component was added to an Entity */
-	virtual void Initialize(Scene* scene) { }
+	/* Will be called on component after component was added to an Entity. Return true if component was properly initialized in opposite case it won't be added to Entity */
+	virtual bool Initialize(Scene* scene) { return true; }
 	/* Will be called after component was removed from Entity or on the death of Entity*/
 	virtual void Remove() { }
 	/* Will be called every game cycle. WARNING! Components update order unpredictable */

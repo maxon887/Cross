@@ -26,8 +26,7 @@
 CameraController::CameraController() : Component("CameraController")
 { }
 
-void CameraController::Initialize(Scene *scene) {
-	Component::Initialize(scene);
+bool CameraController::Initialize(Scene *scene) {
 	input->ActionDown.Connect(this, &CameraController::OnActionDown);
 	input->ActionMove.Connect(this, &CameraController::OnActionMove);
 	input->ActionUp.Connect(this, &CameraController::OnActionUp);
@@ -35,6 +34,7 @@ void CameraController::Initialize(Scene *scene) {
 	input->KeyReleased.Connect(this, &CameraController::OnKeyReleased);
 	input->Scroll.Connect(this, &CameraController::MouseWheelRoll);
 	destination = *GetEntity()->GetTransform();
+	return true;
 }
 
 void CameraController::Remove() {

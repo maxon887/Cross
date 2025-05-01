@@ -24,11 +24,12 @@ using namespace cross;
 Camera::Camera() : Component("Camera")
 { }
 
-void Camera::Initialize(Scene* scene) {
-	CROSS_ASSERT(!scene->GetCamera(), "Current Scene already have another camera");
+bool Camera::Initialize(Scene* scene) {
+	CROSS_RETURN(!scene->GetCamera(), false, "Current Scene already have another camera");
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
 	SetProjectionMatrix(projection);
 	scene->SetCamera(this);
+	return true;
 }
 
 void Camera::Update(float sec){

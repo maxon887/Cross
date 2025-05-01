@@ -28,11 +28,12 @@ Light::Light(Type type) :
 	type(type)
 { }
 
-void Light::Initialize(Scene* scene) {
+bool Light::Initialize(Scene* scene) {
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
-	CROSS_ASSERT(it == lights.end(), "Current light already in the scene");
+	CROSS_RETURN(it == lights.end(), false, "Current light already in the scene");
 	lights.push_back(this);
+	return true;
 }
 
 void Light::Remove() {

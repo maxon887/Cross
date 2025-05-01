@@ -38,7 +38,7 @@ public:
 	Light(Type type = POINT);
 
 	/* Initialize Light Component. Better add all Light to a Scene before any drawings started */
-	void Initialize(Scene* scene) override;
+	bool Initialize(Scene* scene) override;
 	/* Removes Light Component Entity and from all Scene light calculations */
 	void Remove() override;
 	/* Creates full copy of this Light */

@@ -26,7 +26,7 @@ class CameraController : public Component {
 public:
 	CameraController();
 
-	void Initialize(Scene* scene) override;
+	bool Initialize(Scene* scene) override;
 	void Remove() override;
 	void Update(float sec) override;
 	

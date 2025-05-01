@@ -85,11 +85,20 @@ void Entity::AddComponent(Component* component, Scene* scene) {
 
 void Entity::AddComponent(Component* component, Scene* scene, bool initialize) {
 	U64 hash = typeid(*component).hash_code();
-	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
+	if(components.find(hash) != components.end()) {
+		CROSS_ASSERT(false, "Entity already have same component '#'", component->GetName());
+		delete component;
+		return;
+	}
 	component->entity = this;
-	components[hash] = component;
 	if(initialize) {
-		component->Initialize(scene);
+		if(component->Initialize(scene)) {
+			components[hash] = component;
+		} else {
+			CROSS_ASSERT(false, "Component '#' was not properly initialized. It can not be added to Entity", component->GetName());
+			delete component;
+			return;
+		}
 	}
 }
 

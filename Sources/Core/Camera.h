@@ -27,7 +27,7 @@ class Camera : public Component {
 public:
 	Camera();
 	/* Initializes Camera Component */
-	void Initialize(Scene* scene) override;
+	bool Initialize(Scene* scene) override;
 	/* Updates Camera Component. Realized in order to recalculate view Matrix */
 	void Update(float sec) override;
 	/* Save copy of Camera Component */
