@@ -87,6 +87,15 @@ void MenuBar::ShowMenu() {
 		ImGui::PushFont(demo->big_font);
 	}
 
+	bool haveScene = game->GetCurrentScene() != nullptr;
+	//shortcuts implementation here
+	if((input->IsPressed(Key::COMMAND) || input->IsPressed(Key::CONTROL)) && input->IsPressed(Key::S) && haveScene ) {
+		SaveScene();
+	}
+	if((input->IsPressed(Key::COMMAND) || input->IsPressed(Key::CONTROL)) && input->IsPressed(Key::X) && haveScene ) {
+		demo->ToMain();
+	}
+	
 	if(ImGui::BeginMainMenuBar()) {
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("New Scene")) {
@@ -106,26 +115,22 @@ void MenuBar::ShowMenu() {
 					}
 				}
 			}
-
-			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
-				String filename = os->OpenFileDialog("*.scn", true);
-				if(filename != "") {
-					String extension = File::ExtensionFromFile(filename);
-					if(extension.IsEmpty()) {
-						filename += ".scn";
-					}
-					game->GetCurrentScene()->Save(filename);
-				}
+#ifdef MACOS
+			static const char* saveShortcut = "Cmd+S";
+#else
+			static const char* saveShortcut = "Ctrl+S";
+#endif
+			if(ImGui::MenuItem("Save Scene", saveShortcut, false, haveScene)) {
+				SaveScene();
 			}
 #ifdef MACOS
-			static const char* shortcut = "Cmd+X";
+			static const char* backShortcut = "Cmd+X";
 #else
-			static const char* shortcut = "Ctrl+X";
+			static const char* backShortcut = "Ctrl+X";
 #endif
-			if(ImGui::MenuItem("Back to Main", shortcut, false, !demo->GetLaunchView()->IsVisible())) {
+			if(ImGui::MenuItem("Back to Main", backShortcut, false, !demo->GetLaunchView()->IsVisible())) {
 				demo->ToMain();
 			}
-
 
 			ImGui::EndMenu();
 		}
@@ -246,4 +251,15 @@ void MenuBar::UpdateDocking() {
 
 	ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspace_flags, NULL);
 	ImGui::End();
+}
+
+void MenuBar::SaveScene() {
+	String filename = os->OpenFileDialog("*.scn", true);
+	if(filename != "") {
+		String extension = File::ExtensionFromFile(filename);
+		if(extension.IsEmpty()) {
+			filename += ".scn";
+		}
+		game->GetCurrentScene()->Save(filename);
+	}
 }

@@ -45,4 +45,5 @@ protected:
 	View* about					= nullptr;
 
 	void UpdateDocking();
+	void SaveScene();
 };

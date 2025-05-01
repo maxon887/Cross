@@ -15,9 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "DemoScene.h"
-#include "Demo.h"
 #include "Camera.h"
-#include "Input.h"
 #include "System.h"
 #include "Entity.h"
 #include "Mesh.h"
@@ -55,10 +53,6 @@ void DemoScene::Stop() {
 }
 
 void DemoScene::Update(float sec) {
-	if(input->IsPressed(Key::COMMAND) && input->IsPressed(Key::X) ||
-	input->IsPressed(Key::CONTROL) && input->IsPressed(Key::X)) {
-		demo->ToMain();
-	}
 	//service_root should always be at the end of drawing line in order to properly handle transparent drawing
 	if(root->GetChildren().back() != service_root)
 	{
