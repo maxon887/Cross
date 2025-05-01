@@ -122,6 +122,16 @@ inline bool Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::X
 	return true;
 }
 
+template<>
+inline bool Property<Color>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+	using namespace  tinyxml2;
+	XMLElement* propertyXML = doc->NewElement(name);
+	propertyXML->SetAttribute("type", "Color");
+	propertyXML->SetAttribute("data", value.ToString());
+	parent->LinkEndChild(propertyXML);
+	return true;
+}
+
 template<class T>
 bool Property<T>::Load(tinyxml2::XMLElement* parent) {
 	CROSS_RETURN(false, false, "Unknown property type to load(#)", name);
@@ -179,6 +189,17 @@ inline bool Property<Quaternion>::Load(tinyxml2::XMLElement* parent) {
 	value.y = propertyXML->FloatAttribute("y");
 	value.z = propertyXML->FloatAttribute("z");
 	value.w = propertyXML->FloatAttribute("w");
+	return true;
+}
+
+template<>
+inline bool Property<Color>::Load(tinyxml2::XMLElement* parent) {
+	using namespace tinyxml2;
+	XMLElement* propertyXML = parent->FirstChildElement(name);
+	String typeStr = propertyXML->Attribute("type");
+	CROSS_RETURN(typeStr == "Color", false, "Loading attribute mismatch. Expected Color");
+	String result = propertyXML->Attribute("data");
+	value = result;
 	return true;
 }
 

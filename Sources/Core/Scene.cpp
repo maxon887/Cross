@@ -277,9 +277,16 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 		XMLElement* componentXML = componentsXML->FirstChildElement();
 		while(componentXML) {
 			Component* component = factory->Create(componentXML->Name());
-			CROSS_RETURN(component, false, "Can't create component of type #", componentXML->Name());
-			CROSS_RETURN(component->Load(componentXML), false, "Can't load component of type '#'", componentXML->Name());
-			entity->AddComponent(component, this);
+			if(component) {
+				bool componentLoaded = component->Load(componentXML);
+				if(componentLoaded) {
+					entity->AddComponent(component, this);
+				} else {
+					CROSS_ASSERT(false, "Can't load component of type '#'", componentXML->Name());
+				}
+			} else {
+				CROSS_ASSERT(false, "Can't create component of type #", componentXML->Name());
+			}
 			componentXML = componentXML->NextSiblingElement();
 		}
 	}
