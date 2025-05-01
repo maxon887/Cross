@@ -59,6 +59,7 @@ bool Mesh::Initialize(Scene* scene) {
 			SetMaterial(scene->GetDefaultMaterial());
 		}
 	}
+	return true;
 }
 
 Mesh* Mesh::Clone() const {
