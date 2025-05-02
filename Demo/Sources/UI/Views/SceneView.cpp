@@ -144,7 +144,7 @@ void SceneView::BuildNode(Entity* entity) {
 		}
 
 		if(clicked) {
-			ImGui::SetKeyboardFocusHere();
+			ImGui::SetKeyboardFocusHere(-1);
 			clicked = false;
 		}
 

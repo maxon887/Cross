@@ -270,9 +270,6 @@
     <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp">
       <Filter>Demo\Scenes\Light</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp">
-      <Filter>Demo\Scenes\Light</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\Light\MultiLightScene.cpp">
       <Filter>Demo\Scenes\Light</Filter>
     </ClCompile>
@@ -586,9 +583,6 @@
       <Filter>Demo\Scenes\Maps</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h">
-      <Filter>Demo\Scenes\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h">
       <Filter>Demo\Scenes\Light</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Light\MultiLightScene.h">

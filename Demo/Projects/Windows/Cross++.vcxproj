@@ -301,7 +301,6 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\FileUtils.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp" />
-    <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\MultiLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\PointLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\SpotLightScene.cpp" />
@@ -406,7 +405,6 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\FileUtils.h" />
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h" />
-    <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\MultiLightScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\PointLightScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\SpotLightScene.h" />
