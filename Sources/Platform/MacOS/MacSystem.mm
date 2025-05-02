@@ -62,11 +62,12 @@ float MacSystem::GetScreenDPI() {
 
 bool MacSystem::Alert(const String& msg) {
 	NSAlert *alert = [[NSAlert alloc] init];
+	alert.accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 400, 0)];
 	[alert setMessageText:[NSString stringWithCString:"Something goes wrong"
 								  encoding:[NSString defaultCStringEncoding]]];
 	[alert setInformativeText:[NSString stringWithCString:msg.ToCStr()
 									  encoding:[NSString defaultCStringEncoding]]];
-	[alert addButtonWithTitle:[NSString stringWithCString:"Ok"
+	[alert addButtonWithTitle:[NSString stringWithCString:"Continue"
 							   encoding:[NSString defaultCStringEncoding]]];
 	[alert addButtonWithTitle: [NSString stringWithCString:"Abort"
 							   encoding:[NSString defaultCStringEncoding]]];
