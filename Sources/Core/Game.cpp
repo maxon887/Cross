@@ -27,6 +27,7 @@
 #include "Transform.h"
 #include "Mesh.h"
 #include "Camera.h"
+#include "Light.h"
 
 using namespace cross;
 
@@ -47,6 +48,7 @@ Game::Game() {
 	component_factory->Register<Transform>("Transform");
 	component_factory->Register<Mesh>("Mesh");
 	component_factory->Register<Camera>("Camera");
+	component_factory->Register<Light>("Light");
 }
 
 Game::~Game() {

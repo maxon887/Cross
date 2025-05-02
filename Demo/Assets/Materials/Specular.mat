@@ -1,0 +1,5 @@
+<Material shader="Shaders/Specular.sha">
+    <Property name="Diffuse Color" value="5BFF0000"/>
+    <Property name="Specular Color" value="FFFFFF00"/>
+    <Property name="Shininess" value="64"/>
+</Material>

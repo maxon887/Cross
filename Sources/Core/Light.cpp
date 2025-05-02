@@ -25,7 +25,7 @@ using namespace cross;
 
 Light::Light(Type type) :
 	Component("Light"),
-	type(type)
+	type(this, "Type", type)
 { }
 
 bool Light::Initialize(Scene* scene) {

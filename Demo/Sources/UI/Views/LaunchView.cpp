@@ -21,7 +21,6 @@
 #include "Texture.h"
 #include "UI/MenuBar.h"
 #include "Scenes/Simple/TriangleScene.h"
-#include "Scenes/Light/MaterialScene.h"
 #include "Scenes/Light/DirectionalLightScene.h"
 #include "Scenes/Light/PointLightScene.h"
 #include "Scenes/Light/SpotLightScene.h"
@@ -83,7 +82,8 @@ void LaunchView::Update(float sec) {
 		}
 		if(ImGui::TreeNode("Light")) {
 			if(ImGui::MenuButton("Material")) {
-				game->SetScreen(CREATE MaterialScene());
+				const String filename = "Scenes/Material.scn";
+				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Directional Light")) {
 				game->SetScreen(CREATE DirectionalLightScene());

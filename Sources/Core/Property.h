@@ -64,7 +64,17 @@ Property<T>::Property(Component* owner, String name, const T& def) :
 
 template<class T>
 bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
-	CROSS_RETURN(false, false, "Unknown property type to save (#)", name);
+	using namespace tinyxml2;
+	constexpr bool isEnum = std::is_enum<T>::value;
+	if(isEnum) {
+		XMLElement* propertyXML = doc->NewElement(name);
+		propertyXML->SetAttribute("type", "Enum");
+		propertyXML->SetAttribute("value", value);
+		parent->LinkEndChild(propertyXML);
+		return true;
+	} else {
+		CROSS_RETURN(false, false, "Unknown property type to save (#)", name);
+	}
 }
 
 template<>
@@ -134,7 +144,17 @@ inline bool Property<Color>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDoc
 
 template<class T>
 bool Property<T>::Load(tinyxml2::XMLElement* parent) {
-	CROSS_RETURN(false, false, "Unknown property type to load(#)", name);
+	using namespace tinyxml2;
+	constexpr bool isEnum = std::is_enum<T>::value;
+	if(isEnum) {
+		XMLElement* propertyXML = parent->FirstChildElement(name);
+		String typeStr = propertyXML->Attribute("type");
+		CROSS_RETURN(typeStr == "Enum", false, "Loading attribute mismatch. Expected Enum");
+		value = (T)propertyXML->Int64Attribute("value");
+		return true;
+	} else {
+		CROSS_RETURN(false, false, "Unknown property type to load(#)", name);
+	}
 }
 
 template<>

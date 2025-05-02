@@ -65,7 +65,7 @@ public:
 	float GetOuterCutOff() const;
 
 protected:
-	Type type;
+	Property<Light::Type> type = Property<Light::Type>(this, "Type", Light::Type::SPOT);
 	Property<Color> color = Property<Color>(this, "Color", Color::White);
 	Property<float> intensity = Property<float>(this, "Intensity", 0.01f); //around 15m to max distance
 	float cut_off	= 30.f;

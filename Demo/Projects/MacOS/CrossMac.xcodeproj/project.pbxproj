@@ -98,7 +98,6 @@
 		9D33C11520D02985007EF97F /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C0FD20D02985007EF97F /* TriangleScene.cpp */; };
 		9D33C11620D02985007EF97F /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C10020D02985007EF97F /* MultiLightScene.cpp */; };
 		9D33C11720D02985007EF97F /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C10120D02985007EF97F /* DirectionalLightScene.cpp */; };
-		9D33C11820D02985007EF97F /* MaterialScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C10520D02985007EF97F /* MaterialScene.cpp */; };
 		9D33C11920D02985007EF97F /* PointLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C10720D02985007EF97F /* PointLightScene.cpp */; };
 		9D33C11A20D02985007EF97F /* SpotLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C10920D02985007EF97F /* SpotLightScene.cpp */; };
 		9D33C12920D02AA4007EF97F /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C12720D02AA4007EF97F /* Property.cpp */; };
@@ -369,10 +368,8 @@
 		9D33C0FE20D02985007EF97F /* TriangleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleScene.h; sourceTree = "<group>"; };
 		9D33C10020D02985007EF97F /* MultiLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightScene.cpp; sourceTree = "<group>"; };
 		9D33C10120D02985007EF97F /* DirectionalLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectionalLightScene.cpp; sourceTree = "<group>"; };
-		9D33C10220D02985007EF97F /* MaterialScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialScene.h; sourceTree = "<group>"; };
 		9D33C10320D02985007EF97F /* SpotLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotLightScene.h; sourceTree = "<group>"; };
 		9D33C10420D02985007EF97F /* PointLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightScene.h; sourceTree = "<group>"; };
-		9D33C10520D02985007EF97F /* MaterialScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialScene.cpp; sourceTree = "<group>"; };
 		9D33C10620D02985007EF97F /* DirectionalLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionalLightScene.h; sourceTree = "<group>"; };
 		9D33C10720D02985007EF97F /* PointLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLightScene.cpp; sourceTree = "<group>"; };
 		9D33C10820D02985007EF97F /* MultiLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiLightScene.h; sourceTree = "<group>"; };
@@ -944,10 +941,8 @@
 			children = (
 				9D33C10020D02985007EF97F /* MultiLightScene.cpp */,
 				9D33C10120D02985007EF97F /* DirectionalLightScene.cpp */,
-				9D33C10220D02985007EF97F /* MaterialScene.h */,
 				9D33C10320D02985007EF97F /* SpotLightScene.h */,
 				9D33C10420D02985007EF97F /* PointLightScene.h */,
-				9D33C10520D02985007EF97F /* MaterialScene.cpp */,
 				9D33C10620D02985007EF97F /* DirectionalLightScene.h */,
 				9D33C10720D02985007EF97F /* PointLightScene.cpp */,
 				9D33C10820D02985007EF97F /* MultiLightScene.h */,
@@ -1088,7 +1083,6 @@
 				5098D44E2DB4EBDF000E9958 /* ArrayTest.cpp in Sources */,
 				5098D44F2DB4EBDF000E9958 /* StringTest.cpp in Sources */,
 				5098D4502DB4EBDF000E9958 /* Tester.cpp in Sources */,
-				9D33C11820D02985007EF97F /* MaterialScene.cpp in Sources */,
 				9D33C12920D02AA4007EF97F /* Property.cpp in Sources */,
 				9D32D0F720B40E27004A4D7E /* GraphicsGL.cpp in Sources */,
 				9D32D12720B40E27004A4D7E /* Cross.cpp in Sources */,

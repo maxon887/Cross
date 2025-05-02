@@ -1,0 +1,44 @@
+<Scene version="18">
+    <Objects>
+        <Object name="Camera">
+            <Components>
+                <Camera>
+                    <ViewDistance type="Float" value="100"/>
+                </Camera>
+                <Transform>
+                    <Position type="Vector3D" x="-0.0069351774" y="-0.0023537588" z="-3.0825164"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0.00038179054" y="-0.0011249193" z="-4.2948383e-07" w="0.99999928"/>
+                </Transform>
+            </Components>
+        </Object>
+        <Object name="PointLight">
+            <Components>
+                <Light>
+                    <Type type="Enum" value="2"/>
+                    <Color type="Color" data="FFFFFFFF"/>
+                    <Intensity type="Float" value="0.0099999998"/>
+                </Light>
+                <Transform>
+                    <Position type="Vector3D" x="10" y="7" z="-5"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                </Transform>
+            </Components>
+        </Object>
+        <Object name="Cube">
+            <Components>
+                <Mesh>
+                    <ID type="Int" value="0"/>
+                    <Model type="String" value="Engine/Models/Cube.obj"/>
+                    <Material type="String" value="Materials/Specular.mat"/>
+                </Mesh>
+                <Transform>
+                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                    <Scale type="Vector3D" x="0.73000002" y="1" z="0.55000001"/>
+                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                </Transform>
+            </Components>
+        </Object>
+    </Objects>
+</Scene>
