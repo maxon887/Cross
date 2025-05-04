@@ -71,6 +71,7 @@ void DemoScene::Update(float sec) {
 void DemoScene::Save(const String& file) {
 	service_root->GetParent()->RemoveChild(service_root);
 	Scene::Save(file);
+	AddEntity(service_root);
 }
 
 void DemoScene::ApplyMaterial(Entity* entity, Material* mat, bool depthTest) {
