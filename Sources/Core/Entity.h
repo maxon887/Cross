@@ -78,7 +78,6 @@ public:
 
 engineonly:
 	void Initialize();
-	void Remove();
 	void Update(float sec);
 
 private:

@@ -158,25 +158,25 @@ Entity* Entity::RemoveChild(const String& childName) {
 	for(auto it = children.begin(); it != children.end(); it++) {
 		Entity* c = (*it);
 		if(c->GetName() == childName) {
-			c->Remove();
-			children.erase(it);
-			return c;
-		}
-	}
-	return nullptr;
-}
-
-Entity* Entity::RemoveChild(Entity* child) {
-	for(auto it = children.begin(); it != children.end(); it++) {
-		Entity* c = (*it);
-		if(c == child) {
-			c->Remove();
 			c->SetParent(nullptr);
 			children.erase(it);
 			return c;
 		}
 	}
-	return nullptr;
+	CROSS_RETURN(false, nullptr, "Unable to find child Entity '#'", childName);
+}
+
+Entity* Entity::RemoveChild(Entity* child) {
+	CROSS_RETURN(child, nullptr, "Trying to remove null pointer");
+	for(auto it = children.begin(); it != children.end(); it++) {
+		Entity* c = (*it);
+		if(c == child) {
+			c->SetParent(nullptr);
+			children.erase(it);
+			return c;
+		}
+	}
+	CROSS_RETURN(false, nullptr, "Unable to find child Entity '#'", child->GetName());
 }
 
 Entity* Entity::Clone() {
@@ -199,18 +199,6 @@ Vector3D Entity::GetDirection() {
 		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
 	} else {
 		return GetTransform()->GetDirection();
-	}
-}
-
-void Entity::Remove() {
-	for(pair<U64, Component*> p : components) {
-		Component* c = p.second;
-		if(c) {
-			c->Remove();
-		}
-	}
-	for(Entity* c : children) {
-		c->Remove();
 	}
 }
 
