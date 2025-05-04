@@ -45,4 +45,5 @@ private:
 	void LookAtObject();
 	void BuildNode(Entity* entity, S32 parentPosition);
 	void ContextMenu();
+	void DeleteEntity();
 };

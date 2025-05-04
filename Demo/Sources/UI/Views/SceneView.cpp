@@ -67,6 +67,9 @@ void SceneView::Update(float sec) {
 		editing = false;
 		EntitySelected.Emit(selected_entity);
 	}
+	if((input->IsPressed(Key::DEL) || input->IsPressed(Key::BACKSPACE)) && ImGui::IsWindowFocused() && selected_entity != nullptr) {
+		DeleteEntity();
+	}
 
 	ContextMenu();
 
@@ -205,11 +208,8 @@ void SceneView::ContextMenu() {
 			game->GetCurrentScene()->AddEntity(newEntity);
 		}
 		bool entitySelected = haveScene && selected_entity != nullptr;
-		if(ImGui::MenuItem("Delete Entity", nullptr, false, entitySelected)) {
-			Entity* parent = selected_entity->GetParent();
-			parent->RemoveChild(selected_entity);
-			delete selected_entity;
-			selected_entity = nullptr;
+		if(ImGui::MenuItem("Delete Entity", "del, backspace", false, entitySelected)) {
+			DeleteEntity();
 		}
 		if(ImGui::MenuItem("Rename")) {
 			editing = true;
@@ -230,4 +230,11 @@ void SceneView::ContextMenu() {
 
 		ImGui::EndPopup();
 	}
+}
+
+void SceneView::DeleteEntity() {
+	Entity* parent = selected_entity->GetParent();
+	parent->RemoveChild(selected_entity);
+	delete selected_entity;
+	selected_entity = nullptr;
 }
