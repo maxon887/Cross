@@ -43,6 +43,6 @@ private:
 	void OnSceneChanged(Screen* newScreen);
 
 	void LookAtObject();
-	void BuildNode(Entity* entity);
+	void BuildNode(Entity* entity, S32 parentPosition);
 	void ContextMenu();
 };

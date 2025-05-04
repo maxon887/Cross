@@ -46,9 +46,9 @@ void ShaderVisualBox::Update() {
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, spacing);
 
 		ImGui::PushFont(demo->big_font);
-		ImVec2 textSize = ImGui::CalcTextSize("Shader File");
+		ImVec2 textSize = ImGui::CalcTextSize("Shader");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 2.f - textSize.x / 2.f);
-		ImGui::Text("Shader File");
+		ImGui::Text("Shader");
 		ImGui::PopFont();
 
 		vertex_file_selector->Update();

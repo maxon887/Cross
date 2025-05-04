@@ -51,10 +51,12 @@ void SceneView::Update(float sec) {
 	DemoScene* scene = static_cast<DemoScene*>(demo->GetCurrentScene());
 
 	if(game->GetCurrentScene()) {
+		int i = 0;
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			if(child != scene->service_root) {
-				BuildNode(child);
+				BuildNode(child, i);
 			}
+			i++;
 		}
 	} else {
 		selected_entity = nullptr;
@@ -99,7 +101,7 @@ void SceneView::LookAtObject() {
 	}
 }
 
-void SceneView::BuildNode(Entity* entity) {
+void SceneView::BuildNode(Entity* entity, int parentPosition) {
 
 	if(os->IsMobile() && os->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 		ImGui::PushFont(demo->normal_font);
@@ -149,7 +151,7 @@ void SceneView::BuildNode(Entity* entity) {
 		}
 
 	} else {
-		open = ImGui::TreeNodeEx(entity->GetName(), flags);
+		open = ImGui::TreeNodeEx(entity->GetName() + "##" + String(parentPosition), flags);
 		if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
 			ImGui::SetDragDropPayload("SceneViewDRAG", &entity, sizeof(Entity*));
 			ImGui::TextUnformatted(entity->GetName());
@@ -181,8 +183,10 @@ void SceneView::BuildNode(Entity* entity) {
 	}
 
 	if(open && !isLeaf) {
+		int i = 0;
 		for(Entity* child : entity->GetChildren()) {
-			BuildNode(child);
+			BuildNode(child, i);
+			i++;
 		}
 		ImGui::TreePop();
 	}
