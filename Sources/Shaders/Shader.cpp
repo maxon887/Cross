@@ -184,11 +184,15 @@ Shader::~Shader() {
 	FreeResources();
 }
 
-void Shader::Save(const String& file) {
+void Shader::Save(const String& file, const String& shaderClass) {
 	XMLDocument doc;
 
 	XMLElement* shaderXML = doc.NewElement("Shader");
 	doc.LinkEndChild(shaderXML);
+	
+	XMLElement* classXML = doc.NewElement("Class");
+	classXML->SetAttribute("name", shaderClass);
+	shaderXML->LinkEndChild(classXML);
 
 	XMLElement* vertexXML = doc.NewElement("Vertex");
 	vertexXML->SetAttribute("filename", vertex_filename);

@@ -115,7 +115,7 @@ public:
 	virtual ~Shader();
 
 	virtual void Use();
-	virtual void Save(const String& file);
+	virtual void Save(const String& file, const String& shaderClass);
 	virtual void Compile();
 	virtual void OnDraw() { }
 

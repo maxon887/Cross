@@ -25,6 +25,7 @@
 #include "Material.h"
 #include "Shaders/Shader.h"
 #include "Shaders/SingleLightShader.h"
+#include "Shaders/MultiLightShader.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -33,7 +34,9 @@ using namespace tinyxml2;
 
 Graphics::Graphics() {
 	shader_factory = CREATE Factory<Shader>();
+	shader_factory->Register<Shader>("Shader");
 	shader_factory->Register<SingleLightShader>("SingleLightShader");
+	shader_factory->Register<MultiLightShader>("MultiLightShader");
 }
 
 Graphics::~Graphics() {

@@ -21,6 +21,7 @@
 #include "System.h"
 #include "Graphics.h"
 #include "FileSelector.h"
+#include "Factory.h"
  
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -50,6 +51,9 @@ void ShaderVisualBox::Update() {
 		ImGui::SameLine(ImGui::GetWindowWidth() / 2.f - textSize.x / 2.f);
 		ImGui::Text("Shader");
 		ImGui::PopFont();
+		
+		String shaderClassName = gfx->shader_factory->GetNameByClass(shader);
+		ImGui::TextUnformatted("Shader Class: " + shaderClassName);
 
 		vertex_file_selector->Update();
 		fragment_file_selector->Update();
@@ -119,7 +123,6 @@ void ShaderVisualBox::Update() {
 			availableWidth = ImGui::GetColumnWidth();
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
 			if(ImGui::BeginCombo("##Type", Shader::Uniform::TypeToString(uni.type))) {
-
 				for(int i = 0; i < Shader::Uniform::Type::UNKNOWN; i++) {
 					Shader::Uniform::Type type = (Shader::Uniform::Type)i;
 					bool selected = type == uni.type;
@@ -157,7 +160,7 @@ void ShaderVisualBox::Update() {
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
 			shader->SetVertexFilename(vertex_file_selector->GetSelectedFile());
 			shader->SetFragmentFilename(fragment_file_selector->GetSelectedFile());
-			shader->Save(os->AssetsPath() + shader_filename);
+			shader->Save(os->AssetsPath() + shader_filename, shaderClassName);
 		}
 
 		ImGui::PopStyleVar();

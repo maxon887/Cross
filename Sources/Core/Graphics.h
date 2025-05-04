@@ -25,6 +25,8 @@ class Factory;
 /*	Class containing specific OpenGL features */
 class Graphics {
 public:
+	Factory<Shader>* shader_factory = nullptr;
+	
 	Graphics();
 	~Graphics();
 
@@ -37,7 +39,6 @@ public:
 private:
 	Array<Mesh*> opaque_meshes;
 	Array<Mesh*> transparent_meshes;
-	Factory<Shader>* shader_factory = nullptr;
 
 	void OnScreenChanged(Screen* newScreen);
 	void OnEntityAdded(Entity* newEntity);

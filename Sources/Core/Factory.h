@@ -34,15 +34,21 @@ public:
 	BaseClass* Create(const String& name);
 	/* Obtains all registered Components types */
 	Array<String> GetRegisteredComponentsName();
+	/* Return name associated with class of the provide object */
+	String GetNameByClass(BaseClass* object);
 
 private:
 	Dictionary<String, Function<BaseClass*()>> functions;
+	Array<String> names;
+	Dictionary<S64, String> class_hashes;
 };
 
 template<class BaseClass>
 template<class AdvancedClass>
 void Factory<BaseClass>::Register(const String& name) {
 	functions.insert(std::make_pair(name, []() -> BaseClass* { return CREATE AdvancedClass(); }));
+	names.Add(name);
+	class_hashes.insert(std::make_pair(typeid(AdvancedClass).hash_code(), name));
 }
 
 template<class BaseClass>
@@ -53,11 +59,16 @@ BaseClass* Factory<BaseClass>::Create(const String& name) {
 
 template<class BaseClass>
 Array<String> Factory<BaseClass>::GetRegisteredComponentsName() {
-	Array<String> names;
-	for(const std::pair<String, Function<Component* ()>>& pair : functions) {
-		names.Add(pair.first);
-	}
 	return names;
+}
+
+template<class BaseClass>
+String Factory<BaseClass>::GetNameByClass(BaseClass* object) {
+	auto found = class_hashes.find(typeid(*object).hash_code());
+	if(found != class_hashes.end()) {
+		return found->second;
+	}
+	CROSS_RETURN(false, "", "Can not find class name by object");
 }
 
 }

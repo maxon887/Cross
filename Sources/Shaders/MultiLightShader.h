@@ -19,7 +19,7 @@
 
 namespace cross{
 
-class MultiLightShader : public Shader{
+class MultiLightShader : public Shader {
 public:
 	MultiLightShader();
 	MultiLightShader(const String& vert, const String& frag);

@@ -24,6 +24,7 @@
 #include "Scenes/DemoScene.h"
 #include "FileUtils.h"
 #include "Input.h"
+#include "Factory.h"
 
 #include <algorithm>
 
@@ -228,10 +229,24 @@ void FilesView::ContextMenu() {
 	if(ImGui::BeginPopupModal("New Shader", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		static char buffer[256];
 		ImGui::Text("Enter Shader name");
-		if(!ImGui::IsAnyItemActive()) {
+		if(!ImGui::IsAnyItemActive() && ImGui::IsWindowAppearing()) {
 			ImGui::SetKeyboardFocusHere(0);
 		}
 		ImGui::InputText("##ShaderName", buffer, 256);
+
+		Array<String> shaderNames = gfx->shader_factory->GetRegisteredComponentsName();
+		static int selectableIndex = 0;
+		if(ImGui::BeginCombo("Shader Class", shaderNames[selectableIndex])) {
+			for(int i = 0; i < shaderNames.Size(); i++) {
+				const String& shaderClass = shaderNames[i];
+				bool selected = shaderClass == shaderNames[selectableIndex];
+				if(ImGui::Selectable(shaderClass, selected)) {
+					selectableIndex = i;
+				}
+			}
+			ImGui::EndCombo();
+		}
+		const String& selectedShaderClass = shaderNames[selectableIndex];
 
 		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
 		   input->IsPressed(Key::ESCAPE)) {
@@ -243,9 +258,9 @@ void FilesView::ContextMenu() {
 				current_path = File::PathFromFile(current_path);
 			}
 			current_path += String(buffer) + ".sha";
-			
-			Shader* shader = CREATE Shader();
-			shader->Save(os->AssetsPath() + current_path);
+
+			Shader* shader = gfx->shader_factory->Create(selectedShaderClass);
+			shader->Save(os->AssetsPath() + current_path, selectedShaderClass);
 			delete shader;
 
 			Refresh();
