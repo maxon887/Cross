@@ -18,6 +18,7 @@
 #include "Transform.h"
 #include "Scene.h"
 #include "System.h"
+#include "Game.h"
 
 using namespace cross;
 
@@ -30,6 +31,12 @@ bool Camera::Initialize(Scene* scene) {
 	SetProjectionMatrix(projection);
 	scene->SetCamera(this);
 	return true;
+}
+
+void Camera::Remove() {
+	if(game->GetCurrentScene()->GetCamera() == this) {
+		game->GetCurrentScene()->SetCamera(nullptr);
+	}
 }
 
 void Camera::Update(float sec){

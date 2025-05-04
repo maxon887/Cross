@@ -108,6 +108,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	//binding uniforms
 	if(shader->uMVP != -1) {
 		Camera* cam = scene->GetCamera();
+		CROSS_FAIL(cam, "Mesh can not be rendered without Camera");
 		Matrix mvp = cam->GetProjectionMatrix() * cam->GetViewMatrix() * globalModel;
 		mvp = mvp.GetTransposed();
 		SAFE(glUniformMatrix4fv(shader->uMVP, 1, GL_FALSE, mvp.GetData()));
