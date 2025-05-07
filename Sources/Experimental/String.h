@@ -132,7 +132,10 @@ String String::Format(const String& format, First value, Args... args) {
 	assert(spot != -1);
 	String result = format;
 	result.Remove('#');
-	result.Insert(spot, String(value));
+	String strValue = value;
+	//we do not support symbol #. if it is happened that this symbol contains in logged string just remove it
+	while(strValue.Remove('#'));
+	result.Insert(spot, strValue);
 	return Format(result, args...);
 }
 
