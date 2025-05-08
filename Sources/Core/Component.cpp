@@ -47,16 +47,25 @@ bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	return true;
 }
 
-bool Component::IsEnabled() const {
-	return enabled;
+bool Component::IsActive() const {
+	return active;
 }
 
 void Component::Enable() {
-	enabled = true;
+	if(entity && entity->IsOnScene() && !active) {
+		if(!initialized) {
+			initialized = Initialize();
+			CROSS_ASSERT(initialized, "Can not initialize component '#'", GetName());
+		}
+		active = Activate();
+	}
 }
 
 void Component::Disable() {
-	enabled = false;
+	if(active) {
+		Deactivate();
+		active = false;
+	}
 }
 
 String Component::GetName() const {

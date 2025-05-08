@@ -25,17 +25,20 @@ using namespace cross;
 Camera::Camera() : Component("Camera")
 { }
 
-bool Camera::Initialize(Scene* scene) {
-	CROSS_RETURN(!scene->GetCamera(), false, "Current Scene already have another camera");
+bool Camera::Activate() {
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
 	SetProjectionMatrix(projection);
+	
+	Scene* scene = game->GetCurrentScene();
+	CROSS_RETURN(!scene->GetCamera(), false, "Current Scene already have another camera");
 	scene->SetCamera(this);
 	return true;
 }
 
-void Camera::Remove() {
-	if(game->GetCurrentScene()->GetCamera() == this) {
-		game->GetCurrentScene()->SetCamera(nullptr);
+void Camera::Deactivate() {
+	Scene* scene = game->GetCurrentScene();
+	if(scene->GetCamera() == this) {
+		scene->SetCamera(nullptr);
 	}
 }
 

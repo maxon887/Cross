@@ -32,10 +32,16 @@ public:
 	Component(String name);
 	virtual ~Component() = default;
 
-	/* Will be called on component after component was added to an Entity. Return true if component was properly initialized in opposite case it won't be added to Entity */
-	virtual bool Initialize(Scene* scene) { return true; }
-	/* Will be called after component was removed from Entity or on the death of Entity*/
-	virtual void Remove() { }
+	/* Will be called once at the first Activation. At this time we already have a Scene instead on constructor */
+	virtual bool Initialize() { return true; }
+	/* In order to trigger Activate 3 conditions should be met. You should not call this function manually
+	* 	a) Component must be added to Entity
+	* 	b) Entity should be in active Scene 
+	* 	c) Component should be enabled 
+	* 	If returns false Component will not be activated and not update in the next turn */
+	virtual bool Activate() { return true; }
+	/* Opposite to Activate. If any of 3 condition not met Deactivate will be called */
+	virtual void Deactivate() { }
 	/* Will be called every game cycle. WARNING! Components update order unpredictable */
 	virtual void Update(float sec) { }
 
@@ -46,8 +52,8 @@ public:
 	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
-	/* Returns true if Component behavior is enabled */
-	virtual bool IsEnabled() const;
+	/* Returns true if Component is active. See Component::Activate() */
+	virtual bool IsActive() const;
 	/* Enables Component behavior */
 	virtual void Enable();
 	/* Disables Component behaviour */
@@ -64,13 +70,14 @@ public:
 	Vector3D GetPosition() const;
 	/* Set position into Entity's Transform Component */
 	void SetPosition(const Vector3D& pos);
-
+	
 protected:
 	friend Entity;
 	friend BaseProperty;
 
-	Entity* entity	= nullptr;
-	bool enabled	= true;
+	Entity* entity		= nullptr;
+	bool initialized	= false;
+	bool active			= false;
 	Array<BaseProperty*> properties;
 
 private:

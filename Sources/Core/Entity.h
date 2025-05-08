@@ -47,8 +47,6 @@ public:
 	void AddComponent(Component* component);
 	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
 	void AddComponent(Component* component, Scene* scene);
-	/* Adds component to the current Entity component stack. initialize = true if component should be initialized in place */
-	void AddComponent(Component* component, Scene* scene, bool initialize);
 	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
 
@@ -72,12 +70,13 @@ public:
 	Entity* RemoveChild(Entity* child);
 	/* Clone this entity with all it's components and children */
 	Entity* Clone();
-
+	/* Check whether Entity is on active Scene */
+	bool IsOnScene() const;
 	/* Returns Entity's world direction vector. Not fast function (all parents directions must be multiplied and must exist) */
 	Vector3D GetDirection();
 
 engineonly:
-	void Initialize();
+	void SetOnScene(bool onScene);
 	void Update(float sec);
 
 private:
@@ -85,6 +84,7 @@ private:
 	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
 	Entity* parent							= nullptr;
 	List<Entity*> children					= List<Entity*>();
+	bool on_scene							= false;
 };
 
 template<class T>

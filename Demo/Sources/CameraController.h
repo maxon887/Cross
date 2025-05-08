@@ -26,8 +26,8 @@ class CameraController : public Component {
 public:
 	CameraController();
 
-	bool Initialize(Scene* scene) override;
-	void Remove() override;
+	bool Activate() override;
+	void Deactivate() override;
 	void Update(float sec) override;
 	
 	//we need empty implementation of Save because we will add this component at run time and don't want it to be saved in scene file

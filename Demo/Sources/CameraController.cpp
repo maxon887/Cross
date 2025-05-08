@@ -26,7 +26,7 @@
 CameraController::CameraController() : Component("CameraController")
 { }
 
-bool CameraController::Initialize(Scene *scene) {
+bool CameraController::Activate() {
 	input->ActionDown.Connect(this, &CameraController::OnActionDown);
 	input->ActionMove.Connect(this, &CameraController::OnActionMove);
 	input->ActionUp.Connect(this, &CameraController::OnActionUp);
@@ -37,14 +37,13 @@ bool CameraController::Initialize(Scene *scene) {
 	return true;
 }
 
-void CameraController::Remove() {
+void CameraController::Deactivate() {
 	input->KeyReleased.Disconnect(this, &CameraController::OnKeyReleased);
 	input->KeyPressed.Disconnect(this, &CameraController::OnKeyPressed);
 	input->ActionDown.Disconnect(this, &CameraController::OnActionDown);
 	input->ActionMove.Disconnect(this, &CameraController::OnActionMove);
 	input->ActionUp.Disconnect(this, &CameraController::OnActionUp);
 	input->Scroll.Disconnect(this, &CameraController::MouseWheelRoll);
-	Component::Remove();
 }
 
 void CameraController::Update(float sec) {
