@@ -218,8 +218,7 @@ inline bool Property<Color>::Load(tinyxml2::XMLElement* parent) {
 	XMLElement* propertyXML = parent->FirstChildElement(name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "Color", false, "Loading attribute mismatch. Expected Color");
-	String result = propertyXML->Attribute("data");
-	value = result;
+	value = propertyXML->Attribute("data");
 	return true;
 }
 

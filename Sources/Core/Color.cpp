@@ -89,6 +89,24 @@ String Color::ToString() const {
 	return result;
 }
 
+void Color::operator = (float all) {
+	R = all;
+	G = all;
+	B = all;
+	A = 1.0f;
+}
+
+void Color::operator = (const String& hex) {
+	String rStr = hex.SubString(0, 2);
+	R = (float)rStr.ToInt(16) / 255.f;
+	String gStr = hex.SubString(2, 4);
+	G = (float)gStr.ToInt(16) / 255.f;
+	String bStr = hex.SubString(4, 6);
+	B = (float)bStr.ToInt(16) / 255.f;
+	String aStr = hex.SubString(6, 8);
+	A = (float)aStr.ToInt(16) / 255.f;
+}
+
 bool Color::operator == (const Color &c) const{
 	return	this->R == c.R &&
 			this->G == c.G &&
