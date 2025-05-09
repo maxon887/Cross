@@ -48,6 +48,9 @@ public:
 	/* Converts current color to String representation. Format FFFFFFFF */
 	String ToString() const;
 
+	void operator = (float all);
+	void operator = (const String& hex);
+
 	bool operator == (const Color &c) const;
 	bool operator != (const Color &c) const;
 };
