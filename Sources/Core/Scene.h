@@ -36,9 +36,6 @@ namespace cross{
 	You don't need to call Entity's or resource destructors manually */
 class Scene : public Screen {
 public:
-	/* Occurs when new Entity added into the Scene */
-	Event<Entity*> EntityAdded;
-
 	Scene();
 
 	/* Called once before scene show up. */

@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
 #include "VertexBuffer.h"
+#include "Graphics.h"
 #include "Scene.h"
 #include "Entity.h"
 #include "Material.h"
@@ -27,7 +28,7 @@
 using namespace cross;
 
 Mesh::Mesh() : Component("Mesh")
-{ }
+{}
 
 Mesh::Mesh(const String& modelFile, S32 id) :
 	Component("Mesh")
@@ -38,28 +39,41 @@ Mesh::Mesh(const String& modelFile, S32 id) :
 
 Mesh::~Mesh() {
 	delete vertex_buffer;
-	if(original && initialized) {
+	if(original && video_initialized) {
 		SAFE(glDeleteBuffers(1, (GLuint*)&VBO));
 		SAFE(glDeleteBuffers(1, (GLuint*)&EBO));
 	}
 }
 
-bool Mesh::Initialize(Scene* scene) {
-	if(!model_filename.value.IsEmpty()) {
-		CROSS_RETURN(group_id != -1, false, "Can not initialize Mesh with ID = -1");
-		Model* model = scene->GetModel(model_filename);
-		CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
-		Copy(model->GetMesh(group_id));
+bool Mesh::Initialize() {
+	//sometimes we want to create mesh from scratch in that case we don't need all model loading code here
+	if(model_filename.value.IsEmpty()) {
+		return true;
+	}
+	
+	Scene* scene = game->GetCurrentScene();
+	CROSS_RETURN(group_id != -1, false, "Can not initialize Mesh with ID = -1");
+	Model* model = scene->GetModel(model_filename);
+	CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
+	Copy(model->GetMesh(group_id));
 
-		if(material_filename.value != "") {
-			Material* mat = scene->GetMaterial(material_filename);
-			CROSS_RETURN(mat, false, "Can not Initialize Mesh. Material wasn't obtained");
-			SetMaterial(mat);
-		} else {
-			SetMaterial(scene->GetDefaultMaterial());
-		}
+	if(!material && material_filename.value != "") {
+		Material* mat = scene->GetMaterial(material_filename);
+		CROSS_RETURN(mat, false, "Can not Initialize Mesh. Material wasn't obtained");
+		SetMaterial(mat);
+	} else {
+		SetMaterial(scene->GetDefaultMaterial());
 	}
 	return true;
+}
+
+bool Mesh::Activate() {
+	gfx->RegisterMeshForDrawing(this);
+	return true;
+}
+
+void Mesh::Deactivate() {
+	gfx->UnregisterMeshForDrawing(this);
 }
 
 Mesh* Mesh::Clone() const {
@@ -68,20 +82,8 @@ Mesh* Mesh::Clone() const {
 	return mesh;
 }
 
-void Mesh::Enable() {
-	Entity* owner = GetEntity();
-	bool hasTransform = owner->GetComponent<Transform>() != nullptr;
-	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
-	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initialized");
-	CROSS_FAIL(material, "Cano not enable Mesh. Current Mesh doesn't have Material assigned");
-	
-	enabled = true;
-}
-
 void Mesh::Draw() {
-	if(enabled) {
-		Draw(material);
-	}
+	Draw(material);
 }
 
 void Mesh::Draw(Material* mat) {
@@ -99,7 +101,7 @@ void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 
 void Mesh::Draw(const Matrix& globalModel, Material* material,
 				StencilBehaviour stencilBehaviour) {
-	CROSS_FAIL(initialized, "Attempt to draw with not initialized mesh");
+	CROSS_FAIL(video_initialized, "Attempt to draw with not initialized mesh");
 	CROSS_FAIL(material, "Attempt to draw without material");
 	Shader* shader = material->GetShader();
 	shader->Use();
@@ -261,7 +263,7 @@ void Mesh::InitializeVideoData() {
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
 	vertex_buffer->Free();
-	initialized = true;
+	video_initialized = true;
 }
 
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
@@ -322,13 +324,16 @@ void Mesh::Copy(const Mesh* m) {
 	group_id = m->group_id;
 	model_filename = m->model_filename;
 	//filename should not be copied for proper model loading, look Mesh::Initialize
+	//model loaded with empty material if this will be copied then we will not create real material for OnScene Meshes
 	//material_filename = m->material_filename;
+	//the same for material we do not need to copy material from model file
+	//material = m->material;
+	//all this stuff is bad and broke copying ability of Mesh Component so this should be refactored
 
 	VBO = m->VBO;
 	EBO = m->EBO;
-	material = m->material;
 	indices = m->indices;
-	initialized = m->initialized;
+	video_initialized = m->video_initialized;
 	face_culling = m->face_culling;
 	original = false;
 

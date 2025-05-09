@@ -28,7 +28,8 @@ Light::Light(Type type) :
 	type(this, "Type", type)
 { }
 
-bool Light::Initialize(Scene* scene) {
+bool Light::Activate() {
+	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);
 	CROSS_RETURN(it == lights.end(), false, "Current light already in the scene");
@@ -36,7 +37,7 @@ bool Light::Initialize(Scene* scene) {
 	return true;
 }
 
-void Light::Remove() {
+void Light::Deactivate() {
 	Scene* scene = game->GetCurrentScene();
 	List<Light*>& lights = scene->GetLights();
 	auto it = std::find(lights.begin(), lights.end(), this);

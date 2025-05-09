@@ -17,7 +17,6 @@
 #include "Graphics.h"
 #include "System.h"
 #include "Game.h"
-#include "Scene.h"
 #include "Entity.h"
 #include "Factory.h"
 #include "File.h"
@@ -44,7 +43,7 @@ Graphics::~Graphics() {
 }
 
 void Graphics::Start() {
-	game->ScreenChanged.Connect(this, &Graphics::OnScreenChanged);
+
 }
 
 void Graphics::Stop() {
@@ -112,30 +111,26 @@ Shader* Graphics::LoadShader(const String& shaderfile) {
 	return shader;
 }
 
-void Graphics::OnScreenChanged(Screen* newScreen) {
-	opaque_meshes.Clear();
-	transparent_meshes.Clear();
-	Scene* newScene = dynamic_cast<Scene*>(newScreen);
-	if(newScene) {
-		newScene->EntityAdded.Connect(this, &Graphics::OnEntityAdded);
-		FindAllMeshes(newScene->GetRoot());
+void Graphics::RegisterMeshForDrawing(Mesh* mesh) {
+	Material* mat = mesh->GetMaterial();
+	if(mat && mat->IsTransparent()) {
+		transparent_meshes.Add(mesh);
+	} else {
+		opaque_meshes.Add(mesh);
 	}
 }
 
-void Graphics::OnEntityAdded(Entity* newEntity) {
-	FindAllMeshes(newEntity);
-}
-
-void Graphics::FindAllMeshes(Entity* entity) {
-	Mesh* mesh = entity->GetComponent<Mesh>();
-	if(mesh) {
-		if(mesh->GetMaterial()->IsTransparent()) {
-			transparent_meshes.Add(mesh);
-		} else {
-			opaque_meshes.Add(mesh);
+void Graphics::UnregisterMeshForDrawing(Mesh* mesh) {
+	for(int i = 0; i < opaque_meshes.Size(); i++) {
+		if(opaque_meshes[i] == mesh) {
+			opaque_meshes.Remove(i);
+			return;
 		}
 	}
-	for(Entity* child : entity->GetChildren()) {
-		FindAllMeshes(child);
+	for(int i = 0; i < transparent_meshes.Size(); i++) {
+		if(transparent_meshes[i] == mesh) {
+			transparent_meshes.Remove(i);
+			return;
+		}
 	}
 }

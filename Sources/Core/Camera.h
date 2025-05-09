@@ -27,9 +27,9 @@ class Camera : public Component {
 public:
 	Camera();
 	/* Initializes Camera Component */
-	bool Initialize(Scene* scene) override;
+	bool Activate() override;
 	/* Removes default Camera from Scene if it was out camera */
-	void Remove() override;
+	void Deactivate() override;
 	/* Updates Camera Component. Realized in order to recalculate view Matrix */
 	void Update(float sec) override;
 	/* Save copy of Camera Component */

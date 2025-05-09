@@ -32,15 +32,14 @@ using namespace cross;
 using namespace tinyxml2;
 using namespace std;
 
-Scene::Scene()
-{
+Scene::Scene() {
 	root = CREATE Entity("Root");
 	root->AddComponent(CREATE Transform(), this);
 }
 
 void Scene::Start() {
 	Screen::Start();
-
+	root->SetOnScene(true);
 	os->WindowResized.Connect(this, &Scene::OnWindowResize);
 }
 
@@ -146,9 +145,7 @@ Entity* Scene::GetEntity(const String& name) {
 }
 
 void Scene::AddEntity(Entity* entity) {
-	entity->Initialize();
 	root->AddChild(entity);
-	EntityAdded.Emit(entity);//trigger
 }
 
 Entity* Scene::LoadPrimitive(Model::Primitive primitive) {

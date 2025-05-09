@@ -30,7 +30,7 @@ Entity::~Entity() {
 	for(pair<U64, Component*> p : components) {
 		Component* component = p.second;
 		if(component) {
-			component->Remove();
+			component->Disable();
 			delete component;
 		}
 	}
@@ -38,12 +38,6 @@ Entity::~Entity() {
 		delete c;
 	}
 	children.clear();
-}
-
-void Entity::Initialize() {
-	for(Entity* c : children) {
-		c->Initialize();
-	}
 }
 
 const String& Entity::GetName() const {
@@ -80,10 +74,6 @@ void Entity::AddComponent(Component* component) {
 }
 
 void Entity::AddComponent(Component* component, Scene* scene) {
-	AddComponent(component, scene, true);
-}
-
-void Entity::AddComponent(Component* component, Scene* scene, bool initialize) {
 	U64 hash = typeid(*component).hash_code();
 	if(components.find(hash) != components.end()) {
 		CROSS_ASSERT(false, "Entity already have same component '#'", component->GetName());
@@ -91,21 +81,12 @@ void Entity::AddComponent(Component* component, Scene* scene, bool initialize) {
 		return;
 	}
 	component->entity = this;
-	if(initialize) {
-		if(component->Initialize(scene)) {
-			components[hash] = component;
-		} else {
-			CROSS_ASSERT(false, "Component '#' was not properly initialized. It can not be added to Entity", component->GetName());
-			delete component;
-			return;
-		}
-	} else {
-		components[hash] = component;
-	}
+	component->Enable();
+	components[hash] = component;
 }
 
 void Entity::RemoveComponent(Component* component) {
-	component->Remove();
+	component->Disable();
 	components.erase(typeid(*component).hash_code());
 }
 
@@ -124,6 +105,7 @@ List<Entity*>& Entity::GetChildren() {
 void Entity::AddChild(Entity* child) {
 	child->SetParent(this);
 	children.push_back(child);
+	child->SetOnScene(this->on_scene);
 }
 
 void Entity::RemoveChildren() {
@@ -160,6 +142,7 @@ Entity* Entity::RemoveChild(const String& childName) {
 		if(c->GetName() == childName) {
 			c->SetParent(nullptr);
 			children.erase(it);
+			c->SetOnScene(false);
 			return c;
 		}
 	}
@@ -173,6 +156,7 @@ Entity* Entity::RemoveChild(Entity* child) {
 		if(c == child) {
 			c->SetParent(nullptr);
 			children.erase(it);
+			c->SetOnScene(false);
 			return c;
 		}
 	}
@@ -194,6 +178,10 @@ Entity* Entity::Clone() {
 	return clone;
 }
 
+bool Entity::IsOnScene() const {
+	return on_scene;
+}
+
 Vector3D Entity::GetDirection() {
 	if(parent) {
 		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
@@ -202,10 +190,23 @@ Vector3D Entity::GetDirection() {
 	}
 }
 
+void Entity::SetOnScene(bool onScene) {
+	if(on_scene != onScene) {
+		on_scene = onScene;
+		for(pair<U64, Component*> pair : components) {
+			Component* component = pair.second;
+			onScene ? component->Enable() : component->Disable();
+		}
+	}
+	for(Entity* c : children) {
+		c->SetOnScene(onScene);
+	}
+}
+
 void Entity::Update(float sec) {
 	for(pair<U64, Component*> p : components) {
 		Component* c = p.second;
-		if(c->IsEnabled()) {
+		if(c->IsActive()) {
 			c->Update(sec);
 		}
 	}

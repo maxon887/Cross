@@ -110,7 +110,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
 		Mesh* crMesh = ProcessMesh(aiMesh, filename);
 		meshes[mesh_id] = crMesh;
 		mesh_id++;
-		entity->AddComponent(crMesh, nullptr, false);
+		entity->AddComponent(crMesh, nullptr);
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {

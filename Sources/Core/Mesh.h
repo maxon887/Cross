@@ -40,11 +40,11 @@ public:
 	Mesh(const String& modelFile, S32 id);
 	~Mesh() override;
 
-	bool Initialize(Scene* scene) override;
-	/* Creates new Mesh from this Mesh's data */
+	bool Initialize() override;
+	bool Activate() override;
+	void Deactivate() override;
+	/* Creates new Mesh from this Mesh's data. This won't copy material related data */
 	Mesh* Clone() const override;
-	/* Enables Mesh Component for drawing */
-	void Enable() override;
 
 	/* Draws Mesh on scene */
 	void Draw();
@@ -95,7 +95,7 @@ private:
 	Array<U16> indices					= Array<U16>();
 	Material* material					= nullptr;
 	bool original						= true;
-	bool initialized					= false;
+	bool video_initialized				= false;
 	bool depth_test						= true;
 	bool face_culling					= true;
 
