@@ -54,8 +54,12 @@ public:
 	static void ClearGLErrorBuffer();
 	
 	GraphicsGL();
+
+	const String& GetShaderVersion() const;
 	
 private:
+	String shader_version = "100";
+
 	void WindowResizeHandle(S32 width, S32 height);
 };
 

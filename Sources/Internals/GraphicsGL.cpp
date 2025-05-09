@@ -67,8 +67,21 @@ GraphicsGL::GraphicsGL() {
 
 	os->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
 	os->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
-	String shaderVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-	os->LogIt("\tGLSL version - " + shaderVersion);
+	shader_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+	os->LogIt("\tGLSL version - " + shader_version);
+
+	S32 first = shader_version.FindFirstOf("0123456789.");
+	if(first != -1) {
+		S32 last = shader_version.FindNonFirstOf("0123456789.", first);
+		if(last != -1) {
+			shader_version.Cut(first, last);
+		} else {
+			shader_version.Cut(first, shader_version.Length());
+		}
+	} else {
+		CROSS_ASSERT(false, "Can not obtain shader version");
+	}
+	shader_version.Remove(".");
 	
 	GLint value;
 	SAFE(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &value));
@@ -86,6 +99,10 @@ GraphicsGL::GraphicsGL() {
 
 	SAFE(glFrontFace(GL_CW));
 	SAFE(glCullFace(GL_FRONT));
+}
+
+const String& GraphicsGL::GetShaderVersion() const {
+	return shader_version;
 }
 
 void GraphicsGL::WindowResizeHandle(S32 width, S32 height) {

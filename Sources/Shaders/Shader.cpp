@@ -375,6 +375,8 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     if(type == GL_FRAGMENT_SHADER) {
 		source += "precision mediump float;\n";
     }
+#else
+	source += "#version " + gfxGL->GetShaderVersion() + "\n";
 #endif
 
 	for(const String& macro : macrosies) {
