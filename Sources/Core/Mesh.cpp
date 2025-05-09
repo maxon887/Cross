@@ -56,13 +56,15 @@ bool Mesh::Initialize() {
 	Model* model = scene->GetModel(model_filename);
 	CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
 	Copy(model->GetMesh(group_id));
-
-	if(!material && material_filename.value != "") {
-		Material* mat = scene->GetMaterial(material_filename);
-		CROSS_RETURN(mat, false, "Can not Initialize Mesh. Material wasn't obtained");
-		SetMaterial(mat);
-	} else {
-		SetMaterial(scene->GetDefaultMaterial());
+	
+	if(!material) {
+		if(!material_filename.value.IsEmpty()) {
+			Material* mat = scene->GetMaterial(material_filename);
+			CROSS_RETURN(mat, false, "Can not Initialize Mesh. Material wasn't obtained");
+			SetMaterial(mat);
+		} else {
+			SetMaterial(scene->GetDefaultMaterial());
+		}
 	}
 	return true;
 }

@@ -92,7 +92,7 @@ engineonly:
 	U32 active_texture_slot = 0;
 
 private:
-	String filename						= "noname";
+	String filename						= "";
 	Shader* shader						= nullptr;
 	bool transparent					= false;
 	Array<Shader::Uniform> properties	= Array<Shader::Uniform>();
