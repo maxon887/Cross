@@ -29,7 +29,9 @@ using namespace cross;
 Skybox::Skybox(Cubemap* cubemap) :
 	cubemap(cubemap)
 {
-	box = game->GetCurrentScene()->LoadPrimitive(Model::Primitive::CUBE);
+	Scene* scene = game->GetCurrentScene();
+	box = scene->LoadPrimitive(Model::Primitive::CUBE);
+	box->SetName("Skybox");
 	box->GetTransform()->SetScale(game->GetCurrentScene()->GetCamera()->GetViewDistance());
 
 	shader = CREATE Shader("Engine/Shaders/Sources/Skybox.vert", "Engine/Shaders/Sources/Skybox.frag");
@@ -43,6 +45,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 
 	material = CREATE Material(shader);
 	Mesh* mesh = box->GetComponent<Mesh>();
+	mesh->Initialize();
 	mesh->SetMaterial(material);
 	mesh->EnableFaceCulling(false);
 }
