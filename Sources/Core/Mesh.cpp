@@ -55,7 +55,15 @@ bool Mesh::Initialize() {
 	CROSS_RETURN(group_id != -1, false, "Can not initialize Mesh with ID = -1");
 	Model* model = scene->GetModel(model_filename);
 	CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
-	Copy(model->GetMesh(group_id));
+	Mesh* originalMesh = model->GetMesh(group_id);
+
+	VBO = originalMesh->VBO;
+	EBO = originalMesh->EBO;
+	indices = originalMesh->indices;
+	video_initialized = originalMesh->video_initialized;
+	face_culling = originalMesh->face_culling;
+	original = false;
+	vertex_buffer = originalMesh->vertex_buffer->Clone();
 	
 	if(!material) {
 		if(!material_filename.value.IsEmpty()) {
@@ -325,19 +333,17 @@ U32 Mesh::GetPolyCount() const {
 void Mesh::Copy(const Mesh* m) {
 	group_id = m->group_id;
 	model_filename = m->model_filename;
-	//filename should not be copied for proper model loading, look Mesh::Initialize
-	//model loaded with empty material if this will be copied then we will not create real material for OnScene Meshes
-	//material_filename = m->material_filename;
-	//the same for material we do not need to copy material from model file
-	//material = m->material;
-	//all this stuff is bad and broke copying ability of Mesh Component so this should be refactored
+	material_filename = m->material_filename;
+	material = m->material;
 
 	VBO = m->VBO;
 	EBO = m->EBO;
 	indices = m->indices;
 	video_initialized = m->video_initialized;
 	face_culling = m->face_culling;
+	depth_test = m->depth_test;
 	original = false;
-
-	vertex_buffer = m->vertex_buffer->Clone();
+	if(m->vertex_buffer) {
+		vertex_buffer = m->vertex_buffer->Clone();
+	}
 }

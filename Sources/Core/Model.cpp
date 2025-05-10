@@ -33,6 +33,9 @@ using namespace cross;
 
 Model::~Model() {
 	delete hierarchy;
+	for(std::pair<S32, Mesh*> p : meshes) {
+		delete p.second;
+	}
 }
 
 bool Model::Load(const String& filename) {
@@ -108,8 +111,6 @@ void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
 		Mesh* crMesh = ProcessMesh(aiMesh, filename);
-		meshes[mesh_id] = crMesh;
-		mesh_id++;
 		entity->AddComponent(crMesh, nullptr);
 	}
 
@@ -163,11 +164,16 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename) {
 		}
 	}
 	os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
-	Mesh* crsMesh = CREATE Mesh(filename, mesh_id);
-	crsMesh->PushData(vertexBuffer, indices);
+	//we need to create 2 Meshes he one is for video data storage second is for hierarchy
+	Mesh* videoMesh = CREATE Mesh(filename, mesh_id);
+	videoMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(initialize_video) {
-		crsMesh->InitializeVideoData();
+		videoMesh->InitializeVideoData();
 	}
-	return crsMesh;
+	meshes[mesh_id] = videoMesh;
+	
+	Mesh* hierarchyMesh = CREATE Mesh(filename, mesh_id);
+	mesh_id++;
+	return hierarchyMesh;
 }
