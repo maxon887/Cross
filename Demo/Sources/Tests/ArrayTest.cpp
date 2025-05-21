@@ -4,6 +4,8 @@
 #include "UI/MenuBar.h"
 #include "Utils/Debugger.h"
 
+#include <algorithm>
+
 #include "ThirdParty/ImGui/imgui.h"
 
 ArrayTestView::ArrayTestView() :

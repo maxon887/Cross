@@ -19,6 +19,8 @@
 #include "System.h"
 #include "Experimental/Function.h"
 
+#include <typeinfo>
+
 namespace cross{
 
 /*	Generic Factory template. This will allow you to create successor classes by name.

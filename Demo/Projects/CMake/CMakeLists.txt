@@ -23,7 +23,7 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Sources" FILES ${DE
 
 add_definitions(-DCROSS_CMAKE)
 
-if (APPLE OR WIN32)
+if (APPLE OR WIN32 OR UNIX)
 	find_package(OpenGL REQUIRED)
 	include_directories(${OPENGL_INCLUDE_DIR})
 
@@ -127,4 +127,10 @@ if(ANDROID)
 							fmod
 							assimp )
 
+endif()
+
+if(UNIX)
+    add_definitions(-DLINUX)
+    
+    find_package(GLEW REQUIRED)
 endif()

@@ -30,7 +30,7 @@
 #include <GLES2/gl2platform.h>
 #elif IOS
 #import <OpenGLES/ES2/glext.h>
-#elif MACOS
+#elif MACOS || LINUX
 #include <GL/glew.h>
 #endif
 
