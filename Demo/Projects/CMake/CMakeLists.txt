@@ -130,15 +130,18 @@ if(ANDROID)
 endif()
 
 if(LINUX)
-	file(GLOB LINUX_SRC ../../../Sources/Platform/Linux/*.*)
+	file(GLOB LINUX_SRC ../../../Sources/Platform/Linux/*.*
+	  					../../../Sources/Platform/CrossGLFW.cpp)
 	target_sources(${PROJECT_NAME} PRIVATE ${LINUX_SRC})
 
     add_definitions(-DLINUX)
     
     find_package(GLEW REQUIRED)
+	#find_package(GLFW3 REQUIRED)
 
 	target_link_libraries (${PROJECT_NAME} PRIVATE
 			${OPENGL_gl_LIBRARY}
+			glfw
 			GLEW::GLEW
 			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libfmod.so"
 			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libassimpd.so")

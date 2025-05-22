@@ -1,4 +1,4 @@
-#include "MacSystem.h"
+#include "MacOS/MacSystem.h"
 #include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 #include "Game.h"
@@ -10,6 +10,8 @@
 #include <iostream>
 
 #include <GLFW/glfw3.h>
+
+#include "Linux/LinuxSystem.h"
 
 using namespace std;
 using namespace cross;
@@ -222,7 +224,11 @@ int main(int c, char **args) {
 #ifdef CROSS_MEMORY_PROFILE
 	cross::MemoryManager::dead = false;
 #endif
+#ifdef MACOS
     cross::os = CREATE MacSystem(args[0]);
+#elif LINUX
+	cross::os = CREATE LinuxSystem();
+#endif
 
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;
@@ -269,10 +275,13 @@ int main(int c, char **args) {
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
     float dpi = (float)mode->width * frame_to_window_ratio / ((float)widthMM / 25.4f);
+
+#ifdef MACOS
     MacSystem* macSystem = (MacSystem*)cross::os;
     macSystem->SetScreenDPI(dpi);
 #ifdef CROSS_CMAKE
 	macSystem->SetAppIcon();
+#endif
 #endif
 
     game->Start();
