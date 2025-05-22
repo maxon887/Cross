@@ -130,6 +130,9 @@ if(ANDROID)
 endif()
 
 if(LINUX)
+	file(GLOB LINUX_SRC ../../../Sources/Platform/Linux/*.*)
+	target_sources(${PROJECT_NAME} PRIVATE ${LINUX_SRC})
+
     add_definitions(-DLINUX)
     
     find_package(GLEW REQUIRED)
