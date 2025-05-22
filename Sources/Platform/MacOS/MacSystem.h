@@ -7,7 +7,6 @@ class MacSystem : public System {
 public:
     MacSystem(const String& executable);
     
-    void Log(const char* msg) override;
     String AssetsPath() override;
     String DataPath() override;
     U64 GetTime() override;

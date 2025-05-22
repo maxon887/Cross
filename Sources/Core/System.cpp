@@ -30,6 +30,10 @@
 using namespace cross;
 using namespace std;
 
+void System::Log(const char *msg) {
+	printf("%s\n", msg);
+}
+
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
 	CROSS_RETURN(f, nullptr, "Can not open file '#'\nerror code - #\nDescription - #",

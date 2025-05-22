@@ -1,4 +1,4 @@
-#include "Platform/MacOS/MacSystem.h"
+#include "MacSystem.h"
 #include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 #include "Game.h"

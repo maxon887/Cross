@@ -38,10 +38,6 @@ MacSystem::MacSystem(const String& executable) {
 	data_path += "/Data/";
 }
 
-void MacSystem::Log(const char *msg) {
-    printf("%s\n", msg);
-}
-
 String MacSystem::AssetsPath() {
 	return assets_path;
 }

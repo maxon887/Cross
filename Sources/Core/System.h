@@ -34,8 +34,6 @@ public:
 
 	virtual ~System() = default;
 
-	/* Print message in console. See LogIt() if you need formatted output */
-	virtual void Log(const char* msg) = 0;
 	/* Returns path to the application assets folder */
 	virtual String AssetsPath() = 0;
 	/* Returns path to the application data folder */
@@ -43,6 +41,8 @@ public:
 	/* Return current time in microseconds */
 	virtual U64 GetTime() = 0;
 
+	/* Print message in console. See LogIt() if you need formatted output */
+	virtual void Log(const char* msg);
 	/* Load file from absolute path */
 	virtual File* LoadFile(const String& filename);
 	/* Load file from game asset directory */
