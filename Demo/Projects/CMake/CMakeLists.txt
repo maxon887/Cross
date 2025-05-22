@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9.1)
+cmake_minimum_required(VERSION 3.10)
 
 project(Demo)
 
@@ -133,4 +133,9 @@ if(LINUX)
     add_definitions(-DLINUX)
     
     find_package(GLEW REQUIRED)
+
+	target_link_libraries (${PROJECT_NAME} PRIVATE
+			${OPENGL_gl_LIBRARY}
+			GLEW::GLEW
+			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libfmod.so")
 endif()
