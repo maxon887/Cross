@@ -137,5 +137,6 @@ if(LINUX)
 	target_link_libraries (${PROJECT_NAME} PRIVATE
 			${OPENGL_gl_LIBRARY}
 			GLEW::GLEW
-			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libfmod.so")
+			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libfmod.so"
+			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libassimpd.so")
 endif()
