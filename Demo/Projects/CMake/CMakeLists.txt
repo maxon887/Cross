@@ -36,7 +36,8 @@ endif()
 
 if (APPLE)
     include_directories(../../../Sources/Platform/MacOS)
-    file(GLOB MACOS_SRC ../../../Sources/Platform/MacOS/*.*)
+    file(GLOB MACOS_SRC ../../../Sources/Platform/MacOS/*.*
+                        ../../../Sources/Platform/CrossGLFW.cpp)
     target_sources(${PROJECT_NAME} PRIVATE ${MACOS_SRC})
     
     add_definitions(-DMACOS)

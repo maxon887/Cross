@@ -41,6 +41,7 @@
 		50C9611B2C74CA6900764079 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
 		50C9611C2C74CA9000764079 /* libfmod.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
 		50C9611D2C74CA9800764079 /* libassimpMAC.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
+		50CAEE662DDFD6BD00E47123 /* CrossGLFW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CAEE652DDFD6BD00E47123 /* CrossGLFW.cpp */; };
 		9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D32CDDC20B40B12004A4D7E /* Assets.xcassets */; };
 		9D32D0E120B40E27004A4D7E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF520B40E27004A4D7E /* Camera.cpp */; };
 		9D32D0E220B40E27004A4D7E /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF720B40E27004A4D7E /* Color.cpp */; };
@@ -75,7 +76,6 @@
 		9D32D11920B40E27004A4D7E /* Vector2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D09320B40E27004A4D7E /* Vector2D.cpp */; };
 		9D32D11A20B40E27004A4D7E /* Vector3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D09520B40E27004A4D7E /* Vector3D.cpp */; };
 		9D32D11B20B40E27004A4D7E /* Vector4D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D09720B40E27004A4D7E /* Vector4D.cpp */; };
-		9D32D12720B40E27004A4D7E /* Cross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0B020B40E27004A4D7E /* Cross.cpp */; };
 		9D32D12820B40E27004A4D7E /* MacSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0B220B40E27004A4D7E /* MacSystem.mm */; };
 		9D32D12F20B40E27004A4D7E /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0D220B40E27004A4D7E /* Shader.cpp */; };
 		9D32D13020B40E27004A4D7E /* SingleLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0D420B40E27004A4D7E /* SingleLightShader.cpp */; };
@@ -173,6 +173,7 @@
 		50C961162C74CA5700764079 /* libassimpMAC.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libassimpMAC.dylib; sourceTree = "<group>"; };
 		50C961172C74CA5700764079 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmod.dylib; sourceTree = "<group>"; };
 		50C961182C74CA5700764079 /* libfmodL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodL.dylib; sourceTree = "<group>"; };
+		50CAEE652DDFD6BD00E47123 /* CrossGLFW.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrossGLFW.cpp; sourceTree = "<group>"; };
 		9D32CDD620B40B12004A4D7E /* CrossMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D32CDDC20B40B12004A4D7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D32CDE120B40B12004A4D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -326,7 +327,6 @@
 		9D32D09620B40E27004A4D7E /* Vector3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3D.h; sourceTree = "<group>"; };
 		9D32D09720B40E27004A4D7E /* Vector4D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector4D.cpp; sourceTree = "<group>"; };
 		9D32D09820B40E27004A4D7E /* Vector4D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector4D.h; sourceTree = "<group>"; };
-		9D32D0B020B40E27004A4D7E /* Cross.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cross.cpp; sourceTree = "<group>"; };
 		9D32D0B120B40E27004A4D7E /* MacSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacSystem.h; sourceTree = "<group>"; };
 		9D32D0B220B40E27004A4D7E /* MacSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacSystem.mm; sourceTree = "<group>"; };
 		9D32D0D220B40E27004A4D7E /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
@@ -760,6 +760,7 @@
 			isa = PBXGroup;
 			children = (
 				9D32D0AF20B40E27004A4D7E /* MacOS */,
+				50CAEE652DDFD6BD00E47123 /* CrossGLFW.cpp */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -767,7 +768,6 @@
 		9D32D0AF20B40E27004A4D7E /* MacOS */ = {
 			isa = PBXGroup;
 			children = (
-				9D32D0B020B40E27004A4D7E /* Cross.cpp */,
 				9D32D0B120B40E27004A4D7E /* MacSystem.h */,
 				9D32D0B220B40E27004A4D7E /* MacSystem.mm */,
 			);
@@ -1085,8 +1085,8 @@
 				5098D4502DB4EBDF000E9958 /* Tester.cpp in Sources */,
 				9D33C12920D02AA4007EF97F /* Property.cpp in Sources */,
 				9D32D0F720B40E27004A4D7E /* GraphicsGL.cpp in Sources */,
-				9D32D12720B40E27004A4D7E /* Cross.cpp in Sources */,
 				9D32D11620B40E27004A4D7E /* Matrix.cpp in Sources */,
+				50CAEE662DDFD6BD00E47123 /* CrossGLFW.cpp in Sources */,
 				9D32D0EC20B40E27004A4D7E /* Mesh.cpp in Sources */,
 				9D32D0EE20B40E27004A4D7E /* Scene.cpp in Sources */,
 				9D32D1CB20B40E47004A4D7E /* Demo.cpp in Sources */,
