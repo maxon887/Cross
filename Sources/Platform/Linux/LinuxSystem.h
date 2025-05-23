@@ -11,6 +11,7 @@ public:
 	U64 GetTime() override;
 
 	bool Alert(const String& msg) override;
+	void Sleep(float milis) override;
 };
 
 }

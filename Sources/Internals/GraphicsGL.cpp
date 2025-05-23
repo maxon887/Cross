@@ -62,12 +62,13 @@ GraphicsGL::GraphicsGL() {
 	os->LogIt("GraphicsGL::GraphicsGL()");
 
 #ifdef OPENGL
-	glewExperimental=true;
 	GLenum glewResult = glewInit();
+#ifndef LINUX //somehow there are bug for linux where glewInit throw an error without any further problems
 	if (glewResult != GLEW_OK)	{
 		String error = (char*)glewGetErrorString(glewResult);
 		CROSS_ASSERT(false, "Unable to initialize GLEW: #", error);
 	}
+#endif
 #endif
 
 	os->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
