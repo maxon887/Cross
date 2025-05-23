@@ -265,18 +265,18 @@ int main(int c, char **args) {
 	cross::os->SetWindowSize(frameWidth, frameHeight);
     frame_to_window_ratio = (float)frameWidth / (float)windowWidth;
 
-    int widthMM, heightMM;
     GLFWmonitor* monitor = GetMonitorForWindow(window);
     if(!monitor) {
         monitor = glfwGetPrimaryMonitor();
     }
 	const char* monitorName = glfwGetMonitorName(monitor);
 	os->LogIt("Monitor - #", monitorName);
-    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-    glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
-    float dpi = (float)mode->width * frame_to_window_ratio / ((float)widthMM / 25.4f);
 
 #ifdef MACOS
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	int widthMM, heightMM;
+	glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
+	float dpi = (float)mode->width * frame_to_window_ratio / ((float)widthMM / 25.4f);
     MacSystem* macSystem = (MacSystem*)cross::os;
     macSystem->SetScreenDPI(dpi);
 #ifdef CROSS_CMAKE

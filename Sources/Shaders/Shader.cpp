@@ -376,7 +376,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 		source += "precision mediump float;\n";
     }
 #else
-	source += "#version " + gfxGL->GetShaderVersion() + "\n";
+	//source += "#version " + gfxGL->GetShaderVersion() + "\n";
 #endif
 
 	for(const String& macro : macrosies) {

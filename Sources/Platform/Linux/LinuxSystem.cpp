@@ -7,11 +7,11 @@
 using namespace cross;
 
 String LinuxSystem::AssetsPath() {
-	return "Assets/";
+	return "../../../Assets/";
 }
 
 String LinuxSystem::DataPath() {
-	return "Data/";
+	return "../../../Data/";
 }
 
 U64 LinuxSystem::GetTime() {

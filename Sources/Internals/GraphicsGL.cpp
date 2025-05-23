@@ -62,7 +62,12 @@ GraphicsGL::GraphicsGL() {
 	os->LogIt("GraphicsGL::GraphicsGL()");
 
 #ifdef OPENGL
-	CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
+	glewExperimental=true;
+	GLenum glewResult = glewInit();
+	if (glewResult != GLEW_OK)	{
+		String error = (char*)glewGetErrorString(glewResult);
+		CROSS_ASSERT(false, "Unable to initialize GLEW: #", error);
+	}
 #endif
 
 	os->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
