@@ -96,7 +96,7 @@ endif ()
 if(ANDROID)
 	include_directories(../../../Sources/Platform/Android)
 	file(GLOB ANDROID_SRC 	../../../Sources/Platform/Android/*.*
-							../../../Sources/Platform/*.*)
+							../../../Sources/Platform/CrossEGL.cpp)
 
 	add_library( cross
 	             SHARED
