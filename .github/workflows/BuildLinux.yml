@@ -19,6 +19,8 @@ jobs:
 
     - name: Build Project
       uses: threeal/cmake-action@v2.1.0
+      with:
+        source-dir: ./Demo/Projects/CMake
 
     #- name: Setup cmake
     #  uses: jwlawson/actions-setup-cmake@v2
