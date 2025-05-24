@@ -1,0 +1,23 @@
+name: Android
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/CMake
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v2
+    - name: Use cmake
+      run: cmake --version
