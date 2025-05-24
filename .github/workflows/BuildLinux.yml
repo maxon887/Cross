@@ -17,6 +17,11 @@ jobs:
       with:
         submodules: 'recursive'
 
+    - name: Install Dependencies
+        run: sudo apt install libglew-dev -y
+        run: sudo apt install libglfw3-dev -y
+        run: sudo apt install libgtk-3-dev -y
+
     - name: Build Project
       uses: threeal/cmake-action@v2.1.0
       with:
