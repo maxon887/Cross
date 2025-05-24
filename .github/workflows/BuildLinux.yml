@@ -27,25 +27,3 @@ jobs:
       uses: threeal/cmake-action@v2.1.0
       with:
         source-dir: ./Demo/Projects/CMake
-
-    #- name: Setup cmake
-    #  uses: jwlawson/actions-setup-cmake@v2
-    #- name: Use cmake
-    #  run: cmake --version
-
-    # - name: Build & Test
-    #   uses: ashutoshvarma/action-cmake-build@master
-    #   with:
-    #     source-dir: ${{ github.workspace }}/Demo/Projects/CMake
-    #     build-dir: ${{ runner.workspace }}/build
-    #     # will set the CC & CXX for cmake
-    #     cc: gcc
-    #     cxx: g++
-    #     build-type: Release
-    #     # Extra options pass to cmake while configuring project
-    #     configure-options: -DCMAKE_C_FLAGS=-w32 -DPNG_INCLUDE=OFF
-
-    #     # install the build using cmake --install
-    #     install-build: true
-    #     # run build using '-j [parallel]' to use multiple threads to build
-    #     parallel: 14
