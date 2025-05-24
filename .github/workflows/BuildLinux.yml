@@ -25,6 +25,7 @@ jobs:
     - name: Build & Test
       uses: ashutoshvarma/action-cmake-build@master
       with:
+        source-dir: ${{ github.workspace }}/Demo/Projects/CMake
         build-dir: ${{ runner.workspace }}/build
         # will set the CC & CXX for cmake
         cc: gcc
