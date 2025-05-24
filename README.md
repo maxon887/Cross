@@ -8,6 +8,7 @@ Questions can be asked via [facebook](https://www.facebook.com/profile.php?id=10
 
 [![Windows](https://github.com/maxon887/Cross/actions/workflows/BuildWindows.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildWindows.yml)
 [![MacOS](https://github.com/maxon887/Cross/actions/workflows/BuildMacOS.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildMacOS.yml)
+[![Linux](https://github.com/maxon887/Cross/actions/workflows/BuildLinux.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildLinux.yml)
 [![Android](https://github.com/maxon887/Cross/actions/workflows/BuildAndroid.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildAndroid.yml)
 [![iOS](https://github.com/maxon887/Cross/actions/workflows/BuildIOS.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildIOS.yml)
 
