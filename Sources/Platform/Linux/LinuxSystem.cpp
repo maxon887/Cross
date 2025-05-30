@@ -11,7 +11,7 @@ String LinuxSystem::AssetsPath() {
 }
 
 String LinuxSystem::DataPath() {
-	return "../../../Data/";
+	return "./Data/";
 }
 
 U64 LinuxSystem::GetTime() {

@@ -100,7 +100,6 @@ bool System::IsDirectoryExists(const String& filepath) {
 
 void System::CreateDirectory(const String& dirname) {
 	String path = File::PathFromFile(dirname);
-	CROSS_FAIL(IsDirectoryExists(path), "Can not create directory at the provided path: '#'", path);
 	filesystem::create_directory(dirname.ToCStr());
 }
 
