@@ -71,7 +71,11 @@ GraphicsGL::GraphicsGL() {
 #endif
 #endif
 
-	os->LogIt("\tRenderer - #", (const char*)glGetString(GL_RENDERER));
+	String renderer = (const char*)glGetString(GL_RENDERER);
+	if(renderer.Find("Intel") != -1 || renderer.Find("intel") != -1) {
+		is_intel_renderer = true;
+	}
+	os->LogIt("\tRenderer - #", renderer);
 	os->LogIt("\tOpenGL version - #", (const char*)glGetString(GL_VERSION));
 	shader_version = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 	os->LogIt("\tGLSL version - " + shader_version);
@@ -113,4 +117,8 @@ const String& GraphicsGL::GetShaderVersion() const {
 
 void GraphicsGL::WindowResizeHandle(S32 width, S32 height) {
 	SAFE(glViewport(0, 0, width, height));
+}
+
+bool GraphicsGL::IsIntelRenderer() const {
+	return is_intel_renderer;
 }

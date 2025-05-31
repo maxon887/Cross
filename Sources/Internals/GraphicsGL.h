@@ -56,9 +56,12 @@ public:
 	GraphicsGL();
 
 	const String& GetShaderVersion() const;
+
+	bool IsIntelRenderer() const;
 	
 private:
 	String shader_version = "100";
+	bool is_intel_renderer = false;
 
 	void WindowResizeHandle(S32 width, S32 height);
 };
