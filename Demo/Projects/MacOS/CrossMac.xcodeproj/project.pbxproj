@@ -37,6 +37,7 @@
 		5098D4502DB4EBDF000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D44A2DB4EBDF000E9958 /* Tester.cpp */; };
 		509F17362D51D8800040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17352D51D8800040378F /* FileSelector.cpp */; };
 		50AB1F432D2D291600121DAB /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AB1F422D2D291600121DAB /* MultiLightShader.cpp */; };
+		50C3A0002DEECF9B0031242B /* AnimatedCameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C39FFF2DEECF9B0031242B /* AnimatedCameraController.cpp */; };
 		50C9611A2C74CA6100764079 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
 		50C9611B2C74CA6900764079 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
 		50C9611C2C74CA9000764079 /* libfmod.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
@@ -170,6 +171,8 @@
 		50AB1F412D2D291600121DAB /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
 		50AB1F422D2D291600121DAB /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50AD22372C384FAB00F75C22 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		50C39FFE2DEECF9B0031242B /* AnimatedCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCameraController.h; sourceTree = "<group>"; };
+		50C39FFF2DEECF9B0031242B /* AnimatedCameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedCameraController.cpp; sourceTree = "<group>"; };
 		50C961162C74CA5700764079 /* libassimpMAC.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libassimpMAC.dylib; sourceTree = "<group>"; };
 		50C961172C74CA5700764079 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmod.dylib; sourceTree = "<group>"; };
 		50C961182C74CA5700764079 /* libfmodL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodL.dylib; sourceTree = "<group>"; };
@@ -817,6 +820,8 @@
 				9D32D13820B40E47004A4D7E /* AudioScreen.h */,
 				9D32D13920B40E47004A4D7E /* Demo.cpp */,
 				9D32D13A20B40E47004A4D7E /* Demo.h */,
+				50C39FFE2DEECF9B0031242B /* AnimatedCameraController.h */,
+				50C39FFF2DEECF9B0031242B /* AnimatedCameraController.cpp */,
 				5002023A2D3D00640065374D /* CameraController.h */,
 				5002023B2D3D00640065374D /* CameraController.cpp */,
 			);
@@ -1099,6 +1104,7 @@
 				9D32D0E520B40E27004A4D7E /* Config.cpp in Sources */,
 				9D33C10D20D02985007EF97F /* DiffuseScene.cpp in Sources */,
 				9D32D0F520B40E27004A4D7E /* String.cpp in Sources */,
+				50C3A0002DEECF9B0031242B /* AnimatedCameraController.cpp in Sources */,
 				9D33C11120D02985007EF97F /* SkyboxScene.cpp in Sources */,
 				9D32D11820B40E27004A4D7E /* Rect.cpp in Sources */,
 				9D32D13120B40E27004A4D7E /* Cubemap.cpp in Sources */,

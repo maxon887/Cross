@@ -35,6 +35,7 @@
 		5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4562DB4EC30000E9958 /* Tester.cpp */; };
 		5098D45C2DB4EC30000E9958 /* UnusedFunctionSilencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */; };
 		509F17392D51D8D80040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17382D51D8D80040378F /* FileSelector.cpp */; };
+		50C3A0032DEECFDB0031242B /* AnimatedCameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */; };
 		50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */; };
 		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
 		50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */; };
@@ -166,6 +167,8 @@
 		5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UnusedFunctionSilencer.cpp; sourceTree = "<group>"; };
 		509F17372D51D8D80040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
 		509F17382D51D8D80040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
+		50C3A0012DEECFDB0031242B /* AnimatedCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCameraController.h; sourceTree = "<group>"; };
+		50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedCameraController.cpp; sourceTree = "<group>"; };
 		50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
 		50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50D4DB782C5A6615007E066E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -607,6 +610,8 @@
 				9D54BB331FBC4316009E8469 /* AudioScreen.h */,
 				9D54BB341FBC4316009E8469 /* Demo.cpp */,
 				9D54BB351FBC4316009E8469 /* Demo.h */,
+				50C3A0012DEECFDB0031242B /* AnimatedCameraController.h */,
+				50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */,
 				500202372D3D00310065374D /* CameraController.h */,
 				500202382D3D00310065374D /* CameraController.cpp */,
 			);
@@ -1103,6 +1108,7 @@
 				50051E052D36447800DC094B /* Log.cpp in Sources */,
 				50051E062D36447800DC094B /* LaunchView.cpp in Sources */,
 				50051E072D36447800DC094B /* FilesView.cpp in Sources */,
+				50C3A0032DEECFDB0031242B /* AnimatedCameraController.cpp in Sources */,
 				50051E082D36447800DC094B /* About.cpp in Sources */,
 				50051E092D36447800DC094B /* View.cpp in Sources */,
 				50051E0A2D36447800DC094B /* PropertiesView.cpp in Sources */,
