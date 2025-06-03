@@ -17,6 +17,7 @@
 #pragma once
 
 #include <cstdio>
+#include <cassert>
 
 namespace cross {
 

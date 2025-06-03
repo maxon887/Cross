@@ -45,8 +45,6 @@ if(!(condition)) {																\
 }
 
 #include <cstdint>
-#include <cassert>
-#include <cstdlib>
 #include <list>
 #include <map>
 #include <set>
