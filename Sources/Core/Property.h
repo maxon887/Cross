@@ -148,6 +148,7 @@ bool Property<T>::Load(tinyxml2::XMLElement* parent) {
 	constexpr bool isEnum = std::is_enum<T>::value;
 	if(isEnum) {
 		XMLElement* propertyXML = parent->FirstChildElement(name);
+		CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 		String typeStr = propertyXML->Attribute("type");
 		CROSS_RETURN(typeStr == "Enum", false, "Loading attribute mismatch. Expected Enum");
 		value = (T)propertyXML->Int64Attribute("value");
@@ -161,6 +162,7 @@ template<>
 inline bool Property<S32>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
+	CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "Int", false, "Loading attribute mismatch. Expected Int");
 	value = (S32)propertyXML->Int64Attribute("value");
@@ -171,6 +173,7 @@ template<>
 inline bool Property<float>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
+	CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "Float", false, "Loading attribute mismatch. Expected Float");
 	value = propertyXML->FloatAttribute("value");
@@ -181,6 +184,7 @@ template<>
 inline bool Property<String>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
+	CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "String", false, "Loading attribute mismatch. Expected String");
 	value = propertyXML->Attribute("value");
@@ -191,6 +195,7 @@ template<>
 inline bool Property<Vector3D>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
+	CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "Vector3D", false, "Loading attribute mismatch. Expected Vector3D");
 	value.x = propertyXML->FloatAttribute("x");
@@ -203,6 +208,7 @@ template<>
 inline bool Property<Quaternion>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
+	CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "Quaternion", false, "Loading attribute mismatch. Expected Quaternion");
 	value.x = propertyXML->FloatAttribute("x");
@@ -216,6 +222,7 @@ template<>
 inline bool Property<Color>::Load(tinyxml2::XMLElement* parent) {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = parent->FirstChildElement(name);
+	CROSS_RETURN(propertyXML, false, "Property '#' not found", name);
 	String typeStr = propertyXML->Attribute("type");
 	CROSS_RETURN(typeStr == "Color", false, "Loading attribute mismatch. Expected Color");
 	value = propertyXML->Attribute("data");

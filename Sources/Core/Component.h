@@ -32,7 +32,7 @@ public:
 	Component(String name);
 	virtual ~Component() = default;
 
-	/* Will be called once at the first Activation. At this time we already have a Scene instead on constructor */
+	/* Will be called once at the first Activation. At this time we already have a Scene (unlike in constructor) */
 	virtual bool Initialize() { return true; }
 	/* In order to trigger Activate 3 conditions should be met. You should not call this function manually
 	* 	a) Component must be added to Entity

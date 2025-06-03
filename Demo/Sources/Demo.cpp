@@ -19,10 +19,12 @@
 #include "Screen.h"
 #include "System.h"
 #include "Config.h"
+#include "Factory.h"
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
 #include "UI/Views/LaunchView.h"
 #include "Tests/Tester.h"
+#include "AnimatedCameraController.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -273,6 +275,8 @@ void Demo::Start() {
 	Game::Start();
 	os->LogIt("Demo::Start()");
 	demo = (Demo*)game;
+
+	GetComponentFactory()->Register<AnimatedCameraController>("AnimatedCameraController");
 
 	input->ActionDown.Connect(this, &Demo::ActionDownHandle);
 	input->ActionMove.Connect(this, &Demo::ActionMoveHandle);

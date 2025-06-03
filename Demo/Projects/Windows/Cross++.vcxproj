@@ -295,6 +295,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
+    <ClCompile Include="..\..\Sources\AnimatedCameraController.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\CameraController.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
@@ -399,6 +400,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
+    <ClInclude Include="..\..\Sources\AnimatedCameraController.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\CameraController.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />

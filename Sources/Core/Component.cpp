@@ -33,7 +33,7 @@ Component* Component::Clone() const {
 
 bool Component::Load(tinyxml2::XMLElement* parent) {
 	for(BaseProperty* prop : properties) {
-		CROSS_RETURN(prop->Load(parent), false, "Can not load component '#'", GetName());
+		CROSS_ASSERT(prop->Load(parent), "Component '#' have problem during loading", GetName());
 	}
 	return true;
 }

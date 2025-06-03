@@ -27,33 +27,36 @@ void TransformVisualBox::Update(Transform* transform) {
 	ImGui::NewLine();
 	ImGui::SameLine(SCALED(15.f));
 	ImGui::BeginGroup();
+	float rawVec[3];
 
 	ImGui::Text("Position:");
 	ImGui::SameLine(SCALED(100.f));
-	float posVec[3];
-	memcpy(posVec, transform->GetPosition().GetData(), sizeof(Vector3D));
+	memcpy(rawVec, transform->GetPosition().GetData(), sizeof(Vector3D));
 	ImGui::PushItemWidth(-5.f);
-	if(ImGui::DragFloat3("##Position", posVec, 0.1f)) {
-		transform->SetPosition(Vector3D(posVec[0], posVec[1], posVec[2]));
+	if(ImGui::DragFloat3("##Position", rawVec, 0.1f)) {
+		transform->SetPosition(Vector3D(rawVec[0], rawVec[1], rawVec[2]));
 	}
 
 	ImGui::Text("Scale:");
 	ImGui::SameLine(SCALED(100.f));
-	float scaleVec[3];
-	memcpy(scaleVec, transform->GetScale().GetData(), sizeof(Vector3D));
-	if(ImGui::DragFloat3("##Scale", scaleVec, 0.05f)) {
-		transform->SetScale(Vector3D(scaleVec[0], scaleVec[1], scaleVec[2]));
+	memcpy(rawVec, transform->GetScale().GetData(), sizeof(Vector3D));
+	if(ImGui::DragFloat3("##Scale", rawVec, 0.05f)) {
+		transform->SetScale(Vector3D(rawVec[0], rawVec[1], rawVec[2]));
 	}
+
+	Quaternion rotate = transform->GetRotate();
 
 	ImGui::Text("Axis:");
 	ImGui::SameLine(SCALED(100.f));
-	if(ImGui::DragFloat3("##Axis", axis.GetData(), 0.1f)) {
-		transform->SetRotate(axis, angle);
+	memcpy(rawVec, rotate.GetAxis().GetData(), sizeof(Vector3D));
+	if(ImGui::DragFloat3("##Axis", rawVec, 0.1f)) {
+		transform->SetRotate(Vector3D(rawVec[0], rawVec[1], rawVec[2]), rotate.GetAngle());
 	}
 	ImGui::Text("Angle:");
 	ImGui::SameLine(SCALED(100.f));
+	float angle = rotate.GetAngle();
 	if(ImGui::SliderFloat("##Angle", &angle, 0.0f, 360.f)) {
-		transform->SetRotate(axis, angle);
+		transform->SetRotate(rotate.GetAxis(), angle);
 	}
 
 	ImGui::EndGroup();
@@ -61,14 +64,4 @@ void TransformVisualBox::Update(Transform* transform) {
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar(1);
-}
-
-void TransformVisualBox::EntitySelected(Entity* newEntity) {
-	if(newEntity) {
-		Transform* tr = newEntity->GetComponent<Transform>();
-		if(tr) {
-			axis = tr->GetRotate().GetAxis();
-			angle = tr->GetRotate().GetAngle();
-		}
-	}
 }

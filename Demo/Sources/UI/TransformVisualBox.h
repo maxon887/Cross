@@ -22,9 +22,4 @@ using namespace cross;
 class TransformVisualBox {
 public:
 	void Update(Transform* transform);
-	void EntitySelected(Entity* newEntity);
-
-private:
-	Vector3D axis = Vector3D::Zero;
-	float angle = 0.f;
 };

@@ -29,7 +29,6 @@ ComponentsView::ComponentsView(SceneView* sceneView) :
 	View("Components", true)
 {
 	scene_view = sceneView;
-	scene_view->EntitySelected.Connect(&transform_box, &TransformVisualBox::EntitySelected);
 	scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
 }
 

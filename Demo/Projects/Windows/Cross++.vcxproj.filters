@@ -354,6 +354,9 @@
     <ClCompile Include="..\..\Sources\Tests\UnusedFunctionSilencer.cpp">
       <Filter>Demo\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\AnimatedCameraController.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -662,6 +665,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Tests\Tester.h">
       <Filter>Demo\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\AnimatedCameraController.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
