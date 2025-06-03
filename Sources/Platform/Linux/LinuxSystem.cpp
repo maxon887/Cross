@@ -55,6 +55,7 @@ bool LinuxSystem::Alert(const String& msg) {
 	} else {
 		*((volatile unsigned int*)0) = 0xDEAD;
 	}
+	return true;
 }
 
 void LinuxSystem::Sleep(float milis) {

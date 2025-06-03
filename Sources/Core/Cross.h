@@ -25,7 +25,7 @@
 // malloc and free there are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macros. Should not be turned on in Release mode.
 
 /*	Access modifier that allow usage only inside engine classes */
-#define engineonly protected: CROSS_FRIENDLY protected
+#define engineonly public
 
 #define CROSS_ASSERT(condition, message, ...)									\
 if(!(condition)) {																\
@@ -119,17 +119,3 @@ static const char*	version = "4.0.2";
 
 /* Main function of the Cross Engine. This function must implement every game */
 cross::Game* CrossMain();
-
-#define CROSS_FRIENDLY	\
-friend Shader;			\
-friend Material;		\
-friend Mesh;			\
-friend GraphicsGL;		\
-friend Game;			\
-friend System;			\
-friend Audio;			\
-friend Sound;			\
-friend Input;			\
-friend Config;			\
-friend Scene;			\
-friend Screen;

@@ -78,12 +78,12 @@ public:
 engineonly:
 	void SetOnScene(bool onScene);
 	void Update(float sec);
+	List<Entity*> children					= List<Entity*>();
 
 private:
 	String name								= String();
 	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
 	Entity* parent							= nullptr;
-	List<Entity*> children					= List<Entity*>();
 	bool on_scene							= false;
 };
 
