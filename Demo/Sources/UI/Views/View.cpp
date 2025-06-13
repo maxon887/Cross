@@ -25,6 +25,9 @@ View::View(const String& name, bool defaultVisibility)
 	landscape_name = name + "##Landscape";
 	portrait_name = name + "##Portrait";
 	String windowID = String::Format("VIEW_#_VISIBLE", GetName().Hash());
+	if(os->IsMobile()) {
+		defaultVisibility = false;
+	}
 	visible = config->GetBool(windowID, defaultVisibility);
 }
 
