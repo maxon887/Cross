@@ -58,7 +58,7 @@ void CameraControllerView::Update(float sec) {
 
 		float sliderValue = 0.f;
 		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(25.f));
-		if(ImGui::VSliderFloat("", ImVec2(SCALED(25.f), SCALED(150.f)), &sliderValue, -1.f, 1.f, "")) {
+		if(ImGui::VSliderFloat("##", ImVec2(SCALED(25.f), SCALED(150.f)), &sliderValue, -1.f, 1.f, "")) {
 			if(!lookAt) {
 				cameraController->MoveUp(sliderValue * sec);
 			} else {
