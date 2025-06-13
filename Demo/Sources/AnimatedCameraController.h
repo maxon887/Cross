@@ -9,7 +9,6 @@ class AnimatedCameraController : public Component {
 public:
 	AnimatedCameraController();
 
-	bool Initialize() override;
 	void Update(float sec) override;
 
 private:
