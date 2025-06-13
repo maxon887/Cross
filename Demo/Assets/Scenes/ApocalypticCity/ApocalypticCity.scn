@@ -11,9 +11,9 @@
                     <Rotation type="Quaternion" x="-0.10392165" y="-0.31699085" z="0.034967851" w="0.94206917"/>
                 </Transform>
                 <AnimatedCameraController>
-                    <StartPos type="Vector3D" x="-3" y="0.7" z="-3"/>
+                    <StartPos type="Vector3D" x="-2.59" y="0.67" z="-2.4"/>
                     <EndPos type="Vector3D" x="1.2" y="1" z="-2.2"/>
-                    <StartRotate type="Quaternion" x="-0.026" y="-0.317" z="0" w="0.94"/>
+                    <StartRotate type="Quaternion" x="-0.001" y="-0.23" z="0" w="0.97"/>
                     <EndRotate type="Quaternion" x="-0.044" y="-0.153" z="0" w="0.98"/>
                 </AnimatedCameraController>
             </Components>

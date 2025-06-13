@@ -41,9 +41,9 @@ public:
 	bool IsMobile() override;
 	void OpenFileExternal(const String& filename) override;
 	String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false) override;
+	void Fullscreen(bool enable) override;
 
 	void SetAssetPath(const String& path);
-	void FullScreen(bool yes);
 	void ResizeWindow(int posX, int posY, int width, int height);
 
 public:
@@ -59,7 +59,6 @@ private:
 	String clipboard	= "";
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
-	bool fullscreen		= false;
 
 	String GetLastErrorString(DWORD err);
 

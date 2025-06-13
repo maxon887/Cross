@@ -53,6 +53,8 @@ MenuBar::MenuBar() {
 	log = CREATE Log();
 	stats = CREATE Stats();
 	about = CREATE About();
+
+	input->KeyPressed.Connect(this, &MenuBar::KeyPressed);
 }
 
 MenuBar::~MenuBar() {
@@ -88,7 +90,7 @@ void MenuBar::ShowMenu() {
 	}
 
 	bool haveScene = game->GetCurrentScene() != nullptr;
-	//shortcuts implementation here
+	//shortcuts implementation
 	if((input->IsPressed(Key::COMMAND) || input->IsPressed(Key::CONTROL)) && input->IsPressed(Key::S) && haveScene ) {
 		SaveScene();
 	}
@@ -261,5 +263,12 @@ void MenuBar::SaveScene() {
 			filename += ".scn";
 		}
 		game->GetCurrentScene()->Save(filename);
+	}
+}
+
+void MenuBar::KeyPressed(cross::Key key) {
+	if((key == Key::ENTER && input->IsPressed(Key::ALT)) || (key == Key::ALT && input->IsPressed(Key::ENTER))) {
+		fullscreen = !fullscreen;
+		os->Fullscreen(fullscreen);
 	}
 }

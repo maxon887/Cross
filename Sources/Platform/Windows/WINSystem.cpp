@@ -190,7 +190,7 @@ void WINSystem::SetAssetPath(const String& path) {
 	assets_path = path;
 }
 
-void WINSystem::FullScreen(bool yes) {
+void WINSystem::Fullscreen(bool yes) {
 	if(yes){
 		HDC dc = GetDC(wnd);
 		int fullscreenWidth = GetDeviceCaps(dc, HORZRES);
@@ -205,7 +205,6 @@ void WINSystem::FullScreen(bool yes) {
 }
 
 void WINSystem::ResizeWindow(int posX, int posY, int width, int height) {
-	CROSS_FAIL(wnd && !fullscreen, "Zero WND. Can not resize native window");
 	window_pos_x = posX;
 	window_pos_y = posY;
 	SetWindowSize(width, height);
@@ -254,10 +253,6 @@ void WINSystem::KeyReleasedHandle(Key key) {
 		break;
 	case Key::F6:	//5:8
 		ResizeWindow(window_pos_x, window_pos_y, 800, 1280);
-		break;
-	case Key::F8:
-		fullscreen = !fullscreen;
-		FullScreen(fullscreen);
 		break;
 	default:
 		break;

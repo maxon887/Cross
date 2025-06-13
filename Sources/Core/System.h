@@ -93,6 +93,8 @@ public:
 	virtual void OpenFileExternal(const String& filename);
 	/* Opens system window for choosing file */
 	virtual String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false);
+	/* Ask application to in or out fullscreen */
+	virtual void Fullscreen(bool enable) { }
 	/* Prints String */
 	template<class... Args>
 	void LogIt(const String& format, Args... args);
