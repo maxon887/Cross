@@ -138,6 +138,7 @@ void CameraController::OnActionDown(Input::Action action) {
 		return;
 	}
 	camera_active = true;
+	touch_position = action.pos;
 	if(action.id == 0) {
 		mode = Mode::ORBIT;
 	} else if(action.id	== 1) {
@@ -148,10 +149,9 @@ void CameraController::OnActionDown(Input::Action action) {
 }
 
 void CameraController::OnActionMove(Input::Action action) {
-	Vector2D delta = touch_position - action.pos;
-	touch_position = action.pos;
-	
 	if(camera_active) {
+		Vector2D delta = touch_position - action.pos;
+		touch_position = action.pos;
 		if(mode == Mode::ORBIT || mode == Mode::FREE) {
 			LookRight(delta.x / 10.f);
 			LookUp(delta.y / 10.f);
