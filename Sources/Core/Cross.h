@@ -111,7 +111,7 @@ extern Audio*		audio;
 extern Input*		input;
 extern Config*		config;
 
-static const char*	version = "4.0.2";
+static const char*	version = "5.0.0";
 
 }
 
