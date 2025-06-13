@@ -6,8 +6,21 @@
 
 using namespace cross;
 
+LinuxSystem::LinuxSystem() {
+	const char* devAssets = "../../../Assets/";
+	const char* releaseAssets = "./Assets/";
+	if(System::IsDirectoryExists(devAssets)) {
+		assets_path = devAssets;
+	} else if (System::IsDirectoryExists(releaseAssets)) {
+		assets_path = releaseAssets;
+	} else {
+		CROSS_ASSERT(false, "Can not find 'Assets' directory");
+	}
+}
+
+
 String LinuxSystem::AssetsPath() {
-	return "../../../Assets/";
+	return assets_path;
 }
 
 String LinuxSystem::DataPath() {
