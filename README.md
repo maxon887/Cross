@@ -27,6 +27,8 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 8. Base scene editor
 9. Many useful interesting features like: Event System, Assert System, Memory Manager.
 
+https://www.youtube.com/watch?v=tnp09QB5sak
+
 ### Screenshot Gallery
 ![Alt text](https://sun9-26.userapi.com/c200820/v200820675/27ebb/RgV5CjNc_7s.jpg)
 ![Alt text](https://sun9-62.userapi.com/c854220/v854220397/16e46b/XNA1LrNMHXg.jpg)
