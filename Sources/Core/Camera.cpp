@@ -26,8 +26,7 @@ Camera::Camera() : Component("Camera")
 { }
 
 bool Camera::Activate() {
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
-	SetProjectionMatrix(projection);
+	UpdateProjectionMatrix();
 	
 	Scene* scene = game->GetCurrentScene();
 	CROSS_RETURN(!scene->GetCamera(), false, "Current Scene already have another camera");
@@ -44,6 +43,9 @@ void Camera::Deactivate() {
 
 void Camera::Update(float sec){
 	RecalcView();
+	if(current_view_distance != view_distance) {
+		UpdateProjectionMatrix();
+	}
 }
 
 Component* Camera::Clone() const {
@@ -62,8 +64,9 @@ const Matrix& Camera::GetProjectionMatrix() const {
 	return projection;
 }
 
-void Camera::SetProjectionMatrix(const Matrix& projection){
-	this->projection = projection;
+void Camera::UpdateProjectionMatrix() {
+	current_view_distance = view_distance;
+	projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, view_distance);
 }
 
 void Camera::RecalcView(){
