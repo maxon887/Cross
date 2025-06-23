@@ -51,6 +51,7 @@ public:
 	bool Load(tinyxml2::XMLElement* parent) override;
 
 	T& operator = (const T& val);
+	T& operator = (const Property& other);
 	operator const T& () const;
 
 private:
@@ -242,6 +243,13 @@ inline bool Property<Color>::Load(tinyxml2::XMLElement* parent) {
 template<class T>
 T& Property<T>::operator = (const T& val) {
 	value = val;
+	ValueChanged.Emit();
+	return value;
+}
+
+template<class T>
+T& Property<T>::operator = (const Property<T>& other) {
+	value = other.Get();
 	ValueChanged.Emit();
 	return value;
 }
