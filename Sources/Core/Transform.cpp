@@ -54,9 +54,8 @@ void Transform::SetPosition(const Vector3D& pos) {
 }
 
 void Transform::SetPosition(const Matrix& pos) {
-	position.value.x = pos.m[0][3];
-	position.value.y = pos.m[1][3];
-	position.value.z = pos.m[2][3];
+	Vector3D newPosition(pos.m[0][3], pos.m[1][3], pos.m[2][3]);
+	position = newPosition;
 	recalc_model = true;
 }
 
@@ -80,9 +79,8 @@ void Transform::SetScale(const Vector3D& scaleVec) {
 }
 
 void Transform::SetScale(const Matrix& scaleMat) {
-	scale.value.x = scaleMat.m[0][0];
-	scale.value.y = scaleMat.m[1][1];
-	scale.value.z = scaleMat.m[2][2];
+	Vector3D newScale(scaleMat.m[0][0], scaleMat.m[1][1], scaleMat.m[2][2]);
+	scale = newScale;
 	recalc_model = true;
 }
 
@@ -140,15 +138,15 @@ Vector3D Transform::GetWorldDirection() {
 }
 
 Vector3D Transform::GetForward() const {
-	return rotation.value * Vector3D::Forward;
+	return rotation.Get() * Vector3D::Forward;
 }
 
 Vector3D Transform::GetRight() const {
-	return rotation.value * Vector3D::Right;
+	return rotation.Get() * Vector3D::Right;
 }
 
 Vector3D Transform::GetUp() const {
-	return rotation.value * Vector3D::Up;
+	return rotation.Get() * Vector3D::Up;
 }
 
 void Transform::SetDirection(const Vector3D& direction) {
@@ -162,7 +160,7 @@ Matrix& Transform::GetModelMatrix() {
 		translate.SetTranslation(position);
 		Matrix scaleMat = Matrix::Identity;
 		scaleMat.SetScale(scale);
-		model = translate * rotation.value.GetMatrix() * scaleMat;
+		model = translate * rotation.Get().GetMatrix() * scaleMat;
 		recalc_model = false;
 	}
 	return model;

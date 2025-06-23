@@ -51,9 +51,6 @@ protected:
 	Matrix projection				= Matrix::Identity;
 
 	void RecalcView();
-
-private:
-	float current_view_distance = 0;
 };
 
 }

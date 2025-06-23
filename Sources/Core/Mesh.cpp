@@ -47,7 +47,7 @@ Mesh::~Mesh() {
 
 bool Mesh::Initialize() {
 	//sometimes we want to create mesh from scratch in that case we don't need all model loading code here
-	if(model_filename.value.IsEmpty()) {
+	if(model_filename.Get().IsEmpty()) {
 		return true;
 	}
 	
@@ -66,7 +66,7 @@ bool Mesh::Initialize() {
 	vertex_buffer = originalMesh->vertex_buffer->Clone();
 	
 	if(!material) {
-		if(!material_filename.value.IsEmpty()) {
+		if(!material_filename.Get().IsEmpty()) {
 			Material* mat = scene->GetMaterial(material_filename);
 			CROSS_RETURN(mat, false, "Can not Initialize Mesh. Material wasn't obtained");
 			SetMaterial(mat);
@@ -319,11 +319,11 @@ S32 Mesh::GetID() const {
 }
 
 String Mesh::GetModelFileName() const {
-	return model_filename.value;
+	return model_filename;
 }
 
 String Mesh::GetMaterialFileName() const {
-	return material_filename.value;
+	return material_filename;
 }
 
 U32 Mesh::GetPolyCount() const {

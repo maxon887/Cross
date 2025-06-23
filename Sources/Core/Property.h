@@ -40,16 +40,21 @@ protected:
 template<class T>
 class Property : public BaseProperty {
 public:
-	T value;
+	Event<> ValueChanged;
 
 	Property(Component* owner, String name);
 	Property(Component* owner, String name, const T& def);
+
+	const T& Get() const;
 
 	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override;
 	bool Load(tinyxml2::XMLElement* parent) override;
 
 	T& operator = (const T& val);
-	operator T () const;
+	operator const T& () const;
+
+private:
+	T value;
 };
 
 template<class T>
@@ -61,6 +66,11 @@ template<class T>
 Property<T>::Property(Component* owner, String name, const T& def) :
 	BaseProperty(owner, std::move(name)), value(def)
 { }
+
+template<class T>
+const T& Property<T>::Get() const {
+	return value;
+}
 
 template<class T>
 bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
@@ -232,11 +242,12 @@ inline bool Property<Color>::Load(tinyxml2::XMLElement* parent) {
 template<class T>
 T& Property<T>::operator = (const T& val) {
 	value = val;
+	ValueChanged.Emit();
 	return value;
 }
 
 template<class T>
-Property<T>::operator T () const {
+Property<T>::operator const T& () const {
 	return value;
 }
 
