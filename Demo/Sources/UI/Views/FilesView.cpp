@@ -147,6 +147,11 @@ void FilesView::FileDoubleClicked(const String& filename) {
 		} else {
 			game->SetScreen(scene);
 		}
+	} else if(extension == "fbx" || extension == "FBX") {
+		DemoScene* scene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
+		if(scene) {
+			scene->ImportModel(filename);
+		}
 	} else {
 		os->OpenFileExternal(filename);
 	}

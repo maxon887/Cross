@@ -214,12 +214,9 @@ void SceneView::ContextMenu() {
 		if(ImGui::MenuItem("Import Model", nullptr, false, haveScene)) {
 			String filename = os->OpenFileDialog();
 			if(!filename.IsEmpty()) {
-				Model* model = game->GetCurrentScene()->GetModel(filename);
-				if(model) {
-					Entity* entity = model->GetHierarchy();
-					DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
-					demoScene->ApplyMaterial(entity, demoScene->GetDefaultMaterial());
-					demoScene->AddEntity(entity);
+				DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
+				if(demoScene) {
+					demoScene->ImportModel(filename);
 				}
 			}
 		}

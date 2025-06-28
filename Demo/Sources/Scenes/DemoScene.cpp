@@ -84,6 +84,15 @@ void DemoScene::ApplyMaterial(Entity* entity, Material* mat, bool depthTest) {
 	}
 }
 
+void DemoScene::ImportModel(const cross::String &modelFile, bool calcTangents) {
+	Model* model = GetModel(modelFile, calcTangents);
+	if(model) {
+		Entity* entity = model->GetHierarchy();
+		ApplyMaterial(entity, GetDefaultMaterial());
+		AddEntity(entity);
+	}
+}
+
 void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */) {
 	if(!arrow) {
 		arrow = GetModel(ArrowModelFile)->GetHierarchy();
