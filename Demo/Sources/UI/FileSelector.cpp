@@ -173,7 +173,7 @@ void FileSelector::ValueChanged() {
 		suggested_names = all_names;
 	} else {
 		suggested_index = 0;
-		String agnosticInput = current_input;
+		String agnosticInput = current_input.ToCStr(); //hack there because current_input have wrong length
 		agnosticInput.Lowercase();
 		suggested_names.Clear();
 		for(const String& filename : all_names) {
