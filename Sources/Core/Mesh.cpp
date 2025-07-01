@@ -290,6 +290,7 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 }
 
 void Mesh::SetMaterial(Material* mat) {
+	CROSS_FAIL(mat->GetShader(), "You are trying to assign material without a shader. Further drawing will be impossible")
 	this->material = mat;
 	material_filename = mat->GetFilename();
 }
