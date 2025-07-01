@@ -20,7 +20,6 @@
 #include "Screen.h"
 #include "Input.h"
 #include "Config.h"
-#include "resource.h"
 #include "GLES.h"
 #include "Platform/CrossEGL.h"
 #include "WINSystem.h"
@@ -170,13 +169,17 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	return DefWindowProc(wnd, msg, wParam, lParam);
 }
 
-HWND WinCreate(){
+HWND WinCreate() {
+	HANDLE hIcon = LoadImage(0, "icon.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
+	if(!hIcon) {
+		hIcon = LoadImage(0, "../icon.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
+	}
+
 	HINSTANCE instance = GetModuleHandle(nullptr);
 	WNDCLASSEX wc;
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.hIconSm = (HICON)LoadImageA(instance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 32, 32, 0);
-	wc.hIcon = (HICON)LoadImageA(instance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 64, 64, 0);
+	wc.hIcon = (HICON)hIcon;
 	wc.lpfnWndProc = WinProc;
 	wc.hInstance = instance;
 	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
