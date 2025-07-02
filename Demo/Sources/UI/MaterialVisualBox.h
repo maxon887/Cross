@@ -20,10 +20,11 @@
 using namespace cross;
 
 class FileSelector;
+class FilesView;
 
 class MaterialVisualBox {
 public:
-	MaterialVisualBox();
+	MaterialVisualBox(FilesView* filesView);
 	~MaterialVisualBox();
 
 	void Update();
@@ -33,6 +34,7 @@ public:
 	void OnScreenChanged(Screen* newScreen);
 
 private:
+	FilesView* files_view = nullptr;
 	Material* mat = nullptr;
 	FileSelector* shader_selector = nullptr;
 	bool loaded_from_scene = false;

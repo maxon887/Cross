@@ -24,7 +24,7 @@ class SceneView;
 
 class ComponentsView : public View {
 public:
-	ComponentsView(SceneView* sceneView);
+	ComponentsView(SceneView* sceneView, FilesView* filesView);
 
 	void Update(float sec) override;
 

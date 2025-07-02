@@ -271,6 +271,7 @@ void FilesView::ContextMenu() {
 			Refresh();
 			ImGui::CloseCurrentPopup();
 			FileSelected.Emit(current_path);
+			FileTreeChanged.Emit();
 		}
 		ImGui::EndPopup();
 	}
@@ -306,6 +307,7 @@ void FilesView::ContextMenu() {
 			Refresh();
 			ImGui::CloseCurrentPopup();
 			FileSelected.Emit(current_path);
+			FileTreeChanged.Emit();
 		}
 
 		ImGui::EndPopup();
@@ -322,6 +324,7 @@ void FilesView::ContextMenu() {
 			os->Delete(os->AssetsPath() + current_path);
 			current_path = "";
 			FileSelected.Emit(current_path);
+			FileTreeChanged.Emit();
 			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();

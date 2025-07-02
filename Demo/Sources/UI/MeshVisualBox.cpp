@@ -23,8 +23,8 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-MeshVisualBox::MeshVisualBox() {
-	material_file = CREATE FileSelector("Material", "mat");
+MeshVisualBox::MeshVisualBox(FilesView* filesView) {
+	material_file = CREATE FileSelector(filesView, "Material", "mat");
 	material_file->FileSelected.Connect(this, &MeshVisualBox::MaterialSelected);
 }
 

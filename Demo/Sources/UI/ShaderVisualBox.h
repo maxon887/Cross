@@ -20,10 +20,11 @@
 using namespace cross;
 
 class FileSelector;
+class FilesView;
 
 class ShaderVisualBox {
 public:
-	ShaderVisualBox();
+	ShaderVisualBox(FilesView* filesView);
 	~ShaderVisualBox();
 
 	void Update();

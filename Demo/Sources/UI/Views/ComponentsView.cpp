@@ -25,8 +25,8 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-ComponentsView::ComponentsView(SceneView* sceneView) :
-	View("Components", true)
+ComponentsView::ComponentsView(SceneView* sceneView, FilesView* filesView) :
+	View("Components", true), mesh_box(filesView)
 {
 	scene_view = sceneView;
 	scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);

@@ -21,6 +21,7 @@
 class FilesView : public View {
 public:
 	Event<const String&> FileSelected;
+	Event<> FileTreeChanged;
 
 	FilesView();
 

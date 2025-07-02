@@ -33,7 +33,6 @@ public:
 	void ShowMenu();
 	void CloseAllViews();
 	float GetHeight() const;
-	FilesView* GetFilesView() const;
 
 protected:
 	float menu_height			= 0;
