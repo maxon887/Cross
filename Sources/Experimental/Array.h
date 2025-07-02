@@ -234,7 +234,7 @@ void Array<T>::operator = (const Array<T>& other) {
 template<class T>
 void Array<T>::operator = (Array<T>&& other) {
 	Clear();
-	delete data;
+	CROSS_FREE(data);
 
 	this->size = other.size;
 	this->capacity = other.capacity;
