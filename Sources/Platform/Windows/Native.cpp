@@ -105,6 +105,10 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	case WM_SYSKEYUP:
 		input->KeyReleased.Emit((cross::Key)wParam);
 		break;
+	case WM_SYSCOMMAND:
+		if(wParam == SC_KEYMENU) {
+			return 0;
+		}
 	case WM_CHAR:
 		input->CharEnter.Emit((char)wParam);
 		break;
