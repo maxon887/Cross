@@ -72,12 +72,12 @@ void CameraController::Update(float sec) {
 	}
 	
 	Camera* camera = game->GetCurrentScene()->GetCamera();
-	if(lerp_time > 0) {
-		Vector3D pos = Lerp(camera->GetPosition(), destination.GetPosition(), 1.f - lerp_time);
-		Quaternion rot = Lerp(camera->GetTransform()->GetRotate(), destination.GetRotate(), 1.f - lerp_time);
+	if(look_target_lerp > 0) {
+		Vector3D pos = Lerp(camera->GetPosition(), destination.GetPosition(), 1.f - look_target_lerp);
+		Quaternion rot = Lerp(camera->GetTransform()->GetRotate(), destination.GetRotate(), 1.f - look_target_lerp);
 		camera->SetPosition(pos);
 		camera->GetTransform()->SetRotate(rot);
-		lerp_time -= sec;
+		look_target_lerp -= sec;
 	} else {
 		camera->SetPosition(destination.GetPosition());
 		camera->GetTransform()->SetRotate(destination.GetRotate());
@@ -123,7 +123,7 @@ void CameraController::LookUp(float degree) {
 }
 
 void CameraController::LookAtTarget(const Vector3D& target, float distance /* = 3*/) {
-	lerp_time = 1.f;
+	look_target_lerp = 1.f;
 	focus_distance = distance;
 	Camera* camera = game->GetCurrentScene()->GetCamera();
 	Vector3D camObjVec = target - camera->GetPosition();
@@ -149,9 +149,9 @@ void CameraController::OnActionDown(Input::Action action) {
 }
 
 void CameraController::OnActionMove(Input::Action action) {
+	Vector2D delta = touch_position - action.pos;
+	touch_position = action.pos;
 	if(camera_active) {
-		Vector2D delta = touch_position - action.pos;
-		touch_position = action.pos;
 		if(mode == Mode::ORBIT || mode == Mode::FREE) {
 			LookRight(delta.x / 10.f);
 			LookUp(delta.y / 10.f);

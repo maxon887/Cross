@@ -57,7 +57,7 @@ protected:
 	Mode mode		 			= Mode::ORBIT;
 
 	float focus_distance		= 3.f;
-	float lerp_time				= 0.f;
+	float look_target_lerp		= 0.f;
 	Transform destination		= Transform();
 	
 	Vector2D touch_position = Vector2D();
