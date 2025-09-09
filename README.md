@@ -4,6 +4,9 @@ Is a lightweight cross-platform game engine. Written mostly on C++. Main purpose
 Questions can be asked via [facebook](https://www.facebook.com/profile.php?id=100001651879786)
 [instagram](https://www.instagram.com/maxon8871/)
 
+### Supported Platforms
+Windows, MacOS, Linux, Android, iOS
+
 ### Build Status
 
 [![Windows](https://github.com/maxon887/Cross/actions/workflows/BuildWindows.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildWindows.yml)
@@ -13,19 +16,23 @@ Questions can be asked via [facebook](https://www.facebook.com/profile.php?id=10
 [![iOS](https://github.com/maxon887/Cross/actions/workflows/BuildIOS.yml/badge.svg)](https://github.com/maxon887/Cross/actions/workflows/BuildIOS.yml)
 
 
-### Demo
+### Demo Project
 Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 
 ### Features
-1. Currently supported platforms Windows, iOS, Android.
-2. Entity-Component system and scene management.
-3. Renderer with materials, lighting and model loading.
-4. Lightweight and fast. Distributable binaries and assets weight around 1.5mb.
-5. Crossp-platform input system.
-6. Audio system.
-7. Documented most part of code.
-8. Base scene editor
-9. Many useful interesting features like: Event System, Assert System, Memory Manager.
+1. Entity-Component system and scene management
+2. Renderer with materials, lighting and model loading
+3. Lightweight and fast. Distributable binaries and assets weight around 1.5mb
+4. Crossp-platform input system
+5. Audio system
+6. Documented most part of code
+7. Base scene, material and shaders editor
+8. Event System
+9. Assert System. Allowing stop or skip broken code fragments
+10. Memory Manager
+11. Function Holders. Provides ability to bind to any method or function and call it later on demand
+12. Propereties. Aka Reflection support for basic types. Сonvenient for editor and load/save functionalities
+13. Factory for lazy objects creation added
 
 ### Tutorials:
 1. Introduction and Windows Setup: https://www.youtube.com/watch?v=tnp09QB5sak
