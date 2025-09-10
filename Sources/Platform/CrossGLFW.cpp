@@ -228,8 +228,8 @@ int main(int c, char **args) {
     cross::os = CREATE MacSystem(args[0]);
 #elif LINUX
 	cross::os = CREATE LinuxSystem();
+	glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
 #endif
-
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;
     }
