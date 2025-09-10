@@ -22,7 +22,7 @@ using namespace cross;
 
 class MeshVisualBox {
 public:
-	MeshVisualBox();
+	MeshVisualBox(FilesView* filesView);
 	~MeshVisualBox();
 	
 	void Update();

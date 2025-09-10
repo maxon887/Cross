@@ -18,10 +18,9 @@
 #include "FilesView.h"
 #include "Game.h"
 
-PropertiesView::PropertiesView(FilesView *fv) : View("Properties", true)
+PropertiesView::PropertiesView(FilesView* fv) :
+	View("Properties", true), shaderVB(fv), materialVB(fv)
 {
-	fv->FileSelected.Connect(&shaderVB, &ShaderVisualBox::OnFileSelected);
-	fv->FileSelected.Connect(&materialVB, &MaterialVisualBox::OnFileSelected);
 	game->ScreenChanged.Connect(&materialVB, &MaterialVisualBox::OnScreenChanged);
 }
 

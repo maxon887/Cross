@@ -41,8 +41,8 @@ public:
 	const Matrix& GetViewMatrix() const;
 	/* Returns Camera's projection Matrix. Must be setup first */
 	const Matrix& GetProjectionMatrix() const;
-	/* Sets Camera's projection Matrix. Needed to render a Scene */
-	void SetProjectionMatrix(const Matrix& projection);
+	/* Recalculate projection matrix based new values */
+	void UpdateProjectionMatrix();
 
 protected:
 	Property<float> view_distance	= Property<float>(this, "ViewDistance", 100.f);

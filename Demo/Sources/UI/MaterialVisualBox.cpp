@@ -22,13 +22,16 @@
 #include "Scene.h"
 #include "FileSelector.h"
 #include "Graphics.h"
+#include "Views/FilesView.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
 using namespace std;
 
-MaterialVisualBox::MaterialVisualBox() {
-	shader_selector = CREATE FileSelector("Shader", "sha");
+MaterialVisualBox::MaterialVisualBox(FilesView* filesView) {
+	this->files_view = filesView;
+	filesView->FileSelected.Connect(this, &MaterialVisualBox::OnFileSelected);
+	shader_selector = CREATE FileSelector(filesView, "Shader", "sha");
 	shader_selector->FileSelected.Connect(this, &MaterialVisualBox::OnShaderSelected);
 }
 
@@ -188,7 +191,7 @@ void MaterialVisualBox::CreateTextureSelectors() {
 	texture_selectors.clear();
 	for(Shader::Uniform& prop : mat->GetProperties()) {
 		if(prop.type == Shader::Uniform::Type::TEXTURE) {
-			FileSelector* textureSelector = CREATE FileSelector(prop.name, "png");
+			FileSelector* textureSelector = CREATE FileSelector(files_view, prop.name, "png");
 			texture_selectors[prop.name] = textureSelector;
 			if(prop.GetValue().texture) {
 				textureSelector->SetSelectedFile(prop.GetValue().texture->GetName());

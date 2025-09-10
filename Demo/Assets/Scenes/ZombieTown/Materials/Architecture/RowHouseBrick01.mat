@@ -1,0 +1,3 @@
+<Material shader="Engine/Shaders/Texture.sha">
+    <Property name="Texture" value="Scenes/ZombieTown/Textures/Environment/Architecture/RowHouseBrick01.png"/>
+</Material>

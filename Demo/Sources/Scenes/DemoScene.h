@@ -34,8 +34,9 @@ public:
 	void Save(const String& file) override;
 
 	void ApplyMaterial(Entity* entity, Material* mat, bool depthTest = true);
+	void ImportModel(const String& modelFile, bool calcTangents = false);
 	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);
-	
+
 protected:
 	CameraController* camera_controller = nullptr;
 

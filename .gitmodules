@@ -1,3 +1,0 @@
-[submodule "Demo/Sources/ThirdParty/ImGui"]
-	path = Demo/Sources/ThirdParty/ImGui
-	url = https://github.com/maxon887/imgui.git

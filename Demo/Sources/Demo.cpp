@@ -547,35 +547,11 @@ void Demo::ActionUpHandle(Input::Action action) {
 void Demo::KeyPressed(Key key) {
 	ImGuiIO& io = ImGui::GetIO();
 	io.AddKeyEvent(FromCrossKeyToImgui(key), true);
-	if(key == Key::CONTROL) {
-		io.KeyCtrl = true;
-	}
-	if(key == Key::SHIFT) {
-		io.KeyShift = true;
-	}
-	if(key == Key::ALT) {
-		io.KeyAlt = true;
-	}
-	if(key == Key::COMMAND) {
-		io.KeySuper = true;
-	}
 }
 
 void Demo::KeyReleased(Key key) {
 	ImGuiIO& io = ImGui::GetIO();
 	io.AddKeyEvent(FromCrossKeyToImgui(key), false);
-	if(key == Key::CONTROL) {
-		io.KeyCtrl = false;
-	}
-	if(key == Key::SHIFT) {
-		io.KeyShift = false;
-	}
-	if(key == Key::ALT) {
-		io.KeyAlt = false;
-	}
-	if (key == Key::COMMAND) {
-		io.KeySuper = false;
-	}
 }
 
 void Demo::CharEnter(char c) {

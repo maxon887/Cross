@@ -20,20 +20,17 @@
 #include "Input.h"
 #include "Demo.h"
 #include "System.h"
-#include "MenuBar.h"
 #include "Views/FilesView.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 #include "ThirdParty/ImGui/imgui_internal.h"
 
-FileSelector::FileSelector(const String &label, const String &fileExtension) {
+FileSelector::FileSelector(FilesView* filesView, const String &label, const String &fileExtension) {
+	this->files_view = filesView;
 	this->label = label;
-	extensions.Add(fileExtension);
-	files_list = FileUtils::GetAllFilesOfType(fileExtension);
-	for(const String& filename : files_list) {
-		all_names.Add(File::FileFromPath(filename));
-	}
-	ValueChanged();
+	this->extension = fileExtension;
+	filesView->FileTreeChanged.Connect(this, &FileSelector::RefreshAllAvailableFiles);
+	RefreshAllAvailableFiles();
 }
 
 bool FileSelector::Update() {
@@ -133,9 +130,7 @@ bool FileSelector::Update() {
 	ImGui::PushID(label + "Locate Button");
 	if(ImGui::Button("?", ImVec2(SCALED(26), 0))) {
 		//try to find file in FilesView
-		MenuBar* menuBar = demo->GetMenuBar();
-		FilesView* filesView = menuBar->GetFilesView();
-		filesView->AskToShowFile(selected_file);
+		files_view->AskToShowFile(selected_file);
 	}
 	ImGui::PopID();
 	
@@ -173,7 +168,7 @@ void FileSelector::ValueChanged() {
 		suggested_names = all_names;
 	} else {
 		suggested_index = 0;
-		String agnosticInput = current_input;
+		String agnosticInput = current_input.ToCStr(); //hack there because current_input have wrong length
 		agnosticInput.Lowercase();
 		suggested_names.Clear();
 		for(const String& filename : all_names) {
@@ -187,11 +182,18 @@ void FileSelector::ValueChanged() {
 }
 
 bool FileSelector::CheckFileExtension(const String& filename) {
-	for(const String& extension : extensions) {
-		S32 result = filename.Find(extension);
-		if(result != -1) {
-			return true;
-		}
+	S32 result = filename.Find(extension);
+	if(result != -1) {
+		return true;
 	}
 	return false;
+}
+
+void FileSelector::RefreshAllAvailableFiles() {
+	files_list = FileUtils::GetAllFilesOfType(extension);\
+	all_names.Clear();
+	for(const String& filename : files_list) {
+		all_names.Add(File::FileFromPath(filename));
+	}
+	ValueChanged();
 }

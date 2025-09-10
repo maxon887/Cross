@@ -51,12 +51,10 @@ void SceneView::Update(float sec) {
 	DemoScene* scene = static_cast<DemoScene*>(demo->GetCurrentScene());
 
 	if(game->GetCurrentScene()) {
-		int i = 0;
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
 			if(child != scene->service_root) {
-				BuildNode(child, i);
+				BuildNode(child);
 			}
-			i++;
 		}
 	} else {
 		selected_entity = nullptr;
@@ -104,7 +102,7 @@ void SceneView::LookAtObject() {
 	}
 }
 
-void SceneView::BuildNode(Entity* entity, int parentPosition) {
+void SceneView::BuildNode(Entity* entity) {
 
 	if(os->IsMobile() && os->GetDeviceOrientation() == System::Orientation::LANDSCAPE) {
 		ImGui::PushFont(demo->normal_font);
@@ -154,7 +152,7 @@ void SceneView::BuildNode(Entity* entity, int parentPosition) {
 		}
 
 	} else {
-		open = ImGui::TreeNodeEx(entity->GetName() + "##" + String(parentPosition), flags);
+		open = ImGui::TreeNodeEx(entity->GetName(), flags);
 		if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
 			ImGui::SetDragDropPayload("SceneViewDRAG", &entity, sizeof(Entity*));
 			ImGui::TextUnformatted(entity->GetName());
@@ -186,10 +184,8 @@ void SceneView::BuildNode(Entity* entity, int parentPosition) {
 	}
 
 	if(open && !isLeaf) {
-		int i = 0;
 		for(Entity* child : entity->GetChildren()) {
-			BuildNode(child, i);
-			i++;
+			BuildNode(child);
 		}
 		ImGui::TreePop();
 	}
@@ -218,12 +214,9 @@ void SceneView::ContextMenu() {
 		if(ImGui::MenuItem("Import Model", nullptr, false, haveScene)) {
 			String filename = os->OpenFileDialog();
 			if(!filename.IsEmpty()) {
-				Model* model = game->GetCurrentScene()->GetModel(filename);
-				if(model) {
-					Entity* entity = model->GetHierarchy();
-					DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
-					demoScene->ApplyMaterial(entity, demoScene->GetDefaultMaterial());
-					demoScene->AddEntity(entity);
+				DemoScene* demoScene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
+				if(demoScene) {
+					demoScene->ImportModel(filename);
 				}
 			}
 		}

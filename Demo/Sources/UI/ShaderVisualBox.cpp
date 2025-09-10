@@ -22,12 +22,14 @@
 #include "Graphics.h"
 #include "FileSelector.h"
 #include "Factory.h"
+#include "Views/FilesView.h"
  
 #include "ThirdParty/ImGui/imgui.h"
 
-ShaderVisualBox::ShaderVisualBox() {
-	vertex_file_selector = CREATE FileSelector("Vertex File", "vert");
-	fragment_file_selector = CREATE FileSelector("Fragment File", "frag");
+ShaderVisualBox::ShaderVisualBox(FilesView* filesView) {
+	filesView->FileSelected.Connect(this, &ShaderVisualBox::OnFileSelected);
+	vertex_file_selector = CREATE FileSelector(filesView, "Vertex File", "vert");
+	fragment_file_selector = CREATE FileSelector(filesView, "Fragment File", "frag");
 	for(int i = 0; i < Shader::Uniform::Type::UNKNOWN; i++) {
 		Shader::Uniform::Type type = (Shader::Uniform::Type)i;
 		type_names.Add(Shader::Uniform::TypeToString(type));

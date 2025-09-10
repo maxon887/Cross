@@ -25,8 +25,8 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-ComponentsView::ComponentsView(SceneView* sceneView) :
-	View("Components", true)
+ComponentsView::ComponentsView(SceneView* sceneView, FilesView* filesView) :
+	View("Components", true), mesh_box(filesView)
 {
 	scene_view = sceneView;
 	scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
@@ -96,42 +96,54 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
 		ImGui::PushItemWidth(SCALED(70.f));
-		ImGui::DragInt("##" + prop->GetName(), &prop->value);
+		int value = prop->Get();
+		if(ImGui::DragInt("##" + prop->GetName(), &value)) {
+			*prop = value;
+		}
 	} else if(dynamic_cast<Property<float>*>(baseProperty)) {
 		Property<float>* prop = (Property<float>*)baseProperty;
 		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
 		ImGui::PushItemWidth(SCALED(100.f));
-		ImGui::DragFloat("##" + prop->GetName(), &prop->value);
+		float value = prop->Get();
+		if(ImGui::DragFloat("##" + prop->GetName(), &value)) {
+			*prop = value;
+		}
 	} else if(dynamic_cast<Property<String>*>(baseProperty)) {
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
 
 		Property<String>* prop = (Property<String>*)baseProperty;
 		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", prop->value.ToCStr());
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", prop->Get().ToCStr());
 
 		ImGui::PopStyleVar();
 	} else if(dynamic_cast<Property<Vector3D>*>(baseProperty)) {
 		Property<Vector3D>* prop = (Property<Vector3D>*)baseProperty;
-		ImGui::DragFloat3(prop->GetName(), (float*)prop->value.GetData(), 0.1f);
+		Vector3D value = prop->Get();
+		if(ImGui::DragFloat3(prop->GetName(), (float*)value.GetData(), 0.1f)) {
+			*prop = value;
+		}
 	} else if(dynamic_cast<Property<Quaternion>*>(baseProperty)) {
 		Property<Quaternion>* prop = (Property<Quaternion>*)baseProperty;
 
-		Vector3D axis = prop->value.GetAxis();
-		float angle = prop->value.GetAngle();
+		Vector3D axis = prop->Get().GetAxis();
+		float angle = prop->Get().GetAngle();
 
 		if(ImGui::DragFloat3("Axis", axis.GetData(), 0.1f)) {
-			//transform->SetRotate(axis, angle);
+			*prop = Quaternion(axis, angle);
 		}
 		if(ImGui::SliderFloat("Angle", &angle, 0.0f, 360.f)) {
-			//transform->SetRotate(axis, angle);
+			*prop = Quaternion(axis, angle);
 		}
 	} else if(dynamic_cast<Property<Color>*>(baseProperty)) {
 			Property<Color>* prop = (Property<Color>*)baseProperty;
 			ImGui::TextUnformatted(prop->GetName() + ":");
 			ImGui::SameLine(SCALED(100.f));
-			ImGui::ColorEdit4(prop->GetName(), prop->value.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+			Color value = prop->Get();
+			if(ImGui::ColorEdit4(prop->GetName(), value.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) {
+				*prop = value;
+			}
 	} else {
 		String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
 		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), "%s", errStr.ToCStr());

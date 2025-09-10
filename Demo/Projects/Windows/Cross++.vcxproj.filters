@@ -670,7 +670,4 @@
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Cross++.rc" />
-  </ItemGroup>
 </Project>

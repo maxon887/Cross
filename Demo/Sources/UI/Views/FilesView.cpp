@@ -147,6 +147,11 @@ void FilesView::FileDoubleClicked(const String& filename) {
 		} else {
 			game->SetScreen(scene);
 		}
+	} else if(extension == "fbx" || extension == "FBX") {
+		DemoScene* scene = dynamic_cast<DemoScene*>(game->GetCurrentScene());
+		if(scene) {
+			scene->ImportModel(filename);
+		}
 	} else {
 		os->OpenFileExternal(filename);
 	}
@@ -266,6 +271,7 @@ void FilesView::ContextMenu() {
 			Refresh();
 			ImGui::CloseCurrentPopup();
 			FileSelected.Emit(current_path);
+			FileTreeChanged.Emit();
 		}
 		ImGui::EndPopup();
 	}
@@ -301,6 +307,7 @@ void FilesView::ContextMenu() {
 			Refresh();
 			ImGui::CloseCurrentPopup();
 			FileSelected.Emit(current_path);
+			FileTreeChanged.Emit();
 		}
 
 		ImGui::EndPopup();
@@ -317,6 +324,7 @@ void FilesView::ContextMenu() {
 			os->Delete(os->AssetsPath() + current_path);
 			current_path = "";
 			FileSelected.Emit(current_path);
+			FileTreeChanged.Emit();
 			Refresh();
 		}
 		ImGui::SetItemDefaultFocus();
