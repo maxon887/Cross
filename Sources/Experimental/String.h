@@ -37,6 +37,7 @@ public:
 	String(S64 number);
 	String(U64 number);
 	String(float number);
+	String(double number);
 	String(const char* cstr, S32 length, S32 capacity);
 	template<class Value>
 	String(Value value, const char* format, S32 bufferSize);

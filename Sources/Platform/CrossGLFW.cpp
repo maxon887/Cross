@@ -18,6 +18,7 @@ using namespace cross;
 
 Vector2D mouse_pos;
 float frame_to_window_ratio;
+GLFWwindow* window = nullptr;
 
 void GLFWErrorCallback(int error, const char* description) {
     cout << "GLFW Error occurred - " << error << "\n\t" << description << endl;
@@ -25,6 +26,11 @@ void GLFWErrorCallback(int error, const char* description) {
 
 void GLFWResizeCallback(GLFWwindow* win, int width, int height) {
     cross::os->SetWindowSize(width, height);
+	int frameWidth, frameHeight;
+	int windowWidth, windowHeight;
+	glfwGetFramebufferSize(window, &frameWidth, &frameHeight);
+	glfwGetWindowSize(window, &windowWidth, &windowHeight);
+	frame_to_window_ratio = (float)frameWidth / (float)windowWidth;
 }
 
 void GLFWMouseMoveCallback(GLFWwindow* win, double xPos, double yPos) {
@@ -228,7 +234,7 @@ int main(int c, char **args) {
     cross::os = CREATE MacSystem(args[0]);
 #elif LINUX
 	cross::os = CREATE LinuxSystem();
-	glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+	glfwInitHint(0x00050003/* GLFW_PLATFORM */, 0x00060004/* GLFW_PLATFORM_X11 */);
 #endif
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;
@@ -236,7 +242,7 @@ int main(int c, char **args) {
 
     glfwSetErrorCallback(GLFWErrorCallback);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Cross++", NULL, NULL);
+	window = glfwCreateWindow(800, 600, "Cross++", NULL, NULL);
     if(!window){
         cout<<"Failed to create GLFW window"<<endl;
     }

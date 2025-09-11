@@ -94,6 +94,8 @@ String::String(U64 number) : String(number, "%llu", 50) { }
 
 String::String(float number) : String(number, "%f", 50) { }
 
+String::String(double number) : String(number, "%f", 100) { }
+
 String::~String() {
 	CROSS_FREE(data);
 }
