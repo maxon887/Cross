@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.littleman.cross"
         minSdkVersion 16
-        targetSdkVersion 33
+        targetSdkVersion 36
         versionCode 300
         versionName "3.0.0"
 		flavorDimensions "default"
