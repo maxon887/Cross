@@ -37,6 +37,7 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 ### Tutorials:
 1. Introduction and Windows Setup: https://www.youtube.com/watch?v=tnp09QB5sak
 2. MacOS and iOS Setup: https://www.youtube.com/watch?v=NiSvKbGyHXU&t=2s
+3. Linux and Android Setup: https://www.youtube.com/watch?v=GuREvKJUGho
 
 ### Screenshot Gallery
 ![Alt text](https://sun9-26.userapi.com/c200820/v200820675/27ebb/RgV5CjNc_7s.jpg)
