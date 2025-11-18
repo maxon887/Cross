@@ -17,7 +17,6 @@
 #pragma once
 #include "Cross.h"
 #include "Texture.h"
-#include "System.h"
 
 namespace cross {
 

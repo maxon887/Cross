@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Config.h"
 #include "File.h"
+#include "System.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
