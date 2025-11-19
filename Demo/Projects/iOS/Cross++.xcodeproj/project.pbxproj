@@ -24,7 +24,6 @@
 		50424D2B2C57BC9D00CE0055 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D222C57BC9D00CE0055 /* imgui.cpp */; };
 		50424D2C2C57BC9D00CE0055 /* imgui_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D252C57BC9D00CE0055 /* imgui_tables.cpp */; };
 		50424D2D2C57BC9D00CE0055 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D272C57BC9D00CE0055 /* imgui_draw.cpp */; };
-		50424D4E2C57BDC300CE0055 /* TransformVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D352C57BDC300CE0055 /* TransformVisualBox.cpp */; };
 		50424D502C57BDC300CE0055 /* ShaderVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D3A2C57BDC300CE0055 /* ShaderVisualBox.cpp */; };
 		50424D552C57BDC300CE0055 /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D432C57BDC300CE0055 /* MenuBar.cpp */; };
 		50424D562C57BDC300CE0055 /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D442C57BDC300CE0055 /* MeshVisualBox.cpp */; };
@@ -149,12 +148,10 @@
 		50424D2E2C57BDC300CE0055 /* ShaderVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderVisualBox.h; sourceTree = "<group>"; };
 		50424D2F2C57BDC300CE0055 /* MeshVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshVisualBox.h; sourceTree = "<group>"; };
 		50424D342C57BDC300CE0055 /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBar.h; sourceTree = "<group>"; };
-		50424D352C57BDC300CE0055 /* TransformVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformVisualBox.cpp; sourceTree = "<group>"; };
 		50424D3A2C57BDC300CE0055 /* ShaderVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderVisualBox.cpp; sourceTree = "<group>"; };
 		50424D3C2C57BDC300CE0055 /* MaterialVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialVisualBox.h; sourceTree = "<group>"; };
 		50424D432C57BDC300CE0055 /* MenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuBar.cpp; sourceTree = "<group>"; };
 		50424D442C57BDC300CE0055 /* MeshVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshVisualBox.cpp; sourceTree = "<group>"; };
-		50424D462C57BDC300CE0055 /* TransformVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformVisualBox.h; sourceTree = "<group>"; };
 		50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialVisualBox.cpp; sourceTree = "<group>"; };
 		50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtils.cpp; sourceTree = "<group>"; };
 		50424D5C2C57BEBD00CE0055 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
@@ -587,8 +584,6 @@
 				50424D2F2C57BDC300CE0055 /* MeshVisualBox.h */,
 				50424D3A2C57BDC300CE0055 /* ShaderVisualBox.cpp */,
 				50424D2E2C57BDC300CE0055 /* ShaderVisualBox.h */,
-				50424D352C57BDC300CE0055 /* TransformVisualBox.cpp */,
-				50424D462C57BDC300CE0055 /* TransformVisualBox.h */,
 				509F17372D51D8D80040378F /* FileSelector.h */,
 				509F17382D51D8D80040378F /* FileSelector.cpp */,
 			);
@@ -1100,7 +1095,6 @@
 				9D54BBB41FBC433C009E8469 /* Material.cpp in Sources */,
 				9D54BBCD1FBC435B009E8469 /* Skybox.cpp in Sources */,
 				9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */,
-				50424D4E2C57BDC300CE0055 /* TransformVisualBox.cpp in Sources */,
 				50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */,
 				9DDFFF091F46EF1700A6E782 /* Rect.cpp in Sources */,
 				9D54BB651FBC4316009E8469 /* AudioScreen.cpp in Sources */,
