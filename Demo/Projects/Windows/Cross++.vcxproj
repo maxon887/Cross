@@ -330,7 +330,6 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
-    <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\Views\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\Views\CameraControllerView.cpp" />
     <ClCompile Include="..\..\Sources\UI\Views\ComponentsView.cpp" />
@@ -435,7 +434,6 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\MenuBar.h" />
-    <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\Views\About.h" />
     <ClInclude Include="..\..\Sources\UI\Views\CameraControllerView.h" />
     <ClInclude Include="..\..\Sources\UI\Views\ComponentsView.h" />

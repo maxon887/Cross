@@ -234,9 +234,6 @@
     <ClCompile Include="..\..\..\Sources\Core\Property.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp">
       <Filter>Demo\Scenes</Filter>
     </ClCompile>
@@ -551,9 +548,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Property.h">
       <Filter>Cross\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h">
-      <Filter>Demo\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h">
       <Filter>Demo\Scenes</Filter>

@@ -26,6 +26,13 @@ Transform::Transform(const Vector3D& position) : Component("Transform") {
 	SetPosition(position);
 }
 
+bool Transform::Initialize() {
+	position.ValueChanged.Connect(this, &Transform::ValueChanged);
+	rotation.ValueChanged.Connect(this, &Transform::ValueChanged);
+	scale.ValueChanged.Connect(this, &Transform::ValueChanged);
+	return true;
+}
+
 Component* Transform::Clone() const {
 	Transform* result = CREATE Transform();
 	result->position = this->position;
@@ -50,13 +57,11 @@ Vector3D Transform::GetWorldPosition() {
 
 void Transform::SetPosition(const Vector3D& pos) {
 	position = pos;
-	recalc_model = true;
 }
 
 void Transform::SetPosition(const Matrix& pos) {
 	Vector3D newPosition(pos.m[0][3], pos.m[1][3], pos.m[2][3]);
 	position = newPosition;
-	recalc_model = true;
 }
 
 Vector3D Transform::GetScale() const {
@@ -65,23 +70,19 @@ Vector3D Transform::GetScale() const {
 
 void Transform::SetScale(float factor) {
 	scale = Vector3D(factor);
-	recalc_model = true;
 }
 
 void Transform::SetScale(const Vector2D& scaleVec) {
 	scale = scaleVec;
-	recalc_model = true;
 }
 
 void Transform::SetScale(const Vector3D& scaleVec) {
 	scale = scaleVec;
-	recalc_model = true;
 }
 
 void Transform::SetScale(const Matrix& scaleMat) {
 	Vector3D newScale(scaleMat.m[0][0], scaleMat.m[1][1], scaleMat.m[2][2]);
 	scale = newScale;
-	recalc_model = true;
 }
 
 Quaternion Transform::GetRotate() const {
@@ -95,12 +96,10 @@ void Transform::SetRotate(const Vector3D& axis, float angle) {
 
 void Transform::SetRotate(const Quaternion& quat) {
 	rotation = quat.GetMatrix();
-	recalc_model = true;
 }
 
 void Transform::SetRotate(const Matrix& rot) {
 	rotation = rot;
-	recalc_model = true;
 }
 
 void Transform::LookAt(const Vector3D& object){
@@ -173,4 +172,8 @@ Matrix Transform::GetWorldMatrix() {
 	} else {
 		return GetTransform()->GetModelMatrix();
 	}
+}
+
+void Transform::ValueChanged() {
+	recalc_model = true;
 }

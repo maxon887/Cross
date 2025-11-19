@@ -54,9 +54,7 @@ void ComponentsView::Update(float sec) {
 				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + SCALED(2.f));
 				ImGui::Separator();
 
-				if(dynamic_cast<Transform*>(component)) {
-					transform_box.Update((Transform*)component);
-				} else if(dynamic_cast<Mesh*>(component)) {
+				if(dynamic_cast<Mesh*>(component)) {
 					mesh_box.Update();
 				} else {
 					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(1.f), SCALED(1.f)));
@@ -120,20 +118,26 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		ImGui::PopStyleVar();
 	} else if(dynamic_cast<Property<Vector3D>*>(baseProperty)) {
 		Property<Vector3D>* prop = (Property<Vector3D>*)baseProperty;
+		ImGui::TextUnformatted(prop->GetName() + ":");
+		ImGui::SameLine(SCALED(100.f));
+		ImGui::PushItemWidth(-5.f);
 		Vector3D value = prop->Get();
-		if(ImGui::DragFloat3(prop->GetName(), (float*)value.GetData(), 0.1f)) {
+		if(ImGui::DragFloat3("##" + prop->GetName(), (float*)value.GetData(), 0.1f)) {
 			*prop = value;
 		}
 	} else if(dynamic_cast<Property<Quaternion>*>(baseProperty)) {
 		Property<Quaternion>* prop = (Property<Quaternion>*)baseProperty;
-
 		Vector3D axis = prop->Get().GetAxis();
 		float angle = prop->Get().GetAngle();
 
-		if(ImGui::DragFloat3("Axis", axis.GetData(), 0.1f)) {
+		ImGui::TextUnformatted("Axis:");
+		ImGui::SameLine(SCALED(100.f));
+		if(ImGui::DragFloat3("##Axis" + prop->GetName(), axis.GetData(), 0.1f)) {
 			*prop = Quaternion(axis, angle);
 		}
-		if(ImGui::SliderFloat("Angle", &angle, 0.0f, 360.f)) {
+		ImGui::TextUnformatted("Angle:");
+		ImGui::SameLine(SCALED(100.f));
+		if(ImGui::SliderFloat("##Angle" + prop->GetName(), &angle, 0.0f, 360.f)) {
 			*prop = Quaternion(axis, angle);
 		}
 	} else if(dynamic_cast<Property<Color>*>(baseProperty)) {

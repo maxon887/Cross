@@ -27,6 +27,7 @@ public:
 	Transform();
 	Transform(const Vector3D& position);
 
+	bool Initialize() override;
 	/* Full by per element object copy operation */
 	Component* Clone() const override;
 
@@ -87,6 +88,8 @@ protected:
 
 	Matrix model		= Matrix::Identity;
 	bool recalc_model	= true;
+
+	void ValueChanged();
 };
 
 }

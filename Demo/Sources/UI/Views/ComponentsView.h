@@ -17,7 +17,6 @@
 #pragma once
 #include "UI/Views/View.h"
 #include "Property.h"
-#include "UI/TransformVisualBox.h"
 #include "UI/MeshVisualBox.h"
 
 class SceneView;
@@ -31,7 +30,6 @@ public:
 	DockPosition GetDefaultDockPosition() const override { return DockPosition::RIGHT; }
 
 protected:
-	TransformVisualBox transform_box;
 	MeshVisualBox mesh_box;
 	SceneView* scene_view = nullptr;
 
