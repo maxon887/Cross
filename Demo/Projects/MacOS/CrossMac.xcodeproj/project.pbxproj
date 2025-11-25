@@ -26,7 +26,6 @@
 		507332DA2C385F2700E5D13D /* imgui_freetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332D32C385F2700E5D13D /* imgui_freetype.cpp */; };
 		507332DB2C385F2700E5D13D /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332D52C385F2700E5D13D /* imgui.cpp */; };
 		507332FA2C385F9200E5D13D /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332DD2C385F9200E5D13D /* MaterialVisualBox.cpp */; };
-		507332FC2C385F9200E5D13D /* TransformVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332E52C385F9200E5D13D /* TransformVisualBox.cpp */; };
 		507333002C385F9200E5D13D /* MenuBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332EB2C385F9200E5D13D /* MenuBar.cpp */; };
 		507333042C385F9200E5D13D /* ShaderVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F32C385F9200E5D13D /* ShaderVisualBox.cpp */; };
 		507333072C385F9200E5D13D /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F62C385F9200E5D13D /* MeshVisualBox.cpp */; };
@@ -149,9 +148,7 @@
 		507332D52C385F2700E5D13D /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
 		507332DD2C385F9200E5D13D /* MaterialVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialVisualBox.cpp; sourceTree = "<group>"; };
 		507332E12C385F9200E5D13D /* MaterialVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialVisualBox.h; sourceTree = "<group>"; };
-		507332E22C385F9200E5D13D /* TransformVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformVisualBox.h; sourceTree = "<group>"; };
 		507332E42C385F9200E5D13D /* MenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBar.h; sourceTree = "<group>"; };
-		507332E52C385F9200E5D13D /* TransformVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformVisualBox.cpp; sourceTree = "<group>"; };
 		507332EB2C385F9200E5D13D /* MenuBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuBar.cpp; sourceTree = "<group>"; };
 		507332EE2C385F9200E5D13D /* ShaderVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderVisualBox.h; sourceTree = "<group>"; };
 		507332F12C385F9200E5D13D /* MeshVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshVisualBox.h; sourceTree = "<group>"; };
@@ -869,8 +866,6 @@
 				507332F12C385F9200E5D13D /* MeshVisualBox.h */,
 				507332F32C385F9200E5D13D /* ShaderVisualBox.cpp */,
 				507332EE2C385F9200E5D13D /* ShaderVisualBox.h */,
-				507332E52C385F9200E5D13D /* TransformVisualBox.cpp */,
-				507332E22C385F9200E5D13D /* TransformVisualBox.h */,
 				509F17342D51D8800040378F /* FileSelector.h */,
 				509F17352D51D8800040378F /* FileSelector.cpp */,
 			);
@@ -1052,7 +1047,6 @@
 				9D32D11720B40E27004A4D7E /* Quaternion.cpp in Sources */,
 				9D33C10C20D02985007EF97F /* SpecularScene.cpp in Sources */,
 				9D32D11920B40E27004A4D7E /* Vector2D.cpp in Sources */,
-				507332FC2C385F9200E5D13D /* TransformVisualBox.cpp in Sources */,
 				9D33C11320D02985007EF97F /* DemoScene.cpp in Sources */,
 				9D32D11B20B40E27004A4D7E /* Vector4D.cpp in Sources */,
 				9D32D11A20B40E27004A4D7E /* Vector3D.cpp in Sources */,
