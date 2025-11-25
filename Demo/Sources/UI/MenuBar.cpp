@@ -99,13 +99,16 @@ void MenuBar::ShowMenu() {
 	}
 	
 	if(ImGui::BeginMainMenuBar()) {
+		if(os->IsMobile()) {
+			ImGui::SetCursorPosX(SCALED(35.f));
+		}
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("New Scene")) {
 				Scene* scene = CREATE DemoScene();
 				game->SetScreen(scene);
 			}
 
-			if(ImGui::MenuItem("Open Scene")) {
+			if(ImGui::MenuItem("Open Scene", NULL, false, !os->IsMobile())) {
 				String sceneFile = os->OpenFileDialog("*.scn");
 				if(sceneFile != "") {
 					Scene* scene = CREATE DemoScene();
@@ -122,7 +125,7 @@ void MenuBar::ShowMenu() {
 #else
 			static const char* saveShortcut = "Ctrl+S";
 #endif
-			if(ImGui::MenuItem("Save Scene", saveShortcut, false, haveScene)) {
+			if(ImGui::MenuItem("Save Scene", os->IsMobile() ? "" : saveShortcut, false, haveScene && !os->IsMobile())) {
 				SaveScene();
 			}
 #ifdef MACOS
@@ -130,7 +133,7 @@ void MenuBar::ShowMenu() {
 #else
 			static const char* backShortcut = "Ctrl+X";
 #endif
-			if(ImGui::MenuItem("Back to Main", backShortcut, false, !demo->GetLaunchView()->IsVisible())) {
+			if(ImGui::MenuItem("Back to Main", os->IsMobile() ? "" : backShortcut, false, !demo->GetLaunchView()->IsVisible())) {
 				demo->ToMain();
 			}
 

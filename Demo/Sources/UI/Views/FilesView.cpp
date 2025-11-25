@@ -340,3 +340,7 @@ void FilesView::OnScreenChanged(Screen* screen) {
 	current_path = "";
 	FileSelected.Emit(current_path);
 }
+
+bool FilesView::AvailableInMenu() {
+	return !os->IsMobile();
+}

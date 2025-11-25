@@ -28,6 +28,8 @@ public:
 	void Shown() override;
 	void Update(float sec) override;
 
+	bool AvailableInMenu() override;
+
 	DockPosition GetDefaultDockPosition() const override { return DockPosition::LEFT; }
 	
 	void AskToShowFile(const String& filename);
