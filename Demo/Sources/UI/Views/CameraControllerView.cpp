@@ -49,6 +49,7 @@ void CameraControllerView::PreUpdate() {
 void CameraControllerView::Update(float sec) {
 	if(!AvailableInMenu()) {
 		Hide();
+		return;
 	}
 	CameraController* cameraController = game->GetCurrentScene()->GetCamera()->GetEntity()->GetComponent<CameraController>();
 	if(cameraController) {
@@ -121,5 +122,17 @@ bool CameraControllerView::VisibleInMenu() {
 }
 
 bool CameraControllerView::AvailableInMenu() {
-	return game->GetCurrentScene() != nullptr;
+	Scene* scene = game->GetCurrentScene();
+	if(!scene) {
+		return false;
+	}
+	Camera* camera = scene->GetCamera();
+	if(!camera) {
+		return false;
+	}
+	CameraController* cameraController = camera->GetEntity()->GetComponent<CameraController>();
+	if(!cameraController) {
+		return false;
+	}
+	return true;
 }
