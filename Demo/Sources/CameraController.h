@@ -24,6 +24,12 @@ using namespace cross;
 
 class CameraController : public Component {
 public:
+	enum Mode {
+		ORBIT,
+		FREE,
+		PAD
+	};
+
 	CameraController();
 
 	bool Activate() override;
@@ -34,7 +40,6 @@ public:
 	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override { return true; }
 	
 	void LookAtTarget(const Vector3D& target, float distance = 3);
-	bool IsLookAtCamera() const;
 
 	void MoveForward(float distance);
 	void MoveRight(float distance);
@@ -44,13 +49,10 @@ public:
 	void LookRight(float degree);
 	void LookUp(float degree);
 
+	Mode GetCameraMode() const;
+	void SetCameraMode(Mode newMode);
+
 protected:
-	enum Mode {
-		ORBIT,
-		FREE,
-		PAD
-	};
-		
 	Property<float> camera_speed = Property<float>(this, "CameraSpeed", 5.f);
 	
 	bool camera_active			= false;

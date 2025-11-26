@@ -24,8 +24,6 @@ class CameraControllerView : public View {
 public:
 	CameraControllerView();
 
-	void Shown() override;
-
 	void PreUpdate() override;
 	void Update(float sec) override;
 	void PostUpdate() override;
@@ -35,7 +33,4 @@ public:
 
 private:
 	bool nav_pressed = false;
-
-	float window_width = -1;
-	float window_height = -1;
 };

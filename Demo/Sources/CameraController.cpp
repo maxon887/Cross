@@ -139,12 +139,14 @@ void CameraController::OnActionDown(Input::Action action) {
 	}
 	camera_active = true;
 	touch_position = action.pos;
-	if(action.id == 0) {
-		mode = Mode::ORBIT;
-	} else if(action.id	== 1) {
-		mode = Mode::FREE;
-	} else if(action.id == 2) {
-		mode = Mode::PAD;
+	if(!os->IsMobile()) {
+		if (action.id == 0) {
+			mode = Mode::ORBIT;
+		} else if (action.id == 1) {
+			mode = Mode::FREE;
+		} else if (action.id == 2) {
+			mode = Mode::PAD;
+		}
 	}
 }
 
@@ -194,4 +196,12 @@ void CameraController::MouseWheelRoll(float delta) {
 	if(!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
 		MoveCloser(0.1f * delta);
 	}
+}
+
+CameraController::Mode CameraController::GetCameraMode() const {
+	return mode;
+}
+
+void CameraController::SetCameraMode(CameraController::Mode newMode) {
+	mode = newMode;
 }

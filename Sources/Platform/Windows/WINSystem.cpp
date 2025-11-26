@@ -132,7 +132,8 @@ void WINSystem::Sleep(float milis) {
 }
 
 bool WINSystem::IsMobile() {
-	return false;
+	return true;
+	//return false;
 }
 
 void WINSystem::OpenFileExternal(const String& filename) {
