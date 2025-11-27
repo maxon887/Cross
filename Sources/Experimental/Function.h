@@ -31,6 +31,9 @@ public:
 							Function(Function&& other);
 							~Function();
 
+	void operator = (const Function& other);
+	void operator = (Function&& other);
+
 	Ret operator ()(Input... args);
 	operator bool() const;
 
@@ -43,6 +46,26 @@ private:
 	template<class Lambda>
 	void Init(const Lambda& other);
 };
+
+template<class Ret, class... Input>
+void Function<Ret(Input...)>::operator = (const Function& other) {
+	lambda = other.copier(other.lambda);
+	executor = other.executor;
+	copier = other.copier;
+	deleter = other.deleter;
+}
+
+template<class Ret, class... Input>
+void Function<Ret(Input...)>::operator = (Function&& other) {
+	lambda = other.lambda;
+	executor = other.executor;
+	copier = other.copier;
+	deleter = other.deleter;
+	other.lambda = nullptr;
+	other.executor = nullptr;
+	other.copier = nullptr;
+	other.deleter = nullptr;
+}
 
 template<class Ret, class... Input>
 template<class Lambda>

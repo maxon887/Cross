@@ -97,7 +97,6 @@ void CameraControllerView::Update(float sec) {
 	ImGuiIO &io = ImGui::GetIO();
 	Vector2D mousePos = io.MousePos;
 	Vector2D centerMouse = mousePos - center;
-	os->LogIt("# #", centerMouse.x, centerMouse.y);
 
 	if(io.MouseReleased[0]) {
 		nav_pressed = false;

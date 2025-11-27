@@ -40,13 +40,15 @@ RECT GetLocalCoordinates(HWND hWnd){
 	return win;
 }
 	
-LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
+LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	static bool lmb_pressed = false;
 	switch(msg) {
 	case WM_LBUTTONDOWN: {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		input->TargetActionDown.Emit(targetX, targetY, 0);
+		lmb_pressed = true;
 		break;
 	}
 	case WM_RBUTTONDOWN: {
@@ -68,7 +70,9 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetY = (short)HIWORD(lParam);
 		input->MousePosition.x = targetX;
 		input->MousePosition.y = targetY;
-		input->TargetActionMove.Emit(targetX, targetY, 0);
+		if(!config->IsEmulateMobile() || lmb_pressed) {
+			input->TargetActionMove.Emit(targetX, targetY, 0);
+		}
 		break;
 	}
 	case WM_LBUTTONUP: {
@@ -76,6 +80,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
 		input->TargetActionUp.Emit(targetX, targetY, 0);
+		lmb_pressed = false;
 		break;
 	}
 	case WM_RBUTTONUP: {
