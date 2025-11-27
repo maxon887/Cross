@@ -78,6 +78,10 @@ bool Config::UseCompressedTextures() const {
 	return use_compressed_textures;
 }
 
+bool Config::IsEmulateMobile() const {
+	return emulate_mobile;
+}
+
 Texture::Filter Config::GetTextureFilter() const {
 	return texture_filter;
 }
@@ -92,7 +96,10 @@ const String& Config::GetString(const String& key) const {
 }
 
 void Config::LoadGameConfig() {
-	File* xmlFile = os->LoadAssetFile("GameConfig.xml");
+	if(!os->IsDataFileExists("GameConfig.xml")) {
+		return;
+	}
+	File* xmlFile = os->LoadDataFile("GameConfig.xml");
 	CROSS_FAIL(xmlFile, "Can not load GameConfig file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -108,6 +115,10 @@ void Config::LoadGameConfig() {
 
 		if(name == "UseCompressedTextures") {
 			use_compressed_textures = strValue == "true";
+		}
+
+		if(name == "EmulateMobile") {
+			emulate_mobile = strValue == "true";
 		}
 
 		if(name == "TextureFilter") {
@@ -154,6 +165,11 @@ void Config::SaveGameConfig() {
 	XMLElement* property = doc.NewElement("Property");
 	property->SetAttribute("name", "UseCompressedTextures");
 	property->SetAttribute("value", use_compressed_textures ? "true" : "false");
+	element->LinkEndChild(property);
+
+	property = doc.NewElement("Property");
+	property->SetAttribute("name", "EmulateMobile");
+	property->SetAttribute("value", emulate_mobile ? "true" : "false");
 	element->LinkEndChild(property);
 
 	property = doc.NewElement("Property");

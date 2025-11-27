@@ -46,6 +46,8 @@ public:
 
 	/* Returns true if engine suppose to use compressed textures */
 	bool UseCompressedTextures() const;
+	/* Returns true if current platform emulates mobile device */
+	bool IsEmulateMobile() const;
 	/* Returns texture filter that should be applied by default */
 	Texture::Filter GetTextureFilter() const;
 
@@ -58,6 +60,7 @@ public:
 
 protected:
 	bool use_compressed_textures		= false;
+	bool emulate_mobile					= false;
 	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
 
 	Dictionary<String, String> user_prefs = Dictionary<String, String>();
