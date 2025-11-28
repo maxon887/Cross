@@ -39,7 +39,7 @@ void GLFWMouseMoveCallback(GLFWwindow* win, double xPos, double yPos) {
         yPos *= frame_to_window_ratio;
         mouse_pos.x = (float)xPos;
         mouse_pos.y = (float)yPos;
-        input->TargetActionMove.Emit((float)xPos, (float)yPos, 0);
+        input->TargetActionMoveHandle((float)xPos, (float)yPos, 0);
     }
 }
 
@@ -47,10 +47,10 @@ void GLFWMouseButtonCallback(GLFWwindow* window, int button, int action, int mod
     if(input) {
         switch (action) {
         case GLFW_PRESS:
-            input->TargetActionDown.Emit(mouse_pos.x, mouse_pos.y, button);
+            input->TargetActionDownHandle(mouse_pos.x, mouse_pos.y, button);
             break;
         case GLFW_RELEASE:
-            input->TargetActionUp.Emit(mouse_pos.x, mouse_pos.y, button);
+            input->TargetActionUpHandle(mouse_pos.x, mouse_pos.y, button);
             break;
         default:
             break;

@@ -97,7 +97,7 @@ CrossViewController* instance = nil;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        input->TargetActionDown.Emit(x, y, touchID);
+        input->TargetActionDownHandle(x, y, touchID);
     }
 }
 
@@ -108,7 +108,7 @@ CrossViewController* instance = nil;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        input->TargetActionUp.Emit(x, y, touchID);
+        input->TargetActionUpHandle(x, y, touchID);
     }
 }
 
@@ -119,7 +119,7 @@ CrossViewController* instance = nil;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        input->TargetActionUp.Emit(x, y, touchID);
+        input->TargetActionUpHandle(x, y, touchID);
     }
 }
 
@@ -129,7 +129,7 @@ CrossViewController* instance = nil;
         CGPoint pos = [touch locationInView:touch.view];
         float x = pos.x * screenScale;
         float y = pos.y * screenScale;
-        input->TargetActionMove.Emit(x, y, touchID);
+        input->TargetActionMoveHandle(x, y, touchID);
     }
 }
 
