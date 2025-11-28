@@ -166,18 +166,14 @@ public:
 	/* Checks if specific key pressed */
 	bool IsPressed(Key key) const;
 
-	/* Occurs instantly when user action started. Can be even in other thread. Do not use this */
-	Event<float, float, S32> TargetActionDown;
-	/* Occurs instantly when user action changed its position. Can be even in other thread. Do not use this */
-	Event<float, float, S32> TargetActionMove;
-	/* Occurs instantly when user action released. Can be even in other thread. Do not use this */
-	Event<float, float, S32> TargetActionUp;
-
-	void ResetKeys();
-
 engineonly:
 	Input();
 
+	void TargetActionDownHandle(float x, float y, S32 actionID);
+	void TargetActionMoveHandle(float x, float y, S32 actionID);
+	void TargetActionUpHandle(float x, float y, S32 actionID);
+
+	void ResetKeys();
 	void Update();
 
 protected:
@@ -187,9 +183,6 @@ protected:
 
 	static Vector2D TargetToWordConvert(float x, float y);
 
-	void TargetActionDownHandle(float x, float y, S32 actionID);
-	void TargetActionMoveHandle(float x, float y, S32 actionID);
-	void TargetActionUpHandle(float x, float y, S32 actionID);
 	void KeyPressedHandle(Key key);
 	void KeyReleasedHandle(Key key);
 };

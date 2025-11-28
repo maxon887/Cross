@@ -47,7 +47,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->TargetActionDown.Emit(targetX, targetY, 0);
+		input->TargetActionDownHandle(targetX, targetY, 0);
 		lmb_pressed = true;
 		break;
 	}
@@ -55,14 +55,14 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->TargetActionDown.Emit(targetX, targetY, 1);
+		input->TargetActionDownHandle(targetX, targetY, 1);
 		break;
 	}
 	case WM_MBUTTONDOWN: {
 		SetCapture(wnd);
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->TargetActionDown.Emit(targetX, targetY, 2);
+		input->TargetActionDownHandle(targetX, targetY, 2);
 		break;
 	}
 	case WM_MOUSEMOVE: {
@@ -71,7 +71,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		input->MousePosition.x = targetX;
 		input->MousePosition.y = targetY;
 		if(!config->IsEmulateMobile() || lmb_pressed) {
-			input->TargetActionMove.Emit(targetX, targetY, 0);
+			input->TargetActionMoveHandle(targetX, targetY, 0);
 		}
 		break;
 	}
@@ -79,7 +79,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->TargetActionUp.Emit(targetX, targetY, 0);
+		input->TargetActionUpHandle(targetX, targetY, 0);
 		lmb_pressed = false;
 		break;
 	}
@@ -87,14 +87,14 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->TargetActionUp.Emit(targetX, targetY, 1);
+		input->TargetActionUpHandle(targetX, targetY, 1);
 		break;
 	}
 	case WM_MBUTTONUP: {
 		ReleaseCapture();
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->TargetActionUp.Emit(targetX, targetY, 2);
+		input->TargetActionUpHandle(targetX, targetY, 2);
 		break;
 	}
 	case WM_MOUSEWHEEL: {

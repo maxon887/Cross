@@ -206,15 +206,15 @@ extern "C"{
 	}
 
 	void Java_com_cross_Cross_ActionDown(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
-        input->TargetActionDown.Emit((float)targetX, (float)targetY, (int)actionID);
+        input->TargetActionDownHandle((float)targetX, (float)targetY, (int)actionID);
 	}
 
 	void Java_com_cross_Cross_ActionMove(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
-        input->TargetActionMove.Emit((float)targetX, (float)targetY, (int)actionID);
+        input->TargetActionMoveHandle((float)targetX, (float)targetY, (int)actionID);
 	}
 
 	void Java_com_cross_Cross_ActionUp(JNIEnv *env, jobject thiz, jfloat targetX, jfloat targetY, jint actionID){
-        input->TargetActionUp.Emit((float)targetX, (float)targetY, (int)actionID);
+        input->TargetActionUpHandle((float)targetX, (float)targetY, (int)actionID);
 	}
 	void Java_com_cross_Cross_PressKey(JNIEnv *env, jobject thiz, jint key){
         input->KeyPressed.Emit((Key)key);
