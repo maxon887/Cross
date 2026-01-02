@@ -33,7 +33,7 @@ protected:
 	MeshVisualBox mesh_box;
 	SceneView* scene_view = nullptr;
 
-	void ShowProperty(BaseProperty* baseProperty);
+	void ShowProperty(BaseProperty* baseProperty) const;
 
-	void ContextMenu(Entity* selectedEntity);
+	void ContextMenu(Entity* selectedEntity) const;
 };

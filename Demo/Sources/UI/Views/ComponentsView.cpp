@@ -18,7 +18,6 @@
 #include "SceneView.h"
 #include "Entity.h"
 #include "Component.h"
-#include "Transform.h"
 #include "Mesh.h"
 #include "Demo.h"
 #include "Factory.h"
@@ -38,7 +37,7 @@ void ComponentsView::Update(float sec) {
 		for(Component* component : entity->GetComponents()) {
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(SCALED(4.f), SCALED(4.f)));
 
-			bool open = ImGui::CollapsingHeader(component->GetName(), ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_DefaultOpen);
+			const bool open = ImGui::CollapsingHeader(component->GetName(), ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_DefaultOpen);
 			ImGui::SameLine(ImGui::GetWindowWidth() - SCALED(25.f));
 			String checkboxHashName = "##EnableCheckbox" + component->GetName();
 			bool enabled = component->IsActive();
@@ -88,7 +87,7 @@ void ComponentsView::Update(float sec) {
 	ContextMenu(entity);
 }
 
-void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
+void ComponentsView::ShowProperty(BaseProperty* baseProperty) const {
 	if(dynamic_cast<Property<S32>*>(baseProperty)) {
 		Property<S32>* prop = (Property<S32>*)baseProperty;
 		ImGui::TextUnformatted(prop->GetName() + ":");
@@ -110,7 +109,7 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 	} else if(dynamic_cast<Property<String>*>(baseProperty)) {
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
 
-		Property<String>* prop = (Property<String>*)baseProperty;
+		const Property<String>* prop = (Property<String>*)baseProperty;
 		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
 		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", prop->Get().ToCStr());
@@ -122,7 +121,7 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		ImGui::SameLine(SCALED(100.f));
 		ImGui::PushItemWidth(-5.f);
 		Vector3D value = prop->Get();
-		if(ImGui::DragFloat3("##" + prop->GetName(), (float*)value.GetData(), 0.1f)) {
+		if(ImGui::DragFloat3("##" + prop->GetName(), value.GetData(), 0.1f)) {
 			*prop = value;
 		}
 	} else if(dynamic_cast<Property<Quaternion>*>(baseProperty)) {
@@ -149,12 +148,12 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 				*prop = value;
 			}
 	} else {
-		String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
+	    const String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
 		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), "%s", errStr.ToCStr());
 	}
 }
 
-void ComponentsView::ContextMenu(Entity* selectedEntity) {
+void ComponentsView::ContextMenu(Entity* selectedEntity) const {
 	if(ImGui::BeginPopupContextWindow("ComponentsOptions")) {
 		if(ImGui::BeginMenu("Add Component", selectedEntity != nullptr)) {
 			Factory<Component>* factory = game->GetComponentFactory();

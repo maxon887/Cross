@@ -17,7 +17,6 @@
 #include "Entity.h"
 #include "Component.h"
 #include "Transform.h"
-#include "Game.h"
 
 using namespace cross;
 using namespace std;
@@ -27,14 +26,11 @@ Entity::Entity(String name) :
 { }
 
 Entity::~Entity() {
-	for(pair<U64, Component*> p : components) {
-		Component* component = p.second;
-		if(component) {
-			component->Disable();
-			delete component;
-		}
+	for(auto const& [id, component] : components) {
+		component->Disable();
+		delete component;
 	}
-	for(Entity* c : children) {
+	for(const Entity* c : children) {
 		delete c;
 	}
 	children.clear();
@@ -49,17 +45,17 @@ void Entity::SetName(String name) {
 }
 
 Component* Entity::GetComponent(U64 type) {
-	if(components.find(type) == components.end()) {
-		return nullptr;
-	} else {
-		return components[type];
+	auto result = components.find(type);
+	if(result != components.end()) {
+		return (*result).second;
 	}
+	return nullptr;
 }
 
 Array<Component*> Entity::GetComponents() {
 	Array<Component*> result;
-	for(pair<U64, Component*> pair : components) {
-		result.Add(pair.second);
+	for(const auto& [id, component] : components) {
+		result.Add(component);
 	}
 	return result;
 }
@@ -70,11 +66,7 @@ Transform* Entity::GetTransform() {
 }
 
 void Entity::AddComponent(Component* component) {
-	AddComponent(component, game->GetCurrentScene());
-}
-
-void Entity::AddComponent(Component* component, Scene* scene) {
-	U64 hash = typeid(*component).hash_code();
+	const U64 hash = typeid(*component).hash_code();
 	if(components.find(hash) != components.end()) {
 		CROSS_ASSERT(false, "Entity already have same component '#'", component->GetName());
 		delete component;
@@ -90,7 +82,7 @@ void Entity::RemoveComponent(Component* component) {
 	components.erase(typeid(*component).hash_code());
 }
 
-Entity* Entity::GetParent() {
+Entity* Entity::GetParent() const {
 	return parent;
 }
 
@@ -109,7 +101,7 @@ void Entity::AddChild(Entity* child) {
 }
 
 void Entity::RemoveChildren() {
-	for(Entity* c : children) {
+	for(const Entity* c : children) {
 		delete c;
 	}
 	children.clear();
@@ -122,23 +114,22 @@ Entity* Entity::FindChild(U32 index) {
 	return *it;
 }
 
-Entity* Entity::FindChild(const String& childName) {
+Entity* Entity::FindChild(const String& childName) const {
 	for(Entity* child : children) {
 		if(child->GetName() == childName) {
 			return child;
-		} else {
-			child = child->FindChild(childName);
-			if(child) {
-				return child;
-			}
+		}
+		child = child->FindChild(childName);
+		if(child) {
+			return child;
 		}
 	}
 	return nullptr;
 }
 
 Entity* Entity::RemoveChild(const String& childName) {
-	for(auto it = children.begin(); it != children.end(); it++) {
-		Entity* c = (*it);
+	for(auto it = children.begin(); it != children.end(); ++it) {
+		Entity* c = *it;
 		if(c->GetName() == childName) {
 			c->SetParent(nullptr);
 			children.erase(it);
@@ -151,8 +142,8 @@ Entity* Entity::RemoveChild(const String& childName) {
 
 Entity* Entity::RemoveChild(Entity* child) {
 	CROSS_RETURN(child, nullptr, "Trying to remove null pointer");
-	for(auto it = children.begin(); it != children.end(); it++) {
-		Entity* c = (*it);
+	for(auto it = children.begin(); it != children.end(); ++it) {
+		Entity* c = *it;
 		if(c == child) {
 			c->SetParent(nullptr);
 			children.erase(it);
@@ -165,8 +156,7 @@ Entity* Entity::RemoveChild(Entity* child) {
 
 Entity* Entity::Clone() {
 	Entity* clone = CREATE Entity(this->name);
-	for(pair<U64, Component*> pair : components){
-		Component* component = pair.second;
+	for(const auto& [id, component] : components){
 		clone->components[typeid(*component).hash_code()] = component->Clone();
 		clone->components[typeid(*component).hash_code()]->entity = clone;
 	}
@@ -185,16 +175,14 @@ bool Entity::IsOnScene() const {
 Vector3D Entity::GetDirection() {
 	if(parent) {
 		return parent->GetTransform()->GetModelMatrix() * GetTransform()->GetDirection();
-	} else {
-		return GetTransform()->GetDirection();
 	}
+	return GetTransform()->GetDirection();
 }
 
 void Entity::SetOnScene(bool onScene) {
 	if(on_scene != onScene) {
 		on_scene = onScene;
-		for(pair<U64, Component*> pair : components) {
-			Component* component = pair.second;
+		for(const auto& [ID, component] : components) {
 			onScene ? component->Enable() : component->Disable();
 		}
 	}
@@ -204,10 +192,9 @@ void Entity::SetOnScene(bool onScene) {
 }
 
 void Entity::Update(float sec) {
-	for(pair<U64, Component*> p : components) {
-		Component* c = p.second;
-		if(c->IsActive()) {
-			c->Update(sec);
+	for(const auto& [ID, component] : components) {
+		if(component->IsActive()) {
+			component->Update(sec);
 		}
 	}
 	for(Entity* c : children) {

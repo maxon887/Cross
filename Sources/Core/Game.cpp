@@ -79,15 +79,15 @@ void Game::SetScreen(Screen* screen) {
 	}
 }
 
-Screen* Game::GetCurrentScreen() {
+Screen* Game::GetCurrentScreen() const {
 	return current_screen;
 }
 
-Scene* Game::GetCurrentScene() {
+Scene* Game::GetCurrentScene() const {
 	return dynamic_cast<Scene*>(GetCurrentScreen());
 }
 
-Factory<Component>* Game::GetComponentFactory() {
+Factory<Component>* Game::GetComponentFactory() const {
 	return component_factory;
 }
 

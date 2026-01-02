@@ -45,13 +45,11 @@ public:
 	Transform* GetTransform();
 	/* Adds component to the current Entity component stack. Duplicated components not allowed. In case of error input component will be force deleted */
 	void AddComponent(Component* component);
-	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
-	void AddComponent(Component* component, Scene* scene);
 	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
 
 	/* Returns parent of the Entity or nullptr if Entity doesn't have a parent (for root entity for ex) */
-	Entity* GetParent();
+	Entity* GetParent() const;
 	/* Sets parent for this Entity */
 	void SetParent(Entity* parent);
 	/* Returns all children held by this Entity */
@@ -63,7 +61,7 @@ public:
 	/* Returns Entity's child by its index position in Entity's child container */
 	Entity* FindChild(U32 index);
 	/* Returns Entity's child by its name */
-	Entity* FindChild(const String& childName);
+	Entity* FindChild(const String& childName) const;
 	/* Removes child from Entity by name. Returns live child in case of success or nullptr if child not found. Returned child must be utilized by hand. */
 	Entity* RemoveChild(const String& childName);
 	/* Removes specific child from Entity. Returns the same object in case of success or nullptr if child not found. Appropriate child's Remove() will be called. */
@@ -94,12 +92,8 @@ bool Entity::HasComponent() const {
 
 template<class T>
 T* Entity::GetComponent() {
-	auto it = components.find(typeid(T).hash_code());
-	if(it != components.end()) {
-		return (T*)(*it).second;
-	} else {
-		return nullptr;
-	}
+	const size_t typeID = typeid(T).hash_code();
+	return (T*)GetComponent(typeID);
 }
 
 }

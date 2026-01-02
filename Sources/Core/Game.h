@@ -55,11 +55,11 @@ public:
 	/* Returns time in sec since game start */
 	float GetRunTime() const;
 	/* Returns active game Screen */
-	Screen* GetCurrentScreen();
+	Screen* GetCurrentScreen() const;
 	/* Returns active game Scene if available */
-	Scene* GetCurrentScene();
+	Scene* GetCurrentScene() const;
 	/* Returns component factory for custom Components registration */
-	Factory<Component>* GetComponentFactory();
+	Factory<Component>* GetComponentFactory() const;
 
 	/* Engine specific */
 	void EngineUpdate();

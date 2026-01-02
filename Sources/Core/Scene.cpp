@@ -34,7 +34,7 @@ using namespace std;
 
 Scene::Scene() {
 	root = CREATE Entity("Root");
-	root->AddComponent(CREATE Transform(), this);
+	root->AddComponent(CREATE Transform());
 }
 
 void Scene::Start() {
@@ -277,7 +277,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 			if(component) {
 				bool componentLoaded = component->Load(componentXML);
 				if(componentLoaded) {
-					entity->AddComponent(component, this);
+					entity->AddComponent(component);
 				} else {
 					CROSS_ASSERT(false, "Can't load component of type '#'", componentXML->Name());
 				}
