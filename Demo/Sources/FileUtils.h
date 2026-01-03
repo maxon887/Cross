@@ -1,5 +1,6 @@
 #pragma once
 #include "Cross.h"
+#include "Array.h"
 
 using namespace cross;
 

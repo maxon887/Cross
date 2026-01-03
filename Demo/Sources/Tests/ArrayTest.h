@@ -1,5 +1,6 @@
 #pragma once
 #include "Screen.h"
+#include "Array.h"
 #include "UI/Views/View.h"
 
 #include <vector>
