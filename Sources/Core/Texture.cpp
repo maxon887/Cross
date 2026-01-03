@@ -96,7 +96,7 @@ Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int&
 	}
 	if(newWidth != width || newHeight != height) {
 		CROSS_ASSERT(true, "Not power of 2 texture. Performance issue!");
-		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
+		Byte* newImage = (Byte*)CROSS_ALLOC(channels * newWidth * newHeight);
 		for(int i = 0; i < height; i++) {
 			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
 			//Clamp to edge effect
