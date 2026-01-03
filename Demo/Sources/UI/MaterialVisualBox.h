@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Base/String.h"
+#include "Base/Map.h"
 
 using namespace cross;
 
@@ -41,7 +42,7 @@ private:
 	bool loaded_from_scene = false;
 	
 	//key property name 
-	Dictionary<String, FileSelector*> texture_selectors;
+	Map<String, FileSelector*> texture_selectors;
 
 	void DeleteMaterialIfNeeded();
 	void CreateTextureSelectors();

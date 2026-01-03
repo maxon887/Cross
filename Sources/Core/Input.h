@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "Base/Array.h"
 #include "Base/Event.h"
+#include "Base/List.h"
 
 #include <mutex>
 

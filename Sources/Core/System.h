@@ -19,6 +19,7 @@
 #include "Base/Array.h"
 #include "Base/Event.h"
 #include "Base/String.h"
+#include "Base/Set.h"
 
 namespace cross {
 

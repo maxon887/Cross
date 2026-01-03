@@ -89,10 +89,10 @@ public:
 protected:
 	Entity* root							= nullptr;
 
-	Dictionary<U64, Shader*> shaders		= Dictionary<U64, Shader*>();
-	Dictionary<U64, Texture*> textures		= Dictionary<U64, Texture*>();
-	Dictionary<U64, Material*> materials	= Dictionary<U64, Material*>();
-	Dictionary<U64, Model*> models			= Dictionary<U64, Model*>();
+	Map<U64, Shader*> shaders				= Map<U64, Shader*>();
+	Map<U64, Texture*> textures				= Map<U64, Texture*>();
+	Map<U64, Material*> materials			= Map<U64, Material*>();
+	Map<U64, Model*> models					= Map<U64, Model*>();
 	List<Light*> lights						= List<Light*>();
 
 	Camera* camera							= nullptr;

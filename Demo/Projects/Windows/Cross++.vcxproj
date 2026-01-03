@@ -118,7 +118,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GLES;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -141,6 +141,7 @@ xcopy "$(ProjectDir)Binaries\x86\libEGL.dll" "$(ProjectDir)\$(Platform)\DebugGLE
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -161,7 +162,7 @@ xcopy "$(ProjectDir)Binaries\x64\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Comma
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -182,7 +183,7 @@ xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugOpenG
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -205,7 +206,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Comma
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -230,7 +231,7 @@ xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\Release\" 
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>

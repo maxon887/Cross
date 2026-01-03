@@ -18,6 +18,8 @@
 #include "Cross.h"
 #include "Base/Array.h"
 #include "Base/String.h"
+#include "Base/List.h"
+#include "Base/Map.h"
 
 #include <typeinfo>
 
@@ -82,7 +84,7 @@ engineonly:
 
 private:
 	String name								= String();
-	Dictionary<U64, Component*> components	= Dictionary<U64, Component*>();
+	Map<U64, Component*> components			= Map<U64, Component*>();
 	Entity* parent							= nullptr;
 	bool on_scene							= false;
 };

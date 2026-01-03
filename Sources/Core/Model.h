@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Base/String.h"
+#include "Base/Map.h"
 
 struct aiMesh;
 struct aiNode;
@@ -49,7 +50,7 @@ public:
 	Mesh* GetMesh(S32 id);
 
 private:
-	Dictionary<S32, Mesh*> meshes;
+	Map<S32, Mesh*> meshes;
 	Entity* hierarchy;
 
 	const aiScene* current_scene	= nullptr;

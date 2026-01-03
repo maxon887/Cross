@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Base/Map.h"
 #include "Base/Function.h"
 
 namespace cross{
@@ -39,7 +40,7 @@ public:
 	void DisconnectAll();
 
 private:
-	std::map<U64, Function<void(Args...)>> connections;
+	Map<U64, Function<void(Args...)>> connections;
 
 	template<class Clazz> U64 Hash(Clazz* obj, void(Clazz::*func)(Args...));
 	void Connect(U64 hash, const Function<void(Args...)>& func);

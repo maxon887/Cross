@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "Texture.h"
+#include "Base/Map.h"
 
 namespace cross {
 
@@ -63,7 +64,7 @@ protected:
 	bool emulate_mobile					= false;
 	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
 
-	Dictionary<String, String> user_prefs = Dictionary<String, String>();
+	Map<String, String> user_prefs = Map<String, String>();
 
 	const String& GetString(const String& key) const;
 

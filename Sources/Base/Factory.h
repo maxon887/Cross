@@ -39,9 +39,9 @@ public:
 	String GetNameByClass(BaseClass* object);
 
 private:
-	Dictionary<String, Function<BaseClass*()>> functions;
+	Map<String, Function<BaseClass*()>> functions;
 	Array<String> names;
-	Dictionary<S64, String> class_hashes;
+	Map<S64, String> class_hashes;
 };
 
 template<class BaseClass>

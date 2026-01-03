@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Shaders/Shader.h"
+#include "Base/List.h"
 
 namespace cross{
 

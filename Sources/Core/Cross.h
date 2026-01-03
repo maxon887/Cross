@@ -45,9 +45,6 @@ if(!(condition)) {																\
 }
 
 #include <cstdint>
-#include <list>
-#include <map>
-#include <set>
 
 namespace cross {
 	typedef int8_t		S8;
@@ -67,13 +64,6 @@ namespace cross {
 #include "Math/All.h"
 
 namespace cross{
-
-template<typename Type>
-using List = std::list<Type>;
-template<typename Key, typename Value>
-using Dictionary = std::map<Key, Value>;
-template<typename Type>
-using Set = std::set<Type>;
 
 class Game;
 class System;
