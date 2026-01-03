@@ -29,6 +29,7 @@
 		50424D562C57BDC300CE0055 /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D442C57BDC300CE0055 /* MeshVisualBox.cpp */; };
 		50424D592C57BDC300CE0055 /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */; };
 		50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */; };
+		505A2AB62F099EE100C3764A /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505A2AB42F099EE100C3764A /* String.cpp */; };
 		5098D4592DB4EC30000E9958 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4542DB4EC30000E9958 /* StringTest.cpp */; };
 		5098D45A2DB4EC30000E9958 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4522DB4EC30000E9958 /* ArrayTest.cpp */; };
 		5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4562DB4EC30000E9958 /* Tester.cpp */; };
@@ -81,7 +82,6 @@
 		9D5884DB20236236002820F2 /* GraphicsGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884D720236236002820F2 /* GraphicsGL.cpp */; };
 		9D5884DC20236236002820F2 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884D920236236002820F2 /* Audio.cpp */; };
 		9DBEB34E20C5770100D3E8C6 /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DBEB34C20C5770100D3E8C6 /* Property.cpp */; };
-		9DCEB9BE206FAE28006B2C6B /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DCEB9BD206FAE28006B2C6B /* String.cpp */; };
 		9DDFFEFA1F46EF1700A6E782 /* MemoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */; };
 		9DDFFF021F46EF1700A6E782 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7B1F46EF1700A6E782 /* image_helper.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFE7D1F46EF1700A6E782 /* SOIL.c */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -155,6 +155,15 @@
 		50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialVisualBox.cpp; sourceTree = "<group>"; };
 		50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtils.cpp; sourceTree = "<group>"; };
 		50424D5C2C57BEBD00CE0055 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
+		505A2AAC2F099EE100C3764A /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
+		505A2AAD2F099EE100C3764A /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		505A2AAE2F099EE100C3764A /* Factory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		505A2AAF2F099EE100C3764A /* Function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
+		505A2AB02F099EE100C3764A /* List.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
+		505A2AB12F099EE100C3764A /* Map.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		505A2AB22F099EE100C3764A /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
+		505A2AB32F099EE100C3764A /* String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
+		505A2AB42F099EE100C3764A /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		5098D4512DB4EC30000E9958 /* ArrayTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
 		5098D4522DB4EC30000E9958 /* ArrayTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
 		5098D4532DB4EC30000E9958 /* StringTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
@@ -260,9 +269,6 @@
 		9D5884DA20236236002820F2 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		9DBEB34C20C5770100D3E8C6 /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
 		9DBEB34D20C5770100D3E8C6 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
-		9DCEB9BC206FAE28006B2C6B /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
-		9DCEB9BD206FAE28006B2C6B /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
-		9DDFFE0B1F46EF1700A6E782 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
 		9DDFFE111F46EF1700A6E782 /* MemoryManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryManager.cpp; sourceTree = "<group>"; };
 		9DDFFE121F46EF1700A6E782 /* MemoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryManager.h; sourceTree = "<group>"; };
 		9DDFFE151F46EF1700A6E782 /* ai_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ai_assert.h; sourceTree = "<group>"; };
@@ -491,6 +497,22 @@
 			name = ImGui;
 			sourceTree = "<group>";
 		};
+		505A2AB52F099EE100C3764A /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				505A2AAC2F099EE100C3764A /* Array.h */,
+				505A2AAD2F099EE100C3764A /* Event.h */,
+				505A2AAE2F099EE100C3764A /* Factory.h */,
+				505A2AAF2F099EE100C3764A /* Function.h */,
+				505A2AB02F099EE100C3764A /* List.h */,
+				505A2AB12F099EE100C3764A /* Map.h */,
+				505A2AB22F099EE100C3764A /* Set.h */,
+				505A2AB32F099EE100C3764A /* String.h */,
+				505A2AB42F099EE100C3764A /* String.cpp */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		5098D4582DB4EC30000E9958 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,9 +706,9 @@
 		9DDFFDD41F46EF1600A6E782 /* Cross */ = {
 			isa = PBXGroup;
 			children = (
+				505A2AB52F099EE100C3764A /* Base */,
 				9D54BB7C1FBC433C009E8469 /* Core */,
 				9D54BBBE1FBC435B009E8469 /* Utils */,
-				9DDFFE0A1F46EF1700A6E782 /* Experimental */,
 				9DDFFE0C1F46EF1700A6E782 /* Internals */,
 				9DDFFE131F46EF1700A6E782 /* Libs */,
 				9DDFFE861F46EF1700A6E782 /* Math */,
@@ -695,16 +717,6 @@
 			);
 			name = Cross;
 			path = ../../../Sources;
-			sourceTree = "<group>";
-		};
-		9DDFFE0A1F46EF1700A6E782 /* Experimental */ = {
-			isa = PBXGroup;
-			children = (
-				9DCEB9BD206FAE28006B2C6B /* String.cpp */,
-				9DCEB9BC206FAE28006B2C6B /* String.h */,
-				9DDFFE0B1F46EF1700A6E782 /* Array.h */,
-			);
-			path = Experimental;
 			sourceTree = "<group>";
 		};
 		9DDFFE0C1F46EF1700A6E782 /* Internals */ = {
@@ -1085,7 +1097,6 @@
 				9D33C16020D02B9F007EF97F /* DemoScene.cpp in Sources */,
 				9DDFFF041F46EF1700A6E782 /* stb_image_aug.c in Sources */,
 				9DDFFF081F46EF1700A6E782 /* Quaternion.cpp in Sources */,
-				9DCEB9BE206FAE28006B2C6B /* String.cpp in Sources */,
 				9D33C16720D02B9F007EF97F /* SpotLightScene.cpp in Sources */,
 				9D33C15D20D02B9F007EF97F /* DepthScene.cpp in Sources */,
 				50424D502C57BDC300CE0055 /* ShaderVisualBox.cpp in Sources */,
@@ -1124,6 +1135,7 @@
 				50424D2D2C57BC9D00CE0055 /* imgui_draw.cpp in Sources */,
 				5098D4592DB4EC30000E9958 /* StringTest.cpp in Sources */,
 				5098D45A2DB4EC30000E9958 /* ArrayTest.cpp in Sources */,
+				505A2AB62F099EE100C3764A /* String.cpp in Sources */,
 				5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */,
 				5098D45C2DB4EC30000E9958 /* UnusedFunctionSilencer.cpp in Sources */,
 				9D33C15720D02B9F007EF97F /* NakedScene.cpp in Sources */,

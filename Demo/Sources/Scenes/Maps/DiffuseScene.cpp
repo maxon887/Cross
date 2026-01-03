@@ -24,6 +24,8 @@
 #include "Camera.h"
 #include "CameraController.h"
 
+#include <cmath>
+
 void DiffuseScene::Start(){
 	DemoScene::Start();
 	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));

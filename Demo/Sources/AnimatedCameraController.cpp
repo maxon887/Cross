@@ -1,6 +1,8 @@
 #include "AnimatedCameraController.h"
 #include "Game.h"
 
+#include <cmath>
+
 AnimatedCameraController::AnimatedCameraController() : Component("AnimatedCameraController") { }
 
 void AnimatedCameraController::Update(float sec) {

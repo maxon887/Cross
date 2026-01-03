@@ -23,6 +23,8 @@
 #include "Mesh.h"
 #include "Transform.h"
 
+#include <cmath>
+
 void TransparencyScene::Start(){
 	DemoScene::Start();
 

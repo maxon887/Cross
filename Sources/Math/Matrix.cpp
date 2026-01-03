@@ -18,6 +18,7 @@
 #include "System.h"
 #include "Math/All.h"
 
+#include <cmath>
 #include <cstring>
 
 using namespace cross;

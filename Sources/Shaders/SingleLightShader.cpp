@@ -21,6 +21,8 @@
 #include "Game.h"
 #include "Scene.h"
 
+#include <cmath>
+
 using namespace cross;
 
 SingleLightShader::SingleLightShader(const String& vertex, const String& fragment) :

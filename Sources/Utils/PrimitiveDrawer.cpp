@@ -22,6 +22,8 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Texture.h"
 #include "Scene.h"
 
+#include <cmath>
+
 using namespace cross;
 using namespace tinyxml2;
 
