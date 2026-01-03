@@ -17,6 +17,7 @@
 #pragma once
 #include "Cross.h"
 #include "System.h"
+#include "Color.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 

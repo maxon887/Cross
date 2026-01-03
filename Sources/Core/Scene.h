@@ -20,6 +20,7 @@
 #include "Input.h"
 #include "Model.h"
 #include "Texture.h"
+#include "Color.h"
 
 namespace tinyxml2{
 

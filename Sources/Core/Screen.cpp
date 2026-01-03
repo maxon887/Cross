@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Screen.h"
 #include "Internals/GraphicsGL.h"
+#include "Color.h"
 
 using namespace cross;
 

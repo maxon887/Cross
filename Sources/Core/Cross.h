@@ -69,7 +69,6 @@ namespace cross {
 #include "Experimental/Function.h"
 
 #include "Math/All.h"
-#include "Color.h"
 
 namespace cross{
 
@@ -102,6 +101,7 @@ class Light;
 class Component;
 class Transform;
 class Cubemap;
+class Color;
 
 extern Game*		game;
 extern System*		os;
