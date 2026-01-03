@@ -6,6 +6,7 @@
 #include "Screen.h"
 #include "Config.h"
 #include "Utils/Debugger.h"
+#include "Math/All.h"
 
 #include <iostream>
 

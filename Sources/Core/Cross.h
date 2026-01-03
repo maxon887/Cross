@@ -37,6 +37,7 @@ if(!(condition)) {																\
 }
 
 #include <cstdint>
+#include <cstddef>
 
 namespace cross {
 	typedef int8_t		S8;
