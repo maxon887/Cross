@@ -17,6 +17,8 @@
 #include "Cross.h"
 #include "MemoryManager.h"
 
+#include <cstdio>
+
 #ifdef CROSS_MEMORY_PROFILE
 
 #include <cstdarg>

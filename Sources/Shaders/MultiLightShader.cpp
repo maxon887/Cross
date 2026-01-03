@@ -21,6 +21,8 @@
 #include "Scene.h"
 #include "Entity.h"
 
+#include <cmath>
+
 using namespace cross;
 
 MultiLightShader::MultiLightShader() :
