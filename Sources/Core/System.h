@@ -21,6 +21,23 @@
 #include "Base/String.h"
 #include "Base/Set.h"
 
+#define CROSS_ASSERT(condition, message, ...)									\
+if(!(condition)) {																\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
+}
+
+#define CROSS_FAIL(condition, message, ...)										\
+if(!(condition)) {																\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
+	return;																		\
+}
+
+#define CROSS_RETURN(condition, value, message, ...)							\
+if(!(condition)) {																\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
+	return value;																\
+}
+
 namespace cross {
 
 /*	Provides platform specific functional. Use this class for logging, file access and other platform specific function */

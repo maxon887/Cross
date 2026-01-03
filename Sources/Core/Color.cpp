@@ -14,8 +14,9 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "Math/All.h"
 #include "Color.h"
+#include "Math/All.h"
+#include "Base/String.h"
 
 #include <cstring>
 

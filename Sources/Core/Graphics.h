@@ -17,12 +17,8 @@
 #pragma once
 #include "Cross.h"
 #include "Base/Array.h"
-#include "Base/String.h"
 
 namespace cross{
-
-template<class BaseClass>
-class Factory;
 
 /*	Class containing specific OpenGL features */
 class Graphics {

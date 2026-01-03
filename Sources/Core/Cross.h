@@ -19,23 +19,6 @@
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly public
 
-#define CROSS_ASSERT(condition, message, ...)									\
-if(!(condition)) {																\
-	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
-}
-
-#define CROSS_FAIL(condition, message, ...)										\
-if(!(condition)) {																\
-	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
-	return;																		\
-}
-
-#define CROSS_RETURN(condition, value, message, ...)							\
-if(!(condition)) {																\
-	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
-	return value;																\
-}
-
 #include <cstdint>
 
 namespace cross {
@@ -78,6 +61,16 @@ class Component;
 class Transform;
 class Cubemap;
 class Color;
+
+class String;
+template<typename Type>
+class Array;
+template<class BaseClass>
+class Factory;
+
+class Vector2D;
+class Vector3D;
+class Vector4D;
 
 extern Game*		game;
 extern System*		os;

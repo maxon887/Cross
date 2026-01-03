@@ -17,8 +17,6 @@
 #include "Cross.h"
 #include "System.h"
 
-#include <cstring>
-#include <cstdlib>
 #include <cctype>
 
 using namespace cross;

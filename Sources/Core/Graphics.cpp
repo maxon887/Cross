@@ -16,8 +16,6 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics.h"
 #include "System.h"
-#include "Game.h"
-#include "Entity.h"
 #include "Base/Factory.h"
 #include "File.h"
 #include "Mesh.h"

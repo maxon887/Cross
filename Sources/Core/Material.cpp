@@ -18,7 +18,6 @@
 #include "System.h"
 #include "File.h"
 #include "Scene.h"
-#include "Game.h"
 #include "Graphics.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"

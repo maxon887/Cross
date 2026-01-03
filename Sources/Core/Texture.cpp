@@ -21,9 +21,6 @@
 #include "Utils/Debugger.h"
 #include "File.h"
 
-#include <cstdlib>
-#include <cstring>
-
 #include "Libs/SOIL/SOIL.h"
 
 using namespace cross;

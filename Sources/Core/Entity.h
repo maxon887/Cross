@@ -16,11 +16,9 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Base/Array.h"
 #include "Base/String.h"
 #include "Base/List.h"
 #include "Base/Map.h"
-#include "Math/Vector3D.h"
 
 #include <typeinfo>
 
