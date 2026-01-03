@@ -18,6 +18,7 @@
 #include "Cross.h"
 #include "System.h"
 #include "Color.h"
+#include "Math/All.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 

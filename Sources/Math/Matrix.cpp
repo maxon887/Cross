@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Matrix.h"
-#include "Cross.h"
 #include "System.h"
+#include "Math/All.h"
 
 #include <cstring>
 

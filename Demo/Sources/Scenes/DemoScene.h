@@ -17,6 +17,7 @@
 #pragma once
 #include "Scene.h"
 #include "System.h"
+#include "Math/Vector3D.h"
 
 using namespace cross;
 

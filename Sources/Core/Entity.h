@@ -20,6 +20,7 @@
 #include "Base/String.h"
 #include "Base/List.h"
 #include "Base/Map.h"
+#include "Math/Vector3D.h"
 
 #include <typeinfo>
 
