@@ -17,12 +17,12 @@
 #include "Cross.h"
 #include "MemoryManager.h"
 
-#include <cstdio>
+#include <cstdlib>
 
 #ifdef CROSS_MEMORY_PROFILE
 
+#include <cstdio>
 #include <cstdarg>
-#include <cstdlib>
 #include <mutex>
 #include <cstring>
 #include <cassert>
@@ -243,7 +243,6 @@ void StaticFree(void* pointer) {
 
 
 #else
-#include <stdlib.h>
 
 void* StaticAlloc(cross::S64 size, const char* filename, cross::U64 line) {
 	return malloc((cross::Size)size);
@@ -255,6 +254,5 @@ void* StaticReAlloc(void* pointer, cross::S64 size, const char* filename, cross:
 void StaticFree(void* pointer) {
 	free(pointer);
 }
-
 
 #endif
