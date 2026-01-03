@@ -19,9 +19,6 @@
     <Filter Include="Cross\Shaders">
       <UniqueIdentifier>{0339447c-d355-47b0-9d8b-a80353255f60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cross\Experimental">
-      <UniqueIdentifier>{090a0712-4ab6-4414-bd48-905c77498348}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cross\Libs">
       <UniqueIdentifier>{0a91abce-0279-48f7-9128-742707d932e7}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,9 @@
     </Filter>
     <Filter Include="Demo\Tests">
       <UniqueIdentifier>{d8c3bb78-8bb2-459e-881d-3000d6558e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cross\Base">
+      <UniqueIdentifier>{9e89bb99-8372-40d8-9754-ab50c04cbc8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +228,6 @@
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Experimental\String.cpp">
-      <Filter>Cross\Experimental</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Property.cpp">
       <Filter>Cross\Core</Filter>
     </ClCompile>
@@ -353,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\AnimatedCameraController.cpp">
       <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Base\String.cpp">
+      <Filter>Cross\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -537,15 +537,6 @@
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Experimental\Array.h">
-      <Filter>Cross\Experimental</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Experimental\String.h">
-      <Filter>Cross\Experimental</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Experimental\Function.h">
-      <Filter>Cross\Experimental</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Property.h">
       <Filter>Cross\Core</Filter>
     </ClInclude>
@@ -662,6 +653,21 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\AnimatedCameraController.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Base\Array.h">
+      <Filter>Cross\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Base\Event.h">
+      <Filter>Cross\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Base\Factory.h">
+      <Filter>Cross\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Base\Function.h">
+      <Filter>Cross\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Base\String.h">
+      <Filter>Cross\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
