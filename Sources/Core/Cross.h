@@ -65,7 +65,6 @@ namespace cross {
 #include "Internals/MemoryManager.h"
 
 #include "Experimental/String.h"
-#include "Experimental/Array.h"
 
 #include "Math/All.h"
 
