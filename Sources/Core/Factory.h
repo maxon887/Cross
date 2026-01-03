@@ -16,8 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "System.h"
-#include "Experimental/Function.h"
+#include "Function.h"
 
 #include <typeinfo>
 
