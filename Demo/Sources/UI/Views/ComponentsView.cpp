@@ -20,7 +20,7 @@
 #include "Component.h"
 #include "Mesh.h"
 #include "Demo.h"
-#include "Factory.h"
+#include "Base/Factory.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 

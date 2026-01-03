@@ -18,6 +18,7 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
 
 #include <cstring>
+#include <cassert>
 
 namespace cross {
 

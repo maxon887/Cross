@@ -6,6 +6,7 @@ set (CMAKE_CXX_STANDARD 17)
 
 include_directories(../../../Sources)
 include_directories(../../../Sources/Core)
+include_directories(../../../Sources/Core/Experimental)
 include_directories(../../../Sources/Internals)
 include_directories(../../../Sources/Libs)
 include_directories(../../../Demo/Sources)

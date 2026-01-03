@@ -24,7 +24,7 @@
 #include "Mesh.h"
 #include "File.h"
 #include "Transform.h"
-#include "Factory.h"
+#include "Base/Factory.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 

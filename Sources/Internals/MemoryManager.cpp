@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <mutex>
 #include <cstring>
+#include <cassert>
 
 using namespace cross;
 

@@ -16,7 +16,8 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Array.h"
+#include "Base/Array.h"
+#include "Base/String.h"
 
 namespace cross{
 

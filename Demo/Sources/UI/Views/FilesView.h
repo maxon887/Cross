@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "Array.h"
-#include "Event.h"
+#include "Base/Array.h"
+#include "Base/Event.h"
 #include "UI/Views/View.h"
 
 class FilesView : public View {

@@ -17,6 +17,8 @@
 #pragma once
 #include "Cross.h"
 
+#include <cassert>
+
 template<class T>
 class Function;
 

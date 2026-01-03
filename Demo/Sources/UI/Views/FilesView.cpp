@@ -24,7 +24,7 @@
 #include "Scenes/DemoScene.h"
 #include "FileUtils.h"
 #include "Input.h"
-#include "Factory.h"
+#include "Base/Factory.h"
 
 #include <algorithm>
 

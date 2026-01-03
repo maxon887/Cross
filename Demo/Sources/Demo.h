@@ -17,6 +17,7 @@
 #pragma once
 #include "Game.h"
 #include "Input.h"
+#include "Base/String.h"
 
 #define SCALED(x) (x * cross::os->GetScreenScale())
 

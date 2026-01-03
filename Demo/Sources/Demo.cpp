@@ -19,7 +19,7 @@
 #include "Screen.h"
 #include "System.h"
 #include "Config.h"
-#include "Factory.h"
+#include "Base/Factory.h"
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
 #include "UI/Views/LaunchView.h"

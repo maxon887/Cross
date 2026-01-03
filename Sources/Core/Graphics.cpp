@@ -18,7 +18,7 @@
 #include "System.h"
 #include "Game.h"
 #include "Entity.h"
-#include "Factory.h"
+#include "Base/Factory.h"
 #include "File.h"
 #include "Mesh.h"
 #include "Material.h"

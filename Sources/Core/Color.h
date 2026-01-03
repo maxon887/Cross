@@ -16,6 +16,8 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
+#include "Base/String.h"
+
 namespace cross {
 
 /*	Color will be stored in 4 channels with float point	precision */
