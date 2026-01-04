@@ -203,7 +203,6 @@ void FilesView::ContextMenu() {
 	//New Folder dialog
 	if(newFolder) {
 		ImGui::OpenPopup("Folder Name");
-		newFolder = false;
 	}
 	if(ImGui::BeginPopupModal("Folder Name", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		static char buffer[256];
@@ -229,7 +228,6 @@ void FilesView::ContextMenu() {
 	//New Shader dialog
 	if(newShader) {
 		ImGui::OpenPopup("New Shader");
-		newShader = false;
 	}
 	if(ImGui::BeginPopupModal("New Shader", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		static char buffer[256];
@@ -279,7 +277,6 @@ void FilesView::ContextMenu() {
 	//New Material dialog
 	if(newMaterial) {
 		ImGui::OpenPopup("New Material");
-		newMaterial = false;
 	}
 	if(ImGui::BeginPopupModal("New Material", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		//Material name
@@ -315,7 +312,6 @@ void FilesView::ContextMenu() {
 	//Delete dialog
 	if(deleteFile) {
 		ImGui::OpenPopup("Delete?");
-		deleteFile = false;
 	}
 	if(ImGui::BeginPopupModal("Delete?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		ImGui::Text("Are you sure you what to delete this content?");

@@ -23,6 +23,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Utils/Cubemap.h"
 
 using namespace cross;
 
