@@ -15,6 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "SkyboxScene.h"
+#include "Utils/Cubemap.h"
 #include "Shaders/Shader.h"
 #include "Material.h"
 #include "Entity.h"

@@ -21,8 +21,6 @@
 #include "Color.h"
 #include "Internals/GraphicsGL.h"
 
-#include <cstring>
-
 namespace cross{
 
 /*	This class needed to link gpu shader input data to engine cpu core.

@@ -16,9 +16,10 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "Utils/Cubemap.h"
 
 namespace cross{
+
+class Cubemap;
 
 class Skybox {
 public:

@@ -19,7 +19,6 @@ along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Game.h"
 #include "Camera.h"
 #include "Shaders/Shader.h"
-#include "Texture.h"
 #include "Scene.h"
 
 #include <cmath>
