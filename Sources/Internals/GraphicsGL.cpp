@@ -17,8 +17,6 @@
 #include "GraphicsGL.h"
 #include "System.h"
 
-#include <cstring>
-
 using namespace cross;
 
 void GraphicsGL::CheckGLError(const char* file, U32 line) {

@@ -15,12 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Shader.h"
-
-#include <utility>
 #include "System.h"
 #include "File.h"
-#include "Texture.h"
-#include "Utils/Cubemap.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
