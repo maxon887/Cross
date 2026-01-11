@@ -1,0 +1,202 @@
+<Scene version="18">
+    <Objects>
+        <Object name="Camera">
+            <Components>
+                <Camera>
+                    <ViewDistance type="Float" value="2154"/>
+                </Camera>
+                <Transform>
+                    <Position type="Vector3D" x="380.79507" y="71.065758" z="-1148.9048"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="-0.12407991" y="0.142404" z="-0.017991707" w="0.98183584"/>
+                </Transform>
+            </Components>
+        </Object>
+        <Object name="RowHouse04">
+            <Components>
+                <Transform>
+                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                </Transform>
+            </Components>
+            <Children>
+                <Object name="RowHouse04:7_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04:7">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="0"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Scenes/ZombieTown/Materials/Architecture/OTTrim01.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+                <Object name="RowHouse04:10_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04:10">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="1"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Engine/Default.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+                <Object name="RowHouse04:12_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04:12">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="2"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Misc/WoodDetails.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+                <Object name="RowHouse04:13_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04:13">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="3"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Scenes/ZombieTown/Materials/Architecture/RowHouseBrick01.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+                <Object name="RowHouse04:14_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04:14">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="4"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Engine/Default.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+                <Object name="RowHouse04:34_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04:34">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="5"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Scenes/ZombieTown/Materials/Architecture/Generic/StoreFrontQuad01.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+                <Object name="RowHouse04_lod:0_$AssimpFbx$_PreRotation">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="-0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="-0.70710677" y="0" z="0" w="0.70710677"/>
+                        </Transform>
+                    </Components>
+                    <Children>
+                        <Object name="RowHouse04_lod:0">
+                            <Components>
+                                <Transform>
+                                    <Position type="Vector3D" x="0" y="0" z="-0"/>
+                                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                                    <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                                </Transform>
+                                <Mesh>
+                                    <ID type="Int" value="6"/>
+                                    <Model type="String" value="Scenes/ZombieTown/Models/Architecture/OldTown/RowHouse04.FBX"/>
+                                    <Material type="String" value="Engine/Default.mat"/>
+                                </Mesh>
+                            </Components>
+                        </Object>
+                    </Children>
+                </Object>
+            </Children>
+        </Object>
+    </Objects>
+</Scene>
