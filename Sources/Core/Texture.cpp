@@ -96,7 +96,8 @@ Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int&
 	}
 	if(newWidth != width || newHeight != height) {
 		CROSS_ASSERT(true, "Not power of 2 texture. Performance issue!");
-		Byte* newImage = (Byte*)CROSS_ALLOC(channels * newWidth * newHeight);
+		//we use malloc here because memory from this function could be returned by SOIL_load_image_from_memory
+		Byte* newImage = (Byte*)malloc(channels * newWidth * newHeight);
 		for(int i = 0; i < height; i++) {
 			memcpy(newImage + i * newWidth * channels, image + i * width * channels, width * channels);
 			//Clamp to edge effect
@@ -110,6 +111,7 @@ Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int&
 		}
 		width = newWidth;
 		height = newHeight;
+		free(image);
 		image = newImage;
 	}
 	return image;
@@ -253,10 +255,11 @@ Texture* Texture::Clone() const{
 void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
 	int width, height, channels;
 	Byte* image = LoadRawData(filename, width, height, channels);
-	CROSS_FAIL(image, "Texture can not be loaded. File not found");
+	CROSS_FAIL(image, "Texture can not be loaded");
 
 	bool generateMipmap = filter == Texture::Filter::BILINEAR || filter == Texture::Filter::TRILINEAR;
 	Create(image, (U32)channels, (U32)width, (U32)height, filter, Texture::Compression::NONE, Texture::TilingMode::CLAMP_TO_EDGE, generateMipmap);
+	free(image);
 }
 
 void Texture::LoadPKM(const String& filename, Texture::Filter filter) {
