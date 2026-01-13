@@ -12,10 +12,29 @@ public:
 	void Update(float sec);
 
 private:
-	bool TestsActive = false;
+	enum Test {
+		TRIANGLE_SCENE,
+		CUBE_SCENE,
+		TEXTURED_CUBE,
+		MATERIAL,
+		DIRECTIONAL_LIGHT,
+		POINT_LIGHT,
+		SPOT_LIGHT,
+		MULTI_LIGHT,
+		NAKED_MODEL,
+		DIFFUSE_MODEL,
+		SPECULAR_MODEL,
+		ROUGHNESS_MODEL,
+		NORMAL_MODEL,
+		DEPTH_TEST,
+		TRANSPARENCY,
+		SKYBOX,
+		NONE,
+	};
 
-	bool TriangleSceneLoaded = false;
-	float TriangleSceneTime = FLT_MAX;
+	Test current_test = NONE;
+	float next_test_time = FLT_MAX;
+
 
 	void OnScreenChanged(Screen* screen);
 };
