@@ -75,6 +75,7 @@ bool Scene::Load(const String& filename) {
 
 	XMLElement* scene = doc.FirstChildElement("Scene");
 	CROSS_RETURN(scene, false, "Can not load scene. Root node Scene not found");
+	SetName(File::FileWithoutExtension(File::FileFromPath(filename)));
 	int version = scene->IntAttribute("version");
 	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version mismatch");
 

@@ -166,6 +166,8 @@ bool Game::IsSuspended() const {
 
 void Game::LoadNextScreen() {
 	os->LogIt("Game::LoadNextScreen()");
+	Debugger::Instance()->SetTimeCheck();
+
 	if(current_screen) {
 		current_screen->Stop();
 		delete current_screen;
@@ -177,4 +179,7 @@ void Game::LoadNextScreen() {
 	timestamp = os->GetTime();
 	ScreenChanged.Emit(current_screen);
 	current_screen->Start();
+
+	float loadTime = Debugger::Instance()->GetTimeCheck();
+	os->LogIt("Screen(#) loaded in #ms", current_screen == nullptr ? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
 }

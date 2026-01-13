@@ -396,6 +396,7 @@ void Demo::SetScreen(Screen* screen) {
 
 void Demo::ToMain() {
 	Screen* mainScreen = CREATE Screen();
+	mainScreen->SetName("Main");
 	mainScreen->SetBackground(Color(0.3f));
 	SetScreen(mainScreen);
 	launch_view->Show();
