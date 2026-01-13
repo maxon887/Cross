@@ -28,8 +28,10 @@ void DemoScene::Start() {
 	if(!camera) {
 		CreateDefaultCamera();
 	}
-	camera_controller = CREATE CameraController();
-	camera->GetEntity()->AddComponent(camera_controller);
+	if(!camera->GetEntity()->GetComponent<CameraController>()) {
+		camera_controller = CREATE CameraController();
+		camera->GetEntity()->AddComponent(camera_controller);
+	}
 
 	os->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 	

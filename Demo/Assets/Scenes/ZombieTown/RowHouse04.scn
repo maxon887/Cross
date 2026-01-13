@@ -2,13 +2,16 @@
     <Objects>
         <Object name="Camera">
             <Components>
+                <CameraController>
+                    <CameraSpeed type="Float" value="1000"/>
+                </CameraController>
                 <Camera>
-                    <ViewDistance type="Float" value="2154"/>
+                    <ViewDistance type="Float" value="2000"/>
                 </Camera>
                 <Transform>
-                    <Position type="Vector3D" x="380.79507" y="71.065758" z="-1148.9048"/>
+                    <Position type="Vector3D" x="204.07089" y="109.85359" z="-1279.3282"/>
                     <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.12407991" y="0.142404" z="-0.017991707" w="0.98183584"/>
+                    <Rotation type="Quaternion" x="-0.16123492" y="0.070601717" z="-0.011560039" w="0.98431963"/>
                 </Transform>
             </Components>
         </Object>

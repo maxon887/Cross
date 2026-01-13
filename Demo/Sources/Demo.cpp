@@ -24,6 +24,7 @@
 #include "UI/MenuBar.h"
 #include "UI/Views/LaunchView.h"
 #include "Tests/Tester.h"
+#include "CameraController.h"
 #include "AnimatedCameraController.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -276,6 +277,7 @@ void Demo::Start() {
 	os->LogIt("Demo::Start()");
 	demo = (Demo*)game;
 
+	GetComponentFactory()->Register<CameraController>("CameraController");
 	GetComponentFactory()->Register<AnimatedCameraController>("AnimatedCameraController");
 
 	input->ActionDown.Connect(this, &Demo::ActionDownHandle);
