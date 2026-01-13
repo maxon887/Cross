@@ -344,7 +344,4 @@ void Mesh::Copy(const Mesh* m) {
 	face_culling = m->face_culling;
 	depth_test = m->depth_test;
 	original = false;
-	if(m->vertex_buffer) {
-		vertex_buffer = m->vertex_buffer->Clone();
-	}
 }
