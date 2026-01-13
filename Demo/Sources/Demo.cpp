@@ -26,6 +26,7 @@
 #include "Tests/Tester.h"
 #include "CameraController.h"
 #include "AnimatedCameraController.h"
+#include "Tests/AutoTests.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -319,6 +320,7 @@ void Demo::Start() {
 		style.GrabMinSize = 20 * os->GetScreenScale();
 	}
 
+	auto_tests = CREATE AutoTests();
 	menu = CREATE MenuBar();
 	launch_view = CREATE LaunchView();
 
@@ -331,6 +333,7 @@ void Demo::Stop() {
 	os->LogIt("Demo::Stop()");
 	delete launch_view;
 	delete menu;
+	delete auto_tests;
 	SAFE(glDeleteBuffers(1, &vertex_buffer));
 	SAFE(glDeleteBuffers(1, &index_buffer));
 	delete font_texture;
@@ -366,6 +369,7 @@ void Demo::PreUpdate(float sec) {
 void Demo::Update(float sec) {
 	Game::Update(sec);
 
+	auto_tests->Update(sec);
 	menu->Update(sec);
 	menu->ShowMenu();
 	launch_view->Run(sec);
@@ -403,6 +407,10 @@ LaunchView* Demo::GetLaunchView() {
 
 MenuBar* Demo::GetMenuBar() {
 	return menu;
+}
+
+AutoTests* Demo::GetAutoTests() {
+	return auto_tests;
 }
 
 bool Demo::CreateUIShaders() {

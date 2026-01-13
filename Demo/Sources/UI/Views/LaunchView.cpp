@@ -35,6 +35,7 @@
 #include "Scenes/Misc/SkyboxScene.h"
 #include "Tests/StringTest.h"
 #include "Tests/ArrayTest.h"
+#include "Tests/AutoTests.h"
 #include "AudioScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -143,6 +144,12 @@ void LaunchView::Update(float sec) {
 		ImGui::SetCursorPos(cursorPos);
 		if(ImGui::MenuButton("Array Test")) {
 			game->SetScreen(CREATE ArrayTest());
+		}
+		cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
+		if(ImGui::MenuButton("Auto Tests")) {
+			demo->GetAutoTests()->StartTests();
 		}
 	}
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {

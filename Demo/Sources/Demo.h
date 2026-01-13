@@ -22,11 +22,12 @@
 #define SCALED(x) (x * cross::os->GetScreenScale())
 
 using namespace cross;
-
+//
 struct ImDrawData;
 struct ImFont;
 struct ImGuiContext;
 
+class AutoTests;
 class Demo;
 class MenuBar;
 class LaunchView;
@@ -51,12 +52,14 @@ public:
 	void ToMain();
 	LaunchView* GetLaunchView();
 	MenuBar* GetMenuBar();
+	AutoTests* GetAutoTests();
 
 private:
 	static const int MaxInputActions = 5;
 	static const char* GetClipboardString(ImGuiContext* context);
 	static void SetClipboardString(ImGuiContext* context, const char* data);
 
+	AutoTests* auto_tests		= nullptr;
 	MenuBar* menu				= nullptr;
 	LaunchView* launch_view 	= nullptr;
 	Shader* ui_shader			= nullptr;
