@@ -19,7 +19,7 @@ void AutoTests::Update(float sec) {
 }
 
 void AutoTests::OnScreenChanged(Screen* screen) {
-	if(screen->GetName() == "TriangleScene") {
+	if(dynamic_cast<TriangleScene*>(screen)) {
 		TriangleScreenLoaded = game->GetRunTime();
 	}
 }

@@ -30,7 +30,7 @@ void IntSleep(int milis) {
 WINSystem::WINSystem(HWND wnd) :
 	wnd(wnd)
 {
-	LogIt("LauncherWIN::LauncherWIN(HWND wnd)");
+	LogIt("WINSystem::WINSystem(HWND wnd)");
 	const char* releaseAsset = "Assets/";
 	const char* debugAsset = "../../../Assets/";
 	const char* debugAssetAlt = "../../Assets/";

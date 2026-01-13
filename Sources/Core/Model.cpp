@@ -59,7 +59,7 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	os->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+	//os->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 
 	return result;
 }
@@ -163,7 +163,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename) {
 			indices.Add((U16)mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
+	//os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
 	//we need to create 2 Meshes he one is for video data storage second is for hierarchy
 	Mesh* videoMesh = CREATE Mesh(filename, mesh_id);
 	videoMesh->PushData(vertexBuffer, indices);
