@@ -27,7 +27,4 @@ public:
 	void PreUpdate() override;
 	void Update(float sec) override;
 	void PostUpdate() override;
-
-private:
-	bool LoadScene(const String& filename);
 };

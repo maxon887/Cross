@@ -27,6 +27,7 @@
 #include "CameraController.h"
 #include "AnimatedCameraController.h"
 #include "Tests/AutoTests.h"
+#include "Scenes/DemoScene.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -398,6 +399,17 @@ void Demo::ToMain() {
 	mainScreen->SetBackground(Color(0.3f));
 	SetScreen(mainScreen);
 	launch_view->Show();
+}
+
+bool Demo::LoadScene(const String &filename) {
+	DemoScene* scene = CREATE DemoScene();
+	if(scene->Load(filename)) {
+		game->SetScreen(scene);
+		return true;
+	} else {
+		delete scene;
+		return false;
+	}
 }
 
 LaunchView* Demo::GetLaunchView() {

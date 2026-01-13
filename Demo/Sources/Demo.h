@@ -50,6 +50,7 @@ public:
 	void SetScreen(Screen* screen) override;
 
 	void ToMain();
+	bool LoadScene(const String& filename);
 	LaunchView* GetLaunchView();
 	MenuBar* GetMenuBar();
 	AutoTests* GetAutoTests();

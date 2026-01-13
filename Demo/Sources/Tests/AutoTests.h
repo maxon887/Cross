@@ -13,7 +13,9 @@ public:
 
 private:
 	bool TestsActive = false;
-	float TriangleScreenLoaded = FLT_MAX;
+
+	bool TriangleSceneLoaded = false;
+	float TriangleSceneTime = FLT_MAX;
 
 	void OnScreenChanged(Screen* screen);
 };

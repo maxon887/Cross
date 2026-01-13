@@ -13,13 +13,16 @@ void AutoTests::Update(float sec) {
 	if(!TestsActive) {
 		return;
 	}
-	if(TriangleScreenLoaded + 0.2f < game->GetRunTime()) {
-		demo->ToMain();
+	if(TriangleSceneTime < game->GetRunTime() && TriangleSceneLoaded) {
+		TriangleSceneLoaded = false;
+		const String filename = "Scenes/Cube.scn";
+		CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 	}
 }
 
 void AutoTests::OnScreenChanged(Screen* screen) {
 	if(dynamic_cast<TriangleScene*>(screen)) {
-		TriangleScreenLoaded = game->GetRunTime();
+		TriangleSceneLoaded = true;
+		TriangleSceneTime = game->GetRunTime() + 0.2f;
 	}
 }

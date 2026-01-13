@@ -69,22 +69,22 @@ void LaunchView::Update(float sec) {
 			}
 			if(ImGui::MenuButton("Solid Model")) {
 				const String filename = "Scenes/Cube.scn";
-				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
+				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Textured Model")) {
 				const String filename = "Scenes/TexturedCube.scn";
-				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
+				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Apocalypse Scene")) {
 				const String filename = "Scenes/ApocalypticCity/ApocalypticCity.scn";
-				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
+				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Light")) {
 			if(ImGui::MenuButton("Material")) {
 				const String filename = "Scenes/Material.scn";
-				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
+				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Directional Light")) {
 				game->SetScreen(CREATE DirectionalLightScene());
@@ -165,15 +165,4 @@ void LaunchView::PostUpdate() {
 		ImGui::PopStyleVar();
 	}
 	ImGui::PopFont();
-}
-
-bool LaunchView::LoadScene(const String& filename) {
-	DemoScene* scene = CREATE DemoScene();
-	if(scene->Load(filename)) {
-		game->SetScreen(scene);
-		return true;
-	} else {
-		delete scene;
-		return false;
-	}
 }
