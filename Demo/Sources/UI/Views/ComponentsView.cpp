@@ -140,13 +140,17 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) const {
 			*prop = Quaternion(axis, angle);
 		}
 	} else if(dynamic_cast<Property<Color>*>(baseProperty)) {
-			Property<Color>* prop = (Property<Color>*)baseProperty;
-			ImGui::TextUnformatted(prop->GetName() + ":");
-			ImGui::SameLine(SCALED(100.f));
-			Color value = prop->Get();
-			if(ImGui::ColorEdit4(prop->GetName(), value.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) {
-				*prop = value;
-			}
+		Property<Color>* prop = (Property<Color>*)baseProperty;
+		ImGui::TextUnformatted(prop->GetName() + ":");
+		ImGui::SameLine(SCALED(100.f));
+		Color value = prop->Get();
+		if(ImGui::ColorEdit4(prop->GetName(), value.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) {
+			*prop = value;
+		}
+	} else if(baseProperty->IsEnum()) {
+		ImGui::TextUnformatted(baseProperty->GetName() + ":");
+		ImGui::SameLine(SCALED(100.f));
+		ImGui::TextUnformatted(baseProperty->ToString());
 	} else {
 	    const String errStr = String::Format("Can not draw property '#'", baseProperty->GetName());
 		ImGui::TextColored(ImVec4(1.f, 0, 0, 1.f), "%s", errStr.ToCStr());

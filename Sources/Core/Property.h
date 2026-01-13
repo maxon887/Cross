@@ -28,8 +28,10 @@ class BaseProperty {
 public:
 	BaseProperty(Component* owner, String name);
 
-	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) = 0;
+	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const = 0;
 	virtual bool Load(tinyxml2::XMLElement* parent) = 0;
+	virtual bool IsEnum() const = 0;
+	virtual String ToString() const = 0;
 
 	String GetName() const;
 
@@ -49,14 +51,16 @@ public:
 
 	const T& Get() const;
 
-	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) override;
+	bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const override;
 	bool Load(tinyxml2::XMLElement* parent) override;
+	bool IsEnum() const override;
+	String ToString() const override;
 
 	T& operator = (const T& val);
 	T& operator = (const Property& other);
 	operator const T& () const;
 
-private:
+protected:
 	T value;
 };
 
@@ -76,7 +80,7 @@ const T& Property<T>::Get() const {
 }
 
 template<class T>
-bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace tinyxml2;
 	constexpr bool isEnum = std::is_enum<T>::value;
 	if(isEnum) {
@@ -90,8 +94,19 @@ bool Property<T>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc)
 	}
 }
 
+template<class T>
+inline bool Property<T>::IsEnum() const {
+	constexpr bool isEnum = std::is_enum<T>::value;
+	return isEnum;
+}
+
+template<class T>
+inline String Property<T>::ToString() const {
+	CROSS_RETURN(false, false, "Called unspecialized function ToString() for property (#)", name);
+}
+
 template<>
-inline bool Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Int");
@@ -101,7 +116,7 @@ inline bool Property<S32>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocum
 }
 
 template<>
-inline bool Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Float");
@@ -111,7 +126,7 @@ inline bool Property<float>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDoc
 }
 
 template<>
-inline bool Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "String");
@@ -121,7 +136,7 @@ inline bool Property<String>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDo
 }
 
 template<>
-inline bool Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Vector3D");
@@ -133,7 +148,7 @@ inline bool Property<Vector3D>::Save(tinyxml2::XMLElement* parent, tinyxml2::XML
 }
 
 template<>
-inline bool Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Quaternion");
@@ -146,7 +161,7 @@ inline bool Property<Quaternion>::Save(tinyxml2::XMLElement* parent, tinyxml2::X
 }
 
 template<>
-inline bool Property<Color>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
+inline bool Property<Color>::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) const {
 	using namespace  tinyxml2;
 	XMLElement* propertyXML = doc->NewElement(name);
 	propertyXML->SetAttribute("type", "Color");

@@ -71,4 +71,18 @@ protected:
 	float cut_off	= 30.f;
 };
 
+template<>
+inline String Property<Light::Type>::ToString() const {
+	switch (value) {
+		case Light::Type::DIRECTIONAL:
+			return "Directional";
+		case Light::Type::POINT:
+			return "Point";
+		case Light::Type::SPOT:
+			return "Spot";
+		default:
+			return "Unknown";
+	}
+}
+
 }
