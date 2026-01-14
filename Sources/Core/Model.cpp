@@ -170,6 +170,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename, const String& gro
 	if(initialize_video) {
 		videoMesh->InitializeVideoData();
 	}
+	CROSS_ASSERT(meshes.find(groupID) == meshes.end(), "Model already contains GroupID '#'", groupID);
 	meshes[groupID] = videoMesh;
 	
 	Mesh* hierarchyMesh = CREATE Mesh(filename, groupID);
