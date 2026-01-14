@@ -20,7 +20,7 @@
                     <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                 </Transform>
                 <Mesh>
-                    <ID type="Int" value="0"/>
+                    <GroupID type="String" value="Cube"/>
                     <Model type="String" value="Engine/Models/Cube.obj"/>
                     <Material type="String" value="Materials/TexturedCube.mat"/>
                 </Mesh>

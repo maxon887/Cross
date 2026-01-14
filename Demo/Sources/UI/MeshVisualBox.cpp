@@ -48,7 +48,7 @@ void MeshVisualBox::Update() {
 	
 	ImGui::Text("Mesh Group ID: ");
 	ImGui::SameLine(SCALED(100.f));
-	ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%i", mesh->GetID());
+	ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", mesh->GetID().ToCStr());
 	
 	material_file->Update();
 

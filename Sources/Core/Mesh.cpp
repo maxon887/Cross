@@ -30,10 +30,10 @@ using namespace cross;
 Mesh::Mesh() : Component("Mesh")
 {}
 
-Mesh::Mesh(const String& modelFile, S32 id) :
+Mesh::Mesh(const String& modelFile, const String& groupID) :
 	Component("Mesh")
 {
-	this->group_id = id;
+	this->group_id = groupID;
 	this->model_filename = modelFile;
 }
 
@@ -52,10 +52,10 @@ bool Mesh::Initialize() {
 	}
 	
 	Scene* scene = game->GetCurrentScene();
-	CROSS_RETURN(group_id != -1, false, "Can not initialize Mesh with ID = -1");
 	Model* model = scene->GetModel(model_filename);
 	CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
 	Mesh* originalMesh = model->GetMesh(group_id);
+	CROSS_RETURN(originalMesh, false, "Can not Initialize Mesh. Model doesn't contain needed GroupID '#'", group_id);
 
 	VBO = originalMesh->VBO;
 	EBO = originalMesh->EBO;
@@ -199,7 +199,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetPositionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
-		CROSS_FAIL(vertex_buffer->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
+		CROSS_FAIL(vertex_buffer->HasTextureCoordinates(), "Mesh does not contain texture coordinates. Entity '#'", GetEntity()->GetName());
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aTexCoords));
 		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTextureCoordinatesOffset()));
 	}
@@ -315,7 +315,7 @@ void Mesh::EnableFaceCulling(bool yes) {
 	face_culling = yes;
 }
 
-S32 Mesh::GetID() const {
+String Mesh::GetID() const {
 	return group_id;
 }
 

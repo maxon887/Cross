@@ -37,7 +37,7 @@ public:
 	};
 
 	Mesh();
-	Mesh(const String& modelFile, S32 id);
+	Mesh(const String& modelFile, const String& groupID);
 	~Mesh() override;
 
 	bool Initialize() override;
@@ -76,7 +76,7 @@ public:
 	void EnableFaceCulling(bool yes);
 
 	/* Returns unique identifier of this mesh group in Model file or -1 if there aren't */
-	S32 GetID() const;
+	String GetID() const;
 	/* Returns filename of the model from which downloaded current Mesh */
 	String GetModelFileName() const;
 	/* Returns filename of material associated with current Mesh */
@@ -85,7 +85,7 @@ public:
 	U32 GetPolyCount() const;
 
 private:
-	Property<S32> group_id				= Property<S32>(this, "ID", -1);
+	Property<String> group_id			= Property<String>(this, "GroupID", -1);
 	Property<String> model_filename		= Property<String>(this, "Model");
 	Property<String> material_filename	= Property<String>(this, "Material");
 

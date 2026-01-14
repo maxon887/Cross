@@ -33,7 +33,7 @@ using namespace cross;
 
 Model::~Model() {
 	delete hierarchy;
-	for(std::pair<S32, Mesh*> p : meshes) {
+	for(std::pair<String, Mesh*> p : meshes) {
 		delete p.second;
 	}
 }
@@ -50,7 +50,6 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	Debugger::Instance()->SetTimeCheck();
 
 	initialize_video = initializeVideoData;
-	mesh_id = 0;
 	Entity* root = CREATE Entity("ModelRoot");
 	hierarchy = root;
 	File* file = os->LoadAssetFile(filename);
@@ -68,7 +67,7 @@ Entity* Model::GetHierarchy() const {
 	return hierarchy->Clone();
 }
 
-Mesh* Model::GetMesh(S32 id) {
+Mesh* Model::GetMesh(const String& id) {
 	if(meshes.find(id) != meshes.end()) {
 		return meshes[id];
 	} else {
@@ -110,7 +109,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
 
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
-		Mesh* crMesh = ProcessMesh(aiMesh, filename);
+		Mesh* crMesh = ProcessMesh(aiMesh, filename, entity->GetName());
 		entity->AddComponent(crMesh);
 	}
 
@@ -122,7 +121,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
 	}
 }
 
-Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename) {
+Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename, const String& groupID) {
 	VertexBuffer* vertexBuffer = CREATE VertexBuffer();
 	if(mesh->mTextureCoords[0]) {
 		vertexBuffer->UVEnabled(true);
@@ -165,15 +164,14 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename) {
 	}
 	//os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
 	//we need to create 2 Meshes he one is for video data storage second is for hierarchy
-	Mesh* videoMesh = CREATE Mesh(filename, mesh_id);
+	Mesh* videoMesh = CREATE Mesh(filename, groupID);
 	videoMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(initialize_video) {
 		videoMesh->InitializeVideoData();
 	}
-	meshes[mesh_id] = videoMesh;
+	meshes[groupID] = videoMesh;
 	
-	Mesh* hierarchyMesh = CREATE Mesh(filename, mesh_id);
-	mesh_id++;
+	Mesh* hierarchyMesh = CREATE Mesh(filename, groupID);
 	return hierarchyMesh;
 }

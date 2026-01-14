@@ -46,19 +46,18 @@ public:
 	/* Returns model's object hierarchy as Entity hierarchy */
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
-	Mesh* GetMesh(S32 id);
+	Mesh* GetMesh(const String& id);
 
 private:
-	Map<S32, Mesh*> meshes;
+	Map<String, Mesh*> meshes;
 	Entity* hierarchy;
 
 	const aiScene* current_scene	= nullptr;
 	bool initialize_video = true;
-	S32 mesh_id						= 0;
 
 	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents, const String& filename);
 	void ProcessNode(Entity* entity, aiNode* node, const String& filename);
-	Mesh* ProcessMesh(aiMesh* mesh, const String& filename);
+	Mesh* ProcessMesh(aiMesh* mesh, const String& filename, const String& groupID);
 };
 
 }

@@ -29,7 +29,7 @@
         <Object name="Cube">
             <Components>
                 <Mesh>
-                    <ID type="Int" value="0"/>
+                    <GroupID type="String" value="Cube"/>
                     <Model type="String" value="Engine/Models/Cube.obj"/>
                     <Material type="String" value="Materials/Specular.mat"/>
                 </Mesh>
