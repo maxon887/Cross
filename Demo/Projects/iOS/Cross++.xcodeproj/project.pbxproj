@@ -35,6 +35,7 @@
 		5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4562DB4EC30000E9958 /* Tester.cpp */; };
 		5098D45C2DB4EC30000E9958 /* UnusedFunctionSilencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */; };
 		509F17392D51D8D80040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17382D51D8D80040378F /* FileSelector.cpp */; };
+		50A0DA762F16E87200B65C4E /* AutoTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A0DA752F16E87200B65C4E /* AutoTests.cpp */; };
 		50C3A0032DEECFDB0031242B /* AnimatedCameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */; };
 		50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */; };
 		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
@@ -173,6 +174,8 @@
 		5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UnusedFunctionSilencer.cpp; sourceTree = "<group>"; };
 		509F17372D51D8D80040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
 		509F17382D51D8D80040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
+		50A0DA742F16E87200B65C4E /* AutoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoTests.h; sourceTree = "<group>"; };
+		50A0DA752F16E87200B65C4E /* AutoTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AutoTests.cpp; sourceTree = "<group>"; };
 		50C3A0012DEECFDB0031242B /* AnimatedCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCameraController.h; sourceTree = "<group>"; };
 		50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedCameraController.cpp; sourceTree = "<group>"; };
 		50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
@@ -523,6 +526,8 @@
 				5098D4552DB4EC30000E9958 /* Tester.h */,
 				5098D4562DB4EC30000E9958 /* Tester.cpp */,
 				5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */,
+				50A0DA742F16E87200B65C4E /* AutoTests.h */,
+				50A0DA752F16E87200B65C4E /* AutoTests.cpp */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1168,6 +1173,7 @@
 				9D33C15920D02B9F007EF97F /* SpecularScene.cpp in Sources */,
 				9D54BBBA1FBC433C009E8469 /* System.cpp in Sources */,
 				9D33C16220D02B9F007EF97F /* TriangleScene.cpp in Sources */,
+				50A0DA762F16E87200B65C4E /* AutoTests.cpp in Sources */,
 				9DDFFF0C1F46EF1700A6E782 /* Vector4D.cpp in Sources */,
 				9D33C16320D02B9F007EF97F /* MultiLightScene.cpp in Sources */,
 				50424D562C57BDC300CE0055 /* MeshVisualBox.cpp in Sources */,

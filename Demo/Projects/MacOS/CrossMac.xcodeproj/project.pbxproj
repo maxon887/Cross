@@ -36,6 +36,7 @@
 		5098D44F2DB4EBDF000E9958 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4482DB4EBDF000E9958 /* StringTest.cpp */; };
 		5098D4502DB4EBDF000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D44A2DB4EBDF000E9958 /* Tester.cpp */; };
 		509F17362D51D8800040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17352D51D8800040378F /* FileSelector.cpp */; };
+		50A0DA732F16E82C00B65C4E /* AutoTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A0DA722F16E82C00B65C4E /* AutoTests.cpp */; };
 		50AB1F432D2D291600121DAB /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AB1F422D2D291600121DAB /* MultiLightShader.cpp */; };
 		50C3A0002DEECF9B0031242B /* AnimatedCameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C39FFF2DEECF9B0031242B /* AnimatedCameraController.cpp */; };
 		50C9611A2C74CA6100764079 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
@@ -174,6 +175,8 @@
 		5098D44B2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UnusedFunctionSilencer.cpp; sourceTree = "<group>"; };
 		509F17342D51D8800040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
 		509F17352D51D8800040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
+		50A0DA712F16E82C00B65C4E /* AutoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoTests.h; sourceTree = "<group>"; };
+		50A0DA722F16E82C00B65C4E /* AutoTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AutoTests.cpp; sourceTree = "<group>"; };
 		50AB1F412D2D291600121DAB /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
 		50AB1F422D2D291600121DAB /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50AD22372C384FAB00F75C22 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
@@ -455,6 +458,8 @@
 				5098D4492DB4EBDF000E9958 /* Tester.h */,
 				5098D44A2DB4EBDF000E9958 /* Tester.cpp */,
 				5098D44B2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp */,
+				50A0DA712F16E82C00B65C4E /* AutoTests.h */,
+				50A0DA722F16E82C00B65C4E /* AutoTests.cpp */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1108,6 +1113,7 @@
 				9D33C10D20D02985007EF97F /* DiffuseScene.cpp in Sources */,
 				50C3A0002DEECF9B0031242B /* AnimatedCameraController.cpp in Sources */,
 				9D33C11120D02985007EF97F /* SkyboxScene.cpp in Sources */,
+				50A0DA732F16E82C00B65C4E /* AutoTests.cpp in Sources */,
 				9D32D11820B40E27004A4D7E /* Rect.cpp in Sources */,
 				9D32D13120B40E27004A4D7E /* Cubemap.cpp in Sources */,
 				9D32D11320B40E27004A4D7E /* stb_image_aug.c in Sources */,
