@@ -237,6 +237,20 @@
                         </Mesh>
                     </Components>
                 </Object>
+                <Object name="wire2">
+                    <Components>
+                        <Transform>
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh>
+                            <GroupID type="String" value="wire2"/>
+                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/Wire.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
                 <Object name="wire">
                     <Components>
                         <Transform>

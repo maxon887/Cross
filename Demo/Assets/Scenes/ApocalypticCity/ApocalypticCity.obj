@@ -1,5 +1,6 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 24.09.2015 13:04:22
+# Edited by Mouse 14.01.2026
 
 mtllib Apocalyptic City.mtl
 
@@ -66061,7 +66062,7 @@ f 13823/21472/5717 13821/21473/5838 13820/21470/5717
 # 1426 faces
 
 #
-# object wire
+# object wire2
 #
 
 v  -148.9099 127.4116 -936.5779
@@ -66153,7 +66154,7 @@ vt 0.0272 0.1621 0.0000
 vt 0.0264 0.1023 0.0000
 # 34 texture coords
 
-g wire
+g wire2
 usemtl 15___Defaultddd
 s 1
 f 13826/21474/5853 13827/21475/5853 13828/21476/5853 
