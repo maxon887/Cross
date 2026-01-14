@@ -75,7 +75,7 @@ public:
 	/* Enables face culling for mesh. If enabled triangles that oriented not in view won't be drawn */
 	void EnableFaceCulling(bool yes);
 
-	/* Returns unique identifier of this mesh group in Model file or -1 if there aren't */
+	/* Returns unique identifier of this mesh group in Model file */
 	String GetID() const;
 	/* Returns filename of the model from which downloaded current Mesh */
 	String GetModelFileName() const;
