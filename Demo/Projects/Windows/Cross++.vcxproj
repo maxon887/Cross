@@ -316,6 +316,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\Tests\ArrayTest.cpp" />
+    <ClCompile Include="..\..\Sources\Tests\AutoTests.cpp" />
     <ClCompile Include="..\..\Sources\Tests\StringTest.cpp" />
     <ClCompile Include="..\..\Sources\Tests\Tester.cpp" />
     <ClCompile Include="..\..\Sources\Tests\UnusedFunctionSilencer.cpp" />
@@ -422,6 +423,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\Tests\ArrayTest.h" />
+    <ClInclude Include="..\..\Sources\Tests\AutoTests.h" />
     <ClInclude Include="..\..\Sources\Tests\StringTest.h" />
     <ClInclude Include="..\..\Sources\Tests\Tester.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />

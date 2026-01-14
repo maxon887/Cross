@@ -354,6 +354,9 @@
     <ClCompile Include="..\..\..\Sources\Base\String.cpp">
       <Filter>Cross\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Tests\AutoTests.cpp">
+      <Filter>Demo\Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -668,6 +671,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Base\String.h">
       <Filter>Cross\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Tests\AutoTests.h">
+      <Filter>Demo\Tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
