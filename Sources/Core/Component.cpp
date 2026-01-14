@@ -32,6 +32,7 @@ Component* Component::Clone() const {
 }
 
 bool Component::Load(tinyxml2::XMLElement* parent) {
+	active = parent->BoolAttribute("Active", true);
 	for(BaseProperty* prop : properties) {
 		CROSS_ASSERT(prop->Load(parent), "Component '#' have problem during loading", GetName());
 	}
@@ -40,6 +41,7 @@ bool Component::Load(tinyxml2::XMLElement* parent) {
 
 bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	XMLElement* componentXML = doc->NewElement(name);
+	componentXML->SetAttribute("Active", active);
 	for(BaseProperty* prop : properties) {
 		CROSS_RETURN(prop->Save(componentXML, doc), false, "Can not save component '#'", GetName());
 	}
@@ -52,13 +54,13 @@ bool Component::IsActive() const {
 }
 
 void Component::Enable() {
-	if(entity && entity->IsOnScene() && !active) {
-		if(!initialized) {
-			initialized = Initialize();
-			CROSS_ASSERT(initialized, "Can not initialize component '#'", GetName());
-		}
-		active = Activate();
+	CROSS_FAIL(entity && entity->IsOnScene(), "Trying to Enable Component without parent on Scene");
+	if(!initialized) {
+		initialized = Initialize();
+		CROSS_ASSERT(initialized, "Can not Initialize Component '#'", GetName());
 	}
+	active = Activate();
+	CROSS_ASSERT(active, "Can not Activate Component '#'", GetName())
 }
 
 void Component::Disable() {

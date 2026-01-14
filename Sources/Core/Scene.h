@@ -101,8 +101,8 @@ protected:
 	void CreateDefaultCamera();
 
 private:
-	static const U32 scene_loader_version	= 20;
-	static const U32 scene_saver_version	= 20;
+	static const U32 scene_loader_version	= 21;
+	static const U32 scene_saver_version	= 21;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);

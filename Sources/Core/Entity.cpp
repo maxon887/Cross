@@ -73,8 +73,10 @@ void Entity::AddComponent(Component* component) {
 		return;
 	}
 	component->entity = this;
-	component->Enable();
 	components[hash] = component;
+	if(on_scene) {
+		component->Enable();
+	}
 }
 
 void Entity::RemoveComponent(Component* component) {
@@ -183,7 +185,11 @@ void Entity::SetOnScene(bool onScene) {
 	if(on_scene != onScene) {
 		on_scene = onScene;
 		for(const auto& [ID, component] : components) {
-			onScene ? component->Enable() : component->Disable();
+			if(onScene && component->IsActive()) {
+				component->Enable();
+			} else {
+				component->Disable();
+			}
 		}
 	}
 	for(Entity* c : children) {

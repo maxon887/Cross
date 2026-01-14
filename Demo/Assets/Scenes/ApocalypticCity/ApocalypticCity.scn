@@ -1,26 +1,29 @@
-<Scene version="18">
+<Scene version="21">
     <Objects>
         <Object name="Camera">
             <Components>
-                <Camera>
+                <CameraController Active="true">
+                    <CameraSpeed type="Float" value="5"/>
+                </CameraController>
+                <Camera Active="true">
                     <ViewDistance type="Float" value="100"/>
                 </Camera>
-                <Transform>
-                    <Position type="Vector3D" x="-0.37087238" y="0.95637608" z="-2.8191841"/>
+                <Transform Active="true">
+                    <Position type="Vector3D" x="0.35229456" y="0.92618924" z="-2.2447338"/>
                     <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.10392165" y="-0.31699085" z="0.034967851" w="0.94206917"/>
+                    <Rotation type="Quaternion" x="-0.034622326" y="-0.17141116" z="0" w="0.98459101"/>
                 </Transform>
-                <AnimatedCameraController>
-                    <StartPos type="Vector3D" x="-2.59" y="0.67" z="-2.4"/>
+                <AnimatedCameraController Active="true">
+                    <StartPos type="Vector3D" x="-2.5899999" y="0.67000002" z="-2.4000001"/>
                     <EndPos type="Vector3D" x="1.2" y="1" z="-2.2"/>
-                    <StartRotate type="Quaternion" x="-0.001" y="-0.23" z="0" w="0.97"/>
-                    <EndRotate type="Quaternion" x="-0.044" y="-0.153" z="0" w="0.98"/>
+                    <StartRotate type="Quaternion" x="-0.001" y="-0.23" z="0" w="0.97000003"/>
+                    <EndRotate type="Quaternion" x="-0.044" y="-0.153" z="0" w="0.98000002"/>
                 </AnimatedCameraController>
             </Components>
         </Object>
         <Object name="ApocalypticCity">
             <Components>
-                <Transform>
+                <Transform Active="true">
                     <Position type="Vector3D" x="0" y="0" z="0"/>
                     <Scale type="Vector3D" x="0.0099999998" y="0.0099999998" z="0.0099999998"/>
                     <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
@@ -29,12 +32,12 @@
             <Children>
                 <Object name="facade1">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="facade1"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade1.mat"/>
@@ -43,12 +46,12 @@
                 </Object>
                 <Object name="rubbish_01">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="rubbish_01"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Rubbish.mat"/>
@@ -57,12 +60,12 @@
                 </Object>
                 <Object name="facade2">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="facade2"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade2.mat"/>
@@ -71,12 +74,12 @@
                 </Object>
                 <Object name="facade005">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="facade005"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade4.mat"/>
@@ -85,12 +88,12 @@
                 </Object>
                 <Object name="sky">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="sky"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Sky.mat"/>
@@ -99,12 +102,12 @@
                 </Object>
                 <Object name="road">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="road"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Road.mat"/>
@@ -113,12 +116,12 @@
                 </Object>
                 <Object name="posters_grass">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="posters_grass"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/PostersGrass.mat"/>
@@ -127,12 +130,12 @@
                 </Object>
                 <Object name="cars">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="cars"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Car.mat"/>
@@ -141,12 +144,12 @@
                 </Object>
                 <Object name="foreground">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="foreground"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Foreground.mat"/>
@@ -155,12 +158,12 @@
                 </Object>
                 <Object name="road_staff">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="road_staff"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/RoadStuff.mat"/>
@@ -169,12 +172,12 @@
                 </Object>
                 <Object name="facade6">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="facade6"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade6.mat"/>
@@ -183,12 +186,12 @@
                 </Object>
                 <Object name="back_builds">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="back_builds"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/BackgroundBuildings.mat"/>
@@ -197,12 +200,12 @@
                 </Object>
                 <Object name="outpost">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="outpost"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Outpost.mat"/>
@@ -211,12 +214,12 @@
                 </Object>
                 <Object name="facade3">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="facade3"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade3.mat"/>
@@ -225,12 +228,12 @@
                 </Object>
                 <Object name="facade006">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="facade006"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade5.mat"/>
@@ -239,12 +242,12 @@
                 </Object>
                 <Object name="wire2">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="wire2"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Wire.mat"/>
@@ -253,12 +256,12 @@
                 </Object>
                 <Object name="wire">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="false">
                             <GroupID type="String" value="wire"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Wire.mat"/>
@@ -267,12 +270,12 @@
                 </Object>
                 <Object name="liana1">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="liana1"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/LianaSmall.mat"/>
@@ -281,12 +284,12 @@
                 </Object>
                 <Object name="Plane002">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="Plane002"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/PlantFront.mat"/>
@@ -295,12 +298,12 @@
                 </Object>
                 <Object name="Plane003">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="Plane003"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/LianaMain.mat"/>
@@ -309,12 +312,12 @@
                 </Object>
                 <Object name="Plane004">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="Plane004"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/LianaSmall.mat"/>
@@ -323,12 +326,12 @@
                 </Object>
                 <Object name="Plane006">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="Plane006"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/RoofLiana.mat"/>
@@ -337,12 +340,12 @@
                 </Object>
                 <Object name="Plane007">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="Plane007"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Trees.mat"/>
@@ -351,12 +354,12 @@
                 </Object>
                 <Object name="Object005">
                     <Components>
-                        <Transform>
+                        <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
                             <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
                         </Transform>
-                        <Mesh>
+                        <Mesh Active="true">
                             <GroupID type="String" value="Object005"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Misc.mat"/>

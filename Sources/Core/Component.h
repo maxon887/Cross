@@ -37,7 +37,7 @@ public:
 	/* In order to trigger Activate 3 conditions should be met. You should not call this function manually
 	* 	a) Component must be added to Entity
 	* 	b) Entity should be in active Scene 
-	* 	c) Component should be enabled 
+	* 	c) Component should be active
 	* 	If returns false Component will not be activated and not update in the next turn */
 	virtual bool Activate() { return true; }
 	/* Opposite to Activate. If any of 3 condition not met Deactivate will be called */
@@ -53,11 +53,11 @@ public:
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	/* Returns true if Component is active. See Component::Activate() */
-	virtual bool IsActive() const;
+	bool IsActive() const;
 	/* Enables Component behavior */
-	virtual void Enable();
+	void Enable();
 	/* Disables Component behaviour */
-	virtual void Disable();
+	void Disable();
 	/* Returns Component's name */
 	String GetName() const;
 	/* Returns Entity that owns this Component */
@@ -77,7 +77,7 @@ protected:
 
 	Entity* entity		= nullptr;
 	bool initialized	= false;
-	bool active			= false;
+	bool active			= true;
 	Array<BaseProperty*> properties;
 
 private:
