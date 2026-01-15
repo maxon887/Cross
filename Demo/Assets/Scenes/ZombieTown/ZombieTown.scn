@@ -1,4 +1,4 @@
-<Scene version="18">
+<Scene version="20">
   <Objects>
     <Object name="RowHouse04 (1)">
       <Components>
@@ -19,6 +19,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04:7" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/OTTrim01.mat" />
             </Mesh>
           </Components>
           <Children />
@@ -33,6 +34,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04:10" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/Generic/BricksWhiteQuad01Cutout.mat" />
             </Mesh>
           </Components>
           <Children />
@@ -47,6 +49,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04:12" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Misc/WoodDetails.mat" />
             </Mesh>
           </Components>
           <Children />
@@ -61,6 +64,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04:13" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/RowHouseBrick01.mat" />
             </Mesh>
           </Components>
           <Children />
@@ -75,6 +79,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04:14" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/VertexShadow.mat" />
             </Mesh>
           </Components>
           <Children />
@@ -89,6 +94,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04:34" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
             </Mesh>
           </Components>
           <Children />
@@ -103,6 +109,7 @@
             <Mesh>
               <GroupID type="String" value="RowHouse04_lod:0" />
               <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/RowHouseLod.mat" />
             </Mesh>
           </Components>
           <Children />
