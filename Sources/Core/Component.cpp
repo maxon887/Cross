@@ -33,10 +33,15 @@ Component* Component::Clone() const {
 
 bool Component::Load(tinyxml2::XMLElement* parent) {
 	active = parent->BoolAttribute("Active", true);
+	bool success = true;
 	for(BaseProperty* prop : properties) {
-		CROSS_ASSERT(prop->Load(parent), "Component '#' have problem during loading", GetName());
+		bool propertyLoaded = prop->Load(parent);
+		CROSS_ASSERT(propertyLoaded, "Component '#' have problem during loading", GetName());
+		if(!propertyLoaded) {
+			success = false;
+		}
 	}
-	return true;
+	return success;
 }
 
 bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {

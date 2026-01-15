@@ -277,7 +277,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 				if(componentLoaded) {
 					entity->AddComponent(component);
 				} else {
-					CROSS_ASSERT(false, "Can't load component of type '#'", componentXML->Name());
+					CROSS_ASSERT(false, "Having problem loading Entity '#'", name);
 				}
 			} else {
 				CROSS_ASSERT(false, "Can't create component of type #", componentXML->Name());
