@@ -24,21 +24,6 @@
           </Components>
           <Children />
         </Object>
-        <Object name="RowHouse04:10">
-          <Components>
-            <Transform>
-              <Position type="Vector3D" x="955.07" y="18.246" z="983.68" />
-              <Scale type="Vector3D" x="1" y="1" z="1" />
-              <Rotation type="Quaternion" x="-0.7070463" y="0.009255733" z="0.009255733" w="0.7070463" />
-            </Transform>
-            <Mesh>
-              <GroupID type="String" value="RowHouse04:10" />
-              <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
-              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/Generic/BricksWhiteQuad01Cutout.mat" />
-            </Mesh>
-          </Components>
-          <Children />
-        </Object>
         <Object name="WoodenPillows">
           <Components>
             <Transform>

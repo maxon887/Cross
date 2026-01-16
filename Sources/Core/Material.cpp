@@ -39,7 +39,7 @@ bool Material::Load(const String& filename, Scene* scene) {
 	this->filename = filename;
 
 	File* xmlFile = os->LoadAssetFile(filename);
-	CROSS_RETURN(xmlFile, false, "Can't load material. File not fount");
+	CROSS_RETURN(xmlFile, false, "Can't load material. File '#' not fount", File::FileFromPath(filename));
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	delete xmlFile;

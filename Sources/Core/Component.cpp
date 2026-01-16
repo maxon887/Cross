@@ -46,7 +46,10 @@ void Component::Enable() {
 	CROSS_FAIL(entity && entity->IsOnScene(), "Trying to Enable Component without parent on Scene");
 	if(!initialized) {
 		initialized = Initialize();
-		CROSS_ASSERT(initialized, "Can not Initialize Component '#'", GetName());
+		if(!initialized) {
+			active = false;
+			CROSS_FAIL(false, "Can not Initialize Component '#'", GetName());
+		}
 	}
 	active = Activate();
 	CROSS_ASSERT(active, "Can not Activate Component '#'", GetName())

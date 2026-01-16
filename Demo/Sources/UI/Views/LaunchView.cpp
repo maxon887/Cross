@@ -47,6 +47,14 @@ void LaunchView::PreUpdate() {
 
 void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
+		if(ImGui::MenuButton("Apocalypse Scene")) {
+			const String filename = "Scenes/ApocalypticCity/ApocalypticCity.scn";
+			CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
+		}
+		if(ImGui::MenuButton("Zombie Town")) {
+			const String filename = "Scenes/ZombieTown/ZombieTown.scn";
+			CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
+		}
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
 				game->SetScreen(CREATE TriangleScene());
@@ -57,10 +65,6 @@ void LaunchView::Update(float sec) {
 			}
 			if(ImGui::MenuButton("Textured Model")) {
 				const String filename = "Scenes/TexturedCube.scn";
-				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
-			}
-			if(ImGui::MenuButton("Apocalypse Scene")) {
-				const String filename = "Scenes/ApocalypticCity/ApocalypticCity.scn";
 				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			ImGui::TreePop();
