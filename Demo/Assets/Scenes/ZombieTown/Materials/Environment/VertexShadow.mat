@@ -1,0 +1,3 @@
+<Material shader="Engine/Shaders/Simple.sha">
+    <Property name="Color" value="F7000000"/>
+</Material>
