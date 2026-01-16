@@ -33,11 +33,15 @@ private:
 	Node file_tree;
 	String current_path;
 
+	bool editing = false;
+	bool clicked = false;
+
 	void InitNode(Node& node);
 	void Refresh();
 	void BuildNote(Node& node);
 	void FileDoubleClicked(const String& filename);
 	void ForceOpenPath(String& leftoverPath, Node& currentNode);
+	bool Editing();
 
 	void ContextMenu();
 	

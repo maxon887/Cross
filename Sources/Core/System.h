@@ -69,6 +69,8 @@ public:
 	virtual bool IsDirectoryExists(const String& filepath);
 	/* Creates folder in provided path */
 	virtual void CreateDirectory(const String& dirname);
+	/* Renames file. Dos not support renaming folders with files */
+	virtual void Rename(const String& oldName, const String& newName);
 	/* Deletes file or folder with sub folders by path */
 	virtual void Delete(const String& path);
 	/* Returns all sub folders in provided directory */

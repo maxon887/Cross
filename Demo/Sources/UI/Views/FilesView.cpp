@@ -86,7 +86,15 @@ void FilesView::BuildNote(Node& node) {
 			}
 		}
 
-		bool open = ImGui::TreeNodeEx(child.name, flags);
+		bool open = false;
+		if(editing && child.path == current_path) {
+			if(Editing()) {
+				Refresh();
+				return;
+			}
+		} else {
+			open = ImGui::TreeNodeEx(child.name, flags);
+		}
 
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 			current_path = child.path;
@@ -102,8 +110,25 @@ void FilesView::BuildNote(Node& node) {
 	}
 	//files
 	for(const pair<String, String>& file : node.files) {
-		ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
-		ImGui::TreeNodeEx(file.first, flags);
+		if(editing && current_path == file.second) {
+			if(Editing()) {
+				Refresh();
+				return;
+			}
+		} else {
+			ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
+			ImGui::TreeNodeEx(file.first, flags);
+		}
+
+		if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered()) {
+			if(current_path == file.second) {
+				editing = true;
+			} else {
+				editing = false;
+			}
+			clicked = true;
+		}
+
 		if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
 			const String* filename = &file.second;
 			ImGui::SetDragDropPayload("FilesViewDRAG", &filename, sizeof(String*));
@@ -158,6 +183,48 @@ void FilesView::ForceOpenPath(String& leftoverPath, Node& currentNode) {
 	}
 }
 
+bool FilesView::Editing() {
+	ImVec2 cursorPos = ImGui::GetCursorPos();
+	cursorPos.x += ImGui::GetStyle().IndentSpacing;
+	ImGui::SetCursorPos(cursorPos);
+
+	String editingName = current_path;
+	S32 foundSlash = current_path.FindLast('/');
+	bool isFolder = false;
+	if(foundSlash== current_path.Length() - 1) {
+		editingName.Remove(foundSlash, foundSlash + 1);
+		isFolder = true;
+	}
+	String leftPath = File::PathFromFile(editingName);
+	editingName = File::FileFromPath(editingName);
+	char buffer[256];
+	strcpy(buffer, editingName.ToCStr());
+	String label = "##" + editingName;
+	ImGui::InputText(label.ToCStr(), buffer, 256);
+
+	if (ImGui::IsKeyPressed(ImGuiKey_Escape)) {
+		editing = false;
+	}
+
+	if(ImGui::IsKeyPressed(ImGuiKey_Enter)) {
+		String path = os->AssetsPath() + leftPath;
+		path += buffer;
+		if(isFolder) {
+			path += "/";
+		}
+		os->Rename(os->AssetsPath() + current_path, path);
+		editing = false;
+		return true;
+	}
+
+	if(clicked) {
+		ImGui::SetKeyboardFocusHere(-1);
+		clicked = false;
+	}
+
+	return false;
+}
+
 void FilesView::ContextMenu() {
 	bool newFolder = false;
 	bool newShader = false;
@@ -175,12 +242,15 @@ void FilesView::ContextMenu() {
 		if(ImGui::MenuItem("New Material")) {
 			newMaterial = true;
 		}
-		if(ImGui::MenuItem("Delete", "del, backspace", false, somethingSelected)) {
+		if(ImGui::MenuItem("Rename")) {
+			editing = true;
+		}
+		if(ImGui::MenuItem("Delete", "del", false, somethingSelected)) {
 			deleteFile = true;
 		}
 		ImGui::EndPopup();
 	}
-	if((input->IsPressed(Key::DEL) || input->IsPressed(Key::BACKSPACE)) && ImGui::IsWindowFocused() && somethingSelected) {
+	if(input->IsPressed(Key::DEL)&& ImGui::IsWindowFocused() && somethingSelected && !editing) {
 		deleteFile = true;
 	}
 

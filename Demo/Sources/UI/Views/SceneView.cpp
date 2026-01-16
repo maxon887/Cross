@@ -126,10 +126,6 @@ void SceneView::BuildNode(Entity* entity) {
 			editing = false;
 		}
 
-		if(!ImGui::IsItemActive() && !clicked) {
-			editing = false;
-		}
-
 		if(clicked) {
 			ImGui::SetKeyboardFocusHere(-1);
 			clicked = false;
@@ -154,16 +150,13 @@ void SceneView::BuildNode(Entity* entity) {
 		}
 	}
 
-	if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
+	if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered() && !ImGui::IsMouseDoubleClicked(0)) {
 		if(selected_entity == entity) {
 			editing = true;
 		} else {
 			editing = false;
 		}
 		clicked = true;
-		if(selected_entity != entity) {
-			editing = false;
-		}
 		selected_entity = entity;
 		EntitySelected.Emit(entity);
 	}

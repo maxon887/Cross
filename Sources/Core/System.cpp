@@ -85,6 +85,12 @@ void System::CreateDirectory(const String& dirname) {
 	filesystem::create_directory(dirname.ToCStr());
 }
 
+void System::Rename(const String& oldName, const String& newName) {
+	filesystem::path oldPath = filesystem::path(oldName.ToCStr());
+	filesystem::path newPath = filesystem::path(newName.ToCStr());
+	filesystem::rename(oldPath, newPath);
+}
+
 void System::Delete(const String& path) {
 	filesystem::remove_all(path.ToCStr());
 }
