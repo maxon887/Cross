@@ -35,13 +35,14 @@ private:
 
 	bool editing = false;
 	bool clicked = false;
+	bool should_refresh = false;
 
 	void InitNode(Node& node);
 	void Refresh();
 	void BuildNote(Node& node);
 	void FileDoubleClicked(const String& filename);
 	void ForceOpenPath(String& leftoverPath, Node& currentNode);
-	bool Editing();
+	void Editing();
 
 	void ContextMenu();
 	

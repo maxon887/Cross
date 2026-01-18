@@ -29,6 +29,10 @@ void FilesView::Shown() {
 }
 
 void FilesView::Update(float sec) {
+	if(should_refresh) {
+		Refresh();
+		should_refresh = false;
+	}
 	BuildNote(file_tree);
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
@@ -88,10 +92,7 @@ void FilesView::BuildNote(Node& node) {
 
 		bool open = false;
 		if(editing && child.path == current_path) {
-			if(Editing()) {
-				Refresh();
-				return;
-			}
+			Editing();
 		} else {
 			open = ImGui::TreeNodeEx(child.name, flags);
 		}
@@ -111,10 +112,7 @@ void FilesView::BuildNote(Node& node) {
 	//files
 	for(const pair<String, String>& file : node.files) {
 		if(editing && current_path == file.second) {
-			if(Editing()) {
-				Refresh();
-				return;
-			}
+			Editing();
 		} else {
 			ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 			ImGui::TreeNodeEx(file.first, flags);
@@ -183,7 +181,7 @@ void FilesView::ForceOpenPath(String& leftoverPath, Node& currentNode) {
 	}
 }
 
-bool FilesView::Editing() {
+void FilesView::Editing() {
 	ImVec2 cursorPos = ImGui::GetCursorPos();
 	cursorPos.x += ImGui::GetStyle().IndentSpacing;
 	ImGui::SetCursorPos(cursorPos);
@@ -214,15 +212,13 @@ bool FilesView::Editing() {
 		}
 		os->Rename(os->AssetsPath() + current_path, path);
 		editing = false;
-		return true;
+		should_refresh = true;
 	}
 
 	if(clicked) {
 		ImGui::SetKeyboardFocusHere(-1);
 		clicked = false;
 	}
-
-	return false;
 }
 
 void FilesView::ContextMenu() {

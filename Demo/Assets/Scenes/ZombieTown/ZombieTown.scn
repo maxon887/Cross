@@ -96,5 +96,96 @@
         </Object>
       </Children>
     </Object>
+    <Object name="BuildingCorner01">
+      <Components>
+        <Transform>
+          <Position type="Vector3D" x="962.39" y="13.076" z="984.33" />
+          <Scale type="Vector3D" x="1" y="1" z="1" />
+          <Rotation type="Quaternion" x="0" y="-0.9996489" z="0" w="0.02649793" />
+        </Transform>
+      </Components>
+      <Children>
+        <Object name="Bricks">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="962.39" y="13.076" z="984.33" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.01873687" y="-0.7068585" z="-0.7068585" w="0.01873687" />
+            </Transform>
+            <Mesh>
+              <GroupID type="String" value="BldgCorner01:6" />
+              <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/OTBrick01.mat" />
+            </Mesh>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="Windows">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="962.39" y="13.076" z="984.33" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.01873687" y="-0.7068585" z="-0.7068585" w="0.01873687" />
+            </Transform>
+            <Mesh>
+              <GroupID type="String" value="BldgCorner01:7" />
+              <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/OTTrim01.mat" />
+            </Mesh>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="Trim">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="962.39" y="13.076" z="984.33" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.01873687" y="-0.7068585" z="-0.7068585" w="0.01873687" />
+            </Transform>
+            <Mesh>
+              <GroupID type="String" value="BldgCorner01:8" />
+              <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/OTTrim02.mat" />
+            </Mesh>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="Shadow">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="962.39" y="13.076" z="984.33" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.01873687" y="-0.7068585" z="-0.7068585" w="0.01873687" />
+            </Transform>
+            <Mesh>
+              <GroupID type="String" value="BldgCorner01:75" />
+              <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/VertexShadow.mat" />
+            </Mesh>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="LOD">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="962.39" y="13.076" z="984.33" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.01873681" y="-0.7068585" z="-0.7068585" w="0.01873681" />
+            </Transform>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="Collision">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="962.5142" y="12.94405" z="984.5938" />
+              <Scale type="Vector3D" x="1.05" y="1.05" z="1.05" />
+              <Rotation type="Quaternion" x="-0.01873681" y="-0.7068585" z="-0.7068585" w="0.01873681" />
+            </Transform>
+          </Components>
+          <Children />
+        </Object>
+      </Children>
+    </Object>
   </Objects>
 </Scene>
