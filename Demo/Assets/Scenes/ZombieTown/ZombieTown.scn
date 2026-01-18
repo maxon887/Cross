@@ -91,11 +91,6 @@
               <Scale type="Vector3D" x="1" y="1" z="1" />
               <Rotation type="Quaternion" x="-0.7070463" y="0.009255733" z="0.009255733" w="0.7070463" />
             </Transform>
-            <Mesh>
-              <GroupID type="String" value="RowHouse04_lod:0" />
-              <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
-              <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/RowHouseLod.mat" />
-            </Mesh>
           </Components>
           <Children />
         </Object>
