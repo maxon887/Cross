@@ -4,7 +4,7 @@
 #include "Transform.h"
 
 using namespace cross;
-
+//TEST
 class AnimatedCameraController : public Component {
 public:
 	AnimatedCameraController();
