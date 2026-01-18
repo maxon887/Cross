@@ -1,1 +1,3 @@
-<Material shader=""/>
+<Material shader="Engine/Shaders/Texture.sha">
+    <Property name="Texture" value="Scenes/ZombieTown/Textures/Environment/Architecture/OTBrick01.png"/>
+</Material>
