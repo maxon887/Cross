@@ -37,10 +37,10 @@ Game::Game() {
 
 Game::~Game() {
 	os->LogIt("Game::~Game");
+	delete current_screen;
 	delete component_factory;
 	delete config;
 	delete input;
-	delete current_screen;
 	delete gfx;
 }
 
@@ -81,11 +81,6 @@ void Game::Suspend() {
 
 	if(audio) {
 		audio->Suspend();
-	}
-
-	if(config) {
-		config->SaveGameConfig();
-		config->SaveUserConfig();
 	}
 
 	if(current_screen != nullptr) {
