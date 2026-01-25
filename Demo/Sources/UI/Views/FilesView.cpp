@@ -37,6 +37,7 @@ void FilesView::Update(float sec) {
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
 		current_path = "";
+		editing = false;
 		FileSelected.Emit(current_path);
 	}
 
@@ -119,11 +120,6 @@ void FilesView::BuildNote(Node& node) {
 		}
 
 		if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered()) {
-			if(current_path == file.second) {
-				editing = true;
-			} else {
-				editing = false;
-			}
 			clicked = true;
 		}
 

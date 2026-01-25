@@ -151,11 +151,6 @@ void SceneView::BuildNode(Entity* entity) {
 	}
 
 	if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered() && !ImGui::IsMouseDoubleClicked(0)) {
-		if(selected_entity == entity) {
-			editing = true;
-		} else {
-			editing = false;
-		}
 		clicked = true;
 		selected_entity = entity;
 		EntitySelected.Emit(entity);
