@@ -380,7 +380,7 @@ void ImGui::StyleColorsWarm(ImGuiStyle* dst)
 
 	colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
 	colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-	colors[ImGuiCol_WindowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.70f);
+	colors[ImGuiCol_WindowBg] = ImVec4(0.f/255.f, 0.f/255.f, 0.f/255.f, 255.f/255.f);
 	colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 	colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
 	colors[ImGuiCol_Border] = ImVec4(0.70f, 0.70f, 0.70f, 0.40f);
@@ -388,10 +388,10 @@ void ImGui::StyleColorsWarm(ImGuiStyle* dst)
 	colors[ImGuiCol_FrameBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.30f);
 	colors[ImGuiCol_FrameBgHovered] = ImVec4(0.90f, 0.80f, 0.80f, 0.40f);
 	colors[ImGuiCol_FrameBgActive] = ImVec4(0.90f, 0.65f, 0.65f, 0.45f);
-	colors[ImGuiCol_TitleBg] = ImVec4(113.f/255.f, 50.f/255.f, 0.f/255.f, 222.f/255.f);
-	colors[ImGuiCol_TitleBgActive] = ImVec4(145.f/255.f, 65.f/255.f, 3.f/255.f, 222.f/255.f);
+	colors[ImGuiCol_TitleBg] = ImVec4(10.f/255.f, 10.f/255.f, 10.f/255.f, 255.f/255.f);
+	colors[ImGuiCol_TitleBgActive] = ImVec4(71.f/255.f, 0.f/255.f, 111.f/255.f, 255.f/255.f);
 	colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.56f, 0.25f, 0.01f, 0.87f);
-	colors[ImGuiCol_MenuBarBg] = ImVec4(61.f/255.f, 27.f/255.f, 0.f/255.f, 222.f/255.f);
+	colors[ImGuiCol_MenuBarBg] = ImVec4(36.f/255.f, 36.f/255.f, 36.f/255.f, 255.f/255.f);
 	colors[ImGuiCol_ScrollbarBg] = ImVec4(0.30f, 0.20f, 0.20f, 0.60f);
 	colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.80f, 0.40f, 0.40f, 0.30f);
 	colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.52f, 0.25f, 0.25f, 0.80f);
@@ -403,8 +403,8 @@ void ImGui::StyleColorsWarm(ImGuiStyle* dst)
 	colors[ImGuiCol_ButtonHovered] = ImVec4(130.f/255.f, 130.f/255.f, 130.f/255.f, 153.f/255.f);
 	colors[ImGuiCol_ButtonActive] = ImVec4(0.62f, 0.00f, 0.00f, 0.87f);
 	colors[ImGuiCol_Header] = ImVec4(42.f/255.f, 42.f/255.f, 42.f/255.f, 255.f/255.f);
-	colors[ImGuiCol_HeaderHovered] = ImVec4(100.f/256.f, 44.f/256.f, 0.f/256.f, 222.f/256.f);
-	colors[ImGuiCol_HeaderActive] = ImVec4(128.f/256.f, 57.f/256.f, 2.f/256.f, 255.f/256.f);
+	colors[ImGuiCol_HeaderHovered] = ImVec4(162.f/255.f, 0.f/255.f, 255.f/255.f, 255.f/255.f);
+	colors[ImGuiCol_HeaderActive] = ImVec4(128.f/255.f, 57.f/255.f, 2.f/255.f, 255.f/255.f);
 	colors[ImGuiCol_Separator] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
 	colors[ImGuiCol_SeparatorHovered] = ImVec4(0.60f, 0.60f, 0.70f, 1.00f);
 	colors[ImGuiCol_SeparatorActive] = ImVec4(0.70f, 0.70f, 0.90f, 1.00f);
@@ -418,13 +418,13 @@ void ImGui::StyleColorsWarm(ImGuiStyle* dst)
 	colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
 	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
 	
-	colors[ImGuiCol_TabHovered] = ImVec4(200.f/256.f, 86.f/256.f, 0.f/256.f, 222.f/256.f);
-	colors[ImGuiCol_Tab] = ImVec4(88.f/256.f, 40.f/256.f, 3.f/256.f, 98.f/256.f);
-	colors[ImGuiCol_TabSelected] = ImVec4(61.f/256.f, 27.f/256.f, 0.f/256.f, 222.f/256.f);
-	colors[ImGuiCol_TabSelectedOverline] = ImVec4(200.f/256.f, 0.f/256.f, 0.f/256.f, 222.f/256.f);
-	colors[ImGuiCol_TabDimmed] = ImVec4(88.f/256.f, 40.f/256.f, 3.f/256.f, 98.f/256.f);
-	colors[ImGuiCol_TabDimmedSelected] = ImVec4(61.f/256.f, 27.f/256.f, 0.f/256.f, 222.f/256.f);
-	colors[ImGuiCol_TabDimmedSelectedOverline] = ImVec4(61.f/256.f, 27.f/256.f, 0.f/256.f, 222.f/256.f);
+	colors[ImGuiCol_TabHovered] = ImVec4(162.f/255.f, 0.f/255.f, 0.f/255.f, 255.f/255.f);
+	colors[ImGuiCol_Tab] = ImVec4(0.f/255.f, 0.f/255.f, 0.f/255.f, 0.f/255.f);
+	colors[ImGuiCol_TabSelected] = ImVec4(162.f/255.f, 0.f/255.f, 255.f/255.f, 200.f/255.f);
+	colors[ImGuiCol_TabSelectedOverline] = ImVec4(0.f/255.f, 0.f/255.f, 0.f/255.f, 0.f/255.f);
+	colors[ImGuiCol_TabDimmed] = ImVec4(0.f/255.f, 0.f/255.f, 0.f/255.f, 0.f/255.f);
+	colors[ImGuiCol_TabDimmedSelected] = ImVec4(71.f/255.f, 0.f/255.f, 111.f/255.f, 255.f/255.f);
+	colors[ImGuiCol_TabDimmedSelectedOverline] = ImVec4(0.f/255.f, 0.f/255.f, 0.f/255.f, 0.f/255.f);
 }
 
 //-----------------------------------------------------------------------------
