@@ -405,7 +405,7 @@ void ImGui::StyleColorsWarm(ImGuiStyle* dst)
 	colors[ImGuiCol_Header] = ImVec4(42.f/255.f, 42.f/255.f, 42.f/255.f, 255.f/255.f);
 	colors[ImGuiCol_HeaderHovered] = ImVec4(162.f/255.f, 0.f/255.f, 255.f/255.f, 255.f/255.f);
 	colors[ImGuiCol_HeaderActive] = ImVec4(128.f/255.f, 57.f/255.f, 2.f/255.f, 255.f/255.f);
-	colors[ImGuiCol_Separator] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+	colors[ImGuiCol_Separator] = ImVec4(255.f/255.f, 0.f/255.f, 0.f/255.f, 150.f/255.f);
 	colors[ImGuiCol_SeparatorHovered] = ImVec4(0.60f, 0.60f, 0.70f, 1.00f);
 	colors[ImGuiCol_SeparatorActive] = ImVec4(0.70f, 0.70f, 0.90f, 1.00f);
 	colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
