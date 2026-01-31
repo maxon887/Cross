@@ -35,11 +35,11 @@ public:
 
 protected:
 	Property<float> camera_speed = Property<float>(this, "CameraSpeed", 5.f);
+	Property<float> focus_distance = Property<float>(this, "FocusDistance", 3.f);
 	
 	bool camera_active			= false;
 	Mode mode		 			= Mode::ORBIT;
 
-	float focus_distance		= 3.f;
 	float look_target_lerp		= 0.f;
 	Transform destination		= Transform();
 	

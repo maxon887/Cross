@@ -85,7 +85,7 @@ void CameraController::MoveUp(float distance) {
 
 void CameraController::MoveCloser(float ratio) {
 	MoveForward(focus_distance * ratio);
-	focus_distance -= focus_distance * ratio;
+	focus_distance = focus_distance - focus_distance * ratio;
 }
 
 void CameraController::LookRight(float degree) {
