@@ -262,6 +262,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 					entity->AddComponent(component);
 				} else {
 					CROSS_ASSERT(false, "Having problem loading Entity '#'", name);
+					delete component;
 				}
 			} else {
 				CROSS_ASSERT(false, "Can't create component of type #", componentXML->Name());
