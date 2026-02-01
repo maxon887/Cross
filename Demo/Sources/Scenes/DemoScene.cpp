@@ -70,13 +70,15 @@ void DemoScene::ApplyMaterial(Entity* entity, Material* mat, bool depthTest) {
 	}
 }
 
-void DemoScene::ImportModel(const cross::String &modelFile, bool calcTangents) {
+Entity* DemoScene::ImportModel(const cross::String &modelFile, bool calcTangents) {
 	Model* model = GetModel(modelFile, calcTangents);
+	Entity* entity = nullptr;
 	if(model) {
-		Entity* entity = model->GetHierarchy();
+		entity = model->GetHierarchy();
 		ApplyMaterial(entity, GetDefaultMaterial());
 		AddEntity(entity);
 	}
+	return entity;
 }
 
 void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */) {
