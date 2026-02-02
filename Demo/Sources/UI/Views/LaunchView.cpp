@@ -5,7 +5,6 @@
 #include "Texture.h"
 #include "UI/MenuBar.h"
 #include "Scenes/Simple/TriangleScene.h"
-#include "Scenes/Simple/AxisScene.h"
 #include "Scenes/Light/DirectionalLightScene.h"
 #include "Scenes/Light/PointLightScene.h"
 #include "Scenes/Light/SpotLightScene.h"
@@ -67,9 +66,6 @@ void LaunchView::Update(float sec) {
 			if(ImGui::MenuButton("Textured Model")) {
 				const String filename = "Scenes/TexturedCube.scn";
 				CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
-			}
-			if(ImGui::MenuButton("Axis")) {
-				game->SetScreen(CREATE AxisScene());
 			}
 			ImGui::TreePop();
 		}
