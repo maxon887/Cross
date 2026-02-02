@@ -46,7 +46,10 @@ Demo project can be found in Demo/Projects/{TargetPlatfor} directory.
 ![Alt text](https://sun9-48.userapi.com/c854220/v854220397/16e47f/auU-Vc_2Lt4.jpg)
 ![Alt text](https://sun9-3.userapi.com/c854220/v854220397/16e489/kmXUu0yMCv4.jpg)
 
-### 1.0 New Game Creation
+### Axis Orientation
+Cross is left-anded, Y-up asix oriented. Meaning X - pointing to the right, Y - pointing up, Z - pointing in front of camera.
+
+### New Game Creation
 In order to create new game you must do 3 things.
 
 1. Create inherit class from Screen which will be reflection of you current game screen like "Menu", "Level 1", "Monkey Boss" etc. Every game needs at leas one screen to display. Most likely you will override virtual Screen function `void Update(float sec);` to provide game drawing or state updating mechanism or any your custom stuff.
