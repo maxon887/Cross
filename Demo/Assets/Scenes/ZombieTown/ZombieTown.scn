@@ -1,5 +1,95 @@
 <Scene version="21">
     <Objects>
+        <Object name="RowHouse04 (1)">
+            <Components>
+                <Transform Active="true">
+                    <Position type="Vector3D" x="-14.71002" y="2.6500001" z="18.859989"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0" y="0.02617692" z="0" w="0.99965727"/>
+                </Transform>
+            </Components>
+            <Children>
+                <Object name="Trim">
+                    <Components>
+                        <Transform Active="true">
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh Active="true">
+                            <GroupID type="String" value="RowHouse04:7"/>
+                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
+                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/OTTrim01.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="WoodenPillows">
+                    <Components>
+                        <Transform Active="true">
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh Active="true">
+                            <GroupID type="String" value="RowHouse04:12"/>
+                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
+                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Misc/WoodDetails.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Bricks">
+                    <Components>
+                        <Transform Active="true">
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh Active="true">
+                            <GroupID type="String" value="RowHouse04:13"/>
+                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
+                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/RowHouseBrick01.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Shadow">
+                    <Components>
+                        <Transform Active="true">
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh Active="true">
+                            <GroupID type="String" value="RowHouse04:14"/>
+                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
+                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/VertexShadow.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="Details">
+                    <Components>
+                        <Transform Active="true">
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                        <Mesh Active="true">
+                            <GroupID type="String" value="RowHouse04:34"/>
+                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
+                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat"/>
+                        </Mesh>
+                    </Components>
+                </Object>
+                <Object name="LOD">
+                    <Components>
+                        <Transform Active="true">
+                            <Position type="Vector3D" x="0" y="0" z="0"/>
+                            <Scale type="Vector3D" x="1" y="1" z="1"/>
+                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
+                        </Transform>
+                    </Components>
+                </Object>
+            </Children>
+        </Object>
         <Object name="BuildingCorner01">
             <Components>
                 <Transform Active="true">
@@ -14,7 +104,7 @@
                         <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
+                            <Rotation type="Quaternion" x="0.0087265577" y="0" z="0" w="0.99996197"/>
                         </Transform>
                         <Mesh Active="true">
                             <GroupID type="String" value="BldgCorner01:6"/>
@@ -28,7 +118,7 @@
                         <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
+                            <Rotation type="Quaternion" x="0.0087265577" y="0" z="0" w="0.99996197"/>
                         </Transform>
                         <Mesh Active="true">
                             <GroupID type="String" value="BldgCorner01:7"/>
@@ -42,7 +132,7 @@
                         <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
+                            <Rotation type="Quaternion" x="0.0087265577" y="0" z="0" w="0.99996197"/>
                         </Transform>
                         <Mesh Active="true">
                             <GroupID type="String" value="BldgCorner01:8"/>
@@ -56,7 +146,7 @@
                         <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
+                            <Rotation type="Quaternion" x="0.0087265577" y="0" z="0" w="0.99996197"/>
                         </Transform>
                         <Mesh Active="true">
                             <GroupID type="String" value="BldgCorner01:75"/>
@@ -70,7 +160,7 @@
                         <Transform Active="true">
                             <Position type="Vector3D" x="0" y="0" z="0"/>
                             <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="-6.1817254e-08" z="-6.1817254e-08" w="0.70710683"/>
+                            <Rotation type="Quaternion" x="0.0087265577" y="0" z="0" w="0.99996197"/>
                         </Transform>
                     </Components>
                 </Object>
@@ -79,97 +169,7 @@
                         <Transform Active="true">
                             <Position type="Vector3D" x="-0.11" y="-0.13195001" z="-0.27000001"/>
                             <Scale type="Vector3D" x="1.05" y="1.05" z="1.05"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="-6.1817254e-08" z="-6.1817254e-08" w="0.70710683"/>
-                        </Transform>
-                    </Components>
-                </Object>
-            </Children>
-        </Object>
-        <Object name="RowHouse04 (1)">
-            <Components>
-                <Transform Active="true">
-                    <Position type="Vector3D" x="-14.71002" y="2.6500001" z="18.859989"/>
-                    <Scale type="Vector3D" x="1.05" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="0.99991429"/>
-                </Transform>
-            </Components>
-            <Children>
-                <Object name="Trim">
-                    <Components>
-                        <Transform Active="true">
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
-                        </Transform>
-                        <Mesh Active="true">
-                            <GroupID type="String" value="RowHouse04:7"/>
-                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
-                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/OTTrim01.mat"/>
-                        </Mesh>
-                    </Components>
-                </Object>
-                <Object name="WoodenPillows">
-                    <Components>
-                        <Transform Active="true">
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
-                        </Transform>
-                        <Mesh Active="true">
-                            <GroupID type="String" value="RowHouse04:12"/>
-                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
-                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Misc/WoodDetails.mat"/>
-                        </Mesh>
-                    </Components>
-                </Object>
-                <Object name="Bricks">
-                    <Components>
-                        <Transform Active="true">
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
-                        </Transform>
-                        <Mesh Active="true">
-                            <GroupID type="String" value="RowHouse04:13"/>
-                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
-                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/RowHouseBrick01.mat"/>
-                        </Mesh>
-                    </Components>
-                </Object>
-                <Object name="Shadow">
-                    <Components>
-                        <Transform Active="true">
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
-                        </Transform>
-                        <Mesh Active="true">
-                            <GroupID type="String" value="RowHouse04:14"/>
-                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
-                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/VertexShadow.mat"/>
-                        </Mesh>
-                    </Components>
-                </Object>
-                <Object name="Details">
-                    <Components>
-                        <Transform Active="true">
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
-                        </Transform>
-                        <Mesh Active="true">
-                            <GroupID type="String" value="RowHouse04:34"/>
-                            <Model type="String" value="Scenes/ZombieTown/Models/Environment/Architecture/OldTown/RowHouse04.FBX"/>
-                            <Material type="String" value="Scenes/ZombieTown/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat"/>
-                        </Mesh>
-                    </Components>
-                </Object>
-                <Object name="LOD">
-                    <Components>
-                        <Transform Active="true">
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="-0.70710683" y="0" z="0" w="0.70710683"/>
+                            <Rotation type="Quaternion" x="0.0087265577" y="0" z="0" w="0.99996197"/>
                         </Transform>
                     </Components>
                 </Object>
@@ -178,16 +178,16 @@
         <Object name="Camera">
             <Components>
                 <CameraController Active="true">
-                    <CameraSpeed type="Float" value="5000"/>
-                    <FocusDistance type="Float" value="3096.1238"/>
+                    <CameraSpeed type="Float" value="5"/>
+                    <FocusDistance type="Float" value="2.8529701"/>
                 </CameraController>
                 <Camera Active="true">
-                    <ViewDistance type="Float" value="5000"/>
+                    <ViewDistance type="Float" value="100"/>
                 </Camera>
                 <Transform Active="true">
-                    <Position type="Vector3D" x="-906.85938" y="864.0929" z="-2782.7781"/>
+                    <Position type="Vector3D" x="-10.727124" y="4.3115587" z="36.825764"/>
                     <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.18967113" y="-0.18282062" z="0.035970274" w="0.96400607"/>
+                    <Rotation type="Quaternion" x="-0.0041795401" y="0.99280548" z="-0.11399395" w="0.036402591"/>
                 </Transform>
             </Components>
         </Object>
