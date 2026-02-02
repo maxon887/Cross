@@ -18,11 +18,7 @@ public:
 
 	/* Will be called once at the first Activation. At this time we already have a Scene (unlike in constructor) */
 	virtual bool Initialize() { return true; }
-	/* In order to trigger Activate 3 conditions should be met. You should not call this function manually
-	* 	a) Component must be added to Entity
-	* 	b) Entity should be in active Scene 
-	* 	c) Component should be active
-	* 	If returns false Component will not be activated and not update in the next turn */
+	/* Activation happens every time this component being enabled while on active Scene */
 	virtual bool Activate() { return true; }
 	/* Opposite to Activate. If any of 3 condition not met Deactivate will be called */
 	virtual void Deactivate() { }
