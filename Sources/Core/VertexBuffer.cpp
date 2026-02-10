@@ -23,19 +23,19 @@ U32 VertexBuffer::GetPositionsOffset() const {
 }
 
 U32 VertexBuffer::GetTextureCoordinatesOffset() const {
-	return GetPositionsOffset() + (uv_enabled ? 3 : 0);
+	return GetPositionsOffset() + 3;
 }
 
 U32 VertexBuffer::GetNormalsOffset() const {
-	return GetTextureCoordinatesOffset() + (normals_enabled ? 2 : 0);
+	return GetTextureCoordinatesOffset() + (uv_enabled ? 2 : 0);
 }
 
 U32 VertexBuffer::GetTangentsOffset() const {
-	return GetNormalsOffset() + (tangents_enabled ? 3 : 0);
+	return GetNormalsOffset() + (normals_enabled ? 3 : 0);
 }
 
 U32 VertexBuffer::GetBitangentsOffset() const {
-	return GetTangentsOffset() + (bitangents_enabled ? 3 : 0);
+	return GetTangentsOffset() + (tangents_enabled ? 3 : 0);
 }
 
 void VertexBuffer::UVEnabled(bool enabled) {
@@ -55,7 +55,7 @@ void VertexBuffer::BitangentsEnabled(bool enabled) {
 }
 
 U32 VertexBuffer::VertexSize() const {
-	return (GetBitangentsOffset() + 3) * sizeof(float);
+	return (GetBitangentsOffset() + (bitangents_enabled ? 3 : 0)) * sizeof(float);
 }
 
 U32 VertexBuffer::GetDataSize() const {

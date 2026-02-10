@@ -19,6 +19,10 @@ Scene::Scene() {
 	root->AddComponent(CREATE Transform());
 }
 
+Scene::~Scene() {
+	delete root;
+}
+
 void Scene::Start() {
 	Screen::Start();
 	root->SetOnScene(true);
@@ -32,8 +36,6 @@ void Scene::Update(float sec) {
 
 void Scene::Stop() {
 	os->WindowResized.Disconnect(this, &Scene::OnWindowResize);
-	delete root;
-	root = nullptr;
 	for(pair<U64, Texture*> pair : textures) {
 		delete pair.second;
 	}

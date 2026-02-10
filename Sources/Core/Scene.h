@@ -22,6 +22,7 @@ namespace cross{
 class Scene : public Screen {
 public:
 	Scene();
+	~Scene() override;
 
 	/* Called once before scene show up. */
 	void Start() override;

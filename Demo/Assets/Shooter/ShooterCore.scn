@@ -1,0 +1,20 @@
+<Scene version="21">
+    <Objects>
+        <Object name="Camera">
+            <Components>
+                <CameraController Active="true">
+                    <CameraSpeed type="Float" value="15"/>
+                    <FocusDistance type="Float" value="15"/>
+                </CameraController>
+                <Camera Active="true">
+                    <ViewDistance type="Float" value="1000"/>
+                </Camera>
+                <Transform Active="true">
+                    <Position type="Vector3D" x="966.07739" y="26.636023" z="1006.9511"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0.011915398" y="0.97918087" z="-0.19346015" w="-0.060299683"/>
+                </Transform>
+            </Components>
+        </Object>
+    </Objects>
+</Scene>

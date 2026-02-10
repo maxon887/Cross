@@ -5,6 +5,8 @@
 #include "Utils/Debugger.h"
 #include "File.h"
 
+#include <stdlib.h>
+
 #include "Libs/SOIL/SOIL.h"
 
 using namespace cross;

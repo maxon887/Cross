@@ -1,0 +1,3100 @@
+<Scene version="20">
+  <Objects>
+    <Object name="Buildings">
+      <Components>
+        <Transform>
+          <Position type="Vector3D" x="969.78" y="15.596" z="964.82" />
+          <Scale type="Vector3D" x="1" y="1" z="1" />
+          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+        </Transform>
+      </Components>
+      <Children>
+        <Object name="RowHouse04 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-14.71002" y="2.65" z="18.85999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.02617692" z="0" w="-0.9996573" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodenPillows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:13" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:14" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding04 (2)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="12.06995" y="2.66" z="32.73999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.6977904" z="0" w="-0.7163019" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01Top01 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="18.41998" y="2.57" z="2.779968" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.9999143" z="0" w="0.01308958" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interior">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01 (2)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="18.41998" y="-2.534084" z="2.779968" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.9999143" z="0" w="0.01308958" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="BrokenWindows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interier">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01 (3)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="14.09998" y="-2.508085" z="-15.92999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="BrokenWindows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interier">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding03 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="21.25" y="2.61" z="-16.22003" />
+              <Scale type="Vector3D" x="1.0251" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="BuildingCorner01 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-28.34003" y="-2.53" z="3.089966" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01351269" z="0" w="-0.9999087" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Windows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:8" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim02.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:75" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.16" y="-0.13195" z="-0.33" />
+                  <Scale type="Vector3D" x="1.06" y="1.06" z="1.06" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RowHouse03 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-21.12006" y="2.624" z="-14.89001" />
+              <Scale type="Vector3D" x="1.060777" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:13" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:14" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:16" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding02 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-28.26001" y="2.69" z="-13.91003" />
+              <Scale type="Vector3D" x="1.0631" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="OTBldg02:7">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-14.20001" y="2.62" z="-15.15002" />
+              <Scale type="Vector3D" x="1.0251" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg03:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01Top02 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="14.09998" y="2.51" z="-15.92999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top02:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top02:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interior">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top02:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding01 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="11.50995" y="2.680001" z="26.26001" />
+              <Scale type="Vector3D" x="1.0265" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.6977904" z="0" w="-0.7163019" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Windows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:33" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/WindowsQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RowHouse03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="11.85999" y="2.650001" z="19.47998" />
+              <Scale type="Vector3D" x="1.062" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.6977904" z="0" w="-0.7163019" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:13" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:14" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:16" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse03:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding04 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="27.62994" y="2.604001" z="-16.97998" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RowHouse04">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-35.16003" y="2.64" z="-14.73999" />
+              <Scale type="Vector3D" x="1.05" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodenPillows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:13" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:14" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse04:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-21.06006" y="2.63" z="4.210022" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.9999143" z="0" w="-0.01308968" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Windows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:33" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/WindowsQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg01:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01Top02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="10.93994" y="2.33" z="12.08997" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.6977904" z="0" w="-0.7163019" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top02:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top02:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interior">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top02:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="10.91998" y="-2.534001" z="12.10999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.6977904" z="0" w="-0.7163019" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="BrokenWindows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interier">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RowHouse02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-14.63" y="2.62" z="3.369995" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.9999143" z="0" w="0.01308958" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse02:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse02:13" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse02:14" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse02:16" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RowHouseTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RowHouse02:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/RowHouse02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01Top01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-6.800049" y="2.498085" z="-15.39001" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interior">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01Top01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01Top01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuildingDestroyed01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-6.800049" y="-2.52" z="-15.39001" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="BrokenWindows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Interier">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldgDestroy01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuildingDestroyed01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTDestroyed01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding04">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="7.009949" y="2.6" z="-15.83002" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg04:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OTBuilding02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="0.4899902" y="2.6" z="-15.04999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="OTBldg02:7">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WoodDetails">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Misc/WoodDetails.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Details">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:34" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="OTBldg02:74" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/OldTown/OTBuilding02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="BuildingCorner02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="10.38995" y="-2.5" z="1.869995" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.02110107" z="0" w="-0.9997774" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.2245695" y="0" z="0.08571503" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner02:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.2245695" y="0" z="0.08571503" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner02:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.2245695" y="0" z="0.08571503" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner02:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.042899" y="-0.31465" z="-0.12552" />
+                  <Scale type="Vector3D" x="1.05" y="1.05" z="1.05" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.042899" y="-0.31465" z="-0.12552" />
+                  <Scale type="Vector3D" x="1.05" y="1.05" z="1.05" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="BuildingCorner03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-7.810059" y="-2.52" z="2.529968" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.5754297" y="0" z="0.7657153" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner03:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Facade">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.5754297" y="0" z="0.7657153" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner03:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Windows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.5754297" y="0" z="0.7657153" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner03:33" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/WindowsQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.5754297" y="0" z="0.7657153" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner03:75" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="MetalShack01 1">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-7.060059" y="0" z="36.40997" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.6888655" z="0" w="-0.7248892" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="shack:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.096419" y="0" z="-1.240605" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="shack:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/MetalShack01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Shack01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="shack:1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.096419" y="0" z="-1.240605" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="shack:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/MetalShack01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Shack01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="shack:2">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.096419" y="0" z="-1.240605" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="shack:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/MetalShack01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="BuildingCorner01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-7.390015" y="-2.52" z="19.51001" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.9996489" z="0" w="-0.02649793" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Bricks">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:6" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTBrick01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Windows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:7" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Trim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:8" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/OTTrim02.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="BldgCorner01:75" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/BuildingCorner01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="LOD">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.11" y="-0.13195" z="-0.27" />
+                  <Scale type="Vector3D" x="1.05" y="1.05" z="1.05" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RadioTower">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="89.70996" y="21.744" z="12.15997" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.941641" z="0" w="0.336619" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="GNRRadioTower:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1.81" y="1.81" z="1.81" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="GNRRadioTower:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/BuildingComplete/RadioTower.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RadioTower01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="GNRRadioTower_lod:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Blockade01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-108.7" y="2.3" z="-8.7" />
+              <Scale type="Vector3D" x="1.268901" y="1.2689" z="1.268901" />
+              <Rotation type="Quaternion" x="0" y="-0.8007763" z="0" w="-0.5989636" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RubbleBlockade01:5">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:5" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/DistantStructure01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01:15">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:15" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01:19">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:19" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/Rebar01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01:24">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:24" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/ConcreteQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01:28">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:28" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/MetalWorkQuad01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01:33">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:33" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/WindowsQuad01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01:42">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade01:42" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/RubblePile05.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade01_lod:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="SuperMart">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="72.76001" y="1.69" z="82.48004" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.8039806" z="0" w="0.5946555" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="GNRRoof01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="GNRRoof01" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/GNRRoof01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="MetalWorkQuad01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="MetalWorkQuad01" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/MetalWorkQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsEdgeTrim01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsEdgeTrim01" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsEdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsEdgeTrim01Solid">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsEdgeTrim01Solid" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsEdgeTrim01Solid.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsEdgeTrim02">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsEdgeTrim02" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsEdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsMaintile01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsMaintile01" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsMaintile01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsMaintile01Cutout">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsMaintile01Cutout" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsMaintile01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsMaintile02">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsMaintile02" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsMaintile02.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ParadiseFallsMetalTile01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ParadiseFallsMetalTile01" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/ParadiseFallsMetalTile01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="PFallsLod01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="1.434923" y="-4.732339" z="-10.24" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadow">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Shadow" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WindowBank04">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.26086" y="-4.732339" z="-2.441406E-06" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WindowBank04" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/SuperMart.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/WindowBank04.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Door05">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="5.141294" y="-3.991" z="10.30157" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="1.311302E-06" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HotelElevatorDoor01:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Props/Door05.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/HotelelEvator01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Door05 (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="5.14106" y="-3.991" z="-10.28039" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="1.311302E-06" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HotelElevatorDoor01:12" />
+                  <Model type="String" value="Shooter/Models/Environment/Props/Door05.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/HotelelEvator01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="HouseRuined02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="77.79993" y="5.234" z="-74.42999" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.205307" z="0" w="-0.9786977" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="HouseRuined02:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4637279" y="-1.348315" z="-0.09035562" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined02:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Resident01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined02:1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4637279" y="-1.348315" z="-0.09035562" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined02:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RoofTile01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined02:2">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4637279" y="-1.348315" z="-0.09035562" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined02:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/WoodSiding01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined02:3">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4637279" y="-1.348315" z="-0.09035562" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined02:3" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined02:4">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4637279" y="-1.348315" z="-0.09035562" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined02:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/ConcreteQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined02_lod:2">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-2.40814" y="-1.788647" z="0.06281738" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="WaterTank">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="72.53003" y="-2.296" z="-1.410034" />
+              <Scale type="Vector3D" x="2.071818" y="2.071818" z="2.071818" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="ShackExteriorWaterTank01:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ShackExteriorWaterTank01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/WaterTank.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Buildings/MetalScrapShingle08.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="ShackExteriorWaterTank01:3">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="ShackExteriorWaterTank01:3" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/WaterTank.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="HouseRuined01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="94.64001" y="4.283999" z="-36.16998" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.1070351" z="0" w="-0.9942553" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="HouseRuined01:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4624998" y="-1.697884" z="-0.1341758" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Resident01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined01:1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4624998" y="-1.697884" z="-0.1341758" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined01:1" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/RoofTile01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined01:2">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4624998" y="-1.697884" z="-0.1341758" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined01:2" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/WoodSiding01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined01:3">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4624998" y="-1.697884" z="-0.1341758" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined01:3" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined01:4">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4624998" y="-1.697884" z="-0.1341758" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined01:4" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/ConcreteQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined01:5">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.4624998" y="-1.697884" z="-0.1341758" />
+                  <Scale type="Vector3D" x="1.029025" y="1.029025" z="1.029025" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="HouseRuined01:5" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Urban/HouseRuined01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/StoreFrontQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="HouseRuined01_lod:1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-2.408138" y="-1.91" z="0.06281738" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0.008726558" y="0" z="0" w="-0.999962" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Shack08">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="97.51001" y="4.824" z="-50.71002" />
+              <Scale type="Vector3D" x="1.1366" y="1.1366" z="1.1366" />
+              <Rotation type="Quaternion" x="0" y="0.6748503" z="0" w="-0.7379547" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="MetalScrapDoor03">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.2085641" y="-1.483271" z="0.01376945" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="MetalScrapDoor03" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/Shack08.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Buildings/MetalScrapDoor03.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="MetalScrapShingles05">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.2085641" y="-1.483271" z="0.01376945" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="MetalScrapShingles05" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/Shack08.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Buildings/MetalScrapShingles05.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="MetalScrapShingles06">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.2085641" y="-1.483271" z="0.01376945" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="MetalScrapShingles06" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/Shack08.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Buildings/MetalScrapShingles06.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Shadows">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0.2085641" y="-1.483271" z="0.01376945" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Shadows" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/Buildings/Shack08.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/VertexShadow.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Blockade02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="95.35999" y="-3.716" z="-8.910034" />
+              <Scale type="Vector3D" x="0.6499001" y="0.6499" z="0.6499001" />
+              <Rotation type="Quaternion" x="0" y="0.5191243" z="0" w="-0.8546988" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RubbleBlockade02:5">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:5" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/DistantStructure01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02:15">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:15" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02:19">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:19" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/Rebar01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02:24">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:24" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/ConcreteQuad01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02:28">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:28" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/MetalWorkQuad01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02:33">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:33" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/WindowsQuad01Cutout.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02:42">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RubbleBlockade02:42" />
+                  <Model type="String" value="Shooter/Models/Environment/Architecture/RubblePiles/Blockade02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/RubblePile05.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="RubbleBlockade02_lod:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="CraneHead">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-78.87006" y="-0.5459995" z="4.609985" />
+              <Scale type="Vector3D" x="1.2624" y="1.2624" z="1.2624" />
+              <Rotation type="Quaternion" x="0" y="0" z="-0.4179149" w="0.9084862" />
+            </Transform>
+            <Mesh>
+              <GroupID type="String" value="CraneDestArm01:0" />
+              <Model type="String" value="Shooter/Models/Environment/Props/CraneHead.FBX" />
+              <Material type="String" value="Shooter/Materials/Environment/Architecture/CitadelMainGate.mat" />
+            </Mesh>
+          </Components>
+          <Children />
+        </Object>
+      </Children>
+    </Object>
+  </Objects>
+</Scene>

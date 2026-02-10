@@ -21,6 +21,7 @@
 #include "Tests/ArrayTest.h"
 #include "Tests/AutoTests.h"
 #include "AudioScreen.h"
+#include "Shooter/Shooter.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -47,12 +48,14 @@ void LaunchView::PreUpdate() {
 
 void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
+		if(ImGui::MenuButton("Shooter Example")) {
+			const String filename = "Shooter/Shooter.scn";
+			Shooter* shooter = CREATE Shooter();
+			CROSS_ASSERT(shooter->Load(filename), "Can not load scene(#)", filename);
+			game->SetScreen(shooter);
+		}
 		if(ImGui::MenuButton("Apocalypse Scene")) {
 			const String filename = "Scenes/ApocalypticCity/ApocalypticCity.scn";
-			CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
-		}
-		if(ImGui::MenuButton("Zombie Town")) {
-			const String filename = "Scenes/ZombieTown/ZombieTown.scn";
 			CROSS_ASSERT(demo->LoadScene(filename), "Can not load scene(#)", filename);
 		}
 		if(ImGui::TreeNode("Simple")) {
