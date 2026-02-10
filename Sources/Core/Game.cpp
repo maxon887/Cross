@@ -78,7 +78,7 @@ Factory<Component>* Game::GetComponentFactory() const {
 void Game::Suspend() {
 	os->LogIt("Game::Suspend");
 	suspended = true;
-
+	Suspended.Emit();
 	if(audio) {
 		audio->Suspend();
 	}
@@ -98,6 +98,7 @@ void Game::Resume() {
 	if(current_screen) {
 		current_screen->Resume();
 	}
+	Resumed.Emit();
 }
 
 float Game::GetRunTime() const {

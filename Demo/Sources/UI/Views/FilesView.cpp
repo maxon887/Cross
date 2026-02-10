@@ -26,6 +26,7 @@ void FilesView::Shown() {
 	}
 	current_path = "";
 	game->ScreenChanged.Connect(this, &FilesView::OnScreenChanged);
+	game->Resumed.Connect(this, &FilesView::OnResume);
 }
 
 void FilesView::Update(float sec) {
@@ -381,6 +382,10 @@ void FilesView::ContextMenu() {
 void FilesView::OnScreenChanged(Screen* screen) {
 	current_path = "";
 	FileSelected.Emit(current_path);
+}
+
+void FilesView::OnResume() {
+	Refresh();
 }
 
 bool FilesView::AvailableInMenu() {

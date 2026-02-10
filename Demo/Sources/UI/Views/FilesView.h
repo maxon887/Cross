@@ -47,4 +47,5 @@ private:
 	void ContextMenu();
 	
 	void OnScreenChanged(Screen* screen);
+	void OnResume();
 };

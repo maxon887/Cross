@@ -15,6 +15,10 @@ class Game {
 public:
 	/* Occurs when someone call SetScreen() */
 	Event<Screen*> ScreenChanged;
+	/* Occurs when game about to go background */
+	Event<> Suspended;
+	/* Occurs when game resumed from background */
+	Event<> Resumed;
 
 	Game();
 	virtual ~Game();
