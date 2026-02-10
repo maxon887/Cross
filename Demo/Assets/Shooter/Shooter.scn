@@ -1,5 +1,4149 @@
 <Scene version="20">
   <Objects>
+    <Object name="Roads">
+      <Components>
+        <Transform>
+          <Position type="Vector3D" x="968.6116" y="43.99236" z="973.8547" />
+          <Scale type="Vector3D" x="1" y="1" z="1" />
+          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+        </Transform>
+      </Components>
+      <Children>
+        <Object name="RoadStraight (2)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="68.94" y="-31.59" z="24.77" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="-0.7071068" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadStraight">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadStraightLong:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraight.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Road3WayLB (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="5.6" y="-30.23" z="-77.34" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="-0.0001745114" y="1.76205E-06" z="0.01009654" w="-0.999949" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayLB.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoad3WayLB:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoad3WayLB:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayLB.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Turn1">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="58.4" y="-27.47" z="-7.8" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0.03330297" y="0" z="0" w="-0.9994453" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadEndR (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-13.33173" y="-3.287" z="-8.432" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndR (4)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="51.04834" y="-31.59436" z="47.25824" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Turn2">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-80.0816" y="-29.28236" z="-22.49933" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="-0.06357574" w="-0.997977" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadTurnR (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="15.67" y="1.6" z="8.19" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="-1.862645E-09" y="-0.4654941" z="0" w="-0.885051" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadTurnL">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-10.76" y="0" z="-16.53" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="-0.8660254" z="0" w="-0.4999999" />
+                    </Transform>
+                  </Components>
+                  <Children>
+                    <Object name="PittedDecal">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="PittedDecal" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="WastelandRoadCurveLongL:0">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="Collision">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                      </Components>
+                      <Children />
+                    </Object>
+                  </Children>
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadTurnR (3)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="2.63" y="1.6" z="-7.39" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.8197466" z="0" w="-0.5727265" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadTurnL">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-10.76" y="0" z="-16.53" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="-0.8660254" z="0" w="-0.4999999" />
+                    </Transform>
+                  </Components>
+                  <Children>
+                    <Object name="PittedDecal">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="PittedDecal" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="WastelandRoadCurveLongL:0">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="Collision">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                      </Components>
+                      <Children />
+                    </Object>
+                  </Children>
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="GameObject (2)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="31.64844" y="-41.05236" z="-40.15472" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.08324663" y="0" z="0" w="-0.996529" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadTurnR">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-16.52588" y="16.96" z="-19.8" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0.04859912" y="-0.5071204" z="0.05993575" w="-0.8584142" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadTurnL">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-10.76" y="0" z="-16.53" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="-0.8660254" z="0" w="-0.4999999" />
+                    </Transform>
+                  </Components>
+                  <Children>
+                    <Object name="PittedDecal">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="PittedDecal" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="WastelandRoadCurveLongL:0">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="Collision">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                      </Components>
+                      <Children />
+                    </Object>
+                  </Children>
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadTurnR (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="4.99" y="19.355" z="-20.43" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0.01153148" y="-0.01362346" z="0.037552" w="-0.9991353" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadTurnL">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-10.76" y="0" z="-16.53" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="-0.8660254" z="0" w="-0.4999999" />
+                    </Transform>
+                  </Components>
+                  <Children>
+                    <Object name="PittedDecal">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="PittedDecal" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="WastelandRoadCurveLongL:0">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                        <Mesh>
+                          <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                          <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                          <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                        </Mesh>
+                      </Components>
+                      <Children />
+                    </Object>
+                    <Object name="Collision">
+                      <Components>
+                        <Transform>
+                          <Position type="Vector3D" x="0" y="0" z="0" />
+                          <Scale type="Vector3D" x="1" y="1" z="1" />
+                          <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                        </Transform>
+                      </Components>
+                      <Children />
+                    </Object>
+                  </Children>
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadCircle">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="65.68842" y="-24.33236" z="-58.94476" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="CityCenter">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-0.7" y="-30.07" z="0.9" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0.01308958" z="0" w="-0.9999143" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadStraightB 1 (4)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-41.64166" y="-0.953" z="-15.97473" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (3)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-30.41162" y="-0.953" z="-15.96472" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraight (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-19.16162" y="-0.953" z="-15.96771" />
+                  <Scale type="Vector3D" x="1.1" y="1.100001" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadStraight">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLong:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraight.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-7.911621" y="-0.953" z="-15.95471" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Road3WayR">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.342346" y="-0.953" z="-15.96472" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.7071068" z="0" w="-0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road3WayR">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoad3WayR:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraight">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="14.59839" y="-0.953" z="-15.96472" />
+                  <Scale type="Vector3D" x="1.1" y="1.100001" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadStraight">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLong:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraight.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="25.83" y="-0.953" z="-15.96735" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="37.07837" y="-0.953" z="-15.96735" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.348389" y="-0.953" z="29.01526" />
+                  <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Road3WayRB">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.355347" y="-0.953" z="17.75726" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayRB.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoad3WayRB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoad3WayRB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayRB.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraight (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.358337" y="-0.953" z="6.505249" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadStraight">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLong:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraight.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraight">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.349365" y="-0.953" z="-4.70874" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadStraight">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLong:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraight.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndL">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-14.56561" y="-0.9593582" z="17.76526" />
+                  <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-7.904663" y="-0.953" z="17.76526" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="TTurn1">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="5.81" y="-29.25" z="49.89" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="-0.01262645" z="0" w="-0.9999204" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road3WayLB">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.21001" y="-0.07" z="0.7999725" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayLB.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoad3WayLB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoad3WayLB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayLB.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndL">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.192981" y="-0.07" z="7.47197" />
+                  <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="-0.7071068" z="0" w="-0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="10.03482" y="-0.07" z="0.7761714" />
+                  <Scale type="Vector3D" x="1.100002" y="1.1" z="1.100002" />
+                  <Rotation type="Quaternion" x="0" y="0.9999993" z="0" w="0.001191051" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndR">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="16.7" y="-0.07" z="0.77" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndL (4)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-93.41162" y="-27.83" z="-78.96002" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+              <Rotation type="Quaternion" x="0" y="-0.08925063" z="0" w="-0.9960092" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="StraightRoad">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="0" y="0" z="0" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road3WayR (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-69.47998" y="-30.24" z="-78.66998" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.7071068" z="0" w="-0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road3WayR">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoad3WayR:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadChunk04 (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-90.02502" y="-28.082" z="-79.15393" />
+                  <Scale type="Vector3D" x="1.1183" y="1.1183" z="1.1183" />
+                  <Rotation type="Quaternion" x="0.01691862" y="0.674128" z="0.01544893" w="-0.7382592" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk04.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndL (3)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-69.47162" y="-30.24236" z="-71.98474" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.7071068" z="0" w="-0.7071068" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraight">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-80.63" y="-29.26" z="-78.69" />
+                  <Scale type="Vector3D" x="1.1" y="1.100001" z="1.100001" />
+                  <Rotation type="Quaternion" x="-0.001808017" y="-0.0001617112" z="-0.08908543" w="-0.9960224" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadStraight">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLong:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraight.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (4)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-58.24261" y="-30.24" z="-78.66473" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightWave">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-16.84161" y="-30.32236" z="-77.12476" />
+                  <Scale type="Vector3D" x="1.1" y="1.100001" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadStraightWave">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStrWave01:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightWave.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (8)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-42.01001" y="-30.23" z="-78.66473" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndR (2)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-87.208" y="-28.19" z="-78.69" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.03531373" y="0.9993763" z="0" w="0" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="OutRoad">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="0" y="0" z="0" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadEndL (5)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="3.118" y="-29.77" z="60.918" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0.5906056" z="0" w="-0.8069604" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (5)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="1.088379" y="-29.77" z="67.28528" />
+                  <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+                  <Rotation type="Quaternion" x="0" y="0.5904686" z="0" w="-0.8070607" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (6)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-2.291626" y="-29.273" z="77.9353" />
+                  <Scale type="Vector3D" x="1.100001" y="1.100001" z="1.100001" />
+                  <Rotation type="Quaternion" x="-0.02602536" y="0.5898948" z="-0.03557182" w="-0.8062763" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadStraightB 1 (7)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-5.68" y="-28.285" z="88.6" />
+                  <Scale type="Vector3D" x="1.100001" y="1.100001" z="1.100001" />
+                  <Rotation type="Quaternion" x="-0.02602536" y="0.5898948" z="-0.03557182" w="-0.8062763" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="SuperMartParking">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="69.36993" y="-31.22236" z="63.35339" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Chunk02">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-3.260029" y="-0.4421864" z="-0.7900147" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.5973892" z="0" w="-0.8019515" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk02.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Chunk04">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="7.32" y="-0.49" z="-8.61" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.5849086" z="0" w="-0.8110992" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk04.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Chunk01">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-6.17" y="-0.4500008" z="-0.43" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.5976653" z="0" w="-0.8017458" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk01.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Chunk02 (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="2.56" y="-0.4421864" z="1.89" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.7995343" z="0" w="0.6006204" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk02.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Chunk02 (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="12.11194" y="-0.3899994" z="-6.391846" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="-0.5975318" z="0" w="-0.8018453" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk02.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Chunk01 (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="5.58" y="-0.43" z="1.29" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="-1.1" />
+                  <Rotation type="Quaternion" x="0" y="0.7966341" z="0" w="-0.6044618" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk01.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadChunkCluster03 (3)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.99" y="-0.6676407" z="-2.44" />
+                  <Scale type="Vector3D" x="2.544212" y="2.544213" z="2.544214" />
+                  <Rotation type="Quaternion" x="0" y="0.81533" z="0" w="-0.5789965" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="RoadChunkCluster03">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunkCluster03.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadChunk03 (3)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-8.53" y="-0.69" z="1.29" />
+                  <Scale type="Vector3D" x="2.217297" y="2.217295" z="2.217297" />
+                  <Rotation type="Quaternion" x="0.001436736" y="-0.9816666" z="0.009089998" w="-0.190384" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk03.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadChunk01 (3)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-3.472046" y="-0.1800003" z="-7.288208" />
+                  <Scale type="Vector3D" x="1.530302" y="1.5303" z="1.530302" />
+                  <Rotation type="Quaternion" x="0" y="-0.1869522" z="0" w="-0.982369" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="5.32" y="-0.12" z="-2.17" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="-0.01248012" y="0.1519633" z="0.006986779" w="-0.9882827" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk01.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="5.32" y="-0.12" z="-2.17" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="-0.01248012" y="0.1519633" z="0.006986779" w="-0.9882827" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="Chunk01 (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="10.28" y="-0.45" z="2.75" />
+                  <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+                  <Rotation type="Quaternion" x="0" y="0.8027368" z="0" w="-0.5963334" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/Chunk01.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-49.9" y="-31.1" z="-11.88" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.02252673" y="0.4823633" z="0.01240994" w="-0.8755937" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-49.659" y="-31.066" z="-11.252" />
+              <Scale type="Vector3D" x="1.164996" y="1.164996" z="-1.238041" />
+              <Rotation type="Quaternion" x="0" y="-0.7636991" z="0" w="-0.6455724" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadStraightB (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-72.82" y="-29.49" z="-57.5" />
+              <Scale type="Vector3D" x="1.3621" y="1.3621" z="1.362101" />
+              <Rotation type="Quaternion" x="-0.02399847" y="0.5984498" z="-0.05813409" w="-0.7986879" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadStraightDamaged">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0.266" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndL">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="6.059" y="0" z="0.2649999" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndR">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-6.072001" y="0" z="0.2659998" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk04">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-50.35" y="-31.01" z="-13.76" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.0237448" y="0.7359188" z="0.02584337" w="-0.6761597" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndL (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-51.57965" y="-30.24" z="-78.658" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadStraightB">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="37.14" y="-30.74" z="49.83" />
+              <Scale type="Vector3D" x="1.3621" y="1.215321" z="1.3621" />
+              <Rotation type="Quaternion" x="0.03468271" y="0.9985808" z="0.005074285" w="0.04009641" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadStraightDamaged">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0.266" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadStraightLongB:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndL">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="6.059" y="0" z="0.2649999" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadEndR">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-6.072001" y="0" z="0.2659998" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="1" z="0" w="0" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="EdgeTrim">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="EdgeTrim" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Road">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="Road" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadRampRight">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="2.41" y="-32.13236" z="28.08" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="-0.7160173" z="0" w="-0.6980826" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadRampRight">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadRamp512Right01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadRampRight.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadStraightB 1 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="68.94" y="-31.59" z="36.02527" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="-0.7071068" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadStraightLongB:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadRampLeft">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="61.95" y="-27.63" z="-27.69" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0.005268445" y="0.3780122" z="-0.002151337" w="-0.9257831" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadRampLeft">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadRamp512Left01:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadRampLeft.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadStraightB 1">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="57.70831" y="-31.59" z="47.26526" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadStraightLongB:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="Road3WayLB">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="68.93842" y="-31.59" z="47.27264" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayLB.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoad3WayLB:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoad3WayLB:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Road3WayLB.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadStraightB 1 (3)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="68.94" y="-31.59" z="13.51" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="-0.7071068" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-0.238" y="0.015" z="-0.071" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadStraightLongB:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadStraightLongB:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadStraightDamaged.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndL">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="5.756" y="-30.22502" z="-84.522" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+              <Rotation type="Quaternion" x="0.0006445539" y="0.8348809" z="0.0009776326" w="0.5504294" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunkCluster03 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="53.01" y="-29.09" z="48.28528" />
+              <Scale type="Vector3D" x="3.492602" y="3.492602" z="3.492601" />
+              <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadChunkCluster03">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.35" y="-0.765" z="0.032" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0.8228343" z="0" w="-0.5682815" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunkCluster03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-1.35" y="-0.765" z="0.032" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0.8228343" z="0" w="-0.5682815" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk01 (2)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="28.9" y="-30.1" z="53.59" />
+              <Scale type="Vector3D" x="1.5303" y="1.5303" z="1.5303" />
+              <Rotation type="Quaternion" x="-0.0847861" y="-0.5633976" z="-0.07149797" w="-0.8187078" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk02 (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-78.022" y="-27.902" z="-45.866" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.02006321" y="0.01075833" z="-0.02746567" w="-0.9993635" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunkCluster03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-75.11" y="-28.579" z="-46.331" />
+              <Scale type="Vector3D" x="2.95593" y="2.955932" z="2.955932" />
+              <Rotation type="Quaternion" x="-0.05564245" y="0.001802861" z="-0.06164189" w="-0.9965445" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadChunkCluster03">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunkCluster03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk05">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-66.0553" y="-30.60843" z="-66.80493" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0.03939653" y="0.0003163995" z="-0.009248805" w="-0.9991808" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RoadChunk05:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk05.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk01">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="44.67" y="-30.08" z="-13.11" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="0.06691875" y="-0.5079306" z="0.08738838" w="-0.854337" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk01.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="41.191" y="-30.711" z="-17.913" />
+              <Scale type="Vector3D" x="1.801802" y="1.8018" z="1.801802" />
+              <Rotation type="Quaternion" x="-0.01772401" y="0.2867143" z="0.1085082" w="-0.9516863" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="-0.051" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndR">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="68.9494" y="-31.59" z="53.92224" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+              <Rotation type="Quaternion" x="0" y="0.7071068" z="0" w="0.7071068" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadPatch">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="67.46136" y="-24.34636" z="-75.29071" />
+              <Scale type="Vector3D" x="1.29701" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="-0.6843748" y="-0.06997368" z="-0.1723641" w="-0.7050003" />
+            </Transform>
+            <Mesh>
+              <GroupID type="String" value="WastelandRoadPatch:0" />
+              <Model type="String" value="Shooter/Models/Environment/Roads/RoadPatch.FBX" />
+              <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+            </Mesh>
+          </Components>
+          <Children />
+        </Object>
+        <Object name="RoadTurnL">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="56.28839" y="-24.02236" z="-74.90472" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.005300346" y="0.3465001" z="-0.01434726" w="-0.9379253" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadCurveLongL:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadTurnL (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="6.466858" y="-29.86548" z="-96.58118" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.01760754" y="-0.4484466" z="-0.001139208" w="-0.8936355" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadCurveLongL:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadTurnL">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-105.3316" y="-27.83" z="-76.89" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+              <Rotation type="Quaternion" x="0" y="0.4226736" z="0" w="-0.906282" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadCurveLongL:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadTurnL">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="56.89728" y="-30.47826" z="-12.07788" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.03330297" y="0" z="0" w="-0.9994453" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadCurveLongL:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="GameObject">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="69.521" y="-23.758" z="-73.169" />
+              <Scale type="Vector3D" x="1.100001" y="1.1" z="1.100001" />
+              <Rotation type="Quaternion" x="0.001071392" y="-0.6348016" z="-0.0128338" w="-0.7725679" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="RoadTurnL (1)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="6.045534" y="-0.6284882" z="-4.98891" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="1.396984E-09" y="0.5012578" z="9.749783E-10" w="-0.865298" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadCurveLongL:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="GameObject">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="0" y="0" z="0" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+            <Object name="RoadTurnL (2)">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="25.06664" y="-0.6378211" z="-4.763498" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="-1.74623E-10" w="-1" />
+                </Transform>
+              </Components>
+              <Children>
+                <Object name="PittedDecal">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="PittedDecal" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="WastelandRoadCurveLongL:0">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                    <Mesh>
+                      <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                      <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                      <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                    </Mesh>
+                  </Components>
+                  <Children />
+                </Object>
+                <Object name="Collision">
+                  <Components>
+                    <Transform>
+                      <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                      <Scale type="Vector3D" x="1" y="1" z="1" />
+                      <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                    </Transform>
+                  </Components>
+                  <Children />
+                </Object>
+              </Children>
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadTurnL (1)">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="65.52728" y="-31.08804" z="-2.938171" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.03187706" y="-0.2893203" z="-0.009640573" w="-0.9566529" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="PittedDecal">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="PittedDecal" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="WastelandRoadCurveLongL:0">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="WastelandRoadCurveLongL:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadTurnL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="-9.809759" y="0" z="16.51499" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndR">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-53.33466" y="-30.96436" z="-12.00275" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.006246511" y="0.03903962" z="-0.0002829421" w="-0.9992182" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndR.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunkCluster02">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="4.714355" y="-30.24236" z="-70.74274" />
+              <Scale type="Vector3D" x="1.525" y="1.525" z="1.525" />
+              <Rotation type="Quaternion" x="0.008491373" y="0.1027491" z="0.02500538" w="-0.9943568" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunkCluster02.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadEndL">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-76.92261" y="-28.06236" z="-43.45471" />
+              <Scale type="Vector3D" x="1.1" y="1.1" z="1.1" />
+              <Rotation type="Quaternion" x="0.03865239" y="0.5704423" z="-0.04710713" w="-0.8190742" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="EdgeTrim">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="EdgeTrim" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Architecture/Generic/EdgeTrim01.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/RoadEndL.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk05">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="71.99835" y="-24.91236" z="-34.05475" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.0156138" y="-0.9228935" z="-0.03763413" w="-0.3828938" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RoadChunk05:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk05.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk05">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-87.61401" y="-28.1541" z="-5.971802" />
+              <Scale type="Vector3D" x="1" y="1" z="1" />
+              <Rotation type="Quaternion" x="-0.02837364" y="0.001422539" z="-0.06524435" w="-0.9974648" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="RoadChunk05:0" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk05.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk03">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-81.89166" y="-28.60236" z="-18.40472" />
+              <Scale type="Vector3D" x="1.9533" y="1.9533" z="1.9533" />
+              <Rotation type="Quaternion" x="0" y="0" z="-0.03996797" w="-0.9992009" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk03.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+        <Object name="RoadChunk04">
+          <Components>
+            <Transform>
+              <Position type="Vector3D" x="-82.24164" y="-28.53636" z="-10.02472" />
+              <Scale type="Vector3D" x="1.690953" y="1.690953" z="1.690953" />
+              <Rotation type="Quaternion" x="-0.009537895" y="0.3416398" z="0.003467341" w="-0.9397762" />
+            </Transform>
+          </Components>
+          <Children>
+            <Object name="Road">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+                <Mesh>
+                  <GroupID type="String" value="Road" />
+                  <Model type="String" value="Shooter/Models/Environment/Roads/Pieces/RoadChunk04.FBX" />
+                  <Material type="String" value="Shooter/Materials/Environment/Landscape/Roads/RoadWasteland.mat" />
+                </Mesh>
+              </Components>
+              <Children />
+            </Object>
+            <Object name="Collision">
+              <Components>
+                <Transform>
+                  <Position type="Vector3D" x="0" y="0" z="0" />
+                  <Scale type="Vector3D" x="1" y="1" z="1" />
+                  <Rotation type="Quaternion" x="0" y="0" z="0" w="-1" />
+                </Transform>
+              </Components>
+              <Children />
+            </Object>
+          </Children>
+        </Object>
+      </Children>
+    </Object>
     <Object name="Buildings">
       <Components>
         <Transform>
