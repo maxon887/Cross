@@ -315,6 +315,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
+    <ClCompile Include="..\..\Sources\Shooter\Shooter.cpp" />
     <ClCompile Include="..\..\Sources\Tests\ArrayTest.cpp" />
     <ClCompile Include="..\..\Sources\Tests\AutoTests.cpp" />
     <ClCompile Include="..\..\Sources\Tests\StringTest.cpp" />
@@ -422,6 +423,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
+    <ClInclude Include="..\..\Sources\Shooter\Shooter.h" />
     <ClInclude Include="..\..\Sources\Tests\ArrayTest.h" />
     <ClInclude Include="..\..\Sources\Tests\AutoTests.h" />
     <ClInclude Include="..\..\Sources\Tests\StringTest.h" />

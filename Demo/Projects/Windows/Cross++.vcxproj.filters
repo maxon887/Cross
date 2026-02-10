@@ -70,6 +70,9 @@
     <Filter Include="Cross\Base">
       <UniqueIdentifier>{9e89bb99-8372-40d8-9754-ab50c04cbc8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\Shooter">
+      <UniqueIdentifier>{ba47450a-a148-4f4e-bc22-9475b24fef05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Sources\Demo.cpp">
@@ -356,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Sources\Tests\AutoTests.cpp">
       <Filter>Demo\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Shooter\Shooter.cpp">
+      <Filter>Demo\Shooter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -674,6 +680,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Tests\AutoTests.h">
       <Filter>Demo\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Shooter\Shooter.h">
+      <Filter>Demo\Shooter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
