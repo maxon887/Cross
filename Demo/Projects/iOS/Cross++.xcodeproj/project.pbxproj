@@ -30,6 +30,7 @@
 		50424D592C57BDC300CE0055 /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */; };
 		50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */; };
 		505A2AB62F099EE100C3764A /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505A2AB42F099EE100C3764A /* String.cpp */; };
+		5088C2C82F3B36120081447E /* Shooter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5088C2C62F3B36120081447E /* Shooter.cpp */; };
 		5098D4592DB4EC30000E9958 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4542DB4EC30000E9958 /* StringTest.cpp */; };
 		5098D45A2DB4EC30000E9958 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4522DB4EC30000E9958 /* ArrayTest.cpp */; };
 		5098D45B2DB4EC30000E9958 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4562DB4EC30000E9958 /* Tester.cpp */; };
@@ -165,6 +166,8 @@
 		505A2AB22F099EE100C3764A /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
 		505A2AB32F099EE100C3764A /* String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
 		505A2AB42F099EE100C3764A /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
+		5088C2C52F3B36120081447E /* Shooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shooter.h; sourceTree = "<group>"; };
+		5088C2C62F3B36120081447E /* Shooter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shooter.cpp; sourceTree = "<group>"; };
 		5098D4512DB4EC30000E9958 /* ArrayTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
 		5098D4522DB4EC30000E9958 /* ArrayTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
 		5098D4532DB4EC30000E9958 /* StringTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
@@ -516,6 +519,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		5088C2C72F3B36120081447E /* Shooter */ = {
+			isa = PBXGroup;
+			children = (
+				5088C2C52F3B36120081447E /* Shooter.h */,
+				5088C2C62F3B36120081447E /* Shooter.cpp */,
+			);
+			path = Shooter;
+			sourceTree = "<group>";
+		};
 		5098D4582DB4EC30000E9958 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,6 +632,7 @@
 		9D54BB311FBC4316009E8469 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5088C2C72F3B36120081447E /* Shooter */,
 				5098D4582DB4EC30000E9958 /* Tests */,
 				9D40A86A2099E8F000F6902F /* UI */,
 				50424D192C57BC6800CE0055 /* ThirdParty */,
@@ -1158,6 +1171,7 @@
 				9D33C15B20D02B9F007EF97F /* RoughnessScene.cpp in Sources */,
 				9D5884DC20236236002820F2 /* Audio.cpp in Sources */,
 				50424D2B2C57BC9D00CE0055 /* imgui.cpp in Sources */,
+				5088C2C82F3B36120081447E /* Shooter.cpp in Sources */,
 				50424D282C57BC9D00CE0055 /* imgui_widgets.cpp in Sources */,
 				50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */,
 				9DBEB34E20C5770100D3E8C6 /* Property.cpp in Sources */,
