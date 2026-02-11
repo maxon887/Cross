@@ -16,7 +16,7 @@ Component* Component::Clone() const {
 }
 
 bool Component::Load(tinyxml2::XMLElement* parent) {
-	active = parent->BoolAttribute("Active", true);
+	enabled = parent->BoolAttribute("Enabled", true);
 	bool success = true;
 	for(BaseProperty* prop : properties) {
 		bool propertyLoaded = prop->Load(parent);
@@ -30,7 +30,7 @@ bool Component::Load(tinyxml2::XMLElement* parent) {
 
 bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	XMLElement* componentXML = doc->NewElement(name);
-	componentXML->SetAttribute("Active", active);
+	componentXML->SetAttribute("Enabled", enabled);
 	for(BaseProperty* prop : properties) {
 		CROSS_RETURN(prop->Save(componentXML, doc), false, "Can not save component '#'", GetName());
 	}
@@ -38,28 +38,38 @@ bool Component::Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc) {
 	return true;
 }
 
-bool Component::IsActive() const {
-	return active;
+bool Component::IsEnabled() const {
+	return enabled;
 }
 
 void Component::Enable() {
+	enabled = true;
+	SetActive();
+}
+
+void Component::Disable() {
+	enabled = false;
+	Deactivate();
+}
+
+void Component::SetActive() {
+	if(!enabled) {
+		return;
+	}
 	CROSS_FAIL(entity && entity->IsOnScene(), "Trying to Enable Component without parent on Scene");
 	if(!initialized) {
 		initialized = Initialize();
 		if(!initialized) {
-			active = false;
+			enabled = false;
 			CROSS_FAIL(false, "Can not Initialize Component '#'", GetName());
 		}
 	}
-	active = Activate();
-	CROSS_ASSERT(active, "Can not Activate Component '#'", GetName())
+	enabled = Activate();
+	CROSS_ASSERT(enabled, "Can not Activate Component '#'", GetName())
 }
 
-void Component::Disable() {
-	if(active) {
-		Deactivate();
-		active = false;
-	}
+void Component::SetInactive() {
+	Deactivate();
 }
 
 String Component::GetName() const {

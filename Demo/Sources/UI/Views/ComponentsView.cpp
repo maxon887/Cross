@@ -28,7 +28,7 @@ void ComponentsView::Update(float sec) {
 			const bool open = ImGui::CollapsingHeader(component->GetName(), ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_DefaultOpen);
 			ImGui::SameLine(ImGui::GetWindowWidth() - SCALED(25.f));
 			String checkboxHashName = "##EnableCheckbox" + component->GetName();
-			bool enabled = component->IsActive();
+			bool enabled = component->IsEnabled();
 			if(ImGui::Checkbox(checkboxHashName.ToCStr(), &enabled)) {
 				if(enabled) {
 					component->Enable();

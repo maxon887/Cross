@@ -32,12 +32,13 @@ public:
 	/* Save Component into XML document. Must be implemented to support Component save to Scene file */
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
-	/* Returns true if Component is active. See Component::Activate() */
-	bool IsActive() const;
+	/* Returns true if Component enabled */
+	bool IsEnabled() const;
 	/* Enables Component behavior */
 	void Enable();
 	/* Disables Component behaviour */
 	void Disable();
+
 	/* Returns Component's name */
 	String GetName() const;
 	/* Returns Entity that owns this Component */
@@ -50,18 +51,19 @@ public:
 	Vector3D GetPosition() const;
 	/* Set position into Entity's Transform Component */
 	void SetPosition(const Vector3D& pos);
-	
-protected:
-	friend Entity;
-	friend BaseProperty;
 
+engineonly:
 	Entity* entity		= nullptr;
-	bool initialized	= false;
-	bool active			= true;
 	Array<BaseProperty*> properties;
 
+	void SetActive();
+	void SetInactive();
+
 private:
+	bool initialized	= false;
+	bool enabled		= true;
 	String name = "noname";
+
 };
 
 }

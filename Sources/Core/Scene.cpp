@@ -25,8 +25,8 @@ Scene::~Scene() {
 
 void Scene::Start() {
 	Screen::Start();
-	root->SetOnScene(true);
 	os->WindowResized.Connect(this, &Scene::OnWindowResize);
+	root->AddedOnScene();
 }
 
 void Scene::Update(float sec) {
@@ -35,6 +35,7 @@ void Scene::Update(float sec) {
 }
 
 void Scene::Stop() {
+	root->RemovedFromScene();
 	os->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	for(pair<U64, Texture*> pair : textures) {
 		delete pair.second;

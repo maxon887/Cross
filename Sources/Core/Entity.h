@@ -61,7 +61,8 @@ public:
 	Vector3D GetDirection();
 
 engineonly:
-	void SetOnScene(bool onScene);
+	void AddedOnScene();
+	void RemovedFromScene();
 	void Update(float sec);
 	List<Entity*> children					= List<Entity*>();
 

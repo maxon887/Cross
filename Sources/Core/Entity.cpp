@@ -11,7 +11,6 @@ Entity::Entity(String name) :
 
 Entity::~Entity() {
 	for(auto const& [id, component] : components) {
-		component->Disable();
 		delete component;
 	}
 	for(const Entity* c : children) {
@@ -83,7 +82,9 @@ List<Entity*>& Entity::GetChildren() {
 void Entity::AddChild(Entity* child) {
 	child->SetParent(this);
 	children.push_back(child);
-	child->SetOnScene(this->on_scene);
+	if(on_scene) {
+		child->AddedOnScene();
+	}
 }
 
 void Entity::RemoveChildren() {
@@ -119,7 +120,7 @@ Entity* Entity::RemoveChild(const String& childName) {
 		if(c->GetName() == childName) {
 			c->SetParent(nullptr);
 			children.erase(it);
-			c->SetOnScene(false);
+			c->RemovedFromScene();
 			return c;
 		}
 	}
@@ -133,7 +134,7 @@ Entity* Entity::RemoveChild(Entity* child) {
 		if(c == child) {
 			c->SetParent(nullptr);
 			children.erase(it);
-			c->SetOnScene(false);
+			c->RemovedFromScene();
 			return c;
 		}
 	}
@@ -165,25 +166,35 @@ Vector3D Entity::GetDirection() {
 	return GetTransform()->GetDirection();
 }
 
-void Entity::SetOnScene(bool onScene) {
-	if(on_scene != onScene) {
-		on_scene = onScene;
-		for(const auto& [ID, component] : components) {
-			if(onScene && component->IsActive()) {
-				component->Enable();
-			} else {
-				component->Disable();
-			}
-		}
+void Entity::AddedOnScene() {
+	CROSS_ASSERT(!on_scene, "Entity # already on Scene", GetName());
+	on_scene = true;
+
+	for(const auto& [ID, component] : components) {
+		component->SetActive();
 	}
+
 	for(Entity* c : children) {
-		c->SetOnScene(onScene);
+		c->AddedOnScene();
+	}
+}
+
+void Entity::RemovedFromScene() {
+	CROSS_ASSERT(on_scene, "Entity # not on Scene", GetName());
+	on_scene = false;
+
+	for(const auto& [ID, component] : components) {
+		component->SetInactive();
+	}
+
+	for(Entity* c : children) {
+		c->RemovedFromScene();
 	}
 }
 
 void Entity::Update(float sec) {
 	for(const auto& [ID, component] : components) {
-		if(component->IsActive()) {
+		if(component->IsEnabled()) {
 			component->Update(sec);
 		}
 	}
