@@ -105,7 +105,7 @@ void FilesView::BuildNote(Node& node) {
 					editing = false;
 				}
 			} else {
-				if(current_path == child.path && !ImGui::IsMouseDoubleClicked(0)) {
+				if(current_path == child.path && !ImGui::IsMouseDoubleClicked(0) && !ImGui::IsItemToggledOpen()) {
 					editing = true;
 				}
 			}
