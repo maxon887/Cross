@@ -99,9 +99,15 @@ void FilesView::BuildNote(Node& node) {
 			open = ImGui::TreeNodeEx(child.name, flags);
 		}
 
-		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			if(editing && current_path != child.path) {
-				editing = false;
+		if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered()) {
+			if(editing) {
+				if(current_path != child.path) {
+					editing = false;
+				}
+			} else {
+				if(current_path == child.path && !ImGui::IsMouseDoubleClicked(0)) {
+					editing = true;
+				}
 			}
 			current_path = child.path;
 		}
@@ -129,9 +135,16 @@ void FilesView::BuildNote(Node& node) {
 			ImGui::TextUnformatted(fileName);
 			ImGui::EndDragDropSource();
 		}
-		if((ImGui::IsMouseReleased(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			if(editing && current_path != filePath) {
-				editing = false;
+
+		if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered()) {
+			if(editing) {
+				if(current_path != filePath) {
+					editing = false;
+				}
+			} else {
+				if(current_path == filePath && !ImGui::IsMouseDoubleClicked(0)) {
+					editing = true;
+				}
 			}
 			clicked = true;
 			current_path = filePath;
