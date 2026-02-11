@@ -20,6 +20,7 @@ bool Camera::Activate() {
 }
 
 void Camera::Deactivate() {
+	view_distance.ValueChanged.Disconnect(this, &Camera::UpdateProjectionMatrix);
 	Scene* scene = game->GetCurrentScene();
 	if(scene->GetCamera() == this) {
 		scene->SetCamera(nullptr);

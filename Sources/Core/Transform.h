@@ -11,7 +11,8 @@ public:
 	Transform();
 	Transform(const Vector3D& position);
 
-	bool Initialize() override;
+	bool Activate() override;
+	void Deactivate() override;
 	/* Full by per element object copy operation */
 	Component* Clone() const override;
 

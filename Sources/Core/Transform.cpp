@@ -10,11 +10,17 @@ Transform::Transform(const Vector3D& position) : Component("Transform") {
 	SetPosition(position);
 }
 
-bool Transform::Initialize() {
+bool Transform::Activate() {
 	position.ValueChanged.Connect(this, &Transform::ValueChanged);
 	rotation.ValueChanged.Connect(this, &Transform::ValueChanged);
 	scale.ValueChanged.Connect(this, &Transform::ValueChanged);
 	return true;
+}
+
+void Transform::Deactivate() {
+	position.ValueChanged.Disconnect(this, &Transform::ValueChanged);
+	rotation.ValueChanged.Disconnect(this, &Transform::ValueChanged);
+	scale.ValueChanged.Disconnect(this, &Transform::ValueChanged);
 }
 
 Component* Transform::Clone() const {
