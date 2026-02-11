@@ -19,6 +19,7 @@ public:
 
 private:
 	Shader* shader = nullptr;
+	FilesView* files_view = nullptr;
 	String shader_filename;
 	Array<String> type_names;
 

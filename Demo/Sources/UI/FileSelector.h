@@ -13,6 +13,7 @@ public:
 	Event<const String&> FileSelected;
 	
 	FileSelector(FilesView* filesView, const String& label, const String& fileExtension);
+	~FileSelector();
 	
 	bool Update();
 	

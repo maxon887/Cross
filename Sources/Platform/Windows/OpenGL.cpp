@@ -99,6 +99,9 @@ int OpenGL_Main() {
 	}
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
+
+	input->KeyReleased.Disconnect(winSys, &WINSystem::KeyReleasedHandle);
+
 	delete gfxGL;
 	delete game;
 	delete audio;

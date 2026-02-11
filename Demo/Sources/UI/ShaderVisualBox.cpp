@@ -11,6 +11,7 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 ShaderVisualBox::ShaderVisualBox(FilesView* filesView) {
+	files_view = filesView;
 	filesView->FileSelected.Connect(this, &ShaderVisualBox::OnFileSelected);
 	vertex_file_selector = CREATE FileSelector(filesView, "Vertex File", "vert");
 	fragment_file_selector = CREATE FileSelector(filesView, "Fragment File", "frag");
@@ -21,6 +22,7 @@ ShaderVisualBox::ShaderVisualBox(FilesView* filesView) {
 }
 
 ShaderVisualBox::~ShaderVisualBox() {
+	files_view->FileSelected.Disconnect(this, &ShaderVisualBox::OnFileSelected);
 	delete shader;
 	delete vertex_file_selector;
 	delete fragment_file_selector;

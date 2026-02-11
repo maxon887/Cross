@@ -13,6 +13,11 @@ Input::Input() {
 	KeyReleased.Connect(this, &Input::KeyReleasedHandle);
 }
 
+Input::~Input() {
+	KeyPressed.Disconnect(this, &Input::KeyPressedHandle);
+	KeyReleased.Disconnect(this, &Input::KeyReleasedHandle);
+}
+
 void Input::TargetActionDownHandle(float x, float y, S32 actionID) {
 	Action action;
 	action.pos = Vector2D(x, y);

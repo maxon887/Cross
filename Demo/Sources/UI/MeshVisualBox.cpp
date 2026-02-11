@@ -13,6 +13,7 @@ MeshVisualBox::MeshVisualBox(FilesView* filesView) {
 }
 
 MeshVisualBox::~MeshVisualBox() {
+	material_file->FileSelected.Disconnect(this, &MeshVisualBox::MaterialSelected);
 	delete material_file;	
 }
 

@@ -8,6 +8,10 @@ PropertiesView::PropertiesView(FilesView* fv) :
 	game->ScreenChanged.Connect(&materialVB, &MaterialVisualBox::OnScreenChanged);
 }
 
+PropertiesView::~PropertiesView() {
+	game->ScreenChanged.Disconnect(&materialVB, &MaterialVisualBox::OnScreenChanged);
+}
+
 void PropertiesView::Update(float sec) {
 	shaderVB.Update();
 	materialVB.Update();

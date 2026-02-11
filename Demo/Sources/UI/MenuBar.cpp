@@ -23,11 +23,11 @@ MenuBar::MenuBar() {
 	SceneView* sceneView = CREATE SceneView();
 	ComponentsView* componentsView = CREATE ComponentsView(sceneView, files_view);
 	PropertiesView* propertiesView = CREATE PropertiesView(files_view);
-	views.Add(files_view);
-	views.Add(sceneView);
 	views.Add(componentsView);
 	views.Add(propertiesView);
 	views.Add(cameraController);
+	views.Add(sceneView);
+	views.Add(files_view);
 	for(View* v : views) {
 		if(v->IsVisible()) {
 			v->Shown();
@@ -42,6 +42,7 @@ MenuBar::MenuBar() {
 }
 
 MenuBar::~MenuBar() {
+	input->KeyPressed.Disconnect(this, &MenuBar::KeyPressed);
 	for(View* v : views) {
 		delete v;
 	}

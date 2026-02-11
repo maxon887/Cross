@@ -316,6 +316,14 @@ void Demo::Start() {
 
 void Demo::Stop() {
 	os->LogIt("Demo::Stop()");
+	input->ActionDown.Disconnect(this, &Demo::ActionDownHandle);
+	input->ActionMove.Disconnect(this, &Demo::ActionMoveHandle);
+	input->ActionUp.Disconnect(this, &Demo::ActionUpHandle);
+	input->KeyPressed.Disconnect(this, &Demo::KeyPressed);
+	input->KeyReleased.Disconnect(this, &Demo::KeyReleased);
+	input->CharEnter.Disconnect(this, &Demo::CharEnter);
+	input->Scroll.Disconnect(this, &Demo::WheelRoll);
+
 	delete launch_view;
 	delete menu;
 	delete auto_tests;

@@ -17,6 +17,10 @@ FileSelector::FileSelector(FilesView* filesView, const String &label, const Stri
 	RefreshAllAvailableFiles();
 }
 
+FileSelector::~FileSelector() {
+	files_view->FileTreeChanged.Disconnect(this, &FileSelector::RefreshAllAvailableFiles);
+}
+
 bool FileSelector::Update() {
 	bool fileSelected = false;
 	float availableWidth = ImGui::GetWindowWidth();

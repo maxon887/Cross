@@ -155,6 +155,7 @@ public:
 
 engineonly:
 	Input();
+	~Input();
 
 	void TargetActionDownHandle(float x, float y, S32 actionID);
 	void TargetActionMoveHandle(float x, float y, S32 actionID);

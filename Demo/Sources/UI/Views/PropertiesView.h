@@ -9,6 +9,7 @@ class FilesView;
 class PropertiesView : public View {
 public:
 	PropertiesView(FilesView* fv);
+	~PropertiesView() override;
 
 	void Update(float sec) override;
 

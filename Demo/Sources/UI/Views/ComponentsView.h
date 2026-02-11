@@ -8,6 +8,7 @@ class SceneView;
 class ComponentsView : public View {
 public:
 	ComponentsView(SceneView* sceneView, FilesView* filesView);
+	~ComponentsView() override;
 
 	void Update(float sec) override;
 

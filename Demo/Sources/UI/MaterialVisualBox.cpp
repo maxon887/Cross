@@ -14,12 +14,14 @@ using namespace std;
 
 MaterialVisualBox::MaterialVisualBox(FilesView* filesView) {
 	this->files_view = filesView;
-	filesView->FileSelected.Connect(this, &MaterialVisualBox::OnFileSelected);
+	files_view->FileSelected.Connect(this, &MaterialVisualBox::OnFileSelected);
 	shader_selector = CREATE FileSelector(filesView, "Shader", "sha");
 	shader_selector->FileSelected.Connect(this, &MaterialVisualBox::OnShaderSelected);
 }
 
 MaterialVisualBox::~MaterialVisualBox() {
+	shader_selector->FileSelected.Disconnect(this, &MaterialVisualBox::OnShaderSelected);
+	files_view->FileSelected.Disconnect(this, &MaterialVisualBox::OnFileSelected);
 	delete shader_selector;
 	DeleteMaterialIfNeeded();
 	for(pair<String, FileSelector*> textureSelector : texture_selectors) {

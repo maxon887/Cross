@@ -15,6 +15,10 @@ ComponentsView::ComponentsView(SceneView* sceneView, FilesView* filesView) :
 	scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
 }
 
+ComponentsView::~ComponentsView() {
+	scene_view->EntitySelected.Disconnect(&mesh_box, &MeshVisualBox::EntitySelected);
+}
+
 void ComponentsView::Update(float sec) {
 	Entity* entity = scene_view->GetSelectedEntity();
 	if(entity) {
