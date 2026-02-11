@@ -100,6 +100,9 @@ void FilesView::BuildNote(Node& node) {
 		}
 
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
+			if(editing && current_path != child.path) {
+				editing = false;
+			}
 			current_path = child.path;
 		}
 
@@ -112,26 +115,26 @@ void FilesView::BuildNote(Node& node) {
 		}
 	}
 	//files
-	for(const pair<String, String>& file : node.files) {
-		if(editing && current_path == file.second) {
+	for(const auto& [fileName, filePath] : node.files) {
+		if(editing && current_path == filePath) {
 			Editing();
 		} else {
-			ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
-			ImGui::TreeNodeEx(file.first, flags);
-		}
-
-		if(ImGui::IsMouseClicked(0) && ImGui::IsItemHovered()) {
-			clicked = true;
+			ImGuiTreeNodeFlags flags = filePath == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
+			ImGui::TreeNodeEx(fileName, flags);
 		}
 
 		if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-			const String* filename = &file.second;
+			const String* filename = &filePath;
 			ImGui::SetDragDropPayload("FilesViewDRAG", &filename, sizeof(String*));
-			ImGui::TextUnformatted(file.first);
+			ImGui::TextUnformatted(fileName);
 			ImGui::EndDragDropSource();
 		}
 		if((ImGui::IsMouseReleased(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
-			current_path = file.second;
+			if(editing && current_path != filePath) {
+				editing = false;
+			}
+			clicked = true;
+			current_path = filePath;
 			String filepath = current_path;
 			FileSelected.Emit(filepath);
 		}
