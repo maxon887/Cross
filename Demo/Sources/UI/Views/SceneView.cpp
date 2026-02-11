@@ -12,8 +12,14 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 SceneView::SceneView() : View("Scene", true)
-{
+{ }
+
+void SceneView::Shown() {
 	game->ScreenChanged.Connect(this, &SceneView::OnSceneChanged);
+}
+
+void SceneView::Hidden() {
+	game->ScreenChanged.Disconnect(this, &SceneView::OnSceneChanged);
 }
 
 void SceneView::PreUpdate() {

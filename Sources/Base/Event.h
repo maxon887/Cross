@@ -11,6 +11,8 @@ namespace cross{
 template<class... Args>
 class Event {
 public:
+
+	~Event();
 	/* Notifies all subscribers than something of interest has happened by calling their functions provided in Connect() function */
 	void Emit(Args... args);
 
@@ -29,6 +31,11 @@ private:
 	template<class Clazz> U64 Hash(Clazz* obj, void(Clazz::*func)(Args...));
 	void Connect(U64 hash, const Function<void(Args...)>& func);
 };
+
+template<class... Args>
+Event<Args...>::~Event() {
+	assert(connections.empty());
+}
 
 //implementation
 template<class... Args>

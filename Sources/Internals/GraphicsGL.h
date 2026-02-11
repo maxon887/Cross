@@ -39,6 +39,7 @@ public:
 	static void ClearGLErrorBuffer();
 	
 	GraphicsGL();
+	~GraphicsGL();
 
 	const String& GetShaderVersion() const;
 

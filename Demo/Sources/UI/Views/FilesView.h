@@ -11,6 +11,7 @@ public:
 	FilesView();
 
 	void Shown() override;
+	void Hidden() override;
 	void Update(float sec) override;
 
 	bool AvailableInMenu() override;

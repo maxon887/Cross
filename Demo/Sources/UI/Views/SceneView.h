@@ -11,6 +11,8 @@ public:
 
 	SceneView();
 
+	void Shown() override;
+	void Hidden() override;
 	void PreUpdate() override;
 	void Update(float sec) override;
 	void PostUpdate() override;

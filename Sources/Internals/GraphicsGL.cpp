@@ -93,6 +93,10 @@ GraphicsGL::GraphicsGL() {
 	SAFE(glCullFace(GL_FRONT));
 }
 
+GraphicsGL::~GraphicsGL() {
+	os->WindowResized.Disconnect(this, &GraphicsGL::WindowResizeHandle);
+}
+
 const String& GraphicsGL::GetShaderVersion() const {
 	return shader_version;
 }

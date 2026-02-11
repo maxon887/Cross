@@ -42,6 +42,11 @@ MenuBar::MenuBar() {
 }
 
 MenuBar::~MenuBar() {
+	for(View* v : views) {
+		if(v->IsVisible()) {
+			v->Hidden();
+		}
+	}
 	input->KeyPressed.Disconnect(this, &MenuBar::KeyPressed);
 	for(View* v : views) {
 		delete v;

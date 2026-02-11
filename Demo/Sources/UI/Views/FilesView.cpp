@@ -29,6 +29,11 @@ void FilesView::Shown() {
 	game->Resumed.Connect(this, &FilesView::OnResume);
 }
 
+void FilesView::Hidden() {
+	game->Resumed.Disconnect(this, &FilesView::OnResume);
+	game->ScreenChanged.Disconnect(this, &FilesView::OnScreenChanged);
+}
+
 void FilesView::Update(float sec) {
 	if(should_refresh) {
 		Refresh();
