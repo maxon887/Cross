@@ -30,9 +30,9 @@ bool Model::Load(const String& filename, bool calcTangents) {
 	return Load(filename, calcTangents, true);
 }
 
-bool Model::Load(const String& filename, bool calcTangents, bool initializeVideoData) {
+bool Model::Load(const String& inFilename, bool calcTangents, bool initializeVideoData) {
 	Debugger::Instance()->SetTimeCheck();
-
+	filename = inFilename;
 	initialize_video = initializeVideoData;
 	Entity* root = CREATE Entity("ModelRoot");
 	hierarchy = root;
@@ -42,7 +42,7 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	//os->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+	os->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
 
 	return result;
 }
@@ -57,6 +57,10 @@ Mesh* Model::GetMesh(const String& id) {
 	} else {
 		return nullptr;
 	}
+}
+
+const String& Model::GetName() const {
+	return filename;
 }
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents, const String& filename) {

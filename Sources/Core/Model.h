@@ -1,5 +1,6 @@
 #pragma once
 #include "Cross.h"
+#include "Base/String.h"
 #include "Base/Map.h"
 
 struct aiMesh;
@@ -31,12 +32,15 @@ public:
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
 	Mesh* GetMesh(const String& id);
+	/* Returns model filename */
+	const String& GetName() const;
 
 private:
 	Map<String, Mesh*> meshes;
 	Entity* hierarchy;
+	String filename;
 
-	const aiScene* current_scene	= nullptr;
+	const aiScene* current_scene = nullptr;
 	bool initialize_video = true;
 
 	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents, const String& filename);

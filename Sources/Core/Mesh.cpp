@@ -39,7 +39,7 @@ bool Mesh::Initialize() {
 	Model* model = scene->GetModel(model_filename);
 	CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
 	Mesh* originalMesh = model->GetMesh(group_id);
-	CROSS_RETURN(originalMesh, false, "Can not Initialize Mesh. Model doesn't contain needed GroupID '#'", group_id);
+	CROSS_RETURN(originalMesh, false, "Can not Initialize Mesh. Model: '#' doesn't contain needed GroupID: '#'", model->GetName(), group_id);
 
 	VBO = originalMesh->VBO;
 	EBO = originalMesh->EBO;
