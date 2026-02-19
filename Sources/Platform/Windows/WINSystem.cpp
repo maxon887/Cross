@@ -75,7 +75,7 @@ String WINSystem::GetClipboard() {
 }
 
 void WINSystem::SetClipboard(const String& data) {
-	HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, data.Length());
+	HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, data.Length() + 1);
 	memcpy(GlobalLock(hMem), data.ToCStr(), data.Length());
 	GlobalUnlock(hMem);
 	CROSS_FAIL(OpenClipboard(nullptr), "Can not open clipboard data");
