@@ -21,6 +21,8 @@ public:
 	void AskToShowFile(const String& filename);
 
 private:
+	const float double_click_editing_timeout = 2.f;
+
 	struct Node {
 		String name = "";
 		String path = "";
@@ -36,6 +38,7 @@ private:
 
 	bool editing = false;
 	bool clicked = false;
+	float click_time = 0.f;
 	bool should_refresh = false;
 
 	void InitNode(Node& node);

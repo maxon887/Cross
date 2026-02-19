@@ -110,10 +110,17 @@ void FilesView::BuildNote(Node& node) {
 					editing = false;
 				}
 			} else {
-				if(current_path == child.path && !ImGui::IsMouseDoubleClicked(0) && !ImGui::IsItemToggledOpen()) {
+				float timeFromLastClick = game->GetRunTime() - click_time;
+				if(current_path == child.path &&
+				!ImGui::IsMouseDoubleClicked(0) &&
+				!ImGui::IsItemToggledOpen() &&
+				timeFromLastClick <= double_click_editing_timeout) {
 					editing = true;
 				}
 			}
+
+			clicked = true;
+			click_time = game->GetRunTime();
 			current_path = child.path;
 		}
 
@@ -147,14 +154,16 @@ void FilesView::BuildNote(Node& node) {
 					editing = false;
 				}
 			} else {
-				if(current_path == filePath && !ImGui::IsMouseDoubleClicked(0)) {
+				float timeFromLastClick = game->GetRunTime() - click_time;
+				if(current_path == filePath && !ImGui::IsMouseDoubleClicked(0) && timeFromLastClick <= double_click_editing_timeout) {
 					editing = true;
 				}
 			}
+
 			clicked = true;
+			click_time = game->GetRunTime();
 			current_path = filePath;
-			String filepath = current_path;
-			FileSelected.Emit(filepath);
+			FileSelected.Emit(current_path);
 		}
 		if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
 			String filepath = current_path;
