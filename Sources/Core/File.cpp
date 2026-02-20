@@ -16,11 +16,13 @@ String File::PathFromFile(const String& filename) {
 
 String File::FileFromPath(const String& filename) {
 	S32 lastSlash = filename.FindLast('/');
-	if(lastSlash != -1) {
-		return filename.SubString(lastSlash + 1, filename.Length());
-	} else {
+	if(lastSlash == -1) {
+		lastSlash = filename.FindLast('\\');
+	}
+	if(lastSlash == -1) {
 		return filename;
 	}
+	return filename.SubString(lastSlash + 1, filename.Length());
 }
 
 String File::ExtensionFromFile(const String& filename) {

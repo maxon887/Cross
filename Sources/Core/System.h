@@ -1,5 +1,6 @@
 #pragma once
 #include "Cross.h"
+#include "File.h"
 #include "Base/Array.h"
 #include "Base/Event.h"
 #include "Base/String.h"
@@ -150,17 +151,19 @@ void System::Alert(const String& message, const char* filename, U32 line, Args..
 	U64 hash = message.Hash();
 	auto found = asserts_hashes.find(hash);
 	if(found == asserts_hashes.end()) {
-		String formatted = String::Format(message, args...);
-		formatted += "\n";
-		formatted += "File: ";
-		formatted += filename;
-		formatted += "\n";
-		formatted += "Line: ";
-		formatted += line;
+		String formatted = File::FileWithoutExtension(File::FileFromPath(filename));
+		formatted = "\t===" + formatted + "===\n";
+		formatted += String::Format(message, args...);
 
 		String logged = "==========ASSERT!==========";
 		logged += "\n";
 		logged += formatted;
+		logged += "\n";
+		logged += "File: ";
+		logged += filename;
+		logged += "\n";
+		logged += "Line: ";
+		logged += line;
 		logged += "\n";
 		logged += "===========================";
 		Log(logged);

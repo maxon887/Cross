@@ -37,7 +37,7 @@ bool Mesh::Initialize() {
 	
 	Scene* scene = game->GetCurrentScene();
 	Model* model = scene->GetModel(model_filename);
-	CROSS_RETURN(model, false, "Can not Initialize Mesh. Model wasn't obtained");
+	CROSS_RETURN(model, false, "Can not Initialize Mesh '#'\nBecause Model wasn't obtained:\n#", group_id, model_filename);
 	Mesh* originalMesh = model->GetMesh(group_id);
 	CROSS_RETURN(originalMesh, false, "Can not Initialize Mesh. Model: '#' doesn't contain needed GroupID: '#'", model->GetName(), group_id);
 
@@ -52,7 +52,7 @@ bool Mesh::Initialize() {
 	if(!material) {
 		if(!material_filename.Get().IsEmpty()) {
 			Material* mat = scene->GetMaterial(material_filename);
-			CROSS_RETURN(mat, false, "Can not Initialize Mesh. Material wasn't obtained");
+			CROSS_RETURN(mat, false, "Can not Initialize Mesh '#'\nBecause material wasn't obtained:\n#", group_id, material_filename);
 			SetMaterial(mat);
 		} else {
 			SetMaterial(scene->GetDefaultMaterial());

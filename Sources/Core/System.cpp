@@ -18,7 +18,7 @@ void System::Log(const char *msg) {
 
 File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
-	CROSS_RETURN(f, nullptr, "Can not open file '#'\nerror code - #\nDescription - #",
+	CROSS_RETURN(f, nullptr, "Can not open file:\n'#'\nerror code - #\nDescription - #",
 					filename.ToCStr(), errno, strerror(errno));
 	File* file = CREATE File();
 	file->name = filename;

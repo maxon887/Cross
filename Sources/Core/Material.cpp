@@ -35,11 +35,11 @@ const String& Material::GetFilename() const {
 	return filename;
 }
 
-bool Material::Load(const String& filename, Scene* scene) {
-	this->filename = filename;
-
+bool Material::Load(const String& inFilename, Scene* scene) {
+	CROSS_RETURN(os->IsAssetFileExists(inFilename), false, "Material file doesn't exists:\n#", inFilename)
+	filename = inFilename;
 	File* xmlFile = os->LoadAssetFile(filename);
-	CROSS_RETURN(xmlFile, false, "Can't load material. File '#' not fount", File::FileFromPath(filename));
+	CROSS_RETURN(xmlFile, false, "Can't load material file:\n#", filename);
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	delete xmlFile;

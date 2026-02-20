@@ -31,6 +31,7 @@ bool Model::Load(const String& filename, bool calcTangents) {
 }
 
 bool Model::Load(const String& inFilename, bool calcTangents, bool initializeVideoData) {
+	CROSS_RETURN(os->IsAssetFileExists(inFilename), false, "Model file doesn't exists:\n:#", inFilename);
 	Debugger::Instance()->SetTimeCheck();
 	filename = inFilename;
 	initialize_video = initializeVideoData;
