@@ -37,7 +37,7 @@ bool Model::Load(const String& inFilename, bool calcTangents, bool initializeVid
 	Entity* root = CREATE Entity("ModelRoot");
 	hierarchy = root;
 	File* file = os->LoadAssetFile(filename);
-	CROSS_RETURN(file, false, "Can not load model file");
+	CROSS_RETURN(file, false, "Can not load model file: #", inFilename);
 	bool result = ProcessScene(root, file, calcTangents, filename);
 	delete file;
 
