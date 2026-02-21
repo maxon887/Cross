@@ -1,0 +1,3 @@
+<Material shader="Engine/Shaders/Texture.sha">
+    <Property name="Texture" value="Shooter/Textures/Environment/Architecture/Generic/CrackDecal03.png"/>
+</Material>
