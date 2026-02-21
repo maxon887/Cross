@@ -8,18 +8,18 @@
 
 #define CROSS_ASSERT(condition, message, ...)									\
 if(!(condition)) {																\
-	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
+	cross::os->Alert(message, __FUNCTION__, __LINE__, ##__VA_ARGS__);				\
 }
 
 #define CROSS_FAIL(condition, message, ...)										\
 if(!(condition)) {																\
-	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
+	cross::os->Alert(message, __FUNCTION__, __LINE__, ##__VA_ARGS__);				\
 	return;																		\
 }
 
 #define CROSS_RETURN(condition, value, message, ...)							\
 if(!(condition)) {																\
-	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);				\
+	cross::os->Alert(message, __FUNCTION__, __LINE__, ##__VA_ARGS__);				\
 	return value;																\
 }
 
@@ -107,7 +107,7 @@ public:
 	void LogIt(const String& format, Args... args);
 	/* Notifies user that something happened by system message. Usually something bad. Use it at last case */
 	template<class... Args>
-	void Alert(const String& message, const char* filename, U32 line, Args... args);
+	void Alert(const String& message, const char* function, U32 line, Args... args);
 	/* How much screen elements must be increased or decreased due to device DPI */
 	float GetScreenScale();
 	/* Returns window width in pixels */
@@ -147,23 +147,24 @@ void System::LogIt(const String& format, Args... args) {
 }
 
 template<class... Args>
-void System::Alert(const String& message, const char* filename, U32 line, Args... args) {
+void System::Alert(const String& message, const char* function, U32 line, Args... args) {
 	U64 hash = message.Hash();
 	auto found = asserts_hashes.find(hash);
 	if(found == asserts_hashes.end()) {
-		String formatted = File::FileWithoutExtension(File::FileFromPath(filename));
-		formatted = "\t===" + formatted + "===\n";
+		String formatted;
+		formatted += "\t[";
+		formatted += function;
+		formatted.Remove("cross::");
+		formatted += "]\n";
 		formatted += String::Format(message, args...);
+		formatted += "\n";
+		formatted += "Line: ";
+		formatted += line;
+		formatted += "\n";
 
 		String logged = "==========ASSERT!==========";
 		logged += "\n";
 		logged += formatted;
-		logged += "\n";
-		logged += "File: ";
-		logged += filename;
-		logged += "\n";
-		logged += "Line: ";
-		logged += line;
 		logged += "\n";
 		logged += "===========================";
 		Log(logged);
