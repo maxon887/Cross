@@ -52,7 +52,10 @@ bool Mesh::Initialize() {
 	if(!material) {
 		if(!material_filename.Get().IsEmpty()) {
 			Material* mat = scene->GetMaterial(material_filename);
-			CROSS_RETURN(mat, false, "Can not Initialize Mesh '#'\nBecause material wasn't obtained:\n#", group_id, material_filename);
+			CROSS_ASSERT(mat, "Material:\n#\nWasn't obtained for Mesh - '#'. Falling back to default Material", material_filename, group_id);
+			if(!mat) {
+				mat = scene->GetDefaultMaterial();
+			}
 			SetMaterial(mat);
 		} else {
 			SetMaterial(scene->GetDefaultMaterial());
