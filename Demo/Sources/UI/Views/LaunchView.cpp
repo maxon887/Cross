@@ -17,6 +17,7 @@
 #include "Scenes/Misc/DepthScene.h"
 #include "Scenes/Misc/TransparencyScene.h"
 #include "Scenes/Misc/SkyboxScene.h"
+#include "Scenes/Misc/BillboardScene.h"
 #include "Tests/StringTest.h"
 #include "Tests/ArrayTest.h"
 #include "Tests/AutoTests.h"
@@ -118,6 +119,9 @@ void LaunchView::Update(float sec) {
 			}
 			if(ImGui::MenuButton("Skybox")) {
 				game->SetScreen(CREATE SkyboxScene());
+			}
+			if(ImGui::MenuButton("Billboard")) {
+				game->SetScreen(CREATE BillboardScene());
 			}
 			ImGui::TreePop();
 		}

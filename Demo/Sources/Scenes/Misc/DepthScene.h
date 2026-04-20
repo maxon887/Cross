@@ -1,7 +1,7 @@
 #pragma once
 #include "Scenes/DemoScene.h"
 
-class DepthScene : public DemoScene{
+class DepthScene : public DemoScene {
 public:
 	void Start() override;
 	void Stop() override;
