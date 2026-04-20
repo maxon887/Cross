@@ -1,4 +1,5 @@
 #include "BillboardScene.h"
+#include "Game.h"
 #include "Shaders/Shader.h"
 #include "Material.h"
 #include "Entity.h"
@@ -33,4 +34,5 @@ void BillboardScene::Stop() {
 
 void BillboardScene::Update(float sec) {
 	DemoScene::Update(sec);
+	billboardMaterial->SetPropertyValue("RotationAngle", game->GetRunTime() * 160.0f);
 }

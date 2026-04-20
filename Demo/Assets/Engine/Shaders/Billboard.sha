@@ -3,5 +3,6 @@
     <Fragment filename="Engine/Shaders/Sources/Billboard.frag"/>
     <Uniforms>
         <Uniform name="Texture" glName="uTexture" type="Texture"/>
+        <Uniform name="RotationAngle" glName="uRotationAngle" type="Float"/>
     </Uniforms>
 </Shader>
