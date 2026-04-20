@@ -1,0 +1,7 @@
+<Shader>
+    <Vertex filename="Engine/Shaders/Sources/Billboard.vert"/>
+    <Fragment filename="Engine/Shaders/Sources/Billboard.frag"/>
+    <Uniforms>
+        <Uniform name="Texture" glName="uTexture" type="Texture"/>
+    </Uniforms>
+</Shader>

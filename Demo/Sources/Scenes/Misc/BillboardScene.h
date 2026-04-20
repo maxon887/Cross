@@ -9,5 +9,6 @@ public:
 	void Update(float sec) override;
 
 private:
-	Material* material = nullptr;
+	Material* cubeMaterial = nullptr;
+	Material* billboardMaterial = nullptr;
 };
