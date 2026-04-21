@@ -5,6 +5,8 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Camera.h"
+#include "Math/Matrix.h"
 
 void BillboardScene::Start() {
 	DemoScene::Start();
@@ -15,15 +17,16 @@ void BillboardScene::Start() {
 
 	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(cubeMaterial);
+	cube->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 2.0f, 0.0));
 	AddEntity(cube);
 
 	Shader* billboardShader = GetShader("Engine/Shaders/Billboard.sha");
 	billboardMaterial = CREATE Material(billboardShader);
 	billboardMaterial->SetPropertyValue("Texture", GetTexture("Textures/ContainerDiffuse.png"));
-	Entity* plane = LoadPrimitive(Model::Primitive::PLANE);
-	plane->GetComponent<Mesh>()->SetMaterial(billboardMaterial);
-	plane->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 2.0f, 0.0));
-	AddEntity(plane);
+	billboard = GetModel("Engine/Models/Billboard.obj")->GetHierarchy();
+	billboard->GetComponent<Mesh>()->SetMaterial(billboardMaterial);
+	//billboard->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 2.0f, 0.0));
+	AddEntity(billboard);
 }
 
 void BillboardScene::Stop() {
@@ -34,5 +37,6 @@ void BillboardScene::Stop() {
 
 void BillboardScene::Update(float sec) {
 	DemoScene::Update(sec);
-	billboardMaterial->SetPropertyValue("RotationAngle", game->GetRunTime() * 160.0f);
+	billboardMaterial->SetPropertyValue("CameraPosition", camera->GetPosition());
+	//billboardMaterial->SetPropertyValue("CameraPosition", camera->GetPosition());
 }

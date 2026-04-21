@@ -11,4 +11,5 @@ public:
 private:
 	Material* cubeMaterial = nullptr;
 	Material* billboardMaterial = nullptr;
+	Entity* billboard = nullptr;
 };
