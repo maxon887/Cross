@@ -25,7 +25,6 @@ void BillboardScene::Start() {
 	billboardMaterial->SetPropertyValue("Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	billboard = GetModel("Engine/Models/Billboard.obj")->GetHierarchy();
 	billboard->GetComponent<Mesh>()->SetMaterial(billboardMaterial);
-	//billboard->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 2.0f, 0.0));
 	AddEntity(billboard);
 }
 
@@ -37,6 +36,4 @@ void BillboardScene::Stop() {
 
 void BillboardScene::Update(float sec) {
 	DemoScene::Update(sec);
-	billboardMaterial->SetPropertyValue("CameraPosition", camera->GetPosition());
-	//billboardMaterial->SetPropertyValue("CameraPosition", camera->GetPosition());
 }

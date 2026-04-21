@@ -3,6 +3,5 @@
     <Fragment filename="Engine/Shaders/Sources/Billboard.frag"/>
     <Uniforms>
         <Uniform name="Texture" glName="uTexture" type="Texture"/>
-        <Uniform name="CameraPosition" glName="uCamPos" type="Vector3D"/>
     </Uniforms>
 </Shader>
