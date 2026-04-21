@@ -7,7 +7,9 @@ attribute vec2 aTexCoords;
 varying vec2 vTexCoords;
 
 void main() {
-    vec3 forward = normalize(uCameraPosition);
+    vec3 camPos = uCameraPosition;
+    camPos.y = 0.0;  //lock Y axis
+    vec3 forward = normalize(camPos);
     vec3 right = normalize(cross(vec3(0.0, 1.0, 0.0), forward));
     vec3 up = normalize(cross(forward, right));
     mat4 lookAtMatrix = mat4(   vec4(right, 0.0),

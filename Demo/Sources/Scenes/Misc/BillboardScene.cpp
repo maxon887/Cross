@@ -17,7 +17,6 @@ void BillboardScene::Start() {
 
 	Entity* cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(cubeMaterial);
-	cube->GetComponent<Transform>()->SetPosition(Vector3D(0.0f, 2.0f, 0.0));
 	AddEntity(cube);
 
 	Shader* billboardShader = GetShader("Engine/Shaders/Billboard.sha");
@@ -25,6 +24,7 @@ void BillboardScene::Start() {
 	billboardMaterial->SetPropertyValue("Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	billboard = GetModel("Engine/Models/Billboard.obj")->GetHierarchy();
 	billboard->GetComponent<Mesh>()->SetMaterial(billboardMaterial);
+	billboard->GetComponent<Transform>()->SetPosition(Vector3D(1.0f, 2.0f, 0.0));
 	AddEntity(billboard);
 }
 
