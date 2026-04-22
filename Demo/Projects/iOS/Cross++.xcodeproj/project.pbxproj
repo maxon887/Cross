@@ -50,6 +50,7 @@
 		9D33C15C20D02B9F007EF97F /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13D20D02B9F007EF97F /* TransparencyScene.cpp */; };
 		9D33C15D20D02B9F007EF97F /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13E20D02B9F007EF97F /* DepthScene.cpp */; };
 		9D33C15E20D02B9F007EF97F /* SkyboxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13F20D02B9F007EF97F /* SkyboxScene.cpp */; };
+		50BBC57E00000000000000B1 /* BillboardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50BBC57E00000000000000B2 /* BillboardScene.cpp */; };
 		9D33C16020D02B9F007EF97F /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14520D02B9F007EF97F /* DemoScene.cpp */; };
 		9D33C16220D02B9F007EF97F /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */; };
 		9D33C16320D02B9F007EF97F /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14D20D02B9F007EF97F /* MultiLightScene.cpp */; };
@@ -205,6 +206,8 @@
 		9D33C14020D02B9F007EF97F /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthScene.h; sourceTree = "<group>"; };
 		9D33C14220D02B9F007EF97F /* SkyboxScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyboxScene.h; sourceTree = "<group>"; };
 		9D33C14420D02B9F007EF97F /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparencyScene.h; sourceTree = "<group>"; };
+		50BBC57E00000000000000B2 /* BillboardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BillboardScene.cpp; sourceTree = "<group>"; };
+		50BBC57E00000000000000B3 /* BillboardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardScene.h; sourceTree = "<group>"; };
 		9D33C14520D02B9F007EF97F /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoScene.cpp; sourceTree = "<group>"; };
 		9D33C14620D02B9F007EF97F /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoScene.h; sourceTree = "<group>"; };
 		9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleScene.cpp; sourceTree = "<group>"; };
@@ -580,9 +583,11 @@
 				9D33C13D20D02B9F007EF97F /* TransparencyScene.cpp */,
 				9D33C13E20D02B9F007EF97F /* DepthScene.cpp */,
 				9D33C13F20D02B9F007EF97F /* SkyboxScene.cpp */,
+				50BBC57E00000000000000B2 /* BillboardScene.cpp */,
 				9D33C14020D02B9F007EF97F /* DepthScene.h */,
 				9D33C14220D02B9F007EF97F /* SkyboxScene.h */,
 				9D33C14420D02B9F007EF97F /* TransparencyScene.h */,
+				50BBC57E00000000000000B3 /* BillboardScene.h */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1176,6 +1181,7 @@
 				50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */,
 				9DBEB34E20C5770100D3E8C6 /* Property.cpp in Sources */,
 				9D33C15E20D02B9F007EF97F /* SkyboxScene.cpp in Sources */,
+				50BBC57E00000000000000B1 /* BillboardScene.cpp in Sources */,
 				9DDFFF131F46EF1700A6E782 /* AppDelegate.mm in Sources */,
 				9D33C15C20D02B9F007EF97F /* TransparencyScene.cpp in Sources */,
 				9DDFFF1F1F46EF1700A6E782 /* SingleLightShader.cpp in Sources */,
