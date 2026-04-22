@@ -240,6 +240,9 @@
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp">
       <Filter>Demo\Scenes\Simple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\Scenes\Misc\BillboardScene.cpp">
+      <Filter>Demo\Scenes\Misc</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp">
       <Filter>Demo\Scenes\Misc</Filter>
     </ClCompile>
@@ -554,6 +557,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h">
       <Filter>Demo\Scenes\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Scenes\Misc\BillboardScene.h">
+      <Filter>Demo\Scenes\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h">
       <Filter>Demo\Scenes\Misc</Filter>
