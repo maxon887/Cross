@@ -9,11 +9,14 @@
 #include "Shaders/MultiLightShader.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
+#include "Libs/Assimp/version.h"
 
 using namespace cross;
 using namespace tinyxml2;
 
 Graphics::Graphics() {
+	os->LogIt("Graphics::Graphics()");
+	os->LogIt("\tAssimp version: #.#.#", aiGetVersionMajor(), aiGetVersionMinor(), aiGetVersionRevision());
 	shader_factory = CREATE Factory<Shader>();
 	shader_factory->Register<Shader>("Shader");
 	shader_factory->Register<SingleLightShader>("SingleLightShader");
