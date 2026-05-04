@@ -2,7 +2,8 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2012, assimp team
+Copyright (c) 2006-2026, assimp team
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -38,12 +39,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------
 */
 
-// We need those constants, workaround for any platforms where nobody defined them yet
-#if (!defined SIZE_MAX)
-#   define SIZE_MAX (~((size_t)0))
+/** @file CreateAnimMesh.h
+ *  Create AnimMesh from Mesh
+ */
+#pragma once
+#ifndef INCLUDED_AI_CREATE_ANIM_MESH_H
+#define INCLUDED_AI_CREATE_ANIM_MESH_H
+
+#ifdef __GNUC__
+#   pragma GCC system_header
 #endif
 
-#if (!defined UINT_MAX)
-#   define UINT_MAX (~((unsigned int)0))
-#endif
+#include <assimp/mesh.h>
+
+namespace Assimp {
+
+/**
+ *  Create aiAnimMesh from aiMesh.
+ *  @param  mesh            The input mesh to create an animated mesh from.
+ *  @param  needPositions   If true, positions will be copied from.
+ *  @param  needNormals     If true, normals will be copied from.
+ *  @param  needTangents    If true, tangents and bitangents will be copied from.
+ *  @param  needColors      If true, colors will be copied from.
+ *  @param  needTexCoords   If true, texCoords will be copied from.
+ *  @return The new created animated mesh.
+ */
+ASSIMP_API aiAnimMesh *aiCreateAnimMesh(const aiMesh *mesh,
+                                        bool needPositions = true,
+                                        bool needNormals = true,
+                                        bool needTangents = true,
+                                        bool needColors = true,
+                                        bool needTexCoords = true);
+
+} // end of namespace Assimp
+
+#endif // INCLUDED_AI_CREATE_ANIM_MESH_H
 
