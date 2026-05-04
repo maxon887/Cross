@@ -8,6 +8,7 @@ using namespace cross;
 
 class AutoTests {
 public:
+	~AutoTests();
 	void StartTests();
 	void Update(float sec);
 
@@ -29,12 +30,13 @@ private:
 		DEPTH_TEST,
 		TRANSPARENCY,
 		SKYBOX,
+		BILLBOARD,
 		NONE,
 	};
 
 	Test current_test = NONE;
 	float next_test_time = FLT_MAX;
-
+	bool started = false;
 
 	void OnScreenChanged(Screen* screen);
 };

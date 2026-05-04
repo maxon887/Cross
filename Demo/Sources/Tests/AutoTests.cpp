@@ -13,9 +13,17 @@
 #include "Scenes/Misc/DepthScene.h"
 #include "Scenes/Misc/TransparencyScene.h"
 #include "Scenes/Misc/SkyboxScene.h"
+#include "Scenes/Misc/BillboardScene.h"
+
+AutoTests::~AutoTests() {
+	if(started) {
+		game->ScreenChanged.Disconnect(this, &AutoTests::OnScreenChanged);
+	}
+}
 
 void AutoTests::StartTests() {
 	game->ScreenChanged.Connect(this, &AutoTests::OnScreenChanged);
+	started = true;
 	//Testing Triangle Screen
 	game->SetScreen(CREATE TriangleScene());
 }
@@ -56,6 +64,8 @@ void AutoTests::Update(float sec) {
 			game->SetScreen(CREATE TransparencyScene());
 		} else if (current_test == Test::TRANSPARENCY) {
 			game->SetScreen(CREATE SkyboxScene());
+		} else if (current_test == Test::SKYBOX) {
+			game->SetScreen(CREATE BillboardScene());
 		}
 	}
 }
@@ -93,6 +103,8 @@ void AutoTests::OnScreenChanged(Screen* screen) {
 		current_test = Test::TRANSPARENCY;
 	} else if(dynamic_cast<SkyboxScene*>(screen)) {
 		current_test = Test::SKYBOX;
+	} else if(dynamic_cast<BillboardScene*>(screen)) {
+		current_test = Test::BILLBOARD;
 	}
 	next_test_time = game->GetRunTime() + 0.2f;
 }
