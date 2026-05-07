@@ -7,8 +7,6 @@
 #include "Transform.h"
 #include "Utils/Debugger.h"
 
-#define SWIG
-
 #include "Libs/Assimp/Importer.hpp"
 #include "Libs/Assimp/scene.h"
 #include "Libs/Assimp/postprocess.h"
