@@ -31,6 +31,9 @@
 		507333072C385F9200E5D13D /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F62C385F9200E5D13D /* MeshVisualBox.cpp */; };
 		507333102C385FF600E5D13D /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330C2C385FF600E5D13D /* FileUtils.cpp */; };
 		508618C42F099E8A00F45BD5 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 508618C22F099E8A00F45BD5 /* String.cpp */; };
+		509809A72FB11CE800705722 /* libassimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 509809A62FB11CE800705722 /* libassimp.dylib */; };
+		509809A82FB11CE800705722 /* libassimp.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 509809A62FB11CE800705722 /* libassimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		509809AA2FB11D5000705722 /* libassimp.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 509809A62FB11CE800705722 /* libassimp.dylib */; };
 		5098D44D2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D44B2DB4EBDF000E9958 /* UnusedFunctionSilencer.cpp */; };
 		5098D44E2DB4EBDF000E9958 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4462DB4EBDF000E9958 /* ArrayTest.cpp */; };
 		5098D44F2DB4EBDF000E9958 /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4482DB4EBDF000E9958 /* StringTest.cpp */; };
@@ -39,11 +42,10 @@
 		50A0DA732F16E82C00B65C4E /* AutoTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A0DA722F16E82C00B65C4E /* AutoTests.cpp */; };
 		50A5F6E02F3B35CF00BB8881 /* Shooter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A5F6DE2F3B35CF00BB8881 /* Shooter.cpp */; };
 		50AB1F432D2D291600121DAB /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AB1F422D2D291600121DAB /* MultiLightShader.cpp */; };
+		50BBC57E00000000000000A1 /* BillboardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50BBC57E00000000000000A2 /* BillboardScene.cpp */; };
 		50C3A0002DEECF9B0031242B /* AnimatedCameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C39FFF2DEECF9B0031242B /* AnimatedCameraController.cpp */; };
 		50C9611A2C74CA6100764079 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
-		50C9611B2C74CA6900764079 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
 		50C9611C2C74CA9000764079 /* libfmod.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
-		50C9611D2C74CA9800764079 /* libassimpMAC.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
 		50CAEE662DDFD6BD00E47123 /* CrossGLFW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CAEE652DDFD6BD00E47123 /* CrossGLFW.cpp */; };
 		9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D32CDDC20B40B12004A4D7E /* Assets.xcassets */; };
 		9D32D0E120B40E27004A4D7E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF520B40E27004A4D7E /* Camera.cpp */; };
@@ -96,7 +98,6 @@
 		9D33C10F20D02985007EF97F /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C0F020D02985007EF97F /* TransparencyScene.cpp */; };
 		9D33C11020D02985007EF97F /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C0F120D02985007EF97F /* DepthScene.cpp */; };
 		9D33C11120D02985007EF97F /* SkyboxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C0F220D02985007EF97F /* SkyboxScene.cpp */; };
-		50BBC57E00000000000000A1 /* BillboardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50BBC57E00000000000000A2 /* BillboardScene.cpp */; };
 		9D33C11320D02985007EF97F /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C0F820D02985007EF97F /* DemoScene.cpp */; };
 		9D33C11520D02985007EF97F /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C0FD20D02985007EF97F /* TriangleScene.cpp */; };
 		9D33C11620D02985007EF97F /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C10020D02985007EF97F /* MultiLightScene.cpp */; };
@@ -109,6 +110,20 @@
 		9D6D8ADA20B41A4200119C74 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6D8AD920B41A3B00119C74 /* Cocoa.framework */; };
 		9D6D8ADB20B41A7D00119C74 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D01320B40E27004A4D7E /* Screen.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		509809A92FB11CE800705722 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				509809A82FB11CE800705722 /* libassimp.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5002023A2D3D00640065374D /* CameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
@@ -168,6 +183,7 @@
 		508618C02F099E8A00F45BD5 /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
 		508618C12F099E8A00F45BD5 /* String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
 		508618C22F099E8A00F45BD5 /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
+		509809A62FB11CE800705722 /* libassimp.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.dylib; path = Binaries/libassimp.dylib; sourceTree = "<group>"; };
 		5098D4452DB4EBDF000E9958 /* ArrayTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
 		5098D4462DB4EBDF000E9958 /* ArrayTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
 		5098D4472DB4EBDF000E9958 /* StringTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringTest.h; sourceTree = "<group>"; };
@@ -184,6 +200,8 @@
 		50AB1F412D2D291600121DAB /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
 		50AB1F422D2D291600121DAB /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50AD22372C384FAB00F75C22 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		50BBC57E00000000000000A2 /* BillboardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BillboardScene.cpp; sourceTree = "<group>"; };
+		50BBC57E00000000000000A3 /* BillboardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardScene.h; sourceTree = "<group>"; };
 		50C39FFE2DEECF9B0031242B /* AnimatedCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCameraController.h; sourceTree = "<group>"; };
 		50C39FFF2DEECF9B0031242B /* AnimatedCameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedCameraController.cpp; sourceTree = "<group>"; };
 		50C961162C74CA5700764079 /* libassimpMAC.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libassimpMAC.dylib; sourceTree = "<group>"; };
@@ -373,8 +391,6 @@
 		9D33C0F320D02985007EF97F /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthScene.h; sourceTree = "<group>"; };
 		9D33C0F520D02985007EF97F /* SkyboxScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyboxScene.h; sourceTree = "<group>"; };
 		9D33C0F720D02985007EF97F /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparencyScene.h; sourceTree = "<group>"; };
-		50BBC57E00000000000000A2 /* BillboardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BillboardScene.cpp; sourceTree = "<group>"; };
-		50BBC57E00000000000000A3 /* BillboardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardScene.h; sourceTree = "<group>"; };
 		9D33C0F820D02985007EF97F /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoScene.cpp; sourceTree = "<group>"; };
 		9D33C0F920D02985007EF97F /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoScene.h; sourceTree = "<group>"; };
 		9D33C0FD20D02985007EF97F /* TriangleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleScene.cpp; sourceTree = "<group>"; };
@@ -401,8 +417,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50C9611B2C74CA6900764079 /* libassimpMAC.dylib in Frameworks */,
 				50C9611A2C74CA6100764079 /* libfmod.dylib in Frameworks */,
+				509809A72FB11CE800705722 /* libassimp.dylib in Frameworks */,
 				9D6D8ADA20B41A4200119C74 /* Cocoa.framework in Frameworks */,
 				9D32D1FE20B40F2F004A4D7E /* OpenGL.framework in Frameworks */,
 			);
@@ -904,6 +920,7 @@
 		9D32D1FC20B40ECE004A4D7E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				509809A62FB11CE800705722 /* libassimp.dylib */,
 				50C961192C74CA5700764079 /* Binaries */,
 				501777C22C6C0722004BCF01 /* libassimpMAC.dylib */,
 				9D6D8AD920B41A3B00119C74 /* Cocoa.framework */,
@@ -992,6 +1009,7 @@
 				9D32CDD220B40B12004A4D7E /* Sources */,
 				9D32CDD320B40B12004A4D7E /* Frameworks */,
 				9D32CDD420B40B12004A4D7E /* Resources */,
+				509809A92FB11CE800705722 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -1041,7 +1059,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50C9611D2C74CA9800764079 /* libassimpMAC.dylib in Resources */,
+				509809AA2FB11D5000705722 /* libassimp.dylib in Resources */,
 				50C9611C2C74CA9000764079 /* libfmod.dylib in Resources */,
 				9D60344F20B41C1A0054EEF0 /* Assets in Resources */,
 				9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */,
