@@ -85,8 +85,6 @@ GraphicsGL::GraphicsGL() {
 	SAFE(glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &value));
 	os->LogIt("\tMax Texture Units: #", value);
 
-	os->LogIt("\tDevice DPI - #", os->GetScreenDPI());
-
 	os->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
 	SAFE(glFrontFace(GL_CW));
