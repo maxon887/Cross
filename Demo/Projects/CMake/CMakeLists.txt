@@ -52,7 +52,7 @@ if (APPLE)
         ${COCOA_LIBRARY}
         GLEW::GLEW
         "${CMAKE_SOURCE_DIR}/../MacOS/Binaries/libfmod.dylib"
-		"${CMAKE_SOURCE_DIR}/../MacOS/Binaries/libassimpMAC.dylib")
+		"${CMAKE_SOURCE_DIR}/../MacOS/Binaries/libassimp.dylib")
 
 endif()
 
