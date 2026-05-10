@@ -37,6 +37,7 @@
 		5098D45C2DB4EC30000E9958 /* UnusedFunctionSilencer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098D4572DB4EC30000E9958 /* UnusedFunctionSilencer.cpp */; };
 		509F17392D51D8D80040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17382D51D8D80040378F /* FileSelector.cpp */; };
 		50A0DA762F16E87200B65C4E /* AutoTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A0DA752F16E87200B65C4E /* AutoTests.cpp */; };
+		50BBC57E00000000000000B1 /* BillboardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50BBC57E00000000000000B2 /* BillboardScene.cpp */; };
 		50C3A0032DEECFDB0031242B /* AnimatedCameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */; };
 		50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */; };
 		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
@@ -50,7 +51,6 @@
 		9D33C15C20D02B9F007EF97F /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13D20D02B9F007EF97F /* TransparencyScene.cpp */; };
 		9D33C15D20D02B9F007EF97F /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13E20D02B9F007EF97F /* DepthScene.cpp */; };
 		9D33C15E20D02B9F007EF97F /* SkyboxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13F20D02B9F007EF97F /* SkyboxScene.cpp */; };
-		50BBC57E00000000000000B1 /* BillboardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50BBC57E00000000000000B2 /* BillboardScene.cpp */; };
 		9D33C16020D02B9F007EF97F /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14520D02B9F007EF97F /* DemoScene.cpp */; };
 		9D33C16220D02B9F007EF97F /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */; };
 		9D33C16320D02B9F007EF97F /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14D20D02B9F007EF97F /* MultiLightScene.cpp */; };
@@ -180,6 +180,8 @@
 		509F17382D51D8D80040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
 		50A0DA742F16E87200B65C4E /* AutoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoTests.h; sourceTree = "<group>"; };
 		50A0DA752F16E87200B65C4E /* AutoTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AutoTests.cpp; sourceTree = "<group>"; };
+		50BBC57E00000000000000B2 /* BillboardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BillboardScene.cpp; sourceTree = "<group>"; };
+		50BBC57E00000000000000B3 /* BillboardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardScene.h; sourceTree = "<group>"; };
 		50C3A0012DEECFDB0031242B /* AnimatedCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCameraController.h; sourceTree = "<group>"; };
 		50C3A0022DEECFDB0031242B /* AnimatedCameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedCameraController.cpp; sourceTree = "<group>"; };
 		50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
@@ -206,8 +208,6 @@
 		9D33C14020D02B9F007EF97F /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthScene.h; sourceTree = "<group>"; };
 		9D33C14220D02B9F007EF97F /* SkyboxScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyboxScene.h; sourceTree = "<group>"; };
 		9D33C14420D02B9F007EF97F /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparencyScene.h; sourceTree = "<group>"; };
-		50BBC57E00000000000000B2 /* BillboardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BillboardScene.cpp; sourceTree = "<group>"; };
-		50BBC57E00000000000000B3 /* BillboardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillboardScene.h; sourceTree = "<group>"; };
 		9D33C14520D02B9F007EF97F /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoScene.cpp; sourceTree = "<group>"; };
 		9D33C14620D02B9F007EF97F /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoScene.h; sourceTree = "<group>"; };
 		9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleScene.cpp; sourceTree = "<group>"; };
@@ -1348,7 +1348,7 @@
 					"-lfmod_$PLATFORM_NAME",
 					"-lassimp_$PLATFORM_NAME",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cross.some;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cross.some2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VALID_ARCHS = "arm64 x86_64";
@@ -1386,7 +1386,7 @@
 					"-lfmod_$PLATFORM_NAME",
 					"-lassimp_$PLATFORM_NAME",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cross.some;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cross.some2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VALID_ARCHS = "arm64 x86_64";
