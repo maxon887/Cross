@@ -149,5 +149,5 @@ if(LINUX)
 			glfw
 			GLEW::GLEW
 			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libfmod.so"
-			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libassimpd.so")
+			"${CMAKE_SOURCE_DIR}/../Linux/Binaries/x86_64/libassimp.so")
 endif()

@@ -9,7 +9,7 @@
 #include "Shaders/MultiLightShader.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
-#include "Libs/Assimp/version.h"
+#include "Libs/assimp/version.h"
 
 using namespace cross;
 using namespace tinyxml2;

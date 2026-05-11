@@ -7,9 +7,9 @@
 #include "Transform.h"
 #include "Utils/Debugger.h"
 
-#include "Libs/Assimp/Importer.hpp"
-#include "Libs/Assimp/scene.h"
-#include "Libs/Assimp/postprocess.h"
+#include "Libs/assimp/Importer.hpp"
+#include "Libs/assimp/scene.h"
+#include "Libs/assimp/postprocess.h"
 
 using namespace cross;
 
