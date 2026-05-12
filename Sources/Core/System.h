@@ -137,10 +137,6 @@ void System::LogIt(const String& format, Args... args) {
 	Log(formatted);
 
 #ifdef CROSS_DEBUG
-	if(log_buffer.Length() > 8192) {
-		log_buffer.Cut(1024, log_buffer.Length());
-	}
-
 	log_buffer += formatted;
 	log_buffer += "\n";
 #endif // CROSS_DEBUG
