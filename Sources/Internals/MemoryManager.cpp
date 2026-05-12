@@ -58,7 +58,11 @@ MemoryManager::MemoryManager():
 	object_count(0)
 {
 	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
-	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * (Size)capacity);
+	Size alloc_size = 0;
+	if((Size)capacity <= ((Size)-1) / sizeof(MemoryObject)) {
+		alloc_size = sizeof(MemoryObject) * (Size)capacity;
+	}
+	alloc_objects = (MemoryObject*)malloc(alloc_size);
 }
 
 MemoryManager::~MemoryManager() {
@@ -71,11 +75,20 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 		mut.lock();
 		if(object_count > capacity - 1) {
 			capacity *= 2;
-			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * (Size)capacity);
+			Size new_size = sizeof(MemoryObject) * (Size)capacity;
+			if((Size)capacity != 0 && new_size / (Size)capacity != sizeof(MemoryObject)) {
+				mut.unlock();
+				return nullptr;
+			}
+			alloc_objects = (MemoryObject*)realloc(alloc_objects, new_size);
 		}
 
 		SanityCheck();
 
+		if(size + 4 < size) {
+			mut.unlock();
+			return nullptr;
+		}
 		alloc_objects[object_count].address = malloc((Size)(size + 4));
 		alloc_objects[object_count].filename = filename;
 		alloc_objects[object_count].line = line;
@@ -102,6 +115,10 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 		{
 			Log("Can not find memory object");
 			assert(false);//we also could rearrange new block of memory
+		}
+		if(size + 4 < size) {
+			mut.unlock();
+			return nullptr;
 		}
 		obj->address = realloc(pointer, (Size)(size + 4));
 		obj->filename = filename;
