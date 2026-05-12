@@ -14,6 +14,7 @@
 using namespace cross;
 
 MacSystem::MacSystem(const String& executable) {
+    LogIt("MacSystem::MacSystem()");
     if(System::IsDirectoryExists("Assets/")) {
         assets_path = "Assets/";
     } else if(System::IsDirectoryExists("../../../Assets/")) {
@@ -33,9 +34,9 @@ MacSystem::MacSystem(const String& executable) {
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 	NSString *applicationSupportDirectory = [paths firstObject];
-	NSLog(@"applicationSupportDirectory: '%@'", applicationSupportDirectory);
 	data_path = [applicationSupportDirectory cStringUsingEncoding:[NSString defaultCStringEncoding]];
 	data_path += "/Data/";
+	LogIt("\tdata_path - '#'", data_path);
 }
 
 String MacSystem::AssetsPath() {

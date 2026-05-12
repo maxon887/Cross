@@ -192,6 +192,7 @@ String& System::GetLogBuffer() {
 }
 
 void System::SetWindowSize(S32 width, S32 height) {
+	LogIt("System::SetWindowSize(width = #, height = #)", width, height);
 	Orientation prevO = GetDeviceOrientation();
 	window_width = width;
 	window_height = height;
