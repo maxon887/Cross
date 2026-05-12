@@ -438,12 +438,15 @@ bool Demo::CreateUIShaders() {
 }
 
 bool Demo::CreateFontsTexture() {
+	os->LogIt("Demo::CreateFontsTexture()");
+
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->Clear();
 
 	ImFontConfig fontConfig;
 	float fontScale = Round(os->GetScreenScale());
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
+	os->LogIt("\tFont scale # is applied", fontScale);
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	String fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
 	memcpy(fontConfig.Name, fontName.ToCStr(), fontName.Length() + 1);
@@ -466,7 +469,7 @@ bool Demo::CreateFontsTexture() {
 
 	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-	os->LogIt("Creating font texture(#x#)", width, height);
+	os->LogIt("\tCreating font texture(#x#)", width, height);
 	font_texture = CREATE Texture();
 	font_texture->Create(pixels, 4, width, height,
 		Texture::Filter::LINEAR,

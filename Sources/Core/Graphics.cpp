@@ -28,7 +28,8 @@ Graphics::~Graphics() {
 }
 
 void Graphics::Start() {
-
+	os->LogIt("Graphics::Start()");
+	os->LogIt("\tDevice DPI - #", os->GetScreenDPI());
 }
 
 void Graphics::Stop() {

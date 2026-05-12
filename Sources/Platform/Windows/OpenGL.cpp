@@ -87,8 +87,6 @@ int OpenGL_Main() {
 	gfxGL = CREATE GraphicsGL();
 	game->Start();
 
-	os->LogIt("Device DPI - #", os->GetScreenDPI());
-
 	ZeroMemory(&msg, sizeof(MSG));
 	while(msg.message != WM_QUIT) {
 		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){

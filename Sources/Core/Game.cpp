@@ -161,5 +161,5 @@ void Game::LoadNextScreen() {
 	current_screen->Start();
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	os->LogIt("Screen(#) loaded in #ms", current_screen == nullptr ? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
+	os->LogIt("\tScreen(#) loaded in #ms", current_screen == nullptr ? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
 }

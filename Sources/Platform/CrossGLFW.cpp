@@ -291,8 +291,6 @@ int main(int c, char **args) {
 #endif
 #endif
 
-	os->LogIt("\tDevice DPI - #", os->GetScreenDPI());
-
     game->Start();
 
     while(!glfwWindowShouldClose(window)){
