@@ -1,4 +1,5 @@
 #include "MacOS/MacSystem.h"
+#include "Linux/LinuxSystem.h"
 #include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 #include "Game.h"
@@ -11,8 +12,6 @@
 #include <iostream>
 
 #include <GLFW/glfw3.h>
-
-#include "Linux/LinuxSystem.h"
 
 using namespace std;
 using namespace cross;
@@ -237,6 +236,9 @@ int main(int c, char **args) {
 	cross::os = CREATE LinuxSystem();
 	glfwInitHint(0x00050003/* GLFW_PLATFORM */, 0x00060004/* GLFW_PLATFORM_X11 */);
 #endif
+	const char* glfwVersion = glfwGetVersionString();
+	os->LogIt("GLFW Version: #", glfwVersion);
+	
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;
     }
