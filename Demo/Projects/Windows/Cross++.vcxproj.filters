@@ -366,6 +366,9 @@
     <ClCompile Include="..\..\Sources\Shooter\Shooter.cpp">
       <Filter>Demo\Shooter</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Platform\CrossGLFW.cpp">
+      <Filter>Cross\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">

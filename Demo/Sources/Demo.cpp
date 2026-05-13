@@ -343,11 +343,7 @@ void Demo::PreUpdate(float sec) {
 	io.DisplayFramebufferScale = ImVec2(1.f, 1.f);
 	io.DeltaTime = sec;
 
-#if defined(WIN)
-	io.MousePos = ImVec2(input->MousePosition.x, input->MousePosition.y);
-#else
 	io.MousePos = ImVec2(action_pos.x, (float)os->GetWindowHeight() - action_pos.y);
-#endif
 	for(S32 i = 0; i < MaxInputActions; i++) {
 		io.MouseDown[i] = actions_down[i];
 	}

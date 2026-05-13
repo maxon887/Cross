@@ -193,7 +193,8 @@ xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugOpenG
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Binaries\x64\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
 xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x64\glfw3.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

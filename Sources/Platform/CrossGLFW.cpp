@@ -1,5 +1,6 @@
 #include "MacOS/MacSystem.h"
 #include "Linux/LinuxSystem.h"
+#include "Windows/WINSystem.h"
 #include "Internals/Audio.h"
 #include "Internals/GraphicsGL.h"
 #include "Game.h"
@@ -235,7 +236,10 @@ int main(int c, char **args) {
 #elif LINUX
 	cross::os = CREATE LinuxSystem();
 	glfwInitHint(0x00050003/* GLFW_PLATFORM */, 0x00060004/* GLFW_PLATFORM_X11 */);
+#elif WIN
+	cross::os = CREATE WINSystem();
 #endif
+
 	const char* glfwVersion = glfwGetVersionString();
 	os->LogIt("GLFW Version: #", glfwVersion);
 	

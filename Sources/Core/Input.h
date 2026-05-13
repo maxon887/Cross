@@ -148,8 +148,6 @@ public:
 
 	/* Occurs when user scroll whether with a mouse wheel or touchpad gesture */
 	Event<float> Scroll;
-	/* Reflects current mouse position on the screen */
-	Vector2D MousePosition;
 	/* Checks if specific key pressed */
 	bool IsPressed(Key key) const;
 

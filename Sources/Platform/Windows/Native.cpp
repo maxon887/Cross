@@ -52,8 +52,6 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	case WM_MOUSEMOVE: {
 		float targetX = (short)LOWORD(lParam);
 		float targetY = (short)HIWORD(lParam);
-		input->MousePosition.x = targetX;
-		input->MousePosition.y = targetY;
 		if(!config->IsEmulateMobile() || lmb_pressed) {
 			input->TargetActionMoveHandle(targetX, targetY, 0);
 		}
