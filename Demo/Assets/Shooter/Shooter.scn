@@ -1,0 +1,34 @@
+<Scene version="20">
+  <Objects>
+    <Object name="SM_Prop_SupplyPile_03">
+      <Components>
+        <Transform>
+          <Position type="Vector3D" x="44.401" y="0" z="-41.996" />
+          <Scale type="Vector3D" x="1" y="1" z="1" />
+          <Rotation type="Quaternion" x="7.450581E-09" y="-0.7071067" z="2.980232E-08" w="-0.7071068" />
+        </Transform>
+        <Mesh>
+          <GroupID type="String" value="SM_Prop_SupplyPile_03" />
+          <Model type="String" value="Shooter/Synty/PolygonApocalypse/Models/SM_Prop_SupplyPile_03.fbx" />
+          <Material type="String" value="Shooter/Synty/PolygonApocalypse/Materials/Alts/PolygonApocalypse_01_A.mat" />
+        </Mesh>
+      </Components>
+      <Children />
+    </Object>
+    <Object name="SM_Bld_Church_01">
+      <Components>
+        <Transform>
+          <Position type="Vector3D" x="47.5" y="0" z="-40.5" />
+          <Scale type="Vector3D" x="1" y="1" z="1" />
+          <Rotation type="Quaternion" x="0" y="-1" z="0" w="0" />
+        </Transform>
+        <Mesh>
+          <GroupID type="String" value="SM_Bld_Church_01" />
+          <Model type="String" value="Shooter/Synty/PolygonApocalypse/Models/SM_Bld_Church_01.fbx" />
+          <Material type="String" value="Shooter/Synty/PolygonApocalypse/Materials/Alts/PolygonApocalypse_01_A.mat" />
+        </Mesh>
+      </Components>
+      <Children />
+    </Object>
+  </Objects>
+</Scene>

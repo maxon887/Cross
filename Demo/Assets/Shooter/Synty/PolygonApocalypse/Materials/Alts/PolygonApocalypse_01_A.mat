@@ -1,0 +1,3 @@
+<Material shader="Engine/Shaders/Texture.sha">
+    <Property name="Texture" value="Shooter/Synty/PolygonApocalypse/Textures/Alt/PolygonApocalypse_01_A.png"/>
+</Material>
