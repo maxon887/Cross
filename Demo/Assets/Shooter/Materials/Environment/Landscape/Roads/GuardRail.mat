@@ -1,3 +1,0 @@
-<Material shader="Engine/Shaders/Texture.sha">
-    <Property name="Texture" value="Shooter/Textures/Environment/Roads/GuardRail.png"/>
-</Material>
