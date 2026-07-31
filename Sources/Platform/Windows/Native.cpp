@@ -161,6 +161,8 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 }
 
 HWND WinCreate() {
+	SetProcessDPIAware();
+
 	HANDLE hIcon = LoadImage(0, "icon.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
 	if(!hIcon) {
 		hIcon = LoadImage(0, "../icon.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE | LR_SHARED);
