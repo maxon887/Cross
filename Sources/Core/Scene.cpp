@@ -64,7 +64,17 @@ bool Scene::Load(const String& filename) {
 	CROSS_RETURN(scene, false, "Can not load scene. Root node Scene not found");
 	SetName(File::FileWithoutExtension(File::FileFromPath(filename)));
 	int version = scene->IntAttribute("version");
-	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version mismatch");
+	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version mismatch.\nScene loader version - #. File version - #", scene_loader_version, version);
+	CROSS_ASSERT(version >= minimal_supported_version, "Scene file outdated.\nMinial supported version - #", minimal_supported_version);
+
+	XMLElement* settingsXML = scene->FirstChildElement("Settings");
+	if(settingsXML) {
+		XMLElement* modelScaleFactorXML = settingsXML->FirstChildElement("ModelScaleFactor");
+		if(modelScaleFactorXML) {
+			String scaleFactorString = modelScaleFactorXML->FirstChild()->Value();
+			model_scale_factor = scaleFactorString.ToFloat();
+		}
+	}
 
 	//objects loading
 	XMLElement* objectsXML = scene->FirstChildElement("Objects");

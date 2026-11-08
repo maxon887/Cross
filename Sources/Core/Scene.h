@@ -82,12 +82,14 @@ protected:
 
 	Camera* camera							= nullptr;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
+	float model_scale_factor				= 1.f;
 
 	void CreateDefaultCamera();
 
 private:
-	static const U32 scene_loader_version	= 21;
-	static const U32 scene_saver_version	= 21;
+	static const U32 scene_loader_version		= 22;
+	static const U32 scene_saver_version		= 21;
+	static const U32 minimal_supported_version 	= 18;
 
 	bool LoadEntity(Entity* parent, tinyxml2::XMLElement* xml);
 	bool SaveEntity(Entity* e, tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
