@@ -139,8 +139,8 @@ void CameraController::OnActionMove(Input::Action action) {
 	touch_position = action.pos;
 	if(camera_active) {
 		if(mode == Mode::ORBIT || mode == Mode::FREE) {
-			LookRight(delta.x / 10.f);
-			LookUp(delta.y / 10.f);
+			LookRight(-delta.x / 10.f);
+			LookUp(-delta.y / 10.f);
 		}
 		if(mode == Mode::PAD) {
 			delta /= 200.f;

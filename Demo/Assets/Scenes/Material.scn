@@ -8,7 +8,7 @@
                 <Transform>
                     <Position type="Vector3D" x="-0.0069351774" y="-0.0023537588" z="-3.0825164"/>
                     <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="0.00038179054" y="-0.0011249193" z="-4.2948383e-07" w="0.99999928"/>
+                    <Rotation type="Quaternion" x="-0.00038179054" y="0.0011249193" z="4.2948383e-07" w="0.99999928"/>
                 </Transform>
             </Components>
         </Object>

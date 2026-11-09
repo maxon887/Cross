@@ -50,25 +50,25 @@ Quaternion::Quaternion(const Matrix& m) {
 	if(trace > 0) {
 		float s = 0.5f / sqrtf(trace + 1.0f);
 		this->w = 0.25f / s;
-		this->x = (m.m[1][2] - m.m[2][1]) * s;
-		this->y = (m.m[2][0] - m.m[0][2]) * s;
-		this->z = (m.m[0][1] - m.m[1][0]) * s;
+		this->x = (m.m[2][1] - m.m[1][2]) * s;
+		this->y = (m.m[0][2] - m.m[2][0]) * s;
+		this->z = (m.m[1][0] - m.m[0][1]) * s;
 	} else {
 		if(m.m[0][0] > m.m[1][1] && m.m[0][0] > m.m[2][2]) {
 			float s = 2.0f * sqrtf(1.0f + m.m[0][0] - m.m[1][1] - m.m[2][2]);
-			this->w = (m.m[1][2] - m.m[2][1]) / s;
+			this->w = (m.m[2][1] - m.m[1][2]) / s;
 			this->x = 0.25f * s;
 			this->y = (m.m[1][0] + m.m[0][1]) / s;
 			this->z = (m.m[2][0] + m.m[0][2]) / s;
 		} else if(m.m[1][1] > m.m[2][2]) {
 			float s = 2.0f * sqrtf(1.0f + m.m[1][1] - m.m[0][0] - m.m[2][2]);
-			this->w = (m.m[2][0] - m.m[0][2]) / s;
+			this->w = (m.m[0][2] - m.m[2][0]) / s;
 			this->x = (m.m[1][0] + m.m[0][1]) / s;
 			this->y = 0.25f * s;
 			this->z = (m.m[2][1] + m.m[1][2]) / s;
 		} else {
 			float s = 2.0f * sqrtf(1.0f + m.m[2][2] - m.m[0][0] - m.m[1][1]);
-			this->w = (m.m[0][1] - m.m[1][0]) / s;
+			this->w = (m.m[1][0] - m.m[0][1]) / s;
 			this->x = (m.m[2][0] + m.m[0][2]) / s;
 			this->y = (m.m[2][1] + m.m[1][2]) / s;
 			this->z = 0.25f * s;
@@ -123,15 +123,15 @@ Matrix Quaternion::GetMatrix() const {
 	wx = w * x2;   wy = w * y2;   wz = w * z2;
 
 	m.m[0][0] = 1.0f - (yy + zz);
-	m.m[1][0] = xy - wz;
-	m.m[2][0] = xz + wy;
+	m.m[0][1] = xy - wz;
+	m.m[0][2] = xz + wy;
 
-	m.m[0][1] = xy + wz;
+	m.m[1][0] = xy + wz;
 	m.m[1][1] = 1.0f - (xx + zz);
-	m.m[2][1] = yz - wx;
+	m.m[1][2] = yz - wx;
 
-	m.m[0][2] = xz - wy;
-	m.m[1][2] = yz + wx;
+	m.m[2][0] = xz - wy;
+	m.m[2][1] = yz + wx;
 	m.m[2][2] = 1.0f - (xx + yy);
 
 	return m;
@@ -172,9 +172,9 @@ Quaternion Quaternion::operator-(const Quaternion& q) const {
 
 Quaternion Quaternion::operator*(const Quaternion& q) const {
 	Quaternion result;
-	result.x = this->x * q.w + this->w * q.x + this->z * q.y - this->y * q.z;
-	result.y = this->y * q.w - this->z * q.x + this->w * q.y + this->x * q.z;
-	result.z = this->z * q.w + this->y * q.x - this->x * q.y + this->w * q.z;
+	result.x = this->x * q.w + this->w * q.x + this->y * q.z - this->z * q.y;
+	result.y = this->y * q.w + this->z * q.x + this->w * q.y - this->x * q.z;
+	result.z = this->z * q.w - this->y * q.x + this->x * q.y + this->w * q.z;
 	result.w = this->w * q.w - this->x * q.x - this->y * q.y - this->z * q.z;
 	return result;
 }
