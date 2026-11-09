@@ -64,8 +64,8 @@ const String& Model::GetName() const {
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents, const String& filename) {
 	Assimp::Importer importer;
-
-	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_MakeLeftHanded;
+	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
+	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_MakeLeftHanded | aiProcess_GlobalScale;
 	if(calcTangents) {
 		flags |= aiProcess_CalcTangentSpace;
 	}

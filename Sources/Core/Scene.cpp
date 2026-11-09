@@ -69,11 +69,7 @@ bool Scene::Load(const String& filename) {
 
 	XMLElement* settingsXML = scene->FirstChildElement("Settings");
 	if(settingsXML) {
-		XMLElement* modelScaleFactorXML = settingsXML->FirstChildElement("ModelScaleFactor");
-		if(modelScaleFactorXML) {
-			String scaleFactorString = modelScaleFactorXML->FirstChild()->Value();
-			model_scale_factor = scaleFactorString.ToFloat();
-		}
+		// Place for the future Scene settings
 	}
 
 	//objects loading

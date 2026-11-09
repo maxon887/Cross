@@ -82,7 +82,6 @@ protected:
 
 	Camera* camera							= nullptr;
 	Color ambient_color						= Color(0.1f, 0.1f, 0.1f);
-	float model_scale_factor				= 1.f;
 
 	void CreateDefaultCamera();
 
