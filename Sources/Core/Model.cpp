@@ -28,11 +28,18 @@ bool Model::Load(const String& filename, bool calcTangents) {
 	return Load(filename, calcTangents, true);
 }
 
-bool Model::Load(const String& inFilename, bool calcTangents, bool initializeVideoData) {
+bool Model::Load(const String& filename, bool calcTangents, bool initializeVideoData) {
+	String extension = File::ExtensionFromFile(filename);
+	extension.Lowercase();
+	return Load(filename, calcTangents, initializeVideoData, extension == "fbx");
+}
+
+bool Model::Load(const String& inFilename, bool calcTangents, bool initializeVideoData, bool bakePivotsAndAxes) {
 	CROSS_RETURN(os->IsAssetFileExists(inFilename), false, "Model file doesn't exists:\n#", inFilename);
 	Debugger::Instance()->SetTimeCheck();
 	filename = inFilename;
 	initialize_video = initializeVideoData;
+	bake_pivots_and_axes = bakePivotsAndAxes;
 	Entity* root = CREATE Entity("ModelRoot");
 	hierarchy = root;
 	File* file = os->LoadAssetFile(filename);
@@ -64,7 +71,7 @@ const String& Model::GetName() const {
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents, const String& filename) {
 	Assimp::Importer importer;
-	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
+	//FBX pivots must stay preserved (assimp default): CollapseFbxPivotsHelper() reads them from '$AssimpFbx$' nodes
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_MakeLeftHanded | aiProcess_GlobalScale;
 	if(calcTangents) {
 		flags |= aiProcess_CalcTangentSpace;
@@ -76,18 +83,58 @@ bool Model::ProcessScene(Entity* root, File* file, bool calcTangents, const Stri
 
 	aiNode* aiRoot = current_scene->mRootNode;
 	if(aiRoot->mNumChildren == 1) {
-		root->SetName(aiRoot->mChildren[0]->mName.C_Str());
-		ProcessNode(root, aiRoot->mChildren[0], filename);
+		aiMatrix4x4 chainTransform;
+		aiVector3D pivot(0.f, 0.f, 0.f);
+		aiNode* realNode = CollapseFbxPivotsHelper(aiRoot->mChildren[0], chainTransform, pivot);
+		root->SetName(realNode->mName.C_Str());
+		ProcessNode(root, realNode, chainTransform, pivot, aiVector3D(0.f, 0.f, 0.f), filename);
 	} else {
 		root->SetName(File::FileFromPath(File::FileWithoutExtension(filename)));
-		ProcessNode(root, aiRoot, filename);
+		ProcessNode(root, aiRoot, aiRoot->mTransformation, aiVector3D(0.f, 0.f, 0.f), aiVector3D(0.f, 0.f, 0.f), filename);
 	}
 	return true;
 }
 
-void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
+/*	FBX stores object placement as rotation/scaling pivots. Assimp keeps vertices pre-placed in
+	model space and wraps every pivot into a pair of '$AssimpFbx$' helper nodes which cancel each
+	other out, while scene editors like Unity re-bake vertices around the pivot and keep the pivot
+	in the object transform. Scenes exported from such editors reference mesh groups by name and
+	apply their own transforms on top, so with bake_pivots_and_axes the model is converted to that layout:
+	helper chains are collapsed into one node, the pivot is moved from the vertices into the node
+	transform, and everything is conjugated by a 180 degree Y rotation because those editors convert
+	FBX handedness by mirroring X while aiProcess_MakeLeftHanded mirrors Z.
+	This keeps 'node * vertices' intact, so models rendered through GetHierarchy() do not move */
+aiNode* Model::CollapseFbxPivotsHelper(aiNode* node, aiMatrix4x4& chainTransform, aiVector3D& pivot) {
+	String pivotSuffix = "_$AssimpFbx$_RotationPivot";
+	String nodeName = node->mName.C_Str();
+	while(bake_pivots_and_axes && nodeName.Find("_$AssimpFbx$_") != -1 && node->mNumChildren == 1) {
+		chainTransform = chainTransform * node->mTransformation;
+		if(nodeName.Length() >= pivotSuffix.Length() &&
+		   nodeName.SubString(nodeName.Length() - pivotSuffix.Length(), nodeName.Length()) == pivotSuffix) {
+			pivot.x = node->mTransformation.a4;
+			pivot.y = node->mTransformation.b4;
+			pivot.z = node->mTransformation.c4;
+		}
+		node = node->mChildren[0];
+		nodeName = node->mName.C_Str();
+	}
+	chainTransform = chainTransform * node->mTransformation;
+	return node;
+}
+
+void Model::ProcessNode(Entity* entity, aiNode* node, const aiMatrix4x4& chainTransform, const aiVector3D& pivot, const aiVector3D& parentPivot, const String& filename) {
+	aiMatrix4x4 entityTransform = chainTransform;
+	if(bake_pivots_and_axes) {
+		aiMatrix4x4 fromParentPivot;
+		aiMatrix4x4::Translation(aiVector3D(-parentPivot.x, -parentPivot.y, -parentPivot.z), fromParentPivot);
+		aiMatrix4x4 toPivot;
+		aiMatrix4x4::Translation(pivot, toPivot);
+		aiMatrix4x4 mirror;
+		aiMatrix4x4::Scaling(aiVector3D(-1.f, 1.f, -1.f), mirror);
+		entityTransform = mirror * fromParentPivot * chainTransform * toPivot * mirror;
+	}
 	Matrix modelMat = Matrix::Zero;
-	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
+	memcpy(modelMat.m, &entityTransform.a1, sizeof(float) * 16);
 	Transform* transform = CREATE Transform();
 	transform->SetPosition(modelMat.GetTranslation());
 	transform->SetScale(modelMat.GetScale());
@@ -96,19 +143,22 @@ void Model::ProcessNode(Entity* entity, aiNode* node, const String& filename) {
 
 	if(node->mNumMeshes) {
 		aiMesh* aiMesh = current_scene->mMeshes[node->mMeshes[0]];
-		Mesh* crMesh = ProcessMesh(aiMesh, filename, entity->GetName());
+		Mesh* crMesh = ProcessMesh(aiMesh, filename, entity->GetName(), pivot);
 		entity->AddComponent(crMesh);
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
-		Entity* child = CREATE Entity(node->mChildren[i]->mName.C_Str());
+		aiMatrix4x4 childChainTransform;
+		aiVector3D childPivot(0.f, 0.f, 0.f);
+		aiNode* childNode = CollapseFbxPivotsHelper(node->mChildren[i], childChainTransform, childPivot);
+		Entity* child = CREATE Entity(childNode->mName.C_Str());
 		child->SetParent(entity);
-		ProcessNode(child, node->mChildren[i], filename);
+		ProcessNode(child, childNode, childChainTransform, childPivot, pivot, filename);
 		entity->AddChild(child);
 	}
 }
 
-Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename, const String& groupID) {
+Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename, const String& groupID, const aiVector3D& pivot) {
 	VertexBuffer* vertexBuffer = CREATE VertexBuffer();
 	if(mesh->mTextureCoords[0]) {
 		vertexBuffer->UVEnabled(true);
@@ -124,22 +174,43 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const String& filename, const String& gro
 	}
 
 	for(U32 i = 0; i < mesh->mNumVertices; ++i) {
-		vertexBuffer->PushData((Byte*)&mesh->mVertices[i], 3 * sizeof(float));
+		aiVector3D position = mesh->mVertices[i];
+		if(bake_pivots_and_axes) {
+			position -= pivot;
+			position.x = -position.x;
+			position.z = -position.z;
+		}
+		vertexBuffer->PushData((Byte*)&position, 3 * sizeof(float));
 
 		if(vertexBuffer->HasTextureCoordinates()) {
 			vertexBuffer->PushData((Byte*)&mesh->mTextureCoords[0][i], 2 * sizeof(float));
 		}
 
 		if(vertexBuffer->HasNormals()) {
-			vertexBuffer->PushData((Byte*)&mesh->mNormals[i], 3 * sizeof(float));
+			aiVector3D normal = mesh->mNormals[i];
+			if(bake_pivots_and_axes) {
+				normal.x = -normal.x;
+				normal.z = -normal.z;
+			}
+			vertexBuffer->PushData((Byte*)&normal, 3 * sizeof(float));
 		}
 
 		if(vertexBuffer->HasTangents()) {
-			vertexBuffer->PushData((Byte*)&mesh->mTangents[i], 3 * sizeof(float));
+			aiVector3D tangent = mesh->mTangents[i];
+			if(bake_pivots_and_axes) {
+				tangent.x = -tangent.x;
+				tangent.z = -tangent.z;
+			}
+			vertexBuffer->PushData((Byte*)&tangent, 3 * sizeof(float));
 		}
 
 		if(vertexBuffer->HasBitangents()) {
-			vertexBuffer->PushData((Byte*)&mesh->mBitangents[i], 3 * sizeof(float));
+			aiVector3D bitangent = mesh->mBitangents[i];
+			if(bake_pivots_and_axes) {
+				bitangent.x = -bitangent.x;
+				bitangent.z = -bitangent.z;
+			}
+			vertexBuffer->PushData((Byte*)&bitangent, 3 * sizeof(float));
 		}
 	}
 

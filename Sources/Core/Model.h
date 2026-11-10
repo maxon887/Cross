@@ -6,6 +6,10 @@
 struct aiMesh;
 struct aiNode;
 struct aiScene;
+template<typename TReal> class aiMatrix4x4t;
+typedef aiMatrix4x4t<float> aiMatrix4x4;
+template<typename TReal> class aiVector3t;
+typedef aiVector3t<float> aiVector3D;
 
 namespace cross{
 
@@ -28,6 +32,10 @@ public:
 	bool Load(const String& filename, bool calcTangents);
 	/* Loads Model, provides tangents data for model and can transfer model data to video memory */
 	bool Load(const String& filename, bool calcTangents, bool initializeVideoData);
+	/* Loads Model with full control over pivot and axes baking: mesh vertices are re-baked around
+	   their pivot, the pivot is moved into the object transform and handedness is converted from
+	   mirrored Z to mirrored X, as scene exporters expect */
+	bool Load(const String& filename, bool calcTangents, bool initializeVideoData, bool bakePivotsAndAxes);
 	/* Returns model's object hierarchy as Entity hierarchy */
 	Entity* GetHierarchy() const;
 	/* Returns specific Mesh Components from model by id */
@@ -42,10 +50,13 @@ private:
 
 	const aiScene* current_scene = nullptr;
 	bool initialize_video = true;
+	bool bake_pivots_and_axes = false;
 
 	bool ProcessScene(Entity* root, File* sceneFile, bool calcTangents, const String& filename);
-	void ProcessNode(Entity* entity, aiNode* node, const String& filename);
-	Mesh* ProcessMesh(aiMesh* mesh, const String& filename, const String& groupID);
+	void ProcessNode(Entity* entity, aiNode* node, const aiMatrix4x4& chainTransform, const aiVector3D& pivot, const aiVector3D& parentPivot, const String& filename);
+	Mesh* ProcessMesh(aiMesh* mesh, const String& filename, const String& groupID, const aiVector3D& pivot);
+
+	aiNode* CollapseFbxPivotsHelper(aiNode* node, aiMatrix4x4& chainTransform, aiVector3D& pivot);
 };
 
 }
