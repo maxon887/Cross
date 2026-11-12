@@ -7,7 +7,8 @@
 
 #include <stdlib.h>
 
-#include "Libs/SOIL/SOIL.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "Libs/stb/stb_image.h"
 
 using namespace cross;
 
@@ -69,9 +70,9 @@ Texture::Filter Texture::StringToFilter(const String& string) {
 Byte* Texture::LoadRawData(const String& filename, int& width, int& height, int& channels) {
 	File* textureFile = os->LoadAssetFile(filename);
 	CROSS_RETURN(textureFile, nullptr, "Can not load raw texture. File not found");
-	Byte* image = SOIL_load_image_from_memory(textureFile->data, (int)textureFile->size, &width, &height, &channels, SOIL_LOAD_AUTO);
+	Byte* image = stbi_load_from_memory(textureFile->data, (int)textureFile->size, &width, &height, &channels, 0);
 	delete textureFile;
-	CROSS_RETURN(image, nullptr, "SOL can't convert file:\n Pay attention on image color channels");
+	CROSS_RETURN(image, nullptr, "SOL can't convert file: #\n Reason: #", filename, stbi_failure_reason());
 	int newWidth = 1;
 	int newHeight = 1;
 	while(newWidth < width) {
